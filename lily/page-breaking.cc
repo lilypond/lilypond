@@ -1077,19 +1077,13 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
       page1_line_count += cached_line_details_[i].compressed_nontitle_lines_count_;
       page2_line_count += cached_line_details_[cached_line_details_.size () - 1 - i].compressed_nontitle_lines_count_;
 
-      // NOTE: we treat max-systems-per-page and min-systems-per-page as soft
-      // constraints. That is, we penalize harshly when they don't happen
-      // but we don't completely reject.
-      page1_force[i] = line_count_penalty (page1_line_count) 
-	+ (ragged1 && page1.force_ < 0 && i > 0) ? infinity_f : page1.force_;
+      page1_force[i] = + (ragged1 && page1.force_ < 0 && i > 0) ? infinity_f : page1.force_;
 
       if (ragged2)
 	page2_force[page2_force.size () - 1 - i] =
 	  (page2.force_ < 0 && i + 1 < page1_force.size ()) ? infinity_f : 0;
       else
 	page2_force[page2_force.size () - 1 - i] = page2.force_;
-
-      page2_force[page2_force.size () - 1 - i] += line_count_penalty (page2_line_count);
     }
 
   /* find the position that minimises the sum of the page forces */
@@ -1099,7 +1093,12 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
     {
       Real f = page1_force[i] * page1_force[i] + page2_force[i] * page2_force[i];
       Real uneven = 2 * (page1_force[i] - page2_force[i]);
+
+      // NOTE: we treat max-systems-per-page and min-systems-per-page as soft
+      // constraints. That is, we penalize harshly when they don't happen
+      // but we don't completely reject.
       Real dem = uneven * uneven + f
+	+ line_count_penalty (i+1) + line_count_penalty (page2_force.size () - i)
 	+ cached_line_details_[i+1].page_penalty_
 	+ cached_line_details_.back ().page_penalty_ + cached_line_details_.back ().turn_penalty_;
       if (dem < best_demerits)
