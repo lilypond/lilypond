@@ -3,8 +3,17 @@ depth = ../../..
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc musicxml
 
+TITLE=Lilypond musicxml2ly Regression Tests
+
+
+ILY_FILES = $(call src-wildcard,*.ily)
+EXTRA_OUT_LY_FILES = ${ILY_FILES:%.ily=$(outdir)/%.ly}
+EXTRA_DIST_FILES += $(ILY_FILES)
+
+
 include $(depth)/make/stepmake.make
 TITLE=Lilypond musicxml2ly Regression Tests
 
-MXL_FILES := $(call src-wildcard,*.mxl)
-EXTRA_DIST_FILES += $(MXL_FILES)
+.SUFFIXES: .ily
+$(outdir)/%.ly: %.ily
+	ln -f $< $@
