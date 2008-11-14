@@ -204,7 +204,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 
       if (page > 0 || page_start == 0)
 	{
-	  if (line == lines_.size () - 1 && ragged_last_ && space.force_ > 0)
+	  if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
 	    space.force_ = 0;
 
 	  /* we may have to deal with single lines that are taller than a page */
