@@ -7,6 +7,13 @@
 			<software>/usr/bin/vi</software>
 			<encoding-date>2007-02-02</encoding-date>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">Rests can have 
+                            explicit pitches, where they are displayed. The 
+                            first rest uses no explicit position and should use 
+                            the default position, all others are explicitly 
+                            positioned somewhere else.</miscellaneous-field>
+		</miscellaneous>
 	</identification>
 	<part-list>
 		<score-part id="P1"><part-name>MIDI Track 1</part-name></score-part>

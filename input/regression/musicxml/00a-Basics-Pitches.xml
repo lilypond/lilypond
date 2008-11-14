@@ -4,7 +4,12 @@
 <score-partwise>
   <movement-title>Pitches and accidentals</movement-title>
   <identification>
-    <creator type="composer">Reinhold Kainhofer</creator>
+    <miscellaneous>
+      <miscellaneous-field name="description">All pitches from G to c'''' in 
+          ascending steps; First without accidentals, then with a sharp and then 
+          with a flat accidental. Double alterations and cautionary accidentals 
+          are tested at the end.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

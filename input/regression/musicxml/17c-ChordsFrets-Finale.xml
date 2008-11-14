@@ -9,6 +9,12 @@
       <software>Dolet Light for Finale 2007</software>
       <encoding-date>2007-10-26</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">A staff with chord names and some 
+          fretboards shown. The fretboards can have an arbitrary number of 
+          frets/strings, can start at an arbitrary fret and can even contain 
+          fingering information.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

@@ -3,7 +3,13 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="2.0">
   <movement-title>MusicXML directions (attached to staff)</movement-title>
-  <identification/>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">All &lt;direction&gt; elements 
+          defined in MusicXML. The lyrics for each note describes the direction
+          element assigned to that note.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <defaults/>
   <part-list>
     <score-part id="P1">

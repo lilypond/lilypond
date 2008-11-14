@@ -9,6 +9,11 @@
       <software>Dolet Light for Finale 2007</software>
       <encoding-date>2007-10-23</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">How to treat lyrics and slurred 
+          notes. Normally, a slurred group of notes is assigned only one lyrics 
+          syllable.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

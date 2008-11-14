@@ -4,7 +4,11 @@
 <score-partwise>
   <movement-title>Note durations</movement-title>
   <identification>
-    <creator type="composer">Reinhold Kainhofer</creator>
+    <miscellaneous>
+      <miscellaneous-field name="description">All note durations, from long, 
+          brevis, whole until 128th; First with their plain values, then dotted 
+          and finally doubly-dotted.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

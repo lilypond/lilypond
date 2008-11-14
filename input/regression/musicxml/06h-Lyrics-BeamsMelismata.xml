@@ -3,7 +3,13 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="1.1">
   <movement-title>Lyrics and melismata</movement-title>
-  <identification/>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">Beaming or slurs can indicate 
+          melismata for lyrics. Also make sure that notes without an explicit
+          syllable are treated as if they were part of a melisma.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <defaults/>
   <part-list>
     <score-part id="P1">

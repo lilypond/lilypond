@@ -3,7 +3,12 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="2.0">
   <movement-title>Accordion registrations</movement-title>
-  <identification/>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">All possible accordion 
+          registrations.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <defaults/>
   <part-list>
     <score-part id="P1">

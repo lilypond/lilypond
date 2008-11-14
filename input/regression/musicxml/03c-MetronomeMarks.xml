@@ -3,7 +3,12 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="1.1">
   <movement-title>Tempo markings</movement-title>
-  <identification/>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">Tempo Markings: note=bpm, 
+          text (note=bpm), note=note, (note=note), (note=bpm)</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <defaults/>
   <part-list>
     <score-part id="P1">

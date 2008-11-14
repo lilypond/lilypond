@@ -3,6 +3,12 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
   <movement-title>Various piches and interval sizes</movement-title>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">All pitch intervals in ascending 
+          jump size.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>

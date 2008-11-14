@@ -7,6 +7,12 @@
 			<software>/usr/bin/vi</software>
 			<encoding-date>2007-01-22</encoding-date>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">A piano staff 
+                            with different keys and clefs for each of its 
+                            staves. The keys and clefs for both staves are given 
+                            at the very beginning of the measure.</miscellaneous-field>
+		</miscellaneous>
 	</identification>
 	<part-list>
 		<score-part id="P1">
@@ -18,6 +24,7 @@
 			<attributes>
 				<divisions>96</divisions>
 				<key number="1"><fifths>0</fifths></key>
+				<key number="2"><fifths>2</fifths></key>
 				<time><beats>4</beats><beat-type>4</beat-type></time>
 				<staves>2</staves>
 				<clef number="1"><sign>G</sign><line>2</line></clef>
@@ -31,9 +38,6 @@
 				<staff>1</staff>
 			</note>
 			<backup><duration>384</duration></backup>
-			<attributes>
-				<key number="2"><fifths>2</fifths></key>
-			</attributes>
 			<note>
 				<pitch><step>B</step><octave>2</octave></pitch>
 				<duration>384</duration>

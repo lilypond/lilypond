@@ -7,6 +7,10 @@
 		<encoding>
 			<software>Rosegarden-4</software>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">A piece with 
+                            four parts. Are they converted in the correct order?</miscellaneous-field>
+		</miscellaneous>
 	</identification> 
 	<part-list>
 		<score-part id="P0">

@@ -7,6 +7,12 @@
 		<encoding>
 			<software>Rosegarden-4</software>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">Chords in the 
+                            second measure, after several ornaments in the first 
+                            measure and a p at the beginning of the second 
+                            measure.</miscellaneous-field>
+		</miscellaneous>
 	</identification> 
 	<part-list>
 		<score-part id="P0">

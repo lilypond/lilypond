@@ -11,6 +11,11 @@
       <software>Dolet Light for Finale 2008</software>
       <encoding-date>2008-11-11</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">Multi-Measure rests should always 
+          be converted into durations that are a multiple of the time 
+          signature.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

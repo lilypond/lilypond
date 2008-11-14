@@ -205,6 +205,15 @@ class Identification (Xml_node):
                 software.append (s.get_text ())
         return software
 
+    def get_file_description (self):
+        misc = self.get_named_children ('miscellaneous')
+        for m in misc:
+            misc_fields = m.get_named_children ('miscellaneous-field')
+            for mf in misc_fields:
+                if hasattr (mf, 'name') and mf.name == 'description':
+                    return mf.get_text () 
+        return None
+
 
 
 class Duration (Music_xml_node):

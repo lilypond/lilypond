@@ -7,6 +7,9 @@
 			<software>/usr/bin/vi</software>
 			<encoding-date>2007-01-22</encoding-date>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">A simple piano staff</miscellaneous-field>
+		</miscellaneous>
 	</identification>
 	<part-list>
 		<score-part id="P1">
