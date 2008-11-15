@@ -2,17 +2,10 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-  <movement-title>Two Voices share one Staff</movement-title>
   <identification>
-    <creator type="composer">Reinhold Kainhofer</creator>
-    <rights>Public Domain</rights>
-    <encoding>
-      <software>Finale 2007 for Windows</software>
-      <software>Dolet Light for Finale 2007</software>
-      <encoding-date>2007-09-06</encoding-date>
-    </encoding>
     <miscellaneous>
-      <miscellaneous-field name="description">Two voices share one staff. Each voice is assigned some lyrics.</miscellaneous-field>
+      <miscellaneous-field name="description">Two voices share one staff. Each 
+        voice is assigned some lyrics.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

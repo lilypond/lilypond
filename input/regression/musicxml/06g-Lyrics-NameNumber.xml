@@ -2,9 +2,7 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-  <movement-title>Lyrics attributes: name and number</movement-title>
   <identification>
-    <creator type="composer">Reinhold Kainhofer</creator>
     <miscellaneous>
       <miscellaneous-field name="description">A lyrics syllable can have both 
           a number and a name attribute. The question is: What should be used 
