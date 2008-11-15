@@ -23,7 +23,7 @@
 @tab @b{Example}
 
 @item @code{1 2 8 16}
-@tab durations 
+@tab durations
 @tab
 @lilypond[fragment,relative=2,notime]
 \set Staff.autoBeaming = ##f
@@ -36,18 +36,18 @@ c1 c2 c8 c16
 @tab
 @lilypond[fragment,relative=2,notime]
 \override Staff.Clef #'break-visibility = #all-invisible
-c4. c4..  
+c4. c4..
 @end lilypond
 
 @item @code{c d e f g a b }
-@tab scale 
+@tab scale
 @tab
 @lilypond[fragment,relative=1,notime]
 c d e f g a b
 @end lilypond
 
 @item @code{fis bes}
-@tab alteration 
+@tab alteration
 @tab
 @lilypond[fragment,relative=1,notime]
 fis bes
@@ -67,7 +67,7 @@ s4_" "
 @tab time signature
 @tab
 @lilypond[fragment]
-\override Staff.Clef #'transparent = ##t 
+\override Staff.Clef #'transparent = ##t
 \time 3/4
 s4_" "
 \time 4/4
@@ -76,7 +76,7 @@ s16_" "
 
 
 @item @code{r4 r8}
-@tab rest 
+@tab rest
 @tab
 @lilypond[relative=2,notime,fragment]
 \override Staff.Clef #'break-visibility = #all-invisible
@@ -98,7 +98,7 @@ d ~ d
 @lilypond[notime,fragment]
 \clef treble
 \key es \major
-s4 
+s4
 @end lilypond
 
 @item @var{note}@code{'}
@@ -167,7 +167,7 @@ a8-[ b-]
    } >>
 @end lilypond
 
-  
+
 @item @code{c-> c-.}
 @tab articulations
 @tab
@@ -212,7 +212,7 @@ a\> a a\!
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
-<c e> 
+<c e>
 @end lilypond
 
 
@@ -256,18 +256,18 @@ twinkle
 @end lilypond
 
 @item @code{twin -- kle}
-@tab lyric hyphen 
+@tab lyric hyphen
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
 <<
    { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
->> 
+>>
 @end lilypond
 
 @item @code{\chordmode @{ c:dim f:maj7 @}}
-@tab chords 
+@tab chords
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
@@ -275,7 +275,7 @@ twinkle
 @end lilypond
 
 @item @code{\context ChordNames}
-@tab printing chord names 
+@tab printing chord names
 @tab
 @lilypond[fragment,relative=2]
 \chords { c:dim f:maj7 }

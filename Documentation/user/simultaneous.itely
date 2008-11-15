@@ -689,7 +689,7 @@ Internals Reference:
 
 @knownissues
 
-@code{\partcombine} can only accept two voices. 
+@code{\partcombine} can only accept two voices.
 
 When @code{printPartCombineTexts} is set, if the two voices play
 the same notes on and off, the part combiner may typeset @code{a2}

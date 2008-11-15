@@ -487,10 +487,10 @@ are curved: normal slurs, phrasing slurs, breath marks, falls, and
 doits.
 
 @menu
-* Slurs::                       
-* Phrasing slurs::              
-* Breath marks::                
-* Falls and doits::             
+* Slurs::
+* Phrasing slurs::
+* Breath marks::
+* Falls and doits::
 @end menu
 
 @node Slurs
@@ -707,7 +707,7 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 
 @seealso
 
-Music Glossary: 
+Music Glossary:
 @rglos{caesura}.
 
 Notation Reference:

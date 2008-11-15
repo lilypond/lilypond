@@ -21,9 +21,9 @@ Some text elements that are not dealt with here are discussed in other
 specific sections: @ref{Vocal music}, @ref{Titles and headers}.
 
 @menu
-* Writing text::                
-* Formatting text::             
-* Fonts::                       
+* Writing text::
+* Formatting text::
+* Fonts::
 @end menu
 
 @cindex Text, other languages
@@ -38,10 +38,10 @@ information, see @ref{Text encoding}.}
 This section introduces different ways of adding text to a score.
 
 @menu
-* Text scripts::                
-* Text spanners::               
-* Text marks::                  
-* Separate text::               
+* Text scripts::
+* Text spanners::
+* Text marks::
+* Separate text::
 @end menu
 
 
@@ -69,13 +69,13 @@ formatting may be added to a note by explicitly using a
 @code{\markup} block, as described in @ref{Formatting text}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-d8^\markup { \italic pizz. } e f g 
+d8^\markup { \italic pizz. } e f g
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
 
 By default, text indications do not influence the note spacing.
 However, their widths can be taken into account:
-in the following example, the first text string does not affect 
+in the following example, the first text string does not affect
 spacing, whereas the second one does.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
@@ -128,8 +128,8 @@ Such objects, called @qq{spanners}, may be created
 from one note to another using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-\override TextSpanner #'bound-details #'left #'text = "rit." 
-b1\startTextSpan 
+\override TextSpanner #'bound-details #'left #'text = "rit."
+b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
 
@@ -141,7 +141,7 @@ but different formatting can be obtained using
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override TextSpanner #'bound-details #'left #'text =
-  \markup { \upright "rit." } 
+  \markup { \upright "rit." }
 b1\startTextSpan c
 e,\stopTextSpan
 @end lilypond
@@ -216,7 +216,7 @@ or fermata, by specifying the appropriate symbol name as explained in
 
 @noindent
 Such objects are only typeset above the top staff of the score; depending on
-whether they are specified at the end or the middle of a bar, they 
+whether they are specified at the end or the middle of a bar, they
 can be placed above the bar line or between notes.  When specified at a
 line break, the mark will be printed at the beginning of the next line.
 
@@ -281,7 +281,7 @@ expression}.  This syntax is described in @ref{File structure}.
 
 @noindent
 This allows printing text separately
-from the music, which is particularly 
+from the music, which is particularly
 useful when the input file contains
 several music pieces, as described in
 @ref{Multiple scores in a book}.
@@ -318,7 +318,7 @@ TODO: add convenient snippets in input/new -vv
 @seealso
 
 Notation Reference: @ref{Formatting text},
-@ref{File structure}, 
+@ref{File structure},
 @ref{Multiple scores in a book},
 @ref{Multi-page markup}.
 
@@ -335,12 +335,12 @@ This section presents basic and advanced text formatting,
 using the @code{\markup} mode specific syntax.
 
 @menu
-* Text markup introduction::    
-* Selecting font and font size::      
-* Text alignment::              
-* Graphic notation inside markup::  
-* Music notation inside markup::  
-* Multi-page markup::          
+* Text markup introduction::
+* Selecting font and font size::
+* Text alignment::
+* Graphic notation inside markup::
+* Music notation inside markup::
+* Multi-page markup::
 @end menu
 
 @node Text markup introduction
@@ -373,7 +373,7 @@ e1-\markup intenso
 a2^\markup { poco \italic più forte  }
 c e1
 d2_\markup { \italic "string. assai" }
-e 
+e
 b1^\markup { \bold { molto \italic  agitato } }
 c
 @end lilypond
@@ -457,9 +457,9 @@ Syntax errors for markup mode can be confusing.
 Basic font switching is supported in markup mode:
 
 @lilypond[quote,verbatim,relative=2]
-d1^\markup { 
-  \bold { Più mosso } 
-  \italic { non troppo \underline Vivo } 
+d1^\markup {
+  \bold { Più mosso }
+  \italic { non troppo \underline Vivo }
 }
 r2 r4 r8
 d,_\markup { \italic quasi \smallCaps Tromba }
@@ -499,7 +499,7 @@ a^\markup {
   \fontsize #2 da
   \fontsize #3 camera
 }
-bes^\markup { (con 
+bes^\markup { (con
   \larger grande
   \smaller emozione
   \magnify #0.6 { e sentimento } )
@@ -519,7 +519,7 @@ these are printed in a smaller size, but a normal size can be used as well:
 \markup {
   \column {
     \line { 1 \super st movement }
-    \line { 1 \normal-size-super st movement 
+    \line { 1 \normal-size-super st movement
       \sub { (part two) }  }
   }
 }
@@ -684,7 +684,7 @@ two possibilities; the last markup in this example has no anchor
 point, and therefore is not moved.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-d2^\markup { 
+d2^\markup {
   Acte I
   \raise #2 { Scène 1 }
 }
@@ -777,7 +777,7 @@ or any other markup expression:
   }
 }
 \markup {
-  \fill-line { 1885 } 
+  \fill-line { 1885 }
 }
 @end lilypond
 
@@ -802,7 +802,7 @@ the following example.
       gitanos en el Albaicín de Granada. Al fondo una
       puerta por la que se ve el negro interior de
       una Fragua, iluminado por los rojos resplandores
-      del fuego.) 
+      del fuego.)
     }
     \hspace #0
 
@@ -1039,7 +1039,7 @@ d-\markup {
   \markalphabet #8
   \markletter #8
 }
-@end lilypond 
+@end lilypond
 
 More generally, any available musical symbol may be
 included separately in a markup object, as demonstrated

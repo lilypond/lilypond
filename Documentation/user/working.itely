@@ -19,16 +19,16 @@ this chapter.
 
 
 @menu
-* Suggestions for writing LilyPond input files::  
-* When things don't work::      
-* Scores and parts::            
+* Suggestions for writing LilyPond input files::
+* When things don't work::
+* Scores and parts::
 @end menu
 
 
 @node Suggestions for writing LilyPond input files
 @section Suggestions for writing LilyPond input files
 
-Now you're ready to begin writing larger LilyPond input files -- 
+Now you're ready to begin writing larger LilyPond input files --
 not just the little examples in the tutorial, but whole pieces.
 But how should you go about doing it?
 
@@ -56,11 +56,11 @@ structured in order to be easier (or harder) to update.
 @end itemize
 
 @menu
-* General suggestions::         
-* Typesetting existing music::  
-* Large projects::              
-* Saving typing with variables and functions::  
-* Style sheets::                
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Saving typing with variables and functions::
+* Style sheets::
 @end menu
 
 
@@ -92,7 +92,7 @@ itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
 worth it if you have to @q{debug} your input files.
 
-@item @strong{Comment your input files}.  Use either bar numbers 
+@item @strong{Comment your input files}.  Use either bar numbers
 (every so often) or
 references to musical themes (@q{second theme in violins,} @q{fourth
 variation,} etc.).  You may not need comments when you're writing the piece
@@ -555,9 +555,9 @@ file with @code{\include "../global.ly"}, which contains
 @section When things don't work
 
 @menu
-* Updating old input files::          
-* Troubleshooting (taking it all apart)::  
-* Minimal examples::            
+* Updating old input files::
+* Troubleshooting (taking it all apart)::
+* Minimal examples::
 @end menu
 
 @node Updating old input files

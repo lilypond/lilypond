@@ -1040,16 +1040,16 @@ Internals Reference:
 @cindex fragments
 @cindex cue notes
 
-It is very common for one voice to double the some of the music from                     
-another voice.  For example, the first and second violins may play the                    
-same notes during a passage of music.  In LilyPond this is accomplished                   
+It is very common for one voice to double the some of the music from
+another voice.  For example, the first and second violins may play the
+same notes during a passage of music.  In LilyPond this is accomplished
 by letting one voice @emph{quote} the other voice without having to
 re-enter it.
-                                                                       
-Before a part can be quoted, the @code{\addQuote} command must be used                   
-to initialize the quoted fragment.  This command must be used in the                      
-toplevel scope.  The first argument is an identifying string, and the                     
-second is a music expression: 
+
+Before a part can be quoted, the @code{\addQuote} command must be used
+to initialize the quoted fragment.  This command must be used in the
+toplevel scope.  The first argument is an identifying string, and the
+second is a music expression:
 
 @example
 flute = \relative c'' @{

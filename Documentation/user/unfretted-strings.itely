@@ -104,8 +104,8 @@ and the following example shows three ways in which an open A
 string on a violin might be indicated:
 
 @lilypond[verbatim,quote,relative=2]
-a4 \open 
-a^\markup { \teeny "II" } 
+a4 \open
+a^\markup { \teeny "II" }
 a2^\markup { \small "sul A" }
 @end lilypond
 

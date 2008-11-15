@@ -154,7 +154,7 @@ Notation Reference:
 
 @c FIXME: this section is to be rewritten.
 Since LilyPond input files are text, there is at least one
-issue to consider when working with vocal music: 
+issue to consider when working with vocal music:
 song texts must be interpreted as text, not notes.  For example, the
 input@tie{}@code{d} should be interpreted as a one letter syllable,
 not the note@tie{}D.
@@ -506,7 +506,7 @@ The following example uses different commands for entering lyrics.
     c4 b8. a16 g4. f8 e4 d c2
   }
 
-% not recommended: left aligns syllables 
+% not recommended: left aligns syllables
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
 
 % wrong: durations needed
@@ -707,7 +707,7 @@ inserted by hand.
 @unnumberedsubsubsec Skipping notes
 
 Making a lyric line run slower than the melody can be achieved by
-inserting @code{\skip}s into the lyrics.  For every @code{\skip}, 
+inserting @code{\skip}s into the lyrics.  For every @code{\skip},
 the text will be delayed another note.  The @code{\skip} command
 must be followed by a valid duration, but this is ignored when
 @code{\skip} is used in lyrics.
@@ -1001,7 +1001,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 These numbers are put just before the start of the first syllable.
 
 @c TODO Create and add snippet to show how two lines of a
-@c stanza can be grouped together, along these lines: 
+@c stanza can be grouped together, along these lines:
 @c (might need improving a bit) -td
 
 @ignore
@@ -1025,8 +1025,8 @@ stanzaOneThree =  {
 }
 
 \new Voice {
-  \repeat volta 2 { c'8 c' c' c' c' c' c'4 
-                    c'8 c' c' c' c' c' c'4   } 
+  \repeat volta 2 { c'8 c' c' c' c' c' c'4
+                    c'8 c' c' c' c' c' c'4   }
 }  \addlyrics { \stanzaOneOne }
    \addlyrics { \stanzaOneThree }
 
@@ -1264,7 +1264,7 @@ output in LilyPond.
 melody = \relative c' {
   c c c c | d d d d
 }
- 
+
 text = \lyricmode {
   \set stanza = "1." This is verse one.
   It has two lines.
@@ -1279,7 +1279,7 @@ text = \lyricmode {
 
 \markup {
   \fill-line {
-    \hspace #0.1 % moves the column off the left margin; 
+    \hspace #0.1 % moves the column off the left margin;
         % can be removed if space on the page is tight
      \column {
       \line { \bold "2."
@@ -1296,8 +1296,8 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1  % adds horizontal spacing between columns; 
-        % if they are still too close, add more " " pairs  
+    \hspace #0.1  % adds horizontal spacing between columns;
+        % if they are still too close, add more " " pairs
         % until the result looks good
      \column {
       \line { \bold "4."
@@ -1314,7 +1314,7 @@ text = \lyricmode {
         }
       }
     }
-  \hspace #0.1 % gives some extra space on the right margin; 
+  \hspace #0.1 % gives some extra space on the right margin;
       % can be removed if page space is tight
   }
 }

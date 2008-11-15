@@ -2264,11 +2264,11 @@ certain layout objects.  These are covered under Special
 considerations.
 
 @menu
-* Removing the stencil::        
-* Making objects transparent::  
-* Painting objects white::      
-* Using break-visibility::      
-* Special considerations::      
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
 @end menu
 
 
