@@ -199,6 +199,8 @@ def extract_score_information (tree):
         set_if_exists ('encodingdate', ids.get_encoding_date ())
         set_if_exists ('encoder', ids.get_encoding_person ())
         set_if_exists ('encodingdescription', ids.get_encoding_description ())
+        
+        set_if_exists ('texidoc', ids.get_file_description ());
 
         # Finally, apply the required compatibility modes
         # Some applications created wrong MusicXML files, so we need to 
@@ -1556,17 +1558,24 @@ class LilyPondVoiceBuilder:
         self.pending_multibar = Rational (0)
         self.ignore_skips = False
         self.has_relevant_elements = False
+        self.measure_length = (4, 4)
 
     def _insert_multibar (self):
+        layout_information.set_context_item ('Score', 'skipBars = ##t')
         r = musicexp.MultiMeasureRest ()
-        r.duration = musicexp.Duration()
-        r.duration.duration_log = 0
-        r.duration.factor = self.pending_multibar
+        lenfrac = Rational (self.measure_length[0], self.measure_length[1])
+        r.duration = rational_to_lily_duration (lenfrac)
+        r.duration.factor *= self.pending_multibar / lenfrac
         self.elements.append (r)
         self.begin_moment = self.end_moment
         self.end_moment = self.begin_moment + self.pending_multibar
         self.pending_multibar = Rational (0)
-        
+
+    def set_measure_length (self, mlen):
+        if (mlen != self.measure_length) and self.pending_multibar:
+            self._insert_multibar ()
+        self.measure_length = mlen
+
     def add_multibar_rest (self, duration):
         self.pending_multibar += duration
 
@@ -1632,6 +1641,8 @@ class LilyPondVoiceBuilder:
             duration_factor = 1
             duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (diff.denominator (), -1)
             duration_dots = 0
+            # TODO: Use the time signature for skips, too. Problem: The skip 
+            #       might not start at a measure boundary!
             if duration_log > 0: # denominator is a power of 2...
                 if diff.numerator () == 3:
                     duration_log -= 1
@@ -1697,6 +1708,13 @@ def musicxml_step_to_lily (step):
     else:
 	return None
 
+def measure_length_from_attributes (attr, current_measure_length):
+    mxl = attr.get_named_attribute ('time')
+    if mxl:
+        return attr.get_time_signature ()
+    else:
+        return current_measure_length
+
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
     modes_found = {}
@@ -1729,6 +1747,8 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder = LilyPondVoiceBuilder ()
     figured_bass_builder = LilyPondVoiceBuilder ()
     chordnames_builder = LilyPondVoiceBuilder ()
+    current_measure_length = (4, 4)
+    voice_builder.set_measure_length (current_measure_length)
 
     for n in voice._elements:
         if n.get_name () == 'forward':
@@ -1745,6 +1765,50 @@ def musicxml_voice_to_lily_voice (voice):
             if a:
                 voice_builder.add_partial (a)
             continue
+
+        is_chord = n.get_maybe_exist_named_child ('chord')
+        is_after_grace = (isinstance (n, musicxml.Note) and n.is_after_grace ());
+        if not is_chord and not is_after_grace:
+            try:
+                voice_builder.jumpto (n._when)
+            except NegativeSkip, neg:
+                voice_builder.correct_negative_skip (n._when)
+                n.message (_ ("Negative skip found: from %s to %s, difference is %s") % (neg.here, neg.dest, neg.dest - neg.here))
+
+        if isinstance (n, musicxml.Barline):
+            barlines = musicxml_barline_to_lily (n)
+            for a in barlines:
+                if isinstance (a, musicexp.BarLine):
+                    voice_builder.add_barline (a)
+                elif isinstance (a, RepeatMarker) or isinstance (a, EndingMarker):
+                    voice_builder.add_command (a)
+            continue
+
+        # Continue any multimeasure-rests before trying to add bar checks!
+        # Don't handle new MM rests yet, because for them we want bar checks!
+        rest = n.get_maybe_exist_typed_child (musicxml.Rest)
+        if (rest and rest.is_whole_measure ()
+                 and voice_builder.pending_multibar > Rational (0)):
+            voice_builder.add_multibar_rest (n._duration)
+            continue
+
+
+        # print a bar check at the beginning of each measure!
+        if n.is_first () and n._measure_position == Rational (0) and n != voice._elements[0]:
+            try:
+                num = int (n.get_parent ().number)
+            except ValueError:
+                num = 0
+            if num > 0:
+                voice_builder.add_bar_check (num)
+                figured_bass_builder.add_bar_check (num)
+                chordnames_builder.add_bar_check (num)
+
+        # Start any new multimeasure rests
+        if (rest and rest.is_whole_measure ()):
+            voice_builder.add_multibar_rest (n._duration)
+            continue
+
 
         if isinstance (n, musicxml.Direction):
             for a in musicxml_direction_to_lily (n):
@@ -1770,59 +1834,19 @@ def musicxml_voice_to_lily_voice (voice):
                 pending_figured_bass.append (a)
             continue
 
-        is_chord = n.get_maybe_exist_named_child ('chord')
-        if not is_chord:
-            try:
-                voice_builder.jumpto (n._when)
-            except NegativeSkip, neg:
-                voice_builder.correct_negative_skip (n._when)
-                n.message (_ ("Negative skip found: from %s to %s, difference is %s") % (neg.here, neg.dest, neg.dest - neg.here))
-            
         if isinstance (n, musicxml.Attributes):
-            if n.is_first () and n._measure_position == Rational (0):
-                try:
-                    number = int (n.get_parent ().number)
-                except ValueError:
-                    number = 0
-                if number > 0:
-                    voice_builder.add_bar_check (number)
-                    figured_bass_builder.add_bar_check (number)
-                    chordnames_builder.add_bar_check (number)
-
             for a in musicxml_attributes_to_lily (n):
                 voice_builder.add_command (a)
-            continue
-
-        if isinstance (n, musicxml.Barline):
-            barlines = musicxml_barline_to_lily (n)
-            for a in barlines:
-                if isinstance (a, musicexp.BarLine):
-                    voice_builder.add_barline (a)
-                elif isinstance (a, RepeatMarker) or isinstance (a, EndingMarker):
-                    voice_builder.add_command (a)
+            measure_length = measure_length_from_attributes (n, current_measure_length)
+            if current_measure_length != measure_length:
+                current_measure_length = measure_length
+                voice_builder.set_measure_length (current_measure_length)
             continue
 
         if not n.__class__.__name__ == 'Note':
-            error_message (_ ('unexpected %s; expected %s or %s or %s') % (n, 'Note', 'Attributes', 'Barline'))
+            n.message (_ ('unexpected %s; expected %s or %s or %s') % (n, 'Note', 'Attributes', 'Barline'))
             continue
-
-        rest = n.get_maybe_exist_typed_child (musicxml.Rest)
-        if (rest
-            and rest.is_whole_measure ()):
-
-            voice_builder.add_multibar_rest (n._duration)
-            continue
-
-        if n.is_first () and n._measure_position == Rational (0):
-            try: 
-                num = int (n.get_parent ().number)
-            except ValueError:
-                num = 0
-            if num > 0:
-                voice_builder.add_bar_check (num)
-                figured_bass_builder.add_bar_check (num)
-                chordnames_builder.add_bar_check (num)
-
+        
         main_event = musicxml_note_to_lily_main_event (n)
         if main_event and not first_pitch:
             first_pitch = main_event.pitch
@@ -1837,15 +1861,31 @@ def musicxml_voice_to_lily_voice (voice):
             ev_chord = musicexp.ChordEvent()
             voice_builder.add_music (ev_chord, n._duration)
 
+        # For grace notes:
         grace = n.get_maybe_exist_typed_child (musicxml.Grace)
-        if grace:
+        if n.is_grace ():
+            is_after_grace = ev_chord.has_elements () or n.is_after_grace ();
+            is_chord = n.get_maybe_exist_typed_child (musicxml.Chord)
+
             grace_chord = None
-            if n.get_maybe_exist_typed_child (musicxml.Chord) and ev_chord.grace_elements:
-                grace_chord = ev_chord.grace_elements.get_last_event_chord ()
-            if not grace_chord:
-                grace_chord = musicexp.ChordEvent ()
-                ev_chord.append_grace (grace_chord)
-            if hasattr (grace, 'slash'):
+
+            # after-graces and other graces use different lists; Depending on
+            # whether we have a chord or not, obtain either a new ChordEvent or 
+            # the previous one to create a chord
+            if is_after_grace:
+                if ev_chord.after_grace_elements and n.get_maybe_exist_typed_child (musicxml.Chord):
+                    grace_chord = ev_chord.after_grace_elements.get_last_event_chord ()
+                if not grace_chord:
+                    grace_chord = musicexp.ChordEvent ()
+                    ev_chord.append_after_grace (grace_chord)
+            elif n.is_grace ():
+                if ev_chord.grace_elements and n.get_maybe_exist_typed_child (musicxml.Chord):
+                    grace_chord = ev_chord.grace_elements.get_last_event_chord ()
+                if not grace_chord:
+                    grace_chord = musicexp.ChordEvent ()
+                    ev_chord.append_grace (grace_chord)
+
+            if hasattr (grace, 'slash') and not is_after_grace:
                 # TODO: use grace_type = "appoggiatura" for slurred grace notes
                 if grace.slash == "yes":
                     ev_chord.grace_type = "acciaccatura"
@@ -1906,22 +1946,38 @@ def musicxml_voice_to_lily_voice (voice):
                 frac = (1,1)
                 if mod:
                     frac = mod.get_fraction ()
-                
+
                 tuplet_events.append ((ev_chord, tuplet_event, frac))
 
-            slurs = [s for s in notations.get_named_children ('slur')
-                if s.get_type () in ('start','stop')]
-            if slurs:
-                if len (slurs) > 1:
-                    error_message (_ ('cannot have two simultaneous slurs'))
+            # First, close all open slurs, only then start any new slur
+            # TODO: Record the number of the open slur to dtermine the correct
+            #       closing slur!
+            endslurs = [s for s in notations.get_named_children ('slur')
+                if s.get_type () in ('stop')]
+            if endslurs and not inside_slur:
+                endslurs[0].message (_ ('Encountered closing slur, but no slur is open'))
+            elif endslurs:
+                if len (endslurs) > 1:
+                    endslurs[0].message (_ ('Cannot have two simultaneous (closing) slurs'))
                 # record the slur status for the next note in the loop
                 if not grace:
-                    if slurs[0].get_type () == 'start':
-                        inside_slur = True
-                    elif slurs[0].get_type () == 'stop':
-                        inside_slur = False
-                lily_ev = musicxml_spanner_to_lily_event (slurs[0])
+                    inside_slur = False
+                lily_ev = musicxml_spanner_to_lily_event (endslurs[0])
                 ev_chord.append (lily_ev)
+
+            startslurs = [s for s in notations.get_named_children ('slur')
+                if s.get_type () in ('start')]
+            if startslurs and inside_slur:
+                startslurs[0].message (_ ('Cannot have a slur inside another slur'))
+            elif startslurs:
+                if len (startslurs) > 1:
+                    startslurs[0].message (_ ('Cannot have two simultaneous slurs'))
+                # record the slur status for the next note in the loop
+                if not grace:
+                    inside_slur = True
+                lily_ev = musicxml_spanner_to_lily_event (startslurs[0])
+                ev_chord.append (lily_ev)
+
 
             if not grace:
                 mxl_tie = notations.get_tie ()
@@ -1984,7 +2040,7 @@ def musicxml_voice_to_lily_voice (voice):
             for a in ornaments:
                 for ch in a.get_all_children ():
                     ev = musicxml_articulation_to_lily_event (ch)
-                    if ev: 
+                    if ev:
                         ev_chord.append (ev)
 
             dynamics = notations.get_named_children ('dynamics')

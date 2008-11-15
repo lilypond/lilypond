@@ -2,9 +2,16 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN"
           "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="2.0">
-    <work>
-        <work-title>Chord detection messed up</work-title>
-    </work>
+  <work>
+      <work-title>Chord detection messed up</work-title>
+  </work>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">Check for proper chord detection 
+          after a pickup measure (i.e. the first beat of the measure is not 
+          aligned with multiples of the time signature!</miscellaneous-field>
+    </miscellaneous>
+  </identification>
     <part-list>
         <score-part id="P2">
             <part-name>Piano</part-name>

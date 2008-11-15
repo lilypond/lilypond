@@ -18,6 +18,21 @@ largo de su línea de base.
 
 "
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Indem man die @code{'Y-extent}-Eigenschaft auf einen passenden Wert setzt,
+können alle @code{DynamicLineSpanner}-Objekte (Crescendo-Klammern und
+Dynamik-Texte)  (hairpins and dynamic texts) unabhängig von ihrer
+wirklichen Ausdehnung an einem gemeinsamen Referenzpunkt ausgerichtet werden.
+Auf diese Weise ist jedes Element vertikal ausgerichtet und der Notensatz
+sieht ansprechender aus.
+
+Die gleiche Idee wird benutzt, um Textbeschriftungen an ihrer
+Grundlinie auszurichten.
+
+"
+  doctitlede = "Vertikale Ausrichtung von Dynamik und Textbeschriftung beeinflussen"
 
   texidoc = "
 By setting the @code{'Y-extent} property to a suitable value, all

@@ -22,6 +22,7 @@ Para ver más inforamción sobre @code{make-moment}, véase
 
 "
 
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
   texidocde = "
 Die Eigenschaft @code{tupletSpannerDuration} bestimmt, wie lange jede
 der N-tolen innerhalb der Klammern nach dem @code{\\times}-Befehl

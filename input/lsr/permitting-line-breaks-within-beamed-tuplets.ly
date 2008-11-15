@@ -14,6 +14,7 @@ sincopados se deben barrar manualmente.
 
 "
 
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
   texidocde = "
 Dieses künstliche Beispiel zeigt, wie sowohl automatische als auch
 manuelle Zeilenumbrüche innerhalb einer N-tole mit Balken erlaubt

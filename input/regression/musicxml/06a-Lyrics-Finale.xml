@@ -8,6 +8,9 @@
       <software>Dolet Light for Finale 2007</software>
       <encoding-date>2007-08-29</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">Some notes with simple lyrics: Syllables, notes without a syllable, syllable spanners.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

@@ -10,6 +10,14 @@ además de las notas de la melodía, acordes y diagramas de posiciones.
 "
   doctitlees = "Ritmos rasgueados de guitarra"
 
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+  texidocde = "
+In Guitarrennotation kann neben Melodie, Akkordbezeichnungen und
+Bunddiagrammen auch der Schlagrhythmus angegeben werden.
+
+"
+  doctitldee = "Schlagrhythmus für Guitarren"
+
   lsrtags = "rhythms,fretted-strings"
   texidoc = "
 For guitar music, it is possible to show strum rhythms, along

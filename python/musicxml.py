@@ -205,6 +205,15 @@ class Identification (Xml_node):
                 software.append (s.get_text ())
         return software
 
+    def get_file_description (self):
+        misc = self.get_named_children ('miscellaneous')
+        for m in misc:
+            misc_fields = m.get_named_children ('miscellaneous-field')
+            for mf in misc_fields:
+                if hasattr (mf, 'name') and mf.name == 'description':
+                    return mf.get_text () 
+        return None
+
 
 
 class Duration (Music_xml_node):
@@ -259,15 +268,27 @@ class Measure_element (Music_xml_node):
 	    return None
 
     def is_first (self):
-	cn = self._parent.get_typed_children (self.__class__)
-	cn = [c for c in cn if c.get_voice_id () == self.get_voice_id ()]
+        # Look at all measure elements (previously we had self.__class__, which
+        # only looked at objects of the same type!
+	cn = self._parent.get_typed_children (Measure_element)
+        # But only look at the correct voice; But include Attributes, too, which
+        # are not tied to any particular voice
+	cn = [c for c in cn if (c.get_voice_id () == self.get_voice_id ()) or isinstance (c, Attributes)]
 	return cn[0] == self
 
 class Attributes (Measure_element):
     def __init__ (self):
 	Measure_element.__init__ (self)
 	self._dict = {}
+        self._original_tag = None
 
+    def is_first (self):
+	cn = self._parent.get_typed_children (self.__class__)
+        if self._original_tag:
+            return cn[0] == self._original_tag
+        else:
+            return cn[0] == self
+    
     def set_attributes_from_previous (self, dict):
 	self._dict.update (dict)
         
@@ -340,7 +361,15 @@ class Note (Measure_element):
     def __init__ (self):
         Measure_element.__init__ (self)
         self.instrument_name = ''
-        
+        self._after_grace = False
+    def is_grace (self):
+        return self.get_maybe_exist_named_child (u'grace')
+    def is_after_grace (self):
+        if not self.is_grace():
+            return False;
+        gr = self.get_maybe_exist_typed_child (Grace)
+        return self._after_grace or hasattr (gr, 'steal-time-previous');
+
     def get_duration_log (self):
         ch = self.get_maybe_exist_named_child (u'type')
 
@@ -510,6 +539,9 @@ class Part (Music_xml_node):
         measure_start_moment = now
         is_first_measure = True
         previous_measure = None
+        # Graces at the end of a measure need to have their position set to the
+        # previous number!
+        pending_graces = []
 	for m in measures:
             # implicit measures are used for artificial measures, e.g. when
             # a repeat bar line splits a bar into two halves. In this case,
@@ -539,6 +571,8 @@ class Part (Music_xml_node):
                 # and should not change the current measure position!
                 if isinstance (n, FiguredBass):
                     n._divisions = factor.denominator ()
+                    n._when = now
+                    n._measure_position = measure_position
                     continue
 
                 if isinstance (n, Hash_text):
@@ -561,6 +595,12 @@ class Part (Music_xml_node):
                     
 		    if n.get_name() == 'backup':
 			dur = - dur
+                        # reset all graces before the backup to after-graces:
+                        for n in pending_graces:
+                            n._when = n._prev_when
+                            n._measure_position = n._prev_measure_position
+                            n._after_grace = True
+                        pending_graces = []
 		    if n.get_maybe_exist_typed_child (Grace):
 			dur = Rational (0)
 
@@ -578,6 +618,23 @@ class Part (Music_xml_node):
 
                 n._when = now
                 n._measure_position = measure_position
+
+                # For all grace notes, store the previous note,  in case need
+                # to turn the grace note into an after-grace later on!
+                if isinstance(n, Note) and n.is_grace ():
+                    n._prev_when = last_moment
+                    n._prev_measure_position = last_measure_position
+                # After-graces are placed at the same position as the previous note
+                if isinstance(n, Note) and  n.is_after_grace ():
+                    # TODO: We should do the same for grace notes at the end of 
+                    # a measure with no following note!!!
+                    n._when = last_moment
+                    n._measure_position = last_measure_position
+                elif isinstance(n, Note) and n.is_grace ():
+                    pending_graces.append (n)
+                elif (dur > Rational (0)):
+                    pending_graces = [];
+
                 n._duration = dur
                 if dur > Rational (0):
                     last_moment = now
@@ -599,6 +656,12 @@ class Part (Music_xml_node):
                     if instrument:
                         n.instrument_name = part_list.get_instrument (instrument.id)
 
+            # reset all graces at the end of the measure to after-graces:
+            for n in pending_graces:
+                n._when = n._prev_when
+                n._measure_position = n._prev_measure_position
+                n._after_grace = True
+            pending_graces = []
             # Incomplete first measures are not padded, but registered as partial
             if is_first_measure:
                 is_first_measure = False
@@ -615,6 +678,7 @@ class Part (Music_xml_node):
         attributes = copy.copy (attr)
         attributes._children = [];
         attributes._dict = attr._dict.copy ()
+        attributes._original_tag = attr
         # copy only the relevant children over for the given staff
         for c in attr._children:
             if (not (hasattr (c, 'number') and (c.number != staff)) and

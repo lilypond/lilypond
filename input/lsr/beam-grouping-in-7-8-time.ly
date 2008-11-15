@@ -14,6 +14,16 @@ compás de 7/8, especificamos los finales de barra en 2/8 y 5/8:
 
 "
   doctitlees = "Agrupamiento de las barras en el compás de 7/8"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Es gibt keine automatischen Balkengruppen für 7/8-Takte.  Wenn diese
+Taktart benötigt wird, müssen die Gruppierungen definiert werden.  Um
+beispielsweise alle Noten in 2/8-3/8-2/8 aufzuteilen, müssen Balkenenden
+für 2/8 und 5/8 definiert werden:
+
+"
+  doctitlede = "Balkengruppen für 7/8-Takte"
 
   texidoc = "
 There are no default automatic beam groupings specified for 7/8 time,

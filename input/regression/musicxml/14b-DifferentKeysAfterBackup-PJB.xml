@@ -7,6 +7,14 @@
 			<software>/usr/bin/vi</software>
 			<encoding-date>2007-01-22</encoding-date>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">A piano staff 
+                            with different keys and clefs for each of its 
+                            staves. The key and clef for the second staff is 
+                            given only after a backward, just before the first
+                            note of the second staff is given, but after the 
+                            whole measure for staff 1 has been given.</miscellaneous-field>
+		</miscellaneous>
 	</identification>
 	<part-list>
 		<score-part id="P1">

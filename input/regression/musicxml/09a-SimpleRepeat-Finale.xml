@@ -8,6 +8,10 @@
       <software>Dolet Light for Finale 2007</software>
       <encoding-date>2007-10-17</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">A simple, repeated measure 
+          (repeated 5 times)</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

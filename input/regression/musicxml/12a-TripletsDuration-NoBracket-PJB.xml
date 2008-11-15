@@ -7,6 +7,15 @@
 			<software>/usr/bin/vi</software>
 			<encoding-date>2007-02-02</encoding-date>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">Some "triplets" 
+                            on the end of the first and in the second staff, using only 
+                            &lt;time-modification&gt;, but not explicit tuplet 
+                            bracket. Thus, the duration of the notes in the 
+                            second staff should be scaled properly in comparison 
+                            to staff 1, but no visual indication about the 
+                            tuplets is given.</miscellaneous-field>
+		</miscellaneous>
 	</identification>
 	<part-list>
 		<score-part id="P1"><part-name>MIDI Track 1</part-name></score-part>

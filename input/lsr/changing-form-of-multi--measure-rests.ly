@@ -11,6 +11,16 @@ muestra una barra normal.  Este número predeterminado de diez se
 puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
 
 "
+
+texidocde = "
+Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
+und Brevispausen (auch Kirchenpausen genannt) gesetzt, bei mehr Takten
+wird eine Line mit der Taktanzahl ausgegeben.  Der vorgegebene Wert von
+zehn kann geändert werden, indem man die @code{expand-limit}-Eigenschaft
+setzt:
+"
+  doctitlede = "Die Erscheinung von Pausentakten ändern"
+
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
 If there are ten or fewer measures of rests, a series of longa

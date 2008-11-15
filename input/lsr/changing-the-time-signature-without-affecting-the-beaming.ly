@@ -5,6 +5,17 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+La instrucción @code{\time} establece las propiedades
+@code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping} y
+@code{measureLength} en el contexto @code{Timing}, que normalmente
+tiene el alias @code{Score}.  La modificación del valor de
+@code{timeSignatureFraction} hace que se imprima la nueva indicación
+de compás sin que cambie ninguna de las demás propiedades:
+
+"
+  doctitlees = "Cambio de compás sin afectar al barrado"
+
   texidoc = "
 The @code{\\time} command sets the properties
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}

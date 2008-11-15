@@ -3,10 +3,13 @@
           "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="2.0">
     <work>
-        <work-title>Begin of second voice messed up with pickup measure</work-title>
+        <work-title>Pickup measure with two voices</work-title>
     </work>
     <identification>
-        <creator type="composer">Voice 2 should start at 2nd beat of first full measure</creator>
+      <miscellaneous>
+        <miscellaneous-field name="description">Voice 2 should start at 2nd 
+            beat of first full measure.</miscellaneous-field>
+      </miscellaneous>
     </identification>
     <part-list>
         <score-part id="P1">

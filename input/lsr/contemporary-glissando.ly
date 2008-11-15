@@ -11,6 +11,14 @@ utilizando una nota oculta y temporalización de cadenza.
 
 "
   doctitlees = "Glissando contemporáneo"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Ein modernes Glissando ohne eine Endnote kann gesetzt werden, indem
+eine Kadenz eingesetzt wird und die Endnote unsichtbar gemacht wird.
+
+"
+  doctitlede = "Moderne Glissandi"
 
   texidoc = "
 A contemporary glissando without a final note can be typeset using a

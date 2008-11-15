@@ -9,9 +9,9 @@
       <software>Hand-crafted MusicXML</software>
     </encoding>
     <miscellaneous>
-      <miscellaneous-field name="comment">
+      <miscellaneous-field name="description">
           It should not make any difference whether two articulations are given
-          inside to different notation elements, inside two different articulations 
+          inside two different notation elements, inside two different articulations 
           children of the same notation element or inside the same articulations
           element. Thus, all three notes should have a staccato and an accent.
       </miscellaneous-field>

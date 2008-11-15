@@ -11,6 +11,9 @@
 		<encoding>
 			<software>NoteEdit</software>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">Some spanners, exported by NoteEdit</miscellaneous-field>
+		</miscellaneous>
 	</identification>
 
 	<part-list>

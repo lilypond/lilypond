@@ -23,7 +23,8 @@ ifeq ($(HAVE_LIBKPATHSEA_SO),no)
 MODULE_LDFLAGS += $(KPATHSEA_LIBS)
 endif
 ifeq ($(LINK_GXX_STATICALLY),yes)
-MODULE_LDFLAGS += -L$(outdir) -static-libgcc
+LD = $(CC) # GCC-4.0.x will never link statically to allow exceptions
+MODULE_LDFLAGS += -L$(outdir) -static-libgcc -lstdc++
 endif
 
 CXXFLAGS += -Woverloaded-virtual

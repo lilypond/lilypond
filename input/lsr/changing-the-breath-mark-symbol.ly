@@ -12,6 +12,15 @@ sobreescribiendo la proopiedad de texto del objeto de presentación
 
 "
   doctitlees = "Cambiar el símbolo de la marca de respiración"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+  texidocde = "
+Das Schriftzeichen für das Atemzeichen kann verändert werden, indem
+die Text-Eigenschaft des @code{BreathingSign}-Layoutobjekts mit einer
+beliebigen Textbeschriftung definiert wird.
+
+"
+  doctitlede = "Das Atemzeichen-Symbol verändern"
 
   texidoc = "
 The glyph of the breath mark can be tuned by overriding the text

@@ -12,6 +12,15 @@ cruce entre los pentagramas ajustando la propiedad
  
 "
   doctitlees = "Crear arpegios que se cruzan entre pentagramas dentro de un sistema de piano"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Arpeggio über mehrere Systeme können in anderen Kontexten als dem
+@code{PianoStaff} erstellt werden, wenn der @code{Span_arpeggio_engraver}
+in den @code{Score}-Kontext eingefügt wird.
+
+"
+  doctitlede = "Arpeggio über mehrere Systeme in anderen Kontexten"
 
   texidoc = "
 In a @code{PianoStaff}, it is possible to let an arpeggio cross between

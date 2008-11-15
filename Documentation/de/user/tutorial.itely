@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9c728939dbd36dc81bf0afb29bc5fe22b66d675c
+    Translation of GIT committish: f413550b658b43fbea690fc060f872bce6bbc885
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -820,15 +820,15 @@ d cis fis
 hat keine der Noten ein Versetzungszeichen, trotzdem muss im Quelltext
 das @q{is} für @code{cis} und @code{fis} notiert werden.
 
-Der Code @q{e} heißt also nicht: @qq{Zeichne einen schwarzen Punkt
-auf die erste Linie des Systems.} Im Gegenteil, er heißt vielmehr:
- @qq{Hier soll eine Note mit der Tonhöhe E gesetzt werden.}
+Der Code @q{b} heißt also nicht: @qq{Zeichne einen schwarzen Punkt
+auf die Mittellinie des Systems.} Im Gegenteil, er heißt vielmehr:
+ @qq{Hier soll eine Note mit der Tonhöhe B gesetzt werden.}
 In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,relative=2]
 \key aes \major
-e
+b
 @end lilypond
 
 Alle diese Versetzungszeichen ausdrücklich zu schreiben, bedeutet vielleicht

@@ -7,6 +7,10 @@
 		<encoding>
 			<software>Rosegarden-4</software>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">Some three-note 
+                            chords, with various durations.</miscellaneous-field>
+		</miscellaneous>
 	</identification> 
 	<part-list>
 		<score-part id="P0">

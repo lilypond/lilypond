@@ -13,6 +13,17 @@ impar están separados verticalmente.  La colocación de los silencios
 multicompás se puede controlar como se ve a continuación:
 
 "
+
+texidocde = "
+Anders als bei normalen Pausen gibt es keinen direkten Befehl, um die
+vertikale Position von Ganztaktpausen zu beeinflussen, indem man sie an
+eine Tonhöhe anhängt.  In polyphoner Notation wird aber dennoch die
+Position der Pausen von geraden und ungeraden Stimmen voneinander
+unterschieden.  Die Position von Ganztaktpausen kann wie folgt verändert
+werden:
+ "
+  doctitlede = "Positionierung von Ganztaktpausen"
+
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
 Unlike ordinary rests, there is no predefined command

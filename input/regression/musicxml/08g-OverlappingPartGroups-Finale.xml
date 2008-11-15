@@ -4,13 +4,18 @@
 <score-partwise>
   <movement-title>Overlapping part groups</movement-title>
   <identification>
-    <creator type="composer">In MusicXML groups can overlap (Grp1: #1-4, Grp2: #3-5)</creator>
-    <creator type="arranger">In Lilypond, overlaps are not possible: Grp2 ends at #4</creator>
     <encoding>
       <software>Finale 2007 for Windows</software>
       <software>Dolet Light for Finale 2007</software>
       <encoding-date>2007-10-28</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">MusicXML allows for overlapping 
+          part-groups, while many applications do not allow overlapping groups, 
+          but require them to be properly nested. In this case, one group 
+          (with a square bracket) goes from staff 2 to 4) and another group 
+          (with a curly bracket) goes from staff 3 to 5.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <part-group number="1" type="start">

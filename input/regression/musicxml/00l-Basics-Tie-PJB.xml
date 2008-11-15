@@ -3,7 +3,11 @@
  "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
 	<work><work-title>A tie</work-title></work> 
-	<identification/>
+	<identification>
+		<miscellaneous>
+			<miscellaneous-field name="description">Two simple tied whole notes</miscellaneous-field>
+		</miscellaneous>
+	</identification>
 	<part-list>
 		<score-part id="P1"><part-name></part-name></score-part>
 	</part-list>

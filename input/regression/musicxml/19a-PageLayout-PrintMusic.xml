@@ -9,6 +9,11 @@
       <software>Dolet Light for PrintMusic 2008</software>
       <encoding-date>2007-11-04</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">Several page layout settings: 
+          paper size, margins, system margins and distances, different fonts, 
+          etc.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <defaults>
     <scaling>

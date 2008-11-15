@@ -21,21 +21,21 @@ they may also be printed on every staff.
   doctitle = "Printing marks on every staff"
 } % begin verbatim
 
-{
-  \new Score \with {
-    \remove "Mark_engraver"
-    \remove "Staff_collecting_engraver"
-  }
+\score {
   <<
-    \new Staff \with {
-      \consists "Mark_engraver"
-      \consists "Staff_collecting_engraver"
-    }
-    { c''1 \mark "molto" c'' }
-    \new Staff \with {
-      \consists "Mark_engraver"
-      \consists "Staff_collecting_engraver"
-    }
-    { c'1 \mark "molto" c' }
+    \new Staff { c''1 \mark "molto" c'' }
+    \new Staff { c'1 \mark "molto" c' }
   >>
+  \layout {
+    \context {
+      \Score
+      \remove "Mark_engraver"
+      \remove "Staff_collecting_engraver"
+    }
+    \context {
+      \Staff
+      \consists "Mark_engraver"
+      \consists "Staff_collecting_engraver"
+    }
+  }
 }

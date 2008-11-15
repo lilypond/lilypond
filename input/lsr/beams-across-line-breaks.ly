@@ -12,6 +12,15 @@ comportamiento como se muestra aquí:
 
 "
   doctitle = "Barras que atraviesan saltos de línea"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+  
+texidocde = "
+Zeilenumbrüche sind normalerweise während Balken verboten.  Das kann geändert
+werden.
+
+"
+  doctitlede = "Balken über Zeilenumbrüche"
 
   texidoc = "
 Line breaks are normally forbidden when beams cross bar lines. This

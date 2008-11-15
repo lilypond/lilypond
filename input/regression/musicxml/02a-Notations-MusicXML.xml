@@ -3,7 +3,13 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="2.0">
   <movement-title>MusicXML notations (attached to note)</movement-title>
-  <identification/>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">All &lt;notation&gt; elements 
+          defined in MusicXML. The lyrics show the notation assigned to each 
+          note.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <part-list>
     <score-part id="P1">
       <part-name></part-name>

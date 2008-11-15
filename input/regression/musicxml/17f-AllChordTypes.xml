@@ -3,7 +3,14 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
   <movement-title>All MusicXML chord names/types with &lt;root&gt;</movement-title>
-  <identification/>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">All chord types defined in 
+          MusicXML. The staff will only contain one c' note (NO chord) for 
+          all of them, but the chord names should be properly 
+          printed.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>

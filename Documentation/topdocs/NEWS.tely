@@ -224,6 +224,7 @@ scripts.caesura -> scripts.caesura.curved
 \hcenter -> \center-align
 printallheaders -> print-all-headers
 \bigger -> \larger (already existing command)
+systemSeparatorMarkup -> system-separator-markup
 @end example
 
 @noindent

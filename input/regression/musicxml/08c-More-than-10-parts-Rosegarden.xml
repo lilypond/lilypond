@@ -7,6 +7,11 @@
 		<encoding>
 			<software>Rosegarden-4</software>
 		</encoding>
+		<miscellaneous>
+			<miscellaneous-field name="description">A piece with 
+                            more than 10 parts to check whether the parts are 
+                            correctly sorted.</miscellaneous-field>
+		</miscellaneous>
 	</identification> 
 	<part-list>
 		<score-part id="P0">

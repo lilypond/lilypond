@@ -5,6 +5,15 @@
   <movement-title>Lyrics attributes: name and number</movement-title>
   <identification>
     <creator type="composer">Reinhold Kainhofer</creator>
+    <miscellaneous>
+      <miscellaneous-field name="description">A lyrics syllable can have both 
+          a number and a name attribute. The question is: What should be used 
+          to put syllables of the same voice together. This example uses 
+          different number/name combinations to check how different 
+          applications handle this unspecified case (The advice on the 
+          MusicXML mailing list was "there is no correct way, each 
+          application can do what it thinks is best").</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

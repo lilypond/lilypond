@@ -11,6 +11,14 @@
       <software>Dolet Light for Finale 2007</software>
       <encoding-date>2007-09-01</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">Various clefs: G, C, F, percussion, 
+          TAB and none; some are also possible with octavation and  on other 
+          staff lines than their default (e.g. soprano/alto/tenor/bariton C 
+          clefs); Each measure shows a different clef (measure 17 has the "none" 
+          clef), only measure 18 has the same treble clef as measure 
+          1.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
@@ -328,24 +336,6 @@
     </measure>
     <!--=======================================================-->
     <measure number="17">
-      <attributes>
-        <clef>
-          <sign>TAB</sign>
-          <line>5</line>
-        </clef>
-      </attributes>
-      <note>
-        <pitch>
-          <step>C</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>4</duration>
-        <voice>1</voice>
-        <type>whole</type>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="18">
       <print new-system="yes"/>
       <attributes>
         <clef>
@@ -363,7 +353,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="19">
+    <measure number="18">
       <attributes>
         <clef>
           <sign>G</sign>

@@ -7,7 +7,11 @@
 		<encoding>
 			<software>Rosegarden-4</software>
 		</encoding>
-	</identification> 
+		<miscellaneous>
+			<miscellaneous-field name="description">One simple chord 
+                            consisting of two notes.</miscellaneous-field>
+		</miscellaneous>
+	</identification>
 	<part-list>
 		<score-part id="P0">
 			<part-name>Chord test</part-name>

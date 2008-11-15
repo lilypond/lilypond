@@ -28,6 +28,9 @@ struct Figure_group
   
   SCM number_;
   SCM alteration_;
+  SCM augmented_;
+  SCM diminished_;
+  SCM augmented_slash_;
   
   Item *figure_item_; 
   Stream_event *current_event_;
@@ -40,6 +43,9 @@ struct Figure_group
     continuation_line_ = 0;
     number_ = SCM_EOL;
     alteration_ = SCM_EOL;
+    augmented_ = SCM_EOL;
+    diminished_ = SCM_EOL;
+    augmented_slash_ = SCM_EOL;
     group_ = 0;
     current_event_ = 0;
   }
@@ -51,7 +57,13 @@ struct Figure_group
       && ly_is_equal (number_,
 		      current_event_->get_property ("figure"))
       && ly_is_equal (alteration_,
-		      current_event_->get_property ("alteration"));
+		      current_event_->get_property ("alteration"))
+      && ly_is_equal (augmented_,
+		      current_event_->get_property ("augmented"))
+      && ly_is_equal (diminished_,
+		      current_event_->get_property ("diminished"))
+      && ly_is_equal (augmented_slash_,
+		      current_event_->get_property ("augmented-slash"));
   }
 };
 
@@ -91,6 +103,9 @@ Figured_bass_engraver::derived_mark () const
     {
       scm_gc_mark (groups_[i].number_);
       scm_gc_mark (groups_[i].alteration_);
+      scm_gc_mark (groups_[i].augmented_);
+      scm_gc_mark (groups_[i].diminished_);
+      scm_gc_mark (groups_[i].augmented_slash_);
     }
 }
 
@@ -348,6 +363,9 @@ Figured_bass_engraver::process_music ()
 	{
 	  groups_[i].number_ = SCM_BOOL_F;
 	  groups_[i].alteration_ = SCM_BOOL_F;
+	  groups_[i].augmented_ = SCM_BOOL_F;
+	  groups_[i].diminished_ = SCM_BOOL_F;
+	  groups_[i].augmented_slash_ = SCM_BOOL_F;
 	}
     }
 
@@ -451,6 +469,9 @@ Figured_bass_engraver::create_grobs ()
 	  
       	  group.number_ = fig;
       	  group.alteration_ = group.current_event_->get_property ("alteration");
+	  group.augmented_ = group.current_event_->get_property ("augmented");
+	  group.diminished_ = group.current_event_->get_property ("diminished");
+	  group.augmented_slash_ = group.current_event_->get_property ("augmented-slash");
 
 	  SCM text = group.current_event_->get_property ("text");
 	  if (!Text_interface::is_markup (text)

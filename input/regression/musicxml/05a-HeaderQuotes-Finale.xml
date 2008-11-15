@@ -10,6 +10,12 @@
       <software>"Hand-crafted" MusicXML file</software>
       <encoding-date>2008-02-06</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">Several header fields and part 
+          names can contain quotes ("). This test checks whether they are 
+          converted/imported without problems (i.e. whether they are correctly
+          escaped when converting).</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

@@ -9,6 +9,9 @@
       <software>Dolet Light for Finale 2007</software>
       <encoding-date>2007-10-23</encoding-date>
     </encoding>
+    <miscellaneous>
+      <miscellaneous-field name="description">Assigning lyrics to chorded notes.</miscellaneous-field>
+    </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">

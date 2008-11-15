@@ -5,6 +5,57 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+ Son posibles tanto los corchetes rectos sobre notas sueltas como
+extremos de barra sueltos en figuras unidas, con una combinación de
+@code{stemLeftBeamCount}, @code{stemRightBeamCount} e indicadores de
+barra @code{[ ]} emparejados.
+
+
+
+
+Para corchetes rectos que apunten a la derecha sobre notas sueltas,
+use indicadores de barra emparejados @code{[ ]} y establezca
+@code{stemLeftBeamCount} a cero (véase el ejemplo 1).
+
+
+
+
+Para corchetes rectos que apunten a la izquierda, establezca en su
+lugar @code{stemRightBeamCount} (ejemplo 2).
+
+
+
+
+Para extremos sueltos que apunten a la derecha al final de un conjunto
+de notas unidas, establezca @code{stemRightBeamCount} a un valor
+positivo.  Y para extremos sueltos que apunten a la izquierda al
+principio de un conjunto de notas unidas, establezca
+@code{stemLeftBeamCount} en su lugar (ejemplo 3).
+
+
+
+
+A veces, para una nota suelta rodeada de silencios tiene sentido que
+lleve los dos extremos sueltos del corchete plano, apuntando a derecha
+e izquierda.  Hágalo solamente con indicadores de barra emparejados
+@code{[ ]} (ejemplo 4).
+
+
+
+
+(Observe que @code{\\set stemLeftBeamCount} siempre equivale a
+@code{\\once \\set}.  En otras palabras, los ajustes de la cantidad de
+barras no se recuerdan, y por ello el par de corchetes planos
+aplicados a la nota Do semicorchea @code{c'16 [ ]} del último ejemplo
+no tiene nada que ver con el @code{\\set} de dos notas por detrás.)
+
+
+
+
+"
+  doctitlees = "Corchetes rectos y extremos de barra sueltos"
+
   texidoc = "
  Flat flags on lone notes and beam nibs at the ends of beamed figures
 are both possible with a combination of @code{stemLeftBeamCount}, 

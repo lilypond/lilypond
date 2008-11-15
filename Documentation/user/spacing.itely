@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.64"
 
 @ignore
 GDP TODO list
@@ -561,8 +561,8 @@ systems end at their natural horizontal length.  Default:
 
 If the score has only one system, the default value is @code{##t}.
 
-@item systemSeparatorMarkup
-@funindex systemSeparatorMarkup
+@item system-separator-markup
+@funindex system-separator-markup
 
 A markup object that is inserted between systems.  This is often
 used for orchestral scores.  Default: unset.
@@ -577,7 +577,7 @@ default,  for example
     \relative { c1 \break c1 }
   }
   \paper {
-    systemSeparatorMarkup = \slashSeparator
+    system-separator-markup = \slashSeparator
   }
 }
 @end lilypond
