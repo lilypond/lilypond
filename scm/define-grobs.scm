@@ -846,9 +846,10 @@
 	(side-axis . ,Y)
 	(self-alignment-X . ,LEFT)
 	(outside-staff-priority . 500)
-	(extra-spacing-width . '(+inf.0 . -inf.0))
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
+				text-interface
 				font-interface))))))
 
     
