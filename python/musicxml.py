@@ -702,7 +702,7 @@ class Part (Music_xml_node):
         voice_to_staff_dict = {}
         for n in elements:
             voice_id = n.get_maybe_exist_named_child (u'voice')
-            vid = None
+            vid = "None"
             if voice_id:
                 vid = voice_id.get_text ()
 
@@ -734,8 +734,15 @@ class Part (Music_xml_node):
         id = None
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
+            if voice_id:
+                id = voice_id.get_text ()
+            else:
+                id = "None"
 
-	    if not (voice_id or isinstance (n, Attributes) or
+            # We don't need backup/forward any more, since we have already 
+            # assigned the correct onset times. 
+            # TODO: Let Grouping through. Also: link, print, bokmark sound
+	    if not (isinstance (n, Note) or isinstance (n, Attributes) or
                     isinstance (n, Direction) or isinstance (n, Partial) or
                     isinstance (n, Barline) or isinstance (n, Harmony) or
                     isinstance (n, FiguredBass) ):
@@ -777,7 +784,6 @@ class Part (Music_xml_node):
                 assign_to_next_note.append (n)
                 continue
 
-	    id = voice_id.get_text ()
             if hasattr (n, 'print-object') and getattr (n, 'print-object') == "no":
                 #Skip this note. 
                 pass
