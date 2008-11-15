@@ -1,5 +1,5 @@
 #!@TARGET_PYTHON@
-
+# -*- coding: utf-8 -*-
 import optparse
 import sys
 import re
@@ -2559,17 +2559,18 @@ def main ():
     conversion_settings.ignore_beaming = not options.convert_beaming
 
     # Allow the user to leave out the .xml or xml on the filename
-    if args[0]=="-": # Read from stdin
-        filename="-"
+    basefilename = args[0].decode('utf-8')
+    if basefilename == "-": # Read from stdin
+        basefilename = "-"
     else:
-        filename = get_existing_filename_with_extension (args[0], "xml")
+        filename = get_existing_filename_with_extension (basefilename, "xml")
         if not filename:
-            filename = get_existing_filename_with_extension (args[0], "mxl")
+            filename = get_existing_filename_with_extension (basefilename, "mxl")
             options.compressed = True
     if filename and (filename == "-" or os.path.exists (filename)):
         voices = convert (filename, options)
     else:
-        progress (_ ("Unable to find input file %s") % args[0])
+        progress (_ ("Unable to find input file %s") % basefilename)
 
 if __name__ == '__main__':
     main()
