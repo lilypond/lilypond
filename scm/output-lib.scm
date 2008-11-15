@@ -203,6 +203,13 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public (first-bar-number-invisible barnum) (> barnum 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; percent repeat counters
+
+(define-public ((every-nth-repeat-count-visible n) count context) (= 0 (modulo count n)))
+
+(define-public (all-repeat-counts-visible count context) #t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break visibility
 
 (define-public all-visible             #(#t #t #t))

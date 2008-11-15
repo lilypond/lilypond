@@ -522,6 +522,8 @@ automatically when an output definition (a @code{\score} or
   explicitKeySignatureVisibility = #all-visible
   implicitTimeSignatureVisibility = #end-of-line-invisible
   
+  repeatCountVisibility = #all-repeat-counts-visible
+  
   autoBeamSettings = #default-auto-beam-settings
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
