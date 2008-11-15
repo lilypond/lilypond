@@ -341,9 +341,11 @@ class Attributes (Measure_element):
 
         key = self.get_named_attribute ('key')
         mode_node = key.get_maybe_exist_named_child ('mode')
-        mode = 'major'
+        mode = None
         if mode_node:
             mode = mode_node.get_text ()
+        if not mode or mode == '':
+            mode = 'major'
 
         fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
         return (fifths, mode)

@@ -650,8 +650,15 @@ def musicxml_key_to_lily (attributes):
     (fifths, mode) = attributes.get_key_signature () 
     try:
         (n,a) = {
-            'major' : (0,0),
-            'minor' : (5,0),
+            'major'     : (0,0),
+            'minor'     : (5,0),
+            'ionian'    : (0,0),
+            'dorian'    : (1,0),
+            'phrygian'  : (2,0),
+            'lydian'    : (3,0),
+            'mixolydian': (4,0),
+            'aeolian'   : (5,0),
+            'locrian'   : (6,0),
             }[mode]
         start_pitch.step = n
         start_pitch.alteration = a
