@@ -213,6 +213,9 @@ def extract_score_information (tree):
         if "Dolet 3.4 for Sibelius" in software:
             conversion_settings.ignore_beaming = True
             progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
+        if "Noteworthy Composer" in software:
+            conversion_settings.ignore_beaming = True
+            progress (_ ("Encountered file created by Noteworthy Composer's nwc2xml, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
         # TODO: Check for other unsupported features
 
     return header
