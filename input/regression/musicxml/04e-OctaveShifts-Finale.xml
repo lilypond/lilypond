@@ -2,15 +2,7 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-  <movement-title>Octave shift test case</movement-title>
   <identification>
-    <creator type="composer">Reinhold Kainhofer</creator>
-    <rights>Public Domain</rights>
-    <encoding>
-      <software>Finale 2007 for Windows</software>
-      <software>Dolet Light for Finale 2007</software>
-      <encoding-date>2007-09-14</encoding-date>
-    </encoding>
     <miscellaneous>
       <miscellaneous-field name="description">All types of octave shifts (15ma, 15mb, 8va, 8vb)</miscellaneous-field>
     </miscellaneous>

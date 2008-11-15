@@ -2,9 +2,6 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN"
           "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="2.0">
-  <work>
-      <work-title>Chord detection messed up</work-title>
-  </work>
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Check for proper chord detection 
@@ -14,7 +11,7 @@
   </identification>
     <part-list>
         <score-part id="P2">
-            <part-name>Piano</part-name>
+            <part-name>MusicXML Part</part-name>
             <score-instrument id="P2-I2">
                 <instrument-name>Acoustic Grand Piano</instrument-name>
             </score-instrument>

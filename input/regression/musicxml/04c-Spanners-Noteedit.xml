@@ -4,13 +4,7 @@
     "http://www.musicxml.org/dtds/partwise.dtd">
 
 <score-partwise>
-	<work>
-	</work>
-
 	<identification>
-		<encoding>
-			<software>NoteEdit</software>
-		</encoding>
 		<miscellaneous>
 			<miscellaneous-field name="description">Some spanners, exported by NoteEdit</miscellaneous-field>
 		</miscellaneous>
@@ -18,7 +12,7 @@
 
 	<part-list>
 		<score-part id="P1">
-			<part-name>Staff 1</part-name>
+			<part-name>MusicXML Part</part-name>
 			<score-instrument id="P1-I1">
 				<instrument-name>Klavier 1</instrument-name>
 			</score-instrument>
