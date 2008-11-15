@@ -2567,6 +2567,9 @@ def main ():
         if not filename:
             filename = get_existing_filename_with_extension (basefilename, "mxl")
             options.compressed = True
+    if filename and filename.endswith ("mxl"):
+        options.compressed = True
+
     if filename and (filename == "-" or os.path.exists (filename)):
         voices = convert (filename, options)
     else:
