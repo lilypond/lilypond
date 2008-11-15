@@ -143,11 +143,11 @@ class Work (Xml_node):
 
 class Identification (Xml_node):
     def get_rights (self):
-        rights = self.get_maybe_exist_named_child ('rights')
-        if rights:
-            return rights.get_text ()
-        else:
-            return ''
+        rights = self.get_named_children ('rights')
+        ret = []
+        for r in rights:
+          ret.append (r.get_text ())
+        return string.join (ret, "\n")
 
     def get_creator (self, type):
         creators = self.get_named_children ('creator')
