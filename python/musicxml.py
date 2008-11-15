@@ -702,9 +702,11 @@ class Part (Music_xml_node):
         voice_to_staff_dict = {}
         for n in elements:
             voice_id = n.get_maybe_exist_named_child (u'voice')
-            vid = "None"
+            vid = None
             if voice_id:
                 vid = voice_id.get_text ()
+            elif isinstance (n, Note):
+                vid = "None"
 
             staff_id = n.get_maybe_exist_named_child (u'staff')
             sid = None
