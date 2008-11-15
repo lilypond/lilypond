@@ -1795,7 +1795,7 @@ el aria de Fígaro @notation{Largo al factotum}:
     \clef bass
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d)] b c d b c
+    c4.~ c8 d b c([ d]) b c d b c
   }
   \addlyrics {
     Lar -- go_al fac -- to -- tum del -- la cit -- tà

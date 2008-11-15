@@ -242,7 +242,7 @@ c4 d
 e4 f
 \unHideNotes
 g a
-\hideNotes 
+\hideNotes
 b
 \unHideNotes
 c
@@ -340,12 +340,12 @@ definiert werden.
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
-  
+
 \override Stem #'color = #(rgb-color 0 0 0)
 gis8 a
 \override Stem #'color = #(rgb-color 1 1 1)
 gis8 a
-\override Stem #'color = #(rgb-color 0 0 0.5) 
+\override Stem #'color = #(rgb-color 0 0 0.5)
 gis4 a
 @end lilypond
 
@@ -508,10 +508,10 @@ zu erklären.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
 
@@ -530,11 +530,11 @@ aber das kann geändert werden.
 {
   \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
   \balloonLengthOn
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
 
@@ -585,7 +585,7 @@ den Linien festgesetzt.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" 
+    \consists "Grid_point_engraver"
     gridInterval = #(ly:make-moment 1 4)
   }
   \context {

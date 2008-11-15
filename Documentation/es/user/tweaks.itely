@@ -2056,7 +2056,7 @@ R1
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
 \textLengthOn  % and turn on textLengthOn
-c,,2^"Long Text   "  % Spaces at end are honoured
+c,,2^"Long Text   "  % Spaces at end are honored
 c''2
 @end lilypond
 
@@ -3607,7 +3607,7 @@ notas un color que depende de su posición dentro del pentagrama.
   g1 |
 }
 \addlyrics {
-  Some -- where o -- ver the Rain -- bow way up high,
+  Some -- where o -- ver the Rain -- bow, way up high,
 }
 @end lilypond
 

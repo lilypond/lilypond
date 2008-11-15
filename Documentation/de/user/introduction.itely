@@ -713,7 +713,7 @@ ein Lead Sheet.
      \time 2/4
      c4 c g' g a a g2
    }
-   \addlyrics { twin kle twin kle lit tle star }
+   \addlyrics { twin -- kle twin -- kle lit -- tle star }
 >>
 @end lilypond
 
@@ -735,7 +735,7 @@ nächste Beispiel zeigt einige etwas exotischere Konstruktionen:
       << {
         \revert Stem #'direction
         \change Staff = down
-        \set subdivideBeams = ##t	     
+        \set subdivideBeams = ##t
         g16.[
           \change Staff = up
           c'''32
@@ -766,7 +766,7 @@ nächste Beispiel zeigt einige etwas exotischere Konstruktionen:
       \override Beam  #'thickness = #0.3
       \override Stem  #'thickness = #4.0
       g'16[ b16 fis16 g16]
-      << \makeClusters { 
+      << \makeClusters {
         as16 <as b>
         <g b>
         <g cis>

@@ -1218,7 +1218,7 @@ estableciendo la propiedad @code{instrumentCueName} en el contexto
 oboe = \relative c''' {
   g4 r8 e16 f e4 d
 }
-\addQuote oboe { \oboe }
+\addQuote "oboe" { \oboe }
 
 \new Staff \relative c'' <<
   \new CueVoice \with {

@@ -300,7 +300,7 @@ a4*2/3 gis4*2/3 a4*2/3
 a4 a4
 % Double the duration of chord
 <a d>4*2
-% Duration of quarter, appears like sixteeth
+% Duration of quarter, appears like sixteenth
 b16*4 c4
 @end lilypond
 
@@ -399,7 +399,7 @@ ningún par de cabezas, no se crea ninguna ligadura.  Los acordes se
 pueden ligar parcialmente colocando la ligadura dentro del acorde.
 
 @lilypond[quote,verbatim,relative=1]
- <c e g> ~ <c e g>
+<c e g> ~ <c e g>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -1230,9 +1230,9 @@ ligadura.
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} {
-  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2
 }
+
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
 @end lilypond
 
 Este grabador divide todas las notas largas en la barra de compás e

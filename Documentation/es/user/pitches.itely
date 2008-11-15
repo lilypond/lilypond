@@ -179,9 +179,7 @@ anterior.
 \relative c' {
   c
   <c e g>
-  % the C is now an octave higher
   <c' e g'>
-  % the C returns to the original pitch
   <c, e, g''>
 }
 @end lilypond
@@ -319,7 +317,7 @@ del nombre de la nota.  Estas alteraciones adicionales se pueden usar
 también para producir notas con becuadro.
 
 @lilypond[verbatim,quote,relative=2]
-cis cis cis! cis? c c? c! c
+cis cis cis! cis? c c c! c?
 @end lilypond
 
 @cindex alteración en nota ligada
@@ -1187,12 +1185,10 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      %%% change the next line as desired:
       #(set-accidental-style 'default)
       \musicA
     }
     \context Staff = "down" {
-      %%% change the next line as desired:
       #(set-accidental-style 'default)
       \musicB
     }
