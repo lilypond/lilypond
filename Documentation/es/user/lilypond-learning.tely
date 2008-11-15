@@ -1,4 +1,4 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
     Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
 
@@ -31,9 +31,9 @@
 @end ifnottex
 
 @ifhtml
-Este documento también está disponible como
+Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
-@uref{source/Documentation/user/lilypond-learning-big-page.es.html,una sola página enorme}.
+@uref{source/Documentation/user/lilypond-learning-big-page.es.html,una sola página}.
 @end ifhtml
 
 
@@ -149,11 +149,12 @@ Free Documentation License''.
 
 @c TRANSLATE ME
 @ifnottex
-Éste es el manual de aprendizaje de GNU LilyPond, versión @version{}.
-Para ver más información acerca de la relación entre éste y el resto
-de los documentos, consulte @ref{About the documentation}.
+El presente documento es el manual de aprendizaje de GNU LilyPond,
+versión @version{}.  Para ver más información sobre la relación entre
+éste y el resto de los documentos, consulte @ref{About the
+documentation}.
 
-
+@cindex web, página
 @cindex página web
 @cindex URL
 

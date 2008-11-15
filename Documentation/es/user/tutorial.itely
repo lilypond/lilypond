@@ -324,7 +324,7 @@ por debajo.
 }
 @end lilypond
 
-Loo mismo exactamente ocurre cuando cualquiera de esas notas llevan un
+Lo mismo exactamente ocurre cuando cualquiera de esas notas llevan un
 sostenido o un bemol.  Las @notation{Alteraciones accidentales} se
 @strong{ignoran totalmente} en el cálculo de la posición relativa.
 Exactamente la misma cuenta de espacios de pentagrama se hace a partir
@@ -523,7 +523,7 @@ Referencia de la notación:
 
 Los archivos de entrada de LilyPond son como los archivos fuente de
 muchos lenguajes de programación corrientes.  Son sensibles a las
-mayúsculas e insensibles al número de espacios Las expresiones se
+mayúsculas e insensibles al número de espacios.  Las expresiones se
 forman con llaves @{ @} y los comentarios se denotan por un signo de
 porcentaje (@code{%}) o por @w{@code{%@{ ... %@}}}.
 
@@ -730,7 +730,7 @@ Una nota con @notation{sostenido} se hace añadiendo @code{is} al
 nombre, y una nota @notation{bemol} añadiendo @code{es}.  Como ha
 podido adivinar, un @notation{doble sostenido} o @notation{doble
 bemol} se hace añadiendo @code{isis} o @code{eses}.  Esta sintaxis se
-deriva de las convenciones para da nombre a las notas de las lenguas
+deriva de las convenciones de nomenclatura de las notas en las lenguas
 nórdicas y germánicas como el alemán y el holandés.  Para utilizar
 otros nombres para las @notation{alteraciones accidentales}, véase
 @ruser{Note names in other languages}.
