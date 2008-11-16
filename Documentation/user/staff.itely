@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.64"
 
 @node Staff notation
 @section Staff notation
@@ -274,40 +274,24 @@ Internals Reference:
 @cindex nested staff brackets
 @cindex brackets, nesting of
 @cindex braces, nesting of
-@cindex inner staff group
-@cindex inner choir staff group
 
-Two additional staff-group contexts are available that can be
-nested within a @code{StaffGroup} or @code{ChoirStaff} context:
-@code{InnerStaffGroup} and @code{InnerChoirStaff}.  These contexts
-create a new bracket adjacent to the bracket of their parent staff
-group.
-
-An @code{InnerStaffGroup} is treated similarly to a
-@code{StaffGroup}; bar lines are connected between each staff
-within the context:
+Staff-group contexts can be nested to arbitrary depths.  In this
+case, each child context creates a new bracket adjacent to the
+bracket of its parent group.
 
 @lilypond[verbatim,quote,relative=2]
 \new StaffGroup <<
   \new Staff { c2 c | c2 c }
-  \new InnerStaffGroup <<
+  \new StaffGroup <<
     \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
+    \new StaffGroup \with {
+      systemStartDelimiter = #'SystemStartSquare
+    }
+    <<
+      \new Staff { e2 e | e2 e }
+      \new Staff { c2 c | c2 c }
+    >>
   >>
->>
-@end lilypond
-
-Bar lines are @emph{not} connected between staves of an
-@code{InnerChoirStaff}, just like a @code{ChoirStaff}:
-
-@lilypond[verbatim,quote,relative=2]
-\new ChoirStaff <<
-  \new Staff { c2 c | c2 c }
-  \new InnerChoirStaff <<
-    \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
-  >>
-  \new Staff { c1 | c1 }
 >>
 @end lilypond
 
@@ -332,9 +316,7 @@ Snippets:
 @rlsr{Staff notation}.
 
 Internals Reference:
-@rinternals{InnerStaffGroup},
 @rinternals{StaffGroup},
-@rinternals{InnerChoirStaff},
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
