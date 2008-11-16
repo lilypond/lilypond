@@ -51,6 +51,17 @@ ly.require_python_version ()
 program_version = '@TOPLEVEL_VERSION@'
 program_name = os.path.basename (sys.argv[0])
 
+# Check if program_version contains @ characters. This will be the case if
+# the .py file is called directly while building the lilypond documentation.
+# If so, try to check for the env var LILYPOND_VERSION, which is set by our 
+# makefiles and use its value.
+at_re = re.compile (r'@')
+if at_re.match (program_version):
+    if os.environ.has_key('LILYPOND_VERSION'):
+        program_version = os.environ['LILYPOND_VERSION']
+    else:
+        program_version = "unknown"
+
 original_dir = os.getcwd ()
 backend = 'ps'
 
