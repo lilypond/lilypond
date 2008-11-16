@@ -111,7 +111,6 @@ if files:
     name = os.path.basename (name)
     template = template % vars ()
 
-    files.sort ()
     s = "\n".join (map (name2line, files))
     s = template.replace (include_snippets, s, 1)
     f = "%s/%s" % (dir, name)
