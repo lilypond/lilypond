@@ -221,15 +221,52 @@ get_midi (Lily_parser *parser)
   return layout;
 }
 
+/* Return a copy of the top of $papers stack, or $defaultpaper if the
+ * stack is empty */
 Output_def *
 get_paper (Lily_parser *parser)
 {
-  SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
-  Output_def *layout = unsmob_output_def (id);
+  SCM papers = parser->lexer_->lookup_identifier ("$papers");
+  Output_def *layout = ((papers == SCM_UNDEFINED) || scm_is_null (papers)) ?
+    0 : unsmob_output_def (scm_car (papers));
+  SCM default_paper = parser->lexer_->lookup_identifier ("$defaultpaper");
+  layout = layout ? layout : unsmob_output_def (default_paper);
 
   layout = layout ? dynamic_cast<Output_def *> (layout->clone ()) : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
   return layout;
+}
+
+/* Initialize (reset) the $papers stack */
+void
+init_papers (Lily_parser *parser)
+{
+  parser->lexer_->set_identifier (ly_symbol2scm ("$papers"), SCM_EOL);
+}
+
+/* Push a paper on top of $papers stack */
+void
+push_paper (Lily_parser *parser, Output_def *paper)
+{
+  parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
+                                  scm_cons (paper->self_scm (),
+                                            parser->lexer_->lookup_identifier ("$papers")));
+}
+
+/* Pop a paper from $papers stack */
+void
+pop_paper (Lily_parser *parser)
+{
+  if (! scm_is_null (parser->lexer_->lookup_identifier ("$papers")))
+    parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
+                                    scm_cdr (parser->lexer_->lookup_identifier ("$papers")));
+}
+
+/* Change the paper on top of $papers stack */
+void
+set_paper (Lily_parser *parser, Output_def *paper)
+{
+  scm_set_car_x (parser->lexer_->lookup_identifier ("$papers"), paper->self_scm ());
 }
 
 SCM

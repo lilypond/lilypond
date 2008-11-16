@@ -185,6 +185,30 @@ the top of the file is inserted.
 @}
 @end example
 
+@funindex \bookpart
+
+Pieces of music may be grouped into book parts using @code{\bookpart}
+blocks.  Book parts are separated by a page break, and can start with a
+title, like the book itself, by specifying a @code{\header} block.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Book title"
+    subtitle = "First part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Second part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
 @node File structure
 @subsection File structure
 
@@ -194,6 +218,7 @@ the top of the file is inserted.
 @funindex \header
 @funindex \score
 @funindex \book
+@funindex \bookpart
 
 A @code{.ly} file may contain any number of toplevel expressions, where a
 toplevel expression is one of the following:
@@ -237,6 +262,11 @@ or @code{\markup} in the same example.  This behavior can be
 changed by setting the variable @code{toplevel-book-handler} at
 toplevel.  The default handler is defined in the init file
 @file{../scm/@/lily@/.scm}.
+
+@item
+A @code{\bookpart} block.  A book may be divided into several parts,
+using @code{\bookpart} blocks, in order to ease the page breaking,
+or to use different @code{\paper} settings in different parts. 
 
 @item
 A compound music expression, such as
@@ -348,7 +378,8 @@ some pieces include a lot more information.
 @subsection Creating titles
 
 Titles are created for each @code{\score} block, as well as for the full
-input file (or @code{\book} block).
+input file (or @code{\book} block) and book parts (created by
+@code{\bookpart} blocks).
 
 The contents of the titles are taken from the @code{\header} blocks.
 The header block for a book supports the following

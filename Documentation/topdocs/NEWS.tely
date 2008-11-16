@@ -63,6 +63,29 @@ which scares away people.
 @end ignore
 
 @item
+@code{\bookpart} blocks may be used to split a book into several parts,
+separated by a page break, in order to ease the page breaking, or to use
+different @code{\paper} settings in different parts.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Book title"
+    subtitle = "First part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Second part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+@item
 Nested contexts of the same type are now allowed.
 This deprecates @code{InnerStaffGroup} and @code{InnerChoirStaff}.
 @lilypond[relative=1]
