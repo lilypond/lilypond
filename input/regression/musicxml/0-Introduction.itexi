@@ -1,16 +1,7 @@
-\version "2.10.0"
-%% +.ly: Be the first .ly file for lys-to-tely.py.
-%% Better to make lys-to-tely.py include "introduction.texi" or
-%% other .texi documents too?
-
-
-\header{
-texidoc =
-
-#(string-append "@unnumbered MusicXML regression and coverage test
+@unnumberedsec Introduction
 
 This document presents proofs for the musicxml2ly script provided with
-LilyPond " (lilypond-version) ". The files don't have a description yet, so 
+LilyPond @lilypondversion. The files don't have a description yet, so 
 there is no official indication when the output is wrong.
 These snippets are provided as unit test files in MusicXML, converted to
 a .ly file by musicxml2ly and then processed by lilypond as usual.
@@ -47,11 +38,3 @@ The files are categorized by their first two digits with the following meaning:
 @item 20 ... Compressed MusicXML files
 @item 99 ... Compatibility modes with broken MusicXML exporters (i.e. ignore beams for Sibelius 5)
 @end itemize
-")
-
-}
-
-%
-% make sure the .png is generated.
-%
-\lyrics { "(left blank intentionally)" }
