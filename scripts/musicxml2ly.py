@@ -424,8 +424,6 @@ def extract_score_structure (part_list, staffinfo):
                     del staves[pos]
                 # replace the staves with the whole group
                 for j in staves[(prev_start + 1):pos]:
-                    if j.is_group:
-                        j.stafftype = "InnerStaffGroup"
                     group.append_staff (j)
                 del staves[(prev_start + 1):pos]
                 staves.insert (prev_start + 1, group)
