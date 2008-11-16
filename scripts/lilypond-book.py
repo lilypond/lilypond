@@ -537,7 +537,7 @@ snippet_res = {
 
         'lilypondversion':
          r'''(?mx)
-         (?P<match>
+         [^@](?P<match>
           @lilypondversion)[^a-zA-Z]''',
 
     },
