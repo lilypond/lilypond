@@ -74,8 +74,9 @@ SCM ly_parser_scorify (SCM, SCM);
 Output_def *get_layout (Lily_parser *parser);
 Output_def *get_midi (Lily_parser *parser);
 Output_def *get_paper (Lily_parser *parser);
-void stack_paper (Lily_parser *parser, Output_def *paper);
-void unstack_paper (Lily_parser *parser);
+void init_papers (Lily_parser *parser);
+void push_paper (Lily_parser *parser, Output_def *paper);
+void pop_paper (Lily_parser *parser);
 void set_paper (Lily_parser *parser, Output_def *paper);
 SCM get_header (Lily_parser *parser);
 

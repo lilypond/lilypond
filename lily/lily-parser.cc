@@ -237,24 +237,31 @@ get_paper (Lily_parser *parser)
   return layout;
 }
 
-/* Stack a paper on top of $papers */
+/* Initialize (reset) the $papers stack */
 void
-stack_paper (Lily_parser *parser, Output_def *paper)
+init_papers (Lily_parser *parser)
+{
+  parser->lexer_->set_identifier (ly_symbol2scm ("$papers"), SCM_EOL);
+}
+
+/* Push a paper on top of $papers stack */
+void
+push_paper (Lily_parser *parser, Output_def *paper)
 {
   parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
                                   scm_cons (paper->self_scm (),
                                             parser->lexer_->lookup_identifier ("$papers")));
 }
 
-/* Unstack a paper from $papers */
+/* Pop a paper from $papers stack */
 void
-unstack_paper (Lily_parser *parser)
+pop_paper (Lily_parser *parser)
 {
   parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
                                   scm_cdr (parser->lexer_->lookup_identifier ("$papers")));
 }
 
-/* Change the paper on top of $papers */
+/* Change the paper on top of $papers stack */
 void
 set_paper (Lily_parser *parser, Output_def *paper)
 {

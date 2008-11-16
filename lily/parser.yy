@@ -654,7 +654,7 @@ context_def_spec_body:
 book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
-		unstack_paper (PARSER);
+		pop_paper (PARSER);
 	}
 	;
 
@@ -664,10 +664,11 @@ book_block:
 book_body:
 	{
 		$$ = new Book;
+		init_papers (PARSER);
 		$$->origin ()->set_spot (@$);
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (PARSER->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
-		stack_paper (PARSER, $$->paper_);
+		push_paper (PARSER, $$->paper_);
 		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader"); 
 	}
 	| BOOK_IDENTIFIER {
