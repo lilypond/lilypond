@@ -8,7 +8,6 @@ TITLE=Lilypond musicxml2ly Regression Tests
 
 ILY_FILES = $(call src-wildcard,*.ily)
 EXTRA_OUT_LY_FILES = ${ILY_FILES:%.ily=$(outdir)/%.ly}
-EXTRA_DIST_FILES += $(ILY_FILES)
 
 
 include $(depth)/make/stepmake.make
