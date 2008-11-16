@@ -31,21 +31,21 @@ and just before
 @end ignore
 
 @menu
-* Chord name chart::            
-* Common chord modifiers::      
-* Predefined fretboard diagrams::  
-* MIDI instruments::            
-* List of colors::              
-* The Feta font::               
-* Note head styles::            
-* Text markup commands::        
+* Chord name chart::
+* Common chord modifiers::
+* Predefined fretboard diagrams::
+* MIDI instruments::
+* List of colors::
+* The Feta font::
+* Note head styles::
+* Text markup commands::
 * Text markup list commands::
-* List of articulations::       
-* Percussion notes::            
-* All context properties::      
-* Layout properties::           
-* Identifiers::                 
-* Scheme functions::            
+* List of articulations::
+* Percussion notes::
+* All context properties::
+* Layout properties::
+* Identifiers::
+* Scheme functions::
 @end menu
 
 

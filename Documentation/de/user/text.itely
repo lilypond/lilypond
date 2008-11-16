@@ -62,7 +62,7 @@ zeigt.  Derartiger Text kann manuell über oder unter dem
 Notensystem platziert werden, die Syntax hierzu ist beschrieben
 in @ref{Direction and placement}.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^"pizz." e f g a4-"scherz." f
 @end lilypond
 
@@ -72,8 +72,8 @@ explizit den @code{\markup}-Befehl mit darauf folgenden
 geschweiften Klammern einsetzt, wie beschrieben in
 @ref{Formatting text}.
 
-@lilypond[quote,verbatim,relative=1]
-d8^\markup { \italic pizz. } e f g 
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+d8^\markup { \italic pizz. } e f g
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
 
@@ -85,7 +85,7 @@ zweite die Note nach rechts verschiebt.  Das Verhalten wird mit
 dem Befehl @code{\textLengthOn} (Textlänge an) erreicht, rückgängig
 kann es mit dem Befehl @code{\textLengthOff} gemacht werden.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^"pizz." e f g
 \textLengthOn
 a4_"scherzando" f
@@ -138,9 +138,9 @@ auswirkt.  Solche Objekte, @qq{Strecker} (engl. spanners) genannt,
 können von einer Note bis zu einer anderen mit folgender
 Anweisung erstellt werden:
 
-@lilypond[verbatim,quote,relative=2]
-\override TextSpanner #'bound-details #'left #'text = "rit." 
-b1\startTextSpan 
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+\override TextSpanner #'bound-details #'left #'text = "rit."
+b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
 
@@ -150,9 +150,9 @@ Standardeinstellungen wird er kursiv ausgegeben, aber eine andere
 Formatierung kann erreicht werden, indem man @code{\markup}-Blöcke
 einsetzt, wie beschrieben in @ref{Formatting text}.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override TextSpanner #'bound-details #'left #'text =
-  \markup { \upright "rit." } 
+  \markup { \upright "rit." }
 b1\startTextSpan c
 e,\stopTextSpan
 @end lilypond
@@ -200,7 +200,7 @@ indem man die Syntax für Zeichen einsetzen, wie beschrieben in
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c4
 \mark "Allegro"
 c c c
@@ -211,7 +211,7 @@ zu platzieren, weitere Formatierungsmöglichkeiten sind mit dem
 @code{\markup}-Befehl gegeben, wie beschrieben in 
 @ref{Formatting text}:
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
 <c e>1
 \mark \markup { \italic { colla parte } }
 <d f>2 <e g>
@@ -225,7 +225,7 @@ Symbol mit dem Befehl @code{\musicglyph} angegeben wird, wie
 beschrieben in
 @ref{Music notation inside markup}:
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
 <f bes>2 <d aes'>
 \mark \markup { \musicglyph #"scripts.ufermata" }
 <e g>1
@@ -238,7 +238,7 @@ Ende notiert werden, werden sie zwischen Noten oder über der
 Taktlinie gesetzt.  Wenn sie an einem Zeilenumbruch angegeben
 werden, wird das Zeichen zu Beginn der nächsten Zeile ausgegeben.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 \mark "Allegro"
 c1 c
 \mark "assai" \break
@@ -402,7 +402,7 @@ e1-\markup intenso
 a2^\markup { poco \italic più forte  }
 c e1
 d2_\markup { \italic "string. assai" }
-e 
+e
 b1^\markup { \bold { molto \italic  agitato } }
 c
 @end lilypond
@@ -489,9 +489,9 @@ Einfache Änderungen des Schriftartschnitts können im Textbeschriftungsmodus
 vorgenommen werden:
 
 @lilypond[quote,verbatim,relative=2]
-d1^\markup { 
-  \bold { Più mosso } 
-  \italic { non troppo \underline Vivo } 
+d1^\markup {
+  \bold { Più mosso }
+  \italic { non troppo \underline Vivo }
 }
 r2 r4 r8
 d,_\markup { \italic quasi \smallCaps Tromba }
@@ -532,7 +532,7 @@ a^\markup {
   \fontsize #2 da
   \fontsize #3 camera
 }
-bes^\markup { (con 
+bes^\markup { (con
   \larger grande
   \smaller emozione
   \magnify #0.6 { e sentimento } )
@@ -553,7 +553,7 @@ aber die normale Schriftgröße kann auch eingesetzt werden:
 \markup {
   \column {
     \line { 1 \super st movement }
-    \line { 1 \normal-size-super st movement 
+    \line { 1 \normal-size-super st movement
       \sub { (part two) }  }
   }
 }
@@ -720,7 +720,7 @@ unsichtbares Objekt sein kann (im Beispiel mit @code{\null} erstellt).
 Der letzte Text im Beispiel hat keinen Anker und wird deshalb auch nicht verschoben.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-d2^\markup { 
+d2^\markup {
   Acte I
   \raise #2 { Scène 1 }
 }
@@ -814,7 +814,7 @@ beinhalten.
   }
 }
 \markup {
-  \fill-line { 1885 } 
+  \fill-line { 1885 }
 }
 @end lilypond
 
@@ -839,7 +839,7 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
       gitanos en el Albaicín de Granada. Al fondo una
       puerta por la que se ve el negro interior de
       una Fragua, iluminado por los rojos resplandores
-      del fuego.) 
+      del fuego.)
     }
     \hspace #0
 

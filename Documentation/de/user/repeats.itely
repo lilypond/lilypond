@@ -127,7 +127,7 @@ e |
 oder
 
 @lilypond[verbatim,quote,relative=2]
-\partial 4 
+\partial 4
 \repeat volta 4 { e4 | c2 d | e2 f | }
 \alternative {
   { \partial 4*3 g4 g g }

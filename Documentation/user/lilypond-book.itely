@@ -45,12 +45,12 @@ documents.
 @cindex @LaTeX{}, music in
 
 @menu
-* An example of a musicological document::  
-* Integrating music and text::  
-* Music fragment options::      
-* Invoking lilypond-book::      
-* Filename extensions::         
-* Alternate methods of mixing text and music::  
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* Alternate methods of mixing text and music::
 @end menu
 
 
@@ -165,10 +165,10 @@ Larger examples can be put into a separate file, and introduced with
 Here we explain how to integrate LilyPond with various output formats.
 
 @menu
-* LaTeX::                       
-* Texinfo::                     
-* HTML::                        
-* DocBook::                     
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
 @end menu
 
 @node LaTeX
@@ -496,7 +496,7 @@ the following structure:
 </mediaobject>
 @end example
 
-Note that you can use @code{mediaobject} or @code{inlinemediaobject} 
+Note that you can use @code{mediaobject} or @code{inlinemediaobject}
 as the outermost element as you wish.
 
 @subheading Including LilyPond code
@@ -511,7 +511,7 @@ structure:
     <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
 \context Staff \with @{
   \remove Time_signature_engraver
-  \remove Clef_engraver@} 
+  \remove Clef_engraver@}
   @{ c4( fis) @}
     </programlisting>
   </textobject>
@@ -901,7 +901,7 @@ music stick out of the right margin.
 
 The width of a tightly clipped system can vary, due to notation
 elements that stick into the left margin, such as bar numbers and
-instrument names.  This option will shorten each line and move each 
+instrument names.  This option will shorten each line and move each
 line to the right by the same amount.
 
 
@@ -973,9 +973,9 @@ This section shows methods to integrate text and music, different than
 the automated method with @command{lilypond-book}.
 
 @menu
-* Many quotes from a large score::  
-* Inserting LilyPond output into OpenOffice.org::  
-* Inserting LilyPond output into other programs::  
+* Many quotes from a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
 @end menu
 
 @node Many quotes from a large score

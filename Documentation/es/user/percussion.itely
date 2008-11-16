@@ -412,7 +412,7 @@ woodstaff = {
   % It also defines the positions of the two lines.
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
-  % This is neccessary; if not entered, the barline wuld be too short!
+  % This is neccessary; if not entered, the barline would be too short!
   \override Staff.BarLine #'bar-size = #3
 }
 

@@ -2,14 +2,7 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-  <movement-title>Piano staff with dynamics and one-staff clef changes</movement-title>
   <identification>
-    <rights>Public Domain</rights>
-    <encoding>
-      <software>Finale 2007 for Windows</software>
-      <software>Dolet Light for Finale 2007</software>
-      <encoding-date>2007-09-18</encoding-date>
-    </encoding>
     <miscellaneous>
       <miscellaneous-field name="description">A piano staff with dynamics and 
           clef changes, that apply only to one voice or one staff, 
@@ -18,7 +11,7 @@
   </identification>
   <part-list>
     <score-part id="P1">
-      <part-name>Piano</part-name>
+      <part-name>MusicXML Part</part-name>
       <score-instrument id="P1-I1">
         <instrument-name>Piano</instrument-name>
       </score-instrument>

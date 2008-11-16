@@ -302,8 +302,8 @@ B, während his als @code{bis} geschrieben werden muss. Das kann
 aber auch verändert werden, siehe @ref{Note names in other languages}.
 
 
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-a2 as e es
+@lilypond[verbatim,quote,relative=2]
+a4 aes a2
 @end lilypond
 
 Ein Auflösungszeichen macht die Wirkung eines Kreuzes oder Bs
@@ -683,7 +683,7 @@ Vorzeichen angezeigt werden.
 die Musik einen Halbton nach oben.  Aber die erste Version gibt als 
 Versetzungszeichen Kreuze aus, die zweite dagegen B-Versetzungszeichen.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote]
 music = \relative c' { c d e f }
 \new Staff {
   \transpose c cis { \music }

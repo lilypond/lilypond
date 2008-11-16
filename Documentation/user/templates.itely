@@ -18,13 +18,13 @@ beautiful printed scores!
 
 @c bad node name for ancient notation to avoid conflict
 @menu
-* Single staff::                
-* Piano templates::             
-* String quartet::              
-* Vocal ensembles::             
-* Ancient notation templates::  
-* Jazz combo::                  
-* lilypond-book templates::     
+* Single staff::
+* Piano templates::
+* String quartet::
+* Vocal ensembles::
+* Ancient notation templates::
+* Jazz combo::
+* lilypond-book templates::
 @end menu
 
 
@@ -301,7 +301,7 @@ In normal text you can easily use LilyPond commands, like this:
 and so on.
 
 The fonts of snippets set with LilyPond will have to be set from
-inside 
+inside
 of the snippet. For this you should read the AU on how to use
 lilypond-book.
 

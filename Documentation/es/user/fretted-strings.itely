@@ -1156,9 +1156,9 @@ antes del ángulo de cierre @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4 
-<e-\rightHandFinger #2 > 
-<g-\rightHandFinger #3 > 
+<c-\rightHandFinger #1 >4
+<e-\rightHandFinger #2 >
+<g-\rightHandFinger #3 >
 <c-\rightHandFinger #4 >
 <c,-\rightHandFinger #1 e-\rightHandFinger #2
   g-\rightHandFinger #3 c-\rightHandFinger #4 >1

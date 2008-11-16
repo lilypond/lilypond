@@ -17,13 +17,13 @@ not familiar with Scheme, you may wish to read our
 @rlearning{Scheme tutorial}.
 
 @menu
-* Music functions::             
-* Programmer interfaces::       
-* Building complicated functions::  
-* Markup programmer interface::  
-* Contexts for programmers::    
+* Music functions::
+* Programmer interfaces::
+* Building complicated functions::
+* Markup programmer interface::
+* Contexts for programmers::
 * Scheme procedures as properties::
-* Using Scheme code instead of \tweak::  
+* Using Scheme code instead of \tweak::
 * Difficult tweaks::
 @end menu
 
@@ -34,13 +34,13 @@ not familiar with Scheme, you may wish to read our
 This section discusses how to create music functions within LilyPond.
 
 @menu
-* Overview of music functions::  
-* Simple substitution functions::  
-* Paired substitution functions::  
-* Mathematics in functions::    
-* Void functions::              
-* Functions without arguments::  
-* Overview of available music functions::  
+* Overview of music functions::
+* Simple substitution functions::
+* Paired substitution functions::
+* Mathematics in functions::
+* Void functions::
+* Functions without arguments::
+* Overview of available music functions::
 @end menu
 
 @node Overview of music functions
@@ -297,8 +297,8 @@ This section contains information about mixing LilyPond
 and Scheme.
 
 @menu
-* Input variables and Scheme::  
-* Internal music representation::  
+* Input variables and Scheme::
+* Internal music representation::
 @end menu
 
 
@@ -850,10 +850,10 @@ Markups are implemented as special Scheme functions which produce a
 Stencil object given a number of arguments.
 
 @menu
-* Markup construction in Scheme::  
-* How markups work internally::  
-* New markup command definition::  
-* New markup list command definition::  
+* Markup construction in Scheme::
+* How markups work internally::
+* New markup command definition::
+* New markup list command definition::
 @end menu
 
 
@@ -1182,7 +1182,7 @@ indented.  The indent width is taken from the @code{props} argument.
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    (let ((indent (chain-assoc-get 'par-indent props 2)))
-     (interpret-markup-list layout props 
+     (interpret-markup-list layout props
        (make-justified-lines-markup-list (cons (make-hspace-markup indent)
                                                args)))))
 @end example
@@ -1223,8 +1223,8 @@ This new markup list command can be used as follows:
 @section Contexts for programmers
 
 @menu
-* Context evaluation::          
-* Running a function on all layout objects::  
+* Context evaluation::
+* Running a function on all layout objects::
 @end menu
 
 @node Context evaluation
@@ -1322,7 +1322,7 @@ In this case, the procedure is executed as soon as the value of the
 property is requested during the formatting process.
 
 Most of the typesetting engine is driven by such callbacks.
-Properties that typically use callbacks include  
+Properties that typically use callbacks include
 
 @table @code
 @item stencil

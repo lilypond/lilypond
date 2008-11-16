@@ -113,7 +113,7 @@ commands, leaving them to be created implicitly.  For simple
 examples this works well, but for more complex examples, especially
 when additional commands are used, the implicit creation of contexts
 can give surprising results, maybe creating extra unwanted staves.
-The way to create contexts explicitly is explained in 
+The way to create contexts explicitly is explained in
 @ref{Contexts and engravers}.
 
 @warning{When entering more than a few lines of music it is
@@ -747,7 +747,7 @@ note head, so that the voices may be easily distinguished.
 Voice one is set to red diamonds, voice two to blue triangles,
 voice three to green crossed circles, and voice four (not used
 here) to magenta crosses;  @code{\voiceNeutralStyle} (also not
-used here) reverts the style back to the default.  
+used here) reverts the style back to the default.
 We shall see later how commands like these may be created by the
 user.
 See @ref{Visibility and color of objects} and
@@ -1712,8 +1712,8 @@ context to distinguish it from other contexts of the same type,
 
 Note the distinction between the name of the context type,
 @code{Staff}, @code{Voice}, etc, and the identifying name of a
-particular instance of that type, which can be any sequence of letters 
-invented by the user.  Digits and spaces can also be used in the 
+particular instance of that type, which can be any sequence of letters
+invented by the user.  Digits and spaces can also be used in the
 identifying name, but then it has to be placed in quotes,
 i.e. @code{\new Staff = "MyStaff 1" @var{music-expression}}.
 The identifying name is used to
@@ -2064,7 +2064,7 @@ The values of context properties may be set in @emph{all} contexts
 of a particular type, such as all @code{Staff} contexts, with a single
 command.  The context type is identified by using its
 type name, like @code{Staff}, prefixed by a back-slash: @code{\Staff}.
-The statement which sets the property value is the same as that in a 
+The statement which sets the property value is the same as that in a
 @code{\with} block, introduced above.  It is placed in a
 @code{\context} block within a @code{\layout} block.  Each
 @code{\context} block will affect all contexts of the type specified

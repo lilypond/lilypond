@@ -114,8 +114,8 @@ y el ejemplo siguiente muestra tres formas distintas de indicar un La
 sobre una cuerda al aire del violín:
 
 @lilypond[verbatim,quote,relative=2]
-a4 \open 
-a^\markup { \teeny "II" } 
+a4 \open
+a^\markup { \teeny "II" }
 a2^\markup { \small "sul A" }
 @end lilypond
 

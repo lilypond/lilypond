@@ -13,28 +13,28 @@
 
 @lilypondfile[quote]{editorial-headword.ly}
 
-This section discusses the various ways to change the appearance of 
+This section discusses the various ways to change the appearance of
 notes and add analysis or educational emphasis.
 
 @menu
-* Inside the staff::            
-* Outside the staff::           
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
 @node Inside the staff
 @subsection Inside the staff
 
-This section discusses how to add emphasis to elements that are 
+This section discusses how to add emphasis to elements that are
 inside the staff.
 
 @menu
-* Selecting notation font size::  
-* Fingering instructions::      
-* Hidden notes::                
-* Coloring objects::            
-* Parentheses::                 
-* Stems::                       
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
 @node Selecting notation font size
@@ -156,7 +156,7 @@ Fingering instructions can be entered using
 c4-1 d-2 f-4 e-3
 @end lilypond
 
-Markup texts may be used for finger changes. 
+Markup texts may be used for finger changes.
 
 @lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
@@ -167,7 +167,7 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @funindex thumb
 
 A thumb-script can be added (e.g., in cello music) to indicate
-that a note should be played with the thumb. 
+that a note should be played with the thumb.
 
 @lilypond[verbatim,quote,relative=2]
 <a_\thumb a'-3>2 <b_\thumb b'-3>
@@ -235,7 +235,7 @@ c4 d
 e4 f
 \unHideNotes
 g a
-\hideNotes 
+\hideNotes
 b
 \unHideNotes
 c
@@ -303,7 +303,7 @@ write and is more efficient.  However, using the second form it is
 possible to access X11 colors by the multi-word form of its name.
 
 If @code{x11-color} cannot make sense of the parameter then the
-color returned defaults to black. 
+color returned defaults to black.
 
 @lilypond[verbatim,quote,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
@@ -336,12 +336,12 @@ Exact RGB colors can be specified using the Scheme function
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
-  
+
 \override Stem #'color = #(rgb-color 0 0 0)
 gis8 a
 \override Stem #'color = #(rgb-color 1 1 1)
 gis8 a
-\override Stem #'color = #(rgb-color 0 0 0.5) 
+\override Stem #'color = #(rgb-color 0 0 0.5)
 gis4 a
 @end lilypond
 
@@ -362,7 +362,7 @@ Snippets:
 
 @knownissues
 An X11 color is not necessarily exactly the same shade as a
-similarly named normal color.  
+similarly named normal color.
 
 Not all X11 colors are distinguishable in a web browser, i.e.,
 a web browser might not display a difference between @code{'LimeGreen}
@@ -465,13 +465,13 @@ Internals Reference:
 @node Outside the staff
 @subsection Outside the staff
 
-This section discusses how to add emphasis to elements in the staff 
-from outside of the staff. 
+This section discusses how to add emphasis to elements in the staff
+from outside of the staff.
 
 @menu
-* Balloon help::                
-* Grid lines::                  
-* Analysis brackets::           
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
 @node Balloon help
@@ -495,10 +495,10 @@ notation.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
 
@@ -517,11 +517,11 @@ altered:
 {
   \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
   \balloonLengthOn
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
 
@@ -572,7 +572,7 @@ lines.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" 
+    \consists "Grid_point_engraver"
     gridInterval = #(ly:make-moment 1 4)
   }
   \context {

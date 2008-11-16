@@ -1,12 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 0.6 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-	<work> <work-title>/home/reinhold/lilypond-dev-files/01_chord.xml</work-title></work> 
 	<identification> 
-		<rights>Unknown</rights>
-		<encoding>
-			<software>Rosegarden-4</software>
-		</encoding>
 		<miscellaneous>
 			<miscellaneous-field name="description">One simple chord 
                             consisting of two notes.</miscellaneous-field>
@@ -14,7 +9,7 @@
 	</identification>
 	<part-list>
 		<score-part id="P0">
-			<part-name>Chord test</part-name>
+			<part-name>MusicXML Part</part-name>
 			<score-instrument id="I1">
 				<instrument-name>0</instrument-name>
 			</score-instrument>

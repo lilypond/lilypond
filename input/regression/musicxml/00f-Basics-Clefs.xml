@@ -2,15 +2,8 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-  <movement-title>Finale Clef test</movement-title>
+  <movement-title>Clefs</movement-title>
   <identification>
-    <creator type="composer">Reinhold Kainhofer</creator>
-    <rights>Public Domain</rights>
-    <encoding>
-      <software>Finale 2007 for Windows</software>
-      <software>Dolet Light for Finale 2007</software>
-      <encoding-date>2007-09-01</encoding-date>
-    </encoding>
     <miscellaneous>
       <miscellaneous-field name="description">Various clefs: G, C, F, percussion, 
           TAB and none; some are also possible with octavation and  on other 

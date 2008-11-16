@@ -179,9 +179,7 @@ anterior.
 \relative c' {
   c
   <c e g>
-  % the C is now an octave higher
   <c' e g'>
-  % the C returns to the original pitch
   <c, e, g''>
 }
 @end lilypond
@@ -319,7 +317,7 @@ del nombre de la nota.  Estas alteraciones adicionales se pueden usar
 también para producir notas con becuadro.
 
 @lilypond[verbatim,quote,relative=2]
-cis cis cis! cis? c c? c! c
+cis cis cis! cis? c c c! c?
 @end lilypond
 
 @cindex alteración en nota ligada
@@ -434,7 +432,7 @@ y los sufijos de las alteraciones correspondientes que definen son:
 @quotation
 @multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
 @headitem Archivo de idioma
-  @tab sharp @tab flat @tab double sharp @tab double flat
+  @tab sostenido @tab bemol @tab doble sostenido @tab doble bemol
 @item @file{nederlands.ly}
   @tab -is @tab -es @tab -isis @tab -eses
 @item @file{arabic.ly}
@@ -561,13 +559,14 @@ octava.
 @end lilypond
 
 La octava de las notas se puede comprobar también con la instrucción
-@code{\octaveCheck}@tie{}@var{altura_de_control}.  @var{altura_de_control}
-se eespecifica en modo absoluto.  Esto comprueba que el intervalo
-entre la nota anterior y la @var{altura_de_control} se encuntra dentro
-de una cuarta (es decir, el cálculo normal para el modo relativo).  Si
-esta comprobación fracasa se imprimie un mensaje de advertencia, pero
-la nota previa no se modifica.  Las notas posteriores están en
-relación a la @var{altura_de_control}.
+@code{\octaveCheck}@tie{}@var{altura_de_control}.
+@var{altura_de_control} se especifica en modo absoluto.  Esto
+comprueba que el intervalo entre la nota anterior y la
+@var{altura_de_control} se encuntra dentro de una cuarta (es decir, el
+cálculo normal para el modo relativo).  Si esta comprobación fracasa,
+se imprime un mensaje de advertencia, pero la nota previa no se
+modifica.  Las notas posteriores están en relación a la
+@var{altura_de_control}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -578,7 +577,7 @@ relación a la @var{altura_de_control}.
 @end lilypond
 
 Compare los dos compases siguientes.  La primera y tercera
-comprobaciones de @code{\octaveCheck} fracasan, pero el segundo es
+comprobaciones de @code{\octaveCheck} fracasan, pero la segunda es
 correcto.
 
 @lilypond[verbatim,quote]
@@ -1186,12 +1185,10 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      %%% change the next line as desired:
       #(set-accidental-style 'default)
       \musicA
     }
     \context Staff = "down" {
-      %%% change the next line as desired:
       #(set-accidental-style 'default)
       \musicB
     }

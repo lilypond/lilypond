@@ -108,7 +108,7 @@ further explanation and with links to the IR.
 
 @c TODO Describe propagation of property values -td
 
-Contexts are arranged heirarchically:
+Contexts are arranged hierarchically:
 
 @menu
 * Score - the master of all contexts::
@@ -138,67 +138,55 @@ executed.
 
 Groups staves while adding a bracket on the left side, grouping
 the staves together. The bar lines of the contained staves are
-connected vertically. StaffGroup only consists of a collection
+connected vertically.  @code{StaffGroup} only consists of a collection
 of staves, with a bracket in front and spanning bar lines.
 
 @strong{@emph{ChoirStaff}}
 
-Identical to StaffGroup except that the bar lines of the contained
-staves are not connected vertically.
+Identical to @code{StaffGroup} except that the bar lines of the
+contained staves are not connected vertically.
 
 @strong{@emph{GrandStaff}}
 
-A group of staves, with a brace on the left side, grouping
-the staves together. The bar lines of the contained staves are
+A group of staves, with a brace on the left side, grouping the
+staves together.  The bar lines of the contained staves are
 connected vertically.
 
 @strong{@emph{PianoStaff}}
 
-@c TODO No longer correct?  Check.  -td
-Just like GrandStaff but with a forced distance between the
-staves, so cross staff beaming and slurring can be used.
-
-@ignore
-@strong{@emph{InnerStaffGroup}}
-
-TODO  -td
-
-@strong{@emph{InnerChoirStaff}}
-
-TODO  -td
-
-@end ignore
+Just like @code{GrandStaff}, but with support for instrument names
+to the left of each system.
 
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts - staves
 
 @strong{@emph{Staff}}
 
-Handles clefs, bar lines, keys, accidentals. It can contain
-Voice contexts.
+Handles clefs, bar lines, keys, accidentals.  It can contain
+@code{Voice} contexts.
 
 @strong{@emph{RhythmicStaff}}
 
-Like Staff but for printing rhythms. Pitches are ignored;
+Like @code{Staff} but for printing rhythms.  Pitches are ignored;
 the notes are printed on one line.
 
 @strong{@emph{TabStaff}}
 
-Context for generating tablature. By default lays the music
+Context for generating tablature.  By default lays the music
 expression out as a guitar tablature, printed on six lines.
 
 @strong{@emph{DrumStaff}}
 
-Handles typesetting for percussion. Can contain DrumVoice
+Handles typesetting for percussion.  Can contain @code{DrumVoice}
 
 @strong{@emph{VaticanaStaff}}
 
-Same as Staff, except that it is designed for typesetting
+Same as @code{Staff}, except that it is designed for typesetting
 a piece in gregorian style.
 
 @strong{@emph{MensuralStaff}}
 
-Same as Staff, except that it is designed for typesetting
+Same as @code{Staff}, except that it is designed for typesetting
 a piece in mensural style.
 
 @node Bottom-level contexts - voices
@@ -210,24 +198,24 @@ contain other contexts.
 
 @strong{@emph{Voice}}
 
-Corresponds to a voice on a staff. This context handles the
+Corresponds to a voice on a staff.  This context handles the
 conversion of dynamic signs, stems, beams, super- and sub-scripts,
 slurs, ties, and rests.  You have to instantiate this explicitly
 if you require multiple voices on the same staff.
 
 @strong{@emph{VaticanaVoice}}
 
-Same as Voice, except that it is designed for typesetting a piece
-in gregorian style.
+Same as @code{Voice}, except that it is designed for typesetting
+a piece in gregorian style.
 
 @strong{@emph{MensuralVoice}}
 
-Same as Voice, with modifications for typesetting a piece in
+Same as @code{Voice}, with modifications for typesetting a piece in
 mensural style.
 
 @strong{@emph{Lyrics}}
 
-Corresponds to a voice with lyrics. Handles the printing of a
+Corresponds to a voice with lyrics.  Handles the printing of a
 single line of lyrics.
 
 @strong{@emph{DrumVoice}}
@@ -236,13 +224,13 @@ The voice context used in a percussion staff.
 
 @strong{@emph{FiguredBass}}
 
-The context in which BassFigure objects are created from
+The context in which @code{BassFigure} objects are created from
 input entered in @code{\figuremode} mode.
 
 @strong{@emph{TabVoice}}
 
-The voice context used within a TabStaff context.  Usually left to
-be created implicitly.
+The voice context used within a @code{TabStaff} context.  Usually
+left to be created implicitly.
 
 @strong{@emph{ChordNames}}
 
@@ -2264,11 +2252,11 @@ certain layout objects.  These are covered under Special
 considerations.
 
 @menu
-* Removing the stencil::        
-* Making objects transparent::  
-* Painting objects white::      
-* Using break-visibility::      
-* Special considerations::      
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
 @end menu
 
 

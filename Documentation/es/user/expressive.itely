@@ -202,8 +202,8 @@ para ver más detalles, consulte @ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=2]
 c2\ppp c\mp
-c\rfz c^\mf
-c_\spp c^\ff
+c2\rfz c^\mf
+c2_\spp c^\ff
 @end lilypond
 
 @cindex regulador

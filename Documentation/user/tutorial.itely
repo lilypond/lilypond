@@ -33,15 +33,15 @@ Tutorial guidelines:  (different from policy.txt!)
 
 This tutorial starts with an introduction to the LilyPond music
 language and explains how to produce printed music.  After this first
-contact we will explain how to create beautiful printed music 
+contact we will explain how to create beautiful printed music
 containing common musical notation.
 
 @menu
-* First steps::                 
-* Single staff notation::       
-* Multiple notes at once::      
-* Songs::                       
-* Final touches::               
+* First steps::
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
 @end menu
 
 
@@ -51,8 +51,8 @@ containing common musical notation.
 This section gives a basic introduction to working with LilyPond.
 
 @menu
-* Compiling a file::            
-* Simple notation::             
+* Compiling a file::
+* Simple notation::
 * Working on input files::
 * How to read the manual::
 @end menu
@@ -649,12 +649,12 @@ This section introduces common notation that is used for one voice
 on one staff.
 
 @menu
-* Accidentals and key signatures::  
-* Ties and slurs::              
-* Articulation and dynamics::   
-* Adding text::                 
-* Automatic and manual beams::  
-* Advanced rhythmic commands::  
+* Accidentals and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
 @end menu
 
 
@@ -1628,7 +1628,7 @@ If a syllable extends over several notes or a single very long
 note an @notation{extender line} is usually drawn from the
 syllable extending under all the notes for that syllable.  It is
 entered as two underscores @code{__}.  Here is an example from the
-first three bars of @notation{Dido's Lament}, from Purcell's 
+first three bars of @notation{Dido's Lament}, from Purcell's
 @notation{Dido and Æneas}:
 
 @lilypond[verbatim,quote]
@@ -2029,6 +2029,6 @@ cross-references for further reading.
 If you have not done so already, @emph{please} read @ref{About the
 documentation}.  There is a lot of information about LilyPond, so
 newcomers often do not know where they should look for help.  If
-you spend five minutes reading that section carefully, you might 
+you spend five minutes reading that section carefully, you might
 save yourself hours of frustration looking in the wrong places!
 

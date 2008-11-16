@@ -438,7 +438,7 @@ celle imprimée en tête de ligne.
 Une section ossia se placera au dessus de la portée en procédant ainsi :
 
 @lilypond[verbatim,quote,ragged-right]
-\new Staff ="main" {
+\new Staff = "main" {
   \relative g' {
     r4 g8 g c4 c8 d |
     e4 r8
@@ -2371,7 +2371,6 @@ sopranoMusic = \relative c' {
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 }
 
@@ -2383,11 +2382,10 @@ celloMusic = \relative c {
   \clef bass
   \key c \major
   \time 4/4
-
   d4 g fis8 e d4
 }
 
-\score{
+\score {
   <<
     <<
       \new Voice = "one" {

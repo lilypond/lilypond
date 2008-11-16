@@ -1656,7 +1656,7 @@ repetición esté presente en la salida MIDI.  Esto se consigue mediante
 la aplicación de la función musical @code{\unfoldRepeats}.  Esta
 función cambia todas las repeticiones a repeticiones desplegadas.
 
-@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+@lilypond[quote,verbatim]
 \unfoldRepeats {
   \repeat tremolo 8 {c'32 e' }
   \repeat percent 2 { c''8 d'' }

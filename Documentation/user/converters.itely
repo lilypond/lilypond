@@ -33,7 +33,7 @@ bug reports will almost certainly not be resolved.
 @menu
 * Invoking midi2ly::            Importing MIDI.
 * Invoking musicxml2ly::        Importing MusicXML.
-* Invoking abc2ly::             Importing ABC.      
+* Invoking abc2ly::             Importing ABC.
 * Invoking etf2ly::             Importing Finale.
 * Generating LilyPond files::   GUIs, transcribers, and algorithmic composition programs.
 @end menu
@@ -149,7 +149,7 @@ Note that by @q{command-line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats}, for
 more information about this.
 
-If the given filename is @file{-}, @command{musicxml2ly} reads input 
+If the given filename is @file{-}, @command{musicxml2ly} reads input
 from the command line.
 
 The following options are supported by @command{musicxml2ly}:
@@ -173,7 +173,7 @@ do not convert directions (@code{^}, @code{_} or @code{-}) for
 articulations, dynamics, etc.
 
 @item --no-beaming
-do not convert beaming information, use LilyPond's automatic 
+do not convert beaming information, use LilyPond's automatic
 beaming instead.
 
 @item -o,--output=@var{file}
@@ -330,7 +330,7 @@ which imports @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 which imports MIDI
 @item
 @uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
-a LISP library to generate music notation 
+a LISP library to generate music notation
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml},
 has experimental export for LilyPond.

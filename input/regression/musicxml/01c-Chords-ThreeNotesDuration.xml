@@ -1,20 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 0.6 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-	<work> <work-title>/home/reinhold/lilypond-dev-files/MusicXML/01b_Chords_Rosegarden.xml</work-title></work> 
 	<identification> 
-		<rights>Unknown</rights>
-		<encoding>
-			<software>Rosegarden-4</software>
-		</encoding>
 		<miscellaneous>
-			<miscellaneous-field name="description">Some subsequent 
-                            (identical) two-note chords.</miscellaneous-field>
+			<miscellaneous-field name="description">Some three-note 
+                            chords, with various durations.</miscellaneous-field>
 		</miscellaneous>
 	</identification> 
 	<part-list>
 		<score-part id="P0">
-			<part-name>Chord test</part-name>
+			<part-name>MusicXML Part</part-name>
 			<score-instrument id="I1">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
@@ -39,6 +34,57 @@
 			</attributes>
 			<note>
 				<pitch>
+					<step>F</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>1440</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>1440</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>1440</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<dot/>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>480</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>480</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
 					<step>A</step>
 					<octave>4</octave>
 				</pitch>
@@ -57,6 +103,16 @@
 				<type>quarter</type>
 			</note>
 			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>960</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
 				<pitch>
 					<step>A</step>
 					<octave>4</octave>
@@ -76,38 +132,10 @@
 				<type>quarter</type>
 			</note>
 			<note>
-				<pitch>
-					<step>A</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>960</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
 				<chord/>
 				<pitch>
-					<step>F</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>960</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>960</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<octave>4</octave>
+					<step>C</step>
+					<octave>5</octave>
 				</pitch>
 				<duration>960</duration>
 				<voice>1</voice>
@@ -136,6 +164,16 @@
 				<type>quarter</type>
 			</note>
 			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>960</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
 				<pitch>
 					<step>A</step>
 					<octave>4</octave>
@@ -155,6 +193,16 @@
 				<type>quarter</type>
 			</note>
 			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>960</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
 				<pitch>
 					<step>A</step>
 					<octave>4</octave>
@@ -174,6 +222,16 @@
 				<type>quarter</type>
 			</note>
 			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>960</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
 				<pitch>
 					<step>A</step>
 					<octave>4</octave>
@@ -187,6 +245,16 @@
 				<pitch>
 					<step>F</step>
 					<octave>4</octave>
+				</pitch>
+				<duration>960</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>5</octave>
 				</pitch>
 				<duration>960</duration>
 				<voice>1</voice>

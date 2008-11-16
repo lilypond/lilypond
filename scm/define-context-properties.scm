@@ -374,6 +374,10 @@ context.")
      (repeatCommands ,list? "This property is a list of commands
 of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
 @code{#f}.  @code{'end-repeat} is also accepted as a command.")
+     (repeatCountVisibility ,procedure? "A procedure taking as
+arguments an integer and context, returning whether the corresponding
+percent repeat number should be printed when @code{countPercentRepeats}
+is set.")
      (restNumberThreshold ,number? "If a multimeasure rest has more
 measures than this, a number is printed.")
 

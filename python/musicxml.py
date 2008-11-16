@@ -143,11 +143,11 @@ class Work (Xml_node):
 
 class Identification (Xml_node):
     def get_rights (self):
-        rights = self.get_maybe_exist_named_child ('rights')
-        if rights:
-            return rights.get_text ()
-        else:
-            return ''
+        rights = self.get_named_children ('rights')
+        ret = []
+        for r in rights:
+          ret.append (r.get_text ())
+        return string.join (ret, "\n")
 
     def get_creator (self, type):
         creators = self.get_named_children ('creator')
@@ -341,9 +341,11 @@ class Attributes (Measure_element):
 
         key = self.get_named_attribute ('key')
         mode_node = key.get_maybe_exist_named_child ('mode')
-        mode = 'major'
+        mode = None
         if mode_node:
             mode = mode_node.get_text ()
+        if not mode or mode == '':
+            mode = 'major'
 
         fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
         return (fifths, mode)
@@ -705,6 +707,8 @@ class Part (Music_xml_node):
             vid = None
             if voice_id:
                 vid = voice_id.get_text ()
+            elif isinstance (n, Note):
+                vid = "None"
 
             staff_id = n.get_maybe_exist_named_child (u'staff')
             sid = None
@@ -734,8 +738,15 @@ class Part (Music_xml_node):
         id = None
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
+            if voice_id:
+                id = voice_id.get_text ()
+            else:
+                id = "None"
 
-	    if not (voice_id or isinstance (n, Attributes) or
+            # We don't need backup/forward any more, since we have already 
+            # assigned the correct onset times. 
+            # TODO: Let Grouping through. Also: link, print, bokmark sound
+	    if not (isinstance (n, Note) or isinstance (n, Attributes) or
                     isinstance (n, Direction) or isinstance (n, Partial) or
                     isinstance (n, Barline) or isinstance (n, Harmony) or
                     isinstance (n, FiguredBass) ):
@@ -777,7 +788,6 @@ class Part (Music_xml_node):
                 assign_to_next_note.append (n)
                 continue
 
-	    id = voice_id.get_text ()
             if hasattr (n, 'print-object') and getattr (n, 'print-object') == "no":
                 #Skip this note. 
                 pass

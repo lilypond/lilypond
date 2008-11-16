@@ -1034,7 +1034,7 @@ las ligaduras de unión y de expresión y las indicaciones de dinámica:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
-  % Default behaviour or behaviour after \oneVoice
+  % Default behavior or behavior after \oneVoice
   c d8 ~ d e4 ( f g a ) b-> c
 }
 @end lilypond
@@ -1471,7 +1471,7 @@ refrainwordsB = \lyricmode {
 \score {
   \new ChoirStaff {
     \new Staff <<
-      \context Voice = "verse" {
+      \new Voice = "verse" {
         \versenotes \break
         <<
           \refrainnotesA
@@ -2067,7 +2067,7 @@ d e
 % make note heads larger
 \set fontSize = #2.5
 f g
-% return to original size
+% return to default size
 \unset fontSize
 a b
 @end lilypond
@@ -2511,7 +2511,6 @@ sopranoMusic = \relative c' {
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 }
 
@@ -2523,11 +2522,10 @@ celloMusic = \relative c {
   \clef bass
   \key c \major
   \time 4/4
-
   d4 g fis8 e d4
 }
 
-\score{
+\score {
   <<
     <<
       \new Voice = "one" {
@@ -2734,28 +2732,28 @@ del ejemplo anterior, obtenemos:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
 global = { \key d \major \time 4/4 }
-sopMusic = \relative c'' {
+sopranoMusic = \relative c'' {
   \clef "treble"
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
-sopWords = \lyricmode {
+sopranoWords = \lyricmode {
   Wor -- thy is the lamb that was slain
 }
 altoMusic = \relative a' {
   \clef "treble"
   r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
 }
-altoWords = \sopWords
+altoWords = \sopranoWords
 tenorMusic = \relative c' {
   \clef "G_8"
   r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
-tenorWords = \sopWords
+tenorWords = \sopranoWords
 bassMusic = \relative c' {
   \clef "bass"
   r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
-bassWords = \sopWords
+bassWords = \sopranoWords
 upper = \relative a' {
   \clef "treble"
   \global
@@ -2776,9 +2774,9 @@ lower = \relative c, {
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = "Soprano"
-        \new Voice = "sopranos" { \global \sopMusic }
+        \new Voice = "sopranos" { \global \sopranoMusic }
       >>
-      \new Lyrics \lyricsto "sopranos" { \sopWords }
+      \new Lyrics \lyricsto "sopranos" { \sopranoWords }
       \new Staff = "altos" <<
         \set Staff.instrumentName = "Alto"
         \new Voice = "altos" { \global \altoMusic }
@@ -2797,7 +2795,7 @@ lower = \relative c, {
     >>  % end ChoirStaff
 
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = "Piano"
+      \set PianoStaff.instrumentName = "Piano  "
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>
@@ -2956,7 +2954,7 @@ ManualOneVoiceOneMusic = \relative g' {
   g4 g f ees | d2 c2 |
 }
 ManualOneVoiceTwoMusic = \relative c' {
-  ees16 d ees8~ ees16 f ees s c8 d~ d c~ |
+  ees16 d ees8~ ees16 f ees d c8 d~ d c~ |
   c c4 b8 c8. g16 c b c d |
 }
 ManualTwoMusic = \relative c' {

@@ -164,7 +164,7 @@ The default action; produces a major triad.
 }
 @end lilypond
 
-@item 
+@item
 m, m7
 @tab
 The minor chord.  This modifier lowers the 3rd and (if present) the
@@ -178,7 +178,7 @@ The minor chord.  This modifier lowers the 3rd and (if present) the
 @end lilypond
 
 
-@item 
+@item
 dim, dim7
 @tab
 The diminished chord.  This modifier lowers the 3rd, 5th and (if
@@ -191,7 +191,7 @@ present) the 7th step.
 }
 @end lilypond
 
-@item 
+@item
 aug
 @tab
 The augmented chord.  This modifier raises the 5th step.
@@ -203,7 +203,7 @@ The augmented chord.  This modifier raises the 5th step.
 }
 @end lilypond
 
-@item 
+@item
 maj, maj7
 @tab
 The major 7th chord.  This modifier adds a raised 7th step.  The
@@ -304,11 +304,11 @@ as part of the basic chord structure, add it as an altered step.
 
 @funindex ^
 
-Following any steps to be added, a series of steps to be removed 
-is introduced in a modifier string with a prefix of @code{^}.  
+Following any steps to be added, a series of steps to be removed
+is introduced in a modifier string with a prefix of @code{^}.
 If more than one step is to be removed, the steps to be
 removed are separated by @code{.} following the
-initial @code{^}. 
+initial @code{^}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
@@ -356,7 +356,7 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 @end lilypond
 
 Chord modifiers that can be used to produce a variety of
-standard chords are shown in 
+standard chords are shown in
 @ref{Common chord modifiers}.
 
 @seealso

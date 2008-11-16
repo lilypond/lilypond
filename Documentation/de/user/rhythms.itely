@@ -2103,8 +2103,8 @@ c c c c
 In Partituren mit vielen Systemen wird ein @code{\bar}-Befehl in einem 
 System automatisch auf alle anderen Systeme angewendet. Die resultierenden 
 Taktlinien sind miteinander verbunden innerhalb einer Gruppe 
-(@code{StaffGroup} bzw. @code{InnerStaffGroup}) oder einem 
-Klaviersystem (@code{PianoStaff} bzw. (@code{GrandStaff}).
+(@code{StaffGroup}) oder einem Klaviersystem
+(@code{PianoStaff} bzw. (@code{GrandStaff}).
 
 @lilypond[quote,fragment,verbatim]
 <<

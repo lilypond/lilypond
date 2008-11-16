@@ -1,5 +1,5 @@
 #!@TARGET_PYTHON@
-
+# -*- coding: utf-8 -*-
 import optparse
 import sys
 import re
@@ -213,6 +213,9 @@ def extract_score_information (tree):
         if "Dolet 3.4 for Sibelius" in software:
             conversion_settings.ignore_beaming = True
             progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
+        if "Noteworthy Composer" in software:
+            conversion_settings.ignore_beaming = True
+            progress (_ ("Encountered file created by Noteworthy Composer's nwc2xml, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
         # TODO: Check for other unsupported features
 
     return header
@@ -421,8 +424,6 @@ def extract_score_structure (part_list, staffinfo):
                     del staves[pos]
                 # replace the staves with the whole group
                 for j in staves[(prev_start + 1):pos]:
-                    if j.is_group:
-                        j.stafftype = "InnerStaffGroup"
                     group.append_staff (j)
                 del staves[(prev_start + 1):pos]
                 staves.insert (prev_start + 1, group)
@@ -650,8 +651,15 @@ def musicxml_key_to_lily (attributes):
     (fifths, mode) = attributes.get_key_signature () 
     try:
         (n,a) = {
-            'major' : (0,0),
-            'minor' : (5,0),
+            'major'     : (0,0),
+            'minor'     : (5,0),
+            'ionian'    : (0,0),
+            'dorian'    : (1,0),
+            'phrygian'  : (2,0),
+            'lydian'    : (3,0),
+            'mixolydian': (4,0),
+            'aeolian'   : (5,0),
+            'locrian'   : (6,0),
             }[mode]
         start_pitch.step = n
         start_pitch.alteration = a
@@ -2559,17 +2567,21 @@ def main ():
     conversion_settings.ignore_beaming = not options.convert_beaming
 
     # Allow the user to leave out the .xml or xml on the filename
-    if args[0]=="-": # Read from stdin
-        filename="-"
+    basefilename = args[0].decode('utf-8')
+    if basefilename == "-": # Read from stdin
+        basefilename = "-"
     else:
-        filename = get_existing_filename_with_extension (args[0], "xml")
+        filename = get_existing_filename_with_extension (basefilename, "xml")
         if not filename:
-            filename = get_existing_filename_with_extension (args[0], "mxl")
+            filename = get_existing_filename_with_extension (basefilename, "mxl")
             options.compressed = True
+    if filename and filename.endswith ("mxl"):
+        options.compressed = True
+
     if filename and (filename == "-" or os.path.exists (filename)):
         voices = convert (filename, options)
     else:
-        progress (_ ("Unable to find input file %s") % args[0])
+        progress (_ ("Unable to find input file %s") % basefilename)
 
 if __name__ == '__main__':
     main()

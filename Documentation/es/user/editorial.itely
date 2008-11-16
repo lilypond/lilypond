@@ -174,7 +174,7 @@ Puede usar la articulación de pulgar para indicar que una nota se debe
 tocar con el pulgar (p.ej. en música de cello).
 
 @lilypond[verbatim,quote,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
+<a_\thumb a'-3>2 <b_\thumb b'-3>
 @end lilypond
 
 @cindex digitación de acordes

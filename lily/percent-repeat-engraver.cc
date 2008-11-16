@@ -1,5 +1,5 @@
 /*
-  new-chord-tremolo-engraver.cc -- implement Chord_tremolo_engraver
+  percent-repeat-engraver.cc -- implement Percent_repeat_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -30,6 +30,7 @@
 class Percent_repeat_engraver : public Engraver
 {
   void typeset_perc ();
+  bool check_count_visibility (SCM count);
 public:
   TRANSLATOR_DECLARATIONS (Percent_repeat_engraver);
   
@@ -120,7 +121,7 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
 	  /*
 	    don't warn about percent repeats: slash repeats are not
 	    exactly 1 or 2 measures long.
-	   */
+	  */
 	  return;
 	}
       percent_event_ = ev;
@@ -147,7 +148,8 @@ Percent_repeat_engraver::process_music ()
 	  percent_->set_bound (LEFT, col);
 
 	  SCM count = percent_event_->get_property ("repeat-count");
-          if (count != SCM_EOL && to_boolean (get_property ("countPercentRepeats")))
+	  if (count != SCM_EOL && to_boolean (get_property ("countPercentRepeats"))
+	      && check_count_visibility (count))
 	    {
 	      percent_counter_
 		= make_spanner ("PercentRepeatCounter", percent_event_->self_scm ());
@@ -167,8 +169,8 @@ Percent_repeat_engraver::process_music ()
 	  Item *double_percent = make_item ("DoublePercentRepeat", percent_event_->self_scm ());
 
 	  SCM count = percent_event_->get_property ("repeat-count");
-	  if (count != SCM_EOL
-	      && to_boolean (get_property ("countPercentRepeats")))
+	  if (count != SCM_EOL && to_boolean (get_property ("countPercentRepeats"))
+	      && check_count_visibility (count))
 	    {
 	      Item *double_percent_counter = make_item ("DoublePercentRepeatCounter",
 	      						percent_event_->self_scm ());
@@ -219,6 +221,14 @@ Percent_repeat_engraver::typeset_perc ()
     }
 }
 
+bool
+Percent_repeat_engraver::check_count_visibility (SCM count)
+{
+  SCM proc = get_property ("repeatCountVisibility");
+  return (ly_is_procedure (proc) && to_boolean (scm_call_2 (proc,
+							    count,
+							    context ()->self_scm ())));
+}
 
 
 void
@@ -239,7 +249,8 @@ ADD_TRANSLATOR (Percent_repeat_engraver,
 		/* read */
 		"countPercentRepeats "
 		"currentCommandColumn "
-		"measureLength ",
+		"measureLength "
+		"repeatCountVisibility ",
 
 		/* write */
 		"forbidBreak "
