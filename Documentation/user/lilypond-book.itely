@@ -205,8 +205,10 @@ or
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
+Additionally, @code{\lilypondversion} displays the the current version
+of lilypond.
 Running @command{lilypond-book} yields a file that can be further
-processed with @LaTeX{}.
+processed with @LaTeX{}. 
 
 We show some examples here.  The @code{lilypond} environment
 
@@ -392,6 +394,9 @@ or
 @@lilypondfile[options,go,here]@{@var{filename}@}
 @end example
 
+Additionally, @code{@@lilypondversion} displays the the current version
+of lilypond.
+
 When @command{lilypond-book} is run on it, this results in a Texinfo
 file (with extension @file{.texi}) containing @code{@@image} tags for
 HTML, Info and printed output.  @command{lilypond-book} generates images
@@ -438,7 +443,6 @@ Music is entered using
 \key c \minor c4 es g2
 </lilypond>
 @end example
-
 @noindent
 @command{lilypond-book} then produces an HTML file with appropriate image
 tags for the music fragments:
@@ -454,11 +458,16 @@ are separated by a colon from the music, for example
 Some music in <lilypond relative=2: a b c/> a line of text.
 @end example
 
+
 To include separate files, say
 
 @example
 <lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
 @end example
+
+Additionally, @code{<lilypondversion/>} displays the the current version
+of lilypond.
+
 
 @cindex titling in HTML
 @cindex preview image
