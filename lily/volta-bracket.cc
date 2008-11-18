@@ -132,6 +132,8 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 	&& str != "|:"
 	&& str != "|."
 	&& str != ":|:"
+	&& str != ":|.|:"
+	&& str != ":|.:"
 	&& str != ".|");
 
   if (no_vertical_end || no_vertical_start)
