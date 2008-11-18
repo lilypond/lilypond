@@ -1678,33 +1678,8 @@ a a a a
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {reverting-default-beam-endings.ly}
 
-@c TODO Convert to snippet called "Beam endings in Score context"
-@c Submitted to LSR 3 Nov 08
-
-Beam-ending rules specified in the Score context apply to all
-staves, but can be modified at both Staff and Voice levels:
-
-@lilypond[quote,verbatim,relative=2]
-  \time 5/4
-  % Set default beaming for all staves
-  #(override-auto-beam-setting '(end * * 5 4) 3 8 'Score)
-  #(override-auto-beam-setting '(end * * 5 4) 7 8 'Score)
-  <<
-    \new Staff {
-      c8 c c c c c c c c c
-    }
-    \new Staff {
-      % Modify beaming for just this staff
-      #(override-auto-beam-setting '(end * * 5 4) 6 8 'Staff)
-      #(revert-auto-beam-setting '(end * * 5 4) 7 8 'Staff)
-      c8 c c c c c c c c c
-    }
-    \new Staff {
-      % Inherit beaming from Score context
-      c8 c c c c c c c c c
-    }
-  >>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beam-endings-in-score-context.ly}
 
 
 @predefined
