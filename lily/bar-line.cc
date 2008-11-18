@@ -336,7 +336,7 @@ ADD_INTERFACE (Bar_line,
 	       " symbol with a special symbol.  The argument @var{bartype}"
 	       " is a string which specifies the kind of bar to print."
 	       "  Options are @code{:|}, @code{|:}, @code{:|:}, @code{||},"
-	       " @code{|.}, @code{.|}, @code{.|.}, @code{:} and @code{"dashed"}.\n"
+	       " @code{|.}, @code{.|}, @code{.|.}, @code{:} and @code{\"dashed\"}.\n"
 	       "\n"
 	       "These produce, respectively, a right repeat, a left repeat,"
 	       " a double repeat, a double bar, a start bar, an end bar,"
