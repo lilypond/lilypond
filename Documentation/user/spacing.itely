@@ -552,6 +552,9 @@ page.  Default: @code{##t}.
 Pieces that amply fill two pages or more should have this set to
 true.
 
+It also affects the last page of book parts, ie parts of a book created
+with @code{\bookpart} blocks.
+
 @item ragged-right
 @funindex ragged-right
 
@@ -931,6 +934,38 @@ The old page breaking algorithm is called
 @code{optimal-page-breaks}.  If you are having trouble with the new page
 breakers, you can enable the old one as a workaround.
 
+@funindex \bookpart
+
+When a book has many scores and pages, the page breaking problem may be
+difficult to solve, requiring large processing time and memory.  To ease
+the page breaking process, @code{\bookpart} blocks are used to divide
+the book into several parts: the page breaking occurs separately on each
+part.  Different page breaking functions may also be used in different
+book parts.
+
+@example
+\bookpart @{
+  \header @{
+    subtitle = "Preface"
+  @}
+  \paper @{
+     %% In a part consisting mostly of text,
+     %% ly:minimal-breaking may be prefered
+     #(define page-breaking ly:minimal-breaking)
+  @}
+  \markup @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  %% In this part, consisting of music, the default optimal
+  %% page breaking function is used.
+  \header @{
+    subtitle = "First movement"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
 
 @predefined
 

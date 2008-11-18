@@ -10,7 +10,8 @@
 
 
 #(ly:set-option 'old-relative #f)
-#(define toplevel-scores '())
+#(define toplevel-scores (list))
+#(define toplevel-bookparts (list))
 #(define output-count 0) 
 #(define $defaultheader #f)
 #(define version-seen #f)
@@ -35,13 +36,26 @@
   (version-not-seen-message input-file-name))
 
 #(ly:set-option 'protected-scheme-parsing #f)
-#(if (or (pair? toplevel-scores) output-empty-score-list)
-  ((if (defined? 'default-toplevel-book-handler)
-    default-toplevel-book-handler
-    toplevel-book-handler)
-   parser
-   (apply ly:make-book $defaultpaper $defaultheader toplevel-scores)))
 
+#(let ((book-handler (if (defined? 'default-toplevel-book-handler)
+                         default-toplevel-book-handler
+                         toplevel-book-handler)))
+   (cond ((pair? toplevel-bookparts)
+          (let ((book (ly:make-book $defaultpaper $defaultheader)))
+            (map (lambda (part)
+                   (ly:book-add-bookpart! book part))
+                 (reverse! toplevel-bookparts))
+            (set! toplevel-bookparts (list))
+            ;; if scores have been defined after the last explicit \bookpart:
+            (if (pair? toplevel-scores)
+                (map (lambda (score)
+                       (ly:book-add-score! book score))
+                     (reverse! toplevel-scores)))
+            (set! toplevel-scores (list))
+            (book-handler parser book)))
+         ((or (pair? toplevel-scores) output-empty-score-list)
+          (book-handler parser (apply ly:make-book $defaultpaper
+                                      $defaultheader toplevel-scores)))))
 
 #(if (eq? expect-error (ly:parser-has-error? parser))
   (ly:parser-clear-error parser)

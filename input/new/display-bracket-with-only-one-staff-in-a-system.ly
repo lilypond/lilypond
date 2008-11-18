@@ -2,10 +2,9 @@
 \header {
   lsrtags = "staff-notation,tweaks-and-overrides"
   texidoc = "If there is only one staff in one of the staff types
-@code{ChoirStaff}, @code{InnerChoirStaff}, @code{InnerStaffGroup}
-or @code{StaffGroup}, the bracket and the starting bar line will not
-be displayed as standard behavior.  This can be changed by overriding
-the relevant properties.
+@code{ChoirStaff} or @code{StaffGroup}, the bracket and the starting
+bar line will not be displayed as standard behavior.  This can be changed
+by overriding the relevant properties.
 
 Note that in contexts such as @code{PianoStaff} and @code{GrandStaff}
 where the systems begin with a brace instead of a bracket, another

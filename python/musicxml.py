@@ -382,8 +382,7 @@ class Note (Measure_element):
 	    # FIXME: is it ok to default to eight note for grace notes?
 	    return 3
         else:
-            self.message (_ ("Encountered note at %s with %s duration (no <type> element):") % (self.start, self.duration) )
-            return 0
+            return None
 
     def get_factor (self):
         return 1
