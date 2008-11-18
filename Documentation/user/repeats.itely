@@ -284,6 +284,7 @@ g4 a g a
 c1
 \set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
 b1
+\set Score.repeatCommands = #'((volta #f))
 @end lilypond
 
 @cindex volta bracket with text
@@ -422,6 +423,9 @@ where @var{musicexpr} is a music expression.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {percent-repeat-counter.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-count-visibility.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {isolated-percent-repeats.ly}

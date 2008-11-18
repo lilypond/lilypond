@@ -271,6 +271,7 @@ class Pitch:
         self.alteration = 0
         self.step = 0
         self.octave = 0
+        self._force_absolute_pitch = False
         
     def __repr__(self):
         return self.ly_expression()
@@ -340,7 +341,7 @@ class Pitch:
 
     def ly_expression (self):
         str = self.ly_step_expression ()
-        if relative_pitches:
+        if relative_pitches and not self._force_absolute_pitch:
             str += self.relative_pitch ()
         else:
             str += self.absolute_pitch ()
@@ -1354,6 +1355,13 @@ class ClefChange (Music):
 """ % (glyph, pos, c0)
         return clefsetting
 
+class Transposition (Music):
+    def __init__ (self):
+        Music.__init__ (self)
+        self.pitch = None
+    def ly_expression (self):
+        self.pitch._force_absolute_pitch = True
+        return '\\transposition %s' % self.pitch.ly_expression ()
 
 class StaffChange (Music):
     def __init__ (self, staff):

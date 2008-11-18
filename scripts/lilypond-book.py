@@ -51,6 +51,17 @@ ly.require_python_version ()
 program_version = '@TOPLEVEL_VERSION@'
 program_name = os.path.basename (sys.argv[0])
 
+# Check if program_version contains @ characters. This will be the case if
+# the .py file is called directly while building the lilypond documentation.
+# If so, try to check for the env var LILYPOND_VERSION, which is set by our 
+# makefiles and use its value.
+at_re = re.compile (r'@')
+if at_re.match (program_version):
+    if os.environ.has_key('LILYPOND_VERSION'):
+        program_version = os.environ['LILYPOND_VERSION']
+    else:
+        program_version = "unknown"
+
 original_dir = os.getcwd ()
 backend = 'ps'
 
@@ -260,6 +271,7 @@ DOCTITLE = 'doctitle'
 TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
+VERSION = 'lilypondversion'
 FONTLOAD = 'fontload'
 FILENAME = 'filename'
 ALT = 'alt'
@@ -317,7 +329,9 @@ snippet_res = {
 
         'verbatim':
 	no_match,
-    	
+
+        'lilypondversion':
+         no_match,
     }, 
     ##
     HTML: {
@@ -370,6 +384,11 @@ snippet_res = {
           (?s)
           (?P<match>
            (?P<code><pre>\s.*?</pre>\s))''',
+
+        'lilypondversion':
+         r'''(?mx)
+          (?P<match>
+          <lilypondversion\s*/>)''',
     },
 
     ##
@@ -443,6 +462,12 @@ snippet_res = {
            \\begin\s*{verbatim}
             .*?
            \\end\s*{verbatim}))''',
+
+        'lilypondversion':
+         r'''(?smx)
+          (?P<match>
+          \\lilypondversion)[^a-zA-Z]''',
+
     },
 
     ##
@@ -509,6 +534,12 @@ snippet_res = {
            @example
             \s.*?
            @end\s+example\s))''',
+
+        'lilypondversion':
+         r'''(?mx)
+         [^@](?P<match>
+          @lilypondversion)[^a-zA-Z]''',
+
     },
 }
 
@@ -608,6 +639,8 @@ output = {
 		<imagedata fileref="%(base)s.png" format="PNG"/></imageobject>''',
     
         VERBATIM: r'''<programlisting>%(verb)s</programlisting>''',
+        
+        VERSION: program_version,
     
         PRINTFILENAME: '<textobject><simpara><ulink url="%(base)s.ly"><filename>%(filename)s</filename></ulink></simpara></textobject>'
     },
@@ -638,6 +671,8 @@ output = {
 
         VERBATIM: r'''<pre>
 %(verb)s</pre>''',
+
+        VERSION: program_version,
     },
 
     ##
@@ -666,6 +701,8 @@ output = {
 
         VERBATIM: r'''\noindent
 \begin{verbatim}%(verb)s\end{verbatim}''',
+
+        VERSION: program_version,
 
         FILTER: r'''\begin{lilypond}[%(options)s]
 %(code)s
@@ -720,6 +757,8 @@ output = {
 %(version)s@verbatim
 %(verb)s@end verbatim
 ''',
+
+        VERSION: program_version,
 
         ADDVERSION: r'''@example
 \version @w{"@version{}"}
@@ -1446,11 +1485,21 @@ class LilypondFileSnippet (LilypondSnippet):
                 % (name, self.contents))
 
 
+class LilyPondVersionString (Snippet):
+    """A string that does not require extra memory."""
+    def __init__ (self, type, match, format, line_number):
+        Snippet.__init__ (self, type, match, format, line_number)
+
+    def replacement_text (self):
+        return output[self.format][self.type]
+
+
 snippet_type_to_class = {
     'lilypond_file': LilypondFileSnippet,
     'lilypond_block': LilypondSnippet,
     'lilypond': LilypondSnippet,
     'include': IncludeSnippet,
+    'lilypondversion': LilyPondVersionString,
 }
 
 def find_linestarts (s):
@@ -1879,6 +1928,7 @@ def do_file (input_filename, included=False):
             'lilypond_file',
             'include',
             'lilypond',
+            'lilypondversion',
         )
         progress (_ ("Dissecting..."))
         chunks = find_toplevel_snippets (source, global_options.format, snippet_types)

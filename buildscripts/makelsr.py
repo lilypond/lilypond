@@ -155,7 +155,7 @@ for (name, (srcdir, tags)) in snippets.items ():
 	copy_ly (srcdir, name, tags)
 
 for (tag, file_set) in tag_lists.items ():
-	dump_file_list (os.path.join (DEST, tag + '.snippet-list'), file_set)
+	dump_file_list (os.path.join (DEST, tag + '.snippet-list'), sorted(file_set))
 
 if unconverted:
 	sys.stderr.write ('These files could not be converted successfully by convert-ly:\n')

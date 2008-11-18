@@ -5,7 +5,7 @@
     <identification>
       <miscellaneous>
         <miscellaneous-field name="description">Barlines can appear at 
-            mid-measure positions!</miscellaneous-field>
+            mid-measure positions, without using an implicit measure!</miscellaneous-field>
       </miscellaneous>
     </identification>
     <part-list>

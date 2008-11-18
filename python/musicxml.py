@@ -74,6 +74,18 @@ class Xml_node:
             sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items ()])))
             p = p.get_parent ()
         
+    def dump (self, indent = ''):
+        sys.stderr.write ('%s<%s%s>' % (indent, self._name, ''.join ([' %s=%s' % item for item in self._attribute_dict.items ()])))
+        non_text_children = [c for c in self._children if not isinstance (c, Hash_text)]
+        if non_text_children:
+            sys.stderr.write ('\n')
+        for c in self._children:
+            c.dump (indent + "    ")
+        if non_text_children:
+            sys.stderr.write (indent)
+        sys.stderr.write ('</%s>\n' % self._name)
+
+        
     def get_typed_children (self, klass):
         if not klass:
             return []
@@ -143,11 +155,11 @@ class Work (Xml_node):
 
 class Identification (Xml_node):
     def get_rights (self):
-        rights = self.get_maybe_exist_named_child ('rights')
-        if rights:
-            return rights.get_text ()
-        else:
-            return ''
+        rights = self.get_named_children ('rights')
+        ret = []
+        for r in rights:
+          ret.append (r.get_text ())
+        return string.join (ret, "\n")
 
     def get_creator (self, type):
         creators = self.get_named_children ('creator')
@@ -224,7 +236,8 @@ class Duration (Music_xml_node):
 class Hash_comment (Music_xml_node):
     pass
 class Hash_text (Music_xml_node):
-    pass
+    def dump (self, indent = ''):
+        sys.stderr.write ('%s' % string.strip (self._data))
 
 class Pitch (Music_xml_node):
     def get_step (self):
@@ -341,12 +354,19 @@ class Attributes (Measure_element):
 
         key = self.get_named_attribute ('key')
         mode_node = key.get_maybe_exist_named_child ('mode')
-        mode = 'major'
+        mode = None
         if mode_node:
             mode = mode_node.get_text ()
+        if not mode or mode == '':
+            mode = 'major'
 
         fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
         return (fifths, mode)
+        
+    def get_transposition (self):
+        return self.get_named_attribute ('transpose')
+        
+
 
 class Barline (Measure_element):
     pass
@@ -380,8 +400,7 @@ class Note (Measure_element):
 	    # FIXME: is it ok to default to eight note for grace notes?
 	    return 3
         else:
-            self.message (_ ("Encountered note at %s with %s duration (no <type> element):") % (self.start, self.duration) )
-            return 0
+            return None
 
     def get_factor (self):
         return 1
@@ -705,6 +724,8 @@ class Part (Music_xml_node):
             vid = None
             if voice_id:
                 vid = voice_id.get_text ()
+            elif isinstance (n, Note):
+                vid = "None"
 
             staff_id = n.get_maybe_exist_named_child (u'staff')
             sid = None
@@ -734,8 +755,15 @@ class Part (Music_xml_node):
         id = None
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
+            if voice_id:
+                id = voice_id.get_text ()
+            else:
+                id = "None"
 
-	    if not (voice_id or isinstance (n, Attributes) or
+            # We don't need backup/forward any more, since we have already 
+            # assigned the correct onset times. 
+            # TODO: Let Grouping through. Also: link, print, bokmark sound
+	    if not (isinstance (n, Note) or isinstance (n, Attributes) or
                     isinstance (n, Direction) or isinstance (n, Partial) or
                     isinstance (n, Barline) or isinstance (n, Harmony) or
                     isinstance (n, FiguredBass) ):
@@ -777,7 +805,6 @@ class Part (Music_xml_node):
                 assign_to_next_note.append (n)
                 continue
 
-	    id = voice_id.get_text ()
             if hasattr (n, 'print-object') and getattr (n, 'print-object') == "no":
                 #Skip this note. 
                 pass

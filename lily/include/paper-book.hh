@@ -31,11 +31,16 @@ public:
   SCM header_;
   SCM header_0_;
   SCM scores_;
+  SCM bookparts_;
+  Paper_book *parent_;
   Output_def *paper_;
 
   Paper_book ();
 
+  Output_def *top_paper ();
+
   void add_score (SCM);
+  void add_bookpart (SCM);
   void add_performance (SCM);
 
   SCM performances () const;
@@ -49,6 +54,14 @@ public:
   
   void classic_output (SCM output_channel);
   void output (SCM output_channel);
+
+protected:
+  void classic_output_aux (SCM output,
+			   int *first_performance_number);
+  void output_aux (SCM output_channel,
+		   bool is_last,
+		   int *first_page_number,
+		   int *first_performance_number);
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)

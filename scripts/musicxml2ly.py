@@ -1,5 +1,5 @@
 #!@TARGET_PYTHON@
-
+# -*- coding: utf-8 -*-
 import optparse
 import sys
 import re
@@ -213,6 +213,9 @@ def extract_score_information (tree):
         if "Dolet 3.4 for Sibelius" in software:
             conversion_settings.ignore_beaming = True
             progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
+        if "Noteworthy Composer" in software:
+            conversion_settings.ignore_beaming = True
+            progress (_ ("Encountered file created by Noteworthy Composer's nwc2xml, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
         # TODO: Check for other unsupported features
 
     return header
@@ -421,8 +424,6 @@ def extract_score_structure (part_list, staffinfo):
                     del staves[pos]
                 # replace the staves with the whole group
                 for j in staves[(prev_start + 1):pos]:
-                    if j.is_group:
-                        j.stafftype = "InnerStaffGroup"
                     group.append_staff (j)
                 del staves[(prev_start + 1):pos]
                 staves.insert (prev_start + 1, group)
@@ -446,17 +447,22 @@ def extract_score_structure (part_list, staffinfo):
 
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
-    # if the note has no Type child, then that method spits out a warning and 
-    # returns 0, i.e. a whole note
+    # if the note has no Type child, then that method returns None. In that case,
+    # use the <duration> tag instead. If that doesn't exist, either -> Error
     d.duration_log = mxl_note.get_duration_log ()
-
-    d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
-    # Grace notes by specification have duration 0, so no time modification 
-    # factor is possible. It even messes up the output with *0/1
-    if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
-        d.factor = mxl_note._duration / d.get_length ()
-
-    return d
+    if d.duration_log == None:
+        if mxl_note._duration > 0:
+            return rational_to_lily_duration (mxl_note._duration)
+        else:
+            mxl_note.message (_ ("Encountered note at %s without type and duration (=%s)") % (mxl_note.start, mxl_note._duration) )
+            return None
+    else:
+        d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
+        # Grace notes by specification have duration 0, so no time modification 
+        # factor is possible. It even messes up the output with *0/1
+        if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
+            d.factor = mxl_note._duration / d.get_length ()
+        return d
 
 def rational_to_lily_duration (rational_len):
     d = musicexp.Duration ()
@@ -597,6 +603,7 @@ def group_tuplets (music_list, events):
 
     
     indices = []
+    brackets = {}
 
     j = 0
     for (ev_chord, tuplet_elt, fraction) in events:
@@ -604,15 +611,21 @@ def group_tuplets (music_list, events):
             if music_list[j] == ev_chord:
                 break
             j += 1
+        nr = tuplet_elt.number
         if tuplet_elt.type == 'start':
-            indices.append ((j, None, fraction))
+            tuplet_info = [j, None, fraction]
+            indices.append (tuplet_info)
+            brackets[nr] = tuplet_info
         elif tuplet_elt.type == 'stop':
-            indices[-1] = (indices[-1][0], j, indices[-1][2])
+            bracket_info = brackets.get (nr, None)
+            if bracket_info:
+                bracket_info[1] = j
+                del brackets[nr]
 
     new_list = []
     last = 0
     for (i1, i2, frac) in indices:
-        if i1 >= i2:
+        if i1 > i2:
             continue
 
         new_list.extend (music_list[last:i1])
@@ -650,8 +663,15 @@ def musicxml_key_to_lily (attributes):
     (fifths, mode) = attributes.get_key_signature () 
     try:
         (n,a) = {
-            'major' : (0,0),
-            'minor' : (5,0),
+            'major'     : (0,0),
+            'minor'     : (5,0),
+            'ionian'    : (0,0),
+            'dorian'    : (1,0),
+            'phrygian'  : (2,0),
+            'lydian'    : (3,0),
+            'mixolydian': (4,0),
+            'aeolian'   : (5,0),
+            'locrian'   : (6,0),
             }[mode]
         start_pitch.step = n
         start_pitch.alteration = a
@@ -674,13 +694,47 @@ def musicxml_key_to_lily (attributes):
     change.mode = mode
     change.tonic = start_pitch
     return change
+
+def musicxml_transpose_to_lily (attributes):
+    transpose = attributes.get_transposition ()
+    if not transpose:
+        return None
+
+    shift = musicexp.Pitch ()
+    octave_change = transpose.get_maybe_exist_named_child ('octave-change')
+    if octave_change:
+        shift.octave = string.atoi (octave_change.get_text ())
+    chromatic_shift = string.atoi (transpose.get_named_child ('chromatic').get_text ())
+    chromatic_shift_normalized = chromatic_shift % 12;
+    (shift.step, shift.alteration) = [
+        (0,0), (0,1), (1,0), (2,-1), (2,0), 
+        (3,0), (3,1), (4,0), (5,-1), (5,0), 
+        (6,-1), (6,0)][chromatic_shift_normalized];
     
+    shift.octave += (chromatic_shift - chromatic_shift_normalized) / 12
+
+    diatonic = transpose.get_maybe_exist_named_child ('diatonic')
+    if diatonic:
+        diatonic_step = string.atoi (diatonic.get_text ()) % 7
+        if diatonic_step != shift.step:
+            # We got the alter incorrect!
+            old_semitones = shift.semitones ()
+            shift.step = diatonic_step
+            new_semitones = shift.semitones ()
+            shift.alteration += old_semitones - new_semitones
+
+    transposition = musicexp.Transposition ()
+    transposition.pitch = musicexp.Pitch ().transposed (shift)
+    return transposition
+
+
 def musicxml_attributes_to_lily (attrs):
     elts = []
     attr_dispatch =  {
         'clef': musicxml_clef_to_lily,
         'time': musicxml_time_to_lily,
-        'key': musicxml_key_to_lily
+        'key': musicxml_key_to_lily,
+        'transpose': musicxml_transpose_to_lily,
     }
     for (k, func) in attr_dispatch.items ():
         children = attrs.get_named_children (k)
@@ -2062,14 +2116,6 @@ def musicxml_voice_to_lily_voice (voice):
                     is_beamed = True
                 elif beam_ev.span_direction == 1: # beam and thus melisma ends here
                     is_beamed = False
-            
-        if tuplet_event:
-            mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
-            frac = (1,1)
-            if mod:
-                frac = mod.get_fraction ()
-                
-            tuplet_events.append ((ev_chord, tuplet_event, frac))
 
         # Extract the lyrics
         if not rest and not ignore_lyrics:
@@ -2559,17 +2605,21 @@ def main ():
     conversion_settings.ignore_beaming = not options.convert_beaming
 
     # Allow the user to leave out the .xml or xml on the filename
-    if args[0]=="-": # Read from stdin
-        filename="-"
+    basefilename = args[0].decode('utf-8')
+    if basefilename == "-": # Read from stdin
+        basefilename = "-"
     else:
-        filename = get_existing_filename_with_extension (args[0], "xml")
+        filename = get_existing_filename_with_extension (basefilename, "xml")
         if not filename:
-            filename = get_existing_filename_with_extension (args[0], "mxl")
+            filename = get_existing_filename_with_extension (basefilename, "mxl")
             options.compressed = True
+    if filename and filename.endswith ("mxl"):
+        options.compressed = True
+
     if filename and (filename == "-" or os.path.exists (filename)):
         voices = convert (filename, options)
     else:
-        progress (_ ("Unable to find input file %s") % args[0])
+        progress (_ ("Unable to find input file %s") % basefilename)
 
 if __name__ == '__main__':
     main()

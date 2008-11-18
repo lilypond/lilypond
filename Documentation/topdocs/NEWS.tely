@@ -63,6 +63,53 @@ which scares away people.
 @end ignore
 
 @item
+@code{\bookpart} blocks may be used to split a book into several parts,
+separated by a page break, in order to ease the page breaking, or to use
+different @code{\paper} settings in different parts.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Book title"
+    subtitle = "First part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Second part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+@item
+Nested contexts of the same type are now allowed.
+This deprecates @code{InnerStaffGroup} and @code{InnerChoirStaff}.
+@lilypond[relative=1]
+\new StaffGroup <<
+  \new Staff { c1 }
+  \new StaffGroup <<
+    \new Staff { c1 }
+    \new Staff { c1 }
+  >>
+>>
+@end lilypond
+
+@item
+Percent repeat counters can be shown at regular intervals using the
+context property @code{repeatCountVisibility}.
+@lilypond[relative=1]
+{
+  \set countPercentRepeats = ##t
+  \set repeatCountVisibility = #(every-nth-repeat-count-visible 2)
+  \repeat percent 8 { c4 d e f }
+}
+@end lilypond
+
+@item
 In addition to the already existing @code{showLastLength} property,
 @code{showFirstLength} can now be set as well, rendering only the first
 measures of a piece.  Both properties may be set at the same time:
@@ -145,7 +192,9 @@ testnotes = {
          (yext (if is-up (cons (* log -0.8) 0) (cons 0 (* log 0.8))))
          (flag-stencil (make-filled-box-stencil '(-0.4 . 0.4) yext))
          (stroke-style (ly:grob-property stem-grob 'stroke-style))
-         (stroke-stencil (if (equal? stroke-style "grace") (make-line-stencil 0.2 -0.9 -0.4 0.9 -0.4) empty-stencil)))
+         (stroke-stencil (if (equal? stroke-style "grace")
+             (make-line-stencil 0.2 -0.9 -0.4 0.9 -0.4)
+             empty-stencil)))
     (ly:stencil-add flag-stencil stroke-stencil)))
 
 {
@@ -371,14 +420,12 @@ The environment variable @code{LILYPONDPREFIX} has been renamed
 Notes or rests, such as a typical end note, that fill an entire
 measure are preceded by some more space.
 
-@lilypond[]
-\relative c' {
-  \time 4/4
-  s1
-  c2. c4
-  \time 3/4
-  c2.
-}
+@lilypond[relative=1]
+\time 4/4
+s1
+c2. c4
+\time 3/4
+c2.
 @end lilypond
 
 @item

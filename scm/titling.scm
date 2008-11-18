@@ -12,12 +12,13 @@
 
 ;;;;;;;;;;;;;;;;;;
 
-(define-public ((marked-up-headfoot what-odd what-even) layout scopes page-number last?)
+(define-public ((marked-up-headfoot what-odd what-even)
+                layout scopes page-number is-last-bookpart is-bookpart-last-page)
 
   "Read variables WHAT-ODD, WHAT-EVEN from LAYOUT, and interpret them
 as markup. The PROPS argument will include variables set in SCOPES and
-page:last?, page:page-number-string and page:page-number
-" 
+page:is-bookpart-last-page, page:is-last-bookpart, page:page-number-string
+and page:page-number" 
 
   (define (get sym)
     (ly:output-def-lookup layout sym))
@@ -41,7 +42,8 @@ page:last?, page:page-number-string and page:page-number
 		 (cons 'header:tagline
 		       (ly:modules-lookup scopes 'tagline
 					  (ly:output-def-lookup layout 'tagline)))
-		 (cons 'page:last? last?)
+		 (cons 'page:is-last-bookpart is-last-bookpart)
+		 (cons 'page:is-bookpart-last-page is-bookpart-last-page)
 		 (cons 'page:page-number-string
 		       (number->string page-number))
 		 (cons 'page:page-number page-number)))
@@ -49,7 +51,6 @@ page:last?, page:page-number-string and page:page-number
 		       (list pgnum-alist)
 		       prefixed-alists
 		       (layout-extract-page-properties layout))))
-	  
 	  (interpret-markup layout props potential-markup))
 
 	empty-stencil))

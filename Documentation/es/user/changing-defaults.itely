@@ -139,17 +139,6 @@ Igual que GrandStaff pero con una distancia fija entre los
 pentagramas, de manera que se pueden usar ligaduras y barras que
 cruzan de un pentagrama a otro.
 
-@ignore
-@strong{@emph{InnerStaffGroup}}
-
-TODO  -td
-
-@strong{@emph{InnerChoirStaff}}
-
-TODO  -td
-
-@end ignore
-
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts - staves
 

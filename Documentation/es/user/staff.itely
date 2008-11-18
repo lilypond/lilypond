@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.64"
 
 @node Staff notation
 @section Staff notation
@@ -285,18 +285,18 @@ Referencia de funcionamiento interno:
 
 Están disponibles dos contextos adicionales de grupo de pentagramas
 que se pueden anidar dentro de un contexto @code{StaffGroup} o
-@code{ChoirStaff}: @code{InnerStaffGroup} y @code{InnerChoirStaff}.
+@code{ChoirStaff}: @code{StaffGroup} y @code{ChoirStaff}.
 Estos contextos crean un corchete nuevo adyacente al corchete del
 grupo de pentagramas que constituye su «padre».
 
-Un @code{InnerStaffGroup} se trata de forma similar a un
+Un @code{StaffGroup} se trata de forma similar a un
 @code{StaffGroup}; las barras de compás están conectadas entre todos
 los pentagramas que están dentro del contexto:
 
 @lilypond[verbatim,quote,relative=2]
 \new StaffGroup <<
   \new Staff { c2 c | c2 c }
-  \new InnerStaffGroup <<
+  \new StaffGroup <<
     \new Staff { g2 g | g2 g }
     \new Staff { e2 e | e2 e }
   >>
@@ -304,12 +304,12 @@ los pentagramas que están dentro del contexto:
 @end lilypond
 
 Las barras de compás @emph{no} se conectan entre los pentagramas de un
-@code{InnerChoirStaff}, de igual forma que un @code{ChoirStaff}:
+@code{ChoirStaff}, de igual forma que un @code{ChoirStaff}:
 
 @lilypond[verbatim,quote,relative=2]
 \new ChoirStaff <<
   \new Staff { c2 c | c2 c }
-  \new InnerChoirStaff <<
+  \new ChoirStaff <<
     \new Staff { g2 g | g2 g }
     \new Staff { e2 e | e2 e }
   >>
@@ -338,9 +338,7 @@ Fragmentos de código:
 @rlsr{Staff notation}.
 
 Referencia de funcionamiento interno:
-@rinternals{InnerStaffGroup},
 @rinternals{StaffGroup},
-@rinternals{InnerChoirStaff},
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
