@@ -99,6 +99,17 @@ This deprecates @code{InnerStaffGroup} and @code{InnerChoirStaff}.
 @end lilypond
 
 @item
+Percent repeat counters can be shown at regular intervals using the
+context property @code{repeatCountVisibility}.
+@lilypond[relative=1]
+{
+  \set countPercentRepeats = ##t
+  \set repeatCountVisibility = #(every-nth-repeat-count-visible 2)
+  \repeat percent 8 { c4 d e f }
+}
+@end lilypond
+
+@item
 In addition to the already existing @code{showLastLength} property,
 @code{showFirstLength} can now be set as well, rendering only the first
 measures of a piece.  Both properties may be set at the same time:
