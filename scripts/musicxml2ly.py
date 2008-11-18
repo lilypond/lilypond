@@ -618,7 +618,7 @@ def group_tuplets (music_list, events):
     new_list = []
     last = 0
     for (i1, i2, frac) in indices:
-        if i1 >= i2:
+        if i1 > i2:
             continue
 
         new_list.extend (music_list[last:i1])
@@ -2109,14 +2109,6 @@ def musicxml_voice_to_lily_voice (voice):
                     is_beamed = True
                 elif beam_ev.span_direction == 1: # beam and thus melisma ends here
                     is_beamed = False
-            
-        if tuplet_event:
-            mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
-            frac = (1,1)
-            if mod:
-                frac = mod.get_fraction ()
-                
-            tuplet_events.append ((ev_chord, tuplet_event, frac))
 
         # Extract the lyrics
         if not rest and not ignore_lyrics:
