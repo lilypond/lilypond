@@ -687,13 +687,47 @@ def musicxml_key_to_lily (attributes):
     change.mode = mode
     change.tonic = start_pitch
     return change
+
+def musicxml_transpose_to_lily (attributes):
+    transpose = attributes.get_transposition ()
+    if not transpose:
+        return None
+
+    shift = musicexp.Pitch ()
+    octave_change = transpose.get_maybe_exist_named_child ('octave-change')
+    if octave_change:
+        shift.octave = string.atoi (octave_change.get_text ())
+    chromatic_shift = string.atoi (transpose.get_named_child ('chromatic').get_text ())
+    chromatic_shift_normalized = chromatic_shift % 12;
+    (shift.step, shift.alteration) = [
+        (0,0), (0,1), (1,0), (2,-1), (2,0), 
+        (3,0), (3,1), (4,0), (5,-1), (5,0), 
+        (6,-1), (6,0)][chromatic_shift_normalized];
     
+    shift.octave += (chromatic_shift - chromatic_shift_normalized) / 12
+
+    diatonic = transpose.get_maybe_exist_named_child ('diatonic')
+    if diatonic:
+        diatonic_step = string.atoi (diatonic.get_text ()) % 7
+        if diatonic_step != shift.step:
+            # We got the alter incorrect!
+            old_semitones = shift.semitones ()
+            shift.step = diatonic_step
+            new_semitones = shift.semitones ()
+            shift.alteration += old_semitones - new_semitones
+
+    transposition = musicexp.Transposition ()
+    transposition.pitch = musicexp.Pitch ().transposed (shift)
+    return transposition
+
+
 def musicxml_attributes_to_lily (attrs):
     elts = []
     attr_dispatch =  {
         'clef': musicxml_clef_to_lily,
         'time': musicxml_time_to_lily,
-        'key': musicxml_key_to_lily
+        'key': musicxml_key_to_lily,
+        'transpose': musicxml_transpose_to_lily,
     }
     for (k, func) in attr_dispatch.items ():
         children = attrs.get_named_children (k)

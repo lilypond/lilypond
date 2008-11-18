@@ -1355,6 +1355,13 @@ class ClefChange (Music):
 """ % (glyph, pos, c0)
         return clefsetting
 
+class Transposition (Music):
+    def __init__ (self):
+        Music.__init__ (self)
+        self.pitch = None
+    def ly_expression (self):
+        self.pitch._force_absolute_pitch = True
+        return '\\transposition %s' % self.pitch.ly_expression ()
 
 class StaffChange (Music):
     def __init__ (self, staff):

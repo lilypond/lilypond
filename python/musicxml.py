@@ -362,6 +362,11 @@ class Attributes (Measure_element):
 
         fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
         return (fifths, mode)
+        
+    def get_transposition (self):
+        return self.get_named_attribute ('transpose')
+        
+
 
 class Barline (Measure_element):
     pass
