@@ -603,6 +603,7 @@ def group_tuplets (music_list, events):
 
     
     indices = []
+    brackets = {}
 
     j = 0
     for (ev_chord, tuplet_elt, fraction) in events:
@@ -610,10 +611,16 @@ def group_tuplets (music_list, events):
             if music_list[j] == ev_chord:
                 break
             j += 1
+        nr = tuplet_elt.number
         if tuplet_elt.type == 'start':
-            indices.append ((j, None, fraction))
+            tuplet_info = [j, None, fraction]
+            indices.append (tuplet_info)
+            brackets[nr] = tuplet_info
         elif tuplet_elt.type == 'stop':
-            indices[-1] = (indices[-1][0], j, indices[-1][2])
+            bracket_info = brackets.get (nr, None)
+            if bracket_info:
+                bracket_info[1] = j
+                del brackets[nr]
 
     new_list = []
     last = 0
