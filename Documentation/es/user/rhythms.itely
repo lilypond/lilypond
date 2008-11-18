@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bf07765f328aa2a1a52cee5d2963d27168096e94
+    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1560,7 +1560,7 @@ que existen reglas de final de barra definidas de forma
 predeterminada, a no ser que todas ellas se hayan revertido. También
 es particularmente apropiado para otros muchos compases si la
 indicación de compás cambia con frecuencia, o si el barrado debe ser
-distinto para las distintas duraciones de barra. 
+distinto para las distintas duraciones de barra.
 
 Para añadir una regla a la lista, utilice
 

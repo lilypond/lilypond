@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 7f5cef855d798bc0bc9d415c13a1e3d2bd84cd87
+    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -353,7 +353,7 @@ Para definir identificadores que contengan texto, se debe usar la
 función @code{\lyricmode}.  Si embargo no tendrá que escribir las
 duraciones, si añade @code{\addlyrics} o @code{\lyricsto} en el
 momento de invocar el identificador.
- 
+
 @example
 verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 \score @{
@@ -367,7 +367,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
  >>
 @}
 @end example
- 
+
 Para arreglos distintos o más complejos, la mejor forma es preparar
 previamente la jerarquía de pautas y textos, p.ej.:
 @example
@@ -378,18 +378,18 @@ previamente la jerarquía de pautas y textos, p.ej.:
   \new Voice = "tenor" @{ @emph{música} @}
 >>
 @end example
- 
+
 y después combinar las melodías y líneas de texto correspondientes:
- 
+
 @example
 \context Lyrics = textoSoprano \lyricsto "soprano"
 @emph{el texto}
 @end example
- 
+
 @noindent
 
 El código de entrada definitivo sería algo como
- 
+
 @example
 <<\new ChoirStaff << @emph{prepare la música} >>
  \lyricsto "soprano" @emph{etc}
@@ -397,9 +397,9 @@ El código de entrada definitivo sería algo como
 @emph{etc}
 >>
 @end example
- 
+
 @seealso
- 
+
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}, @rinternals{Lyrics}.
@@ -433,13 +433,13 @@ o especificando la duración de cada sílaba explícitamente, utilizando
 @end itemize
 
 @menu
-* Automatic syllable durations::  
-* Manual syllable durations::   
-* Multiple syllables to one note::  
-* Multiple notes to one syllable::  
-* Skipping notes::              
-* Extenders and hyphens::       
-* Lyrics and repeats::          
+* Automatic syllable durations::
+* Manual syllable durations::
+* Multiple syllables to one note::
+* Multiple notes to one syllable::
+* Skipping notes::
+* Extenders and hyphens::
+* Lyrics and repeats::
 @end menu
 
 @node Automatic syllable durations
@@ -506,7 +506,7 @@ El texto también se puede introducir sin @code{\addlyrics} ni
 @code{\lyricsto}.  En este caso, las sílabas se escriben como notas
 (pero con las alturas sustituidas por texto) y la duración de cada
 sílaba se debe escribir explícitamente.  Por ejemplo:
- 
+
 @example
 play2 the4 game2.
 sink2 or4 swim2.
@@ -514,7 +514,7 @@ sink2 or4 swim2.
 
 La alineación respecto de una melodía se puede especificar con la
 propiedad @code{associatedVoice},
- 
+
 @example
 \set associatedVoice = #"lala"
 @end example
@@ -523,7 +523,7 @@ propiedad @code{associatedVoice},
 El valor de la propiedad (aquí: @code{"lala"}) ha de ser el nombre de
 un contexto de @rinternals{Voice}.  Sin este ajuste, las líneas de
 extensión no se formatearán correctamente.
- 
+
 Presentamos a continuación un ejemplo que muestra el uso de las
 duraciones manuales de las sílabas del texto:
 
@@ -630,7 +630,7 @@ Además, las notas se consideran un melisma si están unidas manualmente
 mediante una barra, y el barrado automático (véase @ref{Setting
 automatic beam behavior}) está desactivado.
 
-@c TODO: there might be some more relevant place for 
+@c TODO: there might be some more relevant place for
 @c the following link (?)
 
 @cindex SATB
@@ -725,10 +725,10 @@ formas ligeramente distintas.  Tales variantes pueden aún captarse
 mediante @code{\lyricsto}.
 
 @menu
-* Divisi lyrics::               
-* Lyrics independent of notes::                    
-* Spacing out syllables::       
-* Centering lyrics between staves::  
+* Divisi lyrics::
+* Lyrics independent of notes::
+* Spacing out syllables::
+* Centering lyrics between staves::
 @end menu
 
 
@@ -861,17 +861,17 @@ Continuará...
 @subsection Stanzas
 
 @menu
-* Adding stanza numbers ::      
-* Adding dynamics marks to stanzas::  
-* Adding singers' names to stanzas::  
-* Stanzas with different rhythms::  
-* Printing stanzas at the end::  
-* Printing stanzas at the end in multiple columns::  
+* Adding stanza numbers ::
+* Adding dynamics marks to stanzas::
+* Adding singers' names to stanzas::
+* Stanzas with different rhythms::
+* Printing stanzas at the end::
+* Printing stanzas at the end in multiple columns::
 @end menu
 
 
-@node Adding stanza numbers 
-@unnumberedsubsubsec Adding stanza numbers 
+@node Adding stanza numbers
+@unnumberedsubsubsec Adding stanza numbers
 
 @cindex verso, número de
 
@@ -1141,7 +1141,7 @@ muestra cómo producir dicha salida en Lilypond.
 melody = \relative c' {
   c c c c | d d d d
 }
- 
+
 text = \lyricmode {
   \set stanza = "1." This is verse one.
   It has two lines.
@@ -1174,7 +1174,7 @@ text = \lyricmode {
       }
     }
     \hspace #0.1  % adds horizontal spacing between columns; if they are
-        % still too close, add more " " pairs until the result 
+        % still too close, add more " " pairs until the result
         % looks good
      \column {
       \line { \bold "4."
