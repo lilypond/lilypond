@@ -74,6 +74,18 @@ class Xml_node:
             sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items ()])))
             p = p.get_parent ()
         
+    def dump (self, indent = ''):
+        sys.stderr.write ('%s<%s%s>' % (indent, self._name, ''.join ([' %s=%s' % item for item in self._attribute_dict.items ()])))
+        non_text_children = [c for c in self._children if not isinstance (c, Hash_text)]
+        if non_text_children:
+            sys.stderr.write ('\n')
+        for c in self._children:
+            c.dump (indent + "    ")
+        if non_text_children:
+            sys.stderr.write (indent)
+        sys.stderr.write ('</%s>\n' % self._name)
+
+        
     def get_typed_children (self, klass):
         if not klass:
             return []
@@ -224,7 +236,8 @@ class Duration (Music_xml_node):
 class Hash_comment (Music_xml_node):
     pass
 class Hash_text (Music_xml_node):
-    pass
+    def dump (self, indent = ''):
+        sys.stderr.write ('%s' % string.strip (self._data))
 
 class Pitch (Music_xml_node):
     def get_step (self):
