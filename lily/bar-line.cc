@@ -337,14 +337,14 @@ ADD_INTERFACE (Bar_line,
 	       " is a string which specifies the kind of bar line to print."
 	       "  Options are @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},"
 	       " @code{:|.:}, @code{||}, @code{|.}, @code{.|}, @code{.|.},"
-	       " @code{|.|}, @code{:} and @code{\"dashed\"}.\n"
+	       " @code{|.|}, @code{:} and @code{dashed}.\n"
 	       "\n"
 	       "These produce, respectively, a right repeat, a left repeat,"
 	       " a thick double repeat, a thin-thick-thin double repeat,"
 	       " a thin-thick double repeat, a double bar, a start bar,"
 	       " an end bar, a thick double bar, a thin-thick-thin bar,"
-	       " a dotted bar and a dashed bar. "
-	       " In addition, there is an option"
+	       " a dotted bar and a dashed bar."
+	       "  In addition, there is an option"
 	       " @code{||:} which is equivalent to @code{|:} except at line"
 	       " breaks, where it produces a double bar (@code{||}) at the"
 	       " end of the line and a repeat sign (@code{|:}) at the"
@@ -367,5 +367,3 @@ ADD_INTERFACE (Bar_line,
 	       "bar-size "
 	       "bar-extent "
 	       );
-
-

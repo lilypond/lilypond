@@ -262,8 +262,8 @@ LY_DEFINE (ly_find_accidentals_simple, "ly:find-accidentals-simple", 5, 0, 0,
 	   " key signature.  The @var{laziness} is the number of bars for which reminder"
 	   " accidentals are used (ie. if @var{laziness} is zero, we only cancel accidentals"
 	   " in the same bar; if @var{laziness} is three, we cancel accidentals up to three"
-	   " bars after they first appear.  @var{octaveness} is either "
-	   " @code{'same-octave} or @code{'any-octave} and it specifies whether "
+	   " bars after they first appear.  @var{octaveness} is either"
+	   " @code{'same-octave} or @code{'any-octave} and it specifies whether"
 	   " accidentals should be canceled in different octaves.")
 {
   LY_ASSERT_TYPE (unsmob_pitch, pitch_scm, 2);

@@ -34,7 +34,7 @@
 (define-method (display (leaf <Font-tree-leaf>) port)
   (map (lambda (x) (display x port))
        (list
-	"#<Font-size-family: \n"
+	"#<Font-size-family:\n"
 	(slot-ref leaf 'default-size) 
 	(slot-ref leaf 'size-vector)
 	"#>"
@@ -47,7 +47,7 @@
      (display x port))
 
    (list
-    "Font_node { \nqual: "
+    "Font_node {\nqual: "
     (font-qualifier node)
     "(def: "
     (font-default node)
@@ -59,7 +59,7 @@
      (display "=" port)
      (display (cdr x) port))
    (hash-table->alist (font-children node)))
-  (display "} } \n"))
+  (display "} }\n"))
 
 
 (define default-qualifier-order

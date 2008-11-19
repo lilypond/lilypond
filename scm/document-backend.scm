@@ -120,9 +120,9 @@ node."
 	    engraver-list))
        "."
 
-       "\n\nStandard settings: \n\n"
+       "\n\nStandard settings:\n\n"
        (grob-alist->texi description)
-       "\n\nThis object supports the following interface(s): \n"
+       "\n\nThis object supports the following interface(s):\n"
        (human-listify ifacedoc)
        "."))))
 

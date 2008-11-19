@@ -42,7 +42,7 @@
     (define-public (_ x) x))
 
 (define (show-version port)
-  (format port "~a (GNU LilyPond) ~a \n" PROGRAM-NAME TOPLEVEL-VERSION))
+  (format port "~a (GNU LilyPond) ~a\n" PROGRAM-NAME TOPLEVEL-VERSION))
 
 (define (show-help port)
   (format port (_ "Usage: lilypond-invoke-editor [textedit://]FILE:LINE:CHAR:COLUMN

@@ -118,7 +118,7 @@
     "set-ps-scale-to-lily-scale "
     "\n"))
   (ly:outputter-dump-stencil outputter page)
-  (ly:outputter-dump-string outputter "stroke grestore \nshowpage\n"))
+  (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))
 
 (define (supplies-or-needs paper load-fonts?)
   (define (extract-names font)
@@ -331,7 +331,7 @@
 
       (if (not embed)
 	  (begin
-	    (set! embed "% failed \n")
+	    (set! embed "% failed\n")
 	    (ly:warning (_ "cannot extract file matching ~a from ~a") name filename)))
       embed))
 
@@ -567,7 +567,7 @@
 
     (display header port)
     (write-preamble paper load-fonts port)
-    (display "gsave set-ps-scale-to-lily-scale \n" port)
+    (display "gsave set-ps-scale-to-lily-scale\n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
