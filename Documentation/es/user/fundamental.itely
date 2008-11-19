@@ -186,7 +186,7 @@ por lo general fuera del bloque @code{\score} (por ejemplo,
 como muestra el ejemplo que aparece al principio de la sección.
 
 Dos instrucciones más que no hemos visto aún son @code{\layout @{ @}}
-y @code{\midi @{@}}.  Si aparecen tal y como se muestran aquí, hacen
+y @code{\midi @{ @}}.  Si aparecen tal y como se muestran aquí, hacen
 que LilyPond produzca una salida impresa y una salida MIDI,
 respectivamente.  Se describen con todo detalle en el manual de
 Referencia de la notación, en @ruser{Score layout} y en
@@ -212,7 +212,7 @@ En resumen:
 Cada bloque @code{\book} crea un archivo de salida distinto (por
 ejemplo, un archivo PDF).  Si no hemos escrito uno de forma explícita,
 LilyPond envuelve todo nuestro código de entrada dentro de un bloque
-@code{\book} de forma implícita.q
+@code{\book} de forma implícita.
 
 Cada bloque @code{\score} es un trozo de música separado dentro de un
 bloque @code{\book}.
