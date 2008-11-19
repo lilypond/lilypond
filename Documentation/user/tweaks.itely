@@ -578,7 +578,7 @@ at first, so we can be sure the command is working.  We get:
 @end example
 
 Don't forget the @code{#'} preceding the
-property name and and @code{#} preceding the new value!
+property name and a @code{#} preceding the new value!
 
 The final question is, @q{Where should this command be
 placed?}  While you are unsure and learning, the best
@@ -3319,7 +3319,7 @@ and blanking the first up-stem in that voice, the tie appears to
 cross voices:
 
 @cindex Stem, example of overriding
-@cindex transparent propery, example
+@cindex transparent property, example
 
 @lilypond[quote,fragment,relative=2,verbatim]
 <<

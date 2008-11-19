@@ -205,7 +205,7 @@ or
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
-Additionally, @code{\lilypondversion} displays the the current version
+Additionally, @code{\lilypondversion} displays the current version
 of lilypond.
 Running @command{lilypond-book} yields a file that can be further
 processed with @LaTeX{}. 
@@ -394,7 +394,7 @@ or
 @@lilypondfile[options,go,here]@{@var{filename}@}
 @end example
 
-Additionally, @code{@@lilypondversion} displays the the current version
+Additionally, @code{@@lilypondversion} displays the current version
 of lilypond.
 
 When @command{lilypond-book} is run on it, this results in a Texinfo
@@ -465,7 +465,7 @@ To include separate files, say
 <lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
 @end example
 
-Additionally, @code{<lilypondversion/>} displays the the current version
+Additionally, @code{<lilypondversion/>} displays the current version
 of lilypond.
 
 
@@ -659,7 +659,7 @@ source file contain a comment containing @samp{begin verbatim} (without
 quotes), quoting the source in the verbatim block will start after the
 last occurrence of such a comment; similarly, quoting the source verbatim
 will stop just before the first occurrence of a comment containing
-@samp{end verbatim}, it there is any.  In the following source file
+@samp{end verbatim}, if there is any.  In the following source file
 example, the music will be interpreted in relative mode, but the
 verbatim quote will not show the @code{relative} block, i.e.
 
@@ -971,7 +971,7 @@ If you use the same filename extension for the input file than the
 extension @command{lilypond-book} uses for the output file, and if the
 input file is in the same directory as @command{lilypond-book} working
 directory, you must use @code{--output} option to make
-@command{lilypond-book} running, otherwise the will exit with an error
+@command{lilypond-book} running, otherwise it will exit with an error
 message like @qq{Output would overwrite input file}.
 
 
