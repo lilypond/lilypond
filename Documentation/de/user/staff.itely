@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
+    Translation of GIT committish: 	908c6ee738d8e412599bd47a71fb188c09c986cd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,8 +13,13 @@
 
 @lilypondfile[quote]{staff-headword.ly}
 
+Dieser Abschnitt zeigt, wie die Erscheinung von Systemen beeinflusst
+wird, Partituren mit mehr als einem System gesetzt werden und wie
+man Aufführungsanweisungen und -hilfen zu einzelnen Systemen hinzufügt.
+
 @menu
-* Displaying staves::           
+* Displaying staves:: 
+* Modifying single staves::          
 * Writing parts::               
 @end menu
 
@@ -22,109 +27,346 @@
 @node Displaying staves
 @subsection Displaying staves
 
+Dieser Abschnitt zeigt unterschiedliche Methoden, Notensysteme und 
+Gruppen von Systemen zu erstellen.
+
 @menu
-* System start delimiters:: 
-* Grouping staves::    
-* Staff symbol::                
-* Hiding staves::               
+* Instantiating new staves::
+* Grouping staves::
+* Nested staff groups::
 @end menu
 
-@node System start delimiters
-@unnumberedsubsubsec System start delimiters
+@node Instantiating new staves
+@unnumberedsubsubsec Instantiating new staves
 
 @cindex Beginn eines Notensystems
+@cindex Notensystem, neu
+@cindex Percussionsnotensystem
+@cindex Perkussionsnotensystem
+@cindex einzelnes Notensystem
+@cindex rhythmisches Notensystem
+@cindex Tabulatursystem
+@cindex Tabulatur
+@cindex Gregorianischer Choral, Transkription
+@cindex neues Notensystem
+
+@notation{Notensysteme} (engl. @notation{staff}, Pl. @notation{staves})
+werden mit dem @code{\new} oder @code{\context}-Befehl erstellt.  Zu
+Einzelheiten siehe
+@ref{Creating contexts}.
+
+Der einfachste Notensystem-Kontext ist @code{Staff}:
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff { c4 d e f }
+@end lilypond
+
+@code{DrumStaff} (Perkussionsnotensystem) erstellt ein Notensystem
+mit fünf Linien, das für ein typisches Schlagzeug eingerichtet ist.
+Für jedes Instrument werden unterschiedliche Bezeichnungen eingesetzt.
+Die Instrumentenbezeichnungen werden innerhalb der
+@code{drummode}-Umgebung gesetzt.  Zu Einzelheiten siehe
+@ref{Percussion staves}.
+
+@lilypond[verbatim,quote]
+\new DrumStaff {
+  \drummode { cymc hh ss tomh }
+}
+@end lilypond
+
+@c FIXME: remove when mentioned in NR 2.8
+@code{GregorianTranscriptionStaff} (System zur Transkription des
+Gregorianischen Chorals) erstellt ein Notensystem, um modernen
+Gregorianischen Choral zu notieren.  Es hat keine Notenlinien.
+
+@lilypond[verbatim,quote,relative=2]
+\new GregorianTranscriptionStaff { c4 d e f e d }
+@end lilypond
+
+@code{RhythmicStaff} (Rhythmus-System) erstellt ein Notensystem mit
+nur einer Notenlinie, auf welcher nur die rhythmischen Werte der
+eingegebenen Noten dargestellt werden.  Die wirklichen Längen bleiben
+erhalten.  Zu Einzelheiten, siehe
+@ref{Showing melody rhythms}.
+
+@lilypond[verbatim,quote,relative=2]
+\new RhythmicStaff { c4 d e f }
+@end lilypond
+
+@code{TabStaff} (Tabulatursystem) erstellt eine Tabulatur mit sechs
+Saiten in der üblichen Gitarrenstimmung.  Zu Einzelheiten siehe
+@ref{Default tablatures}.
+
+@lilypond[verbatim,quote,relative=2]
+\new TabStaff { c4 d e f }
+@end lilypond
+
+Es gibt zwei Notensysteme, die zur Notation von Alter Musik eingesetzt
+werden: @code{MensuralStaff} and @code{VaticanaStaff}.  Sie sind
+erklärt in
+@ref{Pre-defined contexts}.
+
+Neue Notensystem-Kontexte können selber definiert werden.  Zu Einzelheiten,
+siehe
+@ref{Defining new contexts}.
+
+
+@seealso
+Glossar:
+@rglos{staff},
+@rglos{staves}.
+
+Notationsreferenz:
+@ref{Creating contexts},
+@ref{Percussion staves},
+@ref{Showing melody rhythms},
+@ref{Default tablatures},
+@ref{Pre-defined contexts},
+@ref{Staff symbol},
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts},
+@ref{Defining new contexts}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{Staff},
+@rinternals{DrumStaff},
+@rinternals{GregorianTranscriptionStaff},
+@rinternals{RhythmicStaff},
+@rinternals{TabStaff},
+@rinternals{MensuralStaff},
+@rinternals{VaticanaStaff},
+@rinternals{StaffSymbol}.
+
+
+@node Grouping staves
+@unnumberedsubsubsec Grouping staves
+
 @cindex Systeme, mehrere
 @cindex Notensysteme, mehrere
 @cindex Klammer, vertikal
 @cindex Klammer, geschweift
+@cindex geschweifte Klammer
+@cindex Klaviersystem
+@cindex Akkolade
+@cindex Notensystemgruppe
+@cindex Notensysteme, gruppieren
 @cindex Partitur
 @cindex Systemgruppe
 @cindex Instrumentengruppe
 @cindex Stimmgruppe
 @cindex System, Chor
+@cindex Chorsystem
 
-Viele Partituren bestehen aus mehr als einem Notensystem. Diese Systeme 
-können auf vier unterschiedliche Arten verbunden werden:
+Es gibt verschiedene Kontexte, um einzelne Notensysteme zu gruppieren
+und einer Partitur zu verbinden.  Jeder Gruppenstil beeinflusst das
+Aussehen des Systemanfangs und das Verhalten der Taktlinien.
 
-@itemize @bullet
-@item Die Gruppe wird mit einer Klammer an der linken Seite geöffnet und 
-die Taktlinien sind verbunden. Das ist der Klaviersystem 
-(@rinternals{GrandStaff})-Kontext.
+Wenn kein Kontext angegeben ist, wird die Standardeinstellung eingesetzt:
+die Gruppe beginnt mit einer vertikalen Linie und die Taktlinien sind
+nicht verbunden.
 
-@lilypond[verbatim,ragged-right,quote]
-\new GrandStaff
-\relative <<
+@lilypond[verbatim,quote,relative=2]
+<<
   \new Staff { c1 c }
-  \new Staff { c c }
+  \new Staff { c1 c }
 >>
 @end lilypond
 
-@item Die Gruppe beginnt mit einer Klammer und die Taktlinien sind verbunden. 
-Dieses Verhalten erzeugt der Stimmgruppen 
-(@rinternals{StaffGroup})-Kontext.
+Im @code{StaffGroup}-Kontext die Gruppe mit einer eckigen Klammer
+begonnen und die Taktlinien durch alle Systeme gezogen.
 
-@lilypond[verbatim,ragged-right,quote]
-\new StaffGroup
-\relative <<
+@lilypond[verbatim,quote,relative=2]
+\new StaffGroup <<
   \new Staff { c1 c }
-  \new Staff { c c }
+  \new Staff { c1 c }
 >>
 @end lilypond
 
-@item Die Gruppe beginnt mit einer Klammer, aber die Taktlinien sind nicht 
-miteinander verbunden. Das wird mit dem Chorsystem 
-(@rinternals{ChoirStaff})-Kontext erreicht.
+In einem @code{ChoirStaff} (Chorsystem) beginnt die Gruppe mit einer
+eckigen Klammer, aber die Taktlinien sind nicht verbunden.
 
-@lilypond[verbatim,ragged-right,quote]
-\new ChoirStaff
-\relative <<
+@lilypond[verbatim,quote,relative=2]
+\new ChoirStaff <<
   \new Staff { c1 c }
-  \new Staff { c c }
+  \new Staff { c1 c }
 >>
 @end lilypond
 
-@item Die Gruppe beginnt mit einer vertikalen Linie. Taktlinien sind nicht 
-verbunden. Das ist die Standardeinstellung für eine Partitur.
+In einem @code{GrandStaff} (Akkolade) beginnt die Gruppe mit einer
+geschweiften Klammer und die Taktlinien sind durchgezogen.
 
-@lilypond[verbatim,ragged-right,quote]
-\relative <<
+@lilypond[verbatim,quote,relative=2]
+\new GrandStaff <<
   \new Staff { c1 c }
-  \new Staff { c c }
+  \new Staff { c1 c }
 >>
 @end lilypond
-@end itemize
+
+Der @code{PianoStaff}-(Klaviersystem)-Kontext ist identisch mit dem
+@code{GrandStaff}-Kontext, aber es ermöglicht zusätzlich direkt
+die Angabe einer Instrumentbezeichnung.  Zu Einzelheiten siehe
+@ref{Instrument names}.
+
+@lilypond[verbatim,quote,relative=2]
+\new PianoStaff <<
+  \set PianoStaff.instrumentName = "Piano"
+  \new Staff { c1 c }
+  \new Staff { c1 c }
+>>
+@end lilypond
+
+Jede Systemgruppe stellt die Eigenschaft
+@code{systemStartDelimiter} (SystemBeginnBegrenzer) auf einen der
+folgenden Werte:
+@code{SystemStartBar}, @code{SystemStartBrace} oder
+@code{SystemStartBracket}.  Ein vierter Begrenzer,
+@code{SystemStartSquare}, ist auch erreichbar, aber man muss ihr
+explizit einstellen.
+
+Neue Systemgruppen können definiert werden.  Zu Einzelheiten siehe
+@ref{Defining new contexts}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{use-square-bracket-at-the-start-of-a-staff-group.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{display-bracket-with-only-one-staff-in-a-system.ly}
+
+@cindex Mensurstriche
+@cindex Renaissancemusik
+@cindex Transkription von Mensuralmusik
+@cindex Mensuralmusik, Transkription
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{mensurstriche-layout-bar-lines-between-the-staves.ly}
+@c FIXME: move to NR 2.8.x when sectioning is ready
+
+@seealso
+
+Glossar:
+@rglos{brace},
+@rglos{bracket},
+@rglos{grand staff}.
+
+Notationsreferenz:
+@ref{Instrument names},
+@ref{Defining new contexts}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{Staff},
+@rinternals{StaffGroup},
+@rinternals{ChoirStaff},
+@rinternals{GrandStaff},
+@rinternals{PianoStaff},
+@rinternals{SystemStartBar},
+@rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket},
+@rinternals{SystemStartSquare}.
+
+
+
+@node Nested staff groups
+@unnumberedsubsubsec Nested staff groups
+
+@cindex System, geschachtelt
+@cindex Schachtelung von Systemen
+@cindex Verschachtelung von Systemen
+@cindex SystemBeginnBegrenzer, geschachtelt
+@cindex verschachtelte Systemklammern
+@cindex Klammern, Verschachteln
+@cindex geschweifte Klammern, Schachteln
+@cindex innere Systemgruppe
+@cindex innere Chorsystemgruppe
+@cindex inner choir staff group
+@cindex Systemgruppen, Verschachtelung
+
+Zusätzlich gibt es noch zwei Systemgruppen-Kontexte, die innerhalb
+von einem @code{StaffGroup}- oder @code{ChoirStaff}-Kontext eingesetzt
+werden können: @code{InnerStaffGroup} und @code{InnerChoirStaff}.  
+Diese Kontexte erstellen eine neue Klammer außerhalb der Klammer der
+Gruppe, in welcher sie sich befinden.
+
+Eine @code{InnerStaffGroup} (innere Systemgruppe) wird wie eine
+@code{StaffGroup} behandelt: Taktlinien verbinden die Systeme miteinander:
+
+@lilypond[verbatim,quote,relative=2]
+\new StaffGroup <<
+  \new Staff { c2 c | c2 c }
+  \new InnerStaffGroup <<
+    \new Staff { g2 g | g2 g }
+    \new Staff { e2 e | e2 e }
+  >>
+>>
+@end lilypond
+
+In einem @code{InnerChoirStaff} werden die Taktlinien @emph{nicht}
+verbunden, genauso wie in einem @code{ChoirStaff}:
+
+@lilypond[verbatim,quote,relative=2]
+\new ChoirStaff <<
+  \new Staff { c2 c | c2 c }
+  \new InnerChoirStaff <<
+    \new Staff { g2 g | g2 g }
+    \new Staff { e2 e | e2 e }
+  >>
+  \new Staff { c1 | c1 }
+>>
+@end lilypond
+
+Neue innere Systemgruppen können definiert werden.  Zu Einzelheiten siehe
+@ref{Defining new contexts}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{nesting-staves.ly}
 
 
 @seealso
 
-Die Definition der Taktlinien am Beginn jedes Systems werden mit 
-den Befehlen @rinternals{SystemStartBar}, @rinternals{SystemStartBrace} 
-und @rinternals{SystemStartBracket} festgelegt. Nur einer dieser 
-drei Typen wird in jedem Kontext erstellt, und dieser Typ wird durch 
-die @code{systemStartDelimiter}-Eigenschaft bestimmt.
+Notationsreferenz:
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Defining new contexts}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{InnerStaffGroup},
+@rinternals{StaffGroup},
+@rinternals{InnerChoirStaff},
+@rinternals{ChoirStaff},
+@rinternals{SystemStartBar},
+@rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket},
+@rinternals{SystemStartSquare}.
 
 
-@commonprop
 
-Anfangsklammern können tief einander verschachtelt werden.
+@node Modifying single staves
+@subsection Modifying single staves
 
-@lilypond[quote,ragged-right,verbatim]
-\new StaffGroup
-\relative <<
-  \set StaffGroup.systemStartDelimiterHierarchy
-    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
->>
-@end lilypond
+Dieser Abschnitt zeigt, wie man bestimmte Eigenschaften eines Systems
+ändert -- etwa die Anzahld der Notenlinien oder die Größe des Systems.
+Es werden auch Methoden dargestellt, ein System zu beginnen und zu
+beenden sowie eine Methode, Ossia-Systeme zu erstellen.
 
-@node Grouping staves
-@unnumberedsubsubsec Grouping staves
-
-@untranslated
+@menu
+* Staff symbol::
+* Ossia staves::
+* Hiding staves::
+@end menu
 
 
 @node Staff symbol
@@ -132,90 +374,992 @@ Anfangsklammern können tief einander verschachtelt werden.
 
 @cindex Justierung von Notensystemen
 @cindex Notensysteme, Modifikation
-
-Noten, Dynamikzeichen usw. werden auf den Notenlinien angeordnet, die 
-sich zu einem Notensystem zusammenfassen lassen. Das Programm LilyPond 
-zeichnet diese Linien durch ein spezielles graphisches Objekt, 
-@code{staff symbol} (engl. @qq{staff} = Notensystem) genannt.
-
-Dieses Objekt kann bezüglich seiner Eigenschaften, wie Anzahl, Dicke und 
-Abstand der Linien verändert werden.
-
-@c Das wird gezeigt in den Beispieldateien 
-@c @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
-@c @lsr{staff,changing-the-staff-size.ly}.
-
-Zusätzlich können Systeme beliebig begonnen und beendet werden. Das 
-geschieht mit den Befehlen @code{\startStaff} und @code{\stopStaff}.
-
-@lilypond[verbatim,relative=2,fragment]
-b4 b
-\override Staff.StaffSymbol #'line-count = 2
-\stopStaff \startStaff
-b b
-\revert Staff.StaffSymbol #'line-count
-\stopStaff \startStaff
-b b
-@end lilypond
-
-Kombiniert mit verkleinerten Systemen, kann man diese Funktion etwa 
-benutzen, um Ossia-Abschnitte zu notieren. Siehe das Beispiel:
-
-@cindex Ossia
-
-@c @lilypondfile{ossia.ly}
-
 @cindex Notenlinien, Anzahl
 @cindex Notenlinien, Dicke
+@cindex Notenlinien, Einstellungen
 @cindex Dicke der Notenlinien einstellen
 @cindex Anzahl der Notenlinien einstellen
 @cindex Zahl der Notenlinien einstellen
+@cindex Hilfslinien, Einstellungen
+@cindex Hilfslinien, Abstände
+@cindex Abstand von Hilfslinien
+@cindex Einstellung von Hilfslinien
+@cindex Notensystem stoppen
+@cindex Notensystem beginnen
+@cindex Beginnen eines Notensystems
+@cindex Beenden eines Notensystems
+
+Die Linien eines Notensystems gehören zu dem 
+@code{StaffSymbol}-(NotensystemSymbol)-Grob.
+@code{StaffSymbol}-Eigenschaften können verändert werden, um die
+Erscheinung des Notensystems zu beeinflussen, aber sie müssen
+gesetzt werden, bevor das System erstellt wird.
+
+Die Anzahl der Notenlinien kann verändert werden.  Die Position
+des Notenschlüssels und die Position von c' können geändert werden,
+um dem neuen System zu entsprechen.  Eine Erklärung findet sich
+im Schnipselabschnit in
+@ref{Clef}.
+
+@lilypond[verbatim,quote,relative=2]
+\new Staff \with {
+  \override StaffSymbol #'line-count = #3
+}
+{ d4 d d d }
+@end lilypond
+
+Die Liniendicke der Notenlinien kann verändert werden.  Die Dicke
+der Hilfslinien und Notenhälse wird auch beeinflusst, weil sie
+von der Notenliniendicke abhängen.
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'thickness = #3
+}
+{ e4 d c b }
+@end lilypond
+
+Die Dicke der Hilfslinien kann auch unabhängig von der
+Notenliniendicke verändert werden.
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'ledger-line-thickness = #'(1 . 0.2)
+}
+{ e4 d c b }
+@end lilypond
+
+Der Abstand zwischen Notenlinien kann verändert werden.  Diese
+Einstellung wirkt sich auch auf den Abstand der Hilfslinien aus.
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'staff-space = #1.5
+}
+{ a4 b c d }
+@end lilypond
+
+Weitere Einzelheiten zu den Eigenschaften von @code{StaffSymbol} 
+findet sich in @rinternals{staff-symbol-interface}.
+
+@funindex \startStaff
+@funindex \stopStaff
+
+Veränderungen der Eigenschaften eines Notensystems mitten in einer
+Partitur können zwischen die Befehle @code{\stopStaff} und
+@code{\startStaff} gesetzt werden:
+
+@lilypond[verbatim,quote,relative=2]
+c2 c
+\stopStaff
+\override Staff.StaffSymbol #'line-count = #2
+\startStaff
+b2 b
+\stopStaff
+\revert Staff.StaffSymbol #'line-count
+\startStaff
+a2 a
+@end lilypond
+
+@cindex Beenden eines Systems
+@cindex System, beenden
+@cindex Notensystem, beenden
+
+@noindent
+Die Befehle @code{\startStaff} und @code{\stopStaff} können
+benutzt werden, um ein Notensystem irgendwo zu beenden oder zu
+beginnen.
+
+@lilypond[verbatim,quote,relative=2]
+c4 b a2
+\stopStaff
+b4 c d2
+\startStaff
+e4 d c2
+@end lilypond
+
+
+@predefined
+
+@code{\startStaff},
+@code{\stopStaff}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{making-some-staff-lines-thicker-than-the-others.ly}
+
 
 @seealso
 
-Programmreferenz:
-@rinternals{StaffSymbol}.
+Glossar:
+@rglos{line},
+@rglos{ledger line},
+@rglos{staff}.
 
-Beispiele:
+Notationsreferenz:
+@ref{Clef}.
+
+Schnipsel:
 @rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{StaffSymbol},
+@rinternals{staff-symbol-interface}.
+
+
+@knownissues
+
+Wenn die vertikale Position der Notenlinien manuell verändert wird,
+werden Taktlinien immer auf der Position 0 zentriert.  Somit muss
+die Distanz der äußeren Notenlinien vom Zentrum des
+Systems gleichgroß sein.
+
+
+@node Ossia staves
+@unnumberedsubsubsec Ossia staves
+
+@cindex Ossia-Systeme
+@cindex Ossia
+@cindex versteckte Notensysteme
+@cindex System, Größe verändern
+@cindex Notensystem, Größe verändern
+@cindex Größe von Notensystem verändern
+
+@notation{Ossia}-Systeme können gesetzt werden, indem zwei
+gleichzeitige Notensysteme an der entsprechenden Position
+erstellt werden:
+
+@lilypond[verbatim,quote]
+\new Staff \relative c'' {
+  c4 b d c
+  <<
+    { c4 b d c }
+    \new Staff { e4 d f e }
+  >>
+  c4 b c2
+}
+@end lilypond
+
+@noindent
+Dieses Beispiel ist aber normalerweise nicht das gewünschte
+Ergebnis.  Um Ossia-Systeme zu setzen, die sich über dem eigentlichen
+System befinden, keine Takt- und Schlüsselangaben haben und kleiner
+gesetzt sind, müssen einige Optimierungen angewendet werden.  Im
+Handbuch zum Lernen wird eine Technik vorgestellt, mit der das
+gewünschte Ergebnis erreicht werden kann, beginnend in
+@rlearning{Nesting music expressions}.
+
+Das Beispiel unten setzt die 
+@code{alignAboveContext}-(oberhalbAusrichtenKontext)-Eigenschaft
+ein, um den Ossia-Abschnitt auszurichten.  Diese Methode
+bietet sich an, wenn nur einige Ossia-Systeme benötigt werden.
+
+@lilypond[verbatim,quote]
+\new Staff = main \relative c'' {
+  c4 b d c
+  <<
+    { c4 b d c }
+
+    \new Staff \with {
+      \remove "Time_signature_engraver"
+      alignAboveContext = #"main"
+      fontSize = #-3
+      \override StaffSymbol #'staff-space = #(magstep -3)
+      \override StaffSymbol #'thickness = #(magstep -3)
+      firstClef = ##f
+    }
+    { e4 d f e }
+  >>
+  c4 b c2
+}
+@end lilypond
+
+Wenn mehrere isolierte Ossia-Systeme gebraucht werden, kann es
+günstiger sein, einen leeren @code{Staff}-Kontext mit einer
+spezifischen @emph{Kontextidentifikation} zu erstellen.  Die
+Ossia-Abschnitte werden dann erstellt, indem dieser Kontext
+@emph{aufgerufen} wird und  mit @code{\startStaff} und
+@code{\stopStaff} an den richtigen Stellen sichtbar gemacht
+wird.  Der Vorteil dieser Methode zeigt sich, wenn man längere
+Stücke setzt.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \new Staff = ossia \with {
+    \remove "Time_signature_engraver"
+    \override Clef #'transparent = ##t
+    fontSize = #-3
+    \override StaffSymbol #'staff-space = #(magstep -3)
+    \override StaffSymbol #'thickness = #(magstep -3)
+  }
+  { \stopStaff s1*6 }
+
+  \new Staff \relative c' {
+    c4 b c2
+    <<
+      { e4 f e2 }
+      \context Staff = ossia {
+        \startStaff e4 g8 f e2 \stopStaff
+      }
+    >>
+    g4 a g2 \break
+    c4 b c2
+    <<
+      { g4 a g2 }
+      \context Staff = ossia {
+        \startStaff g4 e8 f g2 \stopStaff
+      }
+    >>
+    e4 d c2
+  }
+>>
+@end lilypond
+
+Man kann auch den @code{\RemoveEmptyStaffContext}-Befehl einsetzen,
+um Ossia-Systeme zu erstellen.  Diese Methode eignet sich am
+besten, wenn nach dem Ossia sofort ein Zeilenumbruch erfolgt.
+In diesem Fall müssen auch keine unsichtbaren Pausen eingesetzt
+werden; es reicht, @code{\startStaff} und @code{\stopStaff}
+einzusetzen.  Mehr Information zu @code{\RemoveEmptyStaffContext}
+findet sich in
+@ref{Hiding staves}.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \new Staff = ossia \with {
+    \remove "Time_signature_engraver"
+    \override Clef #'transparent = ##t
+    fontSize = #-3
+    \override StaffSymbol #'staff-space = #(magstep -3)
+    \override StaffSymbol #'thickness = #(magstep -3)
+  }
+  \new Staff \relative c' {
+    c4 b c2
+    e4 f e2
+    g4 a g2 \break
+    <<
+      { c4 b c2 }
+      \context Staff = ossia {
+        c4 e8 d c2 \stopStaff
+      }
+    >>
+    g4 a g2
+    e4 d c2
+  }
+>>
+
+\layout {
+  \context {
+    \RemoveEmptyStaffContext
+    \override VerticalAxisGroup #'remove-first = ##t
+  }
+}
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{vertically-aligning-ossias-and-lyrics.ly}
+
+
+@seealso
+
+Glossar:
+@rglos{ossia},
+@rglos{staff},
+@rglos{Frenched staff}.
+
+Handbuch zum Lernen:
+@rlearning{Nesting music expressions},
+@rlearning{Size of objects},
+@rlearning{Length and thickness of objects}.
+
+Notationsreferenz:
+@ref{Hiding staves}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{StaffSymbol}.
 
 
 @node Hiding staves
 @unnumberedsubsubsec Hiding staves
 
-@untranslated
+@cindex Systeme verstecken
+@cindex leere Systeme verstecken
+@cindex Verstecken von Systemen
+@cindex Systeme, leere
+@cindex Verschwinden von leeren Systemen
+
+Die Notenlinien können entfernt werden, indem der
+@code{Staff_symbol_engraver} aus dem @code{Staff}-Kontext
+entfernt wird.  Alternativ kann auch @code{\stopStaff} 
+eingesetzt werden.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \remove "Staff_symbol_engraver"
+}
+\relative c''' { a8 f e16 d c b a2 }
+@end lilypond
+
+@funindex \RemoveEmptyStaffContext
+
+Leere Systeme können versteckt werden, wenn der
+@code{\RemoveEmptyStaffContext}-Befehl im @code{\layout}-Abschnitt
+benutzt wird.  In großen Orchesterpartituren wird dies oft
+verwendet, um die leeren Systeme von gerade nicht spielenden
+Instrumenten zu verstecken.  In der Standardeinstellung werden alle
+leeren Notenzeilen außer die des ersten Systems entfernt.
+
+@warning{Eine leere Notenzeile darf nur Ganztaktpausen,
+unsichtbare Noten, @code{\skip}-Befehle oder eine Kombination 
+der drei enthalten.}
+
+@lilypond[verbatim,quote,ragged-right]
+\layout {
+  \context {
+    \RemoveEmptyStaffContext
+  }
+}
+
+\relative c' <<
+  \new Staff {
+    e4 f g a \break
+    b1 \break
+    a4 b c2
+  }
+  \new Staff {
+    c,4 d e f \break
+    R1 \break
+    f4 g c,2
+  }
+>>
+@end lilypond
+
+@cindex ossia
+
+@noindent
+@code{\RemoveEmptyStaffContext} kann auch eingesetzt werden,
+um Ossiaabschnitte zu erstellen.  Zu Einzelheiten, siehe
+@ref{Ossia staves}.
+
+@cindex Verstecken von Systemen der Alten Musik
+@cindex Verstecken von Rhythmus-Systemen
+@funindex \AncientRemoveEmptyStaffContext
+@funindex \RemoveEmptyRhythmicStaffContext
+
+Der @code{\AncientRemoveEmptyStaffContext}-Befehl kann
+benutzt werden, um leere Takte in Notation der Alten Musik
+zu entfernen.  Gleichermaßen kann 
+@code{\RemoveEmptyRhythmicStaffContext} eingesetzt werden, um
+leere Takte in einem
+@code{RhythmicStaff}-Kontext zu entfernen.
+
+
+@predefined
+
+@code{\RemoveEmptyStaffContext},
+@code{\AncientRemoveEmptyStaffContext},
+@code{\RemoveEmptyRhythmicStaffContext}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{removing-the-first-empty-line.ly}
+
+
+@seealso
+
+Glossar:
+@rglos{Frenched staff}.
+
+Notationsreferenz:
+@ref{Staff symbol},
+@ref{Ossia staves}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{ChordNames},
+@rinternals{FiguredBass},
+@rinternals{Lyrics},
+@rinternals{Staff},
+@rinternals{VerticalAxisGroup},
+@rinternals{Staff_symbol_engraver}.
+
+
+@knownissues
+
+Wenn man den @code{Staff_symbol_engraver} entfernt, werden auch
+die Taktlinien entfernt.  Wenn eine sichtbare Taktlinie
+angefordert wird, kann es zu Formatierungsfehlern kommen.  In
+diesem Fall sollten folgende Befehle eingesetzt werden, anstatt
+den Engraver zu entfernen:
+
+@example
+\override StaffSymbol #'stencil = ##f
+\override NoteHead #'no-ledgers = ##t
+@end example
+
 
 
 @node Writing parts
 @subsection Writing parts
 
+Dieser Abschnitt zeigt, wie man Tempo-Anweisungen und
+Instrumentenbezeichnungen einfügt.  Es werden auch Möglichkeiten
+vorgestellt, andere Stimmen zu zitieren und Stichnoten zu
+formatieren.
+
 @menu
-* Metronome marks::             
-* Instrument names::            
-* Quoting other voices::        
-* Formatting cue notes::        
+* Metronome marks::
+* Instrument names::
+* Quoting other voices::
+* Formatting cue notes::
 @end menu
+
 
 @node Metronome marks
 @unnumberedsubsubsec Metronome marks
 
-@untranslated
+@cindex Tempo
+@cindex Metronombezeichnung
+@cindex Tempobezeichnung
+@cindex Aufführungsanweisung: Tempo
+@funindex \tempo
+
+Eine Metronomanweisung wird wie folgt erstellt:
+
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 120
+c2 d
+e4. d8 c2
+@end lilypond
+
+Anstelle dessen kann auch Text als Argument angegeben werden:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegretto"
+c4 e d c
+b4. a16 b c4 r4
+@end lilypond
+
+Wenn eine Metronombezeichnung und Text kombiniert wird, wird
+die Metronombezeichnung automatisch in Klammern gesetzt:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "Allegro" 4 = 160
+g4 c d e
+d4 b g2
+@end lilypond
+
+Der Text kann ein beliebiges Textbeschriftungsobjekt sein:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo \markup { \italic Faster } 4 = 132
+a8-. r8 b-. r gis-. r a-. r
+@end lilypond
+
+Eine Metronombezeichnung in Klammern ohne Text kann erstellt
+werden, indem eine leere Zeichenkette hinzugefügt wird:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo "" 8 = 96
+d4 g e c
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+
+@c perhaps also an example of how to move it horizontally?
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
+
+Zu Einzelheiten siehe @ref{Formatting text}.
+
+
+@seealso
+
+Glossar:
+@rglos{metronome},
+@rglos{metronomic indication},
+@rglos{tempo indication},
+@rglos{metronome mark}.
+
+Notationsreferenz:
+@ref{Formatting text},
+@ref{MIDI output}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{MetronomeMark}.
 
 
 @node Instrument names
 @unnumberedsubsubsec Instrument names
 
-@untranslated
+@cindex Instrumentenbezeichnungen
+@cindex kurze Instrumentenbezeichnungen
+
+Instrumentbezeichnungen können an der linken Seite von Notensystemen
+im @code{Staff}- und @code{PianoStaff}-Kontext gesetzt
+werden.  Der Wert von @code{instrumentName} wird für das erste
+System eingesetzt, der Wert von @code{shortInstrumentName} für
+alle weiteren Systeme.
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\set Staff.instrumentName = "Violin "
+\set Staff.shortInstrumentName = "Vln "
+c4.. g'16 c4.. g'16
+\break
+c1
+@end lilypond
+
+Mit dem Textbeschriftungsmodus können auch komplizierte
+Instrumentenbezeichnungen erstellt werden:
+
+@lilypond[verbatim,quote,relative=2]
+\set Staff.instrumentName = \markup {
+  \column { "Clarinetti"
+            \line { "in B" \smaller \flat } } }
+c4 c,16 d e f g2
+@end lilypond
+
+@cindex Instrumentenbezeichnung, Notation
+
+Wenn zwei oder mehr Systeme gruppiert werden, werden die
+Instrumentenbezeichnungen automatisch zentriert.  Um auch
+mehrzeilige Instrumentenbezeichnungen zentriert zu setzen, muss
+@code{\center-column} benutzt werden:
+
+@lilypond[verbatim,quote,indent=1.5\cm,relative=2]
+<<
+  \new Staff {
+    \set Staff.instrumentName = "Flute"
+    f2 g4 f
+  }
+  \new Staff {
+    \set Staff.instrumentName = \markup \center-column {
+      Clarinet
+      \line { "in B" \smaller \flat }
+    }
+    c4 b c2
+  }
+>>
+@end lilypond
+
+@cindex Einzug
+@cindex indent
+@cindex short-indent
+
+Wenn die Instrumentenbezeichnung zu lang ist, kann es vorkommen,
+dass die Bezeichnungen in einer Gruppe nicht zentriert werden.
+Um dennoch eine Zentrierung zu erhalten, müssen die Werte des
+Einzugs (@code{indent} und @code{short-indent}) vergrößert werden.
+Zu Einzelheiten siehe @ref{Horizontal dimensions}.
+
+@lilypond[verbatim,quote,ragged-right]
+\layout {
+  indent = 3.0\cm
+  short-indent = 1.5\cm
+}
+
+\relative c'' <<
+  \new Staff {
+    \set Staff.instrumentName = "Alto Flute in G"
+    \set Staff.shortInstrumentName = "Fl."
+    f2 g4 f \break
+    g4 f g2
+  }
+  \new Staff {
+    \set Staff.instrumentName = "Clarinet"
+    \set Staff.shortInstrumentName = "Clar."
+    c,4 b c2 \break
+    c2 b4 c
+  }
+>>
+@end lilypond
+
+Um Instrumentenbezeichnungen zu anderen Kontexten (wie etwa
+@code{GrandStaff}, @code{ChoirStaff} oder @code{StaffGroup})
+hinzuzufügen, muss der @code{Instrument_name_engraver} dem
+entsprechenden Kontext hinzugefügt werden.  Zu Einzelheiten
+siehe @ref{Modifying context plug-ins}.
+
+@cindex Ändern von Instrumentenbezeichnungn
+@cindex Instrumentenbezeichnungen, wechseln
+@cindex Wechseln von Instrumentenbezeichnungen
+
+Instrumentenbezeichnungen können mitten in einer Partitur
+geändert werden:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\set Staff.instrumentName = "First"
+\set Staff.shortInstrumentName = "one"
+c1 c c c \break
+c1 c c c \break
+\set Staff.instrumentName = "Second"
+\set Staff.shortInstrumentName = "two"
+c1 c c c \break
+c1 c c c \break
+@end lilypond
+
+@cindex Instrumentenwechsel
+@cindex Wechsel von Instrument
+
+Wenn das Instrument gewechselt werden soll, kann der Befehl
+@code{\addInstrumentDefinition} in Begleitung von
+@code{\instrumentSwitch} benutzt werden, um eine detaillierte
+Auflistung aller notwendigen Änderungen für den Wechsel zu
+definieren.  Der @code{\addInstrumentDefinition}-Befehl hat
+zwei Argumente: eine Identifikation und eine Assosiationsliste
+von Kontexteigenschaften und Werten, die für dieses Instrument
+benutzt werden müssen.  Der Befehl muss sich auf der höchsten
+Ebene in der Eingabedatei befinden.  @code{\instrumentSwitch}
+wird dann benutzt, um den Wechsel vorzunhemen:
+
+@lilypond[verbatim,quote,ragged-right]
+\addInstrumentDefinition #"contrabassoon"
+  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
+     (shortInstrumentName . "Cbsn.")
+     (clefGlyph . "clefs.F")
+     (middleCPosition . 6)
+     (clefPosition . 2)
+     (instrumentCueName . ,(make-bold-markup "cbsn."))
+     (midiInstrument . "bassoon"))
+
+\new Staff \with {
+  instrumentName = "Bassoon"
+}
+\relative c' {
+  \clef tenor
+  \compressFullBarRests
+  c2 g'
+  R1*16
+  \instrumentSwitch "contrabassoon"
+  c,,2 g \break
+  c,1 ~ | c1
+}
+@end lilypond
+
+
+@seealso
+
+Notationsreferenz:
+@ref{Horizontal dimensions},
+@ref{Modifying context plug-ins}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{InstrumentName},
+@rinternals{PianoStaff},
+@rinternals{Staff}.
 
 
 @node Quoting other voices
 @unnumberedsubsubsec Quoting other voices
 
-@untranslated
+@cindex Stichnoten
+@cindex Zitieren von anderen Stimmen
+@cindex Fragmente
+@cindex Stimmen, zitieren
+
+Es kommt sehr oft vor, dass eine Orchesterstimme die gleichen
+Noten wie eine andere spielt.  So können etwa die ersten und
+zweiten Geigen für eine Passage die gleichen Noten haben.  In
+LilyPond kann man das erreichen, indem eine Stimme von der
+anderen @emph{zitiert}, sodass man die Noten nicht nocheinmal
+eingeben muss.
+
+Bevor eine Stimme zitiert werden kann, muss der
+@code{\addQuote}-Befehl benutzt werden, um das zitierbare
+Fragment zu kennzeichnen.  Dieser Befehl muss auf der höchsten
+Ebene der Eingabedatei benutzt werden.  Das erste Argument
+dient zur Identifikation, das zweite ein musikalischer Ausdruck:
+
+@example
+flute = \relative c'' @{
+  a4 gis g gis
+@}
+\addQuote "flute" @{ \flute @}
+@end example
+
+Der @code{\quoteDuring}-Befehl wird benutzt, um den Punkt
+anzuzeigen, an dem das Zitat beginnt.  Er benötigt zwei
+Argumente: die Bezeichnung der zitierten Stimme, wie vorher mit
+@code{\addQuote} definiert, und einen musikalischen Ausdruck,
+der Angibt, wie lange das Zitat dauern soll; normalerweise
+Ganztaktpausen oder unsichtbare Noten.  Die entsprechenden
+Noten der zitierten Stimme wird an der Stelle in die aktuelle
+Stimme eingefügt:
+
+@lilypond[verbatim,quote]
+flute = \relative c'' {
+  a4 gis g gis
+}
+\addQuote "flute" { \flute }
+
+\relative c' {
+  c4 cis \quoteDuring #"flute" { s2 }
+}
+@end lilypond
+
+Wenn der musikalische Ausdruck, der mit dem
+@code{\quoteDuring}-Befehl benutzt wird, etwas anderes
+als unsichtbare Noten oder Ganztaktpausen enthält, wird eine
+polyphone Stelle begonnen, was meistens nicht erwünscht ist:
+
+@lilypond[verbatim,quote]
+flute = \relative c'' {
+  a4 gis g gis
+}
+\addQuote "flute" { \flute }
+
+\relative c' {
+  c4 cis \quoteDuring #"flute" { c4 b }
+}
+@end lilypond
+
+Zitate erkennen die Einstellungen von transponierten Instrumenten
+sowohl der Quell- als auch der Zielstimme, wenn der
+@code{\transposition}-Befehl eingesetzt wird.  Zu Einzelheiten
+über @code{\transposition} siehe
+@ref{Instrument transpositions}.
+
+@lilypond[verbatim,quote]
+clarinet = \relative c'' {
+  \transposition bes
+  a4 gis g gis
+}
+\addQuote "clarinet" { \clarinet }
+
+\relative c' {
+  c4 cis \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
+
+Es ist möglich, Zitate mit eindeutigen Bezeichnungen zu versehen
+(unter Benutzung von @emph{tags}), um sie auf unterschiedliche
+Weise zu verarbeiten.  Einzelheiten zu diesem Vorgehen werden
+vorgestellt in
+@ref{Using tags}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{quoting-another-voice-with-transposition.ly}
+
+@cindex note-event
+@cindex articulation-event
+@cindex dynamic-event
+@cindex rest-event
+@funindex quotedEventTypes
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{quoting-another-voice.ly}
+
+
+@seealso
+
+Notationsreferenz:
+@ref{Instrument transpositions},
+@ref{Using tags}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{QuoteMusic},
+@rinternals{Voice}.
+
+
+@knownissues
+
+Nur der Inhalt der ersten Stimme innerhalb eines
+@code{\addQuote}-Befehls wird für das Zitat herangezogen, die
+Variable @var{Noten} kann also keine @code{\new} oder @code{\context Voice}-Einheiten enthalten, die zu einer anderen
+Stimme wechseln würden.
+
+Ziernoten und Vorschläge können nicht zitiert werden und können
+sogar dazu führen, dass LilyPond abstürzt.
+
+Wenn geschachtelte Triolen zitiert werden, ist das Notenbild
+unter Umständen sehr schlecht.
+
+In früheren LilyPond-Versionen (vor 2.11) wurde der Befehl
+@code{addQuote} vollständig in Kleinbuchstaben geschrieben:
+@code{\addquote}.
 
 
 @node Formatting cue notes
 @unnumberedsubsubsec Formatting cue notes
 
-@untranslated
+@cindex Stichnoten
+@cindex Noten, Stichnoten
+@cindex Stichnoten, Formatierung
+@cindex Fragmente
+@cindex andere Stimmen zitieren
+@cindex Zitieren von anderen Stimmen
 
+Der vorige Abschnitt zeigt, wie man Zitate erstellt.  Der
+@code{\cueDuring}-Befehl (engl. cue note = Stichnote)
+ist eine spezialisierte Form des
+@code{\quoteDuring}-Befehls, der insbesondere dazu dient,
+Stichnoten zu einer Stimme hinzuzufügen.  Seine Syntax lautet:
+
+@example
+\cueDuring #@var{Stimmenbezeichnung} #@var{Stimme} @var{Noten}
+@end example
+
+Dieser Befehl kopiert die entsprechenden Takte von
+@var{Stimmenbezeichnung} in einen @code{CueVoice}-Kontext.  Eine
+@code{CueVoice} (Stichnoten-Stimme) wird implizit erstellt
+und erscheint simultan mit @var{Noten}, wobei folglich eine
+polyphone Situation entsteht.  Das @var{Stimme}-Argument entscheidet,
+ob die Stichnoten als eine erste oder zweite Stimme
+eingefügt werden sollen; @code{UP} entspricht der ersten Stimme,
+@code{DOWN} der zweiten.
+
+@lilypond[verbatim,quote]
+oboe = \relative c'' {
+  r2 r8 d16 f e g f a
+  g8 g16 g g2.
+}
+\addQuote "oboe" { \oboe }
+
+\new Voice \relative c'' {
+  \cueDuring #"oboe" #UP { R1 }
+  g2 c,
+}
+@end lilypond
+
+@noindent
+In diesem Beispiel muss der @code{Voice}-Kontext explizit
+begonnen werden, damit nicht der gesamte musikalische Ausdruck
+als Stichnoten-Stimme formatiert wird.
+
+Die Bezeichnung des Instruments, von dem die Stichnoten genommen
+werden, kann auch ausgegeben werden, wenn die Eigenschaft
+@code{instrumentCueName} im @code{CueVoice}-Kontext definiert wird.
+
+@lilypond[verbatim,quote]
+oboe = \relative c''' {
+  g4 r8 e16 f e4 d
+}
+\addQuote "oboe" { \oboe }
+
+\new Staff \relative c'' <<
+  \new CueVoice \with {
+    instrumentCueName = "ob."
+  }
+  \new Voice {
+    \cueDuring #"oboe" #UP { R1 }
+    g4. b8 d2
+  }
+>>
+@end lilypond
+
+Zusätzlich zu der Instrumentenbezeichnung kann auch die
+Bezeichnung des Originalinstruments ausgegeben werden, und alle
+Änderungen, die für die Stichnoten gemacht wurden, müssen
+wieder rückgängig gemacht werden.  Das kann mit den Befehlen
+@code{\addInstrumentDefinition} und @code{\instrumentSwitch}
+vorgenommen werden.  Ein Beispiel und mehr Information findet
+sich in
+@ref{Instrument names}.
+
+Der @code{\killCues}-Befehl entfernt Stichnoten aus einem
+musikalischen Ausdruck.  Das kann nützlich sein, wenn die
+Stichnoten von einer Stimme entfernt werden sollen, aber in
+einer anderen Edition benötigt werden.
+
+@lilypond[verbatim,quote]
+flute = \relative c''' {
+  r2 cis2 r2 dis2
+}
+\addQuote "flute" { \flute }
+
+\new Voice \relative c'' {
+  \killCues {
+    \cueDuring #"flute" #UP { R1 }
+    g4. b8 d2
+  }
+}
+@end lilypond
+
+Der @code{\transposedCueDuring}-Befehl bietet sich an, wenn man
+Stichnoten eines Instrumentes mit einem vollständig anderen
+Register hinzufügen will.  Die Syntax ähnelt der des
+@code{\cueDuring}-Befehls, aber ein zusätzliches Argument
+wird benötigt, das die Transposition der Stichnoten-Stimme
+bezeichnet.  Mehr Information zu Transposition siehe
+@ref{Instrument transpositions}.
+
+@lilypond[verbatim,quote]
+piccolo = \relative c''' {
+  \clef "treble^8"
+  R1
+  c8 c c e g2
+  a4 g g2
+}
+\addQuote "piccolo" { \piccolo }
+
+cbassoon = \relative c, {
+  \clef "bass_8"
+  c4 r g r
+  \transposedCueDuring #"piccolo" #UP c,, { R1 }
+  c4 r g r
+}
+
+<<
+  \new Staff = "piccolo" \piccolo
+  \new Staff = "cbassoon" \cbassoon
+>>
+@end lilypond
+
+Es ist möglich, Zitate mit eindeutigen Bezeichnungen zu versehen
+(unter Benutzung von @emph{tags}), um sie auf unterschiedliche
+Weise zu verarbeiten.  Einzelheiten zu diesem Vorgehen werden
+vorgestellt in
+@ref{Using tags}.
+
+
+@seealso
+
+Notationsreferenz:
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Using tags}.
+
+Schnipsel:
+@rlsr{Staff notation}.
+
+Referenz der Interna:
+@rinternals{CueVoice},
+@rinternals{Voice}.
+
+
+@knownissues
+
+Zusammenstöße können zwischen Pausen der Hauptstimme und 
+den Stichnoten des @code{CueVoice}-Kontexts auftreten.
