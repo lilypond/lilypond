@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -214,6 +214,9 @@ o bien
 \lilypond@{ EL CÓDIGO DE LILYPOND @}
 @end example
 
+De forma adicional, @code{\lilypondversion} imprime la versión actual
+de lilypond.
+
 La ejecución de @command{lilypond-book} deja como resultado un archivo
 que se puede procesar posteriormente con @LaTeX{}.
 
@@ -404,6 +407,9 @@ o bien
 @@lilypondfile[las,opciones,van,aquí]@{@var{archivo}@}
 @end example
 
+De forma adicional, @code{@@lilypondversion} imprime la versión actual
+de lilypond.
+
 Cuando se ejecuta @command{lilypond-book} sobre el archivo, se obtiene
 como resultado un archivo Texinfo (con la extensión @file{.texi}) que
 contiene etiquetas @code{@@image} para el HTML, Info y la salida
@@ -473,6 +479,9 @@ Para incluir archivos externos, escriba
 @example
 <lilypondfile @var{opción1} @var{opción2} ...>@var{archivo}</lilypondfile>
 @end example
+
+De forma adicional, @code{<lilypondversion/>} imprime la versión
+actual de lilypond.
 
 @cindex títulos en  HTML
 @cindex vista previa, imagen

@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -190,6 +190,33 @@ principio del archivo.
 @end example
 
 
+@funindex \bookpart
+
+Se pueden agrupar distintas piezas de música en partes de un libro
+utilizando bloques @code{\bookpart}.  Las partes de libro se separan
+por medio de saltos de página, y pueden dar comienzo con un título,
+como el libro propiamente dicho, mediante la especificación del bloque
+@code{\header}.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Título del libro"
+    subtitle = "Primera parte"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Segunda parte"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+
 @node File structure
 @subsection File structure
 
@@ -199,6 +226,7 @@ principio del archivo.
 @funindex \header
 @funindex \score
 @funindex \book
+@funindex \bookpart
 
 Un archivo @code{.ly} puede contener cualquier número de expresions
 del nivel superior, donde una expresión del nivel superior es una de
@@ -246,6 +274,12 @@ ejemplo.  Se puede cmbiar este comportamiento estableciendo el valor
 de la variable @code{toplevel-book-handler} en el nivel superior.  El
 @emph{handler} predeterminado se define en el archivo de inicio
 @file{../scm/@/lily@/.scm}.
+
+@item
+Un bloque @code{\bookpart}.  Un libro puede dividirse en varias
+partes, utilizando bloques @code{\bookpart}, con objeto de facilitar
+la inserción de saltos de página o usar distintos ajustes de
+@code{\paper} en las distintas partes.
 
 @item
 Una expresión musical compuesta, como
@@ -358,7 +392,8 @@ compositor; ciertas piezas tienen mucha más información.
 @subsection Creating titles
 
 Se crean títulos para cada uno de los bloques @code{\score} así como
-para todo el archivo de entrada (o bloque @code{\book} (libro)).
+para todo el archivo de entrada (o bloque @code{\book}, libro) y las
+partes de libro (creadas mediante bloques @code{\bookpart}).
 
 El contenido de cada título se extrae a partir de los bloques
 @code{\header} (cabecera).  El bloque de cabecera de un libro

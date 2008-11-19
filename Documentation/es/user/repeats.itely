@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -302,6 +302,7 @@ g4 a g a
 c1
 \set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
 b1
+\set Score.repeatCommands = #'((volta #f))
 @end lilypond
 
 @cindex corchete de casilla de repetición con texto
@@ -447,6 +448,9 @@ donde @var{expresión_musical} es una expresión musical.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {percent-repeat-counter.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-count-visibility.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {isolated-percent-repeats.ly}

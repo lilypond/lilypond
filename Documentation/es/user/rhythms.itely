@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1716,34 +1716,8 @@ a a a a
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {reverting-default-beam-endings.ly}
 
-@c TODO Convert to snippet called "Beam endings in Score context"
-@c Submitted to LSR 3 Nov 08
-
-Las reglas de final de barra especificadas en el contexto Score se
-aplican a todos los pentagramas, pero se pueden modificar tanto en los
-niveles de Staff como de Voice:
-
-@lilypond[quote,verbatim,relative=2]
-  \time 5/4
-  % Set default beaming for all staves
-  #(override-auto-beam-setting '(end * * 5 4) 3 8 'Score)
-  #(override-auto-beam-setting '(end * * 5 4) 7 8 'Score)
-  <<
-    \new Staff {
-      c8 c c c c c c c c c
-    }
-    \new Staff {
-      % Modify beaming for just this staff
-      #(override-auto-beam-setting '(end * * 5 4) 6 8 'Staff)
-      #(revert-auto-beam-setting '(end * * 5 4) 7 8 'Staff)
-      c8 c c c c c c c c c
-    }
-    \new Staff {
-      % Inherit beaming from Score context
-      c8 c c c c c c c c c
-    }
-  >>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beam-endings-in-score-context.ly}
 
 
 @predefined
