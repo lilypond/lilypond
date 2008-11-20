@@ -44,6 +44,7 @@ def error_message (str):
 
 needed_additional_definitions = []
 additional_definitions = {
+
   "snappizzicato": """#(define-markup-command (snappizzicato layout props) ()
   (interpret-markup layout props
     (markup #:stencil
@@ -54,6 +55,7 @@ additional_definitions = {
             (list 'draw-line 0.1 0 0.1 0 1)
             '(-0.1 . 0.1) '(0.1 . 1)))
         0.7 X))))""",
+
   "eyeglasses": """eyeglassesps = #"0.15 setlinewidth
       -0.9 0 translate
       1.1 1.1 scale
@@ -72,7 +74,20 @@ additional_definitions = {
       3.30 2.00 lineto
       3.42 2.26 3.80 2.40 3.65 1.70 curveto
       stroke"
-eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }"""
+eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }""",
+
+  "tuplet-note-wrapper": """      % a formatter function, which is simply a wrapper around an existing 
+      % tuplet formatter function. It takes the value returned by the given
+      % function and appends a note of given length. 
+  #(define-public ((tuplet-number::append-note-wrapper function note) grob)
+    (let* ((txt (if function (function grob) #f)))
+      (if txt 
+        (markup txt #:fontsize -5 #:note note UP)
+        (markup #:fontsize -5 #:note note UP)
+      )
+    )
+  )""",
+
 }
 
 def round_to_two_digits (val):
@@ -592,6 +607,30 @@ def group_repeats (music_list):
         # TODO: Implement repeats until the end without explicit ending bar
     return music_list
 
+def musicxml_tuplet_to_lily (tuplet_elt, fraction):
+    tsm = musicexp.TimeScaledMusic ()
+    tsm.numerator = fraction[0]
+    tsm.denominator  = fraction[1]
+
+    if hasattr (tuplet_elt, 'bracket') and tuplet_elt.bracket == "no":
+        tsm.display_bracket = None
+    elif hasattr (tuplet_elt, 'line-shape') and getattr (tuplet_elt, 'line-shape') == "curved":
+        tsm.display_bracket = "curved"
+    else:
+        tsm.display_bracket = "bracket"
+
+    display_values = {"none": None, "actual": "actual", "both": "both"}
+    if hasattr (tuplet_elt, "show-number"):
+        tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
+        if getattr (tuplet_elt, "show-number") == "both":
+            needed_additional_definitions.append ("tuplet-note-wrapper")
+    if hasattr (tuplet_elt, "show-type"):
+        tsm.display_type = display_values.get (getattr (tuplet_elt, "show-type"), None)
+
+    # TODO: Handle non-standard display (extract the type from the tuplet-actual 
+    # and tuplet-normal children
+    # TODO: We need the type from the time-modification tag!
+    return tsm
 
 
 def group_tuplets (music_list, events):
@@ -615,18 +654,19 @@ def group_tuplets (music_list, events):
         if hasattr (tuplet_elt, 'number'):
             nr = getattr (tuplet_elt, 'number')
         if tuplet_elt.type == 'start':
-            tuplet_info = [j, None, fraction]
+            tuplet_object = musicxml_tuplet_to_lily (tuplet_elt, fraction)
+            tuplet_info = [j, None, tuplet_object]
             indices.append (tuplet_info)
             brackets[nr] = tuplet_info
         elif tuplet_elt.type == 'stop':
             bracket_info = brackets.get (nr, None)
             if bracket_info:
-                bracket_info[1] = j
+                bracket_info[1] = j # Set the ending position to j
                 del brackets[nr]
 
     new_list = []
     last = 0
-    for (i1, i2, frac) in indices:
+    for (i1, i2, tsm) in indices:
         if i1 > i2:
             continue
 
@@ -635,11 +675,7 @@ def group_tuplets (music_list, events):
         last = i2 + 1
         seq.elements = music_list[i1:last]
 
-        tsm = musicexp.TimeScaledMusic ()
         tsm.element = seq
-
-        tsm.numerator = frac[0]
-        tsm.denominator  = frac[1]
 
         new_list.append (tsm)
 
@@ -1999,6 +2035,7 @@ def musicxml_voice_to_lily_voice (voice):
         for notations in notations_children:
             for tuplet_event in notations.get_tuplets():
                 mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
+                # TODO: Extract the type of note (for possible display later on!)
                 frac = (1,1)
                 if mod:
                     frac = mod.get_fraction ()
