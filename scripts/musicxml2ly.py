@@ -611,7 +611,9 @@ def group_tuplets (music_list, events):
             if music_list[j] == ev_chord:
                 break
             j += 1
-        nr = tuplet_elt.number
+        nr = 0
+        if hasattr (tuplet_elt, 'number'):
+            nr = getattr (tuplet_elt, 'number')
         if tuplet_elt.type == 'start':
             tuplet_info = [j, None, fraction]
             indices.append (tuplet_info)

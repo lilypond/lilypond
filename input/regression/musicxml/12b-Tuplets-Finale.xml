@@ -6,7 +6,8 @@
     <miscellaneous>
       <miscellaneous-field name="description">Some tuplets (3:2, 3:2, 3:2, 4:2, 
           4:1, 7:3, 6:2) with the default tuplet bracket displaying the number 
-          of actual notes played.</miscellaneous-field>
+          of actual notes played. The second tuplet does not have a number 
+          attribute set.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -102,7 +103,7 @@
         </time-modification>
         <stem>up</stem>
         <notations>
-          <tuplet number="1" placement="above" type="start"/>
+          <tuplet placement="above" type="start"/>
         </notations>
       </note>
       <note>
@@ -133,7 +134,7 @@
         </time-modification>
         <stem>up</stem>
         <notations>
-          <tuplet number="1" type="stop"/>
+          <tuplet type="stop"/>
         </notations>
       </note>
       <note>
