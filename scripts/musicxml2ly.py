@@ -88,6 +88,19 @@ eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #ey
     )
   )""",
 
+  "tuplet-non-default-denominator": """#(define ((tuplet-number::non-default-tuplet-denominator-text denominator) grob)
+  (number->string (if denominator 
+                      denominator 
+                      (ly:event-property (event-cause grob) 'denominator))))
+""",
+
+  "tuplet-non-default-fraction": """#(define ((tuplet-number::non-default-tuplet-fraction-text denominator numerator) grob)
+    (let* ((ev (event-cause grob))
+           (den (if denominator denominator (ly:event-property ev 'denominator)))
+           (num (if numerator numerator (ly:event-property ev 'numerator))))
+       (format "~a:~a" den num)))
+"""
+
 }
 
 def round_to_two_digits (val):
@@ -610,10 +623,42 @@ def group_repeats (music_list):
         # TODO: Implement repeats until the end without explicit ending bar
     return music_list
 
-def musicxml_tuplet_to_lily (tuplet_elt, fraction):
+
+# Extract the settings for tuplets from the <notations><tuplet> and the 
+# <time-modification> elements of the note:
+def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     tsm = musicexp.TimeScaledMusic ()
+    fraction = (1,1)
+    if time_modification:
+        fraction = time_modification.get_fraction ()
     tsm.numerator = fraction[0]
     tsm.denominator  = fraction[1]
+
+
+    normal_type = tuplet_elt.get_normal_type ()
+    if not normal_type and time_modification:
+        normal_type = time_modification.get_normal_type ()
+    if not normal_type and time_modification:
+        note = time_modification.get_parent ()
+        if note:
+            normal_type = note.get_duration_info ()
+    if normal_type:
+        normal_note = musicexp.Duration ()
+        (normal_note.duration_log, normal_note.dots) = normal_type
+        tsm.normal_type = normal_note
+
+    actual_type = tuplet_elt.get_actual_type ()
+    if actual_type:
+        actual_note = musicexp.Duration ()
+        (actual_note.duration_log, actual_note.dots) = normal_type
+        tsm.actual_type = actual_note
+
+    # Obtain non-default nrs of notes from the tuplet object!
+    tsm.display_numerator = tuplet_elt.get_normal_nr ()
+    tsm.display_denominator = tuplet_elt.get_actual_nr ()
+
+    print ("num: %s, den: %s" % (tsm.display_numerator, tsm.display_denominator))
+
 
     if hasattr (tuplet_elt, 'bracket') and tuplet_elt.bracket == "no":
         tsm.display_bracket = None
@@ -625,14 +670,20 @@ def musicxml_tuplet_to_lily (tuplet_elt, fraction):
     display_values = {"none": None, "actual": "actual", "both": "both"}
     if hasattr (tuplet_elt, "show-number"):
         tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
-        if getattr (tuplet_elt, "show-number") == "both":
-            needed_additional_definitions.append ("tuplet-note-wrapper")
+    if tsm.display_number == "actual" and tsm.display_denominator:
+        print "Add denom-function\n";
+        needed_additional_definitions.append ("tuplet-non-default-denominator")
+    elif tsm.display_number == "both" and (tsm.display_numerator or tsm.display_denominator):
+        print "Add fraction-function\n";
+        needed_additional_definitions.append ("tuplet-non-default-fraction")
+    else:
+        print "No display-function, display_number=%s, den=%s\n" % (tsm.display_number, tsm.display_denominator);
+
     if hasattr (tuplet_elt, "show-type"):
+        if getattr (tuplet_elt, "show-type") == "actual":
+            needed_additional_definitions.append ("tuplet-note-wrapper")
         tsm.display_type = display_values.get (getattr (tuplet_elt, "show-type"), None)
 
-    # TODO: Handle non-standard display (extract the type from the tuplet-actual 
-    # and tuplet-normal children
-    # TODO: We need the type from the time-modification tag!
     return tsm
 
 
@@ -648,7 +699,7 @@ def group_tuplets (music_list, events):
     brackets = {}
 
     j = 0
-    for (ev_chord, tuplet_elt, fraction) in events:
+    for (ev_chord, tuplet_elt, time_modification) in events:
         while (j < len (music_list)):
             if music_list[j] == ev_chord:
                 break
@@ -657,7 +708,7 @@ def group_tuplets (music_list, events):
         if hasattr (tuplet_elt, 'number'):
             nr = getattr (tuplet_elt, 'number')
         if tuplet_elt.type == 'start':
-            tuplet_object = musicxml_tuplet_to_lily (tuplet_elt, fraction)
+            tuplet_object = musicxml_tuplet_to_lily (tuplet_elt, time_modification)
             tuplet_info = [j, None, tuplet_object]
             indices.append (tuplet_info)
             brackets[nr] = tuplet_info
@@ -2037,13 +2088,8 @@ def musicxml_voice_to_lily_voice (voice):
         #    accidental-mark | other-notation
         for notations in notations_children:
             for tuplet_event in notations.get_tuplets():
-                mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
-                # TODO: Extract the type of note (for possible display later on!)
-                frac = (1,1)
-                if mod:
-                    frac = mod.get_fraction ()
-
-                tuplet_events.append ((ev_chord, tuplet_event, frac))
+                time_mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
+                tuplet_events.append ((ev_chord, tuplet_event, time_mod))
 
             # First, close all open slurs, only then start any new slur
             # TODO: Record the number of the open slur to dtermine the correct
