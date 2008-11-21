@@ -1503,20 +1503,29 @@ example @code{NonMusicalPaperColumn} overrides with the special
 To understand how each of these different settings work, we begin
 by looking at an example that includes no overrides at all.
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      s1 * 5 \break
-      s1 * 5 \break
-      s1 * 5 \break
-    }
-    \new Voice { \repeat unfold 15 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new Staff {
-    \repeat unfold 15 { d'4 d'4 d'4 d'4 }
+@c \book { } is required in these examples to ensure the spacing
+@c overrides can be seen between systems. -np
+
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
   }
->>
+}
 @end lilypond
 
 This score isolates line- and page-breaking information in a dedicated
@@ -1530,26 +1539,32 @@ the vertical startpoint of each system explicitly, we can set
 the @code{Y-offset} pair in the @code{line-break-system-details}
 attribute of the @code{NonMusicalPaperColumn} grob:
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 0))
-      s1 * 5 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 40))
-      s1 * 5 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 80))
-      s1 * 5 \break
-    }
-    \new Voice { \repeat unfold 15 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new Staff {
-    \repeat unfold 15 { d'4 d'4 d'4 d'4 }
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 0))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 40))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 80))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
   }
->>
+}
 @end lilypond
 
 Note that @code{line-break-system-details} takes an associative list of
@@ -1562,29 +1577,35 @@ explicitly, we can also set the vertical startpoint of each staff
 within each system manually.  We do this using the @code{alignment-offsets}
 subproperty of @code{line-break-system-details}.
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 20)
-          (alignment-offsets . (0 -15)))
-      s1 * 5 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 60)
-          (alignment-offsets . (0 -15)))
-      s1 * 5 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 100)
-          (alignment-offsets . (0 -15)))
-      s1 * 5 \break
-    }
-    \new Voice { \repeat unfold 15 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new Staff {
-    \repeat unfold 15 { d'4 d'4 d'4 d'4 }
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 20)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 60)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 100)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
   }
->>
+}
 @end lilypond
 
 Note that here we assign two different values to the
@@ -1597,34 +1618,36 @@ additional spacing parameters (including, for example, a corresponding
 every system and every staff.  Finally, note that @code{alignment-offsets}
 specifies the vertical positioning of staves but not of staff groups.
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details #'((Y-offset . 0)
-        (alignment-offsets . (0 -30 -40)))
-      s1 * 5 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details #'((Y-offset . 60)
-        (alignment-offsets . (0 -10 -20)))
-      s1 * 5 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details #'((Y-offset . 100)
-        (alignment-offsets . (0 -10, -40)))
-      s1 * 5 \break
-    }
-    \new Voice { \repeat unfold 15 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new StaffGroup <<
-    \new Staff {
-      \repeat unfold 15 { d'4 d'4 d'4 d'4 }
-    }
-    \new Staff {
-      \repeat unfold 15 { e'4 e'4 e'4 e'4 }
-    }
-  >>
->>
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 0)
+                                           (alignment-offsets . (0 -30 -40)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 60)
+                                           (alignment-offsets . (0 -10 -20)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 100)
+                                           (alignment-offsets . (0 -10 -40)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new StaffGroup <<
+        \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+        \new Staff { \repeat unfold 15 { e'4 e' e' e' } }
+      >>
+    >>
+  }
+}
 @end lilypond
 
 Some points to consider:
