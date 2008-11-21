@@ -151,7 +151,7 @@
         </time-modification>
         <stem>down</stem>
         <notations>
-          <tuplet bracket="no" number="1" placement="above" type="start"/>
+          <tuplet number="1" placement="above" type="start"/>
         </notations>
       </note>
       <note>
