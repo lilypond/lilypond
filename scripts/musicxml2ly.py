@@ -461,23 +461,26 @@ def extract_score_structure (part_list, staffinfo):
 
 
 def musicxml_duration_to_lily (mxl_note):
-    d = musicexp.Duration ()
     # if the note has no Type child, then that method returns None. In that case,
     # use the <duration> tag instead. If that doesn't exist, either -> Error
-    d.duration_log = mxl_note.get_duration_log ()
-    if d.duration_log == None:
-        if mxl_note._duration > 0:
-            return rational_to_lily_duration (mxl_note._duration)
-        else:
-            mxl_note.message (_ ("Encountered note at %s without type and duration (=%s)") % (mxl_note.start, mxl_note._duration) )
-            return None
-    else:
-        d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
+    dur = mxl_note.get_duration_info ()
+    if dur:
+        d = musicexp.Duration ()
+        d.duration_log = dur[0]
+        d.dots = dur[1]
         # Grace notes by specification have duration 0, so no time modification 
         # factor is possible. It even messes up the output with *0/1
         if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
             d.factor = mxl_note._duration / d.get_length ()
         return d
+
+    else:
+        if mxl_note._duration > 0:
+            return rational_to_lily_duration (mxl_note._duration)
+        else:
+            mxl_note.message (_ ("Encountered note at %s without type and duration (=%s)") % (mxl_note.start, mxl_note._duration) )
+            return None
+
 
 def rational_to_lily_duration (rational_len):
     d = musicexp.Duration ()

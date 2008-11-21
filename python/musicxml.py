@@ -401,6 +401,14 @@ class Note (Measure_element):
 	    return 3
         else:
             return None
+    
+    def get_duration_info (self):
+        log = self.get_duration_log ()
+        if log != None:
+            dots = len (self.get_typed_children (Dot))
+            return (log, dots)
+        else:
+            return None
 
     def get_factor (self):
         return 1
