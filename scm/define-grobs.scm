@@ -566,6 +566,8 @@
 	(stencil . ,ly:percent-repeat-item-interface::double-percent)
 	(non-musical . #t)
 	(slope . 1.0)
+	(dot-negative-kern . 0.75)
+	(slash-negative-kern . 1.6)
 	(font-encoding . fetaMusic)
 	(width . 2.0)
 	(thickness . 0.48)
@@ -1315,6 +1317,7 @@
 	(stencil . ,ly:multi-measure-rest::percent)
 	(slope . 1.0)
 	(thickness . 0.48)
+	(dot-negative-kern . 0.75)
 	(font-encoding . fetaMusic)
 	(meta . ((class . Spanner)
 		 (interfaces . (multi-measure-rest-interface
