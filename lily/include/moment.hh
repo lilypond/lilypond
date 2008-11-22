@@ -41,8 +41,8 @@ public:
   void set_infinite (int k);
 
   bool to_bool () const;
-  int den () const;
-  int num () const;
+  I64 den () const;
+  I64 num () const;
   /*
     Deliver a copy of THIS as a smobified SCM
   */

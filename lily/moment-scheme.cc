@@ -111,7 +111,7 @@ LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
 
   Moment *ma = unsmob_moment (mom);
 
-  return scm_from_int (ma->grace_part_.numerator ());
+  return scm_from_int64 (ma->grace_part_.numerator ());
 }
 
 LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
@@ -121,7 +121,7 @@ LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
 
-  return scm_from_int (ma->grace_part_.denominator ());
+  return scm_from_int64 (ma->grace_part_.denominator ());
 }
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
 	   1, 0, 0, (SCM mom),
@@ -130,7 +130,7 @@ LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
 
-  return scm_from_int (ma->main_part_.numerator ());
+  return scm_from_int64 (ma->main_part_.numerator ());
 }
 
 LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
@@ -140,7 +140,7 @@ LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
 
-  return scm_from_int (ma->main_part_.denominator ());
+  return scm_from_int64 (ma->main_part_.denominator ());
 }
 
 LY_DEFINE (ly_moment_less_p, "ly:moment<?",
