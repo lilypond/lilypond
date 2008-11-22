@@ -13,9 +13,9 @@
 
 @lilypondfile[quote]{staff-headword.ly}
 
-This section explains how to influence the staff appearance, print
-scores with more than one staff, and how to apply specific
-performance marks to single staves.
+This section explains how to influence the appearance of staves,
+how to print scores with more than one staff, and how to add tempo
+indications and cue notes to staves.
 
 @menu
 * Displaying staves::
@@ -62,23 +62,16 @@ The basic staff context is @code{Staff}:
 \new Staff { c4 d e f }
 @end lilypond
 
-@code{DrumStaff} creates a five-line staff set up for a
-typical drum set.  It uses different names for each instrument.
-The instrument names are set using the @code{\drummode} command.
+The @code{DrumStaff} context creates a five-line staff set up for
+a typical drum set.  Each instrument is shown with a different
+symbol.  The instruments are entered in drum mode following a
+@code{\drummode} command, with each instrument specified by name.
 For details, see @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
   \drummode { cymc hh ss tomh }
 }
-@end lilypond
-
-@c FIXME: remove when mentioned in NR 2.8
-@code{GregorianTranscriptionStaff} creates a staff to notate
-modern Gregorian chant.  It does not show bar lines.
-
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
 @end lilypond
 
 @code{RhythmicStaff} creates a single-line staff that only
@@ -99,6 +92,13 @@ guitar tuning.  For details, see @ref{Default tablatures}.
 There are two staff contexts specific for the notation of ancient
 music: @code{MensuralStaff} and @code{VaticanaStaff}.  They are
 described in @ref{Pre-defined contexts}.
+
+The @code{GregorianTranscriptionStaff} context creates a staff to
+notate modern Gregorian chant.  It does not show bar lines.
+
+@lilypond[verbatim,quote,relative=2]
+\new GregorianTranscriptionStaff { c4 d e f e d }
+@end lilypond
 
 New single staff contexts may be defined.  For details, see
 @ref{Defining new contexts}.
@@ -235,7 +235,6 @@ New staff group contexts may be defined.  For details, see
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
-@c FIXME: move to NR 2.8.x when sectioning is ready
 
 
 @seealso
@@ -386,7 +385,9 @@ thickness.
 @end lilypond
 
 Ledger line thickness can be set independently of staff line
-thickness.
+thickness.  In the example the two numbers are factors multiplying
+the staff line thickness and the staff line spacing.  The two
+contributions are added to give the ledger line thickness.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -502,7 +503,7 @@ staff in the appropriate location:
 @end lilypond
 
 @noindent
-However, the above example is usually not the desired result.  To
+However, the above example is not what is usually desired.  To
 create ossia staves that are above the original staff, have no
 time signature or clef, and have a smaller font size, tweaks must
 be used.  The Learning Manual describes a specific technique to
@@ -671,8 +672,9 @@ block.  In orchestral scores, this style is known as @q{Frenched
 Score}.  By default, this command hides and removes all empty
 staves in a score except for those in the first system.
 
-@warning{An empty staff may only include multi-measure rests,
-skips, spacer rests, or a combination of these elements.}
+@warning{A staff is considered empty when it contains only
+multi-measure rests, skips, spacer rests, or a combination of these
+elements.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -1022,7 +1024,7 @@ Internals Reference:
 @cindex fragments
 @cindex cue notes
 
-It is very common for one voice to double the some of the music from
+It is very common for one voice to double some of the music from
 another voice.  For example, the first and second violins may play the
 same notes during a passage of music.  In LilyPond this is accomplished
 by letting one voice @emph{quote} the other voice without having to
