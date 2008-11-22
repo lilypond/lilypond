@@ -44,6 +44,7 @@ def error_message (str):
 
 needed_additional_definitions = []
 additional_definitions = {
+
   "snappizzicato": """#(define-markup-command (snappizzicato layout props) ()
   (interpret-markup layout props
     (markup #:stencil
@@ -54,6 +55,7 @@ additional_definitions = {
             (list 'draw-line 0.1 0 0.1 0 1)
             '(-0.1 . 0.1) '(0.1 . 1)))
         0.7 X))))""",
+
   "eyeglasses": """eyeglassesps = #"0.15 setlinewidth
       -0.9 0 translate
       1.1 1.1 scale
@@ -72,7 +74,33 @@ additional_definitions = {
       3.30 2.00 lineto
       3.42 2.26 3.80 2.40 3.65 1.70 curveto
       stroke"
-eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }"""
+eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }""",
+
+  "tuplet-note-wrapper": """      % a formatter function, which is simply a wrapper around an existing 
+      % tuplet formatter function. It takes the value returned by the given
+      % function and appends a note of given length. 
+  #(define-public ((tuplet-number::append-note-wrapper function note) grob)
+    (let* ((txt (if function (function grob) #f)))
+      (if txt 
+        (markup txt #:fontsize -5 #:note note UP)
+        (markup #:fontsize -5 #:note note UP)
+      )
+    )
+  )""",
+
+  "tuplet-non-default-denominator": """#(define ((tuplet-number::non-default-tuplet-denominator-text denominator) grob)
+  (number->string (if denominator 
+                      denominator 
+                      (ly:event-property (event-cause grob) 'denominator))))
+""",
+
+  "tuplet-non-default-fraction": """#(define ((tuplet-number::non-default-tuplet-fraction-text denominator numerator) grob)
+    (let* ((ev (event-cause grob))
+           (den (if denominator denominator (ly:event-property ev 'denominator)))
+           (num (if numerator numerator (ly:event-property ev 'numerator))))
+       (format "~a:~a" den num)))
+"""
+
 }
 
 def round_to_two_digits (val):
@@ -446,23 +474,26 @@ def extract_score_structure (part_list, staffinfo):
 
 
 def musicxml_duration_to_lily (mxl_note):
-    d = musicexp.Duration ()
     # if the note has no Type child, then that method returns None. In that case,
     # use the <duration> tag instead. If that doesn't exist, either -> Error
-    d.duration_log = mxl_note.get_duration_log ()
-    if d.duration_log == None:
-        if mxl_note._duration > 0:
-            return rational_to_lily_duration (mxl_note._duration)
-        else:
-            mxl_note.message (_ ("Encountered note at %s without type and duration (=%s)") % (mxl_note.start, mxl_note._duration) )
-            return None
-    else:
-        d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
+    dur = mxl_note.get_duration_info ()
+    if dur:
+        d = musicexp.Duration ()
+        d.duration_log = dur[0]
+        d.dots = dur[1]
         # Grace notes by specification have duration 0, so no time modification 
         # factor is possible. It even messes up the output with *0/1
         if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
             d.factor = mxl_note._duration / d.get_length ()
         return d
+
+    else:
+        if mxl_note._duration > 0:
+            return rational_to_lily_duration (mxl_note._duration)
+        else:
+            mxl_note.message (_ ("Encountered note at %s without type and duration (=%s)") % (mxl_note.start, mxl_note._duration) )
+            return None
+
 
 def rational_to_lily_duration (rational_len):
     d = musicexp.Duration ()
@@ -593,6 +624,68 @@ def group_repeats (music_list):
     return music_list
 
 
+# Extract the settings for tuplets from the <notations><tuplet> and the 
+# <time-modification> elements of the note:
+def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
+    tsm = musicexp.TimeScaledMusic ()
+    fraction = (1,1)
+    if time_modification:
+        fraction = time_modification.get_fraction ()
+    tsm.numerator = fraction[0]
+    tsm.denominator  = fraction[1]
+
+
+    normal_type = tuplet_elt.get_normal_type ()
+    if not normal_type and time_modification:
+        normal_type = time_modification.get_normal_type ()
+    if not normal_type and time_modification:
+        note = time_modification.get_parent ()
+        if note:
+            normal_type = note.get_duration_info ()
+    if normal_type:
+        normal_note = musicexp.Duration ()
+        (normal_note.duration_log, normal_note.dots) = normal_type
+        tsm.normal_type = normal_note
+
+    actual_type = tuplet_elt.get_actual_type ()
+    if actual_type:
+        actual_note = musicexp.Duration ()
+        (actual_note.duration_log, actual_note.dots) = normal_type
+        tsm.actual_type = actual_note
+
+    # Obtain non-default nrs of notes from the tuplet object!
+    tsm.display_numerator = tuplet_elt.get_normal_nr ()
+    tsm.display_denominator = tuplet_elt.get_actual_nr ()
+
+    print ("num: %s, den: %s" % (tsm.display_numerator, tsm.display_denominator))
+
+
+    if hasattr (tuplet_elt, 'bracket') and tuplet_elt.bracket == "no":
+        tsm.display_bracket = None
+    elif hasattr (tuplet_elt, 'line-shape') and getattr (tuplet_elt, 'line-shape') == "curved":
+        tsm.display_bracket = "curved"
+    else:
+        tsm.display_bracket = "bracket"
+
+    display_values = {"none": None, "actual": "actual", "both": "both"}
+    if hasattr (tuplet_elt, "show-number"):
+        tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
+    if tsm.display_number == "actual" and tsm.display_denominator:
+        print "Add denom-function\n";
+        needed_additional_definitions.append ("tuplet-non-default-denominator")
+    elif tsm.display_number == "both" and (tsm.display_numerator or tsm.display_denominator):
+        print "Add fraction-function\n";
+        needed_additional_definitions.append ("tuplet-non-default-fraction")
+    else:
+        print "No display-function, display_number=%s, den=%s\n" % (tsm.display_number, tsm.display_denominator);
+
+    if hasattr (tuplet_elt, "show-type"):
+        if getattr (tuplet_elt, "show-type") == "actual":
+            needed_additional_definitions.append ("tuplet-note-wrapper")
+        tsm.display_type = display_values.get (getattr (tuplet_elt, "show-type"), None)
+
+    return tsm
+
 
 def group_tuplets (music_list, events):
 
@@ -606,25 +699,28 @@ def group_tuplets (music_list, events):
     brackets = {}
 
     j = 0
-    for (ev_chord, tuplet_elt, fraction) in events:
+    for (ev_chord, tuplet_elt, time_modification) in events:
         while (j < len (music_list)):
             if music_list[j] == ev_chord:
                 break
             j += 1
-        nr = tuplet_elt.number
+        nr = 0
+        if hasattr (tuplet_elt, 'number'):
+            nr = getattr (tuplet_elt, 'number')
         if tuplet_elt.type == 'start':
-            tuplet_info = [j, None, fraction]
+            tuplet_object = musicxml_tuplet_to_lily (tuplet_elt, time_modification)
+            tuplet_info = [j, None, tuplet_object]
             indices.append (tuplet_info)
             brackets[nr] = tuplet_info
         elif tuplet_elt.type == 'stop':
             bracket_info = brackets.get (nr, None)
             if bracket_info:
-                bracket_info[1] = j
+                bracket_info[1] = j # Set the ending position to j
                 del brackets[nr]
 
     new_list = []
     last = 0
-    for (i1, i2, frac) in indices:
+    for (i1, i2, tsm) in indices:
         if i1 > i2:
             continue
 
@@ -633,11 +729,7 @@ def group_tuplets (music_list, events):
         last = i2 + 1
         seq.elements = music_list[i1:last]
 
-        tsm = musicexp.TimeScaledMusic ()
         tsm.element = seq
-
-        tsm.numerator = frac[0]
-        tsm.denominator  = frac[1]
 
         new_list.append (tsm)
 
@@ -1996,12 +2088,8 @@ def musicxml_voice_to_lily_voice (voice):
         #    accidental-mark | other-notation
         for notations in notations_children:
             for tuplet_event in notations.get_tuplets():
-                mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
-                frac = (1,1)
-                if mod:
-                    frac = mod.get_fraction ()
-
-                tuplet_events.append ((ev_chord, tuplet_event, frac))
+                time_mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
+                tuplet_events.append ((ev_chord, tuplet_event, time_mod))
 
             # First, close all open slurs, only then start any new slur
             # TODO: Record the number of the open slur to dtermine the correct

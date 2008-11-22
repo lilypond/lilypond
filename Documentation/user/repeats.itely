@@ -293,7 +293,7 @@ b1
 Text can be included with the volta bracket.  The text can be a
 number or numbers or markup text, see @ref{Formatting text}.  The
 simplest way to use markup text is to define the markup first,
-then include the the markup in a Scheme list.
+then include the markup in a Scheme list.
 
 @lilypond[verbatim,quote]
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }

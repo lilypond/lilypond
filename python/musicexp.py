@@ -452,7 +452,68 @@ class RelativeMusic (MusicWrapper):
         relative_pitches = prev_relative_pitches
 
 class TimeScaledMusic (MusicWrapper):
+    def __init__ (self):
+        MusicWrapper.__init__ (self)
+        self.numerator = 1
+        self.denominator = 1
+        self.display_number = "actual" # valid values "actual" | "both" | None
+        # Display the basic note length for the tuplet:
+        self.display_type = None       # value values "actual" | "both" | None
+        self.display_bracket = "bracket" # valid values "bracket" | "curved" | None
+        self.actual_type = None   # The actually played unit of the scaling
+        self.normal_type = None   # The basic unit of the scaling
+        self.display_numerator = None
+        self.display_denominator = None
+
     def print_ly (self, func):
+        if self.display_bracket == None:
+            func ("\\once \\override TupletBracket #'stencil = ##f")
+            func.newline ()
+        elif self.display_bracket == "curved":
+            warning (_ ("Tuplet brackets of curved shape are not correctly implemented"))
+            func ("\\once \\override TupletBracket #'stencil = #ly:slur::print")
+            func.newline ()
+
+        base_number_function = {None: "#f", 
+             "actual": "tuplet-number::calc-denominator-text", 
+             "both": "tuplet-number::calc-fraction-text"}.get (self.display_number, None)
+        # If we have non-standard numerator/denominator, use our custom function
+        if self.display_number == "actual" and self.display_denominator:
+            base_number_function = "(tuplet-number::non-default-tuplet-denominator-text %s)" % self.display_denominator
+        elif self.display_number == "both" and (self.display_denominator or self.display_numerator):
+            if self.display_numerator:
+                num = self.display_numerator
+            else:
+                num = "#f"
+            if self.display_denominator:
+                den = self.display_denominator
+            else:
+                den = "#f"
+            base_number_function = "(tuplet-number::non-default-tuplet-fraction-text %s %s)" % (den, num)
+
+
+        if self.display_type == "actual" and self.normal_type:
+            # Obtain the note duration in scheme-mode, i.e. \longa as \\longa
+            base_duration = self.normal_type.ly_expression (None, True)
+            func ("\\once \\override TupletNumber #'text = #(tuplet-number::append-note-wrapper %s \"%s\")" %
+                (base_number_function, base_duration))
+            func.newline ()
+        elif self.display_type == "both": # TODO: Implement this using actual_type and normal_type!
+            warning (_ ("Tuplet brackets displaying both note durations are not implemented, using default"))
+            if self.display_number == None:
+                func ("\\once \\override TupletNumber #'stencil = ##f")
+                func.newline ()
+            elif self.display_number == "both":
+                func ("\\once \\override TupletNumber #'text = #%s" % base_number_function)
+                func.newline ()
+        else:
+            if self.display_number == None:
+                func ("\\once \\override TupletNumber #'stencil = ##f")
+                func.newline ()
+            elif self.display_number == "both":
+                func ("\\once \\override TupletNumber #'text = #%s" % base_number_function)
+                func.newline ()
+
         func ('\\times %d/%d ' %
            (self.numerator, self.denominator))
         func.add_factor (Rational (self.numerator, self.denominator))

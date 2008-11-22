@@ -134,5 +134,5 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
   Rational r = unsmob_duration (dur)->factor ();
-  return scm_cons (scm_from_int (r.num ()), scm_from_int (r.den ()));
+  return scm_cons (scm_from_int64 (r.num ()), scm_from_int64 (r.den ()));
 }

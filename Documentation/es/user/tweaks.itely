@@ -3389,7 +3389,7 @@ lhMusic = \relative c' {
     >>
   >>
 }
-        @end lilypond
+@end lilypond
 
 
 @node Further tweaking

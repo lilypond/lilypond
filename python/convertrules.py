@@ -2823,7 +2823,7 @@ def conv (str):
     str = re.sub (r"\\bigger", r"\\larger", str)
     return str
 
-@rule ((2, 11, 64), "systemSeparatorMarkup -> system-separator-markup, \n\
+@rule ((2, 11, 64), "systemSeparatorMarkup -> system-separator-markup,\n\
 InnerStaffGroup -> StaffGroup, InnerChoirStaff -> ChoirStaff")
 def conv (str):
     str = re.sub (r'systemSeparatorMarkup', r'system-separator-markup', str)

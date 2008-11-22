@@ -36,7 +36,11 @@ def do_file (file_name, lang_codes, buildlib):
     
     original = dir_lang (file_name, '', lang_dir_index)
     translated_contents = open (file_name).read ()
-    (diff_string, error) = buildlib.check_translated_doc (original, translated_contents, color=use_colors and not update_mode)
+    (diff_string, error) \
+        = buildlib.check_translated_doc (original,
+                                         file_name,
+                                         translated_contents,
+                                         color=use_colors and not update_mode)
 
     if error:
         sys.stderr.write ('warning: %s: %s' % (file_name, error))

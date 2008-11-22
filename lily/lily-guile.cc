@@ -561,16 +561,16 @@ robust_scm2int (SCM k, int o)
 SCM
 ly_rational2scm (Rational r)
 {
-  return scm_divide (scm_from_long_long (r.numerator ()),
-		     scm_from_long_long (r.denominator ()));
+  return scm_divide (scm_from_int64 (r.numerator ()),
+		     scm_from_int64 (r.denominator ()));
 }
 
 
 Rational
 ly_scm2rational (SCM r)
 {
-  return Rational (scm_to_long_long (scm_numerator (r)),
-		   scm_to_long_long (scm_denominator (r)));
+  return Rational (scm_to_int64 (scm_numerator (r)),
+		   scm_to_int64 (scm_denominator (r)));
 }
 
 Rational

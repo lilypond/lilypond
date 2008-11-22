@@ -171,7 +171,8 @@
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset)) 
 	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset)) 
 	(meta . ((class . Item)
-		 (interfaces . (text-interface
+		 (interfaces . (balloon-interface
+				text-interface
 				font-interface))))))
     (BarLine
      . (
@@ -231,7 +232,7 @@
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
-	(self-alignment-X . 1)
+	(self-alignment-X . ,RIGHT)
 
 	;; want the bar number before the clef at line start. 
 	(break-align-symbols . (left-edge staff-bar))
@@ -535,11 +536,10 @@
 			(first-note . (minimum-fixed-space . 0.0))
 			(right-edge . (extra-space . 0.1))))
 	(meta . ((class . Item)
-		 (interfaces
-		  . (custos-interface
-		     staff-symbol-referencer-interface
-		     font-interface
-		     break-aligned-interface))))))
+		 (interfaces  . (custos-interface
+				 staff-symbol-referencer-interface
+				 font-interface
+				 break-aligned-interface))))))
 
     (DotColumn
      . (
@@ -566,6 +566,8 @@
 	(stencil . ,ly:percent-repeat-item-interface::double-percent)
 	(non-musical . #t)
 	(slope . 1.0)
+	(dot-negative-kern . 0.75)
+	(slash-negative-kern . 1.6)
 	(font-encoding . fetaMusic)
 	(width . 2.0)
 	(thickness . 0.48)
@@ -755,9 +757,9 @@
 	(shortest-duration-space . 1.6)
 	(meta . ((class . Spanner)
 		 (interfaces . (grace-spacing-interface
-				
 				spacing-options-interface
 				spanner-interface))))))
+
     (GridPoint
      . (
 	(X-extent . (0 . 0))
@@ -833,6 +835,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-text-interface
 				side-position-interface
+				self-alignment-interface
 				font-interface))))))
 
     (InstrumentSwitch
@@ -849,6 +852,7 @@
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
+				self-alignment-interface
 				text-interface
 				font-interface))))))
 
@@ -870,6 +874,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (key-cancellation-interface
 				key-signature-interface
+				staff-symbol-referencer-interface
 				font-interface
 				break-aligned-interface))))))
 
@@ -890,6 +895,7 @@
 	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (key-signature-interface
+				staff-symbol-referencer-interface
 				font-interface
 				break-aligned-interface))))))
     
@@ -1311,12 +1317,12 @@
 	(stencil . ,ly:multi-measure-rest::percent)
 	(slope . 1.0)
 	(thickness . 0.48)
+	(dot-negative-kern . 0.75)
 	(font-encoding . fetaMusic)
 	(meta . ((class . Spanner)
 		 (interfaces . (multi-measure-rest-interface
 				font-interface
-				percent-repeat-interface
-				))))))
+				percent-repeat-interface))))))
 
     (PercentRepeatCounter
      . (
@@ -1483,11 +1489,11 @@
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(stencil . ,ly:separation-item::print)
 	(meta . ((class . Item)
-		 (interfaces . (
-				separation-item-interface))))))
+		 (interfaces . (separation-item-interface))))))
 
     (Slur
-     . ((details . ,default-slur-details)
+     . (
+	(details . ,default-slur-details)
 	(control-points . ,ly:slur::calc-control-points)
 	(direction . ,ly:slur::calc-direction)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
@@ -1545,8 +1551,7 @@
 	
 	(base-shortest-duration . ,(ly:make-moment 3 16))
 	(meta . ((class . Spanner)
-		 (interfaces . (
-				spacing-options-interface				
+		 (interfaces . (spacing-options-interface
 				spacing-spanner-interface))))))
 
     (SpanBar
@@ -1830,12 +1835,12 @@
 	(stem-attachment . (0.0 . 1.35))
 	(font-series . bold)
 	(meta . ((class . Item)
-		 (interfaces
-		  . (rhythmic-head-interface
-		     font-interface rhythmic-grob-interface
-		     note-head-interface
-		     staff-symbol-referencer-interface
-		     text-interface))))))
+		 (interfaces  . (rhythmic-head-interface
+				 font-interface
+				 rhythmic-grob-interface
+				 note-head-interface
+				 staff-symbol-referencer-interface
+				 text-interface))))))
 
     (TextScript
      . (
@@ -1886,12 +1891,13 @@
 				   ))
 			  (right . ((Y . 0)
 				    (padding . 0.25)
-				   ))
+				    ))
 			  ))
 	(stencil . ,ly:line-spanner::print)
 
 	(meta . ((class . Spanner)
 		 (interfaces . (line-spanner-interface
+				line-interface
 				side-position-interface
 				font-interface))))))
 

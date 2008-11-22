@@ -401,6 +401,14 @@ class Note (Measure_element):
 	    return 3
         else:
             return None
+    
+    def get_duration_info (self):
+        log = self.get_duration_log ()
+        if log != None:
+            dots = len (self.get_typed_children (Dot))
+            return (log, dots)
+        else:
+            return None
 
     def get_factor (self):
         return 1
@@ -528,6 +536,13 @@ class Musicxml_voice:
             return self._lyrics
 
 
+def graces_to_aftergraces (pending_graces):
+    for gr in pending_graces:
+        gr._when = gr._prev_when
+        gr._measure_position = gr._prev_measure_position
+        gr._after_grace = True
+
+
 class Part (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
@@ -540,7 +555,7 @@ class Part (Music_xml_node):
             n = n._parent
 
         return n.get_named_child ('part-list')
-        
+       
     def interpret (self):
 	"""Set durations and starting points."""
         """The starting point of the very first note is 0!"""
@@ -615,10 +630,7 @@ class Part (Music_xml_node):
 		    if n.get_name() == 'backup':
 			dur = - dur
                         # reset all graces before the backup to after-graces:
-                        for n in pending_graces:
-                            n._when = n._prev_when
-                            n._measure_position = n._prev_measure_position
-                            n._after_grace = True
+                        graces_to_aftergraces (pending_graces)
                         pending_graces = []
 		    if n.get_maybe_exist_typed_child (Grace):
 			dur = Rational (0)
@@ -630,7 +642,7 @@ class Part (Music_xml_node):
 
                         rest._is_whole_measure = True
 
-                if (dur > Rational (0) 
+                if (dur > Rational (0)
                     and n.get_maybe_exist_typed_child (Chord)):
                     now = last_moment
                     measure_position = last_measure_position
@@ -676,10 +688,7 @@ class Part (Music_xml_node):
                         n.instrument_name = part_list.get_instrument (instrument.id)
 
             # reset all graces at the end of the measure to after-graces:
-            for n in pending_graces:
-                n._when = n._prev_when
-                n._measure_position = n._prev_measure_position
-                n._after_grace = True
+            graces_to_aftergraces (pending_graces)
             pending_graces = []
             # Incomplete first measures are not padded, but registered as partial
             if is_first_measure:
@@ -854,6 +863,16 @@ class Time_modification(Music_xml_node):
 	a = self.get_maybe_exist_named_child ('normal-notes')
 	return (int(a.get_text ()), int (b.get_text ()))
 
+    def get_normal_type (self):
+        tuplet_type = self.get_maybe_exist_named_child ('normal-type')
+        if tuplet_type:
+            dots = self.get_named_children ('normal-dot')
+            log = musicxml_duration_to_log (tuplet_type.get_text ().strip ())
+            return (log , len (dots))
+        else:
+            return None
+
+
 class Accidental (Music_xml_node):
     def __init__ (self):
 	Music_xml_node.__init__ (self)
@@ -876,7 +895,40 @@ class Wedge (Music_xml_spanner):
     pass
 
 class Tuplet (Music_xml_spanner):
-    pass
+    def duration_info_from_tuplet_note (self, tuplet_note):
+        tuplet_type = tuplet_note.get_maybe_exist_named_child ('tuplet-type')
+        if tuplet_type:
+            dots = tuplet_note.get_named_children ('tuplet-dot')
+            log = musicxml_duration_to_log (tuplet_type.get_text ().strip ())
+            return (log, len (dots))
+        else:
+            return None
+
+    # Return tuplet note type as (log, dots)
+    def get_normal_type (self):
+        tuplet = self.get_maybe_exist_named_child ('tuplet-normal')
+        if tuplet:
+            return self.duration_info_from_tuplet_note (tuplet)
+        else:
+            return None
+
+    def get_actual_type (self):
+        tuplet = self.get_maybe_exist_named_child ('tuplet-actual')
+        if tuplet:
+            return self.duration_info_from_tuplet_note (tuplet)
+        else:
+            return None
+
+    def get_tuplet_note_count (self, tuplet_note):
+        if tuplet_note:
+            tuplet_nr = tuplet_note.get_maybe_exist_named_child ('tuplet-number')
+            if tuplet_nr: 
+                return int (tuplet_nr.get_text ())
+        return None
+    def get_normal_nr (self):
+        return self.get_tuplet_note_count (self.get_maybe_exist_named_child ('tuplet-normal'))
+    def get_actual_nr (self):
+        return self.get_tuplet_note_count (self.get_maybe_exist_named_child ('tuplet-actual'))
 
 class Bracket (Music_xml_spanner):
     pass

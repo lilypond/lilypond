@@ -244,7 +244,7 @@
 	      (list r g b)))
 
 ;; restore color from stack
-(define (resetcolor) "grestore \n")
+(define (resetcolor) "grestore\n")
 
 ;; rotation around given point
 (define (setrotation ang x y)

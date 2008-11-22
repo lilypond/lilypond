@@ -627,7 +627,7 @@ single syllable; such vocalises are called melismas, or melismata.
 @c it might be better to present it first - vv
 
 You can define melismata entirely in the lyrics, by entering @code{_}
-for every extra note that has to be added to the the melisma.
+for every extra note that has to be added to the melisma.
 
 @c FIXME: clarify: __ is used to crate a lyric extender,
 @c _ is used to add a note to a melisma, so both __ and _ are needed.

@@ -26,16 +26,16 @@ Percent_repeat_item_interface::brew_slash (Grob *me)
   return m;
 }
 
-/*
-  todo: use grob props for dot_neg_kern, slash_neg_kern?
-*/
 Stencil
-Percent_repeat_item_interface::x_percent (Grob *me, int count,
-					  Real dot_neg_kern,
-					  Real slash_neg_kern)
+Percent_repeat_item_interface::x_percent (Grob *me, int count)
 {
   Stencil m;
   Stencil s = brew_slash (me);
+
+  Real dot_neg_kern =
+    robust_scm2double (me->get_property ("dot-negative-kern"), 0.75);
+  Real slash_neg_kern =
+    robust_scm2double (me->get_property ("slash-negative-kern"), 1.6);
 
   for (int i = count; i--;)
     m.add_at_edge (X_AXIS, RIGHT, s, -slash_neg_kern);
@@ -47,6 +47,7 @@ Percent_repeat_item_interface::x_percent (Grob *me, int count,
   m.add_at_edge (X_AXIS, LEFT, d1, -dot_neg_kern);
   m.add_at_edge (X_AXIS, RIGHT, d2, -dot_neg_kern);
 
+  m.translate_axis (- m.extent (X_AXIS).center (), X_AXIS);
   return m;
 }
 
@@ -55,8 +56,7 @@ SCM
 Percent_repeat_item_interface::double_percent (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
-  Stencil m = x_percent (me, 2, 0.75, 1.6);
-  m.translate_axis (- m.extent (X_AXIS).center (), X_AXIS);
+  Stencil m = x_percent (me, 2);
   return m.smobbed_copy ();
 }
 
@@ -74,6 +74,8 @@ ADD_INTERFACE (Percent_repeat_item_interface,
 	       "Repeats that look like percent signs.",
 	       
 	       /* properties */
+	       "dot-negative-kern "
+	       "slash-negative-kern "
 	       "slope "
 	       "thickness "
 	       );

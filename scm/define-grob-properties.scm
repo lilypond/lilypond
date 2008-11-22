@@ -1,4 +1,4 @@
-;;;; grob-property-description.scm -- part of generated backend documentation
+;;;; define-grob-properties.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
@@ -168,6 +168,9 @@ other object.  Otherwise, it determines whether the object is placed
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
 @code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
+     (dot-negative-kern ,number? "The space to remove between a dot
+a and slash in percent repeat glyphs.  Larger values bring the two
+elements closer together.")
      (dot-placement-list ,list? "List 
 consisting of @code{(@var{description} @var{string-number} 
 @var{fret-number} @var{finger-number})} 
@@ -566,6 +569,9 @@ is placed vertically.")
 @code{direction-source} with this to get the direction of this
 object.")
      (size ,number? "Size of object, relative to standard size.")
+     (slash-negative-kern ,number? "The space to remove between
+slashes in percent repeat glyphs.  Larger values bring the two
+elements closer together.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
      (space-alist ,list? "A table that specifies distances between

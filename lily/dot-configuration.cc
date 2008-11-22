@@ -48,7 +48,7 @@ Dot_configuration::print () const
   for (Dot_configuration::const_iterator i (begin ());
        i != end (); i++)
     printf ("%d, ", i->first);
-  printf ("} \n");
+  printf ("}\n");
 }
 
 /*
