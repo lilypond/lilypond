@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -186,7 +186,7 @@ por lo general fuera del bloque @code{\score} (por ejemplo,
 como muestra el ejemplo que aparece al principio de la sección.
 
 Dos instrucciones más que no hemos visto aún son @code{\layout @{ @}}
-y @code{\midi @{@}}.  Si aparecen tal y como se muestran aquí, hacen
+y @code{\midi @{ @}}.  Si aparecen tal y como se muestran aquí, hacen
 que LilyPond produzca una salida impresa y una salida MIDI,
 respectivamente.  Se describen con todo detalle en el manual de
 Referencia de la notación, en @ruser{Score layout} y en
@@ -212,7 +212,7 @@ En resumen:
 Cada bloque @code{\book} crea un archivo de salida distinto (por
 ejemplo, un archivo PDF).  Si no hemos escrito uno de forma explícita,
 LilyPond envuelve todo nuestro código de entrada dentro de un bloque
-@code{\book} de forma implícita.q
+@code{\book} de forma implícita.
 
 Cada bloque @code{\score} es un trozo de música separado dentro de un
 bloque @code{\book}.
@@ -292,7 +292,7 @@ compuesta.}
 @noindent
 Para comprender lo que se entiende por expresión musical y expresión
 musical compuesta, quizá encuentre útil dar un repaso al tutorial,
-@ref{Music expressions explained}.  En esta sección, vimos cómo
+@ref{Music expressions explained}.  En esta sección vimos cómo
 elaborar grandes expresiones musicales a partir de pequeñas piezas
 (comenzábamos con notas, luego acordes, etc.).  Ahora partiremos de
 una gran expresión musical y recorreremos el camino inverso hacia
@@ -648,7 +648,7 @@ solo pentagrama es escribir cada voz como una secuencia (con
 @code{@{...@}}), y combinarlas simultáneamente con ángulos dobles,
 @code{<<...>>}.  Los fragmentos también se deben separar mediante una
 doble barra invertida, @code{\\}, para situarlos en voces separadas.
-Sin esto, las notas irían a una sola voz, lo que normalmente producirá
+Sin esto, las notas irían a una sola voz, lo que normalmente produce
 errores.  Esta técnica se adapta especialmente bien a piezas de música
 que son mayormente monofónicas pero ocasionalmente tienen cortas
 secciones de polifonía.
@@ -856,7 +856,7 @@ Pero la necesidad real de varias voces aflora cuando hay notas que
 comienzan en el mismo tiempo pero tienen distintas duraciones.
 Observe las notas que comienzan en la tercera parte del primer compás.
 El La bemol es una negra con puntillo, el Fa es una negra y el Re
-bemol es una blanca.  Estas notas nos e pueden escribir como un acorde
+bemol es una blanca.  Estas notas no se pueden escribir como un acorde
 porque todas las notas de un acorde deben tener la misma duración.
 Tampoco se pueden escribir como notas secuenciales, pues deben
 comenzar al mismo tiempo.  Esta sección del compás requiere tres
@@ -1004,7 +1004,7 @@ equivale a
 >>
 @end example
 
-Los dos ejemplos anteriores producirán:
+Los dos ejemplos anteriores producen:
 
 @c The following example should not display the code
 @lilypond[ragged-right,quote]
@@ -1270,9 +1270,9 @@ para desactivar el barrado automático.
 
 Ahora vamos a reutilizar el ejemplo anterior de «Judas Macabeo» para
 ilustrar esta técnica más flexible.  Primero la reescribiremos para
-que use variables de manera que la música y la letra se pueda separar
-de la estructura de pentagramas.  También introduciremos una llave de
-grupo de ChoirStaff.  La letra en sí se debe introducir con
+que use variables, de manera que la música y la letra se puedan
+separar de la estructura de pentagramas.  También introduciremos una
+llave de grupo de ChoirStaff.  La letra en sí se debe introducir con
 @code{\lyricmode} para estar seguros de que se interpreta como letra y
 no como música.
 
@@ -1414,9 +1414,9 @@ versewords = \lyricmode {
 
 Con esto tenemos la línea de la estrofa.
 
-Ahora deseamos continuar con refrainA (la primera parte del
+Ahora deseamos continuar con estribilloA (la primera parte del
 estribillo) sobre el mismo pentagrama, mientras un segundo pentagrama
-aparece en paralelo con él para refrainB (estribillo, segunda parte),
+aparece en paralelo con él para estribilloB (estribillo, segunda parte),
 por lo que ésta es una sección paralela que se debe situar
 inmediatamente a continuación del salto de línea @code{\break} en la
 voz de la estrofa.  ¡Sí, @emph{dentro} de la voz de la estrofa!  He
@@ -1425,16 +1425,16 @@ la misma forma.
 
 @example
 <<
-  \refrainnotesA
-  \new Lyrics \lyricsto verse @{
-    \refrainwordsA
+  \notas_estribilloA
+  \new Lyrics \lyricsto estrofa @{
+    \letra_estribilloA
   @}
   \new Staff <<
-    \new Voice = "refrainB" @{
-      \refrainnotesB
+    \new Voice = "estribilloB" @{
+      \notas_estribilloB
     @}
-    \new Lyrics \lyricsto "refrainB" @{
-      \refrainwordsB
+    \new Lyrics \lyricsto "estribilloB" @{
+      \letra_estribilloB
     @}
   >>
 >>

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9b6add29eb85dc6cd860593a2c8826a366f8a719
+    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -229,6 +229,9 @@ parte del resto de este capítulo presentaremos ejemplos de cómo se
 usa.  A continuación hay un ejemplo sencillo para cambiar el color de
 una cabeza:
 
+@cindex color, propiedad, ejemplo
+@cindex NoteHead, ejemplo de sobreescritura
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c d
 \override NoteHead #'color = #red
@@ -261,6 +264,9 @@ Una vez más, igual que @var{Contexto} dentro de la instrucción
 Aquí devolvemos el color de la cabeza al valor predeterminado para las
 dos últimas notas:
 
+@cindex color, propiedad, ejemplo
+@cindex NoteHead, ejemplo de sobreescritura
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c d
 \override NoteHead #'color = #red
@@ -282,6 +288,9 @@ preceder por @code{\once}.  Esto ocasiona que la siguiente instrucción
 tiempo musical en curso y antes de que la propiedad vuelva a tener
 otra vez su valor predeterminado.  Utilizando el mismo ejemplo,
 podemos cambiar el color de una sola nota de la siguiente manera:
+
+@cindex color, propiedad, ejemplo
+@cindex NoteHead, ejemplo de sobreescritura
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c d
@@ -322,6 +331,9 @@ He aquí un ejemplo.  Suponga que queremos cambiar el tamaño de la
 cabeza de la nota intermedia (el Mi) en un acorde de Do mayor.  En
 primer lugar, veamos lo que haría @code{\once \override}:
 
+@cindex font-size, propiedad, ejemplo
+@cindex NoteHead, ejemplo de sobreescritura
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
   <c e g>4
   \once \override NoteHead #'font-size = #-3
@@ -350,6 +362,9 @@ dentro de ángulos simples junto con la nota.
 Así pues, volviendo a nuestro ejemplo, el tamaño de la nota intermedia
 se cambiaría de la siguiente forma:
 
+@cindex font-size, propiedad, ejemplo
+@cindex @code{\tweak}, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
   <c e g>4
   <c \tweak #'font-size #-3 e g>4
@@ -368,6 +383,9 @@ de entrada.  Así que la sintaxis genérica de la instrucción
 
 Una instrucción @code{\tweak} también se puede usar para modificar
 sólo una de una serie de articulaciones, como se muestra aquí:
+
+@cindex color, propiedad, ejemplo
+@cindex @code{\tweak}, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a ^Black
@@ -399,6 +417,10 @@ colocar por encima de las notas y el segundo especifica que el número
 del tresillo se debe imprimir en rojo sobre el corchete del primer
 tresillo corto.
 
+@cindex @code{\tweak}, ejemplo
+@cindex direction, propiedad, ejemplo
+@cindex color, propiedad, ejemplo
+
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak #'direction #up
 \times 4/3 {
@@ -412,6 +434,11 @@ tresillo corto.
 Si los grupos anidados no comienzan en el mismo momento, su apariencia
 se puede modificar de la forma usual mediante instrucciones
 @code{\override}:
+
+@cindex text, propiedad, ejemplo
+@cindex tuplet-number, función, ejemplo
+@cindex transparent, propiedad, ejemplo
+@cindex TupletNumber, ejemplo de sobreescritura
 
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
@@ -476,6 +503,8 @@ con tan sólo algo de práctica.
 
 @cindex sobreescritura, ejemplo de
 @cindex Referencia de Funcionamiento Interno, ejemplo de utilización
+@cindex @code{\addlyrics}, ejemplo
+
 
 Utilicemos un ejemplo concreto con un sencillo fragmento de música
 real:
@@ -573,6 +602,9 @@ Aunque nos falta seguridad y estamos todavía aprendiendo, la mejor
 respuesta es: @q{Dentro de la música, antes de la primera ligadura y
 cerca de ella.}  Hagámoslo así:
 
+@cindex Slur, ejemplo de sobreescritura
+@cindex thickness, propiedad, ejemplo
+
 @lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
@@ -603,7 +635,7 @@ continuación.
 @subheading Finding the context
 
 @cindex contexto, encontrar
-@cindex contexto, buscar, correcto
+@cindex contexto, buscar el, correcto
 
 Pero en primer lugar ¿qué habría pasado si hubiésemos tenido que
 especificar el contexto? ¿Cuál sería?  Podemos suponer que las
@@ -643,6 +675,9 @@ encuentre alguna ligadura, sino que simplemente se ignora.  Así pues,
 la instrucción que lleva @code{\once} se debe reposicionar de la forma
 siguiente:
 
+@cindex Slur, ejemplo de sobreescritura
+@cindex thickness, propiedad, ejemplo
+
 @lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
@@ -668,7 +703,7 @@ la instrucción @code{\set}.
 
 @subheading Reverting
 
-@cindex revert
+@cindex revertir
 @cindex predeterminadas, recuperar las propiedades
 
 @funindex \revert
@@ -679,6 +714,9 @@ fuesen más gruesas?  En fin; podríamos usar dos instrucciones, cada
 una de ellas precedida por el prefijo @code{\once}, situadas
 inmediatamente antes de cada una de las notas en que comienzan las
 ligaduras:
+
+@cindex Slur, ejemplo de sobreescritura
+@cindex thickness, propiedad, ejemplo
 
 @lilypond[quote,verbatim,relative=2]
 {
@@ -704,6 +742,9 @@ o podríamos omitir la instrucción prefija @code{\once} y utilizar la
 instrucción @code{\revert} (restablecer) para devolver la propiedad
 del grosor, @code{thickness}, a su valor predeterminado después de la
 segunda ligadura:
+
+@cindex Slur, ejemplo de sobreescritura
+@cindex thickness, propiedad, ejemplo
 
 @lilypond[quote,verbatim,relative=2]
 {
@@ -820,6 +861,11 @@ imprimir la letra en cursiva sería
 @noindent
 y debe colocarse justo delante de, y cerca de, la letra a la que debe
 afectar, como esto:
+
+@cindex font-shape, propiedad, ejemplo
+@cindex italic, ejemplo
+@cindex LyricText, ejemplo de sobreescritura
+@cindex @code{\addlyrics}, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -998,6 +1044,9 @@ que como otras muchas propiedades, se puede establecer de forma que no
 imprima nada ajustando su valor a @code{#f}.  Vamos a probarlo, como
 antes, omitiendo el Contexto implícito, @code{Voice}:
 
+@cindex BarLine, ejemplo de sobreescritura
+@cindex stencil, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1023,6 +1072,9 @@ simplemente no funciona.  No se produce ningún mensaje de error, y no
 se registra nada en el archivo log de registro.  Vamos a intentar
 corregirlo escribiendo el contexto correcto:
 
+@cindex BarLine, ejemplo de sobreescritura
+@cindex stencil, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1037,7 +1089,7 @@ Ahora las barras de compás han desaparecido.
 
 @subheading break-visibility
 
-@cindex break-visibility property
+@cindex break-visibility, propiedad
 
 Vemos en las propiedades de @code{BarLine} que aparecen en el RFI que
 la propiedad @code{break-visibility} requiere un vector de tres
@@ -1051,6 +1103,9 @@ de @code{Staff}.  Observe también que al escribir este valor tenemos
 como parte del valor para introducir un vector, y el primer símbolo de
 almohadilla @code{#} se necesita, como siempre, para preceder el valor
 en sí dentro de la instrucción @code{\override}.
+
+@cindex BarLine, ejemplo de sobreescritura
+@cindex break-visibility, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1066,7 +1121,7 @@ Y podemos ver que esto también quita todas las líneas divisorias.
 
 @subheading transparent
 
-@cindex transparente, propiedad
+@cindex transparent, propiedad
 @cindex transparencia
 
 En la relación de propiedades que se especifican en la página del
@@ -1082,6 +1137,9 @@ presentación @code{TimeSignature}.  Se produce por parte del grabador
 del contexto de @code{Staff} y también contempla el interface
 @code{grob-interface}.  Así pues, la instrucción que hace transparente
 a la indicación de compás es:
+
+@cindex TimeSignature, ejemplo de sobreescritura
+@cindex transparent, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1100,6 +1158,9 @@ que queremos para un ejercicio en que el alumno deba escribirlo, pero
 en otras circunstancias esta separación podría no ser deseable.  En
 vez de eso, para quitarla, el stencil o «sello» de la indicación de
 compás se debe establecer al valor @code{#f}:
+
+@cindex TimeSignature, ejemplo de sobreescritura
+@cindex stencil, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1139,6 +1200,9 @@ primera forma es utilizar uno de los colores @q{normales} que están
 relacionados en la primera tabla de la @ruser{List of colors}.  Para
 poner las líneas divisorias de color blanco, escribimos:
 
+@cindex BarLine, ejemplo de sobreescritura
+@cindex color, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1169,6 +1233,9 @@ colors}.  Sin embargo, éstos deben ir precedidos de otra función, que
 convierte los nombres de colores de X11 en la lista de valores
 internos, @code{x11-color}, de la siguiente manera:
 
+@cindex BarLine, ejemplo de sobreescritura
+@cindex color, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1196,6 +1263,9 @@ valores entre 0 y 1.  Por lo tanto, para establecer el color a rojo el
 valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
 @code{(rgb-color 1 1 1)}:
 
+@cindex BarLine, ejemplo de sobreescritura
+@cindex color, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1211,6 +1281,15 @@ conjunto de colores de X11.  Varían desde el negro, @code{'grey0'},
 hasta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
 estableciendo todos los objetos de presentación de nuestro ejemplo a
 varias gradaciones de gris:
+
+@cindex StaffSymbol, ejemplo de sobreescritura
+@cindex TimeSignature, ejemplo de sobreescritura
+@cindex Clef, ejemplo de sobreescritura
+@cindex NoteHead, ejemplo de sobreescritura
+@cindex Stem, ejemplo de sobreescritura
+@cindex BarLine, ejemplo de sobreescritura
+@cindex color property, ejemplo
+@cindex x11-color, ejemplo de utilización
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1250,6 +1329,9 @@ Empezaremos examinando de nuevo un ejemplo anterior (véase
 @ref{Nesting music expressions}) que nos mostraba cómo introducir un
 pentagrama temporal, como en un @rglos{ossia}.
 
+@cindex alignAboveContext, propiedad, ejemplo
+@cindex @code{\with}, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
        \relative g' {
@@ -1270,6 +1352,12 @@ Los fragmentos de Ossia se escriben normalmente sin clave ni compás, y
 por lo normal se imprimen más pequeños que el pentagrama principal.
 Ya sabemos cómo quitar la clave y el compás: simplemente establecemos
 el sello de cada uno de ellos a @code{#f}, como sigue:
+
+@cindex alignAboveContext, propiedad, ejemplo
+@cindex @code{\with}, ejemplo
+@cindex stencil, propiedad, ejemplo
+@cindex Clef, ejemplo de sobreescritura
+@cindex TimeSignature, ejemplo de sobreescritura
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1328,6 +1416,11 @@ modificando.  De hecho, se producirá un error si se especifica un
 contexto en este lugar.
 
 Así pues, podemos reemplazar el ejemplo anterior con
+
+@cindex alignAboveContext, propiedad, ejemplo
+@cindex @code{\with}, example
+@cindex Clef, ejemplo de sobreescritura
+@cindex TimeSignature, ejemplo de sobreescritura
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1393,6 +1486,12 @@ reduce o aumenta el tamaño aproximadamente en un 12%.
 
 Vamos a probarlo en nuestro ejemplo del ossia:
 
+@cindex alignAboveContext, propiedad, ejemplo
+@cindex @code{\with}, ejemplo
+@cindex Clef, ejemplo de sobreescritura
+@cindex TimeSignature, ejemplo de sobreescritura
+@cindex fontSize, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
@@ -1449,6 +1548,16 @@ propósito.  Toma un argumento, el cambio de tamaño de la tipografía
 (#-2 en nuestro ejemplo) y devuelve un factor de escalado adecuado
 para reducir otros objetos en la misma proporción.  Se usa de la
 siguiente forma:
+
+@cindex alignAboveContext, propiedad, ejemplo
+@cindex @code{\with}, ejemplo
+@cindex Clef, ejemplo de sobreescritura
+@cindex TimeSignature, ejemplo de sobreescritura
+@cindex fontSize, propiedad, ejemplo
+@cindex StaffSymbol, ejemplo de sobreescritura
+@cindex magstep function, ejemplo de utilización
+@cindex staff-space, propiedad, ejemplo
+@cindex stencil, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1560,6 +1669,8 @@ prioridad (pues no se ha establecido explícitamente).  Observe que
 @q{Text3} se posiciona de nuevo automáticamente cerca del pentagrama,
 acomodado por debajo de @q{Text2}.
 
+@cindex markup, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
 c^"Text2"
@@ -1614,6 +1725,10 @@ la propiedad @code{direction}.
 @cindex arriba
 @cindex centro
 @cindex neutro
+@cindex down
+@cindex up
+@cindex center
+@cindex neutral
 
 El ejemplo siguiente muestra en el compás 1 el comportamiento
 predeterminado de las plicas, con las de las notas agudas apuntando
@@ -1621,6 +1736,9 @@ hacia abajo y las graves hacia arriba, seguidas de cuatro notas con
 todas las plicas forzadas hacia abajo, cuatro notas con las plicas
 forzadas hacia arriba, y por último cuatro notas devueltas al
 comportamiento predeterminado.
+
+@cindex Stem, ejemplo de sobreescritura
+@cindex direction, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a
@@ -1712,6 +1830,9 @@ digitaciones aplicadas a notas sueltas.  Se muestra en el primer
 compás el comportamiento predeterminado, y en los dos comases
 siguiente el efecto de especificar @code{DOWN} y @code{UP}:
 
+@cindex Fingering, ejemplo de sobreescritura
+@cindex direction, propiedad, ejemplo
+
 @lilypond[quote,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
 \override Fingering #'direction = #DOWN
@@ -1726,6 +1847,9 @@ encima o por debajo de las notas; suele ser preferible usar @code{_} o
 @code{^} en lugar de @code{-}, antes del número de la digitación.
 Este es el ejemplo anterior utilizando este método:
 
+@cindex fingering, ejemplo
+@cindex digitación, ejemplo
+
 @lilypond[quote,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
 c_5 a_3 f_1 c'_5
@@ -1737,6 +1861,9 @@ prefijos direccionales @code{_} y @code{^} sí funcionan.  De forma
 predeterminada, las digitaciones se colocan automáticamente encima y
 debajo de las notas de un acorde, como se muestra aquí:
 
+@cindex fingering, ejemplo
+@cindex digitación, ejemplo
+
 @lilypond[quote,verbatim,relative=2]
 <c-5 g-3>
 <c-5 g-3 e-2>
@@ -1746,6 +1873,9 @@ debajo de las notas de un acorde, como se muestra aquí:
 @noindent
 pero se puede forzar de manera que todos o algunos de los números de
 digitación estén por encima o por debajo:
+
+@cindex fingering, ejemplo
+@cindex digitación, ejemplo
 
 @lilypond[quote,verbatim,relative=2]
 <c-5 g-3 e-2 c-1>
@@ -1782,6 +1912,11 @@ nota usando esta instrucción es necesario escribirla como un acorde de
 una sola nota encerrándola entre ángulos simples.}
 
 Aquí podemos ver algunos ejemplos:
+
+@cindex fingering, ejemplo
+@cindex digitación, ejemplo
+@cindex @code{\set}, ejemplo de utilización
+@cindex fingeringOrientations, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \set fingeringOrientations = #'(left)
@@ -1882,6 +2017,9 @@ de ellos.
 @funindex \stopTextSpan
 @funindex stopTextSpan
 
+@cindex TextSpanner, ejemplo de sobreescritura
+@cindex bound-details, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
 \override TextSpanner #'bound-details #'left #'text
@@ -1952,6 +2090,9 @@ anteriores, y reducirlo a un valor inferior al de @code{TextSpanner},
 recordando que @code{OttavaBracket} se crea dentro del contexto de
 @code{Staff}:
 
+@cindex TextSpanner, ejemplo de sobreescritura
+@cindex bound-details, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
 \override TextSpanner #'bound-details #'left #'text
@@ -1985,6 +2126,9 @@ bajo el epígrafe Comportamiento Automático de más arriba (véase
 @ref{Automatic behaviour}).  Todo lo que debemos hacer es localizar la
 prioridad de @code{TextScript} en el RFI o en las tablas de arriba, y
 aumentar la prioridad de @qq{Text3} hasta un valor superior:
+
+@cindex TextScript, ejemplo de sobreescritura
+@cindex outside-staff-priority, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
@@ -2038,6 +2182,9 @@ encima del pentagrama.  Si esto no es lo que deseamos, el
 desplazamiento automático hacia arriba se puede desactivar mediante el
 establecimiento de la prioridad a @code{#f}.  He aquí un ejemplo que
 muestra cómo el texto de marcado interactúa con tales notas.
+
+@cindex TextScript, ejemplo de sobreescritura
+@cindex outside-staff-priority, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 % This markup is short enough to fit without collision
@@ -2142,6 +2289,9 @@ instrucción que lo hace para las indicaciones dinámicas:
 @noindent
 Veamos si funciona en nuestro ejemplo anterior:
 
+@cindex DynamicText, ejemplo de sobreescritura
+@cindex extra-spacing-width, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 \override DynamicText #'extra-spacing-width = #'(0 . 0)
@@ -2158,6 +2308,9 @@ fácilmente.  En vez de hacer cero la anchura
 son el espacio entre dos líneas de pentagrama, así que al mover el
 límite izquierdo media unidad a la izquierda y el límite derecho media
 unidad hacia la derecha, deberíamos conseguirlo:
+
+@cindex DynamicText, ejemplo de sobreescritura
+@cindex extra-spacing-width, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
@@ -2452,11 +2605,17 @@ La propiedad @code{padding} se puede ajustar para aumentar (o
 disminuir) la distancia entre símbolos impresos encima o debajo de las
 notas.
 
+@cindex Script, ejemplo de sobreescritura
+@cindex padding, propiedad, ejemplo
+
 @lilypond[quote,fragment,relative=1,verbatim]
 c2\fermata
 \override Script #'padding = #3
 b2\fermata
 @end lilypond
+
+@cindex MetronomeMark, ejemplo de sobreescritura
+@cindex padding, propiedad, ejemplo
 
 @lilypond[quote,fragment,relative=1,verbatim]
 % This will not work, see below:
@@ -2495,6 +2654,12 @@ necesita.  Suponga que queremos presentar un acorde que contiene un Si
 natural y un Si bemol.  Para evitar la ambigüedad querríamos preceder
 las notas con un becuadro y un bemol.  Aquí vienen varios intentos de
 hacerlo así:
+
+@cindex Accidental, ejemplo de sobreescritura
+@cindex text, propiedad, ejemplo
+@cindex stencil, propiedad, ejemplo
+@cindex AccidentalPlacement, ejemplo de sobreescritura
+@cindex right-padding, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <b bes>
@@ -2546,6 +2711,11 @@ dinámicas, entre ellas las que se han creado como objetos de
 extensión.  Así que ésta es la forma de alinear las indicaciones de
 matiz en el ejemplo de la sección anterior:
 
+@cindex DynamicText, ejemplo de sobreescritura
+@cindex extra-spacing-width, propiedad, ejemplo
+@cindex DynamicLineSpanner, ejemplo de sobreescritura
+@cindex staff-padding, propiedad, ejemplo
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 unit
@@ -2562,6 +2732,9 @@ El ejemplo siguiente muestra cómo esto puede resolver la colisión
 entre un objeto de digitación de cuerda y la plica de una nota
 mediante el alineamiento del límite derecho con el punto de referencia
 de la nota «padre»:
+
+@cindex StringNumber, ejemplo de sobreescritura
+@cindex self-alignment-X, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
@@ -2593,6 +2766,9 @@ pues el silencio está en la voz dos.  El ajuste predeterminado para
 valor -4 para MultiMeasureRest, así que tenemos que bajarlo, digamos,
 cuatro semi-espacios de pentagrama, al valor @code{-8}.
 
+@cindex MultiMeasureRest, ejemplo de sobreescritura
+@cindex staff-position, propiedad, ejemplo
+
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
 <<
   {c c c c}
@@ -2617,6 +2793,9 @@ posicionamiento de un objeto tanto vertical como horizontalmente.
 
 En el ejemplo siguiente, la segunda digitación se desplaza ligeramente
 a la izquierda, y 1.8 espacios de pentagrama hacia abajo:
+
+@cindex Fingering, ejemplo de sobreescritura
+@cindex extra-offset, propiedad, ejemplo
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
@@ -2649,6 +2828,9 @@ r4  \acciaccatura e8\( d8 c ~c d c d\)
 @noindent
 Simplemente podemos mover la ligadura de fraseo por encima de las
 notas, y de hecho ésta será la solución preferida:
+
+@cindex PhrasingSlur, ejemplo de sobreescritura
+@cindex positions, propiedad, ejemplo
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
@@ -2685,6 +2867,9 @@ choca con las notas superiores:
 Esto se puede resolver manualmente elevando los dos extremos de la
 barra desde su posición a dos espacios de pentagrama sobre la línea
 central hasta, digamos, 3 espacios:
+
+@cindex Beam, ejemplo de sobreescritura
+@cindex positions, propiedad, ejemplo
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
@@ -2740,6 +2925,9 @@ sea, la anchura de media cabeza de nota a la derecha de la columna de
 las notas agudas.
 
 Presentamos a continuación el resultado final:
+
+@cindex NoteColumn, ejemplo de sobreescritura
+@cindex force-hshift, propiedad, ejemplo
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
@@ -3088,6 +3276,9 @@ tenemos que desplazar el Do un nivel más todavía, usando
 @code{\shiftOnn} para evitar que interfiera con los dos Re.  Al
 aplicar estos cambios obtenemos:
 
+@cindex Tie, ejemplo de sobreescritura
+@cindex staff-position, propiedad, ejemplo
+
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
@@ -3144,6 +3335,11 @@ partir de trucos anteriores: hacemos la plica transparente, y movemos
 el Do con la propiedad @code{force-hshift}.  Aquí tenemos el resultado
 final:
 
+@cindex NoteColumn, ejemplo de sobreescritura
+@cindex force-hshift, propiedad, ejemplo
+@cindex Stem, ejemplo de sobreescritura
+@cindex transparent, propiedad, ejemplo
+
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
   r2
@@ -3193,7 +3389,7 @@ lhMusic = \relative c' {
     >>
   >>
 }
-@end lilypond
+        @end lilypond
 
 
 @node Further tweaking
@@ -3236,6 +3432,9 @@ misma voz.  Usando dos voces, con las notas ligadas en una de ellas:
 @noindent
 y borrando la primera plica hacia arriba en esa voz, da la impresión
 de que la ligadura se cruza entre las voces:
+
+@cindex Stem, ejemplo de sobreescritura
+@cindex transparent, propiedad, ejemplo
 
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
@@ -3286,6 +3485,9 @@ pentagrama.  Por lo tanto, establecer su propiedad @code{stencil} al
 valor @code{#f} sería la mejor manera.  Mostramos aquí el efecto de
 los dos métodos:
 
+@cindex MetronomeMark, ejemplo de sobreescritura
+@cindex transparent, propiedad, ejemplo
+
 @lilypond[quote,verbatim,ragged-right]
 \score {
   \relative c'' {
@@ -3304,6 +3506,9 @@ los dos métodos:
   \midi { }
 }
 @end lilypond
+
+@cindex MetronomeMark, ejemplo de sobreescritura
+@cindex stencil, propiedad, ejemplo
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -3362,6 +3567,10 @@ si hubiera muchas palabras que quisiéramos subrayar.  Entonces, en vez
 de esto las definimos como dos variables, y las usamos de la siguiente
 forma, aunque normalmente quizá elegiríamos unos nombres de variable
 más cortos para que fueran más rápidos de teclear:
+
+@cindex LyricText, ejemplo de sobreescritura
+@cindex font-shape, propiedad, ejemplo
+@cindex font-series, propiedad, ejemplo
 
 @lilypond[quote,verbatim]
 emphasize = {
@@ -3580,6 +3789,10 @@ LilyPond accede a esta propiedad.  La propiedad se puede establecer
 dinámicamente a un valor determinado por el procedimiento en el
 momento en que se invoca.  En este ejemplo damos a las cabezas de las
 notas un color que depende de su posición dentro del pentagrama.
+
+@cindex x11-color function, ejemplo de utilización
+@cindex NoteHead, ejemplo de sobreescritura
+@cindex color, propiedad, establecer a procedimiento de Scheme
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (color-notehead grob)

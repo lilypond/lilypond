@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
+    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -648,7 +648,7 @@ fácil teclear
 @end example
 
 @noindent
-un Do1 (Do central) negra, y un Re1 (el Re por encima del Do central)
+un Do4 (Do central) negra, y un Re4 (el Re por encima del Do central)
 corchea.
 
 @lilypond[quote]
@@ -872,13 +872,13 @@ Esta sección explica la distintas partes de la documentación.
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
-* About the Learning Manual::   este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
-* About the Music Glossary::    este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
-* About the Notation Reference::  este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el Manual de aprendizaje y que está familiarizado con los términos musicales ingleses presentados en el Glosario musical.
-* About the Application Usage::  trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
-* About the Snippet List::      es una colección de ejemplos breves de LilyPond.
-* About the Internals Reference::  este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
-* Other documentation::         existen algunas otras porciones de la documentación, como las Noticias y los archivos históricos de las listas de correo.
+* About the Learning Manual::   Este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
+* About the Music Glossary::    Este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
+* About the Notation Reference::  Este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el Manual de aprendizaje y que está familiarizado con los términos musicales ingleses presentados en el Glosario musical.
+* About the Application Usage::  Trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
+* About the Snippet List::      Es una colección de ejemplos breves de LilyPond.
+* About the Internals Reference::  Este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
+* Other documentation::         Existen algunas otras porciones de la documentación, como las Noticias y los archivos históricos de las listas de correo.
 @end menu
 
 
@@ -929,8 +929,8 @@ mirada posterior:
 
 @item
 @ref{Templates}: muestra plantillas de piezas de LilyPond, listas para
-usar.  Tan sólo tiene que cortar y pegar una plantilla en uin archivo,
-excribir las notas, y ¡habrá terminado!
+usar.  Tan sólo tiene que cortar y pegar una plantilla en un archivo,
+escribir las notas, y ¡habrá terminado!
 
 @item
 @ref{Scheme tutorial}: presenta una breve introducción a Scheme, el
@@ -1087,7 +1087,7 @@ convierten una amplia variedad de formatos de música al formato
 @cindex LilyPond Snippet Repository
 
 @rlsrnamed{Top,Lista de fragmentos de código de LilyPond}: presenta un conjunto
-seleccionado de pfragmentos de código de LilyPond procedentes del
+seleccionado de fragmentos de código de LilyPond procedentes del
 @uref{http://lsr@/.dsi@/.unimi@/.it,Repositorio de Fragmentos de
 Código} (LSR).  Todos los fragmentos se encuentran en el dominio
 público.

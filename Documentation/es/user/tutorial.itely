@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: f413550b658b43fbea690fc060f872bce6bbc885
+    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -292,7 +292,7 @@ en aquella que especifica la altura de inicio.  En el ejemplo
 anterior, la primera nota (@code{d}) es el Re más cercano al Do
 central.
 
-Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} de
+Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} a
 la instrucción @code{@w{\relative c' @{}}, podemos cambiar la octava
 de inicio:
 
@@ -861,8 +861,8 @@ Glosario musical:
 Glosario musical:
 @rglos{tie}.
 
-Una @notation{tie} se crea adjuntando un carácter de tilde curva @code{~}
-a la primera nota ligada:
+Una @notation{ligadura de unión} se crea adjuntando un carácter de
+tilde curva @code{~} a la primera nota ligada:
 
 @lilypond[verbatim,quote,relative=2]
 g4~ g c2~
@@ -874,9 +874,9 @@ c4 ~ c8 a8 ~ a2
 Glosario musical:
 @rglos{slur}.
 
-Una @notation{slur} es una curva que se traza abarcando varias notas.
-Las notas inicial y final se marcan mediante @code{(} y @code{)}
-respectivamente.
+Una @notation{ligadura de expresión} es una curva que se traza
+abarcando varias notas.  Las notas inicial y final se marcan mediante
+@code{(} y @code{)} respectivamente.
 
 @lilypond[verbatim,quote,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
@@ -1494,7 +1494,7 @@ tener la misma duración, y que la duración se escribe después del
 r4 <c e g>4 <c f a>2
 @end lilypond
 
-Debemmos pensar en los acordes como algo casi equivalente a las notas
+Debemos pensar en los acordes como algo casi equivalente a las notas
 sencillas: casi todo lo que se puede adjuntar a una nota se puede
 adjuntar también a un acorde, y todo debe ir @emph{por fuera} de los
 ángulos.  Por ejemplo, puede combinar marcas como barras y ligaduras,
@@ -2119,12 +2119,13 @@ archivos de LilyPond generados por ordenador.
 @subsection After the tutorial
 
 Después de terminar el tutorial, quizá debería probar a escribir una o
-dos piezas.  Comience con una de las plantillas del @ref{Templates} y
-añada algunas notas.  Si necesita un tipo de notación que no ha sido
-tratada en el tutorial, eche un vistazo a la Referencia de Notación,
-empezando por @ruser{Musical notation}.  Si quiere escribir música para
-un conjunto instrumental que no está cubierto por ninguna plantilla,
-consulte @ref{Extending the templates}.
+dos piezas.  Comience con una de las plantillas que aparecen en
+@ref{Templates} y añada algunas notas.  Si necesita un tipo de
+notación que no ha sido tratada en el tutorial, eche un vistazo a la
+Referencia de Notación, empezando por @ruser{Musical notation}.  Si
+quiere escribir música para un conjunto instrumental que no está
+cubierto por ninguna plantilla, consulte @ref{Extending the
+templates}.
 
 Una vez que ha escrito algunas piezas cortas, lea el resto del Manual
 de aprendizaje (capítulos 3 al 5).  ¡Por supuesto, no pasa nada por

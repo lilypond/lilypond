@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 7c57f1469e057f25f5d7a7b75c18f33bb4e5bed9
+    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -510,6 +510,9 @@ verticalmente por toda la última página.  Predeterminado: @code{##t}.
 Las piezas que llenan generosamente dos o más páginas deberían tener
 esto establecido al valor verdadero.
 
+También afecta a la última página de las partes de libro, es decir,
+partes de un libro que se han creado con bloques @code{\bookpart}.
+
 @item ragged-right
 @funindex ragged-right
 
@@ -908,6 +911,41 @@ El antiguo algoritmo de división de páginas se llama
 divisores de página, puede habilitar el antiguo como forma de rodear
 el problema.
 
+
+@funindex \bookpart
+
+Cuando un libro tiene muchas partituras y páginas, puede ser difícil
+resolver el problema de los saltos de página, necesitando mucha
+memoria y prolongados tiempos de procesamiento.  Para facilitar el
+proceso de división en páginas, se usan los bloques @code{\bookpart}
+para dividir el libro en varias partes: los saltos de página se
+producen de manera independiente en cada parte.  También se pueden
+usar diferentes funciones de división en páginas para las distintas
+partes del libro.
+
+@example
+\bookpart @{
+  \header @{
+    subtitle = "Prefacio"
+  @}
+  \paper @{
+     %% En una parte que consiste en texto principalmente,
+     %% puede ser preferible ly:minimal-breaking
+     #(define page-breaking ly:minimal-breaking)
+  @}
+  \markup @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  %% En esta parte, consistente en música, se usa la función
+  %% óptima predeterminada de saltos de página.
+  \header @{
+    subtitle = "Primer movimiento"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
 
 @predefined
 

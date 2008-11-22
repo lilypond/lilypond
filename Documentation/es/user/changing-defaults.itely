@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
+Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -117,13 +117,13 @@ procesa un bloque @code{\score @{@dots{}@}} o @code{\layout
 
 Agrupa pentagramas y añade un corchete en la parte izquierda, formando
 un grupo.  Las líneas divisorias de los pentagramas contenidos se
-conectan verticalmente.  StaffGroup sólo consiste en una colección de
-pentagramas, con un corchete delante y líneas divisorias de arriba a
-abajo.
+conectan verticalmente.  @code{StaffGroup} sólo consiste en una
+colección de pentagramas, con un corchete delante y líneas divisorias
+de arriba a abajo.
 
 @strong{@emph{ChoirStaff}}
 
-Idéntico a StaffGroup excepto que las barras de compás de los
+Idéntico a @code{StaffGroup} excepto que las barras de compás de los
 pentagramas contenidos no se conectan verticalmente.
 
 @strong{@emph{GrandStaff}}
@@ -134,10 +134,8 @@ se conectan verticalmente.
 
 @strong{@emph{PianoStaff}}
 
-@c TODO No longer correct?  Check.  -td
-Igual que GrandStaff pero con una distancia fija entre los
-pentagramas, de manera que se pueden usar ligaduras y barras que
-cruzan de un pentagrama a otro.
+Igual que @code{GrandStaff}, pero contempla la posibilidad de poner el
+nombre del instrumento a la izquierda del sistema.
 
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts - staves
@@ -145,12 +143,12 @@ cruzan de un pentagrama a otro.
 @strong{@emph{Staff}}
 
 Maneja claves, barras de compás, tonalidades y alteraciones
-accidentales.  Puede contener contextos de Voice.
+accidentales.  Puede contener contextos de @code{Voice}.
 
 @strong{@emph{RhythmicStaff}}
 
-Como Staff, pero para imprimir ritmos.  Se ignoran las alturas de las
-notas; las notas se imprimen sobre una línea.
+Como @code{Staff}, pero para imprimir ritmos.  Se ignoran las alturas
+de las notas; las notas se imprimen sobre una línea.
 
 @strong{@emph{TabStaff}}
 
@@ -161,17 +159,17 @@ líneas.
 @strong{@emph{DrumStaff}}
 
 Maneja el tipografiado para instrumentos de percusión.  Puede contener
-contextos DrumVoice.
+contextos @code{DrumVoice}.
 
 @strong{@emph{VaticanaStaff}}
 
-Iguall que Staff, excepto que está pensado para tipografiar piezas en
-estilo gregoriano.
+Igual que @code{Staff}, excepto que está pensado para tipografiar
+piezas en estilo gregoriano.
 
 @strong{@emph{MensuralStaff}}
 
-Igual que Staff, excepto que está diseñado para tipografiar piezas en
-estilo mensural.
+Igual que @code{Staff}, excepto que está diseñado para tipografiar
+piezas en estilo mensural.
 
 
 @node Bottom-level contexts - voices
@@ -191,13 +189,13 @@ voces en el mismo pentagrama.
 
 @strong{@emph{VaticanaVoice}}
 
-Lo mismo que Voice, excepto que está diseñado para tipografiar piezas
-en estilo gregoriano.
+Lo mismo que @code{Voice}, excepto que está diseñado para tipografiar
+piezas en estilo gregoriano.
 
 @strong{@emph{MensuralVoice}}
 
-Lo mismmo que Voice, con modificaciones para el tipografiado de piezas
-en estilo mensural.
+Lo mismo que @code{Voice}, con modificaciones para el tipografiado de
+piezas en estilo mensural.
 
 @strong{@emph{Lyrics}}
 
@@ -210,13 +208,13 @@ El contexto de voz utilizado en una pauta de percusión.
 
 @strong{@emph{FiguredBass}}
 
-El contexto en que los objetos BassFigure se crean a partir de la
-entrada escrita en el modo @code{\figuremode}.
+El contexto en que los objetos @code{BassFigure} se crean a partir de
+la entrada escrita en el modo @code{\figuremode}.
 
 @strong{@emph{TabVoice}}
 
-El contexto de voz utilizado dentro de un contexto TabStaff.  Se suele
-dejar que se cree implícitamente.
+El contexto de voz utilizado dentro de un contexto @code{TabStaff}.
+Se suele dejar que se cree implícitamente.
 
 @strong{@emph{ChordNames}}
 

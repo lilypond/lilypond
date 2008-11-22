@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
+    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -280,46 +280,29 @@ Referencia de funcionamiento interno:
 @cindex anidados, corchetes de pentagrama
 @cindex corchetes anidados
 @cindex llaves, anidado de
-@cindex interno, grupo de pentagramas
-@cindex interno, grupo de pentagramas de coro
 
-Están disponibles dos contextos adicionales de grupo de pentagramas
-que se pueden anidar dentro de un contexto @code{StaffGroup} o
-@code{ChoirStaff}: @code{StaffGroup} y @code{ChoirStaff}.
-Estos contextos crean un corchete nuevo adyacente al corchete del
-grupo de pentagramas que constituye su «padre».
-
-Un @code{StaffGroup} se trata de forma similar a un
-@code{StaffGroup}; las barras de compás están conectadas entre todos
-los pentagramas que están dentro del contexto:
+Los contextos de grupos de pentagramas se pueden anidar hasta una
+profundidad arbitraria.  En este caso, cada contexto descendiente crea
+un corchete nuevo adyacente al corchete de su grupo padre.
 
 @lilypond[verbatim,quote,relative=2]
 \new StaffGroup <<
   \new Staff { c2 c | c2 c }
   \new StaffGroup <<
     \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
+    \new StaffGroup \with {
+      systemStartDelimiter = #'SystemStartSquare
+    }
+    <<
+      \new Staff { e2 e | e2 e }
+      \new Staff { c2 c | c2 c }
+    >>
   >>
 >>
 @end lilypond
 
-Las barras de compás @emph{no} se conectan entre los pentagramas de un
-@code{ChoirStaff}, de igual forma que un @code{ChoirStaff}:
-
-@lilypond[verbatim,quote,relative=2]
-\new ChoirStaff <<
-  \new Staff { c2 c | c2 c }
-  \new ChoirStaff <<
-    \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
-  >>
-  \new Staff { c1 | c1 }
->>
-@end lilypond
-
-Se pueden definir contextos nuevos de grupo de pentagramas.  Para ver
-más detalles, consulte @ref{Defining new contexts}.
-
+Se pueden definir nuevos contextos de grupos de pentagramas anidados.
+Para ver más detalles, consulte @ref{Defining new contexts}.
 
 @snippets
 
