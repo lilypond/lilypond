@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.11.65"
 
 \header {
   lsrtags = "fretted-strings,tweaks-and-overrides"
@@ -18,10 +18,10 @@ to the markup.
     \textLengthOn
     % Set global properties of fret diagram
     \override TextScript #'size = #'1.2
-    \override TextScript #'fret-diagram-details
-                                  #'finger-code = #'in-dot
-    \override TextScript #'fret-diagram-details
-                                  #'dot-color = #'white
+    \override TextScript
+      #'(fret-diagram-details finger-code) = #'in-dot
+    \override TextScript
+      #'(fret-diagram-details dot-color) = #'white
 
     %% C major for guitar, no barre, using defaults
        % terse style

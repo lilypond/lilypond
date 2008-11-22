@@ -7,7 +7,7 @@ Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1180,7 +1180,7 @@ instrucciones de la forma
 tales como
 
 @example
-\override Stem #'details #'beamed-lengths = #'(4 4 3)
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
 
 
@@ -1358,7 +1358,7 @@ en el interior de las propiedades normales.  Para modificarlas utilice
 instrucciones de la forma
 
 @example
-\override Stem #'details #'beamed-lengths = #'(4 4 3)
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
 
 @cindex documentación interna
@@ -2054,8 +2054,8 @@ jerarquía de propiedades, pero la sintaxis de la instrucción
 
 @lilypond[relative=2,quote,verbatim]
 e2 \glissando b
-\once \override Glissando #'bound-details #'left #'Y = #3
-\once \override Glissando #'bound-details #'right #'Y = #-2
+\once \override Glissando #'(bound-details left Y) = #3
+\once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando b
 @end lilypond
 
@@ -2074,7 +2074,7 @@ especifican por las sub-listas @code{left-broken} y
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 \override Glissando #'breakable = ##t
-\override Glissando #'bound-details #'right-broken #'Y = #-3
+\override Glissando #'(bound-details right-broken Y) = #-3
 c1 \glissando \break
 f1
 @end lilypond
@@ -2114,7 +2114,7 @@ usa para escribir @i{cresc.}, @i{tr} y otros textos sobre los objetos
 de extensión horizontales.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
 @end lilypond
@@ -2128,15 +2128,15 @@ subpropiedades @code{X} e @code{Y}.  Si se fijan
 símbolo del borde verticalmente con relación al extremo de la línea:
 
 @lilypond[relative=1,fragment,verbatim]
-\override TextSpanner #'bound-details
-  #'left #'stencil-align-dir-y = #-2
-\override TextSpanner #'bound-details
-  #'right #'stencil-align-dir-y = #UP
+\override TextSpanner
+  #'(bound-details left stencil-align-dir-y) = #-2
+\override TextSpanner
+  #'(bound-details right stencil-align-dir-y) = #UP
 
-\override TextSpanner #'bound-details
-  #'left #'text = #"ggg"
-\override TextSpanner #'bound-details
-  #'right #'text = #"hhh"
+\override TextSpanner
+  #'(bound-details left text) = #"ggg"
+\override TextSpanner
+  #'(bound-details right text) = #"hhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
@@ -2569,7 +2569,7 @@ posible sobreescribirlos:
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 e2 \glissando f
-\once \override Glissando #'bound-details #'right #'Y = #-2
+\once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando f
 @end lilypond
 

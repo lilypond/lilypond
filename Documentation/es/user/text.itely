@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Text
 @section Text
@@ -132,7 +132,7 @@ nombre de @q{spanners} u objetos de extensión, se pueden crear dede
 una nota hasta otra usando la siguiente sintaxis:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-\override TextSpanner #'bound-details #'left #'text = "rit."
+\override TextSpanner #'(bound-details left text) = "rit."
 b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
@@ -144,7 +144,7 @@ se pueden conseguir distintos efectos de formato utilizando bloques
 @code{\markup}, como se describe en @ref{Formatting text}.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'bound-details #'left #'text =
+\override TextSpanner #'(bound-details left text) =
   \markup { \upright "rit." }
 b1\startTextSpan c
 e,\stopTextSpan

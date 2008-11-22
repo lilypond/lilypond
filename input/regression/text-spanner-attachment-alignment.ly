@@ -9,10 +9,10 @@
   ragged-right = ##t
   }
 
-\version "2.11.51"
+\version "2.11.65"
 <<
    \new Staff {
-    \override TextSpanner #'bound-details #'left #'text = "*"
+    \override TextSpanner #'(bound-details left text) = "*"
       c'16 \startTrillSpan c' c' c' \stopTrillSpan 
       c'16 \startTextSpan c' c' c' \stopTextSpan 
    }

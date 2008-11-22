@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Text
 @section Text
@@ -128,7 +128,7 @@ Such objects, called @qq{spanners}, may be created
 from one note to another using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-\override TextSpanner #'bound-details #'left #'text = "rit."
+\override TextSpanner #'(bound-details left text) = "rit."
 b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
@@ -140,7 +140,7 @@ but different formatting can be obtained using
 @code{\markup} blocks, as described in @ref{Formatting text}.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'bound-details #'left #'text =
+\override TextSpanner #'(bound-details left text) =
   \markup { \upright "rit." }
 b1\startTextSpan c
 e,\stopTextSpan

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -1954,7 +1954,7 @@ these.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
@@ -2024,7 +2024,7 @@ in the @code{Staff} context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp

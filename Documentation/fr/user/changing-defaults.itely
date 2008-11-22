@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Gilles Thibault
@@ -430,7 +430,7 @@ nomme @q{sous-propriétés}.  La syntaxe est alors
 Ainsi, par exemple :
 
 @example
-\override Stem #'details #'beamed-lengths = #'(4 4 3)
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
 
 
@@ -772,7 +772,7 @@ Certaines @q{sous-propriétés} sont parfois contenues dans une propriété.
 La commande devient alors :
 
 @example
-\override Stem #'details #'beamed-lengths = #'(4 4 3)
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
 
 @cindex documentation exhaustive

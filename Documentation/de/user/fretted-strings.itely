@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -328,7 +328,7 @@ eingefügt werden können.
 \clef "G_8"
 b16 d16 g16 b16 e16
 \textSpannerDown
-\override TextSpanner #'bound-details #'left #'text = #"XII "
+\override TextSpanner #'(bound-details left text) = #"XII "
   g16\startTextSpan
   b16 e16 g16 e16 b16 g16\stopTextSpan
 e16 b16 g16 d16

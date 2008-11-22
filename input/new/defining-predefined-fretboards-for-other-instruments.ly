@@ -1,4 +1,4 @@
-\version "2.11.62"
+\version "2.11.65"
 \header {
   lsrtags = "fretted-strings"
   texidoc = "Predefined fret diagrams can be added for new instruments
@@ -81,10 +81,10 @@ primeros = {
 
     \new FretBoards {
       \set stringTunings = #cuatroTuning
-      \override FretBoard #'fret-diagram-details
-        #'string-count = #'4
-      \override FretBoard #'fret-diagram-details
-        #'finger-code = #'in-dot
+      \override FretBoard
+        #'(fret-diagram-details string-count) = #'4
+      \override FretBoard
+        #'(fret-diagram-details finger-code) = #'in-dot
       \primeros
     }
 
