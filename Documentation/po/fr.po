@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-09 17:44+0100\n"
+"POT-Creation-Date: 2008-11-22 20:22+0100\n"
 "PO-Revision-Date: 2008-11-09 13:14+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
@@ -1265,6 +1265,7 @@ msgstr "Regroupements de portées"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/staff.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "brace"
 msgstr "accolade"
 
@@ -1519,7 +1520,7 @@ msgstr "inferieur"
 #. input/lsr/ancient-notation-template----modern-transcription-of-gregorian-music.ly:50 (context id)
 #. input/lsr/demo-midiinstruments.ly:28 (variable)
 #. input/lsr/formatting-lyrics-syllables.ly:28 (context id)
-#. input/lsr/guitar-strum-rhythms.ly:48 (context id)
+#. input/lsr/guitar-strum-rhythms.ly:56 (context id)
 #. input/lsr/heavily-customized-polymetric-time-signatures.ly:29 (variable)
 #. input/lsr/piano-template-with-melody-and-lyrics.ly:28 (variable)
 #. input/lsr/single-staff-template-with-notes,-lyrics,-and-chords.ly:28 (variable)
@@ -1542,7 +1543,7 @@ msgid "text"
 msgstr "texte"
 
 #. Documentation/user/fundamental.itely:443 (context id)
-#. Documentation/user/staff.itely:535 (context id)
+#. Documentation/user/staff.itely:518 (context id)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:66 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:102 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:118 (comment)
@@ -1675,7 +1676,7 @@ msgstr "un"
 
 #. Documentation/user/fundamental.itely:1242 (variable)
 #. Documentation/user/fundamental.itely:2646 (variable)
-#. Documentation/user/tweaks.itely:3268 (variable)
+#. Documentation/user/tweaks.itely:3468 (variable)
 #. Documentation/user/simultaneous.itely:783 (variable)
 #. Documentation/user/percussion.itely:497 (variable)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:46 (variable)
@@ -1727,37 +1728,37 @@ msgid "SopMusic"
 msgstr "SopMusique"
 
 #. Documentation/user/fundamental.itely:1298 (variable)
-#. Documentation/user/tweaks.itely:3270 (variable)
+#. Documentation/user/tweaks.itely:3470 (variable)
 msgid "AltoMusic"
 msgstr "AltoMusique"
 
 #. Documentation/user/fundamental.itely:1299 (variable)
-#. Documentation/user/tweaks.itely:3271 (variable)
+#. Documentation/user/tweaks.itely:3471 (variable)
 msgid "TenorMusic"
 msgstr "TenorMusique"
 
 #. Documentation/user/fundamental.itely:1300 (variable)
-#. Documentation/user/tweaks.itely:3272 (variable)
+#. Documentation/user/tweaks.itely:3472 (variable)
 msgid "BassMusic"
 msgstr "BasseMusique"
 
 #. Documentation/user/fundamental.itely:1301 (variable)
-#. Documentation/user/tweaks.itely:3273 (variable)
+#. Documentation/user/tweaks.itely:3473 (variable)
 msgid "VerseOne"
 msgstr "CoupletUn"
 
 #. Documentation/user/fundamental.itely:1303 (variable)
-#. Documentation/user/tweaks.itely:3274 (variable)
+#. Documentation/user/tweaks.itely:3474 (variable)
 msgid "VerseTwo"
 msgstr "CoupletDeux"
 
 #. Documentation/user/fundamental.itely:1305 (variable)
-#. Documentation/user/tweaks.itely:3275 (variable)
+#. Documentation/user/tweaks.itely:3475 (variable)
 msgid "VerseThree"
 msgstr "CoupletTrois"
 
 #. Documentation/user/fundamental.itely:1307 (variable)
-#. Documentation/user/tweaks.itely:3276 (variable)
+#. Documentation/user/tweaks.itely:3476 (variable)
 msgid "VerseFour"
 msgstr "CoupletQuatre"
 
@@ -1766,20 +1767,20 @@ msgid "Sop"
 msgstr "Sop"
 
 #. Documentation/user/fundamental.itely:1315 (context id)
-#. Documentation/user/tweaks.itely:3283 (context id)
-#. Documentation/user/input.itely:915 (context id)
+#. Documentation/user/tweaks.itely:3483 (context id)
+#. Documentation/user/input.itely:946 (context id)
 msgid "Alto"
 msgstr "Alto"
 
 #. Documentation/user/fundamental.itely:1323 (context id)
-#. Documentation/user/tweaks.itely:3291 (context id)
-#. Documentation/user/input.itely:917 (context id)
+#. Documentation/user/tweaks.itely:3491 (context id)
+#. Documentation/user/input.itely:948 (context id)
 msgid "Tenor"
 msgstr "Tenor"
 
 #. Documentation/user/fundamental.itely:1324 (context id)
-#. Documentation/user/tweaks.itely:3292 (context id)
-#. Documentation/user/input.itely:922 (context id)
+#. Documentation/user/tweaks.itely:3492 (context id)
+#. Documentation/user/input.itely:953 (context id)
 #. input/lsr/jazz-combo-template.ly:227 (variable)
 msgid "Bass"
 msgstr "Basse"
@@ -1934,7 +1935,7 @@ msgstr "retour à la taille par défaut"
 
 #. Documentation/user/fundamental.itely:2420 (variable)
 #. Documentation/user/fundamental.itely:2647 (variable)
-#. Documentation/user/input.itely:907 (variable)
+#. Documentation/user/input.itely:938 (variable)
 msgid "sopranoMusic"
 msgstr "sopranoMusique"
 
@@ -1951,7 +1952,7 @@ msgid "sopranoWords"
 msgstr "sopranoParoles"
 
 #. Documentation/user/fundamental.itely:2654 (variable)
-#. Documentation/user/input.itely:908 (variable)
+#. Documentation/user/input.itely:939 (variable)
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:51 (variable)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:44 (variable)
 #. input/lsr/vocal-ensemble-template.ly:48 (variable)
@@ -1966,7 +1967,7 @@ msgid "altoWords"
 msgstr "altoParoles"
 
 #. Documentation/user/fundamental.itely:2659 (variable)
-#. Documentation/user/input.itely:909 (variable)
+#. Documentation/user/input.itely:940 (variable)
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:58 (variable)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:51 (variable)
 #. input/lsr/vocal-ensemble-template.ly:55 (variable)
@@ -1981,7 +1982,7 @@ msgid "tenorWords"
 msgstr "tenorParoles"
 
 #. Documentation/user/fundamental.itely:2664 (variable)
-#. Documentation/user/input.itely:910 (variable)
+#. Documentation/user/input.itely:941 (variable)
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:65 (variable)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:58 (variable)
 #. input/lsr/vocal-ensemble-template.ly:62 (variable)
@@ -2146,17 +2147,18 @@ msgstr "Expressions musicales imbriquées"
 
 #. @rglos in Documentation/user/fundamental.itely
 #. @rglos in Documentation/user/tweaks.itely
-#. Documentation/user/staff.itely:564 (context id)
-#. Documentation/user/staff.itely:577 (context id)
-#. Documentation/user/staff.itely:585 (context id)
-#. Documentation/user/staff.itely:604 (context id)
-#. Documentation/user/staff.itely:617 (context id)
+#. Documentation/user/staff.itely:547 (context id)
+#. Documentation/user/staff.itely:560 (context id)
+#. Documentation/user/staff.itely:568 (context id)
+#. Documentation/user/staff.itely:587 (context id)
+#. Documentation/user/staff.itely:600 (context id)
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/fr/user/fundamental.itely
 #. @rglos in Documentation/es/user/fundamental.itely
 #. @rglos in Documentation/es/user/tweaks.itely
 #. @rglos in Documentation/es/user/staff.itely
 #. @rglos in Documentation/de/user/tweaks.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "ossia"
 msgstr "ossia"
 
@@ -2384,223 +2386,223 @@ msgstr "Partition pour chœur à quatre voix mixtes"
 msgid "Building a score from scratch"
 msgstr "Écriture d'une partition à partir de zéro"
 
-#. Documentation/user/tweaks.itely:564 (comment)
-#. Documentation/user/tweaks.itely:690 (comment)
+#. Documentation/user/tweaks.itely:595 (comment)
+#. Documentation/user/tweaks.itely:730 (comment)
 msgid "Increase thickness of all following slurs from 1.2 to 5.0"
 msgstr "L'épaisseur de toutes les liaisons à venir passe de 1,2 à 5,0"
 
-#. Documentation/user/tweaks.itely:630 (comment)
-#. Documentation/user/tweaks.itely:666 (comment)
-#. Documentation/user/tweaks.itely:669 (comment)
+#. Documentation/user/tweaks.itely:664 (comment)
+#. Documentation/user/tweaks.itely:703 (comment)
+#. Documentation/user/tweaks.itely:706 (comment)
 msgid "Increase thickness of immediately following slur only"
 msgstr "Épaississement de la prochaine liaison seulement"
 
-#. Documentation/user/tweaks.itely:694 (comment)
+#. Documentation/user/tweaks.itely:734 (comment)
 msgid "Revert thickness of all following slurs to default of 1.2"
 msgstr "Retour à l'épaisseur par défaut de 1,2 pour les prochaines liaisons"
 
-#. Documentation/user/tweaks.itely:1302 (comment)
+#. Documentation/user/tweaks.itely:1394 (comment)
 msgid "Don't print clefs in this staff"
 msgstr "pas de clef pour cette portée"
 
-#. Documentation/user/tweaks.itely:1304 (comment)
+#. Documentation/user/tweaks.itely:1396 (comment)
 msgid "Don't print time signatures in this staff"
 msgstr "pas de métrique pour cette portée"
 
-#. Documentation/user/tweaks.itely:1362 (comment)
+#. Documentation/user/tweaks.itely:1460 (comment)
 msgid "Reduce all font sizes by ~24%"
 msgstr "Réduction d'environ 24 % de toutes les tailles de fonte"
 
-#. Documentation/user/tweaks.itely:1418 (comment)
+#. Documentation/user/tweaks.itely:1526 (comment)
 msgid "Reduce stem length and line spacing to match"
 msgstr ""
 "Réduction de la taille des hampes et de l'interligne pour ne pas déborder"
 
-#. Documentation/user/tweaks.itely:1828 (comment)
-#. Documentation/user/tweaks.itely:1895 (comment)
+#. Documentation/user/tweaks.itely:1956 (comment)
+#. Documentation/user/tweaks.itely:2026 (comment)
 msgid "Set details for later Text Spanner"
 msgstr "Réglage des détails du texte avec extension"
 
-#. Documentation/user/tweaks.itely:1831 (comment)
-#. Documentation/user/tweaks.itely:1898 (comment)
+#. Documentation/user/tweaks.itely:1959 (comment)
+#. Documentation/user/tweaks.itely:2029 (comment)
 msgid "Place dynamics above staff"
 msgstr "Positionnement des nuances au-dessus de la portée"
 
-#. Documentation/user/tweaks.itely:1833 (comment)
-#. Documentation/user/tweaks.itely:1902 (comment)
+#. Documentation/user/tweaks.itely:1961 (comment)
+#. Documentation/user/tweaks.itely:2033 (comment)
 msgid "Start Ottava Bracket"
 msgstr "Début du crochet d'octavation"
 
-#. Documentation/user/tweaks.itely:1836 (comment)
-#. Documentation/user/tweaks.itely:1843 (comment)
-#. Documentation/user/tweaks.itely:1905 (comment)
-#. Documentation/user/tweaks.itely:1912 (comment)
+#. Documentation/user/tweaks.itely:1964 (comment)
+#. Documentation/user/tweaks.itely:1971 (comment)
+#. Documentation/user/tweaks.itely:2036 (comment)
+#. Documentation/user/tweaks.itely:2043 (comment)
 msgid "Add Dynamic Text"
 msgstr "Ajout d'une nuance textuelle"
 
-#. Documentation/user/tweaks.itely:1838 (comment)
-#. Documentation/user/tweaks.itely:1907 (comment)
+#. Documentation/user/tweaks.itely:1966 (comment)
+#. Documentation/user/tweaks.itely:2038 (comment)
 msgid "Add Dynamic Line Spanner"
 msgstr "Ajout d'une nuance graphique"
 
-#. Documentation/user/tweaks.itely:1840 (comment)
-#. Documentation/user/tweaks.itely:1909 (comment)
+#. Documentation/user/tweaks.itely:1968 (comment)
+#. Documentation/user/tweaks.itely:2040 (comment)
 msgid "Add Text Script"
 msgstr "Ajout d'un commentaire textuel"
 
-#. Documentation/user/tweaks.itely:1845 (comment)
-#. Documentation/user/tweaks.itely:1914 (comment)
+#. Documentation/user/tweaks.itely:1973 (comment)
+#. Documentation/user/tweaks.itely:2045 (comment)
 msgid "Stop Ottava Bracket"
 msgstr "Fin du crochet d'octavation"
 
-#. Documentation/user/tweaks.itely:1900 (comment)
+#. Documentation/user/tweaks.itely:2031 (comment)
 msgid "Place following Ottava Bracket below Text Spanners"
 msgstr "Positionnement du crochet d'octavation sous le texte avec extension"
 
-#. Documentation/user/tweaks.itely:1959 (comment)
+#. Documentation/user/tweaks.itely:2093 (comment)
 msgid "Cause notes to space out to accommodate text"
 msgstr "Force les notes à s'espacer selon le texte"
 
-#. Documentation/user/tweaks.itely:1979 (comment)
+#. Documentation/user/tweaks.itely:2116 (comment)
 msgid "This markup is short enough to fit without collision"
 msgstr "Ce morceau de texte est assez court pour ne pas faire de collision"
 
-#. Documentation/user/tweaks.itely:1983 (comment)
+#. Documentation/user/tweaks.itely:2120 (comment)
 msgid "This is too long to fit, so it is displaced upwards"
 msgstr "Celui-ci est trop long pour tenir, il est déplacé vers le haut"
 
-#. Documentation/user/tweaks.itely:1987 (comment)
-#. Documentation/user/tweaks.itely:1992 (comment)
+#. Documentation/user/tweaks.itely:2124 (comment)
+#. Documentation/user/tweaks.itely:2129 (comment)
 msgid "Turn off collision avoidance"
 msgstr "Désactivation du processus d'évitement de collision"
 
-#. Documentation/user/tweaks.itely:1994 (comment)
+#. Documentation/user/tweaks.itely:2131 (comment)
 msgid "and turn on textLengthOn"
 msgstr "activation de textLengthOn"
 
-#. Documentation/user/tweaks.itely:1995 (comment)
+#. Documentation/user/tweaks.itely:2132 (comment)
 msgid "Spaces at end are honored"
 msgstr "Les espaces de la fin sont pris en compte"
 
-#. Documentation/user/tweaks.itely:2096 (comment)
+#. Documentation/user/tweaks.itely:2239 (comment)
 msgid "Extend width by 1 staff space"
 msgstr "Élargissement d'un espace"
 
-#. Documentation/user/tweaks.itely:2373 (comment)
+#. Documentation/user/tweaks.itely:2522 (comment)
 msgid "This will not work, see below:"
 msgstr "La commande suivante est sans résultat ; voir plus loin."
 
-#. Documentation/user/tweaks.itely:2377 (comment)
+#. Documentation/user/tweaks.itely:2526 (comment)
 msgid "This works:"
 msgstr "Celle-ci produit le résultat escompté"
 
-#. Documentation/user/tweaks.itely:2422 (variable)
+#. Documentation/user/tweaks.itely:2577 (variable)
 msgid "naturalplusflat"
 msgstr "becarreplusbemol"
 
-#. Documentation/user/tweaks.itely:2458 (comment)
+#. Documentation/user/tweaks.itely:2618 (comment)
 msgid "Extend width by 1 unit"
 msgstr "Élargissement d'une unité"
 
-#. Documentation/user/tweaks.itely:2460 (comment)
+#. Documentation/user/tweaks.itely:2620 (comment)
 msgid "Align dynamics to a base line 2 units above staff"
 msgstr ""
 "Alignement des nuances sur une ligne de base à 2 unités au-dessus de la "
 "portée"
 
-#. Documentation/user/tweaks.itely:2745 (variable)
-#. Documentation/user/tweaks.itely:2794 (variable)
-#. Documentation/user/tweaks.itely:2855 (variable)
-#. Documentation/user/tweaks.itely:2925 (variable)
-#. Documentation/user/tweaks.itely:2987 (variable)
-#. Documentation/user/tweaks.itely:3042 (variable)
+#. Documentation/user/tweaks.itely:2924 (variable)
+#. Documentation/user/tweaks.itely:2973 (variable)
+#. Documentation/user/tweaks.itely:3034 (variable)
+#. Documentation/user/tweaks.itely:3104 (variable)
+#. Documentation/user/tweaks.itely:3169 (variable)
+#. Documentation/user/tweaks.itely:3229 (variable)
 msgid "rhMusic"
 msgstr "mdMusique"
 
-#. Documentation/user/tweaks.itely:2750 (comment)
-#. Documentation/user/tweaks.itely:2799 (comment)
-#. Documentation/user/tweaks.itely:2862 (comment)
-#. Documentation/user/tweaks.itely:2934 (comment)
-#. Documentation/user/tweaks.itely:2996 (comment)
+#. Documentation/user/tweaks.itely:2929 (comment)
+#. Documentation/user/tweaks.itely:2978 (comment)
+#. Documentation/user/tweaks.itely:3041 (comment)
+#. Documentation/user/tweaks.itely:3113 (comment)
+#. Documentation/user/tweaks.itely:3178 (comment)
 msgid "Start polyphonic section of four voices"
 msgstr "Début d'une section polyphonique de quatre voix"
 
-#. Documentation/user/tweaks.itely:2763 (variable)
-#. Documentation/user/tweaks.itely:2812 (variable)
-#. Documentation/user/tweaks.itely:2875 (variable)
-#. Documentation/user/tweaks.itely:2949 (variable)
-#. Documentation/user/tweaks.itely:3013 (variable)
-#. Documentation/user/tweaks.itely:3070 (variable)
+#. Documentation/user/tweaks.itely:2942 (variable)
+#. Documentation/user/tweaks.itely:2991 (variable)
+#. Documentation/user/tweaks.itely:3054 (variable)
+#. Documentation/user/tweaks.itely:3128 (variable)
+#. Documentation/user/tweaks.itely:3195 (variable)
+#. Documentation/user/tweaks.itely:3257 (variable)
 msgid "lhMusic"
 msgstr "mgMusique"
 
-#. Documentation/user/tweaks.itely:2772 (context id)
-#. Documentation/user/tweaks.itely:2821 (context id)
-#. Documentation/user/tweaks.itely:2884 (context id)
-#. Documentation/user/tweaks.itely:2958 (context id)
-#. Documentation/user/tweaks.itely:3022 (context id)
-#. Documentation/user/tweaks.itely:3079 (context id)
-#. Documentation/user/input.itely:928 (context id)
+#. Documentation/user/tweaks.itely:2951 (context id)
+#. Documentation/user/tweaks.itely:3000 (context id)
+#. Documentation/user/tweaks.itely:3063 (context id)
+#. Documentation/user/tweaks.itely:3137 (context id)
+#. Documentation/user/tweaks.itely:3204 (context id)
+#. Documentation/user/tweaks.itely:3266 (context id)
+#. Documentation/user/input.itely:959 (context id)
 msgid "RH"
 msgstr "MD"
 
-#. Documentation/user/tweaks.itely:2776 (context id)
-#. Documentation/user/tweaks.itely:2825 (context id)
-#. Documentation/user/tweaks.itely:2888 (context id)
-#. Documentation/user/tweaks.itely:2962 (context id)
-#. Documentation/user/tweaks.itely:3026 (context id)
-#. Documentation/user/tweaks.itely:3083 (context id)
-#. Documentation/user/input.itely:934 (context id)
+#. Documentation/user/tweaks.itely:2955 (context id)
+#. Documentation/user/tweaks.itely:3004 (context id)
+#. Documentation/user/tweaks.itely:3067 (context id)
+#. Documentation/user/tweaks.itely:3141 (context id)
+#. Documentation/user/tweaks.itely:3208 (context id)
+#. Documentation/user/tweaks.itely:3270 (context id)
+#. Documentation/user/input.itely:965 (context id)
 msgid "LH"
 msgstr "MG"
 
-#. Documentation/user/tweaks.itely:3000 (comment)
-#. Documentation/user/tweaks.itely:3057 (comment)
+#. Documentation/user/tweaks.itely:3182 (comment)
+#. Documentation/user/tweaks.itely:3244 (comment)
 msgid "Move the c2 out of the main note column so the merge will work"
 msgstr "Déplace le do2 pour que la fusion puisse fonctionner"
 
-#. Documentation/user/tweaks.itely:3003 (comment)
-#. Documentation/user/tweaks.itely:3060 (comment)
+#. Documentation/user/tweaks.itely:3185 (comment)
+#. Documentation/user/tweaks.itely:3247 (comment)
 msgid "Stem on the d2 must be down to permit merging"
 msgstr "La hampe du ré2 ira vers le bas pour permettre la fusion"
 
-#. Documentation/user/tweaks.itely:3055 (comment)
+#. Documentation/user/tweaks.itely:3242 (comment)
 msgid "Reposition the c2 to the right of the merged note"
 msgstr "Repositionnement du do2 à droite de la note fusionnée"
 
-#. Documentation/user/tweaks.itely:3185 (comment)
-#. Documentation/user/tweaks.itely:3204 (comment)
+#. Documentation/user/tweaks.itely:3378 (comment)
+#. Documentation/user/tweaks.itely:3400 (comment)
 msgid "Visible tempo marking"
 msgstr "Indication de tempo visible"
 
-#. Documentation/user/tweaks.itely:3189 (comment)
-#. Documentation/user/tweaks.itely:3208 (comment)
+#. Documentation/user/tweaks.itely:3382 (comment)
+#. Documentation/user/tweaks.itely:3404 (comment)
 msgid "Invisible tempo marking to lengthen fermata in MIDI"
 msgstr "Indication de tempo invisible ; utilisée pour le MIDI"
 
-#. Documentation/user/tweaks.itely:3192 (comment)
-#. Documentation/user/tweaks.itely:3211 (comment)
+#. Documentation/user/tweaks.itely:3385 (comment)
+#. Documentation/user/tweaks.itely:3407 (comment)
 msgid "New tempo for next section"
 msgstr "Nouveau tempo pour la section suivante"
 
-#. Documentation/user/tweaks.itely:3259 (variable)
+#. Documentation/user/tweaks.itely:3459 (variable)
 msgid "emphasize"
 msgstr "emphase"
 
-#. Documentation/user/tweaks.itely:3263 (variable)
+#. Documentation/user/tweaks.itely:3463 (variable)
 msgid "normal"
 msgstr "normal"
 
-#. Documentation/user/tweaks.itely:3269 (variable)
+#. Documentation/user/tweaks.itely:3469 (variable)
 msgid "SopranoMusic"
 msgstr "sopranoMusique"
 
-#. Documentation/user/tweaks.itely:3282 (context id)
-#. Documentation/user/input.itely:913 (context id)
+#. Documentation/user/tweaks.itely:3482 (context id)
+#. Documentation/user/input.itely:944 (context id)
 msgid "Soprano"
 msgstr "Soprano"
 
-#. Documentation/user/tweaks.itely:3487 (comment)
+#. Documentation/user/tweaks.itely:3691 (comment)
 msgid "Arrange to obtain color from color-notehead procedure"
 msgstr "Arranger pour obtenir une couleur par la procédure color-notehead"
 
@@ -4166,16 +4168,16 @@ msgid "Musical notation"
 msgstr "Notation musicale générale"
 
 #. Documentation/user/pitches.itely:668 (variable)
-#. Documentation/user/input.itely:997 (variable)
-#. Documentation/user/input.itely:1016 (variable)
-#. Documentation/user/input.itely:1053 (variable)
-#. Documentation/user/input.itely:1068 (variable)
+#. Documentation/user/input.itely:1028 (variable)
+#. Documentation/user/input.itely:1047 (variable)
+#. Documentation/user/input.itely:1084 (variable)
+#. Documentation/user/input.itely:1099 (variable)
 #. input/lsr/changing-the-chord-names-to-german-or-semi-german-notation.ly:29 (variable)
 #. input/lsr/controlling-tuplet-bracket-visibility.ly:20 (variable)
 #. input/lsr/letter-tablature-formatting.ly:25 (variable)
 #. input/lsr/string-quartet-template-with-separate-parts.ly:98 (variable)
 #. input/lsr/transposing-pitches-with-minimum-accidentals-smart-transpose.ly:136 (variable)
-#. input/lsr/vertically-aligned-dynamics-and-textscripts.ly:35 (variable)
+#. input/lsr/vertically-aligned-dynamics-and-textscripts.ly:50 (variable)
 msgid "music"
 msgstr "musique"
 
@@ -4184,7 +4186,7 @@ msgid "not strictly necessary, but a good reminder"
 msgstr "pas strictement nécessaire, mais en pense-bête"
 
 #. Documentation/user/pitches.itely:1052 (context id)
-#. Documentation/user/staff.itely:1100 (variable)
+#. Documentation/user/staff.itely:1084 (variable)
 msgid "clarinet"
 msgstr "clarinette"
 
@@ -4594,62 +4596,50 @@ msgstr "ceci n'est pas en concordance"
 msgid "this will"
 msgstr "ceci est conforme"
 
-#. Documentation/user/rhythms.itely:1689 (comment)
-msgid "Set default beaming for all staves"
-msgstr "définition des règles de ligature pour toutes les portées"
-
-#. Documentation/user/rhythms.itely:1697 (comment)
-msgid "Modify beaming for just this staff"
-msgstr "changement des règles de ligature seulement pour cette portée"
-
-#. Documentation/user/rhythms.itely:1703 (comment)
-msgid "Inherit beaming from Score context"
-msgstr "héritage des règles de ligature du contexte Score"
-
-#. Documentation/user/rhythms.itely:1827 (comment)
+#. Documentation/user/rhythms.itely:1802 (comment)
 msgid "revert to non-feathered beams"
 msgstr "retour à des liens de croches rectilignes"
 
-#. Documentation/user/rhythms.itely:2050 (comment)
-#. Documentation/user/rhythms.itely:2066 (comment)
+#. Documentation/user/rhythms.itely:2025 (comment)
+#. Documentation/user/rhythms.itely:2041 (comment)
 msgid "Permit first bar number to be printed"
 msgstr "Le numéro de la première mesure est imprimé"
 
-#. Documentation/user/rhythms.itely:2067 (comment)
-#. Documentation/user/rhythms.itely:2115 (comment)
+#. Documentation/user/rhythms.itely:2042 (comment)
+#. Documentation/user/rhythms.itely:2090 (comment)
 msgid "Print a bar number every second measure"
 msgstr "Affichage du numéro toutes les deux mesures"
 
-#. Documentation/user/rhythms.itely:2083 (comment)
+#. Documentation/user/rhythms.itely:2058 (comment)
 msgid "Prevent bar numbers at the end of a line and permit them elsewhere"
 msgstr "Affichage du numéro à chaque mesure, hormis en fin de ligne"
 
-#. Documentation/user/rhythms.itely:2087 (comment)
-#. Documentation/user/rhythms.itely:2113 (comment)
+#. Documentation/user/rhythms.itely:2062 (comment)
+#. Documentation/user/rhythms.itely:2088 (comment)
 msgid "Increase the size of the bar number by 2"
 msgstr "Augmentation de la taille des numéros de mesure au double"
 
-#. Documentation/user/rhythms.itely:2091 (comment)
+#. Documentation/user/rhythms.itely:2066 (comment)
 msgid "Draw a box round the following bar number(s)"
 msgstr "Numéros de mesure encadrés dans un rectangle"
 
-#. Documentation/user/rhythms.itely:2096 (comment)
+#. Documentation/user/rhythms.itely:2071 (comment)
 msgid "Draw a circle round the following bar number(s)"
 msgstr "Numéros de mesure encadrés dans un cercle"
 
-#. Documentation/user/rhythms.itely:2118 (comment)
+#. Documentation/user/rhythms.itely:2093 (comment)
 msgid "Center-align bar numbers"
 msgstr "Alignement au centre des numéros de mesure"
 
-#. Documentation/user/rhythms.itely:2121 (comment)
+#. Documentation/user/rhythms.itely:2096 (comment)
 msgid "Right-align bar numbers"
 msgstr "Alignement à droite des numéros de mesure"
 
-#. Documentation/user/rhythms.itely:2224 (variable)
+#. Documentation/user/rhythms.itely:2199 (variable)
 msgid "pipeSymbol"
 msgstr "pipeSymbole"
 
-#. Documentation/user/rhythms.itely:2612 (variable)
+#. Documentation/user/rhythms.itely:2587 (variable)
 msgid "MyCadenza"
 msgstr "MaCadence"
 
@@ -5221,7 +5211,7 @@ msgstr "Trilles"
 msgid "trill"
 msgstr "trille"
 
-#. Documentation/user/repeats.itely:298 (variable)
+#. Documentation/user/repeats.itely:299 (variable)
 #. input/lsr/volta-text-markup-using-repeatcommands.ly:21 (variable)
 msgid "voltaAdLib"
 msgstr "voltaAdLib"
@@ -5487,24 +5477,24 @@ msgstr "partie"
 msgid "Writing music in parallel"
 msgstr "Saisie la musique en parallèle"
 
-#. Documentation/user/staff.itely:1069 (variable)
-#. Documentation/user/staff.itely:1084 (variable)
-#. Documentation/user/staff.itely:1238 (variable)
+#. Documentation/user/staff.itely:1053 (variable)
+#. Documentation/user/staff.itely:1068 (variable)
+#. Documentation/user/staff.itely:1222 (variable)
 msgid "flute"
 msgstr "flute"
 
-#. Documentation/user/staff.itely:1189 (variable)
-#. Documentation/user/staff.itely:1210 (variable)
+#. Documentation/user/staff.itely:1173 (variable)
+#. Documentation/user/staff.itely:1194 (variable)
 msgid "oboe"
 msgstr "hautbois"
 
-#. Documentation/user/staff.itely:1259 (variable)
-#. Documentation/user/staff.itely:1275 (context id)
+#. Documentation/user/staff.itely:1243 (variable)
+#. Documentation/user/staff.itely:1259 (context id)
 msgid "piccolo"
 msgstr "piccolo"
 
-#. Documentation/user/staff.itely:1267 (variable)
-#. Documentation/user/staff.itely:1276 (context id)
+#. Documentation/user/staff.itely:1251 (variable)
+#. Documentation/user/staff.itely:1260 (context id)
 msgid "cbassoon"
 msgstr "cbasson"
 
@@ -5536,16 +5526,20 @@ msgstr "Gravure des portées"
 #. @unnumberedsubsubsec in Documentation/fr/user/staff.itely
 #. @node in Documentation/es/user/staff.itely
 #. @unnumberedsubsubsec in Documentation/es/user/staff.itely
+#. @node in Documentation/de/user/staff.itely
+#. @unnumberedsubsubsec in Documentation/de/user/staff.itely
 msgid "Instantiating new staves"
 msgstr "Initialisation de nouvelles portées"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "staff"
 msgstr "portée"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "staves"
 msgstr "portées"
 
@@ -5562,11 +5556,13 @@ msgstr "Regroupement de portées"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "bracket"
 msgstr "crochet"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "grand staff"
 msgstr "système"
 
@@ -5576,6 +5572,8 @@ msgstr "système"
 #. @unnumberedsubsubsec in Documentation/fr/user/staff.itely
 #. @node in Documentation/es/user/staff.itely
 #. @unnumberedsubsubsec in Documentation/es/user/staff.itely
+#. @node in Documentation/de/user/staff.itely
+#. @unnumberedsubsubsec in Documentation/de/user/staff.itely
 msgid "Nested staff groups"
 msgstr "Imbrication de regroupements de portées"
 
@@ -5585,6 +5583,8 @@ msgstr "Imbrication de regroupements de portées"
 #. @subsection in Documentation/fr/user/staff.itely
 #. @node in Documentation/es/user/staff.itely
 #. @subsection in Documentation/es/user/staff.itely
+#. @node in Documentation/de/user/staff.itely
+#. @subsection in Documentation/de/user/staff.itely
 msgid "Modifying single staves"
 msgstr "Modification de portées individuelles"
 
@@ -5601,11 +5601,13 @@ msgstr "Symbole de la portée"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "line"
 msgstr "ligne"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "ledger line"
 msgstr "ligne supplémentaire"
 
@@ -5615,11 +5617,14 @@ msgstr "ligne supplémentaire"
 #. @unnumberedsubsubsec in Documentation/fr/user/staff.itely
 #. @node in Documentation/es/user/staff.itely
 #. @unnumberedsubsubsec in Documentation/es/user/staff.itely
+#. @node in Documentation/de/user/staff.itely
+#. @unnumberedsubsubsec in Documentation/de/user/staff.itely
 msgid "Ossia staves"
 msgstr "Portées d'ossia"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "Frenched staff"
 msgstr "Portée à la française"
 
@@ -5658,21 +5663,25 @@ msgstr "Indications métronomiques"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "metronome"
 msgstr "métronome"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "metronomic indication"
 msgstr "indication métronomique"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "tempo indication"
 msgstr "indication du tempo"
 
 #. @rglos in Documentation/user/staff.itely
 #. @rglos in Documentation/es/user/staff.itely
+#. @rglos in Documentation/de/user/staff.itely
 msgid "metronome mark"
 msgstr "marque métronomique"
 
@@ -5999,6 +6008,8 @@ msgstr "Fontes"
 #. @unnumberedsubsubsec in Documentation/user/text.itely
 #. @node in Documentation/es/user/text.itely
 #. @unnumberedsubsubsec in Documentation/es/user/text.itely
+#. @node in Documentation/de/user/text.itely
+#. @unnumberedsubsubsec in Documentation/de/user/text.itely
 msgid "Fonts explained"
 msgstr "Tout savoir sur les fontes"
 
@@ -6032,7 +6043,8 @@ msgid "Specialist notation"
 msgstr "Notation spécialisée"
 
 #. Documentation/user/vocal.itely:509 (comment)
-msgid "not recommended: left aligns syllables "
+#, fuzzy
+msgid "not recommended: left aligns syllables"
 msgstr "peu recommandable : les paroles sont alignées à gauche"
 
 #. Documentation/user/vocal.itely:512 (comment)
@@ -6073,7 +6085,8 @@ msgid "applies to \\\"fas\\\""
 msgstr "s'applique à \\\"fas\\\""
 
 #. Documentation/user/vocal.itely:1282 (comment)
-msgid "moves the column off the left margin; "
+#, fuzzy
+msgid "moves the column off the left margin;"
 msgstr "décalage par rapport à la marge de gauche"
 
 #. Documentation/user/vocal.itely:1283 (comment)
@@ -6086,11 +6099,13 @@ msgid "adds vertical spacing between verses"
 msgstr "ajout d'espace vertical entre les couplets"
 
 #. Documentation/user/vocal.itely:1299 (comment)
-msgid "adds horizontal spacing between columns; "
+#, fuzzy
+msgid "adds horizontal spacing between columns;"
 msgstr "ajout d'espace horizontal entre les colonnes"
 
 #. Documentation/user/vocal.itely:1300 (comment)
-msgid "if they are still too close, add more \\\" \\\" pairs  "
+#, fuzzy
+msgid "if they are still too close, add more \\\" \\\" pairs"
 msgstr ""
 "si elles sont toujours trop proches, ajouter d'autres paires de \\\" \\\""
 
@@ -6099,7 +6114,8 @@ msgid "until the result looks good"
 msgstr "jusqu'à ce que le résultat soit acceptable."
 
 #. Documentation/user/vocal.itely:1317 (comment)
-msgid "gives some extra space on the right margin; "
+#, fuzzy
+msgid "gives some extra space on the right margin;"
 msgstr "décalage par rapport à la marge de droite"
 
 #. Documentation/user/vocal.itely:1318 (comment)
@@ -7628,11 +7644,11 @@ msgstr "Exemple concret de musique arabe"
 msgid "Further reading"
 msgstr "Autres sources d'information"
 
-#. Documentation/user/input.itely:494 (comment)
+#. Documentation/user/input.itely:525 (comment)
 msgid "not printed"
 msgstr "non imprimé"
 
-#. Documentation/user/input.itely:911 (variable)
+#. Documentation/user/input.itely:942 (variable)
 msgid "allLyrics"
 msgstr "tuttiParoles"
 
@@ -7971,43 +7987,43 @@ msgstr "Égalisation de plusieurs instruments (ii)"
 msgid "Percussion in MIDI"
 msgstr "MIDI et percussions"
 
-#. Documentation/user/spacing.itely:872 (comment)
+#. Documentation/user/spacing.itely:875 (comment)
 msgid "this does nothing"
 msgstr "ceci est sans effet"
 
-#. Documentation/user/spacing.itely:873 (comment)
+#. Documentation/user/spacing.itely:876 (comment)
 msgid "a break here would work"
 msgstr "une rupture serait ici acceptée"
 
-#. Documentation/user/spacing.itely:874 (comment)
+#. Documentation/user/spacing.itely:877 (comment)
 msgid "as does this break"
 msgstr "à l'instar de celle-ci"
 
-#. Documentation/user/spacing.itely:886 (comment)
+#. Documentation/user/spacing.itely:889 (comment)
 msgid "now the break is allowed"
 msgstr "le saut de ligne est maintenant autorisé"
 
-#. Documentation/user/spacing.itely:1719 (comment)
+#. Documentation/user/spacing.itely:1777 (comment)
 msgid "this time the text will be closer to the staff"
 msgstr "cette fois, le texte est plus proche de la portée"
 
-#. Documentation/user/spacing.itely:1721 (comment)
+#. Documentation/user/spacing.itely:1779 (comment)
 msgid "by setting outside-staff-priority to a non-number,"
 msgstr "definir outside-staff-priority à autre chose qu'un nombre"
 
-#. Documentation/user/spacing.itely:1722 (comment)
+#. Documentation/user/spacing.itely:1780 (comment)
 msgid "we disable the automatic collision avoidance"
 msgstr "désactive l'évitement automatique de collision"
 
-#. Documentation/user/spacing.itely:1725 (comment)
+#. Documentation/user/spacing.itely:1783 (comment)
 msgid "now they will collide"
 msgstr "il y a maintenant chevauchement"
 
-#. Documentation/user/spacing.itely:1750 (comment)
+#. Documentation/user/spacing.itely:1808 (comment)
 msgid "the markup is too close to the following note"
 msgstr "le texte est trop proche de la note qui suit"
 
-#. Documentation/user/spacing.itely:1753 (comment)
+#. Documentation/user/spacing.itely:1811 (comment)
 msgid "setting outside-staff-horizontal-padding fixes this"
 msgstr "définir outside-staff-horizontal-padding règle le problème"
 
@@ -8059,6 +8075,8 @@ msgstr "Mise en forme de la page"
 #. @unnumberedsubsubsec in Documentation/user/spacing.itely
 #. @node in Documentation/es/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/es/user/spacing.itely
+#. @node in Documentation/de/user/spacing.itely
+#. @unnumberedsubsubsec in Documentation/de/user/spacing.itely
 msgid "Vertical dimensions"
 msgstr "Dimensionnement vertical"
 
@@ -8066,6 +8084,8 @@ msgstr "Dimensionnement vertical"
 #. @unnumberedsubsubsec in Documentation/user/spacing.itely
 #. @node in Documentation/es/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/es/user/spacing.itely
+#. @node in Documentation/de/user/spacing.itely
+#. @unnumberedsubsubsec in Documentation/de/user/spacing.itely
 msgid "Horizontal dimensions"
 msgstr "Dimensionnement horizontal"
 
@@ -8073,6 +8093,8 @@ msgstr "Dimensionnement horizontal"
 #. @unnumberedsubsubsec in Documentation/user/spacing.itely
 #. @node in Documentation/es/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/es/user/spacing.itely
+#. @node in Documentation/de/user/spacing.itely
+#. @unnumberedsubsubsec in Documentation/de/user/spacing.itely
 msgid "Other layout variables"
 msgstr "Autres variables de mise en forme"
 
@@ -8360,87 +8382,87 @@ msgstr "Mise en évidence de l'espacement"
 msgid "Changing spacing"
 msgstr "Modification de l'espacement"
 
-#. Documentation/user/changing-defaults.itely:2002 (comment)
+#. Documentation/user/changing-defaults.itely:1990 (comment)
 msgid "increase the length of the tie"
 msgstr "augmentation de la longueur de la liaison"
 
-#. Documentation/user/changing-defaults.itely:2011 (comment)
+#. Documentation/user/changing-defaults.itely:1999 (comment)
 msgid "increase the length of the rest bar"
 msgstr "augmentation de la longueur de la mesure de silence"
 
-#. Documentation/user/changing-defaults.itely:2019 (comment)
+#. Documentation/user/changing-defaults.itely:2007 (comment)
 msgid "increase the length of the hairpin"
 msgstr "augmentation de la longueur du soufflet"
 
-#. Documentation/user/changing-defaults.itely:2047 (comment)
+#. Documentation/user/changing-defaults.itely:2035 (comment)
 msgid "default"
 msgstr "comportement par défaut"
 
-#. Documentation/user/changing-defaults.itely:2050 (comment)
-#. Documentation/user/changing-defaults.itely:2063 (comment)
+#. Documentation/user/changing-defaults.itely:2038 (comment)
+#. Documentation/user/changing-defaults.itely:2051 (comment)
 msgid "not effective alone"
 msgstr "ne fonctionne pas tout seul"
 
-#. Documentation/user/changing-defaults.itely:2054 (comment)
-#. Documentation/user/changing-defaults.itely:2067 (comment)
+#. Documentation/user/changing-defaults.itely:2042 (comment)
+#. Documentation/user/changing-defaults.itely:2055 (comment)
 msgid "effective only when both overrides are present"
 msgstr "effectivité si les deux modifications sont explicitées"
 
-#. Documentation/user/changing-defaults.itely:2444 (comment)
+#. Documentation/user/changing-defaults.itely:2432 (comment)
 msgid "Remove bar line at the end of the current line"
 msgstr "Suppression de la barre de mesure à la fin de la ligne en cours"
 
-#. Documentation/user/changing-defaults.itely:2490 (comment)
+#. Documentation/user/changing-defaults.itely:2478 (comment)
 msgid "Try to remove all key signatures"
 msgstr "Tentative de suppression de toutes les armures"
 
-#. Documentation/user/changing-defaults.itely:2909 (comment)
+#. Documentation/user/changing-defaults.itely:2897 (comment)
 msgid "move horizontally left"
 msgstr "déplacement vers la droite"
 
-#. Documentation/user/changing-defaults.itely:2911 (comment)
+#. Documentation/user/changing-defaults.itely:2899 (comment)
 msgid "move vertically up"
 msgstr "déplacement vers le haut"
 
-#. Documentation/user/changing-defaults.itely:2912 (comment)
+#. Documentation/user/changing-defaults.itely:2900 (comment)
 msgid "third finger"
 msgstr "troisième doigt"
 
-#. Documentation/user/changing-defaults.itely:2958 (comment)
+#. Documentation/user/changing-defaults.itely:2946 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:39 (comment)
 msgid "the RehearsalMark will be centered above the Clef"
 msgstr "Pour centrer le repère au-dessus de la clef"
 
-#. Documentation/user/changing-defaults.itely:2964 (comment)
+#. Documentation/user/changing-defaults.itely:2952 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:46 (comment)
 msgid "the RehearsalMark will be centered above the TimeSignature"
 msgstr "Pour centrer le repère au-dessus de la métrique"
 
-#. Documentation/user/changing-defaults.itely:2978 (comment)
+#. Documentation/user/changing-defaults.itely:2966 (comment)
 msgid "The RehearsalMark will be centered above the KeySignature"
 msgstr "Pour centrer le repère au-dessus de l'armure"
 
-#. Documentation/user/changing-defaults.itely:2985 (comment)
-#. Documentation/user/changing-defaults.itely:3001 (comment)
-#. Documentation/user/changing-defaults.itely:3008 (comment)
+#. Documentation/user/changing-defaults.itely:2973 (comment)
+#. Documentation/user/changing-defaults.itely:2989 (comment)
+#. Documentation/user/changing-defaults.itely:2996 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the left edge of the KeySignature"
 msgstr "Pour aligner le repère sur le coin gauche de l'armure"
 
-#. Documentation/user/changing-defaults.itely:2990 (comment)
+#. Documentation/user/changing-defaults.itely:2978 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the right edge of the KeySignature"
 msgstr "Pour aligner le repère sur le coin droit de l'armure"
 
-#. Documentation/user/changing-defaults.itely:3002 (comment)
+#. Documentation/user/changing-defaults.itely:2990 (comment)
 msgid "and then shifted right by 3.5 staff-spaces"
 msgstr "puis décaler vers la droite de 3,5 espaces"
 
-#. Documentation/user/changing-defaults.itely:3009 (comment)
+#. Documentation/user/changing-defaults.itely:2997 (comment)
 msgid "and then shifted left by 2 staff-spaces"
 msgstr "puis décaler vers la gauche de 2 espaces"
 
-#. Documentation/user/changing-defaults.itely:3058 (variable)
+#. Documentation/user/changing-defaults.itely:3046 (variable)
 msgid "XinO"
 msgstr "XdansO"
 
@@ -9447,7 +9469,8 @@ msgid "Cheat sheet"
 msgstr "Aide-mémoire"
 
 #. @top in Documentation/fr/user/lilypond-learning.tely
-msgid "GNU LilyPond --- manuel d'initiation"
+#, fuzzy
+msgid "GNU LilyPond --- Manuel d'initiation"
 msgstr "GNU LilyPond --- manuel d'initiation"
 
 #. @subsubheading in Documentation/fr/user/macros.itexi
@@ -9501,8 +9524,9 @@ msgid "Updating old files"
 msgstr "Mise à jour d'anciens fichiers"
 
 #. @top in Documentation/fr/user/lilypond-program.tely
-msgid "GNU LilyPond --- utilisation des programmes"
-msgstr ""
+#, fuzzy
+msgid "GNU LilyPond --- Utilisation des programmes"
+msgstr "GNU LilyPond --- Utilisation du programme"
 
 #. @node in Documentation/fr/user/setup.itely
 #. @subsection in Documentation/fr/user/setup.itely
@@ -9517,8 +9541,9 @@ msgid "Updating with @command{convert-ly}"
 msgstr "Mise à jour avec @command{convert-ly}"
 
 #. @top in Documentation/fr/user/lilypond.tely
-msgid "GNU LilyPond --- manuel de notation"
-msgstr ""
+#, fuzzy
+msgid "GNU LilyPond --- Manuel de notation"
+msgstr "GNU LilyPond --- manuel d'initiation"
 
 #. @node in Documentation/fr/user/repeats.itely
 #. @unnumberedsubsubsec in Documentation/fr/user/repeats.itely
@@ -9782,11 +9807,6 @@ msgstr "GNU LilyPond --- utilisation du programme"
 #. @top in Documentation/de/user/lilypond.tely
 msgid "GNU LilyPond -- Das Notationsprogramm"
 msgstr ""
-
-#. @node in Documentation/de/user/staff.itely
-#. @unnumberedsubsubsec in Documentation/de/user/staff.itely
-msgid "System start delimiters"
-msgstr "Délimitations en début de système"
 
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @section in Documentation/de/user/changing-defaults.itely
@@ -10389,9 +10409,54 @@ msgstr "Barres de ligature"
 msgid "Use the macro"
 msgstr ""
 
-#. input/lsr/beam-grouping-in-7-8-time.ly:30 (comment)
+#. input/lsr/beam-endings-in-score-context.ly:19 (comment)
+msgid "Set default beaming for all staves"
+msgstr "définition des règles de ligature pour toutes les portées"
+
+#. input/lsr/beam-endings-in-score-context.ly:27 (comment)
+msgid "Modify beaming for just this staff"
+msgstr "changement des règles de ligature seulement pour cette portée"
+
+#. input/lsr/beam-endings-in-score-context.ly:33 (comment)
+msgid "Inherit beaming from Score context"
+msgstr "héritage des règles de ligature du contexte Score"
+
+#. input/lsr/beam-endings-in-score-context.ly:39 (comment)
+#, fuzzy
+msgid "Modify beaming for this voice only"
+msgstr "changement des règles de ligature seulement pour cette portée"
+
+#. input/lsr/beam-grouping-in-7-8-time.ly:40 (comment)
 msgid "rhythm 2-3-2"
 msgstr "subdivision 2-3-2"
+
+#. input/lsr/book-parts.ly:21 (comment)
+msgid "book paper, which is inherited by all children bookparts"
+msgstr ""
+
+#. input/lsr/book-parts.ly:24 (comment)
+msgid "Page footer: add a different part-tagline at part last page"
+msgstr ""
+
+#. input/lsr/book-parts.ly:28 (comment)
+msgid "Copyright header field only on book first page."
+msgstr ""
+
+#. input/lsr/book-parts.ly:32 (comment)
+msgid "Part tagline header field only on each part last page."
+msgstr ""
+
+#. input/lsr/book-parts.ly:36 (comment)
+msgid "Tagline header field only on book last page."
+msgstr ""
+
+#. input/lsr/book-parts.ly:43 (comment)
+msgid "book header, which is inherited by the first bookpart"
+msgstr ""
+
+#. input/lsr/book-parts.ly:52 (comment)
+msgid "a different page breaking function may be used on each part"
+msgstr ""
 
 #. input/lsr/breathing-signs.ly:19 (comment)
 msgid "this bar contains no \\breathe"
@@ -10481,17 +10546,17 @@ msgstr ""
 msgid "}"
 msgstr ""
 
-#. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:24 (comment)
+#. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:35 (comment)
 #, fuzzy
 msgid "Change time signature symbol but keep 3/4 beaming"
 msgstr "la métrique change mais on garde les règles de ligatures en 3/4"
 
-#. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:25 (comment)
+#. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:36 (comment)
 #, fuzzy
 msgid "due to unchanged underlying time signature"
 msgstr "car la durée de pulsation n'a pas changée"
 
-#. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:30 (comment)
+#. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:41 (comment)
 #, fuzzy
 msgid "Lose 3/4 beaming now \\time has been changed"
 msgstr ""
@@ -10667,58 +10732,58 @@ msgstr ""
 msgid "label below string"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:22 (comment)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:40 (comment)
 msgid "add FretBoards for the Cuatro"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:23 (comment)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:41 (comment)
 msgid "Note: This section could be put into a separate file"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:24 (comment)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:42 (comment)
 #, fuzzy
 msgid "predefined-cuatro-fretboards.ly"
 msgstr "Tablatures prédéfinies"
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:25 (comment)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:43 (comment)
 msgid "and \\included into each of your compositions"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:27 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:45 (variable)
 msgid "cuatroTuning"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:29 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:47 (variable)
 msgid "dSix"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:30 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:48 (variable)
 #, fuzzy
 msgid "dMajor"
 msgstr "majeur"
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:31 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:49 (variable)
 msgid "aMajSeven"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:32 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:50 (variable)
 msgid "dMajSeven"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:33 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:51 (variable)
 #, fuzzy
 msgid "gMajor"
 msgstr "majeur"
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:51 (comment)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:69 (comment)
 msgid "end of potential include file /predefined-cuatro-fretboards.ly"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:56 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:74 (variable)
 msgid "primerosNames"
 msgstr ""
 
-#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:60 (variable)
+#. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:78 (variable)
 msgid "primeros"
 msgstr ""
 
@@ -10727,7 +10792,7 @@ msgstr ""
 msgid "baseMelody"
 msgstr "melodie"
 
-#. input/lsr/display-bracket-with-only-one-staff-in-a-system.ly:39 (comment)
+#. input/lsr/display-bracket-with-only-one-staff-in-a-system.ly:37 (comment)
 msgid "Must be lower than the actual number of staff lines"
 msgstr ""
 
@@ -10962,19 +11027,19 @@ msgstr ""
 msgid "Cut here ----- End 'flamenco.ly' "
 msgstr ""
 
-#. input/lsr/flat-flags-and-beam-nibs.ly:58 (comment)
+#. input/lsr/flat-flags-and-beam-nibs.ly:109 (comment)
 msgid "Example 1"
 msgstr ""
 
-#. input/lsr/flat-flags-and-beam-nibs.ly:65 (comment)
+#. input/lsr/flat-flags-and-beam-nibs.ly:116 (comment)
 msgid "Example 2"
 msgstr ""
 
-#. input/lsr/flat-flags-and-beam-nibs.ly:72 (comment)
+#. input/lsr/flat-flags-and-beam-nibs.ly:123 (comment)
 msgid "Example 3"
 msgstr ""
 
-#. input/lsr/flat-flags-and-beam-nibs.ly:86 (comment)
+#. input/lsr/flat-flags-and-beam-nibs.ly:137 (comment)
 msgid "Example 4"
 msgstr ""
 
@@ -11007,46 +11072,44 @@ msgstr ""
 msgid "110% of default size"
 msgstr "retour à la taille par défaut"
 
-#. input/lsr/grid-lines--changing-their-appearance.ly:26 (comment)
-msgid "set up grids"
-msgstr ""
-
-#. input/lsr/grid-lines--changing-their-appearance.ly:28 (comment)
-msgid "set the grid interval to one quarter note"
-msgstr ""
-
-#. input/lsr/grid-lines--changing-their-appearance.ly:35 (comment)
-msgid "this moves them to the right half a staff space"
-msgstr ""
-
-#. input/lsr/grid-lines--changing-their-appearance.ly:48 (comment)
+#. input/lsr/grid-lines--changing-their-appearance.ly:33 (comment)
 msgid "this moves them up one staff space from the default position"
 msgstr ""
 
-#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:27 (comment)
-msgid "sets of grid"
+#. input/lsr/grid-lines--changing-their-appearance.ly:51 (comment)
+msgid "set up grids"
 msgstr ""
 
-#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:33 (comment)
-#, fuzzy
-msgid "lines length"
-msgstr "Longueur de ligne"
-
-#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:48 (comment)
-msgid "centers grid lines  horizontally below noteheads"
+#. input/lsr/grid-lines--changing-their-appearance.ly:53 (comment)
+msgid "set the grid interval to one quarter note"
 msgstr ""
 
-#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:62 (comment)
-#, fuzzy
-msgid "making sure the lines will be placed outside the Staff"
-msgstr "cette fois, le texte est plus proche de la portée"
+#. input/lsr/grid-lines--changing-their-appearance.ly:59 (comment)
+msgid "this moves them to the right half a staff space"
+msgstr ""
 
-#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:65 (comment)
+#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:36 (comment)
 msgid "hides staff and notes so that only the grid lines are visible"
 msgstr ""
 
-#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:75 (comment)
-msgid "you have to put 'dummy' notes here to force regular grid spacing..."
+#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:43 (comment)
+msgid "dummy notes to force regular note spacing"
+msgstr ""
+
+#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:59 (comment)
+msgid "center grid lines horizontally below note heads"
+msgstr ""
+
+#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:66 (comment)
+msgid "set line length and positioning:"
+msgstr ""
+
+#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:67 (comment)
+msgid "two staff spaces above center line on hidden staff"
+msgstr ""
+
+#. input/lsr/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:68 (comment)
+msgid "to four spaces below center line on visible staff"
 msgstr ""
 
 #. input/lsr/heavily-customized-polymetric-time-signatures.ly:55 (variable)
@@ -11514,7 +11577,7 @@ msgstr "normal"
 msgid "TAB"
 msgstr ""
 
-#. input/lsr/modifying-default-values-for-articulation-shorthand-notation.ly:37 (variable)
+#. input/lsr/modifying-default-values-for-articulation-shorthand-notation.ly:51 (variable)
 msgid "dashPlus"
 msgstr ""
 
@@ -11535,15 +11598,15 @@ msgstr ""
 msgid "stick"
 msgstr "musique"
 
-#. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:38 (comment)
+#. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:39 (comment)
 msgid "Permit line breaks within tuplets"
 msgstr ""
 
-#. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:40 (comment)
+#. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:41 (comment)
 msgid "Allow beams to be broken at line breaks"
 msgstr ""
 
-#. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:47 (comment)
+#. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:48 (comment)
 msgid "Insert a manual line break within a tuplet"
 msgstr ""
 
@@ -11565,35 +11628,35 @@ msgstr ""
 msgid "tab"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:30 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:41 (comment)
 msgid "Multi-measure rests by default are set under the second line"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:32 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:43 (comment)
 msgid "They can be moved with an override"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:35 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:46 (comment)
 msgid "A value of 0 is the default position;"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:36 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:47 (comment)
 msgid "the following trick moves the rest to the center line"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:39 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:50 (comment)
 msgid "Multi-measure rests in odd-numbered voices are under the top line"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:41 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:52 (comment)
 msgid "Multi-measure rests in even-numbered voices are under the bottom line"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:43 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:54 (comment)
 msgid "They remain separated even in empty measures"
 msgstr ""
 
-#. input/lsr/positioning-multi--measure-rests.ly:45 (comment)
+#. input/lsr/positioning-multi--measure-rests.ly:56 (comment)
 msgid "This brings them together even though there are two voices"
 msgstr ""
 
@@ -12275,11 +12338,11 @@ msgstr ""
 msgid "(This is the Cello part file)"
 msgstr ""
 
-#. input/lsr/sub-dividing-beams.ly:49 (comment)
+#. input/lsr/sub-dividing-beams.ly:50 (comment)
 msgid "Set beam sub-group length to an eighth note"
 msgstr "Subdivision des ligatures à la croche"
 
-#. input/lsr/sub-dividing-beams.ly:53 (comment)
+#. input/lsr/sub-dividing-beams.ly:54 (comment)
 msgid "Set beam sub-group length to a sixteenth note"
 msgstr "Subdivision des ligatures à la double-croche"
 
@@ -12413,52 +12476,52 @@ msgstr ""
 msgid "Here we go back to the normal clef:"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:22 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:34 (comment)
 msgid "The default in 3/4 time is to beam in three groups"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:23 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:35 (comment)
 msgid "each of a quarter note length"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:27 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:39 (comment)
 msgid "No auto-beaming is defined for 12/16"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:31 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:43 (comment)
 #, fuzzy
 msgid "Change time signature symbol, but retain underlying 3/4 beaming"
 msgstr "la métrique change mais on garde les règles de ligatures en 3/4"
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:35 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:47 (comment)
 msgid "The 3/4 time default grouping of (1 1 1) and beatLength of 1/8"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:36 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:48 (comment)
 msgid "are not consistent with a measureLength of 3/4, so the beams"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:37 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:49 (comment)
 msgid "are grouped at beatLength intervals"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:41 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:53 (comment)
 msgid "Specify beams in groups of (3 3 2 3) 1/16th notes"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:42 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:54 (comment)
 msgid "3+3+2+3=11, and 11*1/16<>3/4, so beatGrouping does not apply,"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:43 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:55 (comment)
 msgid "and beams are grouped at beatLength (1/16) intervals"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:48 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:60 (comment)
 msgid "Specify beams in groups of (3 4 2 3) 1/16th notes"
 msgstr ""
 
-#. input/lsr/using-beatlength-and-beatgrouping.ly:49 (comment)
+#. input/lsr/using-beatlength-and-beatgrouping.ly:61 (comment)
 msgid "3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies"
 msgstr ""
 
@@ -12640,6 +12703,17 @@ msgstr "Notes de bas de page"
 
 msgid "Table of Contents"
 msgstr "Table des matières"
+
+#~ msgid "System start delimiters"
+#~ msgstr "Délimitations en début de système"
+
+#, fuzzy
+#~ msgid "lines length"
+#~ msgstr "Longueur de ligne"
+
+#, fuzzy
+#~ msgid "making sure the lines will be placed outside the Staff"
+#~ msgstr "cette fois, le texte est plus proche de la portée"
 
 #~ msgid "auto beam on 1/4 note groups"
 #~ msgstr "ligature automatique par noire"
