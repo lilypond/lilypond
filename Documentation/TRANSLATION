@@ -139,15 +139,15 @@ Word counts (excluding lilypond snippets) are given for each file.
 672   user/lilypond.tely
 91    user/notation.itely -- Musical notation
 3083  user/pitches.itely
-5148  user/rhythms.itely
+5005  user/rhythms.itely
 1110  user/expressive.itely
-556   user/repeats.itely
+555   user/repeats.itely
 1452  user/simultaneous.itely
-1603  user/staff.itely
+1633  user/staff.itely
 902   user/editorial.itely
 2443  user/text.itely
 76    user/specialist.itely -- Specialist notation
-2679  user/vocal.itely
+2678  user/vocal.itely
 1326  user/chords.itely
 702   user/piano.itely
 810   user/percussion.itely
@@ -155,19 +155,19 @@ Word counts (excluding lilypond snippets) are given for each file.
 66    user/strings.itely
 242   user/bagpipes.itely
 4240  user/ancient.itely
-5689  user/input.itely -- Input syntax
+5803  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
-8297  user/spacing.itely -- Spacing issues
-11296 user/changing-defaults.itely -- Changing defaults
+8444  user/spacing.itely -- Spacing issues
+11291 user/changing-defaults.itely -- Changing defaults
 5202  user/programming-interface.itely -- Interfaces for programmers
 1155  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-62080 total
+62221 total
 
 -5- Application usage
-3194  user/lilypond-book.itely -- LilyPond-book
+3202  user/lilypond-book.itely -- LilyPond-book
 1171  user/converters.itely -- Converting from other formats
-4365  total
+4373  total
 
 -6- Appendices whose translation is optional
 310   user/literature.itely
