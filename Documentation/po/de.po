@@ -6303,7 +6303,7 @@ msgstr "Noten überspringen"
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
 msgid "Extenders and hyphens"
-msgstr "Unterstrichen und Trennstriche"
+msgstr "Fülllinien und Trennstriche"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
