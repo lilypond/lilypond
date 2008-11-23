@@ -133,7 +133,7 @@ quoi, d'une note isolée à un gigantesque
 
 @example
 @{
-  \new GrandStaff <<
+  \new StaffGroup <<
     @var{...collez ici la partition complète d'un opéra de Wagner...}
   >>
 @}
@@ -165,7 +165,7 @@ d'autres informations :
 @cindex midi
 
 Gardez à l'esprit que ces trois commandes -- @code{\header},
-@code{\layout} et @code{\midi} -- sont spécifiques :  à l'inverse de
+@code{\layout} et @code{\midi} -- sont spécifiques : à l'inverse de
 toutes les commandes débutant par une oblique inversée (@emph{backshash}
 pour @code{\}), @emph{elles ne constituent pas} des expressions
 musicales et ne seront donc pas interprétées comme telles.  Elles
@@ -279,7 +279,7 @@ et remonter la pente.
 @example
 \score @{
   @{   % cette accolade marque le début de l'expression musicale
-    \new GrandStaff <<
+    \new StaffGroup <<
     @var{...insérez ici l'intégralité d'un opéra de Wagner...}
     >>
   @}   % cette accolade marque la fin de l'expression musicale
@@ -288,10 +288,10 @@ et remonter la pente.
 @end example
 
 Un opéra de Wagner multiplierait facilement la longueur de ce manuel
-par deux ou trois, alors faisons-le en version chant/piano.  On n'a
-plus besoin d'une partition d'orchestre --- @code{GrandStaff} --- donc
-laissons cela de côté.  Par contre, un chanteur et un piano
-@emph{pourraient} nous être utiles.
+par deux ou trois, alors contentons-nous d'une voix et d'un piano.  On
+n'a plus besoin d'une partition d'orchestre --- @emph{i.e.} des
+portées regroupées en @code{StaffGroup} --- donc laissons cela de
+côté.  Par contre, nous voulons bien une voix et un piano.
 
 @example
 \score @{
@@ -494,7 +494,7 @@ différents types de crochet :
 @end multitable
 
 D'autres constructions permettent d'obtenir des lignes regroupant ou en
-travers des notes :  les liaisons de prolongation (indiquées par un
+travers des notes : les liaisons de prolongation (indiquées par un
 tilde, @code{~}), les marques de nolet avec 
 @code{\times@tie{}x/y@tie{}@{..@}} ou
 encore les notes d'ornement avec @code{\grace@{..@}}.
@@ -1116,7 +1116,7 @@ empilements de notes.  Chaque voix dispose de plusieurs empilements, et
 l'attribution d'un décalage à une voix en particulier s'appliquera à
 l'empilement en question s'il y avait risque de collision.
 Nous en avons une illustration à la deuxième mesure de l'exemple
-ci-dessus :  le do de la deuxième voix est décalé à droite du ré de la
+ci-dessus : le do de la deuxième voix est décalé à droite du ré de la
 première voix et, dans l'accord final, le do de la troisième voix est
 lui aussi décalé à droite des autres notes.
 
