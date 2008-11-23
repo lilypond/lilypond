@@ -2,6 +2,14 @@
 %% This file is in the public domain.
 \version "2.11.64"
 \header {
+  texidoces = "
+Se pueden mostrar los contadores de las repeticiones del tipo
+porcentaje a intervalos regulares mediante el establecimiento de
+la propiedad de contexto @code{repeatCountVisibility}.
+
+"
+  doctitlees = "Visibilidad del contador de repeticiones de tipo porcentaje"
+
   lsrtags = "repeats, tweaks-and-overrides"
   texidoc = "
 Percent repeat counters can be shown at regular intervals by setting
