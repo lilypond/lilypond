@@ -1133,7 +1133,7 @@ spread over multiple pages:
     ...
   }
   \wordwrap-lines {
-    An other very long paragraph.
+    Another very long paragraph.
     ...
   }
   ...
@@ -1196,8 +1196,8 @@ the selected fonts are rendered using Pango.
 
 Music notation fonts can be described as a set of
 specific glyphs, ordered in several families.
-The following syntax allows to directly use various
-LilyPond @code{feta} non-text fonts in markup mode:
+The following syntax allows various LilyPond @code{feta} non-text
+fonts to be used directly in markup mode:
 
 @lilypond[quote,verbatim,fragment,relative=2]
 a1^\markup {
@@ -1330,11 +1330,10 @@ Installed files:
 @unnumberedsubsubsec Entire document fonts
 
 
-It is possible to change the default font families for the
-entire document.  In such a case, the following syntax has
-to be used, by providing three font families that will be
-respectively used as @emph{roman}, @emph{sans} and @emph{typewriter}
-fonts, as explained in @ref{Fonts explained}.
+It is possible to change the fonts to be used as the default fonts in
+the @emph{roman}, @emph{sans} and @emph{typewriter} font families by
+specifying them, in that order, as shown in the example below.  For an
+explanation of fonts, see @ref{Fonts explained}.
 
 @cindex font families, setting
 @funindex make-pango-font-tree
