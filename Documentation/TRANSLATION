@@ -361,7 +361,11 @@ This script overwrites music snippets in <MY_LANGUAGE>/user/every.itely
 with music snippets from user/every.itely.  It ignores skeleton files,
 and keeps intact music snippets preceded with a line starting with '@c
 KEEP LY'; it reports an error for each .itely that has not the same
-music snippet count in both languages.
+music snippet count in both languages.  Always use this script with a
+lot of care, i.e. run it on a clean Git working tree, and check the
+changes it made with "git diff" before committing; if you don't do so,
+some @lilypond snippets might be broken or make no sense in their
+context.
 
 Finally, a command runs the three update processes above for all
 enabled languages (from Documentation):
