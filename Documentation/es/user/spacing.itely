@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
+    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1512,6 +1512,9 @@ instrucción especial @code{\overrideProperty}:
 Para entender cómo funciona cada uno de los distintos ajustes,
 empezamos observando un ejemplo que no incluye absolutamente ninguna
 sobreescritura.
+
+@c \book { } is required in these examples to ensure the spacing
+@c overrides can be seen between systems. -np
 
 @lilypond[quote]
 \header { tagline = ##f }

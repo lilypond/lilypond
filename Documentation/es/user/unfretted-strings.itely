@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -16,6 +16,7 @@
 {unfretted-headword.ly}
 
 @cindex orquestales, cuerdas
+@cindex cuerdas orquestales
 @cindex cuerdas, escribir música para
 
 Esta sección aporta información y referencias que resultan útiles si
