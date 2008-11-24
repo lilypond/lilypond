@@ -35,8 +35,8 @@ to some particular styles of vocal music.
 * References for vocal music and lyrics::
 * Opera::
 * Song books::
-* Chants::
 * Spoken music::
+* Chants::
 * Ancient vocal music::
 @end menu
 
@@ -968,12 +968,12 @@ TBC
 @subsection Stanzas
 
 @menu
-* Adding stanza numbers ::
+* Adding stanza numbers::
 * Adding dynamics marks to stanzas::
 * Adding singers' names to stanzas::
 * Stanzas with different rhythms::
-* Printing stanzas at the end ::
-* Printing stanzas at the end in multiple columns ::
+* Printing stanzas at the end::
+* Printing stanzas at the end in multiple columns::
 @end menu
 
 

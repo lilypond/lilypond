@@ -38,8 +38,8 @@ general y con ciertos estilos concretos de música vocal.
 * References for vocal music and lyrics::
 * Opera::
 * Song books::
-* Chants::
 * Spoken music::
+* Chants::
 * Ancient vocal music::
 @end menu
 
@@ -962,7 +962,7 @@ Continuará...
 @subsection Stanzas
 
 @menu
-* Adding stanza numbers ::
+* Adding stanza numbers::
 * Adding dynamics marks to stanzas::
 * Adding singers' names to stanzas::
 * Stanzas with different rhythms::
