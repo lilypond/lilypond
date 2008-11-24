@@ -1513,20 +1513,26 @@ Para entender cómo funciona cada uno de los distintos ajustes,
 empezamos observando un ejemplo que no incluye absolutamente ninguna
 sobreescritura.
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      s1 * 6 \break
-      s1 * 6 \break
-      s1 * 6 \break
-    }
-    \new Voice { \repeat unfold 18 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new Staff {
-    \repeat unfold 18 { d'4 d'4 d'4 d'4 }
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
   }
->>
+}
 @end lilypond
 
 Esta partitura mantiene aislada la información de los saltos de línea
@@ -1542,26 +1548,32 @@ el punto de origen vertical de cada sistema, podemos establecer el par
 @code{Y-offset} en el atributo @code{line-break-system-details} del
 grob (objeto gráfico) @code{NonMusicalPaperColumn}:
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 0))
-      s1 * 6 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 40))
-      s1 * 6 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 80))
-      s1 * 6 \break
-    }
-    \new Voice { \repeat unfold 18 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new Staff {
-    \repeat unfold 18 { d'4 d'4 d'4 d'4 }
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 0))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 40))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 80))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
   }
->>
+}
 @end lilypond
 
 Observe que @code{line-break-system-details} toma una lista asociativa
@@ -1576,29 +1588,35 @@ origen vertical de cada pentagrama dentro de cada sistema.  Lo hacemos
 usando la subpropiedad @code{alignment-offsets} de
 @code{line-break-system-details}.
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 20)
-          (alignment-offsets . (0 -15)))
-      s1 * 6 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 60)
-          (alignment-offsets . (0 -15)))
-      s1 * 6 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 100)
-          (alignment-offsets . (0 -15)))
-      s1 * 6 \break
-    }
-    \new Voice { \repeat unfold 18 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new Staff {
-    \repeat unfold 18 { d'4 d'4 d'4 d'4 }
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 20)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 60)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 100)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
   }
->>
+}
 @end lilypond
 
 Aobserve que aquí asignamos dos valores distintos al atributo
@@ -1612,34 +1630,36 @@ punto de origen vertical de cada sistema y pentagrama.  Finalmente,
 observe que @code{alignment-offsets} especifica el posicionamiento
 vertical de los pentagramas pero no de los grupos de pentagramas.
 
-@lilypond[quote,ragged-right]
-\new Score <<
-  \new Staff <<
-    \new Voice {
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details #'((Y-offset . 0)
-        (alignment-offsets . (0 -30 -40)))
-      s1 * 6 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details #'((Y-offset . 60)
-        (alignment-offsets . (0 -10 -20)))
-      s1 * 6 \break
-      \overrideProperty #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details #'((Y-offset . 100)
-        (alignment-offsets . (0 -10, -40)))
-      s1 * 6 \break
-    }
-    \new Voice { \repeat unfold 18 { c'4 c'4 c'4 c'4 } }
-  >>
-  \new StaffGroup <<
-    \new Staff {
-      \repeat unfold 18 { d'4 d'4 d'4 d'4 }
-    }
-    \new Staff {
-      \repeat unfold 18 { e'4 e'4 e'4 e'4 }
-    }
-  >>
->>
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 0)
+                                           (alignment-offsets . (0 -30 -40)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 60)
+                                           (alignment-offsets . (0 -10 -20)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 100)
+                                           (alignment-offsets . (0 -10 -40)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new StaffGroup <<
+        \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+        \new Staff { \repeat unfold 15 { e'4 e' e' e' } }
+      >>
+    >>
+  }
+}
 @end lilypond
 
 Algunos puntos que tener en cuenta:

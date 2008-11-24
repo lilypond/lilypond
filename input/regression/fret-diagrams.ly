@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.11.65"
 
 \paper {
 	ragged-right =  ##t
@@ -11,8 +11,8 @@
     \textLengthOn
     % Set global properties of fret diagram
     \override Voice.TextScript #'size = #'1.2
-    \override Voice.TextScript #'fret-diagram-details #'finger-code = #'below-string
-    \override Voice.TextScript #'fret-diagram-details #'dot-color = #'black
+    \override Voice.TextScript #'(fret-diagram-details finger-code) = #'below-string
+    \override Voice.TextScript #'(fret-diagram-details dot-color) = #'black
     
     %% A chord for ukelele
     a'2 ^\markup

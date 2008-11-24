@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.11.65"
 \include "english.ly"
 #(set-global-staff-size 15)
 \paper{
@@ -32,7 +32,7 @@
 }
 
 trillflat =
-  \once \override TrillSpanner #'bound-details #'left #'text =
+  \once \override TrillSpanner #'(bound-details left text) =
     #(markup #:translate-scaled '(-0.05 . -1)
              #:concat (#:musicglyph "scripts.trill"
                        #:translate '(-0.5 . 1.9) #:fontsize -7 #:flat))

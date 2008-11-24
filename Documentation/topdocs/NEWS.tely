@@ -397,11 +397,11 @@ text on line spanners is no longer valid.
 
 @lilypond[]
 \relative c'' {
-  \override Glissando #'bound-details #'right #'text = \markup { \center-align \bold down }
-  \override Glissando #'bound-details #'right #'Y = #-4
-  \override Glissando #'bound-details #'right #'padding = #0.0
-  \override Glissando #'bound-details #'left #'arrow = ##t
-  \override Glissando #'bound-details #'left #'padding = #3.0
+  \override Glissando #'(bound-details right text) = \markup { \center-align \bold down }
+  \override Glissando #'(bound-details right Y) = #-4
+  \override Glissando #'(bound-details right padding) = #0.0
+  \override Glissando #'(bound-details left arrow) = ##t
+  \override Glissando #'(bound-details left padding) = #3.0
   \override Glissando #'style = #'trill
   \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
   \override Glissando #'minimum-length = #12
