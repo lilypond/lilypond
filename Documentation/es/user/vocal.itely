@@ -1093,8 +1093,8 @@ establecer una sílaba @emph{antes} de la sílaba no melismática del
 texto, tal y como se muestra a continuación:
 
 @c  TODO: breaks compile
+@c seems to be fixed, does not break compile anymore --FV
 @lilypond[verbatim,ragged-right,quote]
-%{
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1107,13 +1107,12 @@ texto, tal y como se muestra a continuación:
     more slow -- ly
   }
   \new Lyrics \lyricsto "lahlah" {
-    \set ignoreMelismata = ##t % se aplica al "fas"
+    \set ignoreMelismata = ##t % applies to "fas"
     go fas -- ter
     \unset ignoreMelismata
     still
   }
 >>
-%}
 @end lilypond
 
 
