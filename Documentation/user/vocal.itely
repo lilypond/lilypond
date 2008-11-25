@@ -1090,9 +1090,6 @@ multiple syllables in another one.  One solution is to make the faster
 voice ignore the melisma.  This is done by setting
 @code{ignoreMelismata} in the Lyrics context.
 
-There is one tricky aspect: the setting for @code{ignoreMelismata}
-must be set one syllable @emph{before} the non-melismatic syllable
-in the text, as shown here,
 
 @c  TODO: breaks compile
 @c seems to be fixed, does not break compile anymore --FV
@@ -1109,17 +1106,14 @@ in the text, as shown here,
     more slow -- ly
   }
   \new Lyrics \lyricsto "lahlah" {
-    \set ignoreMelismata = ##t % applies to "fas"
-    go fas -- ter
+    go
+    \set ignoreMelismata = ##t
+    fas -- ter
     \unset ignoreMelismata
     still
   }
 >>
 @end lilypond
-
-
-The @code{ignoreMelismata} applies to the syllable @q{fas}, so it
-should be entered before @q{go}.
 
 
 @subsubheading Switching to an alternative melody
