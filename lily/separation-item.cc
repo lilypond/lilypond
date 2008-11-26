@@ -146,7 +146,7 @@ Separation_item::boxes (Grob *me, Grob *left)
       y[UP] += extra_height[UP];
  
       if (!x.is_empty () && !y.is_empty ())
-      out.push_back (Box (x, y));
+	out.push_back (Box (x, y));
     }
 
   return out;      

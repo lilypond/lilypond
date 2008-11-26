@@ -18,6 +18,7 @@
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "pointer-group-interface.hh"
+#include "rhythmic-head.hh"
 #include "separation-item.hh"
 #include "skyline-pair.hh"
 #include "spaceable-grob.hh"
@@ -311,6 +312,33 @@ Paper_column::before_line_breaking (SCM grob)
     }
 
   return SCM_UNSPECIFIED;
+}
+
+/* FIXME: This is a hack that we use to identify columns that used to
+   contain note-heads but whose note-heads were moved by one of the ligature
+   engravers. Once the ligature engravers are fixed to behave nicely, this
+   function can be removed.
+*/
+bool
+Paper_column::is_extraneous_column_from_ligature (Grob *me)
+{
+  if (!is_musical (me))
+    return false;
+
+  // If all the note-heads that I think are my children actually belong
+  // to another column, then I am extraneous.
+  extract_grob_set (me, "elements", elts);
+  bool has_notehead = false;
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      if (Rhythmic_head::has_interface (elts[i]))
+	{
+	  has_notehead = true;
+	  if (dynamic_cast<Item*> (elts[i])->get_column () == me)
+	    return false;
+	}
+    }
+  return has_notehead;
 }
 
 

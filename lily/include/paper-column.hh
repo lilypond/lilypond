@@ -48,6 +48,7 @@ public:
   static Moment when_mom (Grob *);
   static bool is_used (Grob *);
   static bool is_breakable (Grob *);
+  static bool is_extraneous_column_from_ligature (Grob *);
   static Real minimum_distance (Grob *l, Grob *r);
   static Interval break_align_width (Grob *me);
 };

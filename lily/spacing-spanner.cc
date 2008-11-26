@@ -405,8 +405,20 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	Note that we don't actually pack things as tightly as possible:
 	we don't allow the next column to begin before this one ends.
       */
-      spring.set_distance (max (left_col->extent (left_col, X_AXIS)[RIGHT],
-				spring.min_distance ()));
+      /* FIXME: the else clause below is the "right" thing to do,
+	 but we can't do it because of all the empty columns that the
+	 ligature-engravers leave lying around. In that case, the extent of
+	 the column is incorrect because it includes note-heads that aren't
+	 there. We get around this by only including the column extent if
+	 the left-hand column is "genuine". This is a dirty hack and it
+	 should be fixed in the ligature-engravers. --jneem
+      */
+      if (Paper_column::is_extraneous_column_from_ligature (left_col))
+	spring.set_distance (spring.min_distance ());
+      else
+	spring.set_distance (max (left_col->extent (left_col, X_AXIS)[RIGHT],
+				  spring.min_distance ()));
+
       spring.set_inverse_stretch_strength (1.0);
     }
 
