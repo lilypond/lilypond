@@ -395,6 +395,7 @@ articulation mark as if it were an articulation itself.
 @cindex tuplets, nested
 @cindex triplets, nested
 @cindex bracket, tuplet
+@cindex bracket, triplet
 @cindex tuplet bracket
 @cindex triplet bracket
 
