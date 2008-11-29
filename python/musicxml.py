@@ -462,6 +462,8 @@ class Syllabic (Music_xml_node):
     def continued (self):
         text = self.get_text()
         return (text == "begin") or (text == "middle")
+class Elision (Music_xml_node):
+    pass
 class Text (Music_xml_node):
     pass
 
@@ -471,32 +473,6 @@ class Lyric (Music_xml_node):
             return self.number
         else:
             return -1
-
-    def lyric_to_text (self):
-        continued = False
-        syllabic = self.get_maybe_exist_typed_child (Syllabic)
-        if syllabic:
-            continued = syllabic.continued ()
-        text = self.get_maybe_exist_typed_child (Text)
-        
-        if text:
-            text = text.get_text()
-            # We need to convert soft hyphens to -, otherwise the ascii codec as well
-            # as lilypond will barf on that character
-            text = string.replace( text, u'\xad', '-' )
-        
-        if text == "-" and continued:
-            return "--"
-        elif text == "_" and continued:
-            return "__"
-        elif continued and text:
-            return escape_ly_output_string (text) + " --"
-        elif continued:
-            return "--"
-        elif text:
-            return escape_ly_output_string (text)
-        else:
-            return ""
 
 class Musicxml_voice:
     def __init__ (self):
@@ -1122,6 +1098,7 @@ class_dict = {
 	'direction': Direction,
         'direction-type': DirType,
 	'duration': Duration,
+        'elision': Elision,
         'frame': Frame,
         'frame-note': Frame_Note,
         'figured-bass': FiguredBass,

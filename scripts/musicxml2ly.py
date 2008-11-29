@@ -1732,6 +1732,34 @@ def musicxml_note_to_lily_main_event (n):
 
     return event
 
+def musicxml_lyrics_to_text (lyrics):
+    # TODO: Implement text styles for lyrics syllables
+    continued = False
+    text = ''
+    for e in lyrics.get_all_children ():
+        if isinstance (e, musicxml.Syllabic):
+            continued = e.continued ()
+        elif isinstance (e, musicxml.Text):
+            # We need to convert soft hyphens to -, otherwise the ascii codec as well
+            # as lilypond will barf on that character
+            text += string.replace( e.get_text(), u'\xad', '-' )
+        elif isinstance (e, musicxml.Elision):
+            if text:
+                text += " "
+            continued = False
+
+    if text == "-" and continued:
+        return "--"
+    elif text == "_" and continued:
+        return "__"
+    elif continued and text:
+        return musicxml.escape_ly_output_string (text) + " --"
+    elif continued:
+        return "--"
+    elif text:
+        return musicxml.escape_ly_output_string (text)
+    else:
+        return ""
 
 ## TODO
 class NegativeSkip:
@@ -2255,10 +2283,10 @@ def musicxml_voice_to_lily_voice (voice):
             for l in note_lyrics_elements:
                 if l.get_number () < 0:
                     for k in lyrics.keys ():
-                        lyrics[k].append (l.lyric_to_text ())
+                        lyrics[k].append (musicxml_lyrics_to_text (l))
                         note_lyrics_processed.append (k)
                 else:
-                    lyrics[l.number].append(l.lyric_to_text ())
+                    lyrics[l.number].append(musicxml_lyrics_to_text (l))
                     note_lyrics_processed.append (l.number)
             for lnr in lyrics.keys ():
                 if not lnr in note_lyrics_processed:
