@@ -174,8 +174,8 @@ vaticana_brew_join (Grob *me, int delta_pitch,
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   if (!delta_pitch)
     {
-      me->programming_error (_f ("Vaticana_ligature: "
-				 "zero join (delta_pitch == 0)"));
+      me->programming_error (_ ("Vaticana_ligature: "
+				"zero join (delta_pitch == 0)"));
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
   Interval x_extent = Interval (0, join_thickness);
