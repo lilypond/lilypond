@@ -110,10 +110,13 @@ a^\markup { \teeny "II" }
 a2^\markup { \small "sul A" }
 @end lilypond
 
+
 @predefined
 @code{\downbow},
 @code{\upbow},
 @code{\open}.
+@endpredefined
+
 
 @seealso
 

@@ -540,8 +540,8 @@ acorde está alterado.
 
 @end table
 
-@predefined
 
+@predefined
 @funindex major seven symbols
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
@@ -553,6 +553,8 @@ acorde está alterado.
 @code{\italianChords},
 @funindex \frenchChords
 @code{\frenchChords}.
+@endpredefined
+
 
 @snippets
 
@@ -864,6 +866,8 @@ Fin de línea de continuación
 @cindex bajo cifrado, líneas de extensión
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
+@endpredefined
+
 
 @snippets
 @c TODO  Fix this snippet -- Plus direction should be RIGHT.
@@ -978,11 +982,14 @@ instead of
 @end example
 @end ignore
 
+
 @predefined
 @cindex bajo cifrado, alineación
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
+@endpredefined
+
 
 @c @snippets
 

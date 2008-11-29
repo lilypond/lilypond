@@ -1098,9 +1098,12 @@ Details are found at @rinternals{fret-diagram-interface}.  For a
 @code{FretBoards} fret diagram, the interface properties belong to
 @code{FretBoards.FretBoard}.
 
+
 @predefined
 @code{\predefinedFretboardsOff},
 @code{\predefinedFretboardsOn}.
+@endpredefined
+
 
 @seealso
 

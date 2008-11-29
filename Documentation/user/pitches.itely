@@ -2252,11 +2252,14 @@ font, see @ref{Setting the staff size}.
 }
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \easyHeadsOn
+@code{\easyHeadsOn},
 @funindex \easyHeadsOff
-@code{\easyHeadsOn}, @code{\easyHeadsOff}
+@code{\easyHeadsOff}.
+@endpredefined
+
 
 @seealso
 
@@ -2301,11 +2304,14 @@ c, d e f g a b c
 Shapes are typeset according to the step in the scale, where the
 base of the scale is determined by the @code{\key} command.
 
-@predefined
 
+@predefined
 @funindex \aikenHeads
+@code{\aikenHeads},
 @funindex \sacredHarpHeads
-@code{\aikenHeads}, @code{\sacredHarpHeads}
+@code{\sacredHarpHeads}.
+@endpredefined
+
 
 @snippets
 
@@ -2358,11 +2364,12 @@ rhythm.  Such note heads can be created:
 
 
 @predefined
-
 @funindex \improvisationOn
+@code{\improvisationOn},
 @funindex \improvisationOff
+@code{\improvisationOff}.
+@endpredefined
 
-@code{\improvisationOn}, @code{\improvisationOff}
 
 @seealso
 

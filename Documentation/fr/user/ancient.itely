@@ -833,8 +833,8 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@predefined
 
+@predefined
 @funindex \virgula
 @code{\virgula},
 @funindex \caesura
@@ -847,6 +847,8 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 @code{\divisioMaxima},
 @funindex \finalis
 @code{\finalis}.
+@endpredefined
+
 
 @seealso
 
@@ -1908,10 +1910,9 @@ c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
 }
 @end lilypond
 
+
 @predefined
-
 LilyPond dispose des préfixes suivants :
-
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -1934,6 +1935,8 @@ LilyPond dispose des préfixes suivants :
 @code{\cavum},
 @funindex \linea
 @code{\linea}.
+@endpredefined
+
 
 Les préfixes de note peuvent s'agglutiner, modulo quelques restrictions.
 Par exemple, on peut appliquer un @code{\descendens} ou un

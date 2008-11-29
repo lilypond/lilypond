@@ -337,9 +337,12 @@ notes can be printed automatically:
 >>
 @end lilypond
 
-@predefined
 
-@code{\showStaffSwitch}, @code{\hideStaffSwitch}.
+@predefined
+@code{\showStaffSwitch},
+@code{\hideStaffSwitch}.
+@endpredefined
+
 
 @seealso
 

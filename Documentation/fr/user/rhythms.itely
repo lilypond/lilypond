@@ -111,8 +111,8 @@ la même façon.
 a'4 b' c''4. b'8 a'4. b'4.. c''8.
 @end lilypond
 
-@predefined
 
+@predefined
 Les points sont normalement haussés pour éviter les lignes de portées,
 sauf dans certaines polyphonies.  Les commandes suivantes peuvent être
 utilisées pour demander manuellement une orientation particulière des
@@ -124,6 +124,8 @@ points.
 @code{\dotsDown},
 @funindex \dotsNeutral
 @code{\dotsNeutral}.
+@endpredefined
+
 
 @seealso
 
@@ -166,14 +168,15 @@ Les nolets peuvent être imbriqués ; par exemple,
 }
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \tupletUp
 @code{\tupletUp},
 @funindex \tupletDown
 @code{\tupletDown},
 @funindex \tupletNeutral
 @code{\tupletNeutral}.
+@endpredefined
 
 
 @commonprop
@@ -416,7 +419,6 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
 
 
 @predefined
-
 @funindex \tieUp
 @code{\tieUp},
 @funindex \tieDown
@@ -429,6 +431,7 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
 @code{\tieDashed},
 @funindex \tieSolid
 @code{\tieSolid}.
+@endpredefined
 
 
 @seealso
@@ -1285,11 +1288,12 @@ les ligatures automatiques doivent être désactivées, avec @code{\autoBeamOff}
 
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
+@endpredefined
+
 
 @commonprop
 

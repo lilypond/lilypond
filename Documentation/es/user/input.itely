@@ -696,12 +696,14 @@ para decidir estas dimensiones.  Si el libro tiene entre 10 y 99
 páginas, el medidor puede ser "00", es decir, un número de dos
 dígitos.
 
-@predefined
 
+@predefined
 @funindex \label
-@code{\label}
+@code{\label},
 @funindex \page-ref
-@code{\page-ref}
+@code{\page-ref}.
+@endpredefined
+
 
 @node Table of contents
 @subsection Table of contents
@@ -814,12 +816,13 @@ tocAct =
 Archivos de inicio:
 @file{ly/@/toc@/-init@/.ly}.
 
-@predefined
 
+@predefined
 @funindex \table-of-contents
-@code{\table-of-contents}
+@code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem}
+@code{\tocItem}.
+@endpredefined
 
 
 @node Working with input files

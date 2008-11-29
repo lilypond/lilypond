@@ -590,8 +590,8 @@ The spacer is not used when the root is altered.
 
 @end table
 
-@predefined
 
+@predefined
 @funindex major seven symbols
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
@@ -603,6 +603,7 @@ The spacer is not used when the root is altered.
 @code{\italianChords},
 @funindex \frenchChords
 @code{\frenchChords}.
+@endpredefined
 
 
 @snippets
@@ -899,11 +900,11 @@ End of continuation line
 @end multitable
 
 
-
 @predefined
 @cindex figured bass extender lines
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
+@endpredefined
 
 
 @snippets
@@ -1014,6 +1015,8 @@ or below the staff.
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
+@endpredefined
+
 
 @c @snippets
 

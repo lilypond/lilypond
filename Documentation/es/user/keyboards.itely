@@ -349,10 +349,12 @@ automáticamente una línea que conecte las notas:
 >>
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
+@endpredefined
+
 
 @seealso
 

@@ -1121,9 +1121,12 @@ interface @code{fret-diagram-interface}.  Los detalles están en
 @code{FretBoards}, las propiedades del interface pertenecen a
 @code{FretBoards.FretBoard}.
 
+
 @predefined
 @code{\predefinedFretboardsOff},
 @code{\predefinedFretboardsOn}.
+@endpredefined
+
 
 @seealso
 

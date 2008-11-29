@@ -312,8 +312,8 @@ Vertikale Position der Zeichen wird von der Funktion
 @funindex \dynamicNeutral
 @funindex dynamicNeutral
 
-@predefined
 
+@predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
 @code{\dynamicNeutral},
@@ -323,6 +323,8 @@ Vertikale Position der Zeichen wird von der Funktion
 @code{\dimTextDecresc},
 @code{\crescHairpin},
 @code{\dimHairpin}.
+@endpredefined
+
 
 @snippets
 
@@ -578,14 +580,15 @@ g4( e c2)
 @funindex \slurUp
 @funindex slurUp
 
-@predefined
 
+@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
 @code{\slurSolid}.
+@endpredefined
 
 
 @snippets
@@ -664,10 +667,11 @@ erlaubt.
 
 
 @predefined
-
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
 @code{\phrasingSlurNeutral}.
+@endpredefined
+
 
 @seealso
 
@@ -897,13 +901,13 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 
 
 @predefined
-
 @code{\arpeggio},
 @code{\arpeggioArrowUp},
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis}.
+@endpredefined
 
 
 @snippets
@@ -1023,10 +1027,9 @@ g\stopTrillSpan
 
 
 @predefined
-
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
-
+@endpredefined
 
 
 @seealso

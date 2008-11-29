@@ -183,12 +183,13 @@ Stimmenverlaufs ausgegeben werden. Das wird erreicht, indem
 
 Programmreferenz: @rinternals{VoiceFollower}.
 
-@predefined
 
+@predefined
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},
 @funindex \hideStaffSwitch
 @code{\hideStaffSwitch}.
+@endpredefined
 
 
 @node Cross-staff stems

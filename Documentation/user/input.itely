@@ -666,12 +666,14 @@ the markup have to be known before, so a gauge is used to decide these
 dimensions.  If the book has between 10 and 99 pages, it may be "00",
 ie. a two digit number.
 
-@predefined
 
+@predefined
 @funindex \label
-@code{\label}
+@code{\label},
 @funindex \page-ref
-@code{\page-ref}
+@code{\page-ref}.
+@endpredefined
+
 
 @node Table of contents
 @subsection Table of contents
@@ -779,12 +781,13 @@ tocAct =
 
 Init files: @file{../ly/@/toc@/-init@/.ly}.
 
-@predefined
 
+@predefined
 @funindex \table-of-contents
-@code{\table-of-contents}
+@code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem}
+@code{\tocItem}.
+@endpredefined
 
 
 @node Working with input files

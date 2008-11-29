@@ -2280,11 +2280,13 @@ sich in @ref{Setting the staff size}.
 }
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \easyHeadsOn
+@code{\easyHeadsOn},
 @funindex \easyHeadsOff
-@code{\easyHeadsOn}, @code{\easyHeadsOff}
+@code{\easyHeadsOff}.
+@endpredefined
 
 @seealso
 
@@ -2331,11 +2333,14 @@ Die unterschiedlichen Formen richten sich nach der Stufe in der
 Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
 entnommen wird.
 
-@predefined
 
+@predefined
 @funindex \aikenHeads
+@code{\aikenHeads},
 @funindex \sacredHarpHeads
-@code{\aikenHeads}, @code{\sacredHarpHeads}
+@code{\sacredHarpHeads}.
+@endpredefined
+
 
 @snippets
 
@@ -2390,11 +2395,12 @@ benutzt werden:
 
 
 @predefined
-
 @funindex \improvisationOn
+@code{\improvisationOn},
 @funindex \improvisationOff
+@code{\improvisationOff}.
+@endpredefined
 
-@code{\improvisationOn}, @code{\improvisationOff}
 
 @seealso
 

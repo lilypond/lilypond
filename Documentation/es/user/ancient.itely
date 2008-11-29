@@ -1217,8 +1217,8 @@ instrucciones @code{\virgula} y @code{\caesura}.
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@predefined
 
+@predefined
 @funindex \virgula
 @code{\virgula},
 @funindex \caesura
@@ -1231,6 +1231,7 @@ instrucciones @code{\virgula} y @code{\caesura}.
 @code{\divisioMaxima},
 @funindex \finalis
 @code{\finalis}.
+@endpredefined
 
 
 @node Gregorian articulation signs
@@ -2184,9 +2185,7 @@ Formas @b{Básica} y @emph{Licuescente}
 @end multitable
 
 @predefined
-
 Están contemplados los siguientes prefijos de cabeza:
-
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -2209,6 +2208,8 @@ Están contemplados los siguientes prefijos de cabeza:
 @code{\cavum},
 @funindex \linea
 @code{\linea}.
+@endpredefined
+
 
 Se pueden acumular los prefijos de cabeza, aunque con ciertas
 restricciones.  Por ejemplo, se pueden aplicar @code{\descendens} o

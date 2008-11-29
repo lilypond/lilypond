@@ -1219,8 +1219,8 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@predefined
 
+@predefined
 @funindex \virgula
 @code{\virgula},
 @funindex \caesura
@@ -1233,6 +1233,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 @code{\divisioMaxima},
 @funindex \finalis
 @code{\finalis}.
+@endpredefined
 
 
 @c {{{2Gregorian articulations
@@ -2201,10 +2202,9 @@ code}
 
 @end multitable
 
+
 @predefined
-
-The following head prefixes are supported
-
+The following head prefixes are supported:
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -2227,6 +2227,7 @@ The following head prefixes are supported
 @code{\cavum},
 @funindex \linea
 @code{\linea}.
+@endpredefined
 
 Head prefixes can be accumulated, though restrictions apply.  For
 example, either @code{\descendens} or @code{\ascendens} can be applied

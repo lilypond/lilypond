@@ -329,13 +329,14 @@ simultánea, dentro de una voz creada explícitamente:
 Este método conduce a barrados extraños y advertencias si los
 fragmentos de música no tienen las mismas duraciones exactas.
 
-@predefined
 
+@predefined
 @code{\voiceOne},
 @code{\voiceTwo},
 @code{\voiceThree},
 @code{\voiceFour},
 @code{\oneVoice}.
+@endpredefined
 
 
 @seealso
@@ -381,14 +382,15 @@ identificarlas fácilmente:
 Para recuperar la presentación normal se utiliza la instrucción
 @code{\voiceNeutralstyle}.
 
+
 @predefined
-
 @code{\voiceOneStyle},
-
 @code{\voiceTwoStyle},
 @code{\voiceThreeStyle},
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
+@endpredefined
+
 
 @seealso
 
@@ -538,8 +540,8 @@ desactivado), mientras que las voces interiores (tres y cuatro) tienen
 Sólo se combinan las notas si tienen la plica en direcciones opuestas
 (por ejemplo, en las @code{Voice}s 1 y 2).
 
-@predefined
 
+@predefined
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
 @code{\mergeDifferentlyHeadedOn},
@@ -549,6 +551,8 @@ Sólo se combinan las notas si tienen la plica en direcciones opuestas
 @code{\shiftOnn},
 @code{\shiftOnnn},
 @code{\shiftOff}.
+@endpredefined
+
 
 @snippets
 

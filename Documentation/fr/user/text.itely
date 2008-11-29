@@ -79,11 +79,11 @@ La commande @code{\markup} est décrite plus en détails dans la section
 
 
 @predefined
-
 @funindex \textLengthOn
 @code{\textLengthOn},
 @funindex \textLengthOff
 @code{\textLengthOff}.
+@endpredefined
 
 
 @commonprop
@@ -268,14 +268,15 @@ c2\startTextSpan b c\stopTextSpan a
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex textSpannerUp
 @code{\textSpannerUp},
 @funindex textSpannerDown
 @code{\textSpannerDown},
 @funindex textSpannerNeutral
 @code{\textSpannerNeutral}.
+@endpredefined
 
 
 @commonprop
@@ -679,10 +680,11 @@ se trouve dans @ref{Text markup list commands}.
 Dans ce manuel : @ref{Text markup list commands}, 
 @ref{New markup list command definition}.
 
-@predefined
 
+@predefined
 @funindex \markuplines
-@code{\markuplines}
+@code{\markuplines}.
+@endpredefined
 
 
 @node Fonts

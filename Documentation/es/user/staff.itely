@@ -445,10 +445,12 @@ b4 c d2
 e4 d c2
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\startStaff},
 @code{\stopStaff}.
+@endpredefined
+
 
 @snippets
 
@@ -717,11 +719,13 @@ de forma similar, se puede usar
 @code{\RemoveEmptyRhythmicStaffContext} para ocultar los contextos
 @code{RhythmicStaff} vacíos.
 
-@predefined
 
+@predefined
 @code{\RemoveEmptyStaffContext},
 @code{\AncientRemoveEmptyStaffContext},
 @code{\RemoveEmptyRhythmicStaffContext}.
+@endpredefined
+
 
 @snippets
 

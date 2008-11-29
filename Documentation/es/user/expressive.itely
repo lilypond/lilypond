@@ -314,8 +314,8 @@ parte de @rinternals{DynamicLineSpanner}.
 @funindex \dynamicNeutral
 @funindex dynamicNeutral
 
-@predefined
 
+@predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
 @code{\dynamicNeutral},
@@ -325,6 +325,8 @@ parte de @rinternals{DynamicLineSpanner}.
 @code{\dimTextDecresc},
 @code{\crescHairpin},
 @code{\dimHairpin}.
+@endpredefined
+
 
 @snippets
 
@@ -568,14 +570,15 @@ g4( e c2)
 @funindex \slurUp
 @funindex slurUp
 
-@predefined
 
+@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
 @code{\slurSolid}.
+@endpredefined
 
 
 @snippets
@@ -651,11 +654,13 @@ c4\( g' c,( b) | c1\)
 
 No se pueden tener varias ligaduras de fraseo simultáneas o solapadas.
 
-@predefined
 
+@predefined
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
 @code{\phrasingSlurNeutral}.
+@endpredefined
+
 
 @seealso
 
@@ -872,8 +877,8 @@ Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @notation{ligaduras de unión}.  Véase @ref{Ties}.
 
-@predefined
 
+@predefined
 @funindex \arpeggio
 @code{\arpeggio},
 @funindex \arpeggioArrowUp
@@ -884,6 +889,8 @@ Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @code{\arpeggioNormal},
 @funindex \arpeggioBracket
 @code{\arpeggioBracket}.
+@endpredefined
+
 
 @snippets
 
@@ -992,10 +999,12 @@ g\stopTrillSpan
 g\stopTrillSpan
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
+@endpredefined
+
 
 @seealso
 

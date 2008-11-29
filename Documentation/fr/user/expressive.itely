@@ -290,13 +290,13 @@ leur étendue.  On peut empêcher l'impression de ces pointillés avec :
 
 
 @predefined
-
 @funindex \dynamicUp
 @code{\dynamicUp},
 @funindex \dynamicDown
 @code{\dynamicDown},
 @funindex \dynamicNeutral
 @code{\dynamicNeutral}.
+@endpredefined
 
 
 @seealso
@@ -405,7 +405,6 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 
 
 @predefined
-
 @funindex \slurUp
 @code{\slurUp},
 @funindex \slurDown
@@ -418,6 +417,8 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 @code{\slurDotted},
 @funindex \slurSolid
 @code{\slurSolid}.
+@endpredefined
+
 
 @seealso
 
@@ -449,13 +450,13 @@ Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
 
 
 @predefined
-
 @funindex \phrasingSlurUp
 @code{\phrasingSlurUp},
 @funindex \phrasingSlurDown
 @code{\phrasingSlurDown},
 @funindex \phrasingSlurNeutral
 @code{\phrasingSlurNeutral}.
+@endpredefined
 
 
 @seealso
@@ -614,7 +615,6 @@ exemple dans le contexte @rinternals{PianoStaff} :
 
 
 @predefined
-
 @code{\arpeggio},
 @funindex \arpeggioArrowUp
 @code{\arpeggioArrowUp},
@@ -624,6 +624,7 @@ exemple dans le contexte @rinternals{PianoStaff} :
 @code{\arpeggioNormal},
 @funindex \arpeggioBracket
 @code{\arpeggioBracket}.
+@endpredefined
 
 
 @seealso
@@ -673,11 +674,11 @@ sera imprimée comme une tête de note noire entre parenthèses.
 
 
 @predefined
-
-@code{\startTrillSpan},
 @funindex \startTrillSpan
-@code{\stopTrillSpan}.
+@code{\startTrillSpan},
 @funindex \stopTrillSpan
+@code{\stopTrillSpan}.
+@endpredefined
 
 
 @seealso

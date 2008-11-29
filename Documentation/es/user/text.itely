@@ -87,12 +87,13 @@ d8^"pizz." e f g
 a4_"scherzando" f
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \textLengthOn
 @code{\textLengthOn},
 @funindex \textLengthOff
-@code{\textLengthOff}
+@code{\textLengthOff}.
+@endpredefined
 
 
 @seealso
@@ -154,14 +155,16 @@ El estilo de la línea, así como la cadena de texto, se pueden definir
 como una propiedad de objeto.  Esta sintaxis se describe en @ref{Line
 styles}.
 
-@predefined
 
+@predefined
 @funindex textSpannerUp
 @code{\textSpannerUp},
 @funindex textSpannerDown
 @code{\textSpannerDown},
 @funindex textSpannerNeutral
-@code{\textSpannerNeutral}
+@code{\textSpannerNeutral}.
+@endpredefined
+
 
 @seealso
 
@@ -308,10 +311,12 @@ posibilitando la impresión de documentos de texto o libros
 íntegramente desde LilyPond.  Esta funcionalidad y la sintaxis que
 requiere se describen en @ref{Multi-page markup}.
 
-@predefined
 
+@predefined
 @code{\markup},
-@code{\markuplines}
+@code{\markuplines}.
+@endpredefined
+
 
 @ignore
 @snippets
@@ -593,24 +598,26 @@ utilización personalizada de las fuentes tipográficas en @ref{Font}.
 También es posible definir conjuntos personalizados de fuentes, tal y
 como se explica en @ref{Fonts}.
 
-@predefined
 
+@predefined
 @funindex \teeny
-@funindex \tiny
-@funindex \small
-@funindex \normalsize
-@funindex \large
-@funindex \huge
-@funindex \smaller
-@funindex \larger
 @code{\teeny},
+@funindex \tiny
 @code{\tiny},
+@funindex \small
 @code{\small},
+@funindex \normalsize
 @code{\normalsize},
+@funindex \large
 @code{\large},
+@funindex \huge
 @code{\huge},
+@funindex \smaller
 @code{\smaller},
+@funindex \larger
 @code{\larger}.
+@endpredefined
+
 
 @seealso
 
@@ -1192,9 +1199,11 @@ Referencia de funcionamiento interno:
 Archivos de inicio:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
 
+
 @predefined
 @funindex \markuplines
-@code{\markuplines}
+@code{\markuplines}.
+@endpredefined
 
 
 @node Fonts

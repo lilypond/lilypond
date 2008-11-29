@@ -850,11 +850,11 @@ complicated.  More details are available in
 
 
 @predefined
-
 @funindex \break
 @code{\break},
 @funindex \noBreak
 @code{\noBreak}.
+@endpredefined
 
 
 @seealso
@@ -967,12 +967,13 @@ book parts.
 @}
 @end example
 
-@predefined
 
+@predefined
 @funindex \pageBreak
 @code{\pageBreak},
 @funindex \noPageBreak
 @code{\noPageBreak}.
+@endpredefined
 
 
 @seealso
@@ -1065,13 +1066,13 @@ top-level markups.
 
 
 @predefined
-
 @funindex \pageTurn
 @code{\pageTurn},
 @funindex \noPageTurn
 @code{\noPageTurn},
 @funindex \allowPageTurn
 @code{\allowPageTurn}.
+@endpredefined
 
 
 @seealso

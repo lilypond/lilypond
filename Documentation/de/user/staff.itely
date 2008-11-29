@@ -480,9 +480,9 @@ e4 d c2
 
 
 @predefined
-
 @code{\startStaff},
 @code{\stopStaff}.
+@endpredefined
 
 
 @snippets
@@ -763,10 +763,10 @@ leere Takte in einem
 
 
 @predefined
-
 @code{\RemoveEmptyStaffContext},
 @code{\AncientRemoveEmptyStaffContext},
 @code{\RemoveEmptyRhythmicStaffContext}.
+@endpredefined
 
 
 @snippets

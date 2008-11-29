@@ -236,7 +236,6 @@ pour sortir le sol (@code{g}) de l'alignement, et
 
 
 @predefined
-
 @funindex \oneVoice
 @code{\oneVoice},
 @funindex \voiceOne
@@ -260,6 +259,8 @@ des notes de la voix courante.  Les voix externes --- habituellement,
 les voix une et deux --- ont @code{\shiftOff}, alors que les voix
 internes --- trois et quatre --- ont @code{\shiftOn}.  @code{\shiftOnn}
 et @code{\shiftOnnn} sont des niveaux supplémentaires de décalage.
+@endpredefined
+
 
 Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
 @rinternals{NoteColumn}, et des silences à hauteur déterminée, peuvent

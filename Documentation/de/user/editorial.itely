@@ -120,8 +120,8 @@ Die @code{font-size}-Eigenschaft kann nur für die Layoutobjekte gesetzt
 werden, die Schrift-Dateien benutzen.  Das sind die, welche die
 @code{font-interface}-Layoutschnittstelle unterstützen.
 
-@predefined
 
+@predefined
 @funindex \teeny
 @code{\teeny},
 @funindex \tiny
@@ -134,6 +134,8 @@ werden, die Schrift-Dateien benutzen.  Das sind die, welche die
 @code{\large},
 @funindex \huge
 @code{\huge}.
+@endpredefined
+
 
 @seealso
 
@@ -259,8 +261,10 @@ e4(\p f)--
 
 
 @predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
 
-@code{\hideNotes}, @code{\unHideNotes}
 
 @seealso
 
@@ -437,14 +441,15 @@ ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch
 für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
 gemacht.
 
-@predefined
 
+@predefined
 @funindex \stemUp
 @code{\stemUp} (Hälse nach oben),
 @funindex \stemDown
 @code{\stemDown} (Hälse nach unten),
 @funindex \stemNeutral
 @code{\stemNeutral} (Hälse je nach Notenposition).
+@endpredefined
 
 
 @snippets
@@ -540,13 +545,14 @@ aber das kann geändert werden.
 
 
 @predefined
-
 @funindex balloonLengthOn
 @funindex balloonLengthOff
+@code{\balloonLengthOn},
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
+@code{\balloonLengthOff}.
+@endpredefined
 
-@code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
 

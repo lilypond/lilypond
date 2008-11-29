@@ -81,6 +81,7 @@ The order of headings inside documentation sections should be:
 
 main docs
 @predefined
+@endpredefined
 @snippets
 @seealso
 @knownissues
@@ -129,7 +130,8 @@ main docs
 * To create links, use @ref{} if the link is within the same
   manual.
 
-* @predefined  is for commands in ly/*-init.ly  FIXME?
+* @predefined ... @endpredefined is for commands in ly/*-init.ly
+  FIXME?
 
 * Do not include any real info in second-level sections (ie 1.1
   Pitches).  A first-level section may have introductory material,

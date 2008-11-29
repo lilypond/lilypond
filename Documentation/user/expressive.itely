@@ -313,7 +313,6 @@ Vertical positioning of dynamics is handled by
 
 
 @predefined
-
 @code{\dynamicUp},
 @code{\dynamicDown},
 @code{\dynamicNeutral},
@@ -323,6 +322,7 @@ Vertical positioning of dynamics is handled by
 @code{\dimTextDecresc},
 @code{\crescHairpin},
 @code{\dimHairpin}.
+@endpredefined
 
 
 @snippets
@@ -570,14 +570,15 @@ g4( e c2)
 @funindex \slurUp
 @funindex slurUp
 
-@predefined
 
+@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
 @code{\slurSolid}.
+@endpredefined
 
 
 @snippets
@@ -673,13 +674,13 @@ g4\( e c2\)
 
 
 @predefined
-
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
 @code{\phrasingSlurNeutral},
 @code{\phrasingSlurDashed},
 @code{\phrasingSlurDotted},
 @code{\phrasingSlurSolid}.
+@endpredefined
 
 
 @seealso
@@ -899,14 +900,15 @@ Special @emph{bracketed} arpeggio symbols can be created:
 Arpeggios can be explicitly written out with ties.  For more
 information, see @ref{Ties}.
 
-@predefined
 
+@predefined
 @code{\arpeggio},
 @code{\arpeggioArrowUp},
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis}.
+@endpredefined
 
 
 @snippets
@@ -1022,9 +1024,9 @@ g\stopTrillSpan
 
 
 @predefined
-
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
+@endpredefined
 
 
 @seealso

@@ -819,11 +819,11 @@ novedosa y difícil.  Hay más detalles disponibles en @rlsr{Spacing}.
 
 
 @predefined
-
 @funindex \break
 @code{\break},
 @funindex \noBreak
 @code{\noBreak}.
+@endpredefined
 
 
 @seealso
@@ -947,12 +947,13 @@ partes del libro.
 @}
 @end example
 
-@predefined
 
+@predefined
 @funindex \pageBreak
 @code{\pageBreak},
 @funindex \noPageBreak
 @code{\noPageBreak}.
+@endpredefined
 
 
 @seealso
@@ -1057,13 +1058,13 @@ de marcado del nivel superior.
 
 
 @predefined
-
 @funindex \pageTurn
 @code{\pageTurn},
 @funindex \noPageTurn
 @code{\noPageTurn},
 @funindex \allowPageTurn
 @code{\allowPageTurn}.
+@endpredefined
 
 
 @seealso

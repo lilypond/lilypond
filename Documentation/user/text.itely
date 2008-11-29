@@ -84,12 +84,13 @@ d8^"pizz." e f g
 a4_"scherzando" f
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \textLengthOn
 @code{\textLengthOn},
 @funindex \textLengthOff
-@code{\textLengthOff}
+@code{\textLengthOff}.
+@endpredefined
 
 
 @seealso
@@ -149,14 +150,16 @@ e,\stopTextSpan
 The line style, as well as the text string, can be defined as an
 object property.  This syntax is described in @ref{Line styles}.
 
-@predefined
 
+@predefined
 @funindex textSpannerUp
 @code{\textSpannerUp},
 @funindex textSpannerDown
 @code{\textSpannerDown},
 @funindex textSpannerNeutral
-@code{\textSpannerNeutral}
+@code{\textSpannerNeutral}.
+@endpredefined
+
 
 @seealso
 
@@ -303,11 +306,13 @@ making it possible to print text documents or books entirely
 within LilyPond.  This feature, and the specific syntax it
 requires, are described in @ref{Multi-page markup}.
 
-@predefined
 
-@code{\markup},
+@predefined
 @funindex \markuplines
-@code{\markuplines}
+@code{\markup},
+@code{\markuplines}.
+@endpredefined
+
 
 @ignore
 @snippets
@@ -578,24 +583,26 @@ commands can be found in @ref{Font}.
 Defining custom font sets is also possible, as explained in
 @ref{Fonts}.
 
-@predefined
 
+@predefined
 @funindex \teeny
-@funindex \tiny
-@funindex \small
-@funindex \normalsize
-@funindex \large
-@funindex \huge
-@funindex \smaller
-@funindex \larger
 @code{\teeny},
+@funindex \tiny
 @code{\tiny},
+@funindex \small
 @code{\small},
+@funindex \normalsize
 @code{\normalsize},
+@funindex \large
 @code{\large},
+@funindex \huge
 @code{\huge},
+@funindex \smaller
 @code{\smaller},
+@funindex \larger
 @code{\larger}.
+@endpredefined
+
 
 @seealso
 Notation Reference:
@@ -1166,9 +1173,11 @@ Internals Reference: @rinternals{TextScript}.
 Installed files:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
 
+
 @predefined
 @funindex \markuplines
-@code{\markuplines}
+@code{\markuplines}.
+@endpredefined
 
 
 @node Fonts

@@ -342,13 +342,15 @@ umgeben werden:
 Mit dieser Methode können sich seltsame Balken und Warnungen
 ergeben, wenn die Musikausdrücke nicht den gleichen Rhythmus haben.
 
-@predefined
 
+@predefined
 @code{\voiceOne},
 @code{\voiceTwo},
 @code{\voiceThree},
 @code{\voiceFour},
 @code{\oneVoice}.
+@endpredefined
+
 
 @seealso
 
@@ -397,15 +399,15 @@ erkennbar zu sein:
 Der @code{\voiceNeutralstyle}-Befehl wird benutzt, um wieder
 die Standardausgabe einzuschalten.
 
+
 @predefined
-
-
 @code{\voiceOneStyle},
-
 @code{\voiceTwoStyle},
 @code{\voiceThreeStyle},
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
+@endpredefined
+
 
 @seealso
 
@@ -560,7 +562,6 @@ Richtungen zeigen (also etwa wie @code{Voice} 1 und 2).
 
 
 @predefined
-
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
 @code{\mergeDifferentlyHeadedOn},
@@ -570,6 +571,8 @@ Richtungen zeigen (also etwa wie @code{Voice} 1 und 2).
 @code{\shiftOnn},
 @code{\shiftOnnn},
 @code{\shiftOff}.
+@endpredefined
+
 
 @snippets
 

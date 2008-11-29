@@ -770,8 +770,8 @@ sich in der Datei @file{gregorian@/-init@/.ly} auch eine Definition für
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@predefined
 
+@predefined
 @funindex \virgula
 @code{\virgula},
 @funindex \caesura
@@ -784,6 +784,8 @@ sich in der Datei @file{gregorian@/-init@/.ly} auch eine Definition für
 @code{\divisioMaxima},
 @funindex \finalis
 @code{\finalis}.
+@endpredefined
+
 
 @seealso
 
@@ -1843,10 +1845,9 @@ funktionieren beide Befehle. Es ist auch möglich, mit
 }
 @end lilypond
 
+
 @predefined
-
 Folgende Notenpräfixe sind unterstützt:
-
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -1869,6 +1870,8 @@ Folgende Notenpräfixe sind unterstützt:
 @code{\cavum},
 @funindex \linea
 @code{\linea}.
+@endpredefined
+
 
 Präfixe können kombiniert werden, wenn es hier auch Begrenzungen
 gibt. Zum Beispiel können die Präfixe @code{\descendens} oder

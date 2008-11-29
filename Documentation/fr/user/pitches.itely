@@ -1277,10 +1277,11 @@ La commande @code{\easyHeadsOn} remplace tous les réglages de l'objet
 taille, afin que les lettres soient lisibles.  Voir à ce propos
 @ref{Setting the staff size}.
 
-@predefined
 
+@predefined
 @funindex \easyHeadsOn
-@code{\easyHeadsOn}
+@code{\easyHeadsOn}.
+@endpredefined
 
 
 @node Shape note heads

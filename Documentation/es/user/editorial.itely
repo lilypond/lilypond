@@ -121,8 +121,8 @@ La propiedad @code{font-size} sólo se puede establecer en objetos
 gráficos que utilicesn fuentes tipográficas.  Éstos son los que
 contemplan el interfaz de presentación @code{font-interface}.
 
-@predefined
 
+@predefined
 @funindex \teeny
 @code{\teeny} (enano),
 @funindex \tiny
@@ -135,6 +135,8 @@ contemplan el interfaz de presentación @code{font-interface}.
 @code{\large} (grande),
 @funindex \huge
 @code{\huge} (enorme).
+@endpredefined
+
 
 @seealso
 
@@ -254,9 +256,12 @@ c4( d)
 e4(\p f)--
 @end lilypond
 
-@predefined
 
-@code{\hideNotes}, @code{\unHideNotes}
+@predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
+
 
 @seealso
 
@@ -434,14 +439,15 @@ Cuando se encuentra con una nota, se crea automáticamente un objeto
 @code{Stem} (plica).  Para las redondas y los silencios, también se
 crean pero se hacen invisibles.
 
-@predefined
 
+@predefined
 @funindex \stemUp
 @code{\stemUp},
 @funindex \stemDown
 @code{\stemDown},
 @funindex \stemNeutral
 @code{\stemNeutral}.
+@endpredefined
 
 
 @snippets
@@ -533,13 +539,14 @@ pero esto puede cambiarse:
 
 
 @predefined
-
 @funindex balloonLengthOn
 @funindex balloonLengthOff
+@code{\balloonLengthOn},
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
+@code{\balloonLengthOff}.
+@endpredefined
 
-@code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
 

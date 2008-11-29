@@ -689,10 +689,12 @@ A complete example of a SATB score setup is in section
 
 
 @predefined
-
-@code{\melisma}, @code{\melismaEnd}
-@funindex \melismaEnd
 @funindex \melisma
+@code{\melisma},
+@funindex \melismaEnd
+@code{\melismaEnd}.
+@endpredefined
+
 
 @seealso
 

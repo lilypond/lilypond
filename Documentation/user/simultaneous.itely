@@ -322,13 +322,15 @@ them in a simple simultaneous music construct within an explicit voice:
 This method leads to strange beamings and warnings if the pieces of
 music do not have the same rhythm.
 
-@predefined
 
+@predefined
 @code{\voiceOne},
 @code{\voiceTwo},
 @code{\voiceThree},
 @code{\voiceFour},
 @code{\oneVoice}.
+@endpredefined
+
 
 @seealso
 
@@ -374,15 +376,15 @@ easily identified:
 The @code{\voiceNeutralstyle} command is used to revert to the
 standard presentation.
 
+
 @predefined
-
-
 @code{\voiceOneStyle},
-
 @code{\voiceTwoStyle},
 @code{\voiceThreeStyle},
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
+@endpredefined
+
 
 @seealso
 
@@ -528,7 +530,6 @@ Notes are only merged if they have opposing stem directions (e.g. in
 
 
 @predefined
-
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
 @code{\mergeDifferentlyHeadedOn},
@@ -538,6 +539,8 @@ Notes are only merged if they have opposing stem directions (e.g. in
 @code{\shiftOnn},
 @code{\shiftOnnn},
 @code{\shiftOff}.
+@endpredefined
+
 
 @snippets
 

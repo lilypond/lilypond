@@ -119,12 +119,14 @@ nicht berühren.  Fertige Befehle können eingesetzt werden, um
 eine bestimmte Richtung manuell zu erzwingen, zu Einzelheiten
 siehe @ref{Direction and placement}.
 
-@predefined
 
+@predefined
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
+@endpredefined
+
 
 @seealso
 
@@ -212,11 +214,12 @@ eingesetzt werden.
 Um die Dauern von Noten zu ändern, ohne die N-tolen-Klammern
 zu setzen, siehe @ref{Scaling durations}.
 
-@predefined
 
+@predefined
 @code{\tupletUp},
 @code{\tupletDown},
 @code{\tupletNeutral}.
+@endpredefined
 
 
 @snippets
@@ -461,14 +464,15 @@ siehe die vordefinierten Befehle unten oder für Einzelheiten
 Durchgehende, gepunktete oder gestrichelte Bindebögen können
 spezifiziert werden, siehe die vordefinieren Befehle.
 
-@predefined
 
+@predefined
 @code{\tieUp},
 @code{\tieDown},
 @code{\tieNeutral},
 @code{\tieDotted},
 @code{\tieDashed},
 @code{\tieSolid}.
+@endpredefined
 
 
 @snippets
@@ -781,12 +785,15 @@ Wenn eine Mehrtaktpause direkt auf einen Auftakt mit @code{\partial}
 folgt, werden möglicherweise daraus resultierende
 Taktprüfungswarnungen nicht angezeigt.
 
+
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
 @code{\compressFullBarRests},
 @code{\expandFullBarRests}.
+@endpredefined
+
 
 @snippets
 
@@ -937,10 +944,12 @@ Symbole für Modus und Proprietas der mensuralen Notation
 werden behandelt unter
 @ref{Ancient time signatures}.
 
-@predefined
 
+@predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
+@endpredefined
+
 
 @snippets
 
@@ -1090,10 +1099,12 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
+@endpredefined
+
 
 @seealso
 
@@ -1365,9 +1376,12 @@ eingeschaltet wird mit @code{\improvisationOn}.
 >>
 @end lilypond
 
+
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
+@endpedefined
+
 
 @snippets
 
@@ -1442,9 +1456,12 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}.
+@endpredefined
+
 
 @snippets
 
@@ -1844,11 +1861,11 @@ In 4/4 time signature, this means that automatic beams could end only on
 
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
+@endpredefined
 
 
 @knownissues

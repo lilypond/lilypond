@@ -126,11 +126,11 @@ and placement}.
 
 
 @predefined
-
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
+@endpredefined
 
 
 @seealso
@@ -215,11 +215,13 @@ mismo instante musical se debe hacer con @code{\tweak}.
 Para modificar la duración de las notas sin imprimir un corchete de
 grupo especial, véase @ref{Scaling durations}.
 
-@predefined
 
+@predefined
 @code{\tupletUp},
 @code{\tupletDown},
 @code{\tupletNeutral}.
+@endpredefined
+
 
 @snippets
 
@@ -451,8 +453,8 @@ detalles, consulte @ref{Direction and placement}.
 Se pueden especificar ligaduras continuas, de puuntos o intermitentes,
 véase la sección de instrucciones predefinidas.
 
-@predefined
 
+@predefined
 @code{\tieUp},
 @code{\tieDown},
 @code{\tieNeutral},
@@ -460,6 +462,8 @@ véase la sección de instrucciones predefinidas.
 @code{\tieDashed},
 @code{\tieSolid},
 @code{\repeatTie}.
+@endpredefined
+
 
 @snippets
 
@@ -771,12 +775,15 @@ Cuando un silencio multicompás sigue inmediatamente al establecimiento
 de un compás parcial con @code{\partial}, es posible que no se emitan
 las advertencias correspondientes de comprobación de compás.
 
+
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
 @code{\compressFullBarRests},
 @code{\expandFullBarRests}.
+@endpredefined
+
 
 @snippets
 
@@ -903,10 +910,12 @@ estilo numérico:
 Las indicaciones de compás de la música mensural se tratan en
 @ref{Mensural time signatures}.
 
-@predefined
 
+@predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
+@endpredefined
+
 
 @snippets
 
@@ -1043,10 +1052,12 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
+@endpredefined
+
 
 @seealso
 
@@ -1319,9 +1330,12 @@ rasgueado.  Esto se puede hacer con el grabador
 >>
 @end lilypond
 
+
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
+@endpredefined
+
 
 @snippets
 
@@ -1393,9 +1407,12 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}.
+@endpredefined
+
 
 @snippets
 
@@ -1721,11 +1738,11 @@ a a a a
 
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
+@endpredefined
 
 
 @knownissues
