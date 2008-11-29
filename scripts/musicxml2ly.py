@@ -1470,6 +1470,50 @@ def musicxml_harmony_to_lily (n):
     return res
 
 
+notehead_styles_dict = {
+    'slash': '\'slash',
+    'triangle': '\'triangle',
+    'diamond': '\'diamond',
+    'square': '\'la', # TODO: Proper squared note head
+    'cross': None, # TODO: + shaped note head
+    'x': '\'cross',
+    'circle-x': '\'xcircle',
+    'inverted triangle': None, # TOD: Implement
+    'arrow down': None, # TOD: Implement
+    'arrow up': None, # TOD: Implement
+    'slashed': None, # TOD: Implement
+    'back slashed': None, # TOD: Implement
+    'normal': None,
+    'cluster': None, # TOD: Implement
+    'none': '#f',
+    'do': '\'do',
+    're': '\'re',
+    'mi': '\'mi',
+    'fa': '\'fa',
+    'so': None,
+    'la': '\'la',
+    'ti': '\'ti',
+    }
+
+def musicxml_notehead_to_lily (nh):
+    styles = []
+
+    # Notehead style
+    style = notehead_styles_dict.get (nh.get_text ().strip (), None)
+    style_elm = musicexp.NotestyleEvent ()
+    if style:
+        style_elm.style = style
+    if hasattr (nh, 'filled'):
+        style_elm.filled = (getattr (nh, 'filled') == "yes")
+    if style_elm.style or (style_elm.filled != None):
+        styles.append (style_elm)
+
+    # parentheses
+    if hasattr (nh, 'parentheses') and (nh.parentheses == "yes"):
+        styles.append (musicexp.ParenthesizeEvent ())
+
+    return styles
+
 def musicxml_chordpitch_to_lily (mxl_cpitch):
     r = musicexp.ChordPitch ()
     r.alteration = mxl_cpitch.get_alteration ()
@@ -1678,7 +1722,13 @@ def musicxml_note_to_lily_main_event (n):
         n.message (_ ("cannot find suitable event"))
 
     if event:
-	event.duration = musicxml_duration_to_lily (n)
+        event.duration = musicxml_duration_to_lily (n)
+
+    noteheads = n.get_named_children ('notehead')
+    for nh in noteheads:
+        styles = musicxml_notehead_to_lily (nh)
+        for s in styles:
+            event.add_associated_event (s)
 
     return event
 

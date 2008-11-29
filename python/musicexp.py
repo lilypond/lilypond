@@ -845,7 +845,7 @@ class ChordEvent (NestedMusic):
             pitches = []
             basepitch = None
             for x in note_events:
-                pitches.append (x.pitch.ly_expression ())
+                pitches.append (x.chord_element_ly ())
                 if not basepitch:
                     basepitch = previous_pitch
             printer ('<%s>' % string.join (pitches))
@@ -1188,6 +1188,47 @@ class FretEvent (MarkupEvent):
         else:
             return ''
 
+
+class FunctionWrapperEvent (Event):
+    def __init__ (self, function_name = None):
+        Event.__init__ (self)
+        self.function_name = function_name
+    def pre_note_ly (self, is_chord_element):
+        if self.function_name:
+            return "\\%s" % self.function_name
+        else:
+            return ''
+    def pre_chord_ly (self):
+        return ''
+    def ly_expression (self):
+        if self.function_name:
+            return "\\%s" % self.function_name
+        else:
+            return ''
+
+class ParenthesizeEvent (FunctionWrapperEvent):
+    def __init__ (self):
+        FunctionWrapperEvent.__init__ (self, "parenthesize")
+
+class NotestyleEvent (Event):
+    def __init__ (self):
+        Event.__init__ (self)
+        self.style = None
+        self.filled = None
+    def pre_chord_ly (self):
+        if self.style:
+            return "\\once \\override NoteHead #'style = #%s" % self.style
+        else:
+            return ''
+    def pre_note_ly (self, is_chord_element):
+        if self.style and is_chord_element:
+            return "\\tweak #'style #%s" % self.style
+        else:
+            return ''
+    def ly_expression (self):
+        return self.pre_chord_ly ()
+
+
 class ChordPitch:
     def __init__ (self):
         self.alteration = 0
@@ -1267,7 +1308,24 @@ class RhythmicEvent(Event):
     def __init__ (self):
         Event.__init__ (self)
         self.duration = Duration()
-        
+        self.associated_events = []
+
+    def add_associated_event (self, ev):
+        if ev:
+            self.associated_events.append (ev)
+
+    def pre_chord_ly (self):
+        return [ev.pre_chord_ly () for ev in self.associated_events]
+
+    def pre_note_ly (self, is_chord_element):
+        return [ev.pre_note_ly (is_chord_element) for ev in self.associated_events]
+
+    def ly_expression_pre_note (self, is_chord_element):
+        res = string.join (self.pre_note_ly (is_chord_element), ' ')
+        if res != '':
+            res = res + ' '
+        return res
+
     def get_length (self):
         return self.duration.get_length()
         
@@ -1279,13 +1337,17 @@ class RestEvent (RhythmicEvent):
     def __init__ (self):
         RhythmicEvent.__init__ (self)
         self.pitch = None
+
     def ly_expression (self):
+        res = self.ly_expression_pre_note (False)
         if self.pitch:
-            return "%s%s\\rest" % (self.pitch.ly_expression (), self.duration.ly_expression ())
+            return res + "%s%s\\rest" % (self.pitch.ly_expression (), self.duration.ly_expression ())
         else:
             return 'r%s' % self.duration.ly_expression ()
     
     def print_ly (self, printer):
+        for ev in self.associated_events:
+            ev.print_ly (printer)
         if self.pitch:
             self.pitch.print_ly (printer)
             self.duration.print_ly (printer)
@@ -1324,17 +1386,31 @@ class NoteEvent(RhythmicEvent):
             excl_question += '!'
 
         return excl_question
-    
+
     def ly_expression (self):
+        # obtain all stuff that needs to be printed before the note:
+        res = self.ly_expression_pre_note (True)
         if self.pitch:
-            return '%s%s%s' % (self.pitch.ly_expression (),
+            return res + '%s%s%s' % (self.pitch.ly_expression (),
                                self.pitch_mods(),
                                self.duration.ly_expression ())
         elif self.drum_type:
-            return '%s%s' (self.drum_type,
+            return res + '%s%s' (self.drum_type,
                            self.duration.ly_expression ())
 
+    def chord_element_ly (self):
+        # obtain all stuff that needs to be printed before the note:
+        res = self.ly_expression_pre_note (True)
+        if self.pitch:
+            return res + '%s%s' % (self.pitch.ly_expression (),
+                               self.pitch_mods())
+        elif self.drum_type:
+            return res + '%s%s' (self.drum_type)
+
+
     def print_ly (self, printer):
+        for ev in self.associated_events:
+            ev.print_ly (printer)
         if self.pitch:
             self.pitch.print_ly (printer)
             printer (self.pitch_mods ())
