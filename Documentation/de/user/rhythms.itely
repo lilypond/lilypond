@@ -1380,7 +1380,7 @@ eingeschaltet wird mit @code{\improvisationOn}.
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
-@endpedefined
+@endpredefined
 
 
 @snippets
