@@ -241,14 +241,14 @@ Vous trouverez une description exhaustive de chaque graveur dans
 @rinternals{Engravers and Performers}.
 @end ifhtml
 @ifnothtml
-Program reference @expansion Translation @expansion{} Engravers.
+Program reference @expansion{} Translation @expansion{} Engravers.
 @end ifnothtml
 Chaque contexte mentionné dans
 @ifhtml
 @rinternals{Contexts}
 @end ifhtml
 @ifnothtml
-Program reference @expansion Translation @expansion{} Context.
+Program reference @expansion{} Translation @expansion{} Context.
 @end ifnothtml
 répertorie les graveurs mis en œuvre.
 
