@@ -636,6 +636,7 @@ ADD_TRANSLATOR (Accidental_engraver,
 		/* create */
 		"Accidental "
 		"AccidentalCautionary "
+		"AccidentalPlacement "
 		"AccidentalSuggestion ",
 
 		/* read */
