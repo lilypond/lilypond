@@ -657,8 +657,6 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     tsm.display_numerator = tuplet_elt.get_normal_nr ()
     tsm.display_denominator = tuplet_elt.get_actual_nr ()
 
-    print ("num: %s, den: %s" % (tsm.display_numerator, tsm.display_denominator))
-
 
     if hasattr (tuplet_elt, 'bracket') and tuplet_elt.bracket == "no":
         tsm.display_bracket = None
@@ -671,13 +669,9 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     if hasattr (tuplet_elt, "show-number"):
         tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
     if tsm.display_number == "actual" and tsm.display_denominator:
-        print "Add denom-function\n";
         needed_additional_definitions.append ("tuplet-non-default-denominator")
     elif tsm.display_number == "both" and (tsm.display_numerator or tsm.display_denominator):
-        print "Add fraction-function\n";
         needed_additional_definitions.append ("tuplet-non-default-fraction")
-    else:
-        print "No display-function, display_number=%s, den=%s\n" % (tsm.display_number, tsm.display_denominator);
 
     if hasattr (tuplet_elt, "show-type"):
         if getattr (tuplet_elt, "show-type") == "actual":
@@ -2075,7 +2069,6 @@ def musicxml_voice_to_lily_voice (voice):
                 cn.duration = ev_chord.get_duration ()
                 chordnames_builder.add_music (cn, ev_chord.get_length ())
             pending_chordnames = []
-
 
         notations_children = n.get_typed_children (musicxml.Notations)
         tuplet_event = None

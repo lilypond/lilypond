@@ -1305,7 +1305,7 @@ class NoteEvent(RhythmicEvent):
         self.drum_type = None
         self.cautionary = False
         self.forced_accidental = False
-        
+
     def get_properties (self):
         str = RhythmicEvent.get_properties (self)
         
