@@ -1478,13 +1478,13 @@ notehead_styles_dict = {
     'cross': None, # TODO: + shaped note head
     'x': '\'cross',
     'circle-x': '\'xcircle',
-    'inverted triangle': None, # TOD: Implement
-    'arrow down': None, # TOD: Implement
-    'arrow up': None, # TOD: Implement
-    'slashed': None, # TOD: Implement
-    'back slashed': None, # TOD: Implement
+    'inverted triangle': None, # TODO: Implement
+    'arrow down': None, # TODO: Implement
+    'arrow up': None, # TODO: Implement
+    'slashed': None, # TODO: Implement
+    'back slashed': None, # TODO: Implement
     'normal': None,
-    'cluster': None, # TOD: Implement
+    'cluster': None, # TODO: Implement
     'none': '#f',
     'do': '\'do',
     're': '\'re',
