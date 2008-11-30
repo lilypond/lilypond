@@ -240,8 +240,8 @@ chiffre, ni ponctuation, ni caractère accentué, ni espace.} ; ce peut être
 @code{laTeteAToto}, tant qu'il ne s'agit pas de @qq{mot réservé}.  Pour
 plus de détails, voir @ref{Saving typing with variables and functions}. 
 
-@seealso
 
+@seealso
 Pour une description complète du format des fichiers d'entrée, voir 
 @ruser{File structure}.
 
@@ -395,8 +395,8 @@ une indentation stricte et propre est vraiment d'une aide précieuse :
 assurez-vous que chaque élément d'un même niveau a le même décalage
 horizontal dans votre éditeur de texte !
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Structure of a score}.
 
 
@@ -904,8 +904,8 @@ pas encore tout à fait prêts pour voir comment corriger cela, aussi nous
 examinerons ce problème dans un autre chapitre (voir la propriété
 force-hshift  dans @ref{Fixing overlapping notation}).
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Multiple voices}.
 
 
@@ -1142,8 +1142,8 @@ même moment et qu'aucun décalage n'a été spécifié ou qu'ils sont
 identiques, LilyPond vous le signalera par le message @qq{Trop
 d'empilements en conflit}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Multiple voices}.
 
 
@@ -1486,8 +1486,8 @@ refrainwordsB = \lyricmode {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Vocal music}.
 
 
@@ -1575,8 +1575,8 @@ Le nom de chacun des contextes est formé d'un ou plusieurs mots aux
 initiales en majuscule et directements accolés les uns aux autres sans
 ponctuation, comme par exemple @code{GregorianTranscriptionStaff}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Contexts explained}.
 
 
@@ -1762,8 +1762,8 @@ partir du nom, et vice versa.
 Nous verrons plus avant comment le résultat de LilyPond peut changer
 lorsqu'on modifie l'action des graveurs.
 
-@seealso
 
+@seealso
 Références internes : @rinternals{Engravers and Performers}.
 
 
@@ -2046,13 +2046,14 @@ Les propriétés de contextes ainsi définies peuvent être adaptées pour
 chacun des contextes en particulier grace à un bloc @code{\with} ou bien
 une commande @code{\set} au fil des notes.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Changing context default settings},
 @ruser{The set command}.
 
 Références internes : @rinternals{Contexts},
 @rinternals{Tunable context properties}.
+
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
@@ -2193,8 +2194,8 @@ Vous réglerez de la même manière les propriétés de tous les contextes
 d'un type particulier si vous insérez les commandes @code{\set} dans un
 bloc @code{\context}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Modifying context plug-ins}, 
 @ruser{Changing context default settings}.
 
@@ -2401,8 +2402,8 @@ celloMusic = \relative c {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Les patrons originaux sont disponibles à l'annexe @qq{Modèles}, voir
 @ref{Single staff}. 
 

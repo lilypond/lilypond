@@ -127,6 +127,9 @@ main docs
   Any new concepts or links which require an explanation should go
   as a full sentence(s) in the main text.
 
+  Don't insert an empty line between @seealso and the first entry!
+  Otherwise there is excessive vertical space in the PDF output.
+
 * To create links, use @ref{} if the link is within the same
   manual.
 

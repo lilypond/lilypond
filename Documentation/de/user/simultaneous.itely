@@ -66,8 +66,8 @@ Tonhöhe des vorherigen Akkords.
 
 Mehr Information über Akkorden findet sich in @ref{Chord notation}.
 
-@seealso
 
+@seealso
 Musikglossar:
 @rglos{chord}.
 
@@ -79,6 +79,7 @@ Notationsreferenz:
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
+
 
 @node Simultaneous expressions
 @unnumberedsubsubsec Simultaneous expressions
@@ -145,8 +146,8 @@ werden, sogar gleichzeitig.  In solchen Fällen wird nicht versucht,
 automatisch Zusammenstöße zwischen normalen Noten und Clustern
 aufzulösen.
 
-@seealso
 
+@seealso
 Musikglossar:
 @rglos{cluster}.
 
@@ -157,6 +158,7 @@ Referenz der Interna:
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
+
 
 @knownissues
 
@@ -353,7 +355,6 @@ ergeben, wenn die Musikausdrücke nicht den gleichen Rhythmus haben.
 
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{Voices contain music},
 @rlearning{Explicitly instantiating voices}.
@@ -410,14 +411,12 @@ die Standardausgabe einzuschalten.
 
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{I'm hearing Voices},
 @rlearning{Other sources of information}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
-
 
 
 @node Collision resolution
@@ -582,8 +581,8 @@ Richtungen zeigen (also etwa wie @code{Voice} 1 und 2).
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
-@seealso
 
+@seealso
 Musikglossar:
 @rglos{polyphony}.
 
@@ -599,6 +598,7 @@ Referenz der Interna:
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
+
 
 @knownissues
 
@@ -708,8 +708,8 @@ die Tonhöhen von @var{musikAusdr1} oder @var{musikAusdr2}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
 
+@seealso
 Musikglossar:
 @rglos{a due},
 @rglos{part}.
@@ -723,6 +723,7 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
+
 
 @knownissues
 
@@ -867,8 +868,8 @@ global = {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Handbuch zum Lernen:
 @rlearning{Organizing pieces with variables}.
 

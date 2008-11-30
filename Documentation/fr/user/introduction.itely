@@ -612,9 +612,10 @@ plusieurs contextes de Portée peuvent être inclus dans un seul
 contexte de Partition.  Le contexte de Partition est le contexte de
 notation de plus haut niveau.
 
-@seealso
 
+@seealso
 Référence du programme: @rinternals{Contexts}.
+
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

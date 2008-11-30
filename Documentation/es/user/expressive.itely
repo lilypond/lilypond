@@ -126,8 +126,7 @@ por debajo del pentagrama, véase @ref{Direction and placement}.
 
 
 @seealso
-
-Gloario musical:
+Glosario musical:
 @rglos{tenuto},
 @rglos{accent},
 @rglos{staccato},
@@ -351,8 +350,8 @@ parte de @rinternals{DynamicLineSpanner}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{al niente},
 @rglos{crescendo},
@@ -466,8 +465,8 @@ moltoF = #(make-dynamic-script
 Los ajustes para las fuentes tipográficas en el modo de marcado se
 describen en @ref{Selecting font and font size}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -588,7 +587,6 @@ g4( e c2)
 
 
 @seealso
-
 Glosario musical:
 @rglos{slur}.
 
@@ -663,7 +661,6 @@ No se pueden tener varias ligaduras de fraseo simultáneas o solapadas.
 
 
 @seealso
-
 Manual de aprendizaje:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -705,8 +702,8 @@ detalles, consulte @ref{Divisiones}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{caesura}.
 
@@ -752,8 +749,8 @@ al escribir caídas y elevaciones.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{fall},
 @rglos{doit}.
@@ -797,8 +794,8 @@ consulte @ref{Line styles}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{glissando}.
 
@@ -810,6 +807,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Glissando}.
+
 
 @knownissues
 
@@ -903,8 +901,8 @@ Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{arpeggio}.
 
@@ -917,6 +915,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Arpeggio},
 @rinternals{PianoStaff}.
+
 
 @knownissues
 
@@ -1007,7 +1006,6 @@ g\stopTrillSpan
 
 
 @seealso
-
 Glosario musical:
 @rglos{trill}.
 

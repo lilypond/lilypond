@@ -101,7 +101,6 @@ a4_"scherzando" f
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Formatting text},
 @ref{Direction and placement}.
@@ -111,6 +110,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{TextScript}.
+
 
 @knownissues
 
@@ -173,7 +173,6 @@ geändert werden.  Diese Syntax ist beschrieben in @ref{Line styles}.
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Line styles},
 @ref{Dynamics}.
@@ -183,7 +182,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{TextSpanner}.
-
 
 
 @node Text marks
@@ -260,8 +258,8 @@ c  c
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Rehearsal marks},
 @ref{Formatting text},
@@ -273,6 +271,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{RehearsalMark}.
+
 
 @knownissues
 @c  To be removed when Issue 69 in the tracker gets fixed. -vv
@@ -341,8 +340,8 @@ sich in @ref{Multi-page markup}.
 TODO: add convenient snippets in input/new -vv
 @end ignore
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Formatting text},
 @ref{File structure}, 
@@ -354,7 +353,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{TextScript}.
-
 
 
 @node Formatting text
@@ -466,7 +464,6 @@ Eine ausführliche Liste der @code{\markup}-Befehle findet sich in
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Text markup commands}.
 
@@ -641,7 +638,6 @@ Es ist auch möglich, eigene Schriftfamlien zu definieren, wie erklärt in
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Font},
 @ref{New dynamic marks},
@@ -865,6 +861,7 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
 Eine vollständige Liste der Textausrichtungsbefehle findet sich in
 @ref{Align}.
 
+
 @seealso
 Handbuch zum Lernen:
 @rlearning{Moving objects}.
@@ -881,7 +878,6 @@ Installierte Dateien:
 
 Referenz der Interna:
 @rinternals{TextScript}.
-
 
 
 @node Graphic notation inside markup
@@ -1032,6 +1028,7 @@ c
 Eine ausführliche Liste der Graphik-Befehle findet sich in
 @ref{Graphic}.
 
+
 @seealso
 Notationsreferenz:
 @ref{Graphic},
@@ -1046,7 +1043,6 @@ Referenz der Interna:
 Installierte Dateien:
 @file{scm/@/define@/-markup@/-commands@/.scm},
 @file{scm/@/stencil@/.scm}.
-
 
 
 @node Music notation inside markup
@@ -1163,6 +1159,7 @@ c d e f
 Eine vollständige Liste der Musiksymbol-Befehle findet sich in
 @ref{Music}.
 
+
 @seealso
 Notationsreferenz:
 @ref{Music},
@@ -1179,7 +1176,6 @@ Installierte Dateien:
 @file{scm/@/define@/-markup@/-commands@/.scm},
 @file{scm/@/fret@/-diagrams@/.scm},
 @file{scm/@/harp@/-pedals@/.scm}.
-
 
 
 @node Multi-page markup
@@ -1216,6 +1212,7 @@ eine Liste von Beschriftungslisten.
 
 Eine vollständige Liste der Beschriftungslistenbefehle findet sich in
 @ref{Text markup list commands}.
+
 
 @seealso
 Notationsreferenz:
@@ -1351,8 +1348,8 @@ umzuschalten, kann man auch eigene Schriftarten verwenden, wie erklärt
 in folgenden Abschnitten: @ref{Single entry fonts} und
 @ref{Entire document fonts}.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{The Feta font},
 @ref{Music notation inside markup},
@@ -1391,8 +1388,8 @@ lilypond -dshow-available-fonts x
 Das letzte Argument kann ein beliebiges Zeichen sein, aber es darf nicht
 fehlen.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Fonts explained},
 @ref{Entire document fonts}.
@@ -1402,7 +1399,6 @@ Schnipsel:
 
 Installierte Dateien:
 @file{lily/@/font@/-config@/-scheme@/.cc}.
-
 
 
 @node Entire document fonts
@@ -1438,8 +1434,8 @@ Familien in @ref{Fonts explained}.
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Fonts explained},
 @ref{Single entry fonts},

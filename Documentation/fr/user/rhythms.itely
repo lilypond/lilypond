@@ -128,7 +128,6 @@ points.
 
 
 @seealso
-
 Référence du programme : @rinternals{Dots}, @rinternals{DotColumn}.
 
 
@@ -279,10 +278,8 @@ suivante, ou à la prochaine note.
 
 
 @seealso
-
 Référence du programme : @rinternals{TupletBracket},
 @rinternals{TupletNumber}, @rinternals{TimeScaledMusic}.
-
 
 
 @node Scaling durations
@@ -305,7 +302,6 @@ b16*4 c4
 
 
 @seealso
-
 Dans ce manuel : @ref{Tuplets}.
 
 
@@ -435,7 +431,6 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
 
 
 @seealso
-
 Glossaire musical :
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -500,8 +495,8 @@ Cela rend plus facile la mise en place de la musique polyphonique,
 puisque le formateur automatique de collision des silences laissera ces
 silences tranquilles.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{Rest}.
 
 
@@ -545,8 +540,8 @@ note et de silence.  Ainsi, le code suivant aboutit à une portée vide.
 
 Le fragment @code{@{ \skip 4 @} } produirait une page vide.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{SkipMusic}.
 
 
@@ -640,7 +635,6 @@ R1*4
 
 
 @seealso
-
 Référence du programme : @rinternals{MultiMeasureRestMusic},
 @rinternals{MultiMeasureRest}.
 
@@ -754,7 +748,6 @@ argument à la commande @code{set-time-signature}, en troisième position.
 
 
 @seealso
-
 Référence du programme : @rinternals{TimeSignature} et
 @rinternals{Timing_translator}.
 
@@ -1011,9 +1004,10 @@ multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
 >> }
 @end lilypond
 
-@seealso
 
+@seealso
 Exemples : @rlsr{Rhythms}.
+
 
 @knownissues
 
@@ -1061,8 +1055,8 @@ normales et des points, le graveur n'insèrera pas de nolets.
 divise pas les silences.
 
 @seealso
-
 Référence du programme : @rinternals{Completion_heads_engraver}.
+
 
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
@@ -1078,9 +1072,10 @@ ramenées à la même hauteur, sur une portée d'une seule ligne.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{RhythmicStaff}.
+
 
 @node Beams
 @subsection Beams
@@ -1116,7 +1111,6 @@ individuelles d'être rattachées aux autres.
 
 
 @seealso
-
 Référence du programme : @rinternals{Beam}.
 
 
@@ -1524,7 +1518,6 @@ reprises. Voyez à ce sujet @ref{Repeats}.
 
 
 @seealso
-
 Dans ce manuel : @ref{Repeats}, @ref{Grouping staves}.
 
 Référence du programme : @rinternals{BarLine} (faisant partie du
@@ -1593,7 +1586,6 @@ c4 c c c
 
 
 @seealso
-
 Référence du programme : @rinternals{BarNumber}.
 
 Exemples : @rlsr{Staff notation}.
@@ -1756,8 +1748,8 @@ Pour connaître les différents symboles accessibles par
 Pour affiner le positionnement des repères, veuillez vous référer à
 @ref{Text marks}.
 
-@seealso
 
+@seealso
 Dans ce manuel : @ref{Text marks}.
 
 Référence du programme : @rinternals{RehearsalMark}.
@@ -1961,7 +1953,6 @@ Il est possible de forcer l'élasticité de l'espacement des notes d'agrément.
 
 
 @seealso
-
 Référence du programme : @rinternals{GraceMusic}.
 
 

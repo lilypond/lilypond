@@ -135,7 +135,6 @@ that use fonts.  These are the ones supporting the
 
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -200,8 +199,8 @@ staff, see @ref{Direction and placement}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {avoiding-collisions-of-chord-fingering-with-beams.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Direction and placement}
 
@@ -262,7 +261,6 @@ e4(\p f)--
 
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -351,14 +349,15 @@ gis8 a
 gis4 a
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{List of colors}, @ref{The
 tweak command}.
 
 Snippets:
 @rlsr{Editorial annotations}.
+
 
 @cindex x11 color
 @cindex colored notes in chords
@@ -407,8 +406,8 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -416,6 +415,7 @@ Internals Reference:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+
 
 @knownissues
 
@@ -455,6 +455,7 @@ made invisible.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+
 
 @seealso
 Notation Reference:
@@ -544,7 +545,6 @@ altered:
 
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -611,7 +611,6 @@ lines.
 
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -673,8 +672,8 @@ Analysis brackets may be nested.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Editorial annotations}.
 

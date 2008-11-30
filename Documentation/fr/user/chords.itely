@@ -398,11 +398,11 @@ Banter.  Pour la mise en œuvre de ces modèles, voir @ref{Chord name chart}.
 
 
 @seealso
-
 Exemples : @rlsr{Chords}.
 
 Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
 @file{scm/@/chord@/-entry@/.scm}.
+
 
 @knownissues
 
@@ -626,13 +626,14 @@ impossible lorsque plusieurs chiffrages qui se chevauchent en possèdent.
 Ce problème peut être contourné en jouant sur l'empilement, avec la
 propriété @code{stacking-dir} de l'objet @code{BassFigureAlignment}.
 
-@seealso
 
+@seealso
 Référence du programme : les objets @rinternals{BassFigure},
 @rinternals{BassFigureAlignment}, @rinternals{BassFigureLine},
 @rinternals{BassFigureBracket} et
 @rinternals{BassFigureContinuation}, ainsi que le contexte
 @rinternals{FiguredBass}.
+
 
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass

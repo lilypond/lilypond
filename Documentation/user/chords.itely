@@ -73,7 +73,6 @@ Chord mode and note mode can be mixed in sequential music:
 
 
 @seealso
-
 Music Glossary:
 @rglos{chord}.
 
@@ -83,6 +82,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}
+
 
 @knownissues
 
@@ -221,12 +221,12 @@ to create a major triad.
 
 
 @seealso
-
 Notation Reference:
 @ref{Common chord modifiers}.
 
 Snippets:
 @rlsr{Chords}.
+
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
@@ -359,13 +359,14 @@ Chord modifiers that can be used to produce a variety of
 standard chords are shown in
 @ref{Common chord modifiers}.
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Common chord modifiers}.
 
 Snippets:
 @rlsr{Chords}
+
 
 @knownissues
 
@@ -470,14 +471,11 @@ of the mode of entry, unless there are inversions or added bass notes:
 
 
 @seealso
-
 Music Glossary:
 @rglos{chord}.
 
-
 Notation Reference:
 @ref{Writing music in parallel}.
-
 
 Snippets:
 @rlsr{Chords}.
@@ -488,6 +486,7 @@ Internals Reference:
 @rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
+
 
 @knownissues
 
@@ -627,7 +626,6 @@ The spacer is not used when the root is altered.
 
 
 @seealso
-
 Notation Reference:
 @ref{Chord name chart},
 @ref{Common chord modifiers}.
@@ -642,6 +640,7 @@ Snippets:
 
 @c Internals Reference:
 @c @r internals{}.
+
 
 @knownissues
 
@@ -727,8 +726,8 @@ example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 @end ignore
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{figured bass}.
 
@@ -911,22 +910,23 @@ End of continuation line
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
+
 @seealso
 @c Music Glossary:
 @c @rglos{}.
-
+@c
 @c Learning Manual:
 @c @rlearning{}.
-
+@c
 @c Notation Reference:
 @c @ref{}.
-
+@c
 @c Application Usage:
 @c @rprogram{}.
-
+@c
 @c Installed Files:
 @c @file{}.
-
+@c
 Snippets:
 @rlsr{Chords}.
 
@@ -938,7 +938,9 @@ Internals Reference:
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
 
+
 @c @knownissues
+
 
 @node Displaying figured bass
 @unnumberedsubsubsec Displaying figured bass
@@ -1020,22 +1022,23 @@ or below the staff.
 
 @c @snippets
 
+
 @seealso
 @c Music Glossary:
 @c @rglos{}.
-
+@c
 @c Learning Manual:
 @c @rlearning{}.
-
+@c
 @c Notation Reference:
 @c @ref{}.
-
+@c
 @c Application Usage:
 @c @rprogram{}.
-
+@c
 @c Installed Files:
 @c @file{}.
-
+@c
 Snippets:
 @rlsr{Chords}.
 
@@ -1046,6 +1049,7 @@ Internals Reference:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+
 
 @knownissues
 

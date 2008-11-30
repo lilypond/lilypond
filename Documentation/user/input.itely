@@ -99,10 +99,9 @@ input file.  They may be placed inside or outside a @code{\score}
 block, and inside or outside the single music expression within a
 @code{\score} block.
 
+
 @seealso
-
 Learning Manual:
-
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
 @rlearning{Score is a (single) compound musical expression}.
@@ -355,10 +354,11 @@ A multi-line comment delimited by @code{%@{ .. %@}}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{How LilyPond input files work}.
+
 
 @node Titles and headers
 @section Titles and headers
@@ -777,8 +777,8 @@ tocAct =
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Init files: @file{../ly/@/toc@/-init@/.ly}.
 
 
@@ -893,10 +893,12 @@ them will be lost on installing a new version of LilyPond.
 Some simple examples of using @code{\include} are shown in
 @rlearning{Scores and parts}.
 
+
 @seealso
 Learning Manual:
 @rlearning{Other sources of information},
 @rlearning{Scores and parts}.
+
 
 @knownissues
 
@@ -1117,14 +1119,15 @@ expression will cause @emph{all} tagged sections to be removed, as
 the first filter will remove all tagged sections except the one
 named, and the second filter will remove even that tagged section.
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Organizing pieces with variables}.
 
 Notation Reference:
 @ref{Automatic part combining},
 @ref{Including LilyPond files}.
+
 
 @ignore
 @c This warning is more general than this placement implies.

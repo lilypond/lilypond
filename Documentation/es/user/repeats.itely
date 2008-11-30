@@ -168,8 +168,8 @@ c1
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{repeat},
 @rglos{volta}.
@@ -186,6 +186,7 @@ Referencia de funcionamiento interno:
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @knownissues
 
@@ -331,9 +332,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
+
 @seealso
-
-
 Referencia de la notación:
 @ref{Bar lines},
 @ref{Formatting text}.
@@ -393,14 +393,15 @@ c1
 c1
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Repeats}.
 
 Referencia de funcionamiento interno:
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @node Short repeats
 @subsection Short repeats
@@ -455,8 +456,8 @@ donde @var{expresión_musical} es una expresión musical.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{percent repeat},
 @rglos{simile}.
@@ -471,6 +472,7 @@ Referencia de funcionamiento interno:
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{PercentRepeatCounter},
 @rinternals{PercentRepeatedMusic}.
+
 
 @knownissues
 
@@ -548,13 +550,15 @@ c2:8 c:32
 c: c:
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Repeats}.
 
+
 @cindex trémols de pentagrama cruzado
 @cindex pentagrama cruzado, trémolo de
+
 
 @knownissues
 

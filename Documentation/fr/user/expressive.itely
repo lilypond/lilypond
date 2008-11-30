@@ -121,7 +121,6 @@ a4^\prall^\markup { \sharp }
 
 
 @seealso
-
 Référence du programme : @rinternals{Script}.
 
 
@@ -300,7 +299,6 @@ leur étendue.  On peut empêcher l'impression de ces pointillés avec :
 
 
 @seealso
-
 Référence du programme : @rinternals{DynamicText}, @rinternals{Hairpin}.
 
 Le placement vertical de ces éléments graphiques est géré par le
@@ -421,7 +419,6 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 
 
 @seealso
-
 Référence du programme : @rinternals{Slur}.
 
 
@@ -460,7 +457,6 @@ Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
 
 
 @seealso
-
 Référence du programme : @rinternals{PhrasingSlur}.
 
 
@@ -488,8 +484,8 @@ c'4
 d4
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{BreathingSign}.
 
 Exemples : @rlsr{Winds}.
@@ -548,7 +544,6 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 
 @seealso
-
 Référence du programme : @rinternals{Glissando}.
 
 Exemples : @rlsr{Expressive marks}.
@@ -628,7 +623,6 @@ exemple dans le contexte @rinternals{PianoStaff} :
 
 
 @seealso
-
 Dans ce même manuel : @ref{Ties}, pour noter explicitement des arpèges.
 
 Référence du programme : @rinternals{Arpeggio}.
@@ -682,7 +676,6 @@ sera imprimée comme une tête de note noire entre parenthèses.
 
 
 @seealso
-
 Référence du programme : @rinternals{TrillSpanner}.
 
 

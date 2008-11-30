@@ -100,8 +100,8 @@ der @rinternals{Mensural_ligature_engraver} automatisch Ligaturen der
 Mensuralnotation. Siehe @ref{Ligatures} zu einer Übersicht über die Funktion
 und Notation von Ligaturen.
 
-@seealso
 
+@seealso
 @ref{Note head styles} stellt einen Überblick über alle verfügbaren
 Notenkopfstile zur Verfügung.
 
@@ -167,8 +167,8 @@ anderen Stil, wie in dem Beispiel
 Tonart verändert werden, indem die @code{glyph-name-alist}-Eigenschaft
 des @rinternals{KeySignature}-Objektes gesetzt wird.
 
-@seealso
 
+@seealso
 In diesem Handbuch: @ref{Pitches}, @ref{Accidentals} und
 @ref{Automatic accidentals} geben eine allgemeine Einführung in die Benutzung
 von Versetzungszeichen. Der Abschnitt @ref{Key signature} zeigt die allgemeine
@@ -214,8 +214,8 @@ Vgl. eine Liste aller vorhandenen Pausen in @code{pitches,rests}.
 Für die Notation des Gregorianischen Chorals gibt es keine Pausen; anstelle
 dessen werden @ref{Divisiones} verwendet.
 
-@seealso
 
+@seealso
 In diesem Handbuch: Der Abschnitt @ref{Rests} enthält eine allgemeine
 Einführung zur Benutzung von Pausen.
 
@@ -449,9 +449,10 @@ Petrucci verwendete C-Schlüssel mit unterschiedlich balanciertem vertikalen
 Balken auf der linken Seite in Abhängigkeit davon, auf welcher Notenlinie
 der Schlüssel gesetzt wird.
 
-@seealso
 
+@seealso
 In diesem Handbuch: siehe @ref{Clef}.
+
 
 @knownissues
 
@@ -586,10 +587,11 @@ Im folgenden Beispiel sind die unterschiedlichen Stile dargestellt.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 In diesem Handbuch: @ref{Time signature} bietet eine allgemeine Übersicht über
 den Einsatz von Taktangaben.
+
 
 @knownissues
 
@@ -734,8 +736,8 @@ und @code{mensural}. Sie werden im folgenden Fragment demonstriert.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Programmreferenz:
 @rinternals{Custos}.
 
@@ -788,7 +790,6 @@ sich in der Datei @file{gregorian@/-init@/.ly} auch eine Definition für
 
 
 @seealso
-
 In diesem Handbuch:
 @ref{Breath marks}.
 
@@ -2053,8 +2054,8 @@ fis gis
 ais bis
 @end lilypond
 
-@seealso
 
+@seealso
 Programmreferenz: @rinternals{Accidental_engraver}-Setzer und das
 @rinternals{AccidentalSuggestion}-Objekt.
 

@@ -99,8 +99,8 @@ pueden escribir en cualquier lugar dentro del archivo de entrada.  Se
 pueden escribir dentro o fuera del bloque @code{\score}, y dentro o
 fuera de la expresión musical única dentro del bloque @code{\score}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
@@ -368,8 +368,8 @@ Un comentario de varias líneas, delimitado por @code{%@{ .. %@}}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{How LilyPond input files work}.
 
@@ -811,8 +811,8 @@ tocAct =
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Archivos de inicio:
 @file{ly/@/toc@/-init@/.ly}.
 
@@ -933,11 +933,12 @@ instalar una nueva versión de LilyPond.
 Pueden verse ejemplos sencillos sobre el uso de @code{\include} en
 @rlearning{Scores and parts}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Other sources of information},
 @rlearning{Scores and parts}.
+
 
 @knownissues
 
@@ -1164,8 +1165,8 @@ etiquetadas, porque el primer filtro quita todas las secciones
 etiquetadas excepto la que se nombra, y el segundo filtro elimina
 incluso esa sección etiquetada.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Organizing pieces with variables}.
 
@@ -1173,10 +1174,12 @@ Referencia de la notación:
 @ref{Automatic part combining},
 @ref{Including LilyPond files}.
 
+
 @ignore
 @c This warning is more general than this placement implies.
 @c Rests are not merged whether or not they come from tagged sections.
 @c Should be deleted?  -td
+
 
 @knownissues
 

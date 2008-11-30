@@ -52,13 +52,14 @@ wird:
 <c\1 e\2 g\3>
 @end lilypond
 
-@seealso
 
+@seealso
 Programmreferenz:
 @rinternals{StringNumber}.
 
 Beispiele:
 @rlsr{Fretted strings}.
+
 
 @node Default tablatures
 @unnumberedsubsubsec Default tablatures
@@ -122,9 +123,10 @@ initialisiert werden:
 \override Beam #'damping = #100000
 @end example
 
-@seealso
 
+@seealso
 Programmreferenz: @rinternals{TabStaff}, @rinternals{TabVoice}.
+
 
 @knownissues
 
@@ -186,11 +188,13 @@ Saiten EADGBE. Andere vordefinierte Stimmungen sind
 @code{guitar-open-g-tuning},
 @code{mandolin-tuning} und @code{banjo-open-g-tuning}.
 
-@seealso
 
+@seealso
 In der Datei @file{scm/@/output@/-lib@/.scm} sind die Stimmungen
 definiert.
+
 Programmreferenz: @rinternals{Tab_note_heads_engraver}.
+
 
 @knownissues
 
@@ -247,10 +251,11 @@ Einige graphische Eigenschaften können verändert werden. Genaueres zur
 Schnittstelle für die Griffsymboleigenschaften findet sich unter
 @rinternals{fret-diagram-interface}.
 
-@seealso
 
+@seealso
 Beispiele:
 @rlsr{Fretted strings}.
+
 
 @node Right-hand fingerings
 @unnumberedsubsubsec Right-hand fingerings
@@ -304,9 +309,10 @@ Argument eingesetzt wird, wie im nächsten Beispiel:
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Program reference: @rinternals{StrokeFinger}
+
 
 @node Guitar
 @subsection Guitar
@@ -393,7 +399,7 @@ indem die @code{four-string-banjo}-Funktion eingesetzt wird:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
 
+@seealso
 Die Datei @file{scm/@/output@/-lib@/.scm} enthält vordefinierte
 Banjo-Stimmungen.

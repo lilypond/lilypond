@@ -430,12 +430,12 @@ Abschnitt @ref{Chord name chart}.
 
 
 @seealso
-
 Beispiele:
 @rlsr{Chords}.
 
 Init-Dateien: @file{scm/@/chords@/-ignatzek@/.scm} und
 @file{scm/@/chord@/-entry@/.scm}.
+
 
 @knownissues
 
@@ -650,13 +650,14 @@ mehrere Bassziffern sich überschneidende Linien haben. Um dieses
 Problem zu vermeiden, sollte @code{stacking-dir}
 im @code{BassFigureAlignment} benutzt werden.
 
-@seealso
 
+@seealso
 Programmreferenz: @rinternals{BassFigure}-,
 @rinternals{BassFigureAlignment}-, @rinternals{BassFigureLine}-,
 @rinternals{BassFigureBracket}- und
 @rinternals{BassFigureContinuation}-Objekte und der
 @rinternals{FiguredBass}-Kontext.
+
 
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass

@@ -155,7 +155,6 @@ d'indiquer des doigtés très proches des têtes de notes.
 
 
 @seealso
-
 Référence du programme : @rinternals{Fingering}.
 
 Exemples : @rlsr{Editorial annotations}.
@@ -246,7 +245,6 @@ L'exemple suivant illustre l'utilisation de la fonction
 
 
 @seealso
-
 Annexes : @ref{List of colors}.
 
 
@@ -358,8 +356,8 @@ et le texte de la bulle.
 @cindex bulles
 @cindex notation, expliquer
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{balloon-interface}.
 
 
@@ -434,8 +432,8 @@ contexte @rinternals{Staff} comporte le graveur
 }}}
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{HorizontalBracket}.
 
 

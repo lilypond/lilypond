@@ -578,9 +578,10 @@ Taktstriche usw. dagegen in einer Gruppe mit dem Namen @qq{Staff context}
 mehr als nur einen Voice-Kontext. Auf gleiche Weise können auch mehrere Staff-Kontexte
 in einen großen Score-Kontext (Partiturkontext) eingebunden werden.
 
-@seealso
 
+@seealso
 Programmreferenz: @rinternals{Contexts}.
+
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

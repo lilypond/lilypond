@@ -127,7 +127,6 @@ variables.
 
 
 @seealso
-
 Archivos instalados:
 @file{scm/@/paper@/.scm}.
 
@@ -298,7 +297,6 @@ papel.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Vertical spacing between systems}.
 
@@ -364,7 +362,6 @@ primero.  Predeterminado: @code{0}, como se determina en
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -554,7 +551,6 @@ Predeterminado: sin establecer.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -685,7 +681,6 @@ pentagrama individuales están en relación al tamaño global.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Selecting notation font size}.
 
@@ -723,7 +718,6 @@ disposición específica de cada partitura.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Changing context default settings}.
 
@@ -827,7 +821,6 @@ novedosa y difícil.  Hay más detalles disponibles en @rlsr{Spacing}.
 
 
 @seealso
-
 Referencia de funcionamiento interno:
 @rinternals{LineBreakEvent}.
 
@@ -957,7 +950,6 @@ partes del libro.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -976,7 +968,6 @@ página.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1068,7 +1059,6 @@ de marcado del nivel superior.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1099,7 +1089,6 @@ de memoria, o con una gran cantidad de textos.  Se habilita utilizando:
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1150,7 +1139,6 @@ las instrucciones @code{\pageBreak} explícitas y en ningún otro lugar.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1238,7 +1226,6 @@ propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Vertical spacing}.
 
@@ -1374,7 +1361,6 @@ las dimensiones verticales están descritas en conexión con el grabador
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1442,7 +1428,6 @@ sería el mismo que en una página sin justificar por abajo, como la
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1684,7 +1669,6 @@ unos valores razonables.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1750,7 +1734,6 @@ lilypond <file>.ly
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1836,7 +1819,6 @@ c''2
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1948,7 +1930,6 @@ notation}.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1997,7 +1978,6 @@ instrucciones de sobreescritura @code{\override} en dicho punto.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -2083,7 +2063,6 @@ sin tener en cuenta las claves, líneas divisorias ni notas de adorno:
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -2141,7 +2120,6 @@ ocupa su longitud horizontal natural.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -2507,8 +2485,8 @@ puntos de comienzo como de final, y permiten que los elementos de
 extensión se dividan entre los sistemas y las páginas.  Consulte las
 partes respectivas del manual para ver estos ajustes relacionados.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{New spacing area}.
 
@@ -2567,7 +2545,6 @@ del intervalo.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -2677,7 +2654,6 @@ completa.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Page formatting},
 @ref{Changing horizontal spacing}.

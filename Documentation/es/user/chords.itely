@@ -76,8 +76,8 @@ secuencial:
 \chordmode { f2 g }
 @end lilypond
 
-@seealso
 
+@seealso
 Glossario musical:
 @rglos{chord}.
 
@@ -87,6 +87,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Chords}
+
 
 @knownissues
 
@@ -166,10 +167,11 @@ modificador para crear una tríada mayor.
 
 @end table
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Chords}.
+
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
@@ -304,10 +306,11 @@ de ser movida por efecto de una inversión, mediante el uso de
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Chords}
+
 
 @knownissues
 
@@ -416,8 +419,8 @@ inversiones o bajos añadidos:
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{chord}.
 
@@ -433,6 +436,7 @@ Referencia de funcionamiento interno:
 @rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
+
 
 @knownissues
 
@@ -588,8 +592,8 @@ puede establecer para que sea cualquier elemento de marcado.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Chord name chart}.
 
@@ -603,6 +607,7 @@ Fragmentos de código:
 
 @c Internals Reference:
 @c @rinternals{  }.
+
 
 @knownissues
 
@@ -685,8 +690,8 @@ impresión de las cifras.  Por ejemplo, el espaciado vertical de las
 cifras se puede ajustar con @code{baseline-skip}.
 @end ignore
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{figured bass}.
 
@@ -874,8 +879,8 @@ Fin de línea de continuación
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Chords}.
 
@@ -887,7 +892,9 @@ Referencia de funcionamiento interno:
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
 
+
 @c @knownissues
+
 
 @node Displaying figured bass
 @unnumberedsubsubsec Displaying figured bass
@@ -996,19 +1003,19 @@ instead of
 @seealso
 @c Music Glossary:
 @c @rg los{}.
-
+@c
 @c Learning Manual:
 @c @rle arning{}.
-
+@c
 @c Notation Reference:
 @c @re f{}.
-
+@c
 @c Application Usage:
 @c @rpr ogram{}.
-
+@c
 @c Installed Files:
 @c @fil e{}.
-
+@c
 Snippets:
 @rlsr{Chords}.
 
@@ -1019,6 +1026,7 @@ Referencia de funcionamiento interno:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+
 
 @knownissues
 

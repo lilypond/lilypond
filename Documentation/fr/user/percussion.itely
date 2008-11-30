@@ -65,10 +65,9 @@ Ces noms sont inventoriés dans le fichier d'initialisation
 @file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
 
+
 @seealso
-
 Référence du Programme : @rinternals{note-event}.
-
 
 
 @node Percussion staves
@@ -280,10 +279,10 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 
 @seealso
-
 Fichier d'initialisation : @file{ly/@/drumpitch@/-init@/.ly}.
 
 Référence du programme : @rinternals{DrumStaff}, @rinternals{DrumVoice}.
+
 
 @knownissues
 

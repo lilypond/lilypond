@@ -371,6 +371,7 @@ fragmento:
 \begin@{lilypond@}...\end@{lilypond@}
 @end example
 
+
 @seealso
 Hay opciones de línea de órdenes específicas de
 @command{lilypond-book} y otros detalles que conocer para procesar

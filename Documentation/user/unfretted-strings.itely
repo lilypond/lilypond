@@ -64,6 +64,7 @@ added, see @ref{Arpeggio}.
 
 @end itemize
 
+
 @seealso
 Learning Manual:
 @rlearning{String quartet}.
@@ -76,6 +77,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Unfretted strings}.
+
 
 @node Bowing indications
 @unnumberedsubsubsec Bowing indications
@@ -119,10 +121,10 @@ a2^\markup { \small "sul A" }
 
 
 @seealso
-
 Notation Reference:
 @ref{Articulations and ornamentations},
 @ref{Slurs}.
+
 
 @node Harmonics
 @unnumberedsubsubsec Harmonics
@@ -176,6 +178,7 @@ diamond note head to indicate the harmonic position.
 <e a\harmonic>2  <c g'\harmonic>
 @end lilypond
 
+
 @seealso
 Music Glossary:
 @rglos{harmonics}.
@@ -183,6 +186,7 @@ Music Glossary:
 Notation Reference:
 @ref{Special note heads},
 @ref{References for unfretted strings}.
+
 
 @node Snap (Bartok) pizzicato
 @unnumberedsubsubsec Snap (Bartók) pizzicato

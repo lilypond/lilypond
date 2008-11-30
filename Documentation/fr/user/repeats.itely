@@ -189,8 +189,8 @@ débuter la ligne suivante avec une section reprise, on peut utiliser
 
 Consultez @ref{Bar lines} pour plus d'informations.
 
-@seealso
 
+@seealso
 Program reference: @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}, et
@@ -272,7 +272,6 @@ c4 c4
 
 
 @seealso
-
 Référence du programme : @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}, et
@@ -318,7 +317,6 @@ La subdivision des trémolos aboutit à un résultat semblable : voir
 
 
 @seealso
-
 Dans ce manuel : @ref{Tremolo subdivisions}, @ref{Repeats}.
 
 Référence du programme : @rinternals{Beam}, @rinternals{StemTremolo}.
@@ -352,7 +350,6 @@ le fichier MIDI.
 
 
 @seealso
-
 Dans ce manuel : @ref{Tremolo repeats}.
 
 Référence du programme : @rinternals{StemTremolo}.
@@ -401,7 +398,6 @@ R1
 
 
 @seealso
-
 Référence du programme : @rinternals{RepeatSlash},
 @rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},

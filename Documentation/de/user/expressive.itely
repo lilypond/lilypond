@@ -124,7 +124,6 @@ definiert.  Artikulationszeichen und Onrnamente können manuell
 
 
 @seealso
-
 Musikglossar:
 @rglos{tenuto},
 @rglos{accent},
@@ -351,7 +350,6 @@ Vertikale Position der Zeichen wird von der Funktion
 
 
 @seealso
-
 Musikglossar:
 @rglos{al niente},
 @rglos{crescendo},
@@ -373,7 +371,6 @@ Referenz der Interna:
 @rinternals{DynamicText},
 @rinternals{Hairpin},
 @rinternals{DynamicLineSpanner}.
-
 
 
 @node New dynamic marks
@@ -473,7 +470,6 @@ Die Auswahl von Schriftarten in Textbeschriftungen ist erklärt in
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -598,7 +594,6 @@ g4( e c2)
 
 
 @seealso
-
 Musikglossar:
 @rglos{slur}.
 
@@ -614,7 +609,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{Slur}.
-
 
 
 @node Phrasing slurs
@@ -674,7 +668,6 @@ erlaubt.
 
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -686,7 +679,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{PhrasingSlur}.
-
 
 
 @node Breath marks
@@ -720,7 +712,6 @@ Divisiones genannt, sind unterstützt.  Für Einzelheiten siehe
 
 
 @seealso
-
 Musikglossar: 
 @rglos{caesura}.
 
@@ -732,7 +723,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{BreathingSign}.
-
 
 
 @node Falls and doits
@@ -771,7 +761,6 @@ ist @emph{notwendig} um unbestimmte Glissandos zu notieren.
 
 
 @seealso
-
 Musikglossar:
 @rglos{fall},
 @rglos{doit}.
@@ -818,7 +807,6 @@ Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
 
 
 @seealso
-
 Musikglossar:
 @rglos{glissando}.
 
@@ -923,7 +911,6 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 
 
 @seealso
-
 Musikglossar:
 @rglos{arpeggio}.
 
@@ -1033,7 +1020,6 @@ g\stopTrillSpan
 
 
 @seealso
-
 Musikglossar:
 @rglos{trill}.
 

@@ -371,12 +371,11 @@ gewünschten Systeme übergeben wird:
 \begin@{lilypond@}...\end@{lilypond@}
 @end example
 
+
 @seealso
 @command{lilypond-book} stellt auch zahlreiche Kommandozeilen-Optionen zur 
-Verfügung. Für eine Liste dieser Optionen und andere hilfreiche Details zur
+Verfügung.  Für eine Liste dieser Optionen und andere hilfreiche Details zur
 Verarbeitung von @LaTeX{}-Dokumenten, siehe @ref{Invoking lilypond-book}.
-
-
 
 
 @node Texinfo

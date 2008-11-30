@@ -68,8 +68,8 @@ aplicación a los instrumentos de viento:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Breath marks},
 @ref{Slurs},
@@ -158,9 +158,11 @@ Se puede indicar esto mediante @code{cflat} o @code{fflat}. De forma parecida, e
 sol agudo piobaireachd se puede escribir @code{gflat} cuando aparece en música
 ligera.
 
+
 @seealso
 Fragmentos de código:
 @rlsr{Winds}.
+
 
 @node Bagpipe example
 @unnumberedsubsubsec Bagpipe example
@@ -207,6 +209,7 @@ gaita.
   \bar "|."
 }
 @end lilypond
+
 
 @seealso
 Fragmentos de código:

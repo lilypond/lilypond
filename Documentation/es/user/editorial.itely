@@ -139,7 +139,6 @@ contemplan el interfaz de presentación @code{font-interface}.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -202,8 +201,8 @@ and placement}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Direction and placement}
 
@@ -264,7 +263,6 @@ e4(\p f)--
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -354,14 +352,15 @@ gis8 a
 gis4 a
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{List of colors},
 @ref{The tweak command}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
+
 
 @cindex x11,  color de
 @cindex coloreadas, notas de acorde
@@ -412,8 +411,8 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -421,6 +420,7 @@ Referencia de funciionamiento interno:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+
 
 @knownissues
 
@@ -459,6 +459,7 @@ crean pero se hacen invisibles.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -549,7 +550,6 @@ pero esto puede cambiarse:
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -617,7 +617,6 @@ especificar la duración entre las líneas de rejilla.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -680,8 +679,8 @@ Los corchetes de análisis se pueden anidar.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 

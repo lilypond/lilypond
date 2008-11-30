@@ -94,7 +94,6 @@ a4_"scherzando" f
 
 
 @seealso
-
 Notation Reference:
 @ref{Formatting text},
 @ref{Direction and placement}.
@@ -104,6 +103,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+
 
 @knownissues
 
@@ -162,7 +162,6 @@ object property.  This syntax is described in @ref{Line styles}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Line styles},
 @ref{Dynamics}.
@@ -242,8 +241,8 @@ c  c
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Rehearsal marks},
 @ref{Formatting text},
@@ -255,6 +254,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{RehearsalMark}.
+
 
 @knownissues
 @c  To be removed when Issue 69 in the tracker gets fixed. -vv
@@ -320,8 +320,8 @@ requires, are described in @ref{Multi-page markup}.
 TODO: add convenient snippets in input/new -vv
 @end ignore
 
-@seealso
 
+@seealso
 Notation Reference: @ref{Formatting text},
 @ref{File structure},
 @ref{Multiple scores in a book},
@@ -435,7 +435,6 @@ An exhaustive list of @code{\markup}-specific commands can be found in
 
 
 @seealso
-
 Notation Reference:
 @ref{Text markup commands}.
 
@@ -828,6 +827,7 @@ the following example.
 An exhaustive list of text alignment commands
 can be found in @ref{Align}.
 
+
 @seealso
 Learning Manual:
 @rlearning{Moving objects}.
@@ -986,6 +986,7 @@ c
 An exhaustive list of graphics-specific commands
 can be found in @ref{Graphic}.
 
+
 @seealso
 Notation Reference:
 @ref{Graphic},
@@ -999,6 +1000,7 @@ Internals Reference: @rinternals{TextScript}.
 Installed files:
 @file{scm/@/define@/-markup@/-commands@/.scm},
 @file{scm/@/stencil@/.scm}.
+
 
 @node Music notation inside markup
 @unnumberedsubsubsec Music notation inside markup
@@ -1110,6 +1112,7 @@ c d e f
 An exhaustive list of music notation related commands can be
 found in @ref{Music}.
 
+
 @seealso
 Notation Reference:
 @ref{Music},
@@ -1125,6 +1128,7 @@ Installed files:
 @file{scm/@/define@/-markup@/-commands@/.scm},
 @file{scm/@/fret@/-diagrams@/.scm},
 @file{scm/@/harp@/-pedals@/.scm}.
+
 
 @node Multi-page markup
 @unnumberedsubsubsec Multi-page markup
@@ -1159,6 +1163,7 @@ a list of markup lists.
 
 An exhaustive list of markup list commands can be found in
 @ref{Text markup list commands}.
+
 
 @seealso
 Notation Reference:
@@ -1287,12 +1292,14 @@ it is also possible to use other fonts, as explained in the
 following sections: @ref{Single entry fonts} and
 @ref{Entire document fonts}.
 
+
 @seealso
 Notation Reference:
 @ref{The Feta font},
 @ref{Music notation inside markup},
 @ref{Selecting font and font size},
 @ref{Font}.
+
 
 @node Single entry fonts
 @unnumberedsubsubsec Single entry fonts
@@ -1324,6 +1331,7 @@ lilypond -dshow-available-fonts x
 The last argument of the command can be anything, but has to be
 present.
 
+
 @seealso
 Notation Reference:
 @ref{Fonts explained},
@@ -1335,9 +1343,9 @@ Snippets:
 Installed files:
 @file{lily/@/font@/-config@/-scheme@/.cc}.
 
+
 @node Entire document fonts
 @unnumberedsubsubsec Entire document fonts
-
 
 It is possible to change the fonts to be used as the default fonts in
 the @emph{roman}, @emph{sans} and @emph{typewriter} font families by
@@ -1367,6 +1375,7 @@ explanation of fonts, see @ref{Fonts explained}.
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
+
 
 @seealso
 Notation Reference:

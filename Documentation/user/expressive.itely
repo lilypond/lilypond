@@ -121,7 +121,6 @@ may be manually placed above or below the staff, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{tenuto},
 @rglos{accent},
@@ -350,7 +349,6 @@ Vertical positioning of dynamics is handled by
 
 
 @seealso
-
 Music Glossary:
 @rglos{al niente},
 @rglos{crescendo},
@@ -467,7 +465,6 @@ Font settings in markup mode are described in
 
 
 @seealso
-
 Notation Reference:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -588,7 +585,6 @@ g4( e c2)
 
 
 @seealso
-
 Music Glossary:
 @rglos{slur}.
 
@@ -684,7 +680,6 @@ g4\( e c2\)
 
 
 @seealso
-
 Learning Manual:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -729,7 +724,6 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{caesura}.
 
@@ -775,7 +769,6 @@ command is @emph{required} when writing falls and doits.
 
 
 @seealso
-
 Music Glossary:
 @rglos{fall},
 @rglos{doit}.
@@ -821,7 +814,6 @@ Different styles of glissandi can be created.  For details, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{glissando}.
 
@@ -924,7 +916,6 @@ information, see @ref{Ties}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{arpeggio}.
 
@@ -1030,7 +1021,6 @@ g\stopTrillSpan
 
 
 @seealso
-
 Music Glossary:
 @rglos{trill}.
 

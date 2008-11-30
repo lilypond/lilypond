@@ -578,9 +578,10 @@ context contains more than one Voice context.  Similarly, multiple
 Staff contexts can be put into a single Score context.  The Score
 context is the top level notation context.
 
-@seealso
 
+@seealso
 Internals Reference: @rinternals{Contexts}.
+
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

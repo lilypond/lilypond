@@ -97,7 +97,6 @@ a4_"scherzando" f
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Formatting text},
 @ref{Direction and placement}.
@@ -107,6 +106,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
+
 
 @knownissues
 
@@ -167,7 +167,6 @@ styles}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Line styles},
 @ref{Dynamics}.
@@ -249,8 +248,8 @@ c  c
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Rehearsal marks},
 @ref{Formatting text},
@@ -262,6 +261,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{RehearsalMark}.
+
 
 @knownissues
 @c  To be removed when Issue 69 in the tracker gets fixed. -vv
@@ -324,8 +324,8 @@ requiere se describen en @ref{Multi-page markup}.
 TODO: add convenient snippets in input/new -vv
 @end ignore
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Formatting text},
 @ref{File structure},
@@ -442,7 +442,6 @@ específicas de @code{\markup} en @ref{Text markup commands}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Text markup commands}.
 
@@ -620,7 +619,6 @@ como se explica en @ref{Fonts}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Font},
 @ref{New dynamic marks},
@@ -843,8 +841,8 @@ la izquierda o justificados, como se muestra en el ejemplo siguiente.
 Hay una lista exhaustiva de instrucciones de alineación de texto en
 @ref{Align}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Moving objects}.
 
@@ -1002,8 +1000,8 @@ c
 Hay una lista exhaustiva de instrucciones específicas de gráficos en
 @ref{Graphic}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Graphic},
 @ref{Editorial annotations}.
@@ -1130,8 +1128,8 @@ c d e f
 Hay una lista exhaustiva de instrucciones relacionadas con la notación
 musical en @ref{Music}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Music},
 @ref{The Feta font},
@@ -1184,8 +1182,8 @@ o una lista de listas de marcado.
 Hay una lista exhaustiva de las instrucciones de lista de marcado en
 @ref{Text markup list commands}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Text markup list commands},
 @ref{New markup list command definition}.
@@ -1310,8 +1308,8 @@ property.  The resulting size is taken relative to the
 @code{text-font-size} as defined in the @code{\paper} block.
 @end ignore
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{The Feta font},
 @ref{Music notation inside markup},
@@ -1350,8 +1348,8 @@ lilypond -dshow-available-fonts x
 El último argumento de la instrucción puede ser cualquiera, pero debe
 estar presente.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Fonts explained},
 @ref{Entire document fonts}.
@@ -1361,6 +1359,7 @@ Fragmentos de código:
 
 Archivos de inicio:
 @file{lily/@/font@/-config@/-scheme@/.cc}.
+
 
 @node Entire document fonts
 @unnumberedsubsubsec Entire document fonts
@@ -1395,8 +1394,8 @@ respectivamente como tipografías @emph{romana}, @emph{sans-serif} y
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Fonts explained},
 @ref{Single entry fonts},

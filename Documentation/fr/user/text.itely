@@ -99,7 +99,6 @@ Vous pouvez cependant l'y forcer en définissant
 
 
 @seealso
-
 Dans ce manuel : @ref{Formatting text}.
 
 Référence du programme : @rinternals{TextScript}.
@@ -231,8 +230,8 @@ début et la fin d'un glissando seraient en plein milieu des têtes de note.
 
 @end table
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{TextSpanner},
 @rinternals{Glissando}, @rinternals{VoiceFollower},
 @rinternals{TrillSpanner}, @rinternals{line-spanner-interface}.
@@ -289,7 +288,6 @@ Pour obtenir une ligne pleine, utilisez
 
 
 @seealso
-
 Référence du programme : @rinternals{TextSpanner}.
 
 
@@ -439,7 +437,6 @@ affectation à chacune des portées :
 
 
 @seealso
-
 Référence du programme : @rinternals{RehearsalMark}.
 
 
@@ -602,7 +599,6 @@ en utilisant @code{normal-text}.  Pour plus d'informations, consultez
 
 
 @seealso
-
 Dans ce manuel : @ref{Text markup commands}.
 
 Référence du programme : @rinternals{TextScript}.
@@ -675,8 +671,8 @@ tour des lignes de texte, comme ici :
 Les différentes commandes permettant de générer des listes de lignes
 se trouve dans @ref{Text markup list commands}.
 
-@seealso
 
+@seealso
 Dans ce manuel : @ref{Text markup list commands}, 
 @ref{New markup list command definition}.
 
@@ -792,8 +788,6 @@ du texte respectivement en roman, sans serif et monospace, comme ici :
 @c Apple TTF fonts
 
 
-
 @seealso
-
 Exemples : @rlsr{Text}.
 

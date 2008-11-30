@@ -107,7 +107,6 @@ detalles, consulte @ref{Defining new contexts}.
 
 
 @seealso
-
 Glosario musical:
 @rglos{staff},
 @rglos{staves}.
@@ -246,7 +245,6 @@ más detalles, consulte @ref{Defining new contexts}.
 
 
 @seealso
-
 Glosario musical:
 @rglos{brace},
 @rglos{bracket},
@@ -311,7 +309,6 @@ Para ver más detalles, consulte @ref{Defining new contexts}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Grouping staves},
 @ref{Instrument names},
@@ -457,8 +454,8 @@ e4 d c2
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{line},
 @rglos{ledger line},
@@ -473,6 +470,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{StaffSymbol},
 @rinternals{staff-symbol-interface}.
+
 
 @knownissues
 
@@ -623,8 +621,8 @@ información sobre @code{\RemoveEmptyStaffContext}, consulte
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{ossia},
 @rglos{staff},
@@ -732,8 +730,8 @@ de forma similar, se puede usar
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{Frenched staff}.
 
@@ -751,6 +749,7 @@ Referencia de funcionamiento interno:
 @rinternals{Staff},
 @rinternals{VerticalAxisGroup},
 @rinternals{Staff_symbol_engraver}.
+
 
 @knownissues
 
@@ -846,8 +845,8 @@ d4 g e c
 
 Para ver más detalles, consulte @ref{Formatting text}.
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1009,7 +1008,6 @@ musical para declarar el cambio de instrumento:
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Horizontal dimensions},
 @ref{Modifying context plug-ins}.
@@ -1119,7 +1117,6 @@ procedimiento, consulte @ref{Using tags}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Instrument transpositions},
 @ref{Using tags}.
@@ -1275,8 +1272,8 @@ Es posible etiquetar las partes guía con numbres exclusivos de forma
 que se puedan procesar de diversas formas.  Para ver más detalles
 sobre este procedimiento, consulte @ref{Using tags}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Instrument transpositions},
 @ref{Instrument names},

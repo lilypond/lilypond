@@ -74,8 +74,8 @@ Las instrucciones para el manejo de varias voces se describe en
 
 @end itemize
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Fingering instructions},
 @ref{Ties},
@@ -85,6 +85,7 @@ Referencia de la notación:
 @ref{Arpeggio},
 @ref{List of articulations},
 @ref{Clef}.
+
 
 @node String number indications
 @unnumberedsubsubsec String number indications
@@ -125,8 +126,8 @@ estos elementos en el código:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Fingering instructions}.
 
@@ -215,8 +216,8 @@ notación de tablatura.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Stems}.
 
@@ -228,6 +229,7 @@ Referencia de funcionamiento interno:
 @rinternals{TabStaff},
 @rinternals{TabVoice},
 @rinternals{Beam}.
+
 
 @knownissues
 
@@ -340,8 +342,8 @@ mynotes = {
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Archivos de inicio:
 @file{scm/output-lib.scm}.
 
@@ -712,8 +714,8 @@ trastes, las propiedades del interface pertenecen a
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Text markup commands}.
 
@@ -722,6 +724,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{fret-diagram-interface}.
+
 
 @node Predefined fret diagrams
 @unnumberedsubsubsec Predefined fret diagrams
@@ -964,8 +967,8 @@ predefinido, las propiedades de interface pertenecen a
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Custom tablatures},
 @ref{Automatic fret diagrams},
@@ -1129,7 +1132,6 @@ interface @code{fret-diagram-interface}.  Los detalles están en
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Custom tablatures}.
 
@@ -1182,8 +1184,8 @@ corto, como por ejemplo @code{RH}:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Fretted strings}.
 
@@ -1230,14 +1232,15 @@ b16 d g b e
 e16 b g d
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Text spanners}.
 
 Fragmentos de código:
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
+
 
 @node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indicating harmonics and dampened notes
@@ -1261,14 +1264,15 @@ con un marcado de texto.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Fretted strings}.
 
 Referencia de la notación:
 @ref{Special note heads},
 @ref{Note head styles}.
+
 
 @node Banjo
 @subsection Banjo
@@ -1325,8 +1329,8 @@ cuatro cuerdas utilizando la función @code{four-string-banjo}:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Fretted strings}.
 

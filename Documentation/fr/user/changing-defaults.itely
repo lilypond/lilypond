@@ -435,7 +435,6 @@ Ainsi, par exemple :
 
 
 @seealso
-
 Référence du programme : @rinternals{OverrideProperty}, @rinternals{RevertProperty},
 @rinternals{PropertySet}, @rinternals{Backend}, et
 @rinternals{All layout objects}.
@@ -809,12 +808,9 @@ f
 Sur la page de la documentation relative aux doigtés, c'est-à-dire
 @ref{Fingering instructions}, se trouve l'indication suivante :
 
-@quotation
+
 @seealso
-
 Référence du programme : @rinternals{Fingering}.
-
-@end quotation
 
 
 @c  outdated info; probably will delete.

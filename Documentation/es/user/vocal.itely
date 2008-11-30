@@ -103,6 +103,7 @@ Continuaará...
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
+
 @seealso
 Referencia de la notación:
 @ref{Chord notation}.
@@ -144,8 +145,8 @@ Continuará...
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Ancient notation}.
 
@@ -303,7 +304,6 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 
 @seealso
-
 Referencia de funcionamiento interno: @rinternals{LyricText},
 @rinternals{LyricSpace}.
 
@@ -398,11 +398,12 @@ El código de entrada definitivo sería algo como
 >>
 @end example
 
-@seealso
 
+@seealso
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}, @rinternals{Lyrics}.
+
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
@@ -538,8 +539,8 @@ duraciones manuales de las sílabas del texto:
  } >>
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno: @rinternals{Lyrics}.
 
 
@@ -566,8 +567,8 @@ DejaVuLGC) que incluya este glifo.}.
 \addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno: @rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
@@ -649,9 +650,9 @@ sección @rlearning{Vocal ensembles}.
 
 
 @seealso
-
 @comment  Referencia de funcionamiento interno:
 @comment  @rinternals{Melisma_translator}.
+
 
 @knownissues
 
@@ -704,8 +705,8 @@ guiones.  Se puede controlar si esto ocurre o no, mediante la
 @code{minimum-length} (umbral por debajo del cual se suprimen los
 guiones).
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno: @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
 
@@ -1200,7 +1201,6 @@ text = \lyricmode {
 
 
 @seealso
-
 Referencia de funcionamiento interno:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.

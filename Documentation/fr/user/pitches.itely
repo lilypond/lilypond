@@ -260,7 +260,6 @@ cis cis cis! cis? c c? c! c
 
 
 @seealso
-
 Référence du programme : @rinternals{LedgerLineSpanner},
 @rinternals{NoteHead}.
 
@@ -479,7 +478,6 @@ réelles, on utilisera un deuxième @code{transpose}
 
 
 @seealso
-
 Référence du programme : @rinternals{TransposedMusic}.
 
 Exemples : @rlsr{Pitches}.
@@ -582,7 +580,6 @@ apparaître des possibilités de réglage manuel de ces propriétés.
 
 
 @seealso
-
 Dans ce manuel : @ref{Grace notes}.
 
 Référence du programme : @rinternals{Clef}.
@@ -658,7 +655,6 @@ a bes c d
 
 
 @seealso
-
 Référence du programme : @rinternals{KeyCancellation},
 @rinternals{KeySignature}.
 
@@ -702,7 +698,6 @@ d'octaviation en définissant @code{ottavation} après avoir fait appel
 
 
 @seealso
-
 Référence du programme : @rinternals{OttavaBracket}.
 
 
@@ -1107,7 +1102,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 
 @seealso
-
 Référence du programme : @rinternals{Accidental_engraver},
 @rinternals{Accidental}, @rinternals{AccidentalSuggestion} et @rinternals{AccidentalPlacement}.
 
@@ -1203,13 +1197,14 @@ Ce réglage déplace l'ambitus vers la gauche.  Le même résultat aurait pu
 forme n'aurait pas attribué d'espace supplémentaire pour l'objet
 déplacé.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{Ambitus},
 @rinternals{AmbitusLine}, @rinternals{AmbitusNoteHead},
 @rinternals{AmbitusAccidental}.
 
 Exemples : @rlsr{Pitches}, @rlsr{Vocal music}.
+
 
 @knownissues
 
@@ -1253,7 +1248,6 @@ Pour une liste exhaustive des styles de tête de note, consultez
 
 
 @seealso
-
 Référence du programme : @rinternals{NoteHead}.
 
 

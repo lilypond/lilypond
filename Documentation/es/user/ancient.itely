@@ -209,7 +209,9 @@ especializados en ligaduras del contexto @rinternals{Voice}, como se
 explica en @ref{White mensural ligatures} y @ref{Gregorian square
 neume ligatures}.
 
+
 @seealso
+
 
 @knownissues
 
@@ -296,8 +298,8 @@ fragmento:
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{Custos}.
 
@@ -360,7 +362,9 @@ escribir el canto, como lo demuestra el siguiente fragmento:
 }
 @end lilypond
 
+
 @seealso
+
 
 @node Mensural clefs
 @unnumberedsubsubsec Mensural clefs
@@ -471,10 +475,11 @@ clave de Sol en el estilo de Petrucci
 @end lilypond
 @end multitable
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Clef}.
+
 
 @knownissues
 
@@ -571,8 +576,8 @@ que existen entre los estilos:
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Time signature}
 ofrece una introducción general al uso de las indicaciones de compás.
@@ -638,8 +643,8 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 
 @end lilypond
 
-@seealso
 
+@seealso
 @ref{Note head styles} ofrece una visión de conjunto sobre la
 totalidad de los estilos de cabeza disponibles.
 
@@ -670,7 +675,9 @@ No existe un estilo particular de corchete para la notación neo-mensural.
 
 No existen corchetes en la notación del canto gregoriano.
 
+
 @seealso
+
 
 @knownissues
 
@@ -722,8 +729,8 @@ silencios.
 No hay silencios en la notación del canto gregoriano; en su lugar, se
 utilizan @ref{Divisiones}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Rests}
 ofrece una introducción general al uso de los silencios.
@@ -773,8 +780,8 @@ elementos gráficos @rinternals{Accidental} y
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Pitches},
 @ref{Accidentals} y
@@ -785,6 +792,7 @@ ofrece una introducción general al uso de las armaduras de tonalidad.
 
 Referencia de funcionamiento interno:
 @rinternals{KeySignature}.
+
 
 @cindex alteraciones accidentales
 
@@ -828,8 +836,8 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 el grabador @rinternals{Accidental_engraver}
 y el objeto
@@ -913,7 +921,9 @@ transcribe de la siguiente manera:
 }
 @end lilypond
 
+
 @seealso
+
 
 @knownissues
 
@@ -978,6 +988,7 @@ como lo demuestra el siguiente fragmento:
   >>
 }
 @end lilypond
+
 
 @seealso
 
@@ -1114,8 +1125,8 @@ Clave combinada de Do y Fa, estilo hufnagel
 @end lilypond
 @end multitable
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Clef}.
 
@@ -1175,8 +1186,8 @@ respectivamente; p.ej.:
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Pitches},
 @ref{Accidentals} y
@@ -1260,7 +1271,9 @@ la notación en el estilo de la @emph{Editio Vaticana}.
 }
 @end lilypond
 
+
 @seealso
+
 
 @knownissues
 
@@ -1295,8 +1308,8 @@ de @code{\augmentum a \augmentum g}.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Breath marks}.
 
@@ -2225,7 +2238,9 @@ descendente, respectivamente.
 Utilice la función musical unaria @code{\augmentum} para añadir puntos
 de augmentum.
 
+
 @seealso
+
 
 @knownissues
 
@@ -2274,6 +2289,7 @@ polifónica;
 
 Continuará...
 
+
 @seealso
 
 
@@ -2294,6 +2310,7 @@ proporcionan las barras de compás.
 
 Continuará...
 
+
 @seealso
 
 
@@ -2302,19 +2319,24 @@ Continuará...
 
 Continuará...
 
+
 @seealso
+
 
 @node Ancient and modern from one source
 @unnumberedsubsubsec Ancient and modern from one source
 
 Continuará...
 
+
 @seealso
+
 
 @node Editorial markings
 @unnumberedsubsubsec Editorial markings
 
 Continuará...
+
 
 @seealso
 
