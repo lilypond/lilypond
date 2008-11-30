@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 598a7ff07bb4752ea9169e592e3369016f014b57
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -30,10 +30,10 @@ Partituren erstellt werden können.
 
 Das LilyPond Eingabeformat hat eine ziemlich freie Form, so dass 
 für erfahrene Benutzer viel Freiheit besteht, die Struktur ihrer 
-Quelldateien anzulegen. Für Neulinge kann diese Flexibilität aber 
-erst einmal verwirrend sein. In diesem Kapitel soll darum ein Teil 
+Quelldateien anzulegen.  Für Neulinge kann diese Flexibilität aber 
+erst einmal verwirrend sein.  In diesem Kapitel soll darum ein Teil 
 dieser Strukturen dargestellt werden, vieles aber zur Vereinfachung 
-auch weggelassen werden. Für eine komplette Beschreibung des Eingabeformats 
+auch weggelassen werden.  Für eine komplette Beschreibung des Eingabeformats 
 siehe @ruser{File structure}.
 
 Die meisten Beispiele in diesem Handbuch sind kleine Schnipsel, wie 
@@ -44,8 +44,8 @@ c4 a b c
 @end example
 
 Wie hoffentlich bekannt ist, lässt sich solch ein Schnipsel nicht 
-in dieser Form übersetzen. Diese Beispiele sind also nur Kurzformen 
-von wirklichen Beispielen. Sie müssen wenigstens zusätzlich in 
+in dieser Form übersetzen.  Diese Beispiele sind also nur Kurzformen 
+von wirklichen Beispielen.  Sie müssen wenigstens zusätzlich in 
 geschweifte Klammern gesetzt werden.
 
 @example
@@ -80,6 +80,7 @@ im Kapitel @ruser{File structure}.
 
 @cindex Eingabeformat
 @cindex Dateistruktur
+@cindex Struktur, Datei
 
 Ein grundlegendes Beispiel einer Eingabedatei für LilyPond lautet:
 
@@ -87,7 +88,7 @@ Ein grundlegendes Beispiel einer Eingabedatei für LilyPond lautet:
 \version @w{"@version{}"}
 \header @{ @}
 \score @{
-  @var{...zusammengesetzter Musik-Ausdruck...}  % Die gesamte Musik kommt hier!
+  @var{...zusammengesetzter Musik-Ausdruck...}  % Die gesamten Noten kommen hier hin!
   \layout @{ @}
   \midi @{ @}
 @}
@@ -99,6 +100,8 @@ Schemas, aber dieses Beispiel dient als einfacher Ausgangspunkt.
 
 @funindex \book
 @funindex \score
+@funindex book
+@funindex score
 @cindex book
 @cindex score
 
@@ -117,7 +120,7 @@ Sehen wir uns als ein solches einfaches Beispiel an:
 
 @noindent
 Im Hintergrund kommen hier noch einige Ebenen dazu: LilyPond-Code 
-in der obigen Form ist in Wirklichkeit eine Abkürzung. Auch wenn man so 
+in der obigen Form ist in Wirklichkeit eine Abkürzung.  Auch wenn man so 
 Dateien schreiben kann und sie auch korrekt gesetzt werden, heißt 
 der vollständige Code, der hier gemeint ist, eigentlich:
 
@@ -137,13 +140,14 @@ der vollständige Code, der hier gemeint ist, eigentlich:
 @end example
 
 @noindent
-Mit anderen Worten: Wenn die Eingabedatei einen einfachen Musik-Ausdruck
+Mit anderen Worten:  Wenn die Eingabedatei einen einfachen Musik-Ausdruck
 enthält, wird LilyPond die Datei so interpretieren, als ob dieser
-Ausdruck in den oben gezeigten Befehlen eingegeben wurde. Diese nötige 
+Ausdruck in den oben gezeigten Befehlen eingegeben wurde.  Diese nötige 
 Stuktur wird automatisch im Speicher beim Aufruf von LilyPond erzeugt, 
 ohne dass der Benutzer davon etwas bemerkt.
 
 @cindex Implizite Kontexte
+@cindex Kontexte, implizit
 
 @strong{Ein Wort der Warnung ist jedoch angebracht!} Viele der Beispiele
 in der Dokumentation von LilyPond lassen die @code{\new Staff} und @code{\new Voice}
@@ -152,8 +156,8 @@ LilyPond ein sogenannter Kontext) bewusst aus,
 damit sie implizit von LilyPond im Speicher erzeugt werden.
 Für einfache Dokumente funktioniert das im Allgemeinen sehr gut, für 
 komplexere Partituren können dadurch aber unerwartete Ergebnisse 
-entstehen, teilweise sogar unerwartete leere Notenzeilen. Um 
-die entsprechenden Kontexte in diesem Fall explizit zu erzeugen, 
+entstehen, teilweise sogar unerwartete leere Notenzeilen.  Um 
+die entsprechenden Kontexte in diesem Fall explizit zu erzeugen,
 siehe @ref{Contexts and engravers}.
 
 @warning{Wenn mehr als ein paar Zeilen an Musik eingegeben werden,
@@ -164,7 +168,7 @@ Im Moment wollen wir aber zu unserem ersten Beispiel zurückkehren und
 nur den @code{\score}-Befehl näher betrachten.
 
 Eine Partitur (@code{\score}) muss immer mit einem musikalischen Ausdruck 
-beginnen. Das ist letztendlich alle Musik, angefangen bei einer 
+beginnen.  Das ist letztendlich alle Musik, angefangen bei einer 
 einzelnen
 Note bis hin zu einer riesigen Partitur mit vielen Notensystemen 
 (bezeichnet durch @code{GrandStaff}):
@@ -196,39 +200,43 @@ Ein @code{\score} auch andere Dinge enthalten, wie etwa
 @funindex \header
 @funindex \layout
 @funindex \midi
+@funindex header
+@funindex layout
+@funindex midi
 @cindex header
 @cindex midi
 @cindex Layout
 @cindex Kopfzeile
 
 @noindent
-
-@noindent
-Wie man sieht sind die drei Befehle @code{\header}, @code{\layout} und
+Wie man sieht, sind die drei Befehle @code{\header}, @code{\layout} und
 @code{\midi} von spezieller Natur: Im Gegensatz zu vielen Anderen Befehlen, 
 die auch mit einem @code{\} beginnen, liefern sie @emph{keinen} Musikausdruck
-und sind auch nicht Teil eines musikalischen Ausdrucks. Daher können sie
+und sind auch nicht Teil eines musikalischen Ausdrucks.  Daher können sie
 sowohl innerhalb eines @code{\score}-Blocks als auch außerhalb plaziert
-werden. Tatsächlich werden einige dieser Befehle meist außerhalb des 
+werden.  Tatsächlich werden einige dieser Befehle meist außerhalb des 
 @code{\score}-Blocksgesetzt, zum Beispiel findet sich der @code{\header} 
-sehr oft oberhalb der @code{\score}-Umgebung. Das 
+sehr oft oberhalb der @code{\score}-Umgebung.  Das 
 funktioniert genauso gut.
 
-
 Zwei bisher noch nicht aufgetauchte Befehle sind 
-@code{\layout @{ @}} und @code{\midi @{@}}. Wenn sie in einer 
+@code{\layout @{ @}} und @code{\midi @{@}}.  Wenn sie in einer 
 Datei vorkommen, führt dies dazu, dass Lilypond eine druckfähige PDF-Datei
-bzw. eine MIDI-Datei erzeugt. Genauer beschrieben werden sie im 
+bzw. eine MIDI-Datei erzeugt.  Genauer beschrieben werden sie im 
 Benutzerhandbuch -- @ruser{Score layout} und
 @ruser{Creating MIDI files}.
 
 @cindex Partituren, mehrfache
+@cindex book-Abschnitte, implizit
+@cindex implizite book-Umgebung
+@funindex \book
+@funindex book
 
 Ihr LilyPond Code kann auch mehrere @code{\score}-Blöcke enthalten. 
 Jeder davon wird als eigenständige Partitur interpretiert, die 
 allerdings alle in dieselbe Ausgabedatei plaziert weden.
 Ein @code{\book}-Befehl ist nicht explizit notwendig -- er wird 
-implizit erzeugt. Wenn jedoch für jeden @code{\score}-Block in einer 
+implizit erzeugt.  Wenn jedoch für jeden @code{\score}-Block in einer 
 einzigen @code{.ly}-Datei eine eigene Ausgabe-Datei erzeugt werden soll,
 dann muss jeder dieser Blöcke in einen eigenen @code{\book}-Block
 gesetzt werden: Jeder @code{\book}-Block erzeugt dann eine
@@ -237,15 +245,18 @@ eigene Ausgabedatei.
 Zusammenfassung:
 
 Jeder @code{\book}-Block erzeugt eine eigene Ausgabedatei (z.B. eine
-PDF-Datei). Wenn Sie keinen derartigen Block explizit angegeben haben,
+PDF-Datei).  Wenn Sie keinen derartigen Block explizit angegeben haben,
 setzt LilyPond den gesamten Dateiinhalt innerhalb eines einzigen 
 impliziten @code{\book}-Blocks.
 
 Jeder @code{\score}-Block beschreibt ein eigenständiges Musikstück 
 innerhalb des @code{\book}-Blocks.
 
+@cindex Layout-Umgebung, Platzierung
+@cindex Platzierung von layout-Umgebung
+
 Jeder @code{\layout}-Block wirkt sich auf den @code{\score}- oder
-@code{\book}-Block aus, in dem er auftritt. So wirkt z.B. ein 
+@code{\book}-Block aus, in dem er auftritt.  So wirkt z.B. ein 
 @code{\layout}-Block innerhalb eines @code{\score}-Blocks nur auf 
 diesen einen Block und seinen gesamten Inhalt, ein @code{\layout}-Block 
 außerhalb eines @code{\score}-Blocks (und daher innerhalb des implizit 
@@ -253,7 +264,6 @@ erzeugten oder explizit angegebenen @code{\book}-Blocks) jedoch auf
 alle @code{\score}-Blocks innerhalb dieses @code{\book}-Blocks.
 
 Nähere Details finden sich im Abschnitt @ruser{Multiple scores in a book}.
-
 
 @cindex Variablen
 @cindex Bezeichner
@@ -274,15 +284,15 @@ melodie = \relative c' @{
 Wenn LilyPond diese Datei analysiert, nimmt es den Inhalt
 von @code{melodie} (alles nach dem Gleichheitszeichen) und 
 fügt ihn immer dann ein, wenn ein @code{\melodie} 
-vorkommt. Die Namen sind frei wählbar, die Variable kann genauso
+vorkommt.  Die Namen sind frei wählbar, die Variable kann genauso
 gut  @code{melodie}, @code{GLOBAL},
-@code{rechteHandklavier}, oder @code{foofoobarbaz} heißen. Für mehr
+@code{rechteHandklavier}, oder @code{foofoobarbaz} heißen.  Für mehr
 Information siehe
 @ref{Saving typing with variables and functions}.
 Als Variablenname kann fast jeder beliebige Name benutzt werden,
 allerdings dürfen nur Buchstaben vorkommen (also keine Zahlen, Unterstriche,
 Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
-lauten. Die genauen Einschränkungen sind beschrieben in 
+lauten.  Die genauen Einschränkungen sind beschrieben in 
 @ruser{File structure}.
 
 @seealso
@@ -294,6 +304,7 @@ Eine vollständige Definition des Eingabeformats findet sich in
 @subsection Score is a (single) compound musical expression
 
 @funindex \score
+@funindex score
 @cindex score
 @cindex Partitur
 @cindex Musikstück
@@ -303,11 +314,11 @@ Eine vollständige Definition des Eingabeformats findet sich in
 
 Im vorigen Kapitel, @ref{Introduction to the LilyPond file structure}, 
 wurde die allgemeine Struktur einer LilyPond-Quelldatei 
-beschrieben. Aber anscheinend haben wir die wichtigste 
+beschrieben.  Aber anscheinend haben wir die wichtigste 
 Frage ausgelassen, nämlich wie man herausfindet, was nach 
 dem @code{\score} geschrieben werden soll.
 
-In Wirklichkeit ist das aber gar kein Geheimnis. Diese 
+In Wirklichkeit ist das aber gar kein Geheimnis.  Diese 
 Zeile ist die Antwort:
 
 @quotation
@@ -317,9 +328,9 @@ von einem einzelnen musikalischen Ausdruck.}
 
 @noindent
 Vielleicht wollen Sie noch einmal 
-@ref{Music expressions explained} überfliegen. In diesem
+@ref{Music expressions explained} überfliegen.  In diesem
 Kapitel wurde gezeigt, wie sich große musikalische Ausdrücke 
-aus kleinen Teilen zusammensetzen. Noten können zu Akkorden 
+aus kleinen Teilen zusammensetzen.  Noten können zu Akkorden 
 verbunden werden usw. Jetzt gehen wir aber in die andere Richtung 
 und betrachten, wie sich ein großer musikalischer Ausdruck 
 zerlegen lässt.
@@ -327,7 +338,7 @@ zerlegen lässt.
 @example
 \score @{
   @{   % diese Klammer startet den großen mus. Ausdruck
-    \new GrandStaff <<
+    <<
       @var{...hier eine ganze Wagner-Oper einfügen...}
     >>
   @}   % diese Klammer beendet den Ausdruck
@@ -336,9 +347,8 @@ zerlegen lässt.
 @end example
 
 Eine Wagner-Oper ist mindestens doppelt so lang wie dieses Handbuch,
-beschränken wir uns also auf einen Sänger und Klavier. Wir brauchen 
-keine Orchesterpartitur (@code{GrandStaff}) dafür, darum lassen wir 
-den Befehl weg. Wir brauchen aber einen Sänger und ein Klavier.
+beschränken wir uns also auf einen Sänger und Klavier.  Wir brauchen 
+keine ganze Orchesterpartitur, aber wir brauchen einen Sänger und ein Klavier.
 
 @example
 \score @{
@@ -346,7 +356,7 @@ den Befehl weg. Wir brauchen aber einen Sänger und ein Klavier.
     <<
       \new Staff = "Sänger" <<
       >>
-      \new PianoStaff = Klavier <<
+      \new PianoStaff = "Klavier" <<
       >>
     >>
   @}
@@ -356,11 +366,11 @@ den Befehl weg. Wir brauchen aber einen Sänger und ein Klavier.
 
 Zur Erinnerung: mit @code{<<} und @code{>>} werden Noten gleichzeitig
 gesetzt; wir wollen ja auch Klavier- und Sängerstimme gleichzeitig 
-und nicht hintereinander haben. Bei genauerem Hinsehen fällt auf, dass
+und nicht hintereinander haben.  Bei genauerem Hinsehen fällt auf, dass
 die @code{<< ... >>}-Konstruktion für die Notenzeile des Sängers eigentlich 
 nicht unbedingt nötig wäre, da sie ja nur einen (sequenzielle) musikalischen
-Ausdruck enthält, nämlich alle Noten des Sängers hintereinander. Daher
-könnte an sich auch einfach ein @code{@{...@}} benutzt werden. Die 
+Ausdruck enthält, nämlich alle Noten des Sängers hintereinander.  Daher
+könnte an sich auch einfach ein @code{@{...@}} benutzt werden.  Die 
 Spitzklammern sind allerdings notwendig, sobald die Notenzeile mehrere
 parallelle Ausdrücke -- wie etwa zwei parallele Stimmen oder eine Stimme
 mit zugehörigem Text -- enthält. 
@@ -383,19 +393,20 @@ wir uns mit einigen Platzhalter-Noten und -Texten.
 }
 @end lilypond
 
-Jetzt haben wir viel mehr Details. Wir haben ein System (engl. staff) 
+Jetzt haben wir viel mehr Details.  Wir haben ein System (engl. staff) 
 für einen Sänger, in dem sich wieder eine Stimme (engl. voice) 
-befindet. @code{Voice} bedeutet für LilyPond eine Stimme (sowohl 
-gesungen als auch gespielt) und evtl. zusätzlich einen Text. Zusätzlich 
+befindet.  @code{Voice} bedeutet für LilyPond eine Stimme (sowohl 
+gesungen als auch gespielt) und evtl. zusätzlich einen Text.  Zusätzlich 
 werden zwei Notensysteme für das Klavier mit dem Befehl @code{\new 
-PianoStaff} gesetzt. @code{PianoStaff} bezeichnet die Piano-Umgebung (etwa 
+PianoStaff} gesetzt.  @code{PianoStaff} bezeichnet die Piano-Umgebung (etwa 
 durchgehende Taktstriche und die geschweifte Klammer am Anfang), in der 
-dann wiederum zwei eigene Systeme ("upper" für die rechte Hand und 
-"lower" 
+dann wiederum zwei eigene Systeme ("oben" für die rechte Hand und 
+"unten" 
 für die linke) erstellt werden.
 
-Jetzt könnte man in diese Umgebung Noten einfügen. Innerhalb der 
-geschweiften Klammern neben @code{\new Voice = vocal} könnte man
+Jetzt könnte man in diese Umgebung Noten einfügen.  Innerhalb der 
+geschweiften Klammern neben @code{\new Voice = "Singstimme"}
+könnte man
 
 @example
 \relative c'' @{
@@ -403,9 +414,10 @@ geschweiften Klammern neben @code{\new Voice = vocal} könnte man
 @}
 @end example
 
-@noindent schreiben. Aber wenn man seine Datei so direkt schreibt, wird 
+@noindent
+schreiben.  Aber wenn man seine Datei so direkt schreibt, wird 
 der @code{\score}-Abschnitt sehr lang und es wird ziemlich schwer zu 
-verstehen, wie alles zusammenhängt. Darum bietet es sich an, Bezeichner 
+verstehen, wie alles zusammenhängt.  Darum bietet es sich an, Bezeichner 
 (oder Variablen) zu verwenden.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -435,16 +447,16 @@ unten   = \relative c { b2 e2 }
 Achten Sie auf den Unterschied zwischen Noten, die mit @code{\relative}
 oder direkt in einem musikalischen Ausruck eingegeben werden, und 
 dem Text des Lieds, der innerhalb @code{\lyricmode} angegeben 
-werden muss. Diese Unterscheidung ist für LilyPond essentiell,
+werden muss.  Diese Unterscheidung ist für LilyPond essentiell,
 um zu entscheiden, ob der folgende Inhalt als Musik oder Text 
-interpretiert werden soll. Wie könnte LilyPond sonst entscheiden, 
+interpretiert werden soll.  Wie könnte LilyPond sonst entscheiden, 
 ob @code{@{a b c@}} die drei Noten a, b und c darstellen soll oder
 den Text eines Lieds über das Alphabet!
 
 Beim Schreiben (oder Lesen) einer @code{\score}-Umgebung 
-sollte man langsam und sorgfältig vorgehen. Am besten fängt 
+sollte man langsam und sorgfältig vorgehen.  Am besten fängt 
 man mit dem größten Gebilde an und definiert dann die darin 
-enthaltenen kleineren der Reihe nach. Es hilft auch, sehr 
+enthaltenen kleineren der Reihe nach.  Es hilft auch, sehr 
 genau mit den Einzügen zu sein, so dass jede Zeile, die 
 der gleichen Ebene angehört, wirklich horizontal an der 
 gleichen Stelle beginnt.
@@ -459,11 +471,12 @@ Benutzerhandbuch: @ruser{Structure of a score}.
 
 @cindex Notenzeilen, temporäre
 @cindex Ossia
+@cindex temporäre Notenzeilen
 
-Notenzeilen (die @q{Staff}-Kontexte) müssen nicht unbedingt gleib
+Notenzeilen (die @q{Staff}-Kontexte) müssen nicht unbedingt gleich
 zu Beginn erzeugt werden -- sie können auch zu einem späteren
-Zeitpunkt eingeführt weden. Das ist vor allem nützlichm um 
-@rglosnamed{ossia,Ossias} zu erzeugen. Hier folgt ein kures Beispiel,
+Zeitpunkt eingeführt weden.  Das ist vor allem nützlichm um 
+@rglosnamed{ossia,Ossias} zu erzeugen.  Hier folgt ein kures Beispiel,
 wie eine zusätzliche temporäre Notenzeile für nur drei Noten erzeugt 
 werden kann:
 
@@ -486,10 +499,11 @@ werden kann:
 @noindent
 Wie man sieht, ist die Größe des Notenschlüssels dieselbe, wie sie 
 auch bei einer Schlüsseländerung auftritt -- etwas kleiner als
-der Schlüssel am Beginn einer Notenzeile. Dies ist normal für
+der Schlüssel am Beginn einer Notenzeile.   Dies ist normal für
 Notenschlüssel, die innerhalb einer Notenzeile gesetzt werden.
 
 @cindex Notenzeile, Positionierung
+@cindex Positionierung einer Notenzeile
 
 Der Ossia-Abschnitt kann auch oberhalb der Hauptnotenzeile
 gesetzt werden:
@@ -511,7 +525,7 @@ gesetzt werden:
 @end lilypond
 
 Dieses Beispiel benutzt den @code{\with}-Befehl, der später noch
-genauer erklärt wird. Damit kann das Standardverhalten einer
+genauer erklärt wird.  Damit kann das Standardverhalten einer
 einzelnen Notenzeile geändert werden: Hier wird einfach angegeben,
 dass die neue Notenzeile oberhalb der bereits existierenden Zeile
 mit Namen @qq{Hauptzeile} plaziert werden soll, anstatt 
@@ -520,9 +534,9 @@ standardmäßig unterhalb.
 @seealso
 
 Ossia werden oft ohne Notenschlüssel und Taktangabe gedruck, meist 
-auch etwas kleiner als die anderen Notenzeilen. Dies ist natürlich 
+auch etwas kleiner als die anderen Notenzeilen.  Dies ist natürlich 
 auch in LilyPond möglich, benötigt aber Befehle, die bisher noch 
-nicht vorgestellt wurden. Siehe @ref{Size of objects}
+nicht vorgestellt wurden.  Siehe @ref{Size of objects}
 und @ruser{Ossia staves}.
 
 
@@ -531,11 +545,12 @@ und @ruser{Ossia staves}.
 
 @cindex Klammern, geschachtelt
 @cindex Schachtelung von Klammern
+@cindex Klammer-Typen
 
 Sie haben bisher zahlreiche verschiedene Arten von Klammern
-beim Schreiben von Musik mit LilyPond kennengelernt. Diese
+beim Schreiben von Musik mit LilyPond kennengelernt.  Diese
 folgen verschiedenen Regeln, die zu Beginn vielleicht 
-verwirrend wirken. Bevor die genauen Regeln vorgestellt werden,
+verwirrend wirken.  Bevor die genauen Regeln vorgestellt werden,
 wollen wir die diversen Klammerarten kurz rekapitulieren:
 
 @c attempt to force this onto a new page
@@ -557,7 +572,6 @@ wollen wir die diversen Klammerarten kurz rekapitulieren:
   @tab Markiert den Beginn und das Ende eines manuell erzeugten Balkens
 @end multitable
 
-
 Zusätzlich sollten vielleicht noch einige weiter Konstruktionen
 erwähnt werden, die Noten auf irgendeine Art und Weise verbinden:
 Haltebögen (durch eine Tilde @code{~} markiert),
@@ -566,16 +580,16 @@ Vorschlagnoten (als @code{\grace@{..@}} notiert).
 
 Außerhalb von LilyPond fordert die übliche Benutzung von 
 Klammern, dass die entsprechenden Arten korrekt verschachtelt
-werden, wie z.B. in @code{<< [ @{ ( .. ) @} ] >>}. Die 
+werden, wie z.B. in @code{<< [ @{ ( .. ) @} ] >>}.  Die 
 schließenden Klammern kommen dabei in der umgekehrten Reihenfolge
-wie die öffnenden Klammern vor. Dies ist auch in LilyPond 
+wie die öffnenden Klammern vor.  Dies ist auch in LilyPond 
 ein @strong{Muss} für die drei Klammerarten, die in obiger 
 Tabelle mit dem Wort @q{Umschließt} beschrieben werden -- sie 
 müssen korrekt geschachtelt werden.
 Die restlichen Klammerarten (durch @q{Markiert} beschrieben),
 die Haltebögen und die Triolen brauchen jedoch mit den 
 anderen Klammerarten @strong{nicht} unbedingt korrekt 
-geschachtelt werden. Tatsächlich sind sie auch keine Klammern
+geschachtelt werden.  Tatsächlich sind sie auch keine Klammern
 in dem Sinn, dass sie etwas umschließen, sondern viel mehr
 Indikatoren, an welcher Stelle ein bestimmtes musikalisches 
 Objekt beginnt oder endet.
@@ -612,7 +626,7 @@ Phrasierungsbogen, der in einer Triole beginnt (Zeilen 3 und 4).
 
 Sänger brauchen Stimmen zum Singen, und LilyPond braucht sie auch:
 in der Tat sind alle Noten für alle Instrumente in einer Partitur
-innerhalb von Stimmen gesetzt. Die Stimme ist das grundlegendste Prinzip
+innerhalb von Stimmen gesetzt.  Die Stimme ist das grundlegendste Prinzip
 von LilyPond.
 
 @menu 
@@ -627,24 +641,27 @@ von LilyPond.
 @cindex Polyphonie
 @cindex Ebenen
 @cindex mehrere Stimmen
+@cindex Stimmen, mehrere
 @cindex Voice context
 @cindex context, Voice
 @cindex Kontext, Stimme
 @cindex Stimmenkontext
 @cindex gleichzeitige Noten
+@cindex Stimmen versus Akkorde
+@cindex Akkorde versus Stimmen
 @cindex Noten gleichzeitig
 
 Die grundegendsten und innersten Ebenen ein einer LilyPond-Partitur
 werden @qq{Voice context} (Stimmenkontext) oder auch nur @qq{Voice}
-(Stimme) genannt. Stimmen werden in anderen Notationsprogrammen
+(Stimme) genannt.  Stimmen werden in anderen Notationsprogrammen
 manchmal auch als @qq{layer} (Ebene) bezeichnet.
 
 Tatsächlich ist die Stimmenebene die einzige, die wirklich Noten 
-enthalten kann. Wenn kein Stimmenkontext explizit erstellt wird, 
+enthalten kann.  Wenn kein Stimmenkontext explizit erstellt wird, 
 wird er automatisch erstellt, wie am Anfang dieses Kapitels
-gezeigt. Manche Instrumente wie etwa die Oboe können nur eine
-Note gleichzeitig spielen. Noten für solche Instrumente sind
-monophon und brauchen nur eine einzige Stimme. Instrumente, die
+gezeigt.  Manche Instrumente wie etwa die Oboe können nur eine
+Note gleichzeitig spielen.  Noten für solche Instrumente sind
+monophon und brauchen nur eine einzige Stimme.  Instrumente, die
 mehrere Noten gleichzeitig spielen können, wie das Klavier, brauchen
 dagegeben oft mehrere Stimmen, um die verschiedenen gleichzeitig
 erklingenden Noten mit oft unterschiedlichen Rhythmen darstellen 
@@ -660,15 +677,15 @@ uns zuerst dieses Beispiel mit vier Akkorden an:
 @end lilypond
 
 Das kann ausgedrückt werden, indem man die einfachen spitzen Klammern
-@code{< ... >} benützt, um Akkorde anzuzeigen. Hierfür braucht man
-nur eine Stimme. Aber gesetzt der Fall das Fis sollte eigentlich
+@code{< ... >} benützt, um Akkorde anzuzeigen.  Hierfür braucht man
+nur eine Stimme.  Aber gesetzt der Fall das Fis sollte eigentlich
 eine Achtelnote sein, gefolgt von einer Achtelnote G (als Durchgangsnote
 hin zum A)? Hier haben wir also zwei Noten, die zur gleichen Zeit
 beginnen, aber unterschiedliche Dauern haben: die Viertelnote D und die
-Achtelnote Fis. Wie können sie notiert werden? Als Akkord kann man sie 
+Achtelnote Fis.  Wie können sie notiert werden? Als Akkord kann man sie 
 nicht schreiben, weil alle Noten in einem Akkord die gleiche Länge besitzen
-müssen. Sie können auch nicht als aufeinanderfolgende Noten geschrieben
-werden, denn sie beginnen ja zur selben Zeit. In diesem Fall also brauchen
+müssen.  Sie können auch nicht als aufeinanderfolgende Noten geschrieben
+werden, denn sie beginnen ja zur selben Zeit.  In diesem Fall also brauchen
 wir zwei Stimmen.
 
 Wie aber wird das in der LilyPond-Syntax ausgedrückt?
@@ -679,11 +696,11 @@ Wie aber wird das in der LilyPond-Syntax ausgedrückt?
 Die einfachste Art, Fragmente mit mehr als einer Stimme auf einem System
 zu notieren, ist, die Stimmen nacheinander (jeweils mit den Klammern
 @code{@{ ... @}}) zu schreiben und dann mit den spitzen Klammern
-(@code{<<...>>}) simultan zu kombinieren. Die beiden Fragmente müssen
+(@code{<<...>>}) simultan zu kombinieren.  Die beiden Fragmente müssen
 zusätzlich noch mit zwei Backslash-Zeichen (@code{\\}) voneinander
 getrennt werden, damit sie als zwei unterschiedliche Stimmen erkannt 
-werden. Ohne diese Trenner würden sie als eine einzige Stimme notiert
-werden. Diese Technik ist besonders dann angebracht, wenn es sich bei
+werden.  Ohne diese Trenner würden sie als eine einzige Stimme notiert
+werden.  Diese Technik ist besonders dann angebracht, wenn es sich bei
 den Noten um hauptsächlich homophone Musik handelt, in der hier und da
 polyphone Stellen vorkommen.
 
@@ -709,7 +726,7 @@ Hier ein anderes Beispiel:
 @end lilypond
 
 Es ist nicht notwendig, für jeden Takt eine eigene
-@code{<< \\ >>}-Konstruktion zu benutzen. Bei Musik mit nur wenigen
+@code{<< \\ >>}-Konstruktion zu benutzen.  Bei Musik mit nur wenigen
 Noten pro Takt kann es die Quelldatei besser lesbar machen, aber
 wenn in einem Takt viele Noten vorkommen, kann man die gesamten Stimmen
 separat schreiben, wie hier:
@@ -748,17 +765,17 @@ usw. entsprechend ausgerichtet.
 @end lilypond
 
 Diese Stimmen sind alle getrennt von der Hauptstimme, die die Noten 
-außerhalb der @code{<< .. >>}-Konstruktion beinhaltet. Lassen wir es
-uns die @emph{simultane Konstruktion} nennen. Bindebögen und Legatobögen
+außerhalb der @code{<< .. >>}-Konstruktion beinhaltet.  Lassen wir es
+uns die @emph{simultane Konstruktion} nennen.  Bindebögen und Legatobögen
 können nur Noten in der selben Stimmen miteinander verbinden und können
-also somit nicht aus der simultanen Konstruktion hinausreichen. Umgekehrt
+also somit nicht aus der simultanen Konstruktion hinausreichen.  Umgekehrt
 gilt, dass parallele Stimmen aus eigenen simultanen Konstruktionen auf
-dem gleichen Notensystem die gleiche Stimme sind. Auch andere, mit dem
+dem gleichen Notensystem die gleiche Stimme sind.  Auch andere, mit dem
 Stimmenkontext verknüpfte Eigenschaften erstrecken sich auf alle
-simultanen Konstrukte. Hier das gleiche Beispiel, aber mit unterschiedlichen Farben für die Notenköpfe der unterschiedlichen Stimmen.
+simultanen Konstrukte.  Hier das gleiche Beispiel, aber mit unterschiedlichen Farben für die Notenköpfe der unterschiedlichen Stimmen.
 Beachten Sie, dass Änderungen in einer Stimme sich nicht auf die anderen
 Stimmen erstrecken, aber sie sind weiterhin in der selben Stimme vorhanden,
-auch noch später im Stück. Beachten Sie auch, dass übergebundene Noten
+auch noch später im Stück.  Beachten Sie auch, dass übergebundene Noten
 über die gleiche Stimme in zwei Konstrukten verteilt werden können, wie
 hier an der blauen Dreieckstimme gezeigt.
 
@@ -802,19 +819,22 @@ Die Befehle @code{\voiceXXXStyle} sind vor allem dazu da, um in
 pädagogischen Dokumenten wie diesem hier angewandt zu werden.
 Sie verändern die Farbe des Notenkopfes, des Halses und des Balkens, und
 zusätzlich die Form des Notenkopfes, damit die einzelnen Stimmen
-einfach auseinander gehalten werden können. Die erste Stimme ist als
+einfach auseinander gehalten werden können.  Die erste Stimme ist als
 rote Raute definiert, die zweite Stimme als blaue Dreiecke, die dritte
 Stimme als grüne Kreise mit Kreuz und die vierte Stimme (die hier nicht
-benutzt wird) hat dunkelrote Kreuze. @code{\voiceNeutralStyle} (hier auch
-nicht benutzt) macht diese Änderungen rückgängig. Später soll gezeigt
+benutzt wird) hat dunkelrote Kreuze.  @code{\voiceNeutralStyle} (hier auch
+nicht benutzt) macht diese Änderungen rückgängig.  Später soll gezeigt
 werden, wie Befehle wie diese vom Benutzer selber erstellt werden 
-können. Siehe auch @ref{Visibility and color of objects} und
+können.  Siehe auch @ref{Visibility and color of objects} und
 @ref{Using variables for tweaks}.
 
+@cindex Polyphonie und relativer Notationsmodus
+@cindex relativer Notationsmodus und Polyphonie
+
 Polyphonie ändert nicht die Verhältnisse der Noten innerhalb eines
-@code{\relative @{ @}}-Blocks. Jede Note wird weiterhin relativ zu 
+@code{\relative @{ @}}-Blocks.  Jede Note wird weiterhin relativ zu 
 der vorherigen Note errechnet, oder relativ zur ersten Note des vorigen
-Akkords. So ist etwa hier
+Akkords.  So ist etwa hier
 
 @example
 \relative c' @{ NoteA << < NoteB NoteC > \\ NoteD >> NoteE @}
@@ -828,7 +848,7 @@ Akkords. So ist etwa hier
 @code{NoteE} bezüglich @code{NoteD}, nicht @code{NoteA} errechnet.
 
 Eine andere Möglichkeit ist, den @code{\relative}-Befehl vor jede
-Stimme zu stellen. Das bietet sich an, wenn die Stimmen weit voneinander
+Stimme zu stellen.  Das bietet sich an, wenn die Stimmen weit voneinander
 entfernt sind.
 
 @example
@@ -842,12 +862,12 @@ entfernt sind.
 @end example
 
 Zum Schluss wollen wir die Stimmen in einem etwas komplizierteren Stück
-analysieren. Hier die Noten der ersten zwei Takte von Chopins
-@notation{Deux Nocturnes}, Op. 32. Dieses Beispiel soll später in diesem
+analysieren.  Hier die Noten der ersten zwei Takte von Chopins
+@notation{Deux Nocturnes}, Op. 32.  Dieses Beispiel soll später in diesem
 und dem nächsten Kapitel benutzt werden, um verschiedene Techniken,
-Notation zu erstellen, zu demonstrieren. Ignorieren Sie deshalb an diesem
+Notation zu erstellen, zu demonstrieren.  Ignorieren Sie deshalb an diesem
 Punkt alles in folgendem Code, das Ihnen seltsam vorkommt, und konzentrieren
-Sie sich auf die Noten und die Stimmen. Die komplizierten Dinge werden
+Sie sich auf die Noten und die Stimmen.  Die komplizierten Dinge werden
 in späteren Abschnitten erklärt werden.
 
 @c The following should appear as music without code
@@ -873,23 +893,23 @@ in späteren Abschnitten erklärt werden.
 @end lilypond
 
 Die Richtung der Hälse wird  oft benutzt, um anzuzeigen, dass zwei 
-gleichzeitige Melodien sich fortsetzen. Hier zeigen die Hälse aller
+gleichzeitige Melodien sich fortsetzen.  Hier zeigen die Hälse aller
 oberen Noten nach oben und die Hälse aller unteren Noten nach unten.
 Das ist der erste Anhaltspunkt, dass mehr als eine Stimme benötigt 
 wird.
 
 Aber die wirkliche Notwendigkeit für mehrere Stimmen tritt erst
 dann auf, wenn unterschiedliche Noten gleichzeitig erklingen, aber
-unterschiedliche Dauern besitzen. Schauen Sie sich die Noten 
-auf dem dritten Schlag im ersten Takt an. Das As ist eine punktierte
-Viertel, das F ist eine Viertel und das Des eine Halbe. Sie können
+unterschiedliche Dauern besitzen.  Schauen Sie sich die Noten 
+auf dem dritten Schlag im ersten Takt an.  Das As ist eine punktierte
+Viertel, das F ist eine Viertel und das Des eine Halbe.  Sie können
 nicht als Akkord geschrieben werden, denn alle Noten in einem Akkord
-besitzen die gleiche Dauer. Sie können aber auch nicht nacheinander
-geschrieben werden, denn sie beginnen auf der gleichen Taktzeit. Dieser
+besitzen die gleiche Dauer.  Sie können aber auch nicht nacheinander
+geschrieben werden, denn sie beginnen auf der gleichen Taktzeit.  Dieser
 Taktabschnitt benötigt drei Stimmen, und normalerweise schreibt man
 drei Stimmen für den ganzen Takt, wie im Beispiel unten zu sehen ist;
 hier sind unterschiedliche Köpfe und Farben für die verschiedenen Stimmen
-eingesetzt. Nocheinmal: der Quellcode für dieses Beispiel wird später 
+eingesetzt.  Nocheinmal: der Quellcode für dieses Beispiel wird später 
 erklärt werden, deshalb ignorieren Sie alles, was Sie hier nicht 
 verstehen können.
 
@@ -921,8 +941,8 @@ verstehen können.
 }
 @end lilypond
 
-Versuchen wir also, diese Musik selber zu notieren. Wie wir sehen 
-werden, beinhaltet das einige Schwierigkeiten. Fangen wir an, wie
+Versuchen wir also, diese Musik selber zu notieren.  Wie wir sehen 
+werden, beinhaltet das einige Schwierigkeiten.  Fangen wir an, wie
 wir es gelernt haben, indem wir mit der @code{<< \\  >>}-Konstruktion
 die drei Stimmen des ersten Taktes notieren:
 
@@ -940,11 +960,14 @@ die drei Stimmen des ersten Taktes notieren:
 @cindex Hals nach oben
 @cindex Notenhals, Richtung
 @cindex Richtung des Notenhalses
+@cindex Notenhalsrichtung
+@cindex Stimmen und Notenhalsrichtung
+@cindex Notenhalsrichtung in Stimmen
 
 Die Richtung des Notenhalses wird automatisch zugewiesen; die ungeraden
-Stimmen tragen Hälse nach oben, die gerade Hälse nach unten. Die Hälse
+Stimmen tragen Hälse nach oben, die gerade Hälse nach unten.  Die Hälse
 für die Stimmen 1 und 2 stimmen, aber die Hälse in der dritten Stimme
-sollen in diesem Beispiel eigentlich nach unten zeigen. Wir können das
+sollen in diesem Beispiel eigentlich nach unten zeigen.  Wir können das
 korrigieren, indem wir die dritte Stimme einfach auslassen und die
 Noten in die vierte Stimme verschieben:
 
@@ -971,12 +994,12 @@ Die Hälse einer Stimme können mit den Hälsen anderer Stimmen kollidieren.
 LilyPond erlaubt Noten in verschiedenen Stimmen sich auf der gleichen
 vertikalen Position zu befinden, wenn die Hälse in entgegengesetzte
 Richtungen zeigen, und positioniert die dritte und vierte Stimme dann
-so, dass Zusammenstöße möglichst vermieden werden. Das funktioniert
+so, dass Zusammenstöße möglichst vermieden werden.  Das funktioniert
 gewöhnlich recht gut, aber in diesem Beispiel sind die Noten der untersten
-Stimme eindeutig standardmäßig schlecht positioniert. LilyPond bietet
+Stimme eindeutig standardmäßig schlecht positioniert.  LilyPond bietet
 verschiedene Möglichkeiten, die horizontale Position von Noten
-anzupassen. Wir sind aber noch nicht so weit, dass wir diese Funktionen
-anwenden könnten. Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in @ref{Fixing
+anzupassen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
+anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in @ref{Fixing
 overlapping notation}.
 
 @seealso
@@ -988,19 +1011,24 @@ Notationsreferenz: @ruser{Multiple voices}.
 @subsection Explicitly instantiating voices
 
 @funindex \voiceOne
+@funindex voiceOne
 @funindex \voiceTwo
+@funindex voiceTwo
 @funindex \voiceThree
+@funindex voiceThree
 @funindex \voiceFour
+@funindex voiceFour
 @funindex \oneVoice
+@funindex oneVoice
 @funindex \new Voice
 @cindex Voice context, erstellen von
 @cindex Stimmenkontexte, erstellen von
 
 Voice-Kontexte können auch manuell innerhalb 
-eines @code{<< >>}-Abschnittes initiiert werden. Mit den Befehlen 
+eines @code{<< >>}-Abschnittes initiiert werden.  Mit den Befehlen 
 @code{\voiceOne} bis hin zu @code{\voiceFour} kann jeder Stimme 
 entsprechendes Verhalten von vertikaler Verschiebung und Richtung 
-von Hälsen und anderen Objekten hinzugefügt werden. In längeren 
+von Hälsen und anderen Objekten hinzugefügt werden.  In längeren 
 Partituren können die Stimmen damit besser auseinander gehalten 
 werden.
 
@@ -1035,14 +1063,16 @@ Beide würden folgendes Notenbild erzeugen:
 >>
 @end lilypond
 
+@cindex Stimmen, mehrere zu einer zusammenführen
+@cindex eine Stimme wiederherstellen
+
 Der @code{\voiceXXX}-Befehl setzt die Richtung von Hälsen, 
-Bögen, Artikulationszeichen, Text, Punktierungen und Fingersätzen. 
- @code{\voiceOne} und @code{\voiceThree} lassen diese Objekte 
- nach oben zeigen, 
- @code{\voiceTwo} und @code{\voiceFour}
+Bögen, Artikulationszeichen, Text, Punktierungen und Fingersätzen.
+@code{\voiceOne} und @code{\voiceThree} lassen diese Objekte
+nach oben zeigen, @code{\voiceTwo} und @code{\voiceFour}
 dagegen lassen sie abwärts zeigen. Diese Befehle erzeugen eine
 horizontale Verschiebung, wenn es erforderlich ist, um Zusammenstöße
-zu vermeiden. Der Befehl 
+zu vermeiden.  Der Befehl 
 @code{\oneVoice} stellt wieder auf das normale Verhalten um.
 
 Schauen wir uns in einigen einfachen Beispielen an, was genau
@@ -1076,15 +1106,15 @@ mit Text, Bögen und Dynamikbezeichnung anstellen:
 
 Schauen wir und nun drei unterschiedliche Arten an, den gleichen
 Abschnitt polyphoner Musik zu notieren, jede Art mit ihren 
-Vorteilen in unterschiedlichen Situationen. Wir benutzen dabei
+Vorteilen in unterschiedlichen Situationen.  Wir benutzen dabei
 das Beispiel vom vorherigen Abschnitt.
 
 Ein Ausdruck, der direkt innerhalb einer @code{<< >>}-Umgebung 
-auftritt, gehört der Hauptstimme an. Das ist nützlich, wenn zusätzliche 
-Stimme auftreten, während die Hauptstimme sich fortsetzt. Hier also 
-eine bessere Version des Beispiels aus dem vorigen Abschnitt. Die 
+auftritt, gehört der Hauptstimme an.  Das ist nützlich, wenn zusätzliche 
+Stimme auftreten, während die Hauptstimme sich fortsetzt.  Hier also 
+eine bessere Version des Beispiels aus dem vorigen Abschnitt.  Die 
 farbigen Kreuz-Notenköpfe zeigen, dass die Hauptstimme sich jetzt in 
-einem einzigen Stimmen (@code{voice})-Kontext befindet. Somit kann ein
+einem einzigen Stimmen (@code{voice})-Kontext befindet.  Somit kann ein
 Phrasierungsbogen ober sie gesetzt werden.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1115,9 +1145,10 @@ Phrasierungsbogen ober sie gesetzt werden.
 @cindex Verschachteln von musikalischen Ausdrücken
 @cindex Verschachteln von gleichzeitigen Ausdrücken
 @cindex Ausdrücke, Verschachteln von
-
 @cindex Stimmen, temporär
 @cindex Stimmen, Verschachteln von
+@cindex Verschachteln von Stimmen
+@cindex temporäre Stimmen
 
 Tiefer verschachtelte polyphone Konstrukte sind möglich, und
 wenn eine Stimme nur kurz auftaucht, kann das der bessere Weg
@@ -1148,7 +1179,7 @@ sein, Noten zu setzen:
 @cindex Noten verstecken
 
 Diese Methode, neue Stimmen kurzzeitig zu verschachteln, bietet sich
-an, wenn nur sehr kleine Abschnitte polyphonisch gesetzt sind. Wenn
+an, wenn nur sehr kleine Abschnitte polyphonisch gesetzt sind.  Wenn
 aber die ganze Partitur polyphon ist, ist es meistens klarer, direkt
 unterschiedliche Stimmen über die gesamte Partitur hinweg einzusetzen.
 Hierbei kann man mit unsichtbaren Noten dann die Stellen überspringen,
@@ -1179,6 +1210,9 @@ an denen die Stimme nicht auftaucht, wie etwa hier:
 @subsubheading Note columns
 
 @cindex Notenkolumne
+@cindex Notenkollision
+@cindex Zusammenstöße von Noten
+@cindex Kollisionen von Noten
 @cindex Vertikale Position
 @cindex shift-Befehle
 @cindex Verschieben von Noten
@@ -1186,14 +1220,18 @@ an denen die Stimme nicht auftaucht, wie etwa hier:
 @funindex \shiftOn
 @funindex \shiftOnn
 @funindex \shiftOnnn
+@funindex shiftOff
+@funindex shiftOn
+@funindex shiftOnn
+@funindex shiftOnnn
 
 Dicht notierte Noten in einem Akkord, oder Noten auf der gleichen
 Taktzeit aber in unterschiedlichen Stimmen, werden in zwei, manchmal
 auch mehreren Kolumnen getzt, um die Noten am Überschneiden zu 
-hindern. Wir bezeichnen sie als Notenkolumnen. Jede Stimme hat
+hindern.  Wir bezeichnen sie als Notenkolumnen.  Jede Stimme hat
 eine eigene Kolumne, und ein stimmenabhängiger Verschiebunsbefehl (engl.
-shift) wird eingesetzt, wenn eine Kollision auftreten könnte. 
-Das zeigt das Beispiel oben. Im zweiten Takt wird das C der zweiten
+shift) wird eingesetzt, wenn eine Kollision auftreten könnte.  
+Das zeigt das Beispiel oben.  Im zweiten Takt wird das C der zweiten
 Stimme nach rechts verschoben, relativ gesehen zum D der ersten Stimme,
 und im letzten Akkord wird das C der dritten Stimme auch nach 
 rechts verschoben im Verhältnis zu den anderen Stimmen.
@@ -1201,10 +1239,10 @@ rechts verschoben im Verhältnis zu den anderen Stimmen.
 Die Befehle @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} und
 @code{\shiftOff} bestimmen den Grad, zu dem Noten und Akkorde
 verschoben werden sollen, wenn sich sonst eine Kollision nicht
-vermeiden ließe. Die Standardeinstellung ist, dass die äußeren
+vermeiden ließe.  Die Standardeinstellung ist, dass die äußeren
 Stimmen (also normalerweise Stimme 1 und 2) @code{\shiftOff}
 eingestellt haben, während für die inneren Stimmen (3 und 4)
-@code{\shiftOn} eingeschaltet ist. Wenn eine Verschiebung
+@code{\shiftOn} eingeschaltet ist.  Wenn eine Verschiebung
 auftritt, werden Stimmen 1 und 3 nach rechts und Stimmen 2 und 4
 nach links verschoben.
 
@@ -1215,7 +1253,7 @@ Zusammenstöße in komplexen Situationen aufzulösen, siehe auch
 
 Eine Notenkolumne kann nur eine Note (oder einen Akkord) von
 einer Stimme mit Hälsen nach oben und eine Note (oder einen
-Akkord) von einer Stimme mit Hälsen nach unten tragen. Wenn
+Akkord) von einer Stimme mit Hälsen nach unten tragen.  Wenn
 Noten von zwei Stimmen mit den Hälsen in die gleiche Richtung
 an der selben Stelle auftreten und in beiden Stimmen ist
 keine Verschiebung oder die gleiche Verschiebungsebene
@@ -1238,12 +1276,14 @@ Achtung: Der Gesangstext wird auf Englisch @qq{lyrics} genannt.
 
 @funindex \new Lyrics
 @funindex \lyricsto
+@funindex lyricsto
+@funindex Lyrics
 @cindex Lyrics context, erstellen
 @cindex Gesangtext, Verbindung mit Noten
 
 Wir haben schon den @code{\addlyrics@{@}}-Befehl betrachtet,
-mit dem einfache Partituren gut erstellt werden können. 
-Diese Methode ist jedoch recht eingeschränkt. Wenn der Notensatz
+mit dem einfache Partituren gut erstellt werden können.  
+Diese Methode ist jedoch recht eingeschränkt.  Wenn der Notensatz
 komplexer wird, muss der Gesangstext mit einem neuen
 @code{Lyrics}-Kontext begonnen werden (mit dem Befehl
 @code{\new Lyrics}) und durch den Befehl @code{\lyricsto@{@}}
@@ -1273,6 +1313,7 @@ funktioniert.
 @cindex Text und Balken
 @cindex Balken und Text
 @funindex \autoBeamOff
+@funindex autoBeamOff
 
 Die automatischen Balken, die LilyPond in der Standardeinstellung
 setzt, eignen sich sehr gut für instrumentale Musik, aber nicht
@@ -1283,15 +1324,17 @@ eingesetzt um die automatischen Balken (engl. beam) auszuschalten.
 
 @funindex \new ChoirStaff
 @funindex \lyricmode
+@funindex ChoirStaff
+@funindex lyricmode
 @cindex Vokalpartitur, Aufbau
 @cindex Chorpartitur, Aufbau
 
 Wir wollen das frühere Beispiel von @notation{Judas Maccabæus}
 benutzen, um diese flexiblere Technik für Gesangstexte
-zu illustrieren. Das Beispiel wurde so umgeformt, dass jetzt
+zu illustrieren.  Das Beispiel wurde so umgeformt, dass jetzt
 Variablen eingesetzt werden, um den Text und die Noten
-von der Partiturstruktur zu trennen. Es wurde zusätzlich
-eine Chorpartiturklammer hinzugefügt. Der Gesangtext muss mit
+von der Partiturstruktur zu trennen.  Es wurde zusätzlich
+eine Chorpartiturklammer hinzugefügt.  Der Gesangtext muss mit
 @code{\lyricmode} eingegeben werden, damit er als Text und
 nicht als Noten interpretiert werden kann.
 
@@ -1330,7 +1373,7 @@ SopTwoLyrics = \lyricmode {
 }
 @end lilypond
 
-Dies ist die Grundstruktur für alle Chorpartituren. Mehr
+Dies ist die Grundstruktur für alle Chorpartituren.  Mehr
 Systeme können hinzugefügt werden, wenn sie gebraucht werden, mehr
 Stimmen können zu jedem System hinzugefügt werden, mehr
 Strophen können zum Text hinzugefügt werden, und schließlich
@@ -1339,14 +1382,18 @@ werden, wenn sie zu lang werden sollten.
 
 @cindex Choralnotation
 @cindex Hymnus-Notation
+@cindex SATB-Partitur
+@cindex mehrere Strophen
+@cindex Strophen, mehrere
+@cindex Choral mit mehreren Strophen
 
 Hier ein Beispiel der ersten Zeile eines Chorals mit vier
-Strophen für gemischten Chor. In diesem Fall ist der Text
-für alle vier Stimmen identisch. Beachten Sie, wie die
+Strophen für gemischten Chor.  In diesem Fall ist der Text
+für alle vier Stimmen identisch.  Beachten Sie, wie die
 Variablen eingesetzt werden, um Inhalt (Noten und Text) und Form
-(die Partitur) voneinander zu trennen. Eine Variable wurde
+(die Partitur) voneinander zu trennen.  Eine Variable wurde
 eingesetzt, um die Elemente, die auf beiden Systemen auftauchen,
-aufzunehmen, nämlich Taktart und Tonart. Solch eine 
+aufzunehmen, nämlich Taktart und Tonart.  Solch eine 
 Variable wird oft auch mit @qq{global} bezeichnet.
 
 @lilypond[quote,verbatim]
@@ -1394,14 +1441,14 @@ Stelle ist etwas kompliziert; es braucht etwas Aufmerksamkeit,
 um der Erklärung folgen zu können.
 
 Beginnen wir mit einer @code{score}-Umgebung, in der eine
-Chorpartitur (@code{ChoirStaff}) gesetzt wird. Die Partitur soll
+Chorpartitur (@code{ChoirStaff}) gesetzt wird.  Die Partitur soll
 schließlich mit der eckigen Klammer beginnen.
 Normalerweise bräuchten wir spitze Klammern im Quelltext
 nach dem @code{\new ChoirStaff}, damit die Systeme paralell
 gesetzt werden, aber hier wollen wir diese Parallelsierung
-ja erst nach dem Solo. Also benutzen wir geschweifte Klammern.
+ja erst nach dem Solo.  Also benutzen wir geschweifte Klammern.
 Innerhalb der Chorpartitur erstellen wir zuerst das System, 
-das die Strophe enthält. Es braucht Noten und Text parallel,
+das die Strophe enthält.  Es braucht Noten und Text parallel,
 also setzen wir hier die spitzen Klammern um @code{\new Voice} 
 und @code{\new Lyrics}.
 
@@ -1433,11 +1480,11 @@ Damit erhalten wir die Strophe.
 
 Jetzt soll @notation{refrainA} auf dem selben System gesetzt
 werden, während gleichzeitig in einem neuen System darunter 
-@notation{refrainB} gesetzt wird. Damit die Oberstimme das
+@notation{refrainB} gesetzt wird.  Damit die Oberstimme das
 gleiche System benutzt, muss alles direkt auf den Zeilenumbruchbefehl
 (@code{\break} folgen, innerhalb der @notation{verse}-Stimme.
 Ja, tatsächlich, @emph{innerhalb} der @notation{verse}-Stimme.
-Hier haben wir diese parallele Stelle isoliert. Weitere Systeme
+Hier haben wir diese parallele Stelle isoliert.  Weitere Systeme
 könnten auf die gleiche Weise hinzugefügt werden.
 
 @example
@@ -1515,6 +1562,7 @@ refrainwordsB = \lyricmode {
 
 @cindex book, Benutzung von
 @funindex \book
+@funindex book
 
 Dies ist zwar eine interessante und nützliche Übung um zu
 verstehen, wie sequentielle und parallele Notationsumgebungen
@@ -1609,7 +1657,7 @@ vornehmen zu können.
 
 Wenn Noten gesetzt werden, müssen viele Elemente zu der Notenausgabe
 hinzugefügt werden,
-die im Quellcode gar nicht explizit vorkommen. Vergleichen Sie
+die im Quellcode gar nicht explizit vorkommen.  Vergleichen Sie
 etwa den Quellcode und die Notenausgabe des folgenden Beispiels:
 
 @lilypond[quote,verbatim,relative=2,fragment]
@@ -1618,26 +1666,26 @@ cis4 cis2. g4
 
 Der Quellcode ist sehr kurz und knapp, während in der
 Notenausgabe Taktlinien, Vorzeichen, ein Schlüssel und
-eine Taktart hinzugefügt wurden. Während LilyPond
+eine Taktart hinzugefügt wurden.  Während LilyPond
 den Eingabetext @emph{interpretiert}, wird die
 musikalische Information in zeitlicher Reihenfolge
 inspiziert, etwa wie man eine Partitur von links nach
-rechts liest. Während das Programm den Code liest,
+rechts liest.  Während das Programm den Code liest,
 merkt es sich, wo sich Taktgrenzen befinden und
 für welche Tonhöhen Versetzungszeichen gesetzt werden
-müssen. Diese Information muss auf mehreren Ebenen
+müssen.  Diese Information muss auf mehreren Ebenen
 gehandhabt werden, denn Versetzungszeichen etwa
 beziehen sich nur auf ein System, Taktlinien dagegen
 üblicherweise auf die gesamte Partitur.
 
 Innerhalb von LilyPond sind diese Regeln und 
 Informationshappen in @emph{Kontexten} (engl.
-contexts) gruppiert. Wir sind schon auf den
-@code{Voice} (Stimmen)-Kontext gestoßen. Daneben
+contexts) gruppiert.  Wir sind schon auf den
+@code{Voice} (Stimmen)-Kontext gestoßen.  Daneben
 gibt es noch die @code{Staff} (Notensystem-) und
-@code{Score} (Partitur-) Kontexte. Kontexte sind
+@code{Score} (Partitur)-Kontexte.  Kontexte sind
 hierarchisch geschichtet um die hierarchische
-Struktur einer Partitur zu spiegeln. Ein @code{Staff}-Kontext
+Struktur einer Partitur zu spiegeln.  Ein @code{Staff}-Kontext
 kann zum Beispiel viele @code{Voice}-Kontexte beinhalten,
 und ein @code{Score}-Kontext kann viele
 @code{Staff}-Kontexte beinhalten.
@@ -1648,17 +1696,17 @@ und ein @code{Score}-Kontext kann viele
 
 Jeder Kontext hat die Aufgabe, bestimmte Notationsregeln
 zu erzwingen, bestimmte Notationsobjekte zu erstellen und
-verbundene Elemente zu ordnen. Der @code{Voice}-Kontext
+verbundene Elemente zu ordnen.  Der @code{Voice}-Kontext
 zum Beispiel kann eine Vorzeichenregel einführen und der
 @code{Staff}-Kontext hält diese Regel dann aufrecht, um
 einzuordenen, ob ein Versetzungszeichen gesetzt werden
 muss oder nicht.
 
 Ein anderes Beispiel: die Synchronisation der Taktlinien ist
-standardmäßig im @code{Score}-Kontext verankert. Manchmal sollen
+standardmäßig im @code{Score}-Kontext verankert.  Manchmal sollen
 die Systeme einer Partitur aber unterschiedliche Taktarten
 enthalten, etwa in einer polymetrischen Partitur mit 
-4/4- und 3/4-Takt. In diesem Fall müssen also die Standardeinstellungen
+4/4- und 3/4-Takt.  In diesem Fall müssen also die Standardeinstellungen
 der @code{Score}- und @code{Staff}-Kontexte verändert werden.
 
 In einfachen Partituren werden die Kontexte implizit erstellt,
@@ -1666,15 +1714,15 @@ und es kann sein, dass Sie sich dessen gar nicht bewusst sind.
 Für etwas größere Projekte, etwa mit vielen Systemen, müssen
 die Kontexte aber explizit erstellt werden, um sicher zu gehen,
 dass man auch wirklich die erwünschte Zahl an Systemen in der
-richtigen Reihenfolge erhält. Wenn Stücke mit spezialisierter
+richtigen Reihenfolge erhält.  Wenn Stücke mit spezialisierter
 Notation gesetzt werden sollen, ist es üblich, die existierenden
 Kontexte zu verändern oder gar gänzlich neue zu definieren.
 
 Zusätzlich zu den @code{Score,} @code{Staff} und
 @code{Voice}-Kontexten gibt es noch Kontexte, die zwischen
 der Partitur- und Systemebene liegen und Gruppen von Systemen
-kontrollieren. Das sind beispielsweise der 
-@code{PianoStaff} und @code{ChoirStaff}-Kontext. Es gibt zusätzlich
+kontrollieren.  Das sind beispielsweise der 
+@code{PianoStaff} und @code{ChoirStaff}-Kontext.  Es gibt zusätzlich
 alternative Kontexte für Systeme und Stimmen sowie eigene Kontexte
 für Gesangstexte, Perkussion, Griffsymbole, Generalbass usw.
 
@@ -1694,20 +1742,21 @@ Notationreferenz: @ruser{Contexts explained}.
 @subsection Creating contexts
 
 @funindex \new
+@funindex new
 @cindex Neue Kontexte
 @cindex Erstellen von Kontexten
 @cindex Kontexte, Erstellen
 
 Es gibt nur einen Kontext der obersten Ebene: der 
-@code{Score}-Kontext. Er wird mit dem @code{\score}-Befehl, 
+@code{Score}-Kontext.  Er wird mit dem @code{\score}-Befehl, 
 oder -- in einfacheren Partituren -- automatisch
 erstellt.
 
 Wenn nur ein System vorhanden ist, kann man es ruhig
 LilyPond überlassen, die @code{Voice}- und @code{Staff}-Kontexte
 zu erstellen, aber für komplexere Partituren ist es notwendig, 
-sie mit einem Befehl zu erstellen. Der einfachste Befehl 
-hierzu ist @code{\new}. Er wird dem musikalischen Ausdruck 
+sie mit einem Befehl zu erstellen.  Der einfachste Befehl 
+hierzu ist @code{\new}.  Er wird dem musikalischen Ausdruck 
 vorangestellt, etwa so:
 
 @example
@@ -1716,7 +1765,7 @@ vorangestellt, etwa so:
 
 @noindent
 wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
-@code{Voice}) ist. Dieser Befehl erstellt einen neuen Kontext und
+@code{Voice}) ist.  Dieser Befehl erstellt einen neuen Kontext und
 beginnt, den @var{muskalischen Ausdruck} innherhalb dieses
 Kontexts auszuwerten.
 
@@ -1770,15 +1819,15 @@ Umgebung entweder mit einer geschweiften Klammer (@code{@{})
 oder doppelten spitzen Klammern (@code{<<}) öffnen, mit
 jeweils zwei Leerzeichen, und die entsprechenden 
 schließenden Klammern mit der gleichen Anzahl Leerzeichen
-eingerückt werden. Dies ist nicht erforderlich, es wird aber
+eingerückt werden.  Dies ist nicht erforderlich, es wird aber
 zu einem großen Teil die nicht passenden Klammerpaar-Fehler
-eliminieren und ist darum sehr empfohlen. Es macht es 
+eliminieren und ist darum sehr empfohlen.  Es macht es 
 möglich, die Struktur einer Partitur auf einen Blick zu
 verstehen, und alle nicht passenden Klammern 
-erschließen sich schnell. Beachten Sie auch, dass das
+erschließen sich schnell.  Beachten Sie auch, dass das
 untere Notensystem mit eckigen Klammern erstellt wird,
 denn innerhalb dieses Systems brauchen wir zwei Stimmen,
-um die Noten darzustellen. Das obere System braucht
+um die Noten darzustellen.  Das obere System braucht
 nur einen einzigen musikalischen Ausdruck und ist deshalb
 von geschweiften Klammern umschlossen.)
 
@@ -1796,14 +1845,14 @@ selben Typs zu unterscheiden:
 Beachten Sie den Unterschied zwischen der Bezeichnung des
 Kontexttyps (@code{Staff}, @code{Voice}, usw.) und dem
 Namen, der aus beliebigen Buchstaben bestehen kann
-und vom Benutzer frei erfunden werden kann. Zahlen und 
+und vom Benutzer frei erfunden werden kann.  Zahlen und 
 Leerzeichen können auch benutzt werden, in dem Fall
 muss der Name aber von doppelten Anführungszeichen
 umgeben werden, also etwa  
 @code{\new Staff = "Mein System 1" @var{musikalischer Ausdruck}}.
 Der Name wird
 benutzt, um später auf genau diesen spezifischen Kontext 
-zu verweisen. Dieses Vorgehen wurde schon in dem Abschnitt
+zu verweisen.  Dieses Vorgehen wurde schon in dem Abschnitt
 zu Gesangstexten angewandt, siehe @ref{Voices and vocals}.
 
 @seealso
@@ -1818,7 +1867,7 @@ Notationsreferenz: @ruser{Creating contexts}.
 @cindex Stempel (Engraver)
 
 Jedes Zeichen des fertigen Notensatzes von LilyPond wird
-von einem @code{Engraver} (Stempel) produziert. Es gibt
+von einem @code{Engraver} (Stempel) produziert.  Es gibt
 also einen Engraver, der die Systeme erstellt, einen, der die
 Notenköpfe ausgibt, einen für die Hälse, einen für die
 Balken usw. Insgesamt gibt es über 120 Engraver! Zum
@@ -1826,7 +1875,7 @@ Glück braucht man für die meisten Partituren nur ein
 paar Engraver, und für einfache Partituren muss man eigentlich
 überhaupt nichts über sie wissen.
 
-Engraver leben und wirken aus den Kontexten heraus. Engraver
+Engraver leben und wirken aus den Kontexten heraus.  Engraver
 wie der @code{Metronome_mark_engraver}, dessen Aktion
 und Ausgabe sich auf die gesamte Partitur bezieht, wirken
 in der obersten Kontextebene -- dem @code{Score}-Kontext.
@@ -1843,15 +1892,15 @@ Der @code{Note_heads_engraver} (Notenkopf-Stempel) und der
 
 Jeder Engraver bearbeitet die bestimmten Objekte, die mit
 seiner Funktion assoziiert sind, und verwaltet die Eigenschaften
-dieser Funktion. Diese Eigenschaften, wie etwa die Eigenschaften,
+dieser Funktion.  Diese Eigenschaften, wie etwa die Eigenschaften,
 die mit Kontexten assoziiert sind, können verändert werden,
 um die Wirkungsweise des Engravers oder das Erscheinungsbild
 der von ihm produzierten Elemente in der Partitur zu ändern.
 
 Alle Engraver haben zusammengesetzte Bezeichnung, die aus
-den (englischen) Wörtern ihrer Funktionsweise bestehen. Nur
+den (englischen) Wörtern ihrer Funktionsweise bestehen.  Nur
 das erste Wort hat einen Großbuchstaben, und die restlichen
-Wörter werden mit einem Unterstrich angefügt. Ein
+Wörter werden mit einem Unterstrich angefügt.  Ein
 @code{Staff_symbol_engraver}  verantwortet also die Erstellung
 der Notenlinien, ein @code{Clef_engraver} entscheidet über die
 Art der Notenschlüssel und setzt die entsprechenden Symbole; damit
@@ -1908,14 +1957,16 @@ Referenz der Interna: @rinternals{Engravers and Performers}.
 @node Modifying context properties
 @subsection Modifying context properties
 
-@cindex Kontext-Eigenschaften
+@cindex Kontext-Eigenschaften, Verändern
 @cindex Eigenschaften von Kontexten
 @cindex Verändern von Kontext-Eigenschaften
 @funindex \set
 @funindex \unset
+@funindex set
+@funindex unset
 
 Kontexte sind dafür verantwortlich, die Werte bestimmter
-Kontext-@emph{Eigenschaften} zu speichern. Viele davon
+Kontext-@emph{Eigenschaften} zu speichern.  Viele davon
 können verändert werden, um die Interpretation der
 Eingabe zu beeinflussen und die Ausgabe zu verändern.
 Kontexte werden mit dem @code{\set}-Befehl geändert.
@@ -1928,14 +1979,14 @@ Er wird in Form
 @noindent
 verwendet, wobei @var{KontextBezeichnung} üblicherweise
  @code{Score},
-@code{Staff} oder @code{Voice} ist. Der erste Teil kann auch
+@code{Staff} oder @code{Voice} ist.  Der erste Teil kann auch
 ausgelassen werden; in diesem Fall wird @code{Voice} eingesetzt.
 
 Die Bezeichnung von Kontexten-Eigenschaften besteht
 aus zwei Wörtern, die ohne Unterstrich oder Bindestrich
-verbunden sind. Alle außer dem ersten werden am Anfang
-groß geschrieben. Hier einige Beispiele der gebräuchlichsten
-Kontext-Eigenschaften. Es gibt sehr viel mehr.
+verbunden sind.  Alle außer dem ersten werden am Anfang
+groß geschrieben.  Hier einige Beispiele der gebräuchlichsten
+Kontext-Eigenschaften.  Es gibt sehr viel mehr.
 
 @c attempt to force this onto a new page
 @need 50
@@ -1975,24 +2026,27 @@ Ein boolischer Wert ist entweder wahr  (@code{#t})
 oder falsch (@code{#f}),
 ein Integer eine positive ganze Zahl, eine reale Zahl eine positive
 oder negative Dezimalzahl, und Text wird in doppelte
-Anführungszeichen (Shift+2) eingeschlossen. Beachten Sie
+Anführungszeichen (Shift+2) eingeschlossen.  Beachten Sie
 das Vorkommen des Rautenzeichens
 (@code{#}) an unterschiedlichen Stellen: als Teil eines
 booleschen Wertes vor dem @code{t} oder @code{f}, aber
 auch vor einem @emph{Wert} in der
-@code{\set}-Befehlskette. Wenn ein boolescher Wert
+@code{\set}-Befehlskette.  Wenn ein boolescher Wert
 eingegeben werden soll, braucht man also zwei
 Rautenzeichen, z. B. @code{##t}.
 
+@cindex Eigenschaften in Kontexten
+@cindex Veränderung von Eigenschaften in Kontexten
+
 Bevor eine Eigenschaft geändert werden kann, muss man wissen,
-in welchem Kontext sie sich befindet. Manchmal versteht das
+in welchem Kontext sie sich befindet.  Manchmal versteht das
 sich von selbst, aber in einigen Fällen kann es zunächst
-unverständlich erscheinen. Wenn der falsche Kontext angegeben
+unverständlich erscheinen.  Wenn der falsche Kontext angegeben
 wird, wird keine Fehlermeldung produziert, aber die
 Veränderung wird einfach nicht ausgeführt. 
 @code{instrumentName} befindet sich offensichtlich innerhalb
 von einem @code{Staff}-Kontext, denn das Notensystem soll
-benannt werden. In dem folgenden Beispiel erhält das erste
+benannt werden.  In dem folgenden Beispiel erhält das erste
 System korrekt die Instrumentenbezeichnung, das zweite aber
 nicht, weil der Kontext ausgelassen wurde.
 
@@ -2013,19 +2067,19 @@ Denken Sie daran, dass der Standardkontext @code{Voice} ist; in dem
 zweiten @code{\set}-Befehl wird also die Eigenschaft @code{instrumentName}
 im @code{Voice}-Kontext auf @qq{Alto}, gesetzt, aber weil LilyPond diese
 Eigenschaft nicht im @code{Voice}-Kontext vermutet, passiert einfach
-gar nichts. Das ist kein Fehler, und darum wird auch keine Fehlermeldung
+gar nichts.  Das ist kein Fehler, und darum wird auch keine Fehlermeldung
 prodziert.
 
 Ebenso gibt es keine Fehlermeldung, wenn die Kontext-Bezeichnung
 falsch geschrieben wird und die Änderung also nicht ausgeführt werden
-kann. Tatsächlich kann eine beliebige (ausgedachte) Kontextbezeichnung
+kann.  Tatsächlich kann eine beliebige (ausgedachte) Kontextbezeichnung
 mit dem @code{\set}-Befehl eingesetzt werden, genauso wie die, die
-wirklich existieren. Aber wenn LilyPond diese Bezeichnung nicht
-zuordnen kann, bewirkt der Befehl einfach gar nichts. Manche Editoren,
+wirklich existieren.  Aber wenn LilyPond diese Bezeichnung nicht
+zuordnen kann, bewirkt der Befehl einfach gar nichts.  Manche Editoren,
 die Unterstützung für LilyPond-Befehle mitbringen, markieren existierende
 Kontextbezeichnungen mit einem Punkt, wenn man mit der Maus darüber
 fährt (wie etwa JEdit mit dem LilyPondTool), oder markieren
-unbekannte Bezeichnungen anders (wie ConTEXT). Wenn Sie keinen
+unbekannte Bezeichnungen anders (wie ConTEXT).  Wenn Sie keinen
 Editor mit LilyPond-Unterstützung einsetzen, wird empfohlen, die
 Bezeichnungen in der Interna-Referenz zu überprüfen: siehe 
 @rinternals{Tunable context properties}, oder
@@ -2033,11 +2087,11 @@ Bezeichnungen in der Interna-Referenz zu überprüfen: siehe
 
 Die Eigenschaft @code{instrumentName} wird erst aktiv, wenn sie
 ineinem @code{Staff}-Kontext gesetzt wird, aber manche Eigenschaften
-können in mehr als einem Kontext benutzt werden. Als Beispiel mag die
+können in mehr als einem Kontext benutzt werden.  Als Beispiel mag die
 @code{extraNatural}-Eigenschaft dienen, die zusätzliche Erniedrigungszeichen
-setzt. Die Standardeinstellung ist ##t (wahr) in allen Systemen.
+setzt.  Die Standardeinstellung ist ##t (wahr) in allen Systemen.
 Wenn sie nur in einem @code{Staff} (Notensystem) auf ##f (falsch) 
-gesetzt wird, wirkt sie sich auf alle Noten in diesem System aus. Wird
+gesetzt wird, wirkt sie sich auf alle Noten in diesem System aus.  Wird
 sie dagegen in der @code{Score}-Umgebung gesetzt, wirkt sich das
 auf alle darin enthaltenen Systeme aus.
 
@@ -2085,9 +2139,9 @@ denn ein neues @code{\set} erledigt alles, was man braucht.
 Die @code{\set}- und @code{\unset}-Befehle könne überall im
 Eingabequelltext erscheinen und werden aktiv von dem Moment, an
 dem sie auftreten bis zum Ende der Partitur oder bis die Eigenschaft
-mit @code{\set} oder @code{\unset} neu gesetzt wird. Versuchen
+mit @code{\set} oder @code{\unset} neu gesetzt wird.  Versuchen
 wir als Beispiel, die Schriftgröße mehrmals zu ändern, was sich unter anderem
-auf die Notenköpfe auswirkt. Die Änderung bezieht sich immer auf den Standard,
+auf die Notenköpfe auswirkt.  Die Änderung bezieht sich immer auf den Standard,
 nicht vom letzten gesetzten Wert.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
@@ -2104,10 +2158,10 @@ a b
 @end lilypond
 
 Wir haben jetzt gesehen, wie sich die Werte von unterschiedlichen
-Eigenschaften ändern lassen. Beachten Sie, dass Integre und
+Eigenschaften ändern lassen.  Beachten Sie, dass Integre und
 Zahlen immer mit einem Rautenzeichen beginnen, während
 die Werte wahr und falsch (mit @code{##t} und @code{##f}
-notiert) immer mit zwei Rauten beginnen. Eine Eigenschaft, die
+notiert) immer mit zwei Rauten beginnen.  Eine Eigenschaft, die
 aus Text besteht, muss in doppelte Anführungsstriche gesetzt werden,
 auch wenn wir später sehen werden, dass Text auf eine sehr viel
 allgmeinere und mächtigere Art mit dem @code{markup}-Befehl
@@ -2116,15 +2170,16 @@ eingegeben werden kann.
 @unnumberedsubsubsec Setting context properties with @code{\with}
 
 @funindex \with
+@funindex with
 @cindex Kontexteigenschaft, setzen mit \with
 
 Kontexteigenschaften können auch gesetzt werden, wenn der Kontext
-erstellt wird. Das ist in manchen Fällen eine deutlichere Art,
+erstellt wird.  Das ist in manchen Fällen eine deutlichere Art,
 eine Eigenschaft zu bestimmen, die für die gesamte Partitur
-erhalten bleichen soll. Wenn ein Kontext mit einem
+erhalten bleichen soll.  Wenn ein Kontext mit einem
 @code{\new}-Befehl erstellt wird, dem direkt eine
 @code{\with @{ .. @}}-Umgebung folgt, können hier die
-Eigenschaften bestimmt werden. Wenn also die zusätzlichen
+Eigenschaften bestimmt werden.  Wenn also die zusätzlichen
 Auflösungszeichen für eine ganze Partitur gelten sollen, könnte
 man schreiben:
 
@@ -2152,26 +2207,34 @@ Eigenschaften, die auf diese Arte gesetzt werden, können immer noch
 dynamisch mit dem @code{\set}-Befehl geändert werden und mit
 @code{\unset} auf ihre Standardeinstellungen zurückgesetzt werden.
 
-Die @code{fontSize}-Eigenschaft wird anders behandelt. Wenn sie mit
+@cindex Schriftgröße, Standardeinstellung
+@cindex fontSize (Schriftgröße), Standardeinstellung
+
+Die @code{fontSize}-Eigenschaft wird anders behandelt.  Wenn sie mit
 einer @code{\with}-Umgebung gesetzt wird, wird die Standardschriftgröße
-neu gesetzt. Wenn die Schriftgröße später mit @code{\set} verändert
+neu gesetzt.  Wenn die Schriftgröße später mit @code{\set} verändert
 wird, kann dieser neue Standardwert mit dem Befehl
 @code{\unset fontSize} erreicht werden.
 
 @unnumberedsubsubsec Setting context properties with @code{\context}
 
+@cindex Kontexteigenschaften, mit \context setzen
+@cindex Eigenschaften von Kontexten, mit \context setzen
+@funindex \context
+@funindex context
+
 Die Werte von Kontext-Eigenschaften können in @emph{allen} Kontexten
 eines bestimmten Typs (etwa alle @code{Staff}-Kontexte) 
-gleichzeitig mit einem Befehl gesetzt werden. Der Kontext wird
+gleichzeitig mit einem Befehl gesetzt werden.  Der Kontext wird
 spezifieziert, indem seine Bezeichnung benutzt wird, also etwa 
-@code{Staff}, mit einem Backslash davor: @code{\Staff}. Der Befehl
+@code{Staff}, mit einem Backslash davor: @code{\Staff}.  Der Befehl
 für die Eigenschaft ist der gleiche, wie er auch in der 
-@code{\with}-Konstruktion benutzt wird, wie oben gezeigt. Er wird in
+@code{\with}-Konstruktion benutzt wird, wie oben gezeigt.  Er wird in
 eine @code{\context}-Umgebung eingebettet, welche wiederum innerhalb
-von einer @code{\layout}-Umgebung steht. Jede @code{\context}-Umgebung
+von einer @code{\layout}-Umgebung steht.  Jede @code{\context}-Umgebung
 wirkt sich auf alle Kontexte dieses Types aus, welche sich in der
 aktuellen Partitur befinden (d. h. innherhalb einer @code{\score}-
-oder @code{\book}-Umgebung. Hier ist ein Beispiel, wie man diese
+oder @code{\book}-Umgebung.  Hier ist ein Beispiel, wie man diese
 Funktion anwendet:
 
 @lilypond[verbatim,quote]
@@ -2219,15 +2282,18 @@ Referenz der Interna:
 
 @funindex \consists
 @funindex \remove
+@funindex consists
+@funindex remove
 
 Wir haben gesehen, dass jeder Kontext eine Anzahl an Engravern
 (Stempeln) beinhaltet, von denen ein jeder einen bestimmten
 Teil des fertigen Notensatzes produziert, wie z. B. Taktlinien,
 Notenlinien, Notenköpfe, Hälse usw. Wenn ein Engraver aus
 einem Kontext entfernt wird, kann er seine Objekte nicht
-länger produzieren. Das ist eine eher grobe Methode, die
+länger produzieren.  Das ist eine eher grobe Methode, die
 Notenausgabe zu beeinflussen, aber es kann von großem
 Nutzen sein.
+
 
 @subsubheading Changing a single context
 
@@ -2237,7 +2303,7 @@ den Befehl zur Kontext-Erstellung geschrieben, wie
 in dem vorigen Abschnitt gezeigt.
 
 Als ein Beispiel wollen wir das Beispiel aus dem letzten
-Abschnitt produzieren, aber die Notenlinien entfernen. Erinnern
+Abschnitt produzieren, aber die Notenlinien entfernen.  Erinnern
 Sie sich, dass die Notenlinien vom @code{Staff_symbol_engraver}
 erstellt werden.
 
@@ -2259,19 +2325,19 @@ erstellt werden.
 @cindex Ambitus-Engraver
 
 Engraver können auch zu einem bestimmten
-Kontext hinzugefügt werden. Dies geschieht
+Kontext hinzugefügt werden.  Dies geschieht
 mit dem Befehl
 
 @code{\consists @var{Engraver_bezeichnung}}
 
 @noindent
 welcher auch wieder innerhalb der @code{\with}-Umgebung
-gesetzt wird. Einige Chorpartituren zeigen einen
+gesetzt wird.  Einige Chorpartituren zeigen einen
 Ambitus direkt zu Beginn der ersten Notenzeile, um
 den Stimmumfang des Stückes anzuzeigen, siehe auch
-@rglos{ambitus}. Der Ambitus wird vom
+@rglos{ambitus}.  Der Ambitus wird vom
 @code{Ambitus_engraver} erstellt, der normalerweise
-in keinem Kontext enthalten ist. Wenn wir
+in keinem Kontext enthalten ist.  Wenn wir
 ihn zum @code{Voice}-Kontext hinzufügen, errechnet
 er automatisch den Stimmumfang für diese einzelne Stimme 
 und zeigt ihn an:
@@ -2316,16 +2382,17 @@ Stimmen in diesem Notensystem errechnet:
 >>
 @end lilypond
 
+
 @subsubheading Changing all contexts of the same type
 
 @funindex \layout
 
 Die vorigen Beispiele zeigen, wie man Engraver in einem
-bestimmten Kontext hinzufügen oder entfernen kann. Es ist
+bestimmten Kontext hinzufügen oder entfernen kann.  Es ist
 auch möglich, Engraver in jedem Kontext eines bestimmten
-Typs hinzuzufügen oder zu entfernen. Dazu werden die
+Typs hinzuzufügen oder zu entfernen.  Dazu werden die
 Befehle in dem entsprechenden Kontext in einer
-@code{\layout}-Umgebung gesetzt. Wenn wir also z. B. 
+@code{\layout}-Umgebung gesetzt.  Wenn wir also z. B. 
 den Ambitus für jedes Notensystem in einer Partitur 
 mit vier Systemen anzeigen wollen, könnte das so aussehen:
 
@@ -2373,11 +2440,11 @@ Notationsreferenz: @ruser{Modifying context plug-ins},
 
 Sie haben sich durch die Übung gearbeitet, Sie
 wissen jetzt, wie Sie Notensatz produzieren, und Sie
-haben die grundlegenden Konzepte verstanden. Aber wie
+haben die grundlegenden Konzepte verstanden.  Aber wie
 erhalten Sie genau die Systeme, die Sie brauchen? Es
 gibt eine ganze Anzahl an fertigen Vorlagen
 (siehe @ref{Templates}), mit denen Sie beginnen 
-können. Aber was, wenn Sie nicht genau das finden,
+können.  Aber was, wenn Sie nicht genau das finden,
 was Sie brauchen? Lesen Sie weiter.
 
 @menu
@@ -2386,15 +2453,17 @@ was Sie brauchen? Lesen Sie weiter.
 * Building a score from scratch::
 @end menu
 
+
 @node Soprano and cello
 @subsection Soprano and cello
 
 @cindex Template, Verändern von
 @cindex Vorlage, Verändern von
+@cindex Veränderung von Vorlagen
 
 Beginnen Sie mit der Vorlage, die Ihren Vorstellungen
-am nächsten kommt. Nehmen wir einmal an, Sie wollen
-ein Stück für Sopran und Cello schreiben. In diesem 
+am nächsten kommt.  Nehmen wir einmal an, Sie wollen
+ein Stück für Sopran und Cello schreiben.  In diesem 
 Fall könnten Sie mit der Vorlage @qq{Noten und Text} 
 (für die Sopran-Stimme) beginnen.
 
@@ -2424,7 +2493,7 @@ text = \lyricmode @{
 @}
 @end example
 
-Jetzt wollen wir die Cello-Stimme hinzufügen. Schauen wir uns das
+Jetzt wollen wir die Cello-Stimme hinzufügen.  Schauen wir uns das
 Beispiel @qq{Nur Noten} an:
 
 @example
@@ -2443,24 +2512,24 @@ melody = \relative c' @{
 @}
 @end example
 
-Wir brauchen den @code{\version}-Befehl nicht zweimal. Wir
-brauchen aber den @code{melody}-Abschnitt. Wir wollen 
+Wir brauchen den @code{\version}-Befehl nicht zweimal.  Wir
+brauchen aber den @code{melody}-Abschnitt.  Wir wollen 
 keine zwei @code{\score} (Partitur)-Abschnitte -- mit zwei
 @code{\score}-Abschnitten würden wir zwei Stimmen
-getrennt voneinander erhalten. In diesem Fall wollen wir
-sie aber zusammen, als Duett. Schließlich brauchen wir 
+getrennt voneinander erhalten.  In diesem Fall wollen wir
+sie aber zusammen, als Duett.  Schließlich brauchen wir 
 innerhalb des @code{\score}-Abschnittes nur einmal die
 Befehle @code{\layout} und @code{\midi}.
 
 Wenn wir jetzt einfach zwei @code{melody}-Abschnitte in 
 unsere Datei kopieren würden, hätten wir zwei @code{melody}-Variable.
 Das würde zu keinem Fehler führen, aber die zweite von ihnen
-würde für beide Melodien eingesetzt werden. Wir müssen
+würde für beide Melodien eingesetzt werden.  Wir müssen
 ihnen also andere Bezeichnungen zuweisen, um sie voneinander
-zu unterscheiden. Nennen wir die Abschnitte also @code{sopranoMusic}
-für den Sopran und @code{celloMusic} für die Cellostimme. Wenn
+zu unterscheiden.  Nennen wir die Abschnitte also @code{SopranNoten}
+für den Sopran und @code{CelloNoten} für die Cellostimme.  Wenn
 wir schon dabei sind, können wir @code{text}auch nach
-@code{sopranoLyrics} umbenennen. Denken Sie daran, beide
+@code{SoprText} umbenennen.  Denken Sie daran, beide
 Vorkommen der Bezeichnung zu ändern: einmal die Definition
 gleich am Anfang (@code{melody = \relative c' @{ }) und
 dann auch noch die Benutzung der Variable innerhalb des
@@ -2472,18 +2541,18 @@ Wir ändern auch die Noten etwas ab.
 
 @example
 \version @w{"@version{}"}
-sopranoMusic = \relative c' @{
+SopranNoten = \relative c' @{
   \clef treble
   \key c \major
   \time 4/4
   a4 b c d
 @}
 
-sopranoLyrics = \lyricmode @{
+SoprText = \lyricmode @{
   Aaa Bee Cee Dee
 @}
 
-celloMusic = \relative c @{
+CelloNoten = \relative c @{
   \clef bass
   \key c \major
   \time 4/4
@@ -2492,11 +2561,11 @@ celloMusic = \relative c @{
 
 \score @{
   <<
-    \new Voice = "one" @{
+    \new Voice = "eins" @{
       \autoBeamOff
-      \sopranoMusic
+      \SopranNoten
     @}
-    \new Lyrics \lyricsto "one" \sopranoLyrics
+    \new Lyrics \lyricsto "eins" \Soprantext
   >>
   \layout @{ @}
   \midi @{ @}
@@ -2505,20 +2574,20 @@ celloMusic = \relative c @{
 
 Das sieht schon vielversprechend aus, aber die Cello-Stimme 
 erscheint noch nicht im Notensatz -- wir haben vergessen,
-sie in den @code{\score}-Abschnitt einzufügen. Wenn die
+sie in den @code{\score}-Abschnitt einzufügen.  Wenn die
 Cello-Stimme unterhalb des Soprans erscheinen soll, müssen
 wir
 
 @example
-\new Staff \celloMusic
+\new Staff \CelloNoten
 @end example
 
 @noindent
-unter dem Befehl für den Sopran hinzufügen. Wir brauchen auch
+unter dem Befehl für den Sopran hinzufügen.  Wir brauchen auch
 die spitzen Klammern (@code{<<} und @code{>>}) um die
 Noten, denn damit wird LilyPond mitgeteilt, dass mehr als
 ein Ereignis gleichzeitig stattfindet (in diesem Fall sind es
-zwei @code{Staff}-Instanzen). Der @code{\score}-Abschnitt
+zwei @code{Staff}-Instanzen).  Der @code{\score}-Abschnitt
 sieht jetzt so aus:
 
 @c Indentation in this example is deliberately poor
@@ -2526,13 +2595,13 @@ sieht jetzt so aus:
 \score @{
   <<
   <<
-    \new Voice = "one" @{
+    \new Voice = "eins" @{
       \autoBeamOff
-      \sopranoMusic
+      \SopranNoten
     @}
-    \new Lyrics \lyricsto "one" \sopranoLyrics
+    \new Lyrics \lyricsto "eins" \SoprText
   >>
-  \new Staff \celloMusic
+  \new Staff \CelloNoten
   >>
   \layout @{ @}
   \midi @{ @}
@@ -2541,7 +2610,7 @@ sieht jetzt so aus:
 
 @noindent
 Das sieht etwas unschön aus, vor allem die Einrückung stimmt
-nicht mehr. Das können wir aber schnell in Ordnung bringen.
+nicht mehr.  Das können wir aber schnell in Ordnung bringen.
 Hier also die gesamte Vorlage für Sopran und Cello:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
@@ -2598,7 +2667,7 @@ mit Orchesterbegleitung (wie etwa Mendelssohns @notation{Elias}
 oder Händels @notation{Messias})  sind so aufgebaut, dass
 für jede der vier Stimmen ein eigenes System besteht und
 die Orchesterbegleitung dann als Klavierauszug darunter
-notiert wird. Hier ein Beispiel aus Händels @notation{Messias}:
+notiert wird.  Hier ein Beispiel aus Händels @notation{Messias}:
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
@@ -2674,25 +2743,25 @@ lower = \relative c, {
 }
 @end lilypond
 
-Keine der Vorlage bietet diesen Aufbau direkt an. Die Vorlage, die
+Keine der Vorlage bietet diesen Aufbau direkt an.  Die Vorlage, die
 am nächsten daran liegt, ist @qq{SATB-Partitur und automatischer 
-Klavierauszug}, siehe @ref{Vocal ensembles}. Wir müssen diese
+Klavierauszug}, siehe @ref{Vocal ensembles}.  Wir müssen diese
 Vorlage aber so anpassen, dass die Noten für das Klavier nicht
-automatisch aus dem Chorsatz generiert werden. Die Variablen
+automatisch aus dem Chorsatz generiert werden.  Die Variablen
 für die Noten und den Text des Chores sind in Ordnung, wir
 müssen nun noch Variablen für die Klaviernoten hinzufügen.
 
 Die Reihenfolge, in welcher die Variablen in das Chorsystem
 (@code{ChoirStaff}) eingefügt werden, entspricht nicht der
-in dem Beispiel oben. Wir wollen sie so sortieren, dass die
+in dem Beispiel oben.  Wir wollen sie so sortieren, dass die
 Texte jeder Stimme direkt unter den Noten notiert werden.
 Alle Stimmen sollten als @code{\voiceOne} notiert werden,
 welches die Standardeinstellung ist; wir können also die 
-@code{\voiceXXX}-Befehle entfernen. Wir müssen auch noch
-den Schlüssel für den Tenor ändern. Die Methode, mit der
+@code{\voiceXXX}-Befehle entfernen.  Wir müssen auch noch
+den Schlüssel für den Tenor ändern.  Die Methode, mit der
 der Text den Stimmen zugewiesen wird, ist uns noch nicht 
 bekannt, darum wollen wir sie umändern auf die Weise, die
-wir schon kennen. Wir fügen auch noch Instrumentbezeichnungen
+wir schon kennen.  Wir fügen auch noch Instrumentbezeichnungen
 zu den Systemen hinzu.
 
 Damit erhalten wir folgenden @code{ChoirStaff}:
@@ -2701,25 +2770,25 @@ Damit erhalten wir folgenden @code{ChoirStaff}:
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = "Soprano"
-        \new Voice = "sopranos" @{ \global \sopranoMusic @}
+        \new Voice = "sopranos" @{ \global \SopranNoten @}
       >>
-      \new Lyrics \lyricsto "sopranos" @{ \sopranoWords @}
+      \new Lyrics \lyricsto "sopranos" @{ \SopranText @}
       \new Staff = "altos" <<
         \set Staff.instrumentName = "Alto"
-        \new Voice = "altos" @{ \global \altoMusic @}
+        \new Voice = "altos" @{ \global \AltNoten @}
       >>
-      \new Lyrics \lyricsto "altos" @{ \altoWords @}
+      \new Lyrics \lyricsto "altos" @{ \AltText @}
       \new Staff = "tenors" <<
         \set Staff.instrumentName = "Tenor"
-        \new Voice = "tenors" @{ \global \tenorMusic @}
+        \new Voice = "tenors" @{ \global \TenorNoten @}
       >>
-      \new Lyrics \lyricsto "tenors" @{ \tenorWords @}
+      \new Lyrics \lyricsto "tenors" @{ \TenorText @}
       \new Staff = "basses" <<
         \set Staff.instrumentName = "Bass"
-        \new Voice = "basses" @{ \global \bassMusic @}
+        \new Voice = "basses" @{ \global \BassNoten @}
       >>
-      \new Lyrics \lyricsto "basses" @{ \bassWords @}
-    >>  % end ChoirStaff
+      \new Lyrics \lyricsto "basses" @{ \BassText @}
+    >>  % Ende ChoirStaff
 @end example
 
 Als nächstes müssen wir das Klaviersystem bearbeiten.
@@ -2729,46 +2798,46 @@ aus der @qq{Piano solo}-Vorlage:
 @example
 \new PianoStaff <<
   \set PianoStaff.instrumentName = "Piano  "
-  \new Staff = "upper" \upper
-  \new Staff = "lower" \lower
+  \new Staff = "oben" \oben
+  \new Staff = "unten" \unten
 >>
 @end example
 
 @noindent
-und fügen die Variablen @code{upper}
-und @code{lower} hinzu.
+und fügen die Variablen @code{oben}
+und @code{unten} hinzu.
 
 Das Chorsystem und das Pianosystem müssen mit
 spitzen Klammern kombiniert werden, damit beide
 übereinandern erscheinen:
 
 @example
-<<  % combine ChoirStaff and PianoStaff one above the other
+<<  % ChoirStaff und PianoStaff parallel kombinieren
   \new ChoirStaff <<
     \new Staff = "sopranos" <<
-      \new Voice = "sopranos" @{ \global \sopranoMusic @}
+      \new Voice = "sopranos" @{ \global \SopranNoten @}
     >>
-    \new Lyrics \lyricsto "sopranos" @{ \sopranoWords @}
+    \new Lyrics \lyricsto "sopranos" @{ \SopranText @}
     \new Staff = "altos" <<
-      \new Voice = "altos" @{ \global \altoMusic @}
+      \new Voice = "altos" @{ \global \AltNoten @}
     >>
-    \new Lyrics \lyricsto "altos" @{ \altoWords @}
+    \new Lyrics \lyricsto "altos" @{ \AltText @}
     \new Staff = "tenors" <<
-      \clef "G_8"  % tenor clef
-      \new Voice = "tenors" @{ \global \tenorMusic @}
+      \clef "G_8"  % Tenorschlüssel
+      \new Voice = "tenors" @{ \global \TenorNoten @}
     >>
-    \new Lyrics \lyricsto "tenors" @{ \tenorWords @}
+    \new Lyrics \lyricsto "tenors" @{ \TenorText @}
     \new Staff = "basses" <<
       \clef "bass"
-      \new Voice = "basses" @{ \global \bassMusic @}
+      \new Voice = "basses" @{ \global \BassNoten @}
     >>
-    \new Lyrics \lyricsto "basses" @{ \bassWords @}
-  >>  % end ChoirStaff
+    \new Lyrics \lyricsto "basses" @{ \BassText @}
+  >>  % Ende ChoirStaff
 
   \new PianoStaff <<
     \set PianoStaff.instrumentName = "Piano"
-    \new Staff = "upper" \upper
-    \new Staff = "lower" \lower
+    \new Staff = "oben" \oben
+    \new Staff = "unten" \unten
   >>
 >>
 @end example
@@ -2855,13 +2924,16 @@ lower = \relative c, {
 
 @cindex Template, eigene schreiben
 @cindex Vorlagen, eigene schreiben
+@cindex eigene Vorlagen erstellen
+@cindex Erstellen von eigenen Vorlagen
+@cindex Schreiben von eigenen Vorlagen
 
 Wenn Sie einige Fertigkeit im Schreiben von LilyPond-Code
 gewonnen haben, werden Sie vielleicht feststellen, dass es
 manchmal einfacher ist, von Grund auf anzufangen, anstatt
-die fertigen Vorlagen zu verändern. Auf diese Art könne Sie
+die fertigen Vorlagen zu verändern.  Auf diese Art könne Sie
 auch Ihren eigenen Stil entwickeln, und ihn der Musik anpassen,
-die Sie notieren wollen. Als Beispiel wollen wir demonstrieren,
+die Sie notieren wollen.  Als Beispiel wollen wir demonstrieren,
 wie man die Partitur für ein Orgelpreludium von Grund auf
 konstruiert.
 
@@ -2869,15 +2941,15 @@ Beginnen wir mit dem Kopf, dem @code{header}-Abschnitt.
 Hier notieren wir den Titel, den Namen des Komponisten usw.
 Danach schreiben wir die einzelnen Variablen auf und
 schließlich am Ende die eigentliche Partitur, den
-@code{\score}-Abschnitt. Beginnen wir mit einer groben
+@code{\score}-Abschnitt.  Beginnen wir mit einer groben
 Struktur, in die wir dann die Einzelheiten nach und nach
 eintragen.
 
 Als Beispiel benutzen wir zwei Takte aus dem Orgelpreludium
 @notation{Jesu, meine Freude} von J. S. Bach, notiert
-für zwei Manuale und Pedal. Sie können die Noten am Ende
-dieses Abschnittes sehen. Das obere Manual trägt zwei Stimmen,
-das untere und das Pedalsystem jeweils nur eine. Wir 
+für zwei Manuale und Pedal.  Sie können die Noten am Ende
+dieses Abschnittes sehen.  Das obere Manual trägt zwei Stimmen,
+das untere und das Pedalsystem jeweils nur eine.  Wir 
 brauchen also vier Variablen für die Noten und eine, um
 Taktart und Tonart zu definieren.
 
@@ -2903,8 +2975,8 @@ Die Noten werden später hinzugefügt.
 
 Als nächstes schauen wir uns an, was in die
 Partitur (die @code{\score}-Umgebung)
-kommt. Dazu wird einfach die Notensystemstruktur
-konstruiert, die wir benötigen. Orgelmusik
+kommt.  Dazu wird einfach die Notensystemstruktur
+konstruiert, die wir benötigen.  Orgelmusik
 wird meistens auf drei Systemen notiert, eins
 für jedes Manual und ein drittes für die Pedalnoten.
 Die Systeme für die Manuale werden mit einer
@@ -2926,13 +2998,13 @@ das zweite nur eine.
 @end example
 
 Als nächstes soll das System für das Pedal hinzugefügt
-werden. Es soll unter das Klaviersystem gesetzt
+werden.  Es soll unter das Klaviersystem gesetzt
 werden, aber muss gleichzeitig mit ihm erscheinen.
 Wir brauchen also spitze Klammern um beide
-Definitionen. Sie wegzulassen würde eine Fehlermeldung
-in der Log-Datei hervorrufen. Das ist ein sehr
+Definitionen.  Sie wegzulassen würde eine Fehlermeldung
+in der Log-Datei hervorrufen.  Das ist ein sehr
 häufiger Fehler, der wohl auch Ihnen früher 
-oder später unterläuft. Sie können das fertige
+oder später unterläuft.  Sie können das fertige
 Beispiel am Ende des Abschnittes kopieren und die
 Klammern entfernen, um zu sehen, wie die
 Fehlermeldung aussehen kann, die Sie in solch
@@ -2958,7 +3030,7 @@ einem Fall erhalten würden.
 Es ist nicht notwendig, die simultane Konstruktion
 @code{<< .. >>} innerhalb des zweiten Manualsystems
 und des Pedalsystems zu benutzen, denn sie enthalten
-nur eine Stimme. Andererseits schadet es nichts, sie
+nur eine Stimme.  Andererseits schadet es nichts, sie
 zu schreiben, und es ist eine gute Angewohnheit, immer
 die spitzen Klammern nach einem @code{\new Staff} zu
 schreiben, wenn mehr als eine Stimme vorkommen könnten.
@@ -2969,12 +3041,12 @@ werden, falls Sie ihre Noten in mehrere Variable aufteilen,
 die nacheinander gesetzt werden sollen.
 
 Fügen wir also diese Struktur zu der @code{\score}-Umgebung
-hinzu und bringen wir die Einzüge in Ordnung. Gleichzeitig
+hinzu und bringen wir die Einzüge in Ordnung.  Gleichzeitig
 wollen wir die richtigen Schlüssel setzen und die Richtung der
 Hälse und Bögen in den Stimmen des oberen Systems
 kontrollieren, indem die obere Stimme ein
 @code{\voiceOne}, die untere dagegen ein @code{\voiceTwo}
-erhält. Die Taktart und Tonart werden mit unserer fertigen
+erhält.  Die Taktart und Tonart werden mit unserer fertigen
 Variable @code{\TimeKey} eingefügt.
 
 @example
@@ -3002,9 +3074,9 @@ Variable @code{\TimeKey} eingefügt.
 @}  % end Score context
 @end example
 
-Damit ist das Grundgerüst fertig. Jede Orgelmusik mit drei
+Damit ist das Grundgerüst fertig.  Jede Orgelmusik mit drei
 Systemen hat die gleiche Struktur, auch wenn die Anzahl der Stimmen
-in einem System sich ändern kann. Jetzt müssen wir nur noch
+in einem System sich ändern kann.  Jetzt müssen wir nur noch
 die Noten einfügen und alle Teile zusammenfügen, indem wir
 die Variablen mit einem Backslash in die Partitur einbauen.
 

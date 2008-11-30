@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f413550b658b43fbea690fc060f872bce6bbc885
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -35,11 +35,11 @@ schönen Notendruck umgesetzt werden können.
 
 
 @menu
-* First steps::                 
-* Single staff notation::       
-* Multiple notes at once::      
-* Songs::                       
-* Final touches::               
+* First steps::
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
 @end menu
 
 
@@ -50,10 +50,10 @@ In diesem Abschnitt werden die Grundlagen zur Benutzung
 des Programmes erklärt.
 
 @menu
-* Compiling a file::            
-* Simple notation::             
-* Working on input files::       
-* How to read the manual::      
+* Compiling a file::
+* Simple notation::
+* Working on input files::
+* How to read the manual::
 @end menu
 
 
@@ -701,12 +701,12 @@ Dieses Kapitel lehrt grundlegende Bestandteile der Notation,
 die für eine Stimme auf einem System gebraucht werden.
 
 @menu
-* Accidentals and key signatures::  
-* Ties and slurs::              
-* Articulation and dynamics::   
-* Adding text::                 
-* Automatic and manual beams::  
-* Advanced rhythmic commands::  
+* Accidentals and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
 @end menu
 
 
@@ -820,9 +820,10 @@ d cis fis
 hat keine der Noten ein Versetzungszeichen, trotzdem muss im Quelltext
 das @q{is} für @code{cis} und @code{fis} notiert werden.
 
-Der Code @q{b} heißt also nicht: @qq{Zeichne einen schwarzen Punkt
+Der Code @q{b} (nach der holländischen Notenbezeichnung wird der Ton H mit
+@code{b} gesetzt) heißt also nicht: @qq{Zeichne einen schwarzen Punkt
 auf die Mittellinie des Systems.} Im Gegenteil, er heißt vielmehr:
- @qq{Hier soll eine Note mit der Tonhöhe B gesetzt werden.}
+ @qq{Hier soll eine Note mit der Tonhöhe H gesetzt werden.}
 In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 
 
@@ -1646,7 +1647,6 @@ Text und Noten gleichzeitig gesetzt werden.
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
-
 
 @cindex Gesangstext, Ausrichten
 @cindex Ausrichten von Gesangstext
