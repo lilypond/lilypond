@@ -294,6 +294,7 @@ class Attributes (Measure_element):
 	Measure_element.__init__ (self)
 	self._dict = {}
         self._original_tag = None
+        self._time_signature_cache = None
 
     def is_first (self):
 	cn = self._parent.get_typed_children (self.__class__)
@@ -311,26 +312,68 @@ class Attributes (Measure_element):
 
     def get_named_attribute (self, name):
 	return self._dict.get (name)
+        
+    def single_time_sig_to_fraction (self, sig):
+        if len (sig) < 2:
+            return 0
+        n = 0
+        for i in sig[0:-1]:
+          n += i
+        return Rational (n, sig[-1])
 
     def get_measure_length (self):
-        (n,d) = self.get_time_signature ()
-        return Rational (n,d)
+        sig = self.get_time_signature ()
+        if len (sig) == 0:
+            return 0
+        if isinstance (sig[0], list):
+            # Complex compound time signature
+            l = 0
+            for i in sig:
+                l += self.single_time_sig_to_fraction (i)
+            return l
+        else:
+           # Simple (maybe compound) time signature of the form (beat, ..., type)
+            return self.single_time_sig_to_fraction (sig)
+        return 0
         
     def get_time_signature (self):
-        "return time sig as a (beat, beat-type) tuple"
+        "Return time sig as a (beat, beat-type) tuple. For compound signatures,"
+        "return either (beat, beat,..., beat-type) or ((beat,..., type), "
+        "(beat,..., type), ...)."
+        if self._time_signature_cache:
+            return self._time_signature_cache
 
         try:
             mxl = self.get_named_attribute ('time')
-            if mxl:
-                beats = mxl.get_maybe_exist_named_child ('beats')
-                type = mxl.get_maybe_exist_named_child ('beat-type')
-                return (int (beats.get_text ()),
-                        int (type.get_text ()))
-            else:
+            if not mxl:
                 return (4, 4)
+
+            if mxl.get_maybe_exist_named_child ('senza-misura'):
+                # TODO: Handle pieces without a time signature!
+                error (_ ("Senza-misura time signatures are not yet supported!"))
+                return (4, 4)
+            else:
+                signature = []
+                current_sig = []
+                for i in mxl.get_all_children ():
+                    if isinstance (i, Beats):
+                        beats = string.split (i.get_text ().strip (), "+")
+                        current_sig = [int (j) for j in beats]
+                    elif isinstance (i, BeatType):
+                        current_sig.append (int (i.get_text ()))
+                        signature.append (current_sig)
+                        current_sig = []
+                if len (signature) == 1 and isinstance (signature[0], list):
+                    signature = signature[0]
+                if len (signature) ==0:
+                    error (_ ("requested time signature, but time sig is unknown"))
+                    return (4, 4)
+                self._time_signature_cache = signature
+                return signature
         except KeyError:
             error (_ ("requested time signature, but time sig is unknown"))
             return (4, 4)
+        #except 
 
     # returns clef information in the form ("cleftype", position, octave-shift)
     def get_clef_information (self):
@@ -1064,6 +1107,12 @@ class Frame_Note (Music_xml_node):
 class FiguredBass (Music_xml_node):
     pass
 
+class Beats (Music_xml_node):
+    pass
+
+class BeatType (Music_xml_node):
+    pass
+
 class BeatUnit (Music_xml_node):
     pass
 
@@ -1087,6 +1136,8 @@ class_dict = {
         'bar-style': BarStyle,
         'bass': Bass,
 	'beam' : Beam,
+        'beats': Beats,
+        'beat-type': BeatType,
         'beat-unit': BeatUnit,
         'beat-unit-dot': BeatUnitDot,
         'bend' : Bend,

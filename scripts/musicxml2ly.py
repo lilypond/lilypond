@@ -737,11 +737,14 @@ def musicxml_clef_to_lily (attributes):
     return change
     
 def musicxml_time_to_lily (attributes):
-    (beats, type) = attributes.get_time_signature ()
+    sig = attributes.get_time_signature ()
+
+    # TODO: Handle single-digit time sigs
+    # TODO: Handle senza-misura measures
 
     change = musicexp.TimeSignatureChange()
-    change.fraction = (beats, type)
-    
+    change.fractions = sig
+
     return change
 
 def musicxml_key_to_lily (attributes):
@@ -1776,12 +1779,12 @@ class LilyPondVoiceBuilder:
         self.pending_multibar = Rational (0)
         self.ignore_skips = False
         self.has_relevant_elements = False
-        self.measure_length = (4, 4)
+        self.measure_length = Rational (4, 4)
 
     def _insert_multibar (self):
         layout_information.set_context_item ('Score', 'skipBars = ##t')
         r = musicexp.MultiMeasureRest ()
-        lenfrac = Rational (self.measure_length[0], self.measure_length[1])
+        lenfrac = self.measure_length
         r.duration = rational_to_lily_duration (lenfrac)
         r.duration.factor *= self.pending_multibar / lenfrac
         self.elements.append (r)
@@ -1929,7 +1932,7 @@ def musicxml_step_to_lily (step):
 def measure_length_from_attributes (attr, current_measure_length):
     mxl = attr.get_named_attribute ('time')
     if mxl:
-        return attr.get_time_signature ()
+        return attr.get_measure_length ()
     else:
         return current_measure_length
 
@@ -1965,7 +1968,7 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder = LilyPondVoiceBuilder ()
     figured_bass_builder = LilyPondVoiceBuilder ()
     chordnames_builder = LilyPondVoiceBuilder ()
-    current_measure_length = (4, 4)
+    current_measure_length = Rational (4, 4)
     voice_builder.set_measure_length (current_measure_length)
 
     for n in voice._elements:

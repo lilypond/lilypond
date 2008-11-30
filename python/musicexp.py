@@ -1440,9 +1440,17 @@ class KeySignatureChange (Music):
 class TimeSignatureChange (Music):
     def __init__ (self):
         Music.__init__ (self)
-        self.fraction = (4,4)
+        self.fractions = [4,4]
     def ly_expression (self):
-        return '\\time %d/%d ' % self.fraction
+        # Easy case: self.fractions = [n,d] => normal \time n/d call:
+        if len (self.fractions) == 2 and isinstance (self.fractions[0], int):
+            return '\\time %d/%d ' % tuple (self.fractions)
+        elif self.fractions and not isinstance (self.fractions[0], list):
+            # TODO: Implement non-standard time-signatures
+            return ''
+        else:
+            # TODO: Implement non-standard time-signatures
+            return ''
     
 class ClefChange (Music):
     def __init__ (self):
