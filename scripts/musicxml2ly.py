@@ -760,40 +760,51 @@ def musicxml_time_to_lily (attributes):
     return change
 
 def musicxml_key_to_lily (attributes):
-    start_pitch  = musicexp.Pitch ()
-    (fifths, mode) = attributes.get_key_signature () 
-    try:
-        (n,a) = {
-            'major'     : (0,0),
-            'minor'     : (5,0),
-            'ionian'    : (0,0),
-            'dorian'    : (1,0),
-            'phrygian'  : (2,0),
-            'lydian'    : (3,0),
-            'mixolydian': (4,0),
-            'aeolian'   : (5,0),
-            'locrian'   : (6,0),
-            }[mode]
-        start_pitch.step = n
-        start_pitch.alteration = a
-    except  KeyError:
-        error_message (_ ("unknown mode %s, expecting 'major' or 'minor'") % mode)
-
-    fifth = musicexp.Pitch()
-    fifth.step = 4
-    if fifths < 0:
-        fifths *= -1
-        fifth.step *= -1
-        fifth.normalize ()
+    key_sig = attributes.get_key_signature () 
+    if not key_sig or not (isinstance (key_sig, list) or isinstance (key_sig, tuple)):
+        error_message (_ ("Unable to extract key signature!"))
+        return None
     
-    for x in range (fifths):
-        start_pitch = start_pitch.transposed (fifth)
-
-    start_pitch.octave = 0
-
     change = musicexp.KeySignatureChange()
-    change.mode = mode
-    change.tonic = start_pitch
+    
+    if len (key_sig) == 2 and not isinstance (key_sig[0], list):
+        # standard key signature, (fifths, mode)
+        (fifths, mode) = key_sig
+        change.mode = mode
+
+        start_pitch  = musicexp.Pitch ()
+        start_pitch.octave = 0
+        try:
+            (n,a) = {
+                'major'     : (0,0),
+                'minor'     : (5,0),
+                'ionian'    : (0,0),
+                'dorian'    : (1,0),
+                'phrygian'  : (2,0),
+                'lydian'    : (3,0),
+                'mixolydian': (4,0),
+                'aeolian'   : (5,0),
+                'locrian'   : (6,0),
+                }[mode]
+            start_pitch.step = n
+            start_pitch.alteration = a
+        except  KeyError:
+            error_message (_ ("unknown mode %s, expecting 'major' or 'minor' "
+                "or a church mode!") % mode)
+
+        fifth = musicexp.Pitch()
+        fifth.step = 4
+        if fifths < 0:
+            fifths *= -1
+            fifth.step *= -1
+            fifth.normalize ()
+        for x in range (fifths):
+            start_pitch = start_pitch.transposed (fifth)
+        change.tonic = start_pitch
+
+    else:
+        # Non-standard key signature of the form [[step,alter<,octave>],...]
+        change.non_standard_alterations = key_sig
     return change
 
 def musicxml_transpose_to_lily (attributes):

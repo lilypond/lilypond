@@ -205,6 +205,7 @@ class Duration:
 # Implement the different note names for the various languages
 def pitch_generic (pitch, notenames, accidentals):
     str = notenames[pitch.step]
+    # TODO: Handle microtones!
     if pitch.alteration < 0:
         str += accidentals[0] * (-pitch.alteration)
     elif pitch.alteration > 0:
@@ -1422,20 +1423,39 @@ class NoteEvent(RhythmicEvent):
 class KeySignatureChange (Music):
     def __init__ (self):
         Music.__init__ (self)
-        self.scale = []
-        self.tonic = Pitch()
+        self.tonic = None
         self.mode = 'major'
-        
-    def ly_expression (self):
-        return '\\key %s \\%s' % (self.tonic.ly_step_expression (),
-                     self.mode)
-    
-    def lisp_expression (self):
-        pairs = ['(%d . %d)' % (i , self.scale[i]) for i in range (0,7)]
-        scale_str = ("'(%s)" % string.join (pairs))
+        self.non_standard_alterations = None
 
-        return """ (make-music 'KeyChangeEvent
-     'pitch-alist %s) """ % scale_str
+    def format_non_standard_alteration (self, a):
+        alter_dict = { -2: ",DOUBLE-FLAT",
+                       -1: ",FLAT",
+                        0: ",NATURAL",
+                        1: ",SHARP",
+                        2: ",DOUBLE-SHARP"}
+        if len (a) == 2:
+            return "( %s . %s )" % (a[0], alter_dict.get (a[1], a[1]))
+        elif len (a) == 3:
+            return "(( %s . %s ) . %s )" % (a[2], a[0], alter_dict.get (a[1], a[1]))
+        else:
+            return ''
+
+    def ly_expression (self):
+        if self.tonic:
+            return '\\key %s \\%s' % (self.tonic.ly_step_expression (),
+                     self.mode)
+        elif self.non_standard_alterations:
+            alterations = [self.format_non_standard_alteration (a) for
+                                        a in self.non_standard_alterations]
+            # TODO: Check if the alterations should really be given in reverse
+            #       order of if that's just a bug in Lilypond. If it's a bug,
+            #       fix it and remove the following call, otherwise add a
+            #       proper comment here!
+            alterations.reverse ()
+            print "Non-Standard alterations printed out: %s" % alterations
+            return "\\set Staff.keySignature = #`(%s)" % string.join (alterations, " ")
+        else:
+            return ''
 
 class TimeSignatureChange (Music):
     def __init__ (self):

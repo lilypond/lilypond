@@ -389,22 +389,56 @@ class Attributes (Measure_element):
         return clefinfo
 
     def get_key_signature (self):
-        "return (fifths, mode) tuple"
+        "return (fifths, mode) tuple if the key signatures is given as "
+        "major/minor in the Circle of fifths. Otherwise return an alterations"
+        "list of the form [[step,alter<,octave>], [step,alter<,octave>], ...], "
+        "where the octave values are optional."
 
         key = self.get_named_attribute ('key')
-        mode_node = key.get_maybe_exist_named_child ('mode')
-        mode = None
-        if mode_node:
-            mode = mode_node.get_text ()
-        if not mode or mode == '':
-            mode = 'major'
+        if not key:
+            return None
+        fifths_elm = key.get_maybe_exist_named_child ('fifths')
+        if fifths_elm:
+            mode_node = key.get_maybe_exist_named_child ('mode')
+            mode = None
+            if mode_node:
+                mode = mode_node.get_text ()
+            if not mode or mode == '':
+                mode = 'major'
+            fifths = int (fifths_elm.get_text ())
+            # TODO: Shall we try to convert the key-octave and the cancel, too?
+            return (fifths, mode)
+        else:
+            alterations = []
+            current_step = 0
+            for i in key.get_all_children ():
+                if isinstance (i, KeyStep):
+                    current_step = int (i.get_text ())
+                elif isinstance (i, KeyAlter):
+                    alterations.append ([current_step, int (i.get_text ())])
+                elif isinstance (i, KeyOctave):
+                    nr = -1
+                    if hasattr (i, 'number'):
+                        nr = int (i.number)
+                    if (nr > 0) and (nr <= len (alterations)):
+                        # MusicXML Octave 4 is middle C -> shift to 0
+                        alterations[nr-1].append (int (i.get_text ())-4)
+                    else:
+                        i.message (_ ("Key alteration octave given for a "
+                            "non-existing alteration nr. %s, available numbers: %s!") % (nr, len(alterations)))
+                    i.message ( "Non-standard key signature (after octave %s for alter nr %s): %s" % (i.get_text (), nr, alterations))
+            i.message ( "Non-standard key signature with alterations %s found!" % alterations)
+            return alterations
 
-        fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
-        return (fifths, mode)
-        
     def get_transposition (self):
         return self.get_named_attribute ('transpose')
-        
+
+class KeyAlter (Music_xml_node):
+    pass
+class KeyStep (Music_xml_node):
+    pass
+class KeyOctave (Music_xml_node):
+    pass
 
 
 class Barline (Measure_element):
@@ -1153,6 +1187,9 @@ class_dict = {
 	'grace': Grace,
         'harmony': Harmony,
         'identification': Identification,
+        'key-alter': KeyAlter,
+        'key-octave': KeyOctave,
+        'key-step': KeyStep,
         'lyric': Lyric,
 	'measure': Measure,
 	'notations': Notations,
