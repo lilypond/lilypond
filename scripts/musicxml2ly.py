@@ -738,12 +738,24 @@ def musicxml_clef_to_lily (attributes):
     
 def musicxml_time_to_lily (attributes):
     sig = attributes.get_time_signature ()
-
-    # TODO: Handle single-digit time sigs
-    # TODO: Handle senza-misura measures
-
+    if not sig:
+        return None
     change = musicexp.TimeSignatureChange()
     change.fractions = sig
+
+    time_elm = attributes.get_maybe_exist_named_child ('time')
+    if time_elm and hasattr (time_elm, 'symbol'):
+        change.style = { 'single-number': "'single-digit",
+                         'cut': None,
+                         'common': None,
+                         'normal': "'()"}.get (time_elm.symbol, "'()")
+    else:
+        change.style = "'()"
+
+    # TODO: Handle senza-misura measures
+    # TODO: Handle hidden time signatures (print-object="no")
+    # TODO: What shall we do if the symbol clashes with the sig? e.g. "cut" 
+    #       with 3/8 or "single-number" with (2+3)/8 or 3/8+2/4?
 
     return change
 
@@ -828,7 +840,9 @@ def musicxml_attributes_to_lily (attrs):
     for (k, func) in attr_dispatch.items ():
         children = attrs.get_named_children (k)
         if children:
-            elts.append (func (attrs))
+            ev = func (attrs)
+            if ev:
+                elts.append (ev)
     
     return elts
 
@@ -1930,11 +1944,10 @@ def musicxml_step_to_lily (step):
 	return None
 
 def measure_length_from_attributes (attr, current_measure_length):
-    mxl = attr.get_named_attribute ('time')
-    if mxl:
-        return attr.get_measure_length ()
-    else:
-        return current_measure_length
+    len = attr.get_measure_length ()
+    if not len:
+        len = current_measure_length
+    return len
 
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []

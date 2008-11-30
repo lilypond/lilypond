@@ -1441,16 +1441,26 @@ class TimeSignatureChange (Music):
     def __init__ (self):
         Music.__init__ (self)
         self.fractions = [4,4]
+        self.style = None
     def ly_expression (self):
+        st = ''
+        # Print out the style if we have ome, but the '() should only be 
+        # forced for 2/2 or 4/4, since in all other cases we'll get numeric 
+        # signatures anyway despite the default 'C signature style!
+        is_common_signature = self.fractions in ([2,2], [4,4], [4,2])
+        if self.style:
+            if (self.style != "'()") or is_common_signature:
+                st = "\\once \\override Staff.TimeSignature #'style = #%s " % self.style
+
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len (self.fractions) == 2 and isinstance (self.fractions[0], int):
-            return '\\time %d/%d ' % tuple (self.fractions)
+            return st + '\\time %d/%d ' % tuple (self.fractions)
         elif self.fractions and not isinstance (self.fractions[0], list):
             # TODO: Implement non-standard time-signatures
-            return ''
+            return st + ''
         else:
             # TODO: Implement non-standard time-signatures
-            return ''
+            return st + ''
     
 class ClefChange (Music):
     def __init__ (self):

@@ -323,8 +323,8 @@ class Attributes (Measure_element):
 
     def get_measure_length (self):
         sig = self.get_time_signature ()
-        if len (sig) == 0:
-            return 0
+        if not sig or len (sig) == 0:
+            return 1
         if isinstance (sig[0], list):
             # Complex compound time signature
             l = 0
@@ -346,7 +346,7 @@ class Attributes (Measure_element):
         try:
             mxl = self.get_named_attribute ('time')
             if not mxl:
-                return (4, 4)
+                return None
 
             if mxl.get_maybe_exist_named_child ('senza-misura'):
                 # TODO: Handle pieces without a time signature!
@@ -363,17 +363,13 @@ class Attributes (Measure_element):
                         current_sig.append (int (i.get_text ()))
                         signature.append (current_sig)
                         current_sig = []
-                if len (signature) == 1 and isinstance (signature[0], list):
+                if isinstance (signature[0], list) and len (signature) == 1:
                     signature = signature[0]
-                if len (signature) ==0:
-                    error (_ ("requested time signature, but time sig is unknown"))
-                    return (4, 4)
                 self._time_signature_cache = signature
                 return signature
-        except KeyError:
-            error (_ ("requested time signature, but time sig is unknown"))
+        except (KeyError, ValueError):
+            self.message (_ ("Unable to interpret time signature! Falling back to 4/4."))
             return (4, 4)
-        #except 
 
     # returns clef information in the form ("cleftype", position, octave-shift)
     def get_clef_information (self):
