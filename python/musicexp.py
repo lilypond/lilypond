@@ -1469,7 +1469,6 @@ class KeySignatureChange (Music):
             #       fix it and remove the following call, otherwise add a
             #       proper comment here!
             alterations.reverse ()
-            print "Non-Standard alterations printed out: %s" % alterations
             return "\\set Staff.keySignature = #`(%s)" % string.join (alterations, " ")
         else:
             return ''
