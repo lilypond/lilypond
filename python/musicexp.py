@@ -43,7 +43,6 @@ class Output_printer:
     Music expression as a .ly file.
     
     """
-    ## TODO: support for \relative.
     
     def __init__ (self):
         self._line = ''
@@ -205,11 +204,20 @@ class Duration:
 # Implement the different note names for the various languages
 def pitch_generic (pitch, notenames, accidentals):
     str = notenames[pitch.step]
-    # TODO: Handle microtones!
-    if pitch.alteration < 0:
-        str += accidentals[0] * (-pitch.alteration)
+    halftones = int (pitch.alteration)
+    if halftones < 0:
+        str += accidentals[0] * (-halftones)
     elif pitch.alteration > 0:
-        str += accidentals[3] * (pitch.alteration)
+        str += accidentals[3] * (halftones)
+    # Handle remaining fraction to pitch.alteration (for microtones)
+    if (halftones != pitch.alteration):
+        if None in accidentals[1:3]:
+            warning (_ ("Language does not support microtones contained in the piece"))
+        else:
+            try:
+                str += {-0.5: accidentals[1], 0.5: accidentals[2]}[pitch.alteration-halftones]
+            except KeyError:
+                warning (_ ("Language does not support microtones contained in the piece"))
     return str
 
 def pitch_general (pitch):
@@ -231,7 +239,7 @@ def pitch_norsk (pitch):
     return pitch_deutsch (pitch)
 
 def pitch_svenska (pitch):
-    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', '', '', 'iss'])
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', None, None, 'iss'])
     return str.replace ('hess', 'b').replace ('aes', 'as').replace ('ees', 'es')
 
 def pitch_italiano (pitch):
@@ -242,11 +250,11 @@ def pitch_catalan (pitch):
     return pitch_italiano (pitch)
 
 def pitch_espanol (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', '', '', 's'])
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 's'])
     return str
 
 def pitch_vlaams (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', '', '', 'k'])
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 'k'])
     return str
 
 def set_pitch_language (language):
@@ -1298,9 +1306,9 @@ class TremoloEvent (ArticulationEvent):
 class BendEvent (ArticulationEvent):
     def __init__ (self):
         Event.__init__ (self)
-        self.alter = 0
+        self.alter = None
     def ly_expression (self):
-        if self.alter:
+        if self.alter != None:
             return "-\\bendAfter #%s" % self.alter
         else:
             return ''
@@ -1428,15 +1436,24 @@ class KeySignatureChange (Music):
         self.non_standard_alterations = None
 
     def format_non_standard_alteration (self, a):
-        alter_dict = { -2: ",DOUBLE-FLAT",
-                       -1: ",FLAT",
-                        0: ",NATURAL",
-                        1: ",SHARP",
-                        2: ",DOUBLE-SHARP"}
+        alter_dict = { -2:   ",DOUBLE-FLAT",
+                       -1.5: ",THREE-Q-FLAT",
+                       -1:   ",FLAT",
+                       -0.5: ",SEMI-FLAT",
+                        0:   ",NATURAL",
+                        0.5: ",SEMI-SHARP",
+                        1:   ",SHARP",
+                        1.5: ",THREE-Q-SHARP",
+                        2:   ",DOUBLE-SHARP"}
+        try:
+            accidental = alter_dict[a[1]]
+        except KeyError:
+            warning (_ ("Unable to convert alteration %s to a lilypond expression") % a[1])
+            return ''
         if len (a) == 2:
-            return "( %s . %s )" % (a[0], alter_dict.get (a[1], a[1]))
+            return "( %s . %s )" % (a[0], accidental)
         elif len (a) == 3:
-            return "(( %s . %s ) . %s )" % (a[2], a[0], alter_dict.get (a[1], a[1]))
+            return "(( %s . %s ) . %s )" % (a[2], a[0], accidental)
         else:
             return ''
 

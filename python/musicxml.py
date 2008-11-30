@@ -35,6 +35,13 @@ def musicxml_duration_to_log (dur):
              'longa': -2,
              'long': -2}.get (dur, 0)
 
+def interpret_alter_element (alter_elm):
+    alter = 0
+    if alter_elm:
+        val = eval(alter_elm.get_text ())
+        if type (val) in (int, float):
+            alter = val
+    return alter
 
 
 class Xml_node:
@@ -252,10 +259,7 @@ class Pitch (Music_xml_node):
 
     def get_alteration (self):
 	ch = self.get_maybe_exist_typed_child (get_class (u'alter'))
-	alter = 0
-	if ch:
-	    alter = int (ch.get_text ().strip ())
-	return alter
+	return interpret_alter_element (ch)
 
 class Unpitched (Music_xml_node):
     def get_step (self):
@@ -415,7 +419,7 @@ class Attributes (Measure_element):
                 if isinstance (i, KeyStep):
                     current_step = int (i.get_text ())
                 elif isinstance (i, KeyAlter):
-                    alterations.append ([current_step, int (i.get_text ())])
+                    alterations.append ([current_step, interpret_alter_element (i)])
                 elif isinstance (i, KeyOctave):
                     nr = -1
                     if hasattr (i, 'number'):
@@ -1059,10 +1063,7 @@ class DirType (Music_xml_node):
 class Bend (Music_xml_node):
     def bend_alter (self):
         alter = self.get_maybe_exist_named_child ('bend-alter')
-        if alter:
-            return alter.get_text()
-        else:
-            return 0
+        return interpret_alter_element (alter)
 
 class Words (Music_xml_node):
     pass
@@ -1080,10 +1081,7 @@ class ChordPitch (Music_xml_node):
         return ch.get_text ().strip ()
     def get_alteration (self):
         ch = self.get_maybe_exist_typed_child (get_class (self.alter_class_name ()))
-        alter = 0
-        if ch:
-            alter = int (ch.get_text ().strip ())
-        return alter
+        return interpret_alter_element (ch)
 
 class Root (ChordPitch):
     pass
@@ -1106,10 +1104,7 @@ class ChordModification (Music_xml_node):
         return value
     def get_alter (self):
         ch = self.get_maybe_exist_typed_child (get_class (u'degree-alter'))
-        value = 0
-        if ch:
-            value = int (ch.get_text ().strip ())
-        return value
+        return interpret_alter_element (ch)
 
 
 class Frame (Music_xml_node):
