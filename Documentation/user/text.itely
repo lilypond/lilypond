@@ -1063,7 +1063,11 @@ c,8._\markup { \musicglyph #"clefs.G_change" }
 c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
+
 @c TODO: add \lookup here? -vv
+@c Probably better not to document \lookup, which is useful only for
+@c printing braces, and instead document \left-brace and \right-brace
+@c when these become available  -td
 
 @noindent
 Another way of printing non-text glyphs is described
@@ -1240,16 +1244,18 @@ determined by the Pango installation.
 
 Each family may include different shapes and series.
 The following example demonstrates the ability to select
-alternate families, shapes, series and sizes:
+alternate families, shapes, series and sizes.  The value
+supplied to @code{font-size} is the required change from the
+default size.
 
-@lilypond[quote,verbatim,fragment,relative=2]
-  \override Score.RehearsalMark #'font-family = #'typewriter
-  \mark \markup "Ouverture"
-  \key d \major
-  \override  Voice.TextScript #'font-shape = #'italic
-  \override  Voice.TextScript #'font-series = #'bold
-  d'2.^\markup "Allegro"
-  r4
+@lilypond[quote,verbatim,relative=2]
+\override Score.RehearsalMark #'font-family = #'typewriter
+\mark \markup "Ouverture"
+\override Voice.TextScript #'font-shape = #'italic
+\override Voice.TextScript #'font-series = #'bold
+d2.^\markup "Allegro"
+\override Voice.TextScript #'font-size = #-3
+c4^smaller
 @end lilypond
 
 @noindent
@@ -1278,14 +1284,6 @@ it is preferable to use the simpler syntax explained in
   }
 }
 @end lilypond
-
-@ignore
-@c FIXME: This needs an example -vv
-
-The size of the font may be set with the @code{font-size}
-property.  The resulting size is taken relative to the
-@code{text-font-size} as defined in the @code{\paper} block.
-@end ignore
 
 Although it is easy to switch between preconfigured fonts,
 it is also possible to use other fonts, as explained in the
