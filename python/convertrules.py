@@ -2875,6 +2875,14 @@ def conv(str):
         raise FatalConversionError ()
     return str
 
+@rule ((2, 13, 0), _ ("keySignature property not reversed any more"))
+def conv(str):
+    if re.search(r'\set Staff.keySignature', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("The alist for Staff.keySignature is no \
+longer in reversed order.\n"))
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

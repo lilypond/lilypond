@@ -94,13 +94,13 @@ Key_engraver::create_key (bool is_default)
 					 key_event_
 					 ? key_event_->self_scm () : SCM_EOL);
 	      
-	      cancellation_->set_property ("alteration-alist", restore);
+	      cancellation_->set_property ("alteration-alist", scm_reverse (restore));
 	      cancellation_->set_property ("c0-position",
 					   get_property ("middleCPosition"));
 	    }
 	}
 
-      item_->set_property ("alteration-alist", key);
+      item_->set_property ("alteration-alist", scm_reverse (key));
     }
 
   if (!is_default)
@@ -188,7 +188,7 @@ Key_engraver::read_event (Stream_event const *r)
 	r->origin ()->warning ("No ordering for key signature alterations");      
     }
   
-  context ()->set_property ("keySignature", accs);
+  context ()->set_property ("keySignature", scm_reverse (accs));
   context ()->set_property ("tonic",
 			    r->get_property ("tonic"));
 }

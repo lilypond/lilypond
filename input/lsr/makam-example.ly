@@ -39,7 +39,7 @@ for details of pitch names and alterations."
 \include "makam.ly"
 
 \relative c' {
-  \set Staff.keySignature = #`((3 . ,BAKIYE) (6 . ,(- KOMA)))
+  \set Staff.keySignature = #`((6 . ,(- KOMA)) (3 . ,BAKIYE))
   c4 cc db fk
   gbm4 gfc gfb efk
   fk4 db cc c
