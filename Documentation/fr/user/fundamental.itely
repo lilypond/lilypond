@@ -164,17 +164,17 @@ d'autres informations :
 @cindex mise en forme
 @cindex midi
 
+@noindent
 Gardez à l'esprit que ces trois commandes -- @code{\header},
 @code{\layout} et @code{\midi} -- sont spécifiques : à l'inverse de
-toutes les commandes débutant par une oblique inversée (@emph{backshash}
-pour @code{\}), @emph{elles ne constituent pas} des expressions
-musicales et ne seront donc pas interprétées comme telles.  Elles
-peuvent de ce fait être mentionnées à l'intérieur du bloc @code{\score},
-tout comme à l'extérieur.  En réalité, ces commandes sont la plupart du
-temps indépendantes du bloc @code{\score} -- par exemple, la commande @code{\header}
-intervient bien souvent avant le bloc @code{\score} tout simplement
-parce que les en-têtes apparaissent au début de la partition.  C'est
-donc l'un des raccourcis que LilyPond prendra en considération.
+toutes les commandes débutant par une oblique inversée @code{\}
+(@emph{backslash} en anglais), @emph{elles ne constituent pas} des
+expressions musicales et ne peuvent pas faire partie d'expressions
+musicales.  Elles peuvent de ce fait être placées à l'intérieur du
+bloc @code{\score}, ou bien à l'extérieur.  En réalité, ces commandes
+sont la plupart du temps indépendantes du bloc @code{\score} -- par
+exemple, la commande @code{\header} intervient souvent avant le bloc
+@code{\score}, comme le montre l'exemple ci-dessus.
 
 Les deux autres commandes -- @code{\layout @{ @}} et @code{\midi @{@}}
 -- que nous n'avons pas détaillées pour l'instant, auront respectivement
