@@ -224,7 +224,7 @@ static void
 copyright ()
 {
   printf (_f ("Copyright (c) %s by\n%s  and others.",
-	      "1996--2007",
+	      "1996--2008",
 	      AUTHORS).c_str ());
   printf ("\n");
 }
