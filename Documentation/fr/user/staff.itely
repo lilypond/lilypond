@@ -108,12 +108,12 @@ s'agit de l'assemblage par défaut.
 
 
 @seealso
-
 Les barres de mesure au début de chaque système prennent l'un des styles
 @rinternals{SystemStartBar}, @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket}.  Dans chaque contexte, seul l'un de
 ces styles est utilisé, et c'est la propriété
 @code{systemStartDelimiter} qui détermine lequel.
+
 
 @commonprop
 
@@ -200,8 +200,8 @@ comme sur l'exemple suivant :
 @cindex épaisseur des lignes de portées
 @cindex nombre de lignes de portée
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{StaffSymbol}.
 
 Exemples : @rlsr{Staff notation}.
@@ -322,7 +322,6 @@ Pour plus de détails, voir @ref{Formatting text}.
 
 
 @seealso
-
 Référence du programme : @rinternals{MetronomeMark}.
 
 
@@ -440,7 +439,6 @@ c1 c c c \break
 
 
 @seealso
-
 Référence du programme : @rinternals{InstrumentName}.
 
 
@@ -541,7 +539,6 @@ Citer des triolets imbriqués peut entraîner un résultat de médiocre qualité
 
 
 @seealso
-
 Dans ce manuel : @ref{Instrument transpositions}.
 
 Exemples : @rlsr{Staff notation}.

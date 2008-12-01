@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -16,6 +16,7 @@
 {unfretted-headword.ly}
 
 @cindex orquestales, cuerdas
+@cindex cuerdas orquestales
 @cindex cuerdas, escribir música para
 
 Esta sección aporta información y referencias que resultan útiles si
@@ -69,8 +70,8 @@ quartet}.  Otras se muestran en la sección de fragmentos de código.
 
 @end itemize
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{String quartet}.
 
@@ -82,6 +83,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Unfretted strings}.
+
 
 @node Bowing indications
 @unnumberedsubsubsec Bowing indications
@@ -119,16 +121,19 @@ a^\markup { \teeny "II" }
 a2^\markup { \small "sul A" }
 @end lilypond
 
+
 @predefined
 @code{\downbow},
 @code{\upbow},
 @code{\open}.
+@endpredefined
+
 
 @seealso
-
 Referencia de la notación:
 @ref{Articulations and ornamentations},
 @ref{Slurs}.
+
 
 @node Harmonics
 @unnumberedsubsubsec Harmonics
@@ -184,6 +189,7 @@ se roza la cuerda (sin pisar) para producir el armónico.
 <e a\harmonic>2  <c g'\harmonic>
 @end lilypond
 
+
 @seealso
 Glosario musical:
 @rglos{harmonics}.
@@ -191,6 +197,7 @@ Glosario musical:
 Referencia de la notación:
 @ref{Special note heads},
 @ref{References for unfretted strings}.
+
 
 @node Snap (Bartok) pizzicato
 @unnumberedsubsubsec Snap (Bartók) pizzicato

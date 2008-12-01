@@ -118,16 +118,16 @@ polyphonic situations.  Predefined commands are available to
 force a particular direction manually, for details
 see @ref{Direction and placement}.
 
-@predefined
 
+@predefined
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
+@endpredefined
 
 
 @seealso
-
 Music Glossary:
 @rglos{breve},
 @rglos{longa},
@@ -206,11 +206,12 @@ must be done with @code{\tweak}.
 To modify the duration of notes without printing a tuplet bracket,
 see @ref{Scaling durations}.
 
-@predefined
 
+@predefined
 @code{\tupletUp},
 @code{\tupletDown},
 @code{\tupletNeutral}.
+@endpredefined
 
 
 @snippets
@@ -232,8 +233,8 @@ see @ref{Scaling durations}.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{triplet},
 @rglos{tuplet},
@@ -254,6 +255,7 @@ Internals Reference:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+
 
 @knownissues
 @cindex grace notes within tuplet brackets
@@ -327,7 +329,6 @@ notation, see @ref{Polymetric notation}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Tuplets},
 @ref{Invisible rests},
@@ -438,13 +439,13 @@ commands.
 
 
 @predefined
-
 @code{\tieUp},
 @code{\tieDown},
 @code{\tieNeutral},
 @code{\tieDotted},
 @code{\tieDashed},
 @code{\tieSolid}.
+@endpredefined
 
 
 @snippets
@@ -457,7 +458,6 @@ commands.
 
 
 @seealso
-
 Music Glossary:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -559,7 +559,6 @@ a4\rest d4\rest
 
 
 @seealso
-
 Notation Reference:
 @ref{Full measure rests}.
 
@@ -632,8 +631,8 @@ any kind.
 \skip 1 \skip1 \skip 1
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Rhythms}.
 
@@ -754,12 +753,15 @@ R1^"right"
 When a multi-measure rest immediately follows a @code{\partial}
 setting, resulting bar-check warnings may not be displayed.
 
+
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
 @code{\compressFullBarRests},
 @code{\expandFullBarRests}.
+@endpredefined
+
 
 @snippets
 
@@ -779,8 +781,8 @@ setting, resulting bar-check warnings may not be displayed.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {multi--measure-rest-markup.ly}
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{multi-measure rest}.
 
@@ -885,10 +887,12 @@ changed to a numeric style:
 Mensural time signatures are covered in
 @ref{Mensural time signatures}.
 
-@predefined
 
+@predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
+@endpredefined
+
 
 @snippets
 
@@ -903,7 +907,6 @@ Mensural time signatures are covered in
 
 
 @seealso
-
 Music Glossary:
 @rglos{time signature}
 
@@ -965,8 +968,8 @@ that this is set to a negative number by the @code{\partial}
 command: i.e., @code{\partial 4} is internally translated to
 @code{-4}, meaning @qq{there is a quarter note left in the measure.}
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{anacrusis}.
 
@@ -978,6 +981,7 @@ Snippets:
 
 Internal Reference:
 @rinternals{Timing_translator}.
+
 
 @knownissues
 
@@ -1024,13 +1028,14 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
+@endpredefined
+
 
 @seealso
-
 Music Glossary:
 @rglos{cadenza}.
 
@@ -1039,6 +1044,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Rhythms}.
+
 
 @knownissues
 
@@ -1162,7 +1168,6 @@ moving the @code{Timing_translator} and the
 
 
 @seealso
-
 Music Glossary:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -1180,6 +1185,7 @@ Internals Reference:
 @rinternals{Timing_translator},
 @rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
+
 
 @knownissues
 
@@ -1216,8 +1222,8 @@ inserts ties.  One of its uses is to debug complex scores: if the
 measures are not entirely filled, then the ties show exactly how
 much each measure is off.
 
-@seealso
 
+@seealso
 Music Glossary: @rglos{tie}
 
 Learning Manual:
@@ -1294,23 +1300,27 @@ be done with the @code{Pitch_squash_engraver} and
 >>
 @end lilypond
 
+
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
+@endpredefined
+
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference:
 @rinternals{RhythmicStaff},
 @rinternals{Pitch_squash_engraver}.
+
 
 @node Beams
 @subsection Beams
@@ -1366,9 +1376,12 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}.
+@endpredefined
+
 
 @snippets
 
@@ -1382,8 +1395,8 @@ c16 c8
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Manual beams},
 @ref{Setting automatic beam behavior}.
@@ -1683,11 +1696,11 @@ a a a a
 
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
+@endpredefined
 
 
 @knownissues
@@ -1698,8 +1711,8 @@ The same holds for polyphonic voices, entered with @code{<<
 @dots{} \\ @dots{} >>}.  If a polyphonic voice ends while an
 automatic beam is still accepting notes, it is not typeset.
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Rhythms}.
 
@@ -1813,11 +1826,10 @@ note durations only approximately, but the MIDI output is exact.
 The @code{\featherDurations} command only works with very short
 music snippets, and when numbers in the fraction are small.
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Rhythms}.
-
 
 
 @node Bars
@@ -1967,8 +1979,8 @@ The default bar type used for automatically inserted bar lines is
 @code{"|"}.  This may be changed at any time
 with @code{\set Timing.defaultBarType = }@var{bartype}.
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Line breaking},
 @ref{Repeats},
@@ -2116,7 +2128,6 @@ Bar numbers can be removed entirely by removing the
 
 
 @seealso
-
 Snippets:
 @rlsr{Rhythms}.
 
@@ -2218,8 +2229,8 @@ are entering from.  This can be checked with
 will print a warning if the @code{currentBarNumber} is not 123
 when it is processed.
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Rhythms}.
 
@@ -2327,8 +2338,8 @@ printed with @code{\musicglyph}.
 For common tweaks to the positioning of rehearsal marks, see
 @ref{Formatting text}.
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{The Feta font},
 @ref{Formatting text}.
@@ -2343,6 +2354,7 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference: @rinternals{RehearsalMark}.
+
 
 @node Special rhythmic concerns
 @subsection Special rhythmic concerns
@@ -2522,7 +2534,6 @@ in other staves:
 
 
 @seealso
-
 Music Glossary:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -2603,8 +2614,8 @@ MyCadenza = \relative c' {
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{cadenza}.
 
@@ -2685,7 +2696,6 @@ notes.
 
 
 @seealso
-
 This manual: @ref{Bar numbers}, @ref{Unmetered music}
 
 Snippets:

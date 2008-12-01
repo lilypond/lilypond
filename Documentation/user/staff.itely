@@ -105,7 +105,6 @@ New single staff contexts may be defined.  For details, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{staff},
 @rglos{staves}.
@@ -238,7 +237,6 @@ New staff group contexts may be defined.  For details, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{brace},
 @rglos{bracket},
@@ -305,7 +303,6 @@ New nested staff group contexts can be defined.  For details, see
 
 
 @seealso
-
 Notation Reference:
 @ref{Grouping staves},
 @ref{Instrument names},
@@ -443,9 +440,9 @@ e4 d c2
 
 
 @predefined
-
 @code{\startStaff},
 @code{\stopStaff}.
+@endpredefined
 
 
 @snippets
@@ -455,7 +452,6 @@ e4 d c2
 
 
 @seealso
-
 Music Glossary:
 @rglos{line},
 @rglos{ledger line},
@@ -622,7 +618,6 @@ more information about @code{\RemoveEmptyStaffContext}, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{ossia},
 @rglos{staff},
@@ -715,10 +710,10 @@ hide empty staves in ancient music contexts.  Similarly,
 
 
 @predefined
-
 @code{\RemoveEmptyStaffContext},
 @code{\AncientRemoveEmptyStaffContext},
 @code{\RemoveEmptyRhythmicStaffContext}.
+@endpredefined
 
 
 @snippets
@@ -728,7 +723,6 @@ hide empty staves in ancient music contexts.  Similarly,
 
 
 @seealso
-
 Music Glossary:
 @rglos{Frenched staff}.
 
@@ -843,7 +837,6 @@ For more details, see @ref{Formatting text}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1002,7 +995,6 @@ expression to declare the instrument switch:
 
 
 @seealso
-
 Notation Reference:
 @ref{Horizontal dimensions},
 @ref{Modifying context plug-ins}.
@@ -1113,7 +1105,6 @@ see @ref{Using tags}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Using tags}.
@@ -1267,7 +1258,6 @@ see @ref{Using tags}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Instrument names},

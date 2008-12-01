@@ -117,8 +117,8 @@ The @code{font-size} property can only be set on layout objects
 that use fonts.  These are the ones supporting the
 @code{font-interface} layout interface.
 
-@predefined
 
+@predefined
 @funindex \teeny
 @code{\teeny},
 @funindex \tiny
@@ -131,9 +131,10 @@ that use fonts.  These are the ones supporting the
 @code{\large},
 @funindex \huge
 @code{\huge}.
+@endpredefined
+
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -198,8 +199,8 @@ staff, see @ref{Direction and placement}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {avoiding-collisions-of-chord-fingering-with-beams.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Direction and placement}
 
@@ -254,11 +255,12 @@ e4(\p f)--
 
 
 @predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
 
-@code{\hideNotes}, @code{\unHideNotes}
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -347,14 +349,15 @@ gis8 a
 gis4 a
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{List of colors}, @ref{The
 tweak command}.
 
 Snippets:
 @rlsr{Editorial annotations}.
+
 
 @cindex x11 color
 @cindex colored notes in chords
@@ -403,8 +406,8 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -412,6 +415,7 @@ Internals Reference:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+
 
 @knownissues
 
@@ -431,14 +435,15 @@ Whenever a note is found, a @code{Stem} object is created
 automatically.  For whole notes and rests, they are also created but
 made invisible.
 
-@predefined
 
+@predefined
 @funindex \stemUp
 @code{\stemUp},
 @funindex \stemDown
 @code{\stemDown},
 @funindex \stemNeutral
 @code{\stemNeutral}.
+@endpredefined
 
 
 @snippets
@@ -450,6 +455,7 @@ made invisible.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+
 
 @seealso
 Notation Reference:
@@ -529,16 +535,16 @@ altered:
 
 
 @predefined
-
 @funindex balloonLengthOn
-@funindex balloonLengthOff
 @funindex \balloonLengthOn
+@code{\balloonLengthOn},
 @funindex \balloonLengthOff
+@funindex balloonLengthOff
+@code{\balloonLengthOff}.
+@endpredefined
 
-@code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -605,7 +611,6 @@ lines.
 
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -667,8 +672,8 @@ Analysis brackets may be nested.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Editorial annotations}.
 

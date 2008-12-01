@@ -61,8 +61,8 @@ Eine vollständige Liste der Schlagwerk-Bezeichnungen findet sich in
 der Datei @file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
 
-@seealso
 
+@seealso
 Programmreferenz:
 @rinternals{note-event}.
 
@@ -275,10 +275,10 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 
 @seealso
-
 Init-Dateien: @file{ly/@/drumpitch@/-init@/.ly}.
 
 Programmreferenz: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
+
 
 @knownissues
 

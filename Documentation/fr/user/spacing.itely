@@ -243,16 +243,14 @@ l'objet @rinternals{SpacingSpanner}.
 @item Les affinages optiques se règlent en assignant @emph{vrai} à la
 propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}. 
 
-
 @end itemize
 
-@seealso
 
+@seealso
 Exemples : @rlsr{Spacing}.
 
 Le fichier @file{input/proportional.ly} illustre la notation
 proportionnelle stricte.
-
 
 
 @node Fitting music onto fewer pages

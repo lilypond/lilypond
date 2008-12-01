@@ -49,8 +49,8 @@ in MIDI}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves}.
@@ -102,8 +102,8 @@ Hay ciertos detalles respecto a cómo está contemplado el MIDI para los
 instrumentos de percusión; para ver los detalles consulte
 @ref{Percussion in MIDI}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Percussion in MIDI},
 @ref{Percussion notes}.
@@ -150,8 +150,8 @@ de base satisfactoria.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Percussion}.
 
@@ -164,11 +164,10 @@ xilófono, el vibráfono y los timbales) se escriben usando pentagramas
 normales.  Esto se estudia en otras secciones del manual.
 
 @seealso
-
+@c
 @c TODO: possibly link to an alternate section of NR 3.5, if
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
-
 Referencia de la notación:
 @ref{Percussion in MIDI}.
 
@@ -570,8 +569,8 @@ drumsB = {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Percussion}.
 
@@ -616,7 +615,7 @@ en @ref{Parentheses}.  Sin embargo, el modo por defecto
 Observe, además, que debe añadir acordes (paréntesis en ángulo @code{<
 >}) alrededor de cada una de las instrucciones @code{\parenthesize}.
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Percussion}.

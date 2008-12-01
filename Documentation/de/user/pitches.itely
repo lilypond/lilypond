@@ -88,8 +88,8 @@ c, c,, e, g
 d,, d, d c
 @end lilypond
 
-@seealso
 
+@seealso
 Musikglossar:
 @rglos{Pitch names}.
 
@@ -214,8 +214,7 @@ Intervall enthält.
 
 
 @seealso
-
-Musickgossar:
+Musikglossar:
 @rglos{fifth},
 @rglos{interval},
 @rglos{Pitch names}.
@@ -235,6 +234,7 @@ Referenz der Interna:
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
+
 
 @knownissues
 
@@ -371,8 +371,8 @@ cis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
 
+@seealso
 Musikglossar:
 @rglos{sharp},
 @rglos{flat},
@@ -522,8 +522,8 @@ Sprachen sind noch keine eigenen Namen definiert.
 @end multitable
 @end smallexample
 
-@seealso
 
+@seealso
 Musikglossar:
 @rglos{Pitch names}.
 
@@ -609,8 +609,8 @@ einen Fehler aus, die zweite dagegen ist erfolgreich:
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -729,8 +729,8 @@ siehe auch @ref{Instrument transpositions}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Instrument transpositions}.
 
@@ -739,6 +739,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{TransposedMusic}.
+
 
 @funindex \transpose
 @funindex \chordmode
@@ -861,7 +862,6 @@ c2 c
 
 
 @seealso
-
 Notationsreferenz: @ref{Ancient clefs}.
 
 Schnipsel:
@@ -950,7 +950,6 @@ fis
 
 
 @seealso
-
 Musikglossar:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -1005,7 +1004,6 @@ haben.
 
 
 @seealso
-
 Musikglossar:
 @rglos{octavation}.
 
@@ -1103,7 +1101,6 @@ c2 g
 
 
 @seealso
-
 Musikglossar:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
@@ -2082,7 +2079,6 @@ musicB = {
 
 
 @seealso
-
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -2158,7 +2154,6 @@ Tonart definiert werden.
 
 
 @seealso
-
 Musikglossar:
 @rglos{ambitus}.
 
@@ -2232,8 +2227,8 @@ von Akkorden benutzt werden kann:
 Alle möglichen Notenkopf-Stile finden sich in
 @ref{Note head styles}.
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -2280,14 +2275,16 @@ sich in @ref{Setting the staff size}.
 }
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \easyHeadsOn
+@code{\easyHeadsOn},
 @funindex \easyHeadsOff
-@code{\easyHeadsOn}, @code{\easyHeadsOff}
+@code{\easyHeadsOff}.
+@endpredefined
+
 
 @seealso
-
 Notationsreferenz:
 @ref{Setting the staff size}.
 
@@ -2331,11 +2328,14 @@ Die unterschiedlichen Formen richten sich nach der Stufe in der
 Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
 entnommen wird.
 
-@predefined
 
+@predefined
 @funindex \aikenHeads
+@code{\aikenHeads},
 @funindex \sacredHarpHeads
-@code{\aikenHeads}, @code{\sacredHarpHeads}
+@code{\sacredHarpHeads}.
+@endpredefined
+
 
 @snippets
 
@@ -2345,8 +2345,8 @@ entnommen wird.
 @noindent
 Alle Notenkopfstile finden sich in @ref{Note head styles}.
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -2390,14 +2390,14 @@ benutzt werden:
 
 
 @predefined
-
 @funindex \improvisationOn
+@code{\improvisationOn},
 @funindex \improvisationOff
+@code{\improvisationOff}.
+@endpredefined
 
-@code{\improvisationOn}, @code{\improvisationOff}
 
 @seealso
-
 Schnipsel:
 @rlsr{Pitches}.
 

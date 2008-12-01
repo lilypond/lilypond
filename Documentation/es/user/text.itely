@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -87,16 +87,16 @@ d8^"pizz." e f g
 a4_"scherzando" f
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \textLengthOn
 @code{\textLengthOn},
 @funindex \textLengthOff
-@code{\textLengthOff}
+@code{\textLengthOff}.
+@endpredefined
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Formatting text},
 @ref{Direction and placement}.
@@ -106,6 +106,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
+
 
 @knownissues
 
@@ -154,17 +155,18 @@ El estilo de la línea, así como la cadena de texto, se pueden definir
 como una propiedad de objeto.  Esta sintaxis se describe en @ref{Line
 styles}.
 
-@predefined
 
+@predefined
 @funindex textSpannerUp
 @code{\textSpannerUp},
 @funindex textSpannerDown
 @code{\textSpannerDown},
 @funindex textSpannerNeutral
-@code{\textSpannerNeutral}
+@code{\textSpannerNeutral}.
+@endpredefined
+
 
 @seealso
-
 Referencia de la notación:
 @ref{Line styles},
 @ref{Dynamics}.
@@ -246,8 +248,8 @@ c  c
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Rehearsal marks},
 @ref{Formatting text},
@@ -259,6 +261,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{RehearsalMark}.
+
 
 @knownissues
 @c  To be removed when Issue 69 in the tracker gets fixed. -vv
@@ -308,10 +311,12 @@ posibilitando la impresión de documentos de texto o libros
 íntegramente desde LilyPond.  Esta funcionalidad y la sintaxis que
 requiere se describen en @ref{Multi-page markup}.
 
-@predefined
 
+@predefined
 @code{\markup},
-@code{\markuplines}
+@code{\markuplines}.
+@endpredefined
+
 
 @ignore
 @snippets
@@ -319,8 +324,8 @@ requiere se describen en @ref{Multi-page markup}.
 TODO: add convenient snippets in input/new -vv
 @end ignore
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Formatting text},
 @ref{File structure},
@@ -437,7 +442,6 @@ específicas de @code{\markup} en @ref{Text markup commands}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Text markup commands}.
 
@@ -593,27 +597,28 @@ utilización personalizada de las fuentes tipográficas en @ref{Font}.
 También es posible definir conjuntos personalizados de fuentes, tal y
 como se explica en @ref{Fonts}.
 
-@predefined
 
+@predefined
 @funindex \teeny
-@funindex \tiny
-@funindex \small
-@funindex \normalsize
-@funindex \large
-@funindex \huge
-@funindex \smaller
-@funindex \larger
 @code{\teeny},
+@funindex \tiny
 @code{\tiny},
+@funindex \small
 @code{\small},
+@funindex \normalsize
 @code{\normalsize},
+@funindex \large
 @code{\large},
+@funindex \huge
 @code{\huge},
+@funindex \smaller
 @code{\smaller},
+@funindex \larger
 @code{\larger}.
+@endpredefined
+
 
 @seealso
-
 Referencia de la notación:
 @ref{Font},
 @ref{New dynamic marks},
@@ -836,8 +841,8 @@ la izquierda o justificados, como se muestra en el ejemplo siguiente.
 Hay una lista exhaustiva de instrucciones de alineación de texto en
 @ref{Align}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Moving objects}.
 
@@ -995,8 +1000,8 @@ c
 Hay una lista exhaustiva de instrucciones específicas de gráficos en
 @ref{Graphic}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Graphic},
 @ref{Editorial annotations}.
@@ -1123,8 +1128,8 @@ c d e f
 Hay una lista exhaustiva de instrucciones relacionadas con la notación
 musical en @ref{Music}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Music},
 @ref{The Feta font},
@@ -1177,8 +1182,8 @@ o una lista de listas de marcado.
 Hay una lista exhaustiva de las instrucciones de lista de marcado en
 @ref{Text markup list commands}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Text markup list commands},
 @ref{New markup list command definition}.
@@ -1192,9 +1197,11 @@ Referencia de funcionamiento interno:
 Archivos de inicio:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
 
+
 @predefined
 @funindex \markuplines
-@code{\markuplines}
+@code{\markuplines}.
+@endpredefined
 
 
 @node Fonts
@@ -1301,8 +1308,8 @@ property.  The resulting size is taken relative to the
 @code{text-font-size} as defined in the @code{\paper} block.
 @end ignore
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{The Feta font},
 @ref{Music notation inside markup},
@@ -1341,8 +1348,8 @@ lilypond -dshow-available-fonts x
 El último argumento de la instrucción puede ser cualquiera, pero debe
 estar presente.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Fonts explained},
 @ref{Entire document fonts}.
@@ -1353,14 +1360,15 @@ Fragmentos de código:
 Archivos de inicio:
 @file{lily/@/font@/-config@/-scheme@/.cc}.
 
+
 @node Entire document fonts
 @unnumberedsubsubsec Entire document fonts
 
-Se puede cambiar la familia predeterminada de la fuente tipográfica
-para todo el documento.  En este caso se debe usar la siguiente
-sintaxis, proporcionando tres familias de fuente que se usarán
-respectivamente como tipografías @emph{romana}, @emph{sans-serif} y
-@emph{monoespaciada}, como se explica en @ref{Fonts explained}.
+Se pueden cambiar las fuentes tipográficas que se usan como
+tipografías predeterminadas en las familias @emph{romana},
+@emph{sans-serif} y @emph{monoespaciada}, especificándolas en este
+orden como se ve en el ejemplo de abajo.  Para leer más explicaciones
+sobre las fuentes tipográficas, consulte @ref{Fonts explained}.
 
 @cindex fuente, establecer la familia de
 @funindex make-pango-font-tree
@@ -1386,8 +1394,8 @@ respectivamente como tipografías @emph{romana}, @emph{sans-serif} y
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Fonts explained},
 @ref{Single entry fonts},

@@ -605,10 +605,11 @@ de voz.  De forma semejante, varios Contextos de pauta pueden
 agruparse en un único Contexto de partitura.  El Contexto de partitura
 es el contexto de notación de más alto nivel.
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{Contexts}.
+
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

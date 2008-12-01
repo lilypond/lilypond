@@ -82,7 +82,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 {
   if (primitives.size () < 2)
     {
-      warning (_f ("ligature with less than 2 heads -> skipping"));
+      warning (_ ("ligature with less than 2 heads -> skipping"));
       return;
     }
   int prev_pitch = 0;
@@ -109,7 +109,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
       if (!nr->in_event_class ("note-event"))
 	{
 	  nr->origin ()->warning
-	    (_f ("cannot determine pitch of ligature primitive -> skipping"));
+	    (_ ("cannot determine pitch of ligature primitive -> skipping"));
 	  at_beginning = true;
 	  continue;
 	}
@@ -123,7 +123,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	    {
 	      // we can get here after invalid input
 	      nr->origin ()->warning
-		(_f ("single note ligature - skipping"));
+		(_ ("single note ligature - skipping"));
 	      break;
 	    }
 	  prev_semibrevis = prev_brevis_shape = false;
@@ -135,7 +135,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	  if (delta_pitch == 0)
 	    {
 	      nr->origin ()->warning
-		(_f ("prime interval within ligature -> skipping"));
+		(_ ("prime interval within ligature -> skipping"));
 	      at_beginning = true;
 	      primitive->set_property ("primitive",
 				       scm_from_int (MLP_NONE));
@@ -147,7 +147,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	  || duration_log > 0)
 	{
 	  nr->origin ()->warning
-	    (_f ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
+	    (_ ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
 	  primitive->set_property ("primitive",
 				   scm_from_int (MLP_NONE));
 	  at_beginning = true;
@@ -195,7 +195,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	  else
 	    {
 	      nr->origin ()->warning
-		(_f ("semibrevis must be followed by another one -> skipping"));
+		(_ ("semibrevis must be followed by another one -> skipping"));
 	      primitive->set_property ("primitive",
 				       scm_from_int (MLP_NONE));
 	      at_beginning = true;
@@ -206,8 +206,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
       else if (duration_log == 0)
 	{
 	  nr->origin ()->warning
-	    (_f ("semibreves can only appear at the beginning of a ligature,\n"
-		 "and there may be only zero or two of them"));
+	    (_ ("semibreves can only appear at the beginning of a ligature,\n"
+		"and there may be only zero or two of them"));
 	  primitive->set_property ("primitive",
 				   scm_from_int (MLP_NONE));
 	  at_beginning = true;
@@ -233,10 +233,10 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	      else
 		{
 		  nr->origin ()->warning
-		    (_f ("invalid ligatura ending:\n"
-			 "when the last note is a descending brevis,\n"
-			 "the penultimate note must be another one,\n"
-			 "or the ligatura must be LB or SSB"));
+		    (_ ("invalid ligatura ending:\n"
+			"when the last note is a descending brevis,\n"
+			"the penultimate note must be another one,\n"
+			"or the ligatura must be LB or SSB"));
 		  primitive->set_property ("primitive", scm_from_int (MLP_NONE));
 		  break;
 		}
@@ -353,7 +353,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 				   scm_from_double (flexa_width));
 	  break;
 	default:
-	  programming_error (_f ("unexpected case fall-through"));
+	  programming_error (_ ("unexpected case fall-through"));
 	  break;
 	}
     }

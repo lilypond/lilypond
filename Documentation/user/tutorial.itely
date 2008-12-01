@@ -460,7 +460,6 @@ Here is a small example showing all these elements together:
 
 
 @seealso
-
 Notation Reference: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.
@@ -634,12 +633,11 @@ you have a starting template for experiments.  To see exactly the
 same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
 
-@seealso
 
+@seealso
 There are more tips for constructing input files in
 @ref{Suggestions for writing LilyPond input files}.  But it might be
 best to read through the rest of the tutorial first.
-
 
 
 @node Single staff notation
@@ -775,8 +773,8 @@ according to different conventions.  For some examples how
 accidentals can be printed according to different rules, see
 @ruser{Automatic accidentals}.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Note names in other languages},
 @ruser{Accidentals}, @ruser{Automatic accidentals},
 @ruser{Key signature}.
@@ -852,8 +850,8 @@ larger groups of notes.  Slurs and ties can be nested.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Ties}, @ruser{Slurs},
 @ruser{Phrasing slurs}.
 
@@ -942,8 +940,8 @@ example @code{\f}, will end the (de)crescendo, or the command
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions}, @ruser{Dynamics}.
 
@@ -975,7 +973,6 @@ a1_\markup{
 
 
 @seealso
-
 Notation Reference: @ruser{Writing text}.
 
 
@@ -1025,8 +1022,8 @@ a8 c b4 d8. c16 b4
 a8 c b4 d8. c16 b4
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Automatic beams}, @ruser{Manual beams}.
 
 
@@ -1102,8 +1099,8 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Grace notes}, @ruser{Tuplets},
 @ruser{Upbeats}.
 
@@ -1366,8 +1363,8 @@ suitable for vocal scores.  These staff groups each form another
 type of context, one that generates the brace at the left end of
 every system and also controls the extent of bar lines.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Keyboard and other multi-staff
 instruments},
 @ruser{Displaying staves}.
@@ -1469,8 +1466,8 @@ Again, these expressions can be nested arbitrarily.
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Simultaneous notes}.
 
 
@@ -1697,7 +1694,6 @@ Here's an example from Rossini's @notation{Figaro}, where
 
 
 @seealso
-
 Notation Reference: @ruser{Vocal music}.
 
 
@@ -1739,10 +1735,9 @@ produced by separating out the score structure from the notes and
 lyrics with variables.  These are discussed in @ref{Organizing
 pieces with variables}.
 
+
 @seealso
-
 Notation Reference: @ruser{Vocal music}.
-
 
 
 @node Final touches

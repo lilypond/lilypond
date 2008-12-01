@@ -81,18 +81,17 @@ La propriété @code{font-size} ne peut intervenir que pour les objets
 qui utilisent des polices, autrement dit ceux qui disposent de
 l'interface de rendu @rinternals{font-interface}.
 
-@predefined
 
+@predefined
 Les commandes suivantes définissent @code{fontSize} pour la voix en
 cours :
-
 @funindex \tiny
 @code{\tiny},
 @funindex \small
 @code{\small},
 @funindex \normalsize
 @code{\normalsize}.
-
+@endpredefined
 
 
 @node Fingering instructions
@@ -156,7 +155,6 @@ d'indiquer des doigtés très proches des têtes de notes.
 
 
 @seealso
-
 Référence du programme : @rinternals{Fingering}.
 
 Exemples : @rlsr{Editorial annotations}.
@@ -247,7 +245,6 @@ L'exemple suivant illustre l'utilisation de la fonction
 
 
 @seealso
-
 Annexes : @ref{List of colors}.
 
 
@@ -297,14 +294,15 @@ Dès qu'une note est rencontrée, un objet @rinternals{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
 créés, mais en mode invisible.
 
-@predefined
 
+@predefined
 @funindex \stemUp
 @code{\stemUp},
 @funindex \stemDown
 @code{\stemDown},
 @funindex \stemNeutral
 @code{\stemNeutral}.
+@endpredefined
 
 
 @commonprop
@@ -358,8 +356,8 @@ et le texte de la bulle.
 @cindex bulles
 @cindex notation, expliquer
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{balloon-interface}.
 
 
@@ -434,8 +432,8 @@ contexte @rinternals{Staff} comporte le graveur
 }}}
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{HorizontalBracket}.
 
 

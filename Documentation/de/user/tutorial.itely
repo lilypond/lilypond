@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f413550b658b43fbea690fc060f872bce6bbc885
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -35,11 +35,11 @@ schönen Notendruck umgesetzt werden können.
 
 
 @menu
-* First steps::                 
-* Single staff notation::       
-* Multiple notes at once::      
-* Songs::                       
-* Final touches::               
+* First steps::
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
 @end menu
 
 
@@ -50,10 +50,10 @@ In diesem Abschnitt werden die Grundlagen zur Benutzung
 des Programmes erklärt.
 
 @menu
-* Compiling a file::            
-* Simple notation::             
-* Working on input files::       
-* How to read the manual::      
+* Compiling a file::
+* Simple notation::
+* Working on input files::
+* How to read the manual::
 @end menu
 
 
@@ -499,11 +499,11 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 }
 @end lilypond
 
+
 @seealso
 Notationsreferenz: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.
-
 
 
 @node Working on input files
@@ -686,8 +686,8 @@ bei dem Beispiel selber erreichen, müssen Sie alles kopieren ab der
 Zeile @qq{Start
 cut-&-pastable section} bis ganz zum Ende der Datei.
 
-@seealso
 
+@seealso
 Mehr Hinweise dazu, wie LilyPond-Eingabedateien konstruiert werden 
 sollten, finden sich in @ref{Suggestions for writing LilyPond input files}. 
 Es ist aber wahrscheinlich am Besten, zuerst
@@ -701,12 +701,12 @@ Dieses Kapitel lehrt grundlegende Bestandteile der Notation,
 die für eine Stimme auf einem System gebraucht werden.
 
 @menu
-* Accidentals and key signatures::  
-* Ties and slurs::              
-* Articulation and dynamics::   
-* Adding text::                 
-* Automatic and manual beams::  
-* Advanced rhythmic commands::  
+* Accidentals and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
 @end menu
 
 
@@ -820,9 +820,10 @@ d cis fis
 hat keine der Noten ein Versetzungszeichen, trotzdem muss im Quelltext
 das @q{is} für @code{cis} und @code{fis} notiert werden.
 
-Der Code @q{b} heißt also nicht: @qq{Zeichne einen schwarzen Punkt
+Der Code @q{b} (nach der holländischen Notenbezeichnung wird der Ton H mit
+@code{b} gesetzt) heißt also nicht: @qq{Zeichne einen schwarzen Punkt
 auf die Mittellinie des Systems.} Im Gegenteil, er heißt vielmehr:
- @qq{Hier soll eine Note mit der Tonhöhe B gesetzt werden.}
+ @qq{Hier soll eine Note mit der Tonhöhe H gesetzt werden.}
 In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 
 
@@ -839,8 +840,8 @@ unterschiedlichen Regeln erfolgen kann. Siehe
 @ruser{Automatic accidentals} für einige Beispiele, wie Vorzeichen
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Note names in other languages},
 @ruser{Accidentals}, @ruser{Automatic accidentals},
 @ruser{Key signature}.
@@ -920,8 +921,8 @@ geschachtelt werden.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Ties}, @ruser{Slurs},
 @ruser{Phrasing slurs}.
 
@@ -1013,8 +1014,8 @@ Auch mit dem Befehl @code{\!} kann es explizit beendet werden.
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions}, @ruser{Dynamics}.
 
@@ -1047,8 +1048,8 @@ a1_\markup{
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Writing text}.
 
 
@@ -1097,8 +1098,8 @@ a8 c b4 d8. c16 b4
 a8 c b4 d8. c16 b4
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Automatic beams}, @ruser{Manual beams}.
 
 
@@ -1172,8 +1173,8 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Grace notes}, @ruser{Tuplets},
 @ruser{Upbeats}.
 
@@ -1464,8 +1465,8 @@ des Systems erstellt werden und der zusätzlich auch
 darüber entscheidet, ob die Taktlinien nur auf dem System 
 oder auch zwischen System gesetzt werden.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ruser{Keyboard and other multi-staff
 instruments},
@@ -1573,8 +1574,8 @@ kombiniert werden.
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: 
 @ruser{Simultaneous notes}.
 
@@ -1646,7 +1647,6 @@ Text und Noten gleichzeitig gesetzt werden.
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
-
 
 @cindex Gesangstext, Ausrichten
 @cindex Ausrichten von Gesangstext
@@ -1822,7 +1822,6 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden mus.
 
 
 @seealso
-
 Notationsreferenz: @ruser{Vocal music}.
 
 
@@ -1864,8 +1863,8 @@ werden besser notiert, indem man die Systemstruktur von den
 Noten und dem Gesangstext durch Variablen trennt. Die Benutzung 
 von Variablen wird erklärt im Abschnitt @ref{Organizing pieces with variables}.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Vocal music}.
 
 

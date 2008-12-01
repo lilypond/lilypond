@@ -291,8 +291,8 @@ c4^"piu mosso" d e f
 c4^"piu mosso" d e f
 @end lilypond
 
-@seealso
 
+@seealso
 Dans ce même manuel : @ruser{The \override command}, @ref{Common tweaks}.
 
 
@@ -308,16 +308,13 @@ Pour trouver cette dénomination, regardez les liens @q{@strong{Voir aussi}}
 en bas des pages de la documentation.  Par exemple, en bas de la page
 @ruser{Dynamics}, nous trouvons 
 
-@quotation
-@seealso
 
+@seealso
 Référence du programme : @rinternals{DynamicText}, @rinternals{Hairpin}.
 Le placement vertical de ces symboles est contrôlé par
 @rinternals{DynamicLineSpanner}.
-@end quotation
 
 @noindent
-
 Ce qui implique que, pour modifier la hauteur d'une nuance, nous utiliserons
 
 @example

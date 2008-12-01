@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: d650ba9e33bf95a14c8b99882142d04acf8435d5
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,13 +19,13 @@ schönen Notenbild erfreuen!
 
 @c bad node name for ancient notation to avoid conflict
 @menu
-* Single staff::                
-* Piano templates::             
-* String quartet::              
-* Vocal ensembles::             
-* Ancient notation templates::  
-* Jazz combo::                  
-* Lilypond-book templates::     
+* Single staff::
+* Piano templates::
+* String quartet::
+* Vocal ensembles::
+* Ancient notation templates::
+* Jazz combo::
+* Lilypond-book templates::
 @end menu
 
 

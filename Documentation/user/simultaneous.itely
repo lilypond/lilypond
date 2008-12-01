@@ -63,8 +63,8 @@ pitch is the @emph{first} pitch of the preceding chord.
 
 For more information about chords, see @ref{Chord notation}.
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{chord}.
 
@@ -76,6 +76,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Simultaneous notes}.
+
 
 @node Simultaneous expressions
 @unnumberedsubsubsec Simultaneous expressions
@@ -137,8 +138,8 @@ Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
 automatically avoid collisions between ordinary notes and clusters.
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{cluster}.
 
@@ -149,6 +150,7 @@ Internals Reference:
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
+
 
 @knownissues
 
@@ -322,16 +324,17 @@ them in a simple simultaneous music construct within an explicit voice:
 This method leads to strange beamings and warnings if the pieces of
 music do not have the same rhythm.
 
-@predefined
 
+@predefined
 @code{\voiceOne},
 @code{\voiceTwo},
 @code{\voiceThree},
 @code{\voiceFour},
 @code{\oneVoice}.
+@endpredefined
+
 
 @seealso
-
 Learning Manual:
 @rlearning{Voices contain music},
 @rlearning{Explicitly instantiating voices}.
@@ -374,18 +377,17 @@ easily identified:
 The @code{\voiceNeutralstyle} command is used to revert to the
 standard presentation.
 
+
 @predefined
-
-
 @code{\voiceOneStyle},
-
 @code{\voiceTwoStyle},
 @code{\voiceThreeStyle},
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
+@endpredefined
+
 
 @seealso
-
 Learning Manual:
 @rlearning{I'm hearing Voices},
 @rlearning{Other sources of information}.
@@ -528,7 +530,6 @@ Notes are only merged if they have opposing stem directions (e.g. in
 
 
 @predefined
-
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
 @code{\mergeDifferentlyHeadedOn},
@@ -538,6 +539,8 @@ Notes are only merged if they have opposing stem directions (e.g. in
 @code{\shiftOnn},
 @code{\shiftOnnn},
 @code{\shiftOff}.
+@endpredefined
+
 
 @snippets
 
@@ -547,8 +550,8 @@ Notes are only merged if they have opposing stem directions (e.g. in
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{polyphony}.
 
@@ -564,6 +567,7 @@ Internals Reference:
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
+
 
 @knownissues
 
@@ -671,8 +675,8 @@ has no effect on the pitches of @var{musicexpr1} and
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{a due},
 @rglos{part}.
@@ -686,6 +690,7 @@ Snippets:
 Internals Reference:
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
+
 
 @knownissues
 
@@ -823,8 +828,8 @@ global = {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Organizing pieces with variables}.
 

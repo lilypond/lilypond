@@ -120,8 +120,8 @@ Die @code{font-size}-Eigenschaft kann nur für die Layoutobjekte gesetzt
 werden, die Schrift-Dateien benutzen.  Das sind die, welche die
 @code{font-interface}-Layoutschnittstelle unterstützen.
 
-@predefined
 
+@predefined
 @funindex \teeny
 @code{\teeny},
 @funindex \tiny
@@ -134,9 +134,10 @@ werden, die Schrift-Dateien benutzen.  Das sind die, welche die
 @code{\large},
 @funindex \huge
 @code{\huge}.
+@endpredefined
+
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -201,8 +202,8 @@ Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Direction and placement}.
 
@@ -259,11 +260,12 @@ e4(\p f)--
 
 
 @predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
 
-@code{\hideNotes}, @code{\unHideNotes}
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -349,14 +351,15 @@ gis8 a
 gis4 a
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{List of colors}, @ref{The
 tweak command}.
 
 Schnipsel:
 @rlsr{Editorial annotations}.
+
 
 @cindex x11-Farbe
 @cindex farbige Noten in Akkorden
@@ -407,8 +410,8 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -416,6 +419,7 @@ Referenz der Interna:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+
 
 @knownissues
 
@@ -437,14 +441,15 @@ ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch
 für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
 gemacht.
 
-@predefined
 
+@predefined
 @funindex \stemUp
 @code{\stemUp} (Hälse nach oben),
 @funindex \stemDown
 @code{\stemDown} (Hälse nach unten),
 @funindex \stemNeutral
 @code{\stemNeutral} (Hälse je nach Notenposition).
+@endpredefined
 
 
 @snippets
@@ -458,6 +463,7 @@ gemacht.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+
 @seealso
 Notationsreferenz:
 @ref{Direction and placement}.
@@ -469,7 +475,6 @@ Referenz der Interna:
 @rinternals{Stem_engraver},
 @rinternals{Stem},
 @rinternals{stem-interface}.
-
 
 
 @node Outside the staff
@@ -540,16 +545,16 @@ aber das kann geändert werden.
 
 
 @predefined
-
 @funindex balloonLengthOn
 @funindex balloonLengthOff
+@code{\balloonLengthOn},
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
+@code{\balloonLengthOff}.
+@endpredefined
 
-@code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -616,7 +621,6 @@ den Linien festgesetzt.
 
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -680,8 +684,8 @@ Analysis brackets may be nested.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Editorial annotations}.
 

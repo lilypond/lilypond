@@ -79,8 +79,8 @@ described in @ref{Unmetered music}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Note names in other languages},
 @ref{Key signature},
@@ -135,7 +135,6 @@ signature cannot be altered by using this method.
 
 
 @seealso
-
 Notation Reference:
 @ref{Note names in other languages}.
 
@@ -245,8 +244,8 @@ key signatures:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Key signature}.
 
@@ -286,8 +285,8 @@ adjust the beaming behaviour and/or use compound time signatures.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Manual beams},
 @ref{Automatic beams},
@@ -333,11 +332,10 @@ intervals and unusual modes that are discussed in this section.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{World music}
-
 
 
 @node Further reading

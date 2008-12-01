@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -455,8 +455,8 @@ se puede modificar de la forma usual mediante instrucciones
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{The tweak command}.
 
@@ -913,10 +913,11 @@ final y la llave de cierre.}
 escriba siempre espacios antes y después del punto que separa el
 nombre del contexto y el nombre del objeto.}
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @ref{Scheme tutorial}.
+
 
 @node Types of properties
 @subsection Types of properties
@@ -979,10 +980,11 @@ en la instrucción @code{\override}.
   @tab @code{'#(#t #t #f)}
 @end multitable
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @ref{Scheme tutorial}.
+
 
 @node Appearance of objects
 @section Appearance of objects

@@ -2,14 +2,14 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Till Rettig <till.rettig@gmx.de>, 2007,2008
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-22 20:22+0100\n"
-"PO-Revision-Date: 2008-11-10 20:02+0200\n"
+"PO-Revision-Date: 2008-11-23 20:56+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -1441,21 +1441,18 @@ msgstr "Nach der Übung"
 #. Documentation/user/fundamental.itely:325 (context id)
 #. Documentation/user/fundamental.itely:368 (context id)
 #. input/lsr/piano-template-with-centered-lyrics.ly:51 (context id)
-#, fuzzy
 msgid "singer"
-msgstr "Fingersatz"
+msgstr "Sänger"
 
 #. Documentation/user/fundamental.itely:326 (context id)
 #. Documentation/user/fundamental.itely:369 (context id)
-#, fuzzy
 msgid "vocal"
-msgstr "Tonleiter"
+msgstr "Gesang"
 
 #. Documentation/user/fundamental.itely:329 (context id)
 #. Documentation/user/fundamental.itely:372 (context id)
 #. input/lsr/jazz-combo-template.ly:218 (variable)
 #. input/lsr/jazz-combo-template.ly:278 (context id)
-#, fuzzy
 msgid "piano"
 msgstr "Klavier"
 
@@ -1544,9 +1541,8 @@ msgstr "Text"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:190 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:206 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:222 (comment)
-#, fuzzy
 msgid "main"
-msgstr "Moll"
+msgstr "haupt"
 
 #. Documentation/user/fundamental.itely:632 (comment)
 msgid "Voice \\\"1\\\"                  Voice \\\"2\\\""
@@ -1704,14 +1700,12 @@ msgid "SopTwoLyrics"
 msgstr "SoprZweiText"
 
 #. Documentation/user/fundamental.itely:1255 (context id)
-#, fuzzy
 msgid "SopOne"
-msgstr "SoprEinsNoten"
+msgstr "SoprEins"
 
 #. Documentation/user/fundamental.itely:1264 (context id)
-#, fuzzy
 msgid "SopTwo"
-msgstr "SoprZweiNoten"
+msgstr "SoprZwei"
 
 #. Documentation/user/fundamental.itely:1296 (variable)
 #. Documentation/user/fundamental.itely:2864 (variable)
@@ -1758,31 +1752,27 @@ msgid "VerseFour"
 msgstr "StropheVier"
 
 #. Documentation/user/fundamental.itely:1314 (context id)
-#, fuzzy
 msgid "Sop"
-msgstr "Top"
+msgstr "Sopr"
 
 #. Documentation/user/fundamental.itely:1315 (context id)
 #. Documentation/user/tweaks.itely:3483 (context id)
 #. Documentation/user/input.itely:946 (context id)
-#, fuzzy
 msgid "Alto"
-msgstr "AltOn"
+msgstr "Alt"
 
 #. Documentation/user/fundamental.itely:1323 (context id)
 #. Documentation/user/tweaks.itely:3491 (context id)
 #. Documentation/user/input.itely:948 (context id)
-#, fuzzy
 msgid "Tenor"
-msgstr "TenorNoten"
+msgstr "Tenor"
 
 #. Documentation/user/fundamental.itely:1324 (context id)
 #. Documentation/user/tweaks.itely:3492 (context id)
 #. Documentation/user/input.itely:953 (context id)
 #. input/lsr/jazz-combo-template.ly:227 (variable)
-#, fuzzy
 msgid "Bass"
-msgstr "Takte"
+msgstr "Bass"
 
 #. Documentation/user/fundamental.itely:1350 (variable)
 #. Documentation/user/fundamental.itely:1402 (variable)
@@ -1801,9 +1791,8 @@ msgstr "StrophenText"
 #. Documentation/user/fundamental.itely:1489 (context id)
 #. Documentation/user/vocal.itely:820 (context id)
 #. input/lsr/score-for-diatonic-accordion.ly:59 (variable)
-#, fuzzy
 msgid "verse"
-msgstr "StrophenNoten"
+msgstr "Strophe"
 
 #. Documentation/user/fundamental.itely:1407 (variable)
 #. Documentation/user/fundamental.itely:1469 (variable)
@@ -1827,14 +1816,12 @@ msgstr "RefrainTextB"
 
 #. Documentation/user/fundamental.itely:1436 (context id)
 #. Documentation/user/fundamental.itely:1509 (context id)
-#, fuzzy
 msgid "refrainB"
-msgstr "RefrainNotenB"
+msgstr "RefrainB"
 
 #. Documentation/user/fundamental.itely:1501 (context id)
-#, fuzzy
 msgid "refrainA"
-msgstr "RefrainNotenA"
+msgstr "RefrainA"
 
 #. Documentation/user/fundamental.itely:1655 (comment)
 msgid "start of single compound music expression"
@@ -2007,36 +1994,32 @@ msgstr "ChoirStaff und PianoStaff parallel kombinieren"
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:77 (context id)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:68 (context id)
 #. input/lsr/vocal-ensemble-template.ly:73 (context id)
-#, fuzzy
 msgid "sopranos"
-msgstr "SopranNoten"
+msgstr "Sopran"
 
 #. Documentation/user/fundamental.itely:2692 (context id)
 #. Documentation/user/fundamental.itely:2694 (context id)
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:78 (context id)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:69 (context id)
 #. input/lsr/vocal-ensemble-template.ly:77 (context id)
-#, fuzzy
 msgid "altos"
-msgstr "AltNoten"
+msgstr "Alt"
 
 #. Documentation/user/fundamental.itely:2697 (context id)
 #. Documentation/user/fundamental.itely:2699 (context id)
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:84 (context id)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:79 (context id)
 #. input/lsr/vocal-ensemble-template.ly:86 (context id)
-#, fuzzy
 msgid "tenors"
-msgstr "TenorNoten"
+msgstr "Tenor"
 
 #. Documentation/user/fundamental.itely:2702 (context id)
 #. Documentation/user/fundamental.itely:2704 (context id)
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:85 (context id)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:80 (context id)
 #. input/lsr/vocal-ensemble-template.ly:90 (context id)
-#, fuzzy
 msgid "basses"
-msgstr "BassNoten"
+msgstr "Bass"
 
 #. Documentation/user/fundamental.itely:2707 (comment)
 msgid "end ChoirStaff"
@@ -2063,9 +2046,8 @@ msgid "PianoStaff and Pedal Staff must be simultaneous"
 msgstr "PianoStaff und Pedal-System müssen gleichzeitig sein"
 
 #. Documentation/user/fundamental.itely:2884 (context id)
-#, fuzzy
 msgid "ManualOne"
-msgstr "Manuelle Balken"
+msgstr "ManualEins"
 
 #. Documentation/user/fundamental.itely:2885 (comment)
 msgid "set time signature and key"
@@ -2076,9 +2058,8 @@ msgid "end ManualOne Staff context"
 msgstr "Ende ManualEins Staff-Kontext"
 
 #. Documentation/user/fundamental.itely:2890 (context id)
-#, fuzzy
 msgid "ManualTwo"
-msgstr "ManualZweiNoten"
+msgstr "ManualZwei"
 
 #. Documentation/user/fundamental.itely:2894 (comment)
 msgid "end ManualTwo Staff context"
@@ -2089,9 +2070,8 @@ msgid "end PianoStaff context"
 msgstr "Klaviersystem beenden"
 
 #. Documentation/user/fundamental.itely:2896 (context id)
-#, fuzzy
 msgid "PedalOrgan"
-msgstr "PedalOrgelNoten"
+msgstr "OrgelPedal"
 
 #. Documentation/user/fundamental.itely:2900 (comment)
 msgid "end PedalOrgan Staff context"
@@ -2608,9 +2588,8 @@ msgstr "SopranNoten"
 
 #. Documentation/user/tweaks.itely:3482 (context id)
 #. Documentation/user/input.itely:944 (context id)
-#, fuzzy
 msgid "Soprano"
-msgstr "SopranNoten"
+msgstr "Sopran"
 
 #. Documentation/user/tweaks.itely:3691 (comment)
 msgid "Arrange to obtain color from color-notehead procedure"
@@ -2859,7 +2838,6 @@ msgstr "Fingersatz"
 #. @subsection in Documentation/user/tweaks.itely
 #. @node in Documentation/es/user/tweaks.itely
 #. @subsection in Documentation/es/user/tweaks.itely
-#, fuzzy
 msgid "Outside-staff objects"
 msgstr "Objekte außerhalb des Notensystems"
 
@@ -4564,9 +4542,8 @@ msgid "Now each staff has its own time signature."
 msgstr "Jetzt hat jedes System eine eigene Taktart"
 
 #. Documentation/user/rhythms.itely:1256 (context id)
-#, fuzzy
 msgid "myRhythm"
-msgstr "Rhythmus"
+msgstr "meinRhythmus"
 
 #. Documentation/user/rhythms.itely:1585 (comment)
 msgid "end 1/16 beams for all time signatures at the 1/16 moment"
@@ -6051,7 +6028,6 @@ msgid "Specialist notation"
 msgstr "Spezielle Notation"
 
 #. Documentation/user/vocal.itely:509 (comment)
-#, fuzzy
 msgid "not recommended: left aligns syllables"
 msgstr "nicht empfohlen: Silben links ausrichten"
 
@@ -6064,14 +6040,12 @@ msgid "correct"
 msgstr "richtig"
 
 #. Documentation/user/vocal.itely:664 (context id)
-#, fuzzy
 msgid "lala"
-msgstr "global"
+msgstr "lala"
 
 #. Documentation/user/vocal.itely:802 (context id)
-#, fuzzy
 msgid "splitpart"
-msgstr "Stimme"
+msgstr "StimmeTeilen"
 
 #. Documentation/user/vocal.itely:847 (variable)
 msgid "voice"
@@ -6083,9 +6057,8 @@ msgid "lyr"
 msgstr "Text"
 
 #. Documentation/user/vocal.itely:1053 (context id)
-#, fuzzy
 msgid "tune"
-msgstr "N-tole"
+msgstr "Melodie"
 
 #. Documentation/user/vocal.itely:1101 (context id)
 msgid "lahlah"
@@ -6096,9 +6069,8 @@ msgid "applies to \\\"fas\\\""
 msgstr "gehört zu \\\"fas\\\""
 
 #. Documentation/user/vocal.itely:1282 (comment)
-#, fuzzy
 msgid "moves the column off the left margin;"
-msgstr "Kolumne vom linken Rand wegbewegen"
+msgstr "Spalte vom linken Rand wegbewegen"
 
 #. Documentation/user/vocal.itely:1283 (comment)
 msgid "can be removed if space on the page is tight"
@@ -6110,12 +6082,10 @@ msgid "adds vertical spacing between verses"
 msgstr "Vertikaler Abstand zwischen Strophen"
 
 #. Documentation/user/vocal.itely:1299 (comment)
-#, fuzzy
 msgid "adds horizontal spacing between columns;"
-msgstr "Vertikaler Abstand zwischen Strophen"
+msgstr "Horizontalen Abstand zwischen Spalten hinzufügen;"
 
 #. Documentation/user/vocal.itely:1300 (comment)
-#, fuzzy
 msgid "if they are still too close, add more \\\" \\\" pairs"
 msgstr "Wenn sie immer noch zu eng sind, mehr \\\" \\\"-Paare hinzufügen"
 
@@ -6124,7 +6094,6 @@ msgid "until the result looks good"
 msgstr "bis das Resultat gut aussieht"
 
 #. Documentation/user/vocal.itely:1317 (comment)
-#, fuzzy
 msgid "gives some extra space on the right margin;"
 msgstr "zusätzlichen Platz für den rechten Rand"
 
@@ -6317,7 +6286,7 @@ msgstr "Noten überspringen"
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
 msgid "Extenders and hyphens"
-msgstr "Unterstrichen und Trennstriche"
+msgstr "Fülllinien und Trennstriche"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -6479,9 +6448,8 @@ msgid "keep staff alive"
 msgstr "System aufrecht erhalten"
 
 #. Documentation/user/keyboards.itely:265 (context id)
-#, fuzzy
 msgid "melOne"
-msgstr "Linie"
+msgstr "melEins"
 
 #. Documentation/user/keyboards.itely:333 (context id)
 #. Documentation/user/fretted-strings.itely:242 (context id)
@@ -6718,14 +6686,12 @@ msgid "melodia"
 msgstr "Melodie"
 
 #. Documentation/user/fretted-strings.itely:243 (context id)
-#, fuzzy
 msgid "shared"
-msgstr "Kreuz"
+msgstr "gemeinsam"
 
 #. Documentation/user/fretted-strings.itely:244 (context id)
-#, fuzzy
 msgid "solo"
-msgstr "color (Farbe)"
+msgstr "solo"
 
 #. Documentation/user/fretted-strings.itely:321 (variable)
 msgid "mynotes"
@@ -6940,7 +6906,6 @@ msgid "It also defines the positions of the two lines."
 msgstr "Auch die Position der zwei Linien wird festgelegt"
 
 #. Documentation/user/percussion.itely:396 (comment)
-#, fuzzy
 msgid "This is neccessary; if not entered, the barline would be too short!"
 msgstr "Das ist notwendig. Wenn nicht angegeben, wird die Taktlinie zu kurz!"
 
@@ -7292,9 +7257,8 @@ msgid "ficta"
 msgstr "ficta"
 
 #. Documentation/user/ancient.itely:973 (context id)
-#, fuzzy
 msgid "cantus"
-msgstr "Hymnen"
+msgstr "cantus"
 
 #. @node in Documentation/user/ancient.itely
 #. @section in Documentation/user/ancient.itely
@@ -8745,9 +8709,8 @@ msgstr "Abstände und Maße"
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @subsection in Documentation/es/user/changing-defaults.itely
-#, fuzzy
 msgid "Staff symbol properties"
-msgstr "Eigenschaften des Layouts"
+msgstr "Eigenschaften von Staff (Notensystem)-Symbol"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
@@ -9482,7 +9445,6 @@ msgid "Cheat sheet"
 msgstr "Befehlsübersicht"
 
 #. @top in Documentation/fr/user/lilypond-learning.tely
-#, fuzzy
 msgid "GNU LilyPond --- Manuel d'initiation"
 msgstr "GNU LilyPond -- Das Handbuch zum Lernen"
 
@@ -9537,7 +9499,6 @@ msgid "Updating old files"
 msgstr "Alte Dateien aktualisieren"
 
 #. @top in Documentation/fr/user/lilypond-program.tely
-#, fuzzy
 msgid "GNU LilyPond --- Utilisation des programmes"
 msgstr "GNU LilyPond -- Die Programmbenutzung"
 
@@ -9554,7 +9515,6 @@ msgid "Updating with @command{convert-ly}"
 msgstr "Dateien mit @command{convert-ly} aktualisieren"
 
 #. @top in Documentation/fr/user/lilypond.tely
-#, fuzzy
 msgid "GNU LilyPond --- Manuel de notation"
 msgstr "GNU LilyPond -- Das Handbuch zum Lernen"
 
@@ -9852,106 +9812,90 @@ msgid "TODO moved into scheme"
 msgstr "TODO nach Scheme verschoben"
 
 #. input/lsr/accordion-discant-symbols.ly:34 (variable)
-#, fuzzy
 msgid "discant"
-msgstr "Hymnen"
+msgstr "Diskant"
 
 #. input/lsr/accordion-discant-symbols.ly:37 (variable)
-#, fuzzy
 msgid "dot"
-msgstr "doit"
+msgstr "punkt"
 
 #. input/lsr/accordion-discant-symbols.ly:43 (comment)
 msgid "16 voets register"
 msgstr "16 voets Register"
 
 #. input/lsr/accordion-discant-symbols.ly:44 (variable)
-#, fuzzy
 msgid "accBasson"
-msgstr "Ktrfgt"
+msgstr "accBasson"
 
 #. input/lsr/accordion-discant-symbols.ly:50 (comment)
 msgid "een korig 8 en 16 voets register"
-msgstr ""
+msgstr "een·korig·8·en·16·voets·register"
 
 #. input/lsr/accordion-discant-symbols.ly:51 (variable)
 msgid "accBandon"
 msgstr "accBandon"
 
 #. input/lsr/accordion-discant-symbols.ly:59 (variable)
-#, fuzzy
 msgid "accVCello"
-msgstr "Cello"
+msgstr "accVCello"
 
 #. input/lsr/accordion-discant-symbols.ly:69 (comment)
 msgid "4-8-16 voets register"
-msgstr ""
+msgstr "4-8-16·voets·register"
 
 #. input/lsr/accordion-discant-symbols.ly:70 (variable)
-#, fuzzy
 msgid "accHarmon"
-msgstr "Flageolett"
+msgstr "accHarmon"
 
 #. input/lsr/accordion-discant-symbols.ly:80 (variable)
-#, fuzzy
 msgid "accTrombon"
-msgstr "Jazz-Combo"
+msgstr "accPosaune"
 
 #. input/lsr/accordion-discant-symbols.ly:92 (comment)
 msgid "eenkorig 4 en 16 voets register"
-msgstr ""
+msgstr "eenkorig·4·en·16·voets·register"
 
 #. input/lsr/accordion-discant-symbols.ly:93 (variable)
-#, fuzzy
 msgid "accOrgan"
-msgstr "PedalOrgelNoten"
+msgstr "accOrgel"
 
 #. input/lsr/accordion-discant-symbols.ly:101 (variable)
-#, fuzzy
 msgid "accMaster"
-msgstr "Cluster"
+msgstr "accHaupt"
 
 #. input/lsr/accordion-discant-symbols.ly:115 (variable)
-#, fuzzy
 msgid "accAccord"
-msgstr "Akkordion"
+msgstr "accAkkord"
 
 #. input/lsr/accordion-discant-symbols.ly:127 (variable)
-#, fuzzy
 msgid "accMusette"
-msgstr "Akzent"
+msgstr "accMusette"
 
 #. input/lsr/accordion-discant-symbols.ly:137 (variable)
-#, fuzzy
 msgid "accCeleste"
-msgstr "Akzent"
+msgstr "accCelesta"
 
 #. input/lsr/accordion-discant-symbols.ly:145 (variable)
-#, fuzzy
 msgid "accOboe"
-msgstr "Akzent"
+msgstr "accOboe"
 
 #. input/lsr/accordion-discant-symbols.ly:153 (variable)
-#, fuzzy
 msgid "accClarin"
-msgstr "Klarinette"
+msgstr "accClarin"
 
 #. input/lsr/accordion-discant-symbols.ly:159 (variable)
-#, fuzzy
 msgid "accPiccolo"
-msgstr "Piccolo"
+msgstr "accPiccolo"
 
 #. input/lsr/accordion-discant-symbols.ly:165 (variable)
-#, fuzzy
 msgid "accViolin"
-msgstr "Geige"
+msgstr "accGeige"
 
 #. input/lsr/adding-a-figured-bass-above-or-below-the-notes.ly:39 (variable)
 #. input/lsr/jazz-combo-template.ly:231 (variable)
 #. input/lsr/jazz-combo-template.ly:279 (context id)
-#, fuzzy
 msgid "bass"
-msgstr "BassNoten"
+msgstr "Bass"
 
 #. input/lsr/adding-a-figured-bass-above-or-below-the-notes.ly:40 (variable)
 msgid "continuo"
@@ -9959,9 +9903,8 @@ msgstr "Continuo"
 
 #. input/lsr/adding-a-figured-bass-above-or-below-the-notes.ly:51 (context id)
 #. input/lsr/adding-a-figured-bass-above-or-below-the-notes.ly:52 (context id)
-#, fuzzy
 msgid "bassStaff"
-msgstr "System"
+msgstr "BassSystem"
 
 #. input/lsr/adding-an-extra-staff-at-a-line-break.ly:52 (comment)
 msgid "The next line is not needed in 2.11.x or later:"
@@ -9980,14 +9923,12 @@ msgid "timb"
 msgstr "timb"
 
 #. input/lsr/adding-fingerings-to-tablatures.ly:18 (variable)
-#, fuzzy
 msgid "threeTwo"
-msgstr "StropheZwei"
+msgstr "dreiZwei"
 
 #. input/lsr/adding-fingerings-to-tablatures.ly:25 (variable)
-#, fuzzy
 msgid "threeFour"
-msgstr "StropheVier"
+msgstr "dreiVier"
 
 #. input/lsr/adding-the-current-date-to-a-score.ly:23 (comment)
 msgid "first, define a variable to hold the formatted date:"
@@ -10010,47 +9951,42 @@ msgid "and use it in a \\markup block:"
 msgstr "und in einer \\markup-Umgebung benutzen"
 
 #. input/lsr/additional-voices-to-avoid-collisions.ly:27 (variable)
-#, fuzzy
 msgid "voiceFive"
-msgstr "Stimme"
+msgstr "StimmeFünf"
 
 #. input/lsr/adjusting-lyrics-vertical-spacing.ly:22 (comment)
-#, fuzzy
 msgid "Default layout:"
-msgstr "Standardtabulaturen"
+msgstr "Standardlayout:"
 
 #. input/lsr/adjusting-lyrics-vertical-spacing.ly:31 (comment)
 msgid "Reducing the minimum space below the staff and above the lyrics:"
 msgstr "Mindestplatz unter dem System und über dem Gesangstext:"
 
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:54 (comment)
-#, fuzzy
 msgid "the RehearsalMark will be centered above the KeySignature"
-msgstr "RehearsalMark zentrieren über der Tonart (KeySignature)"
+msgstr "RehearsalMark über der Tonart (KeySignature) zentrieren"
 
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:65 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:77 (comment)
-#, fuzzy
 msgid ""
 "the RehearsalMark will be aligned with the left edge of the KeySignature"
-msgstr "RehearsalMark mit der linken Ecke von KeySignature ausrichten"
+msgstr ""
+"RehearsalMark mit der linken Ecke von KeySignature ausrichten"
 
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:71 (comment)
-#, fuzzy
 msgid ""
 "the RehearsalMark will be aligned with the right edge of the KeySignature"
-msgstr "RehearsalMark mit der rechten Ecke von KeySignature ausrichten"
+msgstr ""
+"RehearsalMark mit der rechten Ecke von KeySignature ausrichten"
 
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:78 (comment)
-#, fuzzy
 msgid "and then shifted right by one unit."
-msgstr "nach rechts um 3,5 Linienabstände verschieben"
+msgstr "nach rechts um eine Einheit verschieben"
 
 #. input/lsr/ancient-fonts.ly:26 (variable)
 #. input/lsr/ancient-fonts.ly:26 (context id)
-#, fuzzy
 msgid "upperStaff"
-msgstr "oben"
+msgstr "SystemOben"
 
 #. input/lsr/ancient-fonts.ly:38 (comment)
 msgid "\\break % 1 (8*1)"
@@ -10093,9 +10029,8 @@ msgstr "\\break·%·12·(32*1)"
 
 #. input/lsr/ancient-fonts.ly:123 (variable)
 #. input/lsr/ancient-fonts.ly:123 (context id)
-#, fuzzy
 msgid "lowerStaff"
-msgstr "unten"
+msgstr "SystemUnten"
 
 #. input/lsr/ancient-fonts.ly:133 (comment)
 msgid "\\break % 2 (16*1)"
@@ -10122,14 +10057,12 @@ msgid "\\break % 12 (8*1)"
 msgstr "\\break·%·12·(8*1)"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-gregorian-music.ly:37 (variable)
-#, fuzzy
 msgid "chant"
-msgstr "Hymnen"
+msgstr "Hymnus"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-gregorian-music.ly:44 (variable)
-#, fuzzy
 msgid "verba"
-msgstr "StrophenNoten"
+msgstr "verba"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:49 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:96 (comment)
@@ -10143,14 +10076,12 @@ msgstr "StrophenNoten"
 #. input/lsr/incipit.ly:19 (variable)
 #. input/lsr/incipit.ly:191 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:212 (comment)
-#, fuzzy
 msgid "incipit"
-msgstr "Incipite"
+msgstr "Incipit"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:51 (comment)
-#, fuzzy
 msgid "tight spacing"
-msgstr "Vertikale Abstände"
+msgstr "dichter Satz"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:58 (comment)
 msgid "turn off bar lines"
@@ -10161,9 +10092,8 @@ msgid "need this extra \\skip such that clef change comes"
 msgstr "zusätzliches \\skip nötig, damit Schlüsselwechsel gedruckt wird"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:63 (comment)
-#, fuzzy
 msgid "after bar line"
-msgstr "Taktlinien"
+msgstr "nach der Taktlinie"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:67 (comment)
 msgid "CHECK: no effect?"
@@ -10188,16 +10118,14 @@ msgstr "Darum ein zusätzlicher \\skip"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:83 (comment)
 #. input/lsr/incipit.ly:64 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:37 (comment)
-#, fuzzy
 msgid "the actual music"
-msgstr "Notation von Gesang"
+msgstr "die eigentlichen Noten"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:85 (comment)
 #. input/lsr/incipit.ly:67 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:39 (comment)
-#, fuzzy
 msgid "let finis bar go through all staves"
-msgstr "für diese Taktart keine autom. Balken definiert"
+msgstr "Finis Taktlinie durch alle Systeme setzen"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:88 (comment)
 #. input/lsr/incipit.ly:70 (comment)
@@ -10209,9 +10137,8 @@ msgstr "Finis-Taktstrich"
 #. input/lsr/incipit.ly:87 (variable)
 #. input/lsr/incipit.ly:222 (context id)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:47 (variable)
-#, fuzzy
 msgid "discantusNotes"
-msgstr "Diskant-Symbole"
+msgstr "DiskantusNoten"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:98 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:135 (comment)
@@ -10238,9 +10165,8 @@ msgstr "zwei Takte"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:202 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:139 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:213 (comment)
-#, fuzzy
 msgid "eight bars"
-msgstr "Textartige Zeichen"
+msgstr "acht Takte"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:100 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:134 (comment)
@@ -10258,15 +10184,13 @@ msgstr "Ein Takt"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:114 (variable)
 #. input/lsr/incipit.ly:101 (variable)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:60 (variable)
-#, fuzzy
 msgid "discantusLyrics"
-msgstr "SoprText"
+msgstr "DiskantusText"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:128 (variable)
 #. input/lsr/incipit.ly:124 (variable)
 #. input/lsr/incipit.ly:229 (context id)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:70 (variable)
-#, fuzzy
 msgid "altusNotes"
 msgstr "AltNoten"
 
@@ -10278,58 +10202,50 @@ msgstr "Sieben Takte"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:150 (variable)
 #. input/lsr/incipit.ly:138 (variable)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:82 (variable)
-#, fuzzy
 msgid "altusLyrics"
-msgstr "alleText"
+msgstr "AltText"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:162 (variable)
 #. input/lsr/incipit.ly:162 (variable)
 #. input/lsr/incipit.ly:236 (context id)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:90 (variable)
-#, fuzzy
 msgid "tenorNotes"
 msgstr "TenorNoten"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:168 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:186 (comment)
-#, fuzzy
 msgid "four bars"
-msgstr "Generalbass"
+msgstr "vier Takte"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:186 (variable)
 #. input/lsr/incipit.ly:177 (variable)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:102 (variable)
-#, fuzzy
 msgid "tenorLyrics"
-msgstr "TenorNoten"
+msgstr "TenorText"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:196 (variable)
 #. input/lsr/incipit.ly:199 (variable)
 #. input/lsr/incipit.ly:243 (context id)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:108 (variable)
-#, fuzzy
 msgid "bassusNotes"
 msgstr "BassNoten"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:218 (variable)
 #. input/lsr/incipit.ly:213 (variable)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:121 (variable)
-#, fuzzy
 msgid "bassusLyrics"
-msgstr "BassNoten"
+msgstr "BassText"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:229 (context id)
 #. input/lsr/incipit.ly:221 (context id)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:229 (context id)
-#, fuzzy
 msgid "choirStaff"
-msgstr "Akkord"
+msgstr "choirStaff"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:251 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:266 (comment)
-#, fuzzy
 msgid "no bars in staves"
-msgstr "Schlagzeugsysteme"
+msgstr "keine Taktlinien in den Systemen"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:254 (comment)
 msgid "incipit should not start with a start delimiter"
@@ -10338,9 +10254,8 @@ msgstr "Incipit nicht mit einer Systemklammer beginnen"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:260 (comment)
 #. input/lsr/incipit.ly:272 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:277 (comment)
-#, fuzzy
 msgid "no slurs"
-msgstr "Legatobogen"
+msgstr "keine Legatobögen"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:263 (comment)
 #. input/lsr/incipit.ly:274 (comment)
@@ -10384,9 +10299,8 @@ msgstr "\\remove·\\\"Forbid_line_break_engraver\\\""
 
 #. input/lsr/applying-note-head-styles-depending-on-the-step-of-the-scale.ly:75 (variable)
 #. input/lsr/clusters.ly:27 (variable)
-#, fuzzy
 msgid "fragment"
-msgstr "FramentA"
+msgstr "Frament"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:29 (comment)
 msgid "Automatic beams two per two in 4/4 or 2/2 time signature"
@@ -10413,32 +10327,28 @@ msgid "macro for beamed two per two in 2/2 and 4/4 time signature"
 msgstr "Makro für bebalkte zwei und zwei in 2/2 und 4/4 Takten"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:36 (variable)
-#, fuzzy
 msgid "qBeam"
-msgstr "Balken"
+msgstr "qBalken"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:49 (comment)
 msgid "Use the macro"
 msgstr "Makro benutzen"
 
 #. input/lsr/beam-endings-in-score-context.ly:19 (comment)
-#, fuzzy
 msgid "Set default beaming for all staves"
-msgstr "für diese Taktart keine autom. Balken definiert"
+msgstr "Automatische Bebalkung für alle Systeme"
 
 #. input/lsr/beam-endings-in-score-context.ly:27 (comment)
 msgid "Modify beaming for just this staff"
 msgstr "Balken nur für dieses System verändern"
 
 #. input/lsr/beam-endings-in-score-context.ly:33 (comment)
-#, fuzzy
 msgid "Inherit beaming from Score context"
-msgstr "Partitur-Kontext beenden"
+msgstr "Bebalkung vom Score-Kontext geerbt"
 
 #. input/lsr/beam-endings-in-score-context.ly:39 (comment)
-#, fuzzy
 msgid "Modify beaming for this voice only"
-msgstr "Balken nur für dieses System verändern"
+msgstr "Balken nur für diese Stimme ändern"
 
 #. input/lsr/beam-grouping-in-7-8-time.ly:40 (comment)
 msgid "rhythm 2-3-2"
@@ -10446,40 +10356,39 @@ msgstr "Rhythmus 2-3-2"
 
 #. input/lsr/book-parts.ly:21 (comment)
 msgid "book paper, which is inherited by all children bookparts"
-msgstr ""
+msgstr "book-Papier, wird von allen untergeordneten book-Abschnitten geerbt"
 
 #. input/lsr/book-parts.ly:24 (comment)
 msgid "Page footer: add a different part-tagline at part last page"
-msgstr ""
+msgstr "Seitenfuß: eine andere tagline für letzte Seite des Abschnitts"
 
 #. input/lsr/book-parts.ly:28 (comment)
 msgid "Copyright header field only on book first page."
-msgstr ""
+msgstr "Copyright-Feld nur auf erster Seite von book"
 
 #. input/lsr/book-parts.ly:32 (comment)
 msgid "Part tagline header field only on each part last page."
-msgstr ""
+msgstr "Abschnitt-tagline-Feld nur auf letzter Seite jedes Abschnitts"
 
 #. input/lsr/book-parts.ly:36 (comment)
 msgid "Tagline header field only on book last page."
-msgstr ""
+msgstr "Tagline-Feld nur auf letzter Seite von book"
 
 #. input/lsr/book-parts.ly:43 (comment)
 msgid "book header, which is inherited by the first bookpart"
-msgstr ""
+msgstr "Kopf von book, wird vom ersten Abschnitt in book geerbt"
 
 #. input/lsr/book-parts.ly:52 (comment)
 msgid "a different page breaking function may be used on each part"
-msgstr ""
+msgstr "andere Seitenumbruchfunktionen können für jeden Abschnitt benutzt werden"
 
 #. input/lsr/breathing-signs.ly:19 (comment)
 msgid "this bar contains no \\breathe"
 msgstr "Dieser Takt hat kein \\breathe"
 
 #. input/lsr/breathing-signs.ly:21 (comment)
-#, fuzzy
 msgid "Modern notation:"
-msgstr "Notation von Akkorden"
+msgstr "Moderne Notation:"
 
 #. input/lsr/breathing-signs.ly:22 (comment)
 msgid "by default, \\breathe uses the rcomma, just as if saying:"
@@ -10502,9 +10411,8 @@ msgid "N.B.: must use Staff context here, since we start a Voice below"
 msgstr "Staff-Kontext benötigt, weil ein Voice-Kontext begonnen wird"
 
 #. input/lsr/breathing-signs.ly:31 (comment)
-#, fuzzy
 msgid "vee"
-msgstr "StrophenNoten"
+msgstr "vau"
 
 #. input/lsr/caesura-railtracks-with-fermata.ly:28 (comment)
 msgid "construct the symbol"
@@ -10516,43 +10424,41 @@ msgstr "Atemzeichen auf Standard zurücksetzen"
 
 #. input/lsr/center-text-below-hairpin-dynamics.ly:27 (variable)
 msgid "hairpinWithCenteredText"
-msgstr ""
+msgstr "GabelmitzentriertemText"
 
 #. input/lsr/center-text-below-hairpin-dynamics.ly:39 (variable)
-#, fuzzy
 msgid "hairpinMolto"
-msgstr "Gabel"
+msgstr "GabelMolto"
 
 #. input/lsr/center-text-below-hairpin-dynamics.ly:40 (variable)
-#, fuzzy
 msgid "hairpinMore"
-msgstr "Gabel"
+msgstr "GabelMehr"
 
 #. input/lsr/changing--flageolet-mark-size.ly:23 (variable)
 msgid "smallFlageolet"
-msgstr ""
+msgstr "kleinFlageolett"
 
 #. input/lsr/changing-the-chord-names-to-german-or-semi-german-notation.ly:34 (comment)
 msgid "The following is only here to print the names of the"
-msgstr ""
+msgstr "Das hier nur, damit die Bezeichnungen der Akkordstile"
 
 #. input/lsr/changing-the-chord-names-to-german-or-semi-german-notation.ly:35 (comment)
 msgid "chords styles; it can be removed if you do not need to"
-msgstr ""
+msgstr "gesetzt werden, kann entfernt werden, wenn nicht"
 
 #. input/lsr/changing-the-chord-names-to-german-or-semi-german-notation.ly:36 (comment)
 msgid "print them."
-msgstr ""
+msgstr "gebraucht wird."
 
 #. input/lsr/changing-the-default-text-font-family.ly:17 (comment)
 msgid "change for other default global staff size. "
-msgstr ""
+msgstr "Änderung für andere globale Systemgröße"
 
 #. input/lsr/changing-the-default-text-font-family.ly:19 (comment)
 #. input/lsr/engravers-one-by-one.ly:191 (comment)
 #. input/lsr/score-for-diatonic-accordion.ly:110 (comment)
 msgid "{"
-msgstr ""
+msgstr "{"
 
 #. input/lsr/changing-the-default-text-font-family.ly:23 (comment)
 #. input/lsr/engravers-one-by-one.ly:194 (comment)
@@ -10560,69 +10466,63 @@ msgstr ""
 #. input/lsr/score-for-diatonic-accordion.ly:233 (comment)
 #. input/lsr/string-quartet-template-with-separate-parts.ly:163 (comment)
 msgid "}"
-msgstr ""
+msgstr "}"
 
 #. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:35 (comment)
 msgid "Change time signature symbol but keep 3/4 beaming"
-msgstr ""
+msgstr "Taktartsymbol ändern, aber 3/4-Balken"
 
 #. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:36 (comment)
-#, fuzzy
 msgid "due to unchanged underlying time signature"
-msgstr "aufgrund von beatLength"
+msgstr "wegen unveränderter Taktartaufteilung behalten"
 
 #. input/lsr/changing-the-time-signature-without-affecting-the-beaming.ly:41 (comment)
 msgid "Lose 3/4 beaming now \\time has been changed"
-msgstr ""
+msgstr "3/4-Balken lösen, da \\time geändert wurde"
 
 #. input/lsr/chant-or-psalms-notation.ly:23 (variable)
-#, fuzzy
 msgid "stemOn"
-msgstr "stencil (Matrize)"
+msgstr "halsAn"
 
 #. input/lsr/chant-or-psalms-notation.ly:24 (variable)
-#, fuzzy
 msgid "stemOff"
-msgstr "System"
+msgstr "halsAus"
 
 #. input/lsr/chord-name-exceptions.ly:24 (comment)
 msgid "modify maj9 and 6(add9)"
-msgstr ""
+msgstr "maj9 und 6(add9) verändern"
 
 #. input/lsr/chord-name-exceptions.ly:25 (comment)
 msgid "Exception music is chords with markups"
-msgstr ""
+msgstr "Ausnahmemusik sind Akkorde mit Textbeschriftung"
 
 #. input/lsr/chord-name-exceptions.ly:26 (variable)
-#, fuzzy
 msgid "chExceptionMusic"
-msgstr "CelloNoten"
+msgstr "chExceptionMusic"
 
 #. input/lsr/chord-name-exceptions.ly:31 (comment)
 msgid "Convert music to list and prepend to existing exceptions."
-msgstr ""
+msgstr "Noten zu Liste konvertieren und an existierende Ausnahmen anhängen"
 
 #. input/lsr/chord-name-exceptions.ly:32 (variable)
 msgid "chExceptions"
-msgstr ""
+msgstr "chAusnahmen"
 
 #. input/lsr/chord-name-exceptions.ly:36 (variable)
-#, fuzzy
 msgid "theMusic"
-msgstr "rhNoten"
+msgstr "Noten"
 
 #. input/lsr/clip-systems.ly:37 (variable)
 msgid "origScore"
-msgstr ""
+msgstr "origPartitur"
 
 #. input/lsr/clip-systems.ly:55 (comment)
 msgid "Each clip-region is a (START . END) pair"
 msgstr ""
 
 #. input/lsr/clip-systems.ly:56 (comment)
-#, fuzzy
 msgid "where both are rhythmic-locations."
-msgstr "Notation barocker Rhythmen"
+msgstr "wobei beide rhythmische Plätze sind"
 
 #. input/lsr/clip-systems.ly:58 (comment)
 msgid "(make-rhythmic-locations BAR-NUMBER NUM DEN)"
@@ -10645,25 +10545,21 @@ msgid "piuF"
 msgstr ""
 
 #. input/lsr/combining-two-parts-on-the-same-staff.ly:51 (variable)
-#, fuzzy
 msgid "musicUp"
-msgstr "Noten"
+msgstr "NotenHoch"
 
 #. input/lsr/combining-two-parts-on-the-same-staff.ly:58 (variable)
-#, fuzzy
 msgid "musicDown"
-msgstr "Noten"
+msgstr "NotenRunter"
 
 #. input/lsr/creating-a-sequence-of-notes-on-various-pitches.ly:53 (variable)
 #. input/lsr/jazz-combo-template.ly:275 (context id)
-#, fuzzy
 msgid "rhythm"
 msgstr "Rhythmus"
 
 #. input/lsr/creating-real-parenthesized-dynamics.ly:45 (variable)
-#, fuzzy
 msgid "parenF"
-msgstr "Muster"
+msgstr "KlammerF"
 
 #. input/lsr/creating-simultaneous-rehearsal-marks.ly:40 (comment)
 msgid "the hidden measure and bar line"
@@ -10672,15 +10568,13 @@ msgstr ""
 #. input/lsr/customizing-fretboard-fret-diagrams.ly:40 (comment)
 #. input/lsr/customizing-markup-fret-diagrams.ly:31 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:22 (comment)
-#, fuzzy
 msgid "Set global properties of fret diagram"
-msgstr "Automatische Bund-Diagramme"
+msgstr "Allgemeine Eigenschaften von Bund-Diagramme bestimmen"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:29 (context id)
 #. input/lsr/formatting-lyrics-syllables.ly:21 (variable)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:20 (context id)
 #. input/lsr/piano-template-with-melody-and-lyrics.ly:58 (context id)
-#, fuzzy
 msgid "mel"
 msgstr "Melodie"
 
@@ -10690,9 +10584,8 @@ msgstr ""
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:39 (comment)
 #. input/lsr/customizing-markup-fret-diagrams.ly:89 (comment)
-#, fuzzy
 msgid "terse style"
-msgstr "Notenkopfstile"
+msgstr "knapper Stil"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:42 (comment)
 #. input/lsr/customizing-markup-fret-diagrams.ly:64 (comment)
@@ -10705,9 +10598,8 @@ msgstr ""
 #. input/lsr/customizing-markup-fret-diagrams.ly:65 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:49 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:70 (comment)
-#, fuzzy
 msgid "verbose style"
-msgstr "Stimmenstile"
+msgstr "ausführlicher Stil"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:44 (comment)
 msgid "size 1.0"
@@ -10719,9 +10611,8 @@ msgid "roman fret label, finger labels below string, straight barre"
 msgstr ""
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:47 (comment)
-#, fuzzy
 msgid "standard size"
-msgstr "Standardbezeichnungen"
+msgstr "Standardgröße"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:66 (comment)
 msgid "landscape orientation, arabic numbers, M for mute string"
@@ -10753,9 +10644,8 @@ msgid "Note: This section could be put into a separate file"
 msgstr ""
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:42 (comment)
-#, fuzzy
 msgid "predefined-cuatro-fretboards.ly"
-msgstr "Vordefinierte Bund-Diagramme"
+msgstr "predefined-cuatro-fretboards.ly"
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:43 (comment)
 msgid "and \\included into each of your compositions"
@@ -10770,9 +10660,8 @@ msgid "dSix"
 msgstr ""
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:48 (variable)
-#, fuzzy
 msgid "dMajor"
-msgstr "Dur"
+msgstr "dDur"
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:49 (variable)
 msgid "aMajSeven"
@@ -10783,9 +10672,8 @@ msgid "dMajSeven"
 msgstr ""
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:51 (variable)
-#, fuzzy
 msgid "gMajor"
-msgstr "Dur"
+msgstr "gDur"
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:69 (comment)
 msgid "end of potential include file /predefined-cuatro-fretboards.ly"
@@ -10800,9 +10688,8 @@ msgid "primeros"
 msgstr ""
 
 #. input/lsr/demo-midiinstruments.ly:23 (variable)
-#, fuzzy
 msgid "baseMelody"
-msgstr "Melodie"
+msgstr "basisMelodie"
 
 #. input/lsr/display-bracket-with-only-one-staff-in-a-system.ly:37 (comment)
 msgid "Must be lower than the actual number of staff lines"
@@ -10821,9 +10708,8 @@ msgid "new voice ( = \\voiceOne), hidden"
 msgstr ""
 
 #. input/lsr/double-glissando.ly:22 (comment)
-#, fuzzy
 msgid "attach glissando to note heads"
-msgstr "An Noten angehängt"
+msgstr "Glissando an Notenkopf angehängt"
 
 #. input/lsr/double-glissando.ly:27 (comment)
 msgid "original voice with chords rearranged so that"
@@ -10838,28 +10724,24 @@ msgid "PostScript is a registered trademark of Adobe Systems Inc."
 msgstr ""
 
 #. input/lsr/engravers-one-by-one.ly:75 (comment)
-#, fuzzy
 msgid "sample music"
-msgstr "Notation von Gesang"
+msgstr "Beispielnoten"
 
 #. input/lsr/engravers-one-by-one.ly:76 (variable)
-#, fuzzy
 msgid "topVoice"
-msgstr "Stimme"
+msgstr "topStimme"
 
 #. input/lsr/engravers-one-by-one.ly:84 (variable)
-#, fuzzy
 msgid "botVoice"
-msgstr "Stimme"
+msgstr "bottomStimme"
 
 #. input/lsr/engravers-one-by-one.ly:92 (variable)
 msgid "hoom"
 msgstr ""
 
 #. input/lsr/engravers-one-by-one.ly:103 (variable)
-#, fuzzy
 msgid "pah"
-msgstr "Spanisch"
+msgstr "pah"
 
 #. input/lsr/engravers-one-by-one.ly:113 (comment)
 msgid "setup for Request->Element conversion. Guru-only"
@@ -10870,9 +10752,8 @@ msgstr ""
 #. input/lsr/engravers-one-by-one.ly:234 (variable)
 #. input/lsr/engravers-one-by-one.ly:290 (variable)
 #. input/lsr/engravers-one-by-one.ly:304 (variable)
-#, fuzzy
 msgid "MyStaff"
-msgstr "System"
+msgstr "DasSystem"
 
 #. input/lsr/engravers-one-by-one.ly:148 (comment)
 msgid "explicitly set instrument, so we don't get "
@@ -10883,17 +10764,15 @@ msgid "weird effects when doing instrument names for"
 msgstr ""
 
 #. input/lsr/engravers-one-by-one.ly:150 (comment)
-#, fuzzy
 msgid "piano staves"
-msgstr "Klaviersysteme"
+msgstr "Klaviersystem"
 
 #. input/lsr/engravers-one-by-one.ly:159 (variable)
 #. input/lsr/engravers-one-by-one.ly:248 (variable)
 #. input/lsr/engravers-one-by-one.ly:261 (variable)
 #. input/lsr/engravers-one-by-one.ly:274 (variable)
-#, fuzzy
 msgid "MyVoice"
-msgstr "Stimme"
+msgstr "MeineStimme"
 
 #. input/lsr/engravers-one-by-one.ly:174 (comment)
 msgid "must come before all"
@@ -10908,9 +10787,8 @@ msgid "Cut here ----- Start 'flamenco.ly' "
 msgstr ""
 
 #. input/lsr/flamenco-notation.ly:48 (comment)
-#, fuzzy
 msgid "Text indicators"
-msgstr "Unterstützung von Texteditoren"
+msgstr "Textanweisungen"
 
 #. input/lsr/flamenco-notation.ly:49 (variable)
 msgid "abanico"
@@ -10925,28 +10803,24 @@ msgid "alzapua"
 msgstr ""
 
 #. input/lsr/flamenco-notation.ly:53 (comment)
-#, fuzzy
 msgid "Finger stroke symbols"
-msgstr "Diskant-Symbole"
+msgstr "Schlag-Symbole"
 
 #. input/lsr/flamenco-notation.ly:54 (variable)
 msgid "strokeUp"
 msgstr ""
 
 #. input/lsr/flamenco-notation.ly:64 (variable)
-#, fuzzy
 msgid "strokeDown"
-msgstr "broken"
+msgstr "schlagRunter"
 
 #. input/lsr/flamenco-notation.ly:74 (comment)
-#, fuzzy
 msgid "Golpe symbol"
-msgstr "pipeSymbol"
+msgstr "Golpe-Symbol"
 
 #. input/lsr/flamenco-notation.ly:75 (variable)
-#, fuzzy
 msgid "golpe"
-msgstr "dolce"
+msgstr "golpe"
 
 #. input/lsr/flamenco-notation.ly:89 (variable)
 msgid "strokeUpGolpe"
@@ -10961,85 +10835,72 @@ msgid "Strokes for all fingers"
 msgstr ""
 
 #. input/lsr/flamenco-notation.ly:93 (variable)
-#, fuzzy
 msgid "pUp"
-msgstr "Nach oben:"
+msgstr "pHoch"
 
 #. input/lsr/flamenco-notation.ly:94 (variable)
-#, fuzzy
 msgid "pDown"
-msgstr "unten"
+msgstr "pRunter"
 
 #. input/lsr/flamenco-notation.ly:95 (variable)
-#, fuzzy
 msgid "iUp"
-msgstr "Nach oben:"
+msgstr "iHoch"
 
 #. input/lsr/flamenco-notation.ly:96 (variable)
-#, fuzzy
 msgid "iDown"
-msgstr "unten"
+msgstr "iRunter"
 
 #. input/lsr/flamenco-notation.ly:97 (variable)
-#, fuzzy
 msgid "mUp"
-msgstr "Nach oben:"
+msgstr "mHoch"
 
 #. input/lsr/flamenco-notation.ly:98 (variable)
-#, fuzzy
 msgid "mDown"
-msgstr "unten"
+msgstr "mRunter"
 
 #. input/lsr/flamenco-notation.ly:99 (variable)
-#, fuzzy
 msgid "aUp"
-msgstr "Nach oben:"
+msgstr "aHoch"
 
 #. input/lsr/flamenco-notation.ly:100 (variable)
-#, fuzzy
 msgid "aDown"
-msgstr "unten"
+msgstr "aRunter"
 
 #. input/lsr/flamenco-notation.ly:101 (variable)
-#, fuzzy
 msgid "xUp"
-msgstr "Nach oben:"
+msgstr "xHoch"
 
 #. input/lsr/flamenco-notation.ly:102 (variable)
-#, fuzzy
 msgid "xDown"
-msgstr "unten"
+msgstr "xRunter"
 
 #. input/lsr/flamenco-notation.ly:105 (comment)
 msgid "Just handy :)"
 msgstr ""
 
 #. input/lsr/flamenco-notation.ly:106 (variable)
-#, fuzzy
 msgid "tupletOff"
-msgstr "N-tole"
+msgstr "NtoleAus"
 
 #. input/lsr/flamenco-notation.ly:111 (variable)
-#, fuzzy
 msgid "tupletsOff"
-msgstr "N-tole"
+msgstr "NtoleAus"
 
 #. input/lsr/flamenco-notation.ly:116 (variable)
-#, fuzzy
 msgid "tupletsOn"
-msgstr "N-tole"
+msgstr "NtolenAn"
 
 #. input/lsr/flamenco-notation.ly:121 (variable)
 msgid "headsOff"
-msgstr ""
+msgstr "köpfeAus"
 
 #. input/lsr/flamenco-notation.ly:127 (variable)
 msgid "headsOn"
-msgstr ""
+msgstr "köpfeEin"
 
 #. input/lsr/flamenco-notation.ly:133 (comment)
 msgid "Cut here ----- End 'flamenco.ly' "
-msgstr ""
+msgstr "Hier ausschneiden --- Ende 'flamenco.ly' "
 
 #. input/lsr/flat-flags-and-beam-nibs.ly:109 (comment)
 msgid "Example 1"
@@ -11058,9 +10919,8 @@ msgid "Example 4"
 msgstr ""
 
 #. input/lsr/flute-slap-notation.ly:17 (variable)
-#, fuzzy
 msgid "slap"
-msgstr "Kreuz"
+msgstr "schlag"
 
 #. input/lsr/formatting-lyrics-syllables.ly:16 (comment)
 msgid ""
@@ -11082,9 +10942,9 @@ msgstr ""
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:52 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:72 (comment)
-#, fuzzy, python-format
+#, python-format
 msgid "110% of default size"
-msgstr "zur Standardgröße zurückgehen"
+msgstr "110% der Standardgröße"
 
 #. input/lsr/grid-lines--changing-their-appearance.ly:33 (comment)
 msgid "this moves them up one staff space from the default position"
@@ -11127,9 +10987,8 @@ msgid "to four spaces below center line on visible staff"
 msgstr ""
 
 #. input/lsr/heavily-customized-polymetric-time-signatures.ly:55 (variable)
-#, fuzzy
 msgid "drum"
-msgstr "TrommelA"
+msgstr "Trommel"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:54 (comment)
 msgid "Solution 1: Using a simple markup with a particular halign value"
@@ -11142,9 +11001,8 @@ msgid ""
 msgstr ""
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:56 (variable)
-#, fuzzy
 msgid "semppMarkup"
-msgstr "Taktangabe"
+msgstr "semppBeschriftung"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:58 (comment)
 msgid ""
@@ -11235,9 +11093,8 @@ msgstr ""
 #. input/lsr/showing-chords-at-changes.ly:23 (variable)
 #. input/lsr/single-staff-template-with-notes,-lyrics,-and-chords.ly:40 (variable)
 #. input/lsr/single-staff-template-with-notes-and-chords.ly:38 (variable)
-#, fuzzy
 msgid "harmonies"
-msgstr "Flageolett"
+msgstr "Harmonien"
 
 #. input/lsr/how-to-change-fret-diagram-position.ly:31 (comment)
 msgid "THE FOLLOWING IS THE COMMAND TO MOVE THE CHORD NAME"
@@ -11267,29 +11124,25 @@ msgstr ""
 
 #. input/lsr/incipit.ly:111 (variable)
 #. input/lsr/incipit.ly:112 (context id)
-#, fuzzy
 msgid "altusIncipit"
-msgstr "Incipite"
+msgstr "altusIncipit"
 
 #. input/lsr/incipit.ly:127 (comment)
 #. input/lsr/incipit.ly:139 (comment)
 #. input/lsr/incipit.ly:169 (comment)
 #. input/lsr/incipit.ly:178 (comment)
-#, fuzzy
 msgid "two measures"
-msgstr "Auftakte"
+msgstr "zwei Takte"
 
 #. input/lsr/incipit.ly:147 (variable)
 #. input/lsr/incipit.ly:148 (context id)
-#, fuzzy
 msgid "tenorIncipit"
-msgstr "Incipite"
+msgstr "tenorIncipit"
 
 #. input/lsr/incipit.ly:184 (variable)
 #. input/lsr/incipit.ly:185 (context id)
-#, fuzzy
 msgid "bassusIncipit"
-msgstr "Incipite"
+msgstr "bassusIncipit"
 
 #. input/lsr/incipit.ly:251 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:258 (comment)
@@ -11318,9 +11171,8 @@ msgid "into the next measure.  The command is commented out in this"
 msgstr ""
 
 #. input/lsr/inserting-score-fragments-above-a-staff,-as-markups.ly:16 (variable)
-#, fuzzy
 msgid "tuning"
-msgstr "N-tole"
+msgstr "Stimmung"
 
 #. input/lsr/jazz-combo-template.ly:52 (comment)
 msgid "#(set-global-staff-size 16)"
@@ -11331,14 +11183,12 @@ msgid "Some macros %%%%%%%%%%%%%%%%%%%"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:57 (variable)
-#, fuzzy
 msgid "sl"
-msgstr "Legatobogen"
+msgstr "sl"
 
 #. input/lsr/jazz-combo-template.ly:61 (variable)
-#, fuzzy
 msgid "nsl"
-msgstr "Installieren"
+msgstr "nsl"
 
 #. input/lsr/jazz-combo-template.ly:65 (variable)
 msgid "crOn"
@@ -11353,18 +11203,16 @@ msgid "insert chord name style stuff here."
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:70 (variable)
-#, fuzzy
 msgid "jazzChords"
-msgstr "Akkorde"
+msgstr "jazzAkkorde"
 
 #. input/lsr/jazz-combo-template.ly:72 (comment)
 msgid "Keys'n'thangs %%%%%%%%%%%%%%%%%"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:76 (variable)
-#, fuzzy
 msgid "Key"
-msgstr "Zeitangabe"
+msgstr "Tonart"
 
 #. input/lsr/jazz-combo-template.ly:78 (comment)
 msgid "############ Horns ############"
@@ -11375,53 +11223,45 @@ msgid "------ Trumpet ------"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:81 (variable)
-#, fuzzy
 msgid "trpt"
-msgstr "Triole"
+msgstr "trpt"
 
 #. input/lsr/jazz-combo-template.ly:85 (variable)
-#, fuzzy
 msgid "trpHarmony"
-msgstr "Flageolett"
+msgstr "trpHarmonie"
 
 #. input/lsr/jazz-combo-template.ly:88 (variable)
 #. input/lsr/jazz-combo-template.ly:268 (context id)
-#, fuzzy
 msgid "trumpet"
-msgstr "N-tole"
+msgstr "trompete"
 
 #. input/lsr/jazz-combo-template.ly:97 (comment)
 msgid "------ Alto Saxophone ------"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:98 (variable)
-#, fuzzy
 msgid "alto"
-msgstr "AltNoten"
+msgstr "alt"
 
 #. input/lsr/jazz-combo-template.ly:102 (variable)
-#, fuzzy
 msgid "altoHarmony"
-msgstr "Flageolett"
+msgstr "altHarmonien"
 
 #. input/lsr/jazz-combo-template.ly:105 (variable)
-#, fuzzy
 msgid "altoSax"
-msgstr "AltNoten"
+msgstr "altSax"
 
 #. input/lsr/jazz-combo-template.ly:114 (comment)
 msgid "------ Baritone Saxophone ------"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:115 (variable)
-#, fuzzy
 msgid "bari"
-msgstr "barA"
+msgstr "bari"
 
 #. input/lsr/jazz-combo-template.ly:123 (variable)
-#, fuzzy
 msgid "bariHarmony"
-msgstr "Flageolett"
+msgstr "bariHarmonie"
 
 #. input/lsr/jazz-combo-template.ly:126 (variable)
 msgid "bariSax"
@@ -11432,9 +11272,8 @@ msgid "------ Trombone ------"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:136 (variable)
-#, fuzzy
 msgid "tbone"
-msgstr "Oboe"
+msgstr "pos"
 
 #. input/lsr/jazz-combo-template.ly:140 (variable)
 msgid "tboneHarmony"
@@ -11442,9 +11281,8 @@ msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:143 (variable)
 #. input/lsr/jazz-combo-template.ly:272 (context id)
-#, fuzzy
 msgid "trombone"
-msgstr "Oboe"
+msgstr "posaune"
 
 #. input/lsr/jazz-combo-template.ly:152 (comment)
 msgid "############ Rhythm Section #############"
@@ -11459,15 +11297,13 @@ msgid "gtr"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:163 (variable)
-#, fuzzy
 msgid "gtrHarmony"
-msgstr "Flageolett"
+msgstr "gtrHarmonie"
 
 #. input/lsr/jazz-combo-template.ly:167 (variable)
 #. input/lsr/jazz-combo-template.ly:277 (context id)
 #. input/lsr/polyphony-in-tablature.ly:39 (context id)
 #. input/lsr/polyphony-in-tablature.ly:44 (context id)
-#, fuzzy
 msgid "guitar"
 msgstr "Gitarre"
 
@@ -11476,34 +11312,28 @@ msgid "------ Piano ------"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:177 (variable)
-#, fuzzy
 msgid "rhUpper"
-msgstr "oben"
+msgstr "rhOben"
 
 #. input/lsr/jazz-combo-template.ly:182 (variable)
-#, fuzzy
 msgid "rhLower"
-msgstr "unten"
+msgstr "rhUnten"
 
 #. input/lsr/jazz-combo-template.ly:188 (variable)
-#, fuzzy
 msgid "lhUpper"
-msgstr "oben"
+msgstr "lhOben"
 
 #. input/lsr/jazz-combo-template.ly:193 (variable)
-#, fuzzy
 msgid "lhLower"
-msgstr "unten"
+msgstr "lhUnten"
 
 #. input/lsr/jazz-combo-template.ly:199 (variable)
-#, fuzzy
 msgid "PianoRH"
-msgstr "Klavier"
+msgstr "KlavierRH"
 
 #. input/lsr/jazz-combo-template.ly:208 (variable)
-#, fuzzy
 msgid "PianoLH"
-msgstr "Klavier"
+msgstr "KlavierLH"
 
 #. input/lsr/jazz-combo-template.ly:226 (comment)
 msgid "------ Bass Guitar ------"
@@ -11523,38 +11353,32 @@ msgid "It All Goes Together Here %%%%%%%%%%%%%%%%%%%%%%"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:267 (context id)
-#, fuzzy
 msgid "horns"
-msgstr "Akkorde"
+msgstr "Horn"
 
 #. input/lsr/jazz-combo-template.ly:269 (context id)
-#, fuzzy
 msgid "altosax"
-msgstr "AltNoten"
+msgstr "altsax"
 
 #. input/lsr/jazz-combo-template.ly:270 (context id)
-#, fuzzy
 msgid "barichords"
-msgstr "Akkord"
+msgstr "bariakk"
 
 #. input/lsr/jazz-combo-template.ly:271 (context id)
 msgid "barisax"
 msgstr ""
 
 #. input/lsr/jazz-combo-template.ly:276 (context id)
-#, fuzzy
 msgid "chords"
-msgstr "Akkord"
+msgstr "Akkorde"
 
 #. input/lsr/makam-example.ly:26 (comment)
-#, fuzzy
 msgid "Initialize makam settings"
-msgstr "Herausgeberische Anmerkungen"
+msgstr "Makam-Einstellungen initialisieren"
 
 #. input/lsr/manually-break-figured-bass-extenders-for-only-some-numbers.ly:19 (variable)
-#, fuzzy
 msgid "bassfigures"
-msgstr "BassNoten"
+msgstr "Bassfiguren"
 
 #. input/lsr/manually-controlling-beam-positions.ly:21 (comment)
 msgid "from upper staffline (position 4) to center (position 0)"
@@ -11569,9 +11393,8 @@ msgid "speakOn"
 msgstr ""
 
 #. input/lsr/marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly:31 (variable)
-#, fuzzy
 msgid "speakOff"
-msgstr "System"
+msgstr "sprechAus"
 
 #. input/lsr/markup-lines.ly:19 (comment)
 msgid "Candide, Voltaire"
@@ -11582,9 +11405,8 @@ msgid "the final bar line is not interrupted"
 msgstr ""
 
 #. input/lsr/merging-multi-measure-rests-in-a-polyphonic-part.ly:17 (variable)
-#, fuzzy
 msgid "normalPos"
-msgstr "normal"
+msgstr "normalPos"
 
 #. input/lsr/modern-tab-text-clef.ly:16 (variable)
 msgid "TAB"
@@ -11607,9 +11429,8 @@ msgid "...or to cover just whitespace"
 msgstr ""
 
 #. input/lsr/percussion-beaters.ly:18 (variable)
-#, fuzzy
 msgid "stick"
-msgstr "Noten"
+msgstr "Stock"
 
 #. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:39 (comment)
 msgid "Permit line breaks within tuplets"
@@ -11624,14 +11445,12 @@ msgid "Insert a manual line break within a tuplet"
 msgstr ""
 
 #. input/lsr/piano-template-with-centered-dynamics.ly:51 (variable)
-#, fuzzy
 msgid "pedal"
-msgstr "Pedalbezeichnungen"
+msgstr "Pedal"
 
 #. input/lsr/piano-template-with-centered-dynamics.ly:64 (comment)
-#, fuzzy
 msgid "define Dynamics context"
-msgstr "Der Text-Kontext"
+msgstr "Dynamik-Kontext definieren"
 
 #. input/lsr/piano-template-with-centered-dynamics.ly:85 (comment)
 msgid "modify PianoStaff context to accept Dynamics context"
@@ -11700,9 +11519,8 @@ msgid "Coda on new line: DON'T use \\nobreak"
 msgstr ""
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:45 (comment)
-#, fuzzy
 msgid "\\noBreak"
-msgstr "Umbrüche"
+msgstr "\\noBreak"
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:54 (comment)
 msgid "Here begins the trickery! "
@@ -11719,9 +11537,8 @@ msgid "Some examples of possible text-displays "
 msgstr ""
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:60 (comment)
-#, fuzzy
 msgid "text line-aligned"
-msgstr "Textausrichtung"
+msgstr "Text and Zeile ausgerichtet"
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:61 (comment)
 msgid "=================="
@@ -11741,9 +11558,8 @@ msgid "| s1*0^\\markup { D.S. al Coda } }"
 msgstr ""
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:66 (comment)
-#, fuzzy
 msgid "text center-aligned"
-msgstr "Fülllinie"
+msgstr "Text zentriert"
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:67 (comment)
 msgid "===================="
@@ -11822,27 +11638,22 @@ msgid "Coda on new line, use this:"
 msgstr ""
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:112 (comment)
-#, fuzzy
 msgid "The coda"
-msgstr "Der set-Befehl"
+msgstr "Die Coda"
 
 #. input/lsr/printing-metronome-and-rehearsal-marks-below-the-staff.ly:31 (comment)
-#, fuzzy
 msgid "Metronome marks below the staff "
-msgstr "Metronomangabe"
+msgstr "Metronomangabe unter dem System"
 
 #. input/lsr/printing-metronome-and-rehearsal-marks-below-the-staff.ly:36 (comment)
-#, fuzzy
 msgid "Rehearsal marks below the staff"
-msgstr "Übungszeichen"
+msgstr "Übungszeichen unter dem System"
 
 #. input/lsr/printing-music-with-different-time-signatures.ly:49 (variable)
-#, fuzzy
 msgid "Bassklarinette"
-msgstr "Klarinette"
+msgstr "Bassklarinette"
 
 #. input/lsr/printing-music-with-different-time-signatures.ly:89 (variable)
-#, fuzzy
 msgid "Perkussion"
 msgstr "Schlagzeug"
 
@@ -11859,9 +11670,8 @@ msgid "quoteMe"
 msgstr ""
 
 #. input/lsr/quoting-another-voice.ly:32 (variable)
-#, fuzzy
 msgid "original"
-msgstr "Übung"
+msgstr "Original"
 
 #. input/lsr/removing-the-first-empty-line.ly:43 (comment)
 msgid "To use the setting globally, uncomment the following line:"
@@ -11880,9 +11690,8 @@ msgid "uncomment the line in the \\layout block above"
 msgstr ""
 
 #. input/lsr/reverting-default-beam-endings.ly:29 (comment)
-#, fuzzy
 msgid "Default beaming"
-msgstr "Standart"
+msgstr "Standartbebalkung"
 
 #. input/lsr/reverting-default-beam-endings.ly:32 (comment)
 msgid "Revert default values in scm/auto-beam.scm for 12/8 time"
@@ -11893,14 +11702,12 @@ msgid "Set new values for beam endings"
 msgstr ""
 
 #. input/lsr/rhythmic-slashes.ly:25 (comment)
-#, fuzzy
 msgid "Macro to print single slash"
-msgstr "Einzelne Systeme verändern"
+msgstr "Makro um einzelnen Strich zu setzen"
 
 #. input/lsr/rhythmic-slashes.ly:26 (variable)
-#, fuzzy
 msgid "rs"
-msgstr "Pause"
+msgstr "rs"
 
 #. input/lsr/rhythmic-slashes.ly:33 (comment)
 msgid "Function to print a specified number of slashes"
@@ -11911,19 +11718,16 @@ msgid "comp"
 msgstr ""
 
 #. input/lsr/score-for-diatonic-accordion.ly:69 (variable)
-#, fuzzy
 msgid "NoStem"
-msgstr "Hälse"
+msgstr "KeinHals"
 
 #. input/lsr/score-for-diatonic-accordion.ly:70 (variable)
-#, fuzzy
 msgid "NoNoteHead"
-msgstr "Notenköpfe"
+msgstr "KeinNotenkopf"
 
 #. input/lsr/score-for-diatonic-accordion.ly:71 (variable)
-#, fuzzy
 msgid "ZeroBeam"
-msgstr "Balken"
+msgstr "NullBalken"
 
 #. input/lsr/score-for-diatonic-accordion.ly:73 (variable)
 msgid "staffTabLine"
@@ -12039,9 +11843,8 @@ msgstr ""
 
 #. input/lsr/score-for-diatonic-accordion.ly:118 (comment)
 #. input/lsr/score-for-diatonic-accordion.ly:137 (comment)
-#, fuzzy
 msgid "Tips:"
-msgstr "Bindebögen"
+msgstr "Tipps:"
 
 #. input/lsr/score-for-diatonic-accordion.ly:119 (comment)
 #. input/lsr/score-for-diatonic-accordion.ly:138 (comment)
@@ -12103,19 +11906,16 @@ msgid "The following line has to be adjusted O-F-T-E-N."
 msgstr ""
 
 #. input/lsr/score-for-diatonic-accordion.ly:161 (variable)
-#, fuzzy
 msgid "staffVoice"
-msgstr "System"
+msgstr "systemStimme"
 
 #. input/lsr/score-for-diatonic-accordion.ly:169 (context id)
-#, fuzzy
 msgid "melodyVoi"
-msgstr "Melodie"
+msgstr "MelodieStimme"
 
 #. input/lsr/score-for-diatonic-accordion.ly:175 (variable)
-#, fuzzy
 msgid "staffAccordionMel"
-msgstr "Akkordion"
+msgstr "systemAkkordionMel"
 
 #. input/lsr/score-for-diatonic-accordion.ly:176 (comment)
 msgid "Set the accidentals (Vorzeichen) for each note, "
@@ -12126,9 +11926,8 @@ msgid "do not remember them for the rest of the measure.  "
 msgstr ""
 
 #. input/lsr/score-for-diatonic-accordion.ly:196 (variable)
-#, fuzzy
 msgid "BassRhytm"
-msgstr "Rhythmus"
+msgstr "BassRhythmus"
 
 #. input/lsr/score-for-diatonic-accordion.ly:197 (variable)
 msgid "LyricBassRhythmI"
@@ -12168,58 +11967,48 @@ msgid ""
 msgstr ""
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:24 (comment)
-#, fuzzy
 msgid "Define the fret diagrams to be used"
-msgstr "Vordefinierte Bund-Diagramme"
+msgstr "Die benutzten Bund-Diagramme definieren"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:25 (variable)
-#, fuzzy
 msgid "cFretDiagram"
-msgstr "Bund-Diagramme"
+msgstr "cBundDiagramm"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:29 (variable)
-#, fuzzy
 msgid "gFretDiagram"
-msgstr "Bund-Diagramme"
+msgstr "gBundDiagramm"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:33 (variable)
-#, fuzzy
 msgid "verseI"
-msgstr "StrophenNoten"
+msgstr "StropheI"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:38 (variable)
-#, fuzzy
 msgid "verseII"
-msgstr "StrophenNoten"
+msgstr "StropheII"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:43 (variable)
-#, fuzzy
 msgid "theChords"
 msgstr "Akkorde"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:45 (comment)
 msgid "insert the chords for chordnames here"
-msgstr ""
+msgstr "Akkorde für die Akkordbezeichnung hierher"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:50 (variable)
-#, fuzzy
 msgid "staffMelody"
-msgstr "System"
+msgstr "systemMelodie"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:51 (context id)
-#, fuzzy
 msgid "voiceMelody"
-msgstr "Stimme"
+msgstr "stimmeMelodie"
 
 #. input/lsr/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:55 (comment)
-#, fuzzy
 msgid "Type notes and fret diagram markups here"
-msgstr "Bund-Diagramm-Beschriftung"
+msgstr "Noten und Bund-Diagramm-Text hierher"
 
 #. input/lsr/snap-pizzicato-markup-bartok-pizzicato.ly:54 (variable)
-#, fuzzy
 msgid "snapPizzicato"
-msgstr "Bartók-Pizzicato"
+msgstr "schlagPizzicato"
 
 #. input/lsr/snap-pizzicato-markup-bartok-pizzicato.ly:56 (comment)
 msgid "now it can be used as \\snappizzicato after the note/chord"
@@ -12230,9 +12019,8 @@ msgid "Note that a direction (-, ^ or _) is required."
 msgstr ""
 
 #. input/lsr/snap-pizzicato-markup-bartok-pizzicato.ly:60 (comment)
-#, fuzzy
 msgid "This does NOT work:"
-msgstr "Das funktioniert:"
+msgstr "Das funktioniert NICHT:"
 
 #. input/lsr/snap-pizzicato-markup-bartok-pizzicato.ly:61 (comment)
 msgid "<c e g>\\snapPizzicato"
@@ -12243,19 +12031,16 @@ msgid "N.B. use Score.Stem to set for the whole score."
 msgstr ""
 
 #. input/lsr/string-quartet-template-simple.ly:34 (variable)
-#, fuzzy
 msgid "violinOne"
-msgstr "Geige"
+msgstr "GeigeEins"
 
 #. input/lsr/string-quartet-template-simple.ly:43 (variable)
-#, fuzzy
 msgid "violinTwo"
-msgstr "Geige"
+msgstr "GeigeZwei"
 
 #. input/lsr/string-quartet-template-simple.ly:52 (variable)
-#, fuzzy
 msgid "viola"
-msgstr "Volta-Klammer"
+msgstr "Bratsche"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:63 (comment)
 msgid "piece.ly"
@@ -12266,9 +12051,8 @@ msgid "(This is the global definitions file)"
 msgstr ""
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:71 (variable)
-#, fuzzy
 msgid "Violinone"
-msgstr "Geige"
+msgstr "Geigeeins"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:76 (comment)
 #. input/lsr/string-quartet-template-with-separate-parts.ly:82 (comment)
@@ -12277,17 +12061,14 @@ msgid "*********************************"
 msgstr ""
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:77 (variable)
-#, fuzzy
 msgid "Violintwo"
-msgstr "Geige"
+msgstr "Geigezwei"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:83 (variable)
-#, fuzzy
 msgid "Viola"
-msgstr "Volta-Klammer"
+msgstr "Bratsche"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:90 (variable)
-#, fuzzy
 msgid "Cello"
 msgstr "Cello"
 
@@ -12300,9 +12081,8 @@ msgid "These are the other files you need to save on your computer"
 msgstr ""
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:109 (comment)
-#, fuzzy
 msgid "score.ly"
-msgstr "Partiturlayout"
+msgstr "score.ly"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:110 (comment)
 msgid "(This is the main file)"
@@ -12336,9 +12116,8 @@ msgid "(This is the Violin 2 part file)"
 msgstr ""
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:144 (comment)
-#, fuzzy
 msgid "vla.ly"
-msgstr "global"
+msgstr "vla.ly"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:145 (comment)
 msgid "(This is the Viola part file)"
@@ -12361,9 +12140,8 @@ msgid "Set beam sub-group length to a sixteenth note"
 msgstr "Balkenuntergruppenlänge als Sechszehntel definieren"
 
 #. input/lsr/suppressing-warnings-for-clashing-note-columns.ly:19 (variable)
-#, fuzzy
 msgid "ignore"
-msgstr "Moll"
+msgstr "ignorieren"
 
 #. input/lsr/three-sided-box.ly:16 (comment)
 msgid "New command to add a three sided box, with sides north, west and south"
@@ -12386,9 +12164,8 @@ msgid "in scm/define-markup-commands.scm"
 msgstr ""
 
 #. input/lsr/three-sided-box.ly:47 (comment)
-#, fuzzy
 msgid "Test it:"
-msgstr "Textarten"
+msgstr "testen:"
 
 #. input/lsr/tick-bar-lines.ly:21 (comment)
 msgid "Use 'bar-size to control the height of the tick,"
@@ -12427,19 +12204,16 @@ msgid "incipitDiscantus"
 msgstr ""
 
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:151 (variable)
-#, fuzzy
 msgid "incipitAltus"
-msgstr "Incipite"
+msgstr "IncipitAltus"
 
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:176 (variable)
-#, fuzzy
 msgid "incipitTenor"
-msgstr "Incipite"
+msgstr "IncipitTenor"
 
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:202 (variable)
-#, fuzzy
 msgid "incipitBassus"
-msgstr "Incipite"
+msgstr "IncipitBassus"
 
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:226 (comment)
 msgid ""
@@ -12451,18 +12225,16 @@ msgid "the next three instructions keep the lyrics between the barlines"
 msgstr ""
 
 #. input/lsr/transposing-pitches-with-minimum-accidentals-smart-transpose.ly:131 (variable)
-#, fuzzy
 msgid "naturalizeMusic"
-msgstr "Auflösungszeichen"
+msgstr "AuflösungszeichenNoten"
 
 #. input/lsr/tweaking-clef-properties.ly:111 (comment)
 msgid "The default treble clef"
 msgstr ""
 
 #. input/lsr/tweaking-clef-properties.ly:113 (comment)
-#, fuzzy
 msgid "The standard bass clef"
-msgstr "Standardbezeichnungen"
+msgstr "Standard-Bassschlüssel"
 
 #. input/lsr/tweaking-clef-properties.ly:118 (comment)
 msgid "The baritone clef"
@@ -12473,18 +12245,16 @@ msgid "The standard choral tenor clef"
 msgstr ""
 
 #. input/lsr/tweaking-clef-properties.ly:129 (comment)
-#, fuzzy
 msgid "A non-standard clef"
-msgstr "Standardbezeichnungen"
+msgstr "Nicht-Standard-Schlüssel"
 
 #. input/lsr/tweaking-clef-properties.ly:135 (comment)
-#, fuzzy
 msgid "The following clef changes do not preserve"
-msgstr "Folgende Noten sind monophon"
+msgstr "Folgende Schlüsselwechsel erhalten nicht"
 
 #. input/lsr/tweaking-clef-properties.ly:136 (comment)
 msgid "the normal relationship between notes and clefs:"
-msgstr ""
+msgstr "das normale Verhältnis zwischen Noten und Schlüsseln"
 
 #. input/lsr/tweaking-clef-properties.ly:151 (comment)
 msgid "Here we go back to the normal clef:"
@@ -12539,19 +12309,16 @@ msgid "3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies"
 msgstr ""
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:17 (variable)
-#, fuzzy
 msgid "parallelogram"
-msgstr "Allegro"
+msgstr "Parallelogramm"
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:32 (variable)
-#, fuzzy
 msgid "myNoteHeads"
-msgstr "Notenköpfe"
+msgstr "meineNotenköpfe"
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:33 (variable)
-#, fuzzy
 msgid "normalNoteHeads"
-msgstr "Mensurale Notenköpfe"
+msgstr "normaleNotenköpfe"
 
 #. input/lsr/utf-8.ly:34 (comment)
 msgid "end verbatim - this comment is a hack to prevent texinfo.tex"
@@ -12574,9 +12341,8 @@ msgid "hebrew"
 msgstr ""
 
 #. input/lsr/utf-8.ly:45 (variable)
-#, fuzzy
 msgid "japanese"
-msgstr "Strecker"
+msgstr "japanisch"
 
 #. input/lsr/utf-8.ly:52 (comment)
 msgid "\\\"a legal song to you\\\""
@@ -12587,48 +12353,40 @@ msgid "portuguese"
 msgstr ""
 
 #. input/lsr/vertically-centered-common-lyrics.ly:19 (variable)
-#, fuzzy
 msgid "leftbrace"
-msgstr "Klammer"
+msgstr "linkeKlammer"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:20 (variable)
-#, fuzzy
 msgid "rightbrace"
-msgstr "Klammer"
+msgstr "rechteKlammer"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:22 (variable)
-#, fuzzy
 msgid "dropLyrics"
-msgstr "SopEinsText"
+msgstr "Textnachunten"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:29 (variable)
-#, fuzzy
 msgid "raiseLyrics"
-msgstr "alleText"
+msgstr "Textnachoben"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:36 (variable)
 msgid "skipFour"
 msgstr ""
 
 #. input/lsr/vertically-centered-common-lyrics.ly:38 (variable)
-#, fuzzy
 msgid "lyricsA"
-msgstr "Gesangtext"
+msgstr "TextA"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:40 (variable)
-#, fuzzy
 msgid "lyricsB"
-msgstr "Gesangtext"
+msgstr "TextB"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:41 (variable)
-#, fuzzy
 msgid "lyricsC"
-msgstr "Gesangtext"
+msgstr "TextC"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:42 (variable)
-#, fuzzy
 msgid "lyricsD"
-msgstr "Gesangtext"
+msgstr "TextD"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:49 (context id)
 msgid "m"
@@ -12637,14 +12395,12 @@ msgstr ""
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:44 (variable)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:37 (variable)
 #. input/lsr/vocal-ensemble-template.ly:41 (variable)
-#, fuzzy
 msgid "sopMusic"
 msgstr "SoprNoten"
 
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:47 (variable)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:40 (variable)
 #. input/lsr/vocal-ensemble-template.ly:44 (variable)
-#, fuzzy
 msgid "sopWords"
 msgstr "SopranText"
 
@@ -12657,9 +12413,8 @@ msgstr ""
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:82 (context id)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:77 (context id)
 #. input/lsr/vocal-ensemble-template.ly:84 (context id)
-#, fuzzy
 msgid "men"
-msgstr "Linie"
+msgstr "Männer"
 
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:111 (comment)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:89 (comment)
@@ -12670,9 +12425,8 @@ msgstr ""
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:112 (comment)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:90 (comment)
 #. input/lsr/vocal-ensemble-template.ly:103 (comment)
-#, fuzzy
 msgid "can be closer to the staff"
-msgstr "jetzt ist der Text näher am System"
+msgstr "kann näher am System sein"
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:73 (comment)
 msgid "we could remove the line about this with the line below, since we want"
@@ -12695,9 +12449,8 @@ msgid "\\new Lyrics \\lyricsto basses \\bassWords"
 msgstr ""
 
 #. input/lsr/volta-multi-staff.ly:13 (variable)
-#, fuzzy
 msgid "voltaMusic"
-msgstr "AltNoten"
+msgstr "KlammerNoten"
 
 msgid "Up:"
 msgstr "Nach oben:"

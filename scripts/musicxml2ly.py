@@ -657,8 +657,6 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     tsm.display_numerator = tuplet_elt.get_normal_nr ()
     tsm.display_denominator = tuplet_elt.get_actual_nr ()
 
-    print ("num: %s, den: %s" % (tsm.display_numerator, tsm.display_denominator))
-
 
     if hasattr (tuplet_elt, 'bracket') and tuplet_elt.bracket == "no":
         tsm.display_bracket = None
@@ -671,13 +669,9 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     if hasattr (tuplet_elt, "show-number"):
         tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
     if tsm.display_number == "actual" and tsm.display_denominator:
-        print "Add denom-function\n";
         needed_additional_definitions.append ("tuplet-non-default-denominator")
     elif tsm.display_number == "both" and (tsm.display_numerator or tsm.display_denominator):
-        print "Add fraction-function\n";
         needed_additional_definitions.append ("tuplet-non-default-fraction")
-    else:
-        print "No display-function, display_number=%s, den=%s\n" % (tsm.display_number, tsm.display_denominator);
 
     if hasattr (tuplet_elt, "show-type"):
         if getattr (tuplet_elt, "show-type") == "actual":
@@ -743,48 +737,74 @@ def musicxml_clef_to_lily (attributes):
     return change
     
 def musicxml_time_to_lily (attributes):
-    (beats, type) = attributes.get_time_signature ()
-
+    sig = attributes.get_time_signature ()
+    if not sig:
+        return None
     change = musicexp.TimeSignatureChange()
-    change.fraction = (beats, type)
-    
+    change.fractions = sig
+
+    time_elm = attributes.get_maybe_exist_named_child ('time')
+    if time_elm and hasattr (time_elm, 'symbol'):
+        change.style = { 'single-number': "'single-digit",
+                         'cut': None,
+                         'common': None,
+                         'normal': "'()"}.get (time_elm.symbol, "'()")
+    else:
+        change.style = "'()"
+
+    # TODO: Handle senza-misura measures
+    # TODO: Handle hidden time signatures (print-object="no")
+    # TODO: What shall we do if the symbol clashes with the sig? e.g. "cut" 
+    #       with 3/8 or "single-number" with (2+3)/8 or 3/8+2/4?
+
     return change
 
 def musicxml_key_to_lily (attributes):
-    start_pitch  = musicexp.Pitch ()
-    (fifths, mode) = attributes.get_key_signature () 
-    try:
-        (n,a) = {
-            'major'     : (0,0),
-            'minor'     : (5,0),
-            'ionian'    : (0,0),
-            'dorian'    : (1,0),
-            'phrygian'  : (2,0),
-            'lydian'    : (3,0),
-            'mixolydian': (4,0),
-            'aeolian'   : (5,0),
-            'locrian'   : (6,0),
-            }[mode]
-        start_pitch.step = n
-        start_pitch.alteration = a
-    except  KeyError:
-        error_message (_ ("unknown mode %s, expecting 'major' or 'minor'") % mode)
-
-    fifth = musicexp.Pitch()
-    fifth.step = 4
-    if fifths < 0:
-        fifths *= -1
-        fifth.step *= -1
-        fifth.normalize ()
+    key_sig = attributes.get_key_signature () 
+    if not key_sig or not (isinstance (key_sig, list) or isinstance (key_sig, tuple)):
+        error_message (_ ("Unable to extract key signature!"))
+        return None
     
-    for x in range (fifths):
-        start_pitch = start_pitch.transposed (fifth)
-
-    start_pitch.octave = 0
-
     change = musicexp.KeySignatureChange()
-    change.mode = mode
-    change.tonic = start_pitch
+    
+    if len (key_sig) == 2 and not isinstance (key_sig[0], list):
+        # standard key signature, (fifths, mode)
+        (fifths, mode) = key_sig
+        change.mode = mode
+
+        start_pitch  = musicexp.Pitch ()
+        start_pitch.octave = 0
+        try:
+            (n,a) = {
+                'major'     : (0,0),
+                'minor'     : (5,0),
+                'ionian'    : (0,0),
+                'dorian'    : (1,0),
+                'phrygian'  : (2,0),
+                'lydian'    : (3,0),
+                'mixolydian': (4,0),
+                'aeolian'   : (5,0),
+                'locrian'   : (6,0),
+                }[mode]
+            start_pitch.step = n
+            start_pitch.alteration = a
+        except  KeyError:
+            error_message (_ ("unknown mode %s, expecting 'major' or 'minor' "
+                "or a church mode!") % mode)
+
+        fifth = musicexp.Pitch()
+        fifth.step = 4
+        if fifths < 0:
+            fifths *= -1
+            fifth.step *= -1
+            fifth.normalize ()
+        for x in range (fifths):
+            start_pitch = start_pitch.transposed (fifth)
+        change.tonic = start_pitch
+
+    else:
+        # Non-standard key signature of the form [[step,alter<,octave>],...]
+        change.non_standard_alterations = key_sig
     return change
 
 def musicxml_transpose_to_lily (attributes):
@@ -831,7 +851,9 @@ def musicxml_attributes_to_lily (attrs):
     for (k, func) in attr_dispatch.items ():
         children = attrs.get_named_children (k)
         if children:
-            elts.append (func (attrs))
+            ev = func (attrs)
+            if ev:
+                elts.append (ev)
     
     return elts
 
@@ -1476,6 +1498,50 @@ def musicxml_harmony_to_lily (n):
     return res
 
 
+notehead_styles_dict = {
+    'slash': '\'slash',
+    'triangle': '\'triangle',
+    'diamond': '\'diamond',
+    'square': '\'la', # TODO: Proper squared note head
+    'cross': None, # TODO: + shaped note head
+    'x': '\'cross',
+    'circle-x': '\'xcircle',
+    'inverted triangle': None, # TODO: Implement
+    'arrow down': None, # TODO: Implement
+    'arrow up': None, # TODO: Implement
+    'slashed': None, # TODO: Implement
+    'back slashed': None, # TODO: Implement
+    'normal': None,
+    'cluster': None, # TODO: Implement
+    'none': '#f',
+    'do': '\'do',
+    're': '\'re',
+    'mi': '\'mi',
+    'fa': '\'fa',
+    'so': None,
+    'la': '\'la',
+    'ti': '\'ti',
+    }
+
+def musicxml_notehead_to_lily (nh):
+    styles = []
+
+    # Notehead style
+    style = notehead_styles_dict.get (nh.get_text ().strip (), None)
+    style_elm = musicexp.NotestyleEvent ()
+    if style:
+        style_elm.style = style
+    if hasattr (nh, 'filled'):
+        style_elm.filled = (getattr (nh, 'filled') == "yes")
+    if style_elm.style or (style_elm.filled != None):
+        styles.append (style_elm)
+
+    # parentheses
+    if hasattr (nh, 'parentheses') and (nh.parentheses == "yes"):
+        styles.append (musicexp.ParenthesizeEvent ())
+
+    return styles
+
 def musicxml_chordpitch_to_lily (mxl_cpitch):
     r = musicexp.ChordPitch ()
     r.alteration = mxl_cpitch.get_alteration ()
@@ -1684,10 +1750,44 @@ def musicxml_note_to_lily_main_event (n):
         n.message (_ ("cannot find suitable event"))
 
     if event:
-	event.duration = musicxml_duration_to_lily (n)
+        event.duration = musicxml_duration_to_lily (n)
+
+    noteheads = n.get_named_children ('notehead')
+    for nh in noteheads:
+        styles = musicxml_notehead_to_lily (nh)
+        for s in styles:
+            event.add_associated_event (s)
 
     return event
 
+def musicxml_lyrics_to_text (lyrics):
+    # TODO: Implement text styles for lyrics syllables
+    continued = False
+    text = ''
+    for e in lyrics.get_all_children ():
+        if isinstance (e, musicxml.Syllabic):
+            continued = e.continued ()
+        elif isinstance (e, musicxml.Text):
+            # We need to convert soft hyphens to -, otherwise the ascii codec as well
+            # as lilypond will barf on that character
+            text += string.replace( e.get_text(), u'\xad', '-' )
+        elif isinstance (e, musicxml.Elision):
+            if text:
+                text += " "
+            continued = False
+
+    if text == "-" and continued:
+        return "--"
+    elif text == "_" and continued:
+        return "__"
+    elif continued and text:
+        return musicxml.escape_ly_output_string (text) + " --"
+    elif continued:
+        return "--"
+    elif text:
+        return musicxml.escape_ly_output_string (text)
+    else:
+        return ""
 
 ## TODO
 class NegativeSkip:
@@ -1704,12 +1804,12 @@ class LilyPondVoiceBuilder:
         self.pending_multibar = Rational (0)
         self.ignore_skips = False
         self.has_relevant_elements = False
-        self.measure_length = (4, 4)
+        self.measure_length = Rational (4, 4)
 
     def _insert_multibar (self):
         layout_information.set_context_item ('Score', 'skipBars = ##t')
         r = musicexp.MultiMeasureRest ()
-        lenfrac = Rational (self.measure_length[0], self.measure_length[1])
+        lenfrac = self.measure_length
         r.duration = rational_to_lily_duration (lenfrac)
         r.duration.factor *= self.pending_multibar / lenfrac
         self.elements.append (r)
@@ -1855,11 +1955,10 @@ def musicxml_step_to_lily (step):
 	return None
 
 def measure_length_from_attributes (attr, current_measure_length):
-    mxl = attr.get_named_attribute ('time')
-    if mxl:
-        return attr.get_time_signature ()
-    else:
-        return current_measure_length
+    len = attr.get_measure_length ()
+    if not len:
+        len = current_measure_length
+    return len
 
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
@@ -1893,7 +1992,7 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder = LilyPondVoiceBuilder ()
     figured_bass_builder = LilyPondVoiceBuilder ()
     chordnames_builder = LilyPondVoiceBuilder ()
-    current_measure_length = (4, 4)
+    current_measure_length = Rational (4, 4)
     voice_builder.set_measure_length (current_measure_length)
 
     for n in voice._elements:
@@ -2076,7 +2175,6 @@ def musicxml_voice_to_lily_voice (voice):
                 chordnames_builder.add_music (cn, ev_chord.get_length ())
             pending_chordnames = []
 
-
         notations_children = n.get_typed_children (musicxml.Notations)
         tuplet_event = None
         span_events = []
@@ -2212,10 +2310,10 @@ def musicxml_voice_to_lily_voice (voice):
             for l in note_lyrics_elements:
                 if l.get_number () < 0:
                     for k in lyrics.keys ():
-                        lyrics[k].append (l.lyric_to_text ())
+                        lyrics[k].append (musicxml_lyrics_to_text (l))
                         note_lyrics_processed.append (k)
                 else:
-                    lyrics[l.number].append(l.lyric_to_text ())
+                    lyrics[l.number].append(musicxml_lyrics_to_text (l))
                     note_lyrics_processed.append (l.number)
             for lnr in lyrics.keys ():
                 if not lnr in note_lyrics_processed:

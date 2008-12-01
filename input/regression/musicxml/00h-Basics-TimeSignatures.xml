@@ -17,7 +17,7 @@
 
     <measure number="1">
       <attributes>
-        <divisions>1</divisions>
+        <divisions>2</divisions>
         <key>
           <fifths>0</fifths>
           <mode>major</mode>
@@ -36,9 +36,9 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>8</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>whole</type>
       </note>
     </measure>
     <measure number="2">
@@ -53,9 +53,9 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>8</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>whole</type>
       </note>
     </measure>
     <measure number="3">
@@ -70,9 +70,9 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>8</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>whole</type>
       </note>
     </measure>
     <measure number="4">
@@ -87,9 +87,10 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>whole</type>
+        <dot/>
       </note>
     </measure>
     <measure number="5">
@@ -104,14 +105,14 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>half</type>
       </note>
     </measure>
     <measure number="6">
       <attributes>
-        <time >
+        <time>
           <beats>3</beats>
           <beat-type>4</beat-type>
         </time>
@@ -121,14 +122,15 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>6</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>half</type>
+        <dot/>
       </note>
     </measure>
     <measure number="7">
       <attributes>
-        <time >
+        <time>
           <beats>4</beats>
           <beat-type>4</beat-type>
         </time>
@@ -138,14 +140,14 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>8</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>whole</type>
       </note>
     </measure>
     <measure number="8">
       <attributes>
-        <time >
+        <time>
           <beats>5</beats>
           <beat-type>4</beat-type>
         </time>
@@ -155,14 +157,27 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>8</duration>
+        <tie type="start"/>
+        <voice>1</voice>
+        <type>whole</type>
+        <notations><tied type="start"/></notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>2</duration>
+        <tie type="stop"/>
         <voice>1</voice>
         <type>quarter</type>
+        <notations><tied type="stop"/></notations>
       </note>
     </measure>
     <measure number="9">
       <attributes>
-        <time >
+        <time>
           <beats>3</beats>
           <beat-type>8</beat-type>
         </time>
@@ -172,9 +187,10 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>3</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <dot/>
       </note>
     </measure>
     <measure number="10">
@@ -189,9 +205,10 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>6</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>half</type>
+        <dot/>
       </note>
     </measure>
     <measure number="11">
@@ -206,9 +223,10 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>whole</type>
+        <dot/>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
@@ -216,4 +234,3 @@
     </measure>
   </part>
 </score-partwise>
-

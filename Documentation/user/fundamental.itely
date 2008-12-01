@@ -242,11 +242,10 @@ limitations on variable names are detailed in
 @ruser{File structure}.
 
 
-
 @seealso
-
 For a complete definition of the input format, see
 @ruser{File structure}.
+
 
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
@@ -395,9 +394,10 @@ each smaller level.  It also really helps to be strict with
 indentation -- make sure that each item on the same level starts
 on the same horizontal position in your text editor.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Structure of a score}.
+
 
 @node Nesting music expressions
 @subsection Nesting music expressions
@@ -461,8 +461,8 @@ of a single Staff.  Here it says that the new staff should be
 placed above the staff called @qq{main} instead of the default
 position which is below.
 
-@seealso
 
+@seealso
 Ossia are often written without clef and without
 time signature and are usually in a smaller font.
 These require further commands which
@@ -924,8 +924,8 @@ to see how to correct this, so we shall leave this problem until a
 later section --- see the @code{force-hshift} property in @ref{Fixing
 overlapping notation}.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Multiple voices}.
 
 
@@ -1168,8 +1168,8 @@ same direction are placed at the same position and both voices
 have no shift or the same shift specified, the error message
 @qq{Too many clashing note columns} will be produced.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Multiple voices}.
 
 
@@ -1517,8 +1517,8 @@ refrainwordsB = \lyricmode {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Vocal music}.
 
 
@@ -1609,8 +1609,8 @@ words, each word being capitalized and joined immediately to the
 preceding word with no hyphen or underscore, e.g.,
 @code{GregorianTranscriptionStaff}.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Contexts explained}.
 
 
@@ -1720,8 +1720,8 @@ The identifying name is used to
 refer back to that particular instance of a context.  We saw this in
 use in the section on lyrics, see @ref{Voices and vocals}.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Creating contexts}.
 
 
@@ -1805,8 +1805,8 @@ from the name, or vice versa.
 We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.
 
-@seealso
 
+@seealso
 Internals reference: @rinternals{Engravers and Performers}.
 
 
@@ -2092,8 +2092,8 @@ Context properties set in this way may be overridden for particular
 instances of contexts by statements in a @code{\with} block, and by
 @code{\set} commands embedded in music statements.
 
-@seealso
 
+@seealso
 Notation Reference:
 @ruser{Changing context default settings}.
 @c FIXME
@@ -2250,8 +2250,8 @@ for all contexts of a particular type by including the
 @code{\set} command in a @code{\context} block in the
 same way.
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
 
@@ -2451,8 +2451,8 @@ celloMusic = \relative c {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 The starting templates can be found in the @q{Templates} appendix,
 see @ref{Single staff}.
 

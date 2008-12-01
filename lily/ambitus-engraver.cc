@@ -135,7 +135,7 @@ Ambitus_engraver::finalize ()
 {
   if (ambitus_ && !pitch_interval_.is_empty ())
     {
-      Grob * accidental_placement =
+      Grob *accidental_placement =
 	make_item ("AccidentalPlacement",
 		   accidentals_[DOWN]->self_scm ());
 
@@ -198,10 +198,11 @@ ADD_TRANSLATOR (Ambitus_engraver,
 		"",
 
 		/* create */
+		"AccidentalPlacement "
 		"Ambitus "
+		"AmbitusAccidental "
 		"AmbitusLine "
-		"AmbitusNoteHead "
-		"AmbitusAccidental ",
+		"AmbitusNoteHead ",
 
 		/* read */
 		"",

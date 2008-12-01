@@ -126,15 +126,14 @@ and placement}.
 
 
 @predefined
-
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
+@endpredefined
 
 
 @seealso
-
 Glosario musical:
 @rglos{breve},
 @rglos{longa},
@@ -215,11 +214,13 @@ mismo instante musical se debe hacer con @code{\tweak}.
 Para modificar la duración de las notas sin imprimir un corchete de
 grupo especial, véase @ref{Scaling durations}.
 
-@predefined
 
+@predefined
 @code{\tupletUp},
 @code{\tupletDown},
 @code{\tupletNeutral}.
+@endpredefined
+
 
 @snippets
 
@@ -240,8 +241,8 @@ grupo especial, véase @ref{Scaling durations}.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{triplet},
 @rglos{tuplet},
@@ -263,6 +264,7 @@ Referencia de funcionamiento interno:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+
 
 @knownissues
 
@@ -337,8 +339,8 @@ se puede comprimir y expandir la música:
 Una aplicación de esta instrucción se encuentra en la notación
 polimétrica, véase @ref{Polymetric notation}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Tuplets},
 @ref{Invisible rests},
@@ -451,8 +453,8 @@ detalles, consulte @ref{Direction and placement}.
 Se pueden especificar ligaduras continuas, de puuntos o intermitentes,
 véase la sección de instrucciones predefinidas.
 
-@predefined
 
+@predefined
 @code{\tieUp},
 @code{\tieDown},
 @code{\tieNeutral},
@@ -460,6 +462,8 @@ véase la sección de instrucciones predefinidas.
 @code{\tieDashed},
 @code{\tieSolid},
 @code{\repeatTie}.
+@endpredefined
+
 
 @snippets
 
@@ -469,8 +473,8 @@ véase la sección de instrucciones predefinidas.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -486,6 +490,7 @@ Referencia de funcionamiento interno:
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}.
+
 
 @knownissues
 
@@ -570,8 +575,8 @@ a4\rest d4\rest
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Full measure rests}.
 
@@ -580,6 +585,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Rest}.
+
 
 @knownissues
 
@@ -646,8 +652,8 @@ salida, de ninguna clase.
 \skip 1 \skip1 \skip 1
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -771,12 +777,15 @@ Cuando un silencio multicompás sigue inmediatamente al establecimiento
 de un compás parcial con @code{\partial}, es posible que no se emitan
 las advertencias correspondientes de comprobación de compás.
 
+
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
 @code{\compressFullBarRests},
 @code{\expandFullBarRests}.
+@endpredefined
+
 
 @snippets
 
@@ -798,7 +807,6 @@ las advertencias correspondientes de comprobación de compás.
 
 
 @seealso
-
 Glosario musical:
 @rglos{multi-measure rest}.
 
@@ -903,10 +911,12 @@ estilo numérico:
 Las indicaciones de compás de la música mensural se tratan en
 @ref{Mensural time signatures}.
 
-@predefined
 
+@predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
+@endpredefined
+
 
 @snippets
 
@@ -919,8 +929,8 @@ Las indicaciones de compás de la música mensural se tratan en
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {compound-time-signatures.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{time signature}
 
@@ -983,8 +993,8 @@ que se establece a un número negativo por parte de la instrucción
 @code{-4}, con el significado de @qq{queda un valor de negra en este
 compás}.
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{anacrusis}.
 
@@ -996,6 +1006,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Timing_translator}.
+
 
 @knownissues
 
@@ -1043,13 +1054,14 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
+@endpredefined
+
 
 @seealso
-
 Glosario musical:
 @rglos{cadenza}.
 
@@ -1058,6 +1070,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Rhythms}.
+
 
 @knownissues
 
@@ -1184,8 +1197,8 @@ independiente trasladando los grabadores @code{Timing_translator} y
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {compound-time-signatures.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -1203,6 +1216,7 @@ Referencia de funcionamiento interno:
 @rinternals{Timing_translator},
 @rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
+
 
 @knownissues
 
@@ -1240,8 +1254,8 @@ inserta ligaduras.  Uno de sus usos es depurar partituras complejas:
 si los compases no están completos, las ligaduras mostrarán
 exactamente cuánto le falta a cada compás.
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{tie}
 
@@ -1256,6 +1270,7 @@ Referencia de funcionamiento interno:
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
 @rinternals{Forbid_line_break_engraver}.
+
 
 @knownissues
 
@@ -1319,23 +1334,27 @@ rasgueado.  Esto se puede hacer con el grabador
 >>
 @end lilypond
 
+
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
+@endpredefined
+
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
 @rinternals{RhythmicStaff},
 @rinternals{Pitch_squash_engraver}.
+
 
 @node Beams
 @subsection Beams
@@ -1393,9 +1412,12 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}.
+@endpredefined
+
 
 @snippets
 
@@ -1410,8 +1432,8 @@ c16 c8
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Manual beams},
 @ref{Setting automatic beam behavior}.
@@ -1721,11 +1743,11 @@ a a a a
 
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
+@endpredefined
 
 
 @knownissues
@@ -1736,8 +1758,8 @@ absoluto.  Lo mismo sirve para las voces polifónicas, introducidas con
 @code{<< @dots{} \\ @dots{} >>}.  Si una voz polifónica termina
 mientras una barra automática está aún aceptando notas, no se imprime.
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -1851,11 +1873,10 @@ La instrucción @code{\featherDurations} sólo funciona con fragmentos
 musicales muy breves, y cuando los números de la fracción son
 pequeños.
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
-
 
 
 @node Bars
@@ -2007,8 +2028,8 @@ insertadas automáticamente es @code{"|"}.  Se puede cambiar en
 cualquier momento con @code{\set Timing.defaultBarType =
 }@var{bartype}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Line breaking},
 @ref{Repeats},
@@ -2160,13 +2181,14 @@ de partitura @code{Score}.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
 @rinternals{BarNumber}.
+
 
 @knownissues
 
@@ -2264,8 +2286,8 @@ por ejemplo:
 imprimirá una advertencia si el @code{currentBarNumber} (número del
 compás actual) no es 123 cuando se procesa.
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -2377,8 +2399,8 @@ pueden imprimir con @code{\musicglyph}.
 Para ver formas comunes de trucar la colocación de las letras de
 ensayo, consulte @ref{Text marks}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{The Feta font},
 @ref{Formatting text}.
@@ -2574,7 +2596,6 @@ normales de los otros pentagramas:
 
 
 @seealso
-
 Glosario musical:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -2588,6 +2609,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{GraceMusic}.
+
 
 @knownissues
 
@@ -2660,8 +2682,8 @@ MyCadenza = \relative c' {
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{cadenza}.
 
@@ -2740,8 +2762,8 @@ duración de la fracción n/m de una redonda.  Por ejemplo,
 @code{ly:make-moment 1 8} es una duración de una corchea y
 @code{ly:make-moment 7 16} es la duración de siete semicorcheas.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Bar numbers},
 @ref{Unmetered music}.

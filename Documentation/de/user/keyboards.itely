@@ -139,10 +139,10 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 
 
 @seealso
-
 Im Handbuch: @rlearning{Single staff}.
 
 Programmreferenz: @rinternals{AutoChangeMusic}.
+
  
 @knownissues
 
@@ -179,16 +179,17 @@ Stimmenverlaufs ausgegeben werden. Das wird erreicht, indem
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Programmreferenz: @rinternals{VoiceFollower}.
 
-@predefined
 
+@predefined
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},
 @funindex \hideStaffSwitch
 @code{\hideStaffSwitch}.
+@endpredefined
 
 
 @node Cross-staff stems
@@ -299,8 +300,8 @@ verlängert werden.
 c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
-@seealso
 
+@seealso
 Im Handbuch: @ref{Ties}
 
 

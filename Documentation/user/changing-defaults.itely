@@ -63,8 +63,8 @@ This section describes what contexts are, and how to modify them.
 * Aligning contexts::
 @end menu
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Contexts and engravers}.
 
@@ -1260,7 +1260,6 @@ such as
 
 
 @seealso
-
 Internals: @rinternals{OverrideProperty}, @rinternals{RevertProperty},
 @rinternals{PropertySet}, @rinternals{Backend}, and
 @rinternals{All layout objects}.
@@ -1557,13 +1556,14 @@ including any automatically inserted elements, may be examined,
 see @ref{Displaying music expressions}.  This may be helpful in
 determining what may be modified by a @code{\tweak} command.
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Tweaking methods}.
 
 Notation Reference:
 @ref{Displaying music expressions}.
+
 
 @knownissues
 
@@ -1886,8 +1886,8 @@ convert from a font size change to the equivalent change in
 @code{staff-space}.  For an explanation and an example of its use,
 see @rlearning{Length and thickness of objects}.
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Length and thickness of objects}.
 
@@ -2223,9 +2223,7 @@ When using @code{\endSpanners} it is not necessary to close
 hairpins with @code{\!}.
 
 
-
 @seealso
-
 Internals Reference: @rinternals{TextSpanner},
 @rinternals{Glissando}, @rinternals{VoiceFollower},
 @rinternals{TrillSpanner},
@@ -2697,8 +2695,8 @@ appearance of the printed score.
 * Modifying shapes::
 @end menu
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Tweaking output},
 @rlearning{Other sources of information}.
@@ -2716,6 +2714,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{All layout objects}.
+
 
 @node Aligning objects
 @subsection Aligning objects
@@ -3063,8 +3062,8 @@ Any of the glyphs in the feta Font can be supplied to the
 
 @c TODO Add inserting Postscript or ref to later
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},

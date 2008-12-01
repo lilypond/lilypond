@@ -39,7 +39,7 @@ contexts for mensural or Gregorian notation.
 Many graphical objects, such as note heads and flags, accidentals,
 time signatures, and rests, provide a @code{style} property, which
 can be changed to emulate several different styles of ancient
-notation. See
+notation.  See
 
 @itemize
 @item @ref{Mensural note heads},
@@ -160,7 +160,7 @@ satisfied with these defaults, one can proceed directly with note
 entry without worrying about the details on how to customize a
 context.  See one of the  pre-defined contexts
 @code{VaticanaVoice}, @code{VaticanaStaff}, @code{MensuralVoice},
-and @code{MensuralStaff}. See further
+and @code{MensuralStaff}.  See further
 
 @itemize
 @item @ref{Gregorian chant contexts},
@@ -183,9 +183,9 @@ of Gregorian chant notation to denote ascending or descending
 sequences of notes on the same syllable.  They are also used in
 mensural notation.
 
-Ligatures are entered by enclosing them in @code{\[} and @code{\]}.
-Some ligature styles may need additional input syntax specific for
-this particular type of ligature.  By default, the
+Ligatures are entered by @emph{enclosing} them in @code{\[} and
+@code{\]}.  Some ligature styles may need additional input syntax
+specific for this particular type of ligature.  By default, the
 @rinternals{LigatureBracket} engraver just puts a square bracket
 above the ligature.
 
@@ -206,9 +206,10 @@ specialized ligature engravers in the @rinternals{Voice} context,
 as explained in @ref{White mensural ligatures} and @ref{Gregorian
 square neume ligatures}.
 
-@seealso
 
+@seealso
 @c TODO: nothing here yet ...
+
 
 @knownissues
 
@@ -303,12 +304,13 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Internals Reference: @rinternals{Custos}.
 
 Examples:
 @rlsr{Ancient notation}.
+
 
 @c {{{2 Figured bass support
 @node Figured bass support
@@ -369,8 +371,8 @@ entering the chant, as the following excerpt demonstrates:
 }
 @end lilypond
 
-@seealso
 
+@seealso
 TODO: nothing here yet ...
 
 
@@ -482,9 +484,10 @@ petrucci style G clef
 @end lilypond
 @end multitable
 
-@seealso
 
+@seealso
 Notation Reference: see @ref{Clef}.
+
 
 @knownissues
 
@@ -579,10 +582,11 @@ differences in style:
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ref{Time signature}, gives a general introduction to
 the use of time signatures.
+
 
 @knownissues
 
@@ -644,8 +648,8 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 
 @end lilypond
 
-@seealso
 
+@seealso
 @ref{Note head styles} gives an overview of all available note head styles.
 
 
@@ -677,9 +681,10 @@ There is no particular flag style for neo-mensural or Petrucci notation.
 @c music, the default flag style should be used.
 There are no flags in Gregorian chant notation.
 
-@seealso
 
+@seealso
 TODO: nothing here yet ...
+
 
 @knownissues
 
@@ -725,11 +730,7 @@ taken.
 
 See @rlsr{Pitches,rests} for a chart of all rests.
 
-There are no rests in Gregorian chant notation; instead, it uses
-@ref{Divisiones}.
-
 @seealso
-
 Notation Reference: @ref{Rests}, gives a general introduction into the use of
 rests.
 
@@ -742,7 +743,7 @@ rests.
 @cindex key signature
 
 The @code{mensural} style provides a sharp and a flat sign
-different from the default style. If called for, the natural sign
+different from the default style.  If called for, the natural sign
 will be taken from the @code{vaticana} style.
 
 @lilypond[quote,ragged-right,staffsize=26]
@@ -778,14 +779,15 @@ The style for accidentals and key signatures is controlled by the
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
 
-@seealso
 
+@seealso
 Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
 @ref{Automatic accidentals} give a general introduction of the use of
 accidentals.  @ref{Key signature} gives a general introduction of
 the use of key signatures.
 
 Internals Reference: @rinternals{KeySignature}.
+
 
 @c {{{2 Annotational accidentals (musica ficta)
 @node Annotational accidentals (musica ficta)
@@ -827,8 +829,8 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Internals Reference: @rinternals{Accidental_engraver} engraver and
 the @rinternals{AccidentalSuggestion} object.
 
@@ -919,13 +921,14 @@ to the following
 }
 @end lilypond
 
-@seealso
 
+@seealso
 TODO: nothing here yet ...
+
 
 @knownissues
 
-Horizontal spacing is poor.
+Horizontal spacing of ligatures is poor.
 
 
 @c {{{1 Typesetting Gregorian chant
@@ -986,9 +989,10 @@ the following excerpt demonstrates:
 }
 @end lilypond
 
-@seealso
 
+@seealso
 TODO: nothing here yet ...
+
 
 @c {{{2 Gregorian clefs
 @node Gregorian clefs
@@ -1122,9 +1126,10 @@ hufnagel style combined do/fa clef
 @end lilypond
 @end multitable
 
-@seealso
 
+@seealso
 Notation Reference: see @ref{Clef}.
+
 
 @c {{{2 Gregorian accidentals and key signatures
 @node Gregorian accidentals and key signatures
@@ -1183,14 +1188,15 @@ The style for accidentals and key signatures is controlled by the
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
 
-@seealso
 
+@seealso
 Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
 @ref{Automatic accidentals} give a general introduction of the use of
 accidentals.  @ref{Key signature} gives a general introduction of
 the use of key signatures.
 
 Internals Reference: @rinternals{KeySignature}.
+
 
 @c {{{2Divisiones
 @node Divisiones
@@ -1199,6 +1205,9 @@ Internals Reference: @rinternals{KeySignature}.
 @cindex divisio
 @cindex divisiones
 @cindex finalis
+
+There are no rests in Gregorian chant notation; instead, it uses
+@ref{Divisiones}.
 
 A @emph{divisio} (plural: @emph{divisiones}; Latin word for
 @q{division}) is a staff context symbol that is used to indicate
@@ -1209,18 +1218,18 @@ the breathmarks from @ref{Breath marks}.  The @emph{finalis} sign not
 only marks the end of a chant, but is also frequently used within a
 single antiphonal/responsorial chant to mark the end of each section.
 
-To use divisiones, include the file @file{gregorian@/-init@/.ly}.  It
+To use divisiones, include the file @file{gregorian@/.ly}.  It
 contains definitions that you can apply by just inserting
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
 and @code{\finalis} at proper places in the input.  Some editions use
 @emph{virgula} or @emph{caesura} instead of divisio minima.
-Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
+Therefore, @file{gregorian@/.ly} also defines @code{\virgula} and
 @code{\caesura}
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@predefined
 
+@predefined
 @funindex \virgula
 @code{\virgula},
 @funindex \caesura
@@ -1233,6 +1242,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 @code{\divisioMaxima},
 @funindex \finalis
 @code{\finalis}.
+@endpredefined
 
 
 @c {{{2Gregorian articulations
@@ -1262,9 +1272,10 @@ Vaticana} style are provided.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 TODO: nothing here yet ...
+
 
 @knownissues
 
@@ -1300,13 +1311,11 @@ note that you can say @code{\augmentum @{a g@}} as a shortcut for
 
 
 @seealso
-
 Notation Reference: @ref{Breath marks}.
 
 Internals Reference: @rinternals{BreathingSign}.
 
 Examples: @rlsr{Ancient notation}.
-
 
 
 @c {{{2Gregorian square neumes ligatures
@@ -1323,7 +1332,7 @@ still lacking, such as (among others) horizontal alignment of multiple
 ligatures, lyrics alignment, and proper handling of accidentals.
 
 The support for Gregorian neumes is enabled by @code{\include}ing
-"gregorian.ly" at the beginning of the file. This makes available
+"gregorian.ly" at the beginning of the file.  This makes available
 a number of extra commands to produce the neume symbols used in
 plainchant notation.
 
@@ -1359,8 +1368,8 @@ with any of the following commands:
 @code{\linea}.
 
 @item Ligatures, properly speaking (i.e. notes joined together), are
-produced by placing one of the joining commands @code{pes} or
-@code{flexa}, for upwards and downwards movement, respectively,
+produced by placing one of the joining commands @code{\pes} or
+@code{\flexa}, for upwards and downwards movement, respectively,
 @emph{between} the notes to be joined.
 @end itemize
 
@@ -1385,7 +1394,7 @@ regular @emph{punctum} can be modified with @code{\cavum}, which
 produces a hollow note, and @code{\linea}, which draws vertical
 lines on either side of the note.
 
-@item The @emph{virga} has a descending stem on the right side. It is
+@item The @emph{virga} has a descending stem on the right side.  It is
 produced by the modifier @code{\virga}.
 @end itemize
 
@@ -1395,7 +1404,7 @@ Ligatures
 Unlike most other neumes notation systems, the typographical
 appearance of ligatures is not directly dictated by the input
 commands, but follows certain conventions dependent on musical
-meaning. For example, a three-note ligature with the musical shape
+meaning.  For example, a three-note ligature with the musical shape
 low-high-low, such as @code{\[ a \pes b \flexa g \]}, produces a
 Torculus consisting of three Punctum heads, while the shape
 high-low-high, such as @code{\[ a \flexa g \pes b \]}, produces a
@@ -1411,7 +1420,7 @@ the same music in a different style of Gregorian chant notation.
 Liquescent neumes
 
 Another main category of notes in Gregorian chant is the so-called
-liquescent neumes. They are used under certain circumstances at
+liquescent neumes.  They are used under certain circumstances at
 the end of a syllable which ends in a @q{liquescent} letter, i.e.
 the sounding consonants that can hold a tone (the nasals, l, r, v,
 j, and their diphtong equivalents).  Thus, the liquescent neumes
@@ -1420,12 +1429,12 @@ they always fall at the end of a ligature.
 
 Liquescent neumes are represented graphically in two different,
 more or less interchangeable ways: with a smaller note or by
-@q{twisting} the main note upwards or downwards. The first is
+@q{twisting} the main note upwards or downwards.  The first is
 produced by making a regular @code{pes} or @code{flexa} and
 modifying the shape of the second note: @code{\[ a \pes \deminutum
 b \] }, the second by modifying the shape of a single-note neume
-with @code{\auctus} and one of the direction markers
-@code{\descendens} or @code{\ascendens}, e.g. @code{ \[ \auctus
+with @code{\auctum} and one of the direction markers
+@code{\descendens} or @code{\ascendens}, e.g. @code{ \[ \auctum
 \descendens a \] }.
 
 @noindent
@@ -1434,7 +1443,7 @@ Special signs
 A third category of signs is made up of a small number of signs
 with a special meaning (which, incidentally, in most cases is only
 vaguely known): the @emph{quilisma}, the @emph{oriscus}, and the
-@emph{strophicus}. These are all produced by prefixing a note name
+@emph{strophicus}.  These are all produced by prefixing a note name
 with the corresponding modifier, @code{\quilisma},
 @code{\oriscus}, or @code{\stropha}.
 
@@ -1450,14 +1459,22 @@ Note that the use of these signs in the music itself follows
 certain rules, which are not checked by Lilypond.  E.g., the
 @emph{quilisma} is always the middle note of an ascending
 ligature, and usually falls on a half-tone step, but it is
-perfectly possible to make a single-note quilisma.
+perfectly possible, although incorrect, to make a single-note
+quilisma.
+
+In addition to the note signs, gregorian.ly also defines the
+commands @code{\versus}, @code{\responsum}, @code{\ij},
+@code{\iij}, @code{\IJ}, and @code{\IIJ}, that will produce the
+corresponding characters, e.g. for use in lyrics, as section
+markers, etc.  These commands use special unicode characters and
+will only work if a font is used which supports them.
 
 
 @c neume table
 
 The following table shows a limited, but still representative pool
 of Gregorian ligatures, together with the code fragments that
-produce the ligatures. The table is based on the extended neumes
+produce the ligatures.  The table is based on the extended neumes
 table of the 2nd volume of the Antiphonale Romanum (@emph{Liber
 Hymnarius}), published 1983 by the monks of Solesmes.  The first
 column gives the name of the ligature, with the main form in
@@ -2201,10 +2218,9 @@ code}
 
 @end multitable
 
+
 @predefined
-
-The following head prefixes are supported
-
+The following head prefixes are supported:
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -2227,6 +2243,7 @@ The following head prefixes are supported
 @code{\cavum},
 @funindex \linea
 @code{\linea}.
+@endpredefined
 
 Head prefixes can be accumulated, though restrictions apply.  For
 example, either @code{\descendens} or @code{\ascendens} can be applied
@@ -2241,9 +2258,10 @@ respectively.
 @funindex \augmentum
 Use the unary music function @code{\augmentum} to add augmentum dots.
 
-@seealso
 
+@seealso
 TODO: nothing here yet ...
+
 
 @knownissues
 
@@ -2272,7 +2290,7 @@ with head prefixes in arbitrary order.
 
 Working with ancient music frequently involves particular tasks
 which differ considerably from the modern notation for which
-Lilypond is designed. In the rest of this section, a number of
+Lilypond is designed.  In the rest of this section, a number of
 typical scenarios are outlined, with suggestions of solutions.
 These involve:
 
@@ -2296,9 +2314,10 @@ same source.
 @c use snippet Transcription-of-ancient-music-with-incipit
 TBC
 
-@seealso
 
+@seealso
 @c ... and reference to other sections ...
+
 
 @c {{{2Mensurstriche layout
 @node Mensurstriche layout
@@ -2306,7 +2325,7 @@ TBC
 
 @emph{Mensurstriche} (@q{mensuration lines}) is the accepted term
 for bar lines that are drawn between the staves of a system but
-not through the staves themselves. It is a common way to preserve
+not through the staves themselves.  It is a common way to preserve
 the rhythmic appearance of the original, i.e. not having to break
 syncopated notes at bar lines, while still providing the
 orientation aids that bar lines give.
@@ -2319,10 +2338,10 @@ orientation aids that bar lines give.
 @c TODO Add text about lyrics to the lowest line, to be placed
 @c outside the StaffGroup.
 @c from lsr and -user
-TBC
+@c TBC
+
 
 @seealso
-
 @c ... and reference to other sections ...
 
 
@@ -2330,14 +2349,177 @@ TBC
 @node Transcribing Gregorian chant
 @unnumberedsubsubsec Transcribing Gregorian chant
 
-@c TODO Add text
+Gregorian chant can be transcribed into modern notation with a
+number of simple tweaks.
+
+@b{Stems}.  Stems can be left out altogether by @code{\remove}-ing
+the @code{Stem_engraver} from the Voice context:
+
+@example
+\layout @{
+  ...
+  \context @{
+    \Voice
+      \remove "Stem_engraver"
+  @}
+@}
+@end example
+
+However, in some transcription styles, stems are used
+occasionally, for example to indicate the transition from a
+single-tone recitative to a fixed melodic gesture.  In these cases,
+one can use either @code{\override Stem #'transparent = ##t} or
+@code{\override Stem #'length = #0} instead, and restore the stem
+when needed with the corresponding @code{\once \override Stem
+#'transparent = ##f} (see example below).
+
+@b{Timing.} For unmetered chant, there are several alternatives.
+
+The Time_signature_engraver can be removed from the Staff context
+without any negative side effects.  The alternative, to make it
+transparent, will leave an empty space in the score, since the
+invisible signature will still take up space.
+
+In many cases, @code{\set Score.timing = ##f} will give good
+results.  Another alternative is to use \@code{\CadenzaOn} and
+@code{\CadenzaOff}.
+
+To remove the barlines, the radical approach is to @code{\remove}
+the Bar_engraver from the Staff context.  Again, one may want to
+use @code{\override BarLine #'transparent = ##t} instead, if an
+occasional barline is wanted.
+
+A common type of transcription is recitativic chant where the
+repeated notes are indicated with a single breve.  The text to
+the recitation tone can  be dealt with in two different ways:
+either set as a single, left-aligned syllable:
+
+@lilypond[verbatim,ragged-right]
+\include "gregorian.ly"
+chant = \relative c' {
+  \clef "G_8"
+  c\breve c4 b4 a c2 c4  \divisioMaior
+  c\breve c4 c f, f \finalis
+}
+
+verba = \lyricmode {
+  \once \override LyricText #'self-alignment-X = #-1
+  "Noctem quietam et" fi -- nem per -- fec -- tum
+  \once \override LyricText #'self-alignment-X = #-1
+  "concedat nobis Dominus" om -- ni -- po -- tens.
+}
+\score {
+  \new Staff <<
+  \new Voice = "melody" \chant
+  \new Lyrics = "one" \lyricsto melody \verba
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \remove "Bar_engraver"
+      \override Stem #'transparent = ##t
+    }
+  }
+}
+@end lilypond
+
+This works fine, as long as the text doesn't span a line break.  If
+that is the case, an alternative is to add hidden notes to the
+score, here in combination with changing stem visibility:
+
+
+@lilypond[verbatim,ragged-right]
+\include "gregorian.ly"
+chant = \relative c' {
+  \clef "G_8"
+  \set Score.timing = ##f
+  c\breve \override NoteHead #'transparent = ##t  c c c c c
+  \revert NoteHead #'transparent
+  \override Stem #'transparent = ##f \stemUp c4 b4 a
+  \override Stem #'transparent = ##t c2 c4  \divisioMaior
+  c\breve \override NoteHead #'transparent = ##t c c c c c c c
+  \revert NoteHead #'transparent c4 c f, f \finalis
+}
+
+verba = \lyricmode {
+  No -- ctem qui -- e -- tam et fi -- nem per -- fec -- tum
+  con -- ce -- dat no -- bis Do -- mi -- nus om -- ni -- po -- tens.
+}
+
+\score {
+  \new Staff <<
+    \new Voice = "melody" \chant
+    \new Lyrics \lyricsto "melody" \verba
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \override BarLine #'transparent = ##t
+      \override Stem #'transparent = ##t
+    }
+  }
+}
+@end lilypond
+
+Another common situation is transcription of neumatic or
+melismatic chants, i.e. chants with a varying number of notes
+to each syllable.  In this case, one would want to set the
+syllable groups clearly apart, usually also the subdivisions of a
+longer melisma.  One way to achieve this is to use a fixed
+@code{\time}, e.g. 1/4, and let each syllable or note group fill
+one of these measures, with the help of tuplets or shorter
+durations.  If the barlines and all other rhythmical indications
+are made transparent, and the space around the barlines is
+increased, this will give a fairly good representation in modern
+notation of the original.
+
+To avoid that syllables of different width (such as @qq{-ri} and
+@qq{-rum}) spread the syllable note groups unevenly apart, the
+@code{#'X-extent} property of the @code{LyricText} object may be
+set to a fixed value.  Another, more cumbersome way would be to
+add the syllables as @code{\markup} elements.  If further
+adjustments are necessary, this can be easily done with
+@code{s} @q{notes}.
+
+@lilypond[verbatim,quote]
+spiritus = \relative c' {
+  \time 1/4
+  \override Lyrics.LyricText #'X-extent  = #'(0 . 3)
+  d4 \times 2/3 { f8 a g } g a a4 g f8 e
+  d4 f8 g g8 d f g a g f4 g8 a a4  s
+  \times 2/3 { g8 f d } e f g a g4
+}
+
+spirLyr = \lyricmode {
+  Spi -- ri -- _ _ tus  _ Do -- mi -- ni  _ re -- ple -- _ vit _
+  or -- _ bem _  ter -- ra -- _ rum, al -- _ _ le -- _ lu
+  -- _ ia.
+}
+\score {
+  \new Staff <<
+    \new Voice = "chant" \spiritus
+    \new Lyrics = "one" \lyricsto "chant" \spirLyr
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \override BarLine #'X-extent = #'(-1 . 1)
+      \override Stem #'transparent = ##t
+      \override Beam #'transparent = ##t
+      \override BarLine #'transparent = ##t
+      \override TupletNumber #'transparent = ##t
+    }
+  }
+}
+@end lilypond
+
 @c extract from 1.6.1.1
-TBC
 
 @seealso
-
 @c ... and reference to other sections ...
-
 
 @c {{{2Ancient and modern from one source
 @node Ancient and modern from one source
@@ -2348,9 +2530,7 @@ TBC
 TBC
 
 @seealso
-
 @c ... and reference to other sections ...
-
 
 @c {{{2Editorial markings
 @node Editorial markings
@@ -2376,7 +2556,7 @@ TBC
 
 TBC
 
-@seealso
 
+@seealso
 @c ... and reference to other sections ...
 

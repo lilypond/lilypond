@@ -16,7 +16,13 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
 	   2, 0, 0,
 	   (SCM font, SCM name),
 	   "Return a stencil from @var{font} for the glyph named @var{name}."
-	   " If the glyph is not available, return an empty stencil.")
+	   "  If the glyph is not available, return an empty stencil.\n"
+	   "\n"
+	   "Note that this command can only be used to access glyphs from"
+	   " fonts loaded with @code{ly:system-font-load}; currently, this"
+	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
+	   " respectively.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
@@ -32,7 +38,13 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
 	   2, 0, 0,
 	   (SCM font, SCM index),
 	   "Retrieve a stencil for the glyph numbered @var{index}"
-	   " in @var{font}.")
+	   " in @var{font}.\n"
+	   "\n"
+	   "Note that this command can only be used to access glyphs from"
+	   " fonts loaded with @code{ly:system-font-load}; currently, this"
+	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
+	   " respectively.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
@@ -44,7 +56,13 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
 LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 	   2, 0, 0,
 	   (SCM font, SCM name),
-	   "Return the index for @var{name} in @var{font}.")
+	   "Return the index for @var{name} in @var{font}.\n"
+	   "\n"
+	   "Note that this command can only be used to access glyphs from"
+	   " fonts loaded with @code{ly:system-font-load}; currently, this"
+	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
+	   " respectively.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
@@ -56,7 +74,13 @@ LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
 	   2, 0, 0,
 	   (SCM font, SCM index),
-	   "Return the character code for @var{index} in @var{font}.")
+	   "Return the character code for @var{index} in @var{font}.\n"
+	   "\n"
+	   "Note that this command can only be used to access glyphs from"
+	   " fonts loaded with @code{ly:system-font-load}; currently, this"
+	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
+	   " respectively.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
@@ -68,7 +92,13 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
 LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
 	   2, 0, 0,
 	   (SCM font, SCM name),
-	   "Return the character code for glyph @var{name} in @var{font}.")
+	   "Return the character code for glyph @var{name} in @var{font}.\n"
+	   "\n"
+	   "Note that this command can only be used to access glyphs from"
+	   " fonts loaded with @code{ly:system-font-load}; currently, this"
+	   " means either the Emmentaler or Aybabtu fonts, corresponding"
+	   " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
+	   " respectively.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);

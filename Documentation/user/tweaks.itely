@@ -395,6 +395,7 @@ articulation mark as if it were an articulation itself.
 @cindex tuplets, nested
 @cindex triplets, nested
 @cindex bracket, tuplet
+@cindex bracket, triplet
 @cindex tuplet bracket
 @cindex triplet bracket
 
@@ -449,8 +450,8 @@ appearance may be modified in the usual way with
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference:
 @ruser{The tweak command}.
 
@@ -878,8 +879,8 @@ syllable and the terminating brace.}
 @warning{In overrides in lyrics always place spaces around
 the dot between the context name and the object name.}
 
-@seealso
 
+@seealso
 Learning Manual: @ref{Scheme tutorial}.
 
 
@@ -950,8 +951,8 @@ by apostrophe-hash, @code{'#}.
   @tab @code{'#(#t #t #f)}
 @end multitable
 
-@seealso
 
+@seealso
 Learning Manual: @ref{Scheme tutorial}.
 
 

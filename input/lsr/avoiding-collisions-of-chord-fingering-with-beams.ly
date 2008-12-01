@@ -10,7 +10,7 @@ Fingerings and string numbers applied to individual notes will
 automatically avoid beams, but this is not true by default for
 fingerings and string numbers applied to the individual notes of
 chords.  The following example shows how this default behavior can be
-overriden:   
+overridden:   
 
 "
   doctitle = "Avoiding collisions of chord fingering with beams"
