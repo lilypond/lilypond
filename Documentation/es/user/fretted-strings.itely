@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -562,7 +562,7 @@ escueta @code{fret-diagram-terse}
   }
   \context Staff {
     \override Voice.TextScript
-      #'fret-diagram-details #'finger-code = #'below-string
+      #'(fret-diagram-details finger-code) = #'below-string
     \clef "treble_8"
     < c e g c' e' > 1 ^\markup
       \fret-diagram-terse #"x;3-3;2-2;o;1-1;o;"
@@ -629,7 +629,7 @@ prolija @code{fret-diagram-verbose}.
   \context Staff {
     \clef "treble_8"
     \override Voice.TextScript
-      #'fret-diagram-details #'finger-code = #'below-string
+      #'(fret-diagram-details finger-code) = #'below-string
 
     < f, c f a c' f'>1 ^\markup
       \fret-diagram-verbose #'(
@@ -1221,7 +1221,7 @@ de guitarra:
 \clef "treble_8"
 b16 d g b e
 \textSpannerDown
-\override TextSpanner #'bound-details #'left #'text = #"XII "
+\override TextSpanner #'(bound-details left text) = #"XII "
   g16\startTextSpan
   b16 e g e b g\stopTextSpan
 e16 b g d

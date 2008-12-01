@@ -23,6 +23,7 @@ multi-measure rest with a different print function:
 
 \relative c'' {
   \override MultiMeasureRest #'stencil
-     = #ly:multi-measure-rest::percent
+    = #ly:multi-measure-rest::percent
+  \override MultiMeasureRest #'thickness = #0.48
   R1
 }

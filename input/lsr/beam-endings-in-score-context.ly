@@ -5,6 +5,15 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Las reglas de final de barra especificadas en el contexto
+@code{Score} se aplican a todos los pentagramas, pero se pueden
+modificar tanto en los niveles de @code{Staff} como de
+@code{Voice}:
+
+"
+  doctitlees = "Finales de barra en el contexto Score"
+
   texidoc = "
 Beam-ending rules specified in the @code{Score} context apply to all
 staves, but can be modified at both @code{Staff} and @code{Voice}

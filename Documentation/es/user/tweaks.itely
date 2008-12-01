@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -2022,7 +2022,7 @@ de ellos.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
@@ -2095,7 +2095,7 @@ recordando que @code{OttavaBracket} se crea dentro del contexto de
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp

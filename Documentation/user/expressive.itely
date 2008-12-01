@@ -630,6 +630,12 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
 
 Typographically, a phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects; a
@@ -652,12 +658,28 @@ c4\( g' c,( b) | c1\)
 
 Simultaneous or overlapping phrasing slurs are not permitted.
 
+Phrasing slurs can be solid, dotted, or dashed.  Solid is the default
+style for phrasing slurs:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashed
+g4\( e c2\)
+\phrasingSlurDotted
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
 
 @predefined
 
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
-@code{\phrasingSlurNeutral}.
+@code{\phrasingSlurNeutral},
+@code{\phrasingSlurDashed},
+@code{\phrasingSlurDotted},
+@code{\phrasingSlurSolid}.
 
 
 @seealso
