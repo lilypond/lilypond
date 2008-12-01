@@ -113,7 +113,6 @@ können, sind demonstriert in
 @end itemize
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{Real music example},
 @rlearning{Other uses for tweaks}.
@@ -208,7 +207,6 @@ der Mitte des Systems gemessen, dass näher am Balken ist.  Ein
 einfaches Beispiel ist gezeigt in @rlearning{Fixing overlapping notation}.
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{Fixing overlapping notation}.
 
@@ -421,7 +419,6 @@ Hälsen, die nach unten zeigen.
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
-
 Schnipsel:
 @rlsr{Keyboards}.
 
@@ -561,7 +558,6 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 {accordion-discant-symbols.ly}
 
 @seealso
-
 Schnipsel:
 @rlsr{Keyboards}.
 
