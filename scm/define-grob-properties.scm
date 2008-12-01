@@ -218,9 +218,10 @@ glyph is typeset on a @code{Stem}.  Valid options include @code{'()} for
 standard flags, @code{'mensural} and @code{'no-flag}, which switches off 
 the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
-category for selecting a font.  Options include: @code{fetaMusic},
-@code{fetaNumber}, @code{TeX-text}, @code{TeX-math},
-@code{fetaBraces}, @code{fetaDynamic}.")
+category for selecting a font.  Currently, only lilypond's system fonts
+(Emmentaler and Aybabtu) are using this property.  Available values are
+@code{fetaMusic} (Emmentaler), @code{fetaBraces} (Aybabtu),
+@code{fetaNumber} (Emmentaler), and @code{fetaDynamic} (Emmentaler).")
      (font-family ,symbol? "The font family is the broadest category
 for selecting text fonts.  Options include: @code{sans},
 @code{roman}.")
