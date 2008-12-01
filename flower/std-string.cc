@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006--2007  Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2006--2008  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "std-string.hh"

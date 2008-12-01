@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2007 Han-Wen Nienhuys
+  (c) 2000--2008 Han-Wen Nienhuys
 */
 
 #include "protected-scm.hh"

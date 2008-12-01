@@ -1,7 +1,7 @@
 /*
   hyphen-spanner.hh -- part of GNU LilyPond
 
-  (c) 1999--2007 Glen Prideaux <glenprideaux@iname.com>
+  (c) 1999--2008 Glen Prideaux <glenprideaux@iname.com>
 */
 
 #ifndef HYPHEN_SPANNER_HH

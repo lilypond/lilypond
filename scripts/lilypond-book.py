@@ -112,7 +112,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2007',
+''' % ( _ ('Copyright (c) %s by') % '2001--2008',
         ' '.join (authors),
         _ ("Distributed under terms of the GNU General Public License."),
         _ ("It comes with NO WARRANTY.")))

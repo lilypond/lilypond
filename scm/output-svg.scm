@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2002--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2002--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; http://www.w3.org/TR/SVG11
 ;;;; http://www.w3.org/TR/SVG12/ -- page, pageSet in draft
