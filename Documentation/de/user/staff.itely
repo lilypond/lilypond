@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 	908c6ee738d8e412599bd47a71fb188c09c986cd
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.64"
 
 @node Staff notation
 @section Staff notation
@@ -14,8 +14,8 @@
 @lilypondfile[quote]{staff-headword.ly}
 
 Dieser Abschnitt zeigt, wie die Erscheinung von Systemen beeinflusst
-wird, Partituren mit mehr als einem System gesetzt werden und wie
-man Aufführungsanweisungen und -hilfen zu einzelnen Systemen hinzufügt.
+wird, wie Partituren mit mehr als einem System gesetzt werden und wie
+man Aufführungsanweisungen und Stichnoten zu einzelnen Systemen hinzufügt.
 
 @menu
 * Displaying staves:: 
@@ -63,24 +63,16 @@ Der einfachste Notensystem-Kontext ist @code{Staff}:
 
 @code{DrumStaff} (Perkussionsnotensystem) erstellt ein Notensystem
 mit fünf Linien, das für ein typisches Schlagzeug eingerichtet ist.
-Für jedes Instrument werden unterschiedliche Bezeichnungen eingesetzt.
-Die Instrumentenbezeichnungen werden innerhalb der
-@code{drummode}-Umgebung gesetzt.  Zu Einzelheiten siehe
+Für jedes Instrument werden unterschiedliche Symbole dargestellt.
+Die Instrumente werden innerhalb der
+@code{drummode}-Umgebung gesetzt, wo jedes Instrument seine eigene
+Bezeichnung hat.  Zu Einzelheiten siehe
 @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
   \drummode { cymc hh ss tomh }
 }
-@end lilypond
-
-@c FIXME: remove when mentioned in NR 2.8
-@code{GregorianTranscriptionStaff} (System zur Transkription des
-Gregorianischen Chorals) erstellt ein Notensystem, um modernen
-Gregorianischen Choral zu notieren.  Es hat keine Notenlinien.
-
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
 @end lilypond
 
 @code{RhythmicStaff} (Rhythmus-System) erstellt ein Notensystem mit
@@ -105,6 +97,15 @@ Es gibt zwei Notensysteme, die zur Notation von Alter Musik eingesetzt
 werden: @code{MensuralStaff} and @code{VaticanaStaff}.  Sie sind
 erklärt in
 @ref{Pre-defined contexts}.
+
+Das @code{GregorianTranscriptionStaff} (System zur Transkription des
+Gregorianischen Chorals) erstellt ein Notensystem, um modernen
+Gregorianischen Choral zu notieren.  Es hat keine Notenlinien.
+
+@lilypond[verbatim,quote,relative=2]
+\new GregorianTranscriptionStaff { c4 d e f e d }
+@end lilypond
+
 
 Neue Notensystem-Kontexte können selber definiert werden.  Zu Einzelheiten,
 siehe
@@ -245,7 +246,6 @@ Neue Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
-@c FIXME: move to NR 2.8.x when sectioning is ready
 
 
 @seealso
@@ -283,41 +283,26 @@ Referenz der Interna:
 @cindex verschachtelte Systemklammern
 @cindex Klammern, Verschachteln
 @cindex geschweifte Klammern, Schachteln
-@cindex innere Systemgruppe
-@cindex innere Chorsystemgruppe
-@cindex inner choir staff group
 @cindex Systemgruppen, Verschachtelung
 
-Zusätzlich gibt es noch zwei Systemgruppen-Kontexte, die innerhalb
-von einem @code{StaffGroup}- oder @code{ChoirStaff}-Kontext eingesetzt
-werden können: @code{InnerStaffGroup} und @code{InnerChoirStaff}.  
-Diese Kontexte erstellen eine neue Klammer außerhalb der Klammer der
-Gruppe, in welcher sie sich befinden.
-
-Eine @code{InnerStaffGroup} (innere Systemgruppe) wird wie eine
-@code{StaffGroup} behandelt: Taktlinien verbinden die Systeme miteinander:
+System-Gruppen können in beliebiger Tiefe geschachtelt werden.  In
+diesem Fall erstellt jeder neue, innen liegende Kontext eine neue
+Klammer außerhalb der Klammer der Systemgruppe, in der er sich
+befindet.
 
 @lilypond[verbatim,quote,relative=2]
 \new StaffGroup <<
   \new Staff { c2 c | c2 c }
-  \new InnerStaffGroup <<
+  \new StaffGroup <<
     \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
+    \new StaffGroup \with {
+      systemStartDelimiter = #'SystemStartSquare
+    }
+    <<
+      \new Staff { e2 e | e2 e }
+      \new Staff { c2 c | c2 c }
+    >>
   >>
->>
-@end lilypond
-
-In einem @code{InnerChoirStaff} werden die Taktlinien @emph{nicht}
-verbunden, genauso wie in einem @code{ChoirStaff}:
-
-@lilypond[verbatim,quote,relative=2]
-\new ChoirStaff <<
-  \new Staff { c2 c | c2 c }
-  \new InnerChoirStaff <<
-    \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
-  >>
-  \new Staff { c1 | c1 }
 >>
 @end lilypond
 
@@ -341,9 +326,7 @@ Schnipsel:
 @rlsr{Staff notation}.
 
 Referenz der Interna:
-@rinternals{InnerStaffGroup},
 @rinternals{StaffGroup},
-@rinternals{InnerChoirStaff},
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
@@ -417,7 +400,10 @@ von der Notenliniendicke abhängen.
 @end lilypond
 
 Die Dicke der Hilfslinien kann auch unabhängig von der
-Notenliniendicke verändert werden.
+Notenliniendicke verändert werden.  Die zwei Zahlen in dem Beispiel
+sind Faktoren, mit denen die Notenlinien-Dicke und der
+Notenlinienabstand multipliziert werden.  Die Addition beider
+Werte ergibt die Dicke der Hilfslinien.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -539,8 +525,8 @@ erstellt werden:
 @end lilypond
 
 @noindent
-Dieses Beispiel ist aber normalerweise nicht das gewünschte
-Ergebnis.  Um Ossia-Systeme zu setzen, die sich über dem eigentlichen
+Dieses Beispiel ist aber normalerweise nicht erwünscht.
+Um Ossia-Systeme zu setzen, die sich über dem eigentlichen
 System befinden, keine Takt- und Schlüsselangaben haben und kleiner
 gesetzt sind, müssen einige Optimierungen angewendet werden.  Im
 Handbuch zum Lernen wird eine Technik vorgestellt, mit der das
@@ -712,9 +698,9 @@ verwendet, um die leeren Systeme von gerade nicht spielenden
 Instrumenten zu verstecken.  In der Standardeinstellung werden alle
 leeren Notenzeilen außer die des ersten Systems entfernt.
 
-@warning{Eine leere Notenzeile darf nur Ganztaktpausen,
+@warning{Eine Notenzeile gilt als leer, wenn sie nur Ganztaktpausen,
 unsichtbare Noten, @code{\skip}-Befehle oder eine Kombination 
-der drei enthalten.}
+der drei enthält.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -629,6 +629,12 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
 
 Tipográficamente, la ligadura de fraseo se comporta casi exactamente
 igual que una ligadura de expresión normal.  Sin embargo, se tratan
@@ -652,11 +658,27 @@ c4\( g' c,( b) | c1\)
 
 No se pueden tener varias ligaduras de fraseo simultáneas o solapadas.
 
+Las ligaduras de fraseo pueden ser continuas, de puntos o de rayas.
+El estilo predeterminado para las ligaduras de fraseo es el continuo:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashed
+g4\( e c2\)
+\phrasingSlurDotted
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
 
 @predefined
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
-@code{\phrasingSlurNeutral}.
+@code{\phrasingSlurNeutral},
+@code{\phrasingSlurDashed},
+@code{\phrasingSlurDotted},
+@code{\phrasingSlurSolid}.
 @endpredefined
 
 

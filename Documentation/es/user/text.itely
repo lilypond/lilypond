@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1364,11 +1364,11 @@ Archivos de inicio:
 @node Entire document fonts
 @unnumberedsubsubsec Entire document fonts
 
-Se puede cambiar la familia predeterminada de la fuente tipográfica
-para todo el documento.  En este caso se debe usar la siguiente
-sintaxis, proporcionando tres familias de fuente que se usarán
-respectivamente como tipografías @emph{romana}, @emph{sans-serif} y
-@emph{monoespaciada}, como se explica en @ref{Fonts explained}.
+Se pueden cambiar las fuentes tipográficas que se usan como
+tipografías predeterminadas en las familias @emph{romana},
+@emph{sans-serif} y @emph{monoespaciada}, especificándolas en este
+orden como se ve en el ejemplo de abajo.  Para leer más explicaciones
+sobre las fuentes tipográficas, consulte @ref{Fonts explained}.
 
 @cindex fuente, establecer la familia de
 @funindex make-pango-font-tree

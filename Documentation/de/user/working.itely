@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,9 +20,9 @@ zu lesen.
 
 
 @menu
-* Suggestions for writing LilyPond input files::  
-* When things don't work::      
-* Scores and parts::            
+* Suggestions for writing LilyPond input files::
+* When things don't work::
+* Scores and parts::
 @end menu
 
 
@@ -30,8 +30,7 @@ zu lesen.
 @section Suggestions for writing LilyPond input files
 
 Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben -- 
-nicht 
-nur die kleinen Beispiele aus der Übung, sondern ganze Stücke.
+nicht nur die kleinen Beispiele aus der Übung, sondern ganze Stücke.
 Aber wie geht man das am besten an?
 
 Solange LilyPond Ihre Dateien versteht und die Noten so setzt, 
@@ -58,11 +57,11 @@ strukturiert werden, damit sie einfacher aktualisierbar sind.
 @end itemize
 
 @menu
-* General suggestions::         
-* Typesetting existing music::  
-* Large projects::              
-* Saving typing with variables and functions::  
-* Style sheets::                
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Saving typing with variables and functions::
+* Style sheets::
 @end menu
 
 
@@ -136,7 +135,7 @@ LilyPond-Eingabe einer gedruckten Partitur):
 @item Schreiben Sie ein System ihrer Quelle nach dem anderen 
 (aber trotzdem nur einen Takt pro Textzeile) und überprüfen 
 Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem 
-@code{showLastLength}-Befehl können Sie den Übersetzungsprozess 
+@code{showLastLength}- oder @code{showFirstLenght}-Befehl können Sie den Übersetzungsprozess 
 beschleunigen. Siehe auch 
 @ruser{Skipping corrected music}.
 
@@ -573,9 +572,9 @@ für meine Projekte.  Jede Notationsdatei fängt an mit
 @section When things don't work
 
 @menu
-* Updating old files::          
-* Troubleshooting (taking it all apart)::  
-* Minimal examples::            
+* Updating old files::
+* Troubleshooting (taking it all apart)::
+* Minimal examples::
 @end menu
 
 @node Updating old files
