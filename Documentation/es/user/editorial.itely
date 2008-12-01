@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -544,10 +544,10 @@ pero esto puede cambiarse:
 
 @predefined
 @funindex balloonLengthOn
-@funindex balloonLengthOff
-@code{\balloonLengthOn},
 @funindex \balloonLengthOn
+@code{\balloonLengthOn},
 @funindex \balloonLengthOff
+@funindex balloonLengthOff
 @code{\balloonLengthOff}.
 @endpredefined
 
