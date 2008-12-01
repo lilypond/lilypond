@@ -99,8 +99,8 @@ as shown in @rlearning{Other uses for tweaks}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Real music example},
 @rlearning{Other uses for tweaks}.
@@ -122,6 +122,7 @@ Internals Reference:
 
 Snippets:
 @rlsr{Keyboards}.
+
 
 @knownissues
 
@@ -191,8 +192,8 @@ center of the staff that is closest to the beam.  For a simple
 example of beam tweaking, see @rlearning{Fixing overlapping
 notation}.
 
-@seealso
 
+@seealso
 Learning Manual:
 @rlearning{Fixing overlapping notation}.
 
@@ -277,8 +278,8 @@ necessary to place a key signature in the lower staff:
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Changing staff manually}.
 
@@ -287,6 +288,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{AutoChangeMusic}.
+
 
 @knownissues
 
@@ -337,12 +339,14 @@ notes can be printed automatically:
 >>
 @end lilypond
 
-@predefined
 
-@code{\showStaffSwitch}, @code{\hideStaffSwitch}.
+@predefined
+@code{\showStaffSwitch},
+@code{\hideStaffSwitch}.
+@endpredefined
+
 
 @seealso
-
 Snippets:
 @rlsr{Keyboards}.
 
@@ -404,13 +408,14 @@ Chords that cross staves may be produced:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Keyboards}.
 
 Internals Reference:
 @rinternals{Stem}.
+
 
 @node Piano
 @subsection Piano
@@ -494,8 +499,8 @@ The placement of the pedal commands matches the physical movement of the
 sustain pedal during piano performance.  Pedalling to the final bar line
 is indicated by omitting the final pedal up command.
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Ties}.
 
@@ -514,6 +519,7 @@ Internals Reference:
 @rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
+
 
 @node Accordion
 @subsection Accordion
@@ -546,8 +552,8 @@ come into use to simplify the performance instructions.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Keyboards}.
 

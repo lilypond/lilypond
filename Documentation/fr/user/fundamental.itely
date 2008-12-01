@@ -133,7 +133,7 @@ quoi, d'une note isolée à un gigantesque
 
 @example
 @{
-  \new GrandStaff <<
+  \new StaffGroup <<
     @var{...collez ici la partition complète d'un opéra de Wagner...}
   >>
 @}
@@ -164,20 +164,20 @@ d'autres informations :
 @cindex mise en forme
 @cindex midi
 
+@noindent
 Gardez à l'esprit que ces trois commandes -- @code{\header},
-@code{\layout} et @code{\midi} -- sont spécifiques :  à l'inverse de
-toutes les commandes débutant par une oblique inversée (@emph{backslash}
-pour @code{\}), @strong{elles ne constituent pas} des expressions
-musicales et ne seront donc pas interprétées comme telles.  Elles
-peuvent de ce fait être mentionnées à l'intérieur du bloc @code{\score},
-tout comme à l'extérieur.  En réalité, ces commandes sont la plupart du
-temps indépendantes du bloc @code{\score} -- par exemple, la commande
-@code{\header} intervient bien souvent avant le bloc @code{\score} tout
-simplement parce que les en-têtes apparaissent au début de la partition.
-C'est donc l'un des raccourcis que LilyPond prendra en considération.
+@code{\layout} et @code{\midi} -- sont spécifiques : à l'inverse de
+toutes les commandes débutant par une oblique inversée @code{\}
+(@emph{backslash} en anglais), @strong{elles ne constituent pas} des
+expressions musicales et ne peuvent pas faire partie d'expressions
+musicales.  Elles peuvent de ce fait être placées à l'intérieur du
+bloc @code{\score}, ou bien à l'extérieur.  En réalité, ces commandes
+sont la plupart du temps indépendantes du bloc @code{\score} -- par
+exemple, la commande @code{\header} intervient souvent avant le bloc
+@code{\score}, comme le montre l'exemple ci-dessus.
 
 Les deux autres commandes -- @code{\layout @{ @}} et @code{\midi @{@}}
-que nous n'avons pas détaillées pour l'instant --  auront respectivement
+-- que nous n'avons pas détaillées pour l'instant, auront respectivement
 pour effet, lorsqu'elles interviennent, de produire une sortie
 imprimable et un fichier MIDI.  Nous nous y intéressons plus
 particulièrement dans le manuel de notation, aux chapitres 
@@ -240,8 +240,8 @@ chiffre, ni ponctuation, ni caractère accentué, ni espace.} ; ce peut être
 @code{laTeteAToto}, tant qu'il ne s'agit pas de @qq{mot réservé}.  Pour
 plus de détails, voir @ref{Saving typing with variables and functions}. 
 
-@seealso
 
+@seealso
 Pour une description complète du format des fichiers d'entrée, voir 
 @ruser{File structure}.
 
@@ -279,7 +279,7 @@ et remonter la pente.
 @example
 \score @{
   @{   % cette accolade marque le début de l'expression musicale
-    \new GrandStaff <<
+    \new StaffGroup <<
     @var{...insérez ici l'intégralité d'un opéra de Wagner...}
     >>
   @}   % cette accolade marque la fin de l'expression musicale
@@ -288,11 +288,10 @@ et remonter la pente.
 @end example
 
 Un opéra de Wagner multiplierait facilement la longueur de ce manuel
-par deux ou trois, alors faisons-le en version chant/piano.  On n'a
-plus besoin d'une partition d'orchestre --- @code{GrandStaff}, qui sert
-à regrouper les portées au moyen d'une accolade sur la gauche --- donc
-laissons cela de côté.  Par contre, un chanteur et un piano
-@emph{pourraient} nous être utiles.
+par deux ou trois, alors contentons-nous d'une voix et d'un piano.  On
+n'a plus besoin d'une partition d'orchestre --- @emph{i.e.} des
+portées regroupées en @code{StaffGroup} --- donc laissons cela de
+côté.  Par contre, nous voulons bien une voix et un piano.
 
 @example
 \score @{
@@ -396,8 +395,8 @@ une indentation stricte et propre est vraiment d'une aide précieuse :
 assurez-vous que chaque élément d'un même niveau a le même décalage
 horizontal dans votre éditeur de texte !
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Structure of a score}.
 
 
@@ -497,7 +496,7 @@ différents types de crochet :
 D'autres constructions permettent d'obtenir des lignes regroupant ou en
 travers des notes :  les liaisons de prolongation indiquées par un
 tilde (@code{~}), les marques de nolet avec 
-@code{\times@tie{}x/y@tie{}@{..@}} ou
+@code{\times@tie{}x/y@tie{}@{..@}}, ou
 encore les notes d'ornement avec @code{\grace@{..@}}.
 
 En dehors de LilyPond, l'imbrication correcte de différents types de
@@ -676,7 +675,7 @@ liaisons, hampes, nuances, etc. est définie automatiquement.
 }
 @end lilypond
 
-Ces voix sont séparées de la voix principale laquelle contient les notes en 
+Ces voix sont séparées de la voix principale, laquelle contient les notes en 
 dehors de la construction @code{<< .. >>} -- que nous appellerons
 @emph{construction simultanée}.  Les liaisons, de prolongation ou non,
 ne peuvent relier des notes que si elles appartiennent à la même voix ;
@@ -904,10 +903,10 @@ pas correctement placées.  LilyPond met à notre disposition plusieurs
 moyens d'ajuster le positionnement horizontal des notes.  Nous ne sommes
 pas encore tout à fait prêts pour voir comment corriger cela, aussi nous
 examinerons ce problème dans un autre chapitre (voir la propriété
-@code{force-hshift}  dans @ref{Fixing overlapping notation}).
+@code{force-hshift} dans @ref{Fixing overlapping notation}).
+
 
 @seealso
-
 Manuel de notation : @ruser{Multiple voices}.
 
 
@@ -1118,7 +1117,7 @@ empilements de notes.  Chaque voix dispose de plusieurs empilements, et
 l'attribution d'un décalage à une voix en particulier s'appliquera à
 l'empilement en question s'il y avait risque de collision.
 Nous en avons une illustration à la deuxième mesure de l'exemple
-ci-dessus :  le do de la deuxième voix est décalé à droite du ré de la
+ci-dessus : le do de la deuxième voix est décalé à droite du ré de la
 première voix et, dans l'accord final, le do de la troisième voix est
 lui aussi décalé à droite des autres notes.
 
@@ -1143,8 +1142,8 @@ même moment et qu'aucun décalage n'a été spécifié ou qu'ils sont
 identiques, LilyPond vous le signalera par le message @qq{Trop
 d'empilements en conflit}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Multiple voices}.
 
 
@@ -1203,7 +1202,7 @@ afin de désactiver les ligatures automatiques.
 
 Nous allons reprendre un extrait de Judas Maccabæus pour illustrer ce
 que cette technique apporte en flexibilité.  Nous commençons par
-utiliser des variables afin de séparer de la structure d'une portée
+utiliser des variables afin de séparer de la structure de la portée 
 aussi bien la musique que les paroles.  Nous ajoutons par la même
 occasion un crochet spécifique aux portées pour chœur
 (@code{ChoirStaff}).  Quant aux blocs de paroles, nous les faisons
@@ -1487,8 +1486,8 @@ refrainwordsB = \lyricmode {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Vocal music}.
 
 
@@ -1567,7 +1566,7 @@ devient extrêment utile.
 En plus des contextes @code{Score,} @code{Staff} et @code{Voice} sont
 disponibles d'autres contextes intermédiaires entre les niveaux 
 partition et portée, chargés de gérer certains regroupement, tels que
-@code{PianoStaff} ou @code{ChoirStaff}.  Sont aussi disponibles d'autres
+@code{PianoStaff} ou @code{ChoirStaff}.  Vous disposez aussi d'autres
 contextes de portée ou de voix alternatifs, ainsi que des contextes
 spécifiques pour les paroles, les percussions, les tablatures
 d'instruments frettés, la basse chiffrée, etc.
@@ -1576,8 +1575,8 @@ Le nom de chacun des contextes est formé d'un ou plusieurs mots aux
 initiales en majuscule et directement accolés les uns aux autres sans
 ponctuation, comme par exemple @code{GregorianTranscriptionStaff}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Contexts explained}.
 
 
@@ -1660,7 +1659,7 @@ indentée de deux espaces supplémentaires, et de deux autres pour sa
 marque de fermeture.  Bien que ceci ne soit pas obligatoire, nous vous
 invitons à adopter cette pratique qui vous évitera nombre d'erreurs
 @qq{accolades non appariées}.  La structure de la musique apparaît ainsi
-au premier coup d'œil, et les défauts de parité seront plus facilement
+au premier coup d'œil, et les défauts de parité plus facilement
 repérables.  Vous remarquerez que la portée MG est créée à l'aide d'un
 double chevron gauche -- nécessaire pour gérer ses deux voix -- alors que la
 portée MD ne contient qu'une seule expression musicale -- il n'y a
@@ -1763,8 +1762,8 @@ partir du nom, et vice versa.
 Nous verrons plus avant comment le résultat de LilyPond peut changer
 lorsqu'on modifie l'action des graveurs.
 
-@seealso
 
+@seealso
 Références internes : @rinternals{Engravers and Performers}.
 
 
@@ -2047,13 +2046,14 @@ Les propriétés de contexte ainsi définies peuvent être adaptées pour
 chacun des contextes en particulier grâce à un bloc @code{\with} ou bien
 une commande @code{\set} au fil des notes.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Changing context default settings},
 @ruser{The set command}.
 
 Références internes : @rinternals{Contexts},
 @rinternals{Tunable context properties}.
+
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
@@ -2194,8 +2194,8 @@ Vous réglerez de la même manière les propriétés de tous les contextes
 d'un type particulier si vous insérez les commandes @code{\set} dans un
 bloc @code{\context}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Modifying context plug-ins}, 
 @ruser{Changing context default settings}.
 
@@ -2224,7 +2224,7 @@ adapter des modèles.
 
 Commencez par le modèle qui vous semblera le plus proche de ce à quoi
 vous voulez aboutir.  Disons par exemple que vous voulez écrire une pièce
-pour soprano et violoncelle : dans ce cas, l'on pourrait commencer par les
+pour soprano et violoncelle : dans ce cas, on pourrait commencer par les
 @qq{notes et paroles}, pour la partie de soprano.
 
 @example
@@ -2275,11 +2275,11 @@ melodie = \relative c' @{
 @end example
 
 On n'a pas besoin de deux commandes @code{\version}.  Ce dont on a besoin,
-c'est dela section @code{melodie}. De même, on n'a pas besoin de deux
-sections @code{\score} --- si nous les gardions toutes les deux, on
-obtiendrait deux parties séparées ; mais nous voulons un vrai duo, avec
-les deux parties ensemble.  Dans la section @code{\score}, on n'a pas
-besoin non plus de deux @code{\layout} ni de deux @code{\midi}.
+c'est de la section @code{melodie}. De même, on n'a pas besoin de deux sections
+@code{\score} --- si nous les gardions toutes les deux, on obtiendrait deux
+parties séparées ; mais nous voulons un vrai duo, avec les deux
+parties ensemble.  Dans la section @code{\score}, on n'a pas besoin
+non plus de deux @code{\layout} ni de deux @code{\midi}.
 
 Si on se contente de couper et coller les sections @code{melodie}, on se
 retrouvera avec deux sections de ce nom ; il nous faut donc les renommer.
@@ -2402,8 +2402,8 @@ celloMusic = \relative c {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Les patrons originaux sont disponibles à l'annexe @qq{Modèles}, voir
 @ref{Single staff}. 
 

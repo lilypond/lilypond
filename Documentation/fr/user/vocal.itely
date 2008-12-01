@@ -253,7 +253,6 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 
 @seealso
-
 Référence du programme : @rinternals{LyricText}, @rinternals{LyricSpace}.
 
 
@@ -348,10 +347,10 @@ Le résultat donnera ainsi quelque chose comme
 >>
 @end example
  
-@seealso
- 
-@c TODO: document \new Staff << Voice \lyricsto >> bug
 
+@seealso
+@c TODO: document \new Staff << Voice \lyricsto >> bug
+@c
 Référence du programme : @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.  
 
@@ -488,8 +487,8 @@ Voici un exemple de cette manière de procéder :
  } >>
 @end lilypond
 
+
 @seealso
- 
 Référence du programme : @rinternals{Lyrics}.
 
 
@@ -515,12 +514,14 @@ installée qui contient ce symbole(par exemple DejaVuLGC).}.
 \addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{LyricCombineMusic}.
+
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
+
 
 @node Multiple notes to one syllable
 @unnumberedsubsubsec Multiple notes to one syllable
@@ -589,16 +590,18 @@ section @rlearning{Vocal ensembles}.
 
 
 @predefined
-
-@code{\melisma}, @code{\melismaEnd}
-@funindex \melismaEnd
 @funindex \melisma
+@code{\melisma},
+@funindex \melismaEnd
+@code{\melismaEnd}.
+@endpredefined
+
 
 @seealso
-
 @comment  Référence du programme : @rinternals{Melisma_translator}.
 
 Exemples : @rlsr{Vocal music}.
+
 
 @knownissues
 
@@ -638,8 +641,8 @@ imprimés.  Cet inconvénient peut être contrôlé par
 et @code{minimum-length}, seuil en deçà duquel il n'y a pas de trait
 d'union.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
 
@@ -1136,7 +1139,6 @@ text = \lyricmode {
 
 
 @seealso
-
 Référence du programme : @rinternals{LyricText},
 @rinternals{StanzaNumber}.
 

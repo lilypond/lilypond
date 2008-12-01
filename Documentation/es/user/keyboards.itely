@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -104,8 +104,8 @@ tweaks}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Real music example},
 @rlearning{Other uses for tweaks}.
@@ -127,6 +127,7 @@ Referencia de funcionamiento interno:
 
 Fragmentos de código:
 @rlsr{Keyboards}.
+
 
 @knownissues
 
@@ -199,8 +200,8 @@ barras se miden posteriormente a partir del centro del peentagrama que
 está más cerca de la barra.  Para ver un ejemplo sencillo de trucaje
 de las barras, consulte @rlearning{Fixing overlapping notation}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Fixing overlapping notation}.
 
@@ -287,8 +288,8 @@ una armadura de tonalidad en el pentagrama inferior:
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Changing staff manually}.
 
@@ -297,6 +298,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{AutoChangeMusic}.
+
 
 @knownissues
 
@@ -349,13 +351,14 @@ automáticamente una línea que conecte las notas:
 >>
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
+@endpredefined
+
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Keyboards}.
 
@@ -418,13 +421,14 @@ Se pueden hacer acordes que cruzan los pentagramas:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Keyboards}.
 
 Referencia de funcionamiento interno:
 @rinternals{Stem}.
+
 
 @node Piano
 @subsection Piano
@@ -515,8 +519,8 @@ movimiento físico del pedal derecho en el transcurso de la ejecución.
 La pedalización hasta la barra final de compás se indica mediante la
 omisión de la instrucción final de levantar el pedal.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Ties}.
 
@@ -535,6 +539,7 @@ Referencia de funcionamiento interno:
 @rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
+
 
 @node Accordion
 @subsection Accordion
@@ -569,8 +574,8 @@ ejecución.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Keyboards}.
 

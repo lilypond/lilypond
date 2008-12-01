@@ -119,15 +119,16 @@ nicht berühren.  Fertige Befehle können eingesetzt werden, um
 eine bestimmte Richtung manuell zu erzwingen, zu Einzelheiten
 siehe @ref{Direction and placement}.
 
-@predefined
 
+@predefined
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
+@endpredefined
+
 
 @seealso
-
 Glossar:
 @rglos{breve},
 @rglos{longa},
@@ -212,11 +213,12 @@ eingesetzt werden.
 Um die Dauern von Noten zu ändern, ohne die N-tolen-Klammern
 zu setzen, siehe @ref{Scaling durations}.
 
-@predefined
 
+@predefined
 @code{\tupletUp},
 @code{\tupletDown},
 @code{\tupletNeutral}.
+@endpredefined
 
 
 @snippets
@@ -240,7 +242,6 @@ zu setzen, siehe @ref{Scaling durations}.
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 @seealso
-
 Glossar:
 @rglos{triplet},
 @rglos{tuplet},
@@ -262,6 +263,7 @@ Referenz der Interna:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+
 
 @knownissues
 @cindex grace notes within tuplet brackets
@@ -339,8 +341,8 @@ ausgedehnt werden kann:
 Eine Anwendung für diesen Befehl ist polymetrische Notation,
 siehe @ref{Polymetric notation}.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Tuplets},
 @ref{Invisible rests},
@@ -461,14 +463,15 @@ siehe die vordefinierten Befehle unten oder für Einzelheiten
 Durchgehende, gepunktete oder gestrichelte Bindebögen können
 spezifiziert werden, siehe die vordefinieren Befehle.
 
-@predefined
 
+@predefined
 @code{\tieUp},
 @code{\tieDown},
 @code{\tieNeutral},
 @code{\tieDotted},
 @code{\tieDashed},
 @code{\tieSolid}.
+@endpredefined
 
 
 @snippets
@@ -479,8 +482,8 @@ spezifiziert werden, siehe die vordefinieren Befehle.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
-@seealso
 
+@seealso
 Glossar:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -496,6 +499,7 @@ Referenz der Interna:
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}.
+
 
 @knownissues
 
@@ -578,8 +582,8 @@ a4\rest d4\rest
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Full measure rests}.
 
@@ -652,14 +656,13 @@ Durch ihn wird
 \skip 1 \skip1 \skip 1
 @end lilypond
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Rhythms}.
 
 Referenz der Interna:
 @rinternals{SkipMusic}
-
 
 
 @node Full measure rests
@@ -781,12 +784,15 @@ Wenn eine Mehrtaktpause direkt auf einen Auftakt mit @code{\partial}
 folgt, werden möglicherweise daraus resultierende
 Taktprüfungswarnungen nicht angezeigt.
 
+
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
 @code{\compressFullBarRests},
 @code{\expandFullBarRests}.
+@endpredefined
+
 
 @snippets
 
@@ -828,8 +834,8 @@ position where the note would be placed in the measure, but if the
 measure length is determined by the length of the text, the text will
 appear to be centered.
 
-@seealso
 
+@seealso
 Glossar:
 @rglos{multi-measure rest}.
 
@@ -937,10 +943,12 @@ Symbole für Modus und Proprietas der mensuralen Notation
 werden behandelt unter
 @ref{Ancient time signatures}.
 
-@predefined
 
+@predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
+@endpredefined
+
 
 @snippets
 
@@ -973,7 +981,6 @@ a16 a a a a a a a a a a a
 
 
 @seealso
-
 Glossar:
 @rglos{time signature}
 
@@ -987,7 +994,6 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
-
 
 
 @node Upbeats
@@ -1028,8 +1034,8 @@ die anezigt, wie groß der Abstand zum Taktanfang ist. Deshalb ist
 sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt 
 zu: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
-@seealso
 
+@seealso
 Glossar:
 @rglos{anacrusis}.
 
@@ -1041,6 +1047,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{Timing_translator}.
+
 
 @knownissues
 
@@ -1090,13 +1097,14 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
+@endpredefined
+
 
 @seealso
-
 Glossar:
 @rglos{cadenza}.
 
@@ -1105,6 +1113,7 @@ Glossar:
 
 Schnipsel:
 @rlsr{Rhythms}.
+
 
 @knownissues
 
@@ -1227,7 +1236,6 @@ verschoben werden.
 
 
 @seealso
-
 Glossar:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -1239,10 +1247,11 @@ Notationreferenz:
 Schnipsel:
 @rlsr{Rhythms}.
 
-Referenz der Intera:
+Referenz der Interna:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
 @rinternals{Staff}.
+
 
 @knownissues
 
@@ -1285,8 +1294,8 @@ Partituren auf Fehler überprüfen möchte: Wenn die Takte nicht
 vollständig gefüllt sind, zeigt die Überbindung genau an, wie viele 
 Notenwerte noch in dem jeweiligen Takt fehlen.
 
-@seealso
 
+@seealso
 Glossar: @rglos{tie}
 
 Handbuch zum Lernen:
@@ -1300,6 +1309,7 @@ Referenz der Interna:
 @rinternals{Note_heads_engraver},
 @rinternals{Completion_heads_engraver},
 @rinternals{Forbid_line_break_engraver}.
+
 
 @knownissues
 
@@ -1365,24 +1375,26 @@ eingeschaltet wird mit @code{\improvisationOn}.
 >>
 @end lilypond
 
+
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
+@endpredefined
+
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Rhythms}.
 
 Referenz der Interna:
 @rinternals{RhythmicStaff},
 @rinternals{Pitch_squash_engraver}.
-
 
 
 @node Beams
@@ -1442,9 +1454,12 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}.
+@endpredefined
+
 
 @snippets
 
@@ -1462,8 +1477,8 @@ c16 c8
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Manual beams},
 @ref{Setting automatic beam behavior}.
@@ -1844,11 +1859,11 @@ In 4/4 time signature, this means that automatic beams could end only on
 
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
+@endpredefined
 
 
 @knownissues
@@ -1860,11 +1875,10 @@ Stimmen, die mit @code{<< @dots{} \\ @dots{} >>} gesetzt wurden.
 Wenn eine polyphone Stimme endet, während ein Balken noch Noten
 erwartet, wird dieser Balken nicht gesetzt.
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Rhythms}.
-
 
 
 @node Manual beams
@@ -1978,12 +1992,10 @@ Der @code{\featherDurations}-Befehl funktioniert nur mit kurzen
 Notenabschnitten, und wenn die Zahlen in den Brüchen klein
 sind.
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Rhythms}.
-
-
 
 
 @node Bars
@@ -2135,8 +2147,8 @@ Die automatische erzeugte Taktlinie ist @code{"|"}.  Das kann
 jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
 @var{Takstrichart} geändert werden.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{Line breaking},
 @ref{Repeats},
@@ -2150,7 +2162,6 @@ Referenz der Interna:
 @rinternals{Staff} level), @rinternals{SpanBar} (across
 staves), @rinternals{Timing_translator} (for Timing
 properties).
-
 
 
 @node Bar numbers
@@ -2289,12 +2300,12 @@ Bar numbers can be removed entirely by removing the
 
 
 @seealso
-
 Schnipsel:
 @rlsr{Rhythms}.
 
 Referenz der Interna:
 @rinternals{BarNumber}.
+
 
 @knownissues
 
@@ -2507,8 +2518,8 @@ mit dem Befehl @code{\musicglyph} ausgegeben werden können.
 sich in
 @ref{Formatting text}.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ref{The Feta font},
 @ref{Formatting text}.
@@ -2524,7 +2535,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{RehearsalMark}.
-
 
 
 @node Special rhythmic concerns
@@ -2712,7 +2722,6 @@ in other staves:
 
 
 @seealso
-
 Glossar:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -2803,14 +2812,13 @@ MyCadenza = \relative c' {
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Glossar:
 @rglos{cadenza}.
 
 Schnipsel:
 @rlsr{Rhythms}.
-
 
 
 @node Time administration
@@ -2889,7 +2897,6 @@ die Dauer Zähler/Nenner einer ganzen Note.  Zum Beispiel heißt
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Bar numbers}, @ref{Unmetered music}
 

@@ -68,13 +68,14 @@ Des notes ordinaires et des clusters peuvent cohabiter sur une même
 portée, y compris simultanément --- en pareil cas, rien ne sera fait
 pour tenter d'empécher les chevauchements entre notes et clusters.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
 
 Exemples : @rlsr{Simultaneous notes}.
+
 
 @knownissues
 
@@ -236,7 +237,6 @@ pour sortir le sol (@code{g}) de l'alignement, et
 
 
 @predefined
-
 @funindex \oneVoice
 @code{\oneVoice},
 @funindex \voiceOne
@@ -260,6 +260,8 @@ des notes de la voix courante.  Les voix externes --- habituellement,
 les voix une et deux --- ont @code{\shiftOff}, alors que les voix
 internes --- trois et quatre --- ont @code{\shiftOn}.  @code{\shiftOnn}
 et @code{\shiftOnnn} sont des niveaux supplémentaires de décalage.
+@endpredefined
+
 
 Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
 @rinternals{NoteColumn}, et des silences à hauteur déterminée, peuvent
@@ -377,9 +379,10 @@ expressions musicales, comme ceci :
 Une section @code{\relative} en dehors de @code{\partcombine} sera
 sans effet sur les hauteurs de @var{musicexpr1} et @var{musicexpr2}.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{PartCombineMusic}.
+
 
 @knownissues
 

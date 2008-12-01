@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -64,8 +64,8 @@ nota del acorde anterior.
 Para ver más información sobre los acordes, consulte @ref{Chord
 notation}.
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{chord}.
 
@@ -77,6 +77,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
+
 
 @node Simultaneous expressions
 @unnumberedsubsubsec Simultaneous expressions
@@ -139,8 +140,8 @@ Se pueden mezclar en el mismo pentagrama notas normales y clusters,
 incluso al mismo tiempo.  En tal caso, no se hace ningún intento de
 evitar automáticamente las colisiones entre clusters y notas normales.
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{cluster}.
 
@@ -151,6 +152,7 @@ Referencia de funcionamiento interno:
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
+
 
 @knownissues
 
@@ -329,17 +331,17 @@ simultánea, dentro de una voz creada explícitamente:
 Este método conduce a barrados extraños y advertencias si los
 fragmentos de música no tienen las mismas duraciones exactas.
 
-@predefined
 
+@predefined
 @code{\voiceOne},
 @code{\voiceTwo},
 @code{\voiceThree},
 @code{\voiceFour},
 @code{\oneVoice}.
+@endpredefined
 
 
 @seealso
-
 Manual de aprendizaje:
 @rlearning{Voices contain music},
 @rlearning{Explicitly instantiating voices}.
@@ -350,6 +352,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
+
 
 @node Voice styles
 @unnumberedsubsubsec Voice styles
@@ -381,25 +384,23 @@ identificarlas fácilmente:
 Para recuperar la presentación normal se utiliza la instrucción
 @code{\voiceNeutralstyle}.
 
+
 @predefined
-
 @code{\voiceOneStyle},
-
 @code{\voiceTwoStyle},
 @code{\voiceThreeStyle},
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
+@endpredefined
+
 
 @seealso
-
-
 Manual de aprendizaje:
 @rlearning{I'm hearing Voices},
 @rlearning{Other sources of information}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
-
 
 
 @node Collision resolution
@@ -538,8 +539,8 @@ desactivado), mientras que las voces interiores (tres y cuatro) tienen
 Sólo se combinan las notas si tienen la plica en direcciones opuestas
 (por ejemplo, en las @code{Voice}s 1 y 2).
 
-@predefined
 
+@predefined
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
 @code{\mergeDifferentlyHeadedOn},
@@ -549,6 +550,8 @@ Sólo se combinan las notas si tienen la plica en direcciones opuestas
 @code{\shiftOnn},
 @code{\shiftOnnn},
 @code{\shiftOff}.
+@endpredefined
+
 
 @snippets
 
@@ -558,8 +561,8 @@ Sólo se combinan las notas si tienen la plica en direcciones opuestas
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{polyphony}.
 
@@ -575,6 +578,7 @@ Referencia de funcionamiento interno:
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
+
 
 @knownissues
 
@@ -686,8 +690,8 @@ Una sección @code{\relative} que se encuentra fuera de
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{a due},
 @rglos{part}.
@@ -701,6 +705,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
+
 
 @knownissues
 
@@ -841,8 +846,8 @@ global = {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Organizing pieces with variables}
 

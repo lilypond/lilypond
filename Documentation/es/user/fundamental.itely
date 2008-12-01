@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -257,10 +257,11 @@ nombres de instrucción de LilyPond.  Las limitaciones exactas que
 afectan a los nombres de variable se detallan en @ruser{File
 structure}.
 
-@seealso
 
+@seealso
 Para ver una definición completa del formato del código de entrada,
 consulte @ruser{File structure}.
+
 
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
@@ -414,8 +415,8 @@ ayuda ser muy estricto con los márgenes (asegúrese de que en su editor
 de texto cada elemento del mismo nivel comienza en la misma posición
 horizontal).
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Structure of a score}.
 
@@ -483,8 +484,8 @@ de un solo pentagrama.  Aquí, dice que el pentagrama nuevo se debe
 colocar por encima del pentagrama llamado @qq{main} en vez de la
 posición predeterminada que sería por debajo.
 
-@seealso
 
+@seealso
 Los fragmentos de ossia se escriben a menudo sin clave y sin
 indicación de compás, y generalmente en un tipo más pequeño.  Esto
 necesitaría más instrucciones que aún no se han visto.  Véase
@@ -953,8 +954,8 @@ estamos preparados para ver cómo corregir esto, así que dejaremos este
 problema aparcado hasta una sección posterior (véase la propiedad
 @code{force-hshift} en @ref{Fixing overlapping notation}).
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Multiple voices}.
 
@@ -1203,8 +1204,8 @@ voces no tienen ningún desplazamiento o llevan especificado el mismo
 desplazamiento, se producirá el mensaje de error @qq{Chocan demasiadas
 columnas de notas}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Multiple voices}.
 
@@ -1564,8 +1565,8 @@ refrainwordsB = \lyricmode {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Vocal music}.
 
@@ -1663,10 +1664,11 @@ palabras que comienzan con mayúscula y que están unidas unas a otras
 sin guión ni barra baja, por ejemplo:
 @code{GregorianTranscriptionStaff}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Contexts explained}.
+
 
 @node Creating contexts
 @subsection Creating contexts
@@ -1779,8 +1781,8 @@ referirnos más tarde a esa instancia en particular de un contexto.
 Hemos visto esto en la sección acerca de la letra, en @ref{Voices and
 vocals}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Creating contexts}.
 
@@ -1869,8 +1871,8 @@ a partir del nombre (en inglés), y viceversa.
 Más adelante veremos cómo la salida de LilyPond se puede cambiar
 mediante la modificación del funcionamiento de los Grabadores.
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{Engravers and Performers}.
 
@@ -2172,8 +2174,8 @@ sobreescribir para ejemplares concretos de contextos mediante
 enunciados dentro de un bloque @code{\with}, y mediante instrucciones
 @code{\set} intercaladas dentro de enunciados musicales.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Changing context default settings}.
 @c FIXME
@@ -2332,8 +2334,8 @@ también se pueden establecer para todos los contextos de un tipo en
 particular incluyendo la instrucción @code{\set} dentro de un bloque
 @code{\context} de la misma forma.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
@@ -2541,8 +2543,8 @@ celloMusic = \relative c {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Las plantillas de inicio se pueden encontrar en el apéndice
 @q{Templates}, véase @ref{Single staff}.
 

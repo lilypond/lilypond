@@ -247,8 +247,8 @@ Neue Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-@seealso
 
+@seealso
 Glossar:
 @rglos{brace},
 @rglos{bracket},
@@ -271,7 +271,6 @@ Referenz der Interna:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
-
 
 
 @node Nested staff groups
@@ -318,7 +317,6 @@ Neue innere Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Grouping staves},
 @ref{Instrument names},
@@ -334,7 +332,6 @@ Referenz der Interna:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
-
 
 
 @node Modifying single staves
@@ -466,9 +463,9 @@ e4 d c2
 
 
 @predefined
-
 @code{\startStaff},
 @code{\stopStaff}.
+@endpredefined
 
 
 @snippets
@@ -478,7 +475,6 @@ e4 d c2
 
 
 @seealso
-
 Glossar:
 @rglos{line},
 @rglos{ledger line},
@@ -652,7 +648,6 @@ findet sich in
 
 
 @seealso
-
 Glossar:
 @rglos{ossia},
 @rglos{staff},
@@ -749,10 +744,10 @@ leere Takte in einem
 
 
 @predefined
-
 @code{\RemoveEmptyStaffContext},
 @code{\AncientRemoveEmptyStaffContext},
 @code{\RemoveEmptyRhythmicStaffContext}.
+@endpredefined
 
 
 @snippets
@@ -762,7 +757,6 @@ leere Takte in einem
 
 
 @seealso
-
 Glossar:
 @rglos{Frenched staff}.
 
@@ -880,7 +874,6 @@ Zu Einzelheiten siehe @ref{Formatting text}.
 
 
 @seealso
-
 Glossar:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1047,7 +1040,6 @@ wird dann benutzt, um den Wechsel vorzunhemen:
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Horizontal dimensions},
 @ref{Modifying context plug-ins}.
@@ -1166,7 +1158,6 @@ vorgestellt in
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Instrument transpositions},
 @ref{Using tags}.
@@ -1331,7 +1322,6 @@ vorgestellt in
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Instrument transpositions},
 @ref{Instrument names},

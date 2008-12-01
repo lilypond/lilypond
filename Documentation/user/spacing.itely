@@ -162,7 +162,6 @@ the variables.
 
 
 @seealso
-
 Installed Files:
 @file{scm/@/paper@/.scm}.
 
@@ -350,7 +349,6 @@ page given the system to put on it.
 
 
 @seealso
-
 Notation Reference:
 @ref{Vertical spacing between systems}.
 
@@ -414,7 +412,6 @@ first system.  Default: @code{0}, as determined by
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -595,7 +592,6 @@ Default: unset.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -718,7 +714,6 @@ staves.  The sizes of individual staves are relative to the global size.
 
 
 @seealso
-
 Notation Reference:
 @ref{Selecting notation font size}.
 
@@ -756,7 +751,6 @@ layout.
 
 
 @seealso
-
 Notation Reference:
 @ref{Changing context default settings}.
 
@@ -850,15 +844,14 @@ complicated.  More details are available in
 
 
 @predefined
-
 @funindex \break
 @code{\break},
 @funindex \noBreak
 @code{\noBreak}.
+@endpredefined
 
 
 @seealso
-
 Internals Reference:
 @rinternals{LineBreakEvent}.
 
@@ -967,16 +960,16 @@ book parts.
 @}
 @end example
 
-@predefined
 
+@predefined
 @funindex \pageBreak
 @code{\pageBreak},
 @funindex \noPageBreak
 @code{\noPageBreak}.
+@endpredefined
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -993,7 +986,6 @@ cramping and stretching, both horizontally and vertically.  Unlike
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1065,17 +1057,16 @@ top-level markups.
 
 
 @predefined
-
 @funindex \pageTurn
 @code{\pageTurn},
 @funindex \noPageTurn
 @code{\noPageTurn},
 @funindex \allowPageTurn
 @code{\allowPageTurn}.
+@endpredefined
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1105,7 +1096,6 @@ too slow or memory demanding, or a lot of texts.  It is enabled using:
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1154,7 +1144,6 @@ page breaks at explicit @code{\pageBreak} commands and nowhere else.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1238,7 +1227,6 @@ This pattern becomes especially helpful when overriding
 
 
 @seealso
-
 Notation Reference:
 @ref{Vertical spacing}.
 
@@ -1370,7 +1358,6 @@ the @code{Axis_group_engraver}.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1435,7 +1422,6 @@ the last one.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1669,7 +1655,6 @@ passed to these different settings will avoid this.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1734,7 +1719,6 @@ lilypond <file>.ly
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1817,7 +1801,6 @@ c''2
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1926,7 +1909,6 @@ Proportional notation is supported; see @ref{Proportional notation}.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -1973,7 +1955,6 @@ may be used in that location.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -2060,7 +2041,6 @@ regard for clefs, bar lines, and grace notes,
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -2113,7 +2093,6 @@ paragraph, the last line simply takes its natural horizontal length.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -2462,7 +2441,6 @@ for these related settings.
 
 
 @seealso
-
 Notation Reference:
 @ref{New spacing area}.
 
@@ -2520,7 +2498,6 @@ interval.
 
 
 @seealso
-
 Snippets:
 @rlsr{Spacing}.
 
@@ -2625,7 +2602,6 @@ block so that it applies to the whole score.
 
 
 @seealso
-
 Notation Reference:
 @ref{Page formatting},
 @ref{Changing horizontal spacing}.

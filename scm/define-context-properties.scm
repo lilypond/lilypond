@@ -99,11 +99,11 @@ automatically.")
 but it controls cautionary accidentals rather than normal ones.  Both
 lists are tried, and the one giving the most accidentals wins.  In
 case of draw, a normal accidental is typeset.")
-     (automaticBars ,boolean? "If set to true then bar lines will not
+     (automaticBars ,boolean? "If set to false then bar lines will not
 be printed automatically; they must be explicitly created with a
-@code{\\bar} command.  Unlike the @code{\\cadenza} keyword, measures
-are still counted.  Bar generation will resume according to that count
-if this property is unset.")
+@code{\\bar} command.  Unlike the @code{\\cadenzaOn} keyword, measures
+are still counted.  Bar line generation will resume according to that
+count if this property is unset.")
 
      
      (barAlways ,boolean? "If set to true a bar line is drawn after

@@ -121,7 +121,6 @@ may be manually placed above or below the staff, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{tenuto},
 @rglos{accent},
@@ -313,7 +312,6 @@ Vertical positioning of dynamics is handled by
 
 
 @predefined
-
 @code{\dynamicUp},
 @code{\dynamicDown},
 @code{\dynamicNeutral},
@@ -323,6 +321,7 @@ Vertical positioning of dynamics is handled by
 @code{\dimTextDecresc},
 @code{\crescHairpin},
 @code{\dimHairpin}.
+@endpredefined
 
 
 @snippets
@@ -350,7 +349,6 @@ Vertical positioning of dynamics is handled by
 
 
 @seealso
-
 Music Glossary:
 @rglos{al niente},
 @rglos{crescendo},
@@ -467,7 +465,6 @@ Font settings in markup mode are described in
 
 
 @seealso
-
 Notation Reference:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -570,14 +567,15 @@ g4( e c2)
 @funindex \slurUp
 @funindex slurUp
 
-@predefined
 
+@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
 @code{\slurSolid}.
+@endpredefined
 
 
 @snippets
@@ -587,7 +585,6 @@ g4( e c2)
 
 
 @seealso
-
 Music Glossary:
 @rglos{slur}.
 
@@ -673,17 +670,16 @@ g4\( e c2\)
 
 
 @predefined
-
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
 @code{\phrasingSlurNeutral},
 @code{\phrasingSlurDashed},
 @code{\phrasingSlurDotted},
 @code{\phrasingSlurSolid}.
+@endpredefined
 
 
 @seealso
-
 Learning Manual:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -728,7 +724,6 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{caesura}.
 
@@ -774,7 +769,6 @@ command is @emph{required} when writing falls and doits.
 
 
 @seealso
-
 Music Glossary:
 @rglos{fall},
 @rglos{doit}.
@@ -820,7 +814,6 @@ Different styles of glissandi can be created.  For details, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{glissando}.
 
@@ -899,14 +892,15 @@ Special @emph{bracketed} arpeggio symbols can be created:
 Arpeggios can be explicitly written out with ties.  For more
 information, see @ref{Ties}.
 
-@predefined
 
+@predefined
 @code{\arpeggio},
 @code{\arpeggioArrowUp},
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis}.
+@endpredefined
 
 
 @snippets
@@ -922,7 +916,6 @@ information, see @ref{Ties}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{arpeggio}.
 
@@ -1022,13 +1015,12 @@ g\stopTrillSpan
 
 
 @predefined
-
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
+@endpredefined
 
 
 @seealso
-
 Music Glossary:
 @rglos{trill}.
 

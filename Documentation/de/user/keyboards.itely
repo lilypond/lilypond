@@ -295,7 +295,6 @@ kann.
 @end lilypond
 
 @seealso
-
 Notationsreferenz:
 @ref{Changing staff manually}.
 
@@ -354,11 +353,13 @@ Stimmenverlaufs ausgegeben werden:
 @end lilypond
 
 @predefined
-
-@code{\showStaffSwitch}, @code{\hideStaffSwitch}.
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
+@endpredefined
 
 @seealso
-
 Schnipsel:
 @rlsr{Keyboards}.
 
@@ -508,7 +509,6 @@ während des Spielens.  Um das Pedal bis zur letzten Tatklinie zu
 halten, muss der letzte Pedal-hoch-Befehl weggelassen werden.
 
 @seealso
-
 Notationsreferenz:
 @ref{Ties}.
 
@@ -527,7 +527,6 @@ Referenz der Interna:
 @rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
-
 
 
 @node Accordion

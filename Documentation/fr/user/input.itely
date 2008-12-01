@@ -198,15 +198,15 @@ Vous pouvez utiliser de multiples balises dans un morceau en
 saisissant plusieurs @code{\tag}.
  
 @example
-  \tag #'original-part \tag #'transposed-part @dots{}
+\tag #'original-part \tag #'transposed-part @dots{}
 @end example
 
 @ignore
 FIXME
 @seealso
-
 Exemples : @lsr{parts,tag@/-filter@/.ly}
 @end ignore
+
 
 @knownissues
 

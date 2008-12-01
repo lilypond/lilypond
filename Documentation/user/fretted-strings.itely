@@ -70,8 +70,8 @@ in @ref{Collision resolution}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Fingering instructions},
 @ref{Ties},
@@ -81,6 +81,7 @@ Notation Reference:
 @ref{Arpeggio},
 @ref{List of articulations},
 @ref{Clef}.
+
 
 @node String number indications
 @unnumberedsubsubsec String number indications
@@ -120,8 +121,8 @@ in the code:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Fingering instructions}.
 
@@ -211,8 +212,8 @@ notation.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Stems}.
 
@@ -224,6 +225,7 @@ Internals Reference:
 @rinternals{TabStaff},
 @rinternals{TabVoice},
 @rinternals{Beam}.
+
 
 @knownissues
 
@@ -335,8 +337,8 @@ mynotes = {
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Installed Files:
 @file{scm/output-lib.scm}.
 
@@ -697,7 +699,6 @@ markup, the interface properties belong to @code{Voice.TextScript}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Text markup commands}.
 
@@ -706,6 +707,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{fret-diagram-interface}.
+
 
 @node Predefined fret diagrams
 @unnumberedsubsubsec Predefined fret diagrams
@@ -942,8 +944,8 @@ predefined fret diagram, the interface properties belong to
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Custom tablatures},
 @ref{Automatic fret diagrams},
@@ -1098,12 +1100,14 @@ Details are found at @rinternals{fret-diagram-interface}.  For a
 @code{FretBoards} fret diagram, the interface properties belong to
 @code{FretBoards.FretBoard}.
 
+
 @predefined
 @code{\predefinedFretboardsOff},
 @code{\predefinedFretboardsOn}.
+@endpredefined
+
 
 @seealso
-
 Notation Reference:
 @ref{Custom tablatures}.
 
@@ -1157,8 +1161,8 @@ short, for example @code{RH},
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Fretted strings}.
 
@@ -1202,14 +1206,15 @@ b16 d g b e
 e16 b g d
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Text spanners}.
 
 Snippets:
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
+
 
 @node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indicating harmonics and dampened notes
@@ -1233,14 +1238,15 @@ text markup.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Fretted strings}.
 
 Notation Reference:
 @ref{Special note heads},
 @ref{Note head styles}.
+
 
 @node Banjo
 @subsection Banjo
@@ -1295,14 +1301,9 @@ These tunings may be converted to four-string banjo tunings using the
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Fretted strings}.
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
-
-
-
-
-

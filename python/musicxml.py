@@ -35,6 +35,13 @@ def musicxml_duration_to_log (dur):
              'longa': -2,
              'long': -2}.get (dur, 0)
 
+def interpret_alter_element (alter_elm):
+    alter = 0
+    if alter_elm:
+        val = eval(alter_elm.get_text ())
+        if type (val) in (int, float):
+            alter = val
+    return alter
 
 
 class Xml_node:
@@ -252,10 +259,7 @@ class Pitch (Music_xml_node):
 
     def get_alteration (self):
 	ch = self.get_maybe_exist_typed_child (get_class (u'alter'))
-	alter = 0
-	if ch:
-	    alter = int (ch.get_text ().strip ())
-	return alter
+	return interpret_alter_element (ch)
 
 class Unpitched (Music_xml_node):
     def get_step (self):
@@ -294,6 +298,7 @@ class Attributes (Measure_element):
 	Measure_element.__init__ (self)
 	self._dict = {}
         self._original_tag = None
+        self._time_signature_cache = None
 
     def is_first (self):
 	cn = self._parent.get_typed_children (self.__class__)
@@ -311,25 +316,63 @@ class Attributes (Measure_element):
 
     def get_named_attribute (self, name):
 	return self._dict.get (name)
+        
+    def single_time_sig_to_fraction (self, sig):
+        if len (sig) < 2:
+            return 0
+        n = 0
+        for i in sig[0:-1]:
+          n += i
+        return Rational (n, sig[-1])
 
     def get_measure_length (self):
-        (n,d) = self.get_time_signature ()
-        return Rational (n,d)
+        sig = self.get_time_signature ()
+        if not sig or len (sig) == 0:
+            return 1
+        if isinstance (sig[0], list):
+            # Complex compound time signature
+            l = 0
+            for i in sig:
+                l += self.single_time_sig_to_fraction (i)
+            return l
+        else:
+           # Simple (maybe compound) time signature of the form (beat, ..., type)
+            return self.single_time_sig_to_fraction (sig)
+        return 0
         
     def get_time_signature (self):
-        "return time sig as a (beat, beat-type) tuple"
+        "Return time sig as a (beat, beat-type) tuple. For compound signatures,"
+        "return either (beat, beat,..., beat-type) or ((beat,..., type), "
+        "(beat,..., type), ...)."
+        if self._time_signature_cache:
+            return self._time_signature_cache
 
         try:
             mxl = self.get_named_attribute ('time')
-            if mxl:
-                beats = mxl.get_maybe_exist_named_child ('beats')
-                type = mxl.get_maybe_exist_named_child ('beat-type')
-                return (int (beats.get_text ()),
-                        int (type.get_text ()))
-            else:
+            if not mxl:
+                return None
+
+            if mxl.get_maybe_exist_named_child ('senza-misura'):
+                # TODO: Handle pieces without a time signature!
+                error (_ ("Senza-misura time signatures are not yet supported!"))
                 return (4, 4)
-        except KeyError:
-            error (_ ("requested time signature, but time sig is unknown"))
+            else:
+                signature = []
+                current_sig = []
+                for i in mxl.get_all_children ():
+                    if isinstance (i, Beats):
+                        beats = string.split (i.get_text ().strip (), "+")
+                        current_sig = [int (j) for j in beats]
+                    elif isinstance (i, BeatType):
+                        current_sig.append (int (i.get_text ()))
+                        signature.append (current_sig)
+                        current_sig = []
+                if isinstance (signature[0], list) and len (signature) == 1:
+                    signature = signature[0]
+                self._time_signature_cache = signature
+                return signature
+        except (KeyError, ValueError):
+            self.message (_ ("Unable to interpret time signature! Falling back to 4/4."))
             return (4, 4)
 
     # returns clef information in the form ("cleftype", position, octave-shift)
@@ -350,22 +393,56 @@ class Attributes (Measure_element):
         return clefinfo
 
     def get_key_signature (self):
-        "return (fifths, mode) tuple"
+        "return (fifths, mode) tuple if the key signatures is given as "
+        "major/minor in the Circle of fifths. Otherwise return an alterations"
+        "list of the form [[step,alter<,octave>], [step,alter<,octave>], ...], "
+        "where the octave values are optional."
 
         key = self.get_named_attribute ('key')
-        mode_node = key.get_maybe_exist_named_child ('mode')
-        mode = None
-        if mode_node:
-            mode = mode_node.get_text ()
-        if not mode or mode == '':
-            mode = 'major'
+        if not key:
+            return None
+        fifths_elm = key.get_maybe_exist_named_child ('fifths')
+        if fifths_elm:
+            mode_node = key.get_maybe_exist_named_child ('mode')
+            mode = None
+            if mode_node:
+                mode = mode_node.get_text ()
+            if not mode or mode == '':
+                mode = 'major'
+            fifths = int (fifths_elm.get_text ())
+            # TODO: Shall we try to convert the key-octave and the cancel, too?
+            return (fifths, mode)
+        else:
+            alterations = []
+            current_step = 0
+            for i in key.get_all_children ():
+                if isinstance (i, KeyStep):
+                    current_step = int (i.get_text ())
+                elif isinstance (i, KeyAlter):
+                    alterations.append ([current_step, interpret_alter_element (i)])
+                elif isinstance (i, KeyOctave):
+                    nr = -1
+                    if hasattr (i, 'number'):
+                        nr = int (i.number)
+                    if (nr > 0) and (nr <= len (alterations)):
+                        # MusicXML Octave 4 is middle C -> shift to 0
+                        alterations[nr-1].append (int (i.get_text ())-4)
+                    else:
+                        i.message (_ ("Key alteration octave given for a "
+                            "non-existing alteration nr. %s, available numbers: %s!") % (nr, len(alterations)))
+                    i.message ( "Non-standard key signature (after octave %s for alter nr %s): %s" % (i.get_text (), nr, alterations))
+            i.message ( "Non-standard key signature with alterations %s found!" % alterations)
+            return alterations
 
-        fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
-        return (fifths, mode)
-        
     def get_transposition (self):
         return self.get_named_attribute ('transpose')
-        
+
+class KeyAlter (Music_xml_node):
+    pass
+class KeyStep (Music_xml_node):
+    pass
+class KeyOctave (Music_xml_node):
+    pass
 
 
 class Barline (Measure_element):
@@ -462,6 +539,8 @@ class Syllabic (Music_xml_node):
     def continued (self):
         text = self.get_text()
         return (text == "begin") or (text == "middle")
+class Elision (Music_xml_node):
+    pass
 class Text (Music_xml_node):
     pass
 
@@ -471,32 +550,6 @@ class Lyric (Music_xml_node):
             return self.number
         else:
             return -1
-
-    def lyric_to_text (self):
-        continued = False
-        syllabic = self.get_maybe_exist_typed_child (Syllabic)
-        if syllabic:
-            continued = syllabic.continued ()
-        text = self.get_maybe_exist_typed_child (Text)
-        
-        if text:
-            text = text.get_text()
-            # We need to convert soft hyphens to -, otherwise the ascii codec as well
-            # as lilypond will barf on that character
-            text = string.replace( text, u'\xad', '-' )
-        
-        if text == "-" and continued:
-            return "--"
-        elif text == "_" and continued:
-            return "__"
-        elif continued and text:
-            return escape_ly_output_string (text) + " --"
-        elif continued:
-            return "--"
-        elif text:
-            return escape_ly_output_string (text)
-        else:
-            return ""
 
 class Musicxml_voice:
     def __init__ (self):
@@ -1010,10 +1063,7 @@ class DirType (Music_xml_node):
 class Bend (Music_xml_node):
     def bend_alter (self):
         alter = self.get_maybe_exist_named_child ('bend-alter')
-        if alter:
-            return alter.get_text()
-        else:
-            return 0
+        return interpret_alter_element (alter)
 
 class Words (Music_xml_node):
     pass
@@ -1031,10 +1081,7 @@ class ChordPitch (Music_xml_node):
         return ch.get_text ().strip ()
     def get_alteration (self):
         ch = self.get_maybe_exist_typed_child (get_class (self.alter_class_name ()))
-        alter = 0
-        if ch:
-            alter = int (ch.get_text ().strip ())
-        return alter
+        return interpret_alter_element (ch)
 
 class Root (ChordPitch):
     pass
@@ -1057,10 +1104,7 @@ class ChordModification (Music_xml_node):
         return value
     def get_alter (self):
         ch = self.get_maybe_exist_typed_child (get_class (u'degree-alter'))
-        value = 0
-        if ch:
-            value = int (ch.get_text ().strip ())
-        return value
+        return interpret_alter_element (ch)
 
 
 class Frame (Music_xml_node):
@@ -1088,6 +1132,12 @@ class Frame_Note (Music_xml_node):
 class FiguredBass (Music_xml_node):
     pass
 
+class Beats (Music_xml_node):
+    pass
+
+class BeatType (Music_xml_node):
+    pass
+
 class BeatUnit (Music_xml_node):
     pass
 
@@ -1111,6 +1161,8 @@ class_dict = {
         'bar-style': BarStyle,
         'bass': Bass,
 	'beam' : Beam,
+        'beats': Beats,
+        'beat-type': BeatType,
         'beat-unit': BeatUnit,
         'beat-unit-dot': BeatUnitDot,
         'bend' : Bend,
@@ -1122,6 +1174,7 @@ class_dict = {
 	'direction': Direction,
         'direction-type': DirType,
 	'duration': Duration,
+        'elision': Elision,
         'frame': Frame,
         'frame-note': Frame_Note,
         'figured-bass': FiguredBass,
@@ -1129,6 +1182,9 @@ class_dict = {
 	'grace': Grace,
         'harmony': Harmony,
         'identification': Identification,
+        'key-alter': KeyAlter,
+        'key-octave': KeyOctave,
+        'key-step': KeyStep,
         'lyric': Lyric,
 	'measure': Measure,
 	'notations': Notations,

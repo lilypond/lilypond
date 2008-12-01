@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -82,8 +82,8 @@ aparece en @ref{Unmetered music}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Note names in other languages},
 @ref{Key signature},
@@ -140,7 +140,6 @@ alterar mediante este método.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Note names in other languages}.
 
@@ -251,8 +250,8 @@ los maqams más comunes a armaduras de tonalidad:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Key signature}.
 
@@ -293,8 +292,8 @@ y/o utilizar compases compuestos.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Manual beams},
 @ref{Automatic beams},
@@ -341,11 +340,10 @@ esta sección.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{World music}
-
 
 
 @node Further reading

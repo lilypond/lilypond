@@ -499,11 +499,11 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 }
 @end lilypond
 
+
 @seealso
 Notationsreferenz: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.
-
 
 
 @node Working on input files
@@ -686,8 +686,8 @@ bei dem Beispiel selber erreichen, müssen Sie alles kopieren ab der
 Zeile @qq{Start
 cut-&-pastable section} bis ganz zum Ende der Datei.
 
-@seealso
 
+@seealso
 Mehr Hinweise dazu, wie LilyPond-Eingabedateien konstruiert werden 
 sollten, finden sich in @ref{Suggestions for writing LilyPond input files}. 
 Es ist aber wahrscheinlich am Besten, zuerst
@@ -840,8 +840,8 @@ unterschiedlichen Regeln erfolgen kann. Siehe
 @ruser{Automatic accidentals} für einige Beispiele, wie Vorzeichen
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Note names in other languages},
 @ruser{Accidentals}, @ruser{Automatic accidentals},
 @ruser{Key signature}.
@@ -921,8 +921,8 @@ geschachtelt werden.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Ties}, @ruser{Slurs},
 @ruser{Phrasing slurs}.
 
@@ -1014,8 +1014,8 @@ Auch mit dem Befehl @code{\!} kann es explizit beendet werden.
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions}, @ruser{Dynamics}.
 
@@ -1048,8 +1048,8 @@ a1_\markup{
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Writing text}.
 
 
@@ -1098,8 +1098,8 @@ a8 c b4 d8. c16 b4
 a8 c b4 d8. c16 b4
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Automatic beams}, @ruser{Manual beams}.
 
 
@@ -1173,8 +1173,8 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Grace notes}, @ruser{Tuplets},
 @ruser{Upbeats}.
 
@@ -1465,8 +1465,8 @@ des Systems erstellt werden und der zusätzlich auch
 darüber entscheidet, ob die Taktlinien nur auf dem System 
 oder auch zwischen System gesetzt werden.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ruser{Keyboard and other multi-staff
 instruments},
@@ -1574,8 +1574,8 @@ kombiniert werden.
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz: 
 @ruser{Simultaneous notes}.
 
@@ -1822,7 +1822,6 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden mus.
 
 
 @seealso
-
 Notationsreferenz: @ruser{Vocal music}.
 
 
@@ -1864,8 +1863,8 @@ werden besser notiert, indem man die Systemstruktur von den
 Noten und dem Gesangstext durch Variablen trennt. Die Benutzung 
 von Variablen wird erklärt im Abschnitt @ref{Organizing pieces with variables}.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Vocal music}.
 
 

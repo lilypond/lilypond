@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -675,9 +675,8 @@ para sus experimentos. Para poder ver exactamente el mismo resultado
 (con igual anchura de línea y todo), copie todo lo que está desde
 @qq{Start cut-&-pastable section} hasta el final del archivo.
 
+
 @seealso
-
-
 Podrá encontrar más consejos y trucos para la construcción de archivos
 de entrada en @ref{Suggestions for writing LilyPond files}; pero quizá
 sea mejor leer primero el resto del tutorial.
@@ -832,8 +831,8 @@ imprimir siguiendo varias convenciones distintas.  Consulte
 @ruser{Automatic accidentals} para ver ejemplos de cómo se pueden
 imprimir las alteraciones de acuerdo a reglas diferentes.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Note names in other languages},
 @ruser{Accidentals},
@@ -920,8 +919,8 @@ se pueden anidar unas dentro de otras.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Ties},
 @ruser{Slurs},
@@ -1015,8 +1014,8 @@ puede usar la instrucción @code{\!}:
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions},
@@ -1050,7 +1049,6 @@ a1_\markup{
 
 
 @seealso
-
 Referencia de la notación:
 @ruser{Writing text}.
 
@@ -1102,8 +1100,8 @@ a8 c b4 d8. c16 b4
 a8 c b4 d8. c16 b4
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Automatic beams},
 @ruser{Manual beams}.
@@ -1186,8 +1184,8 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Grace notes},
 @ruser{Tuplets},
@@ -1461,8 +1459,8 @@ Cada uno de estos grupos de pautas forma un tipo de contexto distinto,
 que produce la llave a la izquierda y que también controla el alcance
 de las líneas divisorias.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
@@ -1569,8 +1567,8 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Simultaneous notes}.
 
@@ -1805,10 +1803,8 @@ el aria de Fígaro @notation{Largo al factotum}:
 
 
 @seealso
-
 Referencia de la notación:
 @ruser{Vocal music}.
-
 
 
 @node Lyrics to multiple staves
@@ -1850,10 +1846,11 @@ ejemplo se hace mejor separando la letra de la estructura de
 pentagramas mediante variables (expresiones con nombre).  Éstas se
 tratan en @ref{Organizing pieces with variables}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Vocal music}.
+
 
 @node Final touches
 @section Final touches

@@ -492,8 +492,8 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ruser{The tweak command}.
 
@@ -1050,8 +1050,8 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
   @tab @code{'#(#t #t #f)}
 @end multitable
 
-@seealso
 
+@seealso
 Handbuch zum Lernen: @ref{Scheme tutorial}.
 
 

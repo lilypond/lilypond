@@ -47,8 +47,8 @@ discussed in @ref{Showing melody rhythms}, and
 
 @end itemize
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves}.
@@ -96,8 +96,8 @@ contex, but other clefs may also be used.
 There are a few issues concerning MIDI support for percussion
 instruments; for details please see @ref{Percussion in MIDI}.
 
-@seealso
 
+@seealso
 Notation Reference: @ref{Percussion in MIDI}, @ref{Percussion notes}.
 
 File: @file{ly/@/drumpitch@/-init@/.ly}
@@ -138,8 +138,8 @@ overridden to achieve a pleasing baseline.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets: @rlsr{Percussion}.
 
 
@@ -150,8 +150,8 @@ Certain pitched percussion instruments (e.g. xylophone,
 vibraphone, and timpani) are written using normal staves.
 This is covered in other sections of the manual.
 
-@seealso
 
+@seealso
 @c TODO: possibly link to an alternate section of NR 3.5, if
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
@@ -548,12 +548,11 @@ drumsB = {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets: @rlsr{Percussion}.
 
 Internals Reference: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
-
 
 
 @c TODO: check name -gp
@@ -591,6 +590,6 @@ However, the default @code{\drummode} does not include the
 Also note that you must add chords (@code{< >} brackets)
 around each @code{\parenthesize} statement.
 
-@seealso
 
+@seealso
 Snippets: @rlsr{Percussion}.

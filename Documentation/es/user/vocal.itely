@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4d04795de53fd9253ccfd7a67742467b6d1e1c63
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -103,6 +103,7 @@ Continuaará...
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
+
 @seealso
 Referencia de la notación:
 @ref{Chord notation}.
@@ -144,8 +145,8 @@ Continuará...
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Ancient notation}.
 
@@ -293,6 +294,8 @@ código ASCII por encima del 127, o una combinación de dos caracteres
 consistente en la combinación de una barra invertida seguida por
 @code{`}, @code{'}, @code{"} ó @code{^}.
 
+@c " to balance double quotes for not-so-bright context-sensitive editors
+
 Para definir identificadores que contengan letra, se debe usar la
 función @code{lyricmode}.
 
@@ -312,13 +315,13 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Fonts}.
 
 Referencia de funcionamiento interno:
 @rinternals{LyricText},
 @rinternals{LyricSpace}.
+
 
 @c FIXME: this title has to be changed (possible confusion with LM) -vv
 @node Setting simple songs
@@ -411,12 +414,13 @@ El código de entrada definitivo sería algo como
 >>
 @end example
 
-@seealso
 
+@seealso
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
+
 
 
 @node Aligning lyrics to a melody
@@ -564,8 +568,8 @@ duraciones manuales de las sílabas del texto:
  } >>
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{Lyrics}.
 
@@ -592,8 +596,8 @@ DejaVuLGC) que incluya este glifo.}.
 \addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno: @rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
@@ -680,15 +684,16 @@ sección @rlearning{Vocal ensembles}.
 
 
 @predefined
-
-@code{\melisma},
-@code{\melismaEnd}
-@funindex \melismaEnd
 @funindex \melisma
+@code{\melisma},
+@funindex \melismaEnd
+@code{\melismaEnd}.
+@endpredefined
+
 
 @seealso
-
 @c @lsr{vocal,lyric@/-combine.ly}.
+
 
 @knownissues
 
@@ -749,11 +754,11 @@ guiones.  Se puede controlar si esto ocurre o no, mediante la
 @code{minimum-length} (umbral por debajo del cual se suprimen los
 guiones).
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{LyricExtender},
-@rinternals{LyricHyphen}
+@rinternals{LyricHyphen}.
 
 
 @node Lyrics and repeats
@@ -1313,7 +1318,6 @@ text = \lyricmode {
 
 
 @seealso
-
 Referencia de funcionamiento interno:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.

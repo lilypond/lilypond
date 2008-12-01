@@ -295,10 +295,11 @@ Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
 lauten.  Die genauen Einschränkungen sind beschrieben in 
 @ruser{File structure}.
 
-@seealso
 
+@seealso
 Eine vollständige Definition des Eingabeformats findet sich in 
 @ruser{File structure}.
+
 
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
@@ -461,8 +462,8 @@ genau mit den Einzügen zu sein, so dass jede Zeile, die
 der gleichen Ebene angehört, wirklich horizontal an der 
 gleichen Stelle beginnt.
 
-@seealso
 
+@seealso
 Benutzerhandbuch: @ruser{Structure of a score}.
 
 
@@ -531,8 +532,8 @@ dass die neue Notenzeile oberhalb der bereits existierenden Zeile
 mit Namen @qq{Hauptzeile} plaziert werden soll, anstatt 
 standardmäßig unterhalb.
 
-@seealso
 
+@seealso
 Ossia werden oft ohne Notenschlüssel und Taktangabe gedruck, meist 
 auch etwas kleiner als die anderen Notenzeilen.  Dies ist natürlich 
 auch in LilyPond möglich, benötigt aber Befehle, die bisher noch 
@@ -1002,8 +1003,8 @@ anzupassen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
 anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in @ref{Fixing
 overlapping notation}.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Multiple voices}.
 
 
@@ -1261,8 +1262,8 @@ definiert, wird die Fehlermeldung
 @qq{zu viele kollidierende Notenspalten werden ignoriert}
 ausgegeben.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Multiple voices}.
 
 
@@ -1628,8 +1629,8 @@ refrainwordsB = \lyricmode {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference: @ruser{Vocal music}.
 
 
@@ -1733,8 +1734,8 @@ begonnen und direkt an das folgende ohne Bindestrich oder Unterstrich
 angeschlossen, etwa 
 @code{GregorianTranscriptionStaff}.
 
-@seealso
 
+@seealso
 Notationreferenz: @ruser{Contexts explained}.
 
 
@@ -1855,8 +1856,8 @@ benutzt, um später auf genau diesen spezifischen Kontext
 zu verweisen.  Dieses Vorgehen wurde schon in dem Abschnitt
 zu Gesangstexten angewandt, siehe @ref{Voices and vocals}.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Creating contexts}.
 
 
@@ -1949,8 +1950,8 @@ Es soll später gezeigt werden, wie die LilyPond-Ausgabe
 verändert werden kann, indem die Wirkungsweise der
 Engraver beeinflusst wird.
 
-@seealso
 
+@seealso
 Referenz der Interna: @rinternals{Engravers and Performers}.
 
 
@@ -2259,8 +2260,8 @@ bestimmten Kontexte überschrieben werden, indem die
 @code{\with}-Konstruktion eingesetzt wird, oder mit @code{\set}-Befehlen
 innerhalb der aktuellen Noten.
 
-@seealso
 
+@seealso
 Notationsreferenz:
 @ruser{Changing context default settings}.
 @c FIXME
@@ -2429,8 +2430,8 @@ alle Kontexte eines bestimmten Typs auf die gleiche
 Weise geändert werden, indem der @code{\set}-Befehl in
 einer @code{\context}-Umgebung angewendet wird.
 
-@seealso
 
+@seealso
 Notationsreferenz: @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
 
@@ -2647,6 +2648,7 @@ celloMusic = \relative c {
   \midi { }
 }
 @end lilypond
+
 
 @seealso
 Die Vorlagen, mit denen wir begonnen haben, können im

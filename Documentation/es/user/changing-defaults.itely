@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
+Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -67,8 +67,8 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 * Aligning contexts::
 @end menu
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Contexts and engravers}.
 
@@ -1185,7 +1185,6 @@ tales como
 
 
 @seealso
-
 Referencia de funcionamiento interno:
 @rinternals{OverrideProperty},
 @rinternals{RevertProperty},
@@ -1499,13 +1498,14 @@ puede examinarse, véase @ref{Displaying music expressions}.  Esto
 puede ser de utilidad en la determinación de lo que puede modificarse
 por medio de una instrucción @code{\tweak}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Tweaking methods}.
 
 Referencia de la notación:
 @ref{Displaying music expressions}.
+
 
 @knownissues
 
@@ -1830,8 +1830,8 @@ convertir de un cambio en el tamaño de la fuente al cambio equivalente
 en @code{staff-space}.  Para ver una explicación y un ejemplo de su
 utilización, consulte @rlearning{Length and thickness of objects}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Length and thickness of objects}.
 
@@ -2173,8 +2173,8 @@ c2 \< c2 c2
 Si se usa @code{\endSpanners} no es necesario cerrar \startTextSpan
 con \stopTextSpan, ni cerrar los reguladores con @code{\!}.
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -2527,8 +2527,8 @@ Para los cambios de clave explícitos, la propiedad
 @code{explicitClefVisibility} controla tanto el símbolo de clave como
 el símbolo de octava asociado.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Visibility and color of objects}
 
@@ -2661,8 +2661,8 @@ ajustes finos a la apariencia de la partitura impresa.
 * Modifying shapes::
 @end menu
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Tweaking output},
 @rlearning{Other sources of information}.
@@ -3035,8 +3035,8 @@ font}.
 
 @c TODO Add inserting Postscript or ref to later
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},

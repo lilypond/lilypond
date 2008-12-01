@@ -93,9 +93,11 @@ TBC
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
+
 @seealso
 Notation Reference:
 @ref{Chord notation}.
+
 
 @node Spoken music
 @unnumberedsubsubsec Spoken music
@@ -125,6 +127,7 @@ TBC
 
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
+
 
 @seealso
 Notation Reference:
@@ -289,13 +292,13 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 
 @seealso
-
 Notation Reference:
 @ref{Fonts}.
 
 Internals Reference:
 @rinternals{LyricText},
 @rinternals{LyricSpace}.
+
 
 @c FIXME: this title has to be changed (possible confusion with LM) -vv
 @node Setting simple songs
@@ -422,8 +425,8 @@ remains empty.
 
 @end ignore
 
-@seealso
 
+@seealso
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Internals Reference:
 @rinternals{LyricCombineMusic},
@@ -575,8 +578,8 @@ Here is an example demonstrating manual lyric durations,
  } >>
 @end lilypond
 
-@seealso
 
+@seealso
 Internals Reference:
 @rinternals{Lyrics}.
 
@@ -604,8 +607,8 @@ glyph.}.
 \addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
-@seealso
 
+@seealso
 Internals Reference:
 @rinternals{LyricCombineMusic}.
 
@@ -689,14 +692,16 @@ A complete example of a SATB score setup is in section
 
 
 @predefined
-
-@code{\melisma}, @code{\melismaEnd}
-@funindex \melismaEnd
 @funindex \melisma
+@code{\melisma},
+@funindex \melismaEnd
+@code{\melismaEnd}.
+@endpredefined
+
 
 @seealso
-
 @c @lsr{vocal,lyric@/-combine.ly}.
+
 
 @knownissues
 
@@ -755,11 +760,12 @@ happens can be controlled with the @code{minimum-distance} (minimum
 distance between two syllables) and the @code{minimum-length}
 (threshold below which hyphens are removed).
 
-@seealso
 
+@seealso
 Internals Reference:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
+
 
 @node Lyrics and repeats
 @unnumberedsubsubsec Lyrics and repeats
@@ -1316,7 +1322,6 @@ text = \lyricmode {
 
 
 @seealso
-
 Internals Reference:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.

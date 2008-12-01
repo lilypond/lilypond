@@ -168,7 +168,6 @@ c1
 
 
 @seealso
-
 Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
@@ -178,6 +177,7 @@ Snippets: @rlsr{Repeats}.
 Internals Reference: @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @knownissues
 
@@ -313,8 +313,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Bar lines},
 @ref{Formatting text}.
@@ -372,12 +372,13 @@ c1
 c1
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets: @rlsr{Repeats}.
 
 Internals Reference: @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @node Short repeats
 @subsection Short repeats
@@ -430,8 +431,8 @@ where @var{musicexpr} is a music expression.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
 
+@seealso
 Music Glossary: @rglos{percent repeat}, @rglos{simile}.
 
 Snippets: @rlsr{Repeats}.
@@ -440,6 +441,7 @@ Internals Reference: @rinternals{RepeatSlash},
 @rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
+
 
 @knownissues
 
@@ -513,8 +515,8 @@ c2:8 c:32
 c: c:
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets: @rlsr{Repeats}.
 
 @cindex tremolo, cross-staff

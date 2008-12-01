@@ -79,8 +79,8 @@ c, c,, e, g
 d,, d, d c
 @end lilypond
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{Pitch names}.
 
@@ -202,7 +202,6 @@ that each interval contains.
 
 
 @seealso
-
 Music Glossary:
 @rglos{fifth},
 @rglos{interval},
@@ -223,6 +222,7 @@ Internals Reference:
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
+
 
 @knownissues
 
@@ -339,8 +339,8 @@ cis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {makam-example.ly}
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{sharp},
 @rglos{flat},
@@ -507,7 +507,6 @@ languages, no special names have been defined yet.
 
 
 @seealso
-
 Music Glossary:
 @rglos{Pitch names}.
 
@@ -589,7 +588,6 @@ checks fail, but the second one does not fail.
 
 
 @seealso
-
 Snippets:
 @rlsr{Pitches}.
 
@@ -710,7 +708,6 @@ see @ref{Instrument transpositions}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Instrument transpositions}.
 
@@ -719,6 +716,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TransposedMusic}.
+
 
 @funindex \transpose
 @funindex \chordmode
@@ -851,7 +849,6 @@ c2 c
 
 
 @seealso
-
 Notation Reference:
 @ref{Mensural clefs}, @ref{Gregorian clefs}.
 
@@ -933,7 +930,6 @@ fis
 
 
 @seealso
-
 Music Glossary:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -986,7 +982,6 @@ The @code{ottava} function also takes -1 (for 8va bassa),
 
 
 @seealso
-
 Music Glossary:
 @rglos{octavation}.
 
@@ -997,7 +992,6 @@ Internals Reference:
 @rinternals{Ottava_spanner_engraver},
 @rinternals{OttavaBracket},
 @rinternals{ottava-bracket-interface}.
-
 
 
 @node Instrument transpositions
@@ -1082,7 +1076,6 @@ c2 g
 
 
 @seealso
-
 Music Glossary:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
@@ -2054,7 +2047,6 @@ musicB = {
 
 
 @seealso
-
 Snippets:
 @rlsr{Pitches}.
 
@@ -2129,7 +2121,6 @@ printed if they are not part of the key signature.
 
 
 @seealso
-
 Music Glossary:
 @rglos{ambitus}.
 
@@ -2204,8 +2195,8 @@ inside chords:
 @noindent
 To see all note head styles, see @ref{Note head styles}.
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Pitches}.
 
@@ -2252,14 +2243,16 @@ font, see @ref{Setting the staff size}.
 }
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \easyHeadsOn
+@code{\easyHeadsOn},
 @funindex \easyHeadsOff
-@code{\easyHeadsOn}, @code{\easyHeadsOff}
+@code{\easyHeadsOff}.
+@endpredefined
+
 
 @seealso
-
 Notation Reference:
 @ref{Setting the staff size}.
 
@@ -2301,11 +2294,14 @@ c, d e f g a b c
 Shapes are typeset according to the step in the scale, where the
 base of the scale is determined by the @code{\key} command.
 
-@predefined
 
+@predefined
 @funindex \aikenHeads
+@code{\aikenHeads},
 @funindex \sacredHarpHeads
-@code{\aikenHeads}, @code{\sacredHarpHeads}
+@code{\sacredHarpHeads}.
+@endpredefined
+
 
 @snippets
 
@@ -2315,8 +2311,8 @@ base of the scale is determined by the @code{\key} command.
 @noindent
 To see all note head styles, see @ref{Note head styles}.
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Pitches}.
 
@@ -2358,14 +2354,14 @@ rhythm.  Such note heads can be created:
 
 
 @predefined
-
 @funindex \improvisationOn
+@code{\improvisationOn},
 @funindex \improvisationOff
+@code{\improvisationOff}.
+@endpredefined
 
-@code{\improvisationOn}, @code{\improvisationOff}
 
 @seealso
-
 Snippets:
 @rlsr{Pitches}.
 

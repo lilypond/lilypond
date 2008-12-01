@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 336b8ddf5762402d58a90d7a9d9ed0310eed026a
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -126,8 +126,7 @@ por debajo del pentagrama, véase @ref{Direction and placement}.
 
 
 @seealso
-
-Gloario musical:
+Glosario musical:
 @rglos{tenuto},
 @rglos{accent},
 @rglos{staccato},
@@ -314,8 +313,8 @@ parte de @rinternals{DynamicLineSpanner}.
 @funindex \dynamicNeutral
 @funindex dynamicNeutral
 
-@predefined
 
+@predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
 @code{\dynamicNeutral},
@@ -325,6 +324,8 @@ parte de @rinternals{DynamicLineSpanner}.
 @code{\dimTextDecresc},
 @code{\crescHairpin},
 @code{\dimHairpin}.
+@endpredefined
+
 
 @snippets
 
@@ -349,8 +350,8 @@ parte de @rinternals{DynamicLineSpanner}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{al niente},
 @rglos{crescendo},
@@ -464,8 +465,8 @@ moltoF = #(make-dynamic-script
 Los ajustes para las fuentes tipográficas en el modo de marcado se
 describen en @ref{Selecting font and font size}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -568,14 +569,15 @@ g4( e c2)
 @funindex \slurUp
 @funindex slurUp
 
-@predefined
 
+@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
 @code{\slurSolid}.
+@endpredefined
 
 
 @snippets
@@ -585,7 +587,6 @@ g4( e c2)
 
 
 @seealso
-
 Glosario musical:
 @rglos{slur}.
 
@@ -672,16 +673,16 @@ g4\( e c2\)
 
 
 @predefined
-
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
 @code{\phrasingSlurNeutral},
 @code{\phrasingSlurDashed},
 @code{\phrasingSlurDotted},
 @code{\phrasingSlurSolid}.
+@endpredefined
+
 
 @seealso
-
 Manual de aprendizaje:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -723,8 +724,8 @@ detalles, consulte @ref{Divisiones}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{caesura}.
 
@@ -770,8 +771,8 @@ al escribir caídas y elevaciones.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{fall},
 @rglos{doit}.
@@ -815,8 +816,8 @@ consulte @ref{Line styles}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{glissando}.
 
@@ -828,6 +829,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Glissando}.
+
 
 @knownissues
 
@@ -895,8 +897,8 @@ Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @notation{ligaduras de unión}.  Véase @ref{Ties}.
 
-@predefined
 
+@predefined
 @funindex \arpeggio
 @code{\arpeggio},
 @funindex \arpeggioArrowUp
@@ -907,6 +909,8 @@ Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @code{\arpeggioNormal},
 @funindex \arpeggioBracket
 @code{\arpeggioBracket}.
+@endpredefined
+
 
 @snippets
 
@@ -919,8 +923,8 @@ Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{arpeggio}.
 
@@ -933,6 +937,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Arpeggio},
 @rinternals{PianoStaff}.
+
 
 @knownissues
 
@@ -1015,13 +1020,14 @@ g\stopTrillSpan
 g\stopTrillSpan
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
+@endpredefined
+
 
 @seealso
-
 Glosario musical:
 @rglos{trill}.
 

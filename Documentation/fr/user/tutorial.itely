@@ -483,8 +483,8 @@ vus :
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.
@@ -671,8 +671,8 @@ d'imprimer ou de garder un lien vers @ruser{Cheat sheet}, tableau
 qui répertorie les commandes usuelles pour une consultation rapide.
 @end ignore
 
-@seealso
 
+@seealso
 Vous trouverez plus de conseils pour construire des fichiers source
 dans @ref{Suggestions for writing LilyPond input files}.  Cependant,
 lors d'une première lecture il est préférable de terminer d'abord la
@@ -825,13 +825,14 @@ peuvent ainsi être imprimées suivant plusieurs conventions.  Pour
 connaître les différentes manières dont les altérations accidentelles
 peuvent être imprimées, consultez @ruser{Automatic accidentals}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Note names in other languages},
 @ruser{Accidentals}, @ruser{Automatic accidentals},
 @ruser{Key signature}.
 
 Glossaire musical : @rglos{Pitch names}.
+
 
 @node Ties and slurs
 @subsection Ties and slurs
@@ -911,10 +912,11 @@ enchâssées dans un @emph{legato} ou un phrasé.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Ties}, @ruser{Slurs},
 @ruser{Phrasing slurs}.
+
 
 @node Articulation and dynamics
 @subsection Articulation and dynamics
@@ -1000,8 +1002,8 @@ nuance d'arrivée, par exemple @code{\f}, soit par la commande
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions}, @ruser{Dynamics}.
 
@@ -1031,8 +1033,8 @@ a1_\markup{
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Writing text}.
 
 
@@ -1081,8 +1083,8 @@ a8 c b4 d8. c16 b4
 a8 c b4 d8. c16 b4
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Automatic beams}, @ruser{Manual beams}.
 
 
@@ -1160,8 +1162,8 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Grace notes}, @ruser{Tuplets},
 @ruser{Upbeats}.
 
@@ -1430,8 +1432,8 @@ Voici un bref exemple :
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
 
@@ -1530,8 +1532,8 @@ Là encore, ces expressions peuvent s'imbriquer arbitrairement :
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Simultaneous notes}.
 
 
@@ -1755,8 +1757,8 @@ la syllabe @emph{al} est chantée sur la même note que @emph{go}.
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Vocal music}.
 
 
@@ -1798,9 +1800,10 @@ exemple simple, il est vivement conseillé de séparer la structure de
 la partition des notes et paroles, grâce à des variables.  Ceci sera
 détaillé plus loin dans @ref{Organizing pieces with variables}.
 
-@seealso
 
+@seealso
 Manuel de notation : @ruser{Vocal music}.
+
 
 @node Final touches
 @section Final touches

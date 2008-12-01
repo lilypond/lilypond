@@ -163,7 +163,6 @@ c1
 
 
 @seealso
-
 Musikglossar: @rglos{repeat}, @rglos{volta}.
 
 Notationsreferenz: @ref{Bar lines}, @ref{Modifying context plug-ins}.
@@ -173,6 +172,7 @@ Schnipsel: @rlsr{Repeats}.
 Referenz der Interna: @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @knownissues
 
@@ -318,7 +318,6 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Bar lines},
 @ref{Formatting text}.
@@ -377,15 +376,14 @@ c1
 c1
 @end lilypond
 
-@seealso
 
+@seealso
 Schnipsel:
 @rlsr{Repeats}.
 
 Referenz der Interna:
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
-
 
 
 @node Short repeats
@@ -440,8 +438,8 @@ wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
 
+@seealso
 Musikglossar: @rglos{percent repeat}, @rglos{simile}.
 
 Schnipsel: @rlsr{Repeats}.
@@ -450,6 +448,7 @@ Referenz der Interna: @rinternals{RepeatSlash},
 @rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
+
 
 @knownissues
 
@@ -527,13 +526,14 @@ c2:8 c:32
 c: c:
 @end lilypond
 
-@seealso
 
+@seealso
 Schnipsel: @rlsr{Repeats}.
 
 @cindex Tremolo über Systeme
 @cindex Systeme, Tremolo zwischen
 @cindex Zwischensystem-Tremolo
+
 
 @knownissues
 
