@@ -19,9 +19,6 @@ OUT_DIST_FILES=$(addprefix $(outdir)/,parser.hh parser.cc)
 
 include $(depth)/make/stepmake.make
 
-ifeq ($(HAVE_LIBKPATHSEA_SO),no)
-MODULE_LDFLAGS += $(KPATHSEA_LIBS)
-endif
 ifeq ($(LINK_GXX_STATICALLY),yes)
 MODULE_LDFLAGS += -L$(outdir) -static-libgcc
 endif
@@ -80,7 +77,6 @@ $(outdir)/lexer.cc: $(config_h)
 $(outdir)/parser.cc: $(config_h)
 
 $(outdir)/general-scheme.o: $(outdir)/version.hh
-$(outdir)/kpath.o: $(outdir)/version.hh
 $(outdir)/lily-guile.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
 

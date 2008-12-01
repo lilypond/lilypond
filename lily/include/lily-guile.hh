@@ -151,7 +151,6 @@ SCM ly_unique (SCM lst);
 SCM ly_list_qsort_uniq_x (SCM lst);
 
 SCM ly_output_formats ();
-SCM ly_kpathsea_find_file (SCM);
 
 /*
   snarfing.
