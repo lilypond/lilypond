@@ -1,5 +1,5 @@
 %
-% feta-puntke.mf -- a duration dot
+% feta-puntje.mf -- a duration dot
 %
 % source file of the GNU LilyPond music typesetter
 %
