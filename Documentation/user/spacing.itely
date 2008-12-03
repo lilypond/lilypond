@@ -708,10 +708,6 @@ These fonts are available in any sizes.  The context property
 @rinternals{StaffSymbol}) can be used to tune the size for individual
 staves.  The sizes of individual staves are relative to the global size.
 
-@example
-
-@end example
-
 
 @seealso
 Notation Reference:

@@ -675,10 +675,6 @@ de contexto @code{fontSize} y la propiedad de disposición
 afinar el tamaño de los pentagramas individuales.  Los tamaños de
 pentagrama individuales están en relación al tamaño global.
 
-@example
-
-@end example
-
 
 @seealso
 Referencia de la notación:
