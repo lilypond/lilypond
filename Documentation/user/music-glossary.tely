@@ -15,9 +15,16 @@
 @end direntry
 
 @ifhtml
-This document is also available in
-@uref{source/Documentation/user/music-glossary.pdf,PDF}
-and as @uref{source/Documentation/user/music-glossary-big-page.html,one big page}.
+@ifclear bigpage
+This document is also available as a
+@uref{source/Documentation/user/music-glossary.pdf,PDF} and as
+@uref{source/Documentation/user/music-glossary-big-page.html,one big page}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/user/music-glossary.pdf,PDF} and as a
+@uref{source/Documentation/user/music-glossary/index.html,HTML indexed multiple pages}.
+@end ifset
 @end ifhtml
 
 @titlepage

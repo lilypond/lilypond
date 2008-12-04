@@ -70,9 +70,16 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @ifhtml
+@ifclear bigpage
 Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond.es.pdf,PDF} y como
 @uref{source/Documentation/user/lilypond-big-page.html,una sola página}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/user/lilypond.es.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond/index.es.html,un documento HTML normal de muchas páginas}.
+@end ifset
 @end ifhtml
 
 
