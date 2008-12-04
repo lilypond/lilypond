@@ -33,16 +33,16 @@ Rests may be used in various styles.
   }
 }
 
-\relative c {
-  \set Score.timing = ##f
+\new Staff \relative c {
+  \cadenzaOn
   \override Staff.Rest #'style = #'mensural
   r\maxima^\markup \typewriter { mensural }
-  r\longa r\breve r1 r2 r4 r8 r16 r32 r64 s128 s128
+  r\longa r\breve r1 r2 r4 r8 r16 s32 s64 s128 s128
   \bar ""
   
   \override Staff.Rest #'style = #'neomensural
   r\maxima^\markup \typewriter { neomensural }
-  r\longa r\breve r1 r2 r4 r8 r16 r32 r64 s128 s128
+  r\longa r\breve r1 r2 r4 r8 r16 s32 s64 s128 s128
   \bar ""
   
   \override Staff.Rest #'style = #'classical
