@@ -36,7 +36,7 @@
 @ifclear bigpage
 Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond-program.es.pdf,PDF} y como
-@uref{source/Documentation/user/lilypond-program-big-page.html,una sola página}.
+@uref{source/Documentation/user/lilypond-program-big-page.es.html,una sola página}.
 @end ifclear
 @ifset bigpage
 This document is also available as a
