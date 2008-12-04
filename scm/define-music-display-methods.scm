@@ -234,8 +234,8 @@
 (define-span-event-display-method CrescendoEvent (event parser) #f "\\<" "\\!")
 (define-span-event-display-method DecrescendoEvent (event parser) #f "\\>" "\\!")
 (define-span-event-display-method PhrasingSlurEvent (event parser) #f "\\(" "\\)")
-(define-span-event-display-method SustainEvent (event parser) #f "\\sustainDown" "\\sustainUp")
-(define-span-event-display-method SostenutoEvent (event parser) #f "\\sostenutoDown" "\\sostenutoUp")
+(define-span-event-display-method SustainEvent (event parser) #f "\\sustainOn" "\\sustainOff")
+(define-span-event-display-method SostenutoEvent (event parser) #f "\\sostenutoOn" "\\sostenutoOff")
 (define-span-event-display-method TextSpanEvent (event parser) #f "\\startTextSpan" "\\stopTextSpan")
 (define-span-event-display-method TrillSpanEvent (event parser) #f "\\startTrillSpan" "\\stopTrillSpan")
 (define-span-event-display-method StaffSpanEvent (event parser) #f "\\startStaff" "\\stopStaff")
@@ -576,7 +576,7 @@ Otherwise, return #f."
 
 (define-display-method RelativeOctaveCheck (octave parser)
   (let ((pitch (ly:music-property octave 'pitch)))
-    (format #f "\\octave ~a~a"
+    (format #f "\\octaveCheck ~a~a"
 	    (note-name->lily-string pitch parser)
 	    (octave->lily-string pitch))))
 

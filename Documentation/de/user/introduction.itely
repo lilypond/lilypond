@@ -371,34 +371,33 @@ die Notenköpfe gezeichnet werden, während des Ausschnitts verändert.
          (pos (ly:grob-property grob 'staff-position)))
     (if (memq 'note-head-interface interfaces)
         (begin
-          (ly:grob-set-property! grob 'stencil ly:text-interface::print)
-          (ly:grob-set-property! grob 'font-family 'roman)
-          (ly:grob-set-property! grob 'text
-            (make-raise-markup -0.5
-              (case pos
-                ((-5) (make-simple-markup "m"))
-                ((-3) (make-simple-markup "c "))
-                ((-2) (make-smaller-markup (make-bold-markup "2")))
-                (else (make-simple-markup "bla")))))))))
+          (ly:grob-set-property! grob 'stencil
+            (grob-interpret-markup grob
+              (make-lower-markup 0.5
+                (case pos
+                  ((-5) "m")
+                  ((-3) "c ")
+                  ((-2) (make-smaller-markup (make-bold-markup "2")))
+                  (else "bla")))))))))
 
 \new Voice \relative c' {
-   \stemUp
-   \set autoBeaming = ##f
-   \time 2/4
-   <d f g>4
-   \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
-   \once \override NoteHead #'font-size = #-7
-   \once \override NoteHead #'font-family = #'sans
-   \once \override NoteHead #'font-series = #'bold
-   <d f g>
-   \once \override NoteHead #'style = #'cross
-   <d f g>
-   \applyOutput #'Voice #mc-squared
-   <d f g>
-   <<
-      { d8[ es-( fis^^ g] fis2-) }
-      \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
-   >>
+  \stemUp
+  \set autoBeaming = ##f
+  \time 2/4
+  <d f g>4
+  \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
+  \once \override NoteHead #'font-size = #-7
+  \once \override NoteHead #'font-family = #'sans
+  \once \override NoteHead #'font-series = #'bold
+  <d f g>4
+  \once \override NoteHead #'style = #'cross
+  <d f g>4
+  \applyOutput #'Voice #mc-squared
+  <d f g>4
+  <<
+    { d8[ es-( fis^^ g] fis2-) }
+    \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
+  >>
 }
 @end lilypond
 

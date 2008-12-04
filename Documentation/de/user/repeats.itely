@@ -285,6 +285,7 @@ g4 a g a
 c1
 \set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
 b1
+\set Score.repeatCommands = #'((volta #f))
 @end lilypond
 
 @cindex Volta-Klammer mit Text

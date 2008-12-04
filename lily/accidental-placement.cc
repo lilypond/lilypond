@@ -426,6 +426,7 @@ ADD_INTERFACE (Accidental_placement,
 
 	       /* properties */
 	       "accidental-grobs "
+	       "direction "
 	       "left-padding "
 	       "padding "
 	       "positioning-done "
