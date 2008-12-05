@@ -57,7 +57,7 @@ linux-x86   - Beliebige GNU/Linux Distribution, x86
 mingw       - Windows x86
 @end example
 
-@knowissues
+@knownissues
 
 Wenn Sie MacOS 10.3 oder 10.4 benutzen und Python-Skripte wie
 @command{convert-ly} und @command{lilypond-book} benutzen wollen,
@@ -72,6 +72,7 @@ kompiliert werden. Da jedoch für die Kompilierung definitiv
 Englisch-Kenntnisse vorhanden sein müssen, soll hier lediglich auf die 
 englische Dokumentation verwiesen werden:
 @c DO NOT translate the following line at all.
+@iftex
 @ref{Compiling from source,,,lilypond-program,Application Usage}.
 @end iftex
 @ifhtml

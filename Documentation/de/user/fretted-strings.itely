@@ -720,6 +720,7 @@ Referenz der Interna:
 @rinternals{fret-diagram-interface}.
 
 
+
 @node Predefined fret diagrams
 @unnumberedsubsubsec Predefined fret diagrams
 
@@ -824,7 +825,7 @@ Die Tabelle der vordefinierten Bunddiagramme enthält sieben
 Akkorde (Dur, Moll, übermäßig, vermindert, Dominantseptakkord,
 große Septime und kleine Septime) für alle 17 Tonarten.  Eine
 vollständige Liste der vordefinierten Bunddiagramme findet sich
-in @ref{Predefined fretboard diagrams}.  Wenn in der Tabelle für
+in @ref{Predefined fret diagrams}.  Wenn in der Tabelle für
 einen Akkord kein Wert steht, wird ein Bunddiagramm vom
 @code{FretBoards}-Engraver errechnet, wobei die automatische
 Bunddiagrammfunktion zu Anwendung kommt. Siehe hierzu
@@ -967,7 +968,7 @@ Notationsreferenz:
 @ref{Custom tablatures},
 @ref{Automatic fret diagrams},
 @ref{Chord mode overview},
-@ref{Predefined fretboard diagrams}.
+@ref{Predefined fret diagrams}.
 
 Installierte Dateien:
 @file{ly/predefined-guitar-fretboards.ly},
