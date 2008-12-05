@@ -966,7 +966,7 @@ propiedades relevantes de los contextos y de los objetos gráficos, de
 forma que pueda inmediatamente comenzar a escribir el canto en sí,
 como lo demuestra el siguiente fragmento:
 
-@lilypond[quote,ragged-right,packed,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
 \score {
   <<

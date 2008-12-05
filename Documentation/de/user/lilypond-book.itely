@@ -585,11 +585,6 @@ explizit angegeben ist.
 Streckt Musikfragmente mit nur einer Notenzeile auf die volle Breite,
 es wird also @code{ragged-right = ##f} in das Musikfragment eingefügt.
 
-@c does this option still exist in lilypond? -jm
-@item packed
-Erzeugt Notenzeilen mit möglichst engem Notenabstand, es wird also 
-@code{packed = ##t} in das Musikfragment eingefügt.
-
 @item line-width
 @itemx line-width=@var{Breite}\@var{Einheit}
 Setzt die Breite der Notenzeilen auf @var{Breite}, gemessen in Vielfachen

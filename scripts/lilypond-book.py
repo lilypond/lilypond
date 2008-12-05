@@ -259,7 +259,6 @@ NOTES = 'body'
 NOTIME = 'notime'
 OUTPUT = 'output'
 OUTPUTIMAGE = 'outputimage'
-PACKED = 'packed'
 PAPER = 'paper'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
@@ -603,8 +602,6 @@ ly_options = {
         RAGGED_RIGHT: r'''ragged-right = ##t''',
 
         NORAGGED_RIGHT: r'''ragged-right = ##f''',
-
-        PACKED: r'''packed = ##t''',
     },
 
     ##

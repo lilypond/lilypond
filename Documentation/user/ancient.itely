@@ -969,7 +969,7 @@ initialize all relevant context properties and grob properties to
 proper values, so you can immediately go ahead entering the chant, as
 the following excerpt demonstrates:
 
-@lilypond[quote,ragged-right,packed,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
 \score {
   <<

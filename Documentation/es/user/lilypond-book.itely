@@ -595,11 +595,6 @@ Para fragmentos de una sola línea, permitir que la longitud del
 pentagrama se amplíe hasta igualar la anchura de la línea, es decir,
 se añade @code{ragged-right = ##f} al fragmento de LilyPond.
 
-@c does this option still exist in lilypond? -jm
-@item packed
-Producir líneas con el espaciado empaquetado, es decir, se añade
-@code{packed = ##t} al fragmento de código de LilyPond.
-
 @item line-width
 @itemx line-width=@var{tamaño}\@var{unidades}
 Establecer el ancho de línea como @var{tamaño}, utilizando
