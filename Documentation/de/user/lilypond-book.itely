@@ -1,17 +1,20 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 023d49bb18cbc21a03e7711186d961b8b4fc5e80
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.61"
+
 @c Translators: Reinhold Kainhofer
+@c Translation checkers: Till Rettig
+
 
 @node LilyPond-book
 @chapter @command{lilypond-book}: Integrating text and music
-
 
 Wenn Sie in ein Dokument Grafiken Ihres Musiksatzes einfügen möchten, so
 können Sie genauso machen, wie Sie andere Grafiken einfügen würden: Die
@@ -26,7 +29,9 @@ werden dabei Ihrem Dokument angepasst.
 
 @command{lilypond-book} ist ein eigenständiges Programm und wird 
 üblicherweise von der Kommandozeile aufgerufen. Nähere Informationen
-hierzu finden sich in @ref{Command-line usage}.
+hierzu finden sich in @ref{Command-line usage}.  Wenn Sie MacOS 10.3
+oder 10.4 benutzen und Probleme mit @code{lilypond-book} haben, lesen
+Sie @ref{Setup for MacOS X}.
 
 Dieses Vorgehen kann bei @LaTeX{}, HTML, Texinfo oder DocBook Dokumenten
 angewendet werden.
@@ -214,10 +219,11 @@ oder
 \lilypond@{ IHR LILYPOND QUELLCODE @}
 @end example
 
-Der Aufruf von @command{lilypond-book} liefert eine Datei, die dann mit 
-@LaTeX{} weiter verarbeitet werden kann.
+Zusätzlich kann mit @code{\lilypondversion} die benutzte Versionsnummer
+von LilyPond angezeigt werden.  Der Aufruf von @command{lilypond-book}
+liefert eine Datei, die dann mit @LaTeX{} weiter verarbeitet werden kann.
 
-Dies soll hier an einigen Beispielen gezeigt werden. Die @code{lilypond} Umgebung
+Dies soll hier an einigen Beispielen gezeigt werden. Die @code{lilypond}-Umgebung
 
 @example
 \begin[quote,fragment,staffsize=26]@{lilypond@}
@@ -371,11 +377,12 @@ gewünschten Systeme übergeben wird:
 \begin@{lilypond@}...\end@{lilypond@}
 @end example
 
-
 @seealso
 @command{lilypond-book} stellt auch zahlreiche Kommandozeilen-Optionen zur 
-Verfügung.  Für eine Liste dieser Optionen und andere hilfreiche Details zur
+Verfügung. Für eine Liste dieser Optionen und andere hilfreiche Details zur
 Verarbeitung von @LaTeX{}-Dokumenten, siehe @ref{Invoking lilypond-book}.
+
+
 
 
 @node Texinfo
@@ -407,6 +414,8 @@ oder
 @@lilypondfile[Optionen,kommen,hier]@{@var{Dateiname}@}
 @end example
 
+Zusätzlich kann mit @code{@@lilypondversion} die aktuelle Versionsnummer
+von LilyPond angezeigt werden.
 Wenn @command{lilypond-book} eine derartige Datei verarbeitet, 
 wird eine Texinfo-Datei mit der Erweiterung @file{.texi} erzeugt,
 die @code{@@image} Befehle für die Ausgabe nach HTML, Info und PDF 
@@ -459,7 +468,6 @@ Musik wird eingegeben als
 @command{lilypond-book} erzeugt dann daraus eine HTML-Datei mit den entsprechenden
 @code{<image>} Tags für die Musikbeispiele in jeweils einem eigenen Absatz.
 
-
 @lilypond[fragment,relative=2]
 \key c \minor c4 es g2
 @end lilypond
@@ -477,6 +485,8 @@ Um Dateien mit Musik einzubinden, kann folgendermaßen vorgegangen werden:
 <lilypondfile @var{Option1} @var{Option2} ...>@var{Dateiname}</lilypondfile>
 @end example
 
+Zusätzlich gibt @code{<lilypondversion/>} die aktuelle Versionsnummer
+von LilyPond aus.
 
 
 @node DocBook
@@ -530,7 +540,7 @@ wobei die Sprache auf @code{lilypond} gesetzt wird:
     <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
 \context Staff \with @{
   \remove Time_signature_engraver
-  \remove Clef_engraver@} 
+  \remove Clef_engraver@}
   @{ c4( fis) @}
     </programlisting>
   </textobject>
@@ -1081,8 +1091,12 @@ Eine @file{EPS}-Datei kann mit folgendem Befehl erzeugt werden:
 
 @example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   Dateiname.ly
+@end example
 
-Eine @file{PNG}-Datei mittels:
+@noindent
+eine @file{PNG}-Datei mittels:
+
+@example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png Dateiname.ly
 @end example
 

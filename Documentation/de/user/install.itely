@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: c6e236bc762071c4580cc15ea52695df646d31f7
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.61"
 
 @c Translators: Till Rettig, Reinhold Kainhofer
 
@@ -50,11 +52,16 @@ darwin-x86  - MacOS X intel
 freebsd-64  - FreeBSD 6.x, x86_64
 freebsd-x86 - FreeBSD 4.x, x86
 linux-64    - Beliebige GNU/Linux Distribution, x86_64
-linux-arm   - Beliebige GNU/Linux Distribution, arm
 linux-ppc   - Beliebige GNU/Linux Distribution, powerpc
 linux-x86   - Beliebige GNU/Linux Distribution, x86
 mingw       - Windows x86
 @end example
+
+@knowissues
+
+Wenn Sie MacOS 10.3 oder 10.4 benutzen und Python-Skripte wie
+@command{convert-ly} und @command{lilypond-book} benutzen wollen,
+lesen Sie @ref{Setup for MacOS X,,,lilypond-program,Application Usage}.
 
 
 @node Compiling from source
@@ -63,8 +70,15 @@ mingw       - Windows x86
 LilyPond kann auch selbst direkt aus dem Quellcode des git-Depots 
 kompiliert werden. Da jedoch für die Kompilierung definitiv 
 Englisch-Kenntnisse vorhanden sein müssen, soll hier lediglich auf die 
-englische Dokumentation verwiesen werden.
-@c TODO: How do I insert a link to the English docs???
+englische Dokumentation verwiesen werden:
+@c DO NOT translate the following line at all.
+@ref{Compiling from source,,,lilypond-program,Application Usage}.
+@end iftex
+@ifhtml
+@c Please translate the following line (but not the .html file name)
+@uref{Compiling-from-source.html,Compiling from Source}.
+@end ifhtml
+
 
 @c TRANSLATORS:
 @c   Please **do not** translate anything below this line.  Users

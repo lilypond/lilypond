@@ -1,13 +1,16 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: c1be53409464d49dffa013f3dfeb9eb4910edd92
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.61"
+
 @c Translators: Reinhold Kainhofer
+@c Translation checkers: Till Rettig
 
 @node Converting from other formats
 @chapter Converting from other formats
@@ -21,8 +24,9 @@ findet sich auf der @uref{http://@/lilypond@/.org,Homepage} von LilyPond.
 
 Die im Folgenden beschriebenen Programme sind eigenständige Hilfsprogramme
 und werden üblicherweise von der Kommandozeile aufgerufen. Siehe
-@ref{Command-line usage} für weitere Informationen.
-
+@ref{Command-line usage} für weitere Informationen.  Wenn Sie MacOS
+10.3 oder 10.4 benutzen und Probleme mit diesen Skripten (z. B.
+@code{convert-ly}) haben, lesen Sie @ref{Setup for MacOS X}.
 
 @knownissues
 Leider haben wir nicht ausreichend viele Entwickler, um all die folgenden
@@ -32,12 +36,12 @@ Selbstverständlich sind Patches von Ihnen sehr willkommen!
 
 
 @menu
-* Invoking midi2ly::          Import von MIDI
-* Invoking musicxml2ly::      Import von MusicXML
-* Invoking abc2ly::           Import von ABC
-* Invoking etf2ly::           Import von (alten) Finale-Dateien
+* Invoking midi2ly::          Import von MIDI.
+* Invoking musicxml2ly::      Import von MusicXML.
+* Invoking abc2ly::           Import von ABC.
+* Invoking etf2ly::           Import von (alten) Finale-Dateien.
 * Generating LilyPond files:: Grafische Benutzeroberflächen,
-Musikübersetzer und Programme zur algorithmischen Komposition
+Musikübersetzer und Programme zur algorithmischen Komposition.
 @end menu
 
 @node Invoking midi2ly
@@ -338,7 +342,7 @@ Diese umfassen unter anderem:
 
 @itemize
 @item
-@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, ein grafisches 
+@uref{http://@/www@/.denemo@/.org/,Denemo}, ein grafisches 
 Programm zum Musiksatz.
 @item
 @uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, ein 
