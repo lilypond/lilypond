@@ -33,12 +33,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @c
-@c Info files are installed in subdirectories to allow images to be present. 
-@c 
+@c Info files are installed in subdirectories to allow images to be present.
+@c
 @dircategory LilyPond
 @direntry
 * LilyPond: (lilypond/lilypond).                               Das GNU Notensatzprogramm.
-* abc2ly: (lilypond/lilypond-program)Invoking abc2ly.          ABC-Dateien importieren.      
+* abc2ly: (lilypond/lilypond-program)Invoking abc2ly.          ABC-Dateien importieren.
 * convert-ly: (lilypond/lilypond-program)Invoking convert-ly.  Ältere LilyPond-Versionen.
 * etf2ly: (lilypond/lilypond-program)Invoking etf2ly.          Finale-Dateien importieren.
 * lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Noten in den Text integrieren.
@@ -56,11 +56,20 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @c Translators: Till Rettig
 
+
 @ifhtml
+@ifclear bigpage
 Dieses Dokument ist auch als
-@uref{source/Documentation/user/lilypond.de.pdf,PDF} und als 
+@uref{source/Documentation/user/lilypond.de.pdf,PDF} und als
 @uref{source/Documentation/user/lilypond-big-page.html,eine große Seite}
 (auf Englisch) verfügbar.
+@end ifclear
+@ifset bigpage
+Dieses Dokument ist auch als
+@uref{source/Documentation/user/lilypond.de.pdf,PDF} und als
+@uref{source/Documentation/user/lilypond/index.de.html,Separate HTML-Seiten mit Index}
+verfügbar.
+@end ifset
 @end ifhtml
 
 
@@ -86,15 +95,15 @@ Copyright @copyright{} 1999--2008 bei den Autoren
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
 nur die englische Version gültig.}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne 
-invariante Abschnitte), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne
+invariante Abschnitte),
 zu kopieren, verbreiten und/oder
 zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -121,15 +130,15 @@ Copyright @copyright{} 1999--2008 bei den Autoren
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
 nur die englische Version gültig.}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne 
-invariante Abschnitte), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne
+invariante Abschnitte),
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -154,15 +163,15 @@ Copyright 1999--2008 bei den Autoren.
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
 nur die englische Version gültig.}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne 
-Invariante Abschnitte), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne
+Invariante Abschnitte),
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -238,7 +247,7 @@ Anhänge
 
 Dieser Index listet alle LilyPond Befehle und Schlüsselwörter auf,
 versehen mit Verweisen zu den Abschnitten im Handbuch, die den Befehl
-beschreiben oder seine Verwendung diskutieren. Der erste Teil zeigt auf 
+beschreiben oder seine Verwendung diskutieren. Der erste Teil zeigt auf
 die genaue Stelle im Handbuch, an der der Befehl oder das Schlüsselwort
 erscheint, der zweite Teil zeigt auf den entsprechenden Abschnitt.
 
@@ -249,7 +258,7 @@ erscheint, der zweite Teil zeigt auf den entsprechenden Abschnitt.
 
 Zusätzlich zu allen LilyPond Befehlen und Schlüsselwörtern listet
 dieser Index alle relevanten Begriffe auf und verlinkt sie mit den
-entsprechenden Abschnitten, wo sie erklärt werden. Der erste Teil 
+entsprechenden Abschnitten, wo sie erklärt werden. Der erste Teil
 zeigt auf  die genaue Stelle im Handbuch, an der der der Begriff
 vorkommt, der zweite Teil zeigt auf den gesamten Abschnitt, in dem
 das Thema behandelt wird.

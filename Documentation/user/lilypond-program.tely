@@ -31,10 +31,18 @@
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @end ifnottex
 
+
 @ifhtml
+@ifclear bigpage
 This document is also available as a
 @uref{source/Documentation/user/lilypond-program.pdf,PDF} and as
 @uref{source/Documentation/user/lilypond-program-big-page.html,one big page}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/user/lilypond-program.pdf,PDF} and as
+@uref{source/Documentation/user/lilypond-program/index.html,HTML indexed multiple pages}.
+@end ifset
 @end ifhtml
 
 
