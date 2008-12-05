@@ -270,7 +270,7 @@ Befehls angeben kann.
 Jedes Musikbeispiele ruft die folgenden Makros auf, wenn sie vom Benutzer
 definiert wurden:
 
-@itemize bullet
+@itemize
 @item @code{\preLilyPondExample} -- wird vor der Musik aufgerufen,
 
 @item @code{\postLilyPondExample} -- wird nach der Musik aufgerufen,

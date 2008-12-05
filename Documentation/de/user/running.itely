@@ -260,9 +260,11 @@ ersetzen kann. In UNIX und Linux kann z.B. @uref{http://www.inkscape.org,Inkscap
 (ab Version 0.42) benutzt werden, nachdem die OTF-Schriften aus dem 
 LilyPond-Verzeichnis (typischerweise @file{/usr/share/lilypond/VERSION/fonts/otf/})
 in das Verzeichnis @file{~/.fonts/} kopiert wurden.
+
 @item scm
 gibt die rohen Scheme-basierenden Zeichenbefehle aus, wie sie intern von 
 LilyPond benutzt werden.
+
 @cindex Scheme dump
 @end table
 
