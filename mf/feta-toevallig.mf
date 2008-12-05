@@ -555,15 +555,15 @@ draw_shifted_too;
 % TODO: document, simplify!
 %
 
-def draw_meta_flat (expr xcenter, w, crook_fatness) =
+def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 	save crook_thinness;
 	save bottom_overshoot, bot_crook_dir;
-	save top_stem_thick, bottom_stem_thick, hair, smaller_hole;
+	save top_stem_thick, top_stem_thick_orig, bottom_stem_thick, hair, smaller_hole;
 	save top_crook_thinness;
 	save zwiep;
 	save center;
 	pair center, bot_crook_dir;
-	save clearing;
+	save clearing, clearing_orig;
 
 	clearxy;
 
@@ -577,17 +577,30 @@ def draw_meta_flat (expr xcenter, w, crook_fatness) =
 	else:
 		smaller_hole = 0;
 	fi;
-	clearing = 1.7 stafflinethickness;
 	crook_thinness = .7 stafflinethickness + .06 staff_space;
 	top_crook_thinness = 1 stafflinethickness + .065 staff_space;
+	clearing = 1.7 stafflinethickness;
+	clearing_orig = clearing;
+	if arrowup:
+	        clearing := 0.5 staff_space;
+	fi;
 	bottom_overshoot = stafflinethickness;
 
 	bottom_stem_thick# = 0.06 staff_space# + 0.6 stafflinethickness#;
 	top_stem_thick# = 0.1 staff_space# + 1.2 stafflinethickness#;
-	define_whole_blacker_pixels (bottom_stem_thick, top_stem_thick);
+	top_stem_thick_orig# = top_stem_thick#;
+	if arrowup:
+		% to look nice, arrowed stems should be less brushed
+		top_stem_thick# := top_stem_thick#*0.80;
+	fi;
+	define_whole_blacker_pixels (bottom_stem_thick, top_stem_thick,
+				     top_stem_thick_orig);
 
 	if odd (top_stem_thick - bottom_stem_thick):
 		top_stem_thick := top_stem_thick - 1;
+	fi;
+	if odd (top_stem_thick_orig - bottom_stem_thick):
+		top_stem_thick_orig := top_stem_thick_orig - 1;
 	fi;
 
 	center = (xcenter, 0);
@@ -596,13 +609,20 @@ def draw_meta_flat (expr xcenter, w, crook_fatness) =
 	y1 = vround (2 staff_space - clearing);
 	x2l = hround (xcenter - .5 bottom_stem_thick);
 	y2 = -.5 staff_space - .5 stafflinethickness;
+	% z16 and the _orig variables are needed for arrowed accidentals because
+	% their inner part should be unchanged from plain ones but the points z3l,
+	% z3r and z10 depend on values that are different for arrowed accidentals
+	x16l = hround (xcenter - .5 top_stem_thick_orig);
+	y16 = vround (2 staff_space - clearing_orig);
 
 	penpos1 (top_stem_thick, 0);
+	penpos16 (top_stem_thick_orig, 0);
 	penpos2 (bottom_stem_thick, 0);
 
 	y3l = vfloor ((staff_space - stafflinethickness) / 2);
 	z3l = whatever [z2r, z1r];
-	z3r = .3 [z2r, z1r] + (smaller_hole, 0);
+	z3r = .3 [z2r, (z16r shifted (0, clearing_orig - 1.7 stafflinethickness))]
+	      + (smaller_hole, 0);
 	x3r := hceiling x3r;
 
 	% we insert z3l to get better conversion with mf2pt1
@@ -612,13 +632,16 @@ def draw_meta_flat (expr xcenter, w, crook_fatness) =
 	     -- z3l
 	     -- cycle;
 
-	z10 = whatever [z2r, z1r] + (smaller_hole, 0);
+	z10 = whatever [z2r, z16r] + (smaller_hole, 0);
 	y10 = -1/10 staff_space;
 	x10 := hceiling x10;
 
 	x11 = xcenter + bottom_overshoot / 3;
 	y11 = -vround (.5 (staff_space + stafflinethickness)
 		       + bottom_overshoot);
+
+	x2a = 0.2[x2r,x7];
+	y2a = 1.5[y2,y11];
 
 	penpos4 (whatever, 53);
 
@@ -648,25 +671,60 @@ def draw_meta_flat (expr xcenter, w, crook_fatness) =
 	       .. z10{z3r - z10}
 	       -- cycle;
 
-	fill z2l{down}
-	     .. z11{right}
-	     .. z8{bot_crook_dir}
-	     .. z5l{up}
-	     .. z4l{left}
-	     .. z3l
-	     -- cycle;
+	if arrowdown:
+		fill z2l{down}
+		     .. z2a{up}
+		     .. z8{bot_crook_dir}
+		     .. z5l{up}
+		     .. z4l{left}
+		     .. z3l
+		     -- cycle;
+	else:
+		fill z2l{down}
+		     .. z11{right}
+		     .. z8{bot_crook_dir}
+		     .. z5l{up}
+		     .. z4l{left}
+		     .. z3l
+		     -- cycle;
+	fi;
+
+	if arrowup:
+		draw_arrow (z1, top_stem_thick, z1l-z2l,
+			    0.5stafflinethickness, false);
+	fi;
+	if arrowdown:
+		draw_arrow ((0.5[x2l,x2a],y2), x2a-x2l, up,
+			    staff_space/2, true);
+	fi;
 enddef;
 
+
+def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness, arrowup, arrowdown) =
+	save depth, height, extendleft;
+
+	depth# = 0.6 staff_space#;
+	height# = 1.9 staff_space#;
+	extendleft# := 1.2 stafflinethickness#;
+	if arrowup:
+		extendleft# := 3.45 stafflinethickness#;
+		height# := height# + 0.8 staff_space#;
+	fi;
+	if arrowdown:
+		extendleft# := 3.45 stafflinethickness#;
+		depth# := depth# + 1.6 staff_space#;
+	fi;
+
+	set_char_box (extendleft#, width, depth#, height#);
+	draw_meta_flat(xcenter, w, crook_fatness, arrowup, arrowdown);
+enddef;
 
 %
 % unfortunately, 600dpi is not enough to show the brush of the stem.
 %
 
 fet_beginchar ("Flat", "flat");
-	set_char_box (1.2 stafflinethickness#, .8 staff_space#,
-		      0.6 staff_space#, 1.9 staff_space#);
-
-	draw_meta_flat (0, w, 0.31 staff_space);
+	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, false, false);
 	penlabels (range 0 thru 11);
 
 	remember_pic := currentpicture;
@@ -678,11 +736,37 @@ fet_endchar;
 draw_shifted_too;
 
 
+fet_beginchar ("Arrowed Flat (up-arrow)", "flat.arrowup");
+	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, true, false);
+	penlabels (range 0 thru 23);
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0.0);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
+fet_beginchar ("Arrowed Flat (down-arrow)", "flat.arrowdown");
+	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, false, true);
+	penlabels (range 0 thru 23);
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0.0);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
 fet_beginchar ("Flat (slashed)", "flat.slash");
 	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
-	draw_meta_flat (0, w, 0.31 staff_space);
+	draw_meta_flat (0, w, 0.31 staff_space, false, false);
 
 	clearxy;
 
@@ -721,7 +805,7 @@ fet_beginchar ("Flat (slashed twice)", "flat.slashslash");
 	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
-	draw_meta_flat (0, w, 0.31 staff_space);
+	draw_meta_flat (0, w, 0.31 staff_space, false, false);
 
 	clearxy;
 
@@ -900,7 +984,7 @@ fet_beginchar ("Semi flat", "mirroredflat");
 	set_char_box (1.2 stafflinethickness#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
-	draw_meta_flat (0, w, 0.31 staff_space);
+	draw_meta_flat (0, w, 0.31 staff_space, false, false);
 	currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 fet_endchar;
 
@@ -909,7 +993,7 @@ fet_beginchar ("Semi flat", "mirroredflat.backslash");
 	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
-	draw_meta_flat (0, w, 0.31 staff_space);
+	draw_meta_flat (0, w, 0.31 staff_space, false, false);
 
 	clearxy;
 
@@ -951,9 +1035,9 @@ fet_beginchar ("Double Flat", "flatflat");
 	set_char_box (1.2 stafflinethickness#,
 		      (left_wid + right_wid - overlap) * staff_space#,
 		      .6 staff_space#, 1.9 staff_space#);
-	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space);
+	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space, false, false);
 	draw_meta_flat (hround ((left_wid - overlap) * staff_space),
-			right_wid * staff_space, 1/3 staff_space);
+			right_wid * staff_space, 1/3 staff_space, false, false);
 fet_endchar;
 
 
@@ -967,9 +1051,9 @@ fet_beginchar ("3/4 Flat", "flatflat.slash");
 	set_char_box (1.2 stafflinethickness#,
 		      (left_wid + right_wid - overlap) * staff_space#,
 		      .6 staff_space#, 1.9 staff_space#);
-	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space);
+	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space, false, false);
 	draw_meta_flat (hround ((left_wid - overlap) * staff_space),
-			right_wid * staff_space, 1/3 staff_space);
+			right_wid * staff_space, 1/3 staff_space, false, false);
 
 	%% maybe we should clip part of the stems?
 	%% or make the 1st flat smaller?
