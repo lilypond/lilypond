@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2dfe44169bfcad2c5862c82ee08c593517dc2ddd
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -35,8 +35,8 @@ von Vokalmusik und einige spezifische Vokalmusikstile.
 * References for vocal music and lyrics::
 * Opera::
 * Song books::
-* Chants::
 * Spoken music::
+* Chants::
 * Ancient vocal music::
 @end menu
 
@@ -299,7 +299,6 @@ stropheEins = \lyricmode @{ Joy to the world the Lord is come @}
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Fonts}.
 
@@ -429,7 +428,6 @@ remains empty.
 @end ignore
 
 @seealso
-
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referenz der Interna:
 @rinternals{LyricCombineMusic},
@@ -586,7 +584,6 @@ Hier ein Beispiel, dass die manuale Ausrichtung von Gesangstext zeigt:
 @end lilypond
 
 @seealso
-
 Referenz der Interna:
 @rinternals{Lyrics}.
 
@@ -614,7 +611,6 @@ die das entsprechende Symbol (U+203F) beinhaltet, wie etwa DejaVuLGC.
 @end lilypond
 
 @seealso
-
 Referenz der Interna:
 @rinternals{LyricCombineMusic}.
 
@@ -703,13 +699,12 @@ sich in
 
 
 @predefined
-
 @code{\melisma}, @code{\melismaEnd}
 @funindex \melismaEnd
 @funindex \melisma
+@endpredefined
 
 @seealso
-
 @c @lsr{vocal,lyric@/-combine.ly}.
 
 @knownissues
@@ -773,7 +768,6 @@ Dieses Verhalten kann aber auch unterbunden werden, wenn den Eigenschaften
 andere Werte erhalten.
 
 @seealso
-
 Referenz der Interna:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
@@ -997,12 +991,12 @@ TBC
 @subsection Stanzas
 
 @menu
-* Adding stanza numbers ::
+* Adding stanza numbers::
 * Adding dynamics marks to stanzas::
 * Adding singers' names to stanzas::
 * Stanzas with different rhythms::
-* Printing stanzas at the end ::
-* Printing stanzas at the end in multiple columns ::
+* Printing stanzas at the end::
+* Printing stanzas at the end in multiple columns::
 @end menu
 
 
@@ -1125,10 +1119,6 @@ Melisma ignoriert.  Das wird mit der
 @code{ignoreMelismata}-Eigenschaft im @code{Lyrics}-Kontext
 vorgenommen.
 
-Die Einstellung von @code{ignoreMelismata} muss allerdings eine
-Silbe @emph{vor} der Silbe gemacht werden, auf die es sich
-auswirken soll, wie das Beispiel zeigt:
-
 @c  TODO: breaks compile
 @c seems to be fixed, does not break compile anymore --FV
 @lilypond[verbatim,ragged-right,quote]
@@ -1144,17 +1134,14 @@ auswirken soll, wie das Beispiel zeigt:
     more slow -- ly
   }
   \new Lyrics \lyricsto "lahlah" {
-    \set ignoreMelismata = ##t % applies to "fas"
-    go fas -- ter
+    go
+    \set ignoreMelismata = ##t
+    fas -- ter
     \unset ignoreMelismata
     still
   }
 >>
 @end lilypond
-
-@noindent
-Das @code{ignoreMelismata} wirkt sich auf die Silbe @qq{fas} aus,
-es muss also vor der silbe @qq{go} notiert werden.
 
 
 @subsubheading Switching to an alternative melody
@@ -1356,7 +1343,6 @@ text = \lyricmode {
 
 
 @seealso
-
 Referenz der Interna:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
