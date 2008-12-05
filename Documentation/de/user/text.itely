@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -111,7 +111,6 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{TextScript}.
 
-
 @knownissues
 
 Eine Überprüfung, ob sich auch alle Textbeschriftungen und Gesangstext
@@ -182,6 +181,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{TextSpanner}.
+
 
 
 @node Text marks
@@ -258,7 +258,6 @@ c  c
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-
 @seealso
 Notationsreferenz:
 @ref{Rehearsal marks},
@@ -271,7 +270,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{RehearsalMark}.
-
 
 @knownissues
 @c  To be removed when Issue 69 in the tracker gets fixed. -vv
@@ -340,7 +338,6 @@ sich in @ref{Multi-page markup}.
 TODO: add convenient snippets in input/new -vv
 @end ignore
 
-
 @seealso
 Notationsreferenz:
 @ref{Formatting text},
@@ -353,6 +350,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{TextScript}.
+
 
 
 @node Formatting text
@@ -386,7 +384,7 @@ zu setzen.
 
 @cindex Textbeschriftungs-Ausdrücke
 @cindex Text, Syntax
-@cindex markup, syntax
+@cindex markup, Syntax
 
 Die Syntax für Textbeschriftungen ähnelt der normalen Syntax von
 LilyPond: ein @code{\markup}-Ausdruck wird in geschweifte Klammern
@@ -445,7 +443,7 @@ c1^\markup { \center-column { a \line { bbb c } } }
 c1^\markup { \center-column { a "bbb c" } }
 @end lilypond
 
-Textbeschriftung kann auch durch Variblen definiert werden.  Diese
+Textbeschriftung kann auch durch Variablen definiert werden.  Diese
 Variablen können dann direkt an Noten angefügt werden:
 
 @lilypond[quote,verbatim]
@@ -861,7 +859,6 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
 Eine vollständige Liste der Textausrichtungsbefehle findet sich in
 @ref{Align}.
 
-
 @seealso
 Handbuch zum Lernen:
 @rlearning{Moving objects}.
@@ -878,6 +875,7 @@ Installierte Dateien:
 
 Referenz der Interna:
 @rinternals{TextScript}.
+
 
 
 @node Graphic notation inside markup
@@ -1028,7 +1026,6 @@ c
 Eine ausführliche Liste der Graphik-Befehle findet sich in
 @ref{Graphic}.
 
-
 @seealso
 Notationsreferenz:
 @ref{Graphic},
@@ -1043,6 +1040,7 @@ Referenz der Interna:
 Installierte Dateien:
 @file{scm/@/define@/-markup@/-commands@/.scm},
 @file{scm/@/stencil@/.scm}.
+
 
 
 @node Music notation inside markup
@@ -1159,7 +1157,6 @@ c d e f
 Eine vollständige Liste der Musiksymbol-Befehle findet sich in
 @ref{Music}.
 
-
 @seealso
 Notationsreferenz:
 @ref{Music},
@@ -1176,6 +1173,7 @@ Installierte Dateien:
 @file{scm/@/define@/-markup@/-commands@/.scm},
 @file{scm/@/fret@/-diagrams@/.scm},
 @file{scm/@/harp@/-pedals@/.scm}.
+
 
 
 @node Multi-page markup
@@ -1212,7 +1210,6 @@ eine Liste von Beschriftungslisten.
 
 Eine vollständige Liste der Beschriftungslistenbefehle findet sich in
 @ref{Text markup list commands}.
-
 
 @seealso
 Notationsreferenz:
@@ -1348,7 +1345,6 @@ umzuschalten, kann man auch eigene Schriftarten verwenden, wie erklärt
 in folgenden Abschnitten: @ref{Single entry fonts} und
 @ref{Entire document fonts}.
 
-
 @seealso
 Notationsreferenz:
 @ref{The Feta font},
@@ -1388,7 +1384,6 @@ lilypond -dshow-available-fonts x
 Das letzte Argument kann ein beliebiges Zeichen sein, aber es darf nicht
 fehlen.
 
-
 @seealso
 Notationsreferenz:
 @ref{Fonts explained},
@@ -1399,6 +1394,7 @@ Schnipsel:
 
 Installierte Dateien:
 @file{lily/@/font@/-config@/-scheme@/.cc}.
+
 
 
 @node Entire document fonts
@@ -1433,7 +1429,6 @@ Familien in @ref{Fonts explained}.
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
-
 
 @seealso
 Notationsreferenz:

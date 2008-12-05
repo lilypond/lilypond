@@ -306,7 +306,7 @@ befindet.
 >>
 @end lilypond
 
-Neue innere Systemgruppen können definiert werden.  Zu Einzelheiten siehe
+Neue geschachtelte Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 @ref{Defining new contexts}.
 
 
