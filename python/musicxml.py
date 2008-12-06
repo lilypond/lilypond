@@ -430,8 +430,6 @@ class Attributes (Measure_element):
                     else:
                         i.message (_ ("Key alteration octave given for a "
                             "non-existing alteration nr. %s, available numbers: %s!") % (nr, len(alterations)))
-                    i.message ( "Non-standard key signature (after octave %s for alter nr %s): %s" % (i.get_text (), nr, alterations))
-            i.message ( "Non-standard key signature with alterations %s found!" % alterations)
             return alterations
 
     def get_transposition (self):
