@@ -169,7 +169,7 @@ be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
 @code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
      (dot-negative-kern ,number? "The space to remove between a dot
-a and slash in percent repeat glyphs.  Larger values bring the two
+and a slash in percent repeat glyphs.  Larger values bring the two
 elements closer together.")
      (dot-placement-list ,list? "List 
 consisting of @code{(@var{description} @var{string-number} 
@@ -525,7 +525,7 @@ dot.")
 number, the quicker the slur attains its @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 interesting items.")
-     (remove-first ,boolean? "Remove the first staff of a orchestral
+     (remove-first ,boolean? "Remove the first staff of an orchestral
 score?")
      (restore-first ,boolean? "Print a natural before the
 accidental.")
