@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-22 20:22+0100\n"
-"PO-Revision-Date: 2008-12-06 22:51+0200\n"
+"PO-Revision-Date: 2008-12-06 22:53+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -2593,7 +2593,7 @@ msgstr "Sopran"
 
 #. Documentation/user/tweaks.itely:3691 (comment)
 msgid "Arrange to obtain color from color-notehead procedure"
-msgstr "Anordngen um Farbe von der color-notehead-Prozedur zu erhalten"
+msgstr "Anordnungen um Farbe von der color-notehead-Prozedur zu erhalten"
 
 #. @node in Documentation/user/tweaks.itely
 #. @chapter in Documentation/user/tweaks.itely
