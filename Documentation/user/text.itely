@@ -316,42 +316,8 @@ requires, are described in @ref{Multi-page markup}.
 
 @snippets
 
-@ignore
-@c TODO Replace following example with this snippet when available
-@c Submitted to LSR 30 Nov 08
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{stand--alone-two--column-markup.ly}
-@end ignore
-
-Stand-alone text may be arranged in several columns using @code{\markup}
-commands:
-
-@lilypond[verbatim,quote]
-\markup {
- \fill-line {
-  \hspace #1.0
-  \column {
-   \line {"O sacrum convivium" }
-   \line {"in quo Christus sumitur," }
-   \line {"recolitur memoria passionis ejus," }
-   \line {"mens impletur gratia," }
-   \line {"futurae gloriae nobis pignus datur." }
-   \line {"Amen."}
-  }
-  \hspace #2
-  \column {
-   \line { \italic {"O sacred feast"} }
-   \line { \italic {"in which Christ is received,"} }
-   \line { \italic {"the memory of His Passion is renewed,"} }
-   \line { \italic {"the mind is filled with grace," } }
-   \line { \italic {"and a pledge of future glory is given to us." }}
-   \line { \italic {"Amen."}}
-  }
-  \hspace #1.0
- }
-}
-@end lilypond
-@seealso
+{stand-alone-two-column-markup.ly}
 
 @seealso
 Notation Reference: @ref{Formatting text},
