@@ -429,9 +429,16 @@ Esta sección aún no está traducida; consulte el manual en inglés.
 
 @ifhtml
 
+@ifset bigpage
+@macro untranslated
+@end macro
+@end ifset
+
+@ifclear bigpage
 @macro untranslated
 UNTRANSLATED NODE: IGNORE ME
 @end macro
+@end ifclear
 
 @end ifhtml
 
