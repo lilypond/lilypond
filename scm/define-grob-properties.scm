@@ -525,7 +525,7 @@ dot.")
 number, the quicker the slur attains its @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 interesting items.")
-     (remove-first ,boolean? "Remove the first staff of a orchestral
+     (remove-first ,boolean? "Remove the first staff of an orchestral
 score?")
      (restore-first ,boolean? "Print a natural before the
 accidental.")
