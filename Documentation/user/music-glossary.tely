@@ -1911,7 +1911,7 @@ the top five lines have been selected:
    \stopStaff \startStaff
    \clef "C"  % Dummy to force next clef to be printed
    s  % Need at least one note for \clef to take effect
-   \override Staff.Clef #'stencil = ##t  % Clef now required
+   \revert Staff.Clef #'stencil       % Clef now required
    \override Staff.Clef #'Y-extent = #'(0 . 0)  % Permit overlap
    \clef "G"
    e'^\markup { "e'" \transparent "g" }
