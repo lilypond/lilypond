@@ -37,7 +37,7 @@ Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond-learning-big-page.es.html,una sola página}.
 @end ifclear
 @ifset bigpage
-This document is also available as a
+Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
 @uref{source/Documentation/user/lilypond-learning/index.es.html,un documento HTML normal de muchas páginas}.
 @end ifset

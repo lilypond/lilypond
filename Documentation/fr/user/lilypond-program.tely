@@ -33,7 +33,7 @@
 @ifhtml
 @ifclear bigpage
 Ce document est également disponible au
-@uref{source/Documentation/user/lilypond-program.fr.pdf,format PDF}.
+@uref{source/Documentation/user/lilypond-program.fr.pdf,format PDF},
 et en une seule
 @uref{source/Documentation/user/lilypond-program-big-page.fr.html,grande page}.
 @end ifclear
