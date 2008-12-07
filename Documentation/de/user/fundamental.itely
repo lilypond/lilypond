@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -339,7 +339,7 @@ zerlegen lässt.
 @example
 \score @{
   @{   % diese Klammer startet den großen mus. Ausdruck
-    <<
+    \new StaffGroup <<
       @var{...hier eine ganze Wagner-Oper einfügen...}
     >>
   @}   % diese Klammer beendet den Ausdruck
@@ -349,7 +349,8 @@ zerlegen lässt.
 
 Eine Wagner-Oper ist mindestens doppelt so lang wie dieses Handbuch,
 beschränken wir uns also auf einen Sänger und Klavier.  Wir brauchen 
-keine ganze Orchesterpartitur, aber wir brauchen einen Sänger und ein Klavier.
+keine ganze Orchesterpartitur, infolgedessen können wir die Systemgruppe
+(StaffGroup) auslassen, aber wir brauchen einen Sänger und ein Klavier.
 
 @example
 \score @{

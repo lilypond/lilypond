@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: b54fc6953a8d70a3c51e8c3d0cbf9b3fe9652d78
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -25,20 +25,24 @@
 
 @c Translators: Till Rettig
 
+@ifnottex
+@node Top
+@top GNU LilyPond -- Programmbenutzung
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+@end ifnottex
 
 @ifhtml
 @ifclear bigpage
 Dieses Dokument ist auch als
-@uref{source/Documentation/user/lilypond-program.de.pdf,PDF} und als
-@uref{source/Documentation/user/lilypond-program-big-page.html,eine große Seite}
-(auf Englisch) verfügbar.
+@uref{source/Documentation/user/lilypond-program.de.pdf,PDF} und auf
+@uref{source/Documentation/user/lilypond-program-big-page.html,einer großen Seite}
 @end ifclear
 @ifset bigpage
 Dieses Dokument ist auch als
-@uref{source/Documentation/user/lilypond-program.de.pdf,PDF} und als
-@uref{source/Documentation/user/lilypond-program/index.de.html,Separate HTML-Seiten mit Index}
-verfügbar.
+@uref{source/Documentation/user/lilypond-program.pdf,PDF} und auf
+@uref{source/Documentation/user/lilypond-program/index.html,separaten HTML-Seiten mit Index}
 @end ifset
+verfügbar.
 @end ifhtml
 
 
@@ -62,15 +66,15 @@ Copyright @copyright{} 1999--2008 bei den Autoren
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
 nur die englische Version gültig.}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne
-Invariante Abschnitte),
+spätere, von der Free Software Foundation publizierte Versionen, ohne 
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -97,15 +101,15 @@ Copyright @copyright{} 1999--2008 bei den Autoren
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
 nur die englische Version gültig.}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen, ohne
-Invariante Abschnitte),
+spätere, von der Free Software Foundation publizierte Versionen, ohne 
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -130,15 +134,15 @@ Copyright 1999--2008 bei den Autoren
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
-für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
 nur die englische Version gültig.}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
 spätere, von der Free Software Foundation publizierte Versionen, ohne
-Invariante Abschnitte),
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -155,9 +159,6 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-@node Top
-@top GNU LilyPond -- Programmbenutzung
-
 Das ist das Handbuch zur Programmbenutzung für GNU LilyPond Version @version{}.
 Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
 dieses Handbuchs siehe @rlearning{About the documentation}.

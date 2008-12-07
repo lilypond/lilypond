@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -306,7 +306,7 @@ befindet.
 >>
 @end lilypond
 
-Neue innere Systemgruppen können definiert werden.  Zu Einzelheiten siehe
+Neue geschachtelte Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 @ref{Defining new contexts}.
 
 

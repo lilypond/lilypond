@@ -215,7 +215,8 @@ Prozent-Wiederholungen benutzt werden. Zum Beispiel:
 * MIDI block::                  
 * What goes into the MIDI output?::  
 * Repeats in MIDI::             
-* Controlling MIDI dynamics::   
+* Controlling MIDI dynamics:: 
+* Percussion in MIDI::  
 @end menu
 
 @node Creating MIDI files
@@ -255,3 +256,8 @@ Prozent-Wiederholungen benutzt werden. Zum Beispiel:
 @unnumberedsubsubsec Overall MIDI volume
 @unnumberedsubsubsec Equalizing different instruments (i)
 @unnumberedsubsubsec Equalizing different instruments (ii)
+
+@node Percussion in MIDI
+@subsection Percussion in MIDI
+
+@untranslated

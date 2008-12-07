@@ -1,18 +1,18 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Specialist notation
 @chapter Specialist notation
 
-This chapter explains how to create musical notation for specific
-types of instrument or in specific styles.
+Dieser Abschnitt erklärt, wie Notation erstellt wird, die nur für ein
+bestimmtes Instrument oder einen Stil eingesetzt wird.
 
 @menu
 * Vocal music::
