@@ -110,6 +110,19 @@ or figure for each example to see the corresponding input file.
 @node Top
 @top GNU LilyPond --- Snippets List
 
+@ifhtml
+@ifclear bigpage
+This document is also available as a
+@uref{source/Documentation/user/lilypond-snippets.pdf,PDF} and as
+@uref{source/input/lsr/lilypond-snippets-big-page.html,one big page}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/user/lilypond-snippets.pdf,PDF} and as
+@uref{source/input/lsr/lilypond-snippets/index.html,HTML indexed multiple pages}.
+@end ifset
+@end ifhtml
+
 This document shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR). It is in the public domain.
