@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -87,6 +87,7 @@ TBC
 
 @c add characters names snippet -vv
 
+
 @node Song books
 @unnumberedsubsubsec Song books
 
@@ -100,6 +101,7 @@ TBC
 @seealso
 Notationsreferenz:
 @ref{Chord notation}.
+
 
 @node Spoken music
 @unnumberedsubsubsec Spoken music
@@ -118,11 +120,13 @@ Noten werden mit einem Kreuz als Notenkopf notiert, siehe hierzu
 @c add "improvisation" ref
 @c add "lyrics independents of notes" ref
 
+
 @node Chants
 @unnumberedsubsubsec Chants
 
 @c TODO Add text from lsr and -user
 TBC
+
 
 @node Ancient vocal music
 @unnumberedsubsubsec Ancient vocal music
