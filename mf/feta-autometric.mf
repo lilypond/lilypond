@@ -7,9 +7,9 @@
 % (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %          Jan Nieuwenhuizen <janneke@gnu.org>
 %
-% these macros help create ascii logging output
-% to automate generation of lily tables and tex backend
-% The output should be parsed by the mf-to-table script
+% These macros help create ascii logging output
+% to automate generation of the lily tables.
+% The output should be parsed by the mf-to-table script.
 
 
 message "******************************************************";

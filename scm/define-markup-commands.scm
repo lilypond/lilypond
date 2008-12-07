@@ -466,30 +466,8 @@ Inline an EPS image.  The image is scaled along @var{axis} to
   ()
   "
 @cindex inserting PostScript directly into text
-
 This inserts @var{str} directly into the output as a PostScript
-command string.  Due to technicalities of the output backends,
-different scales should be used for the @TeX{} and PostScript backend,
-selected with @code{-f}. 
-
-For the @TeX{} backend, the following string prints a rotated text
-
-@example
-0 0 moveto /ecrm10 findfont 
-1.75 scalefont setfont 90 rotate (hello) show
-@end example
-
-@noindent
-The magical constant 1.75 scales from LilyPond units (staff spaces) to
-@TeX{} dimensions.
-
-For the postscript backend, use the following
-
-@example
-gsave /ecrm10 findfont 
- 10.0 output-scale div 
- scalefont setfont 90 rotate (hello) show grestore 
-@end example
+command string.
 
 @lilypond[verbatim,quote]
 eyeglassesps = #\"

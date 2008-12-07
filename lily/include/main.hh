@@ -33,8 +33,6 @@ extern string output_name_global;
 extern bool be_safe_global;
 extern bool be_verbose_global;
 extern bool do_internal_type_checking_global;
-extern bool is_pango_format_global;
-extern bool is_TeX_format_global;
 extern bool point_and_click_global;
 extern string lilypond_datadir;
 extern bool use_object_keys;

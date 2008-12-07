@@ -39,7 +39,6 @@ protected:
   Box get_indexed_char (size_t) const;
   size_t index_to_ascii (size_t) const;
   Box get_ascii_char (size_t) const;
-  Box tex_kludge (string) const;
 };
 
 #endif /* MODIFIED_FONT_METRIC_HH */

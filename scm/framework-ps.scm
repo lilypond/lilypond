@@ -38,11 +38,6 @@
 	"%" "_" name)))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
-(define (tex-font? fontname)
-  (or
-   (equal? (substring fontname 0 2) "cm")
-   (equal? (substring fontname 0 2) "ec")))
-
 (define (define-fonts paper)
   (define font-list (ly:paper-fonts paper))
   (define (define-font command fontname scaling)
@@ -767,12 +762,6 @@
 		     (* paper-width output-scale (/ (ly:bp 1)))
 		     (* paper-height output-scale (/ (ly:bp 1)))
 		     name)))
-
-(define-public (convert-to-dvi book name)
-  (ly:warning (_ "cannot generate ~S using the postscript back-end") "DVI"))
-
-(define-public (convert-to-tex book name)
-  (ly:warning (_ "cannot generate ~S using the postscript back-end") "TeX"))
 
 (define-public (convert-to-ps book name)
   #t)

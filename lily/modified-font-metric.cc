@@ -10,7 +10,6 @@ using namespace std;
 
 #include "modified-font-metric.hh"
 #include "pango-font.hh"
-#include "text-metrics.hh"
 #include "warn.hh"
 #include "stencil.hh"
 #include "main.hh"
@@ -102,62 +101,6 @@ Modified_font_metric::derived_mark () const
 {
 }
 
-/* TODO: put this klutchness behind ly:option switch.  */
-Box
-Modified_font_metric::tex_kludge (string text) const
-{
-  Interval ydims;
-  Real w = 0;
-  for (ssize i = 0; i < text.length (); i++)
-    {
-      switch (text[i])
-	{
-	case '\\':
-	  /* Accent marks use width of base letter */
-	  if (i < text.length () - 1)
-	    {
-	      if (text[i + 1]=='\'' || text[i + 1]=='`' || text[i + 1]=='"'
-		  || text[i + 1]=='^')
-		{
-		  i++;
-		  break;
-		}
-	      /* For string width \\ is a \ and \_ is a _. */
-	      if (text[i + 1]=='\\' || text[i + 1]=='_')
-		break;
-	    }
-
-	  for (i++; (i < text.length ()) && !isspace (text[i])
-		 && text[i]!='{' && text[i]!='}'; i++)
-	    ;
-
-	  /* Compensate for the auto-increment in the outer loop. */
-	  i--;
-	  break;
-
-	case '{': // Skip '{' and '}'
-	case '}':
-	  break;
-
-	default:
-	  Box b = get_ascii_char ((unsigned char)text[i]);
-
-	  /* Use the width of 'x' for unknown characters */
-	  if (b[X_AXIS].length () == 0)
-	    b = get_ascii_char ((unsigned char)'x');
-
-	  w += b[X_AXIS].length ();
-	  ydims.unite (b[Y_AXIS]);
-	  break;
-	}
-    }
-
-  if (ydims.is_empty ())
-    ydims = Interval (0, 0);
-
-  return Box (Interval (0, w), ydims);
-}
-
 Stencil
 Modified_font_metric::text_stencil (string text) const
 {
@@ -179,25 +122,8 @@ Modified_font_metric::text_stencil (string text) const
 Box
 Modified_font_metric::text_dimension (string text) const
 {
-  SCM stext = ly_string2scm (text);
-  
   Box b;
-  if (get_output_backend_name () == "tex")
-    {
-      b = lookup_tex_text_dimension (orig_, stext);
-
-      if (!b[Y_AXIS].is_empty ())
-	{
-	  b.scale (magnification_);
-	  return b;
-	}
-
-      b = tex_kludge (text);
-      return b;
-    }
-
   Interval ydims;
-
   Real w = 0.0;
 
   for (ssize i = 0; i < text.length (); i++)

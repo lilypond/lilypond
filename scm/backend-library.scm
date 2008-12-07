@@ -156,7 +156,7 @@
       (set! formats (cons "ps" formats)))
   (for-each (lambda (x)
 	      (if (member x formats) (set! new-fmts (cons x new-fmts))))
-	    '("tex" "dvi" "ps" "pdf" "png"))
+	    '("ps" "pdf" "png"))
   (uniq-list (reverse new-fmts)))
 
 (define (header-to-file file-name key value)

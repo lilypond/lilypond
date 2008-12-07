@@ -46,7 +46,7 @@
 ;; TODO:
 ;;  - generate this list by registering the output-backend-commands
 ;;    output-backend-commands should have docstrings.
-;;  - remove hard copies in output-ps output-tex
+;;  - remove hard copies in output-ps
 
 (define-public (ly:all-output-backend-commands)
   "Return list of output backend commands."

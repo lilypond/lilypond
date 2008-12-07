@@ -61,10 +61,7 @@
     (setm! 'text-font-size (* 12 factor))
     
     (setm! 'output-scale ss)
-    (setm! 'fonts
-		    (if tex-backend?
-			(make-cmr-tree factor)
-			(make-century-schoolbook-tree factor)))
+    (setm! 'fonts (make-century-schoolbook-tree factor))
     (setm! 'staff-height staff-height)
     (setm! 'staff-space ss)
 

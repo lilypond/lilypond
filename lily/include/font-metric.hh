@@ -77,8 +77,6 @@ public:
 
 DECLARE_UNSMOB (Font_metric, metrics);
 
-Box lookup_tex_text_dimension (Font_metric *font, SCM text);
-
 char *pfb2pfa (Byte const *pfb, int length);
 
 #endif /* FONT_METRIC_HH */

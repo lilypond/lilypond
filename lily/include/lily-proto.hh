@@ -170,7 +170,6 @@ class Swallow_engraver;
 class Swallow_performer;
 class System;
 class Tempo_performer;
-class Tex_font_metric;
 class Tie;
 class Tie_details;
 class Tie_configuration;
