@@ -13,8 +13,6 @@ whiteTriangleMarkup = \markup {
   
   %% up pointing triangle
   % #(ly:export (ly:wide-char->utf-8 #x25B3))
-  
-  %% \override #'(font-encoding . TeX-math) \char #77
 } 
 
 blackTriangleMarkup = \markup {

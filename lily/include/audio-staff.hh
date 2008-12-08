@@ -1,7 +1,7 @@
 /*
   audio-staff.hh -- declare Audio_staff
 
-  (c) 1996--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef AUDIO_STAFF_HH

@@ -1,7 +1,7 @@
 /*
   column-x-positions.hh -- part of GNU LilyPond
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef COLUMN_X_POSITIONS_HH

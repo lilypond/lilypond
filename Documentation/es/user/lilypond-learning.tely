@@ -31,11 +31,17 @@
 @end ifnottex
 
 @ifhtml
+@ifclear bigpage
 Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
 @uref{source/Documentation/user/lilypond-learning-big-page.es.html,una sola página}.
+@end ifclear
+@ifset bigpage
+Este documento también está disponible en formato
+@uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond-learning/index.es.html,un documento HTML normal de muchas páginas}.
+@end ifset
 @end ifhtml
-
 
 @c  This produces the unified index
 @syncodeindex fn cp

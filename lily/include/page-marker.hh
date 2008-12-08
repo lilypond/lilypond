@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2007 Nicolas Sceaux <nicolas.sceaux@free.fr>
+  (c) 2007--2008 Nicolas Sceaux <nicolas.sceaux@free.fr>
 */
 
 #ifndef PAGE_MARKER_HH

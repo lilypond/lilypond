@@ -561,6 +561,14 @@ Snippets:
 @node Harp
 @subsection Harp
 
+@menu
+* Harp notation::
+* Harp pedals::
+@end menu
+
+@node Harp notation
+@unnumberedsubsubsec Harp notation
+
 TBC
 
 @ignore
@@ -577,6 +585,43 @@ and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
 An LSR snippet could be used to demonstrate the main items; in the
 case of glissandi, it would be desirable to have a demonstration
 of different styles.
-
 @end ignore
 
+@node Harp pedals
+@unnumberedsubsubsec Harp pedals
+
+@cindex harp pedals
+@cindex harp pedal diagrams
+@cindex pedals, harp
+@cindex pedal diagrams, harp
+
+Harps have seven strings per octave that may be sounded at the natural,
+flattened, or sharpened pitch. In lever harps, each string is adjusted
+individually, but in pedal harps every string with the same pitch name
+is controlled by a single pedal. From the player's left to right, the
+pedals are D, C, and B on the left and E, F, G, and A on the right.
+The position of the pedals may be indicated with text marks:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {[ C \natural ]}
+@end lilypond
+
+or pedal diagrams:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup { \harp-pedal #"^v-|vv-^" }
+c!1_\markup { \harp-pedal #"^o--|vv-^" }
+@end lilypond
+
+The @code{\harp-pedal} command accepts a string of characters, where
+@code{^} is the highest pedal position (flattened pitch), @code{-} is
+the middle pedal postion (natural pitch), @code{v} is the lowest pedal
+position (sharpened pitch), and @code{|} is the divider. A prefixed
+@code{o} will circle the following pedal symbol.
+
+@seealso
+Notation Reference:
+@ruser{Text scripts}

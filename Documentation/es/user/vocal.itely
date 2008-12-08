@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -38,8 +38,8 @@ general y con ciertos estilos concretos de música vocal.
 * References for vocal music and lyrics::
 * Opera::
 * Song books::
-* Chants::
 * Spoken music::
+* Chants::
 * Ancient vocal music::
 @end menu
 
@@ -172,6 +172,15 @@ Referencia de la notación:
 @cindex espacios, en la letra
 @cindex comillas, en la letra
 
+@c FIXME: this section is to be rewritten.
+Dado que los archivos de entrada de LilyPond son de texto, existe al
+menos un asunto que tener en cuenta al trabajar con música vocal: los
+textos de las canciones se deben interpretar como texto, no como
+notas.  Por ejemplo, la entrada@tie{}@code{d} debe interpretarse como
+una sílaba de una sola letra, no como la nota@tie{}Re.  Por tanto se
+hace necesario utilizar un modo especial para la letra, ya sea
+explícitamente o mediante el uso de métodos abreviados.
+
 La letra de las canciones se introduce en un modo de entrada especial
 que se inicia mediante la palabra clave @code{\lyricmode}, o bien
 mediante @code{\addlyrics} ó @code{\lyricsto}.  En este modo puede
@@ -285,6 +294,8 @@ código ASCII por encima del 127, o una combinación de dos caracteres
 consistente en la combinación de una barra invertida seguida por
 @code{`}, @code{'}, @code{"} ó @code{^}.
 
+@c " to balance double quotes for not-so-bright context-sensitive editors
+
 Para definir identificadores que contengan letra, se debe usar la
 función @code{lyricmode}.
 
@@ -304,10 +315,15 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 
 @seealso
-Referencia de funcionamiento interno: @rinternals{LyricText},
+Referencia de la notación:
+@ref{Fonts}.
+
+Referencia de funcionamiento interno:
+@rinternals{LyricText},
 @rinternals{LyricSpace}.
 
 
+@c FIXME: this title has to be changed (possible confusion with LM) -vv
 @node Setting simple songs
 @unnumberedsubsubsec Setting simple songs
 
@@ -402,7 +418,9 @@ El código de entrada definitivo sería algo como
 @seealso
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referencia de funcionamiento interno:
-@rinternals{LyricCombineMusic}, @rinternals{Lyrics}.
+@rinternals{LyricCombineMusic},
+@rinternals{Lyrics}.
+
 
 
 @node Aligning lyrics to a melody
@@ -412,6 +430,11 @@ Referencia de funcionamiento interno:
 @funindex \addlyrics
 @funindex \lyricsto
 
+La alineación del texto con las melodías se puede hacer
+automáticamente, pero si especificamos las duraciones de las sílabas
+también puede hacerse de forma manual.  La alineación y el
+tipografiado de la letra se preparan con la ayuda de saltos o
+@i{skips}, guiones y líneas extensoras.
 
 La letra se imprime a través de su interpretación dentro del contexto
 llamado @rinternals{Lyrics}.
@@ -474,8 +497,14 @@ letra.
     \time 2/4
     c4 b8. a16 g4. f8 e4 d c2
   }
+
+% not recommended: left aligns syllables
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
+
+% wrong: durations needed
   \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
+
+%correct
   \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
 >>
 @end lilypond
@@ -541,12 +570,12 @@ duraciones manuales de las sílabas del texto:
 
 
 @seealso
-Referencia de funcionamiento interno: @rinternals{Lyrics}.
+Referencia de funcionamiento interno:
+@rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
 @unnumberedsubsubsec Multiple syllables to one note
-
 
 @funindex _
 @cindex ligaduras, en el texto
@@ -589,10 +618,24 @@ melismas, o melismata.
 @c this method seems to be the simplest; therefore
 @c it might be better to present it first - vv
 
-Puede definir los melismas completamente dentro de la letra,
-escribiendo un guión bajo @code{_} para cada nota que forma parte del
-melisma.
+Podemos definir los melismas completamente dentro de la letra,
+escribiendo un guión bajo @code{_} por cada nota que se quiere añadir
+al melisma.
 
+@c FIXME: clarify: __ is used to crate a lyric extender,
+@c _ is used to add a note to a melisma, so both __ and _ are needed.
+
+@c verbose! --FV
+@c duplicated: TODO fix
+Además, podemos hacer que se imprima una línea extensora para indicar
+el melisma en la partitura, escribiendo un doble guión bajo junto a la
+primera sílaba del melisma. Este ejemplo presenta los tres elementos
+que se usan con este fin (todos ellos circundados por espacios):
+guiones dobles para separar las sílabas de una palabra, guiones bajos
+para añadir notas al melisma, y un doble guión bajo para poner una
+línea extensora.
+
+@c wrong: extender line only on last syllable of a word. Change example
 @lilypond[relative=1,verbatim,fragment,quote]
 { \set melismaBusyProperties = #'()
  c d( e) f f( e) e e  }
@@ -600,9 +643,9 @@ melisma.
  { Ky -- _ _ ri __ _ _ _  e }
 @end lilypond
 
-En este caso, también puede tener ligaduras de unión y de expresión en
-la melodía, si establece @code{melismaBusyProperties}, como se hizo en
-el ejemplo anterior.
+En este caso también podemos tener ligaduras de unión y de expresión
+en la melodía, si establecemos @code{melismaBusyProperties}, como se
+hizo en el ejemplo anterior.
 
 Sin embargo la instrucción @code{\lyricsto} también puede detectar los
 melismas automáticamente: sólo pone una sílaba debajo de un grupo de
@@ -631,8 +674,7 @@ Además, las notas se consideran un melisma si están unidas manualmente
 mediante una barra, y el barrado automático (véase @ref{Setting
 automatic beam behavior}) está desactivado.
 
-@c TODO: there might be some more relevant place for
-@c the following link (?)
+@c FIXME: this now links to LM -vv
 
 @cindex SATB
 @cindex coral, partitura
@@ -650,8 +692,7 @@ sección @rlearning{Vocal ensembles}.
 
 
 @seealso
-@comment  Referencia de funcionamiento interno:
-@comment  @rinternals{Melisma_translator}.
+@c @lsr{vocal,lyric@/-combine.ly}.
 
 
 @knownissues
@@ -683,13 +724,21 @@ Por ejemplo,
 @unnumberedsubsubsec Extenders and hyphens
 
 @cindex melisma
-@cindex extender
+@cindex extensora, línea
+@cindex línea de extensión
 
 @c leave this as samp. -gp
 Los melismas se indican mediante una línea horizontal centrada entre
 una sílaba y la siguiente.  Esta línea recibe el nombre de línea de
 extensión, y se escribe como @samp{ __ } (fíjese en los espacios antes
 y después de los dos guiones bajos).
+
+@warning{Los melismas se indican en la partitura con líneas
+extensoras, que se escriben con un doble guión bajo; pero también se
+pueden introducir melismas cortos mediante saltos de notas
+individuales, que se escriben como caracteres de guión bajo sueltos;
+de forma predeterminada éstos no producen la impresión de una línea de
+extensión.}
 
 @cindex guiones
 
@@ -707,8 +756,9 @@ guiones).
 
 
 @seealso
-Referencia de funcionamiento interno: @rinternals{LyricExtender},
-@rinternals{LyricHyphen}
+Referencia de funcionamiento interno:
+@rinternals{LyricExtender},
+@rinternals{LyricHyphen}.
 
 
 @node Lyrics and repeats
@@ -807,6 +857,17 @@ lyr = \lyricmode { I like my cat! }
 >>
 @end lilypond
 
+Sólo se recomienda este método si la música que está en el contexto
+@code{Devnull} no contiene melismas.  Los melismas están definidos por
+el contexto @code{Voice}.  La conexión de la letra a un contexto
+@code{Devnull} hace que se pierdan los enlaces entre la voz y las
+sílabas, y también la información relativa a los melismas.  Por tanto,
+si enlazamos la letra a un contexto @code{Devnull}, los melismas
+implícitos se ignoran.
+
+@c Conclusion: do not use devnull for lyrics -FV
+
+@c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
 
 @node Spacing out syllables
 @unnumberedsubsubsec Spacing out syllables
@@ -851,6 +912,49 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 }
 @end lilypond
 
+@c @snippets
+@c This snippet has been renamed to "lyrics-alignment.ly"
+@c update as soon as lsr/is updated -vv
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c {lyrics-alignment.ly}
+
+@c TODO: move to LSR -vv
+@snippets
+
+La comprobación que asegura que las inscripciones de texto y la letra
+de las canciones se mantienen dentro de los márgenes, es una tarea
+computacional relativamente costosa.  Para acelerar el procesado,
+LilyPond no hace tales cálculos de forma predeterminada; para
+habilitarlos, utilice
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+Para hacer también que las sílabas de la letra eviten las barras de compás, use
+
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  @}
+@}
+@end example
+
+@c TODO Create and add lsr example of lyricMelismaAlignment
+@c It's used like this to center-align all lyric syllables,
+@c even when notes are tied. -td
+
+@ignore
+\layout
+{
+     \context { \Score lyricMelismaAlignment = #0 }
+}
+@end ignore
+
 
 @node Centering lyrics between staves
 @unnumberedsubsubsec Centering lyrics between staves
@@ -863,7 +967,7 @@ Continuará...
 @subsection Stanzas
 
 @menu
-* Adding stanza numbers ::
+* Adding stanza numbers::
 * Adding dynamics marks to stanzas::
 * Adding singers' names to stanzas::
 * Stanzas with different rhythms::
@@ -895,6 +999,37 @@ Los números de los versos se pueden añadir estableciendo
 @noindent
 Estos números aparecerán inmediatamente antes de la primera sílaba.
 
+@c TODO Create and add snippet to show how two lines of a
+@c stanza can be grouped together, along these lines:
+@c (might need improving a bit) -td
+
+@ignore
+leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
+#"brace105" }
+
+stanzaOneOne = {
+  \set stanza = \markup { "1. " \leftbrace }
+  \lyricmode { Child, you're mine and I love you.
+    Lend thine ear to what I say.
+
+  }
+}
+
+stanzaOneThree =  {
+%  \set stanza = \markup { "   "}
+  \lyricmode { Child, I have no great -- er joy
+    Than to have you walk in truth.
+
+  }
+}
+
+\new Voice {
+  \repeat volta 2 { c'8 c' c' c' c' c' c'4
+                    c'8 c' c' c' c' c' c'4   }
+}  \addlyrics { \stanzaOneOne }
+   \addlyrics { \stanzaOneThree }
+
+@end ignore
 
 @node Adding dynamics marks to stanzas
 @unnumberedsubsubsec Adding dynamics marks to stanzas
@@ -930,7 +1065,6 @@ text = {
 @cindex cantante, nombre del
 @cindex nombre del cantante
 
-
 También se pueden poner los nombres de los cantantes.  Se imprimen al
 comienzo de la línea, igual que los nombres de instrumento.  Se crean
 estableciendo un valor para @code{vocalName}.  Se puede definir una
@@ -959,13 +1093,9 @@ pero varias sílabas en otro.  Una solución es hacer que la voz más
 rápida ignore el melisma.  Esto se consigue estableciendo
 @code{ignoreMelismata} en el contexto Lyrics.
 
-Hay un aspecto delicado: el valor de @code{ignoreMelismata} se debe
-establecer una sílaba @emph{antes} de la sílaba no melismática del
-texto, tal y como se muestra a continuación:
-
 @c  TODO: breaks compile
+@c seems to be fixed, does not break compile anymore --FV
 @lilypond[verbatim,ragged-right,quote]
-%{
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -978,31 +1108,15 @@ texto, tal y como se muestra a continuación:
     more slow -- ly
   }
   \new Lyrics \lyricsto "lahlah" {
-    \set ignoreMelismata = ##t % se aplica al "fas"
-    go fas -- ter
+    go
+    \set ignoreMelismata = ##t
+    fas -- ter
     \unset ignoreMelismata
     still
   }
 >>
-%}
 @end lilypond
 
-
-El @code{ignoreMelismata} se aplica a la sílaba @q{fas}, por ello se
-debe introducir antes de @q{go}.
-
-La inversa también es posible: hacer que una línea de letra sea más
-lenta que la normal.  Esto se puede conseguir insertando @code{\skip}s
-(desplazamientos) dentro de la letra.  Para cada @code{\skip}, el
-texto se retrasará una nota más.  Por ejemplo,
-
-@lilypond[verbatim,ragged-right,quote]
-\relative c' { c c g' }
-\addlyrics {
-  twin -- \skip 4
-  kle
-}
-@end lilypond
 
 @subsubheading Switching to an alternative melody
 
@@ -1068,8 +1182,11 @@ consigue con
 Aquí, @code{alternative} es el nombre del contexto de @code{Voice} que
 contiene el tresillo.
 
-Una vez más, la instrucción debe ir una sílaba antes de la cuenta,
-antes de @q{Ty} en este caso.
+@c FIXME: make this easier to understand -vv
+La instrucción debe ir una sílaba antes de la cuenta, antes de @q{Ty}
+en este caso.  En otras palabras, el cambio en la voz asociada
+associatedVoice se produce un paso más tarde de lo que se espera.
+Esto es así por razones técnicas, y no es un fallo del programa.
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
@@ -1158,8 +1275,8 @@ text = \lyricmode {
 
 \markup {
   \fill-line {
-    \hspace #0.1 % moves the column off the left margin; can be removed if
-        % space on the page is tight
+    \hspace #0.1 % moves the column off the left margin;
+        % can be removed if space on the page is tight
      \column {
       \line { \bold "2."
         \column {
@@ -1175,9 +1292,9 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1  % adds horizontal spacing between columns; if they are
-        % still too close, add more " " pairs until the result
-        % looks good
+    \hspace #0.1  % adds horizontal spacing between columns;
+        % if they are still too close, add more " " pairs
+        % until the result looks good
      \column {
       \line { \bold "4."
         \column {
@@ -1193,8 +1310,8 @@ text = \lyricmode {
         }
       }
     }
-  \hspace #0.1 % gives some extra space on the right margin; can
-      % be removed if page space is tight
+  \hspace #0.1 % gives some extra space on the right margin;
+      % can be removed if page space is tight
   }
 }
 @end lilypond

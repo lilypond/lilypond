@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -594,11 +594,6 @@ anchura de la línea explícitamente.
 Para fragmentos de una sola línea, permitir que la longitud del
 pentagrama se amplíe hasta igualar la anchura de la línea, es decir,
 se añade @code{ragged-right = ##f} al fragmento de LilyPond.
-
-@c does this option still exist in lilypond? -jm
-@item packed
-Producir líneas con el espaciado empaquetado, es decir, se añade
-@code{packed = ##t} al fragmento de código de LilyPond.
 
 @item line-width
 @itemx line-width=@var{tamaño}\@var{unidades}

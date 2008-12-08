@@ -83,9 +83,10 @@ def texi2html_title_gettext (m):
     return '<title>' + _ (m.group (1)) + double_punct_char_separator + ': ' \
         + m.group (2) + _ (m.group (3)) + '</title>'
 
-a_href_re = re.compile ('(?s)<a (?P<attributes>[^>]*?href="[\\w.#-_]+"[^>]*>)(?P<code><code>)?\
-(?P<appendix>Appendix )?(?P<leading>[A-Z0-9.]+ | (?:&lt;){1,2} |&nbsp;[^:]+?:&nbsp;|&nbsp;|)\
-(?P<name>.+?)(?P<end_code>(?(code)</code>|))(?P<trailing>| (?:&gt;){1,2} |&nbsp;|)</a>:?')
+a_href_re = re.compile ('(?s)<a (?P<attributes>[^>]*?href="[\\w.#-_]+"[^>]*?>)(?P<code><code>)?\
+(?P<appendix>Appendix )?(?P<leading>[A-Z0-9.]+ | (?:&lt;){1,2} |&nbsp;[^>:]+?:&nbsp;|&nbsp;|)\
+(?P<name>(?:<samp><span class="command">|</?code>|</span>|[^>])+?)(?P<end_code>(?(code)</code>|))\
+(?P<trailing> (?:&gt;){1,2} |&nbsp;|)</a>:?')
 
 def a_href_gettext (m):
     s = ''

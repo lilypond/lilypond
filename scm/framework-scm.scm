@@ -34,5 +34,3 @@
 (define-public (convert-to-ps . args) #t)
 (define-public (convert-to-pdf . args) #t)
 (define-public (convert-to-png . args) #t)
-(define-public (convert-to-dvi . args) #t)
-(define-public (convert-to-tex . args) #t)

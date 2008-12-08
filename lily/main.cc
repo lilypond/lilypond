@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "main.hh"
@@ -56,9 +56,6 @@ string init_name_global;
 
 /* Output formats to generate.  */
 string output_format_global = "";
-
-bool is_pango_format_global;
-bool is_TeX_format_global;
 
 /* Current output name. */
 string output_name_global;
@@ -142,11 +139,9 @@ static Long_option_init options_static[]
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
   {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
-  {0, "dvi", 0, _i ("generate DVI (tex backend only)")},
   {0, "pdf", 0, _i ("generate PDF (default)")},
   {0, "png", 0, _i ("generate PNG")},
   {0, "ps", 0, _i ("generate PostScript")},
-  {0, "tex", 0, _i ("generate TeX (tex backend only)")},
   {0, "help", 'h',  _i ("show this help and exit")},
   {_i ("FIELD"), "header", 'H',  _i ("dump header field FIELD to file\n"
 				     "named BASENAME.FIELD")},
@@ -224,7 +219,7 @@ static void
 copyright ()
 {
   printf (_f ("Copyright (c) %s by\n%s  and others.",
-	      "1996--2007",
+	      "1996--2008",
 	      AUTHORS).c_str ());
   printf ("\n");
 }
@@ -388,7 +383,6 @@ main_with_guile (void *, int, char **)
   if (be_verbose_global)
     dir_info (stderr);
 
-  is_pango_format_global = !is_TeX_format_global;
   init_scheme_variables_global = "(list " + init_scheme_variables_global + ")";
   init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
@@ -398,10 +392,6 @@ main_with_guile (void *, int, char **)
 
   init_freetype ();
   ly_reset_all_fonts ();
-
-  is_TeX_format_global = (get_output_backend_name () == "tex"
-			  || get_output_backend_name () == "texstr");
-  
 
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
@@ -438,7 +428,7 @@ setup_localisation ()
   setlocale (LC_ALL, "");
 
   /* FIXME: check if this is still true.
-     Disable localisation of float values.  This breaks TeX output.  */
+     Disable localisation of float values. */
   setlocale (LC_NUMERIC, "C");
 
   string localedir = LOCALEDIR;
@@ -468,11 +458,9 @@ parse_argv (int argc, char **argv)
       switch (opt->shortname_char_)
 	{
 	case 0:
-	  if (string (opt->longname_str0_) == "dvi"
-	      || string (opt->longname_str0_) == "pdf"
+	  if (string (opt->longname_str0_) == "pdf"
 	      || string (opt->longname_str0_) == "png"
-	      || string (opt->longname_str0_) == "ps"
-	      || string (opt->longname_str0_) == "tex")
+	      || string (opt->longname_str0_) == "ps")
 	    add_output_format (opt->longname_str0_);
 	  else if (string (opt->longname_str0_) == "relocate")
 	    relocate_binary = true;

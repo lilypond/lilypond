@@ -78,7 +78,7 @@
                                tmpstencil)))
       (if (ly:stencil-empty? stroke-stencil)
         (begin
-          (ly:warning (_ "flag stroke `~a' or `~a'not found") font-char alt-font-char)
+          (ly:warning (_ "flag stroke `~a' or `~a' not found") font-char alt-font-char)
           stencil)
         (ly:stencil-add stencil stroke-stencil)))))
 

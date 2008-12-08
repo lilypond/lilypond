@@ -154,7 +154,7 @@ stderr of this run."
 \test "" ##[ \noPageTurn #]
 
 %% Checks
-\test "" ##[ \octave a' #]				% RelativeOctaveCheck
+\test "" ##[ \octaveCheck a' #]				% RelativeOctaveCheck
 \test "" ##[ | #]					% BarCheck
 
 %% Marks

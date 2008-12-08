@@ -1,7 +1,7 @@
 /*
   performer-group.hh -- declare Performer_group
 
-  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 

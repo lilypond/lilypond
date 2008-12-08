@@ -161,7 +161,8 @@ newer.  4.x is strongly recommended).
 
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 
-@item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
+@item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}
+(version 0.17 or newer).
 
 @item @uref{http://www.gnu.org/software/flex/,Flex}.
 
@@ -182,7 +183,7 @@ Running LilyPond requires proper installation of the following software
 @itemize
 
 @item @uref{http://www.freetype.org/,Freetype} (version 2.1.10 or newer).
-@item @uref{http://www.freetype.org/,FontConfig} (version 2.2).
+@item @uref{http://fontconfig.org/,FontConfig} (version 2.2).
 @item @uref{http://www.pango.org/,Pango} (version 1.12 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
 (version 1.8.2 or newer), or patch 1.8.1 with

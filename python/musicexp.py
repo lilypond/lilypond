@@ -1485,8 +1485,12 @@ class TimeSignatureChange (Music):
         # signatures anyway despite the default 'C signature style!
         is_common_signature = self.fractions in ([2,2], [4,4], [4,2])
         if self.style:
-            if (self.style != "'()") or is_common_signature:
+            if self.style == "common":
+                st = "\\defaultTimeSignature"
+            elif (self.style != "'()"):
                 st = "\\once \\override Staff.TimeSignature #'style = #%s " % self.style
+            if (self.style != "'()") or is_common_signature:
+                st = "\\numericTimeSignature"
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len (self.fractions) == 2 and isinstance (self.fractions[0], int):

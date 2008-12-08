@@ -1,9 +1,12 @@
 $(outdir)/%.ly: %.ly
 	cp $< $@
 
+$(outdir)/%.ily: %.ily
+	cp $< $@
+
 $(outdir)/%.ly: %.abc
 #which file to show here -- abc seems more cute?
-	ln -f $< $@
+	cp $< $@
 
 $(outdir)/%.ly: %.abc
 	$(PYTHON) $(ABC2LY) --strict -o $@ $<

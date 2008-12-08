@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef LILY_PROTO_HH
@@ -170,7 +170,6 @@ class Swallow_engraver;
 class Swallow_performer;
 class System;
 class Tempo_performer;
-class Tex_font_metric;
 class Tie;
 class Tie_details;
 class Tie_configuration;

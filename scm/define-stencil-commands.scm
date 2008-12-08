@@ -3,7 +3,7 @@
 ;;
 ;; source file of the GNU LilyPond music typesetter
 ;;
-;; (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;; (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;
 
 (map ly:register-stencil-expression
@@ -46,7 +46,7 @@
 ;; TODO:
 ;;  - generate this list by registering the output-backend-commands
 ;;    output-backend-commands should have docstrings.
-;;  - remove hard copies in output-ps output-tex
+;;  - remove hard copies in output-ps
 
 (define-public (ly:all-output-backend-commands)
   "Return list of output backend commands."

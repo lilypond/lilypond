@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2008 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "page-turn-page-breaking.hh"

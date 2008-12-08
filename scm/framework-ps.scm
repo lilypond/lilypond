@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-module (scm framework-ps))
 
@@ -37,11 +37,6 @@
        (ly:string-substitute
 	"%" "_" name)))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
-
-(define (tex-font? fontname)
-  (or
-   (equal? (substring fontname 0 2) "cm")
-   (equal? (substring fontname 0 2) "ec")))
 
 (define (define-fonts paper)
   (define font-list (ly:paper-fonts paper))
@@ -767,12 +762,6 @@
 		     (* paper-width output-scale (/ (ly:bp 1)))
 		     (* paper-height output-scale (/ (ly:bp 1)))
 		     name)))
-
-(define-public (convert-to-dvi book name)
-  (ly:warning (_ "cannot generate ~S using the postscript back-end") "DVI"))
-
-(define-public (convert-to-tex book name)
-  (ly:warning (_ "cannot generate ~S using the postscript back-end") "TeX"))
 
 (define-public (convert-to-ps book name)
   #t)

@@ -30,9 +30,20 @@
 @top GNU LilyPond --- Manuel d'initiation
 @end ifnottex
 
+
 @ifhtml
-Ce document est également disponible au format
-@uref{source/Documentation/user/lilypond-learning.fr.pdf,PDF}.
+@ifclear bigpage
+Ce document est également disponible au
+@uref{source/Documentation/user/lilypond-learning.fr.pdf,format PDF},
+et en une seule
+@uref{source/Documentation/user/lilypond-learning-big-page.fr.html,grande page}.
+@end ifclear
+@ifset bigpage
+Ce document est également disponible au
+@uref{source/Documentation/user/lilypond-learning.fr.pdf,format PDF},
+et en @uref{source/Documentation/user/lilypond-learning/index.fr.html,pages HTML
+séparées}.
+@end ifset
 @end ifhtml
 
 @c urg, makeinfo 4.9.91 French translation is funky
