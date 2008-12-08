@@ -148,12 +148,12 @@ a fresh copy of the list-head is made."
   (ly:export
    (context-spec-music
     (make-apply-context (lambda (c)
-			  (override-property-setting
-			   c 'autoBeamSettings
-			   setting (ly:make-moment num den))))
+        (override-property-setting
+         c 'autoBeamSettings
+         setting (ly:make-moment num den))))
     (if (and (pair? rest) (symbol? (car rest)))
-	(car rest)
-	'Voice))))
+        (car rest)
+        'Voice))))
 
 (define-public (score-override-auto-beam-setting setting num den)
   (override-auto-beam-setting setting num den 'Score))
@@ -161,13 +161,14 @@ a fresh copy of the list-head is made."
 (define-public (revert-auto-beam-setting setting num den . rest)
   (ly:export
    (context-spec-music
-    (make-apply-context (lambda (c)
-			  (revert-property-setting
-			   c 'autoBeamSettings
-			   (cons setting (ly:make-moment num den)))))
+    (make-apply-context
+      (lambda (c)
+        (revert-property-setting
+         c 'autoBeamSettings
+         (cons setting (ly:make-moment num den)))))
     (if (and (pair? rest) (symbol? (car rest)))
-	(car rest)
-	'Voice))))
+        (car rest)
+        'Voice))))
 
 ;;  Determine end moment for auto beaming (or begin moment, but mostly
 ;;  0== anywhere).  In order of decreasing priority:
@@ -201,11 +202,11 @@ a fresh copy of the list-head is made."
       (if (not (null? value)) value default)))
 
   (define (ending-moments group-list start-beat beat-length)
-  (if (null? group-list)
-      '()
-      (let ((new-start (+ start-beat (car group-list))))
-        (cons (ly:moment-mul (ly:make-moment new-start 1) beat-length)
-              (ending-moments (cdr group-list) new-start beat-length)))))
+    (if (null? group-list)
+        '()
+        (let ((new-start (+ start-beat (car group-list))))
+          (cons (ly:moment-mul (ly:make-moment new-start 1) beat-length)
+                (ending-moments (cdr group-list) new-start beat-length)))))
 
   (define (make-end-settings time ending-list moment-den)
     (if (null? ending-list)
@@ -216,60 +217,60 @@ a fresh copy of the list-head is made."
   
   ;; Don't start auto beams on grace notes
   (if (and (!= (ly:moment-grace-numerator (ly:context-now context)) 0)
-	         (= dir START))
+           (= dir START))
       #f
       (let* ((beat-length (get 'beatLength (ly:make-moment 1 4)))
-	           (measure-length (get 'measureLength (ly:make-moment 1 1)))
-	           (measure-pos (get 'measurePosition ZERO-MOMENT))
+             (measure-length (get 'measureLength (ly:make-moment 1 1)))
+             (measure-pos (get 'measurePosition ZERO-MOMENT))
              (beat-grouping (get 'beatGrouping '()))
-	           (settings (get 'autoBeamSettings '()))
-	           (function (list (if (= dir START) 'begin 'end)))
+             (settings (get 'autoBeamSettings '()))
+             (function (list (if (= dir START) 'begin 'end)))
              ;; Calculate implied time signature based on measureLength
              ;; and beatLength for default value in get
-	           (num-mom (ly:moment-div measure-length beat-length))
-	           (num (inexact->exact
-		                (round (/ (ly:moment-main-numerator num-mom)
-			                        (ly:moment-main-denominator num-mom)))))
-	           (den (ly:moment-main-denominator beat-length))
+             (num-mom (ly:moment-div measure-length beat-length))
+             (num (inexact->exact
+                    (round (/ (ly:moment-main-numerator num-mom)
+                              (ly:moment-main-denominator num-mom)))))
+             (den (ly:moment-main-denominator beat-length))
              (time-signature-fraction 
                (get 'timeSignatureFraction (cons num den)))
-	           (time (list (car time-signature-fraction)
+             (time (list (car time-signature-fraction)
                          (cdr time-signature-fraction)))
-	           (type (list (ly:moment-main-numerator test)
-			                   (ly:moment-main-denominator test)))
-	           (pos (if (>= (ly:moment-main-numerator measure-pos) 0)
-		                  measure-pos
-		                  (ly:moment-add measure-length measure-pos)))
+             (type (list (ly:moment-main-numerator test)
+                         (ly:moment-main-denominator test)))
+             (pos (if (>= (ly:moment-main-numerator measure-pos) 0)
+                      measure-pos
+                      (ly:moment-add measure-length measure-pos)))
              (grouping-moments (ending-moments beat-grouping 0 beat-length))
              ;; Calculate implied measure length from beatGrouping
              ;; and beatLength
-	           (grouping-length (if (null? grouping-moments)
+             (grouping-length (if (null? grouping-moments)
                                   ZERO-MOMENT
                                   (list-ref grouping-moments 
                                             (1- (length grouping-moments)))))
              (lst (list
-		                ;; Hmm, should junk user-override feature,
-		                ;; or split this in user-override and config section?
-		                (append function type '(* *))
-		                (append function '(* * * *))
-		                (append function type time)
-		                (append function '(* *) time)))
+                    ;; Hmm, should junk user-override feature,
+                    ;; or split this in user-override and config section?
+                    (append function type '(* *))
+                    (append function '(* * * *))
+                    (append function type time)
+                    (append function '(* *) time)))
              (predefined-setting (first-assoc lst settings)))
          (if (or
-	              ;; always begin or end beams at beginning/ending of measure
-	              (= (ly:moment-main-numerator pos) 0)
-	              (first-member (map (lambda (x) (cons x pos)) lst) settings))
-	           #t
-	           (if (= dir START)
-		             ;; if no entry matches our function + time or type,
-		             ;; start anywhere
-		             (not predefined-setting)
-		             ;; if entry matches our function + time or type, check moment
-		             (if predefined-setting
+                ;; always begin or end beams at beginning/ending of measure
+                (= (ly:moment-main-numerator pos) 0)
+                (first-member (map (lambda (x) (cons x pos)) lst) settings))
+             #t
+             (if (= dir START)
+                 ;; if no entry matches our function + time or type,
+                 ;; start anywhere
+                 (not predefined-setting)
+                 ;; if entry matches our function + time or type, check moment
+                 (if predefined-setting
                     (equal? measure-pos (cdr predefined-setting))
                     ;; if measure-length matches grouping-length, use
                     ;; grouping moments, else use beat-length
                     (if (equal? measure-length grouping-length)
-		                    (member measure-pos grouping-moments)
+                        (member measure-pos grouping-moments)
                         (= (ly:moment-main-denominator
-			                     (ly:moment-div pos beat-length)) 1))))))))
+                           (ly:moment-div pos beat-length)) 1))))))))
