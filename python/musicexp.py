@@ -1489,7 +1489,7 @@ class TimeSignatureChange (Music):
                 st = "\\defaultTimeSignature"
             elif (self.style != "'()"):
                 st = "\\once \\override Staff.TimeSignature #'style = #%s " % self.style
-            if (self.style != "'()") or is_common_signature:
+            elif (self.style != "'()") or is_common_signature:
                 st = "\\numericTimeSignature"
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
