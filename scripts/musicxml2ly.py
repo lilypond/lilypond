@@ -726,6 +726,7 @@ def group_tuplets (music_list, events):
         tsm.element = seq
 
         new_list.append (tsm)
+        #TODO: Handle nested tuplets!!!!
 
     new_list.extend (music_list[last:])
     return new_list
