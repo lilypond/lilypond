@@ -1478,6 +1478,13 @@ class TimeSignatureChange (Music):
         Music.__init__ (self)
         self.fractions = [4,4]
         self.style = None
+    def format_fraction (self, frac):
+        if isinstance (frac, list):
+            l = [self.format_fraction (f) for f in frac]
+            return "(" + string.join (l, " ") + ")"
+        else:
+            return "%s" % frac
+
     def ly_expression (self):
         st = ''
         # Print out the style if we have ome, but the '() should only be 
@@ -1495,11 +1502,9 @@ class TimeSignatureChange (Music):
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len (self.fractions) == 2 and isinstance (self.fractions[0], int):
             return st + '\\time %d/%d ' % tuple (self.fractions)
-        elif self.fractions and not isinstance (self.fractions[0], list):
-            # TODO: Implement non-standard time-signatures
-            return st + ''
+        elif self.fractions:
+            return st + "\\compoundMeter #'%s" % self.format_fraction (self.fractions)
         else:
-            # TODO: Implement non-standard time-signatures
             return st + ''
     
 class ClefChange (Music):
