@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-07 23:30+0100\n"
-"PO-Revision-Date: 2008-12-08 21:27+0200\n"
+"PO-Revision-Date: 2008-12-08 21:36+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -4164,7 +4164,7 @@ msgstr "LilyPond-Dateien erstellen"
 
 #. @top in Documentation/user/lilypond.tely
 msgid "GNU LilyPond --- Notation Reference"
-msgstr "GNU LilyPond -- Die Notationsreferenz"
+msgstr "GNU LilyPond -- Notationsreferenz"
 
 #. @chapheading in Documentation/user/lilypond.tely
 msgid "The music typesetter"

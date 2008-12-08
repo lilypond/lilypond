@@ -58,7 +58,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @ifnottex
 @node Top
-@top GNU LilyPond -- Notationsreferenz
+@top GNU LilyPond --- Notation Reference
 @chapheading Das Notensatzprogramm
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @end ifnottex
