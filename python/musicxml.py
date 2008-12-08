@@ -539,6 +539,8 @@ class Syllabic (Music_xml_node):
         return (text == "begin") or (text == "middle")
 class Elision (Music_xml_node):
     pass
+class Extend (Music_xml_node):
+    pass
 class Text (Music_xml_node):
     pass
 
@@ -1173,6 +1175,7 @@ class_dict = {
         'direction-type': DirType,
 	'duration': Duration,
         'elision': Elision,
+        'extend': Extend,
         'frame': Frame,
         'frame-note': Frame_Note,
         'figured-bass': FiguredBass,

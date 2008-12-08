@@ -1763,6 +1763,7 @@ def musicxml_note_to_lily_main_event (n):
 def musicxml_lyrics_to_text (lyrics):
     # TODO: Implement text styles for lyrics syllables
     continued = False
+    extended = False
     text = ''
     for e in lyrics.get_all_children ():
         if isinstance (e, musicxml.Syllabic):
@@ -1775,15 +1776,24 @@ def musicxml_lyrics_to_text (lyrics):
             if text:
                 text += " "
             continued = False
+            extended = False
+        elif isinstance (e, musicxml.Extend):
+            if text:
+                text += " "
+            extended = True
 
     if text == "-" and continued:
         return "--"
-    elif text == "_" and continued:
+    elif text == "_" and extended:
         return "__"
     elif continued and text:
         return musicxml.escape_ly_output_string (text) + " --"
     elif continued:
         return "--"
+    elif extended and text:
+        return musicxml.escape_ly_output_string (text) + " __"
+    elif extended:
+        return "__"
     elif text:
         return musicxml.escape_ly_output_string (text)
     else:

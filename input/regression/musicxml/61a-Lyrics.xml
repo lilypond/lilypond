@@ -82,7 +82,6 @@
         <lyric number="1">
           <syllabic>single</syllabic>
           <text>Ja!</text>
-          <extend/>
         </lyric>
       </note>
     </measure>
@@ -130,7 +129,6 @@
         <lyric number="1">
           <syllabic>end</syllabic>
           <text>ra!</text>
-          <extend/>
         </lyric>
       </note>
     </measure>
@@ -144,9 +142,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1">
-          <extend/>
-        </lyric>
       </note>
       <note>
         <pitch>
@@ -157,9 +152,8 @@
         <voice>1</voice>
         <type>quarter</type>
         <lyric number="1">
-          <syllabic>begin</syllabic>
+          <syllabic>single</syllabic>
           <text>Bah!</text>
-          <extend/>
         </lyric>
       </note>
       <note>
@@ -170,9 +164,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>half</type>
-        <lyric number="1">
-          <extend/>
-        </lyric>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
