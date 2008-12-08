@@ -130,7 +130,7 @@ at the top of the @code{.ly} file.
 
 @item -f,--format=@var{format}
 which formats should be written.  Choices for @code{format} are
-@code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex}, @code{dvi}.
+@code{svg}, @code{ps}, @code{pdf}, and @code{png}.
 
 Example: @code{lilypond -fpng @var{filename}.ly}
 
@@ -211,14 +211,6 @@ requires more work to set up.
 @item backend
 the output format to use for the back-end.  Choices for @code{format} are
 @table @code
-@item tex
-for @TeX{} output, to be processed with La@TeX{}.  If present, the file
-@file{file.textmetrics} is read to determine text extents.
-@item texstr
-dump text strings to @file{.texstr} file, which can be run through
-(La)@TeX{}, resulting in a @code{.textmetrics} file, which contains the
-extents of strings of text.  @strong{Warning:} this functionality is
-currently missing due to heavy restructuring of the source code.
 @item ps
  for PostScript.
 @cindex PostScript output
@@ -279,15 +271,10 @@ Set init file to @var{file} (default: @file{init.ly}).
 
 @item -o,--output=@var{FILE}
 Set the default output file to @var{FILE}.  The appropriate
-suffix will be added (i.e. @code{.pdf} for pdf, @code{.tex}
-for tex, etc).
+suffix will be added (e.g. @code{.pdf} for pdf)
 
 @item --ps
 Generate PostScript.
-
-@item --dvi
-Generate DVI files.  In this case, the @TeX{} backend should be
-specified, i.e., @code{-dbackend=tex}.
 
 @item --png
 Generate pictures of each page, in PNG format.  This implies

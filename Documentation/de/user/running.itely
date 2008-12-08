@@ -137,7 +137,7 @@ Am Beginn der @file{.ly}-Datei muss dann das @code{guile-user} Modul noch gelade
 
 @item -f,--format=@var{Format}
 Bestimmt das Ausgabeformat. Mögliche Werte von @var{Format} sind
-@code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex} und @code{dvi}.
+@code{svg}, @code{ps}, @code{pdf} und @code{png}.
 
 Beispiel: @code{lilypond -fpng @var{Dateiname}.ly}
 
@@ -202,8 +202,7 @@ abgeleitet und fügt noch zahlreiche weitere erlaubte Funktionen der
 LilyPond Programm-Schnittstelle hinzu. Diese Funktionen sind in 
 @file{scm/@/safe@/-lily@/.scm} angegeben.
 
-Zusätzliche verbietet der sichere Modus auch @code{\include} Befehle sowie
-die Benutzung eines Backslashs in @TeX{} Zeichenketten.
+Zusätzliche verbietet der sichere Modus auch @code{\include} Befehle.
 
 Im sicheren Modus ist es nicht möglich, LilyPond-Variablen nach Scheme 
 zu exportieren.
@@ -224,15 +223,6 @@ Einrichtung.
 Gibt an, welches Ausgabeformat das LilyPond Backend benutzt. Mögliche Werte
 für diese Option sind:
 @table @code
-@item tex
-@TeX{}-Ausgabeformat, das mit La@TeX{} weiterverarbeitet werden kann. Falls sie
-existiert, wird die Datei @file{file.textmetrics} gelesen, um die Textweiten 
-zu bestimmen.
-@item texstr
-Schreibt alle Zeichenketten in eine @file{.texstr}-Datei, die mit (La)@TeX{}
-verarbeitet werden kann, um eine @code{.textmetrics}-Datei mit den Textweiten
-zu erstellen. @strong{Achtung:} Diese Funktionalität ist momentan nicht 
-verfügbar, da der Quellcode stark umstrukturiert wurde.
 @item ps
 PostScript-Ausgabeformat.
 
@@ -303,14 +293,10 @@ Standardwert ist @file{init.ly}.
 @item -o,--output=@var{DATEI}
 Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
 @var{DATEI}. Die entsprechende Dateinamenserweiterung wird angehängt (z.B. 
-@code{.pdf} für pdf, @code{.tex} für tex, etc.).
+@code{.pdf} für pdf).
 
 @item --ps
 Erzeugt PostScript.
-
-@item --dvi
-Erzeugt DVI-Dateien. In diesem Fall sollte das @TeX{}-Backend angegeben werden,
-d.h. auch @code{-dbackend=tex}.
 
 @item --png
 Erzeugt eine Grafik-Datei im PNG-Format von jeder Seite. Diese Option
