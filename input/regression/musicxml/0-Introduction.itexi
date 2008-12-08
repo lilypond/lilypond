@@ -51,25 +51,16 @@ element of the form:
 
 The files are categorized by their first two digits with the following meaning:
 @itemize
-@item 00 ... Basics: Pitches, durations, rests, clefs, keys, time sigs, ties, etc.
-@item 01 ... Chords
-@item 02 ... MusicXML notations and articulations (articulations, ornaments, technicals, text markup)
-@item 03 ... MusicXML directions (dynamics; single symbols, not spanners like hairpins)
-@item 04 ... Spanners (hairpin, octave shift, trill, glissando, etc.)
-@item 05 ... Header information (title, composer, poet, etc.)
-@item 06 ... Lyrics
-@item 08 ... Multiple parts (staves)
-@item 09 ... Measure issues: Repeats, barlines, pickup measures, mid-measure barlines/repeats
-@item 10 ... Multiple voices per staff
-@item 12 ... Triplets, Tuplets
-@item 13 ... Grace notes
-@item 14 ... Multi-staff parts (one voice on multiple staves, e.g. PianoStaff)
-@item 15 ... Percussion
-@item 17 ... Guitar notation: Chord names, Fretboards, Tablature notation
-@item 18 ... Figured bass
-@item 19 ... Page layout: font/paper size, margins, spacing
-@item 20 ... Compressed MusicXML files
-@item 99 ... Compatibility modes with broken MusicXML exporters (i.e. ignore beams for Sibelius 5)
+@item 01-03 ... Basics: Pitches, Rests, Rhythm
+@item 11-13 ... Staff attributes: Time signatures, Clefs, Key signatures
+@item 21-24 ... Note settings: Chorded notes, note heads, tuplets, grace notes
+@item 31-33 ... Notations and articulations: Dynamics (staff-attached), Notations (note-attached), Spanners
+@item 41-44 ... Parts: Multiple parts, multi-voice parts, multi-staff parts
+@item 45-46 ... Measure issues and repeats
+@item 51-52 ... Page issues: Header fields, page layout
+@item 61-69 ... Vocal music
+@item 71-75 ... Instrument-specific: Guitar (Chord, fretboards), Transposing instruments, Percussion, Figured Bass, Others
+@item 90-99 ... Various Other: Compressed MusicXML files, compatibility with broken MusicXML files exported by other applications
 @end itemize
 
 @node Test cases

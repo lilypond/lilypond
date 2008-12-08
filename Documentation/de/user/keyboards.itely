@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -561,6 +561,11 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 Schnipsel:
 @rlsr{Keyboards}.
 
+@menu
+* Harp notation::
+* Harp pedals::
+@end menu
+
 
 @node Harp
 @subsection Harp
@@ -583,3 +588,44 @@ case of glissandi, it would be desirable to have a demonstration
 of different styles.
 
 @end ignore
+
+
+@node Harp pedals
+@unnumberedsubsubsec Harp pedals
+
+@cindex Harfenpedal
+@cindex Pedal, Harfe
+@cindex Pedaldiagramme, Harfe
+
+Harfe haben sieben Saiten in einer Oktave, die entweder als normaler
+Ton, oder aber erhöht bzw. erniedrigt klingen können.  Bei einer
+Hakenharfe kann man jede Saite einzeln einstellen, bei Pedalharfen aber
+wird jede Saite mit der gleichen Notenbezeichnung von einem einzigen
+Pedal kontrolliert.  Vom Spieler aus gesehen von rechts nach links sind
+die Pedale: D, C und H für die linke und E, F, G und A für die rechte
+Seite.  Die Position des Pedals kann mit Textbeschriftungselementen:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {[ C \natural ]}
+@end lilypond
+
+@noindent
+oder Pedaldiagrammen angezeigt werden:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup { \harp-pedal #"^v-|vv-^" }
+c!1_\markup { \harp-pedal #"^o--|vv-^" }
+@end lilypond
+
+Der @code{\harp-pedal}-Befehl braucht eine Anzahl an Zeichen, von
+welchen @code{^} die höchste Pedalposition (erniedrigte Tonhöhe),
+@code{-} die mittlere Pedalposition (normale Tonhöhe, @code{v} die
+tiefste Pedalposition (erhöhter Ton) anzeigt.  @code{|} ist ein
+Trenner.  Ein @code{o} vor der Definition umrandet das Symbol.
+
+@seealso
+Notationsreferenz:
+@ruser{Text scripts}

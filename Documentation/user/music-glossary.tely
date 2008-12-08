@@ -14,19 +14,6 @@
 * Glossary: (lilypond/music-glossary).  Glossary of music terms.
 @end direntry
 
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/user/music-glossary.pdf,PDF} and as
-@uref{source/Documentation/user/music-glossary-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/user/music-glossary.pdf,PDF} and as a
-@uref{source/Documentation/user/music-glossary/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-
 @titlepage
 @title Music Glossary
 @author Christian Mondrup   @c Original author of LilyPond glossary
@@ -72,6 +59,19 @@ Copyright @copyright{} 1999--2008 by the authors
 
 
 @ifnottex
+
+@ifhtml
+@ifclear bigpage
+This document is also available as a
+@uref{source/Documentation/user/music-glossary.pdf,PDF} and as
+@uref{source/Documentation/user/music-glossary-big-page.html,one big page}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/user/music-glossary.pdf,PDF} and as a
+@uref{source/Documentation/user/music-glossary/index.html,HTML indexed multiple pages}.
+@end ifset
+@end ifhtml
 
 This glossary was brought you by:
 

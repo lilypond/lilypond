@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 7c57f1469e057f25f5d7a7b75c18f33bb4e5bed9
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -88,9 +88,8 @@ c, c,, e, g
 d,, d, d c
 @end lilypond
 
-
 @seealso
-Musikglossar:
+Glossar:
 @rglos{Pitch names}.
 
 Schnipsel:
@@ -214,7 +213,7 @@ Intervall enthält.
 
 
 @seealso
-Musikglossar:
+Musickgossar:
 @rglos{fifth},
 @rglos{interval},
 @rglos{Pitch names}.
@@ -234,7 +233,6 @@ Referenz der Interna:
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
-
 
 @knownissues
 
@@ -371,9 +369,11 @@ cis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
 
 @seealso
-Musikglossar:
+Glossar:
 @rglos{sharp},
 @rglos{flat},
 @rglos{double sharp},
@@ -421,55 +421,75 @@ Sprachen als Englisch. Um sie zu benutzen, muss nur die
 entsprechende Datei für die jeweilige Sprache eingefügt werden.
 Zum Beispiel fügt man mit @code{\include "deutsch.ly"} die 
 Notendefinitionen für die deutsche Sprache am Anfang der Datei 
-hinzu. In der Tabelle sind die existierenden Definitionen
-mit den dazugehörigen Notenbezeichnungen dargestellt.
+hinzu. In der Tabelle sind die existierenden Sprachdefinitionen
+mit den dazugehörigen Notenbezeichnungen dargestellt
 
-@smallexample
-@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
-@headitem Sprache
+@quotation
+@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
+@headitem Sprachdatei
   @tab Notenbezeichnung
-  @tab sharp @tab flat @tab double sharp @tab double flat
-@item nederlands.ly
+@item @file{nederlands.ly}
   @tab c d e f g a bes b
-  @tab -is @tab -es @tab -isis @tab -eses
-@item arabic.ly
+@item @file{arabic.ly}
   @tab do re mi fa sol la sib si
-  @tab -d @tab -b @tab -dd @tab -bb
-@item catalan.ly
+@item @file{catalan.ly}
   @tab do re mi fa sol la sib si
-  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
-@item deutsch.ly
+@item @file{deutsch.ly}
   @tab c d e f g a b h
-  @tab -is @tab -es @tab -isis @tab -eses
-@item english.ly
+@item @file{english.ly}
   @tab c d e f g a bf b
+@item @file{espanol.ly}
+  @tab do re mi fa sol la sib si
+@item @file{italiano.ly}
+  @tab do re mi fa sol la sib si
+@item @file{norsk.ly}
+  @tab c d e f g a b h
+@item @file{portugues.ly}
+  @tab do re mi fa sol la sib si
+@item @file{suomi.ly}
+  @tab c d e f g a b h
+@item @file{svenska.ly}
+  @tab c d e f g a b h
+@item @file{vlaams.ly}
+  @tab do re mi fa sol la sib si
+@end multitable
+@end quotation
+
+@noindent
+und die dazugehörigen Versetzungszeichen-Endungen:
+
+@quotation
+@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem Sprachdatei
+  @tab Kreuz @tab B @tab Doppelkreuz @tab Doppel-B
+@item @file{nederlands.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{arabic.ly}
+  @tab -d @tab -b @tab -dd @tab -bb
+@item @file{catalan.ly}
+  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item @file{deutsch.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{english.ly}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item espanol.ly
-  @tab do re mi fa sol la sib si
+@item @file{espanol.ly}
   @tab -s @tab -b @tab -ss @tab -bb
-@item italiano.ly
-  @tab do re mi fa sol la sib si
+@item @file{italiano.ly}
   @tab -d @tab -b @tab -dd @tab -bb
-@item norsk.ly
-  @tab c d e f g a b h
+@item @file{norsk.ly}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
     @tab -essess/-eses
-@item portugues.ly
-  @tab do re mi fa sol la sib si
+@item @file{portugues.ly}
   @tab -s @tab -b @tab -ss @tab -bb
-@item suomi.ly
-  @tab c d e f g a b h
+@item @file{suomi.ly}
   @tab -is @tab -es @tab -isis @tab -eses
-@item svenska.ly
-  @tab c d e f g a b h
+@item @file{svenska.ly}
   @tab -iss @tab -ess @tab -ississ @tab -essess
-@item vlaams.ly
-  @tab do re mi fa sol la sib si
+@item @file{vlaams.ly}
   @tab -k @tab -b @tab -kk @tab -bb
 @end multitable
-@end smallexample
-
+@end quotation
 
 @noindent
 Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) werden die 
@@ -495,36 +515,29 @@ Tabelle aufgeführt. Die Präfixe @qq{Semi-} und @qq{Sesqui-} bedeuten
 @qq{halb} bzw. @qq{eineinhalb}. Für alle anderen
 Sprachen sind noch keine eigenen Namen definiert.
 
-@smallexample
-@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
-@headitem Sprache
-  @tab Notenbezeichnung
-  @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
+@quotation
+@multitable {@file{nederlands.ly}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@headitem Sprachdatei
+  @tab Vierteltonkreuz @tab Viertelton-B @tab 3/4-tonkreuz @tab 3/4-ton-B
 
-@item nederlands.ly
-  @tab c d e f g a bes b
+@item @file{nederlands.ly}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item arabic.ly
-  @tab do re mi fa sol la sib si
+@item @file{arabic.ly}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item deutsch.ly
-  @tab c d e f g a b h
+@item @file{deutsch.ly}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item english.ly
-  @tab c d e f g a bf b
+@item @file{english.ly}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item italiano.ly
-  @tab do re mi fa sol la sib si
+@item @file{italiano.ly}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item portugues.ly
-  @tab do re mi fa sol la sib si
+@item @file{portugues.ly}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
 @end multitable
-@end smallexample
+@end quotation
 
 
 @seealso
-Musikglossar:
+Glossar:
 @rglos{Pitch names}.
 
 Schnipsel:
@@ -608,7 +621,6 @@ einen Fehler aus, die zweite dagegen ist erfolgreich:
   f
 }
 @end lilypond
-
 
 @seealso
 Schnipsel:
@@ -729,7 +741,6 @@ siehe auch @ref{Instrument transpositions}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-
 @seealso
 Notationsreferenz:
 @ref{Instrument transpositions}.
@@ -739,7 +750,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{TransposedMusic}.
-
 
 @funindex \transpose
 @funindex \chordmode
@@ -950,7 +960,7 @@ fis
 
 
 @seealso
-Musikglossar:
+Glossar:
 @rglos{church mode},
 @rglos{scordatura}.
 
@@ -1004,7 +1014,7 @@ haben.
 
 
 @seealso
-Musikglossar:
+Glossar:
 @rglos{octavation}.
 
 Schnipsel:
@@ -1101,7 +1111,7 @@ c2 g
 
 
 @seealso
-Musikglossar:
+Glossar:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
 
@@ -2154,7 +2164,7 @@ Tonart definiert werden.
 
 
 @seealso
-Musikglossar:
+Glossar:
 @rglos{ambitus}.
 
 Schnipsel:
@@ -2227,7 +2237,6 @@ von Akkorden benutzt werden kann:
 Alle möglichen Notenkopf-Stile finden sich in
 @ref{Note head styles}.
 
-
 @seealso
 Schnipsel:
 @rlsr{Pitches}.
@@ -2275,14 +2284,13 @@ sich in @ref{Setting the staff size}.
 }
 @end lilypond
 
+@funindex \easyHeadsOn
+@funindex \easyHeadsOff
 
 @predefined
-@funindex \easyHeadsOn
 @code{\easyHeadsOn},
-@funindex \easyHeadsOff
 @code{\easyHeadsOff}.
 @endpredefined
-
 
 @seealso
 Notationsreferenz:
@@ -2328,14 +2336,13 @@ Die unterschiedlichen Formen richten sich nach der Stufe in der
 Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
 entnommen wird.
 
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
 
 @predefined
-@funindex \aikenHeads
 @code{\aikenHeads},
-@funindex \sacredHarpHeads
 @code{\sacredHarpHeads}.
 @endpredefined
-
 
 @snippets
 
@@ -2344,7 +2351,6 @@ entnommen wird.
 
 @noindent
 Alle Notenkopfstile finden sich in @ref{Note head styles}.
-
 
 @seealso
 Schnipsel:
@@ -2388,14 +2394,13 @@ benutzt werden:
 }
 @end lilypond
 
+@funindex \improvisationOn
+@funindex \improvisationOff
 
 @predefined
-@funindex \improvisationOn
 @code{\improvisationOn},
-@funindex \improvisationOff
 @code{\improvisationOff}.
 @endpredefined
-
 
 @seealso
 Schnipsel:
