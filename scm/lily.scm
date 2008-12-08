@@ -31,7 +31,7 @@
     ;; - [subject-]-verb-object-object
 
     (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
-    (backend ps "which backend to use by default; Options: eps, ps [default], scm, svg)")
+    (backend ps "which backend to use by default; Options: eps, null, ps [default], scm, svg)")
     (check-internal-types #f "check every property assignment for types")
     (clip-systems #f "Generate cut-out snippets of a score")
     (datadir #f "LilyPond prefix for data files (Readonly).")

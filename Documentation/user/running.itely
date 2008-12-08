@@ -208,12 +208,13 @@ The safe mode will prevent many useful LilyPond snippets from being
 compiled.  The @code{--jail} is a more secure alternative, but
 requires more work to set up.
 
+@cindex output format, setting
 @item backend
 the output format to use for the back-end.  Choices for @code{format} are
 @table @code
 @item ps
- for PostScript.
 @cindex PostScript output
+ for PostScript.
 
   Postscript files include TTF, Type1 and OTF fonts.  No subsetting of
   these fonts is done.  When using oriental character sets, this can
@@ -227,22 +228,23 @@ all pages (systems) including fonts.
 This mode is used by default by @command{lilypond-book}.
 
 @item svg
+@cindex SVG (Scalable Vector Graphics)
  for SVG (Scalable Vector Graphics).  This dumps every page as a separate
 @file{SVG} file, with embedded fonts.
-@cindex SVG (Scalable Vector Graphics)
   You need a SVG viewer which supports embedded fonts, or a SVG
   viewer which is able to replace the embedded fonts with OTF fonts.
   Under UNIX, you may use @uref{http://www.inkscape.org,Inkscape}
   (version 0.42 or later), after copying the OTF fonts from the LilyPond directory
   (typically @file{/usr/share/lilypond/VERSION/fonts/otf/}) to @file{~/.fonts/}.
 @item scm
- for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
+ for a dump of the raw, internal Scheme-based drawing commands.
+
+@item null
+ do not output a printed score; has the same effect as @code{-dno-print-pages}.
 @end table
 
 Example: @code{lilypond -dbackend=svg @var{filename}.ly}
-
-@cindex output format, setting
 
 @item preview
 Generate an output file containing the titles and the first system
