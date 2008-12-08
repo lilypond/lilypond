@@ -4,7 +4,9 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Various time signatures: 2/2 (alla breve), 4/4 (C), 2/2, 3/2, 2/4, 3/4, 4/4, 5/4, 3/8, 6/8, 12/8</miscellaneous-field>
+      <miscellaneous-field name="description">Various time signatures: 2/2 
+            (alla breve), 4/4 (C), 2/2, 3/2, 2/4, 3/4, 4/4, 5/4, 3/8, 6/8, 
+            12/8</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -14,7 +16,6 @@
   </part-list>
   <!--=========================================================-->
   <part id="P1">
-
     <measure number="1">
       <attributes>
         <divisions>2</divisions>
@@ -22,7 +23,7 @@
           <fifths>0</fifths>
           <mode>major</mode>
         </key>
-        <time  symbol="common">
+        <time symbol="common">
           <beats>2</beats>
           <beat-type>2</beat-type>
         </time>
@@ -43,7 +44,7 @@
     </measure>
     <measure number="2">
       <attributes>
-        <time  symbol="common">
+        <time symbol="common">
           <beats>4</beats>
           <beat-type>4</beat-type>
         </time>
@@ -60,7 +61,7 @@
     </measure>
     <measure number="3">
       <attributes>
-        <time >
+        <time>
           <beats>2</beats>
           <beat-type>2</beat-type>
         </time>
@@ -77,7 +78,7 @@
     </measure>
     <measure number="4">
       <attributes>
-        <time >
+        <time>
           <beats>3</beats>
           <beat-type>2</beat-type>
         </time>
@@ -95,7 +96,7 @@
     </measure>
     <measure number="5">
       <attributes>
-        <time >
+        <time>
           <beats>2</beats>
           <beat-type>4</beat-type>
         </time>
@@ -195,7 +196,7 @@
     </measure>
     <measure number="10">
       <attributes>
-        <time >
+        <time>
           <beats>6</beats>
           <beat-type>8</beat-type>
         </time>
@@ -213,7 +214,7 @@
     </measure>
     <measure number="11">
       <attributes>
-        <time >
+        <time>
           <beats>12</beats>
           <beat-type>8</beat-type>
         </time>

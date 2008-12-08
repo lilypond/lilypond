@@ -15,13 +15,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -42,7 +35,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -182,7 +174,6 @@
     </measure>
     <!--=======================================================-->
     <measure number="9">
-      <print new-system="yes"/>
       <attributes>
         <clef>
           <sign>G</sign>
@@ -328,7 +319,6 @@
     </measure>
     <!--=======================================================-->
     <measure number="17">
-      <print new-system="yes"/>
       <attributes>
         <clef>
           <sign>none</sign>

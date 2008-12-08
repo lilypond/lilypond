@@ -12,19 +12,12 @@
     <part-list>
         <score-part id="P0">
             <part-name>MusicXML Part</part-name>
-            <score-instrument id="I1">
-                <instrument-name>0</instrument-name>
-            </score-instrument>
-            <midi-instrument id="I1">
-                <midi-channel>1</midi-channel>
-                <midi-program>1</midi-program>
-            </midi-instrument>
         </score-part>
     </part-list>
     <part id="P0">
         <measure number="1">
             <attributes>
-                <divisions>960</divisions>
+                <divisions>1</divisions>
                 <time>
                     <beats>4</beats>
                     <beat-type>4</beat-type>
@@ -39,7 +32,7 @@
                     <step>A</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>960</duration>
+                <duration>1</duration>
                 <voice>1</voice>
                 <type>quarter</type>
             </note>
@@ -55,7 +48,7 @@
                     <octave>4</octave>
                     <alter>1</alter>
                 </pitch>
-                <duration>960</duration>
+                <duration>1</duration>
                 <voice>1</voice>
                 <type>quarter</type>
             </note>
@@ -70,19 +63,19 @@
                     <step>D</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>960</duration>
+                <duration>1</duration>
                 <voice>1</voice>
                 <type>quarter</type>
             </note>
             <note>
                 <rest/>
-                <duration>960</duration>
+                <duration>1</duration>
                 <voice>1</voice>
                 <type>quarter</type>
             </note>
             <note>
                 <rest/>
-                <duration>1920</duration>
+                <duration>2</duration>
                 <voice>1</voice>
                 <type>half</type>
             </note>

@@ -12,13 +12,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Acoustic Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -52,7 +45,6 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <staff>1</staff>
         <beam number="1">begin</beam>
         <notations>
@@ -69,7 +61,6 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <staff>1</staff>
         <beam number="1">continue</beam>
         <notations>
@@ -86,7 +77,6 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <staff>1</staff>
         <beam number="1">end</beam>
         <notations>
@@ -109,7 +99,6 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <staff>1</staff>
         <notations>
           <slur number="1" placement="above" type="start"/>
@@ -123,7 +112,6 @@
         <duration>336</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
         <notations>
           <slur number="1" type="stop"/>
@@ -147,7 +135,6 @@
         <duration>168</duration>
         <voice>3</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <staff>2</staff>
         <beam number="1">begin</beam>
         <notations>
@@ -164,7 +151,6 @@
         <duration>168</duration>
         <voice>3</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <staff>2</staff>
         <beam number="1">end</beam>
         <notations>
@@ -181,7 +167,6 @@
         <duration>168</duration>
         <voice>3</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <staff>2</staff>
         <beam number="1">begin</beam>
         <notations>
@@ -196,7 +181,6 @@
         <duration>84</duration>
         <voice>3</voice>
         <type>16th</type>
-        <stem>up</stem>
         <staff>2</staff>
         <beam number="1">continue</beam>
         <beam number="2">begin</beam>
@@ -209,7 +193,6 @@
         <duration>84</duration>
         <voice>3</voice>
         <type>16th</type>
-        <stem>up</stem>
         <staff>2</staff>
         <beam number="1">continue</beam>
         <beam number="2">continue</beam>
@@ -224,7 +207,6 @@
         <voice>3</voice>
         <type>16th</type>
         <accidental>sharp</accidental>
-        <stem>up</stem>
         <staff>2</staff>
         <beam number="1">continue</beam>
         <beam number="2">continue</beam>
@@ -237,7 +219,6 @@
         <duration>84</duration>
         <voice>3</voice>
         <type>16th</type>
-        <stem>up</stem>
         <staff>2</staff>
         <beam number="1">end</beam>
         <beam number="2">end</beam>
@@ -265,14 +246,13 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <staff>1</staff>
         <beam number="1">begin</beam>
         <notations>
           <articulations>
             <staccato placement="below"/>
           </articulations>
-          <dynamics default-y="-61" placement="below" relative-x="-14">
+          <dynamics placement="below">
             <fp/>
           </dynamics>
         </notations>
@@ -285,7 +265,6 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <staff>1</staff>
         <beam number="1">continue</beam>
         <notations>
@@ -302,7 +281,6 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <staff>1</staff>
         <beam number="1">end</beam>
         <notations>
@@ -319,7 +297,6 @@
         <duration>168</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <staff>1</staff>
         <notations>
           <slur number="1" placement="above" type="start"/>
@@ -333,7 +310,6 @@
         <duration>336</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
         <notations>
           <slur number="1" type="stop"/>
@@ -350,7 +326,6 @@
         <duration>336</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -362,7 +337,6 @@
         <duration>336</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -374,7 +348,6 @@
         <duration>336</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -386,7 +359,6 @@
         <duration>336</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -411,7 +383,6 @@
         <duration>168</duration>
         <voice>3</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <staff>2</staff>
         <notations>
           <articulations>

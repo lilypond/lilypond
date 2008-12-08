@@ -13,13 +13,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -32,7 +25,7 @@
           <mode>major</mode>
         </key>
         <time>
-          <beats>30</beats>
+          <beats>14</beats>
           <beat-type>4</beat-type>
         </time>
         <clef>
@@ -40,7 +33,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -53,9 +45,8 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
         <notations>
-          <tuplet number="1" placement="above" type="start"/>
+          <tuplet number="1" type="start"/>
         </notations>
       </note>
       <note>
@@ -70,7 +61,6 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -84,7 +74,6 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
         <notations>
           <tuplet number="1" type="stop"/>
         </notations>
@@ -101,9 +90,8 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
         <notations>
-          <tuplet placement="above" type="start"/>
+          <tuplet type="start"/>
         </notations>
       </note>
       <note>
@@ -118,7 +106,6 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -132,7 +119,6 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
         <notations>
           <tuplet type="stop"/>
         </notations>
@@ -149,9 +135,8 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
-          <tuplet number="1" placement="above" type="start"/>
+          <tuplet number="1" type="start"/>
         </notations>
       </note>
       <note>
@@ -166,7 +151,6 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -180,7 +164,6 @@
           <actual-notes>3</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
           <tuplet number="1" type="stop"/>
         </notations>
@@ -197,9 +180,8 @@
           <actual-notes>4</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
-          <tuplet number="1" placement="above" type="start"/>
+          <tuplet number="1" type="start"/>
         </notations>
       </note>
       <note>
@@ -214,7 +196,6 @@
           <actual-notes>4</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -228,7 +209,6 @@
           <actual-notes>4</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -242,7 +222,6 @@
           <actual-notes>4</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
           <tuplet number="1" type="stop"/>
         </notations>
@@ -259,9 +238,8 @@
           <actual-notes>4</actual-notes>
           <normal-notes>1</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
-          <tuplet number="1" placement="above" type="start"/>
+          <tuplet number="1" type="start"/>
         </notations>
       </note>
       <note>
@@ -276,7 +254,6 @@
           <actual-notes>4</actual-notes>
           <normal-notes>1</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -290,7 +267,6 @@
           <actual-notes>4</actual-notes>
           <normal-notes>1</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -304,7 +280,6 @@
           <actual-notes>4</actual-notes>
           <normal-notes>1</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
           <tuplet number="1" type="stop"/>
         </notations>
@@ -321,9 +296,8 @@
           <actual-notes>7</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
-          <tuplet number="1" placement="above" type="start"/>
+          <tuplet number="1" type="start"/>
         </notations>
       </note>
       <note>
@@ -338,7 +312,6 @@
           <actual-notes>7</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -352,7 +325,6 @@
           <actual-notes>7</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -366,7 +338,6 @@
           <actual-notes>7</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -380,7 +351,6 @@
           <actual-notes>7</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -394,7 +364,6 @@
           <actual-notes>7</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -408,7 +377,6 @@
           <actual-notes>7</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
-        <stem>down</stem>
         <notations>
           <tuplet number="1" type="stop"/>
         </notations>
@@ -425,9 +393,8 @@
           <actual-notes>6</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
         <notations>
-          <tuplet number="1" placement="above" type="start"/>
+          <tuplet number="1" type="start"/>
         </notations>
       </note>
       <note>
@@ -442,7 +409,6 @@
           <actual-notes>6</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -456,7 +422,6 @@
           <actual-notes>6</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -470,7 +435,6 @@
           <actual-notes>6</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -484,7 +448,6 @@
           <actual-notes>6</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -498,7 +461,6 @@
           <actual-notes>6</actual-notes>
           <normal-notes>2</normal-notes>
         </time-modification>
-        <stem>up</stem>
         <notations>
           <tuplet number="1" type="stop"/>
         </notations>

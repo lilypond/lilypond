@@ -12,13 +12,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -44,7 +37,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>D</step>
@@ -53,7 +45,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -64,10 +55,9 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>E</root-step>
           <root-alter>-1</root-alter>
@@ -107,7 +97,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -118,7 +107,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <backup>
@@ -132,7 +120,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -143,7 +130,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -154,7 +140,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -165,13 +150,12 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <backup>
         <duration>4</duration>
       </backup>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>C</root-step>
         </root>
@@ -213,10 +197,9 @@
         <duration>1</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>D</root-step>
         </root>
@@ -258,7 +241,6 @@
         <duration>1</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -269,10 +251,9 @@
         <duration>1</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>C</root-step>
         </root>
@@ -319,7 +300,6 @@
         <duration>1</duration>
         <voice>3</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <backup>
@@ -333,7 +313,6 @@
         <duration>1</duration>
         <voice>4</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -344,7 +323,6 @@
         <duration>1</duration>
         <voice>4</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -355,7 +333,6 @@
         <duration>1</duration>
         <voice>4</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -366,247 +343,6 @@
         <duration>1</duration>
         <voice>4</voice>
         <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2">
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-      </note>
-      <backup>
-        <duration>4</duration>
-      </backup>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>1</staff>
-      </note>
-      <backup>
-        <duration>4</duration>
-      </backup>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>3</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>2</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>3</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>2</staff>
-      </note>
-      <harmony default-y="100">
-        <root>
-          <root-step>G</root-step>
-          <root-alter>1</root-alter>
-        </root>
-        <kind>suspended-fourth</kind>
-        <degree>
-          <degree-value>7</degree-value>
-          <degree-alter>0</degree-alter>
-          <degree-type>add</degree-type>
-        </degree>
-        <degree>
-          <degree-value>9</degree-value>
-          <degree-alter>-1</degree-alter>
-          <degree-type>add</degree-type>
-        </degree>
-        <degree>
-          <degree-value>11</degree-value>
-          <degree-alter>0</degree-alter>
-          <degree-type>add</degree-type>
-        </degree>
-        <degree>
-          <degree-value>13</degree-value>
-          <degree-alter>0</degree-alter>
-          <degree-type>add</degree-type>
-        </degree>
-        <frame>
-          <frame-strings>6</frame-strings>
-          <frame-frets>4</frame-frets>
-          <first-fret>4</first-fret>
-          <frame-note>
-            <string>6</string>
-            <fret>4</fret>
-          </frame-note>
-          <frame-note>
-            <string>4</string>
-            <fret>4</fret>
-          </frame-note>
-          <frame-note>
-            <string>3</string>
-            <fret>6</fret>
-          </frame-note>
-          <frame-note>
-            <string>2</string>
-            <fret>6</fret>
-          </frame-note>
-          <frame-note>
-            <string>1</string>
-            <fret>5</fret>
-          </frame-note>
-        </frame>
-      </harmony>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>3</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>2</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>3</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>2</staff>
-      </note>
-      <backup>
-        <duration>4</duration>
-      </backup>
-      <note>
-        <pitch>
-          <step>B</step>
-          <octave>2</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>4</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <octave>2</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>4</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <octave>2</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>4</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <octave>2</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>4</voice>
-        <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <barline location="right">

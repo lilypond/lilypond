@@ -58,10 +58,15 @@ The files are categorized by their first two digits with the following meaning:
 @item 41-44 ... Parts: Multiple parts, multi-voice parts, multi-staff parts
 @item 45-46 ... Measure issues and repeats
 @item 51-52 ... Page issues: Header fields, page layout
+@item 55-59 ... Exact positioning of items, offsets, etc.
 @item 61-69 ... Vocal music
 @item 71-75 ... Instrument-specific: Guitar (Chord, fretboards), Transposing instruments, Percussion, Figured Bass, Others
+@item 81-89 ... MIDI generation (all sound-related issues)
 @item 90-99 ... Various Other: Compressed MusicXML files, compatibility with broken MusicXML files exported by other applications
 @end itemize
+
+Some of the catetories (in particular the exact item positioning and the
+MIDI generation don'thave any test cases yet.
 
 @node Test cases
 @chapter Test cases

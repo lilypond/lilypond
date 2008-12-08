@@ -4,8 +4,8 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Some grace notes and after-graces
-            (indicated by steal-time-previous and steal-time-next).</miscellaneous-field>
+      <miscellaneous-field name="description">A grace note on a different 
+          staff than the actual note.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -42,46 +42,6 @@
         <staff>1</staff>
       </note>
       <note>
-        <grace steal-time-previous="20"/>
-        <pitch>
-          <step>G</step>
-          <octave>5</octave>
-        </pitch>
-        <voice>1</voice>
-        <type>16th</type>
-        <staff>1</staff>
-      </note>
-      <note>
-        <grace steal-time-next="20"/>
-        <pitch>
-          <step>A</step>
-          <octave>5</octave>
-        </pitch>
-        <voice>1</voice>
-        <type>16th</type>
-        <staff>1</staff>
-      </note>
-      <note>
-        <grace/>
-        <pitch>
-          <step>A</step>
-          <octave>5</octave>
-        </pitch>
-        <voice>1</voice>
-        <type>16th</type>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>64</duration>
-        <voice>1</voice>
-        <type>half</type>
-        <staff>1</staff>
-      </note>
-      <note>
         <grace/>
         <pitch>
           <step>G</step>
@@ -89,7 +49,7 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <staff>1</staff>
+        <staff>2</staff>
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
       </note>
@@ -101,9 +61,19 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <staff>1</staff>
+        <staff>2</staff>
         <beam number="1">end</beam>
         <beam number="2">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>64</duration>
+        <voice>1</voice>
+        <type>half</type>
+        <staff>1</staff>
       </note>
     </measure>
   </part>

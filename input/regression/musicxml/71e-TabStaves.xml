@@ -17,90 +17,34 @@
     <score-part id="P1">
       <part-name>Guitar</part-name>
       <part-abbreviation>Gtr.</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Guitar</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>26</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P2">
       <part-name>Guitar</part-name>
       <part-abbreviation>Gtr.</part-abbreviation>
-      <score-instrument id="P2-I2">
-        <instrument-name>Guitar</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P2-I2">
-        <midi-channel>2</midi-channel>
-        <midi-program>26</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P3">
       <part-name>Guitar</part-name>
       <part-abbreviation>Gtr.</part-abbreviation>
-      <score-instrument id="P3-I3">
-        <instrument-name>Guitar</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P3-I3">
-        <midi-channel>3</midi-channel>
-        <midi-program>26</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P4">
       <part-name>Guitar</part-name>
       <part-abbreviation>Gtr.</part-abbreviation>
-      <score-instrument id="P4-I4">
-        <instrument-name>Guitar</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P4-I4">
-        <midi-channel>4</midi-channel>
-        <midi-program>26</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P5">
       <part-name>Bass Guitar</part-name>
       <part-abbreviation>Bass</part-abbreviation>
-      <score-instrument id="P5-I5">
-        <instrument-name>Bass Guitar</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P5-I5">
-        <midi-channel>5</midi-channel>
-        <midi-program>35</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P6">
       <part-name>Banjo</part-name>
       <part-abbreviation>Bjo.</part-abbreviation>
-      <score-instrument id="P6-I6">
-        <instrument-name>Banjo</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P6-I6">
-        <midi-channel>6</midi-channel>
-        <midi-program>106</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P7">
       <part-name>Lute</part-name>
       <part-abbreviation>L.</part-abbreviation>
-      <score-instrument id="P7-I7">
-        <instrument-name>Lute</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P7-I7">
-        <midi-channel>7</midi-channel>
-        <midi-program>25</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P8">
       <part-name>Ukulele</part-name>
       <part-abbreviation>Uk.</part-abbreviation>
-      <score-instrument id="P8-I8">
-        <instrument-name>Ukulele</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P8-I8">
-        <midi-channel>8</midi-channel>
-        <midi-program>25</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
   </part-list>
@@ -145,7 +89,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>G</step>
@@ -314,14 +257,6 @@
           </technical>
         </notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note print-object="no">
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
@@ -368,7 +303,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>D</step>
@@ -494,14 +428,6 @@
           </technical>
         </notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note>
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
@@ -549,7 +475,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>A</step>
@@ -674,14 +599,6 @@
           </technical>
         </notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note print-object="no">
-        <rest/>
-        <duration>8</duration>
-        <voice>1</voice>
-      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
@@ -728,7 +645,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>B</step>
@@ -908,14 +824,6 @@
           </technical>
         </notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note print-object="no">
-        <rest/>
-        <duration>8</duration>
-        <voice>1</voice>
-      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
@@ -954,7 +862,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>G</step>
@@ -1087,14 +994,6 @@
           </technical>
         </notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note print-object="no">
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
@@ -1137,7 +1036,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>D</step>
@@ -1260,14 +1158,6 @@
           </technical>
         </notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note>
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
@@ -1314,7 +1204,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -1448,14 +1337,6 @@
           </technical>
         </notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note>
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
@@ -1494,7 +1375,6 @@
           </staff-tuning>
         </staff-details>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>E</step>
@@ -1625,14 +1505,6 @@
             <fret>0</fret>
           </technical>
         </notations>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
-      <note>
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

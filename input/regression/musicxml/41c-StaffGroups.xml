@@ -22,10 +22,6 @@
       <score-instrument id="P1-I1">
         <instrument-name>Piccolo</instrument-name>
       </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>73</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="start">
       <group-symbol>bracket</group-symbol>
@@ -37,10 +33,6 @@
       <score-instrument id="P2-I2">
         <instrument-name>Flute 1</instrument-name>
       </score-instrument>
-      <midi-instrument id="P2-I2">
-        <midi-channel>2</midi-channel>
-        <midi-program>74</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P3">
       <part-name>Flute 2</part-name>
@@ -48,10 +40,6 @@
       <score-instrument id="P3-I3">
         <instrument-name>Flute 2</instrument-name>
       </score-instrument>
-      <midi-instrument id="P3-I3">
-        <midi-channel>3</midi-channel>
-        <midi-program>74</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
     <part-group number="3" type="start">
@@ -70,10 +58,6 @@
       <score-instrument id="P4-I4">
         <instrument-name>Oboe</instrument-name>
       </score-instrument>
-      <midi-instrument id="P4-I4">
-        <midi-channel>4</midi-channel>
-        <midi-program>69</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P5">
       <part-name>English Horn</part-name>
@@ -81,10 +65,6 @@
       <score-instrument id="P5-I5">
         <instrument-name>English Horn</instrument-name>
       </score-instrument>
-      <midi-instrument id="P5-I5">
-        <midi-channel>5</midi-channel>
-        <midi-program>70</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="4" type="stop"/>
     <score-part id="P6">
@@ -93,10 +73,6 @@
       <score-instrument id="P6-I6">
         <instrument-name>Clarinet in Eb</instrument-name>
       </score-instrument>
-      <midi-instrument id="P6-I6">
-        <midi-channel>6</midi-channel>
-        <midi-program>72</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="3" type="stop"/>
     <part-group number="1" type="start">
@@ -109,10 +85,6 @@
       <score-instrument id="P7-I7">
         <instrument-name>Clarinet in Bb 1</instrument-name>
       </score-instrument>
-      <midi-instrument id="P7-I7">
-        <midi-channel>7</midi-channel>
-        <midi-program>72</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P8">
       <part-name>Clarinet in Bb 2</part-name>
@@ -120,10 +92,6 @@
       <score-instrument id="P8-I8">
         <instrument-name>Clarinet in Bb 2</instrument-name>
       </score-instrument>
-      <midi-instrument id="P8-I8">
-        <midi-channel>8</midi-channel>
-        <midi-program>72</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
     <score-part id="P9">
@@ -132,10 +100,6 @@
       <score-instrument id="P9-I9">
         <instrument-name>Bass Clarinet</instrument-name>
       </score-instrument>
-      <midi-instrument id="P9-I9">
-        <midi-channel>9</midi-channel>
-        <midi-program>72</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="start">
       <group-symbol>bracket</group-symbol>
@@ -147,10 +111,6 @@
       <score-instrument id="P10-I10">
         <instrument-name>Bassoon 1</instrument-name>
       </score-instrument>
-      <midi-instrument id="P10-I10">
-        <midi-channel>11</midi-channel>
-        <midi-program>71</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P11">
       <part-name>Bassoon 2</part-name>
@@ -158,10 +118,6 @@
       <score-instrument id="P11-I11">
         <instrument-name>Bassoon 2</instrument-name>
       </score-instrument>
-      <midi-instrument id="P11-I11">
-        <midi-channel>12</midi-channel>
-        <midi-program>71</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
     <score-part id="P12">
@@ -170,10 +126,6 @@
       <score-instrument id="P12-I12">
         <instrument-name>Contrabassoon</instrument-name>
       </score-instrument>
-      <midi-instrument id="P12-I12">
-        <midi-channel>13</midi-channel>
-        <midi-program>71</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
     <part-group number="1" type="start">
@@ -190,10 +142,6 @@
       <score-instrument id="P13-I13">
         <instrument-name>Horn in F 1</instrument-name>
       </score-instrument>
-      <midi-instrument id="P13-I13">
-        <midi-channel>14</midi-channel>
-        <midi-program>61</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P14">
       <part-name>Horn in F 2</part-name>
@@ -201,10 +149,6 @@
       <score-instrument id="P14-I14">
         <instrument-name>Horn in F 2</instrument-name>
       </score-instrument>
-      <midi-instrument id="P14-I14">
-        <midi-channel>15</midi-channel>
-        <midi-program>61</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
     <part-group number="1" type="start">
@@ -217,10 +161,6 @@
       <score-instrument id="P15-I15">
         <instrument-name>Trumpet in C 1</instrument-name>
       </score-instrument>
-      <midi-instrument id="P15-I15">
-        <midi-channel>16</midi-channel>
-        <midi-program>57</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P16">
       <part-name>Trumpet in C 2</part-name>
@@ -228,10 +168,6 @@
       <score-instrument id="P16-I16">
         <instrument-name>Trumpet in C 2</instrument-name>
       </score-instrument>
-      <midi-instrument id="P16-I16">
-        <midi-channel>1</midi-channel>
-        <midi-program>57</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
     <part-group number="1" type="start">
@@ -244,10 +180,6 @@
       <score-instrument id="P17-I17">
         <instrument-name>Trombone 1</instrument-name>
       </score-instrument>
-      <midi-instrument id="P17-I17">
-        <midi-channel>2</midi-channel>
-        <midi-program>58</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P18">
       <part-name>Trombone 2</part-name>
@@ -255,10 +187,6 @@
       <score-instrument id="P18-I18">
         <instrument-name>Trombone 2</instrument-name>
       </score-instrument>
-      <midi-instrument id="P18-I18">
-        <midi-channel>3</midi-channel>
-        <midi-program>58</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
     <score-part id="P19">
@@ -267,10 +195,6 @@
       <score-instrument id="P19-I19">
         <instrument-name>Tuba</instrument-name>
       </score-instrument>
-      <midi-instrument id="P19-I19">
-        <midi-channel>4</midi-channel>
-        <midi-program>59</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
     <score-part id="P20">
@@ -279,10 +203,6 @@
       <score-instrument id="P20-I20">
         <instrument-name>Timpani</instrument-name>
       </score-instrument>
-      <midi-instrument id="P20-I20">
-        <midi-channel>5</midi-channel>
-        <midi-program>48</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P21">
       <part-name>Percussion</part-name>
@@ -290,11 +210,6 @@
       <score-instrument id="P21-M76">
         <instrument-name>MIDI77</instrument-name>
       </score-instrument>
-      <midi-instrument id="P21-M76">
-        <midi-channel>10</midi-channel>
-        <midi-program>1</midi-program>
-        <midi-unpitched>77</midi-unpitched>
-      </midi-instrument>
     </score-part>
     <score-part id="P22">
       <part-name>Harp</part-name>
@@ -302,10 +217,6 @@
       <score-instrument id="P22-I22">
         <instrument-name>Harp</instrument-name>
       </score-instrument>
-      <midi-instrument id="P22-I22">
-        <midi-channel>6</midi-channel>
-        <midi-program>47</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P23">
       <part-name>Piano</part-name>
@@ -313,10 +224,6 @@
       <score-instrument id="P23-I23">
         <instrument-name>Piano</instrument-name>
       </score-instrument>
-      <midi-instrument id="P23-I23">
-        <midi-channel>7</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="start">
       <group-symbol>bracket</group-symbol>
@@ -328,10 +235,6 @@
       <score-instrument id="P24-I24">
         <instrument-name>Violin I</instrument-name>
       </score-instrument>
-      <midi-instrument id="P24-I24">
-        <midi-channel>8</midi-channel>
-        <midi-program>49</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P25">
       <part-name>Violin II</part-name>
@@ -339,10 +242,6 @@
       <score-instrument id="P25-I25">
         <instrument-name>Violin II</instrument-name>
       </score-instrument>
-      <midi-instrument id="P25-I25">
-        <midi-channel>9</midi-channel>
-        <midi-program>49</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P26">
       <part-name>Viola</part-name>
@@ -350,10 +249,6 @@
       <score-instrument id="P26-I26">
         <instrument-name>Viola</instrument-name>
       </score-instrument>
-      <midi-instrument id="P26-I26">
-        <midi-channel>11</midi-channel>
-        <midi-program>49</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P27">
       <part-name>Cello</part-name>
@@ -361,10 +256,6 @@
       <score-instrument id="P27-I27">
         <instrument-name>Cello</instrument-name>
       </score-instrument>
-      <midi-instrument id="P27-I27">
-        <midi-channel>12</midi-channel>
-        <midi-program>49</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P28">
       <part-name>Contrabass</part-name>
@@ -372,10 +263,6 @@
       <score-instrument id="P28-I28">
         <instrument-name>Contrabass</instrument-name>
       </score-instrument>
-      <midi-instrument id="P28-I28">
-        <midi-channel>13</midi-channel>
-        <midi-program>49</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
   </part-list>
@@ -402,7 +289,6 @@
           <octave-change>1</octave-change>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>B</step>
@@ -411,7 +297,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -448,7 +333,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>F</step>
@@ -457,7 +341,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -494,7 +377,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>A</step>
@@ -503,7 +385,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -540,7 +421,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>E</step>
@@ -549,7 +429,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -590,7 +469,6 @@
           <chromatic>-7</chromatic>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -599,7 +477,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -640,7 +517,6 @@
           <chromatic>3</chromatic>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>B</step>
@@ -649,7 +525,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -690,7 +565,6 @@
           <chromatic>-2</chromatic>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>F</step>
@@ -700,7 +574,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -741,7 +614,6 @@
           <chromatic>-2</chromatic>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -751,7 +623,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -793,7 +664,6 @@
           <octave-change>-1</octave-change>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>B</step>
@@ -802,7 +672,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -839,7 +708,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>D</step>
@@ -848,7 +716,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -885,7 +752,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>E</step>
@@ -894,7 +760,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -936,7 +801,6 @@
           <octave-change>-1</octave-change>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>B</step>
@@ -945,7 +809,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -986,7 +849,6 @@
           <chromatic>-7</chromatic>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>E</step>
@@ -995,7 +857,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -1036,7 +897,6 @@
           <chromatic>-7</chromatic>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>G</step>
@@ -1045,7 +905,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -1082,7 +941,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>F</step>
@@ -1091,7 +949,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -1128,7 +985,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>A</step>
@@ -1137,7 +993,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -1174,7 +1029,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>B</step>
@@ -1183,7 +1037,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -1220,7 +1073,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>E</step>
@@ -1229,7 +1081,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -1266,7 +1117,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>E</step>
@@ -1275,7 +1125,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -1312,7 +1161,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>F</step>
@@ -1321,7 +1169,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -1358,7 +1205,6 @@
           <sign>percussion</sign>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <unpitched>
           <display-step>E</display-step>
@@ -1368,7 +1214,6 @@
         <instrument id="P21-M76"/>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -1410,7 +1255,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>D</step>
@@ -1419,7 +1263,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -1447,7 +1290,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -1492,7 +1334,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>G</step>
@@ -1501,7 +1342,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -1529,7 +1369,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -1569,7 +1408,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>E</step>
@@ -1578,7 +1416,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -1615,7 +1452,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>F</step>
@@ -1624,7 +1460,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -1661,7 +1496,6 @@
           <line>3</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -1670,7 +1504,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>
@@ -1707,7 +1540,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -1716,7 +1548,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -1758,7 +1589,6 @@
           <octave-change>-1</octave-change>
         </transpose>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>C</step>
@@ -1767,7 +1597,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <rest/>

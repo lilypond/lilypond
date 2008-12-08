@@ -12,13 +12,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -44,7 +37,6 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>A</step>
@@ -53,7 +45,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
         <lyric number="1">
           <syllabic>begin</syllabic>
@@ -68,7 +59,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
         <lyric number="1">
           <syllabic>middle</syllabic>
@@ -83,7 +73,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
         <lyric number="1">
           <syllabic>end</syllabic>
@@ -98,7 +87,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
         <lyric number="1">
           <syllabic>single</syllabic>
@@ -117,7 +105,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
         <lyric number="1">
           <syllabic>begin</syllabic>
@@ -132,7 +119,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
         <lyric number="1">
           <syllabic>middle</syllabic>
@@ -147,7 +133,6 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
         <lyric number="1">
           <syllabic>end</syllabic>
@@ -162,122 +147,11 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
         <lyric number="1">
           <syllabic>single</syllabic>
           <text>JA!</text>
           <extend/>
-        </lyric>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2">
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-        <lyric number="1">
-          <syllabic>begin</syllabic>
-          <text>tra</text>
-        </lyric>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-        <lyric number="1">
-          <syllabic>end</syllabic>
-          <text>ra!</text>
-        </lyric>
-      </note>
-      <backup>
-        <duration>4</duration>
-      </backup>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-        <lyric number="1">
-          <syllabic>begin</syllabic>
-          <text>TRA</text>
-        </lyric>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>2</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>2</staff>
-        <lyric number="1">
-          <syllabic>end</syllabic>
-          <text>RA!</text>
         </lyric>
       </note>
       <barline location="right">

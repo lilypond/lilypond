@@ -4,19 +4,13 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">All types of octave shifts (15ma, 15mb, 8va, 8vb)</miscellaneous-field>
+      <miscellaneous-field name="description">All types of octave shifts (15ma,
+            15mb, 8va, 8vb)</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -37,7 +31,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>A</step>
@@ -46,7 +39,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <beam number="1">begin</beam>
       </note>
       <note>
@@ -57,12 +49,11 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <beam number="1">continue</beam>
       </note>
       <direction>
         <direction-type>
-          <octave-shift default-y="16" size="15" type="down"/>
+          <octave-shift size="15" type="down"/>
         </direction-type>
         <offset>-4</offset>
       </direction>
@@ -74,7 +65,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <beam number="1">continue</beam>
       </note>
       <direction>
@@ -85,7 +75,7 @@
       </direction>
       <direction>
         <direction-type>
-          <octave-shift default-y="-97" size="15" type="up"/>
+          <octave-shift size="15" type="up"/>
         </direction-type>
       </direction>
       <note>
@@ -96,7 +86,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <beam number="1">end</beam>
       </note>
       <note>
@@ -107,7 +96,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <beam number="1">begin</beam>
       </note>
       <direction>
@@ -118,7 +106,7 @@
       </direction>
       <direction>
         <direction-type>
-          <octave-shift default-y="62" size="8" type="down"/>
+          <octave-shift size="8" type="down"/>
         </direction-type>
       </direction>
       <note>
@@ -129,7 +117,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
         <beam number="1">end</beam>
       </note>
       <note>
@@ -140,7 +127,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>down</stem>
         <beam number="1">begin</beam>
       </note>
       <direction>
@@ -151,7 +137,7 @@
       </direction>
       <direction>
         <direction-type>
-          <octave-shift default-y="-89" size="8" type="up"/>
+          <octave-shift size="8" type="up"/>
         </direction-type>
       </direction>
       <note>
@@ -162,7 +148,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>16th</type>
-        <stem>down</stem>
         <beam number="1">continue</beam>
         <beam number="2">begin</beam>
       </note>
@@ -174,7 +159,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>16th</type>
-        <stem>down</stem>
         <beam number="1">end</beam>
         <beam number="2">end</beam>
       </note>

@@ -10,7 +10,6 @@
           element assigned to that note.</miscellaneous-field>
     </miscellaneous>
   </identification>
-  <defaults/>
   <part-list>
     <score-part id="P1">
       <part-name print-object="no">MusicXML Part</part-name>
@@ -41,7 +40,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <direction placement="below">
         <direction-type>
           <rehearsal>A</rehearsal>

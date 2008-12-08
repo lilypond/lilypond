@@ -13,13 +13,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Acoustic Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -40,8 +33,7 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>C</root-step>
         </root>
@@ -83,9 +75,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>C</root-step>
         </root>
@@ -133,9 +124,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>B</root-step>
         </root>
@@ -187,9 +177,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>E</root-step>
           <root-alter>-1</root-alter>
@@ -238,12 +227,11 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
     </measure>
     <!--=======================================================-->
     <measure number="2">
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>G</root-step>
         </root>
@@ -286,9 +274,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>D</root-step>
           <root-alter>1</root-alter>
@@ -331,9 +318,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>A</root-step>
         </root>
@@ -375,9 +361,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
-      <harmony default-y="100">
+      <harmony>
         <root>
           <root-step>C</root-step>
         </root>
@@ -430,7 +415,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

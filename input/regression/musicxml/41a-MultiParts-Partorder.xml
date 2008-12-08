@@ -4,46 +4,23 @@
 	<identification> 
 		<miscellaneous>
 			<miscellaneous-field name="description">A piece with 
-                            four parts. Are they converted in the correct order?</miscellaneous-field>
+                            four parts (P0, P1, P2, P3; different from what 
+			    Finale creates!). Are they converted in the correct 
+			    order?</miscellaneous-field>
 		</miscellaneous>
 	</identification> 
 	<part-list>
 		<score-part id="P0">
 			<part-name>Part 1</part-name>
-			<score-instrument id="I1">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I1">
-				<midi-channel>1</midi-channel>
-				<midi-program>1</midi-program>
-			</midi-instrument>
 		</score-part>
 		<score-part id="P1">
 			<part-name>Part 2</part-name>
-			<score-instrument id="I2">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I2">
-				<midi-channel>2</midi-channel>
-			</midi-instrument>
 		</score-part>
 		<score-part id="P2">
 			<part-name>Part 3</part-name>
-			<score-instrument id="I3">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I3">
-				<midi-channel>3</midi-channel>
-			</midi-instrument>
 		</score-part>
 		<score-part id="P3">
 			<part-name>Part 4</part-name>
-			<score-instrument id="I4">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I4">
-				<midi-channel>4</midi-channel>
-			</midi-instrument>
 		</score-part>
 	</part-list>
 	<part id="P0">

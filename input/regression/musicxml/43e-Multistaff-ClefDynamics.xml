@@ -5,20 +5,13 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A piano staff with dynamics and 
-          clef changes, that apply only to one voice or one staff, 
-          respectively.</miscellaneous-field>
+          clef changes, where each element (ffff, wedge and clef changes) 
+          applies only to one voice or one staff, respectively.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -44,15 +37,13 @@
           <line>4</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <direction placement="below">
         <direction-type>
-          <dynamics default-y="-62" relative-x="-6">
+          <dynamics>
             <ffff/>
           </dynamics>
         </direction-type>
         <staff>1</staff>
-        <sound dynamics="141"/>
       </direction>
       <note>
         <pitch>
@@ -62,7 +53,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -73,7 +63,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -84,18 +73,16 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <direction placement="below">
         <direction-type>
-          <dynamics default-y="-61">
+          <dynamics>
             <p/>
           </dynamics>
         </direction-type>
         <offset>1</offset>
         <staff>1</staff>
-        <sound dynamics="54"/>
       </direction>
       <note>
         <pitch>
@@ -105,7 +92,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <backup>
@@ -113,18 +99,8 @@
       </backup>
       <direction placement="below">
         <direction-type>
-          <dynamics default-y="-62" relative-x="-6">
-            <ffff/>
-          </dynamics>
+          <wedge spread="0" type="crescendo"/>
         </direction-type>
-        <staff>2</staff>
-        <sound dynamics="141"/>
-      </direction>
-      <direction placement="below">
-        <direction-type>
-          <wedge default-y="-58" spread="0" type="crescendo"/>
-        </direction-type>
-        <offset>1</offset>
         <staff>2</staff>
       </direction>
       <note>
@@ -135,7 +111,6 @@
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -146,14 +121,12 @@
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <direction>
         <direction-type>
           <wedge spread="15" type="stop"/>
         </direction-type>
-        <offset>3</offset>
         <staff>2</staff>
       </direction>
       <note>
@@ -164,7 +137,6 @@
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
@@ -175,7 +147,6 @@
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>2</staff>
       </note>
     </measure>
@@ -199,7 +170,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -210,7 +180,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -222,7 +191,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -233,7 +201,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <backup>
@@ -243,45 +210,41 @@
         <pitch>
           <step>F</step>
           <alter>1</alter>
-          <octave>3</octave>
+          <octave>4</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
         <pitch>
           <step>G</step>
-          <octave>3</octave>
+          <octave>4</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
         <pitch>
           <step>A</step>
-          <octave>3</octave>
+          <octave>4</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
         <pitch>
           <step>B</step>
-          <octave>3</octave>
+          <octave>4</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
     </measure>
@@ -301,7 +264,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -313,7 +275,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -324,7 +285,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -335,7 +295,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <backup>
@@ -344,46 +303,42 @@
       <note>
         <pitch>
           <step>A</step>
-          <octave>2</octave>
+          <octave>4</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
         <pitch>
           <step>B</step>
-          <octave>2</octave>
+          <octave>4</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
         <pitch>
           <step>C</step>
           <alter>1</alter>
-          <octave>3</octave>
+          <octave>5</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
       <note>
         <pitch>
           <step>D</step>
-          <octave>3</octave>
+          <octave>5</octave>
         </pitch>
         <duration>8</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
       </note>
     </measure>

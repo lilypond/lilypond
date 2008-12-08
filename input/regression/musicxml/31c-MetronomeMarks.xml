@@ -8,22 +8,14 @@
           text (note=bpm), note=note, (note=note), (note=bpm)</miscellaneous-field>
     </miscellaneous>
   </identification>
-  <defaults/>
   <part-list>
     <score-part id="P1">
       <part-name></part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
   <part id="P1">
-    <measure number="1" width="527">
+    <measure number="1">
       <attributes>
         <divisions>1</divisions>
         <key>

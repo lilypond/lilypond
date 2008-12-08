@@ -15,13 +15,6 @@ Staff&#xd;
 Name</part-name>
       <part-abbreviation>St.&#xd;
 Nm.</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -42,7 +35,6 @@ Nm.</part-abbreviation>
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>B</step>

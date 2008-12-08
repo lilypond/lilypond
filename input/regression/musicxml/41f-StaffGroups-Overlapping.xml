@@ -20,23 +20,9 @@
     </part-group>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P2">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P2-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P2-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="2" type="start">
       <group-name>Group 2</group-name>
@@ -46,34 +32,13 @@
     </part-group>
     <score-part id="P3">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P3-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P3-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
     <score-part id="P4">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P4-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P4-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
     <score-part id="P5">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P5-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P5-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
   </part-list>
@@ -95,7 +60,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <rest/>
         <duration>4</duration>
@@ -124,7 +88,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <rest/>
         <duration>4</duration>
@@ -153,7 +116,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <rest/>
         <duration>4</duration>
@@ -182,7 +144,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <rest/>
         <duration>4</duration>
@@ -211,7 +172,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <rest/>
         <duration>4</duration>

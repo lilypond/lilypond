@@ -4,167 +4,71 @@
 	<identification> 
 		<miscellaneous>
 			<miscellaneous-field name="description">A piece with 
-                            more than 10 parts to check whether the parts are 
+                            20 parts to check whether an application supports
+			    that many parts and whether they are 
                             correctly sorted.</miscellaneous-field>
 		</miscellaneous>
 	</identification> 
 	<part-list>
 		<score-part id="P0">
-			<part-name></part-name>
-			<score-instrument id="I1">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I1">
-				<midi-channel>1</midi-channel>
-				<midi-program>1</midi-program>
-			</midi-instrument>
+			<part-name>P0</part-name>
 		</score-part>
 		<score-part id="P1">
-			<part-name></part-name>
-			<score-instrument id="I2">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I2">
-				<midi-channel>2</midi-channel>
-			</midi-instrument>
+			<part-name>P1</part-name>
 		</score-part>
 		<score-part id="P2">
-			<part-name></part-name>
-			<score-instrument id="I3">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I3">
-				<midi-channel>3</midi-channel>
-			</midi-instrument>
+			<part-name>P2</part-name>
 		</score-part>
 		<score-part id="P3">
-			<part-name></part-name>
-			<score-instrument id="I4">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I4">
-				<midi-channel>4</midi-channel>
-			</midi-instrument>
+			<part-name>P3</part-name>
 		</score-part>
 		<score-part id="P4">
-			<part-name></part-name>
-			<score-instrument id="I5">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I5">
-				<midi-channel>5</midi-channel>
-			</midi-instrument>
+			<part-name>P4</part-name>
 		</score-part>
 		<score-part id="P5">
-			<part-name></part-name>
-			<score-instrument id="I6">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I6">
-				<midi-channel>6</midi-channel>
-			</midi-instrument>
+			<part-name>P5</part-name>
 		</score-part>
 		<score-part id="P6">
-			<part-name></part-name>
-			<score-instrument id="I7">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I7">
-				<midi-channel>7</midi-channel>
-			</midi-instrument>
+			<part-name>P6</part-name>
 		</score-part>
 		<score-part id="P7">
-			<part-name></part-name>
-			<score-instrument id="I8">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I8">
-				<midi-channel>8</midi-channel>
-			</midi-instrument>
+			<part-name>P7</part-name>
 		</score-part>
 		<score-part id="P8">
-			<part-name></part-name>
-			<score-instrument id="I9">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I9">
-				<midi-channel>9</midi-channel>
-			</midi-instrument>
+			<part-name>P8</part-name>
 		</score-part>
 		<score-part id="P9">
-			<part-name></part-name>
-			<score-instrument id="I10">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I10">
-				<midi-channel>10</midi-channel>
-			</midi-instrument>
+			<part-name>P9</part-name>
 		</score-part>
 		<score-part id="P10">
-			<part-name></part-name>
-			<score-instrument id="I11">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I11">
-				<midi-channel>11</midi-channel>
-			</midi-instrument>
+			<part-name>P10</part-name>
 		</score-part>
 		<score-part id="P11">
-			<part-name></part-name>
-			<score-instrument id="I12">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I12">
-				<midi-channel>12</midi-channel>
-			</midi-instrument>
+			<part-name>P11</part-name>
 		</score-part>
 		<score-part id="P12">
-			<part-name></part-name>
-			<score-instrument id="I13">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I13">
-				<midi-channel>13</midi-channel>
-			</midi-instrument>
+			<part-name>P12</part-name>
 		</score-part>
 		<score-part id="P13">
-			<part-name></part-name>
-			<score-instrument id="I14">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I14">
-				<midi-channel>14</midi-channel>
-			</midi-instrument>
+			<part-name>P13</part-name>
 		</score-part>
 		<score-part id="P14">
-			<part-name></part-name>
-			<score-instrument id="I15">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I15">
-				<midi-channel>15</midi-channel>
-			</midi-instrument>
+			<part-name>P14</part-name>
 		</score-part>
 		<score-part id="P15">
-			<part-name></part-name>
-			<score-instrument id="I16">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I16">
-				<midi-channel>16</midi-channel>
-			</midi-instrument>
+			<part-name>P15</part-name>
 		</score-part>
 		<score-part id="P16">
-			<part-name></part-name>
+			<part-name>P16</part-name>
 		</score-part>
 		<score-part id="P17">
-			<part-name></part-name>
+			<part-name>P17</part-name>
 		</score-part>
 		<score-part id="P18">
-			<part-name></part-name>
+			<part-name>P18</part-name>
 		</score-part>
 		<score-part id="P19">
-			<part-name></part-name>
+			<part-name>P19</part-name>
 		</score-part>
 	</part-list>
 	<part id="P0">

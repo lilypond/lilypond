@@ -716,11 +716,6 @@
     </measure>
     <!--=======================================================-->
     <measure number="4">
-      <print new-system="yes">
-        <system-layout>
-          <system-distance>114</system-distance>
-        </system-layout>
-      </print>
       <note>
         <pitch>
           <step>C</step>

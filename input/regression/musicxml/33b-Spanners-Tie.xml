@@ -25,18 +25,16 @@
 				<tie type="start"/>
 				<voice>1</voice>
 				<type>whole</type>
-				<staff>1</staff>
 				<notations><tied type="start"/></notations>
 			</note>
 		</measure>
 		<measure number="2">
-			<note release="-684">
+			<note>
 				<pitch><step>F</step><octave>4</octave></pitch>
 				<duration>4</duration>
 				<tie type="stop"/>
 				<voice>1</voice>
 				<type>whole</type>
-				<staff>1</staff>
 				<notations><tied type="stop"/></notations>
 			</note>
 		</measure>

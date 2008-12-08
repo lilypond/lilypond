@@ -69,14 +69,23 @@
           <step>E</step>
           <octave>3</octave>
         </pitch>
-        <duration>4</duration>
+        <duration>2</duration>
         <tie type="stop"/>
         <voice>1</voice>
-        <type>whole</type>
+        <type>half</type>
         <notations>
           <tied type="stop"/>
           <ornaments/>
         </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>2</octave>
+        </pitch>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>half</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
@@ -112,7 +121,7 @@
       </note>
       <note>
         <unpitched>
-          <display-step>E</display-step>
+          <display-step>C</display-step>
           <display-octave>5</display-octave>
         </unpitched>
         <duration>1</duration>
