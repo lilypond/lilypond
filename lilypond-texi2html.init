@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+# -*- coding: utf-8; -*-
 
 ### texi2html customization script for Lilypond
 ### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
@@ -65,8 +66,33 @@
 
 package Texi2HTML::Config;
 
+#############################################################################
+### TRANSLATIONS
+#############################################################################
 
+use utf8;
+my $LY_LANGUAGES = {};
+$LY_LANGUAGES->{'fr'} = {
+    'Back to Documentation Index' => 'Retour à l\'accueil de la documentation',
+};
+$LY_LANGUAGES->{'es'} = {
+    'Back to Documentation Index' => '',
+};
+$LY_LANGUAGES->{'de'} = {
+    'Back to Documentation Index' => '',
+};
 
+print $LY_LANGUAGES->{'fr'}->{'Back to Documentation Index'};
+
+sub ly_get_string () {
+    my $lang = $Texi2HTML::THISDOC{current_lang};
+    my $string = shift;
+    if ($lang and $lang ne "en" and $LY_LANGUAGES->{$lang}->{$string}) {
+	return $LY_LANGUAGES->{$lang}->{$string};
+    } else {
+	return $string;
+    }
+}
 
 
 #############################################################################
@@ -216,7 +242,7 @@ sub load_map_file ($)
 sub split_texi_filename ($)
 {
   my $docu = shift;
-  my $docu_dir, $docu_name;
+  my ($docu_dir, $docu_name);
   if ($docu =~ /(.*\/)/) {
     chop($docu_dir = $1);
     $docu_name = $docu;
@@ -255,7 +281,7 @@ sub lilypond_css_lines ($$)
     {
         $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
     }
-    foreach my $ref (@ALT_CSS_REFS)
+    foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
     {
         $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
     }
@@ -464,7 +490,7 @@ sub lilypond_unknown($$$$$)
       if (ref($state->{'element'}) eq 'HASH') {
         $state->{'element'}->{'translationof'} = main::normalise_space($line);
       }
-      return ('', true, undef, undef);
+      return ('', 1, undef, undef);
     } else {
       return t2h_default_unknown($macro, $line, $pass, $stack, $state);
     }
@@ -642,8 +668,9 @@ sub lilypond_print_toc_div ($$)
     my $uplink = $reldir."index.${lang}html";
 
     print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\" 
-         title=\"Documentation Index\">&lt;&lt; Back to 
-         Documentation Index</a></p>\n";
+         title=\"Documentation Index\">&lt;&lt; " .
+	 &ly_get_string ('Back to Documentation Index') .
+	 "</a></p>\n";
 
     print $fh '<h4 class="toc_header"> ' . &$anchor('',
                                     $Texi2HTML::HREF{'Top'},
