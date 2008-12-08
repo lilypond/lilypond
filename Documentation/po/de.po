@@ -2,19 +2,19 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Till Rettig <till.rettig@gmx.de>, 2007,2008
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-07 23:30+0100\n"
-"PO-Revision-Date: 2008-12-06 22:53+0200\n"
+"PO-Revision-Date: 2008-12-08 21:27+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: postprocess_html.py:45
 #, python-format
@@ -6639,17 +6639,15 @@ msgstr "Harfe"
 
 #. @node in Documentation/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/user/keyboards.itely
-#, fuzzy
 msgid "Harp notation"
-msgstr "Notation auf Systemen"
+msgstr "Harfennotation"
 
 #. @node in Documentation/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/user/keyboards.itely
 #. @node in Documentation/de/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/de/user/keyboards.itely
-#, fuzzy
 msgid "Harp pedals"
-msgstr "Klavierpedal"
+msgstr "Harfenpedal"
 
 #. @node in Documentation/user/unfretted-strings.itely
 #. @section in Documentation/user/unfretted-strings.itely
@@ -7330,12 +7328,11 @@ msgstr "verba"
 
 #. Documentation/user/ancient.itely:2487 (variable)
 msgid "spiritus"
-msgstr ""
+msgstr "spiritus"
 
 #. Documentation/user/ancient.itely:2495 (variable)
-#, fuzzy
 msgid "spirLyr"
-msgstr "SoprText"
+msgstr "spirText"
 
 #. @node in Documentation/user/ancient.itely
 #. @section in Documentation/user/ancient.itely
@@ -9853,16 +9850,14 @@ msgid "GNU LilyPond -- Programmbenutzung"
 msgstr "GNU LilyPond -- Programmbenutzung"
 
 #. @top in Documentation/de/user/lilypond.tely
-#, fuzzy
 msgid "GNU LilyPond -- Notationsreferenz"
-msgstr "GNU LilyPond -- Die Notationsreferenz"
+msgstr "GNU LilyPond -- Notationsreferenz"
 
 #. @chapheading in Documentation/de/user/lilypond.tely
 msgid "Das Notensatzprogramm"
-msgstr ""
+msgstr "Das Notensatzprogramm"
 
 #. @subsubheading in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "Ignorieren von Melismen"
 msgstr "Melismen ignorieren"
 
@@ -10413,7 +10408,7 @@ msgstr "Makro benutzen"
 
 #. input/lsr/avoiding-collisions-of-chord-fingering-with-beams.ly:41 (comment)
 msgid "Corrected to avoid collisions"
-msgstr ""
+msgstr "Korrigiert, um Zusammenstöße zu vermeiden"
 
 #. input/lsr/beam-endings-in-score-context.ly:28 (comment)
 msgid "Set default beaming for all staves"
