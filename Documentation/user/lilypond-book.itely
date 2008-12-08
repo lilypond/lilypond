@@ -706,8 +706,8 @@ and we have this in our Texinfo document @file{test.texinfo}
 the following command line gives the expected result
 
 @example
-lilypond-book --process="lilypond --format=tex --tex \
-              --header=texidoc test.texinfo
+lilypond-book --pdf --process="lilypond \
+  -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
 Most LilyPond test documents (in the @file{input} directory of the
