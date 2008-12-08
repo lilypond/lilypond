@@ -991,7 +991,11 @@ class OctaveShiftEvent (SpanEvent):
         self.span_type = {'up': 1, 'down': -1}.get (type, 0)
     def ly_octave_shift_indicator (self):
         # convert 8/15 to lilypond indicators (+-1/+-2)
-        value = {8: 1, 15: 2}.get (self.size, 0)
+        try:
+            value = {8: 1, 15: 2}[self.size]
+        except KeyError:
+            warning (_ ("Invalid octave shift size found: %s. Using no shift.") % self.size)
+            value = 0
         # negative values go up!
         value *= -1*self.span_type
         return value
