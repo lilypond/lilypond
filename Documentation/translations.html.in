@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Sun Dec  7 22:30:55 UTC 2008
+ <p><i>Last updated Tue Dec  9 08:29:08 UTC 2008
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -255,17 +255,17 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>3 Running LilyPond<br>(2896)</td>
+  <td>3 Running LilyPond<br>(2827)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Reinhold Kainhofer<br>
    Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #2cff20">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #2cff20">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -533,11 +533,11 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #25fe1f">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #25fe1f">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
