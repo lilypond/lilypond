@@ -8,7 +8,6 @@
           glissando defined in MusicXML</miscellaneous-field>
     </miscellaneous>
   </identification>
-  <defaults/>
   <part-list>
     <score-part id="P1">
       <part-name></part-name>
@@ -37,7 +36,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando number="1" type="start"/>
         </notations>
@@ -51,7 +49,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando number="1" type="stop"/>
         </notations>
@@ -65,7 +62,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="solid" number="1" type="start">text</glissando>
         </notations>
@@ -79,7 +75,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="solid" number="1" type="stop"/>
         </notations>
@@ -95,7 +90,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="dashed" number="1" type="start"/>
         </notations>
@@ -109,7 +103,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="dashed" number="1" type="stop"/>
         </notations>
@@ -122,7 +115,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="dotted" number="1" type="start"/>
         </notations>
@@ -136,7 +128,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="dotted" number="1" type="stop"/>
         </notations>
@@ -151,7 +142,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="wavy" number="1" type="start"/>
         </notations>
@@ -165,7 +155,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <glissando line-type="wavy" number="1" type="stop"/>
         </notations>
@@ -178,7 +167,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide number="1" type="start"/>
         </notations>
@@ -192,7 +180,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide number="1" type="stop"/>
         </notations>
@@ -208,7 +195,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="solid" number="1" type="start">text</slide>
         </notations>
@@ -222,7 +208,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="solid" number="1" type="stop"/>
         </notations>
@@ -236,7 +221,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="dashed" number="1" type="start"/>
         </notations>
@@ -250,7 +234,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="solid" number="1" type="stop"/>
         </notations>
@@ -265,7 +248,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="dotted" number="1" type="start"/>
         </notations>
@@ -279,7 +261,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="dotted" number="1" type="stop"/>
         </notations>
@@ -292,7 +273,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="wavy" number="1" type="start"/>
         </notations>
@@ -306,12 +286,10 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <notations>
           <slide line-type="wavy" number="1" type="stop"/>
         </notations>
       </note>
-      
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>

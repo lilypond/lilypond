@@ -3,10 +3,10 @@
 notes = "CDEFGAB"
 alterations = [-1, 0, 1]
 
-def print_measure (nr, fifth, mode, atts = "", final = ""):
+def print_measure (nr, fifth, mode, atts1 = "", atts = "", final = ""):
     print """    <measure number="%s">
       <attributes>
-        <key>
+%s        <key>
           <fifths>%s</fifths>
           <mode>%s</mode>
         </key>
@@ -20,10 +20,11 @@ def print_measure (nr, fifth, mode, atts = "", final = ""):
         <voice>1</voice>
         <type>half</type>
       </note>
-%s    </measure>""" % (nr, fifth, mode, atts, final)
+%s    </measure>""" % (nr, atts1, fifth, mode, atts, final)
 
-first_atts = """        <divisions>1</divisions>
-        <time symbol="common">
+first_div = """        <divisions>1</divisions>
+"""
+first_atts = """        <time symbol="common">
           <beats>2</beats>
           <beat-type>4</beat-type>
         </time>
@@ -43,30 +44,35 @@ print """<?xml version="1.0" encoding="UTF-8"?>
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
   <movement-title>Different Key signatures</movement-title>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">Various key signature: from 11
+            flats to 11 sharps (each one first one measure in major, then one
+            measure in minor)</miscellaneous-field>
+    </miscellaneous>
+  </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
     </score-part>
   </part-list>
   <!--=========================================================-->
-  <part id="P1">
-"""
+  <part id="P1">"""
 
 max_range = 11
 measure = 0
 for fifth in range(-max_range, max_range+1):
     measure += 1
     if fifth == -max_range:
-        print_measure (measure, fifth, "major", first_atts)
+        print_measure (measure, fifth, "major", first_div, first_atts)
     else:
         print_measure (measure, fifth, "major")
     measure += 1
     if fifth == max_range:
-        print_measure (measure, fifth, "minor", "", final_barline)
+        print_measure (measure, fifth, "minor", "", "", final_barline)
     else:
         print_measure (measure, fifth, "minor")
     
 
 print """  </part>
-</score-partwise>
-"""
+</score-partwise>"""

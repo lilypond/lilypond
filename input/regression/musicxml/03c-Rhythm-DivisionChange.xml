@@ -4,19 +4,16 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Assigning lyrics to chorded notes.</miscellaneous-field>
+      <miscellaneous-field name="description">Although uncommon, the divisions
+            of a quarter note can change somewhere in the middle of a MusicXML
+            file. Here, the first half measure uses a division of 1, which
+            then changes to 8 in the middle of the first measure and to 38
+            in the middle of the second measure.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -37,23 +34,7 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
-        <pitch>
-          <step>E</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <lyric number="1">
-          <syllabic>begin</syllabic>
-          <text>Ly</text>
-        </lyric>
-      </note>
-      <note>
-        <chord/>
         <pitch>
           <step>C</step>
           <octave>5</octave>
@@ -61,24 +42,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <lyric number="1">
-          <syllabic>end</syllabic>
-          <text>rics</text>
-        </lyric>
-      </note>
-      <note>
-        <chord/>
         <pitch>
           <step>C</step>
           <octave>5</octave>
@@ -86,57 +51,51 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
       <note>
-        <pitch>
-          <step>E</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <lyric number="1">
-          <syllabic>single</syllabic>
-          <text>on</text>
-        </lyric>
-      </note>
-      <note>
-        <chord/>
         <pitch>
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <lyric number="1">
-          <syllabic>single</syllabic>
-          <text>chords</text>
-        </lyric>
-      </note>
-      <note>
-        <chord/>
         <pitch>
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>16</duration>
+        <voice>1</voice>
+        <type>half</type>
+      </note>
+      <attributes>
+        <divisions>38</divisions>
+      </attributes>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>76</duration>
+        <voice>1</voice>
+        <type>half</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

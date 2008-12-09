@@ -18,8 +18,8 @@
 			<attributes>
 				<divisions>1</divisions>
 				<time>
-				<beats>4</beats>
-				<beat-type>4</beat-type>
+					<beats>4</beats>
+					<beat-type>4</beat-type>
 				</time>
 			</attributes>
 			<note>

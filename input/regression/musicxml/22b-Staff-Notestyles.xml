@@ -17,15 +17,6 @@
   <!--=========================================================-->
   <part id="P1">
     <measure number="1">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>70</left-margin>
-            <right-margin>0</right-margin>
-          </system-margins>
-          <top-system-distance>211</top-system-distance>
-        </system-layout>
-      </print>
       <attributes>
         <divisions>1</divisions>
         <key>
@@ -49,7 +40,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <attributes>
         <measure-style>
@@ -64,7 +54,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <lyric number="1"><text>slash, no stem</text></lyric>
       </note>
       <note>
@@ -75,7 +64,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <attributes>
         <measure-style>
@@ -93,7 +81,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <lyric number="1"><text>slash, with stem</text></lyric>
       </note>
     </measure>
@@ -107,7 +94,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <attributes>
         <measure-style>
@@ -122,7 +108,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <lyric number="1"><text>hidden notes</text></lyric>
       </note>
       <note print-object="no">
@@ -133,7 +118,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <attributes>
         <staff-details>
@@ -148,7 +132,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <lyric number="1"><text>hidden notes, staff lines</text></lyric>
       </note>
     </measure>
@@ -161,7 +144,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>half</type>
-        <stem>up</stem>
       </note>
       <attributes>
         <staff-details>
@@ -176,7 +158,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>half</type>
-        <stem>up</stem>
         <lyric number="1"><text>normal settings restored</text></lyric>
       </note>
       <barline location="right">

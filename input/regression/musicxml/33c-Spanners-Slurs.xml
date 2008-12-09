@@ -14,13 +14,6 @@
   <part-list>
     <score-part id="P1">
       <part-name print-object="no">MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -126,12 +119,11 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem default-y="10.5">up</stem>
         <notations>
           <slur number="2" type="stop"/>
         </notations>
       </note>
-      <note default-x="312">
+      <note>
         <pitch>
           <step>G</step>
           <octave>4</octave>
@@ -139,7 +131,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem default-y="5.5">up</stem>
         <notations>
           <slur number="1" type="stop"/>
         </notations>

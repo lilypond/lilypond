@@ -4,8 +4,9 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Some grace notes and after-graces
-            (indicated by steal-time-previous and steal-time-next).</miscellaneous-field>
+      <miscellaneous-field name="description">A grace note that appears at the 
+          measure end (without any steal-from-* attribute set). Some 
+          applications need to convert this into an after-grace.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -39,36 +40,6 @@
         <duration>64</duration>
         <voice>1</voice>
         <type>half</type>
-        <staff>1</staff>
-      </note>
-      <note>
-        <grace steal-time-previous="20"/>
-        <pitch>
-          <step>G</step>
-          <octave>5</octave>
-        </pitch>
-        <voice>1</voice>
-        <type>16th</type>
-        <staff>1</staff>
-      </note>
-      <note>
-        <grace steal-time-next="20"/>
-        <pitch>
-          <step>A</step>
-          <octave>5</octave>
-        </pitch>
-        <voice>1</voice>
-        <type>16th</type>
-        <staff>1</staff>
-      </note>
-      <note>
-        <grace/>
-        <pitch>
-          <step>A</step>
-          <octave>5</octave>
-        </pitch>
-        <voice>1</voice>
-        <type>16th</type>
         <staff>1</staff>
       </note>
       <note>

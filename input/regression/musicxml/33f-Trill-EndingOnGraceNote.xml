@@ -4,20 +4,14 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A trill spanner that ends on an 
-          after-grace note.</miscellaneous-field>
+      <miscellaneous-field name="description">A trill spanner that spans a 
+          grace note and ends on an after-grace note at the end of the 
+          measure.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Acoustic Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -51,7 +45,6 @@
         <duration>336</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <staff>1</staff>
         <notations>
           <slur number="1" placement="above" type="start"/>
@@ -67,7 +60,6 @@
         <voice>1</voice>
         <type>16th</type>
         <accidental>sharp</accidental>
-        <stem>down</stem>
         <staff>1</staff>
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
@@ -80,7 +72,6 @@
         <duration>84</duration>
         <voice>1</voice>
         <type>16th</type>
-        <stem>down</stem>
         <staff>1</staff>
         <beam number="1">end</beam>
         <beam number="2">end</beam>
@@ -100,7 +91,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -112,7 +102,6 @@
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
-        <stem>down</stem>
         <staff>1</staff>
       </note>
       <note>
@@ -123,7 +112,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <staff>1</staff>
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
@@ -136,7 +124,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <staff>1</staff>
         <beam number="1">end</beam>
         <beam number="2">end</beam>

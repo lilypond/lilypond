@@ -44,7 +44,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <lyric number="1">
           <text>a</text>
         </lyric>
@@ -57,7 +56,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <lyric number="1">
           <text>b c</text>
         </lyric>
@@ -70,7 +68,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <lyric number="1">
           <text>d</text>
           <elision/>
@@ -85,7 +82,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
         <lyric number="1">
           <text>f</text>
           <elision/>

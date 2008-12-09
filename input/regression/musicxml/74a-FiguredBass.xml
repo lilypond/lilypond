@@ -9,20 +9,13 @@
           note contains an empty &lt;figured-bass&gt; element, which is 
           invalid MusicXML, to check how well applications cope with malformed 
           files.
-      
+
           Note that this file does not contain any extenders!</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Acoustic Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -43,7 +36,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <figured-bass>
         <figure><figure-number>3</figure-number></figure>
         <duration>4</duration>

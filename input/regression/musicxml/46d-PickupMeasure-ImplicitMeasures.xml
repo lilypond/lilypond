@@ -12,13 +12,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -39,7 +32,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
           <pitch>
               <step>E</step>
@@ -48,7 +40,6 @@
           <duration>2</duration>
           <voice>1</voice>
           <type>quarter</type>
-          <stem>up</stem>
       </note>
       <note>
           <pitch>
@@ -58,7 +49,6 @@
           <duration>1</duration>
           <voice>1</voice>
           <type>eighth</type>
-          <stem>up</stem>
       </note>
     </measure>
     <!--=======================================================-->
@@ -71,7 +61,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -81,7 +70,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <barline location="right">
         <bar-style>none</bar-style>
@@ -97,7 +85,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -107,7 +94,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
     </measure>
     <!--=======================================================-->
@@ -120,7 +106,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -130,7 +115,6 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <rest/>

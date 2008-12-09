@@ -3,10 +3,6 @@
  "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
 	<identification>
-		<encoding>
-			<software>/usr/bin/vi</software>
-			<encoding-date>2007-02-01</encoding-date>
-		</encoding>
 		<miscellaneous>
 			<miscellaneous-field name="description">Text markup: 
                             different font sizes, weights and colors.</miscellaneous-field>
@@ -30,14 +26,12 @@
 						Normal, Medium
 					</words>
 				</direction-type>
-				<staff>1</staff>
 			</direction>
 			<note>
 				<pitch><step>F</step><octave>4</octave></pitch>
 				<duration>384</duration>
 				<voice>1</voice>
 				<type>eighth</type>
-				<staff>1</staff>
 			</note>
 			<direction placement="below">
 				<direction-type>
@@ -45,7 +39,6 @@
 						Bold, Medium
 					</words>
 				</direction-type>
-				<staff>1</staff>
 			</direction>
 		</measure>
 		<measure number="2">
@@ -55,14 +48,12 @@
 						Normal, Large
 					</words>
 				</direction-type>
-				<staff>1</staff>
 			</direction>
 			<note>
 				<pitch><step>G</step><octave>4</octave></pitch>
 				<duration>384</duration>
 				<voice>1</voice>
 				<type>whole</type>
-				<staff>1</staff>
 			</note>
 			<direction placement="below">
 				<direction-type>
@@ -70,7 +61,6 @@
 						Bold, Large
 					</words>
 				</direction-type>
-				<staff>1</staff>
 			</direction>
 		</measure>
 		<measure number="3">
@@ -80,14 +70,12 @@
 						Normal, Small
 					</words>
 				</direction-type>
-				<staff>1</staff>
 			</direction>
 			<note>
 				<pitch><step>F</step><octave>4</octave></pitch>
 				<duration>384</duration>
 				<voice>1</voice>
 				<type>whole</type>
-				<staff>1</staff>
 			</note>
                         <direction placement="below">
                             <direction-type>
@@ -95,7 +83,6 @@
                                     Bold, Small
                                 </words>
                             </direction-type>
-                            <staff>1</staff>
                         </direction>
                         <direction placement="below">
                             <direction-type>
@@ -103,7 +90,6 @@
                                     Normal, Small, Colored, Below
                                 </words>
                             </direction-type>
-                            <staff>1</staff>
                         </direction>
 		</measure>
 	</part>

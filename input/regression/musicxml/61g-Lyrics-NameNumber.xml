@@ -27,7 +27,6 @@
         <time><beats>6</beats><beat-type>4</beat-type></time>
         <clef><sign>G</sign><line>2</line></clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <pitch>
           <step>G</step>

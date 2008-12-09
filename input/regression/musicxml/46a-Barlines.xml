@@ -5,19 +5,14 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Different types of (non-repeat) 
-          barlines.</miscellaneous-field>
+          barlines: default (no setting), regular, dotted, dashed, heavy,
+          light-light, light-heavy, heavy-light, heavy-heavy, tick, short, 
+          none.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -38,15 +33,11 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <rest/>
         <duration>4</duration>
         <voice>1</voice>
       </note>
-      <barline location="right">
-        <bar-style>light-light</bar-style>
-      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="2">
@@ -56,7 +47,7 @@
         <voice>1</voice>
       </note>
       <barline location="right">
-        <bar-style>light-heavy</bar-style>
+        <bar-style>regular</bar-style>
       </barline>
     </measure>
     <!--=======================================================-->
@@ -67,12 +58,11 @@
         <voice>1</voice>
       </note>
       <barline location="right">
-        <bar-style>heavy</bar-style>
+        <bar-style>dotted</bar-style>
       </barline>
     </measure>
     <!--=======================================================-->
     <measure number="4">
-      <print new-system="yes"/>
       <note>
         <rest/>
         <duration>4</duration>
@@ -90,7 +80,7 @@
         <voice>1</voice>
       </note>
       <barline location="right">
-        <bar-style>dotted</bar-style>
+        <bar-style>heavy</bar-style>
       </barline>
     </measure>
     <!--=======================================================-->
@@ -101,7 +91,7 @@
         <voice>1</voice>
       </note>
       <barline location="right">
-        <bar-style>none</bar-style>
+        <bar-style>light-light</bar-style>
       </barline>
     </measure>
     <!--=======================================================-->
@@ -111,15 +101,20 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="8">
-      <print new-system="yes"/>
       <note>
         <rest/>
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <bar-style>heavy-light</bar-style>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="9">
@@ -128,6 +123,9 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <bar-style>heavy-heavy</bar-style>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="10">
@@ -136,6 +134,9 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <bar-style>tick</bar-style>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="11">
@@ -144,15 +145,20 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <bar-style>short</bar-style>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="12">
-      <print new-system="yes"/>
       <note>
         <rest/>
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <bar-style>none</bar-style>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="13">
@@ -161,9 +167,6 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
     </measure>
   </part>
   <!--=========================================================-->

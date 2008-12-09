@@ -482,7 +482,7 @@
         <type>quarter</type>
         <notations>
           <ornaments>
-            <wavy-line placement="below" relative-x="16" type="stop"/>
+            <wavy-line placement="below" type="stop"/>
           </ornaments>
         </notations>
         <lyric number="1"><syllabic>end</syllabic><text>line</text></lyric>
@@ -1233,6 +1233,5 @@
         <bar-style>light-heavy</bar-style>
       </barline>
     </measure>
-
   </part>
 </score-partwise>

@@ -4,21 +4,14 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A grace note that appears at the 
-          measure end (without any steal-from-* attribute set). Some 
-          applications need to convert this into an after-grace.</miscellaneous-field>
+      <miscellaneous-field name="description">A grace note with a slur to the
+          actual note. This can be interpreted as acciaccatura or appoggiatura,
+          depending on the existence of a slash.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Acoustic Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -30,7 +23,7 @@
           <fifths>0</fifths>
           <mode>major</mode>
         </key>
-        <time>
+        <time symbol="common">
           <beats>4</beats>
           <beat-type>4</beat-type>
         </time>
@@ -47,19 +40,6 @@
         <duration>64</duration>
         <voice>1</voice>
         <type>half</type>
-        <stem>down</stem>
-        <staff>1</staff>
-      </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>64</duration>
-        <voice>1</voice>
-        <type>half</type>
-        <stem>down</stem>
-        <staff>1</staff>
       </note>
       <note>
         <grace/>
@@ -69,23 +49,21 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
-        <staff>1</staff>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
+       <notations>
+          <slur number="1" type="start"/>
+        </notations>
       </note>
       <note>
-        <grace/>
         <pitch>
-          <step>A</step>
+          <step>E</step>
           <octave>5</octave>
         </pitch>
+        <duration>64</duration>
         <voice>1</voice>
-        <type>16th</type>
-        <stem>up</stem>
-        <staff>1</staff>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
+        <type>half</type>
+        <notations>
+          <slur number="1" type="stop"/>
+        </notations>
       </note>
     </measure>
   </part>

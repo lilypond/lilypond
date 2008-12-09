@@ -10,13 +10,6 @@
 	<part-list>
 		<score-part id="P0">
 			<part-name>MusicXML Part</part-name>
-			<score-instrument id="I1">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I1">
-				<midi-channel>1</midi-channel>
-				<midi-program>1</midi-program>
-			</midi-instrument>
 		</score-part>
 	</part-list>
 	<part id="P0">
@@ -207,9 +200,9 @@
 					<step>A</step>
 					<octave>4</octave>
 				</pitch>
-				<duration>960</duration>
+				<duration>1920</duration>
 				<voice>1</voice>
-				<type>quarter</type>
+				<type>half</type>
 			</note>
 			<note>
 				<chord/>
@@ -217,38 +210,9 @@
 					<step>F</step>
 					<octave>4</octave>
 				</pitch>
-				<duration>960</duration>
+				<duration>1920</duration>
 				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<octave>5</octave>
-				</pitch>
-				<duration>960</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>960</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<octave>4</octave>
-				</pitch>
-				<duration>960</duration>
-				<voice>1</voice>
-				<type>quarter</type>
+				<type>half</type>
 			</note>
 			<note>
 				<chord/>
@@ -256,9 +220,9 @@
 					<step>D</step>
 					<octave>5</octave>
 				</pitch>
-				<duration>960</duration>
+				<duration>1920</duration>
 				<voice>1</voice>
-				<type>quarter</type>
+				<type>half</type>
 			</note>
 		</measure>
 	</part>

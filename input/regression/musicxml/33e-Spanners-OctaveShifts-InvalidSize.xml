@@ -4,8 +4,8 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A simple, repeated measure 
-          (repeated 5 times)</miscellaneous-field>
+      <miscellaneous-field name="description">Invalid octave-shifts: 27 down,
+            11 up.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -23,7 +23,7 @@
           <mode>major</mode>
         </key>
         <time symbol="common">
-          <beats>4</beats>
+          <beats>3</beats>
           <beat-type>4</beat-type>
         </time>
         <clef>
@@ -32,22 +32,52 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
         <duration>4</duration>
         <voice>1</voice>
+        <type>quarter</type>
       </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-        <repeat direction="backward" times="5"/>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2">
+      <direction>
+        <direction-type>
+          <octave-shift size="27" type="down"/>
+        </direction-type>
+      </direction>
       <note>
-        <rest/>
-        <duration>4</duration>
+        <pitch>
+          <step>A</step>
+          <octave>7</octave>
+        </pitch>
+        <duration>1</duration>
         <voice>1</voice>
+        <type>quarter</type>
       </note>
+      <direction>
+        <direction-type>
+          <octave-shift size="27" type="stop"/>
+        </direction-type>
+      </direction>
+      <direction>
+        <direction-type>
+          <octave-shift size="11" type="up"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <direction>
+        <direction-type>
+          <octave-shift size="11" type="stop"/>
+        </direction-type>
+      </direction>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>

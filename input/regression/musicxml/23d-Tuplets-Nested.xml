@@ -12,13 +12,6 @@
   <part-list>
     <score-part id="P1">
       <part-name print-object="no">MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Acoustic Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -54,7 +47,7 @@
         </time-modification>
         <beam number="1">begin</beam>
         <notations>
-          <tuplet bracket="yes" number="1" placement="below" type="start"/>
+          <tuplet bracket="yes" number="1" type="start"/>
         </notations>
       </note>
       <note>
@@ -86,7 +79,7 @@
         </time-modification>
         <beam number="1">begin</beam>
         <notations>
-          <tuplet bracket="yes" number="2" placement="below" type="start">
+          <tuplet bracket="yes" number="2" type="start">
             <tuplet-actual>
               <tuplet-number>5</tuplet-number>
               <tuplet-type>eighth</tuplet-type>

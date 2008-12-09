@@ -70,7 +70,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <rest/>
         <duration>4</duration>

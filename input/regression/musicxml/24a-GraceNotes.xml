@@ -12,13 +12,6 @@
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
-      <score-instrument id="P1-I1">
-        <instrument-name>Grand Piano</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>1</midi-program>
-      </midi-instrument>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -39,7 +32,6 @@
           <line>2</line>
         </clef>
       </attributes>
-      <sound tempo="120"/>
       <note>
         <grace/>
         <pitch>
@@ -48,7 +40,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -58,7 +49,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <grace/>
@@ -68,7 +58,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
       </note>
@@ -80,7 +69,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <beam number="1">end</beam>
         <beam number="2">end</beam>
       </note>
@@ -92,7 +80,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <grace/>
@@ -103,7 +90,6 @@
         <tie type="start"/>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <notations>
           <tied type="start"/>
         </notations>
@@ -116,7 +102,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <grace/>
@@ -126,7 +111,6 @@
         </pitch>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -136,7 +120,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
     </measure>
     <!--=======================================================-->
@@ -149,7 +132,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -159,7 +141,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <grace/>
@@ -169,7 +150,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
       </note>
@@ -181,7 +161,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
         <beam number="1">end</beam>
         <beam number="2">end</beam>
       </note>
@@ -190,10 +169,9 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>4</duration>
+        <duration>8</duration>
         <voice>1</voice>
-        <type>quarter</type>
-        <stem>down</stem>
+        <type>half</type>
       </note>
       <note>
         <grace slash="yes"/>
@@ -203,17 +181,16 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>4</duration>
+        <duration>2</duration>
         <voice>1</voice>
-        <type>quarter</type>
-        <stem>down</stem>
+        <type>eighth</type>
+        <beam number="1">begin</beam>
       </note>
       <note>
         <grace slash="yes"/>
@@ -223,17 +200,16 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>4</duration>
+        <duration>2</duration>
         <voice>1</voice>
-        <type>quarter</type>
-        <stem>down</stem>
+        <type>eighth</type>
+        <beam number="1">end</beam>
       </note>
       <note>
         <grace/>
@@ -243,7 +219,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
       </note>
     </measure>
     <!--=======================================================-->
@@ -256,7 +231,6 @@
         </pitch>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -266,7 +240,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <chord/>
@@ -277,7 +250,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <note>
         <grace/>
@@ -289,7 +261,6 @@
         <voice>1</voice>
         <type>quarter</type>
         <accidental>sharp</accidental>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -299,7 +270,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <grace/>
@@ -311,7 +281,6 @@
         <voice>1</voice>
         <type>quarter</type>
         <accidental>flat</accidental>
-        <stem>up</stem>
       </note>
       <note>
         <grace/>
@@ -323,7 +292,6 @@
         <voice>1</voice>
         <type>quarter</type>
         <accidental>flat</accidental>
-        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -333,7 +301,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <note>
         <pitch>
@@ -343,7 +310,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>down</stem>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

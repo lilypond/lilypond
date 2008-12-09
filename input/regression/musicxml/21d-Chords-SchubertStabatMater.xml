@@ -1,27 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 0.6 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-	<identification> 
-		<miscellaneous>
-			<miscellaneous-field name="description">Chords in the 
+        <identification> 
+                <miscellaneous>
+                        <miscellaneous-field name="description">Chords in the 
                             second measure, after several ornaments in the first 
                             measure and a p at the beginning of the second 
                             measure.</miscellaneous-field>
-		</miscellaneous>
-	</identification> 
-	<part-list>
-		<score-part id="P0">
-			<part-name>MusicXML Part</part-name>
-			<score-instrument id="I1">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="I1">
-				<midi-channel>1</midi-channel>
-				<midi-program>1</midi-program>
-			</midi-instrument>
-		</score-part>
-	</part-list>
-	<part id="P0">
+                </miscellaneous>
+        </identification> 
+        <part-list>
+                <score-part id="P0">
+                        <part-name>MusicXML Part</part-name>
+                </score-part>
+        </part-list>
+        <part id="P0">
           <measure number="1">
             <attributes>
               <divisions>8</divisions>
@@ -38,15 +31,14 @@
                 <line>2</line>
               </clef>
             </attributes>
-            <sound tempo="120"/>
             <direction placement="above">
               <direction-type>
-                <words default-y="15" font-family="Times New Roman" font-size="8,5" font-weight="bold">Largo</words>
+                <words font-weight="bold">Largo</words>
               </direction-type>
             </direction>
             <direction placement="below">
               <direction-type>
-                <dynamics default-y="-80">
+                <dynamics>
                   <fp/>
                 </dynamics>
               </direction-type>
@@ -72,12 +64,10 @@
           <measure number="2">
             <direction placement="below">
               <direction-type>
-                <dynamics default-y="-80">
+                <dynamics>
                   <p/>
                 </dynamics>
               </direction-type>
-              <offset>1</offset>
-              <sound dynamics="54"/>
             </direction>
             <note>
               <pitch>
@@ -88,7 +78,6 @@
               <voice>1</voice>
               <type>quarter</type>
               <dot/>
-              <stem>up</stem>
             </note>
             <note>
               <chord/>
@@ -101,7 +90,6 @@
               <voice>1</voice>
               <type>quarter</type>
               <dot/>
-              <stem>up</stem>
             </note>
             <note>
               <pitch>
@@ -111,7 +99,6 @@
               <duration>4</duration>
               <voice>1</voice>
               <type>eighth</type>
-              <stem>up</stem>
             </note>
             <note>
               <chord/>
@@ -123,7 +110,6 @@
               <duration>4</duration>
               <voice>1</voice>
               <type>eighth</type>
-              <stem>up</stem>
             </note>
             <note>
               <pitch>
@@ -133,7 +119,6 @@
               <duration>8</duration>
               <voice>1</voice>
               <type>quarter</type>
-              <stem>up</stem>
             </note>
             <note>
               <chord/>
@@ -145,7 +130,6 @@
               <duration>8</duration>
               <voice>1</voice>
               <type>quarter</type>
-              <stem>up</stem>
             </note>
             <note>
               <pitch>
@@ -155,7 +139,6 @@
               <duration>8</duration>
               <voice>1</voice>
               <type>quarter</type>
-              <stem>up</stem>
             </note>
             <note>
               <chord/>
@@ -167,8 +150,7 @@
               <duration>8</duration>
               <voice>1</voice>
               <type>quarter</type>
-              <stem>up</stem>
             </note>
           </measure>
-	</part>
+        </part>
 </score-partwise>
