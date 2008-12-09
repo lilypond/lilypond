@@ -36,8 +36,8 @@ See user manual, \NAME\
 @top New features in 2.11 since 2.10
 
 @ifhtml
-This document is also available in @uref{NEWS.pdf,PDF}. It's part of
-the @uref{../,LilyPond Documentation} .
+This document is also available in @uref{NEWS.pdf,PDF}. It is part of
+the @uref{../,LilyPond Documentation}.
 @end ifhtml
 
 
@@ -281,6 +281,11 @@ Moreover, some files in the @code{ly/} directory have been renamed;
 the *-init.ly filenames are now only used for files that are automatically
 included, while such files as @code{makam-init.ly} or @code{gregorian-init.ly}
 have been renamed to @code{makam.ly} or @code{gregorian.ly}.
+
+@item
+The ``tex'' and ``texstr'' backends have been removed.  Font are now
+accessed via the fontconfig library; the Pango library is used to display
+text strings.
 
 @item
 Metronome marks can now also contain a textual description.  The
