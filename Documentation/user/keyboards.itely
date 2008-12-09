@@ -261,8 +261,13 @@ has no effect on the pitches of the music, so if necessary, put
 If additional control is needed over the individual staves, they
 can be created manually with the names @code{"up"} and
 @code{"down"}.  The @code{\autochange} command will then switch
-its voice between the existing staves.  For example, this is
-necessary to place a key signature in the lower staff:
+its voice between the existing staves.  
+
+@warning{If staves are created manually, they @emph{must} be named
+@code{"up"} and @code{"down"}.}
+
+For example, staves must be created manually in order to place a
+key signature in the lower staff:
 
 @lilypond[quote,verbatim]
 \new PianoStaff <<
