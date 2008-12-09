@@ -211,8 +211,9 @@ def get_option_parser ():
                   action='store_true')
     p.add_option_group ('',
                         description=(
-        _ ("Report bugs via")
-        + ' http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n'))
+        _ ("Report bugs via %s")
+        % ' http://post.gmane.org/post.php'
+        '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     return p
 
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')

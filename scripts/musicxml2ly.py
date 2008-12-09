@@ -2529,9 +2529,10 @@ information.""") % 'lilypond')
                   dest = 'output_name',
                   help = _ ("set output filename to FILE, stdout if -"))
     p.add_option_group ('',
-                        description = (_ ("Report bugs via")
-                                     + ''' http://post.gmane.org/post.php'''
-                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
+                        description = (
+            _ ("Report bugs via %s")
+            % 'http://post.gmane.org/post.php'
+            '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     return p
 
 def music_xml_voice_name_to_lily_name (part_id, name):
