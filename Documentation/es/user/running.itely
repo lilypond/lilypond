@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: e2fedc46142bc323d48e696848327c6c0e4c9ede
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -132,9 +132,8 @@ en la línea de órdenes, e incluir
 al principio del archivo @code{.ly}.
 
 @item -f,--format=@var{formato}
-Qué formatos se tienen que escribir.  Como @code{formato} se puede
-elegir entre @code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex}
-y @code{dvi}.
+Formato de la salida.  Como @code{formato} se puede elegir entre
+@code{svg}, @code{ps}, @code{pdf} y @code{png}.
 
 Ejemplo: @code{lilypond -fpng @var{archivo}.ly}
 
@@ -216,24 +215,14 @@ El modo seguro impide que muchos fragmentos útiles de código de
 LilyPond se puedan compilar.  La opción @code{--jail} es una
 alternativa más segura, pero su preparación requiere más trabajo.
 
+@cindex salida, establecer el formato de
 @item backend
 el formato de salida que usar para el back-end o extremo final.
 Para el @code{formato} se puede elegir entre
 @table @code
-@item tex
-para una salida en @TeX{} con destino a su proceso por parte de
-La@TeX{}.  Si el archivo @file{file.textmetrics} está presente, se lee
-para determinar las dimensiones del texto.
-@item texstr
-volcar cadenas de texto en un archivo @file{.texstr}, que se puede
-procesar con (La)@TeX{}, dando como resultado un archivo
-@code{.textmetrics} que contiene las dimensiones de las cadenas de
-texto.  @strong{Arvertencia:} esta funcionalidad no está disponible
-actualmente debido a la profunda reestructuración del código fuente.
 @item ps
-para PostScript.
-
 @cindex PostScript, salida
+para PostScript.
 
 Los archivos PostScript incluyen las tipografías TTF, Type1 y OTF.  No
 se seleccionan subconjuntos de estas tipografías.  Cuando se usan
@@ -250,10 +239,10 @@ Este modo se usa de forma predeterminada por parte de
 @command{lilypond-book}.
 
 @item svg
+@cindex SVG (Scalable Vector Graphics)
  para obtener SVG (gráficos vectoriales escalables).  Vuelca cada
 página como un archivo @file{SVG} distinto, con las tipografías
 incrustadas.
-@cindex SVG (gráficos vectoriales escalables)
   Se necesita un visor de SVG que contemple las tipografías
 incrustadas, o un visor de SVG que pueda sustituir las tipografías
 incrustadas por tipografías OTF.  Bajo UNIX, puede usar
@@ -262,14 +251,14 @@ después de copiar las tipografías OTF del directorio de LilyPond (que
 normalmente es @file{/usr/share/lilypond/VERSIÓN/fonts/otf/}) al
 directorio @file{~/.fonts/}.
 @item scm
+@cindex Scheme, volcado de
  para obtener un volcado de las instrucciones internas de dibujo
 basadas en Scheme, en bruto.
-@cindex Scheme, volcado de
+@item null
+ no producir una salida impresa; tiene el mismo efecto que @code{-dno-print-pages}.
 @end table
 
 Ejemplo: @code{lilypond -dbackend=svg @var{archivo}.ly}
-
-@cindex salida, establecer el formato de
 
 @item preview
 Generar un archivo de salida que contenga solamente los títulos de
@@ -301,15 +290,11 @@ Establecer el archivo de inicio a @var{archivo} (predeterminado:
 
 @item -o,--output=@var{ARCHIVO}
 Establecer el nombre del archivo de salida predeterminado a
-@var{ARCHIVO}.  Se añade el sufijo correspondiente (es decir,
-@code{.pdf} para PDF, @code{.tex} para TeX, etc.).
+@var{ARCHIVO}.  Se añade el sufijo correspondiente (por ejemplo,
+@code{.pdf} para PDF).
 
 @item --ps
 Generar PostScript.
-
-@item --dvi
-Generar archivos DVI files.  En este caso se debe especificar el
-backend @TeX{}, es decir: @code{-dbackend=tex}.
 
 @item --png
 Generar imágenes de las páginas en formato PNG.  Esto implica
@@ -321,8 +306,6 @@ con
 
 @item --pdf
 Generar PDF.  Implica @code{--ps}.
-
-
 
 @item -j,--jail=@var{usuario},@var{grupo},@var{jaula},@var{directorio}
 Ejecutar @command{lilypond} en una jaula de chroot.

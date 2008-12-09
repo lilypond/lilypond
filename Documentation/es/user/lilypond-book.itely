@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
+    Translation of GIT committish: e2fedc46142bc323d48e696848327c6c0e4c9ede
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -739,8 +739,8 @@ y que tenemos lo siguiente en nuestro documento de Texinfo
 la siguiente orden da como salida el resultado esperado:
 
 @example
-lilypond-book --process="lilypond --format=tex --tex \
-              --header=texidoc prueba.texinfo
+lilypond-book --pdf --process="lilypond \
+  -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
 La mayoría de los documentos de prueba de LilyPond (en el directorio
