@@ -279,10 +279,12 @@ llamar @code{"up"} y @code{"down"} (en inglés).}
 Por ejemplo, esto es necesario para colocar una armadura de tonalidad
 en el pentagrama inferior:
 
+@c Keep Ly needed, otherwise 'up' and 'down' get incorrectly translated in verbatim output
+@c KEEP LY
 @lilypond[quote,verbatim]
 \new PianoStaff <<
   \new Staff = "up" {
-    \new Voice = "melOne" {
+    \new Voice = "melodiaUno" {
       \key g \major
       \autochange \relative c' {
         g8 b a c b d c e
