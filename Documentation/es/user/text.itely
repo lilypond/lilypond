@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -321,41 +321,8 @@ requiere se describen en @ref{Multi-page markup}.
 
 @snippets
 
-@ignore
-@c TODO Replace following example with this snippet when available
-@c Submitted to LSR 30 Nov 08
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{stand--alone-two--column-markup.ly}
-@end ignore
-
-El texto independiente se puede disponer en varias columnas usando
-instrucciones @code{\markup}:
-
-@lilypond[verbatim,quote]
-\markup {
- \fill-line {
-  \hspace #1.0
-  \column {
-   \line {"O sacrum convivium" }
-   \line {"in quo Christus sumitur," }
-   \line {"recolitur memoria passionis ejus," }
-   \line {"mens impletur gratia," }
-   \line {"futurae gloriae nobis pignus datur." }
-   \line {"Amen."}
-  }
-  \hspace #2
-  \column {
-   \line { \italic {"O sacred feast"} }
-   \line { \italic {"in which Christ is received,"} }
-   \line { \italic {"the memory of His Passion is renewed,"} }
-   \line { \italic {"the mind is filled with grace," } }
-   \line { \italic {"and a pledge of future glory is given to us." }}
-   \line { \italic {"Amen."}}
-  }
-  \hspace #1.0
- }
-}
-@end lilypond
+{stand-alone-two-column-markup.ly}
 
 @seealso
 Referencia de la notación:

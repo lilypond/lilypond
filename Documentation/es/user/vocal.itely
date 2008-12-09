@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1093,8 +1093,6 @@ pero varias sílabas en otro.  Una solución es hacer que la voz más
 rápida ignore el melisma.  Esto se consigue estableciendo
 @code{ignoreMelismata} en el contexto Lyrics.
 
-@c  TODO: breaks compile
-@c seems to be fixed, does not break compile anymore --FV
 @lilypond[verbatim,ragged-right,quote]
 <<
   \relative c' \new Voice = "lahlah" {
@@ -1116,6 +1114,12 @@ rápida ignore el melisma.  Esto se consigue estableciendo
   }
 >>
 @end lilypond
+
+@knownissues
+A diferencia de casi todas las instrucciones @code{\set}, @code{\set
+ignoreMelismata} no funciona si va precedido de @code{\once}.  Es
+necesario utilizar @code{\set} y @code{\unset} para delimitar la letra
+en que se quieren ignorar los melismas.
 
 
 @subsubheading Switching to an alternative melody

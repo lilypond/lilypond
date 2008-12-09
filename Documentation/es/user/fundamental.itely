@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -140,7 +140,7 @@ cosa entre una sola nota hasta una enorme expresión compuesta como
 
 @example
 @{
-  \new GrandStaff <<
+  \new StaffGroup <<
     @var{...inserte aquí la partitura completa de una ópera de Wagner...}
   >>
 @}
@@ -302,7 +302,7 @@ abajo.
 @example
 \score @{
   @{   % esta llave da inicio a toda la expresión musical compuesta
-    \new GrandStaff <<
+    \new StaffGroup <<
       @var{...introduzca aquí la partitura completa de una ópera de Wagner...}
     >>
   @}   % esta llave da por terminada toda expresión musical completa
@@ -312,9 +312,10 @@ abajo.
 
 Una ópera de Wagner completa puede ser fácilmente el doble de larga
 que este manual, por tanto vamos a hacer sólo un cantante y un piano.
-No necesitamos un @code{GrandStaff} para este conjunto, así que lo
-retiramos.  Sin embargo, sí que @emph{necesitamos} un cantante y un
-piano.
+No necesitamos un @code{StaffGroup} (que simplemente agrupa un cierto
+número de pautas con un corchete a la izquierda) para este conjunto,
+así que lo retiramos.  Sin embargo, @emph{sí} necesitamos un cantante
+y un piano.
 
 @example
 \score @{
