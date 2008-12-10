@@ -253,6 +253,7 @@ LAYOUT = 'layout'
 LINE_WIDTH = 'line-width'
 LILYQUOTE = 'lilyquote'
 NOFRAGMENT = 'nofragment'
+NOGETTEXT = 'nogettext'
 NOINDENT = 'noindent'
 NOQUOTE = 'noquote'
 NORAGGED_RIGHT = 'noragged-right'
@@ -572,6 +573,7 @@ simple_options = [
     EXAMPLEINDENT,
     FRAGMENT,
     NOFRAGMENT,
+    NOGETTEXT,
     NOINDENT,
     PRINTFILENAME,
     DOCTITLE,
@@ -993,7 +995,10 @@ class LilypondSnippet (Snippet):
         self.do_options (os, self.type)
 
     def verb_ly (self):
-        return verb_ly_gettext (self.substring ('code'))
+        if NOGETTEXT in self.option_dict:
+            return self.substring ('code')
+        else:
+            return verb_ly_gettext (self.substring ('code'))
 
     def ly (self):
         contents = self.substring ('code')
@@ -1211,7 +1216,8 @@ class LilypondSnippet (Snippet):
         file (path + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
-        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
+        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n|' +
+                       NOGETTEXT + '[,\]]', '', ly)
 
     def link_all_output_files (self, output_dir, output_dir_files, destination):
         existing, missing = self.all_output_files (output_dir, output_dir_files)
