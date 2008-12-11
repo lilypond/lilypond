@@ -281,7 +281,7 @@ en el pentagrama inferior:
 
 @c Keep Ly needed, otherwise 'up' and 'down' get incorrectly translated in verbatim output
 @c KEEP LY
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,nogettext]
 \new PianoStaff <<
   \new Staff = "up" {
     \new Voice = "melodiaUno" {
