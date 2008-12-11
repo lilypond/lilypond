@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: 289a8244cb39275e313ddad57fe394da7a21c113
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -48,7 +48,9 @@ ocasiones, será más práctico el modo relativo.
 @cindex alturas
 @cindex absoluta
 @cindex absoluta, especificación, de la octava
+@cindex octava, especificación absoluta
 @cindex absoluta, introducción, de la octava
+@cindex octava, introducción absoluta
 
 El nombre de una nota se especifica usando las letras minúsculas de la
 @code{a} a la @code{g}.  Las notas cuyos nombres van desde @code{c}
@@ -63,6 +65,7 @@ d e f g
 @end lilypond
 
 @cindex octava, marca de cambio de
+
 @funindex '
 @funindex ,
 
@@ -94,6 +97,11 @@ Fragmentos de código:
 
 @cindex relativo
 @cindex relativas, especificación de octavas
+@cindex octava, introducción relativa
+@cindex relativa, especificación de la octava
+@cindex ocatva, especificación relativa
+
+@funindex relative
 @funindex \relative
 
 Cuando las octavas se especifican en modo absoluto, es fácil poner por
@@ -169,6 +177,8 @@ abarcar intervalos muy grandes:
 }
 @end lilypond
 
+@cindex acordes e introducción relativa de la octava
+@cindex relativa, introducción de la octava, y acordes
 
 Si el elemento anterior es un acorde, la primera nota del acorde se
 utiliza para determinar la primera nota del siguiente acorde.  Dentro
@@ -201,7 +211,6 @@ independientemente del número de semitonos de cada uno de ellos.
 }
 @end lilypond
 
-
 @seealso
 Glosario musical:
 @rglos{fifth},
@@ -217,15 +226,17 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{RelativeOctaveMusic}.
 
-
 @cindex relativo, modo, transposición y
 @cindex transposición y modo relativo
+
 @funindex \transpose
+@funindex transpose
 @funindex \chordmode
+@funindex chordmode
 @funindex \relative
+@funindex relative
 
 @knownissues
-
 
 La conversión relativa no afecta a las secciones @code{\transpose},
 @code{\chordmode} o @code{\relative} en su argumento.  Para usar el
@@ -257,6 +268,7 @@ información, consulte @rlearning{Accidentals and key signatures}.}
 
 @cindex notas, nombres holandeses de
 @cindex notas, nombres predeterminados
+@cindex predeterminados, nombres de nota
 @cindex sostenido
 @cindex bemol
 @cindex doble sostenido
@@ -287,7 +299,8 @@ a4 aes a2
 @end lilypond
 
 @cindex cuartos de tono
-@cindex semi-bemoles, semi-sostenidos
+@cindex semi-bemoles
+@cindex semi-sostenidos
 
 Se pueden escribir medios bemoles y los medios sostenidos; a
 continuación presentamos una serie de DOs cada vez más agudos:
@@ -302,9 +315,10 @@ ceseh1 ces ceh c cih cis cisih
 @cindex alteración de precaución
 @cindex alteración con paréntesis
 @cindex recordatoria, alteración
-@funindex ?
 @cindex precaución, alteración de
 @cindex paréntesis, alteración con
+
+@funindex ?
 @funindex !
 
 Normalmente las alteraciones accidentales se imprimen automáticamente,
@@ -537,8 +551,10 @@ Esta sección trata de la manera de modificar las alturas.
 @cindex octava, comprobación de
 @cindex octava, corrección de
 @cindex control, alturas de
+
 @funindex =
 @funindex \octaveCheck
+@funindex octaveCheck
 @funindex controlpitch
 
 En el modo relativo, es fácil olvidar una marca de cambio de octava.
@@ -613,7 +629,9 @@ Referencia de funcionamiento interno:
 @cindex transposición de notas
 @cindex alturas, transporte de
 @cindex notas, transporte de
+
 @funindex \transpose
+@funindex transpose
 
 Una expresión musical se puede transportar mediante @code{\transpose}.
 La sintaxis es
@@ -639,9 +657,6 @@ armadura de la tonalidad se transporta automáticamente.
   }
 }
 @end lilypond
-
-@cindex transpositores, instrumentos
-@cindex instrumentos transpositores
 
 Si una particella escrita en Do (@notation{afinación de concierto}
 normal) se debe tocar con un clarinete en La (para el que un La se
@@ -724,10 +739,12 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{TransposedMusic}.
 
-
 @funindex \transpose
+@funindex transpose
 @funindex \chordmode
+@funindex chordmode
 @funindex \relative
+@funindex relative
 
 @knownissues
 
@@ -756,7 +773,7 @@ notas.
 @node Clef
 @unnumberedsubsubsec Clef
 
-@funindex \clef
+
 @cindex Sol, clave de
 @cindex Do, clave de
 @cindex Fa, clave de
@@ -784,6 +801,9 @@ notas.
 @cindex clave de mezzosoprano
 @cindex clave de barítono
 @cindex clave de contrabajo
+
+@funindex \clef
+@funindex clef
 
 La clave se establece con la instrucción @code{\clef}
 @var{nombre_de_clave}.  En todos los ejemplos se muestra el Do
@@ -831,6 +851,7 @@ Están contempladas claves adicionales que se describen bajo
 @cindex clave transpositora
 @cindex octava, transposición de
 @cindex coral, clave de tenor
+@cindex tenor coral, clave
 
 Al añadir @code{_8} o @code{^8} al nombre de la clave, la clave se
 transpone una octava hacia abajo o hacia arriba, respectivamente, y
@@ -873,7 +894,9 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Key signature
 
 @cindex Armadura de la tonalidad
+
 @funindex \key
+@funindex key
 
 Las alteraciones accidentales y las armaduras son una frecuente causa de confusión para los nuevos usuarios,
 porque las notas sin alteración pueden llevar signos de becuadro en función de la armadura.
@@ -898,25 +921,26 @@ armadura se hace con la instrucción @code{\key}:
 @end example
 
 @funindex \major
+@funindex major
 @funindex \minor
+@funindex minor
 @funindex \ionian
+@funindex ionian
 @funindex \locrian
+@funindex locrian
 @funindex \aeolian
+@funindex aeolian
 @funindex \mixolydian
+@funindex mixolydian
 @funindex \lydian
+@funindex lydian
 @funindex \phrygian
+@funindex phrygian
 @funindex \dorian
+@funindex dorian
+
 @cindex modos eclesiásticos
 @cindex modos
-@cindex major
-@cindex minor
-@cindex ionian
-@cindex locrian
-@cindex aeolian
-@cindex mixolydian
-@cindex lydian
-@cindex phrygian
-@cindex dorian
 @cindex mayor, modo
 @cindex menor, modo
 @cindex eonio, modo
@@ -981,7 +1005,10 @@ Referencia de funcionamiento interno:
 @cindex 15ma
 @cindex 8va
 @cindex octavación
+
 @funindex set-octavation
+@funindex \ottava
+@funindex ottava
 
 Los @notation{corchetes de Ottava} introducen un trasporte adicional
 de una octava para el pentagrama.
@@ -1024,7 +1051,9 @@ Referencia de funcionamiento interno:
 @cindex transpositor, instrumento
 @cindex MIDI
 @cindex MIDI, transposición
+
 @funindex \transposition
+@funindex transposition
 
 Al tipografiar partituras donde participan instrumentos
 transpositores, ciertas partes se pueden tipografiar en un tono
@@ -1118,8 +1147,10 @@ Fragmentos de código:
 @cindex alteraciones, estilo de las
 @cindex predeterminado, estilo de las alteraciones
 @cindex alteraciones, estilo predeterminado de las
+
 @funindex set-accidental-style
 @funindex voice
+@funindex default
 
 Existen muchas convenciones distintas sobre la forma de tipografiar
 las alteraciones.  LilyPond proporciona una función para especificar
@@ -1146,8 +1177,6 @@ curso, use
 
 Están contemplados los siguientes estilos de alteración.  Para dar una
 muestra de cada uno de los estilos, utilizamos el ejemplo siguiente:
-
-@funindex default
 
 @lilypond[verbatim,quote]
 musicA = {
@@ -1219,6 +1248,7 @@ dos pentagramas.
 @item default (predeterminado)
 
 @cindex alteraciones, estilo predeterminado
+
 @funindex default
 
 Es el comportamiento de composición tipográfica predeterminado.
@@ -1282,6 +1312,7 @@ musicB = {
 @cindex moderno, estilo de alteraciones
 @cindex alteraciones, estilo, moderno-precaución
 @cindex moderno-precaución, estilo de alteraciones
+
 @funindex voice
 
 El comportamiento normal es recordar las alteraciones accidentales al
@@ -1350,6 +1381,7 @@ musicB = {
 
 @cindex alteraciones, estilo moderno
 @cindex moderno, alteraciones de estilo
+
 @funindex modern
 
 Esta regla corresponde a la práctica común del s. XX.  Imprime las
@@ -1411,6 +1443,7 @@ musicB = {
 @cindex alteraciones, estilo moderno de precaución
 @cindex moderno, alteraciones de estilo
 @cindex moderno de precaución, alteraciones de estilo
+
 @funindex modern-cautionary
 
 Esta regla es similar a @code{modern}, pero las alteraciones
@@ -1474,6 +1507,7 @@ musicB = {
 @cindex moderno, alteraciones de estilo
 @cindex voces, alteraciones en varias
 @cindex alteración, estilo moderno de
+
 @funindex modern-voice
 
 Esta regla se usa para que puedan leer las alteraciones en varias
@@ -1535,6 +1569,7 @@ musicB = {
 @cindex alteración, estilo de voz de precaución moderno
 @cindex alteración de voz de precaución moderno, estilo de
 @cindex alteración, moderno de precaución, voz, estilo de
+
 @funindex modern-voice-cautionary
 
 Esta regla es la misma que @code{modern-voice}, pero con las
@@ -1594,6 +1629,7 @@ musicB = {
 @cindex piano, alteraciones de
 @cindex alteraciones de piano
 @cindex piano, estilo de alteraciones de
+
 @funindex piano
 
 Esta regla refleja la práctica del s.XX para la notación de piano.  Su
@@ -1652,13 +1688,14 @@ musicB = {
 
 @item piano-cautionary (piano, de precaución)
 
-@funindex piano-cautionary
 @cindex alteraciones, piano de precaución, estilo de
 @cindex alteraciones, piano de precaución
 @cindex precaución, estilo de alteraciones, piano
 @cindex precaución, alteraciones de piano de
 @cindex piano de precaución, estilo de alteraciones
 @cindex piano de precaución, alteraciones
+
+@funindex piano-cautionary
 
 Igual que @code{#(set-accidental-style 'piano)} pero con las
 alteraciones añadidas compuestas como de precaución.
@@ -1709,9 +1746,10 @@ musicB = {
 @end lilypond
 @item neo-modern
 
-@funindex neo-modern
 @cindex neo-moderno, estilo de alteraciones
 @cindex alteraciones, estilo de, neo-moderno
+
+@funindex neo-modern
 
 Esta regla reproduce una práctica común en la música contemporánea:
 las alteraciones accidentales se imprimen como en @code{modern}, pero
@@ -1766,9 +1804,10 @@ musicB = {
 
 @item neo-modern-cautionary
 
-@funindex neo-modern-cautionary
 @cindex neo-moderno de precaución, estilo de alteraciones
 @cindex alteraciones, estilo, neo-moderno de precaución
+
+@funindex neo-modern-cautionary
 
 Esta regla es similar a @code{neo-modern}, pero las alteraciones
 adicionales se imprimen como alteraciones de precaución.
@@ -1822,9 +1861,10 @@ musicB = {
 
 @item dodecaphonic
 
-@funindex dodecaphonic
 @cindex dodecafónico, estilo de alteraciones
 @cindex alteraciones, estilo, dodecafónico
+
+@funindex dodecaphonic
 
 Esta regla refleja una práctica introducida por los compositores de
 principios del s.XX, en un intento de abolir la jerarquía entre notas
@@ -1879,9 +1919,10 @@ musicB = {
 
 @item teaching (enseñanza)
 
-@funindex teaching
 @cindex teaching (enzeñanza), estilo de alteraciones
 @cindex alteraciones, estilo teaching (enseñanza)
+
+@funindex teaching
 
 Esta regla está pensada para estudiantes, y hace más sencillo crear
 hojas de escalas con alteraciones de precaución creadas
@@ -1941,9 +1982,10 @@ musicB = {
 
 @item no-reset (no restablecer)
 
-@funindex no-reset
 @cindex alteraciones no restablecer, estilo de
 @cindex no restablecer, estilo de alteraciones
+
+@funindex no-reset
 
 Es el mismo que @code{default} pero con alteraciones que duran @q{para
 siempre} y no sólo dentro del mismo compás:
@@ -1996,9 +2038,10 @@ musicB = {
 
 @item forget (olvidar)
 
-@funindex forget
 @cindex olvidar, estilo de alteraciones
 @cindex alteración, estilo de, olvidar
+
+@funindex forget
 
 Es lo opuesto a @code{no-reset}: Las alteraciones no se recuerdan en
 absoluto: de aquí que todas las alteraciones se compongan
@@ -2186,6 +2229,7 @@ Esta sección propone formas de alterar las cabezas de las figuras.
 @cindex guitarra, cabezas de nota
 @cindex nota, cabeza de, estilos
 @cindex estilos de cabeza de nota
+
 @funindex cross
 
 Se puede modificar la cabeza de las notas:
@@ -2238,6 +2282,11 @@ Referencia de funcionamiento interno:
 @cindex nots, cabezas de, para precticar
 @cindex simplificada, notación
 
+@funindex \easyHeadsOn
+@funindex easyHeadsOn
+@funindex \easyHeadsOff
+@funindex easyHeadsOff
+
 Las cabezas @q{easy play} (fáciles de tocar) tienen el nombre de la
 nota (en inglés) dentro de la cabeza.  Se usa en la música para
 principiantes.
@@ -2262,9 +2311,7 @@ staff size}.
 
 
 @predefined
-@funindex \easyHeadsOn
 @code{\easyHeadsOn},
-@funindex \easyHeadsOff
 @code{\easyHeadsOff}.
 @endpredefined
 
@@ -2292,9 +2339,13 @@ Referencia de funcionamiento interno:
 @cindex formas, notas con
 @cindex Aiken, cabezas de nota con forma de
 @cindex arpa sacra, cabezas de nota de
+
 @funindex \key
+@funindex key
 @funindex \aikenHeads
+@funindex aikenHeads
 @funindex \sacredHarpHeads
+@funindex sacredHarpHeads
 
 En la notación de cabezas con forma, la forma de la cabeza corresponde
 a la función armónica de una nota dentro de la escala. Esta notación
@@ -2313,9 +2364,7 @@ tónica está determinada por la instrucción @code{\key}
 
 
 @predefined
-@funindex \aikenHeads
 @code{\aikenHeads},
-@funindex \sacredHarpHeads
 @code{\sacredHarpHeads}.
 @endpredefined
 
@@ -2352,6 +2401,11 @@ Referencia de funcionamiento interno:
 @cindex notas, cabezas de, improvisación
 @cindex notas, cabezas de, barradas
 
+@funindex \improvisationOn
+@funindex improvisationOn
+@funindex \improvisationOff
+@funindex improvisationOff
+
 La improvisación se denota a veces mediante cabezas de nota en forma
 de barra inclinada, donde el ejecutante puede elegir cualquier nota
 pero con el ritmo especificado.  Estas cabezas de nota se crean así:
@@ -2372,9 +2426,7 @@ pero con el ritmo especificado.  Estas cabezas de nota se crean así:
 
 
 @predefined
-@funindex \improvisationOn
 @code{\improvisationOn},
-@funindex \improvisationOff
 @code{\improvisationOff}.
 @endpredefined
 
@@ -2387,4 +2439,3 @@ Referencia de funcionamiento interno:
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
-

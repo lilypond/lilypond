@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: 289a8244cb39275e313ddad57fe394da7a21c113
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -45,6 +45,7 @@ dentro del pentagrama.
 @cindex selección del tamaño de la fuente tipográfica (de notación)
 @cindex notación, tamaño de la fuente
 @cindex notas, cabezas de
+
 @funindex fontSize
 @funindex font-size
 @funindex magstep
@@ -108,6 +109,7 @@ c4.-> d8---3
 
 @cindex estándar, tamaño de la tipografía (de notación)
 @cindex fuente tipográfica (de notación), tamaño estándar de
+
 @funindex font-interface
 @funindex font-size
 
@@ -123,17 +125,11 @@ contemplan el interfaz de presentación @code{font-interface}.
 
 
 @predefined
-@funindex \teeny
 @code{\teeny} (enano),
-@funindex \tiny
 @code{\tiny} (muy pequeño),
-@funindex \small
 @code{\small} (pequeño),
-@funindex \normalsize
 @code{\normalsize} (normal),
-@funindex \large
 @code{\large} (grande),
-@funindex \huge
 @code{\huge} (enorme).
 @endpredefined
 
@@ -151,8 +147,9 @@ Referencia de funcionamiento interno:
 
 @cindex digitación
 @cindex cambio de dedo
-@funindex font-interface
-@funindex font-size
+
+@funindex \finger
+@funindex finger
 
 Las instrucciones de digitación se pueden introducir usando
 @var{nota}-@var{dígito}:
@@ -168,6 +165,7 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
 
 @cindex thumb-script
+
 @funindex \thumb
 @funindex thumb
 
@@ -229,6 +227,7 @@ Referencia de funcionamiento interno:
 @cindex notas ocultas
 @cindex notas invisibles
 @cindex notas transparentes
+
 @funindex \hideNotes
 @funindex hideNotes
 @funindex \unHideNotes
@@ -279,7 +278,8 @@ Referencia de funcionamiento interno:
 
 @cindex coloreados, objetos
 @cindex colores
-@cindex colorear objects
+@cindex colorear objetos
+@cindex objetos, colorear
 @cindex coloreadas, notas
 @cindex colorear notas
 @cindex notas coloreadas
@@ -287,6 +287,7 @@ Referencia de funcionamiento interno:
 @cindex x11-color
 @cindex colores de x11
 @cindex with-color
+
 @funindex color
 @funindex \with-color
 @funindex with-color
@@ -336,6 +337,7 @@ b2 cis
 @cindex rgb-color
 @cindex color rgb
 @cindex rgb, color
+
 @funindex rgb-color
 
 Se pueden especificar colores RGB exactos utilizando la función de
@@ -369,6 +371,7 @@ Fragmentos de código:
 @cindex coloreadas, notas de acorde
 @cindex notas coloreadas en acordes
 @cindex color en acordes
+
 @funindex x11-color
 
 @knownissues
@@ -393,6 +396,7 @@ ver más detalles.
 @cindex notas fantasma
 @cindex notas entre paréntesis
 @cindex paréntesis
+
 @funindex \parenthesize
 @funindex parenthesize
 
@@ -424,12 +428,12 @@ Referencia de funciionamiento interno:
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
 
-
 @knownissues
 
 Al poner un acorde entre paréntesis, se encierra cada una de las notas
 individuales entre paréntesis, en vez de un solo paréntesis grande
 rodeando al acorde completo.
+
 
 @node Stems
 @unnumberedsubsubsec Stems
@@ -438,20 +442,22 @@ rodeando al acorde completo.
 @cindex plica invisible
 @cindex invisible, plica
 
+@funindex \stemUp
+@funindex stemUp
+@funindex \stemDown
+@funindex stemDown
+@funindex \stemNeutral
+@funindex stemNeutral
+
 Cuando se encuentra con una nota, se crea automáticamente un objeto
 @code{Stem} (plica).  Para las redondas y los silencios, también se
 crean pero se hacen invisibles.
 
-
 @predefined
-@funindex \stemUp
 @code{\stemUp},
-@funindex \stemDown
 @code{\stemDown},
-@funindex \stemNeutral
 @code{\stemNeutral}.
 @endpredefined
-
 
 @snippets
 
@@ -496,11 +502,16 @@ pentagrama, desde fuera del pentagrama.
 @cindex notación, explicación de
 @cindex globo de ayuda
 @cindex ayuda, globos de
+
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
 @funindex balloonGrobText
 @funindex balloonText
+@funindex \balloonLengthOn
+@funindex balloonLengthOn
+@funindex \balloonLengthOff
+@funindex balloonLengthOff
 
 Los elementos de notación se pueden marcar y nombrar con la ayuda de
 un cartel o globo de ayuda rectangular.  El propósito principal de
@@ -543,11 +554,7 @@ pero esto puede cambiarse:
 
 
 @predefined
-@funindex balloonLengthOn
-@funindex \balloonLengthOn
 @code{\balloonLengthOn},
-@funindex \balloonLengthOff
-@funindex balloonLengthOff
 @code{\balloonLengthOff}.
 @endpredefined
 
@@ -569,6 +576,7 @@ Referencia de funcionamiento interno:
 @cindex líneas de rejilla
 @cindex vertical, línea, entre pentagramas
 @cindex línea vertical entre pentagramas
+
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver
 @funindex gridInterval
@@ -639,9 +647,11 @@ Referencia de funcionamiento interno:
 @cindex fraseo, corchetes de
 @cindex corchetes de fraseo
 @cindex musicológico, análisis
+@cindex análisis musicológico
 @cindex notas, corchetes de agrupación de
 @cindex horizontal, corchete
 @cindex corchete horizontal
+
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
 @funindex startGroup
