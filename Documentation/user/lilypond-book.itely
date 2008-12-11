@@ -674,6 +674,13 @@ will be printed with a verbatim block like
   f2 e
 @end example
 
+@noindent
+If you would like to translate comments and variable names in verbatim
+output but not in the sources, you may set the environment variable
+@code{LYDOC_LOCALEDIR} to a directory path; the directory should
+contain a tree of @file{.mo} message catalogs with @code{lilypond-doc}
+as a domain.
+
 @item addversion
 (Only for Texinfo output.)  Prepend line @code{\version
 @@w@{"@@version@{@}"@}} to @code{verbatim} output.
@@ -739,6 +746,10 @@ Texinfo document as @code{@@lydoctitle @var{text}}.
 @code{@@lydoctitle} should be a macro defined in the Texinfo document.
 The same remark about @code{texidoc} processing with localized
 languages also applies to @code{doctitle}.
+
+@item nogettext
+(Only for Texinfo output.) Do not translate comments and variable
+names in the snippet quoted verbatim.
 
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print

@@ -1803,13 +1803,23 @@ FI: avain, nuottiavain.
 The clef indicates which lines of the staff correspond to which
 pitches.  The three clef symbols in common use are:
 
-@lilypond[ragged-right,quote]
+@lilypond[quote]
 \markup {
- \column {
-  \line { "The Treble or G clef:   " \musicglyph #"clefs.G" }
-  \line { "The Bass or F clef:     " \musicglyph #"clefs.F" }
-  \line { "The Alto or C clef:     " \musicglyph #"clefs.C" }
- }
+  \left-column {
+    \line { The Treble or G clef: }
+    \strut
+    \line { The Bass or F clef: }
+    \strut
+    \line { The Alto or C clef: }
+  }
+  \hspace #0.5
+  \left-column {
+    \musicglyph #"clefs.G"
+    \strut
+    \musicglyph #"clefs.F"
+    \strut
+    \musicglyph #"clefs.C"
+  }
 }
 @end lilypond
 
@@ -1817,72 +1827,59 @@ Imagine a large staff of 11 lines centered on middle C, sometimes
 called a @q{grand staff}, with the bottom line representing low G and
 the top line high F:
 
-@lilypond[ragged-right,quote]
+@lilypond[quote]
 \score {
- <<
-%-- Treble Staff --%
-  \new Staff = "G" {
-% Allow this staff to be placed close to the others
-   \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-2 . 2)
-% Allow the treble clef to overlap the lower staves:
-%   \override Staff.Clef #'Y-extent = #'(0 . 0)
-   \override Staff.Clef #'stencil = ##f          % No clef required
-   \clef "G"
-   s1^\markup { "g," \transparent "g" }
-   s^ \markup { "b," \transparent "g" }
-   s^ \markup { "d"  \transparent "g" }
-   s^ \markup { "f"  \transparent "g" }
-   s^ \markup { "a"  \transparent "g" }
-   s^ \markup { \with-color #red c' \transparent "g"}
-   e'^\markup { "e'" \transparent "g" }
-   g'^\markup { "g'" \transparent "g" }
-   b'^\markup { "b'" \transparent "g" }
-   d''^\markup { "d''" \transparent "g" }
-   f''^\markup { "f ''" \transparent "g" }
-   s
+  <<
+    %-- Note names above treble staff --%
+    \new NoteNames {
+      \set printOctaveNames = ##t
+      g,1 b, d f a
+      \once \override NoteName #'color = #red
+      c'1
+      e'1 g' b' d'' f''
+    }
+    %-- Treble Staff --%
+    \new Staff = "G" {
+      \override Staff.Clef #'stencil = ##f
+      \clef "G"
+      s1 s s s s s
+      e'1 g' b' d'' f''
+      s1
+    }
+    %-- Alto Staff reduced to a single line on middle C --%
+    \new Staff = "C" {
+      \override Staff.StaffSymbol #'line-count = #1
+      \override Staff.StaffSymbol #'color = #red
+      \override Staff.Clef #'stencil = ##f
+      \clef "C"
+      s1 s s s s
+      \override NoteHead #'color = #red
+      c'1
+      s1 s s s s s
+    }
+    %-- Bass Staff --%
+    \new Staff = "F" {
+      \override Staff.Clef #'stencil = ##f
+      \clef "F"
+      g,1 b, d f a
+      s1 s s s s s s
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+        #'base-shortest-duration = #(ly:make-moment 1 1)
+      \override  NonMusicalPaperColumn
+        #'line-break-system-details = #'((alignment-offsets . (3 0 -3 -6)))
+      \override BarLine #'stencil = ##f
+    }
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
   }
-%-- Alto Staff reduced to a single line on middle C --%
-  \new Staff = "C" {
-   \override Staff.StaffSymbol #'line-count = 1  % One line only
-   \override Staff.StaffSymbol #'color = #red    % Coloured red
-   \override Staff.Clef #'stencil = ##f          % No clef required
-   \clef "C"
-
-% Allow this staff to be placed close to the others
-   \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(0 . 0)
-% Specify height to give correct spacing between treble and bass staves
-   \override Staff.VerticalAxisGroup #'Y-extent = #'(-1 . 1)
-
-   s1 s s s s  % Space along to align horizonatally
-   \override NoteHead #'color = #red
-    c'1 % A middle C
-    s1 s s s s s % Keep staff (ie the red line) showing
-  }
-%-- Bass Staff --%
-  \new Staff = "F" {
-% Allow this staff to be placed close to the others
-   \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 2)
-   \override Staff.Clef #'stencil = ##f          % No clef required
-   \clef "F"
-   g,1 b, d f a
-   s s s s s s s % Keep staff showing
-  }
- >>
- \layout {
-% Reduce horizontal spacing so semibreves can be used without exceeding 1 line
-  \context { \Score \override SpacingSpanner #'base-shortest-duration = #(ly:make-moment 1 1)
-  }
-% Reduce apparent vertical size of note heads to permit them to overlap other grobs vertically
-  \context { \Score \override NoteHead #'Y-extent = #'(0 . 0)
-  }
-% Remove all barlines
-  \context { \Score \override BarLine #'stencil = ##f
-  }
-% Remove time signature from all staves
-  \context { \Staff \remove Time_signature_engraver
-  }
- }  % End layout
-}  % End score
+}
 @end lilypond
 
 Staves of five lines are usually used, and the clef superimposed on
@@ -1890,83 +1887,60 @@ them indicates which five lines have been selected from this
 @samp{grand staff}. For example, the treble or G clef indicates that
 the top five lines have been selected:
 
-@lilypond[ragged-right,quote]
+@lilypond[quote]
 \score {
- <<
-%-- Treble Staff --%
-  \new Staff = "G" {
-% Allow this staff to be placed close to the others
-   \override Staff.VerticalAxisGroup 
-    #'minimum-Y-extent = #'(0 . 0)
-% Allow the treble clef to overlap the lower staves:
-%   \override Staff.Clef #'Y-extent = #'(0 . 0)
-   \override Staff.Clef #'stencil = ##f  % No clef required here
-   \clef "G"
-   s1^\markup { "g," \transparent "g" }
-   s^ \markup { "b," \transparent "g" }
-   s^ \markup { "d"  \transparent "g" }
-   s^ \markup { "f"  \transparent "g" }
-   s^ \markup { "a"  \transparent "g" }
-   s^ \markup { \with-color #red c' \transparent "g"}
-   \stopStaff \startStaff
-   \clef "C"  % Dummy to force next clef to be printed
-   s  % Need at least one note for \clef to take effect
-   \revert Staff.Clef #'stencil       % Clef now required
-   \override Staff.Clef #'Y-extent = #'(0 . 0)  % Permit overlap
-   \clef "G"
-   e'^\markup { "e'" \transparent "g" }
-   g'^\markup { "g'" \transparent "g" }
-   b'^\markup { "b'" \transparent "g" }
-   d''^\markup { "d''" \transparent "g" }
-   f''^\markup { "f ''" \transparent "g" }
-  }  % End staff G
-%-- Alto Staff reduced to a single line on middle C --%
-  \new Staff = "C" {
-   \override Staff.StaffSymbol #'line-count = 1  % One line only
-   \override Staff.StaffSymbol #'color = #red    % Coloured red
-   \override Staff.Clef #'stencil = ##f      % No clef required
-   \clef "C"
-
-% Allow this staff to be placed close to the others
-   \override Staff.VerticalAxisGroup 
-    #'minimum-Y-extent = #'(0 . 0)
-% Specify height to give correct spacing between the staves
-   \override Staff.VerticalAxisGroup #'Y-extent = #'(-1 . 1)
-
-   s1 s s s s  % Space along to align horizonatally
-   \override NoteHead #'color = #red
-    c'1 % A middle C
-%    s1 s s s s  % Keep staff (ie the red line) showing
-  }  % End staff C
-%-- Bass Staff --%
-  \new Staff = "F" {
-% Allow this staff to be placed close to the others
-   \override Staff.VerticalAxisGroup 
-    #'minimum-Y-extent = #'(0 . 0)
-   \override Staff.Clef #'stencil = ##f     % No clef required
-   \clef "F"
-   g,1_" " b, d f a
-%   s s s s s s  % Keep staff showing
-  }  % End staff F
- >>
- \layout {
-% Reduce horizontal spacing so semibreves can be used 
-% without exceeding 1 line
-  \context { \Score \override SpacingSpanner 
-   #'base-shortest-duration = #(ly:make-moment 1 1)
+  <<
+    %-- Note names above treble staff --%
+    \new NoteNames {
+      \set printOctaveNames = ##t
+      g,1 b, d f a
+      \once \override NoteName #'color = #red
+      c'1
+      s1
+      e'1 g' b' d'' f''
+    }
+    %-- Treble Staff --%
+    \new Staff = "G" {
+      \once \override Staff.Clef #'stencil = ##f
+      \clef "G"
+      s1 s s s s s s
+      \override Staff.Clef #'full-size-change = ##t
+      \set Staff.forceClef = ##t
+      \clef "G"
+      e'1 g' b' d'' f''
+    }
+    %-- Alto Staff reduced to a single line on middle C --%
+    \new Staff = "C" {
+      \override Staff.StaffSymbol #'line-count = #1
+      \override Staff.StaffSymbol #'color = #red
+      \override Staff.Clef #'stencil = ##f
+      \clef "C"
+      s1 s s s s
+      \override NoteHead #'color = #red
+      c'1
+    }
+    %-- Bass Staff --%
+    \new Staff = "F" {
+      \override Staff.Clef #'stencil = ##f
+      \clef "F"
+      g,1 b, d f a
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+        #'base-shortest-duration = #(ly:make-moment 2 1)
+      \override  NonMusicalPaperColumn
+        #'line-break-system-details = #'((alignment-offsets . (3 0 -3 -6)))
+      \override BarLine #'stencil = ##f
+    }
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
   }
-% Reduce apparent vertical size of note heads to 
-% permit them to overlap other grobs vertically
-  \context { \Score \override NoteHead #'Y-extent = #'(0 . 0)
-  }
-% Remove all barlines
-  \context { \Score \override BarLine #'stencil = ##f
-  }
-% Remove time signature from all staves
-  \context { \Staff \remove Time_signature_engraver
-  }
- }  % End layout
-}  % End score
+}
 @end lilypond
 
 The @q{curl} of the G clef is centered on the line that represents the
@@ -1978,78 +1952,58 @@ C clef indicates the middle five lines have been selected.  This
 relationship is shown below, where the notes show an arpeggio on a C
 major chord.
 
-@lilypond[ragged-right,quote]
+@lilypond[quote]
 \score {
-<<
-%-- Treble Staff --%
- \new Staff = "G" \with {
-  \remove Time_signature_engraver
- }
- {
-% The following two overrides are required to make the two middle C's overlap
-  \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(0 . 0)
-  \override Staff.VerticalAxisGroup #'Y-extent = #'(-2 . 2)
-
-  \override Staff.Clef #'Y-extent = #'(0 . 0)
-  \clef "G"
-  s1 s s s s e' g' c''
- }
-%-- Alto Staff --%
- \new Staff = "C" \with {
-  \remove Time_signature_engraver
- }
- {
-  \override Staff.StaffSymbol #'line-count = 1
-  \override Staff.StaffSymbol #'stencil = ##f
-  \once \override Staff.Clef #'stencil = ##f
-  \clef "G"  % A frig. This clef is invisible; use G to force the later C clef to be shown
-  \override Score.BarLine #'stencil = ##f
-
-  % The following two overrides are required to align the C staff to the G and F staves
-  \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(0 . 0)
-  \override Staff.VerticalAxisGroup #'Y-extent = #'(-1 . 1)
-
-  s1 s s s
-  \stopStaff \startStaff
-  \override Staff.VerticalAxisGroup #'Y-extent = #'(-1 . 1)
-  \revert Staff.StaffSymbol #'stencil
-  \override Staff.StaffSymbol #'color = #red
-   b'1 % A frig.  This really shows as a middle C in the score
-   s1 s s s
-  \stopStaff \startStaff
-  \override Staff.StaffSymbol #'line-count = 5
-  \override Staff.StaffSymbol #'Y-extent = #'(0 . 0)
-  \override Staff.Clef #'Y-extent = #'(0 . 0)
-  \revert Staff.StaffSymbol #'color
-  \stopStaff \startStaff
-  \clef "C"
-  s1 s s c e g c' e' g' c''
- }
-%-- Bass Staff --%
- \new Staff = "F" \with {
-  \remove Time_signature_engraver
- }
- {
-  \override Staff.Clef #'Y-extent = #'(0 . 0)
-% The following two overrides are required to make the two middle C's overlap
-  \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(0 . 0)
-  \override Staff.VerticalAxisGroup #'Y-extent = #'(-2 . 2)
-
-  \clef "F"
-  c1 e g s s s s s
- }
->>
-\layout {
- \context {
-  \Score \override SpacingSpanner #'base-shortest-duration = #(ly:make-moment 2 1)
+  <<
+    %-- Treble Staff --%
+    \new Staff = "G" {
+      \clef "G"
+      s1 s s s
+      e'1 g' c'' s
+    }
+    %-- Alto Staff --%
+    \new Staff = "C" {
+      \override Staff.StaffSymbol #'line-count = #1
+      \once \override Staff.Clef #'stencil = ##f
+      \stopStaff
+      \clef "C"
+      s1 s s
+      \startStaff
+      \revert Staff.StaffSymbol #'stencil
+      \override Staff.StaffSymbol #'color = #red
+      c'1
+      s1 s s s s
+      \stopStaff \startStaff
+      \revert Staff.StaffSymbol #'line-count
+      \revert Staff.StaffSymbol #'color
+      \stopStaff \startStaff
+      \override Staff.Clef #'full-size-change = ##t
+      \set Staff.forceClef = ##t
+      \clef "C"
+      s1 s
+      c1 e g c' e' g' c''
+    }
+    %-- Bass Staff --%
+    \new Staff = "F" {
+      \clef "F"
+      c1 e g
+      s1 s s s s
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner #'base-shortest-duration =
+        #(ly:make-moment 2 1)
+      \override  NonMusicalPaperColumn
+        #'line-break-system-details = #'((alignment-offsets . (0 -3 -6)))
+      \override BarLine #'stencil = ##f
+    }
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
   }
- \context {
-  \Score \override NoteHead #'Y-extent = #'(0 . 0)
-  }
- \context {
-  \Score \override NoteHead #'minimum-Y-extent = #'(0 . 0)
- }
-}
 }
 @end lilypond
 

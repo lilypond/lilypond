@@ -82,7 +82,6 @@ $LY_LANGUAGES->{'de'} = {
     'Back to Documentation Index' => '',
 };
 
-print $LY_LANGUAGES->{'fr'}->{'Back to Documentation Index'};
 
 sub ly_get_string () {
     my $lang = $Texi2HTML::THISDOC{current_lang};
