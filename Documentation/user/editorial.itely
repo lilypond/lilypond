@@ -45,7 +45,6 @@ inside the staff.
 @cindex selecting font size (notation)
 @cindex notation font size
 @cindex note heads
-
 @funindex fontSize
 @funindex font-size
 @funindex magstep
@@ -106,7 +105,6 @@ c4.-> d8---3
 
 @cindex standard font size (notation)
 @cindex font size (notation), standard
-
 @funindex font-interface
 @funindex font-size
 
@@ -121,11 +119,17 @@ that use fonts.  These are the ones supporting the
 
 
 @predefined
+@funindex \teeny
 @code{\teeny},
+@funindex \tiny
 @code{\tiny},
+@funindex \small
 @code{\small},
+@funindex \normalsize
 @code{\normalsize},
+@funindex \large
 @code{\large},
+@funindex \huge
 @code{\huge}.
 @endpredefined
 
@@ -143,7 +147,6 @@ Internals Reference:
 
 @cindex fingering
 @cindex finger change
-
 @funindex \finger
 @funindex finger
 
@@ -161,7 +164,6 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
 
 @cindex thumb-script
-
 @funindex \thumb
 @funindex thumb
 
@@ -222,7 +224,6 @@ Internals Reference:
 @cindex notes, hidden
 @cindex notes, invisible
 @cindex notes, transparent
-
 @funindex \hideNotes
 @funindex hideNotes
 @funindex \unHideNotes
@@ -272,7 +273,6 @@ Internals Reference:
 @unnumberedsubsubsec Coloring objects
 
 @cindex colored objects
-@cindex objects, colored
 @cindex colors
 @cindex coloring objects
 @cindex colored notes
@@ -281,7 +281,6 @@ Internals Reference:
 @cindex x11 color
 @cindex x11-color
 @cindex with-color
-
 @funindex color
 @funindex \with-color
 @funindex with-color
@@ -331,7 +330,6 @@ b2 cis
 @cindex rgb-color
 @cindex color, rgb
 @cindex rgb color
-
 @funindex rgb-color
 
 Exact RGB colors can be specified using the Scheme function
@@ -365,7 +363,6 @@ Snippets:
 @cindex colored notes in chords
 @cindex notes, colored in chords
 @cindex color in chords
-
 @funindex x11-color
 
 @knownissues
@@ -389,7 +386,6 @@ Notes in a chord cannot be colored with @code{\override}; use
 @cindex notes, ghost
 @cindex notes, parenthesized
 @cindex parentheses
-
 @funindex \parenthesize
 @funindex parenthesize
 
@@ -435,21 +431,17 @@ chord.
 @cindex stem, invisible
 @cindex invisible stem
 
-@funindex \stemUp
-@funindex stemUp
-@funindex \stemDown
-@funindex stemDown
-@funindex \stemNeutral
-@funindex stemNeutral
-
 Whenever a note is found, a @code{Stem} object is created
 automatically.  For whole notes and rests, they are also created but
 made invisible.
 
 
 @predefined
+@funindex \stemUp
 @code{\stemUp},
+@funindex \stemDown
 @code{\stemDown},
+@funindex \stemNeutral
 @code{\stemNeutral}.
 @endpredefined
 
@@ -497,16 +489,11 @@ from outside of the staff.
 @cindex notation, explaining
 @cindex balloon help
 @cindex help, balloon
-
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
 @funindex balloonGrobText
 @funindex balloonText
-@funindex \balloonLengthOn
-@funindex balloonLengthOn
-@funindex \balloonLengthOff
-@funindex balloonLengthOff
 
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
@@ -548,7 +535,11 @@ altered:
 
 
 @predefined
+@funindex balloonLengthOn
+@funindex \balloonLengthOn
 @code{\balloonLengthOn},
+@funindex \balloonLengthOff
+@funindex balloonLengthOff
 @code{\balloonLengthOff}.
 @endpredefined
 
@@ -570,7 +561,6 @@ Internals Reference:
 @cindex lines, grid
 @cindex vertical lines between staves
 @cindex lines, vertical between staves
-
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver
 @funindex gridInterval
@@ -640,11 +630,9 @@ Internals Reference:
 @cindex bracket, phrasing
 @cindex phrasing bracket
 @cindex musicological analysis
-@cindex analysis, musicological
 @cindex note grouping bracket
 @cindex horizontal bracket
 @cindex bracket, horizontal
-
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
 @funindex startGroup
