@@ -111,8 +111,8 @@ la même façon.
 a'4 b' c''4. b'8 a'4. b'4.. c''8.
 @end lilypond
 
-@predefined
 
+@predefined
 Les points sont normalement haussés pour éviter les lignes de portées,
 sauf dans certaines polyphonies.  Les commandes suivantes peuvent être
 utilisées pour demander manuellement une orientation particulière des
@@ -124,9 +124,10 @@ points.
 @code{\dotsDown},
 @funindex \dotsNeutral
 @code{\dotsNeutral}.
+@endpredefined
+
 
 @seealso
-
 Référence du programme : @rinternals{Dots}, @rinternals{DotColumn}.
 
 
@@ -166,14 +167,15 @@ Les nolets peuvent être imbriqués ; par exemple,
 }
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex \tupletUp
 @code{\tupletUp},
 @funindex \tupletDown
 @code{\tupletDown},
 @funindex \tupletNeutral
 @code{\tupletNeutral}.
+@endpredefined
 
 
 @commonprop
@@ -276,10 +278,8 @@ suivante, ou à la prochaine note.
 
 
 @seealso
-
 Référence du programme : @rinternals{TupletBracket},
 @rinternals{TupletNumber}, @rinternals{TimeScaledMusic}.
-
 
 
 @node Scaling durations
@@ -302,7 +302,6 @@ b16*4 c4
 
 
 @seealso
-
 Dans ce manuel : @ref{Tuplets}.
 
 
@@ -416,7 +415,6 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
 
 
 @predefined
-
 @funindex \tieUp
 @code{\tieUp},
 @funindex \tieDown
@@ -429,10 +427,10 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
 @code{\tieDashed},
 @funindex \tieSolid
 @code{\tieSolid}.
+@endpredefined
 
 
 @seealso
-
 Glossaire musical :
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -497,8 +495,8 @@ Cela rend plus facile la mise en place de la musique polyphonique,
 puisque le formateur automatique de collision des silences laissera ces
 silences tranquilles.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{Rest}.
 
 
@@ -542,8 +540,8 @@ note et de silence.  Ainsi, le code suivant aboutit à une portée vide.
 
 Le fragment @code{@{ \skip 4 @} } produirait une page vide.
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{SkipMusic}.
 
 
@@ -637,7 +635,6 @@ R1*4
 
 
 @seealso
-
 Référence du programme : @rinternals{MultiMeasureRestMusic},
 @rinternals{MultiMeasureRest}.
 
@@ -751,7 +748,6 @@ argument à la commande @code{set-time-signature}, en troisième position.
 
 
 @seealso
-
 Référence du programme : @rinternals{TimeSignature} et
 @rinternals{Timing_translator}.
 
@@ -1008,9 +1004,10 @@ multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
 >> }
 @end lilypond
 
-@seealso
 
+@seealso
 Exemples : @rlsr{Rhythms}.
+
 
 @knownissues
 
@@ -1058,8 +1055,8 @@ normales et des points, le graveur n'insèrera pas de nolets.
 divise pas les silences.
 
 @seealso
-
 Référence du programme : @rinternals{Completion_heads_engraver}.
+
 
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
@@ -1075,9 +1072,10 @@ ramenées à la même hauteur, sur une portée d'une seule ligne.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{RhythmicStaff}.
+
 
 @node Beams
 @subsection Beams
@@ -1113,7 +1111,6 @@ individuelles d'être rattachées aux autres.
 
 
 @seealso
-
 Référence du programme : @rinternals{Beam}.
 
 
@@ -1285,11 +1282,12 @@ les ligatures automatiques doivent être désactivées, avec @code{\autoBeamOff}
 
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
+@endpredefined
+
 
 @commonprop
 
@@ -1520,7 +1518,6 @@ reprises. Voyez à ce sujet @ref{Repeats}.
 
 
 @seealso
-
 Dans ce manuel : @ref{Repeats}, @ref{Grouping staves}.
 
 Référence du programme : @rinternals{BarLine} (faisant partie du
@@ -1589,7 +1586,6 @@ c4 c c c
 
 
 @seealso
-
 Référence du programme : @rinternals{BarNumber}.
 
 Exemples : @rlsr{Staff notation}.
@@ -1752,8 +1748,8 @@ Pour connaître les différents symboles accessibles par
 Pour affiner le positionnement des repères, veuillez vous référer à
 @ref{Text marks}.
 
-@seealso
 
+@seealso
 Dans ce manuel : @ref{Text marks}.
 
 Référence du programme : @rinternals{RehearsalMark}.
@@ -1957,7 +1953,6 @@ Il est possible de forcer l'élasticité de l'espacement des notes d'agrément.
 
 
 @seealso
-
 Référence du programme : @rinternals{GraceMusic}.
 
 

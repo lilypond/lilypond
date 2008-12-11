@@ -12,6 +12,7 @@ TODO:
 import sys
 import os
 import getopt
+import re
 
 program_name = 'lys-to-tely'
 
@@ -85,8 +86,15 @@ for opt in options:
     else:
         raise Exception ('unknown option: ' + o)
 
+texi_file_re = re.compile ('.*\.i?te(ly|xi)$')
+
 def name2line (n):
-    s = r"""
+    if texi_file_re.match (n):
+        # We have a texi include file, simply include it:
+        s = r"@include %s" % os.path.basename (n)
+    else:
+        # Assume it's a lilypond file -> create image etc.
+        s = r"""
 @ifhtml
 @html
 <a name="%s"></a>
@@ -103,7 +111,6 @@ if files:
     name = os.path.basename (name)
     template = template % vars ()
 
-    files.sort ()
     s = "\n".join (map (name2line, files))
     s = template.replace (include_snippets, s, 1)
     f = "%s/%s" % (dir, name)

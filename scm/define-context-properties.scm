@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2008  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -99,11 +99,11 @@ automatically.")
 but it controls cautionary accidentals rather than normal ones.  Both
 lists are tried, and the one giving the most accidentals wins.  In
 case of draw, a normal accidental is typeset.")
-     (automaticBars ,boolean? "If set to true then bar lines will not
+     (automaticBars ,boolean? "If set to false then bar lines will not
 be printed automatically; they must be explicitly created with a
-@code{\\bar} command.  Unlike the @code{\\cadenza} keyword, measures
-are still counted.  Bar generation will resume according to that count
-if this property is unset.")
+@code{\\bar} command.  Unlike the @code{\\cadenzaOn} keyword, measures
+are still counted.  Bar line generation will resume according to that
+count if this property is unset.")
 
      
      (barAlways ,boolean? "If set to true a bar line is drawn after
@@ -374,6 +374,10 @@ context.")
      (repeatCommands ,list? "This property is a list of commands
 of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
 @code{#f}.  @code{'end-repeat} is also accepted as a command.")
+     (repeatCountVisibility ,procedure? "A procedure taking as
+arguments an integer and context, returning whether the corresponding
+percent repeat number should be printed when @code{countPercentRepeats}
+is set.")
      (restNumberThreshold ,number? "If a multimeasure rest has more
 measures than this, a number is printed.")
 

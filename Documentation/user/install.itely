@@ -24,8 +24,8 @@ Building LilyPond is a very involved process, so we @strong{highly}
 recommend using the precompiled binaries.
 
 @menu
-* Precompiled binaries::        
-* Compiling from source::       
+* Precompiled binaries::
+* Compiling from source::
 @end menu
 
 
@@ -86,12 +86,12 @@ the @uref{Compiling-from-source.html,documentation in English}.
 @c and remove all stuff (menu, nodes, contents) below this line.
 
 @menu
-* Downloading source code::     
-* Requirements::                
-* Building LilyPond::           
-* Building documentation::      
-* Testing LilyPond::            
-* Problems::                    
+* Downloading source code::
+* Requirements::
+* Building LilyPond::
+* Building documentation::
+* Testing LilyPond::
+* Problems::
 @end menu
 
 @node Downloading source code
@@ -104,7 +104,7 @@ Download source
 @uref{http://lilypond.org/download/} by HTTP.
 @item tarballs from
 @uref{http://download.linuxaudio.org/lilypond/} by HTTP.
-@item 
+@item
 GIT from @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=summary,git.sv.gnu.org}
 
 @example
@@ -136,7 +136,7 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
-@item @uref{http://metafont.tutorial.free.fr/,MetaFont} (mf-nowin, mf, mfw or 
+@item @uref{http://metafont.tutorial.free.fr/,MetaFont} (mf-nowin, mf, mfw or
 mfont binaries) and @uref{http://cm.bell-labs.com/who/hobby/MetaPost.html,MetaPost}
 (mpost binary), usually packaged with a @LaTeX{} distribution like
 tetex or texlive.
@@ -161,7 +161,8 @@ newer.  4.x is strongly recommended).
 
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 
-@item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
+@item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}
+(version 0.17 or newer).
 
 @item @uref{http://www.gnu.org/software/flex/,Flex}.
 
@@ -182,7 +183,7 @@ Running LilyPond requires proper installation of the following software
 @itemize
 
 @item @uref{http://www.freetype.org/,Freetype} (version 2.1.10 or newer).
-@item @uref{http://www.freetype.org/,FontConfig} (version 2.2).
+@item @uref{http://fontconfig.org/,FontConfig} (version 2.2).
 @item @uref{http://www.pango.org/,Pango} (version 1.12 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
 (version 1.8.2 or newer), or patch 1.8.1 with
@@ -435,7 +436,7 @@ On MacOS@tie{}X, I use this:
 
 @verbatim
 export DYLD_LIBRARY_PATH=/sw/lib
-exec /sw/bin/pngtopnm "$@" 
+exec /sw/bin/pngtopnm "$@"
 @end verbatim
 
 
@@ -481,7 +482,7 @@ For checking the coverage of the test suite, do the following
 ./buildscripts/build-coverage.sh
 @emph{# uncovered files, least covered first}
 python ./buildscripts/coverage.py  --summary out-cov/*.cc
-@emph{# consecutive uncovered lines, longest first} 
+@emph{# consecutive uncovered lines, longest first}
 python ./buildscripts/coverage.py  --uncovered out-cov/*.cc
 @end example
 
@@ -559,12 +560,12 @@ hints, though:
 Red Hat Fedora
 
     taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
-         ttfonts-zh_CN fonts-ja fonts-hebrew 
+         ttfonts-zh_CN fonts-ja fonts-hebrew
 
 Debian GNU/Linux
 
    apt-get install emacs-intl-fonts xfonts-intl-.* \
         ttf-kochi-gothic ttf-kochi-mincho \
-        xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
+        xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi
 @end verbatim
 

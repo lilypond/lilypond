@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2003--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2003--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 
@@ -109,8 +109,7 @@ select_encoded_font (Output_def *layout, SCM chain)
     }
 
 #if HAVE_PANGO_FT2
-  if (scm_is_string (name)
-      && is_pango_format_global)
+  if (scm_is_string (name))
     return select_pango_font (layout, chain);
   else
 #endif

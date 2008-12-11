@@ -3,9 +3,9 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 1998--2007 Mats Bengtsson <matsb@s3.kth.se>,
+% (c) 1998--2008 Mats Bengtsson <matsb@s3.kth.se>,
 %		 Christian Mondrup <scancm@biobase.dk>
-% (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
+% (c) 2002--2008 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 fet_begingroup ("timesig");

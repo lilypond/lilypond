@@ -13,28 +13,28 @@
 
 @lilypondfile[quote]{editorial-headword.ly}
 
-This section discusses the various ways to change the appearance of 
+This section discusses the various ways to change the appearance of
 notes and add analysis or educational emphasis.
 
 @menu
-* Inside the staff::            
-* Outside the staff::           
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
 @node Inside the staff
 @subsection Inside the staff
 
-This section discusses how to add emphasis to elements that are 
+This section discusses how to add emphasis to elements that are
 inside the staff.
 
 @menu
-* Selecting notation font size::  
-* Fingering instructions::      
-* Hidden notes::                
-* Coloring objects::            
-* Parentheses::                 
-* Stems::                       
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
 @node Selecting notation font size
@@ -45,6 +45,7 @@ inside the staff.
 @cindex selecting font size (notation)
 @cindex notation font size
 @cindex note heads
+
 @funindex fontSize
 @funindex font-size
 @funindex magstep
@@ -105,6 +106,7 @@ c4.-> d8---3
 
 @cindex standard font size (notation)
 @cindex font size (notation), standard
+
 @funindex font-interface
 @funindex font-size
 
@@ -117,23 +119,18 @@ The @code{font-size} property can only be set on layout objects
 that use fonts.  These are the ones supporting the
 @code{font-interface} layout interface.
 
-@predefined
 
-@funindex \teeny
+@predefined
 @code{\teeny},
-@funindex \tiny
 @code{\tiny},
-@funindex \small
 @code{\small},
-@funindex \normalsize
 @code{\normalsize},
-@funindex \large
 @code{\large},
-@funindex \huge
 @code{\huge}.
+@endpredefined
+
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -146,6 +143,7 @@ Internals Reference:
 
 @cindex fingering
 @cindex finger change
+
 @funindex \finger
 @funindex finger
 
@@ -156,18 +154,19 @@ Fingering instructions can be entered using
 c4-1 d-2 f-4 e-3
 @end lilypond
 
-Markup texts may be used for finger changes. 
+Markup texts may be used for finger changes.
 
 @lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
 
 @cindex thumb-script
+
 @funindex \thumb
 @funindex thumb
 
 A thumb-script can be added (e.g., in cello music) to indicate
-that a note should be played with the thumb. 
+that a note should be played with the thumb.
 
 @lilypond[verbatim,quote,relative=2]
 <a_\thumb a'-3>2 <b_\thumb b'-3>
@@ -195,9 +194,11 @@ staff, see @ref{Direction and placement}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{avoiding-collisions-of-chord-fingering-with-beams.ly}
+
 
 @seealso
-
 Notation Reference:
 @ref{Direction and placement}
 
@@ -221,6 +222,7 @@ Internals Reference:
 @cindex notes, hidden
 @cindex notes, invisible
 @cindex notes, transparent
+
 @funindex \hideNotes
 @funindex hideNotes
 @funindex \unHideNotes
@@ -235,7 +237,7 @@ c4 d
 e4 f
 \unHideNotes
 g a
-\hideNotes 
+\hideNotes
 b
 \unHideNotes
 c
@@ -252,11 +254,12 @@ e4(\p f)--
 
 
 @predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
 
-@code{\hideNotes}, @code{\unHideNotes}
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -269,6 +272,7 @@ Internals Reference:
 @unnumberedsubsubsec Coloring objects
 
 @cindex colored objects
+@cindex objects, colored
 @cindex colors
 @cindex coloring objects
 @cindex colored notes
@@ -277,6 +281,7 @@ Internals Reference:
 @cindex x11 color
 @cindex x11-color
 @cindex with-color
+
 @funindex color
 @funindex \with-color
 @funindex with-color
@@ -303,7 +308,7 @@ write and is more efficient.  However, using the second form it is
 possible to access X11 colors by the multi-word form of its name.
 
 If @code{x11-color} cannot make sense of the parameter then the
-color returned defaults to black. 
+color returned defaults to black.
 
 @lilypond[verbatim,quote,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
@@ -326,6 +331,7 @@ b2 cis
 @cindex rgb-color
 @cindex color, rgb
 @cindex rgb color
+
 @funindex rgb-color
 
 Exact RGB colors can be specified using the Scheme function
@@ -336,17 +342,17 @@ Exact RGB colors can be specified using the Scheme function
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
-  
+
 \override Stem #'color = #(rgb-color 0 0 0)
 gis8 a
 \override Stem #'color = #(rgb-color 1 1 1)
 gis8 a
-\override Stem #'color = #(rgb-color 0 0 0.5) 
+\override Stem #'color = #(rgb-color 0 0 0.5)
 gis4 a
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{List of colors}, @ref{The
 tweak command}.
@@ -354,15 +360,17 @@ tweak command}.
 Snippets:
 @rlsr{Editorial annotations}.
 
+
 @cindex x11 color
 @cindex colored notes in chords
 @cindex notes, colored in chords
 @cindex color in chords
+
 @funindex x11-color
 
 @knownissues
 An X11 color is not necessarily exactly the same shade as a
-similarly named normal color.  
+similarly named normal color.
 
 Not all X11 colors are distinguishable in a web browser, i.e.,
 a web browser might not display a difference between @code{'LimeGreen}
@@ -381,6 +389,7 @@ Notes in a chord cannot be colored with @code{\override}; use
 @cindex notes, ghost
 @cindex notes, parenthesized
 @cindex parentheses
+
 @funindex \parenthesize
 @funindex parenthesize
 
@@ -401,8 +410,8 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -410,6 +419,7 @@ Internals Reference:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+
 
 @knownissues
 
@@ -425,18 +435,23 @@ chord.
 @cindex stem, invisible
 @cindex invisible stem
 
+@funindex \stemUp
+@funindex stemUp
+@funindex \stemDown
+@funindex stemDown
+@funindex \stemNeutral
+@funindex stemNeutral
+
 Whenever a note is found, a @code{Stem} object is created
 automatically.  For whole notes and rests, they are also created but
 made invisible.
 
-@predefined
 
-@funindex \stemUp
+@predefined
 @code{\stemUp},
-@funindex \stemDown
 @code{\stemDown},
-@funindex \stemNeutral
 @code{\stemNeutral}.
+@endpredefined
 
 
 @snippets
@@ -448,6 +463,7 @@ made invisible.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+
 
 @seealso
 Notation Reference:
@@ -465,13 +481,13 @@ Internals Reference:
 @node Outside the staff
 @subsection Outside the staff
 
-This section discusses how to add emphasis to elements in the staff 
-from outside of the staff. 
+This section discusses how to add emphasis to elements in the staff
+from outside of the staff.
 
 @menu
-* Balloon help::                
-* Grid lines::                  
-* Analysis brackets::           
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
 @node Balloon help
@@ -481,11 +497,16 @@ from outside of the staff.
 @cindex notation, explaining
 @cindex balloon help
 @cindex help, balloon
+
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
 @funindex balloonGrobText
 @funindex balloonText
+@funindex \balloonLengthOn
+@funindex balloonLengthOn
+@funindex \balloonLengthOff
+@funindex balloonLengthOff
 
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
@@ -495,10 +516,10 @@ notation.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
 
@@ -517,26 +538,22 @@ altered:
 {
   \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
   \balloonLengthOn
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
 
 
 @predefined
+@code{\balloonLengthOn},
+@code{\balloonLengthOff}.
+@endpredefined
 
-@funindex balloonLengthOn
-@funindex balloonLengthOff
-@funindex \balloonLengthOn
-@funindex \balloonLengthOff
-
-@code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -553,6 +570,7 @@ Internals Reference:
 @cindex lines, grid
 @cindex vertical lines between staves
 @cindex lines, vertical between staves
+
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver
 @funindex gridInterval
@@ -572,7 +590,7 @@ lines.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" 
+    \consists "Grid_point_engraver"
     gridInterval = #(ly:make-moment 1 4)
   }
   \context {
@@ -603,7 +621,6 @@ lines.
 
 
 @seealso
-
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -623,9 +640,11 @@ Internals Reference:
 @cindex bracket, phrasing
 @cindex phrasing bracket
 @cindex musicological analysis
+@cindex analysis, musicological
 @cindex note grouping bracket
 @cindex horizontal bracket
 @cindex bracket, horizontal
+
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
 @funindex startGroup
@@ -665,8 +684,8 @@ Analysis brackets may be nested.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets:
 @rlsr{Editorial annotations}.
 

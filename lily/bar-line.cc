@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "bar-line.hh"
@@ -334,13 +334,17 @@ ADD_INTERFACE (Bar_line,
 	       "\n"
 	       "Print a special bar symbol.  It replaces the regular bar"
 	       " symbol with a special symbol.  The argument @var{bartype}"
-	       " is a string which specifies the kind of bar to print."
-	       "  Options are @code{:|}, @code{|:}, @code{:|:}, @code{||},"
-	       " @code{|.}, @code{.|}, and @code{.|.}.\n"
+	       " is a string which specifies the kind of bar line to print."
+	       "  Options are @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},"
+	       " @code{:|.:}, @code{||}, @code{|.}, @code{.|}, @code{.|.},"
+	       " @code{|.|}, @code{:} and @code{dashed}.\n"
 	       "\n"
 	       "These produce, respectively, a right repeat, a left repeat,"
-	       " a double repeat, a double bar, a start bar, an end bar, and"
-	       " a thick double bar.  In addition, there is an option"
+	       " a thick double repeat, a thin-thick-thin double repeat,"
+	       " a thin-thick double repeat, a double bar, a start bar,"
+	       " an end bar, a thick double bar, a thin-thick-thin bar,"
+	       " a dotted bar and a dashed bar."
+	       "  In addition, there is an option"
 	       " @code{||:} which is equivalent to @code{|:} except at line"
 	       " breaks, where it produces a double bar (@code{||}) at the"
 	       " end of the line and a repeat sign (@code{|:}) at the"
@@ -349,7 +353,7 @@ ADD_INTERFACE (Bar_line,
 	       "If @var{bartype} is set to @code{empty} then nothing is"
 	       " printed, but a line break is allowed at that spot.\n"
 	       "\n"
-	       "@code{gap} is used for the gaps in dashed barlines.",
+	       "@code{gap} is used for the gaps in dashed bar lines.",
 
 	       /* properties */
 	       "allow-span-bar "
@@ -363,5 +367,3 @@ ADD_INTERFACE (Bar_line,
 	       "bar-size "
 	       "bar-extent "
 	       );
-
-

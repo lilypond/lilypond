@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,11 +12,13 @@
 @node Chord notation
 @section Chord notation
 
+@lilypondfile[quote]{chords-headword.ly}
+
 Los acordes se pueden escribir en el modo de acordes, que reconoce
 ciertas convenciones europeas tradicionales de nomenclatura de
 acordes.  También se pueden imprimir los nombres de los acordes.
 Además se puede imprimir notación de bajo cifrado.
-
+ 
 @menu
 * Chord mode::
 * Displaying chords::
@@ -76,8 +78,8 @@ secuencial:
 \chordmode { f2 g }
 @end lilypond
 
-@seealso
 
+@seealso
 Glossario musical:
 @rglos{chord}.
 
@@ -87,6 +89,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Chords}
+
 
 @knownissues
 
@@ -146,30 +149,91 @@ Se pueden crear acordes de séptima:
 La tabla que aparece más abajo muestra el efecto de los modificadores
 de variante sobre los acordes de tríada y de séptima.
 
-@table @code
+@c @table @code
+@multitable @columnfractions .2 .4 .3
 
-@item m
+@item
+@b{Modificador}
+@tab
+@b{Acción}
+@tab
+@b{Ejemplo}
+
+@item
+Ninguno
+@tab
+Acción predeterminada; produce una tríada mayor.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1
+}
+@end lilypond
+
+@item
+m, m7
+@tab
 Acorde menor.  Este modificador baja la tercera y, si existe, la
 séptima.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:m c:m7
+}
+@end lilypond
 
-@item dim
+
+@item
+dim, dim7
+@tab
 Acorde disminuido.  Este modificador baja la tercera, la quinta y, si
 existe, la séptima.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:dim c:dim7
+}
+@end lilypond
 
-@item aug
+@item
+aug
+@tab
 Acorde aumentado.  Este modificador eleva la quinta.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:aug
+}
+@end lilypond
 
-@item maj
+@item
+maj, maj7
+@tab
 Acorde de séptima mayor.  Este modificador añade una séptima elevada.
 El @code{7} que sigue a @code{maj} es opcional.  NO utilice este
 modificador para crear una tríada mayor.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:maj c:maj7
+}
+@end lilypond
 
-@end table
+@end multitable
+
 
 @seealso
+Referencia de la notación:
+@ref{Common chord modifiers}.
 
 Fragmentos de código:
 @rlsr{Chords}.
+
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
@@ -256,7 +320,7 @@ modificadora.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
-  c1^3 c:7^5 c:9^3.5
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
 }
 @end lilypond
 
@@ -273,9 +337,6 @@ al acorde, respectivamente.  @code{sus} equivale a @code{^3};
   c1:sus c:sus2 c:sus4 c:5.4^3
 }
 @end lilypond
-
-Es posible eliminar la tercera con @code{sus} y eliminar otra nota con
-@code{^} dentro de una cadena modificadora.
 
 @funindex /
 @cindex acordes, inversiones
@@ -304,10 +365,18 @@ de ser movida por efecto de una inversión, mediante el uso de
 }
 @end lilypond
 
+Los modificadores de acorde que se pueden utilizar para producir una
+amplia variedad de acordes estándar se muestran en @ref{Common chord
+modifiers}.
+
+
 @seealso
+Referencia de la notación:
+@ref{Common chord modifiers}.
 
 Fragmentos de código:
-@rlsr{Chords}
+@rlsr{Chords}.
+
 
 @knownissues
 
@@ -318,10 +387,6 @@ interpreta en último lugar.
 @lilypond[quote,ragged-right,verbatim,fragment]
 \chordmode { c1:5.5-.5+ }
 @end lilypond
-
-Sólo se puede eliminar una nota de un acorde.  Si se desa hacer un
-acorde con varias notas eliminadas, se debe construir a través de la
-adición de varias notas.
 
 Sólo se puede crear la primera inversión mediante la adición de un
 bajo.  La segunda inversión requiere cambiar la fundamental del
@@ -416,8 +481,8 @@ inversiones o bajos añadidos:
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{chord}.
 
@@ -433,6 +498,7 @@ Referencia de funcionamiento interno:
 @rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
+
 
 @knownissues
 
@@ -540,8 +606,8 @@ acorde está alterado.
 
 @end table
 
-@predefined
 
+@predefined
 @funindex major seven symbols
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
@@ -553,6 +619,8 @@ acorde está alterado.
 @code{\italianChords},
 @funindex \frenchChords
 @code{\frenchChords}.
+@endpredefined
+
 
 @snippets
 
@@ -564,32 +632,21 @@ acorde está alterado.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-major7.ly}
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {adding-bars-to-chordnames.ly)
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-bar-lines-to-chordnames-context.ly}
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {volta-brackets-over-chord-names.ly}
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{volta-below-chords.ly}
 
-@c TODO  convert to snippet
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {changing-chord-separator.ly}
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-chord-separator.ly}
 
-El separador entre las distintas partes del nombre de un acorde se
-puede establecer para que sea cualquier elemento de marcado.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chords {
-  c:7sus4
-  \set chordNameSeparator
-    = \markup { \typewriter "|" }
-  c:7sus4
-}
-@end lilypond
 
 @seealso
-
 Referencia de la notación:
-@ref{Chord name chart}.
+@ref{Chord name chart},
+@ref{Common chord modifiers}.
 
 Archivos instalados:
 @file{scm/@/chords@/-ignatzek@/.scm},
@@ -601,6 +658,7 @@ Fragmentos de código:
 
 @c Internals Reference:
 @c @rinternals{  }.
+
 
 @knownissues
 
@@ -624,6 +682,8 @@ myChords = \relative c' {
 
 @node Figured bass
 @subsection Figured bass
+
+@lilypondfile[quote]{figured-bass-headword.ly}
 
 Se puede imprimir notación de bajo cifrado.
 
@@ -683,8 +743,8 @@ impresión de las cifras.  Por ejemplo, el espaciado vertical de las
 cifras se puede ajustar con @code{baseline-skip}.
 @end ignore
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{figured bass}.
 
@@ -800,7 +860,7 @@ La siguiente tabla resume los modificadores de cifrado disponibles.
 @multitable @columnfractions .1 .5 .4
 
 @item
-@b{Modifcador}
+@b{Modificador}
 @tab
 @b{Propósito}
 @tab
@@ -864,14 +924,15 @@ Fin de línea de continuación
 @cindex bajo cifrado, líneas de extensión
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
+@endpredefined
+
 
 @snippets
-@c TODO  Fix this snippet -- Plus direction should be RIGHT.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Chords}.
 
@@ -883,7 +944,9 @@ Referencia de funcionamiento interno:
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
 
+
 @c @knownissues
+
 
 @node Displaying figured bass
 @unnumberedsubsubsec Displaying figured bass
@@ -919,11 +982,6 @@ El bajo cifrado se puede añadir también a contextos de @code{Staff}
 directamente.  En este caso, la posición vertical de las cifras se
 ajusta automáticamente.
 
-@c TODO add a second paragraph to show direction change.  First
-@c   example should be UP (default), second should be DOWN.
-
-@c  TODO change to use predefined command once it is added to
-@c  property-init.ly  -cds
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<
   \new Staff = myStaff
@@ -960,48 +1018,33 @@ se puede presentar encima o debajo del mismo.
 >>
 @end lilypond
 
-@ignore
-@c I don't understand this -cs
-When using continuation lines, common figures are always put in the
-same vertical position.  When this is unwanted, you can insert a rest.
-The rest will clear any previous alignment.  For
-example, you can write
-
-@example
-<6 4>8 r8
-@end example
-
-@noindent
-instead of
-@example
-<4 6>4
-@end example
-@end ignore
 
 @predefined
 @cindex bajo cifrado, alineación
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
+@endpredefined
+
 
 @c @snippets
 
 @seealso
 @c Music Glossary:
 @c @rg los{}.
-
+@c
 @c Learning Manual:
 @c @rle arning{}.
-
+@c
 @c Notation Reference:
 @c @re f{}.
-
+@c
 @c Application Usage:
 @c @rpr ogram{}.
-
+@c
 @c Installed Files:
 @c @fil e{}.
-
+@c
 Snippets:
 @rlsr{Chords}.
 
@@ -1012,6 +1055,7 @@ Referencia de funcionamiento interno:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+
 
 @knownissues
 

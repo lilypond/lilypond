@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 270753f1475f23809437eadd7cbbb5a2abddb7b3
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -99,8 +99,8 @@ pueden escribir en cualquier lugar dentro del archivo de entrada.  Se
 pueden escribir dentro o fuera del bloque @code{\score}, y dentro o
 fuera de la expresión musical única dentro del bloque @code{\score}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
@@ -190,6 +190,33 @@ principio del archivo.
 @end example
 
 
+@funindex \bookpart
+
+Se pueden agrupar distintas piezas de música en partes de un libro
+utilizando bloques @code{\bookpart}.  Las partes de libro se separan
+por medio de saltos de página, y pueden dar comienzo con un título,
+como el libro propiamente dicho, mediante la especificación del bloque
+@code{\header}.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Título del libro"
+    subtitle = "Primera parte"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Segunda parte"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+
 @node File structure
 @subsection File structure
 
@@ -199,6 +226,7 @@ principio del archivo.
 @funindex \header
 @funindex \score
 @funindex \book
+@funindex \bookpart
 
 Un archivo @code{.ly} puede contener cualquier número de expresions
 del nivel superior, donde una expresión del nivel superior es una de
@@ -246,6 +274,12 @@ ejemplo.  Se puede cmbiar este comportamiento estableciendo el valor
 de la variable @code{toplevel-book-handler} en el nivel superior.  El
 @emph{handler} predeterminado se define en el archivo de inicio
 @file{../scm/@/lily@/.scm}.
+
+@item
+Un bloque @code{\bookpart}.  Un libro puede dividirse en varias
+partes, utilizando bloques @code{\bookpart}, con objeto de facilitar
+la inserción de saltos de página o usar distintos ajustes de
+@code{\paper} en las distintas partes.
 
 @item
 Una expresión musical compuesta, como
@@ -334,8 +368,8 @@ Un comentario de varias líneas, delimitado por @code{%@{ .. %@}}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{How LilyPond input files work}.
 
@@ -358,7 +392,8 @@ compositor; ciertas piezas tienen mucha más información.
 @subsection Creating titles
 
 Se crean títulos para cada uno de los bloques @code{\score} así como
-para todo el archivo de entrada (o bloque @code{\book} (libro)).
+para todo el archivo de entrada (o bloque @code{\book}, libro) y las
+partes de libro (creadas mediante bloques @code{\bookpart}).
 
 El contenido de cada título se extrae a partir de los bloques
 @code{\header} (cabecera).  El bloque de cabecera de un libro
@@ -661,12 +696,14 @@ para decidir estas dimensiones.  Si el libro tiene entre 10 y 99
 páginas, el medidor puede ser "00", es decir, un número de dos
 dígitos.
 
-@predefined
 
+@predefined
 @funindex \label
-@code{\label}
+@code{\label},
 @funindex \page-ref
-@code{\page-ref}
+@code{\page-ref}.
+@endpredefined
+
 
 @node Table of contents
 @subsection Table of contents
@@ -774,17 +811,18 @@ tocAct =
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Archivos de inicio:
 @file{ly/@/toc@/-init@/.ly}.
 
-@predefined
 
+@predefined
 @funindex \table-of-contents
-@code{\table-of-contents}
+@code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem}
+@code{\tocItem}.
+@endpredefined
 
 
 @node Working with input files
@@ -895,11 +933,12 @@ instalar una nueva versión de LilyPond.
 Pueden verse ejemplos sencillos sobre el uso de @code{\include} en
 @rlearning{Scores and parts}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Other sources of information},
 @rlearning{Scores and parts}.
+
 
 @knownissues
 
@@ -1126,8 +1165,8 @@ etiquetadas, porque el primer filtro quita todas las secciones
 etiquetadas excepto la que se nombra, y el segundo filtro elimina
 incluso esa sección etiquetada.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Organizing pieces with variables}.
 
@@ -1135,10 +1174,12 @@ Referencia de la notación:
 @ref{Automatic part combining},
 @ref{Including LilyPond files}.
 
+
 @ignore
 @c This warning is more general than this placement implies.
 @c Rests are not merged whether or not they come from tagged sections.
 @c Should be deleted?  -td
+
 
 @knownissues
 
@@ -1656,7 +1697,7 @@ repetición esté presente en la salida MIDI.  Esto se consigue mediante
 la aplicación de la función musical @code{\unfoldRepeats}.  Esta
 función cambia todas las repeticiones a repeticiones desplegadas.
 
-@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+@lilypond[quote,verbatim]
 \unfoldRepeats {
   \repeat tremolo 8 {c'32 e' }
   \repeat percent 2 { c''8 d'' }

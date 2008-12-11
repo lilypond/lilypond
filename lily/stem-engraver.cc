@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -128,7 +128,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
       // FIXME: 
       gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
 						 1 << Stem::duration_log (stem_)));
-      gi.event_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
+      gi.event_cause ()->origin ()->warning (_ ("maybe input should specify polyphonic voices"));
     }
 
   Stem::add_head (stem_, gi.grob ());

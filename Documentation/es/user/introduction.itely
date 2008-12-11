@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -325,7 +325,7 @@ direcciones hacia arriba (o hacia la derecha).
 \new Score \with {
    \override SpacingSpanner #'spacing-increment = #3
    \override TimeSignature #'transparent = ##t
-} \relative {
+} \relative c' {
    \stemDown <e g b>4_>-\arpeggio
    \override Arpeggio #'direction = #RIGHT
    \stemUp <e g b>4^>-\arpeggio
@@ -378,34 +378,33 @@ altera durante el transcurso del fragmento musical.
          (pos (ly:grob-property grob 'staff-position)))
     (if (memq 'note-head-interface interfaces)
         (begin
-          (ly:grob-set-property! grob 'stencil ly:text-interface::print)
-          (ly:grob-set-property! grob 'font-family 'roman)
-          (ly:grob-set-property! grob 'text
-            (make-raise-markup -0.5
-              (case pos
-                ((-5) (make-simple-markup "m"))
-                ((-3) (make-simple-markup "c "))
-                ((-2) (make-smaller-markup (make-bold-markup "2")))
-                (else (make-simple-markup "bla")))))))))
+          (ly:grob-set-property! grob 'stencil
+            (grob-interpret-markup grob
+              (make-lower-markup 0.5
+                (case pos
+                  ((-5) "m")
+                  ((-3) "c ")
+                  ((-2) (make-smaller-markup (make-bold-markup "2")))
+                  (else "bla")))))))))
 
 \new Voice \relative c' {
-   \stemUp
-   \set autoBeaming = ##f
-   \time 2/4
-   <d f g>4
-   \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
-   \once \override NoteHead #'font-size = #-7
-   \once \override NoteHead #'font-family = #'sans
-   \once \override NoteHead #'font-series = #'bold
-   <d f g>
-   \once \override NoteHead #'style = #'cross
-   <d f g>
-   \applyOutput #'Voice #mc-squared
-   <d f g>
-   <<
-      { d8[ es-( fis^^ g] fis2-) }
-      \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
-   >>
+  \stemUp
+  \set autoBeaming = ##f
+  \time 2/4
+  <d f g>4
+  \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
+  \once \override NoteHead #'font-size = #-7
+  \once \override NoteHead #'font-family = #'sans
+  \once \override NoteHead #'font-series = #'bold
+  <d f g>4
+  \once \override NoteHead #'style = #'cross
+  <d f g>4
+  \applyOutput #'Voice #mc-squared
+  <d f g>4
+  <<
+    { d8[ es-( fis^^ g] fis2-) }
+    \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
+  >>
 }
 @end lilypond
 
@@ -453,9 +452,9 @@ cabezas de las notas, el @code{Note_heads_engraver}.
 \include "engraver-example.ily"
 
 \score {
-   \topVoice
-   \layout {
-   \context {
+  \topVoice
+  \layout {
+    \context {
       \Voice
       \remove "Stem_engraver"
       \remove "Phrasing_slur_engraver"
@@ -463,8 +462,8 @@ cabezas de las notas, el @code{Note_heads_engraver}.
       \remove "Script_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
-   }
-   \context {
+    }
+    \context {
       \Staff
       \remove "Accidental_engraver"
       \remove "Key_engraver"
@@ -473,8 +472,8 @@ cabezas de las notas, el @code{Note_heads_engraver}.
       \remove "Time_signature_engraver"
       \remove "Staff_symbol_engraver"
       \consists "Pitch_squash_engraver"
-   }
-}
+    }
+  }
 }
 @end lilypond
 
@@ -605,10 +604,11 @@ de voz.  De forma semejante, varios Contextos de pauta pueden
 agruparse en un único Contexto de partitura.  El Contexto de partitura
 es el contexto de notación de más alto nivel.
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{Contexts}.
+
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -648,7 +648,7 @@ fácil teclear
 @end example
 
 @noindent
-un Do1 (Do central) negra, y un Re1 (el Re por encima del Do central)
+un Do4 (Do central) negra, y un Re4 (el Re por encima del Do central)
 corchea.
 
 @lilypond[quote]
@@ -666,7 +666,7 @@ mayores, se pueden expresar ideas musicales más complejas.  Por
 ejemplo
 
 @lilypond[quote,verbatim,fragment,relative=1]
-c4
+f4
 @end lilypond
 
 @noindent
@@ -741,8 +741,11 @@ grabado de música dentro de un programa de ordenador.  Gracias a todo
 este duro trabajo, el programa ahora se puede usar para hacer trabajos
 útiles.  La aplicación más sencilla es imprimir notas.
 
-@lilypond[quote,relative=1,fragment]
-\time 2/4 c4 c g'4 g a4 a g2
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
 @end lilypond
 
 @noindent
@@ -765,7 +768,76 @@ de acordes (lead sheet).
 También se puede imprimir notación polifónica y música para piano.
 El ejemplo siguiente combina algunas otras construcciones exóticas.
 
-@lilypondfile[quote,ragged-right]{screech-boink.ly}
+@lilypond[quote]
+\header {
+  title = "Screech and boink"
+  subtitle = "Random complex notation"
+  composer = "Han-Wen Nienhuys"
+}
+
+\score {
+  \context PianoStaff <<
+    \new Staff = "up" {
+      \time 4/8
+      \key c \minor
+      << {
+        \revert Stem #'direction
+        \change Staff = down
+        \set subdivideBeams = ##t
+        g16.[
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g32
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g16]
+        \change Staff = up
+        \stemUp
+        \set followVoice = ##t
+        c'''32([ b''16 a''16 gis''16 g''32)]
+      } \\ {
+        s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d'']
+      } \\ {
+        s4 \autoBeamOff d''8.. f''32
+      } \\ {
+        s4 es''4
+      } >>
+    }
+
+    \new Staff = "down" {
+      \clef bass
+      \key c \minor
+      \set subdivideBeams = ##f
+      \override Stem  #'french-beaming = ##t
+      \override Beam  #'thickness = #0.3
+      \override Stem  #'thickness = #4.0
+      g'16[ b16 fis16 g16]
+      << \makeClusters {
+        as16 <as b>
+        <g b>
+        <g cis>
+      } \\ {
+        \override Staff.Arpeggio  #'arpeggio-direction =#down
+        <cis, e, gis, b, cis>4\arpeggio
+      }
+    >> }
+  >>
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 60 8)
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists Horizontal_bracket_engraver
+    }
+  }
+}
+@end lilypond
 
 Todos los fragmentos mostrados se han escrito a mano, pero esto no es
 necesariamente así.  Puesto que el motor de formateo es casi
@@ -800,13 +872,13 @@ Esta sección explica la distintas partes de la documentación.
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
-* About the Learning Manual::   este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
-* About the Music Glossary::    este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
-* About the Notation Reference::  este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el Manual de aprendizaje y que está familiarizado con los términos musicales ingleses presentados en el Glosario musical.
-* About the Application Usage::  trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
-* About the Snippet List::      es una colección de ejemplos breves de LilyPond.
-* About the Internals Reference::  este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
-* Other documentation::         existen algunas otras porciones de la documentación, como las Noticias y los archivos históricos de las listas de correo.
+* About the Learning Manual::   Este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
+* About the Music Glossary::    Este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
+* About the Notation Reference::  Este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el Manual de aprendizaje y que está familiarizado con los términos musicales ingleses presentados en el Glosario musical.
+* About the Application Usage::  Trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
+* About the Snippet List::      Es una colección de ejemplos breves de LilyPond.
+* About the Internals Reference::  Este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
+* Other documentation::         Existen algunas otras porciones de la documentación, como las Noticias y los archivos históricos de las listas de correo.
 @end menu
 
 
@@ -857,8 +929,8 @@ mirada posterior:
 
 @item
 @ref{Templates}: muestra plantillas de piezas de LilyPond, listas para
-usar.  Tan sólo tiene que cortar y pegar una plantilla en uin archivo,
-excribir las notas, y ¡habrá terminado!
+usar.  Tan sólo tiene que cortar y pegar una plantilla en un archivo,
+escribir las notas, y ¡habrá terminado!
 
 @item
 @ref{Scheme tutorial}: presenta una breve introducción a Scheme, el
@@ -1015,7 +1087,7 @@ convierten una amplia variedad de formatos de música al formato
 @cindex LilyPond Snippet Repository
 
 @rlsrnamed{Top,Lista de fragmentos de código de LilyPond}: presenta un conjunto
-seleccionado de pfragmentos de código de LilyPond procedentes del
+seleccionado de fragmentos de código de LilyPond procedentes del
 @uref{http://lsr@/.dsi@/.unimi@/.it,Repositorio de Fragmentos de
 Código} (LSR).  Todos los fragmentos se encuentran en el dominio
 público.

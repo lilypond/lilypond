@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef SLUR_SCORING_HH

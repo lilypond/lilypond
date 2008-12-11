@@ -4,7 +4,7 @@
 % source file of the Feta (definitely not an abbreviation for Font-En-Tja)
 % music font
 %
-% (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+% (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 %
 
 % this file is included by feta-scripts.mf

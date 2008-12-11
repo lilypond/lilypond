@@ -45,6 +45,27 @@
 
 @untranslated
 
+@menu
+* Vertical dimensions::
+* Horizontal dimensions::
+* Other layout variables::
+@end menu
+
+@node Vertical dimensions
+@unnumberedsubsubsec Vertical dimensions
+
+@untranslated
+
+@node Horizontal dimensions
+@unnumberedsubsubsec Horizontal dimensions
+
+@untranslated
+
+@node Other layout variables
+@unnumberedsubsubsec Other layout variables
+
+@untranslated
+
 
 @node Music layout
 @section Music layout

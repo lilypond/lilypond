@@ -2,21 +2,17 @@
 #(use-modules (scm layout-page-layout))
 \paper {
 
-    %%%% WARNING
-
-    %%% if you  add any new dimensions, don't forget to update
-    %%% the dimension-variables variable. see paper.scm
+    %%% WARNING
+    %%%
+    %%% If you add any new dimensions, don't forget to update
+    %%% the dimension-variables variable.  See paper.scm.
     
     unit = #(ly:unit)
     mm = 1.0
     in = 25.4
-    pt = #(/  in 72.27)
+    pt = #(/ in 72.27)
     cm = #(* 10 mm)
 
-    %% This is weird; `everyone' uses LATIN1?  How does I select TeX
-    %% input encoding in EMACS? -- jcn
-    %%%%input-encoding = #"TeX"
-    input-encoding = #"latin1"
     print-page-number = ##t
 
     %%
@@ -92,14 +88,11 @@
     #(define font-defaults
       '((font-encoding . fetaMusic)))
 
-    %% use lmodern in latin1 (cork) flavour if EC is not available.
+    %%
+    %% the font encoding `latin1' is a dummy value for Pango fonts
+    %%
     #(define text-font-defaults
-      `((font-encoding .
-	 ,(cond
-	   (tex-backend? 'Extended-TeX-Font-Encoding---Latin)
-	   (else 'latin1)))
-	;; add to taste here.
-	
+      `((font-encoding . latin1)
 	(baseline-skip . 3)
 	(word-space . 0.6)))
 

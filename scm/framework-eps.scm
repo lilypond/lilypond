@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-module (scm framework-eps))
 
@@ -163,7 +163,3 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 (define convert-to-pdf convert-to-pdf)
 (define convert-to-ps convert-to-ps)
 (define convert-to-png convert-to-png)
-(define convert-to-tex convert-to-tex)
-(define convert-to-dvi convert-to-dvi)
-
-

@@ -2823,9 +2823,25 @@ def conv (str):
     str = re.sub (r"\\bigger", r"\\larger", str)
     return str
 
-@rule ((2, 11, 64), "systemSeparatorMarkup -> system-separator-markup")
+@rule ((2, 11, 64), "systemSeparatorMarkup -> system-separator-markup,\n\
+InnerStaffGroup -> StaffGroup, InnerChoirStaff -> ChoirStaff")
 def conv (str):
     str = re.sub (r'systemSeparatorMarkup', r'system-separator-markup', str)
+    if re.search (r'\\InnerStaffGroup', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("re-definition of InnerStaffGroup.\n"))
+        stderr_write (FROM_TO % ("InnerStaffGroup", "StaffGroup.\n"))
+        stderr_write (UPDATE_MANUALLY)
+        raise FatalConversionError ()
+    if re.search (r'\\InnerChoirStaff', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("re-definition of InnerChoirStaff.\n"))
+        stderr_write (FROM_TO % ("InnerChoirStaff", "ChoirStaff.\n"))
+        stderr_write (UPDATE_MANUALLY)
+        raise FatalConversionError ()
+    else:
+        str = re.sub ('InnerStaffGroup', 'StaffGroup', str)
+        str = re.sub ('InnerChoirStaff', 'ChoirStaff', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

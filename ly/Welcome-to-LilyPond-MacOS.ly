@@ -23,13 +23,12 @@ That's it.  For more information, visit http://lilypond.org .
 
 %}
 
+\version "2.11.65"  % necessary for upgrading to future LilyPond versions.
+
 \header{
   title = "A scale in LilyPond"
 }
 
-\relative {
+\relative c' {
   c d e f g a b c
 }
-
-
-\version "2.10.0"  % necessary for upgrading to future LilyPond versions.

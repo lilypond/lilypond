@@ -508,7 +508,7 @@ class Frame:
         if left[0]:
             str = str + rational_to_lily_skip (left)
 
-        str = str + '  | \n'
+        str = str + '  |\n'
         return str
         
 def encodeint (i):
@@ -615,7 +615,7 @@ class Staff:
                     fr = m.frames[x]
                 except IndexError:
                     sys.stderr.write ("Skipping nonexistent frame %d\n" % x)
-                    laystr = laystr + "%% non existent frame %d (skipped) \n" % x
+                    laystr = laystr + "%% non existent frame %d (skipped)\n" % x
                 if fr:
                     first_frame = fr
                     if gap <> (0,1):
@@ -1196,9 +1196,10 @@ Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file
            ),
 
     p.add_option_group ('',
-                        description=(_ ('Report bugs via')
-                                     + ''' http://post.gmane.org/post.php'''
-                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
+                        description=(
+            _ ('Report bugs via %s')
+            % 'http://post.gmane.org/post.php'
+            '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     return p
 
 def do_options ():

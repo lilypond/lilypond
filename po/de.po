@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.11.57\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-08-23 18:49+0200\n"
-"PO-Revision-Date: 2008-08-31 11:07+0300\n"
+"PO-Revision-Date: 2008-12-08 21:17+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -2589,7 +2589,7 @@ msgstr "keine Systeme in \\score-Markup gefunden, hat es einen \\layout-Block?"
 #: define-markup-commands.scm:2428
 #, scheme-format
 msgid "Cannot find glyph ~a"
-msgstr "Kann ein Zeichen ~a finden"
+msgstr "Kann kein Zeichen ~a finden"
 
 #: define-markup-commands.scm:2737
 #, scheme-format

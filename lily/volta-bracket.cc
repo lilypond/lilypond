@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <cstring>
@@ -132,6 +132,8 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 	&& str != "|:"
 	&& str != "|."
 	&& str != ":|:"
+	&& str != ":|.|:"
+	&& str != ":|.:"
 	&& str != ".|");
 
   if (no_vertical_end || no_vertical_start)

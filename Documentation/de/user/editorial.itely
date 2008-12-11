@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 7c57f1469e057f25f5d7a7b75c18f33bb4e5bed9
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,8 +18,8 @@ Erscheinung der Noten zu ändern und analytische bzw. pädagogische
 Anmerkungen anzubringen.
 
 @menu
-* Inside the staff::            
-* Outside the staff::           
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
@@ -30,12 +30,12 @@ Dieser Abschnitt zeigt, wie man Elemente hervorhebt, die sich
 innerhalb des Notensystems befinden.
 
 @menu
-* Selecting notation font size::  
-* Fingering instructions::      
-* Hidden notes::                
-* Coloring objects::            
-* Parentheses::                 
-* Stems::                       
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
 @node Selecting notation font size
@@ -120,23 +120,23 @@ Die @code{font-size}-Eigenschaft kann nur für die Layoutobjekte gesetzt
 werden, die Schrift-Dateien benutzen.  Das sind die, welche die
 @code{font-interface}-Layoutschnittstelle unterstützen.
 
-@predefined
-
-@funindex \teeny
-@code{\teeny},
-@funindex \tiny
-@code{\tiny},
-@funindex \small
-@code{\small},
-@funindex \normalsize
-@code{\normalsize},
-@funindex \large
-@code{\large},
 @funindex \huge
+@funindex \teeny
+@funindex \small
+@funindex \tiny
+@funindex \normalsize
+@funindex \large
+
+@predefined
+@code{\teeny},
+@code{\tiny},
+@code{\small},
+@code{\normalsize},
+@code{\large},
 @code{\huge}.
+@endpredefined
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -201,8 +201,10 @@ Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{avoiding-collisions-of-chord-fingering-with-beams.ly}
 
+@seealso
 Notationsreferenz:
 @ref{Direction and placement}.
 
@@ -242,7 +244,7 @@ c4 d
 e4 f
 \unHideNotes
 g a
-\hideNotes 
+\hideNotes
 b
 \unHideNotes
 c
@@ -259,11 +261,11 @@ e4(\p f)--
 
 
 @predefined
-
-@code{\hideNotes}, @code{\unHideNotes}
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -340,17 +342,16 @@ definiert werden.
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
-  
+
 \override Stem #'color = #(rgb-color 0 0 0)
 gis8 a
 \override Stem #'color = #(rgb-color 1 1 1)
 gis8 a
-\override Stem #'color = #(rgb-color 0 0 0.5) 
+\override Stem #'color = #(rgb-color 0 0 0.5)
 gis4 a
 @end lilypond
 
 @seealso
-
 Notationsreferenz:
 @ref{List of colors}, @ref{The
 tweak command}.
@@ -408,7 +409,6 @@ c2 \parenthesize r
 @end lilypond
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -437,14 +437,15 @@ ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch
 für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
 gemacht.
 
-@predefined
-
-@funindex \stemUp
-@code{\stemUp} (Hälse nach oben),
-@funindex \stemDown
-@code{\stemDown} (Hälse nach unten),
 @funindex \stemNeutral
+@funindex \stemUp
+@funindex \stemDown
+
+@predefined
+@code{\stemUp} (Hälse nach oben),
+@code{\stemDown} (Hälse nach unten),
 @code{\stemNeutral} (Hälse je nach Notenposition).
+@endpredefined
 
 
 @snippets
@@ -479,9 +480,9 @@ Dieser Abschnitt zeigt, wie man Elemente im System von
 außerhalb des Systems hervorhebt.
 
 @menu
-* Balloon help::                
-* Grid lines::                  
-* Analysis brackets::           
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
 @node Balloon help
@@ -508,10 +509,10 @@ zu erklären.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
 
@@ -530,26 +531,25 @@ aber das kann geändert werden.
 {
   \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8 
+  a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
   r
   \balloonLengthOn
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
 }
 @end lilypond
-
-
-@predefined
 
 @funindex balloonLengthOn
 @funindex balloonLengthOff
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
 
-@code{\balloonLengthOn}, @code{\balloonLengthOff}
+@predefined
+@code{\balloonLengthOn},
+@code{\balloonLengthOff}.
+@endpredefined
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -585,7 +585,7 @@ den Linien festgesetzt.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" 
+    \consists "Grid_point_engraver"
     gridInterval = #(ly:make-moment 1 4)
   }
   \context {
@@ -616,7 +616,6 @@ den Linien festgesetzt.
 
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -681,7 +680,6 @@ Analysis brackets may be nested.
 @end lilypond
 
 @seealso
-
 Schnipsel:
 @rlsr{Editorial annotations}.
 

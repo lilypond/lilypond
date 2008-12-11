@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -17,22 +17,22 @@ configurable; virtually every fragment of output may be changed.
 
 
 @menu
-* Tweaking basics::             
-* The Internals Reference manual::  
-* Appearance of objects::       
-* Placement of objects::        
-* Collisions of objects::       
-* Further tweaking::            
+* Tweaking basics::
+* The Internals Reference manual::
+* Appearance of objects::
+* Placement of objects::
+* Collisions of objects::
+* Further tweaking::
 @end menu
 
 @node Tweaking basics
 @section Tweaking basics
 
 @menu
-* Introduction to tweaks::      
-* Objects and interfaces::      
-* Naming conventions of objects and properties::  
-* Tweaking methods::            
+* Introduction to tweaks::
+* Objects and interfaces::
+* Naming conventions of objects and properties::
+* Tweaking methods::
 @end menu
 
 @node Introduction to tweaks
@@ -40,16 +40,16 @@ configurable; virtually every fragment of output may be changed.
 
 @q{Tweaking} is a LilyPond term for the various methods available
 to the user for modifying the actions taken during interpretation
-of the input file and modifying the appearance of the printed 
-output.  Some tweaks are very easy to use; others are more 
-complex.  But taken together the methods available for tweaking 
-permit almost any desired appearance of the printed music to be 
+of the input file and modifying the appearance of the printed
+output.  Some tweaks are very easy to use; others are more
+complex.  But taken together the methods available for tweaking
+permit almost any desired appearance of the printed music to be
 achieved.
 
 In this section we cover the basic concepts required to understand
 tweaking.  Later we give a variety of ready-made commands which can
 simply be copied to obtain the same effect in your own scores, and
-at the same time we show how these commands may be constructed so 
+at the same time we show how these commands may be constructed so
 that you may learn how to develop your own tweaks.
 
 Before starting on this Chapter you may wish to review the section
@@ -72,7 +72,7 @@ and constructing Tweaks.
 
 Tweaking involves modifying the internal operation and structures
 of the LilyPond program, so we must first introduce some terms
-which are used to describe those internal operations and 
+which are used to describe those internal operations and
 structures.
 
 The term @q{Object} is a generic term used to refer to the
@@ -117,7 +117,7 @@ one given a name ending in @code{interface}.  In total there are over
 100 such interfaces.  We shall see later why this is of interest and
 use to the user.
 
-These, then, are the main terms relating to objects which we 
+These, then, are the main terms relating to objects which we
 shall use in this chapter.
 
 @node Naming conventions of objects and properties
@@ -128,17 +128,17 @@ shall use in this chapter.
 @cindex objects, naming conventions
 @cindex properties, naming conventions
 
-We met some object naming conventions previously, in 
+We met some object naming conventions previously, in
 @ref{Contexts and engravers}.  Here for reference is a list
-of the most common object and property types together with 
-the conventions for naming them and a couple of examples of 
+of the most common object and property types together with
+the conventions for naming them and a couple of examples of
 some real names.  We have used @q{A} to stand for any capitalized
 alphabetic character and @q{aaa} to stand for any number of
 lower-case alphabetic characters.  Other characters are used
-verbatim. 
+verbatim.
 
 @multitable @columnfractions .33 .33 .33
-@headitem Object/property type           
+@headitem Object/property type
   @tab Naming convention
   @tab Examples
 @item Contexts
@@ -152,7 +152,7 @@ verbatim.
   @tab Clef_engraver, Note_heads_engraver
 @item Interfaces
   @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface 
+  @tab grob-interface, break-aligned-interface
 @item Context Properties
   @tab aaa or aaaAaaaAaaa
   @tab alignAboveContext, skipBars
@@ -161,7 +161,7 @@ verbatim.
   @tab direction, beam-thickness
 @end multitable
 
-As we shall see shortly, the properties of different types of 
+As we shall see shortly, the properties of different types of
 object are modified by different commands, so it is useful to
 be able to recognize the type of object from the names of its
 properties.
@@ -395,13 +395,14 @@ articulation mark as if it were an articulation itself.
 @cindex tuplets, nested
 @cindex triplets, nested
 @cindex bracket, tuplet
+@cindex bracket, triplet
 @cindex tuplet bracket
 @cindex triplet bracket
 
 @funindex TupletBracket
 
-The @code{\tweak} command must also be used to change the 
-appearance of one of a set of nested tuplets which begin at the 
+The @code{\tweak} command must also be used to change the
+appearance of one of a set of nested tuplets which begin at the
 same musical moment.  In the following example, the long tuplet
 bracket and the first of the three short brackets begin at the
 same musical moment, so any @code{\override} command would apply
@@ -449,8 +450,8 @@ appearance may be modified in the usual way with
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Notation Reference:
 @ruser{The tweak command}.
 
@@ -461,9 +462,9 @@ Notation Reference:
 @cindex Internals Reference
 
 @menu
-* Properties of layout objects::  
-* Properties found in interfaces::  
-* Types of properties::         
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
 @end menu
 
 @node Properties of layout objects
@@ -481,7 +482,7 @@ How do you go about doing this?  You know from the statements
 earlier about the flexibility of LilyPond that such a thing
 should be possible, and you would probably guess that an
 @code{\override} command would be needed.  But is there a
-heaviness property for a slur, and if there is, how might it 
+heaviness property for a slur, and if there is, how might it
 be modified?  This is where the Internals Reference manual
 comes in.  It contains all the information you might need to
 construct this and all other @code{\override} commands.
@@ -532,7 +533,7 @@ as you read.
 
 Under the heading @strong{Top} you will see five links.  Select
 the link to the @emph{Backend}, which is where information about
-layout objects is to be found.  There, under the heading 
+layout objects is to be found.  There, under the heading
 @strong{Backend}, select the link to @emph{All layout objects}.
 The page that appears lists all the layout objects used in your
 version of LilyPond, in alphabetic order.  Select the link to
@@ -563,25 +564,25 @@ in another property called @code{line-thickness}.
 
 As we said earlier, there are few to no explanations in the IR,
 but we already have enough information to try changing the
-slur thickness.  We see that the name of the layout object 
+slur thickness.  We see that the name of the layout object
 is @code{Slur}, that the name of the property to change is
 @code{thickness} and that the new value should be a number
 somewhat larger than 1.2 if we are to make slurs thicker.
 
 We can now construct the @code{\override} command by simply
 substituting the values we have found for the names, omitting
-the context.  Let's use a very large value for the thickness 
+the context.  Let's use a very large value for the thickness
 at first, so we can be sure the command is working.  We get:
 
 @example
 \override Slur #'thickness = #5.0
-@end example 
+@end example
 
 Don't forget the @code{#'} preceding the
-property name and and @code{#} preceding the new value!
+property name and a @code{#} preceding the new value!
 
 The final question is, @q{Where should this command be
-placed?}  While you are unsure and learning, the best 
+placed?}  While you are unsure and learning, the best
 answer is, @q{Within the music, before the first slur and
 close to it.}  Let's do that:
 
@@ -602,7 +603,7 @@ close to it.}  Let's do that:
     The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 and we see that the slur is indeed heavier.
@@ -619,7 +620,7 @@ which follow.
 @cindex context, finding
 @cindex context, identifying correct
 
-But first, what if we had needed to specify the Context?  
+But first, what if we had needed to specify the Context?
 What should it be?  We could guess that slurs are in
 the Voice context, as they are clearly closely associated
 with individual lines of music, but can we be sure?  To
@@ -631,8 +632,8 @@ the @code{Slur_engraver} is in.  Follow the link to the
 us that @code{Slur_engraver} is part of five Voice contexts,
 including the standard voice context, @code{Voice}, so our
 guess was correct.  And because @code{Voice} is one of the
-lowest level contexts which is implied unambiguously by 
-the fact that we are entering notes, we can omit it in this 
+lowest level contexts which is implied unambiguously by
+the fact that we are entering notes, we can omit it in this
 location.
 
 @subheading Overriding once only
@@ -671,7 +672,7 @@ repositioned as follows:
     The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 Now only the first slur is made heavier.
@@ -712,7 +713,7 @@ the slurs begin:
     The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 or we could omit the @code{\once} command and use the @code{\revert}
@@ -750,9 +751,9 @@ You may use whichever method best suits what you want to do.
 That concludes our introduction to the IR, and the basic
 method of tweaking.  Several examples follow in the later
 sections of this Chapter, partly to introduce you to some of the
-additional features of the IR, and partly to give you more 
+additional features of the IR, and partly to give you more
 practice in extracting information from it.  These examples will
-contain progressively fewer words of guidance and explanation. 
+contain progressively fewer words of guidance and explanation.
 
 
 @node Properties found in interfaces
@@ -856,10 +857,10 @@ and the lyrics are all printed in italics.
 @cindex context, specifying in lyric mode
 @cindex lyric mode, specifying context
 
-In the case of lyrics, if you try specifying the context in the 
+In the case of lyrics, if you try specifying the context in the
 format given earlier the command will fail.  A syllable
 entered in lyricmode is terminated by either a space,
-a newline or a digit.  All other characters are included 
+a newline or a digit.  All other characters are included
 as part of the syllable.  For this reason a space or newline
 must appear before the terminating @code{@}} to prevent it being
 included as part of the final syllable.  Similarly,
@@ -878,8 +879,8 @@ syllable and the terminating brace.}
 @warning{In overrides in lyrics always place spaces around
 the dot between the context name and the object name.}
 
-@seealso
 
+@seealso
 Learning Manual: @ref{Scheme tutorial}.
 
 
@@ -892,14 +893,14 @@ So far we have seen two types of property: @code{number} and
 @code{symbol}.  To be valid, the value given to a property
 must be of the correct type and obey the rules for that type.
 The type of property is always shown in brackets after the
-property name in the IR.  Here is a list of the types you may 
+property name in the IR.  Here is a list of the types you may
 need, together with the rules for that type, and some examples.
 You must always add a hash symbol, @code{#}, of course,
-to the front of these values when they are entered in the 
+to the front of these values when they are entered in the
 @code{\override} command.
 
 @multitable @columnfractions .2 .45 .35
-@headitem Property type           
+@headitem Property type
   @tab Rules
   @tab Examples
 @item Boolean
@@ -925,7 +926,7 @@ and preceded by an apostrophe
   @tab Any valid markup
   @tab @code{\markup @{ \italic "cresc." @}}
 @item Moment
-  @tab A fraction of a whole note constructed with the 
+  @tab A fraction of a whole note constructed with the
 make-moment function
   @tab @code{(ly:make-moment 1 4)},
        @code{(ly:make-moment 3 8)}
@@ -950,8 +951,8 @@ by apostrophe-hash, @code{'#}.
   @tab @code{'#(#t #t #f)}
 @end multitable
 
-@seealso
 
+@seealso
 Learning Manual: @ref{Scheme tutorial}.
 
 
@@ -959,13 +960,13 @@ Learning Manual: @ref{Scheme tutorial}.
 @section Appearance of objects
 
 Let us now put what we have learned into practice with a few
-examples which show how tweaks may be used to change the 
+examples which show how tweaks may be used to change the
 appearance of the printed music.
 
 @menu
-* Visibility and color of objects::  
-* Size of objects::             
-* Length and thickness of objects::  
+* Visibility and color of objects::
+* Size of objects::
+* Length and thickness of objects::
 @end menu
 
 @node Visibility and color of objects
@@ -974,7 +975,7 @@ appearance of the printed music.
 In the educational use of music we might wish to print a score
 with certain elements omitted as an exercise for the student,
 who is required to supply them.  As a simple example,
-let us suppose the exercise is to supply the missing bar lines 
+let us suppose the exercise is to supply the missing bar lines
 in a piece of music.  But the bar lines are normally inserted
 automatically.  How do we prevent them printing?
 
@@ -1007,7 +1008,7 @@ these in turn.
 
 This property controls the appearance of the bar lines by specifying
 the symbol (glyph) which should be printed.  In common
-with many other properties, it can be set to print nothing by 
+with many other properties, it can be set to print nothing by
 setting its value to @code{#f}.  Let's try it, as before, omitting
 the implied Context, @code{Voice}:
 
@@ -1275,8 +1276,8 @@ work!  Remember, the context is the one in which the appropriate
 engraver is placed.  The default context for engravers can be
 found by starting from the layout object, going from there to
 the engraver which produces it, and on the engraver page in the
-IR it tells you in which context the engraver will normally be 
-found.  
+IR it tells you in which context the engraver will normally be
+found.
 
 
 @node Size of objects
@@ -1287,7 +1288,7 @@ found.
 @cindex objects, size of
 @cindex objects, changing size of
 
-Let us begin by looking again at the earlier example 
+Let us begin by looking again at the earlier example
 see @ref{Nesting music expressions}) which showed
 how to introduce a new temporary staff, as in an @rglos{ossia}.
 
@@ -1577,14 +1578,14 @@ from a font) may be changed in the same way.
 @cindex objects, outside-staff
 
 There are some objects in musical notation that belong to
-the staff and there are other objects that should be 
+the staff and there are other objects that should be
 placed outside the staff.  These are called within-staff
 objects and outside-staff objects respectively.
 
 Within-staff objects are those that are located on the staff
 -- note heads, stems, accidentals, etc.  The positions of
 these are usually fixed by the music itself -- they are
-vertically positioned on specific lines of the staff or are 
+vertically positioned on specific lines of the staff or are
 tied to other objects that are so positioned.  Collisions of
 note heads, stems and accidentals in closely set chords are
 normally avoided automatically.  There are commands and
@@ -1641,14 +1642,14 @@ this @q{nestling} of the notes on adjacent staves:
     \relative c'''' { c a, }
   }
 >>
-@end lilypond 
+@end lilypond
 
 
 @node Within-staff objects
 @subsection Within-staff objects
 
 We have already seen how the commands @code{\voiceXXX} affect
-the direction of slurs, ties, fingering and 
+the direction of slurs, ties, fingering and
 everything else which depends on the direction of the stems.
 These commands are essential when writing polyphonic music to
 permit interweaving melodic lines to be distinguished.
@@ -1660,7 +1661,7 @@ We first explain what this does, and then introduce a number of
 ready-made commands which avoid your having to code explicit
 overrides for the more common modifications.
 
-Some layout objects like slurs and ties curve, bend or point 
+Some layout objects like slurs and ties curve, bend or point
 either up or down; others like stems and flags also move to
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
@@ -1747,7 +1748,7 @@ Note that these predefined commands may @strong{not} be
 preceded by @code{\once}.  If you wish to limit the
 effect to a single note you must either use the equivalent
 @code{\once \override} command or use the predefined command
-followed after the affected note by the corresponding 
+followed after the affected note by the corresponding
 @code{\xxxNeutral} command.
 
 @subheading Fingering
@@ -1912,8 +1913,8 @@ outside-staff objects which are, by default, placed in the
 @code{Staff} or @code{Voice} contexts.
 
 @multitable @columnfractions .3 .3 .3
-@headitem Layout Object           
-  @tab Priority     
+@headitem Layout Object
+  @tab Priority
   @tab Controls position of:
 @item @code{MultiMeasureRestText}
   @tab @code{450}
@@ -1954,7 +1955,7 @@ these.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
@@ -2024,7 +2025,7 @@ in the @code{Staff} context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
@@ -2095,9 +2096,9 @@ c2^"Text1"
 c^"Text2"
 c^"Text3"
 c^"Text4"
-@end lilypond  
+@end lilypond
 
-The command to revert to the default behavior is 
+The command to revert to the default behavior is
 @code{\textLengthOff}.  Remember @code{\once} only works with
 @code{\override}, @code{\set}, @code{\revert} or @code{unset},
 so cannot be used with @code{\textLengthOn}.
@@ -2158,7 +2159,7 @@ ees,2.~\)\mf ees4 r8 |
 
 However, if the notes and attached dynamics are close
 together the automatic placement will avoid collisions
-by displacing later dynamic markings further away, but this may 
+by displacing later dynamic markings further away, but this may
 not be the optimum placement, as this rather artificial example
 shows:
 
@@ -2181,7 +2182,7 @@ shall have to work out how to do this using @code{\override} commands.
 @cindex sizing grobs
 
 First we must learn how grobs are sized.  All grobs have a
-reference point defined within them which is used to position 
+reference point defined within them which is used to position
 them relative to their parent object.  This point in the grob
 is then positioned at a horizontal distance, @code{X-offset},
 and at a vertical distance, @code{Y-offset}, from its parent.
@@ -2189,15 +2190,15 @@ The horizontal extent of the object is given by a pair of
 numbers, @code{X-extent}, which say where the left and right
 edges are relative to the reference point.  The vertical extent
 is similarly defined by a pair of numbers, @code{Y-extent}.
-These are properties of all grobs which support the 
+These are properties of all grobs which support the
 @code{grob-interface}.
 
 @cindex @code{extra-spacing-width}
 
 By default, outside-staff objects are given a width of zero so
 that they may overlap in the horizontal direction.  This is done
-by the trick of adding infinity to the leftmost extent and 
-minus infinity to the rightmost extent by setting the 
+by the trick of adding infinity to the leftmost extent and
+minus infinity to the rightmost extent by setting the
 @code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
 to ensure they do not overlap in the horizontal direction we
 must override this value of @code{extra-spacing-width} to
@@ -2252,9 +2253,9 @@ down with the notes.  The property to do this is
 @section Collisions of objects
 
 @menu
-* Moving objects::              
-* Fixing overlapping notation::  
-* Real music example::          
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
 @end menu
 
 @node Moving objects
@@ -2359,13 +2360,13 @@ objects, this value is set by default to be around 1.0 or less
 @cindex self-alignment-X property
 
 This property can be used to align the object to the left, to
-the right, or to center it with respect to the parent object's 
+the right, or to center it with respect to the parent object's
 reference point.  It may be used with all objects which support
 the @code{self-alignment-interface}.  In general these are objects
 that contain text.  The values are @code{LEFT}, @code{RIGHT}
-or @code{CENTER}.  Alternatively, a numerical value between 
-@code{-1} and @code{+1} may be specified, where @code{-1} is 
-left-aligned, @code{+1} is right-aligned, and numbers in between 
+or @code{CENTER}.  Alternatively, a numerical value between
+@code{-1} and @code{+1} may be specified, where @code{-1} is
+left-aligned, @code{+1} is right-aligned, and numbers in between
 move the text progressively from left-aligned to right-aligned.
 Numerical values greater than @code{1} may be specified to move
 the text even further to the left, or less than @code{-1} to
@@ -2588,8 +2589,8 @@ naturalplusflat = \markup { \natural \flat }
 This necessarily uses an override for the accidental stencil which
 will not be covered until later.  The stencil type must be a
 procedure, here changed to print the contents of the @code{text}
-property of @code{Accidental}, which itself is set to be a natural 
-sign followed by a flat sign.  These are then moved further away 
+property of @code{Accidental}, which itself is set to be a natural
+sign followed by a flat sign.  These are then moved further away
 from the note head by overriding @code{right-padding}.
 
 @noindent
@@ -3285,7 +3286,7 @@ lhMusic = \relative c' {
 * Using variables for tweaks::
 * Other sources of information::
 * Avoiding tweaks with slower processing::
-* Advanced tweaks with Scheme::  
+* Advanced tweaks with Scheme::
 @end menu
 
 @node Other uses for tweaks
@@ -3319,7 +3320,7 @@ and blanking the first up-stem in that voice, the tie appears to
 cross voices:
 
 @cindex Stem, example of overriding
-@cindex transparent propery, example
+@cindex transparent property, example
 
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
@@ -3415,7 +3416,7 @@ We show here the effect of the two methods:
 
 @noindent
 Both methods remove the metronome mark which lengthens the fermata
-from the printed output, and both affect the MIDI timing as 
+from the printed output, and both affect the MIDI timing as
 required, but the transparent metronome mark in the first line
 forces the following tempo indication too high while the
 second (with the stencil removed) does not.
@@ -3434,7 +3435,7 @@ Suppose we wish to emphasize certain words in lyrics by printing
 them in bold italics.  The @code{\italic} and @code{\bold}
 commands only work within lyrics if they are also embedded in
 @code{\markup}, which makes them tedious to enter, so as an
-alternative can we instead use the @code{\override} and 
+alternative can we instead use the @code{\override} and
 @code{\revert} commands?
 
 @example
@@ -3508,7 +3509,7 @@ of this directory depends (a) on whether you obtained LilyPond
 by downloading a precompiled binary from lilypond.org
 or whether you installed it from a package manager (i.e.
 distributed with Linux, or installed under fink or cygwin) or
-compiled it from source, and (b) on which operating system it is 
+compiled it from source, and (b) on which operating system it is
 being used:
 
 @strong{Downloaded from lilypond.org}

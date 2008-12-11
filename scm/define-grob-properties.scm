@@ -1,8 +1,8 @@
-;;;; grob-property-description.scm -- part of generated backend documentation
+;;;; define-grob-properties.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2008  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define (define-grob-property symbol type? description)
@@ -168,6 +168,9 @@ other object.  Otherwise, it determines whether the object is placed
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
 @code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
+     (dot-negative-kern ,number? "The space to remove between a dot
+and a slash in percent repeat glyphs.  Larger values bring the two
+elements closer together.")
      (dot-placement-list ,list? "List 
 consisting of @code{(@var{description} @var{string-number} 
 @var{fret-number} @var{finger-number})} 
@@ -215,9 +218,10 @@ glyph is typeset on a @code{Stem}.  Valid options include @code{'()} for
 standard flags, @code{'mensural} and @code{'no-flag}, which switches off 
 the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
-category for selecting a font.  Options include: @code{fetaMusic},
-@code{fetaNumber}, @code{TeX-text}, @code{TeX-math},
-@code{fetaBraces}, @code{fetaDynamic}.")
+category for selecting a font.  Currently, only lilypond's system fonts
+(Emmentaler and Aybabtu) are using this property.  Available values are
+@code{fetaMusic} (Emmentaler), @code{fetaBraces} (Aybabtu),
+@code{fetaNumber} (Emmentaler), and @code{fetaDynamic} (Emmentaler).")
      (font-family ,symbol? "The font family is the broadest category
 for selecting text fonts.  Options include: @code{sans},
 @code{roman}.")
@@ -521,7 +525,7 @@ dot.")
 number, the quicker the slur attains its @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 interesting items.")
-     (remove-first ,boolean? "Remove the first staff of a orchestral
+     (remove-first ,boolean? "Remove the first staff of an orchestral
 score?")
      (restore-first ,boolean? "Print a natural before the
 accidental.")
@@ -566,6 +570,9 @@ is placed vertically.")
 @code{direction-source} with this to get the direction of this
 object.")
      (size ,number? "Size of object, relative to standard size.")
+     (slash-negative-kern ,number? "The space to remove between
+slashes in percent repeat glyphs.  Larger values bring the two
+elements closer together.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
      (space-alist ,list? "A table that specifies distances between

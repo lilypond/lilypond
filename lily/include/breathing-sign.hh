@@ -1,7 +1,7 @@
 /*
   breathing-sign.hh
 
-  Copyright (c) 1999--2007 Michael Krause
+  Copyright (c) 1999--2008 Michael Krause
 
   written for the GNU LilyPond music typesetter
 */

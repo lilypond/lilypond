@@ -1,0 +1,6 @@
+  texidoces = "
+Los textos independientes se pueden disponer en varias columnas
+utilizando instrucciones @code{\\markup}:
+
+"
+  doctitlees = "Elemento de marcado de texto independiente en dos columnas"

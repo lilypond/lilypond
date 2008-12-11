@@ -111,13 +111,18 @@ setDefaultDurationToQuarter = { c4 }
 #(define musicQuotes (make-hash-table 29))
 
 #(define toplevel-book-handler print-book-with-defaults)
+#(define toplevel-bookpart-handler collect-bookpart-for-book)
 #(define toplevel-music-handler collect-music-for-book)
 #(define toplevel-score-handler collect-scores-for-book)
 #(define toplevel-text-handler collect-scores-for-book)
 
+#(define book-bookpart-handler ly:book-add-bookpart!)
 #(define book-music-handler collect-book-music-for-book)
 #(define book-score-handler ly:book-add-score!)
 #(define book-text-handler ly:book-add-score!)
 
+#(define bookpart-score-handler ly:book-add-score!)
+#(define bookpart-text-handler ly:book-add-score!)
+#(define bookpart-music-handler collect-book-music-for-book)
 
 \include "predefined-fretboards-init.ly"

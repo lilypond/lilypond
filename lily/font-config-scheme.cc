@@ -3,11 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
 #include "lily-guile.hh"
+#include "international.hh"
+#include "main.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
@@ -17,7 +19,7 @@ string
 display_fontset (FcFontSet *fs)
 {
   string retval;
-  
+
   int j;
   for (j = 0; j < fs->nfont; j++)
     {
@@ -32,16 +34,16 @@ display_fontset (FcFontSet *fs)
       if (FcPatternGetString (fs->fonts[j],
 			      "designsize", 0, &str) == FcResultMatch)
 	retval += String_convert::form_string ("designsize %s\n ", str);
-      
-      retval += String_convert::form_string ("%s\n", (const char*) font);
+
+      retval += String_convert::form_string ("%s\n", (const char *)font);
       free (font);
     }
-  
+
   return retval;
 }
 
 string
-display_strlist (char const*what, FcStrList *slist)
+display_strlist (char const *what, FcStrList *slist)
 {
   string retval;
   while (FcChar8 *dir = FcStrListNext (slist))
@@ -56,19 +58,19 @@ display_config (FcConfig *fcc)
 {
   string retval;
   retval += display_strlist ("Config files", FcConfigGetConfigFiles (fcc));
-  retval +=  display_strlist ("Config dir", FcConfigGetConfigDirs (fcc));
-  retval +=  display_strlist ("Font dir", FcConfigGetFontDirs (fcc));
+  retval += display_strlist ("Config dir", FcConfigGetConfigDirs (fcc));
+  retval += display_strlist ("Font dir", FcConfigGetFontDirs (fcc));
   return retval;
 }
 
 string
 display_list (FcConfig *fcc)
 {
-  FcPattern*pat = FcPatternCreate ();
+  FcPattern *pat = FcPatternCreate ();
 
   FcObjectSet *os = 0;
   if (!os)
-    os = FcObjectSetBuild (FC_FAMILY, FC_STYLE, (char *) 0);
+    os = FcObjectSetBuild (FC_FAMILY, FC_STYLE, (char *)0);
 
   FcFontSet *fs = FcFontList (fcc, pat, os);
   FcObjectSetDestroy (os);
@@ -90,12 +92,12 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
 	   "Get the file for font @var{name}.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  
-  FcPattern*pat = FcPatternCreate ();
+
+  FcPattern *pat = FcPatternCreate ();
   FcValue val;
-  
+
   val.type = FcTypeString;
-  val.u.s = (const FcChar8*)ly_scm2string (name).c_str (); // FC_SLANT_ITALIC;
+  val.u.s = (const FcChar8 *)ly_scm2string (name).c_str (); // FC_SLANT_ITALIC;
   FcPatternAdd (pat, FC_FAMILY, val, FcFalse);
 
   FcResult result;
@@ -103,17 +105,17 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
 
   FcConfigSubstitute (NULL, pat, FcMatchFont);
   FcDefaultSubstitute (pat);
-  
+
   pat = FcFontMatch (NULL, pat, &result);
   FcChar8 *str = 0;
   if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
-    scm_result = scm_from_locale_string ((char const*) str);
+    scm_result = scm_from_locale_string ((char const *)str);
 
   FcPatternDestroy (pat);
 
   return scm_result;
 }
-	   
+	
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
 	   (),
 	   "Dump a list of all fonts visible to FontConfig.")
@@ -122,8 +124,38 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0
   str += display_config (NULL);
 
   progress_indication (str);
-  
+
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_font_config_add_directory, "ly:font-config-add-directory", 1, 0, 0,
+	   (SCM dir),
+	   "Add directory @var{dir} to FontConfig.")
+{
+  LY_ASSERT_TYPE (scm_is_string, dir, 1);
 
+  string d = ly_scm2string (dir);
+
+  if (!FcConfigAppFontAddDir (0, (const FcChar8 *)d.c_str ()))
+    error (_f ("failed adding font directory: %s", d.c_str ()));
+  else if (be_verbose_global)
+    message (_f ("adding font directory: %s", d.c_str ()));
+
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_font_config_add_font, "ly:font-config-add-font", 1, 0, 0,
+	   (SCM font),
+	   "Add font @var{font} to FontConfig.")
+{
+  LY_ASSERT_TYPE (scm_is_string, font, 1);
+
+  string f = ly_scm2string (font);
+
+  if (!FcConfigAppFontAddFile (0, (const FcChar8 *)f.c_str ()))
+    error (_f ("failed adding font file: %s", f.c_str ()));
+  else if (be_verbose_global)
+    message (_f ("adding font file: %s", f.c_str ()));
+
+  return SCM_UNSPECIFIED;
+}

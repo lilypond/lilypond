@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2004--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;	      Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-module (scm layout-page-layout)
@@ -31,7 +31,8 @@
             (= (interval-start system-extent)
                (interval-end   system-extent))))))
 
-(define (stretch-and-draw-page paper-book systems page-number ragged last)
+(define (stretch-and-draw-page paper-book systems page-number ragged
+                               is-last-bookpart is-bookpart-last-page)
   (define (max-stretch sys)
     (if (ly:grob? sys)
 	(ly:grob-property sys 'max-stretch)
@@ -78,7 +79,8 @@
 
   (let* ((page (make-page paper-book
 			  'page-number page-number
-			  'is-last last))
+			  'is-last-bookpart is-last-bookpart
+			  'is-bookpart-last-page is-bookpart-last-page))
 	 (paper (ly:paper-book-paper paper-book))
 	 (height (page-printable-height page))
 	 ; there is a certain amount of impreciseness going on here:
@@ -351,8 +353,8 @@ is what have collected so far, and has ascending page numbers."
 				       inter-system-space))
        user)))
 
-(define (walk-paths done-lines best-paths current-lines last current-best
-		    paper-book page-alist)
+(define (walk-paths done-lines best-paths current-lines is-last-bookpart
+		    is-bookpart-last-page current-best paper-book page-alist)
   "Return the best optimal-page-break-node that contains
 CURRENT-LINES. DONE-LINES.reversed ++ CURRENT-LINES is a consecutive
 ascending range of lines, and BEST-PATHS contains the optimal breaks
@@ -362,18 +364,19 @@ CURRENT-BEST is the best result sofar, or #f."
   (let* ((paper (ly:paper-book-paper paper-book))
 	 (this-page (make-page
 		     paper-book
-		     'is-last last
+		     'is-last-bookpart is-last-bookpart
+		     'is-bookpart-last-page is-bookpart-last-page
 		     'page-number (if (null? best-paths)
 				      (ly:output-def-lookup paper 'first-page-number)
 				      (1+ (page-page-number (first best-paths))))))
 	 (ragged-all (eq? #t (ly:output-def-lookup paper 'ragged-bottom)))
 	 (ragged-last (eq? #t (ly:output-def-lookup paper 'ragged-last-bottom)))
-	 (ragged (or ragged-all (and ragged-last last)))
+	 (ragged (or ragged-all (and ragged-last is-bookpart-last-page)))
 	 (space-to-fill (page-maximum-space-to-fill this-page current-lines paper))
 	 (vertical-spacing (space-systems space-to-fill current-lines ragged paper #f))
 	 (satisfied-constraints (car vertical-spacing))
 	 (force (if satisfied-constraints
-		    (if (and last ragged-last)
+		    (if (and is-bookpart-last-page ragged-last)
 			0.0
 			satisfied-constraints)
 		    10000))
@@ -411,7 +414,7 @@ CURRENT-BEST is the best result sofar, or #f."
 	 (list
 	  "\nuser pen " user-penalty
 	  "\nsatisfied-constraints" satisfied-constraints
-	  "\nlast? " last "ragged?" ragged
+	  "\nlast? " is-bookpart-last-page "ragged?" ragged
 	  "\nis-better " is-better " total-penalty " total-penalty "\n"
 	  "\nconfig " positions
 	  "\nforce " force
@@ -427,11 +430,11 @@ CURRENT-BEST is the best result sofar, or #f."
 	     satisfied-constraints)
 	(walk-paths (cdr done-lines) (cdr best-paths)
 		    (cons (car done-lines) current-lines)
-		    last new-best
+		    is-last-bookpart is-bookpart-last-page new-best
 		    paper-book page-alist)
 	new-best)))
 
-(define (walk-lines done best-paths todo paper-book page-alist)
+(define (walk-lines done best-paths todo paper-book page-alist is-last-bookpart)
   "Return the best page breaking as a single
 page node for optimally breaking TODO ++
 DONE.reversed. BEST-PATHS is a list of break nodes corresponding to
@@ -439,14 +442,15 @@ DONE."
   (if (null? todo)
       (car best-paths)
       (let* ((this-line (car todo))
-	     (last (null? (cdr todo)))
-	     (next (walk-paths done best-paths (list this-line) last #f
-			       paper-book page-alist)))
+	     (is-bookpart-last-page (null? (cdr todo)))
+	     (next (walk-paths done best-paths (list this-line) is-last-bookpart
+			       is-bookpart-last-page #f paper-book page-alist)))
 	(walk-lines (cons this-line done)
 		    (cons next best-paths)
 		    (cdr todo)
 		    paper-book
-		    page-alist))))
+		    page-alist
+		    is-last-bookpart))))
 
 (define-public (optimal-page-breaks paper-book)
   "Return pages as a list starting with 1st page. Each page is a 'page Prob."
@@ -454,11 +458,11 @@ DONE."
 	 (lines (ly:paper-book-systems paper-book))
 	 (page-alist (layout->page-init paper)) 
 	 (force-equalization-factor (ly:output-def-lookup
-				     paper 'verticalequalizationfactor 0.3)))
+				     paper 'verticalequalizationfactor 0.3))
+         (is-last-bookpart (ly:output-def-lookup paper 'is-last-bookpart)))
     (ly:message (_ "Calculating page breaks..."))
-    (let* ((best-break-node (walk-lines '() '() lines paper-book page-alist))
+    (let* ((best-break-node (walk-lines '() '() lines paper-book page-alist is-last-bookpart))
 	   (break-nodes (get-path best-break-node '())))
-      (page-set-property! (car (last-pair break-nodes)) 'is-last #t)
       (if #f; (ly:get-option 'verbose)
 	  (begin
 	    (display (list

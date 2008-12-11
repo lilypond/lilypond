@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -67,7 +67,6 @@ Ausdrucksbezeichnungen zu erstellen.
 
 @funindex -
 
-
 Eine Vielfalt an Symbolen kann über und unter den Noten erscheinen, 
 um zu markieren, auf welche Art die Note ausgeführt werden soll. 
 Hierzu wird folgende Syntax benutzt:
@@ -124,8 +123,7 @@ definiert.  Artikulationszeichen und Onrnamente können manuell
 
 
 @seealso
-
-Musikglossar:
+Glossar:
 @rglos{tenuto},
 @rglos{accent},
 @rglos{staccato},
@@ -313,7 +311,6 @@ Vertikale Position der Zeichen wird von der Funktion
 @funindex dynamicNeutral
 
 @predefined
-
 @code{\dynamicUp},
 @code{\dynamicDown},
 @code{\dynamicNeutral},
@@ -323,6 +320,7 @@ Vertikale Position der Zeichen wird von der Funktion
 @code{\dimTextDecresc},
 @code{\crescHairpin},
 @code{\dimHairpin}.
+@endpredefined
 
 @snippets
 
@@ -349,8 +347,7 @@ Vertikale Position der Zeichen wird von der Funktion
 
 
 @seealso
-
-Musikglossar:
+Glossar:
 @rglos{al niente},
 @rglos{crescendo},
 @rglos{decrescendo},
@@ -471,7 +468,6 @@ Die Auswahl von Schriftarten in Textbeschriftungen ist erklärt in
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -491,10 +487,10 @@ Ausdrucksbezeichnungen erstellt: Legato- und Phrasierungsbögen,
 Atemzeichen und Glissandos zu unbestimmten Tonhöhen.
 
 @menu
-* Slurs::                       
-* Phrasing slurs::                    
-* Breath marks::                
-* Falls and doits::             
+* Slurs::
+* Phrasing slurs::
+* Breath marks::
+* Falls and doits::
 @end menu
 
 @node Slurs
@@ -579,14 +575,13 @@ g4( e c2)
 @funindex slurUp
 
 @predefined
-
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
 @code{\slurSolid}.
-
+@endpredefined
 
 @snippets
 
@@ -595,8 +590,7 @@ g4( e c2)
 
 
 @seealso
-
-Musikglossar:
+Glossar:
 @rglos{slur}.
 
 Handbuch zum Lernen:
@@ -639,6 +633,12 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
 
 Im typographischen Sinne verhalten sich Phrasierungsbögen genauso wie 
 Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein 
@@ -662,15 +662,30 @@ c4\( g' c,( b) | c1\)
 Simultane oder überlappende Phrasierungsbögen sind nicht
 erlaubt.
 
+Phrasierungsbögen können durchgehend, gepunket oder gestrichelt dargestellt
+werden.  Standard ist der durchgehende Bogen:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashed
+g4\( e c2\)
+\phrasingSlurDotted
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
 
 @predefined
-
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
-@code{\phrasingSlurNeutral}.
+@code{\phrasingSlurNeutral},
+@code{\phrasingSlurDashed},
+@code{\phrasingSlurDotted},
+@code{\phrasingSlurSolid}.
+@endpredefined
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -716,8 +731,7 @@ Divisiones genannt, sind unterstützt.  Für Einzelheiten siehe
 
 
 @seealso
-
-Musikglossar: 
+Glossar:
 @rglos{caesura}.
 
 Notationsreferenz:
@@ -767,8 +781,7 @@ ist @emph{notwendig} um unbestimmte Glissandos zu notieren.
 
 
 @seealso
-
-Musikglossar:
+Glossar:
 @rglos{fall},
 @rglos{doit}.
 
@@ -814,8 +827,7 @@ Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
 
 
 @seealso
-
-Musikglossar:
+Glossar:
 @rglos{glissando}.
 
 Notationsreferenz:
@@ -897,14 +909,13 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 
 
 @predefined
-
 @code{\arpeggio},
 @code{\arpeggioArrowUp},
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis}.
-
+@endpredefined
 
 @snippets
 
@@ -919,8 +930,7 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 
 
 @seealso
-
-Musikglossar:
+Glossar:
 @rglos{arpeggio}.
 
 Notationsreferenz:
@@ -1020,18 +1030,13 @@ g\stopTrillSpan
 g\stopTrillSpan
 @end lilypond
 
-
-
 @predefined
-
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
-
-
+@endpredefined
 
 @seealso
-
-Musikglossar:
+Glossar:
 @rglos{trill}.
 
 Notationsreferenz:

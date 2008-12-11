@@ -170,8 +170,8 @@ c'est le @rinternals{Mensural_ligature_engraver} qui se chargera des
 ligatures mensurales.  Consultez la section @ref{Ligatures} pour savoir
 comment fonctionnent les graveurs de ligature.
 
-@seealso
 
+@seealso
 Pour un aperçu de toutes les possibilités,
 consultez @ref{Note head styles}.
 
@@ -234,8 +234,8 @@ altération indisponible dans le style utilisé.
 par la propriété @code{glyph-name-alist} de l'objet
 @rinternals{KeySignature}. 
 
-@seealso
 
+@seealso
 Dans ce manuel : @ref{Pitches}, @ref{Accidentals}, et
 @ref{Automatic accidentals}, pour les principes généraux d'utilisation
 des altérations ; @ref{Key signature} pour les armures.
@@ -276,8 +276,8 @@ défaut.  Voici une liste des styles de silences disponibles.
 Les silences sont absents de la notation grégorienne ; par contre, cette
 notation utilise des @ref{Divisiones}.
 
-@seealso
 
+@seealso
 Dans ce manuel : les principes généraux sur l'utilisation des silences
 sont exposés dans @ref{Rests}.
 
@@ -512,9 +512,10 @@ Editio XXX.}
 Les clés d'ut de Petrucci avaient une hampe gauche différente selon
 leur ligne de rattachement.
 
-@seealso
 
+@seealso
 Dans ce manuel : voir @ref{Clef}.
+
 
 @knownissues
 
@@ -652,10 +653,11 @@ Voici les différences entre les styles :
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Dans ce manuel : @ref{Time signature} expose les principes généraux sur
 l'utilisation des indications de métrique.
+
 
 @knownissues
 
@@ -800,8 +802,8 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{Custos}.
 
 Exemples : @rlsr{Ancient notation}.
@@ -833,8 +835,8 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@predefined
 
+@predefined
 @funindex \virgula
 @code{\virgula},
 @funindex \caesura
@@ -847,9 +849,10 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 @code{\divisioMaxima},
 @funindex \finalis
 @code{\finalis}.
+@endpredefined
+
 
 @seealso
-
 Dans ce manuel : @ref{Breath marks}.
 
 Référence du programme : @rinternals{BreathingSign}.
@@ -1908,10 +1911,9 @@ c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
 }
 @end lilypond
 
+
 @predefined
-
 LilyPond dispose des préfixes suivants :
-
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -1934,6 +1936,8 @@ LilyPond dispose des préfixes suivants :
 @code{\cavum},
 @funindex \linea
 @code{\linea}.
+@endpredefined
+
 
 Les préfixes de note peuvent s'agglutiner, modulo quelques restrictions.
 Par exemple, on peut appliquer un @code{\descendens} ou un
@@ -1988,7 +1992,7 @@ les propriétés de tous les autres contextes et objets graphiques à des
 valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
 lancer dans la saisie de votre chant, comme ci-dessous :
 
-@lilypond[quote,ragged-right,packed,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
 \score {
   <<

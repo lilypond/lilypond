@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-module (scm framework-ps))
 
@@ -37,11 +37,6 @@
        (ly:string-substitute
 	"%" "_" name)))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
-
-(define (tex-font? fontname)
-  (or
-   (equal? (substring fontname 0 2) "cm")
-   (equal? (substring fontname 0 2) "ec")))
 
 (define (define-fonts paper)
   (define font-list (ly:paper-fonts paper))
@@ -118,7 +113,7 @@
     "set-ps-scale-to-lily-scale "
     "\n"))
   (ly:outputter-dump-stencil outputter page)
-  (ly:outputter-dump-string outputter "stroke grestore \nshowpage\n"))
+  (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))
 
 (define (supplies-or-needs paper load-fonts?)
   (define (extract-names font)
@@ -331,7 +326,7 @@
 
       (if (not embed)
 	  (begin
-	    (set! embed "% failed \n")
+	    (set! embed "% failed\n")
 	    (ly:warning (_ "cannot extract file matching ~a from ~a") name filename)))
       embed))
 
@@ -567,7 +562,7 @@
 
     (display header port)
     (write-preamble paper load-fonts port)
-    (display "gsave set-ps-scale-to-lily-scale \n" port)
+    (display "gsave set-ps-scale-to-lily-scale\n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
@@ -767,12 +762,6 @@
 		     (* paper-width output-scale (/ (ly:bp 1)))
 		     (* paper-height output-scale (/ (ly:bp 1)))
 		     name)))
-
-(define-public (convert-to-dvi book name)
-  (ly:warning (_ "cannot generate ~S using the postscript back-end") "DVI"))
-
-(define-public (convert-to-tex book name)
-  (ly:warning (_ "cannot generate ~S using the postscript back-end") "TeX"))
 
 (define-public (convert-to-ps book name)
   #t)

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2ae5726ea4fcbcd40e42678db32d7da3227ef44a
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -31,14 +31,17 @@ and just before
 @end ignore
 
 @menu
-* Chord name chart::            
-* MIDI instruments::            
+* Chord name chart::   
+* Common chord modifiers::
+* Predefined fretboard diagrams::         
+* MIDI instruments::         
 * List of colors::              
 * The Feta font::               
 * Note head styles::            
 * Text markup commands::        
 * Text markup list commands::   
-* List of articulations::       
+* List of articulations::
+* Percussion notes::   
 * All context properties::      
 * Layout properties::           
 * Identifiers::                 
@@ -52,6 +55,350 @@ Die Tabelle zeigt die zwei üblichen Möglichkeiten, wie Akkordbezeichnungen
 ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
 
 @lilypondfile{chord-names-jazz.ly}
+
+
+@node Common chord modifiers
+@appendixsec Common chord modifiers
+
+Die Tabelle zeigt Modifikatoren für Akkorde, die im @code{\chordmode}-Modus
+benutzt werden können, um übliche Akkordkonstrukte zu notieren.
+
+@multitable @columnfractions .2 .3 .2 .2
+
+@item
+@b{Akkordtyp}
+@tab
+@b{Intervalle}
+@tab
+@b{Modifikator(en)}
+@tab
+@b{Beispiel}
+
+
+@item
+Dur
+@tab
+große Terz, Quinte
+@tab
+@code{5} oder nichts
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:5
+}
+@end lilypond
+
+@item
+Moll
+@tab
+kleine Terz, Quinte
+@tab
+@code{m} oder @code{m5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m
+}
+@end lilypond
+
+@item
+Übermäßig
+@tab
+Große Terz, übermäßige Quinte
+@tab
+@code{aug}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug
+}
+@end lilypond
+
+@item
+Vermindert
+@tab
+Kleine Terz, verminderte Quinte
+@tab
+@code{dim}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim
+}
+@end lilypond
+
+@item
+Dominantsieben
+@tab
+Durdreiklang, kleine Septime
+@tab
+@code{7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:7
+}
+@end lilypond
+
+@item
+Große Septime
+@tab
+Durdreiklang, große Septime
+@tab
+@code{maj7} oder @code{maj}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7
+}
+@end lilypond
+
+@item
+Kleine Septime
+@tab
+Molldreiklang, kleine Septime
+@tab
+@code{m7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7
+}
+@end lilypond
+
+@item
+Verminderte Septime
+@tab
+Verminderter Dreiklang, verminderte Septime
+@tab
+@code{dim7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim7
+}
+@end lilypond
+
+@item
+Übermäßige Septime
+@tab
+Übermäßiger Dreiklang, kleine Septime
+@tab
+@code{aug7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug7
+}
+@end lilypond
+
+@item
+halbverminderte Septime
+@tab
+Verminderter Dreklang, kleine Sept
+@tab
+@code{dim5m7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim5m7
+}
+@end lilypond
+
+@item
+Kleine MollSept
+@tab
+Molldreiklang, Durseptime
+@tab
+@code{7m5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:7m5
+}
+@end lilypond
+
+@item
+Große Sexte
+@tab
+Durdreiklang, Sexte
+@tab
+@code{6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:6
+}
+@end lilypond
+
+@item
+Kleine Sexte
+@tab
+Molldreiklang, Sexte
+@tab
+@code{m6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m6
+}
+@end lilypond
+
+@item
+Dominantnon
+@tab
+Dominantsept, große None
+@tab
+@code{9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:9
+}
+@end lilypond
+
+@item
+Dur None
+@tab
+TODO
+@tab
+@code{maj9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj9
+}
+@end lilypond
+
+@item
+Moll None
+@tab
+TODO
+@tab
+@code{m9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m9
+}
+@end lilypond
+
+@item
+Dominantundecime
+@tab
+Dominant ninth, perfect eleventh
+@tab
+@code{11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:11
+}
+@end lilypond
+
+@item
+Durundecime
+@tab
+TODO
+@tab
+@code{maj11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj11
+}
+@end lilypond
+
+@item
+Mollundecime
+@tab
+TODO
+@tab
+@code{m11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m11
+}
+@end lilypond
+
+@item
+Dominant-13
+@tab
+Dominant eleventh, major thirteenth
+@tab
+@code{13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13.11
+}
+@end lilypond
+
+@item
+Dur-13
+@tab
+TODO
+@tab
+@code{maj13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj13.11
+}
+@end lilypond
+
+@item
+Moll-13
+@tab
+TODO
+@tab
+@code{m13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m13.11
+}
+@end lilypond
+
+@item
+erniedrigte Sekunde
+@tab
+TODO
+@tab
+@code{sus2}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus2
+}
+@end lilypond
+
+@item
+erniedrigte Quarte
+@tab
+TODO
+@tab
+@code{sus4}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus4
+}
+@end lilypond
+
+
+@end multitable
+
+
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
+
+Die Tabelle zeigt alle vordefinierten Bunddiagramme.
+
+@lilypondfile{display-predefined-fretboards.ly}
+
+
 
 @node MIDI instruments
 @appendixsec MIDI instruments
@@ -276,6 +623,13 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 Hier ist eine Liste, die alle möglichen Zeichen darstellt:
 
 @lilypondfile[ragged-right,quote]{script-chart.ly}
+
+
+@node Percussion notes
+@appendixsec Percussion notes
+
+@lilypondfile[quote]{percussion-chart.ly}
+
 
 @node All context properties
 @appendixsec All context properties

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "paper-book.hh"
@@ -20,12 +20,16 @@ LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
 
 LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
 	   1, 0, 0, (SCM book),
-	   "Return pages in layout book @var{book}.")
+	   "Return scopes in layout book @var{book}.")
 {
   LY_ASSERT_SMOB (Paper_book, book, 1);
   Paper_book *pb = unsmob_paper_book (book);
 
   SCM scopes = SCM_EOL;
+  if (pb->parent_)
+    {
+      scopes = ly_paper_book_scopes (pb->parent_->self_scm ());
+    }
   if (ly_is_module (pb->header_))
     scopes = scm_cons (pb->header_, scopes);
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -67,7 +67,6 @@ Tonhöhe des vorherigen Akkords.
 Mehr Information über Akkorden findet sich in @ref{Chord notation}.
 
 @seealso
-
 Musikglossar:
 @rglos{chord}.
 
@@ -146,7 +145,6 @@ automatisch Zusammenstöße zwischen normalen Noten und Clustern
 aufzulösen.
 
 @seealso
-
 Musikglossar:
 @rglos{cluster}.
 
@@ -343,15 +341,14 @@ Mit dieser Methode können sich seltsame Balken und Warnungen
 ergeben, wenn die Musikausdrücke nicht den gleichen Rhythmus haben.
 
 @predefined
-
 @code{\voiceOne},
 @code{\voiceTwo},
 @code{\voiceThree},
 @code{\voiceFour},
 @code{\oneVoice}.
+@endpredefined
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{Voices contain music},
 @rlearning{Explicitly instantiating voices}.
@@ -398,17 +395,14 @@ Der @code{\voiceNeutralstyle}-Befehl wird benutzt, um wieder
 die Standardausgabe einzuschalten.
 
 @predefined
-
-
 @code{\voiceOneStyle},
-
 @code{\voiceTwoStyle},
 @code{\voiceThreeStyle},
 @code{\voiceFourStyle},
 @code{\voiceNeutralStyle}.
+@endpredefined
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{I'm hearing Voices},
 @rlearning{Other sources of information}.
@@ -560,16 +554,15 @@ Richtungen zeigen (also etwa wie @code{Voice} 1 und 2).
 
 
 @predefined
-
 @code{\mergeDifferentlyDottedOn},
 @code{\mergeDifferentlyDottedOff},
 @code{\mergeDifferentlyHeadedOn},
-@code{\mergeDifferentlyHeadedOff}.
-
+@code{\mergeDifferentlyHeadedOff},
 @code{\shiftOn},
 @code{\shiftOnn},
 @code{\shiftOnnn},
 @code{\shiftOff}.
+@endpredefined
 
 @snippets
 
@@ -580,7 +573,6 @@ Richtungen zeigen (also etwa wie @code{Voice} 1 und 2).
 {forcing-horizontal-shift-of-notes.ly}
 
 @seealso
-
 Musikglossar:
 @rglos{polyphony}.
 
@@ -706,7 +698,6 @@ die Tonhöhen von @var{musikAusdr1} oder @var{musikAusdr2}.
 {changing-partcombine-texts.ly}
 
 @seealso
-
 Musikglossar:
 @rglos{a due},
 @rglos{part}.
@@ -865,7 +856,6 @@ global = {
 @end lilypond
 
 @seealso
-
 Handbuch zum Lernen:
 @rlearning{Organizing pieces with variables}.
 

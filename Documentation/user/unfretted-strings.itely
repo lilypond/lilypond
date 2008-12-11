@@ -15,6 +15,7 @@
 {unfretted-headword.ly}
 
 @cindex orchestral strings
+@cindex strings, orchestral
 @cindex strings, writing for
 
 This section provides information and references which are helpful
@@ -48,7 +49,7 @@ and other bowed instruments is covered elsewhere:
 
 @itemize
 
-@item Texual indications such as @qq{pizz.} and @qq{arco} are
+@item Textual indications such as @qq{pizz.} and @qq{arco} are
 added as simple text -- see @ref{Text scripts}.
 
 @item Fingerings, including the thumb indication, are described
@@ -63,6 +64,7 @@ added, see @ref{Arpeggio}.
 
 @end itemize
 
+
 @seealso
 Learning Manual:
 @rlearning{String quartet}.
@@ -75,6 +77,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Unfretted strings}.
+
 
 @node Bowing indications
 @unnumberedsubsubsec Bowing indications
@@ -104,21 +107,24 @@ and the following example shows three ways in which an open A
 string on a violin might be indicated:
 
 @lilypond[verbatim,quote,relative=2]
-a4 \open 
-a^\markup { \teeny "II" } 
+a4 \open
+a^\markup { \teeny "II" }
 a2^\markup { \small "sul A" }
 @end lilypond
+
 
 @predefined
 @code{\downbow},
 @code{\upbow},
 @code{\open}.
+@endpredefined
+
 
 @seealso
-
 Notation Reference:
 @ref{Articulations and ornamentations},
 @ref{Slurs}.
+
 
 @node Harmonics
 @unnumberedsubsubsec Harmonics
@@ -172,6 +178,7 @@ diamond note head to indicate the harmonic position.
 <e a\harmonic>2  <c g'\harmonic>
 @end lilypond
 
+
 @seealso
 Music Glossary:
 @rglos{harmonics}.
@@ -179,6 +186,7 @@ Music Glossary:
 Notation Reference:
 @ref{Special note heads},
 @ref{References for unfretted strings}.
+
 
 @node Snap (Bartok) pizzicato
 @unnumberedsubsubsec Snap (Bartók) pizzicato

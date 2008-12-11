@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2008 Juergen Reuter <reuter@ipd.uka.de>
 
   Han-Wen Nienhuys <hanwen@xs4all.nl
 */
@@ -135,7 +135,7 @@ Ambitus_engraver::finalize ()
 {
   if (ambitus_ && !pitch_interval_.is_empty ())
     {
-      Grob * accidental_placement =
+      Grob *accidental_placement =
 	make_item ("AccidentalPlacement",
 		   accidentals_[DOWN]->self_scm ());
 
@@ -198,10 +198,11 @@ ADD_TRANSLATOR (Ambitus_engraver,
 		"",
 
 		/* create */
+		"AccidentalPlacement "
 		"Ambitus "
+		"AmbitusAccidental "
 		"AmbitusLine "
-		"AmbitusNoteHead "
-		"AmbitusAccidental ",
+		"AmbitusNoteHead ",
 
 		/* read */
 		"",

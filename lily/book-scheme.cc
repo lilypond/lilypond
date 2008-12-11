@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "book.hh"
@@ -27,6 +27,18 @@ LY_DEFINE (ly_make_book, "ly:make-book",
   if (ly_is_module (header))
     book->header_ = header;
 
+  book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
+
+  SCM x = book->self_scm ();
+  book->unprotect ();
+  return x;
+}
+
+LY_DEFINE (ly_make_book_part, "ly:make-book-part",
+	   1, 0, 0, (SCM scores),
+	   "Make a @code{\\bookpart} containing @code{\\scores}.")
+{
+  Book *book = new Book;
   book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
 
   SCM x = book->self_scm ();
@@ -94,5 +106,15 @@ LY_DEFINE (ly_book_add_score_x, "ly:book-add-score!",
   LY_ASSERT_SMOB (Book, book_smob, 1);
   Book *book = unsmob_book (book_smob); 
   book->add_score (score);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_book_add_bookpart_x, "ly:book-add-bookpart!",
+	   2, 0, 0, (SCM book_smob, SCM book_part),
+	   "Add @var{book_part} to @var{book-smob} book part list.")
+{
+  LY_ASSERT_SMOB (Book, book_smob, 1);
+  Book *book = unsmob_book (book_smob); 
+  book->add_bookpart (book_part);
   return SCM_UNSPECIFIED;
 }

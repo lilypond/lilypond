@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>,
+  (c) 2002--2008 Juergen Reuter <reuter@ipd.uka.de>,
   Pal Benko <benkop@freestart.hu>
 */
 
@@ -138,8 +138,8 @@ internal_brew_primitive (Grob *me)
       out = brew_flexa (me, delta_pitch, false, width, thickness);
       break;
     default:
-      programming_error (_f ("Mensural_ligature: "
-			     "unexpected case fall-through"));
+      programming_error (_ ("Mensural_ligature: "
+			    "unexpected case fall-through"));
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
@@ -189,7 +189,7 @@ internal_brew_primitive (Grob *me)
 	  out.add_stencil (join);
 	}
       else
-	programming_error (_f ("Mensural_ligature: (join_right == 0)"));
+	programming_error (_ ("Mensural_ligature: (join_right == 0)"));
     }
 
 #if 0 /* what happend with the ledger lines? */

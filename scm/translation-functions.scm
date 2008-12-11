@@ -2,23 +2,26 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; metronome marks
 (define-public (format-metronome-markup text dur count context)
-  (let* ((hide-note (eq? #t (ly:context-property context 'tempoHideNote)))
-	 (note-mark (if (and (not hide-note) (ly:duration? dur))
+  (let* ((hide-note (eq? #t (ly:context-property context 'tempoHideNote))))
+    (metronome-markup text dur count hide-note)))
+
+(define-public (metronome-markup text dur count hide-note)
+  (let* ((note-mark (if (and (not hide-note) (ly:duration? dur))
                       (make-smaller-markup
 		       (make-note-by-number-markup (ly:duration-log dur)
 						   (ly:duration-dot-count dur)
 						   1))
-		      (make-null-markup)))
+		      #f))
          (note-markup (if (and (not hide-note) (number? count) (> count 0) )
                         (make-concat-markup (list
                           (make-general-align-markup Y DOWN note-mark)
                           (make-simple-markup " ")
-                          (make-simple-markup  "=")
+                          (make-simple-markup "=")
                           (make-simple-markup " ")
                           (make-simple-markup (number->string count))))
                       #f))

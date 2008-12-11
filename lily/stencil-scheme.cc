@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 
@@ -341,11 +341,11 @@ LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
 }
 
 LY_DEFINE (ly_round_filled_polygon, "ly:round-filled-polygon",
-           2, 0, 0,
-           (SCM points, SCM blot),
-           "Make a @code{Stencil} object that prints a black polygon with "
-           "corners at the points defined by @var{points} (list of coordinate "
-           "pairs) and roundness @var{blot}.")
+	   2, 0, 0,
+	   (SCM points, SCM blot),
+	   "Make a @code{Stencil} object that prints a black polygon with"
+	   " corners at the points defined by @var{points} (list of coordinate"
+	   " pairs) and roundness @var{blot}.")
 {
   SCM_ASSERT_TYPE (scm_ilength (points) > 0, points, SCM_ARG1, __FUNCTION__, "list of coordinate pairs");
   LY_ASSERT_TYPE (scm_is_number, blot, 2);

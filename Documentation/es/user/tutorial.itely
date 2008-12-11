@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: f413550b658b43fbea690fc060f872bce6bbc885
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -292,7 +292,7 @@ en aquella que especifica la altura de inicio.  En el ejemplo
 anterior, la primera nota (@code{d}) es el Re más cercano al Do
 central.
 
-Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} de
+Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} a
 la instrucción @code{@w{\relative c' @{}}, podemos cambiar la octava
 de inicio:
 
@@ -324,7 +324,7 @@ por debajo.
 }
 @end lilypond
 
-Loo mismo exactamente ocurre cuando cualquiera de esas notas llevan un
+Lo mismo exactamente ocurre cuando cualquiera de esas notas llevan un
 sostenido o un bemol.  Las @notation{Alteraciones accidentales} se
 @strong{ignoran totalmente} en el cálculo de la posición relativa.
 Exactamente la misma cuenta de espacios de pentagrama se hace a partir
@@ -523,7 +523,7 @@ Referencia de la notación:
 
 Los archivos de entrada de LilyPond son como los archivos fuente de
 muchos lenguajes de programación corrientes.  Son sensibles a las
-mayúsculas e insensibles al número de espacios Las expresiones se
+mayúsculas e insensibles al número de espacios.  Las expresiones se
 forman con llaves @{ @} y los comentarios se denotan por un signo de
 porcentaje (@code{%}) o por @w{@code{%@{ ... %@}}}.
 
@@ -675,9 +675,8 @@ para sus experimentos. Para poder ver exactamente el mismo resultado
 (con igual anchura de línea y todo), copie todo lo que está desde
 @qq{Start cut-&-pastable section} hasta el final del archivo.
 
+
 @seealso
-
-
 Podrá encontrar más consejos y trucos para la construcción de archivos
 de entrada en @ref{Suggestions for writing LilyPond files}; pero quizá
 sea mejor leer primero el resto del tutorial.
@@ -730,7 +729,7 @@ Una nota con @notation{sostenido} se hace añadiendo @code{is} al
 nombre, y una nota @notation{bemol} añadiendo @code{es}.  Como ha
 podido adivinar, un @notation{doble sostenido} o @notation{doble
 bemol} se hace añadiendo @code{isis} o @code{eses}.  Esta sintaxis se
-deriva de las convenciones para da nombre a las notas de las lenguas
+deriva de las convenciones de nomenclatura de las notas en las lenguas
 nórdicas y germánicas como el alemán y el holandés.  Para utilizar
 otros nombres para las @notation{alteraciones accidentales}, véase
 @ruser{Note names in other languages}.
@@ -832,8 +831,8 @@ imprimir siguiendo varias convenciones distintas.  Consulte
 @ruser{Automatic accidentals} para ver ejemplos de cómo se pueden
 imprimir las alteraciones de acuerdo a reglas diferentes.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Note names in other languages},
 @ruser{Accidentals},
@@ -861,8 +860,8 @@ Glosario musical:
 Glosario musical:
 @rglos{tie}.
 
-Una @notation{tie} se crea adjuntando un carácter de tilde curva @code{~}
-a la primera nota ligada:
+Una @notation{ligadura de unión} se crea adjuntando un carácter de
+tilde curva @code{~} a la primera nota ligada:
 
 @lilypond[verbatim,quote,relative=2]
 g4~ g c2~
@@ -874,9 +873,9 @@ c4 ~ c8 a8 ~ a2
 Glosario musical:
 @rglos{slur}.
 
-Una @notation{slur} es una curva que se traza abarcando varias notas.
-Las notas inicial y final se marcan mediante @code{(} y @code{)}
-respectivamente.
+Una @notation{ligadura de expresión} es una curva que se traza
+abarcando varias notas.  Las notas inicial y final se marcan mediante
+@code{(} y @code{)} respectivamente.
 
 @lilypond[verbatim,quote,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
@@ -920,8 +919,8 @@ se pueden anidar unas dentro de otras.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Ties},
 @ruser{Slurs},
@@ -1015,8 +1014,8 @@ puede usar la instrucción @code{\!}:
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions},
@@ -1050,7 +1049,6 @@ a1_\markup{
 
 
 @seealso
-
 Referencia de la notación:
 @ruser{Writing text}.
 
@@ -1102,8 +1100,8 @@ a8 c b4 d8. c16 b4
 a8 c b4 d8. c16 b4
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Automatic beams},
 @ruser{Manual beams}.
@@ -1186,8 +1184,8 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Grace notes},
 @ruser{Tuplets},
@@ -1461,8 +1459,8 @@ Cada uno de estos grupos de pautas forma un tipo de contexto distinto,
 que produce la llave a la izquierda y que también controla el alcance
 de las líneas divisorias.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
@@ -1494,7 +1492,7 @@ tener la misma duración, y que la duración se escribe después del
 r4 <c e g>4 <c f a>2
 @end lilypond
 
-Debemmos pensar en los acordes como algo casi equivalente a las notas
+Debemos pensar en los acordes como algo casi equivalente a las notas
 sencillas: casi todo lo que se puede adjuntar a una nota se puede
 adjuntar también a un acorde, y todo debe ir @emph{por fuera} de los
 ángulos.  Por ejemplo, puede combinar marcas como barras y ligaduras,
@@ -1569,8 +1567,8 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Simultaneous notes}.
 
@@ -1795,7 +1793,7 @@ el aria de Fígaro @notation{Largo al factotum}:
     \clef bass
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d)] b c d b c
+    c4.~ c8 d b c([ d]) b c d b c
   }
   \addlyrics {
     Lar -- go_al fac -- to -- tum del -- la cit -- tà
@@ -1805,10 +1803,8 @@ el aria de Fígaro @notation{Largo al factotum}:
 
 
 @seealso
-
 Referencia de la notación:
 @ruser{Vocal music}.
-
 
 
 @node Lyrics to multiple staves
@@ -1850,10 +1846,11 @@ ejemplo se hace mejor separando la letra de la estructura de
 pentagramas mediante variables (expresiones con nombre).  Éstas se
 tratan en @ref{Organizing pieces with variables}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ruser{Vocal music}.
+
 
 @node Final touches
 @section Final touches
@@ -2119,12 +2116,13 @@ archivos de LilyPond generados por ordenador.
 @subsection After the tutorial
 
 Después de terminar el tutorial, quizá debería probar a escribir una o
-dos piezas.  Comience con una de las plantillas del @ref{Templates} y
-añada algunas notas.  Si necesita un tipo de notación que no ha sido
-tratada en el tutorial, eche un vistazo a la Referencia de Notación,
-empezando por @ruser{Musical notation}.  Si quiere escribir música para
-un conjunto instrumental que no está cubierto por ninguna plantilla,
-consulte @ref{Extending the templates}.
+dos piezas.  Comience con una de las plantillas que aparecen en
+@ref{Templates} y añada algunas notas.  Si necesita un tipo de
+notación que no ha sido tratada en el tutorial, eche un vistazo a la
+Referencia de Notación, empezando por @ruser{Musical notation}.  Si
+quiere escribir música para un conjunto instrumental que no está
+cubierto por ninguna plantilla, consulte @ref{Extending the
+templates}.
 
 Una vez que ha escrito algunas piezas cortas, lea el resto del Manual
 de aprendizaje (capítulos 3 al 5).  ¡Por supuesto, no pasa nada por

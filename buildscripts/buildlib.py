@@ -2,6 +2,7 @@
 
 import subprocess
 import re
+import sys
 
 verbose = False
 
@@ -18,13 +19,13 @@ def read_pipe (command):
         error = code + ' ' + error
     return (output, error)
 
-revision_re = re.compile ('GIT [Cc]ommittish: ([a-f0-9]+)')
+revision_re = re.compile ('GIT [Cc]ommittish:\s+([a-f0-9]+)')
 vc_diff_cmd = 'git diff %(color_flag)s %(revision)s HEAD -- %(original)s | cat'
 
-def check_translated_doc (original, translated_contents, color=False):
+def check_translated_doc (original, translated_file, translated_contents, color=False):
     m = revision_re.search (translated_contents)
     if not m:
-        sys.stderr.write ('error: ' + translated + \
+        sys.stderr.write ('error: ' + translated_file + \
                           ": no 'GIT committish: <hash>' found.\nPlease check " + \
                           'the whole file against the original in English, then ' + \
                           'fill in HEAD committish in the header.\n')

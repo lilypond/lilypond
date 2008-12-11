@@ -5,7 +5,7 @@ This may not work if the slur starts after the tuplet.  "
   
 }
 
-\version "2.11.51"
+\version "2.11.65"
 
 \paper {
   ragged-right = ##t
@@ -15,7 +15,7 @@ This may not work if the slur starts after the tuplet.  "
 \relative {
   \slurUp
   \override TupletBracket #'bracket-visibility = ##f
-  \override Slur #'details #'region-size  = #6
+  \override Slur #'(details region-size)  = #6
   
   \times 2/3
   {

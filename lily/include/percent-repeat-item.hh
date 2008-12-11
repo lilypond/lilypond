@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef PERCENT_REPEAT_ITEM_HH
@@ -18,7 +18,7 @@ public:
   DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (beat_slash, (SCM));
   DECLARE_SCHEME_CALLBACK (double_percent, (SCM));
-  static Stencil x_percent (Grob *, int, Real, Real);
+  static Stencil x_percent (Grob *, int);
   static Stencil brew_slash (Grob *);
 };
 

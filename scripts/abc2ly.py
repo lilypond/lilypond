@@ -216,7 +216,7 @@ def dump_slyrics (outf):
             m = k
         for i in range (len(slyrics[voice_idx_dict[k]])):
             l= alphabet(i)
-            outf.write ("\nwords%sV%s = \lyricmode {" % (m, l))
+            outf.write ("\nwords%sV%s = \\lyricmode {" % (m, l))
             outf.write ("\n" + slyrics [voice_idx_dict[k]][i])
             outf.write ("\n}")
 
@@ -254,7 +254,7 @@ def try_parse_q(a):
         denominator=array2[0]
         perminute=array2[1]
         duration = str (int (denominator) / int (numerator))
-        midi_specs = ' '.join(["    \n\t\t\context {\n\t\t \Score tempoWholesPerMinute = #(ly:make-moment ", perminute, " ", duration, ")\n\t\t }\n"])
+        midi_specs = ' '.join(["\n\t\t\\context {\n\t\t \\Score tempoWholesPerMinute = #(ly:make-moment ", perminute, " ", duration, ")\n\t\t }\n"])
     else:
         sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
 
@@ -282,7 +282,7 @@ def dump_score (outf):
 
         l = ord( 'A' )
         for lyrics in slyrics [voice_idx_dict[k]]:
-            outf.write ("\n\t\\addlyrics { \n")
+            outf.write ("\n\t\\addlyrics {\n")
             if re.match('[1-9]',k):
                 m = alphabet (int (k))
             else:
@@ -650,12 +650,12 @@ def try_parse_header_line (ln, state):
             if a == 'C':
                 if not state.common_time:
                     state.common_time = 1
-                    voices_append (" \\override Staff.TimeSignature #\'style = #'C\n")
+                    voices_append (" \\override Staff.TimeSignature #'style = #'C\n")
                 a = '4/4'
             if a == 'C|':
                 if not state.common_time:
                     state.common_time = 1
-                    voices_append ("\\override Staff.TimeSignature #\'style = #'C\n")
+                    voices_append ("\\override Staff.TimeSignature #'style = #'C\n")
                 a = '2/2'
             if not length_specified:
                 set_default_len_from_time_sig (a)
@@ -779,7 +779,7 @@ def duration_to_lilypond_duration  (multiply_tup, defaultlen, dots):
             base = '\\breve'
             dots = 1
         if (multiply_tup[0] / multiply_tup[1]) == 4:
-            base = '\longa'
+            base = '\\longa'
     return '%s%s' % ( base, '.'* dots)
 
 class Parser_state:
@@ -1359,9 +1359,10 @@ def get_option_parser ():
                   action='store_true')
     p.add_option ('-b', '--beams', help=_ ("preserve ABC's notion of beams"))
     p.add_option_group ('',
-                        description=(_ ('Report bugs via')
-                                     + ''' http://post.gmane.org/post.php'''
-                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
+                        description=(
+            _ ('Report bugs via %s')
+            % 'http://post.gmane.org/post.php'
+            '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     return p
 
 

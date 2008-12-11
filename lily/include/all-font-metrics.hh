@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef ALL_FONTS_HH
@@ -20,7 +20,8 @@
 
 
 /*
-   Interface to all .afm files living in the filesystem.
+   Interface to all fonts (both system fonts and fonts loaded
+   via Pango).
 */
 class All_font_metrics
 {
@@ -55,4 +56,3 @@ extern All_font_metrics *all_fonts_global;
 SCM ly_reset_all_fonts ();
 
 #endif /* ALL_FONTS_HH */
-

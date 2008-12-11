@@ -36,7 +36,7 @@ c1 c2 c8 c16
 @tab
 @lilypond[fragment,relative=2,notime]
 \override Staff.Clef #'break-visibility = #all-invisible
-c4. c4..  
+c4. c4..
 @end lilypond
 
 @item @code{c d e f g a b }
@@ -67,7 +67,7 @@ s4_" "
 @tab Taktangaben
 @tab
 @lilypond[fragment]
-\override Staff.Clef #'transparent = ##t 
+\override Staff.Clef #'transparent = ##t
 \time 3/4
 s4_" "
 \time 4/4
@@ -98,7 +98,7 @@ d ~ d
 @lilypond[notime,fragment]
 \clef treble
 \key es \major
-s4 
+s4
 @end lilypond
 
 @item @var{note}@code{'}
@@ -212,7 +212,7 @@ a\> a a\!
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
-<c e> 
+<c e>
 @end lilypond
 
 
@@ -263,7 +263,7 @@ twinkle
 <<
    { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
->> 
+>>
 @end lilypond
 
 @item @code{\chordmode @{ c:dim f:maj7 @}}

@@ -31,9 +31,16 @@
 
 
 @ifhtml
+@ifclear bigpage
 This document is also available as a
 @uref{source/Documentation/user/lilypond-learning.pdf,PDF} and as
 @uref{source/Documentation/user/lilypond-learning-big-page.html,one big page}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/user/lilypond-learning.pdf,PDF} and as
+@uref{source/Documentation/user/lilypond-learning/index.html,HTML indexed multiple pages}.
+@end ifset
 @end ifhtml
 
 

@@ -794,84 +794,6 @@ AC_DEFUN(STEPMAKE_INIT, [
 ])
 
     
-AC_DEFUN(STEPMAKE_KPATHSEA, [
-	
-    AC_ARG_WITH(kpathsea-include,
-	[  --with-kpathsea-include=DIR
-	                  location of the kpathsea include dir],[
-	    if test "$withval" = "yes" -o "$withval" = "no"; then
-		AC_MSG_WARN(Usage: --with-kpathsea-include=includedir)
-	    else
-		CPPFLAGS="$CPPFLAGS -I${withval}"
-	    fi
-	    ])
-    
-    AC_ARG_WITH(kpathsea-lib,
-	[  --with-kpathsea-lib=DIR location of the kpathsea lib dir],[
-	    if test "$withval" = "yes" -o "$withval" = "no"; then
-		AC_MSG_WARN(Usage: --with-kpathsea-lib=libdir)
-	    else
-		LDFLAGS="$LDFLAGS -L${withval}"
-	    fi
-	    ])
-    
-    kpathsea_b=yes
-    AC_ARG_ENABLE(kpathsea,
-    [  --enable-kpathsea         use kpathsea lib.  Default: on],
-    [kpathsea_b=$enableval])
-
-    save_LIBS="$LIBS"
-    if test "$kpathsea_b" != "no"; then	
-	AC_CHECK_HEADERS([kpathsea/kpathsea.h],,kpathsea_b=no)
-	AC_CHECK_LIB(kpathsea, kpse_find_file)
-	AC_CHECK_FUNCS(kpse_find_file,,kpathsea_b=no)
-	if test "$kpathsea_b" = "no"; then
-	    STEPMAKE_ADD_ENTRY(OPTIONAL, $warn)
-	fi
-    fi
-
-    save_CFLAGS="$CFLAGS"
-    CFLAGS=`echo "-shared $CFLAGS" | sed -e 's/ -g//'`
-    AC_MSG_CHECKING([for shared libkpathsea])
-    AC_TRY_LINK([#include <kpathsea/kpathsea.h>],
-                 [kpse_var_expand ("\$TEXMF");],
-                 [have_libkpathsea_so=maybe;
-		  shared_size=`wc -c conftest$ac_exeext`;
-		  shared_size=`echo $shared_size | sed -e 's/ .*//g'`],
-                 [have_libkpathsea_so=no])
-
-    if test "$have_libkpathsea_so" = "maybe"; then
-	if test "$shared_size" -lt 40000 ; then
-	  have_libkpathsea_so=yes
-	else
-	  have_libkpathsea_so=no
-	fi
-    fi
-    
-    AC_MSG_RESULT($have_libkpathsea_so)
-    if test "$have_libkpathsea_so" = "yes"; then
-	AC_DEFINE(HAVE_LIBKPATHSEA_SO)
-    fi
-    CFLAGS="$save_CFLAGS"
-
-    KPATHSEA_LIBS="$LIBS"
-    LIBS="$save_LIBS"
-    AC_MSG_CHECKING(whether to use kpathsea)
-    if test "$kpathsea_b" != no; then
-        AC_MSG_RESULT(yes)
-	KPATHSEA=1
-    else
-        AC_MSG_RESULT(no)
-	KPATHSEA=0
-    fi
-
-    AC_SUBST(KPATHSEA)
-    AC_SUBST(KPATHSEA_LIBS)
-    AC_SUBST(HAVE_LIBKPATHSEA_SO, $have_libkpathsea_so)
-    AC_DEFINE_UNQUOTED(KPATHSEA, $KPATHSEA)
-])
-
-
 AC_DEFUN(STEPMAKE_LIB, [
     STEPMAKE_PROGS(AR, ar, $1)
     AC_PROG_RANLIB
@@ -1034,7 +956,7 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
     if test -z "$PYTHON_CFLAGS" -a "$PYTHON_CONFIG" != "no"; then
         # Clean out junk: http://bugs.python.org/issue3290
 	# Python headers may need some -f* flags, leave them in.
-	PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags | sed -e 's/ -\(W\|D\|O\|m\)\(\w\|-\|=\)\+//g'`
+	PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags | sed -e 's/ -\(W\|D\|O\|m\)\(\w\|-\|=\|,\)\+//g'`
 	PYTHON_LDFLAGS=`$PYTHON_CONFIG --ldflags`
     fi
     

@@ -57,4 +57,4 @@
 
 \markuplines \override-lines #'(word-space . 4)
              \doc-chars #(delete ".notdef"
-                          (ly:otf-glyph-list (ly:font-load "emmentaler-20")))
+                          (ly:otf-glyph-list (ly:system-font-load "emmentaler-20")))

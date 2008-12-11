@@ -223,7 +223,6 @@ ligature = #(define-music-function
 %
 \layout {
     indent = 0.0
-    packed = ##t
 
     %%% TODO: should raggedright be the default?
     %ragged-right = ##t

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 
@@ -201,6 +201,13 @@ centered, X==1 is at the right, X == -1 is at the left."
     (ly:context-set-property! tr 'barNumberVisibility (modulo-bar-number-visible n (modulo bn n)))))
 
 (define-public (first-bar-number-invisible barnum) (> barnum 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; percent repeat counters
+
+(define-public ((every-nth-repeat-count-visible n) count context) (= 0 (modulo count n)))
+
+(define-public (all-repeat-counts-visible count context) #t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break visibility

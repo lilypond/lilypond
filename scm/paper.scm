@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
@@ -61,10 +61,7 @@
     (setm! 'text-font-size (* 12 factor))
     
     (setm! 'output-scale ss)
-    (setm! 'fonts
-		    (if tex-backend?
-			(make-cmr-tree factor)
-			(make-century-schoolbook-tree factor)))
+    (setm! 'fonts (make-century-schoolbook-tree factor))
     (setm! 'staff-height staff-height)
     (setm! 'staff-space ss)
 

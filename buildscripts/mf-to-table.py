@@ -4,7 +4,7 @@
 #
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1997--2007 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c) 1997--2008 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 import os
 import sys
