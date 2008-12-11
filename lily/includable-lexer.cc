@@ -13,6 +13,7 @@ using namespace std;
 
 #include "config.hh"
 
+#include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
 #include "main.hh"
@@ -47,13 +48,16 @@ Includable_lexer::Includable_lexer ()
 void
 Includable_lexer::new_input (string name, Sources *sources)
 {
-  Source_file *file = sources->get_file (&name);
+  string current_dir = include_stack_.size () ?
+    dir_name (include_stack_.back ()->name_string ()) : "";
+
+  Source_file *file = sources->get_file (name, current_dir);
   if (!file)
     {
       string msg = _f ("cannot find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
-		 sources->path_->to_string ().c_str ());
+		 (current_dir.length () ? (current_dir + PATHSEP) : "") + sources->path_->to_string ().c_str ());
       LexerError (msg.c_str ());
       return;
     }
@@ -64,7 +68,7 @@ Includable_lexer::new_input (string name, Sources *sources)
     state_stack_.push_back (yy_current_buffer);
 
   if (be_verbose_global)
-    progress_indication (string ("[") + name);
+    progress_indication (string ("[") + file->name_string ());
 
   include_stack_.push_back (file);
 
