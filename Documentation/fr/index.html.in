@@ -36,8 +36,8 @@
 	    <li>
 	      <a class="title"
 		 href="user/lilypond-learning/index.fr.html">Manuel d'initiation</a>
-	      (partiellement traduit,<br>aussi en <a class="title" href="user/lilypond-learning-big-page.html">page
-	      unique en anglais</a> ~ 1,5 Mo, ou
+	      (partiellement traduit,<br>aussi en <a class="title" href="user/lilypond-learning-big-page.fr.html">page
+	      unique</a> ~ 1,5 Mo, ou
 	      <a class="title" href="user/lilypond-learning.fr.pdf">au format PDF</a>)
               <br>&mdash; commencer ici</li>
 	    <li><a class="title" href="user/music-glossary/index.html">Glossaire</a>
@@ -62,13 +62,12 @@
 	    <li>
 	      <a class="title" href="user/lilypond/index.fr.html">Manuel de notation</a>
 	      (partiellement traduit,<br>aussi en <a class="title"
-				href="user/lilypond-big-page.html">page unique
- 	        en anglais</a> ~ 4 Mo, ou
+				href="user/lilypond-big-page.fr.html">page unique</a> ~ 4 Mo, ou
 	        <a class="title" href="user/lilypond.fr.pdf">au format PDF</a>)
                 <br>&mdash; gravure de musique avec LilyPond</li>
 	    <li>
 	      <a  class="title" href="user/lilypond-internals/index.html">Référence des propriétés internes</a>
-	      <br>(en anglais, en <a class="title" href="user/lilypond-internals-big-page.html">page
+	      <br>(en anglais, aussi en <a class="title" href="user/lilypond-internals-big-page.html">page
 		unique</a> ~ 1 Mo, <a class="title"
 		href="user/lilypond-internals.pdf">au format PDF</a>)
               <br>&mdash; définitions pour les retouches</li>
@@ -79,11 +78,11 @@
             <li>
 	    <a class="title" href="user/lilypond-program/index.fr.html">Utilisation des programmes</a>
 (partiellement traduit,<br>aussi en <a class="title"
-		href="user/lilypond-program-big-page.html">page unique en anglais</a>, ou
+		href="user/lilypond-program-big-page.fr.html">page unique</a>, ou
 	    <a class="title" href="user/lilypond-program.fr.pdf">au format PDF</a>)
             <br>&mdash; installation et exécution des programmes</li>
 	    <li><a class="title" href="../input/lsr/lilypond-snippets/index.html">Exemples de code</a>
-(en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">page unique en anglais</a> ~ 2 Mo,
+(en anglais, aussi en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">page unique</a> ~ 2 Mo,
 au format <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
             <br>&mdash; petits trucs, astuces et exemples</li>
 	  </ul>

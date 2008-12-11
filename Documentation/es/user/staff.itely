@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,9 +13,9 @@
 
 @lilypondfile[quote]{staff-headword.ly}
 
-Esta sección explica cómo influir sobre la apariencia del pentagrama,
-imprimir partituras con más de un pentagrama y cómo aplicar
-indicaciones de interpretación específicas a pentagramas individuales.
+Esta sección explica cómo influir sobre la apariencia de los
+pentagramas, cómo imprimir partituras con más de un pentagrama y cómo
+añadir indicaciones de tempo y notas guía a los pentagramas.
 
 @menu
 * Displaying staves::
@@ -62,24 +62,17 @@ El contexto básico de pentagrama es @code{Staff}:
 \new Staff { c4 d e f }
 @end lilypond
 
-@code{DrumStaff} crea una pauta de cinco líneas preparada para un
-conjunto de batería típico.  Utiliza distintos nombres para cada
-instrumento.  Los nombres de instrumento se fijan utilizando la
-instrucción @code{\drummode}.  Para ver más detalles, consulte
-@ref{Percussion staves}.
+El contexto @code{DrumStaff} crea una pauta de cinco líneas preparada
+para un conjunto de batería típico.  Cada instrumento se presenta con
+un símbolo distinto.  Los instrumentos se escriben en el modo de
+percusión que sigue a una instrucción @code{\drummode}, con cada
+instrumento identificado por un nombre.  Para ver más detalles,
+consulte @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
   \drummode { cymc hh ss tomh }
 }
-@end lilypond
-
-@c FIXME: remove when mentioned in NR 2.8
-@code{GregorianTranscriptionStaff} crea una pauta para la notación
-moderna de canto gregoriano.  No muestra líneas divisorias.
-
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
 @end lilypond
 
 @code{RhythmicStaff} crea una pauta de una sola línea que sólo muestra
@@ -101,6 +94,13 @@ tablatures}.
 Existen dos contextos de pauta específicos para la notación de música
 antigua: @code{MensuralStaff} y @code{VaticanaStaff}.  Se describen en
 @ref{Pre-defined contexts}.
+
+@code{GregorianTranscriptionStaff} crea una pauta para la notación
+moderna de canto gregoriano.  No muestra líneas divisorias.
+
+@lilypond[verbatim,quote,relative=2]
+\new GregorianTranscriptionStaff { c4 d e f e d }
+@end lilypond
 
 Se pueden definir contextos nuevos de pentagrama único.  Para ver más
 detalles, consulte @ref{Defining new contexts}.
@@ -224,7 +224,6 @@ especificar explícitamente.
 Se pueden definir contextos nuevos de grupo de pentagramas.  Para ver
 más detalles, consulte @ref{Defining new contexts}.
 
-
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -241,8 +240,6 @@ más detalles, consulte @ref{Defining new contexts}.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
-@c FIXME: move to NR 2.8.x when sectioning is ready
-
 
 @seealso
 Glosario musical:
@@ -387,7 +384,10 @@ dependen del grosor de las líneas de la pauta.
 @end lilypond
 
 El grosor de las líneas adicionales se puede fijar de forma
-independiente al de las líneas de la pauta.
+independiente al de las líneas de la pauta.  En el ejemplo, los dos
+números son factores que multiplican el grosor de las líneas del
+pentagrama y su espaciado.  Las dos contribuciones se suman para dar
+el grosor de las líneas adicionales.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -504,7 +504,7 @@ creación de un pentagrama simultáneo nuevo en la posición adecuada:
 @end lilypond
 
 @noindent
-Sin embargo, el ejemplo anterior no suele ser el resultado deseado.
+Sin embargo, el ejemplo anterior no es lo que normalmente se desea.
 Para crear pentagramas de ossia que estén encima del pentagrama
 original, que no tengan compás ni clave, y que tengan un tamaño menor
 de tipografía se deben usar varios trucos.  El Manual de aprendizaje
@@ -674,8 +674,8 @@ como @q{partitura a la francesa}.  De forma predeterminada, esta
 instrucción oculta y elimina todos los pentagramas vacíos de la
 partitura excepto los del primer sistema.
 
-@warning{Un pentagrama vacío puede contener solamente silencios
-multicompás, desplazamientos, silencios de separación o una
+@warning{Un pentagrama se considera vacío cuando contiene solamente
+silencios multicompás, desplazamientos, silencios de separación o una
 combinación de estos elementos.}
 
 @lilypond[verbatim,quote,ragged-right]

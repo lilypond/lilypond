@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2008 Joe Neeman <joeneeman@gmail.com>
 */
 
 #ifndef MATRIX_HH

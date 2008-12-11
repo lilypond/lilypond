@@ -112,7 +112,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2007',
+''' % ( _ ('Copyright (c) %s by') % '2001--2008',
         ' '.join (authors),
         _ ("Distributed under terms of the GNU General Public License."),
         _ ("It comes with NO WARRANTY.")))
@@ -211,8 +211,9 @@ def get_option_parser ():
                   action='store_true')
     p.add_option_group ('',
                         description=(
-        _ ("Report bugs via")
-        + ' http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n'))
+        _ ("Report bugs via %s")
+        % ' http://post.gmane.org/post.php'
+        '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     return p
 
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
@@ -252,6 +253,7 @@ LAYOUT = 'layout'
 LINE_WIDTH = 'line-width'
 LILYQUOTE = 'lilyquote'
 NOFRAGMENT = 'nofragment'
+NOGETTEXT = 'nogettext'
 NOINDENT = 'noindent'
 NOQUOTE = 'noquote'
 NORAGGED_RIGHT = 'noragged-right'
@@ -259,7 +261,6 @@ NOTES = 'body'
 NOTIME = 'notime'
 OUTPUT = 'output'
 OUTPUTIMAGE = 'outputimage'
-PACKED = 'packed'
 PAPER = 'paper'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
@@ -572,6 +573,7 @@ simple_options = [
     EXAMPLEINDENT,
     FRAGMENT,
     NOFRAGMENT,
+    NOGETTEXT,
     NOINDENT,
     PRINTFILENAME,
     DOCTITLE,
@@ -603,8 +605,6 @@ ly_options = {
         RAGGED_RIGHT: r'''ragged-right = ##t''',
 
         NORAGGED_RIGHT: r'''ragged-right = ##f''',
-
-        PACKED: r'''packed = ##t''',
     },
 
     ##
@@ -995,7 +995,10 @@ class LilypondSnippet (Snippet):
         self.do_options (os, self.type)
 
     def verb_ly (self):
-        return verb_ly_gettext (self.substring ('code'))
+        if NOGETTEXT in self.option_dict:
+            return self.substring ('code')
+        else:
+            return verb_ly_gettext (self.substring ('code'))
 
     def ly (self):
         contents = self.substring ('code')
@@ -1213,7 +1216,8 @@ class LilypondSnippet (Snippet):
         file (path + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
-        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
+        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n|' +
+                       NOGETTEXT + '[,\]]', '', ly)
 
     def link_all_output_files (self, output_dir, output_dir_files, destination):
         existing, missing = self.all_output_files (output_dir, output_dir_files)

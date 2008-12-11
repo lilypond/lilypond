@@ -1,13 +1,13 @@
 /*
   breathing_sign.cc -- implement Breathing_sign
 
-  (c) 1999--2007 Michael Krause
+  (c) 1999--2008 Michael Krause
 
   written for the GNU LilyPond music typesetter
 
   TODO: --> see breathing-sign-engraver.cc
 
-  Extensions for ancient notation (c) 2003--2007 by Juergen Reuter
+  Extensions for ancient notation (c) 2003--2008 by Juergen Reuter
 */
 
 #include "breathing-sign.hh"

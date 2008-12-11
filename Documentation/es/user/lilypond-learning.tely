@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -31,11 +31,17 @@
 @end ifnottex
 
 @ifhtml
+@ifclear bigpage
 Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
 @uref{source/Documentation/user/lilypond-learning-big-page.es.html,una sola página}.
+@end ifclear
+@ifset bigpage
+Este documento también está disponible en formato
+@uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond-learning/index.es.html,un documento HTML normal de muchas páginas}.
+@end ifset
 @end ifhtml
-
 
 @c  This produces the unified index
 @syncodeindex fn cp

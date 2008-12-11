@@ -1,7 +1,7 @@
 /*
   performance.hh -- declare Performance
 
-  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef PERFORMANCE_HH

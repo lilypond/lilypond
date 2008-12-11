@@ -199,6 +199,8 @@ $(config_h): config.hh.in
 	@echo
 	@false
 
+grand-replace:
+	PATH=$(buildscript-dir)/$(outbase):$(PATH) $(BASH) $(buildscript-dir)/grand-replace.sh
 
 ################################################################
 # testing

@@ -1926,7 +1926,7 @@ Kontexte initialisieren alle relevanten Eigenschaften für das Notensystem
 und die graphischen Objekte, so dass unmittelbar mit der Notation
 begonnen werden kann. Siehe das folgende Beispiel:
 
-@lilypond[quote,ragged-right,packed,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
 \score {
   <<

@@ -5,6 +5,17 @@
 \header {
   lsrtags = "rhythms, editorial-annotations, chords, tweaks-and-overrides"
 
+  texidoces = "
+Las digitaciones y los números de cuerda aplicados a notas
+individuales evitan a las barras automáticamente, pero de forma
+predeterminada esto no es cierto para las digitaciones y números
+de cuerda que se aplican a notas concretas de acordes.  El ejemplo
+siguiente muestra cómo se puede sobreescribir este comportamiento
+predeterminado:
+
+"
+  doctitlees = "Evitar colisiones entre digitaciones de acordes y barras de corchea"
+
   texidoc = "
 Fingerings and string numbers applied to individual notes will
 automatically avoid beams, but this is not true by default for

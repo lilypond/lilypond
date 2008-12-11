@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -22,7 +22,6 @@
 #include "parser.hh"
 #include "score.hh"
 #include "sources.hh"
-#include "text-metrics.hh"
 #include "warn.hh"
 #include "program-option.hh"
 
@@ -87,9 +86,6 @@ Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 void
 Lily_parser::parse_file (string init, string name, string out_name)
 {
-  if (get_output_backend_name () == "tex")
-    try_load_text_metrics (out_name);
-
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
   output_basename_ = out_name;

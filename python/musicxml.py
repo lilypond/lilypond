@@ -430,8 +430,6 @@ class Attributes (Measure_element):
                     else:
                         i.message (_ ("Key alteration octave given for a "
                             "non-existing alteration nr. %s, available numbers: %s!") % (nr, len(alterations)))
-                    i.message ( "Non-standard key signature (after octave %s for alter nr %s): %s" % (i.get_text (), nr, alterations))
-            i.message ( "Non-standard key signature with alterations %s found!" % alterations)
             return alterations
 
     def get_transposition (self):
@@ -540,6 +538,8 @@ class Syllabic (Music_xml_node):
         text = self.get_text()
         return (text == "begin") or (text == "middle")
 class Elision (Music_xml_node):
+    pass
+class Extend (Music_xml_node):
     pass
 class Text (Music_xml_node):
     pass
@@ -1175,6 +1175,7 @@ class_dict = {
         'direction-type': DirType,
 	'duration': Duration,
         'elision': Elision,
+        'extend': Extend,
         'frame': Frame,
         'frame-note': Frame_Note,
         'figured-bass': FiguredBass,

@@ -129,7 +129,7 @@ note to a huge compound expression like
 
 @example
 @{
-  \new GrandStaff <<
+  \new StaffGroup <<
     @var{...insert the whole score of a Wagner opera in here...}
   >>
 @}
@@ -281,7 +281,7 @@ music expression and work our way down.
 @example
 \score @{
   @{ % this brace begins the overall compound music expression
-    \new GrandStaff <<
+    \new StaffGroup <<
       @var{...insert the whole score of a Wagner opera in here...}
     >>
   @} % this brace ends the overall compound music expression
@@ -291,8 +291,8 @@ music expression and work our way down.
 
 A whole Wagner opera would easily double the length of this
 manual, so let's just add a singer and piano.  We don't need a
-@code{GrandStaff} for this ensemble, which simply groups a number
-of staves together with a brace at the left, so we shall remove
+@code{StaffGroup} for this ensemble, which simply groups a number
+of staves together with a bracket at the left, so we shall remove
 it.  We @emph{do} need a singer and a piano, though.
 
 @example
@@ -1356,7 +1356,7 @@ versewords = \lyricmode {
   One two three four five six
 }
 \score {
-  \new Choirstaff {
+  \new ChoirStaff {
     \new Staff <<
       \new Voice = "verse" {
         \versenotes \break

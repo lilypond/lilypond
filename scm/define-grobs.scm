@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; distances are given in line-thickness (thicknesses) and
@@ -357,7 +357,8 @@
 		 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems))) 
 		 (interfaces . (staff-symbol-referencer-interface
 				unbreakable-spanner-interface
-				beam-interface))))))
+				beam-interface
+				font-interface))))))
 
     (BendAfter
      . (
@@ -1159,7 +1160,8 @@
 		 (interfaces . (paper-column-interface
 				axis-group-interface
 				separation-item-interface
-				spaceable-grob-interface))))))
+				spaceable-grob-interface
+				font-interface))))))
 
     (NoteCollision
      . (
@@ -1197,7 +1199,10 @@
 				font-interface
 				note-head-interface
 				ledgered-interface
-				staff-symbol-referencer-interface))))))
+				staff-symbol-referencer-interface
+				gregorian-ligature-interface
+				mensural-ligature-interface
+				vaticana-ligature-interface))))))
 
     (NoteSpacing
      . (
@@ -1279,7 +1284,8 @@
 		 (interfaces . (paper-column-interface
 				separation-item-interface
 				axis-group-interface
-				spaceable-grob-interface))))))
+				spaceable-grob-interface
+				font-interface))))))
 
     (ParenthesesItem
      . ((stencil . ,parentheses-item::print)
@@ -1869,6 +1875,7 @@
 				text-interface
 				instrument-specific-markup-interface
 				side-position-interface
+				self-alignment-interface
 				font-interface))))))
 
     (TextSpanner

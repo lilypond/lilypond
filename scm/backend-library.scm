@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2005--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2005--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
@@ -156,7 +156,7 @@
       (set! formats (cons "ps" formats)))
   (for-each (lambda (x)
 	      (if (member x formats) (set! new-fmts (cons x new-fmts))))
-	    '("tex" "dvi" "ps" "pdf" "png"))
+	    '("ps" "pdf" "png"))
   (uniq-list (reverse new-fmts)))
 
 (define (header-to-file file-name key value)

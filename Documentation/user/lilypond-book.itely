@@ -574,11 +574,6 @@ For single-line snippets, allow the staff length to be stretched to
 equal that of the line width, i.e., @code{ragged-right = ##f} is
 added to the LilyPond snippet.
 
-@c does this option still exist in lilypond? -jm
-@item packed
-Produce lines with packed spacing, i.e., @code{packed = ##t} is added
-to the LilyPond snippet.
-
 @item line-width
 @itemx line-width=@var{size}\@var{unit}
 Set line width to @var{size}, using @var{unit} as units.  @var{unit} is
@@ -679,6 +674,13 @@ will be printed with a verbatim block like
   f2 e
 @end example
 
+@noindent
+If you would like to translate comments and variable names in verbatim
+output but not in the sources, you may set the environment variable
+@code{LYDOC_LOCALEDIR} to a directory path; the directory should
+contain a tree of @file{.mo} message catalogs with @code{lilypond-doc}
+as a domain.
+
 @item addversion
 (Only for Texinfo output.)  Prepend line @code{\version
 @@w@{"@@version@{@}"@}} to @code{verbatim} output.
@@ -711,8 +713,8 @@ and we have this in our Texinfo document @file{test.texinfo}
 the following command line gives the expected result
 
 @example
-lilypond-book --process="lilypond --format=tex --tex \
-              --header=texidoc test.texinfo
+lilypond-book --pdf --process="lilypond \
+  -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
 Most LilyPond test documents (in the @file{input} directory of the
@@ -744,6 +746,10 @@ Texinfo document as @code{@@lydoctitle @var{text}}.
 @code{@@lydoctitle} should be a macro defined in the Texinfo document.
 The same remark about @code{texidoc} processing with localized
 languages also applies to @code{doctitle}.
+
+@item nogettext
+(Only for Texinfo output.) Do not translate comments and variable
+names in the snippet quoted verbatim.
 
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print

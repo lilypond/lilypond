@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6c367cb1ca6f8c7c0eef6cf0d9405df713495ab5
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -39,7 +39,7 @@ gregoriana.
 Muchos objetos gráficos, como la cabeza y el corchete de las figuras,
 las alteraciones, la indicación de compás y los silencios ofrecen una
 propiedad @code{style} (estilo), que se puede cambiar para emular
-varios estilos diferentes de notación antigua. Véase
+varios estilos diferentes de notación antigua.  Véase
 
 @itemize
 @item @ref{Mensural note heads},
@@ -181,13 +181,13 @@ Véanse uno de los contextos predefinidos @code{VaticanaVoice},
 Una ligadura es un símbolo gráfico que representa al menos dos notas
 distintas.  Las ligaduras aparecieron originalmente en los manuscritos
 de la notación del canto gregoriano para denotar secuencias de notas
-ascendentes o descendentes en la misma sílaba. Se usan también en
+ascendentes o descendentes en la misma sílaba.  Se usan también en
 notación mensural.
 
-Las ligaduras se escriben encerrándolas dentro de un par @code{\[} y
-@code{\]}.  Ciertos estilos de ligadura podrían necesitar una sintaxis
-de entrada adicional específica para este tipo de ligadura en
-particular.  De forma predeterminada, el grabador
+Las ligaduras se escriben @emph{encerrándolas} dentro de un par
+@code{\[} y @code{\]}.  Ciertos estilos de ligadura podrían necesitar
+una sintaxis de entrada adicional específica para este tipo de
+ligadura en particular.  De forma predeterminada, el grabador
 @rinternals{LigatureBracket} se limita a colocar un corchete recto
 sobre la ligadura:
 
@@ -549,7 +549,7 @@ Utilice la propiedad @code{style} del elemento gráfico
 @rinternals{TimeSignature} para seleccionar las indicaciones de compás
 de la música antigua.  Los estilos contemplados son @code{neomensural}
 y @code{mensural}.  La tabla anterior utiliza el estilo
-@code{neomensural}. Los ejemplos siguientes muestran las diferencias
+@code{neomensural}.  Los ejemplos siguientes muestran las diferencias
 que existen entre los estilos:
 
 @lilypond[ragged-right,fragment,relative=1,quote]
@@ -726,9 +726,6 @@ estilo predeterminado.
 Consulte @rlsr{Pitches,rests} para ver un cuadro de todos los
 silencios.
 
-No hay silencios en la notación del canto gregoriano; en su lugar, se
-utilizan @ref{Divisiones}.
-
 
 @seealso
 Referencia de la notación:
@@ -802,8 +799,8 @@ Referencia de funcionamiento interno:
 
 En la música europea de hasta aprox. 1600, se esperaba de los
 cantantes que alterasen cromáticamente ciertas notas según su propia
-iniciativa y de acuerdo a ciertas reglas. Esto recibe el nombre de
-@notation{musica ficta}. En las transcripciones modernas, estas
+iniciativa y de acuerdo a ciertas reglas.  Esto recibe el nombre de
+@notation{musica ficta}.  En las transcripciones modernas, estas
 alteraciones accidentales se imprimen normalmente encima de la nota.
 
 @cindex alteraciones de la musica ficta
@@ -927,7 +924,7 @@ transcribe de la siguiente manera:
 
 @knownissues
 
-El espaciado horizontal es pobre.
+El espaciado horizontal de las ligaduras es pobre.
 
 
 @node Typesetting Gregorian chant
@@ -949,7 +946,7 @@ selecciona automáticamente la cabeza adecuada de las figuras, de
 manera que no es neceario establecer explícitamente el estilo de las
 cabezas.  A pesar de ello se puede establecer el estilo de las
 cabezas, p.ej.: a @code{vaticana_punctum} para producir neumas de
-punctum. De forma similar, el grabador
+punctum.  De forma similar, el grabador
 @rinternals{Mensural_ligature_engraver} construye ligaduras mensurales
 automáticamente.  Consulte @ref{Ligatures} para ver cómo funcionan los
 grabadores de ligaduras.
@@ -969,7 +966,7 @@ propiedades relevantes de los contextos y de los objetos gráficos, de
 forma que pueda inmediatamente comenzar a escribir el canto en sí,
 como lo demuestra el siguiente fragmento:
 
-@lilypond[quote,ragged-right,packed,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
 \score {
   <<
@@ -1207,6 +1204,9 @@ Referencia de funcionamiento interno:
 @cindex divisiones
 @cindex finalis
 
+En la notación del canto gregoriano no existen silencios, sino
+@ref{Divisiones}.
+
 Una @emph{divisio} (en plural: @emph{divisiones}, que en latín
 significa @q{división}) es un símbolo del contexto del pentagrama que
 se usa para estructurar la música gregoriana en frases y secciones.
@@ -1218,12 +1218,12 @@ marca el final de un canto, sino que se usa también con frecuencia
 dentro de un único canto antifonal o responsorial para marcar el final
 de cada una de las secciones.
 
-Para usar divisiones, incluya el archivo @file{gregorian@/-init@/.ly}.
+Para usar divisiones, incluya el archivo @file{gregorian@/.ly}.
 Contiene definiciones que podrá aplicar con tan sólo escribir
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} y
 @code{\finalis} en los lugares adecuados de la entrada.  Algunas
 ediciones usan @emph{virgula} o @emph{caesura} en vez de divisio
-minima.  Por ello, @file{gregorian@/-init@/.ly} define también las
+minima.  Por ello, @file{gregorian@/.ly} define también las
 instrucciones @code{\virgula} y @code{\caesura}.
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
@@ -1336,7 +1336,7 @@ accidentales.
 
 Se habilita el soporte de los neumas gregorianos por medio de la
 inclusión con @code{\include} del archivo "gregorian.ly" al principio
-del archivo. Esto hace que estén disponibles una cierta cantidad de
+del archivo.  Esto hace que estén disponibles una cierta cantidad de
 instrucciones adicionales para producir los símbolos de los neumas que
 se usan en la notación de canto llano.
 
@@ -1371,7 +1371,7 @@ cualquiera de las instrucciones siguientes:
 
 @item Las ligaduras hablando en propiedad,
 (es decir, notas unidas), se producen escribiendo una de las
-instrucciones de unión @code{pes} o @code{flexa}, para el movimiento
+instrucciones de unión @code{\pes} o @code{\flexa}, para el movimiento
 ascendente y descendente, respectivamente, @emph{intercaladas} entre
 las notas que se han de unir.
 @end itemize
@@ -1393,7 +1393,7 @@ excelencia tipográfica).  Además del @emph{punctum} normal, están el
 @code{\cavum}, que produce una nota vacía, y @code{\linea}, que traza
 líneas verticales a ambos lados de la nota.
 
-@item La @emph{virga} tiene una plica descendente en el lado derecho. Se
+@item La @emph{virga} tiene una plica descendente en el lado derecho.  Se
 produce mediante el modificador @code{\virga}.
 @end itemize
 
@@ -1434,9 +1434,9 @@ distintas más o menos intercambiables: con una nota pequeña o
 forma se produce haciendo un @code{pes} o una @code{flexa} normales y
 modificando la forma de la segunda nota: @code{\[ a \pes \deminutum b
 \] }, mientras que la segunda se hace modificando la forma de un neuma
-de una nota con @code{\auctus} y uno de los generadores de
+de una nota con @code{\auctum} y uno de los generadores de
 dirección @code{\descendens} o @code{\ascendens}, p.ej. @code{ \[
-\auctus \descendens a \] }.
+\auctum \descendens a \] }.
 
 @noindent
 Símbolos especiales
@@ -1460,8 +1460,16 @@ número infinito de ligaduras distintas.
 Observe que el uso de esos símbolos en la propia música sigue ciertas
 reglas que LilyPond no comprueba.  P.ej., el @emph{quilisma} siempre
 es la nota intermedia de una ligadura ascendente, y suele caer sobre
-un intervalo de semitono, pero es perfectamente posible hacer un
-quilisma de una nota.
+un intervalo de semitono, pero es perfectamente posible, si bien
+incorrecto, hacer un quilisma de una nota.
+
+Además de los símbolos de nota, el archivo gregorian.ly define también
+las instrucciones @code{\versus}, @code{\responsum}, @code{\ij},
+@code{\iij}, @code{\IJ} y @code{\IIJ}, que producen los caracteres
+correspondientes, p.ej. para utilizarlos en la letra, como marcas de
+sección, etc.  Estas instrucciones utilizan caracteres de Unicode
+especiales y sólo funcionan si se usa una fuente tipográfica que los
+contemple.
 
 La tabla siguiente muestra un conjunto limitado, pero representativo,
 de ligaduras gregorianas, junto a los fragmentos de código que las
@@ -2308,19 +2316,188 @@ proporcionan las barras de compás.
 @lilypondfile[verbatim,lilyquote,texidoc]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-Continuará...
-
 
 @seealso
+@c ... and reference to other sections ...
 
 
 @node Transcribing Gregorian chant
 @unnumberedsubsubsec Transcribing Gregorian chant
 
-Continuará...
+El canto gregoriano se puede transcribir a notación moderna con
+ciertos trucos sencillos.
 
+@b{Plicas}.  Todas las plicas se pueden eliminar de una vez retirando
+el grabador @code{Stem_engraver} del contexto de voz:
+
+
+@example
+\layout @{
+  ...
+  \context @{
+    \Voice
+      \remove "Stem_engraver"
+  @}
+@}
+@end example
+
+Sin embargo, en ciertos estilos de transcripción, se usan plicas de
+forma ocasional, por ejemplo para indicar la transición a partir de un
+recitativo monotónico a un gesto melódico fijo.  En estos casos
+podemos usar bien @code{\override Stem #'transparent = ##t} o bien
+@code{\override Stem #'length = #0}, y restaurar la plica cuando se
+necesite con el correspondiente @code{\once \override Stem
+#'transparent = ##f} (véase el ejemplo de abajo).
+
+@b{Compás}.  Para el canto no medido, existen diversas alternativas.
+
+Se puede eliminar el grabador Time_signature_engraver del contexto de
+Staff sin ningún efecto secundario negativo.  La alternativa, que es
+hacer transparente la indicación de compás, deja un espacio en blanco
+en la partitura, pues la indicación invisible sigue ocupando un
+espacio.
+
+En muchos casos da un buen resultado @code{\set Score.timing = ##f}.
+Otra alternativa es utilizar \@code{\CadenzaOn} y @code{\CadenzaOff}.
+
+Para quitar las barras de compás, el enfoque radical consiste en
+retirar (mediante la instrucción @code{\remove}) el grabador
+Bar_engraver del contexto de pentagrama Staff.  Una vez más, en vez de
+ello podemos usar @code{\override BarLine #'transparent = ##t} si se
+necesita ocasionalmente una barra de compás.
+
+Un tipo de transcripción muy común es el canto de recitativo, en el
+que la nota repetida se indica con una breve.  Se puede tratar el
+texto del tono de recitativo de dos maneras.  Podemos ponerlo como una
+sola sílaba alineada por la izquierda:
+
+@lilypond[verbatim,ragged-right]
+\include "gregorian.ly"
+chant = \relative c' {
+  \clef "G_8"
+  c\breve c4 b4 a c2 c4  \divisioMaior
+  c\breve c4 c f, f \finalis
+}
+
+verba = \lyricmode {
+  \once \override LyricText #'self-alignment-X = #-1
+  "Noctem quietam et" fi -- nem per -- fec -- tum
+  \once \override LyricText #'self-alignment-X = #-1
+  "concedat nobis Dominus" om -- ni -- po -- tens.
+}
+\score {
+  \new Staff <<
+  \new Voice = "melody" \chant
+  \new Lyrics = "one" \lyricsto melody \verba
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \remove "Bar_engraver"
+      \override Stem #'transparent = ##t
+    }
+  }
+}
+@end lilypond
+
+Esto funciona bien en la medida en que el texto no comprenda un salto
+de línea.  Si es el caso, una alternativa sería añadir notas ocultas a
+la partitura, en combinación con cambios en la visibilidad de las
+plicas:
+
+
+@lilypond[verbatim,ragged-right]
+\include "gregorian.ly"
+chant = \relative c' {
+  \clef "G_8"
+  \set Score.timing = ##f
+  c\breve \override NoteHead #'transparent = ##t  c c c c c
+  \revert NoteHead #'transparent
+  \override Stem #'transparent = ##f \stemUp c4 b4 a
+  \override Stem #'transparent = ##t c2 c4  \divisioMaior
+  c\breve \override NoteHead #'transparent = ##t c c c c c c c
+  \revert NoteHead #'transparent c4 c f, f \finalis
+}
+
+verba = \lyricmode {
+  No -- ctem qui -- e -- tam et fi -- nem per -- fec -- tum
+  con -- ce -- dat no -- bis Do -- mi -- nus om -- ni -- po -- tens.
+}
+
+\score {
+  \new Staff <<
+    \new Voice = "melody" \chant
+    \new Lyrics \lyricsto "melody" \verba
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \override BarLine #'transparent = ##t
+      \override Stem #'transparent = ##t
+    }
+  }
+}
+@end lilypond
+
+Otra situación común es la transcripción de cantos neumáticos o
+melismáticos, es decir, cantos con un número variable de notas en cada
+sílaba.  En este caso, podemos establecer los grupos de sílabas
+claramente separados, normalmente también las subdivisiones de un
+melisma mayor.  Una forma de conseguirlo es usar un @code{\time} fijo,
+p.ej. 1/4, y dejar que cada sílaba o grupo de notas llene uno de esos
+compases, con la ayuda de grupos de valoración especial o duraciones
+más breves.  Si las líneas divisorias y todas las demás indicaciones
+rítmicas se hacen transparentes, y el espacio que rodea las líneas
+divisorias se aumenta, ello proporciona una aceptable representación
+del original, en notación moderna.
+
+Para evitar que las sílabas de distinta anchura (como @qq{-ri} y
+@qq{-rum}) dispongan los grupos de notas de las sílabas de forma
+irregular, se puede ajustar la propiedad @code{#'X-extent} del objeto
+@code{LyricText} a un valor fijo.  Otra forma más engorrosa sería
+añadir las sílabas como elementos de @code{\markup}.  Si se necesitan
+más ajustes posteriormente, esto se puede hacer fácilmente con
+@q{notas} @code{s}.
+
+@lilypond[verbatim,quote]
+spiritus = \relative c' {
+  \time 1/4
+  \override Lyrics.LyricText #'X-extent  = #'(0 . 3)
+  d4 \times 2/3 { f8 a g } g a a4 g f8 e
+  d4 f8 g g8 d f g a g f4 g8 a a4  s
+  \times 2/3 { g8 f d } e f g a g4
+}
+
+spirLyr = \lyricmode {
+  Spi -- ri -- _ _ tus  _ Do -- mi -- ni  _ re -- ple -- _ vit _
+  or -- _ bem _  ter -- ra -- _ rum, al -- _ _ le -- _ lu
+  -- _ ia.
+}
+\score {
+  \new Staff <<
+    \new Voice = "chant" \spiritus
+    \new Lyrics = "one" \lyricsto "chant" \spirLyr
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \override BarLine #'X-extent = #'(-1 . 1)
+      \override Stem #'transparent = ##t
+      \override Beam #'transparent = ##t
+      \override BarLine #'transparent = ##t
+      \override TupletNumber #'transparent = ##t
+    }
+  }
+}
+@end lilypond
+
+@c extract from 1.6.1.1
 
 @seealso
+@c ... and reference to other sections ...
 
 
 @node Ancient and modern from one source

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: f24b56a3274da3642348d075502ced7a2a84ecb5
+    Translation of GIT committish: e2fedc46142bc323d48e696848327c6c0e4c9ede
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -595,11 +595,6 @@ Para fragmentos de una sola línea, permitir que la longitud del
 pentagrama se amplíe hasta igualar la anchura de la línea, es decir,
 se añade @code{ragged-right = ##f} al fragmento de LilyPond.
 
-@c does this option still exist in lilypond? -jm
-@item packed
-Producir líneas con el espaciado empaquetado, es decir, se añade
-@code{packed = ##t} al fragmento de código de LilyPond.
-
 @item line-width
 @itemx line-width=@var{tamaño}\@var{unidades}
 Establecer el ancho de línea como @var{tamaño}, utilizando
@@ -744,8 +739,8 @@ y que tenemos lo siguiente en nuestro documento de Texinfo
 la siguiente orden da como salida el resultado esperado:
 
 @example
-lilypond-book --process="lilypond --format=tex --tex \
-              --header=texidoc prueba.texinfo
+lilypond-book --pdf --process="lilypond \
+  -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
 La mayoría de los documentos de prueba de LilyPond (en el directorio

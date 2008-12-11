@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef LILY_GUILE_HH
@@ -151,7 +151,6 @@ SCM ly_unique (SCM lst);
 SCM ly_list_qsort_uniq_x (SCM lst);
 
 SCM ly_output_formats ();
-SCM ly_kpathsea_find_file (SCM);
 
 /*
   snarfing.

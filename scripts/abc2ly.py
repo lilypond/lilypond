@@ -1359,9 +1359,10 @@ def get_option_parser ():
                   action='store_true')
     p.add_option ('-b', '--beams', help=_ ("preserve ABC's notion of beams"))
     p.add_option_group ('',
-                        description=(_ ('Report bugs via')
-                                     + ''' http://post.gmane.org/post.php'''
-                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
+                        description=(
+            _ ('Report bugs via %s')
+            % 'http://post.gmane.org/post.php'
+            '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     return p
 
 

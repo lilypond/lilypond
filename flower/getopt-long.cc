@@ -1,7 +1,7 @@
 /*
   process command line, GNU style.
 
-  this is Copyleft (c) 1996--2007 Han-Wen Nienhuys, <hanwen@xs4all.nl>
+  this is Copyleft (c) 1996--2008 Han-Wen Nienhuys, <hanwen@xs4all.nl>
 */
 
 #include "getopt-long.hh"

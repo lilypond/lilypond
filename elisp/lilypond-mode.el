@@ -3,7 +3,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;  
-;;;; (c) 1999--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1999--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; 
 ;;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
 ;;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)

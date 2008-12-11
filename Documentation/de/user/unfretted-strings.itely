@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b03ad3631e3a6c5bd657eda5f4ba6963dfb22c36
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,7 +12,16 @@
 @node Unfretted string instruments
 @section Unfretted string instruments
 
-@untranslated
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex Streicher
+@cindex Orcherster, Streicher
+@cindex Notation für Streicher
+
+Dieser Abschnitt stellt Information und Referenzen zur Verfügung, die
+beim Setzen von Noten für Saiteninstrumente ohne Bund herangezogen
+werden können.
 
 @menu
 * Common notation for unfretted strings::  
@@ -21,40 +30,165 @@
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
 
-@untranslated
+Es gibt wenige Spezifikat für die Notation von Saiteninstrumenten ohne
+Bund.  Die Noten werden auf einem System notiert und meistens ist auch nur
+eine Stimme erforderlich.  Zwei Stimmen können für Doppelgriff- oder
+Divisi-Stellen erforderlich sein.
 
 @menu
-* References for unfretted strings::  
-* Bowing indications::          
-* Harmonics::                   
+* References for unfretted strings::
+* Bowing indications::
+* Harmonics::
 * Snap (Bartok) pizzicato::     
 @end menu
 
 @node References for unfretted strings
 @unnumberedsubsubsec References for unfretted strings
 
-@untranslated
+Die meisten Notationseigenschaften, die für Orchersterstreicher eingesetzt
+werden, sind an anderer Stelle beschrieben:
+
+@itemize
+
+@item Textanweisungen wie @qq{pizz.} oder @qq{arco} werden als einfacher
+Text eingefügt, siehe @ref{Text scripts}.
+
+@item Fingersatz, auch das Zeichen für den Daumen, ist erklärt in
+@ref{Fingering instructions}.
+
+@item Doppelgriffe werden normalerweise als Akkord notiert, siehe hierzu
+@ref{Chorded notes}.  Anweisungen, wie Akkorde gespielt werden sollen, können
+auch hinzugefügt werden, siehe @ref{Arpeggio}.
+
+@item Eine Vorlage für Streichquartett findet sich in
+@rlearning{String quartet}.  Andere sind als Schnipsel zur Verfügung
+gestellt.
+
+@end itemize
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{String quartet}.
+
+Notationsreferenz:
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes},
+@ref{Arpeggio}.
+
+Schnipsel:
+@rlsr{Unfretted strings}.
 
 @node Bowing indications
 @unnumberedsubsubsec Bowing indications
 
-@untranslated
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+
+@cindex Bogen, Anzeige
+@cindex Streicher, Bogenanzeige
+@cindex Offene Saite, anzeigen
+@cindex Saite, offen
+
+Hinweise zur Bogenfügung können als Artikulationen erstellt werden, wie
+beschrieben in
+@ref{Articulations and ornamentations}.
+
+Die Befehle @code{\upbow} und @code{\downbow} werden mit Legatobögen
+in folgender Weise eingesetzt:
+
+@lilypond[verbatim,quote,relative=2]
+c4(\downbow d) e(\upbow f)
+@end lilypond
+
+@noindent
+und das nächste Beispiel zeigt drei Arten, eine offene A-Saite auf der
+Geige anzuzeigen:
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open
+a^\markup { \teeny "II" }
+a2^\markup { \small "sul A" }
+@end lilypond
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}.
+@endpredefined
+
+@seealso
+Notation Reference:
+@ref{Articulations and ornamentations},
+@ref{Slurs}.
+
 
 @node Harmonics
 @unnumberedsubsubsec Harmonics
 
+@strong{@i{Natürliches Flageolett}}
 
 @cindex Flageolett
+@funindex \harmonic
+@funindex harmonic
 
-Flageolett-Töne werden mit einem anderen Notenkopfstil notiert.
-Sie werden eingegeben, indem die Flageolettnote mit dem
-Befehl @code{\harmonic} markiert wird.
+Flageolett-Töne können auf verschiedene Arten notiert werden.
+Üblicherweise werden sie mit einem Rautenkopf notiert, wenn
+ein Ton angezeigt werde, bei dem die Saite berührt wird, wo sie
+sonst abgegriffen würde.
+
+@warning{Flageolett-Töne @strong{müssem} innerhalb von Akkorden
+definiert werden, auch wenn nur eine einzelne Note vorhanden ist.}
+
+@lilypond[verbatim,quote,relative=2]
+<d\harmonic>4 <e\harmonic>2.
+\set harmonicDots = ##t
+<d\harmonic>4 <e\harmonic>2.
+@end lilypond
+
+Alternativ kann auch eine normale Noten die Tonhöhe anzeigen, die
+erklingen soll, wobei ein kleiner Kreis angibt, dass es sich um
+einen Flageolett-Ton handelt:
+
+@lilypond[verbatim,quote,relative=2]
+d2^\flageolet d_\flageolet
+@end lilypond
+
+
+@strong{@i{Künstliches Flageolett}}
+
+@cindex künstliches Flageolett
+@cindex Flageolett, künstliches
+
+Künstliche Flageoletttöne werden mit zwei Noten notiert, von denen
+einen einen normalen Notenkopf besitzt und die Griffposition des
+Fingers angibt, während die andere in Rautenform die Position des
+leicht aufgesetzten Fingers anzeigt.
 
 @lilypond[verbatim,quote,relative=1]
 <e a\harmonic>2  <c g'\harmonic>
 @end lilypond
 
+@seealso
+Glossar:
+@rglos{harmonics}.
+
+Notationsreferenz:
+@ref{Special note heads},
+@ref{References for unfretted strings}.
+
+
+
 @node Snap (Bartok) pizzicato
 @unnumberedsubsubsec Snap (Bartok) pizzicato
 
-@untranslated
+@cindex Pizzicato, Bartók
+@cindex Pizzicato, Knall-
+@cindex Bartók-Pizzicato
+@cindex Knall-Pizzicato
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{snap-pizzicato-markup-bartok-pizzicato.ly}

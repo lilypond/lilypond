@@ -4,7 +4,7 @@
 %
 % source file of the Feta (not the Font-En-Tja) music font
 %
-% (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>,
+% (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>,
 % Jan Nieuwenhuizen <janneke@gnu.org>,
 % Juergen Reuter <reuter@ipd.uka.de>
 
