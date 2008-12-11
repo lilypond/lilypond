@@ -140,11 +140,9 @@ place les silences en fonction des notes qui les suivront. Ainsi :
 
 
 @seealso
-
 Dans ce même manuel : @ref{Changing staff manually}.
 
 Référence du programme : @rinternals{AutoChangeMusic}.
-
 
 
 @knownissues
@@ -182,16 +180,17 @@ automatiquement une ligne reliant les notes, en attribuant à la variable
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{VoiceFollower}.
 
-@predefined
 
+@predefined
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},
 @funindex \hideStaffSwitch
 @code{\hideStaffSwitch}.
+@endpredefined
 
 
 @node Cross-staff stems
@@ -296,8 +295,8 @@ jusqu'à l'extrémité droite de la dernière note :
 c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
-@seealso
 
+@seealso
 Dans ce manuel : @ref{Ties} @qq{laissez vibrer}.
 
 

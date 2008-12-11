@@ -1,9 +1,9 @@
 /*
-  translator-def.cc -- implement Context_def
+  context-def.cc -- implement Context_def
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 /* TODO: should junk this class an replace by
@@ -205,8 +205,24 @@ Context_def::get_default_child (SCM user_mod) const
   The ADDITIONAL_ACCEPTS parameter is a list of additional contexts that this
   specific context def (but not any of the child context defs) should accept.
 */
+vector<Context_def *>
+Context_def::path_to_acceptable_context (SCM type_sym,
+					 Output_def *odef,
+					 SCM additional_accepts) const
+{
+  set<const Context_def *> seen;
+  return internal_path_to_acceptable_context (type_sym, odef, additional_accepts, &seen);
+}
+
+/*
+The SEEN parameter is a set which keeps track of visited contexts, allowing
+contexts of the same type to be nested.
+*/
 vector<Context_def*>
-Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef, SCM additional_accepts) const
+Context_def::internal_path_to_acceptable_context (SCM type_sym,
+						  Output_def *odef,
+						  SCM additional_accepts,
+						  set<const Context_def *> *seen) const
 {
   assert (scm_is_symbol (type_sym));
 
@@ -230,20 +246,25 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef, SCM add
 	}
     }
 
+  seen->insert (this);
   vsize best_depth = INT_MAX;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
       Context_def *g = accepteds[i];
 
-      vector<Context_def*> result
-	= g->path_to_acceptable_context (type_sym, odef, SCM_EOL);
-      if (result.size () && result.size () < best_depth)
+      if (!seen->count (g))
 	{
-	  best_depth = result.size ();
-	  result.insert (result.begin (), g);
-	  best_result = result;
+	  vector<Context_def*> result
+	    = g->internal_path_to_acceptable_context (type_sym, odef, SCM_EOL, seen);
+	  if (result.size () && result.size () < best_depth)
+	    {
+	      best_depth = result.size ();
+	      result.insert (result.begin (), g);
+	      best_result = result;
+	    }
 	}
     }
+  seen->erase (this);
 
   return best_result;
 }

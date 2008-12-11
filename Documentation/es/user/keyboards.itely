@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -104,8 +104,8 @@ tweaks}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Real music example},
 @rlearning{Other uses for tweaks}.
@@ -127,6 +127,7 @@ Referencia de funcionamiento interno:
 
 Fragmentos de código:
 @rlsr{Keyboards}.
+
 
 @knownissues
 
@@ -199,8 +200,8 @@ barras se miden posteriormente a partir del centro del peentagrama que
 está más cerca de la barra.  Para ver un ejemplo sencillo de trucaje
 de las barras, consulte @rlearning{Fixing overlapping notation}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Fixing overlapping notation}.
 
@@ -287,8 +288,8 @@ una armadura de tonalidad en el pentagrama inferior:
 >>
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Changing staff manually}.
 
@@ -297,6 +298,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{AutoChangeMusic}.
+
 
 @knownissues
 
@@ -349,13 +351,14 @@ automáticamente una línea que conecte las notas:
 >>
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
+@endpredefined
+
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Keyboards}.
 
@@ -418,13 +421,14 @@ Se pueden hacer acordes que cruzan los pentagramas:
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Keyboards}.
 
 Referencia de funcionamiento interno:
 @rinternals{Stem}.
+
 
 @node Piano
 @subsection Piano
@@ -515,8 +519,8 @@ movimiento físico del pedal derecho en el transcurso de la ejecución.
 La pedalización hasta la barra final de compás se indica mediante la
 omisión de la instrucción final de levantar el pedal.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Ties}.
 
@@ -535,6 +539,7 @@ Referencia de funcionamiento interno:
 @rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
+
 
 @node Accordion
 @subsection Accordion
@@ -569,8 +574,8 @@ ejecución.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Keyboards}.
 
@@ -578,4 +583,70 @@ Fragmentos de código:
 @node Harp
 @subsection Harp
 
+@menu
+* Harp notation::
+* Harp pedals::
+@end menu
+
+@node Harp notation
+@unnumberedsubsubsec Harp notation
+
 Continuará...
+
+@ignore
+Some possibilities:
+- glissandi
+- tremolo (for bisbigliando)
+- natural harmonics
+- directional arpeggio and non-arpeggio
+- workaroung for keeping both staves visible in an orchestral
+  score,
+http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
+and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+
+An LSR snippet could be used to demonstrate the main items; in the
+case of glissandi, it would be desirable to have a demonstration
+of different styles.
+@end ignore
+
+@node Harp pedals
+@unnumberedsubsubsec Harp pedals
+
+@cindex arpa, pedales
+@cindex arpa, diagramas de pedal
+@cindex pedales del arpa
+@cindex pedales del arpa, diagramas
+
+Las arpas tienen siete cuerdas por octava que pueden sonar a la altura
+natural, bemol o sostenido. En el arpa de palancas o arpa celta, cada
+cuerda se ajusta individualmente, pero en las arpas de pedales todas
+las cuerdas con igual nombre de nota se controlan por un único
+pedal. Visto de izquierda a derecha desde la posición del ejecutante,
+los pedales son Re, Do y Si a la izquierda y Mi, Fa, Sol y La a la
+derecha.  La posición de los pedales se puede indicar con indicaciones
+textuales:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {[ C \natural ]}
+@end lilypond
+
+o mediante diagramas de pedal:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup { \harp-pedal #"^v-|vv-^" }
+c!1_\markup { \harp-pedal #"^o--|vv-^" }
+@end lilypond
+
+La instrucción @code{\harp-pedal} acepta una cadena de caracteres en
+la que @code{^} es la posición alta del pedal (altura bemol), @code{-}
+es la posición intermedia (altura natural), @code{v} es la posición
+baja (altura sostenido), y @code{|} es la línea vertical separadora.
+Si se antepone @code{o}, el siguiente símbolo de pedal se rodea por
+una elipse.
+
+@seealso
+Referencia de la notación:
+@ruser{Text scripts}.

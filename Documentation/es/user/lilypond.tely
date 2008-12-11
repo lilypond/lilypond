@@ -1,6 +1,6 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
+    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -70,9 +70,16 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @ifhtml
-Este documento también está disponible como
+@ifclear bigpage
+Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond.es.pdf,PDF} y como
-@uref{source/Documentation/user/lilypond-big-page.html,una sola página enorme}.
+@uref{source/Documentation/user/lilypond-big-page.es.html,una sola página}.
+@end ifclear
+@ifset bigpage
+Este documento también está disponible en formato
+@uref{source/Documentation/user/lilypond.es.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond/index.es.html,un documento HTML normal de muchas páginas}.
+@end ifset
 @end ifhtml
 
 
@@ -185,17 +192,18 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-Éste es el manual de Referencia de la notación del programa GNU
-LilyPond versión @version{}.  Para ver más información sobre la
-relación entre éste y el resto de los documentos, consulte
+El presente documento es el manual de referencia de la notación del
+programa GNU LilyPond, versión @version{}.  Para ver más información
+sobre la relación entre éste y el resto de los documentos, consulte
 @rlearning{About the documentation}.
 
-@cindex web, sitio
+@cindex web, página
+@cindex página web
 @cindex URL
 
 Se puede encontrar más información en
-@uref{http://@/www@/.lilypond@/.org/}.  El sitio web contiene copias en línea
-de la presente documentación y de otras.
+@uref{http://@/www@/.lilypond@/.org/}.  La página web contiene copias
+en línea de la presente documentación y de otras.
 
 @include dedication.itely
 

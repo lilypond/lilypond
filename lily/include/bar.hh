@@ -1,7 +1,7 @@
 /*
   bar.hh -- part of GNU LilyPond
 
-  (c) 1996--2007 Han-Wen Nienhuys
+  (c) 1996--2008 Han-Wen Nienhuys
 */
 
 #ifndef BAR_HH

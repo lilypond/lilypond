@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2008 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -134,5 +134,5 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
   Rational r = unsmob_duration (dur)->factor ();
-  return scm_cons (scm_from_int (r.num ()), scm_from_int (r.den ()));
+  return scm_cons (scm_from_int64 (r.num ()), scm_from_int64 (r.den ()));
 }

@@ -17,9 +17,9 @@ LilyPond and various other programs.  This chapter may be safely treated
 as a reference: only read a section if it applies to you.
 
 @menu
-* Setup for specific Operating Systems::  
-* Text editor support::         
-* Point and click::             
+* Setup for specific Operating Systems::
+* Text editor support::
+* Point and click::
 @end menu
 
 
@@ -30,7 +30,7 @@ This section explains how to perform additional setup for specific
 operating systems.
 
 @menu
-* Setup for MacOS X::  
+* Setup for MacOS X::
 @end menu
 
 @node Setup for MacOS X
@@ -124,12 +124,12 @@ Note that @var{path/to} will generally be @code{/Applications/}.
 There is support from different text editors for LilyPond.
 
 @menu
-* Emacs mode::                  
-* Vim mode::                    
-* jEdit::                       
-* TexShop::                     
-* TextMate::                    
-* LilyKDE::                     
+* Emacs mode::
+* Vim mode::
+* jEdit::
+* TexShop::
+* TextMate::
+* LilyKDE::
 @end menu
 
 @node Emacs mode
@@ -206,7 +206,7 @@ installation instructions, visit
 
 The @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
 editor for MacOS@tie{}X can be extended to run LilyPond, lilypond-book and
-convert-ly from within the editor, using the extensions available at 
+convert-ly from within the editor, using the extensions available at
 @uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
 
 

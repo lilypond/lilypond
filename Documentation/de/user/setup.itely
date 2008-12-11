@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: cdb8fdf689c58f742333f4bf4f92cbfae2e01a5b
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,9 +20,9 @@ Kapitel kann als Referenz betrachtet werden, lesen Sie einen Abschnitt nur,
 wenn er auf Sie zutrifft.
 
 @menu
-* Setup for specific Operating Systems::  
-* Text editor support::         
-* Point and click::             
+* Setup for specific Operating Systems::
+* Text editor support::
+* Point and click::
 @end menu
 
 
@@ -32,15 +32,39 @@ wenn er auf Sie zutrifft.
 Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebssysteme.
 
 @menu
-* MacOS X on the command-line::  
+* Setup for MacOS X::
 @end menu
 
+@node Setup for MacOS X
+@subsection Setup for MacOS X
 
-@node MacOS X on the command-line
-@subsection MacOS X on the command-line
+@subsubheading Using Python scripts on MacOS 10.3 or 10.4
 
-Die Skripte (wie lilypond-book, convert-ly, abc2ly und sogar
-lilypond selber) sind innerhalb der .app-Datei für MacOS@tie{}X enthalten. Sie können 
+Das LilyPond-Programmpaket für MacOS X stellt Python nicht zur
+Verfügung, aber Python 2.4 oder höher wird benötigt, um
+Skripte wie @command{convert-ly} zu benutzen.  Wenn Sie MaxOS
+10.3 oder 10.4 besitzen, müssen Sie eine neurere Python-Version
+von @uref{http://python.org/download/} installieren und dann
+die erste Zeile von @command{convert-ly} und @command{lilypond-book}
+auf folgende Weise ändern: Wenn sich das installierte Python-Programm
+in Ihrem @var{PFAD} befindet, muss die erste Zeile heißen:
+
+@example
+#!/usr/bin/env python
+@end example
+
+@noindent
+andernfalls muss sie heißen:
+
+@example
+#!@var{/path/to/newly_installed/python}
+@end example
+
+@subsubheading MacOS X on the command line
+
+Die Skripte (etwa @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly} und sogar @command{lilypond}) befinden sich
+innerhalb der @code{.app}-Datei für MacOS@tie{}X.  Sie können 
 auf der Kommandozeile direkt aufgerufen werden, etwa
 
 @example
@@ -48,8 +72,8 @@ auf der Kommandozeile direkt aufgerufen werden, etwa
 @end example
 
 @noindent
-Entsprechend funktionieren auch die anderen Skripte wie lilypond-book, 
-convert-ly, abc2ly usw.
+Entsprechend funktionieren auch die anderen Skripte wie 
+@command{lilypond-book}, @command{convert-ly}, @command{abc2ly} usw.
 
 Sie können sich auch selber Skripte anlegen, die diesen Pfad automatisch 
 hinzufügen. Erstellen Sie ein Verzeichnis, indem die Skripte gespeichert werden:
@@ -104,12 +128,12 @@ Beachten Sie, dass @var{Pfad/zu} üblicherweise @code{/Applications/} ist.
 Verschiedene Texteditoren haben Unterstützung für LilyPond.
 
 @menu
-* Emacs mode::                  
-* Vim mode::                    
-* jEdit::                       
-* TexShop::                     
-* TextMate::                    
-* LilyKDE::                     
+* Emacs mode::
+* Vim mode::
+* jEdit::
+* TexShop::
+* TextMate::
+* LilyKDE::
 @end menu
 
 @node Emacs mode

@@ -22,6 +22,5 @@
   \set tieWaitForNote = ##f
   <c e> ~
   <c e c'>
-  |
 
 }

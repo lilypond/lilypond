@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "paper-column-engraver.hh"
@@ -218,7 +218,8 @@ Paper_column_engraver::stop_translation_timestep ()
 	{
 	  SCM perm = break_events_[i]->get_property ("break-permission");
 	  if (perm == ly_symbol2scm ("force") || perm == ly_symbol2scm ("allow"))
-	    warning (_f ("forced break was overridden by some other event, should you be using bar checks?"));
+	    warning (_ ("forced break was overridden by some other event, "
+			"should you be using bar checks?"));
 	}
     }
   else if (Paper_column::is_breakable (command_column_))

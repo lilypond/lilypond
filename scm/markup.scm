@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2003--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2003--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 "
 Internally markup is stored as lists, whose head is a function.

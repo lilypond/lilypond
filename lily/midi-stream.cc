@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "midi-stream.hh"
@@ -41,7 +41,7 @@ Midi_stream::write (string str)
   size_t written = fwrite (str.data (), sz, n, out_file_);
 
   if (written != sz * n)
-    warning (_ ("cannot write to file: `%s'"));
+    warning (_f ("cannot write to file: `%s'", str.data ()));
 }
 
 void

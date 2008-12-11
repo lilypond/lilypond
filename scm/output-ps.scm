@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 ;;;; Note: currently misused as testbed for titles with markup, see
@@ -244,7 +244,7 @@
 	      (list r g b)))
 
 ;; restore color from stack
-(define (resetcolor) "grestore \n")
+(define (resetcolor) "grestore\n")
 
 ;; rotation around given point
 (define (setrotation ang x y)

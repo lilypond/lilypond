@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 19fc0f930f921ca2609e0e60aa26f9d980771b97
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,6 +12,16 @@
 @node Keyboard and other multi-staff instruments
 @section Keyboard and other multi-staff instruments
 
+@lilypondfile[quote]{keyboard-headword.ly}
+
+Dieser Abschnitt behandelt verschiedene Notationsaspekte, die
+typischerweise in Noten für Tasteninstrumente und andere
+Instrumente auf mehreren Notensystemen auftreten, wie etwa
+Harfe und Vibraphon.  Hier wird die gesamte Gruppe von
+Instrumenten, die auf mehreren Systemen notiert werden, als
+@qq{Tasteninstrumente} bezeichnet, auch wenn einige von ihnen
+keine Tasten aufweisen.
+
 @menu
 * Common notation for keyboards::  
 * Piano::                       
@@ -21,6 +31,9 @@
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
+
+Dieser Abschnitt zeigt allgemeine Eigenschaften des Notensatzes, die
+für die meisten Instrumente mit mehreren Systemen benötigt werden.
 
 @menu
 * References for keyboards::    
@@ -34,21 +47,109 @@
 @node References for keyboards
 @unnumberedsubsubsec References for keyboards
 
+@cindex Klaviersystem
+@cindex Piano-System
+@cindex Notensystem, Klavier
+@cindex Notensystem, Tasteninstrumente
+@cindex Tasteninstrumente, Notensystem
 
-Ein Pianosystem besteht aus zwei normalen Notensystemen, die durch 
-eine Klammer verbunden sind. Die Systeme sind verhältnismäßig 
-unabhängig, aber zeitweise können Stimmen zwischen den Systemen 
-wechseln. Die gleiche Notation wird auch für andere Tasteninstrumente 
-sowie Harfen verwendet. Das Klaviersystem (mit dem Befehl 
-@code{PianoStaff} erstellt) ist speziell dazu geschaffen, Stimmen 
-zwischen den Systemen wechseln zu lassen. In diesem Abschnitt werden 
-das Klaviersystem und andere Eigenheiten der Pianonotation besprochen.
+@funindex PianoStaff
+
+Tasteninstrumente werden normalerweise auf einem Klaviersystem
+notiert.  Es besteht aus zwei Notensystemen, die durch 
+eine Klammer verbunden sind.  Die gleiche Notation wird auch für
+andere Tasteninstrumente sowie Harfen verwendet.  Orgelmusik
+wird normalerweise auf zwei Systemen innerhalb eines Klaviersystems
+notiert, denen noch ein drittes normales Notensystem für die
+Pedaltöne hinzugefügt wird.
+
+Die Systeme eines Klaviersystems sind ziemlich unabhängig, aber
+Stimmen können bei Bedarf zwischen den Systemen wechseln.
+
+Einige häufige Besonderheiten von Notation für Tasteninstrumenten
+wird an anderen Stellen besprochen:
+
+@itemize
+
+@item Noten für Tasteninstrumente haben oft mehrere Stimmen und 
+die Anzahl der Stimmen kann sich häufig ändern.  Das ist
+beschrieben in
+@ref{Collision resolution}.
+
+@item Noten für Tasteninstrumente kann auch parallel, Takt für
+Takt notiert werden, wie gezeigt in
+@ref{Writing music in parallel}.
+
+@item Fingersatz wird erklärt in
+@ref{Fingering instructions}.
+
+@item Orgelpedal-Zeichen werden als Artikulationszeichen notiert,
+siehe
+@ref{List of articulations}.
+
+@item Vertikale Rasterlinien können erstellt werden, siehe
+@ref{Grid lines}.
+
+@item Noten für Tasteninstrumente beinhalten oft 
+@notation{Laissez vibrer}-Bögen und Bindebögen mit Arpeggio
+oder Tremolo, siehe hierzu
+@ref{Ties}.
+
+@item Arpeggios können auch zwischen den Systemen verbunden
+werden, siehe hierzu
+@ref{Arpeggio}.
+
+@item Tremolo-Zeichen finden sich in
+@ref{Tremolo repeats}.
+
+@item Viele der Optimierungen, die für Tastenmusik nötig sein
+können, sind demonstriert in
+@rlearning{Real music example}.
+
+@item Unsichtbare Noten können eingesetzt werden, um
+Überbindungen zwischen Stimmen zu setzen, siehe
+@rlearning{Other uses for tweaks}.
+
+@end itemize
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Real music example},
+@rlearning{Other uses for tweaks}.
+
+Notationsreferenz:
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Collision resolution},
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
+@ref{List of articulations},
+@ref{Grid lines},
+@ref{Ties},
+@ref{Arpeggio},
+@ref{Tremolo repeats}.
+
+Schnipsel:
+@rlsr{Keyboards}.
+
+Referenz der Interna:
+@rinternals{PianoStaff}.
 
 @knownissues
 
-Dynamische Zeichen werden nicht automatisch mittig notiert, aber 
-dafür gibt es Lösungen, vgl. die 
-@q{piano centered dynamics}-Vorlage in @rlearning{Piano templates}.
+@cindex Tasteninstrumente, zentrierte Dynamik
+@cindex Dynamik, zentriert für Tasteninstrumente
+@cindex Klaviermusik, Dynamik zentrierten
+@cindex zentrierte Musik für Tasteninstrumente
+@funindex staff-padding
+
+Dynamikzeichen werden nicht automatische zwischen den Systemen
+zentriert, aber es gibt hierzu Lösungen.  Eine Möglichkeit ist
+die Vorlage @qq{Klavier mit zentrierten Lautstärkebezeichnungen} 
+im Abschnitt @rlearning{Piano templates}; eine andere Möglichkeit
+ist es, die @code{staff-padding}-Eigenschaft von
+Lautstärkebezeichnungen zu erhöhen, wie gezeigt in
+@rlearning{Moving objects}.
 
 
 @node Changing staff manually
@@ -57,100 +158,160 @@ dafür gibt es Lösungen, vgl. die
 @cindex manuelle Systemwechsel
 @cindex Systemwechsel, manuell
 @cindex Wechsel des Systems, manuell
+@cindex Noten, Wechsel zwischen Systemen
+@cindex Springen zwischen Systemen
+@cindex Balken zwischen Systemen
+
+@funindex \change
+@funindex change
 
 Stimmen können mit dem Befehl
+
 @example
-\change Staff = @var{Systembezeichnung} @var{Noten}
+\change Staff = @var{Systembezeichnung}
 @end example
 
 @noindent
-manuell erzielt werden. Die Zeichenkette @var{Systembezeichnung} ist die 
-Bezeichnung des Systems. Damit wird die aktuelle Stimme vom aktuellen 
-System zu dem System mit der @var{Systembezeichnung} gewechselt. 
-Üblicherweise ist die Systembezeichnung @code{"up"} oder
-@code{"down"}.  Dieses System (@code{Staff}), auf das verweisen wird, 
-muss auch wirklich existieren, weshalb die Aufstellung eines Klaviersystems 
-dann üblicherweise damit beginnt, die Systeme zu benennen. Hierbei können 
-natürlich beliebige Namen vergeben werden.
+manuell erzielt werden.  Die Zeichenkette @var{Systembezeichnung}
+ist die Bezeichnung des Systems.  Damit wird die aktuelle Stimme
+vom aktuellen System zu dem System mit der @var{Systembezeichnung}
+gewechselt.  Üblicherweise ist die Systembezeichnung @code{"up"}
+oder @code{"down"}, @code{"RH"} oder @code{"LH"}.
 
-@example
-<<
-  \new Staff = "up" @{
-    \skip 1 * 10  % @emph{keep staff alive}
-    @}
-  \new Staff = "down" @{
-    \skip 1 * 10  % @emph{idem}
-    @}
+Balken zwischen den Systemen werden automatisch erstellt:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    <e' c'>8
+    \change Staff = "down"
+    g8 fis g
+    \change Staff = "up"
+    <g'' c''>8
+    \change Staff = "down"
+    e8 dis e
+    \change Staff = "up"
+  }
+  \new Staff = "down" {
+    \clef bass
+    % keep staff alive
+    s1
+  }
 >>
-@end example
+@end lilypond
 
 @noindent
-Die einzelnen Stimmen werden mit dem @code{Voice}-Befehl 
-daraufhin eingefügt.
+Wenn die Balken verändert werden müssen, sollte zuerst die Richtung
+des Balkens beeinflusst werden.  Die Balkenposition wird dann von
+der Mitte des Systems gemessen, dass näher am Balken ist.  Ein
+einfaches Beispiel ist gezeigt in @rlearning{Fixing overlapping notation}.
 
-@example
-\context Staff = down
-  \new Voice @{ @dots{} \change Staff = up @dots{} @}
-@end example
+@seealso
+Handbuch zum Lernen:
+@rlearning{Fixing overlapping notation}.
+
+Notationsreferenz:
+@ref{Stems},
+@ref{Automatic beams}.
+
+Schnipsel:
+@rlsr{Keyboards}.
+
+Referenz der Interna:
+@rinternals{Beam},
+@rinternals{ContextChange}.
 
 
 @node Changing staff automatically
 @unnumberedsubsubsec Changing staff automatically
+
 @cindex Automatischer Systemwechsel
+@cindex Systemwechsel, automatisch
+@cindex Wechsel des Systems, automatisch
+
+@funindex \autochange
+@funindex autochange
+@funindex PianoStaff
 
 Stimmen können angewiesen werden, automatisch zwischen dem 
-oberen und unteren System zu wechseln. Die Syntax hierfür lautet:
+oberen und unteren System zu wechseln.  Die Syntax hierfür lautet:
 
-@quotation
 @example
 \autochange @dots{}@var{Noten}@dots{}
 @end example
-@end quotation
 
 @noindent
 Damit werden zwei Notensysteme innerhalb des aktiven Klaviersystems 
 erstellt, die @qq{oben} (@code{up}) und @qq{unten} (@code{down}) genannt 
-werden. Auf dem unteren System wird als Standard der Bassschlüssel 
-gesetzt.
+werden.  Auf dem unteren System wird als Standard der Bassschlüssel 
+gesetzt.  Der Wechsel wird automatisch basierend auf der Tonhöhe der Note 
+vorgenommen (als Wechselpunkt gilt das eingestrichene C).  Dabei 
+wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
+
+@lilypond[quote,verbatim]
+\new PianoStaff {
+  \autochange {
+    g4 a b c'
+    d'4 r a g
+  }
+}
+@end lilypond
+
+@cindex relativer Modus und automatischer Systemwechsel
+@cindex automatischer Systemwechsel und relativer Modus
+
+@funindex \relative
+@funindex relative
 
 Ein @code{\relative}-Abschnitt, der sich außerhalb des 
 @code{\autochange}-Abschnittes befindet, hat keinen Einfluss auf die 
-Notenhöhen der @var{Noten}. Es muss also bei Bedarf ein 
-weiterer @code{\relative}-Befehl innerhalb des Abschnittes 
-benutzt werden.
+Notenhöhen.
 
-@quotation
-@example
-\autochange \relative @dots{} @dots{}
-@end example
-@end quotation
+Wenn individuelle Kontrolle über die einzelen Systeme benötigt
+wird, können sie manuell mit den Bezeichnungen  @code{"up"} und
+@code{"down"} erstellt werden.  Der @code{\autochange}-Befehl
+wechselt dann die Stimme zwischen den Systemen.  Das ist etwa
+nötig, damit ein Tonart für das untere System definiert werden
+kann.
 
-Der Wechsel wird automatisch basierend auf der Tonhöhe der Note 
-vorgenommen (als Wechselpunkt gilt das eingestrichene C). Dabei 
-wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
-
-@lilypond[quote,verbatim,ragged-right]
-\new PianoStaff
-  \autochange \relative c'
-  {
-    g4 a b c d r4 a g
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \new Voice = "melOne" {
+      \key g \major
+      \autochange \relative c' {
+        g8 b a c b d c e
+        d8 r fis, g a2
+      }
+    }
   }
+  \new Staff = "down" {
+    \key g \major
+    \clef bass
+  }
+>>
 @end lilypond
 
-
 @seealso
+Notationsreferenz:
+@ref{Changing staff manually}.
 
-Im Handbuch: @rlearning{Single staff}.
+Schnipsel:
+@rlsr{Keyboards}.
 
-Programmreferenz: @rinternals{AutoChangeMusic}.
- 
+Referenz der Interna:
+@rinternals{AutoChangeMusic}.
+
 @knownissues
 
-Der Systemwechsel wird nicht immer an der optimalen Stelle vorgenommen. 
-Für hohe Qualität muss der Wechsel mit der Hand eingegeben werden.
+@cindex Akkorde, zwischen Systemen mit \autochange
 
-@code{\autochange} kann sich nicht innerhalb einer @code{\times}-Umgebung 
-befinden.
+Die Auteilung auf die Systeme geschieht nicht unbedingt an optimaler
+Stelle.  Für bessere Qualität müssen die Wechsel manuell eingestellt
+werden.
+
+Akkrode werde nicht über die Systeme verteilt, sie werden dem
+System zugewiesen, auf dem sich ihre erste Note befinden würde.
 
 
 @node Staff-change lines
@@ -159,36 +320,50 @@ befinden.
 @cindex Stimmkreuzung
 @cindex Systemwechsel von Stimmen
 @cindex Wechsel zwischen Systemen
+@cindex Stimme folgen
+@cindex Folgen einer Stimmen in anderes System
+@cindex Stimmfolgestriche
+@cindex Striche zur Stimmverfolgung
 
 @funindex followVoice
+@funindex \showStaffSwitch
+@funindex showStaffSwitch
+@funindex \hideStaffSwitch
+@funindex hideStaffSwitch
 
 Immer, wenn eine Stimme von einem Klaviersystem zu dem anderen 
 wechselt, kann automatisch eine Linie zur Verdeutlichung des 
-Stimmenverlaufs ausgegeben werden. Das wird erreicht, indem 
-@code{followVoice} aktiviert wird:
+Stimmenverlaufs ausgegeben werden:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[quote,verbatim,relative=1]
 \new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
+  \new Staff = "one" {
+    \showStaffSwitch
     c1
-    \change Staff=two
+    \change Staff = "two"
     b2 a
   }
-  \new Staff="two" { \clef bass \skip 1*2 }
+  \new Staff = "two" {
+    \clef bass
+    s1*2
+  }
 >>
 @end lilypond
 
-@seealso
-
-Programmreferenz: @rinternals{VoiceFollower}.
-
 @predefined
-
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},
 @funindex \hideStaffSwitch
 @code{\hideStaffSwitch}.
+@endpredefined
+
+@seealso
+Schnipsel:
+@rlsr{Keyboards}.
+
+Referenz der Interna:
+@rinternals{Note_head_line_engraver},
+@rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
@@ -197,35 +372,64 @@ Programmreferenz: @rinternals{VoiceFollower}.
 @cindex Hälse über zwei Systeme
 @cindex System querende Hälse
 @cindex Abstand zwischen Systemen in Klaviernoten
+@cindex Notenhälse über zwei Systeme
+@cindex Akkorde über zwei Systeme
+
+@funindex Stem
+@funindex cross-staff
+@funindex length
+@funindex flag-style
 
 Akkorde, die über zwei Systeme reichen, können erstellt werden,
 indem die Länge der Hälse im unteren System vergrößert wird, 
 bis sie zum oberen System hinauf reichen bzw. umgekehrt bei 
 Hälsen, die nach unten zeigen.
 
-@lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
+@lilypond[verbatim,quote]
 \new PianoStaff <<
   \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
+    \relative c' {
+      f8 e4 d8 d f e4
+    }
   }
   \new Staff {
-    \clef bass
-    a4 a8
+    \relative c' {
+      << {
+        \clef bass
+        % stems may overlap the other staff
+        \override Stem #'cross-staff = ##t
+        % extend the stems to reach other other staff
+        \override Stem #'length = #12
+        % do not print extra flags
+        \override Stem #'flag-style = #'no-flag
+        % prevent beaming as needed
+        a8 g4 f8 f bes\noBeam g4
+      }
+      \\
+      {
+        f,2 bes4 c
+      } >>
+    }
   }
 >>
 @end lilypond
 
+@snippets
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
+@seealso
+Schnipsel:
+@rlsr{Keyboards}.
+
+Referenz der Interna:
+@rinternals{Stem}.
+
 
 @node Piano
 @subsection Piano
+
+Dieser Abschnitt zeigt Eigenheiten der Notation von Klavermusik
 
 @menu
 * Piano pedals::                
@@ -233,79 +437,102 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 
 @node Piano pedals
 @unnumberedsubsubsec Piano pedals
+
 @cindex Pedalbezeichnung
+@cindex Klavier, Pedalbezeichnung
+@cindex Piano, Pedalbezeichnung
+@cindex sostenuto-Pedal
+@cindex Pedal, sostenuto
+@cindex una corda
+@cindex tre corde
+@cindex sos.
+@cindex U.C.
 
-Klaviere haben Pedale, mit denen die Klangeigenschaften beeinflusst werden 
-können. Normalerweise besitzt ein Klavier drei Pedale, das linke oder 
-Haltepedal, das rechte oder Una-corda-Pedal und das Sostenuto-Pedal.
+@funindex \sustainOn
+@funindex sustainOn
+@funindex \sustainOff
+@funindex sustainOff
+@funindex \sostenutoOn
+@funindex sostenutoOn
+@funindex \sostenutoOff
+@funindex sostenutoOff
+@funindex \unaCorda
+@funindex unaCorda
+@funindex \treCorde
+@funindex treCorde
 
-Spielanweisungen für das Pedal können durch die Befehle 
-@code{\sustainOn} (linkes Pedal), @code{\sustainOff} (linkes Pedal 
-hoch), @code{\unaCorda} (rechtes Pedal), @code{\treCorde} (rechtes 
-Pedal hoch), @code{\sostenutoOn} (mittleres Pedal) und 
-@code{\sostenutoOff} (mittleres Pedal hoch) anschließend an eine 
-Note oder einen Akkord notiert werden.
+Klaviere (teilweise auch Vibraphone und Celesta) besitzen üblicherweise
+drei Pedale, das linke oder Haltepedal, das rechte oder Una-corda-Pedal
+und das Sostenuto-Pedal.  Die englischen Begriff hierzu lauten:
+@notation{sustain}, @notation{sostenuto} und @notation{una corda}.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainOn c'4\sustainOff
+@lilypond[quote,verbatim,relative=2]
+c4\sustainOn d e g
+<c, f a>1\sustainOff
+c4\sostenutoOn e g c,
+<bes d f>1\sostenutoOff
+c4\unaCorda d e g
+<d fis a>1\treCorde
 @end lilypond
 
-Die Ausgabe kann verändert werden, indem der Wert 
-What is printed can be modified by setting @code{pedal@var{X}Strings},
-where @var{X} is one of the pedal types: @code{Sustain},
-@code{Sostenuto} or @code{UnaCorda}.  Refer to
-@rinternals{SustainPedal} in the program reference for more
-information.
+@cindex Pedalbezeichnung, Stile
+@cindex Haltepedal, Stile
+@cindex Pedalbezeichnung, Text
+@cindex Pedalbezeichnung, Klammer
 
-Pedalbenutzung kann auch durch eine Anzahl von Klammern angezeigt 
-werden, wenn die @code{pedalSustainStyle}-Eigenschaft 
-auf Klammern (eng. bracket) gesetzt wird.
+@funindex pedalSustainStyle
+@funindex mixed
+@funindex bracket
+@funindex text
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'bracket
-c\sustainOn d e
-b\sustainOff\sustainOn
-b g \sustainOff a \sustainOn \bar "|."
-@end lilypond
+Die Pedalbezeichnung kann auf drei Arten vorgenommen werden: mit
+Text, Klammern oder einer Mischung aus beidem.  Das Haltepedal
+und das Una-corda-Pedal benutzen als Standard die Textdarstellung,
+während das Sostenuto-Pedal den gemischten Stil benutzt:
 
-Eine dritte Art der Pedalnotation besteht aus einer Mischung von Text 
-und den Pedalklammern. Sie wird durch setzen von 
-@code{pedalSustainStyle} auf @code{mixed} erreicht. 
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
+c4\sustainOn g c2\sustainOff
 \set Staff.pedalSustainStyle = #'mixed
-c\sustainOn d e
-b\sustainOff\sustainOn
-b g \sustainOff a \sustainOn \bar "|."
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2\sustainOff
+\set Staff.pedalSustainStyle = #'bracket
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2
+\bar "|."
 @end lilypond
 
-Die Einstellungen für linkes @c ?
-und mittleres Pedal ist üblicherweise ein @code{#'text}-Stil. Für das 
-mittlere Pedal ist der gemischte Stil voreingestellt.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoOn d e c, f g a\sostenutoOff
-@end lilypond
-
-Die Erscheinung der Pedal-Klammer kann mit den Eigenschaften 
-@code{edge-width}, @code{edge-height} und @code{shorten-pair} des
-@code{PianoPedalBracket}-Objekts verändert werden (siehe 
-@rinternals{PianoPedalBracket} in der Programmreferenz). Zum 
-Beispiel kann die Klammer bis zum rechten Ende eines Notenkopfes 
-verlängert werden.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoOn d e c, f g a\sostenutoOff
-@end lilypond
+Die Platzierung der Befehle entspricht der Bewegung der Pedale
+während des Spielens.  Um das Pedal bis zur letzten Tatklinie zu
+halten, muss der letzte Pedal-hoch-Befehl weggelassen werden.
 
 @seealso
+Notationsreferenz:
+@ref{Ties}.
 
-Im Handbuch: @ref{Ties}
+Schnipsel:
+@rlsr{Keyboards}.
+
+Referenz der Interna:
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
+@rinternals{SustainEvent},
+@rinternals{SostenutoPedal},
+@rinternals{SostenutoPedalLineSpanner},
+@rinternals{SostenutoEvent},
+@rinternals{UnaCordaPedal},
+@rinternals{UnaCordaPedalLineSpanner},
+@rinternals{UnaCordaEvent},
+@rinternals{PianoPedalBracket},
+@rinternals{Piano_pedal_engraver}.
 
 
 @node Accordion
 @subsection Accordion
+
+@cindex Akkordeon
+
+Dieser Abschnitt behandelt Notation, die nur für Akkordeonmusik
+benötigt wird.
 
 @menu
 * Discant symbols::             
@@ -314,12 +541,91 @@ Im Handbuch: @ref{Ties}
 @node Discant symbols
 @unnumberedsubsubsec Discant symbols
 
-@untranslated
-@ifnothtml
-@englishref
-@end ifnothtml
+@cindex Akkordeon, Diskant-Symbole
+@cindex Diskantsymbole, Akkordeon
+@cindex Symbole, Akkordeon
+@cindex Akkordeon, Register
+
+Akkordeons werden oft mit mehreren Reihen an Zungen gebaut, welche
+Unisono oder eine Oktave höher bzw. tiefer erklingen.  Jedes
+Akkordeon hat eigene Bezeichnungen für die Register (engl. shift)
+wie etwa @notation{Oboe}, @notation{Bandonium} usw.  Eine
+Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{accordion-discant-symbols.ly}
+
+@seealso
+Schnipsel:
+@rlsr{Keyboards}.
+
+@menu
+* Harp notation::
+* Harp pedals::
+@end menu
+
 
 @node Harp
 @subsection Harp
 
-@untranslated
+TBC
+
+@ignore
+Some possibilities:
+- glissandi
+- tremolo (for bisbigliando)
+- natural harmonics
+- directional arpeggio and non-arpeggio
+- workaroung for keeping both staves visible in an orchestral
+  score,
+http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
+and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+
+An LSR snippet could be used to demonstrate the main items; in the
+case of glissandi, it would be desirable to have a demonstration
+of different styles.
+
+@end ignore
+
+
+@node Harp pedals
+@unnumberedsubsubsec Harp pedals
+
+@cindex Harfenpedal
+@cindex Pedal, Harfe
+@cindex Pedaldiagramme, Harfe
+
+Harfe haben sieben Saiten in einer Oktave, die entweder als normaler
+Ton, oder aber erhöht bzw. erniedrigt klingen können.  Bei einer
+Hakenharfe kann man jede Saite einzeln einstellen, bei Pedalharfen aber
+wird jede Saite mit der gleichen Notenbezeichnung von einem einzigen
+Pedal kontrolliert.  Vom Spieler aus gesehen von rechts nach links sind
+die Pedale: D, C und H für die linke und E, F, G und A für die rechte
+Seite.  Die Position des Pedals kann mit Textbeschriftungselementen:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {[ C \natural ]}
+@end lilypond
+
+@noindent
+oder Pedaldiagrammen angezeigt werden:
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup { \harp-pedal #"^v-|vv-^" }
+c!1_\markup { \harp-pedal #"^o--|vv-^" }
+@end lilypond
+
+Der @code{\harp-pedal}-Befehl braucht eine Anzahl an Zeichen, von
+welchen @code{^} die höchste Pedalposition (erniedrigte Tonhöhe),
+@code{-} die mittlere Pedalposition (normale Tonhöhe, @code{v} die
+tiefste Pedalposition (erhöhter Ton) anzeigt.  @code{|} ist ein
+Trenner.  Ein @code{o} vor der Definition umrandet das Symbol.
+
+@seealso
+Notationsreferenz:
+@ruser{Text scripts}

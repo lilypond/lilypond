@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
 */

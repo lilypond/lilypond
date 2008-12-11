@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
@@ -79,11 +79,11 @@ La commande @code{\markup} est décrite plus en détails dans la section
 
 
 @predefined
-
 @funindex \textLengthOn
 @code{\textLengthOn},
 @funindex \textLengthOff
 @code{\textLengthOff}.
+@endpredefined
 
 
 @commonprop
@@ -99,7 +99,6 @@ Vous pouvez cependant l'y forcer en définissant
 
 
 @seealso
-
 Dans ce manuel : @ref{Formatting text}.
 
 Référence du programme : @rinternals{TextScript}.
@@ -141,7 +140,7 @@ régler vous-même :
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 e2 \glissando f
-\once \override Glissando #'bound-details #'right #'Y = #-2
+\once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando f
 @end lilypond
 
@@ -162,7 +161,7 @@ dans l'exemple suivant :
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 \override Glissando #'breakable = ##T 
-\override Glissando #'bound-details #'right-broken #'Y = #-3
+\override Glissando #'(bound-details right-broken Y) = #-3
 c1 \glissando \break
 f1
 @end lilypond
@@ -198,7 +197,7 @@ Marqueur qui sera analysé pour alimenter @code{stencil}.  On y trouve
 habituellement les @i{cresc.} ou @i{tr} des extenseurs horizontaux.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
 @end lilypond
@@ -212,11 +211,11 @@ vous pouvez décaler le coin du marqueur par rapport à l'extrémité de
 la ligne.
 
 @lilypond[relative=1,fragment,verbatim]
-\override TextSpanner #'bound-details #'left #'stencil-align-dir-y = #DOWN
-\override TextSpanner #'bound-details #'right #'stencil-align-dir-y = #UP
+\override TextSpanner #'(bound-details left stencil-align-dir-y) = #DOWN
+\override TextSpanner #'(bound-details right stencil-align-dir-y) = #UP
 
-\override TextSpanner #'bound-details #'left #'text = #"gggg"
-\override TextSpanner #'bound-details #'right #'text = #"hhhh"
+\override TextSpanner #'(bound-details left text) = #"gggg"
+\override TextSpanner #'(bound-details right text) = #"hhhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
@@ -231,8 +230,8 @@ début et la fin d'un glissando seraient en plein milieu des têtes de note.
 
 @end table
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{TextSpanner},
 @rinternals{Glissando}, @rinternals{VoiceFollower},
 @rinternals{TrillSpanner}, @rinternals{line-spanner-interface}.
@@ -258,24 +257,25 @@ propriétés, comme ici :
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 c1
 \textSpannerDown
-\override TextSpanner #'bound-details #'left #'text =
+\override TextSpanner #'(bound-details left text) =
   \markup { \upright "rall" } 
 c2\startTextSpan b c\stopTextSpan a
 \break
 \textSpannerUp
-\override TextSpanner #'bound-details #'left #'text =
+\override TextSpanner #'(bound-details left text) =
   \markup { \italic "rit" } 
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
-@predefined
 
+@predefined
 @funindex textSpannerUp
 @code{\textSpannerUp},
 @funindex textSpannerDown
 @code{\textSpannerDown},
 @funindex textSpannerNeutral
 @code{\textSpannerNeutral}.
+@endpredefined
 
 
 @commonprop
@@ -288,7 +288,6 @@ Pour obtenir une ligne pleine, utilisez
 
 
 @seealso
-
 Référence du programme : @rinternals{TextSpanner}.
 
 
@@ -438,7 +437,6 @@ affectation à chacune des portées :
 
 
 @seealso
-
 Référence du programme : @rinternals{RehearsalMark}.
 
 
@@ -490,7 +488,7 @@ pour traiter du texte avec LilyPond.
 
     \set Staff.instrumentName = \markup{ \column{ Alto solo } }
     c2^\markup{ don't be \flat }
-    \override TextSpanner #'bound-details #'left #'text = \markup{\italic rit }
+    \override TextSpanner #'(bound-details left text) = \markup{\italic rit }
     b2\startTextSpan
     a2\mark \markup{ \large \bold Fine }
     r2\stopTextSpan
@@ -601,7 +599,6 @@ en utilisant @code{normal-text}.  Pour plus d'informations, consultez
 
 
 @seealso
-
 Dans ce manuel : @ref{Text markup commands}.
 
 Référence du programme : @rinternals{TextScript}.
@@ -674,15 +671,16 @@ tour des lignes de texte, comme ici :
 Les différentes commandes permettant de générer des listes de lignes
 se trouve dans @ref{Text markup list commands}.
 
-@seealso
 
+@seealso
 Dans ce manuel : @ref{Text markup list commands}, 
 @ref{New markup list command definition}.
 
-@predefined
 
+@predefined
 @funindex \markuplines
-@code{\markuplines}
+@code{\markuplines}.
+@endpredefined
 
 
 @node Fonts
@@ -790,8 +788,6 @@ du texte respectivement en roman, sans serif et monospace, comme ici :
 @c Apple TTF fonts
 
 
-
 @seealso
-
 Exemples : @rlsr{Text}.
 

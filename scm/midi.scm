@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2000--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
 
@@ -284,14 +284,12 @@ returns the program of the instrument
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
-(define-public (write-performances-midis performances basename)
+(define-public (write-performances-midis performances basename . rest)
   (let ((midi-ext (ly:get-option 'midi-extension)))
     (let
 	loop
       ((perfs performances)
-       (count 0))
-
-
+       (count (if (null? rest) 0 (car rest))))
       (if (pair?  perfs)
 	  (begin
 	    (ly:performance-write

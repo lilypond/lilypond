@@ -10,7 +10,6 @@ slurUp = \override Slur #'direction = #UP
 slurDown = \override Slur #'direction = #DOWN
 slurNeutral = \revert Slur #'direction
 
-%% There's also dash, but setting dash period/length should be fixed.
 slurDashed = {
   \override Slur #'dash-period = #0.75
   \override Slur #'dash-fraction = #0.4
@@ -28,6 +27,19 @@ slurSolid = {
 phrasingSlurUp = \override PhrasingSlur #'direction = #UP
 phrasingSlurDown = \override PhrasingSlur #'direction = #DOWN
 phrasingSlurNeutral = \revert PhrasingSlur #'direction
+
+phrasingSlurDashed = {
+  \override PhrasingSlur #'dash-period = #0.75
+  \override PhrasingSlur #'dash-fraction = #0.4
+}
+phrasingSlurDotted = {
+  \override PhrasingSlur #'dash-period = #0.75
+  \override PhrasingSlur #'dash-fraction = #0.1
+}
+phrasingSlurSolid = {
+  \revert PhrasingSlur #'dash-period
+  \revert PhrasingSlur #'dash-fraction
+}
 
 mergeDifferentlyDottedOn = {
   \override Staff.NoteCollision #'merge-differently-dotted = ##t

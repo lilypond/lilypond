@@ -121,7 +121,6 @@ may be manually placed above or below the staff, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{tenuto},
 @rglos{accent},
@@ -313,7 +312,6 @@ Vertical positioning of dynamics is handled by
 
 
 @predefined
-
 @code{\dynamicUp},
 @code{\dynamicDown},
 @code{\dynamicNeutral},
@@ -323,6 +321,7 @@ Vertical positioning of dynamics is handled by
 @code{\dimTextDecresc},
 @code{\crescHairpin},
 @code{\dimHairpin}.
+@endpredefined
 
 
 @snippets
@@ -350,7 +349,6 @@ Vertical positioning of dynamics is handled by
 
 
 @seealso
-
 Music Glossary:
 @rglos{al niente},
 @rglos{crescendo},
@@ -467,7 +465,6 @@ Font settings in markup mode are described in
 
 
 @seealso
-
 Notation Reference:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -487,10 +484,10 @@ are curved: normal slurs, phrasing slurs, breath marks, falls, and
 doits.
 
 @menu
-* Slurs::                       
-* Phrasing slurs::              
-* Breath marks::                
-* Falls and doits::             
+* Slurs::
+* Phrasing slurs::
+* Breath marks::
+* Falls and doits::
 @end menu
 
 @node Slurs
@@ -570,14 +567,15 @@ g4( e c2)
 @funindex \slurUp
 @funindex slurUp
 
-@predefined
 
+@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
 @code{\slurSolid}.
+@endpredefined
 
 
 @snippets
@@ -587,7 +585,6 @@ g4( e c2)
 
 
 @seealso
-
 Music Glossary:
 @rglos{slur}.
 
@@ -630,6 +627,12 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
 
 Typographically, a phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects; a
@@ -652,16 +655,31 @@ c4\( g' c,( b) | c1\)
 
 Simultaneous or overlapping phrasing slurs are not permitted.
 
+Phrasing slurs can be solid, dotted, or dashed.  Solid is the default
+style for phrasing slurs:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashed
+g4\( e c2\)
+\phrasingSlurDotted
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
 
 @predefined
-
 @code{\phrasingSlurUp},
 @code{\phrasingSlurDown},
-@code{\phrasingSlurNeutral}.
+@code{\phrasingSlurNeutral},
+@code{\phrasingSlurDashed},
+@code{\phrasingSlurDotted},
+@code{\phrasingSlurSolid}.
+@endpredefined
 
 
 @seealso
-
 Learning Manual:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -706,8 +724,7 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 
 
 @seealso
-
-Music Glossary: 
+Music Glossary:
 @rglos{caesura}.
 
 Notation Reference:
@@ -752,7 +769,6 @@ command is @emph{required} when writing falls and doits.
 
 
 @seealso
-
 Music Glossary:
 @rglos{fall},
 @rglos{doit}.
@@ -798,7 +814,6 @@ Different styles of glissandi can be created.  For details, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{glissando}.
 
@@ -877,14 +892,15 @@ Special @emph{bracketed} arpeggio symbols can be created:
 Arpeggios can be explicitly written out with ties.  For more
 information, see @ref{Ties}.
 
-@predefined
 
+@predefined
 @code{\arpeggio},
 @code{\arpeggioArrowUp},
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis}.
+@endpredefined
 
 
 @snippets
@@ -900,7 +916,6 @@ information, see @ref{Ties}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{arpeggio}.
 
@@ -1000,13 +1015,12 @@ g\stopTrillSpan
 
 
 @predefined
-
 @code{\startTrillSpan},
 @code{\stopTrillSpan}.
+@endpredefined
 
 
 @seealso
-
 Music Glossary:
 @rglos{trill}.
 

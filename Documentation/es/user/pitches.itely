@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 770ccfb9bd8536d7fb570a5c25ce874a461486f0
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -80,8 +80,8 @@ c, c,, e, g
 d,, d, d c
 @end lilypond
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{Pitch names}.
 
@@ -179,9 +179,7 @@ anterior.
 \relative c' {
   c
   <c e g>
-  % the C is now an octave higher
   <c' e g'>
-  % the C returns to the original pitch
   <c, e, g''>
 }
 @end lilypond
@@ -205,7 +203,6 @@ independientemente del número de semitonos de cada uno de ellos.
 
 
 @seealso
-
 Glosario musical:
 @rglos{fifth},
 @rglos{interval},
@@ -219,6 +216,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{RelativeOctaveMusic}.
+
 
 @cindex relativo, modo, transposición y
 @cindex transposición y modo relativo
@@ -319,7 +317,7 @@ del nombre de la nota.  Estas alteraciones adicionales se pueden usar
 también para producir notas con becuadro.
 
 @lilypond[verbatim,quote,relative=2]
-cis cis cis! cis? c c? c! c
+cis cis cis! cis? c c c! c?
 @end lilypond
 
 @cindex alteración en nota ligada
@@ -342,8 +340,8 @@ cis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {makam-example.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{sharp},
 @rglos{flat},
@@ -368,6 +366,7 @@ Referencia de funcionamiento interno:
 @rinternals{Accidental},
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
+
 
 @cindex alteración de cuartos de tono
 @cindex cuartos de tono, alteraciones
@@ -434,7 +433,7 @@ y los sufijos de las alteraciones correspondientes que definen son:
 @quotation
 @multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
 @headitem Archivo de idioma
-  @tab sharp @tab flat @tab double sharp @tab double flat
+  @tab sostenido @tab bemol @tab doble sostenido @tab doble bemol
 @item @file{nederlands.ly}
   @tab -is @tab -es @tab -isis @tab -eses
 @item @file{arabic.ly}
@@ -510,8 +509,8 @@ no se ha definido aún ningún nombre especial.
 @end multitable
 @end quotation
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{Pitch names}.
 
@@ -561,13 +560,14 @@ octava.
 @end lilypond
 
 La octava de las notas se puede comprobar también con la instrucción
-@code{\octaveCheck}@tie{}@var{altura_de_control}.  @var{altura_de_control}
-se eespecifica en modo absoluto.  Esto comprueba que el intervalo
-entre la nota anterior y la @var{altura_de_control} se encuntra dentro
-de una cuarta (es decir, el cálculo normal para el modo relativo).  Si
-esta comprobación fracasa se imprimie un mensaje de advertencia, pero
-la nota previa no se modifica.  Las notas posteriores están en
-relación a la @var{altura_de_control}.
+@code{\octaveCheck}@tie{}@var{altura_de_control}.
+@var{altura_de_control} se especifica en modo absoluto.  Esto
+comprueba que el intervalo entre la nota anterior y la
+@var{altura_de_control} se encuntra dentro de una cuarta (es decir, el
+cálculo normal para el modo relativo).  Si esta comprobación fracasa,
+se imprime un mensaje de advertencia, pero la nota previa no se
+modifica.  Las notas posteriores están en relación a la
+@var{altura_de_control}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -578,7 +578,7 @@ relación a la @var{altura_de_control}.
 @end lilypond
 
 Compare los dos compases siguientes.  La primera y tercera
-comprobaciones de @code{\octaveCheck} fracasan, pero el segundo es
+comprobaciones de @code{\octaveCheck} fracasan, pero la segunda es
 correcto.
 
 @lilypond[verbatim,quote]
@@ -597,12 +597,12 @@ correcto.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{RelativeOctaveCheck}.
+
 
 @node Transpose
 @unnumberedsubsubsec Transpose
@@ -715,7 +715,6 @@ Para ver más información sobre instrumentos transpositores, consulte
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Instrument transpositions}.
 
@@ -724,6 +723,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{TransposedMusic}.
+
 
 @funindex \transpose
 @funindex \chordmode
@@ -855,7 +855,6 @@ c2 c
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Mensural clefs},
 @ref{Gregorian clefs}.
@@ -953,8 +952,8 @@ fis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -1003,8 +1002,8 @@ La función @code{ottava} también admite los valores -1 (para
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {ottava-text.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{octavation}.
 
@@ -1015,7 +1014,6 @@ Referencia de funcionamiento interno:
 @rinternals{Ottava_spanner_engraver},
 @rinternals{OttavaBracket},
 @rinternals{ottava-bracket-interface}.
-
 
 
 @node Instrument transpositions
@@ -1098,8 +1096,8 @@ R1
 c2 g
 @end lilypond
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
@@ -1186,12 +1184,10 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      %%% change the next line as desired:
       #(set-accidental-style 'default)
       \musicA
     }
     \context Staff = "down" {
-      %%% change the next line as desired:
       #(set-accidental-style 'default)
       \musicB
     }
@@ -2064,7 +2060,6 @@ musicB = {
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Pitches}.
 
@@ -2139,7 +2134,6 @@ tonalidad.
 
 
 @seealso
-
 Glosario musical:
 @rglos{ambitus}.
 
@@ -2214,8 +2208,8 @@ Existe una abreviatura para las formas en rombo que sólo se puede usar en acord
 Para ver todos los estilos de cabeza de las notas, consulte @ref{Note
 head styles}.
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Pitches}.
 
@@ -2230,6 +2224,7 @@ Referencia de funcionamiento interno:
 @rinternals{LedgerLineSpanner},
 @rinternals{note-head-interface},
 @rinternals{ledger-line-spanner-interface}.
+
 
 @node Easy notation note heads
 @unnumberedsubsubsec Easy notation note heads
@@ -2265,14 +2260,16 @@ se tienen que imprimir en un tamaño grande de la tipografía.  Para
 imprimir con un tamaño de tipografía mayor, consulte @ref{Setting the
 staff size}.
 
-@predefined
 
+@predefined
 @funindex \easyHeadsOn
+@code{\easyHeadsOn},
 @funindex \easyHeadsOff
-@code{\easyHeadsOn}, @code{\easyHeadsOff}
+@code{\easyHeadsOff}.
+@endpredefined
+
 
 @seealso
-
 Referencia de la notación:
 @ref{Setting the staff size}.
 
@@ -2314,11 +2311,14 @@ c, d e f g a b c
 Las formas se determinan en función del grado de la escala, donde la
 tónica está determinada por la instrucción @code{\key}
 
-@predefined
 
+@predefined
 @funindex \aikenHeads
+@code{\aikenHeads},
 @funindex \sacredHarpHeads
-@code{\aikenHeads}, @code{\sacredHarpHeads}
+@code{\sacredHarpHeads}.
+@endpredefined
+
 
 @snippets
 
@@ -2329,8 +2329,8 @@ tónica está determinada por la instrucción @code{\key}
 Para ver todos los estilos de formas de cabeza de nota, consulte
 @ref{Note head styles}.
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Pitches}.
 
@@ -2370,15 +2370,16 @@ pero con el ritmo especificado.  Estas cabezas de nota se crean así:
 }
 @end lilypond
 
+
 @predefined
-
 @funindex \improvisationOn
+@code{\improvisationOn},
 @funindex \improvisationOff
+@code{\improvisationOff}.
+@endpredefined
 
-@code{\improvisationOn}, @code{\improvisationOff}
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Pitches}.
 

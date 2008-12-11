@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef MOMENT_HH
@@ -41,8 +41,8 @@ public:
   void set_infinite (int k);
 
   bool to_bool () const;
-  int den () const;
-  int num () const;
+  I64 den () const;
+  I64 num () const;
   /*
     Deliver a copy of THIS as a smobified SCM
   */

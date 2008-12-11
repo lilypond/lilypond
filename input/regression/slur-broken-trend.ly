@@ -28,7 +28,7 @@ in unbroken state.
        } }
      >>
     \break 
-    c4) f='2.(\break
+    c4) f,='2.(\break
     a2.)
     \stemUp
     <d='' d'>8( <c c'> \break

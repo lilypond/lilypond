@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2000--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;; File entry point for generated documentation
@@ -117,9 +117,16 @@ For LilyPond version @version{}
     (string-append  "@end ifnottex
 
 @ifhtml
+@ifclear bigpage
 This document is also available as a
 @uref{source/Documentation/user/lilypond-internals.pdf,PDF} and as
 @uref{source/Documentation/user/lilypond-internals-big-page.html,one big page}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/user/lilypond-internals.pdf,PDF} and as a
+@uref{source/Documentation/user/lilypond-internals/index.html,HTML indexed multiple pages}.
+@end ifset
 @end ifhtml
 
 This is the Internals Reference (IR) for version "

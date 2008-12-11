@@ -1,9 +1,8 @@
   texidoces = "
 Si hay un solo pentagrama en un de los tipos de sistema
-@code{ChoirStaff}, @code{InnerChoirStaff}, @code{InnerStaffGroup}
-o @code{StaffGroup}, el comportamiento predeterminado es que no se
-imprima el corchete en la barra inicial.  Esto se puede cambiar
-sobreescribiendo las propiedades adecuadas.
+@code{ChoirStaff} o @code{StaffGroup}, el comportamiento
+predeterminado es que no se imprima el corchete en la barra inicial.
+Esto se puede cambiar sobreescribiendo las propiedades adecuadas.
 
 Observe que en contextos como @code{PianoStaff} y
 @code{GrandStaff} en que los sistemas empiezan con una llave en

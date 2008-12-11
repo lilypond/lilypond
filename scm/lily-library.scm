@@ -3,7 +3,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -56,14 +56,28 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parser <-> output hooks.
-
 		
+(define-public (collect-bookpart-for-book parser book-part)
+  "Toplevel book-part handler"
+  (define (add-bookpart book-part)
+    (ly:parser-define!
+       parser 'toplevel-bookparts
+       (cons book-part (ly:parser-lookup parser 'toplevel-bookparts))))
+  ;; If toplevel scores have been found before this \bookpart,
+  ;; add them first to a dedicated bookpart
+  (if (pair? (ly:parser-lookup parser 'toplevel-scores))
+      (begin
+	(add-bookpart (ly:make-book-part
+		       (ly:parser-lookup parser 'toplevel-scores)))
+	(ly:parser-define! parser 'toplevel-scores (list))))
+  (add-bookpart book-part))
+
 (define-public (collect-scores-for-book parser score)
   (ly:parser-define!
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
 
-(define (collect-music-aux score-handler parser music)
+(define-public (collect-music-aux score-handler parser music)
   (define (music-property symbol)
     (let ((value (ly:music-property music symbol)))
       (if (not (null? value))

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef FONT_METRIC_HH
@@ -76,8 +76,6 @@ public:
 };
 
 DECLARE_UNSMOB (Font_metric, metrics);
-
-Box lookup_tex_text_dimension (Font_metric *font, SCM text);
 
 char *pfb2pfa (Byte const *pfb, int length);
 

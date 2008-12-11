@@ -6,16 +6,16 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.64"
 
 @node Staff notation
 @section Staff notation
 
 @lilypondfile[quote]{staff-headword.ly}
 
-This section explains how to influence the staff appearance, print
-scores with more than one staff, and how to apply specific
-performance marks to single staves.
+This section explains how to influence the appearance of staves,
+how to print scores with more than one staff, and how to add tempo
+indications and cue notes to staves.
 
 @menu
 * Displaying staves::
@@ -62,23 +62,16 @@ The basic staff context is @code{Staff}:
 \new Staff { c4 d e f }
 @end lilypond
 
-@code{DrumStaff} creates a five-line staff set up for a
-typical drum set.  It uses different names for each instrument.
-The instrument names are set using the @code{\drummode} command.
+The @code{DrumStaff} context creates a five-line staff set up for
+a typical drum set.  Each instrument is shown with a different
+symbol.  The instruments are entered in drum mode following a
+@code{\drummode} command, with each instrument specified by name.
 For details, see @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
   \drummode { cymc hh ss tomh }
 }
-@end lilypond
-
-@c FIXME: remove when mentioned in NR 2.8
-@code{GregorianTranscriptionStaff} creates a staff to notate
-modern Gregorian chant.  It does not show bar lines.
-
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
 @end lilypond
 
 @code{RhythmicStaff} creates a single-line staff that only
@@ -100,12 +93,18 @@ There are two staff contexts specific for the notation of ancient
 music: @code{MensuralStaff} and @code{VaticanaStaff}.  They are
 described in @ref{Pre-defined contexts}.
 
+The @code{GregorianTranscriptionStaff} context creates a staff to
+notate modern Gregorian chant.  It does not show bar lines.
+
+@lilypond[verbatim,quote,relative=2]
+\new GregorianTranscriptionStaff { c4 d e f e d }
+@end lilypond
+
 New single staff contexts may be defined.  For details, see
 @ref{Defining new contexts}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{staff},
 @rglos{staves}.
@@ -235,11 +234,9 @@ New staff group contexts may be defined.  For details, see
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
-@c FIXME: move to NR 2.8.x when sectioning is ready
 
 
 @seealso
-
 Music Glossary:
 @rglos{brace},
 @rglos{bracket},
@@ -274,40 +271,24 @@ Internals Reference:
 @cindex nested staff brackets
 @cindex brackets, nesting of
 @cindex braces, nesting of
-@cindex inner staff group
-@cindex inner choir staff group
 
-Two additional staff-group contexts are available that can be
-nested within a @code{StaffGroup} or @code{ChoirStaff} context:
-@code{InnerStaffGroup} and @code{InnerChoirStaff}.  These contexts
-create a new bracket adjacent to the bracket of their parent staff
-group.
-
-An @code{InnerStaffGroup} is treated similarly to a
-@code{StaffGroup}; bar lines are connected between each staff
-within the context:
+Staff-group contexts can be nested to arbitrary depths.  In this
+case, each child context creates a new bracket adjacent to the
+bracket of its parent group.
 
 @lilypond[verbatim,quote,relative=2]
 \new StaffGroup <<
   \new Staff { c2 c | c2 c }
-  \new InnerStaffGroup <<
+  \new StaffGroup <<
     \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
+    \new StaffGroup \with {
+      systemStartDelimiter = #'SystemStartSquare
+    }
+    <<
+      \new Staff { e2 e | e2 e }
+      \new Staff { c2 c | c2 c }
+    >>
   >>
->>
-@end lilypond
-
-Bar lines are @emph{not} connected between staves of an
-@code{InnerChoirStaff}, just like a @code{ChoirStaff}:
-
-@lilypond[verbatim,quote,relative=2]
-\new ChoirStaff <<
-  \new Staff { c2 c | c2 c }
-  \new InnerChoirStaff <<
-    \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
-  >>
-  \new Staff { c1 | c1 }
 >>
 @end lilypond
 
@@ -322,7 +303,6 @@ New nested staff group contexts can be defined.  For details, see
 
 
 @seealso
-
 Notation Reference:
 @ref{Grouping staves},
 @ref{Instrument names},
@@ -332,9 +312,7 @@ Snippets:
 @rlsr{Staff notation}.
 
 Internals Reference:
-@rinternals{InnerStaffGroup},
 @rinternals{StaffGroup},
-@rinternals{InnerChoirStaff},
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
@@ -404,7 +382,9 @@ thickness.
 @end lilypond
 
 Ledger line thickness can be set independently of staff line
-thickness.
+thickness.  In the example the two numbers are factors multiplying
+the staff line thickness and the staff line spacing.  The two
+contributions are added to give the ledger line thickness.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -460,9 +440,9 @@ e4 d c2
 
 
 @predefined
-
 @code{\startStaff},
 @code{\stopStaff}.
+@endpredefined
 
 
 @snippets
@@ -472,7 +452,6 @@ e4 d c2
 
 
 @seealso
-
 Music Glossary:
 @rglos{line},
 @rglos{ledger line},
@@ -520,7 +499,7 @@ staff in the appropriate location:
 @end lilypond
 
 @noindent
-However, the above example is usually not the desired result.  To
+However, the above example is not what is usually desired.  To
 create ossia staves that are above the original staff, have no
 time signature or clef, and have a smaller font size, tweaks must
 be used.  The Learning Manual describes a specific technique to
@@ -639,7 +618,6 @@ more information about @code{\RemoveEmptyStaffContext}, see
 
 
 @seealso
-
 Music Glossary:
 @rglos{ossia},
 @rglos{staff},
@@ -689,8 +667,9 @@ block.  In orchestral scores, this style is known as @q{Frenched
 Score}.  By default, this command hides and removes all empty
 staves in a score except for those in the first system.
 
-@warning{An empty staff may only include multi-measure rests,
-skips, spacer rests, or a combination of these elements.}
+@warning{A staff is considered empty when it contains only
+multi-measure rests, skips, spacer rests, or a combination of these
+elements.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -731,10 +710,10 @@ hide empty staves in ancient music contexts.  Similarly,
 
 
 @predefined
-
 @code{\RemoveEmptyStaffContext},
 @code{\AncientRemoveEmptyStaffContext},
 @code{\RemoveEmptyRhythmicStaffContext}.
+@endpredefined
 
 
 @snippets
@@ -744,7 +723,6 @@ hide empty staves in ancient music contexts.  Similarly,
 
 
 @seealso
-
 Music Glossary:
 @rglos{Frenched staff}.
 
@@ -859,7 +837,6 @@ For more details, see @ref{Formatting text}.
 
 
 @seealso
-
 Music Glossary:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1018,7 +995,6 @@ expression to declare the instrument switch:
 
 
 @seealso
-
 Notation Reference:
 @ref{Horizontal dimensions},
 @ref{Modifying context plug-ins}.
@@ -1040,16 +1016,16 @@ Internals Reference:
 @cindex fragments
 @cindex cue notes
 
-It is very common for one voice to double the some of the music from                     
-another voice.  For example, the first and second violins may play the                    
-same notes during a passage of music.  In LilyPond this is accomplished                   
+It is very common for one voice to double some of the music from
+another voice.  For example, the first and second violins may play the
+same notes during a passage of music.  In LilyPond this is accomplished
 by letting one voice @emph{quote} the other voice without having to
 re-enter it.
-                                                                       
-Before a part can be quoted, the @code{\addQuote} command must be used                   
-to initialize the quoted fragment.  This command must be used in the                      
-toplevel scope.  The first argument is an identifying string, and the                     
-second is a music expression: 
+
+Before a part can be quoted, the @code{\addQuote} command must be used
+to initialize the quoted fragment.  This command must be used in the
+toplevel scope.  The first argument is an identifying string, and the
+second is a music expression:
 
 @example
 flute = \relative c'' @{
@@ -1129,7 +1105,6 @@ see @ref{Using tags}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Using tags}.
@@ -1283,7 +1258,6 @@ see @ref{Using tags}.
 
 
 @seealso
-
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Instrument names},

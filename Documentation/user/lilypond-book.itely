@@ -45,12 +45,12 @@ documents.
 @cindex @LaTeX{}, music in
 
 @menu
-* An example of a musicological document::  
-* Integrating music and text::  
-* Music fragment options::      
-* Invoking lilypond-book::      
-* Filename extensions::         
-* Alternate methods of mixing text and music::  
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* Alternate methods of mixing text and music::
 @end menu
 
 
@@ -165,10 +165,10 @@ Larger examples can be put into a separate file, and introduced with
 Here we explain how to integrate LilyPond with various output formats.
 
 @menu
-* LaTeX::                       
-* Texinfo::                     
-* HTML::                        
-* DocBook::                     
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
 @end menu
 
 @node LaTeX
@@ -205,8 +205,10 @@ or
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
+Additionally, @code{\lilypondversion} displays the current version
+of lilypond.
 Running @command{lilypond-book} yields a file that can be further
-processed with @LaTeX{}.
+processed with @LaTeX{}. 
 
 We show some examples here.  The @code{lilypond} environment
 
@@ -357,6 +359,7 @@ and then saying only how many systems you want before each fragment,
 \begin@{lilypond@}...\end@{lilypond@}
 @end example
 
+
 @seealso
 There are specific @command{lilypond-book} command line options and
 other details to know when processing @LaTeX{} documents, see
@@ -391,6 +394,9 @@ or
 @example
 @@lilypondfile[options,go,here]@{@var{filename}@}
 @end example
+
+Additionally, @code{@@lilypondversion} displays the current version
+of lilypond.
 
 When @command{lilypond-book} is run on it, this results in a Texinfo
 file (with extension @file{.texi}) containing @code{@@image} tags for
@@ -438,7 +444,6 @@ Music is entered using
 \key c \minor c4 es g2
 </lilypond>
 @end example
-
 @noindent
 @command{lilypond-book} then produces an HTML file with appropriate image
 tags for the music fragments:
@@ -454,11 +459,16 @@ are separated by a colon from the music, for example
 Some music in <lilypond relative=2: a b c/> a line of text.
 @end example
 
+
 To include separate files, say
 
 @example
 <lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
 @end example
+
+Additionally, @code{<lilypondversion/>} displays the current version
+of lilypond.
+
 
 @cindex titling in HTML
 @cindex preview image
@@ -496,7 +506,7 @@ the following structure:
 </mediaobject>
 @end example
 
-Note that you can use @code{mediaobject} or @code{inlinemediaobject} 
+Note that you can use @code{mediaobject} or @code{inlinemediaobject}
 as the outermost element as you wish.
 
 @subheading Including LilyPond code
@@ -511,7 +521,7 @@ structure:
     <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
 \context Staff \with @{
   \remove Time_signature_engraver
-  \remove Clef_engraver@} 
+  \remove Clef_engraver@}
   @{ c4( fis) @}
     </programlisting>
   </textobject>
@@ -563,11 +573,6 @@ explicitly specified.
 For single-line snippets, allow the staff length to be stretched to
 equal that of the line width, i.e., @code{ragged-right = ##f} is
 added to the LilyPond snippet.
-
-@c does this option still exist in lilypond? -jm
-@item packed
-Produce lines with packed spacing, i.e., @code{packed = ##t} is added
-to the LilyPond snippet.
 
 @item line-width
 @itemx line-width=@var{size}\@var{unit}
@@ -650,7 +655,7 @@ source file contain a comment containing @samp{begin verbatim} (without
 quotes), quoting the source in the verbatim block will start after the
 last occurrence of such a comment; similarly, quoting the source verbatim
 will stop just before the first occurrence of a comment containing
-@samp{end verbatim}, it there is any.  In the following source file
+@samp{end verbatim}, if there is any.  In the following source file
 example, the music will be interpreted in relative mode, but the
 verbatim quote will not show the @code{relative} block, i.e.
 
@@ -668,6 +673,13 @@ will be printed with a verbatim block like
   c4 e2 g4
   f2 e
 @end example
+
+@noindent
+If you would like to translate comments and variable names in verbatim
+output but not in the sources, you may set the environment variable
+@code{LYDOC_LOCALEDIR} to a directory path; the directory should
+contain a tree of @file{.mo} message catalogs with @code{lilypond-doc}
+as a domain.
 
 @item addversion
 (Only for Texinfo output.)  Prepend line @code{\version
@@ -701,8 +713,8 @@ and we have this in our Texinfo document @file{test.texinfo}
 the following command line gives the expected result
 
 @example
-lilypond-book --process="lilypond --format=tex --tex \
-              --header=texidoc test.texinfo
+lilypond-book --pdf --process="lilypond \
+  -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
 Most LilyPond test documents (in the @file{input} directory of the
@@ -734,6 +746,10 @@ Texinfo document as @code{@@lydoctitle @var{text}}.
 @code{@@lydoctitle} should be a macro defined in the Texinfo document.
 The same remark about @code{texidoc} processing with localized
 languages also applies to @code{doctitle}.
+
+@item nogettext
+(Only for Texinfo output.) Do not translate comments and variable
+names in the snippet quoted verbatim.
 
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print
@@ -901,7 +917,7 @@ music stick out of the right margin.
 
 The width of a tightly clipped system can vary, due to notation
 elements that stick into the left margin, such as bar numbers and
-instrument names.  This option will shorten each line and move each 
+instrument names.  This option will shorten each line and move each
 line to the right by the same amount.
 
 
@@ -962,7 +978,7 @@ If you use the same filename extension for the input file than the
 extension @command{lilypond-book} uses for the output file, and if the
 input file is in the same directory as @command{lilypond-book} working
 directory, you must use @code{--output} option to make
-@command{lilypond-book} running, otherwise the will exit with an error
+@command{lilypond-book} running, otherwise it will exit with an error
 message like @qq{Output would overwrite input file}.
 
 
@@ -973,9 +989,9 @@ This section shows methods to integrate text and music, different than
 the automated method with @command{lilypond-book}.
 
 @menu
-* Many quotes from a large score::  
-* Inserting LilyPond output into OpenOffice.org::  
-* Inserting LilyPond output into other programs::  
+* Many quotes from a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
 @end menu
 
 @node Many quotes from a large score

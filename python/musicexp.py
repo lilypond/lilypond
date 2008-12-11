@@ -43,7 +43,6 @@ class Output_printer:
     Music expression as a .ly file.
     
     """
-    ## TODO: support for \relative.
     
     def __init__ (self):
         self._line = ''
@@ -205,10 +204,20 @@ class Duration:
 # Implement the different note names for the various languages
 def pitch_generic (pitch, notenames, accidentals):
     str = notenames[pitch.step]
-    if pitch.alteration < 0:
-        str += accidentals[0] * (-pitch.alteration)
+    halftones = int (pitch.alteration)
+    if halftones < 0:
+        str += accidentals[0] * (-halftones)
     elif pitch.alteration > 0:
-        str += accidentals[3] * (pitch.alteration)
+        str += accidentals[3] * (halftones)
+    # Handle remaining fraction to pitch.alteration (for microtones)
+    if (halftones != pitch.alteration):
+        if None in accidentals[1:3]:
+            warning (_ ("Language does not support microtones contained in the piece"))
+        else:
+            try:
+                str += {-0.5: accidentals[1], 0.5: accidentals[2]}[pitch.alteration-halftones]
+            except KeyError:
+                warning (_ ("Language does not support microtones contained in the piece"))
     return str
 
 def pitch_general (pitch):
@@ -230,7 +239,7 @@ def pitch_norsk (pitch):
     return pitch_deutsch (pitch)
 
 def pitch_svenska (pitch):
-    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', '', '', 'iss'])
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', None, None, 'iss'])
     return str.replace ('hess', 'b').replace ('aes', 'as').replace ('ees', 'es')
 
 def pitch_italiano (pitch):
@@ -241,11 +250,11 @@ def pitch_catalan (pitch):
     return pitch_italiano (pitch)
 
 def pitch_espanol (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', '', '', 's'])
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 's'])
     return str
 
 def pitch_vlaams (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', '', '', 'k'])
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 'k'])
     return str
 
 def set_pitch_language (language):
@@ -271,6 +280,7 @@ class Pitch:
         self.alteration = 0
         self.step = 0
         self.octave = 0
+        self._force_absolute_pitch = False
         
     def __repr__(self):
         return self.ly_expression()
@@ -340,7 +350,7 @@ class Pitch:
 
     def ly_expression (self):
         str = self.ly_step_expression ()
-        if relative_pitches:
+        if relative_pitches and not self._force_absolute_pitch:
             str += self.relative_pitch ()
         else:
             str += self.absolute_pitch ()
@@ -451,7 +461,68 @@ class RelativeMusic (MusicWrapper):
         relative_pitches = prev_relative_pitches
 
 class TimeScaledMusic (MusicWrapper):
+    def __init__ (self):
+        MusicWrapper.__init__ (self)
+        self.numerator = 1
+        self.denominator = 1
+        self.display_number = "actual" # valid values "actual" | "both" | None
+        # Display the basic note length for the tuplet:
+        self.display_type = None       # value values "actual" | "both" | None
+        self.display_bracket = "bracket" # valid values "bracket" | "curved" | None
+        self.actual_type = None   # The actually played unit of the scaling
+        self.normal_type = None   # The basic unit of the scaling
+        self.display_numerator = None
+        self.display_denominator = None
+
     def print_ly (self, func):
+        if self.display_bracket == None:
+            func ("\\once \\override TupletBracket #'stencil = ##f")
+            func.newline ()
+        elif self.display_bracket == "curved":
+            warning (_ ("Tuplet brackets of curved shape are not correctly implemented"))
+            func ("\\once \\override TupletBracket #'stencil = #ly:slur::print")
+            func.newline ()
+
+        base_number_function = {None: "#f", 
+             "actual": "tuplet-number::calc-denominator-text", 
+             "both": "tuplet-number::calc-fraction-text"}.get (self.display_number, None)
+        # If we have non-standard numerator/denominator, use our custom function
+        if self.display_number == "actual" and self.display_denominator:
+            base_number_function = "(tuplet-number::non-default-tuplet-denominator-text %s)" % self.display_denominator
+        elif self.display_number == "both" and (self.display_denominator or self.display_numerator):
+            if self.display_numerator:
+                num = self.display_numerator
+            else:
+                num = "#f"
+            if self.display_denominator:
+                den = self.display_denominator
+            else:
+                den = "#f"
+            base_number_function = "(tuplet-number::non-default-tuplet-fraction-text %s %s)" % (den, num)
+
+
+        if self.display_type == "actual" and self.normal_type:
+            # Obtain the note duration in scheme-mode, i.e. \longa as \\longa
+            base_duration = self.normal_type.ly_expression (None, True)
+            func ("\\once \\override TupletNumber #'text = #(tuplet-number::append-note-wrapper %s \"%s\")" %
+                (base_number_function, base_duration))
+            func.newline ()
+        elif self.display_type == "both": # TODO: Implement this using actual_type and normal_type!
+            warning (_ ("Tuplet brackets displaying both note durations are not implemented, using default"))
+            if self.display_number == None:
+                func ("\\once \\override TupletNumber #'stencil = ##f")
+                func.newline ()
+            elif self.display_number == "both":
+                func ("\\once \\override TupletNumber #'text = #%s" % base_number_function)
+                func.newline ()
+        else:
+            if self.display_number == None:
+                func ("\\once \\override TupletNumber #'stencil = ##f")
+                func.newline ()
+            elif self.display_number == "both":
+                func ("\\once \\override TupletNumber #'text = #%s" % base_number_function)
+                func.newline ()
+
         func ('\\times %d/%d ' %
            (self.numerator, self.denominator))
         func.add_factor (Rational (self.numerator, self.denominator))
@@ -783,7 +854,7 @@ class ChordEvent (NestedMusic):
             pitches = []
             basepitch = None
             for x in note_events:
-                pitches.append (x.pitch.ly_expression ())
+                pitches.append (x.chord_element_ly ())
                 if not basepitch:
                     basepitch = previous_pitch
             printer ('<%s>' % string.join (pitches))
@@ -920,7 +991,11 @@ class OctaveShiftEvent (SpanEvent):
         self.span_type = {'up': 1, 'down': -1}.get (type, 0)
     def ly_octave_shift_indicator (self):
         # convert 8/15 to lilypond indicators (+-1/+-2)
-        value = {8: 1, 15: 2}.get (self.size, 0)
+        try:
+            value = {8: 1, 15: 2}[self.size]
+        except KeyError:
+            warning (_ ("Invalid octave shift size found: %s. Using no shift.") % self.size)
+            value = 0
         # negative values go up!
         value *= -1*self.span_type
         return value
@@ -1126,6 +1201,47 @@ class FretEvent (MarkupEvent):
         else:
             return ''
 
+
+class FunctionWrapperEvent (Event):
+    def __init__ (self, function_name = None):
+        Event.__init__ (self)
+        self.function_name = function_name
+    def pre_note_ly (self, is_chord_element):
+        if self.function_name:
+            return "\\%s" % self.function_name
+        else:
+            return ''
+    def pre_chord_ly (self):
+        return ''
+    def ly_expression (self):
+        if self.function_name:
+            return "\\%s" % self.function_name
+        else:
+            return ''
+
+class ParenthesizeEvent (FunctionWrapperEvent):
+    def __init__ (self):
+        FunctionWrapperEvent.__init__ (self, "parenthesize")
+
+class NotestyleEvent (Event):
+    def __init__ (self):
+        Event.__init__ (self)
+        self.style = None
+        self.filled = None
+    def pre_chord_ly (self):
+        if self.style:
+            return "\\once \\override NoteHead #'style = #%s" % self.style
+        else:
+            return ''
+    def pre_note_ly (self, is_chord_element):
+        if self.style and is_chord_element:
+            return "\\tweak #'style #%s" % self.style
+        else:
+            return ''
+    def ly_expression (self):
+        return self.pre_chord_ly ()
+
+
 class ChordPitch:
     def __init__ (self):
         self.alteration = 0
@@ -1194,9 +1310,9 @@ class TremoloEvent (ArticulationEvent):
 class BendEvent (ArticulationEvent):
     def __init__ (self):
         Event.__init__ (self)
-        self.alter = 0
+        self.alter = None
     def ly_expression (self):
-        if self.alter:
+        if self.alter != None:
             return "-\\bendAfter #%s" % self.alter
         else:
             return ''
@@ -1205,7 +1321,24 @@ class RhythmicEvent(Event):
     def __init__ (self):
         Event.__init__ (self)
         self.duration = Duration()
-        
+        self.associated_events = []
+
+    def add_associated_event (self, ev):
+        if ev:
+            self.associated_events.append (ev)
+
+    def pre_chord_ly (self):
+        return [ev.pre_chord_ly () for ev in self.associated_events]
+
+    def pre_note_ly (self, is_chord_element):
+        return [ev.pre_note_ly (is_chord_element) for ev in self.associated_events]
+
+    def ly_expression_pre_note (self, is_chord_element):
+        res = string.join (self.pre_note_ly (is_chord_element), ' ')
+        if res != '':
+            res = res + ' '
+        return res
+
     def get_length (self):
         return self.duration.get_length()
         
@@ -1217,13 +1350,17 @@ class RestEvent (RhythmicEvent):
     def __init__ (self):
         RhythmicEvent.__init__ (self)
         self.pitch = None
+
     def ly_expression (self):
+        res = self.ly_expression_pre_note (False)
         if self.pitch:
-            return "%s%s\\rest" % (self.pitch.ly_expression (), self.duration.ly_expression ())
+            return res + "%s%s\\rest" % (self.pitch.ly_expression (), self.duration.ly_expression ())
         else:
             return 'r%s' % self.duration.ly_expression ()
     
     def print_ly (self, printer):
+        for ev in self.associated_events:
+            ev.print_ly (printer)
         if self.pitch:
             self.pitch.print_ly (printer)
             self.duration.print_ly (printer)
@@ -1243,7 +1380,7 @@ class NoteEvent(RhythmicEvent):
         self.drum_type = None
         self.cautionary = False
         self.forced_accidental = False
-        
+
     def get_properties (self):
         str = RhythmicEvent.get_properties (self)
         
@@ -1262,17 +1399,31 @@ class NoteEvent(RhythmicEvent):
             excl_question += '!'
 
         return excl_question
-    
+
     def ly_expression (self):
+        # obtain all stuff that needs to be printed before the note:
+        res = self.ly_expression_pre_note (True)
         if self.pitch:
-            return '%s%s%s' % (self.pitch.ly_expression (),
+            return res + '%s%s%s' % (self.pitch.ly_expression (),
                                self.pitch_mods(),
                                self.duration.ly_expression ())
         elif self.drum_type:
-            return '%s%s' (self.drum_type,
+            return res + '%s%s' (self.drum_type,
                            self.duration.ly_expression ())
 
+    def chord_element_ly (self):
+        # obtain all stuff that needs to be printed before the note:
+        res = self.ly_expression_pre_note (True)
+        if self.pitch:
+            return res + '%s%s' % (self.pitch.ly_expression (),
+                               self.pitch_mods())
+        elif self.drum_type:
+            return res + '%s%s' (self.drum_type)
+
+
     def print_ly (self, printer):
+        for ev in self.associated_events:
+            ev.print_ly (printer)
         if self.pitch:
             self.pitch.print_ly (printer)
             printer (self.pitch_mods ())
@@ -1284,27 +1435,81 @@ class NoteEvent(RhythmicEvent):
 class KeySignatureChange (Music):
     def __init__ (self):
         Music.__init__ (self)
-        self.scale = []
-        self.tonic = Pitch()
+        self.tonic = None
         self.mode = 'major'
-        
-    def ly_expression (self):
-        return '\\key %s \\%s' % (self.tonic.ly_step_expression (),
-                     self.mode)
-    
-    def lisp_expression (self):
-        pairs = ['(%d . %d)' % (i , self.scale[i]) for i in range (0,7)]
-        scale_str = ("'(%s)" % string.join (pairs))
+        self.non_standard_alterations = None
 
-        return """ (make-music 'KeyChangeEvent
-     'pitch-alist %s) """ % scale_str
+    def format_non_standard_alteration (self, a):
+        alter_dict = { -2:   ",DOUBLE-FLAT",
+                       -1.5: ",THREE-Q-FLAT",
+                       -1:   ",FLAT",
+                       -0.5: ",SEMI-FLAT",
+                        0:   ",NATURAL",
+                        0.5: ",SEMI-SHARP",
+                        1:   ",SHARP",
+                        1.5: ",THREE-Q-SHARP",
+                        2:   ",DOUBLE-SHARP"}
+        try:
+            accidental = alter_dict[a[1]]
+        except KeyError:
+            warning (_ ("Unable to convert alteration %s to a lilypond expression") % a[1])
+            return ''
+        if len (a) == 2:
+            return "( %s . %s )" % (a[0], accidental)
+        elif len (a) == 3:
+            return "(( %s . %s ) . %s )" % (a[2], a[0], accidental)
+        else:
+            return ''
+
+    def ly_expression (self):
+        if self.tonic:
+            return '\\key %s \\%s' % (self.tonic.ly_step_expression (),
+                     self.mode)
+        elif self.non_standard_alterations:
+            alterations = [self.format_non_standard_alteration (a) for
+                                        a in self.non_standard_alterations]
+            # TODO: Check if the alterations should really be given in reverse
+            #       order of if that's just a bug in Lilypond. If it's a bug,
+            #       fix it and remove the following call, otherwise add a
+            #       proper comment here!
+            alterations.reverse ()
+            return "\\set Staff.keySignature = #`(%s)" % string.join (alterations, " ")
+        else:
+            return ''
 
 class TimeSignatureChange (Music):
     def __init__ (self):
         Music.__init__ (self)
-        self.fraction = (4,4)
+        self.fractions = [4,4]
+        self.style = None
+    def format_fraction (self, frac):
+        if isinstance (frac, list):
+            l = [self.format_fraction (f) for f in frac]
+            return "(" + string.join (l, " ") + ")"
+        else:
+            return "%s" % frac
+
     def ly_expression (self):
-        return '\\time %d/%d ' % self.fraction
+        st = ''
+        # Print out the style if we have ome, but the '() should only be 
+        # forced for 2/2 or 4/4, since in all other cases we'll get numeric 
+        # signatures anyway despite the default 'C signature style!
+        is_common_signature = self.fractions in ([2,2], [4,4], [4,2])
+        if self.style:
+            if self.style == "common":
+                st = "\\defaultTimeSignature"
+            elif (self.style != "'()"):
+                st = "\\once \\override Staff.TimeSignature #'style = #%s " % self.style
+            elif (self.style != "'()") or is_common_signature:
+                st = "\\numericTimeSignature"
+
+        # Easy case: self.fractions = [n,d] => normal \time n/d call:
+        if len (self.fractions) == 2 and isinstance (self.fractions[0], int):
+            return st + '\\time %d/%d ' % tuple (self.fractions)
+        elif self.fractions:
+            return st + "\\compoundMeter #'%s" % self.format_fraction (self.fractions)
+        else:
+            return st + ''
     
 class ClefChange (Music):
     def __init__ (self):
@@ -1354,6 +1559,13 @@ class ClefChange (Music):
 """ % (glyph, pos, c0)
         return clefsetting
 
+class Transposition (Music):
+    def __init__ (self):
+        Music.__init__ (self)
+        self.pitch = None
+    def ly_expression (self):
+        self.pitch._force_absolute_pitch = True
+        return '\\transposition %s' % self.pitch.ly_expression ()
 
 class StaffChange (Music):
     def __init__ (self, staff):

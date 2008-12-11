@@ -4,7 +4,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2005--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2005--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; gui debug helper
 ;; (define (exit x) (system "sleep 10"))
@@ -42,7 +42,7 @@
     (define-public (_ x) x))
 
 (define (show-version port)
-  (format port "~a (GNU LilyPond) ~a \n" PROGRAM-NAME TOPLEVEL-VERSION))
+  (format port "~a (GNU LilyPond) ~a\n" PROGRAM-NAME TOPLEVEL-VERSION))
 
 (define (show-help port)
   (format port (_ "Usage: lilypond-invoke-editor [textedit://]FILE:LINE:CHAR:COLUMN

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -121,8 +121,8 @@ La propiedad @code{font-size} sólo se puede establecer en objetos
 gráficos que utilicesn fuentes tipográficas.  Éstos son los que
 contemplan el interfaz de presentación @code{font-interface}.
 
-@predefined
 
+@predefined
 @funindex \teeny
 @code{\teeny} (enano),
 @funindex \tiny
@@ -135,9 +135,10 @@ contemplan el interfaz de presentación @code{font-interface}.
 @code{\large} (grande),
 @funindex \huge
 @code{\huge} (enorme).
+@endpredefined
+
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -174,7 +175,7 @@ Puede usar la articulación de pulgar para indicar que una nota se debe
 tocar con el pulgar (p.ej. en música de cello).
 
 @lilypond[verbatim,quote,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
+<a_\thumb a'-3>2 <b_\thumb b'-3>
 @end lilypond
 
 @cindex digitación de acordes
@@ -200,10 +201,13 @@ and placement}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{avoiding-collisions-of-chord-fingering-with-beams.ly}
 
+
+@seealso
 Referencia de la notación:
-@ref{Direction and placement}
+@ref{Direction and placement}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -254,12 +258,14 @@ c4( d)
 e4(\p f)--
 @end lilypond
 
-@predefined
 
-@code{\hideNotes}, @code{\unHideNotes}
+@predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
+
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -349,14 +355,15 @@ gis8 a
 gis4 a
 @end lilypond
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{List of colors},
 @ref{The tweak command}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
+
 
 @cindex x11,  color de
 @cindex coloreadas, notas de acorde
@@ -407,8 +414,8 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -416,6 +423,7 @@ Referencia de funciionamiento interno:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+
 
 @knownissues
 
@@ -434,14 +442,15 @@ Cuando se encuentra con una nota, se crea automáticamente un objeto
 @code{Stem} (plica).  Para las redondas y los silencios, también se
 crean pero se hacen invisibles.
 
-@predefined
 
+@predefined
 @funindex \stemUp
 @code{\stemUp},
 @funindex \stemDown
 @code{\stemDown},
 @funindex \stemNeutral
 @code{\stemNeutral}.
+@endpredefined
 
 
 @snippets
@@ -453,6 +462,7 @@ crean pero se hacen invisibles.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -533,16 +543,16 @@ pero esto puede cambiarse:
 
 
 @predefined
-
 @funindex balloonLengthOn
-@funindex balloonLengthOff
 @funindex \balloonLengthOn
+@code{\balloonLengthOn},
 @funindex \balloonLengthOff
+@funindex balloonLengthOff
+@code{\balloonLengthOff}.
+@endpredefined
 
-@code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -610,7 +620,6 @@ especificar la duración entre las líneas de rejilla.
 
 
 @seealso
-
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -673,8 +682,8 @@ Los corchetes de análisis se pueden anidar.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 

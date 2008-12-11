@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "moment.hh"
@@ -60,10 +60,10 @@ SCM
 Moment::as_scheme () const
 {
   return scm_list_5 (ly_symbol2scm ("ly:make-moment"),
-		     scm_from_int (main_part_.num ()),
-		     scm_from_int (main_part_.den ()),
-		     scm_from_int (grace_part_.num ()),
-		     scm_from_int (grace_part_.den ()));
+		     scm_from_int64 (main_part_.num ()),
+		     scm_from_int64 (main_part_.den ()),
+		     scm_from_int64 (grace_part_.num ()),
+		     scm_from_int64 (grace_part_.den ()));
 }
 
 SCM
@@ -129,13 +129,14 @@ Moment::operator %= (Moment const &src)
   grace_part_ %= src.main_part_;
 }
 
-int
+I64
 Moment::den () const
 {
+  /* TODO: ensure MSB == 0 here */
   return main_part_.den ();
 }
 
-int
+I64
 Moment::num () const
 {
   return main_part_.num ();

@@ -73,7 +73,6 @@ Chord mode and note mode can be mixed in sequential music:
 
 
 @seealso
-
 Music Glossary:
 @rglos{chord}.
 
@@ -83,6 +82,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}
+
 
 @knownissues
 
@@ -164,7 +164,7 @@ The default action; produces a major triad.
 }
 @end lilypond
 
-@item 
+@item
 m, m7
 @tab
 The minor chord.  This modifier lowers the 3rd and (if present) the
@@ -178,7 +178,7 @@ The minor chord.  This modifier lowers the 3rd and (if present) the
 @end lilypond
 
 
-@item 
+@item
 dim, dim7
 @tab
 The diminished chord.  This modifier lowers the 3rd, 5th and (if
@@ -191,7 +191,7 @@ present) the 7th step.
 }
 @end lilypond
 
-@item 
+@item
 aug
 @tab
 The augmented chord.  This modifier raises the 5th step.
@@ -203,7 +203,7 @@ The augmented chord.  This modifier raises the 5th step.
 }
 @end lilypond
 
-@item 
+@item
 maj, maj7
 @tab
 The major 7th chord.  This modifier adds a raised 7th step.  The
@@ -221,12 +221,12 @@ to create a major triad.
 
 
 @seealso
-
 Notation Reference:
 @ref{Common chord modifiers}.
 
 Snippets:
 @rlsr{Chords}.
+
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
@@ -304,11 +304,11 @@ as part of the basic chord structure, add it as an altered step.
 
 @funindex ^
 
-Following any steps to be added, a series of steps to be removed 
-is introduced in a modifier string with a prefix of @code{^}.  
+Following any steps to be added, a series of steps to be removed
+is introduced in a modifier string with a prefix of @code{^}.
 If more than one step is to be removed, the steps to be
 removed are separated by @code{.} following the
-initial @code{^}. 
+initial @code{^}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
@@ -356,16 +356,17 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 @end lilypond
 
 Chord modifiers that can be used to produce a variety of
-standard chords are shown in 
+standard chords are shown in
 @ref{Common chord modifiers}.
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Common chord modifiers}.
 
 Snippets:
 @rlsr{Chords}
+
 
 @knownissues
 
@@ -470,14 +471,11 @@ of the mode of entry, unless there are inversions or added bass notes:
 
 
 @seealso
-
 Music Glossary:
 @rglos{chord}.
 
-
 Notation Reference:
 @ref{Writing music in parallel}.
-
 
 Snippets:
 @rlsr{Chords}.
@@ -488,6 +486,7 @@ Internals Reference:
 @rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
+
 
 @knownissues
 
@@ -590,8 +589,8 @@ The spacer is not used when the root is altered.
 
 @end table
 
-@predefined
 
+@predefined
 @funindex major seven symbols
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
@@ -603,6 +602,7 @@ The spacer is not used when the root is altered.
 @code{\italianChords},
 @funindex \frenchChords
 @code{\frenchChords}.
+@endpredefined
 
 
 @snippets
@@ -626,7 +626,6 @@ The spacer is not used when the root is altered.
 
 
 @seealso
-
 Notation Reference:
 @ref{Chord name chart},
 @ref{Common chord modifiers}.
@@ -641,6 +640,7 @@ Snippets:
 
 @c Internals Reference:
 @c @r internals{}.
+
 
 @knownissues
 
@@ -726,8 +726,8 @@ example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 @end ignore
 
-@seealso
 
+@seealso
 Music Glossary:
 @rglos{figured bass}.
 
@@ -899,33 +899,34 @@ End of continuation line
 @end multitable
 
 
-
 @predefined
 @cindex figured bass extender lines
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
+@endpredefined
 
 
 @snippets
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
+
 @seealso
 @c Music Glossary:
 @c @rglos{}.
-
+@c
 @c Learning Manual:
 @c @rlearning{}.
-
+@c
 @c Notation Reference:
 @c @ref{}.
-
+@c
 @c Application Usage:
 @c @rprogram{}.
-
+@c
 @c Installed Files:
 @c @file{}.
-
+@c
 Snippets:
 @rlsr{Chords}.
 
@@ -937,7 +938,9 @@ Internals Reference:
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
 
+
 @c @knownissues
+
 
 @node Displaying figured bass
 @unnumberedsubsubsec Displaying figured bass
@@ -1014,25 +1017,28 @@ or below the staff.
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
+@endpredefined
+
 
 @c @snippets
+
 
 @seealso
 @c Music Glossary:
 @c @rglos{}.
-
+@c
 @c Learning Manual:
 @c @rlearning{}.
-
+@c
 @c Notation Reference:
 @c @ref{}.
-
+@c
 @c Application Usage:
 @c @rprogram{}.
-
+@c
 @c Installed Files:
 @c @file{}.
-
+@c
 Snippets:
 @rlsr{Chords}.
 
@@ -1043,6 +1049,7 @@ Internals Reference:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+
 
 @knownissues
 

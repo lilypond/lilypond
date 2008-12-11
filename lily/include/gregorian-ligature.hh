@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2003--2007 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2003--2008 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #ifndef GREGORIAN_LIGATURE_HH

@@ -68,7 +68,7 @@ Dispatcher::dispatch (SCM sev)
   SCM class_symbol = ev->get_property ("class");
   if (!scm_symbol_p (class_symbol))
     {
-      warning (_f ("Event class should be a symbol"));
+      warning (_ ("Event class should be a symbol"));
       return;
     }
 

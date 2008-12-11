@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 2006--2007 Han-Wen Nienhuys <hanwen@lilypond.org>
+  (c) 2006--2008 Han-Wen Nienhuys <hanwen@lilypond.org>
       2007--2008 Rune Zedeler
       2008       Joe Neeman <joeneeman@gmail.com>
 */
@@ -18,9 +18,9 @@
 */
 LY_DEFINE (ly_make_scale, "ly:make-scale",
 	   1, 0, 0, (SCM steps),
-	   "Create a scale. "
-	   "The argument is a vector of rational numbers, each of which "
-	   "represents the number of tones of a pitch above the tonic.")
+	   "Create a scale."
+	   "  The argument is a vector of rational numbers, each of which"
+	   " represents the number of tones of a pitch above the tonic.")
 {
   bool type_ok = scm_is_vector (steps);
 

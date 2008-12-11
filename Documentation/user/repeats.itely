@@ -29,7 +29,7 @@ notation for repeats with alternatives.
 @item unfold
 The repeated music is fully written out, as many times as
 specified by @var{repeatcount}.  This is useful when
-entering repetitious music. 
+entering repetitious music.
 
 @item percent
 These are beat or measure repeats.  They look like single slashes or
@@ -42,8 +42,8 @@ This is used to write tremolo beams.
 
 
 @menu
-* Long repeats::                
-* Short repeats::               
+* Long repeats::
+* Short repeats::
 @end menu
 
 @node Long repeats
@@ -55,9 +55,9 @@ repeat signs; or written out repeats, used to input repetitious music.
 Repeat signs can also be controlled manually.
 
 @menu
-* Normal repeats::              
-* Manual repeat marks::         
-* Written-out repeats::  
+* Normal repeats::
+* Manual repeat marks::
+* Written-out repeats::
 @end menu
 
 @cindex volta
@@ -132,7 +132,7 @@ e |
 or
 
 @lilypond[verbatim,quote,relative=2]
-\partial 4 
+\partial 4
 \repeat volta 4 { e4 | c2 d | e2 f | }
 \alternative {
   { \partial 4*3 g4 g g }
@@ -168,7 +168,6 @@ c1
 
 
 @seealso
-
 Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
@@ -178,6 +177,7 @@ Snippets: @rlsr{Repeats}.
 Internals Reference: @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @knownissues
 
@@ -284,6 +284,7 @@ g4 a g a
 c1
 \set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
 b1
+\set Score.repeatCommands = #'((volta #f))
 @end lilypond
 
 @cindex volta bracket with text
@@ -292,7 +293,7 @@ b1
 Text can be included with the volta bracket.  The text can be a
 number or numbers or markup text, see @ref{Formatting text}.  The
 simplest way to use markup text is to define the markup first,
-then include the the markup in a Scheme list.
+then include the markup in a Scheme list.
 
 @lilypond[verbatim,quote]
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
@@ -312,8 +313,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Bar lines},
 @ref{Formatting text}.
@@ -371,12 +372,13 @@ c1
 c1
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets: @rlsr{Repeats}.
 
 Internals Reference: @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+
 
 @node Short repeats
 @subsection Short repeats
@@ -386,8 +388,8 @@ take two basic forms: repeats of a single note to two measures,
 represented by slashes or percent signs; and tremolos.
 
 @menu
-* Percent repeats::             
-* Tremolo repeats::             
+* Percent repeats::
+* Tremolo repeats::
 @end menu
 
 @node Percent repeats
@@ -410,7 +412,7 @@ one or two measures are replaced by percent-like signs.  The syntax is
 @code{\repeat percent @var{number} @var{musicexpr}}
 @end example
 
-where @var{musicexpr} is a music expression. 
+where @var{musicexpr} is a music expression.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat percent 4 { c4 }
@@ -424,10 +426,13 @@ where @var{musicexpr} is a music expression.
 {percent-repeat-counter.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-count-visibility.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
 
+@seealso
 Music Glossary: @rglos{percent repeat}, @rglos{simile}.
 
 Snippets: @rlsr{Repeats}.
@@ -436,6 +441,7 @@ Internals Reference: @rinternals{RepeatSlash},
 @rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
+
 
 @knownissues
 
@@ -483,7 +489,7 @@ note, but @code{\repeat tremolo 9} is not.
 The duration of the tremolo equals the duration of the
 braced expression multiplied by the number of repeats:
 @code{\repeat tremolo 8 @{ c16 d16 @}} gives a whole note tremolo,
-notated as two whole notes joined by tremolo beams. 
+notated as two whole notes joined by tremolo beams.
 
 There are two ways to put tremolo marks on a single note.  The
 @code{\repeat tremolo} syntax is also used here, in which case
@@ -509,8 +515,8 @@ c2:8 c:32
 c: c:
 @end lilypond
 
-@seealso
 
+@seealso
 Snippets: @rlsr{Repeats}.
 
 @cindex tremolo, cross-staff

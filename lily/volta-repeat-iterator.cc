@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
 
-  (c) 2002--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2002--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "music.hh"

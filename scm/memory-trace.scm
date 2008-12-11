@@ -106,7 +106,7 @@
 	 (format graph-out "~a ~a\n" time mem)
 	 (if stack
 	     (begin
-	       (format stacks-out "~5a t = ~5a - delta-mem: ~15a - ~a \n" i
+	       (format stacks-out "~5a t = ~5a - delta-mem: ~15a - ~a\n" i
 		       time
 		       (- mem last-mem) proc)
 	       (do

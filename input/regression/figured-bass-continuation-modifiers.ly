@@ -5,10 +5,7 @@
 
 }
 
-\version "2.11.63"
-\paper {
-  ragged-right = ##t
-}
+\version "2.11.64"
 
 <<
   \relative \new Voice {

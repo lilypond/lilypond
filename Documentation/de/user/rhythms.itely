@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 18b8ce48199720c79c5a34ea16814d9015d20e78
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -120,14 +120,13 @@ eine bestimmte Richtung manuell zu erzwingen, zu Einzelheiten
 siehe @ref{Direction and placement}.
 
 @predefined
-
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
+@endpredefined
 
 @seealso
-
 Glossar:
 @rglos{breve},
 @rglos{longa},
@@ -213,11 +212,10 @@ Um die Dauern von Noten zu ändern, ohne die N-tolen-Klammern
 zu setzen, siehe @ref{Scaling durations}.
 
 @predefined
-
 @code{\tupletUp},
 @code{\tupletDown},
 @code{\tupletNeutral}.
-
+@endpredefined
 
 @snippets
 
@@ -240,7 +238,6 @@ zu setzen, siehe @ref{Scaling durations}.
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 @seealso
-
 Glossar:
 @rglos{triplet},
 @rglos{tuplet},
@@ -340,7 +337,6 @@ Eine Anwendung für diesen Befehl ist polymetrische Notation,
 siehe @ref{Polymetric notation}.
 
 @seealso
-
 Notationsreferenz:
 @ref{Tuplets},
 @ref{Invisible rests},
@@ -462,14 +458,13 @@ Durchgehende, gepunktete oder gestrichelte Bindebögen können
 spezifiziert werden, siehe die vordefinieren Befehle.
 
 @predefined
-
 @code{\tieUp},
 @code{\tieDown},
 @code{\tieNeutral},
 @code{\tieDotted},
 @code{\tieDashed},
 @code{\tieSolid}.
-
+@endpredefined
 
 @snippets
 
@@ -480,7 +475,6 @@ spezifiziert werden, siehe die vordefinieren Befehle.
 {engraving-ties-manually.ly}
 
 @seealso
-
 Glossar:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -579,7 +573,6 @@ a4\rest d4\rest
 {rest-styles.ly}
 
 @seealso
-
 Notationsreferenz:
 @ref{Full measure rests}.
 
@@ -653,7 +646,6 @@ Durch ihn wird
 @end lilypond
 
 @seealso
-
 Schnipsel:
 @rlsr{Rhythms}.
 
@@ -787,6 +779,7 @@ Taktprüfungswarnungen nicht angezeigt.
 @code{\fermataMarkup},
 @code{\compressFullBarRests},
 @code{\expandFullBarRests}.
+@endpredefined
 
 @snippets
 
@@ -829,7 +822,6 @@ measure length is determined by the length of the text, the text will
 appear to be centered.
 
 @seealso
-
 Glossar:
 @rglos{multi-measure rest}.
 
@@ -938,32 +930,14 @@ werden behandelt unter
 @ref{Ancient time signatures}.
 
 @predefined
-
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
+@endpredefined
 
 @snippets
 
-@c TODO Send as snippet called "Changing the time signature without affecting the beat length"
-
-The @code{\time} command sets the properties
-@code{timeSignatureFraction}, @code{beatLength}, and
-@code{measureLength} in the @code{Timing} context, which is
-normally aliased to @code{Score}.  Changing the value of
-@code{timeSignatureFraction} causes the new time signature symbol
-to be printed without changing the other properties:
-
-@lilypond[quote,verbatim,relative=2]
-\time 3/4
-a16 a a a a a a a a a a a
-% Change time signature but keep 3/4 beaming
-% due to unchanged beatLength
-\set Score.timeSignatureFraction = #'(12 . 16)
-a16 a a a a a a a a a a a
-\time 12/16
-% Lose 3/4 beaming now beatLength has changed to 16
-a16 a a a a a a a a a a a
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-the-time-signature-without-affecting-the-beaming.ly}
 
 @cindex compound time signatures
 @cindex time signature, compound
@@ -973,7 +947,6 @@ a16 a a a a a a a a a a a
 
 
 @seealso
-
 Glossar:
 @rglos{time signature}
 
@@ -1029,7 +1002,6 @@ sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt
 zu: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
 @seealso
-
 Glossar:
 @rglos{anacrusis}.
 
@@ -1091,12 +1063,11 @@ d4 e d c
 @end lilypond
 
 @predefined
-
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
+@endpredefined
 
 @seealso
-
 Glossar:
 @rglos{cadenza}.
 
@@ -1129,17 +1100,19 @@ einfügen, um anzuzeigen, wo umgebrochen werden darf.
 @cindex Metrum, polymetrisch
 @cindex Unterteilte Taktarten
 
-Polymetrische Notation ist unterstützt, entweder direkt oder
-mit einem Textbeschriftungs-Trick.
+Polymetrische Notation ist unterstützt, entweder direkt, oder
+indem man das sichtbare Taktart-Symbol verändert und zusätzlich
+die Notendauern skaliert.
 
-@strong{Systeme mit unterschiedlichen Taktarten, gleiche
-Taktlänge}
+@strong{@i{Systeme mit unterschiedlichen Taktarten, gleiche
+Taktlänge}}
 
 Diese Art der Notation kann erstellt werden, indem für jedes
 System eine identische Taktart eingestellt wird, aber manuell
 für jeden Takt durch Einstellung von @code{timeSignatureFraction}
 auf den gewünschten Bruch geändert und dann die Länge der
-Noten entsprechenden skaliert wird.  Letzteres geschieht mit dem Befehl
+Noten entsprechenden skaliert wird, siehe auch @ref{Time signature}.
+Die Skalierung geschieht mit dem Befehl
 @code{\scaleDurations}, der auf ähnliche Weise wie @code{\times}
 benutzt wird, aber keine Klammer über den Noten ausgibt. Siehe
 auch @ref{Scaling durations}.
@@ -1148,10 +1121,12 @@ In diesem Beispiel werden Noten mit den Taktarten 3/4, 9/8 und
 10/8 parallel benutzt.  Im zweiten System werden die gezeigten
 Dauern mit 2/3 multipliziert, da 2/3x9/8=3/4, und im dritten
 System werden die gezeigten Dauern mit 3/5 multipliziert, da
-3/5x10/8=3/4.
+3/5x10/8=3/4.  Oft wird es nötig sein, Balken manuell zu setzen,
+weil die Skalierung sich auch auf die automatische Bebalkung
+auswirkt.
 
 @lilypond[quote,verbatim,fragment]
-\relative c' { <<
+\relative c' <<
   \new Staff {
     \time 3/4
     c4 c c |
@@ -1161,7 +1136,7 @@ System werden die gezeigten Dauern mit 3/5 multipliziert, da
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
     \scaleDurations #'(2 . 3)
-      \repeat unfold 6 { c8[ c c] }
+    \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
@@ -1169,17 +1144,18 @@ System werden die gezeigten Dauern mit 3/5 multipliziert, da
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8 c c } c4
+      c4. c4. \times 2/3 { c8[ c c] } c4
     }
   }
->> }
+>>
 @end lilypond
 
-@strong{Systeme mit unterschiedlichen Taktarten, unterschiedliche
-Taktlänge}
+@strong{@i{Systeme mit unterschiedlichen Taktarten, unterschiedliche
+Taktlänge}}
 
 Jedes System kann auch eine eigene unabhängige Taktart erhalten.
-Dazu muss der @code{Timing_translator} in den @code{Staff}-Kontext
+Dazu muss der @code{Timing_translator} und der
+@code{Default_bar_line_engraver} in den @code{Staff}-Kontext
 verschoben werden.
 
 @lilypond[quote,verbatim]
@@ -1227,14 +1203,14 @@ verschoben werden.
 
 
 @seealso
-
 Glossar:
 @rglos{polymetric},
 @rglos{polymetric time signature},
 @rglos{meter}.
 
 Notationreferenz:
-@ref{Scaling durations}
+@ref{Time signature},
+@ref{Scaling durations}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1242,6 +1218,7 @@ Schnipsel:
 Referenz der Intera:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
+@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 
 @knownissues
@@ -1252,7 +1229,6 @@ gleiche Position gesetzt.  Die unterschiedlichen Taktlinien
 führen allerdings dazu, dass die Noten nicht ganz so regelmäßig
 gesetzt werden, wie es ohne unterschiedliche Taktarten der
 Fall wäre.
-
 
 
 @node Automatic note splitting
@@ -1286,7 +1262,6 @@ vollständig gefüllt sind, zeigt die Überbindung genau an, wie viele
 Notenwerte noch in dem jeweiligen Takt fehlen.
 
 @seealso
-
 Glossar: @rglos{tie}
 
 Handbuch zum Lernen:
@@ -1310,7 +1285,6 @@ trotzdem keine Triolen etc.
 
 @code{Completion_heads_engraver} wirkt sich nur auf Noten aus; 
 Pausen werden nicht aufgeteilt.
-
 
 
 @node Showing melody rhythms
@@ -1368,6 +1342,7 @@ eingeschaltet wird mit @code{\improvisationOn}.
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
+@endpredefined
 
 @snippets
 
@@ -1375,7 +1350,6 @@ eingeschaltet wird mit @code{\improvisationOn}.
 {guitar-strum-rhythms.ly}
 
 @seealso
-
 Schnipsel:
 @rlsr{Rhythms}.
 
@@ -1415,7 +1389,8 @@ die Balken auch explizit eingegeben werden, siehe
 Balkenmuster, die sich vom Standard unterscheiden, definiert werden.
 Die Standard-Regeln für die gebräuchlichsten Taktarten sind
 in der Datei @file{scm/@/auto@/-beam@/.scm} definiert.  Wenn
-dort keine Balkenregeln für die aktuelle Taktart vorhanden
+dort keine Balkenregeln für die bestimmte Balkendauer in der
+aktuellen Taktart vorhanden
 sind, wird die Bebalkung geregelt von drei Kontexteigenschaften:
 @code{measureLength}, @code{beatLength} und @code{beatGrouping}.
 Sowohl die Balkenregeln als auch diese Kontexteigenschaften
@@ -1445,6 +1420,7 @@ c16 c8
 @predefined
 @code{\autoBeamOff},
 @code{\autoBeamOn}.
+@endpredefined
 
 @snippets
 
@@ -1463,13 +1439,12 @@ c16 c8
 {changing-beam-knee-gap.ly}
 
 @seealso
-
 Notationsreferenz:
 @ref{Manual beams},
 @ref{Setting automatic beam behavior}.
 
 Installierte Dateien:
-@file{scm/auto-beam.scm}.
+@file{scm/@/auto@/-beam@/.scm}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1512,16 +1487,19 @@ verändern.  Mit der ersten Art verändert man Gruppen von
 Noten, die einer bestimmten Taktart entsprechend mit Balken
 versehen werden.  Das muss manuell getan werden für die Taktarten,
 für welche keine fertigen Regeln definiert worden sind.  Die
-zweite Methode verändert die Endpunkte der Balken und muss
+zweite Methode verändert die Definitionen für die Endpunkte
+der Balken und kann für jede Taktart eingesetzt werden.  Diese
+zweite Methode @strong{muss}
 eingesetzt werden für die Taktarten, für welche schon Regeln
-definiert worden sind.  Regeln sind definiert für die Taktarten
-3/2, 3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 und 12/8.
+definiert worden sind, es sei denn, alle Regeln wurden mit
+@code{revert} rückgängig gemacht.  Regeln sind definiert für
+die Taktarten 3/2, 3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 und 12/8.
 
 @i{@strong{Die Gruppierung von Noten verändern}}
 
 Wenn keine Regeln für die Beendung von Balken für die aktuelle
-Taktart vorhanden sind, wird die Bebalkung von drei 
-Kontext-Eigenschaften kontrolliert:
+Balkendauer in der benutzen Taktart vorhanden sind, wird die
+Bebalkung von drei Kontext-Eigenschaften kontrolliert:
 @code{measureLength}, @code{beatLength} und @code{beatGrouping}.
 Diese Eigenschaften können in den @code{Score}, @code{Staff} oder
 @code{Voice}-Kontexten gesetzt werden, um ihre Wirkungsweise zu
@@ -1545,12 +1523,24 @@ benutzt, um die Endpunkte der Balken zu bestimmen.
 
 @end itemize
 
-Standardmäßig werden diese Eigenschaften durch die Taktart bestimmt,
-die mit @code{\time} gesetzt wurde.  Die @code{measureLength}
-(Taktlänge) hat standardmäßig genau die gleiche Länge wie die
-Taktlänge, die durch @code{\time} bestimmt wurde, und der
-Standardwert für @code{beatLength} (Schlag-Länge) wird durch
+@warning{Diese drei Eigenschaften werden für einen bestimmten
+Balken @strong{nur dann} aktiv, wenn für diese Balkendauer keine
+Beendungsregeln für die benutzte Taktart definiert sind, oder
+wenn alle diese Regeln mit @code{revert} rückgängig gemacht
+wurden.}
+
+Standardmäßig werden @code{measureLength}
+(Taktlänge) und @code{beatLength} von der Taktart entnommen, die
+mit @code{\time} gesetzt wurde. @code{measureLength} hat
+standardmäßig genau die gleiche Länge wie die Taktlänge und der
+Standardwert für @code{beatLength} (Taktzeit-Länge) wird durch
 den Nenner des Taktart-Bruches bestimmt.
+
+Der Standardwert von @code{beatGrouping} wird aus einer Tabelle
+in der Datei @file{scm/@/music@/-functions@/.scm} entnommen.  Um
+sie zu finden, siehe @rlearning{Other sources of information}.
+Hier werden Taktzeiten-Gruppen für die Taktarten 5/8, 6/8, 8/8,
+9/8 und 12/8 definiert.
 
 Sowohl @code{measureLength} als auch @code{beatLength} sind
 @i{Momente}, Einheiten musikalischer Dauer.  Eine Größe der
@@ -1566,60 +1556,11 @@ von Zählzeiten für jede Gruppe darstellen.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {grouping-beats.ly}
 
-@c TODO Convert to snippet called "Specifying context with beatGrouping"
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{specifying-context-with-beatgrouping.ly}
 
-By specifying the context, the effect of @code{beatGrouping} can be
-limited to the context specified, and values set in higher-level
-contexts overridden:
-
-@lilypond[quote,verbatim]
-\score {
-  \new Staff <<
-    \time 7/8
-    \new Voice {
-      \relative c'' {
-        \set Staff.beatGrouping = #'(2 3 2)
-        a8 a a a a a a
-      }
-    }
-    \new Voice {
-      \relative c' {
-        \voiceTwo
-        \set Voice.beatGrouping = #'(1 3 3)
-        f8 f f f f f f
-      }
-    }
-  >>
-}
-@end lilypond
-
-
-@c TODO Send as snippet?
-
-The property @code{measureLength} determines where bar lines
-should be inserted and, with @code{beatLength} and
-@code{beatGrouping}, how automatic beams should be generated
-for time signatures for which no beam end rules are defined.
-
-@lilypond[quote,verbatim,relative=2]
-\time 3/4 % auto beam on 1/4 note groups
-a16 a a a a a a a a a a a a a a a
-\time 12/16 % no defined auto-beaming for this time sig
-a16 a a a a a a a a a a a a a a a
-\time 3/4
-a16 a a a a a a a a a a a a a a a
-\set Score.timeSignatureFraction = #'(12 . 16) %keep 3/4 beaming
-                                             % due to beatLength
-a16 a a a a a a a a a a a a a a a
-\set Score.beatLength = #(ly:make-moment 1 8) %beam on 1/8 notes
-a16 a a a a a a a a a a a a a a a
-\set Score.beatLength = #(ly:make-moment 1 16)
-\set Score.beatGrouping = #'(3 4 2 3) %beam on 3/16, 7/16, 9/16, 12/16
-a16 a a a a a a a a a a a a a a a
-@end lilypond
-
-
-@c End of snippet
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{using-beatlength-and-beatgrouping.ly}
 
 @funindex subdivideBeams
 
@@ -1637,24 +1578,22 @@ a16 a a a a a a a a a a a a a a a
 
 @strong{@i{Die Endpunkte von Balken bestimmen}}
 
-In normalen Taktarten können automatisch gesetzte Balken an jeder
+In üblichen Taktarten können automatisch gesetzte Balken an jeder
 Note beginnen, aber nur an einigen bestimmten Positionen innerhalb
 des Taktes beendet werden.  Diese Positionen werden durch die
 Eigenschaften in @code{autoBeamSettings} bestimmt.  Sie bestehen
 aus einer Liste an Regeln, die bestimmen, wo Balken enden können.
 Die Standardeinstellungen dieser automatischen Einstellungen 
-befinden sich in der Datei @file{scm/@/auto@/-beam@/.scm}.
+befinden sich in der Datei @file{scm/@/auto@/-beam@/.scm}.  Um diese
+Datei zu finden, siehe @rlearning{Other sources of information}.
 
 Diese Methode @strong{muss} benutzt werden, wenn die Einstellungen
-für die Balken in üblichen Taktarten verändert werden sollen, und
-sie ist auch in vielen anderen Taktarten gut anzuwenden, wenn
-die Taktart sich oft ändert.  Weil die Regeln so formuliert werden
-können, dass sie sich auf eine bestimmte Taktart beziehen, müssen
-sie nur einmal für jede Taktart definiert werden.  Wenn man das
-selbe Ergebnis zu erreichen versucht, indem man die Zählzeiten
-gruppiert, müsste man einen @code{\set}-Befehl nach jedem
-Taktwechsel benutzen, wenn nicht die Standardwerte für die
-Taktart passend sind.
+für die Balken in Taktarten verändert werden sollen, für welche
+schon Regeln existieren, es sei denn, alle diese Regeln wurden
+rückgängig gemacht. Die Methode ist auch in vielen anderen
+Taktarten gut anzuwenden, wenn die Taktart sich oft ändert, oder
+wenn die Balken unterschiedlich für unterschiedliche Balkendauern
+gesetzt werden sollen.
 
 Um eine neue Regel zu der Liste hinzuzufügen, muss folgende
 Syntax verwendet werden:
@@ -1761,9 +1700,6 @@ angewendet werden sollen:
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@c TODO Add example using Score for multiple staves?
-@c Hmm.  Not sure it works correctly.  Needs more investigation.
-
 @warning{Wenn eine unerwartete Bebalkung auftritt, schauen Sie
 zuerste die Balkeneinstellungen in @file{scm/@/auto@/-beam@/.scm} 
 nach, ob sich hier Überschneidungen ergeben, weil die
@@ -1816,40 +1752,18 @@ a a a a
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-grouping-in-7-8-time.ly}
 
-
-@ignore
-@c   Seems like setting beam starting points is no longer
-@c   necessary, and/or has no effect.  Remove mention?
-
-The same syntax can be used to specify beam starting points.
-
-@c TODO Does this example add anything?
-
-In this
-example, automatic beams can only end on a dotted quarter note
-@example
-#(override-auto-beam-setting '(end * * * *) 3 8)
-#(override-auto-beam-setting '(end * * * *) 1 2)
-#(override-auto-beam-setting '(end * * * *) 7 8)
-@end example
-
-In 4/4 time signature, this means that automatic beams could end only on
-3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
-3/8, has passed within the measure).
-
-@end ignore
-
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {reverting-default-beam-endings.ly}
 
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beam-endings-in-score-context.ly}
 
 @predefined
-
 @funindex \autoBeamOff
 @code{\autoBeamOff},
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
-
+@endpredefined
 
 @knownissues
 
@@ -1861,10 +1775,8 @@ Wenn eine polyphone Stimme endet, während ein Balken noch Noten
 erwartet, wird dieser Balken nicht gesetzt.
 
 @seealso
-
 Schnipsel:
 @rlsr{Rhythms}.
-
 
 
 @node Manual beams
@@ -1919,6 +1831,10 @@ f
 g a]
 @end lilypond
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{flat-flags-and-beam-nibs.ly}
 
 
 @node Feathered beams
@@ -1979,7 +1895,6 @@ Notenabschnitten, und wenn die Zahlen in den Brüchen klein
 sind.
 
 @seealso
-
 Snippets:
 @rlsr{Rhythms}.
 
@@ -2103,8 +2018,8 @@ c c c c
 In Partituren mit vielen Systemen wird ein @code{\bar}-Befehl in einem 
 System automatisch auf alle anderen Systeme angewendet. Die resultierenden 
 Taktlinien sind miteinander verbunden innerhalb einer Gruppe 
-(@code{StaffGroup} bzw. @code{InnerStaffGroup}) oder einem 
-Klaviersystem (@code{PianoStaff} bzw. (@code{GrandStaff}).
+(@code{StaffGroup}) oder einem Klaviersystem
+(@code{PianoStaff} bzw. (@code{GrandStaff}).
 
 @lilypond[quote,fragment,verbatim]
 <<
@@ -2136,7 +2051,6 @@ jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
 @var{Takstrichart} geändert werden.
 
 @seealso
-
 Notationsreferenz:
 @ref{Line breaking},
 @ref{Repeats},
@@ -2221,10 +2135,11 @@ c c c c c
 @cindex Taktnummer, Form
 @cindex Aussehen von Taktnummern
 
-The size of the bar number may be changed.  This is illustrated
-in the following example, which also shows how to enclose bar
-numbers in boxes and circles, and shows an alternative way
-of specifying @code{#(#f #t #t)} for @code{break-visibility}.
+Die Größe der Taktnummer kann geändert werden.  Das wird im folgenden
+Beispiel gezeigt, welches auch illustriert, wie man Taktnummern
+in Kästen oder Kreise einfasst und eine Alternative zeigt,
+wie man @code{#(#f #t #t)} für @code{break-visibility} definieren
+kann.
 
 @lilypond[verbatim,quote,relative=1]
 % Prevent bar numbers at the end of a line and permit them elsewhere
@@ -2249,11 +2164,11 @@ of specifying @code{#(#f #t #t)} for @code{break-visibility}.
 @cindex Ausrichtung von Taktlinien
 @cindex Taktlinien, Ausrichtung
 
-Bar numbers by default are left-aligned to their parent object.
-This is usually the left edge of a line or, if numbers are printed
-within a line, the left bar line of the measure.  The numbers may also
-be positioned directly on the bar line or right-aligned to the
-bar line:
+Taktnummern sind standardmäßig links von ihrem Anker angeordnet.
+Der Anker ist meistens das linke Ende einer Zeile, oder, wenn die
+Zahlen innerhalb der Zeile gesetzt werden, die linke Taktlinie
+eines Taktes.  Die Nummern können auch direkt auf der Taktlinie
+positioniert oder rechts davon gesetzt werden:
 
 @lilypond[verbatim,quote,relative=1]
 \set Score.currentBarNumber = #111
@@ -2271,8 +2186,8 @@ c1 c1
 c1 c1
 @end lilypond
 
-Bar numbers can be removed entirely by removing the
-@code{Bar_number_engraver} from the @code{Score} context.
+Taktnummern können vollständig entfernt werden, indem man den
+@code{Bar_number_engraver} aus dem @code{Score}-Kontext entfernt.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -2289,7 +2204,6 @@ Bar numbers can be removed entirely by removing the
 
 
 @seealso
-
 Schnipsel:
 @rlsr{Rhythms}.
 
@@ -2508,7 +2422,6 @@ sich in
 @ref{Formatting text}.
 
 @seealso
-
 Notationsreferenz:
 @ref{The Feta font},
 @ref{Formatting text}.
@@ -2712,7 +2625,6 @@ in other staves:
 
 
 @seealso
-
 Glossar:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -2737,6 +2649,7 @@ Hauptnote und Verzierung auf verschiedenen Systemen gesetzt.
 Ein Vorschlag (@emph{acciaccatura}) mit mehreren Noten und 
 Balken wird ohne den Schrägstrich gesetzt und sieht einem
 Vorhalt (@emph{appoggiatura}) sehr ähnlich.
+
 @c TODO Add link to LSR snippet to add slash when available
 
 Die Synchronisation von Verzierungen kann auch zu Überraschungen führen. 
@@ -2804,7 +2717,6 @@ MyCadenza = \relative c' {
 @end lilypond
 
 @seealso
-
 Glossar:
 @rglos{cadenza}.
 
@@ -2889,7 +2801,6 @@ die Dauer Zähler/Nenner einer ganzen Note.  Zum Beispiel heißt
 
 
 @seealso
-
 Notationsreferenz:
 @ref{Bar numbers}, @ref{Unmetered music}
 

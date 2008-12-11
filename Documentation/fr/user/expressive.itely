@@ -121,7 +121,6 @@ a4^\prall^\markup { \sharp }
 
 
 @seealso
-
 Référence du programme : @rinternals{Script}.
 
 
@@ -290,17 +289,16 @@ leur étendue.  On peut empêcher l'impression de ces pointillés avec :
 
 
 @predefined
-
 @funindex \dynamicUp
 @code{\dynamicUp},
 @funindex \dynamicDown
 @code{\dynamicDown},
 @funindex \dynamicNeutral
 @code{\dynamicNeutral}.
+@endpredefined
 
 
 @seealso
-
 Référence du programme : @rinternals{DynamicText}, @rinternals{Hairpin}.
 
 Le placement vertical de ces éléments graphiques est géré par le
@@ -405,7 +403,6 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 
 
 @predefined
-
 @funindex \slurUp
 @code{\slurUp},
 @funindex \slurDown
@@ -418,9 +415,10 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 @code{\slurDotted},
 @funindex \slurSolid
 @code{\slurSolid}.
+@endpredefined
+
 
 @seealso
-
 Référence du programme : @rinternals{Slur}.
 
 
@@ -449,17 +447,16 @@ Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
 
 
 @predefined
-
 @funindex \phrasingSlurUp
 @code{\phrasingSlurUp},
 @funindex \phrasingSlurDown
 @code{\phrasingSlurDown},
 @funindex \phrasingSlurNeutral
 @code{\phrasingSlurNeutral}.
+@endpredefined
 
 
 @seealso
-
 Référence du programme : @rinternals{PhrasingSlur}.
 
 
@@ -487,8 +484,8 @@ c'4
 d4
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{BreathingSign}.
 
 Exemples : @rlsr{Winds}.
@@ -547,7 +544,6 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 
 @seealso
-
 Référence du programme : @rinternals{Glissando}.
 
 Exemples : @rlsr{Expressive marks}.
@@ -614,7 +610,6 @@ exemple dans le contexte @rinternals{PianoStaff} :
 
 
 @predefined
-
 @code{\arpeggio},
 @funindex \arpeggioArrowUp
 @code{\arpeggioArrowUp},
@@ -624,10 +619,10 @@ exemple dans le contexte @rinternals{PianoStaff} :
 @code{\arpeggioNormal},
 @funindex \arpeggioBracket
 @code{\arpeggioBracket}.
+@endpredefined
 
 
 @seealso
-
 Dans ce même manuel : @ref{Ties}, pour noter explicitement des arpèges.
 
 Référence du programme : @rinternals{Arpeggio}.
@@ -673,15 +668,14 @@ sera imprimée comme une tête de note noire entre parenthèses.
 
 
 @predefined
-
-@code{\startTrillSpan},
 @funindex \startTrillSpan
-@code{\stopTrillSpan}.
+@code{\startTrillSpan},
 @funindex \stopTrillSpan
+@code{\stopTrillSpan}.
+@endpredefined
 
 
 @seealso
-
 Référence du programme : @rinternals{TrillSpanner}.
 
 

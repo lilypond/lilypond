@@ -1,21 +1,21 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.64"
 
 @node Staff notation
 @section Staff notation
 
 @lilypondfile[quote]{staff-headword.ly}
 
-Esta sección explica cómo influir sobre la apariencia del pentagrama,
-imprimir partituras con más de un pentagrama y cómo aplicar
-indicaciones de interpretación específicas a pentagramas individuales.
+Esta sección explica cómo influir sobre la apariencia de los
+pentagramas, cómo imprimir partituras con más de un pentagrama y cómo
+añadir indicaciones de tempo y notas guía a los pentagramas.
 
 @menu
 * Displaying staves::
@@ -62,24 +62,17 @@ El contexto básico de pentagrama es @code{Staff}:
 \new Staff { c4 d e f }
 @end lilypond
 
-@code{DrumStaff} crea una pauta de cinco líneas preparada para un
-conjunto de batería típico.  Utiliza distintos nombres para cada
-instrumento.  Los nombres de instrumento se fijan utilizando la
-instrucción @code{\drummode}.  Para ver más detalles, consulte
-@ref{Percussion staves}.
+El contexto @code{DrumStaff} crea una pauta de cinco líneas preparada
+para un conjunto de batería típico.  Cada instrumento se presenta con
+un símbolo distinto.  Los instrumentos se escriben en el modo de
+percusión que sigue a una instrucción @code{\drummode}, con cada
+instrumento identificado por un nombre.  Para ver más detalles,
+consulte @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
   \drummode { cymc hh ss tomh }
 }
-@end lilypond
-
-@c FIXME: remove when mentioned in NR 2.8
-@code{GregorianTranscriptionStaff} crea una pauta para la notación
-moderna de canto gregoriano.  No muestra líneas divisorias.
-
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
 @end lilypond
 
 @code{RhythmicStaff} crea una pauta de una sola línea que sólo muestra
@@ -102,12 +95,18 @@ Existen dos contextos de pauta específicos para la notación de música
 antigua: @code{MensuralStaff} y @code{VaticanaStaff}.  Se describen en
 @ref{Pre-defined contexts}.
 
+@code{GregorianTranscriptionStaff} crea una pauta para la notación
+moderna de canto gregoriano.  No muestra líneas divisorias.
+
+@lilypond[verbatim,quote,relative=2]
+\new GregorianTranscriptionStaff { c4 d e f e d }
+@end lilypond
+
 Se pueden definir contextos nuevos de pentagrama único.  Para ver más
 detalles, consulte @ref{Defining new contexts}.
 
 
 @seealso
-
 Glosario musical:
 @rglos{staff},
 @rglos{staves}.
@@ -225,7 +224,6 @@ especificar explícitamente.
 Se pueden definir contextos nuevos de grupo de pentagramas.  Para ver
 más detalles, consulte @ref{Defining new contexts}.
 
-
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -242,11 +240,8 @@ más detalles, consulte @ref{Defining new contexts}.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
-@c FIXME: move to NR 2.8.x when sectioning is ready
-
 
 @seealso
-
 Glosario musical:
 @rglos{brace},
 @rglos{bracket},
@@ -280,46 +275,29 @@ Referencia de funcionamiento interno:
 @cindex anidados, corchetes de pentagrama
 @cindex corchetes anidados
 @cindex llaves, anidado de
-@cindex interno, grupo de pentagramas
-@cindex interno, grupo de pentagramas de coro
 
-Están disponibles dos contextos adicionales de grupo de pentagramas
-que se pueden anidar dentro de un contexto @code{StaffGroup} o
-@code{ChoirStaff}: @code{InnerStaffGroup} y @code{InnerChoirStaff}.
-Estos contextos crean un corchete nuevo adyacente al corchete del
-grupo de pentagramas que constituye su «padre».
-
-Un @code{InnerStaffGroup} se trata de forma similar a un
-@code{StaffGroup}; las barras de compás están conectadas entre todos
-los pentagramas que están dentro del contexto:
+Los contextos de grupos de pentagramas se pueden anidar hasta una
+profundidad arbitraria.  En este caso, cada contexto descendiente crea
+un corchete nuevo adyacente al corchete de su grupo padre.
 
 @lilypond[verbatim,quote,relative=2]
 \new StaffGroup <<
   \new Staff { c2 c | c2 c }
-  \new InnerStaffGroup <<
+  \new StaffGroup <<
     \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
+    \new StaffGroup \with {
+      systemStartDelimiter = #'SystemStartSquare
+    }
+    <<
+      \new Staff { e2 e | e2 e }
+      \new Staff { c2 c | c2 c }
+    >>
   >>
 >>
 @end lilypond
 
-Las barras de compás @emph{no} se conectan entre los pentagramas de un
-@code{InnerChoirStaff}, de igual forma que un @code{ChoirStaff}:
-
-@lilypond[verbatim,quote,relative=2]
-\new ChoirStaff <<
-  \new Staff { c2 c | c2 c }
-  \new InnerChoirStaff <<
-    \new Staff { g2 g | g2 g }
-    \new Staff { e2 e | e2 e }
-  >>
-  \new Staff { c1 | c1 }
->>
-@end lilypond
-
-Se pueden definir contextos nuevos de grupo de pentagramas.  Para ver
-más detalles, consulte @ref{Defining new contexts}.
-
+Se pueden definir nuevos contextos de grupos de pentagramas anidados.
+Para ver más detalles, consulte @ref{Defining new contexts}.
 
 @snippets
 
@@ -328,7 +306,6 @@ más detalles, consulte @ref{Defining new contexts}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Grouping staves},
 @ref{Instrument names},
@@ -338,9 +315,7 @@ Fragmentos de código:
 @rlsr{Staff notation}.
 
 Referencia de funcionamiento interno:
-@rinternals{InnerStaffGroup},
 @rinternals{StaffGroup},
-@rinternals{InnerChoirStaff},
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
@@ -409,7 +384,10 @@ dependen del grosor de las líneas de la pauta.
 @end lilypond
 
 El grosor de las líneas adicionales se puede fijar de forma
-independiente al de las líneas de la pauta.
+independiente al de las líneas de la pauta.  En el ejemplo, los dos
+números son factores que multiplican el grosor de las líneas del
+pentagrama y su espaciado.  Las dos contribuciones se suman para dar
+el grosor de las líneas adicionales.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -464,18 +442,20 @@ b4 c d2
 e4 d c2
 @end lilypond
 
-@predefined
 
+@predefined
 @code{\startStaff},
 @code{\stopStaff}.
+@endpredefined
+
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{line},
 @rglos{ledger line},
@@ -490,6 +470,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{StaffSymbol},
 @rinternals{staff-symbol-interface}.
+
 
 @knownissues
 
@@ -523,7 +504,7 @@ creación de un pentagrama simultáneo nuevo en la posición adecuada:
 @end lilypond
 
 @noindent
-Sin embargo, el ejemplo anterior no suele ser el resultado deseado.
+Sin embargo, el ejemplo anterior no es lo que normalmente se desea.
 Para crear pentagramas de ossia que estén encima del pentagrama
 original, que no tengan compás ni clave, y que tengan un tamaño menor
 de tipografía se deben usar varios trucos.  El Manual de aprendizaje
@@ -640,8 +621,8 @@ información sobre @code{\RemoveEmptyStaffContext}, consulte
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{ossia},
 @rglos{staff},
@@ -693,8 +674,8 @@ como @q{partitura a la francesa}.  De forma predeterminada, esta
 instrucción oculta y elimina todos los pentagramas vacíos de la
 partitura excepto los del primer sistema.
 
-@warning{Un pentagrama vacío puede contener solamente silencios
-multicompás, desplazamientos, silencios de separación o una
+@warning{Un pentagrama se considera vacío cuando contiene solamente
+silencios multicompás, desplazamientos, silencios de separación o una
 combinación de estos elementos.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -736,19 +717,21 @@ de forma similar, se puede usar
 @code{\RemoveEmptyRhythmicStaffContext} para ocultar los contextos
 @code{RhythmicStaff} vacíos.
 
-@predefined
 
+@predefined
 @code{\RemoveEmptyStaffContext},
 @code{\AncientRemoveEmptyStaffContext},
 @code{\RemoveEmptyRhythmicStaffContext}.
+@endpredefined
+
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{Frenched staff}.
 
@@ -766,6 +749,7 @@ Referencia de funcionamiento interno:
 @rinternals{Staff},
 @rinternals{VerticalAxisGroup},
 @rinternals{Staff_symbol_engraver}.
+
 
 @knownissues
 
@@ -861,8 +845,8 @@ d4 g e c
 
 Para ver más detalles, consulte @ref{Formatting text}.
 
-@seealso
 
+@seealso
 Glosario musical:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1024,7 +1008,6 @@ musical para declarar el cambio de instrumento:
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Horizontal dimensions},
 @ref{Modifying context plug-ins}.
@@ -1134,7 +1117,6 @@ procedimiento, consulte @ref{Using tags}.
 
 
 @seealso
-
 Referencia de la notación:
 @ref{Instrument transpositions},
 @ref{Using tags}.
@@ -1218,7 +1200,7 @@ estableciendo la propiedad @code{instrumentCueName} en el contexto
 oboe = \relative c''' {
   g4 r8 e16 f e4 d
 }
-\addQuote oboe { \oboe }
+\addQuote "oboe" { \oboe }
 
 \new Staff \relative c'' <<
   \new CueVoice \with {
@@ -1290,8 +1272,8 @@ Es posible etiquetar las partes guía con numbres exclusivos de forma
 que se puedan procesar de diversas formas.  Para ver más detalles
 sobre este procedimiento, consulte @ref{Using tags}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Instrument transpositions},
 @ref{Instrument names},

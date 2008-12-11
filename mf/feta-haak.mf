@@ -4,7 +4,7 @@
 %
 % source file of the Feta (not the Font-En-Tja) music font
 %
-% (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+% (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 fet_begingroup ("brackettips");
 

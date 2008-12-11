@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1999--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef CHORD_NAME_HH

@@ -4,7 +4,7 @@
 #
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
+# (c) 1998--2008  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # converting rules are found in python/convertrules.py
@@ -119,9 +119,10 @@ def get_option_parser ():
               default='')
 
     p.add_option_group ('',
-                        description=(_ ("Report bugs via")
-                                     + ''' http://post.gmane.org/post.php'''
-                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
+                        description=(
+            _ ("Report bugs via %s")
+            % 'http://post.gmane.org/post.php'
+            '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     
     return p
 

@@ -80,8 +80,8 @@ See @ref{Articulations and ornamentations}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-@seealso
 
+@seealso
 Notation Reference:
 @ref{Breath marks},
 @ref{Slurs},
@@ -167,8 +167,10 @@ This can be indicated by @code{cflat} or @code{fflat}.  Similarly, the
 piobaireachd high g can be written @code{gflat} when it occurs in light
 music.
 
+
 @seealso
 @rlsr{Winds}
+
 
 @node Bagpipe example
 @unnumberedsubsubsec Bagpipe example
@@ -215,6 +217,7 @@ notation.
   \bar "|."
 }
 @end lilypond
+
 
 @seealso
 @rlsr{Winds}

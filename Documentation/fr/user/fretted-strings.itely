@@ -55,11 +55,12 @@ On peut ajouter aux accords les numéros de cordes, en les indiquant avec
 <c\1 e\2 g\3>
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{StringNumber}.
 
 Exemples : @rlsr{Fretted strings}.
+
 
 @node Default tablatures
 @unnumberedsubsubsec Default tablatures
@@ -125,9 +126,10 @@ comme suit :
 \override Beam #'damping = #100000
 @end example
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{TabStaff}, @rinternals{TabVoice}.
+
 
 @knownissues
 
@@ -188,12 +190,13 @@ c'est-à-dire le célèbre mi la ré sol si mi. D'autres jeux prédéfinis
 sont @code{guitar-open-g-tuning}, @code{mandolin-tuning} et
 @code{banjo-open-g-tuning}.
 
-@seealso
 
+@seealso
 Vous trouverez une liste complète des jeux prédéfinis dans le fichier
 @file{scm/@/output@/-lib@/.scm}.
 
 Référence du programme : @rinternals{Tab_note_heads_engraver}.
+
 
 @knownissues
 
@@ -243,9 +246,10 @@ Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
 à votre convenance. Vous en trouverez les détails dans
 @rinternals{fret-diagram-interface}.
 
-@seealso
 
+@seealso
 Exemples : @rlsr{Fretted strings}.
+
 
 @node Right-hand fingerings
 @unnumberedsubsubsec Right-hand fingerings
@@ -297,9 +301,10 @@ chaîne de caractères comme argument de @code{\rightHandFinger}.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{StrokeFinger}
+
 
 @node Guitar
 @subsection Guitar
@@ -361,9 +366,10 @@ chaîne de caractères comme argument de @code{\rightHandFinger}.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Référence du programme : @rinternals{StrokeFinger}
+
 
 @node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indicating harmonics and dampened notes
@@ -414,7 +420,7 @@ cordes, si l'on utilise la fonction @code{four-string-banjo} :
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
 
+@seealso
 Vous trouverez une liste complète des jeux de cordes prédéfinis pour le banjo
 dans le fichier @file{scm/@/output@/-lib@/.scm}.

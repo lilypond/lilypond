@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
+Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -67,8 +67,8 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 * Aligning contexts::
 @end menu
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Contexts and engravers}.
 
@@ -117,13 +117,13 @@ procesa un bloque @code{\score @{@dots{}@}} o @code{\layout
 
 Agrupa pentagramas y añade un corchete en la parte izquierda, formando
 un grupo.  Las líneas divisorias de los pentagramas contenidos se
-conectan verticalmente.  StaffGroup sólo consiste en una colección de
-pentagramas, con un corchete delante y líneas divisorias de arriba a
-abajo.
+conectan verticalmente.  @code{StaffGroup} sólo consiste en una
+colección de pentagramas, con un corchete delante y líneas divisorias
+de arriba a abajo.
 
 @strong{@emph{ChoirStaff}}
 
-Idéntico a StaffGroup excepto que las barras de compás de los
+Idéntico a @code{StaffGroup} excepto que las barras de compás de los
 pentagramas contenidos no se conectan verticalmente.
 
 @strong{@emph{GrandStaff}}
@@ -134,21 +134,8 @@ se conectan verticalmente.
 
 @strong{@emph{PianoStaff}}
 
-@c TODO No longer correct?  Check.  -td
-Igual que GrandStaff pero con una distancia fija entre los
-pentagramas, de manera que se pueden usar ligaduras y barras que
-cruzan de un pentagrama a otro.
-
-@ignore
-@strong{@emph{InnerStaffGroup}}
-
-TODO  -td
-
-@strong{@emph{InnerChoirStaff}}
-
-TODO  -td
-
-@end ignore
+Igual que @code{GrandStaff}, pero contempla la posibilidad de poner el
+nombre del instrumento a la izquierda del sistema.
 
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts - staves
@@ -156,12 +143,12 @@ TODO  -td
 @strong{@emph{Staff}}
 
 Maneja claves, barras de compás, tonalidades y alteraciones
-accidentales.  Puede contener contextos de Voice.
+accidentales.  Puede contener contextos de @code{Voice}.
 
 @strong{@emph{RhythmicStaff}}
 
-Como Staff, pero para imprimir ritmos.  Se ignoran las alturas de las
-notas; las notas se imprimen sobre una línea.
+Como @code{Staff}, pero para imprimir ritmos.  Se ignoran las alturas
+de las notas; las notas se imprimen sobre una línea.
 
 @strong{@emph{TabStaff}}
 
@@ -172,17 +159,17 @@ líneas.
 @strong{@emph{DrumStaff}}
 
 Maneja el tipografiado para instrumentos de percusión.  Puede contener
-contextos DrumVoice.
+contextos @code{DrumVoice}.
 
 @strong{@emph{VaticanaStaff}}
 
-Iguall que Staff, excepto que está pensado para tipografiar piezas en
-estilo gregoriano.
+Igual que @code{Staff}, excepto que está pensado para tipografiar
+piezas en estilo gregoriano.
 
 @strong{@emph{MensuralStaff}}
 
-Igual que Staff, excepto que está diseñado para tipografiar piezas en
-estilo mensural.
+Igual que @code{Staff}, excepto que está diseñado para tipografiar
+piezas en estilo mensural.
 
 
 @node Bottom-level contexts - voices
@@ -202,13 +189,13 @@ voces en el mismo pentagrama.
 
 @strong{@emph{VaticanaVoice}}
 
-Lo mismo que Voice, excepto que está diseñado para tipografiar piezas
-en estilo gregoriano.
+Lo mismo que @code{Voice}, excepto que está diseñado para tipografiar
+piezas en estilo gregoriano.
 
 @strong{@emph{MensuralVoice}}
 
-Lo mismmo que Voice, con modificaciones para el tipografiado de piezas
-en estilo mensural.
+Lo mismo que @code{Voice}, con modificaciones para el tipografiado de
+piezas en estilo mensural.
 
 @strong{@emph{Lyrics}}
 
@@ -221,13 +208,13 @@ El contexto de voz utilizado en una pauta de percusión.
 
 @strong{@emph{FiguredBass}}
 
-El contexto en que los objetos BassFigure se crean a partir de la
-entrada escrita en el modo @code{\figuremode}.
+El contexto en que los objetos @code{BassFigure} se crean a partir de
+la entrada escrita en el modo @code{\figuremode}.
 
 @strong{@emph{TabVoice}}
 
-El contexto de voz utilizado dentro de un contexto TabStaff.  Se suele
-dejar que se cree implícitamente.
+El contexto de voz utilizado dentro de un contexto @code{TabStaff}.
+Se suele dejar que se cree implícitamente.
 
 @strong{@emph{ChordNames}}
 
@@ -1193,12 +1180,11 @@ instrucciones de la forma
 tales como
 
 @example
-\override Stem #'details #'beamed-lengths = #'(4 4 3)
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
 
 
 @seealso
-
 Referencia de funcionamiento interno:
 @rinternals{OverrideProperty},
 @rinternals{RevertProperty},
@@ -1371,7 +1357,7 @@ en el interior de las propiedades normales.  Para modificarlas utilice
 instrucciones de la forma
 
 @example
-\override Stem #'details #'beamed-lengths = #'(4 4 3)
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
 @end example
 
 @cindex documentación interna
@@ -1512,13 +1498,14 @@ puede examinarse, véase @ref{Displaying music expressions}.  Esto
 puede ser de utilidad en la determinación de lo que puede modificarse
 por medio de una instrucción @code{\tweak}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Tweaking methods}.
 
 Referencia de la notación:
 @ref{Displaying music expressions}.
+
 
 @knownissues
 
@@ -1843,8 +1830,8 @@ convertir de un cambio en el tamaño de la fuente al cambio equivalente
 en @code{staff-space}.  Para ver una explicación y un ejemplo de su
 utilización, consulte @rlearning{Length and thickness of objects}.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Length and thickness of objects}.
 
@@ -2067,8 +2054,8 @@ jerarquía de propiedades, pero la sintaxis de la instrucción
 
 @lilypond[relative=2,quote,verbatim]
 e2 \glissando b
-\once \override Glissando #'bound-details #'left #'Y = #3
-\once \override Glissando #'bound-details #'right #'Y = #-2
+\once \override Glissando #'(bound-details left Y) = #3
+\once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando b
 @end lilypond
 
@@ -2087,7 +2074,7 @@ especifican por las sub-listas @code{left-broken} y
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 \override Glissando #'breakable = ##t
-\override Glissando #'bound-details #'right-broken #'Y = #-3
+\override Glissando #'(bound-details right-broken Y) = #-3
 c1 \glissando \break
 f1
 @end lilypond
@@ -2127,7 +2114,7 @@ usa para escribir @i{cresc.}, @i{tr} y otros textos sobre los objetos
 de extensión horizontales.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'bound-details #'left #'text
+\override TextSpanner #'(bound-details left text)
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
 @end lilypond
@@ -2141,15 +2128,15 @@ subpropiedades @code{X} e @code{Y}.  Si se fijan
 símbolo del borde verticalmente con relación al extremo de la línea:
 
 @lilypond[relative=1,fragment,verbatim]
-\override TextSpanner #'bound-details
-  #'left #'stencil-align-dir-y = #-2
-\override TextSpanner #'bound-details
-  #'right #'stencil-align-dir-y = #UP
+\override TextSpanner
+  #'(bound-details left stencil-align-dir-y) = #-2
+\override TextSpanner
+  #'(bound-details right stencil-align-dir-y) = #UP
 
-\override TextSpanner #'bound-details
-  #'left #'text = #"ggg"
-\override TextSpanner #'bound-details
-  #'right #'text = #"hhh"
+\override TextSpanner
+  #'(bound-details left text) = #"ggg"
+\override TextSpanner
+  #'(bound-details right text) = #"hhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
@@ -2186,8 +2173,8 @@ c2 \< c2 c2
 Si se usa @code{\endSpanners} no es necesario cerrar \startTextSpan
 con \stopTextSpan, ni cerrar los reguladores con @code{\!}.
 
-@seealso
 
+@seealso
 Referencia de funcionamiento interno:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -2540,8 +2527,8 @@ Para los cambios de clave explícitos, la propiedad
 @code{explicitClefVisibility} controla tanto el símbolo de clave como
 el símbolo de octava asociado.
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Visibility and color of objects}
 
@@ -2582,7 +2569,7 @@ posible sobreescribirlos:
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 e2 \glissando f
-\once \override Glissando #'bound-details #'right #'Y = #-2
+\once \override Glissando #'(bound-details right Y) = #-2
 e2 \glissando f
 @end lilypond
 
@@ -2674,8 +2661,8 @@ ajustes finos a la apariencia de la partitura impresa.
 * Modifying shapes::
 @end menu
 
-@seealso
 
+@seealso
 Manual de aprendizaje:
 @rlearning{Tweaking output},
 @rlearning{Other sources of information}.
@@ -3048,8 +3035,8 @@ font}.
 
 @c TODO Add inserting Postscript or ref to later
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},

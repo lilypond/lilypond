@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "multi-measure-rest.hh"
@@ -47,7 +47,7 @@ Multi_measure_rest::percent (SCM smob)
   Grob *me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
-  Stencil r = Percent_repeat_item_interface::x_percent (me, 1, 0.75, 1.6);
+  Stencil r = Percent_repeat_item_interface::x_percent (me, 1);
 
   // ugh copy & paste.
 

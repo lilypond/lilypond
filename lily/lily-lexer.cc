@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "lily-lexer.hh"
@@ -31,6 +31,7 @@ static Keyword_ent the_key_tab[]
   {"alias", ALIAS},
   {"alternative", ALTERNATIVE},
   {"book", BOOK},
+  {"bookpart", BOOKPART},
   {"change", CHANGE},
   {"chordmode", CHORDMODE},
   {"chords", CHORDS},

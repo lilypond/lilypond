@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.11.65"
 
 \header {
   texidoc = "Mensural ligatures show different shapes, depending on the
@@ -8,20 +8,24 @@
 
 \layout {
   ragged-right = ##t
-  packed = ##t
   indent = 0.0
   \context {
     \Voice
-    \remove Ligature_bracket_engraver
-    \consists Mensural_ligature_engraver
+    \remove "Ligature_bracket_engraver"
+    \consists "Mensural_ligature_engraver"
+  }
+  \context {
+    \Score
+    \override SpacingSpanner #'packed-spacing = ##t
   }
 }
 
-\context Voice{
+\context Voice {
   \clef "petrucci-c4"
   \set Staff.printKeyCancellation = ##f
   \cadenzaOn % turn off bar lines
   #(set-accidental-style 'forget)
+  \textLengthOn
 
 				% ligaturae binaria
 

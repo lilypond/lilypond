@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "config.hh"
@@ -60,11 +60,11 @@ init_fontconfig ()
     }
   
   if (be_verbose_global)
-    progress_indication ("Building font database.\n");
+    message (_ ("Building font database."));
   FcConfigBuildFonts (font_config_global);
   FcConfigSetCurrent (font_config_global);
   if (be_verbose_global)
-    progress_indication ("\n");
+    message ("\n");
 
   if (cache_file
       && !is_file ((char*)cache_file))

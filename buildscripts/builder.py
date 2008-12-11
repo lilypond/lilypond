@@ -65,7 +65,7 @@ env.Append (BUILDERS = {'HH' : HH})
 # Setup LilyPond environment.  For the LilyPond build, we override
 # some of these commands in the ENVironment.
 
-lilypond_book_flags = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond -I$srcdir -I$srcdir/input/test $__verbose --backend=eps --formats=ps,png --header=texidoc -dinternal-type-checking -ddump-signatures -danti-alias-factor=2 -dgs-font-load" '''
+lilypond_book_flags = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond -I$srcdir -I$srcdir/input/test $__verbose --backend=eps --formats=ps,png --header=texidoc -dinternal-type-checking -ddump-signatures -danti-alias-factor=2" '''
 
 env.Append (
     BSTINPUTS = '${SOURCE.dir}:${TARGET.dir}:',

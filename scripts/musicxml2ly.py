@@ -1,5 +1,5 @@
 #!@TARGET_PYTHON@
-
+# -*- coding: utf-8 -*-
 import optparse
 import sys
 import re
@@ -44,6 +44,7 @@ def error_message (str):
 
 needed_additional_definitions = []
 additional_definitions = {
+
   "snappizzicato": """#(define-markup-command (snappizzicato layout props) ()
   (interpret-markup layout props
     (markup #:stencil
@@ -54,6 +55,7 @@ additional_definitions = {
             (list 'draw-line 0.1 0 0.1 0 1)
             '(-0.1 . 0.1) '(0.1 . 1)))
         0.7 X))))""",
+
   "eyeglasses": """eyeglassesps = #"0.15 setlinewidth
       -0.9 0 translate
       1.1 1.1 scale
@@ -72,7 +74,133 @@ additional_definitions = {
       3.30 2.00 lineto
       3.42 2.26 3.80 2.40 3.65 1.70 curveto
       stroke"
-eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }"""
+eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }""",
+
+  "tuplet-note-wrapper": """      % a formatter function, which is simply a wrapper around an existing 
+      % tuplet formatter function. It takes the value returned by the given
+      % function and appends a note of given length. 
+  #(define-public ((tuplet-number::append-note-wrapper function note) grob)
+    (let* ((txt (if function (function grob) #f)))
+      (if txt 
+        (markup txt #:fontsize -5 #:note note UP)
+        (markup #:fontsize -5 #:note note UP)
+      )
+    )
+  )""",
+
+  "tuplet-non-default-denominator": """#(define ((tuplet-number::non-default-tuplet-denominator-text denominator) grob)
+  (number->string (if denominator 
+                      denominator 
+                      (ly:event-property (event-cause grob) 'denominator))))
+""",
+
+  "tuplet-non-default-fraction": """#(define ((tuplet-number::non-default-tuplet-fraction-text denominator numerator) grob)
+    (let* ((ev (event-cause grob))
+           (den (if denominator denominator (ly:event-property ev 'denominator)))
+           (num (if numerator numerator (ly:event-property ev 'numerator))))
+       (format "~a:~a" den num)))
+""",
+
+  "compound-time-signature": """%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting of (possibly complex) compound time signatures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+#(define-public (insert-markups l m)
+  (let* ((ll (reverse l)))
+    (let join-markups ((markups (list (car ll)))
+                       (remaining (cdr ll)))
+      (if (pair? remaining)
+        (join-markups (cons (car remaining) (cons m markups)) (cdr remaining))
+        markups))))
+
+% Use a centered-column inside a left-column, because the centered column 
+% moves its reference point to the center, which the left-column undoes. 
+% The center-column also aligns its contented centered, which is not undone...
+#(define-public (format-time-fraction time-sig-fraction)
+  (let* ((revargs (reverse (map number->string time-sig-fraction)))
+         (den (car revargs))
+         (nums (reverse (cdr revargs))))
+    (make-override-markup '(baseline-skip . 0)
+      (make-number-markup 
+        (make-left-column-markup (list
+          (make-center-column-markup (list
+            (make-line-markup (insert-markups nums "+"))
+            den))))))))
+
+#(define-public (format-complex-compound-time time-sig)
+  (let* ((sigs (map format-time-fraction time-sig)))
+    (make-override-markup '(baseline-skip . 0)
+      (make-number-markup
+        (make-line-markup 
+          (insert-markups sigs (make-vcenter-markup "+")))))))
+
+#(define-public (format-compound-time time-sig)
+  (cond
+    ((not (pair? time-sig)) (null-markup))
+    ((pair? (car time-sig)) (format-complex-compound-time time-sig))
+    (else (format-time-fraction time-sig))))
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Measure length calculation of (possibly complex) compound time signatures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+#(define-public (calculate-time-fraction time-sig-fraction)
+  (let* ((revargs (reverse time-sig-fraction))
+         (den (car revargs))
+         (nums (cdr revargs)))
+    (ly:make-moment (apply + nums) den)))
+
+#(define-public (calculate-complex-compound-time time-sig)
+  (let* ((sigs (map calculate-time-fraction time-sig)))
+    (let add-moment ((moment ZERO-MOMENT)
+                     (remaining sigs))
+      (if (pair? remaining)
+        (add-moment (ly:moment-add moment (car remaining)) (cdr remaining))
+        moment))))
+
+#(define-public (calculate-compound-measure-length time-sig)
+  (cond
+    ((not (pair? time-sig)) (ly:make-moment 4 4))
+    ((pair? (car time-sig)) (calculate-complex-compound-time time-sig))
+    (else (calculate-time-fraction time-sig))))
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Base beat lenth
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+#(define-public (calculate-compound-base-beat-full time-sig)
+  (let* ((den (map last time-sig)))
+    (apply max den)))
+
+#(define-public (calculate-compound-base-beat time-sig)
+  (ly:make-moment 1 (cond
+    ((not (pair? time-sig)) 4)
+    ((pair? (car time-sig)) (calculate-compound-base-beat-full time-sig))
+    (else (calculate-compound-base-beat-full (list time-sig))))))
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The music function to set the complex time signature
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+compoundMeter =
+#(define-music-function (parser location args) (pair?)
+  (let ((mlen (calculate-compound-measure-length args))
+        (beat (calculate-compound-base-beat args)))
+  #{
+\once \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+\once \override Staff.TimeSignature #'text = #(format-compound-time $args)
+% \set Staff.beatGrouping = #(reverse (cdr (reverse $args)))
+\set Timing.measureLength = $mlen
+\set Timing.timeSignatureFraction = #(cons (ly:moment-main-numerator $mlen)
+                                           (ly:moment-main-denominator $mlen))
+\set Timing.beatLength = $beat
+
+% TODO: Implement beatGrouping and auto-beam-settings!!!
+#} ))
+"""
 }
 
 def round_to_two_digits (val):
@@ -199,6 +327,8 @@ def extract_score_information (tree):
         set_if_exists ('encodingdate', ids.get_encoding_date ())
         set_if_exists ('encoder', ids.get_encoding_person ())
         set_if_exists ('encodingdescription', ids.get_encoding_description ())
+        
+        set_if_exists ('texidoc', ids.get_file_description ());
 
         # Finally, apply the required compatibility modes
         # Some applications created wrong MusicXML files, so we need to 
@@ -211,6 +341,9 @@ def extract_score_information (tree):
         if "Dolet 3.4 for Sibelius" in software:
             conversion_settings.ignore_beaming = True
             progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
+        if "Noteworthy Composer" in software:
+            conversion_settings.ignore_beaming = True
+            progress (_ ("Encountered file created by Noteworthy Composer's nwc2xml, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
         # TODO: Check for other unsupported features
 
     return header
@@ -419,8 +552,6 @@ def extract_score_structure (part_list, staffinfo):
                     del staves[pos]
                 # replace the staves with the whole group
                 for j in staves[(prev_start + 1):pos]:
-                    if j.is_group:
-                        j.stafftype = "InnerStaffGroup"
                     group.append_staff (j)
                 del staves[(prev_start + 1):pos]
                 staves.insert (prev_start + 1, group)
@@ -443,18 +574,26 @@ def extract_score_structure (part_list, staffinfo):
 
 
 def musicxml_duration_to_lily (mxl_note):
-    d = musicexp.Duration ()
-    # if the note has no Type child, then that method spits out a warning and 
-    # returns 0, i.e. a whole note
-    d.duration_log = mxl_note.get_duration_log ()
+    # if the note has no Type child, then that method returns None. In that case,
+    # use the <duration> tag instead. If that doesn't exist, either -> Error
+    dur = mxl_note.get_duration_info ()
+    if dur:
+        d = musicexp.Duration ()
+        d.duration_log = dur[0]
+        d.dots = dur[1]
+        # Grace notes by specification have duration 0, so no time modification 
+        # factor is possible. It even messes up the output with *0/1
+        if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
+            d.factor = mxl_note._duration / d.get_length ()
+        return d
 
-    d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
-    # Grace notes by specification have duration 0, so no time modification 
-    # factor is possible. It even messes up the output with *0/1
-    if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
-        d.factor = mxl_note._duration / d.get_length ()
+    else:
+        if mxl_note._duration > 0:
+            return rational_to_lily_duration (mxl_note._duration)
+        else:
+            mxl_note.message (_ ("Encountered note at %s without type and duration (=%s)") % (mxl_note.start, mxl_note._duration) )
+            return None
 
-    return d
 
 def rational_to_lily_duration (rational_len):
     d = musicexp.Duration ()
@@ -585,6 +724,62 @@ def group_repeats (music_list):
     return music_list
 
 
+# Extract the settings for tuplets from the <notations><tuplet> and the 
+# <time-modification> elements of the note:
+def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
+    tsm = musicexp.TimeScaledMusic ()
+    fraction = (1,1)
+    if time_modification:
+        fraction = time_modification.get_fraction ()
+    tsm.numerator = fraction[0]
+    tsm.denominator  = fraction[1]
+
+
+    normal_type = tuplet_elt.get_normal_type ()
+    if not normal_type and time_modification:
+        normal_type = time_modification.get_normal_type ()
+    if not normal_type and time_modification:
+        note = time_modification.get_parent ()
+        if note:
+            normal_type = note.get_duration_info ()
+    if normal_type:
+        normal_note = musicexp.Duration ()
+        (normal_note.duration_log, normal_note.dots) = normal_type
+        tsm.normal_type = normal_note
+
+    actual_type = tuplet_elt.get_actual_type ()
+    if actual_type:
+        actual_note = musicexp.Duration ()
+        (actual_note.duration_log, actual_note.dots) = normal_type
+        tsm.actual_type = actual_note
+
+    # Obtain non-default nrs of notes from the tuplet object!
+    tsm.display_numerator = tuplet_elt.get_normal_nr ()
+    tsm.display_denominator = tuplet_elt.get_actual_nr ()
+
+
+    if hasattr (tuplet_elt, 'bracket') and tuplet_elt.bracket == "no":
+        tsm.display_bracket = None
+    elif hasattr (tuplet_elt, 'line-shape') and getattr (tuplet_elt, 'line-shape') == "curved":
+        tsm.display_bracket = "curved"
+    else:
+        tsm.display_bracket = "bracket"
+
+    display_values = {"none": None, "actual": "actual", "both": "both"}
+    if hasattr (tuplet_elt, "show-number"):
+        tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
+    if tsm.display_number == "actual" and tsm.display_denominator:
+        needed_additional_definitions.append ("tuplet-non-default-denominator")
+    elif tsm.display_number == "both" and (tsm.display_numerator or tsm.display_denominator):
+        needed_additional_definitions.append ("tuplet-non-default-fraction")
+
+    if hasattr (tuplet_elt, "show-type"):
+        if getattr (tuplet_elt, "show-type") == "actual":
+            needed_additional_definitions.append ("tuplet-note-wrapper")
+        tsm.display_type = display_values.get (getattr (tuplet_elt, "show-type"), None)
+
+    return tsm
+
 
 def group_tuplets (music_list, events):
 
@@ -595,22 +790,32 @@ def group_tuplets (music_list, events):
 
     
     indices = []
+    brackets = {}
 
     j = 0
-    for (ev_chord, tuplet_elt, fraction) in events:
+    for (ev_chord, tuplet_elt, time_modification) in events:
         while (j < len (music_list)):
             if music_list[j] == ev_chord:
                 break
             j += 1
+        nr = 0
+        if hasattr (tuplet_elt, 'number'):
+            nr = getattr (tuplet_elt, 'number')
         if tuplet_elt.type == 'start':
-            indices.append ((j, None, fraction))
+            tuplet_object = musicxml_tuplet_to_lily (tuplet_elt, time_modification)
+            tuplet_info = [j, None, tuplet_object]
+            indices.append (tuplet_info)
+            brackets[nr] = tuplet_info
         elif tuplet_elt.type == 'stop':
-            indices[-1] = (indices[-1][0], j, indices[-1][2])
+            bracket_info = brackets.get (nr, None)
+            if bracket_info:
+                bracket_info[1] = j # Set the ending position to j
+                del brackets[nr]
 
     new_list = []
     last = 0
-    for (i1, i2, frac) in indices:
-        if i1 >= i2:
+    for (i1, i2, tsm) in indices:
+        if i1 > i2:
             continue
 
         new_list.extend (music_list[last:i1])
@@ -618,13 +823,10 @@ def group_tuplets (music_list, events):
         last = i2 + 1
         seq.elements = music_list[i1:last]
 
-        tsm = musicexp.TimeScaledMusic ()
         tsm.element = seq
 
-        tsm.numerator = frac[0]
-        tsm.denominator  = frac[1]
-
         new_list.append (tsm)
+        #TODO: Handle nested tuplets!!!!
 
     new_list.extend (music_list[last:])
     return new_list
@@ -636,54 +838,125 @@ def musicxml_clef_to_lily (attributes):
     return change
     
 def musicxml_time_to_lily (attributes):
-    (beats, type) = attributes.get_time_signature ()
-
+    sig = attributes.get_time_signature ()
+    if not sig:
+        return None
     change = musicexp.TimeSignatureChange()
-    change.fraction = (beats, type)
-    
+    change.fractions = sig
+    if (len(sig) != 2) or isinstance (sig[0], list):
+        needed_additional_definitions.append ("compound-time-signature")
+
+    time_elm = attributes.get_maybe_exist_named_child ('time')
+    if time_elm and hasattr (time_elm, 'symbol'):
+        change.style = { 'single-number': "'single-digit",
+                         'cut': None,
+                         'common': None,
+                         'normal': "'()"}.get (time_elm.symbol, "'()")
+    else:
+        change.style = "'()"
+
+    # TODO: Handle senza-misura measures
+    # TODO: Handle hidden time signatures (print-object="no")
+    # TODO: What shall we do if the symbol clashes with the sig? e.g. "cut" 
+    #       with 3/8 or "single-number" with (2+3)/8 or 3/8+2/4?
+
     return change
 
 def musicxml_key_to_lily (attributes):
-    start_pitch  = musicexp.Pitch ()
-    (fifths, mode) = attributes.get_key_signature () 
-    try:
-        (n,a) = {
-            'major' : (0,0),
-            'minor' : (5,0),
-            }[mode]
-        start_pitch.step = n
-        start_pitch.alteration = a
-    except  KeyError:
-        error_message (_ ("unknown mode %s, expecting 'major' or 'minor'") % mode)
-
-    fifth = musicexp.Pitch()
-    fifth.step = 4
-    if fifths < 0:
-        fifths *= -1
-        fifth.step *= -1
-        fifth.normalize ()
+    key_sig = attributes.get_key_signature () 
+    if not key_sig or not (isinstance (key_sig, list) or isinstance (key_sig, tuple)):
+        error_message (_ ("Unable to extract key signature!"))
+        return None
     
-    for x in range (fifths):
-        start_pitch = start_pitch.transposed (fifth)
-
-    start_pitch.octave = 0
-
     change = musicexp.KeySignatureChange()
-    change.mode = mode
-    change.tonic = start_pitch
-    return change
     
+    if len (key_sig) == 2 and not isinstance (key_sig[0], list):
+        # standard key signature, (fifths, mode)
+        (fifths, mode) = key_sig
+        change.mode = mode
+
+        start_pitch  = musicexp.Pitch ()
+        start_pitch.octave = 0
+        try:
+            (n,a) = {
+                'major'     : (0,0),
+                'minor'     : (5,0),
+                'ionian'    : (0,0),
+                'dorian'    : (1,0),
+                'phrygian'  : (2,0),
+                'lydian'    : (3,0),
+                'mixolydian': (4,0),
+                'aeolian'   : (5,0),
+                'locrian'   : (6,0),
+                }[mode]
+            start_pitch.step = n
+            start_pitch.alteration = a
+        except  KeyError:
+            error_message (_ ("unknown mode %s, expecting 'major' or 'minor' "
+                "or a church mode!") % mode)
+
+        fifth = musicexp.Pitch()
+        fifth.step = 4
+        if fifths < 0:
+            fifths *= -1
+            fifth.step *= -1
+            fifth.normalize ()
+        for x in range (fifths):
+            start_pitch = start_pitch.transposed (fifth)
+        change.tonic = start_pitch
+
+    else:
+        # Non-standard key signature of the form [[step,alter<,octave>],...]
+        change.non_standard_alterations = key_sig
+    return change
+
+def musicxml_transpose_to_lily (attributes):
+    transpose = attributes.get_transposition ()
+    if not transpose:
+        return None
+
+    shift = musicexp.Pitch ()
+    octave_change = transpose.get_maybe_exist_named_child ('octave-change')
+    if octave_change:
+        shift.octave = string.atoi (octave_change.get_text ())
+    chromatic_shift = string.atoi (transpose.get_named_child ('chromatic').get_text ())
+    chromatic_shift_normalized = chromatic_shift % 12;
+    (shift.step, shift.alteration) = [
+        (0,0), (0,1), (1,0), (2,-1), (2,0), 
+        (3,0), (3,1), (4,0), (5,-1), (5,0), 
+        (6,-1), (6,0)][chromatic_shift_normalized];
+    
+    shift.octave += (chromatic_shift - chromatic_shift_normalized) / 12
+
+    diatonic = transpose.get_maybe_exist_named_child ('diatonic')
+    if diatonic:
+        diatonic_step = string.atoi (diatonic.get_text ()) % 7
+        if diatonic_step != shift.step:
+            # We got the alter incorrect!
+            old_semitones = shift.semitones ()
+            shift.step = diatonic_step
+            new_semitones = shift.semitones ()
+            shift.alteration += old_semitones - new_semitones
+
+    transposition = musicexp.Transposition ()
+    transposition.pitch = musicexp.Pitch ().transposed (shift)
+    return transposition
+
+
 def musicxml_attributes_to_lily (attrs):
     elts = []
     attr_dispatch =  {
         'clef': musicxml_clef_to_lily,
         'time': musicxml_time_to_lily,
-        'key': musicxml_key_to_lily
+        'key': musicxml_key_to_lily,
+        'transpose': musicxml_transpose_to_lily,
     }
     for (k, func) in attr_dispatch.items ():
         children = attrs.get_named_children (k)
         if children:
-            elts.append (func (attrs))
+            ev = func (attrs)
+            if ev:
+                elts.append (ev)
     
     return elts
 
@@ -1328,6 +1601,50 @@ def musicxml_harmony_to_lily (n):
     return res
 
 
+notehead_styles_dict = {
+    'slash': '\'slash',
+    'triangle': '\'triangle',
+    'diamond': '\'diamond',
+    'square': '\'la', # TODO: Proper squared note head
+    'cross': None, # TODO: + shaped note head
+    'x': '\'cross',
+    'circle-x': '\'xcircle',
+    'inverted triangle': None, # TODO: Implement
+    'arrow down': None, # TODO: Implement
+    'arrow up': None, # TODO: Implement
+    'slashed': None, # TODO: Implement
+    'back slashed': None, # TODO: Implement
+    'normal': None,
+    'cluster': None, # TODO: Implement
+    'none': '#f',
+    'do': '\'do',
+    're': '\'re',
+    'mi': '\'mi',
+    'fa': '\'fa',
+    'so': None,
+    'la': '\'la',
+    'ti': '\'ti',
+    }
+
+def musicxml_notehead_to_lily (nh):
+    styles = []
+
+    # Notehead style
+    style = notehead_styles_dict.get (nh.get_text ().strip (), None)
+    style_elm = musicexp.NotestyleEvent ()
+    if style:
+        style_elm.style = style
+    if hasattr (nh, 'filled'):
+        style_elm.filled = (getattr (nh, 'filled') == "yes")
+    if style_elm.style or (style_elm.filled != None):
+        styles.append (style_elm)
+
+    # parentheses
+    if hasattr (nh, 'parentheses') and (nh.parentheses == "yes"):
+        styles.append (musicexp.ParenthesizeEvent ())
+
+    return styles
+
 def musicxml_chordpitch_to_lily (mxl_cpitch):
     r = musicexp.ChordPitch ()
     r.alteration = mxl_cpitch.get_alteration ()
@@ -1536,10 +1853,54 @@ def musicxml_note_to_lily_main_event (n):
         n.message (_ ("cannot find suitable event"))
 
     if event:
-	event.duration = musicxml_duration_to_lily (n)
+        event.duration = musicxml_duration_to_lily (n)
+
+    noteheads = n.get_named_children ('notehead')
+    for nh in noteheads:
+        styles = musicxml_notehead_to_lily (nh)
+        for s in styles:
+            event.add_associated_event (s)
 
     return event
 
+def musicxml_lyrics_to_text (lyrics):
+    # TODO: Implement text styles for lyrics syllables
+    continued = False
+    extended = False
+    text = ''
+    for e in lyrics.get_all_children ():
+        if isinstance (e, musicxml.Syllabic):
+            continued = e.continued ()
+        elif isinstance (e, musicxml.Text):
+            # We need to convert soft hyphens to -, otherwise the ascii codec as well
+            # as lilypond will barf on that character
+            text += string.replace( e.get_text(), u'\xad', '-' )
+        elif isinstance (e, musicxml.Elision):
+            if text:
+                text += " "
+            continued = False
+            extended = False
+        elif isinstance (e, musicxml.Extend):
+            if text:
+                text += " "
+            extended = True
+
+    if text == "-" and continued:
+        return "--"
+    elif text == "_" and extended:
+        return "__"
+    elif continued and text:
+        return musicxml.escape_ly_output_string (text) + " --"
+    elif continued:
+        return "--"
+    elif extended and text:
+        return musicxml.escape_ly_output_string (text) + " __"
+    elif extended:
+        return "__"
+    elif text:
+        return musicxml.escape_ly_output_string (text)
+    else:
+        return ""
 
 ## TODO
 class NegativeSkip:
@@ -1556,12 +1917,12 @@ class LilyPondVoiceBuilder:
         self.pending_multibar = Rational (0)
         self.ignore_skips = False
         self.has_relevant_elements = False
-        self.measure_length = (4, 4)
+        self.measure_length = Rational (4, 4)
 
     def _insert_multibar (self):
         layout_information.set_context_item ('Score', 'skipBars = ##t')
         r = musicexp.MultiMeasureRest ()
-        lenfrac = Rational (self.measure_length[0], self.measure_length[1])
+        lenfrac = self.measure_length
         r.duration = rational_to_lily_duration (lenfrac)
         r.duration.factor *= self.pending_multibar / lenfrac
         self.elements.append (r)
@@ -1707,11 +2068,10 @@ def musicxml_step_to_lily (step):
 	return None
 
 def measure_length_from_attributes (attr, current_measure_length):
-    mxl = attr.get_named_attribute ('time')
-    if mxl:
-        return attr.get_time_signature ()
-    else:
-        return current_measure_length
+    len = attr.get_measure_length ()
+    if not len:
+        len = current_measure_length
+    return len
 
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
@@ -1745,7 +2105,7 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder = LilyPondVoiceBuilder ()
     figured_bass_builder = LilyPondVoiceBuilder ()
     chordnames_builder = LilyPondVoiceBuilder ()
-    current_measure_length = (4, 4)
+    current_measure_length = Rational (4, 4)
     voice_builder.set_measure_length (current_measure_length)
 
     for n in voice._elements:
@@ -1928,7 +2288,6 @@ def musicxml_voice_to_lily_voice (voice):
                 chordnames_builder.add_music (cn, ev_chord.get_length ())
             pending_chordnames = []
 
-
         notations_children = n.get_typed_children (musicxml.Notations)
         tuplet_event = None
         span_events = []
@@ -1940,12 +2299,8 @@ def musicxml_voice_to_lily_voice (voice):
         #    accidental-mark | other-notation
         for notations in notations_children:
             for tuplet_event in notations.get_tuplets():
-                mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
-                frac = (1,1)
-                if mod:
-                    frac = mod.get_fraction ()
-
-                tuplet_events.append ((ev_chord, tuplet_event, frac))
+                time_mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
+                tuplet_events.append ((ev_chord, tuplet_event, time_mod))
 
             # First, close all open slurs, only then start any new slur
             # TODO: Record the number of the open slur to dtermine the correct
@@ -2060,14 +2415,6 @@ def musicxml_voice_to_lily_voice (voice):
                     is_beamed = True
                 elif beam_ev.span_direction == 1: # beam and thus melisma ends here
                     is_beamed = False
-            
-        if tuplet_event:
-            mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
-            frac = (1,1)
-            if mod:
-                frac = mod.get_fraction ()
-                
-            tuplet_events.append ((ev_chord, tuplet_event, frac))
 
         # Extract the lyrics
         if not rest and not ignore_lyrics:
@@ -2076,10 +2423,10 @@ def musicxml_voice_to_lily_voice (voice):
             for l in note_lyrics_elements:
                 if l.get_number () < 0:
                     for k in lyrics.keys ():
-                        lyrics[k].append (l.lyric_to_text ())
+                        lyrics[k].append (musicxml_lyrics_to_text (l))
                         note_lyrics_processed.append (k)
                 else:
-                    lyrics[l.number].append(l.lyric_to_text ())
+                    lyrics[l.number].append(musicxml_lyrics_to_text (l))
                     note_lyrics_processed.append (l.number)
             for lnr in lyrics.keys ():
                 if not lnr in note_lyrics_processed:
@@ -2295,9 +2642,10 @@ information.""") % 'lilypond')
                   dest = 'output_name',
                   help = _ ("set output filename to FILE, stdout if -"))
     p.add_option_group ('',
-                        description = (_ ("Report bugs via")
-                                     + ''' http://post.gmane.org/post.php'''
-                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
+                        description = (
+            _ ("Report bugs via %s")
+            % 'http://post.gmane.org/post.php'
+            '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     return p
 
 def music_xml_voice_name_to_lily_name (part_id, name):
@@ -2557,17 +2905,21 @@ def main ():
     conversion_settings.ignore_beaming = not options.convert_beaming
 
     # Allow the user to leave out the .xml or xml on the filename
-    if args[0]=="-": # Read from stdin
-        filename="-"
+    basefilename = args[0].decode('utf-8')
+    if basefilename == "-": # Read from stdin
+        basefilename = "-"
     else:
-        filename = get_existing_filename_with_extension (args[0], "xml")
+        filename = get_existing_filename_with_extension (basefilename, "xml")
         if not filename:
-            filename = get_existing_filename_with_extension (args[0], "mxl")
+            filename = get_existing_filename_with_extension (basefilename, "mxl")
             options.compressed = True
+    if filename and filename.endswith ("mxl"):
+        options.compressed = True
+
     if filename and (filename == "-" or os.path.exists (filename)):
         voices = convert (filename, options)
     else:
-        progress (_ ("Unable to find input file %s") % args[0])
+        progress (_ ("Unable to find input file %s") % basefilename)
 
 if __name__ == '__main__':
     main()

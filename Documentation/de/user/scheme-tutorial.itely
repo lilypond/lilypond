@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
+    Translation of GIT committish: 3a8542af9f54c99b53374328af0d5d87005ca49e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,9 +15,7 @@
 @funindex #
 @cindex Scheme
 @cindex GUILE
-@cindex Scheme, in-line code
-@c @cindex accessing Scheme
-@c @cindex evaluating Scheme
+@cindex Scheme, in einer LilyPond-Datei
 @cindex LISP
 
 LilyPond verwendet die Scheme-Programmiersprache sowohl als Teil 
@@ -223,7 +221,7 @@ Symbolliste und eine Liste von Listen:
 
 
 @menu
-* Tweaking with Scheme::        
+* Tweaking with Scheme::
 @end menu
 
 @node Tweaking with Scheme

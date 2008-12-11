@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 ;; Internationalisation: (_i "to be translated") gets an entry in the
@@ -31,7 +31,7 @@
     ;; - [subject-]-verb-object-object
 
     (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
-    (backend ps "which backend to use by default; Options: eps, ps [default], scm, svg, tex, texstr)")
+    (backend ps "which backend to use by default; Options: eps, null, ps [default], scm, svg)")
     (check-internal-types #f "check every property assignment for types")
     (clip-systems #f "Generate cut-out snippets of a score")
     (datadir #f "LilyPond prefix for data files (Readonly).")
@@ -163,15 +163,7 @@ on errors, and print a stack trace.")
 (if (ly:get-option 'trace-scheme-coverage)
     (coverage:enable))
 
-(define-public tex-backend?
-  (member (ly:get-option 'backend) '(texstr tex)))
-
 (define-public parser #f)
-
-
-;; TeX C++ code actually hooks into TEX_STRING_HASHLIMIT 
-(define-public TEX_STRING_HASHLIMIT 10000000)
-
 
 
 ;; gettext wrapper for guile < 1.7.2
@@ -251,8 +243,6 @@ predicates. Print a message at LOCATION if any predicate failed."
 
 ;;(define-public (output-framework) (write "hello\n"))
 
-(define output-tex-module
-  (make-module 1021 (list (resolve-interface '(scm output-tex)))))
 (define output-ps-module
   (make-module 1021 (list (resolve-interface '(scm output-ps)))))
 

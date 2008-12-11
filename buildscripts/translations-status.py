@@ -247,7 +247,7 @@ class TranslatedTelyDocument (TelyDocument):
 
         ## calculate how much the file is outdated
         (diff_string, error) = \
-            buildlib.check_translated_doc (masterdocument.filename, self.contents)
+            buildlib.check_translated_doc (masterdocument.filename, self.filename, self.contents)
         if error:
             sys.stderr.write ('warning: %s: %s' % (self.filename, error))
             self.uptodate_percentage = None

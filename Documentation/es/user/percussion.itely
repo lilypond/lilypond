@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0b6448e57eeda9258410753c9b1a42ed0897fe2b
+    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -49,8 +49,8 @@ in MIDI}.
 
 @end itemize
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves}.
@@ -102,8 +102,8 @@ Hay ciertos detalles respecto a cómo está contemplado el MIDI para los
 instrumentos de percusión; para ver los detalles consulte
 @ref{Percussion in MIDI}.
 
-@seealso
 
+@seealso
 Referencia de la notación:
 @ref{Percussion in MIDI},
 @ref{Percussion notes}.
@@ -150,8 +150,8 @@ de base satisfactoria.
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Percussion}.
 
@@ -164,11 +164,10 @@ xilófono, el vibráfono y los timbales) se escriben usando pentagramas
 normales.  Esto se estudia en otras secciones del manual.
 
 @seealso
-
+@c
 @c TODO: possibly link to an alternate section of NR 3.5, if
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
-
 Referencia de la notación:
 @ref{Percussion in MIDI}.
 
@@ -412,7 +411,7 @@ woodstaff = {
   % It also defines the positions of the two lines.
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
-  % This is neccessary; if not entered, the barline wuld be too short!
+  % This is neccessary; if not entered, the barline would be too short!
   \override Staff.BarLine #'bar-size = #3
 }
 
@@ -570,8 +569,8 @@ drumsB = {
 }
 @end lilypond
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Percussion}.
 
@@ -616,7 +615,7 @@ en @ref{Parentheses}.  Sin embargo, el modo por defecto
 Observe, además, que debe añadir acordes (paréntesis en ángulo @code{<
 >}) alrededor de cada una de las instrucciones @code{\parenthesize}.
 
-@seealso
 
+@seealso
 Fragmentos de código:
 @rlsr{Percussion}.

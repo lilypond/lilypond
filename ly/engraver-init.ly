@@ -106,7 +106,7 @@
 
 \context {
   \type "Engraver_group"
-  \name "InnerChoirStaff"
+  \name "ChoirStaff"
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
   vocalName = #'()
@@ -119,19 +119,11 @@
   \accepts "PianoStaff"
   \accepts "Lyrics"
   \accepts "ChordNames"
+  \accepts "ChoirStaff"
+  \accepts "StaffGroup"
   \defaultchild "Staff"
-}
-
-\context {
-  \InnerChoirStaff
-  \name ChoirStaff
-  
-  \defaultchild "Staff"
-  \accepts "InnerChoirStaff"
-  \accepts "InnerStaffGroup"
   \description "Identical to @code{StaffGroup} except that the
 contained staves are not connected vertically."
-
 }
 
 \context{
@@ -314,7 +306,7 @@ instrument names at the start of each system."
 
 \context {
   \type "Engraver_group"
-  \name InnerStaffGroup
+  \name "StaffGroup"
 
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
@@ -332,23 +324,15 @@ instrument names at the start of each system."
   \accepts "TabStaff"	
   \accepts "Lyrics"
   \accepts "ChordNames"
-}
-
-\context {
-  \InnerStaffGroup
-  \name StaffGroup
+  \accepts "FiguredBass"
+  \accepts "ChoirStaff"
+  \accepts "StaffGroup"
   
   \description "Groups staves while adding a bracket on the left
 side, grouping the staves together.  The bar lines of the contained
 staves are connected vertically.  @code{StaffGroup} only consists of
 a collection of staves, with a bracket in front and spanning bar lines."
-  
-  \accepts "InnerChoirStaff"
-  \accepts "ChoirStaff"
-  \accepts "InnerStaffGroup"
-  \accepts "FiguredBass"
 }
-
 
 \context{
   \type "Engraver_group"
@@ -521,6 +505,8 @@ automatically when an output definition (a @code{\score} or
   explicitClefVisibility = #all-visible
   explicitKeySignatureVisibility = #all-visible
   implicitTimeSignatureVisibility = #end-of-line-invisible
+  
+  repeatCountVisibility = #all-repeat-counts-visible
   
   autoBeamSettings = #default-auto-beam-settings
   autoBeaming = ##t

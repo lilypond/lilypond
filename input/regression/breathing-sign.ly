@@ -10,46 +10,34 @@ ticks, vees and `railroad tracks' (caesura)."
   %% Modern notation:
   \new Staff {
     \relative c'' {
-      \key es \major \time 3/4
-
-      %% this bar contains no \breathe
-      <<
-	{ g4 as g } \\
-	{ es4 bes es }
-      >> |
-
       %% by default, \breathe uses the rcomma, just as if saying:
-      %% \override BreathingSign  #'text =
-				%	#(make-musicglyph-markup "scripts.rcomma")
-      <<
-	{ g4 as g } \\
-	{ es4 \breathe bes es }
-      >> |
+      %% \override BreathingSign #'text =
+      %%   #(make-musicglyph-markup "scripts.rcomma")
+      %%
+      c4 c \breathe c c |
 
       %% rvarcomma and lvarcomma are variations of the default rcomma
       %% and lcomma
-
-      %% N.B.: must use Staff context here, since we start a Voice below
-      \override Staff.BreathingSign  #'text =
-      #(make-musicglyph-markup "scripts.rvarcomma")
-      <<
-	{ g4 as g } \\
-	{ es4 \breathe bes es }
-      >> |
+      %%
+      \override Staff.BreathingSign #'text =
+        #(make-musicglyph-markup "scripts.rvarcomma")
+      c4 c \breathe c c |
 
       %% wedge
-      \override BreathingSign  #'text =
-      #(make-musicglyph-markup "scripts.upbow")
-      es8 d es f g8 \breathe f |
+      %%
+      \override BreathingSign #'text =
+        #(make-musicglyph-markup "scripts.upbow")
+      c4 c \breathe c c |
 
       %% caesurae
-      \override BreathingSign  #'text =
-      #(make-musicglyph-markup "scripts.caesura.curved.curved")
-      es8[ d] \breathe
-      \override BreathingSign  #'text =
-      #(make-musicglyph-markup "scripts.caesura.curved.straight")
-                       es[ f] \breathe g[ f] |
-      es2 r4 \bar "||" \break
+      %%
+      \override BreathingSign #'text =
+        #(make-musicglyph-markup "scripts.caesura.curved")
+      c4 c \breathe c c |
+
+      \override BreathingSign #'text =
+        #(make-musicglyph-markup "scripts.caesura.straight")
+      c4 c \breathe c c |
     }
   }
 }
