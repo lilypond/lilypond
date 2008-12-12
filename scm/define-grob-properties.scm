@@ -554,6 +554,10 @@ value @code{-1} means left aligned, @code{0}@tie{}centered, and
 values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
+     (toward-stem-shift ,number? "Amount by which scripts are shifted
+toward the stem if their direction coincides with the stem direction.
+@code{0.0} means keep the default position (centered on the note head),
+@code{1.0} means centered on the stem.  Interpolated values are possible.")
      (shorten-pair ,number-pair? "The lengths to shorten a
 text-spanner on both sides, for example a pedal bracket.  Positive
 values shorten the text-spanner, while negative values lengthen it.")

@@ -129,6 +129,7 @@ ADD_INTERFACE (Script_interface,
 	       "positioning-done "
 	       "script-priority "
 	       "script-stencil "
+	       "toward-stem-shift "
 	       "slur "
 	       "slur-padding "
 	       );

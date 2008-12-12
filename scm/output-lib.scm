@@ -670,4 +670,21 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (script-interface::calc-x-offset grob)
   (ly:grob-property grob 'positioning-done)
-  (ly:self-alignment-interface::centered-on-x-parent grob))
+  (let* ((shift (ly:grob-property grob 'toward-stem-shift 0.0))
+	 (note-head-location (ly:self-alignment-interface::centered-on-x-parent grob))
+	 (note-head-grob (ly:grob-parent grob X))
+	 (stem-grob (ly:grob-object note-head-grob 'stem)))
+    (+ note-head-location
+       ;; If the property 'toward-stem-shift is defined and the script has the
+       ;; same direction as the stem, move the script accordingly. Since scripts can
+       ;; also be over skips, we need to check whether the grob has a stem at all.
+       (if (ly:grob? stem-grob)
+	   (let ((dir1 (ly:grob-property grob 'direction))
+		 (dir2 (ly:grob-property stem-grob 'direction)))
+	     (if (equal? dir1 dir2)
+		 (let* ((common-refp (ly:grob-common-refpoint grob stem-grob X))
+			(stem-location (ly:grob-relative-coordinate stem-grob common-refp X)))
+		   (* shift (- stem-location
+			       note-head-location)))
+		 0.0))
+	   0.0))))
