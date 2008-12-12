@@ -250,6 +250,7 @@ centered, X==1 is at the right, X == -1 is at the left."
     ("" . ("" . ""))
     (":" . (":" . ""))
     ("." . ("." . ()))
+    ("'" . ("'" . ()))
     ("empty" . (() . ()))
     ("brace" . (() . "brace"))
     ("bracket" . (() . "bracket")) 
