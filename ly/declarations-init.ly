@@ -64,6 +64,7 @@ escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 
 #(define fretboard-table (make-hash-table 100))
+#(define chord-shape-table (make-hash-table 100))
 
 \include "scale-definitions-init.ly"
 

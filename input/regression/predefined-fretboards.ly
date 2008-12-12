@@ -1,17 +1,17 @@
 % add a chord shape
-\version "2.11.56"
+\version "2.11.65"
 
-\addChordShape #'bes #"x;1-1-(;3-2;3-3;3-4;1-1-);"
+\addChordShape #'bes #guitar-tuning #"x;1-1-(;3-2;3-3;3-4;1-1-);"
 
 % add chords
 
 \storePredefinedDiagram \chordmode {bes}
                         #guitar-tuning
-                        #(chord-shape 'bes)
+                        #(chord-shape 'bes guitar-tuning)
 
 \storePredefinedDiagram \chordmode {c}
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'bes))
+                        #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode {
   bes
