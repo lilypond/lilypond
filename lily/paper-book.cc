@@ -108,12 +108,13 @@ Paper_book::add_performance (SCM s)
   performances_ = scm_cons (s, performances_);
 }
 
-void
+int
 Paper_book::output_aux (SCM output_channel,
 			bool is_last,
 			int *first_page_number,
 			int *first_performance_number)
 {
+  int page_nb = 0;
   if (scm_is_pair (performances_))
     {
       SCM proc = ly_lily_module_constant ("write-performances-midis");
@@ -131,23 +132,25 @@ Paper_book::output_aux (SCM output_channel,
 	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
 	  {
 	    bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
-	    pbookpart->output_aux (output_channel,
-				   is_last_part,
-				   first_page_number,
-				   first_performance_number);
+	    page_nb += pbookpart->output_aux (output_channel,
+					      is_last_part,
+					      first_page_number,
+					      first_performance_number);
 	  }
     }
   else
     {
       if (scores_ == SCM_EOL)
-	return;
+	return 0;
       paper_->set_variable (ly_symbol2scm ("first-page-number"),
 			    scm_long2num (*first_page_number));
       paper_->set_variable (ly_symbol2scm ("is-last-bookpart"),
 			    ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
-      *first_page_number += scm_ilength (pages ());
+      page_nb = scm_ilength (pages ());
+      *first_page_number += page_nb;
     }
+  return page_nb;
 }
 
 void
@@ -155,11 +158,12 @@ Paper_book::output (SCM output_channel)
 {
   int first_page_number = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
   int first_performance_number = 0;
-  output_aux (output_channel,
-	      true,
-	      &first_page_number,
-	      &first_performance_number);
-
+  if (!output_aux (output_channel,
+		   true,
+		   &first_page_number,
+		   &first_performance_number))
+    return;
+      
   SCM scopes = SCM_EOL;
   if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
@@ -581,7 +585,7 @@ Paper_book::pages ()
 	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
 	  pages_ = scm_append_x (scm_list_2 (pages_, pbookpart->pages ()));
     }
-  else
+  else if (scm_is_pair (scores_))
     {
       SCM proc = paper_->c_variable ("page-breaking-wrapper");
       pages_ = scm_apply_0 (proc, scm_list_1 (self_scm ()));
