@@ -47,59 +47,66 @@ fet_begingroup ("accidentals");
 %
 % Draw an arrow
 %
-% * "stemslant" gives the direction of the stem's left boundary
+% * `stemslant' gives the direction of the stem's left boundary
 %   (needed for brushed stems, equals "up" for straight stems)
-% * "extend" is used to make the stem longer or shorter (if negative);
+% * `extend' is used to make the stem longer or shorter (if negative);
 %   different kinds of accidentals need different values here
 %
 def draw_arrow (expr attach, stemwidth, stemslant, extend, pointingdown) =
 begingroup;
 	save htip;  % tip height
-	save wwing; % wing "radius"
+	save wwing; % wing `radius'
 	save angle_wing_bot, angle_wing_top, angle_tip;
 	save upshift;
 	clearxy;
 
-	wwing:=0.26 stemwidth;
-	htip:=staff_space*0.85 + stafflinethickness - wwing;
+	wwing := 0.26 stemwidth;
+	htip := staff_space * 0.85 + stafflinethickness - wwing;
 
-	% "flip" is used to reflect the arrow vertically if arrow points downward
+	% `flip' is used to reflect the arrow vertically
+	% if arrow points downward
 	transform flip;
 	if pointingdown:
-		flip=identity reflectedabout (origin, right);
+		flip = identity reflectedabout (origin, right);
 	else:
-		flip=identity;
+		flip = identity;
 	fi;
 
-	z1=attach shifted ((-stemwidth/2),0);
-	upshift:=max(0, wwing + 0.1 staff_space + extend);
-	z2=z1 shifted (((unitvector stemslant) scaled upshift) transformed flip);
+	z1 = attach shifted (-stemwidth / 2, 0);
+	upshift := max (0, wwing + 0.1 staff_space + extend);
+	z2 = z1 shifted (((unitvector stemslant)
+			  scaled upshift) transformed flip);
 
-	z7=attach shifted ((stemwidth/2),0);
-	z6=z7 shifted (((unitvector (-xpart stemslant, ypart stemslant))
-			scaled upshift) transformed flip);
-	(z2-z3)= (0.38 staff_space, 0.05 htip) transformed flip;
-	(z6-z5)=(-0.38 staff_space, 0.05 htip) transformed flip;
+	z7 = attach shifted ((stemwidth/2),0);
+	z6 = z7 shifted (((unitvector (-xpart stemslant, ypart stemslant))
+			  scaled upshift) transformed flip);
+	z2 - z3 = ( 0.38 staff_space, 0.05 htip) transformed flip;
+	z6 - z5 = (-0.38 staff_space, 0.05 htip) transformed flip;
 
-	z4 =attach shifted ((-0.2 stemwidth, upshift+htip) transformed flip);
-	z4'=attach shifted (( 0.2 stemwidth, upshift+htip) transformed flip);
+	z4 = attach shifted ((-0.2 stemwidth, upshift + htip)
+			     transformed flip);
+	z4'= attach shifted (( 0.2 stemwidth, upshift + htip)
+			     transformed flip);
 
-	% angle_wing_bot is the angle at which the arc from z2 to z3a enters z3a
-	% angle_wing_top is the angle at which the arc from z3b to z4 leaves z3b
-	% angle_tip is the angle at which the arc from z4 to z4' leaves z4
-	angle_wing_bot=30;
-	angle_wing_top=55;
-	angle_tip=68;
+	% `angle_wing_bot' is the angle at which the arc
+	% from z2 to z3a enters z3a
+	% `angle_wing_top' is the angle at which the arc
+	% from z3b to z4 leaves z3b
+	% `angle_tip' is the angle at which the arc
+	% from z4 to z4' leaves z4
+	angle_wing_bot = 30;
+	angle_wing_top = 55;
+	angle_tip = 68;
 
-	z3a=z3 shifted ((((dir angle_wing_bot) rotated (-90))
-			 scaled wwing) transformed flip);
-	z3b=z3 shifted ((((dir angle_wing_top) rotated 90)
-			 scaled wwing) transformed flip);
+	z3a = z3 shifted ((((dir angle_wing_bot) rotated -90)
+			   scaled wwing) transformed flip);
+	z3b = z3 shifted ((((dir angle_wing_top) rotated 90)
+			   scaled wwing) transformed flip);
 
-	z5a=z5 shifted ((((dir (180-angle_wing_bot)) rotated 90)
-			 scaled wwing) transformed flip);
-	z5b=z5 shifted ((((dir (180-angle_wing_top)) rotated (-90))
-			 scaled wwing) transformed flip);
+	z5a = z5 shifted ((((dir (180 - angle_wing_bot)) rotated 90)
+			   scaled wwing) transformed flip);
+	z5b = z5 shifted ((((dir (180 - angle_wing_top)) rotated -90)
+			   scaled wwing) transformed flip);
 
 	% Draw the arrow
 	pickup pencircle scaled 1;
@@ -109,13 +116,13 @@ begingroup;
 	     .. z3b{(dir angle_wing_top) transformed flip}
 	     .. z4{(dir angle_tip) transformed flip}
 	     .. z4'{(dir (-angle_tip)) transformed flip}
-	     ..{(dir (-angle_wing_top)) transformed flip}z5b
-	     ..z5a{(-dir (-angle_wing_bot)) transformed flip}
-	     ..z6{((-stemslant) reflectedabout (origin, up)) transformed flip}
+	     .. {(dir (-angle_wing_top)) transformed flip}z5b
+	     .. z5a{(-dir (-angle_wing_bot)) transformed flip}
+	     .. z6{((-stemslant) reflectedabout (origin, up)) transformed flip}
 	     -- z7
-	     --cycle;
+	     -- cycle;
 
-	labels(range 0 thru 7,4',3a,3b,5a,5b);
+	labels (range 0 thru 7, 4', 3a, 3b, 5a, 5b);
 endgroup;
 enddef;
 
@@ -185,7 +192,7 @@ def draw_sharp(expr arrowup, arrowdown) =
 	define_pixels (stemlength);
 
 	height# = stemlength#;
-	depth#  = stemlength#;
+	depth# = stemlength#;
 	extendright# = 0;
 	extendleft# = 0;
 	if arrowup:
@@ -196,7 +203,7 @@ def draw_sharp(expr arrowup, arrowdown) =
 		depth# := depth# + 1.2 staff_space#;
 		extendleft# := extendleft# + 1.5 stafflinethickness#;
 	fi;
-	define_pixels(extendleft, extendright);
+	define_pixels (extendleft, extendright);
 	set_char_box (extendleft#, 1.1 staff_space#, depth#, height#);
 
 	stem := 7 / 16 * w;
@@ -209,8 +216,9 @@ def draw_sharp(expr arrowup, arrowdown) =
 	draw_meta_sharp (w, -.5 interbeam);
 	draw_meta_sharp (w, -.5 interbeam + vround interbeam);
 
-	% expand the charbox so that it encloses the whole arrow; this mustn't
-        % happen earlier because some commands above still rely on the old width
+	% expand the charbox so that it encloses the whole arrow;
+	% this must not happen earlier because some commands above
+	% still rely on the old width
 	w := w + extendright;
 
 	pickup pencircle scaled stemwidth;
@@ -229,11 +237,11 @@ def draw_sharp(expr arrowup, arrowdown) =
 
 	if arrowup:
 		draw_arrow (z8, stemwidth, up,
-			    +(stafflinethickness/2 + stemwidth/2), false);
+			    stafflinethickness / 2 + stemwidth / 2, false);
 	fi;
 	if arrowdown:
 		draw_arrow (z5, stemwidth, up,
-			    +(stafflinethickness/2 + stemwidth/2), true);
+			    stafflinethickness / 2 + stemwidth / 2, true);
 	fi;
 
 	remember_pic := currentpicture;
@@ -266,7 +274,7 @@ fet_endchar;
 draw_shifted_too;
 
 
-fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowboth");
+fet_beginchar ("Arrowed Sharp (arrows up and down)", "sharp.arrowboth");
 	draw_sharp (true, true);
 fet_endchar;
 
@@ -496,7 +504,7 @@ def draw_natural (expr arrowup, arrowdown) =
 
 	pickup pencircle scaled stemwidth;
 
-	brush_scale_up   := 1.0;
+	brush_scale_up := 1.0;
 	brush_scale_down := 1.0;
 	% to look nice, arrowed stems must be less brushed
 	if arrowup:
@@ -576,11 +584,11 @@ def draw_natural (expr arrowup, arrowdown) =
 
 	if arrowup:
 		draw_arrow (z1, top_stem_thick * brush_scale_up,
-			    z1'l-z4l, stafflinethickness/2, false);
+			    z1'l - z4l, stafflinethickness / 2, false);
 	fi;
 	if arrowdown:
 		draw_arrow (z3, top_stem_thick * brush_scale_down,
-			    z2r-z3'r, stafflinethickness/2, true);
+			    z2r - z3'r, stafflinethickness / 2, true);
 		w := w + extendright;
 	fi;
 
@@ -588,6 +596,7 @@ def draw_natural (expr arrowup, arrowdown) =
 
 	draw_staff (-2, 2, 0);
 enddef;
+
 
 fet_beginchar ("Natural", "natural");
 	draw_natural (false, false);
@@ -597,7 +606,7 @@ fet_endchar;
 draw_shifted_too;
 
 
-fet_beginchar ("Natural", "natural.arrowup");
+fet_beginchar ("Arrowed Natural (arrow up)", "natural.arrowup");
 	draw_natural (true, false);
 fet_endchar;
 
@@ -605,7 +614,7 @@ fet_endchar;
 draw_shifted_too;
 
 
-fet_beginchar ("Natural", "natural.arrowdown");
+fet_beginchar ("Arrowed Natural (arrow down)", "natural.arrowdown");
 	draw_natural (false, true);
 fet_endchar;
 
@@ -613,7 +622,7 @@ fet_endchar;
 draw_shifted_too;
 
 
-fet_beginchar ("Natural", "natural.arrowboth");
+fet_beginchar ("Arrowed Natural (arrows up and down)", "natural.arrowboth");
 	draw_natural (true, true);
 fet_endchar;
 
@@ -635,7 +644,8 @@ draw_shifted_too;
 def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 	save crook_thinness;
 	save bottom_overshoot, bot_crook_dir;
-	save top_stem_thick, top_stem_thick_orig, bottom_stem_thick, hair, smaller_hole;
+	save top_stem_thick, top_stem_thick_orig;
+	save bottom_stem_thick, hair, smaller_hole;
 	save top_crook_thinness;
 	save zwiep;
 	save center;
@@ -659,7 +669,7 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 	clearing = 1.7 stafflinethickness;
 	clearing_orig = clearing;
 	if arrowup:
-	        clearing := 0.5 staff_space;
+		clearing := 0.5 staff_space;
 	fi;
 	bottom_overshoot = stafflinethickness;
 
@@ -668,7 +678,7 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 	top_stem_thick_orig# = top_stem_thick#;
 	if arrowup:
 		% to look nice, arrowed stems should be less brushed
-		top_stem_thick# := top_stem_thick#*0.80;
+		top_stem_thick# := top_stem_thick# * 0.8;
 	fi;
 	define_whole_blacker_pixels (bottom_stem_thick, top_stem_thick,
 				     top_stem_thick_orig);
@@ -686,10 +696,11 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 	y1 = vround (2 staff_space - clearing);
 	x2l = hround (xcenter - .5 bottom_stem_thick);
 	y2 = -.5 staff_space - .5 stafflinethickness;
-	% z16 and the _orig variables are needed for arrowed accidentals because
-	% their inner part should be unchanged from plain ones but the points z3l,
-	% z3r and z10 depend on values that are different for arrowed accidentals
-	x16l = hround (xcenter - .5 top_stem_thick_orig);
+	% z16 and the `*_orig' variables are needed for arrowed accidentals
+	% because their inner part should be unchanged from plain ones but
+	% the points z3l, z3r, and z10 depend on values that are different
+	% for arrowed accidentals
+	x16l = hround (xcenter -.5 top_stem_thick_orig);
 	y16 = vround (2 staff_space - clearing_orig);
 
 	penpos1 (top_stem_thick, 0);
@@ -698,7 +709,8 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 
 	y3l = vfloor ((staff_space - stafflinethickness) / 2);
 	z3l = whatever [z2r, z1r];
-	z3r = .3 [z2r, (z16r shifted (0, clearing_orig - 1.7 stafflinethickness))]
+	z3r = .3 [z2r,
+		  (z16r shifted (0, clearing_orig - 1.7 stafflinethickness))]
 	      + (smaller_hole, 0);
 	x3r := hceiling x3r;
 
@@ -717,8 +729,8 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 	y11 = -vround (.5 (staff_space + stafflinethickness)
 		       + bottom_overshoot);
 
-	x2a = 0.2[x2r,x7];
-	y2a = 1.5[y2,y11];
+	x2a = 0.2[x2r, x7];
+	y2a = 1.5[y2, y11];
 
 	penpos4 (whatever, 53);
 
@@ -767,17 +779,18 @@ def draw_meta_flat (expr xcenter, w, crook_fatness, arrowup, arrowdown) =
 	fi;
 
 	if arrowup:
-		draw_arrow (z1, top_stem_thick, z1l-z2l,
-			    0.5stafflinethickness, false);
+		draw_arrow (z1, top_stem_thick, z1l - z2l,
+			    0.5 stafflinethickness, false);
 	fi;
 	if arrowdown:
-		draw_arrow ((0.5[x2l,x2a],y2), x2a-x2l, up,
-			    staff_space/2, true);
+		draw_arrow ((0.5 [x2l, x2a], y2), x2a - x2l, up,
+			    staff_space / 2, true);
 	fi;
 enddef;
 
 
-def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness, arrowup, arrowdown) =
+def draw_arrowed_meta_flat (expr xcenter, width, crook_fatness,
+				 arrowup, arrowdown) =
 	save depth, height, extendleft;
 
 	depth# = 0.6 staff_space#;
@@ -801,7 +814,8 @@ enddef;
 %
 
 fet_beginchar ("Flat", "flat");
-	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, false, false);
+	draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
+				false, false);
 	penlabels (range 0 thru 11);
 
 	remember_pic := currentpicture;
@@ -813,39 +827,42 @@ fet_endchar;
 draw_shifted_too;
 
 
-fet_beginchar ("Arrowed Flat (up-arrow)", "flat.arrowup");
-	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, true, false);
+fet_beginchar ("Arrowed Flat (arrow up)", "flat.arrowup");
+	draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
+				true, false);
 	penlabels (range 0 thru 23);
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 draw_shifted_too;
 
 
-fet_beginchar ("Arrowed Flat (down-arrow)", "flat.arrowdown");
-	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, false, true);
+fet_beginchar ("Arrowed Flat (arrow down)", "flat.arrowdown");
+	draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
+				false, true);
 	penlabels (range 0 thru 23);
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 draw_shifted_too;
 
 
-fet_beginchar ("Arrowed Flat (down-arrow)", "flat.arrowboth");
-	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, true, true);
+fet_beginchar ("Arrowed Flat (arrow up and down)", "flat.arrowboth");
+	draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
+				true, true);
 	penlabels (range 0 thru 23);
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
@@ -1125,9 +1142,11 @@ fet_beginchar ("Double Flat", "flatflat");
 	set_char_box (1.2 stafflinethickness#,
 		      (left_wid + right_wid - overlap) * staff_space#,
 		      .6 staff_space#, 1.9 staff_space#);
-	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space, false, false);
+	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space,
+			false, false);
 	draw_meta_flat (hround ((left_wid - overlap) * staff_space),
-			right_wid * staff_space, 1/3 staff_space, false, false);
+			right_wid * staff_space, 1/3 staff_space,
+			false, false);
 fet_endchar;
 
 
@@ -1141,9 +1160,11 @@ fet_beginchar ("3/4 Flat", "flatflat.slash");
 	set_char_box (1.2 stafflinethickness#,
 		      (left_wid + right_wid - overlap) * staff_space#,
 		      .6 staff_space#, 1.9 staff_space#);
-	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space, false, false);
+	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space,
+			false, false);
 	draw_meta_flat (hround ((left_wid - overlap) * staff_space),
-			right_wid * staff_space, 1/3 staff_space, false, false);
+			right_wid * staff_space, 1/3 staff_space,
+			false, false);
 
 	%% maybe we should clip part of the stems?
 	%% or make the 1st flat smaller?
