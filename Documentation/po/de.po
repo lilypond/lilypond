@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-07 23:30+0100\n"
-"PO-Revision-Date: 2008-12-08 21:36+0200\n"
+"PO-Revision-Date: 2008-12-14 00:17+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -8945,7 +8945,7 @@ msgstr "Die @code{centered-on-parent}-Prozeduren benutzen"
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
 msgid "Using the @code{break-aligned-interface}"
-msgstr "Das @{break-aligned-interface} benutzen"
+msgstr "Das @code{break-aligned-interface} benutzen"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
