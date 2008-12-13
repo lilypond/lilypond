@@ -13,41 +13,87 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; ;; TODO
-;; (define-public (add-stroke-straight stencil dir stroke-style)
-;;   stencil
-;; )
-;;
-;; ;; Create a stencil for a straight flag
-;; ;; flag-thickness, -spacing are given in staff spaces
-;; ;; *flag-length are given in black notehead widths
-;; ;; TODO
-;; (define-public (straight-flag flag-thickness flag-spacing
-;;                        upflag-angle upflag-length
-;;                        downflag-angle downflag-length)
-;;   (lambda (stem-grob)
-;;     (let* ((log (ly:grob-property stem-grob 'duration-log))
-;;            (staff-space 1) ; TODO
-;;            (black-notehead-width 1) ; TODO
-;;            (stem-thickness 1) ; TODO: get rid of
-;;            (half-stem-thickness (/ stem-thickness 2))
-;;            (staff-space 1) ; TODO
-;;            (up-length (+ (* upflag-length black-notehead-width) half-stem-thickness))
-;;            (down-length (+ (* downflag-length black-notehead-width) half-stem-thickness))
-;;            (thickness (* flag-thickness staff-space))
-;;            (spacing (* flag-spacing staff-space)))
-;;       empty-stencil
-;;     )
-;;   )
-;; )
-;;
-;; ;; Modern straight flags: angles are not so large as with the old style
-;; (define-public (modern-straight-flag stem-grob)
-;;   ((straight-flag 0.55 0.9 -18 0.95 22 1.0) stem-grob))
-;;
-;; ;; Old-straight flags (Bach, etc.): quite large flag angles
-;; (define-public (old-straight-flag stem-grob)
-;;   ((straight-flag 0.55 0.9 -45 0.95 45 1.0) stem-grob))
+(define-public (add-stroke-straight stencil stem-grob stem-up? log stroke-style offset length thickness stroke-thickness)
+  "Add the stroke for acciaccatura to the given flag stencil."
+  (let* ((udmult (if stem-up? 1 -1))
+         (start (offset-add offset (cons 0  (* (/ length 2) udmult))))
+         (end (offset-add (cons 0 (cdr offset)) 
+                          (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) udmult))))
+         (stroke (make-line-stencil stroke-thickness (car start) (cdr start) (car end) (cdr end))))
+  (ly:stencil-add stencil stroke)))
+
+(define (polar->rectangular radius angle-in-degrees)
+  "Convert polar coordinate @code{radius} and @code{angle-in-degrees}
+   to (x-length . y-length)"
+  (let* ((conversion-constant (/ (atan 1 1) 45))
+         (complex (make-polar
+                    radius
+                    (* conversion-constant angle-in-degrees))))
+     (cons
+       (real-part complex)
+       (imag-part complex))))
+
+(define (buildflag flag-stencil remain curr-stencil spacing)
+  (if (> remain 0)
+      (let* ((translated-stencil (ly:stencil-translate-axis curr-stencil spacing Y))
+             (new-stencil (ly:stencil-add flag-stencil translated-stencil)))
+        (buildflag new-stencil (- remain 1) translated-stencil spacing))
+      flag-stencil))
+
+(define-public (straight-flag flag-thickness flag-spacing
+                       upflag-angle upflag-length
+                       downflag-angle downflag-length)
+    "Create a stencil for a straight flag.
+     flag-thickness, -spacing are given in staff spaces,
+     *flag-angle is given in degree,
+     *flag-length is given in staff spaces"
+  (lambda (stem-grob)
+    (let* ((log (ly:grob-property stem-grob 'duration-log))
+           (layout (ly:grob-layout stem-grob))
+           (stem-up? (eqv? (ly:grob-property stem-grob 'direction) UP))
+           ; scale with the note size (e.g. for grace notes). Default fontsize 
+           ; is fs==0, each step is ~12.246% larger / smaller
+           (fs (ly:grob-property stem-grob 'font-size))
+           (factor (if (number? fs) (expt 1.12246 fs) 1))
+           (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
+           (line-thickness (ly:output-def-lookup layout 'line-thickness))
+           (half-stem-thickness (/ (* grob-stem-thickness line-thickness) 2))
+           (up-length (+ (* upflag-length factor) half-stem-thickness))
+           (up-off (polar->rectangular up-length upflag-angle))
+           (down-length (+ (* downflag-length factor) half-stem-thickness))
+           (down-off (polar->rectangular down-length downflag-angle))
+           (thickness (* flag-thickness factor))
+           (offset (cons 0 (if stem-up? (- thickness) thickness)))
+           (spacing (* flag-spacing factor (if stem-up? -1 1)))
+           (start (cons (- half-stem-thickness) (if stem-up? half-stem-thickness (- half-stem-thickness))))
+           (points (if stem-up? (list start up-off
+                                      (offset-add up-off offset)
+                                      (offset-add start offset))
+                                (list start
+                                      (offset-add start offset)
+                                      (offset-add down-off offset)
+                                      down-off)))
+           (stencil (ly:round-filled-polygon points half-stem-thickness))
+           ; Log for 1/8 is 3, so we need to subtract 3
+           (flag-stencil (buildflag stencil (- log 3) stencil spacing))
+           (stroke-style (ly:grob-property stem-grob 'stroke-style)))
+    (if (null? stroke-style)
+      flag-stencil
+      (add-stroke-straight flag-stencil stem-grob
+                           stem-up? log
+                           stroke-style
+                           (if stem-up? up-off down-off)
+                           (if stem-up? up-length down-length)
+                           thickness
+                           (* half-stem-thickness 2))))))
+
+;; Modern straight flags: angles are not as large as in the old style
+(define-public (modern-straight-flag stem-grob)
+  ((straight-flag 0.55 1 -18 1.1 22 1.2) stem-grob))
+
+;; Old-straight flags (Bach, etc.): quite large flag angles
+(define-public (old-straight-flag stem-grob)
+  ((straight-flag 0.55 1 -45 1.2 45 1.4) stem-grob))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
