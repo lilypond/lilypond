@@ -2039,11 +2039,11 @@ line is inserted at that point in the printed output.  Such insertions
 do not affect the calculation and placement of subsequent automatic
 bar lines.
 
-The simple bar line and five types of double bar line are available
+Two types of simple bar lines and five types of double bar lines are available
 for manual insertion:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
+f1 \bar "|" f \bar "." g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
 @end lilypond
 
 @noindent
@@ -2059,6 +2059,15 @@ and five types of repeat bar line:
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
 @end lilypond
+
+Additionally, a bar line can be printed as a simple tick:
+@lilypond[quote,relative=1,verbatim]
+f1 \bar "'"
+@end lilypond
+However, as such ticks are typically used in Gregorian chant, it is preferable 
+to use @code{\divisioMinima} there instead, described in the section 
+@ref{Divisiones} in Gregorian chant.
+
 
 @cindex repeats
 
