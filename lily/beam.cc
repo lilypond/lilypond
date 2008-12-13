@@ -341,6 +341,12 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
   Position_stem_segments_map stem_segments;
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
+  /* There are two concepts of "rank" that are used in the following code.
+     The beam_rank is the vertical position of the beam (larger numbers are
+     closer to the noteheads). Beam_stem_segment.rank_, on the other hand,
+     is the horizontal position of the segment (this is incremented by two
+     for each stem; the beam segment on the right side of the stem has
+     a higher rank (by one) than its neighbour to the left). */
   Slice ranks;
   for (vsize i = 0; i < stems.size (); i++)
     {
@@ -351,6 +357,10 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
       Direction d = LEFT;
       do
 	{
+	  // Find the maximum and minimum beam ranks.
+	  // Given that RANKS is never reset to empty, the interval will always be
+	  // smallest for the left beamlet of the first stem, and then it might grow.
+	  // Do we really want this? (It only affects the tremolo gaps) --jneem
 	  for (SCM s = index_get_cell (beaming, d);
 	       scm_is_pair (s); s = scm_cdr (s))
 	    {
@@ -400,15 +410,26 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 
       Beam_segment current;
 
+      // Iterate over all of the segments of the current beam rank,
+      // merging the adjacent Beam_stem_segments into one Beam_segment
+      // when appropriate.
       int vertical_count =  (*i).first;
       for (vsize j = 0; j < segs.size (); j++)
 	{
-	  /*
-	    event_dir == LEFT: left edge of a beamsegment.
-	   */
+	  // Keeping track of the different directions here is a little tricky.
+	  // segs[j].dir_ is the direction of the beam segment relative to the stem
+	  // (ie. segs[j].dir_ == LEFT if the beam segment sticks out to the left of
+	  // its stem) whereas event_dir refers to the edge of the beam segment that
+	  // we are currently looking at (ie. if segs[j].dir_ == event_dir then we
+	  // are looking at that edge of the beam segment that is furthest from its
+	  // stem).
 	  Direction event_dir = LEFT;
 	  do
 	    {
+	      // TODO: make names clearer? --jneem
+	      // on_line_bound: whether the current segment is on the boundary of the WHOLE beam
+	      // on_beam_bound: whether the current segment is on the boundary of just that part
+	      //   of the beam with the current beam_rank
 	      bool on_line_bound = (segs[j].dir_ == LEFT) ? segs[j].stem_index_ == 0
 		: segs[j].stem_index_ == stems.size() - 1;
 	      bool on_beam_bound = (event_dir == LEFT) ? j == 0 :
@@ -423,11 +444,15 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		    || abs (vertical_count) >= segs[j + event_dir].max_connect_);
 	      
 	      if (!event)
+		// Then this edge of the current segment is irrelevent because it will
+		// be connected with the next segment in the event_dir direction.
 		continue;
 
 	      current.vertical_count_ = vertical_count;
 	      current.horizontal_[event_dir] = segs[j].stem_x_;
 	      if (segs[j].dir_ == event_dir)
+		// then we are examining the edge of a beam segment that is furthest
+		// from its stem.
 		{
 		  if (on_line_bound
 		      && me->get_bound (event_dir)->break_status_dir ())
@@ -458,6 +483,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		    }
 		}
 	      else
+		// we are examining the edge of a beam segment that is closest
+		// (ie. touching, unless there is a gap) its stem.
 		{
 		  current.horizontal_[event_dir] += event_dir * segs[j].width_/2;
 		  if (segs[j].gapped_)
