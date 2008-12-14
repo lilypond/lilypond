@@ -5,6 +5,13 @@
 \header {
   lsrtags = "text"
 
+  texidoces = "
+Los textos independientes se pueden disponer en varias columnas
+utilizando instrucciones @code{\\markup}:
+
+"
+  doctitlees = "Elemento de marcado de texto independiente en dos columnas"
+
   texidoc = "
 Stand-alone text may be arranged in several columns using
 @code{\\markup} commands:
