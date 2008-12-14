@@ -2,6 +2,10 @@
 ;;;;
 ;;;;  source file of the GNU LilyPOnd music typesetter
 ;;;;
+;;;;  This file implements different flag styles in Scheme / GUILE, most
+;;;;  notably the old-straight-flag and the modern-straight-flag styles.
+;;;;
+
 
 (define-public (no-flag stem-grob)
   "No flag: Simply return empty stencil"
@@ -13,27 +17,38 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(define-public (add-stroke-straight stencil stem-grob stem-up? log stroke-style offset length thickness stroke-thickness)
-  "Add the stroke for acciaccatura to the given flag stencil."
-  (let* ((udmult (if stem-up? 1 -1))
-         (start (offset-add offset (cons 0  (* (/ length 2) udmult))))
+(define-public (add-stroke-straight stencil stem-grob dir log stroke-style offset length thickness stroke-thickness)
+  "Add the stroke for acciaccatura to the given flag stencil.
+  The stroke starts for up-flags at upper-end-of-flag+(0,length/2) and 
+  ends at (0, vertical-center-of-flag-end) - (flag-x-width/2, flag-x-width + flag-thickness).
+  Here length is the whole length, while flag-x-width is just the 
+  x-extent and thus depends on the angle! Other combinations don't look as 
+  good... For down-stems the y-coordinates are simply mirrored."
+  (let* ((start (offset-add offset (cons 0  (* (/ length 2) dir))))
          (end (offset-add (cons 0 (cdr offset)) 
-                          (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) udmult))))
+                          (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) dir))))
          (stroke (make-line-stencil stroke-thickness (car start) (cdr start) (car end) (cdr end))))
   (ly:stencil-add stencil stroke)))
+
+(define PI-OVER-180  (/ (atan 1 1) 45))
+(define (degrees->radians angle-degrees)
+  "Convert the given angle from degrees to radians"
+  (* angle-degrees PI-OVER-180))
 
 (define (polar->rectangular radius angle-in-degrees)
   "Convert polar coordinate @code{radius} and @code{angle-in-degrees}
    to (x-length . y-length)"
-  (let* ((conversion-constant (/ (atan 1 1) 45))
-         (complex (make-polar
+  (let* ((complex (make-polar
                     radius
-                    (* conversion-constant angle-in-degrees))))
+                    (degrees->radians angle-in-degrees))))
      (cons
        (real-part complex)
        (imag-part complex))))
 
 (define (buildflag flag-stencil remain curr-stencil spacing)
+  "Internal function to recursively create a stencil with @code{remain} flags
+   from the single-flag stencil curr-stencil, which is already translated to
+   the position of the previous flag position."
   (if (> remain 0)
       (let* ((translated-stencil (ly:stencil-translate-axis curr-stencil spacing Y))
              (new-stencil (ly:stencil-add flag-stencil translated-stencil)))
@@ -45,54 +60,57 @@
                        downflag-angle downflag-length)
     "Create a stencil for a straight flag.
      flag-thickness, -spacing are given in staff spaces,
-     *flag-angle is given in degree,
-     *flag-length is given in staff spaces"
+     *flag-angle is given in degree, *flag-length is given in staff spaces. 
+     All lengths will be scaled according to the font size of the note."
   (lambda (stem-grob)
     (let* ((log (ly:grob-property stem-grob 'duration-log))
+           (dir (ly:grob-property stem-grob 'direction))
+           (stem-up (eqv? dir UP))
            (layout (ly:grob-layout stem-grob))
-           (stem-up? (eqv? (ly:grob-property stem-grob 'direction) UP))
-           ; scale with the note size (e.g. for grace notes). Default fontsize 
-           ; is fs==0, each step is ~12.246% larger / smaller
-           (fs (ly:grob-property stem-grob 'font-size))
-           (factor (if (number? fs) (expt 1.12246 fs) 1))
+           ; scale with the note size (e.g. for grace notes)
+           (factor (magstep (ly:grob-property stem-grob 'font-size 0)))
            (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
            (line-thickness (ly:output-def-lookup layout 'line-thickness))
            (half-stem-thickness (/ (* grob-stem-thickness line-thickness) 2))
-           (up-length (+ (* upflag-length factor) half-stem-thickness))
-           (up-off (polar->rectangular up-length upflag-angle))
-           (down-length (+ (* downflag-length factor) half-stem-thickness))
-           (down-off (polar->rectangular down-length downflag-angle))
+           (raw-length (if stem-up upflag-length downflag-length))
+           (angle (if stem-up upflag-angle downflag-angle))
+           (flag-length (+ (* raw-length factor) half-stem-thickness))
+           (flag-end (polar->rectangular flag-length angle))
            (thickness (* flag-thickness factor))
-           (offset (cons 0 (if stem-up? (- thickness) thickness)))
-           (spacing (* flag-spacing factor (if stem-up? -1 1)))
-           (start (cons (- half-stem-thickness) (if stem-up? half-stem-thickness (- half-stem-thickness))))
-           (points (if stem-up? (list start up-off
-                                      (offset-add up-off offset)
-                                      (offset-add start offset))
-                                (list start
-                                      (offset-add start offset)
-                                      (offset-add down-off offset)
-                                      down-off)))
+           (thickness-offset (cons 0 (* -1 thickness dir)))
+           (spacing (* -1 flag-spacing factor dir ))
+           (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
+           ; The points of a round-filled-polygon need to be given in clockwise
+           ; order, otherwise the polygon will be enlarged by blot-size*2!
+           (points (if stem-up (list start flag-end
+                                     (offset-add flag-end thickness-offset)
+                                     (offset-add start thickness-offset))
+                               (list start
+                                     (offset-add start thickness-offset)
+                                     (offset-add flag-end thickness-offset)
+                                     flag-end)))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
            ; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflag stencil (- log 3) stencil spacing))
            (stroke-style (ly:grob-property stem-grob 'stroke-style)))
-    (if (null? stroke-style)
-      flag-stencil
+    (if (equal? stroke-style "grace")
       (add-stroke-straight flag-stencil stem-grob
-                           stem-up? log
+                           dir log
                            stroke-style
-                           (if stem-up? up-off down-off)
-                           (if stem-up? up-length down-length)
+                           flag-end flag-length
                            thickness
-                           (* half-stem-thickness 2))))))
+                           (* half-stem-thickness 2))
+      flag-stencil))))
 
-;; Modern straight flags: angles are not as large as in the old style
 (define-public (modern-straight-flag stem-grob)
+  "Modern straight flag style (for composers like Stockhausen, Boulez, etc.).
+   The angles are 18 and 22 degrees and thus smaller than for the ancient style
+   of Bach etc."
   ((straight-flag 0.55 1 -18 1.1 22 1.2) stem-grob))
 
-;; Old-straight flags (Bach, etc.): quite large flag angles
 (define-public (old-straight-flag stem-grob)
+  "Old straight flag style (for composers like Bach). The angles of the flags
+   are both 45 degrees."
   ((straight-flag 0.55 1 -45 1.2 45 1.4) stem-grob))
 
 

@@ -23,8 +23,8 @@ testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64
 %   \mark "custom slant"
 % %   Custom straight flag. The parameters are: 
 % %                flag thickness and spacing
-%                up-flag angle and length
-%                down-flag angle and length
+% %                up-flag angle and length
+% %               down-flag angle and length
 %   \override Stem #'flag = #(straight-flag 0.35 0.8 -5 0.5 60 2.0)
 %   \testnotes
 }
