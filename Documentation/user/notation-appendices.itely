@@ -211,11 +211,11 @@ Minor-major seventh
 @tab
 Minor triad, major seventh
 @tab
-@code{7m5}
+@code{maj7m5}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:7m5
+  c1:maj7m5
 }
 @end lilypond
 
@@ -261,7 +261,7 @@ Dominant seventh, major ninth
 @item
 Major ninth
 @tab
-TODO
+Major seventh, major ninth
 @tab
 @code{maj9}
 @tab
@@ -274,7 +274,7 @@ TODO
 @item
 Minor ninth
 @tab
-TODO
+Minor seventh, major ninth
 @tab
 @code{m9}
 @tab
@@ -300,7 +300,7 @@ Dominant ninth, perfect eleventh
 @item
 Major eleventh
 @tab
-TODO
+Major ninth, perfect eleventh
 @tab
 @code{maj11}
 @tab
@@ -313,13 +313,26 @@ TODO
 @item
 Minor eleventh
 @tab
-TODO
+Minor ninth, perfect eleventh
 @tab
 @code{m11}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m11
+}
+@end lilypond
+
+@item
+Dominant thirteenth
+@tab
+Dominant ninth, major thirteenth
+@tab
+@code{13}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13
 }
 @end lilypond
 
@@ -339,7 +352,7 @@ Dominant eleventh, major thirteenth
 @item
 Major thirteenth
 @tab
-TODO
+Major eleventh, major thirteenth
 @tab
 @code{maj13.11}
 @tab
@@ -352,7 +365,7 @@ TODO
 @item
 Minor thirteenth
 @tab
-TODO
+Minor eleventh, major thirteenth
 @tab
 @code{m13.11}
 @tab
@@ -365,7 +378,7 @@ TODO
 @item
 Suspended second
 @tab
-TODO
+Major second, perfect fifth
 @tab
 @code{sus2}
 @tab
@@ -378,7 +391,7 @@ TODO
 @item
 Suspended fourth
 @tab
-TODO
+Perfect fourth, perfect fifth
 @tab
 @code{sus4}
 @tab
