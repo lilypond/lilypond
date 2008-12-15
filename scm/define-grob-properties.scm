@@ -256,6 +256,9 @@ include the following:
 Choices include @code{curved}, @code{straight}, and
 @code{none}.  Default @code{curved}.
 @item
+@code{capo-thickness} -- Thickness of capo indicator, in
+multiples of fret-space.  Default value 0.5.
+@item
 @code{dot-color} -- Color of dots.  Options include
 @code{black} and @code{white}.  Default @code{black}.
 @item

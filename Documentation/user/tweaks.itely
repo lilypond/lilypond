@@ -3431,12 +3431,14 @@ second (with the stencil removed) does not.
 Override commands are often long and tedious to type, and they
 have to be absolutely correct.  If the same overrides are to be
 used many times it may be worth defining variables to hold them.
+
 Suppose we wish to emphasize certain words in lyrics by printing
 them in bold italics.  The @code{\italic} and @code{\bold}
-commands only work within lyrics if they are also embedded in
-@code{\markup}, which makes them tedious to enter, so as an
-alternative can we instead use the @code{\override} and
-@code{\revert} commands?
+commands only work within lyrics if they are embedded, together with
+the word or words to be modified, within a @code{\markup} block,
+which makes them tedious to enter.  The need to embed the words
+themselves prevents their use in simple variables.  As an
+alternative can we use @code{\override} and @code{\revert} commands?
 
 @example
 @code{\override Lyrics . LyricText #'font-shape = #'italic}
@@ -3447,10 +3449,13 @@ alternative can we instead use the @code{\override} and
 @end example
 
 These would also be extremely tedious to enter if there were many
-words requiring emphasis.  So instead we define these as two
-variables, and use them as follows, although normally we would
-perhaps choose shorter names for the variables to make them
-quicker to type:
+words requiring emphasis.  But we @emph{can} define these as two
+variables and use those to bracket the words to be emphasized.
+Another advantage of using variables for these overrides is that
+the spaces around the dot are not necessary, since they are not
+being interpreted in @code{\lyricmode} directly.  Here's an example
+of this, although in practice  we would choose shorter names
+for the variables to make them quicker to type:
 
 @cindex LyricText, example of overriding
 @cindex font-shape property, example
@@ -3458,12 +3463,12 @@ quicker to type:
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics . LyricText #'font-shape = #'italic
-  \override Lyrics . LyricText #'font-series = #'bold
+  \override Lyrics.LyricText #'font-shape = #'italic
+  \override Lyrics.LyricText #'font-series = #'bold
 }
 normal = {
-  \revert Lyrics . LyricText #'font-shape
-  \revert Lyrics . LyricText #'font-series
+  \revert Lyrics.LyricText #'font-shape
+  \revert Lyrics.LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}

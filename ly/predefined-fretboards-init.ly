@@ -4,50 +4,50 @@
 %%%%
 %%%% (c) 2008 Carl D. Sorensen <c_sorensen@byu.edu>
 
-\version "2.11.56"
+\version "2.11.65"
 
-%%%%% define storage structures
-
-% base-chord-shapes is an alist of chord shapes
-% in the form of fret-diagram-terse strings with
-% scheme symbols as keys.  For convenience, the
-% symbols are LilyPond chordmode chord descriptions,
+% chord-shape-table is a hash-table of chord shapes
+% in the form of diagram-descriptions that can be
+% fret-diagram-verbose markup-llsts or
+% fret-diagram-terse strings.
+% The hash keys are pairs of scheme symbols and
+% string tunings.  For convenience, the symbols in
+% this file are LilyPond chordmode chord descriptions,
 % but that is unnecessary.
 
-#(define base-chord-shapes '())
-
-
 % music function for adding a chord shape to
-% base-chord-shapes
+% chord-shape-table
 
 addChordShape =
-#(define-music-function (parser location key-symbol shape-string)
-   (symbol? string?)
-   "Add chord shape @code{shape-string} to the @code{base-chord-shapes}
-alist with the key @code{key-symbol}."
-   (set! base-chord-shapes 
-           (acons key-symbol shape-string base-chord-shapes))
+#(define-music-function (parser location key-symbol tuning shape-definition)
+   (symbol? pair? string-or-pair?)
+   "Add chord shape @code{shape-definition} to the @code{chord-shape-table}
+hash with the key @code{(cons key-symbol tuning)}."
+   (hash-set! chord-shape-table
+               (cons key-symbol tuning)
+               shape-definition)
    (make-music 'SequentialMusic 'void #t))
 
-% for convenience, to eliminate storage list in .ly references
-
-#(define (chord-shape shape-code)
-   (get-chord-shape shape-code base-chord-shapes))
+#(define (chord-shape shape-code tuning)
+   (get-chord-shape shape-code tuning chord-shape-table))
 
 % music function for adding a predefined diagram to
 % fretboard-table
 
 storePredefinedDiagram =
-#(define-music-function (parser location chord tuning terse-definition)
-  (ly:music? list? string?)
-  "Add predefined fret diagram defined by fret-diagram-terse definition
-string @code{terse-definition} for the chord pitches @code{chord} and
+#(define-music-function (parser location chord tuning diagram-definition)
+  (ly:music? pair? string-or-pair?)
+  "Add predefined fret diagram defined by @code{diagram-definition}
+for the chord pitches @code{chord} and
 the stringTuning @code{tuning}."
   (let* ((pitches (event-chord-pitches 
                     (car (extract-named-music chord 'EventChord))))
-         (hash-key (cons tuning pitches)))
+         (hash-key (cons tuning pitches))
+         (verbose-definition (if (string? diagram-definition)
+                                 (parse-terse-string diagram-definition)
+                                 diagram-definition)))
   (hash-set! fretboard-table 
              hash-key 
-             (parse-terse-string terse-definition)))
+             verbose-definition))
   (make-music 'SequentialMusic 'void #t))
 

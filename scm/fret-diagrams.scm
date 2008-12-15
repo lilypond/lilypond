@@ -6,6 +6,7 @@
 
 (define (fret-parse-marking-list marking-list fret-count)
   (let* ((fret-range (list 1 fret-count))
+         (capo-fret 0)
          (barre-list '())
          (dot-list '())
          (xo-list '())
@@ -18,11 +19,14 @@
               (set! xo-list (cons* my-item xo-list)))
              ((eq? my-code 'barre)
               (set! barre-list (cons* (cdr my-item) barre-list)))
+             ((eq? my-code 'capo)
+               (set! capo-fret (cadr my-item)))
              ((eq? my-code 'place-fret)
               (set! dot-list (cons* (cdr my-item) dot-list))))
             (parse-item (cdr mylist)))))
     ;; calculate fret-range
-    (let ((maxfret 0) (minfret 99))
+    (let ((maxfret 0) 
+          (minfret (if (> capo-fret 0) capo-fret 99)))
       (let updatemax ((fret-list dot-list))
         (if (null? fret-list)
             '()
@@ -35,12 +39,14 @@
                 (list minfret
                       (let ((upfret (- (+ minfret fret-count) 1)))
                         (if (> maxfret upfret) maxfret upfret)))))
+      (set! capo-fret (1+ (- capo-fret minfret)))
       ; subtract fret from dots
       (set! dot-list (subtract-base-fret (- (car fret-range) 1) dot-list)))
     (acons 'fret-range fret-range
            (acons 'barre-list barre-list
                   (acons 'dot-list dot-list
-                         (acons 'xo-list xo-list '()))))))
+                         (acons 'xo-list xo-list 
+                                (acons 'capo-fret capo-fret '())))))))
 
 (define (subtract-base-fret base-fret dot-list)
   "Subtract @var{base-fret} from every fret in @var{dot-list}"
@@ -140,6 +146,26 @@ fret & string spacing by @var{size}. Orientation is given by @var{orientation}"
                          x-extent y-extent)
         (ly:make-stencil (list 'round-filled-box y1 y2 x1 x2 sth)
                          y-extent x-extent))))
+
+(define (draw-capo details string-count fret fret-count th size 
+                   dot-pos orientation)
+  "Draw a capo indicator across the full width of the fret-board
+   at fret capo-fret."
+  (let* ((sth (* th size))
+         (capo-thick
+           (* size (assoc-get 'capo-thickness details 0.5)))
+         (half-thick (* capo-thick 0.5))
+         (last-string-pos 0)
+         (first-string-pos (* size (- string-count 1)))
+         (fret-pos ( * size (if (eq? orientation 'normal)
+                                (+ 2 (- fret-count fret dot-pos))
+                                (1- (+ dot-pos fret))))))
+    (if (eq? orientation 'normal)
+        (make-line-stencil capo-thick 
+         last-string-pos fret-pos first-string-pos fret-pos)
+        (make-line-stencil capo-thick
+         fret-pos last-string-pos fret-pos first-string-pos))))
+
 
 (define (draw-frets fret-range string-count th size orientation)
   "Draw the fret lines for a fret diagram with
@@ -426,7 +452,7 @@ Line thickness is given by @var{th}, fret & string spacing by
 	 (* size (+ 1 label-vertical-offset)) X))))
 
 (define-builtin-markup-command (fret-diagram-verbose layout props marking-list)
-  (list?) ; argument type
+  (pair?) ; argument type (list, but use pair? for speed)
   instrument-specific-markup ; markup type
   ((align-dir -0.4) ; properties and defaults
    (size 1.0)
@@ -457,6 +483,11 @@ Place a small @q{o} at the top of string @var{string-number}.
 @item (barre @var{start-string} @var{end-string} @var{fret-number})
 Place a barre indicator (much like a tie) from string @var{start-string}
 to string @var{end-string} at fret @var{fret-number}.
+
+@item (capo @var{fret-number})
+Place a capo indicator (a large solid bar) across the entire fretboard
+at fret location @var{fret-number}.  Also, set fret @var{fret-number}
+to be the lowest fret on the fret diagram.
 
 @item (place-fret @var{string-number} @var{fret-number} @var{finger-value})
 Place a fret playing indication on string @var{string-number} at fret
@@ -519,6 +550,7 @@ indications per string.
          (label-space (* 0.25 size))
          (label-dir (assoc-get 'label-dir details RIGHT))
          (parameters (fret-parse-marking-list marking-list fret-count))
+         (capo-fret (assoc-get 'capo-fret parameters 0))
          (dot-list (cdr (assoc 'dot-list parameters)))
          (xo-list (cdr (assoc 'xo-list parameters)))
          (fret-range (cdr (assoc 'fret-range parameters)))
@@ -569,6 +601,12 @@ indications per string.
 		   (draw-xo layout props string-count fret-range
 			    size xo-list orientation)
 		   xo-padding))))
+    (if (> capo-fret 0)
+        (set! fret-diagram-stencil
+              (ly:stencil-add
+                fret-diagram-stencil
+                (draw-capo details string-count capo-fret fret-count
+                           th size dot-position orientation))))
     (if (> (car fret-range) 1)
 	(set! fret-diagram-stencil
 	      (if (eq? orientation 'normal)

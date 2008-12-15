@@ -198,6 +198,10 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
     {
       m = dashed_bar_line (me, h, hair);
     }
+  else if (str == "'")
+    {
+      m = tick_bar_line (me, hair, h, rounded);
+    }
   else if (str == ".")
     {
       m = dot;
@@ -221,6 +225,22 @@ Bar_line::simple_barline (Grob *me,
   return Lookup::round_filled_box (Box (Interval (0, w),
 					Interval (-h / 2, h / 2)), blot);
 }
+
+Stencil
+Bar_line::tick_bar_line (Grob *me, Real w, Real h, bool rounded)
+{
+  Real th = Staff_symbol_referencer::staff_space (me) / 2;
+  Real line_thick = Staff_symbol_referencer::line_thickness (me);
+
+  Real blot
+    = rounded
+    ? me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"))
+    : 0.0;
+
+  return Lookup::round_filled_box (Box (Interval (0, line_thick),
+                                        Interval (h / 2 - th, h / 2 + th)), blot);
+}
+
 
 MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_size, 1);
 SCM

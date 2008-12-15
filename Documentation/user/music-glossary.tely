@@ -688,18 +688,33 @@ An accidental alters a note by:
 @item Canceling the effects of the key signature or previous accidentals.
 @end itemize
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-<< 
-  \context Staff \relative c'' {
-    \set Staff.extraNatural = ##f
-    gisis1 gis g! ges geses
+@lilypond[quote,notime]
+\score {
+  \new Staff {
+    \relative c'' {
+      \set Staff.extraNatural = ##f
+      gisis1 gis g! ges geses
+    }
   }
-  \lyrics {
-    \override Lyrics .LyricText #'self-alignment-X = #-1
-    "db. sharp" sharp natural flat "db. flat"
+  \addlyrics {
+    \markup {
+      \center-column { double sharp }
+    }
+    sharp
+    natural
+    flat
+    \markup {
+      \center-column { double flat }
+    }
   }
->>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+        #'base-shortest-duration = #(ly:make-moment 1 32)
+    }
+  }
+}
 @end lilypond
 
 
@@ -753,25 +768,22 @@ that the sound should fade away to nothing.
 
 @notation{Al niente} is indicated by circling the tip of the hairpin:
 
-@lilypond[fragment,ragged-right]
-\relative c'' {
-  \override Hairpin #'circled-tip = ##t
-  c1\<
-  c2\> c\<
-  c1\!
-}
+@lilypond[quote,relative=2]
+\override Hairpin #'circled-tip = ##t
+c1\<
+c2\> c\<
+c1\!
 @end lilypond
 
-or with the actual phrase @notation{al niente}.  This may be easier with
-text markup, rather than as part of the @notation{decrescendo} text:
+or with the actual phrase @notation{al niente}:
 
-@lilypond[fragment,ragged-right]
-\relative c'' {
-  \dimTextDecresc
-  c1~\>
-  c~
-  c\!-\markup { \italic "al niente" }
-}
+@lilypond[quote,relative=2]
+\dimTextDecresc
+\override DynamicTextSpanner #'(bound-details right text) =
+  \markup { \italic { al niente } }
+c1\> ~
+c1 ~
+c1\!
 @end lilypond
 
 Since one does not crescendo @emph{to} nothing, it is not correct to use
@@ -899,15 +911,17 @@ S: upptakt,
 FI: kohotahti.
 
 An anacrusis (also known as pickup or upbeat) is an incomplete measure
-of music before a section of music. It also refers to the initial
+of music before a section of music.  It also refers to the initial
 note(s) of a melody occurring in that incomplete measure.
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,relative=1]
 \key f \major
 \time 4/4
-\relative c' {
-  \partial 4 f4 | bes4. a8 bes4 c |
-  bes( a) g f | bes4. a8 bes4 c | f,2. \bar "||" }
+\partial 4 f4
+bes4. a8 bes4 c
+bes4( a) g f
+bes4. a8 bes4 c
+f,2. \bar "||"
 @end lilypond
 
 
@@ -929,10 +943,8 @@ FI: luonnollinen molliasteikko.
 
 Also called @q{natural minor scale}.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-\relative c'' {
-  a1 b c d e f g a }
+@lilypond[quote,notime,relative=2]
+a1 b c d e f g a
 @end lilypond
 
 
@@ -980,45 +992,43 @@ before the beat.  While the short appoggiatura is performed as a short
 note regardless of the duration of the main note the duration of the
 long appoggiatura is proportional to that of the main note.
 
-@lilypond[line-width=13.0\cm]
-\context Voice \relative c'' {
-  \key d \major
-  \time 4/4
+@lilypond[quote,relative=2]
+\key d \major
+\time 4/4
+<d a fis>4_"notation" r
+\grace g16
+fis8 e16 fis
+\grace a16
+g8 fis16 g |
+a4 \bar "||"
 
-%\override Score.TextScript #'font-style = #'large
-  <d a fis>4_"notation" r
-  { \override Stem #'flag-style = #'()
-    \grace g16
-    \revert Stem #'flag-style
-  }
-  fis8 e16 fis
-  { \override Stem #'flag-style = #'()
-    \grace a16
-    \revert Stem #'flag-style
-  }
-  g8 fis16 g |
-  \cadenzaOn a4 \bar "||" \cadenzaOff
-
-  <d, a fis>4_"performance" r g16 ( fis) e fis a ( g) fis g |
-  \cadenzaOn a4 \bar "||" \cadenzaOff
-}
+\set Score.measurePosition = #ZERO-MOMENT
+<d, a fis>4_"performance" r
+g16( fis) e fis
+a16 ( g) fis g |
+a4 \bar "||"
 @end lilypond
 
 An appoggiatura may have more notes preceding the main note.
 
-@lilypond[line-width=13.0\cm]
-\relative c'' {
-  \key as \major
-  \time 2/4
-%  \override Score.TextScript #'font-style = #'large
-  \grace { bes16 } as8_"notation" as16 bes as8 g |
-  \grace { as16[( bes] } < c as >4-)
-  \grace { as16[( bes] } < c as >4-) \bar "||"
-  \grace { bes16 } as8_"performance" as16 bes as8 g |
-  << \context Voice = va { \stemUp\tieUp as32 bes c8. as32 bes c8. }
-    \context Voice = vb { \stemDown\tieDown as16 ~ as8. as16 ~ as8. } >>
-  \bar "||"
-}
+@lilypond[quote,relative=2]
+\key as \major
+\time 2/4
+\grace bes16 as8-"notation" as16 bes as8 g |
+\grace { as16[( bes] } <c as>4)
+\grace { as16[( bes] } <c as>4) \bar "||"
+
+\grace bes16 as8-"performance" as16 bes as8 g |
+<<
+  {
+    \voiceOne
+    as32 bes c8. as32 bes c8.
+  }
+  \new Voice {
+    \voiceTwo
+    as16 ~ as8. as16 ~ as8.
+  }
+>>
 @end lilypond
 
 
@@ -1040,22 +1050,33 @@ FI: arpeggio, murtosointu.
 
 [Italian: @q{harp-like, played like a harp}.]
 
-@lilypond[fragment,line-width=13.0\cm]
- \context PianoStaff <<
-  \context Staff = SA \relative c'' {
-    \time 4/4
-    \clef treble
-    r8 g16 c e g, c e r8 g,16 c e g, c e |
-    r8 a,16 d f a, d f r8 a,16 d f a, d f \bar "||" }
-  \context Staff = SB \relative c' {
-    \clef bass
-    << \context Voice = va {
-        \stemUp
-        r16 e8. ( e4) r16 e8. ( e4) |
-        r16 d8. ( d4) r16 d8. ( d4) }
-      \context Voice = vb {
-        \stemDown
-        c2 c | c c } >>
+@lilypond[quote,line-width=13\cm]
+\new PianoStaff <<
+  \context Staff = "SA" {
+    \relative c'' {
+      \clef treble
+      \time 4/4
+      r8 g16 c e g, c e r8 g,16 c e g, c e
+      r8 a,16 d f a, d f r8 a,16 d f a, d f
+      \bar "||"
+    }
+  }
+  \context Staff = "SB" {
+    \relative c' {
+      \clef bass
+      <<
+        {
+          \voiceOne
+          r16 e8. ( e4) r16 e8. ( e4)
+          r16 d8. ( d4) r16 d8. ( d4)
+        }
+        \new Voice {
+          \voiceTwo
+          c2 c
+          c2 c
+        }
+      >>
+    }
   }
 >>
 @end lilypond
@@ -1327,14 +1348,11 @@ FI: palkki.
 Line connecting a series of notes (shorter than a quarter note). The
 number of beams determines the note value of the connected notes.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override TextScript #'font-style = #'large
-\relative c'' {
-  g8_"1/8"[ g g g] s16
-  g16_"1/16"[ g g g] s16
-  g32_"1/32"[ s32 g32 s32 g32 s32 g32] s16
-  g64_"1/64"[ s32 g64 s32 g64 s32 g64] s32 }
+@lilypond[quote,notime,relative=2,line-width=13\cm]
+g8-"1/8"[ g g g] s16
+g16-"1/16"[ g g g] s
+g32-"1/32"[ s g s g s g] s16
+g64-"1/64"[ s32 g64 s32 g64 s32 g64] s32
 @end lilypond
 
 
@@ -1358,12 +1376,12 @@ Note value used for counting, most often half-, fourth-, and eighth notes.
 The base counting value and the number of them in each measure is indicated
 at the start of the music by the @notation{time signature}.
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,relative=2]
 \key g \major
 \time 4/4
-\relative c'' { g4 c b a | g1 \bar "||"}
+g4 c b a | g1 \bar "||"
 \time 3/8
-\relative c'' { g8 d' c | b c a | g4. \bar "||"}
+g8 d' c | b c a | g4. \bar "||"
 @end lilypond
 
 
@@ -1405,19 +1423,42 @@ Curly braces are used for connecting piano staves, and sometimes for connecting
 the staves of like instruments in an orchestral score when written on different
 staves (e.g. first and second flutes):
 
-@lilypond[fragment,ragged-right]
-\context GrandStaff <<
-  \relative c''\context Staff = SA { \clef treble g4 e c2 }
-  \relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
+@lilypond[quote]
+\new GrandStaff <<
+  \context Staff = "SA" {
+    \relative c'' {
+      \clef treble
+      g4 e c2
+    }
+  }
+  \context Staff = "SB" {
+    \relative c {
+      \clef bass
+      c1
+      \bar "|."
+    }
+  }
+>>
 @end lilypond
 
 Angular brackets for connecting parts in an orchestral or choral score:
 
-@lilypond[fragment,ragged-right]
-\context StaffGroup <<
-%  \set StaffGroup.minVerticalAlign = #12
-  \relative c'' \context Staff = SA { \clef treble g4 e c2 }
-  \relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
+@lilypond[quote]
+\new StaffGroup <<
+  \context Staff = "SA" {
+    \relative c'' {
+      \clef treble
+      g4 e c2
+    }
+  }
+  \context Staff = "SB" {
+    \relative c {
+      \clef bass
+      c1
+      \bar "|."
+    }
+  }
+>>
 @end lilypond
 
 
@@ -1456,7 +1497,7 @@ FI: vaskisoitin.
 
 A family of blown musical instruments made of brass, all using a cup
 formed mouth piece.  The brass instruments commonly used in a symphony
-orchestra are trumpet, trombone, french horn, and tube.
+orchestra are trumpet, trombone, french horn, and tuba.
 
 
 @seealso
@@ -1501,9 +1542,8 @@ Note value twice as long as a whole note.  Mainly used in pre-1650 music.
 The shortest note value generally used in white mensural notation, hence the
 name, which originally meant @q{of short duration}.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-\relative c'' { g\breve }
+@lilypond[quote,notime,relative=2]
+g\breve
 @end lilypond
 
 
@@ -1545,22 +1585,19 @@ FI: C-avain.
 Clef symbol indicating the position of the middle C.  Used on all note
 lines.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-\override Score.Clef #'full-size-change = ##t
-<<
-  \context Staff \relative c' {
-    \clef soprano c1 
-    \clef mezzosoprano c 
-    \clef alto c 
-    \clef tenor c 
-    \clef baritone c 
-  }
-  \context Lyrics \lyrics {
-    \override Lyrics .LyricText #'self-alignment-X = #-1
-    "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
-  }
->>
+@lilypond[quote,notime,relative=1,line-width=13.0\cm]
+\new Staff {
+  \override Staff.Clef #'full-size-change = ##t
+  \clef soprano c1
+  \clef mezzosoprano c1
+  \clef alto c1
+  \clef tenor c1
+  \clef baritone c1
+}
+\addlyrics {
+  \override Lyrics . LyricText #'self-alignment-X = #LEFT
+  "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
+}
 @end lilypond
 
 
@@ -1689,36 +1726,36 @@ S: ackord,
 FI: sointu.
 
 Three or more tones sounding simultaneously.  In traditional European music
-the base chord is a @emph{triad} consisting of two thirds. @emph{Major}
+the base chord is a @emph{triad} consisting of two thirds.  @emph{Major}
 (major + minor third) as well as @emph{minor} (minor + major third) chords
-may be extended with more thirds. Four-tone @emph{seventh chords} and
+may be extended with more thirds.  Four-tone @emph{seventh chords} and
 five-tone @emph{ninth} major chords are most often used as dominants
 (functional harmony).  Chords having no third above the lower notes to
 define their mood are a special case called @q{open chords}.  The lack of
 the middle third means their quality is ambivalent -- neither major nor
 minor.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override TextScript #'font-style = #'large
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
-\context Staff \relative c'' {
-  \set Staff.extraNatural = ##f
-  <g b d>1 
-  <g bes d>
-  <g bes des>
-  <g b dis> 
-  <g b d f> 
-  <g b d f a> 
-}
-\lyrics{
-  "major  "
-  "minor  "
-  "diminished  "
-  "augmented  "
-  "seventh-chord  "
-  ninth-chord
-}
+  \new Staff {
+    \relative c'' {
+      \set Staff.extraNatural = ##f
+      <g b d>1
+      <g bes d>
+      <g bes des>
+      <g b dis>
+      <g b d f>
+      <g b d f a>
+    }
+  }
+  \lyrics {
+    "major  "
+    "minor  "
+    "diminished  "
+    "augmented  "
+    "seventh-chord  "
+    ninth-chord
+  }
 >>
 @end lilypond
 
@@ -1742,9 +1779,8 @@ FI: kromaattinen asteikko.
 
 A scale consisting of all 12 semitones.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-\relative c' { c1 cis d dis e f fis g gis a ais b c }
+@lilypond[quote,notime,relative=1,line-width=13.0\cm]
+c1 cis d dis e f fis g gis a ais b c
 @end lilypond
 
 
@@ -2046,8 +2082,8 @@ geometrically describes the development of a range of pitches
 geometrical shape of a cluster covers the area in which any single
 pitch contained in the cluster would be notated as an ordinary note.
 
-@lilypond[fragment,relative=2,ragged-right]
-\makeClusters { <c e> <b f'> <b g'> <c g> <f e> }
+@lilypond[quote,relative=2]
+\makeClusters { <c e>4 <b f'> <b g'> <c g>8 <f e> }
 @end lilypond
 
 
@@ -2183,8 +2219,10 @@ A meter that includes a triplet subdivision within the beat: see
 A time signature that additively combines two or more unequal meters, e.g.,
 "3/8 + 2/8" instead of "5/8".  Sometimes called additive time signatures.
 
-@lilypond[fragment,line-width=13.0\cm]
-#(define (compound-time grob one two three num)
+@end enumerate
+
+@lilypond[quote,line-width=13.0\cm]
+#(define ((compound-time one two three num) grob)
   (grob-interpret-markup grob
     (markup
       #:override '(baseline-skip . 0)
@@ -2199,8 +2237,8 @@ A time signature that additively combines two or more unequal meters, e.g.,
 \relative c' {
   \key f \major
   #(set-time-signature 8 8 '(3 2 3))
-  \override Staff.TimeSignature #'stencil = #(lambda (grob)
-    (compound-time grob "3" "2" "3" "8"))
+  \override Staff.TimeSignature #'stencil =
+    #(compound-time "3" "2" "3" "8")
   #(override-auto-beam-setting '(end 1 8 8 8) 3 8)
   #(override-auto-beam-setting '(end 1 8 8 8) 5 8)
   
@@ -2209,8 +2247,6 @@ A time signature that additively combines two or more unequal meters, e.g.,
   \bar "||"
 }
 @end lilypond
-
-@end enumerate
 
 
 @seealso
@@ -2258,7 +2294,7 @@ all) instruments that play in concert pitch:
 @itemize
 @item violin
 @item viola
-@item violincello
+@item violoncello
 @end itemize
 
 @end multitable
@@ -2277,7 +2313,7 @@ are, technically speaking, @emph{transposing instruments}:
 
 @item piccolo (plays an octave higher)
 @item celesta (plays an octave higher)
-@item double-bass (plays an octave lower)
+@item double bass (plays an octave lower)
 
 @end itemize
 
@@ -2301,9 +2337,10 @@ FI: asteittainen liike.
 Progressing melodically by intervals of a second, as contrasted with
 @emph{disjunct movement}.
 
-@lilypond[fragment,line-width=13.0\cm]
-\key g \major \time 4/4
-\relative c'' { g4 g g a | b2 a | g4 b a a | g1 \bar "||" }
+@lilypond[quote,relative=2,line-width=13.0\cm]
+\key g \major
+\time 4/4
+g4 g g a | b2 a | g4 b a a | g1 \bar "||"
 @end lilypond
 
 
@@ -2378,14 +2415,12 @@ combination into a single musical fabric of lines or parts which have
 distinct melodic significance.  A frequently used polyphonic technique
 is imitation, in its strictest form found in the canon needing only
 one part to be written down while the other parts are performed with a
-given displacement.  Imitation is also the contrapunctal technique
+given displacement.  Imitation is also the contrapuntal technique
 used in the @emph{fugue} which, since the music of the baroque era,
 has been one of the most popular polyphonic composition methods.
 
-@lilypond[fragment,staffsize=12,line-width=13.0\cm]
-\set Score.implicitTimeSignatureVisibility = #all-invisible
-\override Score.TimeSignature #'break-visibility = #all-invisible
-\context PianoStaff <<
+@lilypond[quote,staffsize=12,line-width=13.0\cm]
+\new PianoStaff <<
   \context Staff = SA \relative c' {
     \key bes \major
     \time 4/4
@@ -2456,9 +2491,10 @@ FI: cresendo, voimistuen.
 Increasing volume.  Indicated by a rightwards opening horizontal wedge
 (hairpin) or the abbreviation @notation{cresc.}.
 
-@lilypond[fragment,ragged-right]
-\key g \major \time 4/4
-\relative c'' { g4 \< a b c | d1\! \bar "|." }
+@lilypond[quote,relative=2]
+\key g \major
+\time 4/4
+g4\< a b c | d1\! \bar "|."
 @end lilypond
 
 
@@ -2509,22 +2545,19 @@ There were different appearences for different notation styles.  Nowadays,
 they have survived only in special forms of musical notation such as the
 @emph{Editio Vaticana}, dating from the beginning of the 20th century
 
-@lilypond
+@lilypond[quote,ragged-right]
 \score {
-  {
-%   \override Staff.Custos #'neutral-position = #4
-    \override Staff.Custos #'neutral-direction = #down
+  \new Staff {
+    \override Staff.Custos #'neutral-direction = #DOWN
     \override Staff.Custos #'style = #'hufnagel
     c'1 \break
     <d' a' f''>1
   }
-
   \layout {
     \context {
       \Staff
-      \consists Custos_engraver
+      \consists "Custos_engraver"
     }
-    ragged-right = ##t
   }
 }
 @end lilypond
@@ -2609,17 +2642,17 @@ Abbreviated @notation{D.S.}.  Repetition, not from the beginning, but from
 another place frequently near the beginning marked by a sign
 (@notation{segno}):
 
-@lilypond[fragment,ragged-right]
-%\override TextScript #'font-style = #'large
-\override TextScript #'font-shape = #'italic
-\key g \major \time 4/4
-\relative c'' {
-  d1 |
-  g,4^\segno a b c |
-  b a g2_\markup{
-    \line { "D.S. " \tiny \raise #1 \musicglyph #"scripts.segno" } }
-  \bar "|."
+@lilypond[quote,relative=2]
+\key g \major
+\time 4/4
+d1
+g,4^\segno a b c
+b4 a g2-\markup {
+  \italic "D.S. "
+  \tiny \raise #1
+  \musicglyph #"scripts.segno"
 }
+\bar "|."
 @end lilypond
 
 
@@ -2641,11 +2674,10 @@ FI: decresendo, hiljentyen.
 Decreasing tone volume.  Indicated by a leftwards opening horizontal
 wedge (hairpin) or the abbreviation @notation{decresc.}.
 
-@lilypond[fragment,ragged-right]
-\relative c'' {
-  \key g \major \time 4/4
-  d4 \> c b a | g1 \! \bar "|."
-}
+@lilypond[quote,relative=2]
+\key g \major
+\time 4/4
+d4\> c b a | g1 \! \bar "|."
 @end lilypond
 
 
@@ -2684,35 +2716,29 @@ DK: diatonisk skala,
 S: diatonisk skala,
 FI: diatoninen asteikko.
 
-A scale consisting of 5@w{ }whole tones and 2@w{ }semitones (S). Scales
+A scale consisting of 5@w{ }whole tones and 2@w{ }semitones (S).  Scales
 played on the white keys of a piano keybord are diatonic.  These scales
 are sometimes called, somewhat inaccurately, @q{church modes}).
 
 These @emph{modes} are used in Gregorian chant and in pre-baroque early music
 but also to some extent in newer jazz music.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
+@lilypond[quote,notime,relative=1]
 <<
-  \context Staff \relative c' {
+  {
     c1 d
-    \override TextScript #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c
   }
-  \context Lyrics \lyrics {
+  \lyrics {
     Ionian
   }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=1]
 <<
-  \context Staff \relative c' {
+  {
     d1
-    \override TextScript #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c d
   }
   \lyrics {
@@ -2721,11 +2747,9 @@ but also to some extent in newer jazz music.
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=1]
 <<
-  \relative c' {
-    \override TextScript #'padding = #-4
+  {
     e1^"~~ S" f g a b^"~~ S" c d e
   }
   \lyrics {
@@ -2734,12 +2758,10 @@ but also to some extent in newer jazz music.
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=1]
 <<
-  \relative c' {
+  {
     f1 g a
-    \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f
   }
   \lyrics {
@@ -2748,27 +2770,22 @@ but also to some extent in newer jazz music.
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=2]
 <<
-  \relative c'' {
+  {
     g1 a
-    \override TextScript #'padding = #-4
-    b^"~~ S" c d e^"~~ S" f g }
+    b^"~~ S" c d e^"~~ S" f g
+  }
   \lyrics {
     Mixolydian
   }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
+@lilypond[quote,notime,relative=2]
 <<
-  \relative c'' {
+  {
     a1
-    \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
   \lyrics {
@@ -2777,13 +2794,9 @@ but also to some extent in newer jazz music.
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
+@lilypond[quote,notime,relative=2]
 <<
-  \relative c'' {
-    \override TextScript #'padding = #-4
+  {
     b1^"~~ S" c d e^"~~ S" f g a b
   }
   \lyrics {
@@ -2797,75 +2810,61 @@ compositional music are primarily the major and the minor scales.  In
 the harmonic minor scale type an augmented second (A) occurs between
 the 6th and 7th tone.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=1]
 <<
-  \relative c' {
+  {
     c1 d
-    \override TextScript #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c
   }
- \lyrics {
+  \lyrics {
     Major
   }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=2]
 <<
-  \relative c'' {
+  {
     a1
-    \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
- \lyrics {
+  \lyrics {
     "Ancient (or Natural) minor"
   }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=2]
 <<
-  \relative c'' {
+  {
     a1
-    \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f!^"~~ A" gis^"~~ S" a
   }
-  \context Lyrics \lyrics {
+  \lyrics {
     "Harmonic minor"
   }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
+@lilypond[quote,notime,relative=2]
 <<
-  \relative c'' {
+  {
     a1
-    \override TextScript #'padding = #-4
     b^"~~ S" c d e fis gis^"~~ S" a
   }
-   \lyrics {
+  \lyrics {
     "Melodic minor ascending"
   }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
+@lilypond[quote,notime,relative=3]
 <<
-  \relative c'' {
-    a'1
-    \override TextScript #'padding = #-4
-    a g! f!^"~~ S" e d c^"~~ S" b a
+  {
+    a1
+    g! f!^"~~ S" e d c^"~~ S" b a
   }
-   \lyrics {
+  \lyrics {
     "Melodic minor descending"
   }
 >>
@@ -2969,13 +2968,13 @@ FI: melodian hyppivä liike.
 Progressing melodically by intervals larger than a major second, as contrasted
 with conjunct movement.
 
-@lilypond[fragment,ragged-right]
+@lilypond[quote,relative=1]
 \key a \major
 \time 4/4
-\relative c' {
-  \partial 8 e8 |
-  a4. gis8 b a e cis |
-  fis2 d4. \bar "||" }
+\partial 8 e8 |
+a4. gis8 b a e cis |
+fis2 d4.
+\bar "||"
 @end lilypond
 
 
@@ -3506,16 +3505,16 @@ FI: enharmoninen.
 Two notes, intervals, or scales are enharmonic if they have different
 names but equal pitch.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
-\context Staff \relative c'' {
-  gis1  as <des g,!>  <cis g!> 
-}
-\context Lyrics \lyrics {
-  \override Lyrics .LyricText #'self-alignment-X = #-1
-  "g sharp  " "a flat  " "dim fifth  " "augm fourth"
-}
+  \new Staff {
+    \relative c'' {
+      gis1 as <des g,!> <cis g!>
+    }
+  }
+  \lyrics {
+    "g sharp  " "a flat  " "dim fifth  " "augm fourth"
+  }
 >>
 @end lilypond
 
@@ -3666,29 +3665,28 @@ played an octave higher (for example, bass recorder) while 8@w{ }below
 the clef symbol indicates playing an octave lower (for example, on the
 Double Bass).
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-\override Staff.Clef #'full-size-change = ##t
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
-\relative c {
-  \clef varbaritone
-  f1
-  \clef bass
-  f1
-  \clef subbass
-  f1
-  \clef "F^8"
-  f1
-  \clef "F_8"
-  f1
-}
- \lyrics {
-  "varbaritone  "
-  "bass  "
-  "sub-bass  "
-  "octave up  "
-  "octave down"
-}
+  \relative c {
+    \override Staff.Clef #'full-size-change = ##t
+    \clef varbaritone
+    f1
+    \clef bass
+    f1
+    \clef subbass
+    f1
+    \clef "F^8"
+    f1
+    \clef "F_8"
+    f1
+  }
+  \lyrics {
+    "varbaritone  "
+    "bass  "
+    "sub-bass  "
+    "octave up  "
+    "octave down"
+  }
 >>
 @end lilypond
 
@@ -3755,11 +3753,10 @@ FI: fermaatti, pidäke.
 
 Prolonged note or rest of indefinite duration.
 
-@lilypond[fragment,ragged-right]
+@lilypond[quote,relative=2]
 \time 4/4
-\relative c'' {
-  a4 b c2^\fermata \bar "|."
-}
+a4 b c2^\fermata
+\bar "|."
 @end lilypond
 
 
@@ -3802,30 +3799,37 @@ A method of indicating an accompaniment part by the bass notes only,
 together with figures designating the chief intervals and chords to be
 played above the bass notes.
 
-TODO: Make the upper clef smaller, since it's usually "realized" in performance.
-
-@lilypond[fragment,line-width=13.0\cm]
-\context GrandStaff <<
-  \context Staff = lh \relative c'' {
-    \time 4/4
-    \key es \major
+@lilypond[quote,line-width=13.0\cm]
+\new GrandStaff <<
+  \new Staff = "rh" \with {
+    fontSize = #-3
+    \override StaffSymbol #'staff-space = #(magstep -3)
+  } \relative c'' {
     \clef treble
-    << \context Voice = rha {
-        \stemUp
-        es4 d c bes | bes }
-      \context Voice = rhb {
-        \stemDown
-        < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
+    \key es \major
+    \time 4/4
+    <<
+      \context Voice = "rha" {
+        \voiceOne
+        es4 d c bes
+        bes4
+      }
+      \context Voice = "rhb" {
+        \voiceTwo
+        <bes g>8 as <as f> g <g es> f <d f> es
+        <g es>4
+      }
     >>
   }
-  <<
-    \context Staff = rh \relative c' {
+  \new Staff = "lh" \relative c' {
     \clef bass
     \key es \major
-    es8 c d bes c as bes16 as g f | es4
-    }
-    \figures { s8 <6> s <4 2> s <6> s16 s <6> <4 2>  }
-  >>
+    es8 c d bes c as bes16 as g f
+    es4
+  }
+  \figures {
+    s8 <6> s <4 2> s <6> s16 s <6> <4 2>
+  }
 >>
 @end lilypond
 
@@ -3869,15 +3873,11 @@ FI: lippu, viiri.
 Ornament at the end of the stem of a note used for notes with values less
 than a quarter note.  The number of flags determines the note value.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\relative c'' {
-  g8_"8th" s8
-  g16_"16th" s8
-  g32_"32nd" s8
-  g64_"64th" s8
-}
+@lilypond[quote,notime,relative=2]
+g8-"8th" s8
+g16-"16th" s8
+g32-"32nd" s8
+g64-"64th" s8
 @end lilypond
 
 
@@ -4075,14 +4075,16 @@ chords.
 
 TODO: what does the @q{p} mean in Sp, Dp, Tp?
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=2,line-width=13.0\cm]
 <<
-\context Voice \relative c'' {
-  <g e c >1 < a f d > < b g e >
-  <c a f > < d b g > < e c a > < f d b > }
-\context Lyrics \lyrics {
-  T Sp Dp S D Tp \markup{ D\translate #(cons -2 0) {"|"}  } }
+  {
+    <g e c>1 <a f d> <b g e>
+    <c a f> <d b g> <e c a> <f d b>
+  }
+  \lyrics {
+    T Sp Dp S D Tp
+    \markup { D \translate #'(-2 . 0) | }
+  }
 >>
 @end lilypond
 
@@ -4128,30 +4130,25 @@ must be played an octave higher while 8 below the clef symbol indicates
 playing or singing an octave lower (used most frequently to notate the tenor
 part in modern choral scores).
 
-@lilypond[fragment,notime,ragged-right]
-<<
-  \set Score.automaticBars = ##f
+@lilypond[quote,notime]
+\relative c'' {
   \override Staff.Clef #'full-size-change = ##t
-
-  \relative c'' {
-    \set Score.proportionalNotationDuration = #(ly:make-moment 1 8)
-    \clef french
-    g1
-    \clef treble
-    g
-    \clef "G^8"
-    g
-    \clef "G_8"
-    g
-  }
-  \context Lyrics \lyrics {
-    \override Lyrics . LyricText #'X-offset = #-5
-    "french violin clef"
-    "violin clef"
-    "octave up"
-    "octave down"
-  }
->>
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 8)
+  \clef french
+  g1
+  \clef treble
+  g1
+  \clef "G^8"
+  g1
+  \clef "G_8"
+  g1
+}
+\addlyrics {
+  "french violin clef"
+  "violin clef"
+  "octave up"
+  "octave down"
+}
 @end lilypond
 
 
@@ -4274,12 +4271,10 @@ usage.  In the standard usage of these countries, @notation{B} means
 Graphical version of the @notation{crescendo} and @notation{decrescendo}
 dynamic marks.
 
-@lilypond[fragment,ragged-right]
-\relative c'' {
-  c1\<
-  c2\> c\<
-  c1\!
-}
+@lilypond[quote,relative=2]
+c1\<
+c2\> c\<
+c1\!
 @end lilypond
 
 
@@ -4341,17 +4336,16 @@ FI: harmoninen kadenssi.
 
 A sequence of chords that terminates a musical phrase or section.
 
-@lilypond[fragment,ragged-right]
-\context PianoStaff <<
-  \context Staff = SA \relative c'' {
-    \time 4/4
+@lilypond[quote]
+\new PianoStaff <<
+  \context Staff = "SA" \relative c'' {
     \clef treble
-    \context Voice
-    \partial 4 < c g e >4 |
-    < c a f > < b g d > < c g e >2
+    \time 4/4
+    \partial 4 <c g e>4 |
+    <c a f> <b g d> <c g e>2
   }
   <<
-    \context Staff = SB \relative c {
+    \context Staff = "SB" \relative c {
       \clef bass
       \partial 4 c4 | f, g c2
       \bar "|."
@@ -4361,7 +4355,6 @@ A sequence of chords that terminates a musical phrase or section.
     }
   >>
 >>
-
 @end lilypond
 
 
@@ -4415,30 +4408,22 @@ categories @emph{consonances} and @emph{dissonances}.
 
 Consonances:
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\context Voice \relative c'' {
-  <g g>1_"unison  " s
-  <g b>_"third  " s
-  <g c>_"fourth  " s
-  <g d'>_"fifth  " s
-  <g e'>_"sixth  " s
-  <g g'>_"octave  " s
-  <g b'>_"tenth" s s
-}
+@lilypond[quote,notime,relative=2,line-width=13.0\cm]
+<g g>1_"unison  " s
+<g b>_"third  " s
+<g c>_"fourth  " s
+<g d'>_"fifth  " s
+<g e'>_"sixth  " s
+<g g'>_"octave  " s
+<g b'>_"tenth" s s
 @end lilypond
 
 Dissonances:
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\context Voice \relative c'' {
-  <g a>1_"second  " s s
-  <g f'>_"seventh  " s s
-  <g a'>_"ninth" s s
-}
+@lilypond[quote,notime,relative=2,line-width=13.0\cm]
+<g a>1_"second  " s s
+<g f'>_"seventh  " s s
+<g a'>_"ninth" s s
 @end lilypond
 
 For harmony that uses three or more notes, see @ref{chord}.
@@ -4470,20 +4455,22 @@ as a special effect (or @emph{affect}) at cadences.
 
 For example, this phrase in 6/4 time
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,relative=1,line-width=13.0\cm]
 \key c \major
 \time 6/4
-\relative c' {
-  c2. e | d2 c d | c1. \bar "||" }
+c2. e | d2 c d | c1. \bar "||"
 @end lilypond
 
 may be thought of having alternating time signatures
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,relative=1,line-width=13.0\cm]
 \key c \major
 \time 6/4
-\relative c' {
-  c2. e | \time 3/2 d2 c d | \time 6/4 c1. \bar "||" }
+c2. e
+\time 3/2
+d2 c d
+\time 6/4
+c1. \bar "||"
 @end lilypond
 
 and is therefore a polymeter (second definition) of considerable antiquity.
@@ -4572,63 +4559,60 @@ fifth are identical (or @emph{enharmonic}) and are called @emph{tritonus}
 because they consist of three whole tones.  The addition of such two
 intervals forms an octave.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
-\context Voice \relative c'' {
-  < g g >1 
-  < g as >^"minor" 
-  < g a! > 
-  < g ais >^"augm" 
-  < gis bes >^"dimin" 
-  < g! bes >^"minor" 
-  < g b! >^"major" 
-  < g bis >^"augm" 
-}
-\context Lyrics \lyrics {
-  "unison " "second " "second " "second "
-  "third  " "third " "third " "third"
-}
+  \context Voice \relative c'' {
+    < g g >1
+    < g as >^"minor"
+    < g a! >
+    < g ais >^"augm"
+    < gis bes >^"dimin"
+    < g! bes >^"minor"
+    < g b! >^"major"
+    < g bis >^"augm"
+  }
+  \context Lyrics \lyrics {
+    "unison " "second " "second " "second "
+    "third  " "third " "third " "third"
+  }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
-\context Staff \relative c'' {
-  < g c >1^"perfect" 
-  < g cis >^"aug" 
-  < g d' >^"perfect" 
-  < g des' > ^"dim" 
-  < gis es' >^"dim" 
-  < g! es' >^"minor" 
-  < g e'! >^"major" 
-  < g eis' >^"aug" 
-}
- \lyrics {
-  "fourth  " "fourth  " "fifth  " "fifth  "
-  "sixth  " "sixth  " "sixth  " "sixth"
-}
+  \context Staff \relative c'' {
+    <g c >1^"perfect"
+    <g cis>^"aug"
+    <g d'>^"perfect"
+    <g des'> ^"dim"
+    <gis es'>^"dim"
+    <g! es'>^"minor"
+    <g e'!>^"major"
+    <g eis'>^"aug"
+  }
+   \lyrics {
+    "fourth  " "fourth  " "fifth  " "fifth  "
+    "sixth  " "sixth  " "sixth  " "sixth"
+  }
 >>
 @end lilypond
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
-\context Staff \relative c'' {
-  < gis f'! >1^"dimin" 
-  < g! f'! >^"minor" 
-  < g fis' >^"major" 
-  < g g' > 
-  < g as' >^"minor" 
-  < g a'! >^"major" 
-  < g bes' >^"minor" 
-  < g b'! >^"major" 
-}
-\context Lyrics \lyrics {
-  "seventh " "seventh " "seventh " "octave "
-  "ninth " "ninth " "tenth " "tenth"
-}
+  \context Staff \relative c'' {
+    <gis f'!>1^"dimin"
+    <g! f'!>^"minor"
+    <g fis'>^"major"
+    <g g'>
+    <g as'>^"minor"
+    <g a'!>^"major"
+    <g bes'>^"minor"
+    <g b'!>^"major"
+  }
+  \context Lyrics \lyrics {
+    "seventh " "seventh " "seventh " "octave "
+    "ninth " "ninth " "tenth " "tenth"
+  }
 >>
 @end lilypond
 
@@ -4694,14 +4678,10 @@ FI: käänteisintervalli.
 
 The difference between an interval and an octave.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\context Staff \relative c'' {
-  < g a >1_"second " s s < g' a, >_"seventh " s s \bar "||"
-  < g, b >_"third  " s s < g' b, >_"sixth  " s s \bar "||"
-  < g, c >_"fourth  " s s < g' c, >_"fifth  " s s \bar "||"
-}
+@lilypond[quote,notime,relative=2,line-width=13.0\cm]
+<g a>1_"second " s s <g' a,>_"seventh " s s \bar "||"
+<g, b>_"third  " s s <g' b,>_"sixth  " s s \bar "||"
+<g, c>_"fourth  " s s <g' c,>_"fifth  " s s \bar "||"
 @end lilypond
 
 
@@ -4840,9 +4820,10 @@ FI: apuviiva.
 
 A ledger line is an extension of the staff.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-\relative c'' { a,1 s c'' }
+@lilypond[quote,notime,relative=2]
+a,1
+s1
+c''1
 @end lilypond
 
 
@@ -4866,8 +4847,7 @@ To be performed (a) without any perceptible interruption between the
 notes, unlike (b) @notation{leggiero} or @notation{non-legato}, (c)
 @notation{portato}, or (d) @notation{staccato}.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
   \context Staff \relative c'' {
     c4-( d e-) \bar "||"
@@ -5024,12 +5004,9 @@ FI: pitkä appoggiatura, pitkä etuhele.
 
 Note value: double length of @notation{breve}.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-\relative c'' {
-  \override NoteHead #'style = #'mensural
-  g\longa g\breve
-}
+@lilypond[quote,notime,relative=2]
+\override NoteHead #'style = #'mensural
+g\longa g\breve
 @end lilypond
 
 
@@ -5357,7 +5334,7 @@ beat on each quarter note is conventionally written with a time signature of
 
 Simple duple meter (F.J. Haydn, 1732-1809; or a Croatian folk tune):
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c'' {
   \time 2/4
   \key g \major
@@ -5366,7 +5343,7 @@ Simple duple meter (F.J. Haydn, 1732-1809; or a Croatian folk tune):
 
 Simple triple meter:
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c'' {
   \time 3/4
   \key c \minor
@@ -5375,7 +5352,7 @@ Simple triple meter:
 
 Simple quadruple meter (French folk tune, @emph{Au clair de la lune}):
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c'' {
   \time 4/4
   \key g \major
@@ -5384,7 +5361,7 @@ Simple quadruple meter (French folk tune, @emph{Au clair de la lune}):
 
 Simple quintuple meter (B. Marcello, 1686-1739):
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c'' {
   \time 5/4
   \key c \major
@@ -5399,7 +5376,7 @@ the source, with sharps in the accompaniment where the voice has flats and
 
 Compound duple meter (unknown):
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c' {
   \time 6/8
   \key f \major
@@ -5410,7 +5387,7 @@ Compound duple meter (unknown):
 
 Compound triple meter (J.S. Bach, 1685-1750):
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c' {
   \time 9/8
   \key g \major
@@ -5421,7 +5398,7 @@ Compound triple meter (J.S. Bach, 1685-1750):
 
 Compound quadruple meter (P. Yon, 1886-1943):
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c' {
   \time 12/8
   \key e \major
@@ -5565,14 +5542,11 @@ FI: keski-C.
 
 First C below the 440 Hz A.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,relative=1]
 \override Staff.Clef #'full-size-change = ##t
-\relative c' {
-  \clef bass c1 s
-  \clef alto c s
-  \clef treble c s
-}
+\clef bass c1 s
+\clef alto c s
+\clef treble c s
 @end lilypond
 
 
@@ -5699,7 +5673,7 @@ FI: teema, sävelaihe.
 The briefest intelligible and self-contained fragment of a musical
 theme or subject.
 
-@lilypond[line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \score{
 \relative c'' {
   \set Score.implicitTimeSignatureVisibility = #all-invisible
@@ -5735,7 +5709,7 @@ S: sats,
 FI: osa.
 
 Greater musical works like @ref{symphony} and @ref{sonata} most often
-consist of several -- more or less -- independant pieces called
+consist of several -- more or less -- independent pieces called
 movements.
 
 
@@ -5761,14 +5735,14 @@ longer spans of rest, with a number above to indicate the duration (in
 measures) of the rest. The former style is called @q{Kirchenpausen} in
 German, as a reminiscence of its use in Renaissance vocal polyphony.
 
-@lilypond[fragment,ragged-right]
-\relative c'' {
-  a1
-  \set Score.skipBars = ##t R1*3
-  a1
-  \set Score.skipBars = ##t R1*122
-  a1
-}
+@lilypond[quote,relative=2]
+a1
+\set Score.skipBars = ##t
+R1*3
+a1
+\set Score.skipBars = ##t
+R1*122
+a1
 @end lilypond
 
 
@@ -5901,9 +5875,7 @@ double-length note value @emph{longa} or the quadruple-length note value
 
 @c TODO -- add maxima to this example, in a way that doesn't break it.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-%\override Score.TextScript #'font-style = #'large
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 \relative c'' {
   \override NoteHead #'style = #'mensural
   a\longa_"longa" a\breve_"breve"
@@ -5914,9 +5886,7 @@ double-length note value @emph{longa} or the quadruple-length note value
 
 @c TODO -- add maxima rest to this example
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-%\override Score.TextScript #'font-style = #'large
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 \relative c'' {
   r\longa_"longa" r\breve_"breve"
   r1_"1/1" r2_"1/2" r4_"1/4" s16 r8_"1/8" s16
@@ -5926,8 +5896,7 @@ double-length note value @emph{longa} or the quadruple-length note value
 An augmentation dot after a note multiplies the duration by one and a
 half.  Another dot adds yet a fourth of the duration.
 
-@lilypond[fragment,line-width=13.0\cm]
-%\override Score.TextScript #'font-style = #'large
+@lilypond[quote,line-width=13.0\cm]
 \relative c'' {
   \time 4/4
   g4._"pointed" g8 g2 | g4 ~ g8 g g2 \bar "||"
@@ -5939,8 +5908,7 @@ subdivision by@w{ }3 (@emph{triplets}) and@w{ }5 (@emph{quintuplets}).
 Subdivisions by@w{ }2 (@emph{duplets}) or@w{ }4 (@emph{quadruplets}) of
 dotted notes are also frequently used.
 
-@lilypond[fragment,line-width=13.0\cm]
-%\override Score.TextScript #'font-style = #'large
+@lilypond[quote,line-width=13.0\cm]
 \relative c'' {
   \time 4/4
   \times 2/3 {g8_"triplets" g g} g4 g8 g g4 \bar "||"
@@ -5948,7 +5916,7 @@ dotted notes are also frequently used.
 }
 @end lilypond
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \relative c'' {
   \time 3/4
   \times 3/2 {g4_"duplets" g} |
@@ -6100,10 +6068,9 @@ middle of the 19th century and onwards the trill is performed with the main
 note first while in the music from the preceding baroque and classic periods
 the upper note is played first.
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 <<
   \context Staff = sa {
-% \override Score.TextScript #'font-style = #'large
     \relative c'' {
       c2._"pre-1850" b4\trill | c1 \bar "||"
       c2._"post-1850" b4\trill | c1 \bar "||"
@@ -6120,10 +6087,9 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent}, and
 the
 @emph{prall} (inverted mordent).
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 <<
   \context Staff = sa {
-% \override Score.TextScript #'font-style = #'large
     \relative c'' {
       a4_"turn" b\turn c2 \bar "||"
       g4_"mordent" a b\mordent a \bar "||"
@@ -6224,13 +6190,11 @@ pattern to one or more measures.  There are other names for this symbol:
 
 @end itemize
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,relative=2,line-width=13.0\cm]
 \time 4/4
-\relative c' {
-  \repeat percent 4 { c4_"Beat (or slash) repeat" }
-  \repeat percent 2 { c4 e g b_"Measure repeat" }
-  \repeat percent 2 { c,2 es | f4 fis g c_"Multi-measure repeat" | }
-}
+\repeat percent 4 { c4_"Beat (or slash) repeat" }
+\repeat percent 2 { c4 e g b_"Measure repeat" }
+\repeat percent 2 { c,2 es | f4 fis g c_"Multi-measure repeat" | }
 @end lilypond
 
 
@@ -6833,23 +6797,16 @@ FI: rinnakkaissävellaji.
 
 Major and minor keys that have the same key signature.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\relative c' {
-  \key es \major
-  es1_"e flat major" f g as bes c d es
-  \bar "||"
-}
+@lilypond[quote,notime,relative=1,line-width=13.0\cm]
+\key es \major
+es1_"e flat major" f g as bes c d es
+\bar "||"
 @end lilypond
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\relative c' {
-  \key c \minor
-  c1_"c minor" d es f g a! b! c \bar "||"
-}
+@lilypond[quote,notime,relative=1,line-width=13.0\cm]
+\key c \minor
+c1_"c minor" d es f g a! b! c
+\bar "||"
 @end lilypond
 
 
@@ -6869,11 +6826,14 @@ DK: gen@-ta@-gel@-se,
 S: repris,
 FI: toisto.
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,relative=2,line-width=13.0\cm]
 \key g \major
 \time 4/4
-\relative c'' {
-  \repeat volta 2 {g4 g d' d | e e d2 | c4 c b b | a a g2 }
+\repeat volta 2 {
+  g4 g d' d
+  e4 e d2
+  c4 c b b
+  a a g2
 }
 @end lilypond
 
@@ -7006,10 +6966,9 @@ Names and symbols used in harmonic analysis to denote tones of the
 scale as roots of chords.  The most important are degrees I = tonic
 (T), IV = sub@-do@-mi@-nant (S) and V = dominant (D).
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
+@lilypond[quote,notime,line-width=13.0\cm]
 <<
-\context Staff \relative c' {
+\new Staff \relative c' {
   c1 d e f g a b c
 }
  \lyrics {
@@ -7098,9 +7057,9 @@ DK: sekund,
 S: sekund,
 FI: sekunti.
 
-The @ref{interval} between two neigbouring tones of a scale.  A
+The @ref{interval} between two neighboring tones of a scale.  A
 @ref{diatonic scale} consists of alternating @ref{semitone}s and
-@ref{whole tone}s, hence the size of a se@-cond depends on the scale
+@ref{whole tone}s, hence the size of a second depends on the scale
 degrees in question.
 
 
@@ -7125,9 +7084,8 @@ composed music.  The interval between two neighbouring tones on the piano
 keyboard -- including black and white keys -- is a semitone.  An octave may
 be divided into 12@w{ }semitones.
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-\relative c'' { g1 gis s a bes s b! c }
+@lilypond[quote,notime,relative=2,line-width=13.0\cm]
+g1 gis s a bes s b! c
 @end lilypond
 
 
@@ -7486,14 +7444,13 @@ FI: staccato, lyhyesti, terävästi.
 Playing the note(s) short.  Staccato is indicated by a dot above or
 below the note head.
 
-@lilypond[fragment,ragged-right]
+@lilypond[quote,relative=2]
 \key d \major
 \time 4/4
-\relative c'' {
-  \partial 8 a8 |
-  d4-\staccato cis-\staccato b-\staccato cis-\staccato |
-  d2. \bar "||"
-}
+\partial 8 a8 |
+d4-\staccato cis-\staccato b-\staccato cis-\staccato |
+d2.
+\bar "||"
 @end lilypond
 
 
@@ -7504,6 +7461,7 @@ None yet.
 @node staff
 @section staff
 
+UK: stave,
 ES: pentagrama,
 I: pentagramma, rigo (musicale),
 F: portée,
@@ -7546,23 +7504,17 @@ FI: nuottipalkki.
 Vertical line above or below a @ref{note head} shorter than a
 whole note.
 
-@ref{beam}.
-
-@lilypond[fragment,notime,line-width=13.0\cm]
+@lilypond[quote,notime,relative=2]
 \set Score.autoBeaming = ##f
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\relative c'' {
-  g2_"1/2" g' s16
-  g,4_"1/4" g' s16
-  g,8_"1/8" g' s16
-  g,16_"1/16" g' s16
-}
+g2_"1/2" g' s16
+g,4_"1/4" g' s16
+g,8_"1/8" g' s16
+g,16_"1/16" g' s16
 @end lilypond
 
 
 @seealso
-None yet.
+@ref{beam}.
 
 
 @node stringendo
@@ -7778,13 +7730,11 @@ group.  Any deviation from this scheme is felt as a disturbance or
 contradiction between the underlaying (normal) pulse and the actual
 (abnormal) rhythm.
 
-@lilypond[fragment,ragged-right]
-\time 4/4
-\relative c' {
-  \partial 4
-  d8 dis |
-  e c'4 e,8 c'4 e,8 c' ( | c2)
-}
+@lilypond[quote,relative=1]
+\time 2/4
+\partial 8 d16 dis
+e16 c'8 e,16 c'8 e,16 c' ~
+c4
 @end lilypond
 
 
@@ -8020,9 +7970,8 @@ connects two succesive notes of the same pitch, and which has the
 function of uniting them into a single sound (tone) equal to the
 combined durations.
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-\relative c'' { g2 ~ g4. }
+@lilypond[quote,notime,relative=2]
+g2 ~ g4. r8
 @end lilypond
 
 
@@ -8149,7 +8098,7 @@ FI: transponointi.
 Shifting a melody up or down in pitch, while keeping the same
 relative pitches.
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \context Staff {
   \time 3/4
   \relative c'' {
@@ -8159,7 +8108,7 @@ relative pitches.
 }
 @end lilypond
 
-@lilypond[fragment,line-width=13.0\cm]
+@lilypond[quote,line-width=13.0\cm]
 \context Staff {
   \time 3/4
   \transpose c bes \relative c'' {
@@ -8215,14 +8164,10 @@ in the distance of a third (@ref{interval}).
 
 @end enumerate
 
-@lilypond[fragment,notime,ragged-right]
-\set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\relative c' {
-  e2:32_"a"
-  f:32 [ e8:16 f:16 g:16 a:16 ] s4
-  \repeat tremolo 8 { e32_"b" g }
-}
+@lilypond[quote,notime,relative=1]
+e2:32_"a"
+f:32 [ e8:16 f:16 g:16 a:16 ] s4
+\repeat tremolo 8 { e32_"b" g }
 @end lilypond
 
 
