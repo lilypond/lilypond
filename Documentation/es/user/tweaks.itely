@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: ac8805d20e179145e3f3371032fe54156d84b0d0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -3550,12 +3550,16 @@ Las instrucciones de sobreescritura son con frecuencia largas y
 tediosas de escribir, y se tienen que escribir de forma absolutamente
 correcta.  Si las mismas sobreescrituras se van a utilizar muchas
 veces, podría merecer la pena definir variables para guardarlas.
-Suponga que queremos realzar ciertas palabras de la letra de una
+
+Supongamos que queremos realzar ciertas palabras de la letra de una
 canción imprimiéndolas en cursiva y negrita.  Las instrucciones
 @code{\italic} y @code{\bold} sólo funcionan dentro de la letra de las
-canciones si están incluidas dentro de un @code{\markup}, lo que las
-hace tediosas de escribir.  ¿Podríamos, como alternativa, utilizar las
-instrucciones @code{\override} y @code{\revert}?
+canciones si están incluidas, junto con la palabra o palabras que se
+pretenden modificar, dentro de un @code{\markup}, lo que las hace
+tediosas de escribir. La necesidad de incluir las propias palabras
+impide que se puedan usar en variables simples. ¿Podríamos, como
+alternativa, utilizar las instrucciones @code{\override} y
+@code{\revert}?
 
 @example
 @code{\override Lyrics . LyricText #'font-shape = #'italic}
@@ -3566,9 +3570,13 @@ instrucciones @code{\override} y @code{\revert}?
 @end example
 
 Estas instrucciones también serían extremadamente tediosas de escribir
-si hubiera muchas palabras que quisiéramos subrayar.  Entonces, en vez
-de esto las definimos como dos variables, y las usamos de la siguiente
-forma, aunque normalmente quizá elegiríamos unos nombres de variable
+si hubiera muchas palabras que quisiéramos subrayar.  Pero sí
+@emph{podemos} definirlas como dos variables y usarlas para delimitar
+las palabras que destacar.  Otra ventaja de la utilización de
+variables para estas sobreescrituras es que ya no son necesarios los
+espacios que rodean al punto, puesto que no se interpretan
+directamente en el modo @code{\lyricmode}.  He aquí un ejemplo de
+esto, aunque en la práctica quizá elegiríamos unos nombres de variable
 más cortos para que fueran más rápidos de teclear:
 
 @cindex LyricText, ejemplo de sobreescritura
@@ -3577,12 +3585,12 @@ más cortos para que fueran más rápidos de teclear:
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics . LyricText #'font-shape = #'italic
-  \override Lyrics . LyricText #'font-series = #'bold
+  \override Lyrics.LyricText #'font-shape = #'italic
+  \override Lyrics.LyricText #'font-series = #'bold
 }
 normal = {
-  \revert Lyrics . LyricText #'font-shape
-  \revert Lyrics . LyricText #'font-series
+  \revert Lyrics.LyricText #'font-shape
+  \revert Lyrics.LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}

@@ -1390,7 +1390,7 @@ mediante el establecimiento al valor @code{#t} de la variable
 @code{page-limit-inter-system-space} en el bloque @code{\paper}.  La
 variable del papel @code{page-limit-inter-system-space-factor}
 determina en qué cantidad se puede incrementar el espacio: por
-ejemplo, el valor @code{1.3} sisgnifica que el espacio puede ser un
+ejemplo, el valor @code{1.3} significa que el espacio puede ser un
 30% mayor que lo que sería en una página no justificada hasta abajo.
 
 En el ejemplo siguiente, si el espacio entre los sistemas no estuviese
