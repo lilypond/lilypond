@@ -120,7 +120,7 @@ deseado.  El tamaño estándar para la tipografía (para @code{font-size
 pentagrama de 20 puntos, se selecciona una fuente de 10 puntos.
 
 La propiedad @code{font-size} sólo se puede establecer en objetos
-gráficos que utilicesn fuentes tipográficas.  Éstos son los que
+gráficos que utilicen fuentes tipográficas.  Éstos son los que
 contemplan el interfaz de presentación @code{font-interface}.
 
 
