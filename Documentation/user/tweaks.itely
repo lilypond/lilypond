@@ -369,11 +369,12 @@ Note that the syntax of @code{\tweak} is different from that
 of the @code{\override} command.  Neither the context nor the
 layout object should be specified; in fact, it would generate
 an error to do so.  These are both implied by the following
-item in the input stream.  So the general syntax of the
+item in the input stream.  Note also that an equals sign should
+not be present.  So the general syntax of the
 @code{\tweak} command is simply
 
 @example
-\tweak #'@var{layout-property} = #@var{value}
+\tweak #'@var{layout-property} #@var{value}
 @end example
 
 A @code{\tweak} command can also be used to modify just one in
