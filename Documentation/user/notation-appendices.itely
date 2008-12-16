@@ -198,11 +198,11 @@ Half-diminished seventh
 @tab
 Diminished triad, minor seventh
 @tab
-@code{dim5m7}
+@code{m7.5-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:dim5m7
+  c1:m7.5-
 }
 @end lilypond
 
@@ -211,11 +211,11 @@ Minor-major seventh
 @tab
 Minor triad, major seventh
 @tab
-@code{maj7m5}
+@code{maj7.5-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:maj7m5
+  c1:maj7.5-
 }
 @end lilypond
 
