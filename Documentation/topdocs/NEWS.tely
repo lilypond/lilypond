@@ -528,6 +528,35 @@ prevent uneven vertical spacing.
 }
 @end lilypond
 
+@item
+Extending LilyPond's existing support for microtones, there are
+now arrowed accidentals for the notation of microtonal alterations.
+To use them, redefine the @code{glyph-name-alist} property of
+@code{Accidental} as in the following example which uses quartertones
+to typeset arrowed accidentals. Alternatively, it is possible to
+define separate names for all notes with arrowed accidentals (see
+@code{ly/makam.ly} for boilerplate code).
+
+@lilypond[]
+microAccs = #'((0 . "accidentals.natural")
+               (-1/2 . "accidentals.flat")
+               (1/2 . "accidentals.sharp")
+
+               (1 . "accidentals.doublesharp")
+               (-1 . "accidentals.flatflat")
+       
+               (3/4 . "accidentals.sharp.arrowup")
+               (1/4 . "accidentals.sharp.arrowdown")
+               (-1/4 . "accidentals.flat.arrowup")
+               (-3/4 . "accidentals.flat.arrowdown"))
+
+\relative c'' {
+  #(set-accidental-style 'modern)
+  \override Accidental #'glyph-name-alist = #microAccs
+  geseh geh aih aisih
+}
+@end lilypond
+
 @end itemize
 
 
