@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Pitches
 @section Pitches
@@ -1069,8 +1069,8 @@ spielen unisono.
 \new GrandStaff <<
   \new Staff = "violin" {
     \relative c'' {
-      \set Staff.instrumentName = "Vln"
-      \set Staff.midiInstrument = "violin"
+      \set Staff.instrumentName = #"Vln"
+      \set Staff.midiInstrument = #"violin"
       % not strictly necessary, but a good reminder
       \transposition c'
 
@@ -1081,7 +1081,7 @@ spielen unisono.
   \new Staff = "clarinet" {
     \relative c'' {
       \set Staff.instrumentName = \markup { Cl (B\flat) }
-      \set Staff.midiInstrument = "clarinet"
+      \set Staff.midiInstrument = #"clarinet"
       \transposition bes
 
       \key d \major
@@ -1096,7 +1096,7 @@ geändert werden.  Ein Klarinetist zum Beispiel kann
 zwischen B- und A-Klarinette wechseln.
 
 @lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = "Cl (A)"
+\set Staff.instrumentName = #"Cl (A)"
 \key a \major
 \transposition a
 c d e f

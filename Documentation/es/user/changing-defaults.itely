@@ -718,7 +718,7 @@ ossia = { f4 f f f }
   \relative c' \new Staff = "main" {
     c4 c c c
     <<
-      \new Staff \with {alignAboveContext=main} \ossia
+      \new Staff \with { alignAboveContext = #"main" } \ossia
       { d8 f d f d f d f }
     >>
   }

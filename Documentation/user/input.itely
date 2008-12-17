@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node General input and output
 @chapter General input and output
@@ -1449,13 +1449,13 @@ The name should be chosen from the list in @ref{MIDI instruments}.
 
 @example
 \new Staff @{
-  \set Staff.midiInstrument = "glockenspiel"
+  \set Staff.midiInstrument = #"glockenspiel"
   @var{...notes...}
 @}
 @end example
 
 @example
-\new Staff \with @{midiInstrument = "cello"@} @{
+\new Staff \with @{midiInstrument = #"cello"@} @{
   @var{...notes...}
 @}
 @end example
@@ -1701,7 +1701,7 @@ found, or calls the default function otherwise.
 
 \score {
   \new Staff {
-    \set Staff.midiInstrument = "cello"
+    \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
        \relative c'' {

@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 
 @node Pitches
@@ -1056,8 +1056,8 @@ tocan los dos instrumentos está sonando al unísono.
 \new GrandStaff <<
   \new Staff = "violin" {
     \relative c'' {
-      \set Staff.instrumentName = "Vln"
-      \set Staff.midiInstrument = "violin"
+      \set Staff.instrumentName = #"Vln"
+      \set Staff.midiInstrument = #"violin"
       % not strictly necessary, but a good reminder
       \transposition c'
 
@@ -1068,7 +1068,7 @@ tocan los dos instrumentos está sonando al unísono.
   \new Staff = "clarinet" {
     \relative c'' {
       \set Staff.instrumentName = \markup { Cl (B\flat) }
-      \set Staff.midiInstrument = "clarinet"
+      \set Staff.midiInstrument = #"clarinet"
       \transposition bes
 
       \key d \major
@@ -1083,7 +1083,7 @@ ejemplo, un clarinetista puede cambiar del clarinete en La al
 clarinete en Si bemol.
 
 @lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = "Cl (A)"
+\set Staff.instrumentName = #"Cl (A)"
 \key a \major
 \transposition a
 c d e f

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @c Translators: Valentin Villenave, Nicolas Klutchnikoff, Damien Heurtebise
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -1330,7 +1330,7 @@ portée temporaire, du type  @rglos{ossia}.
          <<
            { f c c }
            \new Staff \with {
-             alignAboveContext = "main" }
+             alignAboveContext = #"main" }
            { f8 f c }
          >>
          r4 |
@@ -1357,7 +1357,7 @@ régler le stencil de chacun sur @code{#f}, comme ceci :
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1419,7 +1419,7 @@ Remplaçons donc l'exemple ci-dessus par celui-ci :
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1485,7 +1485,7 @@ Essayons sur l'exemple d'ossia :
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1553,7 +1553,7 @@ objets en proportion.  Voici comment elle s'utilise :
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2
