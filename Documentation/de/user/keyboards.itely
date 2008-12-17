@@ -576,6 +576,13 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 Schnipsel:
 @rlsr{Keyboards}.
 
+
+
+@node Harp
+@subsection Harp
+
+Dieser Abschnitt zeigt Eigenheiten der Notation für Harfe.
+
 @menu
 * References for harps::
 * Harp pedals::
