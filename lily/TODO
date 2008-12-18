@@ -1,8 +1,0 @@
-Pango
------
-
-  . Add filter code to avoid font formats we do not want or can support;
-    in particular, avoid bitmap fonts.
-
-  . Handle TTCs.  Since Type 42 fonts don't support TTCs, convert them to
-    TTFs on the fly.
