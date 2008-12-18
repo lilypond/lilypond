@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -229,11 +229,19 @@ modificador para crear una tríada mayor.
 
 @seealso
 Referencia de la notación:
-@ref{Common chord modifiers}.
+@ref{Common chord modifiers},
+@ref{Extended and altered chords}.
 
 Fragmentos de código:
 @rlsr{Chords}.
 
+@knownissues
+Sólo se puede usar un modificador por cada acorde, normalmente sobre
+la nota más aguda del mismo.  Los acordes con maś de un modificador se
+analizan sin producir errores ni advertencias, pero el resultado es
+impredecible.  Los acordes que no se pueden conseguir con un solo
+modificador se deben alterar en sus notas individuales como se
+describe en @ref{Extended and altered chords}.
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords

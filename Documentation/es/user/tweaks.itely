@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac8805d20e179145e3f3371032fe54156d84b0d0
+    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -371,14 +371,14 @@ se cambiaría de la siguiente forma:
 @end lilypond
 
 Observe que la sintaxis de @code{\tweak} no es igual que la de
-@code{\override}.  Ni el contexto ni el objeto de
-presentación se deben especificar; de hecho, generaría un error
-hacerlo.  Los dos están implícitos por el siguiente elemento del flujo
-de entrada.  Así que la sintaxis genérica de la instrucción
-@code{\tweak} es, simplemente,
+@code{\override}.  Ni el contexto ni el objeto de presentación se
+deben especificar; de hecho, generaría un error hacerlo.  Los dos
+están implícitos por el siguiente elemento del flujo de entrada.
+Observe también que no debe haber un signo igual. Así que la sintaxis
+genérica de la instrucción @code{\tweak} es, simplemente,
 
 @example
-\tweak #'@var{propiedad-de-presentación} = #@var{valor}
+\tweak #'@var{propiedad-de-presentación} #@var{valor}
 @end example
 
 Una instrucción @code{\tweak} también se puede usar para modificar
