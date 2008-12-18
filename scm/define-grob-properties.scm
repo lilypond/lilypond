@@ -79,6 +79,14 @@ specifies which beams to make.  @code{0}@tie{}is the central beam,
 @code{1}@tie{}is the next beam toward the note, etc.  This
 information is used to determine how to connect the beaming patterns
 from stem to stem inside a beam.")
+     (beamlet-default-length ,pair? "A pair of numbers. The first number
+specifies the default length of a beamlet that sticks out of the left hand
+side of this stem; the second number specifies the default length of the
+beamlet to the right. The actual length of a beamlet is determined by
+taking either the default length or the length specified by
+@code{beamlet-max-length-proportion}, whichever is smaller.")
+     (beamlet-max-length-proportion ,pair? "The maximum length of a beamlet,
+as a proportion of the distance between two adjacent stems.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger
 a callback function.")
      (between-cols ,pair? "Where to attach a loose column to.")

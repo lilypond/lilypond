@@ -424,24 +424,26 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	  // are looking at that edge of the beam segment that is furthest from its
 	  // stem).
 	  Direction event_dir = LEFT;
+	  Beam_stem_segment const& seg = segs[j];
 	  do
 	    {
+	      Beam_stem_segment const& neighbor_seg = segs[j + event_dir];
 	      // TODO: make names clearer? --jneem
 	      // on_line_bound: whether the current segment is on the boundary of the WHOLE beam
 	      // on_beam_bound: whether the current segment is on the boundary of just that part
 	      //   of the beam with the current beam_rank
-	      bool on_line_bound = (segs[j].dir_ == LEFT) ? segs[j].stem_index_ == 0
-		: segs[j].stem_index_ == stems.size() - 1;
+	      bool on_line_bound = (seg.dir_ == LEFT) ? seg.stem_index_ == 0
+		: seg.stem_index_ == stems.size() - 1;
 	      bool on_beam_bound = (event_dir == LEFT) ? j == 0 :
 		j == segs.size () - 1;
 	      bool inside_stem = (event_dir == LEFT)
-		? segs[j].stem_index_ > 0
-		: segs[j].stem_index_ + 1 < stems.size () ;
+		? seg.stem_index_ > 0
+		: seg.stem_index_ + 1 < stems.size () ;
 		      
 	      bool event = on_beam_bound
-		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1
-		|| (abs (vertical_count) >= segs[j].max_connect_
-		    || abs (vertical_count) >= segs[j + event_dir].max_connect_);
+		|| abs (seg.rank_ - neighbor_seg.rank_) > 1
+		|| (abs (vertical_count) >= seg.max_connect_
+		    || abs (vertical_count) >= neighbor_seg.max_connect_);
 	      
 	      if (!event)
 		// Then this edge of the current segment is irrelevent because it will
@@ -449,8 +451,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		continue;
 
 	      current.vertical_count_ = vertical_count;
-	      current.horizontal_[event_dir] = segs[j].stem_x_;
-	      if (segs[j].dir_ == event_dir)
+	      current.horizontal_[event_dir] = seg.stem_x_;
+	      if (seg.dir_ == event_dir)
 		// then we are examining the edge of a beam segment that is furthest
 		// from its stem.
 		{
@@ -464,40 +466,40 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		    }
 		  else
 		    {
-		      Real notehead_width = 
-			Stem::duration_log (segs[j].stem_) == 1
-			? 1.98
-			: 1.32; // URG.
-
+		      Grob *stem = stems[seg.stem_index_];
+		      Drul_array<Real> beamlet_length =
+			robust_scm2interval (stem->get_property ("beamlet-default-length"), Interval (1.0, 1.0));
+		      Drul_array<Real> max_proportion =
+			robust_scm2interval (stem->get_property ("beamlet-max-length-proportion"), Interval (0.5, 0.5));
+		      Real length = beamlet_length[seg.dir_];
 
 		      if (inside_stem)
 			{
-			  Grob *neighbor_stem = stems[segs[j].stem_index_ + event_dir];
-			  Real neighbor_stem_x
-			    = neighbor_stem->relative_coordinate (commonx, X_AXIS);
+			  Grob *neighbor_stem = stems[seg.stem_index_ + event_dir];
+			  Real neighbor_stem_x = neighbor_stem->relative_coordinate (commonx, X_AXIS);
 
-			  notehead_width = min (notehead_width,
-						fabs (neighbor_stem_x - segs[j].stem_x_)/2.5);
+			  length = min (length,
+					fabs (neighbor_stem_x - seg.stem_x_) * max_proportion[seg.dir_]);
 			}
-		      current.horizontal_[event_dir] += event_dir * notehead_width;
+		      current.horizontal_[event_dir] += event_dir * length;
 		    }
 		}
 	      else
 		// we are examining the edge of a beam segment that is closest
 		// (ie. touching, unless there is a gap) its stem.
 		{
-		  current.horizontal_[event_dir] += event_dir * segs[j].width_/2;
-		  if (segs[j].gapped_)
+		  current.horizontal_[event_dir] += event_dir * seg.width_/2;
+		  if (seg.gapped_)
 		    {
 		      current.horizontal_[event_dir] -= event_dir * gap_length;
 
-		      if (Stem::is_invisible (segs[j].stem_))
+		      if (Stem::is_invisible (seg.stem_))
 			{
 			  /*
 			    Need to do this in case of whole notes. We don't want the
 			    heads to collide with the beams.
 			   */
-			  extract_grob_set (segs[j].stem_, "note-heads", heads);
+			  extract_grob_set (seg.stem_, "note-heads", heads);
 
 			  for (vsize k = 0; k < heads.size (); k ++)
 			    current.horizontal_[event_dir]
