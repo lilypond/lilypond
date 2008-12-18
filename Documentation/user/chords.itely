@@ -222,10 +222,19 @@ to create a major triad.
 
 @seealso
 Notation Reference:
-@ref{Common chord modifiers}.
+@ref{Common chord modifiers},
+@ref{Extended and altered chords}.
 
 Snippets:
 @rlsr{Chords}.
+
+@knownissues
+Only one quality modifier should be used per chord, typically on the 
+highest step present in the chord.  Chords with more than quality
+modifier will be parsed without an error or warning, but the results
+are unpredictable.  Chords that cannot be achieved with a single
+quality modifier should be altered by individual pitches, as described
+in @ref{Extended and altered chords}.
 
 
 @node Extended and altered chords

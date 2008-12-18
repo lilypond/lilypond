@@ -1441,7 +1441,7 @@ braucht.
          <<
            { f c c }
            \new Staff \with {
-             alignAboveContext = "main" }
+             alignAboveContext = #"main" }
            { f8 f c }
          >>
          r4 |
@@ -1469,7 +1469,7 @@ wir setzen den Stencil von beiden auf @code{#f}:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1538,7 +1538,7 @@ Das obige Beispiel könnte also auch so aussehen:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1609,7 +1609,7 @@ Setzen wir das also in unserem Ossia-Beispiel ein:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1681,7 +1681,7 @@ sie benutzt:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2

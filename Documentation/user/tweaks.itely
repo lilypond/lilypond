@@ -369,11 +369,12 @@ Note that the syntax of @code{\tweak} is different from that
 of the @code{\override} command.  Neither the context nor the
 layout object should be specified; in fact, it would generate
 an error to do so.  These are both implied by the following
-item in the input stream.  So the general syntax of the
+item in the input stream.  Note also that an equals sign should
+not be present.  So the general syntax of the
 @code{\tweak} command is simply
 
 @example
-\tweak #'@var{layout-property} = #@var{value}
+\tweak #'@var{layout-property} #@var{value}
 @end example
 
 A @code{\tweak} command can also be used to modify just one in
@@ -1303,7 +1304,7 @@ how to introduce a new temporary staff, as in an @rglos{ossia}.
          <<
            { f c c }
            \new Staff \with {
-             alignAboveContext = "main" }
+             alignAboveContext = #"main" }
            { f8 f c }
          >>
          r4 |
@@ -1330,7 +1331,7 @@ we simply set the stencil of each to @code{#f}, as follows:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1391,7 +1392,7 @@ So we could replace the example above with
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1455,7 +1456,7 @@ Let's try it in our ossia example:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1520,7 +1521,7 @@ objects in proportion.  It is used like this:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.62"
+@c \version "2.11.65"
 
 @node Percussion
 @section Percussion
@@ -443,7 +443,7 @@ Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}:
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Tambourine"
+  \set DrumStaff.instrumentName = #"Tambourine"
 }
 
 \new DrumStaff {
@@ -470,7 +470,7 @@ Música para gong, introducida con @q{tt} (tam-tam):
 tamtamstaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Tamtam"
+  \set DrumStaff.instrumentName = #"Tamtam"
 }
 
 \new DrumStaff {
@@ -494,7 +494,7 @@ bellstaff = {
   \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Different Bells"
+  \set DrumStaff.instrumentName = #"Different Bells"
 }
 
 \new DrumStaff {
@@ -562,7 +562,7 @@ drumsB = {
     }
 
    \new DrumStaff {
-     \set DrumStaff.instrumentName = "Grosse Caisse"
+     \set DrumStaff.instrumentName = #"Grosse Caisse"
      \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
      \drumsB }
   >>

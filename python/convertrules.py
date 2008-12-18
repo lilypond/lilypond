@@ -2844,17 +2844,18 @@ def conv (str):
         str = re.sub ('InnerChoirStaff', 'ChoirStaff', str)
     return str
 
+@rule ((2, 11, 66), "Syntax changes for \\addChordShape and \\chord-shape")
 def conv(str):
     if re.search(r'\\addChordShape', str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("stringTuning must be added to \
-        addChordShape call.\n"))
+addChordShape call.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
-    if re.search(r'\\chord-shape', str):
+    if re.search (r'\\chord-shape', str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("stringTuning must be added to \
-        chord-shape call.\n"))
+chord-shape call.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
     return str

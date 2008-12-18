@@ -1343,7 +1343,7 @@ pentagrama temporal, como en un @rglos{ossia}.
          <<
            { f c c }
            \new Staff \with {
-             alignAboveContext = "main" }
+             alignAboveContext = #"main" }
            { f8 f c }
          >>
          r4 |
@@ -1370,7 +1370,7 @@ el sello de cada uno de ellos a @code{#f}, como sigue:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1433,7 +1433,7 @@ Así pues, podemos reemplazar el ejemplo anterior con
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1503,7 +1503,7 @@ Vamos a probarlo en nuestro ejemplo del ossia:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1570,7 +1570,7 @@ siguiente forma:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2
