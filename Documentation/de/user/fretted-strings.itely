@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 4770e4e71ebff6104cad46bd2d889c3ff6ba3875
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -614,6 +614,10 @@ dass im Bunddiagramm gesetzt werden soll.
 @end lilypond
 
 Fingersatz und Barre kann im ausführlichen Modus notiert werden.
+Nur im ausführlichen Modus kann ein Capo angezeigt werden, das auf
+dem Bunddiagramm plaziert wird.  Die Capo-Anzeige ist ein dicker
+Strich, der alle Saiten bedeckt.  Der Bund mit dem Capo ist der
+unterste Bund im Diagramm.
 
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
@@ -861,8 +865,9 @@ mychords = \chordmode{
 
 Bunddiagramme können zu der Tabelle hinzugefügt werden.  Um ein
 Diagramm hinzuzufügen, muss der Akkord des Diagramms, die Stimmung
-und die Diagramm-Definition im @code{fret-diagram-terse}-Modus
-definiert werden.
+und die Diagramm-Definition angegeben werden.  Die Diagramm-Definition
+kann entweder eine @code{fret-diagram-terse}-Definition oder eine
+@code{fret-diagram-verbose}-Liste sein.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -923,7 +928,9 @@ Liste an Akkordformen.  Die Akkordformen sind Bunddiagramme,
 die am Hals entlang verschoben werden können und dabei unterschiedliche
 Akkorde ergeben.  Akkordformen können zu der internen Liste
 hinzugefügt werden und dann benutzt werden, um vordefinierte
-Bunddiagramme zu definieren.
+Bunddiagramme zu definieren.  Wie Bunddiagramme können auch
+Akkordformen entweder als @code{fret-diagram-terse}-Definition
+oder als @code{fret-diagram-verbose}-Liste erstellt werden.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
