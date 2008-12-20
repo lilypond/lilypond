@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
+    Translation of GIT committish: a665ef1bf16700359aa81ec649d3a500bfa72213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1793,24 +1793,26 @@ c^"This text is padded away from the previous text"
 c^"This text is placed close to the previous text"
 @end lilypond
 
-HACER: ¿este ejemplo ya no funciona?
-
-De forma predeterminada, los objetos fuera del pentagrama se sitúan
-sin tener en cuenta su distancia horizontal a partir de los grobs
-posicionados previamente.  Esto puede llevar a situaciones en las que
-los objetos se colocan muy próximos entre sí en el sentido horizontal.
-El establecimiento del relleno horizontal
+De forma predeterminada, los objetos fuera del pentagrama se colocan
+sólo para evitar una colisión horizontal con los grobs posicionados
+previamente.  Esto puede llevar a situaciones en las que los objetos
+se colocan muy próximos entre sí en el sentido horizontal.  El espacio
+vertical entre pentagramas se puede fijar también de manera que los
+objetos fuera del pentagrama se sitúen de forma intercalada.  El
+establecimiento del relleno horizontal
 @code{outside-staff-horizontal-padding} ocasiona que un objeto se
 desplace verticalmente para que tal situación no ocurra.
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 % the markup is too close to the following note
-c2^"Text"
+c4^"Text"
+c4
 c''2
 % setting outside-staff-horizontal-padding fixes this
 R1
 \once \override TextScript #'outside-staff-horizontal-padding = #1
-c,,2^"Text"
+c,,4^"Text"
+c4
 c''2
 @end lilypond
 
