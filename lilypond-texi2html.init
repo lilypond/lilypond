@@ -76,7 +76,7 @@ $LY_LANGUAGES->{'fr'} = {
     'Back to Documentation Index' => 'Retour à l\'accueil de la documentation',
 };
 $LY_LANGUAGES->{'es'} = {
-    'Back to Documentation Index' => '',
+    'Back to Documentation Index' => 'Volver al índice de la documentación',
 };
 $LY_LANGUAGES->{'de'} = {
     'Back to Documentation Index' => '',

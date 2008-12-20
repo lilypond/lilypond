@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 4770e4e71ebff6104cad46bd2d889c3ff6ba3875
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1123,8 +1123,6 @@ Melisma ignoriert.  Das wird mit der
 @code{ignoreMelismata}-Eigenschaft im @code{Lyrics}-Kontext
 vorgenommen.
 
-@c  TODO: breaks compile
-@c seems to be fixed, does not break compile anymore --FV
 @lilypond[verbatim,ragged-right,quote]
 <<
   \relative c' \new Voice = "lahlah" {
@@ -1146,6 +1144,13 @@ vorgenommen.
   }
 >>
 @end lilypond
+
+@knownissues
+Anders als die meisten @code{\set}-Befehle funktioniert
+@code{\set ignoreMelismata} nicht zusammen mit @code{\once}.
+Es ist notwendig, explizit @code{\set} und @code{\unset} zu
+verwenden, um den Text einzugrenzen, für den Melismen ignoriert
+werden sollen.
 
 
 @subsubheading Switching to an alternative melody

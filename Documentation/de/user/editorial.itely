@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 4770e4e71ebff6104cad46bd2d889c3ff6ba3875
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -120,12 +120,6 @@ Die @code{font-size}-Eigenschaft kann nur für die Layoutobjekte gesetzt
 werden, die Schrift-Dateien benutzen.  Das sind die, welche die
 @code{font-interface}-Layoutschnittstelle unterstützen.
 
-@funindex \huge
-@funindex \teeny
-@funindex \small
-@funindex \tiny
-@funindex \normalsize
-@funindex \large
 
 @predefined
 @code{\teeny},
@@ -440,6 +434,9 @@ gemacht.
 @funindex \stemNeutral
 @funindex \stemUp
 @funindex \stemDown
+@funindex stemNeutral
+@funindex stemUp
+@funindex stemDown
 
 @predefined
 @code{\stemUp} (Hälse nach oben),
@@ -500,6 +497,11 @@ außerhalb des Systems hervorhebt.
 @funindex Balloon_engraver
 @funindex balloonGrobText
 @funindex balloonText
+@funindex balloonLengthOn
+@funindex balloonLengthOff
+@funindex \balloonLengthOn
+@funindex \balloonLengthOff
+
 
 Notationselemente können bezeichnet und markiert werden, indem um sie eine
 rechteckige Blase gezeichnet wird.  Dies ist vor allem dazu da, Notation
@@ -539,10 +541,6 @@ aber das kann geändert werden.
 }
 @end lilypond
 
-@funindex balloonLengthOn
-@funindex balloonLengthOff
-@funindex \balloonLengthOn
-@funindex \balloonLengthOff
 
 @predefined
 @code{\balloonLengthOn},

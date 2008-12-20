@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+    Translation of GIT committish: b4a63b6e388283e2f2ac73c3c99da205d209e28a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,13 +15,11 @@
 
 
 @menu
-* Interpretation contexts::     
-* Explaining the Internals Reference::  
-* Modifying properties::        
-* Useful concepts and properties::  
-* Common properties::           
-* Advanced tweaks::             
-* Discussion of specific tweaks::  
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Advanced tweaks::
 @end menu
 
 @node Interpretation contexts
@@ -31,12 +29,12 @@
 
 
 @menu
-* Contexts explained::          
-* Creating contexts::           
-* Modifying context plug-ins::  
-* Changing context default settings::  
-* Defining new contexts::       
-* Aligning contexts::           
+* Contexts explained::
+* Creating contexts::
+* Modifying context plug-ins::
+* Changing context default settings::
+* Defining new contexts::
+* Aligning contexts::
 @end menu
 
 @node Contexts explained
@@ -46,10 +44,10 @@
 
 
 @menu
-* Score - the master of all contexts::  
-* Top-level contexts - staff containers::  
-* Intermediate-level contexts - staves::  
-* Bottom-level contexts - voices::  
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
 @node Score - the master of all contexts
@@ -113,10 +111,10 @@
 
 
 @menu
-* Navigating the program reference::  
-* Layout interfaces::           
-* Determining the grob property::  
-* Naming conventions::          
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
 @end menu
 
 @node Navigating the program reference
@@ -150,11 +148,11 @@
 
 
 @menu
-* Overview of modifying properties::  
-* The set command::             
-* The override command::        
-* set versus override::         
-* The tweak command::           
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* The tweak command::
+* set versus override::
 @end menu
 
 @node Overview of modifying properties
@@ -175,14 +173,14 @@
 @untranslated
 
 
-@node set versus override
-@subsection @code{\set} vs. @code{\override}
+@node The tweak command
+@subsection The @code{\tweak} command
 
 @untranslated
 
 
-@node The tweak command
-@subsection The @code{\tweak} command
+@node set versus override
+@subsection @code{\set} vs. @code{\override}
 
 @untranslated
 
@@ -194,10 +192,14 @@
 
 
 @menu
-* Input modes::                 
-* Direction and placement::     
-* Distances and measurements::  
-* Spanners::                    
+* Input modes::
+* Direction and placement::
+* Distances and measurements::
+* Staff symbol properties::
+* Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
 @end menu
 
 @node Input modes
@@ -218,37 +220,32 @@
 @untranslated
 
 
+@node Staff symbol properties
+@subsection Staff symbol properties
+
+@untranslated
+
+
 @node Spanners
 @subsection Spanners
 
 @untranslated
 
 
-@node Common properties
-@section Common properties
+@unnumberedsubsubsec Using the @code{spanner-interface}
+@unnumberedsubsubsec Using the @code{line-spanner-interface}
+@node Visibility of objects
+@subsection Visibility of objects
 
 @untranslated
 
 
 @menu
-* Controlling visibility of objects::  
-* Line styles::                 
-* Rotating objects::            
-* Aligning objects::            
-@end menu
-
-@node Controlling visibility of objects
-@subsection Controlling visibility of objects
-
-@untranslated
-
-
-@menu
-* Removing the stencil::        
-* Making objects transparent::  
-* Painting objects white::      
-* Using break-visibility::      
-* Special considerations::      
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
 @end menu
 
 @node Removing the stencil
@@ -293,8 +290,19 @@
 @untranslated
 
 
-@node Aligning objects
-@subsection Aligning objects
+@menu
+* Rotating layout objects::
+* Rotating markup::
+@end menu
+
+@node Rotating layout objects
+@unnumberedsubsubsec Rotating layout objects
+
+@untranslated
+
+
+@node Rotating markup
+@unnumberedsubsubsec Rotating markup
 
 @untranslated
 
@@ -306,20 +314,53 @@
 
 
 @menu
-* Vertical grouping of grobs::  
-* Modifying ends of spanners::  
-* Modifying stencils::          
-* Modifying shapes::            
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
 @end menu
 
-@node Vertical grouping of grobs
-@subsection Vertical grouping of grobs
+@node Aligning objects
+@subsection Aligning objects
 
 @untranslated
 
 
-@node Modifying ends of spanners
-@subsection Modifying ends of spanners
+@menu
+* Setting @code{X-offset} and @code{Y-offset} directly::
+* Using the @code{side-position-interface}::
+* Using the @code{self-alignment-interface}::
+* Using the @code{break-aligned-interface}::
+@end menu
+
+@node Setting @code{X-offset} and @code{Y-offset} directly
+@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+
+@untranslated
+
+
+@node Using the @code{side-position-interface}
+@unnumberedsubsubsec Using the @code{side-position-interface}
+
+@untranslated
+
+
+@node Using the @code{self-alignment-interface}
+@unnumberedsubsubsec Using the @code{self-alignment-interface}
+
+@untranslated
+
+
+@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+@node Using the @code{break-aligned-interface}
+@unnumberedsubsubsec Using the @code{break-aligned-interface}
+
+@untranslated
+
+
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
 
 @untranslated
 
@@ -336,18 +377,12 @@
 @untranslated
 
 
-@node Discussion of specific tweaks
-@section Discussion of specific tweaks
-
-@untranslated
-
-
 @menu
-* old Contexts explained::      
+* Modifying ties and slurs::
 @end menu
 
-@node old Contexts explained
-@subsection old Contexts explained
+@node Modifying ties and slurs
+@unnumberedsubsubsec Modifying ties and slurs
 
 @untranslated
 
