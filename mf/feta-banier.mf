@@ -247,6 +247,45 @@ fet_beginchar ("64th Flag (up)", "u6");
 fet_endchar;
 
 
+fet_beginchar ("128th Flag (up)", "u7");
+	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
+	save flagspace, total_depth, flag_count;
+
+	flag_count = 5;
+	flare = .85 staff_space;
+	flagspace# = .93 staff_space#;
+	hip_depth_ratio = .72;
+	hip_width# = upflag_width# - hip_thickness# / 2;
+	total_depth# = 6.25 staff_space#;
+	foot_width_ratio = .8;
+
+	(flag_count - 1) * flagspace# + foot_depth# = total_depth#;
+
+	define_pixels (hip_width, foot_depth);
+	define_whole_vertical_pixels (flagspace);
+
+	set_char_box (0, hip_width# + right_upflag_space#,
+		      total_depth# + foot_thickness# / 2, stemthickness# / 2);
+
+	draw_flag ((0, -(flag_count - 1) * flagspace), flare,
+		   (hip_width, foot_depth),
+		   hip_depth_ratio, foot_width_ratio,
+		   hip_thickness, foot_thickness, 1);
+
+	add_flag (flagspace, flare, .97, 1.00, 1.3,
+		  hip_thickness, foot_thickness);
+	add_flag (flagspace, flare, 1.00, 1.00, 1.25,
+		  hip_thickness, foot_thickness);
+	add_flag (flagspace, flare, 1.00, 1.00, 1.25,
+		  hip_thickness, foot_thickness);
+	add_flag (flagspace, flare, 0.95, 1.05, 1.25,
+		  hip_thickness, foot_thickness);
+
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
+			   (0, -5 staff_space_rounded));
+fet_endchar;
+
+
 fet_beginchar ("8th (down)", "d3");
 	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
@@ -464,6 +503,46 @@ fet_beginchar ("64th (down)", "d6");
 
 	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, -4 staff_space_rounded));
+
+	y_mirror_char;
+fet_endchar;
+
+
+fet_beginchar ("128th (down)", "d7");
+	save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
+	save flagspace, total_depth, flag_count;
+
+	flag_count = 5;
+	flare = .8 staff_space;
+	flagspace# = .9 staff_space#;
+	hip_depth_ratio = .85;
+	hip_width# = downflag_width# - hip_thickness# / 2;
+	total_depth# = 5.25 staff_space#;
+	foot_width_ratio = .98;
+
+	(flag_count - 1) * flagspace# + foot_depth# = total_depth#;
+	define_pixels (hip_width, foot_depth);
+	define_whole_vertical_pixels (flagspace);
+
+	set_char_box (0, hip_width# + right_downflag_space#,
+		      total_depth# + foot_thickness# / 2, stemthickness# / 2);
+
+	draw_flag ((0, -(flag_count - 1) * flagspace), flare,
+		   (hip_width, foot_depth),
+		   hip_depth_ratio, foot_width_ratio,
+		   hip_thickness, foot_thickness, 0);
+
+	add_flag (flagspace, flare, .97, 1.20, 1.175,
+		  hip_thickness, foot_thickness);
+	add_flag (flagspace, flare, .97, 1.10, 1.175,
+		  hip_thickness, foot_thickness);
+	add_flag (.98 flagspace, flare, .91, 1.05, 1.2,
+		  hip_thickness, foot_thickness);
+	add_flag (.98 flagspace, flare, .91, 1.05, 1.2,
+		  hip_thickness, foot_thickness);
+
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
+			   (0, -5 staff_space_rounded));
 
 	y_mirror_char;
 fet_endchar;
