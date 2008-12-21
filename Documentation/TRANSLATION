@@ -47,6 +47,10 @@ The reader is supposed to be familiar with Git, for example by
 having experience from lilypond.org translation; see
 http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web/master
 
+If you do not have this experience, you may want to read the first two
+chapters of Git User's Manual at
+http://www.kernel.org/pub/software/scm/git/docs/user-manual.html
+
 
 REQUIREMENTS
 
