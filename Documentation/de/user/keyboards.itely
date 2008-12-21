@@ -612,10 +612,10 @@ repeats}
 
 @seealso
 Notationsreferenz:
-@ruser{Tremolo repeats}
-@ruser{Glissando}
-@ruser{Arpeggio}
-@ruser{Harmonics}
+@ref{Tremolo repeats}
+@ref{Glissando}
+@ref{Arpeggio}
+@ref{Harmonics}
 
 
 
@@ -657,5 +657,5 @@ Trenner.  Ein @code{o} vor der Definition umrandet das Symbol.
 
 @seealso
 Notationsreferenz:
-@ruser{Text scripts}
-@ruser{Instrument Specific Markup}
+@ref{Text scripts}
+@ref{Instrument Specific Markup}.
