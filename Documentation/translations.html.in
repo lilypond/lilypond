@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Sat Dec 20 11:59:00 UTC 2008
+ <p><i>Last updated Sun Dec 21 09:36:02 UTC 2008
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -670,11 +670,11 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>5 Changing defaults<br>(11291)</td>
+  <td>5 Changing defaults<br>(11391)</td>
   <td>Valentin Villenave<br>
    <small>Gilles Thibault</small><br>
    <span style="background-color: #dfef77">partially translated (33 %)</span><br>
-   <span style="background-color: #ff974f">partially up to date</span><br>
+   <span style="background-color: #ff954f">partially up to date</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
