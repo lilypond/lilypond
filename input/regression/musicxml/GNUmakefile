@@ -22,4 +22,4 @@ local-WWW-2: zip
 zip: $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip
 
 $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip: $(MUSICXML_FILES) $(MUSICMXL_FILES)
-	$(ZIP) -r $@ $(addprefix $(srcdir),$(MUSICXML_FILES)) $(addprefix $(srcdir),$(MUSICMXL_FILES))
+	$(ZIP) -r $@ $(addprefix $(src-dir)/,$(MUSICXML_FILES)) $(addprefix $(src-dir)/,$(MUSICMXL_FILES))
