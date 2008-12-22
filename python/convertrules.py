@@ -2820,7 +2820,7 @@ def conv (str):
 @rule ((2, 11, 62), "makam-init.ly -> makam.ly, \\bigger -> \\larger")
 def conv (str):
     str = re.sub (r'\\include(\s+)"makam-init.ly"', r'\\include\1"makam.ly"', str)
-    str = re.sub (r"\\bigger", r"\\larger", str)
+    str = re.sub (r"([\\:])bigger", r"\1larger", str)
     return str
 
 @rule ((2, 11, 64), "systemSeparatorMarkup -> system-separator-markup,\n\
