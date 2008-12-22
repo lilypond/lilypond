@@ -139,7 +139,10 @@ Seventh chords can be created:
 @funindex m
 
 The table belows shows the actions of the quality modifiers on
-triads and seventh chords.  A more complete table of modifier usage
+triads and seventh chords.  The default seventh step added to
+chords is a minor or flatted seventh, which makes the dominant
+seventh the basic seventh chord.  All alterations are relative to 
+the dominant seventh.  A more complete table of modifier usage
 is found at @ref{Common chord modifiers}.
 
 @c @table @code
@@ -167,8 +170,7 @@ The default action; produces a major triad.
 @item
 m, m7
 @tab
-The minor chord.  This modifier lowers the 3rd and (if present) the
-7th step.
+The minor chord.  This modifier lowers the 3rd.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
@@ -251,6 +253,8 @@ or create an inversion.
 The first number following the @code{:} is taken to be the extent
 of the chord.  The chord is constructed by sequentially adding
 thirds to the root until the specified number has been reached.
+Note that the seventh step added as part of an extended chord will be the
+minor or flatted seventh, not the major seventh.
 If the extent is not a third (e.g., 6), thirds are added up to the
 highest third below the extent, and then the step of the extent is
 added.  The largest possible value for the extent is 13.  Any
@@ -281,7 +285,9 @@ is added explicitly).
 @cindex additions, in chords
 
 Individual steps can be added to a chord.  Additions follow the
-extent and are prefixed by a dot (@code{.}).
+extent and are prefixed by a dot (@code{.}).  The basic seventh
+step added to a chord is the minor or flatted seventh, rather than
+the major seventh.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
