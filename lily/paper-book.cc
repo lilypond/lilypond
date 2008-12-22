@@ -128,7 +128,7 @@ Paper_book::output_aux (SCM output_channel,
 
   if (scm_is_pair (bookparts_))
     {
-      for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
+      for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
 	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
 	  {
 	    bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
@@ -521,7 +521,7 @@ Paper_book::systems ()
   systems_ = SCM_EOL;
   if (scm_is_pair (bookparts_))
     {
-      for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
+      for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
 	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
 	  systems_ = scm_append_x (scm_list_2 (systems_, pbookpart->systems ()));
     }
@@ -581,7 +581,7 @@ Paper_book::pages ()
   pages_ = SCM_EOL;
   if (scm_is_pair (bookparts_))
     {
-      for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
+      for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
 	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
 	  pages_ = scm_append_x (scm_list_2 (pages_, pbookpart->pages ()));
     }

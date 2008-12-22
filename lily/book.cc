@@ -200,9 +200,14 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Outpu
         {
           Paper_book *paper_book_part = book->process (paper, layout, output_paper_book);
           if (paper_book_part)
-            output_paper_book->add_bookpart (paper_book_part->self_scm ());
+	    {
+	      output_paper_book->add_bookpart (paper_book_part->self_scm ());
+	      paper_book_part->unprotect ();
+	    }
         }
     }
+  /* In a Paper_book, bookparts are stored in straight order */
+  output_paper_book->bookparts_ = scm_reverse_x (output_paper_book->bookparts_, SCM_EOL);
 }
 
 void
