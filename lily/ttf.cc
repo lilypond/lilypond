@@ -11,6 +11,7 @@
 
 #include <freetype/tttables.h>
 
+#include "international.hh"
 #include "memory-stream.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
@@ -454,9 +455,24 @@ print_trailer (void *out,
 }
 
 static void
-create_type42_font (void *out, string name)
+create_type42_font (void *out, string name, int idx)
 {
-  FT_Face face = open_ft_face (name);
+  FT_Face face;
+
+  /* check whether font index is valid */
+  if (idx > 0)
+    {
+      face = open_ft_face (name, -1);
+      if (idx >= face->num_faces)
+	{
+	  warning (_f ("font index %d too large for font `%s', using index 0",
+		       idx, name.c_str()));
+	  idx = 0;
+	}
+      FT_Done_Face (face);
+    }
+
+  face = open_ft_face (name, idx);
 
   print_header (out, face);
   print_body (out, face);
@@ -465,20 +481,49 @@ create_type42_font (void *out, string name)
   FT_Done_Face (face);
 }
 
-
 LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
-	   1, 0, 0, (SCM ttf_file_name),
-	   "Extract the PostScript name from a TrueType font.")
+	   1, 1, 0, (SCM ttf_file_name, SCM idx),
+	   "Extract the PostScript name from a TrueType font.  The optional"
+	   " @var{idx} argument is useful for TrueType collections (TTC)"
+	   " only; it specifies the font index within the TTC.  The default"
+	   " value of @var{idx} is@tie{}0.")
 {
   LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
+
+  int i = 0;
+  if (idx != SCM_UNDEFINED)
+    {
+      LY_ASSERT_TYPE (scm_is_integer, idx, 2);
+      i = scm_to_int (idx);
+      if (i < 0)
+	{
+	  warning (_ ("font index must be non-negative, using index 0"));
+	  i = 0;
+	}
+    }
+
   string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
     progress_indication ("[" + file_name);
 
-  FT_Face face = open_ft_face (file_name);
+  FT_Face face;
+
+  /* check whether font index is valid */
+  if (i > 0)
+    {
+      face = open_ft_face (file_name, -1);
+      if (i >= face->num_faces)
+	{
+	  warning (_f ("font index %d too large for font `%s', using index 0",
+		       i, file_name.c_str()));
+	  i = 0;
+	}
+      FT_Done_Face (face);
+    }
+
+  face = open_ft_face (file_name, i);
   char const *ps_name_str0 = FT_Get_Postscript_Name (face);
   SCM ps_name = scm_from_locale_string (ps_name_str0 ? ps_name_str0 : "");
-
   FT_Done_Face (face);
 
   if (be_verbose_global)
@@ -487,14 +532,27 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
   return ps_name;
 }
 
-
-
 LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
-	   1, 0, 0, (SCM ttf_file_name),
-	   "Convert the contents of a TTF file to Type42 PFA, returning it as"
-	   " a string.")
+	   1, 1, 0, (SCM ttf_file_name, SCM idx),
+	   "Convert the contents of a TrueType font file to PostScript"
+	   " Type@tie{}42 font, returning it as a string.  The optional"
+	   " @var{idx} argument is useful for TrueType collections (TTC)"
+	   " only; it specifies the font index within the TTC.  The default"
+	   " value of @var{idx} is@tie{}0.")
 {
   LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
+
+  int i = 0;
+  if (idx != SCM_UNDEFINED)
+    {
+      LY_ASSERT_TYPE (scm_is_integer, idx, 2);
+      i = scm_to_int (idx);
+      if (i < 0)
+	{
+	  warning (_ ("font index must be non-negative, using index 0"));
+	  i = 0;
+	}
+    }
 
   string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
@@ -502,7 +560,7 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
 
   Memory_out_stream stream;
 
-  create_type42_font (&stream, file_name);
+  create_type42_font (&stream, file_name, i);
   SCM asscm = scm_from_locale_stringn (stream.get_string (),
 				       stream.get_length ());
 
