@@ -58,7 +58,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
   int dots = 0;
   if (dotcount != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE (scm_is_integer, dotcount,2);
+      LY_ASSERT_TYPE (scm_is_integer, dotcount, 2);
       dots = scm_to_int (dotcount);
     }
 
