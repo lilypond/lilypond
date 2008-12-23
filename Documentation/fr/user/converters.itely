@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 8405b88e6c1aac6c44e6064dd7b8b1674d6e7abd
+    Translation of GIT committish: 1e2013ba299c3640143448cbd5ea72f2aa61e380
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -22,9 +22,9 @@ séquenceurs en mode graphique ou des convertisseurs XML.  Pour plus
 de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
 
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
-en ligne de commande.  Pour plus de précisions, reportez-vous à
-@ref{Command-line usage}.  Si vous utilisez MacOS 10.3 ou 10.4 et
-recontrez quelque problème avec l'un de ces scripts, comme
+en ligne de commande.  Pour plus de précisions, reportez-vous au
+chapitre @ref{Command-line usage}.  Si vous utilisez MacOS 10.3 ou 10.4
+et recontrez quelque problème avec l'un de ces scripts, comme
 @code{convert-ly}, reportez-vous au chapitre @ref{Setup for MacOS X}. 
 
 @knownissues
@@ -79,7 +79,7 @@ manuellement.
 
 Pour le lancer en ligne de commande, procédez ainsi :
 @example
-midi2ly [@var{option}]@dots{} @var{midi-file}
+midi2ly [@var{option}]@dots{} @var{fichier-midi}
 @end example
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
@@ -103,7 +103,7 @@ Afficher un résumé des utilisations.
 
 @item -k, --key=@var{acc}[:@var{minor}]
 Déterminer la tonalité par défaut.  @math{@var{acc} > 0} fixe le
-nombre de dièses ; @math{@var{acc} < 0} le nombre de bémols.  Un
+nombre de dièses ; @math{@var{acc} < 0} le nombre de bémols.  Une
 tonalité mineure est spécifiée par l'emploi de @code{:1}.
 
 @item -o, --output=@var{file}
@@ -159,7 +159,7 @@ commande du système.  Pour plus de précisions, reportez-vous à
 @ref{Command-line usage}. 
 
 Si le nom du fichier est @file{-}, @command{musicxml2ly} lira
-directement à partir de l aligne de commande.  
+directement à partir de la ligne de commande.  
 
 @command{musicxml2ly} accepte les options suivantes :
 
@@ -171,9 +171,9 @@ Rendu en hauteurs absolues.
 Afficher un résumé des utilisations.
 
 @item -l, --language=LANG
-Utiliser un autre fichier de définition liguistique 'LANG.ly' 
-et les noms de notes correspondants,
-p.ex. 'deutsch' pour deutsch.ly et noms de notes en allemand.
+Utiliser un autre fichier de définition liguistique @file{LANG.ly} 
+et les noms de notes correspondants, comme par exemple 
+@var{deutsch} pour @file{deutsch.ly} et noms de notes en allemand.
 
 @item --lxml
 Utiliser le paquetage Python lxml.etree, moins gourmand en mémoire et
@@ -193,7 +193,7 @@ déterminé, ce sera @var{fichier-xml}@file{.ly} ; @file{-} produira le
 résultat sur la sortie standard (@var{stdout}).
 
 @item -r,--relative
-Rendu en hauteurs relative (mode par défaut).
+Rendu en hauteurs relatives (mode par défaut).
 
 @item -v,--verbose
 Mode verbeux.
@@ -212,17 +212,15 @@ Le fichier d'entrée est un fichier MusicXML zippé.
 @cindex ABC
 
 ABC est un format relativement simple basé sur l'ASCII.  Sa
-description est disponible sur le site d'ABC à l'adresse :
+description est disponible sur le 
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html,site
+d'ABC}. 
 
-@quotation
-@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html}.
-@end quotation
-
-@command{abc2ly} traduit du formt ABC au format LilyPond.
+@command{abc2ly} traduit du format ABC au format LilyPond.
 
 Pour le lancer en ligne de commande, procédez ainsi :
 @example
-abc2ly [@var{option}]@dots{} @var{abc-file}
+abc2ly [@var{option}]@dots{} @var{fichier-abc}
 @end example
 
 @command{abc2ly} accepte les options suivantes :
@@ -288,20 +286,20 @@ convertit partiellement les fichiers ETF en fichiers source LilyPond.
 
 Pour le lancer en ligne de commande, procédez ainsi :
 @example
-midi2ly [@var{option}]@dots{} @var{midi-file}
+etf2ly [@var{option}]@dots{} @var{fichier-etf}
 @end example
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
 @ref{Command-line usage}. 
 
-@command{midi2ly} accepte les options suivantes :
+@command{etf2ly} accepte les options suivantes :
 
 @table @code
 @item -h,--help
 Afficher cette aide.
-@item -o, --output=@var{fichier}
-Générer le résultat dans le fichier @var{fichier}.
+@item -o, --output=@var{file}
+Générer le résultat dans le fichier @var{file}.
 @item --version
 Afficher le numéro de version.
 @end table
@@ -348,11 +346,12 @@ qui importe du MIDI.
 @uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
 une bibliothèque LISP pour générer de la notation musicale. 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml}
-assure, de manière expérimentale, un export vers LilyPond.
+@uref{http://@/vsr@/.informatik@/.tu-chemnitz@/.de/staff/jan/nted/nted.xhtml,NtEd}
+assure, de manière expérimentale, un export vers LilyPond. 
 @item
-@uref{http://www.tuxguitar.com.ar/} peut exporter au format LilyPond.
+@uref{http://@/www@/.tuxguitar@/.com@/.ar/,TuxGuitar} peut exporter au
+format LilyPond. 
 @item
-@uref{http://musescore.org} peut exporter au format LilyPond.
+@uref{http://@/musescore@/.org,MuseScore} peut exporter au format LilyPond.
 @end itemize
 
