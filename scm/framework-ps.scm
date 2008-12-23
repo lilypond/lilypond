@@ -341,6 +341,8 @@
 	(ly:pfb->pfa file-name))
        ((and file-name (string-endswith downcase-file-name ".ttf"))
 	(ly:ttf->pfa file-name))
+       ((and file-name (string-endswith downcase-file-name ".ttc"))
+	(ly:ttf->pfa file-name))
        ((and file-name (string-endswith downcase-file-name ".otf"))
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
        (else
