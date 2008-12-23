@@ -10,6 +10,7 @@
 
 #if HAVE_FONTCONFIG
 
+#include <cstdio>
 #include <fontconfig/fontconfig.h>
 #include <sys/stat.h>
 

@@ -6,6 +6,7 @@
   (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include <cstdio>
 #include "freetype.hh"
 
 #include <freetype/tttables.h>
