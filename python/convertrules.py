@@ -2860,6 +2860,10 @@ chord-shape call.\n"))
         raise FatalConversionError ()
     return str
 
+@rule ((2, 12, 0), _ ("bump version for release"))
+def conv (str):
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
