@@ -220,7 +220,11 @@ ADD_TRANSLATOR (New_dynamic_engraver,
 		"TextSpanner ",
 
 		/* read */
-		"currentMusicalColumn ",
+		"crescendoSpanner "
+		"crescendoText "
+		"currentMusicalColumn "
+		"decrescendoSpanner "
+		"decrescendoText ",
 
 		/* write */
 		""
