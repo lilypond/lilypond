@@ -1,4 +1,4 @@
-\version "2.11.52"
+\version "2.12.0"
 \header {
   texidoc = "Ledger lines should appear at every other location
 for a variety of staves using both @code{line-count} and

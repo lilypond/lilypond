@@ -9,7 +9,7 @@ only if there are more than two repeats."
 
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 \relative c'' \new Voice {
   \set countPercentRepeats = ##t 

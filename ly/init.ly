@@ -4,7 +4,7 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
-\version "2.10.0"
+\version "2.12.0"
 
 \include "declarations-init.ly"
 

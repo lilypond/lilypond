@@ -2,7 +2,7 @@
     texidoc = "Trill spanner can end on a grace note"
 }
 
-\version "2.11.51"
+\version "2.12.0"
 \layout {
     ragged-right = ##T
 }

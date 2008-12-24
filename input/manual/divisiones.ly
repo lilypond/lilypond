@@ -9,7 +9,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 
 " }
 
-\version "2.11.61"
+\version "2.12.0"
 
 \include "gregorian.ly"
 

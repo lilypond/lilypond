@@ -1,4 +1,4 @@
-\version "2.11.66"
+\version "2.12.0"
 \header {
   lsrtags = "staff-notation"
   texidoc = "

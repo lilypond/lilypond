@@ -1,4 +1,4 @@
-\version "2.11.62"
+\version "2.12.0"
 
 \header {
   texidoc = "Arpeggios do not overshoot the highest note head.

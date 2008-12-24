@@ -2,7 +2,7 @@
   texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
 }
 
-\version "2.11.65"
+\version "2.12.0"
 
 \paper {
   ragged-right = ##t

@@ -3,7 +3,7 @@
   lines exactly. Dashed barlines between staves start and end on a
   half dash precisely." }
 
-\version "2.11.51"
+\version "2.12.0"
 
 \paper {  ragged-right = ##t }
 

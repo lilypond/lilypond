@@ -1,4 +1,4 @@
-\version "2.11.55"
+\version "2.12.0"
 \header {
 
   texidoc = "Symbols that need on-staffline info (like dots and ties)

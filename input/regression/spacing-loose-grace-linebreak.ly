@@ -4,7 +4,7 @@ across a line break, it gets attached to the end of line."
 }
 
 
-\version "2.11.51"
+\version "2.12.0"
 
 \new Score \with {
   \override SpacingSpanner #'strict-grace-spacing = ##t

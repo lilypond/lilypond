@@ -1,4 +1,4 @@
-\version "2.11.64"
+\version "2.12.0"
 \header {
   texidoc = "
 Percent repeat counters can be shown at regular

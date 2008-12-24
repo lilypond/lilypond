@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 \header {
   texidoc = "With the @code{\\lyricsto} mechanism, individual lyric
     lines can be associated with one melody line. Each lyric line

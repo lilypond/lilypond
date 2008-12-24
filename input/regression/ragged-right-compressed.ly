@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 
 \header {
   texidoc = "When a score takes up only a single line and it is compressed, it

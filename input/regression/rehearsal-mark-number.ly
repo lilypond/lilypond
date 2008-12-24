@@ -5,7 +5,7 @@ By setting @code{markFormatter} we may choose a different style of mark printing
 	  
       }
 
-\version "2.11.51"
+\version "2.12.0"
 
 \paper { ragged-right = ##t } 
 

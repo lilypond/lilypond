@@ -15,7 +15,7 @@ The bracket direction is determined by the dominating stem direction.
   ragged-right = ##t 
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 \new Voice {
   \relative c'' {

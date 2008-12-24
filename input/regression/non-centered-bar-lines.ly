@@ -1,4 +1,4 @@
-\version "2.11.52"
+\version "2.12.0"
 \header {
   texidoc = "Bar lines are positioned correctly when using custom
 staves which are not centered around position@tie{}0.

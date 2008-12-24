@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.12.0"
 
 \context {
   \name "Global"
@@ -534,7 +534,6 @@ automatically when an output definition (a @code{\score} or
   markFormatter = #format-mark-letters
   rehearsalMark = #1
   subdivideBeams = ##f
-  allowBeamBreak = ##f
   extraNatural = ##t
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0))
   autoCautionaries = #'()  
@@ -782,7 +781,7 @@ of Editio Vaticana."
   clefOctavation = #0
 
   %% Select vaticana style font.
-  \override KeySignature #'style = #'vaticana
+  \override KeySignature #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
   \override Accidental #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
   \override Custos #'style = #'vaticana
   \override Custos #'neutral-position = #3
@@ -885,7 +884,7 @@ accommodated for typesetting a piece in mensural style."
 
   %% Select mensural style font.
   \override TimeSignature #'style = #'mensural
-  \override KeySignature #'style = #'mensural
+  \override KeySignature #'glyph-name-alist = #alteration-mensural-glyph-name-alist
   \override Accidental #'glyph-name-alist = #alteration-mensural-glyph-name-alist
   \override Custos #'style = #'mensural
   \override Custos #'neutral-position = #3

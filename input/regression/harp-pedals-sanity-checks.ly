@@ -1,4 +1,4 @@
-\version "2.11.57"
+\version "2.12.0"
 
 \header {
   texidoc = "The harp-pedal markup function does some sanity checks. All 

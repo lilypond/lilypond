@@ -3,7 +3,7 @@
   texidoc = "The note markup function may be used to make metronome
  markings. It works for a variety of flag, dot and duration settings."
 }
-\version "2.11.51"
+\version "2.12.0"
 
 \relative c''
 {

@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.12.0"
 \header{
   texidoc="
 Note head shapes may be set from several choices.  

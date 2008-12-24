@@ -8,7 +8,7 @@ The scripts should not be folded under the time signature.
 "
   
 }
-\version "2.11.51"
+\version "2.12.0"
 
 \paper {
   ragged-right = ##t
