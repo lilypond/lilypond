@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-20 13:08+0100\n"
+"POT-Creation-Date: 2008-12-25 12:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3618,6 +3618,8 @@ msgstr ""
 
 #. @node in Documentation/user/setup.itely
 #. @subsection in Documentation/user/setup.itely
+#. @node in Documentation/fr/user/setup.itely
+#. @subsection in Documentation/fr/user/setup.itely
 #. @node in Documentation/es/user/setup.itely
 #. @subsection in Documentation/es/user/setup.itely
 #. @node in Documentation/de/user/setup.itely
@@ -3626,12 +3628,14 @@ msgid "Setup for MacOS X"
 msgstr ""
 
 #. @subsubheading in Documentation/user/setup.itely
+#. @subsubheading in Documentation/fr/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
 #. @subsubheading in Documentation/de/user/setup.itely
 msgid "Using Python scripts on MacOS 10.3 or 10.4"
 msgstr ""
 
 #. @subsubheading in Documentation/user/setup.itely
+#. @subsubheading in Documentation/fr/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
 #. @subsubheading in Documentation/de/user/setup.itely
 msgid "MacOS X on the command line"
@@ -6745,7 +6749,7 @@ msgstr ""
 #. Documentation/user/fretted-strings.itely:834 (variable)
 #. Documentation/user/fretted-strings.itely:865 (variable)
 #. Documentation/user/fretted-strings.itely:889 (variable)
-#. Documentation/user/fretted-strings.itely:935 (variable)
+#. Documentation/user/fretted-strings.itely:937 (variable)
 msgid "mychords"
 msgstr ""
 
@@ -6753,11 +6757,11 @@ msgstr ""
 msgid "mychordlist"
 msgstr ""
 
-#. Documentation/user/fretted-strings.itely:922 (comment)
+#. Documentation/user/fretted-strings.itely:924 (comment)
 msgid "add a new chord shape"
 msgstr ""
 
-#. Documentation/user/fretted-strings.itely:926 (comment)
+#. Documentation/user/fretted-strings.itely:928 (comment)
 msgid "add some new chords based on the power chord shape"
 msgstr ""
 
@@ -7141,20 +7145,20 @@ msgstr ""
 msgid "Bagpipe example"
 msgstr ""
 
-#. Documentation/user/chords.itely:663 (variable)
+#. Documentation/user/chords.itely:669 (variable)
 msgid "myChords"
 msgstr ""
 
-#. Documentation/user/chords.itely:993 (comment)
-#. Documentation/user/chords.itely:1014 (comment)
+#. Documentation/user/chords.itely:999 (comment)
+#. Documentation/user/chords.itely:1020 (comment)
 msgid "Put notes on same Staff as figures"
 msgstr ""
 
-#. Documentation/user/chords.itely:1077 (comment)
+#. Documentation/user/chords.itely:1083 (comment)
 msgid "The extenders are correct here, with the same rhythm as the bass"
 msgstr ""
 
-#. Documentation/user/chords.itely:1089 (comment)
+#. Documentation/user/chords.itely:1095 (comment)
 msgid "The extenders are incorrect here, even though the timing is the same"
 msgstr ""
 
@@ -8475,41 +8479,46 @@ msgstr ""
 msgid "third finger"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2945 (comment)
+#. Documentation/user/changing-defaults.itely:2948 (comment)
+#. Documentation/user/changing-defaults.itely:2980 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:39 (comment)
 msgid "the RehearsalMark will be centered above the Clef"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2951 (comment)
+#. Documentation/user/changing-defaults.itely:2954 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:46 (comment)
 msgid "the RehearsalMark will be centered above the TimeSignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2965 (comment)
+#. Documentation/user/changing-defaults.itely:2974 (comment)
+msgid "the RehearsalMark will be centered above the Key Signature"
+msgstr ""
+
+#. Documentation/user/changing-defaults.itely:2994 (comment)
 msgid "The RehearsalMark will be centered above the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2972 (comment)
-#. Documentation/user/changing-defaults.itely:2988 (comment)
-#. Documentation/user/changing-defaults.itely:2995 (comment)
+#. Documentation/user/changing-defaults.itely:3001 (comment)
+#. Documentation/user/changing-defaults.itely:3017 (comment)
+#. Documentation/user/changing-defaults.itely:3024 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the left edge of the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2977 (comment)
+#. Documentation/user/changing-defaults.itely:3006 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the right edge of the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2989 (comment)
+#. Documentation/user/changing-defaults.itely:3018 (comment)
 msgid "and then shifted right by 3.5 staff-spaces"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2996 (comment)
+#. Documentation/user/changing-defaults.itely:3025 (comment)
 msgid "and then shifted left by 2 staff-spaces"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:3045 (variable)
+#. Documentation/user/changing-defaults.itely:3073 (variable)
 msgid "XinO"
 msgstr ""
 
@@ -8957,9 +8966,7 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
-#. @node in Documentation/de/user/changing-defaults.itely
-#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
-msgid "Using the @code{break-aligned-interface}"
+msgid "Using the @code{break-alignable-interface}"
 msgstr ""
 
 #. @node in Documentation/user/changing-defaults.itely
@@ -9594,11 +9601,6 @@ msgstr ""
 msgid "GNU LilyPond --- Utilisation des programmes"
 msgstr ""
 
-#. @node in Documentation/fr/user/setup.itely
-#. @subsection in Documentation/fr/user/setup.itely
-msgid "MacOS X on the command-line"
-msgstr ""
-
 #. @section in Documentation/fr/user/running.itely
 msgid "Updating with @command{convert-ly}"
 msgstr ""
@@ -9872,6 +9874,11 @@ msgstr ""
 
 #. @subsubheading in Documentation/de/user/vocal.itely
 msgid "Ignorieren von Melismen"
+msgstr ""
+
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
+msgid "Using the @code{break-aligned-interface}"
 msgstr ""
 
 #. input/lsr/accordion-discant-symbols.ly:34 (variable)
