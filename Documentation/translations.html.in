@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Sun Dec 21 09:36:02 UTC 2008
+ <p><i>Last updated Thu Dec 25 11:30:18 UTC 2008
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -242,7 +242,9 @@ translations.template.html.in; DO NOT EDIT !-->
  </tr>
  <tr align="left">
   <td>2 Setup<br>(1149)</td>
-  <td>   <span style="background-color: #d0f0f8">not translated</span><br>
+  <td>Jean-Charles Malahieude<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #d587ff"></span><br>
   </td>
   <td>Till Rettig<br>
    Reinhold Kainhofer<br>
@@ -286,7 +288,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <td>5 Converting from other formats<br>(1171)</td>
   <td>Jean-Charles Malahieude<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #acff31">partially up to date</span><br>
+   <span style="background-color: #d587ff"></span><br>
   </td>
   <td>Reinhold Kainhofer<br>
    <small>Till Rettig</small><br>
@@ -541,7 +543,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>2.4 Fretted string instruments<br>(1830)</td>
+  <td>2.4 Fretted string instruments<br>(1850)</td>
   <td>Valentin Villenave<br>
    <small>Jean-Charles Malahieude<br>
    John Mandereau</small><br>
@@ -592,7 +594,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>2.7 Chord notation<br>(1398)</td>
+  <td>2.7 Chord notation<br>(1464)</td>
   <td>Valentin Villenave<br>
    <small>Jean-Charles Malahieude<br>
    John Mandereau</small><br>
@@ -601,11 +603,11 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #2cff20">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #25fe1f">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
