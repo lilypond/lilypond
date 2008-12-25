@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 \header {
 
     texidoc = "The property @code{chordNameExceptions} can used

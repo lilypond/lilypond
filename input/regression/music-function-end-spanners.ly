@@ -6,7 +6,7 @@ end span events at the end of a note."
   
 }
 
-\version "2.11.51"
+\version "2.12.0"
 \paper{
   ragged-right = ##T
 }

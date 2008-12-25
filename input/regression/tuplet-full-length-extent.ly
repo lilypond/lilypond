@@ -4,7 +4,7 @@
   attaching column for a full-length tuplet bracket can be ignored."
 
 }
-\version "2.11.55"
+\version "2.12.0"
 
 \new Staff {
    \set tupletFullLength = ##t

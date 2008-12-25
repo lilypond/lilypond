@@ -19,7 +19,7 @@ The result will be files named
 
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 #(ly:set-option 'clip-systems)
 

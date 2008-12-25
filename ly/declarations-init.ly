@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.12.0"
 
 %% < 1.8 compatibility switch
 #(ly:set-option 'old-relative)
@@ -31,10 +31,10 @@ bigger = #1
 center = #0
 
 %% FIXME
-%% should also set allowBeamBreak, but how to do it "portably"? (ie. also
+%% should also set \override Beam #'breakable, but how to do it "portably"? (ie. also
 %% working with lyric sections)
 %%
-%% try \once \set Score.allowBeamBreak = ##t
+%% try \once \override Score.Beam #'breakable = ##t
 
 %% rather name \newline, \pageBreak ?
 break = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission 'force)))

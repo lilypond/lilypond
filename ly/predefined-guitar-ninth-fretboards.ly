@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.12.0"
 %
 %  Add ninth chords to to predefined fret diagrams for standard guitar tunings
 %

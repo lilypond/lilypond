@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 \header {
     
     texidoc = "If dotted note heads must remain on the left side,  

@@ -1,4 +1,4 @@
-\version "2.11.52"
+\version "2.12.0"
 
 startGroup = #(make-span-event 'NoteGroupingEvent START)
 stopGroup = #(make-span-event 'NoteGroupingEvent STOP)

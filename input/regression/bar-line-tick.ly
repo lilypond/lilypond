@@ -2,7 +2,7 @@
 \header { texidoc = "A ticked bar line is a short line of the same length as a
   staff space, centered on the top-most barline." }
 
-\version "2.11.65"
+\version "2.12.0"
 
 \paper {  ragged-right = ##t }
 

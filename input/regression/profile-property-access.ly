@@ -7,7 +7,7 @@
 
 #(ly:set-option 'profile-property-accesses #t)
 
-\version "2.11.51"
+\version "2.12.0"
 
 \include "../../input/typography-demo.ly"
 %\book { \score { {c4 } } }

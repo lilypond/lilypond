@@ -5,7 +5,7 @@ This may happen with incorrect font versions.
 "
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 \paper {
   ragged-right = ##T

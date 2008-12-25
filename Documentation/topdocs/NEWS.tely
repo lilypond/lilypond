@@ -63,6 +63,14 @@ which scares away people.
 @end ignore
 
 @item
+Unbeamed 128th notes are now supported:
+@lilypond
+\relative c'' {
+  g128
+}
+@end lilypond
+
+@item
 Straight flags (used in old scores of e.g. Bach, but also in different form in 
 modern scores of e.g. Stockhausen) are now implemented:
 @lilypond

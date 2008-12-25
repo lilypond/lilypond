@@ -8,6 +8,7 @@
   (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include <cstdio>
 #include "dot-configuration.hh"
 #include "dot-formatting-problem.hh"
 #include "staff-symbol-referencer.hh"

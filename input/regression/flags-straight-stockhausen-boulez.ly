@@ -1,4 +1,4 @@
-\version "2.11.49"
+\version "2.12.0"
 
 stemLength = #(define-music-function (parser location length) (number?)
   "Set the length of the next stem explicitly."

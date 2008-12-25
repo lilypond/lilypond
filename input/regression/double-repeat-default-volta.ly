@@ -1,4 +1,4 @@
-\version "2.11.60"
+\version "2.12.0"
 
 \header {
   texidoc = "For volte, the style of double repeats can be set

@@ -51,7 +51,7 @@ quarter note is entered using a @code{4} (since it is a 1/4 note),
 and a half note is entered using a @code{2} (since it is a 1/2
 note).  For notes longer than a whole you must use the
 @code{\longa} (a double breve) and @code{\breve} commands.
-Durations as short as 64th notes may be specified.  Shorter values
+Durations as short as 128th notes may be specified.  Shorter values
 are possible, but only as beamed notes.
 
 @c Two 64th notes are needed to obtain beams

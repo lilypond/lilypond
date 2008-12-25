@@ -12,6 +12,7 @@
 #include <clocale>
 #include <cstring>
 #include <cerrno>
+#include <cstdio>
 using namespace std;
 
 #include <unistd.h>

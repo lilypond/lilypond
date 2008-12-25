@@ -91,18 +91,17 @@ get_otf_table (FT_Face face, string tag)
 }
 
 FT_Face
-open_ft_face (string str)
+open_ft_face (string str, FT_Long idx)
 {
   FT_Face face;
-  int error_code = FT_New_Face (freetype2_library, str.c_str (), 0, &face);
+  int error_code = FT_New_Face (freetype2_library, str.c_str (), idx, &face);
 
   if (error_code == FT_Err_Unknown_File_Format)
     error (_f ("unsupported font format: %s", str.c_str ()));
   else if (error_code)
     error (_f ("error reading font file %s: %s", 
 	       str.c_str (),
-	       freetype_error_string (error_code).c_str ()
-	       ));
+	       freetype_error_string (error_code).c_str ()));
   return face;
 }
 

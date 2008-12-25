@@ -1,4 +1,4 @@
-\version "2.11.11"
+\version "2.12.0"
 #(use-modules (scm layout-page-layout))
 \paper {
 

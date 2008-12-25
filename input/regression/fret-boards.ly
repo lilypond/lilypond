@@ -6,7 +6,7 @@ best when one string number is indicated in advance "
   
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 foo = \relative c {
   <d\5 fis a d fis>_\markup {

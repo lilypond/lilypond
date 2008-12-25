@@ -200,7 +200,7 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
     }
   else if (str == "'")
     {
-      m = tick_bar_line (me, hair, h, rounded);
+      m = tick_bar_line (me, h, rounded);
     }
   else if (str == ".")
     {
@@ -227,7 +227,7 @@ Bar_line::simple_barline (Grob *me,
 }
 
 Stencil
-Bar_line::tick_bar_line (Grob *me, Real w, Real h, bool rounded)
+Bar_line::tick_bar_line (Grob *me, Real h, bool rounded)
 {
   Real th = Staff_symbol_referencer::staff_space (me) / 2;
   Real line_thick = Staff_symbol_referencer::line_thickness (me);

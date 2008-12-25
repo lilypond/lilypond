@@ -7,7 +7,7 @@ modifier."
 
 }
 
-\version "2.11.55"
+\version "2.12.0"
 
 myDisplayMusic =
 #(define-music-function (parser location music)

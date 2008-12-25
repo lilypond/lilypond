@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 #(set-default-paper-size "a6" 'landscape)
 \header { texidoc = " Scores may be printed in landcape mode."}
 

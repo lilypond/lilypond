@@ -1,4 +1,4 @@
-\version "2.11.65"
+\version "2.12.0"
 \header {
   lsrtags = "staff-notation"
   texidoc = "
@@ -8,9 +8,10 @@ only for coordination and is not meant to imply any rhythmic stress.
   doctitle = "Tick bar lines"
 }
 \relative c' {
-  c4 d e f \bar "'"
-  g4 f e d \bar "'" 
-  c4 d e f \bar "'"
+  \set Score.defaultBarType = #"'"
+  c4 d e f
+  g4 f e d
+  c4 d e f
   g4 f e d
   \bar "|."
 }

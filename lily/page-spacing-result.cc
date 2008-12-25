@@ -8,6 +8,7 @@
 */
 
 #include "page-spacing-result.hh"
+#include <cstdio>
 
 Page_spacing_result::Page_spacing_result ()
 {

@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 
 \header {
   texidoc = "Voices that go back and forth between staves do not confuse the spacing engine."

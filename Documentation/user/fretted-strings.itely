@@ -912,7 +912,9 @@ In addition to fret diagrams, LilyPond stores an internal list of chord
 shapes.  The chord shapes are fret diagrams that can be shifted along
 the neck to different posistions to provide different chords.  Chord
 shapes can be added to the internal list and then used to define
-predefined fret diagrams.  Like fret diagrams, chord shapes can be
+predefined fret diagrams.  Because they can be moved to various
+positions on the neck, chord shapes will normally not contain
+any open strings.  Like fret diagrams, chord shapes can be
 entered as either fret-diagram-terse strings or fret-diagram-verbose
 marking lists.
 

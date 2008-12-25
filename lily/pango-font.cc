@@ -11,6 +11,7 @@
 #include <freetype/ftxf86.h>
 
 #include <map>
+#include <cstdio>
 
 /* Ugh.  */
 
