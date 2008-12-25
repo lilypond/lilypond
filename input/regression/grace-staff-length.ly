@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 \header{
   texidoc = "Stripped version of trip.ly.  Staves should be of correct length."
 }

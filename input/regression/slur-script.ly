@@ -6,7 +6,7 @@
     slur responds appropriately if a script is moved."
 }
 
-\version "2.11.51"
+\version "2.12.0"
 \layout {
   indent = 0\mm
   ragged-right = ##t

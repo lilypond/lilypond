@@ -14,7 +14,7 @@
 
 I = \once \override NoteColumn #'ignore-collision = ##t
 
-\version "2.11.61"
+\version "2.12.0"
 
 staffPiano = \new PianoStaff {
   \set Score.timing = ##f

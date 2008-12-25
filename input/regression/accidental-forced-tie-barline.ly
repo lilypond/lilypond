@@ -1,4 +1,4 @@
-\version "2.11.53"
+\version "2.12.0"
 
 \header {
   texidoc = "Cautionary accidentals applied to tied notes after a

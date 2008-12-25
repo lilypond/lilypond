@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 
 \header{
     texidoc="The page-turn breaker will put a page turn after

@@ -5,7 +5,7 @@ do not print that ending.  But on the previous line, this hairpin
 should not be left open, and should end at the bar line. "
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 \relative c' {
   c1\>

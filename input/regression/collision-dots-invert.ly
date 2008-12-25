@@ -6,7 +6,7 @@
 }
 \layout {  ragged-right = ##t }
 
-\version "2.11.51"
+\version "2.12.0"
 \relative c'' { 
   << <a c>2\\ { <b d>4 <b d>4 }   >>
   << { <a c>2 } \\ { <b d>4. <b e>8 } >> 

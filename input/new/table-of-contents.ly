@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.12.0"
 \header {
   lsrtags = "paper-and-layout"
   texidoc = "A table of contents is included using

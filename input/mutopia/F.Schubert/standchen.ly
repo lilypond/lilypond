@@ -40,7 +40,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.11.61"
+\version "2.12.0"
 
 #(set-global-staff-size 16)
 

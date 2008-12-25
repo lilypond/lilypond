@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.12.0"
 \header {
   lsrtags = "staff-notation,ancient-notation"
   texidoc = "Incipits can be added using the instrument name grob, but

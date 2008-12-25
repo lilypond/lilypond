@@ -4,7 +4,7 @@
   the alignment depends on which symbols are visible."
 }
 
-\version "2.11.51"
+\version "2.12.0"
   
 \relative {
   \override Score.RehearsalMark #'break-align-symbols = #'(clef key-signature staff-bar)

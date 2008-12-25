@@ -133,6 +133,8 @@ stick out of its bounds?")
 
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")
+     (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del
+niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
@@ -500,6 +502,8 @@ In case of a potential collision, the grob with the smaller
 tightly as possible.")
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
+     (padding-pairs ,list? "An alist mapping @code{(@var{name} . @var{name})}
+to distances.")
      (page-break-penalty ,number? "Penalty for page break at this
 column.  This affects the choices of the page breaker; it avoids a
 page break at a column with a positive penalty and prefers a page break
@@ -577,6 +581,11 @@ is placed vertically.")
 @code{direction-source} with this to get the direction of this
 object.")
      (size ,number? "Size of object, relative to standard size.")
+     (skyline-horizontal-padding ,number? "For determining the vertical
+distance between two staves, it is possible to have a configuration which
+would result in a tight interleaving of grobs from the top staff and the
+bottom staff.  The larger this parameter is, the farther apart the staves
+are placed in such a configuration.")
      (slash-negative-kern ,number? "The space to remove between
 slashes in percent repeat glyphs.  Larger values bring the two
 elements closer together.")
@@ -765,9 +774,6 @@ columns.")
      (note-columns ,pair? "A list of @code{NoteColumn} grobs.")
      (note-head ,ly:grob? "A single note head.")
      (note-heads ,ly:grob-array? "A list of note head grobs.")
-
-     (padding-pairs ,list? "An alist mapping @code{(@var{name} . @var{name})}
-to distances.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
      (pure-Y-common ,ly:grob? "A cache of the
@@ -811,9 +817,6 @@ that should only show changes.")
 
      (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
 translator) that was the cause for this grob.")
-     (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del
-niente).")
-
      (delta-position ,number? "The vertical position difference.")
      (details ,list? "Alist of parameters for detailed grob behavior.
 
@@ -856,11 +859,6 @@ acts as an index for looking up a @code{Stencil} object.")
 Internally used to distribute beam shortening over stems.")
      (skyline-distance ,number? "The distance between this staff and the
 next one, as determined by a skyline algorithm.")
-     (skyline-horizontal-padding ,number? "For determining the vertical
-distance between two staves, it is possible to have a configuration which
-would result in a tight interleaving of grobs from the top staff and the
-bottom staff.  The larger this parameter is, the farther apart the staves
-are placed in such a configuration.")
      (stem-info ,pair? "A cache of stem parameters.")
 
      (use-breve-rest ,boolean? "Use breve rests for measures longer

@@ -6,7 +6,7 @@ more space. "
 
 }
 \layout { ragged-right  = ##t }
-\version "2.11.51"
+\version "2.12.0"
 {
   \time 2/4 
   \repeat "percent" 3  { c'4 }

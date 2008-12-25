@@ -6,7 +6,7 @@ example, there are notes with each full-bar rest."
 	  
  
 }
-\version "2.11.51"
+\version "2.12.0"
 
 A = \relative c' { c4 d e f | \cueDuring #"qB" #1 { R1 } | }
 B = \relative c' { \cueDuring #"qA" #1 { R1 } | f4 e d c  | }

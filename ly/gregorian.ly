@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.10.0"
+\version "2.12.0"
 
 %
 % Declare memorable shortcuts for special unicode characters
