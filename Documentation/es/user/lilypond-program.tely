@@ -172,7 +172,7 @@ en línea de la presente documentación y de otras.
 
 @menu
 * Install::                        Cómo instalarlo o compilarlo.
-* Setup::                          Utilizar LilyPond con notros programas.
+* Setup::                          Utilizar LilyPond con otros programas.
 * Running LilyPond::               Funcionamiento.
 * LilyPond-book::                  Integrar texto y música.
 * Converting from other formats::  Convertir al formato del código de entrada de lilypond.
