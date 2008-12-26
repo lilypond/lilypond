@@ -406,7 +406,7 @@ ajuste afecta también al espaciado de las líneas adicionales.
 { a4 b c d }
 @end lilypond
 
-Hay más detalles sobre las proopiedades de @code{StaffSymbol} en
+Hay más detalles sobre las propiedades de @code{StaffSymbol} en
 @rinternals{staff-symbol-interface}.
 
 @funindex \startStaff
