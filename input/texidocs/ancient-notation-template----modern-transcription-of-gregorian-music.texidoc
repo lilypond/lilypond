@@ -1,12 +1,12 @@
   texidoces = "
 Este ejemplo muestra cómo hacer una transcripción moderna de canto
-cregoriano. El canto cregoriano no tiene compás ni plicas; utiliza
+gregoriano. El canto gregoriano no tiene compás ni plicas; utiliza
 solamente cabezas de nota de blanca y de negra, y unas marcas
 especiales que indican silencios de distintas longitudes.
 
 "
 
-  doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto cregoriano)"
+  doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto gregoriano)"
   
   texidocde = "
 Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen 
