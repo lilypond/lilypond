@@ -30,7 +30,7 @@ repeticiones con finales alternativos.
 @item unfold (desplegada)
 Las música repetida se escribe y se interpreta completamente tantas
 veces como especifique el valor @var{número_de_repeticiones}.  Es útil
-cuando se estáescribiendo música repetitiva.
+cuando se está escribiendo música repetitiva.
 
 @item percent (porcentaje)
 Hacer repeticiones de compases o parte de ellos.  Tienen un aspecto
