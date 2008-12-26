@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Thu Dec 25 11:30:18 UTC 2008
+ <p><i>Last updated Fri Dec 26 16:25:22 UTC 2008
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -175,7 +175,7 @@ translations.template.html.in; DO NOT EDIT !-->
  </tr>
  <tr align="left">
   <td>A Templates<br>(483)</td>
-  <td>   <span style="background-color: #dfef77">partially translated (11 %)</span><br>
+  <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -607,11 +607,11 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #25fe1f">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
-  <td>2.8 Ancient notation<br>(4486)</td>
+  <td>2.8 Ancient notation<br>(4487)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #dfef77">partially translated (79 %)</span><br>
@@ -675,7 +675,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <td>5 Changing defaults<br>(11391)</td>
   <td>Valentin Villenave<br>
    <small>Gilles Thibault</small><br>
-   <span style="background-color: #dfef77">partially translated (33 %)</span><br>
+   <span style="background-color: #dfef77">partially translated (42 %)</span><br>
    <span style="background-color: #ff954f">partially up to date</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
@@ -687,7 +687,10 @@ translations.template.html.in; DO NOT EDIT !-->
  </tr>
  <tr align="left">
   <td>6 Interfaces for programmers<br>(5202)</td>
-  <td>   <span style="background-color: #d0f0f8">not translated</span><br>
+  <td>Valentin Villenave<br>
+   <small>Gilles Thibault</small><br>
+   <span style="background-color: #dfef77">partially translated (9 %)</span><br>
+   <span style="background-color: #76fe2a">partially up to date</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>

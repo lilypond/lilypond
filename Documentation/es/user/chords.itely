@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
+    Translation of GIT committish: 4f8c7b381812949e6f765f641fba9108b52af56b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -147,7 +147,12 @@ Se pueden crear acordes de séptima:
 @funindex m
 
 La tabla que aparece más abajo muestra el efecto de los modificadores
-de variante sobre los acordes de tríada y de séptima.
+de variante sobre los acordes de tríada y de séptima.  La séptima
+añadida de forma predeterminada a los acordes es menor, lo que hace
+del acorde de séptima dominante el acorde básico de séptima.  Todas
+las alteraciones se consideran en relación con la séptima dominante.
+Hay una tabla más completa donde aparecen los usos de los
+modificadores en @ref{Common chord modifiers}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -174,8 +179,7 @@ Acción predeterminada; produce una tríada mayor.
 @item
 m, m7
 @tab
-Acorde menor.  Este modificador baja la tercera y, si existe, la
-séptima.
+Acorde menor.  Este modificador baja la tercera.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
@@ -256,11 +260,12 @@ acorde y añadir un bajo distinto o crear una inversión.
 
 El primer número que sigue al @code{:} se considera que es el ámbito
 del acorde.  El acorde se construye secuencialmente añadiendo terceras
-a la fundamental hasta que se alcanza el número especificado.  Si el
-ámbito no es una tercera (p.ej. 6), se añaden terceras hasta la
-tercera más alta inferior al ámbito, y después se añade la nota del
-ámbito.  El mayor valor posible para el ámbito es 13.  Cualquier valor
-mayor se interpreta como 13.
+a la fundamental hasta que se alcanza el número especificado.  Observe
+que la séptima añadida como parte de un acorde extendido es la séptima
+menor, no mayor.  Si el ámbito no es una tercera (p.ej. 6), se añaden
+terceras hasta la tercera más alta inferior al ámbito, y después se
+añade la nota del ámbito.  El mayor valor posible para el ámbito es
+13.  Cualquier valor mayor se interpreta como 13.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \chordmode {
@@ -288,7 +293,8 @@ con una trecena sin alteración, se elimina la oncena de los acordes de
 @cindex adiciones en acordes
 
 Se pueden añadir notas individuales a un acorde.  Las adiciones siguen
-el ámbito y van prefijadas por un punto (@code{.}).
+el ámbito y van prefijadas por un punto (@code{.}).  La séptima normal
+que se añade a un acorde es la séptima menor, no mayor.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {

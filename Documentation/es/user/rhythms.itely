@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: 4f8c7b381812949e6f765f641fba9108b52af56b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -52,8 +52,8 @@ ejemplo, una negra se escribe usando un @code{4} (puesto que es 1/4 de
 redonda), mientras que una blanca se escribe con un @code{2} (por ser
 1/2 de redonda).  Para notas mayores de la redonda se deben usar los
 comandos @code{\longa} (que es una breve doble) y @code{\breve}. Se
-pueden especificar duraciones tan cortas como la semifusa (con el
-número 64).  Son posibles valores más cortos, pero sólo como notas
+pueden especificar duraciones tan cortas como la garrapatea (con el
+número 128).  Son posibles valores más cortos, pero sólo como notas
 unidas por una barra.
 
 @c Two 64th notes are needed to obtain beams
