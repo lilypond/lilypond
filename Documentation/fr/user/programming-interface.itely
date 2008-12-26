@@ -26,6 +26,8 @@
 * Markup programmer interface::
 * Contexts for programmers::
 * Scheme procedures as properties::
+* Using Scheme code instead of tweak::
+* Difficult tweaks::
 @end menu
 
 @node Music functions
