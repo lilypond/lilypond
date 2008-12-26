@@ -7525,7 +7525,7 @@ msgstr "Ligaduras mensurales blancas"
 #. @node in Documentation/es/user/ancient.itely
 #. @subsection in Documentation/es/user/ancient.itely
 msgid "Typesetting Gregorian chant"
-msgstr "Tipografiado del canto Gregoriano"
+msgstr "Tipografiado del canto gregoriano"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -7536,21 +7536,21 @@ msgstr "Tipografiado del canto Gregoriano"
 #. @node in Documentation/de/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/de/user/ancient.itely
 msgid "Gregorian chant contexts"
-msgstr "Contextos del Canto Gregoriano"
+msgstr "Contextos del canto gregoriano"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
 msgid "Gregorian clefs"
-msgstr "Claves de canto Gregoriano"
+msgstr "Claves de canto gregoriano"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
 msgid "Gregorian accidentals and key signatures"
-msgstr "Alteraciones y armaduras de canto Gregoriano"
+msgstr "Alteraciones y armaduras de canto gregoriano"
 
 #  ? FVD
 #. @node in Documentation/user/ancient.itely
@@ -7569,7 +7569,7 @@ msgstr "Divisiones"
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
 msgid "Gregorian articulation signs"
-msgstr "Articulaciones del canto Gregoriano"
+msgstr "Articulaciones del canto gregoriano"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -7623,7 +7623,7 @@ msgstr "Disposición tipo «Mensurstriche»"
 #. @node in Documentation/de/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/de/user/ancient.itely
 msgid "Transcribing Gregorian chant"
-msgstr "Transcripción de Canto Gregoriano"
+msgstr "Transcripción de canto gregoriano"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
