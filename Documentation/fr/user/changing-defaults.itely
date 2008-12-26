@@ -236,7 +236,7 @@ La clé et le chiffre de mesure ont disparu de la deuxième portée.  C'est une 
 quelque peu radicale, puisqu'elle affectera toute la portée jusqu'à la fin de la
 partition.  L'espacement s'en trouve également affecté, ce qui peut être ou non
 l'effet recherché.  Une méthode plus sophistiquée aurait été de rendre ces objets
-transparents (voir @rlearning{Common tweaks}).
+transparents (voir @rlearning{Visibility and color of objects}).
 
 Dans l'exemple suivant, voici une mise en pratique plus utile.  En temps
 normal, les barres de mesure et la métrique sont synchronisées verticalement
