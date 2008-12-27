@@ -117,7 +117,7 @@
   (define (extract-names font)
     (if (ly:pango-font? font)
 	(map car (ly:pango-font-physical-fonts font))
-	(list  (ly:font-name font))))
+	(list (ly:font-name font))))
 
   (let* ((fonts (ly:paper-fonts paper))
 	 (names (apply append (map extract-names fonts))))
@@ -155,7 +155,7 @@
 	       (ly:output-def-lookup paper 'papersizename)
 	       (if landscape? h w)
 	       (if landscape? w h)
-	       80  ;; weight
+	       80   ;; weight
 	       "()" ;; color
 	       "()" ;; type
     )))
@@ -255,7 +255,7 @@
 		(cond
 		 ((internal-font? file-name)
 		  (ps-load-file (ly:find-file
-				 (format "~a.otf"  file-name))))
+				 (format "~a.otf" file-name))))
 		 ((string? bare-file-name)
 		  (ps-load-file file-name))
 		 (else
@@ -276,7 +276,7 @@
     (reverse (dir-helper (opendir dir-name) '())))
 
   (define (handle-mac-font name filename)
-    (let* ((dir-name  (tmpnam))
+    (let* ((dir-name (tmpnam))
 	   (files '())
 	   (status 0)
 	   (embed #f))
@@ -468,7 +468,7 @@
 	       0.0 x))
 
 	   ;; the left-overshoot is to make sure that
-	   ;; bar numbers  stick out of margin uniformly.
+	   ;; bar numbers stick out of margin uniformly.
 	   ;;
 	   (list
 	
@@ -564,7 +564,7 @@
 	  bbox)
 
 	 (if do-pdf
-	     (postscript->pdf  0 0  (format "~a.eps" filename)))
+	     (postscript->pdf 0 0 (format "~a.eps" filename)))
 	 ))
 
      extents-system-pairs)
@@ -572,7 +572,7 @@
 
 
 (define-public (clip-system-EPSes basename paper-book)
-  (define do-pdf (member  "pdf" (ly:output-formats)))
+  (define do-pdf (member "pdf" (ly:output-formats)))
 
   (define (clip-score-systems basename systems)
     (let*
