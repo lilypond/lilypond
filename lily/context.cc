@@ -46,9 +46,8 @@ Context::check_removal ()
     }
 }
 
-Context::Context (Context const &src)
+Context::Context (Context const & /* src */)
 {
-  (void) src;
   assert (false);
 }
 

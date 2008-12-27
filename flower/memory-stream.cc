@@ -102,23 +102,19 @@ Memory_out_stream::writer (void *cookie,
 }
 
 ssize_t
-Memory_out_stream::reader (void *cookie,
-			   char *buffer,
-			   size_t size)
+Memory_out_stream::reader (void * /* cookie */,
+			   char * /* buffer */,
+			   size_t /* size */)
 {
-  (void) cookie;
-  (void) buffer;
-  (void) size;
-
   assert (false);
   return 0;
 }
 
 int
-Memory_out_stream::seeker (void *, off64_t *, int whence)
+Memory_out_stream::seeker (void *,
+			   off64_t *,
+			   int)
 {
-  (void) whence;
-
   assert (false);
   return 0;
 }

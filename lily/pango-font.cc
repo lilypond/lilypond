@@ -29,12 +29,10 @@
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
 
-Pango_font::Pango_font (PangoFT2FontMap *fontmap,
+Pango_font::Pango_font (PangoFT2FontMap * /* fontmap */,
 			PangoFontDescription const *description,
 			Real output_scale)
 {
-  (void) fontmap;
-
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = PANGO_DIRECTION_LTR;
   context_ = pango_ft2_get_context (PANGO_RESOLUTION,

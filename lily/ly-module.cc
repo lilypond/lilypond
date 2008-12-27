@@ -97,9 +97,11 @@ ly_module_symbols (SCM mod)
 }
 
 static SCM
-entry_to_alist (void *closure, SCM key, SCM val, SCM result)
+entry_to_alist (void * /* closure */,
+		SCM key,
+		SCM val,
+		SCM result)
 {
-  (void) closure;
   if (scm_variable_bound_p (val) == SCM_BOOL_T)
     return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
   programming_error ("unbound variable in module");
@@ -134,9 +136,11 @@ ly_reexport_module (SCM mod)
 
 #ifdef MODULE_GC_KLUDGE
 static SCM
-redefine_keyval (void *closure, SCM key, SCM val, SCM result)
+redefine_keyval (void * /* closure */,
+		 SCM key,
+		 SCM val,
+		 SCM result)
 {
-  (void)closure;
   SCM new_tab = result;
   scm_hashq_set_x (new_tab, key, val);
   return new_tab;

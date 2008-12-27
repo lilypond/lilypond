@@ -88,16 +88,14 @@ IMPLEMENT_TYPE_P (Box, "ly:box?");
 IMPLEMENT_DEFAULT_EQUAL_P (Box);
 
 SCM
-Box::mark_smob (SCM x)
+Box::mark_smob (SCM /* x */)
 {
-  (void)x;
   return SCM_EOL;
 }
 
 int
-Box::print_smob (SCM x, SCM p, scm_print_state*)
+Box::print_smob (SCM /* x */, SCM p, scm_print_state*)
 {
-  (void)x;
   scm_puts ("#<Box>", p);
   return 1;
 }

@@ -55,9 +55,10 @@ Paper_outputter::mark_smob (SCM x)
 }
 
 int
-Paper_outputter::print_smob (SCM x, SCM p, scm_print_state*)
+Paper_outputter::print_smob (SCM /* x */,
+			     SCM p,
+			     scm_print_state *)
 {
-  (void) x;
   scm_puts ("#<Paper_outputter>", p);
   return 1;
 }

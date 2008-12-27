@@ -893,10 +893,8 @@ Beam::no_visible_stem_positions (Grob *me, Interval default_value)
 */
 MAKE_SCHEME_CALLBACK (Beam, calc_least_squares_positions, 2);
 SCM
-Beam::calc_least_squares_positions (SCM smob, SCM posns)
+Beam::calc_least_squares_positions (SCM smob, SCM /* posns */)
 {
-  (void) posns;
-  
   Grob *me = unsmob_grob (smob);
 
   int count = normal_stem_count (me);

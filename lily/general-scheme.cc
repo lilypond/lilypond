@@ -345,10 +345,11 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 }
 
 static SCM
-accumulate_symbol (void *closure, SCM key, SCM val, SCM result)
+accumulate_symbol (void * /* closure */,
+		   SCM key,
+		   SCM /* val */,
+		   SCM result)
 {
-  (void) closure;
-  (void) val;
   return scm_cons (key, result);
 }
 
