@@ -37,7 +37,7 @@ public:
 
   string description_string () const; 
   SCM font_file_name () const;
-  void register_font_file (string, string);
+  void register_font_file (string, string, int);
   Stencil text_stencil (string, bool tight) const;
 
   Stencil pango_item_string_stencil (PangoItem const *, string, bool tight) const;

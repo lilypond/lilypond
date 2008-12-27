@@ -64,11 +64,13 @@ Pango_font::~Pango_font ()
 
 void
 Pango_font::register_font_file (string filename,
-				string ps_name)
+				string ps_name,
+				int face_index)
 {
   scm_hash_set_x (physical_font_tab_,
 		  ly_string2scm (ps_name),
-		  ly_string2scm (filename));
+		  scm_list_2 (ly_string2scm (filename),
+			      scm_from_int (face_index)));
 }
 
 void
@@ -124,12 +126,19 @@ Pango_font::pango_item_string_stencil (PangoItem const *item,
 		   PANGO_RBEARING (logical_rect)),
 	 Interval (-PANGO_DESCENT (*which_rect),
 		   PANGO_ASCENT (*which_rect)));
-
   b.scale (scale_);
+
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
   FcPattern *fcpat = fcfont->font_pattern;
+
   FcChar8 *file_name_as_ptr = 0;
   FcPatternGetString (fcpat, FC_FILE, 0, &file_name_as_ptr);
+
+  // due to a bug in FreeType 2.3.7 and earlier we can't use
+  // ftface->face_index; it is always zero for some font formats,
+  // in particular TTCs which we are interested in
+  int face_index = 0;
+  FcPatternGetInteger (fcpat, FC_INDEX, 0, &face_index);
 
   string file_name;
   if (file_name_as_ptr)
@@ -142,10 +151,12 @@ Pango_font::pango_item_string_stencil (PangoItem const *item,
   Index_to_charcode_map const *cmap = 0;
   bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
   if (!has_glyph_names)
-    cmap = all_fonts_global->get_index_to_charcode_map (file_name, ftface);
+    cmap = all_fonts_global->get_index_to_charcode_map (
+	     file_name, face_index, ftface);
 
   bool is_ttf = string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
   bool cid_keyed = false;
+
   for (int i = 0; i < pgs->num_glyphs; i++)
     {
       PangoGlyphInfo *pgi = pgs->glyphs + i;
@@ -193,7 +204,6 @@ Pango_font::pango_item_string_stencil (PangoItem const *item,
       if (glyph_name[0] == '\0')
 	{
 	  // CID entry
-
 	  cid_keyed = true;
 	  char_id = scm_from_uint32 (pg);
 	}
@@ -250,7 +260,9 @@ Pango_font::pango_item_string_stencil (PangoItem const *item,
 
   if (ps_name.length ())
     {
-      ((Pango_font *) this)->register_font_file (file_name, ps_name);
+      ((Pango_font *) this)->register_font_file (file_name,
+						 ps_name,
+						 face_index);
       pango_fc_font_unlock_face (fcfont);
 
       SCM expr = scm_list_5 (ly_symbol2scm ("glyph-string"),

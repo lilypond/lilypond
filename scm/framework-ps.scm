@@ -304,7 +304,7 @@
 			name filename)))
       embed))
 
-  (define (font-file-as-ps-string name file-name)
+  (define (font-file-as-ps-string name file-name font-index)
     (let* ((downcase-file-name (string-downcase file-name)))
       (cond
        ((and file-name (string-endswith downcase-file-name ".pfa"))
@@ -314,7 +314,7 @@
        ((and file-name (string-endswith downcase-file-name ".ttf"))
 	(ly:ttf->pfa file-name))
        ((and file-name (string-endswith downcase-file-name ".ttc"))
-	(ly:ttf->pfa file-name))
+	(ly:ttf->pfa file-name font-index))
        ((and file-name (string-endswith downcase-file-name ".otf"))
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
        (else
@@ -327,10 +327,11 @@
 	 (or (string-endswith bare-file-name ".dfont")
 	     (= (stat:size (stat bare-file-name)) 0))))
 
-  (define (load-font font-name-filename)
-    (let* ((font (car font-name-filename))
-	   (name (cadr font-name-filename))
-	   (file-name (caddr font-name-filename))
+  (define (load-font font-psname-filename-fontindex)
+    (let* ((font (list-ref font-psname-filename-fontindex 0))
+	   (name (list-ref font-psname-filename-fontindex 1))
+	   (file-name (list-ref font-psname-filename-fontindex 2))
+	   (font-index (list-ref font-psname-filename-fontindex 3))
 	   (bare-file-name (ly:find-file file-name)))
       (cons name
 	    (cond ((mac-font? bare-file-name)
@@ -340,7 +341,7 @@
 				 name
 				 0))
 		  (bare-file-name (font-file-as-ps-string
-				   name bare-file-name))
+				   name bare-file-name font-index))
 		  (else
 		   (ly:warning (_ "do not know how to embed font ~s ~s ~s")
 			       name file-name font))))))
@@ -355,12 +356,14 @@
 	       (cond ((string? (ly:font-file-name font))
 		      (list (list font
 				  (ly:font-name font)
-				  (ly:font-file-name font))))
+				  (ly:font-file-name font)
+				  #f)))
 		     ((ly:pango-font? font)
-		      (map (lambda (name-psname-pair)
+		      (map (lambda (psname-filename-fontindex)
 			     (list #f
-				   (car name-psname-pair)
-				   (cdr name-psname-pair)))
+				   (list-ref psname-filename-fontindex 0)
+				   (list-ref psname-filename-fontindex 1)
+				   (list-ref psname-filename-fontindex 2)))
 			   (ly:pango-font-physical-fonts font)))
 		     (else
 		      (ly:font-sub-fonts font))))
