@@ -240,7 +240,7 @@
 		(set! file-name (ly:string-substitute (ly:get-option 'datadir)
 						      "" file-name))
 		(format
-		 "lilypond-datadir (~a) concatstrings (r) file .loadfont"
+		 "lilypond-datadir (~a) concatstrings (r) file .loadfont\n"
 		 file-name))
 	      (format "(~a) (r) file .loadfont\n" file-name))
 	  (format "% cannot find font file: ~a\n" file-name)))
@@ -395,7 +395,7 @@
       (for-each (lambda (f)
 		  (format port "\n%%BeginFont: ~a\n" (car f))
 		  (display (cdr f) port)
-		  (display "\n%%EndFont\n" port))
+		  (display "%%EndFont\n" port))
 		(load-fonts paper)))
   (display (setup-variables paper) port)
 
