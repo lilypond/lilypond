@@ -875,7 +875,7 @@ La indicación de compás se imprime al comienzo de una pieza y siempre
 que hay un cambio de compás.  Si se produce un cambio al final de una
 línea, se imprime una indicación de advertencia en dicho lugar.  Se
 puede modificar este comportamiento predeterminado, véase
-@ref{Controlling visibility of objects}.
+@ref{Visibility of objects}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4

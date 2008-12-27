@@ -625,10 +625,10 @@ repeats}
 
 @seealso
 Referencia de la notación:
-@ruser{Tremolo repeats},
-@ruser{Glissando},
-@ruser{Arpeggio},
-@ruser{Harmonics}.
+@ref{Tremolo repeats},
+@ref{Glissando},
+@ref{Arpeggio},
+@ref{Harmonics}.
 
 @node Harp pedals
 @unnumberedsubsubsec Harp pedals
@@ -670,5 +670,5 @@ una elipse.
 
 @seealso
 Referencia de la notación:
-@ruser{Text scripts},
-@ruser{Instrument Specific Markup}.
+@ref{Text scripts},
+@ref{Instrument Specific Markup}.

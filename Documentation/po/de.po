@@ -1,20 +1,22 @@
+# translation of de.po to German
 # translation of LilyPond documentation
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
-# Till Rettig <till.rettig@gmx.de>, 2007,2008
 #
 #
+# Till Rettig <till.rettig@gmx.de>, 2007,2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-20 13:08+0100\n"
-"PO-Revision-Date: 2008-12-14 00:17+0200\n"
+"POT-Creation-Date: 2008-12-25 12:33+0100\n"
+"PO-Revision-Date: 2008-12-21 19:17+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
-"Language-Team: de\n"
+"Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: postprocess_html.py:45
 #, python-format
@@ -3630,6 +3632,8 @@ msgstr "Setup für bestimmte Betriebssysteme"
 
 #. @node in Documentation/user/setup.itely
 #. @subsection in Documentation/user/setup.itely
+#. @node in Documentation/fr/user/setup.itely
+#. @subsection in Documentation/fr/user/setup.itely
 #. @node in Documentation/es/user/setup.itely
 #. @subsection in Documentation/es/user/setup.itely
 #. @node in Documentation/de/user/setup.itely
@@ -3638,12 +3642,14 @@ msgid "Setup for MacOS X"
 msgstr "Einrichtung für MacOS X"
 
 #. @subsubheading in Documentation/user/setup.itely
+#. @subsubheading in Documentation/fr/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
 #. @subsubheading in Documentation/de/user/setup.itely
 msgid "Using Python scripts on MacOS 10.3 or 10.4"
 msgstr "Benutzung von Python-Skripten unter MacOS 10.3 oder 10.4"
 
 #. @subsubheading in Documentation/user/setup.itely
+#. @subsubheading in Documentation/fr/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
 #. @subsubheading in Documentation/de/user/setup.itely
 msgid "MacOS X on the command line"
@@ -6645,9 +6651,8 @@ msgstr "Harfe"
 #. @unnumberedsubsubsec in Documentation/es/user/keyboards.itely
 #. @node in Documentation/de/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/de/user/keyboards.itely
-#, fuzzy
 msgid "References for harps"
-msgstr "Referenz für Tasteninstrumente"
+msgstr "Referenzen für Harfe"
 
 #. @node in Documentation/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/user/keyboards.itely
@@ -6759,7 +6764,7 @@ msgstr "Akkord für Ukulele"
 #. Documentation/user/fretted-strings.itely:834 (variable)
 #. Documentation/user/fretted-strings.itely:865 (variable)
 #. Documentation/user/fretted-strings.itely:889 (variable)
-#. Documentation/user/fretted-strings.itely:935 (variable)
+#. Documentation/user/fretted-strings.itely:937 (variable)
 msgid "mychords"
 msgstr "meineAkkorde"
 
@@ -6767,11 +6772,11 @@ msgstr "meineAkkorde"
 msgid "mychordlist"
 msgstr "meineAkkordliste"
 
-#. Documentation/user/fretted-strings.itely:922 (comment)
+#. Documentation/user/fretted-strings.itely:924 (comment)
 msgid "add a new chord shape"
 msgstr "Neues Akkordmuster hinzufügen"
 
-#. Documentation/user/fretted-strings.itely:926 (comment)
+#. Documentation/user/fretted-strings.itely:928 (comment)
 msgid "add some new chords based on the power chord shape"
 msgstr "neue Akkorde basierend auf dem power-chord-Muster hinzufügen"
 
@@ -6943,7 +6948,7 @@ msgstr "Diese Zeilen definieren die Position der Holzblöcke auf dem System"
 #. Documentation/user/percussion.itely:386 (comment)
 msgid "if you like, you can change it or you can use special note heads"
 msgstr ""
-"Wenn Sie wollen, können Sie das ändern oder besondere Notenkönpfe benutzen"
+"Wenn Sie wollen, können Sie das ändern oder besondere Notenköpfe benutzen"
 
 #. Documentation/user/percussion.itely:387 (comment)
 msgid "for the woodblocks."
@@ -7156,20 +7161,20 @@ msgstr "Dudelsack-Defintionen"
 msgid "Bagpipe example"
 msgstr "Dudelsack-Beispiele"
 
-#. Documentation/user/chords.itely:663 (variable)
+#. Documentation/user/chords.itely:669 (variable)
 msgid "myChords"
 msgstr "meineAkkorde"
 
-#. Documentation/user/chords.itely:993 (comment)
-#. Documentation/user/chords.itely:1014 (comment)
+#. Documentation/user/chords.itely:999 (comment)
+#. Documentation/user/chords.itely:1020 (comment)
 msgid "Put notes on same Staff as figures"
 msgstr "Noten auf dem gleichen System wie die Symbole"
 
-#. Documentation/user/chords.itely:1077 (comment)
+#. Documentation/user/chords.itely:1083 (comment)
 msgid "The extenders are correct here, with the same rhythm as the bass"
 msgstr "Linien stimmen hier, mit dem gleichen Rhythmus wie im Bass"
 
-#. Documentation/user/chords.itely:1089 (comment)
+#. Documentation/user/chords.itely:1095 (comment)
 msgid "The extenders are incorrect here, even though the timing is the same"
 msgstr "Linien stimmen nicht, obwohl der Rhythmus der gleiche ist"
 
@@ -8490,41 +8495,47 @@ msgstr "vertikal hochschieben"
 msgid "third finger"
 msgstr "dritter Finger"
 
-#. Documentation/user/changing-defaults.itely:2945 (comment)
+#. Documentation/user/changing-defaults.itely:2948 (comment)
+#. Documentation/user/changing-defaults.itely:2980 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:39 (comment)
 msgid "the RehearsalMark will be centered above the Clef"
 msgstr "RehearsalMark zentrieren über dem Schlüssel"
 
-#. Documentation/user/changing-defaults.itely:2951 (comment)
+#. Documentation/user/changing-defaults.itely:2954 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:46 (comment)
 msgid "the RehearsalMark will be centered above the TimeSignature"
 msgstr "RehearsalMark zentrieren über der Taktart (TimeSignature)"
 
-#. Documentation/user/changing-defaults.itely:2965 (comment)
+#. Documentation/user/changing-defaults.itely:2974 (comment)
+#, fuzzy
+msgid "the RehearsalMark will be centered above the Key Signature"
+msgstr "RehearsalMark über der Tonart (KeySignature) zentrieren"
+
+#. Documentation/user/changing-defaults.itely:2994 (comment)
 msgid "The RehearsalMark will be centered above the KeySignature"
 msgstr "RehearsalMark zentrieren über der Tonart (KeySignature)"
 
-#. Documentation/user/changing-defaults.itely:2972 (comment)
-#. Documentation/user/changing-defaults.itely:2988 (comment)
-#. Documentation/user/changing-defaults.itely:2995 (comment)
+#. Documentation/user/changing-defaults.itely:3001 (comment)
+#. Documentation/user/changing-defaults.itely:3017 (comment)
+#. Documentation/user/changing-defaults.itely:3024 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the left edge of the KeySignature"
 msgstr "RehearsalMark mit der linken Ecke von KeySignature ausrichten"
 
-#. Documentation/user/changing-defaults.itely:2977 (comment)
+#. Documentation/user/changing-defaults.itely:3006 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the right edge of the KeySignature"
 msgstr "RehearsalMark mit der rechten Ecke von KeySignature ausrichten"
 
-#. Documentation/user/changing-defaults.itely:2989 (comment)
+#. Documentation/user/changing-defaults.itely:3018 (comment)
 msgid "and then shifted right by 3.5 staff-spaces"
 msgstr "nach rechts um 3,5 Linienabstände verschieben"
 
-#. Documentation/user/changing-defaults.itely:2996 (comment)
+#. Documentation/user/changing-defaults.itely:3025 (comment)
 msgid "and then shifted left by 2 staff-spaces"
 msgstr "nach links um 2 Linienabstände verschieben"
 
-#. Documentation/user/changing-defaults.itely:3045 (variable)
+#. Documentation/user/changing-defaults.itely:3073 (variable)
 msgid "XinO"
 msgstr "XinO"
 
@@ -8972,9 +8983,8 @@ msgstr "Die @code{centered-on-parent}-Prozeduren benutzen"
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
-#. @node in Documentation/de/user/changing-defaults.itely
-#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
-msgid "Using the @code{break-aligned-interface}"
+#, fuzzy
+msgid "Using the @code{break-alignable-interface}"
 msgstr "Das @code{break-aligned-interface} benutzen"
 
 #. @node in Documentation/user/changing-defaults.itely
@@ -9609,11 +9619,6 @@ msgstr "Alte Dateien aktualisieren"
 msgid "GNU LilyPond --- Utilisation des programmes"
 msgstr "GNU LilyPond -- Die Programmbenutzung"
 
-#. @node in Documentation/fr/user/setup.itely
-#. @subsection in Documentation/fr/user/setup.itely
-msgid "MacOS X on the command-line"
-msgstr "MacOS X auf der Kommandozeile"
-
 #. @section in Documentation/fr/user/running.itely
 msgid "Updating with @command{convert-ly}"
 msgstr "Dateien mit @command{convert-ly} aktualisieren"
@@ -9888,6 +9893,11 @@ msgstr "Das Notensatzprogramm"
 #. @subsubheading in Documentation/de/user/vocal.itely
 msgid "Ignorieren von Melismen"
 msgstr "Melismen ignorieren"
+
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
+msgid "Using the @code{break-aligned-interface}"
+msgstr "Das @code{break-aligned-interface} benutzen"
 
 #. input/lsr/accordion-discant-symbols.ly:34 (variable)
 msgid "discant"
@@ -11866,7 +11876,7 @@ msgstr "Zug-Linie schnell schreiben:"
 msgid ""
 "1. write repeatedly 'c c c c c c c c |' for the whole length of the song "
 msgstr ""
-"1. wiederholgt 'c·c·c·c·c·c·c·c·|' über die gesamte Länge des Stückes "
+"1. wiederholt 'c·c·c·c·c·c·c·c·|' über die gesamte Länge des Stückes "
 "schreiben"
 
 #. input/lsr/score-for-diatonic-accordion.ly:90 (comment)
@@ -12220,8 +12230,8 @@ msgid ""
 "\\include \\\"piece.ly\\\"             %%% uncomment this line when using a "
 "separate file"
 msgstr ""
-"\\include·\\\"piece.ly\\\"·············%%%·Zeile einkommentierten, wenn eine "
-"extraDatei benutzt wird"
+"\\include \\\"piece.ly\\\"             %%% Zeile einkommentieren, wenn eine "
+"extra Datei benutzt wird"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:122 (comment)
 msgid "{ Uncomment this block when using separate files"
@@ -12575,6 +12585,9 @@ msgstr "Fußnoten"
 
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
+
+#~ msgid "MacOS X on the command-line"
+#~ msgstr "MacOS X auf der Kommandozeile"
 
 #~ msgid "Harp notation"
 #~ msgstr "Harfennotation"

@@ -1453,7 +1453,9 @@ particular beam in the time signature in use, its beaming is
 controlled by three context properties:
 @code{measureLength}, @code{beatLength} and @code{beatGrouping}.
 These properties may be set in the @code{Score}, @code{Staff} or
-@code{Voice} contexts to delimit their scope.
+@code{Voice} contexts to delimit their scope.  The default values
+are set while processing @code{\time} commands, so the @code{\set}
+commands must be placed after all @code{\time} commands.
 
 These determine the beaming as follows:
 

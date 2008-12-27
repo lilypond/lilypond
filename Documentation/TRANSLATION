@@ -153,7 +153,7 @@ Word counts (excluding lilypond snippets) are given for each file.
 2286  user/text.itely
 76    user/specialist.itely -- Specialist notation
 2670  user/vocal.itely
-1398  user/chords.itely
+1464  user/chords.itely
 702   user/piano.itely
 810   user/percussion.itely
 826   user/guitar.itely
@@ -167,7 +167,7 @@ Word counts (excluding lilypond snippets) are given for each file.
 5202  user/programming-interface.itely -- Interfaces for programmers
 1190  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-62623 total
+62689 total
 
 -5- Application usage
 3248  user/lilypond-book.itely -- LilyPond-book
