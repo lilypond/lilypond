@@ -10,13 +10,12 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-25 12:33+0100\n"
-"PO-Revision-Date: 2008-12-21 19:17+0200\n"
+"PO-Revision-Date: 2008-12-27 17:09+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #: postprocess_html.py:45
 #, python-format
@@ -8507,9 +8506,8 @@ msgid "the RehearsalMark will be centered above the TimeSignature"
 msgstr "RehearsalMark zentrieren über der Taktart (TimeSignature)"
 
 #. Documentation/user/changing-defaults.itely:2974 (comment)
-#, fuzzy
 msgid "the RehearsalMark will be centered above the Key Signature"
-msgstr "RehearsalMark über der Tonart (KeySignature) zentrieren"
+msgstr "RehearsalMark wird über der Tonart (KeySignature) zentriert"
 
 #. Documentation/user/changing-defaults.itely:2994 (comment)
 msgid "The RehearsalMark will be centered above the KeySignature"
@@ -8983,9 +8981,8 @@ msgstr "Die @code{centered-on-parent}-Prozeduren benutzen"
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
-#, fuzzy
 msgid "Using the @code{break-alignable-interface}"
-msgstr "Das @code{break-aligned-interface} benutzen"
+msgstr "Benutzung des @code{break-aligned-interface}"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
