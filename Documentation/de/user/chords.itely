@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -149,7 +149,10 @@ Septakkorde können erstellt werden:
 @funindex m
 
 Diese Tabelle zeigt die Funktion der Modifikatoren von Dreiklängen
-und Septakkorden.  Eine vollständigere Tabelle findet sich in
+und Septakkorden.   Die siebte Stufe wird standardmäßig als kleine
+Septime realisiert, sodass der Dominantseptakkord die Grundform
+des Septakkordes darstellt.  Alle Alterationen sind relativ zur
+Dominantsept.  Eine vollständigere Tabelle findet sich in
 @ref{Common chord modifiers}.
 
 @c @table @code
@@ -177,8 +180,7 @@ Standard: erzeugt einen Durdreiklang.
 @item
 m, m7
 @tab
-Mollakkord: Dieser Modifikator erniedrigt die dritte und (wenn
-vorhanden) die siebte Stufe.
+Mollakkord: Dieser Modifikator erniedrigt die dritte Stufe.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
@@ -231,10 +233,21 @@ benutzen, um einen Durdreiklang zu notieren.
 
 @seealso
 Notationsreferenz:
-@ref{Common chord modifiers}.
+@ref{Common chord modifiers},
+@ref{Extended and altered chords}.
 
 Schnipsel:
 @rlsr{Chords}.
+
+@knownissues
+
+Nur ein Qualitätsmodifikator sollte pro Akkord benutzt werden, meistens
+für die höchste Stufe des Akkordes.  Akkorde mit weiteren Qualitätsmodifikatoren
+werden ohne Warnung oder Fehlermeldung gelesen, aber das Ergebnis ist
+nicht vorhersagbar.  Akkorde, die nicht mit einem einzigen
+Qualitätsmodifikator erreicht werden können, sollten mit einzelnen
+Tonhöhen alteriert werden, wie beschrieben in
+@ref{Extended and altered chords}.
 
 
 @node Extended and altered chords
@@ -251,7 +264,9 @@ Umgkehrungen zu erzeugen.
 
 Die erste Zahl, die auf den Doppelpunkt folgt, wird als @qq{Bereich}
 des Akkordes interpretiert: Terzen werden auf dem Grundton
-gestapelt, bis die angegebene Zahl (=Tonstufe) erreicht ist.  Wenn
+gestapelt, bis die angegebene Zahl (=Tonstufe) erreicht ist.
+Die siebte Stufe, die zu einem Akkord hinzugefügt wird, ist die
+kleine Septime, nicht die große.  Wenn
 der Bereich keine Terz ist (also etwa 6), dann werden Terzen bis
 zur höchst möglichen Terz unter dem Bereich gestapelt, und der
 Endton des Bereichs wird hinzugefügt.  Der größtmögliche Wert ist
@@ -288,7 +303,9 @@ entfernt (es sei denn sie wird explizit verlangt).
 Kompliziertere Akkorde können auch konstruiert werden, indem
 einzelne Intervalle zu dem Grundton addiert werden.
 Diese Additionen werden nach dem Bereich notiert und mit
-Punkten voneinander getrennt.
+Punkten voneinander getrennt.  Die normale Septime, die zu
+einem Akkord hinzugefügt wird, ist die kleine Septime, nicht
+die große.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
