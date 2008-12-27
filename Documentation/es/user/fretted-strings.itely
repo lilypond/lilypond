@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac8805d20e179145e3f3371032fe54156d84b0d0
+    Translation of GIT committish: 4f8c7b381812949e6f765f641fba9108b52af56b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -933,7 +933,9 @@ Además de los diagramas de traste, LilyPond almacena una lista interna
 de formas de acorde.  Las formas de acorde son diagramas de traste que
 se pueden desplazar por el mástil para dar acordes distintos.  Se
 pueden añadir formas de acorde a la lista interna y luego usarlas para
-definir diagramas de traste predefinidos.  Como los diagramas de
+definir diagramas de posición predefinidos.  Dado que se pueden mover
+a distintas posiciones dentro del mástil, las formas de acorde
+normalmente no contienen cuerdas al aire.  Como los diagramas de
 posiciones, las formas de acorde se pueden introducir como cadenas
 escuetas fret-diagram-terse o como listas de marcado prolijas
 fret-diagram-verbose.

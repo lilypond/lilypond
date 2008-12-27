@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -387,8 +387,6 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 
 @snippets
-
-FIXME: MOVE ALL THESE TO LSR!  -gp
 
 Hier einige Beispiele:
 

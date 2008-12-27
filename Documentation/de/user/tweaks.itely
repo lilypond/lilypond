@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 4770e4e71ebff6104cad46bd2d889c3ff6ba3875
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -404,11 +404,12 @@ Beachten Sie, dass die Syntax des @code{\tweak}-Befehls sich
 von der des @code{\override}-Befehls unterscheidet. Weder
 Kontext noch Layout-Objekt konnen angegeben werden, denn 
 das würde zu einem Fehler führen. Beide Angaben sind 
-durch das folgende Element impliziert. Die verallgemeinerte
+durch das folgende Element impliziert. Hier sollte auch
+kein Gleichheitzeichen vorhanden sein.  Die verallgemeinerte
 Syntax des @code{\tweak}-Befehls ist also einfach
 
 @example
-\tweak #'@var{layout-eigenschaft} = #@var{Wert}
+\tweak #'@var{layout-eigenschaft} #@var{Wert}
 @end example
 
 Ein @code{\tweak}-Befehl kann auch benutzt werden, um nur 

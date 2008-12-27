@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -197,11 +197,11 @@ halbverminderte Septime
 @tab
 Verminderter Dreklang, kleine Sept
 @tab
-@code{dim5m7}
+@code{m7.5-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:dim5m7
+  c1:m7.5-
 }
 @end lilypond
 
@@ -210,11 +210,11 @@ Kleine MollSept
 @tab
 Molldreiklang, Durseptime
 @tab
-@code{7m5}
+@code{maj7.5-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:7m5
+  c1:maj7.5-
 }
 @end lilypond
 
@@ -245,7 +245,7 @@ Molldreiklang, Sexte
 @end lilypond
 
 @item
-Dominantnon
+Dominantnone
 @tab
 Dominantsept, große None
 @tab
@@ -260,7 +260,7 @@ Dominantsept, große None
 @item
 Dur None
 @tab
-TODO
+Große None, große Septime
 @tab
 @code{maj9}
 @tab
@@ -273,7 +273,7 @@ TODO
 @item
 Moll None
 @tab
-TODO
+Große None, kleine Septime
 @tab
 @code{m9}
 @tab
@@ -284,9 +284,9 @@ TODO
 @end lilypond
 
 @item
-Dominantundecime
+Dominantundezime
 @tab
-Dominant ninth, perfect eleventh
+Dominantnone, perfekte Undezime
 @tab
 @code{11}
 @tab
@@ -297,9 +297,9 @@ Dominant ninth, perfect eleventh
 @end lilypond
 
 @item
-Durundecime
+Durundezime
 @tab
-TODO
+Große None, perfekte Unidezime
 @tab
 @code{maj11}
 @tab
@@ -310,9 +310,9 @@ TODO
 @end lilypond
 
 @item
-Mollundecime
+Mollundezime
 @tab
-TODO
+Kleine None, perfekte Undezime
 @tab
 @code{m11}
 @tab
@@ -325,7 +325,18 @@ TODO
 @item
 Dominant-13
 @tab
-Dominant eleventh, major thirteenth
+Dominantnone, große 13
+@tab
+@code{13}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13
+}
+@end lilypond
+
+@item
+Dominant-13
 @tab
 @code{13.11}
 @tab
@@ -338,7 +349,7 @@ Dominant eleventh, major thirteenth
 @item
 Dur-13
 @tab
-TODO
+Große Undezime, große 13
 @tab
 @code{maj13.11}
 @tab
@@ -351,7 +362,7 @@ TODO
 @item
 Moll-13
 @tab
-TODO
+Kleine Undezime, große 13
 @tab
 @code{m13.11}
 @tab
@@ -362,9 +373,9 @@ TODO
 @end lilypond
 
 @item
-erniedrigte Sekunde
+Sekundakkord
 @tab
-TODO
+große Sekunde, perfekte Quinte
 @tab
 @code{sus2}
 @tab
@@ -375,9 +386,9 @@ TODO
 @end lilypond
 
 @item
-erniedrigte Quarte
+Quartakkord
 @tab
-TODO
+perfekte Quarte, perfekte Quinte
 @tab
 @code{sus4}
 @tab
