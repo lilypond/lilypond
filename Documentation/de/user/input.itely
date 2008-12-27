@@ -243,7 +243,7 @@ als eine derarte Definition desselben Typs angegeben wird, hat
 die spätere Vorrang.
 
 @item
-Ein direktr Scheme-Ausdruck, wie etwa
+Ein direkter Scheme-Ausdruck, wie etwa
 @code{#(set-default-paper-size "a7" 'landscape)} oder
 @code{#(ly:set-option 'point-and-click #f)}.
 
@@ -277,7 +277,7 @@ auf höchster Ebene gesetzt wird.  Die Definition des Standards
 findet sich in der Datei @file{../scm/@/lily@/.scm}.
 
 @item
-Eine @code{\bookpart}-Umgebung.  Ein Buch (code{\book}) kann in
+Eine @code{\bookpart}-Umgebung.  Ein Buch (@code{\book}) kann in
 mehrere Teile untergliedert sein, indem @code{\bookpart}-Umgebungen
 eingesetzt werden. Jeder Buchabschnitt beginnt auf einer neuen
 Seite und kann eigene Papierdefinitionen in einer @code{\paper}-Umgebung
@@ -1332,7 +1332,7 @@ Um das Copyright-Zeichen zu notieren, kann folgender Code eingesetzt werden:
 @funindex \displayLilyMusic
 
 Ein musikalischer Ausdruck in LilyPond-Notation kann mit der Funktion
-@ocde{\displayMusic} angezeigt werden.  Der Code
+@code{\displayMusic} angezeigt werden.  Der Code
 
 @example
 @{
