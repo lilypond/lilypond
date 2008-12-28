@@ -2844,7 +2844,9 @@ def conv (str):
         str = re.sub ('InnerChoirStaff', 'ChoirStaff', str)
     return str
 
-@rule ((2, 11, 66), "Syntax changes for \\addChordShape and \\chord-shape")
+@rule ((2, 12, 0),
+       _ ("Syntax changes for \\addChordShape and \\chord-shape") + "\n" + \
+       _ ("bump version for release"))
 def conv(str):
     if re.search(r'\\addChordShape', str):
         stderr_write ("\n")
@@ -2858,10 +2860,6 @@ addChordShape call.\n"))
 chord-shape call.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
-    return str
-
-@rule ((2, 12, 0), _ ("bump version for release"))
-def conv (str):
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
