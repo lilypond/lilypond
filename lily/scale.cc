@@ -57,8 +57,8 @@ LY_DEFINE (ly_default_scale, "ly:default-scale",
 	   "Get the global default scale.")
 {
   return default_global_scale
-    ? SCM_BOOL_F
-    : default_global_scale->self_scm ();
+    ? default_global_scale->self_scm ()
+    : SCM_BOOL_F;
 }
 
 
