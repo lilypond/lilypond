@@ -20,7 +20,7 @@ public:
   Scale (vector<Rational> const&);
   Scale (Scale const&);
 
-  Rational tones_at_step (int step, int octave = 0) const;
+  Rational tones_at_step (int step, int octave) const;
   Rational step_size (int step) const;
   int step_count () const;
   int normalize_step (int step) const;
