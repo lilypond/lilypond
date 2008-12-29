@@ -23,8 +23,15 @@
    but small enough that nothing will overflow to infinity (so that we
    can still distinguish bad spacings by the number of BAD_SPACING_PENALTYs
    that they incur.
+
+   BAD_SPACING_PENALTY is for occasions where the spacing is bad.
+   TERRIBLE_SPACING_PENALTY is for when we are disregarding a user override
+   (for example, we are failing to satisfy min-systems-per-page. These user
+   overrides are more important than getting good spacing, so they get a
+   larger penalty.
 */
-const Real BAD_SPACING_PENALTY = 200000;
+const Real BAD_SPACING_PENALTY = 1e6;
+const Real TERRIBLE_SPACING_PENALTY = 1e8;
 
 
 /* for page_count > 2, we use a dynamic algorithm similar to

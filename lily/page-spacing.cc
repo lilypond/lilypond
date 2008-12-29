@@ -200,10 +200,10 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
       Page_spacing_node const *prev = page > 0 ? &state_.at (page_start-1, page-1) : 0;
       line_count += lines_[page_start].compressed_nontitle_lines_count_;
 
-      if (breaker_->too_many_lines (line_count))
-	break;
-
       space.prepend_system (lines_[page_start]);
+      // FIXME: The following line doesn't respect min-systems-per-page. More
+      // generally, what should we do when respecting min-systems-per-page
+      // would cause a page to be overfull?
       if (page_start < line && (isinf (space.force_) || (space.force_ < 0 && ragged)))
 	break;
 
@@ -212,22 +212,22 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	  if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
 	    space.force_ = 0;
 
-	  /* we may have to deal with single lines that are taller than a page, in
-	     which case we can't make the force infinite, but we should make
-	     it very large. */
+	  Real demerits = space.force_ * space.force_;
+	  /* If a single line is taller than a page, we need to consider it as
+	     a possible solution (but we give it a very bad score). */
 	  if (isinf (space.force_) && page_start == line)
-	    space.force_ = -BAD_SPACING_PENALTY;
+	    demerits = BAD_SPACING_PENALTY;
+	  demerits += (prev ? prev->demerits_ : 0);
 
-	  Real dem = fabs (space.force_) + (prev ? prev->demerits_ : 0);
-	  Real penalty = 0;
+	  Real penalty = breaker_->line_count_penalty (line_count);
 	  if (page_start > 0)
 	    penalty = lines_[page_start-1].page_penalty_
 	      + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
 
-	  dem += penalty;
-	  if (dem < cur.demerits_ || page_start == line)
+	  demerits += penalty;
+	  if (demerits < cur.demerits_ || page_start == line)
 	    {
-	      cur.demerits_ = dem;
+	      cur.demerits_ = demerits;
 	      cur.force_ = space.force_;
 	      cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
 	      cur.prev_ = page_start - 1;

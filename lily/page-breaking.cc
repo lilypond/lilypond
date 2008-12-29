@@ -170,8 +170,12 @@ Page_breaking::too_few_lines (int line_count) const
 Real
 Page_breaking::line_count_penalty (int line_count) const
 {
-  // TODO: also check min_systems_per_page (once we support it in Page_spacer)
-  return too_many_lines (line_count) ? BAD_SPACING_PENALTY : 0;
+  if (too_many_lines (line_count))
+    return (line_count - max_systems_per_page ()) * TERRIBLE_SPACING_PENALTY;
+  if (too_few_lines (line_count))
+    return (min_systems_per_page () - line_count) * TERRIBLE_SPACING_PENALTY;
+
+  return 0;
 }
 
 /* translate indices into breaks_ into start-end parameters for the line breaker */
@@ -996,9 +1000,9 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
     {
       Real f = res.force_[i];
       if (isinf (f) && res.systems_per_page_[i] == 1)
-	f = BAD_SPACING_PENALTY;
-
-      page_force += f * f;
+	page_force += BAD_SPACING_PENALTY;
+      else
+	page_force += f * f;
     }
 
   /* for a while we tried averaging page and line forces across pages instead
@@ -1023,13 +1027,17 @@ Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real 
 {
   Page_spacing space (page_height, page_top_space_);
   Page_spacing_result ret;
+  int line_count = 0;
 
   for (vsize i = 0; i < lines.size (); i++)
-    space.append_system (lines[i]);
+    {
+      space.append_system (lines[i]);
+      line_count += lines[i].compressed_nontitle_lines_count_;
+    }
 
   ret.systems_per_page_.push_back (lines.size ());
   ret.force_.push_back (ragged ? min (space.force_, 0.0) : space.force_);
-  ret.penalty_ = lines.back ().page_penalty_ + lines.back ().turn_penalty_;
+  ret.penalty_ = line_count_penalty (line_count) + lines.back ().page_penalty_ + lines.back ().turn_penalty_;
 
   /* don't do finalize_spacing_result () because we are only an internal function */
   return ret;
@@ -1061,6 +1069,11 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
 
   vector<Real> page1_force;
   vector<Real> page2_force;
+
+  // page1_penalty and page2_penalty store the penalties based
+  // on min-systems-per-page and max-systems-per-page.
+  vector<Real> page1_penalty;
+  vector<Real> page2_penalty;
   Page_spacing page1 (page1_height, page_top_space_);
   Page_spacing page2 (page2_height, page_top_space_);
   int page1_line_count = 0;
@@ -1068,6 +1081,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
 
   page1_force.resize (cached_line_details_.size () - 1, infinity_f);
   page2_force.resize (cached_line_details_.size () - 1, infinity_f);
+  page1_penalty.resize (cached_line_details_.size () - 1, infinity_f);
+  page2_penalty.resize (cached_line_details_.size () - 1, infinity_f);
 
   /* find the page 1 and page 2 forces for each page-breaking position */
   for (vsize i = 0; i < page1_force.size (); i++)
@@ -1077,13 +1092,15 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
       page1_line_count += cached_line_details_[i].compressed_nontitle_lines_count_;
       page2_line_count += cached_line_details_[cached_line_details_.size () - 1 - i].compressed_nontitle_lines_count_;
 
-      page1_force[i] = + (ragged1 && page1.force_ < 0 && i > 0) ? infinity_f : page1.force_;
+      page1_force[i] = (ragged1 && page1.force_ < 0 && i > 0) ? infinity_f : page1.force_;
+      page1_penalty[i] = line_count_penalty (page1_line_count);
 
       if (ragged2)
 	page2_force[page2_force.size () - 1 - i] =
 	  (page2.force_ < 0 && i + 1 < page1_force.size ()) ? infinity_f : 0;
       else
 	page2_force[page2_force.size () - 1 - i] = page2.force_;
+      page2_penalty[page2_penalty.size () - 1 - i] = line_count_penalty (page2_line_count);
     }
 
   /* find the position that minimises the sum of the page forces */
@@ -1092,13 +1109,15 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
   for (vsize i = 0; i < page1_force.size (); i++)
     {
       Real f = page1_force[i] * page1_force[i] + page2_force[i] * page2_force[i];
+      // FIXME: Why do we look at unevenness here? We don't use it in
+      // finalize_spacing_result, so this gives us a different measure of demerits.
       Real uneven = 2 * (page1_force[i] - page2_force[i]);
 
       // NOTE: we treat max-systems-per-page and min-systems-per-page as soft
       // constraints. That is, we penalize harshly when they don't happen
       // but we don't completely reject.
       Real dem = uneven * uneven + f
-	+ line_count_penalty (i+1) + line_count_penalty (page2_force.size () - i)
+	+ page1_penalty[i] + page2_penalty[i]
 	+ cached_line_details_[i+1].page_penalty_
 	+ cached_line_details_.back ().page_penalty_ + cached_line_details_.back ().turn_penalty_;
       if (dem < best_demerits)
@@ -1115,7 +1134,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
   ret.force_.push_back (page2_force[best_sys_count-1]);
   ret.penalty_ = cached_line_details_[best_sys_count-1].page_penalty_
     + cached_line_details_.back ().page_penalty_
-    + cached_line_details_.back ().turn_penalty_;
+    + cached_line_details_.back ().turn_penalty_
+    + page1_penalty[best_sys_count-1] + page2_penalty[best_sys_count-1];
 
   /* don't do finalize_spacing_result () because we are only an internal function */
   return ret;
