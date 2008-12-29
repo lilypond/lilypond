@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4f8c7b381812949e6f765f641fba9108b52af56b
+    Translation of GIT committish: d12be863e1a7243f95d327002906c497f4741e33
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1491,6 +1491,9 @@ se controla mediante tres propiedades de contexto:
 @code{measureLength}, @code{beatLength} y @code{beatGrouping}.  Estas
 propiedades se deben establecer en los contextos @code{Score},
 @code{Staff} o @code{Voice} para delimitar el ámbito de su efecto.
+Los valores predeterminados se establecen al procesarse las
+instrucciones @code{\time}, por ello las instrucciones @code{\set} se
+deben escribir después de todas las instrucciones @code{\time}.
 
 Dichas propiedades determinan el barrado de la siguiente forma:
 
