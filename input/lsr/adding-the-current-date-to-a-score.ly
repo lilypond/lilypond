@@ -12,6 +12,12 @@ actual a una partitura.
 "
   doctitlees = "Añadir la fecha actual a una partitura"
 
+  doctitlefr = "Ajout de la date du jour à une partition"
+
+  texidocfr = "
+Avec un peu de code Scheme, voici comment ajouter facilement 
+la date du jour à votre partition."
+
   texidoc = "
 With a little Scheme code, the current date can easily be added to a
 score.

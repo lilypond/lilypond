@@ -21,6 +21,9 @@ truco se aplique a toda la partitura.
 "
   doctitlees = "Añadir un bajo cifrado encima o debajo de las notas"
 
+  doctitlefr = "Ajout d'une basse chiffrée au-dessus ou au-dessous des notes"
+  
+
   texidoc = "
 When writing a figured bass, here's a way to specify if you want your
 figures to be placed above or below the bass notes, by defining the
