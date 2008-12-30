@@ -267,6 +267,10 @@ multiples of fret-space.  Default value 0.5.
 @code{dot-label-font-mag} -- Magnification for font used to
 label fret dots.  Default value 1.
 @item
+@code{dot-position} -- Location of dot in fret space.  Default
+0.6 for dots without labels, 0.95-@code{dot-radius} for dots with
+labels.
+@item
 @code{dot-radius} -- Radius of dots, in terms of fret spaces.  
 Default value 0.425 for labeled dots, 0.25 for unlabeled dots.
 @item
@@ -280,8 +284,8 @@ Options include @code{none}, @code{in-dot}, and
 @code{fret-label-font-mag} -- The magnification of the font used to label
 the lowest fret number.  Default 0.5
 @item
-@code{fret-label-vertical-offset} -- The vertical offset of the fret label
-from the fret.  Default -0.2
+@code{fret-label-vertical-offset} -- The offset of the fret label
+from the center of the fret in direction parallel to strings.  Default 0.
 @item
 @code{label-dir} -- Side to which the fret label is attached.
 @code{-1}, @code{#LEFT}, or @code{#DOWN} for left or down;
@@ -299,12 +303,15 @@ include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.  Default
 string.  Default \"o\".
 @item
 @code{orientation} -- Orientation of fret-diagram.  Options include
-@code{normal} and @code{landscape}.  Default @code{normal}.
+@code{normal}, @code{landscape}, and @code{opposing-landscape}.
+Default @code{normal}.
 @item
 @code{string-count} -- The number of strings.  Default 6.
 @item
 @code{string-label-font-mag} -- The magnification of the font used to label 
-fingerings at the string, rather than in the dot.  Default value 0.6.
+fingerings at the string, rather than in the dot.  Default value 0.6 for
+@code{normal} orientation, 0.5 for @code{landscape} and 
+@code{opposing-landscape}.
 @item
 @code{top-fret-thickness} -- The thickness of the top fret line, as a multiple
 of the standard thickness.   Default value 3.
