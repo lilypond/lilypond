@@ -40,7 +40,7 @@ LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
   if (be_verbose_global)
     progress_indication ("[" + file_name);
 
-  FT_Face face = open_ft_face (file_name);
+  FT_Face face = open_ft_face (file_name, 0 /* index */);
   string table = get_otf_table (face, "CFF ");
 
   SCM asscm = scm_from_locale_stringn ((char *) table.data (),

@@ -52,7 +52,7 @@ public:
 };
 
 string get_otf_table (FT_Face face, string tag);
-FT_Face open_ft_face (string str, FT_Long idx = 0);
+FT_Face open_ft_face (string str, FT_Long idx);
 
 
 #endif /* OPEN_TYPE_FONT_HH */

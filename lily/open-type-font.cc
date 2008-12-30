@@ -108,7 +108,7 @@ open_ft_face (string str, FT_Long idx)
 SCM
 Open_type_font::make_otf (string str)
 {
-  FT_Face face = open_ft_face (str);
+  FT_Face face = open_ft_face (str, 0 /* index */);
   Open_type_font *otf = new Open_type_font (face);
 
   return otf->self_scm ();

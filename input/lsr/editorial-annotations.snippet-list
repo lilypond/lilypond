@@ -8,6 +8,7 @@ changing-a-single-notes-size-in-a-chord.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
 coloring-notes-depending-on-their-pitch.ly
 controlling-the-placement-of-chord-fingerings.ly
+creating-a-delayed-turn.ly
 creating-blank-staves.ly
 default-direction-of-stems-on-the-center-line-of-the-staff.ly
 embedding-native-postscript-in-a--markup-block.ly
