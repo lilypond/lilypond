@@ -10,7 +10,7 @@ La herramienta de combinación de partes ( instrucción
 @code{\\partcombine}) permite la combinación de varias partes
 diferentes sobre el mismo pentagrama.  Las indicaciones textuales
 tales como \"solo\" o \"a2\" se añaden de forma predeterminada;
-para quitarlas, sencillamente establezca la proopiedad
+para quitarlas, sencillamente establezca la propiedad
 @code{printPartCombineTexts} al valor \"falso\".  Para partituras
 vocales (como himnos), no hay necesidad de añadir los textos
 \"solo\" o \"a2\", por lo que se deben desactivar.  Sin embargo,

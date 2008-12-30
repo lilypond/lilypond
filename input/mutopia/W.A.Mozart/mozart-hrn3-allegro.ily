@@ -94,6 +94,7 @@ allegro =
 	c'2  b8[( a gis  a)]
 	 gis8[ e gis b ] e4 r |
 	r8  e,[ a c] dis4 r
+        r8  e,[ gis b ] e4 r
 	r8  e,[ a c] dis4 r
 	r8  e,[ g b] e4 r
 	r8  fis,[ b dis] fis4 r
