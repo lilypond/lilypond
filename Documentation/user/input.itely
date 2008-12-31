@@ -849,11 +849,19 @@ subdirectory called @file{parts} within the current directory, use
 @end example
 
 Files which are to be included can also contain @code{\include}
-statements of their own.  These second-level
+statements of their own.  By default, these second-level
 @code{\include} statements are not interpreted until they have
 been brought into the main file, so the file names they specify
 must all be relative to the directory containing the main file,
-not the directory containing the included file.
+not the directory containing the included file. However,
+this behavior can be changed by passing the option
+@code{-drelative-includes} option at the command line
+(or by adding using @code{#(ly:set-option 'relative-includes #t)}
+at the top of the main input file). With @code{relative-includes}
+set, the path for each @code{\include} command will be taken
+relative to the file containing that command. This behavior is
+recommended and it will become the default behavior in a future
+version of lilypond.
 
 Files can also be included from a directory in a search path
 specified as an option when invoking LilyPond from the command
