@@ -63,16 +63,16 @@ Engraver_dispatch_list::create (SCM trans_list,
 }
 
 SCM
-Engraver_dispatch_list::mark_smob (SCM x)
+Engraver_dispatch_list::mark_smob (SCM)
 {
-  (void)x;
   return SCM_BOOL_F;
 }
 
 int
-Engraver_dispatch_list::print_smob (SCM x, SCM p, scm_print_state *)
+Engraver_dispatch_list::print_smob (SCM /* x */,
+				    SCM p,
+				    scm_print_state *)
 {
-  (void)x;
   scm_puts ("#<Engraver_dispatch_list>", p);
   return 1;
 }

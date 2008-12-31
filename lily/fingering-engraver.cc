@@ -45,14 +45,13 @@ Fingering_engraver::listen_fingering (Stream_event *ev)
 
 IMPLEMENT_TRANSLATOR_LISTENER (Fingering_engraver, stroke_finger);
 void
-Fingering_engraver::listen_stroke_finger (Stream_event *ev)
+Fingering_engraver::listen_stroke_finger (Stream_event * /* ev */)
 {
   /*
     FIXME: should do something.
     
     This function is mainly here to shut up a warning
    */
-  (void)ev;
 }
 
 void

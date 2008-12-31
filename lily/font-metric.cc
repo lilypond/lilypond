@@ -185,9 +185,8 @@ Font_metric::word_stencil (string str) const
 }
 
 Stencil
-Font_metric::text_stencil (string str) const
+Font_metric::text_stencil (string /* str */) const
 {
-  (void) str;
   programming_error("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }

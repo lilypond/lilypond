@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @node Rhythms
 @section Rhythms
@@ -890,8 +890,8 @@ Taktangaben könne wie folgt erstellt werden.
 Taktangaben werden zu Beginn eines Stückes gesetzt und immer dann,
 wenn sich die Taktart ändert.  Wenn eine Änderung am Ende einer
 Zeile geschieht, wird eine warnende Taktangabe am Ende der Zeile
-ausgegeben.  Dieses Verhalten kann verändert werdenm, siehe
-@ref{Controlling visibility of objects}.
+ausgegeben.  Dieses Verhalten kann verändert werden, siehe
+@ref{Visibility of objects}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4

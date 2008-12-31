@@ -7,6 +7,7 @@
 
 */
 
+#include <cstdio>
 #include "tie-formatting-problem.hh"
 
 #include "axis-group-interface.hh"

@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -354,8 +354,8 @@ affichera @code{instrumentName}, et les suivantes
 @code{shortInstrumentName}. 
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
-\set Staff.instrumentName = "Ploink "
-\set Staff.shortInstrumentName = "Plk "
+\set Staff.instrumentName = #"Ploink "
+\set Staff.shortInstrumentName = #"Plk "
 c1
 \break
 c''
@@ -427,12 +427,12 @@ désactiver un graveur, voir @ref{Modifying context plug-ins}.
 Vous pouvez changer d'instrument en cours de morceau :
 
 @lilypond[quote,fragment,verbatim,ragged-right]
-\set Staff.instrumentName = "First"
-\set Staff.shortInstrumentName = "one"
+\set Staff.instrumentName = #"First"
+\set Staff.shortInstrumentName = #"one"
 c1 c c c \break
 c1 c c c \break
-\set Staff.instrumentName = "Second"
-\set Staff.shortInstrumentName = "two"
+\set Staff.instrumentName = #"Second"
+\set Staff.shortInstrumentName = #"two"
 c1 c c c \break
 c1 c c c \break
 @end lilypond

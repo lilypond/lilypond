@@ -162,14 +162,15 @@ Should be set for staves.")
      (crescendoText ,markup? "The text to print at start of non-hairpin
 crescendo, i.e., @samp{cresc.}.")
      (crescendoSpanner ,symbol? "The type of spanner to be used for
-crescendi.  Available values are @samp{hairpin}, @samp{line},
-@samp{dashed-line}, @samp{dotted-line}.  If unset, a hairpin crescendo
-is used.")
+crescendi.  Available values are @samp{hairpin} and @samp{text}.  If unset,
+a hairpin crescendo is used.")
      (currentBarNumber ,integer? "Contains the current barnumber.
 This property is incremented at every bar line.")
 
 
-     (decrescendoSpanner ,symbol? "See @code{crescendoSpanner}.")
+     (decrescendoSpanner ,symbol? "The type of spanner to be used for
+decrescendi.  Available values are @samp{hairpin} and @samp{text}.  If
+unset, a hairpin decrescendo is used.")
      (decrescendoText ,markup? "The text to print at start of
 non-hairpin decrescendo, i.e., @samp{dim.}.")
      (defaultBarType ,string? "Set the default type of bar line.  See

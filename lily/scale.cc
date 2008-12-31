@@ -57,8 +57,8 @@ LY_DEFINE (ly_default_scale, "ly:default-scale",
 	   "Get the global default scale.")
 {
   return default_global_scale
-    ? SCM_BOOL_F
-    : default_global_scale->self_scm ();
+    ? default_global_scale->self_scm ()
+    : SCM_BOOL_F;
 }
 
 
@@ -121,19 +121,17 @@ Scale::normalize_step (int step) const
 }
 
 int
-Scale::print_smob (SCM x, SCM port, scm_print_state *)
+Scale::print_smob (SCM /* x */,
+		   SCM port,
+		   scm_print_state *)
 {
-  (void) x;
-  
   scm_puts ("#<Scale>", port); 
   return 1;
 }
 
-
 SCM
-Scale::mark_smob (SCM x)
+Scale::mark_smob (SCM)
 {
-  (void) x;
   return SCM_UNSPECIFIED;
 }
 

@@ -17,5 +17,5 @@ also included in the user-manual.
 %}
 
 %% Optional version number
-\version "2.11.61"
+\version "2.12.0"
 

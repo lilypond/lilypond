@@ -39,7 +39,9 @@ class All_font_metrics
   All_font_metrics (All_font_metrics const &);
 public:
 
-  Index_to_charcode_map const *get_index_to_charcode_map (string filename, FT_Face face);
+  Index_to_charcode_map const *get_index_to_charcode_map (string filename,
+							  int face_index,
+							  FT_Face face);
 
   All_font_metrics (string search_path);
   ~All_font_metrics ();

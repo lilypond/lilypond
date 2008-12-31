@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.62"
+@c \version "2.12.0"
 
 @node Percussion
 @section Percussion
@@ -425,7 +425,7 @@ A tambourine, entered with @q{tamb}:
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Tambourine"
+  \set DrumStaff.instrumentName = #"Tambourine"
 }
 
 \new DrumStaff {
@@ -451,7 +451,7 @@ Music for Tam-Tam (entered with @q{tt}):
 tamtamstaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Tamtam"
+  \set DrumStaff.instrumentName = #"Tamtam"
 }
 
 \new DrumStaff {
@@ -474,7 +474,7 @@ bellstaff = {
   \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Different Bells"
+  \set DrumStaff.instrumentName = #"Different Bells"
 }
 
 \new DrumStaff {
@@ -541,7 +541,7 @@ drumsB = {
     }
 
    \new DrumStaff {
-     \set DrumStaff.instrumentName = "Grosse Caisse"
+     \set DrumStaff.instrumentName = #"Grosse Caisse"
      \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
      \drumsB }
   >>

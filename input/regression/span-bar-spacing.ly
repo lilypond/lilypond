@@ -3,7 +3,7 @@
 the accidentals should not collide with the bar lines."
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 upper = \relative c' {
   \key f \minor \time 12/8 

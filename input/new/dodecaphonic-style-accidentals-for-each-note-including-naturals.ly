@@ -1,4 +1,4 @@
-\version "2.11.62"
+\version "2.12.0"
 
 \header {
   lsrtags = "pitches"
@@ -24,8 +24,8 @@ This snippet shows how to achieve such notation rules.
   }
   \layout {
     \context {
-    \Staff
-    \remove "Key_engraver"
+      \Staff
+      \remove "Key_engraver"
     }
   }
 }

@@ -33,6 +33,9 @@
 (define-public (number-or-string? x)
   (or (number? x) (string? x)))
 
+(define-public (string-or-pair? x)
+  (or (string? x) (pair? x)))
+
 (define-public (scheme? x) #t)
 
 

@@ -58,10 +58,10 @@ public:
 protected:
   void classic_output_aux (SCM output,
 			   int *first_performance_number);
-  void output_aux (SCM output_channel,
-		   bool is_last,
-		   int *first_page_number,
-		   int *first_performance_number);
+  int output_aux (SCM output_channel,
+		  bool is_last,
+		  int *first_page_number,
+		  int *first_performance_number);
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)

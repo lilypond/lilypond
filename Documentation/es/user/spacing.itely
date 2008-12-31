@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
+    Translation of GIT committish: a665ef1bf16700359aa81ec649d3a500bfa72213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.64"
+@c \version "2.12.0"
 
 @node Spacing issues
 @chapter Spacing issues
@@ -113,13 +113,13 @@ aunque se sobreescribirán en la siguiente reinstalación del programa.
 
 Si se añade el símbolo @code{'landscape} (apaisado) como argumento a
 @code{set-default-paper-size}, las páginas se giran 90 grados y se
-establecen en consonancia un longitud mayor de las líneas.
+establece en consonancia una mayor longitud de las líneas.
 
 @example
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-al establecer el tamaño del papel se ajustan un cierto número de
+Al establecer el tamaño del papel se ajustan un cierto número de
 variables del @code{\paper}, tales como los márgenes.  Para utilizar
 un tamaño de página determinado con variables de @code{\paper}
 alteradas, establezca el tamaño de página antes de dar valores a las
@@ -219,7 +219,7 @@ la página.  Predeterminado: @code{4\mm}.
 @item page-top-space
 @funindex page-top-space
 
-Distancia desde la parte alte del área imprimible hasta el centro del
+Distancia desde la parte alta del área imprimible hasta el centro del
 primer pentagrama.  Esto sólo funciona para pentagramas con una
 anchura vertical pequeña.  Los pentagramas grandes se establecen con
 la parte alta de su caja circundante alineada a la parte alta del área
@@ -384,7 +384,7 @@ general.
 @item auto-first-page-number
 @funindex auto-first-page-number
 
-EL algoritmo de división de páginas está afectado por el hecho de que
+El algoritmo de división de páginas está afectado por el hecho de que
 el número de la primera página sea par o impar.  Si está establecido
 al valor verdadero, el algoritmo de división de páginas decide si
 comenzar con un número par o impar.  Esto hace que el número de la
@@ -494,7 +494,7 @@ orquestales.
 @funindex ragged-last
 
 Si está establecido a un valor verdadero, el último sistema de la
-partitura no llenará la anchura de la línea.  En su lugar, el últim
+partitura no llenará la anchura de la línea.  En su lugar, el último
 sistema termina en su longitud horizontal natural.  Predeterminado:
 @code{##f}.
 
@@ -596,8 +596,7 @@ exactos), utilice @code{set-global-staff-size}.
 
 @noindent
 Esto establece el tamaño global predeterminado a una altura de
-pentagrama de 14pt y escala todas las tipografías de manera
-correspondiente.
+pentagrama de 14pt y escala todas las tipografías según corresponda.
 
 Para establecer el tamaño del pentagrama de forma individual para cada
 partitura, use
@@ -695,7 +694,7 @@ del pentagrama.
 
 @funindex \layout
 
-Mientras que @code{\paper} conteine ajustes relativos al formato de
+Mientras que @code{\paper} contiene ajustes relativos al formato de
 página del documento completo, @code{\layout} contiene ajustes para la
 disposición específica de cada partitura.
 
@@ -839,8 +838,7 @@ c4 c2 c4
 
 Esto se puede evitar eliminando el grabador
 @code{Forbid_line_break_engraver}.  Observe que los saltos de línea
-forzados manualmente breaks se tienen que añadir en paralelo con la
-música.
+forzados manualmente se tienen que añadir en paralelo con la música.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
@@ -1257,7 +1255,7 @@ pentagramas dentro de un sistema.
 @cindex espacio entre pentagramas
 @cindex espacio dentro de los sistemas
 
-La altura de cad sistema se determina automáticamente.  Para evitar
+La altura de cada sistema se determina automáticamente.  Para evitar
 que los pentagramas se superpongan unos encima de otros, se establecen
 algunas distancias mínimas.  Al modificarlas, podemos poner los
 pentagramas más cerca unos de otros.  Esto reduce el espacio que
@@ -1286,7 +1284,7 @@ que coincidir; por ejemplo, el pentagrama se puede hacer mayor por
 debajo dándole el valor @code{(-6 . 4)}.
 
 Después de que se han determinado los saltos de página, se reevalúa el
-espaciado vertical dentrod e cada sistema para llenar la página de
+espaciado vertical dentro de cada sistema para llenar la página de
 forma más regular; si una página tiene más espacio de sobra, se
 amplían los sistemas para poder llenar este espacio.  La magnitud de
 esta ampliación se puede configurar a través de la propiedad
@@ -1392,7 +1390,7 @@ mediante el establecimiento al valor @code{#t} de la variable
 @code{page-limit-inter-system-space} en el bloque @code{\paper}.  La
 variable del papel @code{page-limit-inter-system-space-factor}
 determina en qué cantidad se puede incrementar el espacio: por
-ejemplo, el valor @code{1.3} sisgnifica que el espacio puede ser un
+ejemplo, el valor @code{1.3} significa que el espacio puede ser un
 30% mayor que lo que sería en una página no justificada hasta abajo.
 
 En el ejemplo siguiente, si el espacio entre los sistemas no estuviese
@@ -1604,7 +1602,7 @@ usando la subpropiedad @code{alignment-offsets} de
 }
 @end lilypond
 
-Aobserve que aquí asignamos dos valores distintos al atributo
+Observe que aquí asignamos dos valores distintos al atributo
 @code{line-break-system-details} del grob
 @code{NonMusicalPaperColumn}.  Aunque el atributo alist de
 @code{line-break-system-details} acepta muchos parámetros de espaciado
@@ -1765,7 +1763,7 @@ exterior del pentagrama.  Después ordena los objetos fuera del
 pentagrama de acuerdo a su prioridad @code{outside-staff-priority} (en
 orden creciente).  LilyPond toma los objetos fuera del pentagrama uno
 a uno y los coloca de forma que no choquen con ningún objeto que ya
-haya sido colocado.  Eesto es, si dos grobs fuera del pentagrama
+haya sido colocado.  Esto es, si dos grobs fuera del pentagrama
 compiten por el mismo espacio, el que tiene la prioridad
 @code{outside-staff-priority} más baja se colocará más próximo al
 pentagrama.
@@ -1795,24 +1793,26 @@ c^"This text is padded away from the previous text"
 c^"This text is placed close to the previous text"
 @end lilypond
 
-HACER: ¿este ejemplo ya no funciona?
-
-De forma predeterminada, los objetos fuera del pentagrama se sitúan
-sin tener en cuenta su distancia horizontal a partir de los grobs
-posicionados previamente.  Esto puede llevar a situiaciones en las que
-los objetos se colocan muy próximos entre sí en el sentido horizontal.
-El establecimiento del relleno horizontal
+De forma predeterminada, los objetos fuera del pentagrama se colocan
+sólo para evitar una colisión horizontal con los grobs posicionados
+previamente.  Esto puede llevar a situaciones en las que los objetos
+se colocan muy próximos entre sí en el sentido horizontal.  El espacio
+vertical entre pentagramas se puede fijar también de manera que los
+objetos fuera del pentagrama se sitúen de forma intercalada.  El
+establecimiento del relleno horizontal
 @code{outside-staff-horizontal-padding} ocasiona que un objeto se
-desplace verticalmente para que tal situiación no ocurra.
+desplace verticalmente para que tal situación no ocurra.
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 % the markup is too close to the following note
-c2^"Text"
+c4^"Text"
+c4
 c''2
 % setting outside-staff-horizontal-padding fixes this
 R1
 \once \override TextScript #'outside-staff-horizontal-padding = #1
-c,,2^"Text"
+c,,4^"Text"
+c4
 c''2
 @end lilypond
 
@@ -1870,7 +1870,7 @@ por un espacio de 1 ACB.
 
 Si siguiésemos el procedimiento anterior exactamente, entonces la
 adición de una sola fusa a una partitura que usa corcheas y
-semicorcheas, aumentaría enormemente la anchuta de la partitura
+semicorcheas, aumentaría enormemente la anchura de la partitura
 completa.  La nota más breve ya no es la semicorchea, sino la fusa,
 añadiendo así 1 ACB a cada una de las notas.  Para evitarlo, la
 duración más breve a efectos de espaciado no es la nota más breve de
@@ -1886,7 +1886,7 @@ una corchea.  La duración más breve se imprime cuando se ejecuta
 Estas duraciones también se pueden personalizar.  Si establecemos la
 @code{common-shortest-duration} en @rinternals{SpacingSpanner},
 entonces éste establece la duración base para el espaciado.  La
-duración máxima para esta base (normalmente un a corchea), se fija a
+duración máxima para esta base (normalmente una corchea), se fija a
 través de @code{base-shortest-duration}.
 
 @funindex common-shortest-duration
@@ -2195,7 +2195,7 @@ ajuste @code{proportionalNotationDuration}.
 @end lilypond
 
 La blanca al princpio del compás y las notas rápidas de la segunda
-mitad del compás ocupan ahora igual cantidades iguales de espacio
+mitad del compás ocupan ahora cantidades iguales de espacio
 horizontal.  Podríamos colocar una línea de tiempo graduada o un
 gráfico encima o debajo de este ejemplo.
 
@@ -2424,8 +2424,8 @@ partituras proporcionales abordan este problema de distinta manera.
 Sería posible evitar los problemas de espaciado con las armaduras,
 simplemente evitando tenerlas.  Esta es una opción válida pues casi
 todas las partituras proporcionales son música contemporánea.  Lo
-mismo puede valer para las indicaciones de compás, espacialmente para
-las partituras que incluyen ula línea de tiempo graduada u otro
+mismo puede valer para las indicaciones de compás, especialmente para
+las partituras que incluyen una línea de tiempo graduada u otro
 gráfico.  Pero estas partituras son excepcionales y casi todas las
 partituras proporcionales incluyen al menos unas pocas indicaciones de
 compás.  Las claves y las alteraciones son aún más esenciales.
@@ -2459,7 +2459,7 @@ Compare las dos partituras siguientes:
 @end lilypond
 
 Las dos poartituras son proporcionales, pero el espaciado de la
-primera es muy suelto a causa del cmabio de clave. Sin embargo, el
+primera es muy suelto a causa del cambio de clave. Sin embargo, el
 espaciado de la segunda partitura se mantiene estricto, porque
 @code{strict-note-spacing} está activado.  La activación de
 @code{strict-note-spacing} hace que el ancho de las indicaciones de
@@ -2534,7 +2534,7 @@ página, establezca @code{annotate-spacing} en el bloque @code{\paper}:
 @noindent
 Todas las dimensiones de disposición se muestran en espacios de
 pentagrama, independientemenre de las unidades especificadas en los
-bloques @code{\paper} o @code{\layout}.  Por ejemmplo,
+bloques @code{\paper} o @code{\layout}.  Por ejemplo,
 @code{paper-height} tiene un valor de 59.75 espacios de pentagrama,
 usando el tamaño predeterminado de pentagrama de 20 puntos, que
 equivale a 148 milímetros, la altura de una hoja de papel @code{a6} en
@@ -2589,7 +2589,7 @@ disposición con 10 sistemas.
 Evitar (o reducir en número) los objetos que aumentan el tamaño
 vertical de un sistema.  Por ejemplo, las repeticiones de primera y
 segunda vez (o repeticiones con finales alternativos) necesitan
-espacio adicional.  Si estas repeticiones se reparten a lo lardo de
+espacio adicional.  Si estas repeticiones se reparten a lo largo de
 dos sistemas, ocupan más espacio que un sistema con las casillas de
 repetición y otro sistema sin ellas.  Por ejemplo, las indicaciones
 dinámicas que se @q{salen} de un sistema se pueden acercar al

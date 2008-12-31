@@ -1,4 +1,4 @@
-\version "2.11.64"
+\version "2.12.0"
 
 \header {
   texidoc = "For a one-page score, ragged-bottom should have the

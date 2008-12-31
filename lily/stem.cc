@@ -229,11 +229,10 @@ Stem::is_normal_stem (Grob *me)
 
 MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
 SCM
-Stem::pure_height (SCM smob, SCM start, SCM end)
+Stem::pure_height (SCM smob,
+		   SCM /* start */,
+		   SCM /* end */)
 {
-  (void) start;
-  (void) end;
-
   Grob *me = unsmob_grob (smob);
   Interval iv;
 
@@ -1052,6 +1051,8 @@ ADD_INTERFACE (Stem,
 	       "avoid-note-head "
 	       "beam "
 	       "beaming "
+	       "beamlet-default-length "
+	       "beamlet-max-length-proportion "
 	       "default-direction "
 	       "details "
 	       "direction "

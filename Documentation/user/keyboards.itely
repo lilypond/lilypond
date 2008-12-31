@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @node Keyboard and other multi-staff instruments
 @section Keyboard and other multi-staff instruments
@@ -600,10 +600,10 @@ repeats}
 
 @seealso
 Notation Reference:
-@ruser{Tremolo repeats}
-@ruser{Glissando}
-@ruser{Arpeggio}
-@ruser{Harmonics}
+@ref{Tremolo repeats}
+@ref{Glissando}
+@ref{Arpeggio}
+@ref{Harmonics}
 
 @node Harp pedals
 @unnumberedsubsubsec Harp pedals
@@ -642,5 +642,5 @@ position (sharpened pitch), and @code{|} is the divider. A prefixed
 
 @seealso
 Notation Reference:
-@ruser{Text scripts}
-@ruser{Instrument Specific Markup}
+@ref{Text scripts}
+@ref{Instrument Specific Markup}

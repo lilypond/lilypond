@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0646758d26f727fc27fc13a87df2362388909e5d
+    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @node Notation manual tables
 @appendix Notation manual tables
@@ -199,7 +199,7 @@ Séptima semi-disminuido
 @tab
 Tríada disminuida y séptima menor
 @tab
-@code{dim5m7}
+@code{m7.5-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
@@ -212,11 +212,11 @@ Menor con séptima mayor
 @tab
 Tríada menor con séptima mayor
 @tab
-@code{7m5}
+@code{maj7.5-}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
-  c1:7m5
+  c1:maj7.5-
 }
 @end lilypond
 
@@ -260,9 +260,9 @@ Séptima dominante con novena mayor
 @end lilypond
 
 @item
-Novena mayor
+Mayor con novena
 @tab
-HACER
+Séptima mayor y novena mayor
 @tab
 @code{maj9}
 @tab
@@ -275,7 +275,7 @@ HACER
 @item
 Menor con novena
 @tab
-HACER
+Séptima menor y novena mayor
 @tab
 @code{m9}
 @tab
@@ -301,7 +301,7 @@ Novena dominante con oncena justa
 @item
 Oncena mayor
 @tab
-HACER
+Novena mayor y oncena justa
 @tab
 @code{maj11}
 @tab
@@ -314,13 +314,26 @@ HACER
 @item
 Menor con oncena
 @tab
-HACER
+Novena menor y oncena justa
 @tab
 @code{m11}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m11
+}
+@end lilypond
+
+@item
+Trecena dominante
+@tab
+Novena dominante y trecena mayor
+@tab
+@code{13}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13
 }
 @end lilypond
 
@@ -340,7 +353,7 @@ Oncena dominante y trecena mayor
 @item
 Mayor con trecena
 @tab
-HACER
+Oncena mayor y trecena mayor
 @tab
 @code{maj13.11}
 @tab
@@ -353,7 +366,7 @@ HACER
 @item
 Menor con trecena
 @tab
-HACER
+Oncena menor y trecena mayor
 @tab
 @code{m13.11}
 @tab
@@ -366,7 +379,7 @@ HACER
 @item
 Segunda suspendida
 @tab
-HACER
+Segunda mayor y quinta justa
 @tab
 @code{sus2}
 @tab
@@ -379,7 +392,7 @@ HACER
 @item
 Cuarta suspendida
 @tab
-HACER
+Cuarta justa y quinta justa
 @tab
 @code{sus4}
 @tab

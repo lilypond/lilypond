@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 4770e4e71ebff6104cad46bd2d889c3ff6ba3875
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @c Translators: Reinhold Kainhofer
 @c Translation checkers: Till Rettig
@@ -705,6 +705,13 @@ erzeugt ein Zitat der Form
   f2 e
 @end example
 
+@noindent
+Wenn Kommentare und Variablen im Zitat, aber nicht im Quelltext
+übersetzt werden sollen, kann die Umgebungsvariable @code{LYDOC_LOCALEDIR}
+auf einen Verzeichnispfad gesetzt werden.  Das Verzeichnis sollte
+einen Baum an @file{.mo}-Nachrichtenkatalogen beinhalten mit
+@code{lilypond-doc} als Domain.
+
 @item addversion
 (Nur innerhalb von Texinfo-Dateien.) Stellt @code{\version
 @@w@{"@@version@{@}"@}} an den Beginn des Fragments der Ausgabe mit
@@ -741,8 +748,8 @@ so liefert der folgende Aufruf von @code{lilypond-book} das gewünschte
 Ergebnis:
 
 @example
-lilypond-book --process="lilypond --format=tex --tex \
-              --header=texidoc test.texinfo
+lilypond-book --pdf --process="lilypond \
+  -dbackend=eps --header=texidoc" test.texinfo
 @end example
 
 Die meisten Test-Dateien (im @file{input/} Verzeichnis von LilyPond)
@@ -770,6 +777,10 @@ dieser Datei, der eine einzelne Textzeile sein sollte, im Texinfo-Dokument
 als @code{@@lydoctitle @var{Text}} eingefügt. @code{@@lydoctitle} muss 
 allerdings in Ihrem Texinfo-Dokument als Makro selbst definiert werden.
 Die Übersetzung funktioniert völlig analog zu @code{texidoc}.
+
+@item nogettext
+Nur für Texinfo-Ausgabe: Kommentare und Variablenbezeichnungen im
+zitierten Quelltext des Schnipsel werden nicht übersetzt.
 
 @item printfilename
 Wenn eine LilyPond-Datei mittels @code{\lilypondfile} und dieser Option

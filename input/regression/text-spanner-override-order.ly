@@ -5,7 +5,7 @@
 
 }
 
-\version "2.11.65"
+\version "2.12.0"
 
 sample = \relative c'' {
   c2\startTextSpan c2 \break

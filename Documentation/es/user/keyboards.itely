@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
+    Translation of GIT committish: 4f8c7b381812949e6f765f641fba9108b52af56b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @node Keyboard and other multi-staff instruments
 @section Keyboard and other multi-staff instruments
@@ -34,7 +34,7 @@ teclado.
 @subsection Common notation for keyboards
 
 Esta sección trata aspectos de notación que pueden aparecer en casi
-todos los instrumentos que tengan muchas cuerdas.
+todos los instrumentos de teclado.
 
 @menu
 * References for keyboards::
@@ -104,6 +104,10 @@ tweaks}.
 
 @end itemize
 
+@c @snippets
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
+@c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
 
 @seealso
 Manual de aprendizaje:
@@ -267,13 +271,20 @@ tanto, en caso necesario escriba @code{\relative} dentro de
 Si se necesita más control sobre los pentagramas individuales, se
 pueden crear manualmente con los nombres @code{"up"} y @code{"down"}.
 Entonces, la instrucción @code{\autochange} alternará su voz entre los
-pentagramas existentes.  Por ejemplo, esto es necesario para colocar
-una armadura de tonalidad en el pentagrama inferior:
+pentagramas existentes.
 
-@lilypond[quote,verbatim]
+@warning{Si se crean los pentagramas manualmente, @emph{se deben}
+llamar @code{"up"} y @code{"down"} (en inglés).}
+
+Por ejemplo, esto es necesario para colocar una armadura de tonalidad
+en el pentagrama inferior:
+
+@c Keep Ly needed, otherwise 'up' and 'down' get incorrectly translated in verbatim output
+@c KEEP LY
+@lilypond[quote,verbatim,nogettext]
 \new PianoStaff <<
   \new Staff = "up" {
-    \new Voice = "melOne" {
+    \new Voice = "melodiaUno" {
       \key g \major
       \autochange \relative c' {
         g8 b a c b d c e
@@ -583,31 +594,41 @@ Fragmentos de código:
 @node Harp
 @subsection Harp
 
+Esta sección trata sobre asuntos de notación específicos del arpa.
+
 @menu
-* Harp notation::
+* References for harps::
 * Harp pedals::
 @end menu
 
-@node Harp notation
-@unnumberedsubsubsec Harp notation
+@node References for harps
+@unnumberedsubsubsec References for harps
+@cindex harps
+@cindex bisbiglando
 
-Continuará...
+Ciertas características comunes de la música de arpa se estudian en
+otras partes de la documentación:
 
-@ignore
-Some possibilities:
-- glissandi
-- tremolo (for bisbigliando)
-- natural harmonics
-- directional arpeggio and non-arpeggio
-- workaroung for keeping both staves visible in an orchestral
-  score,
-http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
-and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+@itemize
 
-An LSR snippet could be used to demonstrate the main items; in the
-case of glissandi, it would be desirable to have a demonstration
-of different styles.
-@end ignore
+@item El glissando es la técnica más característica del arpa,
+@ref{Glissando}.
+
+@item El @notation{bisbigliando} se escribe como un trémolo, @ref{Tremolo
+repeats}
+
+@item Los armónicos naturales se estudian bajo el epígrafe @ref{Harmonics}.
+
+@item Para los arpegios dirigidos y los no arpegios, véase @ref{Arpeggio}.
+
+@end itemize
+
+@seealso
+Referencia de la notación:
+@ref{Tremolo repeats},
+@ref{Glissando},
+@ref{Arpeggio},
+@ref{Harmonics}.
 
 @node Harp pedals
 @unnumberedsubsubsec Harp pedals
@@ -649,4 +670,5 @@ una elipse.
 
 @seealso
 Referencia de la notación:
-@ruser{Text scripts}.
+@ref{Text scripts},
+@ref{Instrument Specific Markup}.

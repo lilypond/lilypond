@@ -1,4 +1,4 @@
-\version "2.11.26"
+\version "2.12.0"
 
 %% defined later, in a closure
 #(define-public (add-toc-item! markup-symbol text)

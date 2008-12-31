@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.65"
+@c \version "2.12.0"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -404,11 +404,12 @@ Beachten Sie, dass die Syntax des @code{\tweak}-Befehls sich
 von der des @code{\override}-Befehls unterscheidet. Weder
 Kontext noch Layout-Objekt konnen angegeben werden, denn 
 das würde zu einem Fehler führen. Beide Angaben sind 
-durch das folgende Element impliziert. Die verallgemeinerte
+durch das folgende Element impliziert. Hier sollte auch
+kein Gleichheitzeichen vorhanden sein.  Die verallgemeinerte
 Syntax des @code{\tweak}-Befehls ist also einfach
 
 @example
-\tweak #'@var{layout-eigenschaft} = #@var{Wert}
+\tweak #'@var{layout-eigenschaft} #@var{Wert}
 @end example
 
 Ein @code{\tweak}-Befehl kann auch benutzt werden, um nur 
@@ -1441,7 +1442,7 @@ braucht.
          <<
            { f c c }
            \new Staff \with {
-             alignAboveContext = "main" }
+             alignAboveContext = #"main" }
            { f8 f c }
          >>
          r4 |
@@ -1469,7 +1470,7 @@ wir setzen den Stencil von beiden auf @code{#f}:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1538,7 +1539,7 @@ Das obige Beispiel könnte also auch so aussehen:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1609,7 +1610,7 @@ Setzen wir das also in unserem Ossia-Beispiel ein:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1681,7 +1682,7 @@ sie benutzt:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2
@@ -3749,12 +3750,16 @@ wurde, nicht passiert.
 tippen, und sie müssen immer absolut richtig sein.  Wenn
 derselbe Befehl mehrere Male benutzt werden muss, lohnt
 es sich oft schon, eine Variable zu definieren, in der er
-sich befindet.  Als Beispiel sollen einige Worte im
+sich befindet.
+
+Als Beispiel sollen einige Worte im
 Gesangstext fett und kursiv hervorgehoben werden.
 Die Befehle @code{\italic} und @code{\bold} funktionieren
-im Gesangstext-Kontext nur, wenn sie gleichzeitig
-noch in eine @code{\markup}-Umgebung eingeschlossen
-werden, was es mühsam macht, sie zu tippen.  Als
+im Gesangstext-Kontext nur, wenn sie gleichzeitig mit den Wörtern,
+auf die sie angewendet werden sollen, zusätzlich
+in eine @code{\markup}-Umgebung eingeschlossen
+werden. Durch diese Einbettung können einzelne Wörter nicht
+einfach zu einer Variable umgeformt werden.  Als
 Alternative versuchen wir, einen Befehl mit
 @code{\override} und @code{\revert} zu konstruieren.
 
@@ -3766,11 +3771,15 @@ Alternative versuchen wir, einen Befehl mit
 @code{\revert Lyrics . LyricText #'font-series}
 @end example
 
-Das wäre natürlich noch viel mühsamer.  Also setzen wir
-anstatt dessen zwei Variablen, die diese Befehlsketten
-enthalten.  Die Namen können natürlich auch kürzer sein,
-um noch weniger schreiben zu müssen.  Die Benutzung der Befehle
-ist im Notenbeispiel gezeigt.
+Das wäre natürlich noch viel mühsamer, wenn viele Wörter eine
+Hervorhebung benötigen.  Anstelle dieser Befehlsketten @emph{können}
+wir jedoch zwei Variablen definieren.  Mit ihnen und dem entsprechenden
+Wort in geschweiften Klammern erreichen wir den gewünschten Effekt.
+Ein weiterer Vorteil ist, dass in diesem Fall die Leerzeichn um die
+Punkte herum nicht benötigt werden, weil sie nicht innerhalb des
+@code{lyricmode}-Kontextes interpretiert werden.  Hier ein Beispiel;
+die Bezeichnungen können natürlich auch kürzer sein,
+um noch weniger schreiben zu müssen:
 
 @cindex LyricText, Beispiel zur Veränderung
 @cindex Gesangstext, Beispiel zur Veränderung
@@ -3779,12 +3788,12 @@ ist im Notenbeispiel gezeigt.
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics . LyricText #'font-shape = #'italic
-  \override Lyrics . LyricText #'font-series = #'bold
+  \override Lyrics.LyricText #'font-shape = #'italic
+  \override Lyrics.LyricText #'font-series = #'bold
 }
 normal = {
-  \revert Lyrics . LyricText #'font-shape
-  \revert Lyrics . LyricText #'font-series
+  \revert Lyrics.LyricText #'font-shape
+  \revert Lyrics.LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}

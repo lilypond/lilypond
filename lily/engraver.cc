@@ -106,13 +106,19 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
 #endif
 
 Grob *
-Engraver::internal_make_grob (SCM symbol, SCM cause, char const *name, char const *file, int line, char const *fun)
+Engraver::internal_make_grob (SCM symbol,
+			      SCM cause,
+			      char const * /* name */,
+			      char const *file,
+			      int line,
+			      char const *fun)
 {
-  (void) file;
-  (void) fun;
-  (void) line;
-  (void) name;
-  
+#ifdef NDEBUG
+  (void)file;
+  (void)line;
+  (void)fun;
+#endif
+
   SCM props = updated_grob_properties (context (), symbol);
 
   Grob *grob = 0;

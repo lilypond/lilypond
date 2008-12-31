@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @node Rhythms
 @section Rhythms
@@ -51,7 +51,7 @@ quarter note is entered using a @code{4} (since it is a 1/4 note),
 and a half note is entered using a @code{2} (since it is a 1/2
 note).  For notes longer than a whole you must use the
 @code{\longa} (a double breve) and @code{\breve} commands.
-Durations as short as 64th notes may be specified.  Shorter values
+Durations as short as 128th notes may be specified.  Shorter values
 are possible, but only as beamed notes.
 
 @c Two 64th notes are needed to obtain beams
@@ -1453,7 +1453,9 @@ particular beam in the time signature in use, its beaming is
 controlled by three context properties:
 @code{measureLength}, @code{beatLength} and @code{beatGrouping}.
 These properties may be set in the @code{Score}, @code{Staff} or
-@code{Voice} contexts to delimit their scope.
+@code{Voice} contexts to delimit their scope.  The default values
+are set while processing @code{\time} commands, so the @code{\set}
+commands must be placed after all @code{\time} commands.
 
 These determine the beaming as follows:
 

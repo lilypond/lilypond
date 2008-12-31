@@ -2,7 +2,7 @@
   created with the @code{systemStartDelimiterHierarchy} property."
 }
 
-\version "2.11.56"
+\version "2.12.0"
 
 \paper {
   ragged-right = ##t

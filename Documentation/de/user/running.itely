@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 4770e4e71ebff6104cad46bd2d889c3ff6ba3875
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @c Translators: Reinhold Kainhofer, Till Rettig
 
@@ -222,6 +222,7 @@ Einrichtung.
 @item backend
 Gibt an, welches Ausgabeformat das LilyPond Backend benutzt. Mögliche Werte
 für diese Option sind:
+
 @table @code
 @item ps
 PostScript-Ausgabeformat.
@@ -256,6 +257,10 @@ gibt die rohen Scheme-basierenden Zeichenbefehle aus, wie sie intern von
 LilyPond benutzt werden.
 
 @cindex Scheme dump
+
+@item null
+Keine Partitur wird ausgegeben, hat gleichen Effekt wie @code{-dno-print-pages}.
+
 @end table
 
 Beispiel: @code{lilypond -dbackend=svg @var{Dateiname}.ly}
@@ -308,8 +313,6 @@ werden durch
 
 @item --pdf
 Erzeugt PDF-Dateien. Dies impliziert @code{--ps}.
-
-
 
 @item -j,--jail=@var{Benutzer},@var{Gruppe},@var{Jail-Verzeichnis},@var{Arbeitsverzeichnis}
 Führt @command{lilypond} in einem chroot-Jail aus.

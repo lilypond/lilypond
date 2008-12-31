@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @node Ancient notation
 @section Ancient notation
@@ -728,7 +728,7 @@ There are no 32th and 64th rests specifically for the mensural or
 neo-mensural style.  Instead, the rests from the default style will be
 taken.
 
-See @rlsr{Pitches,rests} for a chart of all rests.
+See @rlsr{Ancient notation} for a chart of all rests.
 
 @seealso
 Notation Reference: @ref{Rests}, gives a general introduction into the use of

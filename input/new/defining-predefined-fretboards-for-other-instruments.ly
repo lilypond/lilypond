@@ -1,4 +1,4 @@
-\version "2.11.65"
+\version "2.12.0"
 \header {
   lsrtags = "fretted-strings"
   texidoc = "Predefined fret diagrams can be added for new instruments

@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.65"
+@c \version "2.12.0"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -59,14 +59,17 @@ Some other elements pertinent to fretted string instruments
 are covered elsewhere:
 
 @itemize
-@item Fingerings are indicated with @ref{Fingering instructions}.
+@item Fingerings are indicated as shown in @ref{Fingering instructions}.
 
 @item Instructions for @notation{Laissez vibrer} ties
-as well as ties on arpeggios and tremolos is described in
+as well as ties on arpeggios and tremolos can be found in
 @ref{Ties}.
 
-@item Instructions on handling multiple voices is described
+@item Instructions for handling multiple voices can be found
 in @ref{Collision resolution}.
+
+@item Instructions for indicating harmonics can be found in
+@ref{Harmonics}.
 
 @end itemize
 
@@ -604,14 +607,18 @@ element of the list indicates an item to be placed on the fret diagram.
 @end lilypond
 
 Fingering indications and barres can be included in a
-fret-diagram-verbose markup string.
+fret-diagram-verbose markup string.  Unique to the 
+fret-diagram-verbose interface is a capo indication that 
+can be placed on the fret diagram.  The capo indication is
+a thick bar that covers all strings.  The fret with the
+capo will be the lowest fret in the fret diagram.
 
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
      \chordmode {
-       f1 g
+       f1 g c
      }
   }
   \context Staff {
@@ -638,7 +645,15 @@ fret-diagram-verbose markup string.
         (open 2)
         (place-fret 1 3 3)
       )
-  }
+    < c e g c' e'> ^\markup
+      \fret-diagram-verbose #'(
+        (capo 3)
+        (mute 6)
+        (place-fret 4 5 1)
+        (place-fret 3 5 2)
+        (place-fret 2 5 3)
+      )
+   }
 >>
 @end lilypond
 
@@ -838,8 +853,10 @@ mychords = \chordmode{
 @cindex adding custom fret diagrams
 
 Fret diagrams can be added to the fret diagram table.  To add a diagram,
-you must specify the chord for the diagram, the tuning to be used, and the
-fret-diagram-terse definition string for the diagram.
+you must specify the chord for the diagram, the tuning to be used, and 
+a definition for the diagram.  The diagram definition can be either a
+fret-diagram-terse definition string or a fret-diagram-verbose
+marking list.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -870,7 +887,7 @@ octaves of pitches.
 
 \storePredefinedDiagram \chordmode {c'}
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'bes))
+                        #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode{
   c1 c'
@@ -898,23 +915,27 @@ In addition to fret diagrams, LilyPond stores an internal list of chord
 shapes.  The chord shapes are fret diagrams that can be shifted along
 the neck to different posistions to provide different chords.  Chord
 shapes can be added to the internal list and then used to define
-predefined fret diagrams.
+predefined fret diagrams.  Because they can be moved to various
+positions on the neck, chord shapes will normally not contain
+any open strings.  Like fret diagrams, chord shapes can be
+entered as either fret-diagram-terse strings or fret-diagram-verbose
+marking lists.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
 % add a new chord shape
 
-\addChordShape #'powerf #"1-1;3-3;3-4;x;x;x;"
+\addChordShape #'powerf #guitar-tuning #"1-1;3-3;3-4;x;x;x;"
 
 % add some new chords based on the power chord shape
 
 \storePredefinedDiagram \chordmode {f'}
                         #guitar-tuning
-                        #(chord-shape 'powerf)
+                        #(chord-shape 'powerf guitar-tuning) 
 \storePredefinedDiagram \chordmode {g'}
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'powerf))
+                        #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
 mychords = \chordmode{
   f1 f' g g'

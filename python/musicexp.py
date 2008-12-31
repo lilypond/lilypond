@@ -892,10 +892,10 @@ class BarLine (Music):
         self.type = None
         
     def print_ly (self, printer):
-        bar_symbol = { 'regular': "|", 'dotted': ":", 'dashed': ":",
+        bar_symbol = { 'regular': "|", 'dotted': ":", 'dashed': "dashed",
                        'heavy': "|", 'light-light': "||", 'light-heavy': "|.",
                        'heavy-light': ".|", 'heavy-heavy': ".|.", 'tick': "'",
-                       'short': "'", 'none': "" }.get (self.type, None)
+                       'short': "'|", 'none': "" }.get (self.type, None)
         if bar_symbol <> None:
             printer.dump ('\\bar "%s"' % bar_symbol)
         else:

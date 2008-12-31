@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.12.0"
 
 \header {
   texidoc = "Setting @code{'zigzag} style for spanners does not

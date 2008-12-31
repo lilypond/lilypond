@@ -10,7 +10,7 @@ is not terminated upon encountering a rest. "
   ragged-right = ##T
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 <<
   \new Voice = "one" \relative c'' {

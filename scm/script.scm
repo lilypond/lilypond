@@ -111,6 +111,7 @@
       (side-relative-direction .  -1)
       (quantize-position . #t)
       (avoid-slur . inside) 
+      (toward-stem-shift . 0.5)
       (padding . 0.20)	   
       (script-priority . -100)))
     ("tenuto" .

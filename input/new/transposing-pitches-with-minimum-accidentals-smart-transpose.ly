@@ -1,4 +1,4 @@
-\version "2.11.61"
+\version "2.12.0"
 \header {
   lsrtags = "pitches"
   texidoc = "This example uses some Scheme code to enforce enharmonic
@@ -31,7 +31,8 @@ In this manner, the most natural enharmonic notes are chosen.
 #(define  (naturalize-pitch p)
   (let* ((o (ly:pitch-octave p))
          (a (* 4 (ly:pitch-alteration p)))
-    ; alteration, a, in quarter tone steps, for historical reasons
+         ; alteration, a, in quarter tone steps,
+         ; for historical reasons
          (n (ly:pitch-notename p)))
     (cond
      ((and (> a 1) (or (eq? n 6) (eq? n 2)))
@@ -52,23 +53,23 @@ In this manner, the most natural enharmonic notes are chosen.
          (e (ly:music-property music 'element))
          (p (ly:music-property music 'pitch)))
     (if (pair? es)
-        (ly:music-set-property!
+       (ly:music-set-property!
          music 'elements
          (map (lambda (x) (naturalize x)) es)))
     (if (ly:music? e)
-        (ly:music-set-property!
+       (ly:music-set-property!
          music 'element
          (naturalize e)))
     (if (ly:pitch? p)
-        (begin
-          (set! p (naturalize-pitch p))
-          (ly:music-set-property! music 'pitch p)))
+       (begin
+         (set! p (naturalize-pitch p))
+         (ly:music-set-property! music 'pitch p)))
     music))
 
 naturalizeMusic =
 #(define-music-function (parser location m)
-					(ly:music?)
-			(naturalize m))
+  (ly:music?)
+  (naturalize m))
 
 music = \relative c' { c4 d e g }
 

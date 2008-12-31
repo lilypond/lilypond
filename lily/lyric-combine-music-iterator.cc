@@ -260,10 +260,8 @@ Lyric_combine_music_iterator::find_voice ()
 }
 
 void
-Lyric_combine_music_iterator::process (Moment when)
+Lyric_combine_music_iterator::process (Moment /* when */)
 {
-  (void) when;
-  
   /* see if associatedVoice has been changed */
   Context *new_voice = find_voice ();
   if (new_voice)

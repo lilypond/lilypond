@@ -83,11 +83,11 @@ get_measure_length (Grob *column)
 }
 
 Real
-Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
+Spacing_spanner::note_spacing (Grob * /* me */,
+			       Grob *lc,
+			       Grob *rc,
 			       Spacing_options const *options)
 {
-  (void) me;
-  
   Moment shortest_playing_len = 0;
   SCM s = lc->get_property ("shortest-playing-duration");
 

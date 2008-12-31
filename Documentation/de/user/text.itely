@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 4770e4e71ebff6104cad46bd2d889c3ff6ba3875
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.65"
+@c \version "2.12.0"
 
 @node Text
 @section Text
@@ -335,40 +335,8 @@ sich in @ref{Multi-page markup}.
 
 @snippets
 
-@ignore
-@c TODO Replace following example with this snippet when available
-@c Submitted to LSR 30 Nov 08
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{stand--alone-two--column-markup.ly}
-@end ignore
-
-Text alleine kann auch in mehreren Spalten angeordnet werden.
-
-@lilypond[verbatim,quote]
-\markup {
- \fill-line {
-  \hspace #1.0
-  \column {
-   \line {"O sacrum convivium" }
-   \line {"in quo Christus sumitur," }
-   \line {"recolitur memoria passionis ejus," }
-   \line {"mens impletur gratia," }
-   \line {"futurae gloriae nobis pignus datur." }
-   \line {"Amen."}
-  }
-  \hspace #2
-  \column {
-   \line { \italic {"O sacred feast"} }
-   \line { \italic {"in which Christ is received,"} }
-   \line { \italic {"the memory of His Passion is renewed,"} }
-   \line { \italic {"the mind is filled with grace," } }
-   \line { \italic {"and a pledge of future glory is given to us." }}
-   \line { \italic {"Amen."}}
-  }
-  \hspace #1.0
- }
-}
-@end lilypond
+{stand-alone-two-column-markup.ly}
 
 @seealso
 Notationsreferenz:

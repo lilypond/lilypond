@@ -302,27 +302,24 @@ Auto_beam_engraver::finalize ()
 
 
 void
-Auto_beam_engraver::acknowledge_beam (Grob_info info)
+Auto_beam_engraver::acknowledge_beam (Grob_info /* info */)
 {
-  (void)info;
   check_bar_property ();
   if (stems_)
     end_beam ();
 }
 
 void
-Auto_beam_engraver::acknowledge_bar_line (Grob_info info)
+Auto_beam_engraver::acknowledge_bar_line (Grob_info /* info */)
 {
-  (void)info;
   check_bar_property ();
   if (stems_)
     end_beam ();
 }
 
 void
-Auto_beam_engraver::acknowledge_rest (Grob_info info)
+Auto_beam_engraver::acknowledge_rest (Grob_info /* info */)
 {
-  (void)info;
   check_bar_property ();
   if (stems_)
     end_beam ();

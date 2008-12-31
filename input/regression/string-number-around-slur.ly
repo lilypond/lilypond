@@ -1,4 +1,4 @@
-\version "2.11.57"
+\version "2.12.0"
 
 \header {
   texidoc = "String numbers should only be moved outside slurs when there

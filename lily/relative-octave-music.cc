@@ -19,9 +19,9 @@ public:
 
 MAKE_SCHEME_CALLBACK (Relative_octave_music, no_relative_callback, 2)
   SCM
-Relative_octave_music::no_relative_callback (SCM music, SCM pitch)
+Relative_octave_music::no_relative_callback (SCM /* music */,
+					     SCM pitch)
 {
-  (void)music;
   return pitch;
 }
 

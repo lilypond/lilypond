@@ -5,7 +5,7 @@
   "Both edge heights of an ottava bracket can be specified."
 }
 
-\version "2.11.53"
+\version "2.12.0"
 
 
 \layout { ragged-right = ##t} 

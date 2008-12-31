@@ -5,7 +5,7 @@ if the switch occurs together with context instantiation."
 
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 <<
   \relative \new Voice = "lahlah" {

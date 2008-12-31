@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.65"
+@c \version "2.12.0"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -369,11 +369,12 @@ Note that the syntax of @code{\tweak} is different from that
 of the @code{\override} command.  Neither the context nor the
 layout object should be specified; in fact, it would generate
 an error to do so.  These are both implied by the following
-item in the input stream.  So the general syntax of the
+item in the input stream.  Note also that an equals sign should
+not be present.  So the general syntax of the
 @code{\tweak} command is simply
 
 @example
-\tweak #'@var{layout-property} = #@var{value}
+\tweak #'@var{layout-property} #@var{value}
 @end example
 
 A @code{\tweak} command can also be used to modify just one in
@@ -1303,7 +1304,7 @@ how to introduce a new temporary staff, as in an @rglos{ossia}.
          <<
            { f c c }
            \new Staff \with {
-             alignAboveContext = "main" }
+             alignAboveContext = #"main" }
            { f8 f c }
          >>
          r4 |
@@ -1330,7 +1331,7 @@ we simply set the stencil of each to @code{#f}, as follows:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1391,7 +1392,7 @@ So we could replace the example above with
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1455,7 +1456,7 @@ Let's try it in our ossia example:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1520,7 +1521,7 @@ objects in proportion.  It is used like this:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main"
+        alignAboveContext = #"main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2
@@ -2046,6 +2047,33 @@ c\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
 c, c c c
+@end lilypond
+
+@cindex slurs and outside-staff-priority
+@cindex slurs and articulations
+@cindex articulations and slurs
+
+Slurs by default are classed as within-staff objects, but
+they often appear above the staff if the notes to
+which they are attached are high on the staff.  This can push
+outside-staff objects such as articulations too high, as the slur
+will be placed first.  The @code{avoid-slur} property of the
+articulation can be set to @code{'inside} to bring the articulation
+inside the slur, but the @code{avoid-slur} property is effective
+only if the @code{outside-staff-priority} is also set to @code{#f}.
+Alternatively, the @code{outside-staff-priority} of the slur
+can be set to a numerical value to cause it to be placed along with
+other outside-staff objects according to that value.  Here's an
+example showing the effect of the two methods:
+
+@lilypond[quote,verbatim,relative=2]
+c4( c^\markup\tiny\sharp d4.) c8
+c4(
+\once \override TextScript #'avoid-slur = #'inside
+\once \override TextScript #'outside-staff-priority = ##f
+c^\markup\tiny\sharp d4.) c8
+\once \override Slur #'outside-staff-priority = #500
+c4( c^\markup\tiny\sharp d4.) c8
 @end lilypond
 
 Changing the @code{outside-staff-priority} can also be used to
@@ -3431,12 +3459,14 @@ second (with the stencil removed) does not.
 Override commands are often long and tedious to type, and they
 have to be absolutely correct.  If the same overrides are to be
 used many times it may be worth defining variables to hold them.
+
 Suppose we wish to emphasize certain words in lyrics by printing
 them in bold italics.  The @code{\italic} and @code{\bold}
-commands only work within lyrics if they are also embedded in
-@code{\markup}, which makes them tedious to enter, so as an
-alternative can we instead use the @code{\override} and
-@code{\revert} commands?
+commands only work within lyrics if they are embedded, together with
+the word or words to be modified, within a @code{\markup} block,
+which makes them tedious to enter.  The need to embed the words
+themselves prevents their use in simple variables.  As an
+alternative can we use @code{\override} and @code{\revert} commands?
 
 @example
 @code{\override Lyrics . LyricText #'font-shape = #'italic}
@@ -3447,10 +3477,13 @@ alternative can we instead use the @code{\override} and
 @end example
 
 These would also be extremely tedious to enter if there were many
-words requiring emphasis.  So instead we define these as two
-variables, and use them as follows, although normally we would
-perhaps choose shorter names for the variables to make them
-quicker to type:
+words requiring emphasis.  But we @emph{can} define these as two
+variables and use those to bracket the words to be emphasized.
+Another advantage of using variables for these overrides is that
+the spaces around the dot are not necessary, since they are not
+being interpreted in @code{\lyricmode} directly.  Here's an example
+of this, although in practice  we would choose shorter names
+for the variables to make them quicker to type:
 
 @cindex LyricText, example of overriding
 @cindex font-shape property, example
@@ -3458,12 +3491,12 @@ quicker to type:
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics . LyricText #'font-shape = #'italic
-  \override Lyrics . LyricText #'font-series = #'bold
+  \override Lyrics.LyricText #'font-shape = #'italic
+  \override Lyrics.LyricText #'font-series = #'bold
 }
 normal = {
-  \revert Lyrics . LyricText #'font-shape
-  \revert Lyrics . LyricText #'font-series
+  \revert Lyrics.LyricText #'font-shape
+  \revert Lyrics.LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}

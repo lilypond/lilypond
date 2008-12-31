@@ -38,9 +38,6 @@ internal_ly_parse_scm (Parse_start *ps)
   SCM answer = SCM_UNSPECIFIED;
   SCM form = scm_read (port);
 
-  /* Reset read_buf for scm_ftell.
-     Shouldn't scm_read () do this for us?  */
-  scm_fill_input (port);
   SCM to = scm_ftell (port);
   ps->nchars = scm_to_int (to) - scm_to_int (from);
   

@@ -1,4 +1,4 @@
-\version "2.11.50"
+\version "2.12.0"
 
 \header {
   texidoc = "An empty barline does not confuse the spacing engine too much.

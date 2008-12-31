@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 \header{
 
   texidoc="For longer measure lengths, the breve rest is used."

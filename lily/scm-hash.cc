@@ -120,9 +120,11 @@ Scheme_hash_table::remove (SCM k)
 }
 
 static SCM
-collect_handles (void *closure, SCM key, SCM value, SCM result)
+collect_handles (void * /* closure */,
+		 SCM key,
+		 SCM value,
+		 SCM result)
 {
-  (void) closure;
   return scm_acons(key, value, result);
 }
 

@@ -89,8 +89,6 @@ relative to the current file (instead of the root file)")
     (separate-log-files #f "Output to FILE.log per file.")
     (trace-memory-frequency #f "Record Scheme cell usage this many times per second, and dump to file.")
     (trace-scheme-coverage #f "Record coverage of Scheme files") 
-    (ttf-verbosity 0
-		   "how much verbosity for TTF font embedding?")
     (show-available-fonts #f
 			  "List font names available.")
     (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")

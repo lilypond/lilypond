@@ -2820,7 +2820,7 @@ def conv (str):
 @rule ((2, 11, 62), "makam-init.ly -> makam.ly, \\bigger -> \\larger")
 def conv (str):
     str = re.sub (r'\\include(\s+)"makam-init.ly"', r'\\include\1"makam.ly"', str)
-    str = re.sub (r"\\bigger", r"\\larger", str)
+    str = re.sub (r"([\\:])bigger", r"\1larger", str)
     return str
 
 @rule ((2, 11, 64), "systemSeparatorMarkup -> system-separator-markup,\n\
@@ -2842,6 +2842,24 @@ def conv (str):
     else:
         str = re.sub ('InnerStaffGroup', 'StaffGroup', str)
         str = re.sub ('InnerChoirStaff', 'ChoirStaff', str)
+    return str
+
+@rule ((2, 12, 0),
+       _ ("Syntax changes for \\addChordShape and \\chord-shape") + "\n" + \
+       _ ("bump version for release"))
+def conv(str):
+    if re.search(r'\\addChordShape', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("stringTuning must be added to \
+addChordShape call.\n"))
+        stderr_write (UPDATE_MANUALLY)
+        raise FatalConversionError ()
+    if re.search (r'\\chord-shape', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("stringTuning must be added to \
+chord-shape call.\n"))
+        stderr_write (UPDATE_MANUALLY)
+        raise FatalConversionError ()
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

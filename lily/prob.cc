@@ -174,10 +174,9 @@ Prob::internal_set_property (SCM sym, SCM val)
 }
 
 void
-Prob::type_check_assignment (SCM sym, SCM val) const
+Prob::type_check_assignment (SCM, SCM) const
 {
-  (void) sym;
-  (void) val;
+  /* empty */
 }
 
 SCM

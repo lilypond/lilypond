@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.64"
+@c \version "2.12.0"
 
 @ignore
 GDP TODO list
@@ -1775,23 +1775,26 @@ c^"This text is padded away from the previous text"
 c^"This text is placed close to the previous text"
 @end lilypond
 
-TODO: this example doesn't work any more ?
 
-By default, outside-staff objects are placed without regard to
-their horizontal distance from the previously-positioned grobs.  This
+By default, outside-staff objects are placed only to avoid
+a horizontal collision with previously-positioned grobs.  This
 can lead to situations in which objects are placed very close to each
-other horizontally.  Setting @code{outside-staff-horizontal-padding}
+other horizontally.  The vertical spacing between staffs can
+also be set so that outside staff objects are interleaved.  
+Setting @code{outside-staff-horizontal-padding}
 causes an object to be offset vertically so that such a situation
 doesn't occur.
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 % the markup is too close to the following note
-c2^"Text"
+c4^"Text"
+c4
 c''2
 % setting outside-staff-horizontal-padding fixes this
 R1
 \once \override TextScript #'outside-staff-horizontal-padding = #1
-c,,2^"Text"
+c,,4^"Text"
+c4
 c''2
 @end lilypond
 

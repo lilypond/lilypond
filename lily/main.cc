@@ -12,6 +12,7 @@
 #include <clocale>
 #include <cstring>
 #include <cerrno>
+#include <cstdio>
 using namespace std;
 
 #include <unistd.h>
@@ -258,6 +259,10 @@ LY_DEFINE (ly_usage, "ly:usage",
   printf ("\n");
   printf (Long_option_init::table_string (options_static).c_str ());
   printf ("\n");
+  /* Translators, please translate this string as
+         "Report bugs in English via %s",
+     or if there is a LilyPond users list or forum in your language
+         "Report bugs in English via %s or in YOUR_LANG via URI"  */
   printf (_f ("Report bugs via %s",
 	      "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
 	      ).c_str ());

@@ -18,9 +18,8 @@
 #include "system.hh"
 
 static bool
-is_break (Grob *g)
+is_break (Grob *)
 {
-  (void) g; /* shutup warning */
   return false;
 }
 

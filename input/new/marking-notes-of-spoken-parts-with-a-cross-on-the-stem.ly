@@ -1,4 +1,4 @@
-\version "2.11.62"
+\version "2.12.0"
 
 \header {
   lsrtags = "editorial-annotations, vocal-music"
@@ -6,23 +6,25 @@
   texidoc = "
 This example shows how to put crosses on stems. Mark the beginning
 of a spoken section with the @code{\\speakOn} keyword, and end it
-with the @code{\\speakOff} keyword.  Remember to end cross sections
-before entering any rest: this function also adds crosses to the
-invisible stems of rests.
+with the @code{\\speakOff} keyword.
 "
   doctitle = "Marking notes of spoken parts with a cross on the stem"
 }
 
 speakOn = {
   \override Stem #'stencil = #(lambda (grob)
-  (ly:stencil-combine-at-edge
-    (ly:stem::print grob)
-    Y
-    (- (ly:grob-property grob 'direction))
-    (grob-interpret-markup grob
-      (markup #:hspace -1.025 #:fontsize -4
-        #:musicglyph "noteheads.s2cross"))
-    -2.3 0))
+    (let* ((x-parent (ly:grob-parent grob X))
+           (is-rest? (ly:grob? (ly:grob-object x-parent 'rest))))
+      (if is-rest?
+        empty-stencil
+        (ly:stencil-combine-at-edge
+          (ly:stem::print grob)
+          Y
+          (- (ly:grob-property grob 'direction))
+          (grob-interpret-markup grob
+            (markup #:hspace -1.025 #:fontsize -4
+              #:musicglyph "noteheads.s2cross"))
+          -2.3 0))))
 }
 
 speakOff = {

@@ -92,8 +92,6 @@ Output_def::print_smob (SCM s, SCM p, scm_print_state *)
   Output_def * def = unsmob_output_def (s);
   scm_puts ("#< ", p);
   scm_puts (def->class_name (), p);
-  
-  (void)def;
   scm_puts (">", p);
   return 1;
 }
