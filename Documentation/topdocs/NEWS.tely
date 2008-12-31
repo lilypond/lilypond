@@ -63,6 +63,27 @@ which scares away people.
 @end ignore
 
 @item
+Unbeamed 128th notes are now supported:
+@lilypond
+\relative c'' {
+  g128
+}
+@end lilypond
+
+@item
+Straight flags (used in old scores of e.g. Bach, but also in different form in 
+modern scores of e.g. Stockhausen) are now implemented:
+@lilypond
+\relative c'' {
+  \override Stem #'flag = #modern-straight-flag
+  c,16 \acciaccatura {c'8} d4 d32 
+  \bar":"
+  \override Stem #'flag = #old-straight-flag
+  c,16 \acciaccatura {c'8} d4 d32 
+}
+@end lilypond
+
+@item
 @code{\bookpart} blocks may be used to split a book into several parts,
 separated by a page break, in order to ease the page breaking, or to use
 different @code{\paper} settings in different parts.

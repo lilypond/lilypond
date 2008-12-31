@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.64"
+@c \version "2.11.65"
 
 @node Staff notation
 @section Staff notation
@@ -213,7 +213,7 @@ die Angabe einer Instrumentbezeichnung.  Zu Einzelheiten siehe
 
 @lilypond[verbatim,quote,relative=2]
 \new PianoStaff <<
-  \set PianoStaff.instrumentName = "Piano"
+  \set PianoStaff.instrumentName = #"Piano"
   \new Staff { c1 c }
   \new Staff { c1 c }
 >>
@@ -904,8 +904,8 @@ System eingesetzt, der Wert von @code{shortInstrumentName} für
 alle weiteren Systeme.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = "Violin "
-\set Staff.shortInstrumentName = "Vln "
+\set Staff.instrumentName = #"Violin "
+\set Staff.shortInstrumentName = #"Vln "
 c4.. g'16 c4.. g'16
 \break
 c1
@@ -931,7 +931,7 @@ mehrzeilige Instrumentenbezeichnungen zentriert zu setzen, muss
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
   \new Staff {
-    \set Staff.instrumentName = "Flute"
+    \set Staff.instrumentName = #"Flute"
     f2 g4 f
   }
   \new Staff {
@@ -962,14 +962,14 @@ Zu Einzelheiten siehe @ref{Horizontal dimensions}.
 
 \relative c'' <<
   \new Staff {
-    \set Staff.instrumentName = "Alto Flute in G"
-    \set Staff.shortInstrumentName = "Fl."
+    \set Staff.instrumentName = #"Alto Flute in G"
+    \set Staff.shortInstrumentName = #"Fl."
     f2 g4 f \break
     g4 f g2
   }
   \new Staff {
-    \set Staff.instrumentName = "Clarinet"
-    \set Staff.shortInstrumentName = "Clar."
+    \set Staff.instrumentName = #"Clarinet"
+    \set Staff.shortInstrumentName = #"Clar."
     c,4 b c2 \break
     c2 b4 c
   }
@@ -990,12 +990,12 @@ Instrumentenbezeichnungen können mitten in einer Partitur
 geändert werden:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = "First"
-\set Staff.shortInstrumentName = "one"
+\set Staff.instrumentName = #"First"
+\set Staff.shortInstrumentName = #"one"
 c1 c c c \break
 c1 c c c \break
-\set Staff.instrumentName = "Second"
-\set Staff.shortInstrumentName = "two"
+\set Staff.instrumentName = #"Second"
+\set Staff.shortInstrumentName = #"two"
 c1 c c c \break
 c1 c c c \break
 @end lilypond
@@ -1025,7 +1025,7 @@ wird dann benutzt, um den Wechsel vorzunhemen:
      (midiInstrument . "bassoon"))
 
 \new Staff \with {
-  instrumentName = "Bassoon"
+  instrumentName = #"Bassoon"
 }
 \relative c' {
   \clef tenor

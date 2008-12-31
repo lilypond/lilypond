@@ -4,14 +4,14 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.57\n"
+"Project-Id-Version: lilypond 2.12.0\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2008-12-09 11:43+0100\n"
+"POT-Creation-Date: 2008-12-20 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: convertrules.py:12
@@ -391,6 +391,14 @@ msgstr ""
 msgid "re-definition of InnerChoirStaff.\n"
 msgstr ""
 
+#: convertrules.py:2851
+msgid "stringTuning must be added to addChordShape call.\n"
+msgstr ""
+
+#: convertrules.py:2857
+msgid "stringTuning must be added to chord-shape call.\n"
+msgstr ""
+
 #: fontextract.py:25
 #, python-format
 msgid "Scanning %s"
@@ -522,8 +530,12 @@ msgstr ""
 msgid "preserve ABC's notion of beams"
 msgstr ""
 
+#. Translators, please translate this string as
+#. "Report bugs in English via %s",
+#. or if there is a LilyPond users list or forum in your language
+#. "Report bugs in English via %s or in YOUR_LANG via URI"
 #: abc2ly.py:1363 convert-ly.py:123 etf2ly.py:1200 lilypond-book.py:214
-#: midi2ly.py:894 musicxml2ly.py:2646 main.cc:261
+#: midi2ly.py:894 musicxml2ly.py:2646 main.cc:265
 #, c-format, python-format
 msgid "Report bugs via %s"
 msgstr ""
@@ -722,105 +734,105 @@ msgstr ""
 msgid "be verbose"
 msgstr ""
 
-#: lilypond-book.py:869
+#: lilypond-book.py:871
 #, python-format
 msgid "file not found: %s"
 msgstr ""
 
-#: lilypond-book.py:1137
+#: lilypond-book.py:1142
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:1139
+#: lilypond-book.py:1144
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:1142
+#: lilypond-book.py:1147
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr ""
 
-#: lilypond-book.py:1144
+#: lilypond-book.py:1149
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: lilypond-book.py:1162
+#: lilypond-book.py:1167
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: lilypond-book.py:1598
+#: lilypond-book.py:1604
 #, python-format
 msgid "Opening filter `%s'"
 msgstr ""
 
-#: lilypond-book.py:1615
+#: lilypond-book.py:1621
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: lilypond-book.py:1616
+#: lilypond-book.py:1622
 msgid "The error log is as follows:"
 msgstr ""
 
-#: lilypond-book.py:1678
+#: lilypond-book.py:1684
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
-#: lilypond-book.py:1778
+#: lilypond-book.py:1784
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:1784
+#: lilypond-book.py:1790
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:1790
+#: lilypond-book.py:1796
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:1824
+#: lilypond-book.py:1830
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:1835
+#: lilypond-book.py:1841
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:1849
+#: lilypond-book.py:1855
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:1907
+#: lilypond-book.py:1913
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:1911
+#: lilypond-book.py:1917
 #, python-format
 msgid "Reading %s..."
 msgstr ""
 
-#: lilypond-book.py:1931
+#: lilypond-book.py:1937
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:1947
+#: lilypond-book.py:1953
 #, python-format
 msgid "Compiling %s..."
 msgstr ""
 
-#: lilypond-book.py:1956
+#: lilypond-book.py:1962
 #, python-format
 msgid "Processing include: %s"
 msgstr ""
 
-#: lilypond-book.py:1968
+#: lilypond-book.py:1974
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
@@ -1362,6 +1374,26 @@ msgstr ""
 msgid "unterminated extender"
 msgstr ""
 
+#: font-config-scheme.cc:140 font-config.cc:57
+#, c-format
+msgid "failed adding font directory: %s"
+msgstr ""
+
+#: font-config-scheme.cc:142 font-config.cc:59
+#, c-format
+msgid "adding font directory: %s"
+msgstr ""
+
+#: font-config-scheme.cc:156
+#, c-format
+msgid "failed adding font file: %s"
+msgstr ""
+
+#: font-config-scheme.cc:158
+#, c-format
+msgid "adding font file: %s"
+msgstr ""
+
 #: font-config.cc:28
 msgid "Initializing FontConfig..."
 msgstr ""
@@ -1369,16 +1401,6 @@ msgstr ""
 #: font-config.cc:44
 #, c-format
 msgid "Rebuilding FontConfig cache %s, this may take a while..."
-msgstr ""
-
-#: font-config.cc:57
-#, c-format
-msgid "failed adding font directory: %s"
-msgstr ""
-
-#: font-config.cc:59
-#, c-format
-msgid "adding font directory: %s"
 msgstr ""
 
 #: font-config.cc:63
@@ -1738,52 +1760,52 @@ msgstr ""
 msgid "Options:"
 msgstr ""
 
-#: main.cc:307
+#: main.cc:311
 #, c-format
 msgid "expected %d arguments with jail, found: %u"
 msgstr ""
 
-#: main.cc:321
+#: main.cc:325
 #, c-format
 msgid "no such user: %s"
 msgstr ""
 
-#: main.cc:323
+#: main.cc:327
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:338
+#: main.cc:342
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
-#: main.cc:340
+#: main.cc:344
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr ""
 
-#: main.cc:348
+#: main.cc:352
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:355
+#: main.cc:359
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr ""
 
-#: main.cc:361
+#: main.cc:365
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr ""
 
-#: main.cc:367
+#: main.cc:371
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:607
+#: main.cc:611
 #, c-format
 msgid "exception caught: %s"
 msgstr ""
@@ -1862,8 +1884,12 @@ msgstr ""
 msgid "cannot write to file: `%s'"
 msgstr ""
 
-#: minimal-page-breaking.cc:42
-msgid "Computing page breaks..."
+#: minimal-page-breaking.cc:38 paper-score.cc:105
+msgid "Calculating line breaks..."
+msgstr ""
+
+#: minimal-page-breaking.cc:42 layout-page-layout.scm:463
+msgid "Calculating page breaks..."
 msgstr ""
 
 #: music-iterator.cc:171
@@ -2041,10 +2067,6 @@ msgstr ""
 #: paper-outputter-scheme.cc:30
 #, c-format
 msgid "Layout output to `%s'..."
-msgstr ""
-
-#: paper-score.cc:105
-msgid "Calculating line breaks..."
 msgstr ""
 
 #: paper-score.cc:118
@@ -2507,21 +2529,21 @@ msgstr ""
 msgid "invalid character: `%c'"
 msgstr ""
 
-#: lexer.ll:803 lexer.ll:804
+#: lexer.ll:803
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:910 lexer.ll:911
+#: lexer.ll:910
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:911 lexer.ll:912
+#: lexer.ll:911
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:917 lexer.ll:918
+#: lexer.ll:917
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -2633,7 +2655,7 @@ msgstr ""
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: flag-styles.scm:81
+#: flag-styles.scm:145
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr ""
@@ -2701,10 +2723,6 @@ msgstr ""
 
 #: layout-page-layout.scm:126
 msgid "Can't fit systems on page -- ignoring between-system-padding"
-msgstr ""
-
-#: layout-page-layout.scm:463
-msgid "Calculating page breaks..."
 msgstr ""
 
 #: lily-library.scm:602

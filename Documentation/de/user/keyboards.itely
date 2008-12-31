@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -111,6 +111,13 @@ können, sind demonstriert in
 @rlearning{Other uses for tweaks}.
 
 @end itemize
+
+
+@c @snippets
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
+@c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+
 
 @seealso
 Handbuch zum Lernen:
@@ -270,14 +277,22 @@ Notenhöhen.
 Wenn individuelle Kontrolle über die einzelen Systeme benötigt
 wird, können sie manuell mit den Bezeichnungen  @code{"up"} und
 @code{"down"} erstellt werden.  Der @code{\autochange}-Befehl
-wechselt dann die Stimme zwischen den Systemen.  Das ist etwa
-nötig, damit ein Tonart für das untere System definiert werden
-kann.
+wechselt dann die Stimme zwischen den Systemen.
 
-@lilypond[quote,verbatim]
+@warning{Wenn Systeme manuell erstellt werden, @strong{müssen} sie genau
+die Bezeichnungen @code{"up"} und @code{"down"} bekommen, damit die
+automatische Wechselfunktion sie erkennen kann.}
+
+Systeme müssen etwa manuell erstellt werden, damit die Tonart im unteren
+System gesetzt werden kann:
+
+@c Keep Ly needed, otherwise 'up' and 'down' get
+@c incorrectly translated in verbatim output
+@c KEEP LY
+@lilypond[quote,verbatim,nogettext]
 \new PianoStaff <<
   \new Staff = "up" {
-    \new Voice = "melOne" {
+    \new Voice = "melodieEins" {
       \key g \major
       \autochange \relative c' {
         g8 b a c b d c e
@@ -561,33 +576,47 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 Schnipsel:
 @rlsr{Keyboards}.
 
-@menu
-* Harp notation::
-* Harp pedals::
-@end menu
 
 
 @node Harp
 @subsection Harp
 
-TBC
+Dieser Abschnitt zeigt Eigenheiten der Notation für Harfe.
 
-@ignore
-Some possibilities:
-- glissandi
-- tremolo (for bisbigliando)
-- natural harmonics
-- directional arpeggio and non-arpeggio
-- workaroung for keeping both staves visible in an orchestral
-  score,
-http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
-and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+@menu
+* References for harps::
+* Harp pedals::
+@end menu
 
-An LSR snippet could be used to demonstrate the main items; in the
-case of glissandi, it would be desirable to have a demonstration
-of different styles.
 
-@end ignore
+@node References for harps
+@unnumberedsubsubsec References for harps
+
+@cindex Harfe
+
+Einige übliche Notationseigenheiten für Harfe sind woanders behandelt:
+
+@itemize
+
+@item Glissando ist die üblichste Harfentechnik, siehe
+@ref{Glissando}.
+
+@item Ein @notation{Bisbigliando} wird als ein Tremolo notiert, siehe @ref{Tremolo
+repeats}
+
+@item Flageolettöne werden hier beschrieben: @ref{Harmonics}.
+
+@item Für Arpeggio und non-arpeggio, siehe @ref{Arpeggio}.
+
+@end itemize
+
+@seealso
+Notationsreferenz:
+@ref{Tremolo repeats}
+@ref{Glissando}
+@ref{Arpeggio}
+@ref{Harmonics}
+
 
 
 @node Harp pedals
@@ -628,4 +657,5 @@ Trenner.  Ein @code{o} vor der Definition umrandet das Symbol.
 
 @seealso
 Notationsreferenz:
-@ruser{Text scripts}
+@ref{Text scripts}
+@ref{Instrument Specific Markup}.

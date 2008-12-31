@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 \header {
   texidoc = "Stemlets don't cause stems on whole notes."
 } 

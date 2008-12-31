@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.62"
+@c \version "2.11.65"
 
 @node Percussion
 @section Percussion
@@ -388,8 +388,6 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 @snippets
 
-FIXME: MOVE ALL THESE TO LSR!  -gp
-
 Hier einige Beispiele:
 
 Zwei Holzblöcke, notiert mit wbh (hoch) und wbl (tief)
@@ -437,7 +435,7 @@ Tamburin, notiert mit @code{tamb}:
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Tambourine"
+  \set DrumStaff.instrumentName = #"Tambourine"
 }
 
 \new DrumStaff {
@@ -463,7 +461,7 @@ Noten für Tam-Tam (notiert mit @code{tt}):
 tamtamstaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Tamtam"
+  \set DrumStaff.instrumentName = #"Tamtam"
 }
 
 \new DrumStaff {
@@ -487,7 +485,7 @@ bellstaff = {
   \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
   \override Staff.BarLine #'bar-size = #3
-  \set DrumStaff.instrumentName = "Different Bells"
+  \set DrumStaff.instrumentName = #"Different Bells"
 }
 
 \new DrumStaff {
@@ -554,7 +552,7 @@ drumsB = {
     }
 
    \new DrumStaff {
-     \set DrumStaff.instrumentName = "Grosse Caisse"
+     \set DrumStaff.instrumentName = #"Grosse Caisse"
      \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
      \drumsB }
   >>

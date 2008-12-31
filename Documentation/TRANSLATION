@@ -47,6 +47,10 @@ The reader is supposed to be familiar with Git, for example by
 having experience from lilypond.org translation; see
 http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web/master
 
+If you do not have this experience, you may want to read the first two
+chapters of Git User's Manual at
+http://www.kernel.org/pub/software/scm/git/docs/user-manual.html
+
 
 REQUIREMENTS
 
@@ -116,9 +120,9 @@ Word counts (excluding lilypond snippets) are given for each file.
 23    user/dedication.itely
 423   user/macros.itexi
 171   index.html.in
-6420  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
+6346  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
 ---   ../lilypond-texi2html.init (section TRANSLATIONS)
-13831 total
+13757 total
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely
@@ -131,44 +135,44 @@ Word counts (excluding lilypond snippets) are given for each file.
 
 -3- Learning manual
 10318 user/fundamental.itely -- Fundamental concepts
-14581 user/tweaks.itely -- Tweaking output
+14647 user/tweaks.itely -- Tweaking output
 3007  user/working.itely -- Working on LilyPond files
 483   user/templates.itely -- Templates
-28389 total
+28455 total
 
 -4- Notation reference
 695   user/lilypond.tely
 91    user/notation.itely -- Musical notation
-3086  user/pitches.itely
+3123  user/pitches.itely
 5013  user/rhythms.itely
 1146  user/expressive.itely
 555   user/repeats.itely
 1455  user/simultaneous.itely
 1635  user/staff.itely
-906   user/editorial.itely
+895   user/editorial.itely
 2286  user/text.itely
 76    user/specialist.itely -- Specialist notation
 2670  user/vocal.itely
-1333  user/chords.itely
+1464  user/chords.itely
 702   user/piano.itely
 810   user/percussion.itely
 826   user/guitar.itely
 66    user/strings.itely
 242   user/bagpipes.itely
-4486  user/ancient.itely
+4487  user/ancient.itely
 5805  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
-8444  user/spacing.itely -- Spacing issues
-11291 user/changing-defaults.itely -- Changing defaults
+8451  user/spacing.itely -- Spacing issues
+11391 user/changing-defaults.itely -- Changing defaults
 5202  user/programming-interface.itely -- Interfaces for programmers
-1155  user/notation-appendices.itely -- Notation manual tables
+1190  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-62390 total
+62690 total
 
 -5- Application usage
-3185  user/lilypond-book.itely -- LilyPond-book
+3248  user/lilypond-book.itely -- LilyPond-book
 1171  user/converters.itely -- Converting from other formats
-4356  total
+4419  total
 
 -6- Appendices whose translation is optional
 310   user/literature.itely

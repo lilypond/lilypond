@@ -766,7 +766,7 @@ ossia = { f4 f f f }
   \relative c' \new Staff = "main" {
     c4 c c c
     <<
-      \new Staff \with {alignAboveContext=main} \ossia
+      \new Staff \with { alignAboveContext = #"main" } \ossia
       { d8 f d f d f d f }
     >>
   }
@@ -2761,7 +2761,7 @@ marks on such objects.
 * Setting @code{X-offset} and @code{Y-offset} directly::
 * Using the @code{side-position-interface}::
 * Using the @code{self-alignment-interface}::
-* Using the @code{break-aligned-interface}::
+* Using the @code{break-alignable-interface}::
 @end menu
 
 @node Setting @code{X-offset} and @code{Y-offset} directly
@@ -2928,17 +2928,20 @@ example shows the difference:
 
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
-@node Using the @code{break-aligned-interface}
-@unnumberedsubsubsec Using the @code{break-aligned-interface}
+@node Using the @code{break-alignable-interface}
+@unnumberedsubsubsec Using the @code{break-alignable-interface}
 
-Rehearsal marks may be aligned with notation objects other
-than bar lines.  These objects include @code{ambitus},
+@cindex align to objects
+@cindex break-align-symbols
+
+Rehearsal marks and bar numbers may be aligned with notation
+objects other than bar lines.  These objects include @code{ambitus},
 @code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
 @code{left-edge}, @code{key-cancellation}, @code{key-signature}, and
 @code{time-signature}.
 
-By default, rehearsal marks will be horizontally centered above the
-object:
+By default, rehearsal marks and bar numbers will be horizontally
+centered above the object:
 
 @lilypond[verbatim,quote,relative=1]
 e1
@@ -2955,6 +2958,32 @@ e
 \time 3/4
 \mark "↓"
 e2.
+@end lilypond
+
+A list of possible target alignment objects may be specified.  If
+some of the objects are invisible at that point due to the setting
+of @code{break-visibility} or the explicit visibility settings for
+keys and clefs, the rehearsal mark or bar number is aligned to the
+first object in the list which is visible.  If no objects in the
+list are visible the object is aligned to the bar line.  If the bar
+line is invisible the object is aligned to the place where the bar
+line would be.
+
+@lilypond[verbatim,quote,relative=1]
+e1
+% the RehearsalMark will be centered above the Key Signature
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e
+% the RehearsalMark will be centered above the Clef
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \minor
+\clef bass
+\mark "↓"
+e,
 @end lilypond
 
 The alignment of the rehearsal mark relative to the notation object
@@ -2999,7 +3028,6 @@ e
 \mark "↓"
 e
 @end lilypond
-
 
 
 @node Vertical grouping of grobs

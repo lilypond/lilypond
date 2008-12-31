@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 
 \header {
  texidoc = "Mixed collisions with whole notes require asymmetric shifts."

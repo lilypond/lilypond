@@ -13,10 +13,8 @@
 IMPLEMENT_SIMPLE_SMOBS (Spring);
 
 SCM
-Spring::mark_smob (SCM x)
+Spring::mark_smob (SCM)
 {
-  (void)x;
-
   return SCM_UNSPECIFIED;
 }
 

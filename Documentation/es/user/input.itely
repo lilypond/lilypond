@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node General input and output
 @chapter General input and output
@@ -1511,13 +1511,13 @@ instruments}.
 
 @example
 \new Staff @{
-  \set Staff.midiInstrument = "glockenspiel"
+  \set Staff.midiInstrument = #"glockenspiel"
   @var{...notes...}
 @}
 @end example
 
 @example
-\new Staff \with @{midiInstrument = "cello"@} @{
+\new Staff \with @{midiInstrument = #"cello"@} @{
   @var{...notes...}
 @}
 @end example
@@ -1769,7 +1769,7 @@ predeterminada.
 
 \score {
   \new Staff {
-    \set Staff.midiInstrument = "cello"
+    \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
        \relative c'' {

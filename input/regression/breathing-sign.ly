@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.12.0"
 \header{
   texidoc="
 Breathing signs are available in different tastes: commas (default),

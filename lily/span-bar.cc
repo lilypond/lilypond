@@ -190,6 +190,8 @@ Span_bar::calc_glyph_name (SCM smob)
     type = "|.|";
   else if (type == ":|.:")
     type = "|.";
+  else if (type == "'")
+    type = "";
 
   return ly_string2scm (type);
 }

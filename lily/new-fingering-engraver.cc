@@ -125,10 +125,8 @@ New_fingering_engraver::acknowledge_stem (Grob_info inf)
 void
 New_fingering_engraver::add_script (Grob *head,
 				    Stream_event *event,
-				    Stream_event *note)
+				    Stream_event * /* note */)
 {
-  (void) note;
-
   Finger_tuple ft;
 
   Grob *g = make_item ("Script", event->self_scm ());

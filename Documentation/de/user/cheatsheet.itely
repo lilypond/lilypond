@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b54fc6953a8d70a3c51e8c3d0cbf9b3fe9652d78
+    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -249,14 +249,14 @@ twinkle
 
 
 @item @code{\new Lyrics}
-@tab Textausgabe
+@tab Gesangtext
 @tab
 @lilypond[fragment]
 \new Lyrics \lyricmode { twinkle }
 @end lilypond
 
 @item @code{twin -- kle}
-@tab Text-Trennstrich 
+@tab Gesangtext-Trennstrich 
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible

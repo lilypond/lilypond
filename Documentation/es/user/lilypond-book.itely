@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: e2fedc46142bc323d48e696848327c6c0e4c9ede
+    Translation of GIT committish: 03baa9b14ef082fc7d651649a4081f326be304e1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -704,6 +704,13 @@ se imprimirá como un bloque preformateado como
   f2 e
 @end example
 
+@noindent
+Si queremos traducir los comentarios y los nombres de variable en la
+salida literal pero no en el código fuente, podemos establecer el
+valor de la variable de entorno @code{LYDOC_LOCALEDIR} a la ruta de un
+directorio; este directorio debe contener un árbol de catálogos de
+mensajes @file{.mo} con @code{lilypond-doc} como dominio.
+
 @item addversion
 (Sólo para la salida de Texinfo.)  Anteponer la línea @code{\version
 @@w@{"@@version@{@}"@}} a la salida de @code{verbatim}.
@@ -776,6 +783,10 @@ Cuando se usa la opción @code{doctitle}, el contenido de
 macro definido en el documento de Texinfo.  La misma indicación
 referida al procesado de @code{texidoc} con idiomas localizados se
 aplica a @code{doctitle}.
+
+@item nogettext
+(Sólo para la salida de Texinfo.) No traducir los comentarios y
+nombres de variable en el fragmento de código literal citado.
 
 @item printfilename
 Si un archivo de entrada de LilyPond se incluye con

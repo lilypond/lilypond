@@ -62,9 +62,8 @@ Melody_engraver::stop_translation_timestep ()
 
 
 void
-Melody_engraver::acknowledge_slur (Grob_info info)
+Melody_engraver::acknowledge_slur (Grob_info /* info */)
 {
-  (void)info;
   melody_item_ = 0;
 }
 

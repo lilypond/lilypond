@@ -1,11 +1,16 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+    Translation of GIT committish: 76de7e168dbc9ffc7671d99663c5ce50dae42abb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.65"
+
+@c Translators: Valentin Villenave
+@c Translation checkers: Gilles Thibault
 
 
 @node Interfaces for programmers
@@ -15,12 +20,14 @@
 
 
 @menu
-* Music functions::             
-* Programmer interfaces::       
-* Building complicated functions::  
-* Markup programmer interface::  
-* Contexts for programmers::    
-* Scheme procedures as properties::  
+* Music functions::
+* Programmer interfaces::
+* Building complicated functions::
+* Markup programmer interface::
+* Contexts for programmers::
+* Scheme procedures as properties::
+* Using Scheme code instead of tweak::
+* Difficult tweaks::
 @end menu
 
 @node Music functions
@@ -30,13 +37,13 @@
 
 
 @menu
-* Overview of music functions::  
-* Simple substitution functions::  
-* Paired substitution functions::  
-* Mathematics in functions::    
-* Void functions::              
-* Functions without arguments::  
-* Overview of available music functions::  
+* Overview of music functions::
+* Simple substitution functions::
+* Paired substitution functions::
+* Mathematics in functions::
+* Void functions::
+* Functions without arguments::
+* Overview of available music functions::
 @end menu
 
 @node Overview of music functions
@@ -89,8 +96,8 @@
 
 
 @menu
-* Input variables and Scheme::  
-* Internal music representation::  
+* Input variables and Scheme::
+* Internal music representation::
 @end menu
 
 @node Input variables and Scheme
@@ -112,10 +119,10 @@
 
 
 @menu
-* Displaying music expressions::  
-* Music properties::            
-* Doubling a note with slurs (example)::  
-* Adding articulation to notes (example)::  
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
 @end menu
 
 @node Displaying music expressions
@@ -149,10 +156,10 @@
 
 
 @menu
-* Markup construction in Scheme::  
-* How markups work internally::  
-* New markup command definition::  
-* New markup list command definition::  
+* Markup construction in Scheme::
+* How markups work internally::
+* New markup command definition::
+* New markup list command definition::
 @end menu
 
 @node Markup construction in Scheme
@@ -186,8 +193,8 @@
 
 
 @menu
-* Context evaluation::          
-* Running a function on all layout objects::  
+* Context evaluation::
+* Running a function on all layout objects::
 @end menu
 
 @node Context evaluation
@@ -207,4 +214,142 @@
 
 @untranslated
 
-@c -- SKELETON FILE --
+
+@menu
+* Using Scheme code instead of tweak::
+* Difficult tweaks::
+@end menu
+
+@node Using Scheme code instead of tweak
+@section Using Scheme code instead of @code{\tweak}
+
+L'inconvénient principal de la commande @code{\tweak} est la rigidité de sa
+syntaxe.  Par exemple, le code suivant produit une erreur.
+
+@example
+F = \tweak #'font-size #-3 -\flageolet
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+En d'autres termes, @code{\tweak} ne se comporte pas comme une articulation :
+il ne peut notamment pas être accolé avec les symboles @samp{^} ou @samp{_}.
+
+C'est en se servant du langage Scheme que l'on peut résoudre ce problème.
+Dans cet exemple, on a recours aux méthodes décrites dans @ref{Adding
+articulation to notes (example)}, en particulier quant à l'emploi de
+@code{\displayMusic}.
+
+@example
+F = #(let ((m (make-music 'ArticulationEvent
+                          'articulation-type "flageolet")))
+       (set! (ly:music-property m 'tweaks)
+             (acons 'font-size -3
+                    (ly:music-property m 'tweaks)))
+       m)
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+Ici les propriétés @code{tweak} de l'objet flageolet nommé
+@samp{m} (créé au moyen de @code{make-music}) sont extraites par
+@code{ly:music-property}, une nouvelle valeur de la taille de fonte
+est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
+@code{acons}), et le résultat de cette opération est renvoyé par @code{set!}.
+Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
+@samp{m} lui-même.
+
+
+@node Difficult tweaks
+@section Difficult tweaks
+
+Certains réglages sont plus délicats que d'autres.
+
+@itemize @bullet
+
+
+@item
+L'un d'entre eux est l'apparence des objets dits @q{spanner}, qui s'étendent
+horizontalement, tels que les liaisons.  Si, en principe, un seul de ces objets
+est créé à la fois et peut donc être modifié de façon habituelle, lorsque ces
+objets doivent enjamber un changement de ligne, ils sont dupliqués au début
+du ou des systèmes suivants.  Comme ces objets sont des clones de l'objet d'origine,
+ils en héritent toutes les propriétés, y compris les éventuelles commandes @code{\override}.
+
+
+En d'autres termes, une commande @code{\override} affecte toujours les deux extrémités
+d'un objet @q{spanner}.  Pour ne modifier que la partie précédant ou suivant le changement
+de ligne, il faut intervenir directement dans le processus de mise en page.
+La fonction de rappel @code{after-line-breaking} contient toute l'opération Scheme
+effectuée lorsque les sauts de lignes ont été déterminés, et que des objets graphiques
+ont été divisés sur des systèmes différents.
+
+Dans l'exemple suivant, on définit une nouvelle opération nommée
+@code{my-callback}.  Cette opération
+
+@itemize @bullet
+@item
+détermine si l'objet a été divisé à l'occasion d'un changement de ligne
+@item
+si oui, recherche les différents morceaux de l'objet
+@item
+vérifie si l'objet considéré est bien la deuxième moitié d'un objet divisé
+@item
+si oui, applique un espacement supplémentaire (@code{extra-offset}).
+@end itemize
+
+On ajoute cette procédure à l'objet @rinternals{Tie} (liaison de tenue),
+de façon à ce que le deuxième morceau d'une liaison divisée soit rehaussé.
+
+@c KEEP LY
+@lilypond[quote,verbatim,ragged-right]
+#(define (my-callback grob)
+  (let* (
+         ; l'objet a-t-il été divisé ?
+         (orig (ly:grob-original grob))
+
+         ; si oui, rechercher les morceaux frères (siblings)
+         (siblings (if (ly:grob? orig)
+                     (ly:spanner-broken-into orig) '() )))
+
+   (if (and (>= (length siblings) 2)
+             (eq? (car (last-pair siblings)) grob))
+     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+
+\relative c'' {
+  \override Tie #'after-line-breaking =
+  #my-callback
+  c1 ~ \break c2 ~ c
+}
+@end lilypond
+
+@noindent
+Lorsque cette astuce va être appliquée, notre nouvelle fonction de rappel
+@code{after-line-breaking} devra également appeler celle d'origine
+(@code{after-line-breaking}), si elle existe.
+Ainsi, pour l'utiliser dans le cas d'un crescendo (objet @code{Hairpin}),
+il faudra appeler également @code{ly:hairpin::after-line-breaking}.
+
+
+@item Pour des raisons d'ordre technique, certains objets ne peuvent être modifiés par
+@code{\override}.  Parmi ceux-là, les objets @code{NonMusicalPaperColumn}
+et @code{PaperColumn}.  La commande @code{\overrideProperty} sert à les modifier, de
+façon similaire à @code{\once \override}, mais avec une syntaxe différente :
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"  % Nom de l'objet
+#'line-break-system-details     % Nom de la propriété
+#'((next-padding . 20))         % valeur
+@end example
+
+Notez cependant que la commande @code{\override} peut tout de même être appliquée
+à @code{NoteMusicalPaperColumn} et @code{PaperColumn} dans un bloc @code{\context}.
+
+@end itemize

@@ -1,11 +1,13 @@
-\version "2.11.61"
+\version "2.12.0"
 
 \header {
   lsrtags = "rhythms"
   texidoc = "
 By specifying the context, the effect of @code{beatGrouping} can be
 limited to the context specified, and the values which may have
-been set in higher-level contexts can be overridden:
+been set in higher-level contexts can be overridden.  The
+@code{\set} commands must be placed @emph{after} all @code{\time}
+commands:
 "
   doctitle = "Specifying context with beatGrouping"
 }

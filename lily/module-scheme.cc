@@ -19,9 +19,11 @@
 */
 
 static SCM
-module_define_closure_func (void *closure, SCM key, SCM val, SCM result)
+module_define_closure_func (void *closure,
+			    SCM key,
+			    SCM val,
+			    SCM /* result */)
 {
-  (void) result;
   SCM module = (SCM) closure;
   if (scm_variable_bound_p (val) == SCM_BOOL_T)
     scm_module_define (module, key, scm_variable_ref (val));

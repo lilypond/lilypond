@@ -7,6 +7,7 @@
 
 #include "skyline.hh"
 #include <deque>
+#include <cstdio>
 
 #include "ly-smobs.icc"
 

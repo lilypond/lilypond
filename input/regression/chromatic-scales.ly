@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.12.0"
 \header{
   texidoc="@code{staffLineLayoutFunction} is used to change the position of the notes.
 This sets @code{staffLineLayoutFunction} to @code{ly:pitch-semitones} to

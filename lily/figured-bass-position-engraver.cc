@@ -115,9 +115,8 @@ Figured_bass_position_engraver::stop_translation_timestep ()
 }
 
 void
-Figured_bass_position_engraver::acknowledge_end_bass_figure_alignment (Grob_info info)
+Figured_bass_position_engraver::acknowledge_end_bass_figure_alignment (Grob_info /* info */)
 {
-  (void)info;
   stop_spanner ();
 }
 

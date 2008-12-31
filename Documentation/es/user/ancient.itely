@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d5bd12a5775832e81000fb901ad65283a152eaa4
+    Translation of GIT committish: 0f749d4980bcd5d633037336f1a91472ab710a8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -723,7 +723,7 @@ No existen silencios de fusa y semifusa específicos para los estilos
 mensural ni neo-mensural.  En su lugar se tomarán los silencios del
 estilo predeterminado.
 
-Consulte @rlsr{Pitches,rests} para ver un cuadro de todos los
+Consulte @rlsr{Ancient notation} para ver un cuadro de todos los
 silencios.
 
 

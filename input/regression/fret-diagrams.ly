@@ -1,11 +1,11 @@
-\version "2.11.65"
+\version "2.12.0"
 
 \paper {
 	ragged-right =  ##t
 }
 
 <<
-  \chords {a2 a c c  d}
+  \chords {a2 a c c c d}
   
   \new Voice =mel {
     \textLengthOn
@@ -68,7 +68,26 @@
                                      (place-fret 2 5 4)
                                      (place-fret 1 3 1)
                                      (barre 5 1 3)) }}
-    %% simple D chord
+
+      
+      %% C major for guitar, with capo on third fret
+     	% verbose style
+    c' ^\markup 
+    \override #'(size . 1.1) { % 110% of default size
+       \override #'(fret-diagram-details . (
+		     (dot-label-font-mag . 0.9)
+		     (finger-code . in-dot)
+		     (xo-font-magnification . 0.4)
+		     (xo-padding . 0.3))) {
+ 	    \fret-diagram-verbose #'((mute 6)
+                                     (capo 3)
+                                     (open 5) 
+                                     (place-fret 4 5 1)
+                                     (place-fret 3 5 2)
+                                     (place-fret 2 5 3)
+                                     (open 1)) }}
+
+      %% simple D chord
 
     d' ^\markup 
         \override #'(fret-diagram-details . (

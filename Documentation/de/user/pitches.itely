@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Pitches
 @section Pitches
@@ -47,6 +47,7 @@ Modus besser.
 @cindex Tonhöhenbezeichnungen
 @cindex Absoluter Modus: Tonhöhen
 @cindex Absolute Spezifikation von Oktaven
+@cindex Angabe der Oktave: absolut
 
 Tonhöhenbezeichnungen werden durch Kleinbuchstaben
 von@tie{}@code{a} bis@tie{}@code{g} angegeben.  Dabei
@@ -70,6 +71,7 @@ d e f g
 @cindex Oktavwechsel: Tonhöhe
 @cindex Wechsel der Oktave
 @cindex Tonhöhe: Wechsel der Oktave
+
 @funindex '
 @funindex ,
 
@@ -101,8 +103,11 @@ Schnipsel:
 
 @cindex Relativ
 @cindex Relative Oktavbestimmung
+@cindex Oktavbestimmung, relativ
 @cindex Noteneingabe: relative Oktavbestimmung
+
 @funindex \relative
+@funindex relative
 
 Wenn Oktaven im absoluten Modus notiert, passiert es
 schnell, eine Note auf der falschen Oktave zu notieren.  Mit
@@ -178,6 +183,10 @@ aber trotzdem weite Intervalle umfassen:
 }
 @end lilypond
 
+@cindex Akkorde und relativer Modus
+@cindex relativer Modus und Akkorde
+@cindex Oktavenmodus (relativ) und Akkorde
+
 Wenn der vorherige Ausdruck ein Akkord ist, wird die erste Note 
 des Akkordes benutzt, um die erste Note des nächsten Akkordes zu 
 bestimmen.  Innerhalb von Akkorden ist die nächste Note immer
@@ -230,9 +239,13 @@ Referenz der Interna:
 
 @cindex Relativer Oktavenmodus und Transposition
 @cindex Transposition und relativer Modus
+
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
+@funindex transpose
+@funindex chordmode
+@funindex relative
 
 @knownissues
 
@@ -270,8 +283,10 @@ Mehr Information dazu in @rlearning{Accidentals and key
 signatures}.}
 
 @cindex Notenbezeichnungen, Deutsch
+@cindex Notenbezeichnungen, Holländisch
 @cindex Notenbezeichnungen, Standard
 @cindex Versetzungszeichen, Deutsch
+@cindex Standardnotenbezeichnungen
 @cindex Kreuz
 @cindex B
 @cindex Doppelkreuz
@@ -319,6 +334,8 @@ a4 aes a2
 @cindex Vorzeichen, Vierteltöne
 @cindex Versetzungszeichen, Vierteltöne
 @cindex Mikrotöne
+@cindex Halbkreuz
+@cindex Halb-B
 
 Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen 
 @code{-eh} (Erniedrigung) und @code{-ih} (Erhöhung) an den 
@@ -336,8 +353,9 @@ ceseh1 ces ceh c cih cis cisih
 @cindex Vorzeichen in Klammern
 @cindex Erinnerungsvorzeichen
 @cindex Warnungsvorzeichen
-@funindex ?
 @cindex Klammern um Vorzeichen
+
+@funindex ?
 @funindex !
 
 Normalerweise werden Versetzungszeichen automatisch gesetzt, aber
@@ -560,8 +578,10 @@ Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
 @cindex Oktavenüberprüfung
 @cindex Oktavierungskorrektur
 @cindex Kontroll-Tonhöhe
+
 @funindex =
 @funindex \octaveCheck
+@funindex octaveCheck
 @funindex controlpitch
 
 Im relativen Modus geschieht es recht häufig, dass ein
@@ -637,7 +657,9 @@ Referenz der Interna:
 @cindex Transponieren
 @cindex Noten, transponieren
 @cindex Tonhöhen, transponieren
+
 @funindex \transpose
+@funindex transpose
 
 Ein musikalischer Ausdruck kann mit dem Befehl @code{\transpose}
 transponiert werden. Die Syntax lautet:
@@ -665,9 +687,6 @@ werden auch die Vorzeichen entsprechend angepasst:
   }
 }
 @end lilypond
-
-@cindex Transponierende Instrumente
-@cindex Instrumente, transponierende
 
 Wenn eine Stimme, die in C notiert ist, von einer A-Klarinette
 gespielt werden soll (für die A als C notiert wird,
@@ -754,6 +773,9 @@ Referenz der Interna:
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
+@funindex transpose
+@funindex chordmode
+@funindex relative
 
 @knownissues
 
@@ -782,7 +804,6 @@ verändern werden kann.
 @node Clef
 @unnumberedsubsubsec Clef
 
-@funindex \clef
 @cindex G-Schlüssel
 @cindex C-Schlüssel
 @cindex F-Schlüssel
@@ -804,6 +825,9 @@ verändern werden kann.
 @cindex Schlüssel, C
 @cindex Schlüssel, G
 @cindex Schlüssel, F
+
+@funindex \clef
+@funindex clef
 
 Der Schlüssel kann verändert werden. Das eingestrichene
 C wird in jedem Beispiel gezeigt:
@@ -845,10 +869,11 @@ c2 c
 
 Weitere unterstützte Schlüssel sind beschrieben in @ref{Ancient clefs}.
 
-@cindex transposing clefs
-@cindex clef, transposing
-@cindex octave transposition
-@cindex choral tenor clef
+@cindex transponierende Schlüssel
+@cindex Schlüssel, transponierend
+@cindex Oktavtransposition
+@cindex Chor-Tenorschlüssel
+@cindex Tenorschlüssel, Chor
 
 Indem @code{_8} oder @code{^8} an die jeweilige Schlüsselbezeichnung 
 angehängt wird, wird der Schlüssel um eine Oktave nach oben oder unten 
@@ -889,7 +914,9 @@ Referenz der Interna:
 
 @cindex Tonart
 @cindex Vorzeichen
+
 @funindex \key
+@funindex key
 
 @c duplicated in Key signature and Accidentals
 @warning{Neue Benutzer sind manchmal verwirrt, wie
@@ -923,6 +950,17 @@ Die Tonart kann geändert werden:
 @funindex \lydian
 @funindex \phrygian
 @funindex \dorian
+@funindex minor
+@funindex major
+@funindex minor
+@funindex ionian
+@funindex locrian
+@funindex aeolian
+@funindex mixolydian
+@funindex lydian
+@funindex phrygian
+@funindex dorian
+
 @cindex Kirchentonarten
 @cindex Modus
 @cindex Dur
@@ -988,7 +1026,10 @@ Referenz der Interna:
 @cindex 8va
 @cindex 8ve
 @cindex Oktavierung
+
 @funindex set-octavation
+@funindex \ottava
+@funindex ottava
 
 @notation{Oktavierungsklammern} zeigen eine zusätzliche
 Transposition von einer Oktave an:
@@ -1034,7 +1075,9 @@ Referenz der Interna:
 @cindex Transponierendes Instrument
 @cindex MIDI
 @cindex MIDI-Transposition
+
 @funindex \transposition
+@funindex transposition
 
 Wenn man Noten setzt, die von transponierenden Instrumenten
 gespielt werden, sind oft einige Stimmen auf einer
@@ -1069,8 +1112,8 @@ spielen unisono.
 \new GrandStaff <<
   \new Staff = "violin" {
     \relative c'' {
-      \set Staff.instrumentName = "Vln"
-      \set Staff.midiInstrument = "violin"
+      \set Staff.instrumentName = #"Vln"
+      \set Staff.midiInstrument = #"violin"
       % not strictly necessary, but a good reminder
       \transposition c'
 
@@ -1081,7 +1124,7 @@ spielen unisono.
   \new Staff = "clarinet" {
     \relative c'' {
       \set Staff.instrumentName = \markup { Cl (B\flat) }
-      \set Staff.midiInstrument = "clarinet"
+      \set Staff.midiInstrument = #"clarinet"
       \transposition bes
 
       \key d \major
@@ -1096,7 +1139,7 @@ geändert werden.  Ein Klarinetist zum Beispiel kann
 zwischen B- und A-Klarinette wechseln.
 
 @lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = "Cl (A)"
+\set Staff.instrumentName = #"Cl (A)"
 \key a \major
 \transposition a
 c d e f
@@ -1131,8 +1174,10 @@ Schnipsel:
 @cindex Automatische Versetzungszeichen
 @cindex Versetzungszeichen, automatisch
 @cindex Standard-Versetzungszeichenstil
+
 @funindex set-accidental-style
 @funindex voice
+@funindex default
 
 Es gibt viele unterschiedliche Regeln, wie Versetzungszeichen
 notiert werden.  LilyPond hat eine Funktion, mit der
@@ -1162,8 +1207,6 @@ Stimmbruppe (@code{StaffGroup}) zu benutzen, müsste der Befehl so aussehen:
 Folgende Versetzungszeichenstile sind unterstützt.
 Um jeden Stil zu erklären, wird folgendes Beispiel
 benützt:
-
-@funindex default
 
 @lilypond[verbatim,quote]
 musicA = {
@@ -1237,7 +1280,6 @@ in beiden Systemen benutzt werden soll:
 
 @cindex Standard-Versetzungszeichenstil
 @cindex Versetzungszeichenstil, Standard
-@funindex default
 
 Das ist das Standardverhalten.  Es entspricht der
 Konvention für Notation von Musik des 18. Jahrhunderts:
@@ -1302,6 +1344,7 @@ musicB = {
 @cindex Versetzungszeichenstil modern
 @cindex Versetzungszeichenstil, modern-cautionary
 @cindex modern-Warnung-Versetzungszeichenstil
+
 @funindex voice
 
 Das normale Verhalten ist es, die Versetzungszeichen
@@ -1372,6 +1415,7 @@ musicB = {
 
 @cindex Versetzungszeichen, moderne Stile
 @cindex Moderner Stil, Versetzungszeichen
+
 @funindex modern
 
 Dieser Stil orientiert sich an den üblichen Regeln für
@@ -1435,6 +1479,7 @@ musicB = {
 @cindex Versetzungszeichen, moderner Stil mit Warnungen
 @cindex moderner Versetzungszeichenstil
 @cindex moderner Verseztungszeichenstil mit Warnungen
+
 @funindex modern-cautionary
 
 Dieser Stil ähnelt @code{modern}, aber die @qq{zusätzlichen}
@@ -1497,6 +1542,7 @@ musicB = {
 @cindex moderner Versetzungszeichenstil
 @cindex moderne Versetzungszeichen
 @cindex Stimmen, Versetzungszeichen für
+
 @funindex modern-voice
 
 Diese Regel wird für vielstimmige Noten benutzt, die sowohl von
@@ -1558,6 +1604,7 @@ musicB = {
 @cindex Versetzungszeichenstil, modern mit Warnung für Stimmen
 @cindex Stimmen, Versetzungszeichenstil mit Warnung für Stimmen
 @cindex moderner Versetzungszeichensitl mit Warnungen für Stimmen
+
 @funindex modern-voice-cautionary
 
 @item modern-voice-cautionary (modern mit Warnungen für einzelne Stimmen)
@@ -1620,6 +1667,7 @@ musicB = {
 @cindex Versetzungszeichen für Klavier
 @cindex Klavier-Versetzungszeichenstil
 @cindex Piano-Versetzungszeichenstil
+
 @funindex piano
 
 Dieser Stil orientiert sich an den Regeln im 20. Jahrhundert für die
@@ -1678,6 +1726,7 @@ musicB = {
 @item piano-cautionary (Klavier mit Warnungen)
 
 @funindex piano-cautionary
+
 @cindex Versetzungszeichen, piano cautionary
 @cindex Warnungsversetzungszeichen für Klavier
 @cindex Klavier: Warnungsversetzungszeichen
@@ -1735,6 +1784,7 @@ musicB = {
 @item neo-modern
 
 @funindex neo-modern
+
 @cindex neo-moderner Versetzungszeichenstil
 @cindex Versetzungszeichenstil, neo-modern
 
@@ -1792,6 +1842,7 @@ musicB = {
 @item neo-modern-cautionary (neo-modern mit Warnungen)
 
 @funindex neo-modern-cautionary
+
 @cindex neo-modern-cautionary-Versetzungszeichenstil
 @cindex Versetzungszeichenstil neo-modern mit Warnungen
 @cindex Warnungsversetzungszeichen, neo-modern
@@ -1849,6 +1900,7 @@ musicB = {
 @item dodecaphonic (Zwölftonmusik)
 
 @funindex dodecaphonic
+
 @cindex dodekaphoner Versetzungszeichenstil
 @cindex Zwölftonmusik, Versetzungszeichenstil
 @cindex Versetzungszeichenstil, Zwölftonmusik
@@ -1908,6 +1960,7 @@ musicB = {
 @item teaching (didaktisch)
 
 @funindex teaching
+
 @cindex teaching-Versetzungszeichenstil
 @cindex Versetzungszeichenstil teaching
 @cindex didaktischer Versetzungszeichenstil
@@ -1970,6 +2023,7 @@ musicB = {
 @item no-reset (nicht zurücksetzen)
 
 @funindex no-reset
+
 @cindex Versetzungszeichenstil, no reset
 @cindex Versetzungszeichenstil: nicht zurücksetzen
 
@@ -2025,6 +2079,7 @@ musicB = {
 @item forget (vergessen)
 
 @funindex forget
+
 @cindex forget-Versetzungszeichenstil
 @cindex Versetzungszeichenstil forget
 @cindex Versetzungszeichenstil Vergessen
@@ -2214,6 +2269,7 @@ Dieser Abschnitt zeigt, wie man Notenköpfe ändern kann.
 @cindex Gitarrennotenköpfe
 @cindex Flageolett-Notenköpfe
 @cindex Stile, Notenköpfe
+
 @funindex cross
 
 Notenköpfe können verändert werden:
@@ -2267,6 +2323,11 @@ Referenz der Interna:
 @cindex Anfänger, Notenlernen
 @cindex Notenköpfe für Anfänger
 
+@funindex \easyHeadsOn
+@funindex easyHeadsOn
+@funindex \easyHeadsOff
+@funindex easyHeadsOff
+
 Die @qq{einfachen Notenköpfe} haben die Bezeichnung der Note
 im Kopf gedruckt.  Das wird eingesetzt, um die Notation beizubringen.
 Damit die Buchstaben noch lesbar sind, müssen sie sehr groß
@@ -2315,9 +2376,13 @@ Referenz der Interna:
 @cindex Form-Notenköpfe
 @cindex Aiken-Notenköpfe
 @cindex sacred harp-Notenköpfe
+
 @funindex \key
 @funindex \aikenHeads
 @funindex \sacredHarpHeads
+@funindex key
+@funindex aikenHeads
+@funindex sacredHarpHeads
 
 In dieser Notation haben die Notenköpfe eine Form, die ihrer
 harmonischen Funktion innherhalb der Tonleiter entspricht.  Die
@@ -2335,9 +2400,6 @@ c, d e f g a b c
 Die unterschiedlichen Formen richten sich nach der Stufe in der
 Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
 entnommen wird.
-
-@funindex \aikenHeads
-@funindex \sacredHarpHeads
 
 @predefined
 @code{\aikenHeads},
@@ -2375,6 +2437,11 @@ Referenz der Interna:
 @cindex Strichnotenköpfe
 @cindex Striche: Notenköpfe
 
+@funindex \improvisationOn
+@funindex improvisationOn
+@funindex \improvisationOff
+@funindex improvisationOff
+
 Improvisation wird manchmal angezeigt, indem schräge Notenköpfe
 gesetzt werden, wenn der Spieler eine beliebige Tonhöhe wählen kann
 aber den vorgegebenen Rhythmus spielen soll. Sie können wie folgt
@@ -2393,9 +2460,6 @@ benutzt werden:
   a16( bes) a8 g e
 }
 @end lilypond
-
-@funindex \improvisationOn
-@funindex \improvisationOff
 
 @predefined
 @code{\improvisationOn},

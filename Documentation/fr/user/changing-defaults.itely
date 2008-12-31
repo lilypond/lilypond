@@ -1,5 +1,5 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of ../user/lilypond.tely
+@c This file is part of lilypond.tely
 @ignore
     Translation of GIT committish: 76de7e168dbc9ffc7671d99663c5ce50dae42abb
 
@@ -11,6 +11,7 @@
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Gilles Thibault
+
 
 @node Changing defaults
 @chapter Changing defaults
@@ -34,7 +35,7 @@ référence du programme
 @ref{Top,Référence du programme,,lilypond-internals}.
 @end ifnottex
 Ce guide répertorie toutes les variables, fonctions et autres options que
-LilyPond met à votre disposition.  Il est consultable 
+LilyPond met à votre disposition.  Il est consultable
 @c leave the @uref as one long line.
 @uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,en@tie{}ligne},
 au format HTML, mais est également inclus dans la documentation
@@ -48,7 +49,7 @@ La notation automatique, ce qui revient à modifier la manière dont les éléme
 de notation sont automatiquement créés -- par exemple, les règles de ligatures.
 
 @item
-L'apparence, qui se rapporte aux objets pris individuellement -- ainsi de la direction 
+L'apparence, qui se rapporte aux objets pris individuellement -- ainsi de la direction
 des hampes, du placement des indications textuelles.
 
 @item
@@ -64,16 +65,18 @@ En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP) comme
 infrastructure.  Modifier les choix de mise en page revient à pénétrer dans
 les entrailles du programme, et de ce fait requiert l'emploi du Scheme.
 Les fragments de Scheme, dans un fichier @code{.ly}, sont introduits par le
-caractère @q{hash}, (@code{#}, improprement surnommé @q{dièse}).@footnote{Le 
+caractère @q{hash}, (@code{#}, improprement surnommé @q{dièse}).@footnote{Le
 @rlearning{Scheme tutorial} fournit quelques notions de base pour saisir des nombres,
 des listes, des chaînes de caractères ou des symboles, en Scheme.}
 
 
 @menu
-* Interpretation contexts::     
-* The override command::        
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Advanced tweaks::
 @end menu
-
 
 @node Interpretation contexts
 @section Interpretation contexts
@@ -81,147 +84,79 @@ des listes, des chaînes de caractères ou des symboles, en Scheme.}
 Cette section traite des contextes.
 
 @menu
-* Contexts explained::          
-* The set command::             
-* Modifying context plug-ins::  
-* Layout tunings within contexts::  
-* Changing context default settings::  
-* Defining new contexts::       
-* Aligning contexts::           
-* Vertical grouping of grobs::  
+* Contexts explained::
+* Creating contexts::
+* Modifying context plug-ins::
+* Layout tunings within contexts::
+* Changing context default settings::
+* Defining new contexts::
+* Aligning contexts::
 @end menu
-
 
 @node Contexts explained
 @subsection Contexts explained
 
+@ignore
+@c TODO Rethink and rewrite
+
+>> > > - list of contexts: my *danger unmaintainable*
+>> > > alarm just went off.  I'm
+
+I knew it would... And leaving out some of them is perfectly fine
+with me.
+I do think that a list like this, with the main contexts and a
+brief
+description of  what they do (perhaps also with a note about what
+default
+behavior is associated with each of them, but this may be
+unmanageable),
+should be there, and then we could simply list the remaining ones
+without
+further explanation and with links to the IR.
+@end ignore
+
+@c TODO Improve layout, order and consistency of wording -td
+
+@c TODO Add introduction which explains contexts in generality  -td
+
+@c TODO Describe propagation of property values -td
+
+
+@menu
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
+@end menu
+
+@node Score - the master of all contexts
+@unnumberedsubsubsec Score - the master of all contexts
+
 @untranslated
 
 
-@node The set command
-@subsection The @code{\set} command
+@node Top-level contexts - staff containers
+@unnumberedsubsubsec Top-level contexts - staff containers
 
-@cindex propriétés
-@funindex \set
-@cindex modifier des propriétés
-
-Chaque contexte peut avoir plusieurs @emph{propriétés}, c'est-à-dire
-des variables qu'il inclut.  Ces dernières peuvent être modifiées @qq{à la volée},
-c'est-à-dire pendant que la compilation s'accomplit.  C'est là le rôle de la
-commande @code{\set}.
-
-@example
-\set @var{contexte}.@var{propriété} = #@var{valeur}
-@end example
-
-Ainsi :
-@lilypond[quote,verbatim,relative=2,fragment]
-R1*2
-\set Score.skipBars = ##t
-R1*2
-@end lilypond
-
-Cette commande permet de condenser les mesures vides de notes, en des silences
-multi-mesures.  Il s'agit d'un objet Scheme, auquel on attribue la valeur booléenne
-@q{vrai}, c'est-à-dire la lettre @code{#t} pour @q{True} en anglais.
-
-Ce changement étant appliqué @q{à la volée}, il n'affecte que le second groupe de notes.
-
-Si l'argument @var{contexte} n'est pas spécifié, alors la propriété cherchera à s'appliquer
-dans le contexte le plus restreint où elle est employée : le plus souvent
- @code{ChordNames}, @code{Voice}, ou @code{Lyrics}.  Dans l'exemple suivant,
-
-@lilypond[quote,verbatim,relative=2,fragment]
-c8 c c c
-\set autoBeaming = ##f
-c8 c c c
-@end lilypond
-
-@noindent
-aucun argument @var{contexte} n'a été donné à la commande @code{\set}.
-De ce fait, les ligatures automatiques sont désactivées dans le
-contexte actuel, c'est-à-dire @rinternals{Voice}.  Notez que le
-contexte le plus restreint n'est pas toujours le bon, 
-et peut ne pas contenir la propriété qui vous intéresse : ainsi, la propriété 
-@code{skipBars}, évoquée plus haut, ne relève pas du contexte @code{Voice}, 
-et le code suivant ne fonctionnera pas.
-
-@lilypond[quote,verbatim,relative=2,fragment]
-R1*2
-\set skipBars = ##t
-R1*2
-@end lilypond
-
-Les contextes s'organisent de façon hiérarchique : aussi, lorsqu'un contexte de niveau
-supérieur est spécifié (par exemple @code{Staff}), la propriété sera modifée dans
-tous les contextes inférieurs (tous les contextes @code{Voice}, par exemple)
-qu'il contient.
-
-@funindex \unset
-
-La commande @code{\unset} permet d'annuler la définition d'une propriété :
-
-@example
-\unset @var{contexte}.@var{propriété}
-@end example
-
-@noindent
-si et seulement si cette propriété à été définie dans ce @var{contexte}
-précis ; ainsi,
-
-@example
-\set Staff.autoBeaming = ##f
-@end example
-
-@noindent
-même s'il s'applique à tous les contextes @code{Voice} contenus dans le
-contexte @code{Staff}, ne peut être annulé au niveau @code{Voice}.  Le code
-suivant sera sans effet.
-
-@example
-\unset Voice.autoBeaming
-@end example
-
-@noindent
-En d'autres termes, la commande @code{\unset} doit impérativement être
-accompagnée du même contexte que la commande @code{\set} d'origine.
-Pour annuler l'effet, dans notre exemple, de @code{Staff.autoBeaming = ##f},
-il faut donc entrer :
-@example
-\unset Staff.autoBeaming
-@end example
-
-Si l'on se trouve dans le contexte le plus restreint, il n'est pas obligatoire,
-là encore, de spécifier le @var{contexte}.  Ainsi, les deux lignes suivantes sont équivalentes.
+@untranslated
 
 
-@example
-\set Voice.autoBeaming = ##t
-\set autoBeaming = ##t
-@end example
+@node Intermediate-level contexts - staves
+@unnumberedsubsubsec Intermediate-level contexts - staves
+
+@untranslated
 
 
-@cindex \once
-Pour modifier une propriété de façon à ce qu'elle ne s'applique qu'une seule fois,
-il convient d'employer la commande @code{\once} :
+@node Bottom-level contexts - voices
+@unnumberedsubsubsec Bottom-level contexts - voices
 
-@lilypond[quote,verbatim,relative=2,fragment]
-c4
-\once \set fontSize = #4.7
-c4
-c4
-@end lilypond
+@untranslated
 
-Ici le changement de taille est annulé aussitôt après la note concernée.
 
-La référence du programme contient une description exhaustive de toutes les
-propriétés contexte par contexte : voir
-@ifhtml
-@rinternals{Tunable context properties}.
-@end ifhtml
-@ifnothtml
-Translation @expansion{} Tunable context properties.
-@end ifnothtml
+@node Creating contexts
+@subsection Creating contexts
+
+@untranslated
 
 
 @node Modifying context plug-ins
@@ -301,7 +236,7 @@ La clé et le chiffre de mesure ont disparu de la deuxième portée.  C'est une 
 quelque peu radicale, puisqu'elle affectera toute la portée jusqu'à la fin de la
 partition.  L'espacement s'en trouve également affecté, ce qui peut être ou non
 l'effet recherché.  Une méthode plus sophistiquée aurait été de rendre ces objets
-transparents (voir @rlearning{Common tweaks}).
+transparents (voir @rlearning{Visibility and color of objects}).
 
 Dans l'exemple suivant, voici une mise en pratique plus utile.  En temps
 normal, les barres de mesure et la métrique sont synchronisées verticalement
@@ -336,6 +271,7 @@ En les enlevant du contexte @code{Score} pour les attribuer au contexte
 @end lilypond
 
 
+@c deprecated node: delete. --fv
 @node Layout tunings within contexts
 @subsection Layout tunings within contexts
 
@@ -363,7 +299,7 @@ La commande suivante :
 @end verbatim
 
 @noindent
-rend les hampes plus épaisses (la valeur par défaut est 1.3, ce qui signifie qu'elles 
+rend les hampes plus épaisses (la valeur par défaut est 1.3, ce qui signifie qu'elles
 sont 1,3 fois plus épaisses que les lignes de la portée).  Dans la mesure où nous avons
 indiqué @code{Staff} comme contexte, ce réglage ne s'appliquera qu'à la portée courante ;
 les autres portées demeureront intactes.
@@ -594,7 +530,7 @@ squashedPosition = #0
 @end example
 
 @noindent
-Le graveur @rinternals{Pitch_squash_engraver} intercepte les notes créées par 
+Le graveur @rinternals{Pitch_squash_engraver} intercepte les notes créées par
 @rinternals{Note_heads_engraver}, et les @q{écrase} pour qu'elles aient toutes la
 même position verticale, définie par @code{squashedPosition} : ici il s'agit de la
 valeur@tie{}@code{0}, c'est-à-dire la ligne du milieu.
@@ -685,6 +621,7 @@ On peut alors saisir la musique, comme dans l'exemple plus haut :
 @node Aligning contexts
 @subsection Aligning contexts
 
+
 Il est possible d'aligner verticalement chaque nouveau contexte,
 en-dessous ou au-dessus, par exemple dans le cas de musique vocale
 (@rlearning{Vocal ensembles}) ou d'@qq{ossias}.
@@ -699,7 +636,7 @@ ossia = { f4 f f f }
   \relative c' \new Staff = "main" {
     c4 c c c
     <<
-      \new Staff \with {alignAboveContext=main} \ossia
+      \new Staff \with { alignAboveContext = #"main" } \ossia
       { d8 f d f d f d f }
     >>
   }
@@ -707,92 +644,16 @@ ossia = { f4 f f f }
 @end lilypond
 
 
-@node Vertical grouping of grobs
-@subsection Vertical grouping of grobs
+@node Explaining the Internals Reference
+@section Explaining the Internals Reference
 
-Les objets @code{VerticalAlignment} et @code{VerticalAxisGroup}
-travaillent de concert.  Comme leurs noms anglais l'indiquent,
-@code{VerticalAxisGroup} regroupe différents objets tels que les portées
-(@code{Staff}), les paroles (@code{Lyrics}) et ainsi de suite ; puis
-@code{VerticalAlignment} synchronise verticalement ces différents groupes.
-En général, il n'y a qu'un seul @code{VerticalAlignment} pour l'ensemble
-de la partition, mais chaque contexte @code{Staff}, @code{Lyrics}, etc.
-possède son propre @code{VerticalAxisGroup}.
-
-
-@node The override command
-@section The @code{\override} command
-
-La commande @code{\override} permet de modifier la mise en page
-en détail.  Examinons son utilisation concrètementet dans les détails.
-La syntaxe de cette commande ressemble généralement à :
-
-@example
-\override @var{contexte}.@var{objet} #'@var{propriété} = #@var{valeur}
-@end example
-
-La propriété @var{propriété} de l'objet @var{objet}, appartenant au contexte
-@var{contexte}, se voit ainsi attribuer la valeur @var{valeur}.
 
 @menu
-* Constructing a tweak::        
-* Navigating the program reference::  
-* Layout interfaces::           
-* Determining the grob property::  
-* The tweak command::           
-* Using Scheme code instead of tweak::  
-* set versus override::         
-* Difficult tweaks::            
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
 @end menu
-
-
-
-@node Constructing a tweak
-@subsection Constructing a tweak
-
-Les commandes permettant de modifier l'apparence de la partition
-ressemblent en général à
-
-@example
-\override Voice.Stem #'thickness = #3.0
-@end example
-
-@noindent
-Pour élaborer un réglage de ce type, on a besoin de connaître précisément :
-
-@itemize
-@item le contexte : ici @code{Voice} (la voix).
-@item l'objet à affecter : ici @code{Stem} (les hampes).
-@item la propriété à modifier : ici @code{thickness} (l'épaisseur du trait).
-@item la valeur désirée : ici @code{3.0} (par défaut, elle est de 1.3).
-@end itemize
-
-Certaines @q{sous-propriétés} sont parfois contenues dans une propriété.
-La commande devient alors :
-
-@example
-\override Stem #'(details beamed-lengths) = #'(4 4 3)
-@end example
-
-@cindex documentation exhaustive
-@cindex trouver des objets graphiques
-@cindex objets graphiques, description
-@cindex régler
-@funindex \override
-
-Pour bien des propriétés, quel que soit le type de valeur requise,
-attribuer la valeur @q{faux} (@code{##f} en Scheme) reviendra à désactiver
-complètement l'action de la propriété qui se trouve ainsi purement
-ignorée par LilyPond.  Cela peut s'avérer fort utile pour des propriétés
-causant des désagréments.
-
-@c such announcements are to be avoided -vv
-@ignore
-We demonstrate how to glean this information from the notation manual
-and the program reference.
-@end ignore
-
-
 
 @node Navigating the program reference
 @subsection Navigating the program reference
@@ -865,7 +726,7 @@ Fingering objects are created by: @rinternals{Fingering_engraver} and
 @rinternals{New_fingering_engraver}.
 @end quotation
 
-En d'autres termes, @emph{Les indications de doigtés} 
+En d'autres termes, @emph{Les indications de doigtés}
 (@code{Fingering} en anglais) @emph{sont créées par les graveurs
 @rinternals{Fingering_engraver} et @rinternals{New_fingering_engraver}.}
 
@@ -889,7 +750,7 @@ Music event type @code{fingering-event} is in Music expressions named
 Ce cheminement se produit, bien sûr, en sens inverse : nous sommes ici partis
 du résultat, et avons abouti aux évènements (en anglais @q{Events}) engendrés
 par le fichier d'entrée.  L'inverse est également possible : on peut partir d'un
-évènement, et suivre le cheminement de LilyPond qui aboutit à la création d'un 
+évènement, et suivre le cheminement de LilyPond qui aboutit à la création d'un
 ou plusieurs objets graphiques.
 
 La référence du programme peut également se parcourir comme un document normal.
@@ -901,7 +762,7 @@ On y trouve des chapitres tels que
 @code{Music definitions}
 @end ifnothtml
 @rinternals{Translation}, ou encore @rinternals{Backend}.  Chaque chapitre
-recense toutes les définitions employées, et les propriétés sujettes à 
+recense toutes les définitions employées, et les propriétés sujettes à
 ajustements.
 
 @c -- what about adding a link to the glossary here ? -vv
@@ -988,7 +849,7 @@ Cet objet admet les interfaces suivantes :
 Suit la liste des interfaces en question, présentées comme autant de liens,
 qui conduisent sur les pages dédiées à chacune d'entre elles.
 Chaque interface est dotée d'un certain nombre de propriétés, dont certaines
-peuvent être modifiées, et d'autres non (les @q{Internal properties}, ou 
+peuvent être modifiées, et d'autres non (les @q{Internal properties}, ou
 propriétés internes).
 
 Pour aller encore plus loin, plutôt que de simplement parler de l'objet
@@ -1025,8 +886,10 @@ son âme même, dans les fichiers source de LilyPond (voir
 amas de variables et de réglages.  La page de la Référence du programme est
 en fait directement engendrée par cette définition.
 
+
 @node Determining the grob property
 @subsection Determining the grob property
+
 
 Nous voulions changer la position du chiffre @b{2} dans le fragment suivant :
 
@@ -1074,7 +937,7 @@ Add this much extra space between objects that are next to each other.
 
 @noindent
 Ce qui signifie
-@quotation 
+@quotation
 Ajouter tel espace supplémentaire entre des objets proches les uns des
 autres.
 @end quotation
@@ -1113,8 +976,227 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Vo
 @end quotation
 
 
+@node Naming conventions
+@subsection Naming conventions
+
+@untranslated
+
+
+@node Modifying properties
+@section Modifying properties
+
+@c TODO change the menu and subsection node names to use
+@c backslash once the new macro to handle the refs
+@c is available.  Need to find and change all refs at
+@c the same time. -td
+
+@menu
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* Constructing a tweak::
+* The tweak command::
+* set versus override::
+@end menu
+
+@node Overview of modifying properties
+@subsection Overview of modifying properties
+
+@untranslated
+
+
+@node The set command
+@subsection The @code{\set} command
+
+@cindex propriétés
+@funindex \set
+@cindex modifier des propriétés
+
+Chaque contexte peut avoir plusieurs @emph{propriétés}, c'est-à-dire
+des variables qu'il inclut.  Ces dernières peuvent être modifiées @qq{à la volée},
+c'est-à-dire pendant que la compilation s'accomplit.  C'est là le rôle de la
+commande @code{\set}.
+
+@example
+\set @var{contexte}.@var{propriété} = #@var{valeur}
+@end example
+
+Ainsi :
+@lilypond[quote,verbatim,relative=2,fragment]
+R1*2
+\set Score.skipBars = ##t
+R1*2
+@end lilypond
+
+Cette commande permet de condenser les mesures vides de notes, en des silences
+multi-mesures.  Il s'agit d'un objet Scheme, auquel on attribue la valeur booléenne
+@q{vrai}, c'est-à-dire la lettre @code{#t} pour @q{True} en anglais.
+
+Ce changement étant appliqué @q{à la volée}, il n'affecte que le second groupe de notes.
+
+Si l'argument @var{contexte} n'est pas spécifié, alors la propriété cherchera à s'appliquer
+dans le contexte le plus restreint où elle est employée : le plus souvent
+ @code{ChordNames}, @code{Voice}, ou @code{Lyrics}.  Dans l'exemple suivant,
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c8 c c c
+\set autoBeaming = ##f
+c8 c c c
+@end lilypond
+
+@noindent
+aucun argument @var{contexte} n'a été donné à la commande @code{\set}.
+De ce fait, les ligatures automatiques sont désactivées dans le
+contexte actuel, c'est-à-dire @rinternals{Voice}.  Notez que le
+contexte le plus restreint n'est pas toujours le bon,
+et peut ne pas contenir la propriété qui vous intéresse : ainsi, la propriété
+@code{skipBars}, évoquée plus haut, ne relève pas du contexte @code{Voice},
+et le code suivant ne fonctionnera pas.
+
+@lilypond[quote,verbatim,relative=2,fragment]
+R1*2
+\set skipBars = ##t
+R1*2
+@end lilypond
+
+Les contextes s'organisent de façon hiérarchique : aussi, lorsqu'un contexte de niveau
+supérieur est spécifié (par exemple @code{Staff}), la propriété sera modifée dans
+tous les contextes inférieurs (tous les contextes @code{Voice}, par exemple)
+qu'il contient.
+
+@funindex \unset
+
+La commande @code{\unset} permet d'annuler la définition d'une propriété :
+
+@example
+\unset @var{contexte}.@var{propriété}
+@end example
+
+@noindent
+si et seulement si cette propriété à été définie dans ce @var{contexte}
+précis ; ainsi,
+
+@example
+\set Staff.autoBeaming = ##f
+@end example
+
+@noindent
+même s'il s'applique à tous les contextes @code{Voice} contenus dans le
+contexte @code{Staff}, ne peut être annulé au niveau @code{Voice}.  Le code
+suivant sera sans effet.
+
+@example
+\unset Voice.autoBeaming
+@end example
+
+@noindent
+En d'autres termes, la commande @code{\unset} doit impérativement être
+accompagnée du même contexte que la commande @code{\set} d'origine.
+Pour annuler l'effet, dans notre exemple, de @code{Staff.autoBeaming = ##f},
+il faut donc entrer :
+@example
+\unset Staff.autoBeaming
+@end example
+
+Si l'on se trouve dans le contexte le plus restreint, il n'est pas obligatoire,
+là encore, de spécifier le @var{contexte}.  Ainsi, les deux lignes suivantes sont équivalentes.
+
+
+@example
+\set Voice.autoBeaming = ##t
+\set autoBeaming = ##t
+@end example
+
+
+@cindex \once
+Pour modifier une propriété de façon à ce qu'elle ne s'applique qu'une seule fois,
+il convient d'employer la commande @code{\once} :
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c4
+\once \set fontSize = #4.7
+c4
+c4
+@end lilypond
+
+Ici le changement de taille est annulé aussitôt après la note concernée.
+
+La référence du programme contient une description exhaustive de toutes les
+propriétés contexte par contexte : voir
+@ifhtml
+@rinternals{Tunable context properties}.
+@end ifhtml
+@ifnothtml
+Translation @expansion{} Tunable context properties.
+@end ifnothtml
+
+
+@node The override command
+@subsection The @code{\override} command
+
+
+La commande @code{\override} permet de modifier la mise en page
+en détail.  Examinons son utilisation concrètementet dans les détails.
+La syntaxe de cette commande ressemble généralement à :
+
+@example
+\override @var{contexte}.@var{objet} #'@var{propriété} = #@var{valeur}
+@end example
+
+La propriété @var{propriété} de l'objet @var{objet}, appartenant au contexte
+@var{contexte}, se voit ainsi attribuer la valeur @var{valeur}.
+
+
+@c deprecated node. Delete. --fv
+@node Constructing a tweak
+@subsection Constructing a tweak
+
+Les commandes permettant de modifier l'apparence de la partition
+ressemblent en général à
+
+@example
+\override Voice.Stem #'thickness = #3.0
+@end example
+
+@noindent
+Pour élaborer un réglage de ce type, on a besoin de connaître précisément :
+
+@itemize
+@item le contexte : ici @code{Voice} (la voix).
+@item l'objet à affecter : ici @code{Stem} (les hampes).
+@item la propriété à modifier : ici @code{thickness} (l'épaisseur du trait).
+@item la valeur désirée : ici @code{3.0} (par défaut, elle est de 1.3).
+@end itemize
+
+Certaines @q{sous-propriétés} sont parfois contenues dans une propriété.
+La commande devient alors :
+
+@example
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
+@end example
+
+@cindex documentation exhaustive
+@cindex trouver des objets graphiques
+@cindex objets graphiques, description
+@cindex régler
+@funindex \override
+
+Pour bien des propriétés, quel que soit le type de valeur requise,
+attribuer la valeur @q{faux} (@code{##f} en Scheme) reviendra à désactiver
+complètement l'action de la propriété qui se trouve ainsi purement
+ignorée par LilyPond.  Cela peut s'avérer fort utile pour des propriétés
+causant des désagréments.
+
+@c such announcements are to be avoided -vv
+@ignore
+We demonstrate how to glean this information from the notation manual
+and the program reference.
+@end ignore
+
+
 @node The tweak command
 @subsection The @code{\tweak} command
+
 
 @funindex \tweak
 
@@ -1137,11 +1219,11 @@ Comme on peut le voir, les propriétés sont ici modifiées directement
 en même temps que les objets sont saisis.  Il n'est plus besoin de spécifier ni
 le nom de l'objet (@emph{grob}), ni le contexte dans lequel cela doit s'appliquer.
 
-Ce procédé ne marche que pour des objets directement liés aux évènements 
+Ce procédé ne marche que pour des objets directement liés aux évènements
 (@rinternals{Event}) du fichier source.  Par exemple :
 
 @itemize @bullet
-@item Les têtes de notes au sein d'un accord, qui sont directement engendrées par 
+@item Les têtes de notes au sein d'un accord, qui sont directement engendrées par
 les hauteurs indiquées
 @item Les signes d'articulation, engendrés par les indications de ponctuation.
 @end itemize
@@ -1163,54 +1245,9 @@ pas directement rendue ; c'est pourquoi le code suivant ne sera d'aucun effet :
 Voir pour plus de détails @ref{Displaying music expressions}.
 
 
-@node Using Scheme code instead of tweak
-@subsection Using Scheme code instead of @code{\tweak}
-
-L'inconvénient principal de la commande @code{\tweak} est la rigidité de sa
-syntaxe.  Par exemple, le code suivant produit une erreur.
-
-@example
-F = \tweak #'font-size #-3 -\flageolet
-
-\relative c'' @{
-  c4^\F c4_\F
-@}
-@end example
-
-@noindent
-En d'autres termes, @code{\tweak} ne se comporte pas comme une articulation :
-il ne peut notamment pas être accolé avec les symboles @samp{^} ou @samp{_}.
-
-C'est en se servant du langage Scheme que l'on peut résoudre ce problème.
-Dans cet exemple, on a recours aux méthodes décrites dans @ref{Adding 
-articulation to notes (example)}, en particulier quant à l'emploi de
-@code{\displayMusic}.
-
-@example
-F = #(let ((m (make-music 'ArticulationEvent
-                          'articulation-type "flageolet")))
-       (set! (ly:music-property m 'tweaks)
-             (acons 'font-size -3
-                    (ly:music-property m 'tweaks)))
-       m)
- 
-\relative c'' @{
-  c4^\F c4_\F
-@}
-@end example
-
-@noindent
-Ici les propriétés @code{tweak} de l'objet flageolet nommé
-@samp{m} (créé au moyen de @code{make-music}) sont extraites par
-@code{ly:music-property}, une nouvelle valeur de la taille de fonte
-est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
-@code{acons}), et le résultat de cette opération est renvoyé par @code{set!}.
-Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
-@samp{m} lui-même.
-
-
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
+
 
 Si les propriétés peuvent être modifiées de deux façons, par les commandes
 @code{\set} et @code{\override}, c'est qu'il y a deux types de propriétés.
@@ -1260,90 +1297,207 @@ courante, une propriété spéciale a été créée.  Elle doit
 être modifiée avec la commande @code{\set}.
 
 
-@node Difficult tweaks
-@subsection Difficult tweaks
 
-Certains réglages sont plus délicats que d'autres.
-
-@itemize @bullet
+@node Useful concepts and properties
+@section Useful concepts and properties
 
 
-@item
-L'un d'entre eux est l'apparence des objets dits @q{spanner}, qui s'étendent 
-horizontalement, tels que les liaisons.  Si, en principe, un seul de ces objets
-est créé à la fois et peut donc être modifié de façon habituelle, lorsque ces
-objets doivent enjamber un changement de ligne, ils sont dupliqués au début
-du ou des systèmes suivants.  Comme ces objets sont des clones de l'objet d'origine,
-ils en héritent toutes les propriétés, y compris les éventuelles commandes @code{\override}.
+@menu
+* Input modes::
+* Direction and placement::
+* Distances and measurements::
+* Staff symbol properties::
+* Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
+@end menu
+
+@node Input modes
+@subsection Input modes
+
+@untranslated
 
 
-En d'autres termes, une commande @code{\override} affecte toujours les deux extrémités
-d'un objet @q{spanner}.  Pour ne modifier que la partie précédant ou suivant le changement
-de ligne, il faut intervenir directement dans le processus de mise en page.  
-La fonction de rappel @code{after-line-breaking} contient toute l'opération Scheme
-effectuée lorsque les sauts de lignes ont été déterminés, et que des objets graphiques
-ont été divisés sur des systèmes différents.
+@node Direction and placement
+@subsection Direction and placement
 
-Dans l'exemple suivant, on définit une nouvelle opération nommée
-@code{my-callback}.  Cette opération
-
-@itemize @bullet
-@item
-détermine si l'objet a été divisé à l'occasion d'un changement de ligne
-@item
-si oui, recherche les différents morceaux de l'objet
-@item
-vérifie si l'objet considéré est bien la deuxième moitié d'un objet divisé
-@item
-si oui, applique un espacement supplémentaire (@code{extra-offset}).
-@end itemize
-
-On ajoute cette procédure à l'objet @rinternals{Tie} (liaison de tenue),
-de façon à ce que le deuxième morceau d'une liaison divisée soit rehaussé.
-
-@c KEEP LY
-@lilypond[quote,verbatim,ragged-right]
-#(define (my-callback grob)
-  (let* (
-         ; l'objet a-t-il été divisé ?
-         (orig (ly:grob-original grob))
-
-         ; si oui, rechercher les morceaux frères (siblings)
-         (siblings (if (ly:grob? orig)
-                     (ly:spanner-broken-into orig) '() )))
-
-   (if (and (>= (length siblings) 2)
-             (eq? (car (last-pair siblings)) grob))
-     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
-
-\relative c'' {
-  \override Tie #'after-line-breaking =
-  #my-callback
-  c1 ~ \break c2 ~ c
-}
-@end lilypond
-
-@noindent
-Lorsque cette astuce va être appliquée, notre nouvelle fonction de rappel
-@code{after-line-breaking} devra également appeler celle d'origine
-(@code{after-line-breaking}), si elle existe.
-Ainsi, pour l'utiliser dans le cas d'un crescendo (objet @code{Hairpin}),
-il faudra appeler également @code{ly:hairpin::after-line-breaking}.
+@untranslated
 
 
-@item Pour des raisons d'ordre technique, certains objets ne peuvent être modifiés par
-@code{\override}.  Parmi ceux-là, les objets @code{NonMusicalPaperColumn}
-et @code{PaperColumn}.  La commande @code{\overrideProperty} sert à les modifier, de
-façon similaire à @code{\once \override}, mais avec une syntaxe différente :
+@node Distances and measurements
+@subsection Distances and measurements
 
-@example
-\overrideProperty
-#"Score.NonMusicalPaperColumn"  % Nom de l'objet
-#'line-break-system-details     % Nom de la propriété
-#'((next-padding . 20))         % valeur
-@end example
+@untranslated
 
-Notez cependant que la commande @code{\override} peut tout de même être appliquée
-à @code{NoteMusicalPaperColumn} et @code{PaperColumn} dans un bloc @code{\context}.
 
-@end itemize
+@node Staff symbol properties
+@subsection Staff symbol properties
+
+@untranslated
+
+
+@node Spanners
+@subsection Spanners
+
+@untranslated
+
+
+@unnumberedsubsubsec Using the @code{spanner-interface}
+@unnumberedsubsubsec Using the @code{line-spanner-interface}
+@node Visibility of objects
+@subsection Visibility of objects
+
+@untranslated
+
+
+@menu
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
+@end menu
+
+@node Removing the stencil
+@unnumberedsubsubsec Removing the stencil
+
+@untranslated
+
+
+@node Making objects transparent
+@unnumberedsubsubsec Making objects transparent
+
+@untranslated
+
+
+@node Painting objects white
+@unnumberedsubsubsec Painting objects white
+
+@untranslated
+
+
+@node Using break-visibility
+@unnumberedsubsubsec Using break-visibility
+
+@untranslated
+
+
+@node Special considerations
+@unnumberedsubsubsec Special considerations
+
+@untranslated
+
+
+@node Line styles
+@subsection Line styles
+
+@untranslated
+
+
+@node Rotating objects
+@subsection Rotating objects
+
+@untranslated
+
+
+@menu
+* Rotating layout objects::
+* Rotating markup::
+@end menu
+
+@node Rotating layout objects
+@unnumberedsubsubsec Rotating layout objects
+
+@untranslated
+
+
+@node Rotating markup
+@unnumberedsubsubsec Rotating markup
+
+@untranslated
+
+
+@node Advanced tweaks
+@section Advanced tweaks
+
+@untranslated
+
+
+@menu
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
+@end menu
+
+@node Aligning objects
+@subsection Aligning objects
+
+@untranslated
+
+
+@menu
+* Setting @code{X-offset} and @code{Y-offset} directly::
+* Using the @code{side-position-interface}::
+* Using the @code{self-alignment-interface}::
+* Using the @code{break-alignable-interface}::
+@end menu
+
+@node Setting @code{X-offset} and @code{Y-offset} directly
+@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+
+@untranslated
+
+
+@node Using the @code{side-position-interface}
+@unnumberedsubsubsec Using the @code{side-position-interface}
+
+@untranslated
+
+
+@node Using the @code{self-alignment-interface}
+@unnumberedsubsubsec Using the @code{self-alignment-interface}
+
+@untranslated
+
+
+@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+@node Using the @code{break-alignable-interface}
+@unnumberedsubsubsec Using the @code{break-alignable-interface}
+
+@untranslated
+
+
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
+
+Les objets @code{VerticalAlignment} et @code{VerticalAxisGroup}
+travaillent de concert.  Comme leurs noms anglais l'indiquent,
+@code{VerticalAxisGroup} regroupe différents objets tels que les portées
+(@code{Staff}), les paroles (@code{Lyrics}) et ainsi de suite ; puis
+@code{VerticalAlignment} synchronise verticalement ces différents groupes.
+En général, il n'y a qu'un seul @code{VerticalAlignment} pour l'ensemble
+de la partition, mais chaque contexte @code{Staff}, @code{Lyrics}, etc.
+possède son propre @code{VerticalAxisGroup}.
+
+
+@node Modifying stencils
+@subsection Modifying stencils
+
+@untranslated
+
+
+@node Modifying shapes
+@subsection Modifying shapes
+
+@menu
+* Modifying ties and slurs::
+@end menu
+
+@node Modifying ties and slurs
+@unnumberedsubsubsec Modifying ties and slurs
+
+@untranslated
+

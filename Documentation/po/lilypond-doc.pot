@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-07 23:30+0100\n"
+"POT-Creation-Date: 2008-12-25 12:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -414,7 +414,7 @@ msgstr ""
 #. Documentation/user/tutorial.itely:1791 (variable)
 #. Documentation/user/working.itely:214 (variable)
 #. Documentation/user/working.itely:229 (variable)
-#. Documentation/user/pitches.itely:1035 (context id)
+#. Documentation/user/pitches.itely:1078 (context id)
 msgid "violin"
 msgstr ""
 
@@ -1272,6 +1272,7 @@ msgstr ""
 #. @rglos in Documentation/es/user/chords.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/simultaneous.itely
+#. @rglos in Documentation/de/user/chords.itely
 msgid "chord"
 msgstr ""
 
@@ -1649,7 +1650,7 @@ msgstr ""
 #. Documentation/user/vocal.itely:506 (context id)
 #. Documentation/user/vocal.itely:1235 (context id)
 #. Documentation/user/vocal.itely:1276 (context id)
-#. Documentation/user/keyboards.itely:329 (context id)
+#. Documentation/user/keyboards.itely:338 (context id)
 #. Documentation/user/fretted-strings.itely:243 (context id)
 #. input/lsr/adding-fingerings-to-tablatures.ly:16 (variable)
 #. input/lsr/jazz-combo-template.ly:204 (context id)
@@ -1661,7 +1662,7 @@ msgstr ""
 
 #. Documentation/user/fundamental.itely:1242 (variable)
 #. Documentation/user/fundamental.itely:2646 (variable)
-#. Documentation/user/tweaks.itely:3469 (variable)
+#. Documentation/user/tweaks.itely:3475 (variable)
 #. Documentation/user/simultaneous.itely:788 (variable)
 #. Documentation/user/percussion.itely:497 (variable)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:46 (variable)
@@ -1713,37 +1714,37 @@ msgid "SopMusic"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1298 (variable)
-#. Documentation/user/tweaks.itely:3471 (variable)
+#. Documentation/user/tweaks.itely:3477 (variable)
 msgid "AltoMusic"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1299 (variable)
-#. Documentation/user/tweaks.itely:3472 (variable)
+#. Documentation/user/tweaks.itely:3478 (variable)
 msgid "TenorMusic"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1300 (variable)
-#. Documentation/user/tweaks.itely:3473 (variable)
+#. Documentation/user/tweaks.itely:3479 (variable)
 msgid "BassMusic"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1301 (variable)
-#. Documentation/user/tweaks.itely:3474 (variable)
+#. Documentation/user/tweaks.itely:3480 (variable)
 msgid "VerseOne"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1303 (variable)
-#. Documentation/user/tweaks.itely:3475 (variable)
+#. Documentation/user/tweaks.itely:3481 (variable)
 msgid "VerseTwo"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1305 (variable)
-#. Documentation/user/tweaks.itely:3476 (variable)
+#. Documentation/user/tweaks.itely:3482 (variable)
 msgid "VerseThree"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1307 (variable)
-#. Documentation/user/tweaks.itely:3477 (variable)
+#. Documentation/user/tweaks.itely:3483 (variable)
 msgid "VerseFour"
 msgstr ""
 
@@ -1752,19 +1753,19 @@ msgid "Sop"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1315 (context id)
-#. Documentation/user/tweaks.itely:3484 (context id)
+#. Documentation/user/tweaks.itely:3490 (context id)
 #. Documentation/user/input.itely:951 (context id)
 msgid "Alto"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1323 (context id)
-#. Documentation/user/tweaks.itely:3492 (context id)
+#. Documentation/user/tweaks.itely:3498 (context id)
 #. Documentation/user/input.itely:953 (context id)
 msgid "Tenor"
 msgstr ""
 
 #. Documentation/user/fundamental.itely:1324 (context id)
-#. Documentation/user/tweaks.itely:3493 (context id)
+#. Documentation/user/tweaks.itely:3499 (context id)
 #. Documentation/user/input.itely:958 (context id)
 #. input/lsr/jazz-combo-template.ly:227 (variable)
 msgid "Bass"
@@ -2372,220 +2373,220 @@ msgstr ""
 msgid "Building a score from scratch"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:596 (comment)
-#. Documentation/user/tweaks.itely:731 (comment)
+#. Documentation/user/tweaks.itely:597 (comment)
+#. Documentation/user/tweaks.itely:732 (comment)
 msgid "Increase thickness of all following slurs from 1.2 to 5.0"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:665 (comment)
-#. Documentation/user/tweaks.itely:704 (comment)
-#. Documentation/user/tweaks.itely:707 (comment)
+#. Documentation/user/tweaks.itely:666 (comment)
+#. Documentation/user/tweaks.itely:705 (comment)
+#. Documentation/user/tweaks.itely:708 (comment)
 msgid "Increase thickness of immediately following slur only"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:735 (comment)
+#. Documentation/user/tweaks.itely:736 (comment)
 msgid "Revert thickness of all following slurs to default of 1.2"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1395 (comment)
+#. Documentation/user/tweaks.itely:1396 (comment)
 msgid "Don't print clefs in this staff"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1397 (comment)
+#. Documentation/user/tweaks.itely:1398 (comment)
 msgid "Don't print time signatures in this staff"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1461 (comment)
+#. Documentation/user/tweaks.itely:1462 (comment)
 msgid "Reduce all font sizes by ~24%"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1527 (comment)
+#. Documentation/user/tweaks.itely:1528 (comment)
 msgid "Reduce stem length and line spacing to match"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1957 (comment)
-#. Documentation/user/tweaks.itely:2027 (comment)
+#. Documentation/user/tweaks.itely:1958 (comment)
+#. Documentation/user/tweaks.itely:2028 (comment)
 msgid "Set details for later Text Spanner"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1960 (comment)
-#. Documentation/user/tweaks.itely:2030 (comment)
+#. Documentation/user/tweaks.itely:1961 (comment)
+#. Documentation/user/tweaks.itely:2031 (comment)
 msgid "Place dynamics above staff"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1962 (comment)
-#. Documentation/user/tweaks.itely:2034 (comment)
+#. Documentation/user/tweaks.itely:1963 (comment)
+#. Documentation/user/tweaks.itely:2035 (comment)
 msgid "Start Ottava Bracket"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1965 (comment)
-#. Documentation/user/tweaks.itely:1972 (comment)
-#. Documentation/user/tweaks.itely:2037 (comment)
-#. Documentation/user/tweaks.itely:2044 (comment)
+#. Documentation/user/tweaks.itely:1966 (comment)
+#. Documentation/user/tweaks.itely:1973 (comment)
+#. Documentation/user/tweaks.itely:2038 (comment)
+#. Documentation/user/tweaks.itely:2045 (comment)
 msgid "Add Dynamic Text"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1967 (comment)
-#. Documentation/user/tweaks.itely:2039 (comment)
+#. Documentation/user/tweaks.itely:1968 (comment)
+#. Documentation/user/tweaks.itely:2040 (comment)
 msgid "Add Dynamic Line Spanner"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1969 (comment)
-#. Documentation/user/tweaks.itely:2041 (comment)
+#. Documentation/user/tweaks.itely:1970 (comment)
+#. Documentation/user/tweaks.itely:2042 (comment)
 msgid "Add Text Script"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:1974 (comment)
-#. Documentation/user/tweaks.itely:2046 (comment)
+#. Documentation/user/tweaks.itely:1975 (comment)
+#. Documentation/user/tweaks.itely:2047 (comment)
 msgid "Stop Ottava Bracket"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2032 (comment)
+#. Documentation/user/tweaks.itely:2033 (comment)
 msgid "Place following Ottava Bracket below Text Spanners"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2094 (comment)
+#. Documentation/user/tweaks.itely:2095 (comment)
 msgid "Cause notes to space out to accommodate text"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2117 (comment)
+#. Documentation/user/tweaks.itely:2118 (comment)
 msgid "This markup is short enough to fit without collision"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2121 (comment)
+#. Documentation/user/tweaks.itely:2122 (comment)
 msgid "This is too long to fit, so it is displaced upwards"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2125 (comment)
-#. Documentation/user/tweaks.itely:2130 (comment)
+#. Documentation/user/tweaks.itely:2126 (comment)
+#. Documentation/user/tweaks.itely:2131 (comment)
 msgid "Turn off collision avoidance"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2132 (comment)
+#. Documentation/user/tweaks.itely:2133 (comment)
 msgid "and turn on textLengthOn"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2133 (comment)
+#. Documentation/user/tweaks.itely:2134 (comment)
 msgid "Spaces at end are honored"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2240 (comment)
+#. Documentation/user/tweaks.itely:2241 (comment)
 msgid "Extend width by 1 staff space"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2523 (comment)
+#. Documentation/user/tweaks.itely:2524 (comment)
 msgid "This will not work, see below:"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2527 (comment)
+#. Documentation/user/tweaks.itely:2528 (comment)
 msgid "This works:"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2578 (variable)
+#. Documentation/user/tweaks.itely:2579 (variable)
 msgid "naturalplusflat"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2619 (comment)
+#. Documentation/user/tweaks.itely:2620 (comment)
 msgid "Extend width by 1 unit"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2621 (comment)
+#. Documentation/user/tweaks.itely:2622 (comment)
 msgid "Align dynamics to a base line 2 units above staff"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2925 (variable)
-#. Documentation/user/tweaks.itely:2974 (variable)
-#. Documentation/user/tweaks.itely:3035 (variable)
-#. Documentation/user/tweaks.itely:3105 (variable)
-#. Documentation/user/tweaks.itely:3170 (variable)
-#. Documentation/user/tweaks.itely:3230 (variable)
+#. Documentation/user/tweaks.itely:2926 (variable)
+#. Documentation/user/tweaks.itely:2975 (variable)
+#. Documentation/user/tweaks.itely:3036 (variable)
+#. Documentation/user/tweaks.itely:3106 (variable)
+#. Documentation/user/tweaks.itely:3171 (variable)
+#. Documentation/user/tweaks.itely:3231 (variable)
 msgid "rhMusic"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2930 (comment)
-#. Documentation/user/tweaks.itely:2979 (comment)
-#. Documentation/user/tweaks.itely:3042 (comment)
-#. Documentation/user/tweaks.itely:3114 (comment)
-#. Documentation/user/tweaks.itely:3179 (comment)
+#. Documentation/user/tweaks.itely:2931 (comment)
+#. Documentation/user/tweaks.itely:2980 (comment)
+#. Documentation/user/tweaks.itely:3043 (comment)
+#. Documentation/user/tweaks.itely:3115 (comment)
+#. Documentation/user/tweaks.itely:3180 (comment)
 msgid "Start polyphonic section of four voices"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2943 (variable)
-#. Documentation/user/tweaks.itely:2992 (variable)
-#. Documentation/user/tweaks.itely:3055 (variable)
-#. Documentation/user/tweaks.itely:3129 (variable)
-#. Documentation/user/tweaks.itely:3196 (variable)
-#. Documentation/user/tweaks.itely:3258 (variable)
+#. Documentation/user/tweaks.itely:2944 (variable)
+#. Documentation/user/tweaks.itely:2993 (variable)
+#. Documentation/user/tweaks.itely:3056 (variable)
+#. Documentation/user/tweaks.itely:3130 (variable)
+#. Documentation/user/tweaks.itely:3197 (variable)
+#. Documentation/user/tweaks.itely:3259 (variable)
 msgid "lhMusic"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2952 (context id)
-#. Documentation/user/tweaks.itely:3001 (context id)
-#. Documentation/user/tweaks.itely:3064 (context id)
-#. Documentation/user/tweaks.itely:3138 (context id)
-#. Documentation/user/tweaks.itely:3205 (context id)
-#. Documentation/user/tweaks.itely:3267 (context id)
+#. Documentation/user/tweaks.itely:2953 (context id)
+#. Documentation/user/tweaks.itely:3002 (context id)
+#. Documentation/user/tweaks.itely:3065 (context id)
+#. Documentation/user/tweaks.itely:3139 (context id)
+#. Documentation/user/tweaks.itely:3206 (context id)
+#. Documentation/user/tweaks.itely:3268 (context id)
 #. Documentation/user/input.itely:964 (context id)
 msgid "RH"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:2956 (context id)
-#. Documentation/user/tweaks.itely:3005 (context id)
-#. Documentation/user/tweaks.itely:3068 (context id)
-#. Documentation/user/tweaks.itely:3142 (context id)
-#. Documentation/user/tweaks.itely:3209 (context id)
-#. Documentation/user/tweaks.itely:3271 (context id)
+#. Documentation/user/tweaks.itely:2957 (context id)
+#. Documentation/user/tweaks.itely:3006 (context id)
+#. Documentation/user/tweaks.itely:3069 (context id)
+#. Documentation/user/tweaks.itely:3143 (context id)
+#. Documentation/user/tweaks.itely:3210 (context id)
+#. Documentation/user/tweaks.itely:3272 (context id)
 #. Documentation/user/input.itely:970 (context id)
 msgid "LH"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3183 (comment)
-#. Documentation/user/tweaks.itely:3245 (comment)
+#. Documentation/user/tweaks.itely:3184 (comment)
+#. Documentation/user/tweaks.itely:3246 (comment)
 msgid "Move the c2 out of the main note column so the merge will work"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3186 (comment)
-#. Documentation/user/tweaks.itely:3248 (comment)
+#. Documentation/user/tweaks.itely:3187 (comment)
+#. Documentation/user/tweaks.itely:3249 (comment)
 msgid "Stem on the d2 must be down to permit merging"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3243 (comment)
+#. Documentation/user/tweaks.itely:3244 (comment)
 msgid "Reposition the c2 to the right of the merged note"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3379 (comment)
-#. Documentation/user/tweaks.itely:3401 (comment)
+#. Documentation/user/tweaks.itely:3380 (comment)
+#. Documentation/user/tweaks.itely:3402 (comment)
 msgid "Visible tempo marking"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3383 (comment)
-#. Documentation/user/tweaks.itely:3405 (comment)
+#. Documentation/user/tweaks.itely:3384 (comment)
+#. Documentation/user/tweaks.itely:3406 (comment)
 msgid "Invisible tempo marking to lengthen fermata in MIDI"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3386 (comment)
-#. Documentation/user/tweaks.itely:3408 (comment)
+#. Documentation/user/tweaks.itely:3387 (comment)
+#. Documentation/user/tweaks.itely:3409 (comment)
 msgid "New tempo for next section"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3460 (variable)
+#. Documentation/user/tweaks.itely:3466 (variable)
 msgid "emphasize"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3464 (variable)
+#. Documentation/user/tweaks.itely:3470 (variable)
 msgid "normal"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3470 (variable)
+#. Documentation/user/tweaks.itely:3476 (variable)
 msgid "SopranoMusic"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3483 (context id)
+#. Documentation/user/tweaks.itely:3489 (context id)
 #. Documentation/user/input.itely:949 (context id)
 msgid "Soprano"
 msgstr ""
 
-#. Documentation/user/tweaks.itely:3692 (comment)
+#. Documentation/user/tweaks.itely:3698 (comment)
 msgid "Arrange to obtain color from color-notehead procedure"
 msgstr ""
 
@@ -3617,6 +3618,8 @@ msgstr ""
 
 #. @node in Documentation/user/setup.itely
 #. @subsection in Documentation/user/setup.itely
+#. @node in Documentation/fr/user/setup.itely
+#. @subsection in Documentation/fr/user/setup.itely
 #. @node in Documentation/es/user/setup.itely
 #. @subsection in Documentation/es/user/setup.itely
 #. @node in Documentation/de/user/setup.itely
@@ -3625,12 +3628,14 @@ msgid "Setup for MacOS X"
 msgstr ""
 
 #. @subsubheading in Documentation/user/setup.itely
+#. @subsubheading in Documentation/fr/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
 #. @subsubheading in Documentation/de/user/setup.itely
 msgid "Using Python scripts on MacOS 10.3 or 10.4"
 msgstr ""
 
 #. @subsubheading in Documentation/user/setup.itely
+#. @subsubheading in Documentation/fr/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
 #. @subsubheading in Documentation/de/user/setup.itely
 msgid "MacOS X on the command line"
@@ -4151,6 +4156,7 @@ msgid "Generating LilyPond files"
 msgstr ""
 
 #. @top in Documentation/user/lilypond.tely
+#. @top in Documentation/de/user/lilypond.tely
 msgid "GNU LilyPond --- Notation Reference"
 msgstr ""
 
@@ -4180,7 +4186,7 @@ msgstr ""
 msgid "Musical notation"
 msgstr ""
 
-#. Documentation/user/pitches.itely:666 (variable)
+#. Documentation/user/pitches.itely:688 (variable)
 #. Documentation/user/input.itely:1033 (variable)
 #. Documentation/user/input.itely:1052 (variable)
 #. Documentation/user/input.itely:1089 (variable)
@@ -4194,35 +4200,35 @@ msgstr ""
 msgid "music"
 msgstr ""
 
-#. Documentation/user/pitches.itely:1039 (comment)
+#. Documentation/user/pitches.itely:1082 (comment)
 msgid "not strictly necessary, but a good reminder"
 msgstr ""
 
-#. Documentation/user/pitches.itely:1046 (context id)
+#. Documentation/user/pitches.itely:1089 (context id)
 #. Documentation/user/staff.itely:1076 (variable)
 msgid "clarinet"
 msgstr ""
 
-#. Documentation/user/pitches.itely:1130 (variable)
+#. Documentation/user/pitches.itely:1174 (variable)
 msgid "musicA"
 msgstr ""
 
-#. Documentation/user/pitches.itely:1144 (variable)
+#. Documentation/user/pitches.itely:1188 (variable)
 msgid "musicB"
 msgstr ""
 
-#. Documentation/user/pitches.itely:1163 (context id)
-#. Documentation/user/keyboards.itely:171 (context id)
-#. Documentation/user/keyboards.itely:265 (context id)
+#. Documentation/user/pitches.itely:1207 (context id)
+#. Documentation/user/keyboards.itely:175 (context id)
+#. Documentation/user/keyboards.itely:274 (context id)
 #. Documentation/user/percussion.itely:175 (variable)
 #. Documentation/user/percussion.itely:365 (variable)
 #. input/lsr/jazz-combo-template.ly:241 (variable)
 msgid "up"
 msgstr ""
 
-#. Documentation/user/pitches.itely:1167 (context id)
-#. Documentation/user/keyboards.itely:181 (context id)
-#. Documentation/user/keyboards.itely:274 (context id)
+#. Documentation/user/pitches.itely:1211 (context id)
+#. Documentation/user/keyboards.itely:185 (context id)
+#. Documentation/user/keyboards.itely:283 (context id)
 #. Documentation/user/percussion.itely:178 (variable)
 #. Documentation/user/percussion.itely:366 (variable)
 #. input/lsr/jazz-combo-template.ly:247 (variable)
@@ -5729,7 +5735,7 @@ msgstr ""
 msgid "Formatting cue notes"
 msgstr ""
 
-#. Documentation/user/editorial.itely:325 (comment)
+#. Documentation/user/editorial.itely:326 (comment)
 msgid "this is deliberate nonsense; note that the stems remain black"
 msgstr ""
 
@@ -6460,15 +6466,15 @@ msgstr ""
 msgid "Printing stanzas at the end in multiple columns"
 msgstr ""
 
-#. Documentation/user/keyboards.itely:183 (comment)
+#. Documentation/user/keyboards.itely:187 (comment)
 msgid "keep staff alive"
 msgstr ""
 
-#. Documentation/user/keyboards.itely:266 (context id)
+#. Documentation/user/keyboards.itely:275 (context id)
 msgid "melOne"
 msgstr ""
 
-#. Documentation/user/keyboards.itely:335 (context id)
+#. Documentation/user/keyboards.itely:344 (context id)
 #. Documentation/user/fretted-strings.itely:244 (context id)
 #. input/lsr/adding-fingerings-to-tablatures.ly:17 (variable)
 #. input/lsr/jazz-combo-template.ly:205 (context id)
@@ -6476,19 +6482,19 @@ msgstr ""
 msgid "two"
 msgstr ""
 
-#. Documentation/user/keyboards.itely:389 (comment)
+#. Documentation/user/keyboards.itely:398 (comment)
 msgid "stems may overlap the other staff"
 msgstr ""
 
-#. Documentation/user/keyboards.itely:391 (comment)
+#. Documentation/user/keyboards.itely:400 (comment)
 msgid "extend the stems to reach other other staff"
 msgstr ""
 
-#. Documentation/user/keyboards.itely:393 (comment)
+#. Documentation/user/keyboards.itely:402 (comment)
 msgid "do not print extra flags"
 msgstr ""
 
-#. Documentation/user/keyboards.itely:395 (comment)
+#. Documentation/user/keyboards.itely:404 (comment)
 msgid "prevent beaming as needed"
 msgstr ""
 
@@ -6626,11 +6632,17 @@ msgstr ""
 
 #. @node in Documentation/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/user/keyboards.itely
-msgid "Harp notation"
+#. @node in Documentation/es/user/keyboards.itely
+#. @unnumberedsubsubsec in Documentation/es/user/keyboards.itely
+#. @node in Documentation/de/user/keyboards.itely
+#. @unnumberedsubsubsec in Documentation/de/user/keyboards.itely
+msgid "References for harps"
 msgstr ""
 
 #. @node in Documentation/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/user/keyboards.itely
+#. @node in Documentation/es/user/keyboards.itely
+#. @unnumberedsubsubsec in Documentation/es/user/keyboards.itely
 #. @node in Documentation/de/user/keyboards.itely
 #. @unnumberedsubsubsec in Documentation/de/user/keyboards.itely
 msgid "Harp pedals"
@@ -6732,24 +6744,24 @@ msgstr ""
 msgid "A chord for ukelele"
 msgstr ""
 
-#. Documentation/user/fretted-strings.itely:770 (variable)
-#. Documentation/user/fretted-strings.itely:793 (variable)
-#. Documentation/user/fretted-strings.itely:822 (variable)
-#. Documentation/user/fretted-strings.itely:851 (variable)
-#. Documentation/user/fretted-strings.itely:875 (variable)
-#. Documentation/user/fretted-strings.itely:919 (variable)
+#. Documentation/user/fretted-strings.itely:782 (variable)
+#. Documentation/user/fretted-strings.itely:805 (variable)
+#. Documentation/user/fretted-strings.itely:834 (variable)
+#. Documentation/user/fretted-strings.itely:865 (variable)
+#. Documentation/user/fretted-strings.itely:889 (variable)
+#. Documentation/user/fretted-strings.itely:937 (variable)
 msgid "mychords"
 msgstr ""
 
-#. Documentation/user/fretted-strings.itely:797 (variable)
+#. Documentation/user/fretted-strings.itely:809 (variable)
 msgid "mychordlist"
 msgstr ""
 
-#. Documentation/user/fretted-strings.itely:906 (comment)
+#. Documentation/user/fretted-strings.itely:924 (comment)
 msgid "add a new chord shape"
 msgstr ""
 
-#. Documentation/user/fretted-strings.itely:910 (comment)
+#. Documentation/user/fretted-strings.itely:928 (comment)
 msgid "add some new chords based on the power chord shape"
 msgstr ""
 
@@ -7133,20 +7145,20 @@ msgstr ""
 msgid "Bagpipe example"
 msgstr ""
 
-#. Documentation/user/chords.itely:654 (variable)
+#. Documentation/user/chords.itely:669 (variable)
 msgid "myChords"
 msgstr ""
 
-#. Documentation/user/chords.itely:984 (comment)
-#. Documentation/user/chords.itely:1005 (comment)
+#. Documentation/user/chords.itely:999 (comment)
+#. Documentation/user/chords.itely:1020 (comment)
 msgid "Put notes on same Staff as figures"
 msgstr ""
 
-#. Documentation/user/chords.itely:1068 (comment)
+#. Documentation/user/chords.itely:1083 (comment)
 msgid "The extenders are correct here, with the same rhythm as the bass"
 msgstr ""
 
-#. Documentation/user/chords.itely:1080 (comment)
+#. Documentation/user/chords.itely:1095 (comment)
 msgid "The extenders are incorrect here, even though the timing is the same"
 msgstr ""
 
@@ -7262,6 +7274,7 @@ msgstr ""
 
 #. @rglos in Documentation/user/chords.itely
 #. @rglos in Documentation/es/user/chords.itely
+#. @rglos in Documentation/de/user/chords.itely
 msgid "figured bass"
 msgstr ""
 
@@ -8057,11 +8070,11 @@ msgstr ""
 msgid "now they will collide"
 msgstr ""
 
-#. Documentation/user/spacing.itely:1788 (comment)
+#. Documentation/user/spacing.itely:1789 (comment)
 msgid "the markup is too close to the following note"
 msgstr ""
 
-#. Documentation/user/spacing.itely:1791 (comment)
+#. Documentation/user/spacing.itely:1793 (comment)
 msgid "setting outside-staff-horizontal-padding fixes this"
 msgstr ""
 
@@ -8466,41 +8479,46 @@ msgstr ""
 msgid "third finger"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2945 (comment)
+#. Documentation/user/changing-defaults.itely:2948 (comment)
+#. Documentation/user/changing-defaults.itely:2980 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:39 (comment)
 msgid "the RehearsalMark will be centered above the Clef"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2951 (comment)
+#. Documentation/user/changing-defaults.itely:2954 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:46 (comment)
 msgid "the RehearsalMark will be centered above the TimeSignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2965 (comment)
+#. Documentation/user/changing-defaults.itely:2974 (comment)
+msgid "the RehearsalMark will be centered above the Key Signature"
+msgstr ""
+
+#. Documentation/user/changing-defaults.itely:2994 (comment)
 msgid "The RehearsalMark will be centered above the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2972 (comment)
-#. Documentation/user/changing-defaults.itely:2988 (comment)
-#. Documentation/user/changing-defaults.itely:2995 (comment)
+#. Documentation/user/changing-defaults.itely:3001 (comment)
+#. Documentation/user/changing-defaults.itely:3017 (comment)
+#. Documentation/user/changing-defaults.itely:3024 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the left edge of the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2977 (comment)
+#. Documentation/user/changing-defaults.itely:3006 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the right edge of the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2989 (comment)
+#. Documentation/user/changing-defaults.itely:3018 (comment)
 msgid "and then shifted right by 3.5 staff-spaces"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2996 (comment)
+#. Documentation/user/changing-defaults.itely:3025 (comment)
 msgid "and then shifted left by 2 staff-spaces"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:3045 (variable)
+#. Documentation/user/changing-defaults.itely:3073 (variable)
 msgid "XinO"
 msgstr ""
 
@@ -8771,6 +8789,8 @@ msgstr ""
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @subsection in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Staff symbol properties"
 msgstr ""
 
@@ -8785,11 +8805,13 @@ msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Using the @code{spanner-interface}"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Using the @code{line-spanner-interface}"
 msgstr ""
 
@@ -8797,6 +8819,8 @@ msgstr ""
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @subsection in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Visibility of objects"
 msgstr ""
 
@@ -8867,6 +8891,8 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Rotating layout objects"
 msgstr ""
 
@@ -8874,6 +8900,8 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Rotating markup"
 msgstr ""
 
@@ -8899,6 +8927,8 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Setting @code{X-offset} and @code{Y-offset} directly"
 msgstr ""
 
@@ -8906,6 +8936,8 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Using the @code{side-position-interface}"
 msgstr ""
 
@@ -8913,16 +8945,20 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Using the @code{self-alignment-interface}"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Using the @code{aligned-on-parent} procedures"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Using the @code{centered-on-parent} procedures"
 msgstr ""
 
@@ -8930,7 +8966,7 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
-msgid "Using the @code{break-aligned-interface}"
+msgid "Using the @code{break-alignable-interface}"
 msgstr ""
 
 #. @node in Documentation/user/changing-defaults.itely
@@ -8966,6 +9002,8 @@ msgstr ""
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Modifying ties and slurs"
 msgstr ""
 
@@ -9292,7 +9330,7 @@ msgstr ""
 #. @section in Documentation/user/programming-interface.itely
 #. @subsection in Documentation/fr/user/changing-defaults.itely
 #. @section in Documentation/es/user/programming-interface.itely
-#. @subsection in Documentation/de/user/programming-interface.itely
+#. @section in Documentation/de/user/programming-interface.itely
 msgid "Using Scheme code instead of @code{\\tweak}"
 msgstr ""
 
@@ -9303,7 +9341,7 @@ msgstr ""
 #. @node in Documentation/es/user/programming-interface.itely
 #. @section in Documentation/es/user/programming-interface.itely
 #. @node in Documentation/de/user/programming-interface.itely
-#. @subsection in Documentation/de/user/programming-interface.itely
+#. @section in Documentation/de/user/programming-interface.itely
 msgid "Difficult tweaks"
 msgstr ""
 
@@ -9561,11 +9599,6 @@ msgstr ""
 
 #. @top in Documentation/fr/user/lilypond-program.tely
 msgid "GNU LilyPond --- Utilisation des programmes"
-msgstr ""
-
-#. @node in Documentation/fr/user/setup.itely
-#. @subsection in Documentation/fr/user/setup.itely
-msgid "MacOS X on the command-line"
 msgstr ""
 
 #. @section in Documentation/fr/user/running.itely
@@ -9835,10 +9868,6 @@ msgstr ""
 msgid "GNU LilyPond -- Programmbenutzung"
 msgstr ""
 
-#. @top in Documentation/de/user/lilypond.tely
-msgid "GNU LilyPond -- Notationsreferenz"
-msgstr ""
-
 #. @chapheading in Documentation/de/user/lilypond.tely
 msgid "Das Notensatzprogramm"
 msgstr ""
@@ -9848,33 +9877,8 @@ msgid "Ignorieren von Melismen"
 msgstr ""
 
 #. @node in Documentation/de/user/changing-defaults.itely
-#. @section in Documentation/de/user/changing-defaults.itely
-msgid "Common properties"
-msgstr ""
-
-#. @node in Documentation/de/user/changing-defaults.itely
-#. @subsection in Documentation/de/user/changing-defaults.itely
-msgid "Controlling visibility of objects"
-msgstr ""
-
-#. @node in Documentation/de/user/changing-defaults.itely
-#. @subsection in Documentation/de/user/changing-defaults.itely
-msgid "Modifying ends of spanners"
-msgstr ""
-
-#. @node in Documentation/de/user/changing-defaults.itely
-#. @section in Documentation/de/user/changing-defaults.itely
-msgid "Discussion of specific tweaks"
-msgstr ""
-
-#. @node in Documentation/de/user/changing-defaults.itely
-#. @subsection in Documentation/de/user/changing-defaults.itely
-msgid "old Contexts explained"
-msgstr ""
-
-#. @node in Documentation/de/user/programming-interface.itely
-#. @section in Documentation/de/user/programming-interface.itely
-msgid "TODO moved into scheme"
+#. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
+msgid "Using the @code{break-aligned-interface}"
 msgstr ""
 
 #. input/lsr/accordion-discant-symbols.ly:34 (variable)
@@ -12223,38 +12227,6 @@ msgstr ""
 
 #. input/lsr/three-sided-box.ly:47 (comment)
 msgid "Test it:"
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:21 (comment)
-msgid "Use 'bar-size to control the height of the tick,"
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:22 (comment)
-msgid "and 'extra-offset to determine its position."
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:24 (comment)
-msgid "With 'extra-offset set to zero, the tick will be"
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:25 (comment)
-msgid "centered around the middle line of the staff."
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:27 (comment)
-msgid "Replace Staff.BarLine with Score.BarLine to"
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:28 (comment)
-msgid "apply the method to the whole score."
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:38 (comment)
-msgid "Revert the overrides to get back a normal"
-msgstr ""
-
-#. input/lsr/tick-bar-lines.ly:39 (comment)
-msgid "bar line at the end."
 msgstr ""
 
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:127 (variable)

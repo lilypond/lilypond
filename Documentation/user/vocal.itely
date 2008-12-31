@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.65"
 
 @node Vocal music
 @section Vocal music
@@ -994,10 +994,10 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
-  \set stanza = "1. "
+  \set stanza = #"1. "
   Hi, my name is Bert.
 } \addlyrics {
-  \set stanza = "2. "
+  \set stanza = #"2. "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1078,10 +1078,10 @@ the line, just like instrument names.  They are created by setting
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
-  \set vocalName = "Bert "
+  \set vocalName = #"Bert "
   Hi, my name is Bert.
 } \addlyrics {
-  \set vocalName = "Ernie "
+  \set vocalName = #"Ernie "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1227,7 +1227,7 @@ d d e d | c1 |
 }
 
 text = \lyricmode {
-\set stanza = "1." Ma- ry had a lit- tle lamb,
+\set stanza = #"1." Ma- ry had a lit- tle lamb,
 its fleece was white as snow.
 }
 
@@ -1268,7 +1268,7 @@ melody = \relative c' {
 }
 
 text = \lyricmode {
-  \set stanza = "1." This is verse one.
+  \set stanza = #"1." This is verse one.
   It has two lines.
 }
 

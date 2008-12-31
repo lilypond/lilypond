@@ -33,6 +33,11 @@ blockquote {
   margin: 1em 1%;
 }
 
+table.cartouche {
+  width: 85%;
+  margin: 1em 7.5%;
+}
+
 /***********************************************************/
 /*                    TOC SIDEBAR                          */
 /***********************************************************/
@@ -56,11 +61,11 @@ table#navigation {
 /***********************************************************/
 
 table#navigation, div#tocframe, div#main,
-p, .footer, #languages {
+p, h1, h2, ul, .footer, #languages {
   text-align: left;
 }
 
-div.subheader p {
+div.header h1, div.subheader p {
   text-align: center;
 }
 

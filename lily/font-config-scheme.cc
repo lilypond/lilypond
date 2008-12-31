@@ -29,6 +29,8 @@ display_fontset (FcFontSet *fs)
       font = FcNameUnparse (fs->fonts[j]);
       if (FcPatternGetString (fs->fonts[j], FC_FILE, 0, &str) == FcResultMatch)
 	retval += String_convert::form_string ("FILE %s\n", str);
+      if (FcPatternGetString (fs->fonts[j], FC_INDEX, 0, &str) == FcResultMatch)
+	retval += String_convert::form_string ("INDEX %s\n", str);
       if (FcPatternGetString (fs->fonts[j], FC_FAMILY, 0, &str) == FcResultMatch)
 	retval += String_convert::form_string ("family %s\n ", str);
       if (FcPatternGetString (fs->fonts[j],

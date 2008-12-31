@@ -16,7 +16,7 @@ setting properties on individual object. @code{\override} in a
 
 }
 
-\version "2.11.51"
+\version "2.12.0"
 
 #(set-global-staff-size 13)
 

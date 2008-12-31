@@ -6,7 +6,7 @@ Las abreviaturas se encuentran definidas dentro del archivo
 valores predeterminados.  Se pueden modificar estos valores
 predeterminados para las abreviaturas. Por ejemplo, para asociar
 la abreviatura @code{-+} (@code{dashPlus}) con el símbolo del
-semitrino en lugar del símboloo predeterminado +, asigne el valor
+semitrino en lugar del símbolo predeterminado +, asigne el valor
 @code{trill} a la variable @code{dashPlus}:
 
 "

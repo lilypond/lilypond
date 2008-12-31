@@ -15,9 +15,8 @@
 #include "paper-book.hh"
 
 static bool
-is_break (Grob *g)
+is_break (Grob *)
 {
-  (void) g; /* shutup warning */
   return false;
 }
 
@@ -35,11 +34,11 @@ Minimal_page_breaking::solve ()
 {
   vsize end = last_break_position ();
 
-  message ("Computing line breaks...");
+  message (_ ("Calculating line breaks..."));
   set_to_ideal_line_configuration (0, end);
   break_into_pieces (0, end, current_configuration (0));
 
-  message (_ ("Computing page breaks..."));
+  message (_ ("Calculating page breaks..."));
   vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   Page_spacing_result res = pack_systems_on_least_pages (0, first_page_num);
   SCM lines = systems ();

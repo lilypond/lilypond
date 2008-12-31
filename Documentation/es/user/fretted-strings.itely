@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: 4f8c7b381812949e6f765f641fba9108b52af56b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -618,14 +618,18 @@ colocación un elemento sobre el diagrama de trastes.
 @end lilypond
 
 Se pueden incluir digitaciones y cejillas en una cadena de marcado
-prolija @code{fret-diagram-verbose}.
+prolija @code{fret-diagram-verbose}.  Es exclusiva del interfaz de
+fret-diagram-verbose la indicación @q{capo} que se puede colocar sobre
+el diagrama de posición.  La indicación de capo es una barra gruesa
+que cubre todas las cuerdas.  El traste que tiene el capo es el más
+bajo del diagrama de posición.
 
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
   \context ChordNames {
      \chordmode {
-       f1 g
+       f1 g c
      }
   }
   \context Staff {
@@ -652,7 +656,15 @@ prolija @code{fret-diagram-verbose}.
         (open 2)
         (place-fret 1 3 3)
       )
-  }
+    < c e g c' e'> ^\markup
+      \fret-diagram-verbose #'(
+        (capo 3)
+        (mute 6)
+        (place-fret 4 5 1)
+        (place-fret 3 5 2)
+        (place-fret 2 5 3)
+      )
+   }
 >>
 @end lilypond
 
@@ -857,11 +869,12 @@ mychords = \chordmode{
 @cindex personalizados, añadir diagramas de traste
 @cindex diagramas de trastes personalizados, añadir
 
-Se pueden añadir diagramas de traste a la tabla de diagramas sFret
-diagrams can be added to the fret diagram table.  Para añadir un
-diagrama debemos especificar el acorde del diagrama, la afinación
-utilizadathe tuning to be used y la cadena de definición escueta
-fret-diagram-terse del diagrama.
+Se pueden añadir diagramas de posiciones a la tabla de diagramas de
+posiciones.  Para añadir un diagrama debemos especificar el acorde del
+diagrama, la afinación utilizada y una definición del diagrama.  La
+definición del diagrama puede ser una cadena de definición escueta
+fret-diagram-terse o una lista de marcados prolija
+fret-diagram-verbose.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -892,7 +905,7 @@ usando distinas octavas para las notas.
 
 \storePredefinedDiagram \chordmode {c'}
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'bes))
+                        #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode{
   c1 c'
@@ -920,23 +933,28 @@ Además de los diagramas de traste, LilyPond almacena una lista interna
 de formas de acorde.  Las formas de acorde son diagramas de traste que
 se pueden desplazar por el mástil para dar acordes distintos.  Se
 pueden añadir formas de acorde a la lista interna y luego usarlas para
-definir diagramas de traste predefinidos.
+definir diagramas de posición predefinidos.  Dado que se pueden mover
+a distintas posiciones dentro del mástil, las formas de acorde
+normalmente no contienen cuerdas al aire.  Como los diagramas de
+posiciones, las formas de acorde se pueden introducir como cadenas
+escuetas fret-diagram-terse o como listas de marcado prolijas
+fret-diagram-verbose.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
 % add a new chord shape
 
-\addChordShape #'powerf #"1-1;3-3;3-4;x;x;x;"
+\addChordShape #'powerf #guitar-tuning #"1-1;3-3;3-4;x;x;x;"
 
 % add some new chords based on the power chord shape
 
 \storePredefinedDiagram \chordmode {f'}
                         #guitar-tuning
-                        #(chord-shape 'powerf)
+                        #(chord-shape 'powerf guitar-tuning)
 \storePredefinedDiagram \chordmode {g'}
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'powerf))
+                        #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
 mychords = \chordmode{
   f1 f' g g'

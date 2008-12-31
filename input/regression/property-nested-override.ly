@@ -1,4 +1,4 @@
-\version "2.11.65"
+\version "2.12.0"
 \header {
   texidoc = "Nested properties may be overridden using Scheme list
 syntax.  This test performs two property overrides: the first

@@ -1,6 +1,6 @@
 %% -*- Mode: Scheme -*-
 
-\version "2.11.9"
+\version "2.12.0"
 
 %%;; to be define later, in a closure
 #(define-public toplevel-module-define-public! #f)

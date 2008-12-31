@@ -8,6 +8,7 @@
 
 #include "all-font-metrics.hh"
 
+#include "string-convert.hh"
 #include "international.hh"
 #include "main.hh"
 #include "open-type-font.hh"
@@ -17,13 +18,16 @@
 
 
 Index_to_charcode_map const *
-All_font_metrics::get_index_to_charcode_map (string filename, FT_Face face)
+All_font_metrics::get_index_to_charcode_map (string filename,
+					     int face_index,
+					     FT_Face face)
 {
-  if (filename_charcode_maps_map_.find (filename)
+  string key = filename + String_convert::int_string (face_index);
+  if (filename_charcode_maps_map_.find (key)
       == filename_charcode_maps_map_.end ())
-    filename_charcode_maps_map_[filename] = make_index_to_charcode_map (face);
+    filename_charcode_maps_map_[key] = make_index_to_charcode_map (face);
 
-  return &filename_charcode_maps_map_[filename];
+  return &filename_charcode_maps_map_[key];
 }
 
 

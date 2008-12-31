@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+    Translation of GIT committish: 8405b88e6c1aac6c44e6064dd7b8b1674d6e7abd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -21,7 +21,8 @@
 * Markup programmer interface::
 * Contexts for programmers::
 * Scheme procedures as properties::
-* TODO moved into scheme::
+* Using Scheme code instead of \tweak::
+* Difficult tweaks::
 @end menu
 
 @node Music functions
@@ -209,25 +210,14 @@
 @untranslated
 
 
-@node TODO moved into scheme
-@section TODO moved into scheme
-
-@untranslated
-
-
-@menu
-* Using Scheme code instead of \tweak::
-* Difficult tweaks::
-@end menu
-
 @node Using Scheme code instead of \tweak
-@subsection Using Scheme code instead of @code{\tweak}
+@section Using Scheme code instead of @code{\tweak}
 
 @untranslated
 
 
 @node Difficult tweaks
-@subsection Difficult tweaks
+@section Difficult tweaks
 
 @untranslated
 

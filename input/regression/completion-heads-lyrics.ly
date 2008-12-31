@@ -1,7 +1,7 @@
 \header {
   texidoc = "You can put lyrics under completion heads."
 }
-\version "2.11.51"
+\version "2.12.0"
 
 mel = \relative c'' {
  c1. c1.
