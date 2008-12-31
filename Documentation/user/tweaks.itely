@@ -2049,6 +2049,33 @@ c\ff c \stopTextSpan
 c, c c c
 @end lilypond
 
+@cindex slurs and outside-staff-priority
+@cindex slurs and articulations
+@cindex articulations and slurs
+
+Slurs by default are classed as within-staff objects, but
+they often appear above the staff if the notes to
+which they are attached are high on the staff.  This can push
+outside-staff objects such as articulations too high, as the slur
+will be placed first.  The @code{avoid-slur} property of the
+articulation can be set to @code{'inside} to bring the articulation
+inside the slur, but the @code{avoid-slur} property is effective
+only if the @code{outside-staff-priority} is also set to @code{#f}.
+Alternatively, the @code{outside-staff-priority} of the slur
+can be set to a numerical value to cause it to be placed along with
+other outside-staff objects according to that value.  Here's an
+example showing the effect of the two methods:
+
+@lilypond[quote,verbatim,relative=2]
+c4( c^\markup\tiny\sharp d4.) c8
+c4(
+\once \override TextScript #'avoid-slur = #'inside
+\once \override TextScript #'outside-staff-priority = ##f
+c^\markup\tiny\sharp d4.) c8
+\once \override Slur #'outside-staff-priority = #500
+c4( c^\markup\tiny\sharp d4.) c8
+@end lilypond
+
 Changing the @code{outside-staff-priority} can also be used to
 control the vertical placement of individual objects, although
 the results may not always be desirable.  Suppose we would
