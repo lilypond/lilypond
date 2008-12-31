@@ -468,9 +468,9 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		    {
 		      Grob *stem = stems[seg.stem_index_];
 		      Drul_array<Real> beamlet_length =
-			robust_scm2interval (stem->get_property ("beamlet-default-length"), Interval (1.0, 1.0));
+			robust_scm2interval (stem->get_property ("beamlet-default-length"), Interval (1.1, 1.1));
 		      Drul_array<Real> max_proportion =
-			robust_scm2interval (stem->get_property ("beamlet-max-length-proportion"), Interval (0.5, 0.5));
+			robust_scm2interval (stem->get_property ("beamlet-max-length-proportion"), Interval (0.75, 0.75));
 		      Real length = beamlet_length[seg.dir_];
 
 		      if (inside_stem)
