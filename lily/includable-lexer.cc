@@ -37,6 +37,8 @@ using namespace std;
   (yy_buffer_stack != 0 ? yy_buffer_stack[yy_buffer_stack_top] : 0)
 #endif
 
+extern bool relative_includes;
+
 Includable_lexer::Includable_lexer ()
 {
 #if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
@@ -48,8 +50,9 @@ Includable_lexer::Includable_lexer ()
 void
 Includable_lexer::new_input (string name, Sources *sources)
 {
-  string current_dir = include_stack_.size () ?
-    dir_name (include_stack_.back ()->name_string ()) : "";
+  string current_dir = dir_name (main_input_name_);
+  if (relative_includes)
+    current_dir = include_stack_.size () ? dir_name (include_stack_.back ()->name_string ()) : "";
 
   Source_file *file = sources->get_file (name, current_dir);
   if (!file)

@@ -80,6 +80,8 @@ on errors, and print a stack trace.")
     
     (resolution 101 "resolution for generating PNG bitmaps")
     (read-file-list #f "Read files to be processed from command line arguments")
+    (relative-includes #f "When processing an \\include command, look for the included file
+relative to the current file (instead of the root file)")
 
     (safe #f "Run safely")
     (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
