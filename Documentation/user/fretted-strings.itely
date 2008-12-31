@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.65"
+@c \version "2.12.0"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -59,14 +59,17 @@ Some other elements pertinent to fretted string instruments
 are covered elsewhere:
 
 @itemize
-@item Fingerings are indicated with @ref{Fingering instructions}.
+@item Fingerings are indicated as shown in @ref{Fingering instructions}.
 
 @item Instructions for @notation{Laissez vibrer} ties
-as well as ties on arpeggios and tremolos is described in
+as well as ties on arpeggios and tremolos can be found in
 @ref{Ties}.
 
-@item Instructions on handling multiple voices is described
+@item Instructions for handling multiple voices can be found
 in @ref{Collision resolution}.
+
+@item Instructions for indicating harmonics can be found in
+@ref{Harmonics}.
 
 @end itemize
 

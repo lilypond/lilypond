@@ -24,8 +24,8 @@ This snippet shows how to achieve such notation rules.
   }
   \layout {
     \context {
-    \Staff
-    \remove "Key_engraver"
+      \Staff
+      \remove "Key_engraver"
     }
   }
 }

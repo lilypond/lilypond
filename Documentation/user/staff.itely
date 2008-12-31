@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.65"
+@c \version "2.12.0"
 
 @node Staff notation
 @section Staff notation
@@ -45,12 +45,17 @@ grouping staves.
 @cindex staff instantiation
 @cindex staff, new
 @cindex staff, single
+@cindex staff, drum
+@cindex staff, percussion
 @cindex drum staff
 @cindex percussion staff
 @cindex Gregorian transcription staff
 @cindex rhythmic staff
 @cindex tabstaff
 @cindex tablature
+
+@funindex \drummode
+@funindex drummode
 
 @notation{Staves} (singular: @notation{staff}) are created with
 the @code{\new} or @code{\context} commands.  For details, see
@@ -149,6 +154,7 @@ Internals Reference:
 @cindex staff group
 @cindex staff, choir
 @cindex staff, piano
+@cindex staff, grand
 @cindex system
 
 Various contexts exist to group single staves together in order to
@@ -341,6 +347,7 @@ sections are also described.
 @cindex adjusting staff symbol
 @cindex drawing staff symbol
 @cindex staff symbol, setting of
+@cindex staff symbol, drawing
 @cindex stop staff lines
 @cindex start staff lines
 @cindex staff lines, amount of
@@ -406,8 +413,15 @@ affects the spacing of ledger lines as well.
 Further details about the properties of @code{StaffSymbol} can be
 found in @rinternals{staff-symbol-interface}.
 
+@cindex stopping a staff
+@cindex starting a staff
+@cindex staff, starting
+@cindex staff, stopping
+
 @funindex \startStaff
+@funindex startStaff
 @funindex \stopStaff
+@funindex stopStaff
 
 Modifications to staff properties in the middle of a score can be
 placed between @code{\stopStaff} and @code{\startStaff}:
@@ -423,8 +437,6 @@ b2 b
 \startStaff
 a2 a
 @end lilypond
-
-@cindex stopping a staff
 
 @noindent
 In general, @code{\startStaff} and @code{\stopStaff} can be used
@@ -483,6 +495,11 @@ outermost bar lines in either direction must be equal.
 @cindex Frenched staves
 @cindex staff, resizing of
 @cindex resizing of staves
+
+@funindex \startStaff
+@funindex startStaff
+@funindex \stopStaff
+@funindex stopStaff
 
 @notation{Ossia} staves can be set by creating a new simultaneous
 staff in the appropriate location:
@@ -648,6 +665,10 @@ Internals Reference:
 @cindex hiding of staves
 @cindex empty staves
 
+@funindex \RemoveEmptyStaffContext
+@funindex RemoveEmptyStaffContext
+
+
 Staff lines can be hidden by removing the
 @code{Staff_symbol_engraver} from the @code{Staff} context.  As an
 alternative, @code{\stopStaff} may be used.
@@ -659,7 +680,6 @@ alternative, @code{\stopStaff} may be used.
 \relative c''' { a8 f e16 d c b a2 }
 @end lilypond
 
-@funindex \RemoveEmptyStaffContext
 
 Empty staves can be hidden by setting the
 @code{\RemoveEmptyStaffContext} command in the @code{\layout}
@@ -700,8 +720,13 @@ sections for a staff.  For details, see @ref{Ossia staves}.
 
 @cindex hiding ancient staves
 @cindex hiding rhythmic staves
+
+@funindex \RemoveEmptyStaffContext
+@funindex RemoveEmptyStaffContext
 @funindex \AncientRemoveEmptyStaffContext
+@funindex AncientRemoveEmptyStaffContext
 @funindex \RemoveEmptyRhythmicStaffContext
+@funindex RemoveEmptyRhythmicStaffContext
 
 The @code{\AncientRemoveEmptyStaffContext} command may be used to
 hide empty staves in ancient music contexts.  Similarly,
@@ -777,7 +802,9 @@ format cue notes are also described.
 @cindex beats per minute
 @cindex metronome marking
 @cindex metronome marking with text
+
 @funindex \tempo
+@funindex tempo
 
 A basic metronome mark is simple to write:
 
@@ -906,8 +933,8 @@ default.  To center multi-line instrument names,
 >>
 @end lilypond
 
-@cindex indent
-@cindex short-indent
+@funindex indent
+@funindex short-indent
 
 However, if the instrument names are longer, the instrument names
 in a staff group may not be centered unless the @code{indent} and
@@ -942,6 +969,7 @@ To add instrument names to other contexts (such as
 For details, see @ref{Modifying context plug-ins}.
 
 @cindex instrument names, changing
+@cindex changing instrument names
 
 Instrument names may be changed in the middle of a piece:
 
@@ -958,6 +986,11 @@ c1 c c c \break
 
 @cindex instrument switch
 @cindex switching instruments
+
+@funindex \addInstrumentDefinition
+@funindex addInstrumentDefinition
+@funindex \instrumentSwitch
+@funindex instrumentSwitch
 
 If an instrument @emph{switch} is needed,
 @code{\addInstrumentDefinition} may be used in combination with
@@ -1015,6 +1048,13 @@ Internals Reference:
 @cindex quoting other voices
 @cindex fragments
 @cindex cue notes
+
+@funindex \addQuote
+@funindex addQuote
+@funindex \quoteDuring
+@funindex quoteDuring
+@funindex \transposition
+@funindex transposition
 
 It is very common for one voice to double some of the music from
 another voice.  For example, the first and second violins may play the
@@ -1143,6 +1183,9 @@ written entirely in lower-case letters: @code{\addquote}.
 @cindex quoting other voices
 @cindex cues, formatting
 
+@funindex \cueDuring
+@funindex cueDuring
+
 The previous section explains how to create quotations.  The
 @code{\cueDuring} command is a more specialized form of
 @code{\quoteDuring}, being particularly useful for inserting cue
@@ -1197,6 +1240,15 @@ oboe = \relative c''' {
   }
 >>
 @end lilypond
+
+@cindex removing cues
+@cindex removing cue notes
+@cindex cue notes, removing
+
+@funindex \killCues
+@funindex killCues
+@funindex \transposedCueDuring
+@funindex transposedCueDuring
 
 In addition to printing the name of the cued instrument, when cue
 notes end, the name of the original instrument should be printed,

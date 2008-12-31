@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @node Expressive marks
 @section Expressive marks
@@ -119,6 +119,8 @@ may be manually placed above or below the staff, see
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {controlling-the-vertical-ordering-of-scripts.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-a-delayed-turn.ly}
 
 @seealso
 Music Glossary:
@@ -583,6 +585,11 @@ g4( e c2)
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {using-double-slurs-for-legato-chords.ly}
 
+@c TODO remove ignores after LSR update
+@ignore
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{positioning-text-markups-inside-slurs}
+@end ignore
 
 @seealso
 Music Glossary:

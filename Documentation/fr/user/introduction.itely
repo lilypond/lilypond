@@ -7,10 +7,10 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @c Translators: Ludovic Sardain, John Mandereau
-@c Translation checkers: Jean-Charles Malahieude, Jean-Yves Baudais
+@c Translation checkers: Jean-Charles Malahieude, Jean-Yves Baudais, Damien Heurtebise
 @c Translation status: post-GDP
 
 
@@ -44,6 +44,7 @@ architecture.
 @node Engraving
 @unnumberedsubsec Engraving
 
+
 @cindex gravure
 @cindex typographie musicale
 @cindex musique et typographie
@@ -56,7 +57,7 @@ Cette plaque était ensuite encrée, les dépressions créées par les
 creux et les bosses retenant l'encre.  Une image était formée en
 pressant du papier sur la plaque.  La découpe et l'embossage étaient
 entièrement faits à la main.  Il était pénible d'appliquer une
-correction, quand celle-ci n'était pas impossible, la gravure devait
+correction, quand celle-ci n'était pas impossible ; la gravure devait
 donc être parfaite du premier coup.  La gravure demandait une
 qualification hautement spécialisée : un artisan devait accomplir
 environ cinq ans de formation avant de mériter le titre de maître
@@ -65,7 +66,7 @@ pour devenir vraiment habile.
 
 De nos jours, toutes les partitions récentes sont produites avec des
 ordinateurs.  Ceci a des avantages évidents : le coût des impressions
-a diminué, et le travail d'éditeur peut être envoyé par courriel.
+a diminué, et le travail d'édition peut être envoyé par courriel.
 Malheureusement, l'utilisation dominante des ordinateurs a également
 diminué la qualité graphique des partitions.  L'impression
 informatisée leur donne un aspect fade et mécanique qui les rend
@@ -249,13 +250,12 @@ meilleure interprétation.
 
 Ces exemples démontrent que la typographie musicale est un art subtil
 et complexe, et que la produire demande une expertise considérable,
-que les musiciens n'ont généralement pas.  LilyPond représente notre
-effort pour apporter l'excellence graphique de la gravure à la main à
-l'ère de l'ordinateur, et la rendre accessible à tous les musiciens.
-Nous avons conçu nos algorithmes, fontes et paramètres de programme
-pour retrouver la qualité d'édition des anciennes partitions que nous
-aimons tant lire et jouer.
-
+que les musiciens ne possèdent généralement pas.  LilyPond est le
+fruit de nos efforts pour restaurer l'excellence graphique de la
+gravure à la main à l'ère de l'ordinateur, et la rendre accessible à
+tous les musiciens.  Nous avons conçu nos algorithmes, fontes et
+paramètres de programme pour retrouver la qualité d'édition des
+anciennes partitions que nous aimons tant lire et jouer.
 
 
 @node Automated engraving
@@ -271,9 +271,9 @@ faire leur travail ?
 
 La réponse est : nous ne le pouvons pas.  La typographie se base sur
 le jugement visuel humain, donc les humains ne peuvent pas être
-complètement remplacés.  Si LilyPond arrive à résoudre la plupart des
+complètement remplacés.  Si LilyPond arrive à traiter la plupart des
 situations correctement, ce sera déjà une grande avancée sur les
-logiciels existants.  Les autres situations peuvent être résolues à la
+logiciels existants.  Les problèmes restants peuvent être résolus à la
 main.  Au fil des ans, le logiciel peut être affiné pour faire de plus
 en plus de choses automatiquement, pour que les ajustements manuels
 soient de moins en moins nécessaires.
@@ -299,16 +299,16 @@ définitions du modèle typographique doivent également être accessibles
 à l'utilisateur.
 
 @item Enfin, nous affinons continuellement les algorithmes de formatage,
-donc nous avons besoin d'une approche souple des règles.  Le language
+donc nous avons besoin d'une approche souple des règles.  Le langage
 C++ oblige à une certaine méthode de groupage des règles qui ne
 convient pas bien au fonctionnement de la notation musicale.
-
+ 
 @end itemize
 
 @cindex langage de programmation Scheme
 
 Ces problèmes ont été résolus en intégrant un interpréteur pour le
-language de programmation Scheme, et en réécrivant des parties de
+langage de programmation Scheme, et en réécrivant des parties de
 LilyPond en Scheme.  L'architecture actuelle de formatage est
 construite autour de la notion d'objets graphiques, décrits par des
 fonctions et des variables Scheme.  Cette architecture comprend les
@@ -430,7 +430,7 @@ notation utiliser.
 La notation musicale usuelle est un système d'écriture qui a évolué à
 travers les dix derniers siècles.  La forme qui est aujourd'hui
 communément utilisée date du début de la Renaissance.  Bien que la forme
-basique --- les têtes de notes sur une portée de cinq lignes --- n'a pas
+basique --- les têtes de notes sur une portée de cinq lignes --- n'ait pas
 changé, les détails continuent d'évoluer pour exprimer les innovations
 de la notation contemporaine.  Par conséquent, elle comprend quelque 500
 ans de musique, avec des applications allant des mélodies monodiques à
@@ -572,7 +572,7 @@ et le graveur de hampes (@code{Stem_engraver}) ajoute les hampes :
 @end lilypond
 
 @noindent
-Le graveur de hampe est notifié de chaque tête de note qui survient.
+Le graveur de hampe est informé de chaque tête de note qui survient.
 Chaque fois qu'une tête de note --- plusieurs pour un accord --- est
 rencontrée, un objet hampe est créé et connecté à la tête de note.  En
 ajoutant des graveurs pour les barres de ligature, les liaisons, les
@@ -635,7 +635,7 @@ Référence du programme: @rinternals{Contexts}.
 Idéalement, le format d'entrée pour n'importe quel système de
 formatage est une description abstraite du contenu.  Dans ce cas-ci,
 ce serait la musique elle-même.  Cela pose un formidable problème :
-comment pouvons-nous définir ce que la musique est réellement ? Plutôt
+comment pouvons-nous définir ce qu'est réellement la musique ? Plutôt
 que d'essayer de trouver une réponse, nous avons renversé la question.
 Nous écrivons un logiciel capable de produire de la musique écrite, et
 adaptons le format pour atteindre la plus grande concision possible.
@@ -643,7 +643,7 @@ Quand le format ne peut plus être simplifé, il nous reste par
 définition le contenu lui-même.  Notre logiciel sert de définition
 formelle d'un document de musique.
 
-La syntaxe est également l'interface utilisateur pour LilyPond, par
+Pour LilyPond, la syntaxe est également l'interface utilisateur ; par
 conséquent il est facile de saisir
 
 @example
@@ -653,7 +653,7 @@ c'4 d'8
 @end example
 
 @noindent
-c'est-à-dire un do central noire et, juste au-dessus un ré croche
+c'est-à-dire un do central noire et, juste au-dessus, un ré croche
 
 @lilypond[quote]
 {
@@ -662,7 +662,7 @@ c'est-à-dire un do central noire et, juste au-dessus un ré croche
 @end lilypond
 
 Sur une échelle microscopique, une telle syntaxe est facile à
-utiliser.  A plus grande échelle, la syntaxe a besoin aussi de
+utiliser.  À plus grande échelle, la syntaxe a besoin aussi de
 structure.  Comment serait-il possible autrement de rentrer des
 pièces complexes comme des symphonies ou des opéras ? La structure
 est formée par le concept d'expression musicale : en combinant
@@ -686,7 +686,7 @@ des notes.
 @end lilypond
 
 @noindent
-Cette expression est mise dans une séquence grace à l'encadrement par
+On met cette expression dans une séquence en l'encadrant par
 des accolades @code{@{@tie{}@dots{}@tie{}@}}
 
 @example
@@ -699,7 +699,7 @@ des accolades @code{@{@tie{}@dots{}@tie{}@}}
 
 @noindent
 Ceci est également une expression, et peut donc encore une fois
-être combinée avec d'autres expressions simultanées (une blanche)
+être combiné avec d'autres expressions simultanées (une blanche)
 en utilisant <<, @code{\\}, et >>
 
 @example
@@ -712,7 +712,7 @@ en utilisant <<, @code{\\}, et >>
 
 De telles structures récursives peuvent être spécifiées formellement
 et de manière ordonnée dans une grammaire indépendante de tout
-contexte.  Le code d'analyse est aussi générée à partir de cette
+contexte.  Le code d'analyse est aussi généré à partir de cette
 grammaire.  Autrement dit, la syntaxe de LilyPond est définie
 clairement et sans ambiguité.
 
@@ -930,7 +930,7 @@ un fichier, ajoutez les notes, et c'est prêt !
 @ref{Scheme tutorial} : courte introduction à Scheme, le langage de
 programmation utilisé dans les fonctions de musique.  Ces quelques
 lignes vous aideront à construire des retouches avancées ; nombre
-d'utilisateurs n'ont jamais touché à Scheme.
+d'utilisateurs ne touchent jamais à Scheme.
 
 @end itemize
 
@@ -944,7 +944,7 @@ d'utilisateurs n'ont jamais touché à Scheme.
 @cindex langues étrangères
 @cindex langue
 @cindex langage
- 
+
 @rglosnamed{Top,Glossaire musical} : ce document explique en anglais
 des termes musicaux, et donne leur traduction dans diverses langues.
 Si vous n'êtes pas familier avec la notation et la terminologie
@@ -996,7 +996,7 @@ différentes formes de retouches, qui permettent d'obtenir de Lilypond
 (presque) tout ce que vous désirez.
 
 @item
-@ruser{Interfaces for programmers} :.création de fonctions de musique
+@ruser{Interfaces for programmers} : création de fonctions de musique
 à l'aide de Scheme.
 
 @end itemize

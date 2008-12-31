@@ -8,11 +8,10 @@
 @end ignore
 
 
+@c \version "2.12.0"
+
 @node Ancient notation
 @section Ancient notation
-
-@untranslated
-
 
 @menu
 * Introduction to ancient notation::  
