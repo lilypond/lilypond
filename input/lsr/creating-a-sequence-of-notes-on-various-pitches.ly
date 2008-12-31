@@ -50,29 +50,28 @@ throughout Mars, from Gustav Holst's The Planets.
    'element elt))
 
 
-rhythm = #(define-music-function (parser location note) (ly:music?)
-          "Make the rhythm in Mars (the Planets) at the given note's pitch"
-          (let* ((p (ly:music-property
-                      (car (ly:music-property note 'elements))
-                      'pitch)))
-          (seq-music-list (list
-            (make-triplet (seq-music-list (list
-              (make-note p (ly:make-duration 3 0 2 3))
-              (make-note p (ly:make-duration 3 0 2 3))
-              (make-note p (ly:make-duration 3 0 2 3))
-            )))
-            (make-note p (ly:make-duration 2 0))
-            (make-note p (ly:make-duration 2 0))
-            (make-note p (ly:make-duration 3 0))
-            (make-note p (ly:make-duration 3 0))
-            (make-note p (ly:make-duration 2 0))
-          ))))
+rhythm =
+#(define-music-function (parser location note) (ly:music?)
+  "Make the rhythm in Mars (the Planets) at the given note's pitch"
+  (let ((p (ly:music-property
+              (car (ly:music-property note 'elements))
+              'pitch)))
+  (seq-music-list (list
+    (make-triplet (seq-music-list (list
+      (make-note p (ly:make-duration 3 0 2 3))
+      (make-note p (ly:make-duration 3 0 2 3))
+      (make-note p (ly:make-duration 3 0 2 3))
+    )))
+    (make-note p (ly:make-duration 2 0))
+    (make-note p (ly:make-duration 2 0))
+    (make-note p (ly:make-duration 3 0))
+    (make-note p (ly:make-duration 3 0))
+    (make-note p (ly:make-duration 2 0))
+  ))))
 
-\score {
-  \new Staff {
-    \time 5/4
-    \rhythm c'
-    \rhythm c''
-    \rhythm g
-  }
+\new Staff {
+  \time 5/4
+  \rhythm c'
+  \rhythm c''
+  \rhythm g
 }

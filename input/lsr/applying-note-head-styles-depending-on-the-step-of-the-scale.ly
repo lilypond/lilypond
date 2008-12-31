@@ -70,8 +70,6 @@ correspondence between harmonic functions and note head styles.
   doctitle = "Applying note head styles depending on the step of the scale"
 } % begin verbatim
 
-\layout { ragged-right = ##t }
-
 fragment = {
   \key c \major
   c2 d
@@ -97,4 +95,5 @@ fragment = {
       \fragment
     }
   }
+  \layout { ragged-right = ##t }
 }

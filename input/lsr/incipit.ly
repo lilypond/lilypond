@@ -23,7 +23,7 @@ incipit =
     \once \override Staff.InstrumentName #'self-alignment-Y = #UP
     \once \override Staff.InstrumentName #'Y-offset = #4
     \once \override Staff.InstrumentName #'padding = #0.3
-    \once \override Staff.InstrumentName #'stencil = 
+    \once \override Staff.InstrumentName #'stencil =
     #(lambda (grob)
        (let* ((instrument-name (ly:grob-property grob 'long-text))
               (layout (ly:output-def-clone (ly:grob-layout grob)))
@@ -47,7 +47,7 @@ incipit =
          (ly:output-def-set-variable! layout 'ragged-last #f)
          (ly:output-def-set-variable! layout 'system-count 1)
          (ly:score-add-output-def! score layout)
-         (set! (ly:grob-property grob 'long-text)
+         (ly:grob-set-property! grob 'long-text
                (markup #:score score))
          (ly:system-start-text::print grob)))
   #})
@@ -58,9 +58,7 @@ global = {
   \set Score.skipBars = ##t
   \key g \major
   \time 4/4
-  
-  %make the staff lines invisible on staves
-  \override Staff.BarLine #'transparent = ##t
+
   % the actual music
   \skip 1*8
 
@@ -246,25 +244,19 @@ bassusLyrics = \lyricmode {
         \incipit \bassusIncipit
         \bassusNotes
       >>
+      \new Lyrics = "bassusLyrics" \lyricsto bassusNotes { \bassusLyrics }
     >>
-    \new Lyrics = "bassusLyrics" \lyricsto bassusNotes { \bassusLyrics }
-    %% Keep the bass lyrics outside of the staff group to avoid bar lines
-    %% between the lyrics.
   >>
   \layout {
     \context {
       \Score
-      %% no bar lines in staves
+      %% no bar lines in staves or lyrics
       \override BarLine #'transparent = ##t
     }
-    %% the next three instructions keep the lyrics between the bar lines
+    %% the next two instructions keep the lyrics between the bar lines
     \context {
       \Lyrics
-      \consists "Bar_engraver" 
-      \override BarLine #'transparent = ##t
-    } 
-    \context {
-      \StaffGroup
+      \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
     }
     \context {

@@ -9,8 +9,9 @@
 In the following snippet, two parts have a completely different time
 signature, yet remain synchronized. The bar lines can no longer be
 printed at the @code{Score} level; to allow independent bar lines in
-each part, the @code{Barline_engraver} is moved from the @code{Score}
-context to the @code{Staff} context. 
+each part, the @code{Default_barline_engraver} and
+@code{Timing_translator} are moved from the @code{Score} context to the
+@code{Staff} context. 
 
 "
   doctitle = "Printing music with different time signatures"
@@ -136,5 +137,8 @@ Perkussion = \new StaffGroup <<
 >>
 
 \score {
-  <<  \Bassklarinette \Perkussion >>
+  <<
+    \Bassklarinette
+    \Perkussion
+  >>
 }

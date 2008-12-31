@@ -41,17 +41,21 @@ qBeam = {
 
 \score {
   <<
-    \new Staff \relative c'' {
-      \time 4/4
-      g8^\markup { without the macro } g g g g g g g
-      g8 g g g4 g8 g g
+    \new Staff {
+      \relative c'' {
+        \time 4/4
+        g8-"without the macro" g g g g g g g
+        g8 g g g4 g8 g g
+      }
     }
     %Use the macro
-    \new Staff \relative c'' {
-      \time 4/4
-      \qBeam
-      g8^\markup { with the macro } g g g g g g g
-      g8 g g g4 g8 g g
+    \new Staff {
+      \relative c'' {
+        \time 4/4
+        \qBeam
+        g8-"with the macro" g g g g g g g
+        g8 g g g4 g8 g g
+      }
     }
   >>
   \layout {
