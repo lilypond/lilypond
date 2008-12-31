@@ -42,6 +42,10 @@ po-update:
 all-translations-update: po-update translation-status
 	$(foreach lang, $(LANGS), make ISOLANG=$(lang) skeleton-update snippet-update &&) true
 
+ifneq ($(NO_COLOR),)
+CHECK_TRANSLATION_FLAGS = --no-color
+endif
+
 ifneq ($(ISOLANG),)
 new-lang:
 	@if (( $$(file -b $(ISOLANG)) == directory )) 2>/dev/null; \
@@ -59,10 +63,6 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??')
-
-ifneq ($(NO_COLOR),)
-CHECK_TRANSLATION_FLAGS = --no-color
-endif
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
