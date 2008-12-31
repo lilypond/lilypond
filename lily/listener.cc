@@ -58,4 +58,4 @@ Listener::equal_p (SCM a, SCM b)
 }
 
 IMPLEMENT_SIMPLE_SMOBS (Listener);
-IMPLEMENT_TYPE_P (Listener, "listener");
+IMPLEMENT_TYPE_P (Listener, "ly:listener?");
