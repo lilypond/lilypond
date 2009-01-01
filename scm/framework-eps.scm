@@ -100,17 +100,17 @@ alignment."
 			      "\\ifx\\betweenLilyPondSystem \\undefined
   \\linebreak
 \\else
-  \\betweenLilyPondSystem{~a}
+  \\expandafter\\betweenLilyPondSystem{~a}%
 \\fi
 " c)
 			     tex-system-port))
-		(display (format "\\includegraphics{~a-~a}\n"
+		(display (format "\\includegraphics{~a-~a}%\n"
 				 basename (1+ c)) tex-system-port)
 		(display (format "@image{~a-~a}\n"
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
-    (display "@c eof." texi-system-port)
-    (display "% eof. " tex-system-port)
+    (display "@c eof\n" texi-system-port)
+    (display "% eof\n" tex-system-port)
     (display (format "~a" (length stencils)) count-system-port)
     (dump-infinite-stack-EPS stencils)
     (postprocess-output book framework-eps-module
