@@ -255,7 +255,7 @@ use the @code{line-width} music fragment option.
 Each snippet will call the following macros if they have been defined by
 the user:
 
-@itemize bullet
+@itemize @bullet
 @item @code{\preLilyPondExample} called before the music,
 
 @item @code{\postLilyPondExample} called after the music,
