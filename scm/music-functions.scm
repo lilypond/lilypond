@@ -735,9 +735,18 @@ Syntax:
   (define-music-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 "
-  `(ly:make-music-function (list ,@signature)
-			   (lambda (,@args)
-			     ,@body)))
+  (if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
+      ;; When the music function definition contains a i10n doc string,
+      ;; (_i "doc string"), keep the literal string only
+      (let ((docstring (cadar body))
+	    (body (cdr body)))
+	`(ly:make-music-function (list ,@signature)
+				 (lambda (,@args)
+				   ,docstring
+				   ,@body)))
+      `(ly:make-music-function (list ,@signature)
+			       (lambda (,@args)
+				 ,@body))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
