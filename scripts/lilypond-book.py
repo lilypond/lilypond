@@ -719,27 +719,27 @@ output = {
         OUTPUT: r'''{%%
 \parindent 0pt
 \ifx\preLilyPondExample \undefined
- \relax
 \else
- \preLilyPondExample
+  \expandafter\preLilyPondExample
 \fi
 \def\lilypondbook{}%%
 \input %(base)s-systems.tex
 \ifx\postLilyPondExample \undefined
- \relax
 \else
- \postLilyPondExample
+  \expandafter\postLilyPondExample
 \fi
 }''',
 
         PRINTFILENAME: '''\\texttt{%(filename)s}
 ''',
 
-        QUOTE: r'''\begin{quotation}%(str)s
+        QUOTE: r'''\begin{quotation}
+%(str)s
 \end{quotation}''',
 
         VERBATIM: r'''\noindent
-\begin{verbatim}%(verb)s\end{verbatim}''',
+\begin{verbatim}%(verb)s\end{verbatim}
+''',
 
         VERSION: program_version,
 
