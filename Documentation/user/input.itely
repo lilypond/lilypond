@@ -884,19 +884,21 @@ and in main.ly write
 
 Files which are to be included in many scores may be placed in
 the LilyPond directory @file{../ly}.  (The location of this
-directory is installation-dependent - see @rlearning{Other sources
-of information}).  These files can then be included simply by
-naming them on an @code{\include} statement.  This is how the
-language-dependent files like @file{english.ly} are included.
+directory is installation-dependent - see
+@rlearning{Other sources of information}).  These files can then
+be included simply by naming them on an @code{\include} statement.
+This is how the language-dependent files like @file{english.ly} are
+included.
 
 LilyPond includes a number of files by default when you start
 the program.  These includes are not apparent to the user, but the
 files may be identified by running @code{lilypond --verbose} from
 the command line.  This will display a list of paths and files that
 LilyPond uses, along with much other information.  Alternatively,
-the more important of these files are discussed in @rlearning{Other
-sources of information}.  These files may be edited, but changes to
-them will be lost on installing a new version of LilyPond.
+the more important of these files are discussed in
+@rlearning{Other sources of information}.  These files may be
+edited, but changes to them will be lost on installing a new
+version of LilyPond.
 
 Some simple examples of using @code{\include} are shown in
 @rlearning{Scores and parts}.
