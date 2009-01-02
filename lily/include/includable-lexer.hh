@@ -36,6 +36,7 @@ public:
 
   Includable_lexer ();
   ~Includable_lexer ();
+  string main_input_name_;
 
   /// store dependencies for Makefile stuff.
   vector<string> file_name_strings_;

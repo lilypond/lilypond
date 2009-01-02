@@ -44,9 +44,9 @@ tuplets have to be beamed manually.
 }
 \relative c'' {
   a8
-  \repeat unfold 8 { \times 2/3 { c[ b a] } }
+  \repeat unfold 5 { \times 2/3 { c[ b a] } }
   % Insert a manual line break within a tuplet
   \times 2/3 { c[ b \bar "" \break a] }
-  \repeat unfold 2 { \times 2/3 { c[ b a] } }
+  \repeat unfold 5 { \times 2/3 { c[ b a] } }
   c8
 }

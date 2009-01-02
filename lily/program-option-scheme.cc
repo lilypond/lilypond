@@ -23,6 +23,8 @@ bool debug_skylines;
 bool debug_property_callbacks;
 bool debug_page_breaking_scoring;
 
+bool relative_includes;
+
 /*
   Backwards compatibility.
 */
@@ -102,6 +104,11 @@ void internal_set_option (SCM var, SCM val)
     {
       /* ignore input value. */
       val = ly_string2scm (lilypond_datadir);
+    }
+  else if (var == ly_symbol2scm ("relative-includes"))
+    {
+      relative_includes = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
     }
 
 

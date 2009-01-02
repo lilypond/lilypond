@@ -1051,6 +1051,8 @@ ADD_INTERFACE (Stem,
 	       "avoid-note-head "
 	       "beam "
 	       "beaming "
+	       "beamlet-default-length "
+	       "beamlet-max-length-proportion "
 	       "default-direction "
 	       "details "
 	       "direction "

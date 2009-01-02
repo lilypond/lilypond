@@ -22,22 +22,25 @@ specified in @code{beatLength}).
   doctitle = "Automatic beam subdivisions"
 } % begin verbatim
 
-\score {
-  \new Staff \relative c'' {
-    << {
-      \voiceOne
-      \set subdivideBeams = ##t
-      b32[ a g f c' b a g b^"subdivide beams" a g f c' b a g]
-      \oneVoice
-    }
-    \new Voice {
-      \voiceTwo
-      b32_"default"[ a g f c' b a g b a g f c' b a g]
-    } >>
+\new Staff {
+  \relative c'' {
+    <<
+      {
+        \voiceOne
+        \set subdivideBeams = ##t
+        b32[ a g f c' b a g
+        b32^"subdivide beams" a g f c' b a g]
+      }
+      \new Voice {
+        \voiceTwo
+        b32_"default"[ a g f c' b a g
+        b32 a g f c' b a g]
+      }
+    >>
+    \oneVoice
     \set beatLength = #(ly:make-moment 1 8)
     b32^"beatLength 1 8"[ a g f c' b a g]
     \set beatLength = #(ly:make-moment 1 16)
     b32^"beatLength 1 16"[ a g f c' b a g]
   }
 }
-

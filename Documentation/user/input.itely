@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.65"
+@c \version "2.12.0"
 
 @node General input and output
 @chapter General input and output
@@ -849,11 +849,19 @@ subdirectory called @file{parts} within the current directory, use
 @end example
 
 Files which are to be included can also contain @code{\include}
-statements of their own.  These second-level
+statements of their own.  By default, these second-level
 @code{\include} statements are not interpreted until they have
 been brought into the main file, so the file names they specify
 must all be relative to the directory containing the main file,
-not the directory containing the included file.
+not the directory containing the included file. However,
+this behavior can be changed by passing the option
+@code{-drelative-includes} option at the command line
+(or by adding @code{#(ly:set-option 'relative-includes #t)}
+at the top of the main input file). With @code{relative-includes}
+set, the path for each @code{\include} command will be taken
+relative to the file containing that command. This behavior is
+recommended and it will become the default behavior in a future
+version of lilypond.
 
 Files can also be included from a directory in a search path
 specified as an option when invoking LilyPond from the command
@@ -876,19 +884,21 @@ and in main.ly write
 
 Files which are to be included in many scores may be placed in
 the LilyPond directory @file{../ly}.  (The location of this
-directory is installation-dependent - see @rlearning{Other sources
-of information}).  These files can then be included simply by
-naming them on an @code{\include} statement.  This is how the
-language-dependent files like @file{english.ly} are included.
+directory is installation-dependent - see
+@rlearning{Other sources of information}).  These files can then
+be included simply by naming them on an @code{\include} statement.
+This is how the language-dependent files like @file{english.ly} are
+included.
 
 LilyPond includes a number of files by default when you start
 the program.  These includes are not apparent to the user, but the
 files may be identified by running @code{lilypond --verbose} from
 the command line.  This will display a list of paths and files that
 LilyPond uses, along with much other information.  Alternatively,
-the more important of these files are discussed in @rlearning{Other
-sources of information}.  These files may be edited, but changes to
-them will be lost on installing a new version of LilyPond.
+the more important of these files are discussed in
+@rlearning{Other sources of information}.  These files may be
+edited, but changes to them will be lost on installing a new
+version of LilyPond.
 
 Some simple examples of using @code{\include} are shown in
 @rlearning{Scores and parts}.

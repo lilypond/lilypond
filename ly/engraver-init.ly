@@ -793,7 +793,7 @@ of Editio Vaticana."
   \Voice
   \name "GregorianTranscriptionVoice"
   \alias "Voice"
-  
+
   %% Removing ligature bracket engraver without replacing it by some
   %% other ligature engraver would cause a "Junking event: `LigatureEvent'"
   %% warning for every "\[" and "\]".  Therefore, we make the grob
@@ -847,7 +847,8 @@ accommodated for typesetting a piece in mensural style."
   \consists "Mensural_ligature_engraver"
 
   %% Set default head for notes outside of \[ \].
-  \override NoteHead #'style = #'petrucci
+  \override NoteHead #'style = #'mensural
+  \override Rest #'style = #'mensural
 
   %% There are no beams in mensural notation.
   autoBeaming = ##f
@@ -875,8 +876,8 @@ accommodated for typesetting a piece in mensural style."
   %% FIXME: unit on StaffSymbol's width should be \linewidth.
   %% \override StaffSymbol #'width = #60.0
 
-  %% Choose petrucci g clef on 2nd line as default.
-  clefGlyph = #"clefs.petrucci.g"
+  %% Choose mensural g clef on 2nd line as default.
+  clefGlyph = #"clefs.mensural.g"
   middleCClefPosition = #-6
   middleCPosition = #-6
   clefPosition = #-2
@@ -894,7 +895,7 @@ accommodated for typesetting a piece in mensural style."
   %% #(set-accidental-style 'forget))
   extraNatural = ##f
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
-  autoCautionaries = #'()  
+  autoCautionaries = #'()
   printKeyCancellation = ##f
 }
 

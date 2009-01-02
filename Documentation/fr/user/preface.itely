@@ -7,10 +7,10 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.12.0"
 
 @c Translators: Valentin Villenave
-@c Translation checkers: Ludovic Sardain
+@c Translation checkers: Ludovic Sardain, Damien Heurtebise
 
 @node Preface
 @unnumbered Preface
@@ -36,18 +36,17 @@ gammes, les études deviennent vite ennuyeuses, et peuvent, si l'on
 n'est pas encouragé par d'autres --- professeurs, chefs ou public ---
 en décourager plus d'un.  Pourtant, pour peu que l'on persévère,
 l'instrument devient progressivement une partie de notre vie.  Si
-certains jours en jouer semble naturel, c'est un vrai bonheur.  Et si
-d'autres jours on ne peut tout simplement rien en tirer, on continue
-quand même à travailler, jour après jour.
+certains jours il semble naturel d'en jouer, c'est un vrai bonheur.
+Et si d'autres jours on ne peut tout simplement rien en tirer, on
+continue quand même à travailler, coûte que coûte.
 
 De même, développer LilyPond peut être une tâche harassante.  Certains
 jours, c'est un monceau de bugs duquel il faut se dépêtrer.  Pourtant,
-il fait maintenant partie de notre vie, et nous nous accrochons. 
-Notre principale motivation est sans doute que notre logiciel est
-véritablement utile aux gens.  En flânant sur Internet, nous trouvons
-beaucoup de gens qui se servent de LilyPond, et réalisent des
-partitions très impressionnantes : c'est incroyable, mais en même
-temps très flatteur.
+il fait maintenant partie de notre vie, et nous nous accrochons.
+Notre principale motivation vient sans doute de l'utilité réelle de
+notre logiciel.  En flânant sur Internet, nous trouvons beaucoup de
+gens qui utilisent LilyPond pour réaliser d'impressionnantes
+partitions : c'est incroyable, mais en même temps très flatteur.
 
 Les utilisateurs ne se contentent pas de nous encourager en utilisant
 notre logiciel ; nombre d'entre eux nous aident aussi en faisant des

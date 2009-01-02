@@ -26,6 +26,6 @@ objects in parentheses.  The associated grob is
   c2-\parenthesize ->
   \override ParenthesesItem #'padding = #0.1
   \override ParenthesesItem #'font-size = #-4
-  <d \parenthesize fis a>2 
+  <d \parenthesize f a>2 
 }
 

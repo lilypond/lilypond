@@ -47,8 +47,6 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
      file name.  */
   File_name out_file_name (file_name);
 
-  global_path.append (out_file_name.dir_);
-
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
   if (ly_get_option (ly_symbol2scm ("gui")) != SCM_BOOL_T

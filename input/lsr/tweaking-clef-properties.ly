@@ -148,7 +148,7 @@ line, they do not.
   \set Staff.clefPosition = #0
   c'1
   
-  % Here we go back to the normal clef:
+  % Return to the normal clef:
 
   \set Staff.middleCPosition = #0
   c'1

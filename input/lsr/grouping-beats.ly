@@ -29,9 +29,10 @@ Beaming patterns may be altered with the @code{beatGrouping} property:
 
 \relative c'' {
   \time 5/16
+  #(override-auto-beam-setting '(end * * 5 16) 5 16)
   \set beatGrouping = #'(2 3)
-  c8[^"(2+3)" c16 c8]
+  c8^"(2+3)" c16 c8
   \set beatGrouping = #'(3 2)
-  c8[^"(3+2)" c16 c8]
+  c8^"(3+2)" c16 c8
 }
 

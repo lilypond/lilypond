@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.64"
+@c \version "2.12.0"
 
 @node Staff notation
 @section Staff notation
@@ -208,7 +208,7 @@ details, see @ref{Instrument names}.
 
 @lilypond[verbatim,quote,relative=2]
 \new PianoStaff <<
-  \set PianoStaff.instrumentName = "Piano"
+  \set PianoStaff.instrumentName = #"Piano"
   \new Staff { c1 c }
   \new Staff { c1 c }
 >>
@@ -893,8 +893,8 @@ Instrument names can be printed on the left side of staves in the
 of @code{shortInstrumentName} is used for all succeeding staves.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = "Violin "
-\set Staff.shortInstrumentName = "Vln "
+\set Staff.instrumentName = #"Violin "
+\set Staff.shortInstrumentName = #"Vln "
 c4.. g'16 c4.. g'16
 \break
 c1
@@ -920,7 +920,7 @@ default.  To center multi-line instrument names,
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
   \new Staff {
-    \set Staff.instrumentName = "Flute"
+    \set Staff.instrumentName = #"Flute"
     f2 g4 f
   }
   \new Staff {
@@ -949,14 +949,14 @@ these settings, see @ref{Horizontal dimensions}.
 
 \relative c'' <<
   \new Staff {
-    \set Staff.instrumentName = "Alto Flute in G"
-    \set Staff.shortInstrumentName = "Fl."
+    \set Staff.instrumentName = #"Alto Flute in G"
+    \set Staff.shortInstrumentName = #"Fl."
     f2 g4 f \break
     g4 f g2
   }
   \new Staff {
-    \set Staff.instrumentName = "Clarinet"
-    \set Staff.shortInstrumentName = "Clar."
+    \set Staff.instrumentName = #"Clarinet"
+    \set Staff.shortInstrumentName = #"Clar."
     c,4 b c2 \break
     c2 b4 c
   }
@@ -974,12 +974,12 @@ For details, see @ref{Modifying context plug-ins}.
 Instrument names may be changed in the middle of a piece:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\set Staff.instrumentName = "First"
-\set Staff.shortInstrumentName = "one"
+\set Staff.instrumentName = #"First"
+\set Staff.shortInstrumentName = #"one"
 c1 c c c \break
 c1 c c c \break
-\set Staff.instrumentName = "Second"
-\set Staff.shortInstrumentName = "two"
+\set Staff.instrumentName = #"Second"
+\set Staff.shortInstrumentName = #"two"
 c1 c c c \break
 c1 c c c \break
 @end lilypond
@@ -1013,7 +1013,7 @@ expression to declare the instrument switch:
      (midiInstrument . "bassoon"))
 
 \new Staff \with {
-  instrumentName = "Bassoon"
+  instrumentName = #"Bassoon"
 }
 \relative c' {
   \clef tenor
