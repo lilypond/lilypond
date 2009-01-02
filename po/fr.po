@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.12.0\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-12-20 11:58+0100\n"
-"PO-Revision-Date: 2008-12-30 18:50+0100\n"
+"PO-Revision-Date: 2008-12-31 13:53+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan@orange.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -534,6 +534,8 @@ msgstr "Métrique non interprétable ; retour au 4/4."
 #, python-format
 msgid "Key alteration octave given for a non-existing alteration nr. %s, available numbers: %s!"
 msgstr ""
+"Octave d'altération indiquée pour une altération numéro %s inexistante ;\n"
+"index d'altération disponibles : 1 à %s"
 
 #: musicxml.py:519
 #, python-format
