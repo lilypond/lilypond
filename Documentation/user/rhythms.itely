@@ -745,7 +745,7 @@ R1*2 |
 @funindex compressFullBarRests
 
 By default a multi-measure rest is expanded in the printed score to
-show all the rest measures explicitly.  Alternatively, a mult-measure
+show all the rest measures explicitly.  Alternatively, a multi-measure
 rest can be shown as a single measure containing a multi-measure rest
 symbol, with the number of measures of rest printed above the measure:
 
