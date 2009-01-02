@@ -290,7 +290,7 @@
 	   (if (and (not embed)
 		    (equal? 'regular (stat:type (stat full-name)))
 		    (equal? name (ly:ttf-ps-name full-name)))
-	       (set! embed (font-file-as-ps-string name full-name)))
+	       (set! embed (font-file-as-ps-string name full-name 0)))
 	   (if (or (equal? "." f)
 		   (equal? ".." f))
 	       #t
