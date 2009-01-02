@@ -153,6 +153,11 @@ d'indiquer des doigtés très proches des têtes de notes.
 <es'-2>4
 @end lilypond
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{avoiding-collisions-of-chord-fingering-with-beams.ly}
+
 
 @seealso
 Référence du programme : @rinternals{Fingering}.

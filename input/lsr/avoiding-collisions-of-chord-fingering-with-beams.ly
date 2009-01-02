@@ -25,6 +25,14 @@ overridden:
 
 "
   doctitle = "Avoiding collisions of chord fingering with beams"
+  texidocfr = "
+Les doigtés et les numéros de cordes attachés à des notes seules
+évitent automatiquement les barres de ligature, mais ce n'est pas le
+cas par défaut pour les doigtés ou numéros de cordes attachés aux
+notes d'un accord. L'exemple qui suit montre comment ce comportement
+par défaut peut être corrigé.
+"
+  doctitlefr = "Éviter les collisions entre les doigtés d'accords et les ligatures"
 } % begin verbatim
 
 \relative c' {
