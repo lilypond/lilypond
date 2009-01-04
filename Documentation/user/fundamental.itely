@@ -2008,7 +2008,7 @@ should be enclosed in double quotation signs, as above, although we
 shall see later that text can actually be specified in a much more
 general way by using the very powerful @code{markup} command.
 
-@unnumberedsubsubsec Setting context properties with @code{\with}
+@subsubheading Setting context properties with @code{\with}
 
 @funindex \with
 @funindex with
@@ -2054,7 +2054,7 @@ value of the font size.  If it is later changed with @code{\set},
 this new default value may be restored with the
 @code{\unset fontSize} command.
 
-@unnumberedsubsubsec Setting context properties with @code{\context}
+@subsubheading Setting context properties with @code{\context}
 
 @cindex context properties, setting with \context
 @funindex \context
