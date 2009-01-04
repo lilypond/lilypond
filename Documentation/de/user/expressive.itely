@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -120,6 +120,9 @@ definiert.  Artikulationszeichen und Onrnamente können manuell
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {controlling-the-vertical-ordering-of-scripts.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-a-delayed-turn.ly}
 
 
 @seealso
@@ -587,6 +590,9 @@ g4( e c2)
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {using-double-slurs-for-legato-chords.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{positioning-text-markups-inside-slurs.ly}
 
 
 @seealso

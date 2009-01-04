@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -49,6 +49,9 @@ Gruppen von Systemen zu erstellen.
 @cindex Tabulatur
 @cindex Gregorianischer Choral, Transkription
 @cindex neues Notensystem
+
+@funindex \drummode
+@funindex drummode
 
 @notation{Notensysteme} (engl. @notation{staff}, Pl. @notation{staves})
 werden mit dem @code{\new} oder @code{\context}-Befehl erstellt.  Zu
@@ -357,6 +360,8 @@ beenden sowie eine Methode, Ossia-Systeme zu erstellen.
 @cindex Notenlinien, Anzahl
 @cindex Notenlinien, Dicke
 @cindex Notenlinien, Einstellungen
+@cindex Staff symbol, Erstellen
+@cindex Notenlinien, Erstellen
 @cindex Dicke der Notenlinien einstellen
 @cindex Anzahl der Notenlinien einstellen
 @cindex Zahl der Notenlinien einstellen
@@ -425,8 +430,18 @@ Einstellung wirkt sich auch auf den Abstand der Hilfslinien aus.
 Weitere Einzelheiten zu den Eigenschaften von @code{StaffSymbol} 
 findet sich in @rinternals{staff-symbol-interface}.
 
+@cindex Notenlinien, beginnen
+@cindex Notenlinien, beenden
+@cindex Beenden von Notenlinien
+@cindex Beginnen von Notenlinien
+@cindex Beenden eines Systems
+@cindex System, beenden
+@cindex Notensystem, beenden
+
 @funindex \startStaff
 @funindex \stopStaff
+@funindex startStaff
+@funindex stopStaff
 
 Veränderungen der Eigenschaften eines Notensystems mitten in einer
 Partitur können zwischen die Befehle @code{\stopStaff} und
@@ -443,10 +458,6 @@ b2 b
 \startStaff
 a2 a
 @end lilypond
-
-@cindex Beenden eines Systems
-@cindex System, beenden
-@cindex Notensystem, beenden
 
 @noindent
 Die Befehle @code{\startStaff} und @code{\stopStaff} können
@@ -508,6 +519,11 @@ Systems gleichgroß sein.
 @cindex System, Größe verändern
 @cindex Notensystem, Größe verändern
 @cindex Größe von Notensystem verändern
+
+@funindex \startStaff
+@funindex \stopStaff
+@funindex startStaff
+@funindex stopStaff
 
 @notation{Ossia}-Systeme können gesetzt werden, indem zwei
 gleichzeitige Notensysteme an der entsprechenden Position
@@ -677,6 +693,9 @@ Referenz der Interna:
 @cindex Systeme, leere
 @cindex Verschwinden von leeren Systemen
 
+@funindex \RemoveEmptyStaffContext
+@funindex RemoveEmptyStaffContext
+
 Die Notenlinien können entfernt werden, indem der
 @code{Staff_symbol_engraver} aus dem @code{Staff}-Kontext
 entfernt wird.  Alternativ kann auch @code{\stopStaff} 
@@ -688,8 +707,6 @@ eingesetzt werden.
 }
 \relative c''' { a8 f e16 d c b a2 }
 @end lilypond
-
-@funindex \RemoveEmptyStaffContext
 
 Leere Systeme können versteckt werden, wenn der
 @code{\RemoveEmptyStaffContext}-Befehl im @code{\layout}-Abschnitt
@@ -732,8 +749,13 @@ um Ossiaabschnitte zu erstellen.  Zu Einzelheiten, siehe
 
 @cindex Verstecken von Systemen der Alten Musik
 @cindex Verstecken von Rhythmus-Systemen
+
+@funindex \RemoveEmptyStaffContext
+@funindex RemoveEmptyStaffContext
 @funindex \AncientRemoveEmptyStaffContext
 @funindex \RemoveEmptyRhythmicStaffContext
+@funindex AncientRemoveEmptyStaffContext
+@funindex RemoveEmptyRhythmicStaffContext
 
 Der @code{\AncientRemoveEmptyStaffContext}-Befehl kann
 benutzt werden, um leere Takte in Notation der Alten Musik
@@ -814,6 +836,8 @@ formatieren.
 @cindex Metronombezeichnung
 @cindex Tempobezeichnung
 @cindex Aufführungsanweisung: Tempo
+
+@funindex tempo
 @funindex \tempo
 
 Eine Metronomanweisung wird wie folgt erstellt:
@@ -945,8 +969,9 @@ mehrzeilige Instrumentenbezeichnungen zentriert zu setzen, muss
 @end lilypond
 
 @cindex Einzug
-@cindex indent
-@cindex short-indent
+
+@funindex indent
+@funindex short-indent
 
 Wenn die Instrumentenbezeichnung zu lang ist, kann es vorkommen,
 dass die Bezeichnungen in einer Gruppe nicht zentriert werden.
@@ -1002,6 +1027,11 @@ c1 c c c \break
 
 @cindex Instrumentenwechsel
 @cindex Wechsel von Instrument
+
+@funindex \addInstrumentDefinition
+@funindex addInstrumentDefinition
+@funindex \instrumentSwitch
+@funindex instrumentSwitch
 
 Wenn das Instrument gewechselt werden soll, kann der Befehl
 @code{\addInstrumentDefinition} in Begleitung von
@@ -1060,6 +1090,13 @@ Referenz der Interna:
 @cindex Zitieren von anderen Stimmen
 @cindex Fragmente
 @cindex Stimmen, zitieren
+
+@funindex \addQuote
+@funindex addQuote
+@funindex \quoteDuring
+@funindex quoteDuring
+@funindex \transposition
+@funindex transposition
 
 Es kommt sehr oft vor, dass eine Orchesterstimme die gleichen
 Noten wie eine andere spielt.  So können etwa die ersten und
@@ -1151,6 +1188,7 @@ vorgestellt in
 @cindex articulation-event
 @cindex dynamic-event
 @cindex rest-event
+
 @funindex quotedEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -1197,6 +1235,9 @@ In früheren LilyPond-Versionen (vor 2.11) wurde der Befehl
 @cindex Fragmente
 @cindex andere Stimmen zitieren
 @cindex Zitieren von anderen Stimmen
+
+@funindex \cueDuring
+@funindex cueDuring
 
 Der vorige Abschnitt zeigt, wie man Zitate erstellt.  Der
 @code{\cueDuring}-Befehl (engl. cue note = Stichnote)
@@ -1255,6 +1296,14 @@ oboe = \relative c''' {
   }
 >>
 @end lilypond
+
+@cindex Entfernen von Stichnoten
+@cindex Stichnoten, entfernen
+
+@funindex \killCues
+@funindex killCues
+@funindex \transposedCueDuring
+@funindex transposedCueDuring
 
 Zusätzlich zu der Instrumentenbezeichnung kann auch die
 Bezeichnung des Originalinstruments ausgegeben werden, und alle
