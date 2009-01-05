@@ -1,4 +1,0 @@
-# -*-python-*-
-
-Import ('env', 'mutopia')
-mutopia ()

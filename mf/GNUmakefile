@@ -120,8 +120,8 @@ $(outdir)/aybabtu.fontname:
 $(outdir)/aybabtu.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
-$(PE_SCRIPTS): $(top-build-dir)/buildscripts/$(outdir)/gen-emmentaler-scripts
-	$(PYTHON) $< --dir=$(outdir)
+$(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts
+	$< --dir=$(outdir)
 
 ALL_FONTS = $(FETA_FONTS)
 PFB_FILES = $(ALL_FONTS:%=$(outdir)/%.pfb)
@@ -174,12 +174,12 @@ $(outdir)/%.lisp \
 $(outdir)/%.otf-gtable \
 $(outdir)/%.enc \
 $(outdir)/%.pe: $(outdir)/%.log
-	$(PYTHON) $(buildscript-dir)/mf-to-table.py \
-		  --global-lisp=$(outdir)/$(<F:.log=.otf-gtable) \
-		  --lisp=$(outdir)/$(<F:.log=.lisp) \
-		  --outdir=$(outdir) \
-		  --enc $(outdir)/$(<F:.log=.enc) \
-		  $<
+	$(buildscript-dir)/mf-to-table \
+		--global-lisp=$(outdir)/$(<F:.log=.otf-gtable) \
+		--lisp=$(outdir)/$(<F:.log=.lisp) \
+		--outdir=$(outdir) \
+		--enc $(outdir)/$(<F:.log=.enc) \
+		$<
 
 local-clean:
 	rm -f mfplain.mem mfplain.log
@@ -190,9 +190,9 @@ $(outdir)/fonts.conf:
 	echo '<fontconfig><dir>'$(shell cd $(outdir); pwd)'</dir></fontconfig>' > $@
 
 $(NCSB_OTFS): $(NCSB_SOURCE_FILES) \
-	      $(buildscript-dir)/pfx2ttf.fontforge
+	      $(auxscript-dir)/pfx2ttf.fontforge
 	$(foreach i, $(basename $(NCSB_SOURCE_FILES)), \
-		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
+		$(FONTFORGE) -script $(auxscript-dir)/pfx2ttf.fontforge \
 			$(i).pfb $(i).afm $(outdir)/ && ) true
 
 # eof

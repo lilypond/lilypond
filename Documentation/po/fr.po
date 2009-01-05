@@ -1,5 +1,4 @@
-# translation of fr.po to Français
-# translation of LilyPond documentation
+# translation of LilyPond documentation to French
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 #
@@ -10,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-25 12:33+0100\n"
-"PO-Revision-Date: 2008-12-29 20:31+0100\n"
+"PO-Revision-Date: 2008-12-31 19:59+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -9001,7 +9000,6 @@ msgstr "Utilisation des procédures @code{centered-on-parent}"
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/es/user/changing-defaults.itely
-#, fuzzy
 msgid "Using the @code{break-alignable-interface}"
 msgstr "Utilisation de @code{break-aligned-interface}"
 
@@ -10018,11 +10016,11 @@ msgstr "la ligne suivante n'est plus nécessaire à partir de la version 2.11.x"
 
 #. input/lsr/adding-drum-parts.ly:32 (variable)
 msgid "drh"
-msgstr ""
+msgstr "tomh"
 
 #. input/lsr/adding-drum-parts.ly:33 (variable)
 msgid "drl"
-msgstr ""
+msgstr "tomb"
 
 #. input/lsr/adding-drum-parts.ly:34 (variable)
 msgid "timb"
@@ -10066,10 +10064,9 @@ msgstr "Mise en forme par défaut :"
 
 #. input/lsr/adjusting-lyrics-vertical-spacing.ly:31 (comment)
 msgid "Reducing the minimum space below the staff and above the lyrics:"
-msgstr ""
+msgstr "Réduction au minimum de l'espace au-dessous de la portée et au-dessus des paroles :"
 
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:54 (comment)
-#, fuzzy
 msgid "the RehearsalMark will be centered above the KeySignature"
 msgstr "Pour centrer le repère au-dessus de l'armure"
 
@@ -10134,9 +10131,8 @@ msgstr ""
 
 #. input/lsr/ancient-fonts.ly:123 (variable)
 #. input/lsr/ancient-fonts.ly:123 (context id)
-#, fuzzy
 msgid "lowerStaff"
-msgstr "porteeInferieure"
+msgstr "PorteeInferieure"
 
 #. input/lsr/ancient-fonts.ly:133 (comment)
 msgid "\\break % 2 (16*1)"
@@ -12341,7 +12337,6 @@ msgid "No auto-beaming is defined for 12/16"
 msgstr ""
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:43 (comment)
-#, fuzzy
 msgid "Change time signature symbol, but retain underlying 3/4 beaming"
 msgstr "la métrique change mais on garde les règles de ligatures en 3/4"
 
@@ -12378,17 +12373,16 @@ msgid "3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies"
 msgstr ""
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:17 (variable)
-#, fuzzy
 msgid "parallelogram"
 msgstr "parallelogramme"
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:32 (variable)
 msgid "myNoteHeads"
-msgstr ""
+msgstr "tetePersonnalisee"
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:33 (variable)
 msgid "normalNoteHeads"
-msgstr ""
+msgstr "teteNormale"
 
 #. input/lsr/utf-8.ly:34 (comment)
 msgid "end verbatim - this comment is a hack to prevent texinfo.tex"
@@ -12400,15 +12394,15 @@ msgstr ""
 
 #. input/lsr/utf-8.ly:36 (comment)
 msgid "Cyrillic font"
-msgstr ""
+msgstr "Caractères cyrilliques"
 
 #. input/lsr/utf-8.ly:37 (variable)
 msgid "bulgarian"
-msgstr ""
+msgstr "bulgare"
 
 #. input/lsr/utf-8.ly:41 (variable)
 msgid "hebrew"
-msgstr ""
+msgstr "hébreux"
 
 #. input/lsr/utf-8.ly:45 (variable)
 msgid "japanese"
@@ -12416,7 +12410,7 @@ msgstr "japonais"
 
 #. input/lsr/utf-8.ly:52 (comment)
 msgid "\\\"a legal song to you\\\""
-msgstr ""
+msgstr "\\\"a legal song to you\\\""
 
 #. input/lsr/utf-8.ly:53 (variable)
 msgid "portuguese"

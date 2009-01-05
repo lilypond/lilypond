@@ -1,5 +1,7 @@
 depth = ..
 
+SUBDIRS=aux
+
 STEPMAKE_TEMPLATES=c python-module install-out po
 
 include $(depth)/make/stepmake.make

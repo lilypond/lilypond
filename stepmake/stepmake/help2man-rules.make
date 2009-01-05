@@ -1,5 +1,5 @@
 # We must invoke the generated $(outdir)/help2man script instead of
-# the help2man.pl source, which means that the buildscripts directory
+# the help2man.pl source, which means that the scripts/build directory
 # must be built first.
 #
 # From the perlrun man-page:
@@ -15,10 +15,10 @@
 # cases.  Four more explaining what a line comment is, and that it may
 # be parsed, same here.
 
-HELP2MAN_COMMAND = $(PERL) $(top-build-dir)/buildscripts/$(outbase)/help2man $< > $@
+HELP2MAN_COMMAND = $(buildscript-dir)/help2man $< > $@
 
 ifeq ($(strip $(CROSS)),no)
-$(outdir)/%.1: $(outdir)/%
+$(outdir)/%.1: $(outdir)/% $(buildscript-dir)/help2man
 	$(HELP2MAN_COMMAND)
 else
 # When cross building, some manpages will not build because the
@@ -33,3 +33,6 @@ ifneq ($(outdir),./out)
 $(outdir)/%.1: out/%.1
 	cp $< $@
 endif
+
+$(buildscript-dir)/help2man:
+	$(MAKE) -C $(depth)/scripts/build

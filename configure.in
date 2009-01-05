@@ -76,7 +76,7 @@ else
       NCSB_FILE=`$FCMATCH --verbose "Century Schoolbook L:style=$style" | grep 'file:' | grep -v "\.ttf"`
 
       NCSB_FILE=`echo $NCSB_FILE | sed 's/^.*"\(.*\)".*$/\1/g'`
-      NCSB_FILE=`$PYTHON "$srcdir/buildscripts/readlink.py" $NCSB_FILE`
+      NCSB_FILE=`$PYTHON "$srcdir/scripts/aux/readlink.py" $NCSB_FILE`
       NCSB_SOURCE_FILES="$NCSB_FILE $NCSB_SOURCE_FILES"
     done
   else

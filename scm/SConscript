@@ -1,5 +1,0 @@
-# -*-python-*-
-
-Import ('env', 'install', 'src_glob')
-sources = src_glob ('*.scm')
-install (sources, env['sharedir_package_version'] + '/scm')

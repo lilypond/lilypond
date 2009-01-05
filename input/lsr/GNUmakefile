@@ -22,7 +22,7 @@ IN_ITELY_FILES = $(call src-wildcard,*-intro.itely)
 GENERATED_ITELY_FILES = $(IN_ITELY_FILES:%-intro.itely=$(outdir)/%.itely)
 
 $(outdir)/%.itely: %-intro.itely %.snippet-list
-	xargs $(PYTHON) $(buildscript-dir)/lys-to-tely.py -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
+	xargs $(LYS_TO_TELY) -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
 $(outdir)/lilypond-snippets.texi: $(GENERATED_ITELY_FILES) $(LY_FILES)
 

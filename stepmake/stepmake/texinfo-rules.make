@@ -6,12 +6,12 @@
 # $(outdir)/$(INFO_IMAGES_DIR)/*.png symlinks are only needed to view
 # out-www/*.info with Emacs -- HTML docs no longer need these
 # symlinks, see replace_symlinks_urls in
-# buildscripts/add_html_footer.py.
+# python/aux/postprocess_html.py.
 
 # make dereferences symlinks, and $(INFO_IMAGES_DIR) is a symlink
 # to $(outdir), so we can't use directly $(INFO_IMAGES_DIR) as a
 # prerequisite, otherwise %.info are always outdated (because older
-# than $(outdir), hence this .dep file
+# than $(outdir)), hence this .dep file
 
 $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep: $(INFO_DOCS:%=$(outdir)/%.texi)
 ifneq ($(INFO_IMAGES_DIR),)
@@ -19,7 +19,7 @@ ifneq ($(INFO_IMAGES_DIR),)
 	ln -s $(outdir) $(INFO_IMAGES_DIR)
 	mkdir -p $(outdir)/$(INFO_IMAGES_DIR)
 	rm -f $(outdir)/$(INFO_IMAGES_DIR)/[a-f0-9][a-f0-9]
-	cd $(outdir)/$(INFO_IMAGES_DIR) && $(PYTHON) $(top-src-dir)/buildscripts/mass-link.py symbolic .. . [a-f0-9][a-f0-9]
+	cd $(outdir)/$(INFO_IMAGES_DIR) && $(buildscript-dir)/mass-link symbolic .. . [a-f0-9][a-f0-9]
 endif
 	touch $@
 
@@ -72,7 +72,7 @@ $(outdir)/%.texi: %.texi
 	cp $< $@
 
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
-	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py -o $(XREF_MAPS_DIR) $<
+	$(buildscript-dir)/extract_texi_filenames -o $(XREF_MAPS_DIR) $<
 
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
