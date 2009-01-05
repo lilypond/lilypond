@@ -1,2 +1,0 @@
-
-pfa: $(PFA_FILES)
