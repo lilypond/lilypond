@@ -550,66 +550,70 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	else
 	  glyph_name = "vaticana.inclinatum";
       else if (prefix_set & DEMINUTUM)
-	if (i == 0)
-	  {
-	    // initio debilis
-	    glyph_name = "vaticana.reverse.plica";
-	  }
-	else if (prev_delta_pitch > 0)
-	  {
-	    // epiphonus
-	    if (! (prev_context_info & FLEXA_RIGHT))
-	      /* correct head of previous primitive */
-	      if (prev_delta_pitch > 1)
-		prev_glyph_name = "vaticana.epiphonus";
-	      else
-		prev_glyph_name = "vaticana.vepiphonus";
-	    if (prev_delta_pitch > 1)
-	      glyph_name = "vaticana.plica";
-	    else
-	      glyph_name = "vaticana.vplica";
-	  }
-	else if (prev_delta_pitch < 0)
-	  {
-	    // cephalicus
-	    if (! (prev_context_info & FLEXA_RIGHT))
-	      /* correct head of previous primitive */
-	      {
-		if (i > 1)
-		  {
-		    /* cephalicus head with fixed size cauda */
-		    prev_glyph_name = "vaticana.inner.cephalicus";
-		  }
-		else
-		  {
-		    /* cephalicus head without cauda */
-		    prev_glyph_name = "vaticana.cephalicus";
-		  }
-
-		/*
-		 * Flexa has no variable size cauda if its left head is
-		 * stacked on the right head.  This is true for
-		 * cephalicus.  Hence, remove the cauda.
-		 *
-		 * Urgh: for the current implementation, this rule only
-		 * applies for cephalicus; but it is a fundamental rule.
-		 * Therefore, the following line of code should be
-		 * placed somewhere else.
-		 */
-		prev_primitive->set_property ("add-cauda",
-					      ly_bool2scm (false));
-	      }
-	    if (prev_delta_pitch < - 1)
+	{
+	  if (i == 0)
+	    {
+	      // initio debilis
 	      glyph_name = "vaticana.reverse.plica";
-	    else
-	      glyph_name = "vaticana.reverse.vplica";
-	  }
-	else // (prev_delta_pitch == 0)
-	  {
-	    primitive->programming_error ("Vaticana_ligature:"
-					  " deminutum head must have different"
-					  " pitch -> ignoring grob");
-	  }
+	    }
+	  else if (prev_delta_pitch > 0)
+	    {
+	      // epiphonus
+	      if (! (prev_context_info & FLEXA_RIGHT))
+		{
+		  /* correct head of previous primitive */
+		  if (prev_delta_pitch > 1)
+		    prev_glyph_name = "vaticana.epiphonus";
+		  else
+		    prev_glyph_name = "vaticana.vepiphonus";
+		}
+	      if (prev_delta_pitch > 1)
+		glyph_name = "vaticana.plica";
+	      else
+		glyph_name = "vaticana.vplica";
+	    }
+	  else if (prev_delta_pitch < 0)
+	    {
+	      // cephalicus
+	      if (! (prev_context_info & FLEXA_RIGHT))
+		/* correct head of previous primitive */
+		{
+		  if (i > 1)
+		    {
+		      /* cephalicus head with fixed size cauda */
+		      prev_glyph_name = "vaticana.inner.cephalicus";
+		    }
+		  else
+		    {
+		      /* cephalicus head without cauda */
+		      prev_glyph_name = "vaticana.cephalicus";
+		    }
+
+		  /*
+		   * Flexa has no variable size cauda if its left head is
+		   * stacked on the right head.  This is true for
+		   * cephalicus.  Hence, remove the cauda.
+		   *
+		   * Urgh: for the current implementation, this rule only
+		   * applies for cephalicus; but it is a fundamental rule.
+		   * Therefore, the following line of code should be
+		   * placed somewhere else.
+		   */
+		  prev_primitive->set_property ("add-cauda",
+						ly_bool2scm (false));
+		}
+	      if (prev_delta_pitch < - 1)
+		glyph_name = "vaticana.reverse.plica";
+	      else
+		glyph_name = "vaticana.reverse.vplica";
+	    }
+	  else // (prev_delta_pitch == 0)
+	    {
+	      primitive->programming_error ("Vaticana_ligature:"
+					    " deminutum head must have different"
+					    " pitch -> ignoring grob");
+	    }
+	}
       else if (prefix_set & (CAVUM | LINEA))
 	if ((prefix_set & CAVUM) && (prefix_set & LINEA))
 	  glyph_name = "vaticana.linea.punctum.cavum";
@@ -676,10 +680,12 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	  if ((context_info & PES_UPPER) && (context_info & STACKED_HEAD))
 	    {
 	      if (prev_glyph_name == "vaticana.punctum")
-		if (prev_delta_pitch > 1)
-		  prev_glyph_name = "vaticana.lpes";
-		else
-		  prev_glyph_name = "vaticana.vlpes";
+		{
+		  if (prev_delta_pitch > 1)
+		    prev_glyph_name = "vaticana.lpes";
+		  else
+		    prev_glyph_name = "vaticana.vlpes";
+		}
 	    }
 	}
 
