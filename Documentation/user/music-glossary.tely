@@ -2943,7 +2943,7 @@ with conjunct movement.
 
 @lilypond[quote,relative=1]
 \key a \major
-\time 4/4
+\time 4/4 {
   \partial 8 e8 |
   a4. gis8 b a e cis |
   fis2 d4.
@@ -4697,7 +4697,7 @@ called because of its strong tendency to @q{lead up} (resolve upwards)
 to the tonic scale degree.
 
 @seealso
-@ref{scale degree, @ref{semitone}.
+@ref{scale degree}, @ref{semitone}.
 
 
 @node ledger line
@@ -4987,7 +4987,7 @@ respectively).  By the late 15th century, most composers used the smaller
 proportion by default.
 
 @seealso
-@ref{Duration names notes and rests}, @ref{longa}, @ref{note values}.
+@ref{Duration names notes and rests}, @ref{longa}, @ref{note value}.
 
 
 @node meantone temperament
