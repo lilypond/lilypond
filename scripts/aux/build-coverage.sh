@@ -49,10 +49,10 @@ do
    gcov -o $depth/lily/out-cov/  -p $a > $a.gcov-summary
 done 
 
-python $depth/buildscripts/coverage.py --uncovered *.cc > uncovered.txt
-python $depth/buildscripts/coverage.py --hotspots *.cc > hotspots.txt
-python $depth/buildscripts/coverage.py --summary *.cc > summary.txt
-python $depth/buildscripts/coverage.py --uncovered *.scm > uncovered-scheme.txt
+$depth/scripts/aux/coverage.py --uncovered *.cc > uncovered.txt
+$depth/scripts/aux/coverage.py --hotspots *.cc > hotspots.txt
+$depth/scripts/aux/coverage.py --summary *.cc > summary.txt
+$depth/scripts/aux/coverage.py --uncovered *.scm > uncovered-scheme.txt
 
 head -20 summary.txt
 

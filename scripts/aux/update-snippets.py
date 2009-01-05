@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!/usr/bin/env python
 # update-snippets.py
 
 # USAGE:  update-snippets.py REFERENCE-DIR TARGET-DIR FILES

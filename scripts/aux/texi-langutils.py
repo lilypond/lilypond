@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!/usr/bin/env python
 # texi-langutils.py
 
 # WARNING: this script can't find files included in a different directory

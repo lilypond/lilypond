@@ -1,7 +1,6 @@
-depth = ..
+depth = ../..
 
 STEPMAKE_TEMPLATES=script install po
-EXTRA_DIST_FILES=pfx2ttf.fontforge
 
 include $(depth)/make/stepmake.make
 

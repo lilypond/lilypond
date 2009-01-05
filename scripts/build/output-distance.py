@@ -1,10 +1,10 @@
-#!@TARGET_PYTHON@
+#!@PYTHON@
 import sys
 import optparse
 import os
 import math
 
-## so we can call directly as buildscripts/output-distance.py
+## so we can call directly as scripts/build/output-distance.py
 me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
 sys.path.insert (0, me_path + '/../python/')
 sys.path.insert (0, me_path + '/../python/out/')
@@ -1011,7 +1011,7 @@ def system (x):
 
 def test_paired_files ():
     print paired_files (os.environ["HOME"] + "/src/lilypond/scripts/",
-                        os.environ["HOME"] + "/src/lilypond-stable/buildscripts/", '*.py')
+                        os.environ["HOME"] + "/src/lilypond-stable/scripts/build/", '*.py')
                   
     
 def test_compare_trees ():

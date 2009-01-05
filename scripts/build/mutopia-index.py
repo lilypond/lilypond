@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!@PYTHON@
 # mutopia-index.py
 
 import fnmatch

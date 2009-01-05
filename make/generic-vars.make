@@ -8,7 +8,9 @@
 # you do make dist
 #
 
-buildscript-dir = $(src-depth)/buildscripts
+buildscript-dir = $(top-build-dir)/scripts/build/$(outconfbase)
+auxpython-dir = $(src-depth)/python/aux
+auxscript-dir = $(src-depth)/scripts/aux
 script-dir = $(src-depth)/scripts
 input-dir = $(src-depth)/input
 
@@ -18,7 +20,7 @@ mi2mu-dir = $(src-depth)/mi2mu
 make-dir = $(src-depth)/make
 include-flower = $(src-depth)/flower/include
 
-export PYTHONPATH:=$(buildscript-dir):$(PYTHONPATH)
+export PYTHONPATH:=$(auxpython-dir):$(PYTHONPATH)
 
 LILYPOND_INCLUDES = $(include-flower) $(depth)/flower/$(outdir)
 

@@ -17,7 +17,7 @@ $(outdir)/%-big-page.html: $(outdir)/%.texi
 endif
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi
-	$(PYTHON) $(buildscript-dir)/texi-gettext.py $(ISOLANG) $<
+	$(buildscript-dir)/texi-gettext $(ISOLANG) $<
 
 $(outdir)/%.pdf: $(outdir)/%.pdftexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) $(TEXINFO_PAPERSIZE_OPTION) $(notdir $*).pdftexi
@@ -31,7 +31,7 @@ $(outdir)/%.png: $(top-build-dir)/Documentation/user/$(outdir)/%.png
 	ln -f $< $@
 
 $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi
-	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py -o $(XREF_MAPS_DIR) $<
+	$(buildscript-dir)/extract_texi_filenames -o $(XREF_MAPS_DIR) $<
 
 $(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
 

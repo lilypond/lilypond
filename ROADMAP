@@ -20,7 +20,6 @@ source files.
        user/            User manuals
        po/              Translated manual node names
        fr/ es/ de/      Docs translated to French, Spanish, German, resp.
-   buildscripts/        Scripts for the build process
    elisp/               Emacs LilyPond mode and syntax coloring
    flower/              A simple C++ library
    input/               Music input examples
@@ -41,8 +40,13 @@ source files.
    po/                  Translations for binaries and end-user scripts
    ps/                  PostScript library files
    python/              Python modules, MIDI module
+       aux/             Python modules used by maintenance scripts
+                          or in the build process
    scm/                 Scheme sources for LilyPond and subroutine files
    scripts/             End-user scripts
+       aux/             Scripts for maintaining the sources and scripts
+                          for the build process that need not be built
+       build/           Scripts for the build process that must be built
    stepmake/            Generic make subroutine files
    tex/                 TeX and texinfo library files
    vim/                 Vi(M) LilyPond mode and syntax coloring

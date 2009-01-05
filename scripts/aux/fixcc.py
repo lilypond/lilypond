@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # fixcc -- nitpick lily's c++ code
 

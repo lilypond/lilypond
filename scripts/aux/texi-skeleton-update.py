@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!/usr/bin/env python
 # texi-skeleton-update.py
 
 import sys

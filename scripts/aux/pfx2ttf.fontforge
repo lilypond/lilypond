@@ -1,5 +1,3 @@
-#!@FONTFORGE@
-
 Open($1);
 MergeKern($2)
 

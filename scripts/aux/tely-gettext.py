@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# tely-gettext.py
 
 # Temporary script that helps translated docs sources conversion
 # for texi2html processing
 
-# USAGE:  tely-gettext.py BUILDSCRIPT-DIR LOCALEDIR LANG FILES
+# USAGE:  tely-gettext.py PYTHON-DIR LOCALEDIR LANG FILES
 
-print "tely_gettext.py"
+print "tely-gettext.py"
 
 import sys
 import re
@@ -17,8 +16,8 @@ import gettext
 if len (sys.argv) > 3:
     buildscript_dir, localedir, lang = sys.argv[1:4]
 else:
-    print """USAGE:  tely-gettext.py BUILDSCRIPT-DIR LOCALEDIR LANG FILES
-  For example buildscripts/tely-gettext.py buildscripts Documentation/po/out-www de Documentation/de/user/*.tely"""
+    print """USAGE:  tely-gettext.py PYTHON-DIR LOCALEDIR LANG FILES
+  For example scripts/aux/tely-gettext.py python/out Documentation/po/out-www de Documentation/de/user/*.tely"""
     sys.exit (1)
 
 sys.path.append (buildscript_dir)

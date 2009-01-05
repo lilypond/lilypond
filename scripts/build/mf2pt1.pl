@@ -1,4 +1,4 @@
-#! /usr/bin/perl
+#!@PERL@
 
 ##################################################
 # Convert stylized Metafont to PostScript Type 1 #
