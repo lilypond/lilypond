@@ -128,23 +128,23 @@ Word counts (excluding lilypond snippets) are given for each file.
 411   user/preface.itely
 3855  user/introduction.itely
 407   user/lilypond-program.tely
-1930  user/install.itely (partial translation)
+1928  user/install.itely (partial translation)
 1149  user/setup.itely
 2827  user/running.itely
-10579 total
+10577 total
 
 -3- Learning manual
 10318 user/fundamental.itely -- Fundamental concepts
-14647 user/tweaks.itely -- Tweaking output
+14775 user/tweaks.itely -- Tweaking output
 3007  user/working.itely -- Working on LilyPond files
 483   user/templates.itely -- Templates
-28455 total
+28583 total
 
 -4- Notation reference
 695   user/lilypond.tely
 91    user/notation.itely -- Musical notation
 3123  user/pitches.itely
-5013  user/rhythms.itely
+5236  user/rhythms.itely
 1146  user/expressive.itely
 555   user/repeats.itely
 1455  user/simultaneous.itely
@@ -160,14 +160,14 @@ Word counts (excluding lilypond snippets) are given for each file.
 66    user/strings.itely
 242   user/bagpipes.itely
 4487  user/ancient.itely
-5805  user/input.itely -- Input syntax
+5873  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
 8451  user/spacing.itely -- Spacing issues
 11391 user/changing-defaults.itely -- Changing defaults
 5202  user/programming-interface.itely -- Interfaces for programmers
 1190  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-62756 total
+63047 total
 
 -5- Application usage
 3248  user/lilypond-book.itely -- LilyPond-book
