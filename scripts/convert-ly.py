@@ -4,7 +4,7 @@
 #
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2008  Han-Wen Nienhuys <hanwen@xs4all.nl>
+# (c) 1998--2009  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # converting rules are found in python/convertrules.py
@@ -67,7 +67,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2008',
+''' % ( _ ('Copyright (c) %s by') % '2001--2009',
         ' '.join (authors),
         _ ('Distributed under terms of the GNU General Public License.'),
         _ ('It comes with NO WARRANTY.')))

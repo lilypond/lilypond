@@ -1,7 +1,7 @@
 /*
   sources.hh -- part of LilyPond
 
-  (c) 1997--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef SOURCES_HH

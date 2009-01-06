@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2000--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2000--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 				;
 ; this is put into the slur-details property of Slur and PhrasingSlur
 (define default-slur-details

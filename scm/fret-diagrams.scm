@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2008 Carl D. Sorensen <c_sorensen@byu.edu>
+;;;; (c) 2004--2009 Carl D. Sorensen <c_sorensen@byu.edu>
 
 (define (fret-parse-marking-list marking-list fret-count)
   (let* ((fret-range (list 1 fret-count))

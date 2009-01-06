@@ -1,7 +1,7 @@
 /*
   poly.cc -- routines for manipulation of polynomials in one var
 
-  (c) 1993--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1993--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "polynomial.hh"

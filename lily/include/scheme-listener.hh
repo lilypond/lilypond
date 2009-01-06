@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006--2008 Erik Sandberg  <mandolaerik@gmail.com>
+  (c) 2006--2009 Erik Sandberg  <mandolaerik@gmail.com>
 */
 
 #ifndef SCHEME_LISTENER_HH

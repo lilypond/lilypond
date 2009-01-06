@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2008  Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2004--2009  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 #ifndef PAPER_BOOK_HH
 #define PAPER_BOOK_HH

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2004--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;	      Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-module (scm layout-page-layout)

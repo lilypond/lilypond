@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPOnd music typesetter
 ;;;;
-;;;; (c) 2008 Carl D. Sorensen <c_sorensen@byu.edu>
+;;;; (c) 2008--2009 Carl D. Sorensen <c_sorensen@byu.edu>
 
 
 (define-public (parse-terse-string terse-definition)

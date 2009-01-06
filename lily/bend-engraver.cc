@@ -1,7 +1,7 @@
 /*
   bend-engraver.cc -- implement Bend_engraver
 
-  (c) 2006--2008 Han-Wen Nienhuys
+  (c) 2006--2009 Han-Wen Nienhuys
 
   
 */

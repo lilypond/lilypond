@@ -5,7 +5,7 @@
   terms of the GNU General Public License.  LilyPond comes with NO
   WARRANTY.
 
-  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include <cstdio>

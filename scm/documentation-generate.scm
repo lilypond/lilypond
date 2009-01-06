@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2000--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2000--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;; File entry point for generated documentation
@@ -98,7 +98,7 @@
 @titlefont{Internals Reference}
 @author The LilyPond development team
 
-Copyright @copyright{} 1999--2008 by the authors
+Copyright @copyright{} 1999--2009 by the authors
 
 @vskip 20pt
 
