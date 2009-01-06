@@ -44,6 +44,9 @@ copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
+authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
+           'Han-Wen Nienhuys <hanwen@xs4all.nl>')
+
 error_file_write = ly.stderr_write
 
 def warning (s):
@@ -58,17 +61,16 @@ def identify (port=sys.stderr):
 def warranty ():
     identify ()
     ly.encoded_write (sys.stdout, '''
-Copyright (c) %s by
+%s
 
-  Han-Wen Nienhuys
-  Jan Nieuwenhuizen
+%s
 
 %s
 %s
-'''  ( '2001--2006',
-       _ ("Distributed under terms of the GNU General Public License."),
-       _ ('It comes with NO WARRANTY.')))
-
+''' % ( _ ('Copyright (c) %s by') % '2001--2008',
+        ' '.join (authors),
+        _ ('Distributed under terms of the GNU General Public License.'),
+        _ ('It comes with NO WARRANTY.')))
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'convert-ly',
@@ -117,7 +119,9 @@ def get_option_parser ():
               action='store',
               dest="to_version",
               default='')
-
+    p.add_option ('-w', '--warranty', help=_ ("show warranty and copyright"),
+           action='store_true',
+           ),
     p.add_option_group ('',
                         description=(
             _ ("Report bugs via %s")
@@ -256,6 +260,9 @@ def do_options ():
     opt_parser = get_option_parser()
     (options, args) = opt_parser.parse_args ()
 
+    if options.warranty:
+        warranty ()
+        sys.exit (0)
 
     if options.from_version:
         options.from_version = str_to_tuple (options.from_version)

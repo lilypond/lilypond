@@ -34,6 +34,9 @@ import os
 
 program_name = sys.argv[0]
 
+authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
+           'Han-Wen Nienhuys <hanwen@xs4all.nl>')
+
 version = '@TOPLEVEL_VERSION@'
 if version == '@' + 'TOPLEVEL_VERSION' + '@':
     version = '(unknown version)'           # uGUHGUHGHGUGH
@@ -1162,18 +1165,16 @@ def identify():
 def warranty ():
     identify ()
     sys.stdout.write ('''
-Copyright (c) %s by
+%s
 
- Han-Wen Nienhuys
- Jan Nieuwenhuizen
+  %s
 
 %s
 %s
-''' % ( '2001--2006',
-   _('Distributed under terms of the GNU General Public License.'),
-   _('It comes with NO WARRANTY.')))
-
-
+''' % ( _ ('Copyright (c) %s by') % '2001--2008',
+        '\n  '.join (authors),
+        _ ('Distributed under terms of the GNU General Public License.'),
+        _ ('It comes with NO WARRANTY.')))
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... ETF-FILE") % 'etf2ly',
