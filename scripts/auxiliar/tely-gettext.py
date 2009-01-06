@@ -17,7 +17,7 @@ if len (sys.argv) > 3:
     buildscript_dir, localedir, lang = sys.argv[1:4]
 else:
     print """USAGE:  tely-gettext.py PYTHON-DIR LOCALEDIR LANG FILES
-  For example scripts/aux/tely-gettext.py python/out Documentation/po/out-www de Documentation/de/user/*.tely"""
+  For example scripts/auxiliar/tely-gettext.py python/out Documentation/po/out-www de Documentation/de/user/*.tely"""
     sys.exit (1)
 
 sys.path.append (buildscript_dir)

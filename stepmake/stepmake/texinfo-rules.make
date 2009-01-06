@@ -6,7 +6,7 @@
 # $(outdir)/$(INFO_IMAGES_DIR)/*.png symlinks are only needed to view
 # out-www/*.info with Emacs -- HTML docs no longer need these
 # symlinks, see replace_symlinks_urls in
-# python/aux/postprocess_html.py.
+# python/auxiliar/postprocess_html.py.
 
 # make dereferences symlinks, and $(INFO_IMAGES_DIR) is a symlink
 # to $(outdir), so we can't use directly $(INFO_IMAGES_DIR) as a

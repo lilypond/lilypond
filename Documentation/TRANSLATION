@@ -672,7 +672,7 @@ TECHNICAL BACKGROUND
 A number of Python scripts handle a part of the documentation
 translation process.
 All scripts used to maintain the translations
-are located in scripts/aux/:
+are located in scripts/auxiliar/:
 
 * check_translation.py  -- show diff to update a translation
 * texi-langutils.py  -- quickly and dirtily parse Texinfo files to
@@ -694,8 +694,8 @@ before calling texi2pdf
 * mass-link.py -- link or symlink files between English documentation
 and documentation in other languages
 
-Python modules used by scripts in scripts/aux/ or scripts/build/ (but
-not by installed Python scripts) are located in python/aux/:
+Python modules used by scripts in scripts/auxiliar/ or scripts/build/ (but
+not by installed Python scripts) are located in python/auxiliar/:
 * manuals_definitions.py -- define manual names and name of
 cross-reference Texinfo macros
 * buildlib.py -- common functions (read piped output

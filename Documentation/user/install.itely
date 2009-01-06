@@ -479,11 +479,11 @@ CVS; especially the following patch:
 For checking the coverage of the test suite, do the following
 
 @example
-./scripts/aux/build-coverage.sh
+./scripts/auxiliar/build-coverage.sh
 @emph{# uncovered files, least covered first}
-./scripts/aux/coverage.py  --summary out-cov/*.cc
+./scripts/auxiliar/coverage.py  --summary out-cov/*.cc
 @emph{# consecutive uncovered lines, longest first}
-./scripts/aux/coverage.py  --uncovered out-cov/*.cc
+./scripts/auxiliar/coverage.py  --uncovered out-cov/*.cc
 @end example
 
 
