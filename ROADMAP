@@ -40,11 +40,11 @@ source files.
    po/                  Translations for binaries and end-user scripts
    ps/                  PostScript library files
    python/              Python modules, MIDI module
-       aux/             Python modules used by maintenance scripts
+       auxiliar/        Python modules used by maintenance scripts
                           or in the build process
    scm/                 Scheme sources for LilyPond and subroutine files
    scripts/             End-user scripts
-       aux/             Scripts for maintaining the sources and scripts
+       auxiliar/        Scripts for maintaining the sources and scripts
                           for the build process that need not be built
        build/           Scripts for the build process that must be built
    stepmake/            Generic make subroutine files
