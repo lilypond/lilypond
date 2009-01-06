@@ -1116,7 +1116,8 @@ class Etf_file:
 
         
         while c and c.number <> endno:
-            thread.append (c) c = c.next
+            thread.append (c)
+            c = c.next
 
         if c: 
             thread.append (c)
