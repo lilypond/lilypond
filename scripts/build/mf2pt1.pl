@@ -7,7 +7,7 @@
 
 ########################################################################
 # mf2pt1                                                               #
-# Copyright (C) 2008--2009 Scott Pakin                                       #
+# Copyright (C) 2008 Scott Pakin                                       #
 #                                                                      #
 # This program may be distributed and/or modified under the conditions #
 # of the LaTeX Project Public License, either version 1.3c of this     #
@@ -160,7 +160,7 @@ my $filedir;
 my $filenoext;
 my $versionmsg = "mf2pt1 version $VERSION
 
-Copyright (C) 2008--2009 Scott Pakin
+Copyright (C) 2008 Scott Pakin
 
 This program may be distributed and/or modified under the conditions
 of the LaTeX Project Public License, either version 1.3c of this
