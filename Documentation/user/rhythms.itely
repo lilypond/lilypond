@@ -2156,6 +2156,10 @@ c1 c c c
 
 @funindex barNumberVisibility
 
+@c Uncomment this after next LSR update.
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c {printing-the-bar-number-for-the-first-measure.ly}
+
 Bar numbers can be typeset at regular intervals instead of just at
 the beginning of every line.  To do this the default behavior
 must be overridden to permit bar numbers to be printed at places
@@ -2279,19 +2283,6 @@ Bar numbers may collide with the top of the
 @rinternals{StaffGroup} bracket, if there is one.  To solve
 this, the @code{padding} property of @rinternals{BarNumber} can
 be used to position the number correctly.
-
-Bar numbers may only be printed at bar lines; to print a bar
-number at the beginning of a piece, an empty bar line must be
-inserted there, and a value other than @code{1} must be placed
-in @code{currentBarNumber}:
-
-@lilypond[verbatim,quote,relative=1]
-\set Score.currentBarNumber = #50
-\bar ""
-c1 c c c
-c1 c c c
-\break
-@end lilypond
 
 
 

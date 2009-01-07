@@ -202,6 +202,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (first-bar-number-invisible barnum) (> barnum 1))
 
+(define-public (all-bar-numbers-visible barnum) #t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; percent repeat counters
 
