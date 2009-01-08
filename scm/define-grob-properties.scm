@@ -381,7 +381,9 @@ circled pedals. Default value 0.15.
 @code{circle-y-padding} -- Padding in Y direction of the ellipse around
 circled pedals. Default value 0.2.
 @end itemize")
-
+     (full-measure-extra-space ,number? "Extra space that is allocated at the
+beginning of a measure with only one note. This property is read from the
+NonMusicalPaperColumn that begins the measure.")
      (head-direction ,ly:dir? "Are the note heads left or right in a
 semitie?")
      (height ,ly:dimension? "Height of an object in

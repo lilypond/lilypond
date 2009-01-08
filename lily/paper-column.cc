@@ -359,6 +359,7 @@ ADD_INTERFACE (Paper_column,
 	       /* properties */
 	       "between-cols "
 	       "bounded-by-me "
+	       "full-measure-extra-space "
 	       "grace-spacing "
 	       "labels "
 	       "line-break-system-details "
