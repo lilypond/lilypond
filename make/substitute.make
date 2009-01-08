@@ -36,3 +36,5 @@ ATVARIABLES = \
   program_prefix\
   program_suffix\
   sharedstatedir\
+  src-dir\
+  top-src-dir\
