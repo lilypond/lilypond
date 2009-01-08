@@ -219,8 +219,8 @@ dir_info (FILE *out)
 static void
 copyright ()
 {
-  printf (_f ("Copyright (c) %s by\n%s  and others.",
-	      "1996--2009",
+  /* Do not update the copyright years here, run grand-replace.sh.  */
+  printf (_f ("Copyright (c) %s by\n%s  and others.", "1996--2009",
 	      AUTHORS).c_str ());
   printf ("\n");
 }
