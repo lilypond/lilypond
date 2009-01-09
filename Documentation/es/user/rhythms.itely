@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d12be863e1a7243f95d327002906c497f4741e33
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -947,8 +947,12 @@ c c c c
 @end lilypond
 
 @cindex compás, estilo de la indicación de
+@cindex metro, estilo de
+
 @funindex \numericTimeSignature
+@funindex numericTimeSignature
 @funindex \defaultTimeSignature
+@funindex defaultTimeSignature
 
 El símbolo de compás que se usa en 2/2 y 4/4 se puede cambiar a un
 estilo numérico:
@@ -1014,7 +1018,9 @@ Referencia de funcionamiento interno:
 @cindex parcial, compás
 @cindex compás, cambiar la longitud del
 @funindex measurePosition
+
 @funindex \partial
+@funindex partial
 
 Los compases parciales como las anacrusas o partes al alzar se
 escriben usando la instrucción @code{\partial}, con la sintaxis
@@ -1081,8 +1087,11 @@ advertencias desagradables.
 @cindex líneas divisorias, quitar
 @cindex numeración de compases, quitar
 @cindex música sin metro
+
 @funindex \cadenzaOn
+@funindex cadenzaOn
 @funindex \cadenzaOff
+@funindex cadenzaOff
 
 Las líneas divisorias y los números de compás se calculan
 automáticamente.  Para música sin compasear (por ejemplo cadencias),
@@ -1152,10 +1161,17 @@ para indicar dónde se pueden producir los saltos.
 @c This section necessarily uses \set
 @c This is acceptable  -td
 
-@cindex double time signatures
-@cindex signatures, polymetric
-@cindex polymetric signatures
-@cindex meter, polymetric
+@cindex compás, doble
+@cindex compases polimétricos
+@cindex polimétricos, compases
+@cindex metro polimétrico
+@cindex doble compás
+
+@funindex timeSignatureFraction
+@funindex \scaleDurations
+@funindex scaleDurations
+@funindex \times
+@funindex times
 
 Está contemplada la notación polimétrica, ya sea explícitamente o
 mediante la modificación de la indicación visible del compás y el
@@ -1172,6 +1188,9 @@ pentagrama a la indicación de compás común; véase @ref{Time
 signature}.  El escalado se hace con @code{\scaleDurations}, que se
 usa de una forma similar a @code{\times}, pero no crea un corchete de
 grupo especial, véase @ref{Scaling durations}.
+
+@cindex barrado en música polimétrica
+@cindex barrado en metro polimétrico
 
 En este ejemplo, se usa en paralelo música con compases de 3/4, 9/8 y
 10/8.  En el segundo pentagrama, las duraciones mostradas se
@@ -1293,6 +1312,9 @@ compás.
 @cindex notas, división de
 @cindex división de notas
 
+@funindex Note_heads_engraver
+@funindex Completion_heads_engraver
+
 Las notas largas se pueden convertir automáticamente en notas ligadas.
 Se hace mediante la sustitución del @code{Note_heads_engraver} por el
 @code{Completion_heads_engraver}.  En el ejemplo siguiente, las notas
@@ -1345,6 +1367,9 @@ silencios.
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
 
+@cindex melodía, mostrar las duraciones
+@cindex duraciones de la melodía, mostrar
+
 A veces podemos querer mostrar solamente el ritmo de una melodía.
 Esto se puede hacer con un pentagrama de ritmo.  Todas las alturas de
 las notas se convierten en barras inclinadas, y el pentagrama tiene
@@ -1368,6 +1393,16 @@ una sola línea:
   }
 >>
 @end lilypond
+
+@cindex guitarra, tablas de acordes
+@cindex rasgueado, mostrar ritmos
+@cindex guitarra, mostrar ritmos rasgueados
+
+@funindex Pitch_squash_engraver
+@funindex \improvisationOn
+@funindex improvisationOn
+@funindex \improvisationOff
+@funindex improvisationOff
 
 Las tablas de acordes de guitarra ofrecen a menudo los ritmos de
 rasgueado.  Esto se puede hacer con el grabador
@@ -1433,6 +1468,16 @@ automáticamente:
 
 @cindex barras manuales
 @cindex manuales, barras
+@cindex barras, establecer reglas
+@cindex barras, reglas personalizadas
+
+@funindex measureLength
+@funindex beatLength
+@funindex beatGrouping
+@funindex \autoBeamOn
+@funindex autoBeamOn
+@funindex \autoBeamOff
+@funindex autoBeamOff
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4 c8 c c c
@@ -1450,9 +1495,6 @@ de tres propiedades de contexto, @code{measureLength},
 @code{beatLength} y @code{beatGrouping}.  Tanto las reglas de barrado
 como las propiedades de contexto se pueden sobreescribir, véase
 @ref{Setting automatic beam behavior}.
-
-@cindex autoBeamOn
-@cindex autoBeamOff
 
 @warning{Si se usan barras para indicar los melismas de las canciones,
 entonces se debe desactivar el barrado automático con
@@ -1480,10 +1522,11 @@ c16 c8
 
 @snippets
 
-@funindex divisible
-@cindex salto de línea
-@cindex línea, saltos de
 
+@cindex saltos de línea y barrado
+@cindex línea, saltos de, y barrado
+
+@funindex divisible
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
@@ -1518,16 +1561,24 @@ alteraciones accidentales de las otras voces.
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
-@funindex autoBeaming
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
 
 @cindex barras automáticas, ajuste fino
 @cindex ajuste fino de las barras automáticas
 @cindex automáticas, generación de barras
 @cindex barras automáticas
 @cindex letra y barrado
+
+@funindex autoBeaming
+@funindex autoBeamSettings
+@funindex (end * * * *)
+@funindex (begin * * * *)
+@funindex measureLength
+@funindex beatLength
+@funindex beatGrouping
+@funindex \time
+@funindex time
+@funindex \set
+@funindex set
 
 La colocación de barras automáticas viene determinada por las reglas
 descritas en @ref{Automatic beams}.  Existen dos formas mutuamente
@@ -1803,14 +1854,18 @@ a a a a
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
+@funindex \autoBeamOff
+@funindex autoBeamOff
+@funindex \autoBeamOn
+@funindex autoBeamOn
 
 @predefined
-@funindex \autoBeamOff
 @code{\autoBeamOff},
-@funindex \autoBeamOn
 @code{\autoBeamOn}.
 @endpredefined
 
+@cindex barra, última en la partitura
+@cindex barra, última en una voz polifónica
 
 @knownissues
 
@@ -1830,6 +1885,8 @@ Fragmentos de código:
 @unnumberedsubsubsec Manual beams
 
 @cindex barras manuales
+@cindex manuales, barras
+
 @funindex ]
 @funindex [
 
@@ -1847,6 +1904,8 @@ especifican manualmente marcando los puntos de comienzo y final con
 }
 @end lilypond
 
+@funindex \noBeam
+@funindex noBeam
 
 Se pueden marcar notas individuales con @code{\noBeam} para evitar que
 resulten unidas por una barra:
@@ -1886,7 +1945,10 @@ g a]
 @unnumberedsubsubsec Feathered beams
 
 @cindex barras progresivas
+
 @funindex \featherDurations
+@funindex featherDurations
+@funindex grow-direction
 
 Las barras progresivas se usan para indicar que un pequeño grupo de
 notas se debe tocar a una velocidad creciente (o decreciente), sin
@@ -1956,9 +2018,11 @@ Fragmentos de código:
 @unnumberedsubsubsec Bar lines
 
 @cindex barras de compás
-@funindex \bar
 @cindex líneas divisorias
 @cindex repetición, barras de
+
+@funindex \bar
+@funindex bar
 
 Las líneas divisorias delimitan a los compases pero también se pueden
 usar para indicar las repeticiones.  Normalmente, las líneas
@@ -2004,6 +2068,11 @@ De esta manera se insertará una barra invisible de compás y se hará
 posible el salto de línea en este punto, sin forzarlo. No se
 incrementa el contador de los números de compás.  Para forzar un salto
 de línea, consulte @ref{Line breaking}.
+
+@cindex manuales, líneas divisorias
+@cindex manuales, barras de compás
+@cindex barras de compás manuales
+@cindex líneas divisorias manuales
 
 Este y otras líneas divisorias especiales se pueden insertar
 manualmente en cualquier punto.  Cuando coinciden con el final de un
@@ -2079,6 +2148,9 @@ líneas resultantes se conectan entre los distintos pentagramas de un
 
 @funindex whichBar
 @funindex defaultBarType
+@funindex \bar
+@funindex bar
+@funindex bartype
 
 La instrucción @code{\bar }@var{tipo_de_barra} es una forma corta de
 hacer @code{\set Timing.whichBar = }@var{tipo_de_barra}.  Cuando
@@ -2113,6 +2185,7 @@ Referencia de funcionamiento interno:
 
 @cindex compás, números de
 @cindex números de compás
+
 @funindex currentBarNumber
 
 Por defecto, los números de compás se imprimen al principio de la
@@ -2130,8 +2203,9 @@ c1 c c c
 
 @snippets
 
-@funindex barNumberVisibility
 @cindex bar numbers, regular spacing
+
+@funindex barNumberVisibility
 
 Los números de compás se pueden tipografiar a intervalos regulares en
 vez de al principio de cada línea.  Para hacerlo se debe sobreescribir
@@ -2251,6 +2325,8 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{BarNumber}.
 
+@cindex número de compás, colisión
+@cindex colisión del número de compás
 
 @knownissues
 
@@ -2277,6 +2353,8 @@ c1 c c c
 @unnumberedsubsubsec Bar and bar number checks
 
 @cindex compás, comprobación de
+@cindex número de compás, comprobación de
+
 @funindex barCheckSynchronize
 @funindex |
 
@@ -2335,6 +2413,9 @@ pipeSymbol = \bar "||"
 }
 @end lilypond
 
+@funindex \barNumberCheck
+@funindex barNumberCheck
+
 Al copiar piezas musicales grandes puede servir de ayuda comprobar que
 el número de compás de LilyPond corresponde al original desde el que
 está copiando.  Esto se puede comprobar con @code{\barNumberCheck},
@@ -2359,7 +2440,9 @@ Fragmentos de código:
 
 @cindex ensayo, letras de
 @cindex letras de ensayo
+
 @funindex \mark
+@funindex mark
 
 Para imprimir una letra de ensayo, utilice la orden @code{\mark}
 
@@ -2392,6 +2475,9 @@ se almacena dentro de la propiedad @code{rehearsalMark}.
 @cindex letra de ensayo, formato
 @cindex marca de ensayo, estilo
 @cindex marca de ensayo, formato
+@cindex ensayo, letra de, manual
+@cindex marca de ensayo manual
+@cindex personalizada, marca de ensayo
 
 El estilo se define por medio de la propiedad @code{markFormatter}.
 Es una función que toma como argumentos la marca en curso (un número
@@ -2443,6 +2529,12 @@ de esta forma.  Sin embargo, es posible aplicar un elemento
 @cindex segno
 @cindex coda
 @cindex D.S al Fine
+@cindex calderón
+@cindex musicales, glifos
+@cindex glifos musicales
+
+@funindex \musicglyph
+@funindex musicglyph
 
 Los glifos musicales (como el segno) se pueden imprimir dentro de un
 elemento @code{\mark}
@@ -2491,11 +2583,13 @@ Referencia de funcionamiento interno:
 @node Grace notes
 @unnumberedsubsubsec Grace notes
 
-@funindex \grace
 @cindex ornamentos
 @cindex mordentes
 @cindex appoggiatura
 @cindex acciaccatura
+
+@funindex \grace
+@funindex grace
 
 Los mordentes y notas de adorno son ornamentos escritos. Se imprimen
 en un tipo más pequeño y no ocupan ningún tiempo lógico en el
@@ -2532,6 +2626,9 @@ por cada corchea de adorno:
 @funindex \afterGrace
 
 @cindex adorno, seguimiento de notas de
+
+@funindex \afterGrace
+@funindex afterGrace
 
 Si queremos terminar una nota con un adorno, usamos la instrucción
 @code{\afterGrace}.  Toma dos argumentos: la nota principal, y las
