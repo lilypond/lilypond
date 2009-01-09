@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2084,7 +2084,7 @@ se debe encerrar entre comillas dobles, como antes, aunque veremos más
 adelante que el texto realmente se puede especificar de una forma
 mucho más general utilizando la potentísima instrucción @code{markup}.
 
-@unnumberedsubsubsec Setting context properties with @code{\with}
+@subsubheading Setting context properties with @code{\with}
 
 @funindex \with
 @funindex with
@@ -2134,7 +2134,7 @@ valor predeterminado del tamaño de la fuente tipográfica.  Si más
 tarde se modifica con @code{\set}, este nuevo valor predeterminado
 puede restablecerse con la instrucción @code{\unset fontSize}.
 
-@unnumberedsubsubsec Setting context properties with @code{\context}
+@subsubheading Setting context properties with @code{\context}
 
 @cindex contextos, establecer propiedades de, con \context
 @funindex \context

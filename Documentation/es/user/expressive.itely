@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 17d84cfa9ddb152b05d1e17ab72109fb4eefa684
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -124,6 +124,8 @@ por debajo del pentagrama, véase @ref{Direction and placement}.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {controlling-the-vertical-ordering-of-scripts.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-a-delayed-turn.ly}
 
 @seealso
 Glosario musical:
@@ -585,6 +587,8 @@ g4( e c2)
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {using-double-slurs-for-legato-chords.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{positioning-text-markups-inside-slurs.ly}
 
 @seealso
 Glosario musical:

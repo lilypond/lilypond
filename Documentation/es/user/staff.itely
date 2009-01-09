@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -45,12 +45,16 @@ y grupos de ellos.
 @cindex pentagrama, iniciar
 @cindex pentagrama, instanciar
 @cindex pentagrama, nuevo
+@cindex pentagrama de percusión
 @cindex pentagrama único
 @cindex percusión, pauta de
 @cindex pauta de percusión
 @cindex gregoriano, canto, pauta de transcripción de
 @cindex rítmica, pauta
 @cindex tablatura, pauta de
+
+@funindex \drummode
+@funindex drummode
 
 Las @notation{pautas} y los @notation{pentagramas} o pautas de cinco
 líneas se crean con las instrucciones @code{\new} o @code{\context}.
@@ -344,6 +348,7 @@ pentagramas, y establecer secciones de ossia.
 @cindex ajuste del símbolo del pentagrama
 @cindex dibujo del símbolo del pentagrama
 @cindex pentagrama, ajuste del símbolo del
+@cindex símbolo del pentagrama, dibujo del
 @cindex detener líneas de pentagrama
 @cindex iniciar líneas de pentagrama
 @cindex pentagrama, número de líneas
@@ -409,8 +414,15 @@ ajuste afecta también al espaciado de las líneas adicionales.
 Hay más detalles sobre las propiedades de @code{StaffSymbol} en
 @rinternals{staff-symbol-interface}.
 
+@cindex detener el pentagrama
+@cindex iniciar el pentagrama
+@cindex pentagrama, iniciar
+@cindex pentagrama, detener
+
 @funindex \startStaff
+@funindex startStaff
 @funindex \stopStaff
+@funindex stopStaff
 
 Se pueden colocar modificaciones a las propiedades de una pauta en el
 medio de una partitura, entre @code{\stopStaff} (detener pauta) y
@@ -427,8 +439,6 @@ b2 b
 \startStaff
 a2 a
 @end lilypond
-
-@cindex detener un pentagrama
 
 @noindent
 En general, se pueden usar @code{\startStaff} y @code{\stopStaff} para
@@ -488,6 +498,11 @@ en cualquiera de las direcciones, debe ser igual.
 @cindex francesa, pentagramas a la
 @cindex pauta, escalado de
 @cindex escalado de pentagramas
+
+@funindex \startStaff
+@funindex startStaff
+@funindex \stopStaff
+@funindex stopStaff
 
 Los pentagramas @notation{Ossia} se pueden preparar mediante la
 creación de un pentagrama simultáneo nuevo en la posición adecuada:
@@ -654,6 +669,9 @@ Referencia de funcionamiento interno:
 @cindex ocultar pentagramas
 @cindex vacío, pentagrama
 
+@funindex \RemoveEmptyStaffContext
+@funindex RemoveEmptyStaffContext
+
 Se pueden ocultar las líneas del pentagrama quitando el grabador
 @code{Staff_symbol_engraver} del contexto de @code{Staff}.  Como
 alternativa se puede utilizar la instrucción @code{\stopStaff}.
@@ -664,8 +682,6 @@ alternativa se puede utilizar la instrucción @code{\stopStaff}.
 }
 \relative c''' { a8 f e16 d c b a2 }
 @end lilypond
-
-@funindex \RemoveEmptyStaffContext
 
 Se pueden ocultar los pentagramas que están vacíos mediante la
 instrucción @code{\RemoveEmptyStaffContext} dentro del bloque
@@ -708,8 +724,13 @@ consulte @ref{Ossia staves}.
 
 @cindex ocultar pentagramas de música antigua
 @cindex ocultar pentagramas rítmicos
+
+@funindex \RemoveEmptyStaffContext
+@funindex RemoveEmptyStaffContext
 @funindex \AncientRemoveEmptyStaffContext
+@funindex AncientRemoveEmptyStaffContext
 @funindex \RemoveEmptyRhythmicStaffContext
+@funindex RemoveEmptyRhythmicStaffContext
 
 Se puede usar la instrucción @code{\AncientRemoveEmptyStaffContext}
 para ocultar los pentagramas vacíos en contextos de música antigua.
@@ -787,7 +808,9 @@ otras voces y dar formato a las notas guía.
 @cindex pulsos por minuto
 @cindex metrónomo, indicación de
 @cindex metrónomo, indicación de, con texto
+
 @funindex \tempo
+@funindex tempo
 
 Es muy sencillo escribir una indicación metronómica básica:
 
@@ -917,8 +940,8 @@ se debe utilizar @code{\center-column}:
 >>
 @end lilypond
 
-@cindex indent
-@cindex short-indent
+@funindex indent
+@funindex short-indent
 
 Sin embargo, si los nombres de instrumento son más largos, éstos no se
 centran para un grupo de pentagramas a no ser que se aumenten los
@@ -972,7 +995,12 @@ c1 c c c \break
 @cindex instrumento, cambio de
 @cindex cambio de instrumento
 
-se se necesita un @emph{cambio} de instrumento, se debe usar
+@funindex \addInstrumentDefinition
+@funindex addInstrumentDefinition
+@funindex \instrumentSwitch
+@funindex instrumentSwitch
+
+Si se necesita un @emph{cambio} de instrumento, se debe usar
 @code{\addInstrumentDefinition} en combinación con
 @code{\instrumentSwitch} para crear una lista detallada de los cambios
 necesarios para el intercambio.  La instrucción
@@ -1028,6 +1056,13 @@ Referencia de funcionamiento interno:
 @cindex citar otras voces
 @cindex fragmentos
 @cindex notas guía
+
+@funindex \addQuote
+@funindex addQuote
+@funindex \quoteDuring
+@funindex quoteDuring
+@funindex \transposition
+@funindex transposition
 
 Es muy frecuente que una voz duplique música de otra voz.  Por
 ejemplo, los violines primero y segundo pueden tocar las mismas notas
@@ -1156,6 +1191,9 @@ se escribía completamente en minúsculas: @code{\addquote}.
 @cindex fragmentos
 @cindex citar otras voces
 
+@funindex \cueDuring
+@funindex cueDuring
+
 La sección anterior explica la forma de crear citas.  La instrucción
 @code{\cueDuring} es una forma más especializada de
 @code{\quoteDuring}, que es especialmente útil para insertar notas
@@ -1212,6 +1250,14 @@ oboe = \relative c''' {
   }
 >>
 @end lilypond
+
+@cindex quitar notas guía
+@cindex notas guía, quitar
+
+@funindex \killCues
+@funindex killCues
+@funindex \transposedCueDuring
+@funindex transposedCueDuring
 
 Además de imprimir el nombre del instrumento de las notas guía, cuando
 éstas finalizan se debe imprimir el nombre del instrumento original, y

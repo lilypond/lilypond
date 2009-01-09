@@ -41,10 +41,15 @@ barras y los compases.
 
 @cindex duración de las notas
 @cindex notas, duración de
+@cindex longitud de las notas
+@cindex notas, longitud de
 
 @funindex \longa
+@funindex longa
 @funindex \breve
+@funindex breve
 @funindex \maxima
+@funindex maxima
 
 Las duraciones se designan mediante números y puntos. Las duraciones
 se introducen como sus valores recíprocos respecto de la redonda.  Por
@@ -91,6 +96,8 @@ a a a2 a a4 a a1 a
 
 @cindex notas, con puntillo
 @cindex puntillo, notas con
+@cindex notas, con doble puntillo
+@cindex doble puntillo, notas con
 
 @funindex .
 
@@ -116,8 +123,11 @@ otros ajustes que controlan la notación proporcional, consulte
 @ref{Proportional notation}.
 
 @funindex \dotsUp
+@funindex dotsUp
 @funindex \dotsDown
+@funindex dotsDown
 @funindex \dotsNeutral
+@funindex dotsNeutral
 
 Normalmente los puntillos se desplazan hacia arriba para evitar las
 líneas del pentagrama, excepto en situaciones de polifonía. Para
@@ -137,6 +147,7 @@ and placement}.
 Glosario musical:
 @rglos{breve},
 @rglos{longa},
+@rglos{maxima},
 @rglos{note value},
 @rglos{Duration names notes and rests}.
 
@@ -171,7 +182,9 @@ garrapatea (128) hasta el de máxima (8 redondas).
 
 @cindex grupos especiales
 @cindex tresillos
+
 @funindex \times
+@funindex times
 
 Los grupos especiales se obtienen a partir de una expresión musical
 multiplicando todas las duraciones por una fracción:
@@ -193,8 +206,11 @@ c4 c \times 2/3 { b4 a g }
 @end lilypond
 
 @funindex \tupletUp
+@funindex tupletUp
 @funindex \tupletDown
+@funindex tupletDown
 @funindex \tupletNeutral
+@funindex tupletNeutral
 
 La colocación automática del corchete de grupo especial por encima o
 por debajo de las notas se puede sobreescribir manualmente mediante
@@ -311,7 +327,9 @@ modificar mediante un multiplicador.  Esto es útil para saltar muchos
 compases, como por ejemplo @code{s1*23}.
 
 @cindex compresión de música
+
 @funindex \scaleDurations
+@funindex scaleDurations
 
 De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
@@ -354,6 +372,7 @@ Fragmentos de código:
 @unnumberedsubsubsec Ties
 
 @cindex ligadura de unión
+
 @funindex ~
 
 Una ligadura de unión conecta dos notas adyacentes de la misma altura.  La ligadura
@@ -405,11 +424,13 @@ pueden ligar parcialmente colocando la ligadura dentro del acorde.
 <c~ e g~ b> <c e g b>
 @end lilypond
 
-@funindex \repeatTie
 @cindex repetición, ligaduras de unión en
 @cindex ligaduras de unión, repeticiones y
 @cindex primera y segunda vez, corchetes y ligaduras en
 @cindex ligaduras de unión y corchetes de primera y segunda vez
+
+@funindex \repeatTie
+@funindex repeatTie
 
 Cuando la segunda vez de una repetición comienza con una nota ligada,
 es necesario especificar la ligadura repetida como sigue:
@@ -425,7 +446,9 @@ es necesario especificar la ligadura repetida como sigue:
 
 @cindex laissez vibrer
 @cindex ligaduras laissez vibrer
+
 @funindex \laissezVibrer
+@funindex laissezVibrer
 
 Las ligaduras @notation{L.v.} (@notation{laissez vibrer}, dejar
 vibrar) indican que las notas no se deben apagar al final.  Se usan en
@@ -437,18 +460,30 @@ percusión.  Se pueden introducir de la siguiente manera:
 @end lilypond
 
 @cindex ligaduras, colocación
+
 @funindex \tieUp
+@funindex tieUp
 @funindex \tieDown
+@funindex tieDown
 @funindex \tieNeutral
+@funindex tieNeutral
 
 Es posible controlar la colocación vertical de las ligaduras de unión;
 véase la sección de instrucciones predefinidas, o para ver más
 detalles, consulte @ref{Direction and placement}.
 
 @cindex ligaduras, apariencia
+@cindex ligaduras de puntos
+@cindex ligaduras discontinuas
+@cindex discontinuas, ligaduras
+@cindex puntos, ligaduras de
+
 @funindex \tieDotted
+@funindex tieDotted
 @funindex \tieDashed
+@funindex tieDashed
 @funindex \tieSolid
+@funindex tieSolid
 
 Se pueden especificar ligaduras continuas, de puuntos o intermitentes,
 véase la sección de instrucciones predefinidas.
@@ -501,6 +536,7 @@ Los cambios de clave o de octava durante una ligadura de unión no
 están bien definidos realmente.  En estos casos puede ser preferible
 una ligadura de expresión.
 
+
 @node Writing rests
 @subsection Writing rests
 
@@ -518,15 +554,19 @@ expresiones musicales.
 
 @cindex silencio
 @cindex silencios, indocar duraciones
-@cindex maxima
-@cindex longa
-@cindex breve
+@cindex maxima, silencio de
+@cindex longa, silencio de
+@cindex breve, silencio de
 
 @funindex \rest
+@funindex rest
 @funindex r
 @funindex \maxima
+@funindex maxima
 @funindex \longa
+@funindex longa
 @funindex \breve
+@funindex breve
 
 Los silencios se introducen como notas con el nombre @code{r}.  Las
 duraciones mayores que la redonda utilizan las instrucciones
@@ -577,6 +617,11 @@ a4\rest d4\rest
 
 
 @seealso
+Glosario musical:
+@rglos{breve},
+@rglos{longa},
+@rglos{maxima}.
+
 Referencia de la notación:
 @ref{Full measure rests}.
 
@@ -603,8 +648,11 @@ hasta la máxima (8 redondas).
 @cindex silencio invisible
 @cindex invisible, silencio
 @cindex nota de espaciado
+@cindex silencio de separación
+
 @funindex s
 @funindex \skip
+@funindex skip
 
 Un silencio invisible (también conocido como @q{skip} o
 desplazamiento) se puede introducir como una nota con el
@@ -666,9 +714,11 @@ Referencia de funcionamiento interno:
 
 @cindex multicompás, silencios
 @cindex compás completo, silencios de
-@cindex Silencios multicompás
-@cindex Silencios de compás completo
+@cindex silencios multicompás
+@cindex silencios de compás completo
 @cindex redonda, silencios de, para un compás completo
+@cindex silencios de redonda para un compás completo
+
 @funindex R
 
 Los silencios de uno o más compases completos se introducen como notas
@@ -717,7 +767,9 @@ R1*2 |
 @cindex multicompás, silencios, contracción de
 
 @funindex \expandFullBarRests
+@funindex expandFullBarRests
 @funindex \compressFullBarRests
+@funindex compressFullBarRests
 
 De forma predeterminada un silencio multicompás se expande en la
 partitura impresa para mostrar explícitamente todos los compases de
@@ -746,6 +798,9 @@ R2.*2 |
 @cindex multicompás, silencios, inscripción en
 @cindex calderón sobre un silencio multicompás
 @cindex multicompás, silencio, aplicar un calderón a
+
+@funindex \fermataMarkup
+@funindex fermataMarkup
 
 Se pueden añadir elementos de marcado a los silencios multicompás.  Se
 proporciona la instrucción predefinida @code{\fermataMarkup} para
@@ -824,6 +879,8 @@ Referencia de funcionamiento interno:
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestText}.
 
+@cindex digitaciones y silencios multicompás
+@cindex multicompás, silencios, digitaciones y
 
 @knownissues
 
@@ -859,8 +916,10 @@ silencios.
 @unnumberedsubsubsec Time signature
 
 @cindex Indicación de compás
-@cindex metro, medida
+@cindex medida
+
 @funindex \time
+@funindex time
 
 La indicación de compás se establece como sigue:
 

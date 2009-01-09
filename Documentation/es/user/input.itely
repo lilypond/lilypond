@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -886,11 +886,19 @@ directorio actual, use
 @end example
 
 Los archivos de inclusión también pueden contener enunciados
-@code{\include} a su vez.  Estos enunciados @code{\include} de segundo
-nivel no se interpretan hasta que se incorporan al archivo principal,
-por lo que los nombres de archivo que especifican deben ser relativos
-al directorio que contiene el archivo principal, no al directorio que
-contiene el archivo incluido.
+@code{\include} a su vez.  De forma predeterminada, estos enunciados
+@code{\include} de segundo nivel no se interpretan hasta que se
+incorporan al archivo principal, por lo que los nombres de archivo que
+especifican deben ser relativos al directorio que contiene el archivo
+principal, no al directorio que contiene el archivo incluido.  Sin
+embargo, este comportamiento se puede modificar pasando la opción
+@code{-drelative-includes} en la línea de órdenes (o mediante la
+adición de @code{#(ly:set-option 'relative-includes #t)} al principio
+del archivo principal de entrada).  Con el valor de
+@code{relative-includes} establecido, la ruta de cada instrucción
+@code{\include} se considera relativa al archivo que contiene dicha
+instrucción.  Este comportamiento es el recomendado y se convertirá en
+el comportamiento predeterminado en una versión futura de lilypond.
 
 También se pueden incluir archivos de un directorio que está en una
 ruta de búsqueda especificada como opción al invocar a LilyPond desde
@@ -914,10 +922,11 @@ y en @file{principal.ly} escriba
 
 Los archivos que se incluyen en muchas partituras se pueden poner en
 el directorio de LilyPond @file{../ly} (la localización de este
-directorio depende de la instalación: véase @rlearning{Other sources
-of information}).  Estos archivos se pueden incluir sencillamente por
-su nombre en un enunciado @code{\include}.  De esta forma se incluyen
-los archivos dependientes del idioma como @file{english.ly}.
+directorio depende de la instalación: véase
+@rlearning{Other sources of information}).  Estos archivos se pueden
+incluir sencillamente por su nombre en un enunciado @code{\include}.
+De esta forma se incluyen los archivos dependientes del idioma como
+@file{espanol.ly}.
 
 LilyPond incluye de forma predeterminada ciertos archivos cuando se
 inicia el programa.  Estas inclusiones no son visibles para el

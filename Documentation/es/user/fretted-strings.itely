@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4f8c7b381812949e6f765f641fba9108b52af56b
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -61,16 +61,19 @@ manual:
 
 @itemize
 @item
-Las digitaciones se indican con @ref{Fingering instructions}.
+Las digitaciones se indican como se explica en @ref{Fingering instructions}.
 
 @item
 Las instrucciones para ligaduras @notation{Laissez vibrer} así como
-ligaduras de unión sobre arpegios y trémolos se describe en
+ligaduras de unión sobre arpegios y trémolos están en
 @ref{Ties}.
 
 @item
-Las instrucciones para el manejo de varias voces se describe en
+Las instrucciones para el manejo de varias voces se encuentran en
 @ref{Collision resolution}.
+
+@item Las instrucciones para la indicación de armónicos está en
+@ref{Harmonics}.
 
 @end itemize
 
