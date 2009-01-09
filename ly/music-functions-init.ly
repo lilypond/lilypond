@@ -12,11 +12,13 @@
 #(use-modules (srfi srfi-1))
 
 acciaccatura =
-#(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
+#(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic
+   (_i "Create an acciaccatura from the following music expression")) 
 
 addQuote =
 #(define-music-function (parser location name music) (string? ly:music?)
-   (_i "Add a piece of music to be quoted ")
+   (_i "Define @var{music} as a quotable music expression named 
+@var{name}")
    (add-quotable parser name music)
    (make-music 'SequentialMusic 'void #t))
 
@@ -27,7 +29,7 @@ afterGrace =
 #(define-music-function
   (parser location main grace)
   (ly:music? ly:music?)
-
+  (_i "Create @var{grace} note(s) after a @var{main} music expression.")
   (let*
       ((main-length (ly:music-length main))
        (fraction  (ly:parser-lookup parser 'afterGraceFraction)))
@@ -50,7 +52,8 @@ afterGrace =
 
 applyMusic =
 #(define-music-function (parser location func music) (procedure? ly:music?)
-               (func music))
+   (_i"Apply procedure @var{func} to @var{music}.")
+  (func music))
 
 
 applyOutput =
@@ -93,6 +96,7 @@ autochange =
 
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
+   (_i "Modify context properties with Scheme procedure@var{proc}.")
                  (make-music 'ApplyContext 
                    'origin location
                    'procedure proc))
@@ -247,7 +251,7 @@ grace =
 addInstrumentDefinition =
 #(define-music-function
    (parser location name lst) (string? list?)
-
+   (_i "Create instrument @var{name} with properties @var{list}.")
    (set! instrument-definitions (acons name lst instrument-definitions))
 
    (make-music 'SequentialMusic 'void #t))

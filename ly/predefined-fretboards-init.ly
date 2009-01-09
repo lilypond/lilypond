@@ -21,8 +21,8 @@
 addChordShape =
 #(define-music-function (parser location key-symbol tuning shape-definition)
    (symbol? pair? string-or-pair?)
-   "Add chord shape @code{shape-definition} to the @code{chord-shape-table}
-hash with the key @code{(cons key-symbol tuning)}."
+   (_i "Add chord shape @var{shape-definition} to the @var{chord-shape-table}
+hash with the key @var{(cons key-symbol tuning)}.")
    (hash-set! chord-shape-table
                (cons key-symbol tuning)
                shape-definition)
