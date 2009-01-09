@@ -28,27 +28,40 @@
       </p>
     </div>
 
+    <table align="center">
+      <tr>
+	<td>
+	  <br>
+	  <a class="title" href="contrib-guide/index.html">Contributors'
+	    Guide</a>
+	  (in <a class="title" href="contrib-guide-big-page.html">one
+	    big page</a>,	in <a class="title" href="contrib-guide.pdf">PDF</a>)
+	  <br>(how to participate in development)
+	</td>
+      <tr>
+    </table>
+
     <table id="navigation">
       <tbody>
         <tr>
           <td class="left-column">
 	  <ul>
       <li><a class="title"
-	  href="../input/regression/collated-files.html">Regression
+	  href="../../input/regression/collated-files.html">Regression
 	  tests</a> (~ 5 Mb, in <a class="title"
-	  href="../input/regression/collated-files.pdf">PDF</a>)
+	  href="../../input/regression/collated-files.pdf">PDF</a>)
         <br>(general tests)</li>
       <li><a class="title"
-	  href="../input/regression/musicxml/collated-files.html">MusicXML regression
+	  href="../../input/regression/musicxml/collated-files.html">MusicXML regression
 	  tests</a> (in <a class="title"
-	  href="../input/regression/musicxml/collated-files.pdf">PDF</a>)
+	  href="../../input/regression/musicxml/collated-files.pdf">PDF</a>)
         <br>(musicxml2ly tests)</li>
           </ul></td>
 	  <td class="right-column">
           <ul>
       <li><a class="title" href="http://lilypond.org/test">Regression tests results</a>
       <br>(for comparison between releases)</li>
-      <li><a class="title" href="bibliography/index.html">Bibliography</a>
+      <li><a class="title" href="../bibliography/index.html">Bibliography</a>
       <br>(on background information)</li>
           </ul></td>
         </tr>
@@ -78,7 +91,7 @@ and <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_p
      </tbody>
 </table>
 
-<p><a href="index.html">Go back</a> to the Documentation index.</a></p>
+<p><a href="../index.html">Go back</a> to the Documentation index.</a></p>
 
 </body>
 </html>

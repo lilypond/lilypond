@@ -91,7 +91,7 @@ au format <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
         <tr>
           <td valign="baseline" class="left-column">
        <ul>
-            <li><a class="title"  href="devel.html">Ressources de développement</a>
+            <li><a class="title"  href="devel/index.html">Ressources de développement</a>
             <br>&mdash; documentation pour les développeurs et contributeurs</li>
        </ul>
     </td><td class="right-column">

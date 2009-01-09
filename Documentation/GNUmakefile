@@ -2,7 +2,7 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-SUBDIRS=user bibliography pictures topdocs misc po $(LANGS)
+SUBDIRS=devel user bibliography pictures topdocs misc po $(LANGS)
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
@@ -11,7 +11,7 @@ EXTRA_DIST_FILES= TRANSLATION
 
 include $(depth)/make/stepmake.make
 
-HTML_PAGE_NAMES= index devel translations
+HTML_PAGE_NAMES= index translations
 OUT_HTML_FILES= $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 OUT_CSS_FILES= $(CSS_FILES:%.css=$(outdir)/%.css)
 

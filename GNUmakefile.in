@@ -22,7 +22,7 @@ TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
 
-EXTRA_DIST_FILES = VERSION .gitignore SConstruct lilypond-texi2html.init \
+EXTRA_DIST_FILES = VERSION .gitignore lilypond-texi2html.init \
   $(README_FILES) $(SCRIPTS) $(IN_FILES) 
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
@@ -88,6 +88,7 @@ WEB_TARGETS = offline
 
 WWW-post:
 # need UTF8 setting in case this is hosted on a website.
+	$(MAKE) -C scripts/build out=
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
 	$(buildscript-dir)/mutopia-index -o $(outdir)/examples.html input/
 	find $(outdir) -name '*-root' | xargs rm -rf

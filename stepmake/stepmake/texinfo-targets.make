@@ -4,7 +4,7 @@ default: $(INFO_FILES)
 
 local-WWW-1: $(XREF_MAPS_FILES)
 
-local-doc: $(OUTTXT_FILES)
+local-doc:  $(OUTTXT_FILES)
 
 check-info: texinfo-all-menus-update
 

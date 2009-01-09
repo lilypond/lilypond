@@ -10,7 +10,7 @@ GENERATE_OMF = $(buildscript-dir)/texi2omf --format $(1) --location $(webdir)/$(
 
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
-MAKEINFO_FLAGS = --enable-encoding
+MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
@@ -24,6 +24,8 @@ endif
 TEXI2HTML_FLAGS += $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
 TEXI2HTML_INIT = --init-file=$(top-src-dir)/lilypond-texi2html.init
 TEXI2HTML = $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
+
+TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)
 
 ifdef QUIET_BUILD
 TEXI2PDF_FLAGS += -q

@@ -1,0 +1,16 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename contrib-guide.info
+@settitle LilyPond Contributors' Guide
+
+@include macros.itexi
+
+@documentencoding utf-8
+@documentlanguage en
+
+@finalout
+
+@node Top
+@top LilyPond Contributors' Guide
+
+
+@bye
