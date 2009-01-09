@@ -13,6 +13,13 @@ antigua.
 
   doctitlees = "Tipografía de música antigua"
 
+  texidocfr ="
+Voici comment graver la plupart, sinon tous les symboles que
+LilyPond prend en charge en matière de musique ancienne.
+
+"
+  doctitlefr = "Gravure de musique ancienne"
+
   texidoc = "
 Shown here are many (all?) of the symbols that are included in
 LilyPond's support for ancient notation.

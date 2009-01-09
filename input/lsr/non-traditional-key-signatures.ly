@@ -72,6 +72,10 @@ Alternatively, for each item in the list, using the more concise format
 all octaves.
 
 
+For microtonal scales where a \"sharp\" is not 100 cents, @code{alter}
+refers to the alteration as a proportion of a 200-cent whole tone.
+
+
 Here is an example of a possible key signature for generating a
 whole-tone scale: 
 

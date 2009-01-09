@@ -156,7 +156,7 @@ d'indiquer des doigtés très proches des têtes de notes.
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{avoiding-collisions-of-chord-fingering-with-beams.ly}
+{avoiding-collisions-with-chord-fingerings.ly}
 
 
 @seealso
