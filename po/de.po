@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.12.0\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-12-20 11:58+0100\n"
-"PO-Revision-Date: 2008-12-31 17:51+0200\n"
+"PO-Revision-Date: 2009-01-06 20:11+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1073,12 +1073,12 @@ msgstr ""
 
 #: musicxml2ly.py:2576
 msgid ""
-"Copyright (c) 2005--2009 by\n"
+"Copyright (c) 2005--2008 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 msgstr ""
-"Copyright (c) 2005--2009\n"
+"Copyright (c) 2005--2008\n"
 "····Han-Wen·Nienhuys·<hanwen@xs4all.nl>,\n"
 "····Jan·Nieuwenhuizen·<janneke@gnu.org>·and\n"
 "····Reinhold·Kainhofer·<reinhold@kainhofer.com>\n"
@@ -2492,7 +2492,7 @@ msgstr "Volta-Klammer kann nicht beendet werden"
 
 #: volta-engraver.cc:110
 msgid "already have a volta spanner, ending that one prematurely"
-msgstr "Wiederholungskasten bereits vorhanden, wird vorzeitig beendet"
+msgstr "Wiederholungsklammer bereits vorhanden, wird vorzeitig beendet"
 
 #: volta-engraver.cc:114
 msgid "also already have an ended spanner"
