@@ -374,7 +374,7 @@ def conv (str):
     return str
 
 
-# TODO: lots of other syntax change should be done here as well
+# TODO: lots of other syntax changes should be done here as well
 @rule ((1, 3, 92), 'basicXXXProperties -> XXX, Repeat_engraver -> Volta_engraver')
 def conv (str):
     str = re.sub ('basicCollisionProperties', 'NoteCollision', str)
@@ -418,7 +418,7 @@ def conv (str):
     str = re.sub ('\\\\voicefour', '\\\\voiceFour', str)
 
     # I don't know exactly when these happened...
-    # ugh, we loose context setting here...
+    # ugh, we lose context setting here...
     str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\stemUp\\\\slurUp\\\\tieUp', str)
     str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\stemDown\\\\slurDown\\\\tieDown', str)
     str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\stemBoth\\\\slurBoth\\\\tieBoth', str)
@@ -431,7 +431,7 @@ def conv (str):
     str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\\\1Down', str)
     str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\\\1Both', str)
 
-    # (lacks capitalisation slur -> Slur)
+    # (lacks capitalization slur -> Slur)
     str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\1 \\\\override #\'direction = #1', str)
     str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\1 \\override #\'direction = #-1', str)
     str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\1 \\\\override #\'direction = #0', str)
@@ -2650,7 +2650,7 @@ def conv (str):
     return str
 
 
-@rule ((2, 11, 15), "#'edge-height -> #'bound-details #'right/left #'text = ...")
+@rule ((2, 11, 15), "TextSpanner #'edge-height -> #'bound-details #'right/left #'text = ...")
 def conv (str):
     def sub_edge_height (m):
         s = ''
@@ -2658,20 +2658,22 @@ def conv (str):
                          ('right', m.group (4))]:
 
             if h and float (h):
-                once = m.group(1)
+                once = m.group (1)
                 if not once:
                     once = ''
+                context = m.group (2)
+                if not context:
+                    context = ''
                     
-                s += (r"%s \override %s #'bound-details #'%s #'text = \markup { \draw-line #'(0 . %s) }"
-                      % (once, m.group (2), var, h))
+                s += (r"%s \override %sTextSpanner #'bound-details #'%s #'text = \markup { \draw-line #'(0 . %s) }"
+                      % (once, context, var, h))
 
                 s += '\n'
             
         return s
     
                   
-    str = re.sub (r"(\\once)?\s*\\override\s*([a-zA-Z.]+)\s*#'edge-height\s*=\s*#'\(([0-9.-]+)\s+[.]\s+([0-9.-]+)\)",
-                  sub_edge_height, str)
+    str = re.sub (r"(\\once)?\s*\\override\s*([a-zA-Z]+\s*[.]\s*)?TextSpanner\s*#'edge-height\s*=\s*#'\(\s*([0-9.-]+)\s+[.]\s+([0-9.-]+)\s*\)", sub_edge_height, str)
     return str
 
 
