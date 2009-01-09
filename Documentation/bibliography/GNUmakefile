@@ -27,7 +27,7 @@ $(outdir)/%.bib: %.bib
 	ln -f $< $@
 
 $(outdir)/%.html: %.bib
-	BSTINPUTS=$(src-dir) $(PYTHON) $(buildscript-dir)/bib2html.py -o $@ $<
+	BSTINPUTS=$(src-dir) $(buildscript-dir)/bib2html -o $@ $<
 
 local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk

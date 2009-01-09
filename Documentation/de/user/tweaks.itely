@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2242,6 +2242,32 @@ c\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
 c, c c c
+@end lilypond
+
+@cindex Legatobögen und outside-staff-priority
+@cindex Legatobögen und Artikulationszeichen
+@cindex Artikulationszeichen und Legatobögen
+
+Legatobögen werden als Innersystem-Objekte klassifiziert, aber
+sie erscheinen oft auch über dem System, wenn die Noten, an die
+sie verbunden sind, sehr hoch im System notiert sind.  Dadurch
+können Außersystem-Objekte, wie Artikulationszeichen, zu hoch
+gerückt werden.  Die @code{avoid-slur}-Eigenschaft hat nur
+eine Auswirkung, wenn auch die @code{outside-staff-priority}
+auf @code{#f} gesetzt ist.  Alternativ kann die
+@code{outside-staff-priority}  des Legatobogens auf einen
+numerischen Wert gesetzt werden, sodass er mit anderen
+Außersystem-Objekten anhand dieses Wertes gesetzt wird.
+Hier ein Beispiel, das die beiden Möglichkeiten veranschaulicht:
+
+@lilypond[quote,verbatim,relative=2]
+c4( c^\markup\tiny\sharp d4.) c8
+c4(
+\once \override TextScript #'avoid-slur = #'inside
+\once \override TextScript #'outside-staff-priority = ##f
+c^\markup\tiny\sharp d4.) c8
+\once \override Slur #'outside-staff-priority = #500
+c4( c^\markup\tiny\sharp d4.) c8
 @end lilypond
 
 Eine Änderung der @code{outside-staff-priority} kann auch dazu

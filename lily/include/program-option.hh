@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2001--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 #ifndef SCM_OPTION_HH
 #define SCM_OPTION_HH

@@ -1,4 +1,0 @@
-# -*-python-*-
-
-Import ('env', 'collate')
-collate (title = 'Advanced snippets')

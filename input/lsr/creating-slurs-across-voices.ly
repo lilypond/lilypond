@@ -33,21 +33,23 @@ solo violin, BWV 1004.
 } % begin verbatim
 
 \relative c' {
-  << {
-    d16( a') s a s a[ s a] s a[ s a]
-  }
-  \\
-  {
-    \slurUp
-    bes,16[ s e](
-    \hideNotes a)
-    \unHideNotes f[(
-    \hideNotes a)
-    \unHideNotes fis](
-    \hideNotes a)
-    \unHideNotes g[(
-    \hideNotes a)
-    \unHideNotes gis](
-    \hideNotes a)
-  } >>
+  <<
+    {
+      d16( a') s a s a[ s a] s a[ s a]
+    }
+    \\
+    {
+      \slurUp
+      bes,16[ s e](
+      \hideNotes a)
+      \unHideNotes f[(
+      \hideNotes a)
+      \unHideNotes fis](
+      \hideNotes a)
+      \unHideNotes g[(
+      \hideNotes a)
+      \unHideNotes gis](
+      \hideNotes a)
+    }
+  >>
 }

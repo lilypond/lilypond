@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -68,6 +68,9 @@ Bögen zwischen Arpeggios und Tremolos sind beschrieben in
 
 @item Hinweise, wie mehrere Stimmen gesetzt werden können, finden sich in
 @ref{Collision resolution}.
+
+@item Instructions for indicating harmonics can be found in
+@ref{Harmonics}.
 
 @end itemize
 

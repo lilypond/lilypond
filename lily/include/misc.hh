@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef MISC_HH

@@ -40,19 +40,23 @@ This section discusses rhythms, rests, durations, beaming and bars.
 
 @cindex durations, of notes
 @cindex note durations
+@cindex length of notes
+@cindex note lengths
 
 @funindex \longa
+@funindex longa
 @funindex \breve
+@funindex breve
 @funindex \maxima
+@funindex maxima
 
-Durations are designated by numbers and dots.
-Durations are entered as their reciprocal values.  For example, a
-quarter note is entered using a @code{4} (since it is a 1/4 note),
-and a half note is entered using a @code{2} (since it is a 1/2
-note).  For notes longer than a whole you must use the
-@code{\longa} (a double breve) and @code{\breve} commands.
-Durations as short as 128th notes may be specified.  Shorter values
-are possible, but only as beamed notes.
+Durations are designated by numbers and dots.  Durations are entered
+as their reciprocal values.  For example, a quarter note is entered
+using a @code{4} (since it is a 1/4 note), and a half note is entered
+using a @code{2} (since it is a 1/2 note).  For notes longer than a
+whole you must use the @code{\longa} (a double breve) and
+@code{\breve} commands.  Durations as short as 128th notes may be
+specified.  Shorter values are possible, but only as beamed notes.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim,relative=2]
@@ -87,6 +91,8 @@ a a a2 a a4 a a1 a
 
 @cindex notes, dotted
 @cindex dotted notes
+@cindex notes, double-dotted
+@cindex double-dotted notes
 
 @funindex .
 
@@ -110,8 +116,11 @@ duration.  For details of this and other settings which control
 proportional notation, see @ref{Proportional notation}.
 
 @funindex \dotsUp
+@funindex dotsUp
 @funindex \dotsDown
+@funindex dotsDown
 @funindex \dotsNeutral
+@funindex dotsNeutral
 
 Dots are normally moved up to avoid staff lines, except in
 polyphonic situations.  Predefined commands are available to
@@ -131,6 +140,7 @@ see @ref{Direction and placement}.
 Music Glossary:
 @rglos{breve},
 @rglos{longa},
+@rglos{maxima},
 @rglos{note value},
 @rglos{Duration names notes and rests}.
 
@@ -164,7 +174,9 @@ rests from 128th to maxima (8 x whole) may be printed.
 
 @cindex tuplets
 @cindex triplets
+
 @funindex \times
+@funindex times
 
 Tuplets are made from a music expression by multiplying all the
 durations with a fraction:
@@ -186,8 +198,11 @@ c4 c \times 2/3 { b4 a g }
 @end lilypond
 
 @funindex \tupletUp
+@funindex tupletUp
 @funindex \tupletDown
+@funindex tupletDown
 @funindex \tupletNeutral
+@funindex tupletNeutral
 
 The automatic placement of the tuplet bracket above or below the
 notes may be overridden manually with predefined commands, for
@@ -272,12 +287,12 @@ placed within tuplet brackets.
 @cindex durations, scaling
 
 You can alter the duration of single notes, rests or chords by a
-fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if
-@code{M} is 1) to the duration.
-This will not affect the appearance of the notes or rests
-produced, but the altered duration will be used in calculating the
-position within the measure and setting the duration in the MIDI
-output.  Multiplying factors may be combined such as @code{*L*M/N}.
+fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if @code{M}
+is 1) to the duration.  This will not affect the appearance of the
+notes or rests produced, but the altered duration will be used in
+calculating the position within the measure and setting the duration
+in the MIDI output.  Multiplying factors may be combined such as
+@code{*L*M/N}.
 
 In the following example, the first three notes take up exactly
 two beats, but no triplet bracket is printed.
@@ -299,7 +314,9 @@ a multiplier.  This is useful for skipping many measures, e.g.,
 @code{s1*23}.
 
 @cindex compressing music
+
 @funindex \scaleDurations
+@funindex scaleDurations
 
 Longer stretches of music may be compressed by a fraction in the
 same way, as if every note, chord or rest had the fraction as a
@@ -342,6 +359,7 @@ Snippets:
 @unnumberedsubsubsec Ties
 
 @cindex tie
+
 @funindex ~
 
 A tie connects two adjacent note heads of the same pitch.  The tie
@@ -389,11 +407,13 @@ the chord.
 <c~ e g~ b> <c e g b>
 @end lilypond
 
-@funindex \repeatTie
 @cindex repeating ties
 @cindex ties, repeating
 @cindex volta brackets and ties
 @cindex ties and volta brackets
+
+@funindex \repeatTie
+@funindex repeatTie
 
 When a second alternative of a repeat starts with a tied note, you
 have to specify the repeated tie as follows:
@@ -409,7 +429,9 @@ have to specify the repeated tie as follows:
 
 @cindex laissez vibrer
 @cindex ties, laissez vibrer
+
 @funindex \laissezVibrer
+@funindex laissezVibrer
 
 @notation{L.v.} ties (@notation{laissez vibrer}) indicate that
 notes must not be damped at the end.  It is used in notation for
@@ -421,18 +443,30 @@ be entered as follows:
 @end lilypond
 
 @cindex ties, placement
+
 @funindex \tieUp
+@funindex tieUp
 @funindex \tieDown
+@funindex tieDown
 @funindex \tieNeutral
+@funindex tieNeutral
 
 The vertical placement of ties may be controlled, see
 Predefined commands, or for details, see
 @ref{Direction and placement}.
 
 @cindex ties, appearance
+@cindex ties, dotted
+@cindex ties, dashed
+@cindex dashed ties
+@cindex dotted ties
+
 @funindex \tieDotted
+@funindex tieDotted
 @funindex \tieDashed
+@funindex tieDashed
 @funindex \tieSolid
+@funindex tieSolid
 
 Solid, dotted or dashed ties may be specified, see Predefined
 commands.
@@ -484,8 +518,6 @@ well-defined.  In these cases, a slur may be preferable.
 
 
 
-
-
 @node Writing rests
 @subsection Writing rests
 
@@ -501,15 +533,19 @@ Rests are entered as part of the music in music expressions.
 @unnumberedsubsubsec Rests
 @cindex rest
 @cindex rest, entering durations
-@cindex maxima
-@cindex longa
-@cindex breve
+@cindex maxima rest
+@cindex longa rest
+@cindex breve rest
 
 @funindex \rest
+@funindex rest
 @funindex r
 @funindex \maxima
+@funindex maxima
 @funindex \longa
+@funindex longa
 @funindex \breve
+@funindex breve
 
 Rests are entered like notes with the note name @code{r}.
 Durations longer than a whole rest use the predefined
@@ -559,6 +595,11 @@ a4\rest d4\rest
 
 
 @seealso
+Music Glossary:
+@rglos{breve},
+@rglos{longa},
+@rglos{maxima}.
+
 Notation Reference:
 @ref{Full measure rests}.
 
@@ -584,8 +625,11 @@ are rests from 128th to maxima (8 x whole).
 @cindex invisible rest
 @cindex rest, invisible
 @cindex spacer note
+@cindex spacer rest
+
 @funindex s
 @funindex \skip
+@funindex skip
 
 An invisible rest (also called a @q{spacer rest}) can be entered
 like a note with the note name@tie{}@code{s}:
@@ -647,6 +691,8 @@ Internals Reference: @rinternals{SkipMusic}
 @cindex rest, multi-measure
 @cindex rest, full-measure
 @cindex whole rest for a full measure
+@cindex rest, whole for a full measure
+
 @funindex R
 
 Rests for one or more full measures are entered like notes with
@@ -661,10 +707,10 @@ R1*4
 b2^"Tutti" b4 a4
 @end lilypond
 
-The duration of full-measure rests is identical to the duration notation
-used for notes.  The duration in a multi-measure rest must always be an
-integral number of measure-lengths, so augmentation
-dots or fractions must often be used:
+The duration of full-measure rests is identical to the duration
+notation used for notes.  The duration in a multi-measure rest must
+always be an integral number of measure-lengths, so augmentation dots
+or fractions must often be used:
 
 @lilypond[quote,fragment,verbatim]
 \compressFullBarRests
@@ -678,9 +724,8 @@ R1*13/8 | R1*13/8*12 |
 R4*5*4 |
 @end lilypond
 
-A full-measure rest is printed as either a whole
-or breve rest, centered in the measure, depending on the time
-signature.
+A full-measure rest is printed as either a whole or breve rest,
+centered in the measure, depending on the time signature.
 
 @lilypond[quote,verbatim,fragment]
 \time 4/4
@@ -690,16 +735,19 @@ R1*3/2 |
 \time 8/4
 R1*2 |
 @end lilypond
-@funindex \expandFullBarRests
-@funindex \compressFullBarRests
+
 @cindex multi-measure rest, expanding
 @cindex multi-measure rest, contracting
 
-By default a multi-measure rest is expanded in the printed score
-to show all the rest measures explicitly.
-Alternatively, a mult-measure rest can be shown as a single measure
-containing a multi-measure rest symbol, with the number of measures of rest
-printed above the measure:
+@funindex \expandFullBarRests
+@funindex expandFullBarRests
+@funindex \compressFullBarRests
+@funindex compressFullBarRests
+
+By default a multi-measure rest is expanded in the printed score to
+show all the rest measures explicitly.  Alternatively, a multi-measure
+rest can be shown as a single measure containing a multi-measure rest
+symbol, with the number of measures of rest printed above the measure:
 
 @lilypond[quote,fragment,verbatim]
 % Default behavior
@@ -722,6 +770,9 @@ R2.*2 |
 @cindex multi-measure rest, script
 @cindex fermata on multi-measure rest
 @cindex multi-measure rest, attaching fermata
+
+@funindex \fermataMarkup
+@funindex fermataMarkup
 
 Markups can be added to multi-measure rests.
 The predefined command @code{\fermataMarkup}
@@ -801,6 +852,9 @@ Internals Reference:
 @rinternals{MultiMeasureRestText}.
 
 
+@cindex fingerings and multi-measure rests
+@cindex multi-measure rests and fingerings
+
 @knownissues
 
 If an attempt is made to use fingerings (e.g.,
@@ -835,7 +889,9 @@ Multi-measure rests do not take part in rest collisions.
 
 @cindex time signature
 @cindex meter
+
 @funindex \time
+@funindex time
 
 The time signature is set as follows:
 
@@ -844,7 +900,7 @@ The time signature is set as follows:
 \time 3/4 c2.
 @end lilypond
 
-@cindex Time signature, visibility of
+@cindex time signature, visibility of
 
 Time signatures are printed at the beginning of a piece
 and whenever the time signature changes.  If a change takes place
@@ -862,9 +918,13 @@ c c
 c c c c
 @end lilypond
 
-@funindex \numericTimeSignature
-@funindex \defaultTimeSignature
 @cindex time signature style
+@cindex meter style
+
+@funindex \numericTimeSignature
+@funindex numericTimeSignature
+@funindex \defaultTimeSignature
+@funindex defaultTimeSignature
 
 The time signature symbol that is used in 2/2 and 4/4 time can be
 changed to a numeric style:
@@ -932,7 +992,9 @@ Internals Reference:
 @cindex pickup measure
 @cindex measure, change length
 @cindex measurePosition
+
 @funindex \partial
+@funindex partial
 
 Partial or pick-up measures, such as an anacrusis or upbeat, are
 entered using the @code{\partial} command, with the syntax
@@ -992,12 +1054,15 @@ odd warnings may occur.
 @node Unmetered music
 @unnumberedsubsubsec Unmetered music
 
-@funindex \cadenzaOn
-@funindex \cadenzaOff
 @cindex bar lines, turning off
 @cindex bar numbering, turning off
 @cindex cadenza
 @cindex unmetered music
+
+@funindex \cadenzaOn
+@funindex cadenzaOn
+@funindex \cadenzaOff
+@funindex cadenzaOff
 
 Bar lines and bar numbers are calculated automatically.  For
 unmetered music (some cadenzas, for example), this is not desirable.
@@ -1068,8 +1133,16 @@ to indicate where breaks can occur.
 
 @cindex double time signatures
 @cindex signatures, polymetric
+@cindex time signatures, polymetric
+@cindex time signatures, double
 @cindex polymetric signatures
 @cindex meter, polymetric
+
+@funindex timeSignatureFraction
+@funindex \scaleDurations
+@funindex scaleDurations
+@funindex \times
+@funindex times
 
 Polymetric notation is supported, either explicitly or by modifying
 the visible time signature symbol and scaling the note durations.
@@ -1084,6 +1157,9 @@ signature; see @ref{Time signature}.  The scaling is done with
 @code{\scaleDurations}, which is used in a similar way to
 @code{\times}, but does not create a tuplet bracket; see
 @ref{Scaling durations}.
+
+@cindex beaming in polymetric music
+@cindex beaming in polymetric meter
 
 In this example, music with the time signatures of 3/4, 9/8, and
 10/8 are used in parallel.  In the second staff, shown durations
@@ -1202,6 +1278,9 @@ time signatures.
 @cindex notes, splitting
 @cindex splitting notes
 
+@funindex Note_heads_engraver
+@funindex Completion_heads_engraver
+
 Long notes which overrun bar lines can be converted automatically
 to tied notes.  This is done by replacing the
 @code{Note_heads_engraver} with the
@@ -1252,6 +1331,9 @@ split rests.
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
 
+@cindex melody rhythms, showing
+@cindex rhythms, showing melody
+
 Sometimes you might want to show only the rhythm of a melody.  This
 can be done with the rhythmic staff.  All pitches of notes on such a
 staff are squashed, and the staff itself has a single line
@@ -1274,6 +1356,16 @@ staff are squashed, and the staff itself has a single line
   }
 >>
 @end lilypond
+
+@cindex guitar chord charts
+@cindex strumming rhythms, showing
+@cindex guitar strumming rhythms, showing
+
+@funindex Pitch_squash_engraver
+@funindex \improvisationOn
+@funindex improvisationOn
+@funindex \improvisationOff
+@funindex improvisationOff
 
 Guitar chord charts often show the strumming rhythms.  This can
 be done with the @code{Pitch_squash_engraver} and
@@ -1339,6 +1431,16 @@ By default, beams are inserted automatically:
 
 @cindex beams, manual
 @cindex manual beams
+@cindex beams, setting rules for
+@cindex beams, custom rules for
+
+@funindex measureLength
+@funindex beatLength
+@funindex beatGrouping
+@funindex \autoBeamOn
+@funindex autoBeamOn
+@funindex \autoBeamOff
+@funindex autoBeamOff
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4 c8 c c c
@@ -1356,8 +1458,6 @@ properties, @code{measureLength}, @code{beatLength} and
 @code{beatGrouping}.  Both the beaming rules and the context
 properties can be overridden, see @ref{Setting automatic beam behavior}.
 
-@cindex autoBeamOn
-@cindex autoBeamOff
 
 @warning{If beams are used to indicate melismata in songs, then automatic
 beaming should be switched off with @code{\autoBeamOff} and the beams
@@ -1385,9 +1485,10 @@ c16 c8
 
 @snippets
 
+@cindex line breaks and beams
+@cindex beams and line breaks
+
 @funindex breakable
-@cindex break, line
-@cindex line breaks
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
@@ -1421,10 +1522,6 @@ Beams can collide with note heads and accidentals in other voices
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
-@funindex autoBeaming
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
 
 @cindex automatic beams, tuning
 @cindex tuning automatic beaming
@@ -1432,6 +1529,17 @@ Beams can collide with note heads and accidentals in other voices
 @cindex autobeam
 @cindex lyrics and beaming
 
+@funindex autoBeaming
+@funindex autoBeamSettings
+@funindex (end * * * *)
+@funindex (begin * * * *)
+@funindex measureLength
+@funindex beatLength
+@funindex beatGrouping
+@funindex \time
+@funindex time
+@funindex \set
+@funindex set
 
 The placement of automatic beams is determined by the rules
 described in @ref{Automatic beams}.  There are two mutually
@@ -1696,14 +1804,19 @@ a a a a
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
+@funindex \autoBeamOff
+@funindex autoBeamOff
+@funindex \autoBeamOn
+@funindex autoBeamOn
 
 @predefined
-@funindex \autoBeamOff
 @code{\autoBeamOff},
-@funindex \autoBeamOn
 @code{\autoBeamOn}.
 @endpredefined
 
+
+@cindex beam, last in score
+@cindex beam, last in polyphonic voice
 
 @knownissues
 
@@ -1723,6 +1836,8 @@ Snippets:
 @unnumberedsubsubsec Manual beams
 
 @cindex beams, manual
+@cindex manual beams
+
 @funindex ]
 @funindex [
 
@@ -1739,6 +1854,9 @@ marking the begin and end point with @code{[} and @code{]}
 }
 @end lilypond
 
+
+@funindex \noBeam
+@funindex noBeam
 
 Individual notes may be marked with @code{\noBeam} to prevent them
 from being beamed:
@@ -1779,7 +1897,10 @@ g a]
 @unnumberedsubsubsec Feathered beams
 
 @cindex beams, feathered
+
 @funindex \featherDurations
+@funindex featherDurations
+@funindex grow-direction
 
 Feathered beams are used to indicate that a small group of notes
 should be played at an increasing (or decreasing) tempo, without
@@ -1795,11 +1916,10 @@ music expression delimited by braces and preceded by a
 @code{featheredDurations} command which specifies the ratio
 between the durations of the first and last notes in the group.
 
-The square brackets
-show the extent of the beam and the braces show
-which notes are to have their durations modified.  Normally
-these would delimit the same group of notes, but this is not
-required: the two commands are independent.
+The square brackets show the extent of the beam and the braces show
+which notes are to have their durations modified.  Normally these
+would delimit the same group of notes, but this is not required: the
+two commands are independent.
 
 In the following example the eight 16th notes occupy exactly the
 same time as a half note, but the first note is one half as long
@@ -1849,9 +1969,11 @@ Snippets:
 @unnumberedsubsubsec Bar lines
 
 @cindex bar lines
-@funindex \bar
 @cindex measure lines
 @cindex repeat bars
+
+@funindex \bar
+@funindex bar
 
 Bar lines delimit measures, and are also used to indicate
 repeats.  Normally, simple bar lines are automatically inserted
@@ -1896,13 +2018,18 @@ force) a line break to occur at this point.  The bar number
 counter is not increased.  To force a line break see
 @ref{Line breaking}.
 
+@cindex manual bar lines
+@cindex manual measure lines
+@cindex bar lines, manual
+@cindex measure lines, manual
+
 This and other special bar lines may be inserted manually at any
-point.  When they coincide with the end of a measure they replace
-the simple bar line which would have been inserted there
-automatically.  When they do not coincide
-with the end of a measure the specified bar line is inserted at that
-point in the printed output.  Such insertions do not affect
-the calculation and placement of subsequent automatic bar lines.
+point.  When they coincide with the end of a measure they replace the
+simple bar line which would have been inserted there automatically.
+When they do not coincide with the end of a measure the specified bar
+line is inserted at that point in the printed output.  Such insertions
+do not affect the calculation and placement of subsequent automatic
+bar lines.
 
 The simple bar line and five types of double bar line are available
 for manual insertion:
@@ -1971,6 +2098,9 @@ connected between different staves of a @code{StaffGroup},
 
 @funindex whichBar
 @funindex defaultBarType
+@funindex \bar
+@funindex bar
+@funindex bartype
 
 The command @code{\bar }@var{bartype} is a shortcut for
 @code{\set Timing.whichBar = }@var{bartype}.  A bar line is
@@ -2002,6 +2132,9 @@ properties).
 
 @cindex bar numbers
 @cindex measure numbers
+@cindex numbers, bar
+@cindex numbers, measure
+
 @funindex currentBarNumber
 
 Bar numbers are typeset by default at the start of every line except
@@ -2019,8 +2152,9 @@ c1 c c c
 
 @snippets
 
-@funindex barNumberVisibility
 @cindex bar numbers, regular spacing
+
+@funindex barNumberVisibility
 
 Bar numbers can be typeset at regular intervals instead of just at
 the beginning of every line.  To do this the default behavior
@@ -2136,6 +2270,9 @@ Snippets:
 Internals Reference: @rinternals{BarNumber}.
 
 
+@cindex bar number collision
+@cindex collision, bar number
+
 @knownissues
 
 Bar numbers may collide with the top of the
@@ -2162,17 +2299,19 @@ c1 c c c
 @unnumberedsubsubsec Bar and bar number checks
 
 @cindex bar check
+@cindex bar number check
+@cindex measure check
+@cindex measure number check
+
 @funindex barCheckSynchronize
 @funindex |
 
-Bar checks help detect errors in the entered durations.
-A bar check may be entered using the bar symbol, @code{|},
-at any place where a bar line is expected to fall.
-If bar check lines are encountered at other places,
-a list of warnings is printed in the log file,
-showing the line numbers and lines
-in which the bar checks failed.  In the next
-example, the second bar check will signal an error.
+Bar checks help detect errors in the entered durations.  A bar check
+may be entered using the bar symbol, @code{|}, at any place where a
+bar line is expected to fall.  If bar check lines are encountered at
+other places, a list of warnings is printed in the log file, showing
+the line numbers and lines in which the bar checks failed.  In the
+next example, the second bar check will signal an error.
 
 @example
 \time 3/4 c2 e4 | g2 |
@@ -2218,6 +2357,9 @@ pipeSymbol = \bar "||"
 }
 @end lilypond
 
+@funindex \barNumberCheck
+@funindex barNumberCheck
+
 When copying large pieces of music, it can be helpful to check
 that the LilyPond bar number corresponds to the original that you
 are entering from.  This can be checked with
@@ -2242,7 +2384,9 @@ Snippets:
 
 @cindex rehearsal marks
 @cindex mark, rehearsal
+
 @funindex \mark
+@funindex mark
 
 To print a rehearsal mark, use the @code{\mark} command
 
@@ -2273,6 +2417,9 @@ mark manually.  The value to use is stored in the property
 @cindex format, rehearsal mark
 @cindex mark, rehearsal, style
 @cindex mark, rehearsal, format
+@cindex rehearsal mark, manual
+@cindex mark, rehearsal, manual
+@cindex custom rehearsal mark
 
 The style is defined by the property @code{markFormatter}.  It is
 a function taking the current mark (an integer) and the current
@@ -2322,6 +2469,12 @@ string.
 @cindex segno
 @cindex coda
 @cindex D.S al Fine
+@cindex fermata
+@cindex music glyphs
+@cindex glyphs, music
+
+@funindex \musicglyph
+@funindex musicglyph
 
 Music glyphs (such as the segno sign) may be printed inside a
 @code{\mark}
@@ -2371,11 +2524,13 @@ Internals Reference: @rinternals{RehearsalMark}.
 @node Grace notes
 @unnumberedsubsubsec Grace notes
 
-@funindex \grace
 @cindex ornaments
 @cindex grace notes
 @cindex appoggiatura
 @cindex acciaccatura
+
+@funindex \grace
+@funindex grace
 
 Grace notes are ornaments that are written out. Grace notes
 are printed in a smaller font and take up no logical time
@@ -2408,9 +2563,10 @@ notes for every eighth grace note
    \new Staff { c2 \grace { g8[ b] } c2 } >>
 @end lilypond
 
-@funindex \afterGrace
-
 @cindex grace notes, following
+
+@funindex \afterGrace
+@funindex afterGrace
 
 If you want to end a note with a grace, use the @code{\afterGrace}
 command.  It takes two arguments: the main note, and the grace

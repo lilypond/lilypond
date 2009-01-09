@@ -59,12 +59,12 @@ no tiene nada que ver con el @code{\\set} de dos notas por detrás.)
   texidoc = "
  Flat flags on lone notes and beam nibs at the ends of beamed figures
 are both possible with a combination of @code{stemLeftBeamCount}, 
-@code{stemRightBeamCount} and paired @code{[ ]} beam indicators.
+@code{stemRightBeamCount} and paired @code{[]} beam indicators.
 
 
 
 
-For right-pointing flat flags on lone notes, use paired @code{[ ]} beam
+For right-pointing flat flags on lone notes, use paired @code{[]} beam
 indicators and set @code{stemLeftBeamCount} to zero (see Example 1).
 
 
@@ -86,16 +86,16 @@ nibs at the start of a run of beamed notes, set
 
 Sometimes it may make sense for a lone note surrounded by rests to
 carry both a left- and right-pointing flat flag. Do this with paired
-@code{[ ]} beam indicators alone (Example 4).  
+@code{[]} beam indicators alone (Example 4).  
 
 
 
 
-(Note that @code{\\set stemLeftBeamCount}is always equivalent to 
-@code{\\once \\set}.  In other words, the beam count settings aren't 
-\"sticky\", so the pair of flat flags attached to the lone  @code{c'16
-[ ]} in the last example have nothing to do with the  @code{\\set} two
-notes prior.)
+(Note that @code{\\set stemLeftBeamCount} is always equivalent to 
+@code{\\once \\set}.  In other words, the beam count settings are not 
+\"sticky\", so the pair of flat flags attached to the lone 
+@code{c'16[]} in the last example have nothing to do with the 
+@code{\\set} two notes prior.)
 
 
 
@@ -105,47 +105,39 @@ notes prior.)
 } % begin verbatim
 
 \score {
-<<
-% Example 1
-\new RhythmicStaff {
-  \set stemLeftBeamCount = #0
-  c'16 [ ]
-  r8.
-}
-
-% Example 2
-\new RhythmicStaff {
-  r8.
-  \set stemRightBeamCount = #0
-  c'16 [ ]
-}
-
-% Example 3
-\new RhythmicStaff {
-  c'16
-  c'16
-  \set stemRightBeamCount = #2
-  c'16
-  r16
-  r16
-  \set stemLeftBeamCount = #2
-  c'16
-  c'16
-  c'16
-}
-
-% Example 4
-\new RhythmicStaff {
-   c'16
-   c'16
-   \set stemRightBeamCount = #2
-   c'16
-   r16
-   c'16 [ ]
-   r16
-   \set stemLeftBeamCount = #2
-   c'16
-   c'16
-}
->>
+  <<
+    % Example 1
+    \new RhythmicStaff {
+      \set stemLeftBeamCount = #0
+      c16[]
+      r8.
+    }
+    
+    % Example 2
+    \new RhythmicStaff {
+      r8.
+      \set stemRightBeamCount = #0
+      c16[]
+    }
+    
+    % Example 3
+    \new RhythmicStaff {
+      c16 c
+      \set stemRightBeamCount = #2
+      c16 r r
+      \set stemLeftBeamCount = #2
+      c16 c c
+    }
+    
+    % Example 4
+    \new RhythmicStaff {
+      c16 c
+      \set stemRightBeamCount = #2
+      c16 r
+      c16[]
+      r16
+      \set stemLeftBeamCount = #2
+      c16 c
+    }
+  >>
 }

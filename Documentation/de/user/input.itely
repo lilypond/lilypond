@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 23342b5b9f69f3a82751052f79f3fede0bb40ded
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -915,7 +915,14 @@ Dateien, die eingebunden werden sollen, können selber auch wiederum
 ein @code{\include} enthalten.  Diese Einbindung zweiter Ebene
 werden erst interpretiert, wenn sie sich in der Hauptdatei befinden,
 sodass die Pfadangaben hier nicht relativ zur eingebundenen Datei,
-sondern relativ zur Hauptdatei gesetzt werden müssen.
+sondern relativ zur Hauptdatei gesetzt werden müssen.  Dieses Verhalten
+kann jedoch auch verändert werden, indem man lilypond die Option
+@code{-drelative-includes} auf der Kommandozeile zuweist (oder indem
+man den Befehl @code{#(ly:set-option 'relative-includes #t)} an den
+Beginn der Quelldatei schreibt).  Mit @code{relative-includes} wird
+der Pfad jedes @code{\include}-Befehls als relativ zu der Datei angenommen,
+in der sich der Befehl befindet.  Dieses Verhalten wird empfohlen und wird
+in zukünftigen Versionen von LilyPond den Standard darstellen.
 
 Dateien können auch aus einem Verzeichnis eingebunden werden,
 dass im Suchpfad von LilyPond liegt.  Hierzu muss auf der
@@ -1314,7 +1321,7 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
   }
   \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008" \char ##x00A9 }
+\markup { "Copyright 2008--2009" \char ##x00A9 }
 @end lilypond
 
 Um das Copyright-Zeichen zu notieren, kann folgender Code eingesetzt werden:

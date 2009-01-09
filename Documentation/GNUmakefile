@@ -36,11 +36,18 @@ $(OUT_HTML_FILES): $(OUT_CSS_FILES)
 $(outdir)/%.css: %.css
 	ln -f $< $@
 
+
+### Translations maintenance targets
+
 po-update:
 	make -C po po-update
 
 all-translations-update: po-update translation-status
 	$(foreach lang, $(LANGS), make ISOLANG=$(lang) skeleton-update snippet-update &&) true
+
+ifneq ($(NO_COLOR),)
+CHECK_TRANSLATION_FLAGS = --no-color
+endif
 
 ifneq ($(ISOLANG),)
 new-lang:
@@ -52,7 +59,7 @@ new-lang:
 	cp fr/GNUmakefile $(ISOLANG)
 	cp fr/user/GNUmakefile $(ISOLANG)/user
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
-	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond-learning.tely
+	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond-learning.tely
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
@@ -60,17 +67,13 @@ new-lang:
 
 CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??')
 
-ifneq ($(NO_COLOR),)
-CHECK_TRANSLATION_FLAGS = --no-color
-endif
-
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
-	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/user/%.tely=../user/%.tely)
-	$(PYTHON) $(buildscript-dir)/texi-skeleton-update.py $(ISOLANG)/user $(outdir)
+	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/user/%.tely=../user/%.tely)
+	$(auxscript-dir)/texi-skeleton-update.py $(ISOLANG)/user $(outdir)
 
 snippet-update:
-	$(PYTHON) $(buildscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
+	$(auxscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
 
 DOCUMENTS_INCLUDES:=-I $(ISOLANG)/user \
 -I $(top-build-dir)/Documentation/$(ISOLANG)/user/out-www \
@@ -88,22 +91,22 @@ DOCUMENTS_INCLUDES:=-I user \
 endif # ISOLANG
 
 check-xrefs:
-	$(PYTHON) $(buildscript-dir)/check_texi_refs.py --batch \
-	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
+	$(auxscript-dir)/check_texi_refs.py --batch \
+	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 fix-xrefs:
-	$(PYTHON) $(buildscript-dir)/check_texi_refs.py --auto-fix \
-	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
+	$(auxscript-dir)/check_texi_refs.py --auto-fix \
+	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 check-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
+	$(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
 
 update-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
+	$(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
 
 translation-status:
 	make -C po out=www messages
-	$(PYTHON) $(buildscript-dir)/translations-status.py
+	$(auxscript-dir)/translations-status.py
 
 local-help: extra-local-help
 

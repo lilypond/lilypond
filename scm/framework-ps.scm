@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-module (scm framework-ps))
 
@@ -290,7 +290,7 @@
 	   (if (and (not embed)
 		    (equal? 'regular (stat:type (stat full-name)))
 		    (equal? name (ly:ttf-ps-name full-name)))
-	       (set! embed (font-file-as-ps-string name full-name)))
+	       (set! embed (font-file-as-ps-string name full-name 0)))
 	   (if (or (equal? "." f)
 		   (equal? ".." f))
 	       #t
@@ -419,82 +419,70 @@
 	 (paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
-	
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
 	 (page-count (length page-stencils))
 	 (port (ly:outputter-port outputter)))
-
-
     (if (ly:get-option 'clip-systems)
 	(clip-system-EPSes basename book))
-
     (if (ly:get-option 'dump-signatures)
 	(write-system-signatures basename (ly:paper-book-systems book) 1))
-
     (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
-
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
-
     (write-preamble paper #t port)
-
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
        (dump-page outputter page page-number page-count landscape?))
      page-stencils)
-
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
     (postprocess-output book framework-ps-module filename
-			 (ly:output-formats))))
+			(ly:output-formats))))
 
 (define-public (dump-stencil-as-EPS paper dump-me filename
 				    load-fonts)
-
-  (let*
-      ((xext (ly:stencil-extent dump-me X))
-       (yext (ly:stencil-extent dump-me Y))
-       (padding (ly:get-option 'eps-box-padding))
-       (left-overshoot (if (number? padding)
-			   (* -1 padding (ly:output-def-lookup paper 'mm))
-			   #f))
-       (bbox
-	(map
-	 (lambda (x)
-	   (if (or (nan? x) (inf? x)
+  (let* ((xext (ly:stencil-extent dump-me X))
+	 (yext (ly:stencil-extent dump-me Y))
+	 (padding (ly:get-option 'eps-box-padding))
+	 (left-overshoot (if (number? padding)
+			     (* -1 padding (ly:output-def-lookup paper 'mm))
+			     #f))
+	 (bbox
+	  (map
+	   (lambda (x)
+	     (if (or (nan? x) (inf? x)
 		     ;; FIXME: huh?
-		   (equal? (format #f "~S" x) "+#.#")
-		   (equal? (format #f "~S" x) "-#.#"))
-	       0.0 x))
+		     (equal? (format #f "~S" x) "+#.#")
+		     (equal? (format #f "~S" x) "-#.#"))
+		 0.0 x))
 
 	   ;; the left-overshoot is to make sure that
 	   ;; bar numbers stick out of margin uniformly.
 	   ;;
 	   (list
-	
 	    (if (number? left-overshoot)
 		(min left-overshoot (car xext))
 		(car xext))
 	    (car yext) (cdr xext) (cdr yext)))))
+    (dump-stencil-as-EPS-with-bbox paper dump-me filename load-fonts bbox)))
 
-       (dump-stencil-as-EPS-with-bbox paper dump-me filename load-fonts bbox)
-       ))
-	
-	
 (define-public (dump-stencil-as-EPS-with-bbox paper dump-me filename
 					      load-fonts
 					      bbox)
-  "Create an EPS file from stencil DUMP-ME to FILENAME. BBOX has format
-   (left-x, lower-y, right x, up-y).  If LOAD-FONTS set, include fonts inline."
-
+  "Create an EPS file from stencil DUMP-ME to FILENAME. BBOX has
+format (left-x, lower-y, right x, up-y).  If LOAD-FONTS set, include
+fonts inline."
   (define (to-rounded-bp-box box)
     "Convert box to 1/72 inch with rounding to enlarge the box."
     (let* ((scale (ly:output-def-lookup paper 'output-scale))
 	   (strip-non-number (lambda (x)
-			       (if (or (nan? x) (inf? x)) 0.0 x)))
+			       (if (or (nan? x)
+				       (inf? x))
+				   0.0
+				   x)))
 	   (directed-round (lambda (x rounder)
 			     (inexact->exact
 			      (rounder (/ (* (strip-non-number x) scale)
@@ -502,8 +490,7 @@
       (list (directed-round (car box) floor)
 	    (directed-round (cadr box) floor)
 	    (directed-round (max (1+ (car box)) (caddr box)) ceiling)
-	    (directed-round (max (1+ (cadr box)) (cadddr box)) ceiling)
-	  )))
+	    (directed-round (max (1+ (cadr box)) (cadddr box)) ceiling))))
 
   (let* ((outputter (ly:make-paper-outputter
 		     ;; FIXME: better wrap open/open-file,
@@ -511,12 +498,10 @@
 		     ;; MINGW hack: need to have "b"inary for embedding CFFs
 		     (open-file (format "~a.eps" filename) "wb")
 		     'ps))
-
 	 (port (ly:outputter-port outputter))
 	 (rounded-bbox (to-rounded-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts)))
-
     (display header port)
     (write-preamble paper load-fonts port)
     (display "gsave set-ps-scale-to-lily-scale\n" port)
@@ -524,64 +509,44 @@
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
 
-
-
-(define (clip-systems-to-region
-	 basename paper systems region
-	 do-pdf)
-
-  (let*
-      ((extents-system-pairs
-	(filtered-map
-	 (lambda (paper-system)
-	   (let*
-	       ((x-ext (system-clipped-x-extent
-			(paper-system-system-grob paper-system)
-			region)))
-
-	     (if x-ext
-		 (cons x-ext paper-system)
-		 #f)))
-	
-	 systems))
-       (count 0))
-
+(define (clip-systems-to-region basename paper systems region do-pdf)
+  (let* ((extents-system-pairs
+	  (filtered-map (lambda (paper-system)
+			  (let* ((x-ext (system-clipped-x-extent
+					 (paper-system-system-grob paper-system)
+					 region)))
+			    (if x-ext
+				(cons x-ext paper-system)
+				#f)))
+			systems))
+	 (count 0))
     (for-each
      (lambda (ext-system-pair)
-       (let*
-	   ((xext (car ext-system-pair))
-	    (paper-system (cdr ext-system-pair))
-	    (yext (paper-system-extent paper-system Y))
-	    (bbox (list (car xext) (car yext)
-			(cdr xext) (cdr yext)))
-	    (filename (if (< 0 count)
-			  (format "~a-~a" basename count)
-			  basename)))
-
+       (let* ((xext (car ext-system-pair))
+	      (paper-system (cdr ext-system-pair))
+	      (yext (paper-system-extent paper-system Y))
+	      (bbox (list (car xext) (car yext)
+			  (cdr xext) (cdr yext)))
+	      (filename (if (< 0 count)
+			    (format "~a-~a" basename count)
+			    basename)))
 	 (set! count (1+ count))
-	 (dump-stencil-as-EPS-with-bbox
-	  paper
-	  (paper-system-stencil paper-system)
-	  filename
-	  (ly:get-option 'include-eps-fonts)
-	  bbox)
-
+	 (dump-stencil-as-EPS-with-bbox paper
+					(paper-system-stencil paper-system)
+					filename
+					(ly:get-option 'include-eps-fonts)
+					bbox)
 	 (if do-pdf
-	     (postscript->pdf 0 0 (format "~a.eps" filename)))
-	 ))
-
-     extents-system-pairs)
-    ))
-
+	     (postscript->pdf 0 0 (format "~a.eps" filename)))))
+     extents-system-pairs)))
 
 (define-public (clip-system-EPSes basename paper-book)
-  (define do-pdf (member "pdf" (ly:output-formats)))
+  (define do-pdf
+    (member "pdf" (ly:output-formats)))
 
   (define (clip-score-systems basename systems)
-    (let*
-	((layout (ly:grob-layout (paper-system-system-grob (car systems))))
-	 (regions (ly:output-def-lookup layout 'clip-regions)))
-
+    (let* ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
+	   (regions (ly:output-def-lookup layout 'clip-regions)))
       (for-each
        (lambda (region)
 	 (clip-systems-to-region
@@ -591,82 +556,61 @@
 		  (rhythmic-location->file-string (cdr region)))
 	  layout systems region
 	  do-pdf))
-
        regions)))
 
-
   ;; partition in system lists sharing their layout blocks
-  (let*
-      ((systems (ly:paper-book-systems paper-book))
-       (count 0)
-       (score-system-list '()))
-
+  (let* ((systems (ly:paper-book-systems paper-book))
+	 (count 0)
+	 (score-system-list '()))
     (fold
      (lambda (system last-system)
-
-
        (if (not (and last-system
 		     (equal? (paper-system-layout last-system)
 			     (paper-system-layout system))))
 	   (set! score-system-list (cons '() score-system-list)))
-
        (if (paper-system-layout system)
 	   (set-car! score-system-list (cons system (car score-system-list))))
-
        ;; pass value.
        system)
-
      #f
      systems)
-
-    (for-each
-     (lambda (system-list)
-       (clip-score-systems
-	(if (> count 0)
-	    (format "~a-~a" basename count)
-	    basename)
-	system-list))
-
-     score-system-list)))
-
+    (for-each (lambda (system-list)
+		(clip-score-systems
+		 (if (> count 0)
+		     (format "~a-~a" basename count)
+		     basename)
+		 system-list))
+	      score-system-list)))
 
 (define-public (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
 	 (scale (ly:output-def-lookup paper 'output-scale))
 	 (to-dump-systems '()))
-
     ;; skip booktitles.
-    (if (and
-	 (not (ly:get-option 'include-book-title-preview))
-	 (pair? systems)
-	 (ly:prob-property (car systems) 'is-book-title #f))
-
+    (if (and (not (ly:get-option 'include-book-title-preview))
+	     (pair? systems)
+	     (ly:prob-property (car systems) 'is-book-title #f))
 	(set! systems (cdr systems)))
-
     (for-each
      (lambda (sys)
-       (if (or
-	    (paper-system-title? sys)
-	    (not (pair? to-dump-systems))
-	    (paper-system-title? (car to-dump-systems)))
+       (if (or (paper-system-title? sys)
+	       (not (pair? to-dump-systems))
+	       (paper-system-title? (car to-dump-systems)))
 	   (set! to-dump-systems (cons sys to-dump-systems))))
      systems)
-
-    (dump-stencil-as-EPS
-     paper
-     (stack-stencils Y DOWN 0.0
-		     (map paper-system-stencil (reverse to-dump-systems)))
-     (format "~a.preview" basename)
-     #t)
-
+    (dump-stencil-as-EPS paper
+			 (stack-stencils Y DOWN 0.0
+					 (map paper-system-stencil
+					      (reverse to-dump-systems)))
+			 (format "~a.preview" basename)
+			 #t)
     (postprocess-output book framework-ps-module
 			(format "~a.preview.eps" basename)
 			(cons "png" (ly:output-formats)))))
 
 (if #f
     (define-public (output-preview-framework basename book scopes fields)
-
       (let* ((paper (ly:paper-book-paper book))
 	     (systems (ly:paper-book-systems book))
 	     (scale (ly:output-def-lookup paper 'output-scale))
@@ -681,10 +625,9 @@
 	(dump-stencil-as-EPS paper dump-me
 			     (format "~a.preview" basename)
 			     #t)
-
 	(postprocess-output book framework-ps-module
 			    (format "~a.preview.eps" basename)
-			     (ly:output-formats)))))
+			    (ly:output-formats)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -692,15 +635,12 @@
   (let* ((defs (ly:paper-book-paper book))
 	 (landscape (ly:output-def-lookup defs 'landscape))
 	 (output-scale (ly:output-def-lookup defs 'output-scale))
-	 (convert (lambda (x) (* x output-scale (/ (ly:bp 1)))))
-	
+	 (convert (lambda (x)
+		    (* x output-scale (/ (ly:bp 1)))))
 	 (paper-width (convert (ly:output-def-lookup defs 'paper-width)))
 	 (paper-height (convert (ly:output-def-lookup defs 'paper-height)))
-
 	 (w (if landscape paper-height paper-width))
-	 (h (if landscape paper-width paper-height))
-	 )
-
+	 (h (if landscape paper-width paper-height)))
     (if (equal? (basename name ".ps") "-")
 	(ly:warning (_ "cannot convert <stdout> to ~S" "PDF"))
 	(postscript->pdf w h name))))
@@ -714,7 +654,6 @@
 	 (paper-width (ly:output-def-lookup defs 'paper-width))
 	 (paper-height (ly:output-def-lookup defs 'paper-height))
 	 (output-scale (ly:output-def-lookup defs 'output-scale)))
-
     (postscript->png resolution
 		     (* paper-width output-scale (/ (ly:bp 1)))
 		     (* paper-height output-scale (/ (ly:bp 1)))
@@ -724,9 +663,8 @@
   #t)
 
 (define-public (output-classic-framework basename book scopes fields)
-
-  (ly:error (_ "\nThe PostScript backend does not support the system-by-system
-output.  For that, use the EPS backend instead,
+  (ly:error (_ "\nThe PostScript backend does not support the
+system-by-system output.  For that, use the EPS backend instead,
 
   lilypond -dbackend=eps FILE
 

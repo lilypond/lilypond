@@ -3,7 +3,7 @@ http://lsr.dsi.unimi.it/
 
 To update this directory, do at top of the source tree
 
-buildscripts/makelsr.py DIR
+scripts/auxiliar/makelsr.py DIR
 
 where DIR is the directory unpacked from lsr-snippets-doc-DATE tarball
 available on http://lsr.dsi.unimi.it/download.

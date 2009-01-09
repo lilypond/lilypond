@@ -30,6 +30,19 @@ ein Kompromiss werden die Notenlinien nicht auf dem System, sondern
 zwischen den Systemen geschrieben.
 "
 
+  texidocfr = "
+Lorsque l'on transcrit de la musique mensurale, il est d'usage 
+d'indiquer en début de partition,  par un « incipit », les tonalité 
+et tempo originaux.  De nos jours, les musiciens ont l'habitude de 
+voir des barres de mesure qui les aide à appréhender la structure 
+rythmique.  Ces barres n'existaient pas du temps où ces œuvres ont 
+été écrites ; en fait, la métrique évoluait au fil de la pièce.  Un 
+compromis consiste à imprimer des barres de mesure entre les portées 
+plutôt que sur la portée elle-même.
+
+"
+  doctitle = "Exemples de notation ancienne -- transcription moderne de musique mensurale"
+
   texidoc = "
 When transcribing mensural music, an incipit at the beginning of the
 piece is useful to indicate the original key and tempo. While today

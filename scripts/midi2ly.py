@@ -4,7 +4,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2008  Han-Wen Nienhuys <hanwen@xs4all.nl>
+# (c) 1998--2009  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -57,6 +57,9 @@ allowed_tuplet_clocks = []
 program_name = sys.argv[0]
 program_version = '@TOPLEVEL_VERSION@'
 
+authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
+           'Han-Wen Nienhuys <hanwen@xs4all.nl>')
+
 errorport = sys.stderr
 
 def identify ():
@@ -65,17 +68,16 @@ def identify ():
 def warranty ():
     identify ()
     ly.encoded_write (sys.stdout, '''
-Copyright (c) %s by
+%s
 
- Han-Wen Nienhuys
- Jan Nieuwenhuizen
+  %s
 
 %s
 %s
-'''  ( '2001--2006',
-   _('Distributed under terms of the GNU General Public License.'),
-   _('It comes with NO WARRANTY.')))
-
+''' % ( _ ('Copyright (c) %s by') % '2001--2009',
+        '\n  '.join (authors),
+        _ ('Distributed under terms of the GNU General Public License.'),
+        _ ('It comes with NO WARRANTY.')))
 
 def progress (s):
     ly.encoded_write (errorport, s + '\n')

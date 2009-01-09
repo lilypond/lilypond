@@ -3,12 +3,14 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "sources.hh"
 
+#include "config.hh"
 #include "source-file.hh"
+#include "file-name.hh"
 #include "file-path.hh"
 
 Sources::Sources ()
@@ -30,22 +32,38 @@ Sources::set_path (File_path *f)
 }
 
 /**
-   open a file
+   Open a file. If the name is not absolute, look in CURRENT_DIR first.
+   Afterwards, check the rest of the path_.
 
-   File_string the file to be opened, name might be changed if it is
-   found in a search path.
+   FILE_STRING the name of the file to be opened.
+   CURRENT_DIR a path to a directory, either absolute or relative to the
+     working directory.
 */
 Source_file *
-Sources::get_file (string *file_string) //UGH
-{
-  if (*file_string != "-" && path_)
+Sources::get_file (string file_string, string const& current_dir)
+{  
+  if (file_string != "-")
     {
-      string file_string_o = path_->find (*file_string);
-      if ((file_string_o == "") && (*file_string != ""))
-	return 0;
-      *file_string = file_string_o;
+      // First, check for a path relative to the directory of the
+      // file currently being parsed.
+      if (current_dir.length ()
+	  && file_string.length ()
+	  && !File_name (file_string).is_absolute ()
+	  && is_file (current_dir + DIRSEP + file_string))
+	file_string = current_dir + DIRSEP + file_string;
+
+      // Otherwise, check the rest of the path.
+      else if (path_)
+	{
+	  string file_string_o = path_->find (file_string);
+	  if ((file_string_o == "") && (file_string != ""))
+	    return 0;
+
+	  file_string = file_string_o;
+	}
     }
-  Source_file *f = new Source_file (*file_string);
+
+  Source_file *f = new Source_file (file_string);
   add (f);
   return f;
 }

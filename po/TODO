@@ -27,8 +27,7 @@ FIX OR STANDARDISE TARGETS
   the file may accumulate the list of obsolete translations, which may 
   help to translate some changed entries and may be safely dropped out.
 
-* because I never install LilyPond, I (check-out buildscripts/set-lily.sh) 
-  made these links:
+* because I never install LilyPond, I made these links:
 
     ln -s $LILYPOND_SOURCEDIR/po/out/nl.mo 
         $PREFIX/usr/share/locale/nl/LC_MESSAGES/lilypond.mo

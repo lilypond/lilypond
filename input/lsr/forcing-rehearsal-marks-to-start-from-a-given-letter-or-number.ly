@@ -7,7 +7,7 @@
 
   texidoc = "
 This snippet demonstrates how to obtain automatic ordered rehearsal
-marks, but from the letter or number you want.
+marks, but from the letter or number desired.
 
 "
   doctitle = "Forcing rehearsal marks to start from a given letter or number"

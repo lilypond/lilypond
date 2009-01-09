@@ -15,7 +15,7 @@ classic lilypond-book:
 TODO:
 
   *  this script is too complex. Modularize.
-  
+
   *  ly-options: intertext?
   *  --line-width?
   *  eps in latex / eps by lilypond -b ps?
@@ -53,7 +53,7 @@ program_name = os.path.basename (sys.argv[0])
 
 # Check if program_version contains @ characters. This will be the case if
 # the .py file is called directly while building the lilypond documentation.
-# If so, try to check for the env var LILYPOND_VERSION, which is set by our 
+# If so, try to check for the env var LILYPOND_VERSION, which is set by our
 # makefiles and use its value.
 at_re = re.compile (r'@')
 if at_re.match (program_version):
@@ -108,12 +108,12 @@ def warranty ():
     ly.encoded_write (sys.stdout, '''
 %s
 
-%s
+  %s
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2008',
-        ' '.join (authors),
+''' % ( _ ('Copyright (c) %s by') % '2001--2009',
+        '\n  '.join (authors),
         _ ("Distributed under terms of the GNU General Public License."),
         _ ("It comes with NO WARRANTY.")))
 
@@ -155,18 +155,18 @@ def get_option_parser ():
                   action='store', dest='latex_program',
                   default='latex')
 
-    p.add_option ('--left-padding', 
+    p.add_option ('--left-padding',
                   metavar=_ ("PAD"),
                   dest="padding_mm",
                   help=_ ("pad left side of music to align music inspite of uneven bar numbers (in mm)"),
                   type="float",
                   default=3.0)
-    
+
     p.add_option ("-o", '--output', help=_ ("write output to DIR"),
                   metavar=_ ("DIR"),
                   action='store', dest='output_dir',
                   default='')
-    
+
     p.add_option ('--skip-lily-check',
                   help=_ ("do not fail if no lilypond output is found"),
                   metavar=_ ("DIR"),
@@ -178,16 +178,16 @@ def get_option_parser ():
                   metavar=_ ("DIR"),
                   action='store_true', dest='skip_png_check',
                   default=False)
-    
+
     p.add_option ('--lily-output-dir',
                   help=_ ("write lily-XXX files to DIR, link into --output dir"),
                   metavar=_ ("DIR"),
                   action='store', dest='lily_output_dir',
                   default=None)
-    
+
     p.add_option ('-P', '--process', metavar=_ ("COMMAND"),
                   help = _ ("process ly_files using COMMAND FILE..."),
-                  action='store', 
+                  action='store',
                   dest='process_cmd', default='')
 
     p.add_option ('--pdf',
@@ -290,6 +290,9 @@ no_options = {
 #
 #   (?P<name>regex) -- Assign result of REGEX to NAME.
 #   *? -- Match non-greedily.
+#   (?!...) -- Match if `...' doesn't match next (without consuming
+#              the string).
+#
 #   (?m) -- Multiline regex: Make ^ and $ match at each line.
 #   (?s) -- Make the dot match all characters including newline.
 #   (?x) -- Ignore whitespace in patterns.
@@ -303,17 +306,36 @@ snippet_res = {
         'lilypond':
          r'''(?smx)
           (?P<match>
-          <(?P<inline>(inline)?)mediaobject>\s*<textobject.*?>\s*<programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>(?P<code>.*?)</programlisting\s*>\s*</textobject\s*>\s*</(inline)?mediaobject>)''',
+          <(?P<inline>(inline)?)mediaobject>\s*
+          <textobject.*?>\s*
+          <programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>
+          (?P<code>.*?)
+          </programlisting\s*>\s*
+          </textobject\s*>\s*
+          </(inline)?mediaobject>)''',
 
         'lilypond_block':
          r'''(?smx)
           (?P<match>
-          <(?P<inline>(inline)?)mediaobject>\s*<textobject.*?>\s*<programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>(?P<code>.*?)</programlisting\s*>\s*</textobject\s*>\s*</(inline)?mediaobject>)''',
+          <(?P<inline>(inline)?)mediaobject>\s*
+          <textobject.*?>\s*
+          <programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>
+          (?P<code>.*?)
+          </programlisting\s*>\s*
+          </textobject\s*>\s*
+          </(inline)?mediaobject>)''',
 
         'lilypond_file':
          r'''(?smx)
           (?P<match>
-          <(?P<inline>(inline)?)mediaobject>\s*<imageobject.*?>\s*<imagedata\s+fileref="(?P<filename>.*?\.ly)"\s*(role="(?P<options>.*?)")?\s*(/>|>\s*</imagedata>)\s*</imageobject>\s*</(inline)?mediaobject>)''',
+          <(?P<inline>(inline)?)mediaobject>\s*
+          <imageobject.*?>\s*
+          <imagedata\s+
+           fileref="(?P<filename>.*?\.ly)"\s*
+           (role="(?P<options>.*?)")?\s*
+           (/>|>\s*</imagedata>)\s*
+          </imageobject>\s*
+          </(inline)?mediaobject>)''',
 
         'multiline_comment':
          r'''(?smx)
@@ -329,11 +351,11 @@ snippet_res = {
          no_match,
 
         'verbatim':
-	no_match,
+         no_match,
 
         'lilypondversion':
          no_match,
-    }, 
+    },
     ##
     HTML: {
         'include':
@@ -545,13 +567,11 @@ snippet_res = {
 }
 
 
-
-
 format_res = {
-    DOCBOOK: {        
-    	'intertext': r',?\s*intertext=\".*?\"',
+    DOCBOOK: {
+        'intertext': r',?\s*intertext=\".*?\"',
         'option_sep': '\s*',
-    }, 
+    },
     HTML: {
         'intertext': r',?\s*intertext=\".*?\"',
         'option_sep': '\s*',
@@ -567,6 +587,7 @@ format_res = {
         'option_sep': '\s*,\s*',
     },
 }
+
 
 # Options without a pattern in ly_options.
 simple_options = [
@@ -628,21 +649,37 @@ ly_options = {
 
 output = {
     ##
-    DOCBOOK: {                 
-        FILTER: r'''<mediaobject><textobject><programlisting language="lilypond" role="%(options)s">%(code)s</programlisting></textobject></mediaobject>''', 
-    
-        OUTPUT: r'''
-        <imageobject role="latex">
-		<imagedata fileref="%(base)s.pdf" format="PDF"/>
-		</imageobject>
-		<imageobject role="html">
-		<imagedata fileref="%(base)s.png" format="PNG"/></imageobject>''',
-    
-        VERBATIM: r'''<programlisting>%(verb)s</programlisting>''',
-        
+    DOCBOOK: {
+        FILTER: r'''<mediaobject>
+  <textobject>
+    <programlisting language="lilypond"
+                    role="%(options)s">
+%(code)s
+    </programlisting>
+  </textobject>
+</mediaobject>''',
+
+        OUTPUT: r'''<imageobject role="latex">
+  <imagedata fileref="%(base)s.pdf" format="PDF"/>
+</imageobject>
+<imageobject role="html">
+  <imagedata fileref="%(base)s.png" format="PNG"/>
+</imageobject>''',
+
+        VERBATIM: r'''<programlisting>
+%(verb)s</programlisting>''',
+
         VERSION: program_version,
-    
-        PRINTFILENAME: '<textobject><simpara><ulink url="%(base)s.ly"><filename>%(filename)s</filename></ulink></simpara></textobject>'
+
+        PRINTFILENAME: r'''<textobject>
+  <simpara>
+    <ulink url="%(base)s.ly">
+      <filename>
+        %(filename)s
+      </filename>
+    </ulink>
+  </simpara>
+</textobject>'''
     },
     ##
     HTML: {
@@ -659,8 +696,10 @@ output = {
  <a href="%(base)s.ly">''',
 
         OUTPUT: r'''
-  <img align="middle" 
-    border="0" src="%(image)s" alt="%(alt)s">''',
+  <img align="middle"
+       border="0"
+       src="%(image)s"
+       alt="%(alt)s">''',
 
         PRINTFILENAME: '<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
 
@@ -678,29 +717,29 @@ output = {
     ##
     LATEX: {
         OUTPUT: r'''{%%
-\parindent 0pt%%
-\ifx\preLilyPondExample \undefined%%
- \relax%%
-\else%%
- \preLilyPondExample%%
-\fi%%
+\parindent 0pt
+\ifx\preLilyPondExample \undefined
+\else
+  \expandafter\preLilyPondExample
+\fi
 \def\lilypondbook{}%%
-\input %(base)s-systems.tex%%
-\ifx\postLilyPondExample \undefined%%
- \relax%%
-\else%%
- \postLilyPondExample%%
-\fi%%
+\input %(base)s-systems.tex
+\ifx\postLilyPondExample \undefined
+\else
+  \expandafter\postLilyPondExample
+\fi
 }''',
 
         PRINTFILENAME: '''\\texttt{%(filename)s}
-    ''',
+''',
 
-        QUOTE: r'''\begin{quotation}%(str)s
+        QUOTE: r'''\begin{quotation}
+%(str)s
 \end{quotation}''',
 
         VERBATIM: r'''\noindent
-\begin{verbatim}%(verb)s\end{verbatim}''',
+\begin{verbatim}%(verb)s\end{verbatim}
+''',
 
         VERSION: program_version,
 
@@ -729,7 +768,9 @@ output = {
 <p>
  <a href="%(base)s.ly">
   <img align="middle"
-    border="0" src="%(image)s" alt="%(alt)s">
+       border="0"
+       src="%(image)s"
+       alt="%(alt)s">
  </a>
 </p>
 @end html
@@ -784,7 +825,7 @@ PREAMBLE_LY = '''%%%% Generated by %(program_name)s
 
 
 %% ****************************************************************
-%% Start cut-&-pastable-section 
+%% Start cut-&-pastable-section
 %% ****************************************************************
 
 %(preamble_string)s
@@ -866,7 +907,7 @@ def find_file (name, raise_error=True):
         full = os.path.join (i, name)
         if os.path.exists (full):
             return full
-        
+
     if raise_error:
         error (_ ("file not found: %s") % name + '\n')
         exit (1)
@@ -894,7 +935,7 @@ def verb_ly_gettext (s):
         return s
 
     s = ly_comment_re.sub (lambda m: ly_comment_gettext (t, m), s)
-    
+
     for v in ly_var_def_re.findall (s):
         s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
                     "\\1" + t (v) + "\\2",
@@ -940,7 +981,7 @@ class Chunk:
 
     def is_plain (self):
         return False
-    
+
 class Substring (Chunk):
     """A string that does not require extra memory."""
     def __init__ (self, source, start, end, line_number):
@@ -949,7 +990,7 @@ class Substring (Chunk):
         self.end = end
         self.line_number = line_number
         self.override_text = None
-        
+
     def is_plain (self):
         return True
 
@@ -1197,7 +1238,7 @@ class LilypondSnippet (Snippet):
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
-            
+
         return self.checksum
 
     def basename (self):
@@ -1237,7 +1278,7 @@ class LilypondSnippet (Snippet):
                 os.makedirs (dst_path)
             os.link (src, dst)
 
-        
+
     def all_output_files (self, output_dir, output_dir_files):
         """Return all files generated in lily_output_dir, a set.
 
@@ -1250,7 +1291,7 @@ class LilypondSnippet (Snippet):
         def consider_file (name):
             if name in output_dir_files:
                 result.add (name)
-             
+
         def require_file (name):
             if name in output_dir_files:
                 result.add (name)
@@ -1305,14 +1346,14 @@ class LilypondSnippet (Snippet):
             # markups do not output a signature.
             if 'ddump-signature' in global_options.process_cmd:
                 consider_file (systemfile + '.signature')
-             
-       
+
+
         return (result, missing)
-    
+
     def is_outdated (self, output_dir, current_files):
         found, missing = self.all_output_files (output_dir, current_files)
         return missing
-    
+
     def filter_text (self):
         """Run snippet bodies through a command (say: convert-ly).
 
@@ -1337,14 +1378,14 @@ class LilypondSnippet (Snippet):
         single = '%(base)s.png' % vars ()
         multiple = '%(base)s-page1.png' % vars ()
         images = (single,)
-        if (os.path.exists (multiple) 
+        if (os.path.exists (multiple)
             and (not os.path.exists (single)
                  or (os.stat (multiple)[stat.ST_MTIME]
                      > os.stat (single)[stat.ST_MTIME]))):
             count = ps_page_count ('%(base)s.eps' % vars ())
             images = ['%s-page%d.png' % (base, page) for page in range (1, count+1)]
             images = tuple (images)
-            
+
         return images
 
     def output_docbook (self):
@@ -1353,8 +1394,8 @@ class LilypondSnippet (Snippet):
         for image in self.get_images ():
             (base, ext) = os.path.splitext (image)
             str += output[DOCBOOK][OUTPUT] % vars ()
-	    str += self.output_print_filename (DOCBOOK)
-            if (self.substring('inline') == 'inline'): 
+            str += self.output_print_filename (DOCBOOK)
+            if (self.substring('inline') == 'inline'):
                 str = '<inlinemediaobject>' + str + '</inlinemediaobject>'
             else:
                 str = '<mediaobject>' + str + '</mediaobject>'
@@ -1362,7 +1403,7 @@ class LilypondSnippet (Snippet):
                 verb = verbatim_html (self.verb_ly ())
                 str = output[DOCBOOK][VERBATIM] % vars () + str
         return str
-	
+
     def output_html (self):
         str = ''
         base = self.basename ()
@@ -1413,7 +1454,7 @@ class LilypondSnippet (Snippet):
         if 0:
             breaks = self.ly ().count ("\n")
             str += "".ljust (breaks, "\n").replace ("\n","%\n")
-        
+
         if QUOTE in self.option_dict:
             str = output[LATEX][QUOTE] % vars ()
         return str
@@ -1546,7 +1587,7 @@ def find_toplevel_snippets (input_string, format, types):
         for type in types:
             if not found[type] or found[type][0] < index:
                 found[type] = None
-                
+
                 m = res[type].search (input_string[index:endex])
                 if not m:
                     continue
@@ -1565,8 +1606,8 @@ def find_toplevel_snippets (input_string, format, types):
 
                 found[type] = (start, snip)
 
-            if (found[type] 
-                and (not first 
+            if (found[type]
+                and (not first
                      or found[type][0] < found[first][0])):
                 first = type
 
@@ -1599,7 +1640,7 @@ def find_toplevel_snippets (input_string, format, types):
 
 def filter_pipe (input, cmd):
     """Pass input through cmd, and return the result."""
-    
+
     if global_options.verbose:
         progress (_ ("Opening filter `%s'") % cmd)
 
@@ -1634,13 +1675,13 @@ def system_in_directory (cmd, directory):
 
     Because of win32 compatibility, we can't simply use subprocess.
     """
-    
+
     current = os.getcwd()
     os.chdir (directory)
-    ly.system(cmd, be_verbose=global_options.verbose, 
+    ly.system(cmd, be_verbose=global_options.verbose,
               progress_p=1)
     os.chdir (current)
-    
+
 
 def process_snippets (cmd, snippets,
                       format, lily_output_dir):
@@ -1648,14 +1689,14 @@ def process_snippets (cmd, snippets,
 
     if not snippets:
         return
-    
+
     if format in (HTML, TEXINFO) and '--formats' not in cmd:
         cmd += ' --formats=png '
     elif format in (DOCBOOK) and '--formats' not in cmd:
         cmd += ' --formats=png,pdf '
 
     checksum = snippet_list_checksum (snippets)
-    contents = '\n'.join (['snippet-map-%d.ly' % checksum] 
+    contents = '\n'.join (['snippet-map-%d.ly' % checksum]
                           + [snip.basename() + '.ly' for snip in snippets])
     name = os.path.join (lily_output_dir,
                          'snippet-names-%d.ly' % checksum)
@@ -1663,8 +1704,8 @@ def process_snippets (cmd, snippets,
 
     system_in_directory (' '.join ([cmd, ly.mkarg (name)]),
                          lily_output_dir)
-            
-        
+
+
 ###
 # Retrieve dimensions from LaTeX
 LATEX_INSPECTION_DOCUMENT = r'''
@@ -1682,13 +1723,13 @@ def get_latex_textwidth (source):
     m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
     if m == None:
         warning (_ ("cannot find \\begin{document} in LaTeX document"))
-        
+
         ## what's a sensible default?
         return 550.0
-    
+
     preamble = source[:m.start (0)]
     latex_document = LATEX_INSPECTION_DOCUMENT % vars ()
-    
+
     (handle, tmpfile) = tempfile.mkstemp('.tex')
     logfile = os.path.splitext (tmpfile)[0] + '.log'
     logfile = os.path.split (logfile)[1]
@@ -1696,11 +1737,11 @@ def get_latex_textwidth (source):
     tmp_handle = os.fdopen (handle,'w')
     tmp_handle.write (latex_document)
     tmp_handle.close ()
-    
+
     ly.system ('%s %s' % (global_options.latex_program, tmpfile),
                be_verbose=global_options.verbose)
     parameter_string = file (logfile).read()
-    
+
     os.unlink (tmpfile)
     os.unlink (logfile)
 
@@ -1731,7 +1772,7 @@ def modify_preamble (chunk):
                r"\\usepackage{graphics}" + '\n'
                + r"\\begin{document}",
                str)
-        chunk.override_text = str 
+        chunk.override_text = str
 
 
 format2ext = {
@@ -1779,8 +1820,8 @@ def do_process_cmd (chunks, input_name, options):
 
     output_files = split_output_files (options.lily_output_dir)
     outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
-    
-    write_file_map (outdated, input_name)    
+
+    write_file_map (outdated, input_name)
     progress (_ ("Writing snippets..."))
     for snippet in outdated:
         snippet.write_ly()
@@ -1899,15 +1940,15 @@ def do_file (input_filename, included=False):
         global_options.output_dir = os.getcwd()
     else:
         global_options.output_dir = os.path.abspath(global_options.output_dir)
-        
+
         if not os.path.isdir (global_options.output_dir):
             os.mkdir (global_options.output_dir, 0777)
         os.chdir (global_options.output_dir)
 
     output_filename = os.path.join(global_options.output_dir,
                                    input_base + format2ext[global_options.format])
-    if (os.path.exists (input_filename) 
-        and os.path.exists (output_filename) 
+    if (os.path.exists (input_filename)
+        and os.path.exists (output_filename)
         and samefile (output_filename, input_fullname)):
      error (
      _ ("Output would overwrite input file; use --output."))
@@ -1955,7 +1996,7 @@ def do_file (input_filename, included=False):
             write_if_updated (output_filename,
                      [s.replacement_text ()
                      for s in chunks])
-        
+
         def process_include (snippet):
             os.chdir (original_dir)
             name = snippet.substring ('filename')
@@ -1968,7 +2009,7 @@ def do_file (input_filename, included=False):
                                       chunks))
 
         return chunks + reduce (lambda x, y: x + y, include_chunks, [])
-        
+
     except CompileError:
         os.chdir (original_dir)
         progress (_ ("Removing `%s'") % output_filename)
@@ -1984,14 +2025,14 @@ def do_options ():
         global_options.format = TEXINFO
 
     global_options.include_path =  map (os.path.abspath, global_options.include_path)
-    
+
     if global_options.warranty:
         warranty ()
         exit (0)
     if not args or len (args) > 1:
         opt_parser.print_help ()
         exit (2)
-        
+
     return args
 
 def main ():
@@ -2000,7 +2041,7 @@ def main ():
 
     basename = os.path.splitext (files[0])[0]
     basename = os.path.split (basename)[1]
-    
+
     if not global_options.format:
         global_options.format = guess_format (files[0])
 
@@ -2009,7 +2050,7 @@ def main ():
         formats += ',png'
 
     if global_options.process_cmd == '':
-        global_options.process_cmd = (lilypond_binary 
+        global_options.process_cmd = (lilypond_binary
                                       + ' --formats=%s -dbackend=eps ' % formats)
 
     if global_options.process_cmd:
@@ -2026,13 +2067,13 @@ def main ():
         global_options.process_cmd += ' --formats=eps '
         if global_options.create_pdf:
             global_options.process_cmd += "--pdf -dinclude-eps-fonts -dgs-load-fonts "
-    
+
     if global_options.verbose:
         global_options.process_cmd += " --verbose "
 
     if global_options.padding_mm:
         global_options.process_cmd += " -deps-box-padding=%f " % global_options.padding_mm
-        
+
     global_options.process_cmd += " -dread-file-list -dno-strip-output-dir"
 
     if global_options.lily_output_dir:
@@ -2041,7 +2082,7 @@ def main ():
             os.makedirs (global_options.lily_output_dir)
     else:
         global_options.lily_output_dir = os.path.abspath(global_options.output_dir)
-        
+
 
     identify ()
     try:
@@ -2057,7 +2098,7 @@ def main ():
     final_output_file = os.path.join (global_options.output_dir,
                      base_file_name
                      + '.%s' % global_options.format)
-    
+
     os.chdir (original_dir)
     file (dep_file, 'w').write ('%s: %s'
                                 % (final_output_file, ' '.join (inputs)))

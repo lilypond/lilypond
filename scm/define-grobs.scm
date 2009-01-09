@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 1998--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; distances are given in line-thickness (thicknesses) and
@@ -1638,6 +1638,8 @@
 	(thickness . 1.3)
 	(cross-staff . ,ly:stem::calc-cross-staff)
 	(flag . ,ly:stem::calc-flag)
+	(beamlet-default-length . (1.1 . 1.1))
+	(beamlet-max-length-proportion . (0.75 . 0.75))
 	(details
 	 . (
 	    ;; 3.5 (or 3 measured from note head) is standard length

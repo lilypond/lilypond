@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2003--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2003--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-public (translate-stencil stencil coordinate-pair)
   "Translate @code{stencil} by the distances specified in

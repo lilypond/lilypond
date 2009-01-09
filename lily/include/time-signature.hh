@@ -1,7 +1,7 @@
 /*
   time_signature.hh -- declare Time_signature
 
-  (c) 1996--2008 Han-Wen Nienhuys
+  (c) 1996--2009 Han-Wen Nienhuys
 */
 
 #ifndef METER_HH

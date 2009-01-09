@@ -1,7 +1,7 @@
 /*
   sources.hh -- part of LilyPond
 
-  (c) 1997--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef SOURCES_HH
@@ -19,8 +19,7 @@ public:
   Sources ();
   ~Sources ();
 
-  Source_file *get_file (string *file_name);
-  Source_file *get_sourcefile (char const *);
+  Source_file *get_file (string file_name, string const& currentpath);
   void add (Source_file *sourcefile);
   void set_path (File_path *);
 

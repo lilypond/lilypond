@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef HARA_KIRI_VERTICAL_GROUP_SPANNER_HH

@@ -585,11 +585,8 @@ g4( e c2)
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {using-double-slurs-for-legato-chords.ly}
 
-@c TODO remove ignores after LSR update
-@ignore
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs}
-@end ignore
+{positioning-text-markups-inside-slurs.ly}
 
 @seealso
 Music Glossary:

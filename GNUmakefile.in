@@ -2,7 +2,7 @@
 
 depth = .
 
-SUBDIRS = buildscripts python scripts \
+SUBDIRS = python scripts \
 	flower lily \
 	mf ly \
 	tex ps scm \
@@ -87,11 +87,11 @@ final-install:
 WEB_TARGETS = offline
 
 WWW-post:
-# need UTF8 setting in case this is hosted on a website. 
+# need UTF8 setting in case this is hosted on a website.
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html input/
+	$(buildscript-dir)/mutopia-index -o $(outdir)/examples.html input/
 	find $(outdir) -name '*-root' | xargs rm -rf
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$(WEB_TARGETS)"
+	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$(WEB_TARGETS)"
 	find $(outdir)/offline-root -type l -delete
 
 
@@ -200,7 +200,8 @@ $(config_h): config.hh.in
 	@false
 
 grand-replace:
-	PATH=$(buildscript-dir)/$(outbase):$(PATH) $(BASH) $(buildscript-dir)/grand-replace.sh
+	$(MAKE) -C scripts/build
+	PATH=$(buildscript-dir):$(PATH) $(buildscript-dir)/grand-replace
 
 ################################################################
 # testing
@@ -229,7 +230,7 @@ test-baseline:
 local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
-	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
+	$(buildscript-dir)/output-distance --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 
 

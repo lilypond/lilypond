@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include <unistd.h>
@@ -46,8 +46,6 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
      write output to cwd; do not use root and directory parts of input
      file name.  */
   File_name out_file_name (file_name);
-
-  global_path.append (out_file_name.dir_);
 
   out_file_name.ext_ = "";
   out_file_name.root_ = "";

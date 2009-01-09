@@ -5,7 +5,7 @@
 %
 % source file of the Feta (not the Font-En-Tja) music font
 %
-% (c) 2000--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+% (c) 2000--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 %
 % Voor Cup
 

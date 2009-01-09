@@ -20,7 +20,7 @@ aren't always the same length.
   doctitle = "Chant or psalms notation"
 } % begin verbatim
 
-stemOn = { \override Staff.Stem #'transparent = ##f }
+stemOn = { \revert Staff.Stem #'transparent }
 stemOff = { \override Staff.Stem #'transparent = ##t }
 
 \score {

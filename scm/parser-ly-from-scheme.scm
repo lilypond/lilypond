@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2004--2008  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+;;;; (c) 2004--2009  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 ;;;;           Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define gen-lily-sym

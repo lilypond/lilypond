@@ -7,10 +7,9 @@
 
   texidocfr = "Ajout de doigtés à des tablatures"
 
-  texidocfr = "
+  doctitlefr = "
 L'ajout de doigtés à des tablatures s'obtient en conjuguant des
 @code{\\markup} et des @code{\\finger}.
-
 "
 
   texidoc = "

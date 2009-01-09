@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 ;; (use-modules (ice-9 optargs)) 
@@ -735,9 +735,18 @@ Syntax:
   (define-music-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 "
-  `(ly:make-music-function (list ,@signature)
-			   (lambda (,@args)
-			     ,@body)))
+  (if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
+      ;; When the music function definition contains a i10n doc string,
+      ;; (_i "doc string"), keep the literal string only
+      (let ((docstring (cadar body))
+	    (body (cdr body)))
+	`(ly:make-music-function (list ,@signature)
+				 (lambda (,@args)
+				   ,docstring
+				   ,@body)))
+      `(ly:make-music-function (list ,@signature)
+			       (lambda (,@args)
+				 ,@body))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

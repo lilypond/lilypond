@@ -33,7 +33,7 @@ See user manual, \NAME\
 @finalout
 
 @node Top
-@top New features in 2.11 since 2.10
+@top New features in 2.12 since 2.10
 
 @ifhtml
 This document is also available in @uref{NEWS.pdf,PDF}. It is part of
@@ -64,16 +64,45 @@ which scares away people.
 
 @item
 Unbeamed 128th notes are now supported:
-@lilypond
+@lilypond[quote]
 \relative c'' {
   g128
 }
 @end lilypond
 
 @item
+Extending LilyPond's existing support for microtones, there are
+now arrowed accidentals for the notation of microtonal alterations.
+To use them, redefine the @code{glyph-name-alist} property of
+@code{Accidental} as in the following example which uses quartertones
+to typeset arrowed accidentals. Alternatively, it is possible to
+define separate names for all notes with arrowed accidentals (see
+@code{ly/makam.ly} for boilerplate code).
+
+@lilypond[quote]
+microAccs = #'((0 . "accidentals.natural")
+               (-1/2 . "accidentals.flat")
+               (1/2 . "accidentals.sharp")
+
+               (1 . "accidentals.doublesharp")
+               (-1 . "accidentals.flatflat")
+
+               (3/4 . "accidentals.sharp.arrowup")
+               (1/4 . "accidentals.sharp.arrowdown")
+               (-1/4 . "accidentals.flat.arrowup")
+               (-3/4 . "accidentals.flat.arrowdown"))
+
+\relative c'' {
+  #(set-accidental-style 'modern)
+  \override Accidental #'glyph-name-alist = #microAccs
+  geseh geh aih aisih
+}
+@end lilypond
+
+@item
 Straight flags (used in old scores of e.g. Bach, but also in different form in 
 modern scores of e.g. Stockhausen) are now implemented:
-@lilypond
+@lilypond[quote]
 \relative c'' {
   \override Stem #'flag = #modern-straight-flag
   c,16 \acciaccatura {c'8} d4 d32 
@@ -109,7 +138,7 @@ different @code{\paper} settings in different parts.
 @item
 Nested contexts of the same type are now allowed.
 This deprecates @code{InnerStaffGroup} and @code{InnerChoirStaff}.
-@lilypond[relative=1]
+@lilypond[quote,relative=1]
 \new StaffGroup <<
   \new Staff { c1 }
   \new StaffGroup <<
@@ -122,11 +151,11 @@ This deprecates @code{InnerStaffGroup} and @code{InnerChoirStaff}.
 @item
 Percent repeat counters can be shown at regular intervals using the
 context property @code{repeatCountVisibility}.
-@lilypond[relative=1]
+@lilypond[quote,relative=1]
 {
   \set countPercentRepeats = ##t
   \set repeatCountVisibility = #(every-nth-repeat-count-visible 2)
-  \repeat percent 8 { c4 d e f }
+  \repeat percent 6 { c4 d e f }
 }
 @end lilypond
 
@@ -134,7 +163,7 @@ context property @code{repeatCountVisibility}.
 In addition to the already existing @code{showLastLength} property,
 @code{showFirstLength} can now be set as well, rendering only the first
 measures of a piece.  Both properties may be set at the same time:
-@lilypond[]
+@lilypond[quote]
 showFirstLength = R1*2
 showLastLength = R1*3
 \relative c' { c1 d e f g a b c }
@@ -147,7 +176,7 @@ extension has been changed to @code{.mid}.
 
 @item
 Two variations on the default double repeat bar line are now available.
-@lilypond[]
+@lilypond[quote]
 {
   \set Score.doubleRepeatType = #":|.:"
   \repeat volta 2 {
@@ -165,7 +194,7 @@ Two variations on the default double repeat bar line are now available.
 Four automatic accidentals rules have been added: @code{neo-modern},
 @code{neo-modern-cautionary}, @code{dodecaphonic} and @code{teaching}.
 The following example illustrates @code{neo-modern} rule.
-@lilypond[]
+@lilypond[quote]
 notes = {
   <<
     \relative c' {
@@ -189,7 +218,7 @@ notes = {
 @item
 Flags can now be generated with Scheme-code using the @code{'flag}
 @code{Stem} grob property.  Existing scores will work without change.
-@lilypond[]
+@lilypond[quote]
 testnotes = {
   \autoBeamOff
   c'8 d'16 c''8 d''16
@@ -231,14 +260,14 @@ testnotes = {
 @item
 Harp pedalling diagrams were added:
 
-@lilypond[]
+@lilypond[quote]
 \markup { \harp-pedal #"^v-|vv-o^" }
 @end lilypond
 
 @item
 Predefined, user-configurable, transposable fret diagrams
 are now available in the @code{FretBoards} context:
-@lilypond[]
+@lilypond[quote]
 \include "predefined-guitar-fretboards.ly"
 <<
   \new ChordNames {
@@ -312,7 +341,7 @@ text strings.
 Metronome marks can now also contain a textual description.  The
 duration and count (if given) are shown in parentheses after the text.
 
-@lilypond[]
+@lilypond[quote]
 {
   \tempo "Fast"
   c'4 c' c' c'
@@ -333,14 +362,14 @@ duration and count (if given) are shown in parentheses after the text.
 In figured bass you can now also use a backslash through a number to
 indicate a raised 6th step.
 
-@lilypond[]
+@lilypond[quote]
 \new FiguredBass \figuremode { < 6\\ 5\\ > < 6/ > }
 @end lilypond
 
 @item
 Arpeggios may now use ``parenthesis'' style brackets:
 
-@lilypond[relative=1]
+@lilypond[quote,relative=1]
 \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
 
 % Note: does not work for cross-staff arpeggios.
@@ -421,7 +450,7 @@ their end points.  This includes glissando, voice followers, text
 crescendos and other text spanners.  The old syntax for setting
 text on line spanners is no longer valid.
 
-@lilypond[]
+@lilypond[quote]
 \relative c'' {
   \override Glissando #'(bound-details right text) = \markup { \center-align \bold down }
   \override Glissando #'(bound-details right Y) = #-4
@@ -446,7 +475,7 @@ The environment variable @code{LILYPONDPREFIX} has been renamed
 Notes or rests, such as a typical end note, that fill an entire
 measure are preceded by some more space.
 
-@lilypond[relative=1]
+@lilypond[quote,relative=1]
 \time 4/4
 s1
 c2. c4
@@ -464,7 +493,7 @@ Alterations (such as a sharp or flat) may now be arbitrary
 fractions.  This allows some forms of microtonal music.  For example,
 Turkish makam music uses 1/9th tone alterations.
 
-@lilypondfile{makam-example.ly}
+@lilypondfile[quote]{makam-example.ly}
 
 @item
 Tie directions may be set with @code{^~} and @code{_~}.
@@ -472,7 +501,7 @@ Tie directions may be set with @code{^~} and @code{_~}.
 @item
 Tablature now supports harmonics and slides:
 
-@lilypond[relative=1]
+@lilypond[quote,relative=1]
 \new TabVoice {
   <c g'\harmonic>4 d\2\glissando e2\2
 }
@@ -484,7 +513,7 @@ This feature was sponsored by Mike Amundsen
 Horizontal spacing now follows object outlines more accurately.
 This allows tighter horizontal spacing.
 
-@lilypond[]
+@lilypond[quote]
 {
   \stemUp
   c''4... ceses'! s16
@@ -495,7 +524,7 @@ This allows tighter horizontal spacing.
 Objects that belong outside of the staff are now positioned
 automatically to avoid collisions.
 
-@lilypond[relative=1]
+@lilypond[quote,relative=1]
 c''4
 \once \override TextScript #'self-alignment-X = #CENTER
 a,4^"this doesn't collide with the c"
@@ -508,7 +537,7 @@ a8\f
 Staves are spaced vertically using a skyline algorithm.  This helps
 prevent uneven vertical spacing.
 
-@lilypond[ragged-right]
+@lilypond[quote,ragged-right]
 
 %% todo: fix 'landscape PDF.
 #(set-default-paper-size "a6")

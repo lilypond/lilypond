@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef MY_LILY_LEXER_HH
@@ -38,7 +38,6 @@ private:
   int hidden_state_;
 public:
   vector<int> extra_token_types_;
-  string main_input_name_;
   void *lexval;
   Input *lexloc;
   bool is_main_input_;

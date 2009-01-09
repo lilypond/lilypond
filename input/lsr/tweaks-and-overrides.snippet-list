@@ -1,5 +1,5 @@
 analysis-brackets-above-the-staff.ly
-avoiding-collisions-of-chord-fingering-with-beams.ly
+avoiding-collisions-with-chord-fingerings.ly
 caesura-railtracks-with-fermata.ly
 changing-a-single-notes-size-in-a-chord.ly
 changing-form-of-multi--measure-rests.ly
@@ -31,6 +31,7 @@ mensurstriche-layout-bar-lines-between-the-staves.ly
 nesting-staves.ly
 percent-repeat-count-visibility.ly
 positioning-multi--measure-rests.ly
+positioning-text-markups-inside-slurs.ly
 printing-a-repeat-sign-at-the-beginning-of-a-piece.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 proportional-strict-notespacing.ly

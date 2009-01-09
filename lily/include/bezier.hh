@@ -1,7 +1,7 @@
 /*
   bezier.hh -- declare Bezier and Bezier_bow
 
-  (c) 1998--2008 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef BEZIER_HH

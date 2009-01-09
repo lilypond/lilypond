@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2c00bdbfaf62dd90863331c4713e6b29e32c9322
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -52,6 +52,8 @@ Zum Beispiel wird eine Viertelnote mit @code{4} notiert (weil sie eine
 Noten, die länger als eine Ganze sind, müssen mit @code{\longa} 
 (für die Longa, also vier Ganze) und 
 @code{\breve} (für die Brevis, auch Doppelganze genannt) notiert werden.
+Notendauern bis hin zu 128steln sind unterstützt. Kürzere Notenwerte können
+auch notiert werden, können allerdings nur als Noten mit Balken auftreten.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -1503,7 +1505,9 @@ Bebalkung von drei Kontext-Eigenschaften kontrolliert:
 @code{measureLength}, @code{beatLength} und @code{beatGrouping}.
 Diese Eigenschaften können in den @code{Score}, @code{Staff} oder
 @code{Voice}-Kontexten gesetzt werden, um ihre Wirkungsweise zu
-begrenzen.
+begrenzen.  Die Standardwerte werden gesetzt, wenn der @code{\time}-Befehl
+gelesen wird, sodass alle @code{\set}-Befehle nach den @code{\time}-Befehlen
+geschrieben werden müssen.
 
 Durch sie werden die Balken wie folgt bestimmt:
 

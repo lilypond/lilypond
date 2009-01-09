@@ -19,7 +19,7 @@ $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem
 	TMP=`mktemp -d $(outdir)/pfbtemp.XXXXXXXXX` \
 	&& ( cd $$TMP \
 		&& ln -s ../mf2pt1.mem . \
-		&& MFINPUTS=$(top-src-dir)/mf:..:: $(PERL) $(top-src-dir)/buildscripts/mf2pt1.pl $(MF2PT1_OPTIONS) $< $(METAFONT_QUIET)) \
+		&& MFINPUTS=$(top-src-dir)/mf:..:: $(buildscript-dir)/mf2pt1 $(MF2PT1_OPTIONS) $< $(METAFONT_QUIET)) \
 	&& mv $$TMP/*pfb $(outdir); \
 	rm -rf $$TMP
 
