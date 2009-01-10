@@ -65,8 +65,6 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
 
-MAKEINFO_TXT_COMMAND = 
-
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<
 
