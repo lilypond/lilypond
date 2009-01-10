@@ -24,6 +24,13 @@ import buildlib
 def progress (str):
     sys.stderr.write (str + '\n')
 
+exit_code = 0
+
+def error (str, update_status=1):
+    global exit_code
+    sys.stderr.write ('translations-status.py: %s\n' % str)
+    exit_code = max (exit_code, update_status)
+
 progress ("translations-status.py")
 
 _doc = lambda s: s
@@ -215,7 +222,12 @@ class TranslatedTelyDocument (TelyDocument):
         if m:
             self.translators = [n.strip () for n in m.group (1).split (',')]
         else:
-            self.translators = parent_translation.translators
+            try:
+                self.translators = parent_translation.translators
+            except:
+                error ('%s: no translator name found, \nplease \
+specify at least one in the master file as a line containing\n\
+@c Translators: FirstName1 LastName1, FirstName2 LastName2' % self.filename)
         m = checkers_re.search (self.contents)
         if m:
             self.checkers = [n.strip () for n in m.group (1).split (',')]
@@ -246,10 +258,10 @@ class TranslatedTelyDocument (TelyDocument):
             100 * translation_word_count / master_total_word_count
 
         ## calculate how much the file is outdated
-        (diff_string, error) = \
+        (diff_string, git_error) = \
             buildlib.check_translated_doc (masterdocument.filename, self.filename, self.contents)
-        if error:
-            sys.stderr.write ('warning: %s: %s' % (self.filename, error))
+        if git_error:
+            sys.stderr.write ('warning: %s: %s' % (self.filename, git_error))
             self.uptodate_percentage = None
         else:
             diff = diff_string.splitlines ()
@@ -576,3 +588,4 @@ translation_instructions = \
                                         translation_instructions)
 
 open (translation_instructions_file, 'w').write (translation_instructions)
+sys.exit (exit_code)
