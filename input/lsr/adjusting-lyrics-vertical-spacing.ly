@@ -12,6 +12,14 @@ letra más cerca del pentagrama.
 "
   doctitlees = "Ajuste del especiado vertical de la letra"
 
+  texidocfr = "
+Cet extrait illustre la manière de rapprocher la ligne de paroles 
+de la portée.
+
+"
+  doctitlefr = "Ajustement de l'espacement vertical des paroles"
+
+
   texidoc = "
 This snippet shows how to bring the lyrics line closer to the staff.
 

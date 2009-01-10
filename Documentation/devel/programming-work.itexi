@@ -1,0 +1,311 @@
+@c -*- coding: us-ascii; mode: texinfo; -*-
+@node Programming work
+@chapter Programming work
+
+@menu
+* Introduction to programming::  
+* Code style::                  
+@end menu
+
+
+@node Introduction to programming
+@section Introduction to programming 
+
+blah blah
+
+
+@node Code style
+@section Code style 
+@c email to wl@gnu.org when I get here.
+
+@menu
+@end menu
+
+@subsection Outputting errors
+
+As a general rule, you should always try to continue computations,
+even if there is some kind of error.  When the program stops, it
+is often very hard for a user to pinpoint what part of the input
+causes an error.  Finding the culprit is much easier if there is
+some viewable output.
+
+So functions and methods do not return errorcodes, they never
+crash, but report a programming_error and try to carry on.
+
+@subsection Languages
+
+C++ and Python are preferred.  Python code should use PEP 8.
+
+@subsection Filenames
+
+Definitions of classes that are only accessed via pointers (*) or
+references (&) shall not be included as include files.
+
+@verbatim
+   filenames
+
+        ".hh"   Include files
+             ".cc"      Implementation files
+             ".icc"     Inline definition files
+             ".tcc"     non inline Template defs
+
+   in emacs:
+
+             (setq auto-mode-alist
+                   (append '(("\\.make$" . makefile-mode)
+                        ("\\.cc$" . c++-mode)
+                        ("\\.icc$" . c++-mode)
+                        ("\\.tcc$" . c++-mode)
+                        ("\\.hh$" . c++-mode)
+                        ("\\.pod$" . text-mode)
+                        )
+                      auto-mode-alist))
+@end verbatim
+
+The class Class_name is coded in @q{class-name.*}
+
+@subsection Indentation
+
+Standard GNU coding style is used. In emacs:
+
+@verbatim
+             (add-hook 'c++-mode-hook
+                  '(lambda() (c-set-style "gnu")
+                     ))
+@end verbatim
+
+If you like using font-lock, you can also add this to your
+@q{.emacs}:
+
+@verbatim
+             (setq font-lock-maximum-decoration t)
+             (setq c++-font-lock-keywords-3
+                   (append
+                    c++-font-lock-keywords-3
+                    '(("\\b\\(a-zA-Z_?+_\\)\\b" 1 font-lock-variable-name-face) ("\\b\\(A-Z?+a-z_?+\\)\\b" 1 font-lock-type-face))
+                    ))
+@end verbatim
+
+
+@subsection Classes and Types
+
+@verbatim
+             This_is_a_class
+@end verbatim
+
+
+@subsection Members
+
+Member variable names end with an underscore:
+
+@verbatim
+     Type Class::member_
+@end verbatim
+
+
+@subsection Macros
+
+Macro names should be written in uppercase completely.
+
+
+@subsection Broken code
+
+Do not write broken code.  This includes hardwired dependencies,
+hardwired constants, slow algorithms and obvious limitations.  If
+you can not avoid it, mark the place clearly, and add a comment
+explaining shortcomings of the code.
+
+We reject broken-in-advance on principle.
+
+@subsection Naming
+
+
+@subsection Messages
+
+Messages need to follow Localization.
+
+
+@subsection Localization
+
+This document provides some guidelines for programmers write user
+messages.  To help translations, user messages must be
+uniformized.  Follow these rules when coding for LilyPond.
+Hopefully, this can be replaced by general GNU guidelines in the
+future.  Even better would be to have an English (en_BR, en_AM)
+helping programmers writing consistent messages for all GNU
+programs.
+
+Not-preferred messages are marked with `+'. By convention,
+ungrammatical examples are marked with `*'.
+
+@itemize
+
+@item
+Every message to the user should be localised (and thus be marked
+for localisation). This includes warning and error messages.
+
+@item
+Don't localise/gettextify:
+
+@itemize
+@item
+`programming_error ()'s
+
+@item
+`programming_warning ()'s
+
+@item
+debug strings
+
+@item
+output strings (PostScript, TeX, etc.)
+
+@end itemize
+
+@item
+Messages to be localised must be encapsulated in `_ (STRING)' or
+`_f (FORMAT, ...)'. Eg:
+
+@verbatim
+      warning (_ ("need music in a score"));
+      error (_f ("cannot open file: `%s'", file_name));
+@end verbatim
+    
+In some rare cases you may need to call `gettext ()' by hand. This
+happens when you pre-define (a list of) string constants for later
+use. In that case, you'll probably also need to mark these string
+constants for translation, using `_i (STRING)'. The `_i' macro is
+a no-op, it only serves as a marker for `xgettext'.
+
+@verbatim
+      char const* messages[] = {
+      _i ("enable debugging output"),
+      _i ("ignore lilypond version"),
+      0
+      };
+
+    
+      void
+      foo (int i)
+      {
+      puts (gettext (messages i));
+      }
+@end verbatim
+    
+See also `flower/getopt-long.cc' and `lily/main.cc'.
+
+@item
+Do not use leading or trailing whitespace in messages. If you need
+whitespace to be printed, prepend or append it to the translated
+message
+
+@verbatim
+      message (Calculating line breaks... + " ");
+@end verbatim
+    
+@item
+Error or warning messages displayed with a file name and line
+number never start with a capital, eg,
+
+@verbatim
+	foo.ly: 12: not a duration: 3
+@end verbatim
+      
+Messages containing a final verb, or a gerund (`-ing'-form) always
+start with a capital. Other (simpler) messages start with a
+lowercase letter
+
+@verbatim
+      Processing foo.ly...
+      `foo': not declared.
+      Not declaring: `foo'.
+@end verbatim
+    
+@item
+Avoid abbreviations or short forms, use `cannot' and `do not'
+rather than `can't' or `don't'
+To avoid having a number of different messages for the same
+situation, we'll use quoting like this `"message: `%s'"' for all
+strings. Numbers are not quoted:
+
+@verbatim
+      _f ("cannot open file: `%s'", name_str)
+      _f ("cannot find character number: %d", i)
+@end verbatim
+    
+@item
+Think about translation issues. In a lot of cases, it is better to
+translate a whole message. The english grammar mustn't be imposed
+on the translator. So, instead of
+
+@verbatim
+      stem at  + moment.str () +  does not fit in beam
+@end verbatim
+    
+have
+
+@verbatim
+      _f ("stem at %s does not fit in beam", moment.str ())
+@end verbatim
+    
+@item
+Split up multi-sentence messages, whenever possible. Instead of
+
+@verbatim
+      warning (_f ("out of tune!  Can't find: `%s'",
+"Key_engraver"));
+      warning (_f ("cannot find font `%s', loading default",
+      font_name));
+@end verbatim
+    
+rather say:
+
+@verbatim
+      warning (out of tune:;
+      warning (_f ("cannot find: `%s', "Key_engraver"));
+      warning (_f ("cannot find font: `%s', font_name));
+      warning (_f ("Loading default font"));
+@end verbatim
+    
+@item
+If you must have multiple-sentence messages, use full punctuation.
+Use two spaces after end of sentence punctuation. No punctuation
+(esp. period) is used at the end of simple messages.
+
+@verbatim
+      _f ("Non-matching braces in text `%s', adding braces", text)
+      Debug output disabled.  Compiled with NPRINT.
+      _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
+@end verbatim
+    
+@item
+Do not modularise too much; a lot of words cannot be translated
+without context. It's probably safe to treat most occurences of
+words like stem, beam, crescendo as separately translatable words.
+
+@item
+When translating, it is preferable to put interesting information
+at the end of the message, rather than embedded in the middle.
+This especially applies to frequently used messages, even if this
+would mean sacrificing a bit of eloquency. This holds for original
+messages too, of course.
+
+@verbatim
+      en: cannot open: `foo.ly'
+      +   nl: kan `foo.ly' niet openen (1)
+      kan niet openen: `foo.ly'*   (2)
+      niet te openen: `foo.ly'*    (3)
+@end verbatim
+
+    
+The first nl message, although grammatically and stylistically
+correct, is not friendly for parsing by humans (even if they speak
+dutch). I guess we'd prefer something like (2) or (3).
+
+@item
+Do not run make po/po-update with GNU gettext < 0.10.35
+
+@end itemize
+
+
+

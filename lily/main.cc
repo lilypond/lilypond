@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "main.hh"
@@ -219,8 +219,8 @@ dir_info (FILE *out)
 static void
 copyright ()
 {
-  printf (_f ("Copyright (c) %s by\n%s  and others.",
-	      "1996--2008",
+  /* Do not update the copyright years here, run grand-replace.sh.  */
+  printf (_f ("Copyright (c) %s by\n%s  and others.", "1996--2009",
 	      AUTHORS).c_str ());
   printf ("\n");
 }

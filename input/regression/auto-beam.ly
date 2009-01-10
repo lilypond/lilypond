@@ -1,5 +1,5 @@
 \header {
-  texidoc="Beams are place automatically; the last measure should have a single 
+  texidoc="Beams are placed automatically; the last measure should have a single
 beam."
 }
 

@@ -1,0 +1,280 @@
+@c -*- coding: us-ascii; mode: texinfo; -*-
+@node Starting with git
+@chapter Starting with git
+
+@menu
+* Getting the source code::     
+* Updating the source code::    
+* Sharing your changes::        
+* Other interesting Git commands::  
+* Git on Windows::              
+@end menu
+
+
+@node Getting the source code
+@section Getting the source code
+
+The source code is kept in a git respository.
+
+@warning{These instructions assume that you are using the
+command-line version of git 1.5 or higher.}
+
+
+@menu
+* Main source code::            
+* Website source code::         
+* Documentation translations source code::  
+* Other branches::              
+* Git user configuration::      
+@end menu
+
+@node Main source code
+@subsection Main source code
+
+To get the main source code and documentation,
+
+FIXME: test this!!!
+
+@example
+mkdir lilypond; cd lilypond
+git init-db
+git remote add -f -t master -m master origin git://git.sv.gnu.org/lilypond.git/
+git checkout -b master origin/master
+@end example
+
+
+@node Website source code
+@subsection Website source code
+
+To get the website (including translations),
+
+@example
+mkdir lilyweb ; cd lilyweb
+git init-db
+git remote add -f -t web -m web origin git://git.sv.gnu.org/lilypond.git/
+git checkout -b web origin/web
+@end example
+
+
+@node Documentation translations source code
+@subsection Documentation translations source code
+
+To translate the documentation (@emph{not} the website),
+
+FIXME: change
+
+@example
+mkdir lilytranslate ; cd lilytranslate
+git init-db
+git remote add -f -t web -m web origin git://git.sv.gnu.org/lilypond.git/
+git checkout -b web origin/web
+@end example
+
+
+@menu
+* Other branches::              
+* Git user configuration::      
+@end menu
+
+@node Other branches
+@subsection Other branches
+
+Most contributors will never need to touch the other branches.  If
+you wish to do so, you will need more familiarity with git.
+
+@itemize
+
+@item @code{gub}:
+This stores the Grand Unified Binary, our cross-platform building
+tool.
+
+@example
+FIXME: insert new gub addy
+@end example
+
+@item @code{dev/XYZ}:
+These branches are for individual developers.  They store code
+which is not yet stable enough to be added to the @code{master}
+branch.
+
+@item @code{stable/XYZ}:
+The branches are kept for archival reasons.
+
+@end itemize
+
+
+@node Git user configuration
+@subsection Git user configuration
+
+To configure git to automatically use your name and email address
+for patches,
+
+@example
+git config --global user.name "MYNAME"
+git config --global user.email myemail@@example.net
+@end example
+
+
+@node Updating the source code
+@section Updating the source code
+
+@menu
+* Importance of updating::      
+* Update command::              
+* Resolving conflicts::         
+* Technical notes::             
+@end menu
+
+@node Importance of updating
+@subsection Importance of updating
+
+In a large project like LilyPond, contributors sometimes edit the
+same file at the same time.  As long as everybody updates their
+version of the file with the most recent changes (@qq{pull}ing),
+there are generally no problems with this multiple-person editing.
+However, serious problems can arise if you do not pull before
+attempting commit.
+
+@node Update command
+@subsection Updating command
+
+Whenever you are asked to pull, it means you should update your
+local copy of the repository with the changes made by others on
+the remote @code{git.sv.gnu.org} repository:
+
+@example
+git pull origin
+@end example
+
+@node Resolving conflicts
+@subsection Resolving conflicts
+
+Occasionally an update may result in conflicts -- this happens
+when you and somebody else hae modified the same part of the same
+file and git cannot figure out how to merge the two versions
+together.  When this happens, you must manually merge the two
+versions.
+
+@example
+TODO
+@end example
+
+
+@node Technical notes
+@subsection Technical notes
+
+Let's explain a bit of Git vocabulary.  The @code{git pull
+origin} command is just a shortcut for this command:
+
+@example
+git pull git://git.sv.gnu.org/lilypond.git/ MY-BRANCH:origin/MY-BRANCH
+@end example
+
+A commit is a set of changes made to the sources; it also includes the
+committish of the parent commit, the name and e-mail of the author
+(the person who wrote the changes), the name and e-mail of the
+committer (the person who brings these changes into the git
+repository), and a commit message.
+
+A committish is the SHA1 checksum of a commit, a number made of 40
+hexadecimal digits, which acts as the internal unique identifier for
+this commit.  To refer to a particular revision, don't use vague
+references like the (approximative) date, simply copy'n'paste the
+committish.
+
+A branch is a tree (in the mathematical or computer science sense) of
+commits, and the topmost commit of this branch is called a head.
+
+The "git fetch" command above has created a branch called origin/web
+in your local Git repository.  As this branch is a copy of the remote
+branch web from git.sv.gnu.org LilyPond repository, it is
+called a `remote branch', and is meant to track the changes on the
+branch from git.sv.gnu.org: it will be updated every time you run 'git
+pull' or 'git fetch' with this branch reference as argument, e.g.
+by using .git/remotes/web remote file when running 'git fetch web'.
+
+The 'git checkout' command above has created a branch named 'web'.  At
+the beginning, this branch is identical to 'origin/web', but it will
+differ as soon as you make changes, e.g. adding newly translated
+pages.  Whenever you pull, you merge the changes from origin/web and
+your web branch since the last pulling.  If you do not have push
+(i.e. "write") access on git.sv.gnu.org, your web branch will always
+differ from origin/web.  In this case, remember that other people
+working like you on the remote web branch of
+git://git.sv.gnu.org/lilypond.git/ know nothing about your own web
+branch: this means that whenever you use a committish or make a patch,
+others expect you to take the lastest commit of origin/web branch as a
+reference.
+
+This README tries to explain most of Git commands needed for
+translating the web site.  However, you are invited to read
+further documentation to make git more familiar to you; for
+instance, take a look at @uref{http://git.or.cz/gitwiki/},
+especially GitDocumentation and GitGlossary; a good alternative to
+reading the wiki is reading the first two chapters of Git User's
+Manual at
+@uref{http://www.kernel.org/pub/software/scm/git/docs/user-manual.html}
+
+
+
+
+@node Sharing your changes
+@section Sharing your changes
+
+
+@menu
+* Producing a patch::           
+* Committing directly::         
+@end menu
+
+@node Producing a patch
+@subsection Producing a patch
+
+Once you have finished editing your files, checked that your
+changes meet the @ref{Code style} and/or @ref{Documentation
+policy}, and checked that the entire thing compiles, you may
+
+@example
+git commit -a 
+git-format-patch HEAD
+@end example
+
+Send an email to @email{lilypond-devel@@gnu.org} with the diff as
+an attachment.
+
+
+@node Committing directly
+@subsection Committing directly
+
+Most contributors do not have permission to commit directly.  If
+you do, edit @file{.git/config} to contain
+
+@example
+FIXME?
+@end example
+
+You may then @code{git push}.
+
+
+@node Other interesting Git commands
+@section Other interesting Git commands
+
+The commands above don't only bring you the latest version of the
+sources, but also the full history of revisions (revisons, also
+called commits, are changes made to the sources), stored in the
+.git directory.  You can browse this history with
+
+@example
+git log     # only shows the logs (author, committish and commit message)
+git log -p  # also shows diffs
+gitk        # shows history graphically
+@end example
+
+
+
+
+@node Git on Windows
+@section Git on Windows
+
+
+

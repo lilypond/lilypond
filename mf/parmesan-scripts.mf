@@ -3,7 +3,7 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 2002--2008 Juergen Reuter <reuter@ipd.uka.de>
+% (c) 2002--2009 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 fet_begingroup ("scripts");

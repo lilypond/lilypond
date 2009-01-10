@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1996--2008 Han-Wen Nienhuys
+  (c) 1996--2009 Han-Wen Nienhuys
 */
 
 #ifndef GROB_HH

@@ -3,7 +3,7 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 2001--2008 Juergen Reuter <reuter@ipd.uka.de>
+% (c) 2001--2009 Juergen Reuter <reuter@ipd.uka.de>
 % 
 % Neo-mensural rests originally by
 % Christian Mondrup and Mats Bengtsson.

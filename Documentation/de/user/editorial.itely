@@ -196,7 +196,7 @@ Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{avoiding-collisions-of-chord-fingering-with-beams.ly}
+{avoiding-collisions-with-chord-fingerings.ly}
 
 @seealso
 Notationsreferenz:

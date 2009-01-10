@@ -35,9 +35,13 @@ static_files = {
     }
 
 for l in langdefs.LANGUAGES:
-    static_files[os.path.join ('Documentation', 'user', outdir, l.file_name ('index', '.html'))] = \
-                                  '<META HTTP-EQUIV="refresh" content="0;URL=../' + l.file_name ('index', '.html') + \
-                                  '">\n<html><body>Redirecting to the documentation index...</body></html>\n'
+    static_files[os.path.join (
+            'Documentation',
+            'user',
+            outdir,
+            l.file_name ('index', '.html'))] = \
+            '<META HTTP-EQUIV="refresh" content="0;URL=../' + l.file_name ('index', '.html') + \
+            '">\n<html><body>Redirecting to the documentation index...</body></html>\n'
 
 for f, contents in static_files.items ():
     open (f, 'w').write (contents)
@@ -46,7 +50,9 @@ sys.stderr.write ("Mirrorring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
-    exclude_dirs = '(^|/)(' + r'|po|out|out-test|.*?[.]t2d|\w*?-root)(/|$)|Documentation/(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + ')',
+    exclude_dirs = '(^|/)((' + \
+        r'po|out|out-test|out-cov|.*?[.]t2d|\w*?-root)|^Documentation/(' + \
+        '|'.join ([l.code for l in langdefs.LANGUAGES]) + '))(/|$)',
     find_files = r'.*?\.(?:midi|html|pdf|png|txt|i?ly|signature|css)$|VERSION',
     exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
 

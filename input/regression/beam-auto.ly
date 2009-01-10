@@ -8,11 +8,12 @@ time signatures. " }
 \relative c''{
 
   \time 1/2
+
   c8 c c c
   c16 c c c c c c c
   c32 c c c c c c c c c c c c c c c
   \time 1/4
-  c8 c 
+  c8 c
   c16 c c c
   c32 c c c c c c c
   \time 1/8
@@ -35,6 +36,7 @@ time signatures. " }
   \time 3/2
   c8 c c c c c c c c c c c
   c16 c c c c c c c c c c c c c c c c c c c c c c c
+  c32 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c
   \time 3/4
   c8 c c c c c
   c16 c c c c c c c c c c c
@@ -51,11 +53,21 @@ time signatures. " }
   c8 c c c
   c16 c c c c c c c
   c32 c c c c c c c c c c c c c c c
+  \time 4/16
+  c8 c
+  c16 c c c
+  c32 c c c c c c c
   \time 6/8
   c8 c c c c c
   c16 c c c c c c c c c c c
+  c32 c c c c c c c c c c c c c c c c c c c c c c c
   \time 9/8
   c8 c c c c c c c c
   c16 c c c c c c c c c c c c c c c c c
+  c32 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c
+  \time 12/8
+  c8 c c c c c c c c c c c
+  c16 c c c c c c c c c c c c c c c c c c c c c c c
+  c32 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c
 }
 

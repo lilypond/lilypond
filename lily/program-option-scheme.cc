@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2008  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2009  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "program-option.hh"
@@ -35,11 +35,14 @@ bool profile_property_accesses = false;
   crash if internally the wrong type is used for a grob property.
 */
 bool do_internal_type_checking_global;
-bool strict_infinity_checking = false; 
+bool strict_infinity_checking = false;
 
 static SCM option_hash;
 
-void internal_set_option (SCM var, SCM val)
+
+void
+internal_set_option (SCM var,
+		     SCM val)
 {
   if (0)
     ;
@@ -76,7 +79,7 @@ void internal_set_option (SCM var, SCM val)
   else if (var == ly_symbol2scm ("old-relative"))
     {
       lily_1_8_relative = to_boolean (val);
-      /*  Needs to be reset for each file that uses this option.  */
+      /* Needs to be reset for each file that uses this option. */
       lily_1_8_compatibility_used = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
@@ -111,12 +114,8 @@ void internal_set_option (SCM var, SCM val)
       val = scm_from_bool (to_boolean (val));
     }
 
-
   scm_hashq_set_x (option_hash, var, val);
-
-
 }
-
 
 
 ssize const HELP_INDENT = 30;
@@ -130,7 +129,7 @@ static string
 get_help_string ()
 {
   SCM alist = ly_hash2alist (option_hash);
-  SCM convertor = ly_lily_module_constant ("scm->string");
+  SCM converter = ly_lily_module_constant ("scm->string");
 
   vector<string> opts;
 
@@ -138,23 +137,21 @@ get_help_string ()
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      string opt_spec
-	= String_convert::char_string (' ', INDENT)
-	+ ly_symbol2string (sym)
-	+ " ("
-	+ ly_scm2string (scm_call_1 (convertor, val))
-	+ ")";
+      string opt_spec = String_convert::char_string (' ', INDENT)
+			+ ly_symbol2string (sym)
+			+ " ("
+			+ ly_scm2string (scm_call_1 (converter, val))
+			+ ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
-	{
-	  opt_spec += "\n"
-	    + String_convert::char_string (' ', HELP_INDENT);
-	}
+	opt_spec += "\n" + String_convert::char_string (' ', HELP_INDENT);
       else
-	opt_spec += String_convert::char_string (' ', HELP_INDENT - opt_spec.length ());
+	opt_spec += String_convert::char_string (' ', HELP_INDENT
+						      - opt_spec.length ());
 
       SCM opt_help_scm
-	= scm_object_property (sym, ly_symbol2scm ("program-option-documentation"));
+	= scm_object_property (sym,
+			       ly_symbol2scm ("program-option-documentation"));
       string opt_help = ly_scm2string (opt_help_scm);
       replace_all (&opt_help,
 		   string ("\n"),
@@ -164,12 +161,10 @@ get_help_string ()
       opts.push_back (opt_spec + opt_help + "\n");
     }
 
-  string help ("Options supported by ly:set-option\n\n");
+  string help ("Options supported by `ly:set-option':\n\n");
   vector_sort (opts, less<string> ());
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
-
-  help += string ("\n");
   return help;
 }
 
@@ -178,19 +173,18 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 	   "Print @code{ly:set-option} usage.")
 {
   string help = get_help_string ();
-  progress_indication (help);
+  puts (help.c_str());
 
   return SCM_UNSPECIFIED;
 }
+
 
 LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 	   (SCM sym, SCM val, SCM description),
 	   "Add a program option @var{sym} with default @var{val}.")
 {
   if (!option_hash)
-    {
-      option_hash = scm_permanent_object (scm_c_make_hash_table (11));
-    }
+    option_hash = scm_permanent_object (scm_c_make_hash_table (11));
   LY_ASSERT_TYPE (ly_is_symbol, sym, 1);
   LY_ASSERT_TYPE (scm_is_string, description, 3);
 
@@ -201,6 +195,7 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 
   return SCM_UNSPECIFIED;
 }
+
 
 LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 	   "Set a program option.")
@@ -213,7 +208,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   string varstr = ly_scm2string (scm_symbol_to_string (var));
   if (varstr.substr (0, 3) == string ("no-"))
     {
-      var = ly_symbol2scm (varstr.substr (3, varstr.length () -3).c_str ());
+      var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3).c_str ());
       val = scm_from_bool (!to_boolean (val));
     }
 
@@ -225,24 +220,26 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   return SCM_UNSPECIFIED;
 }
 
+
 LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
 	   "The Scheme options specified on command-line with @option{-d}.")
 {
-  return ly_string2scm (init_scheme_variables_global); 
+  return ly_string2scm (init_scheme_variables_global);
 }
+
 
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
 	   "The Scheme code specified on command-line with @option{-e}.")
 {
-  return ly_string2scm (init_scheme_code_global); 
+  return ly_string2scm (init_scheme_code_global);
 }
+
 
 LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
 	   "Was @code{be_verbose_global} set?")
 {
   return scm_from_bool (be_verbose_global);
 }
-
 
 
 LY_DEFINE (ly_all_options, "ly:all-options",
@@ -259,5 +256,3 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
 }
-
-

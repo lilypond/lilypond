@@ -1,0 +1,28 @@
+@c -*- coding: us-ascii; mode: texinfo; -*-
+@node LSR work
+@chapter LSR work
+
+@menu
+* Introduction to LSR::         
+* Adding snippets::             
+* Approving snippets::          
+* LSR to git::                  
+@end menu
+
+
+@node Introduction to LSR
+@section Introduction to LSR
+
+
+@node Adding snippets
+@section Adding snippets
+
+
+@node Approving snippets
+@section Approving snippets
+
+
+@node LSR to git
+@section LSR to git
+
+

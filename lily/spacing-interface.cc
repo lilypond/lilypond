@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2007--2008 Joe Neeman <joeneeman@gmail.com>
+  (c) 2007--2009 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "spacing-interface.hh"

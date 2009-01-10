@@ -20,7 +20,7 @@ VS_VERSION_INFO VERSIONINFO
 	VALUE "FileDescription", "LilyPond"
 	VALUE "FileVersion", "@MAJOR_VERSION@.@MINOR_VERSION@.@PATCH_LEVEL@.@BUILD_VERSION@"
 	VALUE "InternalName", "LilyPond@"
-	VALUE "LegalCopyright ", "Copyright (C) 1995--2008  Han-Wen Nienhuys and Jan Nieuwenhuizen, and others."
+	VALUE "LegalCopyright ", "Copyright (C) 1995--2009  Han-Wen Nienhuys and Jan Nieuwenhuizen, and others."
 	VALUE "OriginalFilename", "lilypond.exe"
 	VALUE "ProductName", "LilyPond"
 	VALUE "ProductVersion", "@MAJOR_VERSION@.@MINOR_VERSION@.@PATCH_LEVEL@"

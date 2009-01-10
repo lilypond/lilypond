@@ -1,7 +1,7 @@
 /*
   tab-note-heads-engraver.cc -- part of GNU LilyPond
 
-  (c) 2002--2008 Han-Wen Nienhuys, Jean-Baptiste Lamy <jiba@tuxfamily.org>,
+  (c) 2002--2009 Han-Wen Nienhuys, Jean-Baptiste Lamy <jiba@tuxfamily.org>,
 */
 
 #include <cctype>

@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-public (construct-chord-elements root duration modifications)
   " Build a chord on root using modifiers in MODIFICATIONS. NoteEvents

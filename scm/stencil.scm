@@ -2,7 +2,14 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2003--2008 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2003--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+(define-public (translate-stencil stencil coordinate-pair)
+  "Translate @code{stencil} by the distances specified in
+@code{coordinate-pair}."
+  (ly:stencil-translate-axis
+    (ly:stencil-translate-axis stencil (cdr coordinate-pair) Y)
+    (car coordinate-pair) X))
 
 (define-public (stack-stencils axis dir padding stils)
   "Stack stencils STILS in direction AXIS, DIR, using PADDING."
@@ -80,6 +87,14 @@
       ; width to all coordinates!
       (interval-widen xext (/ width 2))
       (interval-widen yext (/ width 2)))))
+
+(define-public (make-round-filled-box-stencil xext yext blot-diameter)
+  "Make a filled rounded box."
+  
+  (ly:make-stencil
+      (list 'round-filled-box (- (car xext)) (cdr xext)
+                       (- (car yext)) (cdr yext) blot-diameter)
+      xext yext))
 
 (define-public (make-filled-box-stencil xext yext)
   "Make a filled box."

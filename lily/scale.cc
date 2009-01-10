@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 2006--2008 Han-Wen Nienhuys <hanwen@lilypond.org>
+  (c) 2006--2009 Han-Wen Nienhuys <hanwen@lilypond.org>
       2007--2008 Rune Zedeler
       2008       Joe Neeman <joeneeman@gmail.com>
 */
@@ -20,7 +20,8 @@ LY_DEFINE (ly_make_scale, "ly:make-scale",
 	   1, 0, 0, (SCM steps),
 	   "Create a scale."
 	   "  The argument is a vector of rational numbers, each of which"
-	   " represents the number of tones of a pitch above the tonic.")
+	   " represents the number of 200 cent tones of a pitch above the"
+	   " tonic.")
 {
   bool type_ok = scm_is_vector (steps);
 
@@ -66,7 +67,12 @@ Scale * default_global_scale = 0;
 
 LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
 	   1, 0, 0, (SCM scale),
-	   "Set the global default scale.")
+	   "Set the global default scale. This determines the tuning of"
+	   " pitches with no accidentals or key signatures.  The first"
+	   " pitch is C. Alterations are calculated relative to this"
+	   " scale.  The number of pitches in this scale determines the"
+	   " number of scale steps that make up an octave.  Usually the"
+	   " 7-note major scale.")
 {
   LY_ASSERT_SMOB (Scale, scale, 1);
 

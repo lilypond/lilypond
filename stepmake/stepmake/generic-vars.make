@@ -24,6 +24,8 @@ src-dir = $(top-src-dir)$(tree-dir)
 VPATH = $(src-dir)
 endif
 
+abs-src-dir = $(top-src-dir)$(tree-dir)
+
 .UNEXPORT: build-dir src-dir tree-dir
 
 src-wildcard = $(subst $(src-dir)/,,$(wildcard $(src-dir)/$(1)))

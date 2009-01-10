@@ -11,10 +11,6 @@ OUTTXT_FILES= $(outdir)/NEWS.txt
 
 include $(depth)/make/stepmake.make
 
-MAKEINFO_FLAGS += -I $(top-src-dir)/Documentation/user
-TEXI2HTML_FLAGS += -I $(top-src-dir)/Documentation/user
-
 local-WWW-1: $(OUT_TEXI_FILES)
 
 .SECONDARY:
-

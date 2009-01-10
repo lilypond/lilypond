@@ -4,7 +4,7 @@
 %
 %  This is part of the Lilypond distribution files
 %
-%  Copyright 2008 by Jonathan Kulp
+%  Copyright 2008--2009 by Jonathan Kulp
 %
 
 

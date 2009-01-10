@@ -1240,7 +1240,7 @@ and as stand-alone text below the score:
   }
   \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008" \char ##x00A9 }
+\markup { "Copyright 2008--2009" \char ##x00A9 }
 @end lilypond
 
 To enter the copyright sign in the copyright notice use:
@@ -1604,7 +1604,7 @@ The following items of notation are reflected in the MIDI output:
 
 @itemize
 @item Pitches
-@item Quarter tones (See @ref{Accidentals}. Rendering needs a
+@item Microtones (See @ref{Accidentals}. Rendering needs a
 player that supports pitch bend.)
 @item Chords entered as chord names
 @item Rhythms entered as note durations, including tuplets
@@ -1630,6 +1630,7 @@ The following items of notation have no effect on the MIDI output:
 @item Crescendi, decrescendi over a single note
 @item Tremolos entered with @q{@code{:}[@var{number}]}
 @item Figured bass
+@item Microtonal chords
 @end itemize
 
 

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2008 Reinhold Kainhofer <reinhold@kainhofer.com>
+;;;; (c) 2008--2009 Reinhold Kainhofer <reinhold@kainhofer.com>
 
 
 

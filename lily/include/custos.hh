@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2008 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2000--2009 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #ifndef CUSTOS_HH
