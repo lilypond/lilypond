@@ -187,12 +187,12 @@ WWW-1: local-WWW-1
 WWW-2: local-WWW-2
 	$(LOOP)
 
-web:
-	$(MAKE) out=www WWW-1
+web: web-1
 	$(MAKE) out=www WWW-2
 	$(MAKE) out=www WWW-post
 
 web-1:
+	$(MAKE) -C $(depth)/scripts/build out=
 	$(MAKE) out=www WWW-1
 
 web-clean:
