@@ -19,3 +19,5 @@ default: local-doc
 local-WWW-1: $(PDF_FILES)
 
 local-WWW-2: $(HTML_FILES) $(OUT_HTML_FILES)
+
+$(PDF_FILES) $(HTML_FILES): $(ITEXI_FILES)
