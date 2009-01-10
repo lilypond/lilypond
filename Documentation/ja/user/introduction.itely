@@ -1,0 +1,125 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Introduction
+@chapter Introduction
+
+@untranslated
+
+
+@menu
+* Background::
+* About the documentation::
+@end menu
+
+@node Background
+@section Background
+
+@untranslated
+
+
+@menu
+* Engraving::
+* Automated engraving::
+* What symbols to engrave?::
+* Music representation::
+* Example applications::
+@end menu
+
+@node Engraving
+@unnumberedsubsec Engraving
+
+@untranslated
+
+
+@node Automated engraving
+@unnumberedsubsec Automated engraving
+
+@untranslated
+
+
+@node What symbols to engrave?
+@unnumberedsubsec What symbols to engrave?
+
+@untranslated
+
+
+@node Music representation
+@unnumberedsubsec Music representation
+
+@untranslated
+
+
+@node Example applications
+@unnumberedsubsec Example applications
+
+@untranslated
+
+
+@node About the documentation
+@section About the documentation
+
+@untranslated
+
+
+@menu
+* About the Learning Manual::
+* About the Music Glossary::
+* About the Notation Reference::
+* About the Application Usage::
+* About the Snippet List::
+* About the Internals Reference::
+* Other documentation::
+@end menu
+
+@node About the Learning Manual
+@unnumberedsubsec About the Learning Manual
+
+@untranslated
+
+
+@node About the Music Glossary
+@unnumberedsubsec About the Music Glossary
+
+@untranslated
+
+
+@node About the Notation Reference
+@unnumberedsubsec About the Notation Reference
+
+@untranslated
+
+
+@node About the Application Usage
+@unnumberedsubsec About the Application Usage
+
+@untranslated
+
+
+@node About the Snippet List
+@unnumberedsubsec About the Snippet List
+
+@untranslated
+
+
+@node About the Internals Reference
+@unnumberedsubsec About the Internals Reference
+
+@untranslated
+
+
+@node Other documentation
+@unnumberedsubsec Other documentation
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

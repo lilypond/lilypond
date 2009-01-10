@@ -1,0 +1,47 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@include macros.itexi
+@node Top
+@top GNU LilyPond --- Learning Manual
+
+@untranslated
+
+
+@menu
+* Preface::
+* Introduction::
+* Tutorial::
+* Fundamental concepts::
+* Tweaking output::
+* Working on LilyPond projects::
+* Templates::
+* Scheme tutorial::
+* GNU Free Documentation License::
+* LilyPond index::
+@end menu
+
+@include preface.itely
+@include introduction.itely
+@include tutorial.itely
+@include fundamental.itely
+@include tweaks.itely
+@include working.itely
+@include templates.itely
+@include scheme-tutorial.itely
+@include fdl.itexi
+@node LilyPond index
+@appendix LilyPond index
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

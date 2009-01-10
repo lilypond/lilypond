@@ -1,0 +1,104 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
+
+@untranslated
+
+
+@menu
+* Suggestions for writing LilyPond input files::
+* When things don't work::
+* Scores and parts::
+@end menu
+
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
+
+@untranslated
+
+
+@menu
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Saving typing with variables and functions::
+* Style sheets::
+@end menu
+
+@node General suggestions
+@subsection General suggestions
+
+@untranslated
+
+
+@node Typesetting existing music
+@subsection Typesetting existing music
+
+@untranslated
+
+
+@node Large projects
+@subsection Large projects
+
+@untranslated
+
+
+@node Saving typing with variables and functions
+@subsection Saving typing with variables and functions
+
+@untranslated
+
+
+@node Style sheets
+@subsection Style sheets
+
+@untranslated
+
+
+@node When things don't work
+@section When things don't work
+
+@untranslated
+
+
+@menu
+* Updating old input files::
+* Troubleshooting (taking it all apart)::
+* Minimal examples::
+@end menu
+
+@node Updating old input files
+@subsection Updating old input files
+
+@untranslated
+
+
+@node Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
+
+@untranslated
+
+
+@node Minimal examples
+@subsection Minimal examples
+
+@untranslated
+
+
+@node Scores and parts
+@section Scores and parts
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

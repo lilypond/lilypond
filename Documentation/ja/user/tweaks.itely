@@ -1,0 +1,250 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Tweaking output
+@chapter Tweaking output
+
+@untranslated
+
+
+@menu
+* Tweaking basics::
+* The Internals Reference manual::
+* Appearance of objects::
+* Placement of objects::
+* Collisions of objects::
+* Further tweaking::
+@end menu
+
+@node Tweaking basics
+@section Tweaking basics
+
+@untranslated
+
+
+@menu
+* Introduction to tweaks::
+* Objects and interfaces::
+* Naming conventions of objects and properties::
+* Tweaking methods::
+@end menu
+
+@node Introduction to tweaks
+@subsection Introduction to tweaks
+
+@untranslated
+
+
+@node Objects and interfaces
+@subsection Objects and interfaces
+
+@untranslated
+
+
+@node Naming conventions of objects and properties
+@subsection Naming conventions of objects and properties
+
+@untranslated
+
+
+@node Tweaking methods
+@subsection Tweaking methods
+
+@untranslated
+
+
+@node The Internals Reference manual
+@section The Internals Reference manual
+
+@untranslated
+
+
+@menu
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
+@end menu
+
+@node Properties of layout objects
+@subsection Properties of layout objects
+
+@untranslated
+
+
+@subheading Finding the context
+@subheading Overriding once only
+@subheading Reverting
+@node Properties found in interfaces
+@subsection Properties found in interfaces
+
+@untranslated
+
+
+@subheading Specifying the context in lyric mode
+@node Types of properties
+@subsection Types of properties
+
+@untranslated
+
+
+@node Appearance of objects
+@section Appearance of objects
+
+@untranslated
+
+
+@menu
+* Visibility and color of objects::
+* Size of objects::
+* Length and thickness of objects::
+@end menu
+
+@node Visibility and color of objects
+@subsection Visibility and color of objects
+
+@untranslated
+
+
+@subheading stencil
+@subheading break-visibility
+@subheading transparent
+@subheading color
+@node Size of objects
+@subsection Size of objects
+
+@untranslated
+
+
+@node Length and thickness of objects
+@subsection Length and thickness of objects
+
+@untranslated
+
+
+@node Placement of objects
+@section Placement of objects
+
+@untranslated
+
+
+@menu
+* Automatic behavior::
+* Within-staff objects::
+* Outside-staff objects::
+@end menu
+
+@node Automatic behavior
+@subsection Automatic behavior
+
+@untranslated
+
+
+@node Within-staff objects
+@subsection Within-staff objects
+
+@untranslated
+
+
+@subheading Fingering
+@node Outside-staff objects
+@subsection Outside-staff objects
+
+@untranslated
+
+
+@subheading \textLengthOn
+@subheading Dynamics
+@subheading Grob sizing
+@node Collisions of objects
+@section Collisions of objects
+
+@untranslated
+
+
+@menu
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
+@end menu
+
+@node Moving objects
+@subsection Moving objects
+
+@untranslated
+
+
+@node Fixing overlapping notation
+@subsection Fixing overlapping notation
+
+@untranslated
+
+
+@subheading padding property
+@subheading left-padding and right-padding
+@subheading staff-padding property
+@subheading self-alignment-X property
+@subheading staff-position property
+@subheading extra-offset property
+@subheading positions property
+@subheading force-hshift property
+@node Real music example
+@subsection Real music example
+
+@untranslated
+
+
+@node Further tweaking
+@section Further tweaking
+
+@untranslated
+
+
+@menu
+* Other uses for tweaks::
+* Using variables for tweaks::
+* Other sources of information::
+* Avoiding tweaks with slower processing::
+* Advanced tweaks with Scheme::
+@end menu
+
+@node Other uses for tweaks
+@subsection Other uses for tweaks
+
+@untranslated
+
+
+@subheading Tying notes across voices
+@subheading Simulating a fermata in MIDI
+@node Using variables for tweaks
+@subsection Using variables for tweaks
+
+@untranslated
+
+
+@node Other sources of information
+@subsection Other sources of information
+
+@untranslated
+
+
+@node Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
+
+@untranslated
+
+
+@node Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --
