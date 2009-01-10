@@ -5,8 +5,8 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
-@setfilename newweb.info
-@settitle GNU LilyPond New Website
+@setfilename contrib-guide.info
+@settitle GNU LilyPond Contributor's Guide
 @documentencoding UTF-8
 @documentlanguage en
 
@@ -34,7 +34,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- New Website
+@top GNU LilyPond --- Contributor's Guide
 @chapheading The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @end ifnottex
@@ -59,7 +59,7 @@ This document is also available as a
 @titlepage
 @title LilyPond
 @subtitle The music typesetter
-@titlefont{New Website}
+@titlefont{Contributor's Guide}
 @author The LilyPond development team
 
 Copyright @copyright{} 1999--2008 by the authors
