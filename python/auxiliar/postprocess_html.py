@@ -242,7 +242,8 @@ def process_links (s, prefix, lang_ext, file_name, missing, target):
         # in LANG doc index: don't rewrite .html suffixes
         # as not all .LANG.html pages exist;
         # the doc index should be translated and contain links with the right suffixes
-        if prefix == 'Documentation/out-www/index':
+        # idem for NEWS
+        if prefix in ('Documentation/out-www/index', 'Documentation/topdocs/out-www/NEWS'):
             page_flavors[file_name] = [lang_ext, s]
         elif lang_ext == '':
             page_flavors[file_name] = [lang_ext, s]

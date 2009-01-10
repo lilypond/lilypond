@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bc4543c30c67f02dadc392880f27d4581e2d7681
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2119,6 +2119,35 @@ c\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
 c, c c c
+@end lilypond
+
+@cindex ligaduras y outside-staff-priority
+@cindex ligaduras y articulaciones
+@cindex articulaciones y ligaduras
+
+De forma predeterminada, las ligaduras de expresión están clasificadas
+como objetos dentro-del-pentagrama, pero con frecuencia aparecen
+encima del pentagrama si las notas que une son muy agudas.  Ello puede
+empujar a una posición muy elevada a los objetos fuera-del-pentagrama
+como las articulaciones, pues la ligadura se colocará en primer lugar.
+La propiedad @code{avoid-slur} de la articulación se puede establecer
+al valor @code{'inside} (por dentro) para llevarla al interior de la
+ligadura, pero la propiedad @code{avoid-slur} es efectiva solamente si
+la prioridad @code{outside-staff-priority} está también ajustada al
+valor @code{#f}.  De forma alternativa, la prioridad
+@code{outside-staff-priority} de la ligadura se puede fijar en un
+valor numérico para hacer que se sitúe en línea con otros objetos
+fuera del pentagrama de acuerdo con este valor.  He aquí un ejemplo
+que muestra el efecto de los dos métodos:
+
+@lilypond[quote,verbatim,relative=2]
+c4( c^\markup\tiny\sharp d4.) c8
+c4(
+\once \override TextScript #'avoid-slur = #'inside
+\once \override TextScript #'outside-staff-priority = ##f
+c^\markup\tiny\sharp d4.) c8
+\once \override Slur #'outside-staff-priority = #500
+c4( c^\markup\tiny\sharp d4.) c8
 @end lilypond
 
 Los cambios en @code{outside-staff-priority} también se pueden emplear

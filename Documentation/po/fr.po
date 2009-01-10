@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-25 12:33+0100\n"
-"PO-Revision-Date: 2008-12-31 19:59+0100\n"
+"PO-Revision-Date: 2009-01-04 17:50+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -10092,42 +10092,42 @@ msgstr "porteeSuperieure"
 
 #. input/lsr/ancient-fonts.ly:38 (comment)
 msgid "\\break % 1 (8*1)"
-msgstr ""
+msgstr "\\break % 1 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:49 (comment)
 msgid "\\break %2 (8*1)"
-msgstr ""
+msgstr "\\break %2 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:61 (comment)
 msgid "\\break % 3 (8*1)"
-msgstr ""
+msgstr "\\break % 3 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:76 (comment)
 msgid "\\break % 4 (8*1)"
-msgstr ""
+msgstr "\\break % 4 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:85 (comment)
 #. input/lsr/ancient-fonts.ly:147 (comment)
 msgid "\\break % 5 (8*1)"
-msgstr ""
+msgstr "\\break % 5 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:99 (comment)
 #. input/lsr/ancient-fonts.ly:162 (comment)
 msgid "\\break % 6 (8*1)"
-msgstr ""
+msgstr "\\break % 6 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:108 (comment)
 #. input/lsr/ancient-fonts.ly:172 (comment)
 msgid "\\break % 7 (8*1)"
-msgstr ""
+msgstr "\\break % 7 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:115 (comment)
 msgid "\\break % 8 (8*1)"
-msgstr ""
+msgstr "\\break % 8 (8*1)"
 
 #. input/lsr/ancient-fonts.ly:118 (comment)
 msgid "\\break % 12 (32*1)"
-msgstr ""
+msgstr "\\break % 12 (32*1)"
 
 #. input/lsr/ancient-fonts.ly:123 (variable)
 #. input/lsr/ancient-fonts.ly:123 (context id)
@@ -10136,15 +10136,15 @@ msgstr "PorteeInferieure"
 
 #. input/lsr/ancient-fonts.ly:133 (comment)
 msgid "\\break % 2 (16*1)"
-msgstr ""
+msgstr "\\break % 2 (16*1)"
 
 #. input/lsr/ancient-fonts.ly:138 (comment)
 msgid "\\break % 4 (16*1)"
-msgstr ""
+msgstr "\\break % 4 (16*1)"
 
 #. input/lsr/ancient-fonts.ly:177 (comment)
 msgid "\\break % 9 (16*1)"
-msgstr ""
+msgstr "\\break % 9 (16*1)"
 
 #. input/lsr/ancient-fonts.ly:179 (comment)
 msgid "lig"
@@ -10152,11 +10152,11 @@ msgstr "lig"
 
 #. input/lsr/ancient-fonts.ly:183 (comment)
 msgid "\\break % 11 (16*1)"
-msgstr ""
+msgstr "\\break % 11 (16*1)"
 
 #. input/lsr/ancient-fonts.ly:194 (comment)
 msgid "\\break % 12 (8*1)"
-msgstr ""
+msgstr "\\break % 12 (8*1)"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:49 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:96 (comment)
@@ -10183,49 +10183,49 @@ msgstr "désactivation des barres de mesure"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:62 (comment)
 msgid "need this extra \\skip such that clef change comes"
-msgstr ""
+msgstr "ce \\skip supplémentaire permet d'afficher le changement de clef"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:63 (comment)
 msgid "after bar line"
-msgstr ""
+msgstr "après la barre de mesure"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:67 (comment)
 msgid "CHECK: no effect?"
-msgstr ""
+msgstr "À VÉRIFIER : sans effet ?"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:68 (comment)
 msgid "turn bar lines on again"
-msgstr ""
+msgstr "réactive les barres de mesure"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:76 (comment)
 msgid "FIXME: setting printKeyCancellation back to #t must not"
-msgstr ""
+msgstr "À CORRIGER : remettre printKeyCancellation à #t ne doit intervenir"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:77 (comment)
 msgid "occur in the first bar after the incipit.  Dto. for forceClef."
-msgstr ""
+msgstr "à la première mesure suivant l'incipit. Idem pour forceClef."
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:78 (comment)
 msgid "Therefore, we need an extra \\skip."
-msgstr ""
+msgstr "C'est pourquoi nous ajooutons un \\skip."
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:83 (comment)
 #. input/lsr/incipit.ly:64 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:37 (comment)
 msgid "the actual music"
-msgstr ""
+msgstr "la vraie musique"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:85 (comment)
 #. input/lsr/incipit.ly:67 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:39 (comment)
 msgid "let finis bar go through all staves"
-msgstr ""
+msgstr "pour que la barre de mesure finale traverse toutes les portées"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:88 (comment)
 #. input/lsr/incipit.ly:70 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:42 (comment)
 msgid "finis bar"
-msgstr ""
+msgstr "la barre finale"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:92 (variable)
 #. input/lsr/incipit.ly:87 (variable)
@@ -10253,7 +10253,7 @@ msgstr "discantusNotes"
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:189 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:214 (comment)
 msgid "two bars"
-msgstr ""
+msgstr "deux mesures"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:99 (comment)
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:202 (comment)
@@ -10339,11 +10339,11 @@ msgstr "choirStaff"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:251 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:266 (comment)
 msgid "no bars in staves"
-msgstr "pas de barre dans les portées"
+msgstr "pas de barre sur les portées"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:254 (comment)
 msgid "incipit should not start with a start delimiter"
-msgstr ""
+msgstr "l'incipit ne doit pas commencer par une marque de regroupement"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:260 (comment)
 #. input/lsr/incipit.ly:272 (comment)
@@ -10389,7 +10389,7 @@ msgstr ""
 #. input/lsr/incipit.ly:280 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:286 (comment)
 msgid "\\remove \\\"Forbid_line_break_engraver\\\""
-msgstr ""
+msgstr "\\remove \\\"Forbid_line_break_engraver\\\""
 
 #. input/lsr/applying-note-head-styles-depending-on-the-step-of-the-scale.ly:75 (variable)
 #. input/lsr/clusters.ly:27 (variable)
@@ -10398,7 +10398,7 @@ msgstr "fragment"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:29 (comment)
 msgid "Automatic beams two per two in 4/4 or 2/2 time signature"
-msgstr ""
+msgstr "Ligature automatique deux par deux, aussi bien en 4/4 qu'en 2/2"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:30 (comment)
 msgid "_____"
@@ -10406,31 +10406,31 @@ msgstr "_____"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:31 (comment)
 msgid "Default     | | | |"
-msgstr ""
+msgstr "Par défaut  | | | |"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:32 (comment)
 msgid "_   _"
-msgstr ""
+msgstr "_   _"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:33 (comment)
 msgid "Required    | | | |"
-msgstr ""
+msgstr "Requis      | | | |"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:35 (comment)
 msgid "macro for beamed two per two in 2/2 and 4/4 time signature"
-msgstr ""
+msgstr "macro pour ligaturer deux par deux, aussi bien en 4/4 qu'en 2/2"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:36 (variable)
 msgid "qBeam"
-msgstr ""
+msgstr "LigatureNoire"
 
 #. input/lsr/automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly:49 (comment)
 msgid "Use the macro"
-msgstr ""
+msgstr "Utilisation de la macro"
 
 #. input/lsr/avoiding-collisions-of-chord-fingering-with-beams.ly:41 (comment)
 msgid "Corrected to avoid collisions"
-msgstr ""
+msgstr "Correction pour éviter les collisions"
 
 #. input/lsr/beam-endings-in-score-context.ly:28 (comment)
 msgid "Set default beaming for all staves"
@@ -10482,7 +10482,7 @@ msgstr ""
 
 #. input/lsr/breathing-signs.ly:19 (comment)
 msgid "this bar contains no \\breathe"
-msgstr ""
+msgstr "mesure sans \\breathe :"
 
 #. input/lsr/breathing-signs.ly:21 (comment)
 msgid "Modern notation:"
@@ -10490,37 +10490,37 @@ msgstr "Notation moderne :"
 
 #. input/lsr/breathing-signs.ly:22 (comment)
 msgid "by default, \\breathe uses the rcomma, just as if saying:"
-msgstr ""
+msgstr "par défaut, \\breathe produit un @code{rcomma} (virgule vers la droite) comme si l' on avait : "
 
 #. input/lsr/breathing-signs.ly:23 (comment)
 msgid ""
 "\\override BreathingSign #'text = #(make-musicglyph-markup \\\"scripts.rcomma"
 "\\\")"
-msgstr ""
+msgstr "\\override BreathingSign #'text = #(make-musicglyph-markup \\\"scripts.rcomma\\\")"
 
 #. input/lsr/breathing-signs.ly:26 (comment)
 msgid "rvarcomma and lvarcomma are variations of the default rcomma and lcomma"
-msgstr ""
+msgstr "rvarcomma et lvarcomma sont des variantes de rcomma and lcomma"
 
 #. input/lsr/breathing-signs.ly:27 (comment)
 msgid "N.B.: must use Staff context here, since we start a Voice below"
-msgstr ""
+msgstr "N.B. : affectation au niveau portée, puisqu'il y a une nouvelle voix"
 
 #. input/lsr/breathing-signs.ly:31 (comment)
 msgid "vee"
-msgstr ""
+msgstr "en V"
 
 #. input/lsr/caesura-railtracks-with-fermata.ly:28 (comment)
 msgid "construct the symbol"
-msgstr ""
+msgstr "construction du symbole"
 
 #. input/lsr/caesura-railtracks-with-fermata.ly:37 (comment)
 msgid "set the breathe mark back to normal"
-msgstr ""
+msgstr "retour à la normale pour les marques de respiration"
 
 #. input/lsr/center-text-below-hairpin-dynamics.ly:27 (variable)
 msgid "hairpinWithCenteredText"
-msgstr ""
+msgstr "souffletAvecTexteCentre"
 
 #. input/lsr/center-text-below-hairpin-dynamics.ly:39 (variable)
 msgid "hairpinMolto"
@@ -10536,15 +10536,15 @@ msgstr "petitFlageolet"
 
 #. input/lsr/changing-the-chord-names-to-german-or-semi-german-notation.ly:34 (comment)
 msgid "The following is only here to print the names of the"
-msgstr ""
+msgstr "Ce qui suit n'est là que pour permettre l'impression des noms"
 
 #. input/lsr/changing-the-chord-names-to-german-or-semi-german-notation.ly:35 (comment)
 msgid "chords styles; it can be removed if you do not need to"
-msgstr ""
+msgstr "de style d'accord ; vous pouvez supprimer ce bloc \\layout"
 
 #. input/lsr/changing-the-chord-names-to-german-or-semi-german-notation.ly:36 (comment)
 msgid "print them."
-msgstr ""
+msgstr "si vous ne voulez pas les imprimer."
 
 #. input/lsr/changing-the-default-text-font-family.ly:17 (comment)
 msgid "change for other default global staff size. "

@@ -88,7 +88,6 @@ WEB_TARGETS = offline
 
 WWW-post:
 # need UTF8 setting in case this is hosted on a website.
-	$(MAKE) -C scripts/build out=
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
 	$(buildscript-dir)/mutopia-index -o $(outdir)/examples.html input/
 	find $(outdir) -name '*-root' | xargs rm -rf

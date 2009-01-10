@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 89af568420c7a794cc29980b4f8fabe10764c152
+    Translation of GIT committish: 1154b407d42f303a024598296ad36ab6c93e2b5a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,7 +9,7 @@
 
 @c \version "2.12.0"
 
-@c Translators: Valentin Villenave
+@c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Keyboard and other multi-staff instruments
@@ -553,12 +553,110 @@ Référence des propriétés internes :
 @node Discant symbols
 @unnumberedsubsubsec Discant symbols
 
-@untranslated
-@ifnothtml
-@englishref
-@end ifnothtml
+@cindex accordéon, symboles de registre
+@cindex registres, symboles pour accordéon
+@cindex accordéon, tirettes
+@cindex tirettes d'accordéon, symboles
+
+De nombreux accordéons possèdent plusieurs jeux d'anches capables de
+jouer à l'unisson ou bien à l'octave inférieure ou supérieure par
+rapport aux notes écrites.  Chaque facteur d'accordéon donne des noms
+différents aux @notation{tirettes} (@emph{shifts}) qui permettent de
+sélectionner les différents jeux d'anches tels que @notation{hautbois},
+@notation{musette} ou @notation{bandonéon}, de telle sorte qu'un système
+de symbole a fini par voir le jour afin de faciliter les instructions
+pour exécuter un morceau.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{accordion-discant-symbols.ly}
+
+
+@seealso
+Morceaux choisis :
+@rlsr{Keyboards}.
+
 
 @node Harp
 @subsection Harp
 
-@untranslated
+This section discusses notation issues that are unique to the harp.
+
+@menu
+* References for harps::
+* Harp pedals::
+@end menu
+
+@node References for harps
+@unnumberedsubsubsec References for harps
+@cindex harpes
+@cindex bisbigliando
+
+Certaines caractéritiques de la musique pour harpes sont abordées dans
+d'autres chapitres, telles que :
+
+@itemize
+
+@item Les glissandos, l'une des techniques spécifique à la harpe,
+@ref{Glissando}.
+
+@item Le @notation{bisbigliando}, qui s'écrit comme un trémolo, 
+@ref{Tremolo repeats}
+
+@item Les harmoniques naturelles sont présentées dans @ref{Harmonics}.
+
+@item For directional arpeggios and non-arpeggios, see @ref{Arpeggio}.
+
+@end itemize
+
+@seealso
+Manuel de notation :
+@ref{Tremolo repeats}
+@ref{Glissando}
+@ref{Arpeggio}
+@ref{Harmonics}
+
+@node Harp pedals
+@unnumberedsubsubsec Harp pedals
+
+@cindex harpe, pédales
+@cindex harpe, diagrammes de pédales
+@cindex pédales de harpe
+@cindex pédales, diagrammes pour harpe
+
+Les harpes comportent sept cordes par octave qui peuvent sonner
+naturel, dièse ou bémol.  Si chacune des cordes de la harpe celtique
+(@emph{lever harp}) est accordée individuellement, celles d'une harpe à
+pédalier ayant la même note de base sont contrôlées par une seule
+pédale.  De gauche à droite, elles correspondent aux notes ré, do, si,
+mi, fa, sol, la pour la grande harpe. Les trois premières pédales sont
+réservées au pied gauche, les 4 dernières au pied droit.  Leur position
+peut être indiquée par une marque textuelle : 
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {[ C \natural ]}
+@end lilypond
+
+ou bien sous forme de diagrammes :
+
+@lilypond[quote,verbatim,relative=2]
+\textLengthOn
+cis1_\markup { \harp-pedal #"^v-|vv-^" }
+c!1_\markup { \harp-pedal #"^o--|vv-^" }
+@end lilypond
+bémol si la pédale est relâchée (= en haut), bécarre si elle est bloquée sur le cran du milieu, et dièse si elle est tout à fait enfoncée.
+La commande @code{\harp-pedal} prend en argument une chaîne de
+caractères, où @code{^} si la pédale est relâchée ou en haut (bémol),
+@code{-} si elle est bloquée sur le cran du milieu (bécarre), @code{v}
+si elle est tout à fait enfoncée (dièse) et @code{|} le séparateur (entre
+gauche et droite de l'instrumentiste). Faire précéder un symbole par un
+@code{o} permet de l'inscrire dans un cercle.
+
+@seealso
+Manuel de notation :
+@ref{Text scripts}
+@ref{Instrument Specific Markup}
+
