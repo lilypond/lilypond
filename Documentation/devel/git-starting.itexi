@@ -520,7 +520,7 @@ Finally the changes you have made may be committed to
 your local branch by entering a brief message in
 the Commit Message box and clicking the Commit button.
 
-@sebsection Sending changes to origin/master
+@subsection Sending changes to origin/master
 
 If you do not have write access to master you will
 need to send your changes by email to someone who does.
