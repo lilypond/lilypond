@@ -318,7 +318,7 @@ Skyline::internal_build_skyline (list<Box> *boxes, Real horizon_padding, Axis ho
     {
       list<Building> result;
       single_skyline (Building (boxes->front (), horizon_padding, horizon_axis, sky),
-		      boxes->front ()[horizon_axis][LEFT], horizon_axis, &result);
+		      boxes->front ()[horizon_axis][LEFT], horizon_padding, &result);
       return result;
     }
 
