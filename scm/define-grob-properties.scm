@@ -321,6 +321,10 @@ fingerings at the string, rather than in the dot.  Default value 0.6 for
 @code{normal} orientation, 0.5 for @code{landscape} and 
 @code{opposing-landscape}.
 @item
+@code{string-thickness-factor} -- Factor for changing thickness of each
+string in the fret diagram.  Thickness of string @code{k} is given by
+@code{thickness}*(1+@code{string-thickness-factor})^(k-1).  Default 0.
+@item
 @code{top-fret-thickness} -- The thickness of the top fret line, as a multiple
 of the standard thickness.   Default value 3.
 @item

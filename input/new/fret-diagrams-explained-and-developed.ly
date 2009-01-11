@@ -123,6 +123,7 @@ and tweaking fret diagrams."
       \override #'(fret-diagram-details . (
                    (finger-code . below-string)
                    (dot-radius . 0.35)
+                   (string-thickness-factor . 0.3)
                    (dot-position . 0.5)
                    (fret-count . 3))) {
         \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
