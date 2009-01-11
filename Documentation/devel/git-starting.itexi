@@ -7,6 +7,7 @@
 * Updating the source code::    
 * Sharing your changes::        
 * Other interesting Git commands::  
+* Applying git patches::        
 * Git on Windows::              
 @end menu
 
@@ -25,6 +26,7 @@ command-line version of git 1.5 or higher.}
 * Website source code::         
 * Documentation translations source code::  
 * Other branches::              
+* Other locations for git::     
 * Git user configuration::      
 @end menu
 
@@ -71,11 +73,6 @@ git checkout -b web origin/web
 @end example
 
 
-@menu
-* Other branches::              
-* Git user configuration::      
-@end menu
-
 @node Other branches
 @subsection Other branches
 
@@ -101,6 +98,19 @@ branch.
 The branches are kept for archival reasons.
 
 @end itemize
+
+
+@node Other locations for git
+@subsection Other locations for git
+
+If you have difficulty connecting to most of the repositories
+listed in earlier sections, try:
+
+@example
+git://git.sv.gnu.org/lilypond.git
+http://git.sv.gnu.org/r/lilypond.git
+ssh://git.sv.gnu.org/srv/git/lilypond.git
+@end example
 
 
 @node Git user configuration
@@ -270,6 +280,22 @@ git log -p  # also shows diffs
 gitk        # shows history graphically
 @end example
 
+
+@node Applying git patches
+@section Applying git patches
+
+Well-formed git patches should be committed with
+
+@example
+git-am
+@end example
+
+Patches created without @code{git-format-patch} should be
+committed with
+
+@example
+git-apply
+@end example
 
 
 
