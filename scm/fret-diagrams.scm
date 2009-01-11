@@ -428,7 +428,7 @@ Line thickness is given by @var{th}, fret & string spacing by
                            1 1 1))
                        (make-circle-stencil
                          scale-dot-radius scale-dot-thick #t)))
-         (positioned-dot (translate-stencil dot-stencil dot-coordinates))
+         (positioned-dot (ly:stencil-translate dot-stencil dot-coordinates))
          (labeled-dot-stencil 
            (cond 
              ((or (eq? finger '())(eq? finger-code 'none))
@@ -438,7 +438,7 @@ Line thickness is given by @var{th}, fret & string spacing by
                      (centered-stencil
                        (sans-serif-stencil
                          layout props dot-label-font-mag finger))))
-              (translate-stencil
+              (ly:stencil-translate
                 (ly:stencil-add
                   dot-stencil
                   (if (eq? dot-color 'white)
@@ -465,7 +465,7 @@ Line thickness is given by @var{th}, fret & string spacing by
                          orientation)))
                 (ly:stencil-add
                   positioned-dot
-                  (translate-stencil label-stencil label-translation))))
+                  (ly:stencil-translate label-stencil label-translation))))
              (else ;unknown finger-code
                positioned-dot))))
     (if (null? restlist)
@@ -501,7 +501,7 @@ Line thickness is given by @var{th}, fret & string spacing by
          (glyph-stencil-coordinates 
            (stencil-coordinates 0 glyph-string-coordinate orientation))
          (positioned-glyph
-           (translate-stencil glyph-stencil glyph-stencil-coordinates)))
+           (ly:stencil-translate glyph-stencil glyph-stencil-coordinates)))
     (if (null? restlist)
         positioned-glyph
         (ly:stencil-add
@@ -574,7 +574,7 @@ Line thickness is given by @var{th}, fret & string spacing by
          (label-half-width 
            (stencil-fretboard-offset label-stencil 'string orientation))
          (label-outside-diagram (+ label-space label-half-width)))
-    (translate-stencil
+    (ly:stencil-translate
       label-stencil
       (stencil-coordinates 
         (1+ (* size label-vertical-offset))
@@ -728,7 +728,7 @@ Line thickness is given by @var{th}, fret & string spacing by
       (set! fret-diagram-stencil
         (ly:stencil-add
           fret-diagram-stencil
-          (translate-stencil
+          (ly:stencil-translate
             xo-stencil
             (stencil-coordinates
              (- diagram-fret-top
