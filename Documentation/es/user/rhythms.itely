@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 312827f1242ea7d2864659fa292bc9861ac19c6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2207,6 +2207,10 @@ c1 c c c
 
 @funindex barNumberVisibility
 
+@c Uncomment this after next LSR update.
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c {printing-the-bar-number-for-the-first-measure.ly}
+
 Los números de compás se pueden tipografiar a intervalos regulares en
 vez de al principio de cada línea.  Para hacerlo se debe sobreescribir
 el comportamiento predeterminado de forma que se puedan imprimir en
@@ -2335,6 +2339,8 @@ Los números de compás pueden colisionar con el corchete
 solucionarlo, se puede usar la propiedad de relleno @code{padding} de
 @rinternals{BarNumber} para colocar el número correctamente.
 
+@c esto va a input/lsr/printing-the-bar-number-for-the-first-measure.ly
+@ignore
 Los números de compás solamente se pueden imprimir en las líneas
 divisorias; para imprimir un número de compás al principio de la
 pieza, se debe insertar allí una barra de compás vacía, y se debe
@@ -2347,7 +2353,7 @@ c1 c c c
 c1 c c c
 \break
 @end lilypond
-
+@end ignore
 
 @node Bar and bar number checks
 @unnumberedsubsubsec Bar and bar number checks
