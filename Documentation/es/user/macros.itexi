@@ -336,61 +336,73 @@
 
 @iftex
 
+@c All commands below should work in the middle of the line;
+@c we thus must not use @vindex directly since it works only if placed
+@c on a line of its own.  To overcome this problem, we define a
+@c replacement macro using the internal definition of @vindex which
+@c delimits arguments in the standard way (i.e., with braces).
+
+@tex
+\gdef\lilyvindex#1{\doind{vr}{\code #1}\ignorespaces}
+@end tex
+
 @macro rglos{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,music-glossary,Glosario Musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glosario Musical}
 @end macro
 
 @macro rlearning{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-learning.es,Manual de Aprendizaje}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-learning.es,Manual de Aprendizaje}
 @end macro
 
 @macro ruser{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond.es,Referencia de la Notación}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond.es,Referencia de la Notación}
 @end macro
 
 @macro rprogram{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-program.es,Utilización del Programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-program.es,Utilización del Programa}
 @end macro
 
 @macro rlsr{TEXT}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-snippets,Fragmentos de código}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Fragmentos de código}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
 

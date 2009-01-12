@@ -28,8 +28,10 @@ class Ambitus_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
+protected:
+  DECLARE_ACKNOWLEDGER (note_head);
+
   void process_music ();
-  void acknowledge_note_head (Grob_info);
   void stop_translation_timestep ();
   virtual void finalize ();
   virtual void derived_mark () const;
@@ -119,9 +121,16 @@ void
 Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
   Stream_event *nr = info.event_cause ();
+  SCM p = nr->get_property ("pitch");
+  /*
+    If the engraver is added to a percussion context,
+    filter out unpitched note heads.
+  */
+  if (!unsmob_pitch (p))
+    return;
   if (nr && nr->in_event_class ("note-event"))
     {
-      Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
+      Pitch pitch = *unsmob_pitch (p);
       Drul_array<bool> expands = pitch_interval_.add_point (pitch);
       if (expands[UP])
 	causes_[UP] = nr;

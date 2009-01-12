@@ -7,6 +7,7 @@
 * Updating the source code::    
 * Sharing your changes::        
 * Other interesting Git commands::  
+* Applying git patches::        
 * Git on Windows::              
 @end menu
 
@@ -25,6 +26,7 @@ command-line version of git 1.5 or higher.}
 * Website source code::         
 * Documentation translations source code::  
 * Other branches::              
+* Other locations for git::     
 * Git user configuration::      
 @end menu
 
@@ -71,11 +73,6 @@ git checkout -b web origin/web
 @end example
 
 
-@menu
-* Other branches::              
-* Git user configuration::      
-@end menu
-
 @node Other branches
 @subsection Other branches
 
@@ -101,6 +98,19 @@ branch.
 The branches are kept for archival reasons.
 
 @end itemize
+
+
+@node Other locations for git
+@subsection Other locations for git
+
+If you have difficulty connecting to most of the repositories
+listed in earlier sections, try:
+
+@example
+git://git.sv.gnu.org/lilypond.git
+http://git.sv.gnu.org/r/lilypond.git
+ssh://git.sv.gnu.org/srv/git/lilypond.git
+@end example
 
 
 @node Git user configuration
@@ -271,10 +281,310 @@ gitk        # shows history graphically
 @end example
 
 
+@node Applying git patches
+@section Applying git patches
+
+Well-formed git patches should be committed with
+
+@example
+git-am
+@end example
+
+Patches created without @code{git-format-patch} should be
+committed with
+
+@example
+git-apply
+@end example
+
 
 
 @node Git on Windows
 @section Git on Windows
 
+@c Some of this may duplicate stuff in other sections
+@c Clear this up later  -td
+
+@subsection Background to nomenclature
+
+Git is a system for tracking the changes made to source files by
+a distributed set of editors.  It is designed to work without a
+master repository, but we have chosen to have a master respository
+for LilyPond files.  Editors hold local copies of the master
+repository together with any changes they have made locally.  Local
+changes are held in a local @q{branch}, of which there may be
+several.  The files in the local repository always correspond to
+those on the currently @q{checked out} local branch.
+
+Files are edited on a local branch, and in that state the
+changes are said to be @q{unstaged}.  When editing is complete, the
+changes are moved to being @q{staged for commit}, and finally the
+changes are @q{committed} to the local branch.  Once
+committed, the changes are given a unique reference number called the
+@q{Committish} which identifies them to Git.  Such committed changes
+can be sent to the master repository by @q{pushing} them (if you
+have write permission) or by sending them by email to someone who
+has, either complete or as a @q{diff} or @q{patch} (which send
+just the differences from master).
+
+@subsection Installing git
+
+Obtain Git from
+@uref{http://code.google.com/p/msysgit/downloads/list}.
+(Note, not msysGit, which is for Git developers) and
+install.  Start Git by clicking on the desktop icon.
+This will bring up a command line bash shell.  This will be
+unfamiliar to most Windows users, so follow these
+instructions carefully.  Commands are entered at a $ prompt
+and are terminated by keying a newline.
+
+@subsection Initialising Git
+
+Decide where you wish to place your local Git repository,
+creating the folders in Windows as necessary.  Here we
+call the folder to contain the repository [path]/Git.
+You will need to have space for around 150Mbytes.
+
+In the git bash shell type
+
+@example
+cd [path]/Git
+@end example
+
+to position the shell at your new Git repository.
+
+Note: if [path] contains folders with names containing
+spaces use
+
+@example
+cd "[path]/Git"
+@end example
+
+Then type
+
+@example
+git init
+@end example
+
+to initialize your Git repository.
+
+Then type (all on one line; the shell will wrap automatically)
+
+@example
+git remote add -f -t master origin git://git.sv.gnu.org/lilypond.git
+@end example
+
+to download the lilypond master files.
+
+@warning{Be patient!  Even on a broadband connection this can take
+10 minutes or more.  Wait for lots of [new tag] messages
+and the $ prompt.}
+
+We now need to generate a local copy of the downloaded files
+in a new local branch.  Your local branch needs to have a
+name, here we call it @q{lily-local} - make up your own.
+Then, finally, type
+
+@example
+git checkout -b lily-local origin/master
+@end example
+
+to create the lily-local branch containing the local copies of the
+master files.  You will be advised your local branch has been set
+up to track the remote branch.
+
+Return to Windows and look in your Git repository.  You
+should see lots of folders.  The LilyPond documentation
+can be found in Git/Documentation/user.
+
+Terminate the Git bash shell with the exit command.
+
+@subsection Git GUI
+
+Almost all subsequent work will use the Git Graphical User
+Interface, which avoids having to type command line
+commands. To start Git GUI first start the Git bash shell by
+clicking on the desktop icon, and type
+
+@example
+cd [path]/Git
+git gui
+@end example
+
+The Git GUI will open in a new window.  It contains four panels
+and 7 pull-down menus.  At this stage do not use any of the
+commands under Branch, Commit, Merge or Remote.  These will
+be explained later.
+
+The two panels on the left contain the names of files which
+you are in the process of editing (Unstaged Changes),and
+files you have finished editing and have staged ready for
+committing (Staged Changes).  At this stage these panels will
+be empty as your local branch is the same as the master branch.
+After a file has been edited and saved the top panel on the right
+will display the differences between the edited file selected
+from one of the left panels and the one on master.  The
+final panel at bottom right is used to enter a descriptive
+message about the change before committing a file.
+
+The Git GUI is terminated by entering CNTL-Q while it is the
+active window or by clicking on the usual Windows close-window
+widget.
+
+@subsection Personalising your local git repository
+
+Open the Git GUI, click on
+
+@example
+Edit -> Options
+@end example
+
+and enter your name and email address in the
+left-hand (Git Repository) panel.  Leave everything
+else unchanged and save it.
+
+@subsection Checking out a branch
+
+At this stage you have two branches in your local repository,
+both identical.  To see them click on
+
+@example
+Branch -> Checkout
+@end example
+
+You should have one local branch called lily-local and one
+tracking branch called origin/master.
+
+When a particular branch is selected, i.e., checked out, the
+files visible in your repository are changed to reflect the
+changes made on that branch.
+
+@subsection Updating files from master
+
+Before starting the editing of a file ensure you have the
+latest copy from master by first clicking
+
+@example
+Remote -> Fetch from -> origin
+@end example
+
+in the Git GUI.
+
+This will place details of all the changes made by others
+into the @q{origin/master} branch of the tracking branches
+in your git repository.  You can see these files by checking
+out this branch.  This will not affect any files
+you have modified in any of your local branches.
+
+To merge the changed files into your local branch click on
+
+@example
+Merge -> Local Merge
+@end example
+
+and if necessary select the local branch into which the merge
+is to be made.
+
+This will update all the files in that branch to reflect the
+currect state of the origin/master branch.  If any of the changes
+conflict with changes you have made yourself recently
+you will be notified of the conflict (see below).
+
+@subsection Editing files
+
+Simply edit the files in your local Git repository with
+your favourite editor and save them back there.  If any file contains
+non-ASCII characters ensure you save it in UTF8 format.  Git will
+detect any changes whenever you restart Git GUI
+and the file names will then be listed in the Unstaged Changes panel.
+Or you can click the Rescan button to refresh the panel
+contents at any time.  You may break off and resume at
+editing any time.
+
+The changes you have made may be displayed in diff form
+in the top right-hand panel by clicking on the name in
+Git GUI.
+
+When your editing is complete, move the files from being
+Unstaged to Staged by clicking the document symbol to
+the left of each name.  If you change your mind it can
+be moved back by clicking on the ticked box to the
+left of the name.
+
+If you wish to cancel your changes the original version
+may be recovered at any time before a commit is made
+by selecting Commit -> Revert changes.  This will even
+recover a deleted file.
+
+Finally the changes you have made may be committed to
+your local branch by entering a brief message in
+the Commit Message box and clicking the Commit button.
+
+@subsection Sending changes to origin/master
+
+If you do not have write access to master you will
+need to send your changes by email to someone who does.
+
+First you need to create a diff or patch file containing
+your changes.  To create this, the file must first be
+committed.  Then terminate the Git GUI.  In the
+git bash shell first cd to your Git repository with
+
+@example
+cd [path]/Git
+@end example
+
+if necessary, then produce the patch with
+
+@example
+git-format-patch -n
+@end example
+
+where n an integer, normally 1.  This will create a
+patch file for all the locally committed files which
+differ from master.  The patch file can be found in
+[path]/Git and will have a name formed from n and the
+commit message.
+
+@subsection Resolving merge conflicts
+
+As soon as you have committed a changed file your
+local branch has diverged from master, and will
+remain diverged until your changes have been committed
+in master.  Similarly, if a new commit has been made
+to master by someone else, your branch is divergent.
+You can detect a divergent branch my clicking on
+
+@example
+Repository -> Visualise all branch history
+@end example
+
+This opens up a very useful new window called @q{gitk}.
+
+If the diagram at top left of the resulting window
+does not show your branch on a single node at the
+top your branch has diverged from master.  This is
+quite normal if files you have modified yourself
+have not yet been committed to master, or if files
+have been modified and committed by others since
+your last merge.
+
+If a file being merged from master differs from
+one you have modified in a way that cannot be resolved
+automatically by git, Merge will report a Conflict
+which you must resolve by editing the file to create the
+version you wish to keep.
+
+This could happen if the person updating master
+for you has added some changes of his own before
+committing your changes to master, or if someone
+else has updated the same parent file as you at
+the same time.
+
+Open the file in your editor and look for sections which
+are delimited with
+
+[to be completed when I next have a merge conflict to be
+sure I give the right instructions  -td]
 
 

@@ -329,55 +329,73 @@
 
 @iftex
 
+@c All commands below should work in the middle of the line;
+@c we thus must not use @vindex directly since it works only if placed
+@c on a line of its own.  To overcome this problem, we define a
+@c replacement macro using the internal definition of @vindex which
+@c delimits arguments in the standard way (i.e., with braces).
+
+@tex
+\gdef\lilyvindex#1{\doind{vr}{\code #1}\ignorespaces}
+@end tex
+
 @macro rglos{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-learning,Learning Manual}
 @end macro
 
 @macro ruser{TEXT}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
 @end macro
 
 @macro rprogram{TEXT}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \TEXT\
+@lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
 @end macro
 

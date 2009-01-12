@@ -28,7 +28,7 @@ size, and number type.
                                      (place-fret 3 5 3)
                                      (place-fret 2 5 4)
                                      (place-fret 1 3 1)
-                                     (barre 5 1 1))}
+                                     (barre 5 1 3))}
 
      %% C major for guitar, verbose style
     \override TextScript #'fret-diagram-details 
@@ -42,7 +42,7 @@ size, and number type.
                                      (place-fret 3 5 3)
                                      (place-fret 2 5 4)
                                      (place-fret 1 3 1)
-                                     (barre 5 1 1))}
+                                     (barre 5 1 3))}
 
      %% C major for guitar, verbose style
     \revert TextScript #'fret-diagram-details #'label-dir
@@ -59,7 +59,7 @@ size, and number type.
                                      (place-fret 3 5 3)
                                      (place-fret 2 5 4)
                                      (place-fret 1 3 1)
-                                     (barre 5 1 1))}
+                                     (barre 5 1 3))}
 
  }
 >>
