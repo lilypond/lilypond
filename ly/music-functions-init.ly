@@ -126,6 +126,7 @@ bar =
 
 barNumberCheck =
 #(define-music-function (parser location n) (integer?)
+  (_i "Print a warning if the current bar number is not @var{n}.")
    (make-music 'ApplyContext 
 	       'origin location
 	       'procedure 
@@ -139,30 +140,30 @@ barNumberCheck =
 
 bendAfter =
 #(define-music-function (parser location delta) (real?)
-	      
+  (_i "Create a fall or doit of pitch interval @var{delta}.")
   (make-music 'BendAfterEvent
    'delta-step delta))
 
 %% why a function?
 breathe =
 #(define-music-function (parser location) ()
+  (_i "Insert a breath mark.")
             (make-music 'EventChord 
               'origin location
               'elements (list (make-music 'BreathingEvent))))
 
 
 clef =
-#(define-music-function (parser location type)
-   (string?)
-   (_i "Set the current clef.")
-
+#(define-music-function (parser location type) (string?)
+  (_i "Set the current clef to @var{type}.")
    (make-clef-set type))
 
 
 cueDuring = 
 #(define-music-function
-  (parser location what dir main-music)
-  (string? ly:dir? ly:music?)
+  (parser location what dir main-music) (string? ly:dir? ly:music?)
+  (_i "Insert contents of quote @var{what} corresponding to @var{main-music},
+in a CueVoice oriented by @var{dir}.")
   (make-music 'QuoteMusic
 	      'element main-music 
 	      'quoted-context-type 'Voice
@@ -173,12 +174,15 @@ cueDuring =
 
 displayLilyMusic =
 #(define-music-function (parser location music) (ly:music?)
+  (_i "Display  the LilyPond input representation of @var{music}
+to the console.")
    (newline)
    (display-lily-music music parser)
    music)
 
 displayMusic =
 #(define-music-function (parser location music) (ly:music?)
+  (_i "Display the internal representation of @var{music} to the console.")
    (newline)
    (display-scheme-music music)
    music)
@@ -186,6 +190,7 @@ displayMusic =
 
 endSpanners =
 #(define-music-function (parser location music) (ly:music?)
+  (_i "Terminate the next spanner prematurely after exactly one note without the need of a specific end spanner.")
    (if (eq? (ly:music-property music 'name) 'EventChord)
        (let*
 	   ((elts (ly:music-property music 'elements))
@@ -211,9 +216,7 @@ endSpanners =
 
 featherDurations=
 #(define-music-function (parser location factor argument) (ly:moment? ly:music?)
-   (_i "Rearrange durations in ARGUMENT so there is an
-acceleration/deceleration. ")
-   
+ (_i "Adjust durations of music in @var{argument} by rational @var{factor}. ")
    (let*
        ((orig-duration (ly:music-length argument))
 	(multiplier (ly:make-moment 1 1)))
@@ -236,8 +239,8 @@ acceleration/deceleration. ")
      argument))
 
 grace =
-#(def-grace-function startGraceMusic stopGraceMusic)
-
+#(def-grace-function startGraceMusic stopGraceMusic
+   (_i "Insert @var{music} as grace notes."))
 
 "instrument-definitions" = #'()
 
@@ -253,6 +256,8 @@ addInstrumentDefinition =
 instrumentSwitch =
 #(define-music-function
    (parser location name) (string?)
+   (_i "Switch instrument to @var{name}, which must be predefined with 
+@var{\addInstrumentDefinition}.")
    (let*
        ((handle  (assoc name instrument-definitions))
 	(instrument-def (if handle (cdr handle) '()))
@@ -276,8 +281,8 @@ instrumentSwitch =
 
 includePageLayoutFile = 
 #(define-music-function (parser location) ()
-   (_i "If page breaks and tweak dump is not asked, and the file
-<basename>-page-layout.ly exists, include it.")
+   (_i "Include the file @var{<basename>-page-layout.ly}. Deprecated as
+part of two-pass spacing.")
    (if (not (ly:get-option 'dump-tweaks))
        (let ((tweak-filename (format #f "~a-page-layout.ly"
 				     (ly:parser-output-name parser))))
@@ -290,11 +295,10 @@ includePageLayoutFile =
                                                tweak-filename))))))
    (make-music 'SequentialMusic 'void #t))
 
-
-
 keepWithTag =
 #(define-music-function
   (parser location tag music) (symbol? ly:music?)
+  (_i "Include only elements of @var{music} that are tagged with @var{tag}.")
   (music-filter
    (lambda (m)
     (let* ((tags (ly:music-property m 'tags))
@@ -307,6 +311,7 @@ keepWithTag =
 removeWithTag = 
 #(define-music-function
   (parser location tag music) (symbol? ly:music?)
+  (_i "Remove elements of @var{music} that are tagged with @var{tag}.")
   (music-filter
    (lambda (m)
     (let* ((tags (ly:music-property m 'tags))
@@ -318,6 +323,7 @@ killCues =
 #(define-music-function
    (parser location music)
    (ly:music?)
+   (_i "Remove cue notes from @var{music}.")
    (music-map
     (lambda (mus)
       (if (string? (ly:music-property mus 'quoted-music-name))
@@ -326,7 +332,7 @@ killCues =
 
 label = 
 #(define-music-function (parser location label) (symbol?)
-   (_i "Place a bookmarking label, either at top-level or inside music.")
+   (_i "Create @var{label} as a bookmarking label")
    (make-music 'EventChord
 	       'page-marker #t
 	       'page-label label
@@ -336,6 +342,7 @@ label =
 makeClusters =
 #(define-music-function
 		(parser location arg) (ly:music?)
+   (_i "Display chords in @var{arg} as clusters")
 		(music-map note-to-cluster arg))
 
 musicMap =

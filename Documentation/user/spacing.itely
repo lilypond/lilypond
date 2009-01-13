@@ -740,7 +740,7 @@ layout.
   @}
   \context @{ \Voice
     \override TextScript #'padding = #1.0
-    \override Glissando #'thickness = #3
+    \override Glissando #thickness = #3
   @}
 @}
 @end example
@@ -1780,7 +1780,7 @@ By default, outside-staff objects are placed only to avoid
 a horizontal collision with previously-positioned grobs.  This
 can lead to situations in which objects are placed very close to each
 other horizontally.  The vertical spacing between staffs can
-also be set so that outside staff objects are interleaved.  
+also be set so that outside staff objects are interleaved.
 Setting @code{outside-staff-horizontal-padding}
 causes an object to be offset vertically so that such a situation
 doesn't occur.
@@ -2485,18 +2485,37 @@ that may be altered for page formatting, set
 }
 @end lilypond
 
+
 @noindent
-All layout dimensions are displayed in staff spaces, regardless of
-the units specified in the @code{\paper} or @code{\layout} block.
-For example, @code{paper-height} has a value of 59.75 staff
-spaces, using the default staff size of 20 points, which is
-equivalent to 148 millimeters, the height of @code{a6} paper in
-landscape orientation.  The pairs (@var{a},@var{b}) are intervals,
-where @var{a} is the lower edge and @var{b} the upper edge of the
-interval.
+All layout dimensions are displayed in staff-spaces, regardless
+of the units specified in the @code{\paper} or @code{\layout} block.
+In the above example, @code{paper-height} has a value of 59.75
+@code{staff-spaces}, and the @code{staff-size} is 20 points (the
+default value). Note that:
+
+@multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
+
+@item 1 point
+@tab = (25.4/72.27) mm
+
+@item 1 staff-space
+@tab = (@code{staff-size})/4 pts
+@item
+@tab = (@code{staff-size})/4 * (25.4/72.27) mm
+
+@end multitable
+
+@noindent
+In this case, one @code{staff-space} is approximately equal to
+1.757mm. Thus the @code{paper-height} measurement of 59.75
+@code{staff-spaces} is equivalent to 105 millimeters, the height
+of @code{a6} paper in landscape orientation.  The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower
+edge and @var{b} the upper edge of the interval.
 
 
 @seealso
+@ref{Setting the staff size}
 Snippets:
 @rlsr{Spacing}.
 
