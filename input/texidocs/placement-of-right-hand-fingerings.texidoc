@@ -5,3 +5,14 @@ propiedad específica, como se muestra en el ejemplo siguiente.
 
 "
   doctitlees = "Posicionamiento de digitaciones de mano derecha"
+
+%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+  texidocfr = "
+Vous disposez d'une propriété spécifique qui permet de contrôler plus 
+finement le positionnement des doigtés main droite, comme l'indique 
+l'exemple suivant.
+
+"
+  doctitlefr = "Positionnement des doigtés main droite"
+
