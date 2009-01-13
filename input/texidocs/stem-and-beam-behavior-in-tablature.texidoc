@@ -5,3 +5,13 @@ poner horizontales, como se muestra en este ejemplo.
 
 "
   doctitlees = "Comportamiento de las plicas y las barras de corchea en tablaturas"
+
+%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+  texidocfr = "
+La direction des hampes se gère dans les tablatures tout comme en 
+notation traditionnelle.  Les ligatures peuvvent être mises à l'horizontale 
+comme le montre cet exemple.
+
+"
+  doctitlefr = "Hampes et ligatures en mode tablature"

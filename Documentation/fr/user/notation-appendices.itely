@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d582eed083d91248d0424a79bdc6fdcdb24dc0b8
+    Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -34,6 +34,8 @@ and just before
 
 @menu
 * Chord name chart::
+* Common chord modifiers::
+* Predefined fretboard diagrams::
 * MIDI instruments::
 * List of colors::
 * The Feta font::
@@ -41,6 +43,7 @@ and just before
 * Text markup commands::
 * Text markup list commands::
 * List of articulations::       
+* Percussion notes::
 * All context properties::      
 * Layout properties::           
 * Identifiers::                 
@@ -49,6 +52,11 @@ and just before
 
 @node Chord name chart
 @appendixsec Chord name chart
+
+@untranslated
+
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
 
 @untranslated
 
@@ -127,6 +135,11 @@ Voici la liste exhaustive des symboles :
 
 @lilypondfile[ragged-right,quote]{script-chart.ly}
 
+
+@node Percussion notes
+@appendixsec Percussion notes
+
+@lilypondfile[quote]{percussion-chart.ly}
 
 @node All context properties
 @appendixsec All context properties
