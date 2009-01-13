@@ -174,7 +174,8 @@ in a CueVoice oriented by @var{dir}.")
 
 displayLilyMusic =
 #(define-music-function (parser location music) (ly:music?)
-  (_i "Display  @var{music} to the console in LilyPond input notation.")
+  (_i "Display  the LilyPond input representation of @var{music}
+to the console.")
    (newline)
    (display-lily-music music parser)
    music)
@@ -214,9 +215,8 @@ endSpanners =
        (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a" music))))
 
 featherDurations=
- (_i "Adjust durations of @var{music} in @var{argument}. Argument is a fraction 
-   (numerator denominator) which controlls acceleration/deceleration. ")
 #(define-music-function (parser location factor argument) (ly:moment? ly:music?)
+ (_i "Adjust durations of music in @var{argument} by rational @var{factor}. ")
    (let*
        ((orig-duration (ly:music-length argument))
 	(multiplier (ly:make-moment 1 1)))
@@ -239,8 +239,8 @@ featherDurations=
      argument))
 
 grace =
-   (_i "Insert @var{music} as grace notes.")
-#(def-grace-function startGraceMusic stopGraceMusic)
+#(def-grace-function startGraceMusic stopGraceMusic
+   (_i "Insert @var{music} as grace notes."))
 
 "instrument-definitions" = #'()
 
@@ -254,9 +254,10 @@ addInstrumentDefinition =
 
 
 instrumentSwitch =
-   (_i "Switch instrument to @var{name}, which must be predefined with @var{\addInstrumentDefinition}.")
 #(define-music-function
    (parser location name) (string?)
+   (_i "Switch instrument to @var{name}, which must be predefined with 
+@var{\addInstrumentDefinition}.")
    (let*
        ((handle  (assoc name instrument-definitions))
 	(instrument-def (if handle (cdr handle) '()))
@@ -279,8 +280,9 @@ instrumentSwitch =
 #(define page-layout-parser #f)
 
 includePageLayoutFile = 
-   (_i "Include the file @var{<basename>-page-layout.ly}.")
 #(define-music-function (parser location) ()
+   (_i "Include the file @var{<basename>-page-layout.ly}. Deprecated as
+part of two-pass spacing.")
    (if (not (ly:get-option 'dump-tweaks))
        (let ((tweak-filename (format #f "~a-page-layout.ly"
 				     (ly:parser-output-name parser))))
@@ -294,9 +296,9 @@ includePageLayoutFile =
    (make-music 'SequentialMusic 'void #t))
 
 keepWithTag =
-  (_i "Include only elements of @var{music} that are tagged with @var{tag}.")
 #(define-music-function
   (parser location tag music) (symbol? ly:music?)
+  (_i "Include only elements of @var{music} that are tagged with @var{tag}.")
   (music-filter
    (lambda (m)
     (let* ((tags (ly:music-property m 'tags))
@@ -307,9 +309,9 @@ keepWithTag =
    music))
 
 removeWithTag = 
- (_i "Remove elements of @var{music} that are tagged with @var{tag}.")
 #(define-music-function
   (parser location tag music) (symbol? ly:music?)
+  (_i "Remove elements of @var{music} that are tagged with @var{tag}.")
   (music-filter
    (lambda (m)
     (let* ((tags (ly:music-property m 'tags))
@@ -318,10 +320,10 @@ removeWithTag =
  music))
 
 killCues =
-   (_i "Remove cue notes from @var{music}.")
 #(define-music-function
    (parser location music)
    (ly:music?)
+   (_i "Remove cue notes from @var{music}.")
    (music-map
     (lambda (mus)
       (if (string? (ly:music-property mus 'quoted-music-name))
@@ -329,8 +331,8 @@ killCues =
 	  mus)) music))
 
 label = 
-   (_i "Create @var{label} as a bookmarking label")
 #(define-music-function (parser location label) (symbol?)
+   (_i "Create @var{label} as a bookmarking label")
    (make-music 'EventChord
 	       'page-marker #t
 	       'page-label label
@@ -338,9 +340,9 @@ label =
 					   'page-label label)))) 
 
 makeClusters =
-   (_i "Display chords in @var{arg} as clusters")
 #(define-music-function
 		(parser location arg) (ly:music?)
+   (_i "Display chords in @var{arg} as clusters")
 		(music-map note-to-cluster arg))
 
 musicMap =
