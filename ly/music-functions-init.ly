@@ -126,6 +126,7 @@ bar =
 
 barNumberCheck =
 #(define-music-function (parser location n) (integer?)
+  (_i "Print a warning if the current bar number is not @var{n}.")
    (make-music 'ApplyContext 
 	       'origin location
 	       'procedure 
@@ -139,30 +140,30 @@ barNumberCheck =
 
 bendAfter =
 #(define-music-function (parser location delta) (real?)
-	      
+  (_i "Create a fall or doit of pitch interval @var{delta}.")
   (make-music 'BendAfterEvent
    'delta-step delta))
 
 %% why a function?
 breathe =
 #(define-music-function (parser location) ()
+  (_i "Insert a breath mark.")
             (make-music 'EventChord 
               'origin location
               'elements (list (make-music 'BreathingEvent))))
 
 
 clef =
-#(define-music-function (parser location type)
-   (string?)
-   (_i "Set the current clef.")
-
+#(define-music-function (parser location type) (string?)
+  (_i "Set the current clef to @var{type}.")
    (make-clef-set type))
 
 
 cueDuring = 
 #(define-music-function
-  (parser location what dir main-music)
-  (string? ly:dir? ly:music?)
+  (parser location what dir main-music) (string? ly:dir? ly:music?)
+  (_i "Insert contents of quote @var{what} corresponding to @var{main-music},
+in a CueVoice oriented by @var{dir}.")
   (make-music 'QuoteMusic
 	      'element main-music 
 	      'quoted-context-type 'Voice
@@ -173,12 +174,14 @@ cueDuring =
 
 displayLilyMusic =
 #(define-music-function (parser location music) (ly:music?)
+  (_i "Display  @var{music} to the console in LilyPond input notation.")
    (newline)
    (display-lily-music music parser)
    music)
 
 displayMusic =
 #(define-music-function (parser location music) (ly:music?)
+  (_i "Display the internal representation of @var{music} to the console.")
    (newline)
    (display-scheme-music music)
    music)
@@ -186,6 +189,7 @@ displayMusic =
 
 endSpanners =
 #(define-music-function (parser location music) (ly:music?)
+  (_i "Terminate the next spanner prematurely after exactly one note without the need of a specific end spanner.")
    (if (eq? (ly:music-property music 'name) 'EventChord)
        (let*
 	   ((elts (ly:music-property music 'elements))
