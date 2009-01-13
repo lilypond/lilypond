@@ -60,11 +60,15 @@ install-help2man:
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
 	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
+
+install-info-WWW:
 	$(MAKE) -C Documentation/user install-info
 	$(MAKE) -C input/lsr install-info
+	(cd $(DESTDIR)$(infodir) && rm -f lilypond && ln -sf $(shell $(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/Documentation/user) lilypond)
 
 web-install:
 	$(MAKE) out=www install-WWW
+	$(MAKE) out=www install-info-WWW
 
 uninstall-WWW:
 	rm -rf $(DESTDIR)$(webdir)
