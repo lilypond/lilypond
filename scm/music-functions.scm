@@ -720,8 +720,10 @@ SkipEvent. Useful for extracting parts from crowded scores"
 
 
 
-(defmacro-public def-grace-function (start stop)
+(defmacro-public def-grace-function (start stop . docstring)
+  "Helper macro for defining grace music"
   `(define-music-function (parser location music) (ly:music?)
+     ,@docstring
      (make-music 'GraceMusic
 		 'origin location
 		 'element (make-music 'SequentialMusic
