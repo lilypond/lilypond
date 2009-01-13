@@ -120,11 +120,11 @@ def bbox_is_empty (b):
 
 def bbox_union (b1, b2):
     return (interval_union (b1[X_AXIS], b2[X_AXIS]),
-            interval_union (b2[Y_AXIS], b2[Y_AXIS]))
+            interval_union (b1[Y_AXIS], b2[Y_AXIS]))
             
 def bbox_intersection (b1, b2):
     return (interval_intersect (b1[X_AXIS], b2[X_AXIS]),
-            interval_intersect (b2[Y_AXIS], b2[Y_AXIS]))
+            interval_intersect (b1[Y_AXIS], b2[Y_AXIS]))
 
 def bbox_area (b):
     return interval_length (b[X_AXIS]) * interval_length (b[Y_AXIS])
