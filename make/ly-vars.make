@@ -1,8 +1,5 @@
 # rules for directories with LilyPond files.
 
-# empty
-
-# huh ? these are for documentation?!
 TELY_FILES := $(call src-wildcard,*.tely)
 MASTER_TEXI_FILES := $(sort $(TELY_FILES:%.tely=$(outdir)/%.texi))\
  $(OUT_MASTER_TEXI_FILES)
@@ -18,3 +15,8 @@ TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 
 EXTRA_DIST_FILES +=$(TELY_FILES) $(LY_FILES) $(ITEXI_FILES) $(ITELY_FILES) $(ILY_FILES)
 
+# prerequisites for all rules invoking compiled lilypond binary
+ifeq ($(LILYPOND_EXTERNAL_BINARY),)
+INIT_LY_SOURCES = $(wildcard $(top-src-dir)/scm/*.scm)
+SCHEME_SOURCES = $(wildcard $(top-src-dir)/ly/*.ly)
+endif
