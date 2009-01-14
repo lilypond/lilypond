@@ -33,7 +33,8 @@ al-niente hairpins.
     Type42 code.
 @item @email{david.feuer@@gmail.com, David Feuer},
     PS output code refactoring.
-@item Bernard Hurley, X11 color.
+@item @email{bernard@@fong-hurley.org.uk, Bernard Hurley},
+    X11 color.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Piano pedals, directed arpeggios.
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
@@ -56,7 +57,8 @@ al-niente hairpins.
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
     Main author.
-@item @uref{http://www.juergen-reuter.de/, Jürgen Reuter},
+@item @email{reuter_j@@web.de, Jürgen Reuter},
+    @uref{http://www.juergen-reuter.de},
     Ancient notation  support (mensural notation,
     Gregorian chant notation), ambitus, clusters.
 @item @email{nicolas.sceaux@@free.fr, Nicolas Sceaux},
@@ -72,9 +74,9 @@ Font
 
 @itemize @bullet
 
-@item @uref{http://www.juergen-reuter.de/, Jürgen Reuter},
+@item @email{reuter_j@@web.de, Jürgen Reuter},
+    @uref{http://www.juergen-reuter.de},
     Ancient notation font
-@item Werner Lemberg,
     Exact Type1 font outlines for feta, feta-alphabet.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Arpeggio arrow
@@ -88,7 +90,7 @@ Font
     Main author.
 @item @email{tca@@gnu.org, Tom Cato Amundsen},
     Accordion symbols.
-@item @email{arno@@arnowaschk.de, Arno Waschk },
+@item @email{arno@@arnowaschk.de, Arno Waschk},
     "espressivo" mark.
 @end itemize
 
