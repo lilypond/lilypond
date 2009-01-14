@@ -72,5 +72,6 @@ out-test
 pats
 tags
 test-output-distance
+ChangeLog
 Documentation/user/lilypond
 input/lsr/lilypond-snippets

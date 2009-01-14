@@ -17,7 +17,7 @@ SUBDIRS = python scripts \
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
 SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
-README_FILES = COPYING DEDICATION ROADMAP THANKS HACKING
+README_FILES = COPYING ChangeLog DEDICATION ROADMAP THANKS HACKING
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
@@ -43,7 +43,20 @@ $(outdir)/VERSION: $(config_make) VERSION
 	-mkdir -p $(outdir)
 	echo $(TOPLEVEL_VERSION) > $@
 
-dist-toplevel-txt-files:
+ChangeLog: $(outdir)/VERSION
+	@echo 'See http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=log;h=refs/tags/release/$(TOPLEVEL_VERSION)-1' > ChangeLog
+
+python-modules:
+	$(MAKE) -C python
+
+do-top-doc: python-modules
+
+local-clean: local-clean-ChangeLog
+
+local-clean-ChangeLog:
+	rm -f ChangeLog
+
+dist-toplevel-txt-files: do-top-doc
 	-mkdir -p $(distdir)
 	ln $(TOPDOC_TXT_FILES) $(distdir)/
 	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)/
