@@ -53,6 +53,7 @@ occasionally as LilyPond improves.  Most changes can be
 done automatically with @code{convert-ly}, but some changes
 might require manual assistance.  LilyPond input files can be
 structured in order to be easier (or harder) to update.
+
 @end itemize
 
 @menu
@@ -139,6 +140,24 @@ music.  When you are finished proofreading your score, you may
 define @code{mBreak = @{ @}} to remove all those line breaks.  This
 will allow LilyPond to place line breaks wherever it feels are
 best.
+
+@item When entering a part for a transposing instrument into a
+variable, it is recommended that the notes are wrapped in
+
+@example
+\transpose c natural-pitch @{...@}
+@end example
+(where @code{natural-pitch} is the open pitch of the instrument) so
+that the music in the variable is effectively in C. You can transpose
+it back again when the variable is used, if required, but you might
+not want to (e.g., when printing a score in concert pitch,
+converting a trombone part from treble to bass clef, etc.)
+Mistakes in transpositions are less likely if all the music in
+variables is at a consistent pitch.
+
+Also, only ever transpose to/from C. That means that the only other
+keys you will use are the natural pitches of the instruments - bes
+for a B-flat trumpet, aes for an A-flat clarinet, etc.
 
 @end itemize
 
