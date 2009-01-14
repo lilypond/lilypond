@@ -740,7 +740,7 @@ layout.
   @}
   \context @{ \Voice
     \override TextScript #'padding = #1.0
-    \override Glissando #thickness = #3
+    \override Glissando #'thickness = #3
   @}
 @}
 @end example
