@@ -128,6 +128,7 @@ public:
   void fixup_refpoint ();
 
   virtual Interval_t<int> spanned_rank_interval () const;
+  Stream_event *event_cause ();
 };
 
 /* smob utilities */

@@ -14,6 +14,7 @@ using namespace std;
 #include "directional-element-interface.hh"
 #include "duration.hh"
 #include "international.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -228,7 +229,10 @@ Rest_collision::calc_positioning_done (SCM smob)
       Interval notedim;
       for (vsize i = 0; i < notes.size (); i++)
 	{
-	  if (Note_column::dir (notes[i]) == -dir)
+	  if (Note_column::dir (notes[i]) == -dir
+	      // If the note has already happened (but it has a long duration, so there is a collision),
+	      // don't look at the stem. If we do, the rest gets shifted down a lot and it looks bad.
+	      || dynamic_cast<Item*> (notes[i])->get_column () != dynamic_cast<Item*> (rest)->get_column ())
 	    {
 	      /* try not to look at the stem, as looking at a beamed
 		 note may trigger beam positioning prematurely.
