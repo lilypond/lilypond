@@ -215,12 +215,12 @@ AC_DEFUN(STEPMAKE_COMPILE, [
 	save_cflags="$CFLAGS"
 	CFLAGS=" -pipe $CFLAGS";
 	AC_CACHE_CHECK([whether compiler understands -pipe],
-	    [stepmake_cflags_pipe],
+	    [stepmake_cv_cflags_pipe],
 	    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[/* -pipe test */]])],
-		[stepmake_cflags_pipe=yes],
-		[stepmake_cflags_pipe=no]))
+		[stepmake_cv_cflags_pipe=yes],
+		[stepmake_cv_cflags_pipe=no]))
 	CFLAGS=$save_cflags
-	if test $stepmake_cflags_pipe = yes; then
+	if test $stepmake_cv_cflags_pipe = yes; then
 	    OPTIMIZE="$OPTIMIZE -pipe"
 	fi
     fi
@@ -265,12 +265,12 @@ AC_DEFUN(STEPMAKE_CXX, [
 
 AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
     AC_CACHE_CHECK([whether explicit instantiation is needed],
-	lily_cv_need_explicit_instantiation,
+	stepmake_cv_need_explicit_instantiation,
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
     template <class T> struct foo { static int baz; };
     template <class T> int foo<T>::baz = 1;
-    ]], [[ return foo<int>::baz; ]])],[lily_cv_need_explicit_instantiation=no],[lily_cv_need_explicit_instantiation=yes]))
-    if test x"$lily_cv_need_explicit_instantiation"x = x"yes"x; then
+    ]], [[ return foo<int>::baz; ]])],[stepmake_cv_need_explicit_instantiation=no],[stepmake_cv_need_explicit_instantiation=yes]))
+    if test x"$stepmake_cv_need_explicit_instantiation"x = x"yes"x; then
 	AC_DEFINE(NEED_EXPLICIT_INSTANTIATION)
     fi
 ])
@@ -421,7 +421,7 @@ AC_DEFUN(STEPMAKE_FLEXLEXER, [
     # in 2.5.4 <= flex < 2.5.29
     AC_LANG_PUSH(C++)
     AC_CACHE_CHECK([for yyFlexLexer.yy_current_buffer],
-	[stepmake_flexlexer_yy_current_buffer],
+	[stepmake_cv_flexlexer_yy_current_buffer],
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 using namespace std;
 #include <FlexLexer.h>
@@ -434,9 +434,9 @@ class yy_flex_lexer: public yyFlexLexer
     }
 };
 ]])],
-	    [stepmake_flexlexer_yy_current_buffer=yes],
-	    [stepmake_flexlexer_yy_current_buffer=no]))
-    if test $stepmake_flexlexer_yy_current_buffer = yes; then
+	    [stepmake_cv_flexlexer_yy_current_buffer=yes],
+	    [stepmake_cv_flexlexer_yy_current_buffer=no]))
+    if test $stepmake_cv_flexlexer_yy_current_buffer = yes; then
 	AC_DEFINE(HAVE_FLEXLEXER_YY_CURRENT_BUFFER, 1, [Define to 1 if yyFlexLexer has yy_current_buffer.])
     fi
     AC_LANG_POP(C++)
@@ -985,16 +985,16 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 AC_DEFUN(STEPMAKE_STL_DATA_METHOD, [
     AC_LANG_PUSH(C++)
     AC_CACHE_CHECK([for stl.data () method],
-	[stepmake_stl_data_method],
+	[stepmake_cv_stl_data_method],
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <vector>
 using namespace std;
 vector <int> v;
 void *p = v.data ();
 ]])],
-	    [stepmake_stl_data_method=yes],
-	    [stepmake_stl_data_method=no]))
-    if test $stepmake_stl_data_method = yes; then
+	    [stepmake_cv_stl_data_method=yes],
+	    [stepmake_cv_stl_data_method=no]))
+    if test $stepmake_cv_stl_data_method = yes; then
 	AC_DEFINE(HAVE_STL_DATA_METHOD, 1, [define if stl classes have data () method])
     fi
     AC_LANG_POP(C++)
