@@ -702,17 +702,6 @@ Grob::stencil_width (SCM smob)
   return grob_stencil_extent (me, X_AXIS);
 }
 
-Stream_event*
-Grob::event_cause ()
-{
-  SCM cause = get_property ("cause");
-  if (to_boolean (Stream_event::smob_p (cause)))
-    return unsmob_stream_event (cause);
-  else if (to_boolean (Grob::smob_p (cause)))
-    return unsmob_grob (cause)->event_cause ();
-
-  return 0;
-}
 
 Grob *
 common_refpoint_of_list (SCM elist, Grob *common, Axis a)
