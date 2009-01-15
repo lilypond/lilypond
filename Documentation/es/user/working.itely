@@ -82,8 +82,8 @@ el número de versión de LilyPond que estaba usando hace unos años.
 @code{convert-ly} requiere que declare qué versión de LilyPond
 utilizó.
 
-@item @strong{Incluya comprobaciones}: @rglos{baritone},
-@ruser{Absolute octave entry}.  Si incluye comprobaciones de vez en cuando, en
+@item @strong{Incluya comprobaciones}: @ruser{Bar and bar number checks},
+@ruser{Octave checks}.  Si incluye comprobaciones de vez en cuando, en
 caso de que cometa un error podrá localizarlo mucho más rápidamente.
 ¿Con qué frecuencia es @q{de vez en cuando}?  Depende de la
 complejidad de la música.  Para una música muy sencilla, quizá tan

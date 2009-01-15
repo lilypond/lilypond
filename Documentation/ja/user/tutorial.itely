@@ -1,0 +1,259 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Tutorial
+@chapter Tutorial
+
+@untranslated
+
+
+@menu
+* First steps::
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
+@end menu
+
+@node First steps
+@section First steps
+
+@untranslated
+
+
+@menu
+* Compiling a file::
+* Simple notation::
+* Working on input files::
+* How to read the manual::
+@end menu
+
+@node Compiling a file
+@subsection Compiling a file
+
+@untranslated
+
+
+@subheading Entering music and viewing output
+@subsubheading MacOS X
+@subsubheading Windows
+@subsubheading UNIX
+@node Simple notation
+@subsection Simple notation
+
+@untranslated
+
+
+@subheading Pitches
+@subheading Durations (rhythms)
+@subheading Rests
+@subheading Time signature
+@subheading Clef
+@subheading All together
+@node Working on input files
+@subsection Working on input files
+
+@untranslated
+
+
+@node How to read the manual
+@subsection How to read the manual
+
+@untranslated
+
+
+@subheading Clickable examples
+@node Single staff notation
+@section Single staff notation
+
+@untranslated
+
+
+@menu
+* Accidentals and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
+@end menu
+
+@node Accidentals and key signatures
+@subsection Accidentals and key signatures
+
+@untranslated
+
+
+@subheading Accidentals
+@subheading Key signatures
+@subheading Warning: key signatures and pitches
+@node Ties and slurs
+@subsection Ties and slurs
+
+@untranslated
+
+
+@subheading Ties
+@subheading Slurs
+@subheading Phrasing slurs
+@subheading Warnings: slurs vs. ties
+@node Articulation and dynamics
+@subsection Articulation and dynamics
+
+@untranslated
+
+
+@subheading Articulations
+@subheading Fingerings
+@subheading Dynamics
+@node Adding text
+@subsection Adding text
+
+@untranslated
+
+
+@node Automatic and manual beams
+@subsection Automatic and manual beams
+
+@untranslated
+
+
+@node Advanced rhythmic commands
+@subsection Advanced rhythmic commands
+
+@untranslated
+
+
+@subheading Partial measure
+@subheading Tuplets
+@subheading Grace notes
+@node Multiple notes at once
+@section Multiple notes at once
+
+@untranslated
+
+
+@menu
+* Music expressions explained::
+* Multiple staves::
+* Staff groups::
+* Combining notes into chords::
+* Single staff polyphony::
+@end menu
+
+@node Music expressions explained
+@subsection Music expressions explained
+
+@untranslated
+
+
+@subheading Analogy: mathematical expressions
+@subheading Simultaneous music expressions: multiple staves
+@subheading Simultaneous music expressions: single staff
+@node Multiple staves
+@subsection Multiple staves
+
+@untranslated
+
+
+@node Staff groups
+@subsection Staff groups
+
+@untranslated
+
+
+@node Combining notes into chords
+@subsection Combining notes into chords
+
+@untranslated
+
+
+@node Single staff polyphony
+@subsection Single staff polyphony
+
+@untranslated
+
+
+@node Songs
+@section Songs
+
+@untranslated
+
+
+@menu
+* Setting simple songs::
+* Aligning lyrics to a melody::
+* Lyrics to multiple staves::
+@end menu
+
+@node Setting simple songs
+@subsection Setting simple songs
+
+@untranslated
+
+
+@node Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
+
+@untranslated
+
+
+@node Lyrics to multiple staves
+@subsection Lyrics to multiple staves
+
+@untranslated
+
+
+@node Final touches
+@section Final touches
+
+@untranslated
+
+
+@menu
+* Organizing pieces with variables::
+* Version number::
+* Adding titles::
+* Absolute note names::
+* After the tutorial::
+@end menu
+
+@node Organizing pieces with variables
+@subsection Organizing pieces with variables
+
+@untranslated
+
+
+@node Version number
+@subsection Version number
+
+@untranslated
+
+
+@node Adding titles
+@subsection Adding titles
+
+@untranslated
+
+
+@node Absolute note names
+@subsection Absolute note names
+
+@untranslated
+
+
+@node After the tutorial
+@subsection After the tutorial
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

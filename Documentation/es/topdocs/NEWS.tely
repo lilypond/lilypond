@@ -1,4 +1,10 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: c7d6848e128f461a4cec093f7a71a34b2dc314eb
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
 @setfilename NEWS.info
 @settitle NEWS
 
@@ -29,6 +35,7 @@ Véase el manual del usuario, \NAME\
 
 @documentencoding utf-8
 @documentlanguage es
+@c Translators: Francisco Vila
 
 @finalout
 

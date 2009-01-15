@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: adba53e69c35330dd3d5eedd12c72c3b53dfa379
+    Translation of GIT committish: db53c05f11bea8831733b1fdf7ebe32cb1f491f4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,7 @@
 @c \version "2.12.0"
 
 @c Translators: John Mandereau
+@c Translation checkers: Jean-Charles Malahieude
 
 @node Install
 @chapter Install
@@ -21,7 +22,7 @@ mineur de version impair, par exemple 1.3, 2.9, 2.11.
 
 La compilation de LilyPond est une tâche exigeante et parfois
 laborieuse, c'est pourquoi nous recommandons @strong{fortement}
-l'utilisations des binaires précompilés.
+l'utilisation des binaires précompilés.
 
 @menu 
 * Precompiled binaries::
@@ -34,7 +35,7 @@ l'utilisations des binaires précompilés.
 @unnumberedsubsec Downloading
 
 Consultez @uref{http://lilypond.org/web/install/} pour connaître les
-derniers paquets binaires dipsonibles pour votre plateforme.  Si votre
+derniers paquets binaires disponibles pour votre plateforme.  Si votre
 système d'exploitation n'est pas présent sur cette page, consultez la
 liste complète sur @uref{http://download.linuxaudio.org/lilypond/binaries/}.
 

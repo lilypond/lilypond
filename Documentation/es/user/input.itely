@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: c7d6848e128f461a4cec093f7a71a34b2dc314eb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1666,7 +1666,7 @@ Los siguientes elementos de notación se reflejan en la salida MIDI:
 
 @itemize
 @item Alturas
-@item Cuartos de tono (véase @ref{Accidentals}. La reproducción necesita un reproductor que contemple la curvatura de tono o @emph{pitch bend}.)
+@item Microtonos (véase @ref{Accidentals}. La reproducción necesita un reproductor que contemple la curvatura de tono o @emph{pitch bend}.)
 @item Acordes escritos como nombres de acorde
 @item Ritmos escritos como duraciones de las notas, incluidos los grupos de valoración especial
 @item Trémolos escritos sin @q{@code{:}[@var{número}]}
@@ -1692,6 +1692,7 @@ salida MIDI:
 @item Crescendi y decrescendi sobre una nota única
 @item Trémolos introducidos con @q{@code{:}[@var{número}]}
 @item Bajo cifrado
+@item Acordes microtonales
 @end itemize
 
 

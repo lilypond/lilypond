@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: a4836ce5ec9488d795344735f2febc880fbb6a2f
+    Translation of GIT committish: db53c05f11bea8831733b1fdf7ebe32cb1f491f4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -57,9 +57,9 @@ Un fichier d'entrée LilyPond ressemble à :
 
 @example
 \version @w{"@version{}"}
+\header @{ @}
 \score @{
   @var{...expression musicale composite...}  % c'est là qu'est la musique !
-  \header @{ @}
   \layout @{ @}
   \midi @{ @}
 @}
@@ -109,7 +109,8 @@ En d'autres termes, si le code n'est constitué que d'une expression
 musicale simple, LilyPond interprètera le fichier tout comme si cette
 expression était incluse dans les commandes de notre premier exemple.
 
-@cindex implicit contexts
+@cindex contextes implicites
+@cindex implicites, contextes
 
 @strong{Attention :}  de nombreux exemples, dans la documentation de
 LilyPond, ne font pas apparaître les commandes @code{\new Staff} ou
@@ -159,6 +160,7 @@ d'autres informations :
 @funindex \header
 @funindex \layout
 @funindex \midi
+@funindex midi
 @cindex header
 @cindex en-tête
 @cindex layout
@@ -184,7 +186,11 @@ imprimable et un fichier MIDI.  Nous nous y intéressons plus
 particulièrement dans le manuel de notation, aux chapitres 
 @ruser{Score layout} et @ruser{Creating MIDI files}.
 
-@cindex scores, multiples
+@cindex partitions multiples
+@cindex book,  bloc implicite
+@cindex implicite, bloc book
+@funindex \book
+@funindex book
 
 Vous pouvez tout à fait mentionner plusieurs blocs @code{\score}.  Ils
 seront traités comme autant de partitions indépendantes qui seront
@@ -251,7 +257,9 @@ Pour une description complète du format des fichiers d'entrée, voir
 @subsection Score is a (single) compound musical expression
 
 @funindex \score
+@funindex score
 @cindex partition
+@cindex bloc score, contenu
 @cindex Expression musicale composite
 
 Dans la section précédente, 
@@ -469,6 +477,7 @@ parlé.  Voir @ref{Size of objects} et @ruser{Ossia staves}.
 @subsection On the un-nestedness of brackets and ties
 
 @cindex crochets, imbrication
+@cindex crochets, types de
 
 Nous avons déjà rencontré plusieurs types de crochets au fil de nos
 fichiers LilyPond.  Ils obéissent à des règles différentes qui peuvent
@@ -565,11 +574,13 @@ est contenue dans des voix (@emph{Voices} en anglais) et qui se trouve
 @cindex contexte de voix
 @cindex musique simultanée
 @cindex musique concurrente
+@cindex voix ou accords
+@cindex accords ou voix
 
 Dans une partition gérée par LilyPond, le niveau le plus bas, ou bien
-élémentaire ou fondamental, est le @q{contexte de voix} -- @emph{Voice
+élémentaire ou fondamental, est le @qq{contexte de voix} -- @emph{Voice
 context} en anglais --.  Pour d'autres logiciels, on fait tantôt
-référence à la notion de @q{couche} ou de @q{calque}.
+référence à la notion de @qq{couche} ou de @qq{calque}.
 
 En réalité, le contexte de voix est le seul à pouvoir contenir de la
 musique.  S'il n'est pas déclaré explicitement, il sera créé
@@ -657,6 +668,10 @@ carrément séparer chaque voix :
 } >>
 @end lilypond
 
+
+@cindex voix, nomage
+@cindex voix et constructions simultanées
+@cindex liaisons et constructions simultanées
 
 Cet exemple ne comporte que deux voix, mais il peut être étendu pour
 traiter trois voix ou plus en ajoutant autant de séparateurs @code{\\}
@@ -915,10 +930,15 @@ Manuel de notation : @ruser{Multiple voices}.
 @subsection Explicitly instantiating voices
 
 @funindex \voiceOne
+@funindex voiceOne
 @funindex \voiceTwo
+@funindex voiceTwo
 @funindex \voiceThree
+@funindex voiceThree
 @funindex \voiceFour
+@funindex voiceFour
 @funindex \oneVoice
+@funindex oneVoice
 @funindex \new Voice
 @cindex Voice, création de contextes
 
@@ -960,6 +980,9 @@ Toutes deux produiront
   \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
 >>
 @end lilypond
+
+@cindex Voice, retour à un seul contexte
+@cindex retour à un contexte Voice unique
 
 Les commandes @code{\voiceXXX} fixent la direction des hampes, des
 liaisons de prolongation et de phrasé, des articulations, des
@@ -1069,7 +1092,7 @@ plus naturelle de saisir la musique :
 }
 @end lilypond
 
-@cindex spacing notes
+@cindex espacement des notes
 
 Cette manière de brièvement imbriquer des voix est bien utile pour de
 courts fragments de musique polyphonique.  Mais lorsqu'une portée est
@@ -1104,12 +1127,17 @@ voix.
 
 @cindex note column
 @cindex empilement de notes
+@cindex collisions de notes
 @cindex shift, commandes
 @cindex décalage, commandes
 @funindex \shiftOff
+@funindex shiftOff
 @funindex \shiftOn
+@funindex shiftOn
 @funindex \shiftOnn
+@funindex shiftOnn
 @funindex \shiftOnnn
+@funindex shiftOnnn
 
 Les notes rapprochées d'un accord, ou des notes de différentes voix qui
 tombent ensemble, seront rangées sur deux colonnes, voire plus, pour
@@ -1156,6 +1184,8 @@ expressions différentes -- des notes et des paroles.
 
 @funindex \new Lyrics
 @funindex \lyricsto
+@funindex lyricsto
+@funindex Lyrics
 @cindex Lyrics, création d'un contexte
 @cindex paroles, affectation à une voix
 
@@ -1188,6 +1218,7 @@ et @code{Voice}.
 @cindex paroles et ligatures
 @cindex ligatures et paroles
 @funindex \autoBeamOff
+@funindex autoBeamOff
 
 Si la ligature automatique que LilyPond applique par défaut
 est pleinement adaptée en matière de musique instrumentale, il
@@ -1198,8 +1229,11 @@ Dans l'exemple qui suit, nous utilisons la commande @code{\autoBeamOff}
 afin de désactiver les ligatures automatiques.
 
 @funindex \new ChoirStaff
+@funindex ChoirStaff
 @funindex \lyricmode
+@funindex lyricmode
 @cindex structure d'une partition vocale
+@cindex chœur, partie de
 
 Nous allons reprendre un extrait de Judas Maccabæus pour illustrer ce
 que cette technique apporte en flexibilité.  Nous commençons par
@@ -1252,15 +1286,18 @@ contenant la musique peuvent même être stockées dans des fichiers
 indépendants dès lors que leur longueur devient conséquente. 
 
 @cindex structure d'hymne
+@cindex SATB, structure
+@cindex partition vocale avec plusieurs couplets
+@cindex couplets multiples et musique vocale
 
 Voici maintenant la première ligne d'une hymne pour chœur à quatre voix
 mixtes, comportant quatre couplets.  Les paroles sont ici identiques
 pour les quatre voix.  Vous remarquerez le recours aux variables afin de
 séparer de la structure de portée les notes et les paroles.  Vous
 noterez aussi une variable particulière, que nous avons appelée
-@q{MetriqueArmure}, et qui contient plusieurs commandes que nous
+@qq{MetriqueArmure}, et qui contient plusieurs commandes que nous
 utiliserons dans les deux portées.  Dans de nombreux autres exemples,
-elle s'appelle @q{global}.
+elle s'appelle @qq{global}.
 
 @lilypond[quote,verbatim]
 TimeKey = { \time 4/4 \partial 4 \key c \major}
@@ -1424,6 +1461,7 @@ refrainwordsB = \lyricmode {
 @cindex book, exemple d'utilisation
 @cindex recueil, exemple d'utilisation
 @funindex \book
+@funindex book
 
 Bien que ce que nous venons de voir constitue un exercice intéressant et
 fort utile pour comprendre comment s'articulent des blocs séquentiels et
@@ -1585,6 +1623,7 @@ Manuel de notation : @ruser{Contexts explained}.
 @subsection Creating contexts
 
 @funindex \new
+@funindex new
 @cindex nouveaux contextes
 @cindex Contextes, création de
 
@@ -1679,9 +1718,17 @@ et ainsi le distinguer des autres contextes déjà existants :
 Vous noterez la distinction entre le nom du type de contexte,
 @code{Staff}, @code{Voice}, etc, et le nom -- une simple suite de
 lettres au bon gré de l'utilisateur -- permettant d'identifier une
-instance particulière du type en question.  Comme nous l'avons déjà vu
-dans le chapitre consacré aux paroles (@ref{Voices and vocals}),
-cet identifiant permettra ensuite de se référer à ce contexte particulier.
+instance particulière du type en question.  Vous pouvez utiliser des
+chiffres et espaces, à la stricte condition d'englober le tout dans des
+guillemets ; l'identificateur suivant est tout à fait valide :
+@code{\new Staff = "MaPortee 1" @var{expression-musicale}}.  
+Comme nous l'avons déjà vu dans le chapitre consacré aux paroles 
+(@ref{Voices and vocals}), cet identifiant permettra ensuite de se
+référer à ce contexte particulier. 
+
+
+@seealso
+Manuel de notation : @ruser{Creating contexts}.
 
 
 @node Engravers explained
@@ -1775,7 +1822,9 @@ Références internes : @rinternals{Engravers and Performers}.
 @cindex propriétés d'un contexte, modification
 @cindex modification des propriétés d'un contexte
 @funindex \set
+@funindex set
 @funindex \unset
+@funindex unset
 
 Les contextes gèrent les différentes valeurs des nombreuses
 @emph{propriétés} qui leur sont attachées.  Beaucoup d'entre elles
@@ -1840,6 +1889,9 @@ valeurs boléennes et précèdent les @code{t} ou @code{f}, mais doivent
 aussi précéder @emph{valeur} dans le libellé de la commande @code{\set}.
 Il faudra donc, dans le cas d'une valeur boléenne, ne pas oublier de
 saisir deux signes dièse -- par exemple @code{##t}.
+
+@cindex propriétés et contextes
+@cindex réglage de propriétés au sein des contextes
 
 Avant de déterminer l'une de ces propriétés, nous devons savoir dans
 quel contexte elle intervient.  Si cela est bien souvent évident, il
@@ -1971,6 +2023,7 @@ aussi de spécifier du texte.
 @unnumberedsubsubsec Setting context properties with @code{\with}
 
 @funindex \with
+@funindex with
 @cindex propriétés d'un contexte, définition avec \with
 
 Les propriétés d'un contexte peuvent aussi être réglées lors de la
@@ -2006,6 +2059,8 @@ Les propriétés réglées de cette manière peuvent néanmoins être modifiées
 de façon dynamique grâce à @code{\set} ; un @code{\unset} les ramènera à
 leur valeur par défaut.
 
+@cindex fontSize, valeur par défaut et réglage
+
 La propriété @code{fontSize} constitue une exception : lorsqu'elle est
 déterminée au sein d'un bloc @code{\with}, cela redéfinit la valeur par
 défaut de la taille de fonte.  Une modification est possible par la
@@ -2013,6 +2068,10 @@ commande @code{\set}, mais la commande @code{\unset fontSize} fera
 revenir à la nouvelle valeur par défaut.
 
 @unnumberedsubsubsec Setting context properties with @code{\context}
+
+@cindex propriétés d'un contexte, définition avec \context
+@funindex \context
+@funindex context
 
 Vous pouvez régler les valeurs des propriétés de contexte en une seule
 fois pour tous les contextes d'un même type, par exemple tous les
@@ -2049,10 +2108,13 @@ une commande @code{\set} au fil des notes.
 
 
 @seealso
-Manuel de notation : @ruser{Changing context default settings},
-@ruser{The set command}.
+Manuel de notation : 
+@ruser{Changing context default settings},
+@c uncomment when backslash-node-name issue is resolved -pm
+@c @ruser{The set command}.
 
-Références internes : @rinternals{Contexts},
+Références internes : 
+@rinternals{Contexts},
 @rinternals{Tunable context properties}.
 
 
@@ -2063,7 +2125,9 @@ Références internes : @rinternals{Contexts},
 @cindex graveurs, suppression
 
 @funindex \consists
+@funindex consists
 @funindex \remove
+@funindex remove
 
 Nous avons vu que chaque contexte met en œuvre plusieurs graveurs, et
 que chacun de ces graveurs est chargé de générer une composante
@@ -2081,7 +2145,7 @@ la section précédente.
 
 Illustrons notre propos en reprenant un exemple du chapitre précédent,
 duquel nous supprimerons les lignes de la portée.  Pour mémoire, les
-lignes d'une portée sont générées par le Staff_symbol_engraver.
+lignes d'une portée sont générées par le @code{Staff_symbol_engraver}.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
@@ -2103,7 +2167,7 @@ lignes d'une portée sont générées par le Staff_symbol_engraver.
 Vous pouvez aussi ajouter individuellement un graveur à un contexte. La
 commande se formule ainsi :
 
-@code{\consists @emph{Nom_du_graveur}}
+@code{\consists @var{Nom_du_graveur}}
 
 et se place dans un bloc @code{\with}.  Certaines partitions vocales
 font apparaître un @rglos{ambitus} au début de la portée, afin
@@ -2155,6 +2219,7 @@ les notes de toutes les voix de la portée :
 @subsubheading Changing all contexts of the same type
 
 @funindex \layout
+@funindex layout
 
 Les exemples ci-dessus nous ont montré comment ajouter ou retirer des
 graveurs à des contextes individuels.  Nous pourrions aussi ajouter ou
@@ -2497,7 +2562,7 @@ lower = \relative c, {
 @end lilypond
 
 Aucun des modèles ne permet d'arriver exactement à cette mise en forme.
-Celui qui s'en rapprocherait le plus est @q{SATB vocal score and
+Celui qui s'en rapprocherait le plus est @qq{SATB vocal score and
 automatic piano reduction} -- voir @ref{Vocal ensembles} -- mais encore
 faudrait-il en modifier la mise en forme et refaire la partie de
 piano qui n'est plus une simple reprise des parties vocales.  Les
@@ -2672,6 +2737,7 @@ lower = \relative c, {
 @subsection Building a score from scratch
 
 @cindex modèles, création
+@cindex squelettes, création
 
 Après avoir acquis une certaine dextérité dans l'écriture de code
 LilyPond, vous devez vous sentir suffisament prêt à vous lancer dans
