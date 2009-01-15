@@ -19,4 +19,7 @@
   \time 3/4
   s2.
   c2.
+  \override Score.NonMusicalPaperColumn #'full-measure-extra-space = #3.0
+  s2.
+  c2.
 }

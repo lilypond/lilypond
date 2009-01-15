@@ -513,7 +513,8 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
       && l->break_status_dir () == CENTER
       && fills_measure (me, l, r))
     {
-      spring.set_distance (spring.distance () + 1.0);
+      Real full_measure_extra_space = robust_scm2double (l->get_property ("full-measure-extra-space"), 1.0);
+      spring.set_distance (spring.distance () + full_measure_extra_space);
       spring.set_default_strength ();
     }
   

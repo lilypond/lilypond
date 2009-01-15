@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
+    Translation of GIT committish: c59b8168319749a56e5cf78bb9be868df20a723c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,14 +9,22 @@
 
 @c \version "2.12.0"
 
-@c Translators: Valentin Villenave
+@c Translators: Valentin Villenave, Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Unfretted string instruments
 @section Unfretted string instruments
 
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex cordes d'orchestre
+@cindex orchestre, cordes
+@cindex cordes, écriture pour
+
 Cette section dispense des informations supplémentaires et utiles à
-l'écriture pour les cordes frottées.
+l'écriture pour les cordes non frettées, et tout spécialement pour les 
+cordes d'orchestre.
 
 @menu
 * Common notation for unfretted strings::  
@@ -25,7 +33,11 @@ l'écriture pour les cordes frottées.
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
 
-@untranslated
+Il existe peu d'éléments spécifiques à l'écriture pour instruments à
+cordes non frettées.  La musique est notée sur une portée et ne
+nécessite généralement qu'une seule voix.  Le recours à deux voix
+disticntes peut cependant permettre de traiter efficacement des doubles
+notes ou des divisions.  
 
 @menu
 * References for unfretted strings::  
@@ -37,22 +49,136 @@ l'écriture pour les cordes frottées.
 @node References for unfretted strings
 @unnumberedsubsubsec References for unfretted strings
 
-@untranslated
+La majorité des éléments de notation nécessaires en matière de
+cordes d'orchestre et autres instruments à archet est abordée dans
+d'autres chapitres de la documentation : 
+
+@itemize
+
+@item Les indications textuelles telles que @qq{pizz.} ou @qq{arco} sont 
+ajoutées comme du texte simple -- voir à ce sujet @ref{Text scripts}.
+
+@item Les indications de doigtés, incluant les indications du pouce,
+sont décrites dans @ref{Fingering instructions}.
+
+@item Les doubles notes sont généralement indiquées en écrivant un
+accord, voir @ref{Chorded notes}.  Les précisions pour jouer des accords 
+peuvent être ajoutées, comme l'indique @ref{Arpeggio}. 
+
+@item Un modèle pour quatuor à cordes est disponible au chapitre 
+@rlearning{String quartet}.  D'autres informations se trouvent dans les
+exemples de code. 
+
+@end itemize
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{String quartet}.
+
+Manuel de notation :
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes},
+@ref{Arpeggio}.
+
+Exemples de code :
+@rlsr{Unfretted strings}.
 
 @node Bowing indications
 @unnumberedsubsubsec Bowing indications
 
-@untranslated
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+
+@cindex indications d'archet
+@cindex poussé, indication d'archet
+@cindex tiré, indication d'archet
+@cindex indication de corde à vide
+@cindex corde à vide, indication
+
+Les indications d'archet se créent comme des articulations, elles sont
+décrites dans @ref{Articulations and ornamentations}. 
+
+Les indications d'archet, poussé (@code{\upbow}) et tiré
+(@code{\downbow}), peuvent se combiner à des liaisons comme ici : 
+
+@lilypond[verbatim,quote,relative=2]
+c4(\downbow d) e(\upbow f)
+@end lilypond
+
+@noindent
+ou dans l'exemple suivant qui montre trois manières d'indiquer la corde
+de La, à vide, sur un violon : 
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open
+a^\markup { \teeny "II" }
+a2^\markup { \small "sul A" }
+@end lilypond
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}.
+@endpredefined
+
+
+@seealso
+Manuel de notation :
+@ref{Articulations and ornamentations},
+@ref{Slurs}.
 
 @node Harmonics
 @unnumberedsubsubsec Harmonics
 
-@cindex harmoniques
+@funindex \harmonic
 
-La plupart des instruments à cordes peuvent produire des harmoniques
-artificiels, lorsque l'instrumentiste effleure simplement la corde pour
-une note donnée.  Le son émis sera un harmonique, que l'on peut indiquer
-par @code{\harmonic}.
+@strong{@i{Harmoniques naturels}}
+
+@cindex harmoniques naturels
+@cindex naturels, harmoniques 
+
+Les harmoniques naturels sont indiqués de différentes manières : une
+tête de note en forme de losange signifie généralement que vous devez
+effleurer la corde à l'endroit où vous l'auriez pincée si la note avait
+été normale. 
+
+@warning{Les harmoniques @strong{doivent} être indiqués dans une
+construction de type accord même s'il n'y a qu'une seule note.} 
+
+@c TODO If the default for harmonicDots is changed, change this
+
+La propriété @code{harmonicDots}, lorsqu'elle est activée, permet
+d'ajouter un point point aux notes pointées affublées d'un
+@code{\harmonic}. 
+
+@lilypond[verbatim,quote,relative=2]
+<d\harmonic>4 <e\harmonic>2.
+\set harmonicDots = ##t
+<d\harmonic>4 <e\harmonic>2.
+@end lilypond
+
+Une autre façon de procéder consiste à faire surmonter la note normale
+d'un petit cercle.  Ceci indique que la note écrite doît être jouée en
+harmonique : 
+
+@lilypond[verbatim,quote,relative=2]
+d2^\flageolet d_\flageolet
+@end lilypond
+
+Un plus petit cercle peut être créé, comme indiqué dans les exemples de
+code contenus dans @ref{References for unfretted strings}.
+
+@strong{@i{Harmoniques artificiels}}
+
+@cindex harmoniques artificiels
+@cindex artificiels, harmoniques
+
+Les harmoniques artificiels sont indiqués par une double tête de note :
+l'une, normale, indique la note à pincer, et l'autre, en forme de
+losange, indique l'endroit où la corde doit être effleurée. 
 
 @lilypond[verbatim,quote,relative=1]
 <e a\harmonic>2  <c g'\harmonic>
@@ -61,4 +187,13 @@ par @code{\harmonic}.
 @node Snap (Bartók) pizzicato
 @unnumberedsubsubsec Snap (Bartók) pizzicato
 
-@untranslated
+@cindex pizzicato, Bartók
+@cindex pizzicato, snap
+@cindex Bartók pizzicato
+@cindex snap pizzicato
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{snap-pizzicato-markup-bartok-pizzicato.ly}
+
