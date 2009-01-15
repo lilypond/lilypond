@@ -1,0 +1,171 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Fundamental concepts
+@chapter Fundamental concepts
+
+@untranslated
+
+
+@menu
+* How LilyPond input files work::
+* Voices contain music::
+* Contexts and engravers::
+* Extending the templates::
+@end menu
+
+@node How LilyPond input files work
+@section How LilyPond input files work
+
+@untranslated
+
+
+@menu
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* On the un-nestedness of brackets and ties::
+@end menu
+
+@node Introduction to the LilyPond file structure
+@subsection Introduction to the LilyPond file structure
+
+@untranslated
+
+
+@node Score is a (single) compound musical expression
+@subsection Score is a (single) compound musical expression
+
+@untranslated
+
+
+@node Nesting music expressions
+@subsection Nesting music expressions
+
+@untranslated
+
+
+@node On the un-nestedness of brackets and ties
+@subsection On the un-nestedness of brackets and ties
+
+@untranslated
+
+
+@node Voices contain music
+@section Voices contain music
+
+@untranslated
+
+
+@menu
+* I'm hearing Voices::
+* Explicitly instantiating voices::
+* Voices and vocals::
+@end menu
+
+@node I'm hearing Voices
+@subsection I'm hearing Voices
+
+@untranslated
+
+
+@node Explicitly instantiating voices
+@subsection Explicitly instantiating voices
+
+@untranslated
+
+
+@subsubheading Note columns
+@node Voices and vocals
+@subsection Voices and vocals
+
+@untranslated
+
+
+@node Contexts and engravers
+@section Contexts and engravers
+
+@untranslated
+
+
+@menu
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
+* Modifying context properties::
+* Adding and removing engravers::
+@end menu
+
+@node Contexts explained
+@subsection Contexts explained
+
+@untranslated
+
+
+@node Creating contexts
+@subsection Creating contexts
+
+@untranslated
+
+
+@node Engravers explained
+@subsection Engravers explained
+
+@untranslated
+
+
+@node Modifying context properties
+@subsection Modifying context properties
+
+@untranslated
+
+
+@unnumberedsubsubsec Setting context properties with @code{\with}
+@unnumberedsubsubsec Setting context properties with @code{\context}
+@node Adding and removing engravers
+@subsection Adding and removing engravers
+
+@untranslated
+
+
+@subsubheading Changing a single context
+@subsubheading Changing all contexts of the same type
+@node Extending the templates
+@section Extending the templates
+
+@untranslated
+
+
+@menu
+* Soprano and cello::
+* Four-part SATB vocal score::
+* Building a score from scratch::
+@end menu
+
+@node Soprano and cello
+@subsection Soprano and cello
+
+@untranslated
+
+
+@node Four-part SATB vocal score
+@subsection Four-part SATB vocal score
+
+@untranslated
+
+
+@node Building a score from scratch
+@subsection Building a score from scratch
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

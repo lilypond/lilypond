@@ -1,0 +1,715 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Sawada, Yoshiki
+@c Translation status: post-GDP
+
+@node Introduction
+@chapter Introduction
+
+この章では読者に LilyPond とこのドキュメントについての紹介を行います。
+
+@menu
+* Background::
+* About the documentation::
+@end menu
+
+
+@node Background
+@section Background
+
+この節は LilyPond の最終目的とアーキテクチャについてカバーします。
+
+@menu
+* Engraving::
+* Automated engraving::
+* What symbols to engrave?::
+* Music representation::
+* Example applications::
+@end menu
+
+
+@node Engraving
+@unnumberedsubsec Engraving
+
+@cindex engraving
+@cindex typography, music
+@cindex music typography
+@cindex plate engraving
+@cindex music engraving
+
+楽譜印刷の技術は @emph{(プレート) 譜刻} (原文: engraving、版画などの印刷のこと) と呼ばれています。この用語は伝統的な楽譜印刷のプロセスに由来します。ほんの数十年前まで、楽譜は音楽記号を亜鉛やしろめ (錫と鉛の合金) の版に反転したイメージで彫り込んだり、刻印することによって作られていました。版にはインクが塗られ、彫り込んだり刻印してくぼんだ部分にはインクが溜まります。版のイメージはその版に紙が押し付けられることによって形になります。刻印と彫刻は完全に手作業で行われていました。校正は可能だとしても厄介でした。なぜなら一から刻印と彫刻のやり直しだったからです。譜刻は高度に専門的な技術でした; 職人はマスター エングラーバ (譜刻を行う人) の称号を得るまで 5 年の修行を修めなければならず、本当に技術を習得するまでにはさらにもう 5 年の経験が必要だったのです。
+
+今日では、コンピュータによってまったく新しい楽譜が出版されています。これには明らかな利点があります; 印刷は安く済み、編集したものを email で配ることが可能です。不幸なことに、コンピュータが広く使われるようになって楽譜のグラフィカルな品質は低下しています。コンピュータによって出版された楽譜は味気無く、機械的な見た目をしているため、その楽譜で演奏することに喜びを感じられません。
+
+@c introduce illustrating aspects of engraving, font...
+以下の図は伝統的な譜刻とコンピュータ出版の違いを描いたものであり、3 番目の図は LilyPond がどれくらい伝統的な見た目を模倣しているのかを示しています。左端のスキャンした図はコンピュータ出版の典型的な決定を示しています; 縦棒は細く、フラット記号の太さは細線と一致していて、曲線はまっすぐなレイアウトになっています。対照的に、ベーレンライター (Barenreiter: ドイツの出版社) のフラットは太く、曲線は官能的です。我々のフラットは 2 つのもののうち後者を元にデザインされています。丸みを帯びていて、太さは縦棒の太さと調和していて、コンピュータによるものよりも線が太くなっています。
+
+@multitable @columnfractions .125 .25 .25 .25 .125
+@item @tab
+@ifnotinfo
+@iftex
+@image{henle-flat-gray,,4cm}
+@end iftex
+@ifnottex
+@image{henle-flat-gray,,,png}
+@end ifnottex
+
+@tab
+@iftex
+@image{baer-flat-gray,,4cm}
+@end iftex
+@ifnottex
+@image{baer-flat-gray,,,png}
+@end ifnottex
+
+@tab
+@iftex
+@image{lily-flat-bw,,4cm}
+@end iftex
+@ifnottex
+@image{lily-flat-bw,,,png}
+@end ifnottex
+@end ifnotinfo
+@ifinfo
+@image{lilypond/henle-flat-bw,,,png} @image{lilypond/baer-flat-bw,,,png}
+@image{lilypond/lily-flat-bw,,,png}
+@end ifinfo
+
+@item @tab
+Henle (2000)
+@tab
+Bärenreiter (1950)
+@tab
+LilyPond Feta font (2003)
+
+@end multitable
+
+
+@cindex musical symbols
+@cindex font
+@cindex blackness
+@cindex balance
+
+@c introduce illustrating aspects of engraving, spacing...
+スペースの点では、スペースの配分は音符と音符の間の音の間隔を反映します。しかしながら、現代楽譜の多くは数学的な正確さを持った間隔に固執しています。このことはおもしろくない結果を生み出します。次の例では、2 度楽譜をプリントしています: 1 度目は正確に数学的なスペースを用いて、2 度目はそれに校正を加えています。違いを見分けられますか？
+
+@cindex optical spacing
+@c file spacing-optical.
+@c need to include it here,  because we want two images.
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4 |
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing #'stem-spacing-correction = #0.6
+    }
+  }
+}
+@end lilypond
+
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4 |
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing #'stem-spacing-correction = #0.0
+      \override NoteSpacing #'same-direction-correction = #0.0
+      \override StaffSpacing #'stem-spacing-correction = #0.0
+    }
+  }
+}
+@end lilypond
+
+@cindex regular rhythms
+@cindex regular spacing
+@cindex spacing, regular
+
+各小節には一定のリズムで演奏される音符だけがあります。スペースもそれを反映しています。不幸なことに、我々の目は我々を少し惑わせます。音符の「玉」 (ノート ヘッド) の間隔だけでなく、連続した棒 (ステム、音符から突き出る棒) の間隔も考慮します。結果として、アップ ステム/@/ダウン ステム (玉の上に突き出た棒/@/玉の下に突き出た棒) の組み合わせは離すべきであり、ダウン ステム/アップステムの組み合わせは近づけるべきです、すべては音符の垂直方向の位置の組み合わせに次第です。上の 2 小節は音符のダウン ステム/@/アップ ステムの組み合わせを近づけるよう校正を加えたものであり、下の 2 小節はこの校正を加えていないものです。
+
+
+通常、奏者は楽譜の見え方を勉強するよりも演奏をするほうに夢中ですので、印刷上の詳細にこだわることは形式尊重のように思えるかもしれません。しかしそうではありません。単調なリズムがずっと続くような場合、スペースの校正を行うことで各行のレイアウトに微妙な変化が加わり、それぞれが異なる視覚的特徴を持つようになります。この特徴が無ければすべての行は同じに見え、迷路のようになってしまいます。奏者がちょっと目を逸らしたり、集中力を欠くと、それまで見ていた行はページの中に埋もれてしまいます。
+
+同様に、太い譜線 (音の高さを表す線。五線譜では 5 本) に描かれた太い記号は見た目が強く、楽譜から奏者が離れている場合 -- 例えば、楽譜が譜面台にある場合 -- に良く目立ちます。空白を注意深く配置することで、楽譜は記号が乱雑になることなく締まります。結果としてページをめくる回数は最小となり、これは大きな利点になります。
+
+これは印刷において共通して言えることですが、レイアウトはこざっぱりとしているべきです。これは印刷自体のためであるだけでなく、特にその印刷物を読んでいる読み手の助けにもなるからです。楽譜のような演奏用の道具では、このことは 2 重に重要性を持ちます: 奏者の注意力には限界があり、奏者が楽譜を読むことに払う注意力が少なくて済めば済むほど、その奏者は演奏に集中することができます。言い換えると、良い印刷は良い演奏につながるのです。
+
+以上で挙げたことは、楽譜の印刷は微妙で複雑な技術であり、楽譜を印刷するには非常な熟練 -- これは通常、奏者が持っているものではありません -- が必要であるということを示しています。LilyPond は、手作業で譜刻された楽譜のすばらしさをコンピュータ世代に提供しよう、すばらしい楽譜を普通の音楽家にも利用可能にしようという我々の努力なのです。我々は、良く見てみたくなり、演奏したくなるような古い楽譜のクオリティに匹敵する楽譜を提供するために、アルゴリズム、フォント デザイン、プログラム設定を調整してきました。
+
+
+@node Automated engraving
+@unnumberedsubsec Automated engraving
+
+@cindex engraving, automated
+@cindex automated engraving
+
+我々はどのように譜刻を実現していくのでしょうか？職人が本当のマスターになるのに 10 年以上かかるのなら、単なるハッカーである我々がどうやったら職人の仕事を越えるプログラムを書けるのでしょうか？
+
+その答えは、我々には「できない」です。譜刻は人間的な状況判断に頼っているため、判断を行う人間を完全にコンピュータに置き換えることはできません。しかしながら、退屈な作業の多くを自動化することはできます。もし LilyPond が一般的なケースの大半に対処できるなら、それは既存のソフトウェアよりも大きく前進することになります。残りのケースは手作業で調整することができます。年数が経つにつれて、このソフトウェアはより多くのことを自動的に行えるよう洗練されていき、手作業による手直しはどんどん必要なくなっていくことでしょう。
+
+我々が LilyPond の開発を始めたとき、我々は LilyPond プログラム全体を C++ プログラミング言語で書いていました。プログラムの機能は開発者によってかっちりと決められていました。これはいくつかの理由で不満足なものであることがわかりました:
+
+@itemize
+@item LilyPond が失敗を犯したとき、ユーザはフォーマット判断 (どのようなフォーマットにするかの判断) を上書きする必要があります。そのため、ユーザはフォーマット エンジンにアクセスしなければなりません。そのため、コンパイル時に我々 (開発者) によって規則と設定を固定することは無理があり、実行時 (LilyPond によって楽譜を作り出すとき) にユーザが規則と設定にアクセスできなければなりません。
+
+@item 譜刻は視覚的判断の問題であり、そのために好みがあります。我々には知識がありますが、ユーザは我々の個人的な判断に異を唱える可能性もあります。そのため、譜刻様式の定義もまたユーザがアクセスできるものでなければなりません。
+@item 最後に、我々は継続的にフォーマット アルゴリズムを改良させていくので、我々には規則に対する自由度の高いアプローチが必要です。C++ 言語は音楽表記の作業とはうまくマッチしない規則分類法を押し付けてきます。
+
+@end itemize
+
+@cindex Scheme programming language
+
+これらの問題に対して、Scheme プログラミング言語のインタプリタを統合し、LilyPond の各部分を Scheme で書き直すという処置がとられてきました。現在のフォーマット アーキテクチャはグラフィカル オブジェクトという概念で構築されていて、Scheme 変数と関数によって記述されています。このアーキテクチャは、フォーマット規則、譜刻スタイル、個々のフォーマットに関する判断を包含しています。ユーザはこれらの制御の大半に直接アクセスする術を持ちます。
+
+Scheme 変数はレイアウトに関する判断を制御します。例えば、多くのグラフィカル オブジェクトは上か下か (あるいは左か右か) の選択を決定する方向 (に関する) 変数を持ちます。ここで、アクセントとアルペジオを持つ 2 つの和音を見てみます。最初の和音では、すべてのグラフィカル オブジェクトは下向き (あるいは左向き) の方向を持っています。2 番目の和音では、すべてが上向き (あるいは右向き) の方向を持っています。
+
+@lilypond[quote,ragged-right]
+\new Score \with {
+   \override SpacingSpanner #'spacing-increment = #3
+   \override TimeSignature #'transparent = ##t
+} \relative c' {
+   \stemDown <e g b>4_>-\arpeggio
+   \override Arpeggio #'direction = #RIGHT
+   \stemUp <e g b>4^>-\arpeggio
+}
+@end lilypond
+
+@cindex score formatting
+@cindex formatting a score
+@cindex formatting rules
+
+@noindent
+楽譜を形作るプロセスはグラフィカルオブジェクトの変数を読み込んだり、書き込んだりすることからなります。いくつかの変数はプリセット値を持ちます。例えば、多くの線の太さ -- 印刷スタイルの特性 -- はプリセット値を持つ変数です。あなたは自由にこの値を変更することができ、それによってあなたの楽譜は異なる印象を持つことになります。
+
+@lilypond[quote,ragged-right]
+fragment = {
+   \clef bass f8 as8
+   c'4-~ c'16 as g f e16 g bes c' des'4
+}
+<<
+   \new Staff \fragment
+   \new Staff \with {
+      \override Beam #'thickness = #0.3
+      \override Stem #'thickness = #0.5
+      \override Bar #'thickness = #3.6
+      \override Tie #'thickness = #2.2
+      \override StaffSymbol #'thickness = #3.0
+      \override Tie #'extra-offset = #'(0 .  0.3)
+      }
+      \fragment
+>>
+@end lilypond
+
+さらにフォーマット規則もプリセット変数です: 各オブジェクトはプロシージャを保持している変数を持ちます。これらのプロシージャが実際のフォーマットを実行し、異なるプロシージャを使用することによってオブジェクトの見た目を変えることができます。以下の例では、音符の玉 (ノート ヘッド) シンボルを印刷するのにどの音符の玉オブジェクトを使用するかを決定する規則を楽譜の途中で変更しています。
+
+@lilypond[quote,ragged-right]
+#(set-global-staff-size 30)
+
+#(define (mc-squared grob orig current)
+  (let* ((interfaces (ly:grob-interfaces grob))
+         (pos (ly:grob-property grob 'staff-position)))
+    (if (memq 'note-head-interface interfaces)
+        (begin
+          (ly:grob-set-property! grob 'stencil
+            (grob-interpret-markup grob
+              (make-lower-markup 0.5
+                (case pos
+                  ((-5) "m")
+                  ((-3) "c ")
+                  ((-2) (make-smaller-markup (make-bold-markup "2")))
+                  (else "bla")))))))))
+
+\new Voice \relative c' {
+  \stemUp
+  \set autoBeaming = ##f
+  \time 2/4
+  <d f g>4
+  \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
+  \once \override NoteHead #'font-size = #-7
+  \once \override NoteHead #'font-family = #'sans
+  \once \override NoteHead #'font-series = #'bold
+  <d f g>4
+  \once \override NoteHead #'style = #'cross
+  <d f g>4
+  \applyOutput #'Voice #mc-squared
+  <d f g>4
+  <<
+    { d8[ es-( fis^^ g] fis2-) }
+    \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
+  >>
+}
+@end lilypond
+
+
+@node What symbols to engrave?
+@unnumberedsubsec What symbols to engrave?
+
+@cindex engraving
+@cindex typography
+@cindex engraver
+@cindex plug-in
+
+
+フォーマット プロセスはシンボルを置く場所を決定します。しかしながら、@emph{どの}シンボルを譜刻すべきかを決定する -- 言い換えると、使用する表記を決定する -- と、シンボルを置く場所も決まります。
+
+一般の音楽表記は音楽を記録するシステムであり、これは過去 1000 年以上にもわたって進化してきました。現在の一般的な形式はルネッサンス前期にまでさかのぼります。基本的な形式 (すなわち、音符の玉が 5 本線の譜表上にあるというもの) は変更されていませんが、細かな点は現代の表記の改革を表現するためにいまだに発展が続けられています。したがって、一般的な音楽表記はおよそ500年間の音楽を扱います。応用範囲は単旋律から大規模なオーケストラのための途方もない対位法にまで及びます。
+
+どうやったら我々はそのような多頭の獣を統率し、制限のあるコンピュータ プログラムに押し込めることができるでしょうか？我々の解決策は表記の問題 (譜刻とは対照的にある、すなわち、活字学) を消化の良いプログラム可能な小さな塊に分解していくことです: それぞれのシンボルのタイプは個々のモジュール -- いわゆるプラグイン -- によって処理されます。各プラグインは完全にモジュール化されて独立していて、それによりそれぞれを別個に開発、改良することができます。そのようなプラグインは音楽的概念をグラフィック シンボルに変換する職人に例えて @code{engraver} (エングラーバ) と呼びます。
+
+以下の例では、我々が音符の玉のためのプラグイン @code{Note_heads_engraver} から始めていく様子を見ていきます。
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Staff_symbol_engraver"
+      \consists "Pitch_squash_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+それから、@code{Staff_symbol_engraver} が譜表を加え
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \consists "Pitch_squash_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+@code{Clef_engraver} が譜表の参照位置を定義し
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+@code{Stem_engraver} が棒 (ステム) を付け加えます。
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+@code{Stem_engraver} はやって来るすべての音符の玉 (ノート ヘッド) について知らされます。1 つの音符の玉 (あるいは和音の場合は複数の音符の玉) が現れるたびに、ステム オブジェクトが作成され、音符の玉に接続されます。さらにビーム (ステムとステムをつなぐ横棒)、スラー、アクセント、臨時記号、小節線 (小節と小節を区切る縦線)、拍子記号、調号のためのエングラーバを付け加えるによって、我々は完全な楽譜を手に入れることができます。
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\score { \topVoice }
+@end lilypond
+
+@cindex polyphony
+@cindex engraving multiple voices
+@cindex contexts
+
+このシステムは単旋律の音楽に対してはうまく機能しますが、多声部音楽に対してはどうでしょうか？多声部表記では、多くの声部 (ボイス) が 1 つの譜表を共有します。
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\new Staff << \topVoice \\ \botVoice >>
+@end lilypond
+
+このような場合、臨時記号と譜表は共有されますが、ステム、スラー、ビームなどは各声部が単独で持ちます。そのため、エングラーバはグループ化されるべきです。音符の玉、ステム、スラーなどのためのエングラーバは @q{Voice context} (ボイス コンテキスト) と呼ばれるグループに入れられ、一方の調子、臨時記号、小節線などのためのエングラーバは @q{Staff context} (譜表コンテキスト) とグループに入れられます。多声部音楽の場合、単一の譜表コンテキストには複数のボイス コンテキストが含まれます。同様に、複数の譜表コンテキストは単一の楽譜 (Score) コンテキストになり得ます。楽譜コンテキストは最上位の表記コンテキストです。
+
+
+@seealso
+内部リファレンス: @rinternals{Contexts}.
+
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\score {
+   <<
+      \new Staff << \topVoice \\ \botVoice >>
+      \new Staff << \pah \\ \hoom >>
+   >>
+}
+@end lilypond
+
+
+@node Music representation
+@unnumberedsubsec Music representation
+
+概念上、高レベル フォーマット システムのための入力フォーマットは内容を抽象的に記述するものになります。このケースでは、内容は音楽自体になります。これは手に負えない問題に見えます: どうやったら我々は音楽の本質を定義できるでしょうか？その答えを見つけようとする代わりに、我々はその問題を逆転させました。我々は楽譜を譜刻する能力を持つプログラムを書き、そのフォーマットができる限りすっきりしたものになるよう調整します。これ以上フォーマットを減らすことができないという状態になったとき、当然のことながら我々に残されているのは内容自体になります。我々のプログラムは音楽ドキュメントの形式定義として機能します。
+
+さらに、構文が LilyPond のユーザ インタフェイスになっているため、
+
+@example
+@{
+  c'4 d'8
+@}
+@end example
+
+とタイプだけで、4 分音符の C1 (ミドル C (=ド)) と 8 分音符の D1 (ミドル C の上の D (=レ)) になります。
+
+@lilypond[quote]
+{
+  c'4 d'8
+}
+@end lilypond
+
+@warning{C = ド, D = レ, E = ミ, F = ファ, G = ソ, A = ラ, B = シ です。LilyPond では音符を「ドレミ〜」ではなく "CDE~" として捉えることが必須なので、今後は音符をアルファべット表記にします。}
+
+小さなスケールでは、そのような構文は簡単に使用できます。大きなスケールでは、構文はさらに構造を持つ必要があります。そうしなければ、どうやったらあなたはシンフォニーやオペラのような複雑な楽譜に取り組めるでしょうか？構造は音楽表現法というコンセプトによって形成されます: 小さな音楽の断片を組み合わせて大きな音楽にすることによって、より複雑な音楽を表すことができるようになります。例を挙げます。
+
+@lilypond[quote,verbatim,fragment,relative=1]
+f4
+@end lilypond
+
+@noindent
+同時進行の音符はそれらを @code{<<} と @code{>>} で囲むことによって構築できます:
+
+
+@example
+<<c4 d4 e4>>
+@end example
+
+@lilypond[quote,fragment,relative=1]
+\new Voice { <<c4 d4 e>> }
+@end lilypond
+
+@noindent
+この音楽表現を中括弧 @code{@{@tie{}@dots{}@tie{}@}} で囲むことによってシークエンスの中に入れることができます:
+
+@example
+@{ f4 <<c4 d4 e4>> @}
+@end example
+
+@lilypond[quote,relative=1,fragment]
+{ f4 <<c d e4>> }
+@end lilypond
+
+@noindent
+上記もまた音楽表現の 1 つなので、@code{<<}, @code{\\}, and @code{>>} を使ってそれを再び他の同時進行の音楽表現 (2 分音符) と組み合わせることもできます:
+
+@example
+@code{<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>}
+@end example
+
+
+@lilypond[quote,fragment,relative=2]
+\new Voice { << g2 \\ { f4 <<c d e>> } >> }
+@end lilypond
+
+このような再帰的な構造はさっぱりと、かつ、しっかりした形式でコンテキスト フリー文法で記すことができます。コード解析もまたこの文法から生成されます。言い換えると、LilyPond の構文ははっきりと明快に定義されます。
+
+ユーザが LilyPond に取り組むときに、ユーザがその時間の大半で見て、扱うものはユーザ インタフェイスと構文です。それらのある部分は好みの問題であり、多くの議論の対象にもなるものです。好みについて議論することは有意義なことですが、それほど生産的なことではありません。LilyPond という大きな世界の中で、入力構文の重要性は小さいのです: さっぱりとした構文をでっちあげることは簡単ですが、見苦しくないフォーマット コードを作成することはとても難しいのです。このことは、それぞれのコンポーネントの行数をカウントすることによっても実証されます: 解析と表記のためのコンポーネントはソース コード全体の 10 % にも達しません。
+
+
+
+
+
+
+
+
+@node Example applications
+@unnumberedsubsec Example applications
+
+@cindex simple examples
+@cindex examples, simple
+
+我々はどのように譜刻の技術をコンピュータ プログラムの中に凝縮するかという実験として LilyPond を開発してきました。重労働のおかげで、今やこのプログラムは有用な働きを行うのに使用できるようになりました。非常に簡単な利用例は音符を刻譜することです。
+
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
+@end lilypond
+
+@noindent
+コード ネームと歌詞を加えることによって、我々はリード譜を得ます。
+
+@lilypond[quote,ragged-right]
+<<
+   \chords { c2 c f2 c }
+   \new Staff
+   \relative c' {
+     \time 2/4
+     c4 c g' g a a g2
+   }
+   \addlyrics { twin -- kle twin -- kle lit -- tle star }
+>>
+@end lilypond
+
+さらに、多声部表記とピアノ譜を刻譜することもできます。以下の例はいくつかのより風変わりな構成を組み合わせています。
+
+@lilypond[quote]
+\header {
+  title = "Screech and boink"
+  subtitle = "Random complex notation"
+  composer = "Han-Wen Nienhuys"
+}
+
+\score {
+  \context PianoStaff <<
+    \new Staff = "up" {
+      \time 4/8
+      \key c \minor
+      << {
+        \revert Stem #'direction
+        \change Staff = down
+        \set subdivideBeams = ##t
+        g16.[
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g32
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g16]
+        \change Staff = up
+        \stemUp
+        \set followVoice = ##t
+        c'''32([ b''16 a''16 gis''16 g''32)]
+      } \\ {
+        s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d'']
+      } \\ {
+        s4 \autoBeamOff d''8.. f''32
+      } \\ {
+        s4 es''4
+      } >>
+    }
+
+    \new Staff = "down" {
+      \clef bass
+      \key c \minor
+      \set subdivideBeams = ##f
+      \override Stem  #'french-beaming = ##t
+      \override Beam  #'thickness = #0.3
+      \override Stem  #'thickness = #4.0
+      g'16[ b16 fis16 g16]
+      << \makeClusters {
+        as16 <as b>
+        <g b>
+        <g cis>
+      } \\ {
+        \override Staff.Arpeggio  #'arpeggio-direction =#down
+        <cis, e, gis, b, cis>4\arpeggio
+      }
+    >> }
+  >>
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 60 8)
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists Horizontal_bracket_engraver
+    }
+  }
+}
+@end lilypond
+
+上で示した楽譜の断片はすべて手作業で作成されていました。しかしながら、必ずしも手作業で行う必要はありません。フォーマット エンジンの大部分は自動化されているため、その出力を音楽を操作する他のプログラムに供することができます。例えば、音楽の断片のデータベースをウェブサイトやマルチメディア プレゼンテーションで使用する画像に変換するために使用することもできます。
+
+このマニュアルも利用例です: 入力フォーマットはテキストなので、容易に他のテキスト ベースのフォーマット -- 例えば、@LaTex{}, HTML, このマニュアルの場合は Texinfo -- に埋め込むことができます。ある特別なプログラムによって入力断片を音楽イメージに置き換えることができ、それによって PDF や HTML の出力ファイルという結果を得ることができます。これはドキュメントの中で音楽とテキストを混在させることを容易にします。
+
+
+
+
+
+
+
+
+
+@node About the documentation
+@section About the documentation
+
+この節では、このドキュメントの各部分について説明します。
+
+@cindex Learning Manual
+@cindex Music Glossary
+@cindex Notation Reference
+@cindex Application Usage
+@cindex Snippet List
+@cindex Internals Reference
+
+@c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
+@c This is actually a limitation of texi2html. -jm
+@menu
+* About the Learning Manual::  このマニュアルは表記を作成する方法について丁寧な説明をしながら LilyPond についての紹介を行います。
+* About the Music Glossary::  このマニュアルは音楽用語についての説明を行い、それらの用語の他の言語への訳語を提供します。
+* About the Notation Reference::  このマニュアルはこのドキュメントの主要部分です。表記を作成する方法についての詳細な情報を提供します。このマニュアルは読者が学習マニュアルでカバーされている基本的な内容を知っていて、音楽用語集に書かれている英語の音楽用語に馴染んでいるものと仮定しています。
+* About the Application Usage::  ここでは実際のプログラムとオペレーティング システム特有の問題について議論します。
+* About the Snippet List::  これは短い LilyPond の例のコレクションです。
+* About the Internals Reference::  このドキュメントは LilyPond の内部構造体についての参照情報を提供します。調整を行うのに LilyPond の内部構造体についての知識が必要です。
+* Other documentation::  ここにはこのドキュメントの他の部分 -- ニュースやメール アーカイブなど -- がいくつかあります。
+@end menu
+
+
+@node About the Learning Manual
+@unnumberedsubsec About the Learning Manual
+
+@cindex Learning Manual
+
+本書は LilyPond の学習の始め方と、いくつかのキーとなるコンセプトをわかりやすい言葉で説明します。あなたは本書を一読すべきです。
+
+各節の最後にある @strong{参照} には、他の節への参照が含まれています: 初めて本書を読むときはこれらの参照を追うべきではありません。あなたが学習マニュアルをすべて読み終えたとき、いくつかの節を読み返し、さらに参照を追おうと思うかもしれません。
+
+
+
+@node About the Music Glossary
+@unnumberedsubsec About the Music Glossary
+
+@untranslated
+
+
+@node About the Notation Reference
+@unnumberedsubsec About the Notation Reference
+
+@untranslated
+
+
+@node About the Application Usage
+@unnumberedsubsec About the Application Usage
+
+@untranslated
+
+
+@node About the Snippet List
+@unnumberedsubsec About the Snippet List
+
+@untranslated
+
+
+@node About the Internals Reference
+@unnumberedsubsec About the Internals Reference
+
+@untranslated
+
+
+@node Other documentation
+@unnumberedsubsec Other documentation
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

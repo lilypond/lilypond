@@ -38,8 +38,22 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Sat Jan 10 17:36:09 UTC 2009
+ <p><i>Last updated Mon Jan 12 11:27:07 UTC 2009
 </i></p>
+<table align="center" border="2">
+ <tr align="center">
+  <th>New features in 2.12 since 2.10</th>  <th>es</th>
+ </tr>
+ <tr align="left">
+  <td>Section titles<br>(1163)</td>
+  <td>Francisco Vila<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
+  </td>
+ </tr>
+</table>
+<p></p>
+
 <table align="center" border="2">
  <tr align="center">
   <th>GNU LilyPond --- Learning Manual</th>  <th>fr</th>
@@ -59,7 +73,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #33ff21">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -87,7 +101,7 @@ translations.template.html.in; DO NOT EDIT !-->
    Jean-Yves Baudais<br>
    Damien Heurtebise</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #40fe23">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Till Rettig<br>
    Reinhold Kainhofer<br>
@@ -125,7 +139,7 @@ translations.template.html.in; DO NOT EDIT !-->
    Jean-Charles Malahieude<br>
    <small>John Mandereau</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #4efe25">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Till Rettig<br>
    Reinhold Kainhofer<br>
@@ -223,12 +237,13 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #33ff21">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
   <td>1 Install<br>(1928)</td>
   <td>John Mandereau<br>
+   <small>Jean-Charles Malahieude</small><br>
    <span style="background-color: #dfef77">partially translated (11 %)</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -324,7 +339,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #25fe1f">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">

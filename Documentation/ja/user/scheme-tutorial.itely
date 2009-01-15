@@ -1,0 +1,28 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Scheme tutorial
+@appendix Scheme tutorial
+
+@untranslated
+
+
+@menu
+* Tweaking with Scheme::
+@end menu
+
+@node Tweaking with Scheme
+@appendixsec Tweaking with Scheme
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

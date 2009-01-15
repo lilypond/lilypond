@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-kearning.tely
 @ignore
-    Translation of GIT committish: 1e3ef555477a299a695c35ccc0aaabe855bdd541
+    Translation of GIT committish: db53c05f11bea8831733b1fdf7ebe32cb1f491f4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -730,7 +730,7 @@ moins de 10% du code source.
 @node Example applications
 @unnumberedsubsec Example applications
 
-@cindex examples simples
+@cindex exemples simples
 
 Nous avons conçu LilyPond comme une expérimentation visant à
 concentrer l'art de la gravure musicale dans un logiciel.  Grâce à
