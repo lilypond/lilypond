@@ -73,23 +73,25 @@ to do anything fancy, discuss it on @code{lilypond-devel} first.}
 Most of the manual operates at the
 
 @example
-	@@node Foo
-	@@subsubsection Foo
+@@node Foo
+@@subsubsection Foo
 @end example
 
 @noindent
 level.  Sections are created with
 
 @example
-	@@node Foo
-	@@subsection Foo
+@@node Foo
+@@subsection Foo
 @end example
 
 @itemize
-@item Please leave two blank lines above a @@node; this makes it
+@item
+Please leave two blank lines above a @@node; this makes it
 easier to find sections in texinfo.
 
-@item Sectioning commands (@@node and @@section) must not appear
+@item
+Sectioning commands (@@node and @@section) must not appear
 inside an @@ignore.  Separate those commands with a space, ie @@n
 ode.
 
@@ -101,26 +103,31 @@ ode.
 
 @itemize
 
-@item Use two spaces for indentation in lilypond examples.  (no
+@item
+Use two spaces for indentation in lilypond examples.  (no
 tabs)
 
-@item All text strings should be prefaced with #.  LilyPond does
+@item
+All text strings should be prefaced with #.  LilyPond does
 not strictly require this, but it is helpful to get users
 accustomed to this scheme construct.  ie @code{\set
 Staff.instrumentName = #"cello"}
 
-@item All engravers should have double-quotes around them:
+@item
+All engravers should have double-quotes around them:
 
 @example
-    \consists "Spans_arpeggio_engraver"
+\consists "Spans_arpeggio_engraver"
 @end example
 
 Again, LilyPond does not strictly require this, but it is a useful
 standard to follow.
 
-@item Examples should end with a complete bar if possible.
+@item
+Examples should end with a complete bar if possible.
 
-@item If possible, only write one bar per line.  The notes on each
+@item
+If possible, only write one bar per line.  The notes on each
 line should be an independent line -- tweaks should occur on their
 own line if possible.  Bad:
 
@@ -135,7 +142,8 @@ Good:
 c1^"hi"
 @end example
 
-@item Most LilyPond input should be produced with:
+@item
+Most LilyPond input should be produced with:
 
 @example
 @@lilypond[verbatim,quote,relative=2]
@@ -164,7 +172,8 @@ Inspirational headwords are produced with
 @{pitches-headword.ly@}
 @end example
 
-@item LSR snippets are linked with
+@item
+LSR snippets are linked with
 
 @example
 @@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -174,29 +183,36 @@ Inspirational headwords are produced with
 @noindent
 excepted in Templates, where `doctitle' may be omitted.
 
-@item Avoid long stretches of input code.  Noone is going to read
+@item
+Avoid long stretches of input code.  Noone is going to read
 them in print.  Please create a smaller example.  (the smaller
 example does not need to be minimal, however)
 
-@item Specify durations for at least the first note of every bar.
+@item
+Specify durations for at least the first note of every bar.
 
-@item If possible, end with a complete bar.
+@item
+If possible, end with a complete bar.
 
-@item Comments should go on their own line, and be placed before
+@item
+Comments should go on their own line, and be placed before
 the line(s) to which they refer.
 
-@item Add extra spaces around @{ @} marks; ie
+@item
+Add extra spaces around @{ @} marks; ie
 
 @example
 not:          \chordmode @{c e g@}
 but instead:  \chordmode @{ c e g @}
 @end example
 
-@item If you only have one bar per line, omit bar checks.  If you
+@item
+If you only have one bar per line, omit bar checks.  If you
 put more than one bar per line (not recommended), then include bar
 checks.
 
-@item If you want to work on an example outside of the manual (for
+@item
+If you want to work on an example outside of the manual (for
 easier/faster processing), use this header:
 
 @example
@@ -225,110 +241,129 @@ Documentation Editor.
 @itemize
 
 @item
-* Lines should be less than 72 characters long.  (I personally
-  recommend writing with 66-char lines, but don't bother modifying
-  existing material.)
+Lines should be less than 72 characters long.  (I personally
+recommend writing with 66-char lines, but don't bother modifying
+existing material.)
 
 @item
-* Do not use tabs.
+Do not use tabs.
 
 @item
-* Do not use spaces at the beginning of a line (except in @@example
-  or @@verbatim environments), and do not use more than a single
-  space between words.  `makeinfo' copies the input lines verbatim
-  without removing those spaces.
+Do not use spaces at the beginning of a line (except in
+@@example or @@verbatim environments), and do not use more than a
+single space between words.  `makeinfo' copies the input lines
+verbatim without removing those spaces.
 
 @item
-* Use two spaces after a period.
+Use two spaces after a period.
 
 @item
-* In examples of syntax, use @@var@{musicexpr@} for a music
-  expression.
+In examples of syntax, use @@var@{musicexpr@} for a music
+expression.
 
 @item
-* Don't use @@rinternals@{@} in the main text.  If you're tempted to
-  do so, you're probably getting too close to "talking through the
-  code".  If you really want to refer to a context, use @@code@{@} in
-  the main text and @@rinternals@{@} in the @@seealso.
+Don't use @@rinternals@{@} in the main text.  If you're
+tempted to do so, you're probably getting too close to "talking
+through the code".  If you really want to refer to a context, use
+@@code@{@} in the main text and @@rinternals@{@} in the @@seealso.
 
 @item
-* Variables or numbers which consist of a single character
-  (probably followed by a punctuation mark) should be tied
-  properly, either to the previous or the next word.  Example:
+Variables or numbers which consist of a single character
+(probably followed by a punctuation mark) should be tied properly,
+either to the previous or the next word.  Example:
 
-      The variable@@tie@{@}@@var@{a@} ...
-
-@item
-* To get consistent indentation in the DVI output it is better to
-  avoid the @@verbatim environment.  Use the @@example environment
-  instead if possible, but without extraneous indentation.  For
-  example, this
-
-    @@example
-      foo @{
-        bar
-      @}
-    @@end example
-
-  should be replaced with
-
-    @@example
-    foo @{
-      bar
-    @}
-    @@end example
-
-  where `@@example' starts the line (without leading spaces).
+@example
+The variable@@tie@{@}@@var@{a@} ...
+@end example
 
 @item
-* Do not compress the input vertically; this is, do not use
+To get consistent indentation in the DVI output it is better
+to avoid the @@verbatim environment.  Use the @@example
+environment instead if possible, but without extraneous
+indentation.  For example, this
 
+@example
+@@example
+  foo @{
+    bar
+  @}
+@@end example
+@end example
+
+@noindent
+should be replaced with
+
+@example
+@@example
+foo @{
+  bar
+@}
+@@end example
+@end example
+
+@noindent
+where `@@example' starts the line (without leading spaces).
+
+@item
+Do not compress the input vertically; this is, do not use
+
+@example
     Beginning of logical unit
     @@example
     ...
     @@end example
     continuation of logical unit
+@end example
 
-  but
+@noindent
+but instead do
 
-    Beginning of logical unit
+@example
+Beginning of logical unit
 
-    @@example
-    ...
-    @@end example
+@@example
+...
+@@end example
 
-    @@noindent
-    continuation of logical unit
+@@noindent
+continuation of logical unit
+@example
 
-  This makes it easier to avoid forgetting the `@@noindent'.  Only
-  use @@noindent if the material is discussing the same material;
-  new material should simply begin without anything special on the
-  line above it.
-
-@item
-* in @@itemize use @@item on a separate line like this:
-  @@itemize
-  @@item
-  Foo
-
-  @@item
-  Bar
-
-  Do not use @@itemize @@bullet.
+This makes it easier to avoid forgetting the `@@noindent'.  Only
+use @@noindent if the material is discussing the same material;
+new material should simply begin without anything special on the
+line above it.
 
 @item
-* To get LilyPond version, use @@version@{@} (this does not work inside
-  LilyPond snippets).  If you write "@@version@{@}" (enclosed with
-  quotes), or generally if @@version@{@} is not followed by a space,
-  enclose it with
+in @@itemize use @@item
+on a separate line like this:
 
-  @@w@{ ... @}
+@example
+@@itemize
+@@item
+Foo
+
+@@item
+Bar
+@end example
+
+Do not use @@itemize @@bullet.
+
+@item
+To get LilyPond version, use @@version@{@} (this does not work
+inside LilyPond snippets).  If you write "@@version@{@}" (enclosed
+with quotes), or generally if @@version@{@} is not followed by a
+space, tere will be an ugly line break in PDF output unless you
+enclose it with
+
+@example
+@@w@{ ... @}
 
   e.g.
 
-  @@w@{"@@version@{@}"@}
+@@w@{"@@version@{@}"@}
+@end example
 
-  to prevent an ugly line break in PDF output.
 @end itemize
 
 
@@ -352,7 +387,9 @@ Documentation Editor.
 @@example ... @@end ignore - example text that should be set as a
   blockquote.  Any @{@} must be escaped with @@@{ @}@@
 @item
-@@itemize @@item A @@item B ... @@end itemize - for bulleted lists.
+@@itemize @@item
+A @@item
+B ... @@end itemize - for bulleted lists.
   Do not compress vertically like this.
 
 @item
@@ -395,35 +432,49 @@ Documentation Editor.
 @itemize
 
 @item
-* References must occur at the end of a sentence, for more
-  information see @@ref@{the texinfo manual@}.  Ideally this should
-  also be the final sentence of a paragraph, but this is not
-  required.  Any link in a doc section must be duplicated in the
-  @@seealso section at the bottom.
+References must occur at the end of a sentence, for more
+information see @@ref@{the texinfo manual@}.  Ideally this should
+also be the final sentence of a paragraph, but this is not
+required.  Any link in a doc section must be duplicated in the
+@@seealso section at the bottom.
 
 @item
-* Introducing examples must be done with
+Introducing examples must be done with
+
+@example
      . (ie finish the previous sentence/paragaph)
      : (ie `in this example:')
      , (ie `may add foo with the blah construct,')
-  The old "sentence runs directly into the example" method is not
-  allowed any more.
+@end example
+
+The old "sentence runs directly into the example" method is not
+allowed any more.
 
 @item
-* Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
+Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
 
 @item
-* Colon usage
+Colon usage
 
-  1. To introduce lists
-  2. When beginning a quote: "So, he said,..."
-     This usage is rarer.  Americans often just use a comma.
-  3. When adding a defining example at the end of a sentence.
+@enumerate
 
 @item
-* Non-ASCII characters which are in utf-8 should be directly used;
-  this is, don't say `Ba@@ss@{@}tuba' but `Baßtuba'.  This ensures that
-  all such characters appear in all output formats.
+To introduce lists
+
+@item
+When beginning a quote: "So, he said,...".
+
+This usage is rarer.  Americans often just use a comma.
+
+@item
+When adding a defining example at the end of a sentence.
+
+@end enumerate
+
+@item
+Non-ASCII characters which are in utf-8 should be directly used;
+this is, don't say `Ba@@ss@{@}tuba' but `Baßtuba'.  This ensures
+that all such characters appear in all output formats.
 
 @end itemize
 
@@ -443,37 +494,38 @@ Glossary.
 @itemize
 
 @item
-* Learning Manual:
-  The LM is written in a tutorial style which introduces the most
-  important concepts, structure and syntax of the elements of a
-  LilyPond score in a carefully graded sequence of steps.
-  Explanations of all musical concepts used in the Manual can be
-  found in the Music Glossary, and readers are assumed to have no
-  prior knowledge of LilyPond.  The objective is to take readers to
-  a level where the Notation Reference can be understood and
-  employed to both adapt the templates in the Appendix to their
-  needs and to begin to construct their own scores.  Commonly used
-  tweaks are introduced and explained.  Examples are provided
-  throughout which, while being focussed on the topic being
-  introduced, are long enough to seem real in order to retain the
-  readers' interest.  Each example builds on the previous material,
-  and comments are used liberally.  Every new aspect is thoroughly
-  explained before it is used.
+Learning Manual:
+
+The LM is written in a tutorial style which introduces the most
+important concepts, structure and syntax of the elements of a
+LilyPond score in a carefully graded sequence of steps.
+Explanations of all musical concepts used in the Manual can be
+found in the Music Glossary, and readers are assumed to have no
+prior knowledge of LilyPond.  The objective is to take readers to
+a level where the Notation Reference can be understood and
+employed to both adapt the templates in the Appendix to their
+needs and to begin to construct their own scores.  Commonly used
+tweaks are introduced and explained.  Examples are provided
+throughout which, while being focussed on the topic being
+introduced, are long enough to seem real in order to retain the
+readers' interest.  Each example builds on the previous material,
+and comments are used liberally.  Every new aspect is thoroughly
+explained before it is used.
 
 Users are encouraged to read the complete Learning Manual from
 start-to-finish.
 
 
 @item
-* Notation Reference: a (hopefully complete) description of
-  LilyPond input notation.  Some material from here may be
-  duplicated in the Learning Manual (for teaching), but consider
-  the NR to be the "definitive" description of each notation
-  element, with the LM being an "extra".  The goal is _not_ to
-  provide a step-by-step learning environment -- do not avoid
-  using notation that has not be introduced previously in the
-  NR  (for example, use \break if appropriate).  This section is
-  written in formal technical writing style.
+Notation Reference: a (hopefully complete) description of LilyPond
+input notation.  Some material from here may be duplicated in the
+Learning Manual (for teaching), but consider the NR to be the
+"definitive" description of each notation element, with the LM
+being an "extra".  The goal is _not_ to provide a step-by-step
+learning environment -- do not avoid using notation that has not
+be introduced previously in the NR  (for example, use \break if
+appropriate).  This section is written in formal technical writing
+style.
 
 Avoid duplication.  Although users are not expected to read this
 manual from start to finish, they should be familiar with the
@@ -481,9 +533,8 @@ material in the Learning Manual (particularly ``Fundamental
 Concepts''), so do not repeat that material in each section of
 this book.  Also watch out for common constructs, like ^ - _ for
 directions -- those are explained in NR 3.  In NR 1, you can
-write:
-DYNAMICS may be manually placed above or below the
-staff, see @@ref@{Controlling direction and placement@}.
+write: DYNAMICS may be manually placed above or below the staff,
+see @@ref@{Controlling direction and placement@}.
 
 Most tweaks should be added to LSR and not placed directly in the
 .itely file.  In some cases, tweaks may be placed in the main
@@ -494,24 +545,23 @@ means; explaining musical concepts happens in the Music Glossary.
 
 
 @item
-* Application Usage: information about using the program lilypond
-  with other programs (lilypond-book, operating systems, GUIs,
-  convert-ly, etc).  This section is written in formal technical
-  writing style.
+Application Usage: information about using the program lilypond
+with other programs (lilypond-book, operating systems, GUIs,
+convert-ly, etc).  This section is written in formal technical
+writing style.
 
 Users are not expected to read this manual from start to finish.
 
 
 @item
-* Music Glossary: information about the music notation itself.
-  Explanations and translations about notation terms go here.
+Music Glossary: information about the music notation itself.
+Explanations and translations about notation terms go here.
 
 Users are not expected to read this manual from start to finish.
 
 @item
-* Internals Reference: not really a documentation book, since it
-  is automagically generated from the source, but this is its
-  name.
+Internals Reference: not really a documentation book, since it is
+automagically generated from the source, but this is its name.
 
 @end itemize
 
@@ -520,7 +570,8 @@ Users are not expected to read this manual from start to finish.
 
 @itemize
 
-@item The order of headings inside documentation sections should
+@item
+The order of headings inside documentation sections should
 be:
 
 @example
@@ -533,63 +584,75 @@ main docs
 @end example
 
 @item
-* You _must_ include a @@seealso.  The order of items inside the
-  @@seealso section is
+You @emph{must} include a @@seealso.
 
-    Music Glossary:
-    @@rglos@{foo@},
-    @@rglos@{bar@}.
+@itemize
+@item
+The order of items inside the @@seealso section is
 
-    Learning Manual:
-    @@rlearning@{baz@},
-    @@rlearning@{foozle@}.
+@example
+Music Glossary:
+@@rglos@{foo@},
+@@rglos@{bar@}.
 
-    Notation Reference:
-    @@ruser@{faazle@},
-    @@ruser@{boo@}.
+Learning Manual:
+@@rlearning@{baz@},
+@@rlearning@{foozle@}.
 
-    Application Usage:
-    @@rprogram@{blah@}.
+Notation Reference:
+@@ruser@{faazle@},
+@@ruser@{boo@}.
 
-    Installed Files:
-    @@file@{path/to/dir/blahz@}.
+Application Usage:
+@@rprogram@{blah@}.
 
-    Snippets: @@rlsr@{section@}.
+Installed Files:
+@@file@{path/to/dir/blahz@}.
 
-    Internals Reference:
-    @@rinternals@{fazzle@},
-    @@rinternals@{booar@}.
+Snippets: @@rlsr@{section@}.
 
-      If there are multiple entries, separate them by commas
-      but do not include an `and'.
-
-      Always end with a period.
-
-      Place each link on a new line as above; this makes it much
-      easier to add or remove links.  In the output, they
-      appear on a single line.
-
-  ("Snippets" is REQUIRED; the others are optional)
-
-  Any new concepts or links which require an explanation should go
-  as a full sentence(s) in the main text.
-
-  Don't insert an empty line between @@seealso and the first entry!
-  Otherwise there is excessive vertical space in the PDF output.
+Internals Reference:
+@@rinternals@{fazzle@},
+@@rinternals@{booar@}.
+@end example
 
 @item
-* To create links, use @@ref@{@} if the link is within the same
-  manual.
+If there are multiple entries, separate them by commas but do not
+include an `and'.
 
 @item
-* @@predefined ... @@endpredefined is for commands in ly/*-init.ly
-  FIXME?
+Always end with a period.
 
 @item
-* Do not include any real info in second-level sections (ie 1.1
-  Pitches).  A first-level section may have introductory material,
-  but other than that all material goes into third-level sections
-  (ie 1.1.1 Writing Pitches).
+Place each link on a new line as above; this makes it much easier
+to add or remove links.  In the output, they appear on a single
+line.
+
+("Snippets" is REQUIRED; the others are optional)
+
+@item
+Any new concepts or links which require an explanation should go
+as a full sentence(s) in the main text.
+
+@item
+Don't insert an empty line between @@seealso and the first entry!
+Otherwise there is excessive vertical space in the PDF output.
+
+@end itemize
+
+@item
+To create links, use @@ref@{@} if the link is within the same
+manual.
+
+@item
+@@predefined ... @@endpredefined is for commands in ly/*-init.ly
+FIXME?
+
+@item
+Do not include any real info in second-level sections (ie 1.1
+Pitches).  A first-level section may have introductory material,
+but other than that all material goes into third-level sections
+(ie 1.1.1 Writing Pitches).
 
 @end itemize
 
@@ -597,15 +660,15 @@ main docs
 @subsection Checking cross-references
 
 Cross-references between different manuals are heavily used in the
-documentation, but they are not checked during compilation.  However,
-if you compile the documentation, a script called check_texi_refs can
-help you with checking and fixing these cross-references; for
-information on usage, cd into a source tree where documentation has
-been built, cd into Documentation and look for check-xrefs and
-fix-xrefs targets in 'make help' output.  Note that you have to find
-yourself the source files to fix cross-references in the generated
-documentation such as the Internals Reference; e.g. you can grep
-scm/ and lily/.
+documentation, but they are not checked during compilation.
+However, if you compile the documentation, a script called
+check_texi_refs can help you with checking and fixing these
+cross-references; for information on usage, cd into a source tree
+where documentation has been built, cd into Documentation and look
+for check-xrefs and fix-xrefs targets in 'make help' output.  Note
+that you have to find yourself the source files to fix
+cross-references in the generated documentation such as the
+Internals Reference; e.g. you can grep scm/ and lily/.
 
 
 @subsection General writing
@@ -613,69 +676,97 @@ scm/ and lily/.
 @itemize
 
 @item
-* Do not forget to create @@cindex entries for new sections of text.
-  Enter commands with @@funindex, i.e.
-    @@cindex pitches, writing in different octaves
-    @@funindex \relative
-  do not bother with the @@code@{@} (they are added automatically).  These
-  items are added to both the command index and the unified index.
+Do not forget to create @@cindex entries for new sections of text.
+Enter commands with @@funindex, i.e.
 
-  Both index commands should go in front of the actual material.
+@example
+@@cindex pitches, writing in different octaves
+@@funindex \relative
+@end example
 
-  @@cindex entries should not be capitalized, ie
-    @@cindex time signature
-  is preferred.  (instead of `Time signature')   Only use capital
-  letters for musical terms which demand them, like D.S. al Fine.
+@noindent
+do not bother with the @@code@{@} (they are added automatically).
+These items are added to both the command index and the unified
+index.
 
-  For scheme functions, only include the final part, ie
-    @@funindex modern-voice-cautionary
-  and NOT
-    @@funindex #(set-accidental-style modern-voice-cautionary)
+Both index commands should go in front of the actual material.
+
+@@cindex entries should not be capitalized, ie
+
+@example
+@@cindex time signature
+@end example
+
+@noindent
+is preferred instead of @qq{Time signature},   Only use capital
+letters for musical terms which demand them, like D.S. al Fine.
+
+For scheme functions, only include the final part, ie
+
+@example
+@@funindex modern-voice-cautionary
+     and NOT
+@@funindex #(set-accidental-style modern-voice-cautionary)
+@end example
 
 @item
-* Preferred terms:
-    - in general, use the American spellings.  The internal
-      lilypond property names use this spelling.
-    - list of specific terms:
+Preferred terms:
+
+@itemize
+
+@item
+In general, use the American spellings.  The internal lilypond
+property names use this spelling.
+
+@item
+List of specific terms:
+
+@example
 canceled
 simultaenous    NOT concurrent
 measure: the unit of music
 bar line: the symbol delimiting a measure   NOT barline
 note head   NOT notehead
 chord construct   NOT chord (when referring to <>)
+@end example
 
 @end itemize
 
 
 @subsection Technical writing style
 
+These refer to the NR.  The LM uses a more gentle, colloquial
+style.
+
 @itemize
 
 @item
-* Do not refer to LilyPond in the text.  The reader knows what the
-  manual is about.  If you do, capitalization is LilyPond.
+Do not refer to LilyPond in the text.  The reader knows what the
+manual is about.  If you do, capitalization is LilyPond.
 
 @item
-* If you explicitly refer to `lilypond' the program (or any other
-  command to be executed), say `@@command@{lilypond@}'.
+If you explicitly refer to @q{lilypond} the program (or any other
+command to be executed), write @code{@@command@{lilypond@}}.
 
 @item
-* Do not explicitly refer to the reader/user.  There is no one
-  else besides the reader and the writer.
+Do not explicitly refer to the reader/user.  There is no one else
+besides the reader and the writer.
 
 @item
-* Do not use abbreviations (don't, won't, etc.).  If you do, use a
-  comma after it:
+Do not use abbreviations (don't, won't, etc.).  If you do, use a
+comma after it:
 
-    blabla blabla, i.e., blabla blabla
-
-@item
-* Avoid fluff (``Notice that,'' ``as you can see,''
-  ``Currently,'').
+@example
+blabla blabla, i.e., blabla blabla
+@end example
 
 @item
-* The use of the word `illegal' is inappropriate in most cases.
-  Say `invalid' instead.
+Avoid fluff (@qq{Notice that,} @qq{as you can see,}
+#qq{Currently,}).
+
+@item
+The use of the word @q{illegal} is inappropriate in most cases.
+Say @q{invalid} instead.
 
 @end itemize
 
@@ -683,46 +774,69 @@ chord construct   NOT chord (when referring to <>)
 @node Tips for writing docs
 @section Tips for writing docs
 
-In the NR, I highly recommend working on one subsection at a time.
-For each subsection,
+In the NR, I highly recommend focusing on one subsection at a
+time.  For each subsection,
 
-- check the mundane formatting.  Are the headings (@@predefined,
-  @@seealso, etc) in the right order?
-- add any appropriate index entries.
-- check the links in the @@seealso section -- links to music
-  glossary, internal references, and other NR sections are the
-  main concern.  Check for potential additions.
-- move LSR-worthy material into LSR.  Add the snippet (or
-  just send it to Valentin for adding), delete the material from
-  the .itely file, and add a @@lilypondfile command.
+@itemize
 
-- check the examples and descriptions.  Do they still work?
-  *Do not* assume that the existing text is accurate/complete;
-  some of the manual is highly out of date.
-- is the material in the @@knownissues  still accurate?
-- process anything on the TODO list on the GDP web site.
-- can the examples be improved (made more explanatory), or is
-  there any missing info?  (feel free to ask specific questions
-  on -user; a couple of people claimed to be interesting in being
-  "consultants" who would help with such questions)
+@item
+check the mundane formatting.  Are the headings (@@predefined,
+@@seealso, etc) in the right order?
+
+@item
+add any appropriate index entries.
+
+@item
+check the links in the @@seealso section -- links to music
+glossary, internal references, and other NR sections are the main
+concern.  Check for potential additions.
+
+@item
+move LSR-worthy material into LSR.  Add the snippet, delete the
+material from the .itely file, and add a @@lilypondfile command.
+
+@item
+check the examples and descriptions.  Do they still work?
+@strong{Do not} assume that the existing text is
+accurate/complete; some of the manual is highly out of date.
+
+@item
+is the material in the @@knownissues  still accurate?
+
+@item
+can the examples be improved (made more explanatory), or is there
+any missing info?  (feel free to ask specific questions on -user;
+a couple of people claimed to be interesting in being
+@qq{consultants} who would help with such questions)
+
+@end itemize
 
 In general, I favor short text explanations with good examples --
-"an example is worth a thousand words".  When I worked on the
+@qq{an example is worth a thousand words}.  When I worked on the
 docs, I spent about half my time just working on those tiny
 lilypond examples.  Making easily-understandable examples is much
 harder than it looks.
 
 
-TWEAKS
+@subsubheading TWEAKS
 
 In general, any \set or \override commands should go in the
-"select snippets" section, which means that they should go in LSR
-and not the .itely file.  For some cases, the command obviously
-belongs in the "main text" (ie not inside @@predefined or @@seealso
-or whatever) -- instrument names are a good example of this.
-  \set Staff.instrumentName = #"foo"
+@qq{select snippets} section, which means that they should go in
+LSR and not the .itely file.  For some cases, the command
+obviously belongs in the @qq{main text} (i.e. not inside
+@@predefined or @@seealso or whatever) -- instrument names are a
+good example of this.
+
+@example
+\set Staff.instrumentName = #"foo"
+@end example
+
 On the other side of this,
-  \override Score.Hairpin #'after-line-breaking = ##t
+
+@example
+\override Score.Hairpin #'after-line-breaking = ##t
+@end example
+
 clearly belongs in LSR.
 
 I'm quite willing to discuss specific cases if you think that a
@@ -731,44 +845,10 @@ LSR are easier to maintain, so I'd like to move as much as
 possible into there.
 
 
-It would be "nice" if you spent a lot of time crafting nice tweaks
-for users... but my recommendation is *not* to do this.  There's a
-lot of doc work to do without adding examples of tweaks.  Tweak
-examples are trivial to add later -- they could be made by normal
-users, or by you after GDP is over.
-
-Basically, it's not something that needs to be done while I'm
-around.  Remember that I'm gone in August at the latest; there's a
-*lot* of doc work that should be done before then.  I strongly
-recommend that you save all the tweaks until later.
-
-
-FINAL
-
-- when you think you're finished, let me know.  I'll spend a few
-  minutes and send you a list of mistakes to fix.
-  (there's a *lot* of details to cover; we'll probably spend a
-  week going back and forth like this.  See earlier warning about
-  hating me by the time you're done with a doc section :)
-- I'll ask people on -user to review the Snippet list at this
-  time; correcting things on the Snippet list is much easier than
-  getting comments on the integrated snippets.
-- when we're both satisfied with the section, we'll invite
-  comments from -user.  Judging from my experience with Pitches,
-  it will take between three and five weeks to keep on revising
-  the "final" version.
-
-I personally found it quite frustrating to still be fixing
-problems in a doc section which I thought was "perfect" a whole
-bloody *month* ago.  Don't get me wrong; it's great that we get so
-many comments from -user.  :)   But just be aware that when you
-think you're finally done with a section, you're actually only
-halfway there.
-
-
-
-
-
+It would be @qq{nice} if you spent a lot of time crafting nice
+tweaks for users... but my recommendation is @strong{not} to do
+this.  There's a lot of doc work to do without adding examples of
+tweaks.  Tweak examples are trivial to added by normal users.
 
 
 @node Updating docs with convert-ly
