@@ -1,3 +1,7 @@
+.PHONY: web-install
+web-install:
+web-uninstall:
+
 local-dist: configure
 
 local-distclean:
@@ -52,7 +56,6 @@ dist:
 
 local-help:
 	@echo -e "\
-  web-uninstall  remove installed documentation with images\n\
   config      rerun configure\n\
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   also remove configure output\n\
@@ -62,6 +65,9 @@ local-help:
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
+  web-install * install website documentation in (webdir=$(webdir))\n\
+              and Info documentation with images\n\
+  web-uninstall *  remove installed documentation with images\n\
 \n\
 Some more targets are available for testing changes:\n\
   test-baseline  check  test-redo  test-clean\n\
