@@ -72,7 +72,7 @@ install-help2man:
 # installed in non-recursing target from TOP-SRC-DIR
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
+	rsync -rl --exclude='*.signature' $(outdir)/offline-root/ $(DESTDIR)$(webdir)
 
 install-info-WWW:
 	$(MAKE) -C Documentation/user install-info
