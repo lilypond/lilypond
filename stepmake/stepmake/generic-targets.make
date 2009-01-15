@@ -1,6 +1,5 @@
 .PHONY : all clean bin-clean config default dist doc exe help html lib TAGS\
-	 po web web-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
-	 web-install
+	 po web web-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2
 
 all:	 default
 	$(LOOP)
@@ -67,8 +66,6 @@ help: generic-help local-help
   uninstall*  uninstall programs and data\n\
   lib         update all libraries\n\
   web *       update website in directory \`out-www'\n\
-  web-install * install website documentation in (webdir=$(webdir))\n\
-              and Info documentation with images\n\
   web-clean * clean \`out-www' directory\n\
   TAGS        generate tagfiles\n\
 \n\
@@ -178,7 +175,6 @@ $(config_make): $(top-src-dir)/configure
 
 local-WWW-1:
 local-WWW-2:
-web-install:
 WWW-post:
 
 WWW-1: local-WWW-1

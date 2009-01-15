@@ -218,6 +218,7 @@ and the patch from
 is strongly recommended to build documentation in HTML; support for
 building HTML documentation using @command{makeinfo} from GNU Texinfo
 is deprecated.
+@item rsync
 @end itemize
 
 
