@@ -1837,8 +1837,9 @@ def musicxml_note_to_lily_main_event (n):
         # treated like an ordinary note pitch
         rest = n.get_maybe_exist_typed_child (musicxml.Rest)
         event = musicexp.RestEvent ()
-        pitch = musicxml_restdisplay_to_lily (rest)
-        event.pitch = pitch
+        if options.convert_rest_positions:
+            pitch = musicxml_restdisplay_to_lily (rest)
+            event.pitch = pitch
 
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
@@ -2627,6 +2628,12 @@ information.""") % 'lilypond')
                   default = True,
                   dest = "convert_directions",
                   help = _ ("do not convert directions (^, _ or -) for articulations, dynamics, etc."))
+
+    p.add_option ('--nrp', '--no-rest-positions', 
+                  action = "store_false",
+                  default = True,
+                  dest = "convert_rest_positions",
+                  help = _ ("do not convert exact vertical positions of rests"))
 
     p.add_option ('--no-beaming', 
                   action = "store_false",
