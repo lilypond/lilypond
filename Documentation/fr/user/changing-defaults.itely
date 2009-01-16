@@ -476,6 +476,7 @@ servir à indiquer un passage improvisé dans un morceau de jazz.
 }
 \context { \Staff
   \accepts "ImproVoice"
+  \remove "Rest_collision_engraver" % FIXME: avoid segfault
 }}
 
 \relative c'' {
