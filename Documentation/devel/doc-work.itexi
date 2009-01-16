@@ -701,7 +701,7 @@ Both index commands should go in front of the actual material.
 is preferred instead of @qq{Time signature},   Only use capital
 letters for musical terms which demand them, like D.S. al Fine.
 
-For scheme functions, only include the final part, ie
+For scheme functions, only include the final part, i.e.,
 
 @example
 @@funindex modern-voice-cautionary
@@ -723,7 +723,7 @@ List of specific terms:
 
 @example
 canceled
-simultaenous    NOT concurrent
+simultaneous    NOT concurrent
 measure: the unit of music
 bar line: the symbol delimiting a measure   NOT barline
 note head   NOT notehead
@@ -755,12 +755,11 @@ Do not explicitly refer to the reader/user.  There is no one else
 besides the reader and the writer.
 
 @item
-Do not use abbreviations (don't, won't, etc.).  If you do, use a
-comma after it:
+Avoid contractions (don't, won't, etc.).  Spell the words out completely.
 
-@example
-blabla blabla, i.e., blabla blabla
-@end example
+@item
+Avoid abbreviations, except for commonly used abbreviations of foreign
+language terms such as etc. and i.e.
 
 @item
 Avoid fluff (@qq{Notice that,} @qq{as you can see,}
@@ -783,7 +782,7 @@ time.  For each subsection,
 
 @item
 check the mundane formatting.  Are the headings (@@predefined,
-@@seealso, etc) in the right order?
+@@seealso, etc.) in the right order?
 
 @item
 add any appropriate index entries.
@@ -850,7 +849,13 @@ possible into there.
 It would be @qq{nice} if you spent a lot of time crafting nice
 tweaks for users... but my recommendation is @strong{not} to do
 this.  There's a lot of doc work to do without adding examples of
-tweaks.  Tweak examples are trivial to added by normal users.
+tweaks.  Tweak examples can easily be added by normal users by adding
+them to the LSR.
+
+One place where a documentation writer can profitably spend time writing
+or upgrading tweaks is creating tweaks to deal with known issues.  It
+would be ideal if every significant known issue had a workaround to avoid
+the difficulty.
 
 
 @node Updating docs with convert-ly
