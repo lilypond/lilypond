@@ -29,7 +29,11 @@ MAIN_INFO_DOC = lilypond
 INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
-TEXI2PDF_FLAGS = -I $(top-src-dir)/Documentation/user
+DOCUMENTATION_INCLUDES = \
+  -I $(top-src-dir)/Documentation/user \
+  -I $(top-build-dir)/Documentation/user/$(outdir)
+
+TEXI2PDF_FLAGS = $(DOCUMENTATION_INCLUDES)
 
 ifeq ($(out),www)
 INFO_IMAGES_DIR = lilypond
