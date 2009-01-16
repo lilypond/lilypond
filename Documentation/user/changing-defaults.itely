@@ -602,6 +602,7 @@ to indicate improvisation in jazz pieces,
   \name ImproVoice
   \type "Engraver_group"
   \consists "Note_heads_engraver"
+  \consists "Rhythmic_column_engraver"
   \consists "Text_engraver"
   \consists Pitch_squash_engraver
   squashedPosition = #0
