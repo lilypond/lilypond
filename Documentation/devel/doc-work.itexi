@@ -327,7 +327,7 @@ Beginning of logical unit
 
 @@noindent
 continuation of logical unit
-@example
+@end example
 
 This makes it easier to avoid forgetting the `@@noindent'.  Only
 use @@noindent if the material is discussing the same material;
@@ -732,6 +732,8 @@ chord construct   NOT chord (when referring to <>)
 
 @end itemize
 
+@end itemize
+
 
 @subsection Technical writing style
 
@@ -762,7 +764,7 @@ blabla blabla, i.e., blabla blabla
 
 @item
 Avoid fluff (@qq{Notice that,} @qq{as you can see,}
-#qq{Currently,}).
+@qq{Currently,}).
 
 @item
 The use of the word @q{illegal} is inappropriate in most cases.
