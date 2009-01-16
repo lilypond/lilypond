@@ -611,6 +611,7 @@ to indicate improvisation in jazz pieces,
 }
 \context { \Staff
   \accepts "ImproVoice"
+  \remove "Rest_collision_engraver" % FIXME: avoid segfault
 }}
 
 \relative c'' {
