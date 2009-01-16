@@ -940,8 +940,8 @@ pueden modificar.
 
 Hemos estado hablando de @emph{el} objeto @code{Fingering}, pero
 realmente esto no significa mucho.  El archivo de inicialización
-(véase @ref{File structure}) @file{scm/@/define@/-grobs@/.scm} muestra
-el alma del @q{objeto},
+(véase @rlearning{Other sources of information})
+@file{scm/@/define@/-grobs@/.scm} muestra el alma del @q{objeto},
 
 @example
 (Fingering
