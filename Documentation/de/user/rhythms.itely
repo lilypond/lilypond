@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -41,9 +41,14 @@ Dauern, Bebalkung und Takten.
 
 @cindex Dauer
 @cindex Notenlänge
+
+
 @funindex \longa
 @funindex \breve
 @funindex \maxima
+@funindex longa
+@funindex breve
+@funindex maxima
 
 Notenlängen (Dauern) werden durch 
 Zahlen und Punkte notiert: Dauern werden als reziproke Werte geschrieben. 
@@ -88,8 +93,11 @@ a a a2 a a4 a a1 a
 @end lilypond
 
 @funindex .
+
 @cindex Punktierung
 @cindex Noten, punktiert
+@cindex Doppelpunktierung
+@cindex Noten, doppelpunktiert
 
 Um punktierte Notendauern zu erhalten, muss einfach nur ein Punkt 
 (@code{.}) hinter die Zahl der Dauer gesetzt werden.  Zwei Punkte 
@@ -115,6 +123,9 @@ Einstellungen für proportionale Notation siehe
 @funindex \dotsUp
 @funindex \dotsDown
 @funindex \dotsNeutral
+@funindex dotsUp
+@funindex dotsDown
+@funindex dotsNeutral
 
 Punkte werden normalerweise nach oben verschoben, damit sie die Notenlinien 
 nicht berühren.  Fertige Befehle können eingesetzt werden, um
@@ -132,6 +143,7 @@ siehe @ref{Direction and placement}.
 Glossar:
 @rglos{breve},
 @rglos{longa},
+@rglos{maxima},
 @rglos{note value},
 @rglos{Duration names notes and rests}.
 
@@ -168,6 +180,8 @@ Maxima (8 Ganze) gesetzt werden.
 @cindex N-tolen
 @cindex Triolen
 @cindex Rhythmische Aufteilungen
+
+@funindex times
 @funindex \times
 
 Triolen und andere rhythmische Aufteilungen werden aus einem musikalischen 
@@ -193,6 +207,9 @@ c4 c \times 2/3 { b4 a g }
 @funindex \tupletUp
 @funindex \tupletDown
 @funindex \tupletNeutral
+@funindex tupletUp
+@funindex tupletDown
+@funindex tupletNeutral
 
 Die automatische Platzierung der Triolenklammer über oder unter
 den Noten kann manuell geändert werden mit definierten Befehlen,
@@ -263,7 +280,10 @@ Referenz der Interna:
 @rinternals{TimeScaledMusic}.
 
 @knownissues
-@cindex grace notes within tuplet brackets
+@cindex Verzierung innerhalb von rhythmischer Kombination
+@cindex Stichnoten innerhalb von rhythmischer Kombination
+@cindex Verzierung innerhalb von Triole
+
 Wenn die erste Noten eines Systems ein Vorschlag (eine Verzierung)
 ist, die von einer N-tole gefolgt ist, muss der Vorschlag
 vor den @code{\times}-Befehl gesetzt werden um Fehler zu
@@ -309,6 +329,8 @@ beeinflusst werden.  Das ist sinnvoll, wenn man viele Takte
 @cindex Musik komprimieren
 @cindex Komprimieren von Noten
 @cindex Noten komprimieren
+
+@funindex scaleDurations
 @funindex \scaleDurations
 
 Längere Notenabschnitte können auf die gleiche Art durch Multiplikation
@@ -353,6 +375,7 @@ Schnipsel:
 
 @cindex Bindebogen
 @cindex Überbindung
+
 @funindex ~
 
 Ein Bindebogen verbindet zwei benachbarte Noten der selben 
@@ -406,12 +429,14 @@ geschrieben werden.
 <c~ e g~ b> <c e g b>
 @end lilypond
 
-@funindex \repeatTie
 @cindex Bindebögen wiederholen
 @cindex Wiederholung und Bindebögen
 @cindex Überbindung und Wiederholungen
 @cindex Volta-Klammern und Wiederholungen
 @cindex Volta und Überbindung
+
+@funindex \repeatTie
+@funindex repeatTie
 
 Wenn die zweite Variante einer Wiederholung mit einer übergebundenen
 Note anfängt, muss der Bindebogen wie folgt notiert werden:
@@ -429,6 +454,8 @@ Note anfängt, muss der Bindebogen wie folgt notiert werden:
 @cindex Ausklingen lassen, Bögen
 @cindex Bögen, laissez vibrer
 @cindex Ausklingen lassen
+
+@funindex laissezVibrer
 @funindex \laissezVibrer
 
 So genannte @notation{laissez vibrer}-Bögen werden verwendet um anzuzeigen, dass 
@@ -440,9 +467,13 @@ anderer Saiteninstrument- und Schlagzeugnotation verwendet. Sie können folgende
 @end lilypond
 
 @cindex ties, placement
+
 @funindex \tieUp
 @funindex \tieDown
 @funindex \tieNeutral
+@funindex tieUp
+@funindex tieDown
+@funindex tieNeutral
 
 Die vertikale Position von Bindebögen kann kontrolliert werden,
 siehe die vordefinierten Befehle unten oder für Einzelheiten
@@ -452,9 +483,13 @@ siehe die vordefinierten Befehle unten oder für Einzelheiten
 @cindex Bindebögen, gestrichelt
 @cindex Bindebögen, gepunktet
 @cindex Bindebögen, durchgehend
+
 @funindex \tieDotted
 @funindex \tieDashed
 @funindex \tieSolid
+@funindex tieDotted
+@funindex tieDashed
+@funindex tieSolid
 
 Durchgehende, gepunktete oder gestrichelte Bindebögen können
 spezifiziert werden, siehe die vordefinieren Befehle.
@@ -509,6 +544,7 @@ Legatobogen zu verwenden.
 Pausen werden als Teil der musikalischen Ausdrücke zusammen mit
 den Noten notiert.
 
+
 @menu
 * Rests::                       
 * Invisible rests::             
@@ -517,17 +553,22 @@ den Noten notiert.
 
 @node Rests
 @unnumberedsubsubsec Rests
+
 @cindex Pausen
 @cindex Pausendauern
-@cindex Maxima
-@cindex Longa
-@cindex Brevis
+@cindex Maxima-Pause
+@cindex Longa-Pause
+@cindex Brevis-Pause
 
 @funindex \rest
 @funindex r
 @funindex \maxima
 @funindex \longa
 @funindex \breve
+@funindex rest
+@funindex maxima
+@funindex longa
+@funindex breve
 
 Pausen werden wie Noten eingegeben, ihre Bezeichnung ist @code{r}.
 Dauern, die länger als eine Ganze sind, haben die gezeigten
@@ -575,6 +616,11 @@ a4\rest d4\rest
 {rest-styles.ly}
 
 @seealso
+Glossar:
+@rglos{breve},
+@rglos{longa},
+@rglos{maxima}.
+
 Notationsreferenz:
 @ref{Full measure rests}.
 
@@ -602,7 +648,9 @@ Maxima (8 Ganze).
 @cindex Unsichtbare Pausen
 @cindex Pausen, unsichtbar
 @cindex Platzhalternoten
+
 @funindex \skip
+@funindex skip
 @funindex s
 
 Eine unsichtbare Pause (auch als @qq{skip} oder Überspringung bezeichnet) 
@@ -663,6 +711,7 @@ Referenz der Interna:
 @cindex Mehrtaktpausen
 @cindex Pausen, Ganztakt-
 @cindex Pausen, Mehrtakt-
+
 @funindex R
 
 Pausen für einen oder mehrere ganze Takte werden wie
@@ -706,12 +755,16 @@ R1*3/2 |
 \time 8/4
 R1*2 |
 @end lilypond
-@funindex \expandFullBarRests
-@funindex \compressFullBarRests
+
 @cindex Mehrtaktpausen, ausschreiben
 @cindex Pausen, mehrere Takte ausschreiben
 @cindex Pausen, mehrere Takte komprimieren
 @cindex Mehrtaktpausen, komprimieren
+
+@funindex \expandFullBarRests
+@funindex \compressFullBarRests
+@funindex expandFullBarRests
+@funindex compressFullBarRests
 
 In den Standardeinstellungen werden mehrtaktige Pausen
 ausgeschrieben gesetzt, sodass sie die entsprechende Anzahl von
@@ -741,6 +794,9 @@ R2.*2 |
 @cindex Mehrtaktpausen, Beschriftung
 @cindex Fermate über Mehrtaktpausen
 @cindex Mehrtaktpause mit Fermate
+
+@funindex \fermataMarkup
+@funindex fermataMarkup
 
 Textbeschriftung kann Mehrtaktpausen mit @code{\markup}
 hinzugefügt werden.  Ein 
@@ -841,6 +897,9 @@ Referenz der Interna:
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestText}.
 
+@cindex Fingersatz und Mehrtaktpausen
+@cindex Mehrtaktpausen und Fingersatz
+@cindex Ganztaktpausen und Fingersatz
 
 @knownissues
 
@@ -878,6 +937,8 @@ berücksichtigt.
 
 @cindex Taktangabe
 @cindex Metrum
+
+@funindex time
 @funindex \time
 
 Taktangaben könne wie folgt erstellt werden.
@@ -907,6 +968,9 @@ c c c c
 
 @funindex \numericTimeSignature
 @funindex \defaultTimeSignature
+@funindex numericTimeSignature
+@funindex defaultTimeSignature
+
 @cindex Stil von Taktangaben
 @cindex Taktangaben-Stile
 
@@ -973,8 +1037,10 @@ Referenz der Interna:
 @cindex partieller Takt
 @cindex halber Takt
 @cindex Taktlänge ändern
+
 @funindex measurePosition
 @funindex \partial
+@funindex partial
 
 Verkleinerte Takte, wie etwa ein Auftakt, werden mit dem
 Befehl @code{\partial} notiert, dessen Syntax lautet:
@@ -1032,8 +1098,11 @@ auftreten.
 @cindex Noten ohne Takt
 @cindex Taktart, Noten ohne
 @cindex Metrum, Noten ohne
+
 @funindex \cadenzaOn
 @funindex \cadenzaOff
+@funindex cadenzaOn
+@funindex cadenzaOff
 
 Taktlinien und Taktzahlen werden automatisch erzeugt. Für Musik 
 ohne Metrum hingegen (etwa Kadenzen) ist das jedoch nicht 
@@ -1097,10 +1166,18 @@ einfügen, um anzuzeigen, wo umgebrochen werden darf.
 @unnumberedsubsubsec Polymetric notation
 
 @cindex doppelte Taktartensymbole
+@cindex Taktartensymbole, doppelt
+@cindex Taktartensymbole, unterteilt
 @cindex Taktarten, polymetrisch
 @cindex polymetrische Taktarten
 @cindex Metrum, polymetrisch
-@cindex Unterteilte Taktarten
+@cindex unterteilte Taktarten
+
+@funindex timeSignatureFraction
+@funindex \scaleDurations
+@funindex scaleDurations
+@funindex \times
+@funindex times
 
 Polymetrische Notation ist unterstützt, entweder direkt, oder
 indem man das sichtbare Taktart-Symbol verändert und zusätzlich
@@ -1118,6 +1195,9 @@ Die Skalierung geschieht mit dem Befehl
 @code{\scaleDurations}, der auf ähnliche Weise wie @code{\times}
 benutzt wird, aber keine Klammer über den Noten ausgibt. Siehe
 auch @ref{Scaling durations}.
+
+@cindex Bebalkung in polymetrischer Notation
+@cindex Polymetrische Notation und Balken
 
 In diesem Beispiel werden Noten mit den Taktarten 3/4, 9/8 und
 10/8 parallel benutzt.  Im zweiten System werden die gezeigten
@@ -1240,6 +1320,9 @@ Fall wäre.
 @cindex Aufteilen von Noten
 @cindex automatisches Aufteilen von Noten
 
+@funindex Note_heads_engraver
+@funindex Completion_heads_engraver
+
 Lange Noten, die über Taktlinien hinüberreichen, können
 automatisch in übergebundene Noten aufgeteilt werden. 
 Dieses Verhalten erreicht man, indem der  @rinternals{Note_heads_engraver} 
@@ -1292,6 +1375,9 @@ Pausen werden nicht aufgeteilt.
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
 
+@cindex Melodierhythmus: Anzeige
+@cindex Rhythmus der Melodie anzeigen
+
 Manchmal soll nur der Rhythmus einer Melodie dargestellt werden. Das 
 erreicht man mit einem Rhythmus-Notensystem. Alle Tonhöhen werden 
 auf eine Linie reduziert und das System hat auch nur eine einzige 
@@ -1315,6 +1401,16 @@ Linie.
   }
 >>
 @end lilypond
+
+@cindex Gitarren-Akkordnotation
+@cindex Schlagrhythmus, Gitarre
+@cindex Gitarrenschlagrhythmus, Notation
+
+@funindex Pitch_squash_engraver
+@funindex \improvisationOn
+@funindex improvisationOn
+@funindex \improvisationOff
+@funindex improvisationOff
 
 Akkordnotation für Gitarren bezeichnet auch oft zusätzlich den
 geschlagenen Rhythmus.  Das kann notiert werden unter Verwendung
@@ -1377,8 +1473,18 @@ Referenz der Interna:
 
 LilyPond setzt Balken (engl. beam) automatisch.
 
-@cindex Balken, manuell
-@cindex manuelle Balken
+@cindex Balken, Einstellungen
+@cindex Balken, eigene Regeln
+@cindex automatische Bebalkung
+@cindex Balken, automatisch
+
+@funindex measureLength
+@funindex beatLength
+@funindex beatGrouping
+@funindex \autoBeamOn
+@funindex autoBeamOn
+@funindex \autoBeamOff
+@funindex autoBeamOff
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4 c8 c c c
@@ -1397,9 +1503,6 @@ sind, wird die Bebalkung geregelt von drei Kontexteigenschaften:
 @code{measureLength}, @code{beatLength} und @code{beatGrouping}.
 Sowohl die Balkenregeln als auch diese Kontexteigenschaften
 können geändert werden, siehe @ref{Setting automatic beam behavior}.
-
-@cindex autoBeamOn
-@cindex autoBeamOff
 
 @warning{Wenn Balken eingesetzt werden, um Melismen in Gesang
 anzuzeigen, müssen die automatische Bebalkung ausgeschaltet werden
@@ -1427,6 +1530,7 @@ c16 c8
 @snippets
 
 @funindex breakable
+
 @cindex Zeilenumbruch, Balken
 @cindex Balken und Zeilenumbrüche
 
@@ -1469,11 +1573,6 @@ Stimmen zusammenstoßen.
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
-@funindex autoBeaming
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
-
 @cindex Automatische Balken, einstellen
 @cindex Einstellungen der Bebalkung
 @cindex autobeam
@@ -1481,6 +1580,18 @@ Stimmen zusammenstoßen.
 @cindex Bebalkung, automatisch, Einstellungen
 @cindex Text und Balken
 @cindex Gesangstext und Balken
+
+@funindex autoBeaming
+@funindex autoBeamSettings
+@funindex (end * * * *)
+@funindex (begin * * * *)
+@funindex measureLength
+@funindex beatLength
+@funindex beatGrouping
+@funindex \time
+@funindex time
+@funindex \set
+@funindex set
 
 Die Position und Länge der automatischen Balken wird bestimmt
 von bestimmten Regeln, wie beschrieben in @ref{Automatic beams}.
@@ -1571,10 +1682,11 @@ von Zählzeiten für jede Gruppe darstellen.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {sub-dividing-beams.ly}
 
-@cindex measure groupings
-@cindex beats, grouping
-@cindex grouping beats
-@cindex measure sub-grouping
+@cindex Taktgruppen
+@cindex Schlaggruppen
+@cindex Taktschläge gruppieren
+@cindex Takt unterteilen
+@cindex Unterteilen von Takten
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
@@ -1762,12 +1874,19 @@ a a a a
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@predefined
 @funindex \autoBeamOff
-@code{\autoBeamOff},
+@funindex autoBeamOff
 @funindex \autoBeamOn
+@funindex autoBeamOn
+
+@predefined
+@code{\autoBeamOff},
 @code{\autoBeamOn}.
 @endpredefined
+
+@cindex Balken, letzter in einer Partitur
+@cindex letzter Balken einer Partitur
+@cindex Balken, letzter in einer polyphonen Stimme
 
 @knownissues
 
@@ -1786,7 +1905,9 @@ Schnipsel:
 @node Manual beams
 @unnumberedsubsubsec Manual beams
 
+@cindex manuelle Balken
 @cindex Balken, manuell
+
 @funindex ]
 @funindex [
 
@@ -1804,6 +1925,8 @@ Manuell definierte Balken werden mit den Zeichen @code{[} und
 }
 @end lilypond
 
+@funindex \noBeam
+@funindex noBeam
 
 Einzelne Noten können mit dem Befehl @code{\noBeam} markiert werden, 
 damit sie nicht mit einem Balken versehen werden.
@@ -1846,7 +1969,10 @@ g a]
 
 @cindex Balken, gespreizt
 @cindex gespreizte Balken
+
+@funindex featherDurations
 @funindex \featherDurations
+@funindex grow-direction
 
 Gespreizte Balken werden teilweise eingesetzt um anzuzeigen, dass
 kleine Notengruppen in beschleunigendem oder verlangsamendem Tempo
@@ -1903,11 +2029,8 @@ Snippets:
 @rlsr{Rhythms}.
 
 
-
-
 @node Bars
 @subsection Bars
-
 
 @menu
 * Bar lines::                   
@@ -1920,16 +2043,19 @@ Snippets:
 @unnumberedsubsubsec Bar lines
 
 @cindex Taktlinien
-@funindex \bar
+@cindex Taktstriche
 @cindex Doppellinie
 @cindex Wiederholungszeichen
 
-Taktlinien trennen Takte voneinander, werden aber auch verwendet, 
+@funindex \bar
+@funindex bar
+
+Taktstriche trennen Takte voneinander, werden aber auch verwendet, 
 um Wiederholungen anzuzeigen. Normalerweise werden sie automatisch 
 nach Vorgabe der aktuellen Taktart eingefügt.
 
-Die einfachen, automatisch eingefügten Taktlinien können mit dem
-@code{\bar}-Befehl geändert werden.  Eine doppelte Taktlinie etwa
+Die einfachen, automatisch eingefügten Taktstriche können mit dem
+@code{\bar}-Befehl geändert werden.  Eine doppelter Tatkstrich etwa
 wird normalerweise am Ende eines Stückes gesetzt:
 
 @lilypond[quote,relative=1,verbatim]
@@ -1937,7 +2063,7 @@ e4 d c2 \bar "|."
 @end lilypond
 
 Es ist kein Fehler, wenn die letzte Note in einem Takt nicht
-zur automatische eingefügten Taktlinie aufhört: es wird angenommen,
+zum automatisch eingefügten Taktstrich aufhört: es wird angenommen,
 dass die Note im nächsten Takt weitergeht.  Wenn aber eine ganze
 Reihe solcher überlappenden Takte auftritt, können die Noten
 gedrungen aussehen oder sogar über den Seitenrand hinausragen.  Das
@@ -1951,12 +2077,13 @@ sehr stark gedrängt auf der Zeile notiert werden, oder die Zeile
 über den Seitenrand hinausragt.}
 
 @cindex Zeilenumbrüche
-@cindex unsichtbare Taktlinien
+@cindex unsichtbare Taktstriche
+@cindex Taktstriche, unsichtbar
 @cindex Taktlinien, unsichtbar
 
-Zeilenumbrüche werden erlaubt, wenn eine Taktlinie manuell eingefügt
+Zeilenumbrüche werden erlaubt, wenn ein Taktstrich manuell eingefügt
 wird, auch, wenn es sich um keinen vollständigen Takt handelt.  Um
-einen Zeilenumbruch zu erlauben, ohne die Taktlinie auszugeben,
+einen Zeilenumbruch zu erlauben, ohne den Taktstrich auszugeben,
 kann
 
 @example
@@ -1964,34 +2091,38 @@ kann
 @end example
 
 @noindent
-benutzt werden.  Damit wird eine unsichtbare Taktlinie an dieser Stelle eingefügt 
+benutzt werden.  Damit wird ein unsichtbarer Taktstrich an dieser Stelle eingefügt 
 und damit ein Zeilenumbruch erlaubt (aber nicht erzwungen), ohne 
 dass sich die Anzahl der Takte erhöhen würde.  Um einen
 Zeilenumbruch zu erzwingen, siehe
 @ref{Line breaking}.
 
-Diese Art von Taktlinien und auch andere besondere Taktlinien
-können manuell an jeder Stelle in der Partitur eingefügt werden.
-Wenn sie mit dem Ende eines Taktes übereinstimmen, wird die
-automatische Taktlinie durch die manuelle ersetzt.  Diese
-manuellen Einfügungen haben keine Auswirkung auf die Zählung und
-Position der folgenden automatischen Taktlinien.
+@cindex manuelle Taktstriche
+@cindex Taktstriche, manuell
+@cindex Taktlinene, manuell
 
-Manuell können die einfache Taktlinie und zusätzlich fünf Arten
-einer doppelten Taktlinie gesetzt werden:
+Diese Art von Taktstrichen und auch andere besondere Taktstriche
+können manuell an jeder Stelle in der Partitur eingefügt werden.
+Wenn sie mit dem Ende eines Taktes übereinstimmen, wird der
+automatische Taktstrich durch den manuellen ersetzt.  Diese
+manuellen Einfügungen haben keine Auswirkung auf die Zählung und
+Position der folgenden automatischen Taktstriche.
+
+Manuell können der einfache Taktstrich und zusätzlich fünf Arten
+eines doppelten Taktstriches gesetzt werden:
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
 @end lilypond
 
-Zusätzlich gibt es noch punktierte und gestrichelte Taktlinien:
+Zusätzlich gibt es noch punktierte und gestrichelte Taktstriche:
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar ":" g \bar "dashed" a
 @end lilypond
 
 @noindent
-und fünf unterschiedliche Wiederholungstaktlinien:
+und fünf unterschiedliche Wiederholungstaktstriche:
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
@@ -2006,9 +2137,9 @@ man die Wiederholguns-Befehle einsetzt, die automatische die
 richtigen Taktlinien setzen.  Das ist beschrieben in@ref{Repeats}.
 
 Zusätzlich kann noch @code{"||:"} verwendet werden, dass sich
-genauso wie @code{"|:"} verhält, außer bei Zeilenumbrüchen, wo eine
-doppelte Taktlinie am Ende der Zeile ausgegeben wird und eine
-öffnende Wiederholungslinie am Anfang der nächsten Zeile.
+genauso wie @code{"|:"} verhält, außer bei Zeilenumbrüchen, wo ein
+doppeltre Taktstrich am Ende der Zeile ausgegeben wird und ein
+öffnender Wiederholungsstrich am Anfang der nächsten Zeile.
 
 @lilypond[quote,relative=2,verbatim]
 \override Score.RehearsalMark #'padding = #3
@@ -2021,7 +2152,7 @@ c c c c
 
 In Partituren mit vielen Systemen wird ein @code{\bar}-Befehl in einem 
 System automatisch auf alle anderen Systeme angewendet. Die resultierenden 
-Taktlinien sind miteinander verbunden innerhalb einer Gruppe 
+Taktstriche sind miteinander verbunden innerhalb einer Gruppe 
 (@code{StaffGroup}) oder einem Klaviersystem
 (@code{PianoStaff} bzw. (@code{GrandStaff}).
 
@@ -2044,13 +2175,16 @@ Taktlinien sind miteinander verbunden innerhalb einer Gruppe
 
 @funindex whichBar
 @funindex defaultBarType
+@funindex \bar
+@funindex bar
+@funindex bartype
 
 Der Befehl @code{\bar }@var{Taktart} ist eine Kurzform von:
 @code{\set Timing.whichBar = }@var{Taktart}. Immer, wenn 
-@code{whichBar} auf einen Wert gesetzt wird, wird eine 
-Taktlinie dieses Typs erzeugt.
+@code{whichBar} auf einen Wert gesetzt wird, wird ein 
+Taktstrich dieses Typs erzeugt.
 
-Die automatische erzeugte Taktlinie ist @code{"|"}.  Das kann
+Der automatisch erzeugte Taktstrich ist @code{"|"}.  Das kann
 jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
 @var{Takstrichart} geändert werden.
 
@@ -2076,6 +2210,9 @@ properties).
 
 @cindex Taktnummern
 @cindex Nummierung von Takten
+@cindex Zahl eines Taktes
+@cindex Taktzahlen
+
 @funindex currentBarNumber
 
 Taktnummern werden standardmäßig zu Beginn eines jeden Systems
@@ -2095,7 +2232,12 @@ c1 c c c
 @snippets
 
 @funindex barNumberVisibility
+
 @cindex Taktnummern, regelmäßiger Abstand
+
+@c Uncomment this after next LSR update.
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c {printing-the-bar-number-for-the-first-measure.ly}
 
 Taktnummern können in regelmäßigem Abstand ausgegeben werden,
 anstatt dass sie nur am Beginn des Systems erscheinen.  Um das
@@ -2214,26 +2356,15 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{BarNumber}.
 
+@cindex Taktnummern, Zusammenstöße
+@cindex Zusammenstöße, Taktnummern
+
 @knownissues
 
 Taktnummern können mit der oberen Ecke der Klammer zu Beginn des
 Systems zusammenstoßen.  Um das zu verhindert, kann die
 @code{padding}-Eigenschaft von @code{BarNumer} verwendet werden,
 um die Zahl zu verschieben.
-
-Taktnummern werden nur an Taktzahlen ausgegeben. Um eine Taktzahl
-auch am Anfang eines Stückes zu erhalten, muss eine leere
-Taktlinie manuell eingefügt werden, und für die aktuelle
-Taktzahl (@code{currentBarNumber} muss ein anderer Wert als
-@code{1} angegeben werden:
-
-@lilypond[verbatim,quote,relative=1]
-\set Score.currentBarNumber = #50
-\bar ""
-c1 c c c
-c1 c c c
-\break
-@end lilypond
 
 
 @node Bar and bar number checks
@@ -2296,6 +2427,8 @@ pipeSymbol = \bar "||"
 }
 @end lilypond
 
+@funindex \barNumberCheck
+@funindex barNumberCheck
 
 Wenn man größere Musikstücke kopiert, kann es hilfreich sein, wenn 
 LilyPond überprüft, ob die Taktnummer, in der Sie gerade kopieren, 
@@ -2318,6 +2451,8 @@ nicht mit dem Wert 123 übereinstimmt.
 
 @cindex Übungszeichen
 @cindex Abschnitte markieren
+
+@funindex mark
 @funindex \mark
 
 Übungszeichen können mit dem @code{\mark}-Befehl ausgegeben werden:
@@ -2352,6 +2487,8 @@ soll, wird in der Eigenschaft @code{rehearsalMark} gespeichert.
 @cindex Übungszeichenstil
 @cindex Art der Übungszeichen
 @cindex Zeichen, Übung: Formatierung
+@cindex manuelles Übungszeichen
+@cindex Formatierung von Übungszeichen
 
 Der Stil der Übungszeichen wird von der Eigenschaft @code{markFormatter} definiert.  Das ist eine Funktion, die
 das aktuelle Zeichen und den aktuellen Kontext als Argument
@@ -2405,6 +2542,13 @@ hinzufügen:
 @cindex Coda
 @cindex D.S al Fine
 @cindex Dal Segno
+@cindex Fermate
+@cindex Noten-Schriftzeichen
+@cindex Schriftzeichen, Notenschrift
+@cindex Musikbuchstaben
+
+@funindex \musicglyph
+@funindex musicglyph
 
 Musikbuchstaben (wie etwa das Segno-Zeichen) können mit dem Befehl
 @code{\musicglyph} als ein
@@ -2443,10 +2587,8 @@ Referenz der Interna:
 @rinternals{RehearsalMark}.
 
 
-
 @node Special rhythmic concerns
 @subsection Special rhythmic concerns
-
 
 @menu
 * Grace notes::                 
@@ -2458,6 +2600,8 @@ Referenz der Interna:
 @unnumberedsubsubsec Grace notes
 
 @funindex \grace
+@funindex grace
+
 @cindex Verzierungen
 @cindex Ziernoten
 @cindex Vorhalt
@@ -2497,6 +2641,7 @@ System zwei 16-Noten für jede 8-Note des zweiten Systems:
 @end lilypond
 
 @funindex \afterGrace
+@funindex afterGrace
 
 @cindex Verzierung, danach
 @cindex Nachschlag

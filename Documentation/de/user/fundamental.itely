@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2169,7 +2169,7 @@ auch wenn wir später sehen werden, dass Text auf eine sehr viel
 allgmeinere und mächtigere Art mit dem @code{markup}-Befehl
 eingegeben werden kann.
 
-@unnumberedsubsubsec Setting context properties with @code{\with}
+@subsubheading Setting context properties with @code{\with}
 
 @funindex \with
 @funindex with
@@ -2218,7 +2218,7 @@ neu gesetzt.  Wenn die Schriftgröße später mit @code{\set} verändert
 wird, kann dieser neue Standardwert mit dem Befehl
 @code{\unset fontSize} erreicht werden.
 
-@unnumberedsubsubsec Setting context properties with @code{\context}
+@subsubheading Setting context properties with @code{\context}
 
 @cindex Kontexteigenschaften, mit \context setzen
 @cindex Eigenschaften von Kontexten, mit \context setzen

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,7 +20,7 @@ LilyPond unterstützt folgende Arten von Wiederholungen:
 @table @code
 @item volta (Wiederholungsklammer)
 Die wiederholte Musik wird nicht geschreiben, sondern zwischen
-zwei Wiederholungstaktlinien eingeschlossen. Wenn die Wiederholung
+zwei Wiederholungstaktstrichen eingeschlossen. Wenn die Wiederholung
 am Anfang eines Stückes beginnt, wird nur am Ende der Wiederholung
 eine Wiederholungstaktlinie gesetzt.  Alternative Schlüsse (Volta)
 werden von links nach rechts mit Klammern gesetzt.  Das ist die
@@ -231,7 +231,7 @@ Bindebögen nicht wiederholt.
 Wiederholungskonstruktionen darzustellen und können sich unerwünscht
 verhalten.  In den meisten Fällen sollten Wiederholungen mit dem
 Befehl @code{\\repeat} erstellt werden oder indem die entsprechenden
-Taktlinien eingegeben werden.  Mehr Information in @ref{Bar lines}.}
+Taktstriche eingegeben werden.  Mehr Information in @ref{Bar lines}.}
 
 Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das 
 Aussehen der Wiederholungen zu beeinflussen. Ihr Argument ist eine 
@@ -248,7 +248,7 @@ d4 e f g
 c1
 @end lilypond
 
-Der Notensatzpraxis folgend werden Wiederholungstaktlinien nicht zu
+Der Notensatzpraxis folgend werden Wiederholungstaktstrichen nicht zu
 Beginn eines Stückes gesetzt.
 
 @item end-repeat

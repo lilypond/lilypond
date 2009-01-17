@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -147,6 +147,25 @@ Partitur fertig gestellt haben, könne Sie  @code{mBreak = @{ @}},
 also leer definieren, um diese manuellen Zeilenumbrüche zu entfernen. 
 Damit kann dann LilyPond selber entscheiden, wohin es passende 
 Zeilenumbrüche platziert.
+
+@item Wenn Sie eine Stimme für ein transponierendes Instrument als eine
+Variable notieren, wird empfohlen, dass die Noten von
+
+@example
+\transpose c klingende-Tonhöhe @{...@}
+@end example
+
+eingefasst werden (wobei @code{klingende-Tonhöhe} die klingende Tonhöhe
+des Instruments ist), sodass die Noten innerhalb der Variable für klingendes C
+geschrieben sind.  Sie können die Variable zurücktransponieren, wenn es
+nötig ist, aber Sie müssen es nicht tun.  Fehler in Transpositionen sind
+treten seltener auf, wenn alle Noten in den Variablen für die gleiche
+Ausgangstonhöhe geschrieben werden.
+
+Denken Sie auch daran, dass Sie nur von/nach C transponieren.  Das heißt,
+dass die einzigen anderen Tonhöhen, die Sie in Transpositionen benutzen,
+die Tonhöhen der Instrumente sind, für die Sie schreiben: @code{bes} für
+eine B-Trompete oder @code{aes} für eine As-Klarinette usw.
 
 @end itemize
 

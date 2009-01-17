@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the lilypond package.
 #
 #
-# Till Rettig <till.rettig@gmx.de>, 2007,2008.
+# Till Rettig <till.rettig@gmx.de>, 2007,2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
@@ -4949,7 +4949,7 @@ msgstr "Takte"
 #. @node in Documentation/de/user/rhythms.itely
 #. @unnumberedsubsubsec in Documentation/de/user/rhythms.itely
 msgid "Bar lines"
-msgstr "Taktlinien"
+msgstr "Taktstriche"
 
 #. @node in Documentation/user/rhythms.itely
 #. @unnumberedsubsubsec in Documentation/user/rhythms.itely
@@ -10176,7 +10176,7 @@ msgstr "CHECK: keine Auswirkung?"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:68 (comment)
 msgid "turn bar lines on again"
-msgstr "Taktlinien wieder anschalten"
+msgstr "Taktstriche wieder anschalten"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:76 (comment)
 msgid "FIXME: setting printKeyCancellation back to #t must not"
@@ -10320,7 +10320,7 @@ msgstr "choirStaff"
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:251 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:266 (comment)
 msgid "no bars in staves"
-msgstr "keine Taktlinien in den Systemen"
+msgstr "keine Taktstriche in den Systemen"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:254 (comment)
 msgid "incipit should not start with a start delimiter"
@@ -11221,7 +11221,7 @@ msgstr "HIER DIE ZWEITE METHODE"
 #. input/lsr/incipit.ly:62 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:35 (comment)
 msgid "make the staff lines invisible on staves"
-msgstr "Taktlinien auf dem System unsichtbar machen"
+msgstr "Taktstriche auf dem System unsichtbar machen"
 
 #. input/lsr/incipit.ly:74 (variable)
 #. input/lsr/incipit.ly:75 (context id)
@@ -11253,7 +11253,7 @@ msgstr "bassusIncipit"
 #. input/lsr/incipit.ly:251 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:258 (comment)
 msgid "Keep the bass lyrics outside of the staff group to avoid bar lines"
-msgstr "Gesangstext von Bass außerhalb der StaffGroup, um Taktlinien"
+msgstr "Gesangstext von Bass außerhalb der StaffGroup, um Taktstriche"
 
 #. input/lsr/incipit.ly:252 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:259 (comment)
@@ -11262,12 +11262,12 @@ msgstr "zwischen dem Text ·zu·vermeiden"
 
 #. input/lsr/incipit.ly:257 (comment)
 msgid "no bar lines in staves"
-msgstr "keine Taktlinien auf Systemen"
+msgstr "keine Taktstriche auf Systemen"
 
 #. input/lsr/incipit.ly:260 (comment)
 msgid "the next three instructions keep the lyrics between the bar lines"
 msgstr ""
-"mit den drei nächsten Befehlen wird der Text zwischen den Taktlinien gehalten"
+"mit den drei nächsten Befehlen wird der Text zwischen den Taktstriche gehalten"
 
 #. input/lsr/incipit.ly:275 (comment)
 msgid "breaking also at those bar lines where a note overlaps"
@@ -12327,13 +12327,13 @@ msgstr "IncipitBassus"
 msgid ""
 "StaffGroup is used instead of ChoirStaff to get bar lines between systems"
 msgstr ""
-"StaffGroup wird anstelle von ChoirStaff benutzt, um Taktlinien zwischen "
+"StaffGroup wird anstelle von ChoirStaff benutzt, um Taktstriche zwischen "
 "Systemen zu haben"
 
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:269 (comment)
 msgid "the next three instructions keep the lyrics between the barlines"
 msgstr ""
-"die nächsten drei Anweisungen, um den Text zwischen den Taktlinien zu halten"
+"die nächsten drei Anweisungen, um den Text zwischen den Taktstriche zu halten"
 
 #. input/lsr/transposing-pitches-with-minimum-accidentals-smart-transpose.ly:131 (variable)
 msgid "naturalizeMusic"
