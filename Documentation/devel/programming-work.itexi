@@ -1,4 +1,5 @@
-@c -*- coding: us-ascii; mode: texinfo; -*-
+@c -*- coding: us-ascii; mode: texinfo; -*
+de
 @node Programming work
 @chapter Programming work
 
@@ -6,7 +7,8 @@
 * Introduction to programming:: 
 * Programming without compiling::
 * Finding functions::
-* Code style::                  
+* Code style:: 
+* Debugging LilyPond::
 @end menu
 
 
@@ -417,3 +419,69 @@ Do not run make po/po-update with GNU gettext < 0.10.35
 
 
 
+@node Debugging LilyPond
+@section Debugging LilyPond
+
+The most commonly used tool for debugging LilyPond is the GNU debugger
+gdb.  Use of gdb is described in this section.
+
+@subsection Debugging overview
+
+Using a debugger simplifies troubleshooting in at least two ways.
+
+First, breakpoints can be set to pause execution at any desired point.
+Then, when execution has paused, debugger commands can be issued to 
+explore the values of various variables or to execute functions.
+
+Second, the debugger allows the display of a stack trace, which shows
+the sequence in which functions are called and the arguments to the
+various function calls.
+
+
+@subsection Compiling with debugging information
+
+In order to use a debugger with LilyPond, it is necessary to compile
+LilyPond with debugging information.  This is accomplished by ...
+
+TODO -- get good description here, or perhaps add debugging compile
+to AU1.1 as it comes to CG and just use a reference here.
+
+TODO -- Test the following to make sure it is true.
+
+If you want to be able to set breakpoints in Scheme functions, it is
+necessary to compile guile with debugging information.  This is done
+by ...
+
+TODO -- get compiling description for guile here.
+
+@subsection Typical gdb usage
+
+@subsection Typical .gdbinit files
+
+The behavior of gdb can be readily customized through the use of
+.gdbinit files.  The file below is from Han-Wen.  It sets breakpoints
+for all errors and defines functions for displaying scheme objects
+(ps), grobs (pgrob), and parsed music expressions (pmusic).
+
+@example
+file lily/out/lilypond 
+b scm_error 
+b programming_error 
+b Grob::programming_error 
+
+define ps 
+   print ly_display_scm($arg0) 
+  end 
+  define pgrob 
+     print ly_display_scm($arg0->self_scm_) 
+     print ly_display_scm($arg0->mutable_property_alist_) 
+     print ly_display_scm($arg0->immutable_property_alist_) 
+     print ly_display_scm($arg0->object_alist_) 
+  end 
+  define pmusic 
+     print ly_display_scm($arg0->self_scm_) 
+     print ly_display_scm($arg0->mutable_property_alist_) 
+     print ly_display_scm($arg0->immutable_property_alist_) 
+  end 
+
+@end example
