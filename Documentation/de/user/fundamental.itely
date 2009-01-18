@@ -19,14 +19,14 @@ dieses Kapitel die Konzepte und Techniken vor, wie auch komplexere
 Partituren erstellt werden können.
 
 @menu 
-* How LilyPond files work::
+* How LilyPond input files work::
 * Voices contain music::
 * Contexts and engravers::
 * Extending the templates::
 @end menu
 
-@node How LilyPond files work
-@section How LilyPond files work
+@node How LilyPond input files work
+@section How LilyPond input files work
 
 Das LilyPond Eingabeformat hat eine ziemlich freie Form, so dass 
 für erfahrene Benutzer viel Freiheit besteht, die Struktur ihrer 
