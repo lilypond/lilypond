@@ -62,12 +62,13 @@ def french_html_filter (page):
 fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
 es = LanguageDef ('es', 'español')
 de = LanguageDef ('de', 'deutsch')
-
+# FIXME: should use localized name for ja
+ja = LanguageDef ('ja', 'japanese')
 # Outdated or broken translations may be disabled
 # (please run 'make web-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, fr, es, de)
+LANGUAGES = (site, fr, es, de, ja)
 
 if __name__ == '__main__':
     print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])
