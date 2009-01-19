@@ -96,7 +96,7 @@ autochange =
 
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
-   (_i "Modify context properties with Scheme procedure@var{proc}.")
+   (_i "Modify context properties with Scheme procedure @var{proc}.")
                  (make-music 'ApplyContext 
                    'origin location
                    'procedure proc))
