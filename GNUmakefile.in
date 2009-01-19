@@ -77,8 +77,8 @@ install-WWW:
 install-info-WWW:
 	$(MAKE) -C Documentation/user install-info
 	$(MAKE) -C input/lsr install-info
-	(cd $(DESTDIR)$(infodir) && rm -f lilypond && ln -sf $(shell $(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/Documentation/user) lilypond)
-	(cd $(DESTDIR)$(infodir) && rm -f lilypond-snippets && ln -sf $(shell $(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/input/lsr) lilypond-snippets)
+	(cd $(DESTDIR)$(infodir) && rm -f lilypond && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/Documentation/user) lilypond)
+	(cd $(DESTDIR)$(infodir) && rm -f lilypond-snippets && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/input/lsr) lilypond-snippets)
 
 web-install:
 	$(MAKE) out=www install-WWW
