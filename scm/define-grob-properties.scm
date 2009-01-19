@@ -409,7 +409,7 @@ of the ellipse around circled pedals.  Default value@tie{}0.5.
 around circled pedals.  Default value 0.15.
 @item
 @code{circle-y-padding} -- Padding in Y direction of the ellipse
-around circled pedals.  Default value{@tie}0.2.
+around circled pedals.  Default value@{tie}0.2.
 @end itemize")
      (head-direction ,ly:dir? "Are the note heads left or right in a
 semitie?")
