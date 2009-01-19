@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 3e63320d65c86c823949f70ab9791eab96c98352
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2534,16 +2534,35 @@ página, establezca @code{annotate-spacing} en el bloque @code{\paper}:
 @noindent
 Todas las dimensiones de disposición se muestran en espacios de
 pentagrama, independientemenre de las unidades especificadas en los
-bloques @code{\paper} o @code{\layout}.  Por ejemplo,
-@code{paper-height} tiene un valor de 59.75 espacios de pentagrama,
-usando el tamaño predeterminado de pentagrama de 20 puntos, que
-equivale a 148 milímetros, la altura de una hoja de papel @code{a6} en
-orientación apaisada.  Las parejas (@var{a},@var{b}) son intervalos,
-donde @var{a} es el límite inferior y @var{b} es el límite superior
-del intervalo.
+bloques @code{\paper} o @code{\layout}. En el ejemplo anterior,
+@code{paper-height} tiene un valor de 59.75 @code{staff-spaces}
+(espacios de pentagrama), y el @code{staff-size} (tamaño del
+pentagrama) es de 20 puntos, el valor predeterminado. Observe que:
+
+@multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
+
+@item 1 punto
+@tab = (25.4/72.27) mm
+
+@item 1 staff-space
+@tab = (@code{staff-size})/4 pts
+@item
+@tab = (@code{staff-size})/4 * (25.4/72.27) mm
+
+@end multitable
+
+@noindent
+En este caso, un @code{staff-space} equivale aproximadamente a
+1.757mm.  Así, la medida @code{paper-height} de 59.75
+@code{staff-spaces} equivale a 105 milímetros, la altura de una hoja
+@code{a6} en orientación apaisada.  Las parejas (@var{a},@var{b}) son
+intervalos, donde @var{a} es el límite inferior y @var{b} es el límite
+superior del intervalo.
 
 
 @seealso
+@ref{Setting the staff size}.
+
 Fragmentos de código:
 @rlsr{Spacing}.
 

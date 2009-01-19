@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 3e63320d65c86c823949f70ab9791eab96c98352
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -55,6 +55,7 @@ todos los cambios se pueden hacer de forma automática con
 @code{convert-ly}, pero algunos podrían necesitar de una ayuda manual.
 Los archivos de LilyPond se pueden estructurar para que sean más
 fáciles (o más difíciles) de actualizar.
+
 @end itemize
 
 @menu
@@ -143,6 +144,27 @@ Cuando haya terminado de revisar su partitura podrá
 definir @code{mBreak = @{ @}} para quitar todos esos saltos de línea.  Así
 permitirá a LilyPond colocar los saltos donde éste lo estime
 más oportuno.
+
+@item Al escribir una parte para un instrumento transpositor dentro de una
+variable, se recomienda que las notas estén envueltas dentro de
+
+@example
+\transpose c altura-natural @{...@}
+@end example
+(donde @code{altura-natural} es la afinación natural del instrumento)
+de forma que la música dentro de la variable esté realmente en Do
+mayor.  Después podemos volver a transportarlas en sentido inverso
+cuando se utiliza la variable, si es necesario, pero quizá no queramos
+hacerlo (p.ej., al imprimir una partitura en afinación de concierto,
+al convertir una parte de trombón de clave de Sol a clave de Fa,
+etc.).  Es menos probable cometer errores en los transportes si toda
+la música que está dentro de las variables se encuentra en un tono
+coherente.
+
+Asimismo, haga los transportes exclusivamente hacia o desde Do mayor.
+Esto significa que aparte de ésta, las únicas tonalidades que usaremos
+serán los tonos de afinación de los instrumentos transpositores: bes
+para una trompeta en Si bemol, aes para un clarinete en La bemol, etc.
 
 @end itemize
 
