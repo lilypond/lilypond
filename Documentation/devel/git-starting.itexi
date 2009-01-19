@@ -59,7 +59,7 @@ To get the website (including translations),
 FIXME: test this!!!
 
 @example
-mkdir lilypod-web ; cd lilypond-web
+mkdir lilypond-web ; cd lilypond-web
 git init-db
 git remote add -f -t web -m web origin git://git.sv.gnu.org/lilypond.git/
 git checkout -b web origin/web
@@ -121,6 +121,8 @@ http://git.sv.gnu.org/r/lilypond.git
 ssh://git.sv.gnu.org/srv/git/lilypond.git
 @end example
 
+@warning{The @code{git://} and @code{ssh://} URLs are intended for
+advanced git users.}
 
 @node Git user configuration
 @subsection Git user configuration
@@ -305,6 +307,8 @@ git log -p  # also shows diffs
 gitk        # shows history graphically
 @end example
 
+@warning{The @code{gitk} command may require a separate @code{gitk} package,
+available in the appropriate distribution's repositories.}
 
 @node Applying git patches
 @subsection Applying git patches
