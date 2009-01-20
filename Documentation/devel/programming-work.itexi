@@ -15,7 +15,8 @@ de
 @node Introduction to programming
 @section Introduction to programming 
 
-blah blah
+FIXME -- decide what goes in here and put it here.  I'm not sure what
+should be here -- CDS
 
 @node Programming without compiling
 @section Programming without compiling
@@ -27,7 +28,7 @@ changes are described in this section.
 
 @subsection Modifying distribution files
 
-Mving uch of LilyPond is written in Scheme or LilyPond input files.  These
+Much of LilyPond is written in Scheme or LilyPond input files.  These
 files are interpreted when the program is run, rather than being compiled
 when the program is built, and are present in all LilyPond distributions.
 You will find .ly files in the ly/ directory and the Scheme files in the
@@ -45,13 +46,23 @@ become a regression test and will be part of the LilyPond distribution.
 
 Files that are part of the LilyPond distribution have Unix-style line
 endings (LF), rather than DOS (CR+LF) or MacOS 9 and earlier (CR).  Make
-sure you use the necessary tools ensure that Unix-style line endings are
+sure you use the necessary tools to ensure that Unix-style line endings are
 preserved in the patches you create.
 
 Tab characters should not be included in files for distribution.  All
 indentation should be done with spaces.  Most editors have settings to
 allow the setting of tab stops and ensuring that no tab characters are
 included in the file.
+
+Scheme files and LilyPond files should be written according to standard
+style guidelines.  Scheme file guidelines can be found at
+@uref{http://community.schemewiki.org/?scheme-style}.  Following these
+guidelines will make your code easier to read.  Both you and others that
+work on your code will be glad you followed these guidelines.
+
+For LilyPond files, you should follow the guidelines for LilyPond snippets
+in the documentation.  You can find these guidelines at
+@ref{LilyPond formatting}.
 
 @node Finding functions
 @section Finding functions
@@ -83,7 +94,7 @@ grep functionName subdirectory/*
 This command will search all the contents of the directory subdirectory/
 and display every line in any of the files that contains functionName.
 
-THe most likely directories to grep for function names are scm/ for
+The most likely directories to grep for function names are scm/ for
 scheme files, ly/ for lilypond input (*.ly) files, and lily/ for C++
 files.  
 
@@ -120,7 +131,6 @@ Type functionName in the search box, and hit enter/return
 @end itemize
 
 This will initiate a search of the remote git repository.
-
 
 
 @node Code style
