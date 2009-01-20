@@ -68,7 +68,7 @@ ja = LanguageDef ('ja', 'japanese')
 # (please run 'make web-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, fr, es, de, ja)
+LANGUAGES = (site, fr, es, de, )#ja)
 
 if __name__ == '__main__':
     print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])
