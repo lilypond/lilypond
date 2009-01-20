@@ -15,7 +15,11 @@
 # cases.  Four more explaining what a line comment is, and that it may
 # be parsed, same here.
 
+ifeq ($(PYTHON),$(TARGET_PYTHON))
 HELP2MAN_COMMAND = $(buildscript-dir)/help2man $< > $@
+else
+HELP2MAN_COMMAND = $(buildscript-dir)/help2man "env $$(basename $$(head -1 $<)) $<" > $@
+endif
 
 ifeq ($(strip $(CROSS)),no)
 $(outdir)/%.1: $(outdir)/% $(buildscript-dir)/help2man
