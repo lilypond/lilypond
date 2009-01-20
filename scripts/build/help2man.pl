@@ -190,7 +190,7 @@ setlocale LC_TIME, 'C';
 
 # Grab help and version info from executable.
 my ($help_text, $version_text) = map {
-    join '', map { s/ +$//; expand $_ } `$ARGV[0] $_ 2>/dev/null`
+    join '', map { s/ +$//; expand $_ } `$ARGV[0] $_`
 	or die "$this_program: can't get `$_' info from $ARGV[0]\n"
 } $help_option, $version_option;
 
