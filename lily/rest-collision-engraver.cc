@@ -6,27 +6,28 @@
   (c) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include <list>
+#include <set>
 
 #include "duration.hh"
 #include "engraver.hh"
+#include "international.hh"
 #include "item.hh"
 #include "moment.hh"
 #include "note-column.hh"
+#include "paper-column.hh"
+#include "rest.hh"
 #include "rest-collision.hh"
+#include "rhythmic-head.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
 class Rest_collision_engraver : public Engraver
 {
-  Item *rest_collision_;
-  vsize rest_count_;
-  list<pair<Grob*, Moment> > note_columns_;
 protected:
-  DECLARE_ACKNOWLEDGER (note_column);
+  Grob *rest_collision_;
+
   void process_acknowledged ();
   void stop_translation_timestep ();
-  void start_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Rest_collision_engraver);
 };
@@ -34,74 +35,57 @@ public:
 Rest_collision_engraver::Rest_collision_engraver ()
 {
   rest_collision_ = 0;
-  rest_count_ = 0;
 }
 
 void
 Rest_collision_engraver::process_acknowledged ()
 {
-  if (rest_collision_
-      || note_columns_.empty ()
-      || !rest_count_
-      || (note_columns_.size () == rest_count_
-	  && rest_count_ < 2))
-    return;
+  vsize rest_count = 0;
+  set<Grob*> columns;
+  Moment now = now_mom ();
 
-  rest_collision_ = make_item ("RestCollision", SCM_EOL);
-
-  list<pair<Grob*, Moment> >::iterator i;
-  for (i = note_columns_.begin (); i != note_columns_.end (); i++)
-    Rest_collision::add_column (rest_collision_, i->first);
-}
-
-void
-Rest_collision_engraver::acknowledge_note_column (Grob_info i)
-{
-  Moment end = now_mom ();
-  if (Note_column::has_rests (i.grob ()))
-    rest_count_++;
-  else
+  for (SCM s = get_property ("busyGrobs"); scm_is_pair (s); s = scm_cdr (s))
     {
-      // We only keep track of ending moments for columns with notes.
-      // It is safe to add a column with notes to multiple RestCollisions, but
-      // it might not be safe to add a column with rests to multiple RestCollisions.
-      Grob *stem = Note_column::get_stem (i.grob ());
-      Stream_event *ev = stem ? stem->event_cause () : 0;
-      Duration *dur_ptr = ev ? unsmob_duration (ev->get_property ("duration")) : 0;
-      if (dur_ptr)
+      Grob *g = unsmob_grob (scm_cdar (s));
+      Moment *m = unsmob_moment (scm_caar (s));
+      if (!g || !m)
+	continue;
+
+      if (Rhythmic_head::has_interface (g) && (*m) > now)
 	{
-	  if (end.grace_part_)
-	    end.grace_part_ += dur_ptr->get_length ();
-	  else
-	    end.main_part_ += dur_ptr->get_length ();
+	  Grob *column = g->get_parent (X_AXIS);
+	  if (!column)
+	    {
+	      g->warning (_ ("rhythmic head is not part of a rhythmic column"));
+	      continue;
+	    }
+
+	  // Only include rests that start now. Include notes that started any time.
+	  Paper_column *paper_column = dynamic_cast<Item*> (column)->get_column ();
+	  if (!Rest::has_interface (g) || !paper_column || Paper_column::when_mom (paper_column) == now)
+	    {
+	      columns.insert (column);
+	      rest_count += Note_column::has_rests (column);
+	    }
 	}
     }
-  note_columns_.push_back (pair<Grob*, Moment> (i.grob (), end));
+
+  if (!rest_collision_ && rest_count && columns.size () > 1)
+    {
+      rest_collision_ = make_item ("RestCollision", SCM_EOL);
+      for (set<Grob*>::iterator i = columns.begin (); i != columns.end (); ++i)
+	Rest_collision::add_column (rest_collision_, *i);
+    }
 }
 
 void
 Rest_collision_engraver::stop_translation_timestep ()
 {
   rest_collision_ = 0;
-  rest_count_ = 0;
-}
-
-void
-Rest_collision_engraver::start_translation_timestep ()
-{
-  list<pair<Grob*, Moment> >::iterator i = note_columns_.begin ();
-  while (i != note_columns_.end ())
-    {
-      if (i->second <= now_mom ())
-	i = note_columns_.erase (i);
-      else
-	i++;
-    }
 }
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Rest_collision_engraver, note_column);
 ADD_TRANSLATOR (Rest_collision_engraver,
 		/* doc */
 		"Handle collisions of rests.",
@@ -110,7 +94,7 @@ ADD_TRANSLATOR (Rest_collision_engraver,
 		"RestCollision ",
 
 		/* read */
-		"",
+		"busyGrobs ",
 
 		/* write */
 		""

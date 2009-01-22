@@ -1,17 +1,136 @@
-@c -*- coding: us-ascii; mode: texinfo; -*-
+@c -*- coding: us-ascii; mode: texinfo; -*
+de
 @node Programming work
 @chapter Programming work
 
 @menu
-* Introduction to programming::  
-* Code style::                  
+* Introduction to programming:: 
+* Programming without compiling::
+* Finding functions::
+* Code style:: 
+* Debugging LilyPond::
 @end menu
 
 
 @node Introduction to programming
 @section Introduction to programming 
 
-blah blah
+FIXME -- decide what goes in here and put it here.  I'm not sure what
+should be here -- CDS
+
+@node Programming without compiling
+@section Programming without compiling
+
+Much of the development work in LilyPond takes place by changing *.ly or
+*.scm files.  These changes can be made without compiling LilyPond.  Such
+changes are described in this section.
+
+
+@subsection Modifying distribution files
+
+Much of LilyPond is written in Scheme or LilyPond input files.  These
+files are interpreted when the program is run, rather than being compiled
+when the program is built, and are present in all LilyPond distributions.
+You will find .ly files in the ly/ directory and the Scheme files in the
+scm/ directory.  Both Scheme files and .ly files can be modified and
+saved with any text editor.  It's probably wise to make a backup copy of
+your files before you modify them, although you can reinstall if the
+files become corrupted.
+
+Once you've modified the files, you can test the changes just by running
+LilyPond on some input file.  It's a good idea to create a file that
+demonstrates the feature you're trying to add.  This file will eventually
+become a regression test and will be part of the LilyPond distribution.
+
+@subsection Desired file formatting
+
+Files that are part of the LilyPond distribution have Unix-style line
+endings (LF), rather than DOS (CR+LF) or MacOS 9 and earlier (CR).  Make
+sure you use the necessary tools to ensure that Unix-style line endings are
+preserved in the patches you create.
+
+Tab characters should not be included in files for distribution.  All
+indentation should be done with spaces.  Most editors have settings to
+allow the setting of tab stops and ensuring that no tab characters are
+included in the file.
+
+Scheme files and LilyPond files should be written according to standard
+style guidelines.  Scheme file guidelines can be found at
+@uref{http://community.schemewiki.org/?scheme-style}.  Following these
+guidelines will make your code easier to read.  Both you and others that
+work on your code will be glad you followed these guidelines.
+
+For LilyPond files, you should follow the guidelines for LilyPond snippets
+in the documentation.  You can find these guidelines at
+@c FIXME: not a node @ref{LilyPond formatting}.
+
+@node Finding functions
+@section Finding functions
+
+When making changes or fixing bugs in LilyPond, one of the initial
+challenges is finding out where in the code tree the functions to be
+modified live.  With nearly 3000 files in the source tree,
+trial-and-error searching is generally inefective. This section describes
+a process for finding interesting code.
+
+@subsection Using the ROADMAP
+
+The file ROADMAP is located in the main directory of the lilypond source.
+ROADMAP lists all of the directories in the LilPond source tree, along
+with a brief description of the kind of files found in each directory.
+This can be a very helpful tool for deciding which directories to search
+when looking for a function.
+
+
+@subsection Using grep to search
+
+Having identified a likely subdirectory to search, the grep utility can
+be used to search for a function name.  The format of the grep command is
+
+@example 
+grep functionName subdirectory/*
+@end example
+
+This command will search all the contents of the directory subdirectory/
+and display every line in any of the files that contains functionName.
+
+The most likely directories to grep for function names are scm/ for
+scheme files, ly/ for lilypond input (*.ly) files, and lily/ for C++
+files.  
+
+
+@subsection Using git grep to search
+
+If you have used git to obtain the source, you have access to a
+powerful tool to search for functions.  The command:
+
+@example
+git grep functionName
+@end example
+
+will search through all of the files that are present in the git
+repository looking for functionName.  It also presents the results
+of the search using @code{less}, so the results are displayed one page
+at a time.
+
+@subsection Searching on the git repository at Savannah
+
+You can also use the equivalent of git grep on the Savannah server.
+
+@itemize
+
+@item
+Go to http://git.sv.gnu.org/gitweb/?p=lilypond.git
+
+@item
+In the pulldown box that says commit, select grep.
+
+@item
+Type functionName in the search box, and hit enter/return
+
+@end itemize
+
+This will initiate a search of the remote git repository.
 
 
 @node Code style
@@ -21,7 +140,7 @@ blah blah
 @menu
 @end menu
 
-@subsection Outputting errors
+@subsection Handling errors
 
 As a general rule, you should always try to continue computations,
 even if there is some kind of error.  When the program stops, it
@@ -128,24 +247,25 @@ Messages need to follow Localization.
 @subsection Localization
 
 This document provides some guidelines for programmers write user
-messages.  To help translations, user messages must be
-uniformized.  Follow these rules when coding for LilyPond.
+messages.  To help translations, user messages must follow
+uniform conventions.  Follow these rules when coding for LilyPond.
 Hopefully, this can be replaced by general GNU guidelines in the
 future.  Even better would be to have an English (en_BR, en_AM)
-helping programmers writing consistent messages for all GNU
+guide helping programmers writing consistent messages for all GNU
 programs.
 
-Not-preferred messages are marked with `+'. By convention,
-ungrammatical examples are marked with `*'.
+Non-preferred messages are marked with `+'. By convention,
+ungrammatical examples are marked with `*'.  However, such ungrammatical
+examples may still be preferred.
 
 @itemize
 
 @item
-Every message to the user should be localised (and thus be marked
-for localisation). This includes warning and error messages.
+Every message to the user should be localized (and thus be marked
+for localization). This includes warning and error messages.
 
 @item
-Don't localise/gettextify:
+Don't localize/gettextify:
 
 @itemize
 @item
@@ -279,7 +399,7 @@ Use two spaces after end of sentence punctuation. No punctuation
 @end verbatim
     
 @item
-Do not modularise too much; a lot of words cannot be translated
+Do not modularise too much; words frequently cannot be translated
 without context. It's probably safe to treat most occurences of
 words like stem, beam, crescendo as separately translatable words.
 
@@ -309,3 +429,69 @@ Do not run make po/po-update with GNU gettext < 0.10.35
 
 
 
+@node Debugging LilyPond
+@section Debugging LilyPond
+
+The most commonly used tool for debugging LilyPond is the GNU debugger
+gdb.  Use of gdb is described in this section.
+
+@subsection Debugging overview
+
+Using a debugger simplifies troubleshooting in at least two ways.
+
+First, breakpoints can be set to pause execution at any desired point.
+Then, when execution has paused, debugger commands can be issued to 
+explore the values of various variables or to execute functions.
+
+Second, the debugger allows the display of a stack trace, which shows
+the sequence in which functions are called and the arguments to the
+various function calls.
+
+
+@subsection Compiling with debugging information
+
+In order to use a debugger with LilyPond, it is necessary to compile
+LilyPond with debugging information.  This is accomplished by ...
+
+TODO -- get good description here, or perhaps add debugging compile
+to AU1.1 as it comes to CG and just use a reference here.
+
+TODO -- Test the following to make sure it is true.
+
+If you want to be able to set breakpoints in Scheme functions, it is
+necessary to compile guile with debugging information.  This is done
+by ...
+
+TODO -- get compiling description for guile here.
+
+@subsection Typical gdb usage
+
+@subsection Typical .gdbinit files
+
+The behavior of gdb can be readily customized through the use of
+.gdbinit files.  The file below is from Han-Wen.  It sets breakpoints
+for all errors and defines functions for displaying scheme objects
+(ps), grobs (pgrob), and parsed music expressions (pmusic).
+
+@example
+file lily/out/lilypond 
+b scm_error 
+b programming_error 
+b Grob::programming_error 
+
+define ps 
+   print ly_display_scm($arg0) 
+  end 
+  define pgrob 
+     print ly_display_scm($arg0->self_scm_) 
+     print ly_display_scm($arg0->mutable_property_alist_) 
+     print ly_display_scm($arg0->immutable_property_alist_) 
+     print ly_display_scm($arg0->object_alist_) 
+  end 
+  define pmusic 
+     print ly_display_scm($arg0->self_scm_) 
+     print ly_display_scm($arg0->mutable_property_alist_) 
+     print ly_display_scm($arg0->immutable_property_alist_) 
+  end 
+
+@end example

@@ -17,7 +17,7 @@ SUBDIRS = python scripts \
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
 SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
-README_FILES = COPYING ChangeLog DEDICATION ROADMAP THANKS HACKING
+README_FILES = COPYING DEDICATION ROADMAP THANKS HACKING
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
@@ -77,7 +77,8 @@ install-WWW:
 install-info-WWW:
 	$(MAKE) -C Documentation/user install-info
 	$(MAKE) -C input/lsr install-info
-	(cd $(DESTDIR)$(infodir) && rm -f lilypond && ln -sf $(shell $(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/Documentation/user) lilypond)
+	(cd $(DESTDIR)$(infodir) && rm -f lilypond && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/Documentation/user) lilypond)
+	(cd $(DESTDIR)$(infodir) && rm -f lilypond-snippets && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/input/lsr) lilypond-snippets)
 
 web-install:
 	$(MAKE) out=www install-WWW

@@ -317,7 +317,31 @@ AC_DEFUN(STEPMAKE_LIBDIR, [
 ])
 
 
+AC_DEFUN(STEPMAKE_PREFIX_EXPAND_FIXUP, [
+    # undo expanding of explicit --infodir=/usr/share
+    # to ease install-time override with prefix=...
+    strip=`echo $includedir | eval sed s@^$prefix@@`
+    if test "$includedir" = "`eval echo $prefix$strip`"; then
+	    includedir='${prefix}'$strip''
+    fi
+    strip=`echo $libdir | eval sed s@^$exec_prefix@@`
+    if test "$libdir" = "`eval echo $exec_prefix$strip`"; then
+	    libdir='${exec_prefix}'$strip''
+    fi
+    strip=`echo $infodir | eval sed s@^$datarootdir@@`
+    if test "$infodir" = "`eval echo $datarootdir$strip`"; then
+	    infodir='${datarootdir}'$strip''
+    fi
+    strip=`echo $mandir | eval sed s@^$datarootdir@@`
+    if test "$mandir" = "`eval echo $datarootdir$strip`"; then
+	    mandir='${datarootdir}'$strip''
+    fi
+])
+
+
 AC_DEFUN(STEPMAKE_END, [
+    STEPMAKE_PREFIX_EXPAND_FIXUP
+
     AC_SUBST(OPTIONAL)
     AC_SUBST(REQUIRED)
     

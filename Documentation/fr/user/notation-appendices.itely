@@ -55,6 +55,11 @@ and just before
 
 @untranslated
 
+@node Common chord modifiers
+@appendixsec Common chord modifiers
+
+@untranslated
+
 @node Predefined fretboard diagrams
 @appendixsec Predefined fretboard diagrams
 
@@ -87,7 +92,7 @@ and just before
 @untranslated
 
 @ignore
-Vous pouvez utiliser les commandes suivantes au sein d'un bloc
+Les commandes suivantes peuvent être utilisées dans un bloc
 @code{\markup @{ @}}.
 @end ignore
 
@@ -95,7 +100,8 @@ Vous pouvez utiliser les commandes suivantes au sein d'un bloc
 
 
 @ignore
-Vous pouvez utiliser les commandes suivantes avec @code{\markuplines}.
+Les commandes suivantes peuvent être utilisées dans un
+bloc @code{\markuplines @{ @}}.
 @end ignore
 
 @include markup-list-commands.tely
