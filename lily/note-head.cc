@@ -143,7 +143,9 @@ Note_head::calc_stem_attachment (SCM smob)
 
 
 ADD_INTERFACE (Note_head,
-	       "Note head.",
+	       "A note head.  There are many possible values for"
+	       " @code{style}.  For a complete list, see"
+	       " @ruser{Note head styles}.",
 
 	       /* properties */
 	       "note-names "

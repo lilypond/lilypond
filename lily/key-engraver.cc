@@ -211,6 +211,7 @@ ADD_TRANSLATOR (Key_engraver,
 		"Engrave a key signature.",
 
 		/* create */
+		"KeyCancellation "
 		"KeySignature ",
 		
 		/* read */

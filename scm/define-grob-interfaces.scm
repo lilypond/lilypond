@@ -109,7 +109,7 @@ note)."
 (ly:add-interface
  'note-name-interface
  "Note names."
- '(style))
+ '())
 
 (ly:add-interface
  'only-prebreak-interface

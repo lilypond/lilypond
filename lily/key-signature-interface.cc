@@ -36,13 +36,6 @@ Key_signature_interface::print (SCM smob)
 
   Real inter = Staff_symbol_referencer::staff_space (me) / 2.0;
 
-  SCM scm_style = me->get_property ("style");
-  string style;
-  if (scm_is_symbol (scm_style))
-    style = ly_symbol2string (scm_style);
-  else
-    style = "";
-
   Stencil mol;
 
   SCM c0s = me->get_property ("c0-position");
@@ -128,5 +121,4 @@ ADD_INTERFACE (Key_signature_interface,
 	       "glyph-name-alist "
 	       "padding "
 	       "padding-pairs "
-	       "style "
 	       );
