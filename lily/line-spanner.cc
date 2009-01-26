@@ -349,11 +349,7 @@ Line_spanner::print (SCM smob)
 
 ADD_INTERFACE (Line_spanner,
 	       "Generic line drawn between two objects, e.g., for use with"
-	       " glissandi.\n"
-	       "\n"
-	       "The property @code{style} can be @code{line},"
-	       " @code{dashed-line}, @code{trill}, @code{dotted-line} or"
-	       " @code{zigzag}.",
+	       " glissandi.",
 
 	       /* properties */
 	       "bound-details "

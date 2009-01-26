@@ -127,7 +127,8 @@ ADD_INTERFACE (Time_signature,
 	       "@table @code\n"
 	       "@item C\n"
 	       "4/4 and 2/2 are typeset as C and struck C, respectively."
-	       "  All other time signatures are written with two digits.\n"
+	       "  All other time signatures are written with two digits."
+	       "  The value @code{default} is equivalent to @code{C}.\n"
 	       "@item neomensural\n"
 	       "2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are"
 	       " typeset with neo-mensural style mensuration marks.  All"
@@ -139,9 +140,9 @@ ADD_INTERFACE (Time_signature,
 	       "@item single-digit\n"
 	       "All time signatures are typeset with a single digit, e.g.,"
 	       " 3/2 is written as 3.\n"
-	       "@end table\n"
-	       "\n"
-	       "See also the test-file @file{input/test/time.ly}.",
+	       "@item numbered\n"
+	       "All time signatures are typeset with two digits.\n"
+	       "@end table",
 
 	       /* properties */
 	       "fraction "
