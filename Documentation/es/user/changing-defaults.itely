@@ -25,7 +25,7 @@ adecuado para un manual de referencia.
 
 @cindex Referencia de funcionamiento interno
 
-La descripción definitiva de los controles que están dipsonibles para
+La descripción definitiva de los controles que están disponibles para
 su ajuste fino están en un documento aparte: @rinternalsnamed{Top,la
 Referencia de funcionamiento interno}.  Dicho manual relaciona todas
 las variables, funciones y opciones que se encuentran disponibles en
@@ -1285,7 +1285,7 @@ ajuste también se aplica a la @code{Voice} actual.  Sin embargo:
 @end example
 
 @noindent
-no tiene ningúun efecto.  Para cancelar este ajuste, se debe
+no tiene ningún efecto.  Para cancelar este ajuste, se debe
 especificar el @code{\unset} en el mismo nivel que el @code{\set}
 original.  Dicho de otra forma, para deshacer el efecto de
 @code{Staff.autoBeaming = ##f} se necesita
@@ -1373,7 +1373,7 @@ propiedad, si se establece el valor de la propiedad a falso
 (@code{##f}) se producirá su desactivación, ocasionando que LilyPond
 ignore por completo dicha propiedad.  Esto es especialmente útil para
 «apagar» propiedades de grobs (objetos gráficos) que de otra manera
-causarína problemas.
+causarían problemas.
 
 Mostraremos a continuación cómo localizar esta información en el
 manual de notación y en la referencia de funcionamiento interno.
@@ -1386,7 +1386,7 @@ manual de notación y en la referencia de funcionamiento interno.
 @cindex trucar
 
 En ocasiones es posible tomar un atajo para realizar el ajuste fino de
-los objetos gráficos.  Para objetos que reusultan directamente de un
+los objetos gráficos.  Para objetos que resultan directamente de un
 elemento de código de la entrada, puede usar la función @code{\tweak},
 por ejemplo
 
@@ -1594,7 +1594,7 @@ Al ser éste un cambio muy común, se creó la propiedad especial
 @node Input modes
 @subsection Input modes
 
-La forma en que se interpreta la notación conenida dentro de un
+La forma en que se interpreta la notación contenida dentro de un
 archivo de entrada, está determinada por el modo de entrada en curso.
 
 @strong{Modo de acordes}
@@ -1606,7 +1606,7 @@ pentagrama.
 
 El modo de acordes se activa también con la instrucción
 @code{\chords}.  Esto crea también un contexto @code{ChordNames} nuevo
-y produce que el código que sigue se interprete conla sintaxis de la
+y produce que el código que sigue se interprete con la sintaxis de la
 notación de acordes y se imprima como nombres de acorde dentro del
 contexto @code{ChordNames}, véase @ref{Printing chord names}.
 
@@ -1637,7 +1637,7 @@ figured bass}.
 
 @strong{Modos de traste y tablatura}
 
-No existen modos de entrada especiales para introducir símibolos de
+No existen modos de entrada especiales para introducir símbolos de
 trastes y de tablatura.
 
 Para crear diagramas de trastes, escriba las notas o acordes en el
@@ -1736,8 +1736,8 @@ presentan, véase @ref{Aligning contexts}
 Al añadir articulaciones a notas se puede omitir normalmente el
 indicador de dirección, @code{^} (que significa @qq{arriba}), @code{_}
 (que significa @qq{abajo}) o @code{-} (que significa @qq{usar la
-dirección predeterminada}), en cuyo caso se supone el perdeterminado
-@code{-}.  Pero se necesita un indicador de dirección @strong{always}
+dirección predeterminada}), en cuyo caso se supone el predeterminado
+@code{-}.  Pero se necesita un indicador de dirección @strong{siempre}
 antes de:
 
 @itemize
@@ -1905,7 +1905,7 @@ extensores.
 
 @strong{@i{La propiedad @code{minimum-length}}}
 
-La longitud mínima del objeto de extensión se pesoecifica a través de
+La longitud mínima del objeto de extensión se especifica a través de
 la propiedad @code{minimum-length}.  Su aumento suele producir el
 efecto necesario de aumentar el espaciado de las notas entre los dos
 puntos extremos.  Sin embargo, esta sobreescritura no tiene ningún
@@ -1974,7 +1974,7 @@ a
 \( a\)
 @end lilypond
 
-Para algunos objetos de preesentación, la propiedad
+Para algunos objetos de presentación, la propiedad
 @code{minimum-length} es efectiva sólo si se llama explícitamente al
 procedimiento @code{set-spacing-rods}.  Para hacerlo, se debe fijar la
 propiedad @code{springs-and-rods} al valor
@@ -2017,7 +2017,7 @@ haciendo que los reguladores y otros objetos de extensión que terminan
 sobre la primera nota de un compás, en vez de eso terminen en la línea
 divisoria inmediatamente precedente.  Si se establece al valor falso,
 el extensor llegará más allá de la barra de compás y terminará
-excatamente sobre la nota:
+exactamente sobre la nota:
 
 @lilypond[verbatim,quote,relative=2]
 a \< a a a a \! a a a \break
@@ -2097,7 +2097,7 @@ trinos, está inamoviblemente codificado como 0.
 @item attach-dir (dirección de anclaje)
 Determina dónde comienza y termina la línea en la dirección X, con
 relación al objeto ancla.  Sí, un valor de @code{-1} (o @code{LEFT},
-izquierda) hace que la línea comienze o termine en el lado izquierdo
+izquierda) hace que la línea comience o termine en el lado izquierdo
 de la cabeza de la nota a la que está anclado.
 
 @item X
@@ -2123,7 +2123,7 @@ c2\startTextSpan b c a\stopTextSpan
 @item stencil-align-dir-y (alineación del sello en y)
 @item stencil-offset (desplazamiento del sello)
 Si no se modifican uno u otro, el sello se coloca sencillamente en el
-punto extremo, centrado sobrer la línea, como viene definido por las
+punto extremo, centrado sobre la línea, como viene definido por las
 subpropiedades @code{X} e @code{Y}.  Si se fijan
 @code{stencil-align-dir-y} o @code{stencil-offset} se moverá el
 símbolo del borde verticalmente con relación al extremo de la línea:
@@ -2142,8 +2142,8 @@ c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
 Observe que los valores negativos mueven el texto @emph{hacia arriba},
-al contrario de lo que podríoa esperarse, pues el valor de @code{-1} o
-@code{DOWN} (abajo) significa alinear el bborde @emph{inferior} del
+al contrario de lo que podría esperarse, pues el valor de @code{-1} o
+@code{DOWN} (abajo) significa alinear el borde @emph{inferior} del
 texto con la línea de extensión.  Un valor de @code{1} o @code{UP}
 (arriba) alinea el borde superior del texto con la línea extensora.
 
@@ -2219,7 +2219,7 @@ objetos de presentación.  Se estudian bajo Consideraciones especiales.
 
 Todo objeto de presentación tiene una propiedad stencil (sello).  De
 forma predeterminada está establecida a la función específica que
-dibuja ese objeto.  Se se sobreescribe eesta propiedad a @code{#f} no
+dibuja ese objeto.  Si se sobreescribe esta propiedad a @code{#f} no
 se llama a ninguna función y el objeto no se dibuja.  La acción
 predeterminada se puede recuperar con @code{\revert}.
 
@@ -2286,7 +2286,7 @@ indeterminado.
 
 En el ejemplo de arriba, la clave blanca, con un valor @code{layer}
 predeterminado de @code{1}, se dibuja después de las líneas del
-pentragrama (valor @code{layer} predeterminado de @code{0}),
+pentagrama (valor @code{layer} predeterminado de @code{0}),
 sobreimpresionándolas.  Para cambiarlo, se debe dar al objeto
 @code{Clef} un valor de @code{layer} más bajo, digamos @code{-1}, para
 que se dibuje antes:
@@ -2609,7 +2609,7 @@ Todos los objetos de presentación que contemplan el interface
 @code{rotation}.  Acepta una lista de tres elementos: el ángulo de la
 rotación en sentido antihorario, y las coordenadas x e y del punto con
 relación al punto de referencia del objeto, alrededor del que se va a
-realizar la rotación.  El ángulo de rotación se pespecifica en grados
+realizar la rotación.  El ángulo de rotación se especifica en grados
 y las coordenadas en espacios de pentagrama.
 
 El ángulo de rotación y las coordenadas del punto de rotación se deben
@@ -2632,7 +2632,7 @@ g,,4\< e' d' f\!
 @unnumberedsubsubsec Rotating markup
 
 Todos los textos de marcado se pueden rotar para que se dispongan en
-cualquier ángulo predeciéndolos de la instrucción @code{\rotate}.  La
+cualquier ángulo precediéndolos de la instrucción @code{\rotate}.  La
 instrucción acepta dos argumentos: el ángulo de rotación en grados en
 sentido antihorario, y el texto que rotar.  Los límites que ocupa el
 texto no se rotan: toman su valor a partir de los extremos de las
@@ -2700,7 +2700,7 @@ partir del punto de referencia de los bordes izquierdo y derecho,
 siendo negativos los desplazamientos hacia la izquierda.  La extensión
 vertical es una pareja de números que dan el desplazamiento a partir
 del punto de referencia hasta los bordes inferior y superior, siendo
-negativos los deplazamientos hacia abajo.
+negativos los desplazamientos hacia abajo.
 
 La posición de un objeto sobre el pentagrama viene dada por los
 valores de las propiedades @code{X-offset} e @code{Y-offset}.  El
@@ -2763,7 +2763,7 @@ Un objeto que contempla el @code{side-position-interface} se puede
 colocar junto a su objeto padre de forma que los bordes especificados
 de los dos objetos se toquen.  El objeto se puede situar encima,
 debajo, a la derecha o a la izquierda del objeto padre.  El padre no
-se puede especificar; ciene determinado por el orden de los elementos
+se puede especificar; viene determinado por el orden de los elementos
 en el flujo de entrada.  Casi todos los objetos tienen la cabeza de la
 nota asociada como padre.
 
@@ -3094,7 +3094,7 @@ orden.
 Las curvas Bézier de tercer orden o cúbicas están definidas por cuatro
 puntos de control.  El primer y cuarto puntos de control son
 exactamente los puntos extremos de comienzo y de final de la curva.
-Los dos puntos de contros intermedios definen la forma.  Se pueden
+Los dos puntos de control intermedios definen la forma.  Se pueden
 encontrar en la web animaciones que muestran cómo se traza la curva,
 pero la descripción siguiente puede ser de ayuda.  La curva comienza a
 partir del primer punto de control dirigiéndose directamente hacia el
@@ -3127,7 +3127,7 @@ las coordenadas de los dos puntos extremos, y luego tratar de adivinar
 los dos puntos intermedios.  Los valores óptimos se encuentran por
 ensayo y error.
 
-Es útil recordar que una curva simétrica necesita puntos de contros
+Es útil recordar que una curva simétrica necesita puntos de control
 simétricos, y que las curvas de Bézier tienen la útil propiedad de que
 las transformaciones de la curva tales como la traslación, rotación y
 escalado se pueden obtener aplicando la misma transformación a los
@@ -3150,6 +3150,6 @@ satisfactoria:
 
 No es posible modificar la forma de las ligaduras de unión o de
 expresión cambiando la propiedad @code{control-points} si hay más de
-una en el mismo mom ento musical, ni siquiera usando la instrucción
+una en el mismo momento musical, ni siquiera usando la instrucción
 @code{\tweak}.
 
