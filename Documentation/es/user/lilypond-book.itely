@@ -626,7 +626,7 @@ c'4
 sin @code{\layout}, @code{\score}, etc.
 
 @item nofragment
-No añadir escribir el código adicional que completa la sintaxis de
+No incluir el código adicional que completa la sintaxis de
 LilyPond en los fragmentos de música.  Al ser la opción
 predeterminada, @code{nofragment} normalmente es redundante.
 
