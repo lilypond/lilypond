@@ -411,8 +411,8 @@ notas, véase @ref{Automatic note splitting}.  Este mecanismo divide
 automáticamente las notas largas y las liga a través de las barras de
 compás.
 
-@cindex ties and chords
-@cindex chords and ties
+@cindex ligaduras y acordes
+@cindex acordes y ligaduras
 
 Cuando se aplica una ligadura de unión a un acorde, se conectan todas
 las cabezas de las notas cuyas alturas coinciden.  Si no coincide
@@ -485,7 +485,7 @@ detalles, consulte @ref{Direction and placement}.
 @funindex \tieSolid
 @funindex tieSolid
 
-Se pueden especificar ligaduras continuas, de puuntos o intermitentes,
+Se pueden especificar ligaduras continuas, de puntos o intermitentes,
 véase la sección de instrucciones predefinidas.
 
 
@@ -553,7 +553,7 @@ expresiones musicales.
 @unnumberedsubsubsec Rests
 
 @cindex silencio
-@cindex silencios, indocar duraciones
+@cindex silencios, indicar duraciones
 @cindex maxima, silencio de
 @cindex longa, silencio de
 @cindex breve, silencio de
@@ -773,7 +773,7 @@ R1*2 |
 
 De forma predeterminada un silencio multicompás se expande en la
 partitura impresa para mostrar explícitamente todos los compases de
-silencio.  De forma alternatica, un silencio multicompás se puede
+silencio.  De forma alternativa, un silencio multicompás se puede
 presentar como un solo compás que contiene un símbolo de silencio
 multicompás, con el número de compases impreso encima del compás:
 
@@ -1181,7 +1181,7 @@ escalado de la duración de las notas.
 igual longitud}
 
 Se puede crear esta notación estableciendo una indicación de compás
-común para cada pentagrama per sustituyendo el símbolo manualmente
+común para cada pentagrama pero sustituyendo el símbolo manualmente
 mediante el establecimiento de @code{timeSignatureFraction} a la
 fracción deseada y escalando las duraciones impresas en cada
 pentagrama a la indicación de compás común; véase @ref{Time
@@ -1225,7 +1225,7 @@ de barrado automático.
 >>
 @end lilypond
 
-@strong{@i{Pentagramas con distinas indicaciones de compás y
+@strong{@i{Pentagramas con distintas indicaciones de compás y
 longitudes de compás distintas}}
 
 Se puede dar a cada pentagrama su propia indicación de compás
@@ -1609,7 +1609,7 @@ Dichas propiedades determinan el barrado de la siguiente forma:
 
 Las barras pueden dar comienzo en cualquier lugar (excepto si ya hay
 una barra activa).  Las barras terminan en un tiempo determinado por
-los valores de @code{beatGrouping} y @code{beatLength}, com se ve a
+los valores de @code{beatGrouping} y @code{beatLength}, como se ve a
 continuación:
 
 @itemize
@@ -1681,7 +1681,7 @@ pulsos en cada grupo.
 @strong{@i{Modificar los puntos finales de las barras}}
 
 En compases de tipo normal, las barras automáticas pueden comenzar en
-cualquier nota pero solamente pueden terminar en algunas poriciones
+cualquier nota pero solamente pueden terminar en algunas posiciones
 dentro del compás, concretamente en las duraciones que estén
 especificadas por las propiedades de @code{autoBeamSettings}.  Estas
 propiedades consisten en una lista de reglas que especifican dónde
@@ -1712,7 +1712,7 @@ donde:
 
 @itemize
 
-@item @code{límite-barra} es el tipo de límte de barra automática que se
+@item @code{límite-barra} es el tipo de límite de barra automática que se
 define.  Puede ser @code{begin} o @code{end}, pero sólo es efectivo
 @code{end}.
 
@@ -1803,7 +1803,7 @@ predeterminados del barrado automático que están en
 @file{scm/@/auto@/-beam@/.scm}, porque los finales de barra definidos
 aquí aún son válidos además de los suyos.}
 
-Debemos revertir cualquer final predeterminado indeseado o
+Debemos revertir cualquier final predeterminado indeseado o
 conflictivo, para nuestro compás concreto.  Podemos eliminar una regla
 de barrado automático previamente establecida usando
 
@@ -1917,7 +1917,7 @@ resulten unidas por una barra:
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
-Se puede conseguir un control incluso más estritcto sobre las barras
+Se puede conseguir un control incluso más estricto sobre las barras
 estableciendo las propiedades @code{stemLeftBeamCount} y
 @code{stemRightBeamCount}.  Especifican el número de barras que se
 dibujarán en los lados izquierdo y derecho, respectivamente, de la
@@ -1964,13 +1964,13 @@ delimitada por llaves y precedida de una instrucción
 @code{featheredDurations} que especifica la razón entre las duraciones
 de la primera y la última notas dentro del grupo.
 
-Los corchetes rectos muestran el ábito de la barra y las llaves
+Los corchetes rectos muestran el ámbito de la barra y las llaves
 muestran qué notas han de modificar sus duraciones.  Normalmente
 delimitarían el mismo grupo de notas, pero no es un requisito: las dos
 instrucciones son independientes.
 
 En el ejemplo siguiente las ocho semicorcheas ocupan exactamente el
-mismo tiempo que una blanca, pero la primera nota tiene la mitar de
+mismo tiempo que una blanca, pero la primera nota tiene la mitad de
 duración que la última, con las notas intermedias alargándose
 gradualmente.  Las cuatro primeras fusas se aceleran gradualmente,
 mientras que las últimas cuatro fusas están a un tempo constante.
@@ -2203,7 +2203,7 @@ c1 c c c
 
 @snippets
 
-@cindex bar numbers, regular spacing
+@cindex números de compás, espaciado regular
 
 @funindex barNumberVisibility
 
@@ -2698,7 +2698,7 @@ adorno se sobreescribe y luego se revierte.
 @end lilypond
 
 
-@cindex stem, with slash
+@cindex plica cruzada
 
 
 @snippets

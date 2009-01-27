@@ -29,7 +29,7 @@ Este proceso se compone de tres fases: entrada, modificación y salida.
 @subsection Writing pitches
 
 En esta sección se describe la manera de introducir la altura de las
-notas.  Esisten dos formas distintas de colocar las notas en su octava
+notas.  Existen dos formas distintas de colocar las notas en su octava
 correspondiente: el modo absoluto y el relativo.  En casi todas las
 ocasiones, será más práctico el modo relativo.
 
@@ -99,7 +99,7 @@ Fragmentos de código:
 @cindex relativas, especificación de octavas
 @cindex octava, introducción relativa
 @cindex relativa, especificación de la octava
-@cindex ocatva, especificación relativa
+@cindex octava, especificación relativa
 
 @funindex relative
 @funindex \relative
@@ -195,7 +195,7 @@ anterior.
 @end lilypond
 
 Como se explicó más arriba, la octava de las notas se calcula
-solamente a partir de sus nombres, sin tener encuenta alteración
+solamente a partir de sus nombres, sin tener en cuenta alteración
 alguna.  Por tanto, un Mi doble sostenido después de un Si se
 escribirá más agudo, mientras que un Fa doble sostenido se escribirá
 más grave.  En otras palabras, se considera a la cuarta doble
@@ -579,7 +579,7 @@ La octava de las notas se puede comprobar también con la instrucción
 @code{\octaveCheck}@tie{}@var{altura_de_control}.
 @var{altura_de_control} se especifica en modo absoluto.  Esto
 comprueba que el intervalo entre la nota anterior y la
-@var{altura_de_control} se encuntra dentro de una cuarta (es decir, el
+@var{altura_de_control} se encuentra dentro de una cuarta (es decir, el
 cálculo normal para el modo relativo).  Si esta comprobación fracasa,
 se imprime un mensaje de advertencia, pero la nota previa no se
 modifica.  Las notas posteriores están en relación a la
@@ -1322,7 +1322,7 @@ regla es similar a @code{default}.
 
 Como resultado, las alteraciones de una voz no se cancelan en las
 otras voces, lo que con frecuencia lleva a un resultado no deseado: en
-el ejemplo siguientem es difífil determinar si el segundo La se debe
+el ejemplo siguiente, es difícil determinar si el segundo La se debe
 tocar natural o sostenido.  Por tanto, la opción @code{voice} se debe
 usar sólo si las voces se van a leer individualmente por músicos
 distintos.  Si el pentagrama va a utilizarse por parte de un solo
@@ -1448,7 +1448,7 @@ musicB = {
 
 Esta regla es similar a @code{modern}, pero las alteraciones
 @q{añadidas} (las que no se imprimen en el estilo @code{default}) se
-imprimen como alteraciones de precacución.  Se imprimen de forma
+imprimen como alteraciones de precaución.  Se imprimen de forma
 predeterminada con paréntesis, pero también se pueden imprimir en
 tamaño reducido definiendo la propiedad @code{cautionary-style} de
 @code{AccidentalSuggestion}.
@@ -1919,7 +1919,7 @@ musicB = {
 
 @item teaching (enseñanza)
 
-@cindex teaching (enzeñanza), estilo de alteraciones
+@cindex teaching (enseñanza), estilo de alteraciones
 @cindex alteraciones, estilo teaching (enseñanza)
 
 @funindex teaching
@@ -2129,7 +2129,7 @@ Esto significa que dentro de un acorde las alteraciones se tipografían
 como si las notas del acorde se sucedieran una a una en el tiempo, en
 el orden en que aparecen en el archivo de entrada.  Esto plantea un
 problema cuando las alteraciones de un acorde dependen unas de otras,
-lo que no se da en el estilo ds alteraciones predeterminado.  El
+lo que no se da en el estilo de alteraciones predeterminado.  El
 problema se puede resolver insertando manualmente@tie{}@code{!}
 y@tie{}@code{?} para las notas problemáticas.
 
@@ -2279,7 +2279,7 @@ Referencia de funcionamiento interno:
 @cindex música para principiantes
 @cindex notas, cabezas de, estudio
 @cindex notas, cabezas de, notación simplificada
-@cindex nots, cabezas de, para precticar
+@cindex notas, cabezas de, para practicar
 @cindex simplificada, notación
 
 @funindex \easyHeadsOn
@@ -2304,7 +2304,7 @@ principiantes.
 
 La instrucción @code{\easyHeadsOn} sobreescribe los ajustes del objeto
 @code{NoteHead}.  Estos ajustes se pueden deshacer mediante la
-isntrucción @code{\easyHeadsOff}. Para que las letras sean legibles,
+instrucción @code{\easyHeadsOff}. Para que las letras sean legibles,
 se tienen que imprimir en un tamaño grande de la tipografía.  Para
 imprimir con un tamaño de tipografía mayor, consulte @ref{Setting the
 staff size}.

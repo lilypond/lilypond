@@ -30,7 +30,7 @@ que coincidan con los ajustes de su documento.
 Es un programa distinto a @command{lilypond} propiamente dicho, y se
 ejecuta sobre la línea de órdenes; para ver más información, consulte
 @ref{Command-line usage}.  Si tiene MacOS 10.3 o 10.4 y experimenta
-algún problema al ajecutar @code{lilypond-book}, consulte @ref{Setup
+algún problema al ejecutar @code{lilypond-book}, consulte @ref{Setup
 for MacOS X}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{}, HTML,
@@ -660,7 +660,7 @@ opcional especifica la octava de la nota inicial, donde el valor
 predeterminado @code{1} es el Do central.  La opción @code{relative}
 sólo funciona cuando está establecida la opción @code{fragment}, de
 manera que @code{fragment} viene implicada automáticamente por
-@code{relative}, independientemenre de la presencia de @code{fragment}
+@code{relative}, independientemente de la presencia de @code{fragment}
 o de @code{nofragment} en la fuente.
 
 @end table
@@ -953,7 +953,7 @@ Dar formato a la salida de Texinfo de manera que Info busque las
 imágenes de música en @var{directorio}.
 
 @itemx --latex-program=@var{prog}
-Ejecutar el propgrama @command{prog} en vez de @command{latex}.  Esto
+Ejecutar el programa @command{prog} en vez de @command{latex}.  Esto
 es útil si nuestro documento se procesa con @command{xelatex}, por
 ejemplo.
 

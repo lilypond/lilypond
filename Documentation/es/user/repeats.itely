@@ -353,16 +353,16 @@ Referencia de funcionamiento interno:
 @cindex explícitas, repeticiones
 @cindex repetitiva, música
 @cindex repeticiones explícitas
-@cindex repetición delplegada
+@cindex repetición desplegada
 @cindex desplegar música
 @cindex desplegar repetición
-@cindex repetición deplegada con finales alternativos
+@cindex repetición desplegada con finales alternativos
 @cindex música desplegada con finales alternativos
 @cindex alternativos, finales, en repeticiones explícitas
 @funindex unfold
 
 Mediante la utilización de la instrucción @code{unfold} se pueden usar
-las repeticiones para simplificar la escritura deplegada de música
+las repeticiones para simplificar la escritura desplegada de música
 repetitiva.  La sintaxis es:
 
 @example
@@ -370,7 +370,7 @@ repetitiva.  La sintaxis es:
 @end example
 
 donde @var{expresión_musical} es una expresión musical y
-@var{nnúmero_de_repeticiones} es el número de veces que
+@var{número_de_repeticiones} es el número de veces que
 @var{expresión_musical} se repite.
 
 @lilypond[verbatim,quote,relative=2]
@@ -556,7 +556,7 @@ Fragmentos de código:
 @rlsr{Repeats}.
 
 
-@cindex trémols de pentagrama cruzado
+@cindex trémolos de pentagrama cruzado
 @cindex pentagrama cruzado, trémolo de
 
 
