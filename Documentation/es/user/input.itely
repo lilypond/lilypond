@@ -42,7 +42,7 @@ Por convenio, el nombre de estos archivos termina en @code{.ly}.
 
 @funindex \score
 
-Ub bloque @code{\score} debe contener una expresión musical única
+Un bloque @code{\score} debe contener una expresión musical única
 delimitada por un par de llaves:
 
 @example
@@ -228,7 +228,7 @@ como el libro propiamente dicho, mediante la especificación del bloque
 @funindex \book
 @funindex \bookpart
 
-Un archivo @code{.ly} puede contener cualquier número de expresions
+Un archivo @code{.ly} puede contener cualquier número de expresiones
 del nivel superior, donde una expresión del nivel superior es una de
 las siguientes posibilidades:
 
@@ -263,14 +263,14 @@ Un bloque @code{\book} combina lógicamente varios movimientos (es
 decir, varios bloques @code{\score}) en un solo documento.  Si hay
 varias partituras @code{\score}, se crea un solo archivo de salida
 para cada bloque @code{\book}, en el que se concatenan todos los
-movimientos correspondientes.  La únca razón para especificar
+movimientos correspondientes.  La única razón para especificar
 explícitamente bloques @code{\book} en un archivo de entrada
 @code{.ly} es si queremos crear varios archivos de salida a partir de
 un único archivo de entrada.  Una excepción se da dentro de los
 documentos de lilypond-book, en los que tenemos que escribir
 explícitamente un bloque @code{\book} si queremos tener más de una
 única partitura @code{\score} o marcado @code{\markup} en el mismo
-ejemplo.  Se puede cmbiar este comportamiento estableciendo el valor
+ejemplo.  Se puede cambiar este comportamiento estableciendo el valor
 de la variable @code{toplevel-book-handler} en el nivel superior.  El
 @emph{handler} predeterminado se define en el archivo de inicio
 @file{../scm/@/lily@/.scm}.
@@ -307,7 +307,7 @@ contiene sólo la expresión musical anterior se traduce a
 @end example
 
 Se puede cambiar este comportamiento estableciendo el valor de la
-bariable @code{toplevel-music-handler} en el nivel más alto.  El
+variable @code{toplevel-music-handler} en el nivel más alto.  El
 @emph{handler} predeterminado se define en el archivo de inicio
 @file{../scm/@/lily@/.scm}.
 
@@ -454,7 +454,7 @@ Esto fuerza que el título comience sobre una página nueva (establézcalo a ##t
 @funindex copyright
 @item copyright
 Aviso de Copyright, centrado en la parte inferior de la primera
-página.  Para insertar el símbolo de copyright symbol, consulte
+página.  Para insertar el símbolo de copyright, consulte
 @ref{Text encoding}.
 
 @funindex tagline
@@ -587,7 +587,7 @@ falso.
 @subsection Custom titles
 
 Una opción más avanzada es cambiar las definiciones de las variables
-siguientes dentro del bloque @code{\paper} block.  El archivo de
+siguientes dentro del bloque @code{\paper}.  El archivo de
 inicio @file{ly/titling-init.ly} ofrece un listado de la disposición
 predeterminada.
 
@@ -612,7 +612,7 @@ normalmente contiene el nombre del movimiento (campo @code{piece}).
   sin especificar, se usará el encabezamiento de las páginas impares.
 
   De forma predeterminada, los encabezamientos se definen de tal forma
-que el número de página está en el borde exterior, y el isntrumento
+que el número de página está en el borde exterior, y el instrumento
 está centrado.
 
 @funindex oddFooterMarkup
@@ -761,7 +761,7 @@ Observe la forma en que nos referimos al texto y al número de página
 del elemento de índice, dentro de la definición @code{tocItemMarkup}.
 
 También se pueden definir nuevas instrucciones y elementos de
-marcado para crear índices generales más eleborados:
+marcado para crear índices generales más elaborados:
 @itemize
 @item en primer lugar, defina una variable de marcado nueva dentro del bloque @code{\paper}
 @item luego defina una función de música cuyo propósito es añadir un elemento al índice general
@@ -862,7 +862,7 @@ etiquetadas para ayudar a hacerlas utilizables en distintos lugares de
 la partitura, véase @ref{Different editions from one source}.
 
 Los archivos que están en el directorio de trabajo actual se pueden
-referenciar simplemente especificando el nombre depués de la
+referenciar simplemente especificando el nombre después de la
 instrucción @code{\include}.  Los archivos en otros lugares se pueden
 incluir proporcionando una referencia de ruta completa o una ruta
 relativa (pero utilice la barra inclinada normal del UNIX, /, no la
@@ -983,7 +983,7 @@ Si las secciones de la música se definen dentro de variables, se
 pueden reutilizar en distintas partes de la partitura, véase
 @rlearning{Organizing pieces with variables}.  Por ejemplo, una
 partitura vocal @notation{a cappella} con frecuencia incluye una
-reducción de piano de las partes para ensayar que ees idéntica a la
+reducción de piano de las partes para ensayar que es idéntica a la
 música vocal, por lo que ésta sólo se tiene que escribir una vez.  Se
 puede combinar sobre un solo pentagrama la música de dos variables,
 véase @ref{Automatic part combining}.  He aquí un ejemplo:
@@ -1043,11 +1043,11 @@ LilyPond files}.
 @funindex \keepWithTag
 @funindex \removeWithTag
 @cindex etiqueta
-@cindex manetener música etiquetada
+@cindex mantener música etiquetada
 @cindex quitar música etiquetada
 
 La instrucción @code{\tag #'@var{parteA}} marca una expresión musical
-con el nombre @var{parteA}.  Las expresiones etoiquetadas de esta
+con el nombre @var{parteA}.  Las expresiones etiquetadas de esta
 manera se pueden seleccionar o filtrar más tarde por su nombre, usando
 bien @code{\keepWithTag #'@var{nombre}} o bien @code{\removeWithTag
 #'@var{nombre}}.  El resultado de la aplicación de estos filtros a la
@@ -1119,7 +1119,7 @@ music = \relative g' {
 }
 @end lilypond
 
-El flitrado con etiquetas se puede aplicar a articulaciones, textos,
+El filtrado con etiquetas se puede aplicar a articulaciones, textos,
 etc. anteponiendo
 
 @example
@@ -1265,7 +1265,7 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
-Para introducir un caracter aislado para el que se conoce la secuencia
+Para introducir un carácter aislado para el que se conoce la secuencia
 de escape de Unicode pero no está disponible en el editor que se está
 usando, use @code{\char ##xhhhh} dentro de un bloque @code{\markup},
 donde @code{hhhh} es el código hexadecimal del carácter en cuestión.
@@ -1389,7 +1389,7 @@ Para ver más información sobre los formatos de salida, consulte
 @funindex showLastLength
 
 Al escribir o copiar música, normalmente sólo es interesante de ver y
-corregir la música cercana al final (donde estams añadiendo las
+corregir la música cercana al final (donde estamos añadiendo las
 notas).  Para acelerar este proceso de corrección, es posible saltar
 la composición tipográfica de todos excepto unos pocos de los últimos
 compases.  Esto se consigue poniendo
@@ -1401,7 +1401,7 @@ showLastLength = R1*5
 
 @noindent
 en nuestro archivo fuente.  Esto hará que se tracen sólo los últimos
-cinco compases (suponniendo un compás de 4/4) de cada una de las
+cinco compases (suponiendo un compás de 4/4) de cada una de las
 partituras @code{\score} del archivo de entrada.  Para piezas largas,
 el tipografiado de únicamente una parte pequeña es con frecuencia un
 orden de magnitud más rápido que el de la obra completa.  Si estamos
@@ -1440,7 +1440,7 @@ voces y pentagramas, ahorrando más tiempo incluso.
 El MIDI (Musical Instrument Digital Interface, Interfase Digital para
 Instrumentos Musicales) es un estándar para interconectar y controlar
 instrumentos musicales electrónicos.  Un archivo o secuencia MIDI es
-una serie de notas dentro de un conjunto de pistas.  No es un archivoo
+una serie de notas dentro de un conjunto de pistas.  No es un archivo
 de sonidos reales; se necesita un programa reproductor especial para
 traducir la serie de notas en sonidos de verdad.
 
@@ -1567,7 +1567,7 @@ Los cambios del volumen MIDI sólo tienen lugar al principio de la
 nota, por lo que los crescendi y decrescendi no pueden afectar al
 volumen de una sola nota.
 
-No todos los repoductores de MIDI manejar adecuadamente los cambios de
+No todos los reproductores de MIDI manejar adecuadamente los cambios de
 tempo de la salida MIDI.  Entre los reproductores que se sabe que
 funcionan se encuentran el Reproductor de Medios de MS Windows y
 @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
@@ -1584,7 +1584,7 @@ diseño de página, pero algo maś simple.  Con frecuencia, el bloque
 @code{\midi} se deja vacío, pero puede contener reorganizaciones de
 contextos, definiciones de contexto nuevas o código para fijar valores
 de propiedades.  Por ejemplo, en el ejemplo siguiente se establece el
-tempo inicial exportado alarchivo MIDI sin hacer que se imprima una
+tempo inicial exportado al archivo MIDI sin hacer que se imprima una
 indicación de tempo:
 
 @example
@@ -1686,7 +1686,7 @@ salida MIDI:
 
 @itemize
 @item Duraciones escritas como anotaciones, p.ej. el swing
-@item Cambios de tempo escritos como anotacioens sin marca de tempo
+@item Cambios de tempo escritos como anotaciones sin marca de tempo
 @item Staccato y otras articulaciones y ornamentos
 @item Ligaduras de expresión y de fraseo
 @item Crescendi y decrescendi sobre una nota única
@@ -1755,14 +1755,14 @@ se extienden desde 0.25 para @notation{ppppp} hasta 0.95 para
 @notation{fffff}.  El conjunto de indicaciones dinámicas y las
 fracciones asociadas pueden verse en @file{../scm/midi.scm}, véase
 @rlearning{Other sources of information}.  Este conjunto de fracciones
-se puede cmbiar o extender proporcionando una función que toma como
+se puede cambiar o extender proporcionando una función que toma como
 argumento una indicación dinámica y devuelve la fracción requerida, y
 estableciendo @code{Score.dynamicAbsoluteVolumeFunction} a esta
 función.
 
 Por ejemplo, si se requiere una indicación dinámica
 @notation{rinforzando}, @code{\rfz}, ésta no tiene ningún efecto
-predeterminado sobre el voumen MIDI, pues no está incluida en el
+predeterminado sobre el volumen MIDI, pues no está incluida en el
 conjunto predeterminado.  De igual manera, si se define una indicación
 dinámica nueva con @code{make-dynamic-script}, ésta tampoco estará
 incluida en el conjunto predeterminado.  El ejemplo siguiente muestra
@@ -1913,7 +1913,7 @@ El ecualizador básico predeterminado se puede sustituir estableciendo
 procedimiento Scheme nuevo que acepte el nombre de un instrumento MIDI
 como único argumento y devuelva un par de fracciones que dan los
 volúmenes máximo y mínimo que se aplican a dicho instrumento.  Esta
-sustitución se hace de la misma forma que mostramos para reestablecer
+sustitución se hace de la misma forma que mostramos para restablecer
 la fracción de volumen absoluto @code{dynamicAbsoluteVolumeFunction}
 al comienzo de esta sección.  El ecualizador predeterminado,
 @notation{default-instrument-equalizer}, en @file{../scm/midi.scm},
@@ -2010,7 +2010,7 @@ salida correctamente por el canal MIDI@tie{}10, pero ciertos
 instrumentos de percusión de altura determinada, como el xilófono,
 marimba, vibráfono, timbales, etc., se tratan como instrumentos
 @qq{normales} y la música para estos instrumentos se debe introducir
-en contestos de @code{Staff} normales, no en un contexto
+en contextos de @code{Staff} normales, no en un contexto
 @code{DrumStaff}, para obtener la salida MIDI correcta.
 
 Ciertos sonidos de altura indeterminada que están incluidos en el
@@ -2021,7 +2021,7 @@ introducir también en un contexto normal de @code{Staff}, utilizando
 las alturas normales adecuadas.
 
 Muchos instrumentos de percusión no están incluidos dentro del
-estándar General MIDI standard, p.ej. las castañuelas.  El método más
+estándar General MIDI, p.ej. las castañuelas.  El método más
 fácil (aunque no satisfactorio) de producir una salida MIDI al
 escribir para estos instrumentos es sustituirlos por el sonido más
 parecido del conjunto estándar.

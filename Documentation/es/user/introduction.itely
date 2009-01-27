@@ -41,7 +41,7 @@ LilyPond.
 @unnumberedsubsec Engraving
 
 @cindex grabado
-@cindex typografía musical
+@cindex tipografía musical
 @cindex musical, tipografía
 @cindex plancha, grabado en
 @cindex musical, grabado
@@ -872,7 +872,7 @@ Esta sección explica la distintas partes de la documentación.
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
-* About the Learning Manual::   Este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
+* About the Learning Manual::   Este manual es una introducción a LilyPond que proporciona explicaciones en profundidad sobre cómo crear notación.
 * About the Music Glossary::    Este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
 * About the Notation Reference::  Este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el Manual de aprendizaje y que está familiarizado con los términos musicales ingleses presentados en el Glosario musical.
 * About the Application Usage::  Trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
@@ -948,7 +948,7 @@ siquiera a tocar el Scheme.
 @cindex frase idiomática
 @cindex jerga
 @cindex terminología
-@cindex idomas extranjeros
+@cindex idiomas extranjeros
 @cindex idiomas
 
 @rglosnamed{Top,Glosario musical}: explica términos musicales e incluye
@@ -1028,7 +1028,7 @@ comunes.
 
 @item
 @ruser{LilyPond command index}:
-un úndice de todas las @code{\instrucciones} de LilyPond.
+un índice de todas las @code{\instrucciones} de LilyPond.
 
 @item
 @ruser{LilyPond index}:

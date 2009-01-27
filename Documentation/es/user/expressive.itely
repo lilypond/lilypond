@@ -279,7 +279,7 @@ g1\espressivo
 @funindex dimHairpin
 
 Los crescendi y decrescendi se pueden tipografiar como marcas
-textuales en lugar de reguladores.  Las instrucciones incorporadaas
+textuales en lugar de reguladores.  Las instrucciones incorporadas
 que activan estos modos de texto son @code{\crescTextCresc},
 @code{\dimTextDecresc}, @code{\dimTextDecr} y @code{\dimTextDim}.  Las
 instrucciones correspondientes @code{\crescHairpin} y
@@ -989,15 +989,15 @@ d1\startTrillSpan { c32[ d]\stopTrillSpan }
 e2 r2
 @end lilypond
 
-@cindex pitched trills
-@cindex trills, pitched
+@cindex trinos de nota explícita
+@cindex explícita, trinos de nota
 @funindex \pitchedTrill
 @funindex pitchedTrill
 
 Los trinos que se tienen que ejecutar sobre notas auxiliares
 explícitas se pueden tipografiar con la instrucción
 @code{pitchedTrill}.  El primer argumento es la nota principal, y el
-segndo es la nota @emph{trinada}, que se imprime como una cabeza de
+segundo es la nota @emph{trinada}, que se imprime como una cabeza de
 nota, sin plica y entre paréntesis.
 
 @lilypond[verbatim,quote,relative=1]

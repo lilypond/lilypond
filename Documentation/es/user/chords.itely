@@ -80,7 +80,7 @@ secuencial:
 
 
 @seealso
-Glossario musical:
+Glosario musical:
 @rglos{chord}.
 
 Referencia de la notación:
@@ -241,7 +241,7 @@ Fragmentos de código:
 
 @knownissues
 Sólo se puede usar un modificador por cada acorde, normalmente sobre
-la nota más aguda del mismo.  Los acordes con maś de un modificador se
+la nota más aguda del mismo.  Los acordes con más de un modificador se
 analizan sin producir errores ni advertencias, pero el resultado es
 impredecible.  Los acordes que no se pueden conseguir con un solo
 modificador se deben alterar en sus notas individuales como se
@@ -342,7 +342,7 @@ modificadora.
 
 Se puede añadir el modificador @code{sus} a la cadena modificadora
 para crear acordes suspendidos.  Esto elimina la tercera del acorde.
-Esciba bien @code{2} o bien @code{4} para añadir la seguna o la cuarta
+Escriba bien @code{2} o bien @code{4} para añadir la segunda o la cuarta
 al acorde, respectivamente.  @code{sus} equivale a @code{^3};
 @code{sus4} equivale a @code{.4^3}.
 
@@ -526,7 +526,7 @@ nombre adecuado si se escriben usando música simultánea.
 
 No hay un sistema único para nombrar acordes.  Las distintas
 tradiciones musicales usan distintos nombres para el mismo conjunto de
-acordes.  Tabién hay distintos símbolos impresos para un nombre de
+acordes.  También hay distintos símbolos impresos para un nombre de
 acorde dado.  Los nombres y símbolos que se imprimen para los nombres
 de acorde dados se pueden personalizar.
 
@@ -567,7 +567,7 @@ El nombre de acorde se imprime normalmente como una letra para la
 fundamental con una alteración opcional.  La transformación de la nota
 en la letra se realiza por parte de esta función.  Los nombres de nota
 especiales (por ejemplo, la @q{H} alemana para un acorde de Si) se
-pueden producir almacenando una cunción nueva en esta propiedad.
+pueden producir almacenando una función nueva en esta propiedad.
 
 @funindex majorSevenSymbol
 
@@ -613,7 +613,7 @@ el nombre del acorde.
 @item chordPrefixSpacer
 
 La @q{m} de los acordes menores se imprime por lo general
-imediatamente a la derecha de la fundamental.  Se puede insertar un
+inmediatamente a la derecha de la fundamental.  Se puede insertar un
 símbolo separador entre la fundamental y @q{m} estableciendo
 @code{chordPrefixSpacer}.  El símbolo separador no se usa cuando el
 acorde está alterado.
@@ -769,7 +769,7 @@ Fragmentos de código:
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
 
-Se usa @code{\figuremode} para cambiar el mod de entrada al modo de
+Se usa @code{\figuremode} para cambiar el modo de entrada al modo de
 cifras.  Hay más información sobre los distintos modos de entrada en
 @ref{Input modes}.
 

@@ -14,9 +14,9 @@
 
 También se puede escribir la música a través de su importación desde
 otros formatos.  Este capítulo trata de documentar las herramientas
-incluidas en la dirstribución que permiten hacerlo.  Existen otras
+incluidas en la distribución que permiten hacerlo.  Existen otras
 herramientas que producen código de entrada de LilyPond, como por
-ejemplo secuenciadores con interfaz gráfico y comvertidores de XML.
+ejemplo secuenciadores con interfaz gráfico y convertidores de XML.
 Consulte el @uref{http://@/lilypond@/.org,website} para ver más
 detalles.
 
@@ -29,7 +29,7 @@ p.ej. @code{convert-ly}, consulte @ref{Setup for MacOS X}.
 
 @knownissues
 Por desgracia no disponemos de los recursos necesarios para poder
-mantener estos programas; le rogramos que los tome @qq{tal cual
+mantener estos programas; le rogamos que los tome @qq{tal cual
 están}.  Se agradecerá el envío de parches correctores, pero los
 informes de fallo casi con certeza no se resolverán a medio plazo.
 
@@ -48,7 +48,7 @@ informes de fallo casi con certeza no se resolverán a medio plazo.
 
 @cindex MIDI
 
-@command{midi2ly} traduce un archivo MIDI de tipo@tie{}1 a un acrhivo
+@command{midi2ly} traduce un archivo MIDI de tipo@tie{}1 a un archivo
 de código fuente de LilyPond.
 
 El MIDI (Music Instrument Digital Interface, Interfase Digital para
@@ -87,7 +87,7 @@ formats} para ver más información sobre esto.
 
 @table @code
 @item -a, --absolute-pitches
-Imprimir alturas absoultas.
+Imprimir alturas absolutas.
 
 @item -d, --duration-quant=@var{DURACIÓN}
 Cuantizar las duraciones a @var{DURACIÓN}.
@@ -238,7 +238,7 @@ fijar el nombre del archivo de salida como @var{archivo}.
 @item -s,--strict
 ser estricto respecto al éxito
 @item --version
-imprimir la infomación de la versión.
+imprimir la información de la versión.
 @end table
 
 Existe una posibilidad rudimentaria para añadir código de LilyPond el

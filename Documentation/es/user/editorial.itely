@@ -423,7 +423,7 @@ c2 \parenthesize r
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
-Referencia de funciionamiento interno:
+Referencia de funcionamiento interno:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
@@ -461,10 +461,10 @@ crean pero se hacen invisibles.
 
 @snippets
 
-@cindex stem, direction
-@cindex stem, up
-@cindex stem, down
-@cindex stem, neutral
+@cindex plica, dirección
+@cindex plica arriba
+@cindex plica abajo
+@cindex plica neutral
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
@@ -531,7 +531,7 @@ esta funcionalidad es la explicación de la notación.
 
 Existen dos funciones musicales, @code{balloonGrobText} y
 @code{balloonText}; el primero se usa como @code{\once\override} para
-adjuntar un texto a cualquier grob, y el último se usa coqmo
+adjuntar un texto a cualquier grob, y el último se usa como
 @code{\tweak}, normalmente dentro de acordes, para adjuntar un texto a
 una nota individual.
 

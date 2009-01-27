@@ -197,11 +197,11 @@ predeterminado de @code{minimumFret} es cero.
 
 @cindex armónicos en tablatura
 @cindex tablatura y armónicos
-@cindex slides en notación de tablatura
-@cindex tablatura y slides
+@cindex deslizamientos en notación de tablatura
+@cindex tablatura y deslizamientos
 
-Se pueden añadir indicaciones de armónicos y @emph{slides} a la
-notación de tablatura.
+Se pueden añadir indicaciones de armónicos y @emph{slides} o
+deslizamientos a la notación de tablatura.
 
 @lilypond[fragment, verbatim, quote, relative=1]
 \new TabStaff {
@@ -241,7 +241,7 @@ selector automático de la cuerda puede elegir fácilmente la misma
 cuerda para dos notas del acorde.
 
 Para manejar @code{\partcombine}, es necesario que @code{TabStaff}
-utilice voces expecialmente creadas:
+utilice voces especialmente creadas:
 
 @lilypond[quote,ragged-right,verbatim]
 melodia = \partcombine { e4 g g g }{ e4 e e e }
@@ -279,7 +279,7 @@ afinación de las cuerdas se da en la propiedad @code{StringTunings}.
 LilyPond trae afinaciones predefinidas para el banjo, la mandolina, la
 guitarra y el bajo.  Lilypond establece automáticamente la
 transposición correcta para las afinaciones predefinidas.  El ejemplo
-siguiente es para bajo, que suena una octaba por debajo de lo escrito.
+siguiente es para bajo, que suena una octava por debajo de lo escrito.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -302,8 +302,8 @@ La afinación por omisión es @code{guitar-tuning} (la afinación
 estándar Mi-La-Re-Sol-Si-Mi).  Otras afinaciones predefinidas son
 @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
 @code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo
-con Sol Mayor al aire).    The predefined string tunings
-are found in @code{scm/output-lib.scm}.
+con Sol Mayor al aire).  Las afinaciones predefinidas están en
+@code{scm/output-lib.scm}.
 
 Una afinación de las cuerdas es una lista de Scheme de alturas, una
 por cada cuerda, ordenadas de 1 a N, donde la cuerda 1 está arriba en
@@ -463,7 +463,7 @@ la cadena de marcado del diagrama.
 >>
 @end lilypond
 
-Se pueden apadir indicaciones de digitación, y la posición de las
+Se pueden añadir indicaciones de digitación, y la posición de las
 etiquetas de los dedos se puede controlar mediante la cadena de
 marcado del diagrama.
 
@@ -775,7 +775,7 @@ afinaciones siguiendo los ejemplos que aparecen en
 @code{predefined-guitar-fretboards.ly}.
 
 Las notas de los acordes se pueden introducir como música simultánea o
-bein usando el modo de acordes (véase @ref{Chord mode overview}).
+bien usando el modo de acordes (véase @ref{Chord mode overview}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -901,7 +901,7 @@ mychords = \chordmode{
 @end lilypond
 
 Se pueden almacenar distintos diagramas de traste para el mismo acorde
-usando distinas octavas para las notas.
+usando distintas octavas para las notas.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1139,7 +1139,7 @@ tablatures} para ver más información sobre la propiedad
 @code{stringTunings}.
 
 El aspecto gráfico de un diagrama de trastes se puede personalizar de
-acuerdo a las preferncias del usuario a través de las propiedades del
+acuerdo a las preferencias del usuario a través de las propiedades del
 interface @code{fret-diagram-interface}.  Los detalles están en
 @rinternals{fret-diagram-interface}.  Para un diagrama de
 @code{FretBoards}, las propiedades del interface pertenecen a
@@ -1217,7 +1217,7 @@ Referencia de funcionamiento interno:
 @node Guitar
 @subsection Guitar
 
-Casi todos los asintos de notación relacionados con la música para
+Casi todos los asuntos de notación relacionados con la música para
 guitarra están suficientemente cubiertos en la sección general sobre
 ajustes de instrumentos de trastes, pero hay algunos más de los que
 merece la pena hablar aquí.  De forma ocasional, los usuarios quieren
@@ -1238,7 +1238,7 @@ experiencia, un tipografiador como GuitarTeX.
 @unnumberedsubsubsec Indicating position and barring
 
 @cindex posición y cejilla, indicación para instrumentos de trastes
-@cindex trastes, instrumentos de, indicacion de la posición y cejilla
+@cindex trastes, instrumentos de, indicación de la posición y cejilla
 
 Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
 de guitarra:
