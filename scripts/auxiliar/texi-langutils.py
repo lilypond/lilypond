@@ -25,7 +25,7 @@ process_includes = not ('-n', '') in optlist # -n   don't process @include's in 
 make_gettext = ('--gettext', '') in optlist   # --gettext    generate a node list from a Texinfo source
 make_skeleton = ('--skeleton', '') in optlist # --skeleton   extract the node tree from a Texinfo source
 
-output_file = 'doc.pot'
+output_name = 'doc.pot'
 
 # @untranslated should be defined as a macro in Texinfo source
 node_blurb = '''@untranslated
@@ -47,7 +47,7 @@ end_blurb = """
 
 for x in optlist:
     if x[0] == '-o': # -o NAME   set PO output file name to NAME
-        output_file = x[1]
+        output_name = x[1]
     elif x[0] == '-d': # -d DIR    set working directory to DIR
         os.chdir (x[1])
     elif x[0] == '-b': # -b BLURB  set blurb written at each node to BLURB
@@ -169,7 +169,7 @@ if make_gettext:
     for word in ('Up:', 'Next:', 'Previous:', 'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write ('_(r"' + word + '")\n')
     node_list.close ()
-    os.system ('xgettext -c -L Python --no-location -o ' + output_file + ' ' + node_list_filename)
+    os.system ('xgettext -c -L Python --no-location -o ' + output_name + ' ' + node_list_filename)
 else:
     for texi_file in texi_files:
         process_texi (texi_file, intro_blurb, node_blurb, make_skeleton,
