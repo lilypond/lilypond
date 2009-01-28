@@ -81,6 +81,9 @@ $LY_LANGUAGES->{'es'} = {
 $LY_LANGUAGES->{'de'} = {
     'Back to Documentation Index' => '',
 };
+$LY_LANGUAGES->{'ja'} = {
+    'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
+};
 
 
 sub ly_get_string () {

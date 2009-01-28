@@ -1,0 +1,142 @@
+<html>
+<!--
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+!-->
+  <head>
+    <title>LilyPond @TOPLEVEL_VERSION@ documentation</title>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+    <meta name="aesop" content="links">
+    <meta name="description"
+          content="Top-level index to the standard documentation for
+                   LilyPond @TOPLEVEL_VERSION@">
+  </head>
+  
+  <body>
+    <div class="header">
+      <h1>LilyPond ドキュメント</h1>
+    </div>
+
+    <div class="subheader">
+      <p>
+	<strong>Version @TOPLEVEL_VERSION@</strong>
+	<br>
+	<strong>@DATE@</strong>
+      </p>
+    </div>
+
+    <table id="navigation">
+      <tbody>
+        <tr>
+          <td class="left-column">
+	  <ul>
+	    <li>
+	    <a class="title"
+href="user/lilypond-learning/index.ja.html">学習マニュアル</a>
+(in <a class="title" href="user/lilypond-learning-big-page.ja.html">大きな 1 ページ</a> ~ 1.5 MB,
+in <a class="title" href="user/lilypond-learning.ja.pdf">PDF</a>)
+              <br>(ここから始めてください)</li>
+
+	   <li><a class="title"
+href="user/music-glossary/index.html">音楽用語集</a>
+(in <a class="title" href="user/music-glossary-big-page.html">大きな 1 ページ</a> ~ 500 kB,
+in <a class="title" href="user/music-glossary.pdf">PDF</a>)
+
+     <br>(非英語圏のユーザ向け)</li>
+	</ul>
+	  </td>
+	  <td class="right-column">
+	  <ul>
+	          <li>
+	    <a class="title" href="topdocs/NEWS.html">News</a>
+            <br>(前回のメジャー リリースからの変更点)</li>
+
+<li><a class="title" href="../examples.html">Examples</a>
+     <br>(参照用の例)</li>
+
+	  </ul>
+	  </td>
+        </tr>
+        <tr>
+          <td valign="baseline" class="left-column">
+	  <ul>
+	    <li>
+<a class="title" href="user/lilypond/index.ja.html">表記リファレンス</a>
+(in <a class="title" href="user/lilypond-big-page.ja.html">大きな 1 ページ</a> ~ 4 MB,
+in <a class="title" href="user/lilypond.ja.pdf">PDF</a>)
+     <br>(音楽を LilyPond で記述する)</li>
+
+       <li>
+ <a  class="title"
+href="user/lilypond-internals/index.ja.html">内部リファレンス</a>
+ (in <a class="title" href="user/lilypond-internals-big-page.ja.html">大きな 1 ページ</a> ~ 1 MB,
+  in <a class="title" href="user/lilypond-internals.ja.pdf">PDF</a>)
+     <br>(調整のための定義)</li>
+
+  </ul>
+	  </td>
+	  <td valign="baseline" class="right-column">
+	  <ul>
+              <li>
+	    <a class="title"
+href="user/lilypond-program/index.ja.html">アプリケーションの使用方法</a>
+(in <a class="title" href="user/lilypond-program-big-page.ja.html">大きな 1 ページ</a>,
+in <a class="title" href="user/lilypond-program.ja.pdf">PDF</a>)
+            <br>(プログラムをインストールして実行する方法)</li>
+
+<li><a class="title"href="../input/lsr/lilypond-snippets/index.html">断片集</a>
+(in <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">大きな 1 ページ</a> ~ 2MB,
+in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
+     <br>(Short tricks, tips, and examples)</li>
+
+	</ul>
+
+    </td>
+        <tr>
+          <td valign="baseline" class="left-column">
+	<ul>
+            <li><a class="title"  href="devel.html">開発者向けのリソース</a>
+              <br>(開発者と貢献者のためのドキュメント)</li>
+	</ul>
+    </td><td class="right-column">
+	<ul>
+          <li><a class="title"  href="translations.ja.html">翻訳状況</a>
+          <br>(翻訳の進捗状況)</li>
+	</ul>
+	  </td>
+        </tr>
+        <tr>
+          <td valign="baseline" class="left-column">
+	<ul>
+
+            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
+              <br>(Web サイト)</li>
+            <li>
+	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">ライセンス</a>
+              <br>(GNU GPL)</li>
+
+	</ul>
+    </td><td class="right-column">
+    <ul>
+        <li><a class="title"  href="THANKS.html">謝辞</a>
+        <br>(LilyPond への貢献者たちへ)</li>
+
+        <li><a class="title"  href="DEDICATION.html">献辞</a>
+        <br>(Jan と Han-Wen より)</li>
+
+	  </ul>
+	  </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      このページから読むことができるすべてのドキュメントは<strong>ダウンロード</strong>することができます。
+      <a href="http://download.linuxaudio.org/lilypond/binaries/documentation/lilypond-@TOPLEVEL_VERSION@-1.documentation.tar.bz2">ドキュメント (.tar.bz2 形式) のダウンロード</a>
+    </p>
+    <p>
+      このドキュメントの各 HTML ページには、ページの一番下に他の言語で書かれた<strong>翻訳</strong>へのリンクがあります。
+    </p>
+  </body>
+</html>

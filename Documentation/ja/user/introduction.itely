@@ -9,7 +9,7 @@
 
 @c \version "2.12.0"
 
-@c Translators: Sawada, Yoshiki
+@c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node Introduction
@@ -46,12 +46,32 @@
 @cindex plate engraving
 @cindex music engraving
 
-楽譜印刷の技術は @emph{(プレート) 譜刻} (原文: engraving、版画などの印刷のこと) と呼ばれています。この用語は伝統的な楽譜印刷のプロセスに由来します。ほんの数十年前まで、楽譜は音楽記号を亜鉛やしろめ (錫と鉛の合金) の版に反転したイメージで彫り込んだり、刻印することによって作られていました。版にはインクが塗られ、彫り込んだり刻印してくぼんだ部分にはインクが溜まります。版のイメージはその版に紙が押し付けられることによって形になります。刻印と彫刻は完全に手作業で行われていました。校正は可能だとしても厄介でした。なぜなら一から刻印と彫刻のやり直しだったからです。譜刻は高度に専門的な技術でした; 職人はマスター エングラーバ (譜刻を行う人) の称号を得るまで 5 年の修行を修めなければならず、本当に技術を習得するまでにはさらにもう 5 年の経験が必要だったのです。
+楽譜印刷の技術は@emph{(プレート) 譜刻} (原文: engraving、版画などの印刷のこと@c
+) と呼ばれています。この用語は伝統的な楽譜印刷のプロセスに由来します。ほんの@c
+数十年前まで、楽譜は音楽記号を亜鉛やしろめ (錫と鉛の合金) の版に反転した@c
+イメージで彫り込んだり、刻印することによって作られていました。版にはインクが@c
+塗られ、彫り込んだり刻印してくぼんだ部分にはインクが溜まります。版のイメージ@c
+はその版に紙が押し付けられることによって形になります。刻印と彫刻は完全に手作@c
+業で行われていました。校正は可能だとしても厄介でした。なぜなら一から刻印と彫@c
+刻のやり直しだったからです。譜刻は高度に専門的な技術でした。職人はマスター @c
+エングラーバ (譜刻を行う人) の称号を得るまで 5 年の修行を修めなければなら@c
+ず、本当に技術を習得するまでにはさらにもう 5 年の経験が必要だったのです。
 
-今日では、コンピュータによってまったく新しい楽譜が出版されています。これには明らかな利点があります; 印刷は安く済み、編集したものを email で配ることが可能です。不幸なことに、コンピュータが広く使われるようになって楽譜のグラフィカルな品質は低下しています。コンピュータによって出版された楽譜は味気無く、機械的な見た目をしているため、その楽譜で演奏することに喜びを感じられません。
+今日では、コンピュータによってまったく新しい楽譜が出版されています。これには@c
+明らかな利点があります。印刷は安く済み、編集したものを email で配ることが可@c
+能です。不幸なことに、コンピュータが広く使われるようになって楽譜のグラフィカ@c
+ルな品質は低下しています。コンピュータによって出版された楽譜は味気無く、機械@c
+的な見た目をしているため、その楽譜で演奏することに喜びを感じられません。
 
 @c introduce illustrating aspects of engraving, font...
-以下の図は伝統的な譜刻とコンピュータ出版の違いを描いたものであり、3 番目の図は LilyPond がどれくらい伝統的な見た目を模倣しているのかを示しています。左端のスキャンした図はコンピュータ出版の典型的な決定を示しています; 縦棒は細く、フラット記号の太さは細線と一致していて、曲線はまっすぐなレイアウトになっています。対照的に、ベーレンライター (Barenreiter: ドイツの出版社) のフラットは太く、曲線は官能的です。我々のフラットは 2 つのもののうち後者を元にデザインされています。丸みを帯びていて、太さは縦棒の太さと調和していて、コンピュータによるものよりも線が太くなっています。
+以下の図は伝統的な譜刻とコンピュータ出版の違いを描いたものであり、3 番目の図は
+LilyPond がどれくらい伝統的な見た目を模倣しているのかを示しています。左端の@c
+スキャンした図はコンピュータ出版の典型的な決定を示しています。縦棒は細く、フ@c
+ラット記号の太さは細線と一致していて、曲線はまっすぐなレイアウトになっていま@c
+す。対照的に、ベーレンライター (Barenreiter: ドイツの出版社) のフラットは太@c
+く、曲線は官能的です。我々のフラットは 2 つのもののうち後者を元にデザインさ@c
+れています。丸みを帯びていて、太さは縦棒の太さと調和していて、コンピュータに@c
+よるものよりも線が太くなっています。
 
 @multitable @columnfractions .125 .25 .25 .25 .125
 @item @tab
@@ -100,7 +120,11 @@ LilyPond Feta font (2003)
 @cindex balance
 
 @c introduce illustrating aspects of engraving, spacing...
-スペースの点では、スペースの配分は音符と音符の間の音の間隔を反映します。しかしながら、現代楽譜の多くは数学的な正確さを持った間隔に固執しています。このことはおもしろくない結果を生み出します。次の例では、2 度楽譜をプリントしています: 1 度目は正確に数学的なスペースを用いて、2 度目はそれに校正を加えています。違いを見分けられますか？
+スペースの点では、スペースの配分は音符と音符の間の音の間隔を反映します。しか@c
+しながら、現代楽譜の多くは数学的な正確さを持った間隔に固執しています。このこ@c
+とはおもしろくない結果を生み出します。次の例では、2 度楽譜をプリントしていま@c
+す: 1 度目は正確に数学的なスペースを用いて、2 度目はそれに校正を加えていま@c
+す。違いを見分けられますか？
 
 @cindex optical spacing
 @c file spacing-optical.
@@ -162,16 +186,44 @@ music = {
 @cindex regular spacing
 @cindex spacing, regular
 
-各小節には一定のリズムで演奏される音符だけがあります。スペースもそれを反映しています。不幸なことに、我々の目は我々を少し惑わせます。音符の「玉」 (ノート ヘッド) の間隔だけでなく、連続した棒 (ステム、音符から突き出る棒) の間隔も考慮します。結果として、アップ ステム/@/ダウン ステム (玉の上に突き出た棒/@/玉の下に突き出た棒) の組み合わせは離すべきであり、ダウン ステム/アップステムの組み合わせは近づけるべきです、すべては音符の垂直方向の位置の組み合わせに次第です。上の 2 小節は音符のダウン ステム/@/アップ ステムの組み合わせを近づけるよう校正を加えたものであり、下の 2 小節はこの校正を加えていないものです。
+各小節には一定のリズムで演奏される音符だけがあります。スペースもそれを反映していま@c
+す。不幸なことに、我々の目は我々を少し惑わせます。音符の「玉」 (ノート ヘッド) の間@c
+隔だけでなく、連続した棒 (ステム、音符から突き出る棒) の間隔も考慮します。結果とし@c
+て、アップ ステム/@/ダウン ステム (玉の上に突き出た棒/@/玉の下に突き出た棒) の組み@c
+合わせは離すべきであり、ダウン ステム/アップステムの組み合わせは近づけるべきです、す@c
+べては音符の垂直方向の位置の組み合わせに次第です。上の 2 小節は音符のダウン 
+ステム/@/アップ ステムの組み合わせを近づけるよう校正を加えたものであり、下の 2 小節@c
+はこの校正を加えていないものです。
 
 
-通常、奏者は楽譜の見え方を勉強するよりも演奏をするほうに夢中ですので、印刷上の詳細にこだわることは形式尊重のように思えるかもしれません。しかしそうではありません。単調なリズムがずっと続くような場合、スペースの校正を行うことで各行のレイアウトに微妙な変化が加わり、それぞれが異なる視覚的特徴を持つようになります。この特徴が無ければすべての行は同じに見え、迷路のようになってしまいます。奏者がちょっと目を逸らしたり、集中力を欠くと、それまで見ていた行はページの中に埋もれてしまいます。
+通常、奏者は楽譜の見え方を勉強するよりも演奏をするほうに夢中ですので、印刷上@c
+の詳細にこだわることは形式尊重のように思えるかもしれません。しかしそうではあ@c
+りません。単調なリズムがずっと続くような場合、スペースの校正を行うことで各行@c
+のレイアウトに微妙な変化が加わり、それぞれが異なる視覚的特徴を持つようになり@c
+ます。この特徴が無ければすべての行は同じに見え、迷路のようになってしまいま@c
+す。奏者がちょっと目を逸らしたり、集中力を欠くと、それまで見ていた行はページ@c
+の中に埋もれてしまいます。
 
-同様に、太い譜線 (音の高さを表す線。五線譜では 5 本) に描かれた太い記号は見た目が強く、楽譜から奏者が離れている場合 -- 例えば、楽譜が譜面台にある場合 -- に良く目立ちます。空白を注意深く配置することで、楽譜は記号が乱雑になることなく締まります。結果としてページをめくる回数は最小となり、これは大きな利点になります。
+同様に、太い譜線 (音の高さを表す線。五線譜では 5 本) に描かれた太い記号は見@c
+た目が強く、楽譜から奏者が離れている場合 -- 例えば、楽譜が譜面台にある場合 -- 
+に良く目立ちます。空白を注意深く配置することで、楽譜は記号が乱雑になることな@c
+く締まります。結果としてページをめくる回数は最小となり、これは大きな利点にな@c
+ります。
 
-これは印刷において共通して言えることですが、レイアウトはこざっぱりとしているべきです。これは印刷自体のためであるだけでなく、特にその印刷物を読んでいる読み手の助けにもなるからです。楽譜のような演奏用の道具では、このことは 2 重に重要性を持ちます: 奏者の注意力には限界があり、奏者が楽譜を読むことに払う注意力が少なくて済めば済むほど、その奏者は演奏に集中することができます。言い換えると、良い印刷は良い演奏につながるのです。
+これは印刷において共通して言えることですが、レイアウトはこざっぱりとしている@c
+べきです。これは印刷自体のためであるだけでなく、特にその印刷物を読んでいる読@c
+み手の助けにもなるからです。楽譜のような演奏用の道具では、このことは 2 重に@c
+重要性を持ちます: 奏者の注意力には限界があり、奏者が楽譜を読むことに払う注意@c
+力が少なくて済めば済むほど、その奏者は演奏に集中することができます。言い換え@c
+ると、良い印刷は良い演奏につながるのです。
 
-以上で挙げたことは、楽譜の印刷は微妙で複雑な技術であり、楽譜を印刷するには非常な熟練 -- これは通常、奏者が持っているものではありません -- が必要であるということを示しています。LilyPond は、手作業で譜刻された楽譜のすばらしさをコンピュータ世代に提供しよう、すばらしい楽譜を普通の音楽家にも利用可能にしようという我々の努力なのです。我々は、良く見てみたくなり、演奏したくなるような古い楽譜のクオリティに匹敵する楽譜を提供するために、アルゴリズム、フォント デザイン、プログラム設定を調整してきました。
+以上で挙げたことは、楽譜の印刷は微妙で複雑な技術であり、楽譜を印刷するには非@c
+常な熟練 -- これは通常、奏者が持っているものではありません -- が必要であると@c
+いうことを示しています。LilyPond は、手作業で譜刻された楽譜のすばらしさをコ@c
+ンピュータ世代に提供しよう、すばらしい楽譜を普通の音楽家にも利用可能にしよう@c
+という我々の努力なのです。我々は、良く見てみたくなり、演奏したくなるような古@c
+い楽譜のクオリティに匹敵する楽譜を提供するために、アルゴリズム、フォント デ@c
+ザイン、プログラム設定を調整してきました。
 
 
 @node Automated engraving
@@ -180,25 +232,55 @@ music = {
 @cindex engraving, automated
 @cindex automated engraving
 
-我々はどのように譜刻を実現していくのでしょうか？職人が本当のマスターになるのに 10 年以上かかるのなら、単なるハッカーである我々がどうやったら職人の仕事を越えるプログラムを書けるのでしょうか？
+我々はどのように譜刻を実現していくのでしょうか？職人が本当のマスターになるのに
+10 年以上かかるのなら、単なるハッカーである我々がどうやったら職人の仕事を越@c
+えるプログラムを書けるのでしょうか？
 
-その答えは、我々には「できない」です。譜刻は人間的な状況判断に頼っているため、判断を行う人間を完全にコンピュータに置き換えることはできません。しかしながら、退屈な作業の多くを自動化することはできます。もし LilyPond が一般的なケースの大半に対処できるなら、それは既存のソフトウェアよりも大きく前進することになります。残りのケースは手作業で調整することができます。年数が経つにつれて、このソフトウェアはより多くのことを自動的に行えるよう洗練されていき、手作業による手直しはどんどん必要なくなっていくことでしょう。
+その答えは、我々には「できない」です。譜刻は人間的な状況判断に頼っているた@c
+め、判断を行う人間を完全にコンピュータに置き換えることはできません。しかしな@c
+がら、退屈な作業の多くを自動化することはできます。もし LilyPond が一般的な@c
+ケースの大半に対処できるなら、それは既存のソフトウェアよりも大きく前進するこ@c
+とになります。残りのケースは手作業で調整することができます。年数が経つにつれ@c
+て、このソフトウェアはより多くのことを自動的に行えるよう洗練されていき、手作@c
+業による手直しはどんどん必要なくなっていくことでしょう。
 
-我々が LilyPond の開発を始めたとき、我々は LilyPond プログラム全体を C++ プログラミング言語で書いていました。プログラムの機能は開発者によってかっちりと決められていました。これはいくつかの理由で不満足なものであることがわかりました:
+我々が LilyPond の開発を始めたとき、我々は LilyPond プログラム全体を C++ プ@c
+ログラミング言語で書いていました。プログラムの機能は開発者によってかっちりと@c
+決められていました。これはいくつかの理由で不満足なものであることがわかりました:
 
 @itemize
-@item LilyPond が失敗を犯したとき、ユーザはフォーマット判断 (どのようなフォーマットにするかの判断) を上書きする必要があります。そのため、ユーザはフォーマット エンジンにアクセスしなければなりません。そのため、コンパイル時に我々 (開発者) によって規則と設定を固定することは無理があり、実行時 (LilyPond によって楽譜を作り出すとき) にユーザが規則と設定にアクセスできなければなりません。
+@item LilyPond が失敗を犯したとき、ユーザはフォーマット判断 (どのような@c
+フォーマットにするかの判断) を上書きする必要があります。そのため、ユーザは@c
+フォーマット エンジンにアクセスしなければなりません。そのため、コンパイル時@c
+に我々 (開発者) によって規則と設定を固定することは無理があり、実行時 (LilyPond 
+によって楽譜を作り出すとき) にユーザが規則と設定にアクセスできなければなりま@c
+せん。
 
-@item 譜刻は視覚的判断の問題であり、そのために好みがあります。我々には知識がありますが、ユーザは我々の個人的な判断に異を唱える可能性もあります。そのため、譜刻様式の定義もまたユーザがアクセスできるものでなければなりません。
-@item 最後に、我々は継続的にフォーマット アルゴリズムを改良させていくので、我々には規則に対する自由度の高いアプローチが必要です。C++ 言語は音楽表記の作業とはうまくマッチしない規則分類法を押し付けてきます。
+@item 譜刻は視覚的判断の問題であり、そのために好みがあります。我々には知識が@c
+ありますが、ユーザは我々の個人的な判断に異を唱える可能性もあります。そのた@c
+め、譜刻様式の定義もまたユーザがアクセスできるものでなければなりません。
+
+@item 最後に、我々は継続的にフォーマット アルゴリズムを改良させていくので、@c
+我々には規則に対する自由度の高いアプローチが必要です。C++ 言語は音楽表記の作@c
+業とはうまくマッチしない規則分類法を押し付けてきます。
 
 @end itemize
 
 @cindex Scheme programming language
 
-これらの問題に対して、Scheme プログラミング言語のインタプリタを統合し、LilyPond の各部分を Scheme で書き直すという処置がとられてきました。現在のフォーマット アーキテクチャはグラフィカル オブジェクトという概念で構築されていて、Scheme 変数と関数によって記述されています。このアーキテクチャは、フォーマット規則、譜刻スタイル、個々のフォーマットに関する判断を包含しています。ユーザはこれらの制御の大半に直接アクセスする術を持ちます。
+これらの問題に対して、Scheme プログラミング言語のインタプリタを統合し、@c
+LilyPond の各部分を Scheme で書き直すという処置がとられてきました。現在の@c
+フォーマット アーキテクチャはグラフィカル オブジェクトという概念で構築されて@c
+いて、Scheme 変数と関数によって記述されています。このアーキテクチャは、@c
+フォーマット規則、譜刻スタイル、個々のフォーマットに関する判断を包含していま@c
+す。ユーザはこれらの制御の大半に直接アクセスする術を持ちます。
 
-Scheme 変数はレイアウトに関する判断を制御します。例えば、多くのグラフィカル オブジェクトは上か下か (あるいは左か右か) の選択を決定する方向 (に関する) 変数を持ちます。ここで、アクセントとアルペジオを持つ 2 つの和音を見てみます。最初の和音では、すべてのグラフィカル オブジェクトは下向き (あるいは左向き) の方向を持っています。2 番目の和音では、すべてが上向き (あるいは右向き) の方向を持っています。
+Scheme 変数はレイアウトに関する判断を制御します。例えば、多くのグラフィカル 
+オブジェクトは上か下か (あるいは左か右か) の選択を決定する方向 (に関する) 変@c
+数を持ちます。ここで、アクセントとアルペジオを持つ 2 つの和音を見てみます。@c
+最初の和音では、すべてのグラフィカル オブジェクトは下向き (あるいは左向き) 
+の方向を持っています。2 番目の和音では、すべてが上向き (あるいは右向き) の方@c
+向を持っています。
 
 @lilypond[quote,ragged-right]
 \new Score \with {
@@ -216,7 +298,11 @@ Scheme 変数はレイアウトに関する判断を制御します。例えば�
 @cindex formatting rules
 
 @noindent
-楽譜を形作るプロセスはグラフィカルオブジェクトの変数を読み込んだり、書き込んだりすることからなります。いくつかの変数はプリセット値を持ちます。例えば、多くの線の太さ -- 印刷スタイルの特性 -- はプリセット値を持つ変数です。あなたは自由にこの値を変更することができ、それによってあなたの楽譜は異なる印象を持つことになります。
+楽譜を形作るプロセスはグラフィカルオブジェクトの変数を読み込んだり、書き込ん@c
+だりすることからなります。いくつかの変数はプリセット値を持ちます。例えば、多@c
+くの線の太さ -- 印刷スタイルの特性 -- はプリセット値を持つ変数です。あなたは@c
+自由にこの値を変更することができ、それによってあなたの楽譜は異なる印象を持つ@c
+ことになります。
 
 @lilypond[quote,ragged-right]
 fragment = {
@@ -237,7 +323,11 @@ fragment = {
 >>
 @end lilypond
 
-さらにフォーマット規則もプリセット変数です: 各オブジェクトはプロシージャを保持している変数を持ちます。これらのプロシージャが実際のフォーマットを実行し、異なるプロシージャを使用することによってオブジェクトの見た目を変えることができます。以下の例では、音符の玉 (ノート ヘッド) シンボルを印刷するのにどの音符の玉オブジェクトを使用するかを決定する規則を楽譜の途中で変更しています。
+さらにフォーマット規則もプリセット変数です: 各オブジェクトはプロシージャを保@c
+持している変数を持ちます。これらのプロシージャが実際のフォーマットを実行し、@c
+異なるプロシージャを使用することによってオブジェクトの見た目を変えることがで@c
+きます。以下の例では、音符の玉 (ノート ヘッド) シンボルを印刷するのにどの音@c
+符の玉オブジェクトを使用するかを決定する規則を楽譜の途中で変更しています。
 
 @lilypond[quote,ragged-right]
 #(set-global-staff-size 30)
@@ -287,13 +377,29 @@ fragment = {
 @cindex plug-in
 
 
-フォーマット プロセスはシンボルを置く場所を決定します。しかしながら、@emph{どの}シンボルを譜刻すべきかを決定する -- 言い換えると、使用する表記を決定する -- と、シンボルを置く場所も決まります。
+フォーマット プロセスはシンボルを置く場所を決定します。しかしながら、@c
+@emph{どの}シンボルを譜刻すべきかを決定する -- 言い換えると、使用する表記を@c
+決定する -- と、シンボルを置く場所も決まります。
 
-一般の音楽表記は音楽を記録するシステムであり、これは過去 1000 年以上にもわたって進化してきました。現在の一般的な形式はルネッサンス前期にまでさかのぼります。基本的な形式 (すなわち、音符の玉が 5 本線の譜表上にあるというもの) は変更されていませんが、細かな点は現代の表記の改革を表現するためにいまだに発展が続けられています。したがって、一般的な音楽表記はおよそ500年間の音楽を扱います。応用範囲は単旋律から大規模なオーケストラのための途方もない対位法にまで及びます。
+一般の音楽表記は音楽を記録するシステムであり、これは過去 1000 年以上にもわ@c
+たって進化してきました。現在の一般的な形式はルネッサンス前期にまでさかのぼり@c
+ます。基本的な形式 (すなわち、音符の玉が 5 本線の譜表上にあるというもの) は@c
+変更されていませんが、細かな点は現代の表記の改革を表現するためにいまだに発展@c
+が続けられています。したがって、一般的な音楽表記はおよそ500年間の音楽を扱い@c
+ます。応用範囲は単旋律から大規模なオーケストラのための途方もない対位法にまで@c
+及びます。
 
-どうやったら我々はそのような多頭の獣を統率し、制限のあるコンピュータ プログラムに押し込めることができるでしょうか？我々の解決策は表記の問題 (譜刻とは対照的にある、すなわち、活字学) を消化の良いプログラム可能な小さな塊に分解していくことです: それぞれのシンボルのタイプは個々のモジュール -- いわゆるプラグイン -- によって処理されます。各プラグインは完全にモジュール化されて独立していて、それによりそれぞれを別個に開発、改良することができます。そのようなプラグインは音楽的概念をグラフィック シンボルに変換する職人に例えて @code{engraver} (エングラーバ) と呼びます。
+どうやったら我々はそのような多頭の獣を統率し、制限のあるコンピュータ プログ@c
+ラムに押し込めることができるでしょうか？我々の解決策は表記の問題 (譜刻とは対@c
+照的にある、すなわち、活字学) を消化の良いプログラム可能な小さな塊に分解して@c
+いくことです: それぞれのシンボルのタイプは個々のモジュール -- いわゆるプラグ@c
+イン -- によって処理されます。各プラグインは完全にモジュール化されて独立して@c
+いて、それによりそれぞれを別個に開発、改良することができます。そのようなプラ@c
+グインは音楽的概念をグラフィック シンボルに変換する職人に例えて @code{engraver}
+(エングラーバ) と呼びます。
 
-以下の例では、我々が音符の玉のためのプラグイン @code{Note_heads_engraver} から始めていく様子を見ていきます。
+以下の例では、我々が音符の玉のためのプラグイン @code{Note_heads_engraver} か@c
+ら始めていく様子を見ていきます。
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -413,7 +519,12 @@ fragment = {
 @end lilypond
 
 @noindent
-@code{Stem_engraver} はやって来るすべての音符の玉 (ノート ヘッド) について知らされます。1 つの音符の玉 (あるいは和音の場合は複数の音符の玉) が現れるたびに、ステム オブジェクトが作成され、音符の玉に接続されます。さらにビーム (ステムとステムをつなぐ横棒)、スラー、アクセント、臨時記号、小節線 (小節と小節を区切る縦線)、拍子記号、調号のためのエングラーバを付け加えるによって、我々は完全な楽譜を手に入れることができます。
+@code{Stem_engraver} はやって来るすべての音符の玉 (ノート ヘッド) について知@c
+らされます。1 つの音符の玉 (あるいは和音の場合は複数の音符の玉) が現れるたび@c
+に、ステム オブジェクトが作成され、音符の玉に接続されます。さらにビーム (ス@c
+テムとステムをつなぐ横棒)、スラー、アクセント、臨時記号、小節線 (小節と小節@c
+を区切る縦線)、拍子記号、調号のためのエングラーバを付け加えるによって、我々@c
+は完全な楽譜を手に入れることができます。
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -424,14 +535,22 @@ fragment = {
 @cindex engraving multiple voices
 @cindex contexts
 
-このシステムは単旋律の音楽に対してはうまく機能しますが、多声部音楽に対してはどうでしょうか？多声部表記では、多くの声部 (ボイス) が 1 つの譜表を共有します。
+このシステムは単旋律の音楽に対してはうまく機能しますが、多声部音楽に対しては@c
+どうでしょうか？多声部表記では、多くの声部 (ボイス) が 1 つの譜表を共有します。
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
 \new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
-このような場合、臨時記号と譜表は共有されますが、ステム、スラー、ビームなどは各声部が単独で持ちます。そのため、エングラーバはグループ化されるべきです。音符の玉、ステム、スラーなどのためのエングラーバは @q{Voice context} (ボイス コンテキスト) と呼ばれるグループに入れられ、一方の調子、臨時記号、小節線などのためのエングラーバは @q{Staff context} (譜表コンテキスト) とグループに入れられます。多声部音楽の場合、単一の譜表コンテキストには複数のボイス コンテキストが含まれます。同様に、複数の譜表コンテキストは単一の楽譜 (Score) コンテキストになり得ます。楽譜コンテキストは最上位の表記コンテキストです。
+このような場合、臨時記号と譜表は共有されますが、ステム、スラー、ビームなどは@c
+各声部が単独で持ちます。そのため、エングラーバはグループ化されるべきです。音@c
+符の玉、ステム、スラーなどのためのエングラーバは @q{Voice context} (ボイス 
+コンテキスト) と呼ばれるグループに入れられ、一方の調子、臨時記号、小節線など@c
+のためのエングラーバは @q{Staff context} (譜表コンテキスト) とグループに入れ@c
+られます。多声部音楽の場合、単一の譜表コンテキストには複数のボイス コンテキ@c
+ストが含まれます。同様に、複数の譜表コンテキストは単一の楽譜 (Score) コンテ@c
+キストになり得ます。楽譜コンテキストは最上位の表記コンテキストです。
 
 
 @seealso
@@ -452,7 +571,17 @@ fragment = {
 @node Music representation
 @unnumberedsubsec Music representation
 
-概念上、高レベル フォーマット システムのための入力フォーマットは内容を抽象的に記述するものになります。このケースでは、内容は音楽自体になります。これは手に負えない問題に見えます: どうやったら我々は音楽の本質を定義できるでしょうか？その答えを見つけようとする代わりに、我々はその問題を逆転させました。我々は楽譜を譜刻する能力を持つプログラムを書き、そのフォーマットができる限りすっきりしたものになるよう調整します。これ以上フォーマットを減らすことができないという状態になったとき、当然のことながら我々に残されているのは内容自体になります。我々のプログラムは音楽ドキュメントの形式定義として機能します。
+@cindex syntax
+@cindex recursive structures
+
+概念上、高レベル フォーマット システムのための入力フォーマットは内容を抽象的@c
+に記述するものになります。このケースでは、内容は音楽自体になります。これは手@c
+に負えない問題に見えます: どうやったら我々は音楽の本質を定義できるでしょう@c
+か？その答えを見つけようとする代わりに、我々はその問題を逆転させました。我々@c
+は楽譜を譜刻する能力を持つプログラムを書き、そのフォーマットができる限りすっ@c
+きりしたものになるよう調整します。これ以上フォーマットを減らすことができない@c
+という状態になったとき、当然のことながら我々に残されているのは内容自体になり@c
+ます。我々のプログラムは音楽ドキュメントの形式定義として機能します。
 
 さらに、構文が LilyPond のユーザ インタフェイスになっているため、
 
@@ -462,7 +591,8 @@ fragment = {
 @}
 @end example
 
-とタイプだけで、4 分音符の C1 (ミドル C (=ド)) と 8 分音符の D1 (ミドル C の上の D (=レ)) になります。
+とタイプだけで、4 分音符の C1 (ミドル C (=ド)) と 8 分音符の D1 (ミドル C の@c
+上の D (=レ)) になります。
 
 @lilypond[quote]
 {
@@ -470,9 +600,16 @@ fragment = {
 }
 @end lilypond
 
-@warning{C = ド, D = レ, E = ミ, F = ファ, G = ソ, A = ラ, B = シ です。LilyPond では音符を「ドレミ〜」ではなく "CDE~" として捉えることが必須なので、今後は音符をアルファべット表記にします。}
+@warning{訳者: C = ド, D = レ, E = ミ, F = ファ, G = ソ, A = ラ, B = シ で@c
+す。LilyPond では音符を「ドレミ〜」ではなく "CDE~" として捉えることが必須なの@c
+で、今後は音符をアルファべット表記にします。}
 
-小さなスケールでは、そのような構文は簡単に使用できます。大きなスケールでは、構文はさらに構造を持つ必要があります。そうしなければ、どうやったらあなたはシンフォニーやオペラのような複雑な楽譜に取り組めるでしょうか？構造は音楽表現法というコンセプトによって形成されます: 小さな音楽の断片を組み合わせて大きな音楽にすることによって、より複雑な音楽を表すことができるようになります。例を挙げます。
+小さなスケールでは、そのような構文は簡単に使用できます。大きなスケールでは、@c
+構文はさらに構造を持つ必要があります。そうしなければ、どうやったらあなたはシ@c
+ンフォニーやオペラのような複雑な楽譜に取り組めるでしょうか？構造は音楽表現法@c
+というコンセプトによって形成されます: 小さな音楽の断片を組み合わせて大きな音@c
+楽にすることによって、より複雑な音楽を表すことができるようになります。例を挙@c
+げます。
 
 @lilypond[quote,verbatim,fragment,relative=1]
 f4
@@ -491,7 +628,8 @@ f4
 @end lilypond
 
 @noindent
-この音楽表現を中括弧 @code{@{@tie{}@dots{}@tie{}@}} で囲むことによってシークエンスの中に入れることができます:
+この音楽表現を中括弧 @code{@{@tie{}@dots{}@tie{}@}} で囲むことによってシークエ@c
+ンスの中に入れることができます:
 
 @example
 @{ f4 <<c4 d4 e4>> @}
@@ -502,7 +640,9 @@ f4
 @end lilypond
 
 @noindent
-上記もまた音楽表現の 1 つなので、@code{<<}, @code{\\}, and @code{>>} を使ってそれを再び他の同時進行の音楽表現 (2 分音符) と組み合わせることもできます:
+上記もまた音楽表現の 1 つなので、@code{<<}, @code{@bs{}@bs{}}, and @code{>>} 
+を使ってそれを再び他の同時進行の音楽表現 (2 分音符) と組み合わせることもでき@c
+ます:
 
 @example
 @code{<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>}
@@ -513,15 +653,18 @@ f4
 \new Voice { << g2 \\ { f4 <<c d e>> } >> }
 @end lilypond
 
-このような再帰的な構造はさっぱりと、かつ、しっかりした形式でコンテキスト フリー文法で記すことができます。コード解析もまたこの文法から生成されます。言い換えると、LilyPond の構文ははっきりと明快に定義されます。
+このような再帰的な構造はさっぱりと、かつ、しっかりした形式でコンテキスト フ@c
+リー文法で記すことができます。コード解析もまたこの文法から生成されます。言い換@c
+えると、LilyPond の構文ははっきりと明快に定義されます。
 
-ユーザが LilyPond に取り組むときに、ユーザがその時間の大半で見て、扱うものはユーザ インタフェイスと構文です。それらのある部分は好みの問題であり、多くの議論の対象にもなるものです。好みについて議論することは有意義なことですが、それほど生産的なことではありません。LilyPond という大きな世界の中で、入力構文の重要性は小さいのです: さっぱりとした構文をでっちあげることは簡単ですが、見苦しくないフォーマット コードを作成することはとても難しいのです。このことは、それぞれのコンポーネントの行数をカウントすることによっても実証されます: 解析と表記のためのコンポーネントはソース コード全体の 10 % にも達しません。
-
-
-
-
-
-
+ユーザが LilyPond に取り組むときに、ユーザがその時間の大半で見て、扱うものは@c
+ユーザ インタフェイスと構文です。それらのある部分は好みの問題であり、多くの議@c
+論の対象にもなるものです。好みについて議論することは有意義なことですが、それほ@c
+ど生産的なことではありません。LilyPond という大きな世界の中で、入力構文の重要@c
+性は小さいのです: さっぱりとした構文をでっちあげることは簡単ですが、見苦しくな@c
+いフォーマット コードを作成することはとても難しいのです。このことは、それぞれ@c
+のコンポーネントの行数をカウントすることによっても実証されます: 解析と表記のた@c
+めのコンポーネントはソース コード全体の 10 % にも達しません。
 
 
 @node Example applications
@@ -530,7 +673,10 @@ f4
 @cindex simple examples
 @cindex examples, simple
 
-我々はどのように譜刻の技術をコンピュータ プログラムの中に凝縮するかという実験として LilyPond を開発してきました。重労働のおかげで、今やこのプログラムは有用な働きを行うのに使用できるようになりました。非常に簡単な利用例は音符を刻譜することです。
+我々はどのように譜刻の技術をコンピュータ プログラムの中に凝縮するかという実験@c
+として LilyPond を開発してきました。重労働のおかげで、今やこのプログラムは有用@c
+な働きを行うのに使用できるようになりました。非常に簡単な利用例は音符を刻譜する@c
+ことです。
 
 @lilypond[quote,relative=1]
 {
@@ -554,7 +700,8 @@ f4
 >>
 @end lilypond
 
-さらに、多声部表記とピアノ譜を刻譜することもできます。以下の例はいくつかのより風変わりな構成を組み合わせています。
+さらに、多声部表記とピアノ譜を刻譜することもできます。以下の例はいくつかのより@c
+風変わりな構成を組み合わせています。
 
 @lilypond[quote]
 \header {
@@ -627,15 +774,18 @@ f4
 }
 @end lilypond
 
-上で示した楽譜の断片はすべて手作業で作成されていました。しかしながら、必ずしも手作業で行う必要はありません。フォーマット エンジンの大部分は自動化されているため、その出力を音楽を操作する他のプログラムに供することができます。例えば、音楽の断片のデータベースをウェブサイトやマルチメディア プレゼンテーションで使用する画像に変換するために使用することもできます。
+上で示した楽譜の断片はすべて手作業で作成されていました。しかしながら、必ずしも@c
+手作業で行う必要はありません。フォーマット エンジンの大部分は自動化されている@c
+ため、その出力を音楽を操作する他のプログラムに供することができます。例えば、音@c
+楽の断片のデータベースをウェブサイトやマルチメディア プレゼンテーションで使用@c
+する画像に変換するために使用することもできます。
 
-このマニュアルも利用例です: 入力フォーマットはテキストなので、容易に他のテキスト ベースのフォーマット -- 例えば、@LaTex{}, HTML, このマニュアルの場合は Texinfo -- に埋め込むことができます。ある特別なプログラムによって入力断片を音楽イメージに置き換えることができ、それによって PDF や HTML の出力ファイルという結果を得ることができます。これはドキュメントの中で音楽とテキストを混在させることを容易にします。
-
-
-
-
-
-
+このマニュアルも利用例です: 入力フォーマットはテキストなので、容易に他のテキスト
+ベースのフォーマット -- 例えば、@LaTeX{}, HTML, このマニュアルの場合は 
+Texinfo -- に埋め込むことができます。ある特別なプログラムによって入力断片を音@c
+楽イメージに置き換えることができ、それによって PDF や HTML の出力ファイルとい@c
+う結果を得ることができます。これはドキュメントの中で音楽とテキストを混在させる@c
+ことを容易にします。
 
 
 
@@ -654,13 +804,22 @@ f4
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
-* About the Learning Manual::  このマニュアルは表記を作成する方法について丁寧な説明をしながら LilyPond についての紹介を行います。
-* About the Music Glossary::  このマニュアルは音楽用語についての説明を行い、それらの用語の他の言語への訳語を提供します。
-* About the Notation Reference::  このマニュアルはこのドキュメントの主要部分です。表記を作成する方法についての詳細な情報を提供します。このマニュアルは読者が学習マニュアルでカバーされている基本的な内容を知っていて、音楽用語集に書かれている英語の音楽用語に馴染んでいるものと仮定しています。
-* About the Application Usage::  ここでは実際のプログラムとオペレーティング システム特有の問題について議論します。
+* About the Learning Manual::  このマニュアルは表記を作成する方法について丁寧@c
+な説明をしながら LilyPond についての紹介を行います。
+* About the Music Glossary::  このマニュアルは音楽用語についての説明を行い、そ@c
+れらの用語の他の言語への訳語を提供します。
+* About the Notation Reference::  このマニュアルはこのドキュメントの主要部分で@c
+す。表記を作成する方法についての詳細な情報を提供します。このマニュアルは読者が@c
+学習マニュアルでカバーされている基本的な内容を知っていて、音楽用語集に書かれて@c
+いる英語の音楽用語に馴染んでいるものと仮定しています。
+* About the Application Usage::  ここでは実際のプログラムとオペレーティング シ@c
+ステム特有の問題について議論します。
 * About the Snippet List::  これは短い LilyPond の例のコレクションです。
-* About the Internals Reference::  このドキュメントは LilyPond の内部構造体についての参照情報を提供します。調整を行うのに LilyPond の内部構造体についての知識が必要です。
-* Other documentation::  ここにはこのドキュメントの他の部分 -- ニュースやメール アーカイブなど -- がいくつかあります。
+* About the Internals Reference::  このドキュメントは LilyPond の内部構造体に@c
+ついての参照情報を提供します。調整を行うのに LilyPond の内部構造体についての知@c
+識が必要です。
+* Other documentation::  ここにはこのドキュメントの他の部分 -- ニュースやメール 
+アーカイブなど -- がいくつかあります。
 @end menu
 
 
@@ -669,28 +828,215 @@ f4
 
 @cindex Learning Manual
 
-本書は LilyPond の学習の始め方と、いくつかのキーとなるコンセプトをわかりやすい言葉で説明します。あなたは本書を一読すべきです。
+本書は LilyPond の学習の始め方を説明し、同時にいくつかの鍵となるコンセプトを簡@c
+単な用語で説明します。あなたは本書を一読すべきです。
 
-各節の最後にある @strong{参照} には、他の節への参照が含まれています: 初めて本書を読むときはこれらの参照を追うべきではありません。あなたが学習マニュアルをすべて読み終えたとき、いくつかの節を読み返し、さらに参照を追おうと思うかもしれません。
+各セクションの最後には@strong{参照}というパラグラフがあり、そこには他のセクシ@c
+ョンへの参照があります: 初めて本書を読むときはこれらの参照を追うべきではありま@c
+せん。あなたが学習マニュアルをすべて読み終えたとき、いくつかのセクションを読み@c
+返し、さらに参照を追おうと思うかもしれません。
 
+@itemize
 
+@item
+
+@ref{Introduction}: LilyPond のバックグランドと最終目標について説明します。
+
+@item
+
+@ref{Tutorial}: 音楽を譜刻するためのやさしい入門を提供します。初めて LilyPond 
+を使うユーザはここから始めるべきです。
+
+@item
+
+@ref{Fundamental concepts}: LilyPond ファイル フォーマットについてのいくつかの@c
+一般的なコンセプトを説明します。あるコマンドを置くべき場所がわからない場合は、@c
+この章を読んでください！
+
+@item
+
+@ref{Tweaking output}: LilyPond が作り出すデフォルトの譜刻を変更する方法を示し@c
+ます。
+
+@item
+
+@ref{Working on LilyPond projects}: LilyPond の実際的な使用といくつかの一般的@c
+な問題を回避するための方法について議論します。大きなプロジェクトに取り組む前に@c
+この章を読んでください！
+
+@end itemize
+
+さらに、学習マニュアルは付録 -- 一読するのを推奨しない部分 -- も保持していま@c
+す。それらは後で読み直すときに有用になるかもしれません:
+
+@itemize
+
+@item
+
+@ref{Templates}: コンパイルの準備が整っている LilyPond 入力を示します。ある@c
+テンプレートをファイルにカット＆ペーストし、表記を追加するだけで完了です！
+
+@item
+
+@ref{Scheme tutorial}: Scheme の簡単な紹介を提供します。Scheme は音楽関数が使@c
+用するプログラミング言語です。この付録は高度な調整を行うための資料です。多くの@c
+ユーザは Scheme に触れる必要はまったくありません。
+
+@end itemize
 
 @node About the Music Glossary
 @unnumberedsubsec About the Music Glossary
 
-@untranslated
+@cindex Music Glossary
+@cindex idiom
+@cindex jargon
+@cindex terminology
+@cindex foreign languages
+@cindex language
+
+@rglosnamed{Top,Music glossary}
+は音楽用語についての説明を行い、それらの用語のさまざまな言語への訳語を提供しま@c
+す。あなたが音楽表記や音楽用語に馴れていないのなら (特にあなたが英語圏の人でな@c
+いのなら)、用語集を引くことはとても役に立ちます。
 
 
 @node About the Notation Reference
 @unnumberedsubsec About the Notation Reference
 
+@cindex Notation Reference
+@cindex appendices
+@cindex reference charts
+@cindex charts, reference
+
 @untranslated
+
+This book explains all the LilyPond commands which produce
+notation.  It assumes that readers are familiar with the concepts
+in the Learning Manual.
+
+@itemize
+
+@item
+
+@ruser{Musical notation}:
+discusses topics grouped by notation construct.  This section
+gives details about basic notation that will be useful in almost
+any notation project.
+
+@item
+
+@ruser{Specialist notation}:
+discusses topics grouped by notation construct.  This section
+gives details about special notation that will only be useful for
+particular instrument (or vocal) groups.
+
+@item
+
+@ruser{General input and output}:
+discusses general information about LilyPond input files and
+controlling output.
+
+@item
+
+@ruser{Spacing issues}:
+discusses issues which affect the global output, such as selecting
+paper size or specifying page breaks.
+
+@item
+
+@ruser{Changing defaults}:
+explains how to tweak LilyPond to produce exactly the notation you
+want.
+
+@item
+
+@ruser{Interfaces for programmers}:
+explains how to create music functions with scheme.
+
+@end itemize
+
+The Notation Reference also contains appendices with useful
+reference charts.
+
+@itemize
+
+@item
+
+@ruser{Literature list}:
+contains a set of useful reference books for those who wish to
+know more on notation and engraving.
+
+@item
+
+@ruser{Notation manual tables}:
+are a set of tables showing the chord names, MIDI instruments, a
+list of color names, and the Feta font.
+
+@item
+
+@ruser{Cheat sheet}:
+is a handy reference of the most common LilyPond commands.
+
+@item
+
+@ruser{LilyPond command index}:
+an index of all LilyPond @code{\commands}.
+
+@item
+
+@ruser{LilyPond index}:
+a complete index.
+
+@end itemize
 
 
 @node About the Application Usage
 @unnumberedsubsec About the Application Usage
 
-@untranslated
+@cindex Application Usage
+@cindex integrating LilyPond with other programs
+
+本書はプログラムを実行する方法、LilyPond 表記を他のプログラムに統合する方法に@c
+ついて説明します。
+
+@itemize
+
+@item
+
+@rprogram{Install}:
+LilyPond をインストールする方法について、もし望むのならばコンパイルの仕方も含@c
+めて、説明します。
+
+@item
+
+@rprogram{Setup}:
+あなたのコンピュータを LilyPond の使用に合わせて最適にコンフィグレーションする 
+-- ある特定のテキスト エディタによって提供される特別な環境を使用するなど -- 方@c
+法について説明します。
+
+@item
+
+@rprogram{Running LilyPond}:
+LilyPond とその援助プログラムを実行する方法を示します。さらに、このセクション@c
+は入力ファイルを LilyPond の以前のバージョンからアップグレードする方法について@c
+説明します。
+
+@item
+
+@rprogram{LilyPond-book}:
+このマニュアルのような内部に音楽の例を持つドキュメントを作成する方法についての@c
+詳細を説明します。
+@c explains the details behind creating documents with in-line music
+@c examples, like this manual.
+
+@item
+
+@rprogram{Converting from other formats}:
+変換プログラムを実行する方法について説明します。それらのプログラムは LilyPond 
+パッケージで提供され、さまざまな音楽フォーマットを @code{.ly} フォーマットに変@c
+換します。
+
+@end itemize
 
 
 @node About the Snippet List
@@ -698,11 +1044,47 @@ f4
 
 @untranslated
 
+@cindex snippets
+@cindex LSR
+@cindex Snippet List
+@cindex LilyPond Snippet Repository
+
+@rlsrnamed{Top,LilyPond Snippet List}: this shows a
+selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  All the snippets are in the public domain.
+
+Please note that this document is not an exact subset of LSR.  LSR
+is running a stable LilyPond version, so any snippet which
+demonstrates new features of a development version must be added
+separately.  These are stored in @file{input/new/} in the LilyPond
+source tree.
+
+The list of snippets for each subsection of the Notation Reference are
+also linked from the @strong{See also} portion.
+
 
 @node About the Internals Reference
 @unnumberedsubsec About the Internals Reference
 
+@cindex Internals Reference
+
 @untranslated
+
+@rinternalsnamed{Top,Internals Reference}: this is a set
+of heavily cross linked HTML pages which document the nitty-gritty
+details of each and every LilyPond class, object, and function.
+It is produced directly from the formatting definitions in the
+source code.
+
+Almost all formatting functionality that is used internally is
+available directly to the user.  For example, most variables that
+control thickness values, distances, etc., can be changed in input
+files.  There are a huge number of formatting options, and all of
+them are described in this document.  Each section of the Notation
+Reference has a @b{See also} subsection, which refers to the
+generated documentation.  In the HTML document, these subsections
+have clickable links.
 
 
 @node Other documentation
@@ -710,6 +1092,63 @@ f4
 
 @untranslated
 
+とても有益であるかもしれない他の情報源がいくつかあります。
 
+@itemize
 
-@c -- SKELETON FILE --
+@item
+
+@ifhtml
+@ifset bigpage
+@uref{../topdocs/NEWS.html,News}:
+@end ifset
+@ifclear bigpage
+@uref{../../topdocs/NEWS.html,News}:
+@end ifclear
+@end ifhtml
+@ifnothtml
+News:
+@end ifnothtml
+これは前のバージョンの LilyPond から後に付け加えられた重要な変更と新しい機能に@c
+ついての要約です。
+
+@item
+
+@uref{http://lists.gnu.org/archive/html/lilypond-user/, The
+lilypond-user mailist archives}: this is a collection of previous
+emails sent to the user list.  Many questions have been asked
+multiple times; there is a very good chance that if you have a
+question, the answer might be found in these archives.
+
+@item
+
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/, The
+lilypond-devel mailist archives}: this is a collection of previous
+emails sent to the developer's list.  The discussion here is more
+technical; if you have an advanced question about lilypond
+internals, the answer might be in these archives.
+
+@item
+
+Embedded music fragments: in all HTML documents that have
+music fragments embedded, the exact LilyPond input that was used
+to produce that image can be viewed by clicking the image.
+
+@item
+
+Init files: the location of the documentation files that are
+mentioned here can vary from system to system.  On occasion, this
+manual refers to initialization and example files.  Throughout this
+manual, we refer to input files relative to the top-directory of the
+source archive.  For example, @file{input/@/lsr/@/dirname/@/bla@/.ly}
+may refer to the file
+@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On binary
+packages for the UNIX platform, the documentation and examples can
+typically be found somewhere below
+@file{/usr/@/share/@/doc/@/lilypond/}.  Initialization files, for
+example @file{scm/@/lily@/.scm}, or @file{ly/@/engraver@/-init@/.ly},
+are usually found in the directory @file{/usr/@/share/@/lilypond/}.
+For more details, see @ref{Other sources of information}.
+
+@end itemize
+

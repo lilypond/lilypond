@@ -7,7 +7,7 @@
 @end ignore
 @documentencoding UTF-8
 @setfilename lilypond-learning.info
-@settitle GNU LilyPond -- Manuel d'initiation
+@settitle GNU LilyPond -- 学習マニュアル
 
 
 @include macros.itexi
@@ -23,7 +23,7 @@
 @omflanguage Japanese
 @end ignore
 
-@c Translators: Sawada, Yoshiki
+@c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
 @ifnottex
@@ -34,18 +34,14 @@
 
 @ifhtml
 @ifclear bigpage
-このドキュメントは
-@uref{source/Documentation/user/lilypond-learning.ja.pdf,PDF 形式}
-と
-@uref{source/Documentation/user/lilypond-learning-big-page.ja.html,大きな 1 ページ形式}
-でも利用可能です。
+このドキュメントは @uref{source/Documentation/user/lilypond-learning.ja.pdf,PDF 
+形式} と @uref{source/Documentation/user/lilypond-learning-big-page.ja.html,
+大きな 1 ページ形式} でも利用可能です。
 @end ifclear
 @ifset bigpage
-このドキュメントは
-@uref{source/Documentation/user/lilypond-learning.ja.pdf,PDF 形式}
-と
-@uref{source/Documentation/user/lilypond-learning/index.ja.html,複数のページにインデックス化された形式}
-でも利用可能です。
+このドキュメントは @uref{source/Documentation/user/lilypond-learning.ja.pdf,PDF 
+形式} と @uref{source/Documentation/user/lilypond-learning/index.ja.html,複数@c
+のページにインデックス化された形式} でも利用可能です。
 @end ifset
 @end ifhtml
 
@@ -67,8 +63,8 @@
 @title LilyPond
 @c subtitle Le système de gravure musicale
 @subtitle 音楽譜刻システム
-@c titlefont{Manuel d'initiation}
-@author LilyPond開発チーム
+@c titlefont{学習マニュアル}
+@author LilyPond 開発チーム
 
 
 Copyright @copyright{} 1999--2008 著作者一同
@@ -77,14 +73,14 @@ Copyright @copyright{} 1999--2008 著作者一同
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしながら、
-英語で書かれた注意書きだけが法的に有効です。}
+@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
+ら、英語で書かれた注意書きだけが法的に有効です。}
 
 @quotation
-GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によって発行
-されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更する許可を与えます。
-変更不可部分はありません。この利用許諾契約書のコピーは 「GNU フリー文書利用許諾契約書」
-という章に含まれています。
+GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
+て発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更す@c
+る許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU 
+フリー文書利用許諾契約書」という章に含まれています。
 @end quotation
 
 @quotation
@@ -108,13 +104,15 @@ Copyright @copyright{} 1999--2008 著作者一同
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしながら、
-英語で書かれた注意書きだけが法的に有効です。}
+@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
+ら、英語で書かれた注意書きだけが法的に有効です。}
 
 
 @quotation
-GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によって発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更する許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU フリー文書利用許諾契約書」
-という章に含まれています。
+GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
+て発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更す@c
+る許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU 
+フリー文書利用許諾契約書」という章に含まれています。
 @end quotation
 
 @quotation
@@ -136,13 +134,14 @@ Copyright @copyright{} 1999--2008 著作者一同
 for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
-@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしながら、英語で書かれた注意書きだけが法的に有効です。}
+@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
+ら、英語で書かれた注意書きだけが法的に有効です。}
 
 @quotation
-GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によって発行
-されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更する許可を与えます。
-変更不可部分はありません。この利用許諾契約書のコピーは 「GNU フリー文書利用許諾契約書」
-という章に含まれています。
+GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
+て発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更す@c
+る許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU 
+フリー文書利用許諾契約書」という章に含まれています。
 @end quotation
 
 @quotation
@@ -157,27 +156,32 @@ Free Documentation License''.
 
 @ifnottex
 
-これは GNU LilyPond バージョン @version{} のための学習マニュアルです。このドキュメントと他のドキュメントとの関係についての更なる情報は、@ref{About the documentation} を参照してください。
+これは GNU LilyPond バージョン @version{} のための学習マニュアルです。このド@c
+キュメントと他のドキュメントとの関係についての更なる情報は、@ref{About the 
+documentation} を参照してください。
 
 @cindex web site
 @cindex URL
 
-@uref{http://@/www@/.lilypond@/.org/} で更なる情報を見つけることができます。
-このウェブ サイトにはこのドキュメントと他のドキュメントのオンライン コピーがあります。
+@uref{http://@/www@/.lilypond@/.org/} で更なる情報を見つけることができます。こ@c
+のウェブ サイトにはこのドキュメントと他のドキュメントのオンライン コピーがあり@c
+ます。
 
 @menu
 * Preface::
-* Introduction::                   LilyPond とは何なのか、なぜ LilyPond を使うのか、どうやって LilyPond を使うのか
+* Introduction::                   LilyPond とは何なのか、なぜ LilyPond を使う@c
+のか、どうやって LilyPond を使うのか
 * Tutorial::                       LilyPond 導入の手引き
-* Fundamental concepts::           このマニュアルの残りの部分を読むために必要とされる基本的なコンセプト
+* Fundamental concepts::           このマニュアルの残りの部分を読むために必要@c
+とされる基本的なコンセプト
 * Tweaking output::                出力を変更するための導入部
 * Working on LilyPond projects::   実際の使用についての議論
 
 付録
 
-* Templates::                      Ready-made templates. 
-* Scheme tutorial::                Programming inside LilyPond.
-* GNU Free Documentation License:: License of this document.
+* Templates::                      作成 (コンパイル) 準備ができているテンプレート
+* Scheme tutorial::                LilyPond 内部のプログラミング
+* GNU Free Documentation License:: このドキュメントの使用許諾書
 * LilyPond index::
 @end menu
 @end ifnottex
