@@ -103,7 +103,7 @@ pentagrama:
 a << {a4 b g}  {d4 g c,} >>
 @end lilypond
 
-Esto puede ser de utilidad si las secciones siimultáneas tienen
+Esto puede ser de utilidad si las secciones simultáneas tienen
 idénticas duraciones, pero se producirán errores si se intentan poner
 notas de distinta duración sobre la misma plica.
 
@@ -435,7 +435,7 @@ Fragmentos de código:
 
 
 Las cabezas de notas que están en diferentes voces y tienen la misma
-altura, la misma forma de cabezaa, y dirección opuesta de la plica, se
+altura, la misma forma de cabeza, y dirección opuesta de la plica, se
 combinan automáticamente, pero las que tienen cabezas distintas o la
 misma dirección de la plica no se combinan.  Los silencios que se
 encuentran en el lado opuesto de una plica en otra voz se desplazan

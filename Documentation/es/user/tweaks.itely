@@ -126,8 +126,8 @@ que vamos a utilizar en este capítulo.
 @node Naming conventions of objects and properties
 @subsection Naming conventions of objects and properties
 
-@cindex nomemclatura, convenciones de, para objetos
-@cindex nomemclatura, convenciones de, para propiedades
+@cindex nomenclatura, convenciones de, para objetos
+@cindex nomenclatura, convenciones de, para propiedades
 @cindex objetos, convenciones de nomenclatura
 @cindex propiedades, convenciones de nomenclatura
 
@@ -1558,7 +1558,7 @@ siguiente forma:
 @cindex TimeSignature, ejemplo de sobreescritura
 @cindex fontSize, propiedad, ejemplo
 @cindex StaffSymbol, ejemplo de sobreescritura
-@cindex magstep function, ejemplo de utilización
+@cindex magstep, función, ejemplo de utilización
 @cindex staff-space, propiedad, ejemplo
 @cindex stencil, propiedad, ejemplo
 
@@ -1704,7 +1704,7 @@ pentagramas adyacentes:
 @node Within-staff objects
 @subsection Within-staff objects
 
-Ya hemos visto cómo las instrucciones @code{\voiceXXX} affectan a la
+Ya hemos visto cómo las instrucciones @code{\voiceXXX} afectan a la
 dirección de las ligaduras de expresión y de unión, digitaciones y
 todo lo demás que dependa de la dirección de las plicas.  Cuando se
 escribe música polifónica, estas instrucciones son esenciales para que
@@ -1830,7 +1830,7 @@ digitación encima, debajo, a la izquierda o a la derecha de cada nota.
 
 En primer lugar, he aquí el efecto de @code{direction} sobre las
 digitaciones aplicadas a notas sueltas.  Se muestra en el primer
-compás el comportamiento predeterminado, y en los dos comases
+compás el comportamiento predeterminado, y en los dos compases
 siguiente el efecto de especificar @code{DOWN} y @code{UP}:
 
 @cindex Fingering, ejemplo de sobreescritura
@@ -2373,9 +2373,9 @@ que se estudia en la sección siguiente.
 
 @cindex mover objetos superpuestos
 @cindex mover objetos que colisionan
-@cindex moving grobs que colisionan
+@cindex mover grobs que colisionan
 @cindex objetos que colisionan, mover
-@cindex grobs, mover, que colisionan
+@cindex grobs que colisionan, mover
 
 Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos elementos
 de notación se pueden superponer, lo que es una lástima, pero en
@@ -3056,7 +3056,7 @@ que lo más fácil es introducir estas cuatro voces temporalmente en el
 momento en que se necesiten.  Si ha olvidado cómo hacerlo, lea
 @ref{I'm hearing Voices}.  Vamos a comenzar introduciendo las notas
 como dos variables y disponiendo la estructura de pentagramas en un
-bloque score, y veremos qué produce LilyPond de forma predeterminada:
+bloque Score, y veremos qué produce LilyPond de forma predeterminada:
 
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
@@ -3566,7 +3566,7 @@ Ambos métodos quitan de la salida impresa la indicación metronómica
 que alarga el calderón, y los dos afectan al tempo del MIDI tal y como
 queríamos, pero la indicación metronómica transparente de la primera
 línea fuerza una colocación muy alta de la indicación de tempo que
-sigue, meintras que la segunda (con el sello suprimido) no lo hace.
+sigue, mientras que la segunda (con el sello suprimido) no lo hace.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
@@ -3830,7 +3830,7 @@ dinámicamente a un valor determinado por el procedimiento en el
 momento en que se invoca.  En este ejemplo damos a las cabezas de las
 notas un color que depende de su posición dentro del pentagrama.
 
-@cindex x11-color function, ejemplo de utilización
+@cindex x11-color, función, ejemplo de utilización
 @cindex NoteHead, ejemplo de sobreescritura
 @cindex color, propiedad, establecer a procedimiento de Scheme
 

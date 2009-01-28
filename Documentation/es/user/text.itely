@@ -59,7 +59,7 @@ encoding}.}
 
 Es posible añadir indicaciones de @qq{texto entrecomillado} a una
 partitura, como se muestra en el ejemplo siguiente.  Tales
-indicaciones se pueden colocar también manulamente encima o debajo del
+indicaciones se pueden colocar también manualmente encima o debajo del
 pentagrama utilizando la sintaxis que se describe en @ref{Direction
 and placement}.
 
@@ -130,7 +130,7 @@ para habilitarlos, utilice
 Ciertas indicaciones de ejecución, p.ej., @i{rallentando} o
 @i{accelerando}, se escriben como texto y se extienden sobre muchos
 compases mediante líneas de puntos.  Estos objetos, que reciben el
-nombre de @q{spanners} u objetos de extensión, se pueden crear dede
+nombre de @q{spanners} u objetos de extensión, se pueden crear desde
 una nota hasta otra usando la siguiente sintaxis:
 
 @lilypond[verbatim,quote,relative=2]
@@ -215,7 +215,7 @@ usando un bloque @code{\markup}, como está explicado en
 @noindent
 Esta sintaxis también permite imprimir símbolos especiales como
 llamadas, segno o calderones, especificando el nombre del símbolo
-correspondiente como se esplica en @ref{Music notation inside markup}:
+correspondiente como se explica en @ref{Music notation inside markup}:
 
 @lilypond[quote,verbatim,relative=2]
 <bes f>2 <aes d>
@@ -654,7 +654,7 @@ sintaxis que se describe en @rlearning{Moving objects}.
 @funindex \right-align
 
 Los objetos de marcado se pueden alinear de distintas maneras.  De
-foma predeterminada, una indicación de texto se alinea sobre el borde
+forma predeterminada, una indicación de texto se alinea sobre el borde
 izquierdo: en el ejemplo siguiente, no existe diferencia entre los
 marcados primero y segundo.
 
@@ -724,7 +724,7 @@ a'4 a g2 a
 @funindex \translate
 @funindex \translate-scaled
 
-Algunas instrucciones pueden afcetar tanto a la alineación horizontal
+Algunas instrucciones pueden afectar tanto a la alineación horizontal
 como a la vertical de los objetos de texto en el modo de marcado.
 Cualquier objeto afectado por estas instrucciones se deben preceder de
 un punto de anclaje:

@@ -453,10 +453,10 @@ La @notation{indicación de compás} se puede establecer con la orden
 @cindex do en tercera, clave de
 @cindex do en cuarta, clave de
 @cindex fa, clave de
-@cindex treble
+@cindex soprano
 @cindex alto
 @cindex tenor
-@cindex bass
+@cindex bajo
 
 @funindex \clef
 @funindex clef
@@ -1875,7 +1875,7 @@ del manual.
 @cindex variables, definir
 @cindex identificadores
 @cindex macros
-@cindex assignación de variables
+@cindex asignación de variables
 @cindex uso de las variables
 @cindex variables, uso de
 @cindex variables, caracteres permitidos en
