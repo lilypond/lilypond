@@ -109,7 +109,7 @@ lugar se utilizan los nombres italo-franco-españoles o del solfeo
 modificadores (alteraciones), como se estudia en @ref{Note names in
 other languages}.
 
-Por ejemmplo, así es como puede ser la notación de la escala árabe
+Por ejemplo, así es como puede ser la notación de la escala árabe
 @notation{rast}:
 
 @lilypond[quote,verbatim]
@@ -127,7 +127,7 @@ El símbolo del semi-bemol no coincide con el símbolo que se utiliza en
 la notación árabe.  Se puede usar el símbolo @code{\dwn} definido en
 @code{arabic.ly} precediendo a un bemol como vía alternativa si es
 importante usar el símbolo árabe específico del semi-bemol.  El
-aspecto del síimbolo del semi-bemol dentro de la armadura no se puede
+aspecto del símbolo del semi-bemol dentro de la armadura no se puede
 alterar mediante este método.
 
 
@@ -182,7 +182,7 @@ Se pueden indicar de la misma forma otros maqams dentro del mismo
 grupo bayati, como aparece en la tabla a continuación: bayati,
 hussaini, saba y ushaq.  Todos ellos son variantes del maqam básico y
 más común dentro del grupo, que es bayati.  Normalmente se diferencian
-del maqam básico en su tectacordo superior, o en ciertos detalles de
+del maqam básico en su tetracordo superior, o en ciertos detalles de
 discurso que no cambian su naturaleza fundamental como parientes.
 
 El otro maqam del grupo (Nawa) se relaciona con el bayati a través de

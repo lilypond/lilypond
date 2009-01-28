@@ -30,7 +30,7 @@ de que la letra se alinea con las notas de su melodía correspondiente.
 @node Common notation for vocal music
 @subsection Common notation for vocal music
 
-Esta sección trata sobre asuntos relacinados con la música vocal en
+Esta sección trata sobre asuntos relacionados con la música vocal en
 general y con ciertos estilos concretos de música vocal.
 
 
@@ -97,7 +97,7 @@ Continuará...
 @unnumberedsubsubsec Song books
 
 @c TODO
-Continuaará...
+Continuará...
 
 @snippets
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -1214,7 +1214,7 @@ asignación de @code{lahlah} a @code{associatedVoice}.
 En ocasiones es conveniente tener un verso ajustado a la música, y el
 resto añadido en forma de estrofa al final de la pieza.  Esto se puede
 conseguir escribiendo los versos adicionales dentro de una sección
-@code{\markup} fuera del bloque score principal de la partitura.
+@code{\markup} fuera del bloque Score principal de la partitura.
 Tenga en cuenta que existen dos formas distintas de forzar los saltos
 de línea al utilizar @code{\markup}.
 
