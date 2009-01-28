@@ -49,7 +49,7 @@ familiarizados con los términos @q{terminal} o @q{consola}.  Éstos
 deberían consultar también el apartado @ref{Setup for MacOS X}.
 
 La descripción del uso de esta parte de los sistemas operativos se
-sale del ámbito de este manuual; le rogamos que consulte otros
+sale del ámbito de este manual; le rogamos que consulte otros
 documentos sobre este tema si no le resulta familiar la línea de
 órdenes.
 
@@ -206,7 +206,7 @@ LilyPond dentro de Scheme.
 
 @code{-dsafe} @emph{no} detecta la sobreutilización de recursos.  Aún
 es posible hacer que el programa se cuelgue indefinidamente, por
-ejemplo alimentándo el backend con estructuras de datos cíclicas.  Por
+ejemplo alimentando el backend con estructuras de datos cíclicas.  Por
 tanto, si se está utilizando LilyPond sobre un servidor web accesible
 públicamente, el proceso debe limitarse tanto en el uso de CPU como de
 memoria.
@@ -445,7 +445,7 @@ esto.  La causa más frecuente son las tipografías mal instaladas.
 @cindex llamadas, traza de
 @cindex Scheme, error de
 @cindex error de Scheme
-Los errores que ocurren al ejecutar código de Schheme se interceptan
+Los errores que ocurren al ejecutar código de Scheme se interceptan
 por parte del intérprete de Scheme.  Si se está ejecutando con las
 opciones @code{-V} o @code{--verbose} (prolijo) entonces se imprime
 una traza de llamadas de la función ofensiva.
@@ -529,8 +529,8 @@ miarchivo.ly.NEW, entonces miarchivo.ly ya está actualizado.
 @node Command line options for convert-ly
 @subsection Command line options for @command{convert-ly}
 
-@command{convert-ly} convierte siempre al últimmo cambio de sintaxis
-que puede manejar.  Eesto supone que el número de @code{\version} que
+@command{convert-ly} convierte siempre al último cambio de sintaxis
+que puede manejar.  Esto supone que el número de @code{\version} que
 aparece en el archivo convertido suele ser más bajo que la versión del
 propio programa @command{convert-ly}.
 
@@ -666,7 +666,7 @@ actuales en nuestro rastreador de fallos de Google Code:
 
 @uref{http://code.google.com/p/lilypond/issues/list}
 
-Si descubre un error que no está en la lista, le rogramos que envíe un
+Si descubre un error que no está en la lista, le rogamos que envíe un
 informe del fallo siguiendo las instrucciones que aparecen en
 
 @uref{http://lilypond.org/web/devel/participating/bugs}

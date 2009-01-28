@@ -156,7 +156,7 @@ Referencia de funcionamiento interno:
 @cindex piano, pentagramas de
 @cindex sistema de piano
 @cindex sistema de coro
-@cindex system
+@cindex sistema
 
 Existen varios contextos para agrupar pentagramas individuales
 formando sistemas.  Cada contexto de agrupación establece el estilo
@@ -643,7 +643,7 @@ Glosario musical:
 @rglos{staff},
 @rglos{Frenched staff}.
 
-Mannual de aprendizaje:
+Manual de aprendizaje:
 @rlearning{Nesting music expressions},
 @rlearning{Size of objects},
 @rlearning{Length and thickness of objects}.
@@ -1314,7 +1314,7 @@ cbassoon = \relative c, {
 >>
 @end lilypond
 
-Es posible etiquetar las partes guía con numbres exclusivos de forma
+Es posible etiquetar las partes guía con nombres exclusivos de forma
 que se puedan procesar de diversas formas.  Para ver más detalles
 sobre este procedimiento, consulte @ref{Using tags}.
 

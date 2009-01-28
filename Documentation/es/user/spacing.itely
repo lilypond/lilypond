@@ -23,7 +23,7 @@ Considerado globalmente, este proceso se produce en cuatro fases: en
 primer lugar se eligen unas distancias elásticas o @q{muelles},
 basados en la duración de las figuras.  Se prueban todas las
 combinaciones de saltos de línea posibles, y para cada una de ellas se
-calcula una puntuación de @q{maldad}.  Después se hace una estimacion
+calcula una puntuación de @q{maldad}.  Después se hace una estimación
 de la altura de cada uno de los posibles sistemas.  Finalmente se
 selecciona una combinación de saltos de página y de línea de tal forma
 que ni el espaciado horizontal ni el vertical estén demasiado
@@ -235,7 +235,7 @@ papel.  Para ver más detalles, consulte @ref{Paper size}.
 @funindex top-margin
 
 Margen entre el encabezamiento y la parte alta del papel.
-Predeteminado: @code{5\mm}.
+Predeterminado: @code{5\mm}.
 
 @end table
 
@@ -744,7 +744,7 @@ Normalmente los saltos de línea se determinan automáticamente. Se
 eligen de forma que las líneas no aparezcan demasiado apretadas ni
 demasiado sueltas, y que las líneas consecutivas tengan una densidad
 similar.  Ocasionalmente podemos querer sobreescribir los saltos
-automáticos; podemos hacerlo especficando @code{\break}. Esto fuerza
+automáticos; podemos hacerlo especificando @code{\break}. Esto fuerza
 un salto de línea en ese punto.  Sin embargo, los saltos de línea sólo
 pueden suceder al final de los compases @q{completos}, es decir, donde
 no queda ninguna nota o grupo especial @q{colgando} por encima de la
@@ -991,7 +991,7 @@ lugares adecuados.
 
 Si esto es demasiado tedioso, podemos añadir un grabador
 @code{Page_turn_engraver} a un contexto Staff o Voice.  El grabador
-@code{Page_turn_engraver} analizará el contexto en biusca de secciones
+@code{Page_turn_engraver} analizará el contexto en busca de secciones
 sin notas (observe que no busca silencios, sino la ausencia de notas.
 Se hace así para que la polifonía en un solo pentagrama con silencios
 en una de las voces no arruine la labor del grabador
@@ -1005,7 +1005,7 @@ doble barra), en cuyo caso se insertará el @code{\allowPageTurn} en la
 @funindex minimumPageTurnLength
 El grabador @code{Page_turn_engraver} lee la propiedad de contexto
 @code{minimumPageTurnLength} para determinar qué longitud debe tener
-una sección sin notas antesd e que se considere la posibilidad de un
+una sección sin notas antes de que se considere la posibilidad de un
 paso de página.  El valor predeterminado para
 @code{minimumPageTurnLength} es @code{#(ly:make-moment 1 1)}.  Si
 quiere inhabilitar las vueltas de página, puede establecerlo a algún
@@ -1141,7 +1141,7 @@ Fragmentos de código:
 @subsection Using an extra voice for breaks
 
 La información sobre saltos de línea y de página suele aparecer
-directamente intermezclado dentro del código de notas.
+directamente entremezclado dentro del código de notas.
 
 @example
 \new Score @{
@@ -1468,7 +1468,7 @@ instrucción @code{\override} usual en los bloques @code{\context} y en
 el bloque @code{\with}.  Por otra parte, cuando sobreescribimos
 @code{NonMusicalPaperColumn} en medio de las notas, debemos usar la
 instrucción especial @code{\overrideProperty}.  He aquí algunas
-sebreescrituras de @code{NonMusicalPaperColumn} de ejemplo con la
+sobreescrituras de @code{NonMusicalPaperColumn} de ejemplo con la
 instrucción especial @code{\overrideProperty}:
 
 @example
@@ -1955,7 +1955,7 @@ No existe ningún rodeo para disminuir la magnitud de la separación.
 @node New spacing area
 @subsection New spacing area
 
-Se pueden inicar secciones nuevas con diferentes parámetros de
+Se pueden iniciar secciones nuevas con diferentes parámetros de
 espaciado, con @code{newSpacingSection}.  Esto es útil cuando hay
 secciones que tienen distinta noción de las notas largas y cortas.
 
@@ -2175,7 +2175,7 @@ deseamos porque podemos tomar prestado el espacio horizontal de la
 blanca y conservar el espacio horizontal a lo largo del compás como un
 todo.
 
-Por otro lado, si quieremos insertar una línea de tiempo graduada o
+Por otro lado, si queremos insertar una línea de tiempo graduada o
 algún otro gráfico encima o debajo de la partitura, necesitamos la
 notación proporcional.  Se activa la notación proporcional con el
 ajuste @code{proportionalNotationDuration}.
@@ -2194,7 +2194,7 @@ ajuste @code{proportionalNotationDuration}.
 >>
 @end lilypond
 
-La blanca al princpio del compás y las notas rápidas de la segunda
+La blanca al principio del compás y las notas rápidas de la segunda
 mitad del compás ocupan ahora cantidades iguales de espacio
 horizontal.  Podríamos colocar una línea de tiempo graduada o un
 gráfico encima o debajo de este ejemplo.
@@ -2348,11 +2348,11 @@ propiedad de @code{SpacingSpanner}.
 >>
 @end lilypond
 
-Nuestro ejemplo de dos pentagramase ahora está espaciado exactamente,
+Nuestro ejemplo de dos pentagramas ahora está espaciado exactamente,
 nuestras relaciones rítmicas son visualmente claras, y podemos incluir
 una línea de tiempo graduada o un gráfico, si queremos.
 
-Observe que el paquere de notación proporcional de LilyPond espera que
+Observe que el paquete de notación proporcional de LilyPond espera que
 todas las partituras proporcionales establezcan el atributo
 @code{uniform-stretching} de @code{SpacingSpanner} al valor ##t.  El
 establecimiento de @code{proportionalNotationDuration} sin ajustar
@@ -2370,7 +2370,7 @@ dentro del archivo de entrada: en el bloque @code{\with}, en el bloque
 De manera predeterminada, sólo hay un @code{SpacingSpanner} por
 @code{Score}.  Esto supone que, por omisión, @code{uniform-stretching}
 está activado para la partitura completa o desactivado para la
-partitura completa.  Sin embargo, podemos sobreesacibir este
+partitura completa.  Sin embargo, podemos sobreescribir este
 comportamiento y activar distintas posibilidades de espaciado en
 distintos lugares de la partitura.  Lo hacemos con la instrucción
 @code{\newSpacingSection}.  Consulte @ref{New spacing area} para más
@@ -2458,7 +2458,7 @@ Compare las dos partituras siguientes:
 }
 @end lilypond
 
-Las dos poartituras son proporcionales, pero el espaciado de la
+Las dos partituras son proporcionales, pero el espaciado de la
 primera es muy suelto a causa del cambio de clave. Sin embargo, el
 espaciado de la segunda partitura se mantiene estricto, porque
 @code{strict-note-spacing} está activado.  La activación de
@@ -2533,7 +2533,7 @@ página, establezca @code{annotate-spacing} en el bloque @code{\paper}:
 
 @noindent
 Todas las dimensiones de disposición se muestran en espacios de
-pentagrama, independientemenre de las unidades especificadas en los
+pentagrama, independientemente de las unidades especificadas en los
 bloques @code{\paper} o @code{\layout}. En el ejemplo anterior,
 @code{paper-height} tiene un valor de 59.75 @code{staff-spaces}
 (espacios de pentagrama), y el @code{staff-size} (tamaño del
@@ -2571,7 +2571,7 @@ Fragmentos de código:
 @subsection Changing spacing
 
 La salida de @code{annotate-spacing} revela las dimensiones verticales
-con gran detalle.  Para ver más detalles acerda de la modificación de
+con gran detalle.  Para ver más detalles acerca de la modificación de
 los márgenes y otras variables de diseño de la página, consulte
 @ref{Page formatting}.
 
@@ -2664,7 +2664,7 @@ duración se produce un efecto de @q{apretujamiento}:
 
 @noindent
 La propiedad @code{common-shortest-duration} no se puede modificar de
-manera dinámica, por lo que se debe situar siemmpre dentro de un
+manera dinámica, por lo que se debe situar siempre dentro de un
 bloque @code{\context} de forma que se aplique a la partitura
 completa.
 
