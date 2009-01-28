@@ -211,7 +211,7 @@ en línea de la presente documentación y de otras.
 @menu
 * Musical notation::               Notación musical.
 * Specialist notation::            Notación que solamente se utiliza para propósitos específicos.
-* General input and output::       Información general sobre la salida y la entrada de LlilyPond.
+* General input and output::       Información general sobre la salida y la entrada de LilyPond.
 * Spacing issues::                 Presentación de la salida sobre papel.
 * Changing defaults::              Ajuste fino de la salida.
 * Interfaces for programmers::     Utilización por expertos.

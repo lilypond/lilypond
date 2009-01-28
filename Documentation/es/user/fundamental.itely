@@ -108,7 +108,7 @@ como una abreviatura de esta otra:
 @end example
 
 En otras palabras, si la entrada consta de una única expresión
-musical, LilyPond interpreta el archivo como si la expresción musical
+musical, LilyPond interpreta el archivo como si la expresión musical
 estuviera rodeada por un envoltorio hecho por las instrucciones que
 acabamos de ver.
 
@@ -1383,7 +1383,7 @@ Comenzamos el ejemplo con un bloque de partitura que contiene un
 @code{ChoirStaff}, pues queremos que aparezca un corchete al comienzo
 de la parte de coro.  Normalmente necesitaríamos dobles ángulos
 después de @code{\new ChoirStaff} para meter dentro todos los
-pentagramas en paralelo, pero aquí queremos postponer el paralelismo
+pentagramas en paralelo, pero aquí queremos posponer el paralelismo
 mientras dura el solo y por ello usaremos llaves, aunque aquí unos
 ángulos dobles no harían daño.  Dentro del @code{ChoirStaff} queremos
 en primer lugar el pentagrama que va a contener la estrofa.  Debe
@@ -1655,7 +1655,7 @@ unos completamente nuevos.
 
 Además de los contextos @code{Score,} @code{Staff} y @code{Voice}, hay
 contextos que se sitúan entre los niveles de partitura y de pentagrama
-para controlar los grupos de pentagraamas, como los contextos
+para controlar los grupos de pentagramas, como los contextos
 @code{PianoStaff} y @code{ChoirStaff}.  También existen contextos
 alternativos de pentagrama y de voz, y contextos para la letra, la
 percusión, diagramas de trastes, bajo cifrado, etc.
@@ -1705,7 +1705,7 @@ Observe que no hay ninguna instrucción @code{\new Score}; el contexto
 @code{\score}.
 
 
-En las secciones anteriore ha podido ver muchos ejemplos prácticos que
+En las secciones anteriores ha podido ver muchos ejemplos prácticos que
 creaban nuevos contextos de @code{Staff} y de @code{Voice}, pero para
 recordarle cómo se emplean estas instrucciones en la práctica, he aquí
 un ejemplo anotado de música real:
@@ -1754,7 +1754,7 @@ Aunque no es necesario, la observancia de esta práctica reducirá
 considerablemente el número de errores de @q{paréntesis
 descompensados}, y se recomienda vivamente.  Permite apreciar de un
 solo vistazo la estructura de la música, y cualquier paréntesis
-descompensado aprecerá con obviedad.  Observe también cómo el
+descompensado aparecerá con obviedad.  Observe también cómo el
 pentagrama de la MI se crea usando dobles ángulos porque requiere dos
 voces, mientras que el pentagrama de la MD se crea con una expresión
 musical única encerrada entre llaves porque sólo requiere una voz.)
@@ -1845,12 +1845,12 @@ a partir del nombre (en inglés), y viceversa.
 @item Clef_engraver
   @tab Graba las claves
 @item Completion_heads_engraver
-  @tab Splits notes which cross bar lines
+  @tab Divide las notas que atraviesan una línea divisoria
 @c The old Dynamic_engraver is deprecated. -jm
 @item New_dynamic_engraver
   @tab Crea reguladores e indicaciones dinámicas textuales
 @item Forbid_line_break_engraver
-  @tab Prevents line breaks if a musical element is still active
+  @tab Evita los saltos de línea si queda algún elemento musical activo
 @item Key_engraver
   @tab Crea la armadura de la tonalidad
 @item Metronome_mark_engraver
@@ -1995,7 +1995,7 @@ en cualquier contexto que exista, mediante el uso de la instrucción
 @code{\set}.  Pero si el nombre no es conocido para LilyPond, no
 producirá ninguna acción.  Algunos editores de texto que apoyan a los
 archivos de entrada de LilyPond de manera especial, documentan los
-nombres de propiedades con viñetas cuando psamos sobre ellos con el
+nombres de propiedades con viñetas cuando pasamos sobre ellos con el
 puntero del ratón, como JEdit con la extensión LilyPondTool, o
 resaltan los nombres de propiedades desconocidas de manera diferente,
 como ConTEXT.  Si no se utiliza un editor con tales posibilidades, se
@@ -2049,7 +2049,7 @@ valor predeterminado que se aplicará a todos los pentagramas.
 
 La instrucción opuesta, @code{\unset}, tiene el efecto de suprimir la
 propiedad del contexto, lo que ocasiona que la mayoría de las
-porpiedades vuelvan a su valor predeterminado.  Normalmente no es
+propiedades vuelvan a su valor predeterminado.  Normalmente no es
 necesario el uso de @code{\unset}, pues una nueva instrucción
 @code{\set} hará el ajuste deseado.
 
@@ -2637,7 +2637,7 @@ lower = \relative c, {
 Ninguna de las plantillas proporciona esta disposición con exactitud.
 La más parecida es @q{partitura vocal SATB y reducción de piano
 automática} (véase @ref{Vocal ensembles}), pero necesitamos cambiar la
-disposición y añadir un acompañamiento de piano que no esté derviado
+disposición y añadir un acompañamiento de piano que no esté derivado
 automáticamente de las partes vocales.  Las variables que contienen la
 música y la letra de las partes vocales es adecuada, pero tendremos
 que añadir variables para la reducción de piano.

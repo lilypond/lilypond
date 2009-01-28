@@ -943,7 +943,7 @@ El espaciado horizontal de las ligaduras es pobre.
 Al componer tipográficamente una pieza en notación de canto
 gregoriano, el grabador @rinternals{Vaticana_ligature_engraver}
 selecciona automáticamente la cabeza adecuada de las figuras, de
-manera que no es neceario establecer explícitamente el estilo de las
+manera que no es necesario establecer explícitamente el estilo de las
 cabezas.  A pesar de ello se puede establecer el estilo de las
 cabezas, p.ej.: a @code{vaticana_punctum} para producir neumas de
 punctum.  De forma similar, el grabador
@@ -1441,7 +1441,7 @@ dirección @code{\descendens} o @code{\ascendens}, p.ej. @code{ \[
 @noindent
 Símbolos especiales
 
-Hay una tercera categoría de símbolos que se hace a partiru de un
+Hay una tercera categoría de símbolos que se hace a partir de un
 pequeño número de símbolos que tienen un significado especial (que,
 por cierto, casi siempre se conocen sólo vagamente): el
 @emph{quilisma}, el @emph{oriscus} y el @emph{strophicus}.  Todos
@@ -2255,7 +2255,7 @@ de augmentum.
 Cuando aparece un punto de @code{\augmentum} al final de la última
 pauta dentro de una ligadura, a veces se posiciona defectuosamente en
 el sentido vertical.  Para rodear el problema, escriba una nota
-adicionall de salto (p.ej. @code{s8}) como última nota de la pauta.
+adicional de salto (p.ej. @code{s8}) como última nota de la pauta.
 
 @code{\augmentum} debería estar implementado como un prefijo de cabeza
 en vez de una función musical unaria, de forma que @code{\augmentum}
@@ -2284,7 +2284,7 @@ ellos están los siguientes:
 @item cómo hacer incipits
 (o sea, material a modo de prefacio que indica cómo era el original) a
 las transcripciones modernas de música mensural;
-@item cómo cosneguir el diseño @emph{Mensurstriche}
+@item cómo conseguir el diseño @emph{Mensurstriche}
 que se usa con frecuencia para las transcripciones modernas de música
 polifónica;
 @item cómo transcribir canto gregoriano en notación moderna;
@@ -2516,4 +2516,3 @@ Continuará...
 
 
 @seealso
-

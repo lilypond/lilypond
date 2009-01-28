@@ -13,7 +13,7 @@
 @chapter Interfaces for programmers
 
 Se pueden realizar trucos avanzados mediante el uso de Scheme.  Si no
-está familizarizado con Scheme, le conviene leer nuestro tutorial de
+está familiarizado con Scheme, le conviene leer nuestro tutorial de
 Scheme, @rlearning{Scheme tutorial}.
 
 @menu
@@ -230,7 +230,7 @@ withAlt = #(define-music-function (parser location mag music) (number? ly:music?
 @node Void functions
 @subsection Void functions
 
-Una función musical debe devolver una expresión musical, per a veces
+Una función musical debe devolver una expresión musical, pero a veces
 podemos necesitar una función en la que no hay música en juego (como
 la desactivación de la funcionalidad Apuntar y Pulsar).  Para hacerlo,
 devolvemos una expresión musical @code{void} (vacía).
@@ -273,7 +273,7 @@ displayBarNum =
        #@{#@}))
 @end example
 
-Para la imresión real de los números de compás donde se llama a esta
+Para la impresión real de los números de compás donde se llama a esta
 función, invoque a @command{lilypond} con
 
 @example
@@ -341,9 +341,9 @@ se convierte internamente a una definición de Scheme
 @end example
 
 Esto supone que las variables de entrada y las variables de Scheme se
-pueden intermezclar con libertad.  En el ejemplo siguiente, se
+pueden entremezclar con libertad.  En el ejemplo siguiente, se
 almacena un fragmento musical en la variable @code{traLaLa}, y se
-dupplica utilizando Scheme.  El resultado se importa en un bloque
+duplica utilizando Scheme.  El resultado se importa en un bloque
 @code{\score} por medio de una segunda variable @code{twice}:
 
 @lilypond[verbatim]
@@ -380,7 +380,7 @@ sido introducido en sintaxis de LilyPond.  En vez de definir
 @{ #(ly:export (make-sequential-music (list newLa))) @}
 @end example
 
-El sódigo de Scheme se evalúa tan pronto como el analizador sintáctico
+El código de Scheme se evalúa tan pronto como el analizador sintáctico
 lo encuentra.  Para definir código de Scheme en un macro (para
 llamarlo con posterioridad), use @ref{Void functions}, o bien
 
@@ -419,7 +419,7 @@ de referencia de funcionamiento interno, bajo @rinternals{Music
 expressions}.
 
 @item
-@q{typo} o intterface: cada nombre de música tiene varios @q{tipos} o
+@q{tipo} o interface: cada nombre de música tiene varios @q{tipos} o
 interfaces, por ejemplo una nota es un @code{event}, pero también es
 un @code{note-event}, un @code{rhythmic-event} y un
 @code{melodic-event}.  Todas las clases musicales se encuentran
@@ -439,7 +439,7 @@ están disponibles en la Referencia de funcionamiento interno, bajo
 @rinternals{Music properties}.
 
 Una expresión musical compuesta es un objeto musical que contiene
-otros objetos musicales en sus propiedades.  Se puede almacernar una
+otros objetos musicales en sus propiedades.  Se puede almacenar una
 lista de objetos en la propiedad @code{elements} de un objeto musical,
 o un solo objeto musical @q{hijo} en la propiedad @code{element}.  Por
 ejemplo, @rinternals{SequentialMusic} tiene sus hijos en
@@ -510,7 +510,7 @@ salida hacia un archivo.
 lilypond archivo.ly >resultado.txt
 @end example
 
-Con la aplicación de un poco de formato, la inforamción anterior es
+Con la aplicación de un poco de formato, la información anterior es
 fácil de leer:
 
 @example
@@ -529,7 +529,7 @@ una lista en su propiedad @code{'elements}.  Una nota se representa
 como una expresión @code{EventChord} que contiene un objeto
 @code{NoteEvent} (que almacena las propiedades de duración y altura) y
 cualquier otra información adicional (en este caso, un evento
-@code{AbsoluteDynamicEvent} con una porpiedad de texto @code{"f"}.
+@code{AbsoluteDynamicEvent} con una propiedad de texto @code{"f"}.
 
 
 @node Music properties
@@ -635,7 +635,7 @@ representación interna de la música con la que queremos terminar.
                   1)))))
 @end example
 
-Las malas noticias son que las espresiones @code{SlurEvent} se deben
+Las malas noticias son que las expresiones @code{SlurEvent} se deben
 añadir @q{dentro} de la nota (o más concretamente, dentro de la
 expresión @code{EventChord}).
 
@@ -748,7 +748,7 @@ Para construir esta función, empezamos con
 @example
 (define (add-marcato event-chord)
   "Añadir una ArticulationEvent de marcato a los elementos de `event-chord',
-  que se ssupone que es una expresión EventChord."
+  que se supone que es una expresión EventChord."
   (let ((result-event-chord (ly:music-deep-copy event-chord)))
     (set! (ly:music-property result-event-chord 'elements)
           (cons (make-music 'ArticulationEvent
@@ -792,10 +792,10 @@ Ahora tenemos un @code{result-event-chord}, que es una expresión
 el marcato a su propiedad lista de elementos.
 
 @example
-(set! place new-value)
+(set! lugar valor-nuevo)
 @end example
 
-Aquí, lo que queremos establecer (el @q{place}) es la propiedad
+Aquí, lo que queremos establecer (el @q{lugar}) es la propiedad
 @q{elements} de la expresión @code{result-event-chord}.
 
 @example
@@ -815,7 +815,7 @@ copiamos a partir de la salida de @code{\displayMusic},
       (ly:music-property result-event-chord 'elements))
 @end example
 
-@code{cons} se usa para añadir un elemento a una lsita sin modificar
+@code{cons} se usa para añadir un elemento a una lista sin modificar
 la lista original.  Esto es lo que queremos: la misma lista que antes,
 más la nueva expresión @code{ArticulationEvent}.  El orden dentro de
 la propiedad elements no es importante aquí.
@@ -830,8 +830,8 @@ musical,
 @example
 addMarcato = #(define-music-function (parser location event-chord)
                                      (ly:music?)
-    "Add a marcato ArticulationEvent to the elements of `event-chord',
-    which is supposed to be an EventChord expression."
+    "Añadir un ArticulationEvent de marcato a los elementos de `event-chord',
+    que se supone que es una expresión EventChord."
     (let ((result-event-chord (ly:music-deep-copy event-chord)))
       (set! (ly:music-property result-event-chord 'elements)
             (cons (make-music 'ArticulationEvent
@@ -882,7 +882,7 @@ equivale a:
 
 @noindent
 Este ejemplo muestra las principales reglas de traducción entre la
-sitaxis del marcado normal de LilyPond y la sintaxis del marcado de
+sintaxis del marcado normal de LilyPond y la sintaxis del marcado de
 Scheme.
 
 @quotation
@@ -1204,7 +1204,7 @@ instrucción de lista de marcados @code{paragraph} toma un argumento de
 lista de marcados, llamado @code{args}.  El predicado para listas de
 marcados es @code{markup-list?}.
 
-Em primer lugar, la función toma el ancho del sangrado, una propiedad
+En primer lugar, la función toma el ancho del sangrado, una propiedad
 llamada aquí @code{par-indent}, de la lista de propiedades
 @code{props}.  Si no se encuentra la propiedad, el valor
 predeterminado es @code{2}.  Después, se hace una lista de líneas

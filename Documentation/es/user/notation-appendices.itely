@@ -147,7 +147,7 @@ Séptima mayor
 @tab
 Tríada mayor y séptima mayor
 @tab
-@code{maj7} or @code{maj}
+@code{maj7} ó @code{maj}
 @tab
 @lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {

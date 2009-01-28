@@ -154,7 +154,7 @@ estudia en @rlearning{Moving objects}.
 
 @cindex manual, cambio de pentagrama
 @cindex pentagrama, cambios manuales de
-@cindex cambbio manual de pentagrama
+@cindex cambio manual de pentagrama
 @cindex cruzado, pentagrama, notas de
 @cindex notes de pentagrama cruzado
 @cindex barras de pentagrama cruzado
@@ -200,7 +200,7 @@ Las notas de pentagrama cruzado reciben la barra automáticamente:
 
 Si el barrado necesita algún trucaje, efectúe en primer lugar los
 cambios en las direcciones de las plicas.  Las posiciones de las
-barras se miden posteriormente a partir del centro del peentagrama que
+barras se miden posteriormente a partir del centro del pentagrama que
 está más cerca de la barra.  Para ver un ejemplo sencillo de trucaje
 de las barras, consulte @rlearning{Fixing overlapping notation}.
 

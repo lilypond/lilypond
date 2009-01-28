@@ -94,7 +94,7 @@ completa de nombre de instrumentos de percusión se encuentra en
 @ref{Percussion notes}.
 
 Observe que la notación normal de las notas con altura determinada
-(como @code{cis4}) en un contexto @code{DrumStaff} procuden un mensaje
+(como @code{cis4}) en un contexto @code{DrumStaff} producen un mensaje
 de error.  Las claves de percusión se añaden automáticamente al
 contexto @code{DrumStaff}, pero también se pueden usar otras claves.
 
@@ -507,7 +507,7 @@ bellstaff = {
 }
 @end lilypond
 
-Aquí un breve ejemplo del maestro Stravinsky (procedende de la
+Aquí un breve ejemplo del maestro Stravinsky (procedente de la
 @q{Historia del soldado})
 
 @lilypond[quote,verbatim]

@@ -16,7 +16,7 @@ de las cuerdas.  Hay planes para corregir esto en un futuro.
 "
   doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
 
-%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+%% Translation of GIT committish: cd4950757ab1ab6c89805b0b7c978bfca034f940
 
   texidocfr = "
 La liste des diagrammes standards prédéfinis pour la guitare peut être
@@ -28,9 +28,8 @@ Cet exemple illustre aussi la manière d'ajouter des doigtés aux
 accords ; ils serviront de référence pour la boucle d'accord et seront 
 indiqués dans les diagrammes et le @code{TabStaff}, mais pas dans la musique. 
 
-Ces diagrémmes ne peuvent pas être transposés, dans la mesure où ils 
-contiennent des informations sur les condes.  Ceci est amené à évoluer.
+Ces diagrammes ne peuvent pas être transposés, dans la mesure où ils 
+contiennent des informations sur les cordes.  Ceci est amené à évoluer.
 
 "
-  doctitlefr = "Création de diagrammes de fret prédéfinis pour 
-d'autres instruments"
+  doctitlefr = "Création de diagrammes de fret prédéfinis pour d'autres instruments"
