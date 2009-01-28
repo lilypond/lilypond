@@ -209,7 +209,7 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 
 @lilypond[verbatim,quote]
 % set the starting point to middle C
-@ % ミドル C から始めます
+% ミドル C から始めます
 \relative c' {
   c d e f
   g a b c
