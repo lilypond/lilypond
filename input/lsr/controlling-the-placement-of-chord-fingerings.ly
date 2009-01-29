@@ -11,6 +11,15 @@ Se puede controlar con precisión la colocación de los números de digitación.
 "
   doctitlees = "Controlar la colocación de las digitaciones de acordes"
 
+
+%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+  texidocfr = "
+Le positionnement des doigtés peut être contrôlé de manière très précise.
+
+"
+  doctitlefr = "Conrôle du positionnement des doigtés"
+
   texidoc = "
 The placement of fingering numbers can be controlled precisely.
 

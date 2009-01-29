@@ -5,6 +5,15 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
+  texidoces = "
+
+Los elementos de marcado de texto deben tener la propiedad
+@code{outside-staff-priority} establecida al valor falso para que se
+impriman por dentro de las ligaduras de expresión.
+
+"
+  doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
+
   texidoc = "
 Text markups need to have the @code{outside-staff-priority} property
 set to false in order to be printed inside slurs. 

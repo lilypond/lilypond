@@ -3,7 +3,20 @@
 \version "2.12.0"
 
 \header {
-  lsrtags = "expressive-marks, editorial-annotations,tweaks-and-overrides"
+texidoces = "
+La creación de un grupeto circular de anticipación entre dos notas,
+donde la nota inferior del grupeto utiliza una alteración, requiere
+varias sobreescriturasw de propiedades.  La propiedad
+@code{outside-staff-priority} se debe establecer al valor #f, pues en
+caso contrario tendría prioridad sobre la propiedad @code{avoid-slur
+property}.  El valor de @code{halign} se utiliza para colocar el
+grupeto horizontalmente.
+
+"
+
+doctitlees = "Crear un grupeto de anticipación"
+
+  lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 Creating a delayed turn, where the lower note of the

@@ -13,6 +13,16 @@ derecha.
 "
   doctitlees = "Digitaciones, indicación del número de cuerda y digitaciones de mano derecha"
 
+%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+  texidocfr = "
+L'exemple suivant illustre comment combiner des doigtés pour la main 
+gauche, des indications de corrde et des doigtés pour la main droite.
+
+"
+  doctitlefr = "Doigtés, indications de cordeet doigtés main droite"
+
+
   texidoc = "
 This example combines left-hand fingering, string indications, and
 right-hand fingering.

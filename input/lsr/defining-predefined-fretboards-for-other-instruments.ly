@@ -20,6 +20,24 @@ de las cuerdas.  Hay planes para corregir esto en un futuro.
 "
   doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
 
+%% Translation of GIT committish: cd4950757ab1ab6c89805b0b7c978bfca034f940
+
+  texidocfr = "
+La liste des diagrammes standards prédéfinis pour la guitare peut être
+ augmentée d'autres définitions spécifiques à d'autres instruments.  
+Voici comment définir un nouvel accordage ainsi que quelques diagrammes 
+prédéfinis pour le @qq{cuatro vénézuélien}.
+
+Cet exemple illustre aussi la manière d'ajouter des doigtés aux 
+accords ; ils serviront de référence pour la boucle d'accord et seront 
+indiqués dans les diagrammes et le @code{TabStaff}, mais pas dans la musique. 
+
+Ces diagrammes ne peuvent pas être transposés, dans la mesure où ils 
+contiennent des informations sur les cordes.  Ceci est amené à évoluer.
+
+"
+  doctitlefr = "Création de diagrammes de fret prédéfinis pour d'autres instruments"
+
   lsrtags = "fretted-strings"
   texidoc = "Predefined fret diagrams can be added for new instruments
 in addition to the standards used for guitar.  This file shows how

@@ -15,6 +15,18 @@ barrado, este fragmento de código cambia el barrado a pulsos de negra.
 "
   doctitlees = "Barras automáticas de dos en dos en los compases de 4/4 o de 2/2"
 
+%% Translation of GIT committish: 1154b407d42f303a024598296ad36ab6c93e2b5a
+  texidocfr = "
+Dans une métrique simple comme 4/4 ou 2/2, les croches sont ligaturées
+par défaut en deux groupes de quatre.
+
+En utilisant une macro qui modifie le comportement des ligatures 
+automatiques, voici comment obtenir des ligatures basées sur la valeur 
+d'une noire.
+
+"
+  doctitlefr = "Ligature automatique deux par deux, aussi bien en 4/4 qu'en 2/2"
+
   texidoc = "
 In a simple time signature of 2/2 or 4/4, 8th notes are beamed by
 default as two sets of four.

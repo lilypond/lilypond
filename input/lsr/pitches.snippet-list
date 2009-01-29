@@ -12,5 +12,6 @@ ottava-text.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
 quoting-another-voice-with-transposition.ly
+separating-key-cancellations-from-key-signature-changes.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
 tweaking-clef-properties.ly

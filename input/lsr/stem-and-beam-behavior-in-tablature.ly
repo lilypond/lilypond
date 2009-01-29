@@ -12,6 +12,17 @@ poner horizontales, como se muestra en este ejemplo.
 
 "
   doctitlees = "Comportamiento de las plicas y las barras de corchea en tablaturas"
+
+%% Translation of GIT committish: cd4950757ab1ab6c89805b0b7c978bfca034f940
+
+  texidocfr = "
+La direction des hampes se gère dans les tablatures tout comme en 
+notation traditionnelle.  Les ligatures peuvent être mises à l'horizontale 
+comme le montre cet exemple.
+
+"
+  doctitlefr = "Hampes et ligatures en mode tablature"
+
   texidoc = "
 The direction of stems is controlled the same way in tablature as in
 traditional notation. Beams can be made horizontal, as shown in this

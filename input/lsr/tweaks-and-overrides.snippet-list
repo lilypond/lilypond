@@ -38,6 +38,7 @@ proportional-strict-notespacing.ly
 removing-the-first-empty-line.ly
 rest-styles.ly
 rhythmic-slashes.ly
+separating-key-cancellations-from-key-signature-changes.ly
 suppressing-warnings-for-clashing-note-columns.ly
 time-signature-in-parentheses.ly
 transcription-of-ancient-music-with-incipit.ly

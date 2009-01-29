@@ -1,6 +1,7 @@
 adjusting-lyrics-vertical-spacing.ly
 aligning-and-centering-instrument-names.ly
 aligning-marks-with-various-notation-objects.ly
+aligning-objects-created-with-the--mark-command.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 center-text-below-hairpin-dynamics.ly
 changing-the-default-text-font-family.ly

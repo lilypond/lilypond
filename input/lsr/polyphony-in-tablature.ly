@@ -12,6 +12,15 @@ en una pauta normal.
 "
   doctitlees = "Polifonía en tablaturas"
 
+%% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+  texidocfr = "
+Une section polyphonique s'obtient dans un @code{TabStaff} de la
+même manière que dans une portée normale.
+
+"
+  doctitlefr = "Polyphonie en mode tablature"
+
   texidoc = "
 Polyphony is created the same way in a @code{TabStaff} as in a regular
 staff.
