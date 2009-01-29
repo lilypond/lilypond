@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-24 15:31+0900\n"
+"POT-Creation-Date: 2009-01-29 09:50+0100\n"
 "PO-Revision-Date: 2009-01-15 13:24+0900\n"
 "Last-Translator: Yoshiki Sawada <sawada.yoshiki@gmail.com>\n"
 "Language-Team: 日本語 <LL@li.org>\n"
@@ -42,11 +42,11 @@ msgstr "他の言語: %s"
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr ""
 
-#: postprocess_html.py:315
+#: postprocess_html.py:316
 msgid "stable-branch"
 msgstr "安定版"
 
-#: postprocess_html.py:317
+#: postprocess_html.py:318
 msgid "development-branch"
 msgstr "開発版"
 
@@ -58,88 +58,88 @@ msgstr ""
 "このセクションはまだ翻訳されていません。英語で書かれたマニュアルを参照してく"
 "ださい。"
 
-#: translations-status.py:52
+#: translations-status.py:59
 msgid "Section titles"
 msgstr "セクション タイトル"
 
-#: translations-status.py:53
+#: translations-status.py:60
 #, python-format
 msgid " <p><i>Last updated %s</i></p>\n"
 msgstr " <p><i>最終更新日 %s</i></p>\n"
 
-#: translations-status.py:54
+#: translations-status.py:61
 msgid "Translators"
 msgstr "翻訳者"
 
-#: translations-status.py:54
+#: translations-status.py:61
 msgid "Translation checkers"
 msgstr "翻訳点検者"
 
-#: translations-status.py:55
+#: translations-status.py:62
 msgid "Translated"
 msgstr "翻訳済み"
 
-#: translations-status.py:55
+#: translations-status.py:62
 msgid "Up to date"
 msgstr "最新"
 
-#: translations-status.py:56
+#: translations-status.py:63
 msgid "Other info"
 msgstr "その他の情報"
 
-#: translations-status.py:58
+#: translations-status.py:65
 msgid "no"
 msgstr "いいえ"
 
-#: translations-status.py:59
+#: translations-status.py:66
 msgid "not translated"
 msgstr "未翻訳"
 
-#: translations-status.py:61
+#: translations-status.py:68
 #, python-format
 msgid "partially (%(p)d %%)"
 msgstr "一部 (%(p)d %%)"
 
 # not yet
-#: translations-status.py:63
+#: translations-status.py:70
 #, python-format
 msgid "partially translated (%(p)d %%)"
 msgstr ""
 
-#: translations-status.py:64 translations-status.py:66
+#: translations-status.py:71 translations-status.py:73
 msgid "yes"
 msgstr "はい"
 
-#: translations-status.py:65
+#: translations-status.py:72
 msgid "translated"
 msgstr ""
 
-#: translations-status.py:66 translations-status.py:67
+#: translations-status.py:73 translations-status.py:74
 msgid "up to date"
 msgstr "最新"
 
 # not yet
-#: translations-status.py:68
+#: translations-status.py:75
 msgid "partially"
 msgstr ""
 
 # not yet
-#: translations-status.py:69
+#: translations-status.py:76
 msgid "partially up to date"
 msgstr ""
 
 # not yet
-#: translations-status.py:70
+#: translations-status.py:77
 msgid "N/A"
 msgstr ""
 
 # not needed to translate
-#: translations-status.py:71
+#: translations-status.py:78
 msgid "pre-GDP"
 msgstr ""
 
 # not needed to translate
-#: translations-status.py:72
+#: translations-status.py:79
 msgid "post-GDP"
 msgstr ""
 
@@ -160,60 +160,6 @@ msgstr ""
 #. @node in Documentation/ja/user/lilypond-learning.tely
 msgid "Top"
 msgstr "トップ ページ"
-
-# added by Sawada
-#. -*- coding: utf-8 -*-
-#. @node in Documentation/user/lilypond-learning.tely
-#. @node in Documentation/user/lilypond-program.tely
-#. @node in Documentation/user/lilypond.tely
-#. @node in Documentation/fr/user/lilypond-learning.tely
-#. @node in Documentation/fr/user/lilypond-program.tely
-#. @node in Documentation/fr/user/lilypond.tely
-#. @node in Documentation/es/user/lilypond-learning.tely
-#. @node in Documentation/es/user/lilypond-program.tely
-#. @node in Documentation/es/user/lilypond.tely
-#. @node in Documentation/de/user/lilypond-learning.tely
-#. @node in Documentation/de/user/lilypond-program.tely
-#. @node in Documentation/de/user/lilypond.tely
-#. @node in Documentation/ja/user/lilypond-learning.tely
-msgid "Contents"
-msgstr "目次"
-
-# added by Sawada
-#. -*- coding: utf-8 -*-
-#. @node in Documentation/user/lilypond-learning.tely
-#. @node in Documentation/user/lilypond-program.tely
-#. @node in Documentation/user/lilypond.tely
-#. @node in Documentation/fr/user/lilypond-learning.tely
-#. @node in Documentation/fr/user/lilypond-program.tely
-#. @node in Documentation/fr/user/lilypond.tely
-#. @node in Documentation/es/user/lilypond-learning.tely
-#. @node in Documentation/es/user/lilypond-program.tely
-#. @node in Documentation/es/user/lilypond.tely
-#. @node in Documentation/de/user/lilypond-learning.tely
-#. @node in Documentation/de/user/lilypond-program.tely
-#. @node in Documentation/de/user/lilypond.tely
-#. @node in Documentation/ja/user/lilypond-learning.tely
-msgid "Index"
-msgstr "インデックス"
-
-# added by Sawada
-#. -*- coding: utf-8 -*-
-#. @node in Documentation/user/lilypond-learning.tely
-#. @node in Documentation/user/lilypond-program.tely
-#. @node in Documentation/user/lilypond.tely
-#. @node in Documentation/fr/user/lilypond-learning.tely
-#. @node in Documentation/fr/user/lilypond-program.tely
-#. @node in Documentation/fr/user/lilypond.tely
-#. @node in Documentation/es/user/lilypond-learning.tely
-#. @node in Documentation/es/user/lilypond-program.tely
-#. @node in Documentation/es/user/lilypond.tely
-#. @node in Documentation/de/user/lilypond-learning.tely
-#. @node in Documentation/de/user/lilypond-program.tely
-#. @node in Documentation/de/user/lilypond.tely
-#. @node in Documentation/ja/user/lilypond-learning.tely
-msgid "Up"
-msgstr "上へ"
 
 #. @top in Documentation/user/lilypond-learning.tely
 msgid "GNU LilyPond --- Learning Manual"
@@ -251,6 +197,7 @@ msgstr "LilyPond インデックス"
 #. @subsubheading in Documentation/user/macros.itexi
 #. @subsubheading in Documentation/fr/user/macros.itexi
 #. @subsubheading in Documentation/de/user/macros.itexi
+#. @subsubheading in Documentation/ja/user/macros.itexi
 msgid "Predefined commands"
 msgstr "定義済みコマンド"
 
@@ -258,6 +205,7 @@ msgstr "定義済みコマンド"
 #. @subsubheading in Documentation/user/macros.itexi
 #. @subsubheading in Documentation/fr/user/macros.itexi
 #. @subsubheading in Documentation/de/user/macros.itexi
+#. @subsubheading in Documentation/ja/user/macros.itexi
 msgid "Selected Snippets"
 msgstr ""
 
@@ -265,12 +213,14 @@ msgstr ""
 #. @subsubheading in Documentation/user/macros.itexi
 #. @subsubheading in Documentation/fr/user/macros.itexi
 #. @subsubheading in Documentation/de/user/macros.itexi
+#. @subsubheading in Documentation/ja/user/macros.itexi
 msgid "See also"
 msgstr "参照"
 
 #. @subsubheading in Documentation/user/macros.itexi
 #. @subsubheading in Documentation/fr/user/macros.itexi
 #. @subsubheading in Documentation/de/user/macros.itexi
+#. @subsubheading in Documentation/ja/user/macros.itexi
 msgid "Known issues and warnings"
 msgstr "既知の問題と警告"
 
@@ -540,7 +490,9 @@ msgstr ""
 
 # not needed to translate
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 #. input/lsr/measure-counter.ly:25 (context id)
 #. input/lsr/measure-counter.ly:32 (context id)
 msgid "foo"
@@ -636,7 +588,6 @@ msgstr "簡単な表記"
 #. @subheading in Documentation/user/tutorial.itely
 #. @node in Documentation/user/pitches.itely
 #. @section in Documentation/user/pitches.itely
-#. @subheading in Documentation/fr/user/tutorial.itely
 #. @node in Documentation/fr/user/pitches.itely
 #. @section in Documentation/fr/user/pitches.itely
 #. @subheading in Documentation/es/user/tutorial.itely
@@ -650,46 +601,57 @@ msgid "Pitches"
 msgstr "音高"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "pitch"
 msgstr "音高 (pitch)"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/pitches.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/pitches.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "interval"
 msgstr "音程 (interval)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "scale"
 msgstr "音階 (scale)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "middle C"
 msgstr "ミドル C (middle C)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "octave"
 msgstr "オクターブ (octave)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "accidental"
 msgstr "臨時記号 (accidental)"
 
 #. @subheading in Documentation/user/tutorial.itely
-#. @subheading in Documentation/fr/user/tutorial.itely
 #. @subheading in Documentation/es/user/tutorial.itely
 #. @subheading in Documentation/de/user/tutorial.itely
 #. @subheading in Documentation/ja/user/tutorial.itely
@@ -697,45 +659,56 @@ msgid "Durations (rhythms)"
 msgstr "演奏時間 (リズム)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "beam"
 msgstr "ビーム (beam)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "duration"
 msgstr "演奏時間 (duration)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "whole note"
 msgstr "全音符 (whole note)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "half note"
 msgstr "半音符 (half note)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "quarter note"
 msgstr "4 分音符 (quarter note)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "dotted note"
 msgstr "符点音符 (dotted note)"
 
 #. @subheading in Documentation/user/tutorial.itely
 #. @node in Documentation/user/rhythms.itely
 #. @unnumberedsubsubsec in Documentation/user/rhythms.itely
-#. @subheading in Documentation/fr/user/tutorial.itely
 #. @node in Documentation/fr/user/rhythms.itely
 #. @unnumberedsubsubsec in Documentation/fr/user/rhythms.itely
 #. @subheading in Documentation/es/user/tutorial.itely
@@ -749,14 +722,15 @@ msgid "Rests"
 msgstr "休符"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "rest"
 msgstr "休符 (rest)"
 
 #. @subheading in Documentation/user/tutorial.itely
 #. @node in Documentation/user/rhythms.itely
 #. @unnumberedsubsubsec in Documentation/user/rhythms.itely
-#. @subheading in Documentation/fr/user/tutorial.itely
 #. @node in Documentation/fr/user/rhythms.itely
 #. @unnumberedsubsubsec in Documentation/fr/user/rhythms.itely
 #. @subheading in Documentation/es/user/tutorial.itely
@@ -771,10 +745,12 @@ msgstr "拍子記号"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "time signature"
 msgstr "拍子記号 (time signature)"
 
@@ -795,12 +771,13 @@ msgid "Clef"
 msgstr "音部記号"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "clef"
 msgstr "音部記号 (clef)"
 
 #. @subheading in Documentation/user/tutorial.itely
-#. @subheading in Documentation/fr/user/tutorial.itely
 #. @subheading in Documentation/es/user/tutorial.itely
 #. @subheading in Documentation/de/user/tutorial.itely
 #. @subheading in Documentation/ja/user/tutorial.itely
@@ -834,7 +811,6 @@ msgid "How to read the manual"
 msgstr "このマニュアルの読み方"
 
 #. @subheading in Documentation/user/tutorial.itely
-#. @subheading in Documentation/fr/user/tutorial.itely
 #. @subheading in Documentation/es/user/tutorial.itely
 #. @subheading in Documentation/de/user/tutorial.itely
 #. @subheading in Documentation/ja/user/tutorial.itely
@@ -885,37 +861,45 @@ msgstr "臨時記号"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/pitches.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/pitches.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "sharp"
 msgstr "シャープ (sharp)"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/pitches.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/pitches.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "flat"
 msgstr "フラット (flat)"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/pitches.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/pitches.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "double sharp"
 msgstr "ダブル シャープ (double sharp)"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/pitches.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/pitches.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "double flat"
 msgstr "ダブル フラット (double flat)"
 
@@ -928,20 +912,26 @@ msgid "Key signatures"
 msgstr "調号"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "key signature"
 msgstr "調号 (key signature)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "major"
 msgstr "メジャー (major)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "minor"
 msgstr "マイナー (minor)"
 
@@ -954,23 +944,29 @@ msgid "Warning: key signatures and pitches"
 msgstr "警告: 調号と音高"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "natural"
 msgstr "ナチュラル (natural)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "transposition"
 msgstr "移調 (transposition)"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/pitches.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/pitches.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "Pitch names"
 msgstr "音高名 (Pitch names)"
 
@@ -1005,11 +1001,13 @@ msgstr "タイ"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/fr/user/rhythms.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "tie"
 msgstr "タイ (tie)"
 
@@ -1031,10 +1029,12 @@ msgstr "スラー"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/expressive.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/expressive.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/expressive.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "slur"
 msgstr "スラー (slur)"
 
@@ -1055,8 +1055,10 @@ msgid "Phrasing slurs"
 msgstr "フレージング スラー"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "phrasing"
 msgstr "フレージング (phrasing)"
 
@@ -1069,8 +1071,10 @@ msgid "Warnings: slurs vs. ties"
 msgstr "警告: スラー vs. タイ"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "articulation"
 msgstr "アーティキュレーション (articulation)"
 
@@ -1112,8 +1116,10 @@ msgid "Fingerings"
 msgstr "運指法記号"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "fingering"
 msgstr "運指法記号 (fingering)"
 
@@ -1139,27 +1145,33 @@ msgid "Dynamics"
 msgstr "強弱記号"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 #. input/lsr/piano-template-with-centered-dynamics.ly:47 (variable)
 msgid "dynamics"
 msgstr "強弱記号 (dynamics)"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/expressive.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/expressive.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/expressive.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "crescendo"
 msgstr "クレッシェンド (crescendo)"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/expressive.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/expressive.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/expressive.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "decrescendo"
 msgstr "デクレッシェンド (decrescendo)"
 
@@ -1212,9 +1224,11 @@ msgstr "部分小節"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "anacrusis"
 msgstr ""
 
@@ -1237,19 +1251,23 @@ msgstr "連符"
 # not yet
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "note value"
 msgstr ""
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "triplet"
 msgstr "3 連符 (triplet)"
 
@@ -1271,30 +1289,36 @@ msgstr "グレース ノート"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "grace notes"
 msgstr "グレース ノート (grace notes)"
 
 # not yet
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "acciaccatura"
 msgstr ""
 
 # not yet
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/rhythms.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/rhythms.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "appoggiatura"
 msgstr ""
 
@@ -1342,10 +1366,12 @@ msgstr "同時進行する音楽表記: 複数の譜"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/simultaneous.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/simultaneous.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/simultaneous.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "polyphony"
 msgstr "多声 (polyphony)"
 
@@ -1385,10 +1411,12 @@ msgstr "譜表グループ"
 
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/staff.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/staff.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/staff.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "brace"
 msgstr "ブレース (brace)"
 
@@ -1408,12 +1436,14 @@ msgstr "音符を組み合わせて和音にする"
 #. @rglos in Documentation/user/tutorial.itely
 #. @rglos in Documentation/user/simultaneous.itely
 #. @rglos in Documentation/user/chords.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/simultaneous.itely
 #. @rglos in Documentation/es/user/chords.itely
 #. @rglos in Documentation/de/user/tutorial.itely
 #. @rglos in Documentation/de/user/simultaneous.itely
 #. @rglos in Documentation/de/user/chords.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "chord"
 msgstr "和音 (chord)"
 
@@ -1465,8 +1495,10 @@ msgid "Setting simple songs"
 msgstr "簡単な歌詞をセットする"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "lyrics"
 msgstr "歌詞 (lyrics)"
 
@@ -1492,14 +1524,18 @@ msgid "Aligning lyrics to a melody"
 msgstr "歌詞を旋律に揃える"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "melisma"
 msgstr "メリスマ (melisma)"
 
 #. @rglos in Documentation/user/tutorial.itely
+#. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/ja/user/tutorial.itely
 msgid "extender line"
 msgstr "延長線 (extender line)"
 
@@ -2320,11 +2356,14 @@ msgstr "音楽表記のネスト"
 #. Documentation/user/staff.itely:600 (context id)
 #. Documentation/user/staff.itely:613 (context id)
 #. @rglos in Documentation/user/staff.itely
+#. @rglos in Documentation/fr/user/fundamental.itely
+#. @rglos in Documentation/fr/user/tweaks.itely
 #. @rglos in Documentation/es/user/fundamental.itely
 #. @rglos in Documentation/es/user/tweaks.itely
 #. @rglos in Documentation/es/user/staff.itely
 #. @rglos in Documentation/de/user/tweaks.itely
 #. @rglos in Documentation/de/user/staff.itely
+#. @rglos in Documentation/ja/user/fundamental.itely
 msgid "ossia"
 msgstr ""
 
@@ -2486,7 +2525,7 @@ msgstr "コンテキスト プロパティを変更する"
 #. @unnumberedsubsubsec in Documentation/fr/user/fundamental.itely
 #. @subsubheading in Documentation/es/user/fundamental.itely
 #. @subsubheading in Documentation/de/user/fundamental.itely
-#. @unnumberedsubsubsec in Documentation/ja/user/fundamental.itely
+#. @subsubheading in Documentation/ja/user/fundamental.itely
 msgid "Setting context properties with @code{\\with}"
 msgstr "@code{\\with} を用いてコンテキスト プロパティを設定する"
 
@@ -2494,7 +2533,7 @@ msgstr "@code{\\with} を用いてコンテキスト プロパティを設定す
 #. @unnumberedsubsubsec in Documentation/fr/user/fundamental.itely
 #. @subsubheading in Documentation/es/user/fundamental.itely
 #. @subsubheading in Documentation/de/user/fundamental.itely
-#. @unnumberedsubsubsec in Documentation/ja/user/fundamental.itely
+#. @subsubheading in Documentation/ja/user/fundamental.itely
 msgid "Setting context properties with @code{\\context}"
 msgstr "@code{\\context} を用いてコンテキスト プロパティを設定する"
 
@@ -2521,10 +2560,12 @@ msgstr "単一のコンテキストを変更する"
 
 #. @rglos in Documentation/user/fundamental.itely
 #. @rglos in Documentation/user/pitches.itely
+#. @rglos in Documentation/fr/user/fundamental.itely
 #. @rglos in Documentation/es/user/fundamental.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/fundamental.itely
 #. @rglos in Documentation/de/user/pitches.itely
+#. @rglos in Documentation/ja/user/fundamental.itely
 msgid "ambitus"
 msgstr "音域 (ambitus)"
 
@@ -3098,8 +3139,6 @@ msgstr ""
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
-#. @node in Documentation/fr/user/tweaks.itely
-#. @subsection in Documentation/fr/user/tweaks.itely
 #. @node in Documentation/es/user/tweaks.itely
 #. @subsection in Documentation/es/user/tweaks.itely
 #. @node in Documentation/de/user/tweaks.itely
@@ -3476,8 +3515,6 @@ msgstr ""
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
-#. @node in Documentation/fr/user/working.itely
-#. @subsection in Documentation/fr/user/working.itely
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Updating old input files"
@@ -8807,92 +8844,92 @@ msgstr ""
 msgid "Changing spacing"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:1990 (comment)
+#. Documentation/user/changing-defaults.itely:1991 (comment)
 msgid "increase the length of the tie"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:1999 (comment)
+#. Documentation/user/changing-defaults.itely:2000 (comment)
 msgid "increase the length of the rest bar"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2007 (comment)
+#. Documentation/user/changing-defaults.itely:2008 (comment)
 msgid "increase the length of the hairpin"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2035 (comment)
+#. Documentation/user/changing-defaults.itely:2036 (comment)
 msgid "default"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2038 (comment)
-#. Documentation/user/changing-defaults.itely:2051 (comment)
+#. Documentation/user/changing-defaults.itely:2039 (comment)
+#. Documentation/user/changing-defaults.itely:2052 (comment)
 msgid "not effective alone"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2042 (comment)
-#. Documentation/user/changing-defaults.itely:2055 (comment)
+#. Documentation/user/changing-defaults.itely:2043 (comment)
+#. Documentation/user/changing-defaults.itely:2056 (comment)
 msgid "effective only when both overrides are present"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2430 (comment)
+#. Documentation/user/changing-defaults.itely:2431 (comment)
 msgid "Remove bar line at the end of the current line"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2476 (comment)
+#. Documentation/user/changing-defaults.itely:2477 (comment)
 msgid "Try to remove all key signatures"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2896 (comment)
+#. Documentation/user/changing-defaults.itely:2897 (comment)
 msgid "move horizontally left"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2898 (comment)
+#. Documentation/user/changing-defaults.itely:2899 (comment)
 msgid "move vertically up"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2899 (comment)
+#. Documentation/user/changing-defaults.itely:2900 (comment)
 msgid "third finger"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2948 (comment)
-#. Documentation/user/changing-defaults.itely:2980 (comment)
+#. Documentation/user/changing-defaults.itely:2949 (comment)
+#. Documentation/user/changing-defaults.itely:2981 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:39 (comment)
 msgid "the RehearsalMark will be centered above the Clef"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2954 (comment)
+#. Documentation/user/changing-defaults.itely:2955 (comment)
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:46 (comment)
 msgid "the RehearsalMark will be centered above the TimeSignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2974 (comment)
+#. Documentation/user/changing-defaults.itely:2975 (comment)
 msgid "the RehearsalMark will be centered above the Key Signature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:2994 (comment)
+#. Documentation/user/changing-defaults.itely:2995 (comment)
 msgid "The RehearsalMark will be centered above the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:3001 (comment)
-#. Documentation/user/changing-defaults.itely:3017 (comment)
-#. Documentation/user/changing-defaults.itely:3024 (comment)
+#. Documentation/user/changing-defaults.itely:3002 (comment)
+#. Documentation/user/changing-defaults.itely:3018 (comment)
+#. Documentation/user/changing-defaults.itely:3025 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the left edge of the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:3006 (comment)
+#. Documentation/user/changing-defaults.itely:3007 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the right edge of the KeySignature"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:3018 (comment)
+#. Documentation/user/changing-defaults.itely:3019 (comment)
 msgid "and then shifted right by 3.5 staff-spaces"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:3025 (comment)
+#. Documentation/user/changing-defaults.itely:3026 (comment)
 msgid "and then shifted left by 2 staff-spaces"
 msgstr ""
 
-#. Documentation/user/changing-defaults.itely:3073 (variable)
+#. Documentation/user/changing-defaults.itely:3074 (variable)
 msgid "XinO"
 msgstr ""
 
@@ -9824,6 +9861,8 @@ msgstr ""
 
 #. @node in Documentation/user/notation-appendices.itely
 #. @appendixsec in Documentation/user/notation-appendices.itely
+#. @node in Documentation/fr/user/notation-appendices.itely
+#. @appendixsec in Documentation/fr/user/notation-appendices.itely
 #. @node in Documentation/es/user/notation-appendices.itely
 #. @appendixsec in Documentation/es/user/notation-appendices.itely
 #. @node in Documentation/de/user/notation-appendices.itely
@@ -9999,13 +10038,51 @@ msgid "Cheat sheet"
 msgstr ""
 
 #. @top in Documentation/fr/user/lilypond-learning.tely
-#. @top in Documentation/ja/user/lilypond-learning.tely
-msgid "GNU LilyPond --- Learning"
-msgstr "GNU LilyPond --- 学習マニュアル"
+#, fuzzy
+msgid "GNU LilyPond --- Manuel d'initiation"
+msgstr "GNU LilyPond --- アプリケーション使用方法"
 
 #. @subsubheading in Documentation/fr/user/macros.itexi
 #. @subsubheading in Documentation/de/user/macros.itexi
 msgid "Commonly tweaked properties"
+msgstr ""
+
+#. @subheading in Documentation/fr/user/tutorial.itely
+msgid "Hauteurs"
+msgstr ""
+
+#. @subheading in Documentation/fr/user/tutorial.itely
+msgid "Durées et rythme"
+msgstr ""
+
+#. @subheading in Documentation/fr/user/tutorial.itely
+msgid "Silences"
+msgstr ""
+
+#. @subheading in Documentation/fr/user/tutorial.itely
+msgid "Métrique"
+msgstr ""
+
+#. @subheading in Documentation/fr/user/tutorial.itely
+msgid "Tout ensemble"
+msgstr ""
+
+#. @subheading in Documentation/fr/user/tutorial.itely
+msgid "Exemples cliquables"
+msgstr ""
+
+#. @node in Documentation/fr/user/tweaks.itely
+#. @subsection in Documentation/fr/user/tweaks.itely
+msgid "Outside staff objects"
+msgstr ""
+
+#. @node in Documentation/fr/user/working.itely
+#. @subsection in Documentation/fr/user/working.itely
+#. @node in Documentation/es/user/working.itely
+#. @subsection in Documentation/es/user/working.itely
+#. @node in Documentation/de/user/working.itely
+#. @subsection in Documentation/de/user/working.itely
+msgid "Updating old files"
 msgstr ""
 
 #. @top in Documentation/fr/user/lilypond-program.tely
@@ -10252,13 +10329,6 @@ msgstr "自動譜刻"
 msgid "Suggestions for writing LilyPond files"
 msgstr ""
 
-#. @node in Documentation/es/user/working.itely
-#. @subsection in Documentation/es/user/working.itely
-#. @node in Documentation/de/user/working.itely
-#. @subsection in Documentation/de/user/working.itely
-msgid "Updating old files"
-msgstr ""
-
 #. @top in Documentation/es/user/lilypond-program.tely
 msgid "GNU LilyPond: Manual de utilización del programa"
 msgstr ""
@@ -10297,6 +10367,10 @@ msgstr ""
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Using the @code{break-aligned-interface}"
+msgstr ""
+
+#. @top in Documentation/ja/user/lilypond-learning.tely
+msgid "GNU LilyPond --- 学習マニュアル"
 msgstr ""
 
 #. input/lsr/accordion-discant-symbols.ly:34 (variable)
@@ -12914,3 +12988,18 @@ msgstr "脚注"
 
 msgid "Table of Contents"
 msgstr "目次"
+
+# added by Sawada
+#~ msgid "Contents"
+#~ msgstr "目次"
+
+# added by Sawada
+#~ msgid "Index"
+#~ msgstr "インデックス"
+
+# added by Sawada
+#~ msgid "Up"
+#~ msgstr "上へ"
+
+#~ msgid "GNU LilyPond --- Learning"
+#~ msgstr "GNU LilyPond --- 学習マニュアル"
