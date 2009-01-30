@@ -71,6 +71,30 @@ A snap-pizzicato (also known as Bartok-pizzicato) articulation was added:
 @end lilypond
 
 @item
+Tuplet number formatting functions are now available to print other fractions and to add notes to the number or fraction:
+@lilypond[quote]
+\relative c'' {
+  \once \override TupletNumber #'text = #(tuplet-number::non-default-tuplet-denominator-text 7)
+  \times 2/3  { c4. c4. c4. c4. } % begin verbatim
+
+  \once \override TupletNumber #'text = #(tuplet-number::non-default-tuplet-fraction-text 12 7)
+  \times 2/3  { c4. c4. c4. c4. }
+  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper (tuplet-number::non-default-tuplet-fraction-text 12 7) "8")
+  \times 2/3  { c4. c4. c4. c4. }
+
+  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper tuplet-number::calc-denominator-text "4")
+  \times 2/3  { c8 c8 c8 c8 c8 c8 }
+  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper tuplet-number::calc-fraction-text "4")
+  \times 2/3  { c8 c8 c8 c8 c8 c8 }
+
+  \once \override TupletNumber #'text = #(tuplet-number::fraction-with-notes "4." "8")
+  \times 2/3  { c4. c4. c4. c4. }
+  \once \override TupletNumber #'text = #(tuplet-number::non-default-fraction-with-notes 12 "8" 4 "4")
+  \times 2/3  { c4. c4. c4. c4. }
+}
+@end lilypond
+
+@item
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
 

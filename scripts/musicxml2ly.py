@@ -743,7 +743,7 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     actual_type = tuplet_elt.get_actual_type ()
     if actual_type:
         actual_note = musicexp.Duration ()
-        (actual_note.duration_log, actual_note.dots) = normal_type
+        (actual_note.duration_log, actual_note.dots) = actual_type
         tsm.actual_type = actual_note
 
     # Obtain non-default nrs of notes from the tuplet object!
@@ -761,14 +761,8 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     display_values = {"none": None, "actual": "actual", "both": "both"}
     if hasattr (tuplet_elt, "show-number"):
         tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
-    if tsm.display_number == "actual" and tsm.display_denominator:
-        needed_additional_definitions.append ("tuplet-non-default-denominator")
-    elif tsm.display_number == "both" and (tsm.display_numerator or tsm.display_denominator):
-        needed_additional_definitions.append ("tuplet-non-default-fraction")
 
     if hasattr (tuplet_elt, "show-type"):
-        if getattr (tuplet_elt, "show-type") == "actual":
-            needed_additional_definitions.append ("tuplet-note-wrapper")
         tsm.display_type = display_values.get (getattr (tuplet_elt, "show-type"), None)
 
     return tsm

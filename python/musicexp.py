@@ -508,13 +508,25 @@ class TimeScaledMusic (MusicWrapper):
                 (base_number_function, base_duration))
             func.newline ()
         elif self.display_type == "both": # TODO: Implement this using actual_type and normal_type!
-            warning (_ ("Tuplet brackets displaying both note durations are not implemented, using default"))
             if self.display_number == None:
                 func ("\\once \\override TupletNumber #'stencil = ##f")
                 func.newline ()
             elif self.display_number == "both":
-                func ("\\once \\override TupletNumber #'text = #%s" % base_number_function)
-                func.newline ()
+                den_duration = self.normal_type.ly_expression (None, True)
+                # If we don't have an actual type set, use the normal duration!
+                if self.actual_type:
+                    num_duration = self.actual_type.ly_expression (None, True)
+                else:
+                    num_duration = den_duration
+                if (self.display_denominator or self.display_numerator):
+                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::non-default-fraction-with-notes %s \"%s\" %s \"%s\")" % 
+                                (self.display_denominator, den_duration,
+                                 self.display_numerator, num_duration))
+                    func.newline ()
+                else:
+                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::fraction-with-notes \"%s\" \"%s\")" % 
+                                (den_duration, num_duration))
+                    func.newline ()
         else:
             if self.display_number == None:
                 func ("\\once \\override TupletNumber #'stencil = ##f")

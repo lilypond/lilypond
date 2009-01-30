@@ -247,6 +247,9 @@ see @ref{Scaling durations}.
 {changing-the-tuplet-number.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{non-default-tuplet-numbers.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 
