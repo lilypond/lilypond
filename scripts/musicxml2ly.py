@@ -2318,8 +2318,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if len (endslurs) > 1:
                     endslurs[0].message (_ ('Cannot have two simultaneous (closing) slurs'))
                 # record the slur status for the next note in the loop
-                if not grace:
-                    inside_slur = False
+                inside_slur = False
                 lily_ev = musicxml_spanner_to_lily_event (endslurs[0])
                 ev_chord.append (lily_ev)
 
@@ -2331,8 +2330,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if len (startslurs) > 1:
                     startslurs[0].message (_ ('Cannot have two simultaneous slurs'))
                 # record the slur status for the next note in the loop
-                if not grace:
-                    inside_slur = True
+                inside_slur = True
                 lily_ev = musicxml_spanner_to_lily_event (startslurs[0])
                 ev_chord.append (lily_ev)
 
