@@ -62,6 +62,15 @@ which scares away people.
 
 @end ignore
 
+@item An eyeglasses markup was added, incidating strongly to look at the 
+conductor for instructions:
+@lilypond[quote]
+\relative c'' {
+  \mark \markup {\eyeglasses}
+  c4_\markup{\eyeglasses}
+}
+@end lilypond
+
 @item
 A snap-pizzicato (also known as Bartok-pizzicato) articulation was added:
 @lilypond[quote]
