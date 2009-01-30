@@ -63,8 +63,17 @@ which scares away people.
 @end ignore
 
 @item
+A snap-pizzicato (also known as Bartok-pizzicato) articulation was added:
+@lilypond[quote]
+\relative c'' {
+  c\snappizzicato
+}
+@end lilypond
+
+@item
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
+
 
 
 @end itemize

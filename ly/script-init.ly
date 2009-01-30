@@ -52,4 +52,5 @@ downprall = #(make-articulation "downprall")
 segno = #(make-articulation "segno")
 coda = #(make-articulation "coda")
 varcoda = #(make-articulation "varcoda")
+snappizzicato = #(make-articulation "snappizzicato")
 

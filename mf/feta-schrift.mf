@@ -1557,4 +1557,54 @@ fet_beginchar ("Straight caesura", "caesura.straight");
 	labels(1a, 1b, 2a, 2b, 3a, 3b, 4a, 4b);
 fet_endchar;
 
+
+fet_beginchar ("snap pizzicato (Bartok pizzicato)", "snappizzicato");
+	save height, width, thickness, superness;
+
+	height# = 4/15 staffsize#;
+	width# = height#;
+	thickness# = 1.3 linethickness#;
+	define_pixels (height, width);
+	define_whole_blacker_pixels (thickness);
+
+	set_char_box (width# / 2, width# / 2, height# / 2, height# / 2);
+
+	penpos1 (thickness, 90);
+	penpos2 (thickness, 180);
+	penpos3 (thickness, 270);
+	penpos4 (thickness, 0);
+
+	x1 = 0;
+	y1r = h;
+	x3 = x1;
+	y3r = -y1r;
+	x4r = w;
+	y4 = 0;
+	x2r = -x4r;
+	y2 = y4;
+
+	penlabels (1, 2, 3, 4);
+
+	% mf doesn't handle pixel dropouts in outline objects, so we use
+	% `draw' if not called by mpost
+	if known miterlimit:
+		penstroke z1e
+			  .. z2e
+			  .. z3e
+			  .. z4e
+			  .. cycle;
+	else:
+		pickup pencircle scaled thickness;
+		draw z1
+		     .. z2
+		     .. z3
+		     .. z4
+		     .. cycle;
+	fi;
+	z5 = (0, 0);
+	z6 = (x5, 1.5*y1r);
+	pickup pencircle scaled thickness;
+        draw z5 -- z6;
+fet_endchar;
+
 fet_endgroup ("scripts");

@@ -45,17 +45,6 @@ def error_message (str):
 needed_additional_definitions = []
 additional_definitions = {
 
-  "snappizzicato": """#(define-markup-command (snappizzicato layout props) ()
-  (interpret-markup layout props
-    (markup #:stencil
-      (ly:stencil-translate-axis
-        (ly:stencil-add
-          (make-circle-stencil 0.7 0.1 #f)
-          (ly:make-stencil
-            (list 'draw-line 0.1 0 0.1 0 1)
-            '(-0.1 . 0.1) '(0.1 . 1)))
-        0.7 X))))""",
-
   "eyeglasses": """eyeglassesps = #"0.15 setlinewidth
       -0.9 0 translate
       1.1 1.1 scale
@@ -1144,12 +1133,6 @@ def musicxml_fingering_event (mxl_event):
     ev.type = mxl_event.get_text ()
     return ev
 
-def musicxml_snappizzicato_event (mxl_event):
-    needed_additional_definitions.append ("snappizzicato")
-    ev = musicexp.MarkupEvent ()
-    ev.contents = "\\snappizzicato"
-    return ev
-
 def musicxml_string_event (mxl_event):
     ev = musicexp.NoDirectionArticulationEvent ()
     ev.type = mxl_event.get_text ()
@@ -1211,7 +1194,7 @@ articulations_dict = {
     #"schleifer": "?",
     #"scoop": "?",
     #"shake": "?",
-    "snap-pizzicato": musicxml_snappizzicato_event,
+    "snap-pizzicato": "snappizzicato",
     #"spiccato": "?",
     "staccatissimo": (musicexp.ShortArticulationEvent, "|"), # or "staccatissimo"
     "staccato": (musicexp.ShortArticulationEvent, "."), # or "staccato"
