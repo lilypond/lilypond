@@ -13,16 +13,91 @@
 @node Introduction to LSR
 @section Introduction to LSR
 
+The
+@uref{http://lsr.dsi.unimi.it/, LilyPond Snippet Repository (LSR)}
+is a collection of lilypond examples.  A subset of these examples
+are automatically imported into the documentation, making it easy
+for users to contribute to the docs without learning git and
+texinfo.
+
 
 @node Adding snippets
 @section Adding snippets
+
+When you create (or find!) a nice snippet, please add it to LSR.
+Go to @uref{http://lsr.dsi.unimi.it/, LSR} and log in (if you
+haven't already, create an account).  Follow the instructions on
+the website.
+
+If you think the snippet is particularly informative and you think
+it should be included in the documentation, tag it with "docs" and
+one or more other categories.
+
+Please make sure that the lilypond code follows the guidelines in
+@ref{LilyPond formatting}.
 
 
 @node Approving snippets
 @section Approving snippets
 
+The main task of LSR editors are approving snippets.  Log in to
+@uref{http://lsr.dsi.unimi.it/, LSR} and find a list of unapproved
+snippets by
+FIXME DOING SOMETHING.
+
+Check each snippet:
+
+@enumerate
+
+@item
+Does the snippet make sense and does what the author claims that
+it does?  If you think the snippet is particularly helpful, add
+the "docs" tag and at least one other tag.
+
+@item
+If the snippet is tagged with "docs", check to see if it matches
+our guidelines for @ref{LilyPond formatting}.
+
+@item
+If the snippet uses scheme, check that everything looks good and
+there are no security risks.
+
+@warning{Somebody could sneak a @code{#'(system "rm -rf /")}
+command into our source tree if you do not do this!  Take this
+step @strong{VERY SERIOUSLY}.}
+
+@end enumerate
+
 
 @node LSR to git
 @section LSR to git
 
+FIXME: Neil, please check that this is up-to-date.
+
+@enumerate
+
+@item
+Download the latest tarball from
+@uref{http://lsr.dsi.unimi.it/download/}.  You want a file called
+@file{lsr-snippets-docs-DATE.tar.gz}.
+
+@item
+From the top source directory, run:
+
+@example
+scripts/auxiliar/makelsr.py 
+@end example
+
+@item
+Follow the instructions on the console to manually check for
+unsafe files.  
+
+@warning{Somebody could sneak a @code{#'(system "rm -rf /")}
+command into our source tree if you do not do this!  Take this
+step @strong{VERY SERIOUSLY}.}
+
+@item
+Do a git add / commit / push.
+
+@end enumerate
 

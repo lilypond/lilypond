@@ -55,6 +55,19 @@ limited documentation help.
 @node Texinfo crash course
 @section Texinfo crash course
 
+@menu
+* Texinfo introduction::        
+* Sectioning commands::         
+* LilyPond formatting::         
+* Text formatting::             
+* Syntax survey::               
+* Other text concerns::         
+@end menu
+
+
+@node Texinfo introduction
+@subsection Texinfo introduction
+
 The language is called texinfo; you can see its manual here:
 @uref{http://www.gnu.org/software/texinfo/manual/texinfo/}
 
@@ -68,6 +81,7 @@ You can learn most of what you need to know from this; if you want
 to do anything fancy, discuss it on @code{lilypond-devel} first.}
 
 
+@node Sectioning commands
 @subsection Sectioning commands
 
 Most of the manual operates at the
@@ -98,7 +112,7 @@ ode.
 @end itemize
 
 
-
+@node LilyPond formatting
 @subsection LilyPond formatting
 
 @itemize
@@ -236,6 +250,7 @@ Documentation Editor.
 @end itemize
 
 
+@node Text formatting
 @subsection Text formatting
 
 @itemize
@@ -367,6 +382,7 @@ enclose it with
 @end itemize
 
 
+@node Syntax survey
 @subsection Syntax survey
 
 @itemize
@@ -427,6 +443,7 @@ B ... @@end itemize - for bulleted lists.
 
 
 
+@node Other text concerns
 @subsection Other text concerns
 
 @itemize
@@ -484,7 +501,15 @@ that all such characters appear in all output formats.
 @node Documentation policy
 @section Documentation policy
 
+@menu
+* Books::                       
+* Section organization::        
+* Checking cross-references::   
+* General writing::             
+* Technical writing style::     
+@end menu
 
+@node Books
 @subsection Books
 
 There are four parts to the documentation: the Learning Manual,
@@ -566,6 +591,7 @@ automagically generated from the source, but this is its name.
 @end itemize
 
 
+@node Section organization
 @subsection Section organization
 
 @itemize
@@ -657,6 +683,7 @@ but other than that all material goes into third-level sections
 @end itemize
 
 
+@node Checking cross-references
 @subsection Checking cross-references
 
 Cross-references between different manuals are heavily used in the
@@ -671,6 +698,7 @@ cross-references in the generated documentation such as the
 Internals Reference; e.g. you can grep scm/ and lily/.
 
 
+@node General writing
 @subsection General writing
 
 @itemize
@@ -735,6 +763,7 @@ chord construct   NOT chord (when referring to <>)
 @end itemize
 
 
+@node Technical writing style
 @subsection Technical writing style
 
 These refer to the NR.  The LM uses a more gentle, colloquial
