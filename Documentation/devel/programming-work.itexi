@@ -1,14 +1,14 @@
-@c -*- coding: us-ascii; mode: texinfo; -*
-de
+@c -*- coding: us-ascii; mode: texinfo; -*-
 @node Programming work
 @chapter Programming work
 
 @menu
-* Introduction to programming:: 
-* Programming without compiling::
-* Finding functions::
-* Code style:: 
-* Debugging LilyPond::
+* Introduction to programming::  
+* Programming without compiling::  
+* Finding functions::           
+* Code style::                  
+* Debugging LilyPond::          
+* other stuff::                 
 @end menu
 
 
@@ -493,5 +493,19 @@ define ps
      print ly_display_scm($arg0->mutable_property_alist_) 
      print ly_display_scm($arg0->immutable_property_alist_) 
   end 
-
 @end example
+
+
+
+
+
+@node other stuff
+@section other stuff
+
+Copied from an email from Carl.  Maybe already included.
+
+- how to use a debugger with lilypond.
+
+- how to get lilypond running and pause at a guile prompt
+
+- brief overview of how lilypond processes a file.

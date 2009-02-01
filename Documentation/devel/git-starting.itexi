@@ -41,8 +41,6 @@ skip to @ref{Git on Windows}.}
 
 To get the main source code and documentation,
 
-FIXME: test this!!!
-
 @example
 mkdir lilypond; cd lilypond
 git init-db
@@ -55,8 +53,6 @@ git checkout -b master origin/master
 @subsection Website source code
 
 To get the website (including translations),
-
-FIXME: test this!!!
 
 @example
 mkdir lilypond-web ; cd lilypond-web
@@ -71,12 +67,11 @@ git checkout -b web origin/web
 
 To translate the documentation (@emph{not} the website),
 
-FIXME: change!!!
-
+@c TODO this runs off the side of the page in pdf.  :(
 @example
-mkdir lilypond-translate; cd lilypond-translate
+mkdir lilypond-translation; cd lilypond-translation
 git init-db
-git remote add -f -t web -m web origin git://git.sv.gnu.org/lilypond.git/
+git remote add -f -t lilypond/translation -m lilypond/translation origin git://git.sv.gnu.org/lilypond.git/
 git checkout -b web origin/web
 @end example
 
@@ -91,7 +86,9 @@ you wish to do so, you will need more familiarity with git.
 
 @item @code{gub}:
 This stores the Grand Unified Binary, our cross-platform building
-tool.  For more info, see @uref{http://lilypond.org/gub}.  The git
+tool.  
+@c TODO: merge the gub stuff with this CG.
+For more info, see @uref{http://lilypond.org/gub}.  The git
 location is:
 
 @example
@@ -116,13 +113,14 @@ If you have difficulty connecting to most of the repositories
 listed in earlier sections, try:
 
 @example
-git://git.sv.gnu.org/lilypond.git
 http://git.sv.gnu.org/r/lilypond.git
+git://git.sv.gnu.org/lilypond.git
 ssh://git.sv.gnu.org/srv/git/lilypond.git
 @end example
 
 @warning{The @code{git://} and @code{ssh://} URLs are intended for
 advanced git users.}
+
 
 @node Git user configuration
 @subsection Git user configuration
@@ -132,7 +130,7 @@ for patches,
 
 @example
 git config --global user.name "MYNAME"
-git config --global user.email myemail@@example.net
+git config --global user.email MYEMAIL@@EXAMPLE.NET
 @end example
 
 
@@ -180,7 +178,8 @@ together.  When this happens, you must manually merge the two
 versions.
 
 @example
-TODO
+FIXME: what the mao should people do?!?!  Personally, I just break
+down and cry.  -gp
 @end example
 
 
@@ -263,7 +262,7 @@ policy}, and checked that the entire thing compiles, you may
 
 @example
 git commit -a 
-git-format-patch HEAD
+git format-patch origin
 @end example
 
 Send an email to @email{lilypond-devel@@gnu.org} with the diff as
@@ -316,14 +315,14 @@ available in the appropriate distribution's repositories.}
 Well-formed git patches should be committed with
 
 @example
-git-am
+git am
 @end example
 
-Patches created without @code{git-format-patch} should be
+Patches created without @code{git format-patch} should be
 committed with
 
 @example
-git-apply
+git apply
 @end example
 
 
@@ -596,14 +595,13 @@ cd [path]/Git
 if necessary, then produce the patch with
 
 @example
-git-format-patch -n
+git format-patch origin
 @end example
 
-where n an integer, normally 1.  This will create a
-patch file for all the locally committed files which differ
-from @w{origin/master}.  The patch file can be found in
-[path]/Git and will have a name formed from n and the
-commit message.
+This will create a patch file for all the locally committed files
+which differ from @w{origin/master}.  The patch file can be found
+in [path]/Git and will have a name formed from n and the commit
+message.
 
 @subsection Resolving merge conflicts
 

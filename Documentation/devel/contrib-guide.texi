@@ -14,42 +14,24 @@
 
 @afourpaper
 
-@c  Keep this here, since it pertains to the direntry below.
-@ignore
-Distributions will want to install lilypond.info in postinstall, doing:
-
-    install-info --info-dir=/usr/share/info out[-www]/lilypond.info
-
-  * Prepend GNU for dir, must be unique.
-
-  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
-    goes to Top.
-
-  * List all commands in direntry.
-
-@c  * lilypond: (lilypond/lilypond)Running LilyPond.      Invoking the
-@c    LilyPond  program.
-@end ignore
-
-
 @ifnottex
 @node Top
 @top GNU LilyPond --- Contributor's Guide
 @chapheading The music typesetter
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @end ifnottex
 
 
 @ifhtml
 @ifclear bigpage
 This document is also available as a
-@uref{source/Documentation/user/lilypond.pdf,PDF} and as
-@uref{source/Documentation/user/lilypond-big-page.html,one big page}.
+@uref{source/Documentation/devel/contrib-guide.pdf,PDF} and as
+@c FIXME: update @uref{} stuff.
+@uref{source/Documentation/devel/,one big page}.
 @end ifclear
 @ifset bigpage
 This document is also available as a
-@uref{source/Documentation/user/lilypond.pdf,PDF} and as a
-@uref{source/Documentation/user/lilypond/index.html,HTML indexed multiple pages}.
+@uref{source/Documentation/devel/contrib-guide.pdf,PDF} and as a
+@uref{source/Documentation/devel/contrib-guide/index.html,HTML indexed multiple pages}.
 @end ifset
 @end ifhtml
 
@@ -92,7 +74,7 @@ Free Documentation License''.
 @end copying
 
 @ifnottex
-This file documents GNU LilyPond.
+This file documents contributing to GNU LilyPond.
 
 Copyright 1999--2008 by the authors
 
@@ -107,14 +89,10 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-For more information about how this fits with the other
-
-@cindex web site
-@cindex URL
 
 More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
-of this and other documentation.
+@uref{http://@/www@/.lilypond@/.org/}.  The website contains
+on-line copies of this and other documentation.
 
 @menu
 * Starting with git::
