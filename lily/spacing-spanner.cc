@@ -303,7 +303,8 @@ Spacing_spanner::generate_springs (Grob *me,
       prev = col;
     }
 
-  set_column_rods (cols, 0.1); // FIXME: padding
+  Real padding = robust_scm2double (prev->get_property ("padding"), 0.1);
+  set_column_rods (cols, padding);
 }
 
 /*
