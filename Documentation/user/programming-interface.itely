@@ -1499,7 +1499,7 @@ and @code{PaperColumn}.  They can be changed with the
 @end example
 
 Note, however, that @code{\override}, applied to
-@code{NoteMusicalPaperColumn} and @code{PaperColumn}, still works as
+@code{NonMusicalPaperColumn} and @code{PaperColumn}, still works as
 expected within @code{\context} blocks.
 
 @end itemize
