@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: c7d6848e128f461a4cec093f7a71a34b2dc314eb
+    Translation of GIT committish: f2bae9bceb818cad5bacc86c15114156b2cd5cc9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -68,6 +68,45 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+@item
+Los diagramas de posiciones ahora pueden tener cuerdas de grosor variable:
+@lilypond[quote]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+    \chordmode {
+      c1
+    }
+  }
+  \new FretBoards {
+    \override FretBoard #'fret-diagram-details
+      #'string-thickness-factor = #0.3
+    \chordmode {
+      c1
+    }       
+  }
+>>
+@end lilypond
+
+@item
+Se dispone de una nueva orientación para los diagramas de posiciones, opposing-landscape (apaisado en oposición):
+@lilypond[quote]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+    \chordmode {
+      c1
+    }
+  }
+  \new FretBoards {
+    \override FretBoard #'fret-diagram-details
+      #'orientation = #'opposing-landscape
+    \chordmode {
+      c1
+    }       
+  }
+>>
+@end lilypond
 
 @item
 Ahora se contemplan las garrapateas sueltas:
