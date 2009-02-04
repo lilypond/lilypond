@@ -68,7 +68,7 @@ $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<
 
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
-	$(buildscript-dir)/extract_texi_filenames -o $(XREF_MAPS_DIR) $<
+	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -o $(XREF_MAPS_DIR) $<
 
 $(outdir)/%.texi: %.texi
 	cp -f $< $@
