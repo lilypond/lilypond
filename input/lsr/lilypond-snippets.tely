@@ -15,11 +15,18 @@
 
 @include version.itexi
 
+@ifnothtml
 @macro lydoctitle{TEXT}
 @unnumberedsec \TEXT\
 @end macro
+@end ifnothtml
 
 @ifhtml
+
+@macro lydoctitle{TEXT}
+@node \TEXT\
+@unnumberedsec \TEXT\
+@end macro
 
 @ifset bigpage
 
