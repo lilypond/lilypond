@@ -26,7 +26,6 @@ endif
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
-ifeq (,$(findstring texi2html,$(MISSING_OPTIONAL)))
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
@@ -40,17 +39,6 @@ $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/v
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
-else # Rules using makeinfo follow
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
-	$(MAKEINFO) -I$(src-dir) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
-
-$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.itexi
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
-
-$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
-	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
-endif
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
