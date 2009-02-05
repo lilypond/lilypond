@@ -1448,7 +1448,11 @@ By default, beams are inserted automatically:
 @end lilypond
 
 If these automatic decisions are not satisfactory, beaming can be
-entered explicitly; see @ref{Manual beams}.  It is also possible
+entered explicitly; see @ref{Manual beams}.  Beams must also be
+entered manually in the same way if beams are to be extended over
+rests.
+
+It is possible
 to define beaming patterns that differ from the defaults.  The
 default beaming rules for most common time signatures are defined
 in @file{scm/@/auto@/-beam@/.scm}.  If there are no beaming rules
