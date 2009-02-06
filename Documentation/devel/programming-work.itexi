@@ -289,10 +289,10 @@ output strings (PostScript, TeX, etc.)
 Messages to be localised must be encapsulated in `_ (STRING)' or
 `_f (FORMAT, ...)'. E.g.:
 
-@verbatim
-      warning (_ ("need music in a score"));
-      error (_f ("cannot open file: `%s'", file_name));
-@end verbatim
+@example
+warning (_ ("need music in a score"));
+error (_f ("cannot open file: `%s'", file_name));
+@end example
     
 In some rare cases you may need to call `gettext ()' by hand. This
 happens when you pre-define (a list of) string constants for later
@@ -300,19 +300,19 @@ use. In that case, you'll probably also need to mark these string
 constants for translation, using `_i (STRING)'. The `_i' macro is
 a no-op, it only serves as a marker for `xgettext'.
 
-@verbatim
+@example
 char const* messages[] = {
-_i ("enable debugging output"),
-_i ("ignore lilypond version"),
-0
+  _i ("enable debugging output"),
+  _i ("ignore lilypond version"),
+  0
 };
 
 void
 foo (int i)
 {
-puts (gettext (messages i));
+  puts (gettext (messages i));
 }
-@end verbatim
+@end example
     
 See also `flower/getopt-long.cc' and `lily/main.cc'.
 
@@ -321,27 +321,27 @@ Do not use leading or trailing whitespace in messages. If you need
 whitespace to be printed, prepend or append it to the translated
 message
 
-@verbatim
+@example
 message ("Calculating line breaks..." + " ");
-@end verbatim
+@end example
 
 @item
 Error or warning messages displayed with a file name and line
 number never start with a capital, eg,
 
-@verbatim
+@example
 foo.ly: 12: not a duration: 3
-@end verbatim
+@end example
       
 Messages containing a final verb, or a gerund (`-ing'-form) always
 start with a capital. Other (simpler) messages start with a
 lowercase letter
 
-@verbatim
+@example
 Processing foo.ly...
 `foo': not declared.
 Not declaring: `foo'.
-@end verbatim
+@end example
     
 @item
 Avoid abbreviations or short forms, use `cannot' and `do not'
@@ -350,53 +350,53 @@ To avoid having a number of different messages for the same
 situation, we'll use quoting like this `"message: `%s'"' for all
 strings. Numbers are not quoted:
 
-@verbatim
+@example
 _f ("cannot open file: `%s'", name_str)
 _f ("cannot find character number: %d", i)
-@end verbatim
+@end example
     
 @item
 Think about translation issues. In a lot of cases, it is better to
 translate a whole message. The english grammar mustn't be imposed
 on the translator. So, instead of
 
-@verbatim
+@example
 stem at  + moment.str () +  does not fit in beam
-@end verbatim
+@end example
     
 have
 
-@verbatim
+@example
 _f ("stem at %s does not fit in beam", moment.str ())
-@end verbatim
+@end example
     
 @item
 Split up multi-sentence messages, whenever possible. Instead of
 
-@verbatim
+@example
 warning (_f ("out of tune!  Can't find: `%s'", "Key_engraver"));
 warning (_f ("cannot find font `%s', loading default", font_name));
-@end verbatim
+@end example
     
 rather say:
 
-@verbatim
-warning (out of tune:;
+@example
+warning (_ ("out of tune:"));
 warning (_f ("cannot find: `%s', "Key_engraver"));
 warning (_f ("cannot find font: `%s', font_name));
 warning (_f ("Loading default font"));
-@end verbatim
+@end example
     
 @item
 If you must have multiple-sentence messages, use full punctuation.
 Use two spaces after end of sentence punctuation. No punctuation
 (esp. period) is used at the end of simple messages.
 
-@verbatim
-      _f ("Non-matching braces in text `%s', adding braces", text)
-      Debug output disabled.  Compiled with NPRINT.
-      _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
-@end verbatim
+@example
+_f ("Non-matching braces in text `%s', adding braces", text)
+_ ("Debug output disabled.  Compiled with NPRINT.")
+_f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
+@end example
     
 @item
 Do not modularise too much; words frequently cannot be translated
@@ -410,12 +410,12 @@ This especially applies to frequently used messages, even if this
 would mean sacrificing a bit of eloquency. This holds for original
 messages too, of course.
 
-@verbatim
-      en: cannot open: `foo.ly'
-      +   nl: kan `foo.ly' niet openen (1)
-      kan niet openen: `foo.ly'*   (2)
-      niet te openen: `foo.ly'*    (3)
-@end verbatim
+@example
+en: cannot open: `foo.ly'
++   nl: kan `foo.ly' niet openen (1)
+kan niet openen: `foo.ly'*   (2)
+niet te openen: `foo.ly'*    (3)
+@end example
 
     
 The first nl message, although grammatically and stylistically
@@ -469,7 +469,11 @@ TODO -- get compiling description for guile here.
 @subsection Typical .gdbinit files
 
 The behavior of gdb can be readily customized through the use of
-.gdbinit files.  The file below is from Han-Wen.  It sets breakpoints
+@var{.gdbinit} files.  A @var{.gdbinit} file is a file named
+@var{.gdbinit} (notice the @qq{.} at the beginning of the file name)
+  that is placed in a user's home directory.
+
+The @var{.gdbinit} file below is from Han-Wen.  It sets breakpoints
 for all errors and defines functions for displaying scheme objects
 (ps), grobs (pgrob), and parsed music expressions (pmusic).
 
