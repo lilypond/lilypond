@@ -1,5 +1,7 @@
 depth = ../..
 
+XREF_MAP_FLAGS = --split section -I $(abs-src-dir)
+
 STEPMAKE_TEMPLATES = documentation tex texinfo topdocs
 LOCALSTEPMAKE_TEMPLATES = ly
 

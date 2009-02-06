@@ -123,7 +123,7 @@ def hack_urls (s, prefix):
         rel_link = re.sub (r'out-www/.*$', '', prefix)
         rel_link = re.sub (r'[^/]*/', '../', rel_link)
         if 'input/regression' in prefix:
-            indexfile = "Documentation/devel"
+            indexfile = "Documentation/devel/index"
         else:
             indexfile = "index"
         s = docindex_link_re.sub ('href="' + rel_link + indexfile + '.html\"', s)

@@ -1062,14 +1062,10 @@ c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
 
-@c TODO: add \lookup here? -vv
-@c Probably better not to document \lookup, which is useful only for
-@c printing braces, and instead document \left-brace and \right-brace
-@c when these become available  -td
-
 @noindent
-Another way of printing non-text glyphs is described
-in @ref{Fonts explained}.
+Another way of printing non-text glyphs is described in
+@ref{Fonts explained}.  This is useful for printing braces of
+various sizes.
 
 The markup mode also supports diagrams for specific
 instruments:
@@ -1204,6 +1200,7 @@ and how they may be changed in scores.
 
 @cindex Pango
 @cindex fonts, explained
+@cindex braces, various sizes
 @funindex font-interface
 
 Fonts are handled through several libraries.
@@ -1231,8 +1228,17 @@ a1^\markup {
 @end lilypond
 
 @noindent
-A simpler, but more limited syntax is also described in
-@ref{Music notation inside markup}.
+However, all these glyphs except the braces of various sizes
+contained in @code{fetaBraces} are available using the
+simpler syntax described in @ref{Music notation inside markup}.
+
+When using the glyphs contained in @code{fetaBraces}, the size of
+the brace is specified by the numerical part of the glyph name, in
+arbitrary units.  Any integer from @code{0} to @code{575} inclusive
+may be specified, @code{0} giving the smallest brace.  The optimum
+value must be determined by trial and error.  These glyphs are all
+left braces; right braces may be obtained by rotation, see
+@ref{Rotating objects}.
 
 Three families of text fonts are made available: the
 @emph{roman} (serif) font, that defaults to New Century

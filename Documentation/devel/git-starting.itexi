@@ -72,7 +72,7 @@ To translate the documentation (@emph{not} the website),
 mkdir lilypond-translation; cd lilypond-translation
 git init-db
 git remote add -f -t lilypond/translation -m lilypond/translation origin git://git.sv.gnu.org/lilypond.git/
-git checkout -b web origin/web
+git checkout -b lilypond/translation origin/lilypond/translation
 @end example
 
 
@@ -273,14 +273,22 @@ an attachment.
 @subsection Committing directly
 
 Most contributors do not have permission to commit directly.  If
-you do, edit @file{.git/config} to contain
+you do, edit @file{.git/config}:
 
 @example
-FIXME?  Is anything needed, or did the previous commands set it
-up?
+%% Change this line:
+        url = git://git.sv.gnu.org/lilypond.git/
+%% into something like this:
+        url = ssh://gpercival@@git.sv.gnu.org/srv/git/lilypond.git
 @end example
 
-You may then @code{git push}.
+TODO: upload ssh key to somewhere?
+
+You may then
+
+@example
+git push
+@end example
 
 
 @node Other interesting Git commands
