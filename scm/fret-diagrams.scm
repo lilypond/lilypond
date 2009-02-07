@@ -397,8 +397,7 @@ fret & string spacing by @var{size}. Orientation is given by @var{orientation}"
                    dot-pos orientation)
   "Draw a capo indicator across the full width of the fret-board
 at @var{fret}."
-(let* (;(sth (* th size))
-       (capo-thick
+(let* ((capo-thick
          (* size (assoc-get 'capo-thickness details 0.5)))
        (half-thick (* capo-thick 0.5))
        (last-string-pos 0)
@@ -789,9 +788,7 @@ Line thickness is given by @var{th}, fret & string spacing by
            fret-diagram-stencil
            (label-fret 
              layout props string-count fret-range size orientation))))
-    (ly:stencil-aligned-to
-      (ly:stencil-aligned-to fret-diagram-stencil X alignment)
-       Y 0)))
+      (ly:stencil-aligned-to fret-diagram-stencil X alignment)))
 
 (define (fret-parse-definition-string props definition-string)
  "Parse a fret diagram string and return a pair containing:
