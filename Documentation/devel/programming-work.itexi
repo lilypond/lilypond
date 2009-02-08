@@ -301,17 +301,17 @@ constants for translation, using `_i (STRING)'. The `_i' macro is
 a no-op, it only serves as a marker for `xgettext'.
 
 @example
-char const* messages[] = {
+char const* messages[] = @{
   _i ("enable debugging output"),
   _i ("ignore lilypond version"),
   0
-};
+@};
 
 void
 foo (int i)
-{
+@{
   puts (gettext (messages i));
-}
+@}
 @end example
     
 See also `flower/getopt-long.cc' and `lily/main.cc'.
