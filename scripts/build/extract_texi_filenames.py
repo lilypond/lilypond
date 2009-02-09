@@ -26,30 +26,63 @@ import re
 import os
 import getopt
 
-optlist, args = getopt.getopt (sys.argv[1:],'o:')
-files = args
+options_list, files = getopt.getopt (sys.argv[1:],'o:s:hI:',
+                               ['output=', 'split=', 'help', 'include='])
+
+help_text = r"""Usage: %(program_name)s [OPTIONS]... TEXIFILE...
+Extract files names for texinfo (sub)sections from the texinfo files.
+
+Options:
+ -h, --help                     print this help
+ -I, --include=DIRECTORY        append DIRECTORY to include search path
+ -o, --output=DIRECTORY         write .xref-map files to DIRECTORY
+ -s, --split=MODE               split manual according to MODE. Possible values
+                                are section and custom (default)
+"""
+
+def help (text):
+    sys.stdout.write ( text)
+    sys.exit (0)
 
 outdir = '.'
-for x in optlist:
-    if x[0] == '-o':
-        outdir = x[1]
+split = "custom"
+include_path = []
+for opt in options_list:
+    o = opt[0]
+    a = opt[1]
+    if o == '-h' or o == '--help':
+        help (help_text % vars ())
+    if o == '-I' or o == '--include':
+        if os.path.isdir (a):
+            include_path.append (a)
+    elif o == '-o' or o == '--output':
+        outdir = a
+    elif o == '-s' or o == '--split':
+        split = a
+    else:
+        raise Exception ('unknown option: ' + o)
+
 
 if not os.path.isdir (outdir):
     if os.path.exists (outdir):
         os.unlink (outdir)
     os.makedirs (outdir)
 
-include_re = re.compile (r'@include ((?!../lily-).*?)\.texi$', re.M)
+include_re = re.compile (r'@include ((?!../lily-).*?\.i?texi)$', re.M)
 whitespaces = re.compile (r'\s+')
 section_translation_re = re.compile ('^@(node|(?:unnumbered|appendix)\
 (?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|\
-(?:major|chap|(?:sub){0,2})heading|translationof) (.*?)\\s*$', re.MULTILINE)
+(?:major|chap|(?:sub){0,2})heading|translationof|lydoctitle) (.*?)\\s*$', re.MULTILINE)
 
 def expand_includes (m, filename):
-    filepath = os.path.join (os.path.dirname (filename), m.group(1)) + '.texi'
+    filepath = os.path.join (os.path.dirname (filename), m.group(1))
     if os.path.exists (filepath):
         return extract_sections (filepath)[1]
     else:
+        for directory in include_path:
+            filepath = os.path.join (directory, m.group(1))
+            if os.path.exists (filepath):
+                return extract_sections (filepath)[1]
         print "Unable to locate include file " + filepath
         return ''
 
@@ -114,7 +147,26 @@ def remove_texinfo (title):
 def create_texinfo_anchor (title):
     return texinfo_file_name (remove_texinfo (title))
 
-unnumbered_re = re.compile (r'unnumbered.*')
+unnumbered_re = re.compile (r'unnumbered.+|lydoctitle')
+file_name_section_level = {
+    'top': 4,
+    'chapter':3,
+    'unnumbered':3,
+    'appendix':3,
+    'section':2,
+    'unnumberedsec':2,
+    'appendixsec':2,
+    'subsection':1,
+    'unnumberedsubsec':1,
+    'appendixsubsec':1,
+    'subsubsection':0,
+    'unnumberedsubsubsec':0,
+    'appendixsubsubsec':0
+}
+if split in file_name_section_level:
+    splitting_level = file_name_section_level[split]
+else:
+    splitting_level = -1
 def process_sections (filename, lang_suffix, page):
     sections = section_translation_re.findall (page)
     basename = os.path.splitext (os.path.basename (filename))[0]
@@ -129,7 +181,7 @@ def process_sections (filename, lang_suffix, page):
     for sec in sections:
         if sec[0] == "node":
             # Write out the cached values to the file and start a new section:
-            if this_title != '' and this_title != 'Top':
+            if this_title and this_title != 'Top':
                     f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
             had_section = False
             this_title = remove_texinfo (sec[1])
@@ -143,23 +195,30 @@ def process_sections (filename, lang_suffix, page):
                 this_filename = anchor
         else:
             # Some pages might not use a node for every section, so treat this
-            # case here, too: If we already had a section and encounter enother
+            # case here, too: If we already had a section and encounter another
             # one before the next @node, we write out the old one and start
             # with the new values
-            if had_section and this_title != '':
+            if had_section and this_title:
                 f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
                 this_title = remove_texinfo (sec[1])
                 this_anchor = create_texinfo_anchor (sec[1])
             had_section = True
 
-            # unnumbered nodes use the previously used file name, only numbered
-            # nodes get their own filename! However, top-level @unnumbered
-            # still get their own file.
-            this_unnumbered = unnumbered_re.match (sec[0])
-            if not this_unnumbered or sec[0] == "unnumbered":
+            if split == 'custom':
+                # unnumbered nodes use the previously used file name, only numbered
+                # nodes get their own filename! However, top-level @unnumbered
+                # still get their own file.
+                this_unnumbered = unnumbered_re.match (sec[0])
+                if not this_unnumbered:
+                    this_filename = this_anchor
+            elif split == 'node':
                 this_filename = this_anchor
+            else:
+                if sec[0] in file_name_section_level and \
+                        file_name_section_level[sec[0]] >= splitting_level:
+                    this_filename = this_anchor
 
-    if this_title != '' and this_title != 'Top':
+    if this_title and this_title != 'Top':
         f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
     f.close ()
 
