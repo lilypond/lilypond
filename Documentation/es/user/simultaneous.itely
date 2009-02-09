@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 7385b95b8a91525e82559355dddea4f1ff965f5c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -348,7 +348,8 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Percussion staves},
-@ref{Invisible rests}.
+@ref{Invisible rests},
+@ref{Stems}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
