@@ -25,6 +25,13 @@ Wenn Sie die Balken wieder einschalten wollen, müssen Sie die
 entsprechende Zeile entweder ändern oder auskommentieren.
 "
 
+  texidocja = "
+この小さなテンプレートは歌詞を持つ簡単な旋律を表しています。カット＆ペーストして、音符@c
+を付け加えて、それから歌詞の単語を付け加えてください。この例は自動ビームを off にして@c
+います。これはボーカル パートでは一般的なことです。自動ビームを使用するには、対応する@c
+行を変更するか、コメント アウトしてください。
+"
+
   texidoc = "
 This small template demonstrates a simple melody with lyrics. Cut and
 paste, add notes, then words for the lyrics. This example turns off

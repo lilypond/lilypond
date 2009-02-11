@@ -1684,7 +1684,7 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 
 @cindex note names
 @cindex note names, absolute
-@cindex absolute mode
+@cindex absolute mode (絶対モード)
 @cindex absolute values for pitches
 @cindex pitches, absolute values
 @cindex absolute note names

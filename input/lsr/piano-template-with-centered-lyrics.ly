@@ -18,6 +18,10 @@ Sie den Text auch zwischen die beiden Klaviersysteme schreiben
 (und damit das zusätzliche System für die Gesangstimme auslassen).
 "
 
+  texidocja = "
+旋律と歌詞のための譜表を持つ代わりに、歌詞をピアノ譜の 2 つの譜の間に置くことができます。
+"
+
   texidoc = "
 Instead of having a full staff for the melody and lyrics, lyrics can be
 centered between the staves of a piano staff.

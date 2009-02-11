@@ -17,6 +17,10 @@ Mit diesem Beispiel können Sie einen Song mit Melodie,
 Text und Akkorden schreiben.
 "
 
+  texidocja = "
+これは旋律、単語、コードを持つ歌曲の楽譜のためのテンプレートです。
+"
+
   texidoc = "
 This template allows the preparation of a song with melody, words, and
 chords. 

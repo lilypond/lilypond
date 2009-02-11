@@ -19,6 +19,11 @@ etwas anpassen, aber Sie können ja das angepasste Beispiel von hier
 kopieren.
 "
 
+  texidocja = "
+多くのピアノ譜は、強弱記号を 2 つの譜の間に置きます。これを実現するにはちょっ@c
+とした調整が必要ですが、そのテンプレートがここにあるので、あなた自身が調整を行@c
+う必要はありません。
+"
   lsrtags = "expressive-marks,keyboards,template"
   texidoc = "
 Many piano scores have the dynamics centered between the two staves.

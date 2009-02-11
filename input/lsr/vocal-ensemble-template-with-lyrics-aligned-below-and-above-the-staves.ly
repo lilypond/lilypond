@@ -20,6 +20,11 @@ In diesem Beispiel werden die Texte mit den Befehlen
 über und unter dem System angeordnet.
 "
 
+  texidocja = "
+このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が 
+@code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
+"
+
   texidoc = "
 This template is basically the same as the simple \"Vocal ensemble\"
 template, with the exception that here all the lyrics lines are placed

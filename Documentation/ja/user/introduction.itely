@@ -675,7 +675,7 @@ f4
 
 我々はどのように譜刻の技術をコンピュータ プログラムの中に凝縮するかという実験@c
 として LilyPond を開発してきました。重労働のおかげで、今やこのプログラムは有用@c
-な働きを行うのに使用できるようになりました。非常に簡単な利用例は音符を刻譜する@c
+な働きを行うのに使用できるようになりました。非常に簡単な利用例は音符を譜刻する@c
 ことです。
 
 @lilypond[quote,relative=1]
@@ -700,7 +700,7 @@ f4
 >>
 @end lilypond
 
-さらに、多声部表記とピアノ譜を刻譜することもできます。以下の例はいくつかのより@c
+さらに、多声部表記とピアノ譜を譜刻することもできます。以下の例はいくつかのより@c
 風変わりな構成を組み合わせています。
 
 @lilypond[quote]
@@ -908,84 +908,78 @@ Texinfo -- に埋め込むことができます。ある特別なプログラム
 @cindex reference charts
 @cindex charts, reference
 
-@untranslated
-
-This book explains all the LilyPond commands which produce
-notation.  It assumes that readers are familiar with the concepts
-in the Learning Manual.
+本書は表記を作り出すすべての LilyPond コマンドについての説明を行います。本書@c
+は、読者が学習マニュアルを読み終えて、LilyPond のコンセプトに馴染みを持ってい@c
+るものと仮定しています。
 
 @itemize
 
 @item
 
 @ruser{Musical notation}:
-discusses topics grouped by notation construct.  This section
-gives details about basic notation that will be useful in almost
-any notation project.
+は表記概念ごとにグループ化されたテーマについて議論します。このセクションでは、@c
+ほとんどすべての表記プロジェクトで有用な基本的な表記についての詳細を提供します。
 
 @item
 
 @ruser{Specialist notation}:
-discusses topics grouped by notation construct.  This section
-gives details about special notation that will only be useful for
-particular instrument (or vocal) groups.
+は表記概念ごとにグループ化されたテーマについて議論します。このセクションでは、@c
+ある特定の楽器 (またはボーカル) グループにとってのみ有用な特別な表記についての@c
+詳細を提供します。
 
 @item
 
 @ruser{General input and output}:
-discusses general information about LilyPond input files and
-controlling output.
+は LilyPond 入力ファイルと出力の制御についての一般的な情報について議論します。
 
 @item
 
 @ruser{Spacing issues}:
-discusses issues which affect the global output, such as selecting
-paper size or specifying page breaks.
+は出力全般に影響を与える事柄  -- 用紙サイズの選択や改ページの指定など -- につ@c
+いて議論します。
 
 @item
 
 @ruser{Changing defaults}:
-explains how to tweak LilyPond to produce exactly the notation you
-want.
+LilyPond があなたの望む表記を作り出すように調整する方法について説明します。
 
 @item
 
 @ruser{Interfaces for programmers}:
-explains how to create music functions with scheme.
+Scheme を用いて音楽関数を作成する方法について説明します。
 
 @end itemize
 
-The Notation Reference also contains appendices with useful
-reference charts.
+表記リファレンスには有用な参照表を持つ付録もあります。
 
 @itemize
 
 @item
 
 @ruser{Literature list}:
-contains a set of useful reference books for those who wish to
-know more on notation and engraving.
+には、表記や譜刻についてもっと知りたい人たち向けのリファレンス ブックのセット@c
+があります。
 
 @item
 
 @ruser{Notation manual tables}:
-are a set of tables showing the chord names, MIDI instruments, a
-list of color names, and the Feta font.
+は、コード名、MIDI 命令、カラー名のリスト、Feta フォントについての表のセットで@c
+す。
 
 @item
 
 @ruser{Cheat sheet}:
-is a handy reference of the most common LilyPond commands.
+は最も一般的な LilyPond コマンドの簡易リファレンスです。
 
 @item
 
 @ruser{LilyPond command index}:
-an index of all LilyPond @code{\commands}.
+すべての LilyPond @code{@bs{}command} のインデックスです。
 
 @item
 
 @ruser{LilyPond index}:
-a complete index.
+すべてを網羅する完全なインデックスです。
 
 @end itemize
 
@@ -1042,26 +1036,23 @@ LilyPond とその援助プログラムを実行する方法を示します。�
 @node About the Snippet List
 @unnumberedsubsec About the Snippet List
 
-@untranslated
-
 @cindex snippets
 @cindex LSR
 @cindex Snippet List
 @cindex LilyPond Snippet Repository
 
-@rlsrnamed{Top,LilyPond Snippet List}: this shows a
-selected set of LilyPond snippets from the
+@rlsrnamed{Top,LilyPond Snippet List}: これは 
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  All the snippets are in the public domain.
+ (LSR) から選んだ LilyPond 断片のセットです。すべての断片はパブリック ドメイン@c
+の中にあります。
 
-Please note that this document is not an exact subset of LSR.  LSR
-is running a stable LilyPond version, so any snippet which
-demonstrates new features of a development version must be added
-separately.  These are stored in @file{input/new/} in the LilyPond
-source tree.
+このドキュメントは LSR のサブセットそのものではないことに注意してください。LSR 
+は安定板の LilyPond バージョンを使用するため、開発中の新しい機能を実演する断片は 
+LSR とは別に追加されなければなりません。それらは LilyPond ソース ツリーの中の 
+@file{input/new/} の中に保存されます。
 
-The list of snippets for each subsection of the Notation Reference are
-also linked from the @strong{See also} portion.
+表記リファレンスの各サブセクションのための断片のリストは @strong{参照}部分から@c
+もリンクされています。
 
 
 @node About the Internals Reference
@@ -1069,28 +1060,21 @@ also linked from the @strong{See also} portion.
 
 @cindex Internals Reference
 
-@untranslated
+@rinternalsnamed{Top,Internals Reference}: これは幾重にもリンクし合った HTML 
+ページのセットです。本書はすべての LilyPond クラス、オブジェクト、関数について@c
+の具体的な詳細をドキュメント化しています。本書はソース コードの中にあるフォー@c
+マット定義から直接作り出されます。
 
-@rinternalsnamed{Top,Internals Reference}: this is a set
-of heavily cross linked HTML pages which document the nitty-gritty
-details of each and every LilyPond class, object, and function.
-It is produced directly from the formatting definitions in the
-source code.
-
-Almost all formatting functionality that is used internally is
-available directly to the user.  For example, most variables that
-control thickness values, distances, etc., can be changed in input
-files.  There are a huge number of formatting options, and all of
-them are described in this document.  Each section of the Notation
-Reference has a @b{See also} subsection, which refers to the
-generated documentation.  In the HTML document, these subsections
-have clickable links.
+内部的に使用されるフォーマット機能はほとんどすべてユーザが直接利用できます。例@c
+えば、太さや距離などを制御するたいていの変数は入力ファイルの中で変更することが@c
+できます。膨大な数のフォーマット オプションがあり、それらすべてがこのドキュメ@c
+ントの中で記述されています。表記リファレンスの各セクションには@b{参照}サブ セ@c
+クションがあり、本書を参照しています。HTML ドキュメントでは、@b{参照}サブ セク@c
+ションの中にクリック可能なリンクがあります。
 
 
 @node Other documentation
 @unnumberedsubsec Other documentation
-
-@untranslated
 
 とても有益であるかもしれない他の情報源がいくつかあります。
 
@@ -1114,41 +1098,41 @@ News:
 
 @item
 
-@uref{http://lists.gnu.org/archive/html/lilypond-user/, The
-lilypond-user mailist archives}: this is a collection of previous
-emails sent to the user list.  Many questions have been asked
-multiple times; there is a very good chance that if you have a
-question, the answer might be found in these archives.
+@uref{http://lists.gnu.org/archive/html/lilypond-user/, 
+lilypond-user メーリングリスト アーカイブ}: これはこれまでにユーザ リストに送@c
+られてきた email のコレクションです。多くの質問が何度も繰り返されています。疑@c
+問を持った場合、その答えはこのアーカイブの中で見つかるかもしれません。
 
 @item
 
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/, The
-lilypond-devel mailist archives}: this is a collection of previous
-emails sent to the developer's list.  The discussion here is more
-technical; if you have an advanced question about lilypond
-internals, the answer might be in these archives.
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/, 
+lilypond-devel メーリングリスト アーカイブ}: これはこれまでに開発者のリストに@c
+送られてきた email のコレクションです。ここでの議論はより専門的です。lilypond 
+内部についての高度な疑問を持った場合、その答えはこのアーカイブの中で見つかるか@c
+もしれません。
 
 @item
 
-Embedded music fragments: in all HTML documents that have
-music fragments embedded, the exact LilyPond input that was used
-to produce that image can be viewed by clicking the image.
+埋め込まれている楽譜の断片: 楽譜の断片を埋め込まれたすべての HTML ドキュメント@c
+では、楽譜の画像をクリックすることによって、その画像を作り出すのに使用された 
+LilyPond 入力を閲覧することができます。
 
 @item
 
-Init files: the location of the documentation files that are
-mentioned here can vary from system to system.  On occasion, this
-manual refers to initialization and example files.  Throughout this
-manual, we refer to input files relative to the top-directory of the
-source archive.  For example, @file{input/@/lsr/@/dirname/@/bla@/.ly}
-may refer to the file
-@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On binary
-packages for the UNIX platform, the documentation and examples can
-typically be found somewhere below
-@file{/usr/@/share/@/doc/@/lilypond/}.  Initialization files, for
-example @file{scm/@/lily@/.scm}, or @file{ly/@/engraver@/-init@/.ly},
-are usually found in the directory @file{/usr/@/share/@/lilypond/}.
-For more details, see @ref{Other sources of information}.
+初期化ファイル: ここで言及しているドキュメント ファイルの置き場所はシステムに@c
+よってさまざまです。しばしばこのマニュアルは初期化ファイルと例のファイルを参照@c
+します。このマニュアルを通じて、ソース アーカイブのトップ ディレクトリ下にある@c
+入力ファイルを参照します。@c
+@c Throughout this manual, we refer to input files relative to the top-directory 
+@c of the source archive.@c
+例えば、@file{input/@/lsr/@/dirname/@/bla@/.ly} はファイル 
+@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly} を参照するかもしれま@c
+せん。@c
+UNIX プラットフォーム向けのバイナリ パッケージでは、通常、このドキュメントと例は 
+@file{/usr/@/share/@/doc/@/lilypond/} 下のどこかで見つかります。初期化ファイル 
+-- 例えば、@file{scm/@/lily@/.scm} や @file{ly/@/engraver@/-init@/.ly} -- は、@c
+通常、ディレクトリ @file{/usr/@/share/@/lilypond/} の中で見つかります。詳細は 
+@ref{Other sources of information} を参照してください。
 
 @end itemize
 

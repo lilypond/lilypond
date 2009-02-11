@@ -20,7 +20,7 @@ msgstr ""
 #: postprocess_html.py:45
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
-msgstr ""
+msgstr "このページは %(package_name)s-%(package_version)s (%(branch_str)s) を対象としています。"
 
 # not yet
 #: postprocess_html.py:47
@@ -2632,111 +2632,111 @@ msgstr "ゼロから楽譜を構築する"
 #. Documentation/user/tweaks.itely:597 (comment)
 #. Documentation/user/tweaks.itely:732 (comment)
 msgid "Increase thickness of all following slurs from 1.2 to 5.0"
-msgstr ""
+msgstr "後に続くすべてのスラーの太さを 1.2 から 5.0 に増やします"
 
 #. Documentation/user/tweaks.itely:666 (comment)
 #. Documentation/user/tweaks.itely:705 (comment)
 #. Documentation/user/tweaks.itely:708 (comment)
 msgid "Increase thickness of immediately following slur only"
-msgstr ""
+msgstr "直後にあるスラーの太さだけを増やします"
 
 #. Documentation/user/tweaks.itely:736 (comment)
 msgid "Revert thickness of all following slurs to default of 1.2"
-msgstr ""
+msgstr "後に続くすべてのスラーの太さをデフォルトの 1.2 に戻します"
 
 #. Documentation/user/tweaks.itely:1396 (comment)
 msgid "Don't print clefs in this staff"
-msgstr ""
+msgstr "この譜表には音部記号を譜刻しません"
 
 #. Documentation/user/tweaks.itely:1398 (comment)
 msgid "Don't print time signatures in this staff"
-msgstr ""
+msgstr "この譜表には拍子記号を譜刻しません"
 
 #. Documentation/user/tweaks.itely:1462 (comment)
 msgid "Reduce all font sizes by ~24%"
-msgstr ""
+msgstr "すべてのフォント サイズを約 24% 減らします"
 
 #. Documentation/user/tweaks.itely:1528 (comment)
 msgid "Reduce stem length and line spacing to match"
-msgstr ""
+msgstr "釣り合いをとるためにステムの長さと譜表線の間隔を減らします"
 
 #. Documentation/user/tweaks.itely:1958 (comment)
 #. Documentation/user/tweaks.itely:2028 (comment)
 msgid "Set details for later Text Spanner"
-msgstr ""
+msgstr "後のテキスト スパナのための詳細を設定"
 
 #. Documentation/user/tweaks.itely:1961 (comment)
 #. Documentation/user/tweaks.itely:2031 (comment)
 msgid "Place dynamics above staff"
-msgstr ""
+msgstr "譜表の上に強弱記号を配置"
 
 #. Documentation/user/tweaks.itely:1963 (comment)
 #. Documentation/user/tweaks.itely:2035 (comment)
 msgid "Start Ottava Bracket"
-msgstr ""
+msgstr "オッターバ囲みの開始"
 
 #. Documentation/user/tweaks.itely:1966 (comment)
 #. Documentation/user/tweaks.itely:1973 (comment)
 #. Documentation/user/tweaks.itely:2038 (comment)
 #. Documentation/user/tweaks.itely:2045 (comment)
 msgid "Add Dynamic Text"
-msgstr ""
+msgstr "強弱記号テキストの追加"
 
 #. Documentation/user/tweaks.itely:1968 (comment)
 #. Documentation/user/tweaks.itely:2040 (comment)
 msgid "Add Dynamic Line Spanner"
-msgstr ""
+msgstr "強弱記号線スパナの追加"
 
 #. Documentation/user/tweaks.itely:1970 (comment)
 #. Documentation/user/tweaks.itely:2042 (comment)
 msgid "Add Text Script"
-msgstr ""
+msgstr "テキスト スクリプトの追加"
 
 #. Documentation/user/tweaks.itely:1975 (comment)
 #. Documentation/user/tweaks.itely:2047 (comment)
 msgid "Stop Ottava Bracket"
-msgstr ""
+msgstr "オッターバ囲みの終了"
 
 #. Documentation/user/tweaks.itely:2033 (comment)
 msgid "Place following Ottava Bracket below Text Spanners"
-msgstr ""
+msgstr "以下のオッターバ囲みをテキスト スパナの下に配置"
 
 #. Documentation/user/tweaks.itely:2122 (comment)
 msgid "Cause notes to space out to accommodate text"
-msgstr ""
+msgstr "テキストに合わせて音符の間隔を広げます"
 
 #. Documentation/user/tweaks.itely:2145 (comment)
 msgid "This markup is short enough to fit without collision"
-msgstr ""
+msgstr "このマークアップは短いため、衝突を起こさずにぴったりと収まります"
 
 #. Documentation/user/tweaks.itely:2149 (comment)
 msgid "This is too long to fit, so it is displaced upwards"
-msgstr ""
+msgstr "このマークアップは長いため、上の方に再配置されます"
 
 #. Documentation/user/tweaks.itely:2153 (comment)
 #. Documentation/user/tweaks.itely:2158 (comment)
 msgid "Turn off collision avoidance"
-msgstr ""
+msgstr "衝突回避を off にします"
 
 #. Documentation/user/tweaks.itely:2160 (comment)
 msgid "and turn on textLengthOn"
-msgstr ""
+msgstr "今度は textLengthOn を on にします"
 
 #. Documentation/user/tweaks.itely:2161 (comment)
 msgid "Spaces at end are honored"
-msgstr ""
+msgstr "テキスト終端のスペースは尊重されます"
 
 #. Documentation/user/tweaks.itely:2268 (comment)
 msgid "Extend width by 1 staff space"
-msgstr ""
+msgstr "幅を 1 譜表スペース広げます"
 
 #. Documentation/user/tweaks.itely:2551 (comment)
 msgid "This will not work, see below:"
-msgstr ""
+msgstr "これは機能しません。以下を見てください:"
 
 #. Documentation/user/tweaks.itely:2555 (comment)
 msgid "This works:"
-msgstr ""
+msgstr "これは機能します:"
 
 #. Documentation/user/tweaks.itely:2606 (variable)
 msgid "naturalplusflat"
@@ -2744,11 +2744,11 @@ msgstr ""
 
 #. Documentation/user/tweaks.itely:2647 (comment)
 msgid "Extend width by 1 unit"
-msgstr ""
+msgstr "幅を 1 単位 (譜表スペース) 広げます"
 
 #. Documentation/user/tweaks.itely:2649 (comment)
 msgid "Align dynamics to a base line 2 units above staff"
-msgstr ""
+msgstr "強弱記号を譜表から 2 単位上のベース ラインに揃えます"
 
 #. Documentation/user/tweaks.itely:2953 (variable)
 #. Documentation/user/tweaks.itely:3002 (variable)
@@ -2765,7 +2765,7 @@ msgstr ""
 #. Documentation/user/tweaks.itely:3142 (comment)
 #. Documentation/user/tweaks.itely:3207 (comment)
 msgid "Start polyphonic section of four voices"
-msgstr ""
+msgstr "4 つのボイスを持つ多声部セクションの開始"
 
 #. Documentation/user/tweaks.itely:2971 (variable)
 #. Documentation/user/tweaks.itely:3020 (variable)
@@ -2799,31 +2799,31 @@ msgstr ""
 #. Documentation/user/tweaks.itely:3211 (comment)
 #. Documentation/user/tweaks.itely:3273 (comment)
 msgid "Move the c2 out of the main note column so the merge will work"
-msgstr ""
+msgstr "マージが機能するように、c2 をメインの音符列の外に移動させます"
 
 #. Documentation/user/tweaks.itely:3214 (comment)
 #. Documentation/user/tweaks.itely:3276 (comment)
 msgid "Stem on the d2 must be down to permit merging"
-msgstr ""
+msgstr "マージを可能にするため、d2 のステムは下向きでなければなりません"
 
 #. Documentation/user/tweaks.itely:3271 (comment)
 msgid "Reposition the c2 to the right of the merged note"
-msgstr ""
+msgstr "c2 をマージされた音符の右側に再配置します"
 
 #. Documentation/user/tweaks.itely:3407 (comment)
 #. Documentation/user/tweaks.itely:3429 (comment)
 msgid "Visible tempo marking"
-msgstr ""
+msgstr "可視のテンポ記号"
 
 #. Documentation/user/tweaks.itely:3411 (comment)
 #. Documentation/user/tweaks.itely:3433 (comment)
 msgid "Invisible tempo marking to lengthen fermata in MIDI"
-msgstr ""
+msgstr "MIDI の中でフェルマータの演奏時間を伸ばすための不可視のテンポ記号"
 
 #. Documentation/user/tweaks.itely:3414 (comment)
 #. Documentation/user/tweaks.itely:3436 (comment)
 msgid "New tempo for next section"
-msgstr ""
+msgstr "次のセクションのための新しいテンポ"
 
 #. Documentation/user/tweaks.itely:3493 (variable)
 msgid "emphasize"
@@ -2844,7 +2844,7 @@ msgstr ""
 
 #. Documentation/user/tweaks.itely:3725 (comment)
 msgid "Arrange to obtain color from color-notehead procedure"
-msgstr ""
+msgstr "color-notehead プロシージャからカラーを取得するための手続き"
 
 #. @node in Documentation/user/tweaks.itely
 #. @chapter in Documentation/user/tweaks.itely
@@ -2857,7 +2857,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @chapter in Documentation/ja/user/tweaks.itely
 msgid "Tweaking output"
-msgstr ""
+msgstr "出力を調整する"
 
 #. @node in Documentation/user/tweaks.itely
 #. @section in Documentation/user/tweaks.itely
@@ -2870,7 +2870,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @section in Documentation/ja/user/tweaks.itely
 msgid "Tweaking basics"
-msgstr ""
+msgstr "調整の基本"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -2883,7 +2883,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Introduction to tweaks"
-msgstr ""
+msgstr "調整の紹介"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -2896,7 +2896,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Objects and interfaces"
-msgstr ""
+msgstr "オブジェクトとインタフェイス"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -2909,7 +2909,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Naming conventions of objects and properties"
-msgstr ""
+msgstr "オブジェクトとプロパティの命名規約"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -2922,7 +2922,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Tweaking methods"
-msgstr ""
+msgstr "調整手段"
 
 #. @node in Documentation/user/tweaks.itely
 #. @section in Documentation/user/tweaks.itely
@@ -2935,7 +2935,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @section in Documentation/ja/user/tweaks.itely
 msgid "The Internals Reference manual"
-msgstr ""
+msgstr "内部リファレンス マニュアル"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -2948,7 +2948,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Properties of layout objects"
-msgstr ""
+msgstr "レイアウト オブジェクトのプロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -2956,7 +2956,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Finding the context"
-msgstr ""
+msgstr "コンテキストを見つけ出す"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -2964,7 +2964,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Overriding once only"
-msgstr ""
+msgstr "1 回だけオーバライドする"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -2972,7 +2972,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Reverting"
-msgstr ""
+msgstr "元に戻す"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -2985,7 +2985,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Properties found in interfaces"
-msgstr ""
+msgstr "インタフェイスの中で見つかるプロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -2993,7 +2993,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Specifying the context in lyric mode"
-msgstr ""
+msgstr "歌詞モードの中でコンテキストを指定する"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3006,7 +3006,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Types of properties"
-msgstr ""
+msgstr "プロパティのタイプ"
 
 #. @node in Documentation/user/tweaks.itely
 #. @section in Documentation/user/tweaks.itely
@@ -3019,7 +3019,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @section in Documentation/ja/user/tweaks.itely
 msgid "Appearance of objects"
-msgstr ""
+msgstr "オブジェクトの見た目"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3032,7 +3032,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Visibility and color of objects"
-msgstr ""
+msgstr "オブジェクトの可視性と色"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3040,7 +3040,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "stencil"
-msgstr ""
+msgstr "ステンシル (stencil)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3048,7 +3048,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "break-visibility"
-msgstr ""
+msgstr "可視性の破棄 (break-visibility)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3056,7 +3056,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "transparent"
-msgstr ""
+msgstr "透過性 (transparent)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3064,7 +3064,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "color"
-msgstr ""
+msgstr "色 (color)"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3077,7 +3077,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Size of objects"
-msgstr ""
+msgstr "オブジェクトのサイズ"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3090,7 +3090,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Length and thickness of objects"
-msgstr ""
+msgstr "オブジェクトの長さと太さ"
 
 #. @node in Documentation/user/tweaks.itely
 #. @section in Documentation/user/tweaks.itely
@@ -3103,7 +3103,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @section in Documentation/ja/user/tweaks.itely
 msgid "Placement of objects"
-msgstr ""
+msgstr "オブジェクトの配置"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3114,7 +3114,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Automatic behavior"
-msgstr ""
+msgstr "自動配置"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3127,7 +3127,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Within-staff objects"
-msgstr ""
+msgstr "譜表内部オブジェクト"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3135,7 +3135,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Fingering"
-msgstr ""
+msgstr "運指法記号 (Fingering)"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3146,7 +3146,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Outside-staff objects"
-msgstr ""
+msgstr "譜表外部オブジェクト"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3162,7 +3162,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Grob sizing"
-msgstr ""
+msgstr "グラフィカル オブジェクトのサイズ"
 
 #. @node in Documentation/user/tweaks.itely
 #. @section in Documentation/user/tweaks.itely
@@ -3175,7 +3175,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @section in Documentation/ja/user/tweaks.itely
 msgid "Collisions of objects"
-msgstr ""
+msgstr "オブジェクトの衝突"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3188,7 +3188,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Moving objects"
-msgstr ""
+msgstr "オブジェクトを移動させる"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3201,7 +3201,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Fixing overlapping notation"
-msgstr ""
+msgstr "表記の重なりを修正する"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3209,7 +3209,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "padding property"
-msgstr ""
+msgstr "padding プロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3217,7 +3217,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "left-padding and right-padding"
-msgstr ""
+msgstr "left-padding と right-padding"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3225,7 +3225,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "staff-padding property"
-msgstr ""
+msgstr "staff-padding プロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3233,7 +3233,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "self-alignment-X property"
-msgstr ""
+msgstr "self-alignment-X プロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3241,7 +3241,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "staff-position property"
-msgstr ""
+msgstr "staff-position プロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3249,7 +3249,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "extra-offset property"
-msgstr ""
+msgstr "extra-offset プロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3257,7 +3257,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "positions property"
-msgstr ""
+msgstr "positions プロパティ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3265,7 +3265,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "force-hshift property"
-msgstr ""
+msgstr "force-hshift プロパティ"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3278,7 +3278,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Real music example"
-msgstr ""
+msgstr "実際の音楽からの例"
 
 #. @node in Documentation/user/tweaks.itely
 #. @section in Documentation/user/tweaks.itely
@@ -3291,7 +3291,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @section in Documentation/ja/user/tweaks.itely
 msgid "Further tweaking"
-msgstr ""
+msgstr "更なる調整"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3304,7 +3304,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Other uses for tweaks"
-msgstr ""
+msgstr "調整のその他の使用方法"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3312,7 +3312,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Tying notes across voices"
-msgstr ""
+msgstr "異なるボイスの中にある音符をタイで結ぶ"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/fr/user/tweaks.itely
@@ -3320,7 +3320,7 @@ msgstr ""
 #. @subheading in Documentation/de/user/tweaks.itely
 #. @subheading in Documentation/ja/user/tweaks.itely
 msgid "Simulating a fermata in MIDI"
-msgstr ""
+msgstr "MIDI でフェルマータをシミュレートする"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3333,7 +3333,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Using variables for tweaks"
-msgstr ""
+msgstr "調整のために変数を使用する"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3346,7 +3346,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Other sources of information"
-msgstr ""
+msgstr "その他の情報源"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3359,7 +3359,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Avoiding tweaks with slower processing"
-msgstr ""
+msgstr "処理に時間のかかる調整を避ける"
 
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -3372,7 +3372,7 @@ msgstr ""
 #. @node in Documentation/ja/user/tweaks.itely
 #. @subsection in Documentation/ja/user/tweaks.itely
 msgid "Advanced tweaks with Scheme"
-msgstr ""
+msgstr "Scheme を用いた高度な調整"
 
 #. Documentation/user/working.itely:220 (variable)
 msgid "hornNotes"
@@ -3422,7 +3422,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @chapter in Documentation/ja/user/working.itely
 msgid "Working on LilyPond projects"
-msgstr ""
+msgstr "LilyPond プロジェクトに取り組む"
 
 #. @node in Documentation/user/working.itely
 #. @section in Documentation/user/working.itely
@@ -3433,7 +3433,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @section in Documentation/ja/user/working.itely
 msgid "Suggestions for writing LilyPond input files"
-msgstr ""
+msgstr "LilyPond 入力ファイルの記述に対する提案"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -3446,7 +3446,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "General suggestions"
-msgstr ""
+msgstr "一般的な提案"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -3459,7 +3459,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Typesetting existing music"
-msgstr ""
+msgstr "既存の音楽を譜刻する"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -3472,7 +3472,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Large projects"
-msgstr ""
+msgstr "大きなプロジェクト"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -3485,7 +3485,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Saving typing with variables and functions"
-msgstr ""
+msgstr "変数と関数を用いて入力の手間を省く"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -3498,7 +3498,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Style sheets"
-msgstr ""
+msgstr "スタイル シート"
 
 #. @node in Documentation/user/working.itely
 #. @section in Documentation/user/working.itely
@@ -3511,14 +3511,14 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @section in Documentation/ja/user/working.itely
 msgid "When things don't work"
-msgstr ""
+msgstr "うまくいかないとき"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Updating old input files"
-msgstr ""
+msgstr "古い入力ファイルをアップデートする"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -3531,7 +3531,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Troubleshooting (taking it all apart)"
-msgstr ""
+msgstr "トラブルシューティング (すべてをバラバラにする)"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -3544,7 +3544,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Minimal examples"
-msgstr ""
+msgstr "最小化例"
 
 #. @node in Documentation/user/working.itely
 #. @section in Documentation/user/working.itely
@@ -3557,7 +3557,7 @@ msgstr ""
 #. @node in Documentation/ja/user/working.itely
 #. @section in Documentation/ja/user/working.itely
 msgid "Scores and parts"
-msgstr ""
+msgstr "楽譜とパート"
 
 #. @node in Documentation/user/templates.itely
 #. @appendix in Documentation/user/templates.itely
@@ -3570,7 +3570,7 @@ msgstr ""
 #. @node in Documentation/ja/user/templates.itely
 #. @appendix in Documentation/ja/user/templates.itely
 msgid "Templates"
-msgstr ""
+msgstr "テンプレート"
 
 #. @node in Documentation/user/templates.itely
 #. @appendixsec in Documentation/user/templates.itely
@@ -3583,7 +3583,7 @@ msgstr ""
 #. @node in Documentation/ja/user/templates.itely
 #. @appendixsec in Documentation/ja/user/templates.itely
 msgid "Single staff"
-msgstr ""
+msgstr "単一の譜表"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3591,7 +3591,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Notes only"
-msgstr ""
+msgstr "音符のみ"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3599,7 +3599,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Notes and lyrics"
-msgstr ""
+msgstr "音符と歌詞"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3607,7 +3607,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Notes and chords"
-msgstr ""
+msgstr "音符とコード"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3615,7 +3615,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Notes, lyrics, and chords."
-msgstr ""
+msgstr "音符、歌詞それにコード"
 
 #. @node in Documentation/user/templates.itely
 #. @appendixsec in Documentation/user/templates.itely
@@ -3628,7 +3628,7 @@ msgstr ""
 #. @node in Documentation/ja/user/templates.itely
 #. @appendixsec in Documentation/ja/user/templates.itely
 msgid "Piano templates"
-msgstr ""
+msgstr "ピアノ テンプレート"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3636,7 +3636,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Solo piano"
-msgstr ""
+msgstr "ソロ ピアノ"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3644,7 +3644,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Piano and melody with lyrics"
-msgstr ""
+msgstr "ピアノと歌詞を持つ旋律"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3652,7 +3652,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Piano centered lyrics"
-msgstr ""
+msgstr "中央に歌詞を持つピアノ譜"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3660,7 +3660,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "Piano centered dynamics"
-msgstr ""
+msgstr "中央に強弱記号を持つピアノ譜"
 
 #. @node in Documentation/user/templates.itely
 #. @appendixsec in Documentation/user/templates.itely
@@ -3678,7 +3678,7 @@ msgstr ""
 #. @appendixsec in Documentation/ja/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "String quartet"
-msgstr ""
+msgstr "弦楽四重奏"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3686,7 +3686,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "String quartet parts"
-msgstr ""
+msgstr "弦楽四重奏パート"
 
 #. @node in Documentation/user/templates.itely
 #. @appendixsec in Documentation/user/templates.itely
@@ -3699,7 +3699,7 @@ msgstr ""
 #. @node in Documentation/ja/user/templates.itely
 #. @appendixsec in Documentation/ja/user/templates.itely
 msgid "Vocal ensembles"
-msgstr ""
+msgstr "合唱"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3707,7 +3707,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "SATB vocal score"
-msgstr ""
+msgstr "SATB ボーカル譜"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3715,7 +3715,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "SATB vocal score and automatic piano reduction"
-msgstr ""
+msgstr "SATB ボーカル譜と自動ピアノ譜"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/fr/user/templates.itely
@@ -3723,7 +3723,7 @@ msgstr ""
 #. @appendixsubsec in Documentation/de/user/templates.itely
 #. @appendixsubsec in Documentation/ja/user/templates.itely
 msgid "SATB with aligned contexts"
-msgstr ""
+msgstr "整列されたコンテキストを持つ SATB"
 
 #. @node in Documentation/user/templates.itely
 #. @appendixsec in Documentation/user/templates.itely
@@ -8220,7 +8220,7 @@ msgstr ""
 #. @node in Documentation/de/user/input.itely
 #. @subsection in Documentation/de/user/input.itely
 msgid "Table of contents"
-msgstr ""
+msgstr "目次"
 
 #. @node in Documentation/user/input.itely
 #. @section in Documentation/user/input.itely
@@ -12971,6 +12971,33 @@ msgstr ""
 msgid "voltaMusic"
 msgstr ""
 
+msgid "Beginning of this chapter or previous chapte"
+msgstr "この章の先頭または前の章"
+
+msgid "Next chapter"
+msgstr "次の章"
+
+msgid "Previous section in reading order"
+msgstr "前のセクション"
+
+msgid "Next section in reading order"
+msgstr "次のセクション"
+
+msgid "Up section"
+msgstr "上のセクション"
+
+msgid "Cover (top) of document"
+msgstr "ドキュメントのカバー (トップ) ページ"
+
+#msgid "Table of contents"
+#msgstr "目次"
+
+#msgid "Index"
+#msgstr "索引"
+
+msgid "About (help)"
+msgstr "このドキュメントについて (ヘルプ)"
+
 msgid "Up:"
 msgstr "上へ:"
 
@@ -12989,17 +13016,44 @@ msgstr "脚注"
 msgid "Table of Contents"
 msgstr "目次"
 
-# added by Sawada
-#~ msgid "Contents"
-#~ msgstr "目次"
+#Following messages are for "About Document" page.
+msgid "The buttons in the navigation panels have the following meaning:"
+msgstr "ナビゲーション パネルの中にあるボタンには以下のような意味があります:"
+
+msgid "About This Document"
+msgstr "このドキュメントについて"
+
+
+
 
 # added by Sawada
-#~ msgid "Index"
-#~ msgstr "インデックス"
+# msgid "Contents"
+# msgstr "目次"
 
 # added by Sawada
-#~ msgid "Up"
-#~ msgstr "上へ"
+# msgid "Index"
+# msgstr "インデックス"
 
-#~ msgid "GNU LilyPond --- Learning"
-#~ msgstr "GNU LilyPond --- 学習マニュアル"
+# added by Sawada
+# msgid "Up"
+# msgstr "上へ"
+
+# msgid "GNU LilyPond --- Learning"
+# msgstr "GNU LilyPond --- 学習マニュアル"
+
+# added by Sawada
+#. -*- coding: utf-8 -*-
+#. @node in Documentation/ja/user/lilypond-learning.tely
+#. @node in Documentation/ja/user/lilypond-program.tely
+#. @node in Documentation/ja/user/lilypond.tely
+msgid "Contents"
+msgstr "目次"
+
+# added by Sawada
+#. -*- coding: utf-8 -*-
+#. @node in Documentation/ja/user/lilypond-learning.tely
+#. @node in Documentation/ja/user/lilypond-program.tely
+#. @node in Documentation/ja/user/lilypond.tely
+msgid "Index"
+msgstr "インデックス"
+

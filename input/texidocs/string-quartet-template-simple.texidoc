@@ -10,3 +10,8 @@ Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier
 wird auch eine @qq{@code{\global}}-Variable für Taktart und 
 Vorzeichen benutzt.
 "
+
+  texidocja = "
+これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号のために 
+@code{@bs{}global} セクションを使っています。
+"
