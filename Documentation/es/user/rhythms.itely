@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 312827f1242ea7d2864659fa292bc9861ac19c6c
+    Translation of GIT committish: 7385b95b8a91525e82559355dddea4f1ff965f5c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -154,6 +154,7 @@ Glosario musical:
 Referencia de la notación:
 @ref{Automatic beams},
 @ref{Ties},
+@ref{Stems},
 @ref{Writing rhythms},
 @ref{Writing rests},
 @ref{Vocal music},
@@ -1486,15 +1487,18 @@ automáticamente:
 
 Cuando estas decisiones automáticas no son lo bastante buenas, se
 pueden escribir los barrados de forma explícita; véase @ref{Manual
-beams}.  También es posible definir patrones de barrado que difieran
-de los ajustes por defecto.  Las reglas de barrado predeterminadas
-están definidas en el archivo @file{scm/@/auto@/-beam@/.scm}.  Si no
-hay definidas reglas de barrado para una duración dada de la barra en
-el tipo de compás en uso, el barrado se controla mediante los valores
-de tres propiedades de contexto, @code{measureLength},
-@code{beatLength} y @code{beatGrouping}.  Tanto las reglas de barrado
-como las propiedades de contexto se pueden sobreescribir, véase
-@ref{Setting automatic beam behavior}.
+beams}.  Las barras se pueden también introducir manualmente de la
+misma forma si se quieren extender por encima de los silencios.
+
+También es posible definir patrones de barrado que difieran de los
+ajustes por defecto.  Las reglas de barrado predeterminadas están
+definidas en el archivo @file{scm/@/auto@/-beam@/.scm}.  Si no hay
+definidas reglas de barrado para una duración dada de la barra en el
+tipo de compás en uso, el barrado se controla mediante los valores de
+tres propiedades de contexto, @code{measureLength}, @code{beatLength}
+y @code{beatGrouping}.  Tanto las reglas de barrado como las
+propiedades de contexto se pueden sobreescribir, véase @ref{Setting
+automatic beam behavior}.
 
 @warning{Si se usan barras para indicar los melismas de las canciones,
 entonces se debe desactivar el barrado automático con

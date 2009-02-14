@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
+    Translation of GIT committish: 0099693675b95c7ec6664d7277f22411a14e9c1b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,7 +15,10 @@
 @node Wind instruments
 @section Wind instruments
 
-@untranslated
+@lilypondfile[quote]{wind-headword.ly}
+
+Ce chapitre traite de certains aspects particuliers en matière de
+notation pour instruments à vent.
 
 @menu
 * Common notation for wind instruments::
@@ -25,7 +28,8 @@
 @node Common notation for wind instruments
 @subsection Common notation for wind instruments
 
-@untranslated
+Nous allons aborder ici quelques aspects communs à la plupart des
+instruments à vent.
 
 @menu
 * References for wind instruments::
@@ -35,17 +39,87 @@
 @node References for wind instruments
 @unnumberedsubsubsec References for wind instruments
 
-@untranslated
+@cindex instruments à vent
+@cindex vents
+
+Une grande partie des caractéristiques des partitions pour instruments à
+vent concerne la respiration et l'attaque :
+
+@itemize
+@item Les respirations s'indiquent par des silences ou des 
+@ref{Breath marks}. 
+@item Un jeu @emph{legato} s'indique par des @ref{Slurs}.
+@item Les différents types d'attaque -- @emph{legato}, détaché ou piqué
+-- s'indiquent en principe par des signes d'articulation, parfois
+agrémentés de liaisons.  Voir à ce sujet 
+@ref{Articulations and ornamentations} et @ref{List of articulations}.
+@item Un @emph{Flatterzunge} (trémolo dental or trémolo en roulant les
+r) s'indique par une marque de trémolo et une étiquette textuelle
+attachée à la note concernée.  Voir à cce sujet @ref{Tremolo repeats}.
+@end itemize
+
+D'autres aspects de la notation s'appliquent aussi aux instruments à
+vent :
+
+@itemize
+@item De nombreux instruments à vents sont transpositeurs ; voir 
+@ref{Instrument transpositions}.
+@item The slide glissando are characteristic of the trombone, but other
+winds may perform keyed or valved glissandi. See @ref{Glissando}.
+@item Harmonic series glissandi, which are possible on all brass
+instruments but common for French Horns, are usually written out as
+@ref{Grace notes}.
+@item Pitch inflections at the end of a note are discussed in @ref{Falls
+and doits}.
+@item Key slaps or valve slaps are often shown by the @code{cross} style
+of @ref{Special note heads}.
+@item Woodwinds can overblow low notes to sound harmonics. These are
+shown by the @code{flageolet} articulation. See @ref{List of articulations}.
+@item The use of brass mutes is usually indicated by a text markup, but
+where there are many rapid changes it is better to use the
+@code{stopped} and @code{open} articulations. See @ref{Articulations and
+ornamentations} and @ref{List of articulations}.
+@item Stopped horns are indicated by the @code{stopped} articulation.
+See @ref{Articulations and ornamentations}.
+@end itemize
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing--flageolet-mark-size.ly}
+
+
+@seealso
+Manuel de notation :
+@ref{Breath marks},
+@ref{Slurs},
+@ref{Articulations and ornamentations},
+@ref{List of articulations},
+@ref{Tremolo repeats},
+@ref{Instrument transpositions},
+@ref{Glissando},
+@ref{Grace notes},
+@ref{Falls and doits},
+@ref{Special note heads},
+
+Morceaux choisis :
+@rlsr{Winds}
+
 
 @node Fingerings
 @unnumberedsubsubsec Fingerings
 
-@untranslated
+@c TODO add link to LSR snippet by Libero Mureddo once he has added
+@c it (after August 15th).
+Tout instrument à vent, hormis le trombone à coulisse, fait appel à
+plusieurs doigts pour produire un son.
+
+TBC
 
 @node Bagpipes
 @subsection Bagpipes
 
-@untranslated
+Voici quelques informations spécifiques à la cornemuse.
 
 @menu
 * Bagpipe definitions::
@@ -54,6 +128,17 @@
 
 @node Bagpipe definitions
 @unnumberedsubsubsec Bagpipe definitions
+
+@cindex bagpipe
+@cindex cornemuse
+@cindex Scottish highland bagpipe
+@cindex petites notes
+@funindex \taor
+@funindex taor
+@funindex \hideKeySignature
+@funindex hideKeySignature
+@funindex \showKeySignature
+@funindex showKeySignature
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
 cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
@@ -96,8 +181,16 @@ Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
 @qq{piobaireachd}, et que l'on indiquera par @code{gflat}.
 
+
+@seealso
+@rlsr{Winds}
+
+
 @node Bagpipe example
 @unnumberedsubsubsec Bagpipe example
+
+@cindex cornemuse : exemple
+@cindex Amazing Grace : exemple pour cornemuse
 
 Et voici en guise d'exemple, à quoi ressemble le chant populaire
 @emph{Amazing Grace}, noté dans l'idiome de la cornemuse.
@@ -138,3 +231,7 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
   \bar "|."
 }
 @end lilypond
+
+
+@seealso
+@rlsr{Winds}

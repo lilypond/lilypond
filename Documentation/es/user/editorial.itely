@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: c7d6848e128f461a4cec093f7a71a34b2dc314eb
+    Translation of GIT committish: 7385b95b8a91525e82559355dddea4f1ff965f5c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -441,6 +441,10 @@ rodeando al acorde completo.
 @cindex plica
 @cindex plica invisible
 @cindex invisible, plica
+@cindex plica, dirección
+@cindex plica arriba
+@cindex plica abajo
+@cindex plica neutral
 
 @funindex \stemUp
 @funindex stemUp
@@ -460,11 +464,6 @@ crean pero se hacen invisibles.
 @endpredefined
 
 @snippets
-
-@cindex plica, dirección
-@cindex plica arriba
-@cindex plica abajo
-@cindex plica neutral
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}

@@ -650,7 +650,7 @@ No cross-references.
 
 ES: ?,
 I: acciaccatura,
-F: ?,
+F: acciaccatura, appoggiature brève,
 D: ?,
 NL: ?,
 DK: ?,
@@ -763,7 +763,7 @@ of sonatas, symphonies, etc.
 
 ES: ?,
 I: al niente,
-F: ?,
+F: al niente, en mourant,
 D: ?,
 NL: ?,
 DK: ?,
@@ -806,7 +806,7 @@ Since one does not crescendo @emph{to} nothing, it is not correct to use
 
 ES: ?,
 I: ?,
-F: alla breve,
+F: alla breve,à la brève,
 D: ?,
 NL: ?,
 DK: ?,
@@ -835,7 +835,7 @@ proportions makes it easy to explicitly state which proportion is needed.)
 
 ES: allegro,
 I: allegro,
-F: allegro,
+F: allegro, gaiement,
 D: Allegro, Schnell, Fröhlich, Lustig,
 NL: allegro,
 DK: allegro,
@@ -914,7 +914,7 @@ C clef setting middle C on the middle line of the staff.
 
 ES: ámbito,
 I: ambitus,
-F: ambitus,
+F: ambitus, tessiture,
 D: Ambitus,
 NL: ambitus,
 DK: ambitus,
@@ -988,7 +988,7 @@ a1 b c d e f g a
 
 ES: andante,
 I: andante,
-F: andante,
+F: andante, allant,
 D: Andante, Gehend,
 NL: andante,
 DK: andante,
@@ -1173,7 +1173,7 @@ FI: ylinouseva intervalli.
 
 ES: ?,
 I: ?,
-F: ?,
+F: augmentation,
 D: ?,
 NL: ?,
 DK: ?,
@@ -1292,7 +1292,7 @@ The male voice intermediate in pitch between the bass and the tenor.
 
 ES: clave de fa en tercera,
 I: chiave di baritono,
-F: clef d' Ut cinquième ligne, clef de Fa troisième,
+F: clef d'ut cinquième ligne, clef de fa troisième,
 D: Baritonschlüssel,
 NL: baritonsleutel,
 DK: barytonnøgle,
@@ -1353,7 +1353,7 @@ A clef setting with middle C on the first top ledger line.
 
 ES: barra
 I: coda,
-F: barre,
+F: ligature, barre (de croches),
 D: Balken,
 NL: waardestreep,
 DK: bjælke,
@@ -1481,7 +1481,7 @@ No cross-references.
 
 ES: corchete,
 I: ?,
-F: ?,
+F: crochet,
 D: ?,
 NL: ?,
 DK: ?,
@@ -1565,7 +1565,7 @@ g\breve
 @itemize
 @item ES: do
 @item I: do
-@item F: ut
+@item F: ut, do
 @item D: C, c
 @item NL: c
 @item DK: c
@@ -1654,7 +1654,7 @@ No cross-references.
 
 ES: cesura,
 I: cesura,
-F: césura,
+F: césure,
 D: Zäsur,
 NL: ?,
 DK: ?,
@@ -1809,7 +1809,7 @@ Using tones extraneous to a diatonic scale (minor, major).
 
 ES: modo eclesiástico,
 I: modo ecclesiastico,
-F: mode ecclésiastique,
+F: mode ecclésiastique, mode d'église,
 D: Kirchentonart,
 NL: kerktoonladder,
 DK: kirketoneart,
@@ -2048,7 +2048,7 @@ major chord.
 
 ES: racimo,
 I: ?,
-F: ?,
+F: cluster,
 D: Cluster,
 NL: ?,
 DK: ?,
@@ -2119,7 +2119,7 @@ Another name for @ref{common time}.
 
 ES: compasillo,
 I: ?,
-F: ?,
+F: mesure à 4/4,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2172,7 +2172,7 @@ Intervals larger than an octave.
 
 ES: compás compuesto, compás de subdivisión ternaria,
 I: ?,
-F: ?,
+F: mesure composée,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2191,7 +2191,7 @@ A meter that includes a triplet subdivision within the beat, such as
 
 ES: compás compuesto, compás de amalgama (def. 2),
 I: ?,
-F: ?,
+F: temps composé,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2246,7 +2246,7 @@ A time signature that additively combines two or more unequal meters, e.g.,
 
 ES: en Do, afinación de concierto,
 I: ?,
-F: ?,
+F: tonalité de concert, en ut,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2487,7 +2487,7 @@ g4\< a b c | d1\! \bar "|."
 
 ES: notas guía,
 I: notine,
-F: petites notes précédent l'entrée d'un instrument, réplique,
+F: petites notes précédant l'entrée d'un instrument, réplique, "à défaut",
 D: Stichnoten,
 NL: stichnoten,
 DK: stiknoder,
@@ -2594,7 +2594,7 @@ No cross-references.
 
 ES: ?,
 I: dal niente,
-F: ?,
+F: partant de rien,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2881,7 +2881,7 @@ FI: vähennetty intervalli.
 
 ES: diminuendo,
 I: diminuendo,
-F: diminuendo,
+F: diminuendo, en diminuant,
 D: diminuendo,
 NL: diminuendo,
 DK: diminuendo,
@@ -2897,7 +2897,7 @@ FI: diminuendo, hiljentyen.
 
 ES: ?,
 I: ?,
-F: ?,
+F: diminution,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2968,7 +2968,7 @@ Another name for @ref{dissonant interval}.
 
 ES: intervalo disonante, disonancia,
 I: intervallo dissonante, dissonanza,
-F: dissonance,
+F: intervalle dissonant, dissonance,
 D: Dissonanz,
 NL: dissonant interval, dissonant,
 DK: dissonerende interval, dissonans,
@@ -3019,7 +3019,7 @@ No cross-references.
 
 ES: ?,
 I: ?,
-F: ?,
+F: saut,
 D: ?,
 NL: ?,
 DK: ?,
@@ -3056,7 +3056,7 @@ The fifth @emph{scale degree} in @emph{functional harmony}.
 
 ES: acorde de novena de dominante,
 I: accordo di nona di dominante,
-F: accord de neuvième dominante,
+F: accord de neuvième de dominante,
 D: Domi@-nant@-nonen@-akkord,
 NL: dominant noon akkoord,
 DK: dominantnoneakkord,
@@ -3072,7 +3072,7 @@ FI: dominanttinoonisointu.
 
 ES: acorde de séptima de dominante,
 I: accordo di settima di dominante,
-F: accord de septième dominante,
+F: accord de septième de dominante,
 D: Dominantseptakkord,
 NL: dominant septiem akkoord,
 DK: dominantseptimakkord,
@@ -3252,7 +3252,7 @@ No cross-references.
 
 ES: tiempo binario,
 I: tempo binario,
-F: temps binaire,
+F: métrique binaire,
 D: in zwei, grader Takt,
 NL: tweedelige maatsoort,
 DK: todelt takt,
@@ -3386,7 +3386,7 @@ indicate this information are called dynamic marks.
 
 ES: sinalefa,
 I: ?,
-F: ?,
+F: élision,
 D: ?,
 NL: ?,
 DK: ?,
@@ -3638,7 +3638,7 @@ Double Bass).
 
 ES: ?,
 I: ?,
-F: ?,
+F: chute,
 D: ?,
 NL: ?,
 DK: ?,
@@ -3657,7 +3657,7 @@ Indicator for a indeterminately falling pitch bend.  Compare with
 
 ES: barra punteada,
 I: ?,
-F: liens de croches en soufflet,
+F: ligature en soufflet, lien de croches en soufflet,
 D: gespreizter Balken,
 NL: ?,
 DK: ?,
@@ -3821,7 +3821,7 @@ g64-"64th" s8
 
 ES: ?,
 I: ?,
-F: ?,
+F: flageolet,
 D: ?,
 NL: ?,
 DK: ?,
@@ -4099,7 +4099,7 @@ No cross-references.
 
 ES: notas de adorno,
 I: abbellimenti,
-F: fioriture,
+F: ornement, fioriture,
 D: Verzierungen, Vorschläge, Vor@-schlags@-noten,
 NL: versieringen,
 DK: forsiringer,
@@ -4119,7 +4119,7 @@ counted in the rhythm of the bar.
 
 ES: sistema de piano,
 I: accolatura,
-F: accolade,
+F: système [de portées], accolade,
 D: Akkolade, Klaviersystem,
 NL: piano systeem,
 DK: klaversystem,
@@ -4137,7 +4137,7 @@ A combination of two staves with a brace.  Usually used for piano music.
 
 ES: grave,
 I: grave,
-F: grave,
+F: grave, lent,
 D: Grave, Langsam,
 NL: grave, ernstig,
 DK: grave,
@@ -4347,7 +4347,7 @@ For harmony that uses three or more notes, see @ref{chord}.
 
 ES: hemiolia,
 I: ?,
-F: ?,
+F: hémiole,
 D: ?,
 NL: ?,
 DK: ?,
@@ -4527,7 +4527,7 @@ octave.
 
 ES: ?,
 I: ?,
-F: inversion,
+F: renversement,
 D: ?,
 NL: ?,
 DK: ?,
@@ -4569,7 +4569,7 @@ No cross-references.
 
 ES: intervalo invertido,
 I: intervallo rivolto,
-F: intervalle reversé,
+F: intervalle renversé,
 D: umgekehrtes Intervall,
 NL: interval inversie,
 DK: omvendingsinterval,
@@ -4669,7 +4669,7 @@ No cross-references.
 
 ES: largo,
 I: largo,
-F: largo,
+F: largo, large, ample,
 D: Largo, Langsam, Breit,
 NL: largo,
 DK: largo,
@@ -4685,7 +4685,7 @@ expressiveness. @emph{Larghetto} is less slow than largo.
 
 ES: sensible,
 I: sensibile,
-F: note sensible,
+F: (note) sensible,
 D: Leitton,
 NL: leidtoon,
 DK: ledetone,
@@ -4879,7 +4879,7 @@ FI: pitkä appoggiatura, pitkä etuhele.
 @item US: long, longa, 
 @item ES: longa,
 @item I: longa,
-@item F: longa,
+@item F: longa, longue,
 @item D: Longa,
 @item NL: longa,
 @item DK: longa,
@@ -4903,7 +4903,7 @@ g\longa g\breve
 
 ES: ligadura de letra,
 I: ?,
-F: ?,
+F: ligature de mots,
 D: Textbindung,
 NL: ?,
 DK: ?,
@@ -4971,7 +4971,7 @@ FI: suuri intervalli.
 
 ES: ?,
 I: ?,
-F: ?,
+F: maxima, maxime,
 D: ?,
 NL: ?,
 DK: ?,
@@ -5069,7 +5069,7 @@ mediant (variant tonic).
 
 ES: melisma,
 I: ?,
-F: mélisme,
+F: mélisme, tenue,
 D: Melisma,
 NL: melisma,
 DK: ?,
@@ -5090,7 +5090,7 @@ No cross-references.
 
 ES: línea de melisma,
 I: ?,
-F: ?,
+F: trait de mélisme, trait de tenue,
 D: ?,
 NL: ?,
 DK: ?,
@@ -5115,7 +5115,7 @@ FI: melismaviiva.
 
 ES: notación mensural,
 I: ?,
-F: ?,
+F: notation mensurale,
 D: ?,
 NL: ?,
 DK: ?,
@@ -5162,7 +5162,7 @@ TODO: add to definition (including summary info on proportional notation)
 
 ES: ?,
 I: ?,
-F: ?,
+F: signe de mensuration,
 D: ?,
 NL: ?,
 DK: ?,
@@ -5481,7 +5481,7 @@ Exact tempo indication (in beats per minute).  Abbreviated @notation{M.M.} or
 
 ES: ?,
 I: mezzo,
-F: ?,
+F: mezzo,
 D: ?,
 NL: ?,
 DK: ?,
@@ -5537,7 +5537,7 @@ The female voice between soprano and contralto.
 
 ES: do central,
 I: do centrale,
-F: do central,
+F: do central, do 3
 D: eingestrichenes@w{ }c,
 NL: centrale@w{ }c,
 DK: enstreget@w{ }c,
@@ -5562,7 +5562,7 @@ No cross-references.
 
 ES: menor,
 I: minore,
-F: mode mineur,
+F: (mode) mineur,
 D: Moll,
 NL: mineur,
 DK: mol,
@@ -5659,7 +5659,7 @@ FI: mordent, korukuvio.
 
 ES: motivo,
 I: inciso,
-F: incise,
+F: motif, incise,
 D: Motiv,
 NL: motief,
 DK: motiv,
@@ -5715,7 +5715,7 @@ No cross-references.
 
 ES: compases de espera,
 I: pausa multipla,
-F: pause multiple,
+F: pause multiple, mesure à compter,
 NL: meermaats rust,
 D: mehrtaktige Pause, Kirchenpause,
 DK: flertaktspause,
@@ -5760,6 +5760,17 @@ FI: palautusmerkki.
 
 @node neighbor tones
 @section neighbor tones
+
+@c TODO: add definition.
+ 
+ES: ?,
+I: ?,
+F: tons voisins,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
 
 @seealso
 @ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
@@ -5816,7 +5827,7 @@ No cross-references.
 
 ES: cabeza,
 I: testa, testina, capocchia,
-F: tête de la note,
+F: tête de note,
 D: Notenkopf,
 NL: nootballetje,
 DK: nodehovede,
@@ -5956,7 +5967,7 @@ bracket, or @notation{loco} see octave marking.
 
 ES: indicación de octava,
 I: ?,
-F: ?,
+F: indication d'octave,
 D: ?,
 NL: ?,
 DK: ?,
@@ -6100,7 +6111,7 @@ the
 
 ES: ossia,
 I: ossia,
-F: ossia,
+F: ossia, alternative,
 D: Ossia,
 NL: alternatief,
 DK: ossia,
@@ -6348,7 +6359,7 @@ No cross-references.
 
 ES: compás polimétrico,
 I: ?,
-F: ?,
+F: polymétrie,
 D: ?,
 NL: ?,
 DK: ?,
@@ -6373,7 +6384,7 @@ parts.
 
 ES: polimétrico,
 I: ?,
-F: ?,
+F: polymétrique,
 D: ?,
 NL: ?,
 DK: ?,
@@ -6442,7 +6453,7 @@ without changing the bow's direction. It is used for passages of a
 
 ES: presto,
 I: presto,
-F: presto,
+F: presto, très rapide, enlevé,
 D: Presto, Sehr schnell,
 NL: presto, Sehr schnell,
 DK: presto,
@@ -6728,7 +6739,7 @@ FI: kvintoli.
 
 ES: rallentando,
 I: rallentando,
-F: rallentando,
+F: rallentando, en ralentissant,
 D: rallentando, langsamer werden,
 NL: rallentando,
 DK: rallentando,
@@ -6854,7 +6865,7 @@ No cross-references.
 
 ES: ritardando,
 I: ritardando,
-F: ritardando,
+F: ritardando, en ralentissant,
 D: ritardando, langsamer werden,
 NL: ritardando,
 DK: ritardando,
@@ -6872,7 +6883,7 @@ No cross-references.
 
 ES: ritenuto,
 I: ritenuto,
-F: ritenuto,
+F: ritenuto, en retenant,
 D: ritenuto,
 NL: ritenuto,
 DK: ritenuto,
@@ -6978,7 +6989,7 @@ No cross-references.
 
 ES: partitura,
 I: partitura,
-F: partition,
+F: partition, conducteur (full score),
 D: Partitur (full score), Klavierauszug (vocal score),
 NL: partituur,
 DK: partitur,
@@ -7129,7 +7140,7 @@ FI: korotusmerkki.
 
 ES: simile,
 I: simile,
-F: ?,
+F: simile,
 D: ?,
 NL: ?,
 DK: ?,
@@ -7149,7 +7160,7 @@ TODO: Where else could I refer the reader?
 
 ES: compás simple, compás de subdivisión binaria,
 I: ?,
-F: ?,
+F: mesure binaire,
 D: ?,
 NL: ?,
 DK: ?,
@@ -7441,7 +7452,7 @@ No cross-references.
 
 ES: plica,
 I: gamba,
-F: queue,
+F: hampe,
 D: Hals, Notenhals, Stiel,
 NL: stok,
 DK: hals,
@@ -7468,7 +7479,7 @@ whole note.
 
 ES: ?,
 I: stringendo,
-F: ?,
+F: stringendo, en accélérant,
 D: ?,
 NL: ?,
 DK: ?,
@@ -7882,7 +7893,7 @@ FI: terssi.
 
 ES: ligadura de prolongación, ligadura de unión,
 I: legatura (di valore),
-F: liaison,
+F: liaison (de tenue),
 D: Haltebogen, Bindebogen,
 NL: overbinding, bindingsboog,
 DK: bindebue,
@@ -7911,7 +7922,7 @@ g2 ~ g4. r8
 
 ES: indicación de compás,
 I: segni di tempo,
-F: chiffrage (chiffres indicateurs), signe de valeur, indication de mesure,
+F: métrique, chiffrage (chiffres indicateurs), indication de mesure,
 D: Taktangabe, Angabe der Taktart,
 NL: maatsoort,
 DK: taktangivelse,
@@ -7931,7 +7942,7 @@ derived from mensural notation and proportions are also employed.
 
 ES: tono,
 I: suono,
-F: ton,
+F: ton, son,
 D: Ton,
 NL: toon,
 DK: tone,
@@ -7970,7 +7981,7 @@ The first @notation{scale degree}.
 
 ES: instrumento transpositor,
 I: ?,
-F: ?,
+F: instrument transpositeur,
 D: ?,
 NL: ?,
 DK: ?,
@@ -8292,7 +8303,7 @@ No cross-references.
 
 ES: vez, primera y segunda vez,
 I: volta,
-F: ?,
+F: volta, fois,
 D: ?,
 NL: ?,
 DK: ?,

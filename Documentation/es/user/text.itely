@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 9b573e8e9365a4c6d0b302f5c6ae3b0e5c85df11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1078,14 +1078,10 @@ c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
 
-@c TODO: add \lookup here? -vv
-@c Probably better not to document \lookup, which is useful only for
-@c printing braces, and instead document \left-brace and \right-brace
-@c when these become available  -td
-
 @noindent
 Otra forma de imprimir glifos que no son de texto se encuentra
-descrita en @ref{Fonts explained}.
+descrita en @ref{Fonts explained}.  Tiene la utilidad de imprimir
+llaves de distintos tamaños.
 
 El modo de marcado también contempla diagramas para instrumentos
 específicos:
@@ -1225,6 +1221,8 @@ tipográficas, y cómo se pueden cambiar en las partituras.
 
 @cindex Pango
 @cindex fuentes tipográficas, explicación
+@cindex llaves de distintos tamaños
+
 @funindex font-interface
 
 Las fuentes tipográficas se manejan a través de distintas bibliotecas.
@@ -1253,8 +1251,18 @@ a1^\markup {
 @end lilypond
 
 @noindent
-Una sintaxis más simple pero más limitada se describe en @ref{Music
-notation inside markup}.
+Sin embargo, todos estos glifos excepto las llaves de varios tamaños
+que están contenidas en la fuente tipográfica @code{fetaBraces} están
+disponibles utilizando la sintaxis más sencilla que se describe en
+@ref{Music notation inside markup}.
+
+Cuando se usan los glifos de la fuente de llaves @code{fetaBraces}, el
+tamaño de la llave se especifica por la parte numérica del nombre del
+glifo, en unidades arbitrarias.  Se puede especificar cualquier entero
+de @code{0} a @code{575} inclusive, siendo @code{0} el que produce la
+llave más pequeña.  El valor óptimo se debe determinar por ensayo y
+error.  Todos estos glifos son llaves izquierdas; las llaves derechas
+se pueden obtener mediante rotación, véase @ref{Rotating objects}.
 
 Están disponibles tres familias de tipografías de texto: la tipografía
 @emph{romana} (con serifa), que de forma predeterminada es New Century

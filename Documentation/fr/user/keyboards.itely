@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1154b407d42f303a024598296ad36ab6c93e2b5a
+    Translation of GIT committish: 15ef26d4cde4d2d170e88a13867169d4e75026ae
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -629,10 +629,10 @@ Les harpes comportent sept cordes par octave qui peuvent sonner
 naturel, dièse ou bémol.  Si chacune des cordes de la harpe celtique
 (@emph{lever harp}) est accordée individuellement, celles d'une harpe à
 pédalier ayant la même note de base sont contrôlées par une seule
-pédale.  De gauche à droite, elles correspondent aux notes ré, do, si,
-mi, fa, sol, la pour la grande harpe. Les trois premières pédales sont
-réservées au pied gauche, les 4 dernières au pied droit.  Leur position
-peut être indiquée par une marque textuelle : 
+pédale.  De gauche à droite, elles correspondent aux notes ré, do, si, 
+et mi, fa, sol, la pour la grande harpe. Les trois premières pédales sont
+réservées au pied gauche, les quatre dernières au pied droit.  Leur
+position peut être indiquée par une marque textuelle : 
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
@@ -647,13 +647,14 @@ ou bien sous forme de diagrammes :
 cis1_\markup { \harp-pedal #"^v-|vv-^" }
 c!1_\markup { \harp-pedal #"^o--|vv-^" }
 @end lilypond
-bémol si la pédale est relâchée (= en haut), bécarre si elle est bloquée sur le cran du milieu, et dièse si elle est tout à fait enfoncée.
-La commande @code{\harp-pedal} prend en argument une chaîne de
-caractères, où @code{^} si la pédale est relâchée ou en haut (bémol),
-@code{-} si elle est bloquée sur le cran du milieu (bécarre), @code{v}
-si elle est tout à fait enfoncée (dièse) et @code{|} le séparateur (entre
-gauche et droite de l'instrumentiste). Faire précéder un symbole par un
-@code{o} permet de l'inscrire dans un cercle.
+bémol si la pédale est relâchée (ou en haut), bécarre si elle est
+bloquée sur le cran du milieu, et dièse si elle est tout à fait
+enfoncée.  La commande @code{\harp-pedal} prend en argument une chaîne de
+caractères, où @code{^} indique que la pédale est relâchée ou en haut (bémol),
+@code{-} qu'elle est bloquée sur le cran du milieu (bécarre), @code{v}
+qu'elle est tout à fait enfoncée (dièse) et @code{|} représente le
+séparateur (entre gauche et droite de l'instrumentiste). Faire précéder
+un symbole par un @code{o} permet de l'inscrire dans un cercle.
 
 @seealso
 Manuel de notation :
