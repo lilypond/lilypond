@@ -340,7 +340,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>4 @command{lilypond-book}: Integrating text and music<br>(3248)</td>
+  <td>4 lilypond-book: Integrating text and music<br>(3248)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Reinhold Kainhofer<br>
