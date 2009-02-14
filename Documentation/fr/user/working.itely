@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: bfbaf6488d99ab4cdfcb4efdc67eaca63a636106
+   Translation of GIT committish: 148e80b8992a7fb9d59ec439c00b79decbbe3bad
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -38,7 +38,7 @@ résultat que vous souhaitez, peu importe la manière dont le code est
 organisé.  Néanmoins, quelques critères doivent être pris en compte
 lorsque l'on écrit un fichier LilyPond.
 
-@itemize @bullet
+@itemize
 @item Si vous faites une erreur, la structure même du fichier LilyPond
 peut permettre de la localiser plus ou moins facilement.
 
@@ -107,6 +107,10 @@ structuré si vous n'y avez pas adjoint de commentaires.
 @item @strong{Indentez les accolades}.  Beaucoup de problèmes
 viennent d'un défaut de parité entre @code{@{} et @code{@}}.
 
+@item @strong{Mentionnez les durées} au début de chaque section ou
+variable.  Si vous saisissez @code{c4 d e} au début d'une phrase, vous
+vous épargnerez des problèmes si, plus tard, vous modifiez votre musique.
+
 @item @strong{Séparez les affinages de mise en forme} de la musique
 elle-même. Voyez @ref{Saving typing with variables and functions} et
 @ref{Style sheets}.
@@ -120,13 +124,13 @@ elle-même. Voyez @ref{Saving typing with variables and functions} et
 Si vous saisissez de la musique à partir d'une partition existante,
 c'est-à-dire de la musique déjà écrite,
 
-@itemize @bullet
+@itemize
 
 @item n'entrez qu'un seul système de la partition originale
 à la fois --- mais toujours une seule mesure par ligne de texte ---,
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
-utiliser la commande @code{showLastLength} pour accélérer la
-compilation --- voir @ruser{Skipping corrected music} ;
+utiliser les commandes @code{showLastLength} et @code{showFirstLength}
+pour accélérer la compilation --- voir @ruser{Skipping corrected music} ;
 
 @item définissez @code{mBreak = @{\break @}} et insérez
 @code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
@@ -135,6 +139,24 @@ comparaison entre la partition originale et la partition de
 LilyPond.  Lorsque vous avez fini de relire votre musique, vous pouvez
 définir @code{mBreak = @{ @}} pour enlever tous ces sauts de ligne, et
 laisser LilyPond placer les sauts de ligne selon son propre algorithme.
+
+@item encadrez les notes d'une partie pour instrument transpositeur
+dans un 
+
+@example
+\transpose c tonalite-naturelle @{...@}
+@end example
+(où @code{tonatilte-naturelle} correspond à celle de l'instrument en
+question) de telle sorte que la musique comprise dans cette variable se
+retrouve en ut.  Vous pourrez toujours transposer à l'inverse si besoin
+lorsque vous ferez appel à cette variable.  Des erreurs de transposition
+seront moins susceptibles de se produire si la musique de toutes les
+variables est dans la même et unique tonalité.
+
+De la même manière, prénez toujours le do comme note de départ ou
+d'arrivée.  Ceci aura pour simple conséquence que les autres tonalités
+que vous utiliserez seront celles propres à chacun des instruments --
+sib pour une trompette en si bémol, ou lab pour une clarinette en la bémol.
 
 @end itemize
 
@@ -168,10 +190,10 @@ g4 c'8. e16
 @end example
 
 @item @strong{Séparez les retouches} des définitions de
-musique.  Ce conseil a été vu dans @ref{General suggestions},
-mais pour les projets d'importance c'est absolument vital.  Nous
+musique.  Nous vous avons déjà invité à adopter une telle pratique, qui
+par ailleurs devient vitale pour des projets d'importance.  Nous
 pouvons avoir besoin de changer la définition de
-@code{fthenp}, mais dans ce cas nous n'aurons besoin de le faire
+@code{fpuisp}, mais dans ce cas nous n'aurons besoin de le faire
 qu'une seule fois, et nous pourrons encore éviter de
 modifier quoi que ce soit à l'intérieur de la définition
 du @code{violon}.
@@ -218,7 +240,7 @@ violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 }
 @end lilypond
 
-Cependant, vous pouvez aussi utiliser ces identificateurs
+Néanmoins vous pouvez aussi utiliser ces identificateurs
 --- aussi connus sous le nom de variables, macros, ou commandes
 (définies par l'utilisateur) --- pour des retouches :
 
@@ -260,6 +282,9 @@ violin = \relative c'' @{
 @}
 @end example
 
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
 Jusqu'ici nous avons vu des substitutions statiques : quand LilyPond
 rencontre @code{\padText}, il le remplace par le contenu que nous lui
 avons défini --- c'est-à-dire le contenu à droite de @code{padText=}.
@@ -285,9 +310,9 @@ padText =
 
 Utiliser les identificateurs est aussi un bon moyen pour vous épargner
 du travail si la syntaxe de LilyPond change un jour --- voir
-@ref{Updating old files}.  Si vous avez une seule définition, par
-exemple @code{\dolce}, pour tous vos fichiers (voir @ref{Style
-sheets}), et que la syntaxe change, alors vous n'aurez qu'à mettre à
+@ref{Updating old input files}.  Si vous avez une seule définition, par
+exemple @code{\dolce}, pour tous vos fichiers (voir @ref{Style sheets}),
+et que la syntaxe change, alors vous n'aurez qu'à mettre à 
 jour votre seule définition @code{\dolce}, au lieu de devoir modifier
 chaque fichier @code{.ly}.
 
@@ -328,7 +353,7 @@ cela en utilisant les techniques de @ref{Moving objects}.  On peut
 aussi faire quelque chose pour les définitions de @code{mpdolce}
 et @code{tempoMark}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
-Il suffirait de les copier et les coller au début de chaque
+Il suffirait de les copier et coller au début de chaque
 fichier, mais c'est fastidieux.  De plus, cela laisse les définitions
 dans nos fichiers de musique, et je trouve personnellement tous ces
 @code{#()} assez laids.  Stockons-les dans un autre fichier :
@@ -384,7 +409,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 
 C'est mieux, mais effectuons encore quelques retouches.  Le glissando
 est peu visible, c'est pourquoi nous allons l'épaissir et le
-rapprocher des têtes de notes.  Déplaçons l'indication métronomique
+rapprocher des têtes de note.  Déplaçons l'indication métronomique
 au-dessus de la clef, au lieu de la laisser au-dessus de la première
 note.  Et pour finir, mon professeur de composition déteste les
 chiffrages de mesure en @qq{C}, nous allons donc le transformer en @qq{4/4}.
@@ -560,8 +585,8 @@ chaque fichier de musique par @code{\include "../global.ly"} qui contient :
 * Minimal examples::            
 @end menu
 
-@node Updating old files
-@subsection Updating old files
+@node Updating old input files
+@subsection Updating old input files
 
 La syntaxe de LilyPond change de temps en temps.  Ces changements de
 syntaxe du langage d'entrée accompagnent les améliorations du
@@ -681,6 +706,7 @@ début de votre exemple.
 @end itemize
 
 Tout l'intérêt d'un exemple minimal réside dans sa facilité de lecture :
+
 @itemize
 @item évitez d'utiliser des notes, armures ou métriques compliquées, à
 moins que vous ne vouliez montrer quelque chose en rapport avec
@@ -735,8 +761,8 @@ sera substitué le contenu du fichier @file{musique-Cor.ly}, et de ce
 fait la variable @code{notesCor} se trouvera définie.  La commande
 @code{\transpose f@tie{}c'} indique que son argument @code{\notesCor}
 sera transposé à la quinte supérieure : le son réel @samp{f} s'écrit
-@code{c'}, ce qui est la caractéristique d'un Cor en Fa. La transposition
-est visible comme suit :
+@code{c'}, ce qui est la caractéristique d'un Cor en fa.  La
+transposition est visible comme suit :
 
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {
@@ -764,7 +790,7 @@ Il faut pour cela définir la propriété @code{skipBars} à @q{vrai} :
 @end example
 
 @noindent
-Cette commande assigne la valeur @q{vrai} --- @q{true} en anglais, et
+Cette commande assigne la valeur @q{vrai} --- @emph{true} en anglais, et
 @samp{#t} dans le langage Scheme --- à cette propriété dans le
 contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
 silence multi-mesures et cette option, on obtient le résultat suivant :

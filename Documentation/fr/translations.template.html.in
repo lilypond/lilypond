@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 862d8ce7ab34bfa6e9192fb31d004137d158c452
+    Translation of GIT committish: 148e80b8992a7fb9d59ec439c00b79decbbe3bad
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -28,8 +28,8 @@
   remaniée, et sa révision se poursuit encore actuellement&nbsp;; le rythme
   de cette révision ne permet pas de maintenir toutes les traductions
   à jour.  Cependant, le fait que certaines traductions ne soient pas
-  du tout à jour (avec une indication sur fond rouge) ne signifient
-  pas qu'elles sont périmées, cela signifie juste que les traductions
+  du tout à jour (avec une indication sur fond rouge) ne signifie
+  pas qu'elles sont périmées, mais simplement qu'elles
   n'atteignent pas la qualité de la documentation en anglais récemment
   remaniée&nbsp;: les traducteurs font de leur mieux pour au moins mettre à
   jour dans la documentation la syntaxe et les noms de commande

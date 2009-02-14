@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 33ba8d40c3493011a4b39ab8b1369701f8013bd6
+    Translation of GIT committish: 148e80b8992a7fb9d59ec439c00b79decbbe3bad
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -461,9 +461,10 @@ mus = { \key d \major cis d fis g }
 
 On peut aussi utiliser @code{\transpose} pour entrer des notes écrites
 pour un instrument transpositeur.  Normalement, les hauteurs dans
-LilyPond sont écrites en ut, i.e. en sons réels, mais elles peuvent être
-écrites dans un autre ton.  Quand, par exemple, on écrit pour une
-trompette en si bémol, commençant sur ré note réelle, on pourrait écrire
+LilyPond sont écrites en ut, c'est à dire en sons réels, mais elles
+peuvent être écrites dans un autre ton.  Quand, par exemple, on écrit
+pour une trompette en si bémol, commençant sur ré note réelle, on
+pourrait écrire 
 @example
 \transpose c bes @{ e4 @dots{} @}
 @end example
