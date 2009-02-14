@@ -927,7 +927,7 @@ def ly_comment_gettext (t, m):
     return m.group (1) + t (m.group (2))
 
 def verb_ly_gettext (s):
-    if not document_language:
+    if not document_language or not langdefs.LANGDICT[document_language].enable_ly_identifier_l10n:
         return s
     try:
         t = langdefs.translation[document_language]
