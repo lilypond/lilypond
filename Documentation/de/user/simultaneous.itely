@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -355,7 +355,8 @@ Handbuch zum Lernen:
 
 Notationsreferenz:
 @ref{Percussion staves},
-@ref{Invisible rests}.
+@ref{Invisible rests},
+@ref{Stems}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
