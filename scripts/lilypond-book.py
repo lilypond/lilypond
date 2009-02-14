@@ -927,7 +927,7 @@ def ly_comment_gettext (t, m):
     return m.group (1) + t (m.group (2))
 
 def verb_ly_gettext (s):
-    if not document_language or not langdefs.LANGDICT[document_language].enable_ly_identifier_l10n:
+    if not document_language:
         return s
     try:
         t = langdefs.translation[document_language]
@@ -936,14 +936,15 @@ def verb_ly_gettext (s):
 
     s = ly_comment_re.sub (lambda m: ly_comment_gettext (t, m), s)
 
-    for v in ly_var_def_re.findall (s):
-        s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
-                    "\\1" + t (v) + "\\2",
-                    s)
-    for id in ly_context_id_re.findall (s):
-        s = re.sub (r'(\s+|")%s(\s+|")' % id,
-                    "\\1" + t (id) + "\\2",
-                    s)
+    if langdefs.LANGDICT[document_language].enable_ly_identifier_l10n:
+        for v in ly_var_def_re.findall (s):
+            s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
+                        "\\1" + t (v) + "\\2",
+                        s)
+        for id in ly_context_id_re.findall (s):
+            s = re.sub (r'(\s+|")%s(\s+|")' % id,
+                        "\\1" + t (id) + "\\2",
+                        s)
     return s
 
 texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
