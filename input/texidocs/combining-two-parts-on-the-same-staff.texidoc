@@ -18,3 +18,23 @@ textos.
 
 "
   doctitlees = "Combinar dos partes sobre el mismo pentagrama"
+
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706> 
+  texidocde = "
+Die Funktion, die Stimmen kombiniert (also der @code{\\partcombine}-Befehl)
+ermöglicht die Kombination unterschiedlicher Stimmen auf einem
+System.  Textanweisungen wie \"solo\" or \"a2\" werden automatisch
+hinzugefügt.  Wenn man sie entfernen will, muss man die Eigenschaft
+@code{printPartCombineTexts} auf flasch setzen.  Für Klavierauszüge
+muss natürlich kein \"solo\"/\"a2\" usw. hinzugefügt werdne, man
+sollte sie also ausschalten.  Wenn aber Solo-Stellen in einem
+Klavierauszug oder einer Chorpartitur angezeigt werden, ist es besser,
+normale Polyphonie zu verwenden, weil so die Solostellen angezeigt
+werden, auch wenn der Text des Stimmenkombinierers ausgeschaltet ist.
+
+Der Schnipsel zeigt drei Möglichkeiten, Stimmen auf einem System zu
+kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
+@code{\\partcombine} mit Text.
+
+"
+  doctitlede = "Zwei Stimmen auf einem System kombinieren"

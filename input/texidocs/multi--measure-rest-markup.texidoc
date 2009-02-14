@@ -15,3 +15,19 @@ longitud del texto, éste aparecerá centrado.
 "
 
 doctitlees = "Marcado de silencios multicompás"
+
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "Textbeschriftungen, die an Mehrtaktpausen gehängt wird,
+wird über oder unter der Pause zentriert.  Lange Beschriftungen
+lassen den Takt nicht breiter werden.  Um eine Mehrtaktpause einer
+Beschriftung anzupassen, muss eine unsichtbare Pause mit der
+Beschriftung direkt vor der Mehrtkatpause eingesetzt werden.
+
+Man sollte beachten, dass unsichtbare Pausen automatische Taktstriche
+nach sich ziehen.  Text, der an eine unsichtbare Pause gehänt wird,
+ist links ausgerichtet an der Position, wo die Pause erscheinen
+würde.  Wenn aber die Länge des Taktes durch die Länge des Textes
+bestimmt wird, sieht es so aus, als ob der Text zentriert gesetzt
+ist."
+
+  doctitlede = "Textbeschriftung und Mehrtaktpausen"

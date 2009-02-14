@@ -13,3 +13,19 @@ pasa a la función @code{set-time-signature} como tercer argumento:
 
 "
 doctitlees = "Símbolos de dirección, símbolos de agrupación de compás"
+
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Optionen, mit denen die Balken in einem Takt gruppiert werden, sind
+durch die Scheme-Funktion @code{set-time-signature} erhältlich, die
+drei Argumente braucht:  Die Zahl der Taktschläge, die Länge des
+Schlages und die interne gruppieren von Balken in dem Takt.  Wenn der
+@code{Measure_grouping_engraver} hinzugefügt worden ist, erstellt
+diese Funktion auch @code{MeasureGrouping}-(Taktgruppen)-Zeichen.  Derartige
+Zeichen erleichtern das Lesen von rhythmisch komplexer Musik.  In dem
+Beispiel ist der 9/8-Takt in 2, 2, 2 und 3 aufgeteilt.  Das wird
+der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
+@code{'(2 2 2 3)}:
+
+"
+  doctitlede = "Dirigirzeichen, Taktgruppenzeichen"

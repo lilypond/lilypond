@@ -18,3 +18,12 @@ accord. L'exemple qui suit montre comment ce comportement par défaut
 peut être corrigé.
 "
   doctitlefr = "Éviter les collisions entre les doigtés d'accords et les ligatures"
+
+%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Fingersatz und Saitennummern, die zu einzelnen Noten hinzugefügt werden, vermeiden
+automatisch Hälse und Balken, aber das gilt nicht für Noten von Akkorden.
+Das Beispiel zeigt, wie dieses Verhalten verändert werden kann.
+
+"
+  doctitlede = "Vermeidung von Zusammenstößen bei Fingersatz in Akkorden"

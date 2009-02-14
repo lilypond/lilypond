@@ -12,3 +12,17 @@ distinta, como se ve en el segundo sistema del ejemplo.
 "
   doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
 
+  
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
+@code{StaffGroup} angezeigt wird, wird die Klammer zu Beginn normalerweise
+nicht gesetzt.  Das kann verändert werden, indem man die ensprechende
+Eigenschaft veränder.
+
+Bei Systemen wie @code{PianoStaff} und @code{GrandStaff}, die mit einer
+geschweiften Klammer beginne, muss eine andere Eigenschaft verändt werden,
+wie das zweite Beispiel zeigt.
+
+"
+  doctitlede = "Klammer anzeigen, wenn nur ein System gesetzt wird"
