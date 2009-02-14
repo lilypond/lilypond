@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-29 09:50+0100\n"
-"PO-Revision-Date: 2008-12-27 17:09+0200\n"
+"PO-Revision-Date: 2009-02-14 14:59+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
@@ -5080,9 +5080,8 @@ msgstr "Longa"
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "maxima"
-msgstr "Melisma"
+msgstr "Maxima"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
@@ -11690,15 +11689,12 @@ msgid "bassusIncipit"
 msgstr "bassusIncipit"
 
 #. input/lsr/incipit.ly:253 (comment)
-#, fuzzy
 msgid "no bar lines in staves or lyrics"
-msgstr "keine Taktstriche auf Systemen"
+msgstr "keine Taktstriche auf Systemen oder Gesangstext"
 
 #. input/lsr/incipit.ly:256 (comment)
-#, fuzzy
 msgid "the next two instructions keep the lyrics between the bar lines"
-msgstr ""
-"mit den drei nächsten Befehlen wird der Text zwischen den Taktstriche "
+msgstr "mit den zwei nächsten Befehlen wird der Text zwischen den Taktstrichen "
 "gehalten"
 
 #. input/lsr/incipit.ly:267 (comment)
@@ -11920,14 +11916,12 @@ msgid "bassfigures"
 msgstr "Bassfiguren"
 
 #. input/lsr/manually-controlling-beam-positions.ly:21 (comment)
-#, fuzzy
 msgid "from upper staff-line (position 2) to center (position 0)"
-msgstr "von oberer Notenlinie (Position 4) bis Mitte (Position 0)"
+msgstr "von oberer Notenlinie (Position 2) bis Mitte (Position 0)"
 
 #. input/lsr/manually-controlling-beam-positions.ly:24 (comment)
-#, fuzzy
 msgid "from center to one above center (position 1)"
-msgstr "von Mitte bis eins über der Mitte (Position 2)"
+msgstr "von Mitte bis eins über der Mitte (Position 1)"
 
 #. input/lsr/marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly:17 (variable)
 msgid "speakOn"
@@ -12723,10 +12717,9 @@ msgid "Based on the box-stencil command defined in scm/stencil.scm"
 msgstr "Basierend auf dem box-stencil-Befehl, definiert in scm/stencil.scm"
 
 #. input/lsr/three-sided-box.ly:18 (comment)
-#, fuzzy
 msgid "Note that \\\";\\\" is used to comment a line in Scheme"
 msgstr ""
-"Achtung: \\\";\\\" wird benutzt um eine Zeile in Scheme auszukommentieren"
+"Achtung: \\\";\\\" wird benutzt, um eine Zeile in Scheme auszukommentieren"
 
 #. input/lsr/three-sided-box.ly:32 (comment)
 msgid "The corresponding markup command, based on the \\box command defined "
@@ -12815,7 +12808,6 @@ msgid "the normal relationship between notes and clefs:"
 msgstr "das normale Verhältnis zwischen Noten und Schlüsseln"
 
 #. input/lsr/tweaking-clef-properties.ly:151 (comment)
-#, fuzzy
 msgid "Return to the normal clef:"
 msgstr "Wieder der normale Schlüssel:"
 
