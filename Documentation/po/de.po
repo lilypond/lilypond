@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-14 02:23+0100\n"
-"PO-Revision-Date: 2009-02-14 14:59+0200\n"
+"PO-Revision-Date: 2009-02-15 15:38+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
@@ -11598,7 +11598,7 @@ msgstr ""
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:50 (comment)
 msgid "These chords will be in normal orientation"
-msgstr ""
+msgstr "Diese Akkorde sind in normaler Ausrichtung"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:56 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:77 (comment)
@@ -11617,28 +11617,27 @@ msgstr "110% der Standardgröße"
 #. input/lsr/fret-diagrams-explained-and-developed.ly:174 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:273 (comment)
 msgid "Double barre used to test barre function"
-msgstr ""
+msgstr "Doppel-Barré um die Barré-Funktion zu testen"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:101 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:201 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:300 (comment)
-#, fuzzy
 msgid "C major for guitar, with capo on third fret"
-msgstr "C-Dur für Gitarre, Barre auf dem dritten Bund"
+msgstr "C-Dur für Gitarre, mit Barré auf dem dritten Bund"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:136 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:235 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:334 (comment)
 msgid "simple D chord, large top fret thickness"
-msgstr ""
+msgstr "einfacher D-Durakkord, Dicke des Bundes oben groß"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:148 (comment)
 msgid "These chords will be in landscape orientation"
-msgstr ""
+msgstr "Diese Akkorde werden quer ausgerichtet"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:247 (comment)
 msgid "These chords will be in opposing-landscape orientation"
-msgstr ""
+msgstr "Diese Akkorde werden quer auf dem Kopf ausgerichtet"
 
 #. input/lsr/grid-lines--changing-their-appearance.ly:33 (comment)
 msgid "this moves them up one staff space from the default position"
