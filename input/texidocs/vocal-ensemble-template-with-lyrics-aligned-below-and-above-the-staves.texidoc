@@ -12,3 +12,8 @@ In diesem Beispiel werden die Texte mit den Befehlen
 @code{alignAboveContext} und @code{alignBelowContext}
 über und unter dem System angeordnet.
 "
+
+  texidocja = "
+このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が 
+@code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
+"

@@ -20,6 +20,11 @@ Sie es in Ihre Datei ein, schreiben Sie die Noten hinzu, und Sie haben
 eine vollständige Notationsdatei.
 "
 
+  texidocja = "
+これは音符を持つ譜表を提供するとても簡単なテンプレートであり、ソロの楽器や旋律に適しています。@c
+これをファイルにカット＆ペーストして、音符を付け加えれば完了です！
+"
+
   texidoc = "
 This very simple template gives you a staff with notes, suitable for a
 solo instrument or a melodic fragment. Cut and paste this into a file,

@@ -1,0 +1,52 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@c This file is part of lilypond-program.tely
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node Converting from other formats
+@chapter Converting from other formats
+
+@untranslated
+
+@menu
+* Invoking midi2ly::            Importing MIDI.
+* Invoking musicxml2ly::        Importing MusicXML.
+* Invoking abc2ly::             Importing ABC.
+* Invoking etf2ly::             Importing Finale.
+* Generating LilyPond files::   GUIs, transcribers, and algorithmic composition programs.
+@end menu
+
+
+@node Invoking midi2ly
+@section Invoking @command{midi2ly}
+
+@untranslated
+
+@node Invoking musicxml2ly
+@section Invoking @code{musicxml2ly}
+
+@untranslated
+
+@node Invoking abc2ly
+@section Invoking @code{abc2ly}
+
+@untranslated
+@node Invoking etf2ly
+@section Invoking @command{etf2ly}
+
+@untranslated
+
+
+@node Generating LilyPond files
+@section Generating LilyPond files
+
+@untranslated

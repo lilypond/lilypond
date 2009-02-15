@@ -15,7 +15,7 @@ def lang_file_name (p, langext, ext):
     return p + ext
 
 class LanguageDef:
-    def __init__ (self, code, name, webext=None, double_punct_char_sep='', html_filter=lambda s: s):
+    def __init__ (self, code, name, webext=None, double_punct_char_sep='', html_filter=lambda s: s, enable_ly_identifier_l10n=True):
         self.code = code
         self.name = name
         self.enabled = True
@@ -25,7 +25,7 @@ class LanguageDef:
             self.webext = webext
         self.double_punct_char_sep = double_punct_char_sep
         self.html_filter = html_filter
-    
+        self.enable_ly_identifier_l10n = enable_ly_identifier_l10n
     def file_name (self, prefix, ext):
         return lang_file_name (prefix, self.webext, ext)
 
@@ -62,7 +62,7 @@ def french_html_filter (page):
 fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
 es = LanguageDef ('es', 'español')
 de = LanguageDef ('de', 'deutsch')
-ja = LanguageDef ('ja', '日本語')
+ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=True)
 
 # Outdated or broken translations may be disabled
 # (please run 'make web-clean' before doing that):

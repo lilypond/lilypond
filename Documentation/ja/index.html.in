@@ -35,15 +35,15 @@
 	    <li>
 	    <a class="title"
 href="user/lilypond-learning/index.ja.html">学習マニュアル</a>
-(in <a class="title" href="user/lilypond-learning-big-page.ja.html">大きな 1 ページ</a> ~ 1.5 MB,
-in <a class="title" href="user/lilypond-learning.ja.pdf">PDF</a>)
+(<a class="title" href="user/lilypond-learning-big-page.ja.html">大きな 1 ページ</a> 形式 ~ 1.5 MB)<!--,
+<a class="title" href="user/lilypond-learning.ja.pdf">PDF</a> 形式)
+-->
               <br>(ここから始めてください)</li>
 
 	   <li><a class="title"
 href="user/music-glossary/index.html">音楽用語集</a>
-(in <a class="title" href="user/music-glossary-big-page.html">大きな 1 ページ</a> ~ 500 kB,
-in <a class="title" href="user/music-glossary.pdf">PDF</a>)
-
+(<a class="title" href="user/music-glossary-big-page.html">大きな 1 ページ</a> 形式 ~ 500 kB),
+<a class="title" href="user/music-glossary.pdf">PDF</a> 形式)
      <br>(非英語圏のユーザ向け)</li>
 	</ul>
 	  </td>
@@ -64,15 +64,17 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 	  <ul>
 	    <li>
 <a class="title" href="user/lilypond/index.ja.html">表記リファレンス</a>
-(in <a class="title" href="user/lilypond-big-page.ja.html">大きな 1 ページ</a> ~ 4 MB,
-in <a class="title" href="user/lilypond.ja.pdf">PDF</a>)
+(<a class="title" href="user/lilypond-big-page.ja.html">大きな 1 ページ</a> 形式 ~ 4 MB)<!--,
+<a class="title" href="user/lilypond.ja.pdf">PDF</a> 形式)
+-->
      <br>(音楽を LilyPond で記述する)</li>
 
        <li>
  <a  class="title"
 href="user/lilypond-internals/index.ja.html">内部リファレンス</a>
- (in <a class="title" href="user/lilypond-internals-big-page.ja.html">大きな 1 ページ</a> ~ 1 MB,
-  in <a class="title" href="user/lilypond-internals.ja.pdf">PDF</a>)
+ (<a class="title" href="user/lilypond-internals-big-page.ja.html">大きな 1 ページ</a> 形式 ~ 1 MB)<!--,
+  <a class="title" href="user/lilypond-internals.ja.pdf">PDF</a> 形式)
+-->
      <br>(調整のための定義)</li>
 
   </ul>
@@ -82,13 +84,15 @@ href="user/lilypond-internals/index.ja.html">内部リファレンス</a>
               <li>
 	    <a class="title"
 href="user/lilypond-program/index.ja.html">アプリケーションの使用方法</a>
-(in <a class="title" href="user/lilypond-program-big-page.ja.html">大きな 1 ページ</a>,
-in <a class="title" href="user/lilypond-program.ja.pdf">PDF</a>)
+(<a class="title" href="user/lilypond-program-big-page.ja.html">大きな 1 ページ</a> 形式)<!--,
+<a class="title" href="user/lilypond-program.ja.pdf">PDF</a> 形式)
+-->
             <br>(プログラムをインストールして実行する方法)</li>
 
 <li><a class="title"href="../input/lsr/lilypond-snippets/index.html">断片集</a>
-(in <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">大きな 1 ページ</a> ~ 2MB,
-in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
+(<a class="title" href="../input/lsr/lilypond-snippets-big-page.html">大きな 1 ページ</a> 形式 ~ 2MB)<!--,
+<a class="title" href="user/lilypond-snippets.pdf">PDF</a> 形式)
+-->
      <br>(Short tricks, tips, and examples)</li>
 
 	</ul>

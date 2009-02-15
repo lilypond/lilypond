@@ -18,11 +18,11 @@ wird auch eine @qq{@code{\global}}-Variable für Taktart und
 Vorzeichen benutzt.
 "
 
-  texidoc = "
-This template demonstrates a simple string quartet. It also uses a
-@code{\\global} section for time and key signatures
-
+  texidocja = "
+これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号のために 
+@code{@bs{}global} セクションを使っています。
 "
+
   doctitle = "String quartet template (simple)"
 } % begin verbatim
 

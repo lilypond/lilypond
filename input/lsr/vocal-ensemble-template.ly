@@ -22,6 +22,12 @@ die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa
 sind fast immer gleich in allen Stimmen.
 "
 
+  texidocja = "
+これは標準の 4 パート SATB (ソプラノ、アルト、テナー、バス) ボーカル譜です。@c
+もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
+便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
+歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
+
   texidoc = "
 Here is a standard four-part SATB vocal score. With larger ensembles,
 it is often useful to include a section which is included in all parts.

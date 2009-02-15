@@ -18,6 +18,10 @@ Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben?  Hier ist
 das richtige Beispiel für Sie!
 "
 
+  texidocja = "
+旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
+"
+
   texidoc = "
 Want to prepare a lead sheet with a melody and chords? Look no further!
 

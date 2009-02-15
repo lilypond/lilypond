@@ -403,7 +403,8 @@ c2 \parenthesize <c e g>
 c2 <c \parenthesize e g>
 @end lilypond
 
-Non-note objects may be parenthesized as well.
+Non-note objects may be parenthesized as well. For articulations, 
+a hyphen is needed before the @code{\parenthesize} command.
 
 @lilypond[verbatim,quote,relative=2]
 c2-\parenthesize -. d

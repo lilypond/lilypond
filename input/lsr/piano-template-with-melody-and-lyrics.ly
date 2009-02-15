@@ -17,6 +17,10 @@ Das nächste Beispiel ist typisch für ein Lied: Im oberen System die
 Melodie mit Text, darunter Klavierbegleitung.
 "
 
+  texidocja = "
+これは一般的な歌曲のフォーマットです: 旋律と歌詞を持つ譜表と、その下にピアノ伴奏譜があります。
+"
+
   texidoc = "
 Here is a typical song format: one staff with the melody and lyrics,
 with piano accompaniment underneath. 

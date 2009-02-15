@@ -33,3 +33,17 @@ enthält die Noten. Die anderen Dateien -- @code{score.ly},
 Partitur (@code{score.ly}). Mit @code{\tag} wird den Stimmen ein Name 
 zugewiesen, auf den zurückgegriffen werden kann.
 "
+
+  texidocja = "
+\"弦楽四重奏テンプレート\" は適切な弦楽四重奏の楽譜を作り出しますが、個々の@c
+パート譜を譜刻する必要がある場合はどうでしょうか？今度の新しいテンプレートは 
+@code{@bs{}tag} 機能を用いて容易に楽曲を個々のパートに分ける方法を示しています。
+
+このテンプレートは別々のファイルに分ける必要があります。ファイル名は各ファイル@c
+の開始部分のコメントの中に記述されています。@code{piece.ly} はすべての音楽定義@c
+を保持しています。他のファイル - @code{score.ly}, @code{vn1.ly}, @code{vn2.ly}, 
+@code{vla.ly} それに @code{vlc.ly} - は対応するパートを作り出します。
+
+
+別々のファイルに分ける場合は、指定されたコメントを外すことを忘れないでください！
+"

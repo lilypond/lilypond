@@ -24,6 +24,13 @@ irgendeine Änderung an einer Chorstimme vornehmen, (etwa
 tenorMusic), verändert sich auch der Klavierauszug entsprechend.
 "
 
+  texidocja = "
+このテンプレートは、\"合唱テンプレート\"で示された標準の SATB ボーカル譜に自動@c
+ピアノ譜を付け加えています。これは LilyPond の強みの 1 つを示しています - 音楽@c
+定義を何回も使用することができます。ボーカルの音符 (例えば、@code{tenorMusic} 
+の音符) に変更が加えられた場合、その変更はピアノ譜にも適用されます。
+"
+
   texidoc = "
 This template adds an automatic piano reduction to the standard SATB
 vocal score demonstrated in \"Vocal ensemble template\". This
