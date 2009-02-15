@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 148e80b8992a7fb9d59ec439c00b79decbbe3bad
+    Translation of GIT committish: a6b100669bfc3847b3a03029d6a46ee9b1609e73
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -53,7 +53,7 @@ fichier source au clavier de l'ordinateur.
 @cindex octaves absolues
 
 La hauteur s'écrit --- à moins de préciser une autre langue --- avec la
-notation anglaise, en utilisant les lettres @code{a} à @code{g}.
+notation batave, en utilisant les lettres @code{a} à @code{g}.
 Une gamme ascendante de do majeur s'écrit
 
 @lilypond[quote,fragment,verbatim,ragged-right]
@@ -105,7 +105,7 @@ reste de la pièce à une mauvaise octave.
 
 
 @example
-\relative @var{startpitch} @var{musicexpr}
+\relative @var{hauteur_de_référence} @var{musicexpr}
 @end example
 
 @noindent
@@ -436,7 +436,7 @@ majeur avec
 @end example
 
 Regardons maintenant une partie écrite pour violon --- un instrument en
-ut).  Si cette partie doit être jouée par une clarinette en la (écrite à
+ut.  Si cette partie doit être jouée par une clarinette en la (écrite à
 la tierce mineure supérieure, un do écrit donnant un la réel), la
 transposition suivante créera la partie appropriée.
 
@@ -599,7 +599,7 @@ c'est-à-dire au début de la portée.
 On définit ou modifie l'armure avec la commande @code{\key}
 
 @example
-@code{\key} @var{hauteur} @var{type}
+@code{\key} @var{hauteur} @var{mode}
 @end example
 
 @funindex \minor
@@ -614,8 +614,8 @@ On définit ou modifie l'armure avec la commande @code{\key}
 @funindex \dorian
 @cindex modes anciens
 
-Ici, @var{type} doit être @code{\major} ou @code{\minor} afin d'avoir
-respectivement @var{hauteur}-major ou @var{hauteur}-minor.  Vous pouvez
+Ici, @var{mode} doit être @code{\major} ou @code{\minor} afin d'avoir
+respectivement @var{hauteur}-majeur ou @var{hauteur}-mineur.  Vous pouvez
 aussi avoir recours aux modes anciens que sont @code{\ionian},
 @code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
 @code{\phrygian}, et @code{\dorian}.
@@ -781,7 +781,7 @@ s'impriment les altérations.  Elle s'invoque de la manière suivante :
 @c -the default contexts as specified in
 @c  scm/music-function.scm seem to be different -vv
 
-Cette fonction prend pour argument le nom de la règle d'altérations,
+Cette fonction prend pour argument le nom de la règle d'altération,
 auquel peut s'ajouter, comme argument facultatif, le contexte
 devant être affecté :
 
@@ -793,13 +793,13 @@ Si aucun contexte n'est spécifié, le contexte @code{Staff} sera affecté ;
 cependant on peut souhaiter l'appliquer au contexte @code{Voice} en lieu 
 et place.
 
-Les régles d'altérations suivantes sont possibles :
+Les régles d'altération suivantes sont possibles :
 
 @table @code
 @item default
 C'est la règle d'impression par défaut, qui se rapporte à l'usage 
-en vigueur au XVIIIème siècle : les altérations accidentelles sont valables toute
-une mesure, et uniquement à leur propre octave.
+en vigueur au XVIIIème siècle : les altérations accidentelles sont
+valables tout une mesure, et uniquement à leur propre octave.
 
 
 @lilypond[quote,ragged-right]
@@ -825,8 +825,8 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item voice
 En principe, LilyPond se souvient de toutes les altérations présentes sur la
-portée (contexte Staff).  Avec cette règle, cependant, les altérations sont indépendantes
-pour chacune des voix. 
+portée (contexte Staff).  Avec cette règle, cependant, les altérations
+sont indépendantes pour chacune des voix. 
 
 
 @example
@@ -861,18 +861,20 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 }
 @end lilypond
 
-La règle @code{voice} n'est à envisager que dans le cas de voix devant être lues par
-des musiciens différents.  S'il s'agit d'un @q{conducteur}, ou d'une portée destinée
-à un seul musicien, il vaut mieux utiliser @code{modern} ou @code{modern-cautionary}.
+La règle @code{voice} n'est à envisager que dans le cas de voix devant
+être lues par des musiciens différents.  S'il s'agit d'un
+@qq{conducteur}, ou d'une portée destinée à un seul musicien, il vaut
+mieux utiliser @code{modern} ou @code{modern-cautionary}. 
 
 
 @item modern
 @funindex modern style accidentals
-Cette règle est la plus courante au XXème siècle.  Les altérations accidentelles
-sont imprimées comme avec le style @code{default}, mais lorsqu'une note non-altérée
-apparaît à une octave différente, ou bien dans la mesure suivante, des bécarres de précaution
-sont ajoutés.  Dans l'exemple suivant, notez ainsi les deux bécarres dans la
-deuxième mesure de la main droite.
+Cette règle est la plus courante au XXème siècle.  Les altérations
+accidentelles sont imprimées comme avec le style @code{default}, mais
+lorsqu'une note non-altérée apparaît à une octave différente, ou bien
+dans la mesure suivante, des bécarres de précaution sont ajoutés.  Dans
+l'exemple suivant, notez ainsi les deux bécarres dans la deuxième mesure
+de la main droite. 
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -897,10 +899,11 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item @code{modern-cautionary}
 @funindex modern-cautionary
-Cette règle est équivalente à @code{modern}, mais les bécarres de précaution sont
-imprimés de façon particulière : soit plus petits, soit (par défaut) entre parenthèses.
-Il est possible de le définir au moyen de la propriété @code{cautionary-style}
-pour l'objet @rinternals{AccidentalSuggestion}.
+Cette règle est équivalente à @code{modern}, mais les bécarres de
+précaution sont imprimés de façon particulière : soit plus petits, soit
+(par défaut) entre parenthèses.  Il est possible de le définir au moyen
+de la propriété @code{cautionary-style} pour l'objet
+@rinternals{AccidentalSuggestion}. 
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -926,9 +929,10 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @funindex modern-voice
 @item modern-voice
 Cette règle sert aux altérations dans de la musique polyphonique destinée
-autant à des musiciens différents qu'à quelqu'un qui lirait l'ensemble des voix.
-Les altérations sont imprimées voix par voix, mais les autres voix, dans le même 
-contexte @rinternals{Staff}, en @emph{tiennent compte} cette fois.
+autant à des musiciens différents qu'à quelqu'un qui lirait l'ensemble
+des voix.  Les altérations sont imprimées voix par voix, mais les autres
+voix, dans le même contexte @rinternals{Staff}, en @emph{tiennent
+compte} cette fois. 
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -953,7 +957,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @funindex modern-voice-cautionary
 @item modern-voice-cautionary
-Cette régle est similaire à la précédente, mais les altérations de précautions
+Cette régle est similaire à la précédente, mais les altérations de précaution
 (celles que n'aurait pas ajoutées @code{voice}), sont imprimées de façon
 particulière.  On retrouve donc toutes les altérations qu'imprimerait
 @code{default}, mais certaines sont considérées comme étant @qq{de précaution}.
@@ -981,8 +985,9 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item piano
 @funindex piano accidentals
-Cette règle est adaptée aux contextes GrandStaff -- ce qui n'empêche pas de devoir la spécifier 
-pour chaque portée individuelle au sein du contexte GrandStaff.
+Cette règle est adaptée aux contextes GrandStaff -- ce qui n'empêche pas
+de devoir la spécifier pour chaque portée individuelle au sein du
+contexte GrandStaff. 
 
 @example
 \new GrandStaff @{ <<
@@ -997,10 +1002,10 @@ pour chaque portée individuelle au sein du contexte GrandStaff.
 >> @}
 @end example
 
-Cette règle est communément employée pour les partitions de piano au XXème siècle.
-Très similaire à @code{modern} de par son comportement, elle s'en distingue en ce que
-les altérations tiennent compte des autre portées du contexte @rinternals{GrandStaff} ou
-@rinternals{PianoStaff}.
+Cette règle est communément employée pour les partitions de piano au
+XXème siècle.  Très similaire à @code{modern} de par son comportement,
+elle s'en distingue en ce que les altérations tiennent compte des autre
+portées du contexte @rinternals{GrandStaff} ou @rinternals{PianoStaff}.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1025,8 +1030,8 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item piano-cautionary
 @funindex #(set-accidental-style 'piano-cautionary)
-Identique à @code{#(set-accidental-style 'piano)}, mais les altérations de précaution
-sont imprimées différemment.
+Identique à @code{#(set-accidental-style 'piano)}, mais les altérations
+de précaution sont imprimées différemment.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1051,8 +1056,8 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item no-reset
 @funindex no-reset accidental style
-C'est la même règle que @code{default}, mais l'effet des altérations accidentelles
-ne cesse jamais, même dans les mesures suivantes.
+C'est la même règle que @code{default}, mais l'effet des altérations
+accidentelles ne cesse jamais, même dans les mesures suivantes.
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
        \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
@@ -1075,9 +1080,9 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @end lilypond
 
 @item forget
-Tout le contraire de @code{no-reset}: l'effet des altérations cesse aussitôt,
-et de ce fait, toutes les altérations, quelque soit leur place dans la mesure, sont
-imprimées, en fonction de l'éventuelle armure.
+Tout le contraire de @code{no-reset} : l'effet des altérations cesse aussitôt,
+et de ce fait, toutes les altérations, quelque soit leur place dans la
+mesure, sont imprimées en fonction de l'éventuelle armure.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1104,18 +1109,20 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @seealso
 Référence du programme : @rinternals{Accidental_engraver},
-@rinternals{Accidental}, @rinternals{AccidentalSuggestion} et @rinternals{AccidentalPlacement}.
+@rinternals{Accidental}, @rinternals{AccidentalSuggestion} et
+@rinternals{AccidentalPlacement}. 
 
 
 @knownissues
 
 Les notes simultanées sont considérées comme des évènements séquentiels.
 Ce qui implique que, dans un accord, les altérations accidentelles seront 
-imprimées comme si les notes de l'accords apparaissaient une par une, en fonction
-de l'ordre dans lequels elles ont été saisies -- ce qui peut poser problème lorsqu'au
-sein d'un accord certaines altérations dépendent les unes des autres.
-Ce problème est à résoudre manuellement, en insérant des @code{!} et des @code{?} après les notes
-concernées.
+imprimées comme si les notes de l'accord apparaissaient une par une, en
+fonction de l'ordre dans lequels elles ont été saisies -- ce qui peut
+poser problème lorsqu'au sein d'un accord certaines altérations
+dépendent les unes des autres.  
+Ce problème est à résoudre manuellement, en insérant des @code{!} et des
+@code{?} après les notes concernées.
 
 
 @node Ambitus
@@ -1124,13 +1131,13 @@ concernées.
 
 L'@emph{ambitus} est l'amplitude des hauteurs d'une voix donnée dans une
 partition.  Ce terme peut aussi désigner la tessiture qu'un instrument
-est capable d'atteindre.  Souvent, cet ambitus est imprimé au début des
+est capable d'atteindre.  Souvent, cet @emph{ambitus} est imprimé au début des
 partitions vocales, afin que les exécutants puissent voir au premier
-coup d'oeil s'ils sont en mesure de tenir la partie en question.
+coup d'œil s'ils sont en mesure de tenir la partie en question.
 
-Pour exprimer l'ambitus d'une pièce, on indique avant la clé deux notes
+Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clé deux notes
 représentant la hauteur la plus basse et la plus haute.  Pour imprimer
-cet ambitus, il faut ajouter le graveur @rinternals{Ambitus_engraver}
+cet @emph{ambitus}, il faut ajouter le graveur @rinternals{Ambitus_engraver}
 au contexte @rinternals{Voice}.  Ainsi,
 
 @example
@@ -1143,7 +1150,7 @@ au contexte @rinternals{Voice}.  Ainsi,
 @end example
 
 @noindent
-donne pour résultat
+aura pour résultat
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -1209,8 +1216,8 @@ Exemples : @rlsr{Pitches}, @rlsr{Vocal music}.
 
 @knownissues
 
-LilyPond ne gère pas les collisions entre plusieurs ambitus présents sur
-une même portée.
+LilyPond ne gère pas les collisions entre plusieurs @emph{ambitus}
+présents sur une même portée.
 
 
 @node Note heads
@@ -1229,7 +1236,7 @@ une même portée.
 @cindex têtes de note, spéciales
 
 Certains instruments utilisent des têtes de note différentes à des
-fins spécifiques --- des croix pour le @q{parlato} des chanteurs ou les
+fins spécifiques --- des croix pour le @emph{parlato} des chanteurs ou les
 notes étouffées des guitares ; des losanges pour les harmoniques des
 cordes.  Il existe un raccourci (@code{\harmonic}) pour les notes en
 losange ; pour les autres styles de tête, il vous faudra jouer avec la
@@ -1259,7 +1266,7 @@ Référence du programme : @rinternals{NoteHead}.
 @cindex notation facile
 @cindex Hal Leonard
 
-Les notes @q{easy play} comportent le nom de la note à l'intérieur de
+Les notes @qq{easy play} comportent le nom de la note à l'intérieur de
 la tête.  On l'utilise dans des partitions pour débutants.
 
 @lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]

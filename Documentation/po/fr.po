@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-14 02:23+0100\n"
-"PO-Revision-Date: 2009-01-04 17:50+0100\n"
+"PO-Revision-Date: 2009-02-15 13:17+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -2661,7 +2661,7 @@ msgstr "Positionnement des nuances au-dessus de la portée"
 #. Documentation/user/tweaks.itely:1963 (comment)
 #. Documentation/user/tweaks.itely:2035 (comment)
 msgid "Start Ottava Bracket"
-msgstr "Début du crochet d'octavation"
+msgstr "Début du crochet d'octaviation"
 
 #. Documentation/user/tweaks.itely:1966 (comment)
 #. Documentation/user/tweaks.itely:1973 (comment)
@@ -2683,11 +2683,11 @@ msgstr "Ajout d'un commentaire textuel"
 #. Documentation/user/tweaks.itely:1975 (comment)
 #. Documentation/user/tweaks.itely:2047 (comment)
 msgid "Stop Ottava Bracket"
-msgstr "Fin du crochet d'octavation"
+msgstr "Fin du crochet d'octaviation"
 
 #. Documentation/user/tweaks.itely:2033 (comment)
 msgid "Place following Ottava Bracket below Text Spanners"
-msgstr "Positionnement du crochet d'octavation sous le texte avec extension"
+msgstr "Positionnement du crochet d'octaviation sous le texte avec extension"
 
 #. Documentation/user/tweaks.itely:2122 (comment)
 msgid "Cause notes to space out to accommodate text"
@@ -4858,13 +4858,13 @@ msgstr "scordatura"
 #. @node in Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in Documentation/de/user/pitches.itely
 msgid "Ottava brackets"
-msgstr "Marques d'octavation"
+msgstr "Marques d'octaviation"
 
 #. @rglos in Documentation/user/pitches.itely
 #. @rglos in Documentation/es/user/pitches.itely
 #. @rglos in Documentation/de/user/pitches.itely
 msgid "octavation"
-msgstr "octavation"
+msgstr "octaviation"
 
 #. @node in Documentation/user/pitches.itely
 #. @unnumberedsubsubsec in Documentation/user/pitches.itely
@@ -5203,9 +5203,8 @@ msgstr "longue"
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "maxima"
-msgstr "mélisme"
+msgstr "mamima"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
@@ -11852,9 +11851,8 @@ msgid "bassusIncipit"
 msgstr "bassusIncipit"
 
 #. input/lsr/incipit.ly:253 (comment)
-#, fuzzy
 msgid "no bar lines in staves or lyrics"
-msgstr "pas de barre sur les portées"
+msgstr "pas de barre sur les portées ou dans les paroles"
 
 #. input/lsr/incipit.ly:256 (comment)
 msgid "the next two instructions keep the lyrics between the bar lines"
