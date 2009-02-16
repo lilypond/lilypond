@@ -62,7 +62,7 @@ def french_html_filter (page):
 fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
 es = LanguageDef ('es', 'español')
 de = LanguageDef ('de', 'deutsch')
-ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=True)
+ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
 
 # Outdated or broken translations may be disabled
 # (please run 'make web-clean' before doing that):

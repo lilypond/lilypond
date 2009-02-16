@@ -1476,9 +1476,9 @@ class LilypondSnippet (Snippet):
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + document_language
             if os.path.exists (translated_doctitle):
-                str += '@lydoctitle %s\n' % open (translated_doctitle).read ()
+                str += '@lydoctitle %s\n\n' % open (translated_doctitle).read ()
             elif os.path.exists (doctitle):
-                str += '@lydoctitle %s\n' % open (doctitle).read ()
+                str += '@lydoctitle %s\n\n' % open (doctitle).read ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + document_language
