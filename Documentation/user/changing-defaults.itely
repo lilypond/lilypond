@@ -57,6 +57,7 @@ This section describes what contexts are, and how to modify them.
 @menu
 * Contexts explained::
 * Creating contexts::
+* Keeping contexts alive::
 * Modifying context plug-ins::
 * Changing context default settings::
 * Defining new contexts::
@@ -401,6 +402,159 @@ these forms
 @end example
 
 @end itemize
+
+@node Keeping contexts alive
+@subsection Keeping contexts alive
+
+@cindex contexts, keeping alive
+@cindex contexts, lifetime
+
+Contexts are usually terminated at the first musical moment in
+which they have nothing to do.  So @code{Voice} contexts die as
+soon as they contain no events; @code{Staff} contexts die as soon
+as all the @code{Voice} contexts within them contain no events; etc.
+This can cause difficulties if earlier contexts which have died
+have to be referenced, for example, when changing staves with
+@code{\change} commands, associating lyrics with a voice with
+@code{\lyricsto} commands, or when adding further musical events to
+an earlier context.
+
+There is an exception to this general rule: just one of the
+@code{Voice} contexts in a @code{Staff} context or in a
+@code{<<...>>} construct will always persist to the end of the
+enclosing @code{Staff} context or @code{<<...>>} construct, even
+though there may be periods when it has nothing to do.  The context
+to persist in this way will be the first one encountered in the
+first enclosed @code{@{...@}} construct, ignoring any in enclosed
+@code{<<...>>} constructs.
+
+Any context can be kept alive by ensuring it has something to do at
+every musical moment.  @code{Staff} contexts are kept alive by
+ensuring one of their voices is kept alive.  One way of doing this
+is to add spacer rests to a voice in parallel with the real music.
+These need to be added to every @code{Voice} context which needs to
+be kept alive.  If several voices are to be used sporadically it is
+safest to keep them all alive rather than attempting to rely on the
+exceptions mentioned above.
+
+In the following example, both voice A and voice B are kept alive
+in this way for the duration of the piece:
+
+@lilypond[quote,verbatim]
+musicA = \relative c'' { d4 d d d }
+musicB = \relative c'' { g4 g g g }
+\score {
+  \new Staff {
+    <<
+      \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
+      \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+      {
+        \context Voice = "A" {
+          \voiceOneStyle
+          \musicA
+        }
+        \context Voice = "B" {
+        \voiceTwoStyle
+          \musicB
+        }
+        \context Voice = "A" {
+          % voiceOneStyle continues as Voice A is kept alive
+          \musicA
+        }
+        \context Voice = "B" {
+          % voiceTwoStyle continues, as Voice "B" is kept alive
+          \musicB
+        }
+        \context Voice = "A" {
+          % Voice "A" is still alive
+          \musicA
+        }
+      }
+    >>
+  }
+}
+@end lilypond
+
+@cindex lyrics, aligning with sporadic melody
+
+The following example shows how a sporadic melody line with lyrics
+might be written using this approach.  In a real situation the
+melody and accompaniment would consist of several different
+sections, of course.
+
+@lilypond[quote,verbatim]
+melody = \relative c'' { a4 a a a }
+accompaniment = \relative c' { d4 d d d }
+words = \lyricmode { These words con -- tain large gaps }
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          s1*4  % Keep Voice "melody" alive for 4 bars
+        }
+        {
+          \new Voice = "accompaniment" {
+            \voiceTwo
+            \accompaniment
+          }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+          \context Voice = "accompaniment" { \accompaniment }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+An alternative way, which may be better in many circumstances, is
+to keep the melody line alive by simply include spacer notes to
+line it up correctly with the accompaniment:
+
+@lilypond[quote,verbatim]
+melody = \relative c'' {
+  s1  % skip a bar
+  a4 a a a
+  s1  % skip a bar
+  a4 a a a
+}
+accompaniment = \relative c' {
+  d4 d d d
+  d4 d d d
+  d4 d d d
+  d4 d d d
+}
+words = \lyricmode { These words con -- tain large gaps }
+
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          \melody
+        }
+        \new Voice = "accompaniment" {
+          \voiceTwo
+          \accompaniment
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
 
 
 @node Modifying context plug-ins
