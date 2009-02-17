@@ -168,6 +168,10 @@ the current voice from its current staff to the staff called
 @var{staffname}.  Typical values for @var{staffname} are
 @code{"up"} and @code{"down"}, or @code{"RH"} and @code{"LH"}.
 
+The staff to which the voice is being switched must exist at the
+time of the switch.  If necessary, staves should be @qq{kept alive},
+see @ref{Keeping contexts alive}.
+
 Cross-staff notes are beamed automatically:
 
 @lilypond[verbatim,quote]
@@ -203,7 +207,8 @@ Learning Manual:
 
 Notation Reference:
 @ref{Stems},
-@ref{Automatic beams}.
+@ref{Automatic beams},
+@ref{Keeping contexts alive}.
 
 Snippets:
 @rlsr{Keyboards}.

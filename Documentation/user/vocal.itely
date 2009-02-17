@@ -468,6 +468,13 @@ or by specifying the duration of each syllable
 explicitly, using @code{\lyricmode}
 @end itemize
 
+The @code{Voice} context containing the melody to which the lyrics
+are being aligned must not have @qq{died}, or the lyrics after that
+point will be lost.  This can happen if there are periods when that
+voice has nothing to do.  For methods of keeping contexts alive, see
+@ref{Keeping contexts alive}.
+
+
 @menu
 * Automatic syllable durations::
 * Manual syllable durations::
@@ -580,6 +587,9 @@ Here is an example demonstrating manual lyric durations,
 
 
 @seealso
+Notation Reference:
+@ref{Keeping contexts alive}.
+
 Internals Reference:
 @rinternals{Lyrics}.
 
