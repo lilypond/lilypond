@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-Translation of GIT committish: e16bb64a802f4f6a8b66c8714d6094f1866af6c0
+Translation of GIT committish: ccd5be7a5e4ec9e1c1dfdcecc1eb290d8c4a59fc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -61,6 +61,7 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 @menu
 * Contexts explained::
 * Creating contexts::
+* Keeping contexts alive::
 * Modifying context plug-ins::
 * Changing context default settings::
 * Defining new contexts::
@@ -361,6 +362,164 @@ Para que se interprete dentro de los niveles de @code{Score} o
 @end example
 
 @end itemize
+
+@node Keeping contexts alive
+@subsection Keeping contexts alive
+
+@cindex contextos, mantener vivos
+@cindex contextos, tiempo de vida
+
+Normalmente los contextos finalizan en el primer momento musical en
+que no tienen nada que hacer.  Así, los contextos de @code{Voice}
+mueren tan pronto como ya no contienen ningún evento; los contextos de
+@code{Staff} mueren tan pronto como todos los contextos de
+@code{Voice} que contenían ya no contengan ningún evento; etc.  Esto
+puede ocasionar dificultades si se tiene que hacer referencia a
+contextos anteriores que ya han muerto, por ejemplo, al cambiar de
+pentagramas con instrucciones @code{\change}, asociar letra con una
+voz mediante instrucciones @code{\lyricsto}, o cuando se añaden
+eventos musicales adicionales a un contexto anterior.
+
+Existe una excepción a esta regla general: precisamente uno de los
+contextos de @code{Voice} que están dentro de un contexto de
+@code{Staff} o de una construcción @code{<<...>>} persiste siempre
+hasta el final de, contexto de @code{Staff} circundante o la
+construcción @code{<<...>>}, incluso aunque puede haber períodos en
+que no tiene nada que hacer.  El contexto que persiste de esta forma
+será el primero que se encuentre en la primera construcción encerrada
+entre llaves @code{@{...@}}, ignorando cualquiera que se encuentre
+dentro de construcciones encerradas por ángulos dobles @code{<<...>>}.
+
+Cualquier contexto se puede mantener vivo si nos aseguramos de que
+tiene algo que hacer en cualquier momento musical dado.  Los
+contextos de @code{Staff} se mantienen con vida si nos aseguramos de
+que una de sus voces se mantiene viva.  Una manera de hacerlo es
+añadir silencios de separación a una voz en paralelo con la música
+real.  Éstos deben añadirse a todos y cada uno de los contextos de
+@code{Voice} que se hayan de mantener vivos.  Si se van a usar
+esporádicamente varias voces, es más seguro mantenerlas todas vivas en
+lugar de tratar de confiar en las excepciones que hemos mencionado
+arriba.
+
+En el ejemplo siguiente, tanto la voz A como la voz B se mantienen
+vivas de esta manera durante la duración de la pieza:
+
+@lilypond[quote,verbatim]
+musicA = \relative c'' { d4 d d d }
+musicB = \relative c'' { g4 g g g }
+\score {
+  \new Staff {
+    <<
+      \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
+      \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+      {
+        \context Voice = "A" {
+          \voiceOneStyle
+          \musicA
+        }
+        \context Voice = "B" {
+        \voiceTwoStyle
+          \musicB
+        }
+        \context Voice = "A" {
+          % voiceOneStyle continues as Voice A is kept alive
+          \musicA
+        }
+        \context Voice = "B" {
+          % voiceTwoStyle continues, as Voice "B" is kept alive
+          \musicB
+        }
+        \context Voice = "A" {
+          % Voice "A" is still alive
+          \musicA
+        }
+      }
+    >>
+  }
+}
+@end lilypond
+
+@cindex letra, alineación con melodía esporádica
+
+El ejemplo siguiente muestra cómo se puede escribir una línea melódica
+esporádica con letra utilizando este enfoque.  Por supuesto, en una
+situación real la melodía y el acompañamiento consistirían en varias
+secciones diferentes.
+
+@lilypond[quote,verbatim]
+melody = \relative c'' { a4 a a a }
+accompaniment = \relative c' { d4 d d d }
+words = \lyricmode { These words con -- tain large gaps }
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          s1*4  % Keep Voice "melody" alive for 4 bars
+        }
+        {
+          \new Voice = "accompaniment" {
+            \voiceTwo
+            \accompaniment
+          }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+          \context Voice = "accompaniment" { \accompaniment }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+Una forma alternativa, que podría resultar mejor en muchas
+situaciones, es mantener con vida la línea melódica simplemente
+incluyendo notas espaciadoras para alinearla correctamente con el
+acompañamiento:
+
+@lilypond[quote,verbatim]
+melody = \relative c'' {
+  s1  % skip a bar
+  a4 a a a
+  s1  % skip a bar
+  a4 a a a
+}
+accompaniment = \relative c' {
+  d4 d d d
+  d4 d d d
+  d4 d d d
+  d4 d d d
+}
+words = \lyricmode { These words con -- tain large gaps }
+
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          \melody
+        }
+        \new Voice = "accompaniment" {
+          \voiceTwo
+          \accompaniment
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
 
 
 @node Modifying context plug-ins
