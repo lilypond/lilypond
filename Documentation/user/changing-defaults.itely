@@ -443,35 +443,32 @@ in this way for the duration of the piece:
 @lilypond[quote,verbatim]
 musicA = \relative c'' { d4 d d d }
 musicB = \relative c'' { g4 g g g }
-\score {
-  \new Staff {
-    <<
-      \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
-      \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
-      {
-        \context Voice = "A" {
-          \voiceOneStyle
-          \musicA
-        }
-        \context Voice = "B" {
-        \voiceTwoStyle
-          \musicB
-        }
-        \context Voice = "A" {
-          % voiceOneStyle continues as Voice A is kept alive
-          \musicA
-        }
-        \context Voice = "B" {
-          % voiceTwoStyle continues, as Voice "B" is kept alive
-          \musicB
-        }
-        \context Voice = "A" {
-          % Voice "A" is still alive
-          \musicA
-        }
-      }
-    >>
+keepVoicesAlive = {
+  <<
+    \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
+    \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+  >>
+}
+
+music = {
+  \context Voice = "A" {
+    \voiceOneStyle
+    \musicA
   }
+  \context Voice = "B" {
+    \voiceTwoStyle
+    \musicB
+  }
+  \context Voice = "A" { \musicA }
+  \context Voice = "B" { \musicB }
+  \context Voice = "A" { \musicA }
+}
+
+\score {
+  \new Staff <<
+    \keepVoicesAlive
+    \music
+  >>
 }
 @end lilypond
 
@@ -485,7 +482,7 @@ sections, of course.
 @lilypond[quote,verbatim]
 melody = \relative c'' { a4 a a a }
 accompaniment = \relative c' { d4 d d d }
-words = \lyricmode { These words con -- tain large gaps }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
 \score {
   <<
     \new Staff = "music" {
@@ -518,7 +515,7 @@ words = \lyricmode { These words con -- tain large gaps }
 @end lilypond
 
 An alternative way, which may be better in many circumstances, is
-to keep the melody line alive by simply include spacer notes to
+to keep the melody line alive by simply including spacer notes to
 line it up correctly with the accompaniment:
 
 @lilypond[quote,verbatim]
@@ -534,7 +531,7 @@ accompaniment = \relative c' {
   d4 d d d
   d4 d d d
 }
-words = \lyricmode { These words con -- tain large gaps }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 \score {
   <<
