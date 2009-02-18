@@ -9,3 +9,17 @@ el fragmento citado porque @code{rest-event} no está dentro de los
 
 "
   doctitlees = "Citar otra voz"
+  
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Die @code{quotedEventTypes}-Eigenschaft bestimmt die
+Typen an Musikereignissen, die zitiert werden.  Die
+Standardeinstellung ist @code{(note-event rest-event)}, womit
+nur Noten und Pausen der zitierten Stimme für den
+@code{\\quoteDuring}-Ausdruck übernommen werden.  Im
+Beispiel hier wird die 16-Pause nicht übernommen, weil
+sich @code{rest-event} nicht in @code{quotedEventTypes} befindet.
+
+"
+
+  doctitlede = "Eine andere Stimme zitieren"

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-14 02:23+0100\n"
-"PO-Revision-Date: 2008-12-27 17:09+0200\n"
+"PO-Revision-Date: 2009-02-15 15:38+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
@@ -2450,7 +2450,7 @@ msgstr "Kontexte und Engraver"
 #. @node in Documentation/ja/user/fundamental.itely
 #. @subsection in Documentation/ja/user/fundamental.itely
 msgid "Contexts explained"
-msgstr "Was sind Umgebungen?"
+msgstr "Was sind Kontexte?"
 
 #. @node in Documentation/user/fundamental.itely
 #. @subsection in Documentation/user/fundamental.itely
@@ -2471,7 +2471,7 @@ msgstr "Was sind Umgebungen?"
 #. @node in Documentation/ja/user/fundamental.itely
 #. @subsection in Documentation/ja/user/fundamental.itely
 msgid "Creating contexts"
-msgstr "Umgebungen erstellen"
+msgstr "Kontexte erstellen"
 
 #. @node in Documentation/user/fundamental.itely
 #. @subsection in Documentation/user/fundamental.itely
@@ -5188,9 +5188,8 @@ msgstr "Longa"
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "maxima"
-msgstr "Melisma"
+msgstr "Maxima"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
@@ -9043,7 +9042,7 @@ msgstr "Standardeinstellungen verändern"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @section in Documentation/de/user/changing-defaults.itely
 msgid "Interpretation contexts"
-msgstr "Interpretationsumgebungen"
+msgstr "Interpretationskontexte"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
@@ -9054,7 +9053,7 @@ msgstr "Interpretationsumgebungen"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/de/user/changing-defaults.itely
 msgid "Score - the master of all contexts"
-msgstr "Score - Meister aller Kontexte"
+msgstr "Score - der Vater aller Kontexte"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
@@ -9109,7 +9108,7 @@ msgstr "Umgebungs-Plugins verändern"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Changing context default settings"
-msgstr "Die Standardeinstellungen von Umgebungen ändern"
+msgstr "Die Standardeinstellungen von Kontexten ändern"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
@@ -9120,7 +9119,7 @@ msgstr "Die Standardeinstellungen von Umgebungen ändern"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Defining new contexts"
-msgstr "Neue Umgebungen definieren"
+msgstr "Neue Kontexte definieren"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
@@ -9131,7 +9130,7 @@ msgstr "Neue Umgebungen definieren"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Aligning contexts"
-msgstr "Umgebungen aneinander ausrichten"
+msgstr "Kontexte aneinander ausrichten"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @section in Documentation/user/changing-defaults.itely
@@ -9186,7 +9185,7 @@ msgstr "Die Grob-Eigenschaften"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Naming conventions"
-msgstr "Benennungsübereinkommen"
+msgstr "Benennungskonventionen"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @section in Documentation/user/changing-defaults.itely
@@ -9319,7 +9318,7 @@ msgstr "Abstände und Maße"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Staff symbol properties"
-msgstr "Eigenschaften von Staff (Notensystem)-Symbol"
+msgstr "Eigenschaften des Staff-Symbols"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
@@ -9476,7 +9475,7 @@ msgstr "Fortgeschrittene Optimierungen"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Aligning objects"
-msgstr "Umgebungen ausrichten"
+msgstr "Objekte ausrichten"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
@@ -11599,7 +11598,7 @@ msgstr ""
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:50 (comment)
 msgid "These chords will be in normal orientation"
-msgstr ""
+msgstr "Diese Akkorde sind in normaler Ausrichtung"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:56 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:77 (comment)
@@ -11618,28 +11617,27 @@ msgstr "110% der Standardgröße"
 #. input/lsr/fret-diagrams-explained-and-developed.ly:174 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:273 (comment)
 msgid "Double barre used to test barre function"
-msgstr ""
+msgstr "Doppel-Barré um die Barré-Funktion zu testen"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:101 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:201 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:300 (comment)
-#, fuzzy
 msgid "C major for guitar, with capo on third fret"
-msgstr "C-Dur für Gitarre, Barre auf dem dritten Bund"
+msgstr "C-Dur für Gitarre, mit Barré auf dem dritten Bund"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:136 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:235 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:334 (comment)
 msgid "simple D chord, large top fret thickness"
-msgstr ""
+msgstr "einfacher D-Durakkord, Dicke des Bundes oben groß"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:148 (comment)
 msgid "These chords will be in landscape orientation"
-msgstr ""
+msgstr "Diese Akkorde werden quer ausgerichtet"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:247 (comment)
 msgid "These chords will be in opposing-landscape orientation"
-msgstr ""
+msgstr "Diese Akkorde werden quer auf dem Kopf ausgerichtet"
 
 #. input/lsr/grid-lines--changing-their-appearance.ly:33 (comment)
 msgid "this moves them up one staff space from the default position"
@@ -11855,15 +11853,12 @@ msgid "bassusIncipit"
 msgstr "bassusIncipit"
 
 #. input/lsr/incipit.ly:253 (comment)
-#, fuzzy
 msgid "no bar lines in staves or lyrics"
-msgstr "keine Taktstriche auf Systemen"
+msgstr "keine Taktstriche auf Systemen oder Gesangstext"
 
 #. input/lsr/incipit.ly:256 (comment)
-#, fuzzy
 msgid "the next two instructions keep the lyrics between the bar lines"
-msgstr ""
-"mit den drei nächsten Befehlen wird der Text zwischen den Taktstriche "
+msgstr "mit den zwei nächsten Befehlen wird der Text zwischen den Taktstrichen "
 "gehalten"
 
 #. input/lsr/incipit.ly:267 (comment)
@@ -12085,14 +12080,12 @@ msgid "bassfigures"
 msgstr "Bassfiguren"
 
 #. input/lsr/manually-controlling-beam-positions.ly:21 (comment)
-#, fuzzy
 msgid "from upper staff-line (position 2) to center (position 0)"
-msgstr "von oberer Notenlinie (Position 4) bis Mitte (Position 0)"
+msgstr "von oberer Notenlinie (Position 2) bis Mitte (Position 0)"
 
 #. input/lsr/manually-controlling-beam-positions.ly:24 (comment)
-#, fuzzy
 msgid "from center to one above center (position 1)"
-msgstr "von Mitte bis eins über der Mitte (Position 2)"
+msgstr "von Mitte bis eins über der Mitte (Position 1)"
 
 #. input/lsr/marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly:17 (variable)
 msgid "speakOn"
@@ -12888,10 +12881,9 @@ msgid "Based on the box-stencil command defined in scm/stencil.scm"
 msgstr "Basierend auf dem box-stencil-Befehl, definiert in scm/stencil.scm"
 
 #. input/lsr/three-sided-box.ly:18 (comment)
-#, fuzzy
 msgid "Note that \\\";\\\" is used to comment a line in Scheme"
 msgstr ""
-"Achtung: \\\";\\\" wird benutzt um eine Zeile in Scheme auszukommentieren"
+"Achtung: \\\";\\\" wird benutzt, um eine Zeile in Scheme auszukommentieren"
 
 #. input/lsr/three-sided-box.ly:32 (comment)
 msgid "The corresponding markup command, based on the \\box command defined "
@@ -12980,7 +12972,6 @@ msgid "the normal relationship between notes and clefs:"
 msgstr "das normale Verhältnis zwischen Noten und Schlüsseln"
 
 #. input/lsr/tweaking-clef-properties.ly:151 (comment)
-#, fuzzy
 msgid "Return to the normal clef:"
 msgstr "Wieder der normale Schlüssel:"
 

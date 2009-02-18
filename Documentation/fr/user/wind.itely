@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0099693675b95c7ec6664d7277f22411a14e9c1b
+    Translation of GIT committish: a6b100669bfc3847b3a03029d6a46ee9b1609e73
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -42,8 +42,8 @@ instruments à vent.
 @cindex instruments à vent
 @cindex vents
 
-Une grande partie des caractéristiques des partitions pour instruments à
-vent concerne la respiration et l'attaque :
+Ce qui caractérise les partitions pour instruments à vent a trait
+principalement à la respiration et à l'attaque :
 
 @itemize
 @item Les respirations s'indiquent par des silences ou des 
@@ -53,34 +53,36 @@ vent concerne la respiration et l'attaque :
 -- s'indiquent en principe par des signes d'articulation, parfois
 agrémentés de liaisons.  Voir à ce sujet 
 @ref{Articulations and ornamentations} et @ref{List of articulations}.
-@item Un @emph{Flatterzunge} (trémolo dental or trémolo en roulant les
+@item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant les
 r) s'indique par une marque de trémolo et une étiquette textuelle
-attachée à la note concernée.  Voir à cce sujet @ref{Tremolo repeats}.
+attachée à la note concernée.  Voir à ce sujet @ref{Tremolo repeats}.
 @end itemize
 
 D'autres aspects de la notation s'appliquent aussi aux instruments à
 vent :
 
 @itemize
-@item De nombreux instruments à vents sont transpositeurs ; voir 
+@item De nombreux instruments à vent sont transpositeurs ; voir 
 @ref{Instrument transpositions}.
-@item The slide glissando are characteristic of the trombone, but other
-winds may perform keyed or valved glissandi. See @ref{Glissando}.
-@item Harmonic series glissandi, which are possible on all brass
-instruments but common for French Horns, are usually written out as
-@ref{Grace notes}.
-@item Pitch inflections at the end of a note are discussed in @ref{Falls
-and doits}.
-@item Key slaps or valve slaps are often shown by the @code{cross} style
-of @ref{Special note heads}.
-@item Woodwinds can overblow low notes to sound harmonics. These are
-shown by the @code{flageolet} articulation. See @ref{List of articulations}.
-@item The use of brass mutes is usually indicated by a text markup, but
-where there are many rapid changes it is better to use the
-@code{stopped} and @code{open} articulations. See @ref{Articulations and
-ornamentations} and @ref{List of articulations}.
-@item Stopped horns are indicated by the @code{stopped} articulation.
-See @ref{Articulations and ornamentations}.
+@item Les glissandos sont l'une des caractéristiques du trombone à
+coulisse, bien que d'autres instruments puisssent y parvenir en jouant
+sur les pistons ou des clés ; consulter @ref{Glissando}.
+@item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
+sont traditionnellement indiqués par des @ref{Grace notes}.
+@item Les inflections en fin de note sont abordées au chapitre
+@ref{Falls and doits}.
+@item Les @qq{bruitages} de clé ou de piston s'indiquent souvent par le
+style @code{cross} ou des @ref{Special note heads}.
+@item Les bois peuvent émettre des harmoniques dans le bas de leur
+registre.  On les indique avec un @code{flageolet} -- voir 
+@ref{List of articulations}.
+@item En ce qui concerne les cuivres, la sourdine s'indique en pricipe
+par une étiquette textuelle.  Cependant, lorsque les changements sont
+nombreux et rapides, il est d'usage de recourrir aux articulations
+@code{stopped} et @code{open}. Pour de plus amples détails, voir
+@ref{Articulations and ornamentations} et @ref{List of articulations}.
+@item La sourdine du cor d'harmonie s'indique par un @code{stopped}.
+Voir le chapitre @ref{Articulations and ornamentations}.
 @end itemize
 
 @snippets

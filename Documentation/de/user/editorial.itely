@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -425,11 +425,9 @@ gesetzt, anstatt den gesamten Akkord in eine große Klammer zu fassen.
 @cindex Hals, unsichtbar
 @cindex Notenhals, unsichtbar
 @cindex unsichtbarer Notenhals
-
-Immer, wenn das Programm eine Note findet, wird automatisch 
-ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch 
-für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
-gemacht.
+@cindex Hals, Richtung
+@cindex Richtung von Notenhälsen
+@cindex Notenhals, Richtung
 
 @funindex \stemNeutral
 @funindex \stemUp
@@ -438,12 +436,16 @@ gemacht.
 @funindex stemUp
 @funindex stemDown
 
+Immer, wenn das Programm eine Note findet, wird automatisch 
+ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch 
+für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
+gemacht.
+
 @predefined
 @code{\stemUp} (Hälse nach oben),
 @code{\stemDown} (Hälse nach unten),
 @code{\stemNeutral} (Hälse je nach Notenposition).
 @endpredefined
-
 
 @snippets
 

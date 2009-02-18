@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -150,6 +150,7 @@ Glossar:
 Notationsreferenz:
 @ref{Automatic beams},
 @ref{Ties},
+@ref{Stems},
 @ref{Writing rhythms},
 @ref{Writing rests},
 @ref{Vocal music},
@@ -1493,7 +1494,10 @@ LilyPond setzt Balken (engl. beam) automatisch.
 
 Wenn diese automatischen Entscheidungen nicht gut genug sind, können 
 die Balken auch explizit eingegeben werden, siehe
-@ref{Manual beams}.  Es können auch bestimmte 
+@ref{Manual beams}.  Balken müssen auch auf diese Weise eingegeben
+werden, wenn sie über Pausen hinwegreichen sollen.
+
+Es können auch bestimmte 
 Balkenmuster, die sich vom Standard unterscheiden, definiert werden.
 Die Standard-Regeln für die gebräuchlichsten Taktarten sind
 in der Datei @file{scm/@/auto@/-beam@/.scm} definiert.  Wenn

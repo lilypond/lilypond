@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 7385b95b8a91525e82559355dddea4f1ff965f5c
+    Translation of GIT committish: ccd5be7a5e4ec9e1c1dfdcecc1eb290d8c4a59fc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -412,6 +412,8 @@ c2 <c \parenthesize e g>
 @end lilypond
 
 Los objetos que no son notas también se pueden poner entre paréntesis.
+Para las articulaciones se necesita un guión antes de la instrucción
+@code{\parenthesize}.
 
 @lilypond[verbatim,quote,relative=2]
 c2-\parenthesize -. d

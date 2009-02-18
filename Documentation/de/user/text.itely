@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1108,15 +1108,10 @@ c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
 
-@c TODO: add \lookup here? -vv
-@c Probably better not to document \lookup, which is useful only for
-@c printing braces, and instead document \left-brace and \right-brace
-@c when these become available  -td
-
 @noindent
 Eine andere Möglichkeit, andere als Textsymbole zu schreiben, findet sich
-in
-@ref{Fonts explained}.
+in @ref{Fonts explained}.  Diese Methode bietet sich an, um Klammern
+unterschiedlicher Größe zu setzen.
 
 Der Textbeschriftungsmodus unterstützt auch Diagramme für bestimmte
 Instrumente:
@@ -1252,6 +1247,7 @@ wie man sie in Partituren ändern kann.
 
 @cindex Pango
 @cindex Schriftarten, Hintergrundinformation
+@cindex Klammern, unterschiedliche Größen
 @funindex font-interface
 
 Schriftarten werden von mehreren Bibliotheken verwaltet. FontConfig wird
@@ -1281,8 +1277,21 @@ a1^\markup {
 @end lilypond
 
 @noindent
-Eine einfachere, aber weniger vielfältige Syntax wird beschrieben in
+Außer den verschiedenen Klammern, die in @code{fetaBraces}
+in verschiedenen Größen enthalten sind, lassen sich alle
+dieses Symbole auch mit einer einfacheren Syntax notieren.
+Sie ist beschrieben in
 @ref{Music notation inside markup}.
+
+Wenn man die Klammern von @code{fetaBraces} benutzt, wird die
+Größe der Klammer durch einen numeralen Part in der
+Bezeichnung des Glyphs bestimmt.  Als Wert kann eine
+Ganzzahl von @code{0} bis @code{575} benutzt werden, wobei
+@code{0} die kleinste Klammern ergibt.  Der optimale Wert
+muss durch Ausprobieren herausgefunden werden.  Diese Glyphen
+sind alle linke Klammern, rechte Klammern lassen sich durch
+eine Drehung herstellen, siehe
+@ref{Rotating objects}.
 
 Drei Textschriftarten sind verfügbar (auf Englisch @code{family} genannt): 
 mit @code{roman} eine Schriftart

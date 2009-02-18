@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 92bc4f57438f08e87139d1645a2ba5660ab45964
+    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2562,14 +2562,34 @@ Notentext anzeigen, wenn man die Funktion
 Alle Layoutdimensionen werden in Notenlinienzwischenräumen
 aufgelistet, unabhängig von den Einheiten, mit denen sie in der
 @code{\paper}- oder @code{\layout}-Umgebung definiert worden
-sind.  Beispielsweise hat @code{paper-height} einen Wert von
-59.75 Notenlinienzwischenräumen, wenn die normale Systemhöhe
-von 20 pt benutzt wird.  Das entspricht 148 mm, der Höhe
-eines queren A6-Papiers.  Die Paare (@var{a},@var{b}) sind
+sind.  In dem letzten Beispiel hat @code{paper-height} einen Wert von
+59.75 Notenlinienzwischenräumen und @code{staff-size}
+Systemhöhe) ist 20 Punkte.  Dabei gilt:
+
+@multitable {1 Notenlinienzwischenraum} {Systemgröße)/4 * (25.4/72.27) mm}
+
+@item 1 Punkt
+@tab = (25.4/72.27) mm
+
+@item 1 Notenlinienzwischenraum
+@tab = (@code{staff-size})/4 pts
+@item
+@tab = (@code{staff-size})/4 * (25.4/72.27) mm
+
+@end multitable
+
+In diesem Fall ist ein @code{staff-space} (Notenlinienzwischenraum)
+etwa gleich 1.757 mm.  Deshalb entspricht der Wert von 95.75
+@code{staff-space} für @code{paper-height} (Papierhöhe) 105 mm,
+die Höhe eines quer gelegten A6-Papiers.  Die Paare (@var{a},@var{b}) sind
 Intervalle, wobei @var{a} der untere Rand und @var{b} der
 obere Rand des Intervalls.
 
 @seealso
+
+Notationsreferenz:
+@ref{Setting the staff size}
+
 Schnipsel:
 @rlsr{Spacing}.
 

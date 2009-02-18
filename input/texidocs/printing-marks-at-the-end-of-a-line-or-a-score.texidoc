@@ -10,3 +10,16 @@ ejemplo.
 
 "
   doctitlees = "Imprimir marcas al final de la línea o de la partitura"
+
+%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Zeichen können auch am Ende der aktuellen Zeile ausgegeben werden, anstatt
+dass sie auf die folgende Zeile verschoben werden.  Das ist nüztlich,
+wenn ein Zeichen am Ende einer Partitur eingefügt werden soll, wo
+gar keine nächste Zeile vorhanden ist.
+
+In derartigen Fällen muss die rechte Ecke des Zeichens an dem letzten
+Taktstrich ausgerichtet werden, wie die zweite Zeile des Beispiels zeigt.
+
+"
+  doctitlede = "Zeichen am Ende einer Zeile oder Partitur setzen"
