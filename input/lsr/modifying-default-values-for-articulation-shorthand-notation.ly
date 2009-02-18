@@ -19,7 +19,7 @@ semitrino en lugar del símbolo predeterminado +, asigne el valor
 "
   doctitlees = "Modificar los valores predeterminados para la notación abreviada de las articulaciones"
 
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>  
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
  texidocde = "
 Die Abkürzungen sind in der Datei @samp{ly/script-init.ly} definiert, wo
 den Variablen @code{dashHat}, @code{dashPlus}, @code{dashDash},
@@ -31,7 +31,7 @@ assoziieren, muss der Wert @code{trill} der Variable
 @code{dashPlus} zugewiesen werden:
 
 "
-  doctitlede = "Die Standardwerte für Arkkikulationsabkürzungen verändern"
+  doctitlede = "Die Standardwerte der Abkürzungen von Artikulationen verändern"
 
   texidoc = "
 The shorthands are defined in @samp{ly/script-init.ly}, where the

@@ -12,6 +12,16 @@ altos:
 "
   doctitlees = "Especificar el contexto con beatGrouping"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Wenn der Kontext angegeben wird, kann die Auswirkung von @code{beatGrouping}
+auf den angegebenen Kontext beschränkt werden und die Werte, die in Kontexten
+auf höhrer Ebene angegeben wurden, können verändert werden.  Der
+@code{\\set}-Befehl muss @emph{nach} den @code{\\time}-Befehl geschrieben
+werden:
+"
+  doctitlede = "Den Kontext für beatGrouping angeben"
+
   lsrtags = "rhythms"
   texidoc = "
 By specifying the context, the effect of @code{beatGrouping} can be

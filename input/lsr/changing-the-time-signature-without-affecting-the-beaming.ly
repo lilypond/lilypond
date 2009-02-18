@@ -16,6 +16,20 @@ de compás sin que cambie ninguna de las demás propiedades:
 "
   doctitlees = "Cambio de compás sin afectar al barrado"
 
+
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+  texidocde = "
+Der @code{\\time}-Befehl verändert die Eigenschaften
+@code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
+und @code{measureLength} im @code{Timing}-Kontext, welcher normalerweise
+gleichbedeutend mit @code{Score} ist.  Wenn der Wert von
+@code{timeSignatureFraction} verändert wird, wird die neue
+Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
+
+"
+  doctitlede = "Die Taktart verändern ohne die Bebalkung zu beeinflussen"
+
+
   texidoc = "
 The @code{\\time} command sets the properties
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}

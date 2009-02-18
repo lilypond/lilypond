@@ -16,6 +16,17 @@ también el fragmento de código \"Volta multi staff\".
 "
   doctitlees = "Añadir corchetes de primera y segunda vez a más pentagramas"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Der @code{Volta_engraver} befindet sich im @code{Score}-Kontext und Klammern
+werden deshalb nur auf dem obersten System dargestellt.  Das kann umgangen
+werden, indem man den @code{Volta_engraver} zu dem @code{Staff}-Kontext
+hinzufügt, in dem die Klammern zusätzlichen vorkommen sollen.  Siehe auch
+das \"Volta multi staff\"-Schnipsel.
+
+"
+  doctitlede = "Volta-Klammern zu zusätzlichen Systemen hinzufügen"
+
   texidoc = "
 The @code{Volta_engraver} by default resides in the @code{Score}
 context, and brackets for the repeat are thus normally only printed

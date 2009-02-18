@@ -30,7 +30,6 @@ tenorMusic), verändert sich auch der Klavierauszug entsprechend.
 定義を何回も使用することができます。ボーカルの音符 (例えば、@code{tenorMusic} 
 の音符) に変更が加えられた場合、その変更はピアノ譜にも適用されます。
 "
-
   texidoc = "
 This template adds an automatic piano reduction to the standard SATB
 vocal score demonstrated in \"Vocal ensemble template\". This

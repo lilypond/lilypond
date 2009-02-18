@@ -20,6 +20,13 @@ Le positionnement des doigtés peut être contrôlé de manière très précise.
 "
   doctitlefr = "Conrôle du positionnement des doigtés"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Die Position von Fingersatzzahlen kann exakt kontrolliert werden.
+
+"
+  doctitlede = "Position von Fingersatz in Akkorden kontrollieren"
+
   texidoc = "
 The placement of fingering numbers can be controlled precisely.
 

@@ -21,6 +21,22 @@ escribe.
 "
   doctitlees = "Quitar la primera línea vacía"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Ein leeres Notensystem kann auch aus der ersten Zeile einer Partitur
+entfernt werden, indem die Eigenschaft @code{remove-first} der
+@code{VerticalAxisGroup}-Eigenschaft eingesetzt wird.  Das kann
+man global in einer @code{\\layout}-Umgebung oder lokal in dem
+bestimmten Notensystem machen, das entfernt werden soll.  In letzterem
+Fall muss man den Kontext angeben.
+
+Das untere Notensystem der zweiten Systemgruppe wird nicht entfernt,
+weil in die Einstellungen in dem Schnipsel nur für das eine Notensystem
+gültig sind.
+
+"
+  doctitlede = "Die erste leere Notenzeile auch entfernen"
+
   texidoc = "
 The first empty staff can also be removed from the score by setting the
 @code{VerticalAxisGroup} property @code{remove-first}. This can be done

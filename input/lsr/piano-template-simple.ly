@@ -18,10 +18,6 @@ Hier ein einfaches Klaviersystem.
 "
   doctitlede = "Vorlage für einfache Klaviernotation"
 
-  texidocja = "
-これはいくつかの音符をもつ簡単なピアノ譜です。
-"
-
   texidoc = "
 Here is a simple piano staff with some notes.
 

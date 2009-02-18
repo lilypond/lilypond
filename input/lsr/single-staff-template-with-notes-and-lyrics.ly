@@ -32,6 +32,7 @@ entsprechende Zeile entweder ändern oder auskommentieren.
 行を変更するか、コメント アウトしてください。
 "
 
+
   texidoc = "
 This small template demonstrates a simple melody with lyrics. Cut and
 paste, add notes, then words for the lyrics. This example turns off

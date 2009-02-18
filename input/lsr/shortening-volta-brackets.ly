@@ -15,6 +15,16 @@ sólo dura un compás, que corresponde a una duración de 3/4.
 "
   doctitlees = "Shortening volta brackets"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Volta-Klammern werden normalerweise über alle Noten der Klammer gezogen, aber
+es ist möglich sie zu verkürzen.  Hierzu muss
+@code{voltaSpannerDuration} definiert werden, in dem Beispiel etwa als
+3/4, sodass die Klammer nur einen Takt dauert. 
+
+"
+  doctitlede = "Volta-Klammern verkürzen"
+
   texidoc = "
 By default, the volta brackets will be drawn over all of the
 alternative music, but it is possible to shorten them by setting

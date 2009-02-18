@@ -13,6 +13,14 @@ ve en este ejemplo:
 "
   doctitlees = "Percent repeat counter"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Ganztaktwiederholungen mit mehr als zwei Wiederholungen erhalten einen
+Zähler, wenn man die entsprechende Eigenschaft einsetzt:
+
+"
+  doctitlede = "Prozent-Wiederholungen zählen"
+
   texidoc = "
 Measure repeats of more than two repeats can get a counter when the
 convenient property is switched, as shown in this example:

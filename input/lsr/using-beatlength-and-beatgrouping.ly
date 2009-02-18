@@ -15,6 +15,19 @@ explicaciones están en forma de comentarios dentro del código.
 "
   doctitlees = "Utilización de beatLength y beatGrouping"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Die Eigenschaft @code{measureLength} bestimmt, wo Taktstriche eingefügt
+werden sollen und, zusammen mit @code{beatLength} und
+@code{beatGrouping}, wie automtische Balken für Notenlängen und
+Taktarten, für die keine definierten Regeln gefunden werden, gesetzt
+werden sollen.  Dieses Beispiel zeigt verschiedene Möglichkeiten,
+die Balken zu kontrollieren, indem man diese Eigenschaften
+beeinflusst.  Die Erklärungen werden als Kommentare im Quellcode
+gegeben.
+"
+  doctitlede = "beatLength und beatGrouping benutzen"
+
   lsrtags = "rhythms"
   texidoc = "
 The property @code{measureLength} determines where bar lines

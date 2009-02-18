@@ -8,7 +8,7 @@ la propiedad de contexto @code{repeatCountVisibility}.
 
 %% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
   texidocde = "
-Prozentwiederholungsz‰hler kˆnnen in regelm‰ﬂigen Intervallen angezeigt
+Prozentwiederholungsz√§hler k√∂nnen in regelm√§√üigen Intervallen angezeigt
 werden, indem man die Eigenschaft @code{repeatCountVisibility} beeinflusst.
 "
   doctitlede = "Sichtbarkeit von Prozent-Wiederholungen"

@@ -13,6 +13,15 @@ impresión distinta:
 "
   doctitlees = "Símbolos de porcentaje sueltos"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Isolierte Prozentwiederholungen können auch ausgegeben werden.  Das wird
+erreicht, indem man eine Ganztaktpause notiert und ihre Ausgabeform
+ändert:
+
+"
+  doctitlede = "Isolierte Prozentwiederholungen"
+
   texidoc = "
 Isolated percents can also be printed.  This is done by entering a
 multi-measure rest with a different print function:

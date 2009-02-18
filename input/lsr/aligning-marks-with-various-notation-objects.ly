@@ -18,6 +18,23 @@ debe hacer este ajuste para todos los pentagramas).
 "
   doctitlees = "Alinear marcas con varios objetos de notación"
 
+%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Wenn angegeben, können Textzeichen auch an anderen Objekten als Taktstrichen
+ausgerichtet werden.  Zu diesen Objekten gehören @code{ambitus},
+@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
+@code{left-edge}, @code{key-cancellation}, @code{key-signature} und
+@code{time-signature}.
+
+In diesem Fall werden die Zeichen horizontal über dem Objekt zentriert.
+Diese Ausrichtung kann auch geändert werden, wie die zweite Zeile
+des Beispiels zeigt.  In einer Partitur mit vielen Systemen sollte
+diese Einstellung für alle Systeme gemacht werden.
+
+"
+
+  doctitlede = "Zeichen an verschiedenen Notationsobjekten ausrichten"
+
   lsrtags = "text"
   texidoc = "If specified, text marks may be aligned with notation
 objects other than bar lines.  These objects include @code{ambitus},

@@ -13,6 +13,14 @@ y de unísono:
 "
   doctitlees = "Cambiar los textos de partcombine"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Wenn Stimmen automatisch kombiniert werden, kann der Text, der für
+Solo- und Unisono-Stellen ausgegeben wird, geändert werden:
+
+"
+  doctitlede = "Partcombine-Text ändern"
+
   texidoc = "
 When using the automatic part combining feature, the printed text for
 the solo and unison sections may be changed:

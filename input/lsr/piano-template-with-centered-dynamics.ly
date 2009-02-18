@@ -24,6 +24,7 @@ kopieren.
 とした調整が必要ですが、そのテンプレートがここにあるので、あなた自身が調整を行@c
 う必要はありません。
 "
+
   lsrtags = "expressive-marks,keyboards,template"
   texidoc = "
 Many piano scores have the dynamics centered between the two staves.

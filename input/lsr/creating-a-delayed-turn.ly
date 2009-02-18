@@ -16,6 +16,19 @@ grupeto horizontalmente.
 
 doctitlees = "Crear un grupeto de anticipación"
 
+
+%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Einen Doppelschlag mit Vorhalt zu erstellen, wobei die untere Note das
+Vorzeichen benutzt, erfordert einige Einstellungsänderungen.  Die
+@code{outside-staff-priority}-Eigenschaft muss auf falsch (@code{#f})
+gesetzt werden, weil sie sonst über die Eigenschaft
+@code{avoid-slur property} dominieren würde.  Der Wert von @code{halign}
+wird benutzt, um den Doppelschlag horizontal zu positionieren.
+"
+
+  doctitlede = "Einen  Doppelschlag mit Vorhalt erstellen"
+
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "

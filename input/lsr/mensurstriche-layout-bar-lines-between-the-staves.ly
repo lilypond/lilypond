@@ -16,6 +16,16 @@ propiedad @code{transparent}.
 
   doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706> 
+  texidocde = "
+Das Mensurstiche-Layout, in welchem die Taktlinien nicht auf den Systemen,
+sondern zwischen den Systemen gesetzt werden, kann mit einer @code{StaffGroup}
+anstelle von @code{ChoirStaff} erreicht werden.  Die Taktlinien auf den
+Systemen werden mit der the @code{transparent}-Eigenschaft ausgelöscht.
+
+"
+  doctitlede = "Mensurstriche-Layout (Taktstriche zwischen den Systemen"
+
   texidoc = "
 The mensurstriche-layout where the bar lines do not show on the staves
 but between staves can be achieved with a @code{StaffGroup} instead of

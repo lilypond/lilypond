@@ -13,6 +13,18 @@ se transportan todas las notas (incluidas las citadas).
 "
 
 doctitlees = "Citar otra voz con transposición"
+
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Zitate berücksichtigen sowohl die Transposition der Quelle als auch
+des Zielinstruments.  In diesem Beispiel spielen alle Instrumente
+klingendes C, das Zielinstrument ist in F.  Die Noten für das
+Zielinstrument können mit @code{\\transpose} transponiert werden,
+in diesem Fall werden alle Noten (auch die zitierten) transponiert.
+
+"
+  doctitlede = "Eine Stimme mit Transposition zitieren"
+
   lsrtags = "pitches,staff-notation"
   texidoc = "Quotations take into account the transposition of both
 source and target.  In this example, all instruments play sounding

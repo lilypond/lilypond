@@ -13,6 +13,14 @@ del pentagrama está determinada por la propiedad
 "
   doctitlees = "Dirección predeterminada de las plicas sobre la tercera línea del pentagrama"
 
+%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Die Richtung von Hälsen auf der mittleren Linie kann mit der @code{Stem}-Eigenschaft
+@code{neutral-direction} gesetzt werden.
+
+"
+  doctitlede = "Standardrichtung für Hälse auf der Mittellinie"
+
   texidoc = "
 The default direction of stems on the center line of the staff is set
 by the @code{Stem} property @code{neutral-direction}.

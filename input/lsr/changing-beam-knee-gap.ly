@@ -29,7 +29,7 @@ ist als der Wert von @code{auto-knee-gap} plus der Dicke des Balkens
 Standardwert von @code{auto-knee-gap} ist 5.5 Notensystemabstände.
 
 "
-  doctitlede = "Balken für weit außeinander liegende Noten ändern"
+  doctitlede = "Balken für weit auseinander liegende Noten ändern"
 
   texidoc = "
 Kneed beams are inserted automatically when a large gap is detected

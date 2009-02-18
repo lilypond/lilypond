@@ -13,7 +13,17 @@ barra nuevos:
 
 "
   doctitlees = "Alteración de los finales de barra predeterminados"
+  
+  
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706> 
+  texidocde = "
+Um Balken im 12/8-Takt als @code{3-4-3-2} zu gruppieren, muss man zuerst die
+Standardwerte für die Balken im 12/8-Takt rückgängig machen und dann die neuen
+Werte setzen:
 
+"
+  doctitlede = "Standard-Balkenwerte rückgängig machen"
+  
   texidoc = "
 To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary first
 to override the default beam endings  in 12/8, and then to set up the

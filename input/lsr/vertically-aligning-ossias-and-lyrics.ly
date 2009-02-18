@@ -13,6 +13,15 @@ controlar la posición de la letra y los compases de ossia.
 "
   doctitlees = "Alineación vertical de la letra y los compases de ossia"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Dieser Schnipsel zeigt, wie man die Kontexteigenschaften
+@code{alignBelowContext} und @code{alignAboveContext} benutzen kann, um
+die Positionierung von Gesangstext und Ossia-Abschnitten zu kontrollieren.
+
+"
+  doctitlede = "Gesangstext und Ossia vertikal ausrichten"
+
   texidoc = "
 This snippet demonstrates the use of the context properties
 @code{alignBelowContext} and @code{alignAboveContext} to control the

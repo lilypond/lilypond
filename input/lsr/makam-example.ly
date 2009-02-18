@@ -13,6 +13,18 @@ nombres de las notas y las alteraciones.
 "
   doctitlees = "El «Makam»"
 
+  
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Makam ist eine türkische Melodie, in der 1/9-Tonabstände
+eingesetzt werden.  Sehen Sie sich die Initialisierungsdatei
+@code{makam.ly} für weiter Information zu Tonhöhenbezeichnungen
+und Alterationen an (siehe
+Handbuch zum Lernen @version{}, 4.6.3 Weitere Information zu
+Hinweisen, wo diese Datei gespeichert ist)."
+  
+  doctitlede = "Makam-Beispiel"
+
   lsrtags = "pitches,world-music"
   texidoc = "Makam is a type of melody from Turkey using 1/9th-tone
 microtonal alterations.  Consult the initialization file

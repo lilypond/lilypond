@@ -11,6 +11,15 @@ imprimir nada, hacemos invisible la indicación metronómica:
 
   doctitlees = "Cambiar el tempo sin indicación metronómica"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Um das Tempo für die MIDI-Ausgabe zu ändern, ohne eine Tempoangabe in den
+Noten auszugeben, kann die Metronombezeichnung unsichtbar gemacht werden:
+
+"
+
+  doctitlede = "Das Tempo ohne Metronom-Angabe verändern"
+
   lsrtags = "staff-notation"
   texidoc = "To change the tempo in MIDI output without printing
 anything, make the metronome mark invisible:"

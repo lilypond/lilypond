@@ -13,6 +13,16 @@ decisiones de tipografiado.  Las unidades de medida que se usan aquí
 son espacios de pentagrama.
 
 "
+
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+  texidocde = "
+Wenn es zu Zusammenstößen kommt, kann mit folgender Lösung eine andere
+Position manuell eingestellt werden.  Die Einheiten hier sind
+Notenlinienzwischenräume.
+
+"
+  doctitlede = "Horizontale Verschiebung von Noten erzwingen"
+
   texidoc = "
 When the typesetting engine cannot cope, the following syntax can be
 used to override typesetting decisions. The units of measure used here

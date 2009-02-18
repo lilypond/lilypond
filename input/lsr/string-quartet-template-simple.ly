@@ -23,6 +23,11 @@ Vorzeichen benutzt.
 @code{@bs{}global} セクションを使っています。
 "
 
+  texidoc = "
+This template demonstrates a simple string quartet. It also uses a
+@code{\\global} section for time and key signatures
+
+"
   doctitle = "String quartet template (simple)"
 } % begin verbatim
 

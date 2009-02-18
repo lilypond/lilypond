@@ -12,6 +12,14 @@ sobreescribiendo algunas de sus propiedades.
 "
   doctitlees = "Líneas de rejilla: modificar su aspecto"
 
+%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Die Erscheinung der Gitternetzlinien kann durch einige Eigenschaften
+geändert werden.
+
+"
+  doctitlede = "Gitternetzlinien: Aussehen verändern"
+
   texidoc = "
 The appearance of grid lines can be changed by overriding some of their
 properties.

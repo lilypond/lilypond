@@ -12,6 +12,16 @@ utilice la siguiente función de Scheme.
 "
   doctitlees = "Cambiar el tamaño de la marca de \\flageolet"
 
+%% Translation of GIT committish: 0099693675b95c7ec6664d7277f22411a14e9c1b
+
+  texidocfr = "
+Il est possible de rapetisser le cercle d'un @code{\\flageolet} grâce 
+à une fonction Scheme. 
+
+"
+  doctitlefr = "Modifier la taille d'un \\flageolet"
+
+
   texidoc = "
 To make the @code{\\flageolet} circle smaller use the following Scheme
 function. 

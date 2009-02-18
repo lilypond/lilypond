@@ -25,6 +25,7 @@ eine vollständige Notationsdatei.
 これをファイルにカット＆ペーストして、音符を付け加えれば完了です！
 "
 
+
   texidoc = "
 This very simple template gives you a staff with notes, suitable for a
 solo instrument or a melodic fragment. Cut and paste this into a file,

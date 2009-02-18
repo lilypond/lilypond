@@ -12,6 +12,14 @@ utilizando instrucciones @code{\\markup}:
 "
   doctitlees = "Elemento de marcado de texto independiente en dos columnas"
 
+%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Isolierter Text kann in mehreren Spalten mit @code{\\markup}-Befehlen
+angeordnet werden:
+
+"
+  doctitlede = "Isolierter Text in zwei Spalten"
+
   texidoc = "
 Stand-alone text may be arranged in several columns using
 @code{\\markup} commands:

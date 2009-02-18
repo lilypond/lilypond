@@ -16,7 +16,7 @@ In Guitarrennotation kann neben Melodie, Akkordbezeichnungen und
 Bunddiagrammen auch der Schlagrhythmus angegeben werden.
 
 "
-  doctitldee = "Schlagrhythmus für Guitarren"
+  doctitlede = "Schlagrhythmus für Guitarren"
 
   lsrtags = "rhythms,fretted-strings"
   texidoc = "

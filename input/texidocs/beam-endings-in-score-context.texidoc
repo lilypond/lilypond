@@ -10,8 +10,8 @@ modificar tanto en los niveles de @code{Staff} como de
 %% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
   texidocde = "
 Balkenenderegeln, die im @code{Score}-Kontext definiert werden, wirken
-sich auf alle Systeme aus, können aber auf @code{Staff}- und 
-@code{Voice}-Ebene neu verändert werden:
+sich auf alle Systeme aus, kÃ¶nnen aber auf @code{Staff}- und 
+@code{Voice}-Ebene neu verÃ¤ndert werden:
 
 "
   doctitlede = "Balkenenden auf Score-Ebene"

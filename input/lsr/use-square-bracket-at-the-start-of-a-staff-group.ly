@@ -13,6 +13,15 @@ un contexto @code{StaffGroup} o @code{ChoirStaffGroup}.
 "
   doctitlees = "Uso del corchete recto al comienzo de un grupo de pentagramas"
 
+%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+  texidocde = "
+Die Klammer zu Beginn von Systemgruppen kann auch in eine eckige Klammer
+(@code{SystemStartSquare}) umgewandelt werden, wenn man sie explizit
+im @code{StaffGroup}- oder @code{ChoirStaffGroup}-Kontext setzt.
+
+"
+  doctitlede = "Eine eckige Klammer zu Beginn von Systemgruppen benutzen"
+
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by
 setting it explicitly in a @code{StaffGroup} or @code{ChoirStaffGroup}
