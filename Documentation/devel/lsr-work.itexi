@@ -40,10 +40,11 @@ Please make sure that the lilypond code follows the guidelines in
 @node Approving snippets
 @section Approving snippets
 
-The main task of LSR editors are approving snippets.  Log in to
-@uref{http://lsr.dsi.unimi.it/, LSR} and find a list of unapproved
-snippets by
-FIXME DOING SOMETHING.
+The main task of LSR editors is approving snippets.  To find a list of
+unapproved snippets, log into @uref{http://lsr.dsi.unimi.it/, LSR} and
+select @qq{No} from the dropdown menu to the right of the word
+@qq{Approved} at the bottom of the interface, then click
+@qq{Enable filter}.
 
 Check each snippet:
 
