@@ -211,21 +211,21 @@ A branch is a tree (in the mathematical or computer science sense)
 of commits, and the topmost commit of this branch is called a
 head.
 
-The "git fetch" command above has created a branch called
+The @q{git fetch} command above has created a branch called
 @code{origin/web} in your local Git repository.  As this branch is
 a copy of the remote branch web from git.sv.gnu.org LilyPond
-repository, it is called a `remote branch', and is meant to track
+repository, it is called a @qq{remote branch,} and is meant to track
 the changes on the branch from git.sv.gnu.org: it will be updated
-every time you run 'git pull' or 'git fetch' with this branch
+every time you run @q{git pull} or @q{git fetch} with this branch
 reference as argument, e.g.  by using .git/remotes/web remote file
-when running 'git fetch web'.
+when running @q{git fetch web}.
 
-The 'git checkout' command above has created a branch named 'web'.  At
-the beginning, this branch is identical to 'origin/web', but it will
+The @q{git checkout} command above has created a branch named @q{web}.  At
+the beginning, this branch is identical to @q{origin/web,} but it will
 differ as soon as you make changes, e.g. adding newly translated
 pages.  Whenever you pull, you merge the changes from origin/web and
 your web branch since the last pulling.  If you do not have push
-(i.e. "write") access on git.sv.gnu.org, your web branch will always
+(i.e. @qq{write}) access on git.sv.gnu.org, your web branch will always
 differ from origin/web.  In this case, remember that other people
 working like you on the remote web branch of
 git://git.sv.gnu.org/lilypond.git/ know nothing about your own web
