@@ -230,7 +230,7 @@ differ from origin/web.  In this case, remember that other people
 working like you on the remote web branch of
 git://git.sv.gnu.org/lilypond.git/ know nothing about your own web
 branch: this means that whenever you use a committish or make a patch,
-others expect you to take the lastest commit of origin/web branch as a
+others expect you to take the latest commit of origin/web branch as a
 reference.
 
 This README tries to explain most of Git commands needed for
