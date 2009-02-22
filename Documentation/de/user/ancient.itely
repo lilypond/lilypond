@@ -875,7 +875,7 @@ es auch, automatische Transkriptionen von Ligaturen anzufertigen.
 
 Eine Datei kann zum Beispiel so aussehen:
 
-@lilypond[quote,ragged-right,varbatim]
+@lilypond[quote,ragged-right,verbatim]
 \score {
   \transpose c c' {
     \set Score.timing = ##f
