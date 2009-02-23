@@ -2865,7 +2865,7 @@ chord-shape call.\n"))
     return str
 
 @rule ((2,12,3),
-    _ ("Remove oldaddlyrics")
+    _ ("Remove oldaddlyrics"))
 def conv(str):
     if re.search(r'\\oldaddlyrics', str):
         stderr_write ("\n")
