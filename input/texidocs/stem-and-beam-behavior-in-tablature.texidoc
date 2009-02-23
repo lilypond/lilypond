@@ -15,3 +15,12 @@ comme le montre cet exemple.
 
 "
   doctitlefr = "Hampes et ligatures en mode tablature"
+
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+  texidocde = "
+Die Richtung von Hälsen wird in Tabulaturen genauso wie in normaler Notation
+eingestellt.  Balken können horizontal eingestellt werden, wie das Beispiel
+zeigt.
+
+"
+  doctitlede = "Hals- und Balkenverhalten in einer Tabulatur"

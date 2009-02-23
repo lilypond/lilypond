@@ -9,3 +9,15 @@ sobreescritura de propiedades.
 
 "
   doctitlees = "Personalizar los diagramas de posiciones"
+
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+  texidocde = "
+Eigenschaften von Bunddiagrammen können in
+@code{'fret-diagram-details} verändert werden.  Einstellungen mit
+dem @code{\override}-Befehl werden dem @code{FretBoards.FretBoard}-Objekt
+zugewiesen.  Genauso wie @code{Voice} ist auch @code{FretBoards} ein
+Kontext der niedrigsten Ebene, weshalb der Kontext auch in dem Befehl
+weggelassen werden kann.
+
+"
+  doctitlede = "Bunddiagramme anpassen"

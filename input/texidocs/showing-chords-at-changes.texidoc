@@ -4,3 +4,11 @@ líneas y cuando cambia el acorde.
 
 "
   doctitlees = "Imprimir los acordes cuando se produce un cambio"
+
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+  texidocde = "
+Akkordsymbole können so eingestellt werden, dass sie nur zu Beginn der Zeile
+und bei Akkordwechseln angezeigt werden.
+
+"
+  doctitlede = "Akkordsymbole bei Wechsel anzeigen"

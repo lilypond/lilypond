@@ -13,3 +13,11 @@ même manière que dans une portée normale.
 
 "
   doctitlefr = "Polyphonie en mode tablature"
+
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+  texidocde = "
+Polyphonie kann in einer Tabulatur (@code{TabStaff}) genauso wie in einem
+normalen Notensystem erstellt werden.
+
+"
+  doctitlede = "Polyphonie in einer Tabulatur"
