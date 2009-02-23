@@ -2864,6 +2864,17 @@ chord-shape call.\n"))
         raise FatalConversionError ()
     return str
 
+@rule ((2,12,3),
+    _ ("Remove oldaddlyrics")
+def conv(str):
+    if re.search(r'\\oldaddlyrics', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("oldaddlyrics is no longer supported. \n \
+        Use addlyrics or lyrsicsto instead.\n"))
+        stderr_write (UPDATE_MANUALLY)
+        raise FatalConversionError ()
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
