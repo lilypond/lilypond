@@ -5,31 +5,34 @@
 This template demonstrates the use of nested @code{StaffGroup}
 and @code{GrandStaff} contexts to sub-group instruments of the same
 type together, and the use of @code{\transpose} for transposing
-instuments so that all the music can be entered in the same key of
-C.
+instruments.  All music in variables is stored in C.  Music may be
+entered in C or, alternatively, entered in the instrument key and
+transposed to C (see trumpet) before being assigned to a variable.
 "
   doctitle = "Orchestra, choir and piano template"
 }
 
-fluteMusic    = \relative c' { c1 d }
-saxMusic      = \transpose bes c' { \key c \major \relative c' { c1 d } }
-oboeMusic     = \relative c' { c1 d }
-clarinetMusic = \transpose a c' { \key c \major \relative c' { c1 d } }
-bassoonMusic  = \transpose a c' { \key c \major \relative c { c1 d } }
-trumpetMusic  = \transpose bes c' { \key c \major \relative c' { c1 d } }
-tromboneMusic = \relative c { c1 d }
-hornOneMusic  = \transpose f c' { \key c \major \relative { c1 d } }
-hornTwoMusic  = \transpose f c' { \key c \major \relative c { c1 d } }
-sopranoMusic  = \relative c'' { c1 d }
+fluteMusic    = \relative c' { \key c \major c1 d }
+saxMusic      = \relative c' { \key c \major c1 d }
+oboeMusic     = \relative c' { \key c \major c1 d }
+clarinetMusic = \relative c' { \key c \major c1 d }
+bassoonMusic  = \relative c  { \key c \major c1 d }
+trumpetMusic  = \transpose c' bes {
+  \relative c' { \key d \major d1 e }
+}
+tromboneMusic = \relative c  { \key c \major c1 d }
+hornOneMusic  = \relative c' { \key c \major c1 d }
+hornTwoMusic  = \relative c  { \key c \major c1 d }
+sopranoMusic  = \relative c'' {\key c \major c1 d }
 sopranoLyrics = \lyricmode { Sop -- ra }
-altoOneMusic  = \relative c' { c1 d }
+altoOneMusic  = \relative c' { \key c \major c1 d }
 altoOneLyrics = \lyricmode { A -- one }
-altoTwoMusic  = \relative c' { c1 d }
+altoTwoMusic  = \relative c' { \key c \major c1 d }
 altoTwoLyrics = \lyricmode { A -- two }
-tenorMusic    = \relative c' { c1 d }
+tenorMusic    = \relative c' { \key c \major c1 d }
 tenorLyrics   = \lyricmode { Ten -- or }
-pianoRHMusic  = \relative c' { c1 d }
-pianoLHMusic  = \relative c { c1 d }
+pianoRHMusic  = \relative c' { \key c \major c1 d }
+pianoLHMusic  = \relative c  { \key c \major c1 d }
 
 \score {
   <<  % Start full staff group
@@ -41,7 +44,8 @@ pianoLHMusic  = \relative c { c1 d }
       \new StaffGroup <<
         \new Staff {  % Bb Sax
           \set Staff.instrumentName = \markup { \concat {"B" \flat} "Sax" }
-          \saxMusic
+          \transposition bes
+          \transpose bes c' \saxMusic
         }
         \new Staff {  % Oboe
           \set Staff.instrumentName = "Oboe"
@@ -49,19 +53,22 @@ pianoLHMusic  = \relative c { c1 d }
          }
         \new Staff {  % Clarinet in A
           \set Staff.instrumentName = "Clarinet"
-          \clarinetMusic
+          \transposition a
+          \transpose a c' \clarinetMusic
         }
       >>
       \new Staff {  % Bassoon
         \set Staff.instrumentName = "Bassoon"
         \clef bass
-        \bassoonMusic
+        \transposition a,
+        \transpose a c' \bassoonMusic
       }
     >>
     \new StaffGroup <<  % Start Brass group
       \new Staff {  % Trumpet
         \set Staff.instrumentName = "Trumpet"
-        \trumpetMusic
+        \transposition bes
+        \transpose bes c' \trumpetMusic
       }
       \new Staff {  % Trombone
         \set Staff.instrumentName = "Trombone"
@@ -71,12 +78,14 @@ pianoLHMusic  = \relative c { c1 d }
       \new GrandStaff << % Horns need a GrandStaff (same instrument)
         \new Staff {  % Horn 1
           \set Staff.instrumentName = "Horn 1"
-          \hornOneMusic
+          \transposition f
+          \transpose f c' \hornOneMusic
         }
         \new Staff {  % Horn 2
           \set Staff.instrumentName = "Horn 2"
           \clef bass
-          \hornTwoMusic
+          \transposition f
+          \transpose f c' \hornTwoMusic
         }
       >>
     >>  % End Brass group
