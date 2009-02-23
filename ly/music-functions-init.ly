@@ -354,19 +354,9 @@ musicMap =
 	     (music-map proc mus))
 
 
-
-oldaddlyrics =
-#(define-music-function (parser location music lyrics) (ly:music? ly:music?)
-
-              (make-music 'OldLyricCombineMusic 
-                          'origin location
-                          'elements (list music lyrics)))
-
-
 overrideProperty =
 #(define-music-function (parser location name property value)
    (string? symbol? scheme?)
-
 
    (_i "Set @var{property} to @var{value} in all grobs named @var{name}.
 The @var{name} argument is a string of the form @code{\"Context.GrobName\"}
