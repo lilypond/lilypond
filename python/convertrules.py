@@ -1821,7 +1821,6 @@ def conv (str):
 	a = g - lower_pitches [-1]
 
 
-	print s , lower_pitches, g, a, s
 	str = 'cdefgab' [s]
 	str += ['eses', 'es', '', 'is', 'isis'][a + 2]
 	if o < 0:
