@@ -172,7 +172,7 @@ git pull origin
 @subsection Resolving conflicts
 
 Occasionally an update may result in conflicts -- this happens
-when you and somebody else hae modified the same part of the same
+when you and somebody else have modified the same part of the same
 file and git cannot figure out how to merge the two versions
 together.  When this happens, you must manually merge the two
 versions.

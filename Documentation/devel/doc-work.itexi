@@ -69,6 +69,7 @@ limited documentation help.
 @subsection Texinfo introduction
 
 The language is called texinfo; you can see its manual here:
+
 @uref{http://www.gnu.org/software/texinfo/manual/texinfo/}
 
 However, you don't need to read those docs.  The most important
