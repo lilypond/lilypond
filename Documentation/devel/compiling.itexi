@@ -1,10 +1,6 @@
 @c -*- coding: us-ascii; mode: texinfo; -*-
-@node Compiling
-@chapter Compiling
-
-
 @node Compiling from source
-@section Compiling from source
+@chapter Compiling from source
 
 @ignore
 You can also compile LilyPond directly from the source code. This
