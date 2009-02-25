@@ -58,19 +58,21 @@ applyMusic =
 
 applyOutput =
 #(define-music-function (parser location ctx proc) (symbol? procedure?)
-                (make-music 'ApplyOutputEvent
-                  'origin location
-                  'procedure proc
-                  'context-type ctx))
+  (_i "Apply function @code{proc} to every layout object in context @code{ctx}") 
+  (make-music 'ApplyOutputEvent
+              'origin location
+              'procedure proc
+              'context-type ctx))
 
 appoggiatura =
-#(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic)
-
+#(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic
+  (_i "Create an appoggiatura from @var{music}"))
 
 
 % for regression testing purposes.
 assertBeamQuant =
 #(define-music-function (parser location l r) (pair? pair?)
+  (_i "Testing function: check whether the beam quants @var{l} and @var{r} are correct") 
   (make-grob-property-override 'Beam 'positions
    (ly:make-simple-closure
     (ly:make-simple-closure
@@ -81,6 +83,7 @@ assertBeamQuant =
 % for regression testing purposes.
 assertBeamSlope =
 #(define-music-function (parser location comp) (procedure?)
+  (_i "Testing function: check whether the slope of the beam is the same as @code{comp}") 
   (make-grob-property-override 'Beam 'positions
    (ly:make-simple-closure
     (ly:make-simple-closure
@@ -92,19 +95,20 @@ assertBeamSlope =
 
 autochange =
 #(define-music-function (parser location music) (ly:music?)
-               (make-autochange-music parser music))
+  (_i "Make voices that switch between staves automatically") 
+  (make-autochange-music parser music))
 
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
-   (_i "Modify context properties with Scheme procedure @var{proc}.")
-                 (make-music 'ApplyContext 
-                   'origin location
-                   'procedure proc))
+  (_i "Modify context properties with Scheme procedure @var{proc}.")
+  (make-music 'ApplyContext 
+              'origin location
+              'procedure proc))
 
 
 balloonGrobText =
 #(define-music-function (parser location grob-name offset text) (symbol? number-pair? markup?)
-   
+  (_i "Attach @var{text} to @var{grob-name} at offset @var{offset} (use like @code{\once})") 
     (make-music 'AnnotateOutputEvent
 		'symbol grob-name
 		'X-offset (car offset)
@@ -113,7 +117,7 @@ balloonGrobText =
 
 balloonText =
 #(define-music-function (parser location offset text) (number-pair? markup?)
-   
+  (_i "Attach @var{text} at @var{offset} (use like @code{\tweak})") 
     (make-music 'AnnotateOutputEvent
 		'X-offset (car offset)
 		'Y-offset (cdr offset)
@@ -121,8 +125,8 @@ balloonText =
 
 
 bar =
-#(define-music-function (parser location type)
-   (string?)
+#(define-music-function (parser location type) (string?)
+  (_i "Insert a bar line of type @var{type}") 
    (context-spec-music
     (make-property-set 'whichBar type)
     'Timing))
