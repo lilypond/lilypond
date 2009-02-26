@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 19841b86e54ac60d93af1150c31b7c246741ce1c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -456,6 +456,13 @@ o especificando la duración de cada sílaba explícitamente, utilizando
 @code{\lyricmode}
 @end itemize
 
+El contexto @code{Voice} que contiene la melodía con la que se está
+alineando la letra no debe haber @qq{muerto}, o se perderá la letra
+después de ese punto.  Esto puede ocurrir si existen períodos en los
+que dicha voz no tiene nada que hacer.  Para ver métodos de mantener
+vivos los contextos, consulte @ref{Keeping contexts alive}.
+
+
 @menu
 * Automatic syllable durations::
 * Manual syllable durations::
@@ -570,6 +577,9 @@ duraciones manuales de las sílabas del texto:
 
 
 @seealso
+Referencia de la notación:
+@ref{Keeping contexts alive}.
+
 Referencia de funcionamiento interno:
 @rinternals{Lyrics}.
 

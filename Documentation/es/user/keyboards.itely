@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 19841b86e54ac60d93af1150c31b7c246741ce1c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -176,6 +176,10 @@ Cambia la voz actual de su pentagrama en curso al pentagrama de nombre
 @var{nombre_del_pentagrama} son @code{"arriba"} y @code{"abajo"}, o
 bien @code{"MD"} y @code{"MI"}.
 
+El pentagrama al que salta la voz debe existir en el momento del
+salto.  Si es necesario, los pentagramas se tienen que @qq{mantener
+con vida}, véase @ref{Keeping contexts alive}.
+
 Las notas de pentagrama cruzado reciben la barra automáticamente:
 
 @lilypond[verbatim,quote]
@@ -211,7 +215,8 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Stems},
-@ref{Automatic beams}.
+@ref{Automatic beams},
+@ref{Keeping contexts alive}.
 
 Fragmentos de código:
 @rlsr{Keyboards}.
