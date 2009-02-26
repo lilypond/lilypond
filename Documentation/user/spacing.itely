@@ -2545,9 +2545,14 @@ there is no blank space at the bottom of the page.
 @end example
 
 @item
-Force the number of systems.  For example, if the default layout
-has 11 systems, the following assignment will force a layout with
-10 systems.
+Force the number of systems.  This can help in two ways.  Just
+setting a value, even the same value as the number of systems
+being typeset by default, will sometimes cause more systems to
+be fitted onto each page, as an estimation step is then bypassed,
+giving a more accurate fit to each page.  Also, forcing an actual
+reduction in the number of systems may save a further page. For
+example, if the default layout has 11 systems, the following
+assignment will force a layout with 10 systems.
 
 @example
 \paper @{

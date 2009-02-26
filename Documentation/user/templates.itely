@@ -22,6 +22,7 @@ beautiful printed scores!
 * Piano templates::
 * String quartet::
 * Vocal ensembles::
+* Orchestral templates::
 * Ancient notation templates::
 * Jazz combo::
 * lilypond-book templates::
@@ -108,6 +109,14 @@ beautiful printed scores!
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+
+
+@node Orchestral templates
+@appendixsec Orchestral templates
+
+@appendixsubsec Orchestra, choir and piano
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{orchestra-choir-and-piano-template.ly}
 
 
 @c bad node name to avoid node name conflict

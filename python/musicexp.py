@@ -1468,11 +1468,6 @@ class KeySignatureChange (Music):
         elif self.non_standard_alterations:
             alterations = [self.format_non_standard_alteration (a) for
                                         a in self.non_standard_alterations]
-            # TODO: Check if the alterations should really be given in reverse
-            #       order of if that's just a bug in Lilypond. If it's a bug,
-            #       fix it and remove the following call, otherwise add a
-            #       proper comment here!
-            alterations.reverse ()
             return "\\set Staff.keySignature = #`(%s)" % string.join (alterations, " ")
         else:
             return ''

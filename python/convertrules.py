@@ -1821,7 +1821,6 @@ def conv (str):
 	a = g - lower_pitches [-1]
 
 
-	print s , lower_pitches, g, a, s
 	str = 'cdefgab' [s]
 	str += ['eses', 'es', '', 'is', 'isis'][a + 2]
 	if o < 0:
@@ -2862,6 +2861,25 @@ addChordShape call.\n"))
 chord-shape call.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
+    return str
+
+@rule ((2,12,3),
+    _ ("Remove oldaddlyrics"))
+def conv(str):
+    if re.search(r'\\oldaddlyrics', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("oldaddlyrics is no longer supported. \n \
+        Use addlyrics or lyrsicsto instead.\n"))
+        stderr_write (UPDATE_MANUALLY)
+        raise FatalConversionError ()
+    return str
+
+@rule ((2, 13, 0), _ ("keySignature property not reversed any more"))
+def conv(str):
+    if re.search(r'\set Staff.keySignature', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("The alist for Staff.keySignature is no \
+longer in reversed order.\n"))
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

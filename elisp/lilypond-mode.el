@@ -766,7 +766,7 @@ command."
   (define-key LilyPond-mode-map "|" 'LilyPond-electric-bar)
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion)
-    (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion))
+    (define-key LilyPond-mode-map [(shift iso-lefttab)] 'LilyPond-autocompletion))
   (define-key LilyPond-mode-map "\C-c\t" 'LilyPond-info-index-search)
   )
 

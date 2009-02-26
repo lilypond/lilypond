@@ -68,7 +68,7 @@ Compares with other text in same context."
   :group 'LilyPond
   :type 'boolean)
 
-(defcustom LilyPond-comment-region "%%$"
+(defcustom LilyPond-comment-region "%%%"
   "*String inserted by \\[LilyPond-comment-region]\
  at start of each line in region."
   :group 'LilyPond

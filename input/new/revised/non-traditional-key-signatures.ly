@@ -77,9 +77,9 @@ scale:
 "
 } % begin verbatim
 \relative c' {
-  \set Staff.keySignature = #`(((0 . 3) . ,SHARP)
+  \set Staff.keySignature = #`(((0 . 6) . ,FLAT)
                                ((0 . 5) . ,FLAT)
-                               ((0 . 6) . ,FLAT))
+                               ((0 . 3) . ,SHARP))
   c4 d e fis
   aes4 bes c2
 }

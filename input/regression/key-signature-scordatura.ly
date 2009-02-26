@@ -11,9 +11,9 @@ key signatures can be set invidually per pitch.
 }
 \relative c'
 \new Staff {
-    \set Staff.keySignature = #`(((1 .  2) . ,SHARP) ((0 . 3) . ,FLAT))
+    \set Staff.keySignature = #`(((0 . 3) . ,FLAT) ((1 .  2) . ,SHARP))
     f8 a c e
-    \set Staff.keySignature = #`(((1 .  2) . ,FLAT) ((0 . 4) . ,DOUBLE-SHARP))
+    \set Staff.keySignature = #`(((0 . 4) . ,DOUBLE-SHARP) ((1 .  2) . ,FLAT))
     e a, g a
 }
 
