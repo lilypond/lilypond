@@ -122,7 +122,7 @@
 	  ("contrabass" . ,(- 44 1))
 	  ("tremolo strings" . ,(- 45 1))
 	  ("pizzicato strings" . ,(- 46 1))
-	  ("orchestral strings" . ,(- 47 1))
+	  ("orchestral harp" . ,(- 47 1))
 	  ("timpani" . ,(- 48 1))
 
 	  ; (49-56 ensemble)
