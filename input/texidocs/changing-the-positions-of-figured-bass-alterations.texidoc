@@ -6,3 +6,12 @@ después de los números, según el valor de las propiedades
 
 "
   doctitlees = "Cambiar las posiciones de las alteraciones del bajo cifrado"
+
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+  texidocde = "
+Versetzungszeichen und Pluszeichen können vor oder nach den Ziffern erscheinen,
+je nach den Einstellungen der @code{figuredBassAlterationDirection} und
+@code{figuredBassPlusDirection}-Eigenschaften.
+
+"
+  doctitlede = "Positionen von Generalbass-Alterationszeichen verändern"

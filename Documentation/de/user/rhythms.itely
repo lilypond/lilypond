@@ -993,8 +993,7 @@ umgewandelt werden:
 @end lilypond
 
 Symbole für Modus und Proprietas der mensuralen Notation
-werden behandelt unter
-@ref{Ancient time signatures}.
+werden behandelt unter @ref{Mensural time signatures}.
 
 @predefined
 @code{\numericTimeSignature},
@@ -1018,7 +1017,7 @@ Glossar:
 @rglos{time signature}
 
 Notationsreferenz:
-@ref{Ancient time signatures},
+@ref{Mensural time signatures},
 @ref{Time administration}.
 
 Schnipsel:
