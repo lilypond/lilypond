@@ -35,7 +35,7 @@ the @uref{Compiling-from-source.html,documentation in English}.
 @end menu
 
 @node Downloading source code
-@subsection Downloading source code
+@section Downloading source code
 
 Download source
 
@@ -62,7 +62,7 @@ For information on packaging, see @uref{http://lilypond.org/devel}.
 
 
 @node Requirements
-@subsection Requirements
+@section Requirements
 
 @unnumberedsubsubsec Compilation
 
@@ -160,7 +160,7 @@ and the patch from
 
 
 @node Building LilyPond
-@subsection Building LilyPond
+@section Building LilyPond
 
 @unnumberedsubsubsec Compiling
 
@@ -227,7 +227,7 @@ line, or in @file{local.make} at top of the build tree.
 
 
 @node Building documentation
-@subsection Building documentation
+@section Building documentation
 
 This requires a successful compile of LilyPond, or using an external
 LilyPond binary.
@@ -238,7 +238,7 @@ LilyPond binary.
 @end menu
 
 @node Commands for building documentation
-@unnumberedsubsubsec Commands for building documentation
+@unnumberedsubsec Commands for building documentation
 
 The documentation is built by issuing
 
@@ -329,7 +329,7 @@ touch input/lsr/*.ly
 
 
 @node Building documentation without compiling LilyPond
-@unnumberedsubsubsec Building documentation without compiling LilyPond
+@unnumberedsubsec Building documentation without compiling LilyPond
 
 The documentation can be built locally without compiling LilyPond
 binary, if LilyPond is already installed on your system.
@@ -378,7 +378,7 @@ exec /sw/bin/pngtopnm "$@"
 
 
 @node Testing LilyPond
-@subsection Testing LilyPond
+@section Testing LilyPond
 
 @html
 <a name="testing"></a>
@@ -424,7 +424,7 @@ For checking the coverage of the test suite, do the following
 
 
 @node Problems
-@subsection Problems
+@section Problems
 
 For help and questions use @email{lilypond-user@@gnu.org}.  Send bug
 reports to @email{bug-lilypond@@gnu.org}.
