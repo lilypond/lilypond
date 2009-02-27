@@ -57,7 +57,7 @@ Free Documentation License''.
 
 @vskip 20pt
 
-For LilyPond version 
+For LilyPond version
 @end titlepage
 
 @copying
@@ -96,7 +96,7 @@ on-line copies of this and other documentation.
 
 @menu
 * Starting with git::
-* Compiling::
+* Compiling from source::
 * Documentation work::
 * Website work::
 * LSR work::
