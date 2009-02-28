@@ -89,9 +89,9 @@ number.  An input file containing
 
 @example
 #(define output-suffix "violin")
-\book @{ @dots{} @}
+\score @{ @dots{} @}
 #(define output-suffix "cello")
-\book @{ @dots{} @}
+\score @{ @dots{} @}
 @end example
 
 @noindent
