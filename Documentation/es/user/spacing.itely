@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3e63320d65c86c823949f70ab9791eab96c98352
+    Translation of GIT committish: 19841b86e54ac60d93af1150c31b7c246741ce1c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2594,7 +2594,14 @@ parte baja del papel.
 @end example
 
 @item
-Forzar el número de sistemas.  Por ejemplo, si la disposición
+Forzar el número de sistemas.  Puede ser de utilidad de dos formas.
+Si tan sólo se establece un valor, incluso el mismo valor que el
+número de sistemas que se están trazando de forma predeterminada, ello
+ocasionará a veces que se traten de introducir más sistemas en cada
+página, pues en este caso se omite un paso en que se produce una
+estimación, dando así un encaje mejor en cada página.  Asimismo, el
+forzar una reducción neta en el número de sistemas puede producir el
+ahorro de una página adicional.  Por ejemplo, si la disposición
 predeterminada tiene 11 sistemas, la asignación siguiente fuerza una
 disposición con 10 sistemas.
 

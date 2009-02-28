@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-Translation of GIT committish: ccd5be7a5e4ec9e1c1dfdcecc1eb290d8c4a59fc
+Translation of GIT committish: 19841b86e54ac60d93af1150c31b7c246741ce1c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -407,35 +407,32 @@ vivas de esta manera durante la duración de la pieza:
 @lilypond[quote,verbatim]
 musicA = \relative c'' { d4 d d d }
 musicB = \relative c'' { g4 g g g }
-\score {
-  \new Staff {
-    <<
-      \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
-      \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
-      {
-        \context Voice = "A" {
-          \voiceOneStyle
-          \musicA
-        }
-        \context Voice = "B" {
-        \voiceTwoStyle
-          \musicB
-        }
-        \context Voice = "A" {
-          % voiceOneStyle continues as Voice A is kept alive
-          \musicA
-        }
-        \context Voice = "B" {
-          % voiceTwoStyle continues, as Voice "B" is kept alive
-          \musicB
-        }
-        \context Voice = "A" {
-          % Voice "A" is still alive
-          \musicA
-        }
-      }
-    >>
+keepVoicesAlive = {
+  <<
+    \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
+    \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+  >>
+}
+
+music = {
+  \context Voice = "A" {
+    \voiceOneStyle
+    \musicA
   }
+  \context Voice = "B" {
+    \voiceTwoStyle
+    \musicB
+  }
+  \context Voice = "A" { \musicA }
+  \context Voice = "B" { \musicB }
+  \context Voice = "A" { \musicA }
+}
+
+\score {
+  \new Staff <<
+    \keepVoicesAlive
+    \music
+  >>
 }
 @end lilypond
 
@@ -449,7 +446,7 @@ secciones diferentes.
 @lilypond[quote,verbatim]
 melody = \relative c'' { a4 a a a }
 accompaniment = \relative c' { d4 d d d }
-words = \lyricmode { These words con -- tain large gaps }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
 \score {
   <<
     \new Staff = "music" {
@@ -499,7 +496,7 @@ accompaniment = \relative c' {
   d4 d d d
   d4 d d d
 }
-words = \lyricmode { These words con -- tain large gaps }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 \score {
   <<

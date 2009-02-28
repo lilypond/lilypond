@@ -404,7 +404,7 @@ Handbuch zum Lernen:
 
 Notationsreferenz:
 @ref{Automatic accidentals},
-@ref{Annotational accidentals},
+@ref{Annotational accidentals (musica ficta)},
 @ref{Note names in other languages}.
 
 Schnipsel:
@@ -867,7 +867,8 @@ c2 c
 c2 c
 @end lilypond
 
-Weitere unterstützte Schlüssel sind beschrieben in @ref{Ancient clefs}.
+Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensural clefs}
+und @ref{Gregorian clefs}.
 
 @cindex transponierende Schlüssel
 @cindex Schlüssel, transponierend
@@ -897,7 +898,8 @@ c2 c
 
 
 @seealso
-Notationsreferenz: @ref{Ancient clefs}.
+Notationsreferenz:
+@ref{Mensural clefs}, @ref{Gregorian clefs}.
 
 Schnipsel:
 @rlsr{Pitches}.
