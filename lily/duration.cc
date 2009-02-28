@@ -53,16 +53,16 @@ Duration::Duration (Rational r, bool scale)
       int p = r.num ();
       int q = r.den ();
       int k = intlog2 (q) - intlog2 (p);
-      if ((p << k) < q)
+      if (shift_left(p, k) < q)
 	k++;
 
-      assert ((p << k) >= q && (p << (k-1)) < q);
+      assert (shift_left(p, k) >= q && shift_left(p, (k-1)) < q);
 
       /* If we were to write out log (p/q) in base 2, then the position of the
 	 first non-zero bit (ie. k in our notation) would be the durlog
 	 and the number of consecutive 1s after that bit would be the number of
 	 dots */
-      p = (p << k) - q;
+      p = shift_left(p, k) - q;
       dots_ = 0;
       while ((p *= 2) >= q)
 	{
