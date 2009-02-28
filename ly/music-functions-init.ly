@@ -110,7 +110,7 @@ balloonGrobText =
 #(define-music-function (parser location grob-name offset text)
                         (symbol? number-pair? markup?)
   (_i "Attach @var{text} to @var{grob-name} at offset @var{offset}
-(use like @code{\once})")
+(use like @code{\\once})")
     (make-music 'AnnotateOutputEvent
 		'symbol grob-name
 		'X-offset (car offset)
@@ -119,7 +119,7 @@ balloonGrobText =
 
 balloonText =
 #(define-music-function (parser location offset text) (number-pair? markup?)
-  (_i "Attach @var{text} at @var{offset} (use like @code{\tweak})")
+  (_i "Attach @var{text} at @var{offset} (use like @code{\\tweak})")
     (make-music 'AnnotateOutputEvent
 		'X-offset (car offset)
 		'Y-offset (cdr offset)
