@@ -28,6 +28,13 @@ sign (int i)
   else return 0;
 }
 
+inline int
+shift_left (int value, int shiftamount)
+{
+ if (shiftamount < 0) return (value >> -shiftamount); 
+  else return (value << shiftamount);
+}
+
 inline Real
 linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)
 {
