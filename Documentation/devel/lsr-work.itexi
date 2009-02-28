@@ -4,9 +4,10 @@
 
 @menu
 * Introduction to LSR::         
-* Adding snippets::             
+* Adding and editing snippets::  
 * Approving snippets::          
-* LSR to git::                  
+* LSR to Git::                  
+* Fixing snippets in LilyPond sources::  
 @end menu
 
 
@@ -21,13 +22,13 @@ for users to contribute to the docs without learning git and
 texinfo.
 
 
-@node Adding snippets
-@section Adding snippets
+@node Adding and editing snippets
+@section Adding and editing snippets
 
-When you create (or find!) a nice snippet, please add it to LSR.
-Go to @uref{http://lsr.dsi.unimi.it/, LSR} and log in (if you
-haven't already, create an account).  Follow the instructions on
-the website.
+When you create (or find!) a nice snippet, please add it to LSR.  Go
+to @uref{http://lsr.dsi.unimi.it/, LSR} and log in (if you haven't
+already, create an account).  Follow the instructions on the website.
+These isntructions also explain how to modify existing snippets.
 
 If you think the snippet is particularly informative and you think
 it should be included in the documentation, tag it with @qq{docs}
@@ -70,27 +71,30 @@ step @strong{VERY SERIOUSLY}.}
 @end enumerate
 
 
-@node LSR to git
-@section LSR to git
-
-FIXME: Neil, please check that this is up-to-date.
+@node LSR to Git
+@section LSR to Git
 
 @enumerate
 
 @item
-Download the latest tarball from
-@uref{http://lsr.dsi.unimi.it/download/}.  You want a file called
-@file{lsr-snippets-docs-DATE.tar.gz}.
+Make sure that @command{convert-ly} and @command{lilypond} commands in
+current PATH are in a bleeding edge version -- latest release from
+master branch, or even better a fresh snapshot from Git master branch.
 
 @item
 From the top source directory, run:
 
 @example
-scripts/auxiliar/makelsr.py 
+wget http://lsr.dsi.unimi.it/download/lsr-snippets-docs-@var{YYYY-MM-DD}.tar.gz
+tar -xzf lsr-snippets-docs-@var{YYYY-MM-DD}.tar.gz
+scripts/auxiliar/makelsr.py lsr-snippets-docs-@var{YYYY-MM-DD}
 @end example
 
+@noindent
+where @var{YYYY-MM-DD} is the current date, e.g. 2009-02-28.
+
 @item
-Follow the instructions on the console to manually check for
+Follow the instructions printed on the console to manually check for
 unsafe files.  
 
 @warning{Somebody could sneak a @code{#'(system "rm -rf /")}
@@ -102,3 +106,45 @@ Do a git add / commit / push.
 
 @end enumerate
 
+
+@node Fixing snippets in LilyPond sources
+@section Fixing snippets in LilyPond sources
+
+In case some snippet from @file{input/lsr} cause the documentation
+compilation to fail, the following steps should be followed to fix it
+reliably.
+
+@enumerate
+
+@item
+Look up the snippet filename @file{@var{foo}.ly} in the error output
+or log, then fix the file @file{input/lsr/@var{foo}.ly} to make the
+documentation build succesfully.
+
+@item
+Determine where it comes from by looking at its first line, e.g. run
+
+@example
+head -1 input/lsr/@var{foo}.ly
+@end example
+
+@item
+@strong{In case the snippet comes from LSR}, apply the fix to the snippet in
+LSR and send a notification email to a LSR editor with CC to the
+development list -- see @ref{Adding and editing snippets}.  The
+failure may sometimes not be caused by the snippet in LSR but by the
+syntax conversion made by @command{convert-ly}; in this case, fix
+@command{convert-ly} or report the problem on the development list,
+then run @command{makelsr.py} again, see @ref{LSR to Git}.
+
+@item
+@strong{In case the snippet comes from} @file{input/new}, apply in
+@file{input/new/@var{foo}.ly} the same fix you did in
+@file{input/lsr/@var{foo}.ly}.  In case the build failure was caused
+by a translation string, you may have to fix
+@file{input/texidocs/@var{foo}.texidoc} instead.
+
+@item
+In any case, commit all changes to Git.
+
+@end enumerate
