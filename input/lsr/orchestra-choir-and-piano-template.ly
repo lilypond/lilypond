@@ -6,10 +6,11 @@
   texidoc = "
 This template demonstrates the use of nested @code{StaffGroup}
 and @code{GrandStaff} contexts to sub-group instruments of the same
-type together, and the use of @code{\transpose} for transposing
+type together, and the use of @code{\\transpose} for transposing
 instruments.  All music in variables is stored in C.  Music may be
 entered in C or, alternatively, entered in the instrument key and
-transposed to C (see trumpet) before being assigned to a variable.
+transposed to C (see trumpet for an example) before being assigned
+to a variable.
 "
   doctitle = "Orchestra, choir and piano template"
 } % begin verbatim
