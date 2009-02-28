@@ -2874,12 +2874,14 @@ def conv(str):
         raise FatalConversionError ()
     return str
 
-@rule ((2, 13, 0), _ ("keySignature property not reversed any more"))
+@rule ((2, 13, 0), _ ("keySignature property not reversed any more\n\
+MIDI 47: orchestral strings -> orchestral harp"))
 def conv(str):
     if re.search(r'\set Staff.keySignature', str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("The alist for Staff.keySignature is no \
 longer in reversed order.\n"))
+    str = str.replace('#"orchestral strings"', '#"orchestral harp"')
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
