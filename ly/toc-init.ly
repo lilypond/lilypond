@@ -32,10 +32,10 @@
 }
 
 #(define-markup-list-command (table-of-contents layout props) ()
-  "Outputs the table of contents, using the paper variable
+  ( _i "Outputs the table of contents, using the paper variable
 @code{tocTitleMarkup} for its title, then the list of lines
 built using the @code{tocItem} music function
-Usage: @code{\\markuplines \\table-of-contents}"
+Usage: @code{\\markuplines \\table-of-contents}" )
   (cons (interpret-markup layout props
 			  (ly:output-def-lookup layout 'tocTitleMarkup))
 	(space-lines (chain-assoc-get 'baseline-skip props)
