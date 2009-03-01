@@ -54,6 +54,8 @@ This document is also available as a
 @end ifhtml
 
 
+@iftex
+@exampleindent 0
 @finalout
 
 @titlepage
@@ -77,6 +79,7 @@ Free Documentation License''.
 
 For LilyPond version 
 @end titlepage
+@end iftex
 
 @copying
 Copyright @copyright{} 1999--2008 by the authors
