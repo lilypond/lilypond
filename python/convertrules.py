@@ -2881,7 +2881,7 @@ def conv(str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("The alist for Staff.keySignature is no \
 longer in reversed order.\n"))
-    str = str.replace('#"orchestral strings"', '#"orchestral harp"')
+    str = str.replace('"orchestral strings"', '"orchestral harp"')
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
