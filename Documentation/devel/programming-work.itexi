@@ -62,7 +62,7 @@ work on your code will be glad you followed these guidelines.
 
 For LilyPond files, you should follow the guidelines for LilyPond snippets
 in the documentation.  You can find these guidelines at
-@ref{Texinfo crash course}.
+@ref{Texinfo introduction and usage policy}.
 
 @node Finding functions
 @section Finding functions

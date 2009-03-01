@@ -2,9 +2,14 @@
 @node Starting with git
 @chapter Starting with git
 
+To complete or present in another form the introduction to Git usage
+in this chapter, it may be a good idea to look for Git documentation
+at @uref{http://git-scm.com/documentation}, 
+
 @menu
 * Getting the source code::     
 * Updating the source code::    
+* Working with several Git branches::  
 * Sharing your changes::        
 * Other interesting Git commands::  
 * Git on Windows::              
@@ -27,12 +32,12 @@
 @node Git introduction
 @subsection Git introduction
 
-The source code is kept in a git respository.  This allows us to
+The source code is kept in a Git respository.  This allows us to
 track changes to files, and for multiple people to work on the
-same set of files (generally) without any problems.
+same set of files efficiently.
 
 @warning{These instructions assume that you are using the
-command-line version of git 1.5 or higher.  Windows users should
+command-line version of Git 1.5 or higher.  Windows users should
 skip to @ref{Git on Windows}.}
 
 
@@ -41,12 +46,15 @@ skip to @ref{Git on Windows}.}
 
 To get the main source code and documentation,
 
-@example
+@c WARNING: when updating the commands below, please
+@c update the other flavors in the two next nodes
+@c and in Introduction to Git concepts
+@smallexample
 mkdir lilypond; cd lilypond
 git init-db
 git remote add -f -t master -m master origin git://git.sv.gnu.org/lilypond.git/
 git checkout -b master origin/master
-@end example
+@end smallexample
 
 
 @node Website source code
@@ -54,12 +62,12 @@ git checkout -b master origin/master
 
 To get the website (including translations),
 
-@example
+@smallexample
 mkdir lilypond-web ; cd lilypond-web
 git init-db
 git remote add -f -t web -m web origin git://git.sv.gnu.org/lilypond.git/
 git checkout -b web origin/web
-@end example
+@end smallexample
 
 
 @node Documentation translations source code
@@ -67,13 +75,12 @@ git checkout -b web origin/web
 
 To translate the documentation (@emph{not} the website),
 
-@c TODO this runs off the side of the page in pdf.  :(
-@example
+@smallexample
 mkdir lilypond-translation; cd lilypond-translation
 git init-db
 git remote add -f -t lilypond/translation -m lilypond/translation origin git://git.sv.gnu.org/lilypond.git/
 git checkout -b lilypond/translation origin/lilypond/translation
-@end example
+@end smallexample
 
 
 @node Other branches
@@ -118,15 +125,16 @@ git://git.sv.gnu.org/lilypond.git
 ssh://git.sv.gnu.org/srv/git/lilypond.git
 @end example
 
-@warning{The @code{git://} and @code{ssh://} URLs are intended for
-advanced git users.}
+Using HTTP protocol is slowest, so it is not recommended unless both
+SSH and Git protocols fail, which happens e.g. if you connect to
+internet through a router that filters out Git and/or SSH connections.
 
 
 @node Git user configuration
 @subsection Git user configuration
 
 To configure git to automatically use your name and email address
-for patches,
+for commits and patches,
 
 @example
 git config --global user.name "MYNAME"
@@ -141,19 +149,20 @@ git config --global user.email MYEMAIL@@EXAMPLE.NET
 * Importance of updating::      
 * Update command::              
 * Resolving conflicts::         
-* Technical notes::             
+* Introduction to Git concepts::  
 @end menu
 
 
 @node Importance of updating
 @subsection Importance of updating
 
-In a large project like LilyPond, contributors sometimes edit the
-same file at the same time.  As long as everybody updates their
-version of the file with the most recent changes (@qq{pull}ing),
-there are generally no problems with this multiple-person editing.
-However, serious problems can arise if you do not pull before
-attempting commit.
+In a large project like LilyPond, contributors sometimes edit the same
+file at the same time.  As long as everybody updates their version of
+the file with the most recent changes (@emph{pulling}), there are
+generally no problems with this multiple-person editing.  However,
+boring problems can arise if you do not pull before attempting commit,
+e.g. you may encounter a conflict; in this case, see @ref{Resolving
+conflicts}.
 
 
 @node Update command
@@ -177,71 +186,235 @@ file and git cannot figure out how to merge the two versions
 together.  When this happens, you must manually merge the two
 versions.
 
+If you need some documentation to understand and resolve conflicts,
+see paragraphs @emph{How conflicts are presented} and @emph{How to
+resolve conflicts} in @command{git merge} man page.
+
+
+@node Introduction to Git concepts
+@subsection Introduction to Git concepts
+
+A bit of Git vocabulary will be explained below.  The following is
+just introduction material; for better understanding of Git concepts,
+you are invited to read further documentation, especially Git
+Community Book at @uref{http://book.git-scm.com/}.
+
+The @code{git pull origin} command above is just a shortcut for this
+command:
+
 @example
-FIXME: what the mao should people do?!?!  Personally, I just break
-down and cry.  -gp
+git pull git://git.sv.gnu.org/lilypond.git/ @var{branch}:origin/@var{branch}
 @end example
 
+@noindent
+where @code{@var{branch}} is typically @code{master}, @code{web} or
+@code{lilypond/translation}; if you do not know or remember, see
+@ref{Getting the source code} to remember which commands you issued or
+which source code you wanted to get.
 
-@node Technical notes
-@subsection Technical notes
+A @emph{commit} is a set of changes made to the sources; it also
+includes the committish of the parent commit, the name and e-mail of
+the @emph{author} (the person who wrote the changes), the name and
+e-mail of the @emph{committer} (the person who brings these changes
+into the Git repository), and a commit message.
 
-TODO: I'm not going to bother with this section. -gp
+A @emph{committish} is the SHA1 checksum of a commit, a number made of
+40 hexadecimal digits, which acts as the internal unique identifier
+for this commit.  To refer to a particular revision, don't use vague
+references like the (approximative) date, simply copy and paste the
+committish.
 
-Let's explain a bit of Git vocabulary.  The @code{git pull origin}
-command is just a shortcut for this command:
+A @emph{branch} is nothing more than a pointer to a particular commit,
+which is called the @emph{head} of the branch; when referring to a
+branch, one often acutally thinks about its head and the ancestor
+commits of the head.
+
+Now we will explain the two last commands you used to get the source
+code from Git -- see @ref{Getting the source code}.
 
 @example
-git pull git://git.sv.gnu.org/lilypond.git/ MY-BRANCH:origin/MY-BRANCH
+git remote add -f -t @var{branch} -m @var{branch} origin git://git.sv.gnu.org/lilypond.git/
+git checkout -b @var{branch} origin/@var{branch}
 @end example
 
-A commit is a set of changes made to the sources; it also includes
-the committish of the parent commit, the name and e-mail of the
-author (the person who wrote the changes), the name and e-mail of
-the committer (the person who brings these changes into the git
-repository), and a commit message.
-
-A committish is the SHA1 checksum of a commit, a number made of 40
-hexadecimal digits, which acts as the internal unique identifier
-for this commit.  To refer to a particular revision, don't use
-vague references like the (approximative) date, simply
-copy'n'paste the committish.
-
-A branch is a tree (in the mathematical or computer science sense)
-of commits, and the topmost commit of this branch is called a
-head.
-
-The @q{git fetch} command above has created a branch called
-@code{origin/web} in your local Git repository.  As this branch is
-a copy of the remote branch web from git.sv.gnu.org LilyPond
-repository, it is called a @qq{remote branch,} and is meant to track
+The @command{git remote} has created a branch called
+@code{origin/@var{branch}} in your local Git repository.  As this
+branch is a copy of the remote branch web from git.sv.gnu.org LilyPond
+repository, it is called a @emph{remote branch}, and is meant to track
 the changes on the branch from git.sv.gnu.org: it will be updated
-every time you run @q{git pull} or @q{git fetch} with this branch
-reference as argument, e.g.  by using .git/remotes/web remote file
-when running @q{git fetch web}.
+every time you run @command{git pull origin} or @command{git fetch
+origin}.
 
-The @q{git checkout} command above has created a branch named @q{web}.  At
-the beginning, this branch is identical to @q{origin/web,} but it will
-differ as soon as you make changes, e.g. adding newly translated
-pages.  Whenever you pull, you merge the changes from origin/web and
-your web branch since the last pulling.  If you do not have push
-(i.e. @qq{write}) access on git.sv.gnu.org, your web branch will always
-differ from origin/web.  In this case, remember that other people
-working like you on the remote web branch of
-git://git.sv.gnu.org/lilypond.git/ know nothing about your own web
-branch: this means that whenever you use a committish or make a patch,
-others expect you to take the latest commit of origin/web branch as a
-reference.
+The @command{git checkout} command has created a branch named
+@code{@var{branch}}.  At the beginning, this branch is identical to
+@code{origin/@var{branch}}, but it will differ as soon as you make
+changes, e.g. adding newly translated pages or editing some
+documentation or code source file.  Whenever you pull, you merge the
+changes from @code{origin/@var{branch}} and @code{@var{branch}} since
+the last pulling.  If you do not have push (i.e. @qq{write}) access on
+git.sv.gnu.org, your @code{@var{branch}} will always differ from
+@code{origin/@var{branch}}.  In this case, remember that other people
+working like you with the remote branch @code{@var{branch}} of
+git://git.sv.gnu.org/lilypond.git/ (called @code{origin/@var{branch}}
+on your local repository) know nothing about your own
+@code{@var{branch}}: this means that whenever you use a committish or
+make a patch, others expect you to take the latest commit of
+@code{origin/@var{branch}} as a reference.
 
-This README tries to explain most of Git commands needed for
-translating the web site.  However, you are invited to read
-further documentation to make git more familiar to you; for
-instance, take a look at @uref{http://git.or.cz/gitwiki/},
-especially GitDocumentation and GitGlossary; a good alternative to
-reading the wiki is reading the first two chapters of Git User's
-Manual at
-@uref{http://www.kernel.org/pub/software/scm/git/docs/user-manual.html}
+Finally, please remember to read the man page of every Git command you
+will find in this manual in case you want to discover alternate
+methods or just understand how it works.
 
+
+@node Working with several Git branches
+@section Working with several Git branches
+
+It is possible to work with several branches on the same local Git
+repository; this is especially useful for translators who may have to
+deal with both @code{lilypond/translation} and a stable branch,
+e.g. @code{stable/2.12}.
+
+Some Git commands are introduced first, then a workflow with several
+Git branches of LilyPond source code is presented.
+
+@menu
+* Git commands for managing several branches::  
+* Working on LilyPond sources with several branches::  
+@end menu
+
+@node Git commands for managing several branches
+@subsection Git commands for managing several branches
+
+@subsubheading Listing branches and remotes
+
+You can get the exact path or URL of all remotes with
+running
+
+@example
+git remote -v
+@end example
+
+To list Git branches on your local repositories, run
+
+@example
+git branch     # list local branches only
+git branch -r  # list remote branches
+git branch -a  # list all branches
+@end example
+
+
+@subsubheading Checking out branches
+
+To know the currently checked out branch, i.e. the branch whose source
+files are present in your working tree, read the first line of the
+output of
+
+@example
+git status
+@end example
+
+@noindent
+The currently checked out branch is also marked with an asterisk in
+the output of @command{git branch}.
+
+You can check out another branch @code{@var{other_branch}}, i.e. check
+out @code{@var{other_branch}} to the working tree, by running
+
+@example
+git checkout @var{other_branch}
+@end example
+
+Note that it is possible to check out another branch while having
+uncommitted changes, but it is not recommended unless you know what
+you are doing; it is recommended to run @command{git status} to check
+this kind of issue before checking out another branch.
+
+
+@subsubheading Merging branches
+
+To merge branch @code{@var{foo}} into branch @code{@var{bar}}, i.e. to
+@qq{add} all changes made in branch @code{@var{foo}} to branch
+@code{@var{bar}}, run
+
+@example
+git checkout @var{bar}
+git merge @var{foo}
+@end example
+
+If any conflict happens, see @ref{Resolving conflicts}.
+
+There are common usage cases for merging: as a translator, you will
+often want to merge @code{master} into @code{lilypond/translation}; on
+the other hand, the Translations meister wants to merge
+@code{lilypond/translation} into @code{master} whenever he has checked
+that @code{lilypond/translation} builds successfully.
+
+
+@node Working on LilyPond sources with several branches
+@subsection Working on LilyPond sources with several branches
+
+@subsubheading Fetching new branches from git.sv.gnu.org
+
+To fetch and check out a new branch named @code{@var{branch}} on
+git.sv.gnu.org, run from top of the Git repository
+
+@example
+git config --add remote.origin.fetch +refs/heads/@var{branch}:refs/remotes/origin/@var{branch}
+git checkout --track -b @var{branch} origin/@var{branch}
+@end example
+
+After this, you can pull @code{@var{branch}} from git.sv.gnu.org with
+
+@example
+git pull origin
+@end example
+
+Note that this command generally fetches all branches you added with
+@command{git remote add} (when you initialized the repository) or
+@command{git config --add}, i.e. it updates all remote branches from
+remote @code{origin}, then it merges the remote branch tracked by
+current branch into current branch.  For example, if your current
+branch is @code{master} --- which is the case if you got the sources
+with the commands described in @ref{Main source code} and did not
+issue any @command{git checkout} command --- @code{origin/master} will
+be merged into @code{master}.
+
+
+@subsubheading Local clones, or having several working trees
+
+If you play with several Git branches, e.g. @code{master},
+@code{lilypond/translation}, @code{stable/2.12}), you may want to have
+one source and build tree for each branch; this is possible with
+subdirectories of your local Git repository, used as local cloned
+subrepositories.  To create a local clone for the branch named
+@code{@var{branch}}, run
+
+@example
+git checkout @var{branch}
+git clone -l -s -n . @var{subdir}
+cd @var{subdir}
+git reset --hard
+@end example
+
+Note that @code{@var{subdir}} must be a directory name which does not
+already exist.  In @code{@var{subdir}}, you can use all Git commands
+to browse revisions history, commit and uncommit changes; to update
+the cloned subrepository with changes made on the main repository, cd
+into @code{@var{subdir}} and run @command{git pull}; to send changes
+made on the subrepository back to the main repository, run
+@command{git push} from @code{@var{subdir}}.  Note that only one
+branch (the currently checked out branch) is created in the
+subrepository by default; it is possible to have several branches in a
+subrepository and do usual operations (checkout, merge, create,
+delete...) on these branches, but this possibility is not detailed
+here.
+
+When you push @code{@var{branch}} from @code{@var{subdir}} to the main
+repository, and @code{@var{branch}} is checked out in the main
+repository, you must save uncommitted changes (see @command{git
+stash}) and do @command{git reset --hard} in the main repository in
+order to apply pushed changes in the working tree of the main
+repository.
 
 
 @node Sharing your changes
@@ -256,9 +429,10 @@ Manual at
 @node Producing a patch
 @subsection Producing a patch
 
-Once you have finished editing your files, checked that your
-changes meet the @ref{Code style} and/or @ref{Documentation
-policy}, and checked that the entire thing compiles, you may
+Once you have finished editing your files, checked that your changes
+meet the @ref{Code style}, and/or @ref{Documentation policy}, properly
+set up your name and email in @ref{Git user configuration}, and
+checked that the entire thing compiles, you may
 
 @example
 git commit -a 
@@ -272,22 +446,32 @@ an attachment.
 @node Committing directly
 @subsection Committing directly
 
-Most contributors do not have permission to commit directly.  If
-you do, edit @file{.git/config}:
+Most contributors do not have permission to commit directly.  If you
+do, make sure you have set up your name and email in @ref{Git user
+configuration}, then edit @file{.git/config}: change the line
 
 @example
-%% Change this line:
         url = git://git.sv.gnu.org/lilypond.git/
-%% into something like this:
-        url = ssh://gpercival@@git.sv.gnu.org/srv/git/lilypond.git
 @end example
 
-TODO: upload ssh key to somewhere?
+@noindent
+into
+@example
+        url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+@end example
+
+@noindent
+where @var{user} is your login name on Savannah.
+
+If you have not already done so, you should generate and upload a SSH
+key: open @uref{https://savannah.gnu.org/my/} in your browser, then go to
+@q{Preferences} then to something like @q{Edit SSH Keys}, and follow
+the instructions on that page.
 
 You may then
 
 @example
-git push
+git push origin
 @end example
 
 

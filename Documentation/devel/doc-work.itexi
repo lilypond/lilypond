@@ -1,10 +1,10 @@
-@c -*- coding: us-ascii; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @node Documentation work
 @chapter Documentation work
 
 @menu
 * Introduction to documentation work::  
-* Texinfo crash course::        
+* Texinfo introduction and usage policy::  
 * Documentation policy::        
 * Tips for writing docs::       
 * Updating docs with convert-ly::  
@@ -52,8 +52,8 @@ limited documentation help.
 
 
 
-@node Texinfo crash course
-@section Texinfo crash course
+@node Texinfo introduction and usage policy
+@section Texinfo introduction and usage policy
 
 @menu
 * Texinfo introduction::        
@@ -68,7 +68,7 @@ limited documentation help.
 @node Texinfo introduction
 @subsection Texinfo introduction
 
-The language is called texinfo; you can see its manual here:
+The language is called Texinfo; you can see its manual here:
 
 @uref{http://www.gnu.org/software/texinfo/manual/texinfo/}
 
@@ -889,7 +889,7 @@ the difficulty.
 
 
 @node Updating docs with convert-ly
-@section Updating doc with convert-ly
+@section Updating doc with @command{convert-ly}
 
 cd into Documentation and run
 
@@ -898,12 +898,637 @@ find . -name '*.itely' | xargs convert-ly -e
 @end example
 
 @noindent
-(This also updates translated docs.)
-
+This also updates translated documentation.
 
 
 
 @node Translating the documentation
 @section Translating the documentation
 
+@menu
+* Getting started with documentation translation::  
+* Documentation translation details::  
+* Documentation translation maintenance::  
+* Translations management policies::  
+* Technical background::        
+@end menu
 
+@node Getting started with documentation translation
+@subsection Getting started with documentation translation
+
+First, get the sources from the Git repository, see @ref{Documentation
+translations source code}.
+
+@menu
+* Translation requirements::    
+* Which documentation can be translated::  
+* Starting translation in a new language::  
+@end menu
+
+@node Translation requirements
+@unnumberedsubsubsec Translation requirements
+
+Working on LilyPond documentation translations requires the following
+pieces of software, in order to make use of dedicated helper tools:
+
+@itemize
+@item Python 2.4 or higher,
+@item GNU Make,
+@item Gettext.
+@end itemize
+
+It is not required to build LilyPond and the documentation to
+translate the documentation.  However, if you have enough time and
+motivation and a suitable system, it can be very useful to build at
+least the documentation so that you can check the output yourself and
+more quickly; if you are interested, see @ref{Compiling from source}.
+
+@menu
+@end menu
+
+@node Which documentation can be translated
+@unnumberedsubsubsec Which documentation can be translated
+
+The makefiles and scripts infrastructure currently supports translation
+of the following documentation:
+
+@itemize
+@item documentation index (HTML);
+@item user manual and program usage -- Texinfo source, PDF and HTML
+output; Info output might be added if there is enough demand for it;
+@item the News document.
+@end itemize
+
+The following pieces of documentation should be added soon, by
+descending order of priority:
+
+@itemize
+@item automatically generated documentation: markup commands,
+predefined music functions;
+@item the Snippets List;
+@item the examples page;
+@item the Internals Reference.
+@end itemize
+
+
+@node Starting translation in a new language
+@unnumberedsubsubsec Starting translation in a new language
+
+At top of the source directory, do
+
+@example
+./autogen.sh
+@end example
+
+@noindent
+or (if you want to install your self-compiled LilyPond locally)
+
+@example
+./autogen.sh --prefix=$HOME
+@end example
+
+@noindent
+If you want to compile LilyPond -- which is almost required to build
+the documentation, but is not required to do translation only -- fix
+all dependencies and rerun @command{./configure} (with the same
+options as for @command{autogen.sh}).
+
+Then @command{cd} into @file{Documentation} and run
+
+@example
+make ISOLANG=@var{MY-LANGUAGE} new-lang
+@end example
+
+@noindent
+where @var{MY-LANGUAGE} is the ISO 639 language code.
+
+Finally, add a language definition for your language in
+@file{python/langdefs.py}.
+
+Before starting the real translation work, it is recommended to commit
+changes you made so far to Git, so e.g. you are able to get back to
+this state of the sources easily if needed; see @ref{Sharing your
+changes}.
+
+
+@node Documentation translation details
+@subsection Documentation translation details
+
+Please follow all the instructions with care to ensure quality work.
+
+All files should be encoded in UTF-8.
+
+@menu
+* Files to be translated::      
+* Translating the Learning Manual and other Texinfo documentation::  
+* Translating the Notation Reference and Application Usage::  
+* Translating the Documentation index index.html.in::  
+@end menu
+
+@node Files to be translated
+@unnumberedsubsubsec Files to be translated
+
+@include doc-translation-list.itexi
+
+@node Translating the Learning Manual and other Texinfo documentation
+@unnumberedsubsubsec Translating the Learning Manual and other Texinfo documentation
+
+Any title which comes with one of the following commands must not be
+translated directly in the Texinfo source
+
+@example
+@@node                                                   @@majorheading
+@@chapter       @@unnumbered          @@appendix           @@chapheading
+@@section       @@unnumberedsec       @@appendixsec        @@heading
+@@subsection    @@unnumberedsubsec    @@appendixsubsec     @@subheading
+@@subsubsection @@unnumberedsubsubsec @@appendixsubsubsec  @@subsubheading
+@@ref           @@rglos
+@end example
+
+As a notable exception, the second argument @var{Bar baz} of
+@code{@@ref@{@var{Foo},@var{Bar baz},,@var{info-file}@}} should be
+translated.
+
+@code{@@uref}'s names are to be translated.
+
+In any section which looks like
+
+@example
+@@menu
+* @var{node1}:: @var{thing1}
+* @var{node2}:: @var{thing2}
+...
+@@end menu
+@end example
+
+@noindent
+the node names @var{nodeN} are @emph{not} to be translated, whereas
+extra title information @var{thingN} is.
+
+Every node name or section title must from now on be translated
+separately in a @file{.po} file (just as well as LilyPond output
+messages) in @file{Documentation/po}.  The Gettext domain is named
+@code{lilypond-doc}, and unlike @code{lilypond} domain it is not
+managed through the Free Translation Project.
+
+
+Take care of using typographic rules for your language, especially in
+@file{user/macros.itexi}.
+
+
+Please keep verbatim copies of music snippets (in @code{@@lilypond}
+blocs).  However, some music snippets containing text that shows in
+the rendered music, and sometimes translating this text really helps
+the user to understand the documentation; in this case, and only in
+this case, you may as an exception translate text in the music
+snippet, and then you must add a line immediately before the
+@code{@@lilypond} block, starting with
+
+@example
+@@c KEEP LY
+@end example
+
+@noindent
+Otherwise the music snippet would be reset to the same content as the
+English version at next @command{make snippet-update} run -- see
+@ref{Updating documentation translation}.
+
+When you encounter
+
+@example
+@@lilypondfile[<number of fragment options>,texidoc]@{@var{filename.ly}@}
+@end example
+
+@noindent
+in the source, open @file{input/lsr/@var{filename}.ly}, translate the
+@code{texidoc} header field it contains, enclose it with
+@code{texidoc@var{MY-LANGUAGE} = "} and @code{"}, and write it into
+@file{input/texidocs/@var{filename}.texidoc} -- please keep possibly
+existing translations in other languages!  Additionnally, you may
+translate the snippet's title in @code{doctitle} header field, in case
+@code{doctitle} is a fragment option used in @code{@@lilypondfile};
+you can do this exactly the same way as @code{texidoc}.  For instance,
+@file{input/texidocs/@var{filename}.texidoc} may contain
+
+@example
+doctitlees = "Spanish title baz"
+texidoces = "
+Spanish translation blah
+"
+doctitlede = "German title bar"
+texidocde = "German translation foo
+"
+@end example
+
+@code{@@example} blocs need not be verbatim copies, e.g. variable
+names, file names and comments should be translated.
+
+Index entries (@code{@@cindex} and so on) should be translated.
+
+Finally, please carefully apply every rule exposed in @ref{Texinfo
+introduction and usage policy}, and @ref{Documentation policy}.  If
+one of these rules conflicts with a rule specific to your language,
+please ask the Translation meister and/or the Documentation Editors on
+@email{lilypond-devel@@gnu.org}.
+
+
+@node Translating the Notation Reference and Application Usage
+@unnumberedsubsubsec Translating the Notation Reference and Application Usage
+
+Copy @file{user/lilypond.tely} (or @file{user/lilypond-program.tely},
+respectively) into @file{@var{MY-LANGUAGE}/user}, then translate this
+file and run @code{skeleton-update} -- see @ref{Updating documentation
+translation}.  Your are now ready to translate the Notation Reference
+(Application Usage, respectively) exactly like the Learning Manual.
+
+
+@node Translating the Documentation index index.html.in
+@unnumberedsubsubsec Translating the Documentation index @file{index.html.in}
+
+Unlike almost all HTML pages in this documentation, links in this page
+are not tweaked by @file{postprocess_html.py}, so links should be
+manually edited to link to existing translations.
+
+
+@node Documentation translation maintenance
+@subsection Documentation translation maintenance
+
+Several tools have been developed to make translations maintenance
+easier.  These helper scripts make use of the power of Git, the
+version control system used for LilyPond development.
+
+@menu
+* Check state of translation::  
+* Updating documentation translation::  
+@end menu
+
+@node Check state of translation
+@unnumberedsubsubsec Check state of translation
+
+First pull from Git, then cd into @file{Documentation/} (or at top of
+the source tree, replace @command{make} with @command{make -C
+Documentation}) and run
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} check-translation
+@end example
+
+@noindent
+This presents a diff of the original files since the most recent
+revision of the translation.  To check a single file, cd into
+@file{Documentation/} and run
+
+@example
+make CHECKED_FILES=@var{MY_LANGUAGE/user/foo.itely} check-translation
+@end example
+
+To see only which files need to be updated, do
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} check-translation | grep 'diff --git'
+@end example
+
+To avoid printing terminal colors control characters, which is often
+desirable when you redirect output to a file, run
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} NO_COLOR=1 check-translation
+@end example
+
+Global state of the translation is recorded in
+@file{Documentation/translations.html.in}, which is used to generate
+Translations status page.  To update that page, do from
+@file{Documentation/}
+
+@example
+make translation-status
+@end example
+
+This will also leave @file{out/translations-status.txt}, which contains
+up-to-dateness percentages for each translated file, and update word
+counts of documentation files in this Guide.
+
+@seealso
+
+@ref{Maintaining without updating translations}.
+
+
+@node Updating documentation translation
+@unnumberedsubsubsec Updating documentation translation
+
+Instead of running @code{check-translation}, you may want to run
+@code{update-translation}, which will run your favorite text editor to
+update files.  First, make sure environment variable @code{EDITOR} is
+set to a text editor command, then run from @file{Documentation/}
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} update-translation
+@end example
+
+or to update a single file
+
+@example
+make CHECKED_FILES=@var{MY_LANGUAGE/user/foo.itely} update-translation
+@end example
+
+For each file to be udpated, update-translation will open your text
+editor with this file and a diff of the file in English; if the diff
+cannot be generated or is bigger than the file in English itself, the
+full file in English will be opened instead.
+
+Texinfo skeleton files, i.e. @file{.itely} files not yet translated,
+containing only the Texinfo structure can be updated automatically:
+whenever @command{make check-translation} shows that such files should
+be updated, run from @file{Documentation/}
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} skeleton-update
+@end example
+
+@file{.po} message catalogs in @file{Documentation/po/} may be updated
+by issuing from @file{Documentation/} or @file{Documentation/po/}
+
+@example
+make po-update
+@end example
+
+@warning{if you run po-update and somebody else does the same and
+pushes before you push or send a patch to be applied, there will be a
+conflict when you pull.  Therefore, it is better that only the
+Translation meister runs this command.}
+
+Updating music snippets can quickly become cumbersome, as most
+snippets should be identical in all languages.  Fortunately, there is
+a script that can do this odd job for you (run from
+@file{Documentation/}):
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} snippet-update
+@end example
+
+This script overwrites music snippets in
+@file{@var{MY_LANGUAGE/user/every.itely}} with music snippets from
+@file{@var{user/every.itely}}.  It ignores skeleton files, and keeps
+intact music snippets preceded with a line starting with @code{@@c
+KEEP LY}; it reports an error for each @file{.itely} that has not the
+same music snippet count in both languages.  Always use this script
+with a lot of care, i.e. run it on a clean Git working tree, and check
+the changes it made with @command{git diff} before committing; if you
+don't do so, some @code{@@lilypond} snippets might be broken or make
+no sense in their context.
+
+Finally, a command runs the three update processes above for all
+enabled languages (from @file{Documentation/}):
+
+@example
+make all-translations-update
+@end example
+
+Use this command with caution, and keep in mind it will not be really
+useful until translations are stabilized after the end of GDP.
+
+@seealso
+
+@ref{Maintaining without updating translations}.
+
+
+@node Translations management policies
+@subsection Translations management policies
+
+These policies show the general intent of how the translations should
+be managed, they aim at helping translators, developers and
+coordinators work efficiently.
+
+@menu
+* Maintaining without updating translations::  
+* Managing documentation translation with Git::  
+@end menu
+
+@node Maintaining without updating translations
+@unnumberedsubsubsec Maintaining without updating translations
+
+Keeping translations up to date under heavy changes in the
+documentation in English may be almost impossible, especially as
+during the former Grand Documentation Project (GDP) or the Grand
+Organization Project (GOP) when a lot of contributors brings changes.
+In addition, transloators may be (and that) involved in these porjects too.
+
+it is possible -- and even recommended -- to
+perform some maintaining that keeps translated documentation usable
+and eases future translation updating.  The rationale below the tasks
+list motivates this plan.  The rationale below the tasks
+list motivates this plan.
+
+The following tasks are listed in decreasing priority order.
+
+@enumerate
+@item Update macros.itexi.
+For each obsolete macro definition, if it is possible to update macro
+usage in documentation with an automatic text or regexp substitution,
+do it and delete the macro definition from macros.itexi; otherwise,
+mark this macro definition as obsolete with a comment, and keep it in
+macros.itexi until the documentation translation has been updated and
+no longer uses this macro.
+
+@item Update @file{*.tely} files completely with
+@command{make check-translation} -- you may want to redirect ouptput
+to a file because of overwhelming output, or call check-translation.py
+on individual files, see @ref{Check state of translation}.
+
+@item In @file{.itelys}, match sections and .itely file names with those from
+English docs, which possibly involves moving nodes contents in block
+between files, without updating contents itself.  In other words, the
+game is catching where has gone each section.  In Learning manual, and
+in Notation Reference sections which have been revised in GDP, there
+may be completely new sections: in this case, copy @code{@@node} and
+@code{@@section}-command from English docs, and add the marker for
+untranslated status @code{@@untranslated} on a single line.  Note that
+it is not possible to exactly match subsections or subsubsections of
+documentation in English, when contents has been deeply revised; in
+this case, keep obsolete (sub)subsections in the translation, marking
+them with a line @code{@@c obsolete} just before the node.
+
+Emacs with Texinfo mode makes this step easier:
+
+@itemize
+@item without Emacs AucTeX installed, @key{C-c C-s} shows structure of current
+Texinfo file in a new buffer *Occur*; to show structure of two files
+simultaneously, first split Emacs window in 4 tiles (with @key{C-x 1}
+and @key{C-x 2}), press @key{C-c C-s} to show structure of one file
+(e.g. the translated file), copy *Occur* contents into *Scratch*, then
+press @key{C-c C-s} for the other file.
+
+If you happen to have installed AucTeX, you can either call the macro
+by doing @key{M-x texinfo-show-structure} or create a key binding in your
+@file{~/.emacs}, by adding the four following lines:
+
+@example
+(add-hook 'Texinfo-mode-hook
+          '(lambda ()
+             (define-key Texinfo-mode-map "\C-cs"
+              'texinfo-show-structure)))
+@end example
+
+@noindent
+and then obtain the structure in the *Occur* buffer with @key{C-c s}.
+
+@item Do not bother updating @code{@@menu}s when all menu entries are in the same
+file, just do @key{C-c C-u C-a} ("update all menus") when you have
+updated all the rest of the file.
+
+@item Moving to next or previous node using incremental search: press
+@key{C-s} and type @code{node} (or @key{C-s @@node} if the text
+contains the word @q{node}) then press @key{C-s} to move to next node
+or @key{C-r} to move to previous node.  Similar operation can be used
+to move to the next/previous section.  Note that every cursor move
+exits incremental search, and hitting @key{C-s} twice starts
+incremental search with the text entered in previous incremental
+search.
+
+@item Moving a whole node (or even a sequence of nodes): jump to beginning
+of the node (quit incremental search by pressing an arrow), press
+@key{C-SPACE}, press @key{C-s node} and repeat @key{C-s} until you
+have selected enough text, cut it with @key{C-w} or @key{C-x}, jump to
+the right place (moving between nodes with the previous hint is often
+useful) and paste with @key{C-y} or @key{C-v}.
+@end itemize
+
+@item Update sections finished in the English documentation; check
+sections status at
+@uref{http://lilypondwiki.tuxfamily.org/index.php?title=Documentation_coordination}.
+
+@item Update documentation PO.  It is recommended not to update
+strings which come from documentation that is currently deeply revised
+in English, to avoid doing the work more than once.
+
+@item Fix broken cross-references by running (from @file{Documentation/})
+
+@example
+make ISOLANG=@var{YOUR-LANGUAGE} fix-xrefs
+@end example
+
+@noindent
+This step requires a sucessful documentation build (with @command{make
+web}).  Some cross-references are broken because they point to a node
+that exists in the documentation in English, which has not been added
+to the translation; in this case, do not fix the cross-reference but
+keep it "broken", so that the resulting HTML link will point to an
+existing page of documentation in English.
+@end enumerate
+
+@subsubheading Rationale
+
+You may wonder if it would not be better to leave translations as-is
+until you can really start updating translations.  There are several
+reasons to do these maintenance tasks right now.
+
+@itemize
+@item This will have to be done sooner or later anyway, before updating
+translation of documentation contents, and this can already be done
+without needing to be redone later, as sections of documentation in
+English are mostly revised once.  However, note that not all
+documentation sectioning has been revised in one go, so all this
+maintenance plan has to be repeated whenever a big reorganization is
+made.
+
+@item This just makes translated documentation take advantage of the new
+organization, which is better than the old one.
+
+@item Moving and renaming sections to match sectioning of documentation in
+English simplify future updating work: it allows updating the
+translation by side-by-side comparison, without bothering whether
+cross-reference names already exist in the translation.
+
+@item Each maintenance task except @q{Updating PO files} can be done by
+the same person for all languages, which saves overall time spent by
+translators to achieve this task: the node names and section titles
+are in English, so you can do.  It is important to take advantage of
+this now, as it will be more complicated (but still possible) to do
+step 3 in all languages when documentation is compiled with
+@command{texi2html} and node names are directly translated in source
+files.
+@end itemize
+
+
+@node Managing documentation translation with Git
+@unnumberedsubsubsec Managing documentation translation with Git
+
+This policy explains how to manage Git branches and commit
+translations to Git.
+
+@itemize
+@item Translation changes matching master branch are preferably made on
+@code{lilypond/translation} branch; they may be pushed directly to
+@code{master} only if they do not break compilation of LilyPond and
+its documentation, and in this case they should be pushed to
+@code{lilypond/translation} too.  Similarly, changes matching
+@code{stable/X.Y} are preferably made on
+@code{lilypond/X.Ytranslation}.
+
+@item @code{lilypond/translation} Git branch may be merged into master only if
+LilyPond (@command{make all}) and documentation (@command{make web}) compile
+succesfully.
+
+@item @code{master} Git branch may be merged into
+@code{lilypond/translation} whenever @command{make} and @command{make
+web} are succesful (in order to ease documentation compilation by
+translators), or when significant changes had been made in
+documentation in English in master branch.
+
+@item General maintenance may be done by anybody who knows what he does
+in documentation in all languages, without informing translators
+first.  General maintenance include simple text substitutions
+(e.g. automated by sed), compilation fixes, updating Texinfo or
+lilypond-book commands, updating macros, updating ly code, fixing
+cross-references, and operations described in @ref{Maintaining
+without updating translations}.
+@end itemize
+
+
+@node Technical background
+@subsection Technical background
+
+A number of Python scripts handle a part of the documentation
+translation process.  All scripts used to maintain the translations
+are located in @file{scripts/auxiliar/}.
+
+@itemize
+@item @file{check_translation.py}  -- show diff to update a translation,
+@item @file{texi-langutils.py}  -- quickly and dirtily parse Texinfo files to
+make message catalogs and Texinfo skeleton files,
+@item @file{texi-skeleton-update.py} -- update Texinfo skeleton files,
+@item @file{update-snippets.py} -- synchronize ly snippets with those
+from English docs,
+@item @file{translations-status.py} -- update translations status pages and word
+counts in the file you are reading,
+@item @file{tely-gettext.py} -- gettext node names, section titles and references
+in the sources; WARNING only use this script once for each file, when support for
+"makeinfo --html" has been dropped.
+@end itemize
+
+Other scripts are used in the build process, in @file{scripts/build/}:
+
+@itemize
+@item @file{html-gettext.py} -- translate node names, section titles and cross
+references in HTML files generated by @command{makeinfo},
+@item @file{texi-gettext.py} -- gettext node names, section titles and references
+before calling @command{texi2pdf},
+@item @file{mass-link.py} -- link or symlink files between English documentation
+and documentation in other languages.
+@end itemize
+
+Python modules used by scripts in @file{scripts/auxiliar/} or @file{scripts/build/} (but
+not by installed Python scripts) are located in @file{python/auxiliar/}:
+@itemize
+@item @file{manuals_definitions.py} -- define manual names and name of
+cross-reference Texinfo macros,
+@item @file{buildlib.py} -- common functions (read piped output
+of a shell command, use Git),
+@item @file{postprocess_html.py} (module imported by @file{www_post.py}) -- add footer and
+tweak links in HTML pages.
+@end itemize
+
+And finally
+@itemize
+@item @file{python/langdefs.py}  -- language definitions module
+@end itemize

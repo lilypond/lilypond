@@ -562,7 +562,7 @@ status_txt_file = 'out/translations-status.txt'
 progress ("Writing %s..." % status_txt_file)
 open (status_txt_file, 'w').write (main_status_txt)
 
-translation_instructions_file = 'TRANSLATION'
+translation_instructions_file = 'devel/doc-translation-list.itexi'
 progress ("Updating %s..." % translation_instructions_file)
 translation_instructions = open (translation_instructions_file).read ()
 
