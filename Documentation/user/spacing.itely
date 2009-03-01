@@ -1915,15 +1915,16 @@ Internals Reference:
 @rinternals{SpacingSpanner},
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
-@rinternals{SeparationItem}.
+@rinternals{NonMusicalPaperColumn}.
 
 
 @knownissues
 
 There is no convenient mechanism to manually override spacing.  The
-following work-around may be used to insert extra space into a score.
+following work-around may be used to insert extra space into a score,
+adjusting the padding value as necessary.
 @example
- \once \override Score.SeparationItem #'padding = #1
+ \override Score.NonMusicalPaperColumn #'padding = #10
 @end example
 
 No work-around exists for decreasing the amount of space.
