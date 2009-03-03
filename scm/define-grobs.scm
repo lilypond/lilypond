@@ -723,9 +723,12 @@
 
     (FretBoard
      . ((stencil . ,fret-board::calc-stencil)
+	(after-line-breaking . ,ly:chord-name::after-line-breaking)
 	(fret-diagram-details . ((finger-code . below-string)))
 	(meta . ((class . Item)
 		 (interfaces . (fret-diagram-interface
+				rhythmic-grob-interface
+                                chord-name-interface
 				font-interface))))))
 
 

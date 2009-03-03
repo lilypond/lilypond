@@ -30,16 +30,27 @@ public:
   TRANSLATOR_DECLARATIONS (Fretboard_engraver);
 
 protected:
+  void stop_translation_timestep ();
+  void process_music ();
+  virtual void derived_mark() const;
   DECLARE_TRANSLATOR_LISTENER (note);
   DECLARE_TRANSLATOR_LISTENER (string_number);
-  void process_music ();
 
-  void stop_translation_timestep ();
+private:
+  SCM last_fret_notes_;
 };
+
+
+void
+Fretboard_engraver::derived_mark () const
+{
+  scm_gc_mark (last_fret_notes_);
+}
 
 Fretboard_engraver::Fretboard_engraver ()
 {
   fret_board_ = 0;
+  last_fret_notes_ = SCM_EOL;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Fretboard_engraver, note);
@@ -63,17 +74,22 @@ Fretboard_engraver::process_music ()
     return ;
 
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
-
+  SCM fret_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   if (ly_is_procedure (proc))
     {
-      scm_call_4 (proc,
-		  context ()->self_scm (),
-		  fret_board_->self_scm (),
-			       
-		  ly_cxx_vector_to_list (note_events_),
-		  ly_cxx_vector_to_list (tabstring_events_));
+     scm_call_4 (proc,
+		 context ()->self_scm (),
+		 fret_board_->self_scm (),
+		 fret_notes,	       
+		 ly_cxx_vector_to_list (tabstring_events_));
     }
+  SCM changes = get_property("chordChanges");
+  if (to_boolean (changes) && scm_is_pair(last_fret_notes_)
+      && ly_is_equal (last_fret_notes_, fret_notes))
+    fret_board_->set_property ("begin-of-line-visible", SCM_BOOL_T);
+  
+  last_fret_notes_ = fret_notes;
 }
 
 void
@@ -93,6 +109,7 @@ ADD_TRANSLATOR (Fretboard_engraver,
 		"FretBoard ",
 
 		/* read */
+                "chordChanges "
 		"stringTunings "
 		"minimumFret "
                 "maximumFretStretch "

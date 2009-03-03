@@ -1,5 +1,5 @@
 /*
-  chord-name.cc -- implement Chord_name
+  chord-name.cc -- implement Chord_label
 
   source file of the GNU LilyPond music typesetter
 
@@ -33,7 +33,7 @@ Chord_name::after_line_breaking (SCM smob)
 }
 
 ADD_INTERFACE (Chord_name,
-	       "A chord name.",
+	       "A chord label (name or fretboard).",
 
 	       /* properties */	       
 	       "begin-of-line-visible "

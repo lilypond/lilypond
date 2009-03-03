@@ -932,8 +932,9 @@ notes that the arpeggio has to be before.")
 
      ;;;;;;;;;;;;;;;;
      ;; other
-     (begin-of-line-visible ,boolean? "Used for marking @code{ChordNames}
-that should only show changes.")
+     (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or 
+@code{FretBoard} be visible only at beginning of line or at 
+chord changes.")
 
      (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
 translator) that was the cause for this grob.")
