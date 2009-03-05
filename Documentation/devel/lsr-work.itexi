@@ -129,13 +129,17 @@ head -1 input/lsr/@var{foo}.ly
 @end example
 
 @item
-@strong{In case the snippet comes from LSR}, apply the fix to the snippet in
-LSR and send a notification email to a LSR editor with CC to the
-development list -- see @ref{Adding and editing snippets}.  The
+@strong{In case the snippet comes from LSR}, apply the fix to the
+snippet in LSR and send a notification email to a LSR editor with CC
+to the development list -- see @ref{Adding and editing snippets}.  The
 failure may sometimes not be caused by the snippet in LSR but by the
-syntax conversion made by @command{convert-ly}; in this case, fix
-@command{convert-ly} or report the problem on the development list,
-then run @command{makelsr.py} again, see @ref{LSR to Git}.
+syntax conversion made by @command{convert-ly}; in this case, try to
+fix @command{convert-ly} or report the problem on the development
+list, then run @command{makelsr.py} again, see @ref{LSR to Git}.  In
+some cases, when some features has been introduced or vastly changed
+so it requires (or takes significant advantage of) important changes
+in the snippet, it is simpler and recommended to write a new version
+of the snippet in @file{input/new}, then run @command{makelsr.py}.
 
 @item
 @strong{In case the snippet comes from} @file{input/new}, apply in
