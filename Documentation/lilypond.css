@@ -46,7 +46,7 @@ blockquote {
   padding: 3px;
   width: 40em;
 }
-.verbatim, .example {
+.verbatim, .example, .smallexample {
   font-family: "Courier New",Courier,monospace;
 }
 hr {
