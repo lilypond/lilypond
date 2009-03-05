@@ -93,7 +93,7 @@ a:hover {
 /*                  BLOCK FORMATTING                       */
 /***********************************************************/
 
-blockquote {
+blockquote, .smallexample {
   width: 96%;
   padding: 0;
   border: solid #b1d281;
@@ -101,7 +101,7 @@ blockquote {
   margin: 1em auto;
 }
 
-blockquote p {
+blockquote p, pre.smallexample {
   padding: 1em;
   margin: 0;
 }
