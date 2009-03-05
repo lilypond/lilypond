@@ -72,19 +72,14 @@
             <br>(for all contributors)</li>
             <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git">lilypond.git repository</a>
             <br>(official sources)</li>
-            <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=gub">GUB Readme</a>
-            <br>(about Grand Unified Binaries packages)</li>
 	</ul>
     </td><td class="right-column">
 	<ul>
-	    <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation%2Fuser%2FREADME.txt;hb=master">Documentation Readme</a>
-            <br>(for documentation editors)</li>
             <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web">lilypond.org Readme</a>
 and <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=TRANSLATION;hb=web">Translation</a>
 <br>(how to translate and build lilypond.org website)</li>
-            <li>
-	      <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation%2FTRANSLATION;hb=lilypond%2Ftranslation">Documentation translation</a>
-              <br>(how to translate documentation)</li>
+            <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=gub">GUB Readme</a>
+            <br>(about Grand Unified Binaries packages)</li>
 	</ul>
 	</td>
         </tr>
