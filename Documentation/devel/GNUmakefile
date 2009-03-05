@@ -15,11 +15,21 @@ MASTER_TEXI_FILES = contrib-guide.texi
 PDF_FILES = $(MASTER_TEXI_FILES:%.texi=$(outdir)/%.pdf)
 HTML_FILES = $(MASTER_TEXI_FILES:%.texi=$(outdir)/%/index.html) \
   $(MASTER_TEXI_FILES:%.texi=$(outdir)/%-big-page.html)
+source-links = $(outdir)/source $(MASTER_TEXI_FILES:%.texi=$(outdir)/%/source)
 
 default: local-doc
 
+$(outdir)/source:
+	@rm -f $(@)
+	ln -sf $(depth) $(@)
+
+$(outdir)/%/source:
+	@rm -f $(@)
+	mkdir -p $(dir $@)
+	ln -sf $(depth)/.. $(@)
+
 local-WWW-1: $(PDF_FILES)
 
-local-WWW-2: $(HTML_FILES) $(OUT_HTML_FILES)
+local-WWW-2: $(HTML_FILES) $(OUT_HTML_FILES) $(source-links)
 
 $(PDF_FILES) $(HTML_FILES): $(ITEXI_FILES)
