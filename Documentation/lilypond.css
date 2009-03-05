@@ -163,7 +163,7 @@ li.toc_current ul {
 
 div.header {
   background-color: #E7EFE3;
-  padding: 2;
+  padding: 2px;
   border: #CCD3CC 1px solid;
   text-align: center;
 }
@@ -198,7 +198,7 @@ div.subheader {
 
 .footer {
   background-color: #E7EFE3;
-  padding: 5;
+  padding: 5px;
   border: #CCD3CC 1px solid;
   font-size: 80%;
 }
