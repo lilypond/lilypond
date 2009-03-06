@@ -103,7 +103,7 @@
 	  ("electric guitar (muted)" . ,(- 29 1))
 	  ("overdriven guitar" . ,(- 30 1))
 	  ("distorted guitar" . ,(- 31 1))
-	  ("guitar harmo(dinics" . ,(- 32 1))
+	  ("guitar harmonics" . ,(- 32 1))
 
 	  ; (33-40 bass)
 	  ("acoustic bass" . ,(- 33 1))
