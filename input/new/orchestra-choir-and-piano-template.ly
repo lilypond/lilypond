@@ -101,6 +101,14 @@ bassMusic = \relative c { \clef "bass_8" \key c \major c,1 d }
       \set RhythmicStaff.instrumentName = "Percussion"
       \percussionMusic
     >>
+    \new PianoStaff \with { \consists Instrument_name_engraver } <<
+      \set PianoStaff.instrumentName = "Piano"
+      \new Staff { \pianoRHMusic }
+      \new Staff {
+        \clef bass
+        \pianoLHMusic
+      }
+    >>
     \new ChoirStaff = "ChoirStaff_choir" <<
       \new Staff = "Staff_soprano" {
         \set Staff.instrumentName = "Soprano"
@@ -129,14 +137,6 @@ bassMusic = \relative c { \clef "bass_8" \key c \major c,1 d }
         \tenorMusic
       }
       \new Lyrics \lyricsto "tenor" { \tenorLyrics }
-    >>
-    \new PianoStaff \with { \consists Instrument_name_engraver } <<
-      \set PianoStaff.instrumentName = "Piano"
-      \new Staff { \pianoRHMusic }
-      \new Staff {
-        \clef bass
-        \pianoLHMusic
-      }
     >>
     \new StaffGroup = "StaffGroup_strings" <<
       \new GrandStaff = "GrandStaff_horns" <<
