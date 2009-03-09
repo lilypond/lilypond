@@ -28,6 +28,7 @@ manually-controlling-beam-positions.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
 modifying-tuplet-bracket-length.ly
 multi--measure-rest-markup.ly
+non-default-tuplet-numbers.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 positioning-multi--measure-rests.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly

@@ -45,37 +45,6 @@ def error_message (str):
 needed_additional_definitions = []
 additional_definitions = {
 
-  "snappizzicato": """#(define-markup-command (snappizzicato layout props) ()
-  (interpret-markup layout props
-    (markup #:stencil
-      (ly:stencil-translate-axis
-        (ly:stencil-add
-          (make-circle-stencil 0.7 0.1 #f)
-          (ly:make-stencil
-            (list 'draw-line 0.1 0 0.1 0 1)
-            '(-0.1 . 0.1) '(0.1 . 1)))
-        0.7 X))))""",
-
-  "eyeglasses": """eyeglassesps = #"0.15 setlinewidth
-      -0.9 0 translate
-      1.1 1.1 scale
-      1.2 0.7 moveto
-      0.7 0.7 0.5 0 361 arc
-      stroke
-      2.20 0.70 0.50 0 361 arc
-      stroke
-      1.45 0.85 0.30 0 180 arc
-      stroke
-      0.20 0.70 moveto
-      0.80 2.00 lineto
-      0.92 2.26 1.30 2.40 1.15 1.70 curveto
-      stroke
-      2.70 0.70 moveto
-      3.30 2.00 lineto
-      3.42 2.26 3.80 2.40 3.65 1.70 curveto
-      stroke"
-eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }""",
-
   "tuplet-note-wrapper": """      % a formatter function, which is simply a wrapper around an existing 
       % tuplet formatter function. It takes the value returned by the given
       % function and appends a note of given length. 
@@ -754,7 +723,7 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     actual_type = tuplet_elt.get_actual_type ()
     if actual_type:
         actual_note = musicexp.Duration ()
-        (actual_note.duration_log, actual_note.dots) = normal_type
+        (actual_note.duration_log, actual_note.dots) = actual_type
         tsm.actual_type = actual_note
 
     # Obtain non-default nrs of notes from the tuplet object!
@@ -772,14 +741,8 @@ def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     display_values = {"none": None, "actual": "actual", "both": "both"}
     if hasattr (tuplet_elt, "show-number"):
         tsm.display_number = display_values.get (getattr (tuplet_elt, "show-number"), "actual")
-    if tsm.display_number == "actual" and tsm.display_denominator:
-        needed_additional_definitions.append ("tuplet-non-default-denominator")
-    elif tsm.display_number == "both" and (tsm.display_numerator or tsm.display_denominator):
-        needed_additional_definitions.append ("tuplet-non-default-fraction")
 
     if hasattr (tuplet_elt, "show-type"):
-        if getattr (tuplet_elt, "show-type") == "actual":
-            needed_additional_definitions.append ("tuplet-note-wrapper")
         tsm.display_type = display_values.get (getattr (tuplet_elt, "show-type"), None)
 
     return tsm
@@ -1144,12 +1107,6 @@ def musicxml_fingering_event (mxl_event):
     ev.type = mxl_event.get_text ()
     return ev
 
-def musicxml_snappizzicato_event (mxl_event):
-    needed_additional_definitions.append ("snappizzicato")
-    ev = musicexp.MarkupEvent ()
-    ev.contents = "\\snappizzicato"
-    return ev
-
 def musicxml_string_event (mxl_event):
     ev = musicexp.NoDirectionArticulationEvent ()
     ev.type = mxl_event.get_text ()
@@ -1211,7 +1168,7 @@ articulations_dict = {
     #"schleifer": "?",
     #"scoop": "?",
     #"shake": "?",
-    "snap-pizzicato": musicxml_snappizzicato_event,
+    "snap-pizzicato": "snappizzicato",
     #"spiccato": "?",
     "staccatissimo": (musicexp.ShortArticulationEvent, "|"), # or "staccatissimo"
     "staccato": (musicexp.ShortArticulationEvent, "."), # or "staccato"
@@ -1454,7 +1411,7 @@ def musicxml_harp_pedals_to_ly (mxl_event):
 
 def musicxml_eyeglasses_to_ly (mxl_event):
     needed_additional_definitions.append ("eyeglasses")
-    return musicexp.MarkEvent ("\\eyeglasses")
+    return musicexp.MarkEvent ("\\markup { \\eyeglasses }")
 
 def next_non_hash_index (lst, pos):
     pos += 1

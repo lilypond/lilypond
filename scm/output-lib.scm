@@ -300,6 +300,53 @@ centered, X==1 is at the right, X == -1 is at the left."
 	    (ly:event-property ev 'denominator)
 	    (ly:event-property ev 'numerator))))
 
+
+; a formatter function, which is simply a wrapper around an existing 
+; tuplet formatter function. It takes the value returned by the given
+; function and appends a note of given length. 
+(define-public ((tuplet-number::append-note-wrapper function note) grob)
+  (let* ((txt (if function (function grob) #f)))
+    (if txt 
+      (markup txt #:fontsize -5 #:note note UP)
+      (markup #:fontsize -5 #:note note UP))))
+
+; Print a tuplet denominator with a different number than the one derived from 
+; the actual tuplet fraction
+(define-public ((tuplet-number::non-default-tuplet-denominator-text denominator) grob)
+(number->string (if denominator 
+                    denominator 
+                    (ly:event-property (event-cause grob) 'denominator))))
+
+; Print a tuplet fraction with different numbers than the ones derived from 
+; the actual tuplet fraction
+(define-public ((tuplet-number::non-default-tuplet-fraction-text denominator numerator) grob)
+  (let* ((ev (event-cause grob))
+         (den (if denominator denominator (ly:event-property ev 'denominator)))
+         (num (if numerator numerator (ly:event-property ev 'numerator))))
+     (format "~a:~a" den num)))
+
+; Print a tuplet fraction with note durations appended to the numerator and the 
+; denominator
+(define-public ((tuplet-number::fraction-with-notes denominatornote numeratornote) grob)
+  (let* ((ev (event-cause grob))
+         (denominator (ly:event-property ev 'denominator))
+         (numerator (ly:event-property ev 'numerator)))
+    ((tuplet-number::non-default-fraction-with-notes denominator denominatornote numerator numeratornote) grob)))
+
+; Print a tuplet fraction with note durations appended to the numerator and the 
+; denominator
+(define-public ((tuplet-number::non-default-fraction-with-notes denominator denominatornote numerator numeratornote) grob)
+  (let* ((ev (event-cause grob))
+         (den (if denominator denominator (ly:event-property ev 'denominator)))
+         (num (if numerator numerator (ly:event-property ev 'numerator))))
+     (make-concat-markup (list 
+          (make-simple-markup (format "~a" den)) 
+          (markup #:fontsize -5 #:note denominatornote UP)
+          (make-simple-markup " : ")
+          (make-simple-markup (format "~a" num)) 
+          (markup #:fontsize -5 #:note numeratornote UP)))))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Color
 

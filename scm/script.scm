@@ -258,4 +258,10 @@
      ((script-stencil . (feta . ("varcoda" . "varcoda")))
       (padding . 0.20)	   
       (avoid-slur . outside)
-      (direction  . 1)))))
+      (direction  . 1)))
+    ("snappizzicato" .
+     ((script-stencil . (feta . ("snappizzicato" . "snappizzicato")))
+      (padding . 0.20)
+      (avoid-slur . outside)
+      (direction  . 1)))
+      ))

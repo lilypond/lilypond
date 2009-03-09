@@ -15,10 +15,12 @@
   \type "Engraver_group"
   \name "FretBoards"
 
-  \consists "Output_property_engraver"	
 
-  \consists "Axis_group_engraver" 
   \consists "Fretboard_engraver"
+  \consists "Rest_swallow_translator" 
+  \consists "Output_property_engraver"	
+  \consists "Skip_event_swallow_translator"
+  \consists "Hara_kiri_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
   \consists "Instrument_name_engraver"

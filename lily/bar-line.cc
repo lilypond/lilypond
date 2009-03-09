@@ -116,6 +116,11 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
       thin.translate_axis (center, Y_AXIS);
       return thin;
     }
+  else if (str == ".")
+    {
+      thick.translate_axis (center, Y_AXIS);
+      return thick;
+    }
   else if (str == "|." || (h == 0 && str == ":|"))
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0);
@@ -201,10 +206,6 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
   else if (str == "'")
     {
       m = tick_bar_line (me, h, rounded);
-    }
-  else if (str == ".")
-    {
-      m = dot;
     }
 
   m.translate_axis (center, Y_AXIS);
@@ -355,15 +356,15 @@ ADD_INTERFACE (Bar_line,
 	       "Print a special bar symbol.  It replaces the regular bar"
 	       " symbol with a special symbol.  The argument @var{bartype}"
 	       " is a string which specifies the kind of bar line to print."
-	       "  Options are @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},"
-	       " @code{:|.:}, @code{||}, @code{|.}, @code{.|}, @code{.|.},"
-	       " @code{|.|}, @code{:} and @code{dashed}.\n"
+	       "  Options are @code{|}, @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},"
+	       " @code{:|.:}, @code{.}, @code{||}, @code{|.}, @code{.|}, @code{.|.},"
+	       " @code{|.|}, @code{:}, @code{dashed} and @code{'}.\n"
 	       "\n"
-	       "These produce, respectively, a right repeat, a left repeat,"
+	       "These produce, respectively, a normal bar line, a right repeat, a left repeat,"
 	       " a thick double repeat, a thin-thick-thin double repeat,"
-	       " a thin-thick double repeat, a double bar, a start bar,"
+	       " a thin-thick double repeat, a thick bar, a double bar, a start bar,"
 	       " an end bar, a thick double bar, a thin-thick-thin bar,"
-	       " a dotted bar and a dashed bar."
+	       " a dotted bar, a dashed bar and a tick as bar bar line."
 	       "  In addition, there is an option"
 	       " @code{||:} which is equivalent to @code{|:} except at line"
 	       " breaks, where it produces a double bar (@code{||}) at the"

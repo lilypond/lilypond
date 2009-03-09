@@ -568,10 +568,12 @@
           <tuplet bracket="yes" show-number="both" show-type="both" number="1" type="start">
             <tuplet-actual>
               <tuplet-number>7</tuplet-number>
+              <tuplet-type>eighth</tuplet-type>
               <tuplet-dot/>
             </tuplet-actual>
             <tuplet-normal>
               <tuplet-number>5</tuplet-number>
+              <tuplet-type>breve</tuplet-type>
             </tuplet-normal>
           </tuplet>
         </notations>

@@ -2884,6 +2884,15 @@ longer in reversed order.\n"))
     str = str.replace('"orchestral strings"', '"orchestral harp"')
     return str
 
+@rule ((2, 13, 1),
+       _ ("\\bar \".\" now produces a thick barline"))
+def conv(str):
+    if re.search(r'\\bar\s*"."', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("\\bar \".\" now produces a thick barline.\n"))
+        stderr_write (UPDATE_MANUALLY)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

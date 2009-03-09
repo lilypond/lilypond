@@ -3,11 +3,11 @@
 @chapter LSR work
 
 @menu
-* Introduction to LSR::         
-* Adding and editing snippets::  
-* Approving snippets::          
-* LSR to Git::                  
-* Fixing snippets in LilyPond sources::  
+* Introduction to LSR::
+* Adding and editing snippets::
+* Approving snippets::
+* LSR to Git::
+* Fixing snippets in LilyPond sources::
 @end menu
 
 
@@ -28,7 +28,7 @@ texinfo.
 When you create (or find!) a nice snippet, please add it to LSR.  Go
 to @uref{http://lsr.dsi.unimi.it/, LSR} and log in (if you haven't
 already, create an account).  Follow the instructions on the website.
-These isntructions also explain how to modify existing snippets.
+These instructions also explain how to modify existing snippets.
 
 If you think the snippet is particularly informative and you think
 it should be included in the documentation, tag it with @qq{docs}
@@ -95,7 +95,7 @@ where @var{YYYY-MM-DD} is the current date, e.g. 2009-02-28.
 
 @item
 Follow the instructions printed on the console to manually check for
-unsafe files.  
+unsafe files.
 
 @warning{Somebody could sneak a @code{#'(system "rm -rf /")}
 command into our source tree if you do not do this!  Take this
