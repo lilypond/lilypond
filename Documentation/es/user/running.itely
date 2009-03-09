@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 3a8b7fa74c14101cb93d75e541f5afdb18f09239
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -92,9 +92,9 @@ base y el número.  Un archivo de entrada que contenga
 
 @example
 #(define output-suffix "violin")
-\book @{ @dots{} @}
+\score @{ @dots{} @}
 #(define output-suffix "cello")
-\book @{ @dots{} @}
+\score @{ @dots{} @}
 @end example
 
 @noindent
