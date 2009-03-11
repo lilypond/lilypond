@@ -407,12 +407,14 @@ any standard.
 There are predefined sets of note and accidental names for various
 other languages.  To use them, include the language-specific init
 file listed below.  For example, to use English note names, add
-@code{@w{\include "english.ly"}} to the input file.  Because some
-other include files (such as @code{@w{predefined-fretboards.ly}}) use
-default (Nederlands) note names, the @code{\include} command for the
-language file should be placed after all other LilyPond distribution
-files.  The available language files and the note names they define
-are:
+@code{@w{\include "english.ly"}} to the input file.
+
+@warning{Because some other include files (such as @code{@w{predefined-fretboards.ly}})
+use default (Nederlands) note names, the @code{@bs{}include}
+command for the language file should be placed after all other
+LilyPond distribution files.}
+
+The available language files and the note names they define are:
 
 @quotation
 @multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
