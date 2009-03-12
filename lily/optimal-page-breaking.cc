@@ -18,16 +18,11 @@
 #include "system.hh"
 
 static bool
-is_break (Grob *)
+is_break (Grob *g)
 {
-  return false;
+  return g->get_property ("page-break-permission") == ly_symbol2scm ("force");
 }
 
-// FIXME: divide the page breaking into subproblems wherever there is a page break.
-// This will allow us to tweak line-breaking independently on both sides of a
-// page break (currently, we only get to request a number of systems for an entire score
-// at a time), which is necessary for min-systems-per-page and \pageBreak to interact
-// correctly.
 Optimal_page_breaking::Optimal_page_breaking (Paper_book *pb)
   : Page_breaking (pb, is_break)
 {
@@ -37,15 +32,17 @@ Optimal_page_breaking::~Optimal_page_breaking ()
 {
 }
 
-SCM
-Optimal_page_breaking::solve ()
+// Solves the subproblem betwen the (END-1)th \pageBreak and the
+// ENDth \pageBreak.
+// Returns a vector of systems per page for the pages within this chunk.
+vector<vsize>
+Optimal_page_breaking::solve_chunk (vsize end)
 {
-  vsize end = last_break_position ();
-  vsize max_sys_count = max_system_count (0, end);
+  vsize max_sys_count = max_system_count (end-1, end);
   vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM forced_page_count = book_->paper_->c_variable ("page-count");
 
-  set_to_ideal_line_configuration (0, end);
+  set_to_ideal_line_configuration (end-1, end);
 
   Page_spacing_result best;
   vsize page_count = robust_scm2int (forced_page_count, 1);
@@ -56,9 +53,6 @@ Optimal_page_breaking::solve ()
   
   if (!scm_is_integer (forced_page_count))
     {
-      /* find out the ideal number of pages */
-      message (_ ("Finding the ideal number of pages..."));
-  
       if (systems_per_page () > 0)
 	best = space_systems_with_fixed_number_per_page (0, first_page_num);
       else
@@ -83,19 +77,17 @@ Optimal_page_breaking::solve ()
       min_sys_count = page_count;
     }
 
-  if (page_count == 1)
-    message (_ ("Fitting music on 1 page..."));
-  else if (scm_is_integer (forced_page_count))
-    message (_f ("Fitting music on %d pages...", (int)page_count));
+  if (page_count == 1 || scm_is_integer (forced_page_count))
+    progress_indication (_f ("[%d, %d pages]", (int) end, (int) page_count));
   else
-    message (_f ("Fitting music on %d or %d pages...", (int)page_count-1, (int)page_count));
+    progress_indication (_f ("[%d, %d or %d pages]", (int) end, (int) page_count-1, (int)page_count));
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
   for (vsize sys_count = ideal_sys_count; --sys_count >= min_sys_count;)
     {
       Page_spacing_result best_for_this_sys_count;
-      set_current_breakpoints (0, end, sys_count, Line_division (), bound);
+      set_current_breakpoints (end-1, end, sys_count, Line_division (), bound);
 
       for (vsize i = 0; i < current_configuration_count (); i++)
 	{
@@ -144,7 +136,7 @@ Optimal_page_breaking::solve ()
   for (vsize sys_count = ideal_sys_count+1; sys_count <= max_sys_count; sys_count++)
     {
       Real best_demerits_for_this_sys_count = infinity_f;
-      set_current_breakpoints (0, end, sys_count, bound);
+      set_current_breakpoints (end-1, end, sys_count, bound);
 
       for (vsize i = 0; i < current_configuration_count (); i++)
 	{
@@ -172,10 +164,25 @@ Optimal_page_breaking::solve ()
 	&& !(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW))
 	break;
     }
+  break_into_pieces (end-1, end, best_division);
+
+  return best.systems_per_page_;
+}
+
+SCM
+Optimal_page_breaking::solve ()
+{
+  vector<vsize> systems_per_page;
+
+  message (_f ("Solving %d page-breaking chunks...", last_break_position ()-1));
+  for (vsize end = 1; end <= last_break_position (); ++end)
+    {
+      vector<vsize> chunk_systems = solve_chunk (end);
+      systems_per_page.insert (systems_per_page.end (), chunk_systems.begin (), chunk_systems.end ());
+    }
 
   message (_ ("Drawing systems..."));
-  break_into_pieces (0, end, best_division);
   SCM lines = systems ();
-  return make_pages (best.systems_per_page_, lines);
+  return make_pages (systems_per_page, lines);
 }
 
