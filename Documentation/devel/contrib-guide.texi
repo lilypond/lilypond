@@ -99,7 +99,7 @@ on-line copies of this and other documentation.
 
 @menu
 * Starting with git::
-* Compiling from source::
+* Compiling LilyPond::
 * Documentation work::
 * Website work::
 * LSR work::
