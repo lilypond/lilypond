@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 19841b86e54ac60d93af1150c31b7c246741ce1c
+    Translation of GIT committish: 3a8b7fa74c14101cb93d75e541f5afdb18f09239
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1936,17 +1936,18 @@ Referencia de funcionamiento interno:
 @rinternals{SpacingSpanner},
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
-@rinternals{SeparationItem}.
+@rinternals{NonMusicalPaperColumn}.
 
 
 @knownissues
 
 No existe ningún mecanismo conveniente para sobreescribir el espaciado
 manualmente.  Se puede usar el siguiente rodeo para insertar espacio
-adicional en una partitura.
+adicional en una partitura, ajustando el valor del relleno en la
+medida necesaria.
 
 @example
- \once \override Score.SeparationItem #'padding = #1
+ \override Score.NonMusicalPaperColumn #'padding = #10
 @end example
 
 No existe ningún rodeo para disminuir la magnitud de la separación.

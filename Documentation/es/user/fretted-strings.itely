@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 8ad5461457e26b498b01151d23c245229cc28912
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -988,6 +988,8 @@ predefinido, las propiedades de interface pertenecen a
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fretboard-chordchanges.ly}
 
 @seealso
 Referencia de la notación:
