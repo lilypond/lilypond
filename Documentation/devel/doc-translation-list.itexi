@@ -23,6 +23,7 @@ Word counts (excluding LilyPond snippets) are given for each file.
 23    user/dedication.itely
 423   user/macros.itexi
 171   index.html.in
+0     translations.template.html.in
 6346  po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
 ---   ../lilypond-texi2html.init (section TRANSLATIONS)
 13757 total
