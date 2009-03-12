@@ -1,14 +1,20 @@
 @c -*- coding: us-ascii; mode: texinfo; -*-
-@node Compiling
-@chapter Compiling 
+@node Compiling LilyPond
+@chapter Compiling LilyPond
 
-@menu
-* move AU 1 here::
-@end menu
 
+TODO: ADD
+
+- how to make a stable version and development version coexist on
+  your system
 
 @node move AU 1 here
 @section move AU 1 here
 
+- other compilation tricks for developers
 
+@menu
+* Compiling from source::  standard compilation instructions
+@end menu
 
+@include compile.itely
