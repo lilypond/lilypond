@@ -23,6 +23,11 @@ is_break (Grob *)
   return false;
 }
 
+// FIXME: divide the page breaking into subproblems wherever there is a page break.
+// This will allow us to tweak line-breaking independently on both sides of a
+// page break (currently, we only get to request a number of systems for an entire score
+// at a time), which is necessary for min-systems-per-page and \pageBreak to interact
+// correctly.
 Optimal_page_breaking::Optimal_page_breaking (Paper_book *pb)
   : Page_breaking (pb, is_break)
 {
@@ -102,27 +107,34 @@ Optimal_page_breaking::solve ()
 	  else
 	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num);
 
-	  if (cur.demerits_ < best_for_this_sys_count.demerits_ || isinf (best_for_this_sys_count.demerits_))
+	  if (cur.demerits_ < best_for_this_sys_count.demerits_)
 	    {
 	      best_for_this_sys_count = cur;
 	      bound = current_configuration (i);
 	    }
 	}
 
-      if (best_for_this_sys_count.demerits_ < best.demerits_ || isinf (best.demerits_))
+      if (best_for_this_sys_count.demerits_ < best.demerits_)
 	{
 	  best = best_for_this_sys_count;
 	  best_division = bound;
 	}
 
-      /* if the pages are stretched on average, stop trying to reduce sys_count */
-      if (best_for_this_sys_count.page_count () < page_count
-	  && best_for_this_sys_count.average_force () > 0)
-	break;
-	
+      /* Check to see if we already have too few systems. There are two ways
+	 we check this: if we are trying one less than the ideal number of pages
+	 and the pages are stretched on average then we have too
+	 few systems. If the spacing is worse than BAD_SPACING_PENALTY, then we
+	 have too few systems. In either case, though, we need to continue reducing
+	 the number of systems if max-systems-per-page requires it. */
+      if (!(best.system_count_status_ & SYSTEM_COUNT_TOO_MANY))
+	{
+	  if (best_for_this_sys_count.page_count () < page_count
+	      && best_for_this_sys_count.average_force () > 0)
+	    break;
 
-      if (isinf (best_for_this_sys_count.demerits_))
-	break;
+	  if (best_for_this_sys_count.demerits_ >= BAD_SPACING_PENALTY)
+	    break;
+	}
     }
 
   /* try a larger number of systems than the ideal line breaking number. This
@@ -144,19 +156,20 @@ Optimal_page_breaking::solve ()
 	  else
 	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 
-	  if (cur.demerits_ < best.demerits_ || isinf (best.demerits_))
+	  if (cur.demerits_ < best.demerits_)
 	    {
 	      best = cur;
 	      best_division = current_configuration (i);
 	    }
 
-	  if (cur.demerits_ < best_demerits_for_this_sys_count || isinf (best_demerits_for_this_sys_count))
+	  if (cur.demerits_ < best_demerits_for_this_sys_count)
 	    {
 	      best_demerits_for_this_sys_count = cur.demerits_;
 	      bound = current_configuration (i);
 	    }
 	}
-      if (isinf (best_demerits_for_this_sys_count))
+      if (best_demerits_for_this_sys_count >= BAD_SPACING_PENALTY
+	&& !(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW))
 	break;
     }
 

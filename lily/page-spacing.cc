@@ -198,15 +198,19 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
   for (vsize page_start = line+1; page_start > page && page_start--;)
     {
       Page_spacing_node const *prev = page > 0 ? &state_.at (page_start-1, page-1) : 0;
-      line_count += lines_[page_start].compressed_nontitle_lines_count_;
 
       space.prepend_system (lines_[page_start]);
-      // FIXME: The following line doesn't respect min-systems-per-page. More
-      // generally, what should we do when respecting min-systems-per-page
-      // would cause a page to be overfull?
-      if (page_start < line && (isinf (space.force_) || (space.force_ < 0 && ragged)))
+
+      // This 'if' statement is a little hard to parse. It won't consider this configuration
+      // if it is overfull unless the current configuration is the first one with this start
+      // point. We also make an exception (and consider this configuration) if the previous
+      // configuration we tried had fewer lines than min-systems-per-page.
+      if (!breaker_->too_few_lines (line_count)
+	  && page_start < line
+	  && (isinf (space.force_) || (space.force_ < 0 && ragged)))
 	break;
 
+      line_count += lines_[page_start].compressed_nontitle_lines_count_;
       if (page > 0 || page_start == 0)
 	{
 	  if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
@@ -221,7 +225,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 
 	  Real penalty = breaker_->line_count_penalty (line_count);
 	  if (page_start > 0)
-	    penalty = lines_[page_start-1].page_penalty_
+	    penalty += lines_[page_start-1].page_penalty_
 	      + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
 
 	  demerits += penalty;
@@ -230,6 +234,8 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	      cur.demerits_ = demerits;
 	      cur.force_ = space.force_;
 	      cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
+	      cur.system_count_status_ = breaker_->line_count_status (line_count)
+		| (prev ? prev->system_count_status_ : 0);
 	      cur.prev_ = page_start - 1;
 	    }
 	}

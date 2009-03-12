@@ -108,6 +108,7 @@ public:
   Real page_top_space () const;
   vsize system_count () const;
   Real line_count_penalty (int line_count) const;
+  int line_count_status (int line_count) const;
   bool too_many_lines (int line_count) const;
   bool too_few_lines (int line_count) const;
 

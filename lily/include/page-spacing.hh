@@ -26,7 +26,7 @@
 
    BAD_SPACING_PENALTY is for occasions where the spacing is bad.
    TERRIBLE_SPACING_PENALTY is for when we are disregarding a user override
-   (for example, we are failing to satisfy min-systems-per-page. These user
+   (for example, we are failing to satisfy min-systems-per-page). These user
    overrides are more important than getting good spacing, so they get a
    larger penalty.
 */
@@ -53,12 +53,14 @@ private:
       force_ = infinity_f;
       penalty_ = infinity_f;
       prev_ = VPOS;
+      system_count_status_ = SYSTEM_COUNT_OK;
     }
 
     Real demerits_;
     Real force_;
     Real penalty_;
     vsize prev_;
+    int system_count_status_;
   };
 
   Page_breaking const *breaker_;
