@@ -109,8 +109,8 @@ much thicker than lines in the computer edition.
 @end ifnottex
 @end ifnotinfo
 @ifinfo
-@image{lilypond/henle-flat-bw,,,png} @image{lilypond/baer-flat-bw,,,png}
-@image{lilypond/lily-flat-bw,,,png}
+@image{lilypond/henle-flat-bw,,,,png} @image{lilypond/baer-flat-bw,,,,png}
+@image{lilypond/lily-flat-bw,,,,png}
 @end ifinfo
 
 @item @tab

@@ -34,7 +34,7 @@ $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
@@ -46,10 +46,7 @@ $(outdir)/%.html.omf: %.texi
 $(outdir)/%.pdf.omf: %.texi
 	$(call GENERATE_OMF,pdf)
 
-$(outdir)/%.ps.gz.omf: %.texi
-	$(call GENERATE_OMF,ps.gz)
-
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi

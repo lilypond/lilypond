@@ -60,6 +60,8 @@ local-help:
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   also remove configure output\n\
   doc         update all documentation (without images)\n\
+  info        build Info documentation with images\n\
+  info-install  install Info documentation with images\n\
   cvs-clean   also remove out directories and generated files\n\
   maintainerclean also remove distributed generated files\n\
   po          make new translation Portable Object database\n\

@@ -69,6 +69,9 @@ endif
 LANG=
 export LANG
 
+
+INFO_DIRECTORIES = Documentation/user input/lsr
+
 # clean file lists:
 #
 ERROR_LOG = 2> /dev/null
