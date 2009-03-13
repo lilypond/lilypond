@@ -1042,11 +1042,13 @@ translated directly in the Texinfo source
 @@section       @@unnumberedsec       @@appendixsec        @@heading
 @@subsection    @@unnumberedsubsec    @@appendixsubsec     @@subheading
 @@subsubsection @@unnumberedsubsubsec @@appendixsubsubsec  @@subsubheading
-@@ref           @@rglos
+@@ref  @@rglos  @@ruser  @@rlearning  @@rprogram  @@rlsr
 @end example
 
-As a notable exception, the second argument @var{Bar baz} of
-@code{@@ref@{@var{Foo},@var{Bar baz},,@var{info-file}@}} should be
+The same applies to first argument of @code{@@r@var{manual}named}
+commands; however, the second argument @var{Bar baz} of
+@code{@@ref@{@var{Foo},@var{Bar baz},,@var{info-file}@}} and
+@code{@@r@var{manual}named@{@var{Foo},@var{Bar baz}@}} should be
 translated.
 
 @code{@@uref}'s names are to be translated.

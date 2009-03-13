@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7385b95b8a91525e82559355dddea4f1ff965f5c
+    Translation of GIT committish: 8ad5461457e26b498b01151d23c245229cc28912
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -256,7 +256,11 @@ grupo especial, véase @ref{Scaling durations}.
 {changing-the-tuplet-number.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{non-default-tuplet-numbers.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
+
 
 
 @seealso
@@ -1135,7 +1139,7 @@ Glosario musical:
 @rglos{cadenza}.
 
 Referencia de la notación:
-@c ref{Controlling visibility of objects}
+@ref{Visibility of objects}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -2086,11 +2090,11 @@ un compás, se inserta la línea especificada en ese punto en la salida
 impresa.  Dichas inserciones no afectan al cálculo y colocación de las
 líneas divisorias automáticas subsiguientes.
 
-Están disponibles para su inserción manual la línea divisoria simple y
-cinco tipos de doble barra:
+Están disponibles para su inserción manual dos tipos de líneas
+divisorias simples y cinco tipos de doble barra:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
+f1 \bar "|" f \bar "." g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
 @end lilypond
 
 @noindent
@@ -2106,6 +2110,15 @@ y cinco tipos de barra de repetición:
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
 @end lilypond
+
+Además se puede imprimir una línea divisoria como una marca corta:
+@lilypond[quote,relative=1,verbatim]
+f1 \bar "'"
+@end lilypond
+Sin embargo, dado que las mencionadas marcas se utilizan usualmente en
+el canto gregoriano, es preferible en este caso utilizar
+@code{\divisioMinima}, que se describe en la sección @ref{Divisiones}
+dentro de Canto gregoriano.
 
 @cindex repeats
 

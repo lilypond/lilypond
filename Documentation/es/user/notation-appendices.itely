@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 3a8b7fa74c14101cb93d75e541f5afdb18f09239
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -423,7 +423,7 @@ propiedad @code{midiInstrument} (instrumento MIDI).
 acoustic grand            contrabass           lead 7 (fifths)
 bright acoustic           tremolo strings      lead 8 (bass+lead)
 electric grand            pizzicato strings    pad 1 (new age)
-honky-tonk                orchestral strings   pad 2 (warm)
+honky-tonk                orchestral harp      pad 2 (warm)
 electric piano 1          timpani              pad 3 (polysynth)
 electric piano 2          string ensemble 1    pad 4 (choir)
 harpsichord               string ensemble 2    pad 5 (bowed)

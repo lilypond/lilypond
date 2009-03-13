@@ -1438,9 +1438,6 @@ By default, beams are inserted automatically:
 @cindex beams, setting rules for
 @cindex beams, custom rules for
 
-@funindex measureLength
-@funindex beatLength
-@funindex beatGrouping
 @funindex \autoBeamOn
 @funindex autoBeamOn
 @funindex \autoBeamOff
@@ -1452,29 +1449,11 @@ By default, beams are inserted automatically:
 @end lilypond
 
 If these automatic decisions are not satisfactory, beaming can be
-entered explicitly; see @ref{Manual beams}.  Beams must also be
-entered manually in the same way if beams are to be extended over
-rests.
+entered explicitly; see @ref{Manual beams}.  Beams @emph{must} be
+entered manually if beams are to be extended over rests.
 
-It is possible
-to define beaming patterns that differ from the defaults.  The
-default beaming rules for most common time signatures are defined
-in @file{scm/@/auto@/-beam@/.scm}.  If there are no beaming rules
-defined for a particular beam's duration in the time signature being
-used, its beaming is controlled by the values of three context
-properties, @code{measureLength}, @code{beatLength} and
-@code{beatGrouping}.  Both the beaming rules and the context
-properties can be overridden, see @ref{Setting automatic beam behavior}.
-
-
-@warning{If beams are used to indicate melismata in songs, then automatic
-beaming should be switched off with @code{\autoBeamOff} and the beams
-indicated manually.}
-
-
-@noindent
-Automatic beaming may be turned off and on with
-@code{\autoBeamOff} and @code{\autoBeamOn} commands:
+If automatic beaming is not required, it may be turned off with
+@code{\autoBeamOff} and on with @code{\autoBeamOn}:
 
 @lilypond[quote,relative=1,verbatim]
 c4 c8 c8. c16 c8. c16 c8
@@ -1483,6 +1462,13 @@ c4 c8 c8. c16 c8.
 \autoBeamOn
 c16 c8
 @end lilypond
+
+@warning{If beams are used to indicate melismata in songs, then
+automatic beaming should be switched off with @code{\autoBeamOff}
+and the beams indicated manually.}
+
+Beaming patterns that differ from the automatic defaults may be
+created, see @ref{Setting automatic beam behavior}.
 
 
 @predefined
@@ -1549,18 +1535,29 @@ Beams can collide with note heads and accidentals in other voices
 @funindex \set
 @funindex set
 
-The placement of automatic beams is determined by the rules
-described in @ref{Automatic beams}.  There are two mutually
-exclusive ways in which these rules may be modified.  The
-first, modifying the grouping of beats, applies to uncommon time
-signatures, i.e. those for which there are no predefined rules
-defining the beam end points.  The second method, modifying the
-specification of the beam end points, can be used for any time
-signature.  This second method @strong{must} be used for those time
-signatures and beam durations combinations for which beam ending
-rules are pre-defined, unless these have all been reverted.  There
-are predefined rules for time signatures of 3/2, 3/4, 4/4, 2/4,
-4/8, 4/16, 6/8, 9/8 and 12/8.
+There are two types of beaming rules:  @emph{beam-grouping}
+rules and @emph{beam-ending} rules.  Beam-grouping rules are the
+simplest, but are over-ridden by any beam-ending rules which apply.
+
+The placement of automatic beams is determined by applying the
+following rules in order:
+
+@itemize
+
+@item If a manual beam is specified with @code{[..]} set the beam
+as specified, otherwise
+
+@item if @code{\autoBeamOff} is in force do not beam, otherwise
+
+@item if a beam-ending rule applies use it to determine the valid
+places where beams may end, otherwise
+
+@item if a valid (see below) beat-grouping rule applies use it to
+group notes with beams, otherwise
+
+@item use the value of @code{beatLength} to group notes with beams
+
+@end itemize
 
 @i{@strong{Modifying the grouping of beats}}
 
@@ -1570,8 +1567,14 @@ controlled by three context properties:
 @code{measureLength}, @code{beatLength} and @code{beatGrouping}.
 These properties may be set in the @code{Score}, @code{Staff} or
 @code{Voice} contexts to delimit their scope.  The default values
-are set while processing @code{\time} commands, so the @code{\set}
-commands must be placed after all @code{\time} commands.
+are set while processing @code{\time} commands, so any @code{\set}
+commands to modify their value must be placed after all @code{\time}
+commands.
+
+@warning{These three properties become effective for a particular
+beam @strong{only} if there are no beam-ending rules predefined for
+that beam's duration in the time signature in use, or if these
+beam-ending rules have all been reverted.}
 
 These determine the beaming as follows:
 
@@ -1591,11 +1594,6 @@ the end points of beams.
 
 @end itemize
 
-@warning{These three properties become effective for a particular
-beam @strong{only} if there are no beam-ending rules predefined for
-that beam's duration in the time signature in use, or if these
-beam-ending rules have all been reverted.}
-
 By default the @code{measureLength} and @code{beatLength} are
 derived from the time signature set by the @code{\time} command.
 The @code{measureLength} is set to be exactly the same length as
@@ -1606,7 +1604,8 @@ of the time signature.
 The default value of @code{beatGrouping} is taken from a table in
 @file{scm/@/music@/-functions@/.scm}.  To find this, see
 @rlearning{Other sources of information}.  It defines the beat
-grouping for 5/8, 6/8, 8/8, 9/8 and 12/8 time signatures.
+grouping for 3/8, 4/8, 5/8, 8/8, and all the common compound time
+signatures.
 
 Both @code{measureLength} and @code{beatLength} are @i{moments},
 units of musical duration.  A quantity of type @i{moment} is
@@ -1643,19 +1642,20 @@ beats in each group.
 
 @strong{@i{Modifying the beam end points}}
 
-In common time signatures, automatic beams can start on any note
-but can end at only a few positions within the measure, namely at
-durations specified by the properties in @code{autoBeamSettings}.
-These properties consist of a list of rules defining where beams can
-end.  The default @code{autoBeamSettings} rules are defined in
-@file{scm/@/auto@/-beam@/.scm}.  To find this, see
-@rlearning{Other sources of information}.
+Beam-ending rules are required when beams of different durations are
+to end at different points within the measure.  For example, it may
+be desirable for eighth-note beams in 4/4 time to end only at the
+end of the measure or half-way through it, but for sixteenth-note
+beams to end at quarter note positions to avoid overly long beamed
+runs.  The rules work as follows:
 
-This method @strong{must} be used for the time signatures for which
-beam-ending rules are defined by default, unless these have all
-been reverted.  It is also particularly suitable for many other time
-signatures if the time signature of the measures changes frequently,
-or if the beaming should be different for different beam durations.
+Automatic beams can start on any note but can end at only a few
+positions within the measure, namely at positions specified by the
+properties in @code{autoBeamSettings}.  These properties consist of
+a list of rules defining where beams can end.  The default
+@code{autoBeamSettings} rules are defined in
+@file{scm/@/auto@/-beam@/.scm}.  To find this file, see
+@rlearning{Other sources of information}.
 
 In order to add a rule to the list, use
 
@@ -1762,8 +1762,8 @@ possible interference, because the beam endings defined there will
 still apply in addition to your own.}
 
 Any unwanted or conflicting default endings must be reverted for
-your time signature(s).  Existing auto-beam rules are removed by
-using
+your time signature(s).  Existing default or user-defined
+beam-ending rules are removed by using
 
 @example
 #(revert-auto-beam-setting

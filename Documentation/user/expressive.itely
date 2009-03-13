@@ -419,8 +419,7 @@ boxF = \markup { \bracket { \dynamic f } }
 @funindex make-dynamic-script
 
 Simple, centered dynamic marks are easily created with the
-@code{make-dynamic-script} function.  The dynamic font only
-contains the characters @code{f,m,p,r,s} and @code{z}.
+@code{make-dynamic-script} function.
 
 @lilypond[verbatim,quote]
 sfzp = #(make-dynamic-script "sfzp")
@@ -429,11 +428,15 @@ sfzp = #(make-dynamic-script "sfzp")
 }
 @end lilypond
 
-In general, @code{make-dynamic-script} takes any markup object as
-its argument.  In the following example, using
-@code{make-dynamic-script} ensures the vertical alignment of
-markup objects and hairpins that are attached to the same note
-head.
+In general, @code{make-dynamic-script} takes any markup object as its
+argument.  The dynamic font only contains the characters
+@code{f,m,p,r,s} and @code{z}, so if a dynamic mark that includes
+plain text or punctuation symbols is desired, markup commands that
+reverts font family and font encoding to normal text should be used,
+for example @code{\normal-text}.  The interest of using
+@code{make-dynamic-script} instead of an ordinary markup is ensuring
+the vertical alignment of markup objects and hairpins that are
+attached to the same note head.
 
 @lilypond[verbatim,quote]
 roundF = \markup { \center-align \concat {
@@ -441,11 +444,17 @@ roundF = \markup { \center-align \concat {
            \dynamic f
            \normal-text { \bold { \italic ) } } } }
 boxF = \markup { \bracket { \dynamic f } }
+mfEspress = \markup { \center-align \line {
+              \hspace #3.7 mf \normal-text \italic espress. } }
 roundFdynamic = #(make-dynamic-script roundF)
 boxFdynamic = #(make-dynamic-script boxF)
+mfEspressDynamic = #(make-dynamic-script mfEspress)
 \relative c' {
   c4_\roundFdynamic\< d e f
-  g,1_\boxFdynamic
+  g,1~_\boxFdynamic\>
+  g
+  g'~\mfEspressDynamic
+  g
 }
 @end lilypond
 
