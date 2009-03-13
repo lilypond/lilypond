@@ -479,17 +479,29 @@ of beat groupings "
     "Some standard subdivisions for time signatures."
     (let*
 	((key (cons num den))
-	 (entry (assoc key '(((6 . 8) . (3 3))
-			 ((5 . 8) . (3 2))
-			 ((9 . 8) . (3 3 3))
-			 ((12 . 8) . (3 3 3 3))
-			 ((8 . 8) . (3 3 2))
-			 ))))
+	 (entry (assoc key '(
+               ; Simple time signatures
+               (( 3 .  8) . (3))
+               (( 4 .  8) . (2 2))
+               ; Compound time signatures
+               (( 6 .  4) . (3 3))
+               (( 6 .  8) . (3 3))
+               (( 6 . 16) . (3 3))
+               (( 9 .  4) . (3 3 3))
+               (( 9 .  8) . (3 3 3))
+               (( 9 . 16) . (3 3 3))
+               ((12 .  4) . (3 3 3 3))
+               ((12 .  8) . (3 3 3 3))
+               ((12 . 16) . (3 3 3 3))
+               ; Some common irregular time signatures
+               (( 5 .  8) . (3 2))
+               (( 8 .  8) . (3 3 2))
+               ))))
 
       (if entry
 	  (cdr entry)
-	  '())))    
-  
+	  '())))
+
   (let* ((set1 (make-property-set 'timeSignatureFraction (cons num den)))
 	 (beat (ly:make-moment 1 den))
 	 (len  (ly:make-moment num den))
