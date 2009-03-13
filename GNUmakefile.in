@@ -64,6 +64,12 @@ dist-toplevel-txt-files: do-top-doc
 doc: 
 	$(MAKE) -C Documentation
 
+info:
+	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true
+
+info-install: info
+	$(MAKE) out=www COPY_INFO_IMAGES=1 install-info-WWW
+
 install-help2man:
 	$(MAKE) -C scripts man install-help2man
 	$(MAKE) -C lily man install-help2man
@@ -75,10 +81,7 @@ install-WWW:
 	rsync -rl --exclude='*.signature' $(outdir)/offline-root/ $(DESTDIR)$(webdir)
 
 install-info-WWW:
-	$(MAKE) -C Documentation/user install-info
-	$(MAKE) -C input/lsr install-info
-	(cd $(DESTDIR)$(infodir) && rm -f lilypond && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/Documentation/user) lilypond)
-	(cd $(DESTDIR)$(infodir) && rm -f lilypond-snippets && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/input/lsr) lilypond-snippets)
+	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) install-info && ) true
 
 web-install:
 	$(MAKE) out=www install-WWW

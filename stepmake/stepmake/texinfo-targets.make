@@ -31,25 +31,43 @@ ifeq ($(out),www)
 # This builds all .info targets with images, in out-www.
 # Viewable with a recent Emacs, doing: C-u C-h i out-www/lilypond.info
 
+ifneq ($(COPY_INFO_IMAGES),)
+# only Info docs are installed (not HTML nor PDF),
+# so images should be copied
+
+install-info-images:
+# remove $(infodir)/$(INFO_IMAGES_DIR) in case it is a symlink
+	-rm -f $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+	$(INSTALL) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+	rsync -r --include '[0-9a-f][0-9a-f]' --include '*.png' --exclude '*' $(outdir)/ $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)/
+
+uninstall-info-images:
+	rm -f $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR) || rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+
+else # if HTML and PDF docs are installed too, symlink image directories
+install-info-images: uninstall-info-images
+	cd $(DESTDIR)$(infodir) && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/$(DEST_INFO_IMAGES_SUBDIR)) $(INFO_IMAGES_DIR)
+
+uninstall-info-images:
+	rm -f $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR) || rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+endif # copying info images
+
+
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
-## Can not have absolute symlinks because some binary packages build schemes
-## install files in nonstandard root.  Best we can do is to notify the
-## builder or packager.
+## install-info can't do all his job for binary packages build systems.
+## Best we can do is to notify the builder or packager.
 local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	@echo
 	@echo "***************************************************************"
-	@echo "Please add or update the LilyPond direntries, do"
+	@echo "Please add or update the LilyPond direntries,"
+	@echo "do or add in the postinstall script"
 	@echo
-	@echo "    install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info"
+	@echo "    install-info --info-dir=$(infodir) $(DESTDIR)$(infodir)/$(MAIN_INFO_DOC).info"
 	@echo
-	@echo "For images in the INFO docs to work, do: "
-	@echo
-	@echo "    (cd $(infodir) && ln -sfT ../doc/lilypond/html/$(DEST_INFO_IMAGES_SUBDIR) $(INFO_IMAGES_DIR))"
-	@echo "or add something like that to the postinstall script."
-	@echo
+	$(MAKE) install-info-images
 
-local-uninstall-info:
+local-uninstall-info: uninstall-info-images
 	-rmdir $(DESTDIR)$(infodir)
 
 else # installing directly into standard /usr/...
@@ -57,33 +75,28 @@ local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
 	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
-	cd $(infodir) && ln -sfT $(webdir)/$(DEST_INFO_IMAGES_SUBDIR) $(INFO_IMAGES_DIR)
+	$(MAKE) install-info-images
 
-local-uninstall-info:
+local-uninstall-info: uninstall-info-images
 	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
-	rm -f $(infodir)/$(INFO_IMAGES_DIR)
 
 endif # installing directly into standard /usr/...
 
 else # out!=www
 
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
-## Can not have absolute symlinks because some binary packages build schemes
-## install files in nonstandard root.  Best we can do is to notify the
-## builder or packager.
+## install-info can't do all his job for binary packages build systems.
+## Best we can do is to notify the builder or packager.
 local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	@echo
 	@echo "***************************************************************"
 	@echo "Please add or update the LilyPond direntries, do"
 	@echo
-	@echo "    install-info --info-dir=$(infodir) out/$(MAIN_INFO_DOC).info"
+	@echo "    install-info --info-dir=$(infodir) $(DESTDIR)$(infodir)/$(MAIN_INFO_DOC).info"
 	@echo
-	@echo "For images in the INFO docs to work, do"
-	@echo
-	@echo "    make out=www install-info "
-	@echo
-	@echo "and read the extra instructions."
+	@echo "To compile Info documentation with images, please read"
+	@echo "Application Usage document, section \"Building documentation\"."
 	@echo
 
 local-uninstall-info:
@@ -96,9 +109,19 @@ local-install-info: info
 	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
 	@echo
 	@echo "***************************************************************"
-	@echo "For images in the INFO docs to work, do"
+	@echo "To compile Info documentation with images, do from top of the build tree"
 	@echo
-	@echo "    make out=www install-info "
+	@echo "    make web"
+	@echo
+	@echo "which builds documentation in all formats; to build only Info documentation, do"
+	@echo
+	@echo "    make info"
+	@echo
+	@echo "To list all available targets, do"
+	@echo
+	@echo "    make help"
+	@echo
+	@echo "For details, please read Application Usage document, section \"Building documentation\"."
 	@echo
 
 local-uninstall-info:

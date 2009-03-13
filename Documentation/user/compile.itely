@@ -230,8 +230,8 @@ make web
 After compilation, the HTML documentation tree is available in
 @file{out-www/offline-root/}, and can be browsed locally.
 
-The HTML and PDF files can be installed into the standard documentation
-path by issuing
+The HTML, PDF and if available Info files can be installed into the
+standard documentation path by issuing
 
 @example
 make web-install
@@ -239,13 +239,34 @@ make web-install
 
 @noindent
 This also installs Info documentation with images if the installation
-prefix is properly set; otherwise, instructions for manual installation
-of Info documentation are printed on standard output.
+prefix is properly set; otherwise, instructions to complete proper
+installation of Info documentation are printed on standard output.
 
-It is also possible to build a documentation tree in
-@file{out-www/online-root/}, with special processing, so it can be used
-on a website with content negotiation for automatic language selection;
-this can be achieved by issuing
+Compilation of documentation in Info format with images can be done
+separately by issuing
+
+@example
+make info
+@end example
+
+@noindent
+Separate installation of this documentation is done by issuing
+
+@example
+make info-install
+@end example
+
+@noindent
+Note that to get the images in Info documentation, @code{web-install}
+target creates symbolic links to HTML and PDF installed documentation
+tree in @file{@var{prefix}/share/info}, in order to save disk space,
+whereas @code{info-install} copies images in
+@file{@var{prefix}/share/info} subdirectories.
+
+It is possible to build a documentation tree in
+@file{out-www/online-root/}, with special processing, so it can be
+used on a website with content negotiation for automatic language
+selection; this can be achieved by issuing
 
 @example
 make WEB_TARGETS=online web
@@ -269,11 +290,13 @@ make help
 @noindent
 from every directory in the build tree.  Most targets for
 documentation maintenance are available from @file{Documentation/};
-for more information, see @file{Documentation/user/README.txt} and
-@file{Documentation/TRANSLATION}.
+@c FIXME: xref to CG
+for more information, see the Contributors' Guide, section
+@emph{Documentation work}.
 
 The makefile variable @code{QUIET_BUILD} may be set to @code{1} for a
 less verbose build output, just like for building the programs.
+
 
 @knownissues
 

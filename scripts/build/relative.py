@@ -10,7 +10,7 @@ def relative (dir, r=os.getcwd ()):
     if prefix == len (dir):
         return './'
     if prefix > 1:
-        return '../' * len (r[prefix:].split ('/')) + dir[prefix:]
+        return '../' * (len (r[prefix:].split ('/')) - 1) + dir[prefix:]
     return dir
 
 if __name__ == '__main__':
