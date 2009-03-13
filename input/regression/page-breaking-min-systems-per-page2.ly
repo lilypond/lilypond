@@ -7,8 +7,10 @@
 the desire not to overfill a page."
 }
 
-\paper {
-  min-systems-per-page = 20
-}
+\book {
+  \paper {
+    min-systems-per-page = 20
+  }
 
-\repeat unfold 21 { c'1 }
+  \repeat unfold 21 { c'1 }
+}

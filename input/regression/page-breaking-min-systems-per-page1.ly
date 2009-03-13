@@ -4,15 +4,14 @@
 
 \header {
   texidoc = "The min-systems-per-page variable forces each page to have
-a minimum number of systems. Titles do not count as systems here.
-
-This exposes a bug with the current implementation; min-systems-per-page
-is not honored if to do so we would need uneven line breaking."
-  title = "Example"
+a minimum number of systems. Titles do not count as systems here."
+  title = "Title"
 }
 
-\paper {
-  min-systems-per-page = 5
-}
+\book {
+  \paper {
+    min-systems-per-page = 5
+  }
 
-{ \repeat unfold 11 { c'1 } \pageBreak \repeat unfold 6 { c'1 } }
+  { \repeat unfold 11 { c'1 } \pageBreak \repeat unfold 6 { c'1 } }
+}

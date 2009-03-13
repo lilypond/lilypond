@@ -78,9 +78,9 @@ Optimal_page_breaking::solve_chunk (vsize end)
     }
 
   if (page_count == 1 || scm_is_integer (forced_page_count))
-    progress_indication (_f ("[%d, %d pages]", (int) end, (int) page_count));
+    progress_indication (_f ("[%d: %d pages]", (int) end, (int) page_count));
   else
-    progress_indication (_f ("[%d, %d or %d pages]", (int) end, (int) page_count-1, (int)page_count));
+    progress_indication (_f ("[%d: %d or %d pages]", (int) end, (int) page_count-1, (int)page_count));
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
@@ -174,7 +174,7 @@ Optimal_page_breaking::solve ()
 {
   vector<vsize> systems_per_page;
 
-  message (_f ("Solving %d page-breaking chunks...", last_break_position ()-1));
+  message (_f ("Solving %d page-breaking chunks...", last_break_position ()));
   for (vsize end = 1; end <= last_break_position (); ++end)
     {
       vector<vsize> chunk_systems = solve_chunk (end);
