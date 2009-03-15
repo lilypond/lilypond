@@ -951,6 +951,16 @@ Syntax:
      (skip-as-needed x parser)
    )))
 
+;;;;;;;;;;
+;;; general purpose music functions
+
+(define (shift-octave pitch octave-shift)
+  (_i "Add @var{octave-shift} to the octave of @var{pitch}.")
+  (ly:make-pitch
+     (+ (ly:pitch-octave pitch) octave-shift)
+     (ly:pitch-notename pitch)
+     (ly:pitch-alteration pitch)))
+
 
 ;;;;;;;;;;;;;;;;;
 ;; lyrics
