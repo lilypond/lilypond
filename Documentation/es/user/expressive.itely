@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -422,8 +422,7 @@ boxF = \markup { \bracket { \dynamic f } }
 @funindex make-dynamic-script
 
 Las indicaciones dinámicas sencillas y centradas se crean fácilmente
-con la función @code{make-dynamic-script}.  La fuente tipográfica de
-matices sólo contiene los caracteres @code{f, m, p, r, s} y @code{z}.
+con la función @code{make-dynamic-script}.  
 
 @lilypond[verbatim,quote]
 sfzp = #(make-dynamic-script "sfzp")
@@ -433,9 +432,16 @@ sfzp = #(make-dynamic-script "sfzp")
 @end lilypond
 
 En general @code{make-dynamic-script} toma cualquier objeto de marcado
-como argumento.  En el siguiente ejemplo, el uso de
-@code{make-dynamic-script} asegura la alineación de los objetos de
-marcado y reguladores que están aplicados sobre la misma nota.
+como argumento.  La fuente tipográfica de matices sólo contiene los
+caracteres @code{f, m, p, r, s} y @code{z}, por lo que si se desea
+obtener una indicación dinámica que incluya texto normal o signos de
+puntuación, es necesario utilizar instrucciones de marcado que
+devuelvan los ajustes de la familia de fuente tipográfica y su
+codificación a las del texto normal, por ejemplo @code{\normal-text}.
+El interés de la utilización de @code{make-dynamic-script} en lugar de
+un elemento de marcado corriente está en asegurar la alineación
+vertical de los objetos de marcado y reguladores que se aplican a la
+misma cabeza de nota.
 
 @lilypond[verbatim,quote]
 roundF = \markup { \center-align \concat {
@@ -443,11 +449,17 @@ roundF = \markup { \center-align \concat {
            \dynamic f
            \normal-text { \bold { \italic ) } } } }
 boxF = \markup { \bracket { \dynamic f } }
+mfEspress = \markup { \center-align \line {
+              \hspace #3.7 mf \normal-text \italic espress. } }
 roundFdynamic = #(make-dynamic-script roundF)
 boxFdynamic = #(make-dynamic-script boxF)
+mfEspressDynamic = #(make-dynamic-script mfEspress)
 \relative c' {
   c4_\roundFdynamic\< d e f
-  g,1_\boxFdynamic
+  g,1~_\boxFdynamic\>
+  g
+  g'~\mfEspressDynamic
+  g
 }
 @end lilypond
 

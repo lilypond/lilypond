@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 8ad5461457e26b498b01151d23c245229cc28912
+    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -901,17 +901,20 @@ mychords = \chordmode{
 @end lilypond
 
 Se pueden almacenar distintos diagramas de traste para el mismo acorde
-usando distintas octavas para las notas.
+usando distintas octavas para las notas.  Las octavas de diferencia
+deben ser al menos dos por encima o por debajo de la octava
+predeterminada, porque las octavas inmediatas superior e inferior de
+la predeterminada se utilizan para los trasteros transpositores.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c'}
+\storePredefinedDiagram \chordmode {c''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode{
-  c1 c'
+  c1 c''
 }
 
 <<
@@ -952,15 +955,15 @@ fret-diagram-verbose.
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram \chordmode {f'}
+\storePredefinedDiagram \chordmode {f''}
                         #guitar-tuning
-                        #(chord-shape 'powerf guitar-tuning)
-\storePredefinedDiagram \chordmode {g'}
+                        #(chord-shape 'powerf guitar-tuning) 
+\storePredefinedDiagram \chordmode {g''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
 mychords = \chordmode{
-  f1 f' g g'
+  f1 f'' g g''
 }
 
 <<

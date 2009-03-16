@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 7385b95b8a91525e82559355dddea4f1ff965f5c
+    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
 
 
     When revising a translation, copy the HEAD committish of the
@@ -64,9 +64,7 @@ Si tiene MacOS 10.3 o 10.4 y quiere usar guiones de Python como
 @command{convert-ly} y @command{lilypond-book}, consulte @ref{Setup
 for MacOS X,,,lilypond-program,Application Usage}.
 
-@node Compiling from source
-@section Compiling from source
-
+@ignore
 Es posible compilar LilyPond directamente del código fuente. Ello
 requiere poder leer en inglés, motivo por el que esta sección se deja
 sin traducir.  Si verdaderamente quiere compilar LilyPond, consulte
@@ -78,13 +76,16 @@ sin traducir.  Si verdaderamente quiere compilar LilyPond, consulte
 @c Please translate the following line (but not the .html file name)
 la @uref{Compiling-from-source.html,documentación en inglés}.
 @end ifhtml
-
+@end ignore
 
 @c TRANSLATORS:
-@c   Please **do not** translate anything below this line.  Users
+@c   Please **do not** translate the file included below.  Users
 @c   should not be compiling LilyPond themselves; if they really
 @c   want to do so, they should be able to read the English docs,
 @c   because they'll probably need to ask questions in English
 @c   on the -devel list.   -gp
 @c Instead, please uncomment and translate the paragraph above,
 @c and remove all stuff (menu, nodes, contents) below this line.
+
+
+@include compile.itely

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8ad5461457e26b498b01151d23c245229cc28912
+    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1476,9 +1476,6 @@ automáticamente:
 @cindex barras, establecer reglas
 @cindex barras, reglas personalizadas
 
-@funindex measureLength
-@funindex beatLength
-@funindex beatGrouping
 @funindex \autoBeamOn
 @funindex autoBeamOn
 @funindex \autoBeamOff
@@ -1491,27 +1488,11 @@ automáticamente:
 
 Cuando estas decisiones automáticas no son lo bastante buenas, se
 pueden escribir los barrados de forma explícita; véase @ref{Manual
-beams}.  Las barras se pueden también introducir manualmente de la
-misma forma si se quieren extender por encima de los silencios.
+beams}.  Las barras @emph{se deben} introducir manualmente si se
+quieren extender por encima de los silencios.
 
-También es posible definir patrones de barrado que difieran de los
-ajustes por defecto.  Las reglas de barrado predeterminadas están
-definidas en el archivo @file{scm/@/auto@/-beam@/.scm}.  Si no hay
-definidas reglas de barrado para una duración dada de la barra en el
-tipo de compás en uso, el barrado se controla mediante los valores de
-tres propiedades de contexto, @code{measureLength}, @code{beatLength}
-y @code{beatGrouping}.  Tanto las reglas de barrado como las
-propiedades de contexto se pueden sobreescribir, véase @ref{Setting
-automatic beam behavior}.
-
-@warning{Si se usan barras para indicar los melismas de las canciones,
-entonces se debe desactivar el barrado automático con
-@code{\autoBeamOff} e indicar las barras manualmente.}
-
-
-@noindent
-El barrado automático se puede habilitar o desactivar con las
-instrucciones @code{\autoBeamOff} y @code{\autoBeamOn}:
+Si no se necesita el barrado automático, se puede desactivar con
+@code{\autoBeamOff} y activarse con @code{\autoBeamOn}:
 
 @lilypond[quote,relative=1,verbatim]
 c4 c8 c8. c16 c8. c16 c8
@@ -1521,6 +1502,13 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+@warning{Si se usan barras para indicar los melismas de las canciones,
+entonces se debe desactivar el barrado automático con
+@code{\autoBeamOff} e indicar las barras manualmente.}
+
+Se pueden crear patrones de barrado que difieran de los valores
+automáticos predeterminados, véase @ref{Setting automatic beam
+behavior}.
 
 @predefined
 @code{\autoBeamOff},
@@ -1588,18 +1576,32 @@ alteraciones accidentales de las otras voces.
 @funindex \set
 @funindex set
 
-La colocación de barras automáticas viene determinada por las reglas
-descritas en @ref{Automatic beams}.  Existen dos formas mutuamente
-excluyentes de modificar estas reglas.  La primera es modificar la
-agrupación de los pulsos y se aplica a compases poco usuales, es
-decir, aquellos para los que no ha reglas predefinidas que definen los
-puntos de final de las barras.  El segundo método, modificar la
-especificación de los puntos finales de las barras, se puede usar para
-cualquier tipo de compás. Este segundo método @strong{se debe} usar
-para aquellos compases y combinaciones de duración de barras para los
-que existen reglas predefinidas de final de barra, a no ser que se
-hayan revertido. Hay reglas predefinidas para los compases de 3/2,
-3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 y 12/8.
+Existen dos tipos de reglas de barrado: las reglas de @emph{agrupación
+de barras} y las de @emph{terminación de barra}.  Las reglas de
+agrupación de barras son las más sencillas, pero se sobreescriben por
+cualquier regla de terminación de barra que corresponda.
+
+La colocación de las barras automáticas se determina aplicando las
+siguientes reglas en este orden:
+
+@itemize
+
+@item Si una barra está especificada con @code{[..]} establecer la barra tal
+y como está especificado; en caso contrario:
+
+@item si está en vigor @code{\autoBeamOff} no poner barras; en caso contrario:
+
+@item si es de aplicación alguna regla de terminación de barra, usarla para
+determinar los lugares válidos en que las barras pueden terminar; en
+caso contrario:
+
+@item si es de aplicación alguna regla válida (véase más abajo) de
+agrupación de barras, usarla para agrupar las notas con las barras; en
+caso contrario:
+
+@item usar el valor de @code{beatLength} para agrupar las notas con barras
+
+@end itemize
 
 @i{@strong{Modificar las agrupaciones de pulsos}}
 
@@ -1610,8 +1612,15 @@ se controla mediante tres propiedades de contexto:
 propiedades se deben establecer en los contextos @code{Score},
 @code{Staff} o @code{Voice} para delimitar el ámbito de su efecto.
 Los valores predeterminados se establecen al procesarse las
-instrucciones @code{\time}, por ello las instrucciones @code{\set} se
-deben escribir después de todas las instrucciones @code{\time}.
+instrucciones @code{\time}, por ello cualquier instrucción @code{\set}
+que modifique su valor se deberá escribir después de todas las
+instrucciones @code{\time}.
+
+@warning{Estas tres propiedades se hacen efectivas para una barra
+concreta @strong{solamente} si no está predefinida ninguna regla de
+terminación de barra para esa duración de la barra dentro del tipo de
+compás en uso, o si todas esas reglas de terminación de barras han
+sido devueltas a su valor inicial.}
 
 Dichas propiedades determinan el barrado de la siguiente forma:
 
@@ -1634,12 +1643,6 @@ puntos finales de las barras.
 
 @end itemize
 
-
-@warning{Estas tres propiedades se hacen efectivas para una barra
-concreta @strong{solamente} si no hay reglas de final de barra
-predefinidas para esa duración de barra en el tipo de compás en uso, o
-si todas esas reglas de final de barra se han revertido.}
-
 De forma predeterminada, las propiedades the @code{measureLength} y
 @code{beatLength} se derivan del compás establecido por la instrucción
 @code{\time}.  La longitud @code{measureLength} está establecida de
@@ -1651,7 +1654,8 @@ denominador del compás).
 El valor predeterminado de @code{beatGrouping} se toma de una tabla
 que está en @file{scm/@/music@/-functions@/.scm}.  Para localizarla,
 véase @rlearning{Other sources of information}.  Define la agrupación
-de pulsos para los compases de 5/8, 6/8, 8/8, 9/8 y 12/8.
+de pulsos para los compases de 3/8, 4/8, 5/8, 8/8 y todas las
+indicaciones de compás compuesto usuales.
 
 Tanto @code{measureLength} como @code{beatLength} son @i{momentos},
 unidades de duración musical.  Las cantidades del tipo @i{moment} se
@@ -1688,22 +1692,22 @@ pulsos en cada grupo.
 
 @strong{@i{Modificar los puntos finales de las barras}}
 
-En compases de tipo normal, las barras automáticas pueden comenzar en
-cualquier nota pero solamente pueden terminar en algunas posiciones
-dentro del compás, concretamente en las duraciones que estén
-especificadas por las propiedades de @code{autoBeamSettings}.  Estas
-propiedades consisten en una lista de reglas que especifican dónde
-pueden terminar las barras.  Las reglas predeterminadas de
-@code{autoBeamSettings} están definidas en
+Se requieren reglas de terminación de barra cuando barras de distintas
+duraciones han de terminar en diferentes puntos dentro del compás.
+Por ejemplo, podríamos desear que las barras de corchea en 4/4
+terminaran solamente al final del compás o en la mitad del mismo, pero
+que las barras de semicorchea terminasen en las posiciones de negra
+para evitar barras continuas demasiado largas.  Las reglas funcionan
+como sigue:
+
+Las barras automáticas pueden comenzar en cualquier nota pero
+solamente pueden terminar en unas pocas posiciones dentro del compás,
+concretamente en las posiciones definidas por las propiedades de
+@code{autoBeamSettings}.  Estas propiedades consisten en una lista de
+reglas que especifican dónde pueden terminar las barras.  Las reglas
+predeterminadas de @code{autoBeamSettings} están definidas en
 @file{scm/@/auto@/-beam@/.scm}. Para localizarlo, consulte
 @rlearning{Other sources of information}.
-
-@strong{Se debe} usar este método para los tipos de compás para los
-que existen reglas de final de barra definidas de forma
-predeterminada, a no ser que todas ellas se hayan revertido. También
-es particularmente apropiado para otros muchos compases si la
-indicación de compás cambia con frecuencia, o si el barrado debe ser
-distinto para las distintas duraciones de barra.
 
 Para añadir una regla a la lista, utilice
 
@@ -1813,7 +1817,8 @@ aquí aún son válidos además de los suyos.}
 
 Debemos revertir cualquier final predeterminado indeseado o
 conflictivo, para nuestro compás concreto.  Podemos eliminar una regla
-de barrado automático previamente establecida usando
+de terminación de barra previamente establecida o definida por el
+usuario, usando
 
 @example
 #(revert-auto-beam-setting

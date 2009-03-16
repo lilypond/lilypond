@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -404,8 +404,13 @@ Existen conjuntos predefinidos de nombres de notas y sus alteraciones
 para algunos idiomas aparte del inglés.  Para usarlos, incluya el
 archivo de inicio específico del idioma según aparece relacionado más
 abajo.  Por ejemplo, para usar los nombres de las notas en español,
-escriba @code{@w{\include "espanol.ly"}} al principio del archivo de
-entrada.
+inserte @code{@w{\include "espanol.ly"}} en el archivo de entrada.
+
+@warning{A causa de que alguno de los otros archivos de inclusión
+(como @code{@w{predefined-fretboards.ly}}) utilizan los nombres de
+nota predeterminados (holandeses), la instrucción @code{@bs{}include}
+para el archivo de idioma se debe colocar después de todos los demás
+archivos de la distribución de LilyPond.}
 
 Los archivos de idioma disponibles y los nombres de las notas que
 definen son los siguientes:

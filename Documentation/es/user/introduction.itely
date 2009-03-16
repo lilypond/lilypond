@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -75,7 +75,7 @@ tradicional y la salida típica de ordenador, y la tercera imagen
 muestra cómo LilyPond imita el aspecto tradicional.  La imagen de la
 izquierda presenta el dibujo escaneado de un símbolo de bemol sacado
 de una edición publicada en el año 2000.  La del centro es un símbolo
-procedente de una edición de B@"{a}renreiter grabada a mano de la
+procedente de una edición de Bärenreiter grabada a mano de la
 misma música.  La de la izquierda ilustra los típicos puntos débiles
 de la impresión por ordenador: las líneas del pentagrama son muy
 delgadas, el peso del símbolo del bemol es también demasiado ligero
@@ -114,15 +114,14 @@ ordenador.
 @end ifnottex
 @end ifnotinfo
 @ifinfo
-@c workaround for makeinfo-4.6: line breaks and multi-column cookies
-@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png}
-@image{lily-flat-bw,,,png}
+@image{lilypond/henle-flat-bw,,,,png} @image{lilypond/baer-flat-bw,,,,png}
+@image{lilypond/lily-flat-bw,,,,png}
 @end ifinfo
 
 @item @tab
 Henle (2000)
 @tab
-B@"{a}renreiter (1950)
+Bärenreiter (1950)
 @tab
 Tipografía Feta de LilyPond (2003)
 
