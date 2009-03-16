@@ -10,12 +10,12 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-13 09:41+0100\n"
-"PO-Revision-Date: 2009-02-15 15:38+0200\n"
+"PO-Revision-Date: 2009-03-16 22:07+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: postprocess_html.py:45
 #, python-format
@@ -3725,14 +3725,13 @@ msgstr "SATB mit zugehörigen Kontexten"
 #. @appendixsec in Documentation/user/templates.itely
 #. @node in Documentation/es/user/templates.itely
 #. @appendixsec in Documentation/es/user/templates.itely
-#, fuzzy
 msgid "Orchestral templates"
-msgstr "Orchesterstreicher"
+msgstr "Orchestervorlage"
 
 #. @appendixsubsec in Documentation/user/templates.itely
 #. @appendixsubsec in Documentation/es/user/templates.itely
 msgid "Orchestra, choir and piano"
-msgstr ""
+msgstr "Orchester, Chor und Klavier"
 
 #. @node in Documentation/user/templates.itely
 #. @appendixsec in Documentation/user/templates.itely
@@ -5545,7 +5544,7 @@ msgstr "sfzp"
 
 #. Documentation/user/expressive.itely:447 (variable)
 msgid "mfEspress"
-msgstr ""
+msgstr "mfEspress"
 
 #. Documentation/user/expressive.itely:449 (variable)
 msgid "roundFdynamic"
@@ -5557,7 +5556,7 @@ msgstr "KastenFDynamik"
 
 #. Documentation/user/expressive.itely:451 (variable)
 msgid "mfEspressDynamic"
-msgstr ""
+msgstr "mfEspressDynamic"
 
 #. @node in Documentation/user/expressive.itely
 #. @section in Documentation/user/expressive.itely
@@ -9011,28 +9010,28 @@ msgstr "Abstände verändern"
 
 #. Documentation/user/changing-defaults.itely:446 (variable)
 msgid "keepVoicesAlive"
-msgstr ""
+msgstr "lassStimmeLeben"
 
 #. Documentation/user/changing-defaults.itely:448 (context id)
 #. Documentation/user/changing-defaults.itely:454 (context id)
 #. Documentation/user/changing-defaults.itely:462 (context id)
 #. Documentation/user/changing-defaults.itely:464 (context id)
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #. Documentation/user/changing-defaults.itely:448 (comment)
 msgid "Keep Voice \\\"A\\\" alive for 5 bars"
-msgstr ""
+msgstr "Lass die Stimme \\\"A\\\" für 5 Takte leben"
 
 #. Documentation/user/changing-defaults.itely:449 (context id)
 #. Documentation/user/changing-defaults.itely:458 (context id)
 #. Documentation/user/changing-defaults.itely:463 (context id)
 msgid "B"
-msgstr ""
+msgstr "B"
 
 #. Documentation/user/changing-defaults.itely:449 (comment)
 msgid "Keep Voice \\\"B\\\" alive for 5 bars"
-msgstr ""
+msgstr "Lass die Stimme \\\"B\\\" für 5 Takte leben"
 
 #. Documentation/user/changing-defaults.itely:484 (variable)
 #. Documentation/user/changing-defaults.itely:495 (context id)
@@ -9041,24 +9040,22 @@ msgstr ""
 #. Documentation/user/changing-defaults.itely:506 (context id)
 #. Documentation/user/changing-defaults.itely:528 (variable)
 #. Documentation/user/changing-defaults.itely:544 (context id)
-#, fuzzy
 msgid "accompaniment"
-msgstr "Akzent"
+msgstr "Begleitung"
 
 #. Documentation/user/changing-defaults.itely:485 (variable)
 #. Documentation/user/changing-defaults.itely:534 (variable)
-#, fuzzy
 msgid "words"
-msgstr "Akkorde"
+msgstr "Worte"
 
 #. Documentation/user/changing-defaults.itely:492 (comment)
 msgid "Keep Voice \\\"melody\\\" alive for 4 bars"
-msgstr ""
+msgstr "Lass die Stimme \\\"melodie\\\" für 4 Takte leben"
 
 #. Documentation/user/changing-defaults.itely:523 (comment)
 #. Documentation/user/changing-defaults.itely:525 (comment)
 msgid "skip a bar"
-msgstr ""
+msgstr "einen Takt überspringen"
 
 #. Documentation/user/changing-defaults.itely:2142 (comment)
 msgid "increase the length of the tie"
@@ -9219,9 +9216,8 @@ msgstr "Unterste Kontexte -- Stimmen"
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @subsection in Documentation/es/user/changing-defaults.itely
-#, fuzzy
 msgid "Keeping contexts alive"
-msgstr "Kontexte erstellen"
+msgstr "Kontexte am Leben halten"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
@@ -12233,94 +12229,76 @@ msgid "...or to cover just whitespace"
 msgstr "oder auch nur Leerzeichen zu überbrücken"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:44 (variable)
-#, fuzzy
 msgid "fluteMusic"
-msgstr "Noten"
+msgstr "FlötenNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:45 (variable)
-#, fuzzy
 msgid "oboeMusic"
-msgstr "SoprNoten"
+msgstr "OboeNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:46 (variable)
-#, fuzzy
 msgid "clarinetMusic"
-msgstr "Klarinette"
+msgstr "KlarinetteNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:47 (variable)
-#, fuzzy
 msgid "bassoonMusic"
-msgstr "BassNoten"
+msgstr "FagottNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:48 (variable)
-#, fuzzy
 msgid "trumpetMusic"
-msgstr "trompete"
+msgstr "TrompteNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:49 (variable)
-#, fuzzy
 msgid "tromboneMusic"
-msgstr "posaune"
+msgstr "PosauneNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:50 (variable)
-#, fuzzy
 msgid "hornIMusic"
-msgstr "SopranNoten"
+msgstr "HornNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:51 (variable)
-#, fuzzy
 msgid "hornIIMusic"
-msgstr "SopranNoten"
+msgstr "HornzweiNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:52 (variable)
-#, fuzzy
 msgid "percussionMusic"
-msgstr "Schlagzeug"
+msgstr "SchlagzeugNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:55 (variable)
-#, fuzzy
 msgid "altoIMusic"
-msgstr "AltNoten"
+msgstr "AlteinsNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:56 (variable)
-#, fuzzy
 msgid "altoILyrics"
-msgstr "AltText"
+msgstr "AlteinsText"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:57 (variable)
-#, fuzzy
 msgid "altoIIMusic"
-msgstr "AltNoten"
+msgstr "AltzweiNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:58 (variable)
-#, fuzzy
 msgid "altoIILyrics"
-msgstr "AltText"
+msgstr "AltzweiText"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:61 (variable)
-#, fuzzy
 msgid "pianoRHMusic"
-msgstr "SopranNoten"
+msgstr "KlavierRHNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:62 (variable)
-#, fuzzy
 msgid "pianoLHMusic"
-msgstr "SopranNoten"
+msgstr "KlavierLHNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:63 (variable)
-#, fuzzy
 msgid "violinIMusic"
-msgstr "KlammerNoten"
+msgstr "ViolineeinsNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:64 (variable)
-#, fuzzy
 msgid "violinIIMusic"
-msgstr "KlammerNoten"
+msgstr "ViolinezweiNoten"
 
 #. input/lsr/orchestra-choir-and-piano-template.ly:65 (variable)
-#, fuzzy
 msgid "violaMusic"
-msgstr "KlammerNoten"
+msgstr "BratscheNoten"
 
 #. input/lsr/percussion-beaters.ly:18 (variable)
 msgid "stick"
