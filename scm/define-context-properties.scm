@@ -35,9 +35,9 @@
    
      (aDueText ,markup? "Text to print at a unisono passage.")
      (alignBelowContext ,string? "Where to insert newly created context in
-vertiical alignment.")
+vertical alignment.")
      (alignAboveContext ,string? "Where to insert newly created context in
-vertiical alignment.")
+vertical alignment.")
      (alignBassFigureAccidentals ,boolean? "If true, then the accidentals
 are aligned in bass figure context.")
      (associatedVoice ,string? "Name of the @code{Voice} that has the
