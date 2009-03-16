@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -95,9 +95,9 @@ und der Zahl eingefügt.  Eine Lilypond-Datei @var{Dateiname.ly} mit dem Inhalt
 
 @example
 #(define output-suffix "Geige")
-\book @{ @dots{} @}
+\score @{ @dots{} @}
 #(define output-suffix "Cello")
-\book @{ @dots{} @}
+\score @{ @dots{} @}
 @end example
 
 @noindent

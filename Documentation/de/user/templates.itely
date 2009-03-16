@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -23,6 +23,7 @@ schönen Notenbild erfreuen!
 * Piano templates::
 * String quartet::
 * Vocal ensembles::
+* Orchestral templates::
 * Ancient notation templates::
 * Jazz combo::
 * Lilypond-book templates::
@@ -117,6 +118,14 @@ schönen Notenbild erfreuen!
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+
+
+@node Orchestral templates
+@appendixsec Orchestral templates
+
+@appendixsubsec Orchestra, choir and piano
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{orchestra-choir-and-piano-template.ly}
 
 
 @c bad node name to avoid node name conflict

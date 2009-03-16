@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -981,6 +981,9 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fretboard-chordchanges.ly}
 
 
 @seealso

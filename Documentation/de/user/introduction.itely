@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -107,8 +107,8 @@ Computer-Ausgabe.
 @end ifnottex
 @end ifnotinfo
 @ifinfo
-@c workaround for makeinfo-4.6: line breaks and multi-column cookies
-@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png}
+@image{henle-flat-bw,,,png}
+@image{baer-flat-bw,,,,png}
 @image{lily-flat-bw,,,png}
 @end ifinfo
 

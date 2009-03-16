@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 3e83a3cee0432bb07be6358e514b0ad194fd0c9d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -31,6 +31,7 @@
 @menu
 * Contexts explained::
 * Creating contexts::
+* Keeping contexts alive::
 * Modifying context plug-ins::
 * Changing context default settings::
 * Defining new contexts::
@@ -76,6 +77,12 @@
 
 @node Creating contexts
 @subsection Creating contexts
+
+@untranslated
+
+
+@node Keeping contexts alive
+@subsection Keeping contexts alive
 
 @untranslated
 
@@ -330,7 +337,7 @@
 * Setting @code{X-offset} and @code{Y-offset} directly::
 * Using the @code{side-position-interface}::
 * Using the @code{self-alignment-interface}::
-* Using the @code{break-aligned-interface}::
+* Using the @code{break-alignable-interface}::
 @end menu
 
 @node Setting @code{X-offset} and @code{Y-offset} directly
@@ -353,8 +360,8 @@
 
 @unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
 @unnumberedsubsubsec Using the @code{centered-on-parent} procedures
-@node Using the @code{break-aligned-interface}
-@unnumberedsubsubsec Using the @code{break-aligned-interface}
+@node Using the @code{break-alignable-interface}
+@unnumberedsubsubsec Using the @code{break-alignable-interface}
 
 @untranslated
 

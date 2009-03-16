@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1962,16 +1962,17 @@ Referenz der Interna:
 @rinternals{SpacingSpanner},
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
-@rinternals{SeparationItem}.
+@rinternals{NonMusicalPaperColumn}.
 
 @knownissues
 
 Es gibt keine sinnvolle Möglichkeit, die horizontale Verteilung der
-Noten zu unterdrücken.  Die folgende Problemumgehung kann benutzt
+Noten zu unterdrücken.  Die folgende Problemumgehung, mit der
+dehnbare Abstände (padding) eingesetzt werden, kann benutzt
 werden, um zusätzlichen Platz in eine Partitur einzufügen.
 
 @example
- \once \override Score.SeparationItem #'padding = #1
+ \once \override Score.SeparationItem #'padding = #10
 @end example
 
 Es gibt derzeit keine Möglichkeit, den Platz zu verringern.
@@ -2620,9 +2621,17 @@ dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
 @end example
 
 @item
-Die Anzahl der Systeme kann reduziert werden (wenn LilyPond 
-die Musik auf 11 Systeme verteilt, kann man die Benutzung von 
-nur 10 Systemen erzwingen).
+Die Anzahl der Systeme kann reduziert werden.  Das kann auf
+zwei Arten helfen: wenn einfach nur ein Wert gesetzt wird, auch
+wenn es die gleiche Anzahl ist, die auch schon vorher von LilyPond
+erstellt wurde, kann manchmal dazu führen, dass mehr Systeme
+auf eine Seite gesetzt werden.  Das liegt daran, dass ein
+Schritt im Notensatz ausgelassen wird, der die Seitenverteilung
+nur grob einschätzt, sodass eine bessere Seitenverteilung
+entsteht.  Auch wenn man eine Verringerung der Anzahl an Systemen
+erzwingt, kann oft eine Seite eingespart werden.  Wenn LilyPond 
+die Musik etwa auf 11 Systeme verteilt, kann man die Benutzung von 
+nur 10 Systemen erzwingen.
 
 @example
 \paper @{

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -396,6 +396,8 @@ c2 <c \parenthesize e g>
 @end lilypond
 
 Auch andere Objekte als Noten können in Klammern gesetzt werden.
+Wenn Artikulationszeichen in Klammern gesetzt werden sollen,
+braucht man ein Minuszeichen vor dem @code{\parenthesize}-Befehl.
 
 @lilypond[verbatim,quote,relative=2]
 c2-\parenthesize -. d
@@ -662,7 +664,7 @@ horizontale Klammern werden von LilyPond unterstützt.
 }
 @end lilypond
 
-Analysis brackets may be nested.
+Analyseklammern können verschachtelt sein.
 
 @lilypond[verbatim,quote]
 \layout {

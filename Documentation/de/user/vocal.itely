@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -470,6 +470,13 @@ Automatische Ausrichtung mit @code{\addlyrics} oder @code{\lyricsto}.
 Definition der Silbendauer innerhalb von @code{\lyricmode}.
 @end itemize
 
+Der @code{Voice}-Kontext mit der Melodie, an die der Text
+angehängt werden soll, darf nicht @qq{gestorben} sein, ansonsten
+werden die Silben danach nicht mehr desetzt.  Das kann passieren,
+wenn die Stimme für einige Zeit nichts zu tun hat.   Für Methoden,
+wie der Kontext am Leben gehalten werden kann, siehe
+@ref{Keeping contexts alive}.
+
 
 @menu
 * Automatic syllable durations::
@@ -588,6 +595,9 @@ Hier ein Beispiel, dass die manuale Ausrichtung von Gesangstext zeigt:
 @end lilypond
 
 @seealso
+Notationsreferenz:
+@ref{Keeping contexts alive}.
+
 Referenz der Interna:
 @rinternals{Lyrics}.
 

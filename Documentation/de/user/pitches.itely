@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -437,10 +437,18 @@ keinem Standard.
 Es gibt vordefinierte Bezeichnungen für die Notenbezeichnungen in anderen 
 Sprachen als Englisch. Um sie zu benutzen, muss nur die 
 entsprechende Datei für die jeweilige Sprache eingefügt werden.
-Zum Beispiel fügt man mit @code{\include "deutsch.ly"} die 
+Zum Beispiel fügt man mit @code{@w{\include "deutsch.ly"}} die 
 Notendefinitionen für die deutsche Sprache am Anfang der Datei 
-hinzu. In der Tabelle sind die existierenden Sprachdefinitionen
-mit den dazugehörigen Notenbezeichnungen dargestellt
+hinzu
+
+@warning{Weil in einigen @code{\include}-Dateien (wie
+beispielsweise @code{@w{predefined-fretboards.ly}}) die niederländischen
+(Standard-)Notenbezeichnungen benutzt werden, muss der
+@code{@bs{}include}-Befehl für die Sprachdatei nach allen
+anderen LilyPond-eigenen Dateien gesetzt werden.}
+
+In der Tabelle sind die existierenden Sprachdefinitionen
+mit den dazugehörigen Notenbezeichnungen dargestellt.
 
 @quotation
 @multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}

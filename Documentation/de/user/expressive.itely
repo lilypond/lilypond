@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -420,9 +420,7 @@ boxF = \markup { \bracket { \dynamic f } }
 @funindex make-dynamic-script
 
 Einfache, mittig gesetzte Dynamikzeichen können schnell mit der
-@code{make-dynamic-script}-Funktion erstellt werden.  Die
-Schriftart für Dynamikzeichen enthält nur die Buchstaben
-@code{f,m,p,r,s} sowie @code{z}.
+@code{make-dynamic-script}-Funktion erstellt werden.
 
 @lilypond[verbatim,quote]
 sfzp = #(make-dynamic-script "sfzp")
@@ -432,11 +430,17 @@ sfzp = #(make-dynamic-script "sfzp")
 @end lilypond
 
 Allgemein gesagt kann @code{make-dynamic-script} jegliches
-Textbeschriftungsobjekt als Argument haben.  Im nächsten
-Beispiel wird die vertikale Ausrichtung von den Beschriftungen
+Textbeschriftungsobjekt als Argument haben.    Die
+Schriftart für Dynamikzeichen enthält nur die Buchstaben
+@code{f,m,p,r,s} sowie @code{z}; ein Dynamikzeichen, das
+anderen Text oder satzzeichen enthalten soll, benötigt
+Textbeschriftungsbefehle, die die normale Schriftart
+einschalten, etwa @code{\normal-text}.  Die Funktion
+@code{make-dynamic-script} sollte anstelle einer normalen
+Textbeschriftung vor allem deshalb benutzt werden, weil auf
+diese Weise die vertikale Ausrichtung von den Textbeschriftungen
 (engl. markup) und den spitzen Klammern an der selben Linie
-durch @code{make-dynamic-script} gewährleistet, wenn beide
-an die selbe Note angehängt werden.
+gewährleistet wird.
 
 @lilypond[verbatim,quote]
 roundF = \markup { \center-align \concat {
@@ -444,12 +448,16 @@ roundF = \markup { \center-align \concat {
            \dynamic f
            \normal-text { \bold { \italic ) } } } }
 boxF = \markup { \bracket { \dynamic f } }
+mfEspress = \markup { \center-align \line {
+              \hspace #3.7 mf \normal-text \italic espress. } }
 roundFdynamic = #(make-dynamic-script roundF)
 boxFdynamic = #(make-dynamic-script boxF)
 \relative c' {
   c4_\roundFdynamic\< d e f
-  g,1_\boxFdynamic
-}
+  g,1~_\boxFdynamic\>
+  g
+  g'~\mfEspressDynamic
+  g}
 @end lilypond
 
 Anstelle dessen kann auch die Scheme-Form des Beschriftungs-Modus

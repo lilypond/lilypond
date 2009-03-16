@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -24,7 +24,6 @@ Entwicklerversionen haben hingegen ungerade Unter-Versionsnummern (z.B.
 
 LilyPond selbst zu kompilieren ist ein relativ komplizierter Vorgang, daher
 empfehlen wir @strong{stark}, die vorkompilierten Binär-Pakete zu benutzen.
-@untranslated
 
 
 @menu
@@ -63,6 +62,10 @@ Wenn Sie MacOS 10.3 oder 10.4 benutzen und Python-Skripte wie
 @command{convert-ly} und @command{lilypond-book} benutzen wollen,
 lesen Sie @ref{Setup for MacOS X,,,lilypond-program,Application Usage}.
 
+@include compile.itely
+
+@ignore
+this is now covered in compile.itely
 
 @node Compiling from source
 @section Compiling from source
@@ -87,4 +90,6 @@ englische Dokumentation verwiesen werden:
 @c   want to do so, they should be able to read the English docs,
 @c   because they'll probably need to ask questions in English
 @c   on the -devel list.   -gp
+
+@end ignore
 

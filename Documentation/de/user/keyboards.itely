@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -185,6 +185,11 @@ vom aktuellen System zu dem System mit der @var{Systembezeichnung}
 gewechselt.  Üblicherweise ist die Systembezeichnung @code{"up"}
 oder @code{"down"}, @code{"RH"} oder @code{"LH"}.
 
+Das System, zu dem die Stimme wechseln soll, muss zum
+Zeitpunkt des Wechsels existieren.  Wenn notwendig, müssen
+Systeme @qq{künstlich am Leben gehalten werden}, siehe
+@ref{Keeping contexts alive}.
+
 Balken zwischen den Systemen werden automatisch erstellt:
 
 @lilypond[verbatim,quote]
@@ -219,7 +224,8 @@ Handbuch zum Lernen:
 
 Notationsreferenz:
 @ref{Stems},
-@ref{Automatic beams}.
+@ref{Automatic beams},
+@ref{Keeping contexts alive}.
 
 Schnipsel:
 @rlsr{Keyboards}.
