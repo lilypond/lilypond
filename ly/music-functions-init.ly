@@ -649,12 +649,10 @@ resetRelativeOctave  =
 
 
 scaleDurations =
-#(define-music-function
-		  (parser location fraction music) (number-pair? ly:music?)
-		  (ly:music-compress music
-		  (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
-
-		  (ly:make-moment (car fraction) (cdr fraction))))
+#(define-music-function (parser location fraction music) (number-pair? ly:music?)
+   (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
+   (ly:music-compress music
+		      (ly:make-moment (car fraction) (cdr fraction))))
 
 
 
