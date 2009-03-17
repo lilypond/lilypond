@@ -89,7 +89,7 @@ también como snap o pizzicato de Bartok):
 
 @item
 Ahora están disponibles unas nuevas funciones de formateo de números
-para imprimir otras fracciones y añadir figuras a los nnúmeros o
+para imprimir otras fracciones y añadir figuras a los números o
 fracciones de un grupo especial:
 @lilypond[quote]
 \relative c'' {
