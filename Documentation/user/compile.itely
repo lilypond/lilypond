@@ -89,7 +89,7 @@ newer.  4.x is strongly recommended).
 
 @item @uref{http://www.perl.org/,Perl}.
 
-@item @uref{http://www.gnu.org/software/flex/,GNU Bison}.
+@item @uref{http://www.gnu.org/software/bison/,GNU Bison}.
 
 @item All packages required for running, including development packages with
 header files and libraries.
