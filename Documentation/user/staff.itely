@@ -56,6 +56,12 @@ grouping staves.
 
 @funindex \drummode
 @funindex drummode
+@funindex DrumStaff
+@funindex RhythmicStaff
+@funindex TabStaff
+@funindex MensuralStaff
+@funindex VaticanaStaff
+@funindex GregorianTranscriptionStaff
 
 @notation{Staves} (singular: @notation{staff}) are created with
 the @code{\new} or @code{\context} commands.  For details, see
@@ -587,6 +593,7 @@ example.
 >>
 @end lilypond
 
+
 Using the @code{\RemoveEmptyStaffContext} command to create ossia
 staves may be used as an alternative.  This method is most
 convenient when ossia staves occur immediately following a line
@@ -667,6 +674,9 @@ Internals Reference:
 
 @funindex \RemoveEmptyStaffContext
 @funindex RemoveEmptyStaffContext
+@funindex Staff_symbol_engraver
+@funindex \stopStaff
+@funindex stopStaff
 
 
 Staff lines can be hidden by removing the
@@ -800,7 +810,7 @@ format cue notes are also described.
 
 @cindex tempo
 @cindex beats per minute
-@cindex metronome marking
+@cindex metronome mark
 @cindex metronome marking with text
 
 @funindex \tempo
@@ -962,6 +972,8 @@ these settings, see @ref{Horizontal dimensions}.
   }
 >>
 @end lilypond
+
+@cindex instrument names, adding to other contexts
 
 To add instrument names to other contexts (such as
 @code{GrandStaff}, @code{ChoirStaff}, or @code{StaffGroup}),
@@ -1138,6 +1150,7 @@ see @ref{Using tags}.
 @cindex articulation-event
 @cindex dynamic-event
 @cindex rest-event
+
 @funindex quotedEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -1185,6 +1198,8 @@ written entirely in lower-case letters: @code{\addquote}.
 
 @funindex \cueDuring
 @funindex cueDuring
+@funindex \quoteDuring
+@funindex quoteDuring
 
 The previous section explains how to create quotations.  The
 @code{\cueDuring} command is a more specialized form of
@@ -1327,3 +1342,4 @@ Internals Reference:
 
 Collisions can occur with rests, when using @code{\cueDuring},
 between @code{Voice} and @code{CueVoice} contexts.
+
