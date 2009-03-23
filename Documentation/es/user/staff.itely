@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 4de736ff6c4e6b9a022386f209bdf8cb0c765b42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -55,6 +55,12 @@ y grupos de ellos.
 
 @funindex \drummode
 @funindex drummode
+@funindex DrumStaff
+@funindex RhythmicStaff
+@funindex TabStaff
+@funindex MensuralStaff
+@funindex VaticanaStaff
+@funindex GregorianTranscriptionStaff
 
 Las @notation{pautas} y los @notation{pentagramas} o pautas de cinco
 líneas se crean con las instrucciones @code{\new} o @code{\context}.
@@ -671,6 +677,9 @@ Referencia de funcionamiento interno:
 
 @funindex \RemoveEmptyStaffContext
 @funindex RemoveEmptyStaffContext
+@funindex Staff_symbol_engraver
+@funindex \stopStaff
+@funindex stopStaff
 
 Se pueden ocultar las líneas del pentagrama quitando el grabador
 @code{Staff_symbol_engraver} del contexto de @code{Staff}.  Como
@@ -971,6 +980,8 @@ consulte @ref{Horizontal dimensions}.
 >>
 @end lilypond
 
+@cindex nombres de instrumento, añadir a otros contextos
+
 Para añadir nombres de instrumento a otros contextos (como
 @code{GrandStaff}, @code{ChoirStaff} o @code{StaffGroup}), debemos
 añadir el grabador @code{Instrument_name_engraver} a dicho
@@ -1145,6 +1156,7 @@ procedimiento, consulte @ref{Using tags}.
 @cindex articulation-event
 @cindex dynamic-event
 @cindex rest-event
+
 @funindex quotedEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -1193,6 +1205,8 @@ se escribía completamente en minúsculas: @code{\addquote}.
 
 @funindex \cueDuring
 @funindex cueDuring
+@funindex \quoteDuring
+@funindex quoteDuring
 
 La sección anterior explica la forma de crear citas.  La instrucción
 @code{\cueDuring} es una forma más especializada de
