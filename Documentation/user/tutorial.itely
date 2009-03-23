@@ -1420,91 +1420,14 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @funindex \\
 @funindex >>
 
-When different melodic lines are combined on a single staff they
-are printed as polyphonic voices; each voice has its own stems,
-slurs and beams, and the top voice has the stems up, while the
-bottom voice has them down.
-
-A temporary polyphonic passage can be created with the following
-construct:
-
-@example
-<< @{ \voiceOne ... @}
-  \new Voice @{ \voiceTwo ... @}
->> \oneVoice
-@end example
-
-Here, the first expression within a temporary polyphonic passage is
-placed into the @code{Voice} context which was in use immediately
-before the polyphonic passage, and that same @code{Voice} context
-continues after the temporary section.  Other expressions within
-the angle brackets are assigned to distinct temporary voices.
-This allows lyrics to be assigned to one continuing voice before,
-during and after a polyphonic section:
-
-@lilypond[quote, verbatim, relative=2]
-<<
-  \new Voice = "melody" {
-    a4
-    <<
-      {
-        \voiceOne
-        g f
-      }
-      \new Voice {
-        \voiceTwo
-        d2
-      }
-    >>
-    \oneVoice
-    e4
-  }
-  \new Lyrics \lyricsto "melody" {
-  This is my song.
-  }
->>
-@end lilypond
-
-Here, the @code{\voiceOne} and @code{\voiceTwo} commands are
-required to define the settings of each voice.
-
-For polyphonic music typesetting, spacer rests can also be
-convenient; these are rests that do not print.  They are useful
-for filling up voices that temporarily do not play.  Here is the
-same example with a spacer rest (@code{s}) instead of a normal
-rest (@code{r}),
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  { \voiceOne a4 g2 f4~ f4 }
-  \new Voice { \voiceTwo s4 g4 f2 f4 }
->>
-\oneVoice
-@end lilypond
-
-@noindent
-Again, these expressions can be nested arbitrarily.
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  \new Staff <<
-    { \voiceOne a4 g2 f4~ f4 }
-    \new Voice { \voiceTwo s4 g4 f2 f4 }
-  >>
-  \oneVoice
-  \new Staff <<
-    \clef bass
-    { \voiceOne <c g>1 ~ <c g>4 }
-    \new Voice { \voiceTwo e,,4 d e2 ~ e4}
-  >>
-  \oneVoice
->>
-@end lilypond
-
+Polyphonic music in lilypond, while not difficult, uses concepts
+that we haven't discussed yet, so we're not going to introduce
+them. Instead, the following sections introduce these concepts
+and explain them thoroughly.
 
 @seealso
+Learning Manual: @ruser{Voices contain music}.
 Notation Reference: @ruser{Simultaneous notes}.
-
 
 @node Songs
 @section Songs
