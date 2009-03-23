@@ -1425,16 +1425,48 @@ are printed as polyphonic voices; each voice has its own stems,
 slurs and beams, and the top voice has the stems up, while the
 bottom voice has them down.
 
-Entering such parts is done by entering each voice as a sequence
-(with @w{@code{@{...@}}}) and combining these simultaneously,
-separating the voices with @code{\\}:
+A temporary polyphonic passage can be created with the following
+construct:
 
-@lilypond[verbatim,quote,relative=2]
+@example
+<< @{ \voiceOne ... @}
+  \new Voice @{ \voiceTwo ... @}
+>> \oneVoice
+@end example
+
+Here, the first expression within a temporary polyphonic passage is
+placed into the @code{Voice} context which was in use immediately
+before the polyphonic passage, and that same @code{Voice} context
+continues after the temporary section.  Other expressions within
+the angle brackets are assigned to distinct temporary voices.
+This allows lyrics to be assigned to one continuing voice before,
+during and after a polyphonic section:
+
+@lilypond[quote, verbatim, relative=2]
 <<
-  { a4 g2 f4~ f4 } \\
-  { r4 g4 f2 f4 }
+  \new Voice = "melody" {
+    a4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Voice {
+        \voiceTwo
+        d2
+      }
+    >>
+    \oneVoice
+    e4
+  }
+  \new Lyrics \lyricsto "melody" {
+  This is my song.
+  }
 >>
 @end lilypond
+
+Here, the @code{\voiceOne} and @code{\voiceTwo} commands are
+required to define the settings of each voice.
 
 For polyphonic music typesetting, spacer rests can also be
 convenient; these are rests that do not print.  They are useful
@@ -1444,9 +1476,10 @@ rest (@code{r}),
 
 @lilypond[verbatim,quote,relative=2]
 <<
-  { a4 g2 f4~ f4 } \\
-  { s4 g4 f2 f4 }
+  { \voiceOne a4 g2 f4~ f4 }
+  \new Voice { \voiceTwo s4 g4 f2 f4 }
 >>
+\oneVoice
 @end lilypond
 
 @noindent
@@ -1455,14 +1488,16 @@ Again, these expressions can be nested arbitrarily.
 @lilypond[verbatim,quote,relative=2]
 <<
   \new Staff <<
-    { a4 g2 f4~ f4 } \\
-    { s4 g4 f2 f4 }
+    { \voiceOne a4 g2 f4~ f4 }
+    \new Voice { \voiceTwo s4 g4 f2 f4 }
   >>
+  \oneVoice
   \new Staff <<
     \clef bass
-    { <c g>1 ~ <c g>4 } \\
-    { e,,4 d e2 ~ e4}
+    { \voiceOne <c g>1 ~ <c g>4 }
+    \new Voice { \voiceTwo e,,4 d e2 ~ e4}
   >>
+  \oneVoice
 >>
 @end lilypond
 
