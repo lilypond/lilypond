@@ -9,9 +9,8 @@ at @uref{http://git-scm.com/documentation},
 @menu
 * Getting the source code::     
 * Updating the source code::    
-* Working with several Git branches::  
 * Sharing your changes::        
-* Other interesting Git commands::  
+* Advanced git stuff::          
 * Git on Windows::              
 @end menu
 
@@ -149,7 +148,6 @@ git config --global user.email MYEMAIL@@EXAMPLE.NET
 * Importance of updating::      
 * Update command::              
 * Resolving conflicts::         
-* Introduction to Git concepts::  
 @end menu
 
 
@@ -189,6 +187,99 @@ versions.
 If you need some documentation to understand and resolve conflicts,
 see paragraphs @emph{How conflicts are presented} and @emph{How to
 resolve conflicts} in @command{git merge} man page.
+
+
+@node Sharing your changes
+@section Sharing your changes
+
+@menu
+* Producing a patch::           
+* Committing directly::         
+@end menu
+
+
+@node Producing a patch
+@subsection Producing a patch
+
+Once you have finished editing your files, checked that your changes
+meet the @ref{Code style}, and/or @ref{Documentation policy}, properly
+set up your name and email in @ref{Git user configuration}, and
+checked that the entire thing compiles, you may:
+
+@example
+git commit -a 
+git format-patch origin
+@end example
+
+If you added a file to the source code, you must add it to git
+with:
+
+@example
+git add FILENAME
+@end example
+
+@noindent
+(and possibly modify the @file{GNUmakefile})
+
+Send an email to @email{lilypond-devel@@gnu.org} with the diff as
+an attachment.
+
+
+@node Committing directly
+@subsection Committing directly
+
+Most contributors do not have permission to commit directly.  If you
+do, make sure you have set up your name and email in @ref{Git user
+configuration}, then edit @file{.git/config}: change the line
+
+@example
+url = git://git.sv.gnu.org/lilypond.git/
+@end example
+
+@noindent
+into
+
+@example
+url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+@end example
+
+@noindent
+where @var{user} is your login name on Savannah.
+
+If you have not already done so, you should generate and upload a SSH
+key: open @uref{https://savannah.gnu.org/my/} in your browser, then go to
+@q{Preferences} then to something like @q{Edit SSH Keys}, and follow
+the instructions on that page.
+
+You may then:
+
+@example
+git push origin
+@end example
+
+@node Advanced git stuff
+@section Advanced git stuff
+
+@warning{This section is not necessary for normal contributors;
+these commands are presented for information for people interested
+in learning more about git.}
+
+
+It is possible to work with several branches on the same local Git
+repository; this is especially useful for translators who may have to
+deal with both @code{lilypond/translation} and a stable branch,
+e.g. @code{stable/2.12}.
+
+Some Git commands are introduced first, then a workflow with several
+Git branches of LilyPond source code is presented.
+
+@menu
+* Introduction to Git concepts::  
+* Git commands for managing several branches::  
+* Working on LilyPond sources with several branches::  
+* Git log::                     
+* Applying git patches::        
+@end menu
 
 
 @node Introduction to Git concepts
@@ -265,22 +356,6 @@ Finally, please remember to read the man page of every Git command you
 will find in this manual in case you want to discover alternate
 methods or just understand how it works.
 
-
-@node Working with several Git branches
-@section Working with several Git branches
-
-It is possible to work with several branches on the same local Git
-repository; this is especially useful for translators who may have to
-deal with both @code{lilypond/translation} and a stable branch,
-e.g. @code{stable/2.12}.
-
-Some Git commands are introduced first, then a workflow with several
-Git branches of LilyPond source code is presented.
-
-@menu
-* Git commands for managing several branches::  
-* Working on LilyPond sources with several branches::  
-@end menu
 
 @node Git commands for managing several branches
 @subsection Git commands for managing several branches
@@ -416,72 +491,6 @@ stash}) and do @command{git reset --hard} in the main repository in
 order to apply pushed changes in the working tree of the main
 repository.
 
-
-@node Sharing your changes
-@section Sharing your changes
-
-@menu
-* Producing a patch::           
-* Committing directly::         
-@end menu
-
-
-@node Producing a patch
-@subsection Producing a patch
-
-Once you have finished editing your files, checked that your changes
-meet the @ref{Code style}, and/or @ref{Documentation policy}, properly
-set up your name and email in @ref{Git user configuration}, and
-checked that the entire thing compiles, you may
-
-@example
-git commit -a 
-git format-patch origin
-@end example
-
-Send an email to @email{lilypond-devel@@gnu.org} with the diff as
-an attachment.
-
-
-@node Committing directly
-@subsection Committing directly
-
-Most contributors do not have permission to commit directly.  If you
-do, make sure you have set up your name and email in @ref{Git user
-configuration}, then edit @file{.git/config}: change the line
-
-@example
-        url = git://git.sv.gnu.org/lilypond.git/
-@end example
-
-@noindent
-into
-@example
-        url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
-@end example
-
-@noindent
-where @var{user} is your login name on Savannah.
-
-If you have not already done so, you should generate and upload a SSH
-key: open @uref{https://savannah.gnu.org/my/} in your browser, then go to
-@q{Preferences} then to something like @q{Edit SSH Keys}, and follow
-the instructions on that page.
-
-You may then
-
-@example
-git push origin
-@end example
-
-
-@node Other interesting Git commands
-@section Other interesting Git commands
-
-@menu
-* Git log::                     
-* Applying git patches::        
-@end menu
 
 
 @node Git log

@@ -992,7 +992,7 @@ predefinido, las propiedades de interface pertenecen a
 {defining-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{fretboard-chordchanges.ly}
+{chordchanges-for-fretboards.ly}
 
 @seealso
 Referencia de la notación:
