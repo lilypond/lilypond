@@ -221,8 +221,10 @@ git add FILENAME
 @noindent
 (and possibly modify the @file{GNUmakefile})
 
-Send an email to @email{lilypond-devel@@gnu.org} with the diff as
-an attachment.
+These commands will produce one or more files named
+@file{0001-xyz}, @file{0002-abc}, etc. in the top directory of the
+git tree.  Send an email to @email{lilypond-devel@@gnu.org} with
+these files attachmented.
 
 
 @node Committing directly
