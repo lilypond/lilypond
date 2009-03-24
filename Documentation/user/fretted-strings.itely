@@ -968,7 +968,7 @@ predefined fret diagram, the interface properties belong to
 {defining-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{fretboard-chordchanges.ly}
+{chordchanges-for-fretboards.ly}
 
 @seealso
 Notation Reference:

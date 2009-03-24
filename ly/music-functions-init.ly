@@ -649,15 +649,16 @@ resetRelativeOctave  =
 
 
 scaleDurations =
-#(define-music-function
-		  (parser location fraction music) (number-pair? ly:music?)
-		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
+#(define-music-function (parser location fraction music) (number-pair? ly:music?)
+   (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
+   (ly:music-compress music
+		      (ly:make-moment (car fraction) (cdr fraction))))
 
 
 
 shiftDurations =
 #(define-music-function (parser location dur dots arg) (integer? integer? ly:music?)
-   (_i "")
+   (_i "Scale @var{arg} up by a factor of @var{2^dur*(2-(1/2)^dots)}.")
 
    (music-map
     (lambda (x)
@@ -677,7 +678,7 @@ the `parameters' assoc list.")
 
 rightHandFinger =
 #(define-music-function (parser location finger) (number-or-string?)
-   (_i "Define a StrokeFingerEvent")
+   (_i "Apply @var{finger} as a fingering indication.")
 
    (apply make-music
 	  (append

@@ -17,6 +17,7 @@ compound-time-signatures.ly
 conducting-signs,-measure-grouping-signs.ly
 controlling-tuplet-bracket-visibility.ly
 engraving-ties-manually.ly
+engraving-tremolos-with-floating-beams.ly
 entering-several-tuplets-using-only-one--times-command.ly
 flat-flags-and-beam-nibs.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
