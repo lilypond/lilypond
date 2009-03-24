@@ -211,6 +211,14 @@ git commit -a
 git format-patch origin
 @end example
 
+The commit should include a brief message describing the change.
+This consists of a one-line summary describing the change, and
+if necessary a blank line followed by several lines giving the
+details.
+
+If the change is to the documentation only the one-line summary
+should be prefixed with "Docs: ".
+
 If you added a file to the source code, you must add it to git
 with:
 
