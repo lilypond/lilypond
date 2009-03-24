@@ -7,8 +7,7 @@ and @code{GrandStaff} contexts to sub-group instruments of the same
 type together, and the use of @code{\\transpose} for transposing
 instruments.  All music in variables is stored in C.  Music may be
 entered in C or, alternatively, entered in the instrument key and
-transposed to C (see trumpet for an example) before being assigned
-to a variable.
+transposed to C before being assigned to a variable.
 "
   doctitle = "Orchestra, choir and piano template"
 }
@@ -20,30 +19,23 @@ to a variable.
   short-indent = 1.5\cm
 }
 
-\layout {
-   \context {
-     \Score
-     \override InstrumentName #'self-alignment-X = #CENTER
-   }
-}
-
 fluteMusic = \relative c { \key c \major c'1 d }
 oboeMusic = \relative c { \key c \major c'1 d }
 clarinetMusic = \relative c { \key c \major c'1 d }
 bassoonMusic = \relative c { \clef bass \key c \major c1 d }
 trumpetMusic = \relative c { \key c \major c''1 d }
 tromboneMusic = \relative c { \key c \major c1 d }
-hornIMusic = \relative c { \key c \major c'1 d }
-hornIIMusic = \relative c { \key c \major c1 d }
+hornIMusic = \relative c { c'1 d }
+hornIIMusic = \relative c { c1 d }
 percussionMusic = \relative c { \key c \major c1 d }
-sopranoMusic  = \relative c'' {\key c \major c1 d }
+sopranoMusic = \relative c'' { \key c \major c1 d }
 sopranoLyrics = \lyricmode { Sop -- ra }
-altoIMusic  = \relative c' { \key c \major c1 d }
+altoIMusic = \relative c' { \key c \major c1 d }
 altoILyrics = \lyricmode { A -- one }
-altoIIMusic  = \relative c' { \key c \major c1 d }
+altoIIMusic = \relative c' { \key c \major c1 d }
 altoIILyrics = \lyricmode { A -- two }
-tenorMusic    = \relative c' { \key c \major c1 d }
-tenorLyrics   = \lyricmode { Ten -- or }
+tenorMusic = \relative c' { \key c \major c1 d }
+tenorLyrics = \lyricmode { Ten -- or }
 pianoRHMusic = \relative c { \key c \major c'1 d }
 pianoLHMusic = \relative c { \key c \major c1 d }
 violinIMusic = \relative c { \key c \major c'1 d }
@@ -56,11 +48,11 @@ bassMusic = \relative c { \clef "bass_8" \key c \major c,1 d }
   \new GrandStaff = "GrandStaff_score" <<
     \new StaffGroup = "StaffGroup_woodwinds" <<
       \new Staff = "Staff_flute" {
-        \set Staff.instrumentName = "Flute"
+        \set Staff.instrumentName = #"Flute"
         \fluteMusic
       }
       \new Staff = "Staff_oboe" {
-        \set Staff.instrumentName = "Oboe"
+        \set Staff.instrumentName = #"Oboe"
         \oboeMusic
       }
       \new Staff = "Staff_clarinet" {
@@ -69,40 +61,40 @@ bassMusic = \relative c { \clef "bass_8" \key c \major c,1 d }
         \transpose bes c' \clarinetMusic
       }
       \new Staff = "Staff_bassoon" {
-        \set Staff.instrumentName = "Bassoon"
+        \set Staff.instrumentName = #"Bassoon"
         \bassoonMusic
       }
     >>
     \new StaffGroup = "StaffGroup_brass" <<
       \new GrandStaff <<
         \new Staff = "Staff_hornI" {
-          \set Staff.instrumentName = "Horn I"
+          \set Staff.instrumentName = #"Horn I"
           \transposition f
           \transpose f c' \hornIMusic
         }
         \new Staff = "Staff_hornII" {
-          \set Staff.instrumentName = "Horn II"
+          \set Staff.instrumentName = #"Horn II"
           \clef bass
-          \transposition f
-          \transpose f c' \hornIIMusic
+          \transposition f'
+          \transpose f c \hornIIMusic
         }
       >>
       \new Staff = "Staff_trumpet" {
-        \set Staff.instrumentName = "Trumpet in C"
+        \set Staff.instrumentName = #"Trumpet in C"
         \trumpetMusic
       }
       \new Staff = "Staff_trombone" {
-        \set Staff.instrumentName = "Trombone"
+        \set Staff.instrumentName = #"Trombone"
         \clef bass
         \tromboneMusic
       }
     >>
     \new RhythmicStaff = "RhythmicStaff_percussion" <<
-      \set RhythmicStaff.instrumentName = "Percussion"
+      \set RhythmicStaff.instrumentName = #"Percussion"
       \percussionMusic
     >>
-    \new PianoStaff \with { \consists Instrument_name_engraver } <<
-      \set PianoStaff.instrumentName = "Piano"
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = #"Piano"
       \new Staff { \pianoRHMusic }
       \new Staff {
         \clef bass
@@ -111,27 +103,27 @@ bassMusic = \relative c { \clef "bass_8" \key c \major c,1 d }
     >>
     \new ChoirStaff = "ChoirStaff_choir" <<
       \new Staff = "Staff_soprano" {
-        \set Staff.instrumentName = "Soprano"
+        \set Staff.instrumentName = #"Soprano"
         \new Voice = "soprano"
         \sopranoMusic
       }
       \new Lyrics \lyricsto "soprano" { \sopranoLyrics }
       \new GrandStaff = "GrandStaff_altos" \with { \accepts Lyrics } <<
         \new Staff = "Staff_altoI"  {
-          \set Staff.instrumentName = "Alto I"
+          \set Staff.instrumentName = #"Alto I"
           \new Voice = "altoI"
           \altoIMusic
         }
         \new Lyrics \lyricsto "altoI" { \altoILyrics }
         \new Staff = "Staff_altoII" {
-          \set Staff.instrumentName = "Alto II"
+          \set Staff.instrumentName = #"Alto II"
           \new Voice = "altoII"
           \altoIIMusic
         }
         \new Lyrics \lyricsto "altoII" { \altoIILyrics }
       >>
       \new Staff = "Staff_tenor" {
-        \set Staff.instrumentName = "Tenor"
+        \set Staff.instrumentName = #"Tenor"
         \clef "treble_8"
         \new Voice = "tenor"
         \tenorMusic
@@ -139,29 +131,28 @@ bassMusic = \relative c { \clef "bass_8" \key c \major c,1 d }
       \new Lyrics \lyricsto "tenor" { \tenorLyrics }
     >>
     \new StaffGroup = "StaffGroup_strings" <<
-      \new GrandStaff = "GrandStaff_horns" <<
+      \new GrandStaff = "GrandStaff_violins" <<
         \new Staff = "Staff_violinI" {
-          \set Staff.instrumentName = "Violin I"
+          \set Staff.instrumentName = #"Violin I"
           \violinIMusic
         }
         \new Staff = "Staff_violinII" {
-          \set Staff.instrumentName = "Violin II"
+          \set Staff.instrumentName = #"Violin II"
           \violinIIMusic
         }
       >>
       \new Staff = "Staff_viola" {
-        \set Staff.instrumentName = "Viola"
+        \set Staff.instrumentName = #"Viola"
         \violaMusic
       }
       \new Staff = "Staff_cello" {
-        \set Staff.instrumentName = "Cello"
+        \set Staff.instrumentName = #"Cello"
         \celloMusic
       }
       \new Staff = "Staff_bass" {
-        \set Staff.instrumentName = "Double Bass"
+        \set Staff.instrumentName = #"Double Bass"
         \bassMusic
       }
     >>
   >>
 }
-

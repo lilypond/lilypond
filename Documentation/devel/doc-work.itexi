@@ -57,6 +57,7 @@ limited documentation help.
 
 @menu
 * Texinfo introduction::        
+* Documentation files::         
 * Sectioning commands::         
 * LilyPond formatting::         
 * Text formatting::             
@@ -80,6 +81,26 @@ something, you can cut-and-paste that stuff into a new location.
 @warning{Rule of thumb: follow the examples in the existing docs.
 You can learn most of what you need to know from this; if you want
 to do anything fancy, discuss it on @code{lilypond-devel} first.}
+
+
+@node Documentation files
+@subsection Documentation files
+
+The user manuals lives in @file{Documentation/user/}.  In
+particular, the files @file{lilypond-learning.ly} (LM),
+@file{lilypond.itely} (NR), @file{music-glossary.tely} (MG), and
+@file{lilypond-program} (AU).  Each chapter is written in a
+separate file (ending in @file{.itely} for files containing
+lilypond code, and @file{.itexi} for files without lilypond code);
+see the @qq{main} file for each manual to determine the filename
+of the specific chapter you wish to modify.
+
+Developer manuals live in @file{Documentation/devel}.  Currently
+there is only one; @file{contrib-guide.texi}.
+
+Although snippets are part of documentation, they are not
+(directly) part of the manuals.  For information about how to
+modify them, see @ref{LSR work}.
 
 
 @node Sectioning commands
@@ -439,6 +460,13 @@ B ... @@end itemize - for bulleted lists.
 @@bs - Generates a backslash inside @@warning.
     Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}' 
     (texinfo would also allow \\, but this breaks with PDF output).
+
+@item
+@@ref@{@} - normal references (type the exact node name inside the
+@{@}).  @@ruser@{@} - link to the NR.  @@rlearning@{@} - link to
+the LM.  @@rglos@{@} - link to the MG.  @@rprogram@{@} - link to
+the AU.  @@rlsr@{@} - link to a Snippet section.  @@rinternals@{@}
+- link to the IR.
 
 @end itemize
 

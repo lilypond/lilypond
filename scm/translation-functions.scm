@@ -195,6 +195,29 @@
                      ))
                  string-frets)
        (vector->list desc)))
+    
+  (define (get-predefined-fretboard predefined-fret-table tuning pitches)
+;   (_i "Search through @var{predefined-fret-table} looking for a predefined
+;fretboard with a key of @var{(tuning . pitches)}.  The search will check
+;both up and down an octave in order to accomodate transposition of the
+;chords.")
+   (define (get-fretboard key)
+    (let ((hash-handle
+           (hash-get-handle predefined-fret-table key)))
+     (if hash-handle
+         (cdr hash-handle)  ; return table entry
+         '())))
+
+   (let ((test-fretboard (get-fretboard (cons tuning pitches))))
+    (if (not (null? test-fretboard))
+        test-fretboard
+        (let ((test-fretboard 
+               (get-fretboard
+                (cons tuning (map (lambda (x) (shift-octave x 1)) pitches)))))
+         (if (not (null? test-fretboard))
+             test-fretboard
+             (get-fretboard 
+              (cons tuning (map (lambda (x) (shift-octave x -1)) pitches))))))))
 
 ;; body.
   (let*
@@ -219,14 +242,15 @@
               (acons 'string-count (length tunings) details)))
     (set! (ly:grob-property grob 'dot-placement-list)
         (if predefined-frets
-            (let ((hash-handle 
-                    (hash-get-handle
+            (let ((predefined-fretboard 
+                    (get-predefined-fretboard
                       predefined-frets
-                      (cons tunings pitches))))
-              (if hash-handle 
-                  (cdr hash-handle)  ;found default diagram
+                      tunings
+                      pitches)))
+              (if (null? predefined-fretboard)
                   (string-frets->dot-placement 
-                        string-frets my-string-count)))
+                        string-frets my-string-count)  ;no predefined diagram
+                  predefined-fretboard)) ;found default diagram
             (string-frets->dot-placement string-frets my-string-count)))))
 
 (define-public (determine-frets-mf notes string-numbers

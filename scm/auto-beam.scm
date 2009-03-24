@@ -80,8 +80,6 @@
     ;;  use beatLength for all except 32nd notes:
     ;;  end beams with 32nd notes each 1 8 beat
 
-    ((end 1 8 4 4) . ,(ly:make-moment 1 2))
-
     ((end 1 32 4 4) . ,(ly:make-moment 1 8))
     ((end 1 32 4 4) . ,(ly:make-moment 2 8))
     ((end 1 32 4 4) . ,(ly:make-moment 3 8))
