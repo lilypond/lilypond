@@ -19,18 +19,25 @@ Now to take it for the first test run.
 
         test.PDF
 
+  5. If you see a piece of music with a scale, LilyPond is working properly.
 
-That's it.
+Next, you'll want to get started on your own scores.  To do this you'll 
+  need to learn about using LilyPond.
 
-LilyPond's interface is text-based. Please read the documentation.
+LilyPond's interface is text-based, rather than graphical. Please visit the
+  help page at http://lilypond.org/web/help.  This will point you to a quick
+  tutorial and extensive documentation.
 
-For more information, visit http://lilypond.org .
+Good luck with LilyPond!  Happy engraving.
+
 %}
 
 \version "2.12.0"  % necessary for upgrading to future LilyPond versions.
 
 \header{
   title = "A scale in LilyPond"
+  subtitle = "For more information on using LilyPond, please see
+http://lilypond.org/web/help/"
 }
 
 \relative c' {
