@@ -42,9 +42,14 @@ SCM
 Hairpin::pure_height (SCM smob, SCM, SCM)
 {
   Grob *me = unsmob_grob (smob);
-  Real height = robust_scm2double (me->get_property ("height"), 0.0);
+  Real height = robust_scm2double (me->get_property ("height"), 0.0)
+    * Staff_symbol_referencer::staff_space (me);
 
-  return ly_interval2scm (Interval (-height/2, height/2));
+  Real thickness = robust_scm2double (me->get_property ("thickness"), 1)
+    * Staff_symbol_referencer::line_thickness (me);
+
+  height += thickness / 2;
+  return ly_interval2scm (Interval (-height, height));
 }
 
 void
