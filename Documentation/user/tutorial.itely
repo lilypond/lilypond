@@ -1422,11 +1422,12 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 
 Polyphonic music in lilypond, while not difficult, uses concepts
 that we haven't discussed yet, so we're not going to introduce
-them. Instead, the following sections introduce these concepts
+them here. Instead, the following sections introduce these concepts
 and explain them thoroughly.
 
 @seealso
-Learning Manual: @ruser{Voices contain music}.
+Learning Manual: @ref{Voices contain music}.
+
 Notation Reference: @ruser{Simultaneous notes}.
 
 @node Songs
