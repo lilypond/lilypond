@@ -1,5 +1,5 @@
 /*
-  collision.cc -- implement Collision
+  note-collision.cc -- implement Note_collision
 
   source file of the GNU LilyPond music typesetter
 
@@ -30,7 +30,7 @@ check_meshing_chords (Grob *me,
 		      Drul_array<vector<Grob*> > const &clash_groups)
 
 {
-  if (!extents[UP].size () || ! extents[DOWN].size ())
+  if (!extents[UP].size () || !extents[DOWN].size ())
     return;
 
   Grob *clash_up = clash_groups[UP][0];
@@ -49,7 +49,7 @@ check_meshing_chords (Grob *me,
   vector<int> ups = Stem::note_head_positions (Note_column::get_stem (clash_up));
   vector<int> dps = Stem::note_head_positions (Note_column::get_stem (clash_down));
 
-  /* Too far apart to collide.  */
+  /* Too far apart to collide. */
   if (ups[0] > dps.back () + 1)
     return;
 
@@ -65,7 +65,7 @@ check_meshing_chords (Grob *me,
   int up_ball_type = Rhythmic_head::duration_log (head_up);
   int down_ball_type = Rhythmic_head::duration_log (head_down);
 
-  /* Do not merge whole notes (or longer, like breve, longa, maxima).  */
+  /* Do not merge whole notes (or longer, like breve, longa, maxima). */
   if (merge_possible && (up_ball_type <= 0 || down_ball_type <= 0))
     merge_possible = false;
 
@@ -74,8 +74,7 @@ check_meshing_chords (Grob *me,
       && !to_boolean (me->get_property ("merge-differently-dotted")))
     merge_possible = false;
 
-  /* Can only merge different heads if merge-differently-headed is
-     set. */
+  /* Can only merge different heads if merge-differently-headed is set. */
   if (merge_possible
       && up_ball_type != down_ball_type
       && !to_boolean (me->get_property ("merge-differently-headed")))
@@ -154,10 +153,6 @@ check_meshing_chords (Grob *me,
   full_collide = full_collide || (close_half_collide
 				  && distant_half_collide);
 
-  Drul_array<Real> center_note_shifts;
-  center_note_shifts[LEFT] = 0.0;
-  center_note_shifts[RIGHT] = 0.0;
-
   Real shift_amount = 1;
 
   bool touch = (ups[0] >= dps.back ());
@@ -172,7 +167,7 @@ check_meshing_chords (Grob *me,
     shift_amount *= -1;
 
   /* For full collisions, the right hand head may obscure dots, so
-     make sure the dotted heads go to the right.  */
+     make sure the dotted heads go to the right. */
   bool stem_to_stem = false;
   if (full_collide)
     {
@@ -183,7 +178,7 @@ check_meshing_chords (Grob *me,
     }
 
   /* The solfa is a triangle, which is inverted depending on stem
-     direction. In case of a collision, one of them should be removed,
+     direction.  In case of a collision, one of them should be removed,
      so the resulting note does not look like a block.
   */
   if (merge_possible
@@ -200,7 +195,7 @@ check_meshing_chords (Grob *me,
     {
       shift_amount = 0;
 
-      /* If possible, don't wipe any heads. Else, wipe shortest head,
+      /* If possible, don't wipe any heads.  Else, wipe shortest head,
 	 or head with smallest amount of dots.  Note: when merging
 	 different heads, dots on the smaller one disappear. */
       Grob *wipe_ball = 0;
@@ -230,6 +225,15 @@ check_meshing_chords (Grob *me,
 	{
 	  wipe_ball = head_up;
 	  dot_wipe_head = head_up;
+	  /*
+	    If upper head is eighth note or shorter, and lower head is half note,
+	    shift by the difference between the open and filled note head widths,
+	    otherwise upper stem will be misaligned slightly.
+	  */ 
+	  if (Stem::duration_log (stems[DOWN]) == 1
+	      && Stem::duration_log (stems[UP]) >= 3)
+	    shift_amount = (1 - head_up->extent (head_up, X_AXIS).length () /
+			    head_down->extent (head_down, X_AXIS).length ()) * 0.5;
 	}
 
       if (dot_wipe_head)
@@ -239,12 +243,10 @@ check_meshing_chords (Grob *me,
 	}
 
       if (wipe_ball && wipe_ball->is_live ())
-	{
-	  wipe_ball->set_property ("transparent", SCM_BOOL_T);
-	}
+	wipe_ball->set_property ("transparent", SCM_BOOL_T);
     }
   /* TODO: these numbers are magic; should devise a set of grob props
-     to tune this behavior.  */
+     to tune this behavior. */
   else if (stem_to_stem)
     shift_amount = -abs (shift_amount) * 0.65;
   else if (close_half_collide && !touch)
@@ -254,7 +256,7 @@ check_meshing_chords (Grob *me,
   else if (distant_half_collide || close_half_collide || full_collide)
     shift_amount *= 0.5;
 
-  /* we're meshing.  */
+  /* we're meshing. */
   else if (Rhythmic_head::dot_count (head_up) || Rhythmic_head::dot_count (head_down))
     shift_amount *= 0.1;
   else
@@ -295,9 +297,7 @@ check_meshing_chords (Grob *me,
 	    TODO: consider junking the else body.
 	  */
 	  if (to_boolean (me->get_property ("prefer-dotted-right")))
-	    {
-	      shift_amount = 0.5;
-	    }
+	    shift_amount = 0.5;
 	  else
 	    {
 	      Grob *d = unsmob_grob (head_up->get_object ("dot"));
@@ -309,7 +309,7 @@ check_meshing_chords (Grob *me,
     }
 
   /* For full or close half collisions, the right hand head may
-     obscure dots.  Move dots to the right.  */
+     obscure dots.  Move dots to the right. */
   if (abs (shift_amount) > 1e-6
       && Rhythmic_head::dot_count (head_down) > Rhythmic_head::dot_count (head_up)
       && (full_collide || close_half_collide))
@@ -363,7 +363,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
 	{
 	  /*
 	    Trigger positioning
-	   */
+	  */
 	  clash_groups[d][i]->extent (me, X_AXIS);
 	}
     }
@@ -432,9 +432,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
       if (Note_column::has_interface (se))
 	{
 	  if (!Note_column::dir (se))
-	    {
-	      se->programming_error ("note-column has no direction");
-	    }
+	    se->programming_error ("note-column has no direction");
 	  else
 	    clash_groups[Note_column::dir (se)].push_back (se);
 	}
@@ -451,9 +449,9 @@ Note_collision_interface::get_clash_groups (Grob *me)
   return clash_groups;
 }
 
-/** This complicated routine moves note columns around horizontally to
-    ensure that notes don't clash.
-
+/*
+  This complicated routine moves note columns around horizontally to
+  ensure that notes don't clash.
 */
 SCM
 Note_collision_interface::automatic_shift (Grob *me,
@@ -532,7 +530,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 
   /*
     see input/regression/dot-up-voice-collision.ly
-   */
+  */
   for (vsize i = 0; i < clash_groups[UP].size (); i++)
     {
       Grob *g = clash_groups[UP][i];
@@ -576,10 +574,8 @@ Note_collision_interface::forced_shift (Grob *me)
 
       SCM force = se->get_property ("force-hshift");
       if (scm_is_number (force))
-	{
-	  tups = scm_cons (scm_cons (se->self_scm (), force),
-			   tups);
-	}
+	tups = scm_cons (scm_cons (se->self_scm (), force),
+			 tups);
     }
   return tups;
 }
