@@ -44,7 +44,7 @@ variety of formats.
 @subsection GNU Make
 
 GNU Make is used to control the compiling process and to build the
-documentation and the website.  GNU Make documentation is avaialble at
+documentation and the website.  GNU Make documentation is available at
 @uref{http://www.gnu.org/software/make/manual/, the GNU website}.
 
 @subsection GUILE or Scheme
