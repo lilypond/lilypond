@@ -29,55 +29,55 @@ manual or a tutorial.  Programmers unfamiliar with C++ will need to spend some
 time to learn the language before attempting to modify the C++ code.
 
 The C++ code calls Scheme/GUILE through the GUILE interface, which is
-documented in the <a
-href=http://www.gnu.org/software/guile/manual/html_node/index.html> GUILE
-Reference Manual</a>.
+documented in the
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
+  Reference Manual}.
 
 @subsection GNU Bison
 
 The LilyPond parser is implemented in Bison, a GNU parser generator.  The
-Bison homepage is found at <a href=http://www.gnu.org/software/bison/>
-gnu.org</a>.  The manual (which includes both a reference and tutorial) is <a
-href=http://www.gnu.org/software/bison/manual/index.html> available </a> in a
+Bison homepage is found at @uref{http://www.gnu.org/software/bison/,
+gnu.org}.  The manual (which includes both a reference and tutorial) is
+@uref{http://www.gnu.org/software/bison/manual/index.html, available} in a
 variety of formats.
 
 @subsection GNU Make
 
 GNU Make is used to control the compiling process and to build the
 documentation and the website.  GNU Make documentation is avaialble at
-<a href=http://www.gnu.org/software/make/manual/> the GNU website</a>.
+@uref{http://www.gnu.org/software/make/manual/, the GNU website}.
 
 @subsection GUILE or Scheme
 
 GUILE is the dialect of Scheme that is used as LilyPond's extension language.  Many extensions to LilyPond are written entirely in GUILE.  The 
-<a href=http://www.gnu.org/software/guile/manual/html_node/index.html>
-GUILE Reference Manual</a> is available online.
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
+GUILE Reference Manual} is available online.
 
-<a href=http://mitpress.mit.edu/sicp/full-text/book/book.html> Structure and
-Interpretation of Computer Programs</a>, a popular textbook used to teach
+@uref{http://mitpress.mit.edu/sicp/full-text/book/book.html, Structure and
+Interpretation of Computer Programs}, a popular textbook used to teach
 programming in Scheme is available in its entirety online.
 
 @subsection MetaFont
 
 MetaFont is used to create the music fonts used by LilyPond.  A MetaFont
-tutorial is available at <a href=http://metafont.tutorial.free.fr/> the
-METAFONT tutorial page</a>.
+tutorial is available at @uref{http://metafont.tutorial.free.fr/, the
+METAFONT tutorial page}.
 
 @subsection PostScript
 
 PostScript is used to generate graphical output.  A brief PostScript tutorial
-is <a href=http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/>
-available online</a>.  The <a
-href=http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf> PostScript Lanugage
-Reference</a> is available online in PDF format.
+is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
+available online}.  The
+@uref{http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf, PostScript Lanugage
+Reference} is available online in PDF format.
 
 @subsection Python
 
 Python is used for XML2ly and is used for buillding the documentation and the
 website.
 
-Python documentation is available at <a href=http://www.python.org/doc/>
-python.org</a>.
+Python documentation is available at @uref{http://www.python.org/doc/,
+python.org}.
 
 @node Programming without compiling
 @section Programming without compiling
