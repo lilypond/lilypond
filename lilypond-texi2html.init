@@ -130,6 +130,7 @@ $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
 $Texi2HTML::Config::foot_line_and_ref  = \&makeinfo_like_foot_line_and_ref;
 $Texi2HTML::Config::foot_lines         = \&makeinfo_like_foot_lines;
 $Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
+$Texi2HTML::Config::init_out             = \&lilypond_init_out;
 
 
 
@@ -564,6 +565,26 @@ sub lilypond_external_href($$$)
 my $page_toc_depth = 2;
 my @default_toc = [];
 
+
+# Initialize the toc_depth to 1 if the command-line option -D=short_toc is given
+sub lilypond_init_toc_depth ()
+{
+  if (exists($main::value{'short_toc'}) and not exists($main::value{'bigpage'})) {
+    $page_toc_depth = 1;
+  }
+}
+# We can't use a command-handler, because texinfo variables are not yet 
+# available at that stage:
+# push @Texi2HTML::Config::command_handler_init, \&lilypond_init_toc_depth;
+
+# Initialize the toc_depth to 1 if the command-line option -D=short_toc is given
+sub lilypond_init_out()
+{
+  my $rval = t2h_default_init_out();
+  lilypond_init_toc_depth ();
+  return $rval;
+}
+
 # recursively generate the TOC entries for the element and its children (which
 # are only shown up to maxlevel. All ancestors of the current element are also
 # shown with their immediate children, irrespective of their level.
@@ -708,6 +729,9 @@ sub lilypond_print_element_header
 sub lilypond_toc_body($)
 {
     my $elements_list = shift;
+    # Workaround: Initialize the toc-depth here, because init_out is called
+    # only later in texi2html 1.83
+    lilypond_init_toc_depth ();
     # Generate a default TOC for pages without THIS_ELEMENT
     @default_toc = lilypond_generate_page_toc_body(@$elements_list[0]);
     return T2H_GPL_toc_body($elements_list);
