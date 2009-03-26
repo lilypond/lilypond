@@ -1217,20 +1217,25 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
-To enter a single character for which the Unicode escape sequence
+To enter a single character for which the Unicode code point
 is known but which is not available in the editor being used, use
 @code{\char ##xhhhh} within a @code{\markup} block, where
 @code{hhhh} is the hexadecimal code for the character required.
+Leading zeroes may be omitted, but it is usual to specify all
+four hexadecimal characters.  (Note that the UTF-8 encoding of the
+code point should @emph{not} be used after @code{\char}, as UTF-8
+contains extra bits used to indicate the number of octets.)
+
 For example, @code{\char ##x03BE} enters the Unicode U+03BE
 character, which has the Unicode name @qq{Greek Small Letter Xi}.
-Any Unicode hexadecimal code may be substituted, and if all special
+Any Unicode hexadecimal value may be substituted, and if all special
 characters are entered in this format it is not necessary to save
 the input file in UTF-8 format.  Of course, a font containing all
 such encoded characters must be installed and available to LilyPond.
 
-The following example shows UTF-8 coded characters being used in
-four places -- in a rehearsal mark, as articulation text, in lyrics
-and as stand-alone text below the score:
+The following example shows Unicode hexadecimal values being entered
+in four places -- in a rehearsal mark, as articulation text, in
+lyrics and as stand-alone text below the score:
 
 @lilypond[quote,verbatim]
 \score {
