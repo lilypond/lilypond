@@ -3,7 +3,7 @@
 @chapter Programming work
 
 @menu
-* Introduction to programming::  
+* LilyPond programming languages::
 * Programming without compiling::  
 * Finding functions::           
 * Code style::                  
@@ -12,11 +12,72 @@
 @end menu
 
 
-@node Introduction to programming
-@section Introduction to programming 
+@node LilyPond programming languages
+@section LilyPond programming languages
 
-FIXME -- decide what goes in here and put it here.  I'm not sure what
-should be here -- CDS
+Programming in LilyPond is done in a variety of programming languages.  Each
+language is used for a specific purpose or purposes.  This section describes
+the languages used and provides links to reference manuals and tutorials for
+the relevant language.
+
+@subsection C++
+
+The core functionality of LilyPond is implemented in C++.
+
+C++ is so ubiquitous that it is difficult to identify either a reference
+manual or a tutorial.  Programmers unfamiliar with C++ will need to spend some
+time to learn the language before attempting to modify the C++ code.
+
+The C++ code calls Scheme/GUILE through the GUILE interface, which is
+documented in the <a
+href=http://www.gnu.org/software/guile/manual/html_node/index.html> GUILE
+Reference Manual</a>.
+
+@subsection GNU Bison
+
+The LilyPond parser is implemented in Bison, a GNU parser generator.  The
+Bison homepage is found at <a href=http://www.gnu.org/software/bison/>
+gnu.org</a>.  The manual (which includes both a reference and tutorial) is <a
+href=http://www.gnu.org/software/bison/manual/index.html> available </a> in a
+variety of formats.
+
+@subsection GNU Make
+
+GNU Make is used to control the compiling process and to build the
+documentation and the website.  GNU Make documentation is avaialble at
+<a href=http://www.gnu.org/software/make/manual/> the GNU website</a>.
+
+@subsection GUILE or Scheme
+
+GUILE is the dialect of Scheme that is used as LilyPond's extension language.  Many extensions to LilyPond are written entirely in GUILE.  The 
+<a href=http://www.gnu.org/software/guile/manual/html_node/index.html>
+GUILE Reference Manual</a> is available online.
+
+<a href=http://mitpress.mit.edu/sicp/full-text/book/book.html> Structure and
+Interpretation of Computer Programs</a>, a popular textbook used to teach
+programming in Scheme is available in its entirety online.
+
+@subsection MetaFont
+
+MetaFont is used to create the music fonts used by LilyPond.  A MetaFont
+tutorial is available at <a href=http://metafont.tutorial.free.fr/> the
+METAFONT tutorial page</a>.
+
+@subsection PostScript
+
+PostScript is used to generate graphical output.  A brief PostScript tutorial
+is <a href=http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/>
+available online</a>.  The <a
+href=http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf> PostScript Lanugage
+Reference</a> is available online in PDF format.
+
+@subsection Python
+
+Python is used for XML2ly and is used for buillding the documentation and the
+website.
+
+Python documentation is available at <a href=http://www.python.org/doc/>
+python.org</a>.
 
 @node Programming without compiling
 @section Programming without compiling
