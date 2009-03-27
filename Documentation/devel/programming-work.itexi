@@ -3,14 +3,39 @@
 @chapter Programming work
 
 @menu
+* Overview of LilyPond architecture::
 * LilyPond programming languages::
 * Programming without compiling::  
 * Finding functions::           
 * Code style::                  
 * Debugging LilyPond::          
-* other stuff::                 
 @end menu
 
+@node Overview of LilyPond architecture::
+@section Overview of LilyPond architecture::
+
+TODO -- put in brief description along with link to Erik Sandberg's
+thesis.
+
+Key concepts:
+
+Parsing converts input file to scheme music expressions.
+
+Iterating converts scheme music expressions into a context tree.
+
+Translation converts the context tree into graphical and/or midi output.
+
+Music expressions provide relative timing for music events.
+
+Contexts provide an evaluation environment within which an engraver converts
+the music event to output.
+
+Question:  What is an engraver?  I think an engraver handles both iteration
+and translation, but I need to check on that.
+
+Sandberg says that "translator" and "engraver" are synonymous for his thesis;
+the distinction between them is not relevant for that document.  What is the
+difference?
 
 @node LilyPond programming languages
 @section LilyPond programming languages
@@ -619,9 +644,3 @@ guile> (quit)
 
 The compilation of the .ly file will then continue.
 
-@node other stuff
-@section other stuff
-
-Copied from an email from Carl.  Maybe already included.
-
-- brief overview of how lilypond processes a file.
