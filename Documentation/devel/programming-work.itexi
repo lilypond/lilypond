@@ -560,17 +560,68 @@ define ps
   end 
 @end example
 
+@subsection Using Guile interactively with LilyPond
 
+In order to experiment with Scheme programming in the LilyPond
+environment, it is convenient to have a Guile interpreter that
+has all the LilyPond modules loaded.  This requires the following
+steps.
 
+First, define a Scheme symbol for the active module
+in the .ly file:
 
+@example
+#(module-define! (resolve-module '(guile-user))
+    'lilypond-module (current-module))
+@end example
+
+Second, place a Scheme function in the .ly file that gives an interactive Guile
+prompt:
+
+@example
+#(top-repl)
+@end example
+
+When the .ly file is compiled, this causes the compilation to be interrupted
+and an interactive guile prompt to appear.  When the guile prompt appears,
+the LilyPond active module must be set as the current guile module:
+
+@example
+guile> (set-current-module lilypond-module)
+@end example
+
+Proper operation of these commands can be demonstrated by typing the name
+of a LilyPond public scheme function to see if it's properly defined:
+
+@example
+guile> fret-diagram-verbose-markup
+#<procedure fret-diagram-verbose-markup (layout props marking-list)>
+@end example
+
+If the LilyPond module has not been correctly loaded, an error
+message will be generated:
+
+@example
+guile> fret-diagram-verbose-markup
+ERROR: Unbound variable: fret-diagram-verbose-markup
+ABORT: (unbound-variable)
+@end example
+
+Once the module is properly loaded, any valid LilyPond Scheme expression
+can be entered at the interactive prompt.
+
+After the investigation is complete, the interactive guile interpreter
+can be exited:
+
+@example
+guile> (quit)
+@end example
+
+The compilation of the .ly file will then continue.
 
 @node other stuff
 @section other stuff
 
 Copied from an email from Carl.  Maybe already included.
-
-- how to use a debugger with lilypond.
-
-- how to get lilypond running and pause at a guile prompt
 
 - brief overview of how lilypond processes a file.
