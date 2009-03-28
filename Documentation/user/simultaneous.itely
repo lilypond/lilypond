@@ -572,11 +572,6 @@ Internals Reference:
 
 @knownissues
 
-When using @code{\mergeDifferentlyHeadedOn} with an upstem eighth
-or a shorter note, and a downstem half note, the eighth note stem
-gets a slightly wrong offset because of the different width of the
-half note head symbol.
-
 @ignore
 @c TODO investigate! Sometimes it works, sometimes not. --FV
 The requirements for successfully merging different note heads that
