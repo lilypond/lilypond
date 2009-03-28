@@ -11,8 +11,8 @@
 * Debugging LilyPond::          
 @end menu
 
-@node Overview of LilyPond architecture::
-@section Overview of LilyPond architecture::
+@node Overview of LilyPond architecture
+@section Overview of LilyPond architecture
 
 TODO -- put in brief description along with link to Erik Sandberg's
 thesis.
