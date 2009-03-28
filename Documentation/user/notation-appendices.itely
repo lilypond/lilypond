@@ -623,9 +623,8 @@ The following styles may be used for note heads.
 @cindex coda
 @cindex varcoda
 
-Here is a chart showing all scripts available,
 
-@lilypondfile[quote]{script-chart.ly}
+@lilypondfile[quote,texidoc]{script-chart.ly}
 
 
 @node Percussion notes

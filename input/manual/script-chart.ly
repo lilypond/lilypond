@@ -1,58 +1,62 @@
 \version "2.12.0"
 
-% this chart is used in the manual too.
-
 \header {
-    texidoc ="@cindex Feta scripts
-
-This chart shows all articulations, or scripts, that feta font contains.
-
+  texidoc ="@cindex Feta scripts
+This chart shows all articulations, or scripts, that the feta font contains.
 "
 }
 
 \score {
-    <<
-      \override Score.LyricText  #'font-family = #'typewriter
-      \override Score.LyricText  #'font-shape = #'upright
-      \context Staff  {
-	\set Score.timing = ##f
-	\set Score.barAlways = ##t
-        \override Score.SeparationItem #'padding = #2.5
-	\override Staff.BarLine  #'transparent = ##t
-        c''\accent             c''\marcato            c''\staccatissimo 	c''\espressivo
-        c''\staccato           c''\tenuto             c''\portato
-        c''\upbow              c''\downbow            c''\flageolet
-        c''\thumb              c''^\lheel             c''\rheel
-        c''^\ltoe              c''\rtoe               c''\open
-        c''\stopped            c''\snappizzicato      c''\turn               c''\reverseturn
-        c''\trill              c''\prall              c''\mordent
-        c''\prallprall         c''\prallmordent       c''\upprall
-        c''\downprall          c''\upmordent          c''\downmordent
-        c''\pralldown          c''\prallup            c''\lineprall
-        c''\signumcongruentiae c''\shortfermata       c''\fermata
-        c''\longfermata        c''\verylongfermata    c''\segno
-        c''\coda               c''\varcoda
-      }
-      \context Lyrics \lyricmode {
-        accent__                marcato__               staccatissimo__		espressivo__
-        staccato__              tenuto__                portato__
-        upbow__                 downbow__               flageolet__
-        thumb__                 lheel__                 rheel__
-        ltoe__                  rtoe__                  open__
-        stopped__               snappizzicato__                  turn__                  reverseturn__
-        trill__                 prall__                 mordent__
-        prallprall__            prallmordent__          upprall__
-        downprall__             upmordent__             downmordent__
-        pralldown__             prallup__               lineprall__
-        signumcongruentiae__    shortfermata__          fermata__
-        longfermata__           verylongfermata__       segno__
-        coda__                  varcoda__
-      }
-    >>
-    \layout {
-      line-width = 5.1\in
-      indent = 0.0\mm
+  <<
+    \new Voice = "scripts" {
+      c''\accent             c''\marcato         c''\staccatissimo c''\espressivo
+      c''\staccato           c''\tenuto          c''\portato
+      c''\upbow              c''\downbow         c''\flageolet
+      c''\thumb              c''^\lheel          c''\rheel
+      c''^\ltoe              c''\rtoe            c''\open
+      c''\stopped            c''\snappizzicato   c''\turn          c''\reverseturn
+      c''\trill              c''\prall           c''\mordent
+      c''\prallprall         c''\prallmordent    c''\upprall
+      c''\downprall          c''\upmordent       c''\downmordent
+      c''\pralldown          c''\prallup         c''\lineprall
+      c''\signumcongruentiae c''\shortfermata    c''\fermata
+      c''\longfermata        c''\verylongfermata c''\segno
+      c''\coda               c''\varcoda
+    }
+    \new Lyrics \lyricsto "scripts" {
+      accent             marcato         staccatissimo espressivo
+      staccato           tenuto          portato
+      upbow              downbow         flageolet
+      thumb              lheel           rheel
+      ltoe               rtoe            open
+      stopped            snappizzicato   turn          reverseturn
+      trill              prall           mordent
+      prallprall         prallmordent    upprall
+      downprall          upmordent       downmordent
+      pralldown          prallup         lineprall
+      signumcongruentiae shortfermata    fermata
+      longfermata        verylongfermata segno
+      coda               varcoda
+    }
+  >>
+  \layout {
+    line-width = 5.1\in
+    indent = 0.0\mm
+    \context {
+      \Score
+      timing = ##f
+      barAlways = ##t
+      \override NonMusicalPaperColumn #'padding = #2.5
+    }
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \override BarLine #'transparent = ##t
+    }
+    \context {
+      \Lyrics
+      \override LyricText #'font-family = #'typewriter
+      \override LyricText #'font-shape = #'upright
     }
   }
-
-
+}
