@@ -6,8 +6,7 @@ tipo, y el uso de @code{\\transpose} para los instrumentos
 transpositores.  Toda la música que está dentro de variables se
 almacena en Do.  La música se puede introducir en Do, o (de forma
 alternativa) escribirse en el tono del instrumento y transportada
-a Do (véase la trompeta, por ejemplo) antes de ser asignada a una
-variable.
+a Do antes de ser asignada a una variable.
 
 "
   doctitlees = "Plantilla de orquesta, coro y piano"

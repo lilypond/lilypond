@@ -880,17 +880,19 @@ mychords = \chordmode{
 @end lilypond
 
 Different fret diagrams for the same chord name can be stored using different
-octaves of pitches.
+octaves of pitches.  The different octave should be at least two octaves
+above or below the default octave, because the octaves above and  below the
+default octave are used for transposing fretboards.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c'}
+\storePredefinedDiagram \chordmode {c''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode{
-  c1 c'
+  c1 c''
 }
 
 <<
@@ -930,15 +932,15 @@ marking lists.
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram \chordmode {f'}
+\storePredefinedDiagram \chordmode {f''}
                         #guitar-tuning
                         #(chord-shape 'powerf guitar-tuning) 
-\storePredefinedDiagram \chordmode {g'}
+\storePredefinedDiagram \chordmode {g''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
 mychords = \chordmode{
-  f1 f' g g'
+  f1 f'' g g''
 }
 
 <<
@@ -966,7 +968,7 @@ predefined fret diagram, the interface properties belong to
 {defining-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{fretboard-chordchanges.ly}
+{chordchanges-for-fretboards.ly}
 
 @seealso
 Notation Reference:

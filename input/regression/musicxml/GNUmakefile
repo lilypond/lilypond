@@ -3,7 +3,7 @@ depth = ../../..
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc musicxml
 
-
+TEXI2HTML_FLAGS += --nomenu
 
 # Urgh, how can I do two replacements at once without messing up the order of the list?
 TMP = $(sort $(MUSICXML_FILES) $(MUSICMXL_FILES) $(TEXINFO_SOURCES) )

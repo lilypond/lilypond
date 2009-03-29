@@ -802,6 +802,7 @@
 	(bound-padding . 1.0)
 	(self-alignment-Y . ,CENTER)
 	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
+	(Y-extent . ,ly:hairpin::height)
 	(meta . ((class . Spanner)
 		 (interfaces . (hairpin-interface
 				line-interface
@@ -2299,9 +2300,11 @@
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
     (,ly:arpeggio::height . ,ly:arpeggio::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
+    (,ly:hairpin::height . ,ly:hairpin::pure-height)
     (,ly:stem::height . ,ly:stem::pure-height)
     (,ly:rest::height . ,ly:rest::pure-height)
     (,ly:grob::stencil-height . ,pure-stencil-height)
+    (,ly:self-alignment-interface::y-aligned-on-self . ,ly:self-alignment-interface::pure-y-aligned-on-self)
     (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)

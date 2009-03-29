@@ -3,20 +3,126 @@
 @chapter Programming work
 
 @menu
-* Introduction to programming::  
+* Overview of LilyPond architecture::
+* LilyPond programming languages::
 * Programming without compiling::  
 * Finding functions::           
 * Code style::                  
 * Debugging LilyPond::          
-* other stuff::                 
 @end menu
 
+@node Overview of LilyPond architecture
+@section Overview of LilyPond architecture
 
-@node Introduction to programming
-@section Introduction to programming 
+LilyPond processes the input file into graphical and musical output in a
+number of stages.  This process, along with the types of routines that
+accomplish the various stages of the process, is described in this section.  A
+more complete description of the LilyPond architecture and internal program
+execution is found in Erik Sandberg's
+@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf, master's
+thesis}.
 
-FIXME -- decide what goes in here and put it here.  I'm not sure what
-should be here -- CDS
+
+The first stage of LilyPond processing is @emph{parsing}.  In the parsing
+process, music expressions in LilyPond input format are converted to music
+expressions in Scheme format.  In Scheme format, a music expression is a list
+in tree form, with nodes that indicate the relationships between various music
+events.  The LilyPond parser is written in Bison.
+
+The second stage of LilyPond processing is @emph{iterating}.  Iterating
+assigns each music event to a context, which is the environment in which the
+music will be finally engraved.  The context is responsible for all further
+processing of the music.  It is during the iteration stage that contexts are
+created as necessary to ensure that every note has a Voice type context (e.g.
+Voice, TabVoice, DrumVoice, CueVoice, MensuralVoice, VaticanaVoice,
+GregorianTranscriptionVoice), that the Voice type contexts exist in
+appropriate Staff type contexts, and that parallel Staff type contexts exist
+in StaffGroup type contexts.  In addition, during the iteration stage each
+music event is assigned a moment, or a time in the music when the event
+begins.
+
+Each type of music event has an associated iterator.  Iterators are defined in
+*-iterator.cc. During iteration, an
+event's iterator is called to deliver that music event to the appropriate
+context(s).
+
+The final stage of LilyPond processing is @emph{translation}.  During
+translation, music events are prepared for graphical or midi output.  The
+translation step is accomplished by translators or engravers (the distinction
+is unclear).
+
+Translators are defined in C++ files named *-engraver.cc.  In *-engraver.cc, a
+C++ class of Engraver type is created.  The Engraver is also declared as a
+translator.  Much of the work of translating is handled by Scheme functions,
+which is one of the keys to LilyPond's exceptional flexibility.
+
+
+@node LilyPond programming languages
+@section LilyPond programming languages
+
+Programming in LilyPond is done in a variety of programming languages.  Each
+language is used for a specific purpose or purposes.  This section describes
+the languages used and provides links to reference manuals and tutorials for
+the relevant language.
+
+@subsection C++
+
+The core functionality of LilyPond is implemented in C++.
+
+C++ is so ubiquitous that it is difficult to identify either a reference
+manual or a tutorial.  Programmers unfamiliar with C++ will need to spend some
+time to learn the language before attempting to modify the C++ code.
+
+The C++ code calls Scheme/GUILE through the GUILE interface, which is
+documented in the
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
+  Reference Manual}.
+
+@subsection GNU Bison
+
+The LilyPond parser is implemented in Bison, a GNU parser generator.  The
+Bison homepage is found at @uref{http://www.gnu.org/software/bison/,
+gnu.org}.  The manual (which includes both a reference and tutorial) is
+@uref{http://www.gnu.org/software/bison/manual/index.html, available} in a
+variety of formats.
+
+@subsection GNU Make
+
+GNU Make is used to control the compiling process and to build the
+documentation and the website.  GNU Make documentation is available at
+@uref{http://www.gnu.org/software/make/manual/, the GNU website}.
+
+@subsection GUILE or Scheme
+
+GUILE is the dialect of Scheme that is used as LilyPond's extension language.  Many extensions to LilyPond are written entirely in GUILE.  The
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
+GUILE Reference Manual} is available online.
+
+@uref{http://mitpress.mit.edu/sicp/full-text/book/book.html, Structure and
+Interpretation of Computer Programs}, a popular textbook used to teach
+programming in Scheme is available in its entirety online.
+
+@subsection MetaFont
+
+MetaFont is used to create the music fonts used by LilyPond.  A MetaFont
+tutorial is available at @uref{http://metafont.tutorial.free.fr/, the
+METAFONT tutorial page}.
+
+@subsection PostScript
+
+PostScript is used to generate graphical output.  A brief PostScript tutorial
+is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
+available online}.  The
+@uref{http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf, PostScript Lanugage
+Reference} is available online in PDF format.
+
+@subsection Python
+
+Python is used for XML2ly and is used for buillding the documentation and the
+website.
+
+Python documentation is available at @uref{http://www.python.org/doc/,
+python.org}.
 
 @node Programming without compiling
 @section Programming without compiling
@@ -87,7 +193,7 @@ when looking for a function.
 Having identified a likely subdirectory to search, the grep utility can
 be used to search for a function name.  The format of the grep command is
 
-@example 
+@example
 grep -i functionName subdirectory/*
 @end example
 
@@ -99,7 +205,7 @@ our capitalization conventions.
 
 The most likely directories to grep for function names are scm/ for
 scheme files, ly/ for lilypond input (*.ly) files, and lily/ for C++
-files.  
+files.
 
 
 @subsection Using git grep to search
@@ -137,7 +243,7 @@ This will initiate a search of the remote git repository.
 
 
 @node Code style
-@section Code style 
+@section Code style
 @c email to wl@gnu.org when I get here.
 
 @menu
@@ -293,7 +399,7 @@ Messages to be localised must be encapsulated in `_ (STRING)' or
 warning (_ ("need music in a score"));
 error (_f ("cannot open file: `%s'", file_name));
 @end example
-    
+
 In some rare cases you may need to call `gettext ()' by hand. This
 happens when you pre-define (a list of) string constants for later
 use. In that case, you'll probably also need to mark these string
@@ -313,7 +419,7 @@ foo (int i)
   puts (gettext (messages i));
 @}
 @end example
-    
+
 See also `flower/getopt-long.cc' and `lily/main.cc'.
 
 @item
@@ -332,7 +438,7 @@ number never start with a capital, eg,
 @example
 foo.ly: 12: not a duration: 3
 @end example
-      
+
 Messages containing a final verb, or a gerund (`-ing'-form) always
 start with a capital. Other (simpler) messages start with a
 lowercase letter
@@ -342,34 +448,34 @@ Processing foo.ly...
 `foo': not declared.
 Not declaring: `foo'.
 @end example
-    
+
 @item
 Avoid abbreviations or short forms, use `cannot' and `do not'
 rather than `can't' or `don't'
 To avoid having a number of different messages for the same
-situation, we'll use quoting like this `"message: `%s'"' for all
+situation, well will use quoting like this `"message: `%s'"' for all
 strings. Numbers are not quoted:
 
 @example
 _f ("cannot open file: `%s'", name_str)
 _f ("cannot find character number: %d", i)
 @end example
-    
+
 @item
 Think about translation issues. In a lot of cases, it is better to
-translate a whole message. The english grammar mustn't be imposed
+translate a whole message. The english grammar must not be imposed
 on the translator. So, instead of
 
 @example
 stem at  + moment.str () +  does not fit in beam
 @end example
-    
+
 have
 
 @example
 _f ("stem at %s does not fit in beam", moment.str ())
 @end example
-    
+
 @item
 Split up multi-sentence messages, whenever possible. Instead of
 
@@ -377,7 +483,7 @@ Split up multi-sentence messages, whenever possible. Instead of
 warning (_f ("out of tune!  Can't find: `%s'", "Key_engraver"));
 warning (_f ("cannot find font `%s', loading default", font_name));
 @end example
-    
+
 rather say:
 
 @example
@@ -386,7 +492,7 @@ warning (_f ("cannot find: `%s', "Key_engraver"));
 warning (_f ("cannot find font: `%s', font_name));
 warning (_f ("Loading default font"));
 @end example
-    
+
 @item
 If you must have multiple-sentence messages, use full punctuation.
 Use two spaces after end of sentence punctuation. No punctuation
@@ -397,10 +503,10 @@ _f ("Non-matching braces in text `%s', adding braces", text)
 _ ("Debug output disabled.  Compiled with NPRINT.")
 _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
 @end example
-    
+
 @item
 Do not modularise too much; words frequently cannot be translated
-without context. It's probably safe to treat most occurences of
+without context. It is probably safe to treat most occurences of
 words like stem, beam, crescendo as separately translatable words.
 
 @item
@@ -417,10 +523,10 @@ kan niet openen: `foo.ly'*   (2)
 niet te openen: `foo.ly'*    (3)
 @end example
 
-    
+
 The first nl message, although grammatically and stylistically
 correct, is not friendly for parsing by humans (even if they speak
-dutch). I guess we'd prefer something like (2) or (3).
+dutch). I guess we would prefer something like (2) or (3).
 
 @item
 Do not run make po/po-update with GNU gettext < 0.10.35
@@ -440,7 +546,7 @@ gdb.  Use of gdb is described in this section.
 Using a debugger simplifies troubleshooting in at least two ways.
 
 First, breakpoints can be set to pause execution at any desired point.
-Then, when execution has paused, debugger commands can be issued to 
+Then, when execution has paused, debugger commands can be issued to
 explore the values of various variables or to execute functions.
 
 Second, the debugger allows the display of a stack trace, which shows
@@ -478,38 +584,83 @@ for all errors and defines functions for displaying scheme objects
 (ps), grobs (pgrob), and parsed music expressions (pmusic).
 
 @example
-file lily/out/lilypond 
-b scm_error 
-b programming_error 
-b Grob::programming_error 
+file lily/out/lilypond
+b scm_error
+b programming_error
+b Grob::programming_error
 
-define ps 
-   print ly_display_scm($arg0) 
-  end 
-  define pgrob 
-     print ly_display_scm($arg0->self_scm_) 
-     print ly_display_scm($arg0->mutable_property_alist_) 
-     print ly_display_scm($arg0->immutable_property_alist_) 
-     print ly_display_scm($arg0->object_alist_) 
-  end 
-  define pmusic 
-     print ly_display_scm($arg0->self_scm_) 
-     print ly_display_scm($arg0->mutable_property_alist_) 
-     print ly_display_scm($arg0->immutable_property_alist_) 
-  end 
+define ps
+   print ly_display_scm($arg0)
+  end
+  define pgrob
+     print ly_display_scm($arg0->self_scm_)
+     print ly_display_scm($arg0->mutable_property_alist_)
+     print ly_display_scm($arg0->immutable_property_alist_)
+     print ly_display_scm($arg0->object_alist_)
+  end
+  define pmusic
+     print ly_display_scm($arg0->self_scm_)
+     print ly_display_scm($arg0->mutable_property_alist_)
+     print ly_display_scm($arg0->immutable_property_alist_)
+  end
 @end example
 
+@subsection Using Guile interactively with LilyPond
 
+In order to experiment with Scheme programming in the LilyPond
+environment, it is convenient to have a Guile interpreter that
+has all the LilyPond modules loaded.  This requires the following
+steps.
 
+First, define a Scheme symbol for the active module
+in the .ly file:
 
+@example
+#(module-define! (resolve-module '(guile-user))
+    'lilypond-module (current-module))
+@end example
 
-@node other stuff
-@section other stuff
+Second, place a Scheme function in the .ly file that gives an interactive Guile
+prompt:
 
-Copied from an email from Carl.  Maybe already included.
+@example
+#(top-repl)
+@end example
 
-- how to use a debugger with lilypond.
+When the .ly file is compiled, this causes the compilation to be interrupted
+and an interactive guile prompt to appear.  When the guile prompt appears,
+the LilyPond active module must be set as the current guile module:
 
-- how to get lilypond running and pause at a guile prompt
+@example
+guile> (set-current-module lilypond-module)
+@end example
 
-- brief overview of how lilypond processes a file.
+Proper operation of these commands can be demonstrated by typing the name
+of a LilyPond public scheme function to see if it's properly defined:
+
+@example
+guile> fret-diagram-verbose-markup
+#<procedure fret-diagram-verbose-markup (layout props marking-list)>
+@end example
+
+If the LilyPond module has not been correctly loaded, an error
+message will be generated:
+
+@example
+guile> fret-diagram-verbose-markup
+ERROR: Unbound variable: fret-diagram-verbose-markup
+ABORT: (unbound-variable)
+@end example
+
+Once the module is properly loaded, any valid LilyPond Scheme expression
+can be entered at the interactive prompt.
+
+After the investigation is complete, the interactive guile interpreter
+can be exited:
+
+@example
+guile> (quit)
+@end example
+
+The compilation of the .ly file will then continue.
+

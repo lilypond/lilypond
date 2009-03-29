@@ -70,3 +70,34 @@ MIDI generation don'thave any test cases yet.
 
 @node Test cases
 @chapter Test cases
+
+@menu
+  * 01 ... Pitches
+  * 02 ... Rests
+  * 03 ... Rhythm
+  * 11 ... Time signatures
+  * 12 ... Clefs
+  * 13 ... Key signatures
+  * 21 ... Chorded notes
+  * 22 ... Note settings heads etc.
+  * 23 ... Triplets Tuplets
+  * 24 ... Grace notes
+  * 31 ... Dynamics and other single symbols
+  * 32 ... Notations and Articulations
+  * 33 ... Spanners
+  * 41 ... Multiple parts (staves)
+  * 42 ... Multiple voices per staff
+  * 43 ... One part on multiple staves
+  * 45 ... Repeats
+  * 46 ... Barlines Measures
+  * 51 ... Header information
+  * 52 ... Page layout
+  * 61 ... Lyrics
+  * 71 ... Guitar notation
+  * 72 ... Transposing instruments
+  * 73 ... Percussion
+  * 74 ... Figured bass
+  * 75 ... Other instrumental notation
+  * 90 ... Compressed MusicXML files
+  * 99 ... Compatibility with broken MusicXML
+@end menu
