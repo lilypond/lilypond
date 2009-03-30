@@ -1420,56 +1420,15 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @funindex \\
 @funindex >>
 
-When different melodic lines are combined on a single staff they
-are printed as polyphonic voices; each voice has its own stems,
-slurs and beams, and the top voice has the stems up, while the
-bottom voice has them down.
-
-Entering such parts is done by entering each voice as a sequence
-(with @w{@code{@{...@}}}) and combining these simultaneously,
-separating the voices with @code{\\}:
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  { a4 g2 f4~ f4 } \\
-  { r4 g4 f2 f4 }
->>
-@end lilypond
-
-For polyphonic music typesetting, spacer rests can also be
-convenient; these are rests that do not print.  They are useful
-for filling up voices that temporarily do not play.  Here is the
-same example with a spacer rest (@code{s}) instead of a normal
-rest (@code{r}),
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  { a4 g2 f4~ f4 } \\
-  { s4 g4 f2 f4 }
->>
-@end lilypond
-
-@noindent
-Again, these expressions can be nested arbitrarily.
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  \new Staff <<
-    { a4 g2 f4~ f4 } \\
-    { s4 g4 f2 f4 }
-  >>
-  \new Staff <<
-    \clef bass
-    { <c g>1 ~ <c g>4 } \\
-    { e,,4 d e2 ~ e4}
-  >>
->>
-@end lilypond
-
+Polyphonic music in lilypond, while not difficult, uses concepts
+that we haven't discussed yet, so we're not going to introduce
+them here. Instead, the following sections introduce these concepts
+and explain them thoroughly.
 
 @seealso
-Notation Reference: @ruser{Simultaneous notes}.
+Learning Manual: @ref{Voices contain music}.
 
+Notation Reference: @ruser{Simultaneous notes}.
 
 @node Songs
 @section Songs

@@ -461,6 +461,13 @@ B ... @@end itemize - for bulleted lists.
     Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}' 
     (texinfo would also allow \\, but this breaks with PDF output).
 
+@item
+@@ref@{@} - normal references (type the exact node name inside the
+@{@}).  @@ruser@{@} - link to the NR.  @@rlearning@{@} - link to
+the LM.  @@rglos@{@} - link to the MG.  @@rprogram@{@} - link to
+the AU.  @@rlsr@{@} - link to a Snippet section.  @@rinternals@{@}
+- link to the IR.
+
 @end itemize
 
 

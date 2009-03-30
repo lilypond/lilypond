@@ -33,6 +33,14 @@ struct Line_details {
 
   bool title_;
 
+  /* The page-breaker deals with forbidden page breaks by "compressing"
+     two Line_detailses into one. The following fields are used by the
+     page-breaker to keep track of this. If the number of fields needed
+     by the page-breaker grows, it might be a good idea to create a separate
+     class. */
+  int compressed_lines_count_;
+  int compressed_nontitle_lines_count_;
+
   Line_details ()
   {
     force_ = infinity_f;
@@ -47,6 +55,8 @@ struct Line_details {
     page_penalty_ = 0;
     turn_penalty_ = 0;
     title_ = false;
+    compressed_lines_count_ = 1;
+    compressed_nontitle_lines_count_ = 1;
   }
 
   Line_details (Prob *pb)
@@ -64,6 +74,8 @@ struct Line_details {
     page_penalty_ = robust_scm2double (pb->get_property ("page-break-penalty"), 0);
     turn_penalty_ = robust_scm2double (pb->get_property ("page-turn-penalty"), 0);
     title_ = to_boolean (pb->get_property ("is-title"));
+    compressed_lines_count_ = 1;
+    compressed_nontitle_lines_count_ = title_ ? 0 : 1;
   }
 };
 

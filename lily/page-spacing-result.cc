@@ -14,6 +14,7 @@ Page_spacing_result::Page_spacing_result ()
 {
   penalty_ = 0;
   demerits_ = infinity_f;
+  system_count_status_ = SYSTEM_COUNT_OK;
 }
 
 vsize

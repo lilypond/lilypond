@@ -98,6 +98,11 @@ Extender_engraver::stop_translation_timestep ()
 	    {
 	      Pointer_group_interface::add_grob (pending_extender_,
 						 ly_symbol2scm ("heads"), h);
+             if (!melisma_busy (voice))
+               {
+                 completize_extender (pending_extender_);
+                 pending_extender_ = 0;
+               }
 	    }
 	}
       else

@@ -13,6 +13,26 @@
 #include "constrained-breaking.hh"
 #include "page-spacing-result.hh"
 
+/* This is a penalty that we add whenever a page breaking solution
+   is not bad enough to completely discard, but bad enough that
+   it is worse than any "proper" solution. For example, if we didn't
+   manage to fit systems on the desired number of pages or if there was
+   too big for a page.
+
+   This constant is large enough that it dominates any reasonable penalty,
+   but small enough that nothing will overflow to infinity (so that we
+   can still distinguish bad spacings by the number of BAD_SPACING_PENALTYs
+   that they incur.
+
+   BAD_SPACING_PENALTY is for occasions where the spacing is bad.
+   TERRIBLE_SPACING_PENALTY is for when we are disregarding a user override
+   (for example, we are failing to satisfy min-systems-per-page). These user
+   overrides are more important than getting good spacing, so they get a
+   larger penalty.
+*/
+const Real BAD_SPACING_PENALTY = 1e6;
+const Real TERRIBLE_SPACING_PENALTY = 1e8;
+
 
 /* for page_count > 2, we use a dynamic algorithm similar to
    constrained-breaking -- we have a class that stores the intermediate
@@ -33,12 +53,14 @@ private:
       force_ = infinity_f;
       penalty_ = infinity_f;
       prev_ = VPOS;
+      system_count_status_ = SYSTEM_COUNT_OK;
     }
 
     Real demerits_;
     Real force_;
     Real penalty_;
     vsize prev_;
+    int system_count_status_;
   };
 
   Page_breaking const *breaker_;

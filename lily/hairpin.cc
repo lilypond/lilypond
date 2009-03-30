@@ -30,6 +30,28 @@ Hairpin::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+MAKE_SCHEME_CALLBACK (Hairpin, height, 1);
+SCM
+Hairpin::height (SCM smob)
+{
+  return Grob::stencil_height (smob);
+}
+
+MAKE_SCHEME_CALLBACK (Hairpin, pure_height, 3);
+SCM
+Hairpin::pure_height (SCM smob, SCM, SCM)
+{
+  Grob *me = unsmob_grob (smob);
+  Real height = robust_scm2double (me->get_property ("height"), 0.0)
+    * Staff_symbol_referencer::staff_space (me);
+
+  Real thickness = robust_scm2double (me->get_property ("thickness"), 1)
+    * Staff_symbol_referencer::line_thickness (me);
+
+  height += thickness / 2;
+  return ly_interval2scm (Interval (-height, height));
+}
+
 void
 Hairpin::consider_suicide (Spanner*me)
 {

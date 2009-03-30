@@ -470,6 +470,17 @@ never consider blank pages in the middle of a score.  Default:
 The value of the page number on the first page.  Default:
 @code{#1}.
 
+@item max-systems-per-page
+The maximum number of systems that will be placed on a page. This
+is currently supported only by the @code{ly:optimal-breaking} algorithm.
+Default: unset.
+
+@item min-systems-per-page
+The minimum number of systems that will be placed on a page. This
+may cause pages to be overfilled if it is made too large. This is
+currently supported only by the @code{ly:optimal-breaking} algorithm.
+Default: unset.
+
 @item page-breaking-between-system-padding
 @funindex page-breaking-between-system-padding
 
@@ -586,6 +597,13 @@ default,  for example
 @funindex system-count
 
 The number of systems to be used for a score.
+Default: unset.
+
+@item systems-per-page
+@funindex systems-per-page
+
+The number of systems that should be placed on each page.
+This is currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
 
 @end table

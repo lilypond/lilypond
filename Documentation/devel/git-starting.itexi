@@ -4,14 +4,14 @@
 
 To complete or present in another form the introduction to Git usage
 in this chapter, it may be a good idea to look for Git documentation
-at @uref{http://git-scm.com/documentation}, 
+at @uref{http://git-scm.com/documentation},
 
 @menu
-* Getting the source code::     
-* Updating the source code::    
-* Sharing your changes::        
-* Advanced git stuff::          
-* Git on Windows::              
+* Getting the source code::
+* Updating the source code::
+* Sharing your changes::
+* Advanced git stuff::
+* Git on Windows::
 @end menu
 
 
@@ -19,13 +19,13 @@ at @uref{http://git-scm.com/documentation},
 @section Getting the source code
 
 @menu
-* Git introduction::            
-* Main source code::            
-* Website source code::         
-* Documentation translations source code::  
-* Other branches::              
-* Other locations for git::     
-* Git user configuration::      
+* Git introduction::
+* Main source code::
+* Website source code::
+* Documentation translations source code::
+* Other branches::
+* Other locations for git::
+* Git user configuration::
 @end menu
 
 @node Git introduction
@@ -92,7 +92,7 @@ you wish to do so, you will need more familiarity with git.
 
 @item @code{gub}:
 This stores the Grand Unified Binary, our cross-platform building
-tool.  
+tool.
 @c TODO: merge the gub stuff with this CG.
 For more info, see @uref{http://lilypond.org/gub}.  The git
 location is:
@@ -145,9 +145,9 @@ git config --global user.email MYEMAIL@@EXAMPLE.NET
 @section Updating the source code
 
 @menu
-* Importance of updating::      
-* Update command::              
-* Resolving conflicts::         
+* Importance of updating::
+* Update command::
+* Resolving conflicts::
 @end menu
 
 
@@ -193,8 +193,8 @@ resolve conflicts} in @command{git merge} man page.
 @section Sharing your changes
 
 @menu
-* Producing a patch::           
-* Committing directly::         
+* Producing a patch::
+* Committing directly::
 @end menu
 
 
@@ -207,9 +207,17 @@ set up your name and email in @ref{Git user configuration}, and
 checked that the entire thing compiles, you may:
 
 @example
-git commit -a 
+git commit -a
 git format-patch origin
 @end example
+
+The commit should include a brief message describing the change.
+This consists of a one-line summary describing the change, and
+if necessary a blank line followed by several lines giving the
+details.
+
+If the change is to the documentation only the one-line summary
+should be prefixed with "Docs: ".
 
 If you added a file to the source code, you must add it to git
 with:
@@ -221,8 +229,10 @@ git add FILENAME
 @noindent
 (and possibly modify the @file{GNUmakefile})
 
-Send an email to @email{lilypond-devel@@gnu.org} with the diff as
-an attachment.
+These commands will produce one or more files named
+@file{0001-xyz}, @file{0002-abc}, etc. in the top directory of the
+git tree.  Send an email to @email{lilypond-devel@@gnu.org} with
+these files attached.
 
 
 @node Committing directly
@@ -274,11 +284,11 @@ Some Git commands are introduced first, then a workflow with several
 Git branches of LilyPond source code is presented.
 
 @menu
-* Introduction to Git concepts::  
-* Git commands for managing several branches::  
-* Working on LilyPond sources with several branches::  
-* Git log::                     
-* Applying git patches::        
+* Introduction to Git concepts::
+* Git commands for managing several branches::
+* Working on LilyPond sources with several branches::
+* Git log::
+* Applying git patches::
 @end menu
 
 

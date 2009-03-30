@@ -154,13 +154,13 @@ Page_spacer::solve (vsize page_count)
   if (extra_systems)
     {
       ret.systems_per_page_.back () += extra_systems;
-      ret.demerits_ += 200000;
+      ret.demerits_ += BAD_SPACING_PENALTY;
     }
   if (extra_pages)
     {
-      ret.force_.insert (ret.force_.end (), extra_pages, 200000);
+      ret.force_.insert (ret.force_.end (), extra_pages, BAD_SPACING_PENALTY);
       ret.systems_per_page_.insert (ret.systems_per_page_.end (), extra_pages, 0);
-      ret.demerits_ += 200000;
+      ret.demerits_ += BAD_SPACING_PENALTY;
     }
 
 
@@ -193,36 +193,49 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 		      breaker_->page_top_space ());
   Page_spacing_node &cur = state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);
+  int line_count = 0;
 
   for (vsize page_start = line+1; page_start > page && page_start--;)
     {
       Page_spacing_node const *prev = page > 0 ? &state_.at (page_start-1, page-1) : 0;
 
       space.prepend_system (lines_[page_start]);
-      if (page_start < line && (isinf (space.force_) || (space.force_ < 0 && ragged)))
+
+      // This 'if' statement is a little hard to parse. It won't consider this configuration
+      // if it is overfull unless the current configuration is the first one with this start
+      // point. We also make an exception (and consider this configuration) if the previous
+      // configuration we tried had fewer lines than min-systems-per-page.
+      if (!breaker_->too_few_lines (line_count)
+	  && page_start < line
+	  && (isinf (space.force_) || (space.force_ < 0 && ragged)))
 	break;
 
+      line_count += lines_[page_start].compressed_nontitle_lines_count_;
       if (page > 0 || page_start == 0)
 	{
 	  if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
 	    space.force_ = 0;
 
-	  /* we may have to deal with single lines that are taller than a page */
+	  Real demerits = space.force_ * space.force_;
+	  /* If a single line is taller than a page, we need to consider it as
+	     a possible solution (but we give it a very bad score). */
 	  if (isinf (space.force_) && page_start == line)
-	    space.force_ = -200000;
+	    demerits = BAD_SPACING_PENALTY;
+	  demerits += (prev ? prev->demerits_ : 0);
 
-	  Real dem = fabs (space.force_) + (prev ? prev->demerits_ : 0);
-	  Real penalty = 0;
+	  Real penalty = breaker_->line_count_penalty (line_count);
 	  if (page_start > 0)
-	    penalty = lines_[page_start-1].page_penalty_
+	    penalty += lines_[page_start-1].page_penalty_
 	      + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
 
-	  dem += penalty;
-	  if (dem < cur.demerits_ || page_start == line)
+	  demerits += penalty;
+	  if (demerits < cur.demerits_ || page_start == line)
 	    {
-	      cur.demerits_ = dem;
+	      cur.demerits_ = demerits;
 	      cur.force_ = space.force_;
 	      cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
+	      cur.system_count_status_ = breaker_->line_count_status (line_count)
+		| (prev ? prev->system_count_status_ : 0);
 	      cur.prev_ = page_start - 1;
 	    }
 	}

@@ -18,9 +18,9 @@
 #include "system.hh"
 
 static bool
-is_break (Grob *)
+is_break (Grob *g)
 {
-  return false;
+  return g->get_property ("page-break-permission") == ly_symbol2scm ("force");
 }
 
 Optimal_page_breaking::Optimal_page_breaking (Paper_book *pb)
@@ -32,15 +32,17 @@ Optimal_page_breaking::~Optimal_page_breaking ()
 {
 }
 
-SCM
-Optimal_page_breaking::solve ()
+// Solves the subproblem betwen the (END-1)th \pageBreak and the
+// ENDth \pageBreak.
+// Returns a vector of systems per page for the pages within this chunk.
+vector<vsize>
+Optimal_page_breaking::solve_chunk (vsize end)
 {
-  vsize end = last_break_position ();
-  vsize max_sys_count = max_system_count (0, end);
+  vsize max_sys_count = max_system_count (end-1, end);
   vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM forced_page_count = book_->paper_->c_variable ("page-count");
 
-  set_to_ideal_line_configuration (0, end);
+  set_to_ideal_line_configuration (end-1, end);
 
   Page_spacing_result best;
   vsize page_count = robust_scm2int (forced_page_count, 1);
@@ -51,12 +53,12 @@ Optimal_page_breaking::solve ()
   
   if (!scm_is_integer (forced_page_count))
     {
-      /* find out the ideal number of pages */
-      message (_ ("Finding the ideal number of pages..."));
-  
-      best = space_systems_on_best_pages (0, first_page_num);
-      page_count = best.systems_per_page_.size ();
+      if (systems_per_page () > 0)
+	best = space_systems_with_fixed_number_per_page (0, first_page_num);
+      else
+	best = space_systems_on_best_pages (0, first_page_num);
 
+      page_count = best.systems_per_page_.size ();
       ideal_sys_count = best.system_count ();
       min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
   
@@ -67,25 +69,25 @@ Optimal_page_breaking::solve ()
     }
   else
     {
-      /* todo: the following line will spit out programming errors if the
+      /* TODO: the following line will spit out programming errors if the
 	 ideal line spacing doesn't fit on PAGE_COUNT pages */
+      /* TODO: the interaction between systems_per_page and page_count needs to
+	 be considered. */
       best = space_systems_on_n_pages (0, page_count, first_page_num);
       min_sys_count = page_count;
     }
 
-  if (page_count == 1)
-    message (_ ("Fitting music on 1 page..."));
-  else if (scm_is_integer (forced_page_count))
-    message (_f ("Fitting music on %d pages...", (int)page_count));
+  if (page_count == 1 || scm_is_integer (forced_page_count))
+    progress_indication (_f ("[%d: %d pages]", (int) end, (int) page_count));
   else
-    message (_f ("Fitting music on %d or %d pages...", (int)page_count-1, (int)page_count));
+    progress_indication (_f ("[%d: %d or %d pages]", (int) end, (int) page_count-1, (int)page_count));
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
   for (vsize sys_count = ideal_sys_count; --sys_count >= min_sys_count;)
     {
       Page_spacing_result best_for_this_sys_count;
-      set_current_breakpoints (0, end, sys_count, Line_division (), bound);
+      set_current_breakpoints (end-1, end, sys_count, Line_division (), bound);
 
       for (vsize i = 0; i < current_configuration_count (); i++)
 	{
@@ -97,27 +99,34 @@ Optimal_page_breaking::solve ()
 	  else
 	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num);
 
-	  if (cur.demerits_ < best_for_this_sys_count.demerits_ || isinf (best_for_this_sys_count.demerits_))
+	  if (cur.demerits_ < best_for_this_sys_count.demerits_)
 	    {
 	      best_for_this_sys_count = cur;
 	      bound = current_configuration (i);
 	    }
 	}
 
-      if (best_for_this_sys_count.demerits_ < best.demerits_ || isinf (best.demerits_))
+      if (best_for_this_sys_count.demerits_ < best.demerits_)
 	{
 	  best = best_for_this_sys_count;
 	  best_division = bound;
 	}
 
-      /* if the pages are stretched on average, stop trying to reduce sys_count */
-      if (best_for_this_sys_count.page_count () < page_count
-	  && best_for_this_sys_count.average_force () > 0)
-	break;
-	
+      /* Check to see if we already have too few systems. There are two ways
+	 we check this: if we are trying one less than the ideal number of pages
+	 and the pages are stretched on average then we have too
+	 few systems. If the spacing is worse than BAD_SPACING_PENALTY, then we
+	 have too few systems. In either case, though, we need to continue reducing
+	 the number of systems if max-systems-per-page requires it. */
+      if (!(best.system_count_status_ & SYSTEM_COUNT_TOO_MANY))
+	{
+	  if (best_for_this_sys_count.page_count () < page_count
+	      && best_for_this_sys_count.average_force () > 0)
+	    break;
 
-      if (isinf (best_for_this_sys_count.demerits_))
-	break;
+	  if (best_for_this_sys_count.demerits_ >= BAD_SPACING_PENALTY)
+	    break;
+	}
     }
 
   /* try a larger number of systems than the ideal line breaking number. This
@@ -127,7 +136,7 @@ Optimal_page_breaking::solve ()
   for (vsize sys_count = ideal_sys_count+1; sys_count <= max_sys_count; sys_count++)
     {
       Real best_demerits_for_this_sys_count = infinity_f;
-      set_current_breakpoints (0, end, sys_count, bound);
+      set_current_breakpoints (end-1, end, sys_count, bound);
 
       for (vsize i = 0; i < current_configuration_count (); i++)
 	{
@@ -139,25 +148,41 @@ Optimal_page_breaking::solve ()
 	  else
 	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 
-	  if (cur.demerits_ < best.demerits_ || isinf (best.demerits_))
+	  if (cur.demerits_ < best.demerits_)
 	    {
 	      best = cur;
 	      best_division = current_configuration (i);
 	    }
 
-	  if (cur.demerits_ < best_demerits_for_this_sys_count || isinf (best_demerits_for_this_sys_count))
+	  if (cur.demerits_ < best_demerits_for_this_sys_count)
 	    {
 	      best_demerits_for_this_sys_count = cur.demerits_;
 	      bound = current_configuration (i);
 	    }
 	}
-      if (isinf (best_demerits_for_this_sys_count))
+      if (best_demerits_for_this_sys_count >= BAD_SPACING_PENALTY
+	&& !(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW))
 	break;
+    }
+  break_into_pieces (end-1, end, best_division);
+
+  return best.systems_per_page_;
+}
+
+SCM
+Optimal_page_breaking::solve ()
+{
+  vector<vsize> systems_per_page;
+
+  message (_f ("Solving %d page-breaking chunks...", last_break_position ()));
+  for (vsize end = 1; end <= last_break_position (); ++end)
+    {
+      vector<vsize> chunk_systems = solve_chunk (end);
+      systems_per_page.insert (systems_per_page.end (), chunk_systems.begin (), chunk_systems.end ());
     }
 
   message (_ ("Drawing systems..."));
-  break_into_pieces (0, end, best_division);
   SCM lines = systems ();
-  return make_pages (best.systems_per_page_, lines);
+  return make_pages (systems_per_page, lines);
 }
 

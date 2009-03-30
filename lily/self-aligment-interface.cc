@@ -16,18 +16,25 @@ MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
 SCM
 Self_alignment_interface::y_aligned_on_self (SCM element)
 {
-  return aligned_on_self (unsmob_grob (element), Y_AXIS);
+  return aligned_on_self (unsmob_grob (element), Y_AXIS, false, 0, 0);
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_aligned_on_self, 1);
 SCM
 Self_alignment_interface::x_aligned_on_self (SCM element)
 {
-  return aligned_on_self (unsmob_grob (element), X_AXIS);
+  return aligned_on_self (unsmob_grob (element), X_AXIS, false, 0, 0);
+}
+
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self, 3);
+SCM
+Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
+{
+  return aligned_on_self (unsmob_grob (smob), Y_AXIS, true, robust_scm2int (start, 0), robust_scm2int (end, INT_MAX));
 }
 
 SCM
-Self_alignment_interface::aligned_on_self (Grob *me, Axis a)
+Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
 {
   SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
     : ly_symbol2scm ("self-alignment-Y");
@@ -35,7 +42,7 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a)
   SCM align (me->internal_get_property (sym));
   if (scm_is_number (align))
     {
-      Interval ext (me->extent (me, a));
+      Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
       if (ext.is_empty ())
 	programming_error ("cannot align on self: empty element");
       else

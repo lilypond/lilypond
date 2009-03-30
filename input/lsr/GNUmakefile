@@ -18,6 +18,8 @@ endif
 
 include $(depth)/make/stepmake.make
 
+TEXI2HTML_FLAGS += -D short_toc
+
 IN_ITELY_FILES = $(call src-wildcard,*-intro.itely)
 GENERATED_ITELY_FILES = $(IN_ITELY_FILES:%-intro.itely=$(outdir)/%.itely)
 
