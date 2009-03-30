@@ -2573,6 +2573,12 @@ def conv (str):
     return re.sub ('ly:clone-parser',
                    'ly:parser-clone', str)
 
+@rule ((2, 11, 3), "no-spacing-rods -> extra-spacing-width")
+def conv (str):
+    str = re.sub (r"no-spacing-rods\s+=\s+##t", r"extra-spacing-width = #'(+inf.0 . -inf.0)", str)
+    str = re.sub (r"no-spacing-rods\s+=\s+##f", r"extra-spacing-width = #'(0 . 0)", str)
+    return str
+
 
 @rule ((2, 11, 5), _ ("deprecate cautionary-style. Use AccidentalCautionary properties"))
 def conv (str):

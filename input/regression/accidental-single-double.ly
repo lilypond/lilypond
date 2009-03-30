@@ -1,4 +1,3 @@
-
 \version "2.12.0"
 \header{
   texidoc="
@@ -8,9 +7,6 @@ natural sign.
 "
 }
 
-
-\layout { ragged-right = ##t }
-
 thenotes =  \relative cis' {
   \time 4/4
   gisis'4 gis geses ges |
@@ -18,10 +14,5 @@ thenotes =  \relative cis' {
 
 <<
   \context Staff \thenotes
-  \context NoteNames  {
-    \override NoteNames.NoteName   #'no-spacing-rods = ##f 
-    \thenotes
-  }
+  \context NoteNames \thenotes
 >>
-
-
