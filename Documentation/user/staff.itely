@@ -486,13 +486,6 @@ Internals Reference:
 @rinternals{staff-symbol-interface}.
 
 
-@knownissues
-
-When setting vertical staff line positions manually, bar lines are
-always centered on position 0, so the maximum distance between the
-outermost bar lines in either direction must be equal.
-
-
 @node Ossia staves
 @unnumberedsubsubsec Ossia staves
 
