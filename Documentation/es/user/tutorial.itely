@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 46458e0e0fafcb4dab3e8127110cef5984523e10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1520,55 +1520,15 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @funindex \\
 @funindex >>
 
-Cuando distintas líneas melódicas se combinan sobre un solo
-pentagrama, se imprimen como voces polifónicas; cada voz lleva sus
-propias plicas, ligaduras y barras de corchea, y la voz superior tiene
-las plicas hacia arriba mientras que la voz inferior las tiene hacia
-abajo.
-
-La introducción de estas partes se hace escribiendo cada voz en forma
-de secuencia (con @w{@code{@{...@}}}) y combinando éstas de forma
-simultánea, separando las voces con @code{\\}
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  { a4 g2 f4~ f4 } \\
-  { r4 g4 f2 f4 }
->>
-@end lilypond
-
-Para el tipografiado de música polifónica, puede ser conveniente la
-utilización de silencios separadores, o sea, silencios que no aparecen
-impresos.  Son muy útiles para rellenar voces que temporalmente no
-están cantando.  He aquí el mismo ejemplo con un silencio separador
-(@code{s}) en vez de un silencio normal (@code{r}):
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  { a4 g2 f4~ f4 } \\
-  { s4 g4 f2 f4 }
->>
-@end lilypond
-
-@noindent
-Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  \new Staff <<
-    { a4 g2 f4~ f4 } \\
-    { s4 g4 f2 f4 }
-  >>
-  \new Staff <<
-    \clef bass
-    { <c g>1 ~ <c g>4 } \\
-    { e,,4 d e2 ~ e4}
-  >>
->>
-@end lilypond
-
+La música polifónica en LilyPond, aunque no es difícil, utiliza
+conceptos que aún no hemos tratado, por lo que no vamos a presentarlos
+en este momento.  En su lugar, las secciones siguientes presentan
+estos conceptos y los explican en profundidad.
 
 @seealso
+Manual de aprendizaje:
+@ref{Voices contain music}.
+
 Referencia de la notación:
 @ruser{Simultaneous notes}.
 

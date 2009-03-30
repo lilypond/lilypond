@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3a8b7fa74c14101cb93d75e541f5afdb18f09239
+    Translation of GIT committish: 46458e0e0fafcb4dab3e8127110cef5984523e10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -636,9 +636,8 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @cindex varcoda
 @cindex órgano, indicaciones de pedal de
 
-He aquí un cuadro que muestra todas las articulaciones disponibles:
 
-@lilypondfile[quote]{script-chart.ly}
+@lilypondfile[quote,texidoc]{script-chart.ly}
 
 
 @node Percussion notes

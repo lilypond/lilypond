@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: c7d6848e128f461a4cec093f7a71a34b2dc314eb
+    Translation of GIT committish: 46458e0e0fafcb4dab3e8127110cef5984523e10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1265,20 +1265,30 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
-Para introducir un carácter aislado para el que se conoce la secuencia
-de escape de Unicode pero no está disponible en el editor que se está
-usando, use @code{\char ##xhhhh} dentro de un bloque @code{\markup},
-donde @code{hhhh} es el código hexadecimal del carácter en cuestión.
-Por ejemplo, @code{\char ##x03BE} inserta el carácter Unicode U+03BE,
-que tiene el nombre Unicode @qq{Letra griega Xi pequeña}.  Se puede
-sustituir cualquier código hexadecimal Unicode, y si todos los
-caracteres especiales se escriben en este formato no es necesario
-guardar el archivo de entrada en formato UTF-8.  Por supuesto, debe
-estar instalada y estar disponible para Lilypond una fuente
-tipográfica que contenga codificados todos estos caracteres.
+Para introducir un carácter aislado para el que se conoce el punto de
+código Unicode pero no está disponible en el editor que se está
+usando, use @code{\char ##xhhhh} o bien @code{\char #dddd} dentro de
+un bloque @code{\markup}, donde @code{hhhh} es el código hexadecimal
+del carácter en cuestión y @code{dddd} es su valor decimal
+correspondiente.  Pueden omitirse los ceros iniciales, pero es
+costumbre indicar los cuatro caracteres en la representación
+hexadecimal (observe que @emph{no} debe utilizarse la codificación
+UTF-8 del punto de código Unicode después de @code{\char}, pues la
+codificación UTF-8 contiene bits adicionales que indican el número de
+octetos.)
 
-El ejemplo siguiente muestra caracteres codificados en UTF-8 que se
-usan en cuatro lugares: en una llamada de ensayo, como texto de
+Por ejemplo, tanto @code{\char ##x03BE} como @code{\char #958}
+insertan el carácter Unicode U+03BE, que tiene el nombre Unicode
+@qq{Letra griega Xi pequeña}.
+
+Se puede escribir de esta forma cualquier punto de código Unicode, y
+si todos los caracteres especiales se escriben en este formato no es
+necesario guardar el archivo de entrada en formato UTF-8.  Por
+supuesto, debe estar instalada y estar disponible para Lilypond una
+fuente tipográfica que contenga codificados todos estos caracteres.
+
+El ejemplo siguiente muestra valores hexadecimales Unicode que se usan
+en cuatro lugares: en una llamada de ensayo, como texto de
 articulación, en la letra y como texto independiente bajo la
 partitura:
 

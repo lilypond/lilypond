@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7385b95b8a91525e82559355dddea4f1ff965f5c
+    Translation of GIT committish: 46458e0e0fafcb4dab3e8127110cef5984523e10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -582,12 +582,6 @@ Referencia de funcionamiento interno:
 
 
 @knownissues
-
-Cuando se emplea @code{\mergeDifferentlyHeadedOn} con una corchea (o
-una nota más corta) con la plica hacia arriba, y una blanca con la
-plica hacia abajo, la corchea recibe un desplazamiento ligeramente
-incorrecto a causa de la anchura diferente del símbolo de la cabeza de
-la blanca.
 
 @ignore
 @c TODO investigate! Sometimes it works, sometimes not. --FV

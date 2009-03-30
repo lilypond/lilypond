@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3a8b7fa74c14101cb93d75e541f5afdb18f09239
+    Translation of GIT committish: 46458e0e0fafcb4dab3e8127110cef5984523e10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -420,6 +420,17 @@ una partitura.  Predeterminado: @code{5}.
 
 Valor del número de la primera página.  Predeterminado: @code{#1}.
 
+@item max-systems-per-page
+Máximo número de sistemas que tendrán cabida en una página.  Está
+contemplado por el momento solamente por parte del algoritmo
+@code{ly:optimal-breaking}.  Predeterminado: no establecido.
+
+@item min-systems-per-page
+Mínimo número de sistemas que habrá en una página.  Puede hacer que
+las páginas se llenen en exceso si se establece a un valor grande.
+Por el momento solamente está contemplado por parte del algoritmo
+@code{ly:optimal-breaking}.  Predeterminado: no establecido.
+
 @item page-breaking-between-system-padding
 @funindex page-breaking-between-system-padding
 
@@ -546,6 +557,14 @@ valor predeterminado apropiado, por ejemplo
 
 Cantidad de sistemas que usar por parte de la partitura.
 Predeterminado: sin establecer.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Número de sistemas que se deben colocar en cada página.  Está
+contemplado solamente por parte del algoritmo
+@code{ly:optimal-breaking} por el momento.  Predeterminado: no
+establecido.
 
 @end table
 
