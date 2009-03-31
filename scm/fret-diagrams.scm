@@ -286,7 +286,8 @@ with magnification @var{mag} of the string @var{text}."
       in stencil coordinate system."
       (cond
         ((eq? orientation 'landscape)
-         (cons fret-coordinate string-coordinate))
+         (cons fret-coordinate
+               (- string-coordinate (1- string-count))))
         ((eq? orientation 'opposing-landscape)
          (cons (- fret-coordinate) (- string-coordinate)))
         (else
