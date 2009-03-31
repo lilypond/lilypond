@@ -246,20 +246,20 @@ with magnification @var{mag} of the string @var{text}."
            (if (eq? finger-code 'in-dot) 0.425 0.25)) ; bigger dots if labeled
          (default-dot-position
            (if (eq? finger-code 'in-dot)
-             (- 0.95 default-dot-radius)
-             0.6)) ; move up to make room for bigger dot if labeled
+               (- 0.95 default-dot-radius)
+               0.6)) ; move up to make room for bigger dot if labeled
          (dot-radius
            (assoc-get
              'dot-radius details default-dot-radius))  ; needed for draw-dots
-         ; and draw-barre
+                                                       ; and draw-barre
          (dot-position
            (assoc-get
-             'dot-position details default-dot-position)) ; needed for draw-dots
-         ; and draw-barre
+             'dot-position details default-dot-position)) ; needed for 
+                                                    ; draw-dots and draw-barre
          (th
            (* (ly:output-def-lookup layout 'line-thickness)
               (chain-assoc-get 'thickness props 0.5))) ; needed for draw-frets
-         ; and draw-strings
+                                                       ; and draw-strings
          (sth (* size th))
          (thickness-factor (assoc-get 'string-thickness-factor details 0))
          (alignment
