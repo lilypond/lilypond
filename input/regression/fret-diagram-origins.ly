@@ -30,9 +30,9 @@ of the topmost fret or string.
   }
 
   \new Voice {
-    c1 |
-    c1 |
-    c
+    c'1 |
+    c'1 |
+    c'
  }
 >>
 
