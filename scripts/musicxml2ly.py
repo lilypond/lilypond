@@ -1906,12 +1906,12 @@ class LilyPondVoiceBuilder:
     def current_duration (self):
         return self.end_moment - self.begin_moment
         
-    def add_music (self, music, duration):
+    def add_music (self, music, duration, relevant = True):
         assert isinstance (music, musicexp.Music)
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
 
-        self.has_relevant_elements = True
+        self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append (music)
         self.begin_moment = self.end_moment
         self.set_duration (duration)
@@ -1923,18 +1923,27 @@ class LilyPondVoiceBuilder:
             self.pending_dynamics = []
 
     # Insert some music command that does not affect the position in the measure
-    def add_command (self, command):
+    def add_command (self, command, relevant = True):
         assert isinstance (command, musicexp.Music)
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
-        self.has_relevant_elements = True
+        self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append (command)
-    def add_barline (self, barline):
-        # TODO: Implement merging of default barline and custom bar line
-        self.add_music (barline, Rational (0))
+    def add_barline (self, barline, relevant = False):
+        # Insert only if we don't have a barline already
+        # TODO: Implement proper merging of default barline and custom bar line
+        has_relevant = self.has_relevant_elements
+        if (not (self.elements) or 
+            not (isinstance (self.elements[-1], musicexp.BarLine)) or 
+            (self.pending_multibar > Rational (0))):
+            self.add_music (barline, Rational (0))
+        self.has_relevant_elements = has_relevant or relevant
     def add_partial (self, command):
         self.ignore_skips = True
+        # insert the partial, but restore relevant_elements (partial is not relevant)
+        relevant = self.has_relevant_elements
         self.add_command (command)
+        self.has_relevant_elements = relevant
 
     def add_dynamics (self, dynamic):
         # store the dynamic item(s) until we encounter the next note/rest:
@@ -1943,11 +1952,9 @@ class LilyPondVoiceBuilder:
     def add_bar_check (self, number):
         # re/store has_relevant_elements, so that a barline alone does not
         # trigger output for figured bass, chord names
-        has_relevant = self.has_relevant_elements
         b = musicexp.BarLine ()
         b.bar_number = number
         self.add_barline (b)
-        self.has_relevant_elements = has_relevant
 
     def jumpto (self, moment):
         current_end = self.end_moment + self.pending_multibar
@@ -1981,7 +1988,7 @@ class LilyPondVoiceBuilder:
 
             evc = musicexp.ChordEvent ()
             evc.elements.append (skip)
-            self.add_music (evc, diff)
+            self.add_music (evc, diff, False)
 
         if diff > Rational (0) and moment == 0:
             self.ignore_skips = False
@@ -2085,6 +2092,8 @@ def musicxml_voice_to_lily_voice (voice):
             a = musicxml_partial_to_lily (n.partial)
             if a:
                 voice_builder.add_partial (a)
+                figured_bass_builder.add_partial (a)
+                chordnames_builder.add_partial (a)
             continue
 
         is_chord = n.get_maybe_exist_named_child ('chord')
@@ -2092,8 +2101,12 @@ def musicxml_voice_to_lily_voice (voice):
         if not is_chord and not is_after_grace:
             try:
                 voice_builder.jumpto (n._when)
+                figured_bass_builder.jumpto (n._when)
+                chordnames_builder.jumpto (n._when)
             except NegativeSkip, neg:
                 voice_builder.correct_negative_skip (n._when)
+                figured_bass_builder.correct_negative_skip (n._when)
+                chordnames_builder.correct_negative_skip (n._when)
                 n.message (_ ("Negative skip found: from %s to %s, difference is %s") % (neg.here, neg.dest, neg.dest - neg.here))
 
         if isinstance (n, musicxml.Barline):
@@ -2101,8 +2114,12 @@ def musicxml_voice_to_lily_voice (voice):
             for a in barlines:
                 if isinstance (a, musicexp.BarLine):
                     voice_builder.add_barline (a)
+                    figured_bass_builder.add_barline (a, False)
+                    chordnames_builder.add_barline (a, False)
                 elif isinstance (a, RepeatMarker) or isinstance (a, EndingMarker):
                     voice_builder.add_command (a)
+                    figured_bass_builder.add_barline (a, False)
+                    chordnames_builder.add_barline (a, False)
             continue
 
         # Continue any multimeasure-rests before trying to add bar checks!
@@ -2431,7 +2448,7 @@ def musicxml_voice_to_lily_voice (voice):
     # create \figuremode { figured bass elements }
     if figured_bass_builder.has_relevant_elements:
         fbass_music = musicexp.SequentialMusic ()
-        fbass_music.elements = figured_bass_builder.elements
+        fbass_music.elements = group_repeats (figured_bass_builder.elements)
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'figuremode'
         v.element = fbass_music
@@ -2440,7 +2457,7 @@ def musicxml_voice_to_lily_voice (voice):
     # create \chordmode { chords }
     if chordnames_builder.has_relevant_elements:
         cname_music = musicexp.SequentialMusic ()
-        cname_music.elements = chordnames_builder.elements
+        cname_music.elements = group_repeats (chordnames_builder.elements)
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'chordmode'
         v.element = cname_music
