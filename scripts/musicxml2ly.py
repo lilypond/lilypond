@@ -1619,6 +1619,7 @@ chordkind_dict = {
     'diminished': 'dim5',
         # Sevenths:
     'dominant': '7',
+    'dominant-seventh': '7',
     'major-seventh': 'maj7',
     'minor-seventh': 'm7',
     'diminished-seventh': 'dim7',
