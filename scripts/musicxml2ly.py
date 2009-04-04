@@ -273,15 +273,15 @@ def extract_score_information (tree):
         if value:
             header.set_field (field, musicxml.escape_ly_output_string (value))
 
+    movement_title = tree.get_maybe_exist_named_child ('movement-title')
+    if movement_title:
+        set_if_exists ('title', movement_title.get_text ())
     work = tree.get_maybe_exist_named_child ('work')
     if work:
+        # Overwrite the title from movement-title with work->title
         set_if_exists ('title', work.get_work_title ())
         set_if_exists ('worknumber', work.get_work_number ())
         set_if_exists ('opus', work.get_opus ())
-    else:
-        movement_title = tree.get_maybe_exist_named_child ('movement-title')
-        if movement_title:
-            set_if_exists ('title', movement_title.get_text ())
     
     identifications = tree.get_named_children ('identification')
     for ids in identifications:
