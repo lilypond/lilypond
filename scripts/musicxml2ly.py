@@ -930,6 +930,30 @@ def musicxml_attributes_to_lily (attrs):
                 elts.append (ev)
     
     return elts
+    
+def musicxml_print_to_lily (el):
+    # TODO: Implement other print attributes
+    #  <!ELEMENT print (page-layout?, system-layout?, staff-layout*,
+    #          measure-layout?, measure-numbering?, part-name-display?, 
+    #          part-abbreviation-display?)>
+    #  <!ATTLIST print
+    #      staff-spacing %tenths; #IMPLIED
+    #      new-system %yes-no; #IMPLIED
+    #      new-page %yes-no-number; #IMPLIED
+    #      blank-page NMTOKEN #IMPLIED
+    #      page-number CDATA #IMPLIED 
+    #  >
+    elts = []
+    if (hasattr (el, "new-system")):
+        val = getattr (el, "new-system")
+        if (val == "yes"):
+            elts.append (musicexp.Break ("break"))
+    if (hasattr (el, "new-page")):
+        val = getattr (el, "new-page")
+        if (val == "yes"):
+            elts.append (musicexp.Break ("pageBreak"))
+    return elts
+
 
 class Marker (musicexp.Music):
     def __init__ (self):
@@ -2124,6 +2148,12 @@ def musicxml_voice_to_lily_voice (voice):
                     voice_builder.add_command (a)
                     figured_bass_builder.add_barline (a, False)
                     chordnames_builder.add_barline (a, False)
+            continue
+
+
+        if isinstance (n, musicxml.Print):
+            for a in musicxml_print_to_lily (n):
+                voice_builder.add_command (a, False)
             continue
 
         # Continue any multimeasure-rests before trying to add bar checks!

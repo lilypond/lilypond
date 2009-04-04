@@ -1707,6 +1707,14 @@ class MultiMeasureRest(Music):
         return 'R%s' % self.duration.ly_expression ()
 
 
+class Break (Music):
+    def __init__ (self, tp="break"):
+        Music.__init__ (self)
+        self.type = tp
+    def print_ly (self, printer):
+        if self.type:
+            printer.dump ("\\%s" % self.type)
+
 class StaffGroup:
     def __init__ (self, command = "StaffGroup"):
         self.stafftype = command

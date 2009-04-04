@@ -828,7 +828,7 @@ class Part (Music_xml_node):
 	    if not (isinstance (n, Note) or isinstance (n, Attributes) or
                     isinstance (n, Direction) or isinstance (n, Partial) or
                     isinstance (n, Barline) or isinstance (n, Harmony) or
-                    isinstance (n, FiguredBass) ):
+                    isinstance (n, FiguredBass) or isinstance (n, Print)):
 		continue
 
 	    if isinstance (n, Attributes) and not start_attr:
@@ -844,7 +844,7 @@ class Part (Music_xml_node):
                             voices[v].add_element (staff_attributes)
                 continue
 
-            if isinstance (n, Partial) or isinstance (n, Barline):
+            if isinstance (n, Partial) or isinstance (n, Barline) or isinstance (n, Print):
                 for v in voices.keys ():
                     voices[v].add_element (n)
                 continue
@@ -1147,6 +1147,9 @@ class BeatUnitDot (Music_xml_node):
 class PerMinute (Music_xml_node):
     pass
 
+class Print (Music_xml_node):
+    pass
+
 
 
 ## need this, not all classes are instantiated
@@ -1197,6 +1200,7 @@ class_dict = {
         'pedal': Pedal,
         'per-minute': PerMinute,
 	'pitch': Pitch,
+        'print': Print,
 	'rest': Rest,
         'root': Root,
         'score-part': Score_part,
