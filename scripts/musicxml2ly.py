@@ -307,18 +307,22 @@ def extract_score_information (tree):
 
         # Case 1: "Sibelius 5.1" with the "Dolet 3.4 for Sibelius" plugin
         #         is missing all beam ends => ignore all beaming information
-        if "Dolet 3.4 for Sibelius" in software:
-            conversion_settings.ignore_beaming = True
-            progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
-        # ditto for Dolet 3.5
-        if "Dolet 3.5 for Sibelius" in software:
-            conversion_settings.ignore_beaming = True
-            progress (_ ("Encountered file created by Dolet 3.5 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
-        if "Noteworthy Composer" in software:
-            conversion_settings.ignore_beaming = True
-            progress (_ ("Encountered file created by Noteworthy Composer's nwc2xml, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
-        # TODO: Check for other unsupported features
+        ignore_beaming_software = {
+            "Dolet 3.5 for Sibelius": "Dolet 3.5 for Sibelius",
+            "Dolet 3.4 for Sibelius": "Dolet 3.4 for Sibelius",
+            "Dolet 3.3 for Sibelius": "Dolet 3.3 for Sibelius",
+            "Dolet 3.2 for Sibelius": "Dolet 3.2 for Sibelius",
+            "Dolet 3.1 for Sibelius": "Dolet 3.1 for Sibelius",
+            "Dolet for Sibelius 1.3": "Dolet for Sibelius 1.3",
+            "Noteworthy Composer": "Noteworthy Composer's nwc2xm[",
+        }
+        for s in software:
+            app_description = ignore_beaming_software.get (s, False);
+            if app_description:
+                conversion_settings.ignore_beaming = True
+                progress (_ ("Encountered file created by %s, containing wrong beaming information. All beaming information in the MusicXML file will be ignored") % app_description)
 
+    # TODO: Check for other unsupported features
     return header
 
 class PartGroupInfo:
