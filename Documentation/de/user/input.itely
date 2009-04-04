@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1297,20 +1297,28 @@ portuguese = \lyricmode {
 \addlyrics { \portuguese }
 @end lilypond
 
-Um einen einzelnen Buchstaben zu notieren, für den die Unicode-Buchstabenfolge
+Um einen einzelnen Buchstaben zu notieren, für den die Unicode-Ziffernfolge
 bekannt ist, der aber nicht auf der Tastatur zu finden ist, kann
-der Befehl @code{\char ##xhhhh} innerhalb einer @code{\markup}-Umgebung
-benutzt werden.  Hierbei bedeutet @code{hhhh} die hexadezimale Zahl
-für das erforderliche Zeichen.  Mit @code{\char ##x03BE} wird
+der Befehl @code{\char ##xhhhh} oder @code{\char #dddd} innerhalb einer
+@code{\markup}-Umgebung benutzt werden.  Hierbei bedeutet @code{hhhh} die 
+hexadezimale Zahl und @code{ddd} die entsprechende dezimale Zahl
+für das erforderliche Zeichen.  Nullen zu Beginn können ausgelassen werden,
+aber normalerweise werden alle vier Zeichen der hexadezimalen Notation
+notiert. (Achten Sie darauf, dass Sie @emph{nicht} UTF-8-Codepunkte
+einsetzen, weil UTF-8 zusätzliche Bits enthält, die die Nummer der Oktets bezeichnet.)
+
+Mit @code{\char ##x03BE} und @code{\char #958} wird
 beispielsweise das Unicode-Zeichen U+03BE notiert, welches die
-Unicode-Bezeichnung @qq{Greek Small Letter Xi} hat.  Alle existierenden
+Unicode-Bezeichnung @qq{Greek Small Letter Xi} hat.
+
+Alle existierenden
 Unicode-Zeichen können auf diese Weise notiert werden, und wenn für alle
 Zeichen dieses Format angewandt wird, muss die Datei nicht im utf-8-Format
 gespeichert werden.  Es muss natürlich auch noch eine Schriftart auf
 dem System installiert sein, die die notierten Zeichen darstellen kann.
 
-Das nächste Beispiel zeigt Unicode-Zeichen an vier Stellen mit dem
-Zahlencode notiert: in einem Übungszeichen, als Artikulationszeichen,
+Das nächste Beispiel zeigt, wie Unicode-Zeichen an vier Stellen mit dem
+hexadezimalen Code notiert werden: in einem Übungszeichen, als Artikulationszeichen,
 im Gesangstext und als normaler Text außerhalb der Partitur.
 
 @lilypond[quote,verbatim]

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -631,9 +631,7 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @cindex Coda
 @cindex Varcoda
 
-Hier ist eine Liste, die alle möglichen Zeichen darstellt:
-
-@lilypondfile[ragged-right,quote]{script-chart.ly}
+@lilypondfile[quote,texidoc]{script-chart.ly}
 
 
 @node Percussion notes

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -253,6 +253,9 @@ zu setzen, siehe @ref{Scaling durations}.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-the-tuplet-number.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{non-default-tuplet-numbers.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
@@ -1142,8 +1145,8 @@ d4 e d c
 Glossar:
 @rglos{cadenza}.
 
-@c Notationsreferenz:
-@c ref{Controlling visibility of objects}.
+Notationsreferenz:
+@ref{Visibility of objects}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1478,9 +1481,6 @@ LilyPond setzt Balken (engl. beam) automatisch.
 @cindex automatische Bebalkung
 @cindex Balken, automatisch
 
-@funindex measureLength
-@funindex beatLength
-@funindex beatGrouping
 @funindex \autoBeamOn
 @funindex autoBeamOn
 @funindex \autoBeamOff
@@ -1493,27 +1493,10 @@ LilyPond setzt Balken (engl. beam) automatisch.
 
 Wenn diese automatischen Entscheidungen nicht gut genug sind, können 
 die Balken auch explizit eingegeben werden, siehe
-@ref{Manual beams}.  Balken müssen auch auf diese Weise eingegeben
+@ref{Manual beams}.  Balken @emph{müssen} auch auf diese Weise eingegeben
 werden, wenn sie über Pausen hinwegreichen sollen.
 
-Es können auch bestimmte 
-Balkenmuster, die sich vom Standard unterscheiden, definiert werden.
-Die Standard-Regeln für die gebräuchlichsten Taktarten sind
-in der Datei @file{scm/@/auto@/-beam@/.scm} definiert.  Wenn
-dort keine Balkenregeln für die bestimmte Balkendauer in der
-aktuellen Taktart vorhanden
-sind, wird die Bebalkung geregelt von drei Kontexteigenschaften:
-@code{measureLength}, @code{beatLength} und @code{beatGrouping}.
-Sowohl die Balkenregeln als auch diese Kontexteigenschaften
-können geändert werden, siehe @ref{Setting automatic beam behavior}.
-
-@warning{Wenn Balken eingesetzt werden, um Melismen in Gesang
-anzuzeigen, müssen die automatische Bebalkung ausgeschaltet werden
-mit dem Befehl @code{\autoBeamOff} und die Balken mit der Hand
-eingegeben werden.}
-
-@noindent
-Automatische Bebalkung kann mit dem Befehl @code{\autoBeamOff}
+Wenn automatische Bebalkung nicht benötigt wird, kann sie mit dem Befehl @code{\autoBeamOff}
 aufgehoben werden und mit dem Befehl @code{\autoBeamOn} wieder
 eingeschaltet werden.
 
@@ -1524,6 +1507,13 @@ c4 c8 c8. c16 c8.
 \autoBeamOn
 c16 c8
 @end lilypond
+
+@warning{Wenn Balken eingesetzt werden, um Melismen in Gesang zu notieren,
+sollte die automatische Bebalkung mit @code{\autoBeamOff} ausgeschaltet
+werden und die Balken manuell notiert werden.}
+
+Balkenmuster, die sich von den automatisch erstellen unterscheiden,
+können erstellt werden, siehe @ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\autoBeamOff},
@@ -1596,20 +1586,25 @@ Stimmen zusammenstoßen.
 @funindex \set
 @funindex set
 
-Die Position und Länge der automatischen Balken wird bestimmt
-von bestimmten Regeln, wie beschrieben in @ref{Automatic beams}.
-Es gibt zwei einander ausschließende Arten, diese Regeln zu
-verändern.  Mit der ersten Art verändert man Gruppen von
-Noten, die einer bestimmten Taktart entsprechend mit Balken
-versehen werden.  Das muss manuell getan werden für die Taktarten,
-für welche keine fertigen Regeln definiert worden sind.  Die
-zweite Methode verändert die Definitionen für die Endpunkte
-der Balken und kann für jede Taktart eingesetzt werden.  Diese
-zweite Methode @strong{muss}
-eingesetzt werden für die Taktarten, für welche schon Regeln
-definiert worden sind, es sei denn, alle Regeln wurden mit
-@code{revert} rückgängig gemacht.  Regeln sind definiert für
-die Taktarten 3/2, 3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 und 12/8.
+Es gibt zwei Arten an Balkenregeln: @emph{Balkengruppen}-Regeln und
+@emph{Balkenenden}-Regeln.  Balkengruppen-Regeln sind am einfachsten,
+werden aber von allen Balkenenden-Regeln überschrieben, die gültig sind.
+
+Die Platzierung der automatischen Bebalkung wird entschieden, indem
+die folgenden Regeln in der dargestellten Reihenfolge angewendet werden:
+
+@itemize
+
+@item Wenn ein manueller Balken mit @code{[...]} definiert ist, wird er gesetzt, andernfalls
+
+@item wenn @code{\autoBeamOff} eingeschaltet ist, werden keine Balken gesetzt, andernfalls
+
+@item wenn eine Balkenenden-Regel zutrifft, wird sie benutzt, um die Noten mit
+Balken zu gruppieren, andernfalls
+
+@item benutze den Wert von @code{beatLength} um die Noten mit Balken zu gruppieren.
+
+@end itemize
 
 @i{@strong{Die Gruppierung von Noten verändern}}
 
@@ -1620,8 +1615,14 @@ Bebalkung von drei Kontext-Eigenschaften kontrolliert:
 Diese Eigenschaften können in den @code{Score}, @code{Staff} oder
 @code{Voice}-Kontexten gesetzt werden, um ihre Wirkungsweise zu
 begrenzen.  Die Standardwerte werden gesetzt, wenn der @code{\time}-Befehl
-gelesen wird, sodass alle @code{\set}-Befehle nach den @code{\time}-Befehlen
+gelesen wird, sodass alle @code{\set}-Befehle, die diese Werte verändern sollen, nach den @code{\time}-Befehlen
 geschrieben werden müssen.
+
+@warning{Diese drei Eigenschaften werden für einen bestimmten
+Balken @strong{nur dann} aktiv, wenn für diese Balkendauer keine
+Beendungsregeln für die benutzte Taktart definiert sind, oder
+wenn alle diese Enden-Regeln mit @code{\revert} rückgängig gemacht
+wurden.}
 
 Durch sie werden die Balken wie folgt bestimmt:
 
@@ -1641,12 +1642,6 @@ benutzt, um die Endpunkte der Balken zu bestimmen.
 
 @end itemize
 
-@warning{Diese drei Eigenschaften werden für einen bestimmten
-Balken @strong{nur dann} aktiv, wenn für diese Balkendauer keine
-Beendungsregeln für die benutzte Taktart definiert sind, oder
-wenn alle diese Regeln mit @code{revert} rückgängig gemacht
-wurden.}
-
 Standardmäßig werden @code{measureLength}
 (Taktlänge) und @code{beatLength} von der Taktart entnommen, die
 mit @code{\time} gesetzt wurde. @code{measureLength} hat
@@ -1658,7 +1653,7 @@ Der Standardwert von @code{beatGrouping} wird aus einer Tabelle
 in der Datei @file{scm/@/music@/-functions@/.scm} entnommen.  Um
 sie zu finden, siehe @rlearning{Other sources of information}.
 Hier werden Taktzeiten-Gruppen für die Taktarten 5/8, 6/8, 8/8,
-9/8 und 12/8 definiert.
+9/8 und alle üblichen zusammengestzten Taktarten definiert.
 
 Sowohl @code{measureLength} als auch @code{beatLength} sind
 @i{Momente}, Einheiten musikalischer Dauer.  Eine Größe der
@@ -1697,22 +1692,21 @@ von Zählzeiten für jede Gruppe darstellen.
 
 @strong{@i{Die Endpunkte von Balken bestimmen}}
 
-In üblichen Taktarten können automatisch gesetzte Balken an jeder
-Note beginnen, aber nur an einigen bestimmten Positionen innerhalb
-des Taktes beendet werden.  Diese Positionen werden durch die
-Eigenschaften in @code{autoBeamSettings} bestimmt.  Sie bestehen
-aus einer Liste an Regeln, die bestimmen, wo Balken enden können.
-Die Standardeinstellungen dieser automatischen Einstellungen 
-befinden sich in der Datei @file{scm/@/auto@/-beam@/.scm}.  Um diese
-Datei zu finden, siehe @rlearning{Other sources of information}.
+Balkenenden-Regeln werden benötigt, wenn Balken unterschiedlicher
+Dauer zur gleichen Taktzeit enden sollen.  Es kann beispielsweise
+nötig sein, dass Achtelbalken in einem 4/4-Takt nur am Ende des
+Taktes oder in seiner Mitte enden, Sechszehntelbalken hingegen
+sollen nach jeder Viertel enden, damit lange überbalkte Strecken
+vermieden werden.  Die Regeln funktionieren folgendermaßen:
 
-Diese Methode @strong{muss} benutzt werden, wenn die Einstellungen
-für die Balken in Taktarten verändert werden sollen, für welche
-schon Regeln existieren, es sei denn, alle diese Regeln wurden
-rückgängig gemacht. Die Methode ist auch in vielen anderen
-Taktarten gut anzuwenden, wenn die Taktart sich oft ändert, oder
-wenn die Balken unterschiedlich für unterschiedliche Balkendauern
-gesetzt werden sollen.
+Automatische Balken beginnen an einer beliebigen Note, enden aber nur
+an den bestimmten Positionen, die durch die Eigenschaften von
+@code{autoBeamSettings} bestimmt werden.  Diese Eigenschaften
+bestehen aus einer Liste an Regeln, die die erlaubten Endpunkte
+definieren.  Die Standardregeln von @code{autoBeamSettings}
+sind in der Datei @file{scm/@/auto@/-beam@/.scm} definiert.  Um
+diese Datei zu finden, siehe
+@rlearning{Other sources of information}.
 
 Um eine neue Regel zu der Liste hinzuzufügen, muss folgende
 Syntax verwendet werden:
@@ -1825,10 +1819,10 @@ nach, ob sich hier Überschneidungen ergeben, weil die
 Balkenenden, die dort definiert sind, auch noch weiterhin
 wirksam sind zusätzlich zu den von Ihnen definierten.}
 
-Jede ungewollte oder störende Balkenbeendigung aus den Standard-Eingesllungen
+Jede ungewollte oder störende Balkenbeendigung aus den Standard-Einstellungen
 muss für Ihre Taktart rückgängig gemacht werden.  Existierende
-automatische Bebalkungsregeln werden entfernt mit folgender
-Syntax:
+automatische Bebalkungsregeln werden mit folgender
+Syntax entfernt:
 
 @example
 #(revert-auto-beam-setting
@@ -2111,11 +2105,11 @@ automatische Taktstrich durch den manuellen ersetzt.  Diese
 manuellen Einfügungen haben keine Auswirkung auf die Zählung und
 Position der folgenden automatischen Taktstriche.
 
-Manuell können der einfache Taktstrich und zusätzlich fünf Arten
+Manuell können zwei einfache Taktstriche und zusätzlich fünf Arten
 eines doppelten Taktstriches gesetzt werden:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
+f1 \bar "|" f \bar "." g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
 @end lilypond
 
 Zusätzlich gibt es noch punktierte und gestrichelte Taktstriche:
@@ -2130,6 +2124,17 @@ und fünf unterschiedliche Wiederholungstaktstriche:
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
 @end lilypond
+
+Zusätzlich kann eine Taktlinie mit einem einfachen Apostroph gesetzt werden:
+
+@lilypond[quote,relative=1,verbatim]
+f1 \bar "'"
+@end lilypond
+
+Derartige Apostrophe werden allerdings vor allem im gregorianischen
+Choral eingesetzt, und es wird empfohlen, anstatt dessen
+@code{\divisioMinima} zu benutzen, wie beschrieben im Abschnitt
+@ref{Divisiones}.
 
 @cindex Wiederholungen
 

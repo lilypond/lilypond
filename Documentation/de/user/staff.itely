@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -52,6 +52,12 @@ Gruppen von Systemen zu erstellen.
 
 @funindex \drummode
 @funindex drummode
+@funindex DrumStaff
+@funindex RhythmicStaff
+@funindex TabStaff
+@funindex MensuralStaff
+@funindex VaticanaStaff
+@funindex GregorianTranscriptionStaff
 
 @notation{Notensysteme} (engl. @notation{staff}, Pl. @notation{staves})
 werden mit dem @code{\new} oder @code{\context}-Befehl erstellt.  Zu
@@ -695,6 +701,9 @@ Referenz der Interna:
 
 @funindex \RemoveEmptyStaffContext
 @funindex RemoveEmptyStaffContext
+@funindex Staff_symbol_engraver
+@funindex \stopStaff
+@funindex stopStaff
 
 Die Notenlinien können entfernt werden, indem der
 @code{Staff_symbol_engraver} aus dem @code{Staff}-Kontext
@@ -1001,6 +1010,8 @@ Zu Einzelheiten siehe @ref{Horizontal dimensions}.
 >>
 @end lilypond
 
+@cindex Instrumentenbezeichnungen zu anderen Kontexten hinzufügen
+
 Um Instrumentenbezeichnungen zu anderen Kontexten (wie etwa
 @code{GrandStaff}, @code{ChoirStaff} oder @code{StaffGroup})
 hinzuzufügen, muss der @code{Instrument_name_engraver} dem
@@ -1238,6 +1249,8 @@ In früheren LilyPond-Versionen (vor 2.11) wurde der Befehl
 
 @funindex \cueDuring
 @funindex cueDuring
+@funindex \quoteDuring
+@funindex quoteDuring
 
 Der vorige Abschnitt zeigt, wie man Zitate erstellt.  Der
 @code{\cueDuring}-Befehl (engl. cue note = Stichnote)

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -441,6 +441,19 @@ werden.  Standard: @code{5}.
 
 Der Wert der Seitenzahl auf der ersten Seite.  Standard: @code{#1}.
 
+@item max-systems-per-page
+
+Die maximale Anzahl an Notensystemen, die auf einer Seite gesetzt werden.  Das
+wird zur Zeit nur von dem @code{ly:optimal-breaking}-Alghoritmus
+unterstützt.  Standard: nicht gesetzt.
+
+@item min-systems-per-page
+
+Die minimale Anzahl an Notensystemen, die auf einer Seite gesetzt werden. Das
+kann dazu führen, dass Seiten zu dicht gefüllt werden, wenn der Wert
+zu groß gewählt wird.  Die Option ist zur Zeit nur von dem
+@code{ly:optimal-breaking}-Alghoritmus unterstützt.  Standard: nicht gesetzt.
+
 @item page-breaking-between-system-padding
 
 Überlistet die Seitenumbruchfunktion, indem ihr ein anderer Wert
@@ -487,7 +500,7 @@ Standard: @code{##f}.
 
 @item print-page-number
 
-Wenn falsch, werden Seitenzahl nicht ausgegeben.  Standard:
+Wenn falsch, werden Seitenzahlen nicht ausgegeben.  Standard:
 @code{##t}.
 
 @item ragged-bottom
@@ -547,6 +560,13 @@ benutzt werden, etwa so:
 
 Die Anzahl der Systeme, auf denen eine Partitur gesetzt werden soll.
 Standard: nicht gesetzt.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Die Anzahl an Systemen, die auf jede Seite gesetzt werden sollen.
+Diese Option wird zur Zeit nur von dem @code{ly:optimal-breaking}-Alghoritmus
+unterstützt.  Standard: nicht gesetzt.
 
 @end table
 

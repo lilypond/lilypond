@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 99b5022dc4baadd7000c94d5868cdb7cb9a8ed53
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -591,12 +591,6 @@ Referenz der Interna:
 @rinternals{RestCollision}.
 
 @knownissues
-
-Wenn @code{\mergeDifferentlyHeadedOn} mit einer Achtel- oder
-kürzeren Note benutzt wird, deren Hals nach oben zeigt, und
-einer Halben Note mit Hals nach unten, erhält der Hals der
-Achtelnote eine geringe Verschiebung, weil der schwarze und
-weiße Notenkopf eine unterschiedliche Breite beistzen.
 
 @ignore
 @c TODO investigate! Sometimes it works, sometimes not. --FV

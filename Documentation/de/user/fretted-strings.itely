@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -895,17 +895,19 @@ mychords = \chordmode{
 
 Unterschiedliche Bunddiagramme für den selben Akkord können
 gespeichert werden, indem unterschiedliche Oktaven für die
-Tonhöhe benutzt werden.
+Tonhöhe benutzt werden.  Die unterschiedliche Oktave sollte
+mindestens zwei Oktaven über oder unter der Standardoktave liegen,
+die für transponierende Bunddiagramme eingesetzt wird.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c'}
+\storePredefinedDiagram \chordmode {c''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode{
-  c1 c'
+  c1 c''
 }
 
 <<
@@ -946,15 +948,15 @@ oder als @code{fret-diagram-verbose}-Liste erstellt werden.
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram \chordmode {f'}
+\storePredefinedDiagram \chordmode {f''}
                         #guitar-tuning
                         #(chord-shape 'powerf guitar-tuning) 
-\storePredefinedDiagram \chordmode {g'}
+\storePredefinedDiagram \chordmode {g''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
 mychords = \chordmode{
-  f1 f' g g'
+  f1 f'' g g''
 }
 
 <<
@@ -983,7 +985,7 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 {defining-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{fretboard-chordchanges.ly}
+{chordchanges-for-fretboards.ly}
 
 
 @seealso

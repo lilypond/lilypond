@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1526,56 +1526,16 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @funindex \\
 @funindex >>
 
-Wenn unterschiedliche Melodien oder Stimmen in einem System
-kombiniert werden sollen, werden sie als @qq{polyphone Stimmen}
-realisiert: Jede Stimme hat eigene Hälse, Balken und Legatobögen,
-und die Hälse der oberen Stimme zeigen immer nach oben, während
-die Hälse der unteren Stimme nach unten zeigen.
-
-Diese Art von Notenbild wird erstellt, indem jede Stimme für sich
-als Abfolge notiert wird (mit @w{@code{@{...@}}}) und diese dann
-parallel kombiniert werden, indem die einzelnen Stimmen durch 
-@code{\\} voneinander getrennt werden.
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  { a4 g2 f4~ f4 } \\
-  { r4 g4 f2 f4 }
->>
-@end lilypond
-
-Für den Satz von mehrstimmigen Stücken kann es auch angebracht sein,
-unsichtbare Pausen zu verwenden. Hiermit können Stimmen ausgefüllt
-werden, die gerade nicht aktiv sind. Hier ist das obige Beispiel 
-mit einer unsichtbaren Pause (@q{s}) anstelle einer normalen (@q{r}):
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  { a4 g2 f4~ f4 } \\
-  { s4 g4 f2 f4 }
->>
-@end lilypond
-
-@noindent
-Auch diese Ausdrücke wiederum könne beliebig miteinander
-kombiniert werden.
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  \new Staff <<
-    { a4 g2 f4~ f4 } \\
-    { s4 g4 f2 f4 }
-  >>
-  \new Staff <<
-    \clef bass
-    { <c g>1 ~ <c g>4 } \\
-    { e,,4 d e2 ~ e4}
-  >>
->>
-@end lilypond
+Polyphone Notation in LilyPond ist nicht schwer, benutzt aber bestimmte
+Konzepte, die hier noch nicht behandelt woren sind und hier
+nicht erklärt werden sollten. Anstelle dessen führen die folgenden
+Abschnitte in diese Konzepte ein und erklären sie ausführlich.
 
 
 @seealso
+Handbuch zum Lernen:
+@ref{Voices contain music}.
+
 Notationsreferenz: 
 @ruser{Simultaneous notes}.
 
