@@ -9,6 +9,7 @@
 
 @c \version "2.12.0"
 @c Translators: Till Rettig, Reinhold Kainhofer
+@c Translation checkers: Hajo Bäß
 
 @node Introduction
 @chapter Introduction
@@ -69,12 +70,12 @@ traditionellem Notensatz und einem typischen Computersatz. Das
 dritte Bild zeigt, wie LilyPond die Formen des traditionellen
 Satzes nachahmt. Das linke Bild zeigt ein eingescanntes b-Vorzeichen 
 aus einer 2000 herausgegebenen Edition. Das mittlere Bild
-zeigt das b-Vorzeichen der selben Musik aus einer handgestochenen 
- Bärenreiter-Ausgabe. Das linke Bild zeigt die typischen Makel
+zeigt das b-Vorzeichen derselben Musik aus einer handgestochenen 
+Bärenreiter-Ausgabe. Das linke Bild zeigt die typischen Makel
 des Computer-Satzes: Die Notenlinien sind sehr dünn, die Schwärze 
 des Vorzeichens entspricht den dünnen Linien und hat eine gerade 
 Form mit scharfen Ecken und Kanten. Im Gegensatz dazu hat das
-Bärenreiter-Vorzeichen dicke, gerade zu sinnlich rundliche
+Bärenreiter-Vorzeichen dicke, geradezu sinnlich rundliche
 Formen. Unser Symbol für das Vorzeichen hat neben anderen 
 auch dieses b als Vorbild. Es ist abgerundet und passt zu unseren
 Notenlinien, die sehr viel dicker sind als die der entsprechenden
@@ -212,11 +213,11 @@ zwischen den Notenhälsen.
 
 @cindex Typographie
 
-Musiker sind üblicherweise zu zu konzentriert, die Musik aufzuführen, 
-als das Aussehen der Noten zu studieren; und diese 
+Musiker sind üblicherweise zu sehr damit beschäftigt, die Musik aufzuführen, 
+als dass sie das Aussehen der Noten studieren könnten; und diese 
 Beschäftigung mit typographischen Details mag akademisch wirken. 
 Das ist sie aber nicht. Unser Beispielstück hat einen 
-monotonen Rhythmus, und wenn alle Zeilen gleich aussehen, wird 
+monotonen Rhythmus, und wenn alle Zeilen einförmig aussehen, wird 
 das Notenblatt zu einem Labyrinth. Wenn der Spieler auch nur 
 einmal wegschaut oder kurze Zeit unkonzentriert ist, findet er 
 nicht mehr zurück zu der Stelle, an der er war.
@@ -226,13 +227,13 @@ Notationssymbole schaffen, eignet sich auch besser für Noten,
 die weit vom Leser entfernt stehen, etwa auf einem Notenständer.
 Eine sorgfältige Verteilung der Zwischenräume erlaubt es, die 
 Noten sehr dicht zu setzen, ohne dass die Symbole zusammenklumpen. 
-Dadurch werden unnötige Seitenumbrüche vermieden, sodass man 
+Dadurch werden unnötige Seitenumbrüche vermieden, so dass man 
 nicht so oft blättern muss.
 
 Dies sind die Anforderungen der Typographie: Das Layout sollte
 schön sein -- nicht aus Selbstzweck, sondern um dem Leser zu helfen. Für 
 Aufführungsmaterial ist das umso wichtiger, denn Musiker haben eine begrenzte
-Aufmerksamkeit. Je weniger Mühe nötig ist, die Noten zu erfassen, desto mehr
+Aufnahmefähigkeit. Je weniger Mühe nötig ist, die Noten zu erfassen, desto mehr
 Zeit bleibt für die Gestaltung der eigentlichen Musik. Das heißt: Gute 
 Typographie führt zu besseren Aufführungen!
 
@@ -245,7 +246,7 @@ und sie für normale Musiker erreichbar zu machen. Wir haben
 unsere Algorithmen, die Gestalt der Symbole und die Programm-Einstellungen
 darauf abgestimmt, einen Ausdruck zu erzielen, der der Qualität 
 der alten Editionen entspricht, die wir so gerne betrachten 
-und von denen wir gerne spielen.
+und aus denen wir gerne spielen.
 
 
 
@@ -283,7 +284,8 @@ als unzureichend heraus:
 Einstellungen ändern können. Er muss also Zugang zur 
 Formatierungsmaschinerie haben. Deshalb können die Regeln und 
 Einstellungen nicht beim Kompilieren des Programms festgelegt 
-werden, sondern sie müssen während des Laufes zugänglich sein.
+werden, sondern sie müssen zugänglich sein, während das Programm
+aktiv ist.
 
 
 @item Notensatz ist eine Frage des Augenmaßes, und damit auch vom
@@ -359,7 +361,7 @@ fragment = {
 
 Formatierungsregeln sind auch vorbelegte Variablen. Zu jedem Objekt gehören
 Variablen, die Prozeduren enthalten. Diese Prozeduren machen die eigentliche 
-Satzarbeit, und wenn man sie durch andere ersetzt, kann die Darstellung 
+Satzarbeit aus, und wenn man sie durch andere ersetzt, kann die Darstellung 
 von Objekten verändert werden. Im nächsten Beispiel wird die Regel, nach der 
 die Notenköpfe gezeichnet werden, während des Ausschnitts verändert.
 
@@ -416,18 +418,18 @@ die Notenköpfe gezeichnet werden, während des Ausschnitts verändert.
 Während des Notensatzprozesses entscheidet sich, wo
 Symbole platziert werden. Das kann aber nur gelingen, 
 wenn vorher entschieden wird, @emph{welche} Symbole
-gesetzt werden sollen, also welche Notation benutzt
+gesetzt werden sollen, also welche Art von Notation benutzt
 werden soll.
 
 Die heutige Notation ist ein System zur Musikaufzeichnung,
 das sich über die letzten 1000 Jahre entwickelt hat. Die 
 Form, die heute üblicherweise benutzt wird, stammt aus dem 
-frühen Barock. Auch wenn sich die grundlegenden Formen (also
+Barock. Auch wenn sich die grundlegenden Formen (also
 die Notenköpfe, das Fünfliniensystem) nicht verändert haben, 
 entwickeln sich die Details trotzdem immer noch weiter, um 
 die Errungenschaften der Neuen Musik darstellen zu können. Die 
 Notation umfasst also 500 Jahre Musikgeschichte. Ihre Anwendung 
-reicht von monophonen Melodien bis zu ungeheurem Kontrapunkt 
+reicht von monophonen Melodien bis zu ungeheuer komplexem Kontrapunkt 
 für großes Orchester.
 
 Wie bekommen wir dieses vielköpfige Monster zu fassen? 
@@ -624,13 +626,13 @@ Programmreferenz: @rinternals{Contexts}.
 @cindex Syntax
 @cindex rekursive Strukturen
 
-Idealerweise ist das Eingabeformat für ein höheres Satzsystem die 
+Idealerweise ist das Eingabeformat für ein komplexes Satzsystem die 
 abstrakte Beschreibung des Inhaltes. In diesem Fall wäre das die 
 Musik selber. Das stellt uns aber vor ein ziemlich großes Problem, 
 denn wie können wir definieren, was Musik wirklich ist? Anstatt darauf 
 eine Antwort zu suchen, haben wir die Frage einfach umgedreht. Wir
-schreiben ein Programm, das den Notensatz beherrscht und passen das 
-Format an, so einfach wie möglich zu sein. Wenn es nicht mehr vereinfacht 
+schreiben ein Programm, das den Notensatz beherrscht und machen das 
+Format so einfach wie möglich. Wenn es nicht mehr vereinfacht 
 werden kann, haben wir per Definition nur noch den reinen Inhalt. Unser 
 Format dient als die formale Definition eines Musiktextes.
 

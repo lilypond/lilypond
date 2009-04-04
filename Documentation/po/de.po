@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-13 09:41+0100\n"
-"PO-Revision-Date: 2009-03-16 22:07+0200\n"
+"PO-Revision-Date: 2009-04-04 16:37+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
@@ -3453,7 +3453,7 @@ msgstr "Allgemeine Vorschläge"
 #. @node in Documentation/ja/user/working.itely
 #. @subsection in Documentation/ja/user/working.itely
 msgid "Typesetting existing music"
-msgstr "Das Kopieren von existierender Musik"
+msgstr "Das Kopieren von bereits vorhandener Musik"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
