@@ -2551,7 +2551,17 @@ def voices_in_part (part):
 
 def voices_in_part_in_parts (parts):
     """return a Part -> Name -> Voice dictionary"""
-    return dict([(p.id, voices_in_part (p)) for p in parts])
+    # don't crash if p doesn't have an id (that's invalid MusicXML,
+    # but such files are out in the wild!
+    dictionary = {}
+    for p in parts:
+        voices = voices_in_part (p)
+        if (hasattr (p, "id")):
+             dictionary[p.id] = voices
+        else:
+             # TODO: extract correct part id from other sources
+             dictionary[None] = voices
+    return dictionary;
 
 
 def get_all_voices (parts):
