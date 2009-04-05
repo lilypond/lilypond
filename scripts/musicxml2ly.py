@@ -2108,6 +2108,7 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder.set_measure_length (current_measure_length)
 
     for n in voice._elements:
+        tie_started = False
         if n.get_name () == 'forward':
             continue
         staff = n.get_maybe_exist_named_child ('staff')
@@ -2350,6 +2351,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if mxl_tie and mxl_tie.type == 'start':
                     ev_chord.append (musicexp.TieEvent ())
                     is_tied = True
+                    tie_started = True
                 else:
                     is_tied = False
 
@@ -2445,7 +2447,13 @@ def musicxml_voice_to_lily_voice (voice):
                 if not lnr in note_lyrics_processed:
                     lyrics[lnr].append ("\skip4")
 
-    ## force trailing mm rests to be written out.   
+        # Assume that a <tie> element only lasts for one note.
+        # This might not be correct MusicXML interpretation, but works for
+        # most cases and fixes broken files, which have the end tag missing
+        if is_tied and not tie_started:
+            is_tied = False
+
+    ## force trailing mm rests to be written out.
     voice_builder.add_music (musicexp.ChordEvent (), Rational (0))
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
