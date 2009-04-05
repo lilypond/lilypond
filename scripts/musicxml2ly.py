@@ -308,6 +308,7 @@ def extract_score_information (tree):
         # Case 1: "Sibelius 5.1" with the "Dolet 3.4 for Sibelius" plugin
         #         is missing all beam ends => ignore all beaming information
         ignore_beaming_software = {
+            "Dolet 4 for Sibelius, Beta 2": "Dolet 4 for Sibelius, Beta 2",
             "Dolet 3.5 for Sibelius": "Dolet 3.5 for Sibelius",
             "Dolet 3.4 for Sibelius": "Dolet 3.4 for Sibelius",
             "Dolet 3.3 for Sibelius": "Dolet 3.3 for Sibelius",
