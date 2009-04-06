@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4de736ff6c4e6b9a022386f209bdf8cb0c765b42
+    Translation of GIT committish: 3b78e976c507d854696653ba8b7a3de175b854c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -486,14 +486,6 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{StaffSymbol},
 @rinternals{staff-symbol-interface}.
-
-
-@knownissues
-
-Al establecer manualmente las posiciones de las líneas de la pauta,
-las barras de compás siempre se centran alrededor de la posición 0,
-por lo que la distancia máxima entre las barras de compás más externas
-en cualquiera de las direcciones, debe ser igual.
 
 
 @node Ossia staves
