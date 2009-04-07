@@ -1,5 +1,5 @@
 /*
-  beaming-info.cc -- implement Beam_rhythmic_element, Beaming_pattern
+  beaming-pattern.cc -- implement Beam_rhythmic_element, Beaming_pattern
 
   A Beaming_pattern object takes a set of stems at given moments and calculates
   the pattern of their beam. That is, it works out, for each stem, how many
@@ -246,7 +246,7 @@ Beaming_options::from_context (Context *context)
   grouping_ = context->get_property ("beatGrouping");
   subdivide_beams_ = to_boolean (context->get_property ("subdivideBeams"));
   beat_length_ = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
-  measure_length_ = robust_scm2moment (context->get_property ("measureLength"), Moment (1, 4));
+  measure_length_ = robust_scm2moment (context->get_property ("measureLength"), Moment (4, 4));
 }
 
 Beaming_options::Beaming_options ()
