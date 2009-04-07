@@ -944,6 +944,7 @@ chord changes.")
 translator) that was the cause for this grob.")
 
      (delta-position ,number? "The vertical position difference.")
+
      (font ,ly:font-metric? "A cached font metric object.")
 
      (head-width ,ly:dimension? "The width of this ligature head.")
