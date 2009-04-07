@@ -327,8 +327,18 @@
 	(stencil . ,ly:beam::print)
 	(clip-edges . #t)
 	(cross-staff . ,ly:beam::calc-cross-staff)
-
-	(details .  ((hint-direction-penalty . 20)))
+	(details 
+         .(
+           (secondary-beam-demerit . 10)
+           (stem-length-demerit-factor . 5)
+           (region-size . 2)
+           (beam-eps . 0.001)
+           (stem-length-limit-penalty . 5000)
+           (damping-direction-penalty . 800)
+           (hint-direction-penalty . 20)
+           (musical-direction-factor . 400)
+           (ideal-slope-factor . 10)
+           (round-to-zero-slope . 0.02)))
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
 	(neutral-direction . ,DOWN)

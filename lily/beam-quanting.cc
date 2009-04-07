@@ -37,10 +37,6 @@ Beam_quant_parameters::fill (Grob *him)
 {
   SCM details = him->get_property ("details");
 
-  /* 
-     TODO: The default values should be copied to define-grobs.scm.
-   */
-  INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("inter-quant-penalty"), 1000.0);
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0);
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   REGION_SIZE = get_detail (details, ly_symbol2scm ("region-size"), 2);
