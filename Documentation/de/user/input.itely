@@ -1543,6 +1543,16 @@ auch unterdrückt werden kann, siehe @ref{Metronome marks}.  Eine
 andere möglichkeit, ein eigenes MIDI-Tempo anzugeben, wird weiter
 unten gezeigt, siehe @ref{MIDI block}.
 
+Aufgrund einiger Einschränkungen auf gewissen Betriebssystemen ist
+die Standarddateierweiterung von MIDI-Dateien @code{.mid}. Wenn eine
+andere Endung erwünscht ist, kann man die folgende Zeile vor Beginn
+des @code{\score} Blocks einfügen:
+
+@example
+#(ly:set-option 'midi-extension "midi")
+@end example
+
+Diese Codezeile setzt die Dateiendung auf @code{.midi}.
 
 @unnumberedsubsubsec Instrument names
 
