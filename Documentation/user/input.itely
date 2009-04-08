@@ -1457,6 +1457,17 @@ can be suppressed, see @ref{Metronome marks}.  An alternative way
 of specifying the inital or overall MIDI tempo is described below,
 see @ref{MIDI block}.
 
+Due to limitations on some platforms, the default extension for 
+MIDI files is @code{.mid}. If a different extension is preferred, 
+insert the following line before the start of the @code{\score} block:
+
+@example
+#(ly:set-option 'midi-extension "midi")
+@end example
+
+The line above will set the default extension for MIDI files to
+@code{.midi}.
+
 @unnumberedsubsubsec Instrument names
 
 @cindex instrument names
