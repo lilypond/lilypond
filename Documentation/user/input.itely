@@ -265,7 +265,7 @@ toplevel.  The default handler is defined in the init file
 @item
 A @code{\bookpart} block.  A book may be divided into several parts,
 using @code{\bookpart} blocks, in order to ease the page breaking,
-or to use different @code{\paper} settings in different parts. 
+or to use different @code{\paper} settings in different parts.
 
 @item
 A compound music expression, such as
@@ -1457,9 +1457,9 @@ can be suppressed, see @ref{Metronome marks}.  An alternative way
 of specifying the inital or overall MIDI tempo is described below,
 see @ref{MIDI block}.
 
-Due to some limitations on Windows, the default extension for 
+Due to some limitations on Windows, the default extension for
 MIDI files on Windows is @code{.mid}. Other operating systems still
-use the extension @code{.midi}. If a different extension is preferred, 
+use the extension @code{.midi}. If a different extension is preferred,
 insert the following line before the start of the @code{\score} block:
 
 @example
