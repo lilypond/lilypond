@@ -1457,8 +1457,9 @@ can be suppressed, see @ref{Metronome marks}.  An alternative way
 of specifying the inital or overall MIDI tempo is described below,
 see @ref{MIDI block}.
 
-Due to limitations on some platforms, the default extension for 
-MIDI files is @code{.mid}. If a different extension is preferred, 
+Due to some limitations on Windows, the default extension for 
+MIDI files on Windows is @code{.mid}. Other operating systems still
+use the extension @code{.midi}. If a different extension is preferred, 
 insert the following line before the start of the @code{\score} block:
 
 @example
@@ -1467,6 +1468,13 @@ insert the following line before the start of the @code{\score} block:
 
 The line above will set the default extension for MIDI files to
 @code{.midi}.
+
+Alternatively, this option can also be supplied on the command line:
+
+@example
+lilypond … -dmidi-extension=midi lilyFile.ly
+@end example
+
 
 @unnumberedsubsubsec Instrument names
 
