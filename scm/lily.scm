@@ -688,7 +688,7 @@ PIDs or the number of the process."
 	 (if separate-logs
 	     (ly:stderr-redirect (format "~a.log" base) "w"))
 	 (if ping-log
-	     (format ping-log "Procesing ~a\n" base))
+	     (format ping-log "Processing ~a\n" base))
 	 (if (ly:get-option 'trace-memory-frequency)
 	     (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
 	 (lilypond-file handler x)
