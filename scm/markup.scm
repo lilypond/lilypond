@@ -207,8 +207,8 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
         (ly:error
 	 (string-append
 	  make-name ": "
-	  (_ "Invalid argument in position ~A.  Expect: ~A, found: ~S.")
-	  error-msg))
+	  (_ "Invalid argument in position ~A.  Expect: ~A, found: ~S."))
+	  error-msg)
 	(cons markup-function args))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
