@@ -1546,8 +1546,9 @@ unten gezeigt, siehe @ref{MIDI block}.
 Aufgrund einiger Einschränkungen auf Windows ist auf Windows-Systemen
 die Standarddateierweiterung von MIDI-Dateien @code{.mid}. Andere
 Betriebssysteme verwenden weiterhin @code{.midi}. Wenn eine
-andere Endung erwünscht ist, kann man die folgende Zeile vor Beginn
-des @code{\score} Blocks einfügen:
+andere Endung erwünscht ist, kann man die folgende Zeile auf oberster
+Ebene der Quelldatei, vor Beginn eines @code{\book}, @code{\bookpart}
+oder @code{\score} Blocks einfügen:
 
 @example
 #(ly:set-option 'midi-extension "midi")

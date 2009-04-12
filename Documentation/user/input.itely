@@ -1460,7 +1460,8 @@ see @ref{MIDI block}.
 Due to some limitations on Windows, the default extension for
 MIDI files on Windows is @code{.mid}. Other operating systems still
 use the extension @code{.midi}. If a different extension is preferred,
-insert the following line before the start of the @code{\score} block:
+insert the following line at the top-level of the input file,
+before the start of any @code{\book}, @code{\bookpart} or @code{\score} blocks:
 
 @example
 #(ly:set-option 'midi-extension "midi")
