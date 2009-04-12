@@ -20,16 +20,6 @@
 #include "note-column.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK (Hairpin, after_line_breaking, 1);
-SCM
-Hairpin::after_line_breaking (SCM smob)
-{
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
-  consider_suicide (me);
-
-  return SCM_UNSPECIFIED;
-}
-
 MAKE_SCHEME_CALLBACK (Hairpin, height, 1);
 SCM
 Hairpin::height (SCM smob)
@@ -52,38 +42,12 @@ Hairpin::pure_height (SCM smob, SCM, SCM)
   return ly_interval2scm (Interval (-height, height));
 }
 
-void
-Hairpin::consider_suicide (Spanner*me)
-{
-  Drul_array<bool> broken;
-  Drul_array<Item *> bounds;
-  Direction d = LEFT;
-  do
-    {
-      bounds[d] = me->get_bound (d);
-      broken[d] = bounds[d]->break_status_dir () != CENTER;
-    }
-  while (flip (&d) != LEFT);
-
-  if (broken[LEFT]
-      && ly_is_equal (bounds[RIGHT]->get_column ()->get_property ("when"),
-		      bounds[LEFT]->get_property ("when")))
-    me->suicide ();
-}
-
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
-
 SCM
 Hairpin::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  Spanner *me = unsmob_spanner (smob);
 
-  if (Spanner *orig = dynamic_cast<Spanner*> (me->original ()))
-    {
-      for (vsize i = 0; i < orig->broken_intos_.size (); i++)
-	Hairpin::consider_suicide (orig->broken_intos_[i]);
-    }
-  
   SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))
     {

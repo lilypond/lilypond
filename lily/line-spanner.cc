@@ -13,7 +13,6 @@
 #include "item.hh"
 #include "lily-proto.hh"
 #include "line-interface.hh"
-#include "moment.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
@@ -26,7 +25,6 @@ class Line_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
@@ -212,28 +210,8 @@ Line_spanner::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
 
-  Interval_t<Moment> moments = me->spanned_time ();
-  /*
-    We remove the line at the start of the line.  For piano voice
-    indicators, it makes no sense to have them at the start of the
-    line.
-
-    I'm not sure what the official rules for glissandi are, but
-    usually the 2nd note of the glissando is "exact", so when playing
-    from the start of the line, there is no need to glide.
-
-    From a typographical p.o.v. this makes sense, since the amount of
-    space left of a note at the start of a line is very small.
-
-    --hwn.
-
-  */
-  if (moments.length () == Moment (0,0))
-    return SCM_EOL;
-  
   Drul_array<SCM> bounds (me->get_property ("left-bound-info"),
 			  me->get_property ("right-bound-info"));
-
   
   Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);

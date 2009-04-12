@@ -2891,12 +2891,14 @@ longer in reversed order.\n"))
     return str
 
 @rule ((2, 13, 1),
-       _ ("\\bar \".\" now produces a thick barline"))
+       _ ("\\bar \".\" now produces a thick barline\n\
+ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time"))
 def conv(str):
     if re.search(r'\\bar\s*"."', str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("\\bar \".\" now produces a thick barline.\n"))
         stderr_write (UPDATE_MANUALLY)
+    str = re.sub (r'ly:hairpin::after-line-breaking', r'ly:spanner::kill-zero-spanned-time', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
