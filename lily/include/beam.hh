@@ -20,7 +20,6 @@
 */
 struct Beam_quant_parameters
 {
-  Real INTER_QUANT_PENALTY;
   Real SECONDARY_BEAM_DEMERIT;
   Real STEM_LENGTH_DEMERIT_FACTOR;
   Real REGION_SIZE;

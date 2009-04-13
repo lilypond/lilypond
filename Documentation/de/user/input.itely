@@ -571,7 +571,7 @@ Dieses Verhalten kann verändert werden (sodass alle Angaben aus der
 Die Standardfußzeile ist leer mit Ausnahme der ersten Seite, auf der
 das @code{copyright}-Feld aus der @code{\header}-Umgebung eingefügt wird,
 und die letzte Seite, auf der das @code{tagline}-Feld eingefügt wird.
-Der Standardinhalt von @code{tagline} ist @qq{Music engraving by 
+Der Standardinhalt von @code{tagline} ist @qq{Music engraving by
 LilyPond (@var{version})---www.lilypond.org}.  Gut gesetzte Noten werben sehr effektiv
 für LilyPond, darum bitten wir darum, diese Zeile stehen zu lassen,
 wenn es möglich ist.
@@ -1080,7 +1080,7 @@ LilyPond files}.
 Der @code{\tag #'@var{TeilA}}-Befehl markiert einen musikalischen
 Ausdruck mit der Bezeichnung @var{TeilA}.  Ausdrücke, die auf diese
 Weise markiert werden, können mit ihrer Bezeichnung später ausgewählt
-bzw. ausgefiltert werden.  Das geschieht mit den Befehlen 
+bzw. ausgefiltert werden.  Das geschieht mit den Befehlen
 @code{\keepWithTag #'@var{Bezeichnung}} bzw. @code{\removeWithTag #'@var{Bezeichnung}}.
 Die Wirkung dieser Filter auf die markierten Notenabschnitte ist
 wie folgt:
@@ -1089,12 +1089,12 @@ wie folgt:
 
 @headitem Filter
   @tab Resultat
-  
+
 @item
 Markierte Noten mit vorgesetztem @code{\keepWithTag #'@var{Bezeichnung}}
   @tab Unmarkierte Noten und Noten mit der Marke @var{Bezeichnung} werden
   gesetzt, Noten mit einer anderen Marke werden nicht angezeigt.
-  
+
 @item
 Markierte Noten mit vorgesetztem @code{\removeWithTag #'@var{Bezeichnung}}
   @tab Unmarkierte Noten und Noten mit einer anderen Marke als
@@ -1551,6 +1551,25 @@ auch unterdrückt werden kann, siehe @ref{Metronome marks}.  Eine
 andere möglichkeit, ein eigenes MIDI-Tempo anzugeben, wird weiter
 unten gezeigt, siehe @ref{MIDI block}.
 
+Aufgrund einiger Einschränkungen auf Windows ist auf Windows-Systemen
+die Standarddateierweiterung von MIDI-Dateien @code{.mid}. Andere
+Betriebssysteme verwenden weiterhin @code{.midi}. Wenn eine
+andere Endung erwünscht ist, kann man die folgende Zeile auf oberster
+Ebene der Quelldatei, vor Beginn eines @code{\book}, @code{\bookpart}
+oder @code{\score} Blocks einfügen:
+
+@example
+#(ly:set-option 'midi-extension "midi")
+@end example
+
+Diese Codezeile setzt die Dateiendung auf @code{.midi}.
+
+Als Alternative kann man diese Option auch als Kommandozeilenparameter
+übergeben:
+
+@example
+lilypond … -dmidi-extension=midi lilyDatei.ly
+@end example
 
 @unnumberedsubsubsec Instrument names
 
@@ -1664,7 +1683,7 @@ die @code{\new Score}- als auch die @code{\midi}-Umgebungen in eine
 
 @example
 \score @{
-  \new Score @{ @dots{}Noten@dots{} @} 
+  \new Score @{ @dots{}Noten@dots{} @}
   \midi @{ @}
 @}
 @end example

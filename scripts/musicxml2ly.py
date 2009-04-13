@@ -273,15 +273,15 @@ def extract_score_information (tree):
         if value:
             header.set_field (field, musicxml.escape_ly_output_string (value))
 
+    movement_title = tree.get_maybe_exist_named_child ('movement-title')
+    if movement_title:
+        set_if_exists ('title', movement_title.get_text ())
     work = tree.get_maybe_exist_named_child ('work')
     if work:
+        # Overwrite the title from movement-title with work->title
         set_if_exists ('title', work.get_work_title ())
         set_if_exists ('worknumber', work.get_work_number ())
         set_if_exists ('opus', work.get_opus ())
-    else:
-        movement_title = tree.get_maybe_exist_named_child ('movement-title')
-        if movement_title:
-            set_if_exists ('title', movement_title.get_text ())
     
     identifications = tree.get_named_children ('identification')
     for ids in identifications:
@@ -307,18 +307,23 @@ def extract_score_information (tree):
 
         # Case 1: "Sibelius 5.1" with the "Dolet 3.4 for Sibelius" plugin
         #         is missing all beam ends => ignore all beaming information
-        if "Dolet 3.4 for Sibelius" in software:
-            conversion_settings.ignore_beaming = True
-            progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
-        # ditto for Dolet 3.5
-        if "Dolet 3.5 for Sibelius" in software:
-            conversion_settings.ignore_beaming = True
-            progress (_ ("Encountered file created by Dolet 3.5 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
-        if "Noteworthy Composer" in software:
-            conversion_settings.ignore_beaming = True
-            progress (_ ("Encountered file created by Noteworthy Composer's nwc2xml, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
-        # TODO: Check for other unsupported features
+        ignore_beaming_software = {
+            "Dolet 4 for Sibelius, Beta 2": "Dolet 4 for Sibelius, Beta 2",
+            "Dolet 3.5 for Sibelius": "Dolet 3.5 for Sibelius",
+            "Dolet 3.4 for Sibelius": "Dolet 3.4 for Sibelius",
+            "Dolet 3.3 for Sibelius": "Dolet 3.3 for Sibelius",
+            "Dolet 3.2 for Sibelius": "Dolet 3.2 for Sibelius",
+            "Dolet 3.1 for Sibelius": "Dolet 3.1 for Sibelius",
+            "Dolet for Sibelius 1.3": "Dolet for Sibelius 1.3",
+            "Noteworthy Composer": "Noteworthy Composer's nwc2xm[",
+        }
+        for s in software:
+            app_description = ignore_beaming_software.get (s, False);
+            if app_description:
+                conversion_settings.ignore_beaming = True
+                progress (_ ("Encountered file created by %s, containing wrong beaming information. All beaming information in the MusicXML file will be ignored") % app_description)
 
+    # TODO: Check for other unsupported features
     return header
 
 class PartGroupInfo:
@@ -926,6 +931,30 @@ def musicxml_attributes_to_lily (attrs):
                 elts.append (ev)
     
     return elts
+    
+def musicxml_print_to_lily (el):
+    # TODO: Implement other print attributes
+    #  <!ELEMENT print (page-layout?, system-layout?, staff-layout*,
+    #          measure-layout?, measure-numbering?, part-name-display?, 
+    #          part-abbreviation-display?)>
+    #  <!ATTLIST print
+    #      staff-spacing %tenths; #IMPLIED
+    #      new-system %yes-no; #IMPLIED
+    #      new-page %yes-no-number; #IMPLIED
+    #      blank-page NMTOKEN #IMPLIED
+    #      page-number CDATA #IMPLIED 
+    #  >
+    elts = []
+    if (hasattr (el, "new-system")):
+        val = getattr (el, "new-system")
+        if (val == "yes"):
+            elts.append (musicexp.Break ("break"))
+    if (hasattr (el, "new-page")):
+        val = getattr (el, "new-page")
+        if (val == "yes"):
+            elts.append (musicexp.Break ("pageBreak"))
+    return elts
+
 
 class Marker (musicexp.Music):
     def __init__ (self):
@@ -1619,6 +1648,7 @@ chordkind_dict = {
     'diminished': 'dim5',
         # Sevenths:
     'dominant': '7',
+    'dominant-seventh': '7',
     'major-seventh': 'maj7',
     'minor-seventh': 'm7',
     'diminished-seventh': 'dim7',
@@ -1905,12 +1935,12 @@ class LilyPondVoiceBuilder:
     def current_duration (self):
         return self.end_moment - self.begin_moment
         
-    def add_music (self, music, duration):
+    def add_music (self, music, duration, relevant = True):
         assert isinstance (music, musicexp.Music)
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
 
-        self.has_relevant_elements = True
+        self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append (music)
         self.begin_moment = self.end_moment
         self.set_duration (duration)
@@ -1922,18 +1952,27 @@ class LilyPondVoiceBuilder:
             self.pending_dynamics = []
 
     # Insert some music command that does not affect the position in the measure
-    def add_command (self, command):
+    def add_command (self, command, relevant = True):
         assert isinstance (command, musicexp.Music)
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
-        self.has_relevant_elements = True
+        self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append (command)
-    def add_barline (self, barline):
-        # TODO: Implement merging of default barline and custom bar line
-        self.add_music (barline, Rational (0))
+    def add_barline (self, barline, relevant = False):
+        # Insert only if we don't have a barline already
+        # TODO: Implement proper merging of default barline and custom bar line
+        has_relevant = self.has_relevant_elements
+        if (not (self.elements) or 
+            not (isinstance (self.elements[-1], musicexp.BarLine)) or 
+            (self.pending_multibar > Rational (0))):
+            self.add_music (barline, Rational (0))
+        self.has_relevant_elements = has_relevant or relevant
     def add_partial (self, command):
         self.ignore_skips = True
+        # insert the partial, but restore relevant_elements (partial is not relevant)
+        relevant = self.has_relevant_elements
         self.add_command (command)
+        self.has_relevant_elements = relevant
 
     def add_dynamics (self, dynamic):
         # store the dynamic item(s) until we encounter the next note/rest:
@@ -1942,11 +1981,9 @@ class LilyPondVoiceBuilder:
     def add_bar_check (self, number):
         # re/store has_relevant_elements, so that a barline alone does not
         # trigger output for figured bass, chord names
-        has_relevant = self.has_relevant_elements
         b = musicexp.BarLine ()
         b.bar_number = number
         self.add_barline (b)
-        self.has_relevant_elements = has_relevant
 
     def jumpto (self, moment):
         current_end = self.end_moment + self.pending_multibar
@@ -1980,7 +2017,7 @@ class LilyPondVoiceBuilder:
 
             evc = musicexp.ChordEvent ()
             evc.elements.append (skip)
-            self.add_music (evc, diff)
+            self.add_music (evc, diff, False)
 
         if diff > Rational (0) and moment == 0:
             self.ignore_skips = False
@@ -2071,6 +2108,7 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder.set_measure_length (current_measure_length)
 
     for n in voice._elements:
+        tie_started = False
         if n.get_name () == 'forward':
             continue
         staff = n.get_maybe_exist_named_child ('staff')
@@ -2084,6 +2122,8 @@ def musicxml_voice_to_lily_voice (voice):
             a = musicxml_partial_to_lily (n.partial)
             if a:
                 voice_builder.add_partial (a)
+                figured_bass_builder.add_partial (a)
+                chordnames_builder.add_partial (a)
             continue
 
         is_chord = n.get_maybe_exist_named_child ('chord')
@@ -2091,8 +2131,12 @@ def musicxml_voice_to_lily_voice (voice):
         if not is_chord and not is_after_grace:
             try:
                 voice_builder.jumpto (n._when)
+                figured_bass_builder.jumpto (n._when)
+                chordnames_builder.jumpto (n._when)
             except NegativeSkip, neg:
                 voice_builder.correct_negative_skip (n._when)
+                figured_bass_builder.correct_negative_skip (n._when)
+                chordnames_builder.correct_negative_skip (n._when)
                 n.message (_ ("Negative skip found: from %s to %s, difference is %s") % (neg.here, neg.dest, neg.dest - neg.here))
 
         if isinstance (n, musicxml.Barline):
@@ -2100,8 +2144,18 @@ def musicxml_voice_to_lily_voice (voice):
             for a in barlines:
                 if isinstance (a, musicexp.BarLine):
                     voice_builder.add_barline (a)
+                    figured_bass_builder.add_barline (a, False)
+                    chordnames_builder.add_barline (a, False)
                 elif isinstance (a, RepeatMarker) or isinstance (a, EndingMarker):
                     voice_builder.add_command (a)
+                    figured_bass_builder.add_barline (a, False)
+                    chordnames_builder.add_barline (a, False)
+            continue
+
+
+        if isinstance (n, musicxml.Print):
+            for a in musicxml_print_to_lily (n):
+                voice_builder.add_command (a, False)
             continue
 
         # Continue any multimeasure-rests before trying to add bar checks!
@@ -2297,6 +2351,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if mxl_tie and mxl_tie.type == 'start':
                     ev_chord.append (musicexp.TieEvent ())
                     is_tied = True
+                    tie_started = True
                 else:
                     is_tied = False
 
@@ -2392,7 +2447,13 @@ def musicxml_voice_to_lily_voice (voice):
                 if not lnr in note_lyrics_processed:
                     lyrics[lnr].append ("\skip4")
 
-    ## force trailing mm rests to be written out.   
+        # Assume that a <tie> element only lasts for one note.
+        # This might not be correct MusicXML interpretation, but works for
+        # most cases and fixes broken files, which have the end tag missing
+        if is_tied and not tie_started:
+            is_tied = False
+
+    ## force trailing mm rests to be written out.
     voice_builder.add_music (musicexp.ChordEvent (), Rational (0))
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
@@ -2430,7 +2491,7 @@ def musicxml_voice_to_lily_voice (voice):
     # create \figuremode { figured bass elements }
     if figured_bass_builder.has_relevant_elements:
         fbass_music = musicexp.SequentialMusic ()
-        fbass_music.elements = figured_bass_builder.elements
+        fbass_music.elements = group_repeats (figured_bass_builder.elements)
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'figuremode'
         v.element = fbass_music
@@ -2439,7 +2500,7 @@ def musicxml_voice_to_lily_voice (voice):
     # create \chordmode { chords }
     if chordnames_builder.has_relevant_elements:
         cname_music = musicexp.SequentialMusic ()
-        cname_music.elements = chordnames_builder.elements
+        cname_music.elements = group_repeats (chordnames_builder.elements)
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'chordmode'
         v.element = cname_music
@@ -2498,7 +2559,17 @@ def voices_in_part (part):
 
 def voices_in_part_in_parts (parts):
     """return a Part -> Name -> Voice dictionary"""
-    return dict([(p.id, voices_in_part (p)) for p in parts])
+    # don't crash if p doesn't have an id (that's invalid MusicXML,
+    # but such files are out in the wild!
+    dictionary = {}
+    for p in parts:
+        voices = voices_in_part (p)
+        if (hasattr (p, "id")):
+             dictionary[p.id] = voices
+        else:
+             # TODO: extract correct part id from other sources
+             dictionary[None] = voices
+    return dictionary;
 
 
 def get_all_voices (parts):

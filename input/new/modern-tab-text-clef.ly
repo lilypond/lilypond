@@ -25,6 +25,6 @@ TAB = \markup {
 
 \new TabStaff {
   \override Staff.Clef #'stencil = #(lambda (grob)
-    ly:clef::print (grob-interpret-markup grob TAB))
+    (grob-interpret-markup grob TAB))
   a
 }

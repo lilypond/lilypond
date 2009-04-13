@@ -49,8 +49,7 @@ Trill_spanner_engraver::Trill_spanner_engraver ()
   finished_ = 0;
   current_event_ = 0;
   span_ = 0;
-  event_drul_[START] = 0;
-  event_drul_[STOP] = 0;
+  event_drul_.set (0, 0);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Trill_spanner_engraver, trill_span);
@@ -64,45 +63,43 @@ Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
 void
 Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
-  if (span_) {
-    Pointer_group_interface::add_grob (span_,
-				       ly_symbol2scm ("note-columns"),
-				       info.grob());
-    add_bound_item (span_, info.grob ());
-  } else if (finished_) {
-    Pointer_group_interface::add_grob (finished_, ly_symbol2scm ("note-columns"),
-				       info.grob());
-    add_bound_item (finished_, info.grob ());
-  }
+  if (span_)
+    {
+      Pointer_group_interface::add_grob (span_,
+					 ly_symbol2scm ("note-columns"),
+					 info.grob());
+      if (!span_->get_bound (LEFT))
+	add_bound_item (span_, info.grob ());
+    }
+  else if (finished_)
+    {
+      Pointer_group_interface::add_grob (finished_, ly_symbol2scm ("note-columns"),
+					 info.grob());
+      if (!finished_->get_bound (RIGHT))
+	add_bound_item (finished_, info.grob ());
+    }
 }
 
 void
 Trill_spanner_engraver::process_music ()
 {
-  if (event_drul_[STOP])
+  if (span_
+      && (event_drul_[STOP] || event_drul_[START]))
     {
-      if (!span_)
-	event_drul_[STOP]->origin ()->warning (_ ("cannot find start of trill spanner"));
-      else
-	{
-	  finished_ = span_;
-	  announce_end_grob (finished_, SCM_EOL);
-	  span_ = 0;
-	  current_event_ = 0;
-	}
+      Stream_event *ender = event_drul_[STOP];
+      if (!ender)
+	ender = event_drul_[START];
+      finished_ = span_;
+      announce_end_grob (finished_, ender->self_scm ());
+      span_ = 0;
+      current_event_ = 0;
     }
 
   if (event_drul_[START])
     {
-      if (current_event_)
-	event_drul_[START]->origin ()->warning (_ ("already have a trill spanner"));
-      else
-	{
-	  current_event_ = event_drul_[START];
-	  span_ = make_spanner ("TrillSpanner", event_drul_[START]->self_scm ());
-	  Side_position_interface::set_axis (span_, Y_AXIS);
-	  event_drul_[START] = 0;
-	}
+      current_event_ = event_drul_[START];
+      span_ = make_spanner ("TrillSpanner", event_drul_[START]->self_scm ());
+      Side_position_interface::set_axis (span_, Y_AXIS);
     }
 }
 
@@ -130,8 +127,7 @@ Trill_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
-  event_drul_[START] = 0;
-  event_drul_[STOP] = 0;
+  event_drul_.set (0, 0);
 }
 
 void
@@ -140,8 +136,8 @@ Trill_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      finished_ = span_;
-      typeset_all ();
+      Grob *e = unsmob_grob (get_property ("currentCommandColumn"));
+      span_->set_bound (RIGHT, e);
     }
 }
 
@@ -155,7 +151,8 @@ ADD_TRANSLATOR (Trill_spanner_engraver,
 		"TrillSpanner ",
 
 		/* read */
-		"",
+		"currentCommandColumn "
+		"currentMusicalColumn ",
 
 		/* write */
 		""

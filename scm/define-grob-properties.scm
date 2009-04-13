@@ -178,6 +178,10 @@ this should list the control points of a third-order B@'ezier curve.")
 whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
+     (details ,list? "Alist of parameters for detailed grob behavior.
+More information on the allowed parameters for a grob can be found by 
+looking at the top of the Internals Reference page for each interface
+having a @code{details} property.")
      (digit-names ,vector "Names for string finger digits.")
      (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
 @code{#X}), then this property determines whether the object is placed
@@ -938,14 +942,8 @@ chord changes.")
 
      (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
 translator) that was the cause for this grob.")
-     (delta-position ,number? "The vertical position difference.")
-     (details ,list? "Alist of parameters for detailed grob behavior.
 
-More information on the allowed parameters can be found by inspecting
-@file{lily/slur-scoring.cc}, @file{lily/beam-quanting.cc}, and
-@file{lily/tie-formatting-problem.cc}.  Setting @code{debug-tie-scoring},
-@code{debug-beam-scoring} or @code{debug-slur-scoring} also provides
-useful clues.")
+     (delta-position ,number? "The vertical position difference.")
 
      (font ,ly:font-metric? "A cached font metric object.")
 

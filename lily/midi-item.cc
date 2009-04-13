@@ -169,7 +169,7 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
 {
   audio_ = a;
-  dynamic_byte_ = 0x7f;
+  dynamic_byte_ = 0x5a;
 }
 
 
@@ -225,17 +225,14 @@ Midi_note_off::Midi_note_off (Midi_note *n)
   on_ = n;
   channel_ = n->channel_;
 
-  // Anybody who hears any difference, or knows how this works?
-  //  0 should definitely be avoided, notes stick on some sound cards.
-  // 64 is supposed to be neutral
-
-  aftertouch_byte_ = 64;
+  // use note_on with velocity=0 instead of note_off
+  aftertouch_byte_ = 0;
 }
 
 string
 Midi_note_off::to_string () const
 {
-  Byte status_byte = (char) (0x80 + channel_);
+  Byte status_byte = (char) (0x90 + channel_);
 
   string str = ::to_string ((char)status_byte);
   str += ::to_string ((char) (get_semitone_pitch () + Midi_note::c0_pitch_));

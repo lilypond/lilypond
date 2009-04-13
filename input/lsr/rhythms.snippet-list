@@ -1,5 +1,6 @@
 adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rythms..ly
 adding-drum-parts.ly
+aligning-bar-numbers.ly
 automatic-beam-subdivisions.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 avoiding-collisions-with-chord-fingerings.ly
@@ -31,10 +32,15 @@ modifying-tuplet-bracket-length.ly
 multi--measure-rest-markup.ly
 non-default-tuplet-numbers.ly
 permitting-line-breaks-within-beamed-tuplets.ly
+positioning-grace-notes-with-floating-space.ly
 positioning-multi--measure-rests.ly
+printing-bar-numbers-at-regular-intervals.ly
+printing-bar-numbers-inside-boxes-or-circles.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 printing-music-with-different-time-signatures.ly
 printing-the-bar-number-for-the-first-measure.ly
+redefining-grace-note-global-defaults.ly
+removing-bar-numbers-from-a-score.ly
 rest-styles.ly
 reverting-default-beam-endings.ly
 rhythmic-slashes.ly
@@ -44,5 +50,7 @@ specifying-context-with-beatgrouping.ly
 stemlets.ly
 sub-dividing-beams.ly
 three-sided-box.ly
+tweaking-grace-layout-within-music.ly
 using-beatlength-and-beatgrouping.ly
+using-grace-note-slashes-with-normal-heads.ly
 using-ties-with-arpeggios.ly

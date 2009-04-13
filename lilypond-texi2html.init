@@ -130,7 +130,6 @@ $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
 $Texi2HTML::Config::foot_line_and_ref  = \&makeinfo_like_foot_line_and_ref;
 $Texi2HTML::Config::foot_lines         = \&makeinfo_like_foot_lines;
 $Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
-$Texi2HTML::Config::init_out             = \&lilypond_init_out;
 
 
 
@@ -313,7 +312,7 @@ my $node_to_filename_map = ();
 # according to node titles, which works by simply overriding the id element of
 # the $element hash.
 # If an external nodename<=>filename/anchor map file is found (loaded in
-# lilypond_init_out, use the externally created values, otherwise use the
+# the command handler, use the externally created values, otherwise use the
 # same logic here.
 sub lilypond_element_file_name($$$)
 {
@@ -573,17 +572,10 @@ sub lilypond_init_toc_depth ()
     $page_toc_depth = 1;
   }
 }
-# We can't use a command-handler, because texinfo variables are not yet 
-# available at that stage:
-# push @Texi2HTML::Config::command_handler_init, \&lilypond_init_toc_depth;
+# Set the TOC-depth (depending on a texinfo variable short_toc) in a 
+# command-handler, so we have them available when creating the pages
+push @Texi2HTML::Config::command_handler_process, \&lilypond_init_toc_depth;
 
-# Initialize the toc_depth to 1 if the command-line option -D=short_toc is given
-sub lilypond_init_out()
-{
-  my $rval = t2h_default_init_out();
-  lilypond_init_toc_depth ();
-  return $rval;
-}
 
 # recursively generate the TOC entries for the element and its children (which
 # are only shown up to maxlevel. All ancestors of the current element are also
@@ -729,9 +721,6 @@ sub lilypond_print_element_header
 sub lilypond_toc_body($)
 {
     my $elements_list = shift;
-    # Workaround: Initialize the toc-depth here, because init_out is called
-    # only later in texi2html 1.83
-    lilypond_init_toc_depth ();
     # Generate a default TOC for pages without THIS_ELEMENT
     @default_toc = lilypond_generate_page_toc_body(@$elements_list[0]);
     return T2H_GPL_toc_body($elements_list);

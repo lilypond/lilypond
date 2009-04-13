@@ -81,6 +81,10 @@ A note with the duration of a quadruple breve may be entered with
 @code{\maxima}, but this is supported only within ancient music
 notation.  For details, see @ref{Ancient notation}.
 
+@cindex duration, default
+@cindex default note duration
+@cindex note duration, default
+
 If the duration is omitted, it is set to the previously
 entered duration.  The default for the first note is a quarter
 note.
@@ -198,6 +202,8 @@ a2 \times 2/3 { b4 b b }
 c4 c \times 2/3 { b4 a g }
 @end lilypond
 
+@cindex tuplet bracket placement
+
 @funindex \tupletUp
 @funindex tupletUp
 @funindex \tupletDown
@@ -241,6 +247,8 @@ see @ref{Scaling durations}.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
+@cindex Tuplet number changes
+
 @funindex TupletNumber
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -275,9 +283,9 @@ Internals Reference:
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
 
+@cindex grace notes within tuplet brackets
 
 @knownissues
-@cindex grace notes within tuplet brackets
 When the first note on a staff is a grace note followed by a
 tuplet the grace note must be placed before the @code{\times}
 command to avoid errors.  Anywhere else, grace notes may be
@@ -318,6 +326,7 @@ a multiplier.  This is useful for skipping many measures, e.g.,
 @code{s1*23}.
 
 @cindex compressing music
+@cindex expanding music
 
 @funindex \scaleDurations
 @funindex scaleDurations
@@ -535,6 +544,7 @@ Rests are entered as part of the music in music expressions.
 
 @node Rests
 @unnumberedsubsubsec Rests
+
 @cindex rest
 @cindex rest, entering durations
 @cindex maxima rest
@@ -774,9 +784,12 @@ R2.*2 |
 @cindex multi-measure rest, script
 @cindex fermata on multi-measure rest
 @cindex multi-measure rest, attaching fermata
+@cindex markup on multi-measure rest
+@cindex multi-measure rest with markup
 
 @funindex \fermataMarkup
 @funindex fermataMarkup
+@funindex MultiMeasureRestText
 
 Markups can be added to multi-measure rests.
 The predefined command @code{\fermataMarkup}
@@ -808,6 +821,17 @@ R1^"right"
 When a multi-measure rest immediately follows a @code{\partial}
 setting, resulting bar-check warnings may not be displayed.
 
+
+@funindex \textLengthOn
+@funindex textLengthOn
+@funindex \textLengthOff
+@funindex textLenthOff
+@funindex \fermataMarkup
+@funindex fermataMarkup
+@funindex \compressFullBarRests
+@funindex compressFullBarRests
+@funindex \expandFullBarRests
+@funindex expandFullBarRests
 
 @predefined
 @code{\textLengthOn},
@@ -995,8 +1019,8 @@ Internals Reference:
 @cindex measure, partial
 @cindex pickup measure
 @cindex measure, change length
-@cindex measurePosition
 
+@funindex measurePosition
 @funindex \partial
 @funindex partial
 
@@ -1114,6 +1138,16 @@ Notation Reference:
 Snippets:
 @rlsr{Rhythms}.
 
+
+@cindex cadenza line breaks
+@cindex cadenza page breaks
+@cindex unmetered music, line breaks
+@cindex unmetered music, page breaks
+@cindex breaks in unmetered music
+@cindex line breaks in cadenzas
+@cindex page breaks in cadenzas
+@cindex line breaks in unmetered music
+@cindex page breaks in unmetered music
 
 @knownissues
 
@@ -1463,6 +1497,9 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+@cindex melismata, beams
+@cindex beams and melismata
+
 @warning{If beams are used to indicate melismata in songs, then
 automatic beaming should be switched off with @code{\autoBeamOff}
 and the beams indicated manually.}
@@ -1563,13 +1600,12 @@ group notes with beams, otherwise
 
 If there are no beam-ending rules defined for the beam duration of a
 particular beam in the time signature in use, its beaming is
-controlled by three context properties:
-@code{measureLength}, @code{beatLength} and @code{beatGrouping}.
-These properties may be set in the @code{Score}, @code{Staff} or
-@code{Voice} contexts to delimit their scope.  The default values
-are set while processing @code{\time} commands, so any @code{\set}
-commands to modify their value must be placed after all @code{\time}
-commands.
+controlled by three context properties: @code{measureLength},
+@code{beatLength} and @code{beatGrouping}.  These properties may be
+set in the @code{Score}, @code{Staff} or @code{Voice} contexts to
+delimit their scope.  The default values are set while processing
+@code{\time} commands, so any @code{\set} commands to modify their
+value must be placed after all @code{\time} commands.
 
 @warning{These three properties become effective for a particular
 beam @strong{only} if there are no beam-ending rules predefined for
@@ -1636,6 +1672,12 @@ beats in each group.
 @cindex grouping beats
 @cindex measure sub-grouping
 
+@funindex autoBeamSettings
+@funindex beam-limit
+@funindex beam-numerator
+@funindex beam-denominator
+
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
@@ -1677,19 +1719,27 @@ defined.  This can be either @code{begin} or @code{end} but
 only @code{end} is effective.
 
 @item @code{beam-numerator/beam-denominator} is the beam duration
-to which the rule is to apply.  A beam is considered to have
-the duration of its shortest note.  Set @code{beam-numerator}
-and @code{beam-denominator} to @code{'*'} to have this rule apply
-to beams of any duration.
+to which the rule is to apply.  A beam is considered to have the
+duration of its shortest note.  Set @code{beam-numerator} and
+@code{beam-denominator} to @code{'*'} to have this rule apply to beams
+of any duration.
+
+@funindex time-signature-numerator
+@funindex time-signature-denominator
 
 @item @code{time-signature-numerator/time-signature-denominator}
-specifies the time signature to which this rule should apply.
-If @code{time-signature-numerator} and
-@code{time-signature-denominator} are set to @code{'*'} this rule
-will apply in any time signature.
+specifies the time signature to which this rule should apply.  If
+@code{time-signature-numerator} and @code{time-signature-denominator}
+are set to @code{'*'} this rule will apply in any time signature.
 
-@item @code{monent-numerator/moment-denominator} is the position
+@funindex moment-numerator
+@funindex moment-denominator
+
+@item @code{moment-numerator/moment-denominator} is the position
 in the bar at which the beam should end.
+
+@funindex score-override-auto-beam-setting
+@funindex override-auto-beam-setting
 
 @item @code{context} is optional, and it specifies the context at which
 the change should be made.  The default is @code{'Voice}.
@@ -1760,6 +1810,8 @@ staff:
 automatic beam settings in @file{scm/@/auto@/-beam@/.scm} for
 possible interference, because the beam endings defined there will
 still apply in addition to your own.}
+
+@funindex revert-auto-beam-setting
 
 Any unwanted or conflicting default endings must be reverted for
 your time signature(s).  Existing default or user-defined
@@ -1905,6 +1957,7 @@ g a]
 @unnumberedsubsubsec Feathered beams
 
 @cindex beams, feathered
+@cindex feathered beams
 
 @funindex \featherDurations
 @funindex featherDurations
@@ -1917,12 +1970,12 @@ feathered beam must be indicated manually using @code{[} and
 @code{]}, and the beam feathering is turned on by specifying a
 direction to the @code{Beam} property @code{grow-direction}.
 
-If the placement of the notes and the sound in the MIDI output
-is to reflect the ritardando or accelerando indicated by the
-feathered beam the notes must be grouped as a
-music expression delimited by braces and preceded by a
-@code{featheredDurations} command which specifies the ratio
-between the durations of the first and last notes in the group.
+If the placement of the notes and the sound in the MIDI output is to
+reflect the ritardando or accelerando indicated by the feathered beam
+the notes must be grouped as a music expression delimited by braces
+and preceded by a @code{featherDurations} command which specifies
+the ratio between the durations of the first and last notes in the
+group.
 
 The square brackets show the extent of the beam and the braces show
 which notes are to have their durations modified.  Normally these
@@ -1978,6 +2031,10 @@ Snippets:
 
 @cindex bar lines
 @cindex measure lines
+@cindex closing bar lines
+@cindex bar lines, closing
+@cindex double bar lines
+@cindex bar lines, double
 @cindex repeat bars
 
 @funindex \bar
@@ -2111,6 +2168,9 @@ connected between different staves of a @code{StaffGroup},
 @end lilypond
 
 
+@cindex default bar lines, changing
+@cindex bar lines, default, changing
+
 @snippets
 
 @funindex whichBar
@@ -2166,16 +2226,10 @@ c1 c c c
 c1 c c c
 @end lilypond
 
-
-@snippets
-
 @cindex bar numbers, regular spacing
 
 @funindex barNumberVisibility
-
-@c Uncomment this after next LSR update.
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@c {printing-the-bar-number-for-the-first-measure.ly}
+@funindex BarNumber
 
 Bar numbers can be typeset at regular intervals instead of just at
 the beginning of every line.  To do this the default behavior
@@ -2191,97 +2245,35 @@ example bar numbers are printed at all possible places:
 @lilypond[verbatim,quote,relative=1]
 \override Score.BarNumber #'break-visibility = #'#(#t #t #t)
 \set Score.currentBarNumber = #11
-\bar ""  % Permit first bar number to be printed
-c1 c c c
+% Permit first bar number to be printed
+\bar ""
+c1 | c | c | c
 \break
-c c c c
+c1 | c | c | c
 @end lilypond
 
-@c  All the rest of these examples will be added to LSR
-@c  and moved into the Snippets.  -gp
 
-@noindent
-and here the bar numbers are printed every two measures
-except at the end of the line:
+@snippets
 
-@lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber #'break-visibility = #'#(#f #t #t)
-\set Score.currentBarNumber = #11
-\bar ""  % Permit first bar number to be printed
-% Print a bar number every second measure
-\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
-c1 c c c c
-\break
-c c c c c
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{printing-the-bar-number-for-the-first-measure.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{printing-bar-numbers-at-regular-intervals.ly}
 
 @cindex measure number, format
 @cindex bar number, format
 
-The size of the bar number may be changed.  This is illustrated
-in the following example, which also shows how to enclose bar
-numbers in boxes and circles, and shows an alternative way
-of specifying @code{#(#f #t #t)} for @code{break-visibility}.
-
-@lilypond[verbatim,quote,relative=1]
-% Prevent bar numbers at the end of a line and permit them elsewhere
-\override Score.BarNumber #'break-visibility
-  = #end-of-line-invisible
-
-% Increase the size of the bar number by 2
-\override Score.BarNumber #'font-size = #2
-\repeat unfold 3 { c1 } \bar "|"
-
-% Draw a box round the following bar number(s)
-\override Score.BarNumber  #'stencil
-  = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
-\repeat unfold 3 { c1 } \bar "|"
-
-% Draw a circle round the following bar number(s)
-\override Score.BarNumber  #'stencil
-  = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
-\repeat unfold 4 { c1 } \bar "|."
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{printing-bar-numbers-inside-boxes-or-circles.ly}
 
 @cindex bar number alignment
 
-Bar numbers by default are left-aligned to their parent object.
-This is usually the left edge of a line or, if numbers are printed
-within a line, the left bar line of the measure.  The numbers may also
-be positioned directly on the bar line or right-aligned to the
-bar line:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{aligning-bar-numbers.ly}
 
-@lilypond[verbatim,quote,relative=1]
-\set Score.currentBarNumber = #111
-\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
-% Increase the size of the bar number by 2
-\override Score.BarNumber #'font-size = #2
-% Print a bar number every second measure
-\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
-c1 c1
-% Center-align bar numbers
-\override Score.BarNumber #'self-alignment-X = #0
-c1 c1
-% Right-align bar numbers
-\override Score.BarNumber #'self-alignment-X = #-1
-c1 c1
-@end lilypond
-
-Bar numbers can be removed entirely by removing the
-@code{Bar_number_engraver} from the @code{Score} context.
-
-@lilypond[verbatim,quote]
-\layout {
-  \context {
-    \Score
-    \remove "Bar_number_engraver"
-  }
-}
-\relative c''{
-  c4 c c c \break
-  c4 c c c
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{removing-bar-numbers-from-a-score.ly}
 
 
 @seealso
@@ -2368,10 +2360,10 @@ pipeSymbol = \bar "||"
 @funindex \barNumberCheck
 @funindex barNumberCheck
 
-When copying large pieces of music, it can be helpful to check
-that the LilyPond bar number corresponds to the original that you
-are entering from.  This can be checked with
-@code{\barNumberCheck}, for example,
+When copying large pieces of music, it can be helpful to check that
+the LilyPond bar number corresponds to the original that you are
+entering from.  This can be checked with @code{\barNumberCheck}, for
+example,
 
 @verbatim
 \barNumberCheck #123
@@ -2428,6 +2420,7 @@ mark manually.  The value to use is stored in the property
 @cindex rehearsal mark, manual
 @cindex mark, rehearsal, manual
 @cindex custom rehearsal mark
+@cindex manual rehearsal mark
 
 The style is defined by the property @code{markFormatter}.  It is
 a function taking the current mark (an integer) and the current
@@ -2476,7 +2469,7 @@ string.
 
 @cindex segno
 @cindex coda
-@cindex D.S al Fine
+@cindex D.S. al Fine
 @cindex fermata
 @cindex music glyphs
 @cindex glyphs, music
@@ -2618,6 +2611,10 @@ note after a space lasting 7/8 of the main note.
 }
 @end lilypond
 
+@cindex tweaking grace notes
+@cindex grace notes, tweaking
+@cindex grace notes, changing layout settings
+
 A @code{\grace} music expression will introduce special
 typesetting settings, for example, to produce smaller type, and
 set directions.  Hence, when introducing layout tweaks to
@@ -2643,60 +2640,17 @@ direction is overriden and then reverted.
 
 @snippets
 
-The slash through the stem found in @emph{acciaccatura}s can be applied
-in other situations:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{using-grace-note-slashes-with-normal-heads.ly}
 
-@lilypond[quote,verbatim,relative=2]
-\relative c'' {
-  \override Stem #'stroke-style = #"grace"
-  c8( d2) e8( f4)
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tweaking-grace-layout-within-music.ly}
 
-The layout of grace expressions can be changed throughout the
-music using the function @code{add-grace-property}.  The following
-example undefines the @code{Stem} direction for this grace, so
-that stems do not always point up.
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{redefining-grace-note-global-defaults.ly}
 
-@lilypond[quote,verbatim,relative=2]
-\relative c'' {
-  \new Staff {
-    #(add-grace-property 'Voice 'Stem 'direction ly:stem::calc-direction)
-    #(remove-grace-property 'Voice 'Stem 'direction)
-    \new Voice {
-       \acciaccatura { f16 } g4
-       \grace { d16[ e] } f4
-       \appoggiatura { a,32[ b c d] } e2
-    }
-  }
-}
-@end lilypond
-
-Another option is to change the variables @code{startGraceMusic},
-@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
-@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
-@code{stopAppoggiaturaMusic}.  The default values of these can be
-seen in the file @code{ly/@/grace@/-init@/.ly}.  By redefining
-them other effects may be obtained.
-
-Grace notes may be forced to align with regular notes
-in other staves:
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  <<
-    \override Score.SpacingSpanner #'strict-grace-spacing = ##t
-    \new Staff {
-      c4
-      \afterGrace c4 { c16[ c8 c16] }
-      c4 r
-    }
-    \new Staff {
-      c16 c c c c c c c c4 r
-    }
-  >>
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{positioning-grace-notes-with-floating-space.ly}
 
 
 @seealso
@@ -2714,6 +2668,10 @@ Internals Reference: @rinternals{GraceMusic}.
 
 @knownissues
 
+@cindex acciaccatura, multi-note
+@cindex multi-note acciaccatura
+@cindex grace-note synchronization
+
 A multi-note beamed @i{acciaccatura} is printed without a slash,
 and looks exactly the same as a multi-note beamed
 @i{appoggiatura}.
@@ -2726,8 +2684,10 @@ synchronized.  Take care when you mix staves with grace notes and
 staves without, for example,
 
 @lilypond[quote,relative=2,verbatim]
-<< \new Staff { e4 \bar "|:" \grace c16 d2. }
-   \new Staff { c4 \bar "|:" d2. } >>
+<<
+  \new Staff { e4 \bar "|:" \grace c16 d2. }
+  \new Staff { c4 \bar "|:" d2. }
+>>
 @end lilypond
 
 @noindent
@@ -2735,8 +2695,10 @@ This can be remedied by inserting grace skips of the corresponding
 durations in the other staves.  For the above example
 
 @lilypond[quote,relative=2,verbatim]
-<< \new Staff { e4 \bar "|:" \grace c16 d2. }
-   \new Staff { c4 \bar "|:" \grace s16 d2. } >>
+<<
+  \new Staff { e4 \bar "|:" \grace c16 d2. }
+  \new Staff { c4 \bar "|:" \grace s16 d2. }
+>>
 @end lilypond
 
 Grace sections should only be used within sequential music
