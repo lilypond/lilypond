@@ -1,0 +1,8 @@
+  texidoces = "
+
+Se pueden eliminar completamente los números de compás quitando el
+grabador @code{Bar_number_engraver} del contexto de @code{Score}.
+
+"
+
+  doctitlees = "Suprimir los números de compás de toda la partitura"
