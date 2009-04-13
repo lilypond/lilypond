@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 46458e0e0fafcb4dab3e8127110cef5984523e10
+    Translation of GIT committish: 128f9c0bbb0d92d6b0403b3575dceb198b20ae69
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1517,6 +1517,28 @@ MIDI.  Esta instrucción normalmente hace que se imprima la indicación
 metronómica, pero esto se puede eliminar, véase @ref{Metronome marks}.
 Más abajo se describe una forma alternativa de especificar el tempo
 MIDI inicial o global, véase @ref{MIDI block}.
+
+Debido a ciertas limitaciones de Windows, la extensión predeterminada
+para los archivos MIDI en Windows es @code{.mid}. Otros sistemas
+operativos utilizan la extensión @code{.midi}.  Si prefiere una
+extensión diferente, inserte la siguiente línea en el nivel jerárquico
+superior del archivo de entrada, antes del inicio de cualquier bloque
+@code{\book}, @code{\bookpart} o @code{\score}:
+
+@example
+#(ly:set-option 'midi-extension "midi")
+@end example
+
+La línea anterior establece la extensión predeterminada para los
+archivos MIDI a @code{.midi}.
+
+De forma alternativa, esta opción se puede también proporcionar en la
+línea de órdenes:
+
+@example
+lilypond … -dmidi-extension=midi archivoLily.ly
+@end example
+
 
 @unnumberedsubsubsec Instrument names
 

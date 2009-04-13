@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
+    Translation of GIT committish: 128f9c0bbb0d92d6b0403b3575dceb198b20ae69
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -85,6 +85,10 @@ Se puede escribir una nota con la duración de una cuádruple breve
 mediante @code{\maxima}, pero esto está contemplado solamente dentro
 de la notación musical antigua.  Para ver más detalles, consulte
 @ref{Ancient notation}.
+
+@cindex duración predeterminada
+@cindex predeterminada, duración de la nota
+@cindex nota, duración predeterminada
 
 Si la duración se omite, su valor será el de la duración de la nota
 anterior.  Por omisión, el valor de la primera nota es el de una
@@ -206,6 +210,8 @@ a2 \times 2/3 { b4 b b }
 c4 c \times 2/3 { b4 a g }
 @end lilypond
 
+@cindex grupos de valoración especial, colocación del corchete
+
 @funindex \tupletUp
 @funindex tupletUp
 @funindex \tupletDown
@@ -250,6 +256,8 @@ grupo especial, véase @ref{Scaling durations}.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
+@cindex grupos de valoración especial, modificación del número
+
 @funindex TupletNumber
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -286,10 +294,9 @@ Referencia de funcionamiento interno:
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
 
+@cindex adorno, notas de, dentro de corchetes de grupo especial
 
 @knownissues
-
-@cindex adorno, notas de, dentro de corchetes de grupo especial
 
 Cuando la primera nota de un pentagrama es una nota de adorno (un
 mordente de una nota) seguida de un grupo de valoración especial, la
@@ -332,6 +339,7 @@ modificar mediante un multiplicador.  Esto es útil para saltar muchos
 compases, como por ejemplo @code{s1*23}.
 
 @cindex compresión de música
+@cindex expansión de música
 
 @funindex \scaleDurations
 @funindex scaleDurations
@@ -803,9 +811,12 @@ R2.*2 |
 @cindex multicompás, silencios, inscripción en
 @cindex calderón sobre un silencio multicompás
 @cindex multicompás, silencio, aplicar un calderón a
+@cindex marcado sobre silencios multicompás
+@cindex multicompás, silencio, con marcados
 
 @funindex \fermataMarkup
 @funindex fermataMarkup
+@funindex MultiMeasureRestText
 
 Se pueden añadir elementos de marcado a los silencios multicompás.  Se
 proporciona la instrucción predefinida @code{\fermataMarkup} para
@@ -837,6 +848,17 @@ Cuando un silencio multicompás sigue inmediatamente al establecimiento
 de un compás parcial con @code{\partial}, es posible que no se emitan
 las advertencias correspondientes de comprobación de compás.
 
+
+@funindex \textLengthOn
+@funindex textLengthOn
+@funindex \textLengthOff
+@funindex textLenthOff
+@funindex \fermataMarkup
+@funindex fermataMarkup
+@funindex \compressFullBarRests
+@funindex compressFullBarRests
+@funindex \expandFullBarRests
+@funindex expandFullBarRests
 
 @predefined
 @code{\textLengthOn},
@@ -1022,8 +1044,8 @@ Referencia de funcionamiento interno:
 @cindex compás parcial
 @cindex parcial, compás
 @cindex compás, cambiar la longitud del
-@funindex measurePosition
 
+@funindex measurePosition
 @funindex \partial
 @funindex partial
 
@@ -1144,6 +1166,15 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Rhythms}.
 
+@cindex cadencias, saltos de línea en
+@cindex cadencias, saltos de página en
+@cindex sin medida, música, saltos de línea en
+@cindex sin medida, música, saltos de página en
+@cindex saltos, en música sin medida
+@cindex línea, saltos de, en cadencias
+@cindex página, saltos de, en cadencias
+@cindex línea, saltos de, en música sin medida
+@cindex página, saltos de, en música sin medida
 
 @knownissues
 
@@ -1502,6 +1533,9 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+@cindex melismas, barras en
+@cindex barras y melismas
+
 @warning{Si se usan barras para indicar los melismas de las canciones,
 entonces se debe desactivar el barrado automático con
 @code{\autoBeamOff} e indicar las barras manualmente.}
@@ -1686,6 +1720,12 @@ pulsos en cada grupo.
 @cindex agrupación de pulsos
 @cindex compases, subgrupos dentro de
 
+@funindex autoBeamSettings
+@funindex beam-limit
+@funindex beam-numerator
+@funindex beam-denominator
+
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
@@ -1713,10 +1753,10 @@ Para añadir una regla a la lista, utilice
 
 @example
 #(override-auto-beam-setting
-  '(beam-limit
-    beam-numerator  beam-denominator
-    time-signature-numerator time-signature-denominator)
-  moment-numerator moment-denominator [context])
+  '(límite-barra
+    numerador-barra  denominador-barra
+    numerador-compás denominador-compás)
+  numerador-momento denominador-momento [contexto])
 @end example
 
 @noindent
@@ -1741,6 +1781,9 @@ esta regla se aplica a cualquier tipo de compás.
 
 @item @code{numerador-momento/denominador-momento} es la posición dentro del
 compás en que la barra debe terminar.
+
+@funindex score-override-auto-beam-setting
+@funindex override-auto-beam-setting
 
 @item @code{contexto} es opcional, y especifica el contexto en que se debe
 hacer el cambio.  El valor predeterminado es @code{'Voice}.
@@ -1814,6 +1857,8 @@ compruebe la existencia de una posible interferencia en los ajustes
 predeterminados del barrado automático que están en
 @file{scm/@/auto@/-beam@/.scm}, porque los finales de barra definidos
 aquí aún son válidos además de los suyos.}
+
+@funindex revert-auto-beam-setting
 
 Debemos revertir cualquier final predeterminado indeseado o
 conflictivo, para nuestro compás concreto.  Podemos eliminar una regla
@@ -1958,6 +2003,7 @@ g a]
 @unnumberedsubsubsec Feathered beams
 
 @cindex barras progresivas
+@cindex progresivas, barras
 
 @funindex \featherDurations
 @funindex featherDurations
@@ -2032,6 +2078,10 @@ Fragmentos de código:
 
 @cindex barras de compás
 @cindex líneas divisorias
+@cindex final, barra
+@cindex barra final
+@cindex doble barra
+@cindex barra doble
 @cindex repetición, barras de
 
 @funindex \bar
@@ -2166,6 +2216,9 @@ líneas resultantes se conectan entre los distintos pentagramas de un
 >>
 @end lilypond
 
+@cindex predeterminada, línea divisoria, cambiar
+@cindex línea divisoria predeterminada, cambiar
+
 @snippets
 
 @funindex whichBar
@@ -2223,15 +2276,10 @@ c1 c c c
 c1 c c c
 @end lilypond
 
-@snippets
-
 @cindex números de compás, espaciado regular
 
 @funindex barNumberVisibility
-
-@c Uncomment this after next LSR update.
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-@c {printing-the-bar-number-for-the-first-measure.ly}
+@funindex BarNumber
 
 Los números de compás se pueden tipografiar a intervalos regulares en
 vez de al principio de cada línea.  Para hacerlo se debe sobreescribir
@@ -2248,100 +2296,35 @@ sitios posibles:
 @lilypond[verbatim,quote,relative=1]
 \override Score.BarNumber #'break-visibility = #'#(#t #t #t)
 \set Score.currentBarNumber = #11
-\bar ""  % Permit first bar number to be printed
-c1 c c c
+% Permit first bar number to be printed
+\bar ""
+c1 | c | c | c
 \break
-c c c c
+c1 | c | c | c
 @end lilypond
 
-@c  All the rest of these examples will be added to LSR
-@c  and moved into the Snippets.  -gp
 
-@noindent
-y aquí los números de compás se imprimen cada dos compases excepto al
-final de la línea:
+@snippets
 
-@lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber #'break-visibility = #'#(#f #t #t)
-\set Score.currentBarNumber = #11
-\bar ""  % Permit first bar number to be printed
-% Print a bar number every second measure
-\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
-c1 c c c c
-\break
-c c c c c
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{printing-the-bar-number-for-the-first-measure.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{printing-bar-numbers-at-regular-intervals.ly}
 
 @cindex compás, número de, formato
 @cindex número de compases, formato de
 
-Se puede cambiar el tamaño del número de compás.  Esto queda ilustrado
-en el siguiente ejemplo, que también muestra cómo encerrar los números
-de compás en rectángulos y circunferencias, y ofrece una forma
-alternativa de especificar @code{#(#f #t #t)} para
-@code{break-visibility}.
-
-@lilypond[verbatim,quote,relative=1]
-% Prevent bar numbers at the end of a line and permit them elsewhere
-\override Score.BarNumber #'break-visibility
-  = #end-of-line-invisible
-
-% Increase the size of the bar number by 2
-\override Score.BarNumber #'font-size = #2
-\repeat unfold 3 { c1 } \bar "|"
-
-% Draw a box round the following bar number(s)
-\override Score.BarNumber  #'stencil
-  = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
-\repeat unfold 3 { c1 } \bar "|"
-
-% Draw a circle round the following bar number(s)
-\override Score.BarNumber  #'stencil
-  = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
-\repeat unfold 4 { c1 } \bar "|."
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{printing-bar-numbers-inside-boxes-or-circles.ly}
 
 @cindex bar number alignment
 
-Los números de compás están alineados de forma predeterminada por la
-izquierda a su objeto padre.  Esto suele corresponder al límite
-izquierdo de una línea o, si los números se imprimen dentro de la
-línea, la divisoria izquierda del compás.  Los números también se
-pueden colocar directamente sobre la línea divisoria o alinearse por
-la derecha con ella:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{aligning-bar-numbers.ly}
 
-@lilypond[verbatim,quote,relative=1]
-\set Score.currentBarNumber = #111
-\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
-% Increase the size of the bar number by 2
-\override Score.BarNumber #'font-size = #2
-% Print a bar number every second measure
-\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
-c1 c1
-% Center-align bar numbers
-\override Score.BarNumber #'self-alignment-X = #0
-c1 c1
-% Right-align bar numbers
-\override Score.BarNumber #'self-alignment-X = #-1
-c1 c1
-@end lilypond
-
-Los números de compás se pueden suprimir completamente quitando el
-grabador @code{Bar_number_engraver} de números de compás del contexto
-de partitura @code{Score}.
-
-@lilypond[verbatim,quote]
-\layout {
-  \context {
-    \Score
-    \remove "Bar_number_engraver"
-  }
-}
-\relative c''{
-  c4 c c c \break
-  c4 c c c
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{removing-bar-numbers-from-a-score.ly}
 
 
 @seealso
@@ -2506,6 +2489,7 @@ se almacena dentro de la propiedad @code{rehearsalMark}.
 @cindex ensayo, letra de, manual
 @cindex marca de ensayo manual
 @cindex personalizada, marca de ensayo
+@cindex manual, marca de ensayo
 
 El estilo se define por medio de la propiedad @code{markFormatter}.
 Es una función que toma como argumentos la marca en curso (un número
@@ -2556,7 +2540,7 @@ de esta forma.  Sin embargo, es posible aplicar un elemento
 
 @cindex segno
 @cindex coda
-@cindex D.S al Fine
+@cindex D.S. al Fine
 @cindex calderón
 @cindex musicales, glifos
 @cindex glifos musicales
@@ -2700,6 +2684,10 @@ adorno después de un espacio que dura 7/8 de la nota principal.
 }
 @end lilypond
 
+@cindex trucaje de las notas de adorno
+@cindex notas de adorno, trucar
+@cindex notas de adorno, cambiar los ajustes de disposición
+
 Una expresión musical @code{\grace} introduce ajustes de tipografía
 especiales, por ejemplo para producir un tipo más pequeño y para fijar
 las direcciones.  Por ello, cuando se introducen trucos para la
@@ -2725,61 +2713,17 @@ adorno se sobreescribe y luego se revierte.
 
 @snippets
 
-El trazo inclinado que atraviesa al corchete de las
-@emph{acciaccatura}s se puede aplicar en otras situaciones:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{using-grace-note-slashes-with-normal-heads.ly}
 
-@lilypond[quote,verbatim,relative=2]
-\relative c'' {
-  \override Stem #'stroke-style = #"grace"
-  c8( d2) e8( f4)
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tweaking-grace-layout-within-music.ly}
 
-La disposición de las expresiones de adorno se pueden cambiar a lo
-largo de la música usando la función @code{add-grace-property}.  El
-siguiente ejemplo suprime la definición de la dirección de la
-@code{Stem} (plica) para este adorno, y así las plicas no siempre
-apuntan hacia arriba.
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{redefining-grace-note-global-defaults.ly}
 
-@lilypond[quote,verbatim,relative=2]
-\relative c'' {
-  \new Staff {
-    #(add-grace-property 'Voice 'Stem 'direction ly:stem::calc-direction)
-    #(remove-grace-property 'Voice 'Stem 'direction)
-    \new Voice {
-       \acciaccatura { f16 } g4
-       \grace { d16[ e] } f4
-       \appoggiatura { a,32[ b c d] } e2
-    }
-  }
-}
-@end lilypond
-
-Otra opción es modificar las variables @code{startGraceMusic},
-@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
-@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} y
-@code{stopAppoggiaturaMusic}.  Sus valores predeterminados están en el
-archivo @file{ly/@/grace@/-init@/.ly}.  Al redefinirlos se pueden
-obtener otros efectos.
-
-Se puede forzar la alineación de las notas de adorno con las notas
-normales de los otros pentagramas:
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  <<
-    \override Score.SpacingSpanner #'strict-grace-spacing = ##t
-    \new Staff {
-      c4
-      \afterGrace c4 { c16[ c8 c16] }
-      c4 r
-    }
-    \new Staff {
-      c16 c c c c c c c c4 r
-    }
-  >>
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{positioning-grace-notes-with-floating-space.ly}
 
 
 @seealso
@@ -2800,6 +2744,9 @@ Referencia de funcionamiento interno:
 
 @knownissues
 
+@cindex acciaccatura de varias notas
+@cindex adorno, sincronización de notas de
+
 Una @i{acciaccatura} de varias notas con una barra se imprime sin
 tachar, y tiene exactamente la misma apariencia que una
 @i{appoggiatura} de varias notas con barra.
@@ -2812,8 +2759,10 @@ divisorias, etc., se sincronizan también.  Ponga cuidado cuando mezcle
 pentagramas con adornos y sin adornos, por ejemplo
 
 @lilypond[quote,relative=2,verbatim]
-<< \new Staff { e4 \bar "|:" \grace c16 d2. }
-   \new Staff { c4 \bar "|:" d2. } >>
+<<
+  \new Staff { e4 \bar "|:" \grace c16 d2. }
+  \new Staff { c4 \bar "|:" d2. }
+>>
 @end lilypond
 
 @noindent
@@ -2822,8 +2771,10 @@ duraciones correspondientes en los otros pentagramas.  Para el ejemplo
 anterior
 
 @lilypond[quote,relative=2,verbatim]
-<< \new Staff { e4 \bar "|:" \grace c16 d2. }
-   \new Staff { c4 \bar "|:" \grace s16 d2. } >>
+<<
+  \new Staff { e4 \bar "|:" \grace c16 d2. }
+  \new Staff { c4 \bar "|:" \grace s16 d2. }
+>>
 @end lilypond
 
 Las secciones de adorno sólo se deben usar dentro de expresiones de
