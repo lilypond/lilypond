@@ -82,7 +82,7 @@ Referencia de la notación:
 @ref{Falls and doits},
 @ref{Special note heads}.
 
-Snippets:
+Fragmentos de código:
 @rlsr{Winds}
 
 
@@ -114,6 +114,7 @@ escritura para gaita.
 @cindex gaita escocesa de las tierras altas
 @cindex mordentes
 @cindex notas de adorno
+
 @funindex \taor
 @funindex taor
 @funindex \hideKeySignature
