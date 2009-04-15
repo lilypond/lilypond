@@ -2608,7 +2608,7 @@ c4 \grace c16 c4
 \grace { c16[ d16] } c2
 @end lilypond
 
-Lilypond también contempla dos tipos especiales de notas de adorno, la
+LilyPond también contempla dos tipos especiales de notas de adorno, la
 @emph{acciaccatura} o mordente de una nota (una nota de adorno sin
 medida que se indica mediante una pequeña nota ligada y con el
 corchete tachado) y la @emph{appoggiatura}, que toma una fracción fija

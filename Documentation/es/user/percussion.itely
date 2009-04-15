@@ -435,7 +435,7 @@ En caso contrario resulta demasiado corta.  También debe definir las
 posiciones de las dos líneas del pentagrama.  Para más información
 sobre estos delicados asuntos, consulte @ref{Staff symbol}.
 
-Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}:
+Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}):
 
 @lilypond[quote,verbatim]
 #(define mydrums '((tambourine default #t 0)))

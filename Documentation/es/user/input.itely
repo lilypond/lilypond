@@ -1218,7 +1218,7 @@ subconjunto de los códigos de Unicode a glifos.  LilyPond usa la
 biblioteca Pango para representar y disponer tipográficamente textos
 multilingües.
 
-Lilypond no realiza ninguna conversión en la codificación de la
+LilyPond no realiza ninguna conversión en la codificación de la
 entrada.  Esto significa que cualquier text, ya sea el título, la
 letra de la canción o una instrucción musical que contenga caracteres
 distintos a los del conjunto ASCII, se deben codificar en UTF-8.  La
@@ -1284,7 +1284,7 @@ insertan el carácter Unicode U+03BE, que tiene el nombre Unicode
 Se puede escribir de esta forma cualquier punto de código Unicode, y
 si todos los caracteres especiales se escriben en este formato no es
 necesario guardar el archivo de entrada en formato UTF-8.  Por
-supuesto, debe estar instalada y estar disponible para Lilypond una
+supuesto, debe estar instalada y estar disponible para LilyPond una
 fuente tipográfica que contenga codificados todos estos caracteres.
 
 El ejemplo siguiente muestra valores hexadecimales Unicode que se usan

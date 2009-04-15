@@ -1169,7 +1169,7 @@ the mapping of a subset of the Unicode code points to glyphs.
 LilyPond uses the Pango library to layout and render multi-lingual
 texts.
 
-Lilypond does not perform any input-encoding conversions.  This
+LilyPond does not perform any input-encoding conversions.  This
 means that any text, be it title, lyric text, or musical
 instruction containing non-ASCII characters, must be encoded in
 UTF-8.  The easiest way to enter such text is by using a

@@ -188,7 +188,7 @@ set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 @end example
 
 @noindent
-donde $@{LILYPOND_VERSION@} es su versión de lilypond.  Si Lilypond no se instaló
+donde $@{LILYPOND_VERSION@} es su versión de lilypond.  Si LilyPond no se instaló
 en su momento en @file{/usr/local/}, cambie esta ruta de la forma correspondiente.
 
 

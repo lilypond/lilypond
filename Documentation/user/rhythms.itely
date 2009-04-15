@@ -2532,7 +2532,7 @@ c4 \grace c16 c4
 \grace { c16[ d16] } c2
 @end lilypond
 
-Lilypond also supports two special types of grace notes, the
+LilyPond also supports two special types of grace notes, the
 @emph{acciaccatura}--an unmeasured grace note indicated by a slurred
 small note with a slashed stem--and the @emph{appoggiatura}, which
 takes a fixed fraction of the main note and appears in small print

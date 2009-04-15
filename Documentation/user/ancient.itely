@@ -71,7 +71,7 @@ Three styles are available for typesetting Gregorian chant:
 @item @emph{Editio Vaticana} is a complete style for
 Gregorian chant, following the appearance of the Solesmes
 editions, the official chant books of the Vatican since 1904.
-Lilypond has support for all the notational signs used in this
+LilyPond has support for all the notational signs used in this
 style, including ligatures, @emph{custodes}, and special signs
 such as the quilisma and the oriscus.
 
@@ -1456,7 +1456,7 @@ in the above table is accordingly extrapolated.  This way,
 infinitely many different ligatures can be created.
 
 Note that the use of these signs in the music itself follows
-certain rules, which are not checked by Lilypond.  E.g., the
+certain rules, which are not checked by LilyPond.  E.g., the
 @emph{quilisma} is always the middle note of an ascending
 ligature, and usually falls on a half-tone step, but it is
 perfectly possible, although incorrect, to make a single-note
@@ -2290,7 +2290,7 @@ with head prefixes in arbitrary order.
 
 Working with ancient music frequently involves particular tasks
 which differ considerably from the modern notation for which
-Lilypond is designed.  In the rest of this section, a number of
+LilyPond is designed.  In the rest of this section, a number of
 typical scenarios are outlined, with suggestions of solutions.
 These involve:
 

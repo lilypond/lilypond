@@ -70,7 +70,7 @@ canto gregoriano:
 @item @emph{Editio Vaticana}
 es un estilo completo para canto gregoriano, que sigue la apariencia
 de las ediciones de Solesmes, los libros de canto oficiales del
-Vaticano desde 1904.  Lilypond contempla todos los signos de notación
+Vaticano desde 1904.  LilyPond contempla todos los signos de notación
 que se utilizan en este estilo, entre ellos las ligaduras,
 @emph{custodias} y símbolos especiales como el quilisma y el oriscus.
 
@@ -1491,7 +1491,7 @@ Formas @b{Básica} y @emph{Licuescente}
 @tab
 @b{Salida}
 @tab
-@b{Código de Lilypond@*}
+@b{Código de LilyPond@*}
 
 @item
 @b{Punctum}
@@ -2276,7 +2276,7 @@ arbitrario.
 
 El trabajo con música antigua implica con frecuencia tareas
 adicionales que difieren considerablemente de la notación moderna para
-la que se diseñó Lilypond.  En el resto de esta sección se perfilan
+la que se diseñó LilyPond.  En el resto de esta sección se perfilan
 unos cuantos escenarios típicos, con sugerencias de soluciones.  Entre
 ellos están los siguientes:
 

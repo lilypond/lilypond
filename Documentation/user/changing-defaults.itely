@@ -1632,7 +1632,7 @@ command to remain immediately adjacent to the object to which it is
 to apply after the input file has been converted to a music stream.
 This is often not the case, as many additional elements are inserted
 into the music stream implicitly.  For example, when a note which is
-not part of a chord is processed, Lilypond implicitly inserts a
+not part of a chord is processed, LilyPond implicitly inserts a
 @code{ChordEvent} event before the note, so separating the tweak
 from the note.  However, if chord symbols are placed round the
 tweak and the note, the @code{\tweak} command comes after the

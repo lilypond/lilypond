@@ -1268,7 +1268,7 @@ its fleece was white as snow.
 Cuando una pieza tiene muchos versos, a menudo se imprimen en varias
 columnas a lo largo de toda la página. Con frecuencia un número de
 verso fuera del margen precede a cada verso. El ejemplo siguiente
-muestra cómo producir dicha salida en Lilypond.
+muestra cómo producir dicha salida en LilyPond.
 
 @lilypond[ragged-right,quote,verbatim]
 melody = \relative c' {

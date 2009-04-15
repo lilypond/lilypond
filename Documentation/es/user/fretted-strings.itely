@@ -277,7 +277,7 @@ hacerlo, es necesario especificar la afinación de las cuerdas.  La
 afinación de las cuerdas se da en la propiedad @code{StringTunings}.
 
 LilyPond trae afinaciones predefinidas para el banjo, la mandolina, la
-guitarra y el bajo.  Lilypond establece automáticamente la
+guitarra y el bajo.  LilyPond establece automáticamente la
 transposición correcta para las afinaciones predefinidas.  El ejemplo
 siguiente es para bajo, que suena una octava por debajo de lo escrito.
 
@@ -314,7 +314,7 @@ dispuestas en orden de altura.
 
 La altura de una cuerda en una lista de afinación de cuerdas es el
 intervalo que forma la cuerda al aire con el Do central, medido en
-semitonos.  La altura debe ser un número entero.  Lilypond calcula la
+semitonos.  La altura debe ser un número entero.  LilyPond calcula la
 altura real de la cuerda añadiendo la altura de la afinación a la
 altura real del Do central.
 
@@ -1228,7 +1228,7 @@ ajustes de instrumentos de trastes, pero hay algunos más de los que
 merece la pena hablar aquí.  De forma ocasional, los usuarios quieren
 crear documentos del tipo de cancioneros que tengan sólo la letra de
 las canciones con indicaciones de acordes sobre ella.  Dado que
-Lilypond es un tipografiador de música, no se recomienda para
+LilyPond es un tipografiador de música, no se recomienda para
 documentos que no tienen notación musical.  Una alternativa mejor es
 un procesador de texto, editor de texto o, para usuarios con
 experiencia, un tipografiador como GuitarTeX.

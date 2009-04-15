@@ -274,7 +274,7 @@ specified.  The tuning of the strings is given in the
 @code{StringTunings} property.
 
 LilyPond comes with predefined string tunings for banjo, mandolin,
-guitar and bass guitar.  Lilypond automatically sets the correct
+guitar and bass guitar.  LilyPond automatically sets the correct
 transposition for predefined tunings.  The following example is
 for bass guitar, which sounds an octave lower than written.
 
@@ -310,7 +310,7 @@ from highest pitch to lowest pitch, but some instruments
 
 A string pitch in a string tuning list is the pitch difference
 of the open string from middle C measured in semitones.  The
-string pitch must be an integer.  Lilypond calculates the actual
+string pitch must be an integer.  LilyPond calculates the actual
 pitch of the string by adding the string tuning pitch to the
 actual pitch for middle C.
 
@@ -1202,7 +1202,7 @@ Most of the notational issues associated with guitar music are
 covered sufficiently in the general fretted strings section, but there
 are a few more worth covering here.  Occasionally users want to
 create songbook-type documents having only lyrics with chord
-indications above them.  Since Lilypond is a music typesetter,
+indications above them.  Since LilyPond is a music typesetter,
 it is not recommended for documents that have no music notation
 in them.  A better alternative is a word processor, text editor,
 or, for experienced users, a typesetter like GuitarTeX.
