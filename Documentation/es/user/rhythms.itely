@@ -1721,10 +1721,6 @@ pulsos en cada grupo.
 @cindex compases, subgrupos dentro de
 
 @funindex autoBeamSettings
-@funindex beam-limit
-@funindex beam-numerator
-@funindex beam-denominator
-
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}

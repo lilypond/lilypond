@@ -1673,10 +1673,6 @@ beats in each group.
 @cindex measure sub-grouping
 
 @funindex autoBeamSettings
-@funindex beam-limit
-@funindex beam-numerator
-@funindex beam-denominator
-
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
@@ -1724,16 +1720,10 @@ duration of its shortest note.  Set @code{beam-numerator} and
 @code{beam-denominator} to @code{'*'} to have this rule apply to beams
 of any duration.
 
-@funindex time-signature-numerator
-@funindex time-signature-denominator
-
 @item @code{time-signature-numerator/time-signature-denominator}
 specifies the time signature to which this rule should apply.  If
 @code{time-signature-numerator} and @code{time-signature-denominator}
 are set to @code{'*'} this rule will apply in any time signature.
-
-@funindex moment-numerator
-@funindex moment-denominator
 
 @item @code{moment-numerator/moment-denominator} is the position
 in the bar at which the beam should end.
