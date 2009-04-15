@@ -402,8 +402,8 @@ interpreta en último lugar.
 \chordmode { c1:5.5-.5+ }
 @end lilypond
 
-Sólo se puede crear la primera inversión mediante la adición de un
-bajo.  La segunda inversión requiere cambiar la fundamental del
+Sólo se puede crear la segunda inversión mediante la adición de un
+bajo.  La primera inversión requiere cambiar la fundamental del
 acorde.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
