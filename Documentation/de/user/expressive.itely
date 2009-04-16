@@ -452,12 +452,14 @@ mfEspress = \markup { \center-align \line {
               \hspace #3.7 mf \normal-text \italic espress. } }
 roundFdynamic = #(make-dynamic-script roundF)
 boxFdynamic = #(make-dynamic-script boxF)
+mfEspressDynamic = #(make-dynamic-script mfEspress)
 \relative c' {
   c4_\roundFdynamic\< d e f
   g,1~_\boxFdynamic\>
   g
   g'~\mfEspressDynamic
-  g}
+  g
+}
 @end lilypond
 
 Anstelle dessen kann auch die Scheme-Form des Beschriftungs-Modus
