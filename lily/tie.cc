@@ -265,17 +265,23 @@ Tie::print (SCM smob)
 
   Stencil a;
 
-  SCM p = me->get_property ("dash-period");
-  SCM f = me->get_property ("dash-fraction");
-  if (scm_is_number (p) && scm_is_number (f))
-    a = Lookup::dashed_slur (b,
-			     line_thick,
-			     robust_scm2double (p, 1.0),
-			     robust_scm2double (f, 0));
-  else
+  SCM dash_definition = me->get_property ("dash-definition");
+//  SCM p = me->get_property ("dash-period");
+//  SCM f = me->get_property ("dash-fraction");
+//  SCM interval = me->get_property ("dash-interval");
+//  if (scm_is_number (p) && scm_is_number (f))
+//    a = Lookup::dashed_slur (b,
+//			     line_thick,
+//			     robust_scm2double (p, 1.0),
+//			     robust_scm2double (f, 0));
+//  else
     a = Lookup::slur (b,
 		      get_grob_direction (me) * base_thick,
-		      line_thick);
+		      line_thick,
+                      dash_definition);
+//                      robust_scm2double (p, 1.0),
+//                      robust_scm2double (f, 0),
+//                      robust_scm2double (interval, 1.0));
 
 #if DEBUG_TIE_SCORING
   SCM annotation = me->get_property ("annotation");

@@ -265,3 +265,56 @@ Bezier::reverse ()
     b2.control_[CONTROL_COUNT - i - 1] = control_[i];
   *this = b2;
 }
+
+
+/*
+  Subdivide a bezier at T into LEFT_PART and RIGHT_PART
+*/
+void
+Bezier::subdivide (Real t, Bezier &left_part, Bezier &right_part)
+{
+  Offset b2[3];
+  Offset b1[2];
+  Offset b0;
+  for (int i = 0; i < 3; i++)
+    b2[i] = control_[i] + t * (control_[i+1] - control_[i]);
+  for (int i = 0; i < 2; i++)
+    b1[i] = b2[i] + t * (b2[i+1] - b2[i]);
+  b0 = b1[0] + t * (b1[1] - b1[0]);
+  left_part.control_[0] = control_[0];
+  left_part.control_[1] = b2[0];
+  left_part.control_[2] = b1[0];
+  left_part.control_[3] = b0;
+  right_part.control_[0] = b0;
+  right_part.control_[1] = b1[1];
+  right_part.control_[2] = b2[2];
+  right_part.control_[3] = control_[3];
+}
+
+/*
+  Extract a portion of a bezier from T_MIN to T_MAX
+*/
+
+Bezier
+Bezier::extract (Real t_min, Real t_max)
+{
+  Bezier bez1, bez2, bez3, bez4;
+  if (t_min == 0.0)
+    {
+      for (int i = 0; i < CONTROL_COUNT; i++)
+        bez2.control_[i] = control_[i];
+    }
+  else
+    {
+      subdivide (t_min, bez1, bez2);
+    }
+  if (t_max == 1.0)
+    {
+      return bez2;
+    }
+  else
+   {
+     bez2.subdivide ((t_max-t_min)/(1-t_min), bez3, bez4);
+     return bez3;
+  }
+}

@@ -575,6 +575,26 @@ c4( e g2)
 g4( e c2)
 @end lilypond
 
+@funindex \slurHalfDashed
+@funindex slurHalfDashed
+@funindex \slurHalfSolid
+@funindex slurHalfSolid
+
+Slurs can also be made half-dashed (the first half dashed, the
+second half solid) or half-solid (the first half solid, the second
+half dashed):
+
+@lilypond[verbatim,quote,relative=1]
+\slurHalfDashed
+g4( e c2)
+\slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+
+
 @funindex \slurUp
 @funindex slurUp
 
@@ -585,6 +605,8 @@ g4( e c2)
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
+@code{\slurHaldDashed},
+@code{\slurHalfSolid},
 @code{\slurSolid}.
 @endpredefined
 
@@ -596,6 +618,9 @@ g4( e c2)
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {positioning-text-markups-inside-slurs.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{making-slurs-with-complex-dash-structure.ly}
 
 @seealso
 Music Glossary:

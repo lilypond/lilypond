@@ -20,10 +20,11 @@ struct Lookup
   static Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
   static Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter);
   static Stencil frame (Box b, Real thick, Real blot);
-  static Stencil slur (Bezier controls, Real cthick, Real thick);
-  static Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
+  static Stencil slur (Bezier controls, Real cthick, Real thick, 
+                       SCM dash_definition);
+  static Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve,
+                                  Real thickness);
   static Stencil beam (Real slope, Real width, Real thick, Real blot);
-  static Stencil dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction);
   static Stencil blank (Box b);
   static Stencil filled_box (Box b);
   static Stencil round_filled_box (Box b, Real blotdiameter);
