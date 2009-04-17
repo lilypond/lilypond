@@ -575,6 +575,37 @@ c4( e g2)
 g4( e c2)
 @end lilypond
 
+@funindex \slurHalfDashed
+@funindex slurHalfDashed
+@funindex \slurHalfSolid
+@funindex slurHalfSolid
+
+Slurs can also be made half-dashed (the first half dashed, the
+second half solid) or half-solid (the first half solid, the second
+half dashed):
+
+@lilypond[verbatim,quote,relative=1]
+\slurHalfDashed
+g4( e c2)
+\slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+Custom dash patterns for slurs can be defined:
+
+@lilypond[verbatim,quote,relative=1]
+\slurDashPattern #0.7 #0.75
+g4( e c2)
+\slurDashPattern #0.5 #2.0
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+
+
 @funindex \slurUp
 @funindex slurUp
 
@@ -585,6 +616,9 @@ g4( e c2)
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
+@code{\slurHalfDashed},
+@code{\slurHalfSolid},
+@code{\slurDashPattern},
 @code{\slurSolid}.
 @endpredefined
 
@@ -596,6 +630,9 @@ g4( e c2)
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {positioning-text-markups-inside-slurs.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{making-slurs-with-complex-dash-structure.ly}
 
 @seealso
 Music Glossary:
@@ -640,12 +677,6 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
-@funindex phrasingSlurDashed
-@funindex \phrasingSlurDashed
-@funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
-@funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 
 Typographically, a phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects; a
@@ -668,6 +699,13 @@ c4\( g' c,( b) | c1\)
 
 Simultaneous or overlapping phrasing slurs are not permitted.
 
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
+
 Phrasing slurs can be solid, dotted, or dashed.  Solid is the default
 style for phrasing slurs:
 
@@ -681,6 +719,42 @@ c4\( e g2\)
 g4\( e c2\)
 @end lilypond
 
+@funindex phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfSolid
+@funindex phrasingSlurHalfSolid
+
+Phrasing slurs can also be made half-dashed (the first half dashed, the
+second half solid) or half-solid (the first half solid, the second
+half dashed):
+
+@lilypond[verbatim,quote,relative=1]
+\phrasingSlurHalfDashed
+g4( e c2)
+\phrasingSlurHalfSolid
+c4( e g2)
+\phrasingSlurSolid
+g4( e c2)
+@end lilypond
+
+@funindex \phrasingSlurDashPattern
+@funindex phrasingSlurDashPattern
+
+
+Custom dash patterns for phrasing slurs can be defined:
+
+@lilypond[verbatim,quote,relative=1]
+\phrasingSlurDashPattern #0.7 #0.75
+g4( e c2)
+\phrasingSlurDashPattern #0.5 #2.0
+c4( e g2)
+\phrasingSlurSolid
+g4( e c2)
+@end lilypond
+
+Dash pattern definitions for phrasing slurs have the same structure
+as dash pattern definitions for slurs.  For more information about
+complex dash patterns, see the snippets under @ref{Slurs}.
 
 @predefined
 @code{\phrasingSlurUp},
@@ -688,6 +762,9 @@ g4\( e c2\)
 @code{\phrasingSlurNeutral},
 @code{\phrasingSlurDashed},
 @code{\phrasingSlurDotted},
+@code{\phrasingSlurHalfDashed},
+@code{\phrasingSlurHalfSolid},
+@code{\phrasingSlurDashPattern},
 @code{\phrasingSlurSolid}.
 @endpredefined
 
@@ -697,7 +774,8 @@ Learning Manual:
 @rlearning{On the un-nestedness of brackets and ties}.
 
 Notation Reference:
-@ref{Direction and placement}.
+@ref{Direction and placement},
+@ref{Slurs}.
 
 Snippets:
 @rlsr{Expressive marks}.

@@ -87,28 +87,6 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
 }
 
 Stencil
-Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
-{
-  SCM l = SCM_EOL;
-
-  Real on = dash_fraction * dash_period;
-  Real off = dash_period - on;
-
-  for (int i = 4; i--;)
-    l = scm_cons (ly_offset2scm (b.control_[i]), l);
-
-  SCM at = (scm_list_n (ly_symbol2scm ("dashed-slur"),
-			scm_from_double (thick),
-			scm_from_double (on),
-			scm_from_double (off),
-			ly_quote_scm (l),
-			SCM_UNDEFINED));
-
-  Box box (b.extent (X_AXIS), b.extent (Y_AXIS));
-  return Stencil (box, at);
-}
-
-Stencil
 Lookup::rotated_box (Real slope, Real width, Real thick, Real blot)
 {
   vector<Offset> pts;
@@ -365,46 +343,73 @@ Lookup::frame (Box b, Real thick, Real blot)
   Make a smooth curve along the points
 */
 Stencil
-Lookup::slur (Bezier curve, Real curvethick, Real linethick)
+Lookup::slur (Bezier curve, Real curvethick, Real linethick,
+              SCM dash_details)
 {
+  Stencil return_value;
+
+  /* calculate the offset for the two beziers that make the sandwich
+   *   for the slur
+  */
   Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
   Bezier back = curve;
   Offset perp = curvethick * complex_exp (Offset (0, alpha + M_PI / 2)) * 0.5;
-  back.reverse ();
   back.control_[1] += perp;
   back.control_[2] += perp;
 
   curve.control_[1] -= perp;
   curve.control_[2] -= perp;
-
-  SCM scontrols[8];
-
-  for (int i = 0; i < 4; i++)
-    scontrols[i] = ly_offset2scm (back.control_[i]);
-  for (int i = 0; i < 4; i++)
-    scontrols[i + 4] = ly_offset2scm (curve.control_[i]);
-
-  /*
-    Need the weird order b.o. the way PS want its arguments
-  */
-  int indices[] = {5, 6, 7, 4, 1, 2, 3, 0};
-  SCM list = SCM_EOL;
-  for (int i = 8; i--;)
-    list = scm_cons (scontrols[indices[i]], list);
-
-  SCM at = (scm_list_n (ly_symbol2scm ("bezier-sandwich"),
-			ly_quote_scm (list),
-			scm_from_double (linethick),
-			SCM_UNDEFINED));
-  Box b (curve.extent (X_AXIS),
-	 curve.extent (Y_AXIS));
-
-  b[X_AXIS].unite (back.extent (X_AXIS));
-  b[Y_AXIS].unite (back.extent (Y_AXIS));
-
-  b.widen (0.5 * linethick, 0.5 * linethick);
-  return Stencil (b, at);
+ 
+  if ((dash_details == SCM_UNDEFINED) || (dash_details == SCM_EOL))
+    { /* solid slur  */
+      return_value = bezier_sandwich (back, curve, linethick);
+    }
+  else
+    { /* dashed or combination slur */
+      int num_segments = scm_to_int (scm_length (dash_details));
+      for (int i=0; i<num_segments; i++)
+        {
+          SCM dash_pattern = scm_list_ref (dash_details, scm_from_int (i));
+          Real t_min = robust_scm2double (scm_car (dash_pattern), 0);
+          Real t_max = robust_scm2double (scm_cadr (dash_pattern), 1.0);
+          Real dash_fraction = 
+            robust_scm2double (scm_caddr (dash_pattern), 1.0);
+          Real dash_period = 
+            robust_scm2double (scm_cadddr (dash_pattern), 0.75);
+          Bezier back_segment = back.extract (t_min, t_max);
+          Bezier curve_segment = curve.extract (t_min, t_max);
+          if (dash_fraction == 1.0) 
+            {
+              return_value.add_stencil (bezier_sandwich (back_segment,
+                                                         curve_segment,
+                                                         linethick));
+            }
+          else
+            {
+              Bezier back_dash, curve_dash;
+              Real seg_length = (back_segment.control_[3] - 
+                                 back_segment.control_[0]).length ();
+              int pattern_count = seg_length / dash_period;
+              Real pattern_length = 1.0 / (pattern_count + dash_fraction);
+              Real start_t, end_t;
+              for (int p = 0; p <= pattern_count; p++)
+                {
+                  start_t = p * pattern_length;
+                  end_t = (p + dash_fraction) * pattern_length;
+                  back_dash = 
+                    back_segment.extract (start_t, end_t);
+                  curve_dash =
+                    curve_segment.extract (start_t, end_t);
+                  return_value.add_stencil (bezier_sandwich (back_dash,
+                                                             curve_dash,
+                                                             linethick));
+                }
+            }
+        }/* end for num_segments */
+    }/* end dashed or combination slur */
+  return return_value;
 }
+
 
 /*
  * Bezier Sandwich:
@@ -430,7 +435,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
  *
  */
 Stencil
-Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
+Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 {
   /*
     Need the weird order b.o. the way PS want its arguments
@@ -447,7 +452,7 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
 
   SCM horizontal_bend = scm_list_n (ly_symbol2scm ("bezier-sandwich"),
 				    ly_quote_scm (list),
-				    scm_from_double (0.0),
+				    scm_from_double (thickness),
 				    SCM_UNDEFINED);
 
   Interval x_extent = top_curve.extent (X_AXIS);
@@ -456,6 +461,7 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
   y_extent.unite (bottom_curve.extent (Y_AXIS));
   Box b (x_extent, y_extent);
 
+  b.widen (0.5 * thickness, 0.5 * thickness);
   return Stencil (b, horizontal_bend);
 }
 

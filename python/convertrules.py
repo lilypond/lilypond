@@ -2892,13 +2892,18 @@ longer in reversed order.\n"))
 
 @rule ((2, 13, 1),
        _ ("\\bar \".\" now produces a thick barline\n\
-ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time"))
+ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n\
+Dash parameters for slurs and ties are now in dash-definition"))
 def conv(str):
     if re.search(r'\\bar\s*"."', str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("\\bar \".\" now produces a thick barline.\n"))
         stderr_write (UPDATE_MANUALLY)
     str = re.sub (r'ly:hairpin::after-line-breaking', r'ly:spanner::kill-zero-spanned-time', str)
+    if (re.search(r'\'dash-fraction', str) or re.search(r'\'dash-period', str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("Dash parameters for slurs and ties are now in \'dash-details.\n"))
+        stderr_write (UPDATE_MANUALLY)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

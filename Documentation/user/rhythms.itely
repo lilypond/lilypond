@@ -383,7 +383,7 @@ indicate articulation, or @emph{phrasing slurs}, which indicate
 musical phrasing.  A tie is just a way of extending a note
 duration, similar to the augmentation dot.}
 
-A tie is entered using the tilde symbol @code{~}
+A tie is entered using the tilde symbol (@code{~}).
 
 @lilypond[quote,verbatim,relative=2]
 a2 ~ a
@@ -481,9 +481,37 @@ Predefined commands, or for details, see
 @funindex \tieSolid
 @funindex tieSolid
 
-Solid, dotted or dashed ties may be specified, see Predefined
-commands.
+Ties may be made dashed, dotted, or a combination of solid and
+dashed.
 
+@lilypond[quote, verbatim, relative=1]
+\tieDotted
+c2 ~ c
+\tieDashed
+c2 ~ c
+\tieHalfDashed
+c2 ~ c
+\tieHalfSolid
+c2 ~ c
+\tieSolid
+c2 ~ c
+@end lilypond
+
+Custom dash patterns can be specified:
+
+@lilypond[quote, verbatim, relative=1]
+\tieDashPattern #0.3 #0.75
+c2 ~ c
+\tieDashPattern #0.7 #1.5
+c2 ~ c
+\tieSolid
+c2 ~ c
+@end lilypond
+
+Dash pattern definitions for ties have the same structure as 
+dash pattern definitions for slurs.
+For more information about complex dash patterns,
+see the snippets under @ref{Slurs}. 
 
 @predefined
 @code{\tieUp},
@@ -491,6 +519,9 @@ commands.
 @code{\tieNeutral},
 @code{\tieDotted},
 @code{\tieDashed},
+@code{\tieDashPattern},
+@code(\tieHalfDashed),
+@code{\tieHalfSolid),
 @code{\tieSolid}.
 @endpredefined
 
@@ -509,7 +540,9 @@ Music Glossary:
 @rglos{tie},
 @rglos{laissez vibrer}.
 
-Notation Reference: @ref{Automatic note splitting}.
+Notation Reference: 
+@ref{Slurs},
+@ref{Automatic note splitting}.
 
 Snippets:
 @rlsr{Rhythms}.

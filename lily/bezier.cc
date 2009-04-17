@@ -265,3 +265,53 @@ Bezier::reverse ()
     b2.control_[CONTROL_COUNT - i - 1] = control_[i];
   *this = b2;
 }
+
+
+/*
+  Subdivide a bezier at T into LEFT_PART and RIGHT_PART
+  using deCasteljau's algorithm.
+*/
+void
+Bezier::subdivide (Real t, Bezier &left_part, Bezier &right_part)
+{
+  Offset p[CONTROL_COUNT][CONTROL_COUNT];
+
+  for (int i = 0; i < CONTROL_COUNT ; i++)
+    p[i][CONTROL_COUNT - 1 ] = control_[i];
+  for (int j = CONTROL_COUNT - 2; j >= 0 ; j--)
+  for (int i = 0; i < CONTROL_COUNT -1; i++)
+    p[i][j] = p[i][j+1] + t * (p[i+1][j+1] - p[i][j+1]);
+  for (int i = 0; i < CONTROL_COUNT; i++)
+    {
+      left_part.control_[i]=p[0][CONTROL_COUNT - 1 - i];
+      right_part.control_[i]=p[i][i];
+    }
+}
+
+/*
+  Extract a portion of a bezier from T_MIN to T_MAX
+*/
+
+Bezier
+Bezier::extract (Real t_min, Real t_max)
+{
+  Bezier bez1, bez2, bez3, bez4;
+  if (t_min == 0.0)
+    {
+      for (int i = 0; i < CONTROL_COUNT; i++)
+        bez2.control_[i] = control_[i];
+    }
+  else
+    {
+      subdivide (t_min, bez1, bez2);
+    }
+  if (t_max == 1.0)
+    {
+      return bez2;
+    }
+  else
+   {
+     bez2.subdivide ((t_max-t_min)/(1-t_min), bez3, bez4);
+     return bez3;
+  }
+}

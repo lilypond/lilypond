@@ -119,15 +119,11 @@ Slur::print (SCM smob)
   Bezier one = get_curve (me);
   Stencil a;
 
-  SCM p = me->get_property ("dash-period");
-  SCM f = me->get_property ("dash-fraction");
-  if (scm_is_number (p) && scm_is_number (f))
-    a = Lookup::dashed_slur (one, line_thick, robust_scm2double (p, 1.0),
-			     robust_scm2double (f, 0));
-  else
-    a = Lookup::slur (one,
-		      get_grob_direction (me) * base_thick,
-		      line_thick);
+  SCM dash_definition = me->get_property ("dash-definition");
+  a = Lookup::slur (one,
+                    get_grob_direction (me) * base_thick,
+		    line_thick,
+                    dash_definition);
 
 #if DEBUG_SLUR_SCORING
   SCM annotation = me->get_property ("annotation");
@@ -417,8 +413,7 @@ ADD_INTERFACE (Slur,
 	       "annotation "
 	       "avoid-slur " 	/* UGH. */
 	       "control-points "
-	       "dash-fraction "
-	       "dash-period "
+               "dash-definition "
 	       "details "
 	       "direction "
 	       "eccentricity "

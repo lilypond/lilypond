@@ -171,6 +171,9 @@ this should list the control points of a third-order B@'ezier curve.")
 ;; d
 ;;
      (damping ,number? "Amount of beam slope damping.")
+     (dash-definition ,pair? "List of @code{dash-elements} defining the 
+dash structure.  Each @code{dash-element} has a starting t value,
+an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
      (dash-fraction ,number? "Size of the dashes, relative to
 @code{dash-period}.  Should be between @code{0.0} (no line) and
 @code{1.0} (continuous line).")
