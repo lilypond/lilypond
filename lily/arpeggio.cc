@@ -153,6 +153,7 @@ SCM
 Arpeggio::brew_chord_slur (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  SCM dash_definition = me->get_property ("dash-definition");
   Interval heads = robust_scm2interval (me->get_property ("positions"),
 					Interval())
     * Staff_symbol_referencer::staff_space (me);
@@ -165,7 +166,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   Bezier curve = slur_shape (dy, height_limit, ratio);
   curve.rotate (M_PI / 2);
 
-  Stencil mol (Lookup::slur (curve, lt, lt, SCM_UNDEFINED));
+  Stencil mol (Lookup::slur (curve, lt, lt, dash_definition));
   mol.translate_axis (heads[LEFT], Y_AXIS);
   return mol.smobbed_copy ();
 }
@@ -211,5 +212,6 @@ ADD_INTERFACE (Arpeggio,
 	       "positions "
 	       "script-priority " // TODO: make around-note-interface
 	       "stems "
+               "dash-definition " // TODO: make apply to non-slur arpeggios
 	       );
 

@@ -348,8 +348,9 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
 {
   Stencil return_value;
 
-  /* calculate the offset for the two beziers that make the sandwich
-   *   for the slur
+  /* 
+      calculate the offset for the two beziers that make the sandwich
+      for the slur
   */
   Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
   Bezier back = curve;
@@ -360,12 +361,14 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
   curve.control_[1] -= perp;
   curve.control_[2] -= perp;
  
-  if ((dash_details == SCM_UNDEFINED) || (dash_details == SCM_EOL))
-    { /* solid slur  */
+  if (!scm_is_pair (dash_details))
+    { 
+      /* solid slur  */
       return_value = bezier_sandwich (back, curve, linethick);
     }
   else
-    { /* dashed or combination slur */
+    { 
+      /* dashed or combination slur */
       int num_segments = scm_to_int (scm_length (dash_details));
       for (int i=0; i<num_segments; i++)
         {
@@ -379,11 +382,9 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
           Bezier back_segment = back.extract (t_min, t_max);
           Bezier curve_segment = curve.extract (t_min, t_max);
           if (dash_fraction == 1.0) 
-            {
               return_value.add_stencil (bezier_sandwich (back_segment,
                                                          curve_segment,
                                                          linethick));
-            }
           else
             {
               Bezier back_dash, curve_dash;
@@ -405,8 +406,8 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
                                                              linethick));
                 }
             }
-        }/* end for num_segments */
-    }/* end dashed or combination slur */
+        }
+    }
   return return_value;
 }
 

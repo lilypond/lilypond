@@ -520,8 +520,8 @@ see the snippets under @ref{Slurs}.
 @code{\tieDotted},
 @code{\tieDashed},
 @code{\tieDashPattern},
-@code(\tieHalfDashed),
-@code{\tieHalfSolid),
+@code{\tieHalfDashed},
+@code{\tieHalfSolid},
 @code{\tieSolid}.
 @endpredefined
 

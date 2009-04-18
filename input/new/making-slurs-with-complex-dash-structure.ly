@@ -1,6 +1,6 @@
 \version "2.13.1"
 
-\header{
+\header {
   texidoc = "
 Slurs can be made with complex dash patterns by defining
 the @code{dash-definition} property.  @code{dash-definition}
@@ -19,6 +19,8 @@ defined in terms of staff spaces.  @code{dash-fraction} is
 set to 1 for a solid slur.
 "
   doctitle = "Making slurs with complex dash structure"
+
+  lsrtags = "rhythms, expressive"
 }
 
 \relative c' {

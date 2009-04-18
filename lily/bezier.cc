@@ -272,7 +272,7 @@ Bezier::reverse ()
   using deCasteljau's algorithm.
 */
 void
-Bezier::subdivide (Real t, Bezier &left_part, Bezier &right_part)
+Bezier::subdivide (Real t, Bezier *left_part, Bezier *right_part) const
 {
   Offset p[CONTROL_COUNT][CONTROL_COUNT];
 
@@ -283,8 +283,8 @@ Bezier::subdivide (Real t, Bezier &left_part, Bezier &right_part)
     p[i][j] = p[i][j+1] + t * (p[i+1][j+1] - p[i][j+1]);
   for (int i = 0; i < CONTROL_COUNT; i++)
     {
-      left_part.control_[i]=p[0][CONTROL_COUNT - 1 - i];
-      right_part.control_[i]=p[i][i];
+      left_part->control_[i]=p[0][CONTROL_COUNT - 1 - i];
+      right_part->control_[i]=p[i][i];
     }
 }
 
@@ -293,25 +293,24 @@ Bezier::subdivide (Real t, Bezier &left_part, Bezier &right_part)
 */
 
 Bezier
-Bezier::extract (Real t_min, Real t_max)
+Bezier::extract (Real t_min, Real t_max) const
 {
+  if ((t_min < 0) || (t_max) > 1)
+    programming_error
+      ("bezier extract arguments outside of limits: curve may have bad shape");
+  if (t_min >= t_max)
+    programming_error 
+      ("lower bezier extract value not less than upper value: curve may have bad shape");
   Bezier bez1, bez2, bez3, bez4;
   if (t_min == 0.0)
-    {
-      for (int i = 0; i < CONTROL_COUNT; i++)
-        bez2.control_[i] = control_[i];
-    }
+    bez2 = *this;
   else
-    {
-      subdivide (t_min, bez1, bez2);
-    }
+      subdivide (t_min, &bez1, &bez2);
   if (t_max == 1.0)
-    {
       return bez2;
-    }
   else
    {
-     bez2.subdivide ((t_max-t_min)/(1-t_min), bez3, bez4);
+     bez2.subdivide ((t_max-t_min)/(1-t_min), &bez3, &bez4);
      return bez3;
   }
 }

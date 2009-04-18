@@ -299,7 +299,8 @@ arpeggioArrowDown = {
 arpeggioNormal = {
   \revert Arpeggio #'stencil
   \revert Arpeggio #'X-extent
-  \revert Arpeggio  #'arpeggio-direction
+  \revert Arpeggio #'arpeggio-direction
+  \revert Arpeggio #'dash-definition
 }
 arpeggioBracket = {
   \revert Arpeggio #'X-extent
@@ -308,7 +309,15 @@ arpeggioBracket = {
 arpeggioParenthesis = {
   \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
   \override Arpeggio #'X-extent = #ly:grob::stencil-width
+  \revert Arpeggio #'dash-definition
 }
+arpeggioParenthesisDashed = {
+  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
+  \override Arpeggio #'X-extent = #ly:grob::stencil-width
+  \override Arpeggio #'dash-definition = #'((0 1 0.4 0.75))
+}
+
+
 
 glissando = #(make-music 'GlissandoEvent)
 
