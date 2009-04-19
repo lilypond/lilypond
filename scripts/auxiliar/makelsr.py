@@ -170,7 +170,7 @@ sys.stderr.write ('''
 
 Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
   git add input/lsr/*.ly
-  xargs git-diff HEAD < lsr-unsafe.txt
+  xargs git diff HEAD < lsr-unsafe.txt
 
 ''')
 
