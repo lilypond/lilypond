@@ -26,6 +26,7 @@ grouping-beats.ly
 guitar-strum-rhythms.ly
 heavily-customized-polymetric-time-signatures.ly
 making-an-object-invisible-with-the-transparent-property.ly
+making-slurs-with-complex-dash-structure.ly
 manually-controlling-beam-positions.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
 modifying-tuplet-bracket-length.ly
