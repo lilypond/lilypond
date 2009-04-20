@@ -8,7 +8,7 @@
   texidoc = "
 Bar numbers can be printed at regular intervals by setting the property
 @code{barNumberVisibility}. Here the bar numbers are printed every two
-measures except at the end of the line. 
+measures except at the end of the line.
 
 "
   doctitle = "Printing bar numbers at regular intervals"
@@ -21,7 +21,7 @@ measures except at the end of the line.
   \bar ""
   % Print a bar number every second measure
   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
-  c1 | c | c | c | c 
+  c1 | c | c | c | c
   \break
   c1 | c | c | c | c
 }

@@ -126,7 +126,7 @@ vaticana_brew_flexa (Grob *me,
   if (solid)
     {
       Stencil solid_head
-	= Lookup::bezier_sandwich (top_curve, bottom_curve);
+	= Lookup::bezier_sandwich (top_curve, bottom_curve, 0.0);
       stencil.add_stencil (solid_head);
     }
   else // outline
@@ -134,13 +134,13 @@ vaticana_brew_flexa (Grob *me,
       Bezier inner_top_curve = top_curve;
       inner_top_curve.translate (Offset (0.0, -line_thickness));
       Stencil top_edge
-	= Lookup::bezier_sandwich (top_curve, inner_top_curve);
+	= Lookup::bezier_sandwich (top_curve, inner_top_curve, 0.0);
       stencil.add_stencil (top_edge);
 
       Bezier inner_bottom_curve = bottom_curve;
       inner_bottom_curve.translate (Offset (0.0, +line_thickness));
       Stencil bottom_edge
-	= Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve);
+	= Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve, 0.0);
       stencil.add_stencil (bottom_edge);
 
       /*

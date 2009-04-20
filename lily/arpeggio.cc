@@ -165,7 +165,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   Bezier curve = slur_shape (dy, height_limit, ratio);
   curve.rotate (M_PI / 2);
 
-  Stencil mol (Lookup::slur (curve, lt, lt));
+  Stencil mol (Lookup::slur (curve, lt, lt, SCM_UNDEFINED));
   mol.translate_axis (heads[LEFT], Y_AXIS);
   return mol.smobbed_copy ();
 }

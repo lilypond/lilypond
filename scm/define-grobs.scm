@@ -756,6 +756,7 @@
 				   (padding . 1.5)
 				      ))
 			  ))
+	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
 	(stencil . ,ly:line-spanner::print)
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
@@ -802,7 +803,7 @@
      . (
 	(stencil . ,ly:hairpin::print)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
-	(after-line-breaking . ,ly:hairpin::after-line-breaking)
+	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
 	(grow-direction . ,hairpin::calc-grow-direction)
 	(circled-tip . #f)
 	(to-barline . #t)
@@ -2012,7 +2013,7 @@
 			  ))
 	
 	(stencil . ,ly:line-spanner::print)
-
+	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
 	(style . trill)
 	(staff-padding . 1.0)
 	(padding . 0.5)
@@ -2223,6 +2224,7 @@
 				   (padding . 1.5)
 				      ))
 			  ))
+	(after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
 	(stencil . ,ly:line-spanner::print)
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)

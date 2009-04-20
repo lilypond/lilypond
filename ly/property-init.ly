@@ -11,16 +11,21 @@ slurDown = \override Slur #'direction = #DOWN
 slurNeutral = \revert Slur #'direction
 
 slurDashed = {
-  \override Slur #'dash-period = #0.75
-  \override Slur #'dash-fraction = #0.4
+  \override Slur #'dash-definition =  #'((0 1 0.4 0.75))
 }
 slurDotted = {
-  \override Slur #'dash-period = #0.75
-  \override Slur #'dash-fraction = #0.1
+  \override Slur #'dash-definition =  #'((0 1 0.1 0.75))
+}
+slurHalfDashed = {
+  \override Slur #'dash-definition =  #'((0 0.5 0.4 0.75)
+                                         (0.5 1 1 1))
+}
+slurHalfSolid = {
+  \override Slur #'dash-definition =  #'((0 0.5 1 1)
+                                         (0.5 1 0.4 0.75))
 }
 slurSolid = {
-  \revert Slur #'dash-period
-  \revert Slur #'dash-fraction
+  \revert Slur #'dash-definition
 }
 
 
@@ -29,16 +34,21 @@ phrasingSlurDown = \override PhrasingSlur #'direction = #DOWN
 phrasingSlurNeutral = \revert PhrasingSlur #'direction
 
 phrasingSlurDashed = {
-  \override PhrasingSlur #'dash-period = #0.75
-  \override PhrasingSlur #'dash-fraction = #0.4
+  \override PhrasingSlur #'dash-definition =  #'((0 1 0.4 0.75))
 }
 phrasingSlurDotted = {
-  \override PhrasingSlur #'dash-period = #0.75
-  \override PhrasingSlur #'dash-fraction = #0.1
+  \override PhrasingSlur #'dash-definition =  #'((0 1 0.1 0.75))
+}
+phrasingSlurHalfDashed = {
+  \override PhrasingSlur #'dash-definition =  #'((0 0.5 0.4 0.75)
+                                                 (0.5 1 1 1))
+}
+phrasingSlurHalfSolid = {
+  \override PhrasingSlur #'dash-definition =  #'((0 0.5 1 1)
+                                                 (0.5 1 0.4 0.75))
 }
 phrasingSlurSolid = {
-  \revert PhrasingSlur #'dash-period
-  \revert PhrasingSlur #'dash-fraction
+  \revert PhrasingSlur #'dash-definition
 }
 
 mergeDifferentlyDottedOn = {

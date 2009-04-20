@@ -103,7 +103,7 @@
 %
 \storePredefinedDiagram \chordmode {d} 
                         #guitar-tuning 
-                        #"x;x;o;2-1;3-2;2-3;"  
+                        #"x;x;o;2-1;3-3;2-2;"  
 \storePredefinedDiagram \chordmode {d:m} 
                         #guitar-tuning 
                         #"x;x;o;2-2;3-3;1-1;"  

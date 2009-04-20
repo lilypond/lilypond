@@ -6,15 +6,14 @@
   (c) 1996--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "pointer-group-interface.hh"
 #include "libc-extension.hh"
-#include "paper-column.hh"
+#include "moment.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
+#include "pointer-group-interface.hh"
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
-#include "moment.hh"
 
 Grob *
 Spanner::clone () const
@@ -78,9 +77,7 @@ Spanner::do_break_processing ()
       for (int a = X_AXIS; a < NO_AXES; a++)
 	{
 	  if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
-	    {
-	      parent_rank_slice.intersect (parent->spanned_rank_interval ());
-	    }
+	    parent_rank_slice.intersect (parent->spanned_rank_interval ());
 	}
   
       for (vsize i = 1; i < break_points.size (); i++)
@@ -118,7 +115,6 @@ Spanner::do_break_processing ()
 	  span->set_bound (RIGHT, bounds[RIGHT]);
 
 	  if (!bounds[LEFT]->get_system ()
-
 	      || !bounds[RIGHT]->get_system ()
 	      || bounds[LEFT]->get_system () != bounds[RIGHT]->get_system ())
 	    {
@@ -178,7 +174,7 @@ Spanner::spanned_time () const
 Item *
 Spanner::get_bound (Direction d) const
 {
-  return spanned_drul_ [d];
+  return spanned_drul_[d];
 }
 
 /*
@@ -209,7 +205,6 @@ Spanner::set_bound (Direction d, Grob *s)
 
     [maybe we should try keeping all columns alive?, and perhaps
     inherit position from their (non-)musical brother]
-
   */
   if (dynamic_cast<Paper_column *> (i))
     Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
@@ -219,14 +214,13 @@ Spanner::Spanner (SCM s)
   : Grob (s)
 {
   break_index_ = 0;
-  spanned_drul_[LEFT] = 0;
-  spanned_drul_[RIGHT] = 0;
+  spanned_drul_.set (0, 0);
 }
 
 Spanner::Spanner (Spanner const &s)
   : Grob (s)
 {
-  spanned_drul_[LEFT] = spanned_drul_[RIGHT] = 0;
+  spanned_drul_.set (0, 0);
 }
 
 Real
@@ -254,7 +248,7 @@ Spanner::get_system () const
 Grob *
 Spanner::find_broken_piece (System *l) const
 {
-  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::less);
+  vsize idx = binary_search (broken_intos_, (Spanner *) l, Spanner::less);
   if (idx != VPOS)
     return broken_intos_ [idx];
   return 0;
@@ -412,7 +406,6 @@ Spanner::bounds_width (SCM grob)
 {
   Spanner *me = unsmob_spanner (grob);
 
-
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
   Interval w (me->get_bound (LEFT)->relative_coordinate (common, X_AXIS),
@@ -421,6 +414,33 @@ Spanner::bounds_width (SCM grob)
   w -= me->relative_coordinate (common, X_AXIS);
 
   return ly_interval2scm (w);
+}
+
+MAKE_SCHEME_CALLBACK (Spanner, kill_zero_spanned_time, 1);
+SCM
+Spanner::kill_zero_spanned_time (SCM grob)
+{
+  Spanner *me = unsmob_spanner (grob);
+  Interval_t<Moment> moments = me->spanned_time ();
+  /*
+    Remove the line or hairpin at the start of the line.  For
+    piano voice indicators, it makes no sense to have them at
+    the start of the line.
+
+    I'm not sure what the official rules for glissandi are, but
+    usually the 2nd note of the glissando is "exact", so when playing
+    from the start of the line, there is no need to glide.
+
+    From a typographical p.o.v. this makes sense, since the amount of
+    space left of a note at the start of a line is very small.
+
+    --hwn.
+
+  */
+  if (moments.length () == Moment (0, 0))
+    me->suicide ();
+
+  return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE (Spanner,

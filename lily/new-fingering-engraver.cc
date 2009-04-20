@@ -252,6 +252,9 @@ New_fingering_engraver::position_scripts (SCM orientations,
 	  && unsmob_grob (ft.head_->get_object ("accidental-grob")))
 	Side_position_interface::add_support (f,
 					      unsmob_grob (ft.head_->get_object ("accidental-grob")));
+      else if (unsmob_grob (ft.head_->get_object ("dot")))
+	Side_position_interface::add_support (f,
+					      unsmob_grob (ft.head_->get_object ("dot")));
 					      
       Self_alignment_interface::set_align_self (f, Y_AXIS);
       Self_alignment_interface::set_center_parent (f, Y_AXIS);
