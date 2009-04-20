@@ -580,6 +580,26 @@ c4( e g2)
 g4( e c2)
 @end lilypond
 
+@funindex \slurHalfDashed
+@funindex slurHalfDashed
+@funindex \slurHalfSolid
+@funindex slurHalfSolid
+
+También se puede hacer que las ligaduras de expresión sean
+semi-discontinuas (la primera mitad discontinua y la segunda mitad
+continua) o semi-continuas (la primera mitad continua y la segunda
+discontinua):
+
+@lilypond[verbatim,quote,relative=1]
+\slurHalfDashed
+g4( e c2)
+\slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+
 @funindex \slurUp
 @funindex slurUp
 
@@ -590,6 +610,8 @@ g4( e c2)
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
+@code{\slurHaldDashed},
+@code{\slurHalfSolid},
 @code{\slurSolid}.
 @endpredefined
 
@@ -601,6 +623,9 @@ g4( e c2)
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {positioning-text-markups-inside-slurs.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{making-slurs-with-complex-dash-structure.ly}
 
 @seealso
 Glosario musical:
