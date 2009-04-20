@@ -21,6 +21,17 @@ setzt:
 "
   doctitlede = "Die Erscheinung von Pausentakten ändern"
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+texidocfr = "
+Dans le cas où ce silence dure mois de dix mesures, LilyPond imprime sur
+la portée des @qq{ silences d'église } -- @emph{Kirchenpause} en
+allemand -- et qui sont une simple suite de rectangles.  La propriété
+@code{expand-limit} permet d'obtenir un silence unique :
+
+"
+  doctitlefr = "Modifier l'apparence d'un silence multi-mesures"
+
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
 If there are ten or fewer measures of rests, a series of longa

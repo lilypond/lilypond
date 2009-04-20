@@ -3,6 +3,19 @@
 \version "2.13.1"
 
 \header {
+  texidoces = "
+
+De forma predeterminada se suprime el número del primer compás de
+una partitura si es menor o igual a `1'.  Al establecer el valor
+de @code{barNumberVisibility} a @code{all-bar-numbers-visible}, se
+puede imprimir cualquier número de compás para el primer compás y
+todos los siguientes.  Observe que, para que esto funcione, se
+debe insertar una líinea divisoria vacía antes de la primera nota.
+
+"
+
+  doctitlees = "Imprimir el número de compás en el primer compás"
+
   lsrtags = "rhythms"
 
   texidoc = "

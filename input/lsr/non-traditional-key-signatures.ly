@@ -27,6 +27,7 @@ He aquí un ejemplo de una posible armadura para generar una escala
 exátona:
 "
 
+%% Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
   doctitlede = "Untypische Tonarten"
   texidocde = "
 Der üblicherweise benutzte @code{\\key}-Befehl setzt die

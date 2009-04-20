@@ -19,8 +19,7 @@ Bunddiagrammen auch der Schlagrhythmus angegeben werden.
   doctitlede = "Schlagrhythmus für Guitarren"
 
   lsrtags = "rhythms,fretted-strings"
-  texidoc = "
-For guitar music, it is possible to show strum rhythms, along
+  texidoc = "For guitar music, it is possible to show strum rhythms, along
 with melody notes, chord names, and fret diagrams.
 "
   doctitle = "Guitar strum rhythms"

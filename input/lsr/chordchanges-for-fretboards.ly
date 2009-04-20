@@ -11,6 +11,16 @@ cuando el acorde cambia o al comienzo de una nueva línea.
 
   doctitlees = "Cambios de acorde de posiciones de trastes"
 
+%% Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+texidocde = "
+Bunddiagramme können definiert werden, sodass sie nur angezeigt werden,
+wenn der Akkord sich ändert oder eine neue Zeile anfängt.
+
+"
+
+
+  doctitlede = "Akkordänderungen für Bunddiagramme"
+
   lsrtags = "fretted-strings"
   texidoc = "FretBoards can be set to display only when the chord changes
 or at the beginning of a new line."

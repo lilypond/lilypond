@@ -24,6 +24,18 @@ werden:
  "
   doctitlede = "Positionierung von Ganztaktpausen"
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+  texidocfr = "
+Si l'on peut positionner verticalement un silence simple en le
+rattachant à une note, il n'en va pas de même pur un silence
+multi-mesure.  Néanmoins, et uniquement dans le cadre de musique
+polyphonique, les silences multi-mesures sont positionnées différemment
+selon qu'ils appartiennent à une voix au numéro pair ou impair.  Le
+positionnement des silences multi-mesures peut se contrôler ainsi :
+"
+  doctitlefr = "Positionnement des silences multi-mesures"
+
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
 Unlike ordinary rests, there is no predefined command

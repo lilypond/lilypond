@@ -27,6 +27,18 @@ Bebalkung angepasst wird.
 "
   doctitlede = "Zusammengesetzte Taktarten"
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+  texidocfr = "
+Des métriques telles que \"5/8\" pauvent s'interpréter sous une forme
+décomposée --- \"3/8 + 2/8\" par exemple --- qui combine plusieurs
+métriques.  LilyPond est capable de rendre ce type de notation, plus
+  facile à lire et à interpréter, en imprimant cette métrique composite
+  et en adaptant les règles de ligature automatique en conséquence.
+
+"
+  doctitlefr = "Métrique décomposée"
+
   lsrtags = "rhythms"
   texidoc = "
 Odd 20th century time signatures (such as \"5/8\") can often be played
