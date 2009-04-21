@@ -2900,8 +2900,8 @@ def conv(str):
         stderr_write (NOT_SMART % _("\\bar \".\" now produces a thick barline.\n"))
         stderr_write (UPDATE_MANUALLY)
     str = re.sub (r'ly:hairpin::after-line-breaking', r'ly:spanner::kill-zero-spanned-time', str)
-    if re.search("(Slur|Tie)\w+\#\'dash-fraction", str) \
-        or re.search("(Slur|Tie)\w+\#\'dash-period", str):
+    if re.search("(Slur|Tie)\w+#\'dash-fraction", str) \
+        or re.search("(Slur|Tie)\w+#\'dash-period", str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("Dash parameters for slurs and ties are now in \'dash-details.\n"))
         stderr_write (UPDATE_MANUALLY)
