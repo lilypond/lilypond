@@ -22,7 +22,7 @@ public:
   void reverse ();
   void rotate (Real);
   void translate (Offset);
-  void subdivide (Real, Bezier * , Bezier * ) const;
+  void subdivide (Real, Bezier *, Bezier *) const;
   Bezier extract (Real, Real) const;
 
   Real get_other_coordinate (Axis a, Real x) const;
