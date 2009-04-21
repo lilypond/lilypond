@@ -123,12 +123,11 @@ Context_def::add_context_mod (SCM mod)
   if (ly_symbol2scm ("default-child") == tag)
     default_child_ = sym;
   else if (ly_symbol2scm ("consists") == tag
-	   || ly_symbol2scm ("consists-end") == tag
 	   || ly_symbol2scm ("remove") == tag)
     {
       if (!get_translator (sym))
-	error (_f ("program has no such type: `%s'",
-		   ly_symbol2string (sym).c_str ()));
+	warning (_f ("program has no such type: `%s'",
+		     ly_symbol2string (sym).c_str ()));
       else
 	translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
     }
@@ -286,7 +285,8 @@ Context_def::get_translator_names (SCM user_mod) const
 
       if (ly_symbol2scm ("consists") == tag)
 	l1 = scm_cons (arg, l1);
-      else if (ly_symbol2scm ("remove") == tag)
+      else if (ly_symbol2scm ("remove") == tag
+	       && get_translator (arg))
 	l1 = scm_delete_x (arg, l1);
     }
 
