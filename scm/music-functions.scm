@@ -979,7 +979,103 @@ Syntax:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; accidentals
 
-(define-public ((make-accidental-rule octaveness lazyness) context pitch barnum measurepos)
+(define (recent-enough? bar-number alteration-def laziness)
+  (if (or (number? alteration-def)
+	  (equal? laziness #t))
+      #t
+      (<= bar-number (+ (cadr alteration-def) laziness))))
+
+(define (is-tied? alteration-def)
+  (let* ((def (if (pair? alteration-def)
+		 (car alteration-def)
+		 alteration-def)))
+
+    (if (equal? def 'tied) #t #f)))
+
+(define (extract-alteration alteration-def)
+  (cond ((number? alteration-def)
+	 alteration-def)
+	((pair? alteration-def)
+	 (car alteration-def))
+	(else 0)))
+
+(define (check-pitch-against-signature context pitch barnum laziness octaveness)
+  "Checks the need for an accidental and a @q{restore} accidental against
+@code{localKeySignature}. The @var{laziness} is the number of measures
+for which reminder accidentals are used (i.e., if @var{laziness} is zero,
+only cancel accidentals in the same measure; if @var{laziness} is three,
+we cancel accidentals up to three measures after they first appear.
+@var{octaveness} is either @code{'same-octave} or @code{'any-octave} and
+specifies whether accidentals should be canceled in different octaves."
+  (let* ((ignore-octave (cond ((equal? octaveness 'any-octave) #t)
+			      ((equal? octaveness 'same-octave) #f)
+			      (else
+			       (ly:warning (_ "Unknown octaveness type: ~S ") octaveness)
+			       (ly:warning (_ "Defaulting to 'any-octave."))
+			       #t)))
+	 (key-sig (ly:context-property context 'keySignature))
+	 (local-key-sig (ly:context-property context 'localKeySignature))
+	 (notename (ly:pitch-notename pitch))
+	 (octave (ly:pitch-octave pitch))
+	 (pitch-handle (cons octave notename))
+	 (need-restore #f)
+	 (need-accidental #f)
+	 (previous-alteration #f)
+	 (from-other-octaves #f)
+	 (from-same-octave (ly:assoc-get pitch-handle local-key-sig))
+	 (from-key-sig (ly:assoc-get notename local-key-sig)))
+
+    ;; If no key signature match is found from localKeySignature, we may have a custom
+    ;; type with octave-specific entries of the form ((octave . pitch) alteration)
+    ;; instead of (pitch . alteration).  Since this type cannot coexist with entries in
+    ;; localKeySignature, try extracting from keySignature instead.
+    (if (equal? from-key-sig #f)
+	(set! from-key-sig (ly:assoc-get pitch-handle key-sig)))
+
+    ;; loop through localKeySignature to search for a notename match from other octaves
+    (let loop ((l local-key-sig))
+      (if (pair? l)
+	  (let ((entry (car l)))
+	    (if (and (pair? (car entry))
+		     (= (cdar entry) notename))
+		(set! from-other-octaves (cdr entry))
+		(loop (cdr l))))))
+
+    ;; find previous alteration-def for comparison with pitch
+    (cond
+     ;; from same octave?
+     ((and (eq? ignore-octave #f)
+	   (not (equal? from-same-octave #f))
+	   (recent-enough? barnum from-same-octave laziness))
+      (set! previous-alteration from-same-octave))
+
+     ;; from any octave?
+     ((and (eq? ignore-octave #t)
+	   (not (equal? from-other-octaves #f))
+	   (recent-enough? barnum from-other-octaves laziness))
+      (set! previous-alteration from-other-octaves))
+
+     ;; not recent enough, extract from key signature/local key signature
+     ((not (equal? from-key-sig #f))
+      (set! previous-alteration from-key-sig)))
+
+    (if (is-tied? previous-alteration)
+	(set! need-accidental #t)
+
+	(let* ((prev-alt (extract-alteration previous-alteration))
+	       (this-alt (ly:pitch-alteration pitch)))
+
+	  (if (not (= this-alt prev-alt))
+	      (begin
+		(set! need-accidental #t)
+		(if (and (not (= this-alt 0))
+			 (or (< (abs this-alt) (abs prev-alt))
+			     (< (* prev-alt this-alt) 0)))
+		    (set! need-restore #t))))))
+
+    (cons need-restore need-accidental)))
+
+(define-public ((make-accidental-rule octaveness laziness) context pitch barnum measurepos)
   "Creates an accidental rule that makes its decision based on the octave of the note
   and a laziness value.
   octaveness is either 'same-octave or 'any-octave and defines whether the rule should
@@ -987,13 +1083,12 @@ Syntax:
   normal way to typeset accidentals - an accidental is made if the alteration is different
   from the last active pitch in the same octave. 'any-octave looks at the last active pitch
   in any octave.
-  lazyness states over how many bars an accidental should be remembered.
+  laziness states over how many bars an accidental should be remembered.
   0 is default - accidental lasts over 0 bar lines, that is, to the end of current measure.
   A positive integer means that the accidental lasts over that many bar lines.
   -1 is 'forget immediately', that is, only look at key signature.
   #t is forever."
-  (let ((keysig (ly:context-property context 'localKeySignature)))
-    (ly:find-accidentals-simple keysig pitch barnum lazyness octaveness)))
+  (check-pitch-against-signature context pitch barnum laziness octaveness))
 
 (define (key-entry-notename entry)
   "Return the pitch of an entry in localKeySignature. The entry is either of the form
