@@ -101,10 +101,12 @@ def copy_ly (srcdir, name, tags):
         unconverted.append (dest)
     if os.path.exists (dest + '~'):
         os.remove (dest + '~')
-    # -V seems to make unsafe snippets fail nicer/sooner
-    e = os.system ("lilypond -V -dno-print-pages -dsafe -o /tmp/lsrtest '%s'" % dest)
-    if e:
-        unsafe.append (dest)
+    # no need to check snippets from input/new
+    if in_dir and in_dir in srcdir:
+        # -V seems to make unsafe snippets fail nicer/sooner
+        e = os.system ("lilypond -V -dno-print-pages -dsafe -o /tmp/lsrtest '%s'" % dest)
+        if e:
+            unsafe.append (dest)
 
 def read_source_with_dirs (src):
     s = {}
@@ -175,13 +177,12 @@ if unconverted:
 if notags_files:
     sys.stderr.write ('No tags could be found in these files:\n')
     sys.stderr.write ('\n'.join (notags_files) + '\n\n')
-
-dump_file_list ('lsr-unsafe.txt', unsafe)
-sys.stderr.write ('''
+if unsafe:
+    dump_file_list ('lsr-unsafe.txt', unsafe)
+    sys.stderr.write ('''
 
 Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
   git add input/lsr/*.ly
   xargs git diff HEAD < lsr-unsafe.txt
 
 ''')
-
