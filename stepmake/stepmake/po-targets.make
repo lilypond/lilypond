@@ -12,13 +12,13 @@ new-po:
 ifeq ($(strip $(depth)),.)
 po: new-po
 	$(LOOP)
-localpo:
+local-po:
 	@true
 else
-po: localpo
+po: local-po
 	$(LOOP)
 ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(PY_MODULES_IN) $(SCM_FILES) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
-localpo:
+local-po:
 ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
 	xgettext --default-domain=$(package) --join \

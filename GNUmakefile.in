@@ -49,31 +49,42 @@ ChangeLog: $(outdir)/VERSION
 python-modules:
 	$(MAKE) -C python
 
-do-top-doc: python-modules
+top-doc: python-modules
 
 local-clean: local-clean-ChangeLog
 
 local-clean-ChangeLog:
 	rm -f ChangeLog
 
-dist-toplevel-txt-files: do-top-doc
+dist-toplevel-txt-files: top-doc
 	-mkdir -p $(distdir)
 	ln $(TOPDOC_TXT_FILES) $(distdir)/
 	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)/
 
-doc: 
-	$(MAKE) -C Documentation
-
 info:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true
 
-info-install: info
+install-info: info
 	$(MAKE) out=www COPY_INFO_IMAGES=1 install-info-WWW
 
 install-help2man:
 	$(MAKE) -C scripts man install-help2man
 	$(MAKE) -C lily man install-help2man
 
+install-doc:
+	$(MAKE) out=www install-WWW
+	$(MAKE) out=www install-info-WWW
+
+uninstall-doc:
+	$(MAKE) out=www uninstall-WWW
+
+local-install:
+	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
+
+final-install:
+	@true
+
+ifeq ($(out),www)
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
 install-WWW:
@@ -83,24 +94,11 @@ install-WWW:
 install-info-WWW:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) install-info && ) true
 
-web-install:
-	$(MAKE) out=www install-WWW
-	$(MAKE) out=www install-info-WWW
-
 uninstall-WWW:
 	rm -rf $(DESTDIR)$(webdir)
 	-rmdir $(package_docdir)
 	$(MAKE) -C Documentation/user uninstall
 	$(MAKE) -C input/lsr uninstall
-
-web-uninstall:
-	$(MAKE) out=www uninstall-WWW
-
-local-install:
-	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
-
-final-install:
-	@true
 
 
 # For online docs with content negotiation, issue `make web WEB_TARGETS=online'
@@ -114,6 +112,7 @@ WWW-post:
 	find $(outdir) -name '*-root' | xargs rm -rf
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$(WEB_TARGETS)"
 	find $(outdir)/offline-root -type l -delete
+endif
 
 
 tree-prefix = $(outdir)
@@ -133,7 +132,7 @@ c-clean:
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
-web-clean: snippets-clean $(tree-share-prefix)/lilypond-force
+doc-clean: snippets-clean $(tree-share-prefix)/lilypond-force
 
 default: $(config_h) build-dir-setup
 

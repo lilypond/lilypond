@@ -7,7 +7,6 @@ STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
 README_TOP_FILES= DEDICATION THANKS
-EXTRA_DIST_FILES= TRANSLATION
 
 include $(depth)/make/stepmake.make
 
@@ -17,12 +16,14 @@ OUT_CSS_FILES= $(CSS_FILES:%.css=$(outdir)/%.css)
 
 default: local-doc
 
+ifeq ($(out),www)
 local-WWW-2: txt-to-html $(OUT_HTML_FILES)
 
 local-WWW-clean: deep-WWW-clean
 
 deep-WWW-clean:
 	rm -rf $(outdir)/wiki-dump
+endif
 
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 

@@ -1,5 +1,6 @@
 default:
 
+ifeq ($(out),www)
 local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) $(XREF_MAPS_FILES)
 
 local-WWW-2: $(DEEP_HTML_FILES) $(BIG_PAGE_HTML_FILES) $(DOCUMENTATION_LOCALE_TARGET)
@@ -10,3 +11,4 @@ local-WWW-2: $(DEEP_HTML_FILES) $(BIG_PAGE_HTML_FILES) $(DOCUMENTATION_LOCALE_TA
 $(DOCUMENTATION_LOCALE_TARGET):
 	$(MAKE) -C $(depth)/Documentation/po out=www messages
 	touch $@
+endif

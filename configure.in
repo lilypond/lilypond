@@ -205,6 +205,11 @@ STEPMAKE_END
 
 test -n "$CONFIGURATION" && mc=" conf=$CONFIGURATION" || mc=""
 
+if make top-doc 1>/dev/null 2>&1; then
+    rm -f INSTALL.txt && ln Documentation/topdocs/out/INSTALL.txt .
+    rm -f README.txt && ln Documentation/topdocs/out/README.txt .
+fi
+
 cat <<EOF
 
 Type:

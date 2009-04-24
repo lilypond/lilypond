@@ -17,7 +17,9 @@ include $(depth)/make/stepmake.make
 TITLE=Unofficial MusicXML test suite
 TEST_SUITE_VERSION=0.1
 
+ifeq ($(out),www)
 local-WWW-2: zip
+endif
 
 zip: $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip
 
