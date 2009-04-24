@@ -1,6 +1,6 @@
-.PHONY: web-install
-web-install:
-web-uninstall:
+.PHONY: install-doc uninstall-doc
+install-doc:
+uninstall-doc:
 
 local-dist: configure
 
@@ -30,11 +30,11 @@ $(package-icon):
 	$(MAKE) -C Documentation/pictures icon
 
 
-do-top-doc:
-	-$(MAKE) -C Documentation/topdocs/ README_TOP_FILES="$(TOPDOC_FILES)" make-txt-files
+top-doc:
+	$(MAKE) -C Documentation/topdocs/ README_TOP_FILES="$(TOPDOC_FILES)" txt-files
 
 
-$(README_TXT_FILES): do-top-doc
+$(README_TXT_FILES): top-doc
 
 local-clean:
 
@@ -44,7 +44,7 @@ ifeq ($(strip $(SRCMAKE)),)
 	$(MAKE) final-install
 endif
 
-local-dist: do-top-doc
+local-dist: top-doc
 
 dist:
 	rm -rf $(distdir)
@@ -59,17 +59,17 @@ local-help:
   config      rerun configure\n\
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   also remove configure output\n\
-  doc         update all documentation (without images)\n\
-  info        build Info documentation with images\n\
-  info-install  install Info documentation with images\n\
   cvs-clean   also remove out directories and generated files\n\
   maintainerclean also remove distributed generated files\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
-  web-install * install website documentation in (webdir=$(webdir))\n\
+\n\
+  install-doc install website documentation in (webdir=$(webdir))\n\
               and Info documentation with images\n\
-  web-uninstall *  remove installed documentation with images\n\
+  uninstall-doc remove installed documentation with images\n\
+  info        build Info documentation with images\n\
+  install-info  install Info documentation with images\n\
 \n\
 Some more targets are available for testing changes:\n\
   test-baseline  check  test-redo  test-clean\n\

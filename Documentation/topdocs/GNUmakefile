@@ -11,6 +11,8 @@ OUTTXT_FILES= $(outdir)/NEWS.txt
 
 include $(depth)/make/stepmake.make
 
+ifeq ($(out),www)
 local-WWW-1: $(OUT_TEXI_FILES)
+endif
 
 .SECONDARY:

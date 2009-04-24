@@ -50,13 +50,14 @@ $(INFO_FILES):
 	true
 endif
 
+local-clean:
+	rm -f $(INFO_IMAGES_DIR)
+
+ifeq ($(out),www)
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
 local-install-WWW: local-install-info
 local-uninstall-WWW: local-uninstall-info
-
-local-clean:
-	rm -f $(INFO_IMAGES_DIR)
 
 local-WWW-1: info $(outdir)/lilypond-snippets.pdf \
   $(outdir)/lilypond-snippets.texi
@@ -64,5 +65,6 @@ local-WWW-1: info $(outdir)/lilypond-snippets.pdf \
 local-WWW-2: $(outdir)/lilypond-snippets/index.html \
   $(outdir)/lilypond-snippets-big-page.html \
   $(source-links)
+endif
 
 .SECONDARY:

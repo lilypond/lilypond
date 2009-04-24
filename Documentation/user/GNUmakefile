@@ -122,9 +122,11 @@ $(outdir)/%/source:
 	mkdir -p $(dir $@)
 	ln -sf $(depth)/.. $(@)
 
+ifeq ($(out),www)
 local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) info
 
 local-WWW-2: $(HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
+endif
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
