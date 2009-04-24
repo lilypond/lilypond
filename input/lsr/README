@@ -1,20 +1,5 @@
-This directory contains examples generated automatically from LSR:
+This directory contains examples generated automatically from LSR
 http://lsr.dsi.unimi.it/
 
-To update this directory, do at top of the source tree
-
-scripts/auxiliar/makelsr.py DIR
-
-where DIR is the directory unpacked from lsr-snippets-doc-DATE tarball
-available on http://lsr.dsi.unimi.it/download.
-
-Snippets in input/new may "overwrite" snippets from LSR, e.g. for
-snippets that convert-ly can't automatically convert to current ly
-syntax; snippets may also be added to input/new to demonstrate new
-features in development series.
-
-Any changes made to .ly files will be lost next time makelsr.py is
-run.  Please make updates to the LSR database or input/new directly.
-You must be an editor to change "approved" snippets in LSR; otherwise
-just copy the snippet you want to modify in a new snippet, and tag it
-with the "correction-wanted" tag.
+To update this directory and find addtional information, see
+the Contributors' Guide, section "LSR to Git".

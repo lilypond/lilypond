@@ -877,7 +877,7 @@ lilypond examples.  Making easily-understandable examples is much
 harder than it looks.
 
 
-@subsubheading TWEAKS
+@subsubheading Tweaks
 
 In general, any \set or \override commands should go in the
 @qq{select snippets} section, which means that they should go in
@@ -914,6 +914,10 @@ One place where a documentation writer can profitably spend time writing
 or upgrading tweaks is creating tweaks to deal with known issues.  It
 would be ideal if every significant known issue had a workaround to avoid
 the difficulty.
+
+@seealso
+
+@ref{Adding and editing snippets}.
 
 
 @node Updating docs with convert-ly
