@@ -438,8 +438,7 @@ ADD_TRANSLATOR (Dynamic_engraver,
 		"DynamicLineSpanner "
 		"DynamicTextSpanner "
 		"DynamicText "
-		"Hairpin "
-		"TextSpanner ",
+		"Hairpin ",
 
 		/* read */
 		"",
