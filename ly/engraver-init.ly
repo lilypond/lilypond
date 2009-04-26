@@ -595,6 +595,8 @@ automatically when an output definition (a @code{\score} or
     (Voice AccidentalCautionary font-size -4)
     (Voice Slur direction ,DOWN)
     (Voice Script font-size -3)
+    (Voice Fingering font-size -8)
+    (Voice StringNumber font-size -8)
   )
 
   keepAliveInterfaces = #'(
@@ -669,15 +671,13 @@ context."
   \override Beam #'length-fraction = #0.62
 
   %% No accidental in tablature !
-  \remove Accidental_engraver
+  \remove "Accidental_engraver"
 
   \override Glissando #'extra-dy = #0.75
   \override Glissando #'bound-details #'right = #`((attach-dir . ,LEFT)
 						   (padding . 0.3))
   \override Glissando #'bound-details #'left = #`((attach-dir . ,RIGHT)
 						   (padding . 0.3))
-  \override Glissando #'extra-dy = #0.75
-  \override Glissando #'gap = #0.2
 }
 
 \context {
