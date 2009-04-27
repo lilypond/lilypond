@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9318dde7b34435a3fdb2e1a7e0ddcf0f86e936ae
+    Translation of GIT committish: 78f299b3d8f6686ed0dca854b22fcb67d9167eba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -398,7 +398,7 @@ ligadura de unión es tan sólo una manera de extender la duración de
 una nota, algo parecido a lo que hace el puntillo.}
 
 Se introduce una ligadura de unión usando el símbolo de la tilde curva
-@code{~}
+(@code{~}).
 
 @lilypond[quote,verbatim,relative=2]
 a2 ~ a
@@ -498,9 +498,38 @@ detalles, consulte @ref{Direction and placement}.
 @funindex \tieSolid
 @funindex tieSolid
 
-Se pueden especificar ligaduras continuas, de puntos o intermitentes,
-véase la sección de instrucciones predefinidas.
+Se puede hacer que las ligaduras de expresión sean discontinuas,
+punteadas o una combinación de continuas y discontinuas.
 
+@lilypond[quote, verbatim, relative=1]
+\tieDotted
+c2 ~ c
+\tieDashed
+c2 ~ c
+\tieHalfDashed
+c2 ~ c
+\tieHalfSolid
+c2 ~ c
+\tieSolid
+c2 ~ c
+@end lilypond
+
+Se pueden especificar patrones de discontinudad personalizados:
+
+@lilypond[quote, verbatim, relative=1]
+\tieDashPattern #0.3 #0.75
+c2 ~ c
+\tieDashPattern #0.7 #1.5
+c2 ~ c
+\tieSolid
+c2 ~ c
+@end lilypond
+
+Las definiciones de patrones de discontinuidad para las ligaduras de
+unión tienen la misma estructura que las definiciones de patrones de
+discontinudad para las ligaduras de expresión.  Para ver más
+información acerca de los patrones de discontinuidad complejos,
+consulte los fragmentos de código bajo @ref{Slurs}.
 
 @predefined
 @code{\tieUp},
@@ -508,8 +537,10 @@ véase la sección de instrucciones predefinidas.
 @code{\tieNeutral},
 @code{\tieDotted},
 @code{\tieDashed},
-@code{\tieSolid},
-@code{\repeatTie}.
+@code{\tieDashPattern},
+@code{\tieHalfDashed},
+@code{\tieHalfSolid},
+@code{\tieSolid}.
 @endpredefined
 
 
@@ -528,7 +559,9 @@ Glosario musical:
 @rglos{laissez vibrer}.
 
 Referencia de la notación:
+@ref{Slurs},
 @ref{Automatic note splitting}.
+
 
 Fragmentos de código:
 @rlsr{Rhythms}.
