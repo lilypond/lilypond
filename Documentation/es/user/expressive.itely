@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
+    Translation of GIT committish: 78f299b3d8f6686ed0dca854b22fcb67d9167eba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -552,13 +552,14 @@ distintas al mismo tiempo.  Para ver más detalles, consulte
 @ref{Phrasing slurs}.
 
 @cindex ligadura de expresión, estilo
-@cindex continua, ligadura
-@cindex puntos, ligadura de
-@cindex discontinua, ligadura
 @cindex ligadura continua
 @cindex ligadura de puntos
 @cindex ligadura discontinua
+@cindex continua, ligadura
+@cindex discontinua, ligadura
+@cindex puntos, ligadura de
 @cindex estilo de la ligadura
+
 @funindex \slurDashed
 @funindex slurDashed
 @funindex \slurDotted
@@ -580,6 +581,8 @@ c4( e g2)
 g4( e c2)
 @end lilypond
 
+@cindex ligadura de expresión, mitad continua y mitad discontinua
+
 @funindex \slurHalfDashed
 @funindex slurHalfDashed
 @funindex \slurHalfSolid
@@ -591,9 +594,28 @@ continua) o semi-continuas (la primera mitad continua y la segunda
 discontinua):
 
 @lilypond[verbatim,quote,relative=1]
+c4( e g2)
 \slurHalfDashed
 g4( e c2)
 \slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+@cindex ligadura de expresión, definir patrones de discontinuidad
+
+@funindex \slurDashPattern
+@funindex slurDashPattern
+
+Se pueden definir patrones de discontinuidad para las ligaduras de
+expresión:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashPattern #0.7 #0.75
+g4( e c2)
+\slurDashPattern #0.5 #2.0
 c4( e g2)
 \slurSolid
 g4( e c2)
@@ -610,8 +632,9 @@ g4( e c2)
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
-@code{\slurHaldDashed},
+@code{\slurHalfDashed},
 @code{\slurHalfSolid},
+@code{\slurDashPattern},
 @code{\slurSolid}.
 @endpredefined
 
@@ -670,12 +693,6 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
-@funindex phrasingSlurDashed
-@funindex \phrasingSlurDashed
-@funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
-@funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 
 Tipográficamente, la ligadura de fraseo se comporta casi exactamente
 igual que una ligadura de expresión normal.  Sin embargo, se tratan
@@ -690,14 +707,28 @@ c4\( g' c,( b) | c1\)
 c4\( g' c,( b) | c1\)
 @end lilypond
 
-@cindex simultaneous phrasing slurs
-@cindex multiple phrasing slurs
-@cindex slurs, simultaneous phrasing
-@cindex slurs, multiple phrasing
-@cindex phrasing slurs, simultaneous
-@cindex phrasing slurs, multiple
+@cindex simultáneas, ligaduras de fraseo
+@cindex varias ligaduras de fraseo
+@cindex ligaduras de fraseo simultáneas
+@cindex ligaduras de fraseo, varias
+@cindex fraseo, ligaduras de, simultáneas
+@cindex fraseo, ligaduras de, varias
 
 No se pueden tener varias ligaduras de fraseo simultáneas o solapadas.
+
+@cindex fraseo, ligaduras de, discontinuas
+@cindex discontinuas, ligaduras de fraseo
+@cindex fraseo, ligaduras de, punteadas
+@cindex punteadas, ligaduras de fraseo
+@cindex ligaduras de fraseo discontinuas
+@cindex ligaduras de fraseo punteadas
+
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
 
 Las ligaduras de fraseo pueden ser continuas, de puntos o de rayas.
 El estilo predeterminado para las ligaduras de fraseo es el continuo:
@@ -712,6 +743,53 @@ c4\( e g2\)
 g4\( e c2\)
 @end lilypond
 
+@cindex fraseo, ligadura de, mitad continua y mitad discontinua
+@cindex ligadura de fraseo mitad continua y mitad discontinua
+
+@funindex phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfSolid
+@funindex phrasingSlurHalfSolid
+
+Se puede hacer también que las ligaduras de fraseo sean
+semi-discontinuas (la primera mitad discontinua y la segunda mitad
+continua) o semi-continuas (la primera mitad continua y la segunda
+mitad discontinua):
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurHalfDashed
+g4\( e c2\)
+\phrasingSlurHalfSolid
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+@cindex fraseo, ligadura de, definir patrones de discontinuidad
+@cindex ligadura de fraseo, definir patrones de discontinuidad
+
+@funindex \phrasingSlurDashPattern
+@funindex phrasingSlurDashPattern
+
+Se pueden definir patrones de discontinuidad para las ligaduras de
+fraseo:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashPattern #0.7 #0.75
+g4\( e c2\)
+\phrasingSlurDashPattern #0.5 #2.0
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+Las definiciones de patrones de discontinuidad tienen la misma
+estructura que las definiciones de patrones de discontinuidad de las
+ligaduras de expresión.  Para ver más información acerca de patrones
+de discontinuidad complejos, consulte los fragmentos de código bajo
+@ref{Slurs}.
 
 @predefined
 @code{\phrasingSlurUp},
@@ -719,16 +797,19 @@ g4\( e c2\)
 @code{\phrasingSlurNeutral},
 @code{\phrasingSlurDashed},
 @code{\phrasingSlurDotted},
+@code{\phrasingSlurHalfDashed},
+@code{\phrasingSlurHalfSolid},
+@code{\phrasingSlurDashPattern},
 @code{\phrasingSlurSolid}.
 @endpredefined
-
 
 @seealso
 Manual de aprendizaje:
 @rlearning{On the un-nestedness of brackets and ties}.
 
 Referencia de la notación:
-@ref{Direction and placement}.
+@ref{Direction and placement},
+@ref{Slurs}.
 
 Fragmentos de código:
 @rlsr{Expressive marks}.
@@ -922,6 +1003,8 @@ Se pueden escribir distintos tipos de acordes arpegiados.
 @funindex arpeggioBracket
 @funindex \arpeggioParenthesis
 @funindex arpeggioParenthesis
+@funindex \arpeggioParenthesisDashed
+@funindex arpeggioParenthesisDashed
 
 Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 
@@ -931,25 +1014,27 @@ Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 <c e g c>2\arpeggio
 \arpeggioParenthesis
 <c e g c>2\arpeggio
+\arpeggioParenthesisDashed
+<c e g c>2\arpeggio
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond
 
+Las propiedades de discontinuidad del paréntesis del arpegio se
+controlan mediante la propiedad @code{'dash-details}, que se describe
+en @ref{Slurs}.
+
 Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @notation{ligaduras de unión}.  Véase @ref{Ties}.
 
-
 @predefined
-@funindex \arpeggio
 @code{\arpeggio},
-@funindex \arpeggioArrowUp
 @code{\arpeggioArrowUp},
-@funindex \arpeggioArrowDown
 @code{\arpeggioArrowDown},
-@funindex \arpeggioNormal
 @code{\arpeggioNormal},
-@funindex \arpeggioBracket
-@code{\arpeggioBracket}.
+@code{\arpeggioBracket},
+@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesisDashed}.
 @endpredefined
 
 
@@ -970,6 +1055,7 @@ Glosario musical:
 @rglos{arpeggio}.
 
 Referencia de la notación:
+@ref{Slurs},
 @ref{Ties}.
 
 Fragmentos de código:
@@ -977,6 +1063,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Arpeggio},
+@rinternals{Slur},
 @rinternals{PianoStaff}.
 
 
