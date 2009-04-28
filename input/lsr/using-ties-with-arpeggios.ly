@@ -28,6 +28,17 @@ für normale Überbindungen eingesetzt werden
 "
   doctitlede = "Überbingungen für Arpeggio genutzen"
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+  texidocfr = "
+Les liaisons de tenue servent parfois à rendre un accord arpégé. Dans
+ce cas, les notes liées ne sont pas toutes consécutives. Il faut alors
+assigner à la propriété @code{tieWaitForNote} la valeur @code{#t}
+(@emph{true} pour @qq{vrai}).  Cette même méthode peut servir, par
+exemple, à lier un trémolo à un accord.
+"
+  doctitlefr = "Liaison de tenue et arpège"
+
   texidoc = "
 Ties are sometimes used to write out arpeggios.  In this case, two tied
 notes need not be consecutive.  This can be achieved by setting the

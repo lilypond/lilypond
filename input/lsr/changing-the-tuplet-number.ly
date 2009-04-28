@@ -26,6 +26,18 @@ vollständig unterdrücken.
 "
   doctitlede = "Die Zahl der N-tole verändern"
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+  texidocfr = "
+L'apparence du chiffre est déterminée par la propriété @code{text} dans
+@code{TupletNumber}.  La valeur par défaut imprime seulement le
+dénominateur, mais si elle est définie par la fonction
+@code{tuplet-number::calc-fraction-text}, la fraction entière
+@var{num}:@var{den} sera imprimée à la place.
+
+"
+  doctitlefr = "Modifier l'apparence du chiffre de nolet"
+
   texidoc = "
 By default, only the numerator of the tuplet number is printed over the
 tuplet bracket, i.e., the denominator of the argument to the

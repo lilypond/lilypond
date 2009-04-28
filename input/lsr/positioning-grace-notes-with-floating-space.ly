@@ -5,6 +5,19 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+
+Al establecer la propiedad @code{'strict-grace-spacing} hacemos
+que las columnas musicales para las notas de adorno sean
+'flotantes', es decir, desacopladas de las notas que no son de
+adorno: primero se aplica el espaciado de las notas normales, y
+luego se ponen las columnas musicales de las notas de adorno a la
+izquierda de las columnas musicales de las notas principales.
+
+"
+
+  doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
+
   texidoc = "
 Setting the property @code{'strict-grace-spacing} makes the musical
 columns for grace notes 'floating', i.e., decoupled from the non-grace
