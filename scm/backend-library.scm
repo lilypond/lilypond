@@ -16,7 +16,9 @@
 		       command
 		       (format #f "~a > ~a 2>&1 " command dev-null))))
     (if (ly:get-option 'verbose)
-	(ly:message (_ "Invoking `~a'...") command))
+	(begin
+	  (ly:message (_ "Invoking `~a'...") command))
+	  (ly:progress "\n"))
 
     (set! status
 	  (if (pair? rest)
