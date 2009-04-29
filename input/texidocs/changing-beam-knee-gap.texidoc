@@ -23,3 +23,16 @@ Standardwert von @code{auto-knee-gap} ist 5.5 Notensystemabstände.
 
 "
   doctitlede = "Balken für weit auseinander liegende Noten ändern"
+
+
+%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+  texidocfr = "
+LilyPond insère automatiquement des ligatures coudées --- certaines
+hampes vers le haut, d'autres vers le bas --- lorsqu'il détecte un
+intervalle important entre des têtes de notes. Ce comportement peut être
+changé par l'intermédiaire de l'objet @code{auto-knee-gap} --- défini
+par défaut à @samp{5,5} espace, plus la largeur et la pente de la
+ligature en question.
+
+"
+  doctitlefr = "Ligature et directions de hampe inversées"
