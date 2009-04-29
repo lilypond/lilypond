@@ -89,7 +89,7 @@ gulp_file_to_string (string fn, bool must_exist, int size)
   string result (&chars[0], chars.size ());
 
   if (be_verbose_global)
-    progress_indication ("]");
+    progress_indication ("]\n");
 
   return result;
 }
