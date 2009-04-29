@@ -71,7 +71,12 @@ Includable_lexer::new_input (string name, Sources *sources)
     state_stack_.push_back (yy_current_buffer);
 
   if (be_verbose_global)
-    progress_indication (string ("[") + file->name_string ());
+    {
+      string spaces = "";
+      for (size_t i = 0; i < state_stack_.size (); i++)
+	spaces += " ";
+      progress_indication (string ("\n") + spaces + string ("[") + file->name_string ());
+    }
 
   include_stack_.push_back (file);
 
@@ -94,7 +99,12 @@ Includable_lexer::new_input (string name, string data, Sources *sources)
     state_stack_.push_back (yy_current_buffer);
 
   if (be_verbose_global)
-    progress_indication (string ("[") + name);
+    {
+      string spaces = "";
+      for (size_t i = 0; i < state_stack_.size (); i++)
+	spaces += " ";
+      progress_indication (string ("\n") + spaces + string ("[") + name);
+    }
   include_stack_.push_back (file);
 
   yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));

@@ -15,7 +15,7 @@ LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
   string file_name = ly_scm2string (pfb_file_name);
 
   if (be_verbose_global)
-    progress_indication ("[" + file_name);
+    progress_indication ("\n[" + file_name);
   
   vector<char> pfb_string = gulp_file (file_name, 0);
   char *pfa = pfb2pfa ((Byte *) &pfb_string[0], pfb_string.size ());
@@ -38,7 +38,7 @@ LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
 
   string file_name = ly_scm2string (otf_file_name);
   if (be_verbose_global)
-    progress_indication ("[" + file_name);
+    progress_indication ("\n[" + file_name);
 
   FT_Face face = open_ft_face (file_name, 0 /* index */);
   string table = get_otf_table (face, "CFF ");

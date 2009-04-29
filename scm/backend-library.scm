@@ -77,20 +77,20 @@
 		    ".pdf"))
 	 (is-eps (string-match "\\.eps$" name))
 	 (paper-size-string (if is-eps
-				" -dEPSCrop "
-				(ly:format "-dDEVICEWIDTHPOINTS=~$ \
--dDEVICEHEIGHTPOINTS=~$ "
-					paper-width paper-height )))
+				"-dEPSCrop"
+				(ly:format "-dDEVICEWIDTHPOINTS=~$\
+ -dDEVICEHEIGHTPOINTS=~$"
+					paper-width paper-height)))
 
 	 (cmd (simple-format #f
 		      "~a\
  ~a\
  ~a\
  ~a\
- -dCompatibilityLevel=1.4 \
+ -dCompatibilityLevel=1.4\
  -dNOPAUSE\
  -dBATCH\
- -r1200 \
+ -r1200\
  -sDEVICE=pdfwrite\
  -sOutputFile=~S\
  -c .setpdfwrite\
@@ -100,9 +100,8 @@
 		      (if (ly:get-option 'verbose) "" "-q")
 		      (if (or (ly:get-option 'gs-load-fonts)
 			      (ly:get-option 'gs-load-lily-fonts))
-			      
-			  " -dNOSAFER "
-			  " -dSAFER ")
+			  "-dNOSAFER"
+			  "-dSAFER")
 		      paper-size-string
 		      pdf-name
 		      name)))

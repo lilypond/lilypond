@@ -175,7 +175,7 @@ System::do_break_substitution_and_fixup_refpoints ()
     }
 
   if (be_verbose_global)
-    message (_f ("Element count %d.", count + element_count ()));
+    message (_f ("Element count %d", count + element_count ()) + "\n");
 }
 
 SCM
