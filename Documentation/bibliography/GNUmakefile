@@ -15,13 +15,14 @@ dvi: $(DVI_FILES) $(OUT_BIB_FILES)
 
 ps: $(PS_FILES)
 
-# urg
 default:
 
 GENHTMLS = engraving colorado computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
+ifeq ($(out),www)
 local-WWW-2: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html) index.html)
+endif
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@

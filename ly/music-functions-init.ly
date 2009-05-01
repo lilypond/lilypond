@@ -701,7 +701,8 @@ scoreTweak =
        (make-music 'SequentialMusic)))
 
 
-tag = #(define-music-function (parser location tag arg)
+tag =
+#(define-music-function (parser location tag arg)
    (symbol? ly:music?)
 
    (_i "Add @var{tag} to the @code{tags} property of @var{arg}.")
@@ -745,16 +746,20 @@ transposition =
 		       (ly:pitch-negate (pitch-of-note pitch-note)))
         'Staff))
 
-tweak = #(define-music-function (parser location sym val arg)
-	   (symbol? scheme? ly:music?)
+tweak =
+#(define-music-function (parser location sym val arg)
+   (symbol? scheme? ly:music?)
+   (_i "Add @code{sym . val} to the @code{tweaks} property of @var{arg}.")
 
-	   (_i "Add @code{sym . val} to the @code{tweaks} property of @var{arg}.")
-
-	   (set!
-	    (ly:music-property arg 'tweaks)
-	    (acons sym val
-		   (ly:music-property arg 'tweaks)))
-	   arg)
+   (if (equal? (object-property sym 'backend-type?) #f)
+       (begin
+	 (ly:warning (_ "cannot find property type-check for ~a") sym)
+	 (ly:warning (_ "doing assignment anyway"))))
+   (set!
+    (ly:music-property arg 'tweaks)
+    (acons sym val
+	   (ly:music-property arg 'tweaks)))
+   arg)
 
 
 

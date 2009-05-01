@@ -1,6 +1,8 @@
+ifeq ($(out),www)
 local-WWW-1: $(outdir)/collated-files.texi $(outdir)/collated-files.pdf
 
 local-WWW-2: $(outdir)/collated-files.html
+endif
 
 local-test-baseline:
 	rm -rf $(outdir)-baseline

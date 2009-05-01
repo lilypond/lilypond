@@ -5,6 +5,13 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
+  texidoces = "
+
+Los números de compás también se pueden imprimir dentro de rectángulos o de circunferencias.
+
+"
+  doctitlees = "Imprimir números de compás dentro de rectángulos o circunferencias"
+
   texidoc = "
 Bar numbers can also be printed inside boxes or circles.
 

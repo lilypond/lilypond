@@ -28,8 +28,10 @@ $(outdir)/%/source:
 	mkdir -p $(dir $@)
 	ln -sf $(depth)/.. $(@)
 
+ifeq ($(out),www)
 local-WWW-1: $(PDF_FILES)
 
 local-WWW-2: $(HTML_FILES) $(OUT_HTML_FILES) $(source-links)
+endif
 
 $(PDF_FILES) $(HTML_FILES): $(ITEXI_FILES)

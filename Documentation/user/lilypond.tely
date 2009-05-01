@@ -196,7 +196,7 @@ Appendices
 
 This appendix contains a description of the LilyPond grammar, as
 output from the parser.
-@verbatiminclude lilygrammar.txt
+@verbatiminclude ly-grammar.txt
 
 @include fdl.itexi
 

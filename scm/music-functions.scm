@@ -369,7 +369,11 @@ i.e.  this is not an override"
 			  (Voice Stem no-stem-extend #t)
 			  (Voice Beam thickness 0.384)
 			  (Voice Beam length-fraction 0.8)
-			  (Voice Accidental font-size -4)))
+			  (Voice Accidental font-size -4)
+			  (Voice AccidentalCautionary font-size -4)
+			  (Voice Script font-size -3)
+			  (Voice Fingering font-size -8)
+			  (Voice StringNumber font-size -8)))
     
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
      (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4)))))) 

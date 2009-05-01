@@ -191,7 +191,7 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
 }
 
 
-/**
+/*
    Correct for optical illusions. See [Wanske] p. 138. The combination
    up-stem + down-stem should get extra space, the combination
    down-stem + up-stem less.
@@ -219,6 +219,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 
   Direction d = LEFT;
 
+  bool acc_right = false;
+
   Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
 							      rcolumn->break_status_dir (),
 							      &bar_xextent);
@@ -235,10 +237,10 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	    continue;
 
 	  /*
-	    don't correct if accidentals are sticking out of the right side.
+	    Find accidentals which are sticking out of the right side.
 	  */
-	  if (d == RIGHT && Note_column::accidentals (it))
-	    return;
+	 if (d == RIGHT)
+            acc_right = acc_right || Note_column::accidentals (it);
 
 	  Grob *stem = Note_column::get_stem (it);
 
@@ -306,7 +308,12 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	    correction *= 0.5;
 	}
     }
-  else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1)
+  /*
+    Only apply same direction correction if there are no
+    accidentals sticking out of the right hand side.
+  */
+  else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1
+	   && !acc_right)
     correction = same_direction_correction (me, head_posns);
 
   *space += correction;

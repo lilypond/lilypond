@@ -30,6 +30,19 @@ Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
   doctitlede = "Die Taktart verändern ohne die Bebalkung zu beeinflussen"
 
 
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>  
+  texidocfr = "
+La commande @code{\time} gère les propriétés
+@code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
+et @code{measureLength} dans le contexte @code{Timing}, normallement
+rattaché à @code{Score}.  Le fait de modifier la valeur de
+@code{timeSignatureFraction} aura pour effet de changer l'apparence du
+symbole affiché sans pour autant affecter les autres propriétés de la
+métrique :
+
+"
+  doctitlefr = "Changement de métrique sans affecter les règles de ligature"
+
   texidoc = "
 The @code{\\time} command sets the properties
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}

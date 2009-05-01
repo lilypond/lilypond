@@ -216,8 +216,7 @@ ADD_TRANSLATOR (New_dynamic_engraver,
 		/* create */
 		"DynamicTextSpanner "
 		"DynamicText "
-		"Hairpin "
-		"TextSpanner ",
+		"Hairpin ",
 
 		/* read */
 		"crescendoSpanner "

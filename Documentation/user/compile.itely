@@ -224,7 +224,7 @@ LilyPond binary.
 The documentation is built by issuing
 
 @example
-make web
+make doc
 @end example
 
 After compilation, the HTML documentation tree is available in
@@ -234,7 +234,7 @@ The HTML, PDF and if available Info files can be installed into the
 standard documentation path by issuing
 
 @example
-make web-install
+make install-doc
 @end example
 
 @noindent
@@ -253,14 +253,14 @@ make info
 Separate installation of this documentation is done by issuing
 
 @example
-make info-install
+make install-info
 @end example
 
 @noindent
-Note that to get the images in Info documentation, @code{web-install}
+Note that to get the images in Info documentation, @code{install-doc}
 target creates symbolic links to HTML and PDF installed documentation
 tree in @file{@var{prefix}/share/info}, in order to save disk space,
-whereas @code{info-install} copies images in
+whereas @code{install-info} copies images in
 @file{@var{prefix}/share/info} subdirectories.
 
 It is possible to build a documentation tree in
@@ -269,7 +269,7 @@ used on a website with content negotiation for automatic language
 selection; this can be achieved by issuing
 
 @example
-make WEB_TARGETS=online web
+make WEB_TARGETS=online doc
 @end example
 
 @noindent
@@ -344,7 +344,7 @@ From a fresh Git checkout, do
 ./autogen.sh   # ignore any warning messages
 cp GNUmakefile.in GNUmakefile
 make -C python
-nice make LILYPOND_EXTERNAL_BINARY=/path/to/bin/lilypond web
+nice make LILYPOND_EXTERNAL_BINARY=/path/to/bin/lilypond doc
 @end example
 
 Please note that this may break sometimes -- for example, if a new

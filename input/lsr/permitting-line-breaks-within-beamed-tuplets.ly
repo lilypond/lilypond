@@ -24,6 +24,16 @@ gesetzt werden.
 "
   doctitlede = "Zeilenumbrüche bei N-tolen mit Balken erlauben"
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+  texidocfr = "
+Cet exemple peu académique démontre comment il est possible d'insérer un saut 
+de ligne dans un nolet portant une ligature.  Ces ligatures doivent toutefois
+être explicites.
+
+"
+  doctitlefr = "Saut de ligne au milieu d'un nolet avec ligature"
+
   texidoc = "
 This artificial example shows how both manual and automatic line breaks
 may be permitted to within a beamed tuplet. Note that such off-beat

@@ -242,7 +242,7 @@ second.  Dump results to `FILE.stacks' and
 	(ly:error (_ "cannot find: ~A") x))
     (primitive-load file-name)
     (if (ly:get-option 'verbose)
-	(ly:progress "]"))))
+	(ly:progress "]\n"))))
 
 (define-public DOS
   (let ((platform (string-tokenize
@@ -750,6 +750,6 @@ PIDs or the number of the process."
 	 ;; FIXME: soft-code, localize
 	 (welcome-ly (string-append ly "Welcome_to_LilyPond.ly"))
 	 (cmd (get-editor-command welcome-ly 0 0 0)))
-    (ly:message (_ "Invoking `~a'...") cmd)
+    (ly:message (_ "Invoking `~a'...\n") cmd)
     (system cmd)
     (exit 1)))

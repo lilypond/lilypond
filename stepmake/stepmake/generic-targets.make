@@ -1,5 +1,5 @@
-.PHONY : all clean bin-clean config default dist doc exe help html lib TAGS\
-	 po web web-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2
+.PHONY : all clean bin-clean config default dist exe help html lib TAGS\
+	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2
 
 all:	 default
 	$(LOOP)
@@ -56,17 +56,18 @@ Targets specific to current directory:\n"
 
 help: generic-help local-help
 	@echo -e "Generic targets:\n\
-  all *       update everything except website documentation\n\
+  all *       update everything except documentation with images\n\
   clean *     remove all generated stuff in $(outdir)\n\
   bin-clean * same as clean, except that mf/out is preserved\n\
   default     same as the empty target\n\
+  doc *       update documentation with images in directory \`out-www'\n\
+  doc-stage-1 * update only PDF and Info documentation in directory \`out-www'\n\
+  doc-clean * clean \`out-www' directory\n\
   exe         update all executables\n\
   help        this help\n\
   install *   install programs and data (prefix=$(prefix))\n\
-  uninstall*  uninstall programs and data\n\
   lib         update all libraries\n\
-  web *       update website in directory \`out-www'\n\
-  web-clean * clean \`out-www' directory\n\
+  uninstall*  uninstall programs and data\n\
   TAGS        generate tagfiles\n\
 \n\
 \`make' may be invoked from any subdirectory.\n\
@@ -173,6 +174,7 @@ $(config_make): $(top-src-dir)/configure
 # plus WWW-post (only at toplevel)
 # see INSTALL for more information.
 
+ifeq ($(out),www)
 local-WWW-1:
 local-WWW-2:
 WWW-post:
@@ -182,14 +184,15 @@ WWW-1: local-WWW-1
 
 WWW-2: local-WWW-2
 	$(LOOP)
+endif
 
-web: web-1
+doc: doc-stage-1
 	$(MAKE) out=www WWW-2
 	$(MAKE) out=www WWW-post
 
-web-1:
+doc-stage-1:
 	$(MAKE) -C $(depth)/scripts/build out=
 	$(MAKE) out=www WWW-1
 
-web-clean:
+doc-clean:
 	$(MAKE) out=www clean

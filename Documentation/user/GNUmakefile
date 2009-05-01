@@ -122,9 +122,11 @@ $(outdir)/%/source:
 	mkdir -p $(dir $@)
 	ln -sf $(depth)/.. $(@)
 
+ifeq ($(out),www)
 local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) info
 
 local-WWW-2: $(HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
+endif
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
@@ -135,8 +137,13 @@ $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
 
 $(outdir)/lilypond.texi $(outdir)/lilypond-program.texi $(outdir)/lilypond-learning.texi $(outdir)/music-glossary.texi: $(ITELY_FILES) $(ITEXI_FILES)
 
+$(outdir)/lilypond.texi: $(outdir)/ly-grammar.txt
 
 # Rules for the automatically generated documentation
+
+$(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
+	cd $(outdir) && $(BISON) -v $<
+	$(auxscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
 
 # There used to be a dependency on a dummy target, to force a rebuild
 # of lilypond-internals every time.  however, this triggers
