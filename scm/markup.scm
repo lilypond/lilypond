@@ -208,7 +208,7 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 	 (string-append
 	  make-name ": "
 	  (_ "Invalid argument in position ~A.  Expect: ~A, found: ~S."))
-	  error-msg)
+	  (car error-msg) (cadr error-msg)(caddr error-msg))
 	(cons markup-function args))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
