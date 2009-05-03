@@ -6,7 +6,9 @@
 
 all: $(OUT_FILES)
 
+ifeq ($(out),www)
 local-WWW-1: $(ly_examples) $(pdf_examples) $(png_examples)
+endif
 
 tar:
 	mkdir -p $(outdir)/$(tarball)

@@ -66,9 +66,15 @@ lsr_comment_re = re.compile (r'\s*%+\s*LSR.*')
 
 begin_header_re = re.compile (r'\\header\s*{', re.M)
 
+ly_new_version_re = re.compile (r'\\version\s*"(.+?)"')
+
 # add tags to ly files from LSR
 def add_tags (ly_code, tags):
     return begin_header_re.sub ('\\g<0>\n  lsrtags = "' + tags + '"\n', ly_code, 1)
+
+# for snippets from input/new, add message for earliest working version
+def add_version (ly_code):
+    return '''%% Note: this file works from version ''' + ly_new_version_re.search (ly_code).group (1) + '\n'
 
 def copy_ly (srcdir, name, tags):
     global unsafe
@@ -90,7 +96,7 @@ def copy_ly (srcdir, name, tags):
     if in_dir and in_dir in srcdir:
         s = LY_HEADER_LSR + add_tags (s, tags)
     else:
-        s = LY_HEADER_NEW + s
+        s = LY_HEADER_NEW + add_version (s) + s
 
     s = mark_verbatim_section (s)
     s = lsr_comment_re.sub ('', s)
@@ -101,10 +107,12 @@ def copy_ly (srcdir, name, tags):
         unconverted.append (dest)
     if os.path.exists (dest + '~'):
         os.remove (dest + '~')
-    # -V seems to make unsafe snippets fail nicer/sooner
-    e = os.system ("lilypond -V -dno-print-pages -dsafe -o /tmp/lsrtest '%s'" % dest)
-    if e:
-        unsafe.append (dest)
+    # no need to check snippets from input/new
+    if in_dir and in_dir in srcdir:
+        # -V seems to make unsafe snippets fail nicer/sooner
+        e = os.system ("lilypond -V -dno-print-pages -dsafe -o /tmp/lsrtest '%s'" % dest)
+        if e:
+            unsafe.append (dest)
 
 def read_source_with_dirs (src):
     s = {}
@@ -175,13 +183,12 @@ if unconverted:
 if notags_files:
     sys.stderr.write ('No tags could be found in these files:\n')
     sys.stderr.write ('\n'.join (notags_files) + '\n\n')
-
-dump_file_list ('lsr-unsafe.txt', unsafe)
-sys.stderr.write ('''
+if unsafe:
+    dump_file_list ('lsr-unsafe.txt', unsafe)
+    sys.stderr.write ('''
 
 Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
   git add input/lsr/*.ly
   xargs git diff HEAD < lsr-unsafe.txt
 
 ''')
-

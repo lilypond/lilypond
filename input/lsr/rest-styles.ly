@@ -15,6 +15,14 @@ Los silencios se pueden imprimir en distintos estilos.
 Pausen können in verschiedenen Stilen dargestellt werden.
 "
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+  texidocfr = "
+Les silences peuvent être gravés selon différents styles.
+
+"
+  doctitlefr = "Styles de silences"
+
   texidoc = "
 Rests may be used in various styles.
 

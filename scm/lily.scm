@@ -242,7 +242,7 @@ second.  Dump results to `FILE.stacks' and
 	(ly:error (_ "cannot find: ~A") x))
     (primitive-load file-name)
     (if (ly:get-option 'verbose)
-	(ly:progress "]"))))
+	(ly:progress "]\n"))))
 
 (define-public DOS
   (let ((platform (string-tokenize
@@ -688,7 +688,7 @@ PIDs or the number of the process."
 	 (if separate-logs
 	     (ly:stderr-redirect (format "~a.log" base) "w"))
 	 (if ping-log
-	     (format ping-log "Procesing ~a\n" base))
+	     (format ping-log "Processing ~a\n" base))
 	 (if (ly:get-option 'trace-memory-frequency)
 	     (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
 	 (lilypond-file handler x)
@@ -750,6 +750,6 @@ PIDs or the number of the process."
 	 ;; FIXME: soft-code, localize
 	 (welcome-ly (string-append ly "Welcome_to_LilyPond.ly"))
 	 (cmd (get-editor-command welcome-ly 0 0 0)))
-    (ly:message (_ "Invoking `~a'...") cmd)
+    (ly:message (_ "Invoking `~a'...\n") cmd)
     (system cmd)
     (exit 1)))

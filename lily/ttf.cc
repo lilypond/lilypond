@@ -504,7 +504,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 
   string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
-    progress_indication ("[" + file_name);
+    progress_indication ("\n[" + file_name);
 
   FT_Face face;
 
@@ -556,7 +556,7 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
 
   string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
-    progress_indication ("[" + file_name);
+    progress_indication ("\n[" + file_name);
 
   Memory_out_stream stream;
 

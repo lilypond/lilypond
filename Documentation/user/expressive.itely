@@ -545,16 +545,13 @@ slur can overlap a slur.  This permits two slurs to be printed at
 once.  For details, see @ref{Phrasing slurs}.
 
 @cindex slur style
-@cindex solid slur
-@cindex dotted slur
-@cindex dashed slur
 @cindex slur, solid
 @cindex slur, dotted
 @cindex slur, dashed
 @cindex solid slur
 @cindex dotted slur
 @cindex dashed slur
-@cindex sytle, slur
+@cindex style, slur
 @funindex \slurDashed
 @funindex slurDashed
 @funindex \slurDotted
@@ -579,15 +576,33 @@ g4( e c2)
 @funindex slurHalfDashed
 @funindex \slurHalfSolid
 @funindex slurHalfSolid
+@cindex slur, half dashed and half solid
 
 Slurs can also be made half-dashed (the first half dashed, the
 second half solid) or half-solid (the first half solid, the second
 half dashed):
 
 @lilypond[verbatim,quote,relative=1]
+c4( e g2)
 \slurHalfDashed
 g4( e c2)
 \slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+@funindex \slurDashPattern
+@funindex slurDashPattern
+@cindex slur, defining dash patterns
+
+Custom dash patterns for slurs can be defined:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashPattern #0.7 #0.75
+g4( e c2)
+\slurDashPattern #0.5 #2.0
 c4( e g2)
 \slurSolid
 g4( e c2)
@@ -605,8 +620,9 @@ g4( e c2)
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
-@code{\slurHaldDashed},
+@code{\slurHalfDashed},
 @code{\slurHalfSolid},
+@code{\slurDashPattern},
 @code{\slurSolid}.
 @endpredefined
 
@@ -665,12 +681,6 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
-@funindex phrasingSlurDashed
-@funindex \phrasingSlurDashed
-@funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
-@funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 
 Typographically, a phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects; a
@@ -686,12 +696,25 @@ c4\( g' c,( b) | c1\)
 
 @cindex simultaneous phrasing slurs
 @cindex multiple phrasing slurs
-@cindex slurs, simultaneous phrasing
-@cindex slurs, multiple phrasing
-@cindex phrasing slurs, simultaneous
-@cindex phrasing slurs, multiple
+@cindex slur, simultaneous phrasing
+@cindex slur, multiple phrasing
+@cindex phrasing slur, simultaneous
+@cindex phrasing slur, multiple
 
 Simultaneous or overlapping phrasing slurs are not permitted.
+
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
+@cindex phrasing slur, dashed
+@cindex dashed phrasing slur
+@cindex phrasing slur, dotted
+@cindex dotted phrasing slurs
+@cindex slur, dashed phrasing
+@cindex slur, dotted phrasing
 
 Phrasing slurs can be solid, dotted, or dashed.  Solid is the default
 style for phrasing slurs:
@@ -706,6 +729,48 @@ c4\( e g2\)
 g4\( e c2\)
 @end lilypond
 
+@funindex phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfSolid
+@funindex phrasingSlurHalfSolid
+@cindex phrasing slur, half solid and half dashed
+@cindex slur, half solid and half dashed phrasing
+
+Phrasing slurs can also be made half-dashed (the first half dashed, the
+second half solid) or half-solid (the first half solid, the second
+half dashed):
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurHalfDashed
+g4\( e c2\)
+\phrasingSlurHalfSolid
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+@funindex \phrasingSlurDashPattern
+@funindex phrasingSlurDashPattern
+@cindex phrasing slur, defining dash patterns
+@cindex slur, phrasing, defining dash patterns
+@cindex slur, definind dash patterns for phrasing
+
+Custom dash patterns for phrasing slurs can be defined:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashPattern #0.7 #0.75
+g4\( e c2\)
+\phrasingSlurDashPattern #0.5 #2.0
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+Dash pattern definitions for phrasing slurs have the same structure
+as dash pattern definitions for slurs.  For more information about
+complex dash patterns, see the snippets under @ref{Slurs}.
 
 @predefined
 @code{\phrasingSlurUp},
@@ -713,6 +778,9 @@ g4\( e c2\)
 @code{\phrasingSlurNeutral},
 @code{\phrasingSlurDashed},
 @code{\phrasingSlurDotted},
+@code{\phrasingSlurHalfDashed},
+@code{\phrasingSlurHalfSolid},
+@code{\phrasingSlurDashPattern},
 @code{\phrasingSlurSolid}.
 @endpredefined
 
@@ -722,7 +790,8 @@ Learning Manual:
 @rlearning{On the un-nestedness of brackets and ties}.
 
 Notation Reference:
-@ref{Direction and placement}.
+@ref{Direction and placement},
+@ref{Slurs}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -914,6 +983,8 @@ Different types of arpeggios may be written.
 @funindex arpeggioBracket
 @funindex \arpeggioParenthesis
 @funindex arpeggioParenthesis
+@funindex \arpeggioParenthesisDashed
+@funindex arpeggioParenthesisDashed
 
 Special @emph{bracketed} arpeggio symbols can be created:
 
@@ -923,9 +994,14 @@ Special @emph{bracketed} arpeggio symbols can be created:
 <c e g c>2\arpeggio
 \arpeggioParenthesis
 <c e g c>2\arpeggio
+\arpeggioParenthesisDashed
+<c e g c>2\arpeggio
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond
+
+The dash properties of the parenthesis arpeggio are controlled
+with the @code{'dash-details} property, which is described at @ref{Slurs}.
 
 Arpeggios can be explicitly written out with ties.  For more
 information, see @ref{Ties}.
@@ -937,7 +1013,8 @@ information, see @ref{Ties}.
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
-@code{\arpeggioParenthesis}.
+@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesisDashed}.
 @endpredefined
 
 
@@ -958,6 +1035,7 @@ Music Glossary:
 @rglos{arpeggio}.
 
 Notation Reference:
+@ref{Slurs},
 @ref{Ties}.
 
 Snippets:
@@ -965,6 +1043,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Arpeggio},
+@rinternals{Slur},
 @rinternals{PianoStaff}.
 
 

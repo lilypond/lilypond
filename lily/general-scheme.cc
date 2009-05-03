@@ -88,8 +88,6 @@ LY_DEFINE (ly_error, "ly:error",
 	   "  The error is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
-  if (scm_is_pair(scm_car(rest)))
-    rest=scm_car(rest);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   error (ly_scm2string (str));
   return SCM_UNSPECIFIED;

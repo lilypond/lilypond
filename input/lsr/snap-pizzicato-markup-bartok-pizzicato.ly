@@ -11,7 +11,7 @@ El pizzicato de chasquido (también llamado @q{Pizzicato de Bartók}) es un
 @q{pizzicato fuerte en que la cuerda se pulsa verticalmente produciendo un
 chasquido y rebotando en el diapasón del instrumento} (Wikipedia).  Se
 denota mediante una circunferencia con una línea vertical corta que parte
-del centro de aquélla hacia fuera.  Aunque Lilypond no tiene ninguna
+del centro de aquélla hacia fuera.  Aunque LilyPond no tiene ninguna
 instrucción predefinida para crear esta marca, es fácil hacer la definición
 y colocarla directamente en el archivo de lilypond.
 "

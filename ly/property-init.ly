@@ -10,9 +10,19 @@ slurUp = \override Slur #'direction = #UP
 slurDown = \override Slur #'direction = #DOWN
 slurNeutral = \revert Slur #'direction
 
+#(define (make-simple-dash-definition dash-fraction dash-period)
+    (list (list 0 1 dash-fraction dash-period)))
+
 slurDashed = {
   \override Slur #'dash-definition =  #'((0 1 0.4 0.75))
 }
+slurDashPattern = 
+#(define-music-function (parser location dash-fraction dash-period)
+  (number? number?)
+  #{
+     \override Slur #'dash-definition =
+       $(make-simple-dash-definition dash-fraction dash-period)
+  #})
 slurDotted = {
   \override Slur #'dash-definition =  #'((0 1 0.1 0.75))
 }
@@ -36,6 +46,13 @@ phrasingSlurNeutral = \revert PhrasingSlur #'direction
 phrasingSlurDashed = {
   \override PhrasingSlur #'dash-definition =  #'((0 1 0.4 0.75))
 }
+phrasingSlurDashPattern = 
+#(define-music-function (parser location dash-fraction dash-period)
+  (number? number?)
+  #{
+     \override PhrasingSlur #'dash-definition =
+       $(make-simple-dash-definition dash-fraction dash-period)
+  #})
 phrasingSlurDotted = {
   \override PhrasingSlur #'dash-definition =  #'((0 1 0.1 0.75))
 }
@@ -75,16 +92,28 @@ tieDown = \override Tie #'direction = #DOWN
 tieNeutral = \revert Tie #'direction
 
 tieDashed = {
-  \override Tie #'dash-period = #0.75
-  \override Tie #'dash-fraction = #0.4
+  \override Tie #'dash-definition = #'((0 1 0.4 0.75))
 }
+tieDashPattern = 
+#(define-music-function (parser location dash-fraction dash-period)
+  (number? number?)
+  #{
+     \override Tie #'dash-definition =
+       $(make-simple-dash-definition dash-fraction dash-period)
+  #})
 tieDotted = {
-  \override Tie #'dash-period = #0.75
-  \override Tie #'dash-fraction = #0.1
+  \override Tie #'dash-definition = #'((0 1 0.1 0.75))
+}
+tieHalfDashed = {
+  \override Tie #'dash-definition =  #'((0 0.5 0.4 0.75)
+                                        (0.5 1 1 1))
+}
+tieHalfSolid = {
+  \override Tie #'dash-definition =  #'((0 0.5 1 1)
+                                        (0.5 1 0.4 0.75))
 }
 tieSolid = {
-  \revert Tie #'dash-period
-  \revert Tie #'dash-fraction
+  \revert Tie #'dash-definition
 }
 
 easyHeadsOn = {
@@ -269,7 +298,8 @@ arpeggioArrowDown = {
 arpeggioNormal = {
   \revert Arpeggio #'stencil
   \revert Arpeggio #'X-extent
-  \revert Arpeggio  #'arpeggio-direction
+  \revert Arpeggio #'arpeggio-direction
+  \revert Arpeggio #'dash-definition
 }
 arpeggioBracket = {
   \revert Arpeggio #'X-extent
@@ -278,7 +308,15 @@ arpeggioBracket = {
 arpeggioParenthesis = {
   \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
   \override Arpeggio #'X-extent = #ly:grob::stencil-width
+  \revert Arpeggio #'dash-definition
 }
+arpeggioParenthesisDashed = {
+  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
+  \override Arpeggio #'X-extent = #ly:grob::stencil-width
+  \override Arpeggio #'dash-definition = #'((0 1 0.4 0.75))
+}
+
+
 
 glissando = #(make-music 'GlissandoEvent)
 

@@ -5,6 +5,20 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+
+Los valores predeterminados para las notas de adorno están
+almacenados en los identificadores @code{startGraceMusic},
+@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
+@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} y
+@code{stopAppoggiaturaMusic}, que están definidos en el archivo
+@code{ly/grace-init.ly}.  Redefiniéndolos se pueden obtener otros
+efectos.
+
+"
+
+  doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
+
   texidoc = "
 The global defaults for grace notes are stored in the identifiers
 @code{startGraceMusic}, @code{stopGraceMusic},

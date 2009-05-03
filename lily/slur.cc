@@ -120,20 +120,10 @@ Slur::print (SCM smob)
   Stencil a;
 
   SCM dash_definition = me->get_property ("dash-definition");
-//  SCM p = me->get_property ("dash-period");
-//  SCM f = me->get_property ("dash-fraction");
-//  SCM interval = me->get_property ("dash-interval");
-//  if (scm_is_number (p) && scm_is_number (f))
-//    a = Lookup::dashed_slur (one, line_thick, robust_scm2double (p, 1.0),
-//			     robust_scm2double (f, 0));
-//  else
-    a = Lookup::slur (one,
-		      get_grob_direction (me) * base_thick,
-		      line_thick,
-                      dash_definition);
-//                      robust_scm2double (p, 1.0),
-//                      robust_scm2double (f, 0),
-//                      robust_scm2double (interval, 1));
+  a = Lookup::slur (one,
+                    get_grob_direction (me) * base_thick,
+		    line_thick,
+                    dash_definition);
 
 #if DEBUG_SLUR_SCORING
   SCM annotation = me->get_property ("annotation");

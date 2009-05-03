@@ -2,16 +2,5 @@ This directory is for examples of new features in the current
 unstable development series.  These snippets will be added to LSR
 when it supports a version of LilyPond that includes these features.
 
-When adding a file to this directory, please start the file with
-
-\version "2.x.y"
-\header {
-  lsrtags = "rhythms,expressive-marks"  % use existing LSR tags other than
-%   'docs'; see makelsr.py for the list of tags used to sort snippets.
-  texidoc = "This code demonstrates ..."  % this will be formated by Texinfo
-  doctitle = "Snippet title"  % please put this at the end so that
-    the '% begin verbatim' mark is added correctly by makelsr.py.
-}
-
-
-and name the file snippet-title.ly.
+See additional instructions in the Contributors' Guide, section
+Adding and editing snippets.

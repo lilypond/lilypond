@@ -62,6 +62,21 @@ which scares away people.
 
 @end ignore
 
+@item Dashed and dotted slurs, phrasing slurs, and ties
+have been made variable thickness, and
+partially dashed slurs are now available:
+@lilypond[quote]
+\relative c'' {
+  \slurDashed
+    c4( d e f) |
+  \slurDotted
+    g4( f e d) |
+  \slurHalfDashed
+    c4( d e f)
+}
+@end lilypond
+   
+
 @item An eyeglasses markup was added, incidating strongly to look at the 
 conductor for instructions:
 @lilypond[quote]

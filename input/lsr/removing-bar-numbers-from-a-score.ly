@@ -5,6 +5,15 @@
 \header {
   lsrtags = "rhythms, contexts-and-engravers"
 
+  texidoces = "
+
+Se pueden eliminar completamente los números de compás quitando el
+grabador @code{Bar_number_engraver} del contexto de @code{Score}.
+
+"
+
+  doctitlees = "Suprimir los números de compás de toda la partitura"
+
   texidoc = "
 Bar numbers can be removed entirely by removing the
 @code{Bar_number_engraver} from the @code{Score} context.

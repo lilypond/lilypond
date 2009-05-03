@@ -37,6 +37,21 @@ Mehr Information über @code{make-moment} gibt es in \"Verwaltung der Zeiteinhei
 "
   doctitlede = "Mehrere Triolen notieren, aber nur einmal \\times benutzen"
 
+
+%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+  texidocfr = "
+La propriété @code{tupletSpannerDuration} spécifie la longueur voulue de
+chaque crochet.  Avec elle, vous pouvez faire plusieurs nolets en ne
+tapant @code{\times} qu'une fois, ce qui évite une longue saisie.  
+
+Dans l'exemple suivant, deux triolets sont imprimés avec une seule fonction
+@code{\times}.
+
+Pour plus d'information sur @code{make-moment}, voir @ref{Time administration}.
+
+"
+  doctitlefr = "Plusieurs triolets avec une seule commande \\times"
+
   texidoc = "
 The property @code{tupletSpannerDuration} sets how long each of the
 tuplets contained within the brackets after @code{\\times} should last.

@@ -18,24 +18,63 @@ The
 @uref{http://lsr.dsi.unimi.it/, LilyPond Snippet Repository (LSR)}
 is a collection of lilypond examples.  A subset of these examples
 are automatically imported into the documentation, making it easy
-for users to contribute to the docs without learning git and
-texinfo.
+for users to contribute to the docs without learning Git and
+Texinfo.
 
 
 @node Adding and editing snippets
 @section Adding and editing snippets
 
-When you create (or find!) a nice snippet, please add it to LSR.  Go
-to @uref{http://lsr.dsi.unimi.it/, LSR} and log in (if you haven't
-already, create an account).  Follow the instructions on the website.
+@subheading General guidelines
+
+When you create (or find!) a nice snippet, if it supported by LilyPond
+version running on LSR, please add it to LSR.  Go to
+@uref{http://lsr.dsi.unimi.it/, LSR} and log in -- if you haven't
+already, create an account.  Follow the instructions on the website.
 These instructions also explain how to modify existing snippets.
 
-If you think the snippet is particularly informative and you think
-it should be included in the documentation, tag it with @qq{docs}
-and one or more other categories.
+If you think the snippet is particularly informative and you think it
+should be included in the documentation, tag it with @qq{docs} and one
+or more other categories, or ask somebody who has editing permissions to
+do it on the development list.
 
 Please make sure that the lilypond code follows the guidelines in
 @ref{LilyPond formatting}.
+
+If a new snippet created for documentation purposes compiles with
+LilyPond version currently on LSR, it should be added to LSR, and a
+reference to the snippet should be added to the documentation.
+
+If the new snippet uses new features that are not available in the
+current LSR version, the snippet should be added to @file{input/new} and
+a reference should be added to the manual.
+
+Snippets created or updated in @file{input/new} should be copied to
+@file{input/lsr} by invoking at top of the source tree
+
+@example
+scripts/auxiliar/makelsr.py
+@end example
+
+Be sure that @command{make web} runs successfully before submitting a
+patch, to prevent breaking compilation.
+
+@subheading Formatting snippets in @file{input/new}
+
+When adding a file to this directory, please start the file with
+
+@example
+\version "2.x.y"
+\header @{
+  lsrtags = "rhythms,expressive-marks"  % use existing LSR tags other than
+%   'docs'; see makelsr.py for the list of tags used to sort snippets.
+  texidoc = "This code demonstrates ..."  % this will be formated by Texinfo
+  doctitle = "Snippet title"  % please put this at the end so that
+    the '% begin verbatim' mark is added correctly by makelsr.py.
+@}
+@end example
+
+and name the file @file{snippet-title.ly}.
 
 
 @node Approving snippets
@@ -105,6 +144,10 @@ step @strong{VERY SERIOUSLY}.}
 Do a git add / commit / push.
 
 @end enumerate
+
+Note that whenever there is one snippet from @file{input/new} and the
+other from LSR with the same file name, the one from @file{input/new}
+will be copied by @command{makelsr.py}.
 
 
 @node Fixing snippets in LilyPond sources
