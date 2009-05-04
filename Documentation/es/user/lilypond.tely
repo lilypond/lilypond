@@ -243,6 +243,15 @@ Apéndices
 @include literature.itely
 @include notation-appendices.itely
 @include cheatsheet.itely
+
+@node LilyPond grammar
+@appendix LilyPond grammar
+
+Este apéndice contiene una descripción de la gramática del lenguaje de
+LilyPond, tal y como el analizador sintáctico la proporciona como
+salida.
+@verbatiminclude ly-grammar.txt
+
 @include fdl.itexi
 
 @node LilyPond command index
