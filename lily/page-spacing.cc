@@ -185,6 +185,12 @@ Page_spacer::resize (vsize page_count)
   max_page_count_ = page_count;
 }
 
+// Carries out one step in the dynamic programming algorithm for putting systems
+// on a fixed number of pages. One call to this routine calculates the best
+// configuration for putting lines 0 through LINE-1 on PAGE+1 pages, provided that
+// we have previously called calc_subproblem(page-1, k) for every k < LINE.
+//
+// This algorithm is similar to the constrained-breaking algorithm.
 bool
 Page_spacer::calc_subproblem (vsize page, vsize line)
 {
@@ -213,6 +219,9 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
       line_count += lines_[page_start].compressed_nontitle_lines_count_;
       if (page > 0 || page_start == 0)
 	{
+	  // If the last page is ragged, set its force to zero. This way, we will leave
+	  // the last page half-empty rather than trying to balance things out
+	  // (which only makes sense in non-ragged situations).
 	  if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
 	    space.force_ = 0;
 
