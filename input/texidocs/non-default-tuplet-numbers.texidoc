@@ -16,3 +16,12 @@ unterscheiden.  Auch ein Notenwert kann zu Nenner oder Zähler des Bruchs
 hinzugefügt werden.
 "
   doctitlede = "Nicht-standard-N-tolennummern"
+
+%% Translation of GIT committish: 
+  texidocfr = "
+LilyPond sait aussi gérer des nolets dont le chiffrage imprimé ne
+correspond pas exactement à la fraction de mesure à laquelle ils se
+réfèrent, tout comme ceux auxquels une valeur de note vient en complément
+au chiffre.
+"
+  doctitlefr = "Nolets au chiffrage inhabituel"

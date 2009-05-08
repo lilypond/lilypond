@@ -22,3 +22,14 @@ beeinflusst.  Die Erklärungen werden als Kommentare im Quellcode
 gegeben.
 "
   doctitlede = "beatLength und beatGrouping benutzen"
+
+%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+  texidocfr = "
+La propriété @code{measureLength} détermine la pulsation et, combinée à
+@code{beatLength} y @code{beatGrouping}, comment générer les ligatures
+automatiques selon les durées et la métrique lorsqu'aucune règle n'a été
+définie.  L'exemple commenté qui suit indique différentes façons de
+contrôler les ligatures à l'aide de ces propriétés. 
+
+"
+  doctitlefr = "Utilisation conjointe de beatLength et beatGrouping"

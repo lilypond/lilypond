@@ -14,3 +14,13 @@ werden.
 
 "
   doctitlede = "Balken über Zeilenumbrüche"
+
+
+%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+  
+  texidocfr = "
+Il est normalement impensable qu'un saut de ligne tombe au milieu d'une
+ligature.  LilyPond permet néanmoins de l'obtenir.
+
+"
+  doctitlefr = "Ligature au moment d'un saut de ligne"
