@@ -332,6 +332,8 @@ page turn to be allowed.")
 repeated section for a page turn to be allowed within that section.")
 
 
+     (noChordSymbol ,markup? "Markup to be displayed for rests in a
+ChordNames context.")
      (noteToFretFunction ,procedure? "How to produce a fret diagram.
 Parameters: A list of note events and a list of tabstring events.")
 

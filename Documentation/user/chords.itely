@@ -454,6 +454,30 @@ of the mode of entry, unless there are inversions or added bass notes:
 >>
 @end lilypond
 
+@cindex no chord symbol
+@cindex N.C. symbol
+@cindex indicating No Chord in ChordNames
+
+Rests passed to a @code{ChordNames} context will cause the
+@code{noChordSymbol} markup to be displayed.
+
+@lilypond[verbatim, quote, relative=1]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+  \new Score \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+>>
+@end lilypond
+
 @funindex{\chords}
 
 @code{\chords @{ ... @}} is a shortcut notation for
