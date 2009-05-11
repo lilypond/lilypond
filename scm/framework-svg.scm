@@ -34,8 +34,8 @@
 	 (page-count (length page-stencils))
 	 (paper-width (ly:output-def-lookup paper 'paper-width))
 	 (paper-height (ly:output-def-lookup paper 'paper-height))
-	 (page-width (inexact->exact (ceiling (* output-scale paper-width))))
-	 (page-height (inexact->exact (ceiling (* output-scale paper-height))))
+	 (page-width (* output-scale paper-width))
+	 (page-height (* output-scale paper-height))
 	 (page-set? (or (> page-count 1) landscape?)))
 
     (ly:outputter-output-scheme outputter
@@ -44,19 +44,17 @@
 	      '(xmlns . "http://www.w3.org/2000/svg")
 	      '(xmlns:xlink . "http://www.w3.org/1999/xlink")
 	      '(version . "1.2")
-
-	      ;; Argggghhhh: SVG takes the px <-> mm mapping from the windowing system
-	      `(width . ,(format "~s" page-width))
-	      `(height . ,(format "~s" page-height))))
+	      `(width . ,(ly:format "~2fmm" page-width))
+	      `(height . ,(ly:format "~2fmm" page-height))
+	      `(viewBox . ,(ly:format "0 0 ~4f ~4f"
+				      paper-width paper-height))))
     
     (dump (dump-fonts outputter paper))
     (dump
      (string-append
       ;; FIXME: only use pages if there are more than one, pageSet is
       ;; not supported by all SVG applications yet.
-      (if page-set? (eo 'pageSet) "")
-      (eo 'g `(transform . ,(format "scale(~a, ~a) "
-				    output-scale output-scale)))))
+      (if page-set? (eo 'pageSet) "")))
     
     (for-each
      (lambda (page)
@@ -67,7 +65,6 @@
     (if page-set? (eo 'pageSet) "")
     (dump
      (string-append
-      (ec 'g)
       (if page-set? (ec 'pageSet) "")
       (ec 'svg)))
     
@@ -84,9 +81,7 @@
 	   (eo 'page '(page-orientation . "270"))
 	   (eo 'page))))
   
-  (dump (string-append (eo 'g )))
   (ly:outputter-dump-stencil outputter page)
-  (dump (string-append (ec 'g)))
   (if (or landscape? page-set?)
       (dump (ec 'page))))
 
