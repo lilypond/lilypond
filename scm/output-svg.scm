@@ -111,60 +111,55 @@
   (make-regexp "^(<[a-z]+) (.*>)"))
 
 (define pango-description-regexp-comma
-  (make-regexp "([^,]+), ?([-a-zA-Z_]*) ([0-9.]+)$"))
+  (make-regexp ",( Bold)?( Italic)?( Small-Caps)? ([0-9.]+)$"))
 
 (define pango-description-regexp-nocomma
-  (make-regexp "([^ ]+) ([-a-zA-Z_]*) ?([0-9.]+)$"))
+  (make-regexp "( Bold)?( Italic)?( Small-Caps)? ([0-9.]+)$"))
 
-(define (pango-description-to-svg-font str)
+(define (pango-description-to-svg-font str expr)
+  (define alist '())
+  (define (set-attribute attr val)
+    (set! alist (assoc-set! alist attr val)))
   (let*
-      ((size 4.0)
-       (family "Helvetica")
-       (style #f)
-       (match-1 (regexp-exec pango-description-regexp-comma str))
-       (match-2 (regexp-exec pango-description-regexp-nocomma str))
-       (match (if match-1
-		  match-1
-		  match-2)))
+    ((match-1 (regexp-exec pango-description-regexp-comma str))
+     (match-2 (regexp-exec pango-description-regexp-nocomma str))
+     (match (if match-1
+		match-1
+		match-2)))
 
     (if (regexp-match? match)
 	(begin
-	  (set! family (match:substring match 1))
-	  (if (< 0 (string-length (match:substring match 2)))
-	      (set! style (match:substring match 2)))
-	  (set! size
-		(string->number (match:substring match 3))))
-
+	  (set-attribute 'font-family (match:prefix match))
+	  (if (string? (match:substring match 1))
+	      (set-attribute 'font-weight "bold"))
+	  (if (string? (match:substring match 2))
+	      (set-attribute 'font-style "italic"))
+	  (if (string? (match:substring match 3))
+	      (set-attribute 'font-variant "small-caps"))
+	  (set-attribute 'font-size
+			 (/ (string->number (match:substring match 4))
+			    lily-unit-length))
+	  (set-attribute 'text-anchor "start")
+	  (set-attribute 'fill "currentColor"))
 	(ly:warning (_ "cannot decypher Pango description: ~a") str))
 
-    (set! style
-	  (if (string? style)
-	      (format "font-style:~a;" style)
-	      ""))
-    
-    (format "font-family:~a;~afont-size:~a;text-anchor:west"
-	    family
-	    style
-	    (/ size lily-unit-length))
-    ))
+    (apply entity 'text expr (reverse! alist))))
 
-;;; FONT may be font smob, or pango font string
-(define (svg-font font)
-  (if (string? font)
-      (pango-description-to-svg-font font)
-      (let ((name-style (font-name-style font))
-	    (size (modified-font-metric-font-scaling font))
-	    (anchor "west"))
+(define (font-smob-to-svg-font font expr)
+  (let ((name-style (font-name-style font))
+	(size (modified-font-metric-font-scaling font)))
 
-	(format "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
-		(car name-style) (cadr name-style)
-		size anchor))))
+    (entity 'text expr
+	    ;; FIXME: The cdr of `name-style' cannot select the
+	    ;; correct SVG font, so we ignore this information for now
+	    `(font-family . ,(car name-style))
+	    `(font-size . ,size)
+	    '(text-anchor . "start"))))
 
 (define (fontify font expr)
-  (entity 'text expr
-	  `(style . ,(svg-font font))
-	  '(fill . "currentColor")
-	  ))
+  (if (string? font)
+      (pango-description-to-svg-font font expr)
+      (font-smob-to-svg-font font expr)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -333,6 +328,7 @@
 	  `(width . ,(+ breapth width))
 	  `(height . ,(+ depth height))
 	  `(ry . ,(/ blot-diameter 2))
+	  '(fill . "currentColor")
 	  ))
 
 (define (circle radius thick is-filled)
