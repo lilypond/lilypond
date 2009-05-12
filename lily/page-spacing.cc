@@ -16,8 +16,9 @@
 void
 Page_spacing::calc_force ()
 {
-  /* If the first system is a title, we add back in the page-top-space. */
-  Real height = first_line_.title_ ? page_height_ + page_top_space_ : page_height_;
+  /* If the first system contains a title, we add back in the page-top-space. */
+  bool starts_with_title = first_line_.compressed_nontitle_lines_count_ < first_line_.compressed_lines_count_;
+  Real height = starts_with_title ? page_height_ + page_top_space_ : page_height_;
 
   if (rod_height_ + last_line_.bottom_padding_ >= height)
     force_ = infinity_f;
