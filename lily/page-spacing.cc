@@ -155,17 +155,14 @@ Page_spacer::solve (vsize page_count)
   if (extra_systems)
     {
       ret.systems_per_page_.back () += extra_systems;
-      ret.demerits_ += BAD_SPACING_PENALTY;
+      ret.force_.back () = BAD_SPACING_PENALTY;
     }
   if (extra_pages)
     {
       ret.force_.insert (ret.force_.end (), extra_pages, BAD_SPACING_PENALTY);
       ret.systems_per_page_.insert (ret.systems_per_page_.end (), extra_pages, 0);
-      ret.demerits_ += BAD_SPACING_PENALTY;
     }
 
-
-  ret.demerits_ += ret.penalty_;
   return ret;
 }
 
