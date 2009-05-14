@@ -293,6 +293,19 @@ with magnification @var{mag} of the string @var{text}."
         (else
           (cons string-coordinate (- fret-coordinate)))))
 
+    (define (stencil-coordinate-offset fret-offset string-offset)
+      "Return a pair @code{(x-offset . y-offstet)}
+      for translation in stencil coordinate system."
+      (cond
+        ((eq? orientation 'landscape)
+         (cons fret-offset (- string-offset)))
+        ((eq? orientation 'opposing-landscape)
+         (cons (- fret-offset) string-offset))
+        (else
+          (cons string-offset (- fret-offset)))))
+
+
+
     (define (make-bezier-sandwich-list start stop base height
                                        half-thickness)
       "Make the argument list for a bezier sandwich from
@@ -642,6 +655,7 @@ fret-diagram overall parameters."
          (if (null? restlist)
            positioned-glyph
            (ly:stencil-add
+             positioned-glyph
              (draw-xo restlist)))))
 
        (define (draw-capo fret)
@@ -734,18 +748,19 @@ at @var{fret}."
              (xo-stencil (draw-xo xo-list))
              (xo-fret-offset
                (stencil-fretboard-offset
-                 xo-stencil 'fret orientation)))
+                 xo-stencil 'fret orientation))
+             (xo-stencil-offset
+              (stencil-coordinate-offset
+               (- diagram-fret-top 
+                  xo-fret-offset
+                  (* size xo-padding))
+               0)))
         (set! fret-diagram-stencil
           (ly:stencil-add
             fret-diagram-stencil
             (ly:stencil-translate
               xo-stencil
-              (stencil-coordinates
-                (- diagram-fret-top
-                   xo-fret-offset
-                   (* size xo-padding))
-                0)))))) ; no string offset
-
+              xo-stencil-offset)))))
     (if (> capo-fret 0)
       (set! fret-diagram-stencil
         (ly:stencil-add
