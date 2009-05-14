@@ -329,26 +329,26 @@ the parts with all the @code{#()}.  This is explained in
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
 There are some problems with overlapping output; we'll fix those using
 the techniques in @ref{Moving objects}.  But let's also
-do something about the @code{mpdolce} and @code{tempoMark}
+do something about the @code{mpdolce} and @code{inst}
 definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them
 at the top of every file, but that's an annoyance.  It also leaves
@@ -357,14 +357,14 @@ the @code{#()} somewhat ugly.  Let's hide them in another file:
 
 @example
 %%% save this to a file called "definitions.ly"
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 @end example
 
 Now let's modify our music (let's save this file as @file{"music.ly"}).
@@ -378,27 +378,25 @@ Now let's modify our music (let's save this file as @file{"music.ly"}).
 \relative c'' @{
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 @}
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -414,14 +412,14 @@ with this:
 
 @example
 %%%  definitions.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout@{
   \context @{ \Score
@@ -439,14 +437,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout{
   \context { \Score
@@ -465,8 +463,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -481,14 +478,14 @@ overall size of the output.
 
 @example
 %%%  definitions.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout@{
@@ -506,14 +503,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout{
@@ -530,8 +527,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -540,7 +536,7 @@ Now in our music, I simply replace
 @code{\include "definitions.ly"} with
 @code{\include "web-publish.ly"}.  Of course, we could make this
 even more convenient.  We could make a @file{definitions.ly} file which
-contains only the definitions of @code{mpdolce} and @code{tempoMark}, a
+contains only the definitions of @code{mpdolce} and @code{inst}, a
 @file{web-publish.ly} file which contains only the @code{\layout}
 section listed above, and a @file{university.ly} file which
 contains only the tweaks to produce the output that my professor

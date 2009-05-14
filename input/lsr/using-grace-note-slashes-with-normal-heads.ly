@@ -5,6 +5,15 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+
+Es posible aplicar la barrita que cruza la barra de las
+acciaccaturas, en otras situaciones.
+
+"
+
+  doctitlees = "Utilizar la barra que tacha las notas de adorno con notas normales"
+
   texidoc = "
 The slash through the stem found in acciaccaturas can be applied in
 other situations.

@@ -2771,7 +2771,7 @@ def conv (str):
 \\sustainUp -> \\sustainOff, \\sustainDown -> \\sustainOn\n\
 \\sostenutoDown -> \\sostenutoOn, \\sostenutoUp -> \\sostenutoOff")
 def conv (str):
-    str = re.sub (r"\\octave", r"\\octaveCheck", str)
+    str = re.sub (r"\\octave(?![a-zA-Z])", r"\\octaveCheck", str)
     str = re.sub (r"arpeggioUp", r"arpeggioArrowUp", str)
     str = re.sub (r"arpeggioDown", r"arpeggioArrowDown", str)
     str = re.sub (r"arpeggioNeutral", r"arpeggioNormal", str)

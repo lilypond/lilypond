@@ -132,18 +132,18 @@ custosNote = #(define-music-function (parser location note)
 Multiple variables may be used,
 
 @lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location padding marktext)
-                                    (number? string?)
+tempoPadded = #(define-music-function (parser location padding tempotext)
+  (number? string?)
 #{
-  \once \override Score . RehearsalMark #'padding = $padding
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $marktext }
+  \once \override Score.MetronomeMark #'padding = $padding
+  \tempo \markup { \bold $tempotext }
 #})
 
 \relative c'' {
-c2 e
-\tempoMark #3.0 #"Allegro"
-g c
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
 }
 @end lilypond
 

@@ -7,6 +7,62 @@
   (c) 2006--2009 Joe Neeman <joeneeman@gmail.com>
 */
 
+/*
+  This is a utility class for page-breaking algorithms. There are some complex
+  parts of this class, some of which are useful to understand if you intend
+  to write a page breaking algorithm (ie. a subclass of Page_breaking). Most
+  of these complexities were introduced in order to break the problem of
+  page-breaking into simpler subproblems and to hide some of the bookkeeping
+  complexities of page breaking from the page breaking algorithms.
+
+  COMPRESSED LINES
+  There are several functions that actually distribute systems across pages
+  (for example, the space_systems_XXX and pack_systems_XXX functions). If
+  each of these functions had to handle \noPageBreak, it would be a mess.
+  Therefore, we handle \noPageBreak by "compressing" the list of systems
+  before doing any layout: we concatenate any two systems separated by a
+  \noPageBreak into a single system. The page-breaking functions can do their
+  magic without encountering a \noPageBreak; we then "uncompress" the systems
+  at the end. We almost always work with cached_line_details_, which are
+  "compressed."
+
+  CHUNKS
+  The basic operation of a page breaking algorithm is to repeatedly request
+  some systems from the line-breaker and place those systems on some pages.
+  With each repetition, the page breaking algorithm asks the line-breaker for
+  some systems that it thinks will help it achieve a better layout. The
+  Page_breaking class provides functionality to facilitate this in the case
+  that the page breaking algorithm only cares about the number of systems.
+
+  Even if a page breaking algorithm only cares number of systems, there may
+  be many ways to satisfy its request. For example, in a piece with 2 scores
+  and a request for 10 systems, we could return 5 systems from each score or
+  4 from the first and 6 from the second. Even within a score, we might
+  want to try several different line breaking configurations with a fixed
+  system count; if there is a forced \pageBreak, for example, we might wish
+  to tweak the number of systems on both sides of the \pageBreak independently.
+
+  The Page_breaking class takes care of finding these configurations. It
+  divides the piece into "chunks" and sets up the line-breaker in such a way
+  that the number of systems in each chunk can be modified independently.
+  Chunks never cross score boundaries; each title and markup is its own chunk.
+  When a page breaking algorithm requests a number of systems, the Page_breaker
+  stores an array of potential configurations, which the page breaking
+  algorithm can iterate over using current_configuration(vsize).
+
+  LINE_DIVISION
+  A Line_division is simply a way of storing the exact way in which the
+  total number of systems is distributed among chunks. Note that a
+  Line_division may not (in fact, usually will not) describe all of the chunks
+  in the entire book. Rather, it will describe the subset of chunks that lie
+  between some fixed starting and ending point. This subset of chunks changes
+  whenever a page breaking algorithm asks to consider a different pair of
+  starting and ending breakpoints. In particular, a Line_division should be
+  discarded after a call to set_current_breakpoints, since that Line_division
+  refers to a subset of chunks which might be different from the current
+  subset of chunks under consideration.
+*/
+
 #include "page-breaking.hh"
 
 #include "international.hh"

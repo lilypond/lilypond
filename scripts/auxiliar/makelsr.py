@@ -66,9 +66,15 @@ lsr_comment_re = re.compile (r'\s*%+\s*LSR.*')
 
 begin_header_re = re.compile (r'\\header\s*{', re.M)
 
+ly_new_version_re = re.compile (r'\\version\s*"(.+?)"')
+
 # add tags to ly files from LSR
 def add_tags (ly_code, tags):
     return begin_header_re.sub ('\\g<0>\n  lsrtags = "' + tags + '"\n', ly_code, 1)
+
+# for snippets from input/new, add message for earliest working version
+def add_version (ly_code):
+    return '''%% Note: this file works from version ''' + ly_new_version_re.search (ly_code).group (1) + '\n'
 
 def copy_ly (srcdir, name, tags):
     global unsafe
@@ -90,7 +96,7 @@ def copy_ly (srcdir, name, tags):
     if in_dir and in_dir in srcdir:
         s = LY_HEADER_LSR + add_tags (s, tags)
     else:
-        s = LY_HEADER_NEW + s
+        s = LY_HEADER_NEW + add_version (s) + s
 
     s = mark_verbatim_section (s)
     s = lsr_comment_re.sub ('', s)

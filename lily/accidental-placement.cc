@@ -20,23 +20,30 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
-
-void
-Accidental_placement::add_accidental (Grob *me, Grob *a)
+static Pitch*
+accidental_pitch (Grob *acc)
 {
-  a->set_parent (me, X_AXIS);
-  a->set_property ("X-offset", Grob::x_parent_positioning_proc);
-  SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
+  SCM cause = acc->get_parent (Y_AXIS)->get_property ("cause");
 
   Stream_event *mcause = unsmob_stream_event (cause);
   if (!mcause)
     {
       programming_error ("note head has no event cause");
-      return;
+      return 0;
     }
 
-  Pitch *p = unsmob_pitch (mcause->get_property ("pitch"));
+  return unsmob_pitch (mcause->get_property ("pitch"));
+}
 
+void
+Accidental_placement::add_accidental (Grob *me, Grob *a)
+{
+  Pitch *p = accidental_pitch (a);
+  if (!p)
+    return;
+
+  a->set_parent (me, X_AXIS);
+  a->set_property ("X-offset", Grob::x_parent_positioning_proc);
   int n = p->get_notename ();
 
   SCM accs = me->get_object ("accidental-grobs");
@@ -103,25 +110,11 @@ struct Accidental_placement_entry
   Interval vertical_extent_;
   vector<Box> extents_;
   vector<Grob*> grobs_;
-  Real offset_;
-  int notename_;
-  Accidental_placement_entry ()
-  {
-    offset_ = 0.0;
-    notename_ = -1;
-  }
 };
 
-static Interval all_accidental_vertical_extent;
 Real ape_priority (Accidental_placement_entry const *a)
 {
   return a->vertical_extent_[UP];
-}
-
-int ape_compare (Accidental_placement_entry *const &a,
-		 Accidental_placement_entry *const &b)
-{
-  return sign (ape_priority (a) - ape_priority (b));
 }
 
 bool ape_less (Accidental_placement_entry *const &a,
@@ -130,10 +123,39 @@ bool ape_less (Accidental_placement_entry *const &a,
   return ape_priority (a) < ape_priority (b);
 }
 
-int ape_rcompare (Accidental_placement_entry *const &a,
-		  Accidental_placement_entry *const &b)
+/*
+  This function provides a method for sorting accidentals that belong to the
+  same note. The accidentals that this function considers to be "smallest"
+  will be placed to the left of the "larger" accidentals.
+
+  Naturals are the largest (so that they don't get confused with cancellation
+  naturals); apart from that, we order according to the alteration (so
+  double-flats are the smallest).
+
+  Precondition: the accidentals are attached to NoteHeads of the same note
+  name -- the octaves, however, may be different.
+*/
+static bool
+acc_less (Grob *const &a, Grob *const &b)
 {
-  return -sign (ape_priority (a) - ape_priority (b));
+  Pitch *p = accidental_pitch (a);
+  Pitch *q = accidental_pitch (b);
+
+  if (!p || !q)
+    {
+      programming_error ("these accidentals do not have a pitch");
+      return false;
+    }
+
+  if (p->get_octave () != q->get_octave ())
+    return p->get_octave () < q->get_octave ();
+
+  if (p->get_alteration () == Rational (0))
+    return false;
+  if (q->get_alteration () == Rational (0))
+    return true;
+
+  return p->get_alteration () < q->get_alteration ();
 }
 
 /*
@@ -171,6 +193,204 @@ stagger_apes (vector<Accidental_placement_entry*> *apes)
 
   reverse (*apes);
 }
+
+static vector<Accidental_placement_entry*>
+build_apes (SCM accs)
+{
+  vector<Accidental_placement_entry*> apes;
+  for (SCM s = accs; scm_is_pair (s); s = scm_cdr (s))
+    {
+      Accidental_placement_entry *ape = new Accidental_placement_entry;
+
+      for (SCM t = scm_cdar (s); scm_is_pair (t); t = scm_cdr (t))
+	ape->grobs_.push_back (unsmob_grob (scm_car (t)));
+
+      apes.push_back (ape);
+    }
+
+  return apes;
+}
+
+static void
+set_ape_skylines (Accidental_placement_entry *ape,
+		  Grob **common)
+{
+  vector<Grob*> accs (ape->grobs_);
+  vector_sort (accs, &acc_less);
+
+  /* We know that each accidental has the same note name and we assume that
+     accidentals in different octaves won't collide. If two or more
+     accidentals are in the same octave:
+     1) if they are the same accidental, print them in overstrike
+     2) otherwise, shift one to the left so they don't overlap. */
+  int last_octave = 0;
+  Real offset = 0;
+  Real last_offset = 0;
+  Rational last_alteration (0);
+  for (vsize i = accs.size (); i--;)
+    {
+      Grob *a = accs[i];
+      Pitch *p = accidental_pitch (a);
+
+      if (!p)
+	continue;
+
+      if (i == accs.size () - 1 || p->get_octave () != last_octave)
+	{
+	  last_offset = 0;
+	  offset = a->extent (a, X_AXIS)[LEFT] - 0.2;
+	}
+      else if (p->get_alteration () == last_alteration)
+	a->translate_axis (last_offset, X_AXIS);
+      else /* Our alteration is different from the last one */
+	{
+	  Real this_offset = offset - a->extent (a, X_AXIS)[RIGHT];
+	  a->translate_axis (this_offset, X_AXIS);
+
+	  /* FIXME: read the padding from the AccidentalPlacement grob */
+	  last_offset = this_offset;
+	  offset -= a->extent (a, X_AXIS).length () + 0.2;
+	}
+
+      vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
+      ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
+
+      for (vsize j = boxes.size (); j--;)
+	ape->vertical_extent_.unite (boxes[j][Y_AXIS]);
+
+      last_octave = p->get_octave ();
+      last_alteration = p->get_alteration ();
+    }
+  ape->left_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, LEFT);
+  ape->right_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, RIGHT);
+}
+
+static vector<Grob*>
+extract_heads_and_stems (vector<Accidental_placement_entry*> const &apes)
+{
+  vector<Grob*> note_cols;
+  vector<Grob*> ret;
+
+  for (vsize i = apes.size (); i--;)
+    {
+      Accidental_placement_entry *ape = apes[i];
+      for (vsize j = ape->grobs_.size (); j--;)
+	{
+	  Grob *acc = ape->grobs_[j];
+	  Grob *head = acc->get_parent (Y_AXIS);
+	  Grob *col = head->get_parent (X_AXIS);
+
+	  if (Note_column::has_interface (col))
+	    note_cols.push_back (col);
+	  else
+	    ret.push_back (head);
+	}
+    }
+
+  /*
+    This is a little kludgy: in case there are note columns without
+    accidentals, we get them from the Note_collision objects.
+  */
+  for (vsize i = note_cols.size (); i--;)
+    {
+      Grob *c = note_cols[i]->get_parent (X_AXIS);
+      if (Note_collision_interface::has_interface (c))
+	{
+	  extract_grob_set (c, "elements", columns);
+	  concat (note_cols, columns);
+	}
+    }
+
+  /* Now that we have all of the columns, grab all of the note-heads */
+  for (vsize i = note_cols.size (); i--;)
+    concat (ret, extract_grob_array (note_cols[i], "note-heads"));
+
+  /* Now that we have all of the heads, grab all of the stems */
+  for (vsize i = ret.size (); i--;)
+    if (Grob *s = Rhythmic_head::get_stem (ret[i]))
+      ret.push_back (s);
+
+
+  vector_sort (ret, less<Grob*> ());
+  uniq (ret);
+  return ret;
+}
+
+static Grob*
+common_refpoint_of_accidentals (vector<Accidental_placement_entry*> const &apes, Axis a)
+{
+  Grob *ret = 0;
+
+  for (vsize i = apes.size (); i--;)
+    for (vsize j = apes[i]->grobs_.size (); j--;)
+      {
+	if (!ret)
+	  ret = apes[i]->grobs_[j];
+	else
+	  ret = ret->common_refpoint (apes[i]->grobs_[j], a);
+      }
+
+  return ret;
+}
+
+static Skyline
+build_heads_skyline (vector<Grob*> const &heads_and_stems,
+		     Grob **common)
+{
+  vector<Box> head_extents;
+  for (vsize i = heads_and_stems.size (); i--;)
+    head_extents.push_back (Box (heads_and_stems[i]->extent (common[X_AXIS], X_AXIS),
+				 heads_and_stems[i]->pure_height (common[Y_AXIS], 0, INT_MAX)));
+
+  return Skyline (head_extents, 0, Y_AXIS, LEFT);
+}
+
+/*
+  Position the apes, starting from the right, so that they don't collide.
+  Return the total width.
+*/
+static Interval
+position_apes (Grob *me,
+	       vector<Accidental_placement_entry*> const &apes,
+	       Skyline const &heads_skyline)
+{
+  Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
+  Skyline left_skyline = heads_skyline;
+  left_skyline.raise (-robust_scm2double (me->get_property ("right-padding"), 0));
+  
+  /*
+    Add accs entries right-to-left.
+  */
+  Interval width;
+  Real last_offset = 0.0;
+  for (vsize i = apes.size (); i-- > 0;)
+    {
+      Accidental_placement_entry *ape = apes[i];
+
+      Real offset = -ape->right_skyline_.distance (left_skyline);
+      if (isinf (offset))
+	offset = last_offset;
+      else
+	offset -= padding;
+
+      Skyline new_left_skyline = ape->left_skyline_;
+      new_left_skyline.raise (offset);
+      new_left_skyline.merge (left_skyline);
+      left_skyline = new_left_skyline;
+
+      /* Shift all of the accidentals in this ape */
+      for (vsize j = ape->grobs_.size (); j--;)
+	ape->grobs_[j]->translate_axis (offset, X_AXIS);
+
+      for (vsize j = ape->extents_.size (); j--;)
+	width.unite (offset + ape->extents_[j][X_AXIS]);
+
+      last_offset = offset;
+    }
+
+  return width;
+}
+
 
 /*
   This routine computes placements of accidentals. During
@@ -227,197 +447,28 @@ Accidental_placement::calc_positioning_done (SCM smob)
   if (!scm_is_pair (accs))
     return SCM_BOOL_T;
 
-  /*
-    TODO: there is a bug in this code. If two accs are on the same
-    Y-position, they share an Ape, and will be printed in overstrike.
-  */
-  vector<Accidental_placement_entry*> apes;
-  for (SCM s = accs; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Accidental_placement_entry *ape = new Accidental_placement_entry;
-      ape->notename_ = scm_to_int (scm_caar (s));
-
-      for (SCM t = scm_cdar (s); scm_is_pair (t); t = scm_cdr (t))
-	ape->grobs_.push_back (unsmob_grob (scm_car (t)));
-
-      apes.push_back (ape);
-    }
+  vector<Accidental_placement_entry*> apes = build_apes (accs);
 
   Grob *common[] = {me, 0};
 
-  /*
-    First we must extract *all* pointers. We can only determine
-    extents if we're sure that we've found the right common refpoint
-  */
-  vector<Grob*> note_cols, heads;
-  for (vsize i = apes.size (); i--;)
-    {
-      Accidental_placement_entry *ape = apes[i];
-      for (vsize j = ape->grobs_.size (); j--;)
-	{
-	  Grob *a = ape->grobs_[j];
+  vector<Grob*> heads_and_stems = extract_heads_and_stems (apes);
 
-	  if (common[Y_AXIS])
-	    common[Y_AXIS] = common[Y_AXIS]->common_refpoint (a, Y_AXIS);
-	  else
-	    common[Y_AXIS] = a;
-
-	  Grob *head = a->get_parent (Y_AXIS);
-
-	  Grob *col = head->get_parent (X_AXIS);
-	  if (Note_column::has_interface (col))
-	    note_cols.push_back (col);
-	  else
-	    heads.push_back (head);
-	}
-    }
-
-  /*
-    This is a little kludgy: to get all notes, we look if there are
-    collisions as well.
-  */
-  for (vsize i = note_cols.size (); i--;)
-    {
-      Grob *c = note_cols[i]->get_parent (X_AXIS);
-      if (Note_collision_interface::has_interface (c))
-	{
-	  extract_grob_set (c, "elements", gs);
-
-	  concat (note_cols, gs);
-	}
-    }
-
-  for (vsize i = note_cols.size (); i--;)
-    concat (heads, extract_grob_array (note_cols[i], "note-heads"));
-
-  vector_sort (heads, less<Grob*> ());
-  uniq (heads);
-
-  vector<Grob *> stems;
-  for (vsize i = 0; i < heads.size  (); i++)
-    {
-      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
-	stems.push_back (s);
-    }
-  
-  vector_sort (stems, less<Grob*> ());
-  uniq (stems);
-
-  common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
-  common[Y_AXIS] = common_refpoint_of_array (stems, common[Y_AXIS], Y_AXIS);
-
-  for (vsize i = 0; i < heads.size  (); i++)
-    {
-      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
-	{
-	  stems.push_back (s);
-	  common[Y_AXIS] = s->common_refpoint (common[Y_AXIS], Y_AXIS);
-	}
-    }
-
-  vector_sort (stems, less<Grob*> ());
-  uniq (stems);
-  
+  common[Y_AXIS] = common_refpoint_of_accidentals (apes, Y_AXIS);
+  common[Y_AXIS] = common_refpoint_of_array (heads_and_stems, common[Y_AXIS], Y_AXIS);
+  common[X_AXIS] = common_refpoint_of_array (heads_and_stems, me, X_AXIS);
 
   for (vsize i = apes.size (); i--;)
-    {
-      Accidental_placement_entry *ape = apes[i];
+    set_ape_skylines (apes[i], common);
+  Skyline heads_skyline = build_heads_skyline (heads_and_stems, common);
 
-      for (vsize j = apes[i]->grobs_.size (); j--;)
-	{
-	  Grob *a = apes[i]->grobs_[j];
-	  vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
-
-	  ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
-	}
-      ape->left_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, LEFT);
-      ape->right_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, RIGHT);
-    }
-
-  Interval total;
-  for (vsize i = apes.size (); i--;)
-    {
-      Interval y;
-
-      for (vsize j = apes[i]->extents_.size (); j--;)
-	y.unite (apes[i]->extents_[j][Y_AXIS]);
-      apes[i]->vertical_extent_ = y;
-      total.unite (y);
-    }
-  all_accidental_vertical_extent = total;
   stagger_apes (&apes);
+  Interval width = position_apes (me, apes, heads_skyline);
 
-  Accidental_placement_entry *head_ape = new Accidental_placement_entry;
-  common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);
-  
-  vector<Box> head_extents;
-  for (vsize i = heads.size (); i--;)
-    head_extents.push_back (Box (heads[i]->extent (common[X_AXIS], X_AXIS),
-				 heads[i]->extent (common[Y_AXIS], Y_AXIS)));
-
-  for (vsize i = 0; i < stems.size (); i ++)
-    {
-      int very_large = INT_MAX;
-      
-      head_extents.push_back (Box (stems[i]->extent (common[X_AXIS], X_AXIS),
-				   stems[i]->pure_height (common[Y_AXIS], 0, very_large)));
-    }
-
-  head_ape->left_skyline_ = Skyline (head_extents, 0, Y_AXIS, LEFT);
-  head_ape->offset_ = 0.0;
-
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
-
-  Skyline left_skyline = head_ape->left_skyline_;
-  left_skyline.raise (-robust_scm2double (me->get_property ("right-padding"), 0));
-  
-  /*
-    Add accs entries right-to-left.
-  */
-  for (vsize i = apes.size (); i-- > 0;)
-    {
-      Real offset = -apes[i]->right_skyline_.distance (left_skyline);
-      if (isinf (offset))
-	offset = (i + 1 < apes.size ()) ? apes[i + 1]->offset_ : 0.0;
-      else
-	offset -= padding;
-
-      apes[i]->offset_ = offset;
-
-      Skyline new_left_skyline = apes[i]->left_skyline_;
-      new_left_skyline.raise (apes[i]->offset_);
-      new_left_skyline.merge (left_skyline);
-      left_skyline = new_left_skyline;
-    }
-
-  for (vsize i = apes.size (); i--;)
-    {
-      Accidental_placement_entry *ape = apes[i];
-      for (vsize j = ape->grobs_.size (); j--;)
-	ape->grobs_[j]->translate_axis (ape->offset_, X_AXIS);
-    }
-
-  Interval left_extent, right_extent;
-  Accidental_placement_entry *ape = apes[0];
-
-  for (vsize i = ape->extents_.size (); i--;)
-    left_extent.unite (ape->offset_ + ape->extents_[i][X_AXIS]);
-
-  ape = apes.back ();
-  for (vsize i = ape->extents_.size (); i--;)
-    right_extent.unite (ape->offset_ + ape->extents_[i][X_AXIS]);
-
-  left_extent[LEFT] -= robust_scm2double (me->get_property ("left-padding"), 0);
-  Interval width (left_extent[LEFT], right_extent[RIGHT]);
-
-  SCM scm_width = ly_interval2scm (width);
   me->flush_extent_cache (X_AXIS);
-  me->set_property ("X-extent", scm_width);
+  me->set_property ("X-extent", ly_interval2scm (width));
 
   junk_pointers (apes);
 
-  delete head_ape;
-  
   return SCM_BOOL_T;
 }
 

@@ -107,6 +107,9 @@
   (apply string-append
 	 (map (lambda (x) (char->entity x)) (string->list string))))
 
+(define svg-element-regexp
+  (make-regexp "^(<[a-z]+) (.*>)"))
+
 (define pango-description-regexp-comma
   (make-regexp "([^,]+), ?([-a-zA-Z_]*) ([0-9.]+)$"))
 
@@ -280,12 +283,18 @@
 			     (ly:font-glyph-name-to-charcode font name))))))
 
 (define (placebox x y expr)
-  (entity 'g
-	  expr
-	  ;; FIXME: Not using GNU coding standards [translate ()] here
-	  ;; to work around a bug in Microsoft Internet Explorer 6.0
-	  `(transform . ,(ly:format "translate(~f, ~f)"
-				 x (- y)))))
+  (let*
+    ((match (regexp-exec svg-element-regexp expr))
+     (tagname (match:substring match 1))
+     (attributes (match:substring match 2)))
+
+    (string-append tagname
+		   ;; FIXME: Not using GNU coding standards
+		   ;; [translate ()] here to work around a
+		   ;; bug in Microsoft Internet Explorer 6.0
+		   (ly:format " transform=\"translate(~f, ~f)\" " x (- y))
+		   attributes
+		   "\n")))
 
 (define (polygon coords blot-diameter is-filled)
   (entity
@@ -301,13 +310,13 @@
 
 ;; rotate around given point
 (define (setrotation ang x y)
-  (format "<g transform=\"rotate(~a,~a,~a)\">"
+  (format "<g transform=\"rotate(~a,~a,~a)\">\n"
     (number->string (* -1 ang))
     (number->string x)
     (number->string (* -1 y))))
 
 (define (resetrotation ang x y)
-  "</g>")
+  "</g>\n")
 
 (define (round-filled-box breapth width depth height blot-diameter)
   (entity 'rect ""
@@ -376,9 +385,9 @@
 
 
 (define (setcolor r g b)
-  (format "<g color=\"rgb(~a%,~a%,~a%)\">"
+  (format "<g color=\"rgb(~a%,~a%,~a%)\">\n"
 	  (* 100 r) (* 100 g) (* 100 b)
 	  ))
 
 (define (resetcolor)
-  "</g>")
+  "</g>\n")

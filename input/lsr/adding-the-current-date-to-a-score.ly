@@ -3,7 +3,7 @@
 \version "2.13.1"
 
 \header {
-  lsrtags = "titles"
+  lsrtags = "text, titles"
 
   texidoces = "
 Con algo de código de Scheme, se puede añadir fácilmente la fecha

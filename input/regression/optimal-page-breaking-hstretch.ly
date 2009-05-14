@@ -1,5 +1,9 @@
 \version "2.12.0"
 
+#(set-default-paper-size "a6")
+
+\book {
+
 \header{
     texidoc="The optimal page breaker will stretch the
 systems horizontally so that the vertical spacing will be
@@ -21,4 +25,4 @@ first page should be horizontally stretched.
   \repeat unfold 5 {a b c d}
 }
 
-
+}

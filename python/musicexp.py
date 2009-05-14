@@ -1539,6 +1539,8 @@ class ClefChange (Music):
                 ('F', 4): "bass",
                 ('F', 5): "subbass",
                 ("percussion", 2): "percussion",
+                # Workaround: MuseScore uses PERC instead of percussion
+                ("PERC", 2): "percussion",
                 ("TAB", 5): "tab"}.get ((self.type, self.position), None)
     def ly_expression (self):
         return '\\clef "%s%s"' % (self.clef_name (), self.octave_modifier ())

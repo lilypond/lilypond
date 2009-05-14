@@ -80,7 +80,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
   if (!pango_dict_->try_retrieve (key, &val))
     {
       if (be_verbose_global)
-	progress_indication ("[" + string (pango_fn));
+	progress_indication ("\n[" + string (pango_fn));
 
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
 				       description,
@@ -119,7 +119,7 @@ All_font_metrics::find_otf (string name)
 	return 0;
 
       if (be_verbose_global)
-	progress_indication ("[" + file_name);
+	progress_indication ("\n[" + file_name);
 
       val = Open_type_font::make_otf (file_name);
 

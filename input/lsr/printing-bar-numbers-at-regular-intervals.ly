@@ -5,6 +5,17 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+
+Se pueden imprimir los números de compás a intervalos regulares
+mediante el establecimiento de la propiedad
+@code{barNumberVisibility}.  Aquí los números de compás se
+imprimen a cada dos compases excepto al final de la línea.
+
+"
+
+  doctitlees = "Imprimir números de compás a intervalos regulares"
+
   texidoc = "
 Bar numbers can be printed at regular intervals by setting the property
 @code{barNumberVisibility}. Here the bar numbers are printed every two

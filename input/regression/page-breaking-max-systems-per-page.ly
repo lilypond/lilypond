@@ -3,7 +3,7 @@
 \header {
   texidoc = "The max-systems-per-page variable prevents more
 than a given number of systems from being on a page. Titles
-are not counted as systems. \noPageBreak can override
+are not counted as systems. \\noPageBreak can override
 max-systems-per-page in unusual situations."
   title = "Title"
 }

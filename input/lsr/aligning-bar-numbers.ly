@@ -5,6 +5,19 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+
+Los números de compás se alinean de forma predeterminada por la
+derecha con su objeto padre. Éste es por lo general el borde
+izquierdo de una línea o, si los números se imprimen dentro de la
+línea, el lado isquierdo de una línea divisoria.  Los números
+también se pueden situar directamente sobre la barra de compás o
+alineados por la izquierda con ella.
+
+"
+
+  doctitlees = "Alineación de los números de compás"
+
   texidoc = "
 Bar numbers by default are right-aligned to their parent object. This
 is usually the left edge of a line or, if numbers are printed within a

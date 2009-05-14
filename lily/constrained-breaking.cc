@@ -21,7 +21,7 @@
 /*
   We use the following optimal substructure. Let W (A) be our weight function.
 
-  Let A_{k, n} = (a_{k, n,1}, ... a_{k, n, k}) be the optimal set of line breaks
+  Let A_{k, n} = (a_{k, n, 1}, ... a_{k, n, k}) be the optimal set of line breaks
   for k systems and n potential breakpoints. a_{k, n, k} = n (it is the end of
   the piece)
 
