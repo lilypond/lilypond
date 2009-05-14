@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: cef012cb7eef18f4ad00ef6f63afd39c95bd104a
+    Translation of GIT committish: 0f35c951dfcd648c512d29848350ff7df3dc5853
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -129,21 +129,21 @@ custosNote = #(define-music-function (parser location note)
 { c' d' e' f' \custosNote g' }
 @end lilypond
 
-Se pueden usar más de una variable:
+Se puede usar más de una variable:
 
 @lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location padding marktext)
-                                    (number? string?)
+tempoPadded = #(define-music-function (parser location padding tempotext)
+  (number? string?)
 #{
-  \once \override Score . RehearsalMark #'padding = $padding
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $marktext }
+  \once \override Score.MetronomeMark #'padding = $padding
+  \tempo \markup { \bold $tempotext }
 #})
 
 \relative c'' {
-c2 e
-\tempoMark #3.0 #"Allegro"
-g c
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
 }
 @end lilypond
 
