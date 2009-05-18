@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -461,6 +461,31 @@ inversiones o bajos añadidos:
     \chordmode {
       c2 f:sus4 c1:/f
     }
+  }
+>>
+@end lilypond
+
+@cindex sin acorde, símbolo
+@cindex N.C., símbolo
+@cindex indicar No Chord (sin acorde) en ChordNames
+
+Los silencios pasados a un contexto @code{ChordNames} hacen que se
+imprima el elemento de marcado @code{noChordSymbol} (símbolo de N.C.,
+Sin Acorde).
+
+@lilypond[verbatim, quote, relative=1]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+  \new Score \chordmode {
+    c1
+    r1
+    g1
+    c1
   }
 >>
 @end lilypond
