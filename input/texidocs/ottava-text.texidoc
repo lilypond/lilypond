@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Internamente, la función @code{set-octavation} establece las
 propiedades @code{ottavation} (por ejemplo, a @code{\"8va\"} o a

@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Se insertan automáticamente barras en ángulo cuando se detecta un
 intervalo muy grande entre las notas.  Se puede hacer un ajuste
