@@ -1,4 +1,4 @@
 "
 " Installed As:	vim/ftdetect/lilypond.vim
 "
-au! BufNewFile,BufRead *.ly		setf lilypond
+au! BufNewFile,BufRead *.ly,*.ily		setf lilypond
