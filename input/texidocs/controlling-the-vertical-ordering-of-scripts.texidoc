@@ -14,7 +14,7 @@ lugar.
 "
   doctitlees = "Controlar la ordenación vertical de las inscripciones"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Die vertikale Anordnung von Beschriftungen wird mit der
 @code{'script-priority}-Eigenschaft kontrolliert.  Um so kleiner die

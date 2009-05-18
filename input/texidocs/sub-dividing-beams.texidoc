@@ -17,7 +17,7 @@ la función @code{make-moment}, como se muestra aquí:
 "
   doctitlees = "Subdivisión de las barras de semicorchea"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
 werden standardmäßig nicht unterteilt.  Dieses Verhalten kann verändert
@@ -31,7 +31,7 @@ Standardwert für @code{beatLength} ist 1 / Zähler des aktuellen Taktes.
   doctitlede = "Balken in Untergruppen teilen"
 
 
-%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche
 ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de

@@ -16,7 +16,7 @@ gauche, des indications de corrde et des doigtés pour la main droite.
 "
   doctitlefr = "Doigtés, indications de cordeet doigtés main droite"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Dieses Beispiel kombiniert Fingersatz für die linke Hand, Saitennummern
 und Fingersatz für die rechte Hand.

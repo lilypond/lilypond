@@ -7,7 +7,7 @@ contextos distintos a @code{PianoStaff} si se incluye el grabador
 "
   doctitlees = "Creación de arpegios que se cruzan entre pentagramas dentro de otros contextos"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
  texidocde = "
 In einem Klaviersystem (@code{PianoStaff}) ist es möglich, ein Arpeggio
 zwischen beiden Systemen zu verbinden, indem die
