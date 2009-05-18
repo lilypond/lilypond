@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Este fragmento de código muestra el uso de las propiedades de
 contexto @code{alignBelowContext} y @code{alignAboveContext} para
