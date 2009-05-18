@@ -841,7 +841,7 @@ constructed from a whole number of squiggles.")
      (accidental-grob ,ly:grob? "The accidental for this note.")
      (accidental-grobs ,list? "An alist with @code{(@var{notename} .
 @var{groblist})} entries.")
-     (adjacent-pure-heights ,vector? "Used by a @code{VerticalAxisGroup} to
+     (adjacent-pure-heights ,pair? "A pair of vectors. Used by a @code{VerticalAxisGroup} to
 cache the @code{Y-extent}s of different column ranges.")
      (adjacent-hairpins ,ly:grob-array? "A list of directly neighboring
 hairpins.")

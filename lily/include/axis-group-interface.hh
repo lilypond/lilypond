@@ -31,7 +31,9 @@ struct Axis_group_interface
   static Interval relative_group_extent (vector<Grob*> const &list,
 					 Grob *common, Axis);
   static Interval relative_pure_height (Grob *me, int start, int end);
+  static Interval combine_pure_heights (Grob *me, SCM, int, int);
   static Interval cached_pure_height (Grob *me, int, int);
+  static Interval begin_of_line_pure_height (Grob *me, int);
 
   static Grob *calc_pure_elts_and_common (Grob*);
   static Skyline_pair skyline_spacing (Grob *me, vector<Grob*> elements);
