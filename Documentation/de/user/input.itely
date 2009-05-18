@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1556,7 +1556,7 @@ die Standarddateierweiterung von MIDI-Dateien @code{.mid}. Andere
 Betriebssysteme verwenden weiterhin @code{.midi}. Wenn eine
 andere Endung erwünscht ist, kann man die folgende Zeile auf oberster
 Ebene der Quelldatei, vor Beginn eines @code{\book}, @code{\bookpart}
-oder @code{\score} Blocks einfügen:
+oder @code{\score}-Blocks einfügen:
 
 @example
 #(ly:set-option 'midi-extension "midi")

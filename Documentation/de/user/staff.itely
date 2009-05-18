@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -507,13 +507,6 @@ Referenz der Interna:
 @rinternals{StaffSymbol},
 @rinternals{staff-symbol-interface}.
 
-
-@knownissues
-
-Wenn die vertikale Position der Notenlinien manuell verändert wird,
-werden Taktlinien immer auf der Position 0 zentriert.  Somit muss
-die Distanz der äußeren Notenlinien vom Zentrum des
-Systems gleichgroß sein.
 
 
 @node Ossia staves
