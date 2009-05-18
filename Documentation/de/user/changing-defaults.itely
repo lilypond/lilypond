@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 73bd631bc04ed993b13a7dde542854bb660eb590
+    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -62,6 +62,7 @@ verändern kann.
 @menu
 * Contexts explained::
 * Creating contexts::
+* Keeping contexts alive::
 * Modifying context plug-ins::
 * Changing context default settings::
 * Defining new contexts::
@@ -379,6 +380,163 @@ interpretiert wird, muss folgende Form benutzt werden:
 @end example
 
 @end itemize
+
+
+
+@node Keeping contexts alive
+@subsection Keeping contexts alive
+
+@cindex Kontexte, am Leben erhalten
+@cindex Kontexte, Lebensdauer
+
+Kontexte werden normalerweise am ersten musikalischen Moment
+beendet, an dem sie nichts mehr zu tun haben.  Ein
+@code{Voice}-Kontext stirbt also sofort, wenn keine Ereignisse
+mehr auftreten, @code{Staff}-Kontexte sobald alle in ihnen
+enthaltenen @code{Voice}-Kontexte keine Ereignisse mehr aufweisen
+usw.  Das kann Schwierigkeiten ergeben, wenn auf frühere
+Kontexte verwiesen werden soll, die in der Zwischenzeit schon
+gestorben sind, beispielsweise wenn man Systemwechsel mit
+@code{\change}-Befehlen vornimmt, wenn Gesangstext einer
+Stimme mit dem @code{\lyricsto}-Befehl zu gewiesen wird oder
+wenn weitere musikalische Ereignisse zu einem früheren Kontext
+hinzugefügt werden sollen.
+
+Es gibt eine Ausnahme dieser Regel: genau ein @code{Voice}-Kontext
+innerhalb eines @code{Staff}-Kontextes oder in einer
+@code{<<...>>}-Konstruktion bleibt immer erhalten bis zum Ende
+des @code{Staff}-Kontextes oder der @code{<<...>>}-Konstruktion, der ihn einschließt, auch wenn es Abschnitte gibt, in der er nichts zu
+tun hat.  Der Kontext, der erhalten bleibt ist immer der erste,
+der in der ersten enthaltenden @code{@{...@}}-Konstruktion
+angetroffen wird, wobei @code{<<...>>}-Konstruktionen ignoriert
+werden.
+
+Jeder Kontext kann am Leben gehalten werden, indem man sicherstellt
+dass er zu jedem musikalischen Moment etwas zu tun hat.  
+@code{Staff}-Kontexte werden am Leben gehalten, indem man sicherstellt,
+dass eine der enthaltenen Stimmen am Leben bleibt.  Eine Möglichkeit,
+das zu erreichen, ist es, unsichtbare Pause zu jeder Stimme
+hinzuzufügen, die am Leben gehalten werden soll.  Wenn mehrere
+Stimmen sporadisch benutzt werden sollen, ist es am sichersten,
+sie alle am Leben zu halten und sich nicht auf die Ausnahmeregel
+zu verlassen, die im vorigen Abschnitt dargestellt wurde.
+
+Im folgenden Beispiel werden sowohl Stimme A als auch B auf diese
+Weise für die gesamte Dauer des Stückes am Leben gehalten.
+
+@lilypond[quote,verbatim]
+musicA = \relative c'' { d4 d d d }
+musicB = \relative c'' { g4 g g g }
+keepVoicesAlive = {
+  <<
+    \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
+    \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+  >>
+}
+
+music = {
+  \context Voice = "A" {
+    \voiceOneStyle
+    \musicA
+  }
+  \context Voice = "B" {
+    \voiceTwoStyle
+    \musicB
+  }
+  \context Voice = "A" { \musicA }
+  \context Voice = "B" { \musicB }
+  \context Voice = "A" { \musicA }
+}
+
+\score {
+  \new Staff <<
+    \keepVoicesAlive
+    \music
+  >>
+}
+@end lilypond
+
+@cindex Gesangstext, an einer sporadischen Melodie ausrichten
+
+Das nächste Beispiel zeigt eine Melodie, die zeitweise unterbrochen
+wird und wie man den entsprechenden Gesangstext mit ihr verknüpfen
+kann, indem man die Stimme am Leben hält.  In wirklichen Situationen
+würden Begleitung und Melodie natürlich aus mehreren Abschnitten bestehen.
+
+@lilypond[quote,verbatim]
+melody = \relative c'' { a4 a a a }
+accompaniment = \relative c' { d4 d d d }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          s1*4  % Keep Voice "melody" alive for 4 bars
+        }
+        {
+          \new Voice = "accompaniment" {
+            \voiceTwo
+            \accompaniment
+          }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+          \context Voice = "accompaniment" { \accompaniment }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+Eine Alternative, die in manchen Umständen besser geeignet sein kann,
+ist es, einfach unsichtbare Pausen einzufügen, um die Melodie
+mit der Begleitung passend auszurichten:
+
+@lilypond[quote,verbatim]
+melody = \relative c'' {
+  s1  % skip a bar
+  a4 a a a
+  s1  % skip a bar
+  a4 a a a
+}
+accompaniment = \relative c' {
+  d4 d d d
+  d4 d d d
+  d4 d d d
+  d4 d d d
+}
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          \melody
+        }
+        \new Voice = "accompaniment" {
+          \voiceTwo
+          \accompaniment
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
 
 
 @node Modifying context plug-ins
