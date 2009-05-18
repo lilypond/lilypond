@@ -11,7 +11,7 @@ el fragmento citado porque @code{rest-event} no está dentro de los
 "
   doctitlees = "Citar otra voz"
   
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die @code{quotedEventTypes}-Eigenschaft bestimmt die
 Typen an Musikereignissen, die zitiert werden.  Die

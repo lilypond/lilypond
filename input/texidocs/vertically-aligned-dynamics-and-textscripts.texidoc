@@ -13,7 +13,7 @@ largo de su línea de base.
 "
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Indem man die @code{'Y-extent}-Eigenschaft auf einen passenden Wert setzt,
 können alle @code{DynamicLineSpanner}-Objekte (Crescendo-Klammern und

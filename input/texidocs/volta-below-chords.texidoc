@@ -8,7 +8,7 @@ segunda vez debajo de los acordes.
   doctitlees = "Corchetes de primera y segunda vez debajo de los acordes"
 
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Indem man den @code{Volta_engraver} zu dem entsprechenden Notensystem
 hinzufügt, können Wiederholungsklammern unterhalb der Akkorde gesetzt

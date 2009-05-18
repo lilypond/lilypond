@@ -33,7 +33,7 @@ no tiene nada que ver con el @code{\\set} de dos notas por detrás.)
   doctitlees = "Corchetes rectos y extremos de barra sueltos"
 
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Gerade Fähnchen an einzelnen Noten und überstehende Balkenenden bei
 bebalkten Notengruppen sind möglich mit einer Kombination aus

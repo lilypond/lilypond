@@ -15,7 +15,7 @@ pasa a la función @code{set-time-signature} como tercer argumento:
 "
 doctitlees = "Símbolos de dirección, símbolos de agrupación de compás"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Optionen, mit denen die Balken in einem Takt gruppiert werden, sind
 durch die Scheme-Funktion @code{set-time-signature} erhältlich, die
@@ -32,7 +32,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
   doctitlede = "Dirigirzeichen, Taktgruppenzeichen"
 
 
-%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
   texidocfr = "
 Il existe des options qui permettent de grouper les ligatures au sein
 d'une mesure, grâce à la fonction Scheme @code{set-time-signature}.

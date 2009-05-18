@@ -20,7 +20,7 @@ le @qq{markup}.
 "
   doctitlefr = "Personnalisation des diagrammes de fret"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Bunddiagramme können mit der Eigenschaft @code{'fret-diagram-details}
 angepasst werden.  Bunddiagramme, die als Textbeschriftung eingefügt werden,
