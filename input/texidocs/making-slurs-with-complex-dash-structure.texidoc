@@ -24,3 +24,23 @@ de 1 para una ligadura continua.
 "
 
   doctitlees = "Hacer ligaduras de expresión con estructura compleja de discontinuidad"
+
+
+  texidocde = "
+Legatobögen können mit einem komplizierten Strichelmuster
+gesetzt werden, indem die @code{dash-definition}-Eigenschaft
+definiert wird.  @code{dash-definition} ist eine Liste bestehend
+aus @code{dash-elements}-Elementen.  Ein @code{dash-element} ist
+eine Liste an Parametern, die das Strichverhalten für einen
+Abschnitt des Legatobogens definieren.
+
+Der Bogen wird nach dem Bezierparameter t definiert, welcher
+von 0 am linken Ende des Bogens zu 1 am rechten Ende des Bogens
+reicht.  @code{dash-element} ist eine Liste @code{(start-t stop-t dash-Unterbrechung dash-Abschnitt)}.  Die Region des Bogens von @code{start-t}
+bis @code{stop-t} hat eine Unterbrechung von @code{dash-Unterbrechung}
+von jedem @code{dash-Abschnitt}-Schwarzabschnitt.  @code{dash-Abschnitt} ist in Notenlinienzwischenräumen definiert.
+@code{dash-Abschnitt} ist auf 1 für einen durchgehenden Bogen
+gesetzt.
+"
+  doctitlede = "Legatobögen mit kompliziertem Strichelmuster
+  definieren"

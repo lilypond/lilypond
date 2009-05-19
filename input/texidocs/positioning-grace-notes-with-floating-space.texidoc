@@ -11,3 +11,13 @@ izquierda de las columnas musicales de las notas principales.
 "
 
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
+
+  texidocde = "
+Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
+werden die Verzierungsnoten "fließend" gemacht, d.h. sie sind
+von den normalen Noten losgekoppelt: Zuerst werden die normalen
+Noten platziert, dann erst die Verzierungen links von der
+Hauptnote gesetzt.
+
+"
+  doctitlede = "Positionierung von Verzierungen mit verschiebbarem Platz"

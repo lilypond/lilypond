@@ -9,3 +9,13 @@ imprimen a cada dos compases excepto al final de la línea.
 "
 
   doctitlees = "Imprimir números de compás a intervalos regulares"
+
+
+  texidocde = "
+Taktnummern können in regelmäßigen Intervallen gesetzt werden, indem
+man die Eigenschaft @code{barNumberVisibility} definiert.  In diesem
+Beispiel werden die Taktnummern jeden zweiten Takt gesetzt, außer
+am Ende einer Zeile.
+
+"
+  doctitlede = "Setzen der Taktnummern in regelmäßigen Intevallen"
