@@ -11,3 +11,14 @@ cabezas a aspas.
 "
 
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
+
+
+  texidocde = "
+Das Layout von Verzierungsausdrücken kann in der Musik verändert
+werden mit den Funktionen @code{add-grace-property} und
+@code{remove-grace-property}.  Das folgende Beispiel definiert
+die Richtung von Hälsen (Stem) für diese Verzierung, sodass die
+Hälse nicht immer nach unten zeigen, und ändert den Standardnotenkopf
+in ein Kreuz.
+"
+  doctitlede = "Veränderung des Layouts von Verzierungen innerhalb der Noten"

@@ -11,3 +11,16 @@ efectos.
 "
 
   doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
+
+
+  texidocde = "
+Die globalen Standardeinstellungen für Verzierungsnoten werden in
+den Variablen@code{startGraceMusic}, @code{stopGraceMusic},
+@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
+@code{startAppoggiaturaMusic} und @code{stopAppoggiaturaMusic}
+gespeichert, die in der Datei @code{ly/grace-init.ly} definiert
+sind.  Wenn man sie umdefiniert, können andere Effekte erreicht
+werden.
+
+"
+  doctitlede = "Globale Umdefinition von Verzierungsnoten"

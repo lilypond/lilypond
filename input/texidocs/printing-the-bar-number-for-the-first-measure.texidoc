@@ -10,3 +10,15 @@ debe insertar una líinea divisoria vacía antes de la primera nota.
 "
 
   doctitlees = "Imprimir el número de compás en el primer compás"
+
+
+  texidocde = "
+Standardmäßig wird die erste Taktzahl einer Paritur nicht gesetzt,
+wenn sie weniger oder gleich '1' ist.  Indem man @code{barNumberVisibility}
+auf @code{all-bar-numbers-visible} setzt, kann eine beliebige
+Taktzahl für den ersten und die folgenden Takte gesetzt werden.
+Eine leere Taktlinie muss jedoch vor der ersten Note eingefügt
+werden, damit das funktioniert.
+
+"
+  doctitlede = "Setzen der Taktnummer für den ersten Takt"

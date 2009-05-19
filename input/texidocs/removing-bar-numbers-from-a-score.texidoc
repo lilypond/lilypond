@@ -6,3 +6,14 @@ grabador @code{Bar_number_engraver} del contexto de @code{Score}.
 "
 
   doctitlees = "Suprimir los números de compás de toda la partitura"
+  
+  texidocde = "
+Taktnummern können vollkommen aus den Noten entfernt werden, indem
+man den @code{Bar_number_engraver} aus dem @code{Score}-Kontext
+entfernt.
+
+"
+  doctitlede = "Entfernung von Taktnummern in einer Partitur"
+
+
+
