@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5395f0433b4f09b18360118a23227a4a3cef8e72
+    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -338,26 +338,26 @@ Anhieb die Abschnitte mit den ganzen @code{#()} verstehen.  Das
 wird im Kapitel @ref{Advanced tweaks with Scheme} erklärt.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
 Es treten einige Probleme mit überlappenden Symbolen auf. Sie 
 werden beseitigt mit den Tricks aus dem Kapitel @ref{Moving objects}.
-Aber auch die @code{mpdolce} und @code{tempoMark}-Definitionen 
+Aber auch die @code{mpdolce} und @code{inst}-Definitionen 
 können verbessert werden.  Sie produzieren das Ergebnis, das 
 gewünscht ist, aber es wäre schön, sie auch in anderen Stücken 
 verwenden zu können.  Man könnte sie natürlich einfach kopieren 
@@ -368,14 +368,14 @@ Datei versteckt werden:
 
 @example
 %%% speichern in einer Datei "definitions.ly"
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 @end example
 
 Jetzt muss natürlich noch die Notendatei angepasst werden (gespeichert 
@@ -390,27 +390,25 @@ unter dem Namen @file{"music.ly"}).
 \relative c'' @{
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 @}
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -429,14 +427,14 @@ vornehmen.  Ersetzen Sie die @file{definitions.ly}-Datei hiermit:
 
 @example
 %%%  definitions.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout@{
   \context @{ \Score
@@ -454,14 +452,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout{
   \context { \Score
@@ -480,8 +478,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -496,14 +493,14 @@ bietet es sich auch an, die gesamte Ausgabe zu vergrößern.
 
 @example
 %%%  definitions.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout@{
@@ -521,14 +518,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout{
@@ -545,8 +542,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -555,7 +551,7 @@ In der Notendatei muss jetzt nur noch @code{\include "definitions.ly"}
 durch @code{\include "web-publish.ly"} ausgetauscht werden. 
 Das könnte man natürlich noch weiter vereinfachen.  Also 
 eine Datei @file{definitions.ly}, die nur die Definitionen 
-von @code{mpdolce} und @code{tempoMark} enthält, eine Datei 
+von @code{mpdolce} und @code{inst} enthält, eine Datei 
 @file{web-publish.ly}, die alle die Änderungen für den 
 @code{\layout}-Abschnitt enthält und eine Datei @file{university.ly} 
 für eine Ausgabe, die den Wünschen des Professors entspricht. 

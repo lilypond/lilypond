@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -559,7 +559,7 @@ können zwei Bögen gleichzeitig ausgegeben werden.  Siehe auch
 @cindex durchgehender Legatobogen
 @cindex massiver Legatobogen
 @cindex gepunkteter Legatobogen
-@cindex agestrichelter Legatobogen
+@cindex gestrichelter Legatobogen
 @cindex Legatobogen, massiv
 @cindex Legatobogen, gepunktet
 @cindex Legatobogen, gestrichelt
@@ -584,6 +584,43 @@ c4( e g2)
 g4( e c2)
 @end lilypond
 
+@funindex \slurHalfDashed
+@funindex slurHalfDashed
+@funindex \slurHalfSolid
+@funindex slurHalfSolid
+@cindex Bogen, halb gestrichelt, halb durchgehend
+
+Bögen können auch halb gestrichelt (die erste Hälfte gestrichelt,
+die zweite Hälfte durchgehend) erstellt werden, oder als
+halb durchgehend (die erste Hälfte durchgehend, die
+zweite Hälfte gestrichelt:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurHalfDashed
+g4( e c2)
+\slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+@funindex \slurDashPattern
+@funindex slurDashPattern
+@cindex Bogen, Strichelung definieren
+
+Eigene Muster für die Strichelung können definiert werden:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashPattern #0.7 #0.75
+g4( e c2)
+\slurDashPattern #0.5 #2.0
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
 @funindex \slurUp
 @funindex slurUp
 
@@ -593,6 +630,9 @@ g4( e c2)
 @code{\slurNeutral},
 @code{\slurDashed},
 @code{\slurDotted},
+@code{\slurHalfDashed},
+@code{\slurHalfSolid},
+@code{\slurDashPattern},
 @code{\slurSolid}.
 @endpredefined
 
@@ -603,6 +643,9 @@ g4( e c2)
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {positioning-text-markups-inside-slurs.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{making-slurs-with-complex-dash-structure.ly}
 
 
 @seealso
@@ -649,12 +692,6 @@ e2) d\)
 @funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
-@funindex phrasingSlurDashed
-@funindex \phrasingSlurDashed
-@funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
-@funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 
 Im typographischen Sinne verhalten sich Phrasierungsbögen genauso wie 
 Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein 
@@ -678,6 +715,17 @@ c4\( g' c,( b) | c1\)
 Simultane oder überlappende Phrasierungsbögen sind nicht
 erlaubt.
 
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
+@cindex Phrasierungsbögen, gestrichelt
+@cindex gestrichelter Phrasierungsbogen
+@cindex Phrasierungsbögen, gepunktet
+@cindex gepunkteter Phrasierungsbogen
+
 Phrasierungsbögen können durchgehend, gepunket oder gestrichelt dargestellt
 werden.  Standard ist der durchgehende Bogen:
 
@@ -691,6 +739,49 @@ c4\( e g2\)
 g4\( e c2\)
 @end lilypond
 
+funindex phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfSolid
+@funindex phrasingSlurHalfSolid
+@cindex Phrasierungsbogen, halb durchgehend, halb gestrichelt
+@cindex Bogen, halb durchgehend, halb gestrichelt
+
+Phrasierungsbögen können auch als halbgestrichelt dargestellt
+werden (die erste Hälfte gestrichelt, die zweite Hälfte durchgehend,
+oder halb durchgehend (die erste Hälfte durchgehend, die zweite
+gestrichelt):
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurHalfDashed
+g4\( e c2\)
+\phrasingSlurHalfSolid
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+@funindex \phrasingSlurDashPattern
+@funindex phrasingSlurDashPattern
+@cindex Phrasierungsbogen, Strichelmuster definieren
+
+Eigene Strichelmuster für Phrasierungsbögen können definiert werden:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashPattern #0.7 #0.75
+g4\( e c2\)
+\phrasingSlurDashPattern #0.5 #2.0
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+Strichelmusterdefinitionen für Phrasierungsbögen haben die
+gleiche Struktur wie die Definitionen für Legatobögen.  Zu
+mehr Information über komplizierte Strichelmuster, siehe
+die Schnipsel im Abschnitt @ref{Slurs}.
+
 
 @predefined
 @code{\phrasingSlurUp},
@@ -698,6 +789,9 @@ g4\( e c2\)
 @code{\phrasingSlurNeutral},
 @code{\phrasingSlurDashed},
 @code{\phrasingSlurDotted},
+@code{\phrasingSlurHalfDashed},
+@code{\phrasingSlurHalfSolid},
+@code{\phrasingSlurDashPattern},
 @code{\phrasingSlurSolid}.
 @endpredefined
 
@@ -906,6 +1000,8 @@ her:
 @funindex arpeggioBracket
 @funindex \arpeggioParenthesis
 @funindex arpeggioParenthesis
+@funindex \arpeggioParenthesisDashed
+@funindex arpeggioParenthesisDashed
 
 Besondere Arpeggios mit Klammern können erstellt werden:
 
@@ -915,9 +1011,15 @@ Besondere Arpeggios mit Klammern können erstellt werden:
 <c e g c>2\arpeggio
 \arpeggioParenthesis
 <c e g c>2\arpeggio
+\arpeggioParenthesisDashed
+<c e g c>2\arpeggio
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond
+
+Die @code{dash}-Eigenschaft der Arpeggioklammern werden von
+der @code{'dash-details}-Eigenschaft kontrolliert, die
+beschrieben ist in @ref{Slurs}.
 
 Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 Überbindungsbögen benutzt werden.  Für mehr Information siehe
@@ -930,7 +1032,8 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
-@code{\arpeggioParenthesis}.
+@code{\arpeggioParenthesis},
+@code{\arpeggioParenthesisDashed}.
 @endpredefined
 
 @snippets
@@ -950,6 +1053,7 @@ Glossar:
 @rglos{arpeggio}.
 
 Notationsreferenz:
+@ref{Slurs},
 @ref{Ties}.
 
 Schnipsel:
@@ -957,6 +1061,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{Arpeggio},
+@rinternals{Slur},
 @rinternals{PianoStaff}.
 
 
