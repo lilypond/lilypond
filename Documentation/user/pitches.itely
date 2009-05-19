@@ -175,6 +175,47 @@ large intervals:
 }
 @end lilypond
 
+When @code{\relative} blocks are nested, the innermost
+@code{\relative} block applies.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  c d e f
+  \relative c'' {
+    c d e f
+  }
+}
+@end lilypond
+
+@code{\relative} has no effect on @code{\chordmode} blocks.
+
+@lilypond[verbatim,quote]
+\new Staff {
+  \relative c''' {
+    \chordmode { c1 }
+  }
+  \chordmode { c1 }
+}
+@end lilypond
+
+@code{\relative} is not allowed inside of @code{\chordmode} blocks.
+
+Music inside a @code{\transpose} block is absolute unless a
+@code{\relative} is included.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d e
+  \transpose f g {
+    d e
+    \relative c' {
+      d e
+    }
+  }
+}
+@end lilypond
+
+
 @cindex chords and relative octave entry
 @cindex relative octave entry and chords
 
@@ -237,13 +278,6 @@ Internals Reference:
 @funindex \relative
 @funindex relative
 
-
-@knownissues
-
-The relative conversion will not affect @code{\transpose},
-@code{\chordmode} or @code{\relative} sections in its argument.
-To use relative mode within transposed music, an additional
-@code{\relative} must be placed inside @code{\transpose}.
 
 @c DEPRECATED
 If no @var{startpitch} is specified for @code{\relative},
@@ -648,6 +682,9 @@ with pitch @var{frompitch} is changed to @var{topitch} and any
 other note is transposed by the same interval.  Both pitches are
 entered in absolute mode.
 
+@warning{Music inside a @code{@bs{}transpose} block is absolute
+unless a @code{@bs{}relative} is included in the block.}
+
 Consider a piece written in the key of D-major.  It can be
 transposed up to E-major; note that the key signature is
 automatically transposed as well.
@@ -734,6 +771,7 @@ see @ref{Instrument transpositions}.
 
 @seealso
 Notation Reference:
+@ref{Relative octave entry},
 @ref{Instrument transpositions}.
 
 Snippets:
@@ -756,7 +794,6 @@ The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
 To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
-
 
 @node Displaying pitches
 @subsection Displaying pitches
