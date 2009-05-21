@@ -945,11 +945,11 @@ def musicxml_print_to_lily (el):
     #      page-number CDATA #IMPLIED 
     #  >
     elts = []
-    if (hasattr (el, "new-system")):
+    if (hasattr (el, "new-system") and conversion_settings.convert_page_layout):
         val = getattr (el, "new-system")
         if (val == "yes"):
             elts.append (musicexp.Break ("break"))
-    if (hasattr (el, "new-page")):
+    if (hasattr (el, "new-page") and conversion_settings.convert_page_layout):
         val = getattr (el, "new-page")
         if (val == "yes"):
             elts.append (musicexp.Break ("pageBreak"))
@@ -2665,6 +2665,12 @@ information.""") % 'lilypond')
                   dest = "convert_rest_positions",
                   help = _ ("do not convert exact vertical positions of rests"))
 
+    p.add_option ('--npl', '--no-page-layout', 
+                  action = "store_false",
+                  default = True,
+                  dest = "convert_page_layout",
+                  help = _ ("do not convert the exact page layout and breaks"))
+
     p.add_option ('--no-beaming', 
                   action = "store_false",
                   default = True,
@@ -2901,7 +2907,7 @@ def convert (filename, options):
     print_ly_additional_definitions (printer, filename)
     if score_information:
         score_information.print_ly (printer)
-    if paper_information:
+    if paper_information and conversion_settings.convert_page_layout:
         paper_information.print_ly (printer)
     if layout_information:
         layout_information.print_ly (printer)
@@ -2940,6 +2946,7 @@ def main ():
         needed_additional_definitions.append (options.language)
         additional_definitions[options.language] = "\\include \"%s.ly\"\n" % options.language
     conversion_settings.ignore_beaming = not options.convert_beaming
+    conversion_settings.convert_page_layout = options.convert_page_layout
 
     # Allow the user to leave out the .xml or xml on the filename
     basefilename = args[0].decode('utf-8')

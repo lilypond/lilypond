@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   doctitlees = "Estilos de silencios"
   texidoces = "
 Los silencios se pueden imprimir en distintos estilos.
@@ -9,7 +10,7 @@ Pausen können in verschiedenen Stilen dargestellt werden.
 "
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 Les silences peuvent être gravés selon différents styles.
 

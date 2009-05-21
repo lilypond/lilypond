@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 La alineación horizontal de la letra se puede ajustar sobreescribiendo
 la propiedad @code{self-alignment-X} del objeto @code{LyricText}.

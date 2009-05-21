@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Se puede establecer el separador entre las distintas partes del
 nombre de un acorde para que sea cualquier elemento de marcado.
@@ -5,7 +6,7 @@ nombre de un acorde para que sea cualquier elemento de marcado.
 "
   doctitlees = "Modificación del separador de acordes"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Der Trenner zwischen unterschiedlichen Teilen eines Akkordsymbols kann
 beliebeiger Text sein.

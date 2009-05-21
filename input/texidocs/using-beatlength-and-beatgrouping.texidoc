@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 La propiedad @code{measureLength} determina dónde se deben insertar
 líneas divisorias y, con @code{beatLength} y @code{beatGrouping}, cómo
@@ -10,7 +11,7 @@ explicaciones están en forma de comentarios dentro del código.
 "
   doctitlees = "Utilización de beatLength y beatGrouping"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Eigenschaft @code{measureLength} bestimmt, wo Taktstriche eingefügt
 werden sollen und, zusammen mit @code{beatLength} und
@@ -23,7 +24,7 @@ gegeben.
 "
   doctitlede = "beatLength und beatGrouping benutzen"
 
-%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
   texidocfr = "
 La propriété @code{measureLength} détermine la pulsation et, combinée à
 @code{beatLength} y @code{beatGrouping}, comment générer les ligatures

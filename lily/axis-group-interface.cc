@@ -74,25 +74,36 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
   return r;
 }
 
-
-/*
-  FIXME: pure extent handling has a lot of ad-hoc caching.
-  This should be done with grob property callbacks.
-
-  --hwn
-*/
-
 Interval
 Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
+{
+  SCM adjacent_pure_heights = me->get_property ("adjacent-pure-heights");
+
+  if (!scm_is_pair (adjacent_pure_heights)
+      || !scm_is_vector (scm_cdr (adjacent_pure_heights)))
+    return Interval (0, 0);
+
+  return combine_pure_heights (me, scm_cdr (adjacent_pure_heights), start, end);
+}
+
+Interval
+Axis_group_interface::begin_of_line_pure_height (Grob *me, int start)
+{
+  SCM adjacent_pure_heights = me->get_property ("adjacent-pure-heights");
+
+  if (!scm_is_pair (adjacent_pure_heights)
+      || !scm_is_vector (scm_car (adjacent_pure_heights)))
+    return Interval (0, 0);
+
+  return combine_pure_heights (me, scm_car (adjacent_pure_heights), start, start+1);
+}
+
+Interval
+Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int start, int end)
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
   vector<vsize> breaks = ps->get_break_indices ();
   vector<Grob*> cols = ps->get_columns ();
-
-  SCM extents = me->get_property ("adjacent-pure-heights");
-
-  if (!scm_is_vector (extents))
-    return Interval (0, 0);
 
   Interval ext;
   for (vsize i = 0; i + 1 < breaks.size (); i++)
@@ -102,11 +113,18 @@ Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
 	break;
 
       if (r >= start)
-	ext.unite (ly_scm2interval (scm_c_vector_ref (extents, i)));
+	ext.unite (ly_scm2interval (scm_c_vector_ref (measure_extents, i)));
     }
 
   return ext;
 }
+
+// adjacent-pure-heights is a pair of vectors, each of which has one element
+// for every measure in the score. The first vector stores, for each measure,
+// the combined height of the elements that are present only when the bar
+// is at the beginning of a line. The second vector stores, for each measure,
+// the combined height of the elements that are present only when the bar
+// is not at the beginning of a line.
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights, 1)
 SCM
@@ -122,13 +140,16 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   vector<vsize> breaks = ps->get_break_indices ();
   vector<Grob*> cols = ps->get_columns ();
 
-  SCM ret = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
+  SCM begin_line_heights = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
+  SCM mid_line_heights = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
+
   vsize it_index = 0;
   for (vsize i = 0; i + 1 < breaks.size (); i++)
     {
       int start = Paper_column::get_rank (cols[breaks[i]]);
       int end = Paper_column::get_rank (cols[breaks[i+1]]);
-      Interval iv;
+      Interval begin_line_iv;
+      Interval mid_line_iv;
 
       for (vsize j = it_index; j < items.size (); j++)
 	{
@@ -139,8 +160,10 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 	      && !to_boolean (it->get_property ("cross-staff")))
 	    {
 	      Interval dims = items[j]->pure_height (common, start, end);
+	      Interval &target_iv = it->pure_is_visible (start-1, end) ? mid_line_iv : begin_line_iv;
+
 	      if (!dims.is_empty ())
-		iv.unite (dims);
+		target_iv.unite (dims);
 	    }
 
 	  if (rank < end)
@@ -156,14 +179,16 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 	      && !to_boolean (spanners[j]->get_property ("cross-staff")))
 	    {
 	      Interval dims = spanners[j]->pure_height (common, start, end);
+
 	      if (!dims.is_empty ())
-		iv.unite (dims);
+		mid_line_iv.unite (dims);
 	    }
 	}
 
-      scm_vector_set_x (ret, scm_from_int (i), ly_interval2scm (iv));
+      scm_vector_set_x (begin_line_heights, scm_from_int (i), ly_interval2scm (begin_line_iv));
+      scm_vector_set_x (mid_line_heights, scm_from_int (i), ly_interval2scm (mid_line_iv));
     }
-  return ret;
+  return scm_cons (begin_line_heights, mid_line_heights);
 }
 
 Interval

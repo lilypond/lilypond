@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Mediante la especificación del contexto, el efecto de
 @code{beatGrouping} puede limitarse al contexto especificado, y
@@ -7,7 +8,7 @@ altos:
 "
   doctitlees = "Especificar el contexto con beatGrouping"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Wenn der Kontext angegeben wird, kann die Auswirkung von @code{beatGrouping}
 auf den angegebenen Kontext beschränkt werden und die Werte, die in Kontexten
@@ -18,7 +19,7 @@ werden:
   doctitlede = "Den Kontext für beatGrouping angeben"
 
 
-%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
   texidocfr = "
 Le fait de spécifier un contexte à @code{beatGrouping} permet d'en 
 limiter les effets.  Par voie de conséquence, il sera possible

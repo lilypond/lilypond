@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Este fragmento de código muestra el uso de las propiedades de
 contexto @code{alignBelowContext} y @code{alignAboveContext} para
@@ -6,7 +7,7 @@ controlar la posición de la letra y los compases de ossia.
 "
   doctitlees = "Alineación vertical de la letra y los compases de ossia"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Dieser Schnipsel zeigt, wie man die Kontexteigenschaften
 @code{alignBelowContext} und @code{alignAboveContext} benutzen kann, um

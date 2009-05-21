@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Al utilizar la posibilidad de combinación automática de partes, se
 puede modificar el texto que se imprime para las secciones de solo
@@ -6,7 +7,7 @@ y de unísono:
 "
   doctitlees = "Cambiar los textos de partcombine"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Wenn Stimmen automatisch kombiniert werden, kann der Text, der für
 Solo- und Unisono-Stellen ausgegeben wird, geändert werden:

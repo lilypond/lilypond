@@ -561,7 +561,7 @@ automatically when an output definition (a @code{\score} or
   chordPrefixSpacer = #0
   chordNameExceptionsFull = #fullJazzExceptions
   chordNameExceptionsPartial = #partialJazzExceptions
-  
+  noChordSymbol = #(make-simple-markup "N.C.")
 
   bassStaffProperties = #'((assign clefGlyph "clefs.F")
   (assign clefPosition 2)

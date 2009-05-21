@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
  doctitlees = "Forzar el desplazamiento horizontal de las notas"
  texidoces = "
 Cuando el motor de tipografiado no es capaz de todo, se puede usar la
@@ -7,7 +8,7 @@ son espacios de pentagrama.
 
 "
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Wenn es zu Zusammenstößen kommt, kann mit folgender Lösung eine andere
 Position manuell eingestellt werden.  Die Einheiten hier sind

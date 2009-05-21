@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 El glifo de la marca de respiración se puede ajustar
 sobreescribiendo la propiedad de texto del objeto de presentación
@@ -6,7 +7,7 @@ sobreescribiendo la propiedad de texto del objeto de presentación
 "
   doctitlees = "Cambiar el símbolo de la marca de respiración"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
   texidocde = "
 Das Schriftzeichen für das Atemzeichen kann verändert werden, indem
 die Text-Eigenschaft des @code{BreathingSign}-Layoutobjekts mit einer

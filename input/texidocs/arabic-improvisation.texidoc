@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Para las improvisaciones o @emph{taqasim} que son libres durante unos
 momentos, se puede omitir la indicación de compás y se puede usar
@@ -9,7 +10,7 @@ cómo podría ser el comienzo de una improvisación @emph{hijaz}:
 "
 doctitlees = "Improvisación de música árabe"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Bei Improvisation oder @emph{taqasim}, die zeitlich frei gespielt
 werden, kann die Taktart ausgelassen werden und @code{\cadenzaOn}

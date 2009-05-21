@@ -16,6 +16,7 @@
 #include "pitch.hh"
 #include "protected-scm.hh"
 #include "stream-event.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -29,11 +30,13 @@ protected:
   virtual void finalize ();
   virtual void derived_mark () const;
   DECLARE_TRANSLATOR_LISTENER (note);
+  DECLARE_TRANSLATOR_LISTENER (rest);
 private:
   Item *chord_name_;
   vector<Stream_event*> notes_;
-
+ 
   SCM last_chord_;
+  Stream_event *rest_event_;
 };
 
 void
@@ -51,68 +54,80 @@ Chord_name_engraver::Chord_name_engraver ()
 {
   chord_name_ = 0;
   last_chord_ = SCM_EOL;
+  rest_event_ = 0;
 }
 
 void
 Chord_name_engraver::process_music ()
-{
-  if (!notes_.size ())
-    return;
-
+{ 
+  SCM markup;
   SCM bass = SCM_EOL;
   SCM inversion = SCM_EOL;
   SCM pitches = SCM_EOL;
 
-  Stream_event *inversion_event = 0;
-  for (vsize i = 0; i < notes_.size (); i++)
+  if (rest_event_)
     {
-      Stream_event *n = notes_[i];
-      SCM p = n->get_property ("pitch");
-      if (!unsmob_pitch (p))
-	continue;
-
-      if (n->get_property ("inversion") == SCM_BOOL_T)
-	{
-	  inversion_event = n;
-	  inversion = p;
-	}
-      else if (n->get_property ("bass") == SCM_BOOL_T)
-	bass = p;
-      else
-	pitches = scm_cons (p, pitches);
+      SCM no_chord_markup = get_property ("noChordSymbol");
+      if (!Text_interface::is_markup (no_chord_markup))
+        return;
+      markup = no_chord_markup;
     }
+  else
+    {  
+      if (!notes_.size ())
+        return;
 
-  if (inversion_event)
-    {
-      SCM oct = inversion_event->get_property ("octavation");
-      if (scm_is_number (oct))
-	{
-	  Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
-	  int octavation = scm_to_int (oct);
-	  Pitch orig = p->transposed (Pitch (-octavation, 0, 0));
+      Stream_event *inversion_event = 0;
+      for (vsize i = 0; i < notes_.size (); i++)
+      {
+        Stream_event *n = notes_[i];
+        SCM p = n->get_property ("pitch");
+        if (!unsmob_pitch (p))
+          continue;
 
-	  pitches = scm_cons (orig.smobbed_copy (), pitches);
-	}
-      else
-	programming_error ("inversion does not have original pitch");
+        if (n->get_property ("inversion") == SCM_BOOL_T)
+        {
+          inversion_event = n;
+          inversion = p;
+        }
+        else if (n->get_property ("bass") == SCM_BOOL_T)
+          bass = p;
+        else
+          pitches = scm_cons (p, pitches);
+      }
+
+      if (inversion_event)
+      {
+        SCM oct = inversion_event->get_property ("octavation");
+        if (scm_is_number (oct))
+        {
+          Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
+          int octavation = scm_to_int (oct);
+          Pitch orig = p->transposed (Pitch (-octavation, 0, 0));
+
+          pitches = scm_cons (orig.smobbed_copy (), pitches);
+        }
+        else
+          programming_error ("inversion does not have original pitch");
+      }
+
+      pitches = scm_sort_list (pitches, Pitch::less_p_proc);
+
+      SCM name_proc = get_property ("chordNameFunction");
+      markup = scm_call_4 (name_proc, pitches, bass, inversion,
+          context ()->self_scm ());
     }
-
-  pitches = scm_sort_list (pitches, Pitch::less_p_proc);
-
-  SCM name_proc = get_property ("chordNameFunction");
-  SCM markup = scm_call_4 (name_proc, pitches, bass, inversion,
-			   context ()->self_scm ());
-
   /*
     Ugh.
   */
   SCM chord_as_scm = scm_cons (pitches, scm_cons (bass, inversion));
 
-  chord_name_ = make_item ("ChordName", notes_[0]->self_scm ());
+  chord_name_ = make_item ("ChordName", 
+      rest_event_ ? rest_event_->self_scm () : notes_[0]->self_scm ());
   chord_name_->set_property ("text", markup);
 
-  SCM s = get_property ("chordChanges");
-  if (to_boolean (s) && scm_is_pair (last_chord_)
+  SCM chord_changes = get_property("chordChanges");
+  if (to_boolean (chord_changes) && scm_is_pair (last_chord_)
       && ly_is_equal (chord_as_scm, last_chord_))
     chord_name_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
@@ -126,11 +141,19 @@ Chord_name_engraver::listen_note (Stream_event *ev)
   notes_.push_back (ev);
 }
 
+IMPLEMENT_TRANSLATOR_LISTENER (Chord_name_engraver, rest);
+void
+Chord_name_engraver::listen_rest (Stream_event *ev)
+{
+  ASSIGN_EVENT_ONCE(rest_event_, ev);
+}
+  
 void
 Chord_name_engraver::stop_translation_timestep ()
 {
   chord_name_ = 0;
   notes_.clear ();
+  rest_event_ = 0;
 }
 
 /*
@@ -139,7 +162,7 @@ Chord_name_engraver::stop_translation_timestep ()
 */
 ADD_TRANSLATOR (Chord_name_engraver,
 		/* doc */
-		"Catch note events and generate the appropriate chordname.",
+		"Catch note and rest events and generate the appropriate chordname.",
 
 		/* create */
 		"ChordName ",
@@ -151,7 +174,8 @@ ADD_TRANSLATOR (Chord_name_engraver,
 		"chordNoteNamer "
 		"chordRootNamer "
 		"chordNameExceptions "
-		"majorSevenSymbol ",
+		"majorSevenSymbol "
+                "noChordSymbol ",
 
 		/* write */
 		""

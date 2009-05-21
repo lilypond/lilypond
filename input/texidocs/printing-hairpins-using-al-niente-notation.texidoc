@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Se pueden imprimir reguladores con un círculo en la punta
 (notación «al niente») estableciendo la propiedad
@@ -6,7 +7,7 @@ Se pueden imprimir reguladores con un círculo en la punta
 "
   doctitlees = "Impresión de reguladores utilizando la notación «al niente»"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
  texidocde = "
  Crescendo-Klammern können mit einem kleinen Kreis vor der Spitze
  notiert werden (al niente = bis zum Nichts), indem die

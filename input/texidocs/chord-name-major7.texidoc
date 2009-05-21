@@ -1,7 +1,17 @@
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
  texidocde = "
 Das Aussehen des großen Septakkords kann mit @code{majorSevenSymbol} verändert werden.
 
 "
 
   doctitlede = "Akkordbezeichnung maj7"
+
+
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
+  texidoces = "
+La presentación del acorde de séptima mayor se
+puede ajustar mediante majorSevenSymbol.
+
+"
+  doctitlees = "Nombre de acorde maj7"
+

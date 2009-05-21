@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 La instrucción @code{\\whiteout} intercala un rectángulo blanco
 debajo de un elemento de marcado.  Este rectángulo blanco no tapa
