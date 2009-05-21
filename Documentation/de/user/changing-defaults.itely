@@ -1466,7 +1466,7 @@ c8 c c c
 @noindent
 wurde das @var{Kontext}-Argument für den @code{\set}-Befehl
 ausgelassen, sodass automatische Bebalkung für die aktuelle
-Stimme (@code{Voice}-Kontext}) abgeschaltet wird.  Dabei
+Stimme (@code{Voice}-Kontext) abgeschaltet wird.  Dabei
 gilt zu beachten, dass der unterste Kontext nicht immer die
 Eigenschaft enthält, die verändert werden soll.  Wenn man
 beispielsweise @code{skipBars} aus dem oberen Beispiel
@@ -2006,7 +2006,7 @@ Die Position oder Richtung vieler Layoutobjekte wird von der
 @code{direction}-Eigenschaft kontrolliert.
 
 Der Wert der @code{direction}-Eigenschaft kann auf den Wert
-@codde{1} gesetzt werden, was gleichbedeutend mit @qq{nach oben}
+@code{1} gesetzt werden, was gleichbedeutend mit @qq{nach oben}
 bzw. @qq{oberhalb} ist, oder auf den Wert @code{-1}, was
 @qq{nach unten} bzw. @qq{unterhalb} bedeutet.  Die Symbole
 @code{UP} und @code{DOWN} können anstelle von @code{1}
@@ -2553,7 +2553,7 @@ die auf eine ganze Zahl gesetzt sein muss.  Objekte mit der
 niedrigsten Zahl in der @code{layer}-Eigenschaft werden zuerst
 gesetzt, dann die nächstne Objekte in ansteigender Ordnung.  Objekte
 mit höheren Werten überschneiden also Objekte mit niedrigeren
-Werten.  Die meisten Objekte bekommen den Wert @code1} zugewiesen,
+Werten.  Die meisten Objekte bekommen den Wert @code{1} zugewiesen,
 einige wenige Objekte, unter die auch @code{StaffSymbol} (die
 Notenlinien) gehört, jedoch den Wert @code{0}.  Die Reihenfolge,
 in der Objekte mit demselben Wert gesetzt werden, ist nicht

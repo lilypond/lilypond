@@ -2802,7 +2802,7 @@ Länge in die anderen Systeme gesetzt werden. Im obigen Beispiel müsste
 also 
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<<<<
+<<
   \new Staff { e4 \bar "|:" \grace c16 d2. }
   \new Staff { c4 \bar "|:" \grace s16 d2. }
 >>
