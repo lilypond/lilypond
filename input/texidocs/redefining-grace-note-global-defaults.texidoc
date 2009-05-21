@@ -14,6 +14,7 @@ efectos.
   doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
 
 
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
   texidocde = "
 Die globalen Standardeinstellungen für Verzierungsnoten werden in
 den Variablen@code{startGraceMusic}, @code{stopGraceMusic},

@@ -11,6 +11,7 @@ imprimen a cada dos compases excepto al final de la línea.
   doctitlees = "Imprimir números de compás a intervalos regulares"
 
 
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
   texidocde = "
 Taktnummern können in regelmäßigen Intervallen gesetzt werden, indem
 man die Eigenschaft @code{barNumberVisibility} definiert.  In diesem
