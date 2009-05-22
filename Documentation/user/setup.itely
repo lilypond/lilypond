@@ -173,7 +173,7 @@ if exists("did_load_filetypes")
   finish
 endif
 augroup filetypedetect
-  au! BufNewFile,BufRead *.ly           setf lilypond
+  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
 augroup END
 @end example
 

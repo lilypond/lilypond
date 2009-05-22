@@ -7,7 +7,7 @@ Das Aussehen des großen Septakkords kann mit @code{majorSevenSymbol} verändert
   doctitlede = "Akkordbezeichnung maj7"
 
 
-%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
+%% Translation of GIT committish: 3e50373e10750e5bc1f5c69898df3740e6169165
   texidoces = "
 La presentación del acorde de séptima mayor se
 puede ajustar mediante majorSevenSymbol.

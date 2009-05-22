@@ -294,7 +294,7 @@ with magnification @var{mag} of the string @var{text}."
           (cons string-coordinate (- fret-coordinate)))))
 
     (define (stencil-coordinate-offset fret-offset string-offset)
-      "Return a pair @code{(x-offset . y-offstet)}
+      "Return a pair @code{(x-offset . y-offset)}
       for translation in stencil coordinate system."
       (cond
         ((eq? orientation 'landscape)

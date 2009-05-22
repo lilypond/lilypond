@@ -160,7 +160,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 	      && !to_boolean (it->get_property ("cross-staff")))
 	    {
 	      Interval dims = items[j]->pure_height (common, start, end);
-	      Interval &target_iv = it->pure_is_visible (start-1, end) ? mid_line_iv : begin_line_iv;
+	      Interval &target_iv = start == it->get_column ()->get_rank () ? begin_line_iv : mid_line_iv;
 
 	      if (!dims.is_empty ())
 		target_iv.unite (dims);

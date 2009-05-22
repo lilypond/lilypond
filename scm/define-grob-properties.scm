@@ -51,10 +51,14 @@ averaged over staves.")
      (avoid-note-head ,boolean? "If set, the stem of a chord does not
 pass through all note heads, but starts at the last note head.")
      (avoid-slur ,symbol? "Method of handling slur collisions.
-Choices are @code{around}, @code{inside}, @code{outside}.  If unset,
-scripts and slurs ignore each other.  @code{around} only moves the
-script if there is a collision; @code{outside} always moves the
-script.")
+Choices are @code{inside}, @code{outside}, @code{around}, and
+@code{ignore}.  @code{inside} adjusts the slur if needed to keep the
+grob inside the slur.  @code{outside} moves the grob vertically to the
+outside of the slur.  @code{around} moves the grob vertically to the
+outside of the slur only if there is a collision.  @code{ignore} does
+not move either.  In grobs whose notational significance depends on
+vertical position (such as accidentals, clefs, etc.), @code{outside}
+and @code{around} behave like @code{ignore}.")
      (axes ,list? "List of axis numbers.  In the case of alignment
 grobs, this should contain only one number.")
 
@@ -841,8 +845,9 @@ constructed from a whole number of squiggles.")
      (accidental-grob ,ly:grob? "The accidental for this note.")
      (accidental-grobs ,list? "An alist with @code{(@var{notename} .
 @var{groblist})} entries.")
-     (adjacent-pure-heights ,pair? "A pair of vectors. Used by a @code{VerticalAxisGroup} to
-cache the @code{Y-extent}s of different column ranges.")
+     (adjacent-pure-heights ,pair? "A pair of vectors.  Used by a
+@code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
+ranges.")
      (adjacent-hairpins ,ly:grob-array? "A list of directly neighboring
 hairpins.")
      (all-elements ,ly:grob-array? "A list of all grobs in this line.  Its
