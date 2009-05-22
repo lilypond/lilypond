@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: da96eee19a7529842725d0c374ea356987100f91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -183,6 +183,47 @@ aber trotzdem weite Intervalle umfassen:
 }
 @end lilypond
 
+Wenn @code{\relative}-Umgebungen geschachtelt werden, gilt
+der innerste @code{\relative}-Abschnitt.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  c d e f
+  \relative c'' {
+    c d e f
+  }
+}
+@end lilypond
+
+@code{\relative} hat keine Auswirkung auf @code{\chordmode}-Abschnitte.
+
+@lilypond[verbatim,quote]
+\new Staff {
+  \relative c''' {
+    \chordmode { c1 }
+  }
+  \chordmode { c1 }
+}
+@end lilypond
+
+@code{\relative} darf nicht innerhalb von @code{\chordmode}
+notiert werden.
+
+Tonhöhen innerhalb eines @code{\transpose}-Abschnitts sind absolut,
+es sei denn ein @code{\relativ} wird eingefügt.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d e
+  \transpose f g {
+    d e
+    \relative c' {
+      d e
+    }
+  }
+}
+@end lilypond
+
 @cindex Akkorde und relativer Modus
 @cindex relativer Modus und Akkorde
 @cindex Oktavenmodus (relativ) und Akkorde
@@ -248,13 +289,6 @@ Referenz der Interna:
 @funindex relative
 
 @knownissues
-
-Die relative Veränderung wirkt sich nicht auf 
-Transposition (@code{\transpose}),
-Akkordnotation (@code{\chordmode}) oder @code{\relative}-Abschnitte 
-aus.  Um den relativen Modus innerhalb von transponierter Musik zu 
-verwenden, muss ein zusätzliches @code{\relative} innerhalb der 
-Klammern des @code{\transpose}-Befehls gesetzt werden.
 
 @c DEPRECATED
 Wenn keine @var{Anfangstonhöhe} für @code{\relative} angegeben
@@ -683,6 +717,10 @@ Tonhöhe @var{vonTonhöhe} hat, wird in die Tonhöhe @var{nachTonhöhe} umgewand
 Noten um das gleiche Intervall.  Beide Tonhöhen
 werden im absoluten Modus eingegeben.
 
+@warning{Tonhöhen innerhalb einer @code{@bs{}transpose}-Umgebung
+sind absolut, es sei denn, ein @code{@bs{}relative} wird
+eingefügt.}
+
 So kann z. B. ein Stück in D-Dur, wenn es für den Sänger etwas zu
 tief ist, nach E-Dur transponiert werden.  Dabei
 werden auch die Vorzeichen entsprechend angepasst:
@@ -770,6 +808,7 @@ siehe auch @ref{Instrument transpositions}.
 
 @seealso
 Notationsreferenz:
+@ref{Relative octave entry},
 @ref{Instrument transpositions}.
 
 Schnipsel:
