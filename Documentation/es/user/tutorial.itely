@@ -1914,11 +1914,11 @@ lugares.  El siguiente ejemplo utiliza las variables anteriores:
 
 @example
 \paper @{
-  \aFivePaper
-  line-width = \width
+  \papelAcinco
+  line-width = \ancho
 @}
 @{
-  c4^\name
+  c4^\nombre
 @}
 @end example
 

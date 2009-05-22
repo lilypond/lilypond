@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 
 Los elementos de marcado de texto deben tener la propiedad
@@ -7,7 +8,7 @@ impriman por dentro de las ligaduras de expresión.
 "
   doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
 @code{outside-staff-priority}-Eigenschaft auf falsch gesetzt wird.

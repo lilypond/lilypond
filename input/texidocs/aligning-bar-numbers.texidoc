@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 
 Los números de compás se alinean de forma predeterminada por la
@@ -10,3 +11,15 @@ alineados por la izquierda con ella.
 "
 
   doctitlees = "Alineación de los números de compás"
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
+ausgerichtet.  Das ist normalerweise die linke Ecke einer Linie oder,
+wenn die Nummern innerhalb einer Zeile gesetzt werden, auf der
+linken Seite eines Taktstrichs.  Die Nummern können auch
+direkt über dem Taktstrich positioniert werden oder rechts vom
+Taktstrich gesetzt werden.
+
+"
+  doctitlede = "Taktnummern ausrichten"

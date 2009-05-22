@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Se pueden crear indicaciones metronómicas nuevas en modo de
 marcado, pero no cambian el tempo en la salida MIDI.
@@ -5,7 +6,7 @@ marcado, pero no cambian el tempo en la salida MIDI.
 "
   doctitlees = "Crear indicaciones metronómicas en modo de marcado"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Neue Metronombezeichnungen können als Textbeschriftung erstellt werden,
 aber sie ändern nicht das Tempo für die MIDI-Ausgabe.

@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
  doctitlees = "Voces adicionales para evitar colisiones"
  texidoces = "
 En ciertos casos de polifonía compleja, se necesitan voces adicionales
@@ -7,7 +8,7 @@ context-spec-music.
 
 "
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Ein einigen Fällen von sehr komplexer polyphoner Musik sind zusätzliche
 Stimmen notwendig, um Zusammestöße zwischen den Noten zu vermeiden.

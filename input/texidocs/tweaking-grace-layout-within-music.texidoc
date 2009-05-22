@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 
 La disposición de las expresiones de adorno se puede cambiar a lo
@@ -11,3 +12,15 @@ cabezas a aspas.
 "
 
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Das Layout von Verzierungsausdrücken kann in der Musik verändert
+werden mit den Funktionen @code{add-grace-property} und
+@code{remove-grace-property}.  Das folgende Beispiel definiert
+die Richtung von Hälsen (Stem) für diese Verzierung, sodass die
+Hälse nicht immer nach unten zeigen, und ändert den Standardnotenkopf
+in ein Kreuz.
+"
+  doctitlede = "Veränderung des Layouts von Verzierungen innerhalb der Noten"

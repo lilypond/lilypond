@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3e63320d65c86c823949f70ab9791eab96c98352
+    Translation of GIT committish: 0f35c951dfcd648c512d29848350ff7df3dc5853
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -92,29 +92,27 @@ sólo una o dos veces.  Para una música muy compleja, quizá a cada
 compás.
 
 @item @strong{Un compás por cada línea de texto}.  Si hay algo muy complicado, ya sea
-en la propia música
-o en la salida que desea producir, a menudo conviene escribir un solo compás
-por cada línea.  El ahorro en espacio de pantalla que se obtiene al amontonar ocho compases por línea no merece la pena
-si luego tiene que @q{depurar} los archivos.
+en la propia música o en la salida que desea producir, a menudo
+conviene escribir un solo compás por cada línea.  El ahorro en espacio
+de pantalla que se obtiene al amontonar ocho compases por línea no
+merece la pena si luego tiene que @q{depurar} los archivos.
 
 @item @strong{Comente los archivos}.  Utilice o números de compás (de vez en cuando)
-o
-referencias a temas musicales (@q{segundo tema de los violines,} @q{cuarta
-variación,} etc.).  Puede que no necesite comentarios cuando introduce una pieza por vez primera,
-pero si quiere volver a ella o modificar algo al cabo de dos o tres años,
-y también si le pasa la fuente a un amigo,
-será todo un desafío
-determinar sus intenciones o de qué manera estaba estructurado el archivo
-si no le añadió los comentarios.
+o referencias a temas musicales (@q{segundo tema de los violines,}
+@q{cuarta variación,} etc.).  Puede que no necesite comentarios cuando
+introduce una pieza por vez primera, pero si quiere volver a ella o
+modificar algo al cabo de dos o tres años, y también si le pasa la
+fuente a un amigo, será todo un desafío determinar sus intenciones o
+de qué manera estaba estructurado el archivo si no le añadió los
+comentarios.
 
 @item @strong{Aplique márgenes a las llaves}.  Muchos problemas están causados por una
-falta de equilibrio
-en el número de @code{@{} y @code{@}}.
+falta de equilibrio en el número de @code{@{} y @code{@}}.
 
 @item @strong{Escriba las duraciones explícitamente} al comienzo de las secciones
-e identificadores.  Si especifica @code{c4 d e} al principio de una frase
-(en lugar de sólo @code{c d e}) se puede ahorrar problemas
-si reelabora la música más tarde.
+e identificadores.  Si especifica @code{c4 d e} al principio de una
+frase (en lugar de sólo @code{c d e}) se puede ahorrar problemas si
+reelabora la música más tarde.
 
 @item @strong{Separe los trucos} de las definiciones musicales.  Consulte
 @ref{Saving typing with variables and functions} y
@@ -126,8 +124,8 @@ si reelabora la música más tarde.
 @node Typesetting existing music
 @subsection Typesetting existing music
 
-Si está introduciendo música a partir de una partitura existente (es decir, tipografiando una hoja
-de música ya impresa),
+Si está introduciendo música a partir de una partitura existente (es
+decir, tipografiando una hoja de música ya impresa),
 
 @itemize
 
@@ -138,12 +136,12 @@ cada sistema cuando lo haya terminado.  Puede usar las instrucciones
 proceso -- ver @ruser{Skipping corrected music} -- .
 
 @item Defina @code{mBreak = @{ \break @}} e inserte @code{\mBreak}
-dentro del archivo de entrada donde el manuscrito tenga un saldo de línea.  De esta forma
-le resultará mucho más fácil comparar la música de LilyPond con la original.
-Cuando haya terminado de revisar su partitura podrá
-definir @code{mBreak = @{ @}} para quitar todos esos saltos de línea.  Así
-permitirá a LilyPond colocar los saltos donde éste lo estime
-más oportuno.
+dentro del archivo de entrada donde el manuscrito tenga un saldo de
+línea.  De esta forma le resultará mucho más fácil comparar la música
+de LilyPond con la original.  Cuando haya terminado de revisar su
+partitura podrá definir @code{mBreak = @{ @}} para quitar todos esos
+saltos de línea.  Así permitirá a LilyPond colocar los saltos donde
+éste lo estime más oportuno.
 
 @item Al escribir una parte para un instrumento transpositor dentro de una
 variable, se recomienda que las notas estén envueltas dentro de
@@ -231,7 +229,8 @@ hornNotes = \relative c'' { c4 b dis c }
 }
 @end lilypond
 
-Incluso se dará cuenta de que esto puede ser útil en música minimalista:
+Incluso se dará cuenta de que esto puede ser útil en música
+minimalista:
 
 @lilypond[quote,verbatim,ragged-right]
 fragmentA = \relative c'' { a4 a8. b16 }
@@ -244,8 +243,9 @@ violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 }
 @end lilypond
 
-Sin embargo también puede usar estos identificadores (que también se conocen como
-variables, macros o instrucciones definidas por el usuario) para hacer trucos:
+Sin embargo también puede usar estos identificadores (que también se
+conocen como variables, macros o instrucciones definidas por el
+usuario) para hacer trucos:
 
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup{ \italic \bold dolce }
@@ -267,12 +267,11 @@ violin = \relative c'' {
 }
 @end lilypond
 
-Obviamente estos identificadores son útiles para ahorrar tecleo.
-Pero son dignos de tener en cuenta incluso si se van a utilizar una sola vez:
-reducen la complejidad.  Examinemos
-el ejemplo anterior reescrito sin ningún identificador.
-Encontrará que es mucho más difícil de leer, sobre todo
-la última línea.
+Obviamente estos identificadores son útiles para ahorrar tecleo.  Pero
+son dignos de tener en cuenta incluso si se van a utilizar una sola
+vez: reducen la complejidad.  Examinemos el ejemplo anterior reescrito
+sin ningún identificador.  Encontrará que es mucho más difícil de
+leer, sobre todo la última línea.
 
 @example
 violin = \relative c'' @{
@@ -294,8 +293,8 @@ se encuentra con @code{\padText}, lo sustituye con aquello que
 hemos definido que sea (es decir, todo lo que está a la derecha de
 @code{padtext=}).
 
-LilyPond también puede manejar sustituciones no estáticas (piense en ellas
-como en funciones).
+LilyPond también puede manejar sustituciones no estáticas (piense en
+ellas como en funciones).
 
 @lilypond[quote,verbatim,ragged-right]
 padText =
@@ -313,64 +312,68 @@ padText =
 }
 @end lilypond
 
-La utilización de identificadores también es una buena forma de reducir el trabajo si
-la sintaxis de entrada de LilyPond cambia (véase @ref{Updating old files}).  Si
-tiene una sola definición (como p.ej. @code{\dolce}) para todos sus
-archivos (ver @ref{Style sheets}), y después la sintaxis se modifica, sólo tendrá
-que actualizar su definición @code{\dolce} única,
-en lugar de tener que hacer cambios en cada uno de los archivos @code{.ly}.
+La utilización de identificadores también es una buena forma de
+reducir el trabajo si la sintaxis de entrada de LilyPond cambia (véase
+@ref{Updating old files}).  Si tiene una sola definición (como
+p.ej. @code{\dolce}) para todos sus archivos (ver @ref{Style sheets}),
+y después la sintaxis se modifica, sólo tendrá que actualizar su
+definición @code{\dolce} única, en lugar de tener que hacer cambios en
+cada uno de los archivos @code{.ly}.
 
 
 @node Style sheets
 @subsection Style sheets
 
-La salida que produce LilyPond se puede modificar profundamente; consulte
-@ref{Tweaking output} para leer detalles sobre este asunto.  Pero ¿qué ocurre si tiene muchos
-archivos a los que les quiere aplicar sus propios trucos?  O ¿qué ocurre si, sencillamente,
-quiere separar los trucos de la propia música?  Todo esto
-es bastante fácil de conseguir.
+La salida que produce LilyPond se puede modificar profundamente;
+consulte @ref{Tweaking output} para leer detalles sobre este asunto.
+Pero ¿qué ocurre si tiene muchos archivos a los que les quiere aplicar
+sus propios trucos?  O ¿qué ocurre si, sencillamente, quiere separar
+los trucos de la propia música?  Todo esto es bastante fácil de
+conseguir.
 
 Veamos un ejemplo.  No se preocupe si no entiende
 las partes que tienen todos los @code{#()}.  Esto se explicará en
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
-Existen varios problemas con la salida que se superpone; los arreglaremos utilizando
-las técnicas descritas en @ref{Moving objects}.  Pero también haremos algo respecto a
-las definiciones @code{mpdolce} y @code{tempoMark}.  Éstas producen la salida que
-deseamos, pero quizá las querríamos utilizar en otra pieza.
-Podríamos simplemente copiarlas y pegarlas al principio de cada archivo,
-pero sería bastante molesto.  También hace que se queden las definiciones
-a la vista dentro de nuestros archivos de música, y yo personalmente encuentro
-todos los @code{#()} bastante poco estéticos.  Los vamos a esconder dentro de otro archivo:
+Existen varios problemas con la salida que se superpone; los
+arreglaremos utilizando las técnicas descritas en @ref{Moving
+objects}.  Pero también haremos algo respecto a las definiciones
+@code{mpdolce} e @code{inst}.  Éstas producen la salida que deseamos,
+pero quizá las querríamos utilizar en otra pieza.  Podríamos
+simplemente copiarlas y pegarlas al principio de cada archivo, pero
+sería bastante molesto.  También hace que se queden las definiciones a
+la vista dentro de nuestros archivos de música, y yo personalmente
+encuentro todos los @code{#()} bastante poco estéticos.  Los vamos a
+esconder dentro de otro archivo:
 
 @example
 %%% guardar esto en un archivo de nombre "definiciones.ly"
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 @end example
 
 Ahora modificaremos la música (guardemos este archivo como @file{"musica.ly"}).
@@ -384,27 +387,25 @@ Ahora modificaremos la música (guardemos este archivo como @file{"musica.ly"}).
 \relative c'' @{
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinete"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 @}
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -420,14 +421,14 @@ con éste:
 
 @example
 %%%  definiciones.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout@{
   \context @{ \Score
@@ -445,14 +446,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout{
   \context { \Score
@@ -471,8 +472,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -487,14 +487,14 @@ tamaño general de la salida.
 
 @example
 %%%  definiciones.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout@{
@@ -512,14 +512,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout{
@@ -536,21 +536,21 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
-Ahora, en la música, simplemente sustituyo
-@code{\include "definiciones.ly"} por
-@code{\include "publicar-web.ly"}.  Por supuesto, podríamos hacer esto aún más
-práctico.  Podríamos hacer un archivo @file{definiciones.ly} que contuviera
-solamente las definiciones de @code{mpdolce} y @code{tempoMark}, un archivo
-@file{web-publish.ly} que contuviera solamente la sección @code{\layout}
-que se mostró en el ejemplo, y un archivo @file{universidad.ly} que contendría
-solamente los trucos para producir la salida que le gusta a mi
-profesor.  La parte más alta de @file{musica.ly} tendría entonces este aspecto:
+Ahora, en la música, simplemente sustituyo @code{\include
+"definiciones.ly"} por @code{\include "publicar-web.ly"}.  Por
+supuesto, podríamos hacer esto aún más práctico.  Podríamos hacer un
+archivo @file{definiciones.ly} que contuviera solamente las
+definiciones de @code{mpdolce} y de @code{inst}, un archivo
+@file{web-publish.ly} que contuviera solamente la sección
+@code{\layout} que se mostró en el ejemplo, y un archivo
+@file{universidad.ly} que contendría solamente los trucos para
+producir la salida que le gusta a mi profesor.  La parte más alta de
+@file{musica.ly} tendría entonces este aspecto:
 
 @example
 \include "definiciones.ly"
@@ -560,9 +560,9 @@ profesor.  La parte más alta de @file{musica.ly} tendría entonces este aspecto
 %\include "universidad.ly"
 @end example
 
-Este enfoque puede ser útil incluso si va a producir sólo un conjunto de particellas.
-Yo utilizo media docena de archivos de
-@q{hojas de estilo} para mis proyectos.  Comienzo todos los archivos de música con
+Este enfoque puede ser útil incluso si va a producir sólo un conjunto
+de particellas.  Yo utilizo media docena de archivos de @q{hojas de
+estilo} para mis proyectos.  Comienzo todos los archivos de música con
 @code{\include "../global.ly"}, que contiene
 
 @example
@@ -588,29 +588,32 @@ Yo utilizo media docena de archivos de
 @node Updating old files
 @subsection Updating old files
 
-La sintaxis de la entrada de LilyPond cambia de manera ocasional.  A medida que el propio
-LilyPond mejora, la sintaxis (el lenguaje de la entrada) se modifica en consonancia.  A
-veces estos cambios se hacen para conseguir que la entrada sea más fácil de leer y escribir, y
-otras veces estos cambios son para dar cabida a nuevas funcionalidades de LilyPond.
+La sintaxis de la entrada de LilyPond cambia de manera ocasional.  A
+medida que el propio LilyPond mejora, la sintaxis (el lenguaje de la
+entrada) se modifica en consonancia.  A veces estos cambios se hacen
+para conseguir que la entrada sea más fácil de leer y escribir, y
+otras veces estos cambios son para dar cabida a nuevas funcionalidades
+de LilyPond.
 
 LilyPond lleva incorporado un archivo que facilita esta actualización:
-@code{convert-ly}.  Para ver detalles sobre cómo ejecutar este programa, consulte
-@rprogram{Updating files with convert-ly}.
+@code{convert-ly}.  Para ver detalles sobre cómo ejecutar este
+programa, consulte @rprogram{Updating files with convert-ly}.
 
-Desgraciadamente @code{convert-ly} no puede tratar todos los cambios en la entrada.
-Se ocupa de los cambios sencillos de búsqueda y sustitución (como @code{raggedright}
-que se convierte en @code{ragged-right}), pero algunos cambios son demasiado
-complicados.  Los cambios de sintaxis que @code{convert-ly} es incapaz de manejar
-se relacionan en @rprogram{Updating files with convert-ly}.
+Desgraciadamente @code{convert-ly} no puede tratar todos los cambios
+en la entrada.  Se ocupa de los cambios sencillos de búsqueda y
+sustitución (como @code{raggedright} que se convierte en
+@code{ragged-right}), pero algunos cambios son demasiado complicados.
+Los cambios de sintaxis que @code{convert-ly} es incapaz de manejar se
+relacionan en @rprogram{Updating files with convert-ly}.
 
-Por ejemplo, en la versión 2.4 y anteriores de LilyPond,
-los acentos y las letras no inglesas se introducían utilizando
-LaTeX: por ejemplo, @code{No\"el} (que significa @q{Navidad} en francés).
-En LilyPond 2.6 y siguientes, el carácter especial @code{ë}
-debe introducirse directamente en el archivo de LilyPond como un carácter UTF-8.
-@code{convert-ly} no puede cambiar todos los caracteres especiales
-de LaTeX a caracteres de UTF-8; tendrá que actualizar manualmente
-sus archivos de LilyPond antiguos.
+Por ejemplo, en la versión 2.4 y anteriores de LilyPond, los acentos y
+las letras no inglesas se introducían utilizando LaTeX: por ejemplo,
+@code{No\"el} (que significa @q{Navidad} en francés).  En LilyPond 2.6
+y siguientes, el carácter especial @code{ë} debe introducirse
+directamente en el archivo de LilyPond como un carácter UTF-8.
+@code{convert-ly} no puede cambiar todos los caracteres especiales de
+LaTeX a caracteres de UTF-8; tendrá que actualizar manualmente sus
+archivos de LilyPond antiguos.
 
 
 @node Troubleshooting (taking it all apart)
@@ -621,15 +624,15 @@ Los mensajes que LilyPond proporciona pueden ayudarle a encontrar el
 error, pero en muchos casos tendrá que llevar a cabo algún tipo de
 investigación para determinar el origen del problema.
 
-Las herramientas más poderosas para este cometido son el
-comentario de una sola línea (indicado por @code{%}) y el comentario de bloque
-(indicado por @code{%@{ ... %@}}).  Si no sabe dónde está
-el problema, comience convirtiendo grandes secciones del
-archivo de entrada en un comentario.  Después de eliminar una
-sección convirtiéndola en un comentario, pruebe a compilar el
-archivo otra vez.  Si funciona, entonces el problema debía estar
-en la porción que había eliminado.  Si no funciona, continúe eliminando material
-(transformándolo en comentarios) hasta que tenga algo que funcione.
+Las herramientas más poderosas para este cometido son el comentario de
+una sola línea (indicado por @code{%}) y el comentario de bloque
+(indicado por @code{%@{ ... %@}}).  Si no sabe dónde está el problema,
+comience convirtiendo grandes secciones del archivo de entrada en un
+comentario.  Después de eliminar una sección convirtiéndola en un
+comentario, pruebe a compilar el archivo otra vez.  Si funciona,
+entonces el problema debía estar en la porción que había eliminado.
+Si no funciona, continúe eliminando material (transformándolo en
+comentarios) hasta que tenga algo que funcione.
 
 En un caso extremo podría terminar con sólo
 
@@ -648,9 +651,9 @@ En un caso extremo podría terminar con sólo
 (en otras palabras: un archivo sin música)
 
 Si ocurre esto, no abandone.  Descomente un trozo pequeño -- digamos
-la parte del bajo -- y observe si funciona.  Si no es así,
-transforme en comentarios toda la música del bajo (pero deje el
-@code{\bajo} de la sección @code{\score} no comentado.
+la parte del bajo -- y observe si funciona.  Si no es así, transforme
+en comentarios toda la música del bajo (pero deje el @code{\bajo} de
+la sección @code{\score} no comentado.
 
 @example
 bajo = \relative c' @{
@@ -672,8 +675,8 @@ Otra técnica de depuración muy útil es la construcción de
 @subsection Minimal examples
 
 Un ejemplo mínimo es un ejemplo tan pequeño como sea posible.  Estos
-ejemplos son mucho más fáciles de comprender que los ejemplos largos.  Los ejemplos
-mínimos se utilizan para
+ejemplos son mucho más fáciles de comprender que los ejemplos largos.
+Los ejemplos mínimos se utilizan para
 
 @itemize
 @item Informes de fallo
@@ -684,10 +687,10 @@ mínimos se utilizan para
 
 Para construir un ejemplo que sea lo más pequeño posible, la regla es
 bastante simple: quite todo lo que no sea necesario.  Al tratar de
-quitar partes innecesarias de un archivo, es una buena idea convertir líneas en
-comentarios en vez de borrarlas.  De esta forma, si descubre que en realidad
-sí @emph{necesitaba} algunas de estas líneas, podrá descomentarlas y no tendrá que
-teclearlas de nuevo partiendo de cero.
+quitar partes innecesarias de un archivo, es una buena idea convertir
+líneas en comentarios en vez de borrarlas.  De esta forma, si descubre
+que en realidad sí @emph{necesitaba} algunas de estas líneas, podrá
+descomentarlas y no tendrá que teclearlas de nuevo partiendo de cero.
 
 Existen dos excepciones a la regla del @qq{lo más pequeño posible}:
 
@@ -711,10 +714,11 @@ del ejemplo.
 @section Scores and parts
 
 En música orquestal, todas las notas se imprimen dos veces.  Una vez
-en las particellas para los músicos, y otra para la partitura del director.
-Los identificadores se pueden usar para evitar la duplicación del trabajo.
-La música se escribe una vez y se almacena en una variable.
-El contenido de dicha variable se usa después para generar tanto la particella como la partitura del director.
+en las particellas para los músicos, y otra para la partitura del
+director.  Los identificadores se pueden usar para evitar la
+duplicación del trabajo.  La música se escribe una vez y se almacena
+en una variable.  El contenido de dicha variable se usa después para
+generar tanto la particella como la partitura del director.
 
 Es muy conveniente definir las notas en un archivo especial.  Por
 ejemplo, supongamos que el archivo @file{trompa.ly} contiene la
@@ -763,29 +767,31 @@ en@tie{}Fa.  La transposición se puede ver en la siguiente salida
 }
 @end lilypond
 
-En piezas para conjunto, con frecuencia una de las voces no suena durante muchos compases.
-Esto queda denotado por un silencio especial, el silencio multicompás.
-Se introduce con una @code{R} mayúscula seguida de una duración
-(@code{1}@tie{}en el caso de la redonda, @code{2}@tie{}en el caso de una blanca,
-etc.).  Multiplicando la duración se pueden construir
-silencios más largos.  Por ejemplo, este silencio ocupa
-3@tie{}compases de 2/4
+En piezas para conjunto, con frecuencia una de las voces no suena
+durante muchos compases.  Esto queda denotado por un silencio
+especial, el silencio multicompás.  Se introduce con una @code{R}
+mayúscula seguida de una duración (@code{1}@tie{}en el caso de la
+redonda, @code{2}@tie{}en el caso de una blanca, etc.).  Multiplicando
+la duración se pueden construir silencios más largos.  Por ejemplo,
+este silencio ocupa 3@tie{}compases de 2/4
 
 @example
 R2*3
 @end example
 
 Cuando se imprime la particella tienen que comprimirse los silencios
-multicompás.  Esto se hace estableciendo una variable en tiempo de ejecución
+multicompás.  Esto se hace estableciendo una variable en tiempo de
+ejecución
 
 @example
 \set Score.skipBars = ##t
 @end example
 
 @noindent
-Esta instrucción establece el valor de la propiedad @code{skipBars} en el
-contexto de @code{Score} a verdadero (@code{##t}).  Anteponiendo el silencio y
-esta opción a la música anterior, llegamos al siguiente resultado
+Esta instrucción establece el valor de la propiedad @code{skipBars} en
+el contexto de @code{Score} a verdadero (@code{##t}).  Anteponiendo el
+silencio y esta opción a la música anterior, llegamos al siguiente
+resultado
 
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {

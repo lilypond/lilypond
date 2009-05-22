@@ -1,6 +1,15 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 
 Los números de compás también se pueden imprimir dentro de rectángulos o de circunferencias.
 
 "
   doctitlees = "Imprimir números de compás dentro de rectángulos o circunferencias"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Taktnummern können auch in Boxen oder Kreisen gesetzt werden.
+
+"
+  doctitlede = "Setzen von Taktnummern in Boxen oder Kreisen"

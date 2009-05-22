@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ee314252b42fe4eb69c87c13a38644bc214ff27f
+    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -220,6 +220,7 @@ Anhänge
 * Literature list::                Wichtige Literatur über die Notation.
 * Notation manual tables::         Tabellen und Grafiken.
 * Cheat sheet::                    Überblick über die LilyPond-Syntax.
+* LilyPond grammar::               Syntaxdiagramm für LilyPond
 * GNU Free Documentation License:: Die Lizenz dieses Handbuchs.
 * LilyPond command index::
 * LilyPond index::
@@ -242,6 +243,14 @@ Anhänge
 @include literature.itely
 @include notation-appendices.itely
 @include cheatsheet.itely
+
+@node LilyPond grammar
+@appendix LilyPond grammar
+
+Dieser Anhang enthält eine Beschreibung der LilyPond-Grammatik,
+wie sie der Parser ausgibt.
+@verbatiminclude ly-grammar.txt
+
 @include fdl.itexi
 
 @node LilyPond command index

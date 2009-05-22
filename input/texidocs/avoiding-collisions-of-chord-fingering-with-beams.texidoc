@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Las digitaciones y los números de cuerda aplicados a notas
 individuales evitan a las barras automáticamente, pero de forma
@@ -19,7 +20,7 @@ peut être corrigé.
 "
   doctitlefr = "Éviter les collisions entre les doigtés d'accords et les ligatures"
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Fingersatz und Saitennummern, die zu einzelnen Noten hinzugefügt werden, vermeiden
 automatisch Hälse und Balken, aber das gilt nicht für Noten von Akkorden.

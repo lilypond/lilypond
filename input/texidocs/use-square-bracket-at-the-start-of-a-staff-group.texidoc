@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Se puede usar el delimitador de comienzo de un sistema
 @code{SystemStartSquare} estableciéndolo explícitamente dentro de
@@ -6,7 +7,7 @@ un contexto @code{StaffGroup} o @code{ChoirStaffGroup}.
 "
   doctitlees = "Uso del corchete recto al comienzo de un grupo de pentagramas"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Klammer zu Beginn von Systemgruppen kann auch in eine eckige Klammer
 (@code{SystemStartSquare}) umgewandelt werden, wenn man sie explizit

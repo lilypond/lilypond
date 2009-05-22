@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 
 Se pueden imprimir los números de compás a intervalos regulares
@@ -8,3 +9,14 @@ imprimen a cada dos compases excepto al final de la línea.
 "
 
   doctitlees = "Imprimir números de compás a intervalos regulares"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Taktnummern können in regelmäßigen Intervallen gesetzt werden, indem
+man die Eigenschaft @code{barNumberVisibility} definiert.  In diesem
+Beispiel werden die Taktnummern jeden zweiten Takt gesetzt, außer
+am Ende einer Zeile.
+
+"
+  doctitlede = "Setzen der Taktnummern in regelmäßigen Intevallen"

@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Para la música de guitarra, es posible mostrar los ritmos de rasgueo,
 además de las notas de la melodía, acordes y diagramas de posiciones.
@@ -5,7 +6,7 @@ además de las notas de la melodía, acordes y diagramas de posiciones.
 "
   doctitlees = "Ritmos rasgueados de guitarra"
 
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
   texidocde = "
 In Guitarrennotation kann neben Melodie, Akkordbezeichnungen und
 Bunddiagrammen auch der Schlagrhythmus angegeben werden.
@@ -14,7 +15,7 @@ Bunddiagrammen auch der Schlagrhythmus angegeben werden.
   doctitlede = "Schlagrhythmus für Guitarren"
 
 
-%% Translation of GIT committish :<>
+%% Translation of GIT committish: 
   texidocfr = "
 En matière de notation pour guitare, il arrive que soient indiqués les
 @qq{coups de gratte} en plus de la mélodie, grilles d'accords et

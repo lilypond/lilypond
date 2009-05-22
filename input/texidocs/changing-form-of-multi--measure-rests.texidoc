@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama
@@ -18,7 +19,7 @@ setzt:
   doctitlede = "Die Erscheinung von Pausentakten ändern"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
 texidocfr = "
 Dans le cas où ce silence dure mois de dix mesures, LilyPond imprime sur
 la portée des @qq{ silences d'église } -- @emph{Kirchenpause} en

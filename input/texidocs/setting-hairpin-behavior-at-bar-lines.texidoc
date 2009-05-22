@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Si la nota que da fin a un regulador cae sobre la primera parte de
 un compás, el regulador se detiene en la línea divisoria
@@ -7,7 +8,7 @@ sobreescribiendo la propiedad @code{to-barline}.
 "
   doctitlees = "Establecer el comportamiento de los reguladores en las barras de compás"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Wenn die Note, an welcher eine Crescendo-Klammer endet, die erste Note
 eines Taktes ist, wird die Klammer an der vorhergehenden Tatklinie

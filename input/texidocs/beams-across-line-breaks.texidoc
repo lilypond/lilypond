@@ -1,3 +1,4 @@
+%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
   texidoces = "
 Normalmente están prohibidos los saltos de línea si las barras
 atraviesan las líneas divisorias.  Se puede cambiar este
@@ -6,7 +7,7 @@ comportamiento como se muestra aquí:
 "
   doctitle = "Barras que atraviesan saltos de línea"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
   
 texidocde = "
 Zeilenumbrüche sind normalerweise während Balken verboten.  Das kann geändert
@@ -16,7 +17,7 @@ werden.
   doctitlede = "Balken über Zeilenumbrüche"
 
 
-%% Translation of GIT committish :<b3196fadd8f42d05ba35e8ac42f7da3caf8a3079>
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
   
   texidocfr = "
 Il est normalement impensable qu'un saut de ligne tombe au milieu d'une
