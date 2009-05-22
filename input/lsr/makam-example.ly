@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: 33d87eaa6928c0242687fc2361e89de854161c1d
   texidoces = "
 El «Makam» es un tipo de melodía de Turquía que
 utiliza intervalos microtonales de 1/9 de tono.  Consulte el
@@ -15,7 +16,7 @@ nombres de las notas y las alteraciones.
   doctitlees = "El «Makam»"
 
   
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Makam ist eine türkische Melodie, in der 1/9-Tonabstände
 eingesetzt werden.  Sehen Sie sich die Initialisierungsdatei

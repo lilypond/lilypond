@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
   texidoces = "
 
 De forma predeterminada se suprime el número del primer compás de
@@ -16,6 +17,19 @@ debe insertar una líinea divisoria vacía antes de la primera nota.
 "
 
   doctitlees = "Imprimir el número de compás en el primer compás"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Standardmäßig wird die erste Taktzahl einer Paritur nicht gesetzt,
+wenn sie weniger oder gleich '1' ist.  Indem man @code{barNumberVisibility}
+auf @code{all-bar-numbers-visible} setzt, kann eine beliebige
+Taktzahl für den ersten und die folgenden Takte gesetzt werden.
+Eine leere Taktlinie muss jedoch vor der ersten Note eingefügt
+werden, damit das funktioniert.
+
+"
+  doctitlede = "Setzen der Taktnummer für den ersten Takt"
 
   lsrtags = "rhythms"
 

@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: f0b938f9bf8af951390c4449e755553c57b043f7
   texidoces = "
 LilyPond también proporciona funciones de formato para imprimir
 números de grupo especial diferentes a la propia fracción, así
@@ -22,6 +23,15 @@ unterscheiden.  Auch ein Notenwert kann zu Nenner oder Zähler des Bruchs
 hinzugefügt werden.
 "
   doctitlede = "Nicht-standard-N-tolennummern"
+
+%% Translation of GIT committish: fa7695ea860d7ab2db86581dd5f8bc4f413f6705
+  texidocfr = "
+LilyPond sait aussi gérer des nolets dont le chiffrage imprimé ne
+correspond pas exactement à la fraction de mesure à laquelle ils se
+réfèrent, tout comme ceux auxquels une valeur de note vient en complément
+au chiffre.
+"
+  doctitlefr = "Nolets au chiffrage inhabituel"
 
   lsrtags = "rhythms"
 

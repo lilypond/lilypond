@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
   doctitlees = "Alteraciones de estilo dodecafónico para todas las notas, incluidas las naturales"
   texidoces = "
 En las obras de principios del s.XX, empezando por Schoenberg, Berg y
@@ -18,7 +19,8 @@ notación.
 
 "
 
- texidocde = "
+%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
+  texidocde = "
  In Werken des fürhen 20. Jahrhundert, angefangen mit Schönberg, Berg
  und Webern (die zweite Wiener Schule), wird jeder Ton der 
  Zwölftonleiter als gleichwertig erachtet, ohne hierarchische
@@ -28,8 +30,7 @@ notación.
  
  Dieser Schnipsel zeigt, wie derartige Notationsregeln zu erstellen sind.
  "
- 
-doctitlede = "Versetzungszeichen für jede Note im Stil der Zwölftonmusik"
+  doctitlede = "Versetzungszeichen für jede Note im Stil der Zwölftonmusik"
 
   lsrtags = "pitches"
   texidoc = "In early 20th century works, starting with Schoenberg,

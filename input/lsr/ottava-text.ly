@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
   texidoces = "
 Internamente, la función @code{set-octavation} establece las
 propiedades @code{ottavation} (por ejemplo, a @code{\"8va\"} o a
@@ -12,6 +13,7 @@ del corchete, ajuste @code{ottavation} despues de invocar a
 @code{set-octavation}.
 "
   doctitlees = "Texto de octava alta y baja"
+%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
   
   
 texidocde = "

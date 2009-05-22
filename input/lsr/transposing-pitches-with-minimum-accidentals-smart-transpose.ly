@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: 4866dfd58d5c3a8cab4c6c06d5c4fca8e05a3cd7
 doctitlees = "Transportar música con el menor número de alteraciones"
 texidoces = "
 Este ejemplo utiliza código de Scheme para forzar las
@@ -33,9 +34,9 @@ naturales.
 
 "
 
-doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."
-
-texidocde = "Dieses Beispiel benutzt Scheme-Code, um enharmonische
+%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
+  doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."
+  texidocde = "Dieses Beispiel benutzt Scheme-Code, um enharmonische
 Verwechslungen für Noten zu erzwingen, damit nur eine minimale Anzahl
 an Versetzungszeichen ausgegeben wird.  In diesem Fall gelten die
 folgenden Regeln:

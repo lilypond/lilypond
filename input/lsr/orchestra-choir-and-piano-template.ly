@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: 632d908ee4b36bc84b6f3b15e392040dc9b10dbb
   texidoces = "
 
 Esta plantilla muestra el uso de contextos @code{StaffGroup} y

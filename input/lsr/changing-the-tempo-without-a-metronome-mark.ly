@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: dcd61338c753205b6f8d549389fcb0d999c3a675
   texidoces = "
 Para cambiar el tempo en la salida MIDI sin
 imprimir nada, hacemos invisible la indicación metronómica:
@@ -12,7 +13,7 @@ imprimir nada, hacemos invisible la indicación metronómica:
 
   doctitlees = "Cambiar el tempo sin indicación metronómica"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Um das Tempo für die MIDI-Ausgabe zu ändern, ohne eine Tempoangabe in den
 Noten auszugeben, kann die Metronombezeichnung unsichtbar gemacht werden:

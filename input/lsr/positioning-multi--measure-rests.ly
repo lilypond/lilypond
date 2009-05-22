@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
  doctitlees = "Posicionar los silencios multicompás"
  texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
@@ -14,6 +15,7 @@ impar están separados verticalmente.  La colocación de los silencios
 multicompás se puede controlar como se ve a continuación:
 
 "
+%% Translation of GIT committish: b4f6b5ad66d016c312cddc8d4026ad852f9a7c36
 
 texidocde = "
 Anders als bei normalen Pausen gibt es keinen direkten Befehl, um die
@@ -26,7 +28,7 @@ werden:
   doctitlede = "Positionierung von Ganztaktpausen"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 Si l'on peut positionner verticalement un silence simple en le
 rattachant à une note, il n'en va pas de même pur un silence

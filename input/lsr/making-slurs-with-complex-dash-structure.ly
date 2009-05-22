@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 5d5f51e6b5544fb3a2068221839644744e06b6b1
   texidoces = "
 
 Las ligaduras de expresión se pueden construir con patrones de
@@ -29,6 +30,27 @@ de 1 para una ligadura continua.
 "
 
   doctitlees = "Hacer ligaduras de expresión con estructura compleja de discontinuidad"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Legatobögen können mit einem komplizierten Strichelmuster
+gesetzt werden, indem die @code{dash-definition}-Eigenschaft
+definiert wird.  @code{dash-definition} ist eine Liste bestehend
+aus @code{dash-elements}-Elementen.  Ein @code{dash-element} ist
+eine Liste an Parametern, die das Strichverhalten für einen
+Abschnitt des Legatobogens definieren.
+
+Der Bogen wird nach dem Bezierparameter t definiert, welcher
+von 0 am linken Ende des Bogens zu 1 am rechten Ende des Bogens
+reicht.  @code{dash-element} ist eine Liste @code{(start-t stop-t dash-Unterbrechung dash-Abschnitt)}.  Die Region des Bogens von @code{start-t}
+bis @code{stop-t} hat eine Unterbrechung von @code{dash-Unterbrechung}
+von jedem @code{dash-Abschnitt}-Schwarzabschnitt.  @code{dash-Abschnitt} ist in Notenlinienzwischenräumen definiert.
+@code{dash-Abschnitt} ist auf 1 für einen durchgehenden Bogen
+gesetzt.
+"
+  doctitlede = "Legatobögen mit kompliziertem Strichelmuster
+  definieren"
 
   lsrtags = "rhythms, expressive-marks"
   texidoc = "

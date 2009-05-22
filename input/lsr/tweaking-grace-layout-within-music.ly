@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
   texidoces = "
 
 La disposición de las expresiones de adorno se puede cambiar a lo
@@ -17,6 +18,18 @@ cabezas a aspas.
 "
 
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Das Layout von Verzierungsausdrücken kann in der Musik verändert
+werden mit den Funktionen @code{add-grace-property} und
+@code{remove-grace-property}.  Das folgende Beispiel definiert
+die Richtung von Hälsen (Stem) für diese Verzierung, sodass die
+Hälse nicht immer nach unten zeigen, und ändert den Standardnotenkopf
+in ein Kreuz.
+"
+  doctitlede = "Veränderung des Layouts von Verzierungen innerhalb der Noten"
 
   lsrtags = "rhythms"
   texidoc = "

@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: afbff4903c2dcf413255a42e38b1d26435509370
   texidoces = "
 
 Se pueden añadir diagramas de posiciones predefinidas para
@@ -39,7 +40,7 @@ contiennent des informations sur les cordes.  Ceci est amené à évoluer.
 "
   doctitlefr = "Création de diagrammes de fret prédéfinis pour d'autres instruments"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Vordefinierte Bunddiagramme können für neue Instrumente hinzugefügt werden
 neben denen, die schon für die Gitarre definiert sind.  Dieses Schnipsel

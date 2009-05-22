@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Se puede modificar el texto empleado para los crescendos y
 decrescendos modificando las propiedades de contexto
@@ -17,7 +18,7 @@ valores posibles se encuentran @code{'line} (línea),
 "
   doctitlees = "Cambiar el texto y los estilos de objeto de extensión para las indicaciones dinámicas textuales"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Der Text, der für Crescendo und Decrescendo gestzt wird, kann geändert
 werden, indem man die Eigenschaften @code{crescendoText} und

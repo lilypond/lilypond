@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: f39a9724d9f51ed9d0d464689ef62f549d7b8dd6
   texidoces = "
 La propiedad @code{measureLength}, junto con
 @code{measurePosition}, determina cuándo es necesario dibujar una

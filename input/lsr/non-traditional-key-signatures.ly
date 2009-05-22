@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 La muy utilizada instrucción @code{\\key} establece la propiedad
