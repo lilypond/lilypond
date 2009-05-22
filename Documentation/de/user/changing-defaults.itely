@@ -2000,7 +2000,7 @@ benutzen) normalerweise weggelassen werden.  In diesem Fall wird
 @item Abkürzungen von Artikulationen, wie @code{-.}, @code{->}, @code{--}
 @end itemize
 
-@strong{Die @code{direction)-(Richtungs-)Eigenschaft}
+@strong{Die @code{direction}-(Richtungs-)Eigenschaft}
 
 Die Position oder Richtung vieler Layoutobjekte wird von der
 @code{direction}-Eigenschaft kontrolliert.
