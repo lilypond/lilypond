@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Si los reguladores son demasiado cortos, se pueden alargar
 modificando la propiedad @code{minimum-length} del objeto

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
+%% Translation of GIT committish: 4f881627b3ff5eb538df5221ad77b73d0637aeb4
   texidoces = "
 La instrucción @code{\time} establece las propiedades
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping} y

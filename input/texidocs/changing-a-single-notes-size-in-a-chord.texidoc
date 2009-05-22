@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 Se pueden modificar notas individuales de un acorde con la
 instrucción @code{\\tweak}, alterando la propiedad
