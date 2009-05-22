@@ -1931,7 +1931,7 @@ Benutzung der eben definierten Bezeichner:
 @example
 \paper @{
   \aFünfPapier
-  line-width = \width
+  line-width = \Breite
 @}
 @{ 
   c4^\Name 
