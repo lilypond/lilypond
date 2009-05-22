@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
+    Translation of GIT committish: 5a5db8a01f4617ca0924120494562d9ed88b2869
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -177,6 +177,47 @@ abarcar intervalos muy grandes:
 }
 @end lilypond
 
+Cuando hay unos bloques @code{\relative} anidados dentro de otros, es
+de aplicación el bloque @code{\relative} más interno.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  c d e f
+  \relative c'' {
+    c d e f
+  }
+}
+@end lilypond
+
+@code{\relative} no tiene efecto sobre los bloques @code{\chordmode}.
+
+@lilypond[verbatim,quote]
+\new Staff {
+  \relative c''' {
+    \chordmode { c1 }
+  }
+  \chordmode { c1 }
+}
+@end lilypond
+
+@code{\relative} no se permite dentro de los bloques
+@code{\chordmode}.
+
+La música que esa dentro de un bloque @code{\transpose} es absoluta, a
+no ser que se incluya una instrucción @code{\relative}.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d e
+  \transpose f g {
+    d e
+    \relative c' {
+      d e
+    }
+  }
+}
+@end lilypond
+
 @cindex acordes e introducción relativa de la octava
 @cindex relativa, introducción de la octava, y acordes
 
@@ -235,13 +276,6 @@ Referencia de funcionamiento interno:
 @funindex chordmode
 @funindex \relative
 @funindex relative
-
-@knownissues
-
-La conversión relativa no afecta a las secciones @code{\transpose},
-@code{\chordmode} o @code{\relative} en su argumento.  Para usar el
-modo relativo dentro de música transportada, se debe escribir un
-@code{\relative} adicional dentro de @code{\transpose}.
 
 @c DEPRECATED
 Si no se especifica ninguna @var{altura_inicial} para
@@ -650,6 +684,10 @@ intervalo que hay entre las notas @var{nota_origen} y
 se cambia por @code{nota_destino} y cualquier otra nota se transporta
 el mismo intervalo.  Las dos notas se introducen en modo absoluto.
 
+@warning{La música que está dentro de un bloque @code{@bs{}transpose}
+es absoluta, a no ser que se incluya una instrucción
+@code{@bs{}relative} dentro del bloque.}
+
 Por ejemplo, tomemos una pieza escrita en la tonalidad de Re mayor.
 Se puede transportar hacia arriba a Mi mayor; observe que también la
 armadura de la tonalidad se transporta automáticamente.
@@ -736,7 +774,9 @@ Para ver más información sobre instrumentos transpositores, consulte
 
 @seealso
 Referencia de la notación:
+@ref{Relative octave entry},
 @ref{Instrument transpositions}.
+
 
 Fragmentos de código:
 @rlsr{Pitches}.
@@ -753,12 +793,10 @@ Referencia de funcionamiento interno:
 
 @knownissues
 
-
 La conversión relativa no afecta a las secciones @code{\transpose},
 @code{\chordmode} ni @code{\relative} dentro de su argumento.  Para
 usar el modo relativo dentro de música transportada, se debe colocar
 otro @code{\relative} dentro de @code{\transpose}.
-
 
 @node Displaying pitches
 @subsection Displaying pitches
