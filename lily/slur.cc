@@ -156,7 +156,7 @@ Slur::print (SCM smob)
 
 /*
   it would be better to do this at engraver level, but that is
-  fragile, as the breakabl items are generated on staff level, at
+  fragile, as the breakable items are generated on staff level, at
   which point slur starts and ends have to be tracked
 */
 void
@@ -275,9 +275,9 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 					 0.0);
   yext.widen (slur_padding);
 
-  Real EPS = 1e-3;
+  const Real EPS = 1e-3;
   Interval bezext (curve.control_[0][X_AXIS], curve.control_[3][X_AXIS]);
-  bool consider[] = { false, false, false };
+  bool consider[] = {false, false, false};
   Real ys[] = {0, 0, 0};
   bool do_shift = false;
   
@@ -351,7 +351,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
 	  e->set_object ("slur", slur->self_scm ());
 	}
     }
-  else
+  else if (avoid != ly_symbol2scm ("ignore"))
     e->warning (_f ("Ignoring grob for slur: %s. avoid-slur not set?",
 		    e->name().c_str ()));
 }

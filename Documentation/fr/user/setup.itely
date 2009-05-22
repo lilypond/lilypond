@@ -29,7 +29,7 @@ concerne directement.
 @section Setup for specific Operating Systems
 
 Cette partie explique comment optimiser l'installation propres à
-certains systèmes. 
+certains systèmes.
 
 @menu
 * Setup for MacOS X::
@@ -105,7 +105,7 @@ chmod u+x lilypond
 
 Ajoutez alors ce répertoire à votre @var{PATH}.  Modifiez le fichier
 @code{.profile} -- créez-le si besoin -- de votre répertoire personnel,
-de telle sorte qu'il contienne 
+de telle sorte qu'il contienne
 
 @example
 export PATH=$PATH:~/bin
@@ -146,14 +146,14 @@ mots-clés, l'indentation, les appariements spécifiques à LilyPond, la
 coloration synthaxique, ainsi que des raccourcis pour compiler et
 consulter les manuels de LilyPond en mode info.  Si le
 @file{lilypond-mode} n'était pas installé sur votre système, procédez
-comme ci-dessous. 
+comme ci-dessous.
 
 Le répertoire @file{elisp} inclus dans les sources contient aussi un
 mode pour saisir la musique et lancer LilyPond.  Faites @command{make
 install} pour l'installer dans votre @var{elispdir}.  Le fichier
 @file{lilypond-init.el} devrait trouver sa place dans
 @var{load-path}@file{/site-start.d/} ou bien ajouté à votre
-@file{~/.emacs} ou @file{~/.emacs.el}. 
+@file{~/.emacs} ou @file{~/.emacs.el}.
 
 En tant que simple utilisateur, vous pouvez toujours ajouter votre
 propre répertoire (par exemple @file{~/site-lisp/}) à votre
@@ -169,10 +169,10 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 @node Vim mode
 @subsection Vim mode
 
-En ce qui concerne @uref{http://@/www@/.vim@/.org,VIM}, LilyPond fournit 
+En ce qui concerne @uref{http://@/www@/.vim@/.org,VIM}, LilyPond fournit
 un fichier @file{vimrc} qui gère la coloration synthaxique.  Le
 répertoire @code{$VIM} inclus dans les sources contient aussi un
-mode pour saisir la musique et lancer LilyPond. 
+mode pour saisir la musique et lancer LilyPond.
 
 Le type de fichier LilyPond sera reconnu si votre
 @file{~/.vim/filetype.vim} contient
@@ -182,7 +182,7 @@ if exists("did_load_filetypes")
   finish
 endif
 augroup filetypedetect
-  au! BufNewFile,BufRead *.ly           setf lilypond
+  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
 augroup END
 @end example
 
@@ -202,13 +202,13 @@ en conséquence.
 @node jEdit
 @subsection jEdit
 
-Créé en tant que greffon pour l'éditeur de texte 
+Créé en tant que greffon pour l'éditeur de texte
 @uref{http://@/www@/.jedit@/.org@/,jEdit}, LilyPondTool est l'outil le
 plus riche en fonctionnalités pour éditer des partitions écrites avec
 LilyPond.  Cela inclue un assistant à la création de document qui prend
 en charge les paroles, un visionneur de PDF avec gestion du
 pointer-cliquer.  Captures d'écran, démonstrations et instructions
-d'installation sont disponibles sur le site de 
+d'installation sont disponibles sur le site de
 @uref{http://lilypondtool@/.organum@/.hu,LilyPondTool}.
 
 
@@ -218,7 +218,7 @@ d'installation sont disponibles sur le site de
 L'éditeur
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
 pour MacOS@tie{}X peut prendre en charge LilyPond, lilypond-book et
-convert-ly, en lui adjoignant les extensions disponibles 
+convert-ly, en lui adjoignant les extensions disponibles
 @uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html,ici}.
 
 
@@ -248,7 +248,7 @@ LilyKDE peut s'interfacer avec
 la musique à l'aide d'un clavier MIDI.
 
 LilyKDE gère l'hyphénation des paroles, et le gestionnaire de fichiers
-de KDE permet de lancer LilyPond sur plusierus fichiers simultanément. 
+de KDE permet de lancer LilyPond sur plusierus fichiers simultanément.
 
 
 @node Point and click
@@ -262,15 +262,15 @@ partir du fichier imprimable.
 Lorsque cette fonctionnalité est active, LilyPond ajoute des hyperliens
 au fichier PDF.  Ces liens sont transmis au navigateur internet qui se
 charge d'ouvrir un éditeur de texte à l'enfroit même où le curseur
-pointe. 
+pointe.
 
 Afin que cette chaîne de traitement soit pleinement opérationnelle, il
 faut configurer votre visionneur de PDF de façon à ce qu'il suive les
 liens grâce au script @file{lilypond-invoke-editor} fourni avec
-LilyPond. 
+LilyPond.
 
 
-Pour Xpdf, sous UNIX, vous devrez insérer la ligne suivante dans 
+Pour Xpdf, sous UNIX, vous devrez insérer la ligne suivante dans
 le fichier @file{xpdfrc} -- soit @file{/etc/xpdfrc}, soit dans votre
 répertoire personnel @file{.xpdfrc}.
 
@@ -282,7 +282,7 @@ urlCommand     "lilypond-invoke-editor %s"
 charge d'appeler un éditeur pour les identifants de ressource
 (@emph{URI}) de type @code{textedit}, et un navigateur pour les autres.
 Il teste en outre la variable d'environnement @code{EDITOR} pour les cas
-suivant : 
+suivant :
 
 @table @code
 @item emacs
@@ -330,7 +330,7 @@ toujours possible de désactiver le pointer-cliquer en ajoutant
 
 @noindent
 dans le fichier @file{.ly}.  Il peut alors être activé de manière
-explicite grâce à 
+explicite grâce à
 
 @example
 \pointAndClickOn

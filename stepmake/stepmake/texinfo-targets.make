@@ -56,7 +56,7 @@ endif # copying info images
 
 
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
-## install-info can't do all his job for binary packages build systems.
+## install-info can't do all its job for binary packages' build systems.
 ## Best we can do is to notify the builder or packager.
 local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
@@ -113,7 +113,7 @@ local-install-info: info
 	@echo "***************************************************************"
 	@echo "To compile Info documentation with images, do from top of the build tree"
 	@echo
-	@echo "    make web"
+	@echo "    make doc"
 	@echo
 	@echo "which builds documentation in all formats; to build only Info documentation, do"
 	@echo

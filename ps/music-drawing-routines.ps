@@ -124,12 +124,16 @@ bind def
 } bind def
 
 % this is for drawing slurs and barre-indicators.
-/draw_bezier_sandwich  % thickness controls
+/draw_bezier_sandwich  % x5 y5 x6 y6 x7 y7
+                       % x4 y4
+                       % x1 y1 x2 y2 x3 y3 
+                       % x0 y0
+                       % linewidth draw_bezier_sandwich
 {
 	gsave
 	currentpoint translate
-    % round ending and round beginning
-    1 setlinejoin 1 setlinecap
+        % round ending and round beginning
+        1 setlinejoin 1 setlinecap
 	setlinewidth
 	moveto
 	curveto

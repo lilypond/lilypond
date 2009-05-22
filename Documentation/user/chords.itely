@@ -61,6 +61,9 @@ found at @ref{Input modes}.
 
 Chords entered using chord mode are music elements, and can be
 transposed just like chords entered using simultaneous music.
+@code{\chordmode} is absolute, as @code{\relative} has no effect
+on @code{chordmode} blocks. However, in @code{\chordmode} the
+absolute pitches are one octave higher than in note mode.
 
 Chord mode and note mode can be mixed in sequential music:
 
@@ -141,7 +144,7 @@ Seventh chords can be created:
 The table belows shows the actions of the quality modifiers on
 triads and seventh chords.  The default seventh step added to
 chords is a minor or flatted seventh, which makes the dominant
-seventh the basic seventh chord.  All alterations are relative to 
+seventh the basic seventh chord.  All alterations are relative to
 the dominant seventh.  A more complete table of modifier usage
 is found at @ref{Common chord modifiers}.
 
@@ -231,7 +234,7 @@ Snippets:
 @rlsr{Chords}.
 
 @knownissues
-Only one quality modifier should be used per chord, typically on the 
+Only one quality modifier should be used per chord, typically on the
 highest step present in the chord.  Chords with more than quality
 modifier will be parsed without an error or warning, but the results
 are unpredictable.  Chords that cannot be achieved with a single
@@ -450,6 +453,30 @@ of the mode of entry, unless there are inversions or added bass notes:
     \chordmode {
       c2 f:sus4 c1:/f
     }
+  }
+>>
+@end lilypond
+
+@cindex no chord symbol
+@cindex N.C. symbol
+@cindex indicating No Chord in ChordNames
+
+Rests passed to a @code{ChordNames} context will cause the
+@code{noChordSymbol} markup to be displayed.
+
+@lilypond[verbatim, quote, relative=1]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+  \new Score \chordmode {
+    c1
+    r1
+    g1
+    c1
   }
 >>
 @end lilypond

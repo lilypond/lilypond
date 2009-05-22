@@ -84,6 +84,8 @@ Align_interface::stretch_after_break (SCM grob)
    an empty extent, delete it from the list instead. If the extent is
    non-empty but there is no skyline available (or pure is true), just
    create a flat skyline from the bounding box */
+// TODO(jneem): the pure and non-pure parts seem to share very little
+// code. Split them into 2 functions, perhaps?
 static void
 get_skylines (Grob *me,
 	      vector<Grob*> *const elements,
@@ -137,8 +139,31 @@ get_skylines (Grob *me,
 	    {
 	      Box b;
 	      b[a] = extent;
-	      b[other_axis (a)] = Interval (-infinity_f, infinity_f);
+	      b[other_axis (a)] = Interval (0, infinity_f);
 	      skylines.insert (b, 0, other_axis (a));
+	    }
+
+	  // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
+	  // It's quite common for a treble clef to be the highest element of one system
+	  // and for a low note (or lyrics) to be the lowest note on another. The two will
+	  // never collide, but the pure-height stuff only works with bounding boxes, so it
+	  // doesn't know that. The result is a significant over-estimation of the pure-height,
+	  // especially on systems with many staves. To correct for this, we build a skyline
+	  // in two parts: the part we did above contains most of the grobs (note-heads, etc.)
+	  // while the bit we're about to do only contains the breakable grobs at the beginning
+	  // of the system. This way, the tall treble clefs are only compared with the treble
+	  // clefs of the other staff and they will be ignored if the staff above is, for example,
+	  // lyrics.
+	  if (Axis_group_interface::has_interface (g))
+	    {
+	      Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
+	      if (!begin_of_line_extent.is_empty ())
+		{
+		  Box b;
+		  b[a] = begin_of_line_extent;
+		  b[other_axis (a)] = Interval (-infinity_f, -1);
+		  skylines.insert (b, 0, other_axis (a));
+		}
 	    }
 	}
 
