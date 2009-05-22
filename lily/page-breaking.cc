@@ -762,6 +762,12 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   int line_count = 0;
 
   cache_line_details (configuration);
+
+  // If the first line on a page has titles, allow them some extra space.
+  if (cached_line_details_.size ()
+      && cached_line_details_[0].compressed_nontitle_lines_count_ < cached_line_details_[0].compressed_lines_count_)
+    cur_page_height += page_top_space ();
+
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
       Real ext_len = cached_line_details_[i].extent_.length ();
@@ -780,6 +786,9 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 	  cur_rod_height = ext_len;
 	  cur_spring_height = cached_line_details_[i].space_;
 	  cur_page_height = page_height (first_page_num + ret, false);
+
+	  if (cached_line_details_[i].compressed_nontitle_lines_count_ < cached_line_details_[i].compressed_lines_count_)
+	    cur_page_height += page_top_space ();
 	  ret++;
 	}
       else
