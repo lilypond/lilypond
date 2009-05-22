@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: 48f804da6794a7bc8e7fdd4b1649f485b0b09d26
   texidoces = "
 Los pasajes citados tienen en cuenta la transposición de la fuente
 tanto como la del destino.  En este ejemplo, todos los
@@ -15,7 +16,7 @@ se transportan todas las notas (incluidas las citadas).
 
 doctitlees = "Citar otra voz con transposición"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Zitate berücksichtigen sowohl die Transposition der Quelle als auch
 des Zielinstruments.  In diesem Beispiel spielen alle Instrumente

@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: dcd61338c753205b6f8d549389fcb0d999c3a675
   texidoces = "
 Si hay un solo pentagrama en un de los tipos de sistema
 @code{ChoirStaff} o @code{StaffGroup}, el comportamiento
@@ -18,7 +19,7 @@ distinta, como se ve en el segundo sistema del ejemplo.
   doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
 
   
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
 @code{StaffGroup} angezeigt wird, wird die Klammer zu Beginn normalerweise

@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: dcd61338c753205b6f8d549389fcb0d999c3a675
   texidoces = "
 La propiedad @code{quotedEventTypes} determina los tipos de
 eventos musicales que resultan citados.  El valor predeterminado
@@ -15,7 +16,7 @@ el fragmento citado porque @code{rest-event} no está dentro de los
 "
   doctitlees = "Citar otra voz"
   
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die @code{quotedEventTypes}-Eigenschaft bestimmt die
 Typen an Musikereignissen, die zitiert werden.  Die

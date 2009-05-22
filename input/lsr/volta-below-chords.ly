@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 Mediante la adición del grabador @code{Volta_engraver} al
 pentagrama pertinente, se pueden poner los corchetes de primera y
@@ -12,7 +13,7 @@ segunda vez debajo de los acordes.
   doctitlees = "Corchetes de primera y segunda vez debajo de los acordes"
 
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Indem man den @code{Volta_engraver} zu dem entsprechenden Notensystem
 hinzufügt, können Wiederholungsklammern unterhalb der Akkorde gesetzt

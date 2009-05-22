@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Este ejemplo proporciona una función para tipografiar un regulador
 con texto por debajo, como \"molto\" o \"poco\". El ejemplo

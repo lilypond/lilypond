@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 Los nombres de instrumento se imprimen generalmente a la izquierda de
 los pentagramas.  Para alinear los nombres de varios instrumentos

@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama
@@ -13,7 +14,8 @@ puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
 
 "
 
-texidocde = "
+%% Translation of GIT committish: b4f6b5ad66d016c312cddc8d4026ad852f9a7c36
+  texidocde = "
 Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
 und Brevispausen (auch Kirchenpausen genannt) gesetzt, bei mehr Takten
 wird eine Line mit der Taktanzahl ausgegeben.  Der vorgegebene Wert von
@@ -23,7 +25,7 @@ setzt:
   doctitlede = "Die Erscheinung von Pausentakten ändern"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
 texidocfr = "
 Dans le cas où ce silence dure mois de dix mesures, LilyPond imprime sur
 la portée des @qq{ silences d'église } -- @emph{Kirchenpause} en

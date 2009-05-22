@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones a través de @code{'fret-diagram-details}.  Para los
@@ -25,7 +26,7 @@ le @qq{markup}.
 "
   doctitlefr = "Personnalisation des diagrammes de fret"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Bunddiagramme können mit der Eigenschaft @code{'fret-diagram-details}
 angepasst werden.  Bunddiagramme, die als Textbeschriftung eingefügt werden,

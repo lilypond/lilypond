@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 Los «incipit» se pueden escribir utilizando el grob del nombre del
 instruemento, pero manteniendo independientes las definiciones del

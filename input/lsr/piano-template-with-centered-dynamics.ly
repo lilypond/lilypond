@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Muchas partituras de piano tienen las indicaciones dinámicas
 centradas entre los dos pentagramas.  Esto requiere un poco de
@@ -12,6 +13,7 @@ que hacer este trucaje por nuestra cuenta.
 
 "
   doctitlees = "Plantilla de piano con matices centrados"
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   
   texidocde = "
 In der meisten Klaviernotation werden die Dynamikzeichen zwischen 
@@ -20,6 +22,7 @@ etwas anpassen, aber Sie können ja das angepasste Beispiel von hier
 kopieren.
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 多くのピアノ譜は、強弱記号を 2 つの譜の間に置きます。これを実現するにはちょっ@c
 とした調整が必要ですが、そのテンプレートがここにあるので、あなた自身が調整を行@c

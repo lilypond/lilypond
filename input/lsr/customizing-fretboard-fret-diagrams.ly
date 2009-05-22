@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones de acordes por medio de @code{'fret-diagram-details}.

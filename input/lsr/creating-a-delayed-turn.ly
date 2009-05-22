@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: b10de35f895919aec109de6fb1fc84d42ad851b3
 texidoces = "
 La creación de un grupeto circular de anticipación entre dos notas,
 donde la nota inferior del grupeto utiliza una alteración, requiere
@@ -18,7 +19,7 @@ grupeto horizontalmente.
 doctitlees = "Crear un grupeto de anticipación"
 
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Einen Doppelschlag mit Vorhalt zu erstellen, wobei die untere Note das
 Vorzeichen benutzt, erfordert einige Einstellungsänderungen.  Die

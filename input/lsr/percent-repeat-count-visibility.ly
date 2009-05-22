@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: 43774ddb81b9017802da04ba2862cae4586935b2
   texidoces = "
 Se pueden mostrar los contadores de las repeticiones del tipo
 porcentaje a intervalos regulares mediante el establecimiento de
@@ -11,7 +12,7 @@ la propiedad de contexto @code{repeatCountVisibility}.
 "
   doctitlees = "Visibilidad del contador de repeticiones de tipo porcentaje"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Prozentwiederholungszähler können in regelmäßigen Intervallen angezeigt
 werden, indem man die Eigenschaft @code{repeatCountVisibility} beeinflusst.

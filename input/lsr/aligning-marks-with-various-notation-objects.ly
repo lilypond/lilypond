@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 Si están especificadas, las marcas de texto se pueden alinear con
 objetos de notación distintos a las líneas divisorias.  Entre estos
@@ -19,7 +20,7 @@ debe hacer este ajuste para todos los pentagramas).
 "
   doctitlees = "Alinear marcas con varios objetos de notación"
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Wenn angegeben, können Textzeichen auch an anderen Objekten als Taktstrichen
 ausgerichtet werden.  Zu diesen Objekten gehören @code{ambitus},

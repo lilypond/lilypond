@@ -3,6 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 A diferencia de las inscripciones de texto, las lestras de ensayo
 no se pueden apilar en un punto concreto de la partitura: sólo se

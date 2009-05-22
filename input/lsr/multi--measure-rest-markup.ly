@@ -4,6 +4,7 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: a041509cb268bc38f6491a33fdeabae91ed6de67
 texidoces = "
 Los elementos de marcado aplicados a un silencio multicompás se
 centran encima o debajo de éste.  Los elementos de marcado extensos
@@ -22,7 +23,7 @@ longitud del texto, éste aparecerá centrado.
 
 doctitlees = "Marcado de silencios multicompás"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "Textbeschriftungen, die an Mehrtaktpausen gehängt wird,
 wird über oder unter der Pause zentriert.  Lange Beschriftungen
 lassen den Takt nicht breiter werden.  Um eine Mehrtaktpause einer
@@ -39,7 +40,7 @@ ist."
   doctitlede = "Textbeschriftung und Mehrtaktpausen"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 Lorsque du texte est attaché à un silence multi-mesures, il sera centré
 dans la mesure, au-dessus ou en dessous de la portée.  Afin d'étirer la
