@@ -1420,6 +1420,26 @@ def conv (str):
 	return '(ly:make-pitch %s %s %s)' % (m.group(1), m.group (2),
 					     alt)
 
+    def fixKS(m):
+        words = {  '-2': "DOUBLE-FLAT",
+                   '-1': "FLAT",
+                   '0':  "NATURAL",
+                   '1':  "SHARP",
+                   '2':  "DOUBLE-SHARP"}
+        parts = m.group().split("`")
+        if len(parts) != 2:
+            return m.group()
+        numbers = re.findall(r'-?\d+',parts[1])
+        if len(numbers) % 3 != 0:
+            return m.group()
+        newalterations = []
+        for i in range(len(numbers) / 3):
+            newalterations.append('(('+numbers[i*3]+' . '+numbers[i*3+1]+') . ,'+
+                                 words[numbers[i*3+2]]+')')
+        whitespace = '\n'+' '*(len(parts[0])+2)
+        output = parts[0]+'`('+whitespace.join(newalterations)+')'
+        return output
+
     str =re.sub ("\\(ly:make-pitch *([0-9-]+) *([0-9-]+) *([0-9-]+) *\\)",
 		 sub_alteration, str)
 
@@ -1437,19 +1457,19 @@ Please hand-edit, using
 as a substitution text.""") % (m.group (1), m.group (2)) )
 	raise FatalConversionError ()
 
-    if re.search ("ly:(make-pitch|pitch-alteration)", str) \
-	   or re.search ("keySignature", str):
+    if re.search ("ly:(make-pitch|pitch-alteration)", str):
 	stderr_write ('\n')
 	stderr_write (NOT_SMART % "pitches")
 	stderr_write ('\n')
 	stderr_write (
 	    _ ("""The alteration field of Scheme pitches was multiplied by 2
-to support quarter tone accidentals.  You must update the following constructs manually:
-
-* calls of ly:make-pitch and ly:pitch-alteration
-* keySignature settings made with \property
+to support quarter tone accidentals.  You must update the following construct
+manually: calls of ly:make-pitch and ly:pitch-alteration
 """))
 	raise FatalConversionError ()
+
+    findKeySig = re.compile(r'\\property\s+\w+\.keySignature .*?\)\s*\)',re.DOTALL)
+    str = findKeySig.sub(fixKS,str)
     return str
 
 
@@ -2616,6 +2636,34 @@ def conv (str):
     ## FIXME: standard vs default, alteration-FOO vs FOO-alteration
     str = str.replace ('alteration-default-glyph-name-alist',
                        'standard-alteration-glyph-name-alist')
+
+    def fixKS(m):
+        words = {  '-4': "DOUBLE-FLAT",
+                   '-3': "THREE-Q-FLAT",
+                   '-2': "FLAT",
+                   '-1': "SEMI-FLAT",
+                   '0':  "NATURAL",
+                   '1':  "SEMI-SHARP",
+                   '2':  "SHARP",
+                   '3':  "THREE-Q-SHARP",
+                   '4':  "DOUBLE-SHARP"}
+        parts = m.group().split("`")
+        if len(parts) != 2:
+            return m.group()
+        numbers = re.findall(r'-?\d+',parts[1])
+        if len(numbers) % 3 != 0:
+            return m.group()
+        newalterations = []
+        for i in range(len(numbers) / 3):
+            newalterations.append('(('+numbers[i*3]+' . '+numbers[i*3+1]+') . ,'+
+                                 words[numbers[i*3+2]]+')')
+        whitespace = '\n'+' '*(len(parts[0])+2)
+        output = parts[0]+'`('+whitespace.join(newalterations)+')'
+        return output
+
+    findKeySig = re.compile(r'\\set\s+\w+\.keySignature .*?\)\s*\)',re.DOTALL)
+    str = findKeySig.sub(fixKS,str)
+
     return str
 
 
@@ -2883,9 +2931,9 @@ def conv(str):
 @rule ((2, 13, 0), _ ("keySignature property not reversed any more\n\
 MIDI 47: orchestral strings -> orchestral harp"))
 def conv(str):
-    if re.search(r'\set Staff.keySignature', str):
+    if re.search(r'\\set\s+\w+\.keySignature',str):
         stderr_write ("\n")
-        stderr_write (NOT_SMART % _("The alist for Staff.keySignature is no \
+        stderr_write (NOT_SMART % _("Staff.keySignature - the alist is no \
 longer in reversed order.\n"))
     str = str.replace('"orchestral strings"', '"orchestral harp"')
     return str
