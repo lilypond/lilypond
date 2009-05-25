@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 07181d48fd1aab2fe558345a23690681c9c4af18
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 Los textos independientes se pueden disponer en varias columnas
 utilizando instrucciones @code{\\markup}:

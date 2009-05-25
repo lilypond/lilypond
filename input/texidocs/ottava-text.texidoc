@@ -1,11 +1,13 @@
-%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
-Internamente, la función @code{set-octavation} establece las
-propiedades @code{ottavation} (por ejemplo, a @code{\"8va\"} o a
-@code{\"8vb\"}) y @code{middleCPosition}.  Para sobreescribir el texto
-del corchete, ajuste @code{ottavation} despues de invocar a
-@code{set-octavation}.
+Internamente, @code{\\ottava} establece las propiedades
+@code{ottavation} (por ejemplo, a @code{\"8va\"} o a
+@code{\"8vb\"}) y @code{middleCPosition}.  Para sobreescribir el
+texto del corchete, ajuste @code{ottavation} después de invocar la
+instrucción @code{\\ottava}.
+
 "
+
   doctitlees = "Texto de octava alta y baja"
 %% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
   

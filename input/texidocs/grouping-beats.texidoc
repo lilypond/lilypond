@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 Los patrones de barrado se pueden alterar con la propiedad
 @code{beatGrouping}:

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
 texidoces = "
 Cuando cambia la armadura de la tonalidad, se imprimen becuadros
