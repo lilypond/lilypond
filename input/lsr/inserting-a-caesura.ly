@@ -3,7 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: a71dfe75d190e18a075443575d71140173829504
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 Las marcas de cesura se pueden crear sobreescribiendo la propiedad
 @code{'text} del objeto @code{BreathingSign}.  También está disponible

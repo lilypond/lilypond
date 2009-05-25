@@ -3,7 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: afbff4903c2dcf413255a42e38b1d26435509370
+%% Translation of GIT committish: 0ead6a9062687a17d199f72b2d94f0d9fbd1e591
   texidoces = "
 
 Se pueden añadir diagramas de posiciones predefinidas para

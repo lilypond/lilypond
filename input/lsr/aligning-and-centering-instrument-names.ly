@@ -4,27 +4,14 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
-Los nombres de instrumento se imprimen generalmente a la izquierda de
-los pentagramas.  Para alinear los nombres de varios instrumentos
-distintos, sitúelos dentro de un bloque @code{\\markup} y utilice una
-de las siguientes posiblidades:
-
-*
-    Nombres de instrumento alineados por la derecha: es el
-    comportamiento predeterminado
-  
-*
-    Nombres de instrumento centrados: la utilización de la instrucción
-    @code{\\hcenter-in #n} sitúa los nombres de instrumento dentro de
-    un rectángulo separado, donde @code{n} es la anchura del
-    rectángulo
-  
-* 
-    Nombres de instrumento alineados por la izquierda: los nombres se
-    imprimen en la parte superior de un rectángulo vacío, utilizando
-    la instrucción @code{\\combine} con un objeto @code{\\hspace #n}.
+La alineación horizontal de los nombres de instrumento se puede
+trucar modificando la propiedad @code{Staff.InstrumentName
+#'self-alignment-X}.  Las variables de @code{\\layout}
+@code{indent} y @code{short-indent} definen el espacio en que se
+alinean los nombres de instrumento antes del primer sistema y de
+los siguientes, respectivamente.
 
 "
   doctitlees = "Alinear y centrar los nombres de instrumento"

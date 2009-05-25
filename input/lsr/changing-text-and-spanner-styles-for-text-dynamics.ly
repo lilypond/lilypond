@@ -3,16 +3,16 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 Se puede modificar el texto empleado para los crescendos y
 decrescendos modificando las propiedades de contexto
-@code{crescendoText} y @code{decrescendoText}.  El estiloo de la
+@code{crescendoText} y @code{decrescendoText}.  El estilo de la
 línea de extensión se puede cambiar modificando la propiedad
 @code{'style} de @code{DynamicTextSpanner}.  El valor
 predeterminado es @code{'hairpin} (regulador), y entre otros
 valores posibles se encuentran @code{'line} (línea),
-@code{'dashed-line} (línea intermitente) y @code{'dotted-line}
+@code{'dashed-line} (línea discontinua) y @code{'dotted-line}
 (línea de puntos):
 
 "

@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones a través de @code{'fret-diagram-details}.  Para los

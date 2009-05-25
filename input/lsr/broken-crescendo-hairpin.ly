@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
+%% Translation of GIT committish: 0ead6a9062687a17d199f72b2d94f0d9fbd1e591
   texidoces = "
 Para hacer invisibles partes de un regulador de crescendo, se usa
 el método de dibujar un rectángulo blanco encima de la parte

@@ -3,7 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 Mediante la adición del grabador @code{Volta_engraver} al
 pentagrama pertinente, se pueden poner los corchetes de primera y

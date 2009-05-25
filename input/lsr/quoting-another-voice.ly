@@ -3,7 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: dcd61338c753205b6f8d549389fcb0d999c3a675
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 La propiedad @code{quotedEventTypes} determina los tipos de
 eventos musicales que resultan citados.  El valor predeterminado
