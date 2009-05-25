@@ -344,11 +344,10 @@ Paper_column::is_extraneous_column_from_ligature (Grob *me)
 
 ADD_INTERFACE (Paper_column,
 	       "@code{Paper_column} objects form the top-most X@tie{}parents"
-	       " for items.  There are two types of columns: musical columns,"
-	       " where are attached to, and non-musical columns, where"
-	       " bar-lines, clefs, etc., are attached to.  The spacing engine"
-	       " determines the X@tie{}positions of these objects.\n"
-	       "\n"
+	       " for items.  There are two types of columns: musical and"
+	       " non-musical, to which musical and non-musical objects are"
+	       " attached respectively.  The spacing engine determines the"
+	       " X@tie{}positions of these objects.\n"
 	       "They are numbered, the first (leftmost) is column@tie{}0."
 	       "  Numbering happens before line breaking, and columns are not"
 	       " renumbered after line breaking.  Since many columns go"
