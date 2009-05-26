@@ -526,7 +526,7 @@
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
 	(side-axis . ,Y)
-	(avoid-slur . outside )
+	(avoid-slur . outside)
 	(font-series . bold)
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface
