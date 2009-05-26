@@ -65,7 +65,7 @@ de = LanguageDef ('de', 'deutsch')
 # FIXME: should use localized name for ja
 ja = LanguageDef ('ja', 'japanese')
 # Outdated or broken translations may be disabled
-# (please run 'make web-clean' before doing that):
+# (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
 LANGUAGES = (site, fr, es, de, )#ja)
