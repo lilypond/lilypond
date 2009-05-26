@@ -217,7 +217,7 @@ a\> a a\!
 
 
 @item @code{\partial 8}
-@tab upstep
+@tab pickup / upbeat
 @tab
 @lilypond[fragment,relative=2]
 \partial 8
