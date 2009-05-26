@@ -222,7 +222,7 @@ is then separated.
 (define-public (music-to-xml music port)
   "Dump XML-ish stuff to PORT."
 
-  ;; dtd contains # -- This confuses tex during make web.
+  ;; dtd contains # -- This confuses tex during make doc.
   ;;
   ;;  (display (dtd-header) port)
   
@@ -233,7 +233,7 @@ is then separated.
 (define-public (music-to-musicxml music port)
   "Dump MusicXML-ish stuff to PORT."
 
-  ;; dtd contains # -- This confuses tex during make web.
+  ;; dtd contains # -- This confuses tex during make doc.
   ;;
   ;;  (display (dtd-header) port)
 

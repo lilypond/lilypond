@@ -65,7 +65,7 @@ de = LanguageDef ('de', 'deutsch')
 ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
 
 # Outdated or broken translations may be disabled
-# (please run 'make web-clean' before doing that):
+# (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
 LANGUAGES = (site, fr, es, de, ja)
