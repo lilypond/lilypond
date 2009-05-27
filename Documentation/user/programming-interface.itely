@@ -466,6 +466,9 @@ to create complicated music functions.
 @subsection Displaying music expressions
 
 @cindex internal storage
+@cindex displaying music expressions
+@cindex internal representation, displaying
+@cindex displayMusic
 @funindex \displayMusic
 
 When writing a music function it is often instructive to inspect how
