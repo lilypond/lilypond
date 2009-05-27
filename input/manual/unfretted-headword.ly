@@ -16,7 +16,7 @@
 
 %% Here by, I, the composer, agree that this extract of my composition
 %% be in the public domain and can be part of, used and presented in
-%% the Lilypond Documention Project.
+%% the LilyPond Documention Project.
 
 %% Statement Date: Octber the 9th, 2008
 

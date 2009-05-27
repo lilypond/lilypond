@@ -1,5 +1,5 @@
 %{
-  Bagpipe music settings for Lilypond.
+  Bagpipe music settings for LilyPond.
   This file builds on work by Andrew McNabb (http://www.mcnabbs.org/andrew/)
   
   Substantial changes and additions made by 

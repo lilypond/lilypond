@@ -318,7 +318,7 @@ salida de LilyPond.
 En @LaTeX{}, defina @code{\betweenLilyPondSystem} de tal forma que la
 la inclusión de otros sistemas se dé por terminada una vez que se ha
 alcanzado el número deseado de sistemas requeridos.  Puesto que
-@code{\betweenLilypondSystem} se llama en primer lugar @emph{después}
+@code{\betweenLilyPondSystem} se llama en primer lugar @emph{después}
 del primer sistema, incluir solamente el primer sistema es algo
 trivial.
 

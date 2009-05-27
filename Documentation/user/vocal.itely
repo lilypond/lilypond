@@ -161,7 +161,7 @@ issue to consider when working with vocal music:
 song texts must be interpreted as text, not notes.  For example, the
 input@tie{}@code{d} should be interpreted as a one letter syllable,
 not the note@tie{}D.
-Therefore, a special lyric mode has to be used, either explicitely
+Therefore, a special lyric mode has to be used, either explicitly
 or using some abbreviated methods.
 
 Lyrics are entered in a special input mode, which can be introduced

@@ -157,7 +157,7 @@ of this and other documentation.
 * Specialist notation::            Notation which is only used for
     specific purposes.
 * General input and output::       General information about
-    lilypond input and output.
+    LilyPond input and output.
 * Spacing issues::                 Display of output on paper.
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::     Expert usage.

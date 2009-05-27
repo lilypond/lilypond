@@ -958,7 +958,7 @@ include external image files converted to the
 Encapsulated PostScript format (@emph{eps}), or
 to directly embed graphics into the input file,
 using native PostScript code.  In such a case, it
-may be useful to explicitely specify the size of the
+may be useful to explicitly specify the size of the
 drawing, as demonstrated below:
 
 @lilypond[quote,verbatim,relative=1]

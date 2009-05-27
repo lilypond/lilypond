@@ -1338,7 +1338,7 @@ def musicxml_words_to_lily_event (words):
     # TODO: How should I best convert the font-family attribute?
 
     # TODO: How can I represent the underline, overline and line-through
-    #       attributes in Lilypond? Values of these attributes indicate
+    #       attributes in LilyPond? Values of these attributes indicate
     #       the number of lines
 
     return event
@@ -1710,7 +1710,7 @@ def musicxml_harmony_to_lily_chordname (n):
             ev.bass = musicxml_chordpitch_to_lily (bass)
         inversion = n.get_maybe_exist_named_child ('inversion')
         if inversion:
-            # TODO: Lilypond does not support inversions, does it?
+            # TODO: LilyPond does not support inversions, does it?
 
             # Mail from Carl Sorensen on lilypond-devel, June 11, 2008:
             # 4. LilyPond supports the first inversion in the form of added 

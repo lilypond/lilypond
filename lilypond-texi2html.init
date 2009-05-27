@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # -*- coding: utf-8; -*-
 
-### texi2html customization script for Lilypond
+### texi2html customization script for LilyPond
 ### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
 ###         Some code parts copied from texi2html and adapted. These functions
 ###         were written mainly by Patrice Dumas

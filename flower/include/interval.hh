@@ -14,7 +14,7 @@
 
 /* A T interval.  This represents the closed interval [left,right].
    No invariants.  T must be a totally ordered ring (with division, anyway ..)
-   At instantiation, the function infinity () has to be defined explicitely. */
+   At instantiation, the function infinity () has to be defined explicitly. */
 template<class T>
 struct Interval_t : public Drul_array<T>
 {

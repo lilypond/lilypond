@@ -1492,7 +1492,7 @@ shows the code fragment that produces this ligature, using
 @tab
 @b{Output}
 @tab
-@b{Lilypond@*
+@b{LilyPond@*
 code}
 
 @c TODO: \layout block is identical in all of the below examples.

@@ -1808,7 +1808,7 @@ notes of a chord, as shown:
 @end lilypond
 
 @noindent
-but this may be overriden to manually force all or any of the
+but this may be overridden to manually force all or any of the
 individual fingering numbers above or below:
 
 @cindex fingering example

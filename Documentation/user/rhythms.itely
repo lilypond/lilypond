@@ -2644,7 +2644,7 @@ set directions.  Hence, when introducing layout tweaks to
 override the special settings, they should be placed inside
 the grace expression. The overrides should also be reverted
 inside the grace expression. Here, the grace note's default stem
-direction is overriden and then reverted.
+direction is overridden and then reverted.
 
 @lilypond[quote,verbatim,relative=2]
 \new Voice {

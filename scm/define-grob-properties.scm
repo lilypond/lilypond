@@ -725,7 +725,7 @@ rest?")
      (stencils ,list? "Multiple stencils, used as intermediate
 value.")
      (strict-grace-spacing ,boolean? "If set, main notes are spaced
-normally, then grace notes are put left of the musical columns fot the
+normally, then grace notes are put left of the musical columns for the
 main notes.")
      (strict-note-spacing ,boolean? "If set, unbroken columns with
 non-musical material (clefs, bar lines, etc.) are not spaced
