@@ -276,13 +276,13 @@ expand_environment_variables (string orig)
   string out;
   while (ptr < start_ptr + len)
     {
-      char *dollar = strchr (ptr, '$');
+      const char *dollar = strchr (ptr, '$');
       
       if (dollar != NULL)
 	{
-	  char *start_var = dollar + 1;
-	  char *end_var = start_var;
-	  char *start_next = end_var;
+	  const char *start_var = dollar + 1;
+	  const char *end_var = start_var;
+	  const char *start_next = end_var;
 	  
 	  out += string (ptr, dollar - ptr);
 	  ptr = dollar;
