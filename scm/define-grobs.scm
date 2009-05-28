@@ -405,8 +405,8 @@
 			       staff-bar
 			       key-cancellation
 			       key-signature
-			       staff
-			       time-signature custos)
+			       time-signature
+			       custos)
 
 			      ;; begin of line
 			      (
