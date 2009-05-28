@@ -5,6 +5,7 @@
 \header {
   lsrtags = "editorial-annotations, tweaks-and-overrides"
 
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 De forma predeterminada se añaden corchetes de análisis sencillos
 debajo del pentagrama.  El ejemplo siguiente muestra una manera de

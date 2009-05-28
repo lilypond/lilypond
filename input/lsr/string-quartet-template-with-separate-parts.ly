@@ -5,6 +5,7 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 El fragmento de código \"Plantilla de cuarteto de cuerda\" produce un
 resultado satisfactorio para el cuarteto, pero ¿y si tenemos que
@@ -25,6 +26,7 @@ los archivos independientes!
 "
   doctitlees = "Plantilla de cuarteto de cuerda con particellas independientes"
   
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   texidocde = "
 Mit diesem Beispiel können Sie ein schönes Streichquartett notieren, 
 aber wie gehen Sie vor, wenn Sie Stimmen brauchen? Das Beispiel 
@@ -41,6 +43,7 @@ Partitur (@code{score.ly}). Mit @code{\tag} wird den Stimmen ein Name
 zugewiesen, auf den zurückgegriffen werden kann.
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 \"弦楽四重奏テンプレート\" は適切な弦楽四重奏の楽譜を作り出しますが、個々の@c
 パート譜を譜刻する必要がある場合はどうでしょうか？今度の新しいテンプレートは 

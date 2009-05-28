@@ -5,6 +5,7 @@
 \header {
   lsrtags = "keyboards"
 
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 Los símbolos específicos de acordeón discanto se escriben mediante
 @code{\\markup}.  Se puede trucar la colocación vertical de los
@@ -12,6 +13,7 @@ símbolos modificando los argumentos de @code{\\raise}.
 
 "
   doctitlees = "Símbolos de acordeón discanto"
+%% Translation of GIT committish: 6743e7d829e2efe37d5d00133094df664f1960df
   
   doctitlede = "Symbole für Akkordeon-Diskantregister"
   texidocde = "

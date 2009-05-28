@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
   texidoces = "
 No está especificada ninguna agrupación predeterminada automática
 de las barras para el compás de 7/8, de forma que si se requieren
@@ -15,7 +16,7 @@ compás de 7/8, especificamos los finales de barra en 2/8 y 5/8:
 "
   doctitlees = "Agrupamiento de las barras en el compás de 7/8"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Es gibt keine automatischen Balkengruppen für 7/8-Takte.  Wenn diese
 Taktart benötigt wird, müssen die Gruppierungen definiert werden.  Um

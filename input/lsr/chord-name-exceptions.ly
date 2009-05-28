@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 Se puede usar la propiedad @code{chordNameExceptions} para
 almacenar una lista de notaciones espaciales para acordes

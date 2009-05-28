@@ -5,6 +5,7 @@
 \header {
   lsrtags = "fretted-strings"
 
+%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
   texidoces = "
 La polifonía se crea de la misma forma en un @code{TabStaff} que
 en una pauta normal.

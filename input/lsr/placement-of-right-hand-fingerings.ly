@@ -5,6 +5,7 @@
 \header {
   lsrtags = "fretted-strings"
 
+%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
   texidoces = "
 Es posible ejercer un mayor control sobre la colocación de las
 digitaciones de la mano derecha estableciendo el valor de una
@@ -23,7 +24,7 @@ l'exemple suivant.
 "
   doctitlefr = "Positionnement des doigtés main droite"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Man kann die Positionierung von Fingersatz der rechten Hand besser
 kontrollieren, wenn eine bestimmte Eigenschaft gesetzt wird, wie

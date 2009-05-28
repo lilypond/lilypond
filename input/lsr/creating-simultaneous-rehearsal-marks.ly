@@ -46,7 +46,6 @@ end of one system and the start of the following system.
   
   \time 4/4
   \once \override Score.RehearsalMark #'self-alignment-X = #LEFT
-  \once \override Score.RehearsalMark #'break-align-symbols = #'(bar-line)
   \mark \markup { \box \bold Intro }
   d'1
   \mark \default

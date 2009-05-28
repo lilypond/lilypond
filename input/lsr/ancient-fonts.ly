@@ -5,6 +5,7 @@
 \header {
   lsrtags = "ancient-notation"
 
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 Aquí se muestran muchos (¿o quizá todos?) de los símbolos que
 están contemplados por la capacidad de LilyPond para la música
@@ -13,6 +14,7 @@ antigua.
 
   doctitlees = "Tipografía de música antigua"
 
+%% Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
   texidocfr ="
 Voici comment graver la plupart, sinon tous les symboles que
 LilyPond prend en charge en matière de musique ancienne.

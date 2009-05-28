@@ -5,6 +5,7 @@
 \header {
   lsrtags = "text, vocal-music, contexts-and-engravers, template"
 
+%% Translation of GIT committish: f39a9724d9f51ed9d0d464689ef62f549d7b8dd6
   texidoces = "
 Esta plantilla es, básicamente, la misma que la sencilla plantilla
 \"Conjunto vocal\", excepto que aquí todas las líneas de letra se
@@ -14,12 +15,14 @@ colocan utilizando @code{alignAboveContext} y
 "
   doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"
   
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   texidocde = "
 In diesem Beispiel werden die Texte mit den Befehlen 
 @code{alignAboveContext} und @code{alignBelowContext}
 über und unter dem System angeordnet.
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が 
 @code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。

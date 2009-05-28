@@ -5,6 +5,7 @@
 \header {
   lsrtags = "contexts-and-engravers"
 
+%% Translation of GIT committish: f39a9724d9f51ed9d0d464689ef62f549d7b8dd6
   texidoces = "
 Del problema central de la notación, esto es, crear un determinado
 símbolo, se encargan los «plugins» o complementos añadidos.  Cada

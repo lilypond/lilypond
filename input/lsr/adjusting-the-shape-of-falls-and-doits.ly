@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Puede ser necesario trucar la propiedad
 @code{shortest-duration-space} para poder ajustar el tamaño de las
@@ -13,7 +14,7 @@ caídas y subidas de tono («falls» y «doits»).
 "
   doctitlees = "Ajustar la forma de las subidas y caídas de tono"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Die @code{shortest-duration-space}-Eigenschaft kann verändert werden, um
 das Aussehen von unbestimmten Glissandi anzupassen.

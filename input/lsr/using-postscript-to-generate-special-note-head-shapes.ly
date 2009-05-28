@@ -5,6 +5,7 @@
 \header {
   lsrtags = "editorial-annotations, tweaks-and-overrides"
 
+%% Translation of GIT committish: 522d964c61521ed64f352c4774c4f2860f7ae5ec
   texidocfr = "
 Lorsqu'il est impossible d'obtenir facilement une allure particulière
 pour les têtes de note en recourant à la technique du @code{\\markup}, un

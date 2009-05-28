@@ -5,6 +5,7 @@
 \header {
   lsrtags = "simultaneous-notes, chords, keyboards"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 Los «clusters» o racimos son un mecanismo para indicar la
 interpretación de un ámbito de notas al mismo tiempo.

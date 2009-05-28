@@ -5,6 +5,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
 y péguela, escriba las notas y luego la letra. Este ejemplo desactiva
@@ -14,6 +15,7 @@ comentario la línea correspondiente.
 
 "
   doctitlees = "Plantilla de pentagrama único don notas y letra"
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   
   texidocde = "
 Das nächste Beispiel zeigt eine einfache Melodie mit Text. Kopieren 
@@ -25,6 +27,7 @@ Wenn Sie die Balken wieder einschalten wollen, müssen Sie die
 entsprechende Zeile entweder ändern oder auskommentieren.
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 この小さなテンプレートは歌詞を持つ簡単な旋律を表しています。カット＆ペーストして、音符@c
 を付け加えて、それから歌詞の単語を付け加えてください。この例は自動ビームを off にして@c

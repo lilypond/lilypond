@@ -5,6 +5,7 @@
 \header {
   lsrtags = "text, keyboards, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 En lugar de tener un pentagrama dedicado a la melodía y la letra, ésta
 se puede centrar entre los pentagramas de un sistema de piano.
@@ -12,12 +13,14 @@ se puede centrar entre los pentagramas de un sistema de piano.
 "
   doctitlees = "Plantilla de piano con letra centrada"
   
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   texidocde = "
 Anstatt ein eigenes System für Melodie und Text zu schreiben, können 
 Sie den Text auch zwischen die beiden Klaviersysteme schreiben
 (und damit das zusätzliche System für die Gesangstimme auslassen).
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 旋律と歌詞のための譜表を持つ代わりに、歌詞をピアノ譜の 2 つの譜の間に置くことができます。
 "

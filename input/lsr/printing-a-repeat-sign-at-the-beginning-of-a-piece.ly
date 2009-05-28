@@ -5,6 +5,7 @@
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
 
+%% Translation of GIT committish: da84f4caeafed6832152295e67ae852a9930f568
   texidoces = "
 Se puede imprimir una línea divisoria de la forma @code{|:} al
 principio de la pieza, sobreescribiendo la propiedad correspondiente:
@@ -12,7 +13,7 @@ principio de la pieza, sobreescribiendo la propiedad correspondiente:
 "
   doctitlees = "Imprimir puntos de repetición al prinicpio de la pieza"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Ein @code{|:}-Taktstrich kann auch zu Beginn eines Stückes ausgegeben werden, indem
 man die entsprechende Eigenschaft verändert:

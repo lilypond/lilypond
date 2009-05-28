@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
   texidoces = "
 Las opciones para agrupar los pulsos de un compás están a nuestra
 disposición a través de la función de Scheme
@@ -21,7 +22,7 @@ pasa a la función @code{set-time-signature} como tercer argumento:
 "
 doctitlees = "Símbolos de dirección, símbolos de agrupación de compás"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Optionen, mit denen die Balken in einem Takt gruppiert werden, sind
 durch die Scheme-Funktion @code{set-time-signature} erhältlich, die
@@ -36,6 +37,23 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
 
 "
   doctitlede = "Dirigirzeichen, Taktgruppenzeichen"
+
+
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+  texidocfr = "
+Il existe des options qui permettent de grouper les ligatures au sein
+d'une mesure, grâce à la fonction Scheme @code{set-time-signature}.
+Celle-ci prend trois arguments : le nombre de pulsations, la durée de la
+pulsation et le regroupement des pulsations dans la mesure.  Si l'on
+fait appel au @code{Measure_grouping_engraver}, la fonction 
+@code{set-time-signature} créera aussi des symboles
+@code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
+modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
+9/8 este divisée en 2, 2, 2 et 3.  Ceci est fourni en tant que troisième
+argument à @code{set-time-signature} : @code{'(2 2 2 3)}.
+
+"
+  doctitlefr = "Signes de direction, signes de sous-groupe"
 
   texidoc = "
 Options to group beats within a bar are available through the Scheme

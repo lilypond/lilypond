@@ -5,6 +5,7 @@
 \header {
   lsrtags = "vocal-music, tweaks-and-overrides, spacing"
 
+%% Translation of GIT committish: dcd61338c753205b6f8d549389fcb0d999c3a675
   texidoces = "
 Este fragmento de código muestra el uso de las propiedades de
 contexto @code{alignBelowContext} y @code{alignAboveContext} para
@@ -13,7 +14,7 @@ controlar la posición de la letra y los compases de ossia.
 "
   doctitlees = "Alineación vertical de la letra y los compases de ossia"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Dieser Schnipsel zeigt, wie man die Kontexteigenschaften
 @code{alignBelowContext} und @code{alignAboveContext} benutzen kann, um

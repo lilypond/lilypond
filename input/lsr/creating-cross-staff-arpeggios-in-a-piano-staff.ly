@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Dentro de un @code{PianoStaff}, es posible hacer que un arpegio
 cruce entre los pentagramas ajustando la propiedad
@@ -13,7 +14,7 @@ cruce entre los pentagramas ajustando la propiedad
 "
   doctitlees = "Crear arpegios que se cruzan entre pentagramas dentro de un sistema de piano"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Arpeggio über mehrere Systeme können in anderen Kontexten als dem
 @code{PianoStaff} erstellt werden, wenn der @code{Span_arpeggio_engraver}

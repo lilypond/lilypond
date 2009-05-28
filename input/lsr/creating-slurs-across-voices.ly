@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks, keyboards, unfretted-strings"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 En determinadas situaciones es necesario crear ligaduras de
 expresión entre notas que están en voces distintas.

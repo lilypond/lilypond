@@ -44,7 +44,7 @@ the function used in this example even makes it possible to distinguish enharmon
 
 #(define (color-notehead grob)
   (pitch-to-color
-    (ly:event-property (ly:grob-property grob 'cause) 'pitch)))
+    (ly:event-property (event-cause grob) 'pitch)))
 
 \score {
   \new Staff \relative c' {

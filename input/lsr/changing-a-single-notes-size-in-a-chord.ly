@@ -5,6 +5,7 @@
 \header {
   lsrtags = "simultaneous-notes, editorial-annotations, tweaks-and-overrides"
 
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 Se pueden modificar notas individuales de un acorde con la
 instrucción @code{\\tweak}, alterando la propiedad

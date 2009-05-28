@@ -5,6 +5,7 @@
 \header {
   lsrtags = "pitches"
 
+%% Translation of GIT committish: 48f804da6794a7bc8e7fdd4b1649f485b0b09d26
   texidoces = "
 En una música que tenga muchas apariciones de la
 misma secuencia de notas a distintas alturas, podría ser de

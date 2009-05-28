@@ -5,12 +5,14 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 Esta plantilla muestra un cuarteto de cuerda normal. También utiliza
 una sección @code{\\global} para el compás y la armadura
 
 "
   doctitlees = "Plantilla de cuarteto de cuerda (sencilla)"
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   
   texidocde = "
 Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier 
@@ -18,6 +20,7 @@ wird auch eine @qq{@code{\global}}-Variable für Taktart und
 Vorzeichen benutzt.
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号のために 
 @code{@bs{}global} セクションを使っています。

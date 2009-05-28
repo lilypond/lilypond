@@ -5,23 +5,29 @@
 \header {
   lsrtags = "pitches"
 
+%% Translation of GIT committish: 203ab4a7388f36b9c89c66671498dbaefccbf86e
   texidocfr = "
 En accord avec les règles standards de l'écriture musicale, on grave
 un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
 altération précédente.  Pour modifier ce comportement, assignez la propriété
 @code{extraNatural} du contexte @code{Staff} à la valeur @code{##f} (faux).
 "
+
+%% Translation of GIT committish: 4866dfd58d5c3a8cab4c6c06d5c4fca8e05a3cd7
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
+
 texidoces = "
-Según las reglas estándar de composición tipográfica, se imprime un becuadro
-antes de un sostenido o un bemol cuando se tiene que cancelar una alteración anterior
-en la misma nota.  Para modificar este comportamiento, establezca el valor de la
-propiedad @code{extraNatural}  a @code{##f} (falso) dentro del
-contexto de @code{Staff}.
+Según las reglas estándar de composición
+tipográfica, se imprime un becuadro antes de un sostenido o un
+bemol cuando se tiene que cancelar una alteración anterior en la
+misma nota.  Para modificar este comportamiento, establezca el
+valor de la propiedad @code{extraNatural} a @code{##f} (falso)
+dentro del contexto de @code{Staff}.
 
 "
 
-doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
+%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
+  doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
 hinzugefügt werden"
 
 texidocde = "Den tranditionellen Notensatzregeln zufolge wird ein

@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks, unfretted-strings"
 
+%% Translation of GIT committish: 00fe3d48c0b9f7ba3902bcd8266c3e21d95986ad
   doctitlees = "Marca de pizzicato de chasquido (@q{pizzicato de Bartók})"
   texidoces = "
 El pizzicato de chasquido (también llamado @q{Pizzicato de Bartók}) es un
@@ -16,6 +17,7 @@ instrucción predefinida para crear esta marca, es fácil hacer la definición
 y colocarla directamente en el archivo de lilypond.
 "
 
+%% Translation of GIT committish: 6743e7d829e2efe37d5d00133094df664f1960df
   doctitlede = "Bartók-Pizzicato"
   texidocde = "
 Das Bartók-Pizzicato @q{ist eine besondere Form des Pizzicato, bei dem der

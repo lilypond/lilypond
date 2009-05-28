@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 3644a70508f73e9204837cb07430225e55bd38f6
  doctitlees = "Permitir saltos de línea dentro de grupos especiales con barra"
  texidoces = "
 Este ejemplo artificial muestra cómo se pueden permitir tanto los
@@ -14,7 +15,7 @@ sincopados se deben barrar manualmente.
 
 "
 
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
   texidocde = "
 Dieses künstliche Beispiel zeigt, wie sowohl automatische als auch
 manuelle Zeilenumbrüche innerhalb einer N-tole mit Balken erlaubt
@@ -25,7 +26,7 @@ gesetzt werden.
   doctitlede = "Zeilenumbrüche bei N-tolen mit Balken erlauben"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 Cet exemple peu académique démontre comment il est possible d'insérer un saut 
 de ligne dans un nolet portant une ligature.  Ces ligatures doivent toutefois

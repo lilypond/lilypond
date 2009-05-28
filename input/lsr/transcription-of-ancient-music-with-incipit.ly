@@ -5,6 +5,7 @@
 \header {
   lsrtags = "ancient-notation, tweaks-and-overrides"
 
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 A modo de alternativa para obtener auténticos «incipit»
 independientes de la partitura principal, se incluyen como

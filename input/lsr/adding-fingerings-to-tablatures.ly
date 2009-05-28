@@ -5,6 +5,7 @@
 \header {
   lsrtags = "fretted-strings"
 
+%% Translation of GIT committish: c8446d6eb2fadbf8931a867741572582759935ad
   texidocfr = "Ajout de doigtés à des tablatures"
 
   doctitlefr = "

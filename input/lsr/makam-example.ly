@@ -30,9 +30,7 @@ Hinweisen, wo diese Datei gespeichert ist)."
   lsrtags = "pitches,world-music"
   texidoc = "Makam is a type of melody from Turkey using 1/9th-tone
 microtonal alterations.  Consult the initialization file
-@code{makam.ly} (see the `Learning Manual @version{},
-4.6.3 Other sources of information' for the location of this file)
-for details of pitch names and alterations."
+@code{ly/makam.ly} for details of pitch names and alterations."
   doctitle = "Makam example"
 } % begin verbatim
 
