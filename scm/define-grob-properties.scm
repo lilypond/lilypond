@@ -119,7 +119,10 @@ spacing breakable items.")
      (break-align-symbols ,list? "A list of symbols that determine
 which break-aligned grobs to align this to.  If the grob selected by
 the first symbol in the list is invisible due to break-visibility, we
-will align to the next grob (and so on).")
+will align to the next grob (and so on).  Choices are @code{left-edge},
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{staff-bar},
+@code{key-cancellation}, @code{key-signature}, @code{time-signature},
+and @code{custos}.")
      (break-align-orders ,vector? "Defines the order in which
 prefatory matter (clefs, key signatures) appears.  The format is a
 vector of length@tie{}3, where each element is one order for
