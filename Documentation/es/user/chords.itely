@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2a049d3e874aae48c065787dc1fb4a1ba95a45f2
+    Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -66,7 +66,10 @@ de entrada en @ref{Input modes}.
 
 Los acordes escritos con el modo de acordes son elementos musicales, y
 se pueden transportar igual que los acordes escritos mediante
-construcciones de música simultánea.
+construcciones de música simultánea. @code{\chordmode} es absoluto,
+pues @code{\relative} no tiene ningún efecto sobre los bloques
+@code{chordmode}.  Sin embargo, dentro de @code{\chordmode} las
+alturas absolutas son una octava más agudas que en el modo de notas.
 
 Se pueden mezclar los modos de acorde y de nota en la música
 secuencial:

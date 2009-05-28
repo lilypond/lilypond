@@ -3,17 +3,17 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: 33d87eaa6928c0242687fc2361e89de854161c1d
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 El «Makam» es un tipo de melodía de Turquía que
-utiliza intervalos microtonales de 1/9 de tono.  Consulte el
+utiliza alteraciones microtonales de 1/9 de tono.  Consulte el
 archivo de inicio @code{makam.ly} (véase el 'Manual de
 aprendizaje @version{}, 4.6.3 Otras fuentes de información' para
 averiguar la situación de este archivo) para ver detalles de los
 nombres de las notas y las alteraciones.
 
 "
-  doctitlees = "El «Makam»"
+  doctitlees = "Ejemplo de «Makam»"
 
   
 %% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706

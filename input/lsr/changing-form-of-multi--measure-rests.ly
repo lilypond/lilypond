@@ -3,7 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
  doctitlees = "Cambiar la forma de los silencios multicompás"
  texidoces = "
 Si hay diez compases de silencio o menos, se imprime en el pentagrama

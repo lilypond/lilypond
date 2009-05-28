@@ -6,7 +6,7 @@ altération précédente.  Pour modifier ce comportement, assignez la propriét�
 @code{extraNatural} du contexte @code{Staff} à la valeur @code{##f} (faux).
 "
 
-%% Translation of GIT committish: 4866dfd58d5c3a8cab4c6c06d5c4fca8e05a3cd7
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
 
 texidoces = "

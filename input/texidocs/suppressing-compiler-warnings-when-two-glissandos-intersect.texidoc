@@ -1,9 +1,0 @@
-%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
-  texidoces = "
-Cuando dos o más glissandi se cruzan, aparece un mensaje de
-advertencia \"se ignoran demasiadas columnas de notas que chocan
-entre sí\" al procesar el archivo de LilyPond.  He aquí una forma
-de evitar este mensaje.
-
-"
-  doctitlees = "Suprimir las advertencias del compilador cuando se cruzan dos glissandos"

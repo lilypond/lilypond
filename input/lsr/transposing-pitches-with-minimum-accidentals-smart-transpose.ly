@@ -3,7 +3,7 @@
 %% Note: this file works from version 2.12.0
 \version "2.13.1"
 \header {
-%% Translation of GIT committish: 4866dfd58d5c3a8cab4c6c06d5c4fca8e05a3cd7
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
 doctitlees = "Transportar música con el menor número de alteraciones"
 texidoces = "
 Este ejemplo utiliza código de Scheme para forzar las

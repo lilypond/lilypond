@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 
 De forma predeterminada se suprime el número del primer compás de

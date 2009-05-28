@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: f0b938f9bf8af951390c4449e755553c57b043f7
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 LilyPond también proporciona funciones de formato para imprimir
 números de grupo especial diferentes a la propia fracción, así

@@ -4,26 +4,29 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
+
 La muy utilizada instrucción @code{\\key} establece la propiedad
 @code{keySignature} property, dentro del contexto @code{Staff}.
 
-Para crear armaduras de tonalidad no estándar, ajuste esta propiedad
-directamente.  El formato de esta instrucción es una lista:
+Para crear armaduras de tonalidad no estándar, ajuste esta
+propiedad directamente.  El formato de esta instrucción es una
+lista:
 
 @code{\\set Staff.keySignature = #`(((octava . paso) . alteración)
-((octava . paso) . alteración) ...)} donde, para cada elemento dentro
-de la lista, @code{octava} especifica la octava (siendo cero la octava
-desde el Do central hasta el Si por encima), @code{paso} especifica la
-nota dentro de la octava (cero significa Do y 6 significa Si), y
-@code{alteración} es @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc. (observe
-la coma precedente.)
+((octava . paso) . alteración) ...)} donde, para cada elemento
+dentro de la lista, @code{octava} especifica la octava
+(siendo@tie{}cero la octava desde el Do@tie{}central hasta el Si
+por encima), @code{paso} especifica la nota dentro de la octava
+(cero@tie{}significa@tie{}Do y 6@tie{}significa@tie{}Si), y
+@code{alteración} es @code{,SHARP ,FLAT ,DOUBLE-SHARP}
+etc. (observe la coma precedente.)
 
-Alternativamente, para cada elemento de la lista el uso del formato
-más conciso @code{(paso . alteración)} especifica que la misma
-alteración debe estar en todas las octavas.
+De forma alternativa, para cada elemento de la lista el uso del
+formato más conciso @code{(paso . alteración)} especifica que la
+misma alteración debe estar en todas las octavas.
 
 He aquí un ejemplo de una posible armadura para generar una escala
 exátona:

@@ -101,8 +101,8 @@ uninstall-WWW:
 	$(MAKE) -C input/lsr uninstall
 
 
-# For online docs with content negotiation, issue `make web WEB_TARGETS=online'
-# For both online and offline docs, issue `make web WEB_TARGETS="offline online"'
+# For online docs with content negotiation, issue `make doc WEB_TARGETS=online'
+# For both online and offline docs, issue `make doc WEB_TARGETS="offline online"'
 WEB_TARGETS = offline
 
 WWW-post:

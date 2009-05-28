@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4f881627b3ff5eb538df5221ad77b73d0637aeb4
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   texidoces = "
 La propiedad @code{measureLength} determina dónde se deben insertar
 líneas divisorias y, con @code{beatLength} y @code{beatGrouping}, cómo

@@ -15,7 +15,7 @@ def error (str):
 
 def escape_ly_output_string (input_string):
     return_string = input_string
-    needs_quotes = not re.match (u"^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
+    needs_quotes = not re.match (u"^[a-zA-ZäöüÜÄÖß,\.!:ñ]*$", return_string);
     if needs_quotes:
         return_string = "\"" + string.replace (return_string, "\"", "\\\"") + "\""
     return return_string

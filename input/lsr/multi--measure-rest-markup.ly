@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: a041509cb268bc38f6491a33fdeabae91ed6de67
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
 texidoces = "
 Los elementos de marcado aplicados a un silencio multicompás se
 centran encima o debajo de éste.  Los elementos de marcado extensos

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 48f804da6794a7bc8e7fdd4b1649f485b0b09d26
+%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
