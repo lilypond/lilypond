@@ -419,7 +419,8 @@ System::get_paper_system ()
   Interval staff_refpoints;
   extract_grob_set (this, "spaceable-staves", staves);
   for (vsize i = 0; i < staves.size (); i++)
-    staff_refpoints.add_point (staves[i]->relative_coordinate (this, Y_AXIS));
+    if (staves[i]->is_live ())
+      staff_refpoints.add_point (staves[i]->relative_coordinate (this, Y_AXIS));
 
   pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
   pl->set_property ("system-grob", this->self_scm ()); 
