@@ -363,6 +363,7 @@
     (BendAfter
      . (
 	(stencil . ,bend::print)
+	(minimum-length . 0.5)
 	(thickness . 2.0)
 	(meta . ((class . Spanner)
 		 (interfaces . (spanner-interface
