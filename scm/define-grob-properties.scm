@@ -428,6 +428,8 @@ semitie?")
 units.")
      (height-limit ,ly:dimension? "Maximum slur height: The longer the
 slur, the closer it is to this height.")
+     (hide-tied-accidental-after-break ,boolean? "If set, an accidental
+that appears on a tied note after a line break will not be displayed")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of @code{NoteColumn}s for horizontal shifting.  This is used by
 @rinternals{note-collision-interface}.")
