@@ -52,3 +52,4 @@ This snippet shows how to bring the lyrics line closer to the staff.
   }
   \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 >>
+

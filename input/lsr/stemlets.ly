@@ -39,3 +39,4 @@ the different notations.
   g'16[^\markup { stemlets and no rests } f' \once \override Rest #'transparent = ##t r d']
 }
 
+

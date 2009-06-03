@@ -92,10 +92,11 @@ fragment = {
     \break
 
     \relative c' {
-      \set shapeNoteStyles  = #'#(cross triangle fa #f
-                                  mensural xcircle diamond)
+      \set shapeNoteStyles = #'#(cross triangle fa #f
+                                 mensural xcircle diamond)
       \fragment
     }
   }
   \layout { ragged-right = ##t }
 }
+

@@ -40,3 +40,4 @@ notehead).
 \relative {
   <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }
 }
+

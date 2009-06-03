@@ -56,3 +56,4 @@ positioned directly over the bar line or left-aligned to the bar line.
   \override Score.BarNumber #'self-alignment-X = #LEFT
   c1 | c1
 }
+

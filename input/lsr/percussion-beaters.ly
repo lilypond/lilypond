@@ -155,3 +155,4 @@ stick = \markup {
 \score {
   b1^\stick
 }
+

@@ -36,3 +36,4 @@ If hairpins are too short, they can be lengthened by modifying the
   \override Hairpin #'minimum-length = #5
   << f1 { s4 s\< s\> s\! } >>
 }
+

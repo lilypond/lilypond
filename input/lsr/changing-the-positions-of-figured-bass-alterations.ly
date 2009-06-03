@@ -42,3 +42,4 @@ depending on the @code{figuredBassAlterationDirection} and
   \set figuredBassAlterationDirection = #LEFT
   <6\+> <5+> <6 4-> r
 }
+

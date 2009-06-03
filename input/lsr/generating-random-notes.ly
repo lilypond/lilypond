@@ -28,17 +28,20 @@ get different random note patterns, just change this number.
 } % begin verbatim
 
 \score {
-  { #(let ((random-state (seed->random-state (current-time))))
-    (ly:export
-     (make-music 'SequentialMusic 'elements
-      (map (lambda x
-           (let ((idx (random 12 random-state)))
-            (make-music 'EventChord
-             'elements (list (make-music 'NoteEvent
-                              'duration (ly:make-duration 2 0 1 1)
-                              'pitch (ly:make-pitch (quotient idx 7)
-                                      (remainder idx 7)
-                                      0))))))
-       (make-list 24)))))
+  {
+    #(let ((random-state (seed->random-state (current-time))))
+       (ly:export
+        (make-sequential-music
+         (map (lambda (x)
+                (let ((idx (random 12 random-state)))
+                  (make-event-chord
+                   (list
+                    (make-music 'NoteEvent
+                                'duration (ly:make-duration 2 0 1 1)
+                                'pitch (ly:make-pitch
+                                        (quotient idx 7)
+                                        (remainder idx 7)
+                                        0))))))
+              (make-list 24)))))
   }
 }

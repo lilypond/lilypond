@@ -27,3 +27,4 @@ other situations.
   \override Stem #'stroke-style = #"grace"
   c8( d2) e8( f4)
 }
+

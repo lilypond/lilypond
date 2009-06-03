@@ -116,7 +116,7 @@ beautiful printed scores!
 
 @appendixsubsec Orchestra, choir and piano
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{orchestra-choir-and-piano-template.ly}
+{orchestra,-choir-and-piano-template.ly}
 
 
 @c bad node name to avoid node name conflict

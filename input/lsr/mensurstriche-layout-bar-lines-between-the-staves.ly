@@ -50,3 +50,4 @@ global = {
     \new Staff { << \global { c c } >> }
   >>
 }
+

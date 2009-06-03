@@ -50,3 +50,4 @@ parenF = #(make-dynamic-script (markup #:line (#:normal-text #:italic
 \relative c'' {
   c4\parenF c c \dynamicUp c\parenF
 }
+

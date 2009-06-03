@@ -56,3 +56,4 @@ To create blank staves, generate empty measures then remove the
   bottom-margin = 0.25\in
   top-margin = 0.25\in
 }
+

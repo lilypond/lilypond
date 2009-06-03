@@ -37,3 +37,4 @@ multi-measure rest with a different print function:
   \override MultiMeasureRest #'thickness = #0.48
   R1
 }
+

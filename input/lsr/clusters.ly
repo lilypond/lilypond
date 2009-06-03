@@ -35,3 +35,4 @@ fragment = \relative c' {
   \new Staff \fragment
   \new Staff \makeClusters \fragment
 >>
+

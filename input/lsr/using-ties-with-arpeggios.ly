@@ -62,3 +62,4 @@ can also be used for ordinary consecutive notes.
   \tieDotted
   g8 ~ c g2
 }
+

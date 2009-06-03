@@ -48,3 +48,4 @@ right-hand fingering.
   <g-0\3-\RH #3 >4
   <c-1\2-\RH #4 >4
 }
+

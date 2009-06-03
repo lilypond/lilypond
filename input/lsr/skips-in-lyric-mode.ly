@@ -18,3 +18,4 @@ mode. In other situations, for example, when entering lyrics, using the
   \relative { a'1 a }
   \new Lyrics \lyricmode { \skip 1 bla1 }
 >>
+

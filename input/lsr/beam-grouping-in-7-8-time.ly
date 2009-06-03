@@ -44,3 +44,4 @@ example, to group all beams 2-3-2 in 7/8 time, specify beam endings at
   #(override-auto-beam-setting '(end * * 7 8) 5 8)
   a8 a a a a a a
 }
+

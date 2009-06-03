@@ -37,3 +37,4 @@ stemOff = { \override Staff.Stem #'transparent = ##t }
     \stemOn g'2 \bar "||"
   }
 }
+

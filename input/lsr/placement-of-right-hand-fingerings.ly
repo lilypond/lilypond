@@ -56,3 +56,4 @@ in the following example.
   \set strokeFingerOrientations = #'(left)
   <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >2
 }
+

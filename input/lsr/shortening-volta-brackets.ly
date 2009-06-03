@@ -49,3 +49,4 @@ lasts one measure, which is a duration of 3/4.
     { g4 g g }
   }
 }
+

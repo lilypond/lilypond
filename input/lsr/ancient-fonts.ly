@@ -243,3 +243,4 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
     }
   }
 }
+

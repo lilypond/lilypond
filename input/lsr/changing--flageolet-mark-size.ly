@@ -52,3 +52,4 @@ smallFlageolet =
   d4^\flageolet_\markup { default size } d_\flageolet
   c4^\smallFlageolet_\markup { smaller } c_\smallFlageolet
 }
+

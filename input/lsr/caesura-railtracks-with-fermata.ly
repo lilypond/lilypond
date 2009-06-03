@@ -24,6 +24,7 @@ optically pleasing combination of railtracks and fermata.
   doctitle = "Caesura (\"railtracks\") with fermata"
 } % begin verbatim
 
+
 \relative c'' {
   c2.
   % construct the symbol
@@ -40,3 +41,4 @@ optically pleasing combination of railtracks and fermata.
   c2. \breathe c4
   \bar "|."
 }
+

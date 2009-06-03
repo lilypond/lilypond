@@ -65,3 +65,4 @@ snapPizzicato = \markup \snappizz
   <c' e g>^\snapPizzicato
   <c, e g>_\snapPizzicato
 }
+

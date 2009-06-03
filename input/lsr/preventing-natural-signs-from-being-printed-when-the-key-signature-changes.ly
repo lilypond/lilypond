@@ -46,3 +46,4 @@ property in the @code{Staff} context.
   \key g \minor
   a4 bes c d
 }
+

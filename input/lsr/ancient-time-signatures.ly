@@ -25,3 +25,4 @@ Time signatures may also be engraved in an old style.
   \override Staff.TimeSignature #'style = #'neomensural
   s1
 }
+

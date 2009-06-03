@@ -46,3 +46,4 @@ Bar numbers can also be printed inside boxes or circles.
     = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
   \repeat unfold 4 { c1 } \bar "|."
 }
+

@@ -87,3 +87,4 @@ function, as shown here:
   \set beatLength = #(ly:make-moment 1 16)
   c32[ c c c c c c c]
 }
+

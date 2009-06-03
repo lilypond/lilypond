@@ -34,7 +34,7 @@ manual beaming, manual slurs, ties and phrasing slurs with tuplet
 sections (enclosed within curly braces). 
 
 "
-  doctitle = "Adding beams, slurs, ties etc. when using tuplet and non-tuplet rythms."
+  doctitle = "Adding beams, slurs, ties etc. when using tuplet and non-tuplet rhythms"
 } % begin verbatim
 
 {
@@ -44,3 +44,4 @@ sections (enclosed within curly braces).
   \time 2/4
   \times 4/5 { e'32\( a b d' e' } a'4.\)
 }
+

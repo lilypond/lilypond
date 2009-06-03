@@ -66,3 +66,4 @@ staves. The possibilities are @code{SystemStartBar},
   \new Staff { c1 }
   \new Staff { c1 }
 >>
+

@@ -42,3 +42,4 @@ staff.  However, this behavior can be canceled.
   \once \override Fingering #'staff-padding = #'()
   <c-1 e-2 g-3 b-5>2
 }
+

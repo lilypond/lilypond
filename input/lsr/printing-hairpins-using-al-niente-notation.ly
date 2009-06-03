@@ -38,3 +38,4 @@ setting the @code{circled-tip} property of the @code{Hairpin} object to
   c2\< c\!
   c4\> c\< c2\!
 }
+

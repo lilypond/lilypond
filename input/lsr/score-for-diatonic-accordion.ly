@@ -231,3 +231,4 @@ staffBassRhytm = \new Staff=staffbass  \with { \remove "Clef_engraver" } {
 	\context Lyrics = "lBassRhytmAboveI" \with {alignAboveContext=staffbass} \lyricsto VoiceBassRhytm \LyricBassRhythmI
 	>>
 %}
+

@@ -41,3 +41,4 @@ well.
   \once \override LyricText #'self-alignment-X = #1
   "This is right-aligned"
 }
+

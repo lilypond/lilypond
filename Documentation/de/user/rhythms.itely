@@ -904,13 +904,13 @@ Taktprüfungswarnungen nicht angezeigt.
 @cindex Balkenpausen, mehrtaktig
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi--measure-rests.ly}
+{changing-form-of-multi-measure-rests.ly}
 
 @cindex Mehrtaktpausen, Positionierung
 @cindex Position von Mehrtaktpausen
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{positioning-multi--measure-rests.ly}
+{positioning-multi-measure-rests.ly}
 
 @c TODO -- convert to snippet -- submitted to Neil
 Markups attached to a multi-measure rest will be centered above or

@@ -33,3 +33,4 @@ be achieved by setting @code{doubleSlurs}.
   \set doubleSlurs = ##t
   <c e>4( <d f> <c e> <d f>)
 }
+

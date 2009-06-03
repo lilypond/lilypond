@@ -56,3 +56,4 @@ final bar line, as demonstrated on the second line of this example.
   \override Score.RehearsalMark #'self-alignment-X = #RIGHT  
   \mark "D.C. al Fine"
 }
+

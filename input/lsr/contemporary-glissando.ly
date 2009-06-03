@@ -41,3 +41,4 @@ hidden note and cadenza timing.
   \cadenzaOff
   \bar "|"
 }
+

@@ -49,3 +49,4 @@ normalNoteHeads = \revert NoteHead #'stencil
   <f, \tweak #'stencil \parallelogram b e>4 d
 }
 
+

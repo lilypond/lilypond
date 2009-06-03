@@ -34,3 +34,4 @@ convenient property is switched, as shown in this example:
   \set countPercentRepeats = ##t
   \repeat percent 4 { c1 }
 }
+

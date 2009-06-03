@@ -63,3 +63,4 @@ spaces.
   \override Beam #'auto-knee-gap = #6
   f8 f''8 f8 f''8
 }
+

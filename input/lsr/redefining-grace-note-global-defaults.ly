@@ -61,3 +61,4 @@ stopAcciaccaturaMusic = {
 \relative c'' {
   \acciaccatura d8 c1
 }
+

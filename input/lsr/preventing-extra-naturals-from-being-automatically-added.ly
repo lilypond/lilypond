@@ -54,3 +54,4 @@ note needs to be canceled.  To change this behavior, set the
   \set Staff.extraNatural = ##f
   aeses4 aes ais a
 }
+

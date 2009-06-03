@@ -52,3 +52,4 @@ new beaming endings:
   #(override-auto-beam-setting '(end * * 12 8) 10 8)
   a8 a a a a a a a a a a a
 }
+

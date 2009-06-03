@@ -47,3 +47,4 @@ the staves by setting the property @code{PianoStaff.connectArpeggios}.
     }
   }
 >>
+

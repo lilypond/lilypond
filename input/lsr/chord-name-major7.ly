@@ -35,3 +35,4 @@ The layout of the major 7 can be tuned with @code{majorSevenSymbol}.
   \set majorSevenSymbol = \markup { j7 }
   c:7+
 }
+

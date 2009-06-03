@@ -882,16 +882,16 @@ setting, resulting bar-check warnings may not be displayed.
 @cindex kirchenpausen
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi--measure-rests.ly}
+{changing-form-of-multi-measure-rests.ly}
 
 @cindex multi-measure rests, positioning
 @cindex positioning multi-measure rests
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{positioning-multi--measure-rests.ly}
+{positioning-multi-measure-rests.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{multi--measure-rest-markup.ly}
+{multi-measure-rest-markup.ly}
 
 
 @seealso

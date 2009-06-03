@@ -32,43 +32,42 @@ throughout Mars, from Gustav Holst's The Planets.
 } % begin verbatim
 
 #(define (make-note-req p d)
-  (make-music 'NoteEvent
-   'duration d
-   'pitch p))
+   (make-music 'NoteEvent
+	       'duration d
+	       'pitch p))
 
 #(define (make-note p d)
-  (make-music 'EventChord
-   'elements (list (make-note-req p d))))
+   (make-music 'EventChord
+	       'elements (list (make-note-req p d))))
 
 #(define (seq-music-list elts)
-  (make-music 'SequentialMusic
-   'elements elts))
+   (make-music 'SequentialMusic
+	       'elements elts))
 
 #(define (make-triplet elt)
-  (make-music 'TimeScaledMusic
-   'denominator 3
-   'numerator 2
-   'element elt))
-
+   (make-music 'TimeScaledMusic
+	       'denominator 3
+	       'numerator 2
+	       'element elt))
 
 rhythm =
 #(define-music-function (parser location note) (ly:music?)
-  "Make the rhythm in Mars (the Planets) at the given note's pitch"
-  (let ((p (ly:music-property
-              (car (ly:music-property note 'elements))
-              'pitch)))
-  (seq-music-list (list
-    (make-triplet (seq-music-list (list
-      (make-note p (ly:make-duration 3 0 2 3))
-      (make-note p (ly:make-duration 3 0 2 3))
-      (make-note p (ly:make-duration 3 0 2 3))
-    )))
-    (make-note p (ly:make-duration 2 0))
-    (make-note p (ly:make-duration 2 0))
-    (make-note p (ly:make-duration 3 0))
-    (make-note p (ly:make-duration 3 0))
-    (make-note p (ly:make-duration 2 0))
-  ))))
+   "Make the rhythm in Mars (the Planets) at the given note's pitch"
+   (let ((p (ly:music-property
+             (car (ly:music-property note 'elements))
+             'pitch)))
+     (seq-music-list
+      (list
+       (make-triplet (seq-music-list
+                      (list
+                       (make-note p (ly:make-duration 3 0 2 3))
+                       (make-note p (ly:make-duration 3 0 2 3))
+                       (make-note p (ly:make-duration 3 0 2 3)))))
+       (make-note p (ly:make-duration 2 0))
+       (make-note p (ly:make-duration 2 0))
+       (make-note p (ly:make-duration 3 0))
+       (make-note p (ly:make-duration 3 0))
+       (make-note p (ly:make-duration 2 0))))))
 
 \new Staff {
   \time 5/4

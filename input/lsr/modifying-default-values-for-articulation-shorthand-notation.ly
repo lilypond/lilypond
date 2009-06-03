@@ -51,3 +51,4 @@ the default + symbol, assign the value @code{trill} to the variable
 \relative c'' { c1-+ }
 dashPlus = "trill"
 \relative c'' { c1-+ }
+

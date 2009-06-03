@@ -37,3 +37,4 @@ by the @code{Stem} property @code{neutral-direction}.
   \override Stem #'neutral-direction = #down
   a4 b c b
 }
+
