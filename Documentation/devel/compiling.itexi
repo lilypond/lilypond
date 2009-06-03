@@ -1,12 +1,12 @@
 @c -*- coding: us-ascii; mode: texinfo; -*-
 
+@node Compiling LilyPond
+@chapter Compiling LilyPond
+
 @menu
 * Compiling from source::  standard compilation instructions
 * Concurrent Stable and Development Versions::
 @end menu
-
-@node Compiling LilyPond
-@chapter Compiling LilyPond
 
 @include compile.itely
 
