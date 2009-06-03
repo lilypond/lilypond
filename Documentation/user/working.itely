@@ -22,6 +22,7 @@ this chapter.
 * Suggestions for writing LilyPond input files::
 * When things don't work::
 * Scores and parts::
+* Make and Makefiles::
 @end menu
 
 
@@ -170,7 +171,7 @@ lilypond input files becomes vital.
 
 @itemize
 
-@item @strong{Use an variable for each voice}, with a minimum of
+@item @strong{Use a variable for each voice}, with a minimum of
 structure inside the definition.  The structure of the
 @code{\score} section is the most likely thing to change;
 the @code{violin} definition is extremely unlikely to change
@@ -191,7 +192,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Separate tweaks from music definitions}.  This
-point was made in previously, but for large
+point was made previously, but for large
 projects it is absolutely vital.  We might need to change
 the definition of @code{fthenp}, but then we only need
 to do this once, and we can still avoid touching anything
@@ -356,7 +357,7 @@ those definitions in our input files, and I personally find all
 the @code{#()} somewhat ugly.  Let's hide them in another file:
 
 @example
-%%% save this to a file called "definitions.ly"
+%%% save this to a file called "definitions.ily"
 mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
 
@@ -367,13 +368,17 @@ inst = #(define-music-function (parser location string) (string?)
     'text (markup #:bold (#:box string))))
 @end example
 
+We will refer to this file using the @code{\include} command near
+the top of the music file. (The extension @code{.ily} is used to
+distinguish this included file, which is not meant to be compiled
+on its own, from the main file.)
 Now let's modify our music (let's save this file as @file{"music.ly"}).
 
 @c  We have to do this awkward example/lilypond-non-verbatim
 @c  because we can't do the \include stuff in the manual.
 
 @example
-\include "definitions.ly"
+\include "definitions.ily"
 
 \relative c'' @{
   \tempo 4=50
@@ -407,11 +412,11 @@ put the metronome marking above the clef, instead of over the first
 note.  And finally, my composition professor hates @q{C} time signatures,
 so we'd better make that @q{4/4} instead.
 
-Don't change @file{music.ly}, though.  Replace our @file{definitions.ly}
+Don't change @file{music.ly}, though.  Replace our @file{definitions.ily}
 with this:
 
 @example
-%%%  definitions.ly
+%%%  definitions.ily
 mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
 
@@ -471,13 +476,13 @@ inst = #(define-music-function (parser location string) (string?)
 That looks nicer!  But now suppose that I want to publish this
 piece.  My composition professor doesn't like @q{C} time
 signatures, but I'm somewhat fond of them.  Let's copy the
-current @file{definitions.ly} to @file{web-publish.ly} and
+current @file{definitions.ily} to @file{web-publish.ily} and
 modify that.  Since this music is aimed at producing a pdf which
 will be displayed on the screen, we'll also increase the
 overall size of the output.
 
 @example
-%%%  definitions.ly
+%%%  definitions.ily
 mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
 
@@ -533,30 +538,30 @@ inst = #(define-music-function (parser location string) (string?)
 @end lilypond
 
 Now in our music, I simply replace
-@code{\include "definitions.ly"} with
-@code{\include "web-publish.ly"}.  Of course, we could make this
-even more convenient.  We could make a @file{definitions.ly} file which
+@code{\include "definitions.ily"} with
+@code{\include "web-publish.ily"}.  Of course, we could make this
+even more convenient.  We could make a @file{definitions.ily} file which
 contains only the definitions of @code{mpdolce} and @code{inst}, a
-@file{web-publish.ly} file which contains only the @code{\layout}
-section listed above, and a @file{university.ly} file which
+@file{web-publish.ily} file which contains only the @code{\layout}
+section listed above, and a @file{university.ily} file which
 contains only the tweaks to produce the output that my professor
 prefers.  The top of @file{music.ly} would then look like this:
 
 @example
-\include "definitions.ly"
+\include "definitions.ily"
 
 %%%  Only uncomment one of these two lines!
-\include "web-publish.ly"
-%\include "university.ly"
+\include "web-publish.ily"
+%\include "university.ily"
 @end example
 
 This approach can be useful even if you are only producing
 one set of parts.  I use half a dozen different
 @q{style sheet} files for my projects.  I begin every music
-file with @code{\include "../global.ly"}, which contains
+file with @code{\include "../global.ily"}, which contains
 
 @example
-%%%   global.ly
+%%%   global.ily
 \version @w{"@version{}"}
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
@@ -825,3 +830,360 @@ leading to
 @end lilypond
 
 
+
+@node Make and Makefiles
+@section Make and Makefiles
+
+@cindex makefiles
+@cindex make
+
+Pretty well all the platforms Lilypond can run on support a software
+facility called @code{make}. This software reads a special file called a
+@code{Makefile} that defines what files depend on what others and what
+commands you need to give the operating system to produce one file from
+another. For example the makefile would spell out how to produce
+@code{ballad.pdf} and @code{ballad.midi} from @code{ballad.ly} by
+running Lilypond.
+
+There are times when it is a good idea to create a @code{Makefile}
+for your project, either for your own convenience or
+as a courtesy to others who might have access to your source files.
+This is true for very large projects with many included files and
+different output options (e.g. full score, parts, conductor's
+score, piano reduction, etc.), or for projects that
+require difficult commands to build them (such as
+@code{lilypond-book} projects). Makefiles vary greatly in
+complexity and flexibility, according to the needs and skills of
+the authors. The program GNU Make comes installed on GNU/Linux
+distributions and on MacOS X, and it is also available for Windows.
+
+See the @strong{GNU Make Manual} for full details on using
+@code{make}, as what follows here gives only a glimpse of what it
+can do.
+
+The commands to define rules in a makefile differ
+according to platform; for instance the various forms of Linux and
+MacOS use @code{bash}, while Windows uses @code{cmd}. Note that on
+MacOS X, you need to configure the system to use the command-line
+intepreter. Here are some example makefiles, with versions for both
+Linux/MacOS and Windows.
+
+The first example is for an orchestral work in four
+movements with a directory structure as follows:
+
+@example
+Symphony/
+|-- MIDI/
+|-- Makefile
+|-- Notes/
+|   |-- cello.ily
+|   |-- figures.ily
+|   |-- horn.ily
+|   |-- oboe.ily
+|   |-- trioString.ily
+|   |-- viola.ily
+|   |-- violinOne.ily
+|   `-- violinTwo.ily
+|-- PDF/
+|-- Parts/
+|   |-- symphony-cello.ly
+|   |-- symphony-horn.ly
+|   |-- symphony-oboes.ly
+|   |-- symphony-viola.ly
+|   |-- symphony-violinOne.ly
+|   `-- symphony-violinTwo.ly
+|-- Scores/
+|   |-- symphony.ly
+|   |-- symphonyI.ly
+|   |-- symphonyII.ly
+|   |-- symphonyIII.ly
+|   `-- symphonyIV.ly
+`-- symphonyDefs.ily
+@end example
+
+The @code{.ly} files in the @code{Scores} and
+@code{Parts} directories get their notes from @code{.ily}
+files in the @code{Notes} directory:
+
+@example
+%%% top of file "symphony-cello.ly"
+\include ../definitions.ily
+\include ../Notes/cello.ily
+@end example
+
+The makefile will have targets of @code{score} (entire piece in
+full score), @code{movements} (individual movements in full score),
+and @code{parts} (individual parts for performers). There
+is also a target @code{archive} that will create a tarball of
+the source files, suitable for sharing via web or email. Here is
+the makefile for GNU/Linux or MacOS X. It should be saved with the
+name @code{Makefile} in the top directory of the project:
+
+@warning{When a target or pattern rule is defined, the
+subsequent lines must begin with tabs, not spaces.}
+
+@example
+# the name stem of the output files
+piece = symphony
+# determine how many processors are present
+CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+# The command to run lilypond
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click -djob-count=$(CPU_CORES)
+
+# The suffixes used in this Makefile.
+.SUFFIXES: .ly .ily .pdf .midi
+
+# Input and output files are searched in the directories listed in
+# the VPATH variable.  All of them are subdirectories of the current
+# directory (given by the GNU make variable `CURDIR').
+VPATH = \
+  $(CURDIR)/Scores \
+  $(CURDIR)/PDF \
+  $(CURDIR)/Parts \
+  $(CURDIR)/Notes
+
+# The pattern rule to create PDF and MIDI files from a LY input file.
+# The .pdf output files are put into the `PDF' subdirectory, and the
+# .midi files go into the `MIDI' subdirectory.
+%.pdf %.midi: %.ly
+        $(LILY_CMD) $<; \           # this line begins with a tab
+        if test -f "$*.pdf"; then \
+            mv "$*.pdf" PDF/; \
+        fi; \
+        if test -f "$*.midi"; then \
+            mv "$*.midi" MIDI/; \
+        fi
+
+notes = \
+  cello.ily \
+  horn.ily \
+  oboe.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+# The dependencies of the movements.
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+# The dependencies of the full score.
+$(piece).pdf: $(piece).ly $(notes)
+
+# The dependencies of the parts.
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+# Type `make score' to generate the full score of all four
+# movements as one file.
+.PHONY: score
+score: $(piece).pdf
+
+# Type `make parts' to generate all parts.
+# Type `make foo.pdf' to generate the part for instrument `foo'.
+# Example: `make symphony-cello.pdf'.
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+# Type `make movements' to generate files for the
+# four movements separately.
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+
+archive:
+        tar -cvvf stamitz.tar \       # this line begins with a tab
+        --exclude=*pdf --exclude=*~ \
+        --exclude=*midi --exclude=*.tar \
+        ../Stamitz/*
+@end example
+
+
+There are special complications on the Windows platform. After
+downloading and installing GNU Make for Windows, you must set the
+correct path in the system's environment variables so that the
+DOS shell can find the Make program. To do this, right-click on
+"My Computer," then choose @code{Properties} and
+@code{Advanced}. Click @code{Environment Variables}, and then
+in the @code{System Variables} pane, highlight @code{Path}, click
+@code{edit}, and add the path to the GNU Make executable file, which
+ will look something like this:
+
+@example
+C:\Program Files\GnuWin32\bin
+@end example
+
+The makefile itself has to be altered to handle different shell
+commands and to deal with spaces that are present
+in some default system directories. The @code{archive} target
+is eliminated since Windows does not have the @code{tar} command,
+and Windows also has a different default extension for midi files.
+
+
+@example
+## WINDOWS VERSION
+##
+piece = symphony
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click \
+                    -djob-count=$(NUMBER_OF_PROCESSORS)
+
+#get the 8.3 name of CURDIR (workaround for spaces in PATH)
+workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+          do @echo %%~sb)
+
+.SUFFIXES: .ly .ily .pdf .mid
+
+VPATH = \
+  $(workdir)/Scores \
+  $(workdir)/PDF \
+  $(workdir)/Parts \
+  $(workdir)/Notes
+
+%.pdf %.mid: %.ly
+        $(LILY_CMD) $<      # this line begins with a tab
+        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # begin with tab
+        if exist "$*.mid" move /Y "$*.mid" MIDI/  # begin with tab
+
+notes = \
+  cello.ily \
+  figures.ily \
+  horn.ily \
+  oboe.ily \
+  trioString.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+$(piece).pdf: $(piece).ly $(notes)
+
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+.PHONY: score
+score: $(piece).pdf
+
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+@end example
+
+
+The next Makefile is for a @command{lilypond-book} document done in
+LaTeX. This project has an index, which requires that the
+@command{latex} command be run twice to update links. Output files are
+all stored in the @code{out} directory for .pdf output and in the
+@code{htmlout} directory for the html output.
+
+@example
+SHELL=/bin/sh
+FILE=myproject
+OUTDIR=out
+WEBDIR=htmlout
+VIEWER=acroread
+BROWSER=firefox
+LILYBOOK_PDF=lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
+LILYBOOK_HTML=lilypond-book --output=$(WEBDIR) $(FILE).lytex
+PDF=cd $(OUTDIR) && pdflatex $(FILE)
+HTML=cd $(WEBDIR) && latex2html $(FILE)
+INDEX=cd $(OUTDIR) && makeindex $(FILE)
+PREVIEW=$(VIEWER) $(OUTDIR)/$(FILE).pdf &
+
+all: pdf web keep
+
+pdf:
+        $(LILYBOOK_PDF)  # begin with tab
+        $(PDF)           # begin with tab
+        $(INDEX)         # begin with tab
+        $(PDF)           # begin with tab
+        $(PREVIEW)       # begin with tab
+
+web:
+        $(LILYBOOK_HTML) # begin with tab
+        $(HTML)          # begin with tab
+        cp -R $(WEBDIR)/$(FILE)/ ./  # begin with tab
+        $(BROWSER) $(FILE)/$(FILE).html &  # begin with tab
+
+keep: pdf
+        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf  # begin with tab
+
+clean:
+        rm -rf $(OUTDIR) # begin with tab
+
+web-clean:
+        rm -rf $(WEBDIR) # begin with tab
+
+archive:
+        tar -cvvf myproject.tar \ # begin this line with tab
+        --exclude=out/* \
+        --exclude=htmlout/* \
+        --exclude=myproject/* \
+        --exclude=*midi \
+        --exclude=*pdf \
+        --exclude=*~ \
+        ../MyProject/*
+@end example
+
+TODO: make this thing work on Windows
+
+The previous makefile does not work on Windows. An alternative
+for Windows users would be to create a simple batch file
+containing the build commands. This will not
+keep track of dependencies the way a makefile does, but it at
+least reduces the build process to a single command. Save the
+following code as @command{build.bat} or @command{build.cmd}.
+The batch file can be run at the DOS prompt or by simply
+double-clicking its icon.
+
+@example
+lilypond-book --output=out --pdf myproject.lytex
+cd out
+pdflatex myproject
+makeindex myproject
+pdflatex myproject
+cd ..
+copy out\myproject.pdf MyProject.pdf
+@end example
+
+
+@seealso
+Application Usage:
+@rprogram{Setup for MacOS X},
+@rprogram{Command-line usage},
+@rprogram{LilyPond-book}

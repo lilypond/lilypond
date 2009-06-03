@@ -56,7 +56,7 @@ Snippets created or updated in @file{input/new} should be copied to
 scripts/auxiliar/makelsr.py
 @end example
 
-Be sure that @command{make web} runs successfully before submitting a
+Be sure that @command{make doc} runs successfully before submitting a
 patch, to prevent breaking compilation.
 
 @subheading Formatting snippets in @file{input/new}

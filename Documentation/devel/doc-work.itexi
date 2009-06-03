@@ -3,12 +3,12 @@
 @chapter Documentation work
 
 @menu
-* Introduction to documentation work::  
-* Texinfo introduction and usage policy::  
-* Documentation policy::        
-* Tips for writing docs::       
-* Updating docs with convert-ly::  
-* Translating the documentation::  
+* Introduction to documentation work::
+* Texinfo introduction and usage policy::
+* Documentation policy::
+* Tips for writing docs::
+* Updating docs with convert-ly::
+* Translating the documentation::
 @end menu
 
 
@@ -56,13 +56,13 @@ limited documentation help.
 @section Texinfo introduction and usage policy
 
 @menu
-* Texinfo introduction::        
-* Documentation files::         
-* Sectioning commands::         
-* LilyPond formatting::         
-* Text formatting::             
-* Syntax survey::               
-* Other text concerns::         
+* Texinfo introduction::
+* Documentation files::
+* Sectioning commands::
+* LilyPond formatting::
+* Text formatting::
+* Syntax survey::
+* Other text concerns::
 @end menu
 
 
@@ -458,7 +458,7 @@ B ... @@end itemize - for bulleted lists.
 
 @item
 @@bs - Generates a backslash inside @@warning.
-    Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}' 
+    Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}'
     (texinfo would also allow \\, but this breaks with PDF output).
 
 @item
@@ -531,11 +531,11 @@ that all such characters appear in all output formats.
 @section Documentation policy
 
 @menu
-* Books::                       
-* Section organization::        
-* Checking cross-references::   
-* General writing::             
-* Technical writing style::     
+* Books::
+* Section organization::
+* Checking cross-references::
+* General writing::
+* Technical writing style::
 @end menu
 
 @node Books
@@ -938,11 +938,11 @@ This also updates translated documentation.
 @section Translating the documentation
 
 @menu
-* Getting started with documentation translation::  
-* Documentation translation details::  
-* Documentation translation maintenance::  
-* Translations management policies::  
-* Technical background::        
+* Getting started with documentation translation::
+* Documentation translation details::
+* Documentation translation maintenance::
+* Translations management policies::
+* Technical background::
 @end menu
 
 @node Getting started with documentation translation
@@ -952,9 +952,9 @@ First, get the sources from the Git repository, see @ref{Documentation
 translations source code}.
 
 @menu
-* Translation requirements::    
-* Which documentation can be translated::  
-* Starting translation in a new language::  
+* Translation requirements::
+* Which documentation can be translated::
+* Starting translation in a new language::
 @end menu
 
 @node Translation requirements
@@ -1051,10 +1051,10 @@ Please follow all the instructions with care to ensure quality work.
 All files should be encoded in UTF-8.
 
 @menu
-* Files to be translated::      
-* Translating the Learning Manual and other Texinfo documentation::  
-* Translating the Notation Reference and Application Usage::  
-* Translating the Documentation index index.html.in::  
+* Files to be translated::
+* Translating the Learning Manual and other Texinfo documentation::
+* Translating the Notation Reference and Application Usage::
+* Translating the Documentation index index.html.in::
 @end menu
 
 @node Files to be translated
@@ -1192,8 +1192,8 @@ easier.  These helper scripts make use of the power of Git, the
 version control system used for LilyPond development.
 
 @menu
-* Check state of translation::  
-* Updating documentation translation::  
+* Check state of translation::
+* Updating documentation translation::
 @end menu
 
 @node Check state of translation
@@ -1334,8 +1334,8 @@ be managed, they aim at helping translators, developers and
 coordinators work efficiently.
 
 @menu
-* Maintaining without updating translations::  
-* Managing documentation translation with Git::  
+* Maintaining without updating translations::
+* Managing documentation translation with Git::
 @end menu
 
 @node Maintaining without updating translations
@@ -1443,7 +1443,7 @@ make ISOLANG=@var{YOUR-LANGUAGE} fix-xrefs
 
 @noindent
 This step requires a sucessful documentation build (with @command{make
-web}).  Some cross-references are broken because they point to a node
+doc}).  Some cross-references are broken because they point to a node
 that exists in the documentation in English, which has not been added
 to the translation; in this case, do not fix the cross-reference but
 keep it "broken", so that the resulting HTML link will point to an
@@ -1499,13 +1499,13 @@ its documentation, and in this case they should be pushed to
 @code{stable/X.Y} are preferably made on
 @code{lilypond/X.Ytranslation}.
 
-@item @code{lilypond/translation} Git branch may be merged into master only if
-LilyPond (@command{make all}) and documentation (@command{make web}) compile
-succesfully.
+@item @code{lilypond/translation} Git branch may be merged into
+master only if LilyPond (@command{make all}) and documentation
+(@command{make doc}) compile succesfully.
 
 @item @code{master} Git branch may be merged into
 @code{lilypond/translation} whenever @command{make} and @command{make
-web} are succesful (in order to ease documentation compilation by
+doc} are succesful (in order to ease documentation compilation by
 translators), or when significant changes had been made in
 documentation in English in master branch.
 
