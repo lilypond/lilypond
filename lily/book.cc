@@ -268,6 +268,7 @@ Book::process (Output_def *default_paper,
       paper_book->paper_->parent_ = parent_part->paper_;
     }
   paper_book->header_ = header_;
+  scaled_bookdef->unprotect ();
 
   if (scm_is_pair (bookparts_))
     {
