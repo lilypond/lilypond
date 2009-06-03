@@ -1045,7 +1045,7 @@ LILY_CMD = lilypond -ddelete-intermediate-files \
 
 #get the 8.3 name of CURDIR (workaround for spaces in PATH)
 workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
-          do @echo %%~sb)
+          do @@echo %%~sb)
 
 .SUFFIXES: .ly .ily .pdf .mid
 
