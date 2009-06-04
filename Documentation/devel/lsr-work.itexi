@@ -8,6 +8,7 @@
 * Approving snippets::
 * LSR to Git::
 * Fixing snippets in LilyPond sources::
+* Updating LSR to a new version::
 @end menu
 
 
@@ -195,3 +196,46 @@ by a translation string, you may have to fix
 In any case, commit all changes to Git.
 
 @end enumerate
+
+
+
+@node Updating LSR to a new version
+@subsection Uptating LSR to a new version
+
+To update LSR,
+
+@enumerate
+
+@item
+Download the latest snippet tarball, extract it, and run
+convert-ly on all files.
+
+@item
+Copy relevant snippets (i.e. snippets whose version is equal to or
+less than the new version of lilypond) from @file{input/new/} into
+the tarball.
+
+You must not rename any files during this, or the next, stage.
+
+@item
+Verify that all files compile with the new version of lilypond,
+ideally without any warnings or errors.
+
+Due to the workload involved, we @emph{do not} require that you
+verify that all snippets produce the expected output.  If you
+happen to notice any such snippets and can fix them, great; but as
+long as all snippets compile, don't delay this step due to some
+weird output.  If a snippet is broken, the hordes of willing
+web-2.0 volunteers will fix it.  It's not our problem.
+
+@item
+Create a tarball and send it back to Sebastiano.
+
+@item
+When LSR has been updated, download another snippet tarball,
+verify that the relevant snippets from @file{input/new/} were
+included, then delete those snippets from @file{input/new/}.
+
+@end enumerate
+
+
