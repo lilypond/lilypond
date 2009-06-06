@@ -113,7 +113,7 @@ for example, this is used to position grobs relative to the (visual)
 center of the bar line.")
      (break-align-anchor-alignment ,number? "Read by
 @code{ly:break-aligned-interface::calc-extent-aligned-anchor} for
-aligning an anchor to a grob's extent")
+aligning an anchor to a grob's extent.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-symbols ,list? "A list of symbols that determine
@@ -429,7 +429,7 @@ units.")
      (height-limit ,ly:dimension? "Maximum slur height: The longer the
 slur, the closer it is to this height.")
      (hide-tied-accidental-after-break ,boolean? "If set, an accidental
-that appears on a tied note after a line break will not be displayed")
+that appears on a tied note after a line break will not be displayed.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of @code{NoteColumn}s for horizontal shifting.  This is used by
 @rinternals{note-collision-interface}.")
@@ -468,7 +468,7 @@ correction and @code{1} for full correction.")
 ;;
 ;; l
 ;;
-     (labels ,list? "List of labels (symbols) placed on a column")
+     (labels ,list? "List of labels (symbols) placed on a column.")
      (layer ,integer? "The output layer (a value between 0
 and@tie{}2): Layers define the order of printing objects.  Objects in
 lower layers are overprinted by objects in higher layers.")
