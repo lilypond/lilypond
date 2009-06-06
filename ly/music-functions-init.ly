@@ -267,7 +267,7 @@ instrumentSwitch =
 #(define-music-function
    (parser location name) (string?)
    (_i "Switch instrument to @var{name}, which must be predefined with
-@code{\addInstrumentDefinition}.")
+@code{\\addInstrumentDefinition}.")
    (let*
        ((handle  (assoc name instrument-definitions))
 	(instrument-def (if handle (cdr handle) '()))
