@@ -200,7 +200,7 @@ In any case, commit all changes to Git.
 
 
 @node Updating LSR to a new version
-@subsection Uptating LSR to a new version
+@subsection Updating LSR to a new version
 
 To update LSR,
 
@@ -208,7 +208,8 @@ To update LSR,
 
 @item
 Download the latest snippet tarball, extract it, and run
-convert-ly on all files.
+convert-ly on all files.  To ease the process, you may use the
+shell script that appears after this list.
 
 @item
 Copy relevant snippets (i.e. snippets whose version is equal to or
@@ -239,3 +240,28 @@ included, then delete those snippets from @file{input/new/}.
 @end enumerate
 
 
+Here is a shell script to run all @code{.ly} files in a directory
+and redirect terminal output to text files, which are then
+searched for the word "failed" to see which snippets do not compile.
+
+@example
+#!/bin/bash
+
+# Mac or Linux?
+OS=$(uname)
+
+# set Lilypond PATH if OS is Darwin
+if [ "$OS" == "Darwin" ] ; then
+   export PATH="$PATH:/Applications/LilyPond.app/Contents/Resources/bin/"
+fi
+
+for LILYFILE in *.ly
+do
+  STEM=$(basename "$LILYFILE" .ly)
+  echo "running $LILYFILE..."
+  lilypond --format=png "$LILYFILE" >& "$STEM".txt
+  rm "$STEM".ps
+done
+
+grep failed *.txt
+@end example
