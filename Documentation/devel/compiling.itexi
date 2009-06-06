@@ -4,11 +4,16 @@
 @chapter Compiling LilyPond
 
 @menu
-* Compiling from source::  standard compilation instructions
-* Concurrent Stable and Development Versions::
+* Compiling from source::
+* Concurrent Stable and Development Versions::  
 @end menu
 
-@include compile.itely
+@node Compiling from source
+@section Compiling from source
+
+TODO  (see AU 1 for now)
+@c currently broken; will fix after 2.14
+@c @include compile.itely
 
 
 @node Concurrent Stable and Development Versions

@@ -200,7 +200,7 @@ In any case, commit all changes to Git.
 
 
 @node Updating LSR to a new version
-@subsection Updating LSR to a new version
+@section Updating LSR to a new version
 
 To update LSR,
 
