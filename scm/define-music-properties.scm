@@ -154,7 +154,7 @@ TODO: Consider making type into symbol.")
 of starting grace notes.  This property can only be defined as initializer
 in @file{scm/@/define-music-types.scm}.")
      (string-number ,integer? "The number of the string in
-a @code{StringNumberEvent.}")
+a @code{StringNumberEvent}.")
      (symbol ,symbol? "Grob name to perform an override or revert on.")
 
      (tags ,list? "List of symbols that for denoting extra details, e.g.,
