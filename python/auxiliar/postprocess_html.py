@@ -63,7 +63,7 @@ browser_language_url = "/web/about/browser-language"
 LANGUAGES_TEMPLATE = '''
 <p id="languages">
  %(language_available)s
- <br/>
+ <br>
  %(browser_language)s
 </p>
 '''
