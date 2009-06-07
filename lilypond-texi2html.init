@@ -135,8 +135,8 @@ $Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
 
 # Examples should be formatted similar to quotes:
 $Texi2HTML::Config::complex_format_map->{'example'} = {
-  'begin' => q{"<blockquote><pre class=\"example\">"},
-  'end' => q{"</pre></blockquote>\n"},
+  'begin' => q{"<blockquote>"},
+  'end' => q{"</blockquote>\n"},
   'style' => 'code',
  };
 

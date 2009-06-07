@@ -108,15 +108,10 @@ blockquote blockquote {
   /* border: thick red dashed; */
 }
 
-.verbatim, .example .example, .lisp {
+.verbatim, .example, .lisp {
   font-size: 1.25em;
   margin: 0;
   padding: 1em;
-}
-
-.example {
-  margin: 0;
-  padding: 0;
 }
 
 hr {
