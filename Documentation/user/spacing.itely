@@ -1492,10 +1492,10 @@ example @code{NonMusicalPaperColumn} overrides with the special
 \overrideProperty NonMusicalPaperColumn
   #'line-break-system-details #'((X-offset . 20) (Y-offset . 40))
 
-\override NonMusicalPaperColumn
+\overrideProperty NonMusicalPaperColumn
   #'line-break-system-details #'((alignment-offsets . (0 -15)))
 
-\override NonMusicalPaperColumn
+\overrideProperty NonMusicalPaperColumn
   #'line-break-system-details #'((X-offset . 20) (Y-offset . 40)
                                  (alignment-offsets . (0 -15)))
 @end example
