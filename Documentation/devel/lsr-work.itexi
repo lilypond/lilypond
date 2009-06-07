@@ -247,14 +247,6 @@ searched for the word "failed" to see which snippets do not compile.
 @example
 #!/bin/bash
 
-# Mac or Linux?
-OS=$(uname)
-
-# set Lilypond PATH if OS is Darwin
-if [ "$OS" == "Darwin" ] ; then
-   export PATH="$PATH:/Applications/LilyPond.app/Contents/Resources/bin/"
-fi
-
 for LILYFILE in *.ly
 do
   STEM=$(basename "$LILYFILE" .ly)
