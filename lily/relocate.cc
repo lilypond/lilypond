@@ -269,20 +269,20 @@ setup_paths (char const *argv0_ptr)
 string
 expand_environment_variables (string orig)
 {
-  const char *start_ptr = orig.c_str ();
-  const char *ptr = orig.c_str ();
+  char const *start_ptr = orig.c_str ();
+  char const *ptr = orig.c_str ();
   size_t len = orig.length ();
 
   string out;
   while (ptr < start_ptr + len)
     {
-      const char *dollar = strchr (ptr, '$');
+      char const *dollar = strchr (ptr, '$');
       
       if (dollar != NULL)
 	{
-	  const char *start_var = dollar + 1;
-	  const char *end_var = start_var;
-	  const char *start_next = end_var;
+	  char const *start_var = dollar + 1;
+	  char const *end_var = start_var;
+	  char const *start_next = end_var;
 	  
 	  out += string (ptr, dollar - ptr);
 	  ptr = dollar;
@@ -319,7 +319,7 @@ expand_environment_variables (string orig)
 	  if (start_var < end_var)
 	    {
 	      string var_name (start_var, end_var - start_var);
-	      const char *value = getenv (var_name.c_str ());
+	      char const *value = getenv (var_name.c_str ());
 	      if (value != NULL)
 		out += string (value);
 
