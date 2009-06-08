@@ -50,6 +50,27 @@ For information on packaging, see @uref{http://lilypond.org/devel}.
 In addition to the packages needed for running LilyPond (see below), you
 need the following extra packages for building.
 
+Below is a full list of packages needed to build LilyPond.  However, for
+most common distributions there is an easy way of installing most all
+build dependencies in one go
+
+@multitable @columnfractions .5 .5
+@headitem Distribution
+@tab Command
+
+@item Debian, Ubuntu
+@tab @code{sudo apt-get build-dep lilypond}
+
+@item Fedora, RHEL
+@tab @code{sudo yum-builddep lilypond}
+
+@item openSUSE, SLED
+@c sorry for the idiosyncratic command, I really asked and argued
+@c for "zypper build-dep" :-(
+@tab @code{sudo zypper --build-deps-only source-install lilypond}
+
+@end multitable
+
 When installing a binary package FOO, you may need to install the
 FOO-devel, libFOO-dev or FOO-dev package too.
 
