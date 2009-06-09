@@ -570,9 +570,14 @@ just the differences from master).
 @subsection Installing git
 
 Obtain Git from
-@uref{http://code.google.com/p/msysgit/downloads/list}.
-(Note, not msysGit, which is for Git developers) and
-install.
+@uref{http://code.google.com/p/msysgit/downloads/list}
+(note, not msysGit, which is for Git developers and not PortableGit,
+which is not a full git installation) and
+install it.
+
+Note that most users will not need to install SSH.  That is not
+required until you have been granted direct push permissions to
+the master git repository.
 
 Start Git by clicking on the desktop icon.
 This will bring up a command line bash shell.  This may be
@@ -587,7 +592,8 @@ creating the folders in Windows as necessary.  Here we
 call the folder to contain the repository [path]/Git.
 You will need to have space for around 150Mbytes.
 
-In the git bash shell type
+Start the Git bash shell by clicking on the desk-top icon installed
+with Git and type
 
 @example
 cd [path]/Git
@@ -687,6 +693,15 @@ Edit -> Options
 and enter your name and email address in the
 left-hand (Git Repository) panel.  Leave everything
 else unchanged and save it.
+
+Note that Windows users must leave the default setting for line
+endings unchanged.  All files in a git repository must have lines
+terminated by just a LF, as this is required for Merge to work, but
+Windows files are terminated by CRLF by default.  The git default
+setting causes the line endings of files in a Windows git repository
+to be flipped automatically between LF and CRLF as required.  This
+enables files to be edited by any Windows editor without causing
+problems in the git repository.
 
 @subsection Checking out a branch
 
