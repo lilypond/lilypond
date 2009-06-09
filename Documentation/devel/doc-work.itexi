@@ -76,11 +76,11 @@ perfect documentation report:
 @verbatim
 To: lilypond-devel@gnu.org
 From: helpful-user@example.net
-Subject: doc addition 
+Subject: doc addition
 
 In LM 2.13 (printing lyrics), above the last line ("More options,
 like..."), please add:
-          
+
 ----
 To add lyrics to a divided part, use blah blah blah.  For example,
 
@@ -139,7 +139,7 @@ addition.
 We may edit your suggestion for spelling, grammar, or style, and
 we may not place the material exactly where you suggested, but if
 you give us some material to work with, we can improve the manual
-much faster. Thanks for your interest! 
+much faster.  Thanks for your interest!
 
 
 @node Texinfo introduction and usage policy
