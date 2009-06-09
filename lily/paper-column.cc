@@ -348,6 +348,7 @@ ADD_INTERFACE (Paper_column,
 	       " non-musical, to which musical and non-musical objects are"
 	       " attached respectively.  The spacing engine determines the"
 	       " X@tie{}positions of these objects.\n"
+	       "\n"
 	       "They are numbered, the first (leftmost) is column@tie{}0."
 	       "  Numbering happens before line breaking, and columns are not"
 	       " renumbered after line breaking.  Since many columns go"
