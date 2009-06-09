@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-22 22:40+0200\n"
-"PO-Revision-Date: 2009-04-04 16:37+0300\n"
+"PO-Revision-Date: 2009-05-23 00:37+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
@@ -3404,9 +3404,8 @@ msgid "mpdolce"
 msgstr "mpdolce"
 
 #. Documentation/user/working.itely:335 (variable)
-#, fuzzy
 msgid "inst"
-msgstr "Linien"
+msgstr "Instrument"
 
 #. @node in Documentation/user/working.itely
 #. @chapter in Documentation/user/working.itely
@@ -3838,9 +3837,8 @@ msgstr "xelatex"
 
 #. Documentation/user/scheme-tutorial.itely:257 (variable)
 #. Documentation/user/programming-interface.itely:135 (variable)
-#, fuzzy
 msgid "tempoPadded"
-msgstr "tempoZeichen"
+msgstr "tempoVerschoben"
 
 #. Documentation/user/scheme-tutorial.itely:276 (variable)
 msgid "pattern"
@@ -4716,9 +4714,8 @@ msgstr "Das Notensatzprogramm"
 #. @appendix in Documentation/es/user/lilypond.tely
 #. @node in Documentation/de/user/lilypond.tely
 #. @appendix in Documentation/de/user/lilypond.tely
-#, fuzzy
 msgid "LilyPond grammar"
-msgstr "Index der LilyPond-Befehle"
+msgstr "LilyPond-Grammatik"
 
 #. @node in Documentation/user/lilypond.tely
 #. @appendix in Documentation/user/lilypond.tely
@@ -10742,9 +10739,8 @@ msgid "Center-align bar numbers"
 msgstr "Taktnummern zentrieren"
 
 #. input/lsr/aligning-bar-numbers.ly:42 (comment)
-#, fuzzy
 msgid "Left-align bar numbers"
-msgstr "Taktnummern zentrieren"
+msgstr "Taktnummern linksbündig setzen"
 
 #. input/lsr/aligning-marks-with-various-notation-objects.ly:73 (comment)
 msgid "the RehearsalMark will be centered above the KeySignature"
@@ -12610,14 +12606,12 @@ msgid "original"
 msgstr "Original"
 
 #. input/lsr/redefining-grace-note-global-defaults.ly:34 (variable)
-#, fuzzy
 msgid "startAcciaccaturaMusic"
-msgstr "Vorschlag"
+msgstr "BeginVorschlagNoten"
 
 #. input/lsr/redefining-grace-note-global-defaults.ly:40 (variable)
-#, fuzzy
 msgid "stopAcciaccaturaMusic"
-msgstr "Vorschlag"
+msgstr "EndVorschlagNoten"
 
 #. input/lsr/removing-the-first-empty-line.ly:59 (comment)
 msgid "To use the setting globally, uncomment the following line:"
