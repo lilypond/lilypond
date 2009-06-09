@@ -4,6 +4,7 @@
 
 @menu
 * Introduction to documentation work::
+* Documentation suggestions::
 * Texinfo introduction and usage policy::
 * Documentation policy::
 * Tips for writing docs::
@@ -50,6 +51,95 @@ the main portion of NR 1+2) may also seem counter-intuitive, but
 they also stem from attempting to find the most effective use of
 limited documentation help.
 
+
+@node Documentation suggestions
+@section Documentation suggestions
+
+@subheading Small additions
+
+For additions to the documentation,
+
+@enumerate
+
+@item
+Tell us where the addition should be placed. Please include both
+the section number and title (i.e. "LM 2.13 Printing lyrics").
+
+@item
+Please write exact changes to the text.
+
+@item
+A formal patch to the source code is @emph{not} required; we can
+take care of the technical details. Here is an example of a
+perfect documentation report:
+
+@verbatim
+To: lilypond-devel@gnu.org
+From: helpful-user@example.net
+Subject: doc addition 
+
+In LM 2.13 (printing lyrics), above the last line ("More options,
+like..."), please add:
+          
+----
+To add lyrics to a divided part, use blah blah blah.  For example,
+
+\score {
+  \notes {blah <<blah>> }
+  \lyrics {blah <<blah>> }
+  blah blah blah
+}
+----
+
+In addition, the second sentence of the first paragraph is
+confusing.  Please delete that sentence (it begins "Users
+often...") and replace it with this:
+----
+To align lyrics with something, do this thing.
+----
+
+Have a nice day,
+Helpful User
+@end verbatim
+
+@end enumerate
+
+
+@subheading Larger contributions
+
+To replace large sections of the documentation, the guidelines are
+stricter. We cannot remove parts of the current documentation
+unless we are certain that the new version is an improvement.
+
+@enumerate
+
+@item
+Ask on the lilypond-devel maillist if such a rewrite is necessary;
+somebody else might already be working on this issue!
+
+@item
+Split your work into small sections; this makes it much easier to
+compare the new and old documentation.
+
+@item
+Please prepare a formal git patch.
+
+@end enumerate
+
+Once you have followed these guidelines, please send a message to
+lilypond-devel with your documentation submissions. Unfortunately
+there is a strict “no top-posting” check on the mailist; to avoid
+this, add:
+
+> I'm not top posting.
+
+(you must include the > ) to the top of your documentation
+addition.
+
+We may edit your suggestion for spelling, grammar, or style, and
+we may not place the material exactly where you suggested, but if
+you give us some material to work with, we can improve the manual
+much faster. Thanks for your interest! 
 
 
 @node Texinfo introduction and usage policy
