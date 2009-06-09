@@ -36,18 +36,13 @@ Chord_tremolo_iterator::get_music_list () const
 
   if (elt_count <= 0)
     elt_count = 1;
-      
-  Rational total_dur = l.main_part_;
-  Rational note_dur = total_dur / Rational (elt_count * Repeated_music::repeat_count (mus));
-
-  SCM tremolo_type = scm_int2num (note_dur.den ());
-  int expected_beaming_ = max (0, (intlog2 (total_dur.den ()) - intlog2 (total_dur.num () + 1) - 1));
 
   if (elt_count == 1)
     {
       Music *ev = make_music_by_name (ly_symbol2scm ("TremoloEvent"));
       ev->set_spot (*origin);
-      ev->set_property ("tremolo-type", tremolo_type);
+      ev->set_property ("repeat-count", mus->get_property ("repeat-count"));
+      ev->set_property ("tremolo-type", mus->get_property ("tremolo-type"));
       return scm_list_2 (ev->unprotect (), body->self_scm ());
     }
   else
@@ -61,8 +56,8 @@ Chord_tremolo_iterator::get_music_list () const
       Music *stop_event = unsmob_music (stop_event_scm);
       start_event->set_spot (*origin);
       stop_event->set_spot (*origin);
-      start_event->set_property ("tremolo-type", tremolo_type);
-      start_event->set_property ("expected-beam-count", scm_int2num (expected_beaming_));
+      start_event->set_property ("repeat-count", mus->get_property ("repeat-count"));
+      start_event->set_property ("tremolo-type", mus->get_property ("tremolo-type"));
 
       return scm_list_3 (start_event_scm, body->self_scm (), stop_event_scm);
     }

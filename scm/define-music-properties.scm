@@ -73,8 +73,6 @@ or the body of a repeat.")
 simultaneous music, or the alternatives of repeated music.")
      (elements-callback ,procedure? "Return a list of children, for use by
 a sequential iterator.  Takes a single music parameter.")
-     (expected-beam-count ,integer? "Expected number of non-tremolo beams
-in a tremolo repeat.")
 
      (figure ,integer? "A bass figure.")
      (force-accidental ,boolean? "If set, a cautionary accidental should

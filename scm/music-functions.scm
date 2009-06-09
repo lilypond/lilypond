@@ -223,6 +223,20 @@ Returns `obj'.
 
 (define-public (make-repeat name times main alts)
   "create a repeat music expression, with all properties initialized properly"
+  (define (first-note-duration music)
+    "Finds the duration of the first NoteEvent by searching depth-first
+through MUSIC."
+    (if (memq 'note-event (ly:music-property music 'types))
+	(ly:music-property music 'duration)
+	(let loop ((elts (if (ly:music? (ly:music-property music 'element))
+			     (list (ly:music-property music 'element))
+			     (ly:music-property music 'elements))))
+	  (and (pair? elts)
+	       (let ((dur (first-note-duration (car elts))))
+		 (if (ly:duration? dur)
+		     dur
+		     (loop (cdr elts))))))))
+
   (let ((talts (if (< times (length alts))
 		   (begin
 		     (ly:warning (_ "More alternatives than repeats.  Junking excess alternatives"))
@@ -235,7 +249,13 @@ Returns `obj'.
     (if (equal? name "tremolo")
 	(let* ((dots (1- (logcount times)))
 	       (mult (/ (* times (ash 1 dots)) (1- (ash 2 dots))))
-	       (shift (- (ly:intlog2 (floor mult)))))
+	       (shift (- (ly:intlog2 (floor mult))))
+	       (note-duration (first-note-duration r))
+	       (duration-log (if (ly:duration? note-duration)
+				 (ly:duration-log note-duration)
+				 1))
+	       (tremolo-type (ash 1 duration-log)))
+	  (set! (ly:music-property r 'tremolo-type) tremolo-type)
 	  (if (not (integer?  mult))
               (ly:warning (_ "invalid tremolo repeat count: ~a") times))
 	  (if (memq 'sequential-music (ly:music-property main 'types))

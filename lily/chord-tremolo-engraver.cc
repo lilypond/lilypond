@@ -43,13 +43,11 @@ class Chord_tremolo_engraver : public Engraver
 protected:
   Stream_event *repeat_;
 
-  int flags_;
-  // number of beams for short tremolos
-  int expected_beam_count_;
   // current direction of beam (first RIGHT, then LEFT)
   Direction beam_dir_;
 
   Spanner *beam_;
+
 protected:
   virtual void finalize ();
   void process_music ();
@@ -61,8 +59,6 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
   beam_ = 0;
   repeat_ = 0;
-  flags_ = 0;
-  expected_beam_count_ = 0;
   beam_dir_ = CENTER;
 }
 
@@ -75,10 +71,6 @@ Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
     {
       if (ASSIGN_EVENT_ONCE (repeat_, ev))
 	{
-	  int type = scm_to_int (ev->get_property ("tremolo-type"));
-	  /* e.g. 1 for type 8, 2 for type 16 */
-	  flags_ = intlog2 (type) - 2;
-	  expected_beam_count_ = scm_to_int (ev->get_property ("expected-beam-count"));
 	  beam_dir_ = RIGHT;
 	}
     }
@@ -88,7 +80,6 @@ Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
 	ev->origin ()->warning (_ ("No tremolo to end"));
       repeat_ = 0;
       beam_ = 0;
-      expected_beam_count_ = 0;
       beam_dir_ = CENTER;
     }
 }
@@ -118,12 +109,16 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 {
   if (beam_)
     {
-      Grob *s = info.grob ();
+      int tremolo_type = robust_scm2int (repeat_->get_property ("tremolo-type"), 1);
+      int flags = max (0, intlog2 (tremolo_type) - 2);
+      int repeat_count = robust_scm2int (repeat_->get_property ("repeat-count"), 1);
+      int gap_count = min (flags, intlog2 (repeat_count) + 1);
 
-      Stem::set_beaming (s, flags_, beam_dir_);
+      Grob *s = info.grob ();
+      Stem::set_beaming (s, flags, beam_dir_);
 
       if (Stem::duration_log (s) != 1)
-	beam_->set_property ("gap-count", scm_from_int (flags_ - expected_beam_count_));
+	beam_->set_property ("gap-count", scm_from_int (gap_count));
 
       if (beam_dir_ == RIGHT)
 	{
