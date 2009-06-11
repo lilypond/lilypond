@@ -92,13 +92,13 @@ The following examples show simultaneous expressions on one staff:
 
 @lilypond[quote,verbatim,relative=2]
 \new Voice {  % explicit single voice
-  << {a4 b g2} {d4 g c,2} >>
+  << { a4 b g2 } { d4 g c,2 } >>
 }
 @end lilypond
 
 @lilypond[quote,verbatim,relative=2]
 % single first note
-a << {a4 b g}  {d4 g c,} >>
+a << { a4 b g } { d4 g c, } >>
 @end lilypond
 
 This can be useful if the simultaneous sections have identical
@@ -110,7 +110,7 @@ generate multiple staves implicitly:
 
 @lilypond[quote,verbatim,relative=2]
 % no single first note
-<< {a4 b g2}  {d4 g2 c,4} >>
+<< { a4 b g2 } { d4 g2 c,4 } >>
 @end lilypond
 
 Here different rhythms cause no problems.
