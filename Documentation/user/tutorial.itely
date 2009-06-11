@@ -503,7 +503,7 @@ Notes are lower case: @w{@code{@{ c d e @}}} is valid input;
 
 @item
 @strong{Whitespace insensitive}:
-it does not matter how many spaces (or new lines) you add.
+it does not matter how many spaces (or tabs or new lines) you add.
 @w{@code{@{ c d e @}}} means the same thing as
 @w{@code{@{ c @tie{}} @tie{} @tie{} d e @}} and:
 
@@ -521,6 +521,13 @@ thumb is to indent code blocks with either a tab or two spaces:
   c d e
 @}
 @end example
+
+However, whitespace @emph{is} required to separate many syntactical
+elements from others.  In other words, whitespace can always be
+@emph{added}, but it cannot be @emph{eliminated}.  As missing
+whitespace can give rise to strange errors it is advisable to
+always insert whitespace before and after every syntactic element,
+for example, before and after every curly brace.
 
 @item
 @strong{Expressions}:
