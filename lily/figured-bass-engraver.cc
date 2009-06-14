@@ -31,6 +31,7 @@ struct Figure_group
   SCM augmented_;
   SCM diminished_;
   SCM augmented_slash_;
+  SCM text_;
   
   Item *figure_item_; 
   Stream_event *current_event_;
@@ -46,6 +47,7 @@ struct Figure_group
     augmented_ = SCM_EOL;
     diminished_ = SCM_EOL;
     augmented_slash_ = SCM_EOL;
+    text_ = SCM_EOL;
     group_ = 0;
     current_event_ = 0;
   }
@@ -63,7 +65,9 @@ struct Figure_group
       && ly_is_equal (diminished_,
 		      current_event_->get_property ("diminished"))
       && ly_is_equal (augmented_slash_,
-		      current_event_->get_property ("augmented-slash"));
+		      current_event_->get_property ("augmented-slash"))
+      && ly_is_equal (text_,
+		      current_event_->get_property ("text"));
   }
 };
 
@@ -106,6 +110,7 @@ Figured_bass_engraver::derived_mark () const
       scm_gc_mark (groups_[i].augmented_);
       scm_gc_mark (groups_[i].diminished_);
       scm_gc_mark (groups_[i].augmented_slash_);
+      scm_gc_mark (groups_[i].text_);
     }
 }
 
@@ -177,10 +182,12 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
   if (to_boolean (get_property ("useBassFigureExtenders")))
     {
       SCM fig = ev->get_property ("figure");
+      SCM txt = ev->get_property ("text");
       for (vsize i = 0; i < groups_.size (); i++)
 	{
 	  if (!groups_[i].current_event_
-	      && ly_is_equal (groups_[i].number_, fig))
+	      && ly_is_equal (groups_[i].number_, fig)
+	      && ly_is_equal (groups_[i].text_, txt))
 	    {
 	      groups_[i].current_event_ = ev;
 	      groups_[i].force_no_continuation_
@@ -366,6 +373,7 @@ Figured_bass_engraver::process_music ()
 	  groups_[i].augmented_ = SCM_BOOL_F;
 	  groups_[i].diminished_ = SCM_BOOL_F;
 	  groups_[i].augmented_slash_ = SCM_BOOL_F;
+	  groups_[i].text_ = SCM_BOOL_F;
 	}
     }
 
@@ -472,8 +480,9 @@ Figured_bass_engraver::create_grobs ()
 	  group.augmented_ = group.current_event_->get_property ("augmented");
 	  group.diminished_ = group.current_event_->get_property ("diminished");
 	  group.augmented_slash_ = group.current_event_->get_property ("augmented-slash");
+	  group.text_ = group.current_event_->get_property ("text");
 
-	  SCM text = group.current_event_->get_property ("text");
+	  SCM text = group.text_;
 	  if (!Text_interface::is_markup (text)
 	      && ly_is_procedure (proc))
 	    {
