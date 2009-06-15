@@ -202,25 +202,27 @@ In any case, commit all changes to Git.
 @node Updating LSR to a new version
 @section Updating LSR to a new version
 
-To update LSR,
+To update LSR, perform the following steps:
 
 @enumerate
 
 @item
 Download the latest snippet tarball, extract it, and run
-convert-ly on all files.  To ease the process, you may use the
-shell script that appears after this list.
+@code{convert-ly} on all files using the command-line option
+@code{--to=VERSION} to ensure snippets are updated to the
+correct stable version.
 
 @item
-Copy relevant snippets (i.e. snippets whose version is equal to or
-less than the new version of lilypond) from @file{input/new/} into
+Copy relevant snippets (i.e., snippets whose version is equal to or
+less than the new version of LilyPond) from @file{input/new/} into
 the tarball.
 
 You must not rename any files during this, or the next, stage.
 
 @item
-Verify that all files compile with the new version of lilypond,
-ideally without any warnings or errors.
+Verify that all files compile with the new version of LilyPond,
+ideally without any warnings or errors.  To ease the process,
+you may use the shell script that appears after this list.
 
 Due to the workload involved, we @emph{do not} require that you
 verify that all snippets produce the expected output.  If you
@@ -251,8 +253,7 @@ for LILYFILE in *.ly
 do
   STEM=$(basename "$LILYFILE" .ly)
   echo "running $LILYFILE..."
-  lilypond --format=png "$LILYFILE" >& "$STEM".txt
-  rm "$STEM".ps
+  lilypond --format=png -ddelete-intermediate-files "$LILYFILE" >& "$STEM".txt
 done
 
 grep failed *.txt
