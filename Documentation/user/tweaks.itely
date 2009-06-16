@@ -1053,6 +1053,12 @@ it by adding the correct context:
 
 Now the bar lines have vanished.
 
+Note, though, that setting the @code{stencil} property to @code{#f}
+will cause errors when the dimensions of the object are required for
+correct processing.  For example, errors will be generated if the
+@code{stencil} property of the @code{NoteHead} object is set to
+@code{#f}.
+
 @subheading break-visibility
 
 @cindex break-visibility property
