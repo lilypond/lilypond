@@ -110,14 +110,9 @@ blockquote blockquote {
   border: none;
 }
 
-.verbatim, .example .example, .lisp {
+.verbatim, .example, .lisp {
   font-size: 1em;
   padding: 1em;
-  margin: 0;
-}
-
-.example {
-  padding: 0;
   margin: 0;
 }
 

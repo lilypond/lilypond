@@ -5,6 +5,7 @@
 \header {
   lsrtags = "editorial-annotations"
 
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 Se puede cambiar el aspecto de las líneas de rejilla
 sobreescribiendo algunas de sus propiedades.
@@ -12,7 +13,7 @@ sobreescribiendo algunas de sus propiedades.
 "
   doctitlees = "Líneas de rejilla: modificar su aspecto"
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Erscheinung der Gitternetzlinien kann durch einige Eigenschaften
 geändert werden.
@@ -69,3 +70,4 @@ properties.
     }
   }
 }
+

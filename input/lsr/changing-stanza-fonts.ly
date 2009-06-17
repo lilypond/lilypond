@@ -29,3 +29,4 @@ used for printing the stanza number.
   \override LyricText #'font-family = #'typewriter
   Oh, ché -- ri, je t'aime
 }
+

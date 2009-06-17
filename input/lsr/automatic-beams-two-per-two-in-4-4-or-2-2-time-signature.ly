@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 En un compás sencillo como 2/2 ó 4/4, las corcheas se barran de forma
 predeterminada como dos grupos de cuatro.
@@ -77,3 +78,4 @@ qBeam = {
     }
   }
 }
+

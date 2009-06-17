@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 4f881627b3ff5eb538df5221ad77b73d0637aeb4
   texidoces = "
 La instrucción @code{\time} establece las propiedades
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping} y
@@ -17,7 +18,7 @@ de compás sin que cambie ninguna de las demás propiedades:
   doctitlees = "Cambio de compás sin afectar al barrado"
 
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Der @code{\\time}-Befehl verändert die Eigenschaften
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
@@ -30,7 +31,7 @@ Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
   doctitlede = "Die Taktart verändern ohne die Bebalkung zu beeinflussen"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>  
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 La commande @code{\time} gère les propriétés
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
@@ -68,3 +69,4 @@ printed without changing any of the other properties:
   % Lose 3/4 beaming now \time has been changed
   a16 a a a a a a a a a a a
 }
+

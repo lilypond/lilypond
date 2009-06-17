@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations"
 
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 Se puede cambiar el aspecto de las ligaduras de expresión de
 continuas a punteadas o intermitentes.
@@ -30,4 +31,5 @@ The appearance of slurs may be changed from solid to dotted or dashed.
   \slurSolid
   c4( d e c)
 }
+
 

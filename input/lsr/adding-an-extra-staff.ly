@@ -5,6 +5,7 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers"
 
+%% Translation of GIT committish: f39a9724d9f51ed9d0d464689ef62f549d7b8dd6
   texidoces = "
 Se puede añadir (posiblemente de forma temporal) un pentagrama
 nuevo una vez que la pieza ha comenzado.
@@ -36,3 +37,4 @@ piece.
     }
   >>
 }
+

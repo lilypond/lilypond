@@ -35,3 +35,4 @@ normalPos = \revert MultiMeasureRest #'staff-position
     }
   >>
 }
+

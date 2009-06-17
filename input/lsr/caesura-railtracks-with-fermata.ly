@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 A veces se denota una «cesura» con una doble marca de respiración
 parecida a las vías del tren, con un calderón encima. Este
@@ -23,6 +24,7 @@ optically pleasing combination of railtracks and fermata.
   doctitle = "Caesura (\"railtracks\") with fermata"
 } % begin verbatim
 
+
 \relative c'' {
   c2.
   % construct the symbol
@@ -39,3 +41,4 @@ optically pleasing combination of railtracks and fermata.
   c2. \breathe c4
   \bar "|."
 }
+

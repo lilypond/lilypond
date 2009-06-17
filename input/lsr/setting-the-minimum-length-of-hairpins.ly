@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Si los reguladores son demasiado cortos, se pueden alargar
 modificando la propiedad @code{minimum-length} del objeto
@@ -13,7 +14,7 @@ modificando la propiedad @code{minimum-length} del objeto
 "
   doctitlees = "Ajustar la longitud mínima de los reguladores"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Wenn Crescendo-Klammern zu kurz sind, können sie verlängert werden, indem
 die @code{minimum-length}-Eigenschaft des @code{Hairpin}-Objektes
@@ -35,3 +36,4 @@ If hairpins are too short, they can be lengthened by modifying the
   \override Hairpin #'minimum-length = #5
   << f1 { s4 s\< s\> s\! } >>
 }
+

@@ -5,6 +5,7 @@
 \header {
   lsrtags = "simultaneous-notes"
 
+%% Translation of GIT committish: 04ab6c269b4067b6ed334d460339818d90513396
   texidoces = "
 Al utilizar la posibilidad de combinación automática de partes, se
 puede modificar el texto que se imprime para las secciones de solo
@@ -13,7 +14,7 @@ y de unísono:
 "
   doctitlees = "Cambiar los textos de partcombine"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Wenn Stimmen automatisch kombiniert werden, kann der Text, der für
 Solo- und Unisono-Stellen ausgegeben wird, geändert werden:
@@ -43,3 +44,4 @@ the solo and unison sections may be changed:
       a2 g
     }
 >>
+

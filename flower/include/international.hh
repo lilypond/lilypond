@@ -15,7 +15,7 @@
 
 /**
    Internationalisation: _i ("to be translated") gets an entry in the POT file
-   gettext () must be invoked explicitely to do the actual "translation".
+   gettext () must be invoked explicitly to do the actual "translation".
    See flower/getopt-long.cc.
 */
 #define _i(sz) sz

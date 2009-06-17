@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
+  texidoces = "
+Mediante el establecimiento de las propiedades de
+@code{NonMusicalPaperColumn} se puede ajustar el espaciado vertical en
+cada sistema.
+
+Ajustando @code{alignment-extra-space} o
+@code{fixed-alignment-extra-space} se puede ampliar verticalmente un
+sistema individual.
+
+Por razones técnicas, se debe usar @code{\\overrideProperty} para
+cambiar estas propiedades dentro de un pentagrama; aún se debe usar
+@code{\\override} dentro de un bloque @code{\\context} para las
+sobreescrituras globales.
+
+"
+  doctitlees = "Espaciado de la alineación vertical"

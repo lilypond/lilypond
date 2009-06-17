@@ -5,6 +5,7 @@
 \header {
   lsrtags = "staff-notation, editorial-annotations, contexts-and-engravers, paper-and-layout"
 
+%% Translation of GIT committish: f39a9724d9f51ed9d0d464689ef62f549d7b8dd6
   texidoces = "
 Para crear pentagramas en blanco, genere compases vacíos y después
 elimine el grabador de números de compás
@@ -55,3 +56,4 @@ To create blank staves, generate empty measures then remove the
   bottom-margin = 0.25\in
   top-margin = 0.25\in
 }
+

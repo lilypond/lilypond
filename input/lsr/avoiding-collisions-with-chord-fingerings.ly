@@ -36,3 +36,4 @@ overridden.
   \override StrokeFinger #'add-stem-support = ##t
   <f c'-\rightHandFinger #2 >8
 }
+

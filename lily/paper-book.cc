@@ -9,6 +9,7 @@
 #include "paper-book.hh"
 
 #include "grob.hh"
+#include "international.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
@@ -174,25 +175,38 @@ Paper_book::output (SCM output_channel)
 
   if (get_program_option ("print-pages"))
     {
-      SCM func = scm_c_module_lookup (mod, "output-framework");
+      SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-framework"));
 
-      func = scm_variable_ref (func);
-      scm_apply_0 (func, scm_list_n (output_channel,
-				     self_scm (),
-				     scopes,
-				     dump_fields (),
-				     SCM_UNDEFINED));
+      if (framework != SCM_BOOL_F)
+	{
+	  SCM func = scm_variable_ref (framework);
+	  scm_apply_0 (func, scm_list_n (output_channel,
+					 self_scm (),
+					 scopes,
+					 dump_fields (),
+					 SCM_UNDEFINED));
+	}
+      else
+	warning (_f ("program option -dprint-pages not supported by backend `%s'",
+		     get_output_backend_name ()));
     }
 
   if (get_program_option ("preview"))
     {
-      SCM func = scm_c_module_lookup (mod, "output-preview-framework");
-      func = scm_variable_ref (func);
-      scm_apply_0 (func, scm_list_n (output_channel,
-				     self_scm (),
-				     scopes,
-				     dump_fields (),
-				     SCM_UNDEFINED));
+      SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
+
+      if (framework != SCM_BOOL_F)
+	{
+	  SCM func = scm_variable_ref (framework);
+	  scm_apply_0 (func, scm_list_n (output_channel,
+					 self_scm (),
+					 scopes,
+					 dump_fields (),
+					 SCM_UNDEFINED));
+	}
+      else
+	warning (_f ("program option -dpreview not supported by backend `%s'",
+		     get_output_backend_name ()));
     }
 }
 

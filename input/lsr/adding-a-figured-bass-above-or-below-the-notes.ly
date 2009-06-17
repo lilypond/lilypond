@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords, ancient-notation, contexts-and-engravers"
 
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 Al escribir un bajo cifrado, existe una forma de especificar si
 queremos que las cifras se sitúen encima o debajo de las notas del
@@ -21,6 +22,7 @@ truco se aplique a toda la partitura.
 "
   doctitlees = "Añadir un bajo cifrado encima o debajo de las notas"
   
+%% Translation of GIT committish: 7eb450e8e6c935410b8f3212cb53e5a731f4f33f
   doctitlefr = "Ajout d'une basse chiffrée au-dessus ou au-dessous des notes"
 
   texidoc = "
@@ -59,4 +61,5 @@ continuo = \figuremode {
     \context Staff = bassStaff \continuo
   >>
 }
+
 

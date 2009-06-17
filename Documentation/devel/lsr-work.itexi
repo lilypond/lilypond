@@ -8,6 +8,7 @@
 * Approving snippets::
 * LSR to Git::
 * Fixing snippets in LilyPond sources::
+* Updating LSR to a new version::
 @end menu
 
 
@@ -56,7 +57,7 @@ Snippets created or updated in @file{input/new} should be copied to
 scripts/auxiliar/makelsr.py
 @end example
 
-Be sure that @command{make web} runs successfully before submitting a
+Be sure that @command{make doc} runs successfully before submitting a
 patch, to prevent breaking compilation.
 
 @subheading Formatting snippets in @file{input/new}
@@ -195,3 +196,65 @@ by a translation string, you may have to fix
 In any case, commit all changes to Git.
 
 @end enumerate
+
+
+
+@node Updating LSR to a new version
+@section Updating LSR to a new version
+
+To update LSR, perform the following steps:
+
+@enumerate
+
+@item
+Download the latest snippet tarball, extract it, and run
+@code{convert-ly} on all files using the command-line option
+@code{--to=VERSION} to ensure snippets are updated to the
+correct stable version.
+
+@item
+Copy relevant snippets (i.e., snippets whose version is equal to or
+less than the new version of LilyPond) from @file{input/new/} into
+the tarball.
+
+You must not rename any files during this, or the next, stage.
+
+@item
+Verify that all files compile with the new version of LilyPond,
+ideally without any warnings or errors.  To ease the process,
+you may use the shell script that appears after this list.
+
+Due to the workload involved, we @emph{do not} require that you
+verify that all snippets produce the expected output.  If you
+happen to notice any such snippets and can fix them, great; but as
+long as all snippets compile, don't delay this step due to some
+weird output.  If a snippet is broken, the hordes of willing
+web-2.0 volunteers will fix it.  It's not our problem.
+
+@item
+Create a tarball and send it back to Sebastiano.
+
+@item
+When LSR has been updated, download another snippet tarball,
+verify that the relevant snippets from @file{input/new/} were
+included, then delete those snippets from @file{input/new/}.
+
+@end enumerate
+
+
+Here is a shell script to run all @code{.ly} files in a directory
+and redirect terminal output to text files, which are then
+searched for the word "failed" to see which snippets do not compile.
+
+@example
+#!/bin/bash
+
+for LILYFILE in *.ly
+do
+  STEM=$(basename "$LILYFILE" .ly)
+  echo "running $LILYFILE..."
+  lilypond --format=png -ddelete-intermediate-files "$LILYFILE" >& "$STEM".txt
+done
+
+grep failed *.txt
+@end example

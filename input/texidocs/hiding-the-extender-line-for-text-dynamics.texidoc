@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Los cambios de dinámica con estilo de texto (como cresc. y dim.)
 se imprimen con una línea intermitente que muestra su alcance.

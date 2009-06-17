@@ -113,13 +113,16 @@ for example, this is used to position grobs relative to the (visual)
 center of the bar line.")
      (break-align-anchor-alignment ,number? "Read by
 @code{ly:break-aligned-interface::calc-extent-aligned-anchor} for
-aligning an anchor to a grob's extent")
+aligning an anchor to a grob's extent.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-symbols ,list? "A list of symbols that determine
 which break-aligned grobs to align this to.  If the grob selected by
 the first symbol in the list is invisible due to break-visibility, we
-will align to the next grob (and so on).")
+will align to the next grob (and so on).  Choices are @code{left-edge},
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{staff-bar},
+@code{key-cancellation}, @code{key-signature}, @code{time-signature},
+and @code{custos}.")
      (break-align-orders ,vector? "Defines the order in which
 prefatory matter (clefs, key signatures) appears.  The format is a
 vector of length@tie{}3, where each element is one order for
@@ -428,6 +431,8 @@ semitie?")
 units.")
      (height-limit ,ly:dimension? "Maximum slur height: The longer the
 slur, the closer it is to this height.")
+     (hide-tied-accidental-after-break ,boolean? "If set, an accidental
+that appears on a tied note after a line break will not be displayed.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of @code{NoteColumn}s for horizontal shifting.  This is used by
 @rinternals{note-collision-interface}.")
@@ -466,7 +471,7 @@ correction and @code{1} for full correction.")
 ;;
 ;; l
 ;;
-     (labels ,list? "List of labels (symbols) placed on a column")
+     (labels ,list? "List of labels (symbols) placed on a column.")
      (layer ,integer? "The output layer (a value between 0
 and@tie{}2): Layers define the order of printing objects.  Objects in
 lower layers are overprinted by objects in higher layers.")
@@ -725,7 +730,7 @@ rest?")
      (stencils ,list? "Multiple stencils, used as intermediate
 value.")
      (strict-grace-spacing ,boolean? "If set, main notes are spaced
-normally, then grace notes are put left of the musical columns fot the
+normally, then grace notes are put left of the musical columns for the
 main notes.")
      (strict-note-spacing ,boolean? "If set, unbroken columns with
 non-musical material (clefs, bar lines, etc.) are not spaced

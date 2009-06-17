@@ -5,6 +5,7 @@
 \header {
   lsrtags = "repeats"
 
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 El grabador @code{Volta_engraver} reside de forma predeterminada
 dentro del contexto de @code{Score}, y los corchetes de la repetición
@@ -16,7 +17,7 @@ también el fragmento de código \"Volta multi staff\".
 "
   doctitlees = "Añadir corchetes de primera y segunda vez a más pentagramas"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Der @code{Volta_engraver} befindet sich im @code{Score}-Kontext und Klammern
 werden deshalb nur auf dem obersten System dargestellt.  Das kann umgangen
@@ -44,3 +45,4 @@ should appear; see also the \"Volta multi staff\" snippet.
   \new Staff \with { \consists "Volta_engraver" } { c'2 g' e' a' }
   \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
 >>
+

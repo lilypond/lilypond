@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 Se pueden imprimir los acordes exclusivamente al comienzo de las
 líneas y cuando cambia el acorde.
@@ -40,3 +41,4 @@ harmonies = \chordmode {
     \relative c' { \harmonies }
   }
 >>
+

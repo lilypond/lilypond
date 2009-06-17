@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Las expresiones dinámicas que se comienzan, terminan o se producen
 en la misma nota se alinean verticalmente.  Para asegurar que las
@@ -30,3 +31,4 @@ of the @code{DynamicLineSpanner} object.
   c2\p f\mf
   g2\< b4\> c\!
 }
+

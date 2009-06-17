@@ -882,16 +882,16 @@ setting, resulting bar-check warnings may not be displayed.
 @cindex kirchenpausen
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi--measure-rests.ly}
+{changing-form-of-multi-measure-rests.ly}
 
 @cindex multi-measure rests, positioning
 @cindex positioning multi-measure rests
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{positioning-multi--measure-rests.ly}
+{positioning-multi-measure-rests.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{multi--measure-rest-markup.ly}
+{multi-measure-rest-markup.ly}
 
 
 @seealso
@@ -1576,9 +1576,6 @@ Internals Reference: @rinternals{Beam}.
 
 
 @knownissues
-
-Automatically kneed cross-staff beams cannot be used together with
-hidden staves.  See @ref{Hiding staves}.
 
 Beams can collide with note heads and accidentals in other voices
 
@@ -2644,7 +2641,7 @@ set directions.  Hence, when introducing layout tweaks to
 override the special settings, they should be placed inside
 the grace expression. The overrides should also be reverted
 inside the grace expression. Here, the grace note's default stem
-direction is overriden and then reverted.
+direction is overridden and then reverted.
 
 @lilypond[quote,verbatim,relative=2]
 \new Voice {

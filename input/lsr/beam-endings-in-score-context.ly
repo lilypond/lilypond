@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 43774ddb81b9017802da04ba2862cae4586935b2
   texidoces = "
 Las reglas de final de barra especificadas en el contexto
 @code{Score} se aplican a todos los pentagramas, pero se pueden
@@ -14,10 +15,10 @@ modificar tanto en los niveles de @code{Staff} como de
 "
   doctitlees = "Finales de barra en el contexto Score"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Balkenenderegeln, die im @code{Score}-Kontext definiert werden, wirken
-sich auf alle Systeme aus, können aber auf @code{Staff}- und 
+sich auf alle Systeme aus, können aber auf @code{Staff}- und
 @code{Voice}-Ebene neu verändert werden:
 
 "
@@ -65,3 +66,4 @@ levels:
     }
   >>
 }
+

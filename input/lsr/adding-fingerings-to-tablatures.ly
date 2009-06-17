@@ -5,6 +5,7 @@
 \header {
   lsrtags = "fretted-strings"
 
+%% Translation of GIT committish: c8446d6eb2fadbf8931a867741572582759935ad
   texidocfr = "Ajout de doigtés à des tablatures"
 
   doctitlefr = "
@@ -44,3 +45,4 @@ threeFour = \markup {
     <a\3 fis'\1>^>^\threeTwo[ b\2 e\4]
   }
 }
+

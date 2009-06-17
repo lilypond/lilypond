@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
 
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 Este tipo de notación se utiliza para el canto de los Salmos, en
 que las estrofas no siempre tienen la misma longitud.
@@ -36,3 +37,4 @@ stemOff = { \override Staff.Stem #'transparent = ##t }
     \stemOn g'2 \bar "||"
   }
 }
+

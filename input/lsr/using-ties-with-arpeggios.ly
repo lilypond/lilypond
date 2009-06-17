@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
  doctitlees = "Uso de ligaduras en los arpegios"
  texidoces = "
 En ocasiones se usan ligaduras de unión para escribir los arpegios.
@@ -17,7 +18,7 @@ como se muestra en este ejemplo.
 
 "
 
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
  texidocde = "
  Überbindungen werden teilweise benutzt, um Arpeggios zu notieren.  In
  diesem Fall stehen die übergebundenen Noten nicht unbedingt hintereinander.
@@ -29,7 +30,7 @@ für normale Überbindungen eingesetzt werden
   doctitlede = "Überbingungen für Arpeggio genutzen"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 Les liaisons de tenue servent parfois à rendre un accord arpégé. Dans
 ce cas, les notes liées ne sont pas toutes consécutives. Il faut alors
@@ -61,3 +62,4 @@ can also be used for ordinary consecutive notes.
   \tieDotted
   g8 ~ c g2
 }
+

@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 3644a70508f73e9204837cb07430225e55bd38f6
  doctitlees = "Escribir varios grupos especiales usando una sola instrucción \\times"
  texidoces = "
 La propiedad @code{tupletSpannerDuration} establece cuánto debe durar
@@ -22,7 +23,7 @@ Para ver más inforamción sobre @code{make-moment}, véase
 
 "
 
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
   texidocde = "
 Die Eigenschaft @code{tupletSpannerDuration} bestimmt, wie lange jede
 der N-tolen innerhalb der Klammern nach dem @code{\\times}-Befehl
@@ -38,7 +39,7 @@ Mehr Information über @code{make-moment} gibt es in \"Verwaltung der Zeiteinhei
   doctitlede = "Mehrere Triolen notieren, aber nur einmal \\times benutzen"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 La propriété @code{tupletSpannerDuration} spécifie la longueur voulue de
 chaque crochet.  Avec elle, vous pouvez faire plusieurs nolets en ne
@@ -74,3 +75,4 @@ administration\".
   \set tupletSpannerDuration = #(ly:make-moment 1 4)
   \times 2/3 { c8 c c c c c }
 }
+

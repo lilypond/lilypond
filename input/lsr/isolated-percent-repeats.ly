@@ -5,6 +5,7 @@
 \header {
   lsrtags = "repeats"
 
+%% Translation of GIT committish: da84f4caeafed6832152295e67ae852a9930f568
   texidoces = "
 También se pueden imprimir símbolos de porcentaje sueltos.  Esto se
 hace introduciendo un silencio multicompás con una función de
@@ -13,7 +14,7 @@ impresión distinta:
 "
   doctitlees = "Símbolos de porcentaje sueltos"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Isolierte Prozentwiederholungen können auch ausgegeben werden.  Das wird
 erreicht, indem man eine Ganztaktpause notiert und ihre Ausgabeform
@@ -36,3 +37,4 @@ multi-measure rest with a different print function:
   \override MultiMeasureRest #'thickness = #0.48
   R1
 }
+

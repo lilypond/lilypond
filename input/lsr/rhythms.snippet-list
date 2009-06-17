@@ -1,4 +1,4 @@
-adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rythms..ly
+adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rhythms.ly
 adding-drum-parts.ly
 aligning-bar-numbers.ly
 automatic-beam-subdivisions.ly
@@ -8,11 +8,10 @@ beam-endings-in-score-context.ly
 beam-grouping-in-7-8-time.ly
 beams-across-line-breaks.ly
 changing-beam-knee-gap.ly
-changing-form-of-multi--measure-rests.ly
-changing-text-and-spanner-styles-for-text-dynamics.ly
+changing-form-of-multi-measure-rests.ly
 changing-the-time-signature-without-affecting-the-beaming.ly
 changing-the-tuplet-number.ly
-changing-time-signatures-inside-a-polymetric-section-using-scaledurations.ly
+changing-time-signatures-inside-a-polymetric-section-using--scaledurations.ly
 chant-or-psalms-notation.ly
 compound-time-signatures.ly
 conducting-signs,-measure-grouping-signs.ly
@@ -30,11 +29,11 @@ making-slurs-with-complex-dash-structure.ly
 manually-controlling-beam-positions.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
 modifying-tuplet-bracket-length.ly
-multi--measure-rest-markup.ly
+multi-measure-rest-markup.ly
 non-default-tuplet-numbers.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 positioning-grace-notes-with-floating-space.ly
-positioning-multi--measure-rests.ly
+positioning-multi-measure-rests.ly
 printing-bar-numbers-at-regular-intervals.ly
 printing-bar-numbers-inside-boxes-or-circles.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly

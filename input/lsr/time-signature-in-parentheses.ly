@@ -18,3 +18,4 @@ The time signature can be enclosed within parentheses.
   \time 2/4
   a4 b8 c
 }
+

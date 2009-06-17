@@ -1,0 +1,30 @@
+%% Translation of GIT committish: f4b53f5b097f125eb3102e6fdcdb79734473c81c
+  texidoces = "
+Las digitaciones y los números de cuerda aplicados a notas
+individuales evitan a las barras automáticamente, pero de forma
+predeterminada esto no es cierto para las digitaciones y números
+de cuerda que se aplican a notas concretas de acordes.  El ejemplo
+siguiente muestra cómo se puede sobreescribir este comportamiento
+predeterminado:
+
+"
+  doctitlees = "Evitar colisiones entre digitaciones de acordes y barras de corchea"
+
+%% Translation of GIT committish: 98dc713cb34b498f145badf23d14957367a19ece
+  texidocfr = "
+Les doigtés et les numéros de cordes attachés à des notes seules
+évitent automatiquement les barres de ligature, mais ce n'est pas le cas par
+défaut pour les doigtés ou numéros de cordes attachés aux notes d'un
+accord. L'exemple qui suit montre comment ce comportement par défaut
+peut être corrigé.
+"
+  doctitlefr = "Éviter les collisions entre les doigtés d'accords et les ligatures"
+
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+  texidocde = "
+Fingersatz und Saitennummern, die zu einzelnen Noten hinzugefügt werden, vermeiden
+automatisch Hälse und Balken, aber das gilt nicht für Noten von Akkorden.
+Das Beispiel zeigt, wie dieses Verhalten verändert werden kann.
+
+"
+  doctitlede = "Vermeidung von Zusammenstößen bei Fingersatz in Akkorden"

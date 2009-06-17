@@ -228,14 +228,16 @@ gsave
 grestore
 } bind def
 
-/print_glyphs % dx dy glyph print_glyphs
+/print_glyphs % w dx dy glyph print_glyphs
 {
 	{
-		currentpoint %dx dy glyph x0 y0
-		3 2 roll %dx dy x0 y0 glyph
-		glyphshow % dx dy x0 y0
-		moveto % dx dy
-		rmoveto
+		currentpoint %w dx dy glyph x0 y0
+		5 2 roll %w x0 y0 dx dy glyph
+		3 1 roll %w x0 y0 glyph dx dy
+		rmoveto %w x0 y0 glyph
+		glyphshow %w x0 y0
+		moveto %w
+		0 rmoveto
 	}repeat
 }bind def
 %end music-drawing-routines.ps

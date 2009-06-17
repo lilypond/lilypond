@@ -15,3 +15,4 @@ This can be achieved by separating those syllables by tildes.
 \lyrics {
   wa~o~a 
 }
+

@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
 @code{ly/script-init.ly}, donde las variables @code{dashHat},
@@ -19,7 +20,7 @@ semitrino en lugar del símbolo predeterminado +, asigne el valor
 "
   doctitlees = "Modificar los valores predeterminados para la notación abreviada de las articulaciones"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
  texidocde = "
 Die Abkürzungen sind in der Datei @samp{ly/script-init.ly} definiert, wo
 den Variablen @code{dashHat}, @code{dashPlus}, @code{dashDash},
@@ -50,3 +51,4 @@ the default + symbol, assign the value @code{trill} to the variable
 \relative c'' { c1-+ }
 dashPlus = "trill"
 \relative c'' { c1-+ }
+

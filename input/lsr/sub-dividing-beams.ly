@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
   texidoces = "
 Las barras de semicorcheas (o notas más breves) seguidas no se
 subdividen de forma predeterminada.  Esto es: las tres (o más)
@@ -23,7 +24,7 @@ la función @code{make-moment}, como se muestra aquí:
 "
   doctitlees = "Subdivisión de las barras de semicorchea"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
 werden standardmäßig nicht unterteilt.  Dieses Verhalten kann verändert
@@ -35,6 +36,24 @@ Standardwert für @code{beatLength} ist 1 / Zähler des aktuellen Taktes.
 
 "
   doctitlede = "Balken in Untergruppen teilen"
+
+
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+  texidocfr = "
+Les ligatures d'une succession de notes de durée inférieure à la croche
+ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de
+ligature seront continus.  Ce comportement peut être modifié aafin de
+diviser la ligature en sous-groupes grâce à la propriété
+@code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
+subdivisées selon un intervalle défini par @code{beatLength} ; il n'y
+aura alors plus qu'un seul trait de ligature entre chaque sous-groupe.  
+Par défaut, @code{beatLength} fixe la valeur de référence à une noire.
+Il faudra donc lui fournir, à l'aide de la fonction @code{make-moment},
+une fraction correspondant au sous-groupe désiré, comme dans l'exemple
+suivant. 
+
+"
+  doctitlefr = "Subdivision des ligatures"
 
   texidoc = "
 The beams of consecutive 16th (or shorter) notes are, by default, not
@@ -68,3 +87,4 @@ function, as shown here:
   \set beatLength = #(ly:make-moment 1 16)
   c32[ c c c c c c c]
 }
+

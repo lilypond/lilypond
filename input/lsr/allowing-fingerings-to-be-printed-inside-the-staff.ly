@@ -5,6 +5,7 @@
 \header {
   lsrtags = "editorial-annotations, fretted-strings, spacing"
 
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 Las cifras de digitación se imprimen de forma predeterminada fuera
 del pentagrama.  Sin embargo, este comportamiento se puede
@@ -20,7 +21,7 @@ L'empilement des indications de doigté se fait par défaut à l'extérieur de l
 "
   doctitlefr = "Impression des doigtés à l'intérieur de la portée"
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Normalerweise werden vertikal orientierte Fingersatzzahlen außerhalb des Systems
 gesetzt.  Das kann aber verändert werden.
@@ -41,3 +42,4 @@ staff.  However, this behavior can be canceled.
   \once \override Fingering #'staff-padding = #'()
   <c-1 e-2 g-3 b-5>2
 }
+

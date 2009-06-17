@@ -753,7 +753,7 @@ class Paper:
         # TODO: maybe set line-width instead of right-margin?
         self.print_length_field (printer, "right-margin", self.right_margin)
         # TODO: What's the corresponding setting for system_left_margin and
-        #        system_right_margin in Lilypond?
+        #        system_right_margin in LilyPond?
         self.print_length_field (printer, "between-system-space", self.system_distance)
         self.print_length_field (printer, "page-top-space", self.top_system_distance)
 

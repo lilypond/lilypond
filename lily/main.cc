@@ -128,7 +128,7 @@ static Getopt_long *option_parser = 0;
 
 /* Internationalisation kludge in two steps:
  * use _i () to get entry in POT file
- * call gettext () explicitely for actual "translation"  */
+ * call gettext () explicitly for actual "translation"  */
 
 static Long_option_init options_static[]
 = {

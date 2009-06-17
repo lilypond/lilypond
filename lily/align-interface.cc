@@ -249,8 +249,10 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 	}
     }
 
+  // So far, we've computed the translates for all the non-empty elements.
+  // Here, we set the translates for the empty elements: an empty element
+  // gets the same translation as the last non-empty element before it.
   vector<Real> all_translates;
-
   if (!translates.empty ())
     {
       Real w = translates[0];

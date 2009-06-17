@@ -317,7 +317,7 @@ output.
 
 In @LaTeX{}, define @code{\betweenLilyPondSystem} in such a way that
 inclusion of other systems is terminated once the required number of
-systems are included.  Since @code{\betweenLilypondSystem} is first
+systems are included.  Since @code{\betweenLilyPondSystem} is first
 called @emph{after} the first system, including only the first system
 is trivial.
 

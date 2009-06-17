@@ -5,6 +5,7 @@
 \header {
   lsrtags = "repeats"
 
+%% Translation of GIT committish: da84f4caeafed6832152295e67ae852a9930f568
   texidoces = "
 De forma predeterminada, los corchetes de primera y segunda vez se
 trazan encima de los finales alternativos completos, pero es posible
@@ -15,7 +16,7 @@ sólo dura un compás, que corresponde a una duración de 3/4.
 "
   doctitlees = "Shortening volta brackets"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Volta-Klammern werden normalerweise über alle Noten der Klammer gezogen, aber
 es ist möglich sie zu verkürzen.  Hierzu muss
@@ -48,3 +49,4 @@ lasts one measure, which is a duration of 3/4.
     { g4 g g }
   }
 }
+

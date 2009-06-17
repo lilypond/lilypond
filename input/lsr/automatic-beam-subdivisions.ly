@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 Se pueden subdividir las barras automáticamente.  Estableciendo la
 propiedad @code{subdivideBeams}, las barras se subdividen en
@@ -44,3 +45,4 @@ specified in @code{beatLength}).
     b32^"beatLength 1 16"[ a g f c' b a g]
   }
 }
+

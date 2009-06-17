@@ -136,8 +136,8 @@
 
   (define (glyph-spec w x y g)
     (let ((prefix (if (string? g) "/" "")))
-      (ly:format "~4f ~4f ~a~a"
-		 (+ w x)  y
+      (ly:format "~4f ~4f ~4f ~a~a"
+		 w x y
 		 prefix g)))
   
   (ly:format 

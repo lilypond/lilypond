@@ -188,8 +188,8 @@ rondo =  	\relative c'
 	 c8[\f c, c]  c[ c c]
 	c4 r8 c4 r8
 
-        %This is technically incorrect, since we started with an 8th
-	% upstep, but both eulenburg and EB do this as well.
+	% This is technically incorrect, since we started with an 8th
+	% note pickup, but both eulenburg and EB do this as well.
 	c4 r8 r4 r8 \bar "|."		
 }
 

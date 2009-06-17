@@ -5,6 +5,7 @@
 \header {
   lsrtags = "ancient-notation"
 
+%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
   texidoces = "
 Las indicaciones de compás también se pueden grabar en estilo antiguo.
 
@@ -24,3 +25,4 @@ Time signatures may also be engraved in an old style.
   \override Staff.TimeSignature #'style = #'neomensural
   s1
 }
+

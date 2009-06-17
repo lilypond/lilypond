@@ -5,6 +5,7 @@
 \header {
   lsrtags = "pitches, editorial-annotations"
 
+%% Translation of GIT committish: 48f804da6794a7bc8e7fdd4b1649f485b0b09d26
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
@@ -28,6 +29,7 @@ nota.
 
 "
 
+%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
   doctitlede = "Notenkopfstile besierend auf der Tonleiterstufe erstellen"
   texidocde = "
 Die @code{shapeNoteStyles}-(NotenFormenStile)-Eigenschaft kann benutzt
@@ -90,10 +92,11 @@ fragment = {
     \break
 
     \relative c' {
-      \set shapeNoteStyles  = #'#(cross triangle fa #f
-                                  mensural xcircle diamond)
+      \set shapeNoteStyles = #'#(cross triangle fa #f
+                                 mensural xcircle diamond)
       \fragment
     }
   }
   \layout { ragged-right = ##t }
 }
+

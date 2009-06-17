@@ -5,6 +5,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 He aquí una partitura vocal estándar para cuatro voces SATB. Con
 grupos mayores, suele ser útil incluir una sección que aparezca en
@@ -14,6 +15,7 @@ voces se reagrupan en sólo dos pentagramas.
 
 "
   doctitlees = "Plantilla de conjunto vocal"
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   
   texidocde = "
 Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren 
@@ -22,6 +24,7 @@ die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa
 sind fast immer gleich in allen Stimmen.
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 これは標準の 4 パート SATB (ソプラノ、アルト、テナー、バス) ボーカル譜です。@c
 もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
@@ -112,3 +115,4 @@ bassWords = \lyricmode {
     }
   }
 }
+

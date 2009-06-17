@@ -373,6 +373,7 @@
     (BendAfter
      . (
 	(stencil . ,bend::print)
+	(minimum-length . 0.5)
 	(thickness . 2.0)
 	(meta . ((class . Spanner)
 		 (interfaces . (spanner-interface
@@ -405,8 +406,8 @@
 			       staff-bar
 			       key-cancellation
 			       key-signature
-			       staff
-			       time-signature custos)
+			       time-signature
+			       custos)
 
 			      ;; begin of line
 			      (
@@ -526,7 +527,7 @@
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
 	(side-axis . ,Y)
-	(avoid-slur . outside )
+	(avoid-slur . outside)
 	(font-series . bold)
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface

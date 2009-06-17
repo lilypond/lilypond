@@ -2,7 +2,7 @@
 %
 %  Add ninth chords to to predefined fret diagrams for standard guitar tunings
 %
-%  This is part of the Lilypond distribution files
+%  This is part of the LilyPond distribution files
 %
 %  Copyright 2008--2009 by Jonathan Kulp
 %

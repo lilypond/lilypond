@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
   texidoces = "
 
 Al establecer la propiedad @code{'strict-grace-spacing} hacemos
@@ -17,6 +18,18 @@ izquierda de las columnas musicales de las notas principales.
 "
 
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
+werden die Verzierungsnoten \"fließend\" gemacht, d.h. sie sind
+von den normalen Noten los gekoppelt: Zuerst werden die normalen
+Noten platziert, dann erst die Verzierungen links von der
+Hauptnote gesetzt.
+
+"
+  doctitlede = "Positionierung von Verzierungen mit verschiebbarem Platz"
 
   texidoc = "
 Setting the property @code{'strict-grace-spacing} makes the musical
@@ -41,3 +54,4 @@ the) graces are put left of the musical columns for the main notes.
     }
   >>
 }
+

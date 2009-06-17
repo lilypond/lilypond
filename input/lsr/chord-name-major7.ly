@@ -5,13 +5,23 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
  texidocde = "
 Das Aussehen des großen Septakkords kann mit @code{majorSevenSymbol} verändert werden.
 
 "
 
   doctitlede = "Akkordbezeichnung maj7"
+
+
+%% Translation of GIT committish: 3e50373e10750e5bc1f5c69898df3740e6169165
+  texidoces = "
+La presentación del acorde de séptima mayor se
+puede ajustar mediante majorSevenSymbol.
+
+"
+  doctitlees = "Nombre de acorde maj7"
+
 
   texidoc = "
 The layout of the major 7 can be tuned with @code{majorSevenSymbol}. 
@@ -25,3 +35,4 @@ The layout of the major 7 can be tuned with @code{majorSevenSymbol}.
   \set majorSevenSymbol = \markup { j7 }
   c:7+
 }
+

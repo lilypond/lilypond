@@ -1,5 +1,5 @@
 /*
-  break-align-interface.cc -- implement Break_alignment_interface
+  break-alignment-interface.cc -- implement Break_alignment_interface
 
   source file of the GNU LilyPond music typesetter
 
@@ -347,7 +347,7 @@ MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility, 1)
 SCM
 Break_aligned_interface::calc_break_visibility (SCM smob)
 {
-  /* a BreakAlignGroup is break-visible iff it has one element that is break-visible */
+  /* a BreakAlignGroup is break-visible if it has one element that is break-visible */
   Grob *me = unsmob_grob (smob);
   SCM ret = scm_c_make_vector (3, SCM_EOL);
   extract_grob_set (me, "elements", elts);
@@ -366,7 +366,7 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
 }
 
 ADD_INTERFACE (Break_alignable_interface,
-	       "Object that is aligned on a break aligment.",
+	       "Object that is aligned on a break alignment.",
 
 	       /* properties */
 	       "break-align-symbols "
@@ -407,7 +407,7 @@ ADD_INTERFACE (Break_aligned_interface,
 	       );
 
 ADD_INTERFACE (Break_alignment_interface,
-	       "The object that performs break aligment.  See"
+	       "The object that performs break alignment.  See"
 	       " @ref{break-aligned-interface}.",
 
 	       /* properties */

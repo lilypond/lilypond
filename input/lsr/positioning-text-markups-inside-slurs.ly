@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
+%% Translation of GIT committish: b10de35f895919aec109de6fb1fc84d42ad851b3
   texidoces = "
 
 Los elementos de marcado de texto deben tener la propiedad
@@ -14,7 +15,7 @@ impriman por dentro de las ligaduras de expresión.
 "
   doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
 @code{outside-staff-priority}-Eigenschaft auf falsch gesetzt wird.
@@ -35,4 +36,5 @@ set to false in order to be printed inside slurs.
   \override TextScript #'outside-staff-priority = ##f
   c2(^\markup { \halign #-10 \natural } d4.) c8
 }
+
 

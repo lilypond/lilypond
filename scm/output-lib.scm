@@ -587,6 +587,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 								 left-span X)
 					X))
        (common-y (ly:grob-common-refpoint spanner left-span Y))
+       (minimum-length (ly:grob-property spanner 'minimum-length 0.5))
+
        (left-x (+ padding
 		  (max (interval-end (ly:grob-robust-relative-extent
 				      left-span common X))
@@ -597,9 +599,9 @@ centered, X==1 is at the right, X == -1 is at the left."
 			    (interval-end (ly:grob-robust-relative-extent dots common X))
 			    -10000) ;; TODO: use real infinity constant.
 			)))
-       (right-x (- (interval-start
-		    (ly:grob-robust-relative-extent right-span common X))
-		   padding))
+       (right-x (max (- (interval-start (ly:grob-robust-relative-extent right-span common X))
+			padding)
+		     (+ left-x minimum-length)))
        (self-x (ly:grob-relative-coordinate spanner common X))
        (dx (- right-x left-x))
        (exp (list 'path thickness 

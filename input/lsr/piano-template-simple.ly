@@ -5,6 +5,7 @@
 \header {
   lsrtags = "keyboards, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 Presentamos a continuación una plantilla de piano sencilla con algunas
 notas.
@@ -12,6 +13,7 @@ notas.
 "
   doctitlees = "Plantilla de piano (sencilla)"
   
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   texidocde = "
 Hier ein einfaches Klaviersystem.
 
@@ -50,3 +52,4 @@ lower = \relative c {
   \layout { }
   \midi { }
 }
+

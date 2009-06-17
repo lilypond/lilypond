@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 Se puede tipografiar un gissando contemporáneo sin nota final
 utilizando una nota oculta y temporalización de cadenza.
@@ -12,7 +13,7 @@ utilizando una nota oculta y temporalización de cadenza.
 "
   doctitlees = "Glissando contemporáneo"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Ein modernes Glissando ohne eine Endnote kann gesetzt werden, indem
 eine Kadenz eingesetzt wird und die Endnote unsichtbar gemacht wird.
@@ -40,3 +41,4 @@ hidden note and cadenza timing.
   \cadenzaOff
   \bar "|"
 }
+

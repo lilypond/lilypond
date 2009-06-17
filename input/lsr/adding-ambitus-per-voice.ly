@@ -5,12 +5,14 @@
 \header {
   lsrtags = "pitches, staff-notation, vocal-music"
 
+%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
   doctitlees = "Añadir un ámbito por voz"
   texidoces = "
 Se puede añadir un ámbito por cada voz. En este caso, el ámbito se
 debe desplazar manualmente para evitar colisiones.
 
 "
+%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
 
 texidocde = "
 Ambitus können pro Stimme gesetzt werden. In diesem Fall müssen sie
@@ -44,3 +46,4 @@ manually to prevent collisions.
     b1
   }
 >>
+

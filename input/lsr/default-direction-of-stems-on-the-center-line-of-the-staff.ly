@@ -5,6 +5,7 @@
 \header {
   lsrtags = "editorial-annotations"
 
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 La dirección predeterminada de las plicas sobre la tercera línea
 del pentagrama está determinada por la propiedad
@@ -13,7 +14,7 @@ del pentagrama está determinada por la propiedad
 "
   doctitlees = "Dirección predeterminada de las plicas sobre la tercera línea del pentagrama"
 
-%% Translation of GIT committish :0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Richtung von Hälsen auf der mittleren Linie kann mit der @code{Stem}-Eigenschaft
 @code{neutral-direction} gesetzt werden.
@@ -36,3 +37,4 @@ by the @code{Stem} property @code{neutral-direction}.
   \override Stem #'neutral-direction = #down
   a4 b c b
 }
+

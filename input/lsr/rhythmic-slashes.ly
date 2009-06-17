@@ -48,3 +48,4 @@ comp = #(define-music-function (parser location count) ( integer?)
     \comp #4 |
   }
 }
+

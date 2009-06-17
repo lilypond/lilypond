@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # -*- coding: utf-8; -*-
 
-### texi2html customization script for Lilypond
+### texi2html customization script for LilyPond
 ### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
 ###         Some code parts copied from texi2html and adapted. These functions
 ###         were written mainly by Patrice Dumas
@@ -135,8 +135,8 @@ $Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
 
 # Examples should be formatted similar to quotes:
 $Texi2HTML::Config::complex_format_map->{'example'} = {
-  'begin' => q{"<blockquote><pre class=\"example\">"},
-  'end' => q{"</pre></blockquote>\n"},
+  'begin' => q{"<blockquote>"},
+  'end' => q{"</blockquote>\n"},
   'style' => 'code',
  };
 

@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 Se puede establecer el separador entre las distintas partes del
 nombre de un acorde para que sea cualquier elemento de marcado.
@@ -12,7 +13,7 @@ nombre de un acorde para que sea cualquier elemento de marcado.
 "
   doctitlees = "Modificación del separador de acordes"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Der Trenner zwischen unterschiedlichen Teilen eines Akkordsymbols kann
 beliebeiger Text sein.
@@ -34,3 +35,4 @@ markup.
     = \markup { \typewriter | }
   c:7sus4
 }
+

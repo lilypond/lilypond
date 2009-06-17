@@ -5,6 +5,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
+%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
   texidoces = "
 El orden vertical que ocupan las inscripciones gráficas está
 controlado con la propiedad @code{script-priority}. Cuanto más
@@ -20,7 +21,7 @@ lugar.
 "
   doctitlees = "Controlar la ordenación vertical de las inscripciones"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Die vertikale Anordnung von Beschriftungen wird mit der
 @code{'script-priority}-Eigenschaft kontrolliert.  Um so kleiner die
@@ -56,3 +57,4 @@ comes first.
   \once \override Script #'script-priority = #-100
   a2^\prall^\markup { \sharp }
 }
+

@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
   texidoces = "
 
 Los valores predeterminados para las notas de adorno están
@@ -18,6 +19,20 @@ efectos.
 "
 
   doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
+
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Die globalen Standardeinstellungen für Verzierungsnoten werden in
+den Variablen@code{startGraceMusic}, @code{stopGraceMusic},
+@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
+@code{startAppoggiaturaMusic} und @code{stopAppoggiaturaMusic}
+gespeichert, die in der Datei @code{ly/grace-init.ly} definiert
+sind.  Wenn man sie umdefiniert, können andere Effekte erreicht
+werden.
+
+"
+  doctitlede = "Globale Umdefinition von Verzierungsnoten"
 
   texidoc = "
 The global defaults for grace notes are stored in the identifiers
@@ -46,3 +61,4 @@ stopAcciaccaturaMusic = {
 \relative c'' {
   \acciaccatura d8 c1
 }
+

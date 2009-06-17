@@ -466,6 +466,9 @@ to create complicated music functions.
 @subsection Displaying music expressions
 
 @cindex internal storage
+@cindex displaying music expressions
+@cindex internal representation, displaying
+@cindex displayMusic
 @funindex \displayMusic
 
 When writing a music function it is often instructive to inspect how
@@ -1288,13 +1291,16 @@ this is a @rinternals{NoteHead} object.
 Here is a function to use for @code{\applyOutput}; it blanks
 note-heads on the center-line:
 
-@example
-(define (blanker grob grob-origin context)
- (if (and (memq (ly:grob-property grob 'interfaces)
-                note-head-interface)
-          (eq? (ly:grob-property grob 'staff-position) 0))
-     (set! (ly:grob-property grob 'transparent) #t)))
-@end example
+@lilypond[quote,verbatim,ragged-right]
+#(define (blanker grob grob-origin context)
+   (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
+            (eq? (ly:grob-property grob 'staff-position) 0))
+       (set! (ly:grob-property grob 'transparent) #t)))
+
+\relative {
+  e4 g8 \applyOutput #'Voice #blanker b d2
+}
+@end lilypond
 
 
 @node Scheme procedures as properties

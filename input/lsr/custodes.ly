@@ -5,6 +5,7 @@
 \header {
   lsrtags = "ancient-notation, tweaks-and-overrides"
 
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 Se pueden tipografiar «custos» en diferentes estilos.
 
@@ -39,3 +40,4 @@ Custodes may be engraved in various styles.
   c1^"mensural" \break
   <d a' f'>1
 }
+

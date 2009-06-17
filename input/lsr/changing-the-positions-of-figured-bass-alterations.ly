@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 Las alteraciones y los signos «más» pueden aparecer antes o
 después de los números, según el valor de las propiedades
@@ -41,3 +42,4 @@ depending on the @code{figuredBassAlterationDirection} and
   \set figuredBassAlterationDirection = #LEFT
   <6\+> <5+> <6 4-> r
 }
+

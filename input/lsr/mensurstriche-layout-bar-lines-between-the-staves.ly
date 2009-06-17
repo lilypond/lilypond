@@ -5,6 +5,7 @@
 \header {
   lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
 
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 La disposición «mensurstriche» en que las líneas divisorias no
 están dibujadas sobre los pentagramas, sino entre ellos, se puede
@@ -16,7 +17,7 @@ propiedad @code{transparent}.
 
   doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706> 
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Das Mensurstiche-Layout, in welchem die Taktlinien nicht auf den Systemen,
 sondern zwischen den Systemen gesetzt werden, kann mit einer @code{StaffGroup}
@@ -49,3 +50,4 @@ global = {
     \new Staff { << \global { c c } >> }
   >>
 }
+

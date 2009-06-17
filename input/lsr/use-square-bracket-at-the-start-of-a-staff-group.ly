@@ -5,6 +5,7 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers"
 
+%% Translation of GIT committish: f39a9724d9f51ed9d0d464689ef62f549d7b8dd6
   texidoces = "
 Se puede usar el delimitador de comienzo de un sistema
 @code{SystemStartSquare} estableciéndolo explícitamente dentro de
@@ -13,7 +14,7 @@ un contexto @code{StaffGroup} o @code{ChoirStaffGroup}.
 "
   doctitlees = "Uso del corchete recto al comienzo de un grupo de pentagramas"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Klammer zu Beginn von Systemgruppen kann auch in eine eckige Klammer
 (@code{SystemStartSquare}) umgewandelt werden, wenn man sie explizit
@@ -38,3 +39,4 @@ context.
     \new Staff { c'4 d' e' f' }
   >> }
 }
+

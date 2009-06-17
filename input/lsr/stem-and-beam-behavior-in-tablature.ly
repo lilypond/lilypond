@@ -5,6 +5,7 @@
 \header {
   lsrtags = "fretted-strings"
 
+%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
   texidoces = "
 La dirección de las plicas se contola de la misma forma en la
 tablatura que en la notación tradicional. Las barras se pueden
@@ -49,3 +50,4 @@ example.
     g,,16 b d g b d g b
   }
 }
+

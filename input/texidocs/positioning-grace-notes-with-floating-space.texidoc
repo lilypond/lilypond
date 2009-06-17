@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 0ead6a9062687a17d199f72b2d94f0d9fbd1e591
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Al establecer la propiedad @code{'strict-grace-spacing} hacemos
@@ -16,7 +16,7 @@ izquierda de las columnas musicales de las notas principales.
 %% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
   texidocde = "
 Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
-werden die Verzierungsnoten "fließend" gemacht, d.h. sie sind
+werden die Verzierungsnoten \"fließend\" gemacht, d.h. sie sind
 von den normalen Noten los gekoppelt: Zuerst werden die normalen
 Noten platziert, dann erst die Verzierungen links von der
 Hauptnote gesetzt.

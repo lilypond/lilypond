@@ -5,6 +5,7 @@
 \header {
   lsrtags = "ancient-notation, template"
 
+%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
   texidoces = "
 Al transcribir música mensural, es útil un «incipit» al compienzo
 de la pieza para indicar la tonalidad y el tempo
@@ -18,6 +19,7 @@ encima de ellos.
 
 "
   doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   
   texidocde = "
 Bei der Transkription von Mensuralmusik ist es oft erwünscht, ein 
@@ -30,6 +32,7 @@ ein Kompromiss werden die Notenlinien nicht auf dem System, sondern
 zwischen den Systemen geschrieben.
 "
 
+%% Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
   texidocfr = "
 Lorsque l'on transcrit de la musique mensurale, il est d'usage 
 d'indiquer en début de partition,  par un « incipit », les tonalité 
@@ -283,6 +286,7 @@ bassusLyrics = \lyricmode {
     }
   }
 }
+
 
 
 

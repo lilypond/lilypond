@@ -5,6 +5,7 @@
 \header {
   lsrtags = "text, vocal-music"
 
+%% Translation of GIT committish: 3b206eff0a7feaab0001db3cff95f7d3b63b4601
   texidoces = "
 La alineación horizontal de la letra se puede ajustar sobreescribiendo
 la propiedad @code{self-alignment-X} del objeto @code{LyricText}.
@@ -40,3 +41,4 @@ well.
   \once \override LyricText #'self-alignment-X = #1
   "This is right-aligned"
 }
+

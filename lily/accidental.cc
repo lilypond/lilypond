@@ -67,7 +67,8 @@ Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
 
   if (to_boolean (me->get_property ("forced"))
       || !unsmob_grob (me->get_object ("tie"))
-      || rank == start + 1) /* we are at the start of a line */
+      || (rank == start + 1 && /* we are at the start of a line */
+	  !to_boolean (me->get_property ("hide-tied-accidental-after-break"))))
     {
       Stencil *s = unsmob_stencil (get_stencil (me));
       if (s)
@@ -163,8 +164,9 @@ Accidental_interface::print (SCM smob)
   Grob *me = unsmob_grob (smob);
   Grob *tie = unsmob_grob (me->get_object ("tie"));
 
-  if (tie && !tie->original ()
-      && !to_boolean (me->get_property ("forced")))
+  if (tie &&
+      (to_boolean (me->get_property ("hide-tied-accidental-after-break"))
+       || (!tie->original () && !to_boolean (me->get_property ("forced")))))
     {
       me->suicide ();
       return SCM_EOL;
@@ -218,8 +220,9 @@ ADD_INTERFACE (Accidental_interface,
 	       "alteration "
 	       "avoid-slur "
 	       "forced "
+	       "glyph-name-alist "
+	       "hide-tied-accidental-after-break "
 	       "parenthesized "
 	       "restore-first "
-	       "glyph-name-alist "
 	       "tie "
 	       );

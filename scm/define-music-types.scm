@@ -532,7 +532,8 @@ Syntax: @code{\\rightHandFinger @var{text}}")
 	))
 
     (TextSpanEvent
-     . ((description . "Start a text spanner, e.g., 8va.....|")
+     . ((description . "Start a text spanner, for example, an
+octavation.")
 	(types . (general-music span-event event text-span-event))
 	))
 
@@ -546,7 +547,7 @@ Syntax: @var{note}@code{-~}")
     (TimeScaledMusic
      . ((description . "Multiply durations, as in tuplets.
 
-Syntax: @code{\\times @var{fraction} @var{music}}, e.g.
+Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
 @code{\\times 2/3 @{ @dots{} @}} for triplets.")
 	(length-callback . ,ly:music-wrapper::length-callback)
 	(start-callback . ,ly:music-wrapper::start-callback)
@@ -579,12 +580,12 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.
 	))
 
     (TremoloSpanEvent
-     . ((description . "Tremolo over two stems")
+     . ((description . "Tremolo over two stems.")
 	(types . (general-music event span-event tremolo-span-event))
 	))
 
     (TrillSpanEvent
-     . ((description . "Start a trill spanner tr~~~")
+     . ((description . "Start a trill spanner.")
 	(types . (general-music span-event event trill-span-event))
 	))
 

@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 La nomenclatura inglesa (predeterminada) para los acordes del
 cifrado americano se puede cambiar por la alemana
@@ -52,3 +53,4 @@ music = \chordmode {
     \semiGermanChords \music }
   \context Voice { \music }
 >>
+

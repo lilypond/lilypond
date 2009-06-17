@@ -5,6 +5,7 @@
 \header {
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 Ésta es una plantilla bastante avanzada, para un conjunto de
 jazz. Observe que la notación de todos los instrumentos está en
@@ -15,6 +16,7 @@ dentro de una sección @code{\\transpose}.
 "
   doctitlees = "Plantilla para combo de jazz"
   
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   texidocde = "
 Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung: 
 Alle Instrumente sind in @code{\key c \major} (C-Dur) notiert. Das bezieht sich 
@@ -293,3 +295,4 @@ drumContents = {
   
   \midi { }
 }
+

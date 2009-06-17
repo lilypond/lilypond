@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
   texidoces = "
 
 Es posible aplicar la barrita que cruza la barra de las
@@ -26,3 +27,4 @@ other situations.
   \override Stem #'stroke-style = #"grace"
   c8( d2) e8( f4)
 }
+

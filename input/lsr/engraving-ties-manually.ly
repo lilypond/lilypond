@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
  doctitlees = "Grabado manual de las ligaduras"
  texidoces = "
 Se pueden grabar a mano las ligaduras modificando la propiedad
@@ -15,7 +16,7 @@ hacia arriba, -1 = hacia abajo).
 
 "
 
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Überbindungen können manuell gesetzt werden, indem man die
 @code{tie-configuration}-Eigenschaft des @code{TieColumn}-Objekts
@@ -27,7 +28,7 @@ Notensystemabständen an, die zweite Zahl zeigt die Richtung an (1 = nach oben,
   doctitlede = "Bindebögen manuell setzen"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 Il est possible de graver manuellement les liaisons de tenue, en
 modifiant la propriété @code{tie-configuration}.  Pour chaque paire, le
@@ -53,3 +54,4 @@ number indicates the direction (1 = up, -1 = down).
     #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
   <c e g> ~ <c e g>
 }
+

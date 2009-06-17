@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords, template"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 ¿Quiere preparar una hoja guía de acordes (o «lead sheet») con
 melodía y acordes?  ¡No busque más!
@@ -12,12 +13,14 @@ melodía y acordes?  ¡No busque más!
 "
 
 doctitlees = "Plantilla de pentagrama único con música y acordes"
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
 
   texidocde = "
 Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben?  Hier ist 
 das richtige Beispiel für Sie!
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
 "
@@ -55,3 +58,4 @@ harmonies = \chordmode {
   \layout{ }
   \midi { }
 }
+

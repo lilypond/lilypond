@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
   texidoces = "
 Los patrones de barrado se pueden alterar con la propiedad
 @code{beatGrouping}:
@@ -12,13 +13,22 @@ Los patrones de barrado se pueden alterar con la propiedad
 "
   doctitlees = "Agrupar los pulsos"
   
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Balkengruppen können mit der @code{beatGrouping}-Eigenschaft geändert
 werden:
 
 "
   doctitlede = "Notengruppen"
+
+
+%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+  texidocfr = "
+La manière de gérer les ligatures est influencée par la propriété 
+@code{beatGrouping} :
+
+"
+  doctitlefr = "Regroupement selon la pulsation"
 
   texidoc = "
 Beaming patterns may be altered with the @code{beatGrouping} property: 
@@ -35,4 +45,5 @@ Beaming patterns may be altered with the @code{beatGrouping} property:
   \set beatGrouping = #'(3 2)
   c8^"(3+2)" c16 c8
 }
+
 

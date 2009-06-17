@@ -32,7 +32,7 @@
   "File prefix for commands on buffer or region.")
 
 (defvar LilyPond-master-file nil
-  "Master file that Lilypond will be run on.")
+  "Master file that LilyPond will be run on.")
 
 ;; FIXME: find ``\score'' in buffers / make settable?
 (defun LilyPond-get-master-file ()
@@ -756,7 +756,7 @@ command."
   (define-key LilyPond-mode-map "\C-cb" 'LilyPond-what-beat)
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
   (define-key LilyPond-mode-map "\C-ci" 'LilyPond-insert-tag-current)
-  ;; the following will should be overriden by Lilypond Quick Insert Mode
+  ;; the following will should be overridden by LilyPond Quick Insert Mode
   (define-key LilyPond-mode-map "\C-cq" 'LilyPond-quick-insert-mode)
   (define-key LilyPond-mode-map "\C-c;" 'LilyPond-comment-region)
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)

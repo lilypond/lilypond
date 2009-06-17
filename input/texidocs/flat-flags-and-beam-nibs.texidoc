@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 70f455b078620f842672c64c66d87a08158a24ac
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
  Son posibles tanto los corchetes rectos sobre notas sueltas como
 extremos de barra sueltos en figuras unidas, con una combinación de
 @code{stemLeftBeamCount}, @code{stemRightBeamCount} e indicadores de
-barra @code{[]} emparejados.
+barra @code{[ ]} emparejados.
 
 Para corchetes rectos que apunten a la derecha sobre notas sueltas,
 use indicadores de barra emparejados @code{[]} y establezca
@@ -21,7 +21,7 @@ principio de un conjunto de notas unidas, establezca
 A veces, para una nota suelta rodeada de silencios tiene sentido que
 lleve los dos extremos sueltos del corchete plano, apuntando a derecha
 e izquierda.  Hágalo solamente con indicadores de barra emparejados
-@code{[]} (ejemplo 4).
+@code{[ ]} (ejemplo 4).
 
 (Observe que @code{\\set stemLeftBeamCount} siempre equivale a
 @code{\\once \\set}.  En otras palabras, los ajustes de la cantidad de

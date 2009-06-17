@@ -5,6 +5,7 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, tweaks-and-overrides"
 
+%% Translation of GIT committish: f39a9724d9f51ed9d0d464689ef62f549d7b8dd6
   texidoces = "
 Se puede utilizar la propiedad
 @code{systemStartDelimiterHierarchy} para crear grupos de
@@ -22,7 +23,7 @@ todos los pentagramas. Las posibilidades son
 "
   doctitlees = "Anidado de grupos de pentagramas"
 
-%% Translation of GIT committish :<0364058d18eb91836302a567c18289209d6e9706>  
+%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
   texidocde = "
 Die Eigenschaft @code{systemStartDelimiterHierarchy} kann eingesetzt
 werden, um komplizierte geschachtelte Systemklammern zu erstellen.  Der
@@ -65,3 +66,4 @@ staves. The possibilities are @code{SystemStartBar},
   \new Staff { c1 }
   \new Staff { c1 }
 >>
+

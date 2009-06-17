@@ -5,6 +5,7 @@
 \header {
   lsrtags = "chords"
 
+%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
   texidoces = "
 Para añadir indicaciones de línea divisoria dentro del contexto de
 los nombres de acorde @code{ChordNames}, incluya el grabador
@@ -13,7 +14,7 @@ los nombres de acorde @code{ChordNames}, incluya el grabador
 "
   doctitlees = "Añadir barras de compás al contexto de nombres de acorde (ChordNames)"
 
-%% Translation of GIT committish :33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Um Taktstriche in einem @code{ChordNames}-Kontext anzeigen zu lassen, muss der
 @code{Bar_engraver} hinzugefügt werden.
@@ -36,4 +37,5 @@ To add bar line indications in the @code{ChordNames} context, add the
 \chordmode {
   f1:maj7 f:7 bes:7 
 }
+
 

@@ -49,3 +49,4 @@ thickness and padding around the markup."
   c2^\markup { \NWS-box ABCD }
   c2^\markup { \NWS-box \note #"4" #1.0 }
 }
+

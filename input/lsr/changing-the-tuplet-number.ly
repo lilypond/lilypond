@@ -5,6 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 3644a70508f73e9204837cb07430225e55bd38f6
  doctitlees = "Cambiar el número del grupo especial"
  texidoces = "
 
@@ -16,7 +17,7 @@ del grupo, o eliminar el número.
 
 "
 
-%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
 texidocde = "
 Standardmäßig wird nur der Zähler des N-tolen-Bruchs über der Klammer
 dargestellt, wie er dem @code{\\times}-Befehl übergeben wird.
@@ -27,7 +28,7 @@ vollständig unterdrücken.
   doctitlede = "Die Zahl der N-tole verändern"
 
 
-%% Translation of GIT committish :<e71f19ad847d3e94ac89750f34de8b6bb28611df>
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 L'apparence du chiffre est déterminée par la propriété @code{text} dans
 @code{TupletNumber}.  La valeur par défaut imprime seulement le
@@ -56,3 +57,4 @@ be printed, or the tuplet number may be suppressed altogether.
   \override TupletNumber #'stencil = ##f
   \times 2/3 { c8 c c }
 }
+

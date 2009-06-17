@@ -5,6 +5,7 @@
 \header {
   lsrtags = "vocal-music, keyboards, template"
 
+%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
   texidoces = "
 He aquí el típico formato dde una canción: un pentagrama con la
 melodía y la letra, y el acompañamiento de piano por debajo.
@@ -12,11 +13,13 @@ melodía y la letra, y el acompañamiento de piano por debajo.
 "
   doctitlees = "Plantilla de piano con melodía y letra"
   
+%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
   texidocde = "
 Das nächste Beispiel ist typisch für ein Lied: Im oberen System die 
 Melodie mit Text, darunter Klavierbegleitung.
 "
 
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 これは一般的な歌曲のフォーマットです: 旋律と歌詞を持つ譜表と、その下にピアノ伴奏譜があります。
 "
@@ -71,3 +74,4 @@ lower = \relative c {
   }
   \midi { }
 }
+

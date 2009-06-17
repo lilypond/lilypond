@@ -5,6 +5,7 @@
 \header {
   lsrtags = "repeats, staff-notation, editorial-annotations"
 
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 Este fragmento de código proporciona una solución alternativa a la
 producción de contadores de compás utilizando repeticiones
@@ -36,3 +37,4 @@ transparent percent repeats.
     \repeat percent 4 { s1 }
   }
 >>
+

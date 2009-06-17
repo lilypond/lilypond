@@ -5,18 +5,31 @@
 \header {
   lsrtags = "rhythms"
 
+%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
   texidoces = "
 
 Los números de compás se alinean de forma predeterminada por la
 derecha con su objeto padre. Éste es por lo general el borde
 izquierdo de una línea o, si los números se imprimen dentro de la
-línea, el lado isquierdo de una línea divisoria.  Los números
+línea, el lado izquierdo de una línea divisoria.  Los números
 también se pueden situar directamente sobre la barra de compás o
 alineados por la izquierda con ella.
 
 "
 
   doctitlees = "Alineación de los números de compás"
+
+%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+  texidocde = "
+Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
+ausgerichtet.  Das ist normalerweise die linke Ecke einer Linie oder,
+wenn die Nummern innerhalb einer Zeile gesetzt werden, auf der
+linken Seite eines Taktstrichs.  Die Nummern können auch
+direkt über dem Taktstrich positioniert werden oder rechts vom
+Taktstrich gesetzt werden.
+
+"
+  doctitlede = "Taktnummern ausrichten"
 
   texidoc = "
 Bar numbers by default are right-aligned to their parent object. This
@@ -43,3 +56,4 @@ positioned directly over the bar line or left-aligned to the bar line.
   \override Score.BarNumber #'self-alignment-X = #LEFT
   c1 | c1
 }
+

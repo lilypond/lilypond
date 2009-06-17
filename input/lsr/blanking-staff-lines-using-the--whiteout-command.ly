@@ -5,6 +5,7 @@
 \header {
   lsrtags = "editorial-annotations, text"
 
+%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
   texidoces = "
 La instrucción @code{\\whiteout} intercala un rectángulo blanco
 debajo de un elemento de marcado.  Este rectángulo blanco no tapa
@@ -29,3 +30,4 @@ white box will not overlap any other grob.
   \override TextScript #'extra-offset = #'(2 . 4)
   c2-\markup { \whiteout \pad-markup #0.5 "middle C" } c
 } 
+
