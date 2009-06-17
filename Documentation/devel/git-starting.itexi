@@ -214,10 +214,18 @@ git format-patch origin
 The commit should include a brief message describing the change.
 This consists of a one-line summary describing the change, and
 if necessary a blank line followed by several lines giving the
-details.
+details:
 
-If the change is to the documentation only the one-line summary
-should be prefixed with "Docs: ".
+@example
+Did household chores.
+
+I hung up the wet laundry and then washed the car.  I also
+vacuumed the floors, rinsed the dirty dishes, fed the cat, and
+recalibrated the temporal flux machine.
+@end example
+
+If the change is to the documentation only then the one-line
+summary should be prefixed with @qq{Docs: }.
 
 If you added a file to the source code, you must add it to git
 with:
@@ -232,7 +240,8 @@ git add FILENAME
 These commands will produce one or more files named
 @file{0001-xyz}, @file{0002-abc}, etc. in the top directory of the
 git tree.  Send an email to @email{lilypond-devel@@gnu.org} with
-these files attached.
+these files attached, and a developer will review and apply the
+patches to the main repository.
 
 
 @node Committing directly
