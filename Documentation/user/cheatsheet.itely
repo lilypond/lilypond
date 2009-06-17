@@ -67,7 +67,7 @@ s4_" "
 @tab time signature
 @tab
 @lilypond[fragment]
-\override Staff.Clef #'transparent = ##t
+\override Staff.Clef #'stencil = #empty-stencil
 \time 3/4
 s4_" "
 \time 4/4
@@ -98,7 +98,8 @@ d ~ d
 @lilypond[notime,fragment]
 \clef treble
 \key es \major
-s4
+\hideNotes
+c128
 @end lilypond
 
 @item @var{note}@code{'}
