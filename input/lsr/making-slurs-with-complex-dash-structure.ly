@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
   texidoces = "
 
 Las ligaduras de expresión se pueden construir con patrones de

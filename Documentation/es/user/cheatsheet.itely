@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -67,7 +67,7 @@ s4_" "
 @tab compás
 @tab
 @lilypond[fragment]
-\override Staff.Clef #'transparent = ##t
+\override Staff.Clef #'stencil = #empty-stencil
 \time 3/4
 s4_" "
 \time 4/4
@@ -98,7 +98,8 @@ d ~ d
 @lilypond[notime,fragment]
 \clef treble
 \key es \major
-s4
+\hideNotes
+c128
 @end lilypond
 
 @item @var{note}@code{'}
@@ -217,7 +218,7 @@ a\> a a\!
 
 
 @item @code{\partial 8}
-@tab anacrusa
+@tab anacrusa o compás incompleto
 @tab
 @lilypond[fragment,relative=2]
 \partial 8
