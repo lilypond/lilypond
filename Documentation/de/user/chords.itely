@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: da96eee19a7529842725d0c374ea356987100f91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -64,7 +64,10 @@ unterschiedlichen Eingabemethoden findet sich in @ref{Input modes}.
 
 Akkorde, die im Akkordmodus eingegeben werden, sind musikalische
 Elemente und können genauso wie Akkorde im Notenmodus
-transponiert werden.
+transponiert werden.  @code{\chordmode} ist absolut, und deshalb
+hat @code{\relative} keine Auswirkung auf die @code{\chordmode}-Abschnitte.
+Im Akkord-Modus ist jedoch die absolute Tonhöhe eine Oktave höher
+als im Notationsmodus.
 
 Akkordmodus und Notenmodus können gemischt verwendet werden:
 
@@ -481,6 +484,28 @@ Basstöne werden notiert:
     \chordmode {
       c2 f:sus4 c1:/f
     }
+  }
+>>
+@end lilypond
+
+@cindex N.C.-Symbol
+
+Pausen, die in einem @code{ChordNames}-Kontext notiert werden, werden
+mit der @code{noChordSymbol}-Beschriftung darstellt.
+
+@lilypond[verbatim, quote, relative=1]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+  \new Score \chordmode {
+    c1
+    r1
+    g1
+    c1
   }
 >>
 @end lilypond

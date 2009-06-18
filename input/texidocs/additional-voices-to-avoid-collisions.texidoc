@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 73115c93908af74c12a19753e79cbca47b2c2978
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
  doctitlees = "Voces adicionales para evitar colisiones"
  texidoces = "
 En ciertos casos de polifonía compleja, se necesitan voces adicionales
-para evitar colisiones entre las notas.  Las voces adicionales se
-añaden definiendo una variable que utiliza la función de Scheme
-context-spec-music.
+para evitar colisiones entre las notas.  Si se necesitan más de cuatro
+voces paralelas, las voces adicionales se añaden definiendo una
+variable que utiliza la función de Scheme @code{context-spec-music}.
 
 "
 

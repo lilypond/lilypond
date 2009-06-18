@@ -1,4 +1,4 @@
-%% Translation of GIT committish: da84f4caeafed6832152295e67ae852a9930f568
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Se puede imprimir una línea divisoria de la forma @code{|:} al
 principio de la pieza, sobreescribiendo la propiedad correspondiente:

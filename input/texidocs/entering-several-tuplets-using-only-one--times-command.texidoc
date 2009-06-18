@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3644a70508f73e9204837cb07430225e55bd38f6
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
  doctitlees = "Escribir varios grupos especiales usando una sola instrucción \\times"
  texidoces = "
 La propiedad @code{tupletSpannerDuration} establece cuánto debe durar
