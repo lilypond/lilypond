@@ -31,7 +31,7 @@ output_name = 'doc.pot'
 node_blurb = '''@untranslated
 '''
 doclang = ''
-head_committish = read_pipe ('git-rev-parse HEAD')
+head_committish = read_pipe ('git rev-parse HEAD')
 intro_blurb = '''@c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
 @c This file is part of %(topfile)s
 @ignore
