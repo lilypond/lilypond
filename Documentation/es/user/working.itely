@@ -847,7 +847,7 @@ lo que nos lleva a
 @cindex make, archivos de
 @cindex make
 
-Posiblemente todas las plataformas en que puede correr Lilypond,
+Posiblemente todas las plataformas en que puede correr LilyPond,
 contemplan una posibilidad de software llamada @code{make}. Este
 programa lee un archivo especial llamado @code{Makefile} que define
 las relaciones de dependencia entre los archivos y qué instrucciones
