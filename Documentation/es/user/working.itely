@@ -26,8 +26,8 @@ que lea este capítulo.
 @end menu
 
 
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
 
 En este momento está preparado para comenzar a escribir archivos de
 LilyPond más grandes -- no sólo los pequeños ejemplos que aparecen en
