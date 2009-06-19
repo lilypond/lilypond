@@ -919,7 +919,7 @@ Los archivos @code{.ly} de los directorios @code{Partituras} y
 el directorio @code{Notas}:
 
 @example
-%%% top of file "sinfonia-cello.ly"
+%%% principio del archivo "sinfonia-cello.ly"
 \include ../definiciones.ily
 \include ../Notas/cello.ily
 @end example
