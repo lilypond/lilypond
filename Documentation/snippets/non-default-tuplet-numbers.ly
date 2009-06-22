@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.1
-\version "2.13.1"
+\version "2.13.4"
 
 \header {
 %% Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
@@ -15,7 +15,6 @@ agrupación.
 "
 
   doctitlees = "Números de agrupación especial distintos a los predeterminados"
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "

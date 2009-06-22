@@ -1643,21 +1643,13 @@ alteraciones accidentales de las otras voces.
 @cindex letra y barrado
 
 @funindex autoBeaming
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
+@funindex beamSettings
 @funindex measureLength
 @funindex beatLength
-@funindex beatGrouping
 @funindex \time
 @funindex time
 @funindex \set
 @funindex set
-
-Existen dos tipos de reglas de barrado: las reglas de @emph{agrupación
-de barras} y las de @emph{terminación de barra}.  Las reglas de
-agrupación de barras son las más sencillas, pero se sobreescriben por
-cualquier regla de terminación de barra que corresponda.
 
 La colocación de las barras automáticas se determina aplicando las
 siguientes reglas en este orden:
@@ -1669,207 +1661,43 @@ y como está especificado; en caso contrario:
 
 @item si está en vigor @code{\autoBeamOff} no poner barras; en caso contrario:
 
-@item si es de aplicación alguna regla de terminación de barra, usarla para
-determinar los lugares válidos en que las barras pueden terminar; en
-caso contrario:
-
-@item si es de aplicación alguna regla válida (véase más abajo) de
-agrupación de barras, usarla para agrupar las notas con las barras; en
-caso contrario:
-
 @item usar el valor de @code{beatLength} para agrupar las notas con barras
 
 @end itemize
 
 @i{@strong{Modificar las agrupaciones de pulsos}}
 
-Si no hay definida ninguna regla de final de barra para la duración de
-una barra en particular dentro del tipo de compás en uso, su barrado
-se controla mediante tres propiedades de contexto:
-@code{measureLength}, @code{beatLength} y @code{beatGrouping}.  Estas
-propiedades se deben establecer en los contextos @code{Score},
-@code{Staff} o @code{Voice} para delimitar el ámbito de su efecto.
-Los valores predeterminados se establecen al procesarse las
-instrucciones @code{\time}, por ello cualquier instrucción @code{\set}
-que modifique su valor se deberá escribir después de todas las
-instrucciones @code{\time}.
-
-@warning{Estas tres propiedades se hacen efectivas para una barra
-concreta @strong{solamente} si no está predefinida ninguna regla de
-terminación de barra para esa duración de la barra dentro del tipo de
-compás en uso, o si todas esas reglas de terminación de barras han
-sido devueltas a su valor inicial.}
-
-Dichas propiedades determinan el barrado de la siguiente forma:
-
-Las barras pueden dar comienzo en cualquier lugar (excepto si ya hay
-una barra activa).  Las barras terminan en un tiempo determinado por
-los valores de @code{beatGrouping} y @code{beatLength}, como se ve a
-continuación:
-
-@itemize
-
-@item
-Si @code{beatGrouping} y @code{beatLength} con consistentes con
-@code{measureLength}, se utiliza @code{beatGrouping} para determinar
-los puntos finales de las barras.
-
-@item
-Si @code{beatGrouping} y @code{beatLength} no concuerdan con
-@code{measureLength}, se usa @code{beatLength} para determinar los
-puntos finales de las barras.
-
-@end itemize
-
-De forma predeterminada, las propiedades the @code{measureLength} y
-@code{beatLength} se derivan del compás establecido por la instrucción
-@code{\time}.  La longitud @code{measureLength} está establecida de
-forma que sea exactamente la misma que la longitud del compás dado por
-la indicación de compás, y la longitud del pulso @code{beatLength}
-tiene un valor dado igual a una parte de compás (1/n, siendo n el
-denominador del compás).
-
-El valor predeterminado de @code{beatGrouping} se toma de una tabla
-que está en @file{scm/@/music@/-functions@/.scm}.  Para localizarla,
-véase @rlearning{Otras fuentes de información}.  Define la agrupación
-de pulsos para los compases de 3/8, 4/8, 5/8, 8/8 y todas las
-indicaciones de compás compuesto usuales.
-
 Tanto @code{measureLength} como @code{beatLength} son @i{momentos},
 unidades de duración musical.  Las cantidades del tipo @i{moment} se
 crean por la función de Scheme @code{ly:make-moment}.  Para ver más
-información sobre esta función, consulte @ref{Gestión del tiempo}.
+información sobre esta función, consulte @ref{Time administration}.
 
-@code{beatGrouping} es una lista de enteros que dan el número de
-pulsos en cada grupo.
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{grouping-beats.ly}
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{specifying-context-with-beatgrouping.ly}
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{using-beatlength-and-beatgrouping.ly}
-
-@funindex subdivideBeams
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{sub-dividing-beams.ly}
-
-@cindex compases, agrupaciones de
-@cindex pulsos, agrupar
-@cindex agrupación de pulsos
-@cindex compases, subgrupos dentro de
-
-@funindex autoBeamSettings
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{conducting-signs,-measure-grouping-signs.ly}
-
-
-@strong{@i{Modificar los puntos finales de las barras}}
-
-Se requieren reglas de terminación de barra cuando barras de distintas
-duraciones han de terminar en diferentes puntos dentro del compás.
-Por ejemplo, podríamos desear que las barras de corchea en 4/4
-terminaran solamente al final del compás o en la mitad del mismo, pero
-que las barras de semicorchea terminasen en las posiciones de negra
-para evitar barras continuas demasiado largas.  Las reglas funcionan
-como sigue:
-
-Las barras automáticas pueden comenzar en cualquier nota pero
-solamente pueden terminar en unas pocas posiciones dentro del compás,
-concretamente en las posiciones definidas por las propiedades de
-@code{autoBeamSettings}.  Estas propiedades consisten en una lista de
-reglas que especifican dónde pueden terminar las barras.  Las reglas
-predeterminadas de @code{autoBeamSettings} están definidas en
-@file{scm/@/auto@/-beam@/.scm}. Para localizarlo, consulte
-@rlearning{Otras fuentes de información}.
-
-Para añadir una regla a la lista, utilice
-
-@example
-#(override-auto-beam-setting
-  '(límite-barra
-    numerador-barra  denominador-barra
-    numerador-compás denominador-compás)
-  numerador-momento denominador-momento [contexto])
-@end example
-
-@noindent
-donde:
-
-@itemize
-
-@item @code{límite-barra} es el tipo de límite de barra automática que se
-define.  Puede ser @code{begin} o @code{end}, pero sólo es efectivo
-@code{end}.
-
-@item @code{numerador-barra/denominador-barra} es la duración de la barra
-a la que se quiere aplicar la regla.  Se considera que una barra tiene
-la duración de su nota más breve.  Ajuste @code{numerador-barra} y
-@code{denominador-barra} a un asterisco @code{'*'} para que la regla
-se aplique a las barras de cualquier duración.
-
-@item @code{numerador-compás/denominador-compás} especifica la indicación de compás
-a que se aplica esta regla.  Si @code{numerador-compás} y
-@code{denominador-compás} tienen el valor de un asterisco @code{'*'},
-esta regla se aplica a cualquier tipo de compás.
-
-@item @code{numerador-momento/denominador-momento} es la posición dentro del
-compás en que la barra debe terminar.
-
-@funindex score-override-auto-beam-setting
-@funindex override-auto-beam-setting
-
-@item @code{contexto} es opcional, y especifica el contexto en que se debe
-hacer el cambio.  El valor predeterminado es @code{'Voice}.
-
-@code{#(score-override-auto-beam-setting '(A B C D) E F)} es
-equivalente a @code{#(override-auto-beam-setting '(A B C D) E F
-'Score)}.
-
-@end itemize
-
-Por ejemplo, si las barras automáticas siempre deben terminar sobre la
-primera negra, para cualquier tipo de compás o duración de la barra,
-use
-
-@lilypond[quote,verbatim,relative=2]
-a8 a a a a a a a
-#(override-auto-beam-setting '(end * * * *) 1 4)
-a8 a a a a a a a
+@lilypond[quote,relative=2,verbatim]
+  \time 5/16
+  c8^"beats" c16 c8 |
+  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (2 3)))
+  c8^"(2+3)" c16 c8
+  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
+  c8^"(3+2)" c16 c8
 @end lilypond
 
-Podemos forzar los ajustes de las barras para que tengan efecto sólo
-sobre las barras cuya nota más breve sea de una cierta duración:
-
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-% end 1/16 beams for all time signatures at the 1/16 moment
-#(override-auto-beam-setting '(end 1 16 * *) 1 16)
-a16 a a a a a a a |
-a32 a a a a16 a a a a a |
-% end 1/32 beams for all time signatures at the 1/16 moment
-#(override-auto-beam-setting '(end 1 32 * *) 1 16)
-a32 a a a a16 a a a a a |
-@end lilypond
-
-Podemos forzar los ajustes de las barras para que tengan efecto
-solamente en ciertos tipos de compás:
-
-@lilypond[quote,verbatim,relative=2]
-\time 5/8
-% end beams of all durations in 5/8 time signature at the 2/8 moment
-#(override-auto-beam-setting '(end * * 5 8) 2 8)
-c8 c d d d
-\time 4/4
-e8 e f f e e d d
-\time 5/8
-c8 c d d d
+@lilypond[quote, verbatim,relative=1]
+\new Staff <<
+  \time 7/8
+  \new Voice = one {
+    \relative c'' {
+      \overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (2 3 2)))
+        a8 a a a a a a
+    }
+  }
+  \new Voice  = two {
+    \relative c' {
+      \voiceTwo
+      \overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (1 3 3)))
+      f8 f f f f f f
+    }
+  }
+>>
 @end lilypond
 
 En caso de usar varias voces, se debe especificar el contexto
@@ -1879,88 +1707,59 @@ pentagrama:
 @lilypond[quote,verbatim,relative=2]
 \time 7/8
 % rhythm 3-1-1-2
-% Context not specified - does not work correctly
-#(override-auto-beam-setting '(end * * 7 8) 3 8)
-#(override-auto-beam-setting '(end * * 7 8) 4 8)
-#(override-auto-beam-setting '(end * * 7 8) 5 8)
+% Context Voice specified - does not work correctly
+% Because of autogenerated voices, all beating will
+% be at beatLength (1 . 8)
+\overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (3 1 1 2)))
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 
-% Works correctly with context specified
-#(override-auto-beam-setting '(end * * 7 8) 3 8 'Staff)
-#(override-auto-beam-setting '(end * * 7 8) 4 8 'Staff)
-#(override-auto-beam-setting '(end * * 7 8) 5 8 'Staff)
+% Works correctly with context Staff specified
+\overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (3 1 1 2)))
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@warning{Si se produce un comportamiento inesperado de las barras,
-compruebe la existencia de una posible interferencia en los ajustes
-predeterminados del barrado automático que están en
-@file{scm/@/auto@/-beam@/.scm}, porque los finales de barra definidos
-aquí aún son válidos además de los suyos.}
+@funindex revert-beam-setting
 
-@funindex revert-auto-beam-setting
-
-Debemos revertir cualquier final predeterminado indeseado o
-conflictivo, para nuestro compás concreto.  Podemos eliminar una regla
-de terminación de barra previamente establecida o definida por el
-usuario, usando
+Beam settings can be reverted to get back to default behavior.  This
+is accomplished by using @code{\revertBeamSettings}.  The arguments
+are the same as for @code{\overrideBeamSettings}, except no value
+for @var{grouping} is given:
 
 @example
-#(revert-auto-beam-setting
-  '(beam-limit
-    beam-numerator  beam-denominator
-    time-signature-numerator time-signature-denominator)
-  moment-numerator moment-denominator [context])
+\revertBeamSettings context time-signature rule-type
 @end example
 
-@noindent
-@code{límite-barra}, @code{numerador-barra}, @code{denominador-barra},
-@code{numerador-compás}, @code{denominador-compás},
-@code{numerador-momento}, @code{denominador-momento} y @code{contexto}
-son los mismos que antes.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-a16 a a a a a a a a a a a a a a a
-% undo a rule ending 1/16 beams in 4/4 time at 1/4 moment
-#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
-a16 a a a a a a a a a a a a a a a
-@end lilypond
-
-La regla de un enunciado @code{revert-auto-beam-setting} debe
-corresponderse exactamente con la regla original.  Esto es, no se
-tiene en cuenta ninguna expansión de comodines.
-
-@lilypond[quote,verbatim,relative=2]
-\time 1/4
-#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
-a16 a a a
-#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
-a a a a
-#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
-a a a a
+\repeat unfold 16 {a16}
+% set default rule for (1 1 1 1) grouping
+\overrideBeamSettings #'Score #'(4 . 4) #'end #'((* . (1 1 1 1)))
+\repeat unfold 16 {a16}
+% revert the new rule
+\revertBeamSettings #'Score #'(4 . 4) #'end
+\repeat unfold 16 {a16}
 @end lilypond
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{beam-grouping-in-7-8-time.ly}
+@cindex beams, subdividing
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{reverting-default-beam-endings.ly}
+{sub-dividing-beams.ly}
+
+@cindex measure groupings
+@cindex beats, grouping
+@cindex grouping beats
+@cindex measure sub-grouping
+
+@funindex autoBeamSettings
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{conducting-signs,-measure-grouping-signs.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
-
-@funindex \autoBeamOff
-@funindex autoBeamOff
-@funindex \autoBeamOn
-@funindex autoBeamOn
-
-@predefined
-@code{\autoBeamOff},
-@code{\autoBeamOn}.
-@endpredefined
 
 @cindex barra, última en la partitura
 @cindex barra, última en una voz polifónica

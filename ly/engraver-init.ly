@@ -18,8 +18,8 @@
   \description "A context for displaying fret diagrams."
 
   \consists "Fretboard_engraver"
-  \consists "Rest_swallow_translator" 
-  \consists "Output_property_engraver"	
+  \consists "Rest_swallow_translator"
+  \consists "Output_property_engraver"
   \consists "Skip_event_swallow_translator"
   \consists "Hara_kiri_engraver"
   \consists "Separating_line_group_engraver"
@@ -32,14 +32,14 @@
 \context {
   \type "Engraver_group"
   \name "Staff"
-  
-  \consists "Output_property_engraver"	
+
+  \consists "Output_property_engraver"
   \consists "Bar_engraver"
   %% Bar_engraver must be first so default bars aren't overwritten
   %% with empty ones.
-  
+
   \consists "Font_size_engraver"
-  \consists "Separating_line_group_engraver"	
+  \consists "Separating_line_group_engraver"
   \consists "Dot_column_engraver"
   \consists "Staff_collecting_engraver"
 
@@ -48,7 +48,7 @@
   \consists "Clef_engraver"
   \consists "Key_engraver"
   \consists "Time_signature_engraver"
-  \consists "Ledger_line_engraver" 
+  \consists "Ledger_line_engraver"
   \consists "Staff_symbol_engraver"
   \consists "Collision_engraver"
   \consists "Grob_pq_engraver"
@@ -67,18 +67,18 @@
   createSpacing = ##t
   ignoreFiguredBassRest = ##t
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
-  
-  %% explicitly set instrument, so we don't get 
+
+  %% explicitly set instrument, so we don't get
   %% weird effects when doing instrument names for
   %% piano staves
 
   instrumentName = #'()
   shortInstrumentName = #'()
-  
+
   \defaultchild "Voice"
   \accepts "Voice"
   \accepts "CueVoice"
-  
+
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
 
@@ -89,13 +89,13 @@
   \type "Engraver_group"
   \name "DrumStaff"
   \alias "Staff"
-  
+
   \remove "Accidental_engraver"
   \remove "Ottava_spanner_engraver"
-  \remove "Key_engraver" 
+  \remove "Key_engraver"
   \remove "Piano_pedal_engraver"
   \remove "String_number_engraver"
-  
+
   \description "Handles typesetting for percussion."
 
   \denies "Voice"
@@ -104,7 +104,7 @@
 
   clefGlyph = #"clefs.percussion"
   clefPosition = #0
-  \override Script #'staff-padding = #0.75 
+  \override Script #'staff-padding = #0.75
 }
 
 
@@ -135,7 +135,7 @@ contained staves are not connected vertically."
 
 \context{
   \type "Engraver_group"
-  
+
   \override VerticalAxisGroup #'minimum-Y-extent = ##f
   localKeySignature = #'()
   createSpacing = ##t
@@ -143,17 +143,17 @@ contained staves are not connected vertically."
   squashedPosition = #0
   \name RhythmicStaff
   \alias "Staff"
-  
+
   \override BarLine #'bar-size = #4
   \override VoltaBracket #'staff-padding = #3
-  \override StaffSymbol #'line-count = #1	
+  \override StaffSymbol #'line-count = #1
 
   \override Stem  #'neutral-direction = #UP
   \override Beam  #'neutral-direction = #UP
-  
+
   \consists "Output_property_engraver"
   \consists "Font_size_engraver"
-  \consists "Separating_line_group_engraver"	
+  \consists "Separating_line_group_engraver"
   \consists "Dot_column_engraver"
   \consists "Bar_engraver"
   \consists "Staff_symbol_engraver"
@@ -161,8 +161,8 @@ contained staves are not connected vertically."
   \consists "Time_signature_engraver"
   \consists "Instrument_name_engraver"
   \consists "Axis_group_engraver"
-  \consists "Ledger_line_engraver" 
-  
+  \consists "Ledger_line_engraver"
+
   \accepts "Voice"
   \accepts "CueVoice"
   \defaultchild "Voice"
@@ -187,7 +187,7 @@ multiple voices on the same staff."
   \consists "Font_size_engraver"
 
   \consists "Pitched_trill_engraver"
-  \consists "Output_property_engraver"	
+  \consists "Output_property_engraver"
   \consists "Arpeggio_engraver"
   \consists "Multi_measure_rest_engraver"
   \consists "Text_spanner_engraver"
@@ -204,7 +204,7 @@ multiple voices on the same staff."
   \consists "Dots_engraver"
   \consists "Rest_engraver"
   \consists "Tweak_engraver"
-  
+
   %% switch on to make stem directions interpolate for the
   %% center line.
   %  \consists "Melody_engraver"
@@ -216,7 +216,7 @@ multiple voices on the same staff."
 
   %% must come before Script_column_engraver.
   \consists "New_fingering_engraver"
-  
+
   \consists "Chord_tremolo_engraver"
   \consists "Percent_repeat_engraver"
   \consists "Slash_repeat_engraver"
@@ -246,7 +246,7 @@ multiple voices on the same staff."
 
 \context{
   \Voice
-  
+
   \name CueVoice
   \alias Voice
   fontSize = #-4
@@ -282,7 +282,7 @@ multiple voices on the same staff."
   \type "Engraver_group"
   \name GrandStaff
   localKeySignature = #'()
-  
+
   \description "A group of staves, with a brace on the left
 side, grouping the staves together.  The bar lines of the
 contained staves are connected vertically."
@@ -325,7 +325,7 @@ instrument names at the start of each system."
 
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
-  \consists "Output_property_engraver"	
+  \consists "Output_property_engraver"
   systemStartDelimiter = #'SystemStartBracket
 
   \consists "System_start_delimiter_engraver"
@@ -336,13 +336,13 @@ instrument names at the start of each system."
   \accepts "DrumStaff"
   \accepts "GrandStaff"
   \accepts "PianoStaff"
-  \accepts "TabStaff"	
+  \accepts "TabStaff"
   \accepts "Lyrics"
   \accepts "ChordNames"
   \accepts "FiguredBass"
   \accepts "ChoirStaff"
   \accepts "StaffGroup"
-  
+
   \description "Groups staves while adding a bracket on the left
 side, grouping the staves together.  The bar lines of the contained
 staves are connected vertically.  @code{StaffGroup} only consists of
@@ -379,11 +379,11 @@ centered between the staves surrounding this context."
 
   \description "Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics."
-  
+
   \name "Lyrics"
   instrumentName = #'()
   shortInstrumentName = #'()
-  
+
   \consists "Lyric_engraver"
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"
@@ -406,8 +406,8 @@ printing of a single line of lyrics."
 
   %% make sure that barlines aren't collapsed, when
   %% Bar_engraver is there.
-  \override BarLine #'bar-size = #0.1 
-  
+  \override BarLine #'bar-size = #0.1
+
 }
 
 \context {
@@ -420,8 +420,8 @@ printing of a single line of lyrics."
   % FIXME: not sure what the default should be here.
   \override VerticalAxisGroup #'staff-affinity = #DOWN
 
-  
-  \consists "Rest_swallow_translator" 
+
+  \consists "Rest_swallow_translator"
   \consists "Skip_event_swallow_translator"
   \consists "Tie_engraver"
   \consists "Note_name_engraver"
@@ -432,9 +432,9 @@ printing of a single line of lyrics."
   \type "Engraver_group"
   \name ChordNames
   \description "Typesets chord names."
-  
-  \consists "Rest_swallow_translator" 
-  \consists "Output_property_engraver"	
+
+  \consists "Rest_swallow_translator"
+  \consists "Output_property_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Chord_name_engraver"
   \consists "Skip_event_swallow_translator"
@@ -457,7 +457,7 @@ RemoveEmptyStaffContext= \context {
 
 AncientRemoveEmptyStaffContext = \context {
 %% why not add by default?
-  
+
   \RemoveEmptyStaffContext
   \accepts "VaticanaVoice"
   \accepts "GregorianTranscriptionVoice"
@@ -467,7 +467,7 @@ AncientRemoveEmptyStaffContext = \context {
 \context {
   \type "Score_engraver"
   \name "Score"
-  
+
   \description "This is the top level notation context.  No
 other context can contain a @code{Score} context.  This context
 handles the administration of time signatures.  It also makes sure
@@ -492,7 +492,7 @@ automatically when an output definition (a @code{\score} or
   \consists "System_start_delimiter_engraver"
   \consists "Mark_engraver"
   \consists "Volta_engraver"
-  \consists "Metronome_mark_engraver"	
+  \consists "Metronome_mark_engraver"
   \consists "Break_align_engraver"
   \consists "Spacing_engraver"
   \consists "Grace_spacing_engraver"
@@ -500,7 +500,7 @@ automatically when an output definition (a @code{\score} or
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"
   \consists "Parenthesis_engraver"
-  
+
   \defaultchild "Staff"
 
   \accepts "FretBoards"
@@ -530,7 +530,7 @@ automatically when an output definition (a @code{\score} or
   systemStartDelimiter =#'SystemStartBar
 
   drumStyleTable = #drums-style
-  
+
   melismaBusyProperties = #default-melisma-properties
   tieWaitForNote = ##f
   clefGlyph = #"clefs.G"
@@ -541,19 +541,19 @@ automatically when an output definition (a @code{\score} or
 
   crescendoSpanner = #'hairpin
   decrescendoSpanner = #'hairpin
-  
+
   defaultBarType = #"|"
   doubleRepeatType = #":|:"
   barNumberVisibility = #first-bar-number-invisible
   automaticBars = ##t
-  
+
   explicitClefVisibility = #all-visible
   explicitKeySignatureVisibility = #all-visible
   implicitTimeSignatureVisibility = #end-of-line-invisible
-  
+
   repeatCountVisibility = #all-repeat-counts-visible
-  
-  autoBeamSettings = #default-auto-beam-settings
+
+  beamSettings = #default-beam-settings
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
   scriptDefinitions = #default-script-alist
@@ -564,24 +564,24 @@ automatically when an output definition (a @code{\score} or
   pedalUnaCordaStyle = #'text
 
 %% These are in ordinary italic font, including the *,
-%% but they are unlikely to be used, 
+%% but they are unlikely to be used,
 %% as the default pedal-style for SostenutoPedal is 'mixed':
-%% i.e.  Sost. Ped_____________________ 
-  pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*") 
+%% i.e.  Sost. Ped_____________________
+  pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*")
   pedalSostenutoStyle = #'mixed
 
-  harmonicAccidentals = ##t 
+  harmonicAccidentals = ##t
   fingeringOrientations = #'(up down)
   stringNumberOrientations = #'(up down)
   strokeFingerOrientations = #'(right)
-  
+
   lyricMelismaAlignment = #LEFT
   markFormatter = #format-mark-letters
   rehearsalMark = #1
   subdivideBeams = ##f
   extraNatural = ##t
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0))
-  autoCautionaries = #'()  
+  autoCautionaries = #'()
 
   printKeyCancellation = ##t
   keyAlterationOrder = #`(
@@ -592,7 +592,7 @@ automatically when an output definition (a @code{\score} or
   )
 
   barCheckSynchronize = ##f
-  
+
 %% chord names:
   chordNameFunction = #ignatzek-chord-names
   majorSevenSymbol = #whiteTriangleMarkup
@@ -647,7 +647,7 @@ automatically when an output definition (a @code{\score} or
     percent-repeat-item-interface
     percent-repeat-interface
 
-    ;; need this, as stanza numbers are items, and appear only once. 
+    ;; need this, as stanza numbers are items, and appear only once.
     stanza-number-interface
   )
   quotedEventTypes = #'(
@@ -659,8 +659,7 @@ automatically when an output definition (a @code{\score} or
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   verticallySpacedContexts = #'(Staff)
-  topLevelAlignment = ##t
-  
+
   timing = ##t
 }
 
@@ -688,7 +687,7 @@ automatically when an output definition (a @code{\score} or
   \name "Devnull"
   \type "Engraver_group"
 
-%% don't want to route anything out of here: 
+%% don't want to route anything out of here:
   \alias "Staff"
   \alias "Voice"
   \consists "Swallow_engraver"
@@ -702,7 +701,7 @@ context."
   \alias "Voice"
   \consists "Tab_note_heads_engraver"
   \consists "Tab_harmonic_engraver"
-  
+
   \remove "Note_heads_engraver"
   \remove "Fingering_engraver"
   \remove "New_fingering_engraver"
@@ -731,18 +730,18 @@ context."
   \name "TabStaff"
   \denies "Voice"
   \consists "Tab_staff_symbol_engraver"
-  
+
   \description "Context for generating tablature. [DOCME]"
 
   \accepts "TabVoice"
   \defaultchild "TabVoice"
-  
+
   %% 6 strings
   \override StaffSymbol #'staff-space = #1.5
 
   %% Don't draw stems over the tablature figures !
   \override Stem #'avoid-note-head = ##t
-  
+
   %% No accidental in tablature !
   \remove "Accidental_engraver"
   \remove "Key_engraver"

@@ -359,6 +359,30 @@ musicMap =
 #(define-music-function (parser location proc mus) (procedure? ly:music?)
 	     (music-map proc mus))
 
+overrideBeamSettings =
+#(define-music-function
+    (parser location
+     context time-signature rule-type grouping-rule)
+    (symbol? pair? symbol? pair?)
+
+ (_i "Override beamSettings in @var{context}
+for time signatures of @var{time-signature} and rules of type
+@var{rule-type} to have a grouping rule alist
+@var{grouping-rule}.
+@var{rule-type} can be @code{end} or @code{subdivide},
+with a potential future value of @code{begin}.
+@var{grouping-rule} is an alist of @var{(beam-type . grouping)}
+entries.  @var{grouping} is in units of @var{beam-type}.  If
+@var{beam-type} is @code{*}, grouping is in units of the denominator
+of @var{time-signature}.")
+
+ ;; TODO -- add warning if largest value of grouping is
+ ;;         greater than time-signature.
+
+#{
+#(override-beam-setting
+  $time-signature $rule-type $grouping-rule $context)
+#})
 
 overrideProperty =
 #(define-music-function (parser location name property value)
@@ -647,6 +671,19 @@ resetRelativeOctave  =
 
     reference-note))
 
+revertBeamSettings =
+#(define-music-function
+    (parser location
+     context time-signature rule-type)
+    (symbol? pair? symbol?)
+
+ (_i "Revert beam settings in @var{context} for time signatures of
+@var{time-signature} and groups of type
+@var{group-type}.  @var{group-type} can be @code{end}
+or @code{subdivide}.")
+#{
+  #(revert-beam-setting $time-signature $rule-type $context)
+#})
 
 scaleDurations =
 #(define-music-function (parser location fraction music) (number-pair? ly:music?)
@@ -654,6 +691,25 @@ scaleDurations =
    (ly:music-compress music
 		      (ly:make-moment (car fraction) (cdr fraction))))
 
+setBeatGrouping =
+#(define-music-function (parser location grouping) (pair?)
+   (_i "Set the beat grouping in the current time signature to
+@var{grouping}.")
+   (define (default-group-setting c)
+    (let* ((context-time-signature
+            (ly:context-property c 'timeSignatureFraction))
+           (time-signature (if (null? context-time-signature)
+                               '(4 . 4)
+                               context-time-signature)))
+      (override-property-setting
+       c
+       'beamSettings
+       (list time-signature 'end)
+       (list  (cons '* grouping)))))
+
+   (context-spec-music
+     (make-apply-context default-group-setting)
+     'Score))
 
 
 shiftDurations =

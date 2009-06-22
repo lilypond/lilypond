@@ -2233,9 +2233,6 @@ A time signature that additively combines two or more unequal meters, e.g.,
   #(set-time-signature 8 8 '(3 2 3))
   \override Staff.TimeSignature #'stencil =
     #(compound-time "3" "2" "3" "8")
-  #(override-auto-beam-setting '(end 1 8 8 8) 3 8)
-  #(override-auto-beam-setting '(end 1 8 8 8) 5 8)
-  
   c8 d e f4 d8 c bes
   c4 g'8 e c f4.
   \bar "||"

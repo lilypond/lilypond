@@ -366,6 +366,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "part-combiner.scm"
     "autochange.scm"
     "define-music-properties.scm"
+    "beam-settings.scm"
     "auto-beam.scm"
     "chord-name.scm"
 

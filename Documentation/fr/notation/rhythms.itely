@@ -64,17 +64,17 @@ noire, par exemple, qui équivaut à un 1/4 de ronde --- @emph{quarter note}
 en anglais --- s'écrit @code{4}, alors qu'une blanche ---
 @emph{half-note}, 1/2 ronde --- s'écrit @code{2}.  Pour des notes plus
 longues qu'une ronde, vous devrez utiliser les commandes @code{\longa}
-pour une longue, et @code{\breve} pour une brève, aussi appelée carrée.  
+pour une longue, et @code{\breve} pour une brève, aussi appelée carrée.
 Des durées plus courtes que la quintuple-croche --- 1/128 de ronde ---
 sont possibles, à condition de les ligaturer.
- 
+
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim,relative=2]
 \time 8/1
 c\longa c\breve c1 c2
 c4 c8 c16 c32 c64 c64
 @end lilypond
- 
+
 @noindent
 Voici ces mêmes durées sans la fonction de ligature automatique.
 
@@ -86,7 +86,7 @@ Voici ces mêmes durées sans la fonction de ligature automatique.
 c\longa c\breve c1 c2
 c4 c8 c16 c32 c64 c64
 @end lilypond
- 
+
 Une note dont la durée est de quatre brèves s'obtient par la commande
 @code{\maxima}.  Celle-ci n'est toutefois disponible que dans le cadre de
 la notation ancienne.  Pour plus de détails, voir @ref{Notations anciennes}. 
@@ -316,7 +316,7 @@ se placer au sein de l'expression du nolet.
 Vous pouvez altérer la durée des notes, silences ou accords en leur
 joignant une fraction @var{N/M}, donnant @qq{@code{*}@var{N/M}} --- ou
 @qq{@code{*}@var{N}} si @var{M=1}.  Ceci ne modifiera en rien l'apparence
-des notes ou silences produits, mais affectera le rendu MIDI. 
+des notes ou silences produits, mais affectera le rendu MIDI.
 
 Dans l'exemple suivant, les trois premières notes prennent exactement
 deux temps, mais aucun triolet n'est imprimé.
@@ -335,7 +335,7 @@ b16*4 c4
 
 La durée d'un silence invisible ou saut de notes (@emph{skip}) peut
 elle aussi être affectée d'un multiplicateur.  Cette technique permet
-tout simplement de sauter plusieurs mesures, comme par exemple un 
+tout simplement de sauter plusieurs mesures, comme par exemple un
 @code{s1*23}.
 
 @cindex échelonnement de musique
@@ -392,11 +392,11 @@ Morceaux choisis :
 
 Une liaison de tenue (ou de prolongation) relie deux notes adjacentes de
 même hauteur.  Dans les faits, elle prolonge la durée d'une note.
- 
+
 @warning{Une liaison de tenue ne doit pas être confondue avec une
 liaison d'@strong{articulation} ou de @strong{phrasé}.  Une liaison de
 tenue est un moyen parmi d'autres pour prolonger la durée d'une note,
-tout comme les points.} 
+tout comme les points.}
 
 Une liaison de tenue s'indique au moyen d'un tilde @code{~}.
 
@@ -468,7 +468,7 @@ une note liée, la liaison doit être répétée, comme ici :
 Les liaisons @qq{Laissez vibrer} (@notation{L.v.}) sont utilisées pour
 le piano, la harpe, et certains instruments de percussion.  Elles
 indiquent à l'instrumentiste de laisser sonner la note ou l'accord au
-lieu de l'étouffer.  Elles s'indiquent de la manière suivante : 
+lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
 
 @lilypond[quote,verbatim,relative=1]
  <c f g>\laissezVibrer
@@ -648,7 +648,7 @@ une note suivie de @code{\rest}.  Un silence de même durée sera placé
 à la position où serait imprimée la note.  Cela rend plus facile la mise
 en place de musique polyphonique, puisque le formateur automatique de
 collision des silences laissera ces silences tranquilles.
- 
+
 @lilypond[quote,verbatim,relative=2]
 a'4\rest d'4\rest
 @end lilypond
@@ -671,7 +671,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsr{Rhythms}.
 
-Référence du programme : 
+Référence du programme :
 @rinternals{Rest}.
 
 
@@ -747,7 +747,7 @@ du tout, pas même un symbole transparent.
 Morceaux choisis :
 @rlsr{Rhythms}.
 
-Référence du programme : 
+Référence du programme :
 @rinternals{SkipMusic}.
 
 
@@ -779,7 +779,7 @@ Ceci ne peut être utile que pour une mesure complètement vide.  Sa durée
 doit donc correspondre à la longueur de la mesure telle que définie par
 la métrique.  C'est la raison pour laquelle on utilisera aussi des
 points d'augmentation ou des fractions :
- 
+
 @lilypond[quote,fragment,verbatim]
 \compressFullBarRests
 \time 2/4
@@ -848,7 +848,7 @@ R2.*2 |
 Vous pouvez aussi ajouter du texte à un silence multimesure en utilisant
 la syntaxe @var{note}-@code{markup} (cf. @ref{Mise en forme du texte}).  La
 variable @code{\fermataMarkup} quant à elle permet d'ajouter un point
-d'orgue : 
+d'orgue :
 
 @lilypond[quote,verbatim,fragment]
 \compressFullBarRests
@@ -875,7 +875,7 @@ R1^"ça marche !"
 
 Un silence multimesure placé directement après une commande
 @code{\partial} risque fort de perturber le vérificateur de limites et
-numéros de mesure. 
+numéros de mesure.
 
 
 @funindex \textLengthOn
@@ -929,7 +929,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsr{Rhythms}.
 
-Référence du programme : 
+Référence du programme :
 @rinternals{MultiMeasureRest}.
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestText}.
@@ -1086,7 +1086,7 @@ Références internes :
 
 Les mesures incomplètes, telles que les anacrouses ou levées, doivent
 être entrées avec la commande @code{\partial}.  La syntaxe de cette
-commande est 
+commande est
 
 @example
 \partial @var{durée}
@@ -1216,7 +1216,7 @@ Morceaux choisis :
 
 LilyPond ne change de ligne ou de page qu'au niveau des barres de
 mesure.  Si votre musique non mesurée s'étend sur plus d'une ligne, il
-vous faudra insérer des barres de mesure invisibles, 
+vous faudra insérer des barres de mesure invisibles,
 
 @example
 \bar ""
@@ -1246,7 +1246,7 @@ pour indiquer où des sauts de ligne peuvent prendre place.
 @funindex times
 
 LilyPond gère les métriques composites, aussi bien de manière explicite
-que de manière détournée --- modification de l'indicateur de métrique 
+que de manière détournée --- modification de l'indicateur de métrique
 et échelonnement de la durée des notes.
 
 @strong{@i{Portées aux métriques différentes, mesures d'égale longueur}}
@@ -1385,13 +1385,13 @@ fausser l'espacement régulier entre les portées.
 On peut convertir automatiquement les notes longues en notes liées.  Il
 suffit pour cela de remplacer le graveur @code{Note_heads_engraver}
 par le graveur @code{Completion_heads_engraver}.  Dans l'exemple
-suivant, les notes qui dépassent de la mesure sont divisées et liées. 
+suivant, les notes qui dépassent de la mesure sont divisées et liées.
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} 
+}
 
 { c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
 @end lilypond
@@ -1404,7 +1404,7 @@ exactement la durée des décalages de mesure.
 
 
 @seealso
-Glossaire musicologique : 
+Glossaire musicologique :
 @rglos{tie}
 
 Manuel d'apprentissage :
@@ -1425,7 +1425,7 @@ Références internes :
 Bien que toutes les durées --- particulièrement celles contenant des
 nolets --- ne puissent être exactement représentées avec des notes
 normales et des points, le graveur @code{Completion_heads_engraver}
-n'insérera pas de nolet. 
+n'insèrera pas de nolet.
 
 @code{Completion_heads_engraver} affecte seulement les notes, il ne
 divise pas les silences.
@@ -1513,7 +1513,7 @@ grille d'accords :
 Snippets:
 @rlsr{Rhythms}.
 
-Référence du programme : 
+Référence du programme :
 @rinternals{RhythmicStaff}.
 @rinternals{Pitch_squash_engraver}.
 
@@ -1546,7 +1546,7 @@ d'imprimer les ligatures.
 @funindex autoBeamOff
 
 @lilypond[quote,verbatim,relative=2]
-\time 2/4 c8 c c c 
+\time 2/4 c8 c c c
 \time 6/8 c c c c8. c16 c8
 @end lilypond
 
@@ -1554,7 +1554,7 @@ Lorsque ce comportement automatisé n'est pas satisfaisant, on peut
 définir des groupements manuellement --- voir @ref{Barres de ligature manuelles}.  Dans
 le cas où le groupe de notes en question contient un silence, il est
 @strong{impératif} d'indiquer explicitement les début et fin de la
-ligature. 
+ligature.
 
 Lorsque les ligatures automatiques ne sont pas nécessaires, il suffit de
 désactiver la fonctionnalité par un @code{\autoBeamOff} --- réactivation
@@ -1572,8 +1572,8 @@ c16 c8
 @cindex ligature et mélisme
 
 @warning{Si des ligatures sont utilisées dans les paroles d'une chanson
-(pour indiquer des mélismes), les ligatures automatiques doivent être 
-désactivées, avec @code{\autoBeamOff}, et indiquées manuellement.} 
+(pour indiquer des mélismes), les ligatures automatiques doivent être
+désactivées, avec @code{\autoBeamOff}, et indiquées manuellement.}
 
 Des règles de dérogation au comportement automatique par défaut sont
 possibles ; voir @ref{Définition des règles de ligature automatique}.
@@ -1610,7 +1610,7 @@ Fichiers installés :
 Morceaux choisis :
 @rlsr{Rhythms}.
 
-Références internes : 
+Références internes :
 @rinternals{Beam}.
 
 
@@ -1635,22 +1635,19 @@ altérations appartenant à d'autres voix.
 @cindex paroles et ligatures
 
 @funindex autoBeaming
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
+@funindex beamSettings
 @funindex measureLength
 @funindex beatLength
-@funindex beatGrouping
 @funindex \time
 @funindex time
 @funindex \set
 @funindex set
 
-LilyPond dispose de deux types de règles en matière de ligature : des
-règles concernant le @strong{regroupement}, et des règles concernant la
-@strong{terminaison} des ligatures.  Les règles de regroupement sont des
-plus simples mais peuvent être outrepassées par des règles de
-terminaison.  
+The placement of automatic beams is determined by the time signature.
+Three types of rules are used for determining the end of automatic
+beams: @emph{default} rules
+for the time signature, @emph{explicit} rules for the beam in the time
+signature, and the @emph{beatLength} for the time signature.
 
 Les règles déterminant le positionnement des ligatures automatiques
 s'appliquent dans l'ordre suivant de priorité :
@@ -1658,16 +1655,10 @@ s'appliquent dans l'ordre suivant de priorité :
 @itemize
 
 @item Une ligature explicite --- indiquée par @code{[@dots{}]} --- sera
-toujours respectée ; sinon 
+toujours respectée ; sinon
 
 @item si @code{\autoBeamOff} a été activé, il n'y aura pas de ligature ;
 sinon
-
-@item si une règle de terminaison peut s'appliquer, s'y référer pour 
-déterminer à quel moment une ligature peut prendre fin ; sinon
-
-@item si une règle valide de regroupement par ligature (voir ci-dessous)
-peut s'appliquer, s'y référer ; sinon
 
 @item utiliser la valeur de @code{beatLength} pour regrouper les notes
 par des ligatures.
@@ -1676,53 +1667,7 @@ par des ligatures.
 
 @i{@strong{Modification des ligatures selon la pulsation}}
 
-Lorsque, pour une métrique donnée, aucune règle n'a été définie quant à
-la fin ni la longueur d'une ligature particulière, cette ligature sera
-contrôlée par trois propriétés : @code{measureLength}, @code{beatLength}
-et @code{beatGrouping}.  Ces propriétés sont définies, selon la portée
-de leur action, au niveau des contextes @code{Score}, @code{Staff} ou
-@code{Voice}.  Leurs valeurs par défaut sont initialisées par la
-commande @code{\time} ; par voie de conséquence, toute commande
-@code{\set} destinée à en modifier les valeurs doit se placer après la
-commande @code{\time}.
-
-@warning{Ces trois propriétés s'appliqueront à une ligature donnée dans
-@strong{deux cas seulement} : s'il n'existe aucune règle de fin pour la
-longueur d'une ligature dans la métrique considérée, ou si toutes les
-règles de fin ont été annulées.}
-
-Ces propriétés déterminent la manière de ligaturer ainsi :
-
-Une ligature peut débuter n'importe où, à moins qu'il n'y en ait déjà
-une d'active.  Les ligatures se terminent à un moment déterminé par les
-valeurs de @code{beatGrouping} et @code{beatLength}, selon le principe
-suivant :
-
-@itemize
-
-@item Si @code{beatGrouping} et @code{beatLength} concordent avec
-@code{measureLength}, @code{beatGrouping} est utilisé pour déterminer les
-terminaisons des ligatures.
-
-@item Si @code{beatGrouping} et @code{beatLength} ne sont pas en
-concordance avec @code{measureLength}, @code{beatLength} est utilisé
-pour déterminer les terminaisons des ligatures. 
-
-@end itemize
-
-@code{measureLength} et @code{beatLength} tirent leur valeur par défaut
-à partir de la métrique telle que définie par la commande @code{\time}.
-@code{measureLength} est définie comme étant la longueur d'une mesure
-complète pour la métrique donnée. Enfin, @code{beatLength} prend la
-valeur du dénominateur de la métrique. 
-
-Les valeurs par défaut de @code{beatGrouping} sont répertoriées dans une
-table contenue dans le fichier @file{scm/@/music@/-functions@/.scm} ---
-consultez @rlearning{Autres sources de documentation} pour savoir où il se
-situe.  Cette table définit les règles de groupement pour les mesures à
-3/8, 4/8, 5/8, 8/8, ainsi que les mesures composées les plus courantes.
-
-@code{measureLength} et @code{beatLength} constituent tous deux des
+@code{beatLength} constituent tous deux des
 @strong{moments}, autrement dit des unités de durée musicale.  La
 fonction Scheme @code{ly:make-moment} est tout particulièrement chargée
 de créer cette quantité de type @i{moment} --- pour plus d'information,
@@ -1736,131 +1681,34 @@ nombre de pulsations de chaque groupe.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {grouping-beats.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{specifying-context-with-beatgrouping.ly}
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{using-beatlength-and-beatgrouping.ly}
-
-@funindex subdivideBeams
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{sub-dividing-beams.ly}
-
-@cindex mesure et regroupements
-@cindex pulsation et regroupements
-@cindex groupement par pulsation
-@cindex mesure, subdivision
-
-@funindex autoBeamSettings
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{conducting-signs,-measure-grouping-signs.ly}
-
-
-@strong{@i{Modification du bornage des ligatures}}
-
-Les règles de fin de ligature sont nécessaires lorsque des ligatures 
-relatives à différentes durées doivent se terminer à différents endroits 
-au sein de la mesure.  Par exemple, il peut être souhaitable, dans une 
-mesure en 4/4, que les barres de ligature des croches s'achèvent 
-seulement à la fin d'une mesure ou au milieu de celle-ci ; mais que 
-pour des doubles-croches les ligatures se terminent toutes les noires, 
-afin d'éviter de trop longues séries ligaturées.  Ces règles fonctionnent 
-de la manière suivante :
-
-Dans les métriques courantes, les ligatures automatiques peuvent commencer
-sur n'importe quelle note, mais ne peuvent se terminer qu'à certains
-points précis dans la mesure : sur une pulsation, ou après toute durée
-spécifiée par les propriétés nommées @code{autoBeamSettings}.  Ces
-propriétés consistent en une liste de règles relatives au début ou à la
-fin des ligatures.  Par défaut, elles sont définies dans le fichier
-@file{scm/@/auto@/-beam@/.scm} --- pour le localiser, voir
-@rlearning{Autres sources de documentation}.
-
-On peut ajouter à cette liste une nouvelle règle, au moyen de la commande
-
-@example
-#(override-auto-beam-setting
-  '(extrémité
-    ligature-numérateur ligature-dénominateur
-    métrique-numérateur métrique-dénominateur)
-  moment-numérateur moment-dénominateur  [contexte])
-@end example
-
-@noindent
-où
-
-@itemize
-
-@item @code{extrémité} désigne le début (@code{begin}) ou la fin
-(@code{end}) de la ligature. Notez que seul @code{end} ne sera effectif.
-
-@item @code{ligature-numérateur/ligature-dénominateur} désigne la
-valeur rythmique de la note que l'on veut affecter, ou de la plus brève
-des notes concernées.  Si cette règle doit s'appliquer à toutes les
-ligatures, remplacez @code{ligature-numérateur} et
-@code{ligature-dénominateur} par des étoiles @qq{@code{*}}. 
-
-
-@item @code{métrique-numérateur/métrique-dénominateur} est le chiffre
-de mesure dans lequel la règle doit s'appliquer.  Si celle-ci doit
-s'appliquer dans toutes les métriques, remplacez
-@code{métrique-numérateur} et @code{métrique-dénominateur} par des
-étoiles @qq{@code{*}}. 
-
-@item @code{moment-numérateur/moment-dénominateur} est l'emplacement,
-dans la mesure, auquel les ligatures doivent s'achever. 
-
-@funindex score-override-auto-beam-setting
-@funindex override-auto-beam-setting
-
-@item @code{contexte} est un argument facultatif, qui détermine le
-contexte dans lequel la règle doit s'appliquer.  Par défaut, il s'agit
-de @code{'Voice}. 
-
-@code{#(score-override-auto-beam-setting '(A B C D) E F)} équivaut à
-@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}. 
-
-@end itemize
-
-Par exemple, si l'on veut que les ligatures s'achèvent toujours après la
-première noire, quelles que soient la métrique et la durée de
-regroupement :
-
-@lilypond[quote,verbatim,relative=2]
-a8 a a a a a a a
-#(override-auto-beam-setting '(end * * * *) 1 4)
-a8 a a a a a a a
+@lilypond[quote,relative=2,verbatim]
+  \time 5/16
+  c8^"beats" c16 c8 |
+  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (2 3)))
+  c8^"(2+3)" c16 c8
+  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
+  c8^"(3+2)" c16 c8
 @end lilypond
 
-On peut obliger une règle de ligature à ne s'appliquer qu'à des groupes
-dont la note la plus brève est d'une valeur précise :
-
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-% end 1/16 beams for all time signatures at the 1/16 moment
-#(override-auto-beam-setting '(end 1 16 * *) 1 16)
-a16 a a a a a a a |
-a32 a a a a16 a a a a a |
-% end 1/32 beams for all time signatures at the 1/16 moment
-#(override-auto-beam-setting '(end 1 32 * *) 1 16)
-a32 a a a a16 a a a a a |
+@lilypond[quote, verbatim,relative=1]
+\new Staff <<
+  \time 7/8
+  \new Voice = one {
+    \relative c'' {
+      \overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (2 3 2)))
+        a8 a a a a a a
+    }
+  }
+  \new Voice  = two {
+    \relative c' {
+      \voiceTwo
+      \overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (1 3 3)))
+      f8 f f f f f f
+    }
+  }
+>>
 @end lilypond
 
-On peut obliger une règle de ligature à ne s'appliquer que pour une
-métrique donnée :
-
-@lilypond[quote,verbatim,relative=2]
-\time 5/8
-% end beams of all durations in 5/8 time signature at the 2/8 moment
-#(override-auto-beam-setting '(end * * 5 8) 2 8)
-c8 c d d d
-\time 4/4
-e8 e f f e e d d
-\time 5/8
-c8 c d d d
-@end lilypond
 
 Lorsque plusieurs voix cohabitent sur une même portée et que les règles
 de ligature doivent s'appliquer sans distinction, il faut spécifier que
@@ -1869,89 +1717,50 @@ ces règles affectent le contexte @code{Staff} :
 @lilypond[quote,verbatim,relative=2]
 \time 7/8
 % rhythm 3-1-1-2
-% Context not specified - does not work correctly
-#(override-auto-beam-setting '(end * * 7 8) 3 8)
-#(override-auto-beam-setting '(end * * 7 8) 4 8)
-#(override-auto-beam-setting '(end * * 7 8) 5 8)
+% Context Voice specified - does not work correctly
+% Because of autogenerated voices, all beating will
+% be at beatLength (1 . 8)
+\overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (3 1 1 2)))
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 
-% Works correctly with context specified
-#(override-auto-beam-setting '(end * * 7 8) 3 8 'Staff)
-#(override-auto-beam-setting '(end * * 7 8) 4 8 'Staff)
-#(override-auto-beam-setting '(end * * 7 8) 5 8 'Staff)
+% Works correctly with context Staff specified
+\overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (3 1 1 2)))
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@warning{Si une ligature se fait de manière inattendue, pensez à vérifer
-les règles automatiques dans le fichier @file{scm/@/auto@/-beam@/.scm}
-pour rechercher d'éventuels conflits, étant donné que les règles par
-défaut s'ajoutent à vos propres règles.}
-
-@funindex revert-auto-beam-setting
-
-Toute règle par défaut ou personnalisée conduisant à des ligatures
-indésirables doit être désactivée de la manière suivante :
-
-@example
-#(revert-auto-beam-setting
-  '(extrémité
-    ligature-numérateur ligature-dénominateur
-    métrique-numérateur métrique-dénominateur)
-  moment-numérateur moment-dénominateur  [contexte])
-@end example
-
-@noindent
-@code{extrémité}, @code{ligature-numérateur},
-@code{ligature-dénominateur}, @code{métrique-numérateur},
-@code{métrique-dénominateur}, @code{moment-numérateur},
-@code{moment-dénominateur} et @code{contexte} étant les mêmes que plus
-haut.  Il est même possible de désactiver des règles que l'on n'a pas
-explicitement créées : les règles par défaut, qui se trouvent dans le
-fichier @file{scm/@/auto@/-beam@/.scm}. 
+@funindex revertBeamSettings
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-a16 a a a a a a a a a a a a a a a
-% undo a rule ending 1/16 beams in 4/4 time at 1/4 moment
-#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
-a16 a a a a a a a a a a a a a a a
-@end lilypond
-
-La commande @code{revert-auto-beam-setting} requiert exactement les
-mêmes arguments que la règle d'origine.  En d'autres termes, les étoiles 
-ne seront pas prises en compte ici. 
-
-@lilypond[quote,verbatim,relative=2]
-\time 1/4
-#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
-a16 a a a
-#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
-a a a a
-#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
-a a a a
+\repeat unfold 16 {a16}
+% set default rule for (1 1 1 1) grouping
+\overrideBeamSettings #'Score #'(4 . 4) #'end #'((* . (1 1 1 1)))
+\repeat unfold 16 {a16}
+% revert the new rule
+\revertBeamSettings #'Score #'(4 . 4) #'end
+\repeat unfold 16 {a16}
 @end lilypond
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{beam-grouping-in-7-8-time.ly}
+@cindex beams, subdividing
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{reverting-default-beam-endings.ly}
+{sub-dividing-beams.ly}
+
+@cindex measure groupings
+@cindex beats, grouping
+@cindex grouping beats
+@cindex measure sub-grouping
+
+@funindex autoBeamSettings
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{conducting-signs,-measure-grouping-signs.ly}
+
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
-
-@funindex \autoBeamOff
-@funindex autoBeamOff
-@funindex \autoBeamOn
-@funindex autoBeamOn
-
-@predefined
-@code{\autoBeamOff},
-@code{\autoBeamOn}.
-@endpredefined
-
 
 @cindex ligature en fin de partition
 @cindex ligature en fin de voix polyphonique
@@ -2009,7 +1818,7 @@ effet de l'empêcher d'être ligaturée :
 @funindex stemRightBeamCount
 
 LilyPond peut déterminer automatiquement les sous-groupes à
-l'intérieur d'un groupement de notes, bien que le résultat ne soit pas 
+l'intérieur d'un groupement de notes, bien que le résultat ne soit pas
 toujours optimal.  Les propriétés @code{stemLeftBeamCount} et
 @code{stemRightBeamCount} permettent alors d'ajuster ce comportement.
 Lorsque l'une ou l'autre de ces propriétés est définie, elle ne
@@ -2374,7 +2183,7 @@ Référence du programme :
 Les numéros de mesure peuvent entrer en collision avec les crochets d'un
 @rinternals{StaffGroup}.  La propriété @code{padding} --- décalage
 --- de l'objet @rinternals{BarNumber} permet alors d'ajuster leur
-positionnement. 
+positionnement.
 
 
 @node Vérification des limites et numéros de mesure
@@ -2517,12 +2326,12 @@ c1
 @end lilypond
 
 Le fichier @file{scm/@/translation@/-functions@/.scm} comporte les
-définitions de @code{format-mark-numbers} (comportement par défaut), 
+définitions de @code{format-mark-numbers} (comportement par défaut),
 @code{format-mark-box-numbers},
 @code{format-mark-letters} et @code{format-mark-box-letters}.  Vous
 pouvez vous en inspirer pour d'autres fonctions de formatage.
 
-@code{format-mark-barnumbers}, @code{format-mark-box-barnumbers} et 
+@code{format-mark-barnumbers}, @code{format-mark-box-barnumbers} et
 @code{format-mark-circle-barnumbers}  permettent d'imprimer le numéro
 de mesure au lieu des compteurs alphabétique ou numérique.
 
@@ -2550,7 +2359,7 @@ définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
 @funindex musicglyph
 
 Un @code{\mark} peut contenir un glype musical tel que le signe
-@emph{segno}.  
+@emph{segno}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 c1 \mark \markup { \musicglyph #"scripts.segno" }
@@ -2776,7 +2585,7 @@ correspondant à la durée des petites notes.
   \new Staff { c4 \bar "|:" \grace s16 d2. }
 >>
 @end lilypond
- 
+
 Seules des expressions musicales séquentielles peuvent être utilisées
 pour des petites notes ; il n'est pas possible d'imbriquer ni de
 juxtaposer des sections de petites notes, faute de quoi le traitement du
@@ -2869,7 +2678,7 @@ ligatures automatiques.
 @item measurePosition
 Le moment où l'on en est dans la mesure en cours.  Cette quantité est
 remise à@tie{}0 dès lors qu'on dépasse @code{measureLength} ; la variable
-@code{currentBarNumber} est alors incrémentée.  
+@code{currentBarNumber} est alors incrémentée.
 
 @item timing
 Lorsqu'on lui assigne la valeur @emph{vrai}, les valeurs ci-dessus
@@ -2897,7 +2706,7 @@ c4 c1
 
 @noindent
 Comme le montre cet exemple, @code{ly:make-moment n m} construit une
-durée de n/m fois une ronde.  
+durée de n/m fois une ronde.
 Par conséquent, @code{ly:make-moment 1 8} correspond à une croche, et
 @code{ly:make-moment 7 16} à la durée de sept doubles-croches.
 
@@ -2910,7 +2719,7 @@ Dans ce manuel :
 Morceaux choisis :
 @rlsr{Rhythms}.
 
-Références internes : 
+Références internes :
 @rinternals{Timing_translator},
 @rinternals{Score}
 

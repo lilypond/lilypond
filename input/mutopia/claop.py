@@ -275,7 +275,7 @@ stemme%s =  {
 sys.stdout.write (r"""
 <<
   \override Score.BarNumber  #'padding = #2.5
-  #(override-auto-beam-setting '(end * * * *) 1 4)
+  %#(override-auto-beam-setting '(end * * * *) 1 4)
   \set Score.skipBars = ##t
   \context StaffGroup <<
     \override StaffGroup.Stem #'direction = #UP

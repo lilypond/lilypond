@@ -69,20 +69,16 @@ showKeySignature = {
 % Sets the autobeamer to span quarter notes only. Use for fast music.
 % TODO: Needs more tweaking
 quarterBeaming = {
-  #(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
-  #(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
-  #(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
-  #(override-auto-beam-setting '(end * * * *) 4 4 'Staff)
-  #(revert-auto-beam-setting '(end 1 32 2 4 ) 1 8 'Staff)
-  #(revert-auto-beam-setting '(end 1 32 2 4 ) 3 8 'Staff)
-  #(revert-auto-beam-setting '(end 1 32 4 4 ) 1 8 'Staff)
-  #(revert-auto-beam-setting '(end 1 32 4 4 ) 3 8 'Staff)
-  #(revert-auto-beam-setting '(end 1 32 4 4 ) 5 8 'Staff)
-  #(revert-auto-beam-setting '(end 1 32 4 4 ) 7 8 'Staff)
+  \overrideBeamSettings #'Staff #'(4 . 4) #'end
+    #'((* . (1 1 1 1)) ; could omit this and use beatLength
+       ((1 . 32) . (4 4 4 4 4 4 4 4)))
+  \overrideBeamSettings #'Staff #'(2 . 4) #'end
+    #'((* . (1 1))
+       ((1 . 32) . (4 4 4 4)))
 }
 halfBeaming = {
-  #(override-auto-beam-setting '(end * * 2 2) 1 2 'Staff)
-  #(override-auto-beam-setting '(end * * 2 2) 2 2 'Staff)
+  \overrideBeamSettings #'Staff #'(2 . 2) #'end
+    #'((* . (1 1))) % could omit this and use beatLength
 }
 % Reels are in allabreve time with half note beaming.
 reelTime = {

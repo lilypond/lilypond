@@ -506,10 +506,10 @@ c2 ~ c
 c2 ~ c
 @end lilypond
 
-Dash pattern definitions for ties have the same structure as 
+Dash pattern definitions for ties have the same structure as
 dash pattern definitions for slurs.
 For more information about complex dash patterns,
-see the snippets under @ref{Slurs}. 
+see the snippets under @ref{Slurs}.
 
 @predefined
 @code{\tieUp},
@@ -538,7 +538,7 @@ Music Glossary:
 @rglos{tie},
 @rglos{laissez vibrer}.
 
-Notation Reference: 
+Notation Reference:
 @ref{Slurs},
 @ref{Automatic note splitting}.
 
@@ -1543,8 +1543,8 @@ c16 c8
 automatic beaming should be switched off with @code{\autoBeamOff}
 and the beams indicated manually.}
 
-Beaming patterns that differ from the automatic defaults may be
-created, see @ref{Setting automatic beam behavior}.
+Beaming patterns that differ from the automatic defaults can be
+created; see @ref{Setting automatic beam behavior}.
 
 
 @predefined
@@ -1597,23 +1597,22 @@ Beams can collide with note heads and accidentals in other voices
 @cindex lyrics and beaming
 
 @funindex autoBeaming
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
+@funindex beamSettings
 @funindex measureLength
 @funindex beatLength
-@funindex beatGrouping
 @funindex \time
 @funindex time
 @funindex \set
 @funindex set
 
-There are two types of beaming rules:  @emph{beam-grouping}
-rules and @emph{beam-ending} rules.  Beam-grouping rules are the
-simplest, but are over-ridden by any beam-ending rules which apply.
+The placement of automatic beams is determined by the time signature.
+Three types of rules are used for determining the end of automatic
+beams: @emph{default} rules
+for the time signature, @emph{explicit} rules for the beam in the time
+signature, and the @emph{beatLength} for the time signature.
 
-The placement of automatic beams is determined by applying the
-following rules in order:
+The following rules, in order of priority, apply when determining
+the appearance of beams:
 
 @itemize
 
@@ -1622,11 +1621,12 @@ as specified, otherwise
 
 @item if @code{\autoBeamOff} is in force do not beam, otherwise
 
-@item if a beam-ending rule applies use it to determine the valid
+@item if an explicit beam-ending rule is defined for the beam type
+in the time signature, use it to determine the valid
 places where beams may end, otherwise
 
-@item if a valid (see below) beat-grouping rule applies use it to
-group notes with beams, otherwise
+@item if a default beam-ending rule is defined in the time signature,
+use it to group notes with beams, otherwise
 
 @item use the value of @code{beatLength} to group notes with beams
 
@@ -1634,182 +1634,81 @@ group notes with beams, otherwise
 
 @i{@strong{Modifying the grouping of beats}}
 
-If there are no beam-ending rules defined for the beam duration of a
-particular beam in the time signature in use, its beaming is
-controlled by three context properties: @code{measureLength},
-@code{beatLength} and @code{beatGrouping}.  These properties may be
-set in the @code{Score}, @code{Staff} or @code{Voice} contexts to
-delimit their scope.  The default values are set while processing
-@code{\time} commands, so any @code{\set} commands to modify their
-value must be placed after all @code{\time} commands.
-
-@warning{These three properties become effective for a particular
-beam @strong{only} if there are no beam-ending rules predefined for
-that beam's duration in the time signature in use, or if these
-beam-ending rules have all been reverted.}
-
-These determine the beaming as follows:
-
-Beams may begin anywhere (unless a beam is already active).  Beams
-end at a time determined by the values of @code{beatGrouping} and
-@code{beatLength}, as follows:
-
-@itemize
-
-@item If @code{beatGrouping} and @code{beatLength} are consistent
-with @code{measureLength}, @code{beatGrouping} is used to determine
-the end points of beams.
-
-@item If @code{beatGrouping} and @code{beatLength} are inconsistent
-with @code{measureLength}, @code{beatLength} is used to determine
-the end points of beams.
-
-@end itemize
-
-By default the @code{measureLength} and @code{beatLength} are
+By default @code{beatLength} is
 derived from the time signature set by the @code{\time} command.
-The @code{measureLength} is set to be exactly the same length as
-the measure length given by the time signature, and the
-@code{beatLength} is set to be the same as one over the denominator
+The @code{beatLength} is set to be one over the denominator
 of the time signature.
 
-The default value of @code{beatGrouping} is taken from a table in
-@file{scm/@/music@/-functions@/.scm}.  To find this, see
-@rlearning{Other sources of information}.  It defines the beat
-grouping for 3/8, 4/8, 5/8, 8/8, and all the common compound time
-signatures.
-
-Both @code{measureLength} and @code{beatLength} are @i{moments},
-units of musical duration.  A quantity of type @i{moment} is
+@code{beatLength} is a @i{moment},
+a unit of musical duration.  A quantity of type @i{moment} is
 created by the scheme function @code{ly:make-moment}.  For more
 information about this function, see @ref{Time administration}.
 
-@code{beatGrouping} is a list of integers giving the number of
-beats in each group.
+Autobeam and beam subdivide settings are stored in the
+@code{beamSettings} property.  Default values of @code{beamSettings}
+are determined in @file{scm/beam-settings.scm}.  Entries in
+@code{beamSettings} are indexed by time signature and
+rule type.
 
-@snippets
+Time signature should be a scheme pair , e.g. @code{#'(4 . 4)}.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{grouping-beats.ly}
+Rule type should be @code{#'end} for beam ending and @code{#'subdivide} for
+beam subdivision.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{specifying-context-with-beatgrouping.ly}
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{using-beatlength-and-beatgrouping.ly}
-
-@funindex subdivideBeams
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{sub-dividing-beams.ly}
-
-@cindex measure groupings
-@cindex beats, grouping
-@cindex grouping beats
-@cindex measure sub-grouping
-
-@funindex autoBeamSettings
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{conducting-signs,-measure-grouping-signs.ly}
-
-
-@strong{@i{Modifying the beam end points}}
-
-Beam-ending rules are required when beams of different durations are
-to end at different points within the measure.  For example, it may
-be desirable for eighth-note beams in 4/4 time to end only at the
-end of the measure or half-way through it, but for sixteenth-note
-beams to end at quarter note positions to avoid overly long beamed
-runs.  The rules work as follows:
-
-Automatic beams can start on any note but can end at only a few
-positions within the measure, namely at positions specified by the
-properties in @code{autoBeamSettings}.  These properties consist of
-a list of rules defining where beams can end.  The default
-@code{autoBeamSettings} rules are defined in
-@file{scm/@/auto@/-beam@/.scm}.  To find this file, see
-@rlearning{Other sources of information}.
-
-In order to add a rule to the list, use
+The ending and subdivision rules consist of a scheme alist
+(or list of pairs) that
+indicates the beam type and the grouping to be applied to that
+beam type.
 
 @example
-#(override-auto-beam-setting
-  '(beam-limit
-    beam-numerator  beam-denominator
-    time-signature-numerator time-signature-denominator)
-  moment-numerator moment-denominator [context])
+#'((beam-type1 . grouping-1)
+   (beam-type2 . grouping-2)
+   (beam-type3 . grouping-3))
 @end example
 
-@noindent
-where
+Beam type is either a scheme pair indicating the duration
+of the beam, e.g. @code{(1 . 16)}, or @code{*} to indicate a
+default rule, which applies to all beams if no explicit rule is
+defined.
 
-@itemize
+Grouping is a scheme list indicating the grouping to be applied to
+the beam.  For default rules (where beam type is
+@code{*}, the grouping is in units of @code{beatLength}.
+For explicit rules, the grouping is in units of the beam type.
 
-@item @code{beam-limit} is the type of automatic beam limit
-defined.  This can be either @code{begin} or @code{end} but
-only @code{end} is effective.
+Beam settings are changed with
+@code{\overrideBeamSettings} and @code{\revertBeamSettings}.
 
-@item @code{beam-numerator/beam-denominator} is the beam duration
-to which the rule is to apply.  A beam is considered to have the
-duration of its shortest note.  Set @code{beam-numerator} and
-@code{beam-denominator} to @code{'*'} to have this rule apply to beams
-of any duration.
-
-@item @code{time-signature-numerator/time-signature-denominator}
-specifies the time signature to which this rule should apply.  If
-@code{time-signature-numerator} and @code{time-signature-denominator}
-are set to @code{'*'} this rule will apply in any time signature.
-
-@item @code{moment-numerator/moment-denominator} is the position
-in the bar at which the beam should end.
-
-@funindex score-override-auto-beam-setting
-@funindex override-auto-beam-setting
-
-@item @code{context} is optional, and it specifies the context at which
-the change should be made.  The default is @code{'Voice}.
-
-@code{#(score-override-auto-beam-setting '(A B C D) E F)} is equivalent to
-@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
-
-@end itemize
-
-For example, if automatic beams should always end on the first quarter
-note, whatever the time signature or beam duration, use
-
-@lilypond[quote,verbatim,relative=2]
-a8 a a a a a a a
-#(override-auto-beam-setting '(end * * * *) 1 4)
-a8 a a a a a a a
+@lilypond[quote,relative=2,verbatim]
+  \time 5/16
+  c8^"beats" c16 c8 |
+  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (2 3)))
+  c8^"(2+3)" c16 c8
+  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
+  c8^"(3+2)" c16 c8
 @end lilypond
 
-You can force the beam settings to take effect only on beams whose shortest
-note is a certain duration
+Beam setting changes can be limited to specific contexts.  If no
+setting is included in a lower-level context, the setting of the
+enclosing context will apply.
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-% end 1/16 beams for all time signatures at the 1/16 moment
-#(override-auto-beam-setting '(end 1 16 * *) 1 16)
-a16 a a a a a a a |
-a32 a a a a16 a a a a a |
-% end 1/32 beams for all time signatures at the 1/16 moment
-#(override-auto-beam-setting '(end 1 32 * *) 1 16)
-a32 a a a a16 a a a a a |
-@end lilypond
-
-You can force the beam settings to take effect only in certain time
-signatures
-
-@lilypond[quote,verbatim,relative=2]
-\time 5/8
-% end beams of all durations in 5/8 time signature at the 2/8 moment
-#(override-auto-beam-setting '(end * * 5 8) 2 8)
-c8 c d d d
-\time 4/4
-e8 e f f e e d d
-\time 5/8
-c8 c d d d
+@lilypond[quote, verbatim,relative=1]
+\new Staff <<
+  \time 7/8
+  \new Voice = one {
+    \relative c'' {
+      \overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (2 3 2)))
+        a8 a a a a a a
+    }
+  }
+  \new Voice  = two {
+    \relative c' {
+      \voiceTwo
+      \overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (1 3 3)))
+      f8 f f f f f f
+    }
+  }
+>>
 @end lilypond
 
 When multiple voices are used the @code{Staff} context must be
@@ -1819,87 +1718,57 @@ staff:
 @lilypond[quote,verbatim,relative=2]
 \time 7/8
 % rhythm 3-1-1-2
-% Context not specified - does not work correctly
-#(override-auto-beam-setting '(end * * 7 8) 3 8)
-#(override-auto-beam-setting '(end * * 7 8) 4 8)
-#(override-auto-beam-setting '(end * * 7 8) 5 8)
+% Context Voice specified --  does not work correctly
+% Because of autogenerated voices, all beating will
+% be at beatLength (1 . 8)
+\overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (3 1 1 2)))
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 
-% Works correctly with context specified
-#(override-auto-beam-setting '(end * * 7 8) 3 8 'Staff)
-#(override-auto-beam-setting '(end * * 7 8) 4 8 'Staff)
-#(override-auto-beam-setting '(end * * 7 8) 5 8 'Staff)
+% Works correctly with context Staff specified
+\overrideBeamSettings #'Staff #'(7 . 8) #'end #'((* . (3 1 1 2)))
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@warning{If any unexpected beam behavior occurs, check the default
-automatic beam settings in @file{scm/@/auto@/-beam@/.scm} for
-possible interference, because the beam endings defined there will
-still apply in addition to your own.}
+@funindex revertBeamSettings
 
-@funindex revert-auto-beam-setting
-
-Any unwanted or conflicting default endings must be reverted for
-your time signature(s).  Existing default or user-defined
-beam-ending rules are removed by using
+Beam settings can be reverted to get back to default behavior.  This
+is accomplished by using @code{\revertBeamSettings}.  The arguments
+are the same as for @code{\overrideBeamSettings}, except no value
+for @var{grouping} is given:
 
 @example
-#(revert-auto-beam-setting
-  '(beam-limit
-    beam-numerator  beam-denominator
-    time-signature-numerator time-signature-denominator)
-  moment-numerator moment-denominator [context])
+\revertBeamSettings context time-signature rule-type
 @end example
 
-@noindent
-@code{beam-limit}, @code{beam-numerator}, @code{beam-denominator},
-@code{time-signature-numerator}, @code{time-signature-denominator},
-@code{moment-numerator}, @code{moment-denominator} and @code{context}
-are the same as above.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-a16 a a a a a a a a a a a a a a a
-% undo a rule ending 1/16 beams in 4/4 time at 1/4 moment
-#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
-a16 a a a a a a a a a a a a a a a
-@end lilypond
-
-The rule in a @code{revert-auto-beam-setting} statement must exactly
-match the original rule.  That is, no wildcard expansion is taken into
-account.
-
-@lilypond[quote,verbatim,relative=2]
-\time 1/4
-#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
-a16 a a a
-#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
-a a a a
-#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
-a a a a
+\repeat unfold 16 {a16}
+% set default rule for (1 1 1 1) grouping
+\overrideBeamSettings #'Score #'(4 . 4) #'end #'((* . (1 1 1 1)))
+\repeat unfold 16 {a16}
+% revert the new rule
+\revertBeamSettings #'Score #'(4 . 4) #'end
+\repeat unfold 16 {a16}
 @end lilypond
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{beam-grouping-in-7-8-time.ly}
+@cindex beams, subdividing
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{reverting-default-beam-endings.ly}
+{sub-dividing-beams.ly}
+
+@cindex measure groupings
+@cindex beats, grouping
+@cindex grouping beats
+@cindex measure sub-grouping
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{conducting-signs,-measure-grouping-signs.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
-
-@funindex \autoBeamOff
-@funindex autoBeamOff
-@funindex \autoBeamOn
-@funindex autoBeamOn
-
-@predefined
-@code{\autoBeamOff},
-@code{\autoBeamOn}.
-@endpredefined
-
 
 @cindex beam, last in score
 @cindex beam, last in polyphonic voice
@@ -2147,8 +2016,8 @@ Additionally, a bar line can be printed as a simple tick:
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "'"
 @end lilypond
-However, as such ticks are typically used in Gregorian chant, it is preferable 
-to use @code{\divisioMinima} there instead, described in the section 
+However, as such ticks are typically used in Gregorian chant, it is preferable
+to use @code{\divisioMinima} there instead, described in the section
 @ref{Divisiones} in Gregorian chant.
 
 

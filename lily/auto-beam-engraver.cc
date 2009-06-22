@@ -434,7 +434,7 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 
 		/* read */
 		"autoBeaming "
-		"autoBeamSettings "
+		"beamSettings "
 		"beatLength "
 		"subdivideBeams ",
 		

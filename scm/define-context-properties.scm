@@ -1,7 +1,7 @@
 ;;;; define-context-properties.scm -- part of backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 1998--2009  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -14,11 +14,11 @@
 	    (procedure? type?)
 	    (string? description)))
       (throw 'init-format-error))
-	   
-       
+
+
   (if (not (equal? #f (object-property symbol 'translation-doc)))
       (ly:error (_ "symbol ~S redefined" symbol)))
-  
+
   (set-object-property! symbol 'translation-type? type?)
   (set-object-property! symbol 'translation-doc description)
   (set! all-translation-properties (cons symbol all-translation-properties))
@@ -32,7 +32,7 @@
    `(
 
      ;; TODO FIXME
-   
+
      (aDueText ,markup? "Text to print at a unisono passage.")
      (alignAboveContext ,string? "Where to insert newly created context in
 vertical alignment.")
@@ -92,9 +92,6 @@ arguments, @var{context}, @var{dir} [start/stop (-1 or 1)], and
 starts or stops the auto beam.")
      (autoBeaming ,boolean? "If set to true then beams are generated
 automatically.")
-     (autoBeamSettings ,list? "Specifies when automatically generated
-beams should begin and end.  See @ruser{Setting automatic beam
-behavior} for more information.")
      (autoCautionaries ,list? "List similar to @code{autoAccidentals},
 but it controls cautionary accidentals rather than normal ones.  Both
 lists are tried, and the one giving the most accidentals wins.  In
@@ -105,7 +102,7 @@ be printed automatically; they must be explicitly created with a
 are still counted.  Bar line generation will resume according to that
 count if this property is unset.")
 
-     
+
      (barAlways ,boolean? "If set to true a bar line is drawn after
 each note.")
      (barCheckSynchronize ,boolean? "If true then reset
@@ -120,8 +117,10 @@ format.")
      (bassStaffProperties ,list? "An alist of property settings to
 apply for the down staff of @code{PianoStaff}.  Used by
 @code{\\autochange}.")
-     (beatGrouping ,list? "A list of beatgroups, e.g., in 5/8 time
-@code{'(2 3)}.")
+     (beamSettings ,list? "Specifies when automatically generated
+beams should begin and end, as well as beam subdivision behavior.
+See @ruser{Setting automatic beam
+behavior} for more information.")
      (beatLength ,ly:moment? "The length of one beat in this time
 signature.")
 
@@ -270,11 +269,11 @@ This is used to transpose the MIDI output, and @code{\\quote}s.")
      (internalBarNumber ,integer? "Contains the current barnumber.
 This property is used for internal timekeeping, among others by the
 @code{Accidental_engraver}.")
-     
+
 
      (keepAliveInterfaces ,list? "A list of symbols, signifying grob
 interfaces that are worth keeping a staff with @code{remove-empty} set
-around for.")   
+around for.")
      (keyAlterationOrder ,list? "An alist that defines in what order
 alterations should be printed.  The format is @code{(@var{step}
 . @var{alter})}, where @var{step} is a number from 0 to@tie{}6 and
@@ -437,7 +436,7 @@ cautionary suggestions over the note.")
 of the system/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
      (systemStartDelimiterHierarchy ,pair? "A nested list, indicating
-the nesting of a start delimiters.") 
+the nesting of a start delimiters.")
 
 
      (tablatureFormat ,procedure? "A function formatting a tablature
@@ -484,7 +483,7 @@ setting this property, you can make brackets last shorter.
 
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures.")
-     
+
      (verticallySpacedContexts ,list? "List of symbols, containing
 context names whose vertical axis groups should be taken into account
 for vertical spacing of systems.")

@@ -978,32 +978,37 @@ Otherwise, return #f."
 ;;; \time
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If `expr' is a time signature set, return \"\\time ...\".
-Otherwise, return #f."
-  (with-music-match (expr (music
-			   'ContextSpeccedMusic
-			   element (music
-				    'ContextSpeccedMusic
-				    context-type 'Timing
-				    element (music
-					     'SequentialMusic
-					     elements ((music
-							'PropertySet
-							value ?num+den
-							symbol 'timeSignatureFraction)
-						       (music
-							'PropertySet
-							symbol 'beatLength)
-						       (music
-							'PropertySet
-							symbol 'measureLength)
-						       (music
-							'PropertySet
-							value ?grouping
-							symbol 'beatGrouping))))))
-    (if (null? ?grouping)
-	(format #f "\\time ~a/~a~a" (car ?num+den) (cdr ?num+den) (new-line->lily-string))
-	(format #f "#(set-time-signature ~a ~a '~s)~a"
-		(car ?num+den) (cdr ?num+den) ?grouping (new-line->lily-string)))))
+Otherwise, return #f.  Note: default grouping is not available."
+  (with-music-match
+   (expr (music
+           'ContextSpeccedMusic
+	   element (music
+	            'ContextSpeccedMusic
+		    context-type 'Timing
+		    element (music
+			     'SequentialMusic
+			     elements ?elts))))
+   (and
+    (> (length ?elts) 2)
+    (with-music-match ((cadr ?elts)
+                       (music 'PropertySet
+                              symbol 'beatLength))
+       #t)
+    (with-music-match ((caddr ?elts)
+                       (music 'PropertySet
+                              symbol 'measureLength))
+       #t)
+    (with-music-match ((car ?elts)
+                       (music 'PropertySet
+                              value ?num+den
+                              symbol 'timeSignatureFraction))
+       (if (eq? (length ?elts) 3)
+           (format
+             #f "\\time ~a/~a~a"
+             (car ?num+den) (cdr ?num+den) (new-line->lily-string))
+           (format
+             #f "#(set-time-signature ~a ~a '(<grouping-specifier>))~a"
+             (car ?num+den) (cdr ?num+den)  (new-line->lily-string)))))))
 
 ;;; \bar
 (define-extra-display-method ContextSpeccedMusic (expr parser)

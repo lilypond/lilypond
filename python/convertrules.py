@@ -1187,7 +1187,7 @@ def text_markup (str):
     while match:
 	result = result + str[:match.end (1)] + " \markup"
 	str = str[match.end( 2):]
-	# Count matching parentheses to find the end of the 
+	# Count matching parentheses to find the end of the
 	# current markup:
 	nesting_level = 0
 	pars = re.finditer(r"[()]",str)
@@ -1228,7 +1228,7 @@ def articulation_substitute (str):
 
 string_or_scheme = re.compile ('("(?:[^"\\\\]|\\\\.)*")|(#\\s*\'?\\s*\\()')
 
-# Only apply articulation_substitute () outside strings and 
+# Only apply articulation_substitute () outside strings and
 # Scheme expressions:
 def smarter_articulation_subst (str):
     result = ''
@@ -1242,7 +1242,7 @@ def smarter_articulation_subst (str):
 	    # Copy the string to output:
 	    result = result + match.group (1)
 	    str = str[match.end(1):]
-	else: # Found a Scheme expression. Count 
+	else: # Found a Scheme expression. Count
 	    # matching parentheses to find its end
 	    str = str[match.start ():]
 	    nesting_level = 0
@@ -1321,7 +1321,7 @@ def conv (str):
     return str
 
 
-@rule ((1, 9, 3), (_ ("%s misspelling") % "\\acciaccatura") + 
+@rule ((1, 9, 3), (_ ("%s misspelling") % "\\acciaccatura") +
                          ", fingerHorizontalDirection -> fingeringOrientations")
 def conv (str):
     str = re.sub ('accacciatura',
@@ -2002,7 +2002,7 @@ def conv (str):
     str = re.sub ('soloADue', 'printPartCombineTexts', str)
     str = re.sub (r'\\applymusic\s*#notes-to-clusters',
 		      '\\makeClusters', str)
-    
+
     str = re.sub (r'pagenumber\s*=', 'firstpagenumber = ', str)
     return str
 
@@ -2055,7 +2055,7 @@ with
 
     str = re.sub (r'#\(paper-set-staff-size', '%Use set-global-staff-size at toplevel\n% #(layout-set-staff-size', str)
     return str
-    
+
 
 @rule ((2, 3, 23), r'\context Foo = NOTENAME -> \context Foo = "NOTENAME"')
 def conv (str):
@@ -2240,7 +2240,7 @@ def conv (str):
 
 @rule ((2, 7, 0), 'ly:get-default-font -> ly:grob-default-font')
 def conv (str):
-    return re.sub('ly:get-default-font', 'ly:grob-default-font', str) 
+    return re.sub('ly:get-default-font', 'ly:grob-default-font', str)
 
 
 @rule ((2, 7, 1), '''ly:parser-define -> ly:parser-define!
@@ -2539,7 +2539,7 @@ def conv (str):
         while dur > 1 :
             dur /= 2
             log2 += 1
-        
+
         den = (1 << dots) * (1 << log2)
         num = ((1 << (dots+1))  - 1)
 
@@ -2552,7 +2552,7 @@ def conv (str):
     }
 
 """ % (num*count, den)
-    
+
     str = re.sub (r'\\midi\s*{\s*\\tempo ([0-9]+)\s*([.]*)\s*=\s*([0-9]+)\s*}', sub_tempo, str)
     return str
 
@@ -2595,10 +2595,10 @@ def conv (str):
 
 @rule ((2, 11, 6), _ ("Rename accidental glyphs, use glyph-name-alist."))
 def conv (str):
-    
+
     def sub_acc_name (m):
         idx = int (m.group (1).replace ('M','-'))
-        
+
         return ["accidentals.doublesharp",
                 "accidentals.sharp.slashslash.stemstemstem",
                 "accidentals.sharp",
@@ -2610,7 +2610,7 @@ def conv (str):
                 "accidentals.flatflat"][4-idx]
 
     str = re.sub (r"accidentals[.](M?[-0-9]+)",
-                  sub_acc_name, str) 
+                  sub_acc_name, str)
     str = re.sub (r"(KeySignature|Accidental[A-Za-z]*)\s*#'style\s*=\s*#'([a-z]+)",
                   r"\1 #'glyph-name-alist = #alteration-\2-glyph-name-alist", str)
     ## FIXME: standard vs default, alteration-FOO vs FOO-alteration
@@ -2669,15 +2669,15 @@ def conv (str):
                 context = m.group (2)
                 if not context:
                     context = ''
-                    
+
                 s += (r"%s \override %sTextSpanner #'bound-details #'%s #'text = \markup { \draw-line #'(0 . %s) }"
                       % (once, context, var, h))
 
                 s += '\n'
-            
+
         return s
-    
-                  
+
+
     str = re.sub (r"(\\once)?\s*\\override\s*([a-zA-Z]+\s*[.]\s*)?TextSpanner\s*#'edge-height\s*=\s*#'\(\s*([0-9.-]+)\s+[.]\s+([0-9.-]+)\s*\)", sub_edge_height, str)
     return str
 
@@ -2744,8 +2744,8 @@ def conv (str):
                           "\t(format-metronome-markup text dur count context)\n")
 
     ## warning 2/2: fret diagram properties moved to fret-diagram-details
-    fret_props = ['barre-type', 
-                'dot-color', 
+    fret_props = ['barre-type',
+                'dot-color',
                 'dot-radius',
                 'finger-code',
                 'fret-count',
@@ -2800,7 +2800,7 @@ def conv (str):
 
 @rule ((2, 11, 55), "#(set-octavation oct) -> \\ottava #oct,\n\
 \\put-adjacent markup axis dir markup -> \\put-adjacent axis dir markup markup")
-def conv (str):    
+def conv (str):
     str = re.sub (r"#\(set-octavation (-*[0-9]+)\)", r"\\ottava #\1", str)
     if re.search ('put-adjacent', str):
 	stderr_write (NOT_SMART % _ ("\\put-adjacent argument order.\n"))
@@ -2907,8 +2907,28 @@ def conv(str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
-@rule ((2, 13, 4), _("different settings for vertical layout"))
+@rule ((2, 13, 4),
+       _ ("Autobeaming rules have changed.  override-auto-beam-setting and\n\
+revert-auto-beam-setting have been eliminated.  \\overrideBeamSettings has been\n\
+added.  BeatGrouping has been eliminated.\n\
+Different settings for vertical layout."))
 def conv(str):
+    if re.search("override-auto-beam-setting", str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("override-auto-beam-setting.\n\
+   Autobeam settings are now overriden with \\overrideBeamSettings.\n"))
+        stderr_write (UPDATE_MANUALLY)
+    if re.search("revert-auto-beam-setting", str):
+        stderr_write ("\n")
+        stderr_write (NOT_SMART % _("override-auto-beam-setting.\n\
+   Autobeam settings are now reverted with \\revertBeamSettings.\n"))
+        stderr_write (UPDATE_MANUALLY)
+    str = re.sub(r"\\set\s+#\'beatGrouping", r"\\setBeatGrouping", str)
+    if re.search(r"(\w+\.beatGrouping)", str):
+        stderr_write (NOT_SMART % _(".beatGrouping. \n\
+   beatGrouping with a specified context must now be accomplished with\n\
+   \\overrideBeamSettings.\n"))
+        stderr_write (UPDATE_MANUALLY)
     if re.search(r'alignment-offsets', str):
         stderr_write("\n")
         stderr_write(NOT_SMART % _("alignment-offsets has been changed to alignment-distances: \
@@ -2926,5 +2946,5 @@ you must now specify the distances between staves rather than the offset of stav
 # - write rule for bumping major stable version with
 #
 #     _ ("bump version for release")
-#  
+#
 # as exact description.

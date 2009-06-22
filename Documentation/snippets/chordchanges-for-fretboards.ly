@@ -14,7 +14,6 @@ cuando el acorde cambia o al comienzo de una nueva línea.
 
   doctitlees = "Cambios de acorde de posiciones de trastes"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Bunddiagramme können definiert werden, sodass sie nur angezeigt werden,

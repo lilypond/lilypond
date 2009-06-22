@@ -11,6 +11,7 @@
 #include "global-context.hh"
 #include "engraver.hh"
 #include "spanner.hh"
+#include "beam-settings.hh"
 
 #include "translator.icc"
 
@@ -61,7 +62,16 @@ Measure_grouping_engraver::process_music ()
   if (now.grace_part_)
     return;
 
-  SCM grouping = get_property ("beatGrouping");
+  SCM settings = get_property ("beamSettings");
+  SCM grouping = SCM_EOL;
+  if (scm_is_pair (settings))
+    {
+      SCM time_signature_fraction = get_property ("timeSignatureFraction");
+      grouping = ly_beam_grouping (settings,
+                                   time_signature_fraction,
+                                   ly_symbol2scm ("end"),
+                                   ly_symbol2scm ("*"));
+    }
   if (scm_is_pair (grouping))
     {
       Moment *measpos = unsmob_moment (get_property ("measurePosition"));
@@ -83,19 +93,21 @@ Measure_grouping_engraver::process_music ()
 		  programming_error ("last grouping not finished yet");
 		  continue;
 		}
+              if (grouplen > 1)
+               {
+	         grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
+	         grouping_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
 
-	      grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
-	      grouping_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
+	         stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * beat_length;
+	         get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
-	      stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * beat_length;
-	      get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
+	         if (grouplen == 3)
+		   grouping_->set_property ("style", ly_symbol2scm ("triangle"));
+	         else
+		   grouping_->set_property ("style", ly_symbol2scm ("bracket"));
 
-	      if (grouplen == 3)
-		grouping_->set_property ("style", ly_symbol2scm ("triangle"));
-	      else
-		grouping_->set_property ("style", ly_symbol2scm ("bracket"));
-
-	      break;
+	         break;
+               }
 	    }
 	}
     }
@@ -118,7 +130,7 @@ ADD_TRANSLATOR (Measure_grouping_engraver,
 		"beatLength "
 		"currentMusicalColumn "
 		"measurePosition "
-		"beatGrouping ",
+		"beamSettings ",
 
 		/* write */
 		""

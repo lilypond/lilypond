@@ -1,11 +1,11 @@
 ;;;; music-functions.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 1998--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
-;; (use-modules (ice-9 optargs)) 
+;; (use-modules (ice-9 optargs))
 
 ;;; ly:music-property with setter
 ;;; (ly:music-property my-music 'elements)
@@ -36,7 +36,7 @@ First it recurses over the children, then the function is applied to MUSIC.
 "
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
-    (set! (ly:music-property music 'elements) 
+    (set! (ly:music-property music 'elements)
 	  (map (lambda (y) (music-map function y)) es))
     (if (ly:music? e)
 	(set! (ly:music-property music 'element)
@@ -45,7 +45,7 @@ First it recurses over the children, then the function is applied to MUSIC.
 
 (define-public (music-filter pred? music)
   "Filter out music expressions that do not satisfy PRED."
-  
+
   (define (inner-music-filter pred? music)
     "Recursive function."
     (let* ((es (ly:music-property music 'elements))
@@ -76,7 +76,7 @@ First it recurses over the children, then the function is applied to MUSIC.
   "Display music, not done with music-map for clarity of presentation."
 
   (display music)
-  (display ": { ")  
+  (display ": { ")
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
     (display (ly:music-mutable-properties music))
@@ -96,7 +96,7 @@ First it recurses over the children, then the function is applied to MUSIC.
 ;;;
 (define (markup-expression->make-markup markup-expression)
   "Transform `markup-expression' into an equivalent, hopefuly readable, scheme expression.
-For instance, 
+For instance,
   \\markup \\bold \\italic hello
 ==>
   (markup #:line (#:bold (#:italic (#:simple \"hello\"))))"
@@ -131,7 +131,7 @@ that is, for a music expression, a (make-music ...) form."
 	 (markup-expression->make-markup obj))
 	(;; music expression
 	 (ly:music? obj)
-	 `(make-music 
+	 `(make-music
 	   ',(ly:music-property obj 'name)
 	   ,@(apply append (map (lambda (prop)
                                   `(',(car prop)
@@ -170,7 +170,7 @@ that is, for a music expression, a (make-music ...) form."
 	 `(list ,@(map music->make-music obj)))
 	(;; a pair
 	 (pair? obj)
-	 `(cons ,(music->make-music (car obj)) 
+	 `(cons ,(music->make-music (car obj))
 		,(music->make-music (cdr obj))))
 	(else
 	 obj)))
@@ -204,8 +204,8 @@ Returns `obj'.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (shift-one-duration-log music shift dot)
-  "  add SHIFT to duration-log of 'duration in music and optionally 
-  a dot to any note encountered. This scales the music up by a factor 
+  "  add SHIFT to duration-log of 'duration in music and optionally
+  a dot to any note encountered. This scales the music up by a factor
   2^shift * (2 - (1/2)^dot)"
   (let ((d (ly:music-property music 'duration)))
     (if (ly:duration? d)
@@ -316,15 +316,15 @@ This function replaces all repeats  with unfold repeats. "
 
 		(if (= 0 -1)
 		    (set! count (* 2 (quotient count 3))))
-		
+
 		(shift-duration-log music (+ (if seq-arg? 1 0)
 					     (ly:intlog2 count)) dot-shift)
-		
+
 		(if seq-arg?
 		    (ly:music-compress e (ly:make-moment (length (ly:music-property
 								  e 'elements)) 1)))))))
-	  
-    
+
+
     (if (pair? es)
 	(set! (ly:music-property music 'elements)
 	      (map unfold-repeats es)))
@@ -394,9 +394,9 @@ i.e.  this is not an override"
 			  (Voice Script font-size -3)
 			  (Voice Fingering font-size -8)
 			  (Voice StringNumber font-size -8)))
-    
+
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
-     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4)))))) 
+     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
 
 (define-safe-public (make-voice-props-revert)
   (make-sequential-music
@@ -473,7 +473,7 @@ i.e.  this is not an override"
     (define (ottava-modify context)
       "Either reset middleCPosition to the stored original, or remember
 old middleCPosition, add OCTAVATION to middleCPosition, and set
-OTTAVATION to `8va', or whatever appropriate."	    
+OTTAVATION to `8va', or whatever appropriate."
       (if (number? (ly:context-property	 context 'middleCOffset))
 	  (let ((where (ly:context-property-where-defined context 'middleCOffset)))
 	    (ly:context-unset-property where 'middleCOffset)
@@ -494,52 +494,50 @@ OTTAVATION to `8va', or whatever appropriate."
 (define-public (set-octavation ottavation)
   (ly:export (make-ottava-set ottavation)))
 
-(define-public (make-time-signature-set num den . rest)
-  "Set properties for time signature NUM/DEN.  Rest can contain a list
-of beat groupings "
+;;; Need to keep this definition for \time calls from parser
+(define-public (make-time-signature-set num den)
+  "Set properties for time signature NUM/DEN."
+  (make-beam-rule-time-signature-set num den '()))
 
-  (define (standard-beat-grouping num den)
+;;; Used for calls that include beat-grouping setting
+(define-public (set-time-signature num den . rest)
+  "Set properties for time signature @var{num/den}.
+If @var{rest} is present, it is used to make a default
+@code{beamSetting} rule."
+ (ly:export (apply make-beam-rule-time-signature-set
+                    (list num den rest))))
 
-    "Some standard subdivisions for time signatures."
-    (let*
-	((key (cons num den))
-	 (entry (assoc key '(
-               ; Simple time signatures
-               (( 3 .  8) . (3))
-               (( 4 .  8) . (2 2))
-               ; Compound time signatures
-               (( 6 .  4) . (3 3))
-               (( 6 .  8) . (3 3))
-               (( 6 . 16) . (3 3))
-               (( 9 .  4) . (3 3 3))
-               (( 9 .  8) . (3 3 3))
-               (( 9 . 16) . (3 3 3))
-               ((12 .  4) . (3 3 3 3))
-               ((12 .  8) . (3 3 3 3))
-               ((12 . 16) . (3 3 3 3))
-               ; Some common irregular time signatures
-               (( 5 .  8) . (3 2))
-               (( 8 .  8) . (3 3 2))
-               ))))
+(define-public (make-beam-rule-time-signature-set num den rest)
+  "Implement settings for new time signature.  Can be
+called from either make-time-signature-set (used by \time
+in parser) or set-time-signature (called from scheme code
+included in .ly file."
 
-      (if entry
-	  (cdr entry)
-	  '())))
+  (define (make-default-beaming-rule context)
+   (override-property-setting
+    context
+    'beamSettings
+    (list (cons num den) 'end)
+    (list (cons '* (car rest)))))
 
   (let* ((set1 (make-property-set 'timeSignatureFraction (cons num den)))
 	 (beat (ly:make-moment 1 den))
 	 (len  (ly:make-moment num den))
 	 (set2 (make-property-set 'beatLength beat))
 	 (set3 (make-property-set 'measureLength len))
-	 (set4 (make-property-set 'beatGrouping (if (pair? rest)
-						    (car rest)
-						    (standard-beat-grouping num den))))
-	 (basic	 (list set1 set2 set3 set4)))
+         (beaming-rule
+          (if (null? rest)
+              '()
+              (list (make-apply-context make-default-beaming-rule))))
+         (output (cons* set1 set2 set3 beaming-rule)))
     (descend-to-context
-     (context-spec-music (make-sequential-music basic) 'Timing) 'Score)))
+     (context-spec-music
+      (make-sequential-music output)
+       'Timing)
+     'Score)))
 
 (define-public (make-mark-set label)
-  "Make the music for the \\mark command."  
+  "Make the music for the \\mark command."
   (let* ((set (if (integer? label)
 		  (context-spec-music (make-property-set 'rehearsalMark label)
 				      'Score)
@@ -551,9 +549,6 @@ of beat groupings "
 	(begin
 	  (set! (ly:music-property ev 'label) label)
 	  ch))))
-
-(define-public (set-time-signature num den . rest)
-  (ly:export (apply make-time-signature-set `(,num ,den . ,rest))))
 
 (define-safe-public (make-articulation name)
   (make-music 'ArticulationEvent
@@ -569,7 +564,7 @@ of beat groupings "
 	      'span-direction span-dir))
 
 (define-public (set-mus-properties! m alist)
-  "Set all of ALIST as properties of M." 
+  "Set all of ALIST as properties of M."
   (if (pair? alist)
       (begin
 	(set! (ly:music-property m (caar alist)) (cdar alist))
@@ -624,11 +619,9 @@ of beat groupings "
 (define-public (empty-music)
   (ly:export (make-music 'Music)))
 
-;; Make a function that checks score element for being of a specific type. 
+;; Make a function that checks score element for being of a specific type.
 (define-public (make-type-checker symbol)
   (lambda (elt)
-    ;;(display	symbol)
-    ;;(eq? #t (ly:grob-property elt symbol))
     (not (eq? #f (memq symbol (ly:grob-property elt 'interfaces))))))
 
 (define-public ((outputproperty-compatibility func sym val) grob g-context ao-context)
@@ -649,7 +642,7 @@ of beat groupings "
 
 ;;
 (define-public (smart-bar-check n)
-  "Make	 a bar check that checks for a specific bar number. 
+  "Make	 a bar check that checks for a specific bar number.
 "
   (let ((m (make-music 'ApplyContext)))
     (define (checker tr)
@@ -744,11 +737,11 @@ SkipEvent. Useful for extracting parts from crowded scores"
   (define (delete-prop context)
     (let* ((where (ly:context-property-where-defined context 'graceSettings))
 	   (current (ly:context-property where 'graceSettings))
-           (prop-settings (filter 
+           (prop-settings (filter
                             (lambda(x) (sym-grob-context? x sym grob context-name))
-                            current)) 
+                            current))
 	   (new-settings current))
-      (for-each (lambda(x) 
+      (for-each (lambda(x)
                  (set! new-settings (delete x new-settings)))
                prop-settings)
       (ly:context-set-property! where 'graceSettings new-settings)))
@@ -791,7 +784,7 @@ Syntax:
 
 (define-public (cue-substitute quote-music)
   "Must happen after quote-substitute."
-  
+
   (if (vector? (ly:music-property quote-music 'quoted-events))
       (let* ((dir (ly:music-property quote-music 'quoted-voice-direction))
 	     (main-voice (if (eq? 1 dir) 1 0))
@@ -800,7 +793,7 @@ Syntax:
 	     (return-value quote-music))
 
 	(if (or (eq? 1 dir) (eq? -1 dir))
-	    
+
 	    ;; if we have stem dirs, change both quoted and main music
 	    ;; to have opposite stems.
 	    (begin
@@ -830,7 +823,7 @@ Syntax:
 			    (hash-ref quote-tab quoted-name #f)
 			    #f)))
 
-    
+
     (if (string? quoted-name)
 	(if (vector? quoted-vector)
 	    (begin
@@ -857,7 +850,7 @@ Syntax:
     (if (and (ly:music? m)
 	     (eq? (ly:music-property m 'error-found) #t))
 	(set! found #t)))
-  
+
   (for-each signal (ly:music-property music 'elements))
   (signal (ly:music-property music 'element))
 
@@ -967,10 +960,10 @@ Syntax:
    (lambda (music parser)
 
      (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
-   
+
    ;; switch-on-debugging
    (lambda (x parser) (music-map cue-substitute x))
- 
+
    (lambda (x parser)
      (skip-as-needed x parser)
    )))
@@ -989,14 +982,14 @@ Syntax:
 ;;;;;;;;;;;;;;;;;
 ;; lyrics
 
-(define (apply-durations lyric-music durations) 
+(define (apply-durations lyric-music durations)
   (define (apply-duration music)
     (if (and (not (equal? (ly:music-length music) ZERO-MOMENT))
 	     (ly:duration?  (ly:music-property music 'duration)))
 	(begin
 	  (set! (ly:music-property music 'duration) (car durations))
 	  (set! durations (cdr durations)))))
-  
+
   (music-map apply-duration lyric-music))
 
 
@@ -1319,14 +1312,14 @@ use GrandStaff as a context. "
 				   pcontext))
 
       ;; same as modern, but cautionary accidentals are printed for all sharp or flat
-      ;; tones specified by the key signature.  
+      ;; tones specified by the key signature.
        ((equal? style 'teaching)
        (set-accidentals-properties #f
 				    `(Staff ,(make-accidental-rule 'same-octave 0))
 				    `(Staff ,(make-accidental-rule 'same-octave 1)
 				           ,teaching-accidental-rule)
 				   context))
-      
+
       ;; do not set localKeySignature when a note alterated differently from
       ;; localKeySignature is found.
       ;; Causes accidentals to be printed at every note instead of
@@ -1363,7 +1356,7 @@ use GrandStaff as a context. "
 
 (define-public (mmrest-of-length mus)
   "Create a mmrest of exactly the same length as MUS."
-  
+
   (let* ((skip
 	  (make-multi-measure-rest
 	   (ly:make-duration 0 0) '())))
@@ -1379,7 +1372,7 @@ use GrandStaff as a context. "
     (if (pair? evs)
 	(ly:music-property (car evs) 'pitch)
 	#f)))
-       
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (extract-named-music music music-name)
@@ -1395,7 +1388,7 @@ from @code{music}."
                         (extract-named-music elt music-name)
                         (if (null? elts)
                             '()
-                            (map (lambda(x) 
+                            (map (lambda(x)
                                     (extract-named-music x music-name ))
                              elts)))))
               '())))

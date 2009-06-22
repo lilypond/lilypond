@@ -1,7 +1,7 @@
 ;;;; c++.scm -- implement Scheme frontends to C++ functions
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 1998--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
@@ -41,7 +41,7 @@
 
 ;; moved list to end of lily.scm: then all type-predicates are
 ;; defined.
-(define type-p-name-alist '()) 
+(define type-p-name-alist '())
 
 (define (match-predicate obj alist)
   (if (null? alist)
