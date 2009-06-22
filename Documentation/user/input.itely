@@ -354,6 +354,27 @@ A multi-line comment delimited by @code{%@{ .. %@}}.
 
 @end itemize
 
+@cindex whitespace
+
+Whitespace between items in the input stream is generally ignored,
+and may be freely omitted or extended to enhance readability.
+However, whitespace should always be used in the following
+circumstances to avoid errors:
+
+@itemize
+@item Around every opening and closing curly bracket.
+@item After every command or variable, i.e. every item that
+begins with a @code{\} sign.
+@item After every item that is to be interpreted as a Scheme
+expression, i.e. every item that begins with a @code{#} sign.
+@item To separate all elements of a Scheme expression.
+@item In @code{lyricmode} to separate all the terms in both
+@code{\override} and @code{\set} commands.  In particular, spaces
+must be used around the dot and the equals sign in commands like
+@code{\override Score . LyricText #'font-size = #5} and before and
+after the entire command.
+
+@end itemize
 
 @seealso
 Learning Manual:
