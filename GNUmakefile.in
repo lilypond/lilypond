@@ -23,8 +23,10 @@ TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/
 IN_FILES := $(call src-wildcard,*.in)
 
 RELEASE_FILES = ChangeLog RELEASE-COMMIT
-EXTRA_DIST_FILES = $(RELEASE_FILES) VERSION .gitignore lilypond-texi2html.init \
-  $(README_FILES) $(SCRIPTS) $(IN_FILES) 
+RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
+OUT_DIST_FILES += $(RELEASE_OUT_FILES)
+EXTRA_DIST_FILES = VERSION .gitignore lilypond-texi2html.init \
+  $(README_FILES) $(SCRIPTS) $(IN_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
 
@@ -44,17 +46,16 @@ $(outdir)/VERSION: $(config_make) VERSION
 	-mkdir -p $(outdir)
 	echo $(TOPLEVEL_VERSION) > $@
 
-ChangeLog: $(outdir)/VERSION
+$(outdir)/ChangeLog: $(outdir)/VERSION
 	@echo 'See http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=log;h=refs/tags/release/$(TOPLEVEL_VERSION)-1' > $@
 
-RELEASE-COMMIT: # FIXME: any file in $(top-src-dir)/.git/ we can depend on and be sure RELEASE-COMMIT is up to date?
+$(outdir)/RELEASE-COMMIT: # FIXME: any file in $(top-src-dir)/.git/ we can depend on and be sure RELEASE-COMMIT is up to date?
 	git --git-dir=$(top-src-dir)/.git show HEAD | head -100 > $@
 
 # junk me as soon as RELEASE-COMMIT FIXME: has been addressed
 refresh-release-files:
-	rm -f ChangeLog
-	test -d $(top-src-dir)/.git && rm -f RELEASE-COMMIT
-	$(MAKE) $(RELEASE_FILES)
+	test -d $(top-src-dir)/.git && rm -f $(RELEASE_OUT_FILES)
+	$(MAKE) $(RELEASE_OUT_FILES)
 
 python-modules:
 	$(MAKE) -C python
