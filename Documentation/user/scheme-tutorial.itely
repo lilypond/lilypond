@@ -26,7 +26,25 @@ together.  This section is a very brief overview of entering data in
 Scheme.  If you want to know more about Scheme, see
 @uref{http://@/www@/.schemers@/.org}.
 
-The most basic thing of a language is data: numbers, character
+LilyPond uses the GNU Guile implementation of Scheme, which is
+based on the Scheme @qq{R5RS} standard. If you are learning Scheme
+to use with LilyPond, working with a different implementation (or
+referring to a different standard) is not recommended. Information
+on guile can be found at @uref{http://www.gnu.org/software/guile/}.
+The @qq{R5RS} Scheme standard is located at
+@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+
+The LilyPond installation also includes the Guile implementation of
+Scheme.  On most systems you can experiment in a Scheme sandbox by
+opening a terminal window and typing @q{guile}.  On some systems,
+notably Windows, you may need to set the environment variable
+@code{GUILE_LOAD_PATH} to the directory @code{../usr/shr/guile/1.8}
+in the LilyPond installation (for the full path to this directory
+see @ref{Other sources of information}).  Alternatively, Windows
+users may simply chose @q{Run} from the Start menu and enter
+@q{guile}.
+
+The most basic concept in a language is data typing: numbers, character
 strings, lists, etc.  Here is a list of data types that are relevant to
 LilyPond input.
 
@@ -70,7 +88,7 @@ respectively.
 
 
 In a music file, snippets of Scheme code are introduced with the hash
-mark @code{#}.  So, the previous examples translated in LilyPond are
+mark @code{#}.  So, the previous examples translated to LilyPond are
 
 @example
 ##t ##f
@@ -80,6 +98,35 @@ mark @code{#}.  So, the previous examples translated in LilyPond are
 is
 a string"
 @end example
+
+Note that LilyPond comments (@code{%} and @code{%@{ %@}}) cannot
+be used within Scheme code.  Comments in Guile Scheme are entered
+as follows:
+
+@example
+; this is a single-line comment
+
+#!
+  This a (non-nestable) Guile-style block comment
+  But these are rarely used by Schemers and never in
+  LilyPond source code
+!#
+@end example
+
+Multiple consecutive scheme expressions in a music file can be
+combined using the @code{begin} operator. This permits the number
+of hash marks to be reduced to one.
+
+@example
+#(begin
+  (define foo 0)
+  (define bar 1))
+@end example
+
+If @code{#} is followed by an opening bracket, @code{(}, as in
+the example above, the parser will remain in Scheme mode until
+a matching closing bracket, @code{)}, is found, so further
+@code{#} symbols to introduce a Scheme section are not required.
 
 For the rest of this section, we will assume that the data is entered
 in a music file, so we add @code{#}s everywhere.
