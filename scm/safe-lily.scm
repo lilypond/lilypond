@@ -1,7 +1,7 @@
-;;;; safe-lily.scm -- 
+;;;; safe-lily.scm --
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2004--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (map
@@ -116,7 +116,6 @@
    ly:round-filled-box
    ly:run-translator
    ly:set-option
-   ly:set-point-and-click
    ly:spanner-broken-into
    ly:spanner-bound
    ly:spanner?
