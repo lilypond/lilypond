@@ -1044,6 +1044,7 @@ This also updates translated documentation.
 * Documentation translation maintenance::
 * Translations management policies::
 * Technical background::
+* Translation status::
 @end menu
 
 @node Getting started with documentation translation
@@ -1667,3 +1668,9 @@ And finally
 @itemize
 @item @file{python/langdefs.py}  -- language definitions module
 @end itemize
+
+
+@node Translation status
+@subsection Translation status
+
+
