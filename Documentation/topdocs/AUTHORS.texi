@@ -65,7 +65,7 @@ al-niente hairpins.
     Scheme macros, \markup syntax.
 @item @email{c_sorensen@@byu.edu, Carl Sorensen},    
     Fret diagrams.    
-@item @email{rune@@zedeler.dk, Rune Zedeler},
+@item @email{, Rune Zedeler},
     Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
     fret, @code{subdivideBeams}.
 @end itemize
@@ -80,7 +80,7 @@ Font
     Exact Type1 font outlines for feta, feta-alphabet.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Arpeggio arrow
-@item @email{rune@@zedeler.dk, Rune Zedeler},
+@item @email{, Rune Zedeler},
     16th and shorter rests, 
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
@@ -120,7 +120,7 @@ Documentation and examples
     @uref{http://www.iro.umontreal.ca/~pinard/},
     Parts of Documentation/user/glossary*, started
     internationalization stuff.
-@item @email{rune@@zedeler.dk, Rune Zedeler},
+@item @email{, Rune Zedeler},
     Schumann example.
 @end itemize
 
