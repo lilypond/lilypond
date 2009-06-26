@@ -482,7 +482,12 @@ convert-ly -e myfile.ly
 @end example
 
 @noindent
-or, if you want to preserve the original file
+This will upgrade @code{myfile.ly} in-place and preserve the
+original file in @code{myfile.ly~}.
+
+Alternatively, if you want to specify a different name for the
+upgraded file, preserving the original file and name unchanged,
+use
 
 @example
 convert-ly myfile.ly > mynewfile.ly
