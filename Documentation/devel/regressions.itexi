@@ -1,0 +1,28 @@
+@c -*- coding: us-ascii; mode: texinfo; -*-
+@node Regression tests
+@chapter Regression tests
+
+@menu
+* Introduction to regression tests::  
+* Current regtest output::      
+* Comparison regtest output::   
+* MusicXML tests::              
+@end menu
+
+
+@node Introduction to regression tests
+@section Introduction to regression tests
+
+
+@node Current regtest output
+@section Current regtest output
+
+
+@node Comparison regtest output
+@section Comparison regtest output
+
+
+@node MusicXML tests
+@section MusicXML tests
+
+
