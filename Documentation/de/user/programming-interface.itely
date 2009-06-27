@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d79348b1cda7e897422c58d5b9a4a6be1da03731
+    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -486,6 +486,10 @@ um komplizierte musikalische Funktionen  zu erstellen.
 @subsection Displaying music expressions
 
 @cindex interne Speicherung
+@cindex Musikausdrücke anzeigen
+@cindex Anzeigen von Musikausdrücken
+
+@funindex displayMusic
 @funindex \displayMusic
 
 Wenn man eine musikalische Funktion erstellt, ist es oft
@@ -1364,13 +1368,16 @@ Für einen Notenkopf beispielsweise ist das ein
 Hier ist eine Funktion, die mit @code{\applyOutput} benutzt
 werden kann; sie macht Notenköpfe auf der Mittellinie unsichtbar:
 
-@example
-(define (blanker grob grob-origin context)
- (if (and (memq (ly:grob-property grob 'interfaces)
-                note-head-interface)
-          (eq? (ly:grob-property grob 'staff-position) 0))
-     (set! (ly:grob-property grob 'transparent) #t)))
-@end example
+@lilypond[quote,verbatim,ragged-right]
+#(define (blanker grob grob-origin context)
+   (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
+            (eq? (ly:grob-property grob 'staff-position) 0))
+       (set! (ly:grob-property grob 'transparent) #t)))
+
+\relative {
+  e4 g8 \applyOutput #'Voice #blanker b d2
+}
+@end lilypond
 
 
 @node Scheme procedures as properties

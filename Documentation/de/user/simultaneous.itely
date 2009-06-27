@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -95,13 +95,13 @@ System:
 
 @lilypond[quote,verbatim,relative=2]
 \new Voice {  % explicit single voice
-  << {a4 b g2} {d4 g c,2} >>
+  << { a4 b g2 } { d4 g c,2 } >>
 }
 @end lilypond
 
 @lilypond[quote,verbatim,relative=2]
 % single first note
-a << {a4 b g}  {d4 g c,} >>
+a << { a4 b g } { d4 g c, } >>
 @end lilypond
 
 Dass kann benutzt werden, wenn die simultanen Abschnitte einen
@@ -114,7 +114,7 @@ mehrere Systeme erstellt:
 
 @lilypond[quote,verbatim,relative=2]
 % no single first note
-<< {a4 b g2}  {d4 g2 c,4} >>
+<< { a4 b g2 } { d4 g2 c,4 } >>
 @end lilypond
 
 In diesem Fall stellt der unterschiedliche Rhythmus kein Problem dar.

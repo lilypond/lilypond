@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
+    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1621,10 +1621,6 @@ Referenz der Interna:
 
 
 @knownissues
-
-Automatische Bebalkung von weit außeinander liegenden Noten
-(wobei der Balken als Knie erscheint) kann nicht mit versteckten
-Systemen benutzt werden.  Siehe @ref{Hiding staves}.
 
 Balken können mit Notenköpfen und Versetzungszeichen in anderen
 Stimmen zusammenstoßen.
