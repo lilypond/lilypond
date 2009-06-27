@@ -10,7 +10,7 @@ entonces los cambios se aplicarán también a la reducción de piano.
 "
   doctitlees = "Plantilla de conjunto vocal con reducción de piano automática"
   
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In diesem Beispiel wird ein automatischer Klavierauszug zu der 
 Chorpartitur hinzugefügt. Das zeigt eine der Stärken von LilyPond

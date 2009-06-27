@@ -8,12 +8,14 @@ colocan utilizando @code{alignAboveContext} y
 "
   doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"
   
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In diesem Beispiel werden die Texte mit den Befehlen 
 @code{alignAboveContext} und @code{alignBelowContext}
 über und unter dem System angeordnet.
 "
+
+  doctitlede = "Vorlage für Vokalensemble mit dem Gesangstext über und unter dem System"
 
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "

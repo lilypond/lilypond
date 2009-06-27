@@ -18,7 +18,7 @@ da la duración el subgrupo de barras utilizando la función
 "
   doctitlees = "Subdivisión de las barras de semicorchea"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
 werden standardmäßig nicht unterteilt.  Dieses Verhalten kann verändert

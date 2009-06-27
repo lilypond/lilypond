@@ -9,7 +9,7 @@ puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
 
 "
 
-%% Translation of GIT committish: b4f6b5ad66d016c312cddc8d4026ad852f9a7c36
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
 und Brevispausen (auch Kirchenpausen genannt) gesetzt, bei mehr Takten

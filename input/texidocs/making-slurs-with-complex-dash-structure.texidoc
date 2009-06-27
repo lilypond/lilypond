@@ -26,7 +26,7 @@ de 1 para una ligadura continua.
   doctitlees = "Hacer ligaduras de expresión con estructura compleja de discontinuidad"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Legatobögen können mit einem komplizierten Strichelmuster
 gesetzt werden, indem die @code{dash-definition}-Eigenschaft
