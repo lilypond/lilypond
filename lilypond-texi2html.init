@@ -117,14 +117,19 @@ if ($Texi2HTML::Config::SPLIT eq 'section') {
   $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
 }
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
+$default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
+$default_external_href = $Texi2HTML::Config::external_href;
 $Texi2HTML::Config::external_href        = \&lilypond_external_href;
+$default_toc_body = $Texi2HTML::Config::toc_body;
 $Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
 $Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
+$default_unknown = $Texi2HTML::Config::unknown;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
+$default_print_page_head = $Texi2HTML::Config::print_page_head;
 $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
 # $Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
 $Texi2HTML::Config::foot_line_and_ref  = \&makeinfo_like_foot_line_and_ref;
@@ -457,9 +462,6 @@ sub lilypond_external_ref($$$$$$)
 
   $displaytext = &$anchor('', $href, $displaytext) if ($displaytext ne '');
   return &$I('%{node_file_href}', { 'node_file_href' => $displaytext });
-
-#  Default: format as "see <a ..>NODE</a> section 'SECTION' in BOOK". We don't want this!
-#   return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
 }
 
 
@@ -494,7 +496,7 @@ sub lilypond_unknown($$$$$)
       }
       return ('', 1, undef, undef);
     } else {
-      return t2h_default_unknown($macro, $line, $pass, $stack, $state);
+      return &$default_unknown($macro, $line, $pass, $stack, $state);
     }
 }
 
@@ -515,14 +517,13 @@ sub lilypond_external_href($$$)
   my $node_id = shift;
   my $node_hxmlt_id = shift;
   my $file = shift;
-  my $original_func = \&t2h_default_external_href;
 
   # 1) Keep a hash of book->section_map
   # 2) if not file in keys hash => try to load the map (assign empty map if
   #    non-existent => will load only once!)
   # 3) if node in the section=>(file, anchor) map, replace node_id and
   #    node_xhtml_id by the map's values
-  # 4) call the t2h_default_external_href with these values (or the old ones if not found)
+  # 4) call the default_external_href with these values (or the old ones if not found)
 
   if (($node_id ne '') and defined($file) and ($node_id ne 'Top')) {
     my $map_name = $file;
@@ -547,9 +548,9 @@ sub lilypond_external_href($$$)
   }
 
   if (defined $file) {
-    return &$original_func($node, $node_id, $node_hxmlt_id, $file);
+    return &$default_external_href($node, $node_id, $node_hxmlt_id, $file);
   } else {
-    return &$original_func($node, $node_id, $node_hxmlt_id);
+    return &$default_external_href($node, $node_id, $node_hxmlt_id);
   }
 }
 
@@ -714,7 +715,7 @@ sub lilypond_print_element_header
       @this_page_toc = lilypond_generate_page_toc_body($Texi2HTML::THIS_ELEMENT);
     }
   }
-  return T2H_DEFAULT_print_element_header( $first_in_page, $previous_is_top);
+  return &$default_print_element_header( $first_in_page, $previous_is_top);
 }
 
 # Generate the HTML output for the TOC
@@ -723,14 +724,14 @@ sub lilypond_toc_body($)
     my $elements_list = shift;
     # Generate a default TOC for pages without THIS_ELEMENT
     @default_toc = lilypond_generate_page_toc_body(@$elements_list[0]);
-    return T2H_GPL_toc_body($elements_list);
+    return &$default_toc_body($elements_list);
 }
 
 # Print out the TOC in a <div> at the beginning of the page
 sub lilypond_print_page_head($)
 {
     my $fh = shift;
-    T2H_DEFAULT_print_page_head($fh);
+    &$default_print_page_head($fh);
     print $fh "<div id=\"main\">\n";
 }
 
