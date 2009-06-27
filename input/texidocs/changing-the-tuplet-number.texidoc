@@ -10,7 +10,7 @@ del grupo, o eliminar el número.
 
 "
 
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Standardmäßig wird nur der Zähler des N-tolen-Bruchs über der Klammer
 dargestellt, wie er dem @code{\\times}-Befehl übergeben wird.

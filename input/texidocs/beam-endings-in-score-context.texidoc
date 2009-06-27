@@ -8,7 +8,7 @@ modificar tanto en los niveles de @code{Staff} como de
 "
   doctitlees = "Finales de barra en el contexto Score"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Balkenenderegeln, die im @code{Score}-Kontext definiert werden, wirken
 sich auf alle Systeme aus, können aber auf @code{Staff}- und
