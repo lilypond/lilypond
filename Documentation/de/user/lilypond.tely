@@ -249,6 +249,7 @@ Anhänge
 
 Dieser Anhang enthält eine Beschreibung der LilyPond-Grammatik,
 wie sie der Parser ausgibt.
+
 @verbatiminclude ly-grammar.txt
 
 @include fdl.itexi
