@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 3a8b7fa74c14101cb93d75e541f5afdb18f09239
+    Translation of GIT committish: 46e1b0a15ecf324b3272645224f3a2b3068dce73
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -515,11 +515,28 @@ convert-ly -e miarchivo.ly
 @end example
 
 @noindent
+Con esto se actualiza @code{miarchivo.ly} @emph{in situ} y se preserva
+el archivo original @code{miarchivo.ly~}.
+
+De forma alternativa, si queremos especificar un nombre distinto para
+el archivo actualizado, preservando el archivo original con el mismo
+nombre, haga
+
+@example
+convert-ly miarchivo.ly > minuevoarchivo.ly
+@end example
+
+El programa imprimirá una relación de los números de versión para los
+que se han hecho conversiones.  Si no se imprime ningún número de
+versión, el archivo ya está actualizado.
+
+@noindent
 Los usuarios de MacOS@tie{}X pueden ejecutar esta instrucción bajo el
 menú @code{Compilar > Actualizar sintaxis}.
 
-Si no hay cambios en miarchivo.ly y se crea el archivo llamado
-miarchivo.ly.NEW, entonces miarchivo.ly ya está actualizado.
+Los usuarios de Windows deben introducir esta instrucción en una
+ventana del terminal del sistema, que se encuentra por lo general bajo
+@code{Inicio > Accesorios > Símbolo del sistema}.
 
 @menu
 * Command line options for convert-ly::
@@ -534,27 +551,6 @@ que puede manejar.  Esto supone que el número de @code{\version} que
 aparece en el archivo convertido suele ser más bajo que la versión del
 propio programa @command{convert-ly}.
 
-Para actualizar fragmentos de LilyPond en archivos de texinfo, use
-
-@example
-convert-ly --from=... --to=... --no-version *.itely
-@end example
-
-Para ver los cambios en la sintaxis de LilyPond entre dos versiones,
-use
-
-@example
-convert-ly --from=... --to=... -s
-@end example
-
-Para actualizar muchos archivos de una vez, combine @code{convert-ly}
-con las instrucciones estándar de UNIX.  Este ejemplo actualiza todos
-los archivos @code{.ly} del directorio actual:
-
-@example
-for f in *.ly; do convert-ly -e $f; done;
-@end example
-
 En general, el programa se invoca de la manera siguiente:
 
 @example
@@ -566,13 +562,13 @@ Se pueden dar las siguientes opciones:
 
 @table @code
 @item -e,--edit
-Hace una edición en línea del archivo de entrada.  Sobreescribe a
-@code{--output}.
+Aplicar las conversiones directamente al archivo de entrada,
+modificándolo in situ.
 
 @item -f,--from=@var{versión_de_origen}
 Establece la versión desde la que convertir.  Si no aparece esta
 opción, @command{convert-ly} tratará de adivinarla, basándose en el
-enunciado @code{\version} del archivo.
+enunciado @code{\version} del archivo.  Ejemplo: @code{--from=2.10.25}
 
 @item -n,--no-version
 Normalmente @command{convert-ly} añade un indicador @code{\version} a
@@ -589,9 +585,38 @@ se convierte a la última versión disponible.
 Imprimir la ayuda de la utilización.
 @end table
 
+Para actualizar fragmentos de LilyPond en archivos de texinfo, use
+
+@example
+convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+Para ver los cambios en la sintaxis de LilyPond entre dos versiones
+dadas, use
+
+@example
+convert-ly --from=... --to=... -s
+@end example
+
+Para actualizar muchos archivos de una sola vez, combine
+@code{convert-ly} con las instrucciones estándar de UNIX.  Este
+ejemplo actualiza todos los archivos @code{.ly} del directorio actual:
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
 
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
+
+Al ejecutar convert-ly en una ventana del Símbolo del Sistema bajo
+Windows sobre un archivo que tiene espacios en el nombre o en la ruta,
+es necesario encerrar todo el nombre con tres (!) pares de comillas:
+
+@example
+convert-ly """D:/Mis partituras/Oda.ly""" > """D:/Mis partituras/nueva Oda.ly"""
+@end example
 
 No se manejan todos los cambios en el lenguaje.  Sólo se puede
 especificar una opción de salida.  La actualización automática de

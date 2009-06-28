@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 0f35c951dfcd648c512d29848350ff7df3dc5853
+    Translation of GIT committish: 46e1b0a15ecf324b3272645224f3a2b3068dce73
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -28,9 +28,29 @@ una panorámica muy breve sobre cómo introducir datos en Scheme.  Si
 quiere saber más sobre Scheme, consulte
 @uref{http://@/www@/.schemers@/.org}.
 
-Lo más básico de un lenguaje son los datos: números, cadenas de
-caracteres, listas, etc.  He aquí una lista de los tipos de datos que
-son de relevancia respecto de la entrada de LilyPond.
+LilyPond utiliza la implementación GNU Guile de Scheme, que está
+basada en el estándar @qq{R5RS} del lenguaje.  Si está aprendiendo
+Scheme para usarlo con LilyPond, no se recomienda trabajar con una
+implementación distinta (o que se refiera a un estándar diferente).
+Hay información sobre Guile en
+@uref{http://www.gnu.org/software/guile/}.  El estándar de Scheme
+@qq{R5RS} se encuentra en
+@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+
+La instalación de LilyPond inclute también la de la implementación
+Guile de Scheme.  Sobre casi todos los sistemas puede experimentar en
+una @qq{caja de arena} de Scheme abriendo una ventana del terminal y
+tecleando @q{guile}.  En algunos sistemas, sobre todo en Windows,
+podría necesitar ajustar la variable de entorno @code{GUILE_LOAD_PATH}
+a la carpeta @code{../usr/shr/guile/1.8} dentro de la instalación de
+LilyPond (para conocer la ruta completa a esta carpeta, consulte
+@ref{Other sources of information}).  Como alternativa, los usuarios
+de Windows pueden seleccionar simplemente @q{Ejecutar} del menú Inicio
+e introducir @q{guile}.
+
+El concepto más básico de un lenguaje son sus tipos de datos: números,
+cadenas de caracteres, listas, etc.  He aquí una lista de los tipos de
+datos que son de relevancia respecto de la entrada de LilyPond.
 
 @table @asis
 @item Booleanos
@@ -83,6 +103,36 @@ anteriores traducidos a LilyPond son:
 es
 una cadena"
 @end example
+
+Observe que los comentarios de LilyPond (@code{%} y @code{%@{ %@}}) no
+se puedden utilizar dentro del código de Scheme.  Los comentarios en
+el Scheme de Guile se introducen como sigue:
+
+@example
+; esto es un comentario de una línea
+
+#!
+  Esto es un comentario de bloque (no anidable) estilo Guile
+  Pero se usan rara vez por parte de los Schemers y nunca dentro del
+  código fuente de LilyPond
+!#
+@end example
+
+Se pueden combinar en un mismo archivo de música varias expresiones de
+Scheme consecutivas mediante la utilización del operador @code{begin}.
+Ello permite que el número de marcas de cuadradillo se redizca a una.
+
+@example
+#(begin
+  (define fulanito 0)
+  (define menganito 1))
+@end example
+
+Si el @code{#} va seguido de un paréntesis de apertura, @code{(}, como
+en el ejemplo anterior, el analizador sintáctico permanece dentro del
+modo de Scheme hasta que encuentra el paréntesis de cierre
+correspondiente, @code{)}, por lo que no son necesarios más símbolos
+de @code{#} para introducir una sección de Scheme.
 
 Durante el resto de esta sección, supondremos que los datos se
 introducen en un archivo de música, por lo que añadiremos almohadillas

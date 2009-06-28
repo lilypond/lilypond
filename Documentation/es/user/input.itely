@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9318dde7b34435a3fdb2e1a7e0ddcf0f86e936ae
+    Translation of GIT committish: 46e1b0a15ecf324b3272645224f3a2b3068dce73
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -368,6 +368,27 @@ Un comentario de varias líneas, delimitado por @code{%@{ .. %@}}.
 
 @end itemize
 
+@cindex espacios en blanco
+
+Por lo general se ignoran los espacios entre elementos del flujo de
+entrada, y se pueden omitir o aumentar tranquilamente para mejorar la
+legibilidad.  Sin embargo, los espacios se deben utilizar siempre para
+evitar errores, en las siguientes situaciones:
+
+@itemize
+@item Alrededor de todas y cada una de las llaves curvas de apertura y cierre.
+@item A continuación de las instrucciones y variables, es decir, todos los elementos
+que comienzan con un signo @code{\} de barra invertida.
+@item A continuación de todo elemento que se deba interpretar como expresión
+de Scheme, es decir, todo elemento que comience por un signo @code{#}.
+@item Para separar los elementode de una expresión de Scheme.
+@item Dentro de @code{lyricmode} para separar todos los términos de las instrucciones
+@code{\override} y @code{\set}.  Concretamente, hay que usar espacios
+alrededor del punto y el signo igual en instrucciones como
+@code{\override Score . LyricText #'font-size = #5} y antes y después
+de la instrucción completa.
+
+@end itemize
 
 @seealso
 Manual de aprendizaje:
