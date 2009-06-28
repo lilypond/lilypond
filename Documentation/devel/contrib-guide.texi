@@ -104,6 +104,7 @@ on-line copies of this and other documentation.
 * Website work::
 * LSR work::
 * Issues::
+* Regression tests::
 * Programming work::
 * Release work::
 @end menu
@@ -117,6 +118,7 @@ on-line copies of this and other documentation.
 @include website-work.itexi
 @include lsr-work.itexi
 @include issues.itexi
+@include regressions.itexi
 @include programming-work.itexi
 @include release-work.itexi
 

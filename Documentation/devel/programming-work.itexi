@@ -102,6 +102,9 @@ GUILE Reference Manual} is available online.
 Interpretation of Computer Programs}, a popular textbook used to teach
 programming in Scheme is available in its entirety online.
 
+An introduction to Guile/Scheme as used in LilyPond can be found in the
+Learning Manual, see @rlearning{Scheme tutorial}. 
+
 @subsection MetaFont
 
 MetaFont is used to create the music fonts used by LilyPond.  A MetaFont

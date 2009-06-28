@@ -192,7 +192,7 @@ positions.")
 More information on the allowed parameters for a grob can be found by 
 looking at the top of the Internals Reference page for each interface
 having a @code{details} property.")
-     (digit-names ,vector "Names for string finger digits.")
+     (digit-names ,vector? "Names for string finger digits.")
      (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
 @code{#X}), then this property determines whether the object is placed
 @code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the

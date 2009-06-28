@@ -553,10 +553,21 @@ B ... @@end itemize - for bulleted lists.
 
 @item
 @@ref@{@} - normal references (type the exact node name inside the
-@{@}).  @@ruser@{@} - link to the NR.  @@rlearning@{@} - link to
-the LM.  @@rglos@{@} - link to the MG.  @@rprogram@{@} - link to
-the AU.  @@rlsr@{@} - link to a Snippet section.  @@rinternals@{@}
-- link to the IR.
+@{@}).
+@item
+@@ruser@{@} - link to the NR.
+@item
+@@rlearning@{@} - link to the LM.
+@item
+@@rglos@{@} - link to the MG.
+@item
+@@rprogram@{@} - link to the AU.
+@item
+@@rlsr@{@} - link to a Snippet section.
+@item
+@@rinternals@{@} - link to the IR.
+@item
+@@uref@{@} - link to an external url.
 
 @end itemize
 
@@ -1033,6 +1044,7 @@ This also updates translated documentation.
 * Documentation translation maintenance::
 * Translations management policies::
 * Technical background::
+* Translation status::
 @end menu
 
 @node Getting started with documentation translation
@@ -1656,3 +1668,9 @@ And finally
 @itemize
 @item @file{python/langdefs.py}  -- language definitions module
 @end itemize
+
+
+@node Translation status
+@subsection Translation status
+
+

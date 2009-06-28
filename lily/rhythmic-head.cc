@@ -8,11 +8,11 @@
 
 #include "rhythmic-head.hh"
 
-#include "warn.hh"
-#include "rest.hh"
-#include "stem.hh"
-#include "staff-symbol-referencer.hh"
 #include "item.hh"
+#include "rest.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
+#include "warn.hh"
 
 Item *
 Rhythmic_head::get_dots (Grob *me)
@@ -32,7 +32,7 @@ int
 Rhythmic_head::dot_count (Grob *me)
 {
   return get_dots (me)
-    ? scm_to_int (get_dots (me)->get_property ("dot-count")) : 0;
+    ? robust_scm2int (get_dots (me)->get_property ("dot-count"), 0) : 0;
 }
 
 void
@@ -50,7 +50,7 @@ Rhythmic_head::duration_log (Grob *me)
 
 ADD_INTERFACE (Rhythmic_head,
 	       "Note head or rest.",
-	       
+
 	       /* properties */
 	       "dot "
 	       "duration-log "

@@ -6,6 +6,9 @@
 ;;;; (c) 1998--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
+; for take, drop, take-while, list-index, and find-tail:
+(use-modules (srfi srfi-1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
 
@@ -334,53 +337,29 @@ found."
 		   (cons x acc))))
 	 '() lst) '()))
 
-(define (split-at-predicate predicate lst)
- "Split LST = (a_1 a_2 ... a_k b_1 ... b_k)
-  into L1 = (a_1 ... a_k ) and L2 =(b_1 .. b_k) 
-  Such that (PREDICATE a_i a_{i+1}) and not (PREDICATE a_k b_1).
-  L1 is copied, L2 not.
+(define (split-at-predicate pred lst)
+  "Split LST into two lists at the first element that returns #f for
+  (PRED previous_element element). Return the two parts as a pair.
+  Example: (split-at-predicate < '(1 2 3 2 1)) ==> ((1 2 3) . (2 1))"
+  (if (null? lst)
+      (list lst)
+      (let ((i (list-index pred (cdr lst) lst)))
+        (if i
+            (cons (take lst (1+ i)) (drop lst (1+ i)))
+            (list lst)))))
 
-  (split-at-predicate (lambda (x y) (= (- y x) 2)) '(1 3 5 9 11) (cons '() '()))"
- 
- ;; " Emacs is broken
-
- (define (inner-split predicate lst acc)
-   (cond
-    ((null? lst) acc)
-    ((null? (cdr lst))
-     (set-car! acc (cons (car lst) (car acc)))
-     acc)
-    ((predicate (car lst) (cadr lst))
-     (set-car! acc (cons (car lst) (car acc)))
-     (inner-split predicate (cdr lst) acc))
-    (else
-     (set-car! acc (cons (car lst) (car acc)))
-     (set-cdr! acc (cdr lst))
-     acc)))
- 
- (let* ((c (cons '() '())))
-   (inner-split predicate lst  c)
-   (set-car! c (reverse! (car c)))
-   c))
-
-(define-public (split-list-by-separator lst sep?)
-   "(display (split-list-by-separator '(a b c / d e f / g) (lambda (x) (equal? x '/))))
-   =>
-   ((a b c) (d e f) (g))
-  "
-   ;; " Emacs is broken
-   (define (split-one sep?  lst acc)
-     "Split off the first parts before separator and return both parts."
-     (if (null? lst)
-	 (cons acc '())
-	 (if (sep? (car lst))
-	     (cons acc (cdr lst))
-	     (split-one sep? (cdr lst) (cons (car lst) acc)))))
-   
-   (if (null? lst)
-       '()
-       (let* ((c (split-one sep? lst '())))
-	 (cons (reverse! (car c) '()) (split-list-by-separator (cdr c) sep?)))))
+(define-public (split-list-by-separator lst pred)
+  "Split LST at each element that satisfies PRED, and return the parts
+  (with the separators removed) as a list of lists. Example:
+  (split-list-by-separator '(a 0 b c 1 d) number?) ==> ((a) (b c) (d))"
+  (let loop ((result '()) (lst lst))
+    (if (and lst (not (null? lst)))
+        (loop
+          (append result
+                  (list (take-while (lambda (x) (not (pred x))) lst)))
+          (let ((tail (find-tail pred lst)))
+            (if tail (cdr tail) #f)))
+       result)))
 
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))

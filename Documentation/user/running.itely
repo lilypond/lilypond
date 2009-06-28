@@ -482,11 +482,28 @@ convert-ly -e myfile.ly
 @end example
 
 @noindent
+This will upgrade @code{myfile.ly} in-place and preserve the
+original file in @code{myfile.ly~}.
+
+Alternatively, if you want to specify a different name for the
+upgraded file, preserving the original file and name unchanged,
+use
+
+@example
+convert-ly myfile.ly > mynewfile.ly
+@end example
+
+The program will list the version numbers for which conversions
+have been made.  If no version numbers are listed the file is
+already up to date.
+
+@noindent
 MacOS@tie{}X users may execute this command under the menu entry
 @code{Compile > Update syntax}.
 
-If there are no changes to myfile.ly and file called myfile.ly.NEW
-is created, then myfile.ly is already updated.
+Windows users should enter this command in a Command Prompt window,
+which is usually found under
+@code{Start > Accessories > Command Prompt}.
 
 @menu
 * Command line options for convert-ly::
@@ -496,9 +513,44 @@ is created, then myfile.ly is already updated.
 @node Command line options for convert-ly
 @subsection Command line options for @command{convert-ly}
 
-@command{convert-ly} always converts up to the last syntax change handled by
-it.  This means that the @code{\version} number left in the file is
-usually lower than the version of @command{convert-ly} itself.
+@command{convert-ly} always converts up to the last syntax change
+handled by it.  This means that the @code{\version} number left in
+the file is usually lower than the version of @command{convert-ly}
+itself.
+
+In general, the program is invoked as follows:
+
+@example
+convert-ly [@var{option}]@dots{} @var{filename}@dots{}
+@end example
+
+
+The following options can be given:
+
+@table @code
+@item -e,--edit
+Apply the conversions direct to the input file, modifying it
+in-place.
+
+@item -f,--from=@var{from-patchlevel}
+Set the version to convert from.  If this is not set, @command{convert-ly}
+will guess this, on the basis of @code{\version} strings in the file.
+E.g. @code{--from=2.10.25}
+
+@item -n,--no-version
+Normally, @command{convert-ly} adds a @code{\version} indicator
+to the output.  Specifying this option suppresses this.
+
+@item -s, --show-rules
+Show all known conversions and exit.
+
+@item --to=@var{to-patchlevel}
+Set the goal version of the conversion.  It defaults to the latest
+available version.  E.g. @code{--to=2.12.2}
+
+@item -h, --help
+Print usage help.
+@end table
 
 To upgrade LilyPond fragments in texinfo files, use
 
@@ -520,41 +572,18 @@ files in the current directory
 for f in *.ly; do convert-ly -e $f; done;
 @end example
 
-In general, the program is invoked as follows:
-
-@example
-convert-ly [@var{option}]@dots{} @var{file}@dots{}
-@end example
-
-
-The following options can be given:
-
-@table @code
-@item -e,--edit
-Do an inline edit of the input file.  Overrides @code{--output}.
-
-@item -f,--from=@var{from-patchlevel}
-Set the version to convert from.  If this is not set, @command{convert-ly}
-will guess this, on the basis of @code{\version} strings in the file.
-
-@item -n,--no-version
-Normally, @command{convert-ly} adds a @code{\version} indicator
-to the output.  Specifying this option suppresses this.
-
-@item -s, --show-rules
-Show all known conversions and exit.
-
-@item --to=@var{to-patchlevel}
-Set the goal version of the conversion.  It defaults to the latest
-available version.
-
-@item -h, --help
-Print usage help.
-@end table
-
 
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
+
+When running convert-ly in a Command Prompt window under Windows
+on a file which has spaces in the filename or in the path to it,
+it is necessary to surround the entire file name with three (!)
+sets of double quotes:
+
+@example
+convert-ly """D:/My Scores/Ode.ly""" > """D:/My Scores/new Ode.ly"""
+@end example
 
 Not all language changes are handled.  Only one output option can be
 specified.  Automatically updating scheme and LilyPond scheme

@@ -154,7 +154,8 @@ get_skylines (Grob *me,
 	  // of the system. This way, the tall treble clefs are only compared with the treble
 	  // clefs of the other staff and they will be ignored if the staff above is, for example,
 	  // lyrics.
-	  if (Axis_group_interface::has_interface (g))
+	  if (Axis_group_interface::has_interface (g)
+	      && !Hara_kiri_group_spanner::request_suicide (g, start, end))
 	    {
 	      Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
 	      if (!begin_of_line_extent.is_empty ())

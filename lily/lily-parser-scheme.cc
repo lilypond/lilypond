@@ -21,16 +21,6 @@
 #include "sources.hh"
 #include "warn.hh"
 
-/* Do not append `!' suffix, since 1st argument is not modified. */
-LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
-	   1, 0, 0, (SCM what),
-	   "Deprecated.")
-{
-  (void) what;
-  warning (_f ("deprecated function called: %s", "ly:set-point-and-click"));
-  return SCM_UNSPECIFIED;
-}
-
 LY_DEFINE (ly_parse_file, "ly:parse-file",
 	   1, 0, 0, (SCM name),
 	   "Parse a single @code{.ly} file."
@@ -53,7 +43,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       && ly_get_option (ly_symbol2scm ("strip-output-dir")) == SCM_BOOL_T) {
     out_file_name.dir_ = "";
   }
-  
+
   /* When running from gui, generate output in .ly source directory.  */
   string output_name = output_name_global;
   if (!output_name.empty ())
@@ -73,7 +63,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	      dir = out.dir_part ();
 	      out_file_name = out.file_part ();
 	    }
-	}	  
+	}
 
       if (dir != "" && dir != "." && dir != get_working_directory ())
 	{
@@ -128,13 +118,13 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
     }
 
   /*
-    outside the if-else to ensure cleanup fo Sources object, 
+    outside the if-else to ensure cleanup fo Sources object,
   */
   if (error)
     /* TODO: pass renamed input file too.  */
     scm_throw (ly_symbol2scm ("ly-file-failed"),
 	       scm_list_1 (ly_string2scm (file_name)));
-  
+
   return SCM_UNSPECIFIED;
 }
 
@@ -162,12 +152,12 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
 	   3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
 	   "Bind @var{symbol} to @var{val} in @var{parser-smob}'s module.")
 {
-  
+
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
-    
+
   parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
   return SCM_UNSPECIFIED;
 }
@@ -180,7 +170,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
 
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
- 
+
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
 
   SCM val = parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));
@@ -196,7 +186,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   "  Upon failure, throw @code{ly-file-failed} key.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob_lily_parser (parser_smob); 
+  Lily_parser *parser = unsmob_lily_parser (parser_smob);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
 
   parser->parse_string (ly_scm2string (ly_code));
@@ -238,10 +228,10 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
-  
+
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
   string s = ly_scm2string (msg);
-  
+
   Input *i = unsmob_input (input);
   if (i)
     p->parser_error (*i, s);
@@ -257,11 +247,11 @@ LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
-  
+
 
   p->error_level_ = 0;
   p->lexer_->error_level_ = 0;
-  
+
   return SCM_UNSPECIFIED;
 }
 

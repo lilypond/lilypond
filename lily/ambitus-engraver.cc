@@ -121,15 +121,15 @@ void
 Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
   Stream_event *nr = info.event_cause ();
-  SCM p = nr->get_property ("pitch");
-  /*
-    If the engraver is added to a percussion context,
-    filter out unpitched note heads.
-  */
-  if (!unsmob_pitch (p))
-    return;
   if (nr && nr->in_event_class ("note-event"))
     {
+      SCM p = nr->get_property ("pitch");
+      /*
+	If the engraver is added to a percussion context,
+	filter out unpitched note heads.
+      */
+      if (!unsmob_pitch (p))
+	return;
       Pitch pitch = *unsmob_pitch (p);
       Drul_array<bool> expands = pitch_interval_.add_point (pitch);
       if (expands[UP])

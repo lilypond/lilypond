@@ -43,7 +43,6 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
       Item *d = make_item ("Dots", note->self_scm ());
       Rhythmic_head::set_dots (note, d);
 
-      d->set_property ("dot-count", scm_from_int (dur->dot_count ()));
       d->set_parent (note, Y_AXIS);
     }
 }

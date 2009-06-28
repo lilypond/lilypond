@@ -354,6 +354,27 @@ A multi-line comment delimited by @code{%@{ .. %@}}.
 
 @end itemize
 
+@cindex whitespace
+
+Whitespace between items in the input stream is generally ignored,
+and may be freely omitted or extended to enhance readability.
+However, whitespace should always be used in the following
+circumstances to avoid errors:
+
+@itemize
+@item Around every opening and closing curly bracket.
+@item After every command or variable, i.e. every item that
+begins with a @code{\} sign.
+@item After every item that is to be interpreted as a Scheme
+expression, i.e. every item that begins with a @code{#} sign.
+@item To separate all elements of a Scheme expression.
+@item In @code{lyricmode} to separate all the terms in both
+@code{\override} and @code{\set} commands.  In particular, spaces
+must be used around the dot and the equals sign in commands like
+@code{\override Score . LyricText #'font-size = #5} and before and
+after the entire command.
+
+@end itemize
 
 @seealso
 Learning Manual:
@@ -1154,6 +1175,10 @@ than one tagged section at the same place.
 @node Text encoding
 @subsection Text encoding
 
+@cindex Unicode
+@cindex UTF-8
+@cindex non-ASCII characters
+
 LilyPond uses the character repertoire defined by the Unicode
 consortium and ISO/IEC 10646.  This defines a unique name and
 code point for the character sets used in virtually all modern
@@ -1251,6 +1276,8 @@ lyrics and as stand-alone text below the score:
 }
 \markup { "Copyright 2008--2009" \char ##x00A9 }
 @end lilypond
+
+@cindex copyright sign
 
 To enter the copyright sign in the copyright notice use:
 
