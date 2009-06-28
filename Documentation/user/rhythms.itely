@@ -62,7 +62,7 @@ specified.  Shorter values are possible, but only as beamed notes.
 @lilypond[quote,verbatim,relative=2]
 \time 8/1
 c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c64
+c4 c8 c16 c32 c64 c128 c128
 @end lilypond
 
 @noindent
@@ -74,7 +74,7 @@ Here are the same durations with automatic beaming turned off.
 \time 8/1
 \autoBeamOff
 c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c64
+c4 c8 c16 c32 c64 c128 c128
 @end lilypond
 
 A note with the duration of a quadruple breve may be entered with
