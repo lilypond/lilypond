@@ -84,15 +84,15 @@ c4 c8 c16 c32 c64 c64
 @end lilypond
  
 Une note dont la durée est de quatre brèves s'obtient par la commande
-@code{\maxima}. Celle-ci n'est toutefois disponble que dans le cadre de
+@code{\maxima}. Celle-ci n'est toutefois disponible que dans le cadre de
 la notation ancienne. Pour plus de détails, voir @ref{Ancient notation}. 
 
 @cindex durée par défaut
 @cindex défaut, durée
 
-Si la durée n'est pas précisée, elle est alors assimilée à la durée
-précédente.  La valeur par défaut pour la première note est une noire
-(4).
+Si la durée d'une note n'est pas précisée, elle est alors assimilée à la
+durée de la note précédente.  La valeur par défaut pour la première note
+est la noire (4).
 
 @lilypond[quote,verbatim,relative=2]
 a a a2 a a4 a a1 a
@@ -127,13 +127,13 @@ Pour plus de détails à ce sujet et sur les autres réglages propres à
 cette forme de notation, reportez-vous à @ref{Proportional notation}.
 
 @funindex \dotsUp
-@funindex dotsUp,
+@funindex dotsUp
 @funindex \dotsDown
-@funindex dotsDown,
+@funindex dotsDown
 @funindex \dotsNeutral
-@funindex dotsNeutral.
+@funindex dotsNeutral
 
-Les points sont normalement haussés pour éviter les lignes de portées,
+Les points sont normalement haussés pour éviter les lignes de portée,
 sauf dans certaines polyphonies.  Des commandes prédéfinies permettent
 de manuellement forcer une orientation particulière, comme indiqué au
 chapitre @ref{Direction and placement}.
@@ -142,7 +142,7 @@ chapitre @ref{Direction and placement}.
 @predefined
 @code{\autoBeamOff},
 @code{\dotsUp},
-@code{\dotsDown},
+@code{\dotsDown}.
 @endpredefined
 
 
@@ -167,7 +167,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsr{Rhythms}.
 
-Manuel des eéférences internes :
+Manuel des références internes :
 @rinternals{Dots},
 @rinternals{DotColumn}.
 
@@ -195,12 +195,12 @@ multipliant toutes les durées d'une expression musicale par une
 fraction.
 
 @example
-\times @var{fraction} @{ @var{expr_musique} @}
+\times @var{fraction} @{ @var{expression_musicale} @}
 @end example
 
 @noindent
-La durée de @var{expr_musique} sera multipliée par la fraction.  Le
-dénominateur de la fraction sera imprimé au-dessus ou au-dessous des
+La durée de @var{expression_musicale} sera multipliée par la fraction.  Le
+dénominateur de cette fraction sera imprimé au-dessus ou au-dessous des
 notes, parfois avec un crochet.  Le nolet le plus courant est le
 triolet, dans lequel 3 notes ont la durée de 2, et où les notes durent
 donc 2/3 de leur valeur écrite.
@@ -219,9 +219,9 @@ c4 c \times 2/3 { b4 a g }
 @funindex \tupletNeutral
 @funindex tupletNeutral
 
-Le positionnement automatique du crochet en surplomb ou au-dessous des
-notes peut être contourné manuellement à l'aide de commandes
-prédéfinies, comme indiqué au chapitre @ref{Direction and placement}.
+Des commandes prédéfinies permettent  de déroger au positionnement
+automatique du crochet en surplomb ou au-dessous des notes -- voir le
+chapitre @ref{Direction and placement}.  
 
 Les nolets peuvent être imbriqués ; par exemple,
 
@@ -233,8 +233,8 @@ c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4 |
 Lorsqu'une imbrication de nolets débute au même instant, il vous faudra
 recourir à la commande @code{\tweak}.
 
-Vous pouvez interférer sur la durée des notes sans imprimer un crochet,
-comme l'indique @ref{Scaling durations}.
+Vous pouvez interférer sur la durée des notes sans imprimer de crochet,
+comme indiqué au chapitre @ref{Scaling durations}.
 
 
 @predefined
@@ -475,7 +475,7 @@ lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
 @funindex \tieNeutral
 @funindex tieNeutral
 
-Le positionnement vertical des liaisons de prologaation peut être affiné
+Le positionnement vertical des liaisons de prolongation peut être affiné
 --- voir à ce sujet les @qq{commandes prédéfinies} et, pour de plus
 amples détails, @ref{Direction and placement}.
 
@@ -687,7 +687,7 @@ maxime (équivalant huit pauses).
 
 Un silence invisible --- que l'on pourrait appeler un @qq{saut} ---
 peut être entré comme une note avec le nom de note @code{s} ou avec
-@code{\skip @var{durée}}
+@code{\skip@tie{}@var{durée}}
 
 @lilypond[verbatim,quote,relative=2]
 c4 c s c
@@ -698,7 +698,7 @@ s2 c
 @cindex paroles, saut de notes
 
 La syntaxe @code{s} est seulement disponible pour les modes d'entrée
-de notes et d'accords.  Dans d'autres situations, pour l'entrée de
+de notes et d'accords.  Dans les autres situations, pour l'entrée de
 paroles par exemple, vous devrez utiliser la commande @code{\skip}, qui
 recquiert une durée explicite.
 
@@ -1154,7 +1154,7 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
-La numérotation reprend dès la fin d'un cadence, comme si elle n'avait
+La numérotation reprend dès la fin d'une cadence, comme si elle n'avait
 pas existé :
 
 @lilypond[verbatim,relative=2,fragment]
@@ -1199,8 +1199,8 @@ Morceaux choisis :
 @knownissues
 
 LilyPond ne change de ligne ou de page qu'au niveau des barres de
-mesure.  Si votre musique non mesurée dure plus d'une ligne, il vous
-faudra insérer des barres de mesure invisibles, 
+mesure.  Si votre musique non mesurée s'étend sur plus d'une ligne, il
+vous faudra insérer des barres de mesure invisibles, 
 
 @example
 \bar ""
@@ -1529,12 +1529,12 @@ d'imprimer les ligatures.
 
 Lorsque ce comportement automatisé n'est pas satisfaisant, on peut
 définir des groupements manuellement --- voir @ref{Manual beams}.  Dans
-le cas où les groupe de notes en questioon contient un silence, il est
+le cas où le groupe de notes en question contient un silence, il est
 @strong{impératif} d'indiquer explicitement les début et fin de la
 ligature. 
 
 Lorsque les ligatures automatiques ne sont pas nécessaires, il suffit de
-désactiver la fonctionnalité par un @code{\autoBeamOff} --- réactivée
+désactiver la fonctionnalité par un @code{\autoBeamOff} --- réactivation
 par @code{\autoBeamOn} :
 
 @lilypond[quote,relative=1,verbatim]
@@ -1552,7 +1552,7 @@ c16 c8
 (pour indiquer des mélismes), les ligatures automatiques doivent être 
 désactivées, avec @code{\autoBeamOff}, et indiquées manuellement.} 
 
-Les règles qui dérogent au comportement automatique par défaut sont
+Des règles de dérogation au comportement automatique par défaut sont
 possibles ; voir @ref{Setting automatic beam behavior}.
 
 
@@ -1732,8 +1732,9 @@ consultez @ref{Time administration}.
 {conducting-signs,-measure-grouping-signs.ly}
 
 
+@strong{@i{Modification du bornage des ligatures}}
 
-@c [TODO: use \applyContext]
+
 
 Dans les métriques courantes, les ligatures automatiques peuvent commencer
 sur n'importe quelle note, mais ne peuvent se terminer qu'à certains
@@ -1741,17 +1742,26 @@ points précis dans la mesure : sur une pulsation, ou après toute durée
 spécifiée par les propriétés nommées @code{autoBeamSettings}.  Ces
 propriétés consistent en une liste de règles relatives au début ou à la
 fin des ligatures.  Par défaut, elles sont définies dans le fichier
-@file{scm/@/auto@/-beam@/.scm}.
+@file{scm/@/auto@/-beam@/.scm} -- pour le localiser, voir
+@rlearning{Other sources of information}.
 
 On peut ajouter à cette liste une nouvelle règle, au moyen de la commande
+
 @example
-#(override-auto-beam-setting '(extrémité p q n m) a b [contexte])
+#(override-auto-beam-setting
+  '(extrémité
+    ligature-numérateur ligature dénominateur
+    métrique-numérateur métrique-dénominateur)
+  moment-numérateur moment-dénominateur  [contexte])
 @end example
 
-@itemize @bullet
+@noindent
+où
+
+@itemize
 
 @item @code{extrémité} désigne le début (@code{begin}) ou la fin
-(@code{end}) de la ligature. 
+(@code{end}) de la ligature. Notez que seul @code{end} ne sera effectif.
 
 @item @code{p/q} désigne la valeur rythmique de la note que l'on veut
 affecter, ou de la plus brève des notes concernées.  Si cette règle doit
