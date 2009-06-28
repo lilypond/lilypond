@@ -26,7 +26,7 @@ Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
-La commande @code{\time} gère les propriétés
+La commande @code{\\time} gère les propriétés
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
 et @code{measureLength} dans le contexte @code{Timing}, normallement
 rattaché à @code{Score}.  Le fait de modifier la valeur de
