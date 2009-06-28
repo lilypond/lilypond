@@ -500,7 +500,7 @@ and the accidental suffixes they define are:
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
 @item @file{espanol.ly}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab -s @tab -b @tab -ss/-x @tab -bb
 @item @file{italiano.ly}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @file{norsk.ly}
@@ -555,6 +555,8 @@ languages, no special names have been defined yet.
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @file{english.ly}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item @file{espanol.ly}
+  @tab -cs @tab -cb @tab -tcs @tab -tcb
 @item @file{italiano.ly}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @file{portugues.ly}
