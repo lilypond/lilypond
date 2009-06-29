@@ -473,17 +473,33 @@ often is no longer compatible with older input files.  To remedy this,
 the program @command{convert-ly} can be used to deal with most of the
 syntax changes between LilyPond versions.
 
-It uses @code{\version} statements in the input files to detect the
-old version number.  In most cases, to upgrade your input file it is
-sufficient to run
+@menu
+* Invoking convert-ly::
+* Command line options for convert-ly::
+* Problems with convert-ly::
+@end menu
+
+@node Invoking convert-ly
+@subsection Invoking @command{convert-ly}
+
+@command{convert-ly} uses @code{\version} statements in the input
+file to detect the old version number.  In most cases, to upgrade
+your input file it is sufficient to run
 
 @example
 convert-ly -e myfile.ly
 @end example
 
 @noindent
-This will upgrade @code{myfile.ly} in-place and preserve the
-original file in @code{myfile.ly~}.
+in the directory containing the file.  This will upgrade
+@code{myfile.ly} in-place and preserve the original file in
+@code{myfile.ly~}.
+
+To convert all the input files in a directory together use
+
+@example
+convert-ly -e *.ly
+@end example
 
 Alternatively, if you want to specify a different name for the
 upgraded file, preserving the original file and name unchanged,
@@ -493,30 +509,25 @@ use
 convert-ly myfile.ly > mynewfile.ly
 @end example
 
+@command{convert-ly} always converts up to the last syntax change
+handled by it.  This means that the @code{\version} number left in
+the file is usually lower than the version of @command{convert-ly}
+itself.
+
 The program will list the version numbers for which conversions
 have been made.  If no version numbers are listed the file is
 already up to date.
 
 @noindent
-MacOS@tie{}X users may execute this command under the menu entry
+MacOS@tie{}X users may execute these commands under the menu entry
 @code{Compile > Update syntax}.
 
-Windows users should enter this command in a Command Prompt window,
+Windows users should enter these commands in a Command Prompt window,
 which is usually found under
 @code{Start > Accessories > Command Prompt}.
 
-@menu
-* Command line options for convert-ly::
-* Problems with convert-ly::
-@end menu
-
 @node Command line options for convert-ly
 @subsection Command line options for @command{convert-ly}
-
-@command{convert-ly} always converts up to the last syntax change
-handled by it.  This means that the @code{\version} number left in
-the file is usually lower than the version of @command{convert-ly}
-itself.
 
 In general, the program is invoked as follows:
 
@@ -564,14 +575,6 @@ To see the changes in the LilyPond syntax between two versions, use
 convert-ly --from=... --to=... -s
 @end example
 
-To upgrade many files at once, combine @code{convert-ly} with
-standard UNIX commands.  This example will upgrade all @code{.ly}
-files in the current directory
-
-@example
-for f in *.ly; do convert-ly -e $f; done;
-@end example
-
 
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
@@ -583,6 +586,21 @@ sets of double quotes:
 
 @example
 convert-ly """D:/My Scores/Ode.ly""" > """D:/My Scores/new Ode.ly"""
+@end example
+
+If the simple @command{convert-ly -e *.ly} command fails because the
+expanded command line becomes too long, the @command{convert-ly}
+command may be placed in a loop instead.  This example for UNIX
+will upgrade all @code{.ly} files in the current directory
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+In the Windows Command Prompt window the corresponding command is
+
+@example
+for %x in (*.ly) do convert-ly -e """%x"""
 @end example
 
 Not all language changes are handled.  Only one output option can be
