@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-18 09:15+0200\n"
-"PO-Revision-Date: 2009-06-28 15:47+0200\n"
+"PO-Revision-Date: 2009-06-30 19:25+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -13217,51 +13217,51 @@ msgstr ""
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:59 (comment)
 msgid "The default in 3/4 time is to beam in three groups"
-msgstr ""
+msgstr "L'usage veut que, dans une mesure à 3/4, il y ait trois regroupements"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:60 (comment)
 msgid "each of a quarter note length"
-msgstr ""
+msgstr "sur la base de la durée d'une noire"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:64 (comment)
 msgid "No auto-beaming is defined for 12/16"
-msgstr ""
+msgstr "Aucune règle de ligature automatique n'est définie pour 12/16"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:68 (comment)
 msgid "Change time signature symbol, but retain underlying 3/4 beaming"
-msgstr "la métrique change mais on garde les règles de ligatures en 3/4"
+msgstr "La métrique change mais on garde les règles de ligatures du 3/4"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:72 (comment)
 msgid "The 3/4 time default grouping of (1 1 1) and beatLength of 1/8"
-msgstr ""
+msgstr "Regroupement par défaut du 3/4 (1 1 1) et beatLength à la croche"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:73 (comment)
 msgid "are not consistent with a measureLength of 3/4, so the beams"
-msgstr ""
+msgstr "ne concordent pas avec un measureLength de 3/4 ; les ligatures"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:74 (comment)
 msgid "are grouped at beatLength intervals"
-msgstr ""
+msgstr "sont donc générées selon le beatLength"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:78 (comment)
 msgid "Specify beams in groups of (3 3 2 3) 1/16th notes"
-msgstr ""
+msgstr "Spécification de regroupement en (3 3 2 3) doubles croches"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:79 (comment)
 msgid "3+3+2+3=11, and 11*1/16<>3/4, so beatGrouping does not apply,"
-msgstr ""
+msgstr "3+3+2+3=11, mais 11*1/16<>3/4, beatGrouping ne peut donc s'appliquer,"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:80 (comment)
 msgid "and beams are grouped at beatLength (1/16) intervals"
-msgstr ""
+msgstr "et les ligatures sont générées sur la base de beatLength (double croche)"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:85 (comment)
 msgid "Specify beams in groups of (3 4 2 3) 1/16th notes"
-msgstr ""
+msgstr "Spécification de regroupement en (3 4 2 3) doubles croches"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:86 (comment)
 msgid "3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies"
-msgstr ""
+msgstr "3+4+2+3=12, et 12*1/16=3/4, beatGrouping peut donc s'appliquer"
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:27 (variable)
 msgid "parallelogram"

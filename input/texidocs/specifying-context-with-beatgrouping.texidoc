@@ -26,8 +26,8 @@ werden:
 Le fait de spécifier un contexte à @code{beatGrouping} permet d'en 
 limiter les effets.  Par voie de conséquence, il sera possible
 d'outrepasser les règles définies à un niveau supérieur.  La commande
-@code{\set} destinée à en modifier les valeurs doit se placer après la 
-commande @code{\time} :
+@code{\\set} destinée à en modifier les valeurs doit se placer après la 
+commande @code{\\time} :
 
 "
   doctitlefr = "Spécification du contexte auquel s'appliquera beatGrouping"

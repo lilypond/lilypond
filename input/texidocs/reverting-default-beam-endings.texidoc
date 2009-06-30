@@ -17,3 +17,13 @@ Werte setzen:
 
 "
   doctitlede = "Standard-Balkenwerte rückgängig machen"
+
+
+%% Translation of GIT committish: bee31293920d834cd3698f00ddcc2402c3164619
+  texidocfr = "
+Pour obtenir des ligatures en groupes de @code{3-4-3-2} croches, dans
+une mesure à 12/8, il faudra préalablement annuler les réglages par
+défaut relatifs à 12/8, puis ajouter nos propres règles :
+
+"
+  doctitlefr = "Annulation des règles de ligature par défaut"

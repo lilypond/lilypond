@@ -16,3 +16,13 @@ sich auf alle Systeme aus, können aber auf @code{Staff}- und
 
 "
   doctitlede = "Balkenenden auf Score-Ebene"
+
+
+%% Translation of GIT committish: bee31293920d834cd3698f00ddcc2402c3164619
+  texidocfr = "
+Les règles de ligatures définies au niveau du contexte @code{Score}
+s'appliqueront à toutes les portées.  Il est toutefois possible de
+moduler au niveau @code{Staff} ou {Voice} :
+
+"
+  doctitlefr = "Définition de règles de ligature pour la partition"
