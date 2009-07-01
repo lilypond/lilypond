@@ -7,11 +7,12 @@ in this chapter, it may be a good idea to look for Git documentation
 at @uref{http://git-scm.com/documentation},
 
 @menu
-* Getting the source code::
-* Updating the source code::
-* Sharing your changes::
-* Advanced git stuff::
-* Git on Windows::
+* Getting the source code::     
+* Updating the source code::    
+* Sharing your changes::        
+* Advanced git stuff::          
+* Git on Windows::              
+* Development inside VirtualBox (compiling on Windows)::  
 @end menu
 
 
@@ -19,13 +20,13 @@ at @uref{http://git-scm.com/documentation},
 @section Getting the source code
 
 @menu
-* Git introduction::
-* Main source code::
-* Website source code::
-* Documentation translations source code::
-* Other branches::
-* Other locations for git::
-* Git user configuration::
+* Git introduction::            
+* Main source code::            
+* Website source code::         
+* Documentation translations source code::  
+* Other branches::              
+* Other locations for git::     
+* Git user configuration::      
 @end menu
 
 @node Git introduction
@@ -145,9 +146,9 @@ git config --global user.email MYEMAIL@@EXAMPLE.NET
 @section Updating the source code
 
 @menu
-* Importance of updating::
-* Update command::
-* Resolving conflicts::
+* Importance of updating::      
+* Update command::              
+* Resolving conflicts::         
 @end menu
 
 
@@ -193,8 +194,8 @@ resolve conflicts} in @command{git merge} man page.
 @section Sharing your changes
 
 @menu
-* Producing a patch::
-* Committing directly::
+* Producing a patch::           
+* Committing directly::         
 @end menu
 
 
@@ -293,11 +294,11 @@ Some Git commands are introduced first, then a workflow with several
 Git branches of LilyPond source code is presented.
 
 @menu
-* Introduction to Git concepts::
-* Git commands for managing several branches::
-* Working on LilyPond sources with several branches::
-* Git log::
-* Applying git patches::
+* Introduction to Git concepts::  
+* Git commands for managing several branches::  
+* Working on LilyPond sources with several branches::  
+* Git log::                     
+* Applying git patches::        
 @end menu
 
 
@@ -902,3 +903,11 @@ supplement these include
 
 Once familiarity with using git on Windows has been gained the
 standard git manuals can be used to learn about these.
+
+
+@node Development inside VirtualBox (compiling on Windows)
+@section Development inside VirtualBox (compiling on Windows)
+
+
+
+
