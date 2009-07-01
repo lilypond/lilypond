@@ -5,10 +5,32 @@
 ;;;; (c) 2000--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
+(define (sort-grob-properties x)
+  ;; force 'meta to the end of each prop-list
+  (let ((meta (assoc 'meta x)))
+    (append (sort (assoc-remove! x 'meta) ly:alist-ci<?)
+            (list meta))))
+
+;; properly sort all grobs, properties, and interfaces
+;; within the all-grob-descriptions alist
+(map
+  (lambda (x)
+    (let* ((props      (assoc-ref all-grob-descriptions (car x)))
+           (meta       (assoc-ref props 'meta))
+           (interfaces (assoc-ref meta 'interfaces)))
+      (set! all-grob-descriptions
+        (sort (assoc-set! all-grob-descriptions (car x)
+               (sort-grob-properties
+                (assoc-set! props 'meta
+                 (assoc-set! meta 'interfaces
+                  (sort interfaces ly:symbol-ci<?)))))
+              ly:alist-ci<?))))
+  all-grob-descriptions)
+
 (define (interface-doc-string interface grob-description)
   (let* ((name (car interface))
 	 (desc (cadr interface))
-	 (props (sort (caddr interface) ly:symbol-ci<?))
+	 (props (caddr interface))
 	 (docfunc (lambda (pr)
 		    (property->texi
 		     'backend pr grob-description)))
@@ -56,12 +78,10 @@
   (let* ((name (symbol->string (car interface)))
 	 (interface-list (human-listify
 			  (map ref-ify
-			       (sort
 				(map symbol->string
 				     (hashq-ref iface->grob-table
 						(car interface)
-						'()))
-				ly:string-ci<?)))))
+						'()))))))
     (make <texi-node>
       #:name name
       #:text (string-append
@@ -138,8 +158,6 @@ node."
    (lambda (key val prior)
      (cons (cons key val)  prior))
    '() (ly:all-grob-interfaces)))
-
-(set! interface-description-alist (sort interface-description-alist ly:alist-ci<?))
 
 ;;;;;;;;;; check for dangling backend properties.
 (define (mark-interface-properties entry)
