@@ -27,10 +27,132 @@ a feature request.
 @node Issue classification
 @section Issue classification
 
+Status values:
+
+@itemize
+
+@item
+New: the item was added by a non-member.  Should be reviewed by
+the Bug Meister.
+
+@item
+Accepted: the Bug Meister added it, or reviewed the item.
+
+@item
+Started: a programmer is working on a bugfix.  (used infrequently,
+but should be used more often)
+
+@end itemize
+
+Closed status values:
+
+@itemize
+
+@item
+Invalid: issue should not have been added in the current state.
+
+@item
+Duplicate: issue already exists in the tracker.
+
+@item
+Fixed: programmer claims to have fixed the bug.  The Bug Meister
+should check the input code in an official binary release.
+
+@item
+Verified: Bug Meister has confirmed that the issue is closed.
+
+@end itemize
+
+Type labels:
+
+@itemize
+
+@item
+Type-Defect: a problem that requires no (or very little) new code
+to fix.
+
+@item
+Type-Enhancement: a problem (or new feature) that requries a
+significant amount of new code.
+
+@item
+Type-Collision: overlapping notation.  (this label takes
+precedence over -Defect and -Enhancement)
+
+@item
+Type-Task: not used, I think.  TODO: start using it or delete it.
+
+@item
+Type-Other: anything else.  TODO: start using it or delete it.
+
+@end itemize
+
+Priority labels:
+
+@itemize
+
+@item
+Priority-High: lilypond segfaults.
+
+@item
+Priority-Regression: it used to work.
+
+@item
+Priority-Medium: normal priority; this is the highest priority a
+non-crashing, non-regression bug report can receive.
+(irregardless of the perceived importance)
+
+@item
+Priority-Low: less important than normal.
+
+@item
+Priority-Postponed: no fix planned.  Generally used for things
+like Ancient notation, which nobody wants to touch.
+
+@end itemize
+
+Opsys lables: pretty self-explanatory.
+
+Other lables:
+
+@itemize
+
+@item
+Security: not used.  TODO: delete, unless anybody is serious about
+this.
+
+@item
+Performance: not used.  TODO: delete.
+
+@item
+Usability: not used.  TODO: delete.
+
+@item
+Maintainability: hinders developent of LilyPond.  For example,
+improvements to the build system, or @qq{helper} python scripts.
+
+@item
+Bounty: somebody is willing to pay for the fix.
+
+@item
+Engraving-nitpick: output is not beautiful, but not strictly
+speaking @qq{wrong}.  For example, a slur shape which does not
+collide with any notation, but looks ugly.
+
+@item
+Warning-nitpick: graphical output is fine, but lilypond prints a
+false/misleading warning message.
+
+@end itemize
+
 
 @node Adding issues to the tracker
 @section Adding issues to the tracker
 
+FIXME: prettify.
+
+only done by Bug Meister, unless you're really certain you know
+what you're doing.
 
 
 
