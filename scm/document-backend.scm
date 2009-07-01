@@ -8,7 +8,7 @@
 (define (interface-doc-string interface grob-description)
   (let* ((name (car interface))
 	 (desc (cadr interface))
-	 (props (sort (caddr interface) symbol<?))
+	 (props (sort (caddr interface) ly:symbol-ci<?))
 	 (docfunc (lambda (pr)
 		    (property->texi
 		     'backend pr grob-description)))
@@ -61,7 +61,7 @@
 				     (hashq-ref iface->grob-table
 						(car interface)
 						'()))
-				string<?)))))
+				ly:string-ci<?)))))
     (make <texi-node>
       #:name name
       #:text (string-append
@@ -139,7 +139,7 @@ node."
      (cons (cons key val)  prior))
    '() (ly:all-grob-interfaces)))
 
-(set! interface-description-alist (sort interface-description-alist alist<?))
+(set! interface-description-alist (sort interface-description-alist ly:alist-ci<?))
 
 ;;;;;;;;;; check for dangling backend properties.
 (define (mark-interface-properties entry)
@@ -171,7 +171,7 @@ node."
     (map interface-doc interface-description-alist)))
 
 (define (backend-properties-doc-string lst)
-  (let* ((ps (sort (map symbol->string lst) string<?))
+  (let* ((ps (sort (map symbol->string lst) ly:string-ci<?))
 	 (descs (map (lambda (prop)
 		       (property->texi 'backend (string->symbol prop) '())) ps))
 	 (texi (description-list->texi descs #f)))

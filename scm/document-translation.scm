@@ -60,7 +60,7 @@
 	  ""
 	  (string-append
 	   "\n\nThis engraver creates the following layout object(s):\n\n"
-	   (human-listify (map ref-ify (uniq-list (sort grobs string<?))))
+	   (human-listify (map ref-ify (uniq-list (sort grobs ly:string-ci<?))))
 	   "."))
 
      "\n\n"
@@ -86,7 +86,7 @@
 		(context-list (human-listify (map ref-ify
 						  (sort
 						   (map symbol->string contexts)
-						   string<?)))))
+						   ly:string-ci<?)))))
 	   (string-append
 	    "@code{" name-str "} "
 	    (if (equal? context-list "none")
@@ -176,7 +176,7 @@
 	   "")
 
        "\n\nThis context creates the following layout object(s):\n\n"
-       (human-listify (uniq-list (sort grob-refs string<?)))
+       (human-listify (uniq-list (sort grob-refs ly:string-ci<?)))
        "."
 
        (if (and (pair? props) (not (null? props)))
@@ -230,8 +230,8 @@
 (define (all-contexts-doc)
   (let* ((layout-alist
 	  (sort (ly:output-description $defaultlayout)
-		(lambda (x y) (symbol<? (car x) (car y)))))
-	 (names (sort (map symbol->string (map car layout-alist)) string<?))
+		(lambda (x y) (ly:symbol-ci<? (car x) (car y)))))
+	 (names (sort (map symbol->string (map car layout-alist)) ly:string-ci<?))
 	 (contexts (map cdr layout-alist)))
 
     (make <texi-node>
@@ -243,7 +243,7 @@
 (define all-engravers-list  (ly:get-all-translators))
 (set! all-engravers-list
       (sort all-engravers-list
-	    (lambda (a b) (string<? (symbol->string (ly:translator-name a))
+	    (lambda (a b) (ly:string-ci<? (symbol->string (ly:translator-name a))
 				    (symbol->string (ly:translator-name b))))))
 
 (define (all-engravers-doc)
@@ -255,7 +255,7 @@
     (map engraver-doc all-engravers-list)))
 
 (define (translation-properties-doc-string lst)
-  (let* ((ps (sort (map symbol->string lst) string<?))
+  (let* ((ps (sort (map symbol->string lst) ly:string-ci<?))
 	 (sortedsyms (map string->symbol ps))
 	 (propdescs
 	  (map

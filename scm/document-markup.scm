@@ -62,7 +62,7 @@
                           "@end itemize\n"))))))
 
 (define (markup-function<? a b)
-  (string<? (symbol->string (procedure-name a)) (symbol->string (procedure-name b))))
+  (ly:string-ci<? (symbol->string (procedure-name a)) (symbol->string (procedure-name b))))
  
 (define (markup-category-doc-node category)
   (let* ((category-string (symbol->string category))

@@ -10,7 +10,7 @@
     #:name "Music properties"
     #:desc "All music properties, including descriptions."
     #:text
-    (let* ((ps (sort (map symbol->string all-music-properties) string<?))
+    (let* ((ps (sort (map symbol->string all-music-properties) ly:string-ci<?))
 	   (descs (map (lambda (prop)
 			 (property->texi 'music (string->symbol prop)))
 		       ps))
@@ -55,7 +55,7 @@
        (human-listify
 	(sort
 	 (map (lambda (x) (ref-ify (symbol->string x)))
-	      (cdr entry)) string<?))
+	      (cdr entry)) ly:string-ci<?))
        "."
 
        "\n\n"
@@ -72,7 +72,7 @@
     #:children
     (map music-type-doc
 	 (sort
-	  (hash-table->alist music-types->names) alist<?))))
+	  (hash-table->alist music-types->names) ly:alist-ci<?))))
 
 (define (music-doc-str obj)
   (let* ((namesym  (car obj))
