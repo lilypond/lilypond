@@ -560,18 +560,53 @@ various function calls.
 @subsection Compiling with debugging information
 
 In order to use a debugger with LilyPond, it is necessary to compile
-LilyPond with debugging information.  This is accomplished by ...
+LilyPond with debugging information.  This is accomplished by running
+the following commands in the main LilyPond source directory.
 
-TODO -- get good description here, or perhaps add debugging compile
-to AU1.1 as it comes to CG and just use a reference here.
+@example
+./configure  --disable-optimization
 
-TODO -- Test the following to make sure it is true.
+make
+@end example
 
-If you want to be able to set breakpoints in Scheme functions, it is
-necessary to compile guile with debugging information.  This is done
-by ...
+This will create a version of LilyPond that contains the debugging
+information that will allow the debugger to tie the source code
+to the compiled code.
 
-TODO -- get compiling description for guile here.
+You should not do @var{make install} if you want to use a debugger
+with LilyPond.  @var{make install} will strip the debugging information
+from the LilyPond binary.
+
+To set breakpoints in Scheme functions, put
+
+@example
+\include "guile-debugger.ly"
+@end example
+
+in your input file after any scheme procedures you have defined in
+that file.  When your input file is processed, a guile prompt
+will be displayed.  At the guile prompt, you can set breakpoints with
+the @code{break!} procedure:
+
+@example
+guile> (break! my-scheme-procedure)
+@end example
+
+Once you have set the desired breakpoints, you exit the guile repl frame
+by typing:
+
+@example
+guile> (quit)
+@end example
+
+When one of the scheme routines for which you have set breakpoints is
+entered, guile will interrupt execution in a debug frame.  At this point,
+you will have access to guile debugging commands.  For a listing of these
+commands, type:
+
+@example
+debug> help
+@end example
 
 @subsection Typical gdb usage
 
@@ -580,7 +615,7 @@ TODO -- get compiling description for guile here.
 The behavior of gdb can be readily customized through the use of
 @var{.gdbinit} files.  A @var{.gdbinit} file is a file named
 @var{.gdbinit} (notice the @qq{.} at the beginning of the file name)
-  that is placed in a user's home directory.
+that is placed in a user's home directory.
 
 The @var{.gdbinit} file below is from Han-Wen.  It sets breakpoints
 for all errors and defines functions for displaying scheme objects
@@ -588,24 +623,23 @@ for all errors and defines functions for displaying scheme objects
 
 @example
 file lily/out/lilypond
-b scm_error
 b programming_error
 b Grob::programming_error
 
 define ps
    print ly_display_scm($arg0)
-  end
-  define pgrob
-     print ly_display_scm($arg0->self_scm_)
-     print ly_display_scm($arg0->mutable_property_alist_)
-     print ly_display_scm($arg0->immutable_property_alist_)
-     print ly_display_scm($arg0->object_alist_)
-  end
-  define pmusic
-     print ly_display_scm($arg0->self_scm_)
-     print ly_display_scm($arg0->mutable_property_alist_)
-     print ly_display_scm($arg0->immutable_property_alist_)
-  end
+end
+define pgrob
+  print ly_display_scm($arg0->self_scm_)
+  print ly_display_scm($arg0->mutable_property_alist_)
+  print ly_display_scm($arg0->immutable_property_alist_)
+  print ly_display_scm($arg0->object_alist_)
+end
+define pmusic
+  print ly_display_scm($arg0->self_scm_)
+  print ly_display_scm($arg0->mutable_property_alist_)
+  print ly_display_scm($arg0->immutable_property_alist_)
+end
 @end example
 
 @subsection Using Guile interactively with LilyPond
