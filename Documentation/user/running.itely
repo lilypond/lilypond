@@ -581,11 +581,11 @@ convert-ly --from=... --to=... -s
 
 When running convert-ly in a Command Prompt window under Windows
 on a file which has spaces in the filename or in the path to it,
-it is necessary to surround the entire file name with three (!)
-sets of double quotes:
+it is necessary to surround the entire input file name with three
+(!) sets of double quotes:
 
 @example
-convert-ly """D:/My Scores/Ode.ly""" > """D:/My Scores/new Ode.ly"""
+convert-ly """D:/My Scores/Ode.ly""" > "D:/My Scores/new Ode.ly"
 @end example
 
 If the simple @command{convert-ly -e *.ly} command fails because the
