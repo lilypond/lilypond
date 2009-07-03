@@ -163,6 +163,23 @@ Web:
 @node Making a release
 @section Making a release
 
+@subheading Technical notes
+
+@itemize
+
+@item remove the "t" from the rsync command in test-lily/rsync-lily-doc.py
+
+@item run upload script (it will fail)
+
+@item make -f lilypond.make unlocked-test-export
+
+@item run upload script (should succeed)
+
+@end itemize
+
+
+@subheading Policy notes
+
 @itemize
 
 @item
