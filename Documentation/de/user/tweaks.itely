@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+    Translation of GIT committish: 5cf864d550e7148412d594cf336841791bff6f76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1176,7 +1176,17 @@ Es sollte jedoch beachtet werden, dass das Setzen der
 kann, wenn die Dimensionen des Objekts für die richtige Behandlung
 benötigt werden.  Zum Beispiel werden Fehler ausgegeben, wenn
 die @code{stencil}-Eigenschaft des @code{NoteHead}-Objekts auf
-@code{#f} gesetzt wird.
+@code{#f} gesetzt wird. Wenn dieser Fall auftritt, kann anstatt
+dessen die @code{point-stencil}-Funktion benutzt werden, welche
+den Stencil auf ein Objekt mit der Größe Null setzt:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  c c
+  \once \override NoteHead #'stencil = #point-stencil
+  c c
+}
+@end lilypond
 
 
 @subheading break-visibility

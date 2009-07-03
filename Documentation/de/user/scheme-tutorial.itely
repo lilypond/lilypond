@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
+    Translation of GIT committish: 5cf864d550e7148412d594cf336841791bff6f76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -24,8 +24,28 @@ zusammenzufügen.  Dieser Abschnitt ist ein sehr kurzer Überblick über
 die Dateneingabe mit Scheme.  Wenn Sie mehr über Scheme wissen wollen,
 gehen Sie zu @uref{http://@/www@/.schemers@/.org}.
 
+LilyPond benutzt die GNU Guile-Implementation von Scheme, die auf dem
+@qq{R5RS}-Standard von Scheme basiert.  Wenn Sie Scheme lernen wollen,
+um es innerhalb von LilyPond zu benutzen, wird es nicht empfohlen,
+mit einer anderen Implementation (die sich auf einen anderen
+Standard bezieht) zu arbeiten.  Information zu Guile findet sich
+unter @uref{http://www.gnu.org/software/guile/}.  Der
+@qq{R5RS}-Standard von Scheme befindet sich unter der Adresse
+@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+
+Die LilyPond-Installation enthält gleichzeitig auch die
+Guile-Implemenation von Scheme.  Auf den meisten Systemen kann
+man in einer Scheme-sandbox experimentieren, indem man ein
+Kommandozeilen-Fenster öffnet und @code{guile} auffruft.  Unter
+einigen Systemen, insbesondere unter Windows, muss man evtl.
+die Umgebungsvariable @code{GUILE_LOAD_PATH} auf das Verzeichnis
+@code{../usr/shr/guile/1.8} innerhalb des LilyPond-Installationsverzeichnisses
+setzen (der vollständige Pfad ist erklärt in @ref{Other sources of information}).
+Alternativ können Windows-Benutzer auch einfach @qq{Ausführen} im
+Startmenü wählen und @code{guile} schreiben.
+
 Das Grundlegendste an einer Sprache sind Daten: Zahlen, Zeichen, 
-Zeichenketten, Listen usw.  Hier ist eine Liste der Datentypen, die für 
+Zeichenketten, Listen usw.  Hier ist eine Liste der Datentypen, die für
 LilyPond-Eingabedateien relevant sind.
 
 @table @asis
@@ -79,6 +99,37 @@ LilyPond:
 ist
 eine Zeichenkette"
 @end example
+
+LilyPond-Kommentare (@code{%} oder @code{%@{ %@}}) können innerhalb
+von Scheme-Code nicht benutzt werden.  Kommentare in Guile Scheme
+werden wie folgt notiert:
+
+@example
+; Einzeiliges Kommentar
+
+#!
+  Guile-Stil Blockkommentar (nicht schachtelbar)
+  Diese Kommentare werden von Scheme-Programmierern
+  selten benutzt und nie im Quellcode
+  von LilyPond
+!#
++@end example
+
+Merere aufeinander folgende Scheme-Ausdrücke in einer Notationsdatei
+können kombiniert werden, wenn man @code{begin} einsetzt.  Das
+erlaubt es, die Anzahl an Rauten auf eins zu begrenzen.
+
+@example
+#(begin
+  (define foo 0)
+  (define bar 1))
+@end example
+
+Wenn @code{#} von einer öffnenden Klammer, @code{(}, gefolgt wird, wie
+in dem Beispiel oben, bleibt der Parser im Scheme-Modus bis eine
+passende schließende Klammer, @code{)}, gefunden wird, sodass keine
+weiteren @code{#}-Zeichen benötigt werden, um einen Scheme-Abschnitt
+anzuzeigen.
 
 Für den Rest dieses Abschnitts nehmen wir an, dass die Daten immer in 
 einer LilyPond-Datei stehen, darum wird immer die Raute verwendet.
