@@ -885,6 +885,16 @@ c2 c
 c2 c
 \clef tab
 c2 c
+
+\break
+
+\clef G
+c2 c
+\clef F
+c2 c
+\clef C
+c2 c
+
 @end lilypond
 
 Further supported clefs are described under @ref{Mensural clefs}
