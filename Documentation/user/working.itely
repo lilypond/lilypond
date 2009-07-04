@@ -576,12 +576,16 @@ file with @code{\include "../global.ily"}, which contains
 
 @menu
 * Updating old input files::
+* Common errors::
 * Troubleshooting (taking it all apart)::
 * Minimal examples::
 @end menu
 
 @node Updating old input files
 @subsection Updating old input files
+
+@cindex convert-ly
+@cindex updating old input files
 
 The LilyPond input syntax occasionally changes.  As LilyPond itself
 improves, the syntax (input language) is modified accordingly.  Sometimes
@@ -607,6 +611,75 @@ UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
 special characters into UTF-8 characters; you must manually update
 your old LilyPond input files.
 
+@node Common errors
+@subsection Common errors
+
+The error conditions described below occur often, yet the cause
+is not obvious or easily found.  Once seen and understood, they
+are easily handled.
+
+
+@menu
+* Music runs off the page::
+* Apparent error in ../ly/init.ly::
+* Error message Unbound variable %::
+@end menu
+
+@node Music runs off the page
+@unnumberedsubsubsec Music runs off the page
+
+Music running off the page over the right margin or appearing
+unduly compressed is almost always due to entering an incorrect
+duration on a note, causing the final note in a measure to extend
+over the bar line.  It is not invalid if the final note in a
+measure does not end on the automatically entered bar line, as the
+note is simply assumed to carry over into the next measure.  But
+if a long sequence of such carry-over measures occurs the music
+can appear compressed or may flow off the page because automatic
+line breaks can be inserted only at the end of complete measures,
+i.e., where all notes end before or at the end of the measure.
+
+Note: An incorrect duration can cause line breaks to be inhibited,
+leading to a line of highly compressed music or music which flows
+off the page.
+
+The incorrect duration can be found easily if bar checks are used,
+see @ruser{Bar and bar number checks}.
+
+If you actually intend to have a series of such carry-over measures
+you will need to insert an invisible bar line where you want the
+line to break.  For details, see @ruser{Bar lines}.
+
+@node Apparent error in ../ly/init.ly
+@unnumberedsubsubsec Apparent error in @code{../ly/init.ly}
+
+Various obscure error messages may appear about syntax errors in
+@code{../ly/init.ly} if the input file is not correctly formed,
+for example, if it does not contain correctly
+matched braces or quote signs.
+
+The most common error is a missing brace, (@code{@}}), at the end of
+a @code{score} block.  Here the solution is obvious: check the
+@code{score} block is correctly terminated.  The correct structure
+of an input file is described in @ref{How LilyPond input files work}.
+Using an editor which automatically highlights matching brackets and
+braces is helpful to avoid such errors.
+
+This error message can also appear if a terminating quote sign,
+(@code{"}), is omitted.  In this case an accompanying error message
+should give a line number close to the line in error.  The
+mismatched quote will usually be on the line one or two above.
+
+@node Error message Unbound variable %
+@unnumberedsubsubsec Error message Unbound variable %
+
+This error message will appear at the bottom of the log file
+together with a @qq{GUILE signalled an error ...} message every
+time a Scheme routine containing a @emph{LilyPond} comment is called.
+
+LilyPond comments beginning with a percent sign, (@code{%}), must not
+be used within Scheme routines.  Scheme comments begin with a
+semi-colon, (@code{;}).
 
 @node Troubleshooting (taking it all apart)
 @subsection Troubleshooting (taking it all apart)
