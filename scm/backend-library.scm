@@ -192,9 +192,11 @@
 
 (define-public (backend-testing output-module)
   (define (missing-stencil-expression name)
-    (apply
-     (if (ly:get-option 'warning-as-error) ly:error ly:warning)
-     (list (_ "missing stencil expression `~S'") name)))
+    (begin
+      (apply
+       (if (ly:get-option 'warning-as-error) ly:error ly:warning)
+       (list (_ "missing stencil expression `~S'") name))
+      ""))
 
   (map (lambda (x)
 	 (if (not (module-defined? output-module x))
