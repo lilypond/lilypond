@@ -152,6 +152,9 @@ second.  Dump results to `FILE.stacks' and
 "List available font names.")
     (verbose ,(ly:command-line-verbose?)
 "Value of the --verbose flag (read-only).")
+    (warning-as-error #f
+"Exit if an undefined stencil expression is
+found.")
     ))
 
 ;; Need to do this in the beginning.  Other parts of the Scheme

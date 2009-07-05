@@ -113,6 +113,8 @@ internal_set_option (SCM var,
       relative_includes = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
+  else if (var == ly_symbol2scm ("warning-as-error"))
+    val = scm_from_bool (to_boolean (val));
 
   scm_hashq_set_x (option_hash, var, val);
 }

@@ -37,6 +37,13 @@ Paper_outputter::Paper_outputter (SCM port, string format)
 
   string module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.c_str ());
+
+  /*
+    Enable errors for undefined stencil routines if
+     -dwarning-as-error is specified; else enable warnings.
+  */
+  SCM proc = ly_lily_module_constant ("backend-testing");
+  scm_call_1 (proc, output_module_);
 }
 
 Paper_outputter::~Paper_outputter ()
