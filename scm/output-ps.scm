@@ -181,9 +181,9 @@
    x-radius y-radius thick))
 
 (define (placebox x y s) 
-  (ly:format
-"~4f ~4f moveto
-~a\n" x y s))
+  (if (not (string-null? s))
+      (ly:format "~4f ~4f moveto ~a\n" x y s)
+      ""))
 
 (define (polygon points blot-diameter filled?)
   (ly:format "~a ~4l ~a ~4f draw_polygon"

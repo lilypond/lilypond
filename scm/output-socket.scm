@@ -30,7 +30,9 @@
 	  ))
 
 (define-public (placebox x y s) 
-  (format "at ~a ~a ~a\n" x y s))
+  (if (not (string-null? s))
+      (format "at ~a ~a ~a\n" x y s)
+      ""))
 
 (define-public (round-filled-box  breapth width depth height blot-diameter)
   (format "draw_round_box ~a ~a ~a ~a ~a"

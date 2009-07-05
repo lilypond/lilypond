@@ -267,18 +267,21 @@
 			     (ly:font-glyph-name-to-charcode font name))))))
 
 (define (placebox x y expr)
-  (let*
-    ((match (regexp-exec svg-element-regexp expr))
-     (tagname (match:substring match 1))
-     (attributes (match:substring match 2)))
+  (if (not (string-null? expr))
+      (let*
+	((match (regexp-exec svg-element-regexp expr))
+	 (tagname (match:substring match 1))
+	 (attributes (match:substring match 2)))
 
-    (string-append tagname
-		   ;; FIXME: Not using GNU coding standards
-		   ;; [translate ()] here to work around a
-		   ;; bug in Microsoft Internet Explorer 6.0
-		   (ly:format " transform=\"translate(~f, ~f)\" " x (- y))
-		   attributes
-		   "\n")))
+	(string-append tagname
+		       ;; FIXME: Not using GNU coding standards
+		       ;; [translate ()] here to work around a
+		       ;; bug in Microsoft Internet Explorer 6.0
+		       (ly:format " transform=\"translate(~f, ~f)\" "
+				  x (- y))
+		       attributes
+		       "\n"))
+      ""))
 
 (define (polygon coords blot-diameter is-filled)
   (entity
