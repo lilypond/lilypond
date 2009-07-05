@@ -165,17 +165,6 @@
 ;;; stencil outputters
 ;;;
 
-;;; catch-all for missing stuff
-;;; comment this out to see find out what functions you miss :-)
-
-(if #f
-    (begin
-      (define (dummy . foo) "")
-      (map (lambda (x) (module-define! this-module x dummy))
-	   (append
-	    (ly:all-stencil-expressions)
-	    (ly:all-output-backend-commands)))
-      ))
 
 (define (url-link url x y)
   (string-append

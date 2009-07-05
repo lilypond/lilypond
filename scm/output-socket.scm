@@ -8,18 +8,6 @@
 	     (srfi srfi-13)
 	     (lily))
 
-(define (dummy . rest)
-  "")
-
-(display (ly:all-stencil-expressions))
-(for-each
- (lambda (x) 
-   (module-define! (current-module)
-		   x
-		   dummy))
- 
- (ly:all-stencil-expressions))
-
 
 (define-public (draw-line thick x1 y1 x2 y2)
   (format "drawline ~a ~a ~a ~a ~a"

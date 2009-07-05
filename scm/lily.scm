@@ -306,16 +306,6 @@ Print a message at LOCATION if any predicate failed."
 	     (recursion-helper (cdr signature) (cdr arguments) (1+ count)))))
   (recursion-helper signature arguments 1))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  output
-
-;; (define-public (output-framework) (write "hello\n"))
-
-(define output-ps-module
-  (make-module 1021 (list (resolve-interface '(scm output-ps)))))
-
-(define-public (ps-output-expression expr port)
-  (display (eval expr output-ps-module) port))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility

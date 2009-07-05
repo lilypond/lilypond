@@ -14,34 +14,7 @@
 ;;;;   * document output-interface
 
 (define-module (scm output-ps)
-  #:re-export (quote)
-
-  ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
-  #:export (unknown
-	    bezier-sandwich
-	    char
-	    circle
-	    comment
-	    dashed-line
-	    dashed-slur
-	    dot
-	    draw-line
-            ellipse
-	    embedded-ps
-	    named-glyph
-	    no-origin
-            oval
-	    placebox
-	    polygon
-	    repeat-slash
-	    resetcolor
-	    resetrotation
-	    round-filled-box
-	    setcolor
-	    setrotation
-	    text
-	    ))
-
+  #:re-export (quote))
 
 (use-modules (guile)
 	     (ice-9 regex)
