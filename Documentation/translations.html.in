@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Thu Jun 18 07:05:05 UTC 2009
+ <p><i>Last updated Thu Jun 18 16:38:03 UTC 2009
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -215,8 +215,8 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #dbff38">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
-   <span style="background-color: #dfef77">partially translated (68 %)</span><br>
-   <span style="background-color: #a5ff31">partially up to date</span><br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -827,7 +827,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #25fe1f">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
 </table>

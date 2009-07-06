@@ -14,7 +14,7 @@ L'empilement des indications de doigté se fait par défaut à l'extérieur de l
 "
   doctitlefr = "Impression des doigtés à l'intérieur de la portée"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Normalerweise werden vertikal orientierte Fingersatzzahlen außerhalb des Systems
 gesetzt.  Das kann aber verändert werden.

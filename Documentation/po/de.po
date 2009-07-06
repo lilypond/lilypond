@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-18 09:15+0200\n"
-"PO-Revision-Date: 2009-05-23 00:37+0300\n"
+"PO-Revision-Date: 2009-06-27 12:38+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: German <de>\n"
 "MIME-Version: 1.0\n"
@@ -3559,9 +3559,8 @@ msgstr "Partituren und Stimmen"
 
 #. @node in Documentation/user/working.itely
 #. @section in Documentation/user/working.itely
-#, fuzzy
 msgid "Make and Makefiles"
-msgstr "Papier und Seiten"
+msgstr "Make und Makefiles"
 
 #. @node in Documentation/user/templates.itely
 #. @appendix in Documentation/user/templates.itely
@@ -11840,52 +11839,42 @@ msgstr ""
 "Lösung 1: Benutzung von einfacher Beschriftung mit horizontaler Verschiebung"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:56 (comment)
-#, fuzzy
 msgid "Drawback: It's a markup, not a dynamic command, so \\dynamicDown"
 msgstr ""
-"Nachteil: nur Beschriftung, keine Dynamik, also wirkt sich \\dynamicDown usw."
-"nicht aus"
+"Nachteil: nur Beschriftung, keine Dynamik, also wirkt sich \\dynamicDown"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:57 (comment)
 msgid "etc. will have no effect"
-msgstr ""
+msgstr "usw. nicht aus"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:58 (variable)
 msgid "semppMarkup"
 msgstr "semppBeschriftung"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:60 (comment)
-#, fuzzy
 msgid "Solution 2: Using a dynamic script & shifting with"
 msgstr ""
-"Lösung 2: Dynamik-Skript benutzen und mit \\once\\override·...·#'X-"
-"offset·=·.. verschieben"
+"Lösung 2: Dynamik-Skript benutzen und mit"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:61 (comment)
-#, fuzzy
 msgid "\\once \\override ... #'X-offset = .."
-msgstr "\\once·\\override·TextScript·#'extra-offset·=·#'(·2·.·-3.5·)"
+msgstr "·\\once\\override ... #'X-offset = ..·verschieben"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:62 (comment)
-#, fuzzy
 msgid "Drawback: \\once \\override needed for every invocation"
-msgstr "Nachteil: \\once\\override muss jedes Mal geschrieben werden"
+msgstr "Nachteil: \\once \\override muss jedes Mal geschrieben werden"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:63 (variable)
 msgid "semppK"
 msgstr "semppK"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:70 (comment)
-#, fuzzy
 msgid "Solution 3: Padding the dynamic script so the center-alignment"
-msgstr ""
-"Lösung 3: Dynamik-Skript so verschieben mit padding, dass es "
-"automatischdurch center-alignment an die richtige Position kommt"
+msgstr "Lösung 3: Dynamik-Skript so verschieben mit padding, dass es"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:71 (comment)
-#, fuzzy
 msgid "puts it at the correct position"
-msgstr "Text zur gewünschten Position verschieben"
+msgstr "automatisch durch·center-alignment·an·die·richtige·Position·kommt"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:72 (comment)
 msgid ""
@@ -11903,21 +11892,16 @@ msgid "Solution 4: Dynamic, setting the dimensions of the additional text to 0"
 msgstr "Lösung 4: Dynamik, Dimensionen des zusätzlichen Textes auf 0 setzen"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:82 (comment)
-#, fuzzy
 msgid "Drawback: To lilypond \\\"sempre\\\" has no extent, so it might put"
-msgstr ""
-"Nachteil: LilyPond glaubt, dass \\\"sempre\\\" keinen Platz einnimmt undkann "
-"andere Elemente hier hintun --> Kollisionen"
+msgstr "Nachteil: LilyPond glaubt, dass \\\"sempre\\\" keinen Platz einnimmt"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:83 (comment)
 msgid "other stuff there => collisions"
-msgstr ""
+msgstr "und kann·andere·Elemente·hier·hintun·-->·Kollisionen"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:84 (comment)
-#, fuzzy
 msgid "Drawback: Also, there seems to be some spacing, so it's not exactly the"
-msgstr ""
-"Nachteil: Es gibt offensichtlich noch Ränder, so dass es nicht genau die"
+msgstr "Nachteil: Es gibt offensichtlich noch Ränder, so dass es nicht genau die"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:85 (comment)
 msgid "same alignment as without the additional text"
@@ -11962,38 +11946,34 @@ msgid "semppMII"
 msgstr "semppMII"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:106 (context id)
-#, fuzzy
 msgid "s"
-msgstr "sl"
+msgstr "s"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:113 (context id)
-#, fuzzy
 msgid "sMarkup"
-msgstr "semppBeschriftung"
+msgstr "sBeschriftung"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:120 (context id)
 msgid "sK"
-msgstr ""
+msgstr "sK"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:131 (context id)
 msgid "sT"
-msgstr ""
+msgstr "sT"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:138 (context id)
 msgid "sM"
-msgstr ""
+msgstr "sM"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:145 (context id)
 msgid "sG"
-msgstr ""
+msgstr "sG"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:152 (context id)
-#, fuzzy
 msgid "sMII"
-msgstr "semppMII"
+msgstr "sMII"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:156 (comment)
-#, fuzzy
 msgid "Setting to ##f (false) gives the same result"
 msgstr "Auf falsch (##f) setzen ergibt gleiches Ergebnis"
 
@@ -13335,7 +13315,7 @@ msgstr ""
 
 #. input/lsr/utf-8.ly:21 (comment)
 msgid "Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs"
-msgstr ""
+msgstr "Diese Datei mit einem Editor bearbeiten, der in Unicode speichern kann, wie etwa GVIM, GEDIT, Emacs"
 
 #. input/lsr/utf-8.ly:39 (comment)
 msgid "Cyrillic font"

@@ -9,9 +9,8 @@ instrucción @code{\\ottava}.
 "
 
   doctitlees = "Texto de octava alta y baja"
-%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
   
-  
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Intern setzt die @code{set-octavation}-Funktion die Eigenschaften
 @code{ottavation} (etwa auf den Wert @code{\"8va\"} oder @code{\"8vb\"})

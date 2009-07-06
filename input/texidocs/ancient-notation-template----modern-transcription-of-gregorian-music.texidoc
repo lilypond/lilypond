@@ -8,7 +8,7 @@ especiales que indican silencios de distintas longitudes.
 "
 
   doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto gregoriano)"
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   
   texidocde = "
 Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen 
@@ -16,3 +16,5 @@ Chorals. Hier gibt es keine Takte, keine Notenhälse und es werden nur
 halbe und Viertelnoten verwendet. Zusätzliche Zeichen zeigen die 
 Länge von Pausen an.
 "
+
+ doctitlede = "Vorlage für Alte Notation -- moderne Transkription des gregorianischen Chorals"

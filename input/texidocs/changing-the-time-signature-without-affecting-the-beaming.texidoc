@@ -11,7 +11,7 @@ de compás sin que cambie ninguna de las demás propiedades:
   doctitlees = "Cambio de compás sin afectar al barrado"
 
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Der @code{\\time}-Befehl verändert die Eigenschaften
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
@@ -26,7 +26,7 @@ Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
-La commande @code{\time} gère les propriétés
+La commande @code{\\time} gère les propriétés
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
 et @code{measureLength} dans le contexte @code{Timing}, normallement
 rattaché à @code{Score}.  Le fait de modifier la valeur de

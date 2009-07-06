@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0f35c951dfcd648c512d29848350ff7df3dc5853
+    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -467,6 +467,9 @@ funciones musicales complejas.
 @subsection Displaying music expressions
 
 @cindex interno, almacenamiento
+@cindex mostrar expresiones musicales
+@cindex interna, representación, mostrar
+
 @funindex \displayMusic
 
 Si se está escribiendo una función musical puede ser muy instructivo
@@ -1307,13 +1310,16 @@ nota, éste es un evento @rinternals{NoteHead}, y para un objeto
 He aquí una función que usar para @code{\applyOutput}; borra las
 cabezas de las notas que están sobre la línea central:
 
-@example
-(define (blanker grob grob-origin context)
- (if (and (memq (ly:grob-property grob 'interfaces)
-                note-head-interface)
-          (eq? (ly:grob-property grob 'staff-position) 0))
-     (set! (ly:grob-property grob 'transparent) #t)))
-@end example
+@lilypond[quote,verbatim,ragged-right]
+#(define (blanker grob grob-origin context)
+   (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
+            (eq? (ly:grob-property grob 'staff-position) 0))
+       (set! (ly:grob-property grob 'transparent) #t)))
+
+\relative {
+  e4 g8 \applyOutput #'Voice #blanker b d2
+}
+@end lilypond
 
 
 @node Scheme procedures as properties

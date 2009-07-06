@@ -14,7 +14,7 @@ cabezas a aspas.
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Das Layout von Verzierungsausdrücken kann in der Musik verändert
 werden mit den Funktionen @code{add-grace-property} und

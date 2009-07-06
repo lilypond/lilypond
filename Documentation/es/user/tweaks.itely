@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 46e1b0a15ecf324b3272645224f3a2b3068dce73
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1089,6 +1089,22 @@ corregirlo escribiendo el contexto correcto:
 @end lilypond
 
 Ahora las barras de compás han desaparecido.
+
+Sin embargo, observe que el establecimiento de la propiedad
+@code{stencil} al valor @code{#f} produce errores cuando las se
+requieren las dimensiones del objeto para un procesamiento correcto.
+Por ejemplo, se generan errores si la propiedad @code{stencil} del
+objeto @code{NoteHead} se establece al valor @code{#f}.  Si es el
+caso, podemos en vez de ello utilizar la función @code{point-stencil},
+que establece el sello a un objeto con tamaño nulo:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  c c
+  \once \override NoteHead #'stencil = #point-stencil
+  c c
+}
+@end lilypond
 
 @subheading break-visibility
 

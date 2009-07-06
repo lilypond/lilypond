@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-18 09:15+0200\n"
-"PO-Revision-Date: 2009-06-06 14:37+0200\n"
+"PO-Revision-Date: 2009-06-30 19:25+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -2840,7 +2840,7 @@ msgstr "normal"
 
 #. Documentation/user/tweaks.itely:3509 (variable)
 msgid "SopranoMusic"
-msgstr "sopranoMusique"
+msgstr "SopranoMusique"
 
 #. Documentation/user/tweaks.itely:3522 (context id)
 #. Documentation/user/input.itely:959 (context id)
@@ -3568,9 +3568,8 @@ msgstr "Conducteurs et parties"
 
 #. @node in Documentation/user/working.itely
 #. @section in Documentation/user/working.itely
-#, fuzzy
 msgid "Make and Makefiles"
-msgstr "Du papier et des pages"
+msgstr "De la commande @command{make} et des fichiers @code{Makefile}"
 
 #. @node in Documentation/user/templates.itely
 #. @appendix in Documentation/user/templates.itely
@@ -5259,7 +5258,7 @@ msgstr "longue"
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/rhythms.itely
 msgid "maxima"
-msgstr "mamima"
+msgstr "maxima"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/fr/user/rhythms.itely
@@ -9398,7 +9397,7 @@ msgstr "Vue d'ensemble de la modification des propriétés"
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @node in Documentation/de/user/changing-defaults.itely
 msgid "The set command"
-msgstr "La commande de fixation (set)"
+msgstr "La commande de fixation (@emph{set})"
 
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/fr/user/changing-defaults.itely
@@ -9412,7 +9411,7 @@ msgstr "La commande @code{\\set}"
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @node in Documentation/de/user/changing-defaults.itely
 msgid "The override command"
-msgstr "La commande de dérogation (override)"
+msgstr "La commande de dérogation (@emph{override})"
 
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/fr/user/changing-defaults.itely
@@ -9426,7 +9425,7 @@ msgstr "La commande @code{\\override}"
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @node in Documentation/de/user/changing-defaults.itely
 msgid "The tweak command"
-msgstr "La commande tweak"
+msgstr "La commande d'affinage (@emph{tweak})"
 
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/fr/user/changing-defaults.itely
@@ -9726,7 +9725,7 @@ msgstr "Utilisation de @code{break-aligned-interface}"
 #. @node in Documentation/de/user/changing-defaults.itely
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "Vertical grouping of grobs"
-msgstr "Groupement vertical d'objets graphiques"
+msgstr "Regroupement vertical d'objets graphiques"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
@@ -9941,7 +9940,7 @@ msgstr "Construction de fonctions complexes"
 #. @node in Documentation/de/user/programming-interface.itely
 #. @subsection in Documentation/de/user/programming-interface.itely
 msgid "Displaying music expressions"
-msgstr "Afficher des expressions musicales"
+msgstr "Affichage d'expressions musicales"
 
 #. @node in Documentation/user/programming-interface.itely
 #. @subsection in Documentation/user/programming-interface.itely
@@ -10073,7 +10072,7 @@ msgstr "Application d'une fonction à tous les objets de mise en forme"
 #. @node in Documentation/de/user/programming-interface.itely
 #. @section in Documentation/de/user/programming-interface.itely
 msgid "Scheme procedures as properties"
-msgstr "Utilisation de procédures Scheme comme propriétés"
+msgstr "Utilisation de procédures Scheme en tant que propriétés"
 
 #. @node in Documentation/user/programming-interface.itely
 #. @node in Documentation/es/user/programming-interface.itely
@@ -11059,35 +11058,35 @@ msgstr "pas de liaison"
 #. input/lsr/incipit.ly:271 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:281 (comment)
 msgid "Comment in the below \\\"\\remove\\\" command to allow line"
-msgstr ""
+msgstr "Décommenter la commande \"\\remove\" qui suit permet d'insérer"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:280 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:282 (comment)
 msgid "breaking also at those barlines where a note overlaps"
-msgstr ""
+msgstr "des sauts de ligne y compris lorsqu'une note viendrait à déborder "
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:281 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:283 (comment)
 msgid "into the next bar.  The command is commented out in this"
-msgstr ""
+msgstr "sur la mesure suivante.  Cette commande est commentée pour ce court"
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:282 (comment)
 #. input/lsr/incipit.ly:274 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:284 (comment)
 msgid "short example score, but especially for large scores, you"
-msgstr ""
+msgstr "exemple, mais dans le cas d'une partition conséquente, "
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:283 (comment)
 #. input/lsr/incipit.ly:275 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:285 (comment)
 msgid "will typically yield better line breaking and thus improve"
-msgstr ""
+msgstr "vous parviendrez à une meilleure gestion des sauts de ligne "
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:284 (comment)
 #. input/lsr/incipit.ly:276 (comment)
 #. input/lsr/transcription-of-ancient-music-with-incipit.ly:286 (comment)
 msgid "overall spacing if you comment in the following command."
-msgstr ""
+msgstr "et donc de l'espacement général en la décommentant."
 
 #. input/lsr/ancient-notation-template----modern-transcription-of-mensural-music.ly:285 (comment)
 #. input/lsr/incipit.ly:277 (comment)
@@ -11138,19 +11137,19 @@ msgstr "Correction pour éviter les collisions"
 
 #. input/lsr/beam-endings-in-score-context.ly:38 (comment)
 msgid "Set default beaming for all staves"
-msgstr "définition des règles de ligature pour toutes les portées"
+msgstr "Définition des règles de ligature pour toutes les portées"
 
 #. input/lsr/beam-endings-in-score-context.ly:46 (comment)
 msgid "Modify beaming for just this staff"
-msgstr "changement des règles de ligature seulement pour cette portée"
+msgstr "Changement des règles de ligature seulement pour cette portée"
 
 #. input/lsr/beam-endings-in-score-context.ly:52 (comment)
 msgid "Inherit beaming from Score context"
-msgstr "héritage des règles de ligature du contexte Score"
+msgstr "Héritage des règles de ligature du contexte Score"
 
 #. input/lsr/beam-endings-in-score-context.ly:58 (comment)
 msgid "Modify beaming for this voice only"
-msgstr "changement des règles de ligature seulement pour cette voix"
+msgstr "Changement des règles de ligature seulement pour cette voix"
 
 #. input/lsr/beam-grouping-in-7-8-time.ly:41 (comment)
 msgid "rhythm 2-3-2"
@@ -11194,9 +11193,7 @@ msgstr "Notation moderne :"
 
 #. input/lsr/breathing-signs.ly:22 (comment)
 msgid "by default, \\breathe uses the rcomma, just as if saying:"
-msgstr ""
-"par défaut, \\breathe produit un @code{rcomma} (virgule vers la droite) "
-"comme si l' on avait : "
+msgstr "par défaut, \\breathe produit un @code{rcomma} (virgule vers la droite) comme si l'on avait : "
 
 #. input/lsr/breathing-signs.ly:23 (comment)
 msgid ""
@@ -11340,7 +11337,7 @@ msgstr ""
 
 #. input/lsr/coloring-notes-depending-on-their-pitch.ly:17 (comment)
 msgid "Association list of pitches to colors."
-msgstr ""
+msgstr "Liste des associations de hauteur à une couleur"
 
 #. input/lsr/coloring-notes-depending-on-their-pitch.ly:37 (comment)
 msgid "Compare pitch and alteration (not octave)."
@@ -11361,11 +11358,11 @@ msgstr "musiqueBas"
 #. input/lsr/creating-a-sequence-of-notes-on-various-pitches.ly:53 (variable)
 #. input/lsr/jazz-combo-template.ly:277 (context id)
 msgid "rhythm"
-msgstr ""
+msgstr "rythme"
 
 #. input/lsr/creating-real-parenthesized-dynamics.ly:46 (variable)
 msgid "parenF"
-msgstr ""
+msgstr "parentF"
 
 #. input/lsr/creating-simultaneous-rehearsal-marks.ly:43 (comment)
 msgid "the hidden measure and bar line"
@@ -11375,7 +11372,7 @@ msgstr ""
 #. input/lsr/customizing-markup-fret-diagrams.ly:55 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:26 (comment)
 msgid "Set global properties of fret diagram"
-msgstr ""
+msgstr "Définition des propriétés globales de diagramme de fret"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:53 (context id)
 #. input/lsr/formatting-lyrics-syllables.ly:21 (variable)
@@ -11386,12 +11383,12 @@ msgstr "melodie"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:62 (comment)
 msgid "C major for guitar, no barre, using defaults"
-msgstr ""
+msgstr "Do majeur pour la guitare, sans barré, réglages par défaut"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:63 (comment)
 #. input/lsr/customizing-markup-fret-diagrams.ly:113 (comment)
 msgid "terse style"
-msgstr ""
+msgstr "style terse"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:66 (comment)
 #. input/lsr/customizing-markup-fret-diagrams.ly:88 (comment)
@@ -11402,7 +11399,7 @@ msgstr ""
 #. input/lsr/fret-diagrams-explained-and-developed.ly:254 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:275 (comment)
 msgid "C major for guitar, barred on third fret"
-msgstr ""
+msgstr "Do majeur pour la guitare, barré sur le troisième fret"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:67 (comment)
 #. input/lsr/customizing-markup-fret-diagrams.ly:89 (comment)
@@ -11416,37 +11413,37 @@ msgstr ""
 #. input/lsr/fret-diagrams-explained-and-developed.ly:277 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:304 (comment)
 msgid "verbose style"
-msgstr ""
+msgstr "style verbeux"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:68 (comment)
 msgid "size 1.0"
-msgstr ""
+msgstr "taille 1,0"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:69 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:57 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:157 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:256 (comment)
 msgid "roman fret label, finger labels below string, straight barre"
-msgstr ""
+msgstr "indication de fret en chiffre romain, doigté sous la corde, barré rectiligne"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:71 (comment)
 msgid "standard size"
-msgstr ""
+msgstr "taille standard"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:90 (comment)
 msgid "landscape orientation, arabic numbers, M for mute string"
-msgstr ""
+msgstr "orientation à l'italienne, chiffres arabes, M pour corde étoufée"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:91 (comment)
 msgid "no barre, fret label down or left, small mute label font"
-msgstr ""
+msgstr "sans barré, indication de fret en bas ou à gauche, petite indication d'étouffé"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:112 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:127 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:227 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:326 (comment)
 msgid "simple D chord"
-msgstr ""
+msgstr "accord de ré simple"
 
 #. input/lsr/customizing-markup-fret-diagrams.ly:114 (comment)
 msgid "larger dots, centered dots, fewer frets"
@@ -11462,7 +11459,7 @@ msgstr ""
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:82 (comment)
 msgid "Note: This section could be put into a separate file"
-msgstr ""
+msgstr "NB : Cette partie pourrait faire l'objet d'un fichier séparé"
 
 #. input/lsr/defining-predefined-fretboards-for-other-instruments.ly:83 (comment)
 msgid "predefined-cuatro-fretboards.ly"
@@ -11526,7 +11523,7 @@ msgstr ""
 
 #. input/lsr/double-glissando.ly:20 (comment)
 msgid "new voice ( = \\voiceOne), hidden"
-msgstr ""
+msgstr "nouvelle voix ( = \\voiceOne), masquée"
 
 #. input/lsr/double-glissando.ly:22 (comment)
 msgid "attach glissando to note heads"
@@ -11534,11 +11531,11 @@ msgstr "rattachement du glissando aux têtes de note"
 
 #. input/lsr/double-glissando.ly:27 (comment)
 msgid "original voice with chords rearranged so that"
-msgstr ""
+msgstr "voix originale avec les accords réagencés pour pouvoir"
 
 #. input/lsr/double-glissando.ly:28 (comment)
 msgid "glissando is attached to a & c"
-msgstr ""
+msgstr "attacher le glissando au la et au do"
 
 #. input/lsr/embedding-native-postscript-in-a--markup-block.ly:24 (comment)
 msgid "PostScript is a registered trademark of Adobe Systems Inc."
@@ -11546,27 +11543,27 @@ msgstr "PostScript est une marque déposée par Adobe Systems Inc."
 
 #. input/lsr/engravers-one-by-one.ly:76 (comment)
 msgid "sample music"
-msgstr ""
+msgstr "exemple de musique"
 
 #. input/lsr/engravers-one-by-one.ly:77 (variable)
 msgid "topVoice"
-msgstr ""
+msgstr "voixSuperieur"
 
 #. input/lsr/engravers-one-by-one.ly:85 (variable)
 msgid "botVoice"
-msgstr ""
+msgstr "voixInferieur"
 
 #. input/lsr/engravers-one-by-one.ly:93 (variable)
 msgid "hoom"
-msgstr ""
+msgstr "houm"
 
 #. input/lsr/engravers-one-by-one.ly:104 (variable)
 msgid "pah"
-msgstr ""
+msgstr "pah"
 
 #. input/lsr/engravers-one-by-one.ly:114 (comment)
 msgid "setup for Request->Element conversion. Guru-only"
-msgstr ""
+msgstr "Réservé aux gurus : réglage pour la conversion Request->Element"
 
 #. input/lsr/engravers-one-by-one.ly:117 (variable)
 #. input/lsr/engravers-one-by-one.ly:222 (variable)
@@ -11578,11 +11575,11 @@ msgstr "MaPortee"
 
 #. input/lsr/engravers-one-by-one.ly:149 (comment)
 msgid "explicitly set instrument, so we don't get "
-msgstr ""
+msgstr "définition explicite de l'instrument, pour éviter"
 
 #. input/lsr/engravers-one-by-one.ly:150 (comment)
 msgid "weird effects when doing instrument names for"
-msgstr ""
+msgstr "les effets indésirables en créant un nom pour des"
 
 #. input/lsr/engravers-one-by-one.ly:151 (comment)
 msgid "piano staves"
@@ -11741,7 +11738,7 @@ msgstr "Exemple 4"
 
 #. input/lsr/flute-slap-notation.ly:17 (variable)
 msgid "slap"
-msgstr ""
+msgstr "slap"
 
 #. input/lsr/formatting-lyrics-syllables.ly:16 (comment)
 msgid ""
@@ -11956,9 +11953,8 @@ msgid "s"
 msgstr ""
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:113 (context id)
-#, fuzzy
 msgid "sMarkup"
-msgstr "semppMarque"
+msgstr "sMarque"
 
 #. input/lsr/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:120 (context id)
 msgid "sK"
@@ -12037,7 +12033,7 @@ msgstr "bassusIncipit"
 
 #. input/lsr/incipit.ly:258 (comment)
 msgid "no bar lines in staves or lyrics"
-msgstr "pas de barre sur les portées ou dans les paroles"
+msgstr "pas de barre sur les portées ni dans les paroles"
 
 #. input/lsr/incipit.ly:261 (comment)
 msgid "the next two instructions keep the lyrics between the bar lines"
@@ -12387,15 +12383,15 @@ msgstr ""
 
 #. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:50 (comment)
 msgid "Permit line breaks within tuplets"
-msgstr ""
+msgstr "Autorise la présence d'une barre de mesure dans les triolets"
 
 #. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:52 (comment)
 msgid "Allow beams to be broken at line breaks"
-msgstr ""
+msgstr "Autorise le saut de ligne dans une ligature"
 
 #. input/lsr/permitting-line-breaks-within-beamed-tuplets.ly:59 (comment)
 msgid "Insert a manual line break within a tuplet"
-msgstr ""
+msgstr "Insertion d'un saut de ligne manuel au milieu du triolet"
 
 #. input/lsr/piano-template-with-centered-dynamics.ly:61 (variable)
 msgid "pedal"
@@ -12415,35 +12411,35 @@ msgstr ""
 
 #. input/lsr/positioning-multi-measure-rests.ly:57 (comment)
 msgid "Multi-measure rests by default are set under the second line"
-msgstr ""
+msgstr "Les silences multi-mesures se placent sous la quatrième ligne"
 
 #. input/lsr/positioning-multi-measure-rests.ly:59 (comment)
 msgid "They can be moved with an override"
-msgstr ""
+msgstr "On peut les déplacer par dérogation"
 
 #. input/lsr/positioning-multi-measure-rests.ly:62 (comment)
 msgid "A value of 0 is the default position;"
-msgstr ""
+msgstr "Une valeur à 0 correspond à la position par défaut ;"
 
 #. input/lsr/positioning-multi-measure-rests.ly:63 (comment)
 msgid "the following trick moves the rest to the center line"
-msgstr ""
+msgstr "la dérogation qui suit repositionne le silence sur la ligne médiane"
 
 #. input/lsr/positioning-multi-measure-rests.ly:66 (comment)
 msgid "Multi-measure rests in odd-numbered voices are under the top line"
-msgstr ""
+msgstr "Les silences multi-mesures des voix impaires sont attachés à la ligne du haut"
 
 #. input/lsr/positioning-multi-measure-rests.ly:68 (comment)
 msgid "Multi-measure rests in even-numbered voices are under the bottom line"
-msgstr ""
+msgstr "Les silences multi-mesures des voix paires sont attachés à la ligne du bas"
 
 #. input/lsr/positioning-multi-measure-rests.ly:70 (comment)
 msgid "They remain separated even in empty measures"
-msgstr ""
+msgstr "Il y en aura deux, même si la mesure est absolument vide"
 
 #. input/lsr/positioning-multi-measure-rests.ly:72 (comment)
 msgid "This brings them together even though there are two voices"
-msgstr ""
+msgstr "Voici ce qui les fusionnera même s'ils appartiennent à deux voix différentes"
 
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:28 (comment)
 #. input/lsr/positioning-segno-and-coda-with-line-break.ly:49 (comment)
@@ -13221,51 +13217,51 @@ msgstr ""
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:59 (comment)
 msgid "The default in 3/4 time is to beam in three groups"
-msgstr ""
+msgstr "L'usage veut que, dans une mesure à 3/4, il y ait trois regroupements"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:60 (comment)
 msgid "each of a quarter note length"
-msgstr ""
+msgstr "sur la base de la durée d'une noire"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:64 (comment)
 msgid "No auto-beaming is defined for 12/16"
-msgstr ""
+msgstr "Aucune règle de ligature automatique n'est définie pour 12/16"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:68 (comment)
 msgid "Change time signature symbol, but retain underlying 3/4 beaming"
-msgstr "la métrique change mais on garde les règles de ligatures en 3/4"
+msgstr "La métrique change mais on garde les règles de ligatures du 3/4"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:72 (comment)
 msgid "The 3/4 time default grouping of (1 1 1) and beatLength of 1/8"
-msgstr ""
+msgstr "Regroupement par défaut du 3/4 (1 1 1) et beatLength à la croche"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:73 (comment)
 msgid "are not consistent with a measureLength of 3/4, so the beams"
-msgstr ""
+msgstr "ne concordent pas avec un measureLength de 3/4 ; les ligatures"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:74 (comment)
 msgid "are grouped at beatLength intervals"
-msgstr ""
+msgstr "sont donc générées selon le beatLength"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:78 (comment)
 msgid "Specify beams in groups of (3 3 2 3) 1/16th notes"
-msgstr ""
+msgstr "Spécification de regroupement en (3 3 2 3) doubles croches"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:79 (comment)
 msgid "3+3+2+3=11, and 11*1/16<>3/4, so beatGrouping does not apply,"
-msgstr ""
+msgstr "3+3+2+3=11, mais 11*1/16<>3/4, beatGrouping ne peut donc s'appliquer,"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:80 (comment)
 msgid "and beams are grouped at beatLength (1/16) intervals"
-msgstr ""
+msgstr "et les ligatures sont générées sur la base de beatLength (double croche)"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:85 (comment)
 msgid "Specify beams in groups of (3 4 2 3) 1/16th notes"
-msgstr ""
+msgstr "Spécification de regroupement en (3 4 2 3) doubles croches"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:86 (comment)
 msgid "3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies"
-msgstr ""
+msgstr "3+4+2+3=12, et 12*1/16=3/4, beatGrouping peut donc s'appliquer"
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:27 (variable)
 msgid "parallelogram"
@@ -13383,13 +13379,13 @@ msgstr "hommes"
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:97 (comment)
 #. input/lsr/vocal-ensemble-template.ly:111 (comment)
 msgid "a little smaller so lyrics"
-msgstr ""
+msgstr "un peu plus petit de telle sorte que les paroles"
 
 #. input/lsr/vocal-ensemble-template-with-automatic-piano-reduction.ly:121 (comment)
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:98 (comment)
 #. input/lsr/vocal-ensemble-template.ly:112 (comment)
 msgid "can be closer to the staff"
-msgstr ""
+msgstr "soient plus proches de la portée"
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:81 (comment)
 msgid "we could remove the line about this with the line below, since we want"
@@ -13401,7 +13397,7 @@ msgstr ""
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:83 (comment)
 msgid "\\new Lyrics \\lyricsto altos \\altoWords"
-msgstr ""
+msgstr "\\new Lyrics \\lyricsto altos \\altoWords"
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:92 (comment)
 msgid "again, we could replace the line above this with the line below."
@@ -13409,11 +13405,11 @@ msgstr ""
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:93 (comment)
 msgid "\\new Lyrics \\lyricsto basses \\bassWords"
-msgstr ""
+msgstr "\\new Lyrics \\lyricsto basses \\bassWords"
 
 #. input/lsr/volta-multi-staff.ly:16 (variable)
 msgid "voltaMusic"
-msgstr ""
+msgstr "repriseMusique"
 
 msgid "Up:"
 msgstr "Haut&nbsp;:"

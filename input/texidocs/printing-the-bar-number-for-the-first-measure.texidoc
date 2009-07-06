@@ -13,7 +13,7 @@ debe insertar una líinea divisoria vacía antes de la primera nota.
   doctitlees = "Imprimir el número de compás en el primer compás"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Standardmäßig wird die erste Taktzahl einer Paritur nicht gesetzt,
 wenn sie weniger oder gleich '1' ist.  Indem man @code{barNumberVisibility}

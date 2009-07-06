@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -544,8 +544,8 @@ immer klein geschrieben werden,  @w{@code{@{ c d e @}}} funktioniert,
 während @w{@code{@{ C D E @}}} einen Fehler produziert.
 
 @item @strong{Leerzeichen:}
-Es spielt keine Rolle, wie viele Leerzeichen oder leere Zeilen sich zwischen
-den Zeichen der Quelldatei befinden.
+Es spielt keine Rolle, wie viele Leerzeichen oder Tabulatoren oder
+leere Zeilen sich zwischen den Zeichen der Quelldatei befinden.
 @w{@code{@{ c d e @}}} bedeutet das Gleiche wie
 @w{@code{@{ c @ @ @ @ @  d e @}}} oder
 @example
@@ -562,6 +562,13 @@ ist es, Code-Blöcke mit der Tab-Taste oder zwei Leerzeichen einzurücken:
   c d e
 @}
 @end example
+
+Leerzeichen @emph{sind} jedoch nötig, um viele syntaktische Elemente
+voneinander zu trennen.  Leerzeichen können also immer @emph{hinzugefügt}
+werden, aber sie dürfen nicht @emph{entfernt} werden.  Da fehlende
+Leerzeichen sehr seltsame Fehlermeldungen hervorrrufen können, wird
+es nahe gelegt, immer ein Leerzeichen vor und nach jedem syntaktischen
+Element, etwa vor und nach geschweiften Kklammern, einzufügen.
 
 @item @strong{Ausdrücke:}
 Auch der kleinste Abschnitt an LilyPond-Code muss in

@@ -7,8 +7,8 @@ que hacer este trucaje por nuestra cuenta.
 
 "
   doctitlees = "Plantilla de piano con matices centrados"
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
-  
+
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In der meisten Klaviernotation werden die Dynamikzeichen zwischen 
 den beiden Systemen zentriert. Für LilyPond muss man die Einstellungen 

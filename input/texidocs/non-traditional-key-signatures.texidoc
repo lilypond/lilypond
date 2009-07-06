@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+%% Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 
@@ -26,7 +26,7 @@ He aquí un ejemplo de una posible armadura para generar una escala
 exátona:
 "
 
-%% Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Untypische Tonarten"
   texidocde = "
 Der üblicherweise benutzte @code{\\key}-Befehl setzt die

@@ -13,7 +13,7 @@ izquierda de las columnas musicales de las notas principales.
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
 werden die Verzierungsnoten \"fließend\" gemacht, d.h. sie sind

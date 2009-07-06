@@ -7,7 +7,7 @@ caídas y subidas de tono («falls» y «doits»).
 "
   doctitlees = "Ajustar la forma de las subidas y caídas de tono"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Die @code{shortest-duration-space}-Eigenschaft kann verändert werden, um
 das Aussehen von unbestimmten Glissandi anzupassen.
