@@ -203,4 +203,4 @@
 	     (module-define! output-module x
 			     (lambda* (#:optional y . z)
 			       (missing-stencil-expression x)))))
-       (ly:all-stencil-expressions)))
+       (ly:all-stencil-commands)))
