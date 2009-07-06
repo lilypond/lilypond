@@ -1,11 +1,11 @@
-$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(OUT_PNG_IMAGES)
+$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(OUT_PNG_IMAGES) $(CSS_SOURCE_FILES)
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+	cp -u $(CSS_SOURCE_FILES) $(dir $@)
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(OUT_PNG_IMAGES)
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(OUT_PNG_IMAGES) $(CSS_SOURCE_FILES)
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+	cp -u $(CSS_SOURCE_FILES) $(dir $@)
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi
 	$(buildscript-dir)/texi-gettext $(ISOLANG) $<

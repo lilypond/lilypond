@@ -2,8 +2,11 @@
 
 LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
 
-SOURCE_PNG_IMAGES=$(shell ls $(top-src-dir)/Documentation/user/*.png)
-OUT_PNG_IMAGES=$(SOURCE_PNG_IMAGES:$(top-src-dir)/Documentation/user/%.png=$(outdir)/%.png) $(outdir)/context-example.png
+CSS_SOURCE_FILES = $(shell ls $(top-src-dir)/Documentation/lilypond*.css)
+SOURCE_PNG_IMAGES = $(shell ls $(top-src-dir)/Documentation/user/*.png)
+OUT_PNG_IMAGES = \
+  $(SOURCE_PNG_IMAGES:$(top-src-dir)/Documentation/user/%.png=$(outdir)/%.png) \
+  $(outdir)/context-example.png
 
 TELY_FILES := $(call src-wildcard,*.tely)
 MASTER_TEXI_FILES := $(TELY_FILES:%.tely=$(outdir)/%.texi)
