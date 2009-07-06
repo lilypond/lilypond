@@ -3149,6 +3149,43 @@ Draw vertical brackets around @var{arg}.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
 
+(define-markup-command (parenthesize layout props arg)
+  (markup?)
+  #:category graphic
+  #:properties ((angularity 0)
+		(padding)
+		(size 1)
+		(thickness 1)
+		(width 0.25))
+  "
+@cindex placing parentheses around text
+
+Draw parentheses around @var{arg}.  This is useful for parenthesizing
+a column containing several lines of text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\parenthesize {
+    \\column {
+      foo
+      bar
+    }
+  }
+}
+@end lilypond"
+  (let* ((markup (interpret-markup layout props arg))
+	 (scaled-width (* size width))
+	 (scaled-thickness
+	  (* (chain-assoc-get 'line-thickness props 0.1)
+	     thickness))
+	 (half-thickness
+	  (min (* size 0.5 scaled-thickness)
+	       (* (/ 4 3.0) scaled-width)))
+	 (padding (chain-assoc-get 'padding props half-thickness)))
+    (parenthesize-stencil
+     markup half-thickness scaled-width angularity padding)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Delayed markup evaluation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
