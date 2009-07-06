@@ -639,9 +639,9 @@ can appear compressed or may flow off the page because automatic
 line breaks can be inserted only at the end of complete measures,
 i.e., where all notes end before or at the end of the measure.
 
-Note: An incorrect duration can cause line breaks to be inhibited,
-leading to a line of highly compressed music or music which flows
-off the page.
+@warning{An incorrect duration can cause line breaks to be
+inhibited, leading to a line of highly compressed music or
+music which flows off the page.}
 
 The incorrect duration can be found easily if bar checks are used,
 see @ruser{Bar and bar number checks}.
@@ -673,12 +673,13 @@ mismatched quote will usually be on the line one or two above.
 @node Error message Unbound variable %
 @unnumberedsubsubsec Error message Unbound variable %
 
-This error message will appear at the bottom of the log file
-together with a @qq{GUILE signalled an error ...} message every
-time a Scheme routine containing a @emph{LilyPond} comment is called.
+This error message will appear at the bottom of the console
+output or log file together with a @qq{GUILE signalled an error ...}
+message every time a Scheme routine is called which (invalidly)
+contains a @emph{LilyPond} rather than a @emph{Scheme} comment.
 
-LilyPond comments beginning with a percent sign, (@code{%}), must not
-be used within Scheme routines.  Scheme comments begin with a
+LilyPond comments begin with a percent sign, (@code{%}), and must
+not be used within Scheme routines.  Scheme comments begin with a
 semi-colon, (@code{;}).
 
 @node Troubleshooting (taking it all apart)
