@@ -46,7 +46,7 @@ for l in langdefs.LANGUAGES:
 for f, contents in static_files.items ():
     open (f, 'w').write (contents)
 
-sys.stderr.write ("Mirrorring...\n")
+sys.stderr.write ("Mirroring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
