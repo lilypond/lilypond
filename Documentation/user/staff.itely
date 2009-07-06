@@ -590,10 +590,8 @@ example.
 Using the @code{\RemoveEmptyStaffContext} command to create ossia
 staves may be used as an alternative.  This method is most
 convenient when ossia staves occur immediately following a line
-break.  In this case, spacer rests do not need to be used at all;
-only @code{\startStaff} and @code{\stopStaff} are necessary.  For
-more information about @code{\RemoveEmptyStaffContext}, see
-@ref{Hiding staves}.
+break.  For more information about
+@code{\RemoveEmptyStaffContext}, see @ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -604,16 +602,15 @@ more information about @code{\RemoveEmptyStaffContext}, see
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
   }
+  \relative c'' {
+    R1*3
+    c4 e8 d c2
+  }
   \new Staff \relative c' {
     c4 b c2
     e4 f e2
     g4 a g2 \break
-    <<
-      { c4 b c2 }
-      \context Staff = ossia {
-        c4 e8 d c2 \stopStaff
-      }
-    >>
+    c4 b c2
     g4 a g2
     e4 d c2
   }
