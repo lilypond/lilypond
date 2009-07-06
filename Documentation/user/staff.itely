@@ -601,8 +601,7 @@ break.  For more information about
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
-  }
-  \relative c'' {
+  } \relative c'' {
     R1*3
     c4 e8 d c2
   }
