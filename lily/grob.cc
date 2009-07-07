@@ -19,6 +19,7 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
+#include "program-option.hh"
 #include "stencil.hh"
 #include "stream-event.hh"
 #include "system.hh"
@@ -533,6 +534,9 @@ Grob::fixup_refpoint ()
 void
 Grob::warning (string s) const
 {
+  if (get_program_option ("warning-as-error"))
+    error (s);
+
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
     cause = g->get_property ("cause");
@@ -559,6 +563,9 @@ Grob::name () const
 void
 Grob::programming_error (string s) const
 {
+  if (get_program_option ("warning-as-error"))
+    error (s);
+
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
     cause = g->get_property ("cause");
@@ -569,7 +576,7 @@ Grob::programming_error (string s) const
   if (Music *m = unsmob_music (cause))
     m->origin ()->message (s);
   else if (Stream_event *ev = unsmob_stream_event (cause))
-    ev->origin ()->warning (s);
+    ev->origin ()->message (s);
   else
     ::message (s);
 }

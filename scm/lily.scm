@@ -153,8 +153,8 @@ second.  Dump results to `FILE.stacks' and
     (verbose ,(ly:command-line-verbose?)
 "Value of the --verbose flag (read-only).")
     (warning-as-error #f
-"Exit if an undefined stencil expression is
-found.")
+"Change all warning and programming_error
+messages into errors.")
     ))
 
 ;; Need to do this in the beginning.  Other parts of the Scheme
@@ -228,6 +228,11 @@ found.")
 
 (if (ly:get-option 'trace-scheme-coverage)
     (coverage:enable))
+
+(if (ly:get-option 'warning-as-error)
+    (begin
+      (set! ly:warning ly:error)
+      (set! ly:programming-error ly:error)))
 
 (define-public parser #f)
 

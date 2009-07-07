@@ -12,6 +12,7 @@
 using namespace std;
 
 #include "international.hh"
+#include "program-option.hh"
 #include "source-file.hh"
 #include "sources.hh"
 #include "warn.hh"
@@ -79,15 +80,22 @@ Input::message (string s) const
 void
 Input::programming_error (string s) const
 {
-  message (_f ("programming error: %s", s.c_str ()));
-  message (_ ("continuing, cross fingers") + "\n");
+  if (get_program_option ("warning-as-error"))
+    ::error (s);
+  else {
+    message (_f ("programming error: %s", s.c_str ()));
+    message (_ ("continuing, cross fingers") + "\n");
+  }
 }
 
 
 void
 Input::warning (string s) const
 {
-  message (_f ("warning: %s", s));
+  if (get_program_option ("warning-as-error"))
+    ::error (s);
+  else
+    message (_f ("warning: %s", s));
 }
 
 void
