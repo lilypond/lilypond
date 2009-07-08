@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -65,7 +65,7 @@ unidas por una barra.
 @lilypond[quote,verbatim,relative=2]
 \time 8/1
 c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c64
+c4 c8 c16 c32 c64 c128 c128
 @end lilypond
 
 @noindent
@@ -78,7 +78,7 @@ desactivado.
 \time 8/1
 \autoBeamOff
 c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c64
+c4 c8 c16 c32 c64 c128 c128
 @end lilypond
 
 Se puede escribir una nota con la duración de una cuádruple breve

@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Mon Jul  6 21:04:09 UTC 2009
+ <p><i>Last updated Wed Jul  8 12:39:38 UTC 2009
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -193,7 +193,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #d587ff"></span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -215,8 +215,8 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #f6fe3b">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
-   <span style="background-color: #dfef77">partially translated (54 %)</span><br>
-   <span style="background-color: #33ff21">partially up to date</span><br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -248,7 +248,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #d587ff"></span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
 </table>
@@ -341,8 +341,8 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #5bff27">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
-   <span style="background-color: #dfef77">partially translated (97 %)</span><br>
-   <span style="background-color: #d587ff"></span><br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -737,7 +737,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #d587ff"></span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">

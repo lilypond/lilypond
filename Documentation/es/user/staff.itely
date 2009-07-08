@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9318dde7b34435a3fdb2e1a7e0ddcf0f86e936ae
+    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -591,11 +591,8 @@ en ejemplo siguiente.
 Como alternativa, se puede usar la instrucción
 @code{\RemoveEmptyStaffContext} para crear pentagramas de ossia.  Este
 método es muy conveniente cuando los pentagramas de ossia aparecen
-inmediatamente después de un salto de línea.  En este caso, no es
-necesario en absoluto utilizar silencios de separación; solamente son
-necesarios @code{\startStaff} y @code{\stopStaff}.  Para ver más
-información sobre @code{\RemoveEmptyStaffContext}, consulte
-@ref{Hiding staves}.
+inmediatamente después de un salto de línea. Para ver más información
+sobre @code{\RemoveEmptyStaffContext}, consulte @ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -605,17 +602,15 @@ información sobre @code{\RemoveEmptyStaffContext}, consulte
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
+  } \relative c'' {
+    R1*3
+    c4 e8 d c2
   }
   \new Staff \relative c' {
     c4 b c2
     e4 f e2
     g4 a g2 \break
-    <<
-      { c4 b c2 }
-      \context Staff = ossia {
-        c4 e8 d c2 \stopStaff
-      }
-    >>
+    c4 b c2
     g4 a g2
     e4 d c2
   }
