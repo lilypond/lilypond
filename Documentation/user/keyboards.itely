@@ -511,7 +511,7 @@ d\sustainOff\sustainOn g, c2
 
 The placement of the pedal commands matches the physical movement of the
 sustain pedal during piano performance.  Pedalling to the final bar line
-is indicated by omitting the final pedal up command.
+is indicated by omitting the final pedal off command.
 
 
 @seealso
