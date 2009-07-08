@@ -65,7 +65,7 @@ configurations.")
 "Debug cyclic callback chains.")
     (debug-skylines #f
 "Debug skylines.")
-    (delete-intermediate-files #f
+    (delete-intermediate-files #t
 "Delete unusable, intermediate PostScript files.")
     (dump-profile #f
 "Dump memory and time information for each file.")
