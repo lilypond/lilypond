@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 46e1b0a15ecf324b3272645224f3a2b3068dce73
+    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -495,8 +495,6 @@ de comprobar una o dos líneas por encima de la posición indicada.
 @section Updating files with @command{convert-ly}
 
 @cindex actualización de un archivo de LilyPond
-@cindex version
-@cindex versión de los archivos
 @cindex convert-ly
 
 La sintaxis del lenguaje de entrada de LilyPond se modifica de forma
@@ -506,17 +504,36 @@ compatible con los archivos de entrada antiguos.  Para poner remedio a
 esto se puede utilizar el programa @command{convert-ly} para manejar
 casi todos los cambios de sintaxis entre versiones de LilyPond.
 
-Utiliza los enunciados @code{\version} de los archivos de entrada para
-detectar el número de versión antiguo.  En casi todos los casos, para
-actualizar el archivo de entrada basta con ejecutar
+@menu
+* Invoking convert-ly::
+* Command line options for convert-ly::
+* Problems with convert-ly::
+@end menu
+
+@node Invoking convert-ly
+@subsection Invoking @command{convert-ly}
+
+@command{convert-ly} utiliza los enunciados @code{\version} de los
+archivos de entrada para detectar el número de versión antiguo.  En
+casi todos los casos, para actualizar el archivo de entrada basta con
+ejecutar
 
 @example
 convert-ly -e miarchivo.ly
 @end example
 
 @noindent
-Con esto se actualiza @code{miarchivo.ly} @emph{in situ} y se preserva
-el archivo original @code{miarchivo.ly~}.
+dentro del directorio que contiene el archivo.  Con esto se actualiza
+@code{miarchivo.ly} @emph{in situ} y se preserva el archivo original
+@code{miarchivo.ly~}.
+
+Para convertir de una vez todos los archivos de entrada que hay en un
+directorio, use
+
+@example
+convert-ly -e *.ly
+@end example
+
 
 De forma alternativa, si queremos especificar un nombre distinto para
 el archivo actualizado, preservando el archivo original con el mismo
@@ -525,6 +542,11 @@ nombre, haga
 @example
 convert-ly miarchivo.ly > minuevoarchivo.ly
 @end example
+
+@command{convert-ly} siempre convierte al último cambio de sintaxis
+que es capaz de manejar.  Esto supone que el número de @code{\version}
+que aparece en el archivo convertidoo suele ser más bajo que la
+versión del propio programa @command{convert-ly}.
 
 El programa imprimirá una relación de los números de versión para los
 que se han hecho conversiones.  Si no se imprime ningún número de
@@ -538,18 +560,10 @@ Los usuarios de Windows deben introducir esta instrucción en una
 ventana del terminal del sistema, que se encuentra por lo general bajo
 @code{Inicio > Accesorios > Símbolo del sistema}.
 
-@menu
-* Command line options for convert-ly::
-* Problems with convert-ly::
-@end menu
 
 @node Command line options for convert-ly
 @subsection Command line options for @command{convert-ly}
 
-@command{convert-ly} convierte siempre al último cambio de sintaxis
-que puede manejar.  Esto supone que el número de @code{\version} que
-aparece en el archivo convertido suele ser más bajo que la versión del
-propio programa @command{convert-ly}.
 
 En general, el programa se invoca de la manera siguiente:
 
@@ -598,24 +612,34 @@ dadas, use
 convert-ly --from=... --to=... -s
 @end example
 
-Para actualizar muchos archivos de una sola vez, combine
-@code{convert-ly} con las instrucciones estándar de UNIX.  Este
-ejemplo actualiza todos los archivos @code{.ly} del directorio actual:
-
-@example
-for f in *.ly; do convert-ly -e $f; done;
-@end example
-
 
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
 
 Al ejecutar convert-ly en una ventana del Símbolo del Sistema bajo
 Windows sobre un archivo que tiene espacios en el nombre o en la ruta,
-es necesario encerrar todo el nombre con tres (!) pares de comillas:
+es necesario encerrar todo el nombre del archivo de entrada con tres
+(!) pares de comillas:
 
 @example
-convert-ly """D:/Mis partituras/Oda.ly""" > """D:/Mis partituras/nueva Oda.ly"""
+convert-ly """D:/Mis partituras/Oda.ly""" > "D:/Mis partituras/nueva Oda.ly"
+@end example
+
+Si la orden simple @command{convert-ly -e *.ly} no funciona porque la
+instrucción expandida se hace muy larga, en vez de ello la orden
+@command{convert-ly} se puede poner dentro de un bucle.  Este ejemplo
+para UNIX actualiza todos los documentos @code{.ly} del directorio
+actual
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+En la ventana del terminal de órdenes de Windows, la instrucción
+correspondiente es
+
+@example
+for %x in (*.ly) do convert-ly -e """%x"""
 @end example
 
 No se manejan todos los cambios en el lenguaje.  Sólo se puede

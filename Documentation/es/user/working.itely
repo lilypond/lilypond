@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -315,7 +315,7 @@ padText =
 
 La utilización de identificadores también es una buena forma de
 reducir el trabajo si la sintaxis de entrada de LilyPond cambia (véase
-@ref{Updating old files}).  Si tiene una sola definición (como
+@ref{Updating old input files}).  Si tiene una sola definición (como
 p.ej. @code{\dolce}) para todos sus archivos (ver @ref{Style sheets}),
 y después la sintaxis se modifica, sólo tendrá que actualizar su
 definición @code{\dolce} única, en lugar de tener que hacer cambios en
@@ -586,13 +586,17 @@ estilo} para mis proyectos.  Comienzo todos los archivos de música con
 @section When things don't work
 
 @menu
-* Updating old files::
+* Updating old input files::
+* Common errors::
 * Troubleshooting (taking it all apart)::
 * Minimal examples::
 @end menu
 
-@node Updating old files
-@subsection Updating old files
+@node Updating old input files
+@subsection Updating old input files
+
+@cindex convert-ly
+@cindex actualizar archivos de entrada antiguos
 
 La sintaxis de la entrada de LilyPond cambia de manera ocasional.  A
 medida que el propio LilyPond mejora, la sintaxis (el lenguaje de la
@@ -620,6 +624,83 @@ directamente en el archivo de LilyPond como un carácter UTF-8.
 @code{convert-ly} no puede cambiar todos los caracteres especiales de
 LaTeX a caracteres de UTF-8; tendrá que actualizar manualmente sus
 archivos de LilyPond antiguos.
+
+@node Common errors
+@subsection Common errors
+
+Las condiciones de error que se han descrito más arriba se producen
+con frecuencia, aunque su causa no sea obvia o no se pueda encontrar
+fácilmente.  Una vez se han visto y comprendido, son fáciles de
+manejar.
+
+
+@menu
+* Music runs off the page::
+* Apparent error in ../ly/init.ly::
+* Error message Unbound variable %::
+@end menu
+
+@node Music runs off the page
+@unnumberedsubsubsec Music runs off the page
+
+La música que se sale de la página por el margen derecho o que aparece
+exageradamente comprimida está causada casi siempre por haber
+introducido una duración incorrecta para una nota, produciendo que la
+nota final de un compás se extienda más allá de la línea divisoria.
+Esto no es inválido si la nota final de un compás no termina sobre la
+línea divisoria introducida automáticamente, pues simplemente se
+supone que la nota se solapa encima del siguiente compás.  Pero si se
+produce una larga secuencia tales notas solapadas, la música puede
+aparecer comprimida o salirse de la página porque los saltos de línea
+automáticos solamente se pueden insertar al final de compases
+completos, es decir, aquellos en que todas las notas terminan antes de
+o justo al final del compás.
+
+@warning{Una duración incorrecta puede hacer que se inhiban los saltos
+de línea, lo que llevaría a una sola línea de música muy comprimida o
+que se salga de la página.}
+
+La duración incorrecta se puede encontrar fácilmente si se utilizan
+comprobaciones de compás, véase @ruser{Bar and bar number checks}.
+
+Si realmente quueremos tener una serie de estos compases con notas
+solapadas, debemos insertar una línea divisoria invisible donde
+queramos el salto de línea.  Para ver más detalles, consulte
+@ruser{Bar lines}.
+
+@node Apparent error in ../ly/init.ly
+@unnumberedsubsubsec Apparent error in @code{../ly/init.ly}
+
+Pueden aparecer varios mensajes de error extraños acerca de errores de
+sintaxis en @code{../ly/init.ly} si el archivo de entrada no está
+correctamente formado, por ejemplo si no contiene llaves o comillas
+correctamente emparejados.
+
+El error más común es la falta de una llave de cierre, (@code{@}}), al
+final de un bloque @code{score}.  Aquí la solución es obvia: compruebe
+que el bloque @code{score} está correctamente cerrado.  La estructura
+correcta de un archivo de entrada está descrita en @ref{How LilyPond
+input files work}.  Usando un editor que resalte automáticamente las
+llaves correspondientes es de mucha ayuda para evitar estos errores.
+
+Este mensaje de error también puede aparecer si se omiten las comillas
+de terminación (@code{"}).  En este caso, un mensaje de error
+adicional debería indicar un número de línea cercano al de aquella
+donde está el error.  Las comillas desbalanceadas estarán por lo
+general una o dos líneas por encima.
+
+@node Error message Unbound variable %
+@unnumberedsubsubsec Error message Unbound variable %
+
+Este mensaje de error aparece al final de los mensajes de la consola o
+del archivo de registro junto a un mensaje @qq{GUILE señaló un error
+...} cada vez que se llame a una rutina de Scheme que
+(incorrectamente) contenga un comentario @emph{de LilyPond} en lugar
+de un comentario @emph{de Scheme}.
+
+Los comentarios de LilyPond comienzan con un símbolo de porcentaje,
+(@code{%}), y no se deben utilizar dentro de las rutinas de Scheme.
+Los comentarios de Scheme comienzan con punto y coma, (@code{;}).
 
 
 @node Troubleshooting (taking it all apart)

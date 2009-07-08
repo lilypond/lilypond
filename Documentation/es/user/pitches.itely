@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5a5db8a01f4617ca0924120494562d9ed88b2869
+    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -499,7 +499,7 @@ y los sufijos de las alteraciones correspondientes que definen son:
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
 @item @file{espanol.ly}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab -s @tab -b @tab -ss/-x @tab -bb
 @item @file{italiano.ly}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @file{norsk.ly}
@@ -539,8 +539,8 @@ de un sostenido o bemol @q{normales}.  Los nombres de nota para
 cuartos de tono que se definen en los distintos archivos de idioma se
 encuentran listados en la tabla siguiente.  Aquí los prefijos
 @q{semi-} y @q{sesqui-} significan @q{medio} y @q{uno y medio}
-respectivamente.  Para los idiomas noruego, sueco, catalán y español
-no se ha definido aún ningún nombre especial.
+respectivamente.  Para los otros idiomas no se ha definido aún ningún
+nombre especial.
 
 @quotation
 @multitable {@file{nederlands.ly}} {@b{semi-sostenido}} {@b{semi-bemol}} {@b{sesqui-sostenido}} {@b{sesqui-bemol}}
@@ -555,6 +555,8 @@ no se ha definido aún ningún nombre especial.
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @file{english.ly}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item @file{espanol.ly}
+  @tab -cs @tab -cb @tab -tcs @tab -tcb
 @item @file{italiano.ly}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @file{portugues.ly}
@@ -885,6 +887,16 @@ c2 c
 c2 c
 \clef tab
 c2 c
+
+\break
+
+\clef G
+c2 c
+\clef F
+c2 c
+\clef C
+c2 c
+
 @end lilypond
 
 Están contempladas claves adicionales que se describen bajo
