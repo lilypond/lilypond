@@ -2,7 +2,7 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-SUBDIRS=devel user bibliography pictures topdocs misc po $(LANGS)
+SUBDIRS=devel user essay bibliography pictures topdocs misc po $(LANGS)
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'

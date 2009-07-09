@@ -564,7 +564,7 @@ LilyPond with debugging information.  This is accomplished by running
 the following commands in the main LilyPond source directory.
 
 @example
-./configure  --disable-optimization
+./configure  --disable-optimising
 
 make
 @end example
