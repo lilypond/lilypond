@@ -277,6 +277,20 @@ You may then:
 git push origin
 @end example
 
+Note that recent versions of Git (Git 1.6.3 or later) will issue a
+big warning if the above command is used.  The simplest solution
+is to add a new section to @file{.git/config} that looks like
+this:
+
+@example
+[push]
+        default = matching
+@end example
+
+@noindent
+Then @code{git push origin} will work as before.  For more
+details, consult the @code{git push} man page.
+
 
 @node Advanced git stuff
 @section Advanced git stuff
