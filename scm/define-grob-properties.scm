@@ -178,7 +178,7 @@ this should list the control points of a third-order B@'ezier curve.")
 ;; d
 ;;
      (damping ,number? "Amount of beam slope damping.")
-     (dash-definition ,pair? "List of @code{dash-elements} defining the 
+     (dash-definition ,pair? "List of @code{dash-elements} defining the
 dash structure.  Each @code{dash-element} has a starting t value,
 an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
      (dash-fraction ,number? "Size of the dashes, relative to
@@ -189,7 +189,7 @@ whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
      (details ,list? "Alist of parameters for detailed grob behavior.
-More information on the allowed parameters for a grob can be found by 
+More information on the allowed parameters for a grob can be found by
 looking at the top of the Internals Reference page for each interface
 having a @code{details} property.")
      (digit-names ,vector? "Names for string finger digits.")
@@ -853,9 +853,9 @@ constructed from a whole number of squiggles.")
      (adjacent-pure-heights ,pair? "A pair of vectors.  Used by a
 @code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
 ranges.")
-     (adjacent-hairpins ,ly:grob-array? "A list of directly neighboring
+     (adjacent-hairpins ,ly:grob-array? "An array of directly neighboring
 hairpins.")
-     (all-elements ,ly:grob-array? "A list of all grobs in this line.  Its
+     (all-elements ,ly:grob-array? "An array of all grobs in this line.  Its
 function is to protect objects from being garbage collected.")
      (arpeggio ,ly:grob? "A pointer to an @code{Arpeggio} object.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
@@ -864,14 +864,14 @@ function is to protect objects from being garbage collected.")
      (bar-extent ,number-pair? "The Y-extent of the actual bar line.
 This may differ from @code{Y-extent} because it does not include the dots in
 a repeat bar line.")
-     (bars ,ly:grob-array? "A list of bar line pointers.")
+     (bars ,ly:grob-array? "An array of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
-     (bounded-by-me ,ly:grob-array? "A list of spanners that have this
+     (bounded-by-me ,ly:grob-array? "An array of spanners that have this
 column as start/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
      (bracket ,ly:grob? "The bracket for a number.")
 
-     (columns ,ly:grob-array? "A list of grobs, typically containing
+     (columns ,ly:grob-array? "An array of grobs, typically containing
 @code{PaperColumn} or @code{NoteColumn} objects.")
      (conditional-elements ,ly:grob-array? "Internal use only.")
      (cross-staff ,boolean? "For a beam or a stem, this is true if we
@@ -882,7 +882,7 @@ set, which grob to get the direction from.")
      (dot ,ly:grob? "A reference to a @code{Dots} object.")
      (dots ,ly:grob-array? "Multiple @code{Dots} objects.")
 
-     (elements ,ly:grob-array? "A list of grobs; the type is depending on
+     (elements ,ly:grob-array? "An array of grobs; the type is depending on
 the grob where this is set in.")
      (encompass-objects ,ly:grob-array? "Objects that a slur should avoid
 in addition to notes and stems.")
@@ -893,15 +893,15 @@ in addition to notes and stems.")
      (glyph-name ,string? "The glyph name within the font.")
      (grace-spacing ,ly:grob? "A run of grace notes.")
 
-     (heads ,ly:grob-array? "A list of note heads.")
+     (heads ,ly:grob-array? "An array of note heads.")
 
      (important-column-ranks ,vector? "A cache of columns that contain
 @code{items-worth-living} data.")
-     (items-worth-living ,ly:grob-array? "A list of interesting items.  If
+     (items-worth-living ,ly:grob-array? "An array of interesting items.  If
 empty in a particular staff, then that staff is erased.")
 
      (left-items ,ly:grob-array? "DOCME")
-     (left-neighbors ,ly:grob-array? "A list of @code{spacing-wishes} grobs
+     (left-neighbors ,ly:grob-array? "An array of @code{spacing-wishes} grobs
 that are close to the current column.
 
 The closest @code{spacing-wishes} determine the actual distances between the
@@ -910,7 +910,7 @@ columns.")
      (normal-stems ,ly:grob-array? "An array of visible stems.")
      (note-columns ,pair? "A list of @code{NoteColumn} grobs.")
      (note-head ,ly:grob? "A single note head.")
-     (note-heads ,ly:grob-array? "A list of note head grobs.")
+     (note-heads ,ly:grob-array? "An array of note head grobs.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
      (pure-Y-common ,ly:grob? "A cache of the
@@ -924,33 +924,33 @@ relevant for finding the @code{pure-Y-extent}.")
 
      (rest ,ly:grob? "A pointer to a @code{Rest} object.")
      (rest-collision ,ly:grob? "A rest collision that a rest is in.")
-     (rests ,ly:grob-array? "A list of rest objects.")
+     (rests ,ly:grob-array? "An array of rest objects.")
      (right-items ,ly:grob-array? "DOCME")
      (right-neighbors ,ly:grob-array? "See @code{left-neighbors}.")
 
-     (separation-item ,ly:grob? "A separation item.")
-     (side-support-elements ,ly:grob-array? "The side support, a list of
+     (separation-item ,ly:grob? "A pointer to a @code{SeparationItem}
+object.")
+     (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spaceable-staves ,ly:grob-array? "Objects to be spaced during page
 layout.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
-     (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing
+     (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
-     (stems ,ly:grob-array? "A list of stem objects, corresponding to the
-notes that the arpeggio has to be before.")
+     (stems ,ly:grob-array? "An array of stem objects.")
 
      (tie ,ly:grob? "A pointer to a @code{Tie} object.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
-     (tuplets ,ly:grob-array? "A list of smaller tuplet brackets.")
+     (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
 
      ;;;;;;;;;;;;;;;;
      ;; other
-     (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or 
-@code{FretBoard} be visible only at beginning of line or at 
+     (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or
+@code{FretBoard} be visible only at beginning of line or at
 chord changes.")
 
      (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
