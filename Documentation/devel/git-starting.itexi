@@ -314,6 +314,7 @@ Git branches of LilyPond source code is presented.
 * Working on LilyPond sources with several branches::  
 * Git log::                     
 * Applying git patches::        
+* Reverting all local changes::  
 @end menu
 
 
@@ -569,6 +570,19 @@ author of the patch.  This can be done with the following command:
 
 @example
 git commit -a --author="First Last <user@@example.net>"
+@end example
+
+
+@node Reverting all local changes
+@subsection Reverting all local changes
+
+Sometimes git will become hopelessly confused, and you just want
+to get back to a known, stable state.  This command destroys any
+local changes you have made, but at least you get back to the
+current online version:
+
+@example
+git reset --hard origin/master
 @end example
 
 
