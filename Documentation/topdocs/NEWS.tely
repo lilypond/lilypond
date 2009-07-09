@@ -62,6 +62,14 @@ which scares away people.
 
 @end ignore
 
+@item Intermediate .ps files which are created by LilyPond
+during compilation are now deleted by default.  To keep them,
+add the line
+@example
+#(ly:set-option 'delete-intermediate-files #f)
+@end example
+to your input files.
+
 @item Dashed and dotted slurs, phrasing slurs, and ties
 have been made variable thickness, and
 partially dashed slurs are now available:
