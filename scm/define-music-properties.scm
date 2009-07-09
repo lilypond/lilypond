@@ -49,6 +49,9 @@ TODO: Use SpanEvents?")
 cautionary accidental.")
      (change-to-id ,string? "Name of the context to change to.")
      (change-to-type ,symbol? "Type of the context to change to.")
+     (class ,symbol? "The music class used for a music expression,
+or the event class used for a stream event.  The list of classes
+is found in @ref{Music classes}.")
      (compress-procedure ,procedure? "Compress this music expression.
 Arg@tie{}1: the music, arg@tie{}2: factor.")
      (context-id ,string? "Name of context.")
