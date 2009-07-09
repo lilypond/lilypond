@@ -277,6 +277,7 @@ You may then:
 git push origin
 @end example
 
+
 @node Advanced git stuff
 @section Advanced git stuff
 
@@ -512,7 +513,6 @@ order to apply pushed changes in the working tree of the main
 repository.
 
 
-
 @node Git log
 @subsection Git log
 
@@ -530,22 +530,32 @@ gitk        # shows history graphically
 @warning{The @code{gitk} command may require a separate @code{gitk} package,
 available in the appropriate distribution's repositories.}
 
+
 @node Applying git patches
 @subsection Applying git patches
 
-Well-formed git patches should be committed with
+Well-formed git patches created with @code{git format-patch}
+should be committed with the following command:
 
 @example
-git am
+git am @var{patch}
 @end example
 
-Patches created without @code{git format-patch} should be
-committed with
+Patches created without @code{git format-patch} can be applied in
+two steps.  The first step is to apply the patch to the working
+tree:
 
 @example
-git apply
+git apply @var{patch}
 @end example
 
+@noindent
+The second step is to commit the changes and give credit to the
+author of the patch.  This can be done with the following command:
+
+@example
+git commit -a --author="First Last <user@@example.net>"
+@end example
 
 
 @node Git on Windows
