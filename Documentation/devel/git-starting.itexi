@@ -266,10 +266,10 @@ url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
 @noindent
 where @var{user} is your login name on Savannah.
 
-If you have not already done so, you should generate and upload a SSH
-key: open @uref{https://savannah.gnu.org/my/} in your browser, then go to
-@q{Preferences} then to something like @q{Edit SSH Keys}, and follow
-the instructions on that page.
+If you have not already done so, you should generate and upload a
+SSH key: open @uref{https://savannah.gnu.org/my/} in your browser,
+go to @q{Account Configuration}, then to something like
+@q{Edit SSH Keys}, and follow the instructions on that page.
 
 You may then:
 
