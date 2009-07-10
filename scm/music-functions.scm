@@ -384,6 +384,7 @@ i.e.  this is not an override"
 			;; TODO: take this from voicedGraceSettings or similar.
 			'((Voice Stem font-size -3)
 			  (Voice NoteHead font-size -3)
+                          (Voice TabNoteHead font-size -4)
 			  (Voice Dots font-size -3)
 			  (Voice Stem length-fraction 0.8)
 			  (Voice Stem no-stem-extend #t)

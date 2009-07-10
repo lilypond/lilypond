@@ -628,6 +628,7 @@ automatically when an output definition (a @code{\score} or
     (Voice Stem direction ,UP)
     (Voice Stem font-size -3)
     (Voice NoteHead font-size -3)
+    (Voice TabNoteHead font-size -4)
     (Voice Dots font-size -3)
     (Voice Stem length-fraction 0.8)
     (Voice Stem no-stem-extend #t)
@@ -716,12 +717,39 @@ context."
 
   %% No accidental in tablature !
   \remove "Accidental_engraver"
-
-  \override Glissando #'extra-dy = #0.75
+  %% remove stems, beams, dots and rests ...
+  \override Stem #'stencil = ##f
+  \override Beam #'stencil = ##f
+  \override Dots #'stencil = ##f
+  \override Rest #'stencil = ##f
+  \override MultiMeasureRest #'stencil = ##f
+  %% ... all kinds of ties/slurs
+  \override Tie  #'stencil = ##f
+  \override RepeatTie #'stencil = ##f
+  \override LaissezVibrerTie #'stencil = ##f
+  \override Slur #'stencil = ##f
+  \override PhrasingSlur #'stencil = ##f
+  %% 'tied to' fret numbers become invisible or parenthesized, respectively)
+  \override Tie #'after-line-breaking = #tie::handle-tab-tie
+  \override RepeatTie #'after-line-breaking = #repeat-tie::parenthesize-tab-note-head
+  %% ... and all kinds of markups, spanners etc.
+  \override TupletBracket #'stencil = ##f
+  \override TupletNumber #'stencil = ##f
+  \override DynamicText #'transparent = ##t
+  \override DynamicTextSpanner #'stencil = ##f
+  \override TextSpanner #'stencil = ##f
+  \override Hairpin #'transparent = ##t
+  \override Script #'stencil = ##f
+  \override TextScript #'stencil = ##f
+  %% the direction for glissando lines will be automatically corrected
+  \override Glissando #'extra-dy = #glissando::calc-tab-extra-dy
   \override Glissando #'bound-details #'right = #`((attach-dir . ,LEFT)
 						   (padding . 0.3))
   \override Glissando #'bound-details #'left = #`((attach-dir . ,RIGHT)
 						   (padding . 0.3))
+  %% dead notes
+  \override TabNoteHead #'glyph-name = #tab-note-head::calc-glyph-name
+  \override TabNoteHead #'stencil = #tab-note-head::whiteout-if-style-set
 }
 
 \context {
@@ -746,6 +774,14 @@ context."
   \remove "Accidental_engraver"
   \remove "Key_engraver"
   \remove "String_number_engraver"
+  %% the clef handler
+  \override Clef #'stencil = #clef::print-modern-tab-if-set
+  %% no time signature
+  \override TimeSignature #'stencil = ##f
+  %% better parentheses in a TabStaff
+  \override ParenthesesItem #'stencils = #parentheses-item::calc-tabstaff-parenthesis-stencils
+  %% no arpeggios
+  \override Arpeggio #'stencil = ##f
   %% Special "TAB" clef
   clefGlyph = #"clefs.tab"
   clefPosition = #0

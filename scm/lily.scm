@@ -397,6 +397,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "paper.scm"
     "backend-library.scm"
     "x11-color.scm"
+    "tablature.scm"
 
     ;; must be after everything has been defined
     "safe-lily.scm"))

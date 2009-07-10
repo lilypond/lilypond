@@ -420,3 +420,84 @@ pointAndClickOff = #(define-music-function (parser location) ()
 pointAndClickOn = #(define-music-function (parser location) ()
                       (ly:set-option 'point-and-click #t)
                       (make-music 'SequentialMusic 'void #t))
+
+palmMuteOn = {
+  \override NoteHead #'style = #'do
+}
+
+palmMuteOff = {
+  \revert NoteHead #'style
+}
+
+palmMute =
+#(define-music-function (parser location note) (ly:music?)
+  ;; are we inside a <...>?
+  (if (eq? (ly:music-property note 'name) 'NoteEvent)
+      ;; yes -> add a tweak
+      (begin (set! (ly:music-property note 'tweaks)
+                    (acons 'style 'do (ly:music-property note 'tweaks)))
+      note)
+      ;; no -> use predefined commands to switch to triangle-shaped note heads
+      #{
+        \palmMuteOn
+        $note
+        \palmMuteOff
+      #}))
+
+deadNotesOn = {
+  \override TabNoteHead #'style = #'cross
+  \override NoteHead #'style = #'cross
+}
+
+deadNotesOff = {
+  \revert TabNoteHead #'style
+  \revert NoteHead #'style
+}
+
+deadNote =
+#(define-music-function (parser location note) (ly:music?)
+  ;; are we inside a <...>?
+  (if (eq? (ly:music-property note 'name) 'NoteEvent)
+      ;; yes -> add a tweak
+      (begin (set! (ly:music-property note 'tweaks)
+                    (acons 'style 'cross (ly:music-property note 'tweaks)))
+       note)
+       ;; no -> use predefined commmands for changing
+       ;; note head and tablature fret signs
+       #{
+         \deadNotesOn
+         $note
+         \deadNotesOff
+       #}))
+
+tabFullNotation = {
+  % time signature
+  \revert TabStaff.TimeSignature #'stencil
+  % stems (the half note gets a double stem)
+  \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
+  % beams, dots
+  \revert TabVoice.Beam #'stencil
+  \revert TabVoice.Dots #'stencil
+  \revert TabVoice.Tie #'stencil
+  \revert TabVoice.Tie #'after-line-breaking
+  \revert TabVoice.RepeatTie #'stencil
+  \revert TabVoice.RepeatTie #'after-line-braking
+  \revert TabVoice.LaissezVibrerTie #'stencil
+  \revert TabVoice.Slur #'stencil
+  \revert PhrasingSlur #'stencil
+  % tuplet stuff
+  \revert TabVoice.TupletBracket #'stencil
+  \revert TabVoice.TupletNumber #'stencil
+  % dynamic signs
+  \revert DynamicText #'transparent
+  \revert DynamicTextSpanner #'stencil
+  \revert TabVoice.DynamicTextSpanner #'stencil
+  \revert TabVoice.Hairpin #'transparent
+  % rests
+  \revert TabVoice.Rest #'stencil
+  \revert TabVoice.MultiMeasureRest #'stencil
+  % markups etc.
+  \revert TabVoice.Script #'stencil
+  \revert TabVoice.TextScript #'stencil
+  \revert TabStaff.Arpeggio #'stencil
+}
