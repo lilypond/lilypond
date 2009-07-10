@@ -229,13 +229,17 @@ This mode is used by default by @command{lilypond-book}.
 
 @item svg
 @cindex SVG (Scalable Vector Graphics)
- for SVG (Scalable Vector Graphics).  This dumps every page as a separate
-@file{SVG} file, with embedded fonts.
-  You need a SVG viewer which supports embedded fonts, or a SVG
-  viewer which is able to replace the embedded fonts with OTF fonts.
-  Under UNIX, you may use @uref{http://www.inkscape.org,Inkscape}
-  (version 0.42 or later), after copying the OTF fonts from the LilyPond directory
-  (typically @file{/usr/share/lilypond/VERSION/fonts/otf/}) to @file{~/.fonts/}.
+ for SVG (Scalable Vector Graphics).
+
+ This creates a single SVG file containing the entire music
+ output, with embedded fonts.  You need an SVG viewer that
+ supports embedded fonts, or an SVG viewer that can replace the
+ embedded fonts with OTF fonts.  Under UNIX, you may use
+ @uref{http://www.inkscape.org,Inkscape} (version 0.42 or later),
+ after copying the OTF fonts from the LilyPond directory
+ (typically @file{/usr/share/lilypond/VERSION/fonts/otf/}) to
+ @file{~/.fonts/}.
+
 @item scm
 @cindex Scheme dump
  for a dump of the raw, internal Scheme-based drawing commands.
