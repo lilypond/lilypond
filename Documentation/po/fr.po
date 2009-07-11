@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-06 23:05+0200\n"
-"PO-Revision-Date: 2009-06-30 19:25+0200\n"
+"PO-Revision-Date: 2009-07-11 22:03+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -3530,27 +3530,26 @@ msgstr "Mise à jour d'anciens fichiers"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
-#, fuzzy
 msgid "Common errors"
-msgstr "Accords courants"
+msgstr "Quelques erreurs des plus courantes"
 
 #. @node in Documentation/user/working.itely
 #. @unnumberedsubsubsec in Documentation/user/working.itely
 msgid "Music runs off the page"
-msgstr ""
+msgstr "La musique déborde de la page"
 
 #. @node in Documentation/user/working.itely
 msgid "Apparent error in ../ly/init.ly"
-msgstr ""
+msgstr "Erreur renvoyant à ../ly/init.ly"
 
 #. @unnumberedsubsubsec in Documentation/user/working.itely
 msgid "Apparent error in @code{../ly/init.ly}"
-msgstr ""
+msgstr "Erreur renvoyant à @code{../ly/init.ly}"
 
 #. @node in Documentation/user/working.itely
 #. @unnumberedsubsubsec in Documentation/user/working.itely
 msgid "Error message Unbound variable %"
-msgstr ""
+msgstr "Message d'erreur « Unbound variable % »"
 
 #. @node in Documentation/user/working.itely
 #. @subsection in Documentation/user/working.itely
@@ -4358,14 +4357,12 @@ msgid "Updating files with @command{convert-ly}"
 msgstr "Mise à jour des fichiers avec @command{convert-ly}"
 
 #. @node in Documentation/user/running.itely
-#, fuzzy
 msgid "Invoking convert-ly"
-msgstr "Utilisation d'etf2ly"
+msgstr "Utilisation de convert-ly"
 
 #. @subsection in Documentation/user/running.itely
-#, fuzzy
 msgid "Invoking @command{convert-ly}"
-msgstr "Utilisation de @command{etf2ly}"
+msgstr "Utilisation de @command{convert-ly}"
 
 #. @node in Documentation/user/running.itely
 #. @node in Documentation/es/user/running.itely
@@ -5216,9 +5213,7 @@ msgstr "Fonctionne car le contexte est spécifié"
 
 #. Documentation/user/rhythms.itely:1857 (comment)
 msgid "undo a rule ending 1/16 beams in 4/4 time at 1/4 moment"
-msgstr ""
-"annulation de la règle de fin de ligature des doubles croches, dans une "
-"mesure à 4/4, au moment de la première noire"
+msgstr "annulation de la règle de fin de ligature des doubles croches, dans un 4/4, sur la première noire"
 
 #. Documentation/user/rhythms.itely:1870 (comment)
 msgid "this won't revert it!"
@@ -11546,7 +11541,7 @@ msgstr ""
 
 #. input/lsr/demo-midiinstruments.ly:23 (variable)
 msgid "baseMelody"
-msgstr ""
+msgstr "baseMelodique"
 
 #. input/lsr/display-bracket-with-only-one-staff-in-a-system.ly:55 (comment)
 msgid "Must be lower than the actual number of staff lines"
