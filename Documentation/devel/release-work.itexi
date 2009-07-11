@@ -165,6 +165,36 @@ Web:
 
 @subheading Technical notes
 
+To build GUB:
+
+@itemize
+
+@item 
+Run the following (from the gub/ dir):
+@example
+mkdir -p uploads/v2-13/
+mkdir -p uploads/v2.13.0/
+touch uploads/v2-13/index.html
+@end example
+
+@item
+Download @file{lilypond-2.13.0-0.test-output.tar.bz2}
+
+@item 
+Copy / move / link it to uploads, but rename it to
+@file{lilypond-2-13.test-output.tar.bz2}
+
+@item
+Run:
+@example
+make -f lilypond.make update-versions
+make -f lilypond.make unlocked-test-export
+@end example
+
+@end itemize
+
+To upload:
+
 @itemize
 
 @item remove the "t" from the rsync command in test-lily/rsync-lily-doc.py
