@@ -127,12 +127,12 @@ proportional notation, see @ref{Proportional notation}.
 @funindex dotsNeutral
 
 Dots are normally moved up to avoid staff lines, except in
-polyphonic situations.  Predefined commands are available to
-force a particular direction manually, for details
-see @ref{Direction and placement}.
+polyphonic situations.  Dots may be manually placed above or below
+the staff; see @ref{Direction and placement}.
 
 
 @predefined
+@code{\autoBeamOn},
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
@@ -211,9 +211,8 @@ c4 c \times 2/3 { b4 a g }
 @funindex \tupletNeutral
 @funindex tupletNeutral
 
-The automatic placement of the tuplet bracket above or below the
-notes may be overridden manually with predefined commands, for
-details see @ref{Direction and placement}.
+Tuplet brackets may be manually placed above or below the staff;
+see @ref{Direction and placement}.
 
 Tuplets may be nested:
 
@@ -464,8 +463,7 @@ be entered as follows:
 @funindex \tieNeutral
 @funindex tieNeutral
 
-The vertical placement of ties may be controlled, see
-Predefined commands, or for details, see
+Ties may be manually placed above or below the staff; see
 @ref{Direction and placement}.
 
 @cindex ties, appearance

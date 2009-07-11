@@ -53,12 +53,7 @@ information, see @ref{Text encoding}.}
 @cindex non-empty texts
 @cindex quoted text
 
-Simple @qq{quoted text} indications may be added
-to a score, as demonstrated in the following example.
-Such indications may be manually placed
-above or below the staff, using the
-syntax described in @ref{Direction and
-placement}.
+Simple @qq{quoted text} indications may be added to a score.
 
 @lilypond[quote,verbatim,relative=2]
 a8^"pizz." g f e a4-"scherz." f
@@ -72,6 +67,10 @@ formatting may be added to a note by explicitly using a
 a8^\markup { \italic pizz. } g f e
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
+
+@qq{Quoted text} and @code{\markup} commands may be manually
+placed above or below the staff; see @ref{Direction and
+placement}.
 
 By default, text indications do not influence the note spacing.
 However, their widths can be taken into account:
@@ -150,6 +149,9 @@ e,\stopTextSpan
 The line style, as well as the text string, can be defined as an
 object property.  This syntax is described in @ref{Line styles}.
 
+Text spanners may be manually placed above or below the staff; see
+@ref{Direction and placement}.
+
 
 @predefined
 @funindex textSpannerUp
@@ -164,7 +166,8 @@ object property.  This syntax is described in @ref{Line styles}.
 @seealso
 Notation Reference:
 @ref{Line styles},
-@ref{Dynamics}.
+@ref{Dynamics},
+@ref{Direction and placement}.
 
 Snippets:
 @rlsr{Text}.

@@ -1951,6 +1951,15 @@ indicator is @strong{always} required before
 @item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
 @end itemize
 
+These indications affect only the next note.
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+c2_( c)
+c2( c)
+c2^( c)
+@end lilypond
+
 @strong{The direction property}
 
 The position or direction of many layout objects is controlled
@@ -1987,6 +1996,17 @@ StanzaNumber - not tried
 TrillPitchAccidental - not tried
 TrillPitchGroup - not tried
 @end ignore
+
+These indications affect all notes until they are cancelled.
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+\slurDown
+c2( c)
+c2( c)
+\slurNeutral
+c2( c)
+@end lilypond
 
 
 

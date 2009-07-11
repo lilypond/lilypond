@@ -107,7 +107,7 @@ c4->  c-.  c2-_
 
 The rules for the default placement of articulations are defined
 in @file{scm/@/script@/.scm}.  Articulations and ornamentations
-may be manually placed above or below the staff, see
+may be manually placed above or below the staff; see
 @ref{Direction and placement}.
 
 
@@ -194,9 +194,9 @@ such as @code{c4\ff}.  The available dynamic marks are
 @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
 @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp},
-@code{\spp}, @code{\sfz}, and @code{\rfz}.  The dynamic marks may
-be manually placed above or below the staff, see
-@ref{Direction and placement}.
+@code{\spp}, @code{\sfz}, and @code{\rfz}.  Dynamic marks may be
+manually placed above or below the staff; see @ref{Direction and
+placement}.
 
 @lilypond[verbatim,quote,relative=2]
 c2\ppp c\mp
@@ -522,16 +522,8 @@ a4 g2 f4)
 @funindex \slurNeutral
 @funindex slurNeutral
 
-Slurs may be manually placed above or below the notes, see
+Slurs may be manually placed above or below the staff; see
 @ref{Direction and placement}.
-
-@lilypond[verbatim,quote,relative=2]
-c2( d)
-\slurDown
-c2( d)
-\slurNeutral
-c2( d)
-@end lilypond
 
 @cindex phrasing slur
 @cindex multiple slurs
@@ -685,14 +677,8 @@ e2) d\)
 Typographically, a phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects; a
 @code{\slurUp} will have no effect on a phrasing slur.  Phrasing
-slurs may be manually placed above or below the notes, see
+may be manually placed above or below the staff; see
 @ref{Direction and placement}.
-
-@lilypond[verbatim,quote,relative=1]
-c4\( g' c,( b) | c1\)
-\phrasingSlurUp
-c4\( g' c,( b) | c1\)
-@end lilypond
 
 @cindex simultaneous phrasing slurs
 @cindex multiple phrasing slurs

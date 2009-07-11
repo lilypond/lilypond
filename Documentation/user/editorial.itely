@@ -451,6 +451,9 @@ Whenever a note is found, a @code{Stem} object is created
 automatically.  For whole notes and rests, they are also created but
 made invisible.
 
+Stems may be manually placed to point up or down; see
+@ref{Direction and placement}.
+
 
 @predefined
 @code{\stemUp},
