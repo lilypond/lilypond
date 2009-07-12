@@ -1,7 +1,5 @@
 TEXI_FILES = $(call src-wildcard,*.texi)
-
 ALL_SOURCES += $(TEXI_FILES)
-
 TEXINFO_SOURCES = $(TEXI_FILES)
 
 OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
@@ -9,6 +7,8 @@ OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
 GENERATE_OMF = $(buildscript-dir)/texi2omf --format $(1) --location $(webdir)/$(tree-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
 
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
+
+DOCUMENTATION_INCLUDES += -I $(top-src-dir)/Documentation
 
 MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
@@ -22,7 +22,7 @@ ifneq ($(ISOLANG),)
 TEXI2HTML_LANG = --lang=$(ISOLANG)
 endif
 TEXI2HTML_FLAGS += $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
-TEXI2HTML_INIT = --init-file=$(top-src-dir)/lilypond-texi2html.init
+TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 TEXI2HTML = $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
 
 TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)

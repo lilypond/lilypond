@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8135382760aa0adfac5aed987a272c394e59dbdb
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,6 +13,10 @@
 
 @c   ***** Displaying text *****
 
+@macro hash
+\#
+@end macro
+
 @c To get decent quotes in `foo' and ``foo''.
 @c FIXME: Use thin spaces for @qq.
 
@@ -23,7 +27,7 @@
 @end macro
 
 @macro qq{TEXT}
-@guillemetleft{}@tie{}\TEXT\@tie{}@guillemetright{}
+@quotedblleft{}\TEXT\@quotedblright{}
 @end macro
 
 @end ifnotinfo
@@ -45,7 +49,7 @@
 
 @macro warning{TEXT}
 @cartouche
-@b{Note :} \TEXT\
+@b{Note:} \TEXT\
 @end cartouche
 @end macro
 
@@ -57,7 +61,7 @@
 @quotation
 @quotation
 @cartouche
-@b{Note :} \TEXT\
+@b{Note:} \TEXT\
 @end cartouche
 @end quotation
 @end quotation
@@ -78,27 +82,9 @@
 @subsubheading Predefined commands
 @end macro
 
-@c The next macro is a dummy currently since texinfo doesn't
-@c provide a real ragged-right environment yet.
-@c
-@c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
-@c the macro must not be empty.
-
-@macro endpredefined
-@c
-@end macro
-
-
 @macro snippets
 @noindent
 @subsubheading Selected Snippets
-@end macro
-
-
-@c obsolete, remove when translation is fully updated
-@macro commonprop
-@noindent
-@subsubheading Commonly tweaked properties
 @end macro
 
 
@@ -116,7 +102,6 @@
 @noindent
 @subsubheading Known issues and warnings
 @end macro
-
 
 
 
@@ -148,61 +133,60 @@
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary-big-page,Glossaire}
+@ref{\TEXT\,,,music-glossary-big-page,Music Glossary}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossaire}
+@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning-big-page,Manuel d'initiation}
+@ref{\TEXT\,,,lilypond-learning-big-page,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-learning-big-page,Manuel d'initiation}
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning-big-page,Learning Manual}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-big-page,Manuel de notation}
+@ref{\TEXT\,,,lilypond-big-page,Notation Reference}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-big-page,Manuel de notation}
+@ref{\TEXT\,,\DISPLAY\,lilypond-big-page,Notation Reference}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-big-page,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,lilypond-program-big-page,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-program-big-page,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,lilypond-program-big-page,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-snippets-big-page,Exemples de code}
+@ref{\TEXT\,,,lilypond-snippets-big-page,Snippets}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,lilypond-snippets-big-page,Exemples de code}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets-big-page,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page,Référence des propriétés internes}
+@ref{\TEXT\,,,lilypond-internals-big-page,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals-big-page,Internals Reference}
 @end macro
 
 @end ifset
@@ -214,61 +198,60 @@
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary,Glossaire}
+@ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossaire}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-learning,Manuel d'initiation}
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond,Manuel de notation}
+@ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond,Manuel de notation}
+@ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-program,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
+@ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Exemples de code}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
 @end macro
 
 @end ifclear
@@ -280,74 +263,56 @@
 
 @iftex
 
-@c All commands below should work in the middle of the line;
-@c we thus must not use @vindex directly since it works only if placed
-@c on a line of its own.  To overcome this problem, we define a
-@c replacement macro using the internal definition of @vindex which
-@c delimits arguments in the standard way (i.e., with braces).
-
-@tex
-\gdef\lilyvindex#1{\doind{vr}{\code #1}\ignorespaces}
-@end tex
-
 @macro rglos{TEXT}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,,music-glossary,Glossaire}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossaire}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,,lilypond-learning.fr,Manuel d'initiation}
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,lilypond-learning.fr,Manuel d'initiation}
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning,Learning Manual}
 @end macro
 
 @macro ruser{TEXT}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,,lilypond.fr,Manuel de notation}
+@ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,lilypond.fr,Manuel de notation}
+@ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
 @end macro
 
 @macro rprogram{TEXT}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,,lilypond-program.fr,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,lilypond-program.fr,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
+@ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Exemples de code}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@lilyvindex{\TEXT\}
-@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
 @end macro
 
 @end iftex
@@ -355,7 +320,4 @@
 
 @c   ***** Macros specific to translated docs *****
 
-@macro englishref
-Cette section n'est pas encore encore traduite, veuillez
-vous reporter à la documentation correspondante en anglais.
-@end macro
+@c None currently defined

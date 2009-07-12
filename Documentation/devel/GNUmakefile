@@ -5,6 +5,8 @@ XREF_MAP_FLAGS = --split section -I $(abs-src-dir)
 STEPMAKE_TEMPLATES = documentation tex texinfo topdocs
 LOCALSTEPMAKE_TEMPLATES = ly
 
+# DOCUMENTATION_INCLUDES = -I $(top-src-dir)/Documentation/user
+
 include $(depth)/make/stepmake.make
 
 HTML_PAGE_NAMES = index
