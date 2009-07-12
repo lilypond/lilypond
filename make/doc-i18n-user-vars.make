@@ -30,7 +30,7 @@ XREF_MAPS_DIR=$(top-build-dir)/out/xref-maps
 XREF_MAPS_FILES=$(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
 
 # texi2html flags
-TEXI2HTML_INIT= --init-file=$(top-src-dir)/lilypond-texi2html.init
+TEXI2HTML_INIT= --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 TEXI2HTML_LANG=--lang=$(ISOLANG)
 TEXI2HTML_FLAGS += $(TEXI2HTML_LANG) $(DOCUMENTATION_INCLUDES) \
   -I $(XREF_MAPS_DIR)
