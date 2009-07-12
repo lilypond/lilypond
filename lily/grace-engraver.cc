@@ -80,10 +80,8 @@ Grace_engraver::consider_change_grace_settings ()
 		= scm_cons (scm_cons (c->self_scm (), entry), grace_settings_);
 	    }
 	  else
-	    {
-	      programming_error ("cannot find context: ");
-	      scm_display (context_name, scm_current_error_port ());
-	    }
+	      programming_error ("cannot find context from graceSettings: "
+				 + ly_symbol2string (context_name));
 	}
     }
 
