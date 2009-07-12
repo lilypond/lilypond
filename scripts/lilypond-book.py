@@ -29,7 +29,6 @@ TODO:
 '''
 
 import glob
-import md5
 import os
 import re
 import stat
@@ -1235,7 +1234,13 @@ class LilypondSnippet (Snippet):
 
     def get_checksum (self):
         if not self.checksum:
-            hash = md5.md5 (self.relevant_contents (self.full_ly ()))
+            # Work-around for md5 module deprecation warning in python 2.5+:
+            try: 
+                from hashlib import md5
+            except ImportError:
+                from md5 import md5
+
+            hash = md5 (self.relevant_contents (self.full_ly ()))
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
