@@ -204,8 +204,7 @@ Arpeggio::pure_height (SCM smob, SCM, SCM)
 }
 
 ADD_INTERFACE (Arpeggio,
-	       "Functions and settings for drawing an arpeggio symbol (a"
-	       " wavy line left to noteheads.",
+	       "Functions and settings for drawing an arpeggio symbol.",
 
 	       /* properties */
 	       "arpeggio-direction "
