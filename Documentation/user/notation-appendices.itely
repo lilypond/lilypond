@@ -575,7 +575,212 @@ The following symbols are available in the Emmentaler font and may be
 accessed directly using text markup such as @code{g^\markup @{
 \musicglyph #"scripts.segno" @}}, see @ref{Formatting text}.
 
-@lilypondfile[noindent]{font-table.ly}
+
+@subsection Clefs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #clefs
+@end lilypond
+
+
+@subsection Time Signatures
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #timesig
+@end lilypond
+
+
+@subsection Numbers
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #numbers
+@end lilypond
+
+
+@subsection Accidentals
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accidentals
+@end lilypond
+
+
+@subsection Default Noteheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #default-noteheads
+@end lilypond
+
+
+@subsection Special Noteheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #special-noteheads
+@end lilypond
+
+
+@subsection Shape-note Noteheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #shape-note-noteheads
+@end lilypond
+
+
+@subsection Rests
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #rests
+@end lilypond
+
+
+@subsection Flags
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #flags
+@end lilypond
+
+
+@subsection Dots
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dots
+@end lilypond
+
+
+@subsection Dynamics
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dynamics
+@end lilypond
+
+
+@subsection Scripts
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #scripts
+@end lilypond
+
+
+@subsection Arrowheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #arrowheads
+@end lilypond
+
+
+@subsection Bracket-tips
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #brackettips
+@end lilypond
+
+
+@subsection Pedal
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #pedal
+@end lilypond
+
+
+@subsection Accordion
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accordion
+@end lilypond
+
+
+@subsection Vaticana
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #vaticana
+@end lilypond
+
+
+@subsection Medicaea
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #medicaea
+@end lilypond
+
+
+@subsection Hufnagel
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #hufnagel
+@end lilypond
+
+
+@subsection Mensural
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #mensural
+@end lilypond
+
+
+@subsection Neomensural
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #neomensural
+@end lilypond
+
+
+@subsection Petrucci
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #petrucci
+@end lilypond
+
+
+@subsection Solesmes
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #solesmes
+@end lilypond
 
 
 @node Note head styles
