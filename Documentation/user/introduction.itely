@@ -49,9 +49,9 @@ The art of music typography is called @emph{(plate) engraving}.
 The term derives from the traditional process of music printing.
 Just a few decades ago, sheet music was made by cutting and
 stamping the music into a zinc or pewter plate in mirror image.
-The plate would be inked, the depressions caused by the cutting
+The plate would be inked, and the depressions caused by the cutting
 and stamping would hold ink.  An image was formed by pressing
-paper to the plate.  The stamping and cutting was completely done
+paper to the plate.  The stamping and cutting was done completely
 by hand.  Making a correction was cumbersome, if possible at all,
 so the engraving had to be perfect in one go.  Engraving was a
 highly specialized skill; a craftsman had to complete around five
@@ -60,7 +60,7 @@ another five years of experience were necessary to become truly
 skilled.
 
 Nowadays, all newly printed music is produced with computers.
-This has obvious advantages; prints are cheaper to make, and
+This has obvious advantages: prints are cheaper to make, and
 editorial work can be delivered by email.  Unfortunately, the
 pervasive use of computers has also decreased the graphical
 quality of scores.  Computer printouts have a bland, mechanical
@@ -78,7 +78,7 @@ computer print: the staff lines are thin, the weight of the flat
 symbol matches the light lines and it has a straight layout with
 sharp corners.  By contrast, the Bärenreiter flat has a bold,
 almost voluptuous rounded look.  Our flat symbol is designed
-after, among others, this one.  It is rounded, and its weight
+after this one, among others.  It is rounded, and its weight
 harmonizes with the thickness of our staff lines, which are also
 much thicker than lines in the computer edition.
 
@@ -205,25 +205,25 @@ up-stem/@/down-stem combination should be put farther apart, and
 the notes of a down-stem/@/up-stem combination should be put
 closer together, all depending on the combined vertical positions
 of the notes.  The upper two measures are printed with this
-correction, the lower two measures without, forming
+correction, the lower two measures, however, form
 down-stem/@/up-stem clumps of notes.
 
 
 Musicians are usually more absorbed with performing than with
-studying the looks of a piece of music, so nitpicking about
+studying the looks of a piece of music, so nitpicking
 typographical details may seem academic.  But it is not.  In
 larger pieces with monotonous rhythms, spacing corrections lead to
 subtle variations in the layout of every line, giving each one a
 distinct visual signature.  Without this signature all lines would
 look the same, and they become like a labyrinth.  If a musician
-looks away once or has a lapse in concentration, the lines might
+looks away once or has a lapse in concentration, he/she may easily
 lose their place on the page.
 
 Similarly, the strong visual look of bold symbols on heavy staff
 lines stands out better when the music is far away from the
-reader, for example, if it is on a music stand.  A careful
+reader: for example, if it is on a music stand.  A careful
 distribution of white space allows music to be set very tightly
-without cluttering symbols together.  The result minimizes the
+without crowding symbols together.  The result minimizes the
 number of page turns, which is a great advantage.
 
 This is a common characteristic of typography.  Layout should be
@@ -282,7 +282,7 @@ typographical style must also be accessible to the user.
 
 @item Finally, we continually refine the formatting algorithms, so
 we need a flexible approach to rules.  The C++ language forces a
-certain method of grouping rules that do not match well with how
+certain method of grouping rules that does not mesh well with how
 music notation works.
 
 @end itemize
@@ -350,8 +350,8 @@ Formatting rules are also preset variables: each object has
 variables containing procedures.  These procedures perform the
 actual formatting, and by substituting different ones, we can
 change the appearance of objects.  In the following example, the
-rule which note head objects are used to produce their symbol is
-changed during the music fragment.
+rule governing which note head objects are used to produce the
+note head symbol is changed during the music fragment.
 
 @lilypond[quote,ragged-right]
 #(set-global-staff-size 30)
@@ -402,18 +402,18 @@ changed during the music fragment.
 
 The formatting process decides where to place symbols.  However,
 this can only be done once it is decided @emph{what} symbols
-should be printed, in other words what notation to use.
+should be printed -- in other words, what notation to use.
 
 Common music notation is a system of recording music that has
 evolved over the past 1000 years.  The form that is now in common
-use dates from the early renaissance.  Although the basic form
+use dates from the early Renaissance.  Although the basic form
 (i.e., note heads on a 5-line staff) has not changed, the details
 still evolve to express the innovations of contemporary notation.
-Hence, it encompasses some 500 years of music.  Its applications
-range from monophonic melodies to monstrous counterpoints for
-large orchestras.
+Hence, common music notation encompasses some 500 years of music.
+Its applications range from monophonic melodies to monstrous
+counterpoints for a large orchestra.
 
-How can we get a grip on such a many-headed beast, and force it
+How can we get a grip on such a seven-headed beast, and force it
 into the confines of a computer program?  Our solution is to break
 up the problem of notation (as opposed to engraving, i.e.,
 typography) into digestible and programmable chunks: every type of
@@ -423,8 +423,8 @@ developed and improved separately.  Such plug-ins are called
 @code{engraver}s, by analogy with craftsmen who translate musical
 ideas to graphic symbols.
 
-In the following example, we see how we start out with a plug-in
-for note heads, the @code{Note_heads_engraver}.
+In the following example, we start out with a plug-in for note
+heads, the @code{Note_heads_engraver}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -456,7 +456,7 @@ for note heads, the @code{Note_heads_engraver}.
 @end lilypond
 
 @noindent
-Then a @code{Staff_symbol_engraver} adds the staff
+Then a @code{Staff_symbol_engraver} adds the staff,
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -487,7 +487,7 @@ Then a @code{Staff_symbol_engraver} adds the staff
 @end lilypond
 
 @noindent
-the @code{Clef_engraver} defines a reference point for the staff
+the @code{Clef_engraver} defines a reference point for the staff,
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -619,8 +619,8 @@ easy to type:
 @end example
 
 @noindent
-to create a quarter note C1 (middle C) and an eighth note D1 (D
-above middle C).
+to create a quarter note on middle C and an eighth note on D
+above middle C.
 
 @lilypond[quote]
 {
@@ -682,7 +682,7 @@ this grammar.  In other words, the syntax of LilyPond is clearly
 and unambiguously defined.
 
 User-interfaces and syntax are what people see and deal with most.
-They are partly a matter of taste, and also subject of much
+They are partly a matter of taste, and also the subject of much
 discussion.  Although discussions on taste do have their merit,
 they are not very productive.  In the larger picture of LilyPond,
 the importance of input syntax is small: inventing neat syntax is

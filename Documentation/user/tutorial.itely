@@ -346,7 +346,7 @@ Music Glossary: @rglos{beam}, @rglos{duration},
 @rglos{dotted note}.
 
 The @notation{duration} of a note is specified by a number after
-the note name.  @code{1} for a @notation{whole note}, @code{2} for
+the note name:  @code{1} for a @notation{whole note}, @code{2} for
 a @notation{half note}, @code{4} for a @notation{quarter note} and
 so on.  @notation{Beams} are added automatically.
 
@@ -1240,9 +1240,9 @@ the input, not relative to the @code{c''} in the initial
 @subheading Simultaneous music expressions: single staff
 
 To determine the number of staves in a piece, LilyPond looks at
-the beginning of the first expression.  If is a single note, there
-is one staff; if there is a simultaneous expression, there is more
-than one staff.
+the beginning of the first expression.  If there is a single note,
+there is one staff; if there is a simultaneous expression, there
+is more than one staff.
 
 @lilypond[verbatim,quote]
 \relative c'' {

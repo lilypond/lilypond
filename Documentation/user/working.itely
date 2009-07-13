@@ -128,9 +128,9 @@ piece of existing sheet music),
 
 @itemize
 
-@item Enter one manuscript (the physical copy) system at a time (but still
-only one bar per line of text), and
-check each system when you finish it.  You may use the
+@item Enter the manuscript (the physical copy of the music) into
+LilyPond one system at a time (but still only one bar per line of text),
+and check each system when you finish it.  You may use the
 @code{showLastLength} or @code{showFirstLength} properties to speed up
 processing -- see @ruser{Skipping corrected music}.
 

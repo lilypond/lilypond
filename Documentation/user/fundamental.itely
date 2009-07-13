@@ -891,8 +891,9 @@ The stem directions are automatically assigned with the
 odd-numbered voices taking upward stems and the even-numbered
 voices downward ones.  The stems for voices 1 and 2 are right,
 but the stems in voice 3 should go down in this particular piece
-of music.  We can correct this simply by missing out voice three
-and placing the music in voice four:
+of music.  We can correct this by skipping voice three
+and placing the music in voice four. This is done by simply
+adding another pair of @code{\\}.
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
@@ -1556,16 +1557,15 @@ cis4 cis2. g4
 The input is rather sparse, but in the output, bar lines,
 accidentals, clef, and time signature have been added.  When
 LilyPond @emph{interprets} the input the musical information
-is inspected in time order, similar to reading a score from left
-to right.  While reading the input, the program remembers where
-measure boundaries are, and which pitches require explicit
+is parsed from left to right, similar to the way a performer
+reads the score.  While reading the input, the program remembers
+where measure boundaries are, and which pitches require explicit
 accidentals.  This information must be held on several levels.
-For example, the effect of an accidental is limited
-to a single staff, while a bar line must be synchronized across
-the entire score.
+For example, an accidental affects only a single staff, while
+a bar line must be synchronized across the entire score.
 
 Within LilyPond, these rules and bits of information are grouped in
-@emph{Contexts}.  We have already met the @code{Voice} context.
+@emph{Contexts}.  We have already introduced the @code{Voice} context.
 Others are the @code{Staff} and @code{Score} contexts.  Contexts are
 hierarchical to reflect the hierarchical nature of a musical score.
 For example: a @code{Staff} context can contain many @code{Voice}

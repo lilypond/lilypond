@@ -183,13 +183,13 @@ properties.
 We have already met the commands @code{\set} and @code{\with}, used to
 change the properties of @strong{contexts} and to remove and add
 @strong{engravers}, in @ref{Modifying context properties}, and
-@ref{Adding and removing engravers}.  We now must meet some more
+@ref{Adding and removing engravers}.  We must now introduce some more
 important commands.
 
 The command to change the properties of @strong{layout objects} is
 @code{\override}.  Because this command has to modify
 internal properties deep within LilyPond its syntax is not
-as simple as the commands you have met so far.  It needs to
+as simple as the commands you have used so far.  It needs to
 know precisely which property of which object in which context
 has to be modified, and what its new value is to be.  Let's see
 how this is done.
@@ -819,16 +819,15 @@ from arbitrary text strings, which would appear as @code{"a text
 string"}; for more details about symbols and strings, see @ref{Scheme
 tutorial}.
 
-Ok, so the @code{\override} command we need to print the lyrics
-in italics should be
+The @code{\override} command needed to print the lyrics in italics is:
 
 @example
 \override LyricText #'font-shape = #'italic
 @end example
 
 @noindent
-and this should be placed just in front of and close to the
-lyrics which it should affect, like this:
+This should be placed just in front of the lyrics we wish to affect,
+like so:
 
 @cindex font-shape property, example
 @cindex italic, example
@@ -1034,7 +1033,7 @@ gives a list of Contexts in which the bar engraver operates.  All of
 them are of the type @code{Staff}, so the reason the @code{\override}
 command failed to work as expected is because @code{Barline} is not in
 the default @code{Voice} context.  If the context is specified
-wrongly, the command simply does not work.  No error message is
+incorrectly, the command simply does not work.  No error message is
 produced, and nothing is logged in the log file.  Let's try correcting
 it by adding the correct context:
 
