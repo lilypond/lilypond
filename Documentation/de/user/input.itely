@@ -396,7 +396,7 @@ werden,
 in Gesangstextabschnitten (@code{lyricmode}) müssen Leerzeichen
 zwischen alle Ausdrücke in @code{\override}- und @code{\set}-Befehlen
 gesetzt werden.  Insbesondere müssen um Punkte und Gleichzeitszeichen
-in Befehlen wie @code{\override Score . LyricTex #'font-size = #5)
+in Befehlen wie @code{\override Score . LyricTex #'font-size = #5)}
 und vor dem gesamten Befehl geschrieben werden.
 
 @end itemize
