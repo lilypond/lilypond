@@ -378,7 +378,8 @@
 (define (utf-8-string pango-font-description string)
   (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
 
-
+(define (embedded-svg string)
+  string)
 
 (define (setcolor r g b)
   (format "<g color=\"rgb(~a%,~a%,~a%)\">\n"

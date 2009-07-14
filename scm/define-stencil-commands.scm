@@ -19,6 +19,7 @@
        draw-line
        ellipse
        embedded-ps
+       embedded-svg
        glyph-string
        named-glyph
        oval
