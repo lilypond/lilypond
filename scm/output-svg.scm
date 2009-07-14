@@ -21,17 +21,17 @@
 (define this-module (current-module))
 
 (use-modules
- (guile)
- (ice-9 regex)
- (ice-9 format)
- (lily)
- (srfi srfi-1)
- (srfi srfi-13))
+  (guile)
+  (ice-9 regex)
+  (ice-9 format)
+  (lily)
+  (srfi srfi-1)
+  (srfi srfi-13))
 
 (define fancy-format format)
 (define format ergonomic-simple-format)
 
-(define lily-unit-length 1.75)
+(define lily-unit-length 1.7573)
 
 (define (dispatch expr)
   (let ((keyword (car expr)))
@@ -109,7 +109,10 @@
 	 (map (lambda (x) (char->entity x)) (string->list string))))
 
 (define svg-element-regexp
-  (make-regexp "^(<[a-z]+) (.*>)"))
+  (make-regexp "^(<[a-z]+) ?(.*>)"))
+
+(define scaled-element-regexp
+  (make-regexp "^(<[a-z]+ transform=\")(scale.[-0-9. ]+,[-0-9. ]+.\" .*>)"))
 
 (define pango-description-regexp-comma
   (make-regexp ",( Bold)?( Italic)?( Small-Caps)? ([0-9.]+)$"))
@@ -117,7 +120,7 @@
 (define pango-description-regexp-nocomma
   (make-regexp "( Bold)?( Italic)?( Small-Caps)? ([0-9.]+)$"))
 
-(define (pango-description-to-svg-font str expr)
+(define (pango-description-to-text str expr)
   (define alist '())
   (define (set-attribute attr val)
     (set! alist (assoc-set! alist attr val)))
@@ -146,21 +149,150 @@
 
     (apply entity 'text expr (reverse! alist))))
 
-(define (font-smob-to-svg-font font expr)
-  (let ((name-style (font-name-style font))
-	(size (modified-font-metric-font-scaling font)))
+(define (dump-path path scale . rest)
+  (define alist '())
+  (define (set-attribute attr val)
+    (set! alist (assoc-set! alist attr val)))
+  (if (not (null? rest))
+      (let* ((dx (car rest))
+	     (dy (cadr rest))
+	     (total-x (+ dx next-horiz-adv)))
+	(if (or (not (= 0 (inexact->exact total-x)))
+		(not (= 0 (inexact->exact dy))))
+	    (let ((x (ly:format "~4f" total-x))
+		  (y (ly:format "~4f" dy)))
+	      (set-attribute 'transform
+			     (string-append
+			       "translate(" x ", " y ") "
+			       "scale(" scale ", -" scale ")")))
+	    (set-attribute 'transform
+			   (string-append
+			     "scale(" scale ", -" scale ")"))))
+      (set-attribute 'transform (string-append
+				  "scale(" scale ", -" scale ")")))
 
-    (entity 'text expr
-	    ;; FIXME: The cdr of `name-style' cannot select the
-	    ;; correct SVG font, so we ignore this information for now
-	    `(font-family . ,(car name-style))
-	    `(font-size . ,size)
-	    '(text-anchor . "start"))))
+  (set-attribute 'd path)
+  (apply entity 'path "" (reverse alist)))
+
+
+;; A global variable for keeping track of the *cumulative*
+;; horizontal advance for glyph strings, but only if there
+;; is more than one glyph.
+(define next-horiz-adv 0.0)
+
+;; Matches the required "unicode" attribute from <glyph>
+(define glyph-unicode-value-regexp
+  (make-regexp "unicode=\"([^\"]+)\""))
+
+;; Matches the optional path data from <glyph>
+(define glyph-path-regexp
+  (make-regexp "d=\"([-MmZzLlHhVvCcSsQqTt0-9.\n ]*)\""))
+
+;; Matches a complete <glyph> element with the glyph-name
+;; attribute value of NAME.  For example:
+;;
+;; <glyph glyph-name="period" unicode="." horiz-adv-x="110"
+;; d="M0 55c0 30 25 55 55 55s55 -25 55
+;; -55s-25 -55 -55 -55s-55 25 -55 55z" />
+;;
+;; TODO: it would be better to use an XML library to extract
+;; the glyphs instead, and store them in a hash table.  --pmccarty
+;;
+(define (glyph-element-regexp name)
+  (make-regexp (string-append "<glyph"
+			      "(([\r\n\t ]+[-a-z]+=\"[^\"]*\")+)?"
+			      "[\r\n\t ]+glyph-name=\"("
+			      name
+			      ")\""
+			      "(([\r\n\t ]+[-a-z]+=\"[^\"]*\")+)?"
+			      "([\r\n\t ]+)?"
+			      "/>")))
+
+(define (extract-glyph all-glyphs name size . rest)
+  (let* ((new-name (regexp-quote name))
+	 (regexp (regexp-exec (glyph-element-regexp new-name) all-glyphs))
+	 (glyph (match:substring regexp))
+	 (unicode-attr (regexp-exec glyph-unicode-value-regexp glyph))
+	 (unicode-attr-value (match:substring unicode-attr 1))
+	 (unicode-attr? (regexp-match? unicode-attr))
+	 (d-attr (regexp-exec glyph-path-regexp glyph))
+	 (d-attr-value "")
+	 (d-attr? (regexp-match? d-attr))
+	 ;; TODO: not urgent, but do not hardcode this value
+	 (units-per-em 1000)
+	 (font-scale (ly:format "~4f" (/ size units-per-em)))
+	 (path ""))
+
+    (if (and unicode-attr? (not unicode-attr-value))
+	(ly:warning (_ "Glyph must have a unicode value")))
+
+    (if d-attr? (set! d-attr-value (match:substring d-attr 1)))
+
+    (cond (
+	   ;; Glyph-strings with path data
+	   (and d-attr? (not (null? rest)))
+	   (begin
+	     (set! path (apply dump-path d-attr-value
+					 font-scale
+					 (list (cadr rest) (caddr rest))))
+	     (set! next-horiz-adv (+ next-horiz-adv
+				     (car rest)))
+	     path))
+	  ;; Glyph-strings without path data ("space")
+	  ((and (not d-attr?) (not (null? rest)))
+	   (begin
+	     (set! next-horiz-adv (+ next-horiz-adv
+				     (car rest)))
+	     ""))
+	  ;; Font smobs with path data
+	  ((and d-attr? (null? rest))
+	    (set! path (dump-path d-attr-value font-scale))
+	    path)
+	  ;; Font smobs without path data ("space")
+	  (else
+	    ""))))
+
+(define (extract-glyph-info all-glyphs glyph size)
+  (let* ((offsets (list-head glyph 3))
+	 (glyph-name (car (reverse glyph))))
+    (apply extract-glyph all-glyphs glyph-name size offsets)))
+
+(define (svg-defs svg-font)
+  (let ((start (string-contains svg-font "<defs>"))
+	(end (string-contains svg-font "</defs>")))
+    (substring svg-font (+ start 7) (- end 1))))
+
+(define (cache-font svg-font size glyph)
+  (let ((all-glyphs (svg-defs (cached-file-contents svg-font))))
+    (if (list? glyph)
+	(extract-glyph-info all-glyphs glyph size)
+	(extract-glyph all-glyphs glyph size))))
+
+
+(define (feta-alphabet-to-path font size glyph)
+  (let* ((name-style (font-name-style font))
+	 (scaled-size (/ size lily-unit-length))
+	 (font-file (ly:find-file (string-append name-style ".svg"))))
+
+    (if font-file
+	(cache-font font-file scaled-size glyph)
+	(ly:warning (_ "cannot find SVG font ~S") font-file))))
+
+
+(define (font-smob-to-path font glyph)
+  (let* ((name-style (font-name-style font))
+	 (scaled-size (modified-font-metric-font-scaling font))
+	 (font-file (ly:find-file (string-append name-style ".svg"))))
+
+    (if font-file
+	(cache-font font-file scaled-size glyph)
+	(ly:warning (_ "cannot find SVG font ~S") font-file))))
+
 
 (define (fontify font expr)
   (if (string? font)
-      (pango-description-to-svg-font font expr)
-      (font-smob-to-svg-font font expr)))
+      (pango-description-to-text font expr)
+      (font-smob-to-path font expr)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -224,14 +356,27 @@
 (define (embedded-svg string)
   string)
 
+(define (glyph-string font size cid glyphs)
+  (define path "")
+  (if (= 1 (length glyphs))
+      (set! path (feta-alphabet-to-path font size (car glyphs)))
+      (begin
+	(set! path
+	      (string-append (eo 'g)
+			     (string-join
+			       (map (lambda (x)
+				      (feta-alphabet-to-path font size x))
+				    glyphs)
+			       "\n")
+			     (ec 'g)))))
+  (set! next-horiz-adv 0.0)
+  path)
+
 (define (grob-cause offset grob)
   "")
 
 (define (named-glyph font name)
-  (dispatch
-   `(fontify ,font ,(entity 'tspan
-			    (integer->entity
-			     (ly:font-glyph-name-to-charcode font name))))))
+  (dispatch `(fontify ,font ,name)))
 
 (define (no-origin)
   "")
@@ -292,21 +437,26 @@
 	  `(d . ,(string-join (convert-path-exps commands) " "))))
 
 (define (placebox x y expr)
-  (if (not (string-null? expr))
+  (if (string-null? expr)
+      ""
       (let*
-	((match (regexp-exec svg-element-regexp expr))
-	 (tagname (match:substring match 1))
-	 (attributes (match:substring match 2)))
+	((normal-element (regexp-exec svg-element-regexp expr))
+	 (scaled-element (regexp-exec scaled-element-regexp expr))
+	 (scaled? (if scaled-element #t #f))
+	 (match (if scaled? scaled-element normal-element))
+	 (string1 (match:substring match 1))
+	 (string2 (match:substring match 2)))
 
-	(string-append tagname
-		       ;; FIXME: Not using GNU coding standards
-		       ;; [translate ()] here to work around a
-		       ;; bug in Microsoft Internet Explorer 6.0
-		       (ly:format " transform=\"translate(~f, ~f)\" "
-				  x (- y))
-		       attributes
-		       "\n"))
-      ""))
+	(if scaled?
+	    (string-append string1
+			   (ly:format "translate(~4f, ~4f) " x (- y))
+			   string2
+			   "\n")
+	    (string-append string1
+			   (ly:format " transform=\"translate(~4f, ~4f)\" "
+				      x (- y))
+			   string2
+			   "\n")))))
 
 (define (polygon coords blot-diameter is-filled)
   (entity

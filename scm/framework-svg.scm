@@ -49,7 +49,6 @@
 	      `(viewBox . ,(ly:format "0 0 ~4f ~4f"
 				      paper-width paper-height))))
     
-    (dump (dump-fonts outputter paper))
     (dump
      (string-append
       ;; FIXME: only use pages if there are more than one, pageSet is
@@ -84,22 +83,3 @@
   (ly:outputter-dump-stencil outputter page)
   (if (or landscape? page-set?)
       (dump (ec 'page))))
-
-(define (embed-font string)
-  (let ((start (string-contains string "<defs>"))
-	(end (string-contains string "</defs>")))
-    (substring string (+ start 7) (- end 1))))
-
-(define (dump-fonts outputter paper)
-  (let* ((fonts (ly:paper-fonts paper))
-	 (font-names (uniq-list (sort
-				 (filter string?
-					 (map ly:font-file-name fonts)) string<?)))
-	 (svgs (map
-		(lambda (x)
-		  (let ((file-name (ly:find-file (string-append x ".svg"))))
-		    (if file-name (embed-font (cached-file-contents file-name))
-			(begin (ly:warning "cannot find SVG font ~S" x) ""))))
-		(filter string? font-names))))
-    (entity 'defs (string-join svgs "\n"))))
-
