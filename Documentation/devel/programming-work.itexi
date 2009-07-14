@@ -814,12 +814,12 @@ Once the patch has been pushed, all the relevant issues should be
 closed.
 
 On Rietveld, the author should log in an close the issue either by
-using the @quote{Edit Issue} link, or by clicking the circled x icon
+using the @q{Edit Issue} link, or by clicking the circled x icon
 to the left of the issue name.
 
 If the changes were in response to a feature request on the Google
 issue tracker for LilyPond, the author should change the status to
-@quote{Fixed_x_y_z} where the patch was fixed in version x.y.z.  If
+@q{Fixed_x_y_z} where the patch was fixed in version x.y.z.  If
 the author does not have privileges to change the status, an email
 should be sent to bug-lilypond requesting the BugMeister to change
 the status.
