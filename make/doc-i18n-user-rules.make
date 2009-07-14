@@ -21,8 +21,8 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 $(outdir)/%.png: $(top-build-dir)/Documentation/user/$(outdir)/%.png
 	ln -f $< $@
 
-$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi
-	$(buildscript-dir)/extract_texi_filenames -o $(XREF_MAPS_DIR) $<
+$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map
+	$(buildscript-dir)/extract_texi_filenames -o $(XREF_MAPS_DIR) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
 
 $(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
 
