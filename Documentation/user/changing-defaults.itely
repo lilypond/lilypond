@@ -3334,13 +3334,16 @@ scaling can be achieved by applying the same transformation to the
 curve's control points.
 
 For the example above the following override gives a satisfactory
-tie:
+tie.  Note the placement -- it has to be immediately before the note
+to which the start of the tie (or slur) is attached.
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  \once \override Tie
-    #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-  { e1 ~ e1 }
+  {
+    \once \override Tie
+      #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+     e1 ~ e1
+  }
 \\
   { r4 <g c,> <g c,> <g c,>4  }
 >>
