@@ -5,10 +5,11 @@
 @menu
 * Overview of LilyPond architecture::
 * LilyPond programming languages::
-* Programming without compiling::  
-* Finding functions::           
-* Code style::                  
-* Debugging LilyPond::          
+* Programming without compiling::
+* Finding functions::
+* Code style::
+* Debugging LilyPond::
+* Checklist for adding features::
 @end menu
 
 @node Overview of LilyPond architecture
@@ -103,7 +104,7 @@ Interpretation of Computer Programs}, a popular textbook used to teach
 programming in Scheme is available in its entirety online.
 
 An introduction to Guile/Scheme as used in LilyPond can be found in the
-Learning Manual, see @rlearning{Scheme tutorial}. 
+Learning Manual, see @rlearning{Scheme tutorial}.
 
 @subsection MetaFont
 
@@ -701,3 +702,124 @@ guile> (quit)
 
 The compilation of the .ly file will then continue.
 
+@node Adding or modifying features
+@section Adding or modifying features
+
+When a new feature is to be added to LilyPond, it is necessary to
+ensure that the feature is properly integrated to maintain
+its long-term support.  This section describes the steps necessary
+for feature addition.
+
+@subsection Write the code
+
+You should create a new git branch for writing the code, as that
+will separate it from the master branch and allow you to continue
+to work on small projects related to master.
+
+Please be sure to follow the rules for programming style discussed
+earlier in this chapter.
+
+@subsection Write regression tests
+
+In order to demonstrate that the code works properly, you will
+need to write one or more regression tests.  These tests are
+typically .ly files that are found in input/regression.
+
+Regression tests should be as brief as possible to demonstrate the
+functionality of the code.
+
+Regression tests should generally cover one issue per test.  Several
+short, single-issue regression tests are preferred to a single, long,
+multiple-issue regression test.
+
+Use existing regression tests as templates to demonstrate the type of
+header information that should be included in a regression test.
+
+@subsection Write documentation
+
+Although it is not required, it is helpful if the developer can
+write relevant material for inclusion in the Notation Reference.
+If the developer does not feel qualified to write the documentation,
+a documentation editor will be able to write it from the regression
+tests.
+
+@subsection Write convert-ly rule
+
+If the modification changes the input syntax, a convert-ly rule
+should be written to automatically update input files from older
+versions.
+
+convert-ly rules are found in python/convertrules.py
+
+If possible, the convert-ly rule should allow automatic updating
+of the file.  In some cases, this will not be possible, so the
+rule will simply point out to the user that the feature needs
+manual correction.
+
+@subsection Write NEWS entry
+
+An entry should be added to the NEWS file to describe the feature
+changes to be implemented.  This is especially important for changes
+that change input file syntax.
+
+Hints for NEWS file entries are given at the top of the NEWS file.
+
+New entries in NEWS go at the top of the file.
+
+The NEWS entry should be written to show how the new change
+improves LilyPond, if possible.
+
+@subsection Verify regression test
+
+In order to avoid breaking LilyPond, it is important to verify that
+the regression tests all succeed.  This process is described in
+@ref{Regression tests}.
+
+@subsection Post patch for comments
+
+For any change other than a minor change, a patch set should be
+posted on Rietveld for comment.
+
+The patch set is posted by issuing the following command, after
+first committing all changes:
+
+@example
+git-cl upload <reference SHA1 ID>
+@end example
+
+@noindent
+where <reference SHA1 ID> is the SHA1 ID of the commit to be used
+as a reference source for the patch (generally, this will be the
+SHA1 ID of origin/master).
+
+After prompting for an email and a password, the patch set will be
+posted to Rietveld.
+
+An email should then be sent to lilypond-devel, with a subject line
+starting with PATCH:, asking for comments on the patch.
+
+As revisions are made in response to comments, successive patch sets
+for the same issue can be uploaded by reissuing the git-cl command.
+
+@subsection Push patch
+
+Once all the comments have been addressed, the patch can be pushed.
+
+If the author has push privileges, the author will push the patch.
+Otherwise, a developer with push privileges will push the patch.
+
+@subsection Closing the issues
+
+Once the patch has been pushed, all the relevant issues should be
+closed.
+
+On Rietveld, the author should log in an close the issue either by
+using the @quote{Edit Issue} link, or by clicking the circled x icon
+to the left of the issue name.
+
+If the changes were in response to a feature request on the Google
+issue tracker for LilyPond, the author should change the status to
+@quote{Fixed_x_y_z} where the patch was fixed in version x.y.z.  If
+the author does not have privileges to change the status, an email
+should be sent to bug-lilypond requesting the BugMeister to change
+the status.
