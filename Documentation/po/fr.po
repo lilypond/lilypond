@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-06 23:05+0200\n"
-"PO-Revision-Date: 2009-06-30 19:25+0200\n"
+"PO-Revision-Date: 2009-07-14 18:04+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -159,7 +159,7 @@ msgstr "post-GDP"
 #. @node in Documentation/ja/user/lilypond-learning.tely
 #. @node in Documentation/ja/user/lilypond-program.tely
 msgid "Top"
-msgstr "Sommaire"
+msgstr ""
 
 #. @top in Documentation/user/lilypond-learning.tely
 msgid "GNU LilyPond --- Learning Manual"
@@ -3920,7 +3920,7 @@ msgstr "Scheme et les retouches"
 #. @node in Documentation/user/fdl.itexi
 #. @appendix in Documentation/user/fdl.itexi
 msgid "GNU Free Documentation License"
-msgstr "Licence GNU de documentation libre"
+msgstr ""
 
 #. @subheading in Documentation/user/fdl.itexi
 msgid "ADDENDUM: How to use this License for your documents"
