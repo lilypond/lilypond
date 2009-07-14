@@ -224,7 +224,7 @@ sub load_map_file ($)
     my $mapfile = shift;
     my $node_map = ();
 
-    if (open(XREFFILE, $mapfile)) {
+    if (open(XREFFILE,'<:encoding(utf8)', $mapfile)) {
         my $line;
         while ( $line = <XREFFILE> ) {
             # parse the tab-separated entries and insert them into the map:
