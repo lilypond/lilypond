@@ -3281,6 +3281,11 @@ Notation Reference:
 @node Modifying ties and slurs
 @unnumberedsubsubsec Modifying ties and slurs
 
+@cindex slurs, modifying
+@cindex ties, modifying
+@cindex Bézier curves
+@cindex Bézier control points
+
 Ties, slurs and phrasing slurs are drawn as third-order Bézier
 curves.  If the shape of the tie or slur which is calculated
 automatically is not optimum, the shape may be modified manually by
