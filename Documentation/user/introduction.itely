@@ -215,9 +215,9 @@ typographical details may seem academic.  But it is not.  In
 larger pieces with monotonous rhythms, spacing corrections lead to
 subtle variations in the layout of every line, giving each one a
 distinct visual signature.  Without this signature all lines would
-look the same, and they become like a labyrinth.  If a musician
-looks away once or has a lapse in concentration, he/she may easily
-lose their place on the page.
+look the same, and they become like a labyrinth.  A distinct visual
+signature helps to keep musicians from losing their place on the
+page when they look away or have a lapse in concentration.
 
 Similarly, the strong visual look of bold symbols on heavy staff
 lines stands out better when the music is far away from the
@@ -282,8 +282,8 @@ typographical style must also be accessible to the user.
 
 @item Finally, we continually refine the formatting algorithms, so
 we need a flexible approach to rules.  The C++ language forces a
-certain method of grouping rules that does not mesh well with how
-music notation works.
+certain method of grouping rules that cannot readily be applied to
+formatting music notation.
 
 @end itemize
 
@@ -619,8 +619,8 @@ easy to type:
 @end example
 
 @noindent
-to create a quarter note on middle C and an eighth note on D
-above middle C.
+to create a quarter note on middle C (C1) and an eighth note on
+the D above middle C (D1).
 
 @lilypond[quote]
 {

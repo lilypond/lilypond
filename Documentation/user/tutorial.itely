@@ -1242,7 +1242,9 @@ the input, not relative to the @code{c''} in the initial
 To determine the number of staves in a piece, LilyPond looks at
 the beginning of the first expression.  If there is a single note,
 there is one staff; if there is a simultaneous expression, there
-is more than one staff.
+is more than one staff.  The following example shows a complex
+expression, but as it begins with a single note it will be set
+out on a single staff.
 
 @lilypond[verbatim,quote]
 \relative c'' {

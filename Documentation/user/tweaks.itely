@@ -819,7 +819,8 @@ from arbitrary text strings, which would appear as @code{"a text
 string"}; for more details about symbols and strings, see @ref{Scheme
 tutorial}.
 
-The @code{\override} command needed to print the lyrics in italics is:
+So we see that the @code{\override} command needed to print the lyrics
+in italics is:
 
 @example
 \override LyricText #'font-shape = #'italic

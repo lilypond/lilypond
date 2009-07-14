@@ -41,7 +41,7 @@ notably Windows, you may need to set the environment variable
 @code{GUILE_LOAD_PATH} to the directory @code{../usr/shr/guile/1.8}
 in the LilyPond installation (for the full path to this directory
 see @ref{Other sources of information}).  Alternatively, Windows
-users may simply chosoe @q{Run} from the Start menu and enter
+users may simply choose @q{Run} from the Start menu and enter
 @q{guile}.
 
 The most basic concept in a language is data typing: numbers, character
