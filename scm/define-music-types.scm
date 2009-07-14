@@ -363,14 +363,16 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
     (PropertySet
      . ((description . "Set a context property.
 
-Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}")
+Syntax: @code{\\set @var{context}.@var{prop} = @var{scheme-val}}")
 	(types . (layout-instruction-event general-music))
 	(iterator-ctor . ,ly:property-iterator::constructor)
 	))
 
     (PropertyUnset
-     . ((description . "Remove the definition of a context
-@code{\\property}.")
+     . ((description . "Restore the default setting for a context
+property.  See @ref{PropertySet}.
+
+Syntax: @code{\\unset @var{context}.@var{prop}}")
 	(types . (layout-instruction-event general-music))
 	(iterator-ctor . ,ly:property-unset-iterator::constructor)
 	))
