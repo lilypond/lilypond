@@ -147,16 +147,21 @@ specific context.")
     (CrescendoEvent
      . ((description . "Begin or end a crescendo.
 
-Syntax: @var{note}@code{\\cr} @dots{} @var{note}@code{\\rc}
+Syntax: @var{note}@code{\\<} @dots{} @var{note}@code{\\!}
 
-You can also use @code{\\<}, @code{\\!}, @code{\\cresc}, and
-@code{\\endcresc}.  See the Notation Reference for details.")
+An alternative syntax is @var{note}@code{\\cr} @dots{}
+@var{note}@code{\\endcr}.")
 	(types . (general-music span-event span-dynamic-event crescendo-event
 		  event))
 	))
 
     (DecrescendoEvent
-     . ((description . "See @ref{CrescendoEvent}.")
+     . ((description . "Begin or end a decrescendo.
+
+Syntax: @var{note}@code{\\>} @dots{} @var{note}@code{\\!}
+
+An alternative syntax is @var{note}@code{\\decr} @dots{}
+@var{note}@code{\\enddecr}.")
 	(types . (general-music span-event span-dynamic-event decrescendo-event
 		  event))
 	))
