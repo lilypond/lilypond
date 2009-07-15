@@ -65,30 +65,30 @@ Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
   texidocfr = "
-En combinant @code{stemLeftBeamCount}, @code{stemRightBeamCount} et des
-paires de @code{[]}, vous pourrez obtenir des crochets rectilignes et
+En combinant @code{stemLeftBeamCount}, @code{stemRightBeamCount} et des 
+paires de @code{[]}, vous pourrez obtenir des crochets rectilignes et 
 des ligatures qui débordent à leurs extrémités.
 
-Pour des crochets rectilignes à droite sur des notes isolées, il suffit
-d'ajouter une paire d'indicateurs de ligature @code{[]} et de déterminer
+Pour des crochets rectilignes à droite sur des notes isolées, il suffit 
+d'ajouter une paire d'indicateurs de ligature @code{[]} et de déterminer 
 @code{stemLeftBeamCount} à zéro, comme dans l'exemple 1.
 
-Pour des crochets rectiligne à gauche, c'est @code{stemRightBeamCount}
+Pour des crochets rectiligne à gauche, c'est @code{stemRightBeamCount} 
 qu'il faudra déterminer (exemple 2).
 
-Pour que les barres de ligature débordent sur la droite,
-@code{stemRightBeamCount} doit avoir une valeur positive ; pour un
-débrodement à gauche, c'est sur @code{stemLeftBeamCount} qu'il faut
+Pour que les barres de ligature débordent sur la droite, 
+@code{stemRightBeamCount} doit avoir une valeur positive ; pour un 
+débrodement à gauche, c'est sur @code{stemLeftBeamCount} qu'il faut 
 jouer.  Tout ceci est illustré par l'exemple 3.
 
-Il est parfois judicieux, lorsqu'une note est encadrée de silences, de
-l'affubler de crochets rectilignes de part et d'autre. L'exemple 4
+Il est parfois judicieux, lorsqu'une note est encadrée de silences, de 
+l'affubler de crochets rectilignes de part et d'autre. L'exemple 4 
 montre qu'il suffit d'adjoindre à cette note un @code{[]}.
 
-(Notez bien que @code{\\set stemLeftBeamCount} sera toujours synonyme de
-@code{\\once \\set}.  Autrement dit, la détermination des ligatures n'est
-pas @qq{permanente} ; c'est la raison pour laquelle les crochets du
-@code{c'16[]} isolé du dernier exemple n'ont rien à voir avec le
+(Notez bien que @code{\\set stemLeftBeamCount} sera toujours synonyme de 
+@code{\\once \\set}.  Autrement dit, la détermination des ligatures
+n'est pas @qq{permanente} ; c'est la raison pour laquelle les crochets
+du @code{c'16[]} isolé du dernier exemple n'ont rien à voir avec le 
 @code{\\set} indiqué deux notes auparavant.)
 
 "

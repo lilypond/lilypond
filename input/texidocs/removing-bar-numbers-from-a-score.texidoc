@@ -21,10 +21,10 @@ entfernt.
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
   texidocfr = "
-Désactiver le graveur concerné --- @code{Bar_number_engraver} ---
-donnera une partition  --- contexte @code{Score} --- sans numéros de
+Désactiver le graveur concerné --- @code{Bar_number_engraver} --- 
+donnera une partition  --- contexte @code{Score} --- sans numéros de 
 mesure.
 
 "
-  doctitlefr = "Entfernung von Taktnummern in einer Partitur"
+  doctitlefr = "Supprimer les numéros de mesure d'une partition"
 

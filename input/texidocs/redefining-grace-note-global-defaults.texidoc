@@ -30,12 +30,11 @@ werden.
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
   texidocfr = "
-Vous pouvez modifier les valeurs des variables
-@code{startGraceMusic}, @code{stopGraceMusic},
-@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
-@code{startAppoggiaturaMusic}, et @code{stopAppoggiaturaMusic} afin d'en
-personnaliser les effets.  Pour plus de détails, voir le fichier
-@code{ly/grace-init.ly}. 
+Vous pouvez modifier les valeurs des variables @code{startGraceMusic}, 
+@code{stopGraceMusic}, @code{startAcciaccaturaMusic}, 
+@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic}, et 
+@code{stopAppoggiaturaMusic} afin d'en personnaliser les effets.  Pour 
+plus de détails, voir le fichier @code{ly/grace-init.ly}. 
 
 "
   doctitlefr = "Redéfinition des réglages de mise en forme par défaut des notes d'ornement"

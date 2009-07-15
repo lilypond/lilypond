@@ -26,7 +26,7 @@ am Ende einer Zeile.
   texidocfr = "
 Vous pouvez imprimer un numéro de mesure à intervalle régulier plutôt
 qu'en tête de chaque ligne seulement, en recourrant à la propriété
-@code{barNumberVisibility}. Voici comment afficher le numéro toutes les
+@code{barNumberVisibility}.  Voici comment afficher le numéro toutes les 
 deux mesures sauf en fin de ligne.
 
 "

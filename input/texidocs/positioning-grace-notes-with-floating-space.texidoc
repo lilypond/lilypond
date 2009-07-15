@@ -34,4 +34,4 @@ LilyPond commence par espacer les notes normales, puis les ornements
 sont placés à la gauche de leur note de rattachement.
 
 "
-  doctitlefr = "Positionierung von Verzierungen mit verschiebbarem Platz"
+  doctitlefr = "Positionnement des notes d'ornement avec espace flottant"

@@ -28,12 +28,12 @@ in ein Kreuz.
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
   texidocfr = "
-Il est possible de changer globalement la mise en forme des petites
+Il est possible de changer globalement la mise en forme des petites 
 notes dans un morceau, au moyen de la fonction 
-@code{add-grace-property}.  Ici, par exemple, on ôte la définition de
-l'orientation des objets @code{Stem} pour toutes les petites notes, afin
-que les hampes ne soient pas toujours orientées vers le haut, et on leur
-préfère des têtes en forme de croix.
+@code{add-grace-property}.  Ici, par exemple, on ôte la définition de 
+l'orientation des objets @code{Stem} pour toutes les petites notes, 
+afin que les hampes ne soient pas toujours orientées vers le haut, et on 
+leur préfère des têtes en forme de croix.
 
 "
   doctitlefr = "Mise en forme des notes d'ornement"
