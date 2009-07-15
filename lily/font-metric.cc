@@ -179,15 +179,15 @@ Font_metric::sub_fonts () const
 }
 
 Stencil
-Font_metric::word_stencil (string str) const
+Font_metric::word_stencil (string str, bool feta) const
 {
-  return text_stencil (str);
+  return text_stencil (str, feta);
 }
 
 Stencil
-Font_metric::text_stencil (string /* str */) const
+Font_metric::text_stencil (string, bool) const
 {
-  programming_error("Cannot get a text stencil from this font");
+  programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }
 

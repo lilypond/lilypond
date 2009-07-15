@@ -120,7 +120,7 @@ LY_DEFINE (ly_text_dimension, "ly:text-dimension",
 
   LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, text, 2);
-  Stencil stc (fm->text_stencil (ly_scm2string (text)));
+  Stencil stc (fm->text_stencil (ly_scm2string (text), false));
   return scm_cons (ly_interval2scm (stc.extent (X_AXIS)),
 		   ly_interval2scm (stc.extent (Y_AXIS)));
 }
