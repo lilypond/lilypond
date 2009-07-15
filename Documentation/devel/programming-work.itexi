@@ -9,7 +9,7 @@
 * Finding functions::
 * Code style::
 * Debugging LilyPond::
-* Checklist for adding features::
+* Adding or modifying features::
 @end menu
 
 @node Overview of LilyPond architecture
