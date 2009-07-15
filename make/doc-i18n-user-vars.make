@@ -10,9 +10,9 @@ OUT_PNG_IMAGES = \
 
 TELY_FILES := $(call src-wildcard,*.tely)
 MASTER_TEXI_FILES := $(TELY_FILES:%.tely=$(outdir)/%.texi)
-BIG_PAGE_HTML_FILES := $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)
-DEEP_HTML_FILES := $(TELY_FILES:%.tely=$(outdir)/%/index.html)
-PDF_FILES := $(TELY_FILES:%.tely=$(outdir)/%.pdf)
+BIG_PAGE_HTML_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/user/$(outdir)/%-big-page.$(ISOLANG).html)
+DEEP_HTML_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/user/$(outdir)/%/index.$(ISOLANG).html)
+PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/user/$(outdir)/%.$(ISOLANG).pdf)
 
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)
@@ -43,3 +43,4 @@ TEXI2PDF_FLAGS += -q
 endif
 
 DOCUMENTATION_LOCALE_TARGET = $(outdir)/doc-po
+TRANSLATION_LILY_IMAGES = $(outdir)/translation-lily-images
