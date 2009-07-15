@@ -576,7 +576,35 @@ accessed directly using text markup such as @code{g^\markup @{
 \musicglyph #"scripts.segno" @}}, see @ref{Formatting text}.
 
 
-@subsection Clefs
+@menu
+* Clefs::
+* Time Signatures::
+* Numbers::
+* Accidentals::
+* Default Noteheads::
+* Special Noteheads::
+* Shape-note Noteheads::
+* Rests::
+* Flags::
+* Dots::
+* Dynamics::
+* Scripts::
+* Arrowheads::
+* Bracket-tips::
+* Pedal::
+* Accordion::
+* Vaticana::
+* Medicaea::
+* Hufnagel::
+* Mensural::
+* Neomensural::
+* Petrucci::
+* Solesmes::
+@end menu
+
+
+@node Clefs
+@unnumberedsubsec Clefs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -585,7 +613,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Time Signatures
+@node Time Signatures
+@unnumberedsubsec Time Signatures
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -594,7 +623,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Numbers
+@node Numbers
+@unnumberedsubsec Numbers
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -603,7 +633,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Accidentals
+@node Accidentals
+@unnumberedsubsec Accidentals
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -612,7 +643,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Default Noteheads
+@node Default Noteheads
+@unnumberedsubsec Default Noteheads
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -621,7 +653,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Special Noteheads
+@node Special Noteheads
+@unnumberedsubsec Special Noteheads
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -630,7 +663,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Shape-note Noteheads
+@node Shape-note Noteheads
+@unnumberedsubsec Shape-note Noteheads
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -639,7 +673,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Rests
+@node Rests
+@unnumberedsubsec Rests
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -648,7 +683,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Flags
+@node Flags
+@unnumberedsubsec Flags
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -657,7 +693,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Dots
+@node Dots
+@unnumberedsubsec Dots
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -666,7 +703,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Dynamics
+@node Dynamics
+@unnumberedsubsec Dynamics
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -675,7 +713,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Scripts
+@node Scripts
+@unnumberedsubsec Scripts
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -684,7 +723,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Arrowheads
+@node Arrowheads
+@unnumberedsubsec Arrowheads
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -693,7 +733,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Bracket-tips
+@node Bracket-tips
+@unnumberedsubsec Bracket-tips
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -702,7 +743,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Pedal
+@node Pedal
+@unnumberedsubsec Pedal
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -711,7 +753,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Accordion
+@node Accordion
+@unnumberedsubsec Accordion
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -720,7 +763,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Vaticana
+@node Vaticana
+@unnumberedsubsec Vaticana
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -729,7 +773,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Medicaea
+@node Medicaea
+@unnumberedsubsec Medicaea
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -738,7 +783,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Hufnagel
+@node Hufnagel
+@unnumberedsubsec Hufnagel
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -747,7 +793,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Mensural
+@node Mensural
+@unnumberedsubsec Mensural
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -756,7 +803,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Neomensural
+@node Neomensural
+@unnumberedsubsec Neomensural
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -765,7 +813,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Petrucci
+@node Petrucci
+@unnumberedsubsec Petrucci
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -774,7 +823,8 @@ accessed directly using text markup such as @code{g^\markup @{
 @end lilypond
 
 
-@subsection Solesmes
+@node Solesmes
+@unnumberedsubsec Solesmes
 
 @lilypond[quote]
 \include "font-table.ly"
