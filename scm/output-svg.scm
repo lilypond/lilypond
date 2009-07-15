@@ -252,7 +252,7 @@
    `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
 
 (define-public (comment s)
-  (string-append "<!-- " s " !-->\n"))
+  (string-append "<!-- " s " -->\n"))
 
 (define (draw-line thick x1 y1 x2 y2 . alist)
   
