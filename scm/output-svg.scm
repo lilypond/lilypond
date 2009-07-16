@@ -63,7 +63,8 @@
   "c = close"
   (format "</~S>\n" entity))
 
-
+(define-public (comment s)
+  (string-append "<!-- " s " -->\n"))
 
 (define-public (entity entity string . attributes-alist)
   (if (equal? string "")
@@ -81,7 +82,7 @@
 	(cons (format "~S,~S" (car lst) (cadr lst))
 	      (helper (cddr lst)))))
 
-  (string-join (helper lst) " "))  
+  (string-join (helper lst) " "))
 
 
 (define (svg-bezier lst close)
@@ -165,28 +166,6 @@
 ;;; stencil outputters
 ;;;
 
-
-(define (url-link url x y)
-  (string-append
-   (eo 'a `(xlink:href . ,url))
-   (eoc 'rect
-	`(x . ,(car x))
-	`(y . ,(car y))
-	`(width . ,(- (cdr x) (car x)))
-	`(height . ,(- (cdr y) (car y)))
-	'(fill . "none")
-	'(stroke . "none")
-	'(stroke-width . "0.0"))
-   (ec 'a)))
-
-(define (grob-cause offset grob)
-  "")
-
-(define (no-origin)
-  "")
-
-
-
 (define (bezier-sandwich lst thick)
   (let* ((first (list-tail lst 4))
 	 (first-c0 (car (list-tail first 3)))
@@ -201,13 +180,89 @@
 				  (svg-bezier second first-c0)))
 	    )))
 
+(define (char font i)
+  (dispatch
+   `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
+
+(define (circle radius thick is-filled)
+  (entity
+   'circle ""
+   '(stroke-linejoin . "round")
+   '(stroke-linecap . "round")
+   `(fill . ,(if is-filled "currentColor" "none"))
+   `(stroke . "currentColor")
+   `(stroke-width . ,thick)
+   `(r . ,radius)))
+
+(define (dashed-line thick on off dx dy phase)
+  (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
+
+(define (draw-line thick x1 y1 x2 y2 . alist)
+  (apply entity 'line ""
+	 (append
+	  `((stroke-linejoin . "round")
+	    (stroke-linecap . "round")
+	    (stroke-width . ,thick)
+	    (stroke . "currentColor")
+	    (x1 . ,x1)
+	    (y1 . ,(- y1))
+	    (x2 . ,x2)
+	    (y2 . ,(- y2)))
+	  alist)))
+
+(define (ellipse x-radius y-radius thick is-filled)
+  (entity
+   'ellipse ""
+   '(stroke-linejoin . "round")
+   '(stroke-linecap . "round")
+   `(fill . ,(if is-filled "currentColor" "none"))
+   `(stroke . "currentColor")
+   `(stroke-width . ,thick)
+   `(rx . ,x-radius)
+   `(ry . ,y-radius)))
+
+(define (embedded-svg string)
+  string)
+
+(define (grob-cause offset grob)
+  "")
+
+(define (named-glyph font name)
+  (dispatch
+   `(fontify ,font ,(entity 'tspan
+			    (integer->entity
+			     (ly:font-glyph-name-to-charcode font name))))))
+
+(define (no-origin)
+  "")
+
+(define (oval x-radius y-radius thick is-filled)
+  (let ((x-max x-radius)
+        (x-min (- x-radius))
+        (y-max y-radius)
+        (y-min (- y-radius)))
+    (entity
+     'path ""
+     '(stroke-linejoin . "round")
+     '(stroke-linecap . "round")
+     `(fill . ,(if is-filled "currentColor" "none"))
+     `(stroke . "currentColor")
+     `(stroke-width . ,thick)
+     `(d . ,(ly:format "M~4f,~4f C~4f,~4f  ~4f,~4f ~4f,~4f S~4f,~4f ~4f,~4f"
+               x-max 0
+               x-max y-max
+               x-min y-max
+               x-min 0
+               x-max y-min
+               x-max 0)))))
+
 (define (path thick commands)
   (define (convert-path-exps exps)
     (if (pair? exps)
 	(let*
 	    ((head (car exps))
 	     (rest (cdr exps))
-	     (arity 
+	     (arity
 	      (cond
 	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
 	       ((memq head '(rcurveto curveto)) 6)
@@ -227,7 +282,7 @@
 			)
 		(convert-path-exps (drop rest arity))))
 	'()))
-  
+
   (entity 'path ""
 	  `(stroke-width . ,thick)
 	  '(stroke-linejoin . "round")
@@ -235,36 +290,6 @@
 	  '(stroke . "currentColor")
 	  '(fill . "none")
 	  `(d . ,(string-join (convert-path-exps commands) " "))))
-  
-(define (char font i)
-  (dispatch
-   `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
-
-(define-public (comment s)
-  (string-append "<!-- " s " -->\n"))
-
-(define (draw-line thick x1 y1 x2 y2 . alist)
-  
-  (apply entity 'line ""
-	 (append
-	  `((stroke-linejoin . "round")
-	    (stroke-linecap . "round")
-	    (stroke-width . ,thick)
-	    (stroke . "currentColor")
-	    (x1 . ,x1)
-	    (y1 . ,(- y1))
-	    (x2 . ,x2)
-	    (y2 . ,(- y2)))
-	  alist)))
-
-(define (dashed-line thick on off dx dy phase)
-  (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
-
-(define (named-glyph font name)
-  (dispatch
-   `(fontify ,font ,(entity 'tspan
-			    (integer->entity
-			     (ly:font-glyph-name-to-charcode font name))))))
 
 (define (placebox x y expr)
   (if (not (string-null? expr))
@@ -295,12 +320,8 @@
 		(map offset->point (ly:list->offsets '() coords))))
    ))
 
-;; rotate around given point
-(define (setrotation ang x y)
-  (format "<g transform=\"rotate(~a,~a,~a)\">\n"
-    (number->string (* -1 ang))
-    (number->string x)
-    (number->string (* -1 y))))
+(define (resetcolor)
+  "</g>\n")
 
 (define (resetrotation ang x y)
   "</g>\n")
@@ -323,60 +344,33 @@
 	  '(fill . "currentColor")
 	  ))
 
-(define (circle radius thick is-filled)
-  (entity
-   'circle ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(fill . ,(if is-filled "currentColor" "none"))
-   `(stroke . "currentColor")
-   `(stroke-width . ,thick)
-   `(r . ,radius)))
-
-(define (ellipse x-radius y-radius thick is-filled)
-  (entity
-   'ellipse ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(fill . ,(if is-filled "currentColor" "none"))
-   `(stroke . "currentColor")
-   `(stroke-width . ,thick)
-   `(rx . ,x-radius)
-   `(ry . ,y-radius)))
-
-(define (oval x-radius y-radius thick is-filled)
-  (let ((x-max x-radius)
-        (x-min (- x-radius))
-        (y-max y-radius)
-        (y-min (- y-radius)))
-    (entity
-     'path ""
-     '(stroke-linejoin . "round")
-     '(stroke-linecap . "round")
-     `(fill . ,(if is-filled "currentColor" "none"))
-     `(stroke . "currentColor")
-     `(stroke-width . ,thick)
-     `(d . ,(ly:format "M~4f,~4f C~4f,~4f  ~4f,~4f ~4f,~4f S~4f,~4f ~4f,~4f" 
-               x-max 0
-               x-max y-max
-               x-min y-max
-               x-min 0
-               x-max y-min
-               x-max 0)))))
-
-(define (text font string)
-  (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
-
-(define (utf-8-string pango-font-description string)
-  (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
-
-(define (embedded-svg string)
-  string)
-
 (define (setcolor r g b)
   (format "<g color=\"rgb(~a%,~a%,~a%)\">\n"
 	  (* 100 r) (* 100 g) (* 100 b)
 	  ))
 
-(define (resetcolor)
-  "</g>\n")
+;; rotate around given point
+(define (setrotation ang x y)
+  (format "<g transform=\"rotate(~a,~a,~a)\">\n"
+    (number->string (* -1 ang))
+    (number->string x)
+    (number->string (* -1 y))))
+
+(define (text font string)
+  (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
+
+(define (url-link url x y)
+  (string-append
+   (eo 'a `(xlink:href . ,url))
+   (eoc 'rect
+	`(x . ,(car x))
+	`(y . ,(car y))
+	`(width . ,(- (cdr x) (car x)))
+	`(height . ,(- (cdr y) (car y)))
+	'(fill . "none")
+	'(stroke . "none")
+	'(stroke-width . "0.0"))
+   (ec 'a)))
+
+(define (utf-8-string pango-font-description string)
+  (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
