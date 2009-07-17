@@ -6,6 +6,7 @@
 * Development phases::          
 * Minor release checklist::     
 * Major release checklist::     
+* Making a release::
 @end menu
 
 
@@ -158,5 +159,25 @@ Web:
         http://www.svgx.org
 
 
+
+@node Making a release
+@section Making a release
+
+@itemize
+
+@item
+Build with GUB, and check the regtests.
+
+@item
+Upload the tarballs and sh scripts.
+
+@item
+(if major)
+Branch MASTER to stable/2.x.
+
+@item
+Make announcement.
+
+@end itemize
 
 

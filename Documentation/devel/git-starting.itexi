@@ -4,15 +4,14 @@
 
 To complete or present in another form the introduction to Git usage
 in this chapter, it may be a good idea to look for Git documentation
-at @uref{http://git-scm.com/documentation}, 
+at @uref{http://git-scm.com/documentation},
 
 @menu
-* Getting the source code::     
-* Updating the source code::    
-* Working with several Git branches::  
-* Sharing your changes::        
-* Other interesting Git commands::  
-* Git on Windows::              
+* Getting the source code::
+* Updating the source code::
+* Sharing your changes::
+* Advanced git stuff::
+* Git on Windows::
 @end menu
 
 
@@ -20,13 +19,13 @@ at @uref{http://git-scm.com/documentation},
 @section Getting the source code
 
 @menu
-* Git introduction::            
-* Main source code::            
-* Website source code::         
-* Documentation translations source code::  
-* Other branches::              
-* Other locations for git::     
-* Git user configuration::      
+* Git introduction::
+* Main source code::
+* Website source code::
+* Documentation translations source code::
+* Other branches::
+* Other locations for git::
+* Git user configuration::
 @end menu
 
 @node Git introduction
@@ -93,7 +92,9 @@ you wish to do so, you will need more familiarity with git.
 
 @item @code{gub}:
 This stores the Grand Unified Binary, our cross-platform building
-tool.  For more info, see @uref{http://lilypond.org/gub}.  The git
+tool.
+@c TODO: merge the gub stuff with this CG.
+For more info, see @uref{http://lilypond.org/gub}.  The git
 location is:
 
 @example
@@ -118,8 +119,8 @@ If you have difficulty connecting to most of the repositories
 listed in earlier sections, try:
 
 @example
-git://git.sv.gnu.org/lilypond.git
 http://git.sv.gnu.org/r/lilypond.git
+git://git.sv.gnu.org/lilypond.git
 ssh://git.sv.gnu.org/srv/git/lilypond.git
 @end example
 
@@ -136,7 +137,7 @@ for commits and patches,
 
 @example
 git config --global user.name "MYNAME"
-git config --global user.email myemail@@example.net
+git config --global user.email MYEMAIL@@EXAMPLE.NET
 @end example
 
 
@@ -144,10 +145,9 @@ git config --global user.email myemail@@example.net
 @section Updating the source code
 
 @menu
-* Importance of updating::      
-* Update command::              
-* Resolving conflicts::         
-* Introduction to Git concepts::  
+* Importance of updating::
+* Update command::
+* Resolving conflicts::
 @end menu
 
 
@@ -171,7 +171,7 @@ local copy of the repository with the changes made by others on
 the remote @code{git.sv.gnu.org} repository:
 
 @example
-git pull origin
+git pull -r
 @end example
 
 
@@ -179,7 +179,7 @@ git pull origin
 @subsection Resolving conflicts
 
 Occasionally an update may result in conflicts -- this happens
-when you and somebody else hae modified the same part of the same
+when you and somebody else have modified the same part of the same
 file and git cannot figure out how to merge the two versions
 together.  When this happens, you must manually merge the two
 versions.
@@ -187,6 +187,118 @@ versions.
 If you need some documentation to understand and resolve conflicts,
 see paragraphs @emph{How conflicts are presented} and @emph{How to
 resolve conflicts} in @command{git merge} man page.
+
+
+@node Sharing your changes
+@section Sharing your changes
+
+@menu
+* Producing a patch::
+* Committing directly::
+@end menu
+
+
+@node Producing a patch
+@subsection Producing a patch
+
+Once you have finished editing your files, checked that your changes
+meet the @ref{Code style}, and/or @ref{Documentation policy}, properly
+set up your name and email in @ref{Git user configuration}, and
+checked that the entire thing compiles, you may:
+
+@example
+git commit -a
+git format-patch origin
+@end example
+
+The commit should include a brief message describing the change.
+This consists of a one-line summary describing the change, and
+if necessary a blank line followed by several lines giving the
+details:
+
+@example
+Did household chores.
+
+I hung up the wet laundry and then washed the car.  I also
+vacuumed the floors, rinsed the dirty dishes, fed the cat, and
+recalibrated the temporal flux machine.
+@end example
+
+If the change is to the documentation only then the one-line
+summary should be prefixed with @qq{Docs: }.
+
+If you added a file to the source code, you must add it to git
+with:
+
+@example
+git add FILENAME
+@end example
+
+@noindent
+(and possibly modify the @file{GNUmakefile})
+
+These commands will produce one or more files named
+@file{0001-xyz}, @file{0002-abc}, etc. in the top directory of the
+git tree.  Send an email to @email{lilypond-devel@@gnu.org} with
+these files attached, and a developer will review and apply the
+patches to the main repository.
+
+
+@node Committing directly
+@subsection Committing directly
+
+Most contributors do not have permission to commit directly.  If you
+do, make sure you have set up your name and email in @ref{Git user
+configuration}, then edit @file{.git/config}: change the line
+
+@example
+url = git://git.sv.gnu.org/lilypond.git/
+@end example
+
+@noindent
+into
+
+@example
+url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+@end example
+
+@noindent
+where @var{user} is your login name on Savannah.
+
+If you have not already done so, you should generate and upload a SSH
+key: open @uref{https://savannah.gnu.org/my/} in your browser, then go to
+@q{Preferences} then to something like @q{Edit SSH Keys}, and follow
+the instructions on that page.
+
+You may then:
+
+@example
+git push origin
+@end example
+
+@node Advanced git stuff
+@section Advanced git stuff
+
+@warning{This section is not necessary for normal contributors;
+these commands are presented for information for people interested
+in learning more about git.}
+
+
+It is possible to work with several branches on the same local Git
+repository; this is especially useful for translators who may have to
+deal with both @code{lilypond/translation} and a stable branch,
+e.g. @code{stable/2.12}.
+
+Some Git commands are introduced first, then a workflow with several
+Git branches of LilyPond source code is presented.
+
+@menu
+* Introduction to Git concepts::
+* Git commands for managing several branches::
+* Working on LilyPond sources with several branches::
+* Git log::
+* Applying git patches::
+@end menu
 
 
 @node Introduction to Git concepts
@@ -263,22 +375,6 @@ Finally, please remember to read the man page of every Git command you
 will find in this manual in case you want to discover alternate
 methods or just understand how it works.
 
-
-@node Working with several Git branches
-@section Working with several Git branches
-
-It is possible to work with several branches on the same local Git
-repository; this is especially useful for translators who may have to
-deal with both @code{lilypond/translation} and a stable branch,
-e.g. @code{stable/2.12}.
-
-Some Git commands are introduced first, then a workflow with several
-Git branches of LilyPond source code is presented.
-
-@menu
-* Git commands for managing several branches::  
-* Working on LilyPond sources with several branches::  
-@end menu
 
 @node Git commands for managing several branches
 @subsection Git commands for managing several branches
@@ -415,72 +511,6 @@ order to apply pushed changes in the working tree of the main
 repository.
 
 
-@node Sharing your changes
-@section Sharing your changes
-
-@menu
-* Producing a patch::           
-* Committing directly::         
-@end menu
-
-
-@node Producing a patch
-@subsection Producing a patch
-
-Once you have finished editing your files, checked that your changes
-meet the @ref{Code style}, and/or @ref{Documentation policy}, properly
-set up your name and email in @ref{Git user configuration}, and
-checked that the entire thing compiles, you may
-
-@example
-git commit -a 
-git-format-patch HEAD
-@end example
-
-Send an email to @email{lilypond-devel@@gnu.org} with the diff as
-an attachment.
-
-
-@node Committing directly
-@subsection Committing directly
-
-Most contributors do not have permission to commit directly.  If you
-do, make sure you have set up your name and email in @ref{Git user
-configuration}, then edit @file{.git/config}: change the line
-
-@example
-        url = git://git.sv.gnu.org/lilypond.git/
-@end example
-
-@noindent
-into
-@example
-        url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
-@end example
-
-@noindent
-where @var{user} is your login name on Savannah.
-
-If you have not already done so, you should generate and upload a SSH
-key: open @uref{https://savannah.gnu.org/my/} in your browser, then go to
-@q{Preferences} then to something like @q{Edit SSH Keys}, and follow
-the instructions on that page.
-
-You may then
-
-@example
-git push origin
-@end example
-
-
-@node Other interesting Git commands
-@section Other interesting Git commands
-
-@menu
-* Git log::                     
-* Applying git patches::        
-@end menu
-
 
 @node Git log
 @subsection Git log
@@ -505,14 +535,14 @@ available in the appropriate distribution's repositories.}
 Well-formed git patches should be committed with
 
 @example
-git-am
+git am
 @end example
 
-Patches created without @code{git-format-patch} should be
+Patches created without @code{git format-patch} should be
 committed with
 
 @example
-git-apply
+git apply
 @end example
 
 
@@ -549,9 +579,14 @@ just the differences from master).
 @subsection Installing git
 
 Obtain Git from
-@uref{http://code.google.com/p/msysgit/downloads/list}.
-(Note, not msysGit, which is for Git developers) and
-install.
+@uref{http://code.google.com/p/msysgit/downloads/list}
+(note, not msysGit, which is for Git developers and not PortableGit,
+which is not a full git installation) and
+install it.
+
+Note that most users will not need to install SSH.  That is not
+required until you have been granted direct push permissions to
+the master git repository.
 
 Start Git by clicking on the desktop icon.
 This will bring up a command line bash shell.  This may be
@@ -566,7 +601,8 @@ creating the folders in Windows as necessary.  Here we
 call the folder to contain the repository [path]/Git.
 You will need to have space for around 150Mbytes.
 
-In the git bash shell type
+Start the Git bash shell by clicking on the desk-top icon installed
+with Git and type
 
 @example
 cd [path]/Git
@@ -666,6 +702,15 @@ Edit -> Options
 and enter your name and email address in the
 left-hand (Git Repository) panel.  Leave everything
 else unchanged and save it.
+
+Note that Windows users must leave the default setting for line
+endings unchanged.  All files in a git repository must have lines
+terminated by just a LF, as this is required for Merge to work, but
+Windows files are terminated by CRLF by default.  The git default
+setting causes the line endings of files in a Windows git repository
+to be flipped automatically between LF and CRLF as required.  This
+enables files to be edited by any Windows editor without causing
+problems in the git repository.
 
 @subsection Checking out a branch
 
@@ -785,14 +830,13 @@ cd [path]/Git
 if necessary, then produce the patch with
 
 @example
-git-format-patch -n
+git format-patch origin
 @end example
 
-where n an integer, normally 1.  This will create a
-patch file for all the locally committed files which differ
-from @w{origin/master}.  The patch file can be found in
-[path]/Git and will have a name formed from n and the
-commit message.
+This will create a patch file for all the locally committed files
+which differ from @w{origin/master}.  The patch file can be found
+in [path]/Git and will have a name formed from n and the commit
+message.
 
 @subsection Resolving merge conflicts
 

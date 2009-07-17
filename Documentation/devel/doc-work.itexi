@@ -3,12 +3,13 @@
 @chapter Documentation work
 
 @menu
-* Introduction to documentation work::  
-* Texinfo introduction and usage policy::  
-* Documentation policy::        
-* Tips for writing docs::       
-* Updating docs with convert-ly::  
-* Translating the documentation::  
+* Introduction to documentation work::
+* Documentation suggestions::
+* Texinfo introduction and usage policy::
+* Documentation policy::
+* Tips for writing docs::
+* Updating docs with convert-ly::
+* Translating the documentation::
 @end menu
 
 
@@ -51,17 +52,107 @@ they also stem from attempting to find the most effective use of
 limited documentation help.
 
 
+@node Documentation suggestions
+@section Documentation suggestions
+
+@subheading Small additions
+
+For additions to the documentation,
+
+@enumerate
+
+@item
+Tell us where the addition should be placed. Please include both
+the section number and title (i.e. "LM 2.13 Printing lyrics").
+
+@item
+Please write exact changes to the text.
+
+@item
+A formal patch to the source code is @emph{not} required; we can
+take care of the technical details. Here is an example of a
+perfect documentation report:
+
+@verbatim
+To: lilypond-devel@gnu.org
+From: helpful-user@example.net
+Subject: doc addition
+
+In LM 2.13 (printing lyrics), above the last line ("More options,
+like..."), please add:
+
+----
+To add lyrics to a divided part, use blah blah blah.  For example,
+
+\score {
+  \notes {blah <<blah>> }
+  \lyrics {blah <<blah>> }
+  blah blah blah
+}
+----
+
+In addition, the second sentence of the first paragraph is
+confusing.  Please delete that sentence (it begins "Users
+often...") and replace it with this:
+----
+To align lyrics with something, do this thing.
+----
+
+Have a nice day,
+Helpful User
+@end verbatim
+
+@end enumerate
+
+
+@subheading Larger contributions
+
+To replace large sections of the documentation, the guidelines are
+stricter. We cannot remove parts of the current documentation
+unless we are certain that the new version is an improvement.
+
+@enumerate
+
+@item
+Ask on the lilypond-devel maillist if such a rewrite is necessary;
+somebody else might already be working on this issue!
+
+@item
+Split your work into small sections; this makes it much easier to
+compare the new and old documentation.
+
+@item
+Please prepare a formal git patch.
+
+@end enumerate
+
+Once you have followed these guidelines, please send a message to
+lilypond-devel with your documentation submissions. Unfortunately
+there is a strict “no top-posting” check on the mailist; to avoid
+this, add:
+
+> I'm not top posting.
+
+(you must include the > ) to the top of your documentation
+addition.
+
+We may edit your suggestion for spelling, grammar, or style, and
+we may not place the material exactly where you suggested, but if
+you give us some material to work with, we can improve the manual
+much faster.  Thanks for your interest!
+
 
 @node Texinfo introduction and usage policy
 @section Texinfo introduction and usage policy
 
 @menu
-* Texinfo introduction::        
-* Sectioning commands::         
-* LilyPond formatting::         
-* Text formatting::             
-* Syntax survey::               
-* Other text concerns::         
+* Texinfo introduction::
+* Documentation files::
+* Sectioning commands::
+* LilyPond formatting::
+* Text formatting::
+* Syntax survey::
+* Other text concerns::
 @end menu
 
 
@@ -82,6 +173,27 @@ You can learn most of what you need to know from this; if you want
 to do anything fancy, discuss it on @code{lilypond-devel} first.}
 
 
+@node Documentation files
+@subsection Documentation files
+
+The user manuals lives in @file{Documentation/user/}.  In
+particular, the files @file{lilypond-learning.ly} (LM),
+@file{lilypond.itely} (NR), @file{music-glossary.tely} (MG), and
+@file{lilypond-program} (AU).  Each chapter is written in a
+separate file (ending in @file{.itely} for files containing
+lilypond code, and @file{.itexi} for files without lilypond code);
+see the @qq{main} file for each manual to determine the filename
+of the specific chapter you wish to modify.
+
+Developer manuals live in @file{Documentation/devel}.  Currently
+there is only one; @file{contrib-guide.texi}.
+
+Although snippets are part of documentation, they are not
+(directly) part of the manuals.  For information about how to
+modify them, see @ref{LSR work}.
+
+
+@node Sectioning commands
 @subsection Sectioning commands
 
 Most of the manual operates at the
@@ -112,7 +224,7 @@ ode.
 @end itemize
 
 
-
+@node LilyPond formatting
 @subsection LilyPond formatting
 
 @itemize
@@ -250,6 +362,7 @@ Documentation Editor.
 @end itemize
 
 
+@node Text formatting
 @subsection Text formatting
 
 @itemize
@@ -381,6 +494,7 @@ enclose it with
 @end itemize
 
 
+@node Syntax survey
 @subsection Syntax survey
 
 @itemize
@@ -434,13 +548,32 @@ B ... @@end itemize - for bulleted lists.
 
 @item
 @@bs - Generates a backslash inside @@warning.
-    Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}' 
+    Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}'
     (texinfo would also allow \\, but this breaks with PDF output).
+
+@item
+@@ref@{@} - normal references (type the exact node name inside the
+@{@}).
+@item
+@@ruser@{@} - link to the NR.
+@item
+@@rlearning@{@} - link to the LM.
+@item
+@@rglos@{@} - link to the MG.
+@item
+@@rprogram@{@} - link to the AU.
+@item
+@@rlsr@{@} - link to a Snippet section.
+@item
+@@rinternals@{@} - link to the IR.
+@item
+@@uref@{@} - link to an external url.
 
 @end itemize
 
 
 
+@node Other text concerns
 @subsection Other text concerns
 
 @itemize
@@ -498,7 +631,15 @@ that all such characters appear in all output formats.
 @node Documentation policy
 @section Documentation policy
 
+@menu
+* Books::
+* Section organization::
+* Checking cross-references::
+* General writing::
+* Technical writing style::
+@end menu
 
+@node Books
 @subsection Books
 
 There are four parts to the documentation: the Learning Manual,
@@ -580,6 +721,7 @@ automagically generated from the source, but this is its name.
 @end itemize
 
 
+@node Section organization
 @subsection Section organization
 
 @itemize
@@ -671,6 +813,7 @@ but other than that all material goes into third-level sections
 @end itemize
 
 
+@node Checking cross-references
 @subsection Checking cross-references
 
 Cross-references between different manuals are heavily used in the
@@ -685,6 +828,7 @@ cross-references in the generated documentation such as the
 Internals Reference; e.g. you can grep scm/ and lily/.
 
 
+@node General writing
 @subsection General writing
 
 @itemize
@@ -749,6 +893,7 @@ chord construct   NOT chord (when referring to <>)
 @end itemize
 
 
+@node Technical writing style
 @subsection Technical writing style
 
 These refer to the NR.  The LM uses a more gentle, colloquial
@@ -833,7 +978,7 @@ lilypond examples.  Making easily-understandable examples is much
 harder than it looks.
 
 
-@subsubheading TWEAKS
+@subsubheading Tweaks
 
 In general, any \set or \override commands should go in the
 @qq{select snippets} section, which means that they should go in
@@ -871,6 +1016,10 @@ or upgrading tweaks is creating tweaks to deal with known issues.  It
 would be ideal if every significant known issue had a workaround to avoid
 the difficulty.
 
+@seealso
+
+@ref{Adding and editing snippets}.
+
 
 @node Updating docs with convert-ly
 @section Updating doc with @command{convert-ly}
@@ -890,11 +1039,12 @@ This also updates translated documentation.
 @section Translating the documentation
 
 @menu
-* Getting started with documentation translation::  
-* Documentation translation details::  
-* Documentation translation maintenance::  
-* Translations management policies::  
-* Technical background::        
+* Getting started with documentation translation::
+* Documentation translation details::
+* Documentation translation maintenance::
+* Translations management policies::
+* Technical background::
+* Translation status::
 @end menu
 
 @node Getting started with documentation translation
@@ -904,9 +1054,9 @@ First, get the sources from the Git repository, see @ref{Documentation
 translations source code}.
 
 @menu
-* Translation requirements::    
-* Which documentation can be translated::  
-* Starting translation in a new language::  
+* Translation requirements::
+* Which documentation can be translated::
+* Starting translation in a new language::
 @end menu
 
 @node Translation requirements
@@ -1003,10 +1153,10 @@ Please follow all the instructions with care to ensure quality work.
 All files should be encoded in UTF-8.
 
 @menu
-* Files to be translated::      
-* Translating the Learning Manual and other Texinfo documentation::  
-* Translating the Notation Reference and Application Usage::  
-* Translating the Documentation index index.html.in::  
+* Files to be translated::
+* Translating the Learning Manual and other Texinfo documentation::
+* Translating the Notation Reference and Application Usage::
+* Translating the Documentation index index.html.in::
 @end menu
 
 @node Files to be translated
@@ -1026,11 +1176,13 @@ translated directly in the Texinfo source
 @@section       @@unnumberedsec       @@appendixsec        @@heading
 @@subsection    @@unnumberedsubsec    @@appendixsubsec     @@subheading
 @@subsubsection @@unnumberedsubsubsec @@appendixsubsubsec  @@subsubheading
-@@ref           @@rglos
+@@ref  @@rglos  @@ruser  @@rlearning  @@rprogram  @@rlsr
 @end example
 
-As a notable exception, the second argument @var{Bar baz} of
-@code{@@ref@{@var{Foo},@var{Bar baz},,@var{info-file}@}} should be
+The same applies to first argument of @code{@@r@var{manual}named}
+commands; however, the second argument @var{Bar baz} of
+@code{@@ref@{@var{Foo},@var{Bar baz},,@var{info-file}@}} and
+@code{@@r@var{manual}named@{@var{Foo},@var{Bar baz}@}} should be
 translated.
 
 @code{@@uref}'s names are to be translated.
@@ -1142,8 +1294,8 @@ easier.  These helper scripts make use of the power of Git, the
 version control system used for LilyPond development.
 
 @menu
-* Check state of translation::  
-* Updating documentation translation::  
+* Check state of translation::
+* Updating documentation translation::
 @end menu
 
 @node Check state of translation
@@ -1284,8 +1436,8 @@ be managed, they aim at helping translators, developers and
 coordinators work efficiently.
 
 @menu
-* Maintaining without updating translations::  
-* Managing documentation translation with Git::  
+* Maintaining without updating translations::
+* Managing documentation translation with Git::
 @end menu
 
 @node Maintaining without updating translations
@@ -1393,7 +1545,7 @@ make ISOLANG=@var{YOUR-LANGUAGE} fix-xrefs
 
 @noindent
 This step requires a sucessful documentation build (with @command{make
-web}).  Some cross-references are broken because they point to a node
+doc}).  Some cross-references are broken because they point to a node
 that exists in the documentation in English, which has not been added
 to the translation; in this case, do not fix the cross-reference but
 keep it "broken", so that the resulting HTML link will point to an
@@ -1449,13 +1601,13 @@ its documentation, and in this case they should be pushed to
 @code{stable/X.Y} are preferably made on
 @code{lilypond/X.Ytranslation}.
 
-@item @code{lilypond/translation} Git branch may be merged into master only if
-LilyPond (@command{make all}) and documentation (@command{make web}) compile
-succesfully.
+@item @code{lilypond/translation} Git branch may be merged into
+master only if LilyPond (@command{make all}) and documentation
+(@command{make doc}) compile succesfully.
 
 @item @code{master} Git branch may be merged into
 @code{lilypond/translation} whenever @command{make} and @command{make
-web} are succesful (in order to ease documentation compilation by
+doc} are succesful (in order to ease documentation compilation by
 translators), or when significant changes had been made in
 documentation in English in master branch.
 
@@ -1516,3 +1668,9 @@ And finally
 @itemize
 @item @file{python/langdefs.py}  -- language definitions module
 @end itemize
+
+
+@node Translation status
+@subsection Translation status
+
+
