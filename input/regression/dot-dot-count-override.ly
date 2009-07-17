@@ -1,4 +1,4 @@
-\version "2.13.2"
+\version "2.12.3"
 
 \header {
   texidoc = "The @code{dot-count} property
