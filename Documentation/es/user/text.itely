@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -57,11 +57,8 @@ encoding}.}
 @cindex no vacíos, textos
 @cindex texto destacado
 
-Es posible añadir indicaciones de @qq{texto entrecomillado} a una
-partitura, como se muestra en el ejemplo siguiente.  Tales
-indicaciones se pueden colocar también manualmente encima o debajo del
-pentagrama utilizando la sintaxis que se describe en @ref{Direction
-and placement}.
+Es posible añadir indicaciones de @qq{texto entre comillas} a una
+partitura.
 
 @lilypond[quote,verbatim,relative=2]
 a8^"pizz." g f e a4-"scherz." f
@@ -76,6 +73,10 @@ utilizando un bloque @code{\markup}, como se describe bajo
 a8^\markup { \italic pizz. } g f e
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
+
+Tales indicaciones se pueden colocar también manualmente encima o
+debajo del pentagrama utilizando la sintaxis que se describe en
+@ref{Direction and placement}.
 
 De forma predeterminada, las indicaciones de texto no afectan al
 espaciado de las notas.  Sin embargo, su anchura sí podría tenerse en
@@ -170,7 +171,8 @@ styles}.
 @seealso
 Referencia de la notación:
 @ref{Line styles},
-@ref{Dynamics}.
+@ref{Dynamics},
+@ref{Direction and placement}.
 
 Fragmentos de código:
 @rlsr{Text}.

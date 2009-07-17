@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-06 23:05+0200\n"
-"PO-Revision-Date: 2009-07-14 18:12+0200\n"
+"PO-Revision-Date: 2009-07-17 18:03+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,7 @@ msgstr "post-GDP"
 #. @node in Documentation/ja/user/lilypond-learning.tely
 #. @node in Documentation/ja/user/lilypond-program.tely
 msgid "Top"
-msgstr ""
+msgstr "Arriba"
 
 #. @top in Documentation/user/lilypond-learning.tely
 msgid "GNU LilyPond --- Learning Manual"
@@ -3914,7 +3914,7 @@ msgstr "Trucos con Scheme"
 #. @node in Documentation/user/fdl.itexi
 #. @appendix in Documentation/user/fdl.itexi
 msgid "GNU Free Documentation License"
-msgstr ""
+msgstr "GNU Free Documentation License"
 
 #. @subheading in Documentation/user/fdl.itexi
 msgid "ADDENDUM: How to use this License for your documents"

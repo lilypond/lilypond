@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 78f299b3d8f6686ed0dca854b22fcb67d9167eba
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -113,7 +113,7 @@ c4->  c-.  c2-_
 Las reglas para la colocación predeterminada de las articulaciones se
 encuentran definidas en el archivo @file{scm/@/script@/.scm}.  Las
 articulaciones y ornamentos se pueden colocar manualmente por encima o
-por debajo del pentagrama, véase @ref{Direction and placement}.
+por debajo del pentagrama; véase @ref{Direction and placement}.
 
 
 @snippets
@@ -298,7 +298,7 @@ e2\> d\!
 @end lilypond
 
 Para crear nuevas indicaciones de matiz absoluto o de texto que deba
-alinearse con los matices, véase @ref{New dynamic marks}.
+alinearse con los matices; véase @ref{New dynamic marks}.
 
 @cindex matices, posición vertical
 @cindex dinámica, posición vertical
@@ -528,15 +528,7 @@ a4 g2 f4)
 @funindex slurNeutral
 
 Las ligaduras de expresión se pueden colocar manualmente por encima o
-por debajo de las notas, véase @ref{Direction and placement}.
-
-@lilypond[verbatim,quote,relative=2]
-c2( d)
-\slurDown
-c2( d)
-\slurNeutral
-c2( d)
-@end lilypond
+por debajo de las notas; véase @ref{Direction and placement}.
 
 @cindex fraseo, ligadura de
 @cindex varias ligaduras de expresión
@@ -697,15 +689,9 @@ e2) d\)
 Tipográficamente, la ligadura de fraseo se comporta casi exactamente
 igual que una ligadura de expresión normal.  Sin embargo, se tratan
 como objetos diferentes.  Una @code{\slurUp} no tendrá ningún efecto
-sobre una ligadura de fraseo.  Las ligaduras de fraseo se pueden
-situar manualmente por encima o por debajo de las notas, véase
-@ref{Direction and placement}.
-
-@lilypond[verbatim,quote,relative=1]
-c4\( g' c,( b) | c1\)
-\phrasingSlurUp
-c4\( g' c,( b) | c1\)
-@end lilypond
+sobre una ligadura de fraseo.  El fraseo se puede situar manualmente
+por encima o por debajo de las notas; véase @ref{Direction and
+placement}.
 
 @cindex simultáneas, ligaduras de fraseo
 @cindex varias ligaduras de fraseo

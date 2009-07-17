@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 46458e0e0fafcb4dab3e8127110cef5984523e10
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -579,7 +579,261 @@ y es posible acceder a ellos directamente utilizando elementos de
 marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @}}, véase @ref{Formatting text}.
 
-@lilypondfile[noindent]{font-table.ly}
+@menu
+* Font Clefs::
+* Font Time Signatures::
+* Font Numbers::
+* Font Accidentals::
+* Font Default Noteheads::
+* Font Special Noteheads::
+* Font Shape-note Noteheads::
+* Font Rests::
+* Font Flags::
+* Font Dots::
+* Font Dynamics::
+* Font Scripts::
+* Font Arrowheads::
+* Font Bracket-tips::
+* Font Pedal::
+* Font Accordion::
+* Font Vaticana::
+* Font Medicaea::
+* Font Hufnagel::
+* Font Mensural::
+* Font Neomensural::
+* Font Petrucci::
+* Font Solesmes::
+@end menu
+
+
+@node Font Clefs
+@unnumberedsubsec Font Clefs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #clefs
+@end lilypond
+
+
+@node Font Time Signatures
+@unnumberedsubsec Font Time Signatures
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #timesig
+@end lilypond
+
+
+@node Font Numbers
+@unnumberedsubsec Font Numbers
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #numbers
+@end lilypond
+
+
+@node Font Accidentals
+@unnumberedsubsec Font Accidentals
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accidentals
+@end lilypond
+
+
+@node Font Default Noteheads
+@unnumberedsubsec Font Default Noteheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #default-noteheads
+@end lilypond
+
+
+@node Font Special Noteheads
+@unnumberedsubsec Font Special Noteheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #special-noteheads
+@end lilypond
+
+
+@node Font Shape-note Noteheads
+@unnumberedsubsec Font Shape-note Noteheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #shape-note-noteheads
+@end lilypond
+
+
+@node Font Rests
+@unnumberedsubsec Font Rests
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #rests
+@end lilypond
+
+
+@node Font Flags
+@unnumberedsubsec Font Flags
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #flags
+@end lilypond
+
+
+@node Font Dots
+@unnumberedsubsec Font Dots
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dots
+@end lilypond
+
+
+@node Font Dynamics
+@unnumberedsubsec Font Dynamics
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dynamics
+@end lilypond
+
+
+@node Font Scripts
+@unnumberedsubsec Font Scripts
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #scripts
+@end lilypond
+
+
+@node Font Arrowheads
+@unnumberedsubsec Font Arrowheads
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #arrowheads
+@end lilypond
+
+
+@node Font Bracket-tips
+@unnumberedsubsec Font Bracket-tips
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #brackettips
+@end lilypond
+
+
+@node Font Pedal
+@unnumberedsubsec Font Pedal
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #pedal
+@end lilypond
+
+
+@node Font Accordion
+@unnumberedsubsec Font Accordion
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accordion
+@end lilypond
+
+
+@node Font Vaticana
+@unnumberedsubsec Font Vaticana
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #vaticana
+@end lilypond
+
+
+@node Font Medicaea
+@unnumberedsubsec Font Medicaea
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #medicaea
+@end lilypond
+
+
+@node Font Hufnagel
+@unnumberedsubsec Font Hufnagel
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #hufnagel
+@end lilypond
+
+
+@node Font Mensural
+@unnumberedsubsec Font Mensural
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #mensural
+@end lilypond
+
+
+@node Font Neomensural
+@unnumberedsubsec Font Neomensural
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #neomensural
+@end lilypond
+
+
+@node Font Petrucci
+@unnumberedsubsec Font Petrucci
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #petrucci
+@end lilypond
+
+
+@node Font Solesmes
+@unnumberedsubsec Font Solesmes
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #solesmes
+@end lilypond
 
 
 @node Note head styles

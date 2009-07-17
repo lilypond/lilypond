@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -240,16 +240,18 @@ Este modo se usa de forma predeterminada por parte de
 
 @item svg
 @cindex SVG (Scalable Vector Graphics)
- para obtener SVG (gráficos vectoriales escalables).  Vuelca cada
-página como un archivo @file{SVG} distinto, con las tipografías
-incrustadas.
-  Se necesita un visor de SVG que contemple las tipografías
-incrustadas, o un visor de SVG que pueda sustituir las tipografías
-incrustadas por tipografías OTF.  Bajo UNIX, puede usar
-@uref{http://www.inkscape.org,Inkscape} (versión 0.42 o posterior),
-después de copiar las tipografías OTF del directorio de LilyPond (que
-normalmente es @file{/usr/share/lilypond/VERSIÓN/fonts/otf/}) al
-directorio @file{~/.fonts/}.
+ para obtener SVG (gráficos vectoriales escalables).
+
+Crea un único archivo SVG que contiene toda la salida de música, con
+las tipografías incrustadas.  Se necesita un visor de SVG que
+contemple las tipografías incrustadas, o un visor de SVG que pueda
+sustituir las tipografías incrustadas por tipografías OTF.  Bajo UNIX,
+puede usar @uref{http://www.inkscape.org,Inkscape} (versión 0.42 o
+posterior), después de copiar las tipografías OTF del directorio de
+LilyPond (que normalmente es
+@file{/usr/share/lilypond/VERSIÓN/fonts/otf/}) al directorio
+@file{~/.fonts/}.
+
 @item scm
 @cindex Scheme, volcado de
  para obtener un volcado de las instrucciones internas de dibujo

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 46e1b0a15ecf324b3272645224f3a2b3068dce73
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -187,13 +187,13 @@ Ya hemos visto las instrucciones @code{\set} y @code{\with}, que se
 usan para cambiar las propiedades de los @strong{contextos} y para
 quitar y poner @strong{grabadores}, en @ref{Modifying context
 properties} y @ref{Adding and removing engravers}.  Ahora debemos
-examinar algunas instrucciones importantes más.
+examinar algunas otras instrucciones importantes.
 
 La instrucción que cambia las propiedades de los @strong{objetos de
 presentación} es @code{\override}.  Puesto que esta instrucción debe
 modificar propiedades internas que se encuentran en un lugar profundo
 dentro de LilyPond, su sintaxis no es tan simple como la del resto de
-las instrucciones que hemos visto hasta ahora.  Tiene que saber
+las instrucciones que hemos usado hasta ahora.  Tiene que saber
 exactamente qué propiedad de qué objeto y en qué contexto se debe
 modificar, y cuál debe ser su nuevo valor.  Veamos cómo se hace.
 
@@ -853,15 +853,15 @@ relacionados con los símbolos y las cadenas, consulte @ref{Scheme
 tutorial}.
 
 Así pues, la instrucción @code{\override} que necesitamos para
-imprimir la letra en cursiva sería
+imprimir la letra en cursiva, es:
 
 @example
 \override LyricText #'font-shape = #'italic
 @end example
 
 @noindent
-y debe colocarse justo delante de, y cerca de, la letra a la que debe
-afectar, como esto:
+Esto debe escribirse justo delante de la letra a la que debe afectar,
+de esta forma:
 
 @cindex font-shape, propiedad, ejemplo
 @cindex italic, ejemplo
@@ -1070,10 +1070,10 @@ contextos en los que el grabador de líneas divisorias opera.  Todos
 ellos son del tipo @code{Staff}, y así la razón de que la instrucción
 @code{\override} no funcionara como esperábamos, es porque
 @code{Barline} no se encuentra en el contexto predeterminado
-@code{Voice}.  Si el contexto se especifica mal, la instrucción
-simplemente no funciona.  No se produce ningún mensaje de error, y no
-se registra nada en el archivo log de registro.  Vamos a intentar
-corregirlo escribiendo el contexto correcto:
+@code{Voice}.  Si el contexto no se especifica correctamente, la
+instrucción simplemente no funciona.  No se produce ningún mensaje de
+error, y no se registra nada en el archivo log de registro.  Vamos a
+intentar corregirlo escribiendo el contexto correcto:
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex stencil, propiedad, ejemplo
