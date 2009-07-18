@@ -159,6 +159,9 @@ node."
      (cons (cons key val)  prior))
    '() (ly:all-grob-interfaces)))
 
+(set! interface-description-alist
+  (sort interface-description-alist ly:alist-ci<?))
+
 ;;;;;;;;;; check for dangling backend properties.
 (define (mark-interface-properties entry)
   (map (lambda (x) (set-object-property! x 'iface-marked #t))
