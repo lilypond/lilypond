@@ -53,9 +53,8 @@
        (symbol->string (car entry))
        "} is in music objects of type "
        (human-listify
-	(sort
-	 (map (lambda (x) (ref-ify (symbol->string x)))
-	      (cdr entry)) ly:string-ci<?))
+	(map ref-ify (sort (map symbol->string (cdr entry))
+	                   ly:string-ci<?)))
        "."
 
        "\n\n"
@@ -93,7 +92,8 @@
 			 (string-append
 			  "\n\nEvent classes:\n"
 			  (human-listify
-			   (map ref-ify (map symbol->string classes)))
+			   (map ref-ify (sort (map symbol->string classes)
+					      ly:string-ci<?)))
 			  "."
 
 			  "\n\n"
@@ -112,7 +112,7 @@
      (description-list->texi
       (map
        (lambda (x) (property->texi 'music x props))
-       (map car props))
+       (sort (map car props) ly:symbol-ci<?))
       #t))))
 
 (define (music-object-doc obj)
