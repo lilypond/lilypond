@@ -171,14 +171,14 @@ To build GUB:
 
 @item 
 Run the following (from the gub/ dir):
+
 @example
-mkdir -p uploads/v2-13/
-mkdir -p uploads/v2.13.0/
-touch uploads/v2-13/index.html
+make -f lilypond.make update-versions
 @end example
 
 @item
-Download @file{lilypond-2.13.0-0.test-output.tar.bz2}
+Download
+@uref{http://lilypond.org/download/binaries/test-output/lilypond-2.13.0-0.test-output.tar.bz2,lilypond-2.13.0-0.test-output.tar.bz2}
 
 @item 
 Copy / move / link it to uploads, but rename it to
@@ -186,9 +186,9 @@ Copy / move / link it to uploads, but rename it to
 
 @item
 Run:
+
 @example
-make -f lilypond.make update-versions
-make -f lilypond.make unlocked-test-export
+make lilypond
 @end example
 
 @end itemize
@@ -199,11 +199,11 @@ To upload:
 
 @item remove the "t" from the rsync command in test-lily/rsync-lily-doc.py
 
-@item run upload script (it will fail)
+@item run:
 
-@item make -f lilypond.make unlocked-test-export
-
-@item run upload script (should succeed)
+@example
+python test-lily/upload.py --branch=master --url git://git.sv.gnu.org/lilypond.git --execute
+@end example
 
 @end itemize
 
