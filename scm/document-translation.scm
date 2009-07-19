@@ -34,18 +34,15 @@
 	 (string-append
 	  "Music types accepted:\n\n"
 	  (human-listify
-	   (map (lambda (x)
-		  (string-append
-		   "@ref{"
-		   (symbol->string x)
-		   "}")) accepted)))
+	   (map ref-ify (sort (map symbol->string accepted) ly:string-ci<?))))
 	 "")
      "\n\n"
      (if (pair? propsr)
 	 (string-append
 	  "Properties (read)"
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation x '())) propsr)
+	   (map (lambda (x) (property->texi 'translation x '()))
+	        (sort propsr ly:symbol-ci<?))
 	   #t))
 	 "")
 
@@ -54,7 +51,8 @@
 	 (string-append
 	  "Properties (write)"
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation x '())) propsw)
+	   (map (lambda (x) (property->texi 'translation x '()))
+	        (sort propsw ly:symbol-ci<?))
 	   #t)))
      (if  (null? grobs)
 	  ""
@@ -161,7 +159,7 @@
 	 (consists (cdr (assoc 'consists context-desc)))
 	 (props (cdr (assoc 'property-ops context-desc)))
 	 (grobs  (context-grobs context-desc))
-	 (grob-refs (map (lambda (x) (ref-ify x)) grobs)))
+	 (grob-refs (map ref-ify (sort grobs ly:string-ci<?))))
 
     (make <texi-node>
       #:name name
@@ -171,17 +169,18 @@
        (if (pair? aliases)
 	   (string-append
 	    "\n\nThis context also accepts commands for the following context(s):\n\n"
-	    (human-listify aliases)
+	    (human-listify (sort aliases ly:string-ci<?))
 	    ".")
 	   "")
 
        "\n\nThis context creates the following layout object(s):\n\n"
-       (human-listify (uniq-list (sort grob-refs ly:string-ci<?)))
+       (human-listify (uniq-list grob-refs))
        "."
 
        (if (and (pair? props) (not (null? props)))
-	   (let ((str (apply string-append (map document-property-operation
-						props))))
+	   (let ((str (apply string-append
+		             (sort (map document-property-operation props)
+			           ly:string-ci<?))))
 	     (if (string-null? str)
 		 ""
 		 (string-append
@@ -197,7 +196,8 @@
 	    "\n\nContext "
 	    name
 	    " can contain\n"
-	    (human-listify (map ref-ify (map symbol->string accepts)))
+	    (human-listify (map ref-ify (sort (map symbol->string accepts)
+					      ly:string-ci<?)))
 	    "."))
 
        (if (null? consists)
@@ -205,7 +205,7 @@
 	   (string-append
 	    "\n\nThis context is built from the following engraver(s):"
 	    (description-list->texi
-	     (map document-engraver-by-name consists)
+	     (map document-engraver-by-name (sort consists ly:symbol-ci<?))
 	     #t)))))))
 
 (define (engraver-grobs grav)
