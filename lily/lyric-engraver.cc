@@ -65,9 +65,7 @@ Lyric_engraver::process_music ()
 	    last_text_->set_property ("self-alignment-X", scm_from_int (LEFT));
 	}
       else
-	{
-	  text_ = make_item ("LyricText", event_->self_scm ());
-	}
+	text_ = make_item ("LyricText", event_->self_scm ());
     }
 }
 
@@ -84,9 +82,7 @@ get_voice_to_lyrics (Context *lyrics)
   if (scm_is_string (voice_name))
     nm = ly_scm2string (voice_name);
   else if (nm == "")
-    {
-      return 0;
-    }
+    return 0;
   else
     {
       ssize idx = nm.rfind ('-');
@@ -130,7 +126,7 @@ get_current_note_head (Context *voice)
 	  programming_error ("busyGrobs invalid");
 	  continue;
 	}
-      
+
       if (end_mom->main_part_ > now.main_part_
 	  && dynamic_cast<Item *> (g)
 	  && Note_head::has_interface (g))
@@ -146,7 +142,7 @@ Lyric_engraver::stop_translation_timestep ()
   if (text_)
     {
       Context *voice = get_voice_to_lyrics (context ());
- 
+
       if (voice)
 	{
 	  Grob *head = get_current_note_head (voice);
@@ -154,8 +150,10 @@ Lyric_engraver::stop_translation_timestep ()
 	  if (head)
 	    {
 	      text_->set_parent (head, X_AXIS);
-	      if (melisma_busy (voice))
-		text_->set_property ("self-alignment-X", get_property("lyricMelismaAlignment"));
+	      if (melisma_busy (voice)
+		  && !to_boolean (get_property ("ignoreMelismata")))
+		text_->set_property ("self-alignment-X",
+				     get_property("lyricMelismaAlignment"));
 	    }
 	  else
 	    {
@@ -176,7 +174,9 @@ ADD_TRANSLATOR (Lyric_engraver,
 
 		/* create */
 		"LyricText ",
+
 		/* read */
+		"ignoreMelismata "
 		"lyricMelismaAlignment ",
 
 		/* write */
