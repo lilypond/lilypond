@@ -40,7 +40,7 @@ and scale down result to prevent jaggies in
 PNG images.")
     (backend ps
 "Select backend.  Possible values: 'eps, 'null,
-'ps, 'scm, 'svg.")
+'ps, 'scm, 'socket, 'svg.")
     (check-internal-types #f
 "Check every property assignment for types.")
     (clip-systems #f
