@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -211,24 +211,25 @@ una combinación plica arriba/@/plica abajo se tendrían que separar
 más, y las notas de una combinación plica abajo/@/plica arriba
 deberían juntarse, todo ello dependiendo de las posiciones combinadas
 de las notas.  Los dos compases de arriba están impresos con esta
-corrección y los de abajo sin ella, formando grupos de notas pegadas
+corrección, sin embargo los de abajo forman grupos de notas pegadas
 con plica abajo/@/plica arriba.
 
 Los músicos están normalmente más concentrados en tocar que en
-estudiar el aspecto de una partitura, y por ello las pequeñeces sobre
-los detalles tipográficos pueden parecer académicas.  Pero no lo son.
-En las partituras más largas con ritmos monótonos, las correcciones de
+estudiar el aspecto de una partitura, y por ello las pequeñeces de los
+detalles tipográficos pueden parecer académicas.  Pero no lo son.  En
+las partituras más largas con ritmos monótonos, las correcciones de
 espaciado llevan a sutiles variaciones en la disposición de cada una
 de las líneas dándoles una especie de firma visual distintiva.  Sin
 esta firma, todas las líneas parecerían iguales, y se convertirían en
-un laberinto.  Si un músico aparta la mirada o tiene un lapsus de
-concentración, las líneas podrían perder su lugar sobre el papel.
+un laberinto.  Una impronta visual algo distinta ayuda a evitar que
+los músicos puedan perder el hilo al apartar la mirada o tener un
+lapsus de concentración.
 
 De forma similar, la fuerza visual de unos símbolos pesados sobre
 gruesas líneas de pentagrama se sostiene mejor cuando el lector se
-aleja del papel, por ejemplo cuando está sobre un atril.  Una
+aleja del papel: por ejemplo, cuando está sobre un atril.  Una
 distribución cuidadosa del espacio blanco permite disponer la música
-muy apretada sin que los símbolos se toquen unos a otros.  El
+muy apretada sin que los símbolos se atosiguen unos a otros.  El
 resultado reduce a un mínimo las vueltas de página, lo que es una gran
 ventaja.
 
@@ -294,10 +295,10 @@ estar de acuerdo con nuestras decisiones personales. Por tanto la
 definición del estilo tipográfico también debe estar al alcance del
 usuario.
 
-@item Por último, estamos continuamente refinando los algoritmos de formateo y por
-tanto necesitamos un enfoque flexible para las reglas.  El lenguaje
-C++ fuerza un cierto método para agrupar las reglas que no encaja bien
-con la manera de funcionar de la notación musical.
+@item Por último, estamos continuamente refinando los algoritmos de formateo
+y por tanto necesitamos un enfoque flexible para las reglas.  El
+lenguaje C++ fuerza un cierto método para agrupar las reglas que no se
+puede aplicar fácilmente al formateo de la notación musical.
 
 @end itemize
 
@@ -366,7 +367,7 @@ Las reglas de formateo también son variables que están predefinidas:
 cada objeto tiene unas variables que contienen procedimientos.  Estos
 procedimientos realizan el trabajo real de formateo y sustituyéndolos
 por otros podemos alterar el aspecto de los objetos.  En el siguiente
-ejemplo, la regla que define cómo se dibuja la cabeza de una nota se
+ejemplo, la regla que controla cómo se dibuja la cabeza de una nota se
 altera durante el transcurso del fragmento musical.
 
 @lilypond[quote,ragged-right]
@@ -428,12 +429,12 @@ venido evolucionando desde hace mil años.  La forma que se usa en
 nuestros días data de los primeros tiempos del Renacimiento.  Aunque
 la forma básica (es decir: puntos sobre una pauta de cinco líneas) no
 ha cambiado, los detalles continúan evolucionando para expresar todas
-las innovaciones de la notación contemporánea.  Por tanto abarca unos
-quinientos años de música.  Sus aplicaciones se extienden sobre un
-amplio rango que abarca desde melodías monofónicas hasta monstruosos
-contrapuntos para gran orquesta.
+las innovaciones de la notación contemporánea.  Por tanto, la notación
+musical común abarca unos quinientos años de música.  Sus aplicaciones
+se extienden sobre un amplio rango que abarca desde melodías
+monofónicas hasta monstruosos contrapuntos para gran orquesta.
 
-¿Cómo podemos tratar con una bestia de tantas cabezas, y obligarla a
+¿Cómo podemos tratar con esta bestia de siete cabezas, y obligarla a
 que se encierre dentro de los límites de un programa de ordenador?
 Nuestra solución es trocear el problema de la notación (por oposición
 al grabado, esto es, a la tipografía) en fragmentos digeribles y más
@@ -444,8 +445,8 @@ desarrollarse y mejorarse por separado.  Estos «plug-ins» se llaman
 @code{engraver}s (grabadores), por analogía con los artesanos que
 traducen las ideas musicales a símbolos gráficos.
 
-En el siguiente ejemplo vemos cómo comenzamos con un plug-in para las
-cabezas de las notas, el @code{Note_heads_engraver}.
+En el siguiente ejemplo comenzamos con un plug-in para las cabezas de
+las notas, el @code{Note_heads_engraver}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -478,7 +479,7 @@ cabezas de las notas, el @code{Note_heads_engraver}.
 
 @noindent
 A continuación un @code{Staff_symbol_engraver} (grabador del
-pentagrama) añade la pauta.
+pentagrama) añade la pauta,
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -510,7 +511,7 @@ pentagrama) añade la pauta.
 
 @noindent
 El @code{Clef_engraver} (grabador de la clave) define un punto de
-referencia para el pentagrama.
+referencia para el pentagrama,
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -647,8 +648,8 @@ fácil teclear
 @end example
 
 @noindent
-un Do4 (Do central) negra, y un Re4 (el Re por encima del Do central)
-corchea.
+para crear un Do central (Do4) negra, y un Re por encima del Do
+central (Re4) corchea.
 
 @lilypond[quote]
 {

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-Translation of GIT committish: 9318dde7b34435a3fdb2e1a7e0ddcf0f86e936ae
+Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1617,10 +1617,10 @@ y se puede usar @code{\tweak} para modificar cualquier aparición
 específica de estos elementos.
 
 Es de resaltar que la instrucción @code{\tweak} no se puede usar para
-modificar plicas, barras o alteraciones accidentales, porque éstos se
-generan más tarde por parte de las cabezas de nota, en vez de por
-elementos musicales que están en el flujo de entrada.  Ni se puede
-usar una instrucción @code{\tweak} para modificar claves o
+modificar plicas, barras o alteraciones accidentales directamente,
+porque éstos se generan más tarde por parte de las cabezas de nota, en
+vez de por elementos musicales que están en el flujo de entrada.  Ni
+se puede usar una instrucción @code{\tweak} para modificar claves o
 indicaciones de compás, ya que éstos están separados de cualquier
 instrucción @code{\tweak} precedente en el flujo de entrada a causa de
 la inserción automática de elementos adicionales necesarios para
@@ -1905,6 +1905,15 @@ antes de:
 @item las abreviaturas de articulación, p.ej. @code{-.}, @code{->}, @code{--}
 @end itemize
 
+Estas indicaciones afectan sólo a la nota siguiente.
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+c2_( c)
+c2( c)
+c2^( c)
+@end lilypond
+
 @strong{La propiedad de dirección}
 
 La posición o dirección de muchos objetos de presentación está
@@ -1933,6 +1942,17 @@ colocar a la izquierda o a la derecha del objeto padre.  En este caso
 @code{-1} ó @code{LEFT} significan @qq{a la izquierda} y @code{1} ó
 @code{RIGHT} significan @qq{a la derecha}.  @code{0} ó @code{CENTER}
 significan @qq{utilizar la dirección predeterminada}, como antes.
+
+Estas indicaciones afectan a todas las notas hasta que son canceladas.
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+\slurDown
+c2( c)
+c2( c)
+\slurNeutral
+c2( c)
+@end lilypond
 
 
 @node Distances and measurements
@@ -3240,6 +3260,11 @@ Referencia de la notación:
 @node Modifying ties and slurs
 @unnumberedsubsubsec Modifying ties and slurs
 
+@cindex ligaduras de expresión, modificar
+@cindex ligaduras de unión, modificar
+@cindex Bézier, curvas de
+@cindex Bézier, puntos de control
+
 Las ligaduras de unión, de expresión y de fraseo se trazan como curvas
 de Bézier de tercer orden.  Si la forma de la ligadura calculada
 automáticamente no resulta óptima, se puede modificar su forma
@@ -3290,13 +3315,17 @@ escalado se pueden obtener aplicando la misma transformación a los
 puntos de control de la curva.
 
 Para el ejemplo anterior, la sobreescritura siguiente da una ligadura
-satisfactoria:
+satisfactoria.  Observe la colocación: debe ir inmediatamente antes de
+la nota a la que se asigna el comienzo de la ligadura de expresión o
+de unión.
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  \once \override Tie
-    #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-  { e1 ~ e1 }
+  {
+    \once \override Tie
+      #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+     e1 ~ e1
+  }
 \\
   { r4 <g c,> <g c,> <g c,>4  }
 >>

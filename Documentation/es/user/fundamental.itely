@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -922,7 +922,8 @@ las voces de numeración impar reciben las plicas hacia arriba y las de
 numeración par hacia abajo.  Las plicas de las voces 1 y 2 están
 correctas, pero las plicas de la voz 3 debería ir hacia abajo en este
 fragmento en particular.  Podemos corregir esto simplemente
-olvidándonos de la voz tres y situando la música en la voz cuatro:
+olvidándonos de la voz tres y situando la música en la voz cuatro.
+Esto se hace escribiendo otro par de barras invertidas (@code{\\}).
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
@@ -1602,27 +1603,26 @@ del siguiente ejemplo:
 cis4 cis2. g4
 @end lilypond
 
-La entrada es bastante escueta, pero en la salida se añaden líneas
-divisorias, alteraciones accidentales, la clave y la indicación de
-compás.  LilyPond @emph{interpreta} la entrada.  En esta fase se
-inspecciona la información musical en orden temporal, de forma
-parecida a la lectura de una partitura de izquierda a
-derecha. Mientras se lee la entrada, el programa recuerda dónde se
-encuentran los límites de los compases, y qué notas requieren
-alteraciones explícitas.  Esta información se puede presentar sobre
-varios niveles.  Por ejemplo, el efecto de una alteración accidental
-se encuentra limitada a un solo pentagrama, mientras que una barra
-divisoria debe estar sincronizada a través de la partitura de arriba a
-abajo.
+La entrada es bastante escueta, pero en la salida se han añadido las
+líneas divisorias, las alteraciones, la clave y la armadura de la
+tonalidad.  Cuando LilyPond @emph{interpreta} la entrada, la
+información musical se analiza de izquierda a derecha de igual forma
+que un intérprete lee la partitura.  Mientras se lee el código de
+entrada, el programa recuerda dónde están los límites de los compases,
+y qué alturas requieren altereaciones accidentales explícitas.  Esta
+información se debe conservar a varios niveles.  Por ejemplo, una
+alteración accidental afecta solamente a un pentagrama, mientras que
+una línea divisoria debe estar sincronizada a lo largo de todo el
+sistema.
 
 Dentro de LilyPond, estas reglas y pequeñas porciones de información
-se agrupan en @emph{Contexts}.  Algunos ejemplos de contextos son
-@code{Voice} (Voz), @code{Staff} (Pauta o pentagrama) y @code{Score}
-(Partitura).  Los contextos son jerárquicos, de forma que reflejan la
-naturaleza jerárquica de una partitura musical.  Por ejemplo: un
-contexto de @code{Staff} contener muchos contextos de @code{Voice}, y
-un contexto de @code{Score} puede contener muchos contextos de
-@code{Staff}.
+se agrupan en @emph{Contexts}.  Ya hemos visto el contexto de voz,
+@code{Voice}.  Otros ejemplos de contextos son @code{Staff} (Pauta o
+pentagrama) y @code{Score} (Partitura).  Los contextos son
+jerárquicos, de forma que reflejan la naturaleza jerárquica de una
+partitura musical.  Por ejemplo: un contexto de @code{Staff} contener
+muchos contextos de @code{Voice}, y un contexto de @code{Score} puede
+contener muchos contextos de @code{Staff}.
 
 @quotation
 @sourceimage{context-example,5cm,,}

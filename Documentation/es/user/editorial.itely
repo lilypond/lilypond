@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: ccd5be7a5e4ec9e1c1dfdcecc1eb290d8c4a59fc
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -458,6 +458,9 @@ rodeando al acorde completo.
 Cuando se encuentra con una nota, se crea automáticamente un objeto
 @code{Stem} (plica).  Para las redondas y los silencios, también se
 crean pero se hacen invisibles.
+
+Se puede hacer manualmente que las plicas apunten hacia arriba o hacia
+abajo; véase @ref{Direction and placement}.
 
 @predefined
 @code{\stemUp},

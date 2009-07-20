@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -373,7 +373,7 @@ Glosario musical:
 @rglos{dotted note}.
 
 La @notation{duración} de una nota se especifica mediante un número
-después del nombre de la nota.  @code{1} significa @notation{redonda},
+después del nombre de la nota: @code{1} significa @notation{redonda},
 @code{2} significa @notation{blanca}, @code{4} significa
 @notation{negra} y así sucesivamente.  Las @notation{barras de
 corchea} se añaden automáticamente.
@@ -1336,8 +1336,10 @@ entrada, no relativa a la @code{c''} dentro de la instrucción inicial
 @subheading Simultaneous music expressions: single staff
 
 Para determinar el número de pentagramas en una pieza, LilyPond
-examina la primera expresión.  Si ésta consiste en una sola nota, hay
-un solo pentagrama; si hay una expresión simultánea, hay más de un
+examina el comienzo de la primera expresión.  Si hay una sola nota,
+hay un solo pentagrama; si hay una expresión simultánea, hay más de un
+pentagrama.  El siguiente ejemplo presenta una expresión compleja,
+pero dado que comienza con una sola nota, se dispone sobre un solo
 pentagrama.
 
 @lilypond[verbatim,quote]

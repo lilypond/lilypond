@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 50b88336f4c69d7d3241cc01af98c362cd9d2b4b
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -134,12 +134,13 @@ otros ajustes que controlan la notación proporcional, consulte
 @funindex dotsNeutral
 
 Normalmente los puntillos se desplazan hacia arriba para evitar las
-líneas del pentagrama, excepto en situaciones de polifonía. Para
-forzar una dirección concreta de forma manual, véase @ref{Direction
-and placement}.
+líneas del pentagrama, excepto en situaciones de polifonía. Se pueden
+situar los puntillos manualmente encima o debajo de las líneas de la
+pauta; véase @ref{Direction and placement}.
 
 
 @predefined
+@code{\autoBeamOn},
 @code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
@@ -219,10 +220,8 @@ c4 c \times 2/3 { b4 a g }
 @funindex \tupletNeutral
 @funindex tupletNeutral
 
-La colocación automática del corchete de grupo especial por encima o
-por debajo de las notas se puede sobreescribir manualmente mediante
-instrucciones predefinidas, para ver más detalles consulte
-@ref{Direction and placement}.
+Se pueden colocar manualmente los corchetes de tresillo encima o
+debajo de la pauta; véase @ref{Direction and placement}.
 
 Los grupos pueden anidarse unos dentro de otros:
 
@@ -481,9 +480,8 @@ percusión.  Se pueden introducir de la siguiente manera:
 @funindex \tieNeutral
 @funindex tieNeutral
 
-Es posible controlar la colocación vertical de las ligaduras de unión;
-véase la sección de instrucciones predefinidas, o para ver más
-detalles, consulte @ref{Direction and placement}.
+Es posible hacer manualmente que las ligaduras de unión se coloquen
+por encima o por debajo; véase @ref{Direction and placement}.
 
 @cindex ligaduras, apariencia
 @cindex ligaduras de puntos
