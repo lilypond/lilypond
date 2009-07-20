@@ -61,6 +61,45 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+@item
+Fret diagrams can now have variable string thickness:
+@lilypond[quote]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+    \chordmode {
+      c1
+    }
+  }
+  \new FretBoards {
+    \override FretBoard #'fret-diagram-details
+      #'string-thickness-factor = #0.3
+    \chordmode {
+      c1
+    }       
+  }
+>>
+@end lilypond
+
+@item
+A new fret diagram orientation, opposing-landscape, is available:
+@lilypond[quote]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+    \chordmode {
+      c1
+    }
+  }
+  \new FretBoards {
+    \override FretBoard #'fret-diagram-details
+      #'orientation = #'opposing-landscape
+    \chordmode {
+      c1
+    }       
+  }
+>>
+@end lilypond
 
 @item
 Unbeamed 128th notes are now supported:
