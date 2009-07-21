@@ -124,7 +124,7 @@ stderr of this run."
 \test "" ##[ { c-1  c^2  c_3  } #]			% FingerEvent
 \test "" ##[ { c-"foo"  c^"foo"  c_"foo"  } #]	% TextScriptEvent
 \test "" ##[ { R1*4-"foo"  R^"foo"  R_"foo"  } #]	% MultiMeasureTextEvent
-\test "" ##[ { c4-\harmonic  c^\harmonic  c_\harmonic  } #] 	% HarmonicEvent
+\test "" ##[ { < c\harmonic >4 < c e\harmonic > } #] 	% HarmonicEvent
 \test "" ##[ { c-\glissando  c^\glissando  c_\glissando  } #] % GlissandoEvent
 \test "" ##[ { c-\arpeggio  c^\arpeggio  c_\arpeggio  } #] 	% ArpeggioEvent
 \test "" ##[ { c\p  c^\ff  c_\sfz  } #] 		% AbsoluteDynamicEvent

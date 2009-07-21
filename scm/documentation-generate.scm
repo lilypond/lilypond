@@ -17,6 +17,7 @@
 ;; todo: naming: grob vs. layout property
 
 (map ly:load '("documentation-lib.scm"
+	       "lily-sort.scm"
 	       "document-functions.scm"
 	       "document-translation.scm"
 	       "document-music.scm"

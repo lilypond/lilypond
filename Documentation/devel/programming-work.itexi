@@ -743,6 +743,21 @@ If the developer does not feel qualified to write the documentation,
 a documentation editor will be able to write it from the regression
 tests.
 
+If the modification changes the input syntax so that inline snippets in
+the documentation need to be changed, you will need to change the
+snippets in both the english version of the documentation and any
+translated versions.  If you do not change the snippets in all
+translations, older versions of the snippet may be included
+when the documentation is built.
+
+If lsr snippets need to be changed, the snippet should be copied to
+input/new and modified there.  The portions of the snippet that
+are added by makelsr.py should be removed.  The changed snippet
+will then be included in all versions of the documentation.
+
+If non-snippet text is changed in the english documentation, no
+corresponding changes should be made in the translated documentation.
+
 @subsection Write convert-ly rule
 
 If the modification changes the input syntax, a convert-ly rule
