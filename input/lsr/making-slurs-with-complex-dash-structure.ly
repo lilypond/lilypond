@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+%% Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
   texidoces = "
 
 Las ligaduras de expresión se pueden construir con patrones de
@@ -32,7 +32,7 @@ de 1 para una ligadura continua.
   doctitlees = "Hacer ligaduras de expresión con estructura compleja de discontinuidad"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Legatobögen können mit einem komplizierten Strichelmuster
 gesetzt werden, indem die @code{dash-definition}-Eigenschaft
