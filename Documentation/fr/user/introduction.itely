@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of lilypond-kearning.tely
+@c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: db53c05f11bea8831733b1fdf7ebe32cb1f491f4
+    Translation of GIT committish: 7eee2a7382029cc29cc069f93a431758ae8a13b7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -630,7 +630,7 @@ Référence du programme: @rinternals{Contexts}.
 @unnumberedsubsec Music representation
 
 @cindex syntaxe
-@cindex structures recursives
+@cindex structures récursives
 
 Idéalement, le format d'entrée pour n'importe quel système de
 formatage est une description abstraite du contenu.  Dans ce cas-ci,
@@ -700,7 +700,7 @@ des accolades @code{@{@tie{}@dots{}@tie{}@}}
 @noindent
 Ceci est également une expression, et peut donc encore une fois
 être combiné avec d'autres expressions simultanées (une blanche)
-en utilisant <<, @code{\\}, et >>
+en utilisant @code{<<}, @code{\\}, et @code{>>}.
 
 @example
 << g2 \\ @{ f4 <<c4 d4 e4>> @} >>
@@ -850,7 +850,6 @@ Texinfo.  À l'aide d'un programme spécial, les extraits de code
 peuvent être remplacés par des images de musiques dans les fichiers de
 sortie PDF ou HTML.  Cela donne la possibilité de mélanger de la
 musique et du texte dans les documents.
-
 
 
 @node About the documentation
@@ -1071,6 +1070,7 @@ et convertissent divers formats de musique vers le format @code{.ly}.
 
 @cindex snippets
 @cindex extraits de code
+@cindex morceaux choisis
 @cindex LSR
 @cindex LilyPond Snippet Repository
 
