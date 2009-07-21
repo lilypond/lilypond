@@ -372,6 +372,7 @@ Languages in this order.
 * harmony::
 * hemiola::
 * homophony::
+* hook::
 * hymn meter::
 * interval::
 * inversion::
@@ -4405,6 +4406,13 @@ the same rhythm (more or less).  In contrast to @emph{polyphony}.
 
 @seealso
 @ref{polyphony}.
+
+
+@node hook
+@section hook
+
+@seealso
+@ref{flag}.
 
 
 @node hymn meter
