@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 46e1b0a15ecf324b3272645224f3a2b3068dce73
+    Translation of GIT committish: 5f51567fbc5d7a811e147ebd01f103e066f36b3a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1221,6 +1221,10 @@ than one tagged section at the same place.
 @node Text encoding
 @subsection Text encoding
 
+@cindex Unicode
+@cindex UTF-8
+@cindex caracteres no ASCII
+
 LilyPond usa el conjunto de caracteres definido por el consorcio
 Unicode y la norma ISO/IEC 10646.  Define un nombre único y un código
 para los conjuntos de caracteres que se utilizan en prácticamente
@@ -1323,6 +1327,8 @@ partitura:
 }
 \markup { "Copyright 2008--2009" \char ##x00A9 }
 @end lilypond
+
+@cindex copyright, símbolo de
 
 Para escribir el símbolo de copyright en la nota de créditos, utilice:
 
