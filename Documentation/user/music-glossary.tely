@@ -857,8 +857,8 @@ I: alterazione,
 F: altération,
 D: Alteration,
 NL: verhoging of verlaging,
-DK: ?,
-S: ?,
+DK: Forandring,
+S: Förändring,
 FI: muunnettu.
 
 An alteration is the modification, raising or lowering, of a note's
@@ -1171,13 +1171,13 @@ FI: ylinouseva intervalli.
 @node augmentation
 @section augmentation
 
-ES: ?,
-I: ?,
+ES: aumentación,
+I: aumentazione,
 F: augmentation,
-D: ?,
-NL: ?,
-DK: ?,
-S: ?,
+D: Augmentation,
+NL: Augmentatio,
+DK: Forøgelse,
+S: Förstoring,
 FI: aika-arvojen pidentäminen.
 
 @c TODO: add definition.
