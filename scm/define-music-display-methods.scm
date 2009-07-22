@@ -134,33 +134,34 @@
 ;;; post events
 ;;;
 
-(define post-event? (make-music-type-predicate
-		     'StringNumberEvent
-		     'ArticulationEvent
-		     'FingeringEvent
-		     'TextScriptEvent
-		     'MultiMeasureTextEvent
-		     'HyphenEvent
-		     'ExtenderEvent
-		     'BeamEvent
-		     'SlurEvent
-		     'TieEvent
-		     'CrescendoEvent
-		     'DecrescendoEvent
-		     'PhrasingSlurEvent
-		     'TremoloEvent
-		     'SustainEvent
-		     'SostenutoEvent
-		     'TextSpanEvent
-		     'HarmonicEvent
-		     'BeamForbidEvent
-		     'AbsoluteDynamicEvent
-		     'TupletSpanEvent
-		     'TrillSpanEvent
-		     'GlissandoEvent
-		     'ArpeggioEvent
-		     'NoteGroupingEvent
-		     'UnaCordaEvent))
+(define post-event?
+  (make-music-type-predicate
+    'AbsoluteDynamicEvent
+    'ArpeggioEvent
+    'ArticulationEvent
+    'BeamEvent
+    'BeamForbidEvent
+    'CrescendoEvent
+    'DecrescendoEvent
+    'ExtenderEvent
+    'FingeringEvent
+    'GlissandoEvent
+    'HarmonicEvent
+    'HyphenEvent
+    'MultiMeasureTextEvent
+    'NoteGroupingEvent
+    'PhrasingSlurEvent
+    'SlurEvent
+    'SostenutoEvent
+    'StringNumberEvent
+    'SustainEvent
+    'TextScriptEvent
+    'TextSpanEvent
+    'TieEvent
+    'TremoloEvent
+    'TrillSpanEvent
+    'TupletSpanEvent
+    'UnaCordaEvent))
 
 (define* (event-direction->lily-string event #:optional (required #t))
   (let ((direction (ly:music-property event 'direction)))
