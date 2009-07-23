@@ -11,7 +11,7 @@
 . QUANT) pairs, where QUANT is -1 (hang), 0 (center), 1 (sit) or -2/ 2 (inter) 
 
 "
-  (let* ((thick (ly:grob-property beam 'thickness))
+  (let* ((thick (ly:grob-property beam 'beam-thickness))
 	 (layout (ly:grob-layout beam))
 	 (lthick (ly:output-def-lookup layout 'line-thickness))
 	 (staff-thick lthick) ; fixme.

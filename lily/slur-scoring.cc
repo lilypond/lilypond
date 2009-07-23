@@ -116,7 +116,7 @@ Slur_score_state::get_encompass_info (Grob *col) const
     {
       ei.stem_ = stem->extent (common_[Y_AXIS], Y_AXIS)[dir_];
       if (Grob *b = Stem::get_beam (stem))
-	ei.stem_ += stem_dir * 0.5 * Beam::get_thickness (b);
+	ei.stem_ += stem_dir * 0.5 * Beam::get_beam_thickness (b);
 
       Interval x = stem->extent (common_[X_AXIS], X_AXIS);
       ei.x_ = x.is_empty ()

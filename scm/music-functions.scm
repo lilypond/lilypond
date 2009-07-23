@@ -387,7 +387,7 @@ i.e.  this is not an override"
 			  (Voice Dots font-size -3)
 			  (Voice Stem length-fraction 0.8)
 			  (Voice Stem no-stem-extend #t)
-			  (Voice Beam thickness 0.384)
+			  (Voice Beam beam-thickness 0.384)
 			  (Voice Beam length-fraction 0.8)
 			  (Voice Accidental font-size -4)
 			  (Voice AccidentalCautionary font-size -4)

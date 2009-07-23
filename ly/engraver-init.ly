@@ -248,7 +248,7 @@ multiple voices on the same staff."
   fontSize = #-4
   \override Stem #'length-fraction = #(magstep -4)
   \override Beam #'length-fraction = #(magstep -4)
-  \override Beam #'thickness = #0.35
+  \override Beam #'beam-thickness = #0.35
 }
 
 \context {
@@ -627,7 +627,7 @@ automatically when an output definition (a @code{\score} or
     (Voice Dots font-size -3)
     (Voice Stem length-fraction 0.8)
     (Voice Stem no-stem-extend #t)
-    (Voice Beam thickness 0.384)
+    (Voice Beam beam-thickness 0.384)
     (Voice Beam length-fraction 0.8)
     (Voice Accidental font-size -4)
     (Voice AccidentalCautionary font-size -4)
@@ -709,7 +709,7 @@ context."
   %% TabStaff increase the staff-space, which in turn
   %% increases beam thickness and spacing; beams are
   %% too big. We have to adjust the beam settings:
-  \override Beam #'thickness = #0.32
+  \override Beam #'beam-thickness = #0.32
   \override Beam #'length-fraction = #0.62
 
   %% No accidental in tablature !

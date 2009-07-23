@@ -208,9 +208,9 @@ stderr of this run."
 \test "" ##[ \unset autoBeaming #]
 %% Layout properties
 \test "" ##[ \override Staff . Stem #'thickness = #4.0 #]	% OverrideProperty
-\test "" ##[ \once \override Beam #'thickness = #0.6 #]
+\test "" ##[ \once \override Beam #'beam-thickness = #0.6 #]
 \test "" ##[ \revert Staff . Stem #'thickness #]	% RevertProperty
-\test "" ##[ \revert Beam #'thickness #]
+\test "" ##[ \revert Beam #'beam-thickness #]
 
 %% \applyOutput
 \test "" ##[ \applyOutput #'Foo #(lambda (arg) (list)) #]

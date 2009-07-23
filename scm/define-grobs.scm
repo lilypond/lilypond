@@ -368,8 +368,7 @@
 	(shorten . ,ly:beam::calc-stem-shorten)
 	(stencil . ,ly:beam::print)
 
-	;; TODO: should be in SLT.
-	(thickness . 0.48) ; in staff-space
+	(beam-thickness . 0.48) ; in staff-space
 
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems)))

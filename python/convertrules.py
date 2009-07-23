@@ -2905,6 +2905,7 @@ def conv(str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("Dash parameters for slurs and ties are now in \'dash-details.\n"))
         stderr_write (UPDATE_MANUALLY)
+    str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
     return str
 
 @rule ((2, 13, 4),
