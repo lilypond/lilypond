@@ -197,6 +197,15 @@
     "Century Schoolbook L,serif"
     "sans-serif" "monospace" factor))
 
+(define-public all-text-font-encodings
+  '(latin1))
+
+(define-public all-music-font-encodings
+  '(fetaBraces
+    fetaDynamic
+    fetaMusic
+    fetaNumber))
+
 (define-public (magstep s)
   (exp (* (/ s 6) (log 2))))
 
