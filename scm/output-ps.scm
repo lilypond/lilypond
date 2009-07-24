@@ -263,9 +263,6 @@
 	     (cdr y)
 	     url))
 
-(define (utf-8-string pango-font-description string)
-  (ly:warning (_ "utf-8-string encountered in PS backend")))
-
 (define (path thickness exps)
   (define (convert-path-exps exps)
     (if (pair? exps)
