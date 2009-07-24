@@ -128,15 +128,6 @@
                  (cdr spacing)))))
       page)))
 
-(define (page-breaking-wrapper paper-book)
-  "Compute line and page breaks by calling the page-breaking paper variable,
-  then performs the post process function using the page-post-process paper
-  variable. Finally, return the pages."
-  (let* ((paper (ly:paper-book-paper paper-book))
-         (pages ((ly:output-def-lookup paper 'page-breaking) paper-book)))
-    ((ly:output-def-lookup paper 'page-post-process) paper pages)
-    pages))
-
 (define (post-process-pages layout pages)
   "If the write-page-layout paper variable is true, dumps page breaks
   and tweaks."
