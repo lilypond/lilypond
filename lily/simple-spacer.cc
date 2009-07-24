@@ -216,7 +216,9 @@ Simple_spacer::compress_line ()
     {
       Spring sp = sorted_springs[i];
 
-      assert (sp.blocking_force () <= cur_force);
+      if (sp.blocking_force () > cur_force)
+	continue;
+
       if (isinf (sp.blocking_force ()))
 	break;
 
@@ -234,7 +236,7 @@ Simple_spacer::compress_line ()
 	}
       
       cur_len -= block_dist;
-      inv_hooke -= sp.inverse_compress_strength ();
+      inv_hooke -= compressed ? sp.inverse_compress_strength () : sp.inverse_stretch_strength ();
       cur_force = sp.blocking_force ();
     }
 
