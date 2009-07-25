@@ -536,7 +536,9 @@ current breakable (clef, key signature, etc.) items.")
 non-breakable items (note heads, lyrics, etc.).")
 
 
-     (dynamicAbsoluteVolumeFunction ,procedure? "[DOCUMENT-ME]")
+     (dynamicAbsoluteVolumeFunction ,procedure? "A procedure that takes
+one argument, the text value of a dynamic event, and returns the absolute
+volume of that dynamic event.")
 
 
      (finalizations ,list? "A list of expressions to evaluate before
