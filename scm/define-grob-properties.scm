@@ -1035,7 +1035,8 @@ ligature grob in (in @code{staff-space} units).")
 
      (join-heads ,boolean? "Whether to join the note heads of an ambitus
 grob with a vertical line.")
-     (join-right-amount ,number? "DOCME")
+     (join-right-amount ,number? "A length used for calculating the
+Y-extent of mensural ligatures.")
 
      (linea ,boolean? "Attach vertical lines to this neume?")
 
