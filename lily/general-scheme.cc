@@ -140,9 +140,10 @@ LY_DEFINE (ly_warning, "ly:warning",
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
 	   1, 0, 0, (SCM s),
-	   "A type predicate.  The direction@tie{}@code{s} is @code{-1},"
-	   " @code{0} or@tie{}@code{1}, where @code{-1} represents"
-	   " left or down and @code{1} represents right or up.")
+	   "Is @var{s} a direction?  Valid directions are @code{-1},"
+	   " @code{0}, or@tie{}@code{1}, where @code{-1} represents"
+	   " left or down, @code{1} represents right or up, and @code{0}"
+	   " represents a neutral direction.")
 {
   if (scm_is_number (s))
     {

@@ -58,7 +58,7 @@ LY_DEFINE (ly_make_music, "ly:make-music",
 
 LY_DEFINE (ly_music_p, "ly:music?",
 	   1, 0, 0, (SCM obj),
-	   "Type predicate.")
+	   "Is @var{obj} a Music object?")
 {
   return scm_from_bool (unsmob_music (obj));
 }
@@ -77,8 +77,7 @@ LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
 
 LY_DEFINE (ly_music_list_p, "ly:music-list?",
 	   1, 0, 0, (SCM lst),
-	   "Type predicate: Return true if @var{lst} is a list"
-	   " of music objects.")
+	   "Is @var{lst} a list of music objects?")
 {
   if (scm_list_p (lst) == SCM_BOOL_T)
     while (scm_is_pair (lst))
