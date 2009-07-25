@@ -78,10 +78,12 @@
   (let* ((name (symbol->string (car interface)))
 	 (interface-list (human-listify
 			  (map ref-ify
+			       (sort
 				(map symbol->string
 				     (hashq-ref iface->grob-table
 						(car interface)
-						'()))))))
+						'()))
+				ly:string-ci<?)))))
     (make <texi-node>
       #:name name
       #:text (string-append
@@ -113,11 +115,14 @@ node."
 	 (name (cdr (assoc 'name meta)))
 	 ;;       (bla (display name))
 	 (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
-	 (ifacedoc (map (lambda (iface)
-			  (if (pair? iface)
-			      (ref-ify (symbol->string (car iface)))
-			      (ly:error (_ "pair expected in doc ~s") name)))
-			(reverse ifaces)))
+	 (ifacedoc (map ref-ify
+			(sort
+			 (map (lambda (iface)
+				(if (pair? iface)
+				    (symbol->string (car iface))
+				    (ly:error (_ "pair expected in doc ~s") name)))
+			      ifaces)
+			 ly:string-ci<?)))
 	 (engravers (filter
 		     (lambda (x) (engraver-makes-grob? name x))
 		     all-engravers-list))
