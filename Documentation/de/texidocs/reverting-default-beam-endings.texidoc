@@ -1,0 +1,10 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Um Balken im 12/8-Takt als @code{3-4-3-2} zu gruppieren, muss man zuerst die
+Standardwerte für die Balken im 12/8-Takt rückgängig machen und dann die neuen
+Werte setzen:
+
+"
+  doctitlede = "Standard-Balkenwerte rückgängig machen"
+
+

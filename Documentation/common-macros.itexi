@@ -66,10 +66,11 @@
 
 @c   ***** Headers *****
 
+@ifclear snippets-sections
 @macro lydoctitle {TEXT}
 @emph{\TEXT\}
 @end macro
-
+@end ifclear
 
 @c   ***** Indexing *****
 

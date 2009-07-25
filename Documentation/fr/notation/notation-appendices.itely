@@ -1,0 +1,171 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Frédéric Chiasson, Jean-Charles Malahieude
+
+@node Notation manual tables
+@appendix Notation manual tables
+
+@c Please do not delete the following @ignore block.
+@ignore
+Note for editors and translators: In the following menu, two entries
+are needed to link to a pair of automatically generated sections.
+Please keep them and, if using emacs, do not run
+texinfo-all-menus-update without manually restoring them back. These
+menu entries are:
+
+* Text markup commands::
+* Text markup list commands::
+
+and they should go just after
+* Note head styles::
+
+and just before
+* List of articulations::
+@end ignore
+
+@menu
+* Chord name chart::
+* Common chord modifiers::
+* Predefined fretboard diagrams::
+* MIDI instruments::
+* List of colors::
+* The Feta font::
+* Note head styles::
+* Text markup commands::
+* Text markup list commands::
+* List of articulations::       
+* Percussion notes::
+* All context properties::      
+* Layout properties::           
+* Identifiers::                 
+* Scheme functions::            
+@end menu 
+
+@node Chord name chart
+@appendixsec Chord name chart
+
+@untranslated
+
+@node Common chord modifiers
+@appendixsec Common chord modifiers
+
+@untranslated
+
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
+
+@untranslated
+
+@node MIDI instruments
+@appendixsec MIDI instruments
+
+@untranslated
+
+@node List of colors
+@appendixsec List of colors
+
+@untranslated
+
+@subsubheading Normal colors
+@subsubheading X color names
+@subsubheading Color Names without a numerical suffix:
+@subsubheading Color names with a numerical suffix
+@subsubheading Grey Scale
+
+@node The Feta font
+@appendixsec The Feta font
+
+@untranslated
+
+@node Note head styles
+@appendixsec Note head styles
+
+@untranslated
+
+@ignore
+Les commandes suivantes peuvent être utilisées dans un bloc
+@code{\markup @{ @}}.
+@end ignore
+
+@include markup-commands.tely
+
+
+@ignore
+Les commandes suivantes peuvent être utilisées dans un
+bloc @code{\markuplines @{ @}}.
+@end ignore
+
+@include markup-list-commands.tely
+
+
+@node List of articulations
+@appendixsec List of articulations
+
+@cindex accent
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex point d'orgue
+@cindex point d'arrêt
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex tirer l'archet
+@cindex pousser l'archet
+@cindex bouché
+@cindex sourdine
+@cindex orgue, marque de pédale d'
+@cindex grupetto
+@cindex ouvert
+@cindex flageolet
+@cindex trille
+@cindex mordant
+@cindex ornementation baroque
+@cindex baroque, ornementation
+@cindex pouce
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+
+Voici la liste exhaustive des symboles :
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+
+
+@node Percussion notes
+@appendixsec Percussion notes
+
+@lilypondfile[quote]{percussion-chart.ly}
+
+@node All context properties
+@appendixsec All context properties
+
+@untranslated
+
+
+@node Layout properties
+@appendixsec Layout properties
+
+@untranslated
+
+
+@node Identifiers
+@appendixsec Identifiers
+
+@untranslated
+
+
+@node Scheme functions
+@appendixsec Scheme functions
+
+@untranslated

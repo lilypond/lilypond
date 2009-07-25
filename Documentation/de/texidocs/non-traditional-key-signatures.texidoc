@@ -1,0 +1,22 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  doctitlede = "Untypische Tonarten"
+  texidocde = "
+Der üblicherweise benutzte @code{\\key}-Befehl setzt die
+@code{keySignature}-Eigenschaft im @code{Staff}-Kontext.
+
+Um untypische Tonartenvorzeichen zu erstellen, muss man diese Eigenschaft
+direkt setzen.  Das Format für den Befehl ist eine Liste: @code{ \\set
+Staff.keySignature = #`(((Oktave . Schritt) . Alteration) ((Oktave
+. Schritt) . Alteration) ...)} wobei für jedes Element in der Liste
+@code{Oktave} die Oktave angibt (0@tie{}ist die Oktave vom
+eingestrichenen@tie{}C bis zum eingestrichenen@tie{}H), @code{Schritt} gibt
+die Note innerhalb der Oktave an (0@tie{}heißt@tie{}C und
+6@tie{}heißt@tie{}H), und @code{Alteration} ist @code{,SHARP ,FLAT
+,DOUBLE-SHARP} usw.  (Beachte das beginnende Komma.)
+
+Alternativ kann auch jedes Element der Liste mit dem allgemeineren Format
+@code{(Schritt . Alteration)} gesetzt werden, wobei dann die Einstellungen
+für alle Oktaven gelten.
+
+Hier ein Beispiel einer möglichen Tonart für eine Ganztonleiter:
+"

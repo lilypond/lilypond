@@ -2,18 +2,80 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-SUBDIRS=devel user bibliography pictures topdocs misc po $(LANGS)
-STEPMAKE_TEMPLATES=documentation texinfo tex
-LOCALSTEPMAKE_TEMPLATES=lilypond ly
-LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
+SUBDIRS = application contributor learning notation snippets\
+  bibliography pictures misc po $(LANGS)
+STEPMAKE_TEMPLATES = documentation texinfo tex omf
+LOCALSTEPMAKE_TEMPLATES = lilypond ly
+
+### Extra flags
+
+LILYPOND_BOOK_FLAGS = --extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
+TEXI2PDF_FLAGS = \
+  -I $(outdir) \
+  -I $(top-build-dir)/Documentation/$(outconfbase)
+$(outdir)/snippets-big-page.html: TEXI2HTML_FLAGS += -D short_toc
+$(outdir)/snippets/index..html: TEXI2HTML_FLAGS += -D short_toc
+
+### Extra source files
+
 README_TOP_FILES= DEDICATION THANKS
-EXTRA_DIST_FILES = lilypond-texi2html.init
+LATEX_FILES =$(call src-wildcard,*.latex)
+IMAGES=$(call src-wildcard,*.png)
+EPS_ILLUSTRATIONS=context-example.eps
+
+IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
+SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
+
+
+### Extra out files
+
+# Dependencies
+GENERATED_ITELY_FILES = $(IN_ITELY_FILES:snippets/%-intro.itely=$(outdir)/%.itely)
+
+OUT_PDF_IMAGES = $(IMAGES:%.png=$(outdir)/%.pdf)
+OUT_PDF_IMAGES += $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.pdf)
+OUT_PNG_IMAGES = $(OUT_PDF_IMAGES:%.pdf=%.png)
+
+XREF_MAPS_FILES += $(XREF_MAPS_DIR)/internals.xref-map
+OMF_FILES += $(outdir)/internals.html.omf $(outdir)/internals.pdf.omf
+
+# Main manuals
+
+OUT_MASTER_TEXI_FILES = $(outdir)/internals.texi
+#OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
+# $(ITELY_FILES:%.itely=$(outdir)/%.texi)
+
+HTML_FILES = \
+$(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
+ $(TEXI_FILES:%.texi=$(outdir)/%-big-page.html)\
+ $(outdir)/internals-big-page.html
+
+PDF_FILES = \
+$(TELY_FILES:%.tely=$(outdir)/%.pdf)\
+ $(TELY_FILES:%.texi=$(outdir)/%.pdf)\
+ $(outdir)/internals.pdf
+
+
+HTML_PAGE_NAMES= index translations devel
+OUT_HTML_FILES= $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
+OUT_CSS_FILES= $(CSS_FILES:%.css=$(outdir)/%.css)
+
+MAIN_INFO_DOC = lilypond-notation
+INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
+ lilypond-learning lilypond-notation music-glossary
+ifeq ($(out),www)
+INFO_DOCS += lilypond-snippets 
+endif
+INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
+
+ifeq ($(out),www)
+INFO_IMAGES_DIR = lilypond
+DEST_INFO_IMAGES_SUBDIR = Documentation/
+endif
+
 
 include $(depth)/make/stepmake.make
 
-HTML_PAGE_NAMES= index translations
-OUT_HTML_FILES= $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
-OUT_CSS_FILES= $(CSS_FILES:%.css=$(outdir)/%.css)
 
 default: local-doc
 
@@ -38,9 +100,149 @@ $(OUT_HTML_FILES): $(OUT_CSS_FILES)
 $(outdir)/%.css: %.css
 	ln -f $< $@
 
+local-help: extra-local-help
 
-### Translations maintenance targets
+extra-local-help:
+	@echo -e "\
+  check-xrefs [ISOLANG=LL] validate Texinfo cross-references\n\
+  fix-xrefs [ISOLANG=LL]   interactively fix Texinfo cross-references (use with caution)\n\
+  info        update info pages\n\
+  xml	      update Docbook xml documentation\n\
+\n\
+Translations specific targets (see TRANSLATION for details):\n\
+  new-lang ISOLANG=LL  create and initialize subdirectory \'LL' for language \'LL\n\
+  po-update            update and replace PO files for documentation with msgmerged versions\n\
+  check-translation ISOLANG=LL   show changes in English docs since last translation update\n\
+  update-translation ISOLANG=LL  call $$$$EDITOR to help updating the translation\n\
+  skeleton-update ISOLANG=LL     update Texinfo skeleton files\n\
+  snippet-update ISOLANG=LL      update ly snippets in Texinfo translation according to\n\
+                              docs in English (use with caution)\n\
+\n\
+LL refers to the desired locale (most often only the ISO 639 language code).\n"
 
+#####################################
+# Texinfo 
+
+info: $(INFO_FILES)
+	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
+	@echo export PYTHONPATH=$(PYTHONPATH)
+
+xml: $(outdir)/notation/notation.xml $(outdir)/internals/internals.xml
+
+
+local-clean:
+	rm -f $(INFO_IMAGES_DIR)
+
+
+#
+# Split manuals in HTML
+#
+$(outdir)/learning/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+$(outdir)/notation/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+
+
+#
+# Manuals in one big HTML page
+#
+$(outdir)/learning-big-page.html: $(OUT_PNG_IMAGES)
+$(outdir)/notation-big-page.html: $(OUT_PNG_IMAGES)
+
+# Ugh, using '%' twice not possible
+$(outdir)/notation/notation.xml: $(outdir)/notation.texi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<
+
+$(outdir)/internals/internals.xml: $(outdir)/internals.texi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<
+
+$(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
+
+$(foreach manual, application contributor learning notation,\
+$(eval $(outdir)/(i).texi: $(call src-wildcard,$(i)/*.ite??)))
+
+$(outdir)/%.png: %.png
+	convert -depth 8 -geometry 50x50% $< $@
+
+$(outdir)/%.png: %.eps
+	gs -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
+
+$(outdir)/%.pdf: %.png
+	convert -depth 8 $< $@
+
+$(outdir)/%.pdf: %.eps
+	gs -dAutoRotatePages=/None -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
+
+
+### Splitted HTML manuals
+
+DEEP_HTML_FILES =\
+ $(outdir)/application/index.html\
+ $(outdir)/internals/index.html\
+ $(outdir)/learning/index.html\
+ $(outdir)/notation/index.html\
+ $(outdir)/music-glossary/index.html\
+ $(outdir)/snippets/index.html
+
+# Symlinks to refer to external source documents from split and non-split HTML
+source-links = $(outdir)/source $(outdir)/notation/source $(outdir)/music-glossary/source \
+ $(outdir)/application/source $(outdir)/learning/source $(outdir)/internals/source \
+ $(outdir)/snippets/source
+
+$(outdir)/source:
+	@rm -f $(@)
+	ln -sf $(depth) $(@)
+
+$(outdir)/%/source:
+	@rm -f $(@)
+	mkdir -p $(dir $@)
+	ln -sf $(depth)/.. $(@)
+
+################################
+### Snippets rules idiosyncrases
+
+$(outdir)/%.itely: snippets/%-intro.itely snippets/%.snippet-list
+	xargs $(LYS_TO_TELY) -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
+
+$(outdir)/snippets.texi: $(GENERATED_ITELY_FILES) $(SNIPPET_LY_FILES)
+
+###############
+### Web targets
+
+ifeq ($(out),www)
+local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) info
+
+local-WWW-2: $(HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
+endif
+
+$(outdir)/%.bib: %.bib
+	ln -f $< $@
+
+# lilypond.texi deps
+$(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
+	$(MAKE) -C $(top-src-dir)/mf
+
+$(outdir)/notation.texi: $(outdir)/ly-grammar.txt
+
+# Rules for the automatically generated documentation
+
+$(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
+	cd $(outdir) && $(BISON) -v $<
+	$(auxscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
+
+# There used to be a dependency on a dummy target, to force a rebuild
+# of internals every time.  however, this triggers
+# compilation during install, which is a bad thing (tm).
+
+$(outdir)/internals.texi: $(LILYPOND_BINARY)
+	cd $(outdir) && $(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation
+
+.SECONDARY:
+
+
+#####################################
+#  Translations maintenance targets #
+#####################################
 po-update:
 	make -C po po-update
 
@@ -61,7 +263,7 @@ new-lang:
 	cp fr/GNUmakefile $(ISOLANG)
 	cp fr/user/GNUmakefile $(ISOLANG)/user
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
-	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond-learning.tely
+	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../learning.tely
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
@@ -111,23 +313,4 @@ translation-status:
 	make -C po out=www messages
 	$(auxscript-dir)/translations-status.py
 
-local-help: extra-local-help
-
-extra-local-help:
-	@echo -e "\
-  check-xrefs [ISOLANG=LL] validate Texinfo cross-references\n\
-  fix-xrefs [ISOLANG=LL]   interactively fix Texinfo cross-references (use with caution)\n\
-\n\
-Translations specific targets (see TRANSLATION for details):\n\
-  new-lang ISOLANG=LL  create and initialize subdirectory \'LL' for language \'LL\n\
-  po-update            update and replace PO files for documentation with msgmerged versions\n\
-  check-translation ISOLANG=LL   show changes in English docs since last translation update\n\
-  update-translation ISOLANG=LL  call $$$$EDITOR to help updating the translation\n\
-  skeleton-update ISOLANG=LL     update Texinfo skeleton files\n\
-  snippet-update ISOLANG=LL      update ly snippets in Texinfo translation according to\n\
-                              docs in English (use with caution)\n\
-\n\
-LL refers to the desired locale (most often only the ISO 639 language code).\n"
-
-info:
-	$(MAKE) -C user info
+.SECONDARY:

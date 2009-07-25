@@ -1,0 +1,14 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+texidocde = "
+Die vertikale Anordnung von Beschriftungen wird mit der
+@code{'script-priority}-Eigenschaft kontrolliert.  Um so kleiner die
+Zahl, umso näher wird die Beschriftung in Bezug auf die Note gesetzt.  In
+diesem Beispiel hat das @code{TextScript}-Objekt (das Kreuz) zuerst
+die niedrigste Priorität, wird also auch am niedrigsten in dem ersten
+Beispiel gesetzt.  Im zweiten Fall hat der Praller (das @code{Script}) 
+die niedrigste Priorität, darum wird er am nächsten zum System gesetzt.
+Wenn zwei Objekte die gleiche Priorität haben, wird ihre Reihenfolge
+anhand ihres Auftretens in der Quelldatei entschieden.
+
+"
+  doctitlede = "Die vertikale Anordnung von Beschriftungen kontrollieren"

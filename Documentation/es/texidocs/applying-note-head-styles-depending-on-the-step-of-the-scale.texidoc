@@ -1,0 +1,24 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
+  texidoces = "
+La propiedad @code{shapeNoteStyles} se puede usar para definir varios
+estilos de cabezas de nota para cada grado de la escala (según esté
+establecido por la armadura o por la propiedad \"tonic\").  Esta
+propiedad requiere un conjunto de símbolos, que pueden ser puramente
+arbitrarios (se permiten expresiones geométricas como @code{triangle},
+triángulo, @code{cross}, aspas, y @code{xcircle}, círculo con aspas) o
+basados en una antigua tradición americana de grabado (ciertos nombres
+de nota latinos trambién se permiten).
+
+Dicho esto, para imitar antiguos cancioneros americanos, existen varios
+estilos predefinidos de cabezas de nota disponibles a través de
+instrucciones de abreviatura como @code{\\aikenHeads} o
+@code{\\sacredHarpHeads}.
+
+Este ejemplo muestra distintas formas de obtener cabezas de notas con forma,
+y muestra la capacidad de transportar una melodía sin perder la
+correspondencia entre las funciones armónicas y los estilos de cabezas de
+nota.
+
+"
+

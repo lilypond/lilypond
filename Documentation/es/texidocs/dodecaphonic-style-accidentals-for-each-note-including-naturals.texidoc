@@ -1,0 +1,15 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  doctitlees = "Alteraciones de estilo dodecafónico para todas las notas, incluidas las naturales"
+  texidoces = "
+En las obras de principios del s.XX, empezando por Schoenberg, Berg y
+Webern (la \"Segunda\" escuela de Viena), cada nota de la escala de
+doce tonos se debe tratar con igualdad, sin ninguna jerarquía como los
+grados clásicos tonales.  Por tanto, estos compositores imprimen una
+alteración accidental para cada nota, incluso en las notas naturales,
+para enfatizar su nuevo enfoque de la teoría y el lenguaje musicales.
+
+Este fragmento de código muestra cómo conseguir dichas reglas de
+notación.
+
+"
+

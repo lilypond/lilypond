@@ -1,0 +1,15 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Ein leeres Notensystem kann auch aus der ersten Zeile einer Partitur
+entfernt werden, indem die Eigenschaft @code{remove-first} der
+@code{VerticalAxisGroup}-Eigenschaft eingesetzt wird.  Das kann
+man global in einer @code{\\layout}-Umgebung oder lokal in dem
+bestimmten Notensystem machen, das entfernt werden soll.  In letzterem
+Fall muss man den Kontext angeben.
+
+Das untere Notensystem der zweiten Systemgruppe wird nicht entfernt,
+weil in die Einstellungen in dem Schnipsel nur für das eine Notensystem
+gültig sind.
+
+"
+  doctitlede = "Die erste leere Notenzeile auch entfernen"

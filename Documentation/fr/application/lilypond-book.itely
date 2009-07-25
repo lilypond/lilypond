@@ -1,0 +1,129 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node LilyPond-book
+@chapter @command{lilypond-book}: Integrating text and music
+
+@untranslated
+
+
+@menu
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* Alternate methods of mixing text and music::
+@end menu
+
+@node An example of a musicological document
+@section An example of a musicological document
+
+@untranslated
+
+
+@subheading Input
+@subheading Processing
+@subheading Output
+@node Integrating music and text
+@section Integrating music and text
+
+@untranslated
+
+
+@menu
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
+@end menu
+
+@node LaTeX
+@subsection @LaTeX{}
+
+@untranslated
+
+
+@node Texinfo
+@subsection Texinfo
+
+@untranslated
+
+
+@node HTML
+@subsection HTML
+
+@untranslated
+
+
+@node DocBook
+@subsection DocBook
+
+@untranslated
+
+
+@subheading Common conventions
+@subheading Including a LilyPond file
+@subheading Including LilyPond code
+@subheading Processing the DocBook document
+@node Music fragment options
+@section Music fragment options
+
+@untranslated
+
+
+@node Invoking lilypond-book
+@section Invoking @command{lilypond-book}
+
+@untranslated
+
+
+@subheading Format-specific instructions
+@subsubheading @LaTeX{}
+@subsubheading Texinfo
+@subheading Command line options
+@node Filename extensions
+@section Filename extensions
+
+@untranslated
+
+
+@node Alternate methods of mixing text and music
+@section Alternative methods of mixing text and music
+
+@untranslated
+
+
+@menu
+* Many quotes from a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
+@end menu
+
+@node Many quotes from a large score
+@subsection Many quotes from a large score
+
+@untranslated
+
+
+@node Inserting LilyPond output into OpenOffice.org
+@subsection Inserting LilyPond output into OpenOffice.org
+
+@untranslated
+
+
+@node Inserting LilyPond output into other programs
+@subsection Inserting LilyPond output into other programs
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

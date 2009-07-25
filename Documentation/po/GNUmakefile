@@ -34,3 +34,7 @@ po-update:
 	for i in $(CATALOGS); do \
 	  msgmerge -U $$i.po lilypond-doc.pot; \
 	done
+
+ifeq ($(out),www)
+local-WWW-1: messages
+endif

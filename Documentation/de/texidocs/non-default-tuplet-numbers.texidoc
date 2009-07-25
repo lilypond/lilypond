@@ -1,0 +1,9 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+texidocde = "
+LilyPond stellt auch Formatierungsfunktionen zur Verfügung, mit denen
+N-tolennummern gesetzt werden können, die sich von dem eigentlichen Bruch
+unterscheiden.  Auch ein Notenwert kann zu Nenner oder Zähler des Bruchs
+hinzugefügt werden.
+"
+  doctitlede = "Nicht-standard-N-tolennummern"
+

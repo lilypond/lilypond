@@ -1,0 +1,9 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Se pueden crear arpegios que se cruzan entre pentagramas dentro de
+contextos distintos a @code{PianoStaff} si se incluye el grabador
+@code{Span_arpeggio_engraver} en el contexto de @code{Score}.
+
+"
+  doctitlees = "Creación de arpegios que se cruzan entre pentagramas dentro de otros contextos"
+  

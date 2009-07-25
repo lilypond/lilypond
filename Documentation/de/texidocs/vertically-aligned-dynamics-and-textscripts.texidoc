@@ -1,0 +1,14 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+texidocde = "
+Indem man die @code{'Y-extent}-Eigenschaft auf einen passenden Wert setzt,
+können alle @code{DynamicLineSpanner}-Objekte (Crescendo-Klammern und
+Dynamik-Texte)  (hairpins and dynamic texts) unabhängig von ihrer
+wirklichen Ausdehnung an einem gemeinsamen Referenzpunkt ausgerichtet werden.
+Auf diese Weise ist jedes Element vertikal ausgerichtet und der Notensatz
+sieht ansprechender aus.
+
+Die gleiche Idee wird benutzt, um Textbeschriftungen an ihrer
+Grundlinie auszurichten.
+
+"
+  doctitlede = "Vertikale Ausrichtung von Dynamik und Textbeschriftung beeinflussen"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+In diesem Beispiel werden die Texte mit den Befehlen 
+@code{alignAboveContext} und @code{alignBelowContext}
+über und unter dem System angeordnet.
+"
+
+  doctitlede = "Vorlage für Vokalensemble mit dem Gesangstext über und unter dem System"
+

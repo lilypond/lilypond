@@ -1,0 +1,207 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@ignore
+    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+@documentencoding UTF-8
+@documentlanguage de
+@setfilename lilypond-learning.info
+@settitle GNU LilyPond Handbuch zum Lernen
+
+@include macros.itexi
+
+@afourpaper
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen und Graham Percival
+@omfdescription Handbuch zum Lernen des LilyPond Musiksatzsystems
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage German
+@end ignore
+
+@c Translators: Till Rettig
+
+@ifnottex
+@node Top
+@top GNU LilyPond -- Handbuch zum Lernen
+@end ifnottex
+
+@ifhtml
+@ifclear bigpage
+Dieses Dokument ist auch als
+@uref{source/Documentation/learning.de.pdf,PDF} und als
+@uref{source/Documentation/learning-big-page.de.html,eine große Seite}
+verfügbar.
+@end ifclear
+@ifset bigpage
+Dieses Dokument ist auch als
+@uref{source/Documentation/learning.de.pdf,PDF} und als
+@uref{source/Documentation/learning/index.de.html,Separate HTML-Seiten mit Index}
+verfügbar.
+@end ifset
+@end ifhtml
+
+
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle Das Notensatzprogramm
+@titlefont{Handbuch zum Lernen}
+@author Das LilyPond-Entwicklerteam
+
+
+Copyright @copyright{} 1999--2009 bei den Autoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen, ohne Invariante Abschnitte),
+zu kopieren, zu verbreiten und/oder
+zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+Für LilyPond Version @version{}
+@end titlepage
+
+@copying
+Copyright @copyright{} 1999--2009 bei den Autoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen, ohne Invariante Abschnitte),
+zu kopieren, zu verbreiten und/oder
+zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@ifnottex
+Diese Datei dokumentiert die Erlernung des Programmes GNU LilyPond.
+
+Copyright @copyright{} 1999--2009 bei den Autoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen, ohne Invariante Abschnitte),
+zu kopieren, zu verbreiten und/oder
+zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end ifnottex
+
+@ifnottex
+Das ist des Handbuch zum Erlernen von GNU LilyPond Version @version{}.
+Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
+dieses Handbuchs siehe @ref{About the documentation}.
+
+@cindex Internetseite
+@cindex URL
+
+Mehr Information unter
+@uref{http://@/www@/.lilypond@/.org/}. Auf der Internetseite
+finden sich Kopien dieser und anderer Dokumentationsdateien.
+
+@menu
+* Preface::                        Vorwort.
+* Introduction::                   Was, warum und wie.
+* Tutorial::                       Eine Übung zur Einführung.
+* Fundamental concepts::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.
+* Tweaking output::                Einleitung in die Beeinflussung des Notenbilds.
+* Working on LilyPond projects::   Benutzung des Programms im wirklichen Leben.
+
+
+Anhänge
+
+* Templates::                      Funktionierende Vorlagen.
+* Scheme tutorial::                Programmierung innerhalb von LilyPond.
+* GNU Free Documentation License:: Lizenz dieses Handbuchs.
+* LilyPond index::
+@end menu
+@end ifnottex
+
+@contents
+
+
+@include learning/preface.itely
+@include learning/introduction.itely
+@include learning/tutorial.itely
+@include learning/fundamental.itely
+@include learning/tweaks.itely
+@include learning/working.itely
+
+@include learning/templates.itely
+@include learning/scheme-tutorial.itely
+@include fdl.itexi
+
+@node LilyPond index
+@appendix LilyPond index
+
+@printindex cp
+
+@bye

@@ -1,0 +1,646 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
+@node Chord notation
+@section Chord notation
+
+@untranslated
+
+@menu
+* Chord mode::
+* Displaying chords::
+* Figured bass::
+@end menu
+
+@node Chord mode
+@subsection Chord mode
+
+@untranslated
+
+@menu
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
+@end menu
+
+@c This material comes from 'Entering chord names' -FV
+@node Chord mode overview
+@unnumberedsubsubsec Chord mode overview
+
+@cindex accords, chiffrage jazz
+
+LilyPond permet de désigner les accords par leur chiffrage jazz.
+S'il est possible d'entrer un accord sous sa forme musicale, avec
+@code{<.. >}, on peut aussi le saisir par son nom.  Le logiciel traite
+les accords comme des ensembles de hauteurs, donc les accords peuvent
+être transposés.
+
+@lilypond[quote,ragged-right,verbatim,ragged-right]
+twoWays = \transpose c c' {
+  \chordmode {
+    c1 f:sus4 bes/f
+  }
+  <c e g>
+  <f bes c'>
+  <f bes d'>
+}
+
+<< \new ChordNames \twoWays
+   \new Voice \twoWays >>
+@end lilypond
+
+Cet exemple montre également que les jeux d'instructions qui permettent
+à LilyPond d'imprimer des accords ne cherchent pas à se montrer
+intelligents.  Ici, le dernier accord n'est pas interprété comme étant
+renversé.
+
+Notez bien que la valeur rythmique des accords doit être indiquée
+@emph{à l'extérieur} des symboles @code{<>}.
+
+@example
+<c e g>2
+@end example
+
+@c This material comes from 'Chords mode' -FV
+@node Common chords
+@unnumberedsubsubsec Common chords
+
+Dans le mode accords, introduit par la commande @code{\chordmode}, les
+accords ne sont indiqués que par leur note fondamentale.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { es4. d8 c2 }
+@end lilypond
+
+@cindex saisir des accords
+@cindex mode accords
+
+On peut cependant obtenir des accords différents, en utilisant le
+caractère deux points (@code{:}).
+
+@lilypond[quote,fragment,verbatim]
+\chordmode { e1:m e1:7 e1:m7 }
+@end lilypond
+
+Le nombre accolé à la note fondamentale est considéré comme chiffrage
+jazz de l'accord, qui est de ce fait construit par un empilement de
+tierces. Notez l'exception que constitue @code{c:13} dans lequel la
+onzième est délibérément omise.
+
+@lilypond[quote,fragment,verbatim]
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
+@end lilypond
+
+@cindex note fondamentale
+@cindex notes ajoutées
+@cindex accords incomplets
+
+Des accords encore plus complexes peuvent être élaborés en plusieurs
+étapes séparées.  Ainsi, on peut enrichir l'accord par des notes
+ajoutées, que l'on indique après le chiffrage principal et que l'on
+sépare par des points :
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
+@end lilypond
+
+On peut augmenter ou diminuer certains intervalles au moyen des
+signes @code{-} ou @code{+} :
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+@end lilypond
+
+On peut aussi enlever certaines notes de l'accord, en les spécifiant
+après un signe @code{^} --- les notes ajoutées doivent être indiquées
+@emph{avant} les notes à enlever.
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c^3 c:7^5 c:9^3.5 }
+@end lilypond
+
+Voici les différents chiffrages disponibles, en plus des nombres que
+nous venons de voir :
+
+@table @code
+@item m
+Accord mineur.  Ce chiffrage minorise la tierce, et la septième s'il y
+en a une.
+
+@item dim
+Accord diminué.  Ce chiffrage minorise la tierce, diminue la quinte et
+la septième s'il y en a.
+
+@item aug
+Accord augmenté.  Ce chiffrage augmente la quinte.
+
+@item maj
+Accord de septième majeure. Ce chiffrage majorise la septième s'il y
+en a une (dans le cas d'un accord parfait, ce chiffrage est facultatif).
+
+@item sus
+Accord de suspension. Ce chiffrage supprime la tierce, et y ajoute,
+suivant que vous spécifiez @code{2} ou @code{4}, la seconde ou la
+quarte.
+@end table
+
+Il est bien sûr possible de mélanger ces chiffrages avec des notes ajoutées.
+@lilypond[quote,verbatim,fragment]
+  \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
+@end lilypond
+
+@cindex chiffrages des accords
+@funindex aug
+@funindex dim
+@funindex maj
+@funindex sus
+@funindex m
+
+Dans la mesure où un accord de treizième majeure ne sonne pas très bien
+avec la onzième, la onzième est enlevée automatiquement, à moins que
+vous ne le spécifiez explicitement.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c:13 c:13.11 c:m13 }
+@end lilypond
+
+@funindex /
+
+Les accords peuvent être renversés ou combinés avec une note étrangère à
+la basse, au moyen de @code{@var{accord}/}@var{note}
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c1 c/g c/f }
+@end lilypond
+@funindex /+
+
+Si la note de basse précisée appartient à l'accord, la doublure
+supérieure sera supprimée.  Pour l'éviter, utilisez la syntaxe
+@code{/+}@var{note}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c1 c/+g c/+f }
+@end lilypond
+
+Le mode accords est semblable à @code{\lyricmode} ou autre, c'est-à-dire que
+la plupart des commandes sont encore disponibles ; ainsi, @code{r} ou
+@code{\skip} peuvent servir à insérer des silences ou des silences
+invisibles.  De plus, les propriétés des objets peuvent être ajustées
+ou modifiées.
+
+@knownissues
+
+Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi,
+dans l'accord suivant, seule la quinte augmentée est prise en compte,
+car elle est indiquée en dernier :
+
+@cindex agrégats
+@lilypond[quote,ragged-right,verbatim,fragment]
+\chordmode { c:5.5-.5+ }
+@end lilypond
+
+@node Extended and altered chords
+@unnumberedsubsubsec Extended and altered chords
+
+@untranslated
+
+@node Displaying chords
+@subsection Displaying chords
+
+@untranslated
+
+@menu
+* Printing chord names::
+* Customizing chord names::
+@end menu
+
+@node Printing chord names
+@unnumberedsubsubsec Printing chord names
+
+@cindex chiffrages d'accords
+@cindex accords
+
+Les chiffrages d'accords sont liés au contexte
+@rinternals{ChordNames}.  Les accords peuvent être saisis soit au
+moyen de la notation indiquée ci-dessus, soit directement avec les
+symboles @code{<} et @code{>}.
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = {
+  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
+}
+<<
+  \new ChordNames \harmonies
+  \new Staff \harmonies
+>>
+@end lilypond
+
+Vous pouvez faire ressortir les chiffrages d'accords en assignant la
+valeur vrai à la propriété @code{chordChanges} dans le contexte
+@rinternals{ChordNames}.  De cette façon, les chiffrages ne sont
+imprimés qu'aux changements d'accord ou en début de ligne.
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = \chordmode {
+  c1:m c:m \break c:m c:m d
+}
+<<
+  \new ChordNames {
+    \set chordChanges = ##t
+    \harmonies }
+  \new Staff \transpose c c' \harmonies
+>>
+@end lilypond
+
+Les exemples précédents montrent des chiffrages placés au-dessus de la
+portée, mais ce n'est pas obligatoire : les accords peuvent également
+être imprimés séparément -- auquel cas vous aurez peut-être besoin
+d'ajouter le @rinternals{Volta_engraver} et le
+@rinternals{Bar_engraver} afin que les éventuelles barres de reprises
+s'affichent correctement.
+
+@lilypond[ragged-right,verbatim]
+\new ChordNames \with {
+  \override BarLine #'bar-size = #4
+  \consists Bar_engraver
+  \consists "Volta_engraver"
+}
+\chordmode { \repeat volta 2 {
+  f1:maj7 f:7 bes:7
+  c:maj7
+} \alternative {
+  es e
+}
+}
+@end lilypond
+
+Le modèle par défaut des chiffrages d'accord est celui de
+Klaus Ignatzek pour le jazz (cf. @ref{Literature list}).  Il s'agit
+d'une notation anglo-saxonne ; cependant vous pouvez
+indiquer vos chiffrages en notation française au moyen de
+la commande \frenchChords (voir plus bas).
+
+Il est possible de créer votre propre modèle de chiffrages en
+réglant les propriétés suivantes :
+
+@table @code
+@funindex chordNameExceptions
+@item chordNameExceptions
+C'est la liste des accords mis en forme de manière particulière.
+
+Cette liste d'exceptions s'indique de la façon suivante.
+On commence par créer une expression musicale telle que
+@example
+@code{chExceptionMusic} = @{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
+@end example
+puis on la transforme en liste d'exceptions au moyen du code
+@example
+(sequential-music-to-chord-exceptions chExceptionMusic #t)
+@end example
+Pour qu'elles soient effectives, on ajoute ces exceptions aux exceptions
+par défaut définies dans @file{ly/@/chord@/-modifier@/-init@/.ly} :
+@example
+(append
+ (sequential-music-to-chord-exceptions chExceptionMusic #t)
+ ignatzekExceptions)
+@end example
+
+@cindex exceptions, chiffrage d'accords
+@cindex chiffrage d'accords, exceptions
+@cindex accords chiffrés, exceptions
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{chord-name-exceptions.ly}
+
+@funindex majorSevenSymbol
+@item majorSevenSymbol
+Cette propriété définit l'objet employé pour indiquer une septième
+majeure.  Les options prédéfinies sont @code{whiteTriangleMarkup}
+(triangle blanc) et @code{blackTriangleMarkup} (triangle noir).
+
+@funindex chordNameSeparator
+@item chordNameSeparator
+Les différents termes d'un chiffrage jazz (par exemple les notes de
+l'accord et la basse) sont habituellement séparés par une barre oblique.
+La propriété @code{chordNameSeparator} permet d'indiquer un autre
+séparateur, par exemple
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new ChordNames \chordmode {
+  c:7sus4
+  \set chordNameSeparator
+    = \markup { \typewriter "|" }
+  c:7sus4
+}
+@end lilypond
+
+@funindex chordRootNamer
+@item chordRootNamer
+Dans les chiffrages d'accord jazz, la note fondamentale de chaque accord
+est exprimée par une lettre capitale, parfois suivie d'une altération,
+correspondant à la notation anglo-saxonne de la musique.  Cette
+propriété a pour valeur la fonction qui transforme la hauteur de la note
+foncdamentale en nom de note ; c'est donc en assignant une nouvelle
+fonction à cette propriété que l'on peut produire des noms de note
+spéciaux, adaptés par exemple aux systèmes de notation d'autres pays.
+
+@funindex chordNoteNamer
+@item chordNoteNamer
+Lorsqu'un chiffrage mentionne une note ajoutée (par exemple la basse),
+les règles utilisées sont par défaut celles définies par la propriété
+@code{chordRootNamer} ci-dessus.  Cependant, la propriété @code{chordNoteNamer}
+permet de régler cet élément indépendamment, par exemple pour imprimer la basse
+en caractères minuscules.
+
+@funindex chordPrefixSpacer
+@item chordPrefixSpacer
+Le petit @q{m} qui indique un accord mineur est, dans la notation anglo-saxonne,
+attaché à la lettre de l'accord. Cependant il est possible d'ajouter un espace
+en assignant la valeur vrai à la propriété @code{chordPrefixSpacer}.  Cet
+espace sera omis si une altération est présente.
+
+@end table
+
+Les propriétés ci-dessus font l'objet de commandes prédéfinies
+adaptées aux notations de différents pays : @code{\germanChords} et
+@code{\semiGermanChords} pour la notation allemande,
+@code{\italianChords} pour la notation italienne et enfin
+@code{\frenchChords} pour la notation française.
+
+@lilypondfile[ragged-right]{chord-names-languages.ly}
+
+@cindex Banter
+@cindex jazz, chiffrages d'accords
+@cindex accords jazz, chiffrage
+LilyPond intègre également deux autres modèles de chiffrages : une
+notation Jazz alternative, et un modèle systématique appelé système
+Banter.  Pour la mise en œuvre de ces modèles, voir @ref{Chord name chart}.
+
+
+@predefined
+@funindex \germanChords
+@code{\germanChords},
+@funindex \semiGermanChords
+@code{\semiGermanChords},
+@funindex \italianChords
+@code{\italianChords},
+@funindex \frenchChords
+@code{\frenchChords}.
+@endpredefined
+
+
+@seealso
+Exemples : @rlsr{Chords}.
+
+Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
+@file{scm/@/chord@/-entry@/.scm}.
+
+
+@knownissues
+
+Les chiffrages d'accords ne sont déterminés que par la succession des
+hauteurs de notes.  En d'autres termes, les accords inversés ne sont pas
+reconnus, ni les notes ajoutées à la basse.  C'est pourquoi les accords
+saisis au moyen de la syntaxe @code{<.. >} peuvent produire des
+chiffrages étranges.
+
+@node Customizing chord names
+@unnumberedsubsubsec Customizing chord names
+
+@untranslated
+
+@node Figured bass
+@subsection Figured bass
+
+@untranslated
+
+@menu
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
+@end menu
+
+@c This material comes from 'Figured bass', needs redistribution by translator --FV
+@node Introduction to figured bass
+@unnumberedsubsubsec Introduction to figured bass
+
+@cindex basse continue
+@cindex basse chiffrée
+
+@c TODO: musicological blurb about FB
+@c librement adapté de
+@c http://en.wikipedia.org/wiki/Basso_continuo#Basso_continuo
+Les parties de basse continue étaient très répandues dans la musique
+baroque et jusqu'à la fin du XVIIIe siècle.  Comme son nom
+l'indique, le @emph{continuo} constitue une partie à lui seul, qui
+se déroule tout au long de l'œuvre pour en donner la structure harmonique.
+
+Les musiciens du @emph{continuo} jouent des claviers (clavecin,
+orgue) ou de tout autre instrument pouvant réaliser des accords.  Leur
+partie est constituée d'une portée de basse aux notes agrémentées de
+combinaisons de chiffres et signes indiquant le développement des
+accords à jouer, ainsi que leur éventuel renversement.  Cette notation
+était avant tout un guide, invitant le musicien à improviser de
+lui-même l'accompagnement.
+
+LilyPond gère la basse chiffrée.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+<<
+  \new Voice { \clef bass dis4 c d ais g fis}
+  \new FiguredBass \figuremode {
+    < 6 >4 < 7\+ >8 < 6+ [_!] >
+    < 6 >4 <6 5 [3+] >
+    < _ >4 < 6 5/>4
+  }
+>>
+@end lilypond
+
+La gestion de la basse chiffrée se décompose en deux parties.  Dans un
+premier temps, le mode @code{\figuremode} permet de saisir les accords
+sous forme chiffrée.  Le contexte @rinternals{FiguredBass} s'occupera
+ensuite de gérer les objets @rinternals{BassFigure}.
+
+En mode de saisie, un chiffrage est délimité par @code{<} et
+@code{>}.  La  durée est indiquée après le @code{>} :
+
+@example
+<4 6>
+@end example
+@lilypond[quote,ragged-right,fragment]
+\new FiguredBass
+\figuremode { <4 6> }
+@end lilypond
+
+Les altérations s'obtiennent en ajoutant aux chiffres les caractères
+@code{-}, @code{!} ou @code{+}. Un signe plus s'obtient grâce à
+@code{\+}, et une quinte ou septième diminuée par @code{5/} ou
+@code{7/} respectivement.
+
+@example
+<4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
+@end example
+@lilypond[quote,ragged-right,fragment]
+\figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
+@end lilypond
+
+Le caractère @code{_} insère un espace, et l'on peut imprimer des
+crochets avec @code{[} et @code{]}.  Vous pouvez aussi ajouter des
+chaînes de caractères ou des étiquettes --- cf. @ref{Text
+markup commands}.
+
+@example
+<[4 6] 8 [_! 12] > <5 \markup @{ \number 6 \super (1) @} >
+@end example
+@lilypond[quote,ragged-right,fragment]
+\new FiguredBass
+\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
+@end lilypond
+
+Lorsque des chiffrages se répètent, vous pouvez utiliser des lignes de
+prolongation.
+
+@lilypond[verbatim,relative=1]
+<<
+  \new Staff {
+    \clef bass
+    c4 c c
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    <4 6> <3 6> <3 7>
+  }
+>>
+@end lilypond
+
+@noindent
+En pareil cas, la ligne de prolongation masquera toujours le chiffre
+qu'elle rappelle dans le chiffrage suivant.
+
+Le contexte @code{FiguredBass} ne tient aucun compte de la ligne de
+basse.  Par conséquent, il vous faudra peut être insérer des chiffrages
+supplémentaires pour imprimer les prolongations, ou utiliser des
+@code{\!} pour les éviter, comme dans l'exemple suivant :
+
+@lilypond[relative=1]
+<<
+  \new Voice
+  \figures {
+    \set useBassFigureExtenders = ##t
+    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
+  }
+  {
+    \clef bass
+    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
+  }
+>>
+@end lilypond
+
+Lorsque vous utilisez des lignes de prolongation, les chiffres communs
+seront verticalement alignés.  Pour l'éviter, insérez un silence avec
+@code{r} afin de réinitialiser l'alignement.  Par exemple, saisissez
+
+@example
+  <4 6>8 r8
+@end example
+
+@noindent
+au lieu de
+@example
+  <4 6>4
+@end example
+
+On peut choisir d'impriemr les altérations et signes plus aussi bien
+avant qu'après les chiffres, en réglant les propriétés
+@code{figuredBassAlterationDirection} et
+@code{figuredBassPlusDirection}.
+
+@lilypond
+  \figures {
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassPlusDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #-1
+    <6\+> <5+> <6 4-> r
+  }
+@end lilypond
+
+Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
+des accords, elle est beaucoup plus simpliste.  Le mode
+@code{\figuremode} ne fait que stocker des chiffres que le contexte
+@rinternals{FiguredBass} se chargera d'imprimer tels quels.  En
+aucune manière ils ne sont transformés en son, et ils ne sont pas
+rendus dans un fichier MIDI.
+
+En interne, ce code produit des étiquettes de texte que vous
+pouvez formater à votre convenance grâce aux propriétés des
+étiquettes.  Par exemple, l'espacement vertical des chiffrages est
+déterminé par la propriété @code{baseline-skip}.
+
+On peut également ajouter une basse chiffrée directement à un contexte
+@code{Staff}.  L'alignement vertical est alors automatiquement ajusté.
+
+@lilypond[ragged-right,fragment,quote]
+<<
+  \new Staff = someUniqueName
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
+  }
+
+  %% send to existing Staff.
+  \context Staff = someUniqueName
+  \figuremode {
+    <4>4 <6 10>8 s8
+
+    \set Staff.useBassFigureExtenders = ##t
+    <4 6>4 <4 6>
+  }
+>>
+@end lilypond
+
+@commonprop
+
+Par défaut, les chiffres sont imprimés au-dessus de la portée.  Pour les
+imprimer dessous, ajoutez
+
+@example
+\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+@end example
+
+@knownissues
+
+Si vous positionnez la basse chiffrée au dessus de la portée en ayant
+recours aux lignes d'extension et @code{implicitBassFigures}, les lignes
+peuvent se mélanger.  Préserver l'ordre des prolongateurs peut s'avérer
+impossible lorsque plusieurs chiffrages qui se chevauchent en possèdent.
+Ce problème peut être contourné en jouant sur l'empilement, avec la
+propriété @code{stacking-dir} de l'objet @code{BassFigureAlignment}.
+
+
+@seealso
+Référence du programme : les objets @rinternals{BassFigure},
+@rinternals{BassFigureAlignment}, @rinternals{BassFigureLine},
+@rinternals{BassFigureBracket} et
+@rinternals{BassFigureContinuation}, ainsi que le contexte
+@rinternals{FiguredBass}.
+
+
+@node Entering figured bass
+@unnumberedsubsubsec Entering figured bass
+
+@untranslated
+
+@node Displaying figured bass
+@unnumberedsubsubsec Displaying figured bass
+
+@untranslated

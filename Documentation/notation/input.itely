@@ -1,0 +1,2022 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node General input and output
+@chapter General input and output
+
+This section deals with general LilyPond input and output issues,
+rather than specific notation.
+
+@menu
+* Input structure::
+* Titles and headers::
+* Working with input files::
+* Controlling output::
+* MIDI output::
+@end menu
+
+
+@node Input structure
+@section Input structure
+
+The main format of input for LilyPond are text files.  By convention,
+these files end with @code{.ly}.
+
+@menu
+* Structure of a score::
+* Multiple scores in a book::
+* File structure::
+@end menu
+
+
+@node Structure of a score
+@subsection Structure of a score
+
+@funindex \score
+
+A @code{\score} block must contain a single music expression
+delimited by curly brackets:
+
+@example
+\score @{
+...
+@}
+@end example
+
+@warning{There must be @strong{only one} outer music expression in
+a @code{\score} block, and it @strong{must} be surrounded by
+curly brackets.}
+
+This single music expression may be of any size, and may contain
+other music expressions to any complexity.  All of these examples
+are music expressions:
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[verbatim,quote]
+{
+  { c'4 c' c' c'}
+  { d'4 d' d' d'}
+}
+@end lilypond
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end lilypond
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \oboe @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violinI @}
+      \new Staff @{ \violinII @}
+    >>
+  >>
+@}
+@end example
+
+Comments are one exception to this general rule.  (For others see
+@ref{File structure}.)  Both single-line comments and comments
+delimited by @code{%@{ .. %@}} may be placed anywhere within an
+input file.  They may be placed inside or outside a @code{\score}
+block, and inside or outside the single music expression within a
+@code{\score} block.
+
+
+@seealso
+Learning Manual:
+@rlearning{Working on input files},
+@rlearning{Music expressions explained},
+@rlearning{Score is a (single) compound musical expression}.
+
+
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+@funindex \book
+@cindex movements, multiple
+
+A document may contain multiple pieces of music and text.  Examples
+of these are an etude book, or an orchestral part with multiple
+movements.  Each movement is entered with a @code{\score} block,
+
+@example
+\score @{
+  @var{..music..}
+@}
+@end example
+
+and texts are entered with a @code{\markup} block,
+
+@example
+\markup @{
+  @var{..text..}
+@}
+@end example
+
+@funindex \book
+
+All the movements and texts which appear in the same @code{.ly} file
+will normally be typeset in the form of a single output file.
+
+@example
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
+@}
+@end example
+
+However, if you want multiple output files from the same @code{.ly}
+file, then you can add multiple @code{\book} blocks, where each such
+@code{\book} block will result in a separate output.  If you do not
+specify any @code{\book} block in the file, LilyPond will implicitly
+treat the full file as a single @code{\book} block, see @ref{File
+structure}.  One important exception is within lilypond-book documents,
+where you explicitly have to add a @code{\book} block, otherwise only
+the first @code{\score} or @code{\markup} will appear in the output.
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.  The title for the entire book can be put inside the
+@code{\book}, but if it is not present, the @code{\header} which is at
+the top of the file is inserted.
+
+@example
+\header @{
+  title = "Eight miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romanze" @}
+@}
+\markup @{
+   ..text of second verse..
+@}
+\markup @{
+   ..text of third verse..
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuetto" @}
+@}
+@end example
+
+@funindex \bookpart
+
+Pieces of music may be grouped into book parts using @code{\bookpart}
+blocks.  Book parts are separated by a page break, and can start with a
+title, like the book itself, by specifying a @code{\header} block.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Book title"
+    subtitle = "First part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Second part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+@node File structure
+@subsection File structure
+
+@funindex \paper
+@funindex \midi
+@funindex \layout
+@funindex \header
+@funindex \score
+@funindex \book
+@funindex \bookpart
+
+A @code{.ly} file may contain any number of toplevel expressions, where a
+toplevel expression is one of the following:
+
+@itemize @bullet
+@item
+An output definition, such as @code{\paper}, @code{\midi}, and
+@code{\layout}.  Such a definition at the toplevel changes the default
+book-wide settings.  If more than one such definition of
+the same type is entered at the top level any definitions in the later
+expressions have precedence.
+
+@item
+A direct scheme expression, such as
+@code{#(set-default-paper-size "a7" 'landscape)} or
+@code{#(ly:set-option 'point-and-click #f)}.
+
+@item
+A @code{\header} block.  This sets the global header block.  This
+is the block containing the definitions for book-wide settings, like
+composer, title, etc.
+
+@item
+A @code{\score} block.  This score will be collected with other
+toplevel scores, and combined as a single @code{\book}.
+This behavior can be changed by setting the variable
+@code{toplevel-score-handler} at toplevel.  The default handler is
+defined in the init file @file{../scm/@/lily@/.scm}.
+
+@item
+A @code{\book} block logically combines multiple movements
+(i.e., multiple @code{\score} blocks) in one document.  If there
+are a number of @code{\score}s, one output file will be created
+for each @code{\book} block, in which all corresponding movements
+are concatenated.  The only reason to explicitly specify
+@code{\book} blocks in a @code{.ly} file is if you wish to create
+multiple output files from a single input file.  One exception is
+within lilypond-book documents, where you explicitly have to add
+a @code{\book} block if you want more than a single @code{\score}
+or @code{\markup} in the same example.  This behavior can be
+changed by setting the variable @code{toplevel-book-handler} at
+toplevel.  The default handler is defined in the init file
+@file{../scm/@/lily@/.scm}.
+
+@item
+A @code{\bookpart} block.  A book may be divided into several parts,
+using @code{\bookpart} blocks, in order to ease the page breaking,
+or to use different @code{\paper} settings in different parts.
+
+@item
+A compound music expression, such as
+@example
+@{ c'4 d' e'2 @}
+@end example
+
+This will add the piece in a @code{\score} and format it in a
+single book together with all other toplevel @code{\score}s and music
+expressions.  In other words, a file containing only the above
+music expression will be translated into
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        @{ c'4 d' e'2 @}
+      @}
+    @}
+  @}
+	\layout @{ @}
+	\header @{ @}
+@}
+@end example
+
+This behavior can be changed by setting the variable
+@code{toplevel-music-handler} at toplevel.  The default handler is
+defined in the init file @file{../scm/@/lily@/.scm}.
+
+@item
+A markup text, a verse for example
+@example
+\markup @{
+   2.  The first line verse two.
+@}
+@end example
+
+Markup texts are rendered above, between or below the scores or music
+expressions, wherever they appear.
+
+@cindex variables
+
+@item
+A variable, such as
+@example
+foo = @{ c4 d e d @}
+@end example
+
+This can be used later on in the file by entering @code{\foo}.  The
+name of a variable should have alphabetic characters only; no
+numbers, underscores or dashes.
+
+@end itemize
+
+The following example shows three things that may be entered at
+toplevel
+
+@example
+\layout @{
+  % Don't justify the output
+  ragged-right = ##t
+@}
+
+\header @{
+   title = "Do-re-mi"
+@}
+
+@{ c'4 d' e2 @}
+@end example
+
+
+At any point in a file, any of the following lexical instructions can
+be entered:
+
+@itemize
+@item @code{\version}
+@item @code{\include}
+@item @code{\sourcefilename}
+@item @code{\sourcefileline}
+@item
+A single-line comment, introduced by a leading @code{%} sign.
+
+@item
+A multi-line comment delimited by @code{%@{ .. %@}}.
+
+@end itemize
+
+@cindex whitespace
+
+Whitespace between items in the input stream is generally ignored,
+and may be freely omitted or extended to enhance readability.
+However, whitespace should always be used in the following
+circumstances to avoid errors:
+
+@itemize
+@item Around every opening and closing curly bracket.
+@item After every command or variable, i.e. every item that
+begins with a @code{\} sign.
+@item After every item that is to be interpreted as a Scheme
+expression, i.e. every item that begins with a @code{#} sign.
+@item To separate all elements of a Scheme expression.
+@item In @code{lyricmode} to separate all the terms in both
+@code{\override} and @code{\set} commands.  In particular, spaces
+must be used around the dot and the equals sign in commands like
+@code{\override Score . LyricText #'font-size = #5} and before and
+after the entire command.
+
+@end itemize
+
+@seealso
+Learning Manual:
+@rlearning{How LilyPond input files work}.
+
+
+@node Titles and headers
+@section Titles and headers
+
+Almost all printed music includes a title and the composer's name;
+some pieces include a lot more information.
+
+@menu
+* Creating titles::
+* Custom titles::
+* Reference to page numbers::
+* Table of contents::
+@end menu
+
+
+@node Creating titles
+@subsection Creating titles
+
+Titles are created for each @code{\score} block, as well as for the full
+input file (or @code{\book} block) and book parts (created by
+@code{\bookpart} blocks).
+
+The contents of the titles are taken from the @code{\header} blocks.
+The header block for a book supports the following
+
+
+@table @code
+@funindex dedication
+@item dedication
+The dedicatee of the music, centered at the top of the first page.
+
+@funindex title
+@item title
+The title of the music, centered just below the dedication.
+
+@funindex subtitle
+@item subtitle
+Subtitle, centered below the title.
+
+@funindex subsubtitle
+@item subsubtitle
+Subsubtitle, centered below the subtitle.
+
+@funindex poet
+@item poet
+Name of the poet, flush-left below the subsubtitle.
+
+@funindex instrument
+@item instrument
+Name of the instrument, centered below the subsubtitle.  Also
+centered at the top of pages (other than the first page).
+
+@funindex composer
+@item composer
+Name of the composer, flush-right below the subsubtitle.
+
+@funindex meter
+@item meter
+Meter string, flush-left below the poet.
+
+@funindex arranger
+@item arranger
+Name of the arranger, flush-right below the composer.
+
+@funindex piece
+@item piece
+Name of the piece, flush-left below the meter.
+
+@funindex opus
+@item opus
+Name of the opus, flush-right below the arranger.
+
+@cindex page breaks, forcing
+@funindex breakbefore
+@item breakbefore
+This forces the title to start on a new page (set to ##t or ##f).
+
+@funindex copyright
+@item copyright
+Copyright notice, centered at the bottom of the first page.  To
+insert the copyright symbol, see @ref{Text encoding}.
+
+@funindex tagline
+@item tagline
+Centered at the bottom of the last page.
+
+@end table
+
+Here is a demonstration of the fields available.  Note that you
+may use any @ref{Formatting text}, commands in the header.
+
+@lilypond[quote,verbatim,line-width=11.0\cm]
+\paper {
+  line-width = 9.0\cm
+  paper-height = 10.0\cm
+}
+
+\book {
+  \header {
+    dedication = "dedicated to me"
+    title = \markup \center-column { "Title first line" "Title second line,
+longer" }
+    subtitle = "the subtitle,"
+    subsubtitle = #(string-append "subsubtitle LilyPond version "
+(lilypond-version))
+    poet = "Poet"
+    composer =  \markup \center-column { "composer" \small "(1847-1973)" }
+    texttranslator = "Text Translator"
+    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge
+"r" }
+    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize
+#-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
+    instrument = \markup \bold \italic "instrument"
+    piece = "Piece"
+  }
+
+  \score {
+    { c'1 }
+    \header {
+      piece = "piece1"
+      opus = "opus1"
+    }
+  }
+  \markup {
+      and now...
+  }
+  \score {
+    { c'1 }
+    \header {
+      piece = "piece2"
+      opus = "opus2"
+    }
+  }
+}
+@end lilypond
+
+As demonstrated before, you can use multiple @code{\header} blocks.
+When same fields appear in different blocks, the latter is used.
+Here is a short example.
+
+@example
+\header @{
+  composer = "Composer"
+@}
+\header @{
+  piece = "Piece"
+@}
+\score @{
+  \new Staff @{ c'4 @}
+  \header @{
+    piece = "New piece"  % overwrite previous one
+  @}
+@}
+@end example
+
+If you define the @code{\header} inside the @code{\score} block, then
+normally only the @code{piece} and @code{opus} headers will be printed.
+Note that the music expression must come before the @code{\header}.
+
+@lilypond[quote,verbatim,line-width=11.0\cm]
+\score {
+  { c'4 }
+  \header {
+    title = "title"  % not printed
+    piece = "piece"
+    opus = "opus"
+  }
+}
+@end lilypond
+
+@funindex print-all-headers
+@noindent
+You may change this behavior (and print all the headers when defining
+@code{\header} inside @code{\score}) by using
+
+@example
+\paper@{
+  print-all-headers = ##t
+@}
+@end example
+
+@cindex copyright
+@cindex tagline
+
+The default footer is empty, except for the first page, where the
+@code{copyright} field from @code{\header} is inserted, and the last
+page, where @code{tagline} from @code{\header} is added.  The default
+tagline is @qq{Music engraving by LilyPond (@var{version})}.@footnote{Nicely
+printed parts are good PR for us, so please leave the tagline if you
+can.}
+
+Headers may be completely removed by setting them to false.
+
+@example
+\header @{
+  tagline = ##f
+  composer = ##f
+@}
+@end example
+
+
+@node Custom titles
+@subsection Custom titles
+
+A more advanced option is to change the definitions of the following
+variables in the @code{\paper} block.  The init file
+@file{../ly/titling-init.ly} lists the default layout.
+
+@table @code
+@funindex bookTitleMarkup
+@item bookTitleMarkup
+  This is the title added at the top of the entire output document.
+Typically, it has the composer and the title of the piece
+
+@funindex scoreTitleMarkup
+@item scoreTitleMarkup
+  This is the title put over a @code{\score} block.  Typically, it has
+the name of the movement (@code{piece} field).
+
+@funindex oddHeaderMarkup
+@item oddHeaderMarkup
+  This is the page header for odd-numbered pages.
+
+@funindex evenHeaderMarkup
+@item evenHeaderMarkup
+  This is the page header for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, headers are defined such that the page number is on the
+  outside edge, and the instrument is centered.
+
+@funindex oddFooterMarkup
+@item oddFooterMarkup
+  This is the page footer for odd-numbered pages.
+
+@funindex evenFooterMarkup
+@item evenFooterMarkup
+  This is the page footer for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, the footer has the copyright notice on the first, and
+  the tagline on the last page.
+@end table
+
+
+@cindex \paper
+@cindex header
+@cindex footer
+@cindex page layout
+@cindex titles
+
+The following definition will put the title flush left, and the
+composer flush right on a single line.
+
+@verbatim
+\paper {
+  bookTitleMarkup = \markup {
+   \fill-line {
+     \fromproperty #'header:title
+     \fromproperty #'header:composer
+   }
+  }
+}
+@end verbatim
+
+@node Reference to page numbers
+@subsection Reference to page numbers
+
+A particular place of a score can be marked using the @code{\label}
+command, either at top-level or inside music.  This label can then be
+referred to in a markup, to get the number of the page where the marked
+point is placed, using the @code{\page-ref} markup command.
+
+@lilypond[verbatim,line-width=11.0\cm]
+\header { tagline = ##f }
+\book {
+  \label #'firstScore
+  \score {
+    {
+      c'1
+      \pageBreak \mark A \label #'markA
+      c'
+    }
+  }
+
+  \markup { The first score begins on page \page-ref #'firstScore "0" "?" }
+  \markup { Mark A is on page \page-ref #'markA "0" "?" }
+}
+@end lilypond
+
+The @code{\page-ref} markup command takes three arguments:
+@enumerate
+@item the label, a scheme symbol, eg. @code{#'firstScore};
+@item a markup that will be used as a gauge to estimate the dimensions
+of the markup;
+@item a markup that will be used in place of the page number if the label
+is not known;
+@end enumerate
+
+The reason why a gauge is needed is that, at the time markups are
+interpreted, the page breaking has not yet occurred, so the page numbers
+are not yet known.  To work around this issue, the actual markup
+interpretation is delayed to a later time; however, the dimensions of
+the markup have to be known before, so a gauge is used to decide these
+dimensions.  If the book has between 10 and 99 pages, it may be "00",
+ie. a two digit number.
+
+
+@predefined
+@funindex \label
+@code{\label},
+@funindex \page-ref
+@code{\page-ref}.
+@endpredefined
+
+
+@node Table of contents
+@subsection Table of contents
+A table of contents is included using the @code{\markuplines \table-of-contents}
+command.  The elements which should appear in the table of contents are
+entered with the @code{\tocItem} command, which may be used either at
+top-level, or inside a music expression.
+
+@verbatim
+\markuplines \table-of-contents
+\pageBreak
+
+\tocItem \markup "First score"
+\score {
+  {
+    c'  % ...
+    \tocItem \markup "Some particular point in the first score"
+    d'  % ...
+  }
+}
+
+\tocItem \markup "Second score"
+\score {
+  {
+    e' % ...
+  }
+}
+@end verbatim
+
+The markups which are used to format the table of contents are defined
+in the @code{\paper} block.  The default ones are @code{tocTitleMarkup},
+for formatting the title of the table, and @code{tocItemMarkup}, for
+formatting the toc elements, composed of the element title and page
+number.  These variables may be changed by the user:
+
+@verbatim
+\paper {
+  %% Translate the toc title into French:
+  tocTitleMarkup = \markup \huge \column {
+    \fill-line { \null "Table des matières" \null }
+    \hspace #1
+  }
+  %% use larger font size
+  tocItemMarkup = \markup \large \fill-line {
+    \fromproperty #'toc:text \fromproperty #'toc:page
+  }
+}
+@end verbatim
+
+Note how the toc element text and page number are referred to in
+the @code{tocItemMarkup} definition.
+
+New commands and markups may also be defined to build more elaborated
+table of contents:
+@itemize
+@item first, define a new markup variable in the @code{\paper} block
+@item then, define a music function which aims at adding a toc element
+using this markup paper variable.
+@end itemize
+
+In the following example, a new style is defined for entering act names
+in the table of contents of an opera:
+
+@verbatim
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct =
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@lilypond[line-width=11.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct =
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+
+\book {
+  \markuplines \table-of-contents
+  \tocAct \markup { Atto Primo }
+  \tocItem \markup { Coro. Viva il nostro Alcide }
+  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocAct \markup { Atto Secondo }
+  \tocItem \markup { Sinfonia }
+  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \markup \null
+}
+@end lilypond
+
+
+@seealso
+Init files: @file{../ly/@/toc@/-init@/.ly}.
+
+
+@predefined
+@funindex \table-of-contents
+@code{\table-of-contents},
+@funindex \tocItem
+@code{\tocItem}.
+@endpredefined
+
+
+@node Working with input files
+@section Working with input files
+
+@menu
+* Including LilyPond files::
+* Different editions from one source::
+* Text encoding::
+* Displaying LilyPond notation::
+@end menu
+
+
+@node Including LilyPond files
+@subsection Including LilyPond files
+
+@funindex \include
+@cindex including files
+
+A large project may be split up into separate files.  To refer to
+another file, use
+
+@example
+\include "otherfile.ly"
+@end example
+
+The line @code{\include "otherfile.ly"} is equivalent to pasting the
+contents of @file{otherfile.ly} into the current file at the place
+where the @code{\include} appears.  For example, in a large
+project you might write separate files for each instrument part
+and create a @qq{full score} file which brings together the
+individual instrument files.  Normally the included file will
+define a number of variables which then become available
+for use in the full score file.  Tagged sections can be
+marked in included files to assist in making them usable in
+different places in a score, see @ref{Different editions from
+one source}.
+
+Files in the current working directory may be referenced by
+specifying just the file name after the @code{\include} command.
+Files in other locations may be included by giving either a full
+path reference or a relative path reference (but use the UNIX
+forward slash, /, rather than the DOS/Windows back slash, \, as the
+directory separator.)  For example, if @file{stuff.ly} is located
+one directory higher than the current working directory, use
+
+@example
+\include "../stuff.ly"
+@end example
+
+@noindent
+or if the included orchestral parts files are all located in a
+subdirectory called @file{parts} within the current directory, use
+
+@example
+\include "parts/VI.ly"
+\include "parts/VII.ly"
+... etc
+@end example
+
+Files which are to be included can also contain @code{\include}
+statements of their own.  By default, these second-level
+@code{\include} statements are not interpreted until they have
+been brought into the main file, so the file names they specify
+must all be relative to the directory containing the main file,
+not the directory containing the included file. However,
+this behavior can be changed by passing the option
+@code{-drelative-includes} option at the command line
+(or by adding @code{#(ly:set-option 'relative-includes #t)}
+at the top of the main input file). With @code{relative-includes}
+set, the path for each @code{\include} command will be taken
+relative to the file containing that command. This behavior is
+recommended and it will become the default behavior in a future
+version of lilypond.
+
+Files can also be included from a directory in a search path
+specified as an option when invoking LilyPond from the command
+line.  The included files are then specified using just their
+file name.  For example, to compile @file{main.ly} which includes
+files located in a subdirectory called @file{parts} by this method,
+cd to the directory containing @file{main.ly} and enter
+
+@example
+lilypond --include=parts main.ly
+@end example
+
+and in main.ly write
+
+@example
+\include "VI.ly"
+\include "VII.ly"
+... etc
+@end example
+
+Files which are to be included in many scores may be placed in
+the LilyPond directory @file{../ly}.  (The location of this
+directory is installation-dependent - see
+@rlearning{Other sources of information}).  These files can then
+be included simply by naming them on an @code{\include} statement.
+This is how the language-dependent files like @file{english.ly} are
+included.
+
+LilyPond includes a number of files by default when you start
+the program.  These includes are not apparent to the user, but the
+files may be identified by running @code{lilypond --verbose} from
+the command line.  This will display a list of paths and files that
+LilyPond uses, along with much other information.  Alternatively,
+the more important of these files are discussed in
+@rlearning{Other sources of information}.  These files may be
+edited, but changes to them will be lost on installing a new
+version of LilyPond.
+
+Some simple examples of using @code{\include} are shown in
+@rlearning{Scores and parts}.
+
+
+@seealso
+Learning Manual:
+@rlearning{Other sources of information},
+@rlearning{Scores and parts}.
+
+
+@knownissues
+
+If an included file is given a name which is the same as one in
+LilyPond's installation files, LilyPond's file from the
+installation files takes precedence.
+
+
+
+@node Different editions from one source
+@subsection Different editions from one source
+
+Several mechanisms are available to facilitate the generation
+of different versions of a score from the same music source.
+Variables are perhaps most useful for combining lengthy sections
+of music and/or annotation in various ways, while tags are more
+useful for selecting one from several alternative shorter sections
+of music.  Whichever method is used, separating the notation from
+the structure of the score will make it easier to change the
+structure while leaving the notation untouched.
+
+@menu
+* Using variables::
+* Using tags::
+@end menu
+
+@node Using variables
+@unnumberedsubsubsec Using variables
+
+@cindex variables, use of
+
+If sections of the music are defined in variables they can be
+reused in different parts of the score, see @rlearning{Organizing
+pieces with variables}.  For example, an @notation{a cappella}
+vocal score frequently includes a piano reduction of the parts
+for rehearsal purposes which is identical to the vocal music, so
+the music need be entered only once.  Music from two variables
+may be combined on one staff, see @ref{Automatic part combining}.
+Here is an example:
+
+@lilypond[verbatim,quote]
+sopranoMusic = \relative c'' { a4 b c b8( a)}
+altoMusic = \relative g' { e4 e e f }
+tenorMusic = \relative c' { c4 b e d8( c) }
+bassMusic = \relative c' { a4 gis a d, }
+allLyrics = \lyricmode {King of glo -- ry }
+<<
+  \new Staff = "Soprano" \sopranoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Alto" \altoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Tenor" {
+    \clef "treble_8"
+    \tenorMusic
+  }
+  \new Lyrics \allLyrics
+  \new Staff = "Bass" {
+    \clef "bass"
+    \bassMusic
+  }
+  \new Lyrics \allLyrics
+  \new PianoStaff <<
+    \new Staff = "RH" {
+      \set Staff.printPartCombineTexts = ##f
+      \partcombine
+      \sopranoMusic
+      \altoMusic
+    }
+    \new Staff = "LH" {
+      \set Staff.printPartCombineTexts = ##f
+      \clef "bass"
+      \partcombine
+      \tenorMusic
+      \bassMusic
+    }
+  >>
+>>
+@end lilypond
+
+Separate scores showing just the vocal parts or just the piano
+part can be produced by changing just the structural statements,
+leaving the musical notation unchanged.
+
+For lengthy scores, the variable definitions may be placed in
+separate files which are then included, see @ref{Including
+LilyPond files}.
+
+@node Using tags
+@unnumberedsubsubsec Using tags
+
+@funindex \tag
+@funindex \keepWithTag
+@funindex \removeWithTag
+@cindex tag
+@cindex keep tagged music
+@cindex remove tagged music
+
+The @code{\tag #'@var{partA}} command marks a music expression
+with the name @var{partA}.
+Expressions tagged in this way can be selected or filtered out by
+name later, using either @code{\keepWithTag #'@var{name}} or
+@code{\removeWithTag #'@var{name}}.  The result of applying these filters
+to tagged music is as follows:
+@multitable @columnfractions .5 .5
+@headitem Filter
+  @tab Result
+@item
+Tagged music preceded by @code{\keepWithTag #'@var{name}}
+  @tab Untagged music and music tagged with @var{name} is included;
+       music tagged with any other tag name is excluded.
+@item
+Tagged music preceded by @code{\removeWithTag #'@var{name}}
+@tab Untagged music and music tagged with any tag name other than
+     @var{name} is included; music tagged with @var{name} is
+     excluded.
+@item
+Tagged music not preceded by either @code{\keepWithTag} or
+@code{\removeWithTag}
+@tab All tagged and untagged music is included.
+@end multitable
+
+The arguments of the @code{\tag}, @code{\keepWithTag} and
+@code{\removeWithTag} commands should be a symbol
+(such as @code{#'score} or @code{#'part}), followed
+by a music expression.
+
+In the following example, we see two versions of a piece of music,
+one showing trills with the usual notation, and one with trills
+explicitly expanded:
+
+@lilypond[verbatim,quote]
+music = \relative g' {
+  g8. c32 d
+  \tag #'trills {d8.\trill }
+  \tag #'expand {\repeat unfold 3 {e32 d} }
+  c32 d
+ }
+
+\score {
+  \keepWithTag #'trills \music
+}
+\score {
+  \keepWithTag #'expand \music
+}
+@end lilypond
+
+@noindent
+Alternatively, it is sometimes easier to exclude sections of music:
+
+@lilypond[verbatim,quote]
+music = \relative g' {
+  g8. c32 d
+  \tag #'trills {d8.\trill }
+  \tag #'expand {\repeat unfold 3 {e32 d} }
+  c32 d
+ }
+
+\score {
+  \removeWithTag #'expand
+  \music
+}
+\score {
+  \removeWithTag #'trills
+  \music
+}
+@end lilypond
+
+Tagged filtering can be applied to articulations, texts, etc. by
+prepending
+
+@example
+-\tag #'@var{your-tag}
+@end example
+
+to an articulation.  For example, this would define a note with a
+conditional fingering indication and a note with a conditional
+annotation:
+
+@example
+c1-\tag #'finger ^4
+c1-\tag #'warn ^"Watch!"
+@end example
+
+Multiple tags may be placed on expressions with multiple
+@code{\tag} entries:
+
+@lilypond[quote,verbatim]
+music = \relative c'' {
+  \tag #'a \tag #'both { a a a a }
+  \tag #'b \tag #'both { b b b b }
+}
+<<
+\keepWithTag #'a \music
+\keepWithTag #'b \music
+\keepWithTag #'both \music
+>>
+@end lilypond
+
+Multiple @code{\removeWithTag} filters may be applied to a single
+music expression to remove several differently named tagged sections:
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+\tag #'A { a a a a }
+\tag #'B { b b b b }
+\tag #'C { c c c c }
+\tag #'D { d d d d }
+}
+{
+\removeWithTag #'B
+\removeWithTag #'C
+\music
+}
+@end lilypond
+
+Two or more @code{\keepWithTag} filters applied to a single music
+expression will cause @emph{all} tagged sections to be removed, as
+the first filter will remove all tagged sections except the one
+named, and the second filter will remove even that tagged section.
+
+
+@seealso
+Learning Manual:
+@rlearning{Organizing pieces with variables}.
+
+Notation Reference:
+@ref{Automatic part combining},
+@ref{Including LilyPond files}.
+
+
+@ignore
+@c This warning is more general than this placement implies.
+@c Rests are not merged whether or not they come from tagged sections.
+@c Should be deleted?  -td
+
+@knownissues
+
+Multiple rests are not merged if you create a score with more
+than one tagged section at the same place.
+
+@end ignore
+
+@node Text encoding
+@subsection Text encoding
+
+@cindex Unicode
+@cindex UTF-8
+@cindex non-ASCII characters
+
+LilyPond uses the character repertoire defined by the Unicode
+consortium and ISO/IEC 10646.  This defines a unique name and
+code point for the character sets used in virtually all modern
+languages and many others too.  Unicode can be implemented using
+several different encodings.  LilyPond uses the UTF-8 encoding
+(UTF stands for Unicode Transformation Format) which represents
+all common Latin characters in one byte, and represents other
+characters using a variable length format of up to four bytes.
+
+The actual appearance of the characters is determined by the
+glyphs defined in the particular fonts available - a font defines
+the mapping of a subset of the Unicode code points to glyphs.
+LilyPond uses the Pango library to layout and render multi-lingual
+texts.
+
+LilyPond does not perform any input-encoding conversions.  This
+means that any text, be it title, lyric text, or musical
+instruction containing non-ASCII characters, must be encoded in
+UTF-8.  The easiest way to enter such text is by using a
+Unicode-aware editor and saving the file with UTF-8 encoding.  Most
+popular modern editors have UTF-8 support, for example, vim, Emacs,
+jEdit, and GEdit do.  All MS Windows systems later than NT use
+Unicode as their native character encoding, so even Notepad can
+edit and save a file in UTF-8 format.  A more functional
+alternative for Windows is BabelPad.
+
+If a LilyPond input file containing a non-ASCII character is not
+saved in UTF-8 format the error message
+
+@example
+FT_Get_Glyph_Name () error: invalid argument
+@end example
+
+will be generated.
+
+Here is an example showing Cyrillic, Hebrew and Portuguese
+text:
+
+@lilypond[quote]
+%c No verbatim here as the code does not display correctly in PDF
+% Cyrillic
+bulgarian = \lyricmode {
+  Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
+}
+
+% Hebrew
+hebrew = \lyricmode {
+  זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
+}
+
+% Portuguese
+portuguese = \lyricmode {
+  à vo -- cê uma can -- ção legal
+}
+
+\relative  {
+  c2 d e f g f e
+}
+\addlyrics { \bulgarian }
+\addlyrics { \hebrew }
+\addlyrics { \portuguese }
+@end lilypond
+
+To enter a single character for which the Unicode code point is
+known but which is not available in the editor being used, use
+either @code{\char ##xhhhh} or @code{\char #dddd} within a
+@code{\markup} block, where @code{hhhh} is the hexadecimal code for
+the character required and @code{dddd} is the corresponding decimal
+value.  Leading zeroes may be omitted, but it is usual to specify
+all four characters in the hexadecimal representation.  (Note that
+the UTF-8 encoding of the code point should @emph{not} be used
+after @code{\char}, as UTF-8 encodings contain extra bits indicating
+the number of octets.)
+
+For example, @code{\char ##x03BE} and @code{\char #958} would both
+enter the Unicode U+03BE character, which has the Unicode name
+@qq{Greek Small Letter Xi}.
+
+Any Unicode code point may be entered in this way and if all special
+characters are entered in this format it is not necessary to save
+the input file in UTF-8 format.  Of course, a font containing all
+such encoded characters must be installed and available to LilyPond.
+
+The following example shows Unicode hexadecimal values being entered
+in four places -- in a rehearsal mark, as articulation text, in
+lyrics and as stand-alone text below the score:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    c1 \mark \markup { \char ##x03EE }
+    c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
+  }
+  \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
+}
+\markup { "Copyright 2008--2009" \char ##x00A9 }
+@end lilypond
+
+@cindex copyright sign
+
+To enter the copyright sign in the copyright notice use:
+
+@example
+\header @{
+  copyright = \markup @{ \char ##x00A9 "2008" @}
+@}
+@end example
+
+@node Displaying LilyPond notation
+@subsection Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+Displaying a music expression in LilyPond notation can be
+done using the music function @code{\displayLilyMusic}.  For example,
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c e g a bes @}
+@}
+@end example
+
+will display
+
+@example
+@{ a, cis e fis g @}
+@end example
+
+By default, LilyPond will print these messages to the console along
+with all the other messages.  To split up these messages and save
+the results of @code{\display@{STUFF@}}, redirect the output to
+a file.
+
+@c TODO What happens under Windows?
+
+@example
+lilypond file.ly >display.txt
+@end example
+
+
+
+@node Controlling output
+@section Controlling output
+
+@menu
+* Extracting fragments of music::
+* Skipping corrected music::
+@end menu
+
+@node Extracting fragments of music
+@subsection Extracting fragments of music
+
+It is possible to quote small fragments of a large score directly from
+the output.  This can be compared to clipping a piece of a paper score
+with scissors.
+
+This is done by defining the measures that need to be cut out
+separately.  For example, including the following definition
+
+
+@verbatim
+\layout {
+  clip-regions
+  = #(list
+      (cons
+       (make-rhythmic-location 5 1 2)
+       (make-rhythmic-location 7 3 4)))
+}
+@end verbatim
+
+@noindent
+will extract a fragment starting halfway the fifth measure, ending in
+the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
+in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
+
+More clip regions can be defined by adding more pairs of
+rhythmic-locations to the list.
+
+In order to use this feature, LilyPond must be invoked with
+@code{-dclip-systems}.  The clips are output as EPS files, and are
+converted to PDF and PNG if these formats are switched on as well.
+
+For more information on output formats, see @rprogram{Invoking lilypond}.
+
+@node Skipping corrected music
+@subsection Skipping corrected music
+
+
+@funindex skipTypesetting
+@funindex showFirstLength
+@funindex showLastLength
+
+When entering or copying music, usually only the music near the end (where
+you
+are adding notes) is interesting to view and correct.  To speed up
+this correction process, it is possible to skip typesetting of all but
+the last few measures.  This is achieved by putting
+
+@verbatim
+showLastLength = R1*5
+\score { ... }
+@end verbatim
+
+@noindent
+in your source file.  This will render only the last 5 measures
+(assuming 4/4 time signature) of every @code{\score} in the input
+file.  For longer pieces, rendering only a small part is often an order
+of magnitude quicker than rendering it completely.  When working on the
+beginning of a score you have already typeset (e.g. to add a new part),
+the @code{showFirstLength} property may be useful as well.
+
+Skipping parts of a score can be controlled in a more fine-grained
+fashion with the property @code{Score.skipTypesetting}.  When it is
+set, no typesetting is performed at all.
+
+This property is also used to control output to the MIDI file.  Note that
+it skips all events, including tempo and instrument changes.  You have
+been warned.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  c8 d
+  \set Score.skipTypesetting = ##t
+  e e e e e e e e
+  \set Score.skipTypesetting = ##f
+  c d b bes a g c2 }
+@end lilypond
+
+In polyphonic music, @code{Score.skipTypesetting} will affect all
+voices and staves, saving even more time.
+
+
+
+@node MIDI output
+@section MIDI output
+
+@cindex Sound
+@cindex MIDI
+
+MIDI (Musical Instrument Digital Interface) is a standard for
+connecting and controlling digital instruments.  A MIDI file is a
+series of notes in a number of tracks.  It is not an actual
+sound file; you need special software to translate between the
+series of notes and actual sounds.
+
+Pieces of music can be converted to MIDI files, so you can listen to
+what was entered.  This is convenient for checking the music; octaves
+that are off or accidentals that were mistyped stand out very much
+when listening to the MIDI output.
+
+@c TODO Check this
+The midi output allocates a channel for each staff, and one for global
+settings.  Therefore the midi file should not have more than 15 staves
+(or 14 if you do not use drums).  Other staves will remain silent.
+
+@menu
+* Creating MIDI files::
+* MIDI block::
+* What goes into the MIDI output?::
+* Repeats in MIDI::
+* Controlling MIDI dynamics::
+* Percussion in MIDI::
+@end menu
+
+@node Creating MIDI files
+@subsection Creating MIDI files
+
+To create a MIDI output file from a LilyPond input file, add a
+@code{\midi} block to a score, for example,
+
+@example
+\score @{
+  @var{...music...}
+  \midi @{ @}
+@}
+@end example
+
+If there is a @code{\midi} block in a @code{\score} with no
+@code{\layout} block, only MIDI output will be produced.  When
+notation is needed too, a @code{\layout} block must be also be
+present.
+
+@example
+\score @{
+  @var{...music...}
+  \midi @{ @}
+  \layout @{ @}
+@}
+@end example
+
+Pitches, rhythms, ties, dynamics, and tempo changes are interpreted
+and translated correctly to the MIDI output.  Dynamic marks,
+crescendi and decrescendi translate into MIDI volume levels.
+Dynamic marks translate to a fixed fraction of the available MIDI
+volume range.  Crescendi and decrescendi make the volume vary
+linearly between their two extremes.  The effect of dynamic markings
+on the MIDI output can be removed completely, see @ref{MIDI block}.
+
+The initial tempo and later tempo changes can be specified
+with the @code{\tempo} command within the music notation.  These
+are reflected in tempo changes in the MIDI output.  This command
+will normally result in the metronome mark being printed, but this
+can be suppressed, see @ref{Metronome marks}.  An alternative way
+of specifying the inital or overall MIDI tempo is described below,
+see @ref{MIDI block}.
+
+Due to some limitations on Windows, the default extension for
+MIDI files on Windows is @code{.mid}. Other operating systems still
+use the extension @code{.midi}. If a different extension is preferred,
+insert the following line at the top-level of the input file,
+before the start of any @code{\book}, @code{\bookpart} or @code{\score} blocks:
+
+@example
+#(ly:set-option 'midi-extension "midi")
+@end example
+
+The line above will set the default extension for MIDI files to
+@code{.midi}.
+
+Alternatively, this option can also be supplied on the command line:
+
+@example
+lilypond … -dmidi-extension=midi lilyFile.ly
+@end example
+
+
+@unnumberedsubsubsec Instrument names
+
+@cindex instrument names
+@funindex Staff.midiInstrument
+
+The MIDI instrument to be used is specified by setting the
+@code{Staff.midiInstrument} property to the instrument name.
+The name should be chosen from the list in @ref{MIDI instruments}.
+
+@example
+\new Staff @{
+  \set Staff.midiInstrument = #"glockenspiel"
+  @var{...notes...}
+@}
+@end example
+
+@example
+\new Staff \with @{midiInstrument = #"cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+If the selected instrument does not exactly match an instrument from
+the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
+instrument is used.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
+
+@knownissues
+
+@c In 2.11 the following no longer seems to be a problem -td
+@ignore
+Unterminated (de)crescendos will not render properly in the midi file,
+resulting in silent passages of music.  The workaround is to explicitly
+terminate the (de)crescendo.  For example,
+
+@example
+@{ a\< b c d\f @}
+@end example
+
+@noindent
+will not work properly but
+
+@example
+@{ a\< b c d\!\f @}
+@end example
+
+@noindent
+will.
+@end ignore
+
+Changes in the MIDI volume take place only on starting a note, so
+crescendi and decrescendi cannot affect the volume of a
+single note.
+
+Not all midi players correctly handle tempo changes in the midi
+output.  Players that are known to work include MS Windows Media
+Player and @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
+
+@node MIDI block
+@subsection MIDI block
+@cindex MIDI block
+
+A @code{\midi} block must appear within a score block if MIDI output
+is required.  It is analogous to the layout block, but somewhat
+simpler.  Often, the @code{\midi} block is left empty, but it
+can contain context rearrangements, new context definitions or code
+to set the values of properties.  For example, the following will
+set the initial tempo exported to a MIDI file without causing a tempo
+indication to be printed:
+
+@example
+\score @{
+  @var{...music...}
+  \midi @{
+    \context @{
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 4)
+    @}
+  @}
+@}
+@end example
+
+In this example the tempo is set to 72 quarter note
+beats per minute.  This kind of tempo specification cannot take
+a dotted note length as an argument.  If one is required, break
+the dotted note into smaller units.  For example, a tempo of 90
+dotted quarter notes per minute can be specified as 270 eighth
+notes per minute:
+
+@example
+tempoWholesPerMinute = #(ly:make-moment 270 8)
+@end example
+
+@cindex MIDI context definitions
+
+Context definitions follow precisely the same syntax as those
+within a @code{\layout} block.  Translation modules for sound are
+called performers.  The contexts for MIDI output are defined in
+@file{../ly/@/performer@/-init@/.ly},
+see @rlearning{Other sources of information}.
+For example, to remove the effect of dynamics
+from the MIDI output, insert the following lines in the
+@code{\midi@{ @}} block.
+
+@example
+\midi @{
+  ...
+  \context @{
+    \Voice
+    \remove "Dynamic_performer"
+  @}
+@}
+@end example
+
+MIDI output is created only when a @code{\midi} block is included
+within a score block defined with a @code{\score} command.  If it
+is placed within an explicitly instantiated score context (i.e.
+within a @code{\new Score} block) the file will fail.  To solve
+this, enclose the @code{\new Score} and the @code{\midi} commands
+in a @code{\score} block.
+
+@example
+\score @{
+  \new Score @{ @dots{}notes@dots{} @}
+  \midi @{ @}
+@}
+@end example
+
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
+
+@c TODO Check grace notes - timing is suspect?
+
+@unnumberedsubsubsec Supported in MIDI
+
+@cindex Pitches in MIDI
+@cindex MIDI, Pitches
+@cindex Quarter tones in MIDI
+@cindex MIDI, quarter tones
+@cindex Microtones in MIDI
+@cindex MIDI, microtones
+@cindex Chord names in MIDI
+@cindex MIDI, chord names
+@cindex Rhythms in MIDI
+@cindex MIDI, Rhythms
+@c TODO etc
+
+The following items of notation are reflected in the MIDI output:
+
+@itemize
+@item Pitches
+@item Microtones (See @ref{Accidentals}. Rendering needs a
+player that supports pitch bend.)
+@item Chords entered as chord names
+@item Rhythms entered as note durations, including tuplets
+@item Tremolos entered without @q{@code{:}[@var{number}]}
+@item Ties
+@item Dynamic marks
+@item Crescendi, decrescendi over multiple notes
+@item Tempo changes entered with a tempo marking
+@item Lyrics
+@end itemize
+
+@unnumberedsubsubsec Unsupported in MIDI
+
+@c TODO index as above
+
+The following items of notation have no effect on the MIDI output:
+
+@itemize
+@item Rhythms entered as annotations, e.g. swing
+@item Tempo changes entered as annotations with no tempo marking
+@item Staccato and other articulations and ornamentations
+@item Slurs and Phrasing slurs
+@item Crescendi, decrescendi over a single note
+@item Tremolos entered with @q{@code{:}[@var{number}]}
+@item Figured bass
+@item Microtonal chords
+@end itemize
+
+
+@node Repeats in MIDI
+@subsection Repeats in MIDI
+
+@cindex repeats in MIDI
+@funindex \unfoldRepeats
+
+With a few minor additions, all types of repeats can be represented
+in the MIDI output.  This is achieved by applying the
+@code{\unfoldRepeats} music function.  This function changes all
+repeats to unfold repeats.
+
+@lilypond[quote,verbatim]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+When creating a score file using @code{\unfoldRepeats} for MIDI,
+it is necessary to make two @code{\score} blocks: one for MIDI
+(with unfolded repeats) and one for notation (with volta, tremolo,
+and percent repeats).  For example,
+
+@example
+\score @{
+  @var{..music..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..music..}
+  \midi @{ .. @}
+@}
+@end example
+
+@node Controlling MIDI dynamics
+@subsection Controlling MIDI dynamics
+
+MIDI dynamics are implemented by the Dynamic_performer which lives
+by default in the Voice context.  It is possible to control the
+overall MIDI volume, the relative volume of dynamic markings and
+the relative volume of different instruments.
+
+@unnumberedsubsubsec Dynamic marks
+
+Dynamic marks are translated to a fixed fraction of the available
+MIDI volume range.  The default fractions range from 0.25 for
+@notation{ppppp} to 0.95 for @notation{fffff}.  The set of dynamic
+marks and the associated fractions can be seen in
+@file{../scm/midi.scm}, see @rlearning{Other sources of information}.
+This set of fractions may be changed or extended by providing a
+function which takes a dynamic mark as its argument and returns the
+required fraction, and setting
+@code{Score.dynamicAbsoluteVolumeFunction} to this function.
+
+For example, if a @notation{rinforzando} dynamic marking,
+@code{\rfz}, is required, this will not by default
+have any effect on the MIDI volume, as this dynamic marking is not
+included in the default set.  Similarly, if a new dynamic marking
+has been defined with @code{make-dynamic-script} that too will not
+be included in the default set.  The following example shows how the
+MIDI volume for such dynamic markings might be added.  The Scheme
+function sets the fraction to 0.9 if a dynamic mark of rfz is
+found, or calls the default function otherwise.
+
+@lilypond[verbatim,quote]
+#(define (myDynamics dynamic)
+    (if (equal? dynamic "rfz")
+      0.9
+      (default-dynamic-absolute-volume dynamic)))
+
+\score {
+  \new Staff {
+    \set Staff.midiInstrument = #"cello"
+    \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
+    \new Voice {
+       \relative c'' {
+         a\pp b c-\rfz
+       }
+    }
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+
+Alternatively, if the whole table of fractions needs to be
+redefined, it would be better to use the
+@notation{default-dynamic-absolute-volume} procedure in
+@file{../scm/midi.scm} and the associated table as a model.
+The final example in this section shows how this might be done.
+
+@unnumberedsubsubsec Overall MIDI volume
+
+The minimum and maximum overall volume of MIDI dynamic markings is
+controlled by setting the properties @code{midiMinimumVolume} and
+@code{midiMaximumVolume} at the @code{Score} level.  These
+properties have an effect only on dynamic marks, so if they
+are to apply from the start of the score a dynamic mark must be
+placed there.  The fraction corresponding to each dynamic mark is
+modified with this formula
+
+@example
+midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+@end example
+
+In the following example the dynamic range of the overall MIDI
+volume is limited to the range 0.2 - 0.5.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+      midiMinimumVolume = #0.2
+      midiMaximumVolume = #0.5
+    }
+  }
+}
+@end lilypond
+
+@unnumberedsubsubsec Equalizing different instruments (i)
+
+If the minimum and maximum MIDI volume properties are set in
+the @code{Staff} context the relative volumes of the MIDI
+instruments can be controlled.  This gives a basic instrument
+equalizer, which can enhance the quality of the MIDI output
+remarkably.
+
+In this example the volume of the clarinet is reduced relative
+to the volume of the flute.  There must be a dynamic
+mark on the first note of each instrument for this to work
+correctly.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiMinimumVolume = #0.7
+      \set Staff.midiMaximumVolume = #0.9
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiMinimumVolume = #0.3
+      \set Staff.midiMaximumVolume = #0.6
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
+
+@unnumberedsubsubsec Equalizing different instruments (ii)
+
+If the MIDI minimum and maximum volume properties are not set
+LilyPond will, by default, apply a small degree of equalization
+to a few instruments.  The instruments and the equalization
+applied are shown in the table @notation{instrument-equalizer-alist}
+in @file{../scm/midi.scm}.
+
+This basic default equalizer can be replaced by setting
+@code{instrumentEqualizer} in the @code{Score} context to a new
+Scheme procedure which accepts a MIDI instrument name as its only
+argument and returns a pair of fractions giving the minimum and
+maximum volumes to be applied to that instrument.  This replacement
+is done in the same way as shown for resetting the
+@code{dynamicAbsoluteVolumeFunction} at the start of this section.
+The default equalizer, @notation{default-instrument-equalizer}, in
+@file{../scm/midi.scm} shows how such a procedure might be written.
+
+The following example sets the relative flute and clarinet volumes
+to the same values as the previous example.
+
+@lilypond[verbatim,quote]
+#(define my-instrument-equalizer-alist '())
+
+#(set! my-instrument-equalizer-alist
+  (append
+    '(
+      ("flute" . (0.7 . 0.9))
+      ("clarinet" . (0.3 . 0.6)))
+    my-instrument-equalizer-alist))
+
+#(define (my-instrument-equalizer s)
+  (let ((entry (assoc s my-instrument-equalizer-alist)))
+    (if entry
+      (cdr entry))))
+
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Score.instrumentEqualizer = #my-instrument-equalizer
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
+
+@ignore
+@c Delete when satisfied this is adequately covered elsewhere -td
+
+@n ode Microtones in MIDI
+@s ubsection Microtones in MIDI
+
+@cindex microtones in MIDI
+
+Microtones consisting of half sharps and half flats are exported
+to the MIDI file and render correctly in MIDI players which support
+pitch bending.  See @ref{Note names in other languages}.  Here is
+an example showing all the half sharps and half flats.  It can be
+copied out and compiled to test microtones in your MIDI player.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c' {
+    c cih cis cisih
+    d dih ees eeh
+    e eih f fih
+    fis fisih g gih
+    gis gisih a aih
+    bes beh b bih
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+@end ignore
+
+
+@node Percussion in MIDI
+@subsection Percussion in MIDI
+
+Percussion instruments are generally notated in a @code{DrumStaff}
+context and when notated in this way they are outputted correctly
+to MIDI channel@tie{}10, but some pitched percussion instruments,
+like the xylophone, marimba, vibraphone, timpani, etc., are
+treated like @qq{normal} instruments and music for these instruments
+should be entered in a normal @code{Staff} context, not a
+@code{DrumStaff} context, to obtain the correct MIDI output.
+
+Some non-pitched percussion sounds included in the general MIDI
+standard, like melodic tom, taiko drum, synth drum, etc., cannot
+be reached via MIDI channel@tie{}10, so the notation for such
+instruments should also be entered in a normal @code{Staff}
+context, using suitable normal pitches.
+
+Many percussion instruments are not included in the general MIDI
+standard, e.g. castanets.  The easiest, although unsatisfactory,
+method of producing some MIDI output when writing for such
+instruments is to substitute the nearest sound from the standard
+set.
+
+@c TODO Expand with examples, and any other issues
+
+@knownissues
+
+Because the general MIDI standard does not contain rim shots, the
+sidestick is used for this purpose instead.
+
+

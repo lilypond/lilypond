@@ -1,0 +1,8 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Die Richtung von Hälsen wird in Tabulaturen genauso wie in normaler Notation
+eingestellt.  Balken können horizontal eingestellt werden, wie das Beispiel
+zeigt.
+
+"
+  doctitlede = "Hals- und Balkenverhalten in einer Tabulatur"

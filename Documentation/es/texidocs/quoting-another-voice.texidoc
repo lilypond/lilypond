@@ -1,0 +1,13 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+La propiedad @code{quotedEventTypes} determina los tipos de
+eventos musicales que resultan citados.  El valor predeterminado
+es @code{(note-event rest-event)}, que significa que sólo aparecen
+en la expresión @code{\\quoteDuring} las notas y los silencios.
+En el ejemplo siguiente, el silencio de semicorchea no aparece en
+el fragmento citado porque @code{rest-event} no está dentro de los
+@code{quotedEventTypes}.
+
+"
+  doctitlees = "Citar otra voz"
+  

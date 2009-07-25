@@ -1,0 +1,9 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Para cambiar el tempo en la salida MIDI sin
+imprimir nada, hacemos invisible la indicación metronómica:
+
+"
+
+  doctitlees = "Cambiar el tempo sin indicación metronómica"
+

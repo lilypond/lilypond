@@ -1,0 +1,2845 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node Fundamental concepts
+@chapter Fundamental concepts
+@c 基礎となるコンセプト
+
+チュートリアルではシンプルなテキスト ファイルから美しい楽譜を刻譜する方法を見@c
+てきました。このセクションでは、同じように美しいがより複雑な楽譜を作り出すのに@c
+必要とされるコンセプトとテクニックについて紹介します。
+
+@menu
+* How LilyPond input files work::
+* Voices contain music::
+* Contexts and engravers::
+* Extending the templates::
+@end menu
+
+@node How LilyPond input files work
+@section How LilyPond input files work
+@c LilyPond 入力ファイルの仕組み
+
+LilyPond の入力フォーマットは非常に自由な形式であり、経験豊富なユーザにとって@c
+はファイルを構築する際の自由度が高いです。しかしながら、この自由度が新しいユー@c
+ザにとっては混乱の元になります。このセクションではこの入力ファイルの構造につい@c
+ていくつか説明します。しかしながら、簡潔さを保つためにいくつかの詳細については@c
+目をつぶるかもしれません。入力フォーマットについての完全な記述は、@ruser{File 
+structure} を参照してください。
+@c ファイル構造
+
+@menu
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* On the un-nestedness of brackets and ties::
+@end menu
+
+
+@node Introduction to the LilyPond file structure
+@subsection Introduction to the LilyPond file structure
+@c LilyPond ファイル構造の紹介
+
+@cindex input format
+@cindex file structure
+
+LilyPond 入力ファイルの基本例は以下のようなものです:
+
+@example
+\version @w{"@version{}"}
+\header @{ @}
+\score @{
+  @var{...compound music expression...}  % all the music goes here!
+  @var{...複合音楽表記...}                  % すべての音楽がここに入ります！
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+基本パターンは本当にさまざまです。しかしながら、この例は開始点として役に立ちま@c
+す。
+
+@funindex \book
+@funindex book
+@funindex \score
+@funindex score
+@cindex book
+@cindex score
+
+これまで、あなたが見てきた例では @code{\score @{@}} コマンドを使用していません@c
+でした。その理由は、あなたが LilyPond に与えたのが簡単な入力であった場合、@c
+LilyPond が自動的に追加のコマンドを付け加えるからです。LilyPond は以下のような@c
+入力:
+
+@example
+\relative c'' @{
+  c4 a d c
+@}
+@end example
+
+@noindent
+を以下を簡略表記したものとして扱います:
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        \relative c'' @{
+          c4 a b c
+        @}
+      @}
+    @}
+    \layout @{ @}
+  @}
+@}
+@end example
+
+言い換えると、入力が保持しているのが単一の音楽表記である場合、LilyPond はまる@c
+でその音楽表記が上で示されたコマンドで包まれているかのように解釈します。
+
+@cindex implicit contexts
+@cindex contexts, implicit
+
+@strong{一言警告！}  LilyPond ドキュメントの中にある多くの例では、@code{\new 
+Staff} と @code{\new Voice} コマンドは暗黙的に作成されるために省略されていま@c
+す。簡単な例ではそれでうまくいきますが、より複雑な例の場合 -- 特に追加のコマン@c
+ドが使用される場合 -- コンテキストの暗黙的な作成は予想外の結果となる可能性があ@c
+ります。多分、予期しない余分な譜が作成されるでしょう。コンテキストを明示的に作@c
+成する方法は @ref{Contexts and engravers} で説明されています。
+@c コンテキストとエングラーバ
+
+@warning{数行以上の音楽を入力する場合、常に譜とボイスを明示的に作成したほうが@c
+賢明です。}
+
+今度は最初の例に戻って、@code{\score} コマンドについて検証します。他のことはデ@c
+フォルトのままにしておきます。
+
+@code{\score} ブロックは常にただ 1 つの音楽表記を保持していなければなりませ@c
+ん。そして、その音楽表記は @code{\score} コマンドのすぐ後に置かれなければなり@c
+ません。音楽表記は単一の音符である場合もありますし、以下のような巨大な複合表記@c
+である場合もあるということを覚えておいてください:
+
+@example
+@{
+  \new StaffGroup <<
+    @var{...insert the whole score of a Wagner opera in here...}
+    @var{...ワーグナーのオペラの楽譜全体がここに入ります...}
+  >>
+@}
+@end example
+
+@noindent
+すべては @code{@{ ... @}} の内部にあるため、それは 1 つの音楽表記であるとカ@c
+ウントされます。
+
+以前見てきたように、@code{\score} ブロックは他のものを含む可能性もあります。例@c
+えば以下のように:
+
+@example
+\score @{
+  @{ c'4 a b c' @}
+  \header @{ @}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@funindex \header
+@funindex header
+@funindex \layout
+@funindex layout
+@funindex \midi
+@funindex midi
+@cindex header
+@cindex layout
+@cindex midi
+
+@noindent
+これら 3 つのコマンド -- @code{\header}, @code{\layout}, @code{\midi} -- は特@c
+別なものであるということに注意してください: バックスラッシュ (@code{@bs{}}) で@c
+始まる他の多くのコマンドとは異なり、これらは音楽表記@emph{ではなく}、何らかの@c
+音楽表記の一部でもありません。そのため、これらは @code{\score} ブロックの内部@c
+に置かれるかもしれませんし、外部に置かれるかもしれません。実際、これらのコマン@c
+ドは一般的に @code{\score} ブロックの外側に置かれます -- 例えば、このセク@c
+ションの最初の例のように @code{\header} はしばしば @code{\score} コマンドの上@c
+に置かれます。
+
+以前は見なかった他の 2 つのコマンドは @code{\layout @{ @}} と @code{\midi @{ @}} 
+です。それらが上記のように記述された場合、LilyPond はそれぞれ譜刻された出力と 
+MIDI 出力を作り出します。それらは表記リファレンスの @ruser{Score layout} と 
+@ruser{Creating MIDI files} で完全に記述されています。
+@c 楽譜のレイアウト
+@c MIDI ファイルの作成
+
+@cindex scores, multiple
+@cindex book block, implicit
+@cindex implicit book block
+@funindex \book
+@funindex book
+
+あなたは複数の @code{\score} ブロックを記述するかもしれません。それらはそれぞ@c
+れ別々の楽譜として扱われますが、それらは結合されて単一の出力ファイルに収められ@c
+ます。@code{\book} コマンドは必要ありません -- このコマンドは暗黙的に 1 つ作成@c
+されます。しかしながら、あなたが 1 つの @code{.ly} ファイルから別々に分かれた@c
+出力ファイルを作成しようとするのなら、それぞれのセクションを異なる出力ファイル@c
+に分けるために @code{\book} コマンドが使用されます: 各 @code{\book} ブロックは@c
+別々の出力ファイルを作り出します。
+
+要約:
+
+各 @code{\book} ブロックは別々の出力ファイル (つまり PDF ファイル) を作成しま@c
+す。あなたが明示的に @code{\book} コマンドを記述しなかった場合、LilyPond は暗@c
+黙的に入力コードを @code{\book} ブロックで包み込みます。
+
+各 @code{\score} ブロックは @code{\book} ブロック内部で別々の音楽表記のチャンク 
+(塊) となります。
+
+@cindex layout block, effect of location
+
+各 @code{\layout} ブロックはそのブロックを含んでいる @code{\score} ブロックや 
+@code{\book} ブロックに影響を与えます -- つまり、ある @code{\score} ブロックの@c
+内部にある @code{\layout} ブロックはその @code{\score} ブロックにだけ影響を与@c
+え、@code{\score} ブロックの外部にある (それゆえ、明示的あるいは暗黙的に 
+@code{\book} ブロックの中にある) @code{\layout} ブロックはその @code{\book} ブ@c
+ロックの中にあるすべての @code{\score} に影響を与えます。
+
+詳細は、@ruser{Multiple scores in a book} を参照してください。
+@c 1 つの book の中にある複数の score
+
+@cindex variables
+
+もう一つの重要な簡略表記は変数を定義することです。すべてのテンプレートがこれを@c
+使っています:
+
+@example
+melody = \relative c' @{
+  c4 a b c
+@}
+
+\score @{
+  \melody
+@}
+@end example
+
+LilyPond がこのファイルを見ると、@code{melody} の値 (イコール記号の後にあるす@c
+べて) を記憶し、@code{\melody} と記述された箇所すべてにその値を挿入します。変@c
+数の名前について特別なことは何もありません -- 変数名は @code{melody}, 
+@code{global}, @code{TimeKey}, @code{pianorighthand}, @code{foofoobarbaz} など@c
+となります。詳細は、@ref{Saving typing with variables and functions} を参照し@c
+てください。変数名はアルファベットだけで構成されていて、LilyPond コマンド名と@c
+異なっている限りは、ほぼどんな名前でも使用できるということを覚えておいてくださ@c
+い。変数名の厳密な制限については、@ruser{File structure} で詳述されています。
+@c 変数と関数を用いたタイピングの省力化
+@c ファイル構造
+
+
+@seealso
+入力フォーマットの完全な定義は、@ruser{File structure} を参照してください。
+@c ファイル構造
+
+
+@node Score is a (single) compound musical expression
+@subsection Score is a (single) compound musical expression
+@c Score は (単一の) 複合的な音楽表記
+
+@funindex \score
+@funindex score
+@cindex score
+@cindex contents of a score block
+@cindex score block, contents of
+@cindex compound music expression
+@cindex music expression, compound
+
+前のセクション -- @ref{Introduction to the LilyPond file structure} -- で 
+LilyPond 入力ファイルの一般的な構造について見てきました。しかしながら、我々は@c
+最も重要な部分を飛ばしてきたようです: どうやって @code{\score} の後に記述する@c
+ものを見つけ出すのでしょうか？
+@c LilyPond ファイル構造の紹介
+
+我々はそのことを完全には飛ばしてきませんでした。この大きな謎は簡単なことであ@c
+り、謎でもなんでも@emph{ないのです}。以下の行がこの謎についてすべてを説明して@c
+います:
+
+@quotation
+@emph{@code{\score} ブロックは 1 つの複合音楽表記で始まらなくてはなりません。}
+@end quotation
+
+@noindent
+音楽表記と複合音楽表記が意味しているものを理解するには、チュートリアルの 
+@ref{Music expressions explained} を読み返すと役に立つかもしれません。そこで@c
+は、小さな音楽表記 -- 音符から始めて、それから和音など -- から大きな音楽表記を@c
+構築する方法を説明しています。今度は、大きな音楽表記からはじめて、その複雑さを@c
+減らしていきます。
+@c 音楽表記の説明
+
+@example
+\score @{
+  @{ % this brace begins the overall compound music expression
+    % この中括弧は複合音楽表記全体の開始点です
+    \new StaffGroup <<
+      @var{...insert the whole score of a Wagner opera in here...}
+      @var{...ワーグナーのオペラの楽譜全体がここに入ります...}
+    >>
+  @} % this brace ends the overall compound music expression
+    % この中括弧は複合音楽表記全体の終了点です
+  \layout @{ @}
+@}
+@end example
+
+ワーグナーのオペラの長さはこのマニュアルの軽く 2 倍はあります。そのため、歌手@c
+とピアノだけを加えることにします。このアンサンブルでは複数の譜をまとめて左端に@c
+中括弧を付ける @code{StaffGroup} は必要ありません。そのため、それを削除しま@c
+す。しかしながら、歌手とピアノが@emph{必要}です。
+
+@example
+\score @{
+  <<
+    \new Staff = "singer" <<
+    >>
+    \new PianoStaff = "piano" <<
+    >>
+  >>
+  \layout @{ @}
+@}
+@end example
+
+歌手とピアノが同時進行であることを示すために @code{@{ ... @}} の代わりに 
+@code{<< ... >>} を使用するということを覚えておいてください。我々はボーカル 
+パートとピアノパートが同時進行であるということを明確に示したいのであり、どちら@c
+かがもう一方の後に演奏されるのではないのです！歌手の譜表は一続きの音楽表記を 1 
+つだけ保持するため、歌手の譜表に対して << ... >> は必ずしも必要ありません。し@c
+かしながら、譜表の中の音楽が 2 つの同時進行の音楽表記 -- つまり、2 つの同時進@c
+行のボイスであるとか、歌詞付きの歌 -- である場合、中括弧の代わりに @code{<< ... 
+>>} を使う必要があります。後で実際の音楽を加えてみますが、ここではダミーの音符@c
+と歌詞を入力してみます。
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff = "singer" <<
+      \new Voice = "vocal" { c'1 }
+      \addlyrics { And }
+    >>
+    \new PianoStaff = "piano" <<
+      \new Staff = "upper" { c'1 }
+      \new Staff = "lower" { c'1 }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
+
+更に詳細を加えていきます。歌手の譜表は @code{Voice} (LilyPond では、この用語は@c
+音符のセットを参照するものであり、必ずしもボーカルの音符であるわけではありません 
+-- 例えば、一般にバイオリンは 1 つのボイスを演奏します) と歌詞を保持します。さ@c
+らに、ピアノの譜表は上部譜表 (右手) と下部譜表 (左手) を保持します。
+
+この段階で、音符の入力を開始することができます。@code{\new Voice = "vocal"} の@c
+後の中括弧の中に、以下を書き加えることができます:
+
+@example
+\relative c'' @{
+  r4 d8\noBeam g, c4 r
+@}
+@end example
+
+しかしながら、そのようにすると、@code{\score} セクションは非常に長くなり、何が@c
+起こるのか理解しにくくなります。そのため、直接音符を付け加える代わりに変数を使@c
+用しましょう。前のセクションで変数についての紹介を行いました。覚えていますよ@c
+ね？では、いくつかの音符を加えて実際の楽譜の一部を作成してみましょう:
+
+@lilypond[verbatim,quote,ragged-right]
+melody = \relative c'' { r4 d8\noBeam g, c4 r }
+text   = \lyricmode { And God said, }
+upper  = \relative c'' { <g d g,>2~ <g d g,> }
+lower  = \relative c { b2 e2 }
+
+\score {
+  <<
+    \new Staff = "singer" <<
+      \new Voice = "vocal" { \melody }
+      \addlyrics { \text }
+    >>
+    \new PianoStaff = "piano" <<
+      \new Staff = "upper" { \upper }
+      \new Staff = "lower" {
+        \clef "bass"
+        \lower
+      }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
+
+音符 -- これは @code{\relative} の中で導入されたり、音楽表記の中に直接含まれて@c
+います -- と歌詞 -- これは @code{\lyricmode} で導入されています -- の違いに気@c
+をつけてください。前者は LilyPond に後に続く内容を音楽として解釈するように指示@c
+し、後者はテキストとして解釈するように指示します。
+
+@code{\score} セクションを書いている (あるいは読んでいる) とき、ゆっくりと注意@c
+深く進めてください。外側から始めて、それから内部の細かな部分に取り組んでくださ@c
+い。さらに、きちんとインデントを入れると非常に役に立ちます － これは、同じレベ@c
+ルにある各要素はテキスト エディタの中で同じ水平位置から始まるということを保証@c
+します。
+
+@code{\score} セクションを書いている (あるいは読んでいる) とき、ゆっくりと注意@c
+深く進めてください。外側から始めて、それから内部の細かな部分に取り組んでくださ@c
+い。さらに、きちんとインデントを入れると非常に役に立ちます -- これは、同じレベ@c
+ルにある各要素はテキスト エディタの中で同じ水平位置から始まるということを保証@c
+します。
+
+
+@seealso
+表記リファレンス: @ruser{Structure of a score}
+@c score の構造
+
+
+@node Nesting music expressions
+@subsection Nesting music expressions
+@c 音楽表記のネスト
+
+@cindex staves, temporary
+@cindex temporary staves
+@cindex ossias
+
+すべての譜をファイルの始めに宣言することは必須ではありません; 譜はどこででも臨@c
+時に導入される可能性があります。これはオッシアを作成する際に特に有用です -- 
+@rglos{ossia} を参照してください。ここで、3 つの音符に対して臨時に新しい譜表を@c
+導入する方法を示すちょっとした例を挙げます:
+@c オッシア
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff {
+        f8 f c
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+音部記号のサイズは音部変更後に譜刻される音部記号のサイズ -- 行の開始点での音部@c
+記号よりも少し小さい -- と同じであるということに注意してください。これは行の途@c
+中で譜刻される音部記号全般に言えることです。
+
+@cindex staff, positioning
+
+オッシアは以下のように譜表の上に置かれるかもしれません:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff = "main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = #"main" }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+この例は後で説明される @code{\with} を使用しています。このコマンドは単一の譜表@c
+のデフォルトの振る舞いを変更することを意味します。ここでは、このコマンドは新し@c
+い譜表をデフォルトの位置 (@qq{main} と呼ばれている譜表の下) ではなく、上に置く@c
+べきであると言っています。
+
+
+@seealso
+オッシアはしばしば音部記号や拍子記号無しで描かれ、通常は小さなフォントで描かれ@c
+ます。これらはまだ紹介されていない追加のコマンドを必要とします。@ref{Size of 
+objects} と @ruser{Ossia staves} を参照してください。
+@c オブジェクトのサイズ
+@c オッシア譜
+
+
+@node On the un-nestedness of brackets and ties
+@subsection On the un-nestedness of brackets and ties
+@c ネストされない括弧とタイ
+
+@cindex brackets, nesting
+@cindex bracket types
+@cindex brackets, enclosing vs. marking
+
+これまでに LilyPond への入力ファイルを書く際に使用する括弧にはいくつかの種類が@c
+あるということを見てきました。これらは異なる規則 -- 最初は混乱を引き起こす可能@c
+性があります -- に従います。規則についての説明を行う前に、括弧の種類を再確認し@c
+てみましょう。
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .3 .7
+@headitem 括弧のタイプ
+  @tab 機能
+@item @code{@{ .. @}}
+  @tab 一続きの音楽を囲みます
+@item @code{< .. >}
+  @tab 和音となる音符を囲みます
+@item @code{<< .. >>}
+  @tab 同時進行する音楽表記を囲みます
+@item @code{( .. )}
+  @tab スラーの開始点と終了点を意味します
+@item @code{\( .. \)}
+  @tab フレージング スラーの開始点と終了点を意味します
+@item @code{[ .. ]}
+  @tab 手動ビームの開始点と終了点を意味します
+@end multitable
+
+こららに対して、音符の間や音符をまたがって線を生成する他の構文を付け加えるべき@c
+です: タイ (チルド @code{~} によって記述されます)、@c
+連符 (@code{\times x/y @{..@}} として記述されます)、@c
+グレイス ノート (@code{\grace@{..@}} として記述されます) です。
+
+LilyPond 以外では、種類の異なる括弧が適切にネストされること -- @code{[ @{ ( .. ) 
+@} ]} のように -- が一般的な使い方であり、括弧の終わりの順序は正確に括弧の始ま@c
+りの順序と逆になります。このことは上記の表で @q{囲みます} という言葉で記述され@c
+ている 3 種類の括弧に対しては@strong{必須}となります -- それらは適切にネストさ@c
+れなければなりません。しかしながら、残りの括弧 -- 上記の表で @q{意味します} と@c
+いう言葉で記述されいるものと、タイ、連符で使用されるもの -- はいかなる括弧とも@c
+ネストされる必要は@strong{ありません}。実際、これらは何かを囲むという意味では@c
+括弧ではありません -- それらは単に何かが始まる場所、終わる場所を示すためのマー@c
+クです。
+
+そのため、例えばフレージング スラーは手動で挿入されるビームの前に開始して、そ@c
+の手動ビームの前に終わる可能性もあります -- たぶん音楽的ではないかもしれません@c
+が、可能性はあります:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+ { g8\( a b[ c b\) a] }
+@end lilypond
+
+一般に、種類の異なる括弧と連符、タイ、グレースノートに適用される括弧は自由に混@c
+ぜ合わせられるかもしれません。以下の例では、ビームは連符の中にまで伸びていて (行 
+1)、スラーは連符の中にまで伸びていて (行 2)、ビームとスラーが連符の中にまで伸@c
+びていて (行 3)、タイが 2 つの連符にまたがっていて、さらにフレージング スラー@c
+が連符の外にまで伸びています (行 3 と 4)。
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  r16[ g16 \times 2/3 {r16 e'8] }
+  g16( a \times 2/3 {b d) e' }
+  g8[( a \times 2/3 {b d') e'~]}
+  \times 4/5 {e'32\( a b d' e'} a'4.\)
+}
+@end lilypond
+
+
+@node Voices contain music
+@section Voices contain music
+@c 音楽を保持するボイス
+
+歌手は歌うボイスを必要とし、それゆえ LilyPond も歌う (演奏する) ボイスを必要と@c
+します。楽譜の中にあるすべての楽器に対する実際の音楽はボイスの中に保持されます 
+-- このことは LilyPond すべてのコンセプトの中での最も基礎的なことです。
+
+@menu
+* I'm hearing Voices::
+* Explicitly instantiating voices::
+* Voices and vocals::
+@end menu
+
+@node I'm hearing Voices
+@subsection I'm hearing Voices
+@c 私はボイスを聴いている
+
+@cindex polyphony
+@cindex layers
+@cindex multiple voices
+@cindex voices, multiple
+@cindex Voice context
+@cindex context, Voice
+@cindex simultaneous music
+@cindex music, simultaneous
+@cindex concurrent music
+@cindex music, concurrent
+@cindex voices vs. chords
+@cindex chords vs. voices
+
+LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、最も内部にあるレイヤは 
+@q{ボイス コンテキスト} または縮めて単に @q{ボイス} と呼ばれます。ボイスはとき@c
+どき他の表記パッケージの中で @q{レイヤ} と呼ばれます。
+
+実際、ボイス レイヤまたはコンテキストは音楽を保持することができる唯一のもので@c
+す。ボイス コンテキストが明示的に宣言されていない場合、この章の始めで見てきた@c
+ようにボイス コンテキストが 1 つ自動的に生成されます。オーボエなどといった楽器@c
+は同時に 1 つの音符だけを演奏できます。そのような楽器のために書かれた音楽は単@c
+声であり、ボイスを 1 つだけを必要とします。ピアノのように同時に複数の音符を演@c
+奏することができる楽器はしばしば、それらが演奏することのできる同時進行の異なる@c
+音符やリズムをエンコードするために、複数のボイスを必要とします。
+
+もちろん、単一のボイスは和音の中で多くの音符を保持することができます。それで@c
+は、複数のボイスが実際に必要とされるのはどんな場合なのでしょうか？まずは、4 つ@c
+の和音を持つ以下の例を見てください:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+\key g \major
+<d g>4 <d fis> <d a'> <d g>
+@end lilypond
+
+この例は単一の角括弧からなる和音記号@code{< ... >} を使って表記することがで@c
+き、必要とされるボイスは 1 つだけです。しかしながら、F シャープが A に移行する@c
+際に、F シャープは実際には 8 分音符であり、そのあとに 8 分音符の G が続くとし@c
+たらどうでしょうか？そのような場合、同時に開始されるが演奏時間が異なる 2 つの@c
+音符を持つことになります: 4 分音符の D と 8 分音符の F シャープです。これらの@c
+音符をどのように記述すればよいのでしょうか？これらの音符は和音として記述するこ@c
+とはできません。なぜなら、和音の中の音符はすべて同じ演奏時間でなければならない@c
+からです。そして、それらの音符は同時に開始しなければならないので、2 つのシー@c
+ケンシャルな (連続した) 音符として記述することもできません。この場合は 2 つの@c
+ボイスが必要となります。
+
+上記のことが LilyPond 入力構文でどのように達成されるのかを見てみましょう。
+
+@funindex << \\ >>
+@funindex \\
+
+1 つの譜表に複数のボイスがある音楽断片を入力する最も簡単な方法は、各ボイスを@c
+シーケンスに (続けて) 入力し (各ボイスを @code{@{...@}} の中に入れます)、それ@c
+らのボイスを @code{<<...>>} を使って同時進行するよう組み合わせます。さらに、各@c
+断片は、それぞれが別の断片であることを示すために、ダブル バックスラッシュ 
+@code{\\} で区切られなければなりません。ダブル バックスラッシュが無ければ、す@c
+べての音符は単一のボイスの中に挿入され、通常はエラーとなります。このテクニック@c
+は、大部分が単声であり、時々短い部分で多声になる楽曲に特に適しています。
+
+以下では、上記の例の和音を 2 つのボイスに分け、経過音とスラーを付け加えています:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key g \major
+%    Voice "1"                  Voice "2"
+<< { g4 fis8( g) a4 g }    \\ { d4 d d d }  >> |
+@end lilypond
+
+この例では 2 番目のボイスのステムが下向きになっていることに気づいてください。
+
+今度はもう 1 つ簡単な例を挙げてみます:
+
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key d \minor
+%    Voice "1"             Voice "2"
+<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
+<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
+<< { a2. r4 }         \\ { fis2. s4 }       >> |
+@end lilypond
+
+各小節で別々に @code{<< \\ >>} 構造を使用する必要はありません。各小節に音符が@c
+少ししかないような音楽の場合、このレイアウトはコードの可読性を良くするのに役立@c
+ちます。しかしながら、各小節に多くの音符がある場合、以下のように各ボイスを分離@c
+した方が良いかもしれません:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key d \minor
+<< {
+  % Voice "1"
+  r4 g g4. a8 |
+  bes4 bes c bes |
+  a2. r4 |
+} \\ {
+  % Voice "2"
+  d,2 d4 g |
+  g4 g g8( a) g4 |
+  fis2. s4 |
+} >>
+@end lilypond
+
+
+@cindex voices, naming
+@cindex voices crossing brackets
+@cindex slurs crossing brackets
+@cindex ties crossing brackest
+
+この例にあるボイスは 2 つだけです。しかしながら、これと同じ構成にもっと多くの@c
+バック スラッシュを付け加えることによって、3 つかそれ以上のボイスを持たせるこ@c
+とになるかもしれません。
+
+ボイス コンテキストは @code{"1"}, @code{"2"} などの名前を持ちます。各コンテキ@c
+ストの中では、スラー、ステム、タイ、強弱記号などの垂直方向の向きは適切にセット@c
+されます。
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  % Main voice
+  c16 d e f
+  %    Voice "1"     Voice "2"                 Voice "3"
+  << { g4 f e } \\ { r8 e4 d c8 ~ } >> |
+  << { d2 e2 }  \\ { c8 b16 a b8 g ~ g2 } \\ { s4 b4 c2 } >> |
+}
+@end lilypond
+
+これらのボイスはすべてメインのボイスからは分かれています。メインのボイスの音符は 
+@code{<< .. >>} 構造の外にあるからです。この @code{<< .. >>} 構造を同時進行構@c
+造と呼ぶことにしましょう。通常、スラーとタイは同じボイス内にある音符だけをつな@c
+ぎます。そのため、スラーとタイは同時進行構造を出たり入ったりすることはありま@c
+せん。反対に、同じ譜表上にある個々の同時進行構造で、平行の位置にあるボイスは同@c
+じボイスになります。さらに、その他のボイス関連プロパティは同時進行構造をまた@c
+がって持ち越されます。ここで、上記と同じ例で各ボイスに対して異なる色と音符玉を@c
+割り当ててみます。あるボイスでの変更は他のボイスに影響を与えませんが、その後に@c
+続く同じボイス (訳者: 平行位置にあるボイス) でその変更が維持されることに注意し@c
+てください。さらに、タイでつながれた音符は、同じボイスとなる 2 つの同時進行構@c
+造にまたがって分かれるかもしれないということに注意してください。
+
+@lilypond[quote,verbatim]
+\new Staff \relative c' {
+  % Main voice
+  c16 d e f
+  << % Bar 1
+    {
+      \voiceOneStyle
+      g4 f e
+    }
+  \\
+    {
+      \voiceTwoStyle
+      r8 e4 d c8 ~
+    }
+  >>
+  << % Bar 2
+     % Voice 1 continues
+    { d2 e2 }
+  \\
+     % Voice 2 continues
+    { c8 b16 a b8 g ~ g2 }
+  \\
+    {
+      \voiceThreeStyle
+      s4 b4 c2
+    }
+  >>
+}
+@end lilypond
+
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@funindex \voiceNeutralStyle
+
+コマンド @code{\voiceXXXStyle} は主にこのマニュアルのような教育目的のドキュ@c
+メントで使用することを意図したものです。このコマンドは、各ボイスが容易に見分け@c
+られるように、音符玉、ステム、ビームの色、それに音符玉のスタイルを変更します。@c
+ボイス 1 は赤でダイアモンドの音符玉を持つようにセットされ、ボイス 2 は青で三角@c
+形の音符玉を、ボイス 3 は緑で×付きの円を、ボイス 4 (ここでは使用されていません) 
+はマゼンダの×の音符玉を持つようにセットされます。@code{\voiceNeutralStyle} 
+(これもここでは使用されていません) は音符玉のスタイルをデフォルトに戻します。@c
+後ほど、ユーザがこのようなコマンドを作成するための方法を見ていきます。@c
+@ref{Visibility and color of objects} と @ref{Using variables for tweaks} を参@c
+照してください。
+@c オブジェクトの可視性と色
+@c 調整のために変数を使用する
+
+@cindex polyphony and relative note entry
+@cindex relative note entry and polyphony
+
+多声部は @code{\relative @{ @}} ブロック内の音符の相対関係を変えません。各音符@c
+は直前の音符あるいは直前の和音の最初の音符との相対関係で計算されます。そのた@c
+め、以下の例では
+
+@example
+\relative c' @{ noteA << < noteB noteC > \\ noteD >> noteE @}
+@end example
+
+@noindent
+@code{noteB} は @code{noteA} との相対関係で決まり                         @*
+@code{noteC} は @code{noteA} ではなく @code{noteB} との相対関係で決まり  @*
+@code{noteD} は @code{noteA} や @code{noteC} ではなく
+@code{noteC} との相対関係で決まり                                           @*
+@code{noteE} は @code{noteA} ではなく @code{noteD} との相対関係で決まります。
+
+各ボイスの中にある音符の音程がボイスごとに大きく離れている場合、各ボイスの始めに 
+@code{\relative} コマンドを置くと明瞭になるかもしれません:
+
+@example
+\relative c' @{ noteA ... @}
+<<
+  \relative c'' @{ < noteB noteC > ... @}
+@bs{}@bs{}
+  \relative g' @{ noteD ... @}
+>>
+\relative c' @{ noteE ... @}
+@end example
+
+最後に、もっと複雑な楽曲の中にあるボイスを分析してみましょう。以下は、ショパンの 
+Deux Nocturnes, Op 32 の 2 番の最初の 2 小節です。この例は、表記を記述するため@c
+のテクニックをいくつか示すために、本章の後の方と次の章で使用されます。ですか@c
+ら、今はコードの中にある意味不明に見えるものは無視して、音楽とボイスだけに注目@c
+してください -- 込み入った内容は後ほど説明します。
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  << % Voice one
+    { c2 aes4. bes8 }
+  \\ % Voice two
+    { aes2 f4 fes }
+  \\ % No voice three
+  \\ % Voice four
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+ステムの向きはしばしば 2 つの同時進行する旋律ラインのつながりを示すために使用@c
+されます。ここでは、一番上の音符のステムはすべて上向きであり、下の方にある音符@c
+のステムはすべて下向きです。これは、複数のボイスが必要とされているということを@c
+示す最初の兆候です。
+
+しかしながら、複数のボイスが実際に必要とされるのは、同時に始まる音符が異なる演@c
+奏時間を持つ場合です。最初の小節の 3 拍目を見てください。A フラットは付点 4 分@c
+音符であり、F は 4 分音符、D フラットは半音符です。これらの音符を和音として記@c
+述することはできません。なぜなら、和音の中の音符はすべて同じ演奏時間でなければ@c
+ならないからです。これらの音符をシーケンシャルな (連続する) 音符として記述する@c
+こともできません。なぜなら、これらの音符は同時に始まらなければならないからで@c
+す。この箇所では 3 つのボイスが必要となり、以下に示すように一般的にはこの小節@c
+全体を 3 つのボイスで記述します。そこでは、3 つのボイスに対して異なる音符玉と@c
+色を割り当てています。もう一度繰り返しますが、この例のコードのことは後ほど説明@c
+しますので、理解できないことは無視してください。
+
+@c The following should appear as music without code
+@c The three voice styles should be defined in -init
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { % Voice one
+      \voiceOneStyle
+      c2 aes4. bes8
+    }
+  \\  % Voice two
+    { \voiceTwoStyle
+      aes2 f4 fes
+    }
+  \\  % No Voice three (we want stems down)
+  \\  % Voice four
+    { \voiceThreeStyle
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+この音楽のコードをゼロから記述してみましょう。これから見ていくように、いくつか@c
+の問題に遭遇します。すでに学んだように、最初の小節の音楽を 3 つのボイスに分け@c
+て記述するために @code{<< \\  >>} 構造を使用します:
+
+@c ignore
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
+  >>
+  <c ees aes c>1
+}
+@end lilypond
+
+@cindex stem down
+@cindex voices and stem directions
+@cindex stem directions and voices
+@cindex stem up
+
+ステムの向きは自動的に割り当てられ、奇数番号のボイスが上向きのステム、偶数番号@c
+のボイスが下向きのステムを持ちます。ボイス 1 と 2 のステムは正しいのですが、ボ@c
+イス 3 のステムはここでは下向きになるべきです。これは単純にボイス 3 を省略し@c
+て、その音楽をボイス 4 に記述することによって修正できます:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  << % Voice one
+    { c2 aes4. bes8 }
+  \\ % Voice two
+    { aes2 f4 fes   }
+  \\ % Omit Voice three
+  \\ % Voice four
+    { <ees c>2 des2 }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+これによりステムの向きが修正されました。しかしながら、複数のボイスを持つ場合に@c
+しばしば発生する問題に遭遇してしまいました -- あるボイスの中にある音符のステム@c
+が他のボイスの中にある音符玉と衝突しています。音符をレイアウトするときに、@c
+LilyPond は 2 つのボイスのステムの向きを反対にすることによって 2 つのボイスの@c
+音符や和音が同じ垂直方向の音符列に位置することを可能にします。しかしながら、3 
+番目や 4 番目のボイスは音符玉の衝突を避けるために必要があれば移動させられま@c
+す。これは普通はうまくいきますが、この例では一番下のボイスの音符はデフォルトの@c
+状態では明らかにうまくいっていません。LilyPond は音符の水平方向位置を調節する@c
+ためにいくつかの手段を提供します。我々はまだこの問題を修正するための方法を見て@c
+いく準備が整っていないので、この問題は後に残しておくことにします -- 
+@ref{Fixing overlapping notation} の @code{force-hshift} プロパティを参照して@c
+ください。
+
+
+@seealso
+表記リファレンス: @ruser{Multiple voices}
+@c 複数のボイス
+
+
+@node Explicitly instantiating voices
+@subsection Explicitly instantiating voices
+@c ボイスの明示的なインスタンス化
+
+@funindex \voiceOne
+@funindex voiceOne
+@funindex \voiceTwo
+@funindex voiceTwo
+@funindex \voiceThree
+@funindex voiceThree
+@funindex \voiceFour
+@funindex voiceFour
+@funindex \oneVoice
+@funindex oneVoice
+@funindex \new Voice
+@cindex voice contexts, creating
+
+多声部音楽を作成するためにボイス コンテキストを手動で @code{<< >>} ブロックの@c
+中に作成することもできます。ステム、スラーなどの向きを示すために 
+@code{\voiceOne} ... @code{\voiceFour} を使用します。この手法は各ボイスを別々@c
+にして、より記述的な名前を与えることを可能にするため、長い楽譜ではわかりやすい@c
+ものになります。
+
+本質的には、前のセクションで使用した構造 @code{<< \\ >>}:
+
+@example
+\new Staff @{
+  \relative c' @{
+    << @{ e4 f g a @} @bs{}@bs{} @{ c,4 d e f @} >>
+  @}
+@}
+@end example
+
+@noindent
+は以下と等価です:
+
+@example
+\new Staff <<
+  \new Voice = "1" @{ \voiceOne \relative c' @{ e4 f g a @} @}
+  \new Voice = "2" @{ \voiceTwo \relative c' @{ c4 d e f @} @}
+>>
+@end example
+
+上記の両方ともが以下の楽譜を生成します:
+
+@c The following example should not display the code
+@lilypond[ragged-right,quote]
+\new Staff <<
+  \new Voice = "1" { \voiceOne \relative c' { e4 f g a } }
+  \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
+>>
+@end lilypond
+
+@cindex voices, reverting to single
+@cindex reverting to a single voice
+
+@code{\voiceXXX} コマンドはステム、スラー、タイ、アーティキュレーション、テキ@c
+ストの注釈、付点音符の付点、運指記号の向きをセットします。@code{\voiceOne} と 
+@code{\voiceThree} はこれらのオブジェクトを上向きにし、一方の @code{\voiceTwo} 
+と @code{\voiceFour} は下向きにします。さらに、音符の玉の衝突を避ける必要があ@c
+る場合、これらのコマンドは各ボイスに対して水平方向のシフトを発生させます。コ@c
+マンド @code{\oneVoice} は設定を単一のボイスの場合の通常値に戻します。
+
+いくつかの簡単な例で、@code{\oneVoice}, @code{\voiceOne}, @code{\voiceTwo} が@c
+マークアップ、タイ、スラー、強弱記号に与える影響を見ていきましょう:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  % Default behavior or behavior after \oneVoice
+  c d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceOne
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceTwo
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+今度は、前のセクションの例を使って同じ多声部音楽のパッセージを 3 つの異なる方@c
+法で表記する例を見ていきます。それぞれ異なる状況で利点があります。
+
+1 つはメイン ボイスに属する @code{<< >>} の内部に直接表記を記述する方法です 
+(しかしながら、音符は @code{<< \\ >>} 構造の中に置かれては@strong{いません})。@c
+これはメイン ボイスの途中で追加のボイスが現れる場合に有用です。ここでは例にさ@c
+らに調整を加えます。赤のダイアモンド形の音符はメイン メロディが単一のボイス 
+コンテキストになっていて、その上にフレージング スラーを描くことができるという@c
+ことを示しています。
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \voiceOneStyle
+  % The following notes are monophonic
+  c16^( d e f
+  % Start simultaneous section of three voices
+  <<
+    % Continue the main voice in parallel
+    { g4 f e | d2 e2) }
+    % Initiate second voice
+    \new Voice {
+      % Set stems, etc, down
+      \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+    }
+    % Initiate third voice
+    \new Voice {
+      % Set stems, etc, up
+      \voiceThree
+      s2. | s4 b4 c2
+    }
+  >>
+}
+@end lilypond
+
+@cindex nesting music expressions
+@cindex nesting simultaneous constructs
+@cindex nesting voices
+@cindex voices, temporary
+@cindex voices, nesting
+
+多声部構造をより深くネストさせることが可能であり、追加のボイスが短時間のもので@c
+あるならば、こちらの方がより自然な音楽表記方法であるかもしれません:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  <<
+    { g4 f e | d2 e2) }
+    \new Voice {
+      \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice {
+          \voiceThree
+          s4 b4 c2
+        }
+      >>
+    }
+  >>
+}
+@end lilypond
+
+@cindex spacing notes
+
+新しいボイスを一時的にネストさせる手法は音楽のほんの一部だけが多声である場合に@c
+有用です。しかしながら、楽譜全体が多声である場合、一貫して複数のボイスを使用し@c
+た方がわかりやすくなります。ボイスが無音の場所を飛ばすには以下のように空白音符@c
+を使用します:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' <<
+  % Initiate first voice
+  \new Voice {
+    \voiceOne
+    c16^( d e f g4 f e | d2 e2) |
+  }
+  % Initiate second voice
+  \new Voice {
+    % Set stems, etc, down
+    \voiceTwo
+    s4 r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 |
+  }
+  % Initiate third voice
+  \new Voice {
+    % Set stems, etc, up
+    \voiceThree
+    s1 | s4 b4 c2 |
+  }
+>>
+@end lilypond
+
+
+@subsubheading Note columns
+@c 音符列
+
+@cindex note column
+@cindex note collisions
+@cindex collisions, notes
+@cindex shift commands
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+
+和音の中で小さな間隔で置かれる音符、あるいは異なるボイスで同時に発生する音符@c
+は、音符の玉が重なるのを避けるために 2 列、時にはそれ以上の列に割り振られま@c
+す。これらの列は音符列と呼ばれます。それぞれのボイスに対して別々の列が存在し、@c
+音符の玉の衝突が起こる場合はボイスごとのシフトが適用されます。これは上の例でも@c
+見ることができます。2 小節目でボイス 2 の C はボイス 1 の D との関係で右にシフ@c
+トされていて、最後の和音でボイス 3 の C も他の音符との関係で右にシフトされてい@c
+ます。
+
+@code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, それに @code{\shiftOff} 
+コマンドは、衝突が起こる場合に音符や和音をシフトさせる度合いを指定します。デ@c
+フォルトでは、外側のボイス (通常はボイス 1 と 2) には @code{\shiftOff} が指定@c
+されていて、内側のボイス (ボイス 3 と 4) には @code{\shiftOn} が指定されていま@c
+す。シフトが適用される場合、ボイス 1 と 3 は右にシフトされ、ボイス 2 と 4は左@c
+にシフトされます。
+
+@code{\shiftOnn} と @code{\shiftOnnn} はさらなるシフト レベルを定義するもので@c
+あり、複雑な状況での衝突を解決するために一時的に指定されるかもしれません -- 
+@ref{Real music example} を参照してください。
+@c 実際の音楽の例
+
+ある音符列は上向きのステムを持つボイスからの音符 (あるいは和音) を 1 つだけ、@c
+下向きのステムを持つボイスからの音符 (あるいは和音) を 1 つだけ保持することが@c
+できます。同じ向きのステムを持つ 2 つのボイスからの音符が同じ位置に置かれ、両@c
+方のボイスにシフトが指定されていない、あるいは同じシフトが指定されている場合、@c
+エラー メッセージ @qq{Too many clashing note columns} (音符が多すぎて音符列で@c
+衝突が起こっています) が生成されます。
+
+
+@seealso
+表記リファレンス: @ruser{Multiple voices}
+@c 複数のボイス?
+
+
+@node Voices and vocals
+@subsection Voices and vocals
+@c ボイスとボーカル
+
+声楽には特別な困難があります: 2 つの表記 -- 音符と歌詞 -- を組み合わせる必要が@c
+あります。
+
+@funindex \new Lyrics
+@funindex \lyricsto
+@funindex lyricsto
+@funindex Lyrics
+@cindex Lyrics context, creating
+@cindex lyrics, linking to voice
+
+すでに @code{\addlyrics@{@}} コマンドを見てきました。これは簡単な楽譜であれば@c
+うまく処理できます。しかしながら、この方法では限界があります。より複雑な音楽で@c
+は、@code{\new Lyrics} を使って歌詞を @code{Lyrics} コンテキストに取り込み、ボ@c
+イスに割り当ている名前を使って @code{\lyricsto@{@}} でその歌詞を明示的に音符に@c
+リンクさせます。
+
+@lilypond[quote,verbatim,fragment]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+  \new Lyrics \lyricsto "one" {
+    No more let sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+歌詞は @code{Staff} コンテキスト@emph{ではなく} @code{Voice} コンテキストに@c
+リンクさせなければならないということに注意してください。このため、@code{Staff} 
+コンテキストと @code{Voice} コンテキストを明示的に作成する必要があります。
+
+@cindex lyrics and beaming
+@cindex beaming and lyrics
+@funindex \autoBeamOff
+@funindex autoBeamOff
+
+LilyPond がデフォルトで使用する自動ビームは楽器だけの音楽ではうまく機能します@c
+が、歌詞を持つ音楽ではそれほどうまく機能しません。そこではビームはまったく必要@c
+ないか、歌詞のメリスマ (訳者注: 歌詞の 1 音節に対して複数の音符を割り当てること) 
+を示すために使用されるかのどちらかです。上の例では、自動ビームを Off にするた@c
+めにコマンド @code{\autoBeamOff} を使用しています。
+
+@funindex \new ChoirStaff
+@funindex ChoirStaff
+@funindex \lyricmode
+@funindex lyricmode
+@cindex vocal score structure
+@cindex choir staff
+
+以前使用した Judas Maccabæus からの例を再度使用して、より自由度の高い方法を示@c
+します。まず、楽譜の内容を変数に振り直し、音楽と歌詞を譜表構造から分離させま@c
+す。さらに @code{ChoirStaff} ブラケットを導入します。歌詞自体は、音楽ではなく@c
+歌詞として解釈されることを保証するために、@code{\lyricsmode} で導入されなけれ@c
+ばなりません。
+
+@lilypond[quote,verbatim]
+global = { \time 6/8 \partial 8 \key f \major}
+SopOneMusic = \relative c'' {
+  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 }
+SopTwoMusic = \relative c' {
+  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' }
+SopOneLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, __ }
+SopTwoLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "SopOne" {
+        \global
+        \SopOneMusic
+      }
+      \new Lyrics \lyricsto "SopOne" {
+        \SopOneLyrics
+      }
+    >>
+    \new Staff <<
+      \new Voice = "SopTwo" {
+        \global
+        \SopTwoMusic
+      }
+      \new Lyrics \lyricsto "SopTwo" {
+        \SopTwoLyrics
+      }
+    >>
+  >>
+}
+@end lilypond
+
+これはすべての声楽譜の基本的な構造です。必要に応じてさらに多くの譜が追加される@c
+かもしれませんし、さらに多くのボイスが譜に追加されるかもしれませんし、さらに多@c
+くの歌詞 (原文: verse、各ボイスに対する歌詞、あるいは、歌詞の 1 番、2 番のこと@c
+を指すと思われる) が歌詞に追加されるかもしれません。音楽部分が長くなりすぎた場@c
+合は、音楽を保持している変数を容易に別のファイルに置くことができます。
+
+@cindex hymn structure
+@cindex SATB structure
+@cindex vocal scores with multiple verses
+@cindex multiple vocal verses
+@cindex verses, multiple vocal
+
+ここで、例として 4 つの歌詞 -- それぞれが SATB (ソプラノ、アルト、テナー、バス) 
+に対してセットされている -- を持つ賛美歌の最初の 1 行目を取り上げます。この歌@c
+の場合、4 つのパートに対する歌詞の言葉は同じです。変数を使用して音楽表記と歌詞@c
+の言葉を譜表構造から分離させている手法に注意してください。さらに、 @q{TimeKey} 
+と呼ぶことにした変数が、2 つの譜で使用されるいくつかのコマンドを保持するため@c
+に、使用されていることにも注意してください。他の例では、この変数はしばしば 
+@q{global} と呼ばれます。
+
+@lilypond[quote,verbatim]
+TimeKey = { \time 4/4 \partial 4 \key c \major}
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyricmode {
+  E -- | ter -- nal fa -- ther, | strong to save, }
+VerseTwo   = \lyricmode {
+  O | Christ, whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode {
+  O | Ho -- ly Spi -- rit, | who didst brood }
+VerseFour  = \lyricmode {
+  O | Tri -- ni -- ty of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \TimeKey \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
+}
+@end lilypond
+
+@cindex verse and refrain
+
+最後に、2 つの譜の 2 パートのリフレイン (繰り返し) につながる単一の歌詞の節を@c
+コードする方法を示す例を挙げます。これを 1 つの楽譜で達成するためのシークエン@c
+シャル部分と同時進行部分の配置の仕方は非常にトリッキーです。そのため、説明を注@c
+意深く読んでください！
+
+コーラスの開始点でブレースを表示させたいので、@code{ChoirStaff} を保持する score 
+ブロックで始めます。通常、すべての譜を並列にするために @code{\new ChoirStaff} 
+の後に角括弧を置く必要があります。角括弧を使用しても害はありませんが、ここでは@c
+コーラスまで並列化を先延ばししたいのでブレースを使用します。@code{ChoirStaff} 
+の中で、まず最初に歌詞を保持する譜表を置く必要があります。音符と歌詞を並列に並@c
+べなければならないので、@code{\new Voice} と @code{\new Lyrics} を同時に開始さ@c
+せるために角括弧で囲む必要があります:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+\score {
+  \new ChoirStaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+      }
+      \new Lyrics \lyricsto verse {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+これで歌詞の行が与えられました。
+
+今度は、refainA を同じ譜表で続けて、それと並列に refrainB のためにもう 1 つ譜@c
+表を導入する必要があります。そのため、この並列部分は verse Voice の中の 
+@code{\break} の直後に置かれなければなりません。そうです、verse Voice の@c
+@emph{中に}です！ここで並列部分を示します。同じ要領でここにもっと多くの譜を導@c
+入することもできます。
+
+@example
+<<
+  \refrainnotesA
+  \new Lyrics \lyricsto verse @{
+    \refrainwordsA
+  @}
+  \new Staff <<
+    \new Voice = "refrainB" @{
+      \refrainnotesB
+    @}
+    \new Lyrics \lyricsto "refrainB" @{
+      \refrainwordsB
+    @}
+  >>
+>>
+@end example
+
+ここで最終結果を示します。これはコーラスになっている 2 つの譜を持ち、並列部分@c
+がどのように verse Voice の中に置かれるかを示しています:
+
+@lilypond[quote,verbatim, ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new ChoirStaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+        <<
+          \refrainnotesA
+          \new Lyrics \lyricsto "verse" {
+            \refrainwordsA
+          }
+          \new Staff <<
+            \new Voice = "refrainB" {
+              \refrainnotesB
+            }
+            \new Lyrics \lyricsto "refrainB" {
+              \refrainwordsB
+            }
+          >>
+        >>
+      }
+      \new Lyrics \lyricsto "verse" {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+@cindex book, example of using
+@funindex \book
+@funindex book
+
+これはシークエンシャル ブロックと同時進行ブロックがどのように機能するかを理解@c
+するための手助けとしては興味深く有用です。しかしながら、実際にこれをコードする@c
+場合は、恐らく以下のように暗黙の @code{\book} ブロック内部に 2 つの 
+@code{\score} ブロックを置くようにするでしょう:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new Staff <<
+    \new Voice = "verse" {
+      \versenotes
+    }
+    \new Lyrics \lyricsto "verse" {
+      \versewords
+    }
+  >>
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "refrainA" {
+        \refrainnotesA
+      }
+      \new Lyrics \lyricsto "refrainA" {
+        \refrainwordsA
+      }
+    >>
+    \new Staff <<
+      \new Voice = "refrainB" {
+        \refrainnotesB
+      }
+      \new Lyrics \lyricsto "refrainB" {
+        \refrainwordsB
+      }
+    >>
+  >>
+}
+@end lilypond
+
+
+@seealso
+表記リファレンス: @ruser{Vocal music}
+@c 声楽
+
+
+@node Contexts and engravers
+@section Contexts and engravers
+@c コンテキストとエングラーバ
+
+これまでに、コンテキストとエングラーバについて簡単に言及してきました。ここで@c
+は、これらのコンセプトをより詳細に見ていくことにします。なぜなら、これらは 
+LilyPond 出力をうまく調節するのに重要だからです。
+
+
+@menu
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
+* Modifying context properties::
+* Adding and removing engravers::
+@end menu
+
+
+@node Contexts explained
+@subsection Contexts explained
+@c コンテキストの説明
+
+@cindex contexts explained
+
+音楽が譜刻されるとき、入力ファイルでははっきりとは現れてこない多くの表記要素を@c
+出力に追加しなければなりません。例えば、以下の例で入力と出力を比較してください:
+
+@lilypond[quote,verbatim,relative=2,fragment]
+cis4 cis2. g4
+@end lilypond
+
+この入力は内容がやや乏しいですが、出力では小節線、臨時記号、音部記号、拍子記号@c
+が追加されています。LilyPond が入力を@emph{解釈}するとき、音楽情報は時系列に調@c
+べられます。これは楽譜を左から右へ読むのと似ています。入力を読み込んでいる間、@c
+プログラムは小節の境目となる場所と明示的な臨時記号を必要とする音高を覚えていま@c
+す。この情報はいくつかのレベルで持続されなければなりません。例えば、臨時記号の@c
+効果は単一の譜表に制限されますが、小節線は楽譜全体に亘って同調されなければなり@c
+ません。
+
+LilyPond 内部では、これらの規則と情報ビットは@emph{コンテキスト}にグループ化さ@c
+れます。すでに @code{Voice} コンテキストを見てきました。他にも、@code{Staff} 
+コンテキストと @code{Score} コンテキストがあります。コンテキストは、楽譜の階層@c
+構造を反映するために、階層構造になっています。例えば: @code{Staff} コンテキス@c
+トは多くの @code{Voice} コンテキストを保持することができ、@code{Score} コンテ@c
+キストは多くの @code{Staff} コンテキストを保持することができます。
+
+@quotation
+@sourceimage{context-example,5cm,,}
+@end quotation
+
+各コンテキストは、いくつかの表記オブジェクトを作成し、関連プロパティを維持しな@c
+がら、いくつかの表記規則を施行する責任があります。例えば、@code{Voice} コンテ@c
+キストは臨時記号を作り出すかもしれず、そうした場合 @code{Staff} コンテキストは@c
+その小節の残りの部分で臨時記号を表示したり隠したりするための規則を維持します。
+
+他の例としては、小節線の同調はデフォルトでは @code{Score} コンテキストが扱いま@c
+す。しかしながら、いくつかの音楽では小節線を同調させたくない場合もあります -- 
+4/4 拍子と 3/4 拍子の多声の楽譜といった場合です。そのようなケースでは、@c
+@code{Score} と @code{Staff} コンテキストのデフォルト設定を変更しなければなり@c
+ません。
+
+非常にシンプルな楽譜では、コンテキストは暗黙的に作成され、あなたはそれらに気づ@c
+く必要もありません。複数の譜表を持つようなより大きな楽曲では、あなたが必要とし@c
+ているだけの譜を手に入れられるよう、さらに、それらの譜が正しい順序で並ぶことを@c
+保証するために、コンテキストを明示的に作成する必要があります。特殊な表記を持つ@c
+楽曲を譜刻するには、通常は既存のコンテキストを変更します。あるいは完全に新しい@c
+コンテキストを定義することさえあります。
+
+@code{Score}, @code{Staff}, @code{Voice} コンテキストに加えて、@code{PianoStaff} 
+や @code{ChoirStaff} コンテキストといった譜表グループを制御するための、楽譜レ@c
+ベルと譜表レベルの間にあるコンテキストがあります。さらに、代替の譜表コンテキス@c
+トとボイスコンテキストがあり、歌詞、打楽器、フレットボード (訳者: 弦楽器の一@c
+種。フレットでウィキぺディアを参照)、通奏低音 (数字付き低音、原文: figured bass) 
+などのためのコンテキストがあります。
+
+すべてのコンテキスト タイプの名前は 1 つ、あるいは複数の単語からなります。各単@c
+語の最初の文字は大文字であり、前の単語のすぐあとに次の単語が続きます。ハイフン@c
+やアンダスコアは使いません。つまり @code{GregorianTranscriptionStaff} といった@c
+具合です。
+
+
+@seealso
+表記リファレンス: @ruser{Contexts explained}
+@c コンテキストの説明
+
+
+@node Creating contexts
+@subsection Creating contexts
+@c コンテキストを作成する
+
+@funindex \new
+@funindex new
+@cindex new contexts
+@cindex creating contexts
+@cindex contexts, creating
+
+最上位にあるコンテキストは 1 つだけです: @code{Score} コンテキストです。これは 
+@code{\score} コマンドによって作成されます。また、簡単な楽譜では、これは自動的@c
+に作成されます。
+
+1 つだけのボイスと 1 つだけの譜表を持つ楽譜では、@code{Voice} と @code{Staff} 
+コンテキストは自動的に作成されるために放っておかれるかもしれません。しかしなが@c
+ら、より複雑な楽譜では、これらを手ずから作成する必要があります。これらを作成す@c
+る最も簡単なコマンドは @code{\new} です。これは音楽表記の前に置きます。例を挙@c
+げます:
+
+@example
+\new @var{type} @var{music-expression}
+@end example
+
+@noindent
+
+ここで、@var{type} はコンテキスト名です (@code{Staff} や @code{Voice} など)。@c
+このコマンドは新しいコンテキストを作成し、そのコンテキストの中にある 
+@var{music-expression} の解釈を開始します。
+
+@code{\new Score} というコマンドは無いということに注意してください。単一の最上位 
+@code{Score} コンテキストは @code{\score} で作成されます。
+
+これまでに、新たに @code{Staff} と @code{Voice} コンテキストを作成する多くの実@c
+際的な例を見てきましたが、これらのコマンドが実際にどのように使用されるのかを覚@c
+えてもらうために、実際の音楽に注釈を付けた例を挙げます:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {  % start of single compound music expression
+  <<  % start of simultaneous staves section
+    \time 2/4
+    \new Staff {  % create RH staff
+      \key g \minor
+      \clef "treble"
+      \new Voice {  % create voice for RH notes
+        \relative c'' {  % start of RH notes
+          d4 ees16 c8. |
+          d4 ees16 c8. |
+        }  % end of RH notes
+      }  % end of RH voice
+    }  % end of RH staff
+    \new Staff <<  % create LH staff; needs two simultaneous voices
+      \key g \minor
+      \clef "bass"
+      \new Voice {  % create LH voice one
+        \voiceOne
+        \relative g {  % start of LH voice one notes
+          g8 <bes d> ees, <g c> |
+          g8 <bes d> ees, <g c> |
+        }  % end of LH voice one notes
+      }  % end of LH voice one
+      \new Voice {  % create LH voice two
+        \voiceTwo
+        \relative g {  % start of LH voice two notes
+          g4 ees |
+          g4 ees |
+        }  % end of LH voice two notes
+      }  % end of LH voice two
+    >>  % end of LH staff
+  >>  % end of simultaneous staves section
+}  % end of single compound music expression
+@end lilypond
+
+(中括弧 @code{@{} や 2 重角括弧 @code{<<} の中でブロックになっているすべての記@c
+述には括弧よりもスペースが 2 つ多いインデントを付けられていて、閉じ括弧には括@c
+弧の開始行と同じインデントを付けられているということに注意してください。これは@c
+必須ではありませんが、こうしておくと @q{unmatched backet} (「括弧が一致しない」) 
+エラーを大幅に減らすことができますので、強く推奨します。これにより、音楽の構造@c
+を簡単に見て取ることができ、一致していない括弧が明瞭になります。さらに、RH 譜@c
+表はボイスを 1 つだけしか必要としないために中括弧によって囲まれた単一の音楽表@c
+記として作成されているのに対して、LH 譜表は 2 つのボイスを必要とするために 2 
+重角括弧を使って作成されていることに注意してください。)
+
+@cindex contexts, naming
+@cindex naming contexts
+
+また、@code{\new} コマンドはコンテキストに識別名を与えて、そのコンテキストを同@c
+じタイプの他のコンテキストと区別することを可能にするかもしれません:
+
+@example
+\new @var{type} = @var{id} @var{music-expression}
+@end example
+
+@code{Staff}, @code{Voice} などといったコンテキスト タイプの名前とそのような@c
+コンテキスト タイプのインスタンスの名前 --これはユーザによって提供され、どのよ@c
+うな文字の連なりにもなり得ます -- の違いに注意してください。数字とスペースも識@c
+別名に使用することができますが、その場合クォートで囲まなければなりません -- つ@c
+まり、@code{\new Staff = "MyStaff 1" @var{music-expression}} のようになりま@c
+す。識別名はコンテキストのあるインスタンスを参照するために使用されます。このこ@c
+とを歌詞についてのセクションで見てきました。@ref{Voices and vocals} を参照して@c
+ください。
+@c ボイスとボーカル
+
+
+@seealso
+表記リファレンス: @ruser{Creating contexts}
+@c コンテキストを作成する
+
+
+@node Engravers explained
+@subsection Engravers explained
+@c エングラーバの説明
+
+@cindex engravers
+
+LilyPond によって作成された楽譜上にあるすべての記号は @code{Engraver} によって@c
+作り出されます。つまり、譜を譜刻するエングラーバがあり、音符玉を譜刻するエング@c
+ラーバ、ステムを譜刻するエングラーバ、ビームを譜刻するエングラーバなどなどで@c
+す。そのようなエングラーバは 120 以上あります！幸いなことに、たいていの楽譜で@c
+は数個のエングラーバについて知っていれば良く、簡単な楽譜ではまったく知らなくて@c
+も大丈夫です。
+
+エングラーバはコンテキストの中に存在し、そこで活動します。@c
+@code{Metronome_mark_engraver} などといった楽譜全体に影響を与えるエングラーバ@c
+は最上位のコンテキスト -- @code{Score} コンテキスト -- で活動します。
+
+@code{Clef_engraver} と @code{Key_engraver} は各 @code{Staff} コンテキストの中@c
+で見つかります -- 譜が異なれば音部記号や調号も異なるかもしれないからです。
+
+@code{Note_heads_engraver} と @code{Stem_engraver} は各 @code{Voice} コンテキ@c
+スト -- 最下位のコンテキスト -- の中にあります。
+
+各エングラーバはそれの機能に関連付けされているある特定のオブジェクトを処理し、@c
+機能に関連するプロパティを維持します。コンテキストに関連付けされているプロパ@c
+ティなどのようにこれらのプロパティは、エングラーバの処理を変更するためや、譜刻@c
+される楽譜の中にある要素の見た目を変更するために、変更されるかもしれません。
+
+エングラーバはすべてそれらの機能を記述する単語から形成された複合名を持ちます。@c
+最初の単語の最初の文字は大文字であり、その後に続く単語はアンダスコアで連結され@c
+ます。ですから、@code{Staff_symbol_engraver} には譜表の線を作成する責任があ@c
+り、@code{Clef_engraver} は音部記号を描くことによって音高の参照ポイントを決@c
+定、セットします。
+
+
+ここに、最も一般的なエングラーバをいくつかそれらの機能とともに挙げます。たいて@c
+いの場合、名前から簡単に機能を推測でき、その逆も成り立つことがわかるでしょう。
+
+@multitable @columnfractions .3 .7
+@headitem エングラーバ
+  @tab 機能
+@item Accidental_engraver
+  @tab 臨時記号 (警告的臨時記号とアドバイス的な臨時記号を含む) を作成します。
+@item Beam_engraver
+  @tab ビームを譜刻します。
+@item Clef_engraver
+  @tab 音部記号を譜刻します。
+@item Completion_heads_engraver
+  @tab 小節線をまたがる音符を分割します。
+@c The old Dynamic_engraver is deprecated. -jm
+@item New_dynamic_engraver
+  @tab 強弱記号 (クレッシェンド、デクレッシェンド) と強弱テキスト (p や f など) 
+を作成します。
+@item Forbid_line_break_engraver
+  @tab 音楽要素がアクティブなままである場合に改行されることを防ぎます。(訳者: 
+いわゆる禁則処理)
+@item Key_engraver
+  @tab 調号を作成します。
+@item Metronome_mark_engraver
+  @tab メトロノーム記号を譜刻します。
+@item Note_heads_engraver
+  @tab 音符の玉を譜刻します。
+@item Rest_engraver
+  @tab 休符を譜刻します。
+@item Staff_symbol_engraver
+  @tab (デフォルトで) 五線の譜表を譜刻します。
+@item Stem_engraver
+  @tab ステムと単一ステムのトレモロを作成します。
+@item Time_signature_engraver
+  @tab 拍子記号を作成します。
+@end multitable
+
+@smallspace
+
+後ほど、エングラーバのアクションを変更することによって LilyPond の出力がどのよ@c
+うに変わるのかを見ていきます。
+
+
+@seealso
+内部リファレンス: @rinternals{Engravers and Performers}
+@c エングラーバとパフォーマー
+
+
+@node Modifying context properties
+@subsection Modifying context properties
+@c コンテキスト プロパティを変更する
+
+@cindex context properties
+@cindex context properties, modifying
+@cindex modifying context properties
+@funindex \set
+@funindex set
+@funindex \unset
+@funindex unset
+
+コンテキストにはいくつかのコンテキスト プロパティを保持する責任があります。そ@c
+れらプロパティの多くは変更可能であり、変更することで入力の構文解釈に影響を与え@c
+て出力の見た目を変化させます。それらプロパティは \set コマンドによって変更され@c
+ます。これは以下のような形で行います:
+
+@example
+\set @emph{ContextName}.@emph{propertyName} = #@emph{value}
+@end example
+
+@emph{ontextName} には通常、@code{Score}, @code{Staff} or @code{Voice} が入り@c
+ます。これを省略する場合もあり、そのような場合は @code{Voice} であると見なされ
+ます。
+
+コンテキスト プロパティの名前はハイフンやアンダスコアを使わずに連結された単語@c
+によって形成され、最初の単語を除いて単語の最初の文字は大文字になります。ここ@c
+で、一般的に使用されるコンテキスト プロパティの例をいくつか挙げます。実際に@c
+は、コンテキスト プロパティはもっとたくさんあります。
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .25 .15 .45 .15
+@headitem プロパティ名
+  @tab タイプ
+  @tab 機能
+  @tab 実際の値の例
+@item extraNatural
+  @tab ブール値
+  @tab 真の場合、追加のナチュラル記号を臨時記号の前にセットします
+  @tab @code{#t}, @code{#f}
+@item currentBarNumber
+  @tab 整数
+  @tab 小節番号をセットします
+  @tab @code{50}
+@item doubleSlurs
+  @tab ブール値
+  @tab 真の場合、音符の上と下の両方にスラーを譜刻します
+  @tab @code{#t}, @code{#f}
+@item instrumentName
+  @tab テキスト
+  @tab 譜表の先頭に表示される名前をセットします
+  @tab @code{"Cello I"}
+@item fontSize
+  @tab 実数
+  @tab フォント サイズを増減させます
+  @tab @code{2.4}
+@item stanza
+  @tab テキスト
+  @tab 歌詞の先頭に譜刻されるテキストをセットします
+  @tab @code{"2"}
+@end multitable
+
+@noindent
+ここでのブール値とは真 (@code{@hash{}t}) または偽 (@code{@hash{}f}) のどちらか@c
+であり、整数とは正の整数であり、実数とは正または負の小数点付きの数であり、テキ@c
+ストはダブル アポストロフィで囲まれます。ハッシュ記号 (@code{@hash{}}) が 2 つ@c
+の異なる箇所で出現することに注意してください -- ブール値での @code{t} や 
+@code{f} の前と、@code{@bs{}set} での@emph{値}の前です。そのため、@c
+@code{@bs{}set} の値にブール値を挿入する場合、ハッシュ記号が 2 つ必要になります 
+-- つまり @code{@hash{}@hash{}t} です。
+
+@cindex properties operating in contexts
+@cindex setting properties within contexts
+
+これらのプロパティのいずれかをセットする前に、それらが操作するコンテキストはど@c
+れなのかを知る必要があります。これは明らかな場合もありますが、ややこしい場合も@c
+あります。間違ったコンテキストが指定された場合、エラー メッセージは表示されま@c
+せんが、予期したアクションが起こりません。例えば、@code{instrumentName} は間違@c
+いなく @code{Staff} コンテキストの中にきます。なぜなら、このプロパティが名前を@c
+付けるのは譜表だからです。以下の例では、最初の譜表には名前が付けられています@c
+が、2 番目の譜表には付けられていません。なぜなら、コンテキスト名を省略している@c
+からです。
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    \set Staff.instrumentName = #"Soprano"
+    c4 c
+ }
+  \new Staff \relative c' {
+  \set instrumentName = #"Alto"  % Wrong!
+  d4 d
+ }
+>>
+@end lilypond
+
+デフォルトのコンテキスト名は @code{Voice} であることを思い出してください。この@c
+ため、2 番目の @code{@bs{}set} コマンドは @code{Voice} コンテキストのプロパティ 
+@code{instrumentName} を @qq{Alto} にセットしています。しかしながら、@c
+LilyPond は @code{Voice} コンテキストでそのようなプロパティを見つけ出さないた@c
+め、何のアクションも起こしません。これはエラーではなく、ログ ファイルにエラー 
+メッセージは残りません。
+
+同様に、プロパティ名の綴りを間違えた場合もエラー メッセージは表示されず、予期@c
+したアクションが起こりません。実際のところ、@code{@bs{}set} コマンドを使って、@c
+存在するいかなるコンテキストにでも、いかなる (架空の) @q{プロパティ} をセット@c
+することができます。しかしながら、そのプロパティ名を LilyPond が知らない場合、@c
+何のアクションも起こしません。LilyPond 入力ファイルに対する特別なサポートを持@c
+ついくつかのテキスト エディタは、あなたがプロパティ名の上にマウスを持ってくる@c
+とバレット (テキストの先頭に付く小丸) 付きのプロパティ名を表示してそのプロパ@c
+ティの裏づけを行い (LilyPondTool を持つ JEdit)、あるいは未知のプロパティ名をハ@c
+イライトします (ConTEXT)。そのような機能を持つエディタを使用していないのなら、@c
+内部リファレンスでプロパティ名をチェックすることを推奨します: 
+@rinternals{Tunable context properties} や @rinternals{Contexts} を参照してく@c
+ださい。
+@c 調節可能なコンテキスト プロパティ, コンテキスト
+
+@code{instrumentName} プロパティは @code{Staff} コンテキストの中にセットされた@c
+場合にのみ効果を持ちますが、いくつかのプロパティは複数のコンテキストの中にセッ@c
+トすることができます。例えば、プロパティ @code{extraNatural} はすべての譜に対@c
+してデフォルトで @code{@hash{}@hash{}t} (真) にセットされています。ある特定@c
+の @code{Staff} コンテキストでこれを @code{@hash{}@hash{}f} (偽) にセットし@c
+た場合、その譜表の臨時記号にのみ適用されます。これを @code{Score} コンテキスト@c
+にセットした場合、すべての譜に適用されます。
+
+それでは、ある譜表の追加ナチュラル記号を消してみます:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    ais4 aes
+ }
+  \new Staff \relative c'' {
+    \set Staff.extraNatural = ##f
+    ais4 aes
+ }
+>>
+@end lilypond
+
+@noindent
+さらに、すべての譜の追加ナチュラル記号を消します:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    ais4 aes
+ }
+  \new Staff \relative c'' {
+    \set Score.extraNatural = ##f
+    ais4 aes
+ }
+>>
+@end lilypond
+
+他の例としては、@code{clefOctavation} が @code{Score} コンテキストにセットされ@c
+た場合、直ちにすべての譜でのオクターブの値を変更し、すべての譜に適用される新し@c
+いデフォルト値をセットします。
+
+逆のことを行うコマンド @code{@bs{}unset} はコンテキストからプロパティを削除@c
+し、それによりたいていのプロパティはデフォルト値に戻ります。通常、望みのことを@c
+達成するために新たな @code{@bs{}set} コマンドを用いる場合、@code{@bs{}unset} 
+は必要ありません。
+
+@code{@bs{}set} と @code{@bs{}unset} コマンドは入力ファイルのどこにでも現れる@c
+可能性があり、そのコマンドが出現した時点から、楽譜の終わりまたはそのプロパティ@c
+が再度 @code{@bs{}set} や @code{@bs{}unset} されるまで効果を持ちます。フォント 
+サイズを変更してみましょう。それにより (他のものに加えて) 音符玉のサイズが何段@c
+階か変更されます。変更は直前にセットされた値から行われるのではなく、デフォルト@c
+値から行われます。
+
+@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+c4
+% make note heads smaller
+\set fontSize = #-4
+d e
+% make note heads larger
+\set fontSize = #2.5
+f g
+% return to default size
+\unset fontSize
+a b
+@end lilypond
+
+これまでにいくつかのタイプのプロパティ値をセットする方法を見てきました。整数と@c
+番号の前には常にハッシュ記号 @code{@hash{}} が付き、真と偽の値は 2 つのハッ@c
+シュ記号を付けて @code{@hash{}@hash{}t} と @code{@hash{}@hash{}f} によって指定@c
+されてるということに注意してください。テキスト プロパティは上で示したようにダ@c
+ブル クォーテーションによって囲まれます。しかしながら、後ほど、テキストは実際@c
+には非常に強力な @code{markup} コマンドを用いたもっと一般的な方法で指定できる@c
+ということを見ていきます。
+
+
+@subsubheading Setting context properties with @code{\with}
+@c \with を使ったコンテキスト プロパティの設定
+
+@funindex \with
+@funindex with
+@cindex context properties, setting with \with
+
+コンテキスト プロパティはコンテキストが作成されるときにセットされることもある@c
+かもしれません。この設定がコンテキスト全体で保持される場合、この方法でプロパ@c
+ティ値を指定すると明瞭になります。コンテキストが @code{@bs{}new} コマンドで作@c
+成されるとき、その直後に @code{@bs{}with @{ .. @}} ブロックが続き、その中でプ@c
+ロパティ値がセットされるかもしれません。例えば、ある譜表全体で追加のナチュラル@c
+の表示を抑制しようとする場合、以下のように書きます:
+
+@example
+\new Staff \with @{ extraNatural = ##f @}
+@end example
+
+@noindent
+そして、以下のように使用します:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff
+  \relative c'' {
+    gis ges aes ais
+  }
+  \new Staff \with { extraNatural = ##f }
+  \relative c'' {
+    gis ges aes ais
+  }
+>>
+@end lilypond
+
+この方法でプロパティをセットした場合でも、@code{@bs{}set} を使って動的に変更さ@c
+れたり、@code{@bs{}unset} を使ってデフォルト値に戻されたりするかもしれません。
+
+@cindex fontSize, default and setting
+
+@code{fontSize} プロパティの扱いは異なります。これが @code{@bs{}with} の中で@c
+セットされた場合、フォント サイズのデフォルト値をセットし直します。そのあとで@c
+フォント サイズが @code{@bs{}set} によって変更された場合、@code{@bs{}with} で@c
+セットされた新しいデフォルト値は @code{@bs{}unset fontSize} コマンドによって元@c
+に戻されるかもしれません。
+
+
+@subsubheading Setting context properties with @code{\context}
+@c \context を使ったコンテキスト プロパティの設定
+
+@cindex context properties, setting with \context
+@funindex \context
+@funindex context
+
+コンテキスト プロパティの値は単一のコマンドによってある特定のタイプのコンテキ@c
+スト@emph{すべて} -- すべての @code{Staff} コンテキストなどのように -- にセッ@c
+トされるかもしれません。プロパティをセットするコンテキストのタイプは、@c
+@code{Staff} のようなそのコンテキストのタイプ名に接頭辞としてバック スラッシュ@c
+を付けたもの -- @code{@bs{}Staff} のように -- によって指定されます。プロパティ@c
+値をセットするための記述は上で紹介した @code{@bs{}with} ブロックの中の記述と同@c
+じです。この記述は @code{@bs{}layout} ブロック内部の @code{@bs{}context} ブ@c
+ロックの中に置かれます。各 @code{@bs{}context} ブロックは、その 
+@code{@bs{}layout} ブロックが置かれている @code{@bs{}score} または 
+@code{@bs{}book} ブロック全体を通じて、指定されたタイプのコンテキストすべてに@c
+対して効果を持ちます。ここで、記述方法を示すための例を挙げます:
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      cis4 e d ces
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+@noindent
+この方法でセットされたコンテキスト プロパティは、@code{@bs{}with} ブロックの中@c
+の記述によって、さらには、音楽表記の中に埋め込まれた @code{@bs{}set} コマンド@c
+によって、ある特定のコンテキスト インスタンスでは上書きされるかもしれません。
+
+
+@seealso
+表記リファレンス: @ruser{Changing context default settings}
+@c コンテキストのデフォルト設定の変更
+@c FIXME
+@c uncomment when backslash-node-name issue is resolved -pm
+@c <at>ruser{The set command}.
+
+内部リファレンス: @rinternals{Contexts},
+@rinternals{Tunable context properties}
+@c コンテキスト, 調整可能なコンテキスト プロパティ
+
+
+@node Adding and removing engravers
+@subsection Adding and removing engravers
+@c エングラーバの追加と削除
+
+@cindex engravers, adding
+@cindex adding engravers
+@cindex engravers, removing
+@cindex removing engravers
+
+@funindex \consists
+@funindex consists
+@funindex \remove
+@funindex remove
+
+これまでに、コンテキストはそれぞれにいくつかのエングラーバを保持し、それぞれの@c
+エングラーバは出力のある特定部分 -- 小節線、譜、音符玉、ステムなど -- の譜刻に@c
+責任を持つということを見てきました。あるエングラーバがコンテキストから削除され@c
+ると、それはもはや出力を行いません。これは出力を変更するための荒っぽい方法です@c
+が、役に立つ場合もあります。
+
+@subsubheading Changing a single context
+@c 単一のコンテキストの変更
+
+あるコンテキストからあるエングラーバを削除するには、前のセクションで見てたきた@c
+のと同様に、コンテキスト作成コマンドの直後に置く @code{@bs{}with} コマンドを使@c
+用します。
+
+例として、前のセクションで使用した例から譜表線を取り除いてみましょう。譜表線は 
+@code{Staff_symbol_engraver} によって作り出されるということを思い出してくださ@c
+い。
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  \remove Staff_symbol_engraver
+}
+\relative c' {
+  c4
+  \set fontSize = #-4  % make note heads smaller
+  d e
+  \set fontSize = #2.5  % make note heads larger
+  f g
+  \unset fontSize  % return to default size
+  a b
+}
+@end lilypond
+
+@cindex ambitus engraver
+
+さらに、エングラーバは個々のコンテキストに追加されることもあります。エングラー@c
+バを追加するコマンドは以下のようなものです:
+
+@code{\consists @var{Engraver_name}},
+
+@noindent
+これを @code{@bs{}with} ブロックの中に置きます。いくつかのボーカル譜は、その譜@c
+表の中にある音符の範囲を示すために、譜表の開始点に音域 (ambitus) を置きます -- 
+@rglos{ambitus} を参照してください。音域は @code{Ambitus_engraver} によって作@c
+成され、普通は、これはどのコンテキストにも含まれません。これを @code{Voice} 
+コンテキストに追加した場合、それはそのボイスのみから音域を計算します:
+@c 音域 (ambitus)
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff <<
+  \new Voice \with {
+    \consists Ambitus_engraver
+  }
+  \relative c'' {
+    \voiceOne
+    c a b g
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
+
+@noindent
+しかし、音域エングラーバを @code{Staff} コンテキストに追加した場合、そのエング@c
+ラーバはその譜表上にあるすべてのボイスの中の音符から音域を計算します:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+    \consists Ambitus_engraver
+  }
+  <<
+  \new Voice
+  \relative c'' {
+    \voiceOne
+    c a b g
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
+
+@subsubheading Changing all contexts of the same type
+@c 同じタイプのコンテキストをすべて変更する
+
+@funindex \layout
+@funindex layout
+
+上の例では、個々のコンテキストにエングラーバを追加あるいは削除する方法を示しま@c
+した。さらに、そのコマンドを @code{@bs{}layout} ブロックの中の適当なコンテキス@c
+トの中に置くことによって、ある特定のタイプのコンテキストすべてにエングラーバを@c
+追加あるいは削除することもできます。例えば、4 つの譜表を持つ楽譜ですべての譜表@c
+に音域を表示する場合、以下のように記述します:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff <<
+      \relative c'' { c a b g }
+    >>
+    \new Staff <<
+      \relative c' { c a b g }
+    >>
+    \new Staff <<
+      \clef "G_8"
+      \relative c' { c a b g }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \relative c { c a b g }
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \consists Ambitus_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+また、コンテキスト プロパティの値も、上記と同様に @code{@bs{}context} ブロック@c
+の中に @code{@bs{}set} を含ませることによって、ある特定のタイプのコンテキスト@c
+すべてに対してセットすることができます。
+
+
+@seealso
+表記リファレンス: @ruser{Modifying context plug-ins},
+@ruser{Changing context default settings}
+@c コンテキスト プラグインの変更, コンテキストのデフォルト設定の変更
+
+
+@node Extending the templates
+@section Extending the templates
+@c テンプレートの拡張
+
+あなたはチュートリアルを読み終えました。あなたはどのように音楽を書くかを知って@c
+いて、基礎となるコンセプトを理解しています。しかし、どうやったらあなたはあなた@c
+が望む譜表を手に入れられるでしょうか？あなたにとって良いスタート地点となるかも@c
+しれない多くのテンプレートがあります (@ref{Templates} を参照してください)。し@c
+かしながら、あなたの望むものがそこでカバーされていなかったらどうしましょう？続@c
+きを読んでください。
+@c テンプレート
+
+@menu
+* Soprano and cello::
+* Four-part SATB vocal score::
+* Building a score from scratch::
+@end menu
+
+@node Soprano and cello
+@subsection Soprano and cello
+@c ソプラノとチェロ
+
+@cindex template, modifying
+@cindex modifying templates
+
+あなたが最終的に望むものに最も近いテンプレートから始めてください。ソプラノと@c
+チェロのための楽譜を書きたいということにしましょう。ここでは、@q{音符と歌詞} 
+(ソプラノ パート用) から始めることにします。
+
+@example
+\version @w{"@version{}"}
+melody = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+  a4 b c d
+@}
+
+text = \lyricmode @{
+  Aaa Bee Cee Dee
+@}
+
+\score @{
+  <<
+    \new Voice = "one" @{
+      \autoBeamOff
+      \melody
+    @}
+    \new Lyrics \lyricsto "one" \text
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+これにチェロ パートを追加していきます。@q{音符のみ} のテンプレートを見てみま@c
+しょう:
+
+@example
+\version @w{"@version{}"}
+melody = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+  a4 b c d
+@}
+
+\score @{
+  \new Staff \melody
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@code{\version} コマンドは 2 つも必要ありません。@code{melody} セクションは必@c
+要です。@code{\score} セクションは 2 つも必要ありません -- @code{\score} が 2 
+つあると、2 つのパートがばらばらになります。2 つのパートをデュオのように一緒に@c
+したいのです。@code{\score} セクションの中に @code{\layout} や @code{\midi} は 2 
+つも必要ありません。
+
+単に @code{melody} セクションをカット＆コピーした場合、@code{melody} 定義が 2 
+つになります。これはエラーにはなりませんが、2 番目の定義が両方の旋律で使われる@c
+ことになります。そのため、2 つの旋律を区別するためにリネームします。ソプラノ用@c
+のセクションを @code{sopranoMusic} と呼び、チェロ用のセクションを 
+@code{celloMusic} と呼ぶことにします。リネームするときに、@code{text} を 
+@code{sopranoLyrics} とりネームしましょう。これらのインスタンスをリネームする@c
+ことも忘れないでください −- 初期定義 (@code{melody = \relative c' @{ } 部分) 
+とその名前が使われているところ (@code{\score セクションの中}) の両方です。
+
+リネームする際に、チェロ パートの譜表も変更しましょう −- 通常、チェロは低音部@c
+を使用します。さらに、チェロの音符を変えてみます。
+
+@example
+\version @w{"@version{}"}
+sopranoMusic = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+  a4 b c d
+@}
+
+sopranoLyrics = \lyricmode @{
+  Aaa Bee Cee Dee
+@}
+
+celloMusic = \relative c @{
+  \clef bass
+  \key c \major
+  \time 4/4
+  d4 g fis8 e d4
+@}
+
+\score @{
+  <<
+    \new Voice = "one" @{
+      \autoBeamOff
+      \sopranoMusic
+    @}
+    \new Lyrics \lyricsto "one" \sopranoLyrics
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+これでうまくいくように見えますが、チェロ パートが楽譜に表示されません −- チェロ 
+パートを @code{\score} セクションの中で使っていないからです。チェロ パートをソ@c
+プラノ パートの下に表示させたいのなら、以下をソプラノの譜の下に追加する必要が@c
+あります:
+
+@example
+\new Staff \celloMusic
+@end example
+
+@noindent
+さらに、音楽を @code{<<} と @code{>>} で囲む必要もあります −- これは LilyPond 
+に複数のもの (この場合は 2 つの @code{Stave}) が同時に起こるということを知らせ@c
+ます。@code{\score} は以下のようになります:
+
+@c Indentation in this example is deliberately poor
+@example
+\score @{
+  <<
+  <<
+    \new Voice = "one" @{
+      \autoBeamOff
+      \sopranoMusic
+    @}
+    \new Lyrics \lyricsto "one" \sopranoLyrics
+  >>
+  \new Staff \celloMusic
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+これは少し見にくいです。インデントがきちんと入っていません。これは簡単に修正で@c
+きます。ここで、完成したソプラノとチェロ用のテンプレートを挙げます。
+
+@lilypond[quote,verbatim,ragged-right,addversion]
+sopranoMusic = \relative c' {
+  \clef treble
+  \key c \major
+  \time 4/4
+  a4 b c d
+}
+
+sopranoLyrics = \lyricmode {
+  Aaa Bee Cee Dee
+}
+
+celloMusic = \relative c {
+  \clef bass
+  \key c \major
+  \time 4/4
+  d4 g fis8 e d4
+}
+
+\score {
+  <<
+    <<
+      \new Voice = "one" {
+        \autoBeamOff
+        \sopranoMusic
+      }
+      \new Lyrics \lyricsto "one" \sopranoLyrics
+    >>
+    \new Staff \celloMusic
+  >>
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+
+@seealso
+開始点となるテンプレートは付録 @q{テンプレート} で見つけることができます。@c
+@ref{Single staff} を参照してください。
+@c 単一の譜
+
+
+@node Four-part SATB vocal score
+@subsection Four-part SATB vocal score
+@c 4 パート SATB ボーカル譜
+
+@cindex template, SATB
+@cindex SATB template
+
+Mendelssohn の Elijah や Handel の Messiah などのオーケストラ伴奏付きの 4 パー@c
+ト聖歌隊のために書かれたボーカル譜の多くは 4 つの譜上に音符と歌詞を持ち、それ@c
+ぞれの譜は SATB (ソプラノ、アルト、テナー、バス) のうちの 1 つであり、その下に@c
+オーケストラ伴奏のピアノ譜が付きます。ここで、Handel の Messiah から例を挙げま@c
+す:
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+global = { \key d \major \time 4/4 }
+sopranoMusic = \relative c'' {
+  \clef "treble"
+  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+}
+sopranoWords = \lyricmode {
+  Wor -- thy is the lamb that was slain
+}
+altoMusic = \relative a' {
+  \clef "treble"
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
+}
+altoWords = \sopranoWords
+tenorMusic = \relative c' {
+  \clef "G_8"
+  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+}
+tenorWords = \sopranoWords
+bassMusic = \relative c' {
+  \clef "bass"
+  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+}
+bassWords = \sopranoWords
+upper = \relative a' {
+  \clef "treble"
+  \global
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
+}
+lower = \relative c, {
+  \clef "bass"
+  \global
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
+}
+
+\score {
+  <<  % combine ChoirStaff and PianoStaff in parallel
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = #"Soprano"
+        \new Voice = "sopranos" { \global \sopranoMusic }
+      >>
+      \new Lyrics \lyricsto "sopranos" { \sopranoWords }
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = #"Alto"
+        \new Voice = "altos" { \global \altoMusic }
+      >>
+      \new Lyrics \lyricsto "altos" { \altoWords }
+      \new Staff = "tenors" <<
+        \set Staff.instrumentName = #"Tenor"
+        \new Voice = "tenors" { \global \tenorMusic }
+      >>
+      \new Lyrics \lyricsto "tenors" { \tenorWords }
+      \new Staff = "basses" <<
+        \set Staff.instrumentName = #"Bass"
+        \new Voice = "basses" { \global \bassMusic }
+      >>
+      \new Lyrics \lyricsto "basses" { \bassWords }
+    >>  % end ChoirStaff
+
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = #"Piano"
+      \new Staff = "upper" \upper
+      \new Staff = "lower" \lower
+    >>
+  >>
+}
+@end lilypond
+
+このレイアウトをそのまま提供するテンプレートはありません。最も近いのは @q{SATB 
+ボーカル譜と自動ピアノ伴奏譜} -- @ref{Vocal ensembles} を参照してください -- 
+ですが、レイアウトを変更して、ボーカル パートから自動的に生成されたものではな@c
+いピアノ伴奏譜を付け加える必要があります。ボーカル パートのための音楽と歌詞を@c
+保持している変数はそのまま使えますが、ピアノ伴奏譜のための変数を付け加える必要@c
+があります。
+@c ボーカル アンサンブル
+
+テンプレートの @code{ChoirStaff} の中でコンテキストが出現する順序は上で示した@c
+ボーカル譜の順序と一致していません。そのため、コンテキストを再配置して、それぞ@c
+れの歌詞が対応する譜表のすぐ下にくるようにします。すべてのボイスは 
+@code{\voiceOne} -- これがデフォルトです -- になるべきなので、@code{\voiceXXX} 
+コマンドは削除すべきです。さらに、テノールに対してハ音記号 (中音部記号) を指定@c
+する必要があります。テンプレートの中で歌詞を指定する方法はまだ説明していません@c
+ので、馴染みのある方法を使用する必要があります。さらに、それぞれの譜に名前を追@c
+加すべきです。
+
+以上のことを @code{ChoirStaff} に対して行います:
+
+@example
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = #"Soprano"
+        \new Voice = "sopranos" @{ \global \sopranoMusic @}
+      >>
+      \new Lyrics \lyricsto "sopranos" @{ \sopranoWords @}
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = #"Alto"
+        \new Voice = "altos" @{ \global \altoMusic @}
+      >>
+      \new Lyrics \lyricsto "altos" @{ \altoWords @}
+      \new Staff = "tenors" <<
+        \set Staff.instrumentName = #"Tenor"
+        \new Voice = "tenors" @{ \global \tenorMusic @}
+      >>
+      \new Lyrics \lyricsto "tenors" @{ \tenorWords @}
+      \new Staff = "basses" <<
+        \set Staff.instrumentName = #"Bass"
+        \new Voice = "basses" @{ \global \bassMusic @}
+      >>
+      \new Lyrics \lyricsto "basses" @{ \bassWords @}
+    >>  % end ChoirStaff
+@end example
+
+次にピアノ パートに取り掛からなければなりません。これは簡単です -- @q{ソロ ピ@c
+アノ} テンプレートからピアノ パートを引き抜いてくるだけです:
+
+@example
+\new PianoStaff <<
+  \set PianoStaff.instrumentName = #"Piano  "
+  \new Staff = "upper" \upper
+  \new Staff = "lower" \lower
+>>
+@end example
+
+そして、@code{upper} と @code{lower} に変数定義を付け加えます。
+
+@code{ChoirStaff} を @code{PianoStaff} の上に置きたいので、それらを角括弧を@c
+使って組み合わせなければなりません:
+
+@example
+<<  % combine ChoirStaff and PianoStaff one above the other
+  \new ChoirStaff <<
+    \new Staff = "sopranos" <<
+      \new Voice = "sopranos" @{ \global \sopranoMusic @}
+    >>
+    \new Lyrics \lyricsto "sopranos" @{ \sopranoWords @}
+    \new Staff = "altos" <<
+      \new Voice = "altos" @{ \global \altoMusic @}
+    >>
+    \new Lyrics \lyricsto "altos" @{ \altoWords @}
+    \new Staff = "tenors" <<
+      \clef "G_8"  % tenor clef
+      \new Voice = "tenors" @{ \global \tenorMusic @}
+    >>
+    \new Lyrics \lyricsto "tenors" @{ \tenorWords @}
+    \new Staff = "basses" <<
+      \clef "bass"
+      \new Voice = "basses" @{ \global \bassMusic @}
+    >>
+    \new Lyrics \lyricsto "basses" @{ \bassWords @}
+  >>  % end ChoirStaff
+
+  \new PianoStaff <<
+    \set PianoStaff.instrumentName = #"Piano"
+    \new Staff = "upper" \upper
+    \new Staff = "lower" \lower
+  >>
+>>
+@end example
+
+これらすべてを組み合わせて、上の例の 3 小節分の音楽を付け加えます:
+
+@lilypond[quote,verbatim,ragged-right,addversion]
+global = { \key d \major \time 4/4 }
+sopranoMusic = \relative c'' {
+  \clef "treble"
+  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+}
+sopranoWords = \lyricmode {
+  Wor -- thy is the lamb that was slain
+}
+altoMusic = \relative a' {
+  \clef "treble"
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
+}
+altoWords = \sopranoWords
+tenorMusic = \relative c' {
+  \clef "G_8"
+  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+}
+tenorWords = \sopranoWords
+bassMusic = \relative c' {
+  \clef "bass"
+  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+}
+bassWords = \sopranoWords
+upper = \relative a' {
+  \clef "treble"
+  \global
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
+}
+lower = \relative c, {
+  \clef "bass"
+  \global
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
+}
+
+\score {
+  <<  % combine ChoirStaff and PianoStaff in parallel
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = #"Soprano"
+        \new Voice = "sopranos" { \global \sopranoMusic }
+      >>
+      \new Lyrics \lyricsto "sopranos" { \sopranoWords }
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = #"Alto"
+        \new Voice = "altos" { \global \altoMusic }
+      >>
+      \new Lyrics \lyricsto "altos" { \altoWords }
+      \new Staff = "tenors" <<
+        \set Staff.instrumentName = #"Tenor"
+        \new Voice = "tenors" { \global \tenorMusic }
+      >>
+      \new Lyrics \lyricsto "tenors" { \tenorWords }
+      \new Staff = "basses" <<
+        \set Staff.instrumentName = #"Bass"
+        \new Voice = "basses" { \global \bassMusic }
+      >>
+      \new Lyrics \lyricsto "basses" { \bassWords }
+    >>  % end ChoirStaff
+
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = #"Piano  "
+      \new Staff = "upper" \upper
+      \new Staff = "lower" \lower
+    >>
+  >>
+}
+@end lilypond
+
+
+@node Building a score from scratch
+@subsection Building a score from scratch
+@c ゼロから楽譜を構築する
+
+@cindex template, writing your own
+@cindex example of writing a score
+@cindex writing a score, example
+@cindex score, example of writing
+
+LilyPond コードを書くことにある程度熟練した後、あなたはテンプレートの 1 つを変@c
+更するよりもゼロから楽譜を構築するほうがより容易であることに気づくかもしれませ@c
+ん。さらに、あなたはこの方法であなたの好みのタイプの音楽に適したあなた自身のス@c
+タイルを開発することもできます。例として、オルガン前奏曲のための楽譜を作成する@c
+手順を見てみましょう。
+
+ヘッダ セクションから始めます。そこでタイトル、作曲者の名前などを記述し、それ@c
+から任意の変数を定義し、最後にスコア ブロックに取り掛かります。以上のことを概@c
+要から始めて、その後に詳細を詰めていきます。
+
+@emph{Jesu, meine Freude} -- これは 2 つの鍵盤とペダルを持つオルガンのために書@c
+かれたものです -- をベースとする Bach の前奏曲の最初の 2 小節を使います。この@c
+セクションの最後でこの音楽の最初の 2 小節を見ることができます。上段鍵盤パートは 
+2 つのボイスを持ち、下段鍵盤とペダルはそれぞれ 1 つのボイスを持ちます。そのた@c
+め、4 つの音楽定義と、拍子記号と調号を定義するための 1 つの音楽定義が必要とな@c
+ります:
+
+@example
+\version @w{"@version{}"}
+\header @{
+  title = "Jesu, meine Freude"
+  composer = "J S Bach"
+@}
+TimeKey = @{ \time 4/4 \key c \minor @}
+ManualOneVoiceOneMusic = @{s1@}
+ManualOneVoiceTwoMusic = @{s1@}
+ManualTwoMusic = @{s1@}
+PedalOrganMusic = @{s1@}
+
+\score @{
+@}
+@end example
+
+ここでは、実際の音楽の代わりにスペーサ音符 @code{s1} を使用しました。実際の音@c
+楽は後で付け加えます。
+
+次に、スコア ブロックで何をすべきなのかを見ていきましょう。単純に望む譜表構造@c
+を反映させます。通常、オルガン音楽は 3 つの譜で書かれます -- 2 つの鍵盤とペダ@c
+ルのための譜です。鍵盤の譜はブレース (譜表の左端の中括弧) でまとめられているべ@c
+きなので、それらに対して @code{PianoStaff} を使用する必要があります。1 番目の@c
+鍵盤パートは 2 つのボイスを必要とし、2 番目の鍵盤パートは 1 つだけボイスを必要@c
+とします。
+
+@example
+  \new PianoStaff <<
+    \new Staff = "ManualOne" <<
+      \new Voice @{ \ManualOneVoiceOneMusic @}
+      \new Voice @{ \ManualOneVoiceTwoMusic @}
+    >>  % end ManualOne Staff context
+    \new Staff = "ManualTwo" <<
+      \new Voice @{ \ManualTwoMusic @}
+    >>  % end ManualTwo Staff context
+  >>  % end PianoStaff context
+@end example
+
+次にペダル オルガンのための譜表を付け加える必要があります。これは 
+@code{PianoStaff} の下にきますが、@code{PianoStaff} と同時進行でなければなりま@c
+せんので、ペダル オルガンのための譜表と @code{PianoStaff} を角括弧で囲む必要が@c
+あります。これを忘れるとエラーがログ ファイルに生成されます。このエラーはあな@c
+たが早かれ遅かれ遭遇する一般的なミスです！生成されるエラーを確認するために、こ@c
+のセクションの最後にある例をコピーし、この角括弧を削除し、コンパイルしてみてく@c
+ださい。
+
+@example
+<<  % PianoStaff and Pedal Staff must be simultaneous
+  \new PianoStaff <<
+    \new Staff = "ManualOne" <<
+      \new Voice @{ \ManualOneVoiceOneMusic @}
+      \new Voice @{ \ManualOneVoiceTwoMusic @}
+    >>  % end ManualOne Staff context
+    \new Staff = "ManualTwo" <<
+      \new Voice @{ \ManualTwoMusic @}
+    >>  % end ManualTwo Staff context
+  >>  % end PianoStaff context
+  \new Staff = "PedalOrgan" <<
+    \new Voice @{ \PedalOrganMusic @}
+  >>
+>>
+@end example
+
+2 番目の鍵盤パートとペダル オルガンの譜表は 1 つだけしか音楽表記を保持しないた@c
+め、それらに対して同時進行構造 @code{<< .. >>} を使う必要は必ずしもありませ@c
+ん。しかしながら、そうしても害はありませんし、@code{\new Staff} の後に常に角括@c
+弧を置くというのは複数のボイスがある場合では推奨される良い習慣です。Voice はこ@c
+れとは対照的に、あなたの音楽を連続して演奏すべきいくつかの変数に分けてコード化@c
+する場合に Voice の後に中括弧 @code{@{ .. @}} を常に置くべきです。
+
+この構造をスコア ブロックに付け加えて、インデントを調整しましょう。さらに、適@c
+切な音部記号を付け加え、@code{\voiceOne} と @code{\voiceTwo} を使って上部譜の@c
+各ボイスでステム、タイ、スラーの向きが正しくなるようにし、あらかじめ定義してお@c
+いた変数 @code{\TimeKey} を使って拍子記号と調号を各譜に挿入します。
+
+@example
+\score @{
+  <<  % PianoStaff and Pedal Staff must be simultaneous
+    \new PianoStaff <<
+      \new Staff = "ManualOne" <<
+        \TimeKey  % set time signature and key
+        \clef "treble"
+        \new Voice @{ \voiceOne \ManualOneVoiceOneMusic @}
+        \new Voice @{ \voiceTwo \ManualOneVoiceTwoMusic @}
+      >>  % end ManualOne Staff context
+      \new Staff = "ManualTwo" <<
+        \TimeKey
+        \clef "bass"
+        \new Voice @{ \ManualTwoMusic @}
+      >>  % end ManualTwo Staff context
+    >>  % end PianoStaff context
+    \new Staff = "PedalOrgan" <<
+      \TimeKey
+      \clef "bass"
+      \new Voice @{ \PedalOrganMusic @}
+    >>  % end PedalOrgan Staff
+  >>
+@}  % end Score context
+@end example
+
+これでこの構造は完成です。3 つの譜表を持つオルガン音楽はいずれも同様の構造を持@c
+ちますが、ボイスの数はさまざまになるかもしれません。この後に行うべきことは、音@c
+楽を付け加え、各パートを一緒にすることです。
+
+@lilypond[quote,verbatim,ragged-right,addversion]
+\header {
+  title = "Jesu, meine Freude"
+  composer = "J S Bach"
+}
+TimeKey = { \time 4/4 \key c \minor }
+ManualOneVoiceOneMusic = \relative g' {
+  g4 g f ees | d2 c2 |
+}
+ManualOneVoiceTwoMusic = \relative c' {
+  ees16 d ees8~ ees16 f ees d c8 d~ d c~ |
+  c c4 b8 c8. g16 c b c d |
+}
+ManualTwoMusic = \relative c' {
+  c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
+  f ees f d g aes g f ees d e8~ ees16 f ees d |
+}
+PedalOrganMusic = \relative c {
+  r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
+  r16 g ees f g f g8 c,2 |
+  }
+
+\score {
+  <<  % PianoStaff and Pedal Staff must be simultaneous
+    \new PianoStaff <<
+      \new Staff = "ManualOne" <<
+        \TimeKey  % set time signature and key
+        \clef "treble"
+        \new Voice { \voiceOne \ManualOneVoiceOneMusic }
+        \new Voice { \voiceTwo \ManualOneVoiceTwoMusic }
+      >>  % end ManualOne Staff context
+      \new Staff = "ManualTwo" <<
+        \TimeKey
+        \clef "bass"
+        \new Voice { \ManualTwoMusic }
+      >>  % end ManualTwo Staff context
+    >>  % end PianoStaff context
+    \new Staff = "PedalOrgan" <<
+      \TimeKey
+      \clef "bass"
+      \new Voice { \PedalOrganMusic }
+    >>  % end PedalOrgan Staff context
+  >>
+}  % end Score context
+@end lilypond
+

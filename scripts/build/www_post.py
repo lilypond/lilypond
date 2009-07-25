@@ -29,19 +29,7 @@ static_files = {
 <html><body>Redirecting to the documentation index...</body></html>\n''',
     os.path.join (outdir, 'VERSION'):
         package_version + '\n',
-    os.path.join ('input', 'lsr', outdir, 'index.html'):
-        '''<META HTTP-EQUIV="refresh" content="0;URL=../../index.html">
-<html><body>Redirecting to the documentation index...</body></html>\n'''
     }
-
-for l in langdefs.LANGUAGES:
-    static_files[os.path.join (
-            'Documentation',
-            'user',
-            outdir,
-            l.file_name ('index', '.html'))] = \
-            '<META HTTP-EQUIV="refresh" content="0;URL=../' + l.file_name ('index', '.html') + \
-            '">\n<html><body>Redirecting to the documentation index...</body></html>\n'
 
 for f, contents in static_files.items ():
     open (f, 'w').write (contents)
@@ -85,9 +73,6 @@ for t in targets:
         if not os.path.exists (dest):
             os.symlink (p, dest)
 
-    ## ad-hoc renaming to make xrefs between PDFs work
-    os.rename (os.path.join (out_root, 'input/lsr/lilypond-snippets.pdf'),
-               os.path.join (out_root, 'Documentation/user/lilypond-snippets.pdf'))
 
 # need this for content negotiation with documentation index
 if 'online' in targets:

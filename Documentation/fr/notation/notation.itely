@@ -1,0 +1,35 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 6f84d7b264bf1faa8d9c586bbf06c762ae53183a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Musical notation
+@chapter Musical notation
+
+Ce chapitre explique comment créer la notation musicale standard.
+
+@menu
+* Pitches::            écriture et gravure des hauteurs de note.
+* Rhythms::            écriture et gravure des durées.
+* Expressive marks::   ajout de signes d'exécution et d'interprétation.
+* Repeats::            différents types de répétitions de musique.
+* Simultaneous notes:: polyphonie et accords.
+* Staff notation::     gravure de la portée.
+* Editorial annotations:: annotations d'édition ou à usage pédagogique.
+* Text::               ajout de texte à la partition.
+@end menu
+
+@include notation/pitches.itely
+@include notation/rhythms.itely
+@include notation/expressive.itely
+@include notation/repeats.itely
+@include notation/simultaneous.itely
+@include notation/staff.itely
+@include notation/editorial.itely
+@include notation/text.itely
+

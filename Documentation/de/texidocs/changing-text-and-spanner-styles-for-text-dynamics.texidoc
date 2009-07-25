@@ -1,0 +1,11 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+texidocde = "
+Der Text, der für Crescendo und Decrescendo gestzt wird, kann geändert
+werden, indem man die Eigenschaften @code{crescendoText} und
+@code{decrescendoText} verändert.  Der Stil des Streckers kann auch
+geändert werden, indem die @code{'style}-Eigenschaft des
+@code{DynamicTextSpanner} beeinflusst wird.  Der Standardwert ist
+@code{'hairpin}, ander Möglichkeiten sind @code{'line}, @code{'dashed-line}
+und @code{'dotted-line}.
+"
+  doctitlede = "Text und Strecker-Stile für Dynamik-Texte ändern"

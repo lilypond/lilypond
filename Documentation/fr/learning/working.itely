@@ -1,0 +1,843 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+   Translation of GIT committish: 148e80b8992a7fb9d59ec439c00b79decbbe3bad
+
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Ludovic Sardain
+@c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau, Jean-Charles Malahieude
+
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
+
+Cette section explique comment résoudre ou éviter certains problèmes
+courants.  Si vous avez de l'expérience en programmation, beaucoup de
+ces astuces peuvent vous paraître évidentes, mais vous ne perdrez tout
+de même pas votre temps à lire ce chapitre.
+
+@menu
+* Suggestions for writing LilyPond input files::
+* When things don't work::      
+* Scores and parts::            
+@end menu
+
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
+
+Maintenant vous êtes prêt à travailler sur de plus gros fichiers
+LilyPond --- des pièces entières, et plus seulement les petits
+exemples du tutoriel.  Mais comment devriez-vous vous y prendre ?
+
+Tant que LilyPond parvient à comprendre vos fichiers et produit le
+résultat que vous souhaitez, peu importe la manière dont le code est
+organisé.  Néanmoins, quelques critères doivent être pris en compte
+lorsque l'on écrit un fichier LilyPond.
+
+@itemize
+@item Si vous faites une erreur, la structure même du fichier LilyPond
+peut permettre de la localiser plus ou moins facilement.
+
+@item Et si vous souhaitez partager vos fichiers avec quelqu'un
+d'autre, ou si vous souhaitez modifier vos propres fichiers dans
+quelques années ?  Si certains fichiers LilyPond sont compréhensibles
+au premier coup d'oeil, d'autres vous feront vous arracher les cheveux
+pendant une heure.
+
+@item Et si vous souhaitez mettre à jour votre fichier pour
+l'utiliser avec une version plus récente de LilyPond ?  La syntaxe du
+langage d'entrée change parfois lorsque LilyPond s'améliore.  La
+plupart des changements peuvent être appliqués automatiquement avec
+@code{convert-ly}, mais quelques-uns peuvent requérir une intervention
+manuelle.  Vos fichiers LilyPond peuvent être structurés de manière à
+faciliter leur mise à jour.
+@end itemize
+
+@menu
+* General suggestions::         
+* Typesetting existing music::  
+* Large projects::              
+* Saving typing with variables and functions::  
+* Style sheets::                
+@end menu
+
+@node General suggestions
+@subsection General suggestions
+
+Voici quelques conseils qui peuvent vous éviter certains problèmes ou
+en résoudre d'autres.
+
+@itemize
+@item @strong{Ajoutez le numéro de version dans chaque fichier}.
+Notez que chaque fichier modèle contient une ligne @code{\version
+"2.11.32"}.  Nous vous conseillons fortement d'inclure cette ligne,
+même pour de petits fichiers.  Par expérience, il est très difficile
+de se rappeler quelle version de LilyPond on utilisait quelques
+années auparavant.  L'utilitaire @command{convert-ly} demande que vous
+spécifiiez la version de LilyPond vous utilisiez alors.
+
+@item @strong{Ajoutez des contrôles}: @ruser{Octave checks}, et
+@ruser{Bar and bar number checks}.  Si vous avez ajouté des contrôles
+de loin en loin, et que vous faites une erreur, vous pourrez la
+retrouver plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?
+Cela dépend de la complexité de la musique.  Pour de la musique très
+simple, peut-être une ou deux fois.  Pour de la musique très complexe,
+peut-être à chaque mesure.
+
+@item @strong{Une mesure par ligne de texte}.  Si la musique en elle-même ou
+le résultat que vous désirez contient quelque chose de compliqué, il
+est souvent bon de n'écrire qu'une seule mesure par ligne.  Économiser
+de la place en tassant huit mesures par ligne, ça ne vaut pas vraiment
+le coup si l'on doît corriger vos fichiers.
+
+@item @strong{Ajoutez des commentaires}.  Utilisez soit des
+numéros de mesure (assez souvent), soit des références au contenu
+musical --- @qq{second thème des violons}, @qq{quatrième variation}, etc.
+Vous pouvez ne pas avoir besoin des commentaires lorsque vous écrivez
+une pièce pour la première fois, mais si vous souhaitez y revenir deux
+ou trois ans plus tard pour changer quelque chose, ou si vous donnez
+le fichier source à un ami, ce sera beaucoup plus difficile de
+déterminer vos intentions ou la manière dont votre fichier est
+structuré si vous n'y avez pas adjoint de commentaires.
+
+@item @strong{Indentez les accolades}.  Beaucoup de problèmes
+viennent d'un défaut de parité entre @code{@{} et @code{@}}.
+
+@item @strong{Mentionnez les durées} au début de chaque section ou
+variable.  Si vous saisissez @code{c4 d e} au début d'une phrase, vous
+vous épargnerez des problèmes si, plus tard, vous modifiez votre musique.
+
+@item @strong{Séparez les affinages de mise en forme} de la musique
+elle-même. Voyez @ref{Saving typing with variables and functions} et
+@ref{Style sheets}.
+
+@end itemize
+
+
+@node Typesetting existing music
+@subsection Typesetting existing music
+
+Si vous saisissez de la musique à partir d'une partition existante,
+c'est-à-dire de la musique déjà écrite,
+
+@itemize
+
+@item n'entrez qu'un seul système de la partition originale
+à la fois --- mais toujours une seule mesure par ligne de texte ---,
+et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
+utiliser les commandes @code{showLastLength} et @code{showFirstLength}
+pour accélérer la compilation --- voir @ruser{Skipping corrected music} ;
+
+@item définissez @code{mBreak = @{\break @}} et insérez
+@code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
+ligne identiques à la partition originale.  Cela facilite la
+comparaison entre la partition originale et la partition de 
+LilyPond.  Lorsque vous avez fini de relire votre musique, vous pouvez
+définir @code{mBreak = @{ @}} pour enlever tous ces sauts de ligne, et
+laisser LilyPond placer les sauts de ligne selon son propre algorithme.
+
+@item encadrez les notes d'une partie pour instrument transpositeur
+dans un 
+
+@example
+\transpose c tonalite-naturelle @{...@}
+@end example
+(où @code{tonatilte-naturelle} correspond à celle de l'instrument en
+question) de telle sorte que la musique comprise dans cette variable se
+retrouve en ut.  Vous pourrez toujours transposer à l'inverse si besoin
+lorsque vous ferez appel à cette variable.  Des erreurs de transposition
+seront moins susceptibles de se produire si la musique de toutes les
+variables est dans la même et unique tonalité.
+
+De la même manière, prénez toujours le do comme note de départ ou
+d'arrivée.  Ceci aura pour simple conséquence que les autres tonalités
+que vous utiliserez seront celles propres à chacun des instruments --
+sib pour une trompette en si bémol, ou lab pour une clarinette en la bémol.
+
+@end itemize
+
+
+@node Large projects
+@subsection Large projects
+
+Lorsque l'on travaille sur un gros projet, il devient vital
+de structurer clairement ses fichiers LilyPond.
+
+@itemize @bullet
+
+@item @strong{Utilisez un identificateur pour chaque voix},
+avec un minimum de structure dans la définition.  La structure de la
+section @code{\score} est la plus susceptible de changer, notamment
+dans une nouvelle version de LilyPond, alors que la définition du
+@code{violon} l'est beaucoup moins.
+
+@example
+violin = \relative c'' @{
+g4 c'8. e16
+@}
+...
+\score @{
+ \new GrandStaff @{
+   \new Staff @{
+     \violin
+   @}
+ @}
+@}
+@end example
+
+@item @strong{Séparez les retouches} des définitions de
+musique.  Nous vous avons déjà invité à adopter une telle pratique, qui
+par ailleurs devient vitale pour des projets d'importance.  Nous
+pouvons avoir besoin de changer la définition de
+@code{fpuisp}, mais dans ce cas nous n'aurons besoin de le faire
+qu'une seule fois, et nous pourrons encore éviter de
+modifier quoi que ce soit à l'intérieur de la définition
+du @code{violon}.
+
+@example
+fthenp = _\markup@{
+ \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+violin = \relative c'' @{
+g4\fthenp c'8. e16
+@}
+@end example
+
+@end itemize
+
+
+@node Saving typing with variables and functions
+@subsection Saving typing with variables and functions
+
+@cindex variables
+@cindex identificateurs
+
+Jusqu'à maintenant, vous avez vu ce type de code :
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+Vous comprendrez combien cela peut être utile pour écrire de la
+musique minimaliste :
+
+@lilypond[quote,verbatim,ragged-right]
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+Néanmoins vous pouvez aussi utiliser ces identificateurs
+--- aussi connus sous le nom de variables, macros, ou commandes
+(définies par l'utilisateur) --- pour des retouches :
+
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+Ces identificateurs sont évidemment utiles pour économiser de la
+frappe.  Mais ils peuvent l'être même si vous ne les utilisez qu'une
+seule fois : ils réduisent la complexité.  Regardons l'exemple
+précédent sans aucun identificateur.  C'est beaucoup plus laborieux à
+lire, et particulièrement la dernière ligne.
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
+Jusqu'ici nous avons vu des substitutions statiques : quand LilyPond
+rencontre @code{\padText}, il le remplace par le contenu que nous lui
+avons défini --- c'est-à-dire le contenu à droite de @code{padText=}.
+
+LilyPond gère également des substitutions non-statiques --- vous
+pouvez les voir comme des fonctions.
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Utiliser les identificateurs est aussi un bon moyen pour vous épargner
+du travail si la syntaxe de LilyPond change un jour --- voir
+@ref{Updating old input files}.  Si vous avez une seule définition, par
+exemple @code{\dolce}, pour tous vos fichiers (voir @ref{Style sheets}),
+et que la syntaxe change, alors vous n'aurez qu'à mettre à 
+jour votre seule définition @code{\dolce}, au lieu de devoir modifier
+chaque fichier @code{.ly}.
+
+
+@node Style sheets
+@subsection Style sheets
+
+La sortie que produit LilyPond peut être largement modifiée --- voir
+@ref{Tweaking output} pour plus de détails.  Mais que faire si vous
+avez beaucoup de fichiers auxquels vous souhaitez appliquer vos
+retouches ? Ou si vous souhaitez simplement séparer les retouches de
+la musique elle-même ?  Rien de plus facile.
+
+Prenons un exemple.  Ne vous inquiétez pas si vous ne comprenez pas
+les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
+@ref{Advanced tweaks with Scheme}.
+
+@lilypond[quote,verbatim,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+Il y a quelques problèmes de chevauchement ; nous allons arranger
+cela en utilisant les techniques de @ref{Moving objects}.  On peut
+aussi faire quelque chose pour les définitions de @code{mpdolce}
+et @code{tempoMark}.  Elles produisent le résultat que nous désirons,
+mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
+Il suffirait de les copier et coller au début de chaque
+fichier, mais c'est fastidieux.  De plus, cela laisse les définitions
+dans nos fichiers de musique, et je trouve personnellement tous ces
+@code{#()} assez laids.  Stockons-les dans un autre fichier :
+
+@example
+%%% enregistrez ceci dans un fichier nommé "definitions.ly"
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup @{ \bold $markp @}
+#@})
+@end example
+
+Maintenant, modifions notre musique (enregistrez ce fichier
+sous @file{"musique.ly"}).
+
+@c  We have to do this awkward example/lilypond-non-verbatim
+@c  because we can't do the \include stuff in the manual.
+
+@example
+\include "definitions.ly"
+
+\relative c'' @{
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+C'est mieux, mais effectuons encore quelques retouches.  Le glissando
+est peu visible, c'est pourquoi nous allons l'épaissir et le
+rapprocher des têtes de note.  Déplaçons l'indication métronomique
+au-dessus de la clef, au lieu de la laisser au-dessus de la première
+note.  Et pour finir, mon professeur de composition déteste les
+chiffrages de mesure en @qq{C}, nous allons donc le transformer en @qq{4/4}.
+
+Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
+fichier @file{definitions.ly} par ceci :
+
+@example
+%%%  definitions.ly
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup @{ \bold $markp @}
+#@})
+
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+    \override TimeSignature #'style = #'numbered
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Staff
+    \override TimeSignature #'style = #'numbered
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+C'est encore mieux !  Mais supposons maintenant que je veuille publier
+cette pièce.  Mon professeur de composition n'aime pas les chiffrages
+de mesure en @qq{C}, mais moi je les aime bien.  Copions l'actuel
+@file{definitions.ly} dans le fichier @file{publication-web.ly}, et
+modifions ce dernier.  Puisque la musique est destinée à produire un
+fichier PDF affiché sur écran, nous allons aussi augmenter la taille
+globale de police.
+
+@example
+%%%  definitions.ly
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup @{ \bold $markp @}
+#@})
+
+#(set-global-staff-size 23)
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 .  0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+#(set-global-staff-size 23)
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+Il ne nous reste plus qu'à remplacer @code{\include "definitions.ly"}
+par @code{\include "publication-web.ly"} dans notre fichier de musique.
+
+Il est possible, bien sûr, de rendre cela encore plus pratique.  Nous
+pourrions créer un fichier @file{definitions.ly} qui ne contiendrait
+que les définitions de @code{mpdolce} et de @code{tempoMark}, un
+fichier @file{publication-web.ly} qui ne contiendrait que la section
+@code{layout} décrite ci-dessus et un fichier @file{universite.ly} qui
+ne contiendrait que les retouches pour produire le résultat que mon
+professeur préfère.  Le début du fichier @file{musique.ly} ressemblerait
+alors à
+
+@example
+\include "definitions.ly"
+
+%%%  Décommentez seulement une de ces deux lignes !
+\include "publication-web.ly"
+%\include "universite.ly"
+@end example
+
+Cette approche peut être utile même si vous ne produisez qu'un seul
+jeu de partitions.  J'utilise personnellement une demi-douzaine de
+fichiers de @qq{feuille de style} pour mes projets.  Je commence
+chaque fichier de musique par @code{\include "../global.ly"} qui contient :
+
+@example
+%%%   global.ly
+\version @w{"@version{}"}
+#(ly:set-option 'point-and-click #f)
+\include "../init/init-defs.ly"
+\include "../init/init-mise-en-page.ly"
+\include "../init/init-en-tetes.ly"
+\include "../init/init-papier.ly"
+@end example
+
+@node When things don't work
+@section When things don't work
+
+@menu
+* Updating old files::          
+* Troubleshooting (taking it all apart)::  
+* Minimal examples::            
+@end menu
+
+@node Updating old input files
+@subsection Updating old input files
+
+La syntaxe de LilyPond change de temps en temps.  Ces changements de
+syntaxe du langage d'entrée accompagnent les améliorations du
+logiciel.  Ces changements sont parfois destinés à rendre les fichiers
+plus faciles à lire et à écrire, ou permettent d'intégrer de nouvelles
+fonctionnalités.
+
+LilyPond est fourni avec un utilitaire qui facilite cette mise à
+jour : @command{convert-ly}.  Pour savoir comment utiliser ce programme,
+voir @rprogram{Updating files with convert-ly}.
+
+Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
+modifications.  Il s'occupe des changements qui ne requièrent qu'une
+simple substitution de texte --- comme @code{raggedright} devenant
+@code{ragged-right} ---, les autres étant trop compliqués à effectuer.
+Les changements de syntaxe qui ne sont pas gérés par @command{convert-ly}
+sont énumérés dans @rprogram{Updating files with convert-ly}.
+
+Par exemple, dans les versions 2.4 et antérieures de LilyPond,
+les accents et les lettres non anglaises étaient entrées en
+utilisant LaTeX --- par exemple, @samp{No\"el}.  À partir de la
+version 2.6, le caratère @samp{ë} doit être entré directement
+dans le fichier LilyPond comme caractère UTF-8.
+@code{convert-ly} ne peut pas changer tous les caractères
+LaTeX en caractères UTF-8 ; vous devez mettre à jour vos vieux
+fichiers LilyPond manuellement.
+
+
+
+@node Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
+
+Tôt ou tard, vous écrirez un fichier que LilyPond ne peut pas
+compiler.  Les messages que LilyPond affiche peuvent vous aider à
+trouver l'erreur, mais dans beaucoup de cas vous aurez besoin de faire
+quelques recherches pour déterminer la source du problème.
+
+Pour ce faire, les outils les plus puissants sont le commentaire de
+fin de ligne, indiqué par @code{%}, et le commentaire multilignes (ou
+bloc de commentaire), indiqué par @code{%@{ ... %@}}.  Si vous ne
+pouvez localiser le problème, commencez par mettre en commentaire de
+grandes parties de votre fichier d'entrée.  Après avoir mis en
+commentaire une section, essayez de compiler à nouveau.  Si cela
+fonctionne, c'est que le problème se situe dans cette partie du
+fichier.  Si cela ne fonctionne pas, continuez à mettre en commentaire
+d'autres sections, jusqu'à ce que vous ayez quelque chose qui compile.
+
+Dans un cas extrême, vous pourriez en arriver à
+
+@example
+\score @{
+  <<
+    % \melodie
+    % \harmonie
+    % \basse
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+c'est-à-dire un fichier sans aucune musique.
+
+Si cela arrive, ne vous découragez pas.  Décommentez un peu, la partie
+de basse par exemple, et voyez si ça fonctionne.  Si ce n'est pas le
+cas, placez en commentaire toute la partie de basse, mais laissez
+@code{\basse} décommenté dans le bloc @code{\score}.
+
+@example
+basse = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+Maintenant commencez à décommenter petit à petit le partie de
+@code{basse} jusqu'à ce que vous localisiez la ligne qui pose
+problème.
+
+Une autre technique de déboguage très utile est la construction
+@iftex
+de @ref{Minimal examples}.
+@end iftex
+@ifnottex
+d'@ref{Minimal examples}.
+@end ifnottex
+
+
+@node Minimal examples
+@subsection Minimal examples
+
+Un exemple minimal est un exemple de code aussi court que possible.
+De tels exemples sont bien plus compréhensibles que des exemples
+longs.  Les exemples minimaux sont utilisés pour
+
+@itemize
+@item les rapports de bogue,
+@item les demandes d'aide sur les listes de diffusion,
+@item un ajout à
+@uref{http://lsr@/.dsi@/.unimi@/.it/,LilyPond Snippet Repository}.
+@end itemize
+
+Pour construire un exemple minimal, la règle est très simple : enlevez
+tout ce qui n'est pas nécessaire.  Il est préférable de commenter les
+lignes non nécessaires plutôt que de les effacer : ainsi, si vous vous
+apercevez que certaines étaient @emph{réellement} nécessaires, vous
+pouvez les décommenter au lieu de les resaisir.
+
+Il y a deux exceptions à cette règle du strict nécessaire :
+
+@itemize
+@item incluez le numéro de @code{\version} en début de fichier
+@item si possible, utilisez @code{\paper@{ ragged-right=##t @}} au
+début de votre exemple.
+@end itemize
+
+Tout l'intérêt d'un exemple minimal réside dans sa facilité de lecture :
+
+@itemize
+@item évitez d'utiliser des notes, armures ou métriques compliquées, à
+moins que vous ne vouliez montrer quelque chose en rapport avec
+celles-ci,
+@item n'utilisez pas de commandes @code{\override} sauf si elles font
+l'intérêt de l'exemple.
+@end itemize
+
+@node Scores and parts
+@section Scores and parts
+
+Dans la musique d'orchestre, toutes les notes sont imprimées deux fois.
+D'abord dans les parties séparées destinées aux musiciens, et ensuite
+dans le conducteur destiné au chef.  Les variables sont là pour vous éviter
+un double travail.  La musique n'est entrée qu'une seule fois, et stockée dans
+une variable, dont le contenu servira à imprimer à la fois la partie
+séparée et la partition d'orchestre.
+
+Il est judicieux de définir les notes dans un fichier séparé. Par
+exemple, supposons que le fichier @file{musique-Cor.ly} contienne la
+partie suivante pour un duo cor/@/basson.
+
+@example
+notesCor = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+On établira alors une partie séparée en constituant un nouveau fichier :
+
+@example
+\include "musique-Cor.ly"
+\header @{
+  instrument = "Cor en Fa"
+@}
+
+@{
+ \transpose f c' \notesCor
+@}
+@end example
+
+À la ligne
+
+@example
+\include "musique-Cor.ly"
+@end example
+
+@noindent
+sera substitué le contenu du fichier @file{musique-Cor.ly}, et de ce
+fait la variable @code{notesCor} se trouvera définie.  La commande
+@code{\transpose f@tie{}c'} indique que son argument @code{\notesCor}
+sera transposé à la quinte supérieure : le son réel @samp{f} s'écrit
+@code{c'}, ce qui est la caractéristique d'un Cor en fa.  La
+transposition est visible comme suit :
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+Dans les pièces d'ensemble, il arrive souvent qu'une voix ne joue pas
+pendant plusieurs mesures.  Un silence spécial, appelé silence multi-mesures,
+l'indique alors. On l'obtient par un @samp{R} majuscule, suivi d'une
+durée : @code{1}@tie{}pour une pause, @code{2}@tie{}pour une demi-pause,
+etc.  Cette durée peut être multipliée pour établir de plus longs silences.
+Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
+
+@example
+R2*3
+@end example
+
+Dans une partie séparée, les silences multi-mesures sont compressés.
+Il faut pour cela définir la propriété @code{skipBars} à @q{vrai} :
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+Cette commande assigne la valeur @q{vrai} --- @emph{true} en anglais, et
+@samp{#t} dans le langage Scheme --- à cette propriété dans le
+contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
+silence multi-mesures et cette option, on obtient le résultat suivant :
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+Le conducteur rassemble toute la musique. Si l'on suppose que l'autre
+voix de notre duo se trouve dans le fichier @file{musique-Basson.ly} en
+tant que variable @code{notesBasson}, on établira un conducteur avec
+
+@example
+\include "musique-Basson.ly"
+\include "musique-Cor.ly"
+
+<<
+  \new Staff \notesCor
+  \new Staff \notesBasson
+>>
+@end example
+
+@noindent
+ce qui équivaut à
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
+
+Des informations plus détaillées sur la mise en place de conducteurs
+et de parties séparées se trouvent dans le manuel : voir
+@ruser{Writing parts}.
+
+Les variables (@q{propriétés}) réglables sont abordées en détail dans
+@ruser{The set command}.

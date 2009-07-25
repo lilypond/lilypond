@@ -1,0 +1,1676 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Documentation work
+@chapter Documentation work
+
+@menu
+* Introduction to documentation work::
+* Documentation suggestions::
+* Texinfo introduction and usage policy::
+* Documentation policy::
+* Tips for writing docs::
+* Updating docs with convert-ly::
+* Translating the documentation::
+@end menu
+
+
+@node Introduction to documentation work
+@section Introduction to documentation work
+
+Our documentation tries to adhere to our @ref{Documentation
+policy}.  This policy contains a few items which may seem odd.
+One policy in particular is often questioned by potential
+contributors: we do not repeat material in the Notation Reference,
+and instead provide links to the @qq{definitive} presentation of
+that information.  Some people point out, with good reason, that
+this makes the documentation harder to read.  If we repeated
+certain information in relevant places, readers would be less
+likely to miss that information.
+
+That reasoning is sound, but we have two counter-arguments.
+First, the Notation Reference -- one of @emph{five} manuals for
+users to read -- is already over 500 pages long.  If we repeated
+material, we could easily exceed 1000 pages!  Second, and much
+more importantly, LilyPond is an evolving project.  New features
+are added, bugs are fixed, and bugs are discovered and documented.
+If features are discussed in multiple places, the documentation
+team must find every instance.  Since the manual is so large, it
+is impossible for one person to have the location of every piece
+of information memorized, so any attempt to update the
+documentation will invariably omit a few places.  This second
+concern is not at all theoretical; the documentation used to be
+plagued with inconsistent information.
+
+If the documentation were targeted for a specific version -- say,
+LilyPond 2.10.5 -- and we had unlimited resources to spend on
+documentation, then we could avoid this second problem.  But since
+LilyPond evolves (and that is a very good thing!), and since we
+have quite limited resources, this policy remains in place.
+
+A few other policies (such as not permitting the use of tweaks in
+the main portion of NR 1+2) may also seem counter-intuitive, but
+they also stem from attempting to find the most effective use of
+limited documentation help.
+
+
+@node Documentation suggestions
+@section Documentation suggestions
+
+@subheading Small additions
+
+For additions to the documentation,
+
+@enumerate
+
+@item
+Tell us where the addition should be placed. Please include both
+the section number and title (i.e. "LM 2.13 Printing lyrics").
+
+@item
+Please write exact changes to the text.
+
+@item
+A formal patch to the source code is @emph{not} required; we can
+take care of the technical details. Here is an example of a
+perfect documentation report:
+
+@verbatim
+To: lilypond-devel@gnu.org
+From: helpful-user@example.net
+Subject: doc addition
+
+In LM 2.13 (printing lyrics), above the last line ("More options,
+like..."), please add:
+
+----
+To add lyrics to a divided part, use blah blah blah.  For example,
+
+\score {
+  \notes {blah <<blah>> }
+  \lyrics {blah <<blah>> }
+  blah blah blah
+}
+----
+
+In addition, the second sentence of the first paragraph is
+confusing.  Please delete that sentence (it begins "Users
+often...") and replace it with this:
+----
+To align lyrics with something, do this thing.
+----
+
+Have a nice day,
+Helpful User
+@end verbatim
+
+@end enumerate
+
+
+@subheading Larger contributions
+
+To replace large sections of the documentation, the guidelines are
+stricter. We cannot remove parts of the current documentation
+unless we are certain that the new version is an improvement.
+
+@enumerate
+
+@item
+Ask on the lilypond-devel maillist if such a rewrite is necessary;
+somebody else might already be working on this issue!
+
+@item
+Split your work into small sections; this makes it much easier to
+compare the new and old documentation.
+
+@item
+Please prepare a formal git patch.
+
+@end enumerate
+
+Once you have followed these guidelines, please send a message to
+lilypond-devel with your documentation submissions. Unfortunately
+there is a strict “no top-posting” check on the mailist; to avoid
+this, add:
+
+> I'm not top posting.
+
+(you must include the > ) to the top of your documentation
+addition.
+
+We may edit your suggestion for spelling, grammar, or style, and
+we may not place the material exactly where you suggested, but if
+you give us some material to work with, we can improve the manual
+much faster.  Thanks for your interest!
+
+
+@node Texinfo introduction and usage policy
+@section Texinfo introduction and usage policy
+
+@menu
+* Texinfo introduction::
+* Documentation files::
+* Sectioning commands::
+* LilyPond formatting::
+* Text formatting::
+* Syntax survey::
+* Other text concerns::
+@end menu
+
+
+@node Texinfo introduction
+@subsection Texinfo introduction
+
+The language is called Texinfo; you can see its manual here:
+
+@uref{http://www.gnu.org/software/texinfo/manual/texinfo/}
+
+However, you don't need to read those docs.  The most important
+thing to notice is that text is text.  If you see a mistake in the
+text, you can fix it.  If you want to change the order of
+something, you can cut-and-paste that stuff into a new location.
+
+@warning{Rule of thumb: follow the examples in the existing docs.
+You can learn most of what you need to know from this; if you want
+to do anything fancy, discuss it on @code{lilypond-devel} first.}
+
+
+@node Documentation files
+@subsection Documentation files
+
+The user manuals lives in @file{Documentation/user/}.  In
+particular, the files @file{lilypond-learning.ly} (LM),
+@file{lilypond.itely} (NR), @file{music-glossary.tely} (MG), and
+@file{lilypond-program} (AU).  Each chapter is written in a
+separate file (ending in @file{.itely} for files containing
+lilypond code, and @file{.itexi} for files without lilypond code);
+see the @qq{main} file for each manual to determine the filename
+of the specific chapter you wish to modify.
+
+Developer manuals live in @file{Documentation/devel}.  Currently
+there is only one; @file{contrib-guide.texi}.
+
+Although snippets are part of documentation, they are not
+(directly) part of the manuals.  For information about how to
+modify them, see @ref{LSR work}.
+
+
+@node Sectioning commands
+@subsection Sectioning commands
+
+Most of the manual operates at the
+
+@example
+@@node Foo
+@@subsubsection Foo
+@end example
+
+@noindent
+level.  Sections are created with
+
+@example
+@@node Foo
+@@subsection Foo
+@end example
+
+@itemize
+@item
+Please leave two blank lines above a @@node; this makes it
+easier to find sections in texinfo.
+
+@item
+Sectioning commands (@@node and @@section) must not appear
+inside an @@ignore.  Separate those commands with a space, ie @@n
+ode.
+
+@end itemize
+
+
+@node LilyPond formatting
+@subsection LilyPond formatting
+
+@itemize
+
+@item
+Use two spaces for indentation in lilypond examples.  (no
+tabs)
+
+@item
+All text strings should be prefaced with #.  LilyPond does
+not strictly require this, but it is helpful to get users
+accustomed to this scheme construct.  ie @code{\set
+Staff.instrumentName = #"cello"}
+
+@item
+All engravers should have double-quotes around them:
+
+@example
+\consists "Spans_arpeggio_engraver"
+@end example
+
+Again, LilyPond does not strictly require this, but it is a useful
+standard to follow.
+
+@item
+Examples should end with a complete bar if possible.
+
+@item
+If possible, only write one bar per line.  The notes on each
+line should be an independent line -- tweaks should occur on their
+own line if possible.  Bad:
+
+@example
+\override textscript #'padding = #3 c1^"hi"
+@end example
+
+Good:
+
+@example
+\override textscript #'padding = #3
+c1^"hi"
+@end example
+
+@item
+Most LilyPond input should be produced with:
+
+@example
+@@lilypond[verbatim,quote,relative=2]
+@end example
+
+@noindent
+or
+
+@example
+@@lilypond[verbatim,quote,relative=1]
+@end example
+
+If you want to use \layout@{@} or define variables, use
+
+@example
+@@lilypond[verbatim,quote]
+@end example
+
+In rare cases, other options may be used (or omitted), but ask first.
+
+@item
+Inspirational headwords are produced with
+
+@example
+@@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
+@{pitches-headword.ly@}
+@end example
+
+@item
+LSR snippets are linked with
+
+@example
+@@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@{filename.ly@}
+@end example
+
+@noindent
+excepted in Templates, where `doctitle' may be omitted.
+
+@item
+Avoid long stretches of input code.  Noone is going to read
+them in print.  Please create a smaller example.  (the smaller
+example does not need to be minimal, however)
+
+@item
+Specify durations for at least the first note of every bar.
+
+@item
+If possible, end with a complete bar.
+
+@item
+Comments should go on their own line, and be placed before
+the line(s) to which they refer.
+
+@item
+Add extra spaces around @{ @} marks; ie
+
+@example
+not:          \chordmode @{c e g@}
+but instead:  \chordmode @{ c e g @}
+@end example
+
+@item
+If you only have one bar per line, omit bar checks.  If you
+put more than one bar per line (not recommended), then include bar
+checks.
+
+@item
+If you want to work on an example outside of the manual (for
+easier/faster processing), use this header:
+
+@example
+\paper @{
+  #(define dump-extents #t)
+  indent = 0\mm
+  line-width = 160\mm - 2.0 * 0.4\in
+  ragged-right = ##t
+  force-assignment = #""
+  line-width = #(- line-width (* mm  3.000000))
+@}
+
+\layout @{
+@}
+@end example
+
+You may not change any of these values.  If you are making an
+example demonstrating special \paper@{@} values, contact the
+Documentation Editor.
+
+@end itemize
+
+
+@node Text formatting
+@subsection Text formatting
+
+@itemize
+
+@item
+Lines should be less than 72 characters long.  (I personally
+recommend writing with 66-char lines, but don't bother modifying
+existing material.)
+
+@item
+Do not use tabs.
+
+@item
+Do not use spaces at the beginning of a line (except in
+@@example or @@verbatim environments), and do not use more than a
+single space between words.  `makeinfo' copies the input lines
+verbatim without removing those spaces.
+
+@item
+Use two spaces after a period.
+
+@item
+In examples of syntax, use @@var@{musicexpr@} for a music
+expression.
+
+@item
+Don't use @@rinternals@{@} in the main text.  If you're
+tempted to do so, you're probably getting too close to "talking
+through the code".  If you really want to refer to a context, use
+@@code@{@} in the main text and @@rinternals@{@} in the @@seealso.
+
+@item
+Variables or numbers which consist of a single character
+(probably followed by a punctuation mark) should be tied properly,
+either to the previous or the next word.  Example:
+
+@example
+The variable@@tie@{@}@@var@{a@} ...
+@end example
+
+@item
+To get consistent indentation in the DVI output it is better
+to avoid the @@verbatim environment.  Use the @@example
+environment instead if possible, but without extraneous
+indentation.  For example, this
+
+@example
+@@example
+  foo @{
+    bar
+  @}
+@@end example
+@end example
+
+@noindent
+should be replaced with
+
+@example
+@@example
+foo @{
+  bar
+@}
+@@end example
+@end example
+
+@noindent
+where `@@example' starts the line (without leading spaces).
+
+@item
+Do not compress the input vertically; this is, do not use
+
+@example
+    Beginning of logical unit
+    @@example
+    ...
+    @@end example
+    continuation of logical unit
+@end example
+
+@noindent
+but instead do
+
+@example
+Beginning of logical unit
+
+@@example
+...
+@@end example
+
+@@noindent
+continuation of logical unit
+@end example
+
+This makes it easier to avoid forgetting the `@@noindent'.  Only
+use @@noindent if the material is discussing the same material;
+new material should simply begin without anything special on the
+line above it.
+
+@item
+in @@itemize use @@item
+on a separate line like this:
+
+@example
+@@itemize
+@@item
+Foo
+
+@@item
+Bar
+@end example
+
+Do not use @@itemize @@bullet.
+
+@item
+To get LilyPond version, use @@version@{@} (this does not work
+inside LilyPond snippets).  If you write "@@version@{@}" (enclosed
+with quotes), or generally if @@version@{@} is not followed by a
+space, tere will be an ugly line break in PDF output unless you
+enclose it with
+
+@example
+@@w@{ ... @}
+
+  e.g.
+
+@@w@{"@@version@{@}"@}
+@end example
+
+@end itemize
+
+
+@node Syntax survey
+@subsection Syntax survey
+
+@itemize
+@item
+@@c - single line comments
+  "@@c NOTE:" is a comment which should remain in the final
+  version.  (gp only command ;)
+@item
+@@ignore ... @@end ignore - multi-line comment
+
+@item
+@@cindex - General index. Please add as many as you can.  Don't
+  capitalize the first word.
+@item
+@@funindex - is for a \lilycommand.
+
+@item
+@@example ... @@end ignore - example text that should be set as a
+  blockquote.  Any @{@} must be escaped with @@@{ @}@@
+@item
+@@itemize @@item
+A @@item
+B ... @@end itemize - for bulleted lists.
+  Do not compress vertically like this.
+
+@item
+@@code@{@} - typeset in a tt-font. Use for actual lilypond code or
+  property/context names.  If the name contains a space, wrap
+  the entire thing inside @@w@{@@code@{  @}@}.
+@item
+@@notation@{@} - refers to pieces of notation, e.g.
+  "@@notation@{cres.@}".  Also use to specific lyrics ("the
+  @@notation@{A - men@} is centered").  Only use once per subsection
+  per term.
+@item
+@@q@{@} - Single quotes. Used for `vague' terms.
+@item
+@@qq@{@} - Double quotes.  Used for actual quotes ("he said") or for
+  introducing special input modes.
+
+@item
+@@tie@{@} - Variables or numbers which consist of a single character
+  (probably followed by a punctuation mark) should be tied
+  properly, either to the previous or the next word.  Example:
+    "The letter@@tie@{@}@@q@{I@} is skipped"
+
+@item
+@@var - Use for variables.
+@item
+@@warning@{@} - produces a "Note: " box. Use for important messages.
+
+@item
+@@bs - Generates a backslash inside @@warning.
+    Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}'
+    (texinfo would also allow \\, but this breaks with PDF output).
+
+@item
+@@ref@{@} - normal references (type the exact node name inside the
+@{@}).
+@item
+@@ruser@{@} - link to the NR.
+@item
+@@rlearning@{@} - link to the LM.
+@item
+@@rglos@{@} - link to the MG.
+@item
+@@rprogram@{@} - link to the AU.
+@item
+@@rlsr@{@} - link to a Snippet section.
+@item
+@@rinternals@{@} - link to the IR.
+@item
+@@uref@{@} - link to an external url.
+
+@end itemize
+
+
+
+@node Other text concerns
+@subsection Other text concerns
+
+@itemize
+
+@item
+References must occur at the end of a sentence, for more
+information see @@ref@{the texinfo manual@}.  Ideally this should
+also be the final sentence of a paragraph, but this is not
+required.  Any link in a doc section must be duplicated in the
+@@seealso section at the bottom.
+
+@item
+Introducing examples must be done with
+
+@example
+     . (ie finish the previous sentence/paragaph)
+     : (ie `in this example:')
+     , (ie `may add foo with the blah construct,')
+@end example
+
+The old "sentence runs directly into the example" method is not
+allowed any more.
+
+@item
+Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
+
+@item
+Colon usage
+
+@enumerate
+
+@item
+To introduce lists
+
+@item
+When beginning a quote: "So, he said,...".
+
+This usage is rarer.  Americans often just use a comma.
+
+@item
+When adding a defining example at the end of a sentence.
+
+@end enumerate
+
+@item
+Non-ASCII characters which are in utf-8 should be directly used;
+this is, don't say `Ba@@ss@{@}tuba' but `Baßtuba'.  This ensures
+that all such characters appear in all output formats.
+
+@end itemize
+
+
+
+
+@node Documentation policy
+@section Documentation policy
+
+@menu
+* Books::
+* Section organization::
+* Checking cross-references::
+* General writing::
+* Technical writing style::
+@end menu
+
+@node Books
+@subsection Books
+
+There are four parts to the documentation: the Learning Manual,
+the Notation Reference, the Program Reference, and the Music
+Glossary.
+
+@itemize
+
+@item
+Learning Manual:
+
+The LM is written in a tutorial style which introduces the most
+important concepts, structure and syntax of the elements of a
+LilyPond score in a carefully graded sequence of steps.
+Explanations of all musical concepts used in the Manual can be
+found in the Music Glossary, and readers are assumed to have no
+prior knowledge of LilyPond.  The objective is to take readers to
+a level where the Notation Reference can be understood and
+employed to both adapt the templates in the Appendix to their
+needs and to begin to construct their own scores.  Commonly used
+tweaks are introduced and explained.  Examples are provided
+throughout which, while being focussed on the topic being
+introduced, are long enough to seem real in order to retain the
+readers' interest.  Each example builds on the previous material,
+and comments are used liberally.  Every new aspect is thoroughly
+explained before it is used.
+
+Users are encouraged to read the complete Learning Manual from
+start-to-finish.
+
+
+@item
+Notation Reference: a (hopefully complete) description of LilyPond
+input notation.  Some material from here may be duplicated in the
+Learning Manual (for teaching), but consider the NR to be the
+"definitive" description of each notation element, with the LM
+being an "extra".  The goal is _not_ to provide a step-by-step
+learning environment -- do not avoid using notation that has not
+be introduced previously in the NR  (for example, use \break if
+appropriate).  This section is written in formal technical writing
+style.
+
+Avoid duplication.  Although users are not expected to read this
+manual from start to finish, they should be familiar with the
+material in the Learning Manual (particularly ``Fundamental
+Concepts''), so do not repeat that material in each section of
+this book.  Also watch out for common constructs, like ^ - _ for
+directions -- those are explained in NR 3.  In NR 1, you can
+write: DYNAMICS may be manually placed above or below the staff,
+see @@ref@{Controlling direction and placement@}.
+
+Most tweaks should be added to LSR and not placed directly in the
+.itely file.  In some cases, tweaks may be placed in the main
+text, but ask about this first.
+
+Finally, you should assume that users know what the notation
+means; explaining musical concepts happens in the Music Glossary.
+
+
+@item
+Application Usage: information about using the program lilypond
+with other programs (lilypond-book, operating systems, GUIs,
+convert-ly, etc).  This section is written in formal technical
+writing style.
+
+Users are not expected to read this manual from start to finish.
+
+
+@item
+Music Glossary: information about the music notation itself.
+Explanations and translations about notation terms go here.
+
+Users are not expected to read this manual from start to finish.
+
+@item
+Internals Reference: not really a documentation book, since it is
+automagically generated from the source, but this is its name.
+
+@end itemize
+
+
+@node Section organization
+@subsection Section organization
+
+@itemize
+
+@item
+The order of headings inside documentation sections should
+be:
+
+@example
+main docs
+@@predefined
+@@endpredefined
+@@snippets
+@@seealso
+@@knownissues
+@end example
+
+@item
+You @emph{must} include a @@seealso.
+
+@itemize
+@item
+The order of items inside the @@seealso section is
+
+@example
+Music Glossary:
+@@rglos@{foo@},
+@@rglos@{bar@}.
+
+Learning Manual:
+@@rlearning@{baz@},
+@@rlearning@{foozle@}.
+
+Notation Reference:
+@@ruser@{faazle@},
+@@ruser@{boo@}.
+
+Application Usage:
+@@rprogram@{blah@}.
+
+Installed Files:
+@@file@{path/to/dir/blahz@}.
+
+Snippets: @@rlsr@{section@}.
+
+Internals Reference:
+@@rinternals@{fazzle@},
+@@rinternals@{booar@}.
+@end example
+
+@item
+If there are multiple entries, separate them by commas but do not
+include an `and'.
+
+@item
+Always end with a period.
+
+@item
+Place each link on a new line as above; this makes it much easier
+to add or remove links.  In the output, they appear on a single
+line.
+
+("Snippets" is REQUIRED; the others are optional)
+
+@item
+Any new concepts or links which require an explanation should go
+as a full sentence(s) in the main text.
+
+@item
+Don't insert an empty line between @@seealso and the first entry!
+Otherwise there is excessive vertical space in the PDF output.
+
+@end itemize
+
+@item
+To create links, use @@ref@{@} if the link is within the same
+manual.
+
+@item
+@@predefined ... @@endpredefined is for commands in ly/*-init.ly
+FIXME?
+
+@item
+Do not include any real info in second-level sections (ie 1.1
+Pitches).  A first-level section may have introductory material,
+but other than that all material goes into third-level sections
+(ie 1.1.1 Writing Pitches).
+
+@end itemize
+
+
+@node Checking cross-references
+@subsection Checking cross-references
+
+Cross-references between different manuals are heavily used in the
+documentation, but they are not checked during compilation.
+However, if you compile the documentation, a script called
+check_texi_refs can help you with checking and fixing these
+cross-references; for information on usage, cd into a source tree
+where documentation has been built, cd into Documentation and look
+for check-xrefs and fix-xrefs targets in 'make help' output.  Note
+that you have to find yourself the source files to fix
+cross-references in the generated documentation such as the
+Internals Reference; e.g. you can grep scm/ and lily/.
+
+
+@node General writing
+@subsection General writing
+
+@itemize
+
+@item
+Do not forget to create @@cindex entries for new sections of text.
+Enter commands with @@funindex, i.e.
+
+@example
+@@cindex pitches, writing in different octaves
+@@funindex \relative
+@end example
+
+@noindent
+do not bother with the @@code@{@} (they are added automatically).
+These items are added to both the command index and the unified
+index.
+
+Both index commands should go in front of the actual material.
+
+@@cindex entries should not be capitalized, ie
+
+@example
+@@cindex time signature
+@end example
+
+@noindent
+is preferred instead of @qq{Time signature},   Only use capital
+letters for musical terms which demand them, like D.S. al Fine.
+
+For scheme functions, only include the final part, i.e.,
+
+@example
+@@funindex modern-voice-cautionary
+     and NOT
+@@funindex #(set-accidental-style modern-voice-cautionary)
+@end example
+
+@item
+Preferred terms:
+
+@itemize
+
+@item
+In general, use the American spellings.  The internal lilypond
+property names use this spelling.
+
+@item
+List of specific terms:
+
+@example
+canceled
+simultaneous    NOT concurrent
+measure: the unit of music
+bar line: the symbol delimiting a measure   NOT barline
+note head   NOT notehead
+chord construct   NOT chord (when referring to <>)
+@end example
+
+@end itemize
+
+@end itemize
+
+
+@node Technical writing style
+@subsection Technical writing style
+
+These refer to the NR.  The LM uses a more gentle, colloquial
+style.
+
+@itemize
+
+@item
+Do not refer to LilyPond in the text.  The reader knows what the
+manual is about.  If you do, capitalization is LilyPond.
+
+@item
+If you explicitly refer to @q{lilypond} the program (or any other
+command to be executed), write @code{@@command@{lilypond@}}.
+
+@item
+Do not explicitly refer to the reader/user.  There is no one else
+besides the reader and the writer.
+
+@item
+Avoid contractions (don't, won't, etc.).  Spell the words out completely.
+
+@item
+Avoid abbreviations, except for commonly used abbreviations of foreign
+language terms such as etc. and i.e.
+
+@item
+Avoid fluff (@qq{Notice that,} @qq{as you can see,}
+@qq{Currently,}).
+
+@item
+The use of the word @q{illegal} is inappropriate in most cases.
+Say @q{invalid} instead.
+
+@end itemize
+
+
+@node Tips for writing docs
+@section Tips for writing docs
+
+In the NR, I highly recommend focusing on one subsection at a
+time.  For each subsection,
+
+@itemize
+
+@item
+check the mundane formatting.  Are the headings (@@predefined,
+@@seealso, etc.) in the right order?
+
+@item
+add any appropriate index entries.
+
+@item
+check the links in the @@seealso section -- links to music
+glossary, internal references, and other NR sections are the main
+concern.  Check for potential additions.
+
+@item
+move LSR-worthy material into LSR.  Add the snippet, delete the
+material from the .itely file, and add a @@lilypondfile command.
+
+@item
+check the examples and descriptions.  Do they still work?
+@strong{Do not} assume that the existing text is
+accurate/complete; some of the manual is highly out of date.
+
+@item
+is the material in the @@knownissues  still accurate?
+
+@item
+can the examples be improved (made more explanatory), or is there
+any missing info?  (feel free to ask specific questions on -user;
+a couple of people claimed to be interesting in being
+@qq{consultants} who would help with such questions)
+
+@end itemize
+
+In general, I favor short text explanations with good examples --
+@qq{an example is worth a thousand words}.  When I worked on the
+docs, I spent about half my time just working on those tiny
+lilypond examples.  Making easily-understandable examples is much
+harder than it looks.
+
+
+@subsubheading Tweaks
+
+In general, any \set or \override commands should go in the
+@qq{select snippets} section, which means that they should go in
+LSR and not the .itely file.  For some cases, the command
+obviously belongs in the @qq{main text} (i.e. not inside
+@@predefined or @@seealso or whatever) -- instrument names are a
+good example of this.
+
+@example
+\set Staff.instrumentName = #"foo"
+@end example
+
+On the other side of this,
+
+@example
+\override Score.Hairpin #'after-line-breaking = ##t
+@end example
+
+clearly belongs in LSR.
+
+I'm quite willing to discuss specific cases if you think that a
+tweaks needs to be in the main text.  But items that can go into
+LSR are easier to maintain, so I'd like to move as much as
+possible into there.
+
+
+It would be @qq{nice} if you spent a lot of time crafting nice
+tweaks for users... but my recommendation is @strong{not} to do
+this.  There's a lot of doc work to do without adding examples of
+tweaks.  Tweak examples can easily be added by normal users by adding
+them to the LSR.
+
+One place where a documentation writer can profitably spend time writing
+or upgrading tweaks is creating tweaks to deal with known issues.  It
+would be ideal if every significant known issue had a workaround to avoid
+the difficulty.
+
+@seealso
+
+@ref{Adding and editing snippets}.
+
+
+@node Updating docs with convert-ly
+@section Updating doc with @command{convert-ly}
+
+cd into Documentation and run
+
+@example
+find . -name '*.itely' | xargs convert-ly -e
+@end example
+
+@noindent
+This also updates translated documentation.
+
+
+
+@node Translating the documentation
+@section Translating the documentation
+
+@menu
+* Getting started with documentation translation::
+* Documentation translation details::
+* Documentation translation maintenance::
+* Translations management policies::
+* Technical background::
+* Translation status::
+@end menu
+
+@node Getting started with documentation translation
+@subsection Getting started with documentation translation
+
+First, get the sources from the Git repository, see @ref{Documentation
+translations source code}.
+
+@menu
+* Translation requirements::
+* Which documentation can be translated::
+* Starting translation in a new language::
+@end menu
+
+@node Translation requirements
+@unnumberedsubsubsec Translation requirements
+
+Working on LilyPond documentation translations requires the following
+pieces of software, in order to make use of dedicated helper tools:
+
+@itemize
+@item Python 2.4 or higher,
+@item GNU Make,
+@item Gettext.
+@end itemize
+
+It is not required to build LilyPond and the documentation to
+translate the documentation.  However, if you have enough time and
+motivation and a suitable system, it can be very useful to build at
+least the documentation so that you can check the output yourself and
+more quickly; if you are interested, see @ref{Compiling from source}.
+
+@menu
+@end menu
+
+@node Which documentation can be translated
+@unnumberedsubsubsec Which documentation can be translated
+
+The makefiles and scripts infrastructure currently supports translation
+of the following documentation:
+
+@itemize
+@item documentation index (HTML);
+@item user manual and program usage -- Texinfo source, PDF and HTML
+output; Info output might be added if there is enough demand for it;
+@item the News document.
+@end itemize
+
+The following pieces of documentation should be added soon, by
+descending order of priority:
+
+@itemize
+@item automatically generated documentation: markup commands,
+predefined music functions;
+@item the Snippets List;
+@item the examples page;
+@item the Internals Reference.
+@end itemize
+
+
+@node Starting translation in a new language
+@unnumberedsubsubsec Starting translation in a new language
+
+At top of the source directory, do
+
+@example
+./autogen.sh
+@end example
+
+@noindent
+or (if you want to install your self-compiled LilyPond locally)
+
+@example
+./autogen.sh --prefix=$HOME
+@end example
+
+@noindent
+If you want to compile LilyPond -- which is almost required to build
+the documentation, but is not required to do translation only -- fix
+all dependencies and rerun @command{./configure} (with the same
+options as for @command{autogen.sh}).
+
+Then @command{cd} into @file{Documentation} and run
+
+@example
+make ISOLANG=@var{MY-LANGUAGE} new-lang
+@end example
+
+@noindent
+where @var{MY-LANGUAGE} is the ISO 639 language code.
+
+Finally, add a language definition for your language in
+@file{python/langdefs.py}.
+
+Before starting the real translation work, it is recommended to commit
+changes you made so far to Git, so e.g. you are able to get back to
+this state of the sources easily if needed; see @ref{Sharing your
+changes}.
+
+
+@node Documentation translation details
+@subsection Documentation translation details
+
+Please follow all the instructions with care to ensure quality work.
+
+All files should be encoded in UTF-8.
+
+@menu
+* Files to be translated::
+* Translating the Learning Manual and other Texinfo documentation::
+* Translating the Notation Reference and Application Usage::
+* Translating the Documentation index index.html.in::
+@end menu
+
+@node Files to be translated
+@unnumberedsubsubsec Files to be translated
+
+@include contributor/doc-translation-list.itexi
+
+@node Translating the Learning Manual and other Texinfo documentation
+@unnumberedsubsubsec Translating the Learning Manual and other Texinfo documentation
+
+Any title which comes with one of the following commands must not be
+translated directly in the Texinfo source
+
+@example
+@@node                                                   @@majorheading
+@@chapter       @@unnumbered          @@appendix           @@chapheading
+@@section       @@unnumberedsec       @@appendixsec        @@heading
+@@subsection    @@unnumberedsubsec    @@appendixsubsec     @@subheading
+@@subsubsection @@unnumberedsubsubsec @@appendixsubsubsec  @@subsubheading
+@@ref  @@rglos  @@ruser  @@rlearning  @@rprogram  @@rlsr
+@end example
+
+The same applies to first argument of @code{@@r@var{manual}named}
+commands; however, the second argument @var{Bar baz} of
+@code{@@ref@{@var{Foo},@var{Bar baz},,@var{info-file}@}} and
+@code{@@r@var{manual}named@{@var{Foo},@var{Bar baz}@}} should be
+translated.
+
+@code{@@uref}'s names are to be translated.
+
+In any section which looks like
+
+@example
+@@menu
+* @var{node1}:: @var{thing1}
+* @var{node2}:: @var{thing2}
+...
+@@end menu
+@end example
+
+@noindent
+the node names @var{nodeN} are @emph{not} to be translated, whereas
+extra title information @var{thingN} is.
+
+Every node name or section title must from now on be translated
+separately in a @file{.po} file (just as well as LilyPond output
+messages) in @file{Documentation/po}.  The Gettext domain is named
+@code{lilypond-doc}, and unlike @code{lilypond} domain it is not
+managed through the Free Translation Project.
+
+
+Take care of using typographic rules for your language, especially in
+@file{user/macros.itexi}.
+
+
+Please keep verbatim copies of music snippets (in @code{@@lilypond}
+blocs).  However, some music snippets containing text that shows in
+the rendered music, and sometimes translating this text really helps
+the user to understand the documentation; in this case, and only in
+this case, you may as an exception translate text in the music
+snippet, and then you must add a line immediately before the
+@code{@@lilypond} block, starting with
+
+@example
+@@c KEEP LY
+@end example
+
+@noindent
+Otherwise the music snippet would be reset to the same content as the
+English version at next @command{make snippet-update} run -- see
+@ref{Updating documentation translation}.
+
+When you encounter
+
+@example
+@@lilypondfile[<number of fragment options>,texidoc]@{@var{filename.ly}@}
+@end example
+
+@noindent
+in the source, open @file{input/lsr/@var{filename}.ly}, translate the
+@code{texidoc} header field it contains, enclose it with
+@code{texidoc@var{MY-LANGUAGE} = "} and @code{"}, and write it into
+@file{input/texidocs/@var{filename}.texidoc} -- please keep possibly
+existing translations in other languages!  Additionnally, you may
+translate the snippet's title in @code{doctitle} header field, in case
+@code{doctitle} is a fragment option used in @code{@@lilypondfile};
+you can do this exactly the same way as @code{texidoc}.  For instance,
+@file{input/texidocs/@var{filename}.texidoc} may contain
+
+@example
+doctitlees = "Spanish title baz"
+texidoces = "
+Spanish translation blah
+"
+doctitlede = "German title bar"
+texidocde = "German translation foo
+"
+@end example
+
+@code{@@example} blocs need not be verbatim copies, e.g. variable
+names, file names and comments should be translated.
+
+Index entries (@code{@@cindex} and so on) should be translated.
+
+Finally, please carefully apply every rule exposed in @ref{Texinfo
+introduction and usage policy}, and @ref{Documentation policy}.  If
+one of these rules conflicts with a rule specific to your language,
+please ask the Translation meister and/or the Documentation Editors on
+@email{lilypond-devel@@gnu.org}.
+
+
+@node Translating the Notation Reference and Application Usage
+@unnumberedsubsubsec Translating the Notation Reference and Application Usage
+
+Copy @file{user/lilypond.tely} (or @file{user/lilypond-program.tely},
+respectively) into @file{@var{MY-LANGUAGE}/user}, then translate this
+file and run @code{skeleton-update} -- see @ref{Updating documentation
+translation}.  Your are now ready to translate the Notation Reference
+(Application Usage, respectively) exactly like the Learning Manual.
+
+
+@node Translating the Documentation index index.html.in
+@unnumberedsubsubsec Translating the Documentation index @file{index.html.in}
+
+Unlike almost all HTML pages in this documentation, links in this page
+are not tweaked by @file{postprocess_html.py}, so links should be
+manually edited to link to existing translations.
+
+
+@node Documentation translation maintenance
+@subsection Documentation translation maintenance
+
+Several tools have been developed to make translations maintenance
+easier.  These helper scripts make use of the power of Git, the
+version control system used for LilyPond development.
+
+@menu
+* Check state of translation::
+* Updating documentation translation::
+@end menu
+
+@node Check state of translation
+@unnumberedsubsubsec Check state of translation
+
+First pull from Git, then cd into @file{Documentation/} (or at top of
+the source tree, replace @command{make} with @command{make -C
+Documentation}) and run
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} check-translation
+@end example
+
+@noindent
+This presents a diff of the original files since the most recent
+revision of the translation.  To check a single file, cd into
+@file{Documentation/} and run
+
+@example
+make CHECKED_FILES=@var{MY_LANGUAGE/user/foo.itely} check-translation
+@end example
+
+To see only which files need to be updated, do
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} check-translation | grep 'diff --git'
+@end example
+
+To avoid printing terminal colors control characters, which is often
+desirable when you redirect output to a file, run
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} NO_COLOR=1 check-translation
+@end example
+
+Global state of the translation is recorded in
+@file{Documentation/translations.html.in}, which is used to generate
+Translations status page.  To update that page, do from
+@file{Documentation/}
+
+@example
+make translation-status
+@end example
+
+This will also leave @file{out/translations-status.txt}, which contains
+up-to-dateness percentages for each translated file, and update word
+counts of documentation files in this Guide.
+
+@seealso
+
+@ref{Maintaining without updating translations}.
+
+
+@node Updating documentation translation
+@unnumberedsubsubsec Updating documentation translation
+
+Instead of running @code{check-translation}, you may want to run
+@code{update-translation}, which will run your favorite text editor to
+update files.  First, make sure environment variable @code{EDITOR} is
+set to a text editor command, then run from @file{Documentation/}
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} update-translation
+@end example
+
+or to update a single file
+
+@example
+make CHECKED_FILES=@var{MY_LANGUAGE/user/foo.itely} update-translation
+@end example
+
+For each file to be udpated, update-translation will open your text
+editor with this file and a diff of the file in English; if the diff
+cannot be generated or is bigger than the file in English itself, the
+full file in English will be opened instead.
+
+Texinfo skeleton files, i.e. @file{.itely} files not yet translated,
+containing only the Texinfo structure can be updated automatically:
+whenever @command{make check-translation} shows that such files should
+be updated, run from @file{Documentation/}
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} skeleton-update
+@end example
+
+@file{.po} message catalogs in @file{Documentation/po/} may be updated
+by issuing from @file{Documentation/} or @file{Documentation/po/}
+
+@example
+make po-update
+@end example
+
+@warning{if you run po-update and somebody else does the same and
+pushes before you push or send a patch to be applied, there will be a
+conflict when you pull.  Therefore, it is better that only the
+Translation meister runs this command.}
+
+Updating music snippets can quickly become cumbersome, as most
+snippets should be identical in all languages.  Fortunately, there is
+a script that can do this odd job for you (run from
+@file{Documentation/}):
+
+@example
+make ISOLANG=@var{MY_LANGUAGE} snippet-update
+@end example
+
+This script overwrites music snippets in
+@file{@var{MY_LANGUAGE/user/every.itely}} with music snippets from
+@file{@var{user/every.itely}}.  It ignores skeleton files, and keeps
+intact music snippets preceded with a line starting with @code{@@c
+KEEP LY}; it reports an error for each @file{.itely} that has not the
+same music snippet count in both languages.  Always use this script
+with a lot of care, i.e. run it on a clean Git working tree, and check
+the changes it made with @command{git diff} before committing; if you
+don't do so, some @code{@@lilypond} snippets might be broken or make
+no sense in their context.
+
+Finally, a command runs the three update processes above for all
+enabled languages (from @file{Documentation/}):
+
+@example
+make all-translations-update
+@end example
+
+Use this command with caution, and keep in mind it will not be really
+useful until translations are stabilized after the end of GDP.
+
+@seealso
+
+@ref{Maintaining without updating translations}.
+
+
+@node Translations management policies
+@subsection Translations management policies
+
+These policies show the general intent of how the translations should
+be managed, they aim at helping translators, developers and
+coordinators work efficiently.
+
+@menu
+* Maintaining without updating translations::
+* Managing documentation translation with Git::
+@end menu
+
+@node Maintaining without updating translations
+@unnumberedsubsubsec Maintaining without updating translations
+
+Keeping translations up to date under heavy changes in the
+documentation in English may be almost impossible, especially as
+during the former Grand Documentation Project (GDP) or the Grand
+Organization Project (GOP) when a lot of contributors brings changes.
+In addition, transloators may be (and that) involved in these porjects too.
+
+it is possible -- and even recommended -- to
+perform some maintaining that keeps translated documentation usable
+and eases future translation updating.  The rationale below the tasks
+list motivates this plan.  The rationale below the tasks
+list motivates this plan.
+
+The following tasks are listed in decreasing priority order.
+
+@enumerate
+@item Update macros.itexi.
+For each obsolete macro definition, if it is possible to update macro
+usage in documentation with an automatic text or regexp substitution,
+do it and delete the macro definition from macros.itexi; otherwise,
+mark this macro definition as obsolete with a comment, and keep it in
+macros.itexi until the documentation translation has been updated and
+no longer uses this macro.
+
+@item Update @file{*.tely} files completely with
+@command{make check-translation} -- you may want to redirect ouptput
+to a file because of overwhelming output, or call check-translation.py
+on individual files, see @ref{Check state of translation}.
+
+@item In @file{.itelys}, match sections and .itely file names with those from
+English docs, which possibly involves moving nodes contents in block
+between files, without updating contents itself.  In other words, the
+game is catching where has gone each section.  In Learning manual, and
+in Notation Reference sections which have been revised in GDP, there
+may be completely new sections: in this case, copy @code{@@node} and
+@code{@@section}-command from English docs, and add the marker for
+untranslated status @code{@@untranslated} on a single line.  Note that
+it is not possible to exactly match subsections or subsubsections of
+documentation in English, when contents has been deeply revised; in
+this case, keep obsolete (sub)subsections in the translation, marking
+them with a line @code{@@c obsolete} just before the node.
+
+Emacs with Texinfo mode makes this step easier:
+
+@itemize
+@item without Emacs AucTeX installed, @key{C-c C-s} shows structure of current
+Texinfo file in a new buffer *Occur*; to show structure of two files
+simultaneously, first split Emacs window in 4 tiles (with @key{C-x 1}
+and @key{C-x 2}), press @key{C-c C-s} to show structure of one file
+(e.g. the translated file), copy *Occur* contents into *Scratch*, then
+press @key{C-c C-s} for the other file.
+
+If you happen to have installed AucTeX, you can either call the macro
+by doing @key{M-x texinfo-show-structure} or create a key binding in your
+@file{~/.emacs}, by adding the four following lines:
+
+@example
+(add-hook 'Texinfo-mode-hook
+          '(lambda ()
+             (define-key Texinfo-mode-map "\C-cs"
+              'texinfo-show-structure)))
+@end example
+
+@noindent
+and then obtain the structure in the *Occur* buffer with @key{C-c s}.
+
+@item Do not bother updating @code{@@menu}s when all menu entries are in the same
+file, just do @key{C-c C-u C-a} ("update all menus") when you have
+updated all the rest of the file.
+
+@item Moving to next or previous node using incremental search: press
+@key{C-s} and type @code{node} (or @key{C-s @@node} if the text
+contains the word @q{node}) then press @key{C-s} to move to next node
+or @key{C-r} to move to previous node.  Similar operation can be used
+to move to the next/previous section.  Note that every cursor move
+exits incremental search, and hitting @key{C-s} twice starts
+incremental search with the text entered in previous incremental
+search.
+
+@item Moving a whole node (or even a sequence of nodes): jump to beginning
+of the node (quit incremental search by pressing an arrow), press
+@key{C-SPACE}, press @key{C-s node} and repeat @key{C-s} until you
+have selected enough text, cut it with @key{C-w} or @key{C-x}, jump to
+the right place (moving between nodes with the previous hint is often
+useful) and paste with @key{C-y} or @key{C-v}.
+@end itemize
+
+@item Update sections finished in the English documentation; check
+sections status at
+@uref{http://lilypondwiki.tuxfamily.org/index.php?title=Documentation_coordination}.
+
+@item Update documentation PO.  It is recommended not to update
+strings which come from documentation that is currently deeply revised
+in English, to avoid doing the work more than once.
+
+@item Fix broken cross-references by running (from @file{Documentation/})
+
+@example
+make ISOLANG=@var{YOUR-LANGUAGE} fix-xrefs
+@end example
+
+@noindent
+This step requires a sucessful documentation build (with @command{make
+doc}).  Some cross-references are broken because they point to a node
+that exists in the documentation in English, which has not been added
+to the translation; in this case, do not fix the cross-reference but
+keep it "broken", so that the resulting HTML link will point to an
+existing page of documentation in English.
+@end enumerate
+
+@subsubheading Rationale
+
+You may wonder if it would not be better to leave translations as-is
+until you can really start updating translations.  There are several
+reasons to do these maintenance tasks right now.
+
+@itemize
+@item This will have to be done sooner or later anyway, before updating
+translation of documentation contents, and this can already be done
+without needing to be redone later, as sections of documentation in
+English are mostly revised once.  However, note that not all
+documentation sectioning has been revised in one go, so all this
+maintenance plan has to be repeated whenever a big reorganization is
+made.
+
+@item This just makes translated documentation take advantage of the new
+organization, which is better than the old one.
+
+@item Moving and renaming sections to match sectioning of documentation in
+English simplify future updating work: it allows updating the
+translation by side-by-side comparison, without bothering whether
+cross-reference names already exist in the translation.
+
+@item Each maintenance task except @q{Updating PO files} can be done by
+the same person for all languages, which saves overall time spent by
+translators to achieve this task: the node names and section titles
+are in English, so you can do.  It is important to take advantage of
+this now, as it will be more complicated (but still possible) to do
+step 3 in all languages when documentation is compiled with
+@command{texi2html} and node names are directly translated in source
+files.
+@end itemize
+
+
+@node Managing documentation translation with Git
+@unnumberedsubsubsec Managing documentation translation with Git
+
+This policy explains how to manage Git branches and commit
+translations to Git.
+
+@itemize
+@item Translation changes matching master branch are preferably made on
+@code{lilypond/translation} branch; they may be pushed directly to
+@code{master} only if they do not break compilation of LilyPond and
+its documentation, and in this case they should be pushed to
+@code{lilypond/translation} too.  Similarly, changes matching
+@code{stable/X.Y} are preferably made on
+@code{lilypond/X.Ytranslation}.
+
+@item @code{lilypond/translation} Git branch may be merged into
+master only if LilyPond (@command{make all}) and documentation
+(@command{make doc}) compile succesfully.
+
+@item @code{master} Git branch may be merged into
+@code{lilypond/translation} whenever @command{make} and @command{make
+doc} are succesful (in order to ease documentation compilation by
+translators), or when significant changes had been made in
+documentation in English in master branch.
+
+@item General maintenance may be done by anybody who knows what he does
+in documentation in all languages, without informing translators
+first.  General maintenance include simple text substitutions
+(e.g. automated by sed), compilation fixes, updating Texinfo or
+lilypond-book commands, updating macros, updating ly code, fixing
+cross-references, and operations described in @ref{Maintaining
+without updating translations}.
+@end itemize
+
+
+@node Technical background
+@subsection Technical background
+
+A number of Python scripts handle a part of the documentation
+translation process.  All scripts used to maintain the translations
+are located in @file{scripts/auxiliar/}.
+
+@itemize
+@item @file{check_translation.py}  -- show diff to update a translation,
+@item @file{texi-langutils.py}  -- quickly and dirtily parse Texinfo files to
+make message catalogs and Texinfo skeleton files,
+@item @file{texi-skeleton-update.py} -- update Texinfo skeleton files,
+@item @file{update-snippets.py} -- synchronize ly snippets with those
+from English docs,
+@item @file{translations-status.py} -- update translations status pages and word
+counts in the file you are reading,
+@item @file{tely-gettext.py} -- gettext node names, section titles and references
+in the sources; WARNING only use this script once for each file, when support for
+"makeinfo --html" has been dropped.
+@end itemize
+
+Other scripts are used in the build process, in @file{scripts/build/}:
+
+@itemize
+@item @file{html-gettext.py} -- translate node names, section titles and cross
+references in HTML files generated by @command{makeinfo},
+@item @file{texi-gettext.py} -- gettext node names, section titles and references
+before calling @command{texi2pdf},
+@item @file{mass-link.py} -- link or symlink files between English documentation
+and documentation in other languages.
+@end itemize
+
+Python modules used by scripts in @file{scripts/auxiliar/} or @file{scripts/build/} (but
+not by installed Python scripts) are located in @file{python/auxiliar/}:
+@itemize
+@item @file{manuals_definitions.py} -- define manual names and name of
+cross-reference Texinfo macros,
+@item @file{buildlib.py} -- common functions (read piped output
+of a shell command, use Git),
+@item @file{postprocess_html.py} (module imported by @file{www_post.py}) -- add footer and
+tweak links in HTML pages.
+@end itemize
+
+And finally
+@itemize
+@item @file{python/langdefs.py}  -- language definitions module
+@end itemize
+
+
+@node Translation status
+@subsection Translation status
+
+

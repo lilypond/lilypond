@@ -1,0 +1,28 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Scheme tutorial
+@appendix Scheme tutorial
+
+@untranslated
+
+
+@menu
+* Tweaking with Scheme::
+@end menu
+
+@node Tweaking with Scheme
+@appendixsec Tweaking with Scheme
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

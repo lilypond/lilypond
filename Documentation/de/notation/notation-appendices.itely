@@ -1,0 +1,665 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Notation manual tables
+@appendix Notation manual tables
+
+@c Please do not delete the following @ignore block.
+@ignore
+Note for editors and translators: In the following menu, two entries
+are needed to link to a pair of automatically generated sections.
+Please keep them and, if using emacs, do not run
+texinfo-all-menus-update without manually restoring them back. These
+menu entries are:
+
+* Text markup commands::
+* Text markup list commands::
+
+and they should go just after
+* Note head styles::
+
+and just before
+* List of articulations::
+@end ignore
+
+@menu
+* Chord name chart::   
+* Common chord modifiers::
+* Predefined fretboard diagrams::         
+* MIDI instruments::         
+* List of colors::              
+* The Feta font::               
+* Note head styles::            
+* Text markup commands::        
+* Text markup list commands::   
+* List of articulations::
+* Percussion notes::   
+* All context properties::      
+* Layout properties::           
+* Identifiers::                 
+* Scheme functions::            
+@end menu
+
+@node Chord name chart
+@appendixsec Chord name chart
+
+Die Tabelle zeigt die zwei üblichen Möglichkeiten, wie Akkordbezeichnungen
+ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
+
+@lilypondfile{chord-names-jazz.ly}
+
+
+@node Common chord modifiers
+@appendixsec Common chord modifiers
+
+Die Tabelle zeigt Modifikatoren für Akkorde, die im @code{\chordmode}-Modus
+benutzt werden können, um übliche Akkordkonstrukte zu notieren.
+
+@multitable @columnfractions .2 .3 .2 .2
+
+@item
+@b{Akkordtyp}
+@tab
+@b{Intervalle}
+@tab
+@b{Modifikator(en)}
+@tab
+@b{Beispiel}
+
+
+@item
+Dur
+@tab
+große Terz, Quinte
+@tab
+@code{5} oder nichts
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:5
+}
+@end lilypond
+
+@item
+Moll
+@tab
+kleine Terz, Quinte
+@tab
+@code{m} oder @code{m5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m
+}
+@end lilypond
+
+@item
+Übermäßig
+@tab
+Große Terz, übermäßige Quinte
+@tab
+@code{aug}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug
+}
+@end lilypond
+
+@item
+Vermindert
+@tab
+Kleine Terz, verminderte Quinte
+@tab
+@code{dim}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim
+}
+@end lilypond
+
+@item
+Dominantsieben
+@tab
+Durdreiklang, kleine Septime
+@tab
+@code{7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:7
+}
+@end lilypond
+
+@item
+Große Septime
+@tab
+Durdreiklang, große Septime
+@tab
+@code{maj7} oder @code{maj}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7
+}
+@end lilypond
+
+@item
+Kleine Septime
+@tab
+Molldreiklang, kleine Septime
+@tab
+@code{m7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7
+}
+@end lilypond
+
+@item
+Verminderte Septime
+@tab
+Verminderter Dreiklang, verminderte Septime
+@tab
+@code{dim7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim7
+}
+@end lilypond
+
+@item
+Übermäßige Septime
+@tab
+Übermäßiger Dreiklang, kleine Septime
+@tab
+@code{aug7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug7
+}
+@end lilypond
+
+@item
+halbverminderte Septime
+@tab
+Verminderter Dreklang, kleine Sept
+@tab
+@code{m7.5-}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7.5-
+}
+@end lilypond
+
+@item
+Kleine MollSept
+@tab
+Molldreiklang, Durseptime
+@tab
+@code{maj7.5-}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7.5-
+}
+@end lilypond
+
+@item
+Große Sexte
+@tab
+Durdreiklang, Sexte
+@tab
+@code{6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:6
+}
+@end lilypond
+
+@item
+Kleine Sexte
+@tab
+Molldreiklang, Sexte
+@tab
+@code{m6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m6
+}
+@end lilypond
+
+@item
+Dominantnone
+@tab
+Dominantsept, große None
+@tab
+@code{9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:9
+}
+@end lilypond
+
+@item
+Dur None
+@tab
+Große None, große Septime
+@tab
+@code{maj9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj9
+}
+@end lilypond
+
+@item
+Moll None
+@tab
+Große None, kleine Septime
+@tab
+@code{m9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m9
+}
+@end lilypond
+
+@item
+Dominantundezime
+@tab
+Dominantnone, perfekte Undezime
+@tab
+@code{11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:11
+}
+@end lilypond
+
+@item
+Durundezime
+@tab
+Große None, perfekte Unidezime
+@tab
+@code{maj11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj11
+}
+@end lilypond
+
+@item
+Mollundezime
+@tab
+Kleine None, perfekte Undezime
+@tab
+@code{m11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m11
+}
+@end lilypond
+
+@item
+Dominant-13
+@tab
+Dominantnone, große 13
+@tab
+@code{13}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13
+}
+@end lilypond
+
+@item
+Dominant-13
+@tab
+@code{13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13.11
+}
+@end lilypond
+
+@item
+Dur-13
+@tab
+Große Undezime, große 13
+@tab
+@code{maj13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj13.11
+}
+@end lilypond
+
+@item
+Moll-13
+@tab
+Kleine Undezime, große 13
+@tab
+@code{m13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m13.11
+}
+@end lilypond
+
+@item
+Sekundakkord
+@tab
+große Sekunde, perfekte Quinte
+@tab
+@code{sus2}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus2
+}
+@end lilypond
+
+@item
+Quartakkord
+@tab
+perfekte Quarte, perfekte Quinte
+@tab
+@code{sus4}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus4
+}
+@end lilypond
+
+
+@end multitable
+
+
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
+
+Die Tabelle zeigt alle vordefinierten Bunddiagramme.
+
+@lilypondfile{display-predefined-fretboards.ly}
+
+
+
+@node MIDI instruments
+@appendixsec MIDI instruments
+
+Hier eine Liste von Musikinstrumentenbezeichnungen, die als Name für 
+@code{midiInstrument} benutzt werden können.
+@c Todo: translate music instrument's names to German
+
+@cindex MIDI-Instrumentenbezeichnungen
+
+@example
+acoustic grand            contrabass           lead 7 (fifths)
+bright acoustic           tremolo strings      lead 8 (bass+lead)
+electric grand            pizzicato strings    pad 1 (new age)
+honky-tonk                orchestral harp      pad 2 (warm)
+electric piano 1          timpani              pad 3 (polysynth)
+electric piano 2          string ensemble 1    pad 4 (choir)
+harpsichord               string ensemble 2    pad 5 (bowed)
+clav                      synthstrings 1       pad 6 (metallic)
+celesta                   synthstrings 2       pad 7 (halo)
+glockenspiel              choir aahs           pad 8 (sweep)
+music box                 voice oohs           fx 1 (rain)
+vibraphone                synth voice          fx 2 (soundtrack)
+marimba                   orchestra hit        fx 3 (crystal)
+xylophone                 trumpet              fx 4 (atmosphere)
+tubular bells             trombone             fx 5 (brightness)
+dulcimer                  tuba                 fx 6 (goblins)
+drawbar organ             muted trumpet        fx 7 (echoes)
+percussive organ          french horn          fx 8 (sci-fi)
+rock organ                brass section        sitar
+church organ              synthbrass 1         banjo
+reed organ                synthbrass 2         shamisen
+accordion                 soprano sax          koto
+harmonica                 alto sax             kalimba
+concertina                tenor sax            bagpipe
+acoustic guitar (nylon)   baritone sax         fiddle
+acoustic guitar (steel)   oboe                 shanai
+electric guitar (jazz)    english horn         tinkle bell
+electric guitar (clean)   bassoon              agogo
+electric guitar (muted)   clarinet             steel drums
+overdriven guitar         piccolo              woodblock
+distorted guitar          flute                taiko drum
+guitar harmonics          recorder             melodic tom
+acoustic bass             pan flute            synth drum
+electric bass (finger)    blown bottle         reverse cymbal
+electric bass (pick)      shakuhachi           guitar fret noise
+fretless bass             whistle              breath noise
+slap bass 1               ocarina              seashore
+slap bass 2               lead 1 (square)      bird tweet
+synth bass 1              lead 2 (sawtooth)    telephone ring
+synth bass 2              lead 3 (calliope)    helicopter
+violin                    lead 4 (chiff)       applause
+viola                     lead 5 (charang)     gunshot
+cello                     lead 6 (voice)
+@end example
+
+
+@node List of colors
+@appendixsec List of colors
+
+@subsubheading Normal colors
+
+Die Syntax zur Benutzung findet sich im Abschnitt @ref{Coloring objects}.
+
+@cindex Liste der Farben
+@cindex Farben, Liste
+
+@verbatim
+black       white          red         green
+blue        cyan           magenta     yellow
+grey        darkred        darkgreen   darkblue
+darkcyan    darkmagenta    darkyellow
+@end verbatim
+
+
+@subsubheading X color names
+
+X-Farbbezeichnungen haben verschiedene Varianten:
+
+Alle Bezeichnungen, die als einziges Wort mit Großbuchstaben 
+geschrieben werden (bspw. @q{LightSlateBlue}), können auch 
+von Leerzeichen getrennt geschrieben werden
+(also @q{light slate blue}).
+
+Das Wort @q{grey} kann in jedem Fall auch @q{gray} geschrieben 
+werden (bspw. @q{DarkSlateGray}).
+
+Manche Bezeichnungen können auch ein numerales Suffix tragen 
+(etwa @q{LightSalmon4}).
+
+
+@subsubheading Color Names without a numerical suffix:
+
+@verbatim
+snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
+OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
+bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
+ivory		LemonChiffon	seashell	honeydew	MintCream
+azure		AliceBlue	lavender	LavenderBlush	MistyRose
+white		black		DarkSlateGrey	DimGrey		SlateGrey
+LightSlateGrey	grey		LightGrey	MidnightBlue	navy
+NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
+LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
+DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
+LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
+turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
+aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
+MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
+green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
+YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
+PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
+LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
+SaddleBrown	sienna		peru		burlywood	beige
+wheat		SandyBrown	tan		chocolate	firebrick
+brown		DarkSalmon	salmon		LightSalmon	orange
+DarkOrange	coral		LightCoral	tomato		OrangeRed
+red		HotPink		DeepPink	pink		LightPink
+PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
+violet		plum		orchid		MediumOrchid	DarkOrchid
+DarkViolet	BlueViolet	purple		MediumPurple	thistle
+DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
+LightGreen
+@end verbatim
+
+
+@subsubheading Color names with a numerical suffix
+
+Für die folgenden Bezeichnungen kann das Suffix N durch eine 
+Zahl von 1--4 ersetzt werden.
+
+@verbatim
+snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
+NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
+LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
+blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
+LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
+CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
+SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
+OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
+yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
+IndianRedN	siennaN		burlywoodN	wheatN		tanN
+chocolateN	firebrickN	brownN		salmonN		LightSalmonN
+orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
+redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
+PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
+plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
+thistleN
+@end verbatim
+
+
+@subsubheading Grey Scale
+
+Eine Grauskala kann mit der Bezeichnung
+
+@example
+greyN
+@end example
+
+@noindent
+erstellt werden, wobei N eine Zahl von 0--100 darstellt.
+
+
+@node The Feta font
+@appendixsec The Feta font
+
+@cindex Feta font
+@cindex Font, Feta
+
+Die folgenden Symbole sind als Emmentaler-Schriftart verfügbar; auf sie 
+kann direkt zugegriffen werden, indem man die übliche Textbeschriftung 
+benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart 
+zu (bspw. @code{g^\markup @{
+\musicglyph #"scripts.segno" @}}). Siehe auch @ref{Formatting text}.
+
+@lilypondfile[noindent]{font-table.ly}
+
+
+@node Note head styles
+@appendixsec Note head styles
+
+@cindex Notenkopfarten
+@cindex Arten von Notenköpfen
+@cindex Stile, Notenköpfe
+
+Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
+
+@lilypondfile[noindent]{note-head-style.ly}
+
+@include markup-commands.tely
+
+@include markup-list-commands.tely
+
+@node List of articulations
+@appendixsec List of articulations
+
+@cindex Akzent
+@cindex Marcato
+@cindex Staccatissimo
+@cindex Espressivo
+@cindex Fermate
+@cindex Gedämpft
+@cindex Staccato
+@cindex Portato
+@cindex Tenuto
+@cindex Aufstrich
+@cindex Abstrich
+@cindex Fußbezeichnung
+@cindex Orgelpedalbezeichnung
+@cindex Triller
+@cindex Offen
+@cindex Flageolet
+@cindex Praller
+@cindex Mordent
+@cindex Doppelpraller
+@cindex Prallermordent
+@cindex Fingersatz
+@cindex Daumenbezeichnung
+@cindex Segno
+@cindex Coda
+@cindex Varcoda
+
+@lilypondfile[quote,texidoc]{script-chart.ly}
+
+
+@node Percussion notes
+@appendixsec Percussion notes
+
+@lilypondfile[quote]{percussion-chart.ly}
+
+
+@node All context properties
+@appendixsec All context properties
+
+@include context-properties.tely
+
+
+@node Layout properties
+@appendixsec Layout properties
+
+@include layout-properties.tely
+
+
+@node Identifiers
+@appendixsec Identifiers
+
+@include identifiers.tely
+
+
+@node Scheme functions
+@appendixsec Scheme functions
+
+@include scheme-functions.tely
+

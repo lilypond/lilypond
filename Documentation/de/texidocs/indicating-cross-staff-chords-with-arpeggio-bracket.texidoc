@@ -1,0 +1,12 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Eine Arpeggioklammer kann anzeigen, dass Noten auf zwei unterschiedlichen
+Systemen mit der selben Hand gespielt werden sollen.  Damit das notiert
+werden kann, muss der @code{PianoStaff}-Kontext so eingestellt werden,
+dass er Arpeggios über Systeme hinweg akzeptiert und die Form der Arpeggios
+muss auf eine Klammer eingestellt werden.
+
+(Debussy, Les collines d’Anacapri, T. 65)
+
+"
+  doctitlede = "Akkorde auf zwei Systemen mit Arpeggioklammern anzeigen"

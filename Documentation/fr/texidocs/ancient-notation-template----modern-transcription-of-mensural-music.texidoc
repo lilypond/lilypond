@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+  texidocfr = "
+Lorsque l'on transcrit de la musique mensurale, il est d'usage 
+d'indiquer en début de partition,  par un « incipit », les tonalité 
+et tempo originaux.  De nos jours, les musiciens ont l'habitude de 
+voir des barres de mesure qui les aide à appréhender la structure 
+rythmique.  Ces barres n'existaient pas du temps où ces œuvres ont 
+été écrites ; en fait, la métrique évoluait au fil de la pièce.  Un 
+compromis consiste à imprimer des barres de mesure entre les portées 
+plutôt que sur la portée elle-même.
+
+"
+  doctitlefr = "Exemples de notation ancienne -- transcription moderne de musique mensurale"

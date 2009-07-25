@@ -1,0 +1,778 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
+
+このセクションでは一般的な問題のいくつかを解決または回避する方法について説明し@c
+ます。あなたにプログラミングの経験があるのなら、ここで取り上げる TIPS の多くは@c
+当たり前のことに見えるかもしれませんが、それでも本章を読むことをお勧めします。
+
+
+@menu
+* Suggestions for writing LilyPond input files::
+* When things don't work::
+* Scores and parts::
+@end menu
+
+
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
+
+今やあなたはもっと大きな LilyPond 入力ファイル -- チュートリアルにあるような小@c
+さな例ではなく、楽曲全体 -- を書き始める準備が整っています。しかしながら、どの@c
+ように書き進めていくべきなのでしょうか？
+
+LilyPond があなたの入力ファイルを理解でき、望みの出力を作り出している限り、あ@c
+なたの入力ファイルがどのようなものであるかは問題になりません。しかしながら、@c
+LilyPond 入力ファイルを書いているときに考慮すべきことが他にもいくつかあります。
+
+@itemize
+@item あなたがミスをしたとしたらどうでしょうか？LilyPond ファイルの構造はエ@c
+ラーを見つけ出すことをより容易に (あるいはより困難に) します。
+
+@item あなたがあなたの入力ファイルを誰か他の人と共有したいとしたらどうでしょう@c
+か？実際には、あなたが数年前のあなた自身の入力ファイルを変更したいとしたらどう@c
+でしょうか？一読して理解可能な LilyPond 入力ファイルがある一方で、あなたを 1 
+時間も悩ます入力ファイルもあるかもしれません。
+
+@item あなたがあなたの LilyPond ファイルを最近のバージョンの LilyPond のために@c
+アップグレードしたいとしたらどうでしょうか？入力構文は LilyPond の改良に合わせ@c
+てしばしば変更されます。たいていの変更は @code{convert-ly} で自動的に変換でき@c
+ますが、いくつかの変更は手動での援助を必要とするかもしれません。LilyPond 入力@c
+ファイルはより容易に (あるいはより困難に) アップグレードできるように構成するこ@c
+とができます。
+@end itemize
+
+@menu
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Saving typing with variables and functions::
+* Style sheets::
+@end menu
+
+
+@node General suggestions
+@subsection General suggestions
+
+ここで、あなたが問題を回避したり修正する手助けになる可能性がある提案をいくつか@c
+挙げます:
+
+@itemize
+@item @strong{すべてのファイルに @code{@bs{}version} 番号を含めます}。テンプ@c
+レートはすべて @code{@bs{}version} 情報を保持しているということに注意してくだ@c
+さい。常に @code{@bs{}version} を含めること -- ファイルの大小にかかわらず -- 
+を強く推奨します。個人的な経験から言って、数年前に使っていた LilyPond のバー@c
+ジョンを思い出そうとすることは大変なことです。@command{convert-ly} は使用した 
+LilyPond のバージョンを宣言することを必要とします。
+
+@item @strong{チェックを含めます}: @ruser{Bar and bar number checks}, 
+@ruser{Octave checks}。時々チェックを入れておけば、ミスをしたときに素早くそ@c
+れを見つけ出すことができます。@q{時々} とはどれくらいの頻度なのでしょうか？@c
+それはその音楽の複雑さ次第です。とても簡単な音楽であれば、たぶん 1 回か 2 回で@c
+す。とても複雑な音楽であれば、おそらく各小節にチェックを入れます。
+
+@item @strong{テキスト 1 行につき 1 小節にします}。音楽自体や望みの出力が複雑@c
+である場合、1 行に 1 小節だけを記述すると良い場合が多いです。画面スペースを節@c
+約するために 1 行に 8 小節も詰め込むことは、入力ファイルを @q{デバッグ} しなけ@c
+ればならない場合に、そうするだけの価値はありません。
+
+@item @strong{入力ファイルにコメントをつけます}。コメントとして小節番号 (時々) 
+や音楽テーマへの参照 (@q{second theme in violins}, @q{fourth variation} 
+(@q{ヴァイオリンの第 2 テーマ}, @q{第 4 ヴァイオリン}) など) を使用します。@c
+初めて楽曲を書いているときはコメントをつける必要は無いかもしれません。しかしな@c
+がら、数年後に何か変更を加えたいと思った場合や、ソースを友人に渡す場合、あなた@c
+がファイルにコメントをつけていなければ、あなたの意図やファイルがどのように構成@c
+されているのかを特定することはずっと大変になります。
+
+@item @strong{中括弧にインデントを入れる}。多くの問題は @code{@{} と @code{@}} 
+の数が食い違うことによって生じます。
+
+@item セクションや変数の開始時に@strong{明示的に演奏時間を付け加える}。フレー@c
+ズの開始時に @code{c4 d e} (@code{c d e} ではなく) と記述しておけば、後になっ@c
+て音楽を再編成する場合に問題の発生を免れる可能性があります。
+
+@item 音楽定義から@strong{調整を分離します}。@ref{Saving typing with variables 
+and functions} と @ref{Style sheets} を参照してください。
+
+@end itemize
+
+
+@node Typesetting existing music
+@subsection Typesetting existing music
+
+既存の楽譜からの音楽を入力している (つまり、既存の楽譜の楽曲を譜刻している) の@c
+なら、
+
+@itemize
+
+@item 1 回につき 1 つのシステム (訳者: システムとは譜の集まりのこと。例えば、@c
+ピアノ譜での 1 システムとは、右手譜 1 小節とそれに対応する左手譜 1 小節) を入@c
+力し (しかし、それでもテキスト 1 行につき 1 小節だけにします)、それを終えたと@c
+きに各システムをチェックします。処理をスピード アップさせるために 
+@code{showLastLength} プロパティや @code{showFirstLength} プロパティを使うこと@c
+になるかもしれません -- @ruser{Skipping corrected music} を参照してください。
+
+@item @code{mBreak = @{ @bs{}break @}} を定義して、写している楽譜が改行するた@c
+びに @code{@bs{}mBreak} を入力ファイルに挿入します。これにより、LilyPond の音@c
+楽とオリジナルの音楽を比較することがずっと容易になります。入力した楽譜の校正が@c
+終わったときに、それらの改行すべてを削除するために @code{mBreak = @{ @}} を定@c
+義することになるかもしれません。これにより、LilyPond は LilyPond が最適と思う@c
+場所に改行を入れることができるようになります。
+
+@end itemize
+
+
+@node Large projects
+@subsection Large projects
+
+大きなプロジェクトに取り組んでいるとき、LilyPond 入力ファイルの構造をすっきり@c
+させておくことが不可欠です。
+
+@itemize
+
+@item @strong{各ボイスに対して変数を使用して}、定義の中の構造を最小限にしま@c
+す。@code{@bs{}score} セクションの構造が最も変更される可能性が高い箇所です。一@c
+方、@code{violin} 定義は LilyPond のバージョンが新しくなっても変更される可能性@c
+はまずありません。
+
+@example
+violin = \relative c'' @{
+g4 c'8. e16
+@}
+...
+\score @{
+  \new GrandStaff @{
+    \new Staff @{
+      \violin
+    @}
+  @}
+@}
+@end example
+
+@item @strong{調整を音楽定義から分離します}。このことは前にも触れましたが、大@c
+きなプロジェクトでは絶対に不可欠なことです。@code{fthenp} の定義を変更する必要@c
+が生じた場合、変更は 1 回で済み、@code{violin} の内部にはまったく手を触れる必@c
+要がありません。
+
+@example
+fthenp = _\markup@{
+  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+violin = \relative c'' @{
+g4\fthenp c'8. e16
+@}
+@end example
+
+@end itemize
+
+
+@node Saving typing with variables and functions
+@subsection Saving typing with variables and functions
+
+@cindex variables
+@cindex variables
+
+これまでに、以下のような記述を見てきました:
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+これは音楽表記を最小化するのに役に立つ可能性があるということに気付くかもしれま@c
+せん:
+
+@lilypond[quote,verbatim,ragged-right]
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+さらに、これらの変数 (変数、マクロ、(ユーザ定義) コマンドなどと呼ばれます) を@c
+調整のために使うこともできます:
+
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+これらの明らかに変数は入力の手間を省くのに役立っています。例えそれらの変数が 1 
+回しか使用されないとしても、変数化することを考慮する価値があります -- 複雑さを@c
+減らします。以前に使用した変数を使っていない例を見てみましょう。それはとても読@c
+み難く、特に最後の行が読み難いです。
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
+これまでに見てきたのは静的な置き換えです -- LilyPond は @code{@bs{}padText} を@c
+見ると、それを定義した内容 (つまり、@code{padText=} の右側にあるもの) に置き換@c
+えます。
+
+LilyPond は非静的な置き換えも処理できます (それらを関数と見なすことができます)。
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+変数を使うことは、LilyPond 入力構文に変更があった場合の作業を減らす良い方法で@c
+もあります (@ref{Updating old input files} を参照してください)。あなたがあなた@c
+の入力ファイルすべてに使用する単一の定義 (@code{@bs{}dolce} のような) を持って@c
+いて、構文が変更された場合、すべての @code{.ly} ファイルを変更する代わりに、@c
+@code{@bs{}dolce} 定義をアップデートするだけで済みます。
+
+
+@node Style sheets
+@subsection Style sheets
+
+LilyPond が作り出す出力にはさまざまな変更を加えることができます (詳細は 
+@ref{Tweaking output} を参照してください)。しかしながら、調整を加えたい入力@c
+ファイルがたくさんあるとしたらどうでしょう？また、単に調整を実際の音楽表記から@c
+分離したいとしたらどうでしょう？これはとても簡単なことです。
+
+以下の例を見てみましょう。@code{@hash{}()} を持つ部分を理解できなくても心配し@c
+ないでください。@ref{Advanced tweaks with Scheme} で説明されています。
+
+@lilypond[quote,verbatim,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+この例には出力が重なり合うという問題がいくつかあり、@ref{Moving objects} のテ@c
+クニックを使ってそれらを修正しています。そこで、さらに @code{mpdolce} 定義と 
+@code{tempoMark} 定義に関して何かしてみましょう。それらは望みの出力を作り出し@c
+ていますが、それらを別の楽曲で使いたいとします。単純にそれらを各ファイルの先頭@c
+部分にカット＆ペーストすることもできますが、わずらわしいです。その方法では定義@c
+は依然として入力ファイルの中にあり、私は個人的にすべての @code{@hash{}()} は何@c
+か醜いと感じます。それらを他のファイルの中に隠すことにしましょう:
+
+@example
+%%% save this to a file called "definitions.ly"
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup @{ \bold $markp @}
+#@})
+@end example
+
+今度は音楽ファイルを変更しましょう (このファイルを @file{"music.ly"} として保@c
+存しましょう)。
+
+@c  We have to do this awkward example/lilypond-non-verbatim
+@c  because we can't do the \include stuff in the manual.
+
+@example
+\include "definitions.ly"
+
+\relative c'' @{
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+これで前よりも良くなりましたが、2, 3 の変更を行いましょう。グリッサンド (訳者: 
+第 1 小節の C シャープと A の間) は見え難いので、もっと太く、音符の玉に近づけ@c
+ましょう。メトロノーム記号を最初の音符の上ではなく、音部記号の上に持ってきま@c
+しょう。最後に、私の作曲の先生は @q{C} 拍子記号を嫌っているので、@q{4/4} に変@c
+更した方が良さそうです。
+
+@file{music.ly} には変更を加えないでください。@file{definitions.ly} を以下のよ@c
+うに書き換えます:
+
+@example
+%%%  definitions.ly
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup @{ \bold $markp @}
+#@})
+
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+    \override TimeSignature #'style = #'numbered
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Staff
+    \override TimeSignature #'style = #'numbered
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+もっと良くなりました！今度はこれを公表したいとします。私の作曲の先生は @q{C} 
+拍子記号を嫌っていますが、私は幾分好きです。現在の @code{definitions.ly} を 
+@code{web-publish.ly} にコピーして、それを変更してみましょう。この音楽はスク@c
+リーンに表示される PDF を作り出すことを意図したものなので、出力のフォントを全@c
+体に大きくすることにします。
+
+@example
+%%%  definitions.ly
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup @{ \bold $markp @}
+#@})
+
+#(set-global-staff-size 23)
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $markp }
+#})
+
+#(set-global-staff-size 23)
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+音楽ファイルの中では、単に @code{@bs{}include "definitions.ly"} を 
+@code{@bs{}include "web-publish.ly"} に置き換えるだけです。もちろん、これを@c
+もっと便利なようにすることができます。@file{definitions.ly} ファイルには 
+@code{mpdolce} と @code{tempoMark} の定義だけを持たせて、@file{web-publish.ly} 
+ファイルには上で載せた @code{@bs{}layout} セクションだけを持たせ、@c
+@file{university.ly} ファイルには私の先生の好む出力を作り出すための調整だけを@c
+持たせます。@file{music.ly} の先頭部分は以下のようになります:
+
+@example
+\include "definitions.ly"
+
+%%%  Only uncomment one of these two lines!
+\include "web-publish.ly"
+%\include "university.ly"
+@end example
+
+このアプローチは、あなたがパーツ一式を作っているだけだとしても役に立つ可能性が@c
+あります。私は自分のプロジェクトのための半ダースの @q{スタイル シート} ファイ@c
+ルを使います。私は各音楽ファイルを @code{@bs{}include "../global.ly"} で始め@c
+て、@file{gloval.ly} には以下の内容を記述しています:
+
+@example
+%%%   global.ly
+\version @w{"@version{}"}
+#(ly:set-option 'point-and-click #f)
+\include "../init/init-defs.ly"
+\include "../init/init-layout.ly"
+\include "../init/init-headers.ly"
+\include "../init/init-paper.ly"
+@end example
+
+
+@node When things don't work
+@section When things don't work
+
+@menu
+* Updating old input files::
+* Troubleshooting (taking it all apart)::
+* Minimal examples::
+@end menu
+
+@node Updating old input files
+@subsection Updating old input files
+
+LilyPond 入力構文はしばしば変更されます。LilyPond 自体の改良に合わせて、構文 
+(入力言語) も変更されます。これらの変更は入力を読みやすく/書きやすくするために@c
+行われる場合もありますし、LilyPond の新しい機能のために行われる場合もあります。
+
+LilyPond は、このアップデートをより容易にするファイル: @code{convert-ly} と一@c
+緒に公開されます。このプログラムの実行方法についての詳細は @rprogram{Updating 
+files with convert-ly} を参照してください。
+
+残念なことに、@code{convert-ly} はすべての入力構文の変更を処理できるわけではあ@c
+りません。単純な探索-置換 (@code{raggedright} が @code{ragged-right} になった@c
+など) を処理しますが、複雑すぎる変更もあります。@code{convert-ly} が処理できな@c
+い構文の変更は @rprogram{Updating files with convert-ly} にリストアップされて@c
+います。
+
+例えば、LilyPond 2.4 以前では、アクセントと非英語文字 -- 例えば、@c
+@code{No@bs{}"el} (これは @q{クリスマス} に対応するフランス語となります) -- は 
+LaTex を使って入力していました。LilyPond 2.6 以降では、特殊文字 @code{ë} を 
+UTF-8 キャラクタとして直接 LilyPond ファイルに入力するようになりました。@c
+@code{convert-ly} はすべての LaTex 特殊文字を UTF-8 キャラクタに変更することは@c
+できません。その場合、あなたが手動で古い LilyPond 入力ファイルをアップデートす@c
+る必要があります。
+
+
+@node Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
+
+遅かれ早かれ、あなたは LilyPond がコンパイルできないファイルを書くことになりま@c
+す。LilyPond が返すメッセージはエラーを見つけ出す手助けになるかもしれません@c
+が、多くの場合、問題の原因を探し出すために調査を行う必要があります。
+
+この目的のための最も強力なツールは 1 行コメント (@code{%} で記述します) とブ@c
+ロック コメント (@code{%@{ ... %@}} で記述します) です。問題がどこにあるかわか@c
+らない場合、入力ファイルの大きな一部分をコメント アウトすることから始めます。@c
+あるセクションをコメント アウトして、そのファイルを再びコンパイルしてみます。@c
+コンパイルが通ったのなら、問題は今コメント アウトした部分の中にあります。コン@c
+パイルが通らなかった場合は、コンパイルが通るようになるまでコメント アウトした@c
+ままにしておきます。
+
+極端な場合、最終的に以下のようになるかもしれません:
+
+@example
+\score @{
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(言い換えると、何の音楽も持たないファイルです)
+
+こうなったとしても、あきらめないでください。少しだけコメントを外して -- 例え@c
+ば、バス パートを -- コンパイルが通るかどうか試してみます。コンパイルが通らな@c
+かった場合は、バスの音楽をすべてコメント アウトします (しかし、@code{@bs{}score} 
+の中の @code{@bs{}bass} はコメントを外したままにしておきます)。
+
+@example
+bass = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+そして、問題を起こしている行を見つけ出すまで、@code{bass} パートから少しずつコ@c
+メントを外していきます。
+
+もう 1 つの非常に有用なデバッグ テクニックは @ref{Minimal examples} を構築する@c
+ことです。
+
+
+@node Minimal examples
+@subsection Minimal examples
+
+最小化例は可能な限り小さな例のことです。最小化例は長い例よりも理解することが@c
+ずっと容易です。最小化例は以下の目的で使用されます:
+
+@itemize
+@item バグ レポート
+@item メーリング リストに援助要請を送る
+@item @uref{http://lsr.dsi.unimi.it/,LilyPond Snippet Repository} に例を追加する
+@end itemize
+
+可能な限り小さな例を構築するための規則はとても単純です: 必要の無いものはすべて@c
+削除する。ファイルの不要な部分を削除しようとしているとき、実際に削除する代わり@c
+にコメント アウトを使用するというのはとても良いアイディアです。そうしておけ@c
+ば、ある行が実際には必要だということがわかった場合に、その行をゼロから入力する@c
+代わりに、コメントを外すだけで済みます。
+
+@qq{可能な限り小さく} という規則には 2 つの例外があります:
+
+@itemize
+@item @code{\version} 番号を含める。
+@item 可能であれば、例の先頭で @code{@bs{}paper@{ ragged-right=@hash{}@hash{}t 
+@}} を使う。
+@end itemize
+
+最小化例の要点は読みやすくするということです:
+
+@itemize
+@item 複雑な音符、調子、拍子を使うことを避ける -- それらの要素の振る舞いについ@c
+て何かを示そうとしているのでない限り
+@item @code{@bs{}override} コマンドを使わない -- それがその例のポイントでない@c
+限り
+@end itemize
+
+@node Scores and parts
+@section Scores and parts
+
+TODO: this is really old stuff from the really old tutorial.
+Rewrite, fix, etc.  Or maybe delete entirely.  -gp
+Include section on tags   -td
+and then move to section 5. Working ...  -td
+
+オーケストラ音楽では、すべての音符は 2 回譜刻されます。1 回は演奏家のための@c
+パート譜で、1 回は指揮者のための総譜で譜刻されます。変数を使うことで二度手間を@c
+避けることができます。音楽は 1 回、変数に入力されます。その変数の内容は、パー@c
+ト譜と総譜の両方を生成するために使用されます。
+
+音符を特別なファイルの中に定義すると便利です。例えば、ファイル 
+@code{horn-music.ly} は以下のホルン/@/バスーン デュオのパートを保持していると@c
+します:
+
+@example
+hornNotes = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+個々のパートは、ファイルの中に以下の記述をすることによって作り出されます:
+
+@example
+\include "horn-music.ly"
+\header @{
+  instrument = "Horn in F"
+@}
+
+@{
+ \transpose f c' \hornNotes
+@}
+@end example
+
+以下の行:
+
+@example
+\include "horn-music.ly"
+@end example
+
+@noindent
+は、ファイルの中でその行が置かれている場所で、@file{horn-music.ly} の内容に置@c
+き換わり、@code{hornNotes} はその後に定義されます。コマンド @code{@bs{}transpose 
+f@tie{}c'} は、引数 @code{@bs{}hornNotes} は 5 度上へ移調すべきであるというこ@c
+とを示しています。@code{f} の音は譜面に表記された @code{c'} で表され、これは通@c
+常のフレンチ ホルンを F にチューニングすることに相当します。この移調により出力@c
+は以下のようになります:
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+アンサンブルでは、しばしばボイスの 1 つが何小節も演奏されないことがあります。@c
+これは特別な休符 -- 複小節休符 -- によって示されます。これは大文字の @code{R} 
+とその後に続く演奏時間 (全音符には @code{1}、半音符には @code{2} などです) で@c
+入力されます。この演奏時間に掛け算を行うことによって、さらに長い休符を構築する@c
+ことができます。例えば、以下の休符は 2/4 拍子で 3 小節分の長さになります:
+
+@example
+R2*3
+@end example
+
+この部分を譜刻するとき、複小節休符を圧縮する必要があります。これは以下のラン-@c
+タイム変数を設定することによって行います:
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+このコマンドは @code{Score} コンテキストの中にあるプロパティ @code{skipBars} 
+を真 (@code{@hash{}@hash{}t}) にセットします。この休符とオプションを上記の音楽@c
+の先頭に追加することによって、以下のような結果になります:
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+楽譜はすべての音楽を一緒にすることによって作り出されます。他のボイスはファイル 
+@file{bassoon-music.ly} の中の @code{bassoonNotes} の中にあると仮定すると、楽@c
+譜は以下のような記述で作られます:
+
+@example
+\include "bassoon-music.ly"
+\include "horn-music.ly"
+
+<<
+  \new Staff \hornNotes
+  \new Staff \bassoonNotes
+>>
+@end example
+
+@noindent
+そして、以下のような楽譜になります:
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
+
+

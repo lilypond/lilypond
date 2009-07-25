@@ -1,0 +1,8 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Das Schriftzeichen für das Atemzeichen kann verändert werden, indem
+die Text-Eigenschaft des @code{BreathingSign}-Layoutobjekts mit einer
+beliebigen Textbeschriftung definiert wird.
+
+"
+  doctitlede = "Das Atemzeichen-Symbol verändern"

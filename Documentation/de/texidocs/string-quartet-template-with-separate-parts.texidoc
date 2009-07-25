@@ -1,0 +1,19 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Mit diesem Beispiel können Sie ein schönes Streichquartett notieren, 
+aber wie gehen Sie vor, wenn Sie Stimmen brauchen? Das Beispiel 
+oben hat gezeigt, wie Sie mit Variablen einzelne Abschnitte getrennt 
+voneinander notieren können. Im nächsten Beispiel wird nun 
+gezeigt, wie Sie mit diesen Variablen einzelne Stimmen erstellen.
+
+Sie müssen das Beispiel in einzelne Dateien aufteilen; die Dateinamen
+sind in den Kommentaren am Anfang jeder Datei enthalten.  @code{piece.ly}
+enthält die Noten. Die anderen Dateien -- @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} und
+@code{vlc.ly} -- erstellen daraus die entsprechenden Stimmen bzw. die 
+Partitur (@code{score.ly}). Mit @code{\tag} wird den Stimmen ein Name 
+zugewiesen, auf den zurückgegriffen werden kann.
+"
+
+  doctitlede = "Vorlage für Streichquartett mit einzelnen Stimmen"
+  

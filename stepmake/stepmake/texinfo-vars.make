@@ -4,6 +4,8 @@ TEXINFO_SOURCES = $(TEXI_FILES)
 
 OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
 
+OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TEXI_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
+
 GENERATE_OMF = $(buildscript-dir)/texi2omf --format $(1) --location $(webdir)/$(tree-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
 
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
@@ -14,8 +16,10 @@ MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
-XREF_MAPS_DIR=$(top-build-dir)/out/xref-maps
-XREF_MAPS_FILES=$(INFO_DOCS:%=$(XREF_MAPS_DIR)/%.xref-map)
+XREF_MAPS_DIR = $(top-build-dir)/out/xref-maps
+XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.xref-map) \
+ $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.xref-map)
+XREF_MAP_FLAGS += -I $(outdir)
 
 # texi2html flags
 ifneq ($(ISOLANG),)
@@ -33,7 +37,7 @@ endif
 
 # info stuff
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))
-INFO_INSTALL_COMMAND =$(if $(INFO_INSTALL_FILES),\
+INFO_INSTALL_COMMAND = $(if $(INFO_INSTALL_FILES),\
 	$(INSTALLPY) -d $(DESTDIR)$(infodir) ; \
 	$(MAKE) INSTALLATION_OUT_DIR=$(infodir) \
 		depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_INSTALL_FILES)" \

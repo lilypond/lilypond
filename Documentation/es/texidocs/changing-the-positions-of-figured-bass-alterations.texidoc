@@ -1,0 +1,10 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Las alteraciones y los signos «más» pueden aparecer antes o
+después de los números, según el valor de las propiedades
+@code{figuredBassAlterationDirection} y
+@code{figuredBassPlusDirection}.
+
+"
+  doctitlees = "Cambiar las posiciones de las alteraciones del bajo cifrado"
+

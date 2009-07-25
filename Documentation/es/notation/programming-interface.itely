@@ -1,0 +1,1536 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+
+@ignore
+    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Interfaces for programmers
+@chapter Interfaces for programmers
+
+Se pueden realizar trucos avanzados mediante el uso de Scheme.  Si no
+está familiarizado con Scheme, le conviene leer nuestro tutorial de
+Scheme, @rlearning{Scheme tutorial}.
+
+@menu
+* Music functions::
+* Programmer interfaces::
+* Building complicated functions::
+* Markup programmer interface::
+* Contexts for programmers::
+* Scheme procedures as properties::
+* Using Scheme code instead of \tweak::
+* Difficult tweaks::
+@end menu
+
+
+@node Music functions
+@section Music functions
+
+Esta sección trata sobre cómo crear funciones musicales dentro de
+LilyPond.
+
+@menu
+* Overview of music functions::
+* Simple substitution functions::
+* Paired substitution functions::
+* Mathematics in functions::
+* Void functions::
+* Functions without arguments::
+* Overview of available music functions::
+@end menu
+
+@node Overview of music functions
+@subsection Overview of music functions
+
+Es fácil hacer una función que sustituya a una variable en código de
+LilyPond.  La forma general de estas funciones es:
+
+@example
+function =
+#(define-music-function (parser location @var{var1} @var{var2}...@var{vari}... )
+                        (@var{var1-type?} @var{var2-type?}...@var{vari-type?}...)
+  #@{
+    @emph{...música...}
+  #@})
+@end example
+
+@noindent
+donde
+
+@multitable @columnfractions .33 .66
+@item @var{vari}         @tab @var{i}-ésima variable
+@item @var{vari-type?}   @tab tipo de la @var{i}-ésima variable
+@item @var{...música...}  @tab entrada normal de LilyPond, usando las variables como @code{#$var1}, etc.
+@end multitable
+
+Los siguientes tipos de entrada se pueden usar como variables en una
+función musical.  Esta lista no es exhaustiva; consulte otros lugares
+de la documentación específica de Scheme para ver otros tipos de
+variables.
+
+@multitable @columnfractions .33 .66
+@headitem Tipo de entrada       @tab notación de @var{vari-type?}
+@item Entero                    @tab @code{integer?}
+@item Flotante (número decimal) @tab @code{number?}
+@item Cadena de texto           @tab @code{string?}
+@item Marcado                   @tab @code{markup?}
+@item Expresión musical         @tab @code{ly:music?}
+@item Pareja de variables          @tab @code{pair?}
+@end multitable
+
+Los argumentos @code{parser} y @code{location} son obligatorios, y se
+usan en ciertas situaciones avanzadas.  El argumento @code{parser} se
+usa para tener acceso al valor de otra variable de LilyPond.  El
+argumento @code{location} se usa para establecer el @q{origen} de la
+expresión musical que construye la función musical, de forma que en
+caso de producirse un error de sintaxis LilyPond pueda informar al
+usuario de un lugar adecuado donde buscar en el archivo de entrada.
+
+
+@node Simple substitution functions
+@subsection Simple substitution functions
+
+He aquí un ejemplo sencillo:
+
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+También se pueden sustituir las expresiones musicales:
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote = #(define-music-function (parser location note)
+                                     (ly:music?)
+  #{
+    \once \override Voice.NoteHead #'stencil =
+      #ly:text-interface::print
+    \once \override Voice.NoteHead #'text =
+      \markup \musicglyph #"custodes.mensural.u0"
+    \once \override Voice.Stem #'stencil = ##f
+    $note
+  #})
+
+{ c' d' e' f' \custosNote g' }
+@end lilypond
+
+Se puede usar más de una variable:
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded = #(define-music-function (parser location padding tempotext)
+  (number? string?)
+#{
+  \once \override Score.MetronomeMark #'padding = $padding
+  \tempo \markup { \bold $tempotext }
+#})
+
+\relative c'' {
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
+}
+@end lilypond
+
+
+@node Paired substitution functions
+@subsection Paired substitution functions
+
+Algunas instrucciones @code{\override} requieren un par de números
+(llamados en Scheme una @code{célula cons}).  Para pasar estos números
+a una función, usamos una variable @code{pair?} o bien insertamos el
+@code{cons} en la función musical.
+
+@quotation
+@example
+manualBeam =
+#(define-music-function (parser location beg-end)
+                        (pair?)
+#@{
+  \once \override Beam #'positions = #$beg-end
+#@})
+
+\relative @{
+  \manualBeam #'(3 . 6) c8 d e f
+@}
+@end example
+@end quotation
+
+@noindent
+o bien
+
+@lilypond[quote,verbatim,ragged-right]
+manualBeam =
+#(define-music-function (parser location beg end)
+                        (number? number?)
+#{
+  \once \override Beam #'positions = #(cons $beg $end)
+#})
+
+\relative {
+  \manualBeam #3 #6 c8 d e f
+}
+@end lilypond
+
+
+@node Mathematics in functions
+@subsection Mathematics in functions
+
+Las funciones musicales pueden contar con programación de Scheme
+además de la simple sustitución:
+
+@lilypond[quote,verbatim,ragged-right]
+AltOn = #(define-music-function (parser location mag) (number?)
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size =
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
+
+AltOff = {
+  \revert Stem #'length
+  \revert NoteHead #'font-size
+}
+
+{ c'2 \AltOn #0.5 c'4 c'
+  \AltOn #1.5 c' c' \AltOff c'2 }
+@end lilypond
+
+@noindent
+Este ejemplo se puede reescribir de forma que pase expresiones
+musicales:
+
+@lilypond[quote,verbatim,ragged-right]
+withAlt = #(define-music-function (parser location mag music) (number? ly:music?)
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size =
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+     $music
+     \revert Stem #'length
+     \revert NoteHead #'font-size #})
+
+{ c'2 \withAlt #0.5 {c'4 c'}
+  \withAlt #1.5 {c' c'} c'2 }
+@end lilypond
+
+
+@node Void functions
+@subsection Void functions
+
+Una función musical debe devolver una expresión musical, pero a veces
+podemos necesitar una función en la que no hay música en juego (como
+la desactivación de la funcionalidad Apuntar y Pulsar).  Para hacerlo,
+devolvemos una expresión musical @code{void} (vacía).
+
+Este es el motivo por el que la forma que se devuelve es
+@code{(make-music ...)}.  Con el valor de la propiedad @code{'void}
+establecido a @code{#t}, le decimos al analizador que descarte la
+expresión musical devuelta.  así, la parte importante de la función
+musical vacía es el proceso realizado por la función, no la expresión
+musical que se devuelve.
+
+@example
+noPointAndClick =
+#(define-music-function (parser location) ()
+   (ly:set-option 'point-and-click #f)
+   (make-music 'SequentialMusic 'void #t))
+...
+\noPointAndClick   % desactivar la funcionalidad Apuntar y Pulsar.
+@end example
+
+
+@node Functions without arguments
+@subsection Functions without arguments
+
+En casi todos los casos, una función sin argumentos se debe escribir
+con una variable:
+
+@example
+dolce = \markup@{ \italic \bold dolce @}
+@end example
+
+Sin embargo, en raras ocasiones puede ser de utilidad crear una
+función musical sin argumentos:
+
+@example
+displayBarNum =
+#(define-music-function (parser location) ()
+   (if (eq? #t (ly:get-option 'display-bar-numbers))
+       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{#@}))
+@end example
+
+Para la impresión real de los números de compás donde se llama a esta
+función, invoque a @command{lilypond} con
+
+@example
+lilypond -d display-bar-numbers ARCHIVO.ly
+@end example
+
+
+@node Overview of available music functions
+@subsection Overview of available music functions
+
+@c fixme ; this should be move somewhere else?
+Las siguientes instrucciones son funciones musicales:
+
+@include identifiers.tely
+
+
+@node Programmer interfaces
+@section Programmer interfaces
+
+Esta sección contiene información sobre cómo mezclar LilyPond y
+Scheme.
+
+@menu
+* Input variables and Scheme::
+* Internal music representation::
+@end menu
+
+@node Input variables and Scheme
+@subsection Input variables and Scheme
+
+El formato de entrada contempla la noción de variables: en el ejemplo
+siguiente, se asigna una expresión musical a una variable con el
+nombre @code{traLaLa}.
+
+@example
+traLaLa = @{ c'4 d'4 @}
+@end example
+
+@noindent
+
+También existe una forma de ámbito léxico: en el ejemplo siguiente, el
+bloque @code{\layout} también contiene una variable @code{traLaLa},
+que es independiente de la @code{\traLaLa} exterior.
+
+@example
+traLaLa = @{ c'4 d'4 @}
+\layout @{ traLaLa = 1.0 @}
+@end example
+@c
+De hecho, cada archivo de entrada es un ámbito léxico, y todos los
+bloques @code{\header}, @code{\midi} y @code{\layout} son ámbitos
+anidados dentro de dicho ámbito de nivel superior.
+
+Tanto el ámbito léxico como las variables están implementados en el
+sistema de módulos GUILE.  Se adjunta un módulo anónimo de Scheme a
+cada ámbito.  Una asignación de la forma
+@example
+traLaLa = @{ c'4 d'4 @}
+@end example
+
+@noindent
+se convierte internamente a una definición de Scheme
+@example
+(define traLaLa @var{Scheme value of `@code{... }'})
+@end example
+
+Esto supone que las variables de entrada y las variables de Scheme se
+pueden entremezclar con libertad.  En el ejemplo siguiente, se
+almacena un fragmento musical en la variable @code{traLaLa}, y se
+duplica utilizando Scheme.  El resultado se importa en un bloque
+@code{\score} por medio de una segunda variable @code{twice}:
+
+@lilypond[verbatim]
+traLaLa = { c'4 d'4 }
+
+%% dummy action to deal with parser lookahead
+#(display "this needs to be here, sorry!")
+
+#(define newLa (map ly:music-deep-copy
+  (list traLaLa traLaLa)))
+#(define twice
+  (make-sequential-music newLa))
+
+{ \twice }
+@end lilypond
+
+@c Due to parser lookahead
+
+En este ejemplo, la asignación se produce después de que el analizador
+sintáctico ha verificado que no ocurre nada interesante después de
+@code{traLaLa = @{ ... @}}.  Sin el argumento mudo del ejemplo, la
+definición @code{newLa} se ejecuta antes de que se defina
+@code{traLaLa}, conduciendo a un error de sintaxis.
+
+El ejemplo anterior muestra cómo @q{exportar} expresiones musicales
+desde la entrada hasta el intérprete de Scheme.  También es posible lo
+contrario.  Envolviendo un valor de Scheme en la función
+@code{ly:export}, un valor de Scheme se interpreta como si hubiera
+sido introducido en sintaxis de LilyPond.  En vez de definir
+@code{\twice}, el ejemplo anterior podría también haberse escrito como
+
+@example
+...
+@{ #(ly:export (make-sequential-music (list newLa))) @}
+@end example
+
+El código de Scheme se evalúa tan pronto como el analizador sintáctico
+lo encuentra.  Para definir código de Scheme en un macro (para
+llamarlo con posterioridad), use @ref{Void functions}, o bien
+
+@example
+#(define (nopc)
+  (ly:set-option 'point-and-click #f))
+
+...
+#(nopc)
+@{ c'4 @}
+@end example
+
+@knownissues
+
+No es posible mezclar variables de Scheme y de LilyPond con la opción
+@code{--safe}.
+
+
+@node Internal music representation
+@subsection Internal music representation
+
+Cuando se analiza sintácticamente una expresión musical, se convierte
+en un conjunto de objetos musicales de Scheme.  La propiedad que
+define a un objeto musical es que tiene una cierta duración.  El
+tiempo es un número racional que mide la longitud de un fragmento de
+música en unidades del valor de una redonda.
+
+Un objeto musical tiene tres clases de tipos:
+@itemize
+@item
+nombre musical: cada expresión musical tiene un nombre.  Por ejemplo,
+una nota conduce a un evento @rinternals{NoteEvent}, y
+@code{\simultaneous} conduce a @rinternals{SimultaneousMusic}.  Hay
+una lista de todas las expresiones que están disponibles en el Manual
+de referencia de funcionamiento interno, bajo @rinternals{Music
+expressions}.
+
+@item
+@q{tipo} o interface: cada nombre de música tiene varios @q{tipos} o
+interfaces, por ejemplo una nota es un @code{event}, pero también es
+un @code{note-event}, un @code{rhythmic-event} y un
+@code{melodic-event}.  Todas las clases musicales se encuentran
+relacionadas en la Referencia de funcionamiento interno bajo
+@rinternals{Music classes}.
+
+@item
+Objeto de C++: cada objeto musical está representado por un objeto de
+la clase de C++ @code{Music}.
+@end itemize
+
+La información real de una expresión musical se almacena en forma de
+propiedades.  Por ejemplo, un evento @rinternals{NoteEvent} tiene
+propiedades @code{pitch} y @code{duration} que almacenan la altura y
+duración de la nota.  Hay una lista completa de las propiedades que
+están disponibles en la Referencia de funcionamiento interno, bajo
+@rinternals{Music properties}.
+
+Una expresión musical compuesta es un objeto musical que contiene
+otros objetos musicales en sus propiedades.  Se puede almacenar una
+lista de objetos en la propiedad @code{elements} de un objeto musical,
+o un solo objeto musical @q{hijo} en la propiedad @code{element}.  Por
+ejemplo, @rinternals{SequentialMusic} tiene sus hijos en
+@code{elements}, y @rinternals{GraceMusic} tiene su elemento único en
+@code{element}.  El cuerpo de una repetición se almacena en la
+propiedad @code{element} de @rinternals{RepeatedMusic}, y las
+alternativas en @code{elements}.
+
+
+@node Building complicated functions
+@section Building complicated functions
+
+Esta sección explica cómo reunir la información necesaria para crear
+funciones musicales complejas.
+
+
+@menu
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
+@end menu
+
+@node Displaying music expressions
+@subsection Displaying music expressions
+
+@cindex interno, almacenamiento
+@cindex mostrar expresiones musicales
+@cindex interna, representación, mostrar
+
+@funindex \displayMusic
+
+Si se está escribiendo una función musical puede ser muy instructivo
+examinar cómo se almacena internamente una expresión musical.  Esto se
+puede hacer con la función musical @code{\displayMusic}:
+
+@example
+@{
+  \displayMusic @{ c'4\f @}
+@}
+@end example
+
+@noindent
+imprime lo siguiente:
+
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 0 0))
+                (make-music
+                  'AbsoluteDynamicEvent
+                  'text
+                  "f")))))
+@end example
+
+De forma predeterminada, LilyPond imprime estos mensajes en la consola
+junto al resto de los mensajes.  Para discernir entre estos mensajes y
+guardar el resultado de @code{\display@{MATERIAL@}}, redirija la
+salida hacia un archivo.
+
+@example
+lilypond archivo.ly >resultado.txt
+@end example
+
+Con la aplicación de un poco de formato, la información anterior es
+fácil de leer:
+
+@example
+(make-music 'SequentialMusic
+  'elements (list (make-music 'EventChord
+                    'elements (list (make-music 'NoteEvent
+                                      'duration (ly:make-duration 2 0 1 1)
+                                      'pitch (ly:make-pitch 0 0 0))
+                                    (make-music 'AbsoluteDynamicEvent
+                                      'text "f")))))
+@end example
+
+Una secuencia musical @code{@{ ... @}} tiene el nombre
+@code{SequentialMusic}, y sus expresiones internas se almacenan como
+una lista en su propiedad @code{'elements}.  Una nota se representa
+como una expresión @code{EventChord} que contiene un objeto
+@code{NoteEvent} (que almacena las propiedades de duración y altura) y
+cualquier otra información adicional (en este caso, un evento
+@code{AbsoluteDynamicEvent} con una propiedad de texto @code{"f"}.
+
+
+@node Music properties
+@subsection Music properties
+
+El objeto @code{NoteEvent} es el primer objeto de la propiedad
+@code{'elements} de @code{someNote}.
+
+@example
+unaNota = c'
+\displayMusic \unaNota
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch 0 0 0))))
+@end example
+
+La función @code{display-scheme-music} es la función utilizada por
+@code{\displayMusic} para imprimir la representación de Scheme de una
+expresión musical.
+
+@example
+#(display-scheme-music (first (ly:music-property unaNota 'elements)))
+===>
+(make-music
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 0 0))
+@end example
+
+Después se accede a la altura de la nota a través de la propiedad
+@code{'pitch} del objeto @code{NoteEvent}:
+
+@example
+#(display-scheme-music
+   (ly:music-property (first (ly:music-property unaNota 'elements))
+                      'pitch))
+===>
+(ly:make-pitch 0 0 0)
+@end example
+
+La altura de la nota se puede cambiar estableciendo el valor de esta
+propiedad 'pitch:
+
+@funindex \displayLilyMusic
+
+@example
+#(set! (ly:music-property (first (ly:music-property unaNota 'elements))
+                          'pitch)
+       (ly:make-pitch 0 1 0)) ;; fijar la altura a d'.
+\displayLilyMusic \unaNota
+===>
+d'
+@end example
+
+
+@node Doubling a note with slurs (example)
+@subsection Doubling a note with slurs (example)
+
+Supongamos que queremos crear una función que traduce una entrada como
+@code{a} a algo como @code{a( a)}.  Empezamos examinando la
+representación interna de la música con la que queremos terminar.
+
+@example
+\displayMusic@{ a'( a') @}
+===>
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  -1)))
+        (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  1)))))
+@end example
+
+Las malas noticias son que las expresiones @code{SlurEvent} se deben
+añadir @q{dentro} de la nota (o más concretamente, dentro de la
+expresión @code{EventChord}).
+
+Ahora observamos la entrada:
+
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))))))
+@end example
+
+Así pues, en nuestra función, tenemos que clonar esta expresión (de
+forma que tengamos dos notas para construir la secuencia), añadir
+@code{SlurEvents} a la propiedad @code{'elements} de cada una de
+ellas, y por último hacer una secuencia @code{SequentialMusic} con los
+dos @code{EventChords}.
+
+@example
+doubleSlur = #(define-music-function (parser location note) (ly:music?)
+         "Return: @{ note ( note ) @}.
+         `note' is supposed to be an EventChord."
+         (let ((note2 (ly:music-deep-copy note)))
+           (set! (ly:music-property note 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction -1)
+                       (ly:music-property note 'elements)))
+           (set! (ly:music-property note2 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction 1)
+                       (ly:music-property note2 'elements)))
+           (make-music 'SequentialMusic 'elements (list note note2))))
+@end example
+
+
+@node Adding articulation to notes (example)
+@subsection Adding articulation to notes (example)
+
+La manera fácil de añadir articulación a las notas es fundir dos
+expresiones musicales en un contexto único, como está explicado en
+@ref{Creating contexts}.  Sin embargo, suponga que queremos escribir
+una función musical que haga esto.
+
+Una @code{$variable} dentro de la notación @code{#@{...#@}} es como
+usar una @code{\variable} normal en la notación clásica de LilyPond.
+Sabemos que
+
+@example
+@{ \musica -. -> @}
+@end example
+
+@noindent
+no funciona en LilyPond.  Podemos evitar este problema adjuntando la
+articulación a una nota de mentira,
+
+@example
+@{ << \musica s1*0-.-> @}
+@end example
+
+@noindent
+pero a los efectos de este ejemplo, aprenderemos ahora cómo hacerlo en
+Scheme.  Comenzamos examinando nuestra entrada y la salida deseada:
+
+@example
+%  entrada
+\displayMusic c4
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))))
+=====
+%  salida deseada
+\displayMusic c4->
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))
+        (make-music
+          'ArticulationEvent
+          'articulation-type
+          "marcato")))
+@end example
+
+Vemos que una nota (@code{c4}) se representa como una expresión
+@code{EventChord}, con una expresión @code{NoteEvent} en su lista de
+elementos.  Para añadir una articulación marcato, se debe añadir una
+expresión @code{ArticulationEvent} a la propiedad elementos de la
+expresión @code{EventChord}.
+
+Para construir esta función, empezamos con
+
+@example
+(define (add-marcato event-chord)
+  "Añadir una ArticulationEvent de marcato a los elementos de `event-chord',
+  que se supone que es una expresión EventChord."
+  (let ((result-event-chord (ly:music-deep-copy event-chord)))
+    (set! (ly:music-property result-event-chord 'elements)
+          (cons (make-music 'ArticulationEvent
+                  'articulation-type "marcato")
+                (ly:music-property result-event-chord 'elements)))
+    result-event-chord))
+@end example
+
+La primera línea es la forma de definir una función en Scheme: el
+nombre de la función es @code{add-marcato}, y tiene una variable
+llamada @code{event-chord}.  En Scheme, el tipo de variable suele
+quedar claro a partir de su nombre (¡esto también es una buena
+práctica en otros lenguajes de programación!).
+
+@example
+"Añadir una ArticulationEvent de marcato..."
+@end example
+
+@noindent
+es una descripción de lo que hace la función.  No es estrictamente
+necesario, pero como los nombres de variable claros, es una buena
+práctica.
+
+@example
+(let ((result-event-chord (ly:music-deep-copy event-chord)))
+@end example
+
+@code{let} se usa para declarar variables locales.  Aquí usamos una
+variable local, llamada @code{result-event-chord}, a la que le damos
+el valor @code{(ly:music-deep-copy event-chord)}.
+@code{ly:music-deep-copy} es una función específica de LilyPond, como
+todas las funciones que comienzan por @code{ly:}.  Se usa para hacer
+una copia de una expresión musical.  Aquí, copiamos @code{event-chord}
+(el parámetro de la función).  Recuerde que el propósito es añadir un
+marcato a una expresión @code{EventChord}.  Es mejor no modificar el
+@code{EventChord} que se dio como argumento, porque podría utilizarse
+en algún otro lugar.
+
+Ahora tenemos un @code{result-event-chord}, que es una expresión
+@code{NoteEventChord} y es una copia de @code{event-chord}.  Añadimos
+el marcato a su propiedad lista de elementos.
+
+@example
+(set! lugar valor-nuevo)
+@end example
+
+Aquí, lo que queremos establecer (el @q{lugar}) es la propiedad
+@q{elements} de la expresión @code{result-event-chord}.
+
+@example
+(ly:music-property result-event-chord 'elements)
+@end example
+
+@code{ly:music-property} es la función que se usa para acceder a las
+propiedades musicales (los @code{'elements}, @code{'duration},
+@code{'pitch}, etc., que vemos en la salida de @code{\displayMusic}
+más arriba).  El nuevo valor es la anterior propiedad elements, con un
+elemento adicional: la expresión @code{ArticulationEvent}, que
+copiamos a partir de la salida de @code{\displayMusic},
+
+@example
+(cons (make-music 'ArticulationEvent
+        'articulation-type "marcato")
+      (ly:music-property result-event-chord 'elements))
+@end example
+
+@code{cons} se usa para añadir un elemento a una lista sin modificar
+la lista original.  Esto es lo que queremos: la misma lista que antes,
+más la nueva expresión @code{ArticulationEvent}.  El orden dentro de
+la propiedad elements no es importante aquí.
+
+Finalmente, una vez añadida la articulación marcato a su propiedad
+@code{elements}, podemos devolver @code{result-event-chord}, de aquí
+la última línea de la función.
+
+Ahora transformamos la función @code{add-marcato} en una función
+musical,
+
+@example
+addMarcato = #(define-music-function (parser location event-chord)
+                                     (ly:music?)
+    "Añadir un ArticulationEvent de marcato a los elementos de `event-chord',
+    que se supone que es una expresión EventChord."
+    (let ((result-event-chord (ly:music-deep-copy event-chord)))
+      (set! (ly:music-property result-event-chord 'elements)
+            (cons (make-music 'ArticulationEvent
+                    'articulation-type "marcato")
+                  (ly:music-property result-event-chord 'elements)))
+      result-event-chord))
+@end example
+
+Podemos verificar que esta función musical funciona correctamente,
+
+@example
+\displayMusic \addMarcato c4
+@end example
+
+
+@node Markup programmer interface
+@section Markup programmer interface
+
+Los marcados están implementados como funciones de Scheme especiales
+que producen un elemento Stencil (sello) dado un número de argumentos.
+
+@menu
+* Markup construction in Scheme::
+* How markups work internally::
+* New markup command definition::
+* New markup list command definition::
+@end menu
+
+@node Markup construction in Scheme
+@subsection Markup construction in Scheme
+
+@cindex marcado, definir instrucciones de
+
+El macro @code{markup} construye expresiones de marcado en Scheme,
+proporcionando una sintaxis similar a la de LilyPond.  Por ejemplo:
+
+@example
+(markup #:column (#:line (#:bold #:italic "hola" #:raise 0.4 "mundo")
+                  #:larger #:line ("fulano" "fulanito" "menganito")))
+@end example
+
+@noindent
+equivale a:
+@example
+\markup \column @{ \line @{ \bold \italic "hola" \raise #0.4 "mundo" @}
+                  \larger \line @{ fulano fulanito menganito @} @}
+@end example
+
+@noindent
+Este ejemplo muestra las principales reglas de traducción entre la
+sintaxis del marcado normal de LilyPond y la sintaxis del marcado de
+Scheme.
+
+@quotation
+@multitable @columnfractions .3 .3
+@item @b{LilyPond} @tab @b{Scheme}
+@item @code{\markup marcado1} @tab @code{(markup marcado1)}
+@item @code{\markup @{ marcado1 marcado2 ... @}} @tab
+        @code{(markup marcado1 marcado2 ... )}
+@item @code{\instruccion} @tab @code{#:instruccion}
+@item @code{\variable} @tab @code{variable}
+@item @code{\center-column @{ ... @}} @tab @code{#:center-column ( ... )}
+@item @code{cadena} @tab @code{"cadena"}
+@item @code{#argumento-de-scheme} @tab @code{argumento-de-scheme}
+@end multitable
+@end quotation
+
+Todo el lenguaje Scheme está accesible dentro del macro @code{markup}.
+Por ejemplo, podemos usar llamadas a funciones dentro de @code{markup}
+para así manipular cadenas de caracteres.  Esto es útil si se están
+definiendo instrucciones de marcado nuevas (véase @ref{New markup
+command definition}).
+
+@knownissues
+
+El argumento markup-list de instrucciones como @code{#:line},
+@code{#:center} y @code{#:column} no pueden se una variable o el
+resultado de la llamada a una función.
+
+@lisp
+(markup #:line (funcion-que-devuelve-marcados))
+@end lisp
+
+@noindent
+no es válido.  Hay que usar las funciones @code{make-line-markup},
+@code{make-center-markup} o @code{make-column-markup} en su lugar:
+
+@lisp
+(markup (make-line-markup (funcion-que-devuelve-marcados)))
+@end lisp
+
+
+@node How markups work internally
+@subsection How markups work internally
+
+En un elemento de marcado como
+
+@example
+\raise #0.5 "ejemplo de texto"
+@end example
+
+@noindent
+@code{\raise} se representa en realidad por medio de la función
+@code{raise-markup}.  La expresión de marcado se almacena como
+
+@example
+(list raise-markup 0.5 (list simple-markup "ejemplo de texto"))
+@end example
+
+Cuando el marcado se convierte en objetos imprimibles (Stencils o
+sellos), se llama la función @code{raise-markup} como
+
+@example
+(apply raise-markup
+       @var{\objeto de marcado}
+       @var{lista de listas asociativas de propiedades}
+       0.5
+       @var{el marcado "ejemplo de texto"})
+@end example
+
+Primero la función @code{raise-markup} crea el sello para la cadena
+@code{ejemplo de texto}, y después eleva el sello Stencil en 0.5
+espacios de pentagrama.  Este es un ejemplo bastante simple; en el
+resto de la sección podrán verse ejemplos más complejos, así como en
+@file{scm/@/define@/-markup@/-commands@/.scm}.
+
+
+@node New markup command definition
+@subsection New markup command definition
+
+Las instrucciones de marcado nuevas se pueden definir con el macro de
+Scheme @code{define-markup-command}.
+
+@lisp
+(define-markup-command (@var{nombre-de-la-instruccion} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
+            (@var{arg1-type?} @var{arg2-type?} ...)
+  ..command body..)
+@end lisp
+
+Los argumentos son
+
+@table @var
+@item argi
+@var{i}-ésimo argumento de la instrucción
+@item argi-type?
+predicado de tipo para el argumento @var{i}-ésimo
+@item layout
+la definición de @q{presentación}
+@item props
+lista de listas asociativas, que contiene todas las propiedades
+activas.
+@end table
+
+Como ejemplo sencillo, mostramos cómo añadir una instrucción
+@code{\smallcaps}, que selecciona una tipografía de versalitas.
+Normalmente podríamos seleccionar la tipografía de versalitas,
+
+@example
+\markup @{ \override #'(font-shape . caps) Texto-en-versalitas @}
+@end example
+
+@noindent
+Esto selecciona la tipografía de versalitas mediante el
+establecimiento de la propiedad @code{font-shape} a @code{#'caps} para
+la interpretación de @code{Texto-en-versalitas}.
+
+Para poner lo anterior disponible como la instrucción
+@code{\smallcaps}, tenemos que definir una función utilizando
+@code{define-markup-command}.  La instrucción ha de tomar un argumento
+del tipo @code{markup}.  Por tanto, el inicio de la definición ha de
+ser
+
+@example
+(define-markup-command (smallcaps layout props argument) (markup?)
+@end example
+
+@noindent
+
+Lo que aparece a continuación es el contenido de la instrucción:
+debemos interpretar el @code{argument} como un marcado, es decir:
+
+@example
+(interpret-markup layout @dots{} argument)
+@end example
+
+@noindent
+Esta interpretación tiene que añadir @code{'(font-shape . caps)} a las
+propiedades activas, por lo que sustituimos lo siguiente por los
+@dots{} en el ejemplo anterior:
+
+@example
+(cons (list '(font-shape . caps) ) props)
+@end example
+
+@noindent
+La variable @code{props} es una lista de a-listas, y se lo anteponemos
+haciendo la operación cons de una lista con el ajuste adicional.
+
+Supongamos que estamos tipografiando un recitativo de una ópera y nos
+gustaría definir una instrucción que presente los nombres de los
+personajes de una forma personalizada.  Queremos que los nombres se
+impriman con versalitas y se desplacen un poco a la izquierda y hacia
+arriba.  Definimos una instrucción @code{\character} que toma en
+cuenta la traslación necesaria y utiliza la instrucción
+@code{\smallcaps} recién definida:
+
+@example
+#(define-markup-command (character layout props nombre) (string?)
+  "Imprimir el nombre del personaje en versalitas, desplazado a la izquierda y hacia
+  arriba.  Sintaxis: \\character #\"nombre\""
+  (interpret-markup layout props
+   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps nombre)))
+@end example
+
+Esta es una complicación que requiere una explicación: los textos por
+encima y por debajo del pentagrama se mueven verticalmente de forma
+que estén a una cierta distancia (la propiedad @code{padding}) del
+pentagrama y de las notas.  Para asegurar que este mecanismo no anula
+el efecto de nuestro @code{#:translate}, añadimos una cadena vacía
+(@code{#:hspace 0}) antes del texto trasladado.  Ahora el
+@code{#:hspace 0} se pone encima de las notas, y el @code{nombre} se
+mueve en relación a dicha cadena vacía.  El efecto neto es que el
+texto se mueve hacia la izquierda y hacia arriba.
+
+El resultado final es como sigue:
+
+@example
+@{
+  c''^\markup \character #"Cleopatra"
+  e'^\markup \character #"Giulio Cesare"
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+#(define-markup-command (smallcaps layout props str) (string?)
+  "Print the string argument in small caps.  Syntax: \\smallcaps #\"string\""
+  (interpret-markup layout props
+   (make-line-markup
+    (map (lambda (s)
+          (if (= (string-length s) 0)
+              s
+              (markup #:large (string-upcase (substring s 0 1))
+                      #:translate (cons -0.6 0)
+                      #:tiny (string-upcase (substring s 1)))))
+         (string-split str #\Space)))))
+
+#(define-markup-command (character layout props name) (string?)
+  "Print the character name in small caps, translated to the left and
+  top.  Syntax: \\character #\"name\""
+  (interpret-markup layout props
+   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps name)))
+
+{
+  c''^\markup \character #"Cleopatra" c'' c'' c''
+  e'^\markup \character #"Giulio Cesare" e' e' e'
+}
+@end lilypond
+
+Hemos usado la forma de fuente tipográfica @code{caps}, pero
+supongamos que nuestra fuente no tiene la variante de versalitas.  En
+ese caso tenemos que hacer una falsa fuente de mayúsculas pequeñas
+haciendo que la cadena en mayúsculas tenga la primera legra un poco
+mayor:
+
+@example
+#(define-markup-command (smallcaps layout props str) (string?)
+  "Print the string argument in small caps."
+  (interpret-markup layout props
+   (make-line-markup
+    (map (lambda (s)
+          (if (= (string-length s) 0)
+              s
+              (markup #:large (string-upcase (substring s 0 1))
+                      #:translate (cons -0.6 0)
+                      #:tiny (string-upcase (substring s 1)))))
+         (string-split str #\Space)))))
+@end example
+
+La instrucción @code{smallcaps} primero divide su argumento de cadena
+en unidades o palabras separadas por espacios (@code{(string-split str
+#\Space)}); para cada unidad o palabra, se construye un marcado con la
+primera letra agrandada y en mayúscula (@code{#:large (string-upcase
+(substring s 0 1))}), y un segundo marcado construido con las letras
+siguientes reducidas de tamaño y en mayúsculas (@code{#:tiny
+(string-upcase (substring s 1))}).  Como LilyPond introduce un espacio
+entre los marcados de una misma línea, el segundo marcado se traslada
+a la izquierda (@code{#:translate (cons -0.6 0) ...}).  Después, los
+marcados construidos para cada palabra se ponen en una línea mediante
+@code{(make-line-markup ...)}.  Finalmente, el marcado resultante se
+pasa a la función @code{interpret-markup}, con los argumentos
+@code{layout} y @code{props}.
+
+Nota: ahora existe una instrucción interna @code{\smallCaps} que se
+puede usar para poner texto en versalitas.  Consulte @ref{Text markup
+commands}, para ver más detalles.
+
+@knownissues
+
+Actualmente las combinaciones de argumentos que hay disponibles
+(después de los argumentos estándar @var{layout} y @var{props}) para
+una instrucción de marcado definida con @code{define-markup-command}
+se limitan a la siguiente lista:
+
+@table @asis
+@item (ningún argumento)
+@itemx @var{list}
+@itemx @var{markup}
+@itemx @var{markup markup}
+@itemx @var{scm}
+@itemx @var{scm markup}
+@itemx @var{scm scm}
+@itemx @var{scm scm markup}
+@itemx @var{scm scm markup markup}
+@itemx @var{scm markup markup}
+@itemx @var{scm scm scm}
+@end table
+
+@noindent
+En la tabla de arriba, @var{scm} representa los tipos de datos nativos
+de Scheme como @q{number} (número) o @q{string} (cadena).
+
+Como ejemplo, no es posible usar una instrucción de marcado
+@code{fulanito} con cuatro argumentos definida como
+
+@example
+#(define-markup-command (fulanito layout props
+                         num1    str1    num2    str2)
+                        (number? string? number? string?)
+  ...)
+@end example
+
+@noindent
+Si la aplicamos como, digamos,
+
+@example
+\markup \fulanito #1 #"mengano" #2 #"zutano"
+@end example
+
+@cindex Scheme signature
+@cindex signature, Scheme
+@noindent
+@command{lilypond} protesta diciendo que no puede analizar
+@code{fulanito} debido a su firma de Scheme desconocida.
+
+
+@node New markup list command definition
+@subsection New markup list command definition
+
+Las instrucciones de listas de marcado se definen con el macro de
+Scheme @code{define-markup-list-command}, que es similar al macro
+@code{define-markup-command} descrito en @ref{New markup command
+definition}, excepto que donde éste devuelve un sello único, aquél
+devuelve una lista de sellos.
+
+En el siguiente ejemplo se define una instrucción de lista de marcado
+@code{\paragraph}, que devuelve una lista de líneas justificadas,
+estando la primera de ellas sangrada.  La anchura del sangrado se toma
+del argumento @code{props}.
+
+@example
+#(define-markup-list-command (paragraph layout props args) (markup-list?)
+   (let ((indent (chain-assoc-get 'par-indent props 2)))
+     (interpret-markup-list layout props
+       (make-justified-lines-markup-list (cons (make-hspace-markup indent)
+                                               args)))))
+@end example
+
+Aparte de los argumentos usuales @code{layout} y @code{props}, la
+instrucción de lista de marcados @code{paragraph} toma un argumento de
+lista de marcados, llamado @code{args}.  El predicado para listas de
+marcados es @code{markup-list?}.
+
+En primer lugar, la función toma el ancho del sangrado, una propiedad
+llamada aquí @code{par-indent}, de la lista de propiedades
+@code{props}.  Si no se encuentra la propiedad, el valor
+predeterminado es @code{2}.  Después, se hace una lista de líneas
+justificadas usando la función
+@code{make-justified-lines-markup-list}, que está relacionada con la
+instrucción incorporada de lista de marcados @code{\justified-lines}.
+Se añade un espacio horizontal al principio usando la función
+@code{make-hspace-markup}.  Finalmente, la lista de marcados se
+interpreta usando la función @code{interpret-markup-list}.
+
+Esta nueva instrucción de lista de marcados se puede usar como sigue:
+
+@example
+\markuplines @{
+  \paragraph @{
+    El arte de la tipografía musical se llama  \italic @{grabado (en plancha).@}
+    El término deriva del proceso tradicional de impresión de música.
+    hace sólo algunas décadas, las partituras se hacían cortando y estampando
+    la música en una plancha de zinc o lata en una imagen invertida.
+  @}
+  \override-lines #'(par-indent . 4) \paragraph @{
+    La plancha se tenía que entintar, y las depresiones causadas por los cortes
+    y estampados retienen la tinta.  Se formaba una imagen presionando el papel
+    contra la plancha.  El estampado y cortado se hacía completamente
+    a mano.
+  @}
+@}
+@end example
+
+
+@node Contexts for programmers
+@section Contexts for programmers
+
+@menu
+* Context evaluation::
+* Running a function on all layout objects::
+@end menu
+
+@node Context evaluation
+@subsection Context evaluation
+
+@cindex código, llamadas durante la interpretación
+@funindex \applyContext
+
+Se pueden modificar los contextos durante la interpretación con código
+de Scheme.  La sintaxis para esto es
+
+@example
+\applyContext @var{función}
+@end example
+
+@var{función} debe ser una función de Scheme que toma un único
+argumento, que es el contexto al que aplicarla.  El código siguiente
+imprime el número del compás actual sobre la salida estándar durante
+la compilación:
+
+@example
+\applyContext
+  #(lambda (x)
+    (format #t "\nSe nos ha llamado en el compás número ~a.\n"
+     (ly:context-property x 'currentBarNumber)))
+@end example
+
+
+@node Running a function on all layout objects
+@subsection Running a function on all layout objects
+
+
+@cindex código, llamar sobre objetos de presentación
+@funindex \applyOutput
+
+
+La manera más versátil de realizar el ajuste fino de un objeto es
+@code{\applyOutput}.  Su sintaxis es
+
+@example
+\applyOutput @var{contexto} @var{proc}
+@end example
+
+@noindent
+donde @var{proc} es una función de Scheme, que toma tres argumentos.
+
+Al interpretarse, la función @var{proc} se llama para cada objeto de
+presentación que se encuentra en el contexto @var{contexto}, con los
+siguientes argumentos:
+
+@itemize
+@item el propio objeto de presentación,
+@item el contexto en que se creó el objeto de presentación, y
+@item el contexto en que se procesa @code{\applyOutput}.
+@end itemize
+
+Además, la causa del objeto de presentación, es decir el objeto o
+expresión musical que es responsable de haberlo creado, está en la
+propiedad @code{cause} del objeto.  Por ejemplo, para la cabeza de una
+nota, éste es un evento @rinternals{NoteHead}, y para un objeto
+@rinternals{Stem} (plica), éste es un objeto @rinternals{Stem}.
+@c Impossible - changed to Stem --FV
+
+He aquí una función que usar para @code{\applyOutput}; borra las
+cabezas de las notas que están sobre la línea central:
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (blanker grob grob-origin context)
+   (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
+            (eq? (ly:grob-property grob 'staff-position) 0))
+       (set! (ly:grob-property grob 'transparent) #t)))
+
+\relative {
+  e4 g8 \applyOutput #'Voice #blanker b d2
+}
+@end lilypond
+
+
+@node Scheme procedures as properties
+@section Scheme procedures as properties
+
+Las propiedades (como el grosor, la dirección, etc.) se pueden
+establecer a valores fijos con \override, p. ej.
+
+@example
+\override Stem #'thickness = #2.0
+@end example
+
+Las propiedades pueden fijarse también a un procedimiento de scheme,
+
+@lilypond[fragment,verbatim,quote,relative=2]
+\override Stem #'thickness = #(lambda (grob)
+    (if (= UP (ly:grob-property grob 'direction))
+        2.0
+        7.0))
+c b a g b a g b
+@end lilypond
+
+@noindent
+En este caso, el procedimiento se ejecuta tan pronto como el valor de
+la propiedad se reclama durante el proceso de formateo.
+
+Casi todo el motor de tipografiado está manejado por estos
+@emph{callbacks}.  Entre las propiedades que usan normalmente
+@emph{callbacks} están
+
+@table @code
+@item stencil
+  La rutina de impresión, que construye un dibujo para el símbolo
+@item X-offset
+  La rutina que establece la posición horizontal
+@item X-extent
+  La rutina que calcula la anchura de un objeto
+@end table
+
+El procedimiento siempre toma un argumento único, que es el grob (el
+objeto gráfico).
+
+Si se deben llamar rutinas con varios argumentos, el grob actual se
+puede insertar con una cerradura de grob.  He aquí un ajuste
+procedente de @code{AccidentalSuggestion},
+
+@example
+(X-offset .
+  ,(ly:make-simple-closure
+    `(,+
+        ,(ly:make-simple-closure
+           (list ly:self-alignment-interface::centered-on-x-parent))
+      ,(ly:make-simple-closure
+           (list ly:self-alignment-interface::x-aligned-on-self)))))
+@end example
+
+@noindent
+En este ejemplo, tanto
+@code{ly:self-alignment-interface::x-aligned-on-self} como
+@code{ly:self-alignment-interface::centered-on-x-parent} se llaman con
+el grob como argumento.  El resultado se añade con la función
+@code{+}.  Para asegurar que esta adición se ejecuta adecuadamente,
+todo ello se encierra dentro de @code{ly:make-simple-closure}.
+
+De hecho, usar un solo procedimiento como valor de una propiedad
+equivale a
+
+@example
+(ly:make-simple-closure (ly:make-simple-closure (list @var{proc})))
+@end example
+
+@noindent
+El @code{ly:make-simple-closure} interior aporta el grob como
+argumento de @var{proc}, el exterior asegura que el resultado de la
+función es lo que se devuelve, en lugar del objeto
+@code{simple-closure}.
+
+
+@node Using Scheme code instead of \tweak
+@section Using Scheme code instead of @code{\tweak}
+
+La principal desventaja de @code{\tweak} es su inflexibilidad
+sintáctica.  Por ejemplo, lo siguiente produce un error de sintaxis.
+
+@example
+F = \tweak #'font-size #-3 -\flageolet
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+En otras palabras, @code{\tweak} no se comporta como una articulación
+en cuando a la sintaxis; concretamente, no se puede adjuntar con
+@code{^} y @code{_}.
+
+Usando Scheme, se puede dar un rodeo a este problema.  La ruta hacia
+el resultado se da en @ref{Adding articulation to notes (example)},
+especialmente cómo usar @code{\displayMusic} como guía de ayuda.
+
+@example
+F = #(let ((m (make-music 'ArticulationEvent
+                          'articulation-type "flageolet")))
+       (set! (ly:music-property m 'tweaks)
+             (acons 'font-size -3
+                    (ly:music-property m 'tweaks)))
+       m)
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+Aquí, las propiedades @code{tweaks} del objeto flageolet @code{m}
+(creado con @code{make-music}) se extraen con
+@code{ly:music-property}, se antepone un nuevo par clave-valor para
+cambiar el tamaño de la tipografía a la lista de propiedades con la
+función de Scheme @code{acons}, y finalmente el resultado se escribe
+de nuevo con @code{set!}.  El último elemento del bloque @code{let} es
+el valor de retorno, el propio @code{m}.
+
+@node Difficult tweaks
+@section Difficult tweaks
+
+Hay un cierto número de tipos de ajustes difíciles.
+
+@itemize
+
+@item
+Un tipo de ajuste difícil es la apariencia de los objetos de
+extensión, como las ligaduras de expresión y de unión.  Inicialmente,
+sólo se crea uno de estos objetos, y pueden ajustarse con el mecanismo
+normal.  Sin embargo, en ciertos casos los objetos extensores cruzan
+los saltos de línea.  Si esto ocurre, estos objetos se clonan.  Se
+crea un objeto distinto por cada sistema en que se encuentra.  Éstos
+son clones del objeto original y heredan todas sus propiedades,
+incluidos los @code{\override}s.
+
+En otras palabras, un @code{\override} siempre afecta a todas las
+piezas de un objeto de extensión fragmentado.  Para cambiar sólo una
+parte de un extensor en el salto de línea, es necesario inmiscuirse en
+el proceso de formateado.  El @emph{callback}
+@code{after-line-breaking} contiene el procedimiento Scheme que se
+llama después de que se han determinado los saltos de línea, y los
+objetos de presentación han sido divididos sobre los distintos
+sistemas.
+
+En el ejemplo siguiente, definimos un procedimiento
+@code{my-callback}.  Este procedimiento
+
+@itemize
+@item
+determina si hemos sido divididos por los saltos de línea
+@item
+en caso afirmativo, reúne todos los objetos divididos
+@item
+comprueba si somos el último de los objetos divididos
+@item
+en caso afirmativo, establece @code{extra-offset}.
+@end itemize
+
+Este procedimiento se instala en @rinternals{Tie} (ligadura de unión),
+de forma que la última parte de la ligadura dividida se traslada hacia
+arriba.
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (my-callback grob)
+  (let* (
+         ; have we been split?
+         (orig (ly:grob-original grob))
+
+         ; if yes, get the split pieces (our siblings)
+         (siblings (if (ly:grob? orig)
+                     (ly:spanner-broken-into orig) '() )))
+
+   (if (and (>= (length siblings) 2)
+             (eq? (car (last-pair siblings)) grob))
+     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+
+\relative c'' {
+  \override Tie #'after-line-breaking =
+  #my-callback
+  c1 ~ \break c2 ~ c
+}
+@end lilypond
+
+@noindent
+Al aplicar este truco, la nueva función de callback
+@code{after-line-breaking} también debe llamar a la antigua
+@code{after-line-breaking}, si existe.  Por ejemplo, si se usa con
+@code{Hairpin}, se debe llamar también a
+@code{ly:hairpin::after-line-breaking}.
+
+
+@item Algunos objetos no se pueden cambiar con @code{\override} por
+razones técnicas.  Son ejemplos @code{NonMusicalPaperColumn} y
+@code{PaperColumn}.  Se pueden cambiar con la función
+@code{\overrideProperty} que funciona de forma similar a @code{\once
+\override}, pero usa una sintaxis distinta.
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"  % Nombre del grob
+#'line-break-system-details     % Nombre de la propiedad
+#'((next-padding . 20))         % Valor
+@end example
+
+Observe, sin embargo, que @code{\override}, aplicado a
+@code{NonMusicalPaperColumn} y a @code{PaperColumn}, aún funciona
+como se espera dentro de los bloques @code{\context}.
+
+@end itemize

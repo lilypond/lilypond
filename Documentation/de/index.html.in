@@ -36,15 +36,15 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond-learning/index.de.html">Handbuch zum Lernen (LM)</a>
-	    (auf <a class="title" href="user/lilypond-learning-big-page.de.html">einer gro&szlig;en Seite</a> ~ 1.5 MB,
-als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
+	    <a class="title" href="learning/index.de.html">Handbuch zum Lernen (LM)</a>
+	    (auf <a class="title" href="learning-big-page.de.html">einer gro&szlig;en Seite</a> ~ 1.5 MB,
+als <a class="title" href="learning.de.pdf">PDF</a>)
               <br>(F&uuml;r den ersten Anfang.)</li>
 
  
- <li><a class="title" href="user/music-glossary/index.html">Musikglossar (MG)</a>
- (auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 500 kB,
- als <a class="title" href="user/music-glossary.pdf">PDF</a>)
+ <li><a class="title" href="music-glossary/index.html">Musikglossar (MG)</a>
+ (auf <a class="title" href="music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 500 kB,
+ als <a class="title" href="music-glossary.pdf">PDF</a>)
  
       <br>(&Uuml;bersetzung von musikalischen Begriffen aus dem Englischen in andere Sprachen.)</li>
         </ul>
@@ -52,7 +52,7 @@ als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
 	  <td class="right-column">
 	  <ul>
 	  <li>
-	    <a class="title" href="topdocs/NEWS.html">Neuigkeiten</a>
+	    <a class="title" href="changes.html">Neuigkeiten</a>
             <br>(&Auml;nderungen seit der letzten Hauptversion auf Englisch.)</li>
  
  <li><a class="title" href="../examples.html">Beispiele</a>
@@ -64,18 +64,18 @@ als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
           <td valign="baseline" class="left-column">
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.de.html">Notationsreferenz (NR)</a>
- (auf <a class="title" href="user/lilypond-big-page.de.html">einer gro&szlig;en Seite</a> ~ 4 MB,
- als <a class="title" href="user/lilypond.de.pdf">PDF</a>)
+<a class="title" href="notation/index.de.html">Notationsreferenz (NR)</a>
+ (auf <a class="title" href="notation-big-page.de.html">einer gro&szlig;en Seite</a> ~ 4 MB,
+ als <a class="title" href="notation.de.pdf">PDF</a>)
        <br>(Notation mit LilyPond setzen.)
        <br>(<strong>Achtung:</strong> dieses Dokument ist erst teilweise auf deutsch &uuml;bersetzt,<br>
        die vollständige Version liegt auf Englisch vor, siehe Link unten auf
        der Seite.)</li>
 
         <li>
-  <a  class="title" href="user/lilypond-internals/index.html">Referenz der Interna (IR)</a>
-  (auf <a class="title" href="user/lilypond-internals-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb
-  als <a class="title" href="user/lilypond-internals.pdf">PDF</a>)
+  <a  class="title" href="internals/index.html">Referenz der Interna (IR)</a>
+  (auf <a class="title" href="internals-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb
+  als <a class="title" href="internals.pdf">PDF</a>)
 
       <br>(Definitionen, wie die Standardeinstellungen ver&auml;ndert k&ouml;nnen.)</li>
          
@@ -84,15 +84,15 @@ als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
 	  <td valign="baseline" class="right-column">
 	  <ul>
 	  <li>
-            <a class="title" href="user/lilypond-program/index.de.html">Anwendungsbenutzung (AU)</a>
- (auf <a class="title" href="user/lilypond-program-big-page.de.html">einer gro&szlig;en Seite</a>,
- als <a class="title" href="user/lilypond-program.de.pdf">PDF</a>)
+            <a class="title" href="application/index.de.html">Anwendungsbenutzung (AU)</a>
+ (auf <a class="title" href="application-big-page.de.html">einer gro&szlig;en Seite</a>,
+ als <a class="title" href="application.de.pdf">PDF</a>)
        <br>(Wie das Programm installiert und gestartet wird.)</li>
           
           
-<li><a class="title" href="../input/lsr/lilypond-snippets/index.html">Schnipsel</a>
-(auf <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">einer gro&szlig;en Seite</a>,
-als <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
+<li><a class="title" href="snippets/index.html">Schnipsel</a>
+(auf <a class="title" href="snippets-big-page.html">einer gro&szlig;en Seite</a>,
+als <a class="title" href="snippets.pdf">PDF</a>)
       <br>(Schnelle Tricks, Tipps und Beispiele.)</li>
         </ul>
  
@@ -100,12 +100,12 @@ als <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
         <tr>
           <td valign="baseline" class="left-column">
        <ul>
-            <li><a class="title"  href="devel/index.html">Resourcen f&uuml;r Entwickler</a>
+            <li><a class="title"  href="devel.html">Resourcen f&uuml;r Entwickler</a>
             <br>(Dokumentation f&uuml;r Entwickler und Mitwirkende.)</li>
        </ul>
     </td><td class="right-column">
 	<ul>
-          <li><a class="title"  href="translations.html">&Uuml;bersetzungsstatus</a>
+          <li><a class="title"  href="translations.de.html">&Uuml;bersetzungsstatus</a>
           <br>(siehe Fortschritt der &Uuml;bersetzungen)</li>
 	</ul>
          </td>

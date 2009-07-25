@@ -1,0 +1,15 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Mediante el establecimiento de la propiedad @code{'Y-extent} a un valor
+adecuado, todos los objetos @code{DynamicLineSpanner} (reguladores e
+indicaciones dinámicas textuales) se pueden alinear con un punto de
+referencia común, independientemente de sus dimensiones.  De esta
+manera, todos los elementos estarán alineados verticalmente,
+produciendo así un resultado más satisfactorio.
+
+Se usa una idea similar para alinear las inscripciones de texto a lo
+largo de su línea de base.
+
+"
+  doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
+  

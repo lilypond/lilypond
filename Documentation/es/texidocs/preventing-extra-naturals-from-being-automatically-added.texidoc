@@ -1,0 +1,13 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
+
+texidoces = "
+Según las reglas estándar de composición
+tipográfica, se imprime un becuadro antes de un sostenido o un
+bemol cuando se tiene que cancelar una alteración anterior en la
+misma nota.  Para modificar este comportamiento, establezca el
+valor de la propiedad @code{extraNatural} a @code{##f} (falso)
+dentro del contexto de @code{Staff}.
+
+"
+

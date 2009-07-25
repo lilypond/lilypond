@@ -1,0 +1,345 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+
+@ignore
+    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@node Scheme tutorial
+@appendix Scheme tutorial
+
+@funindex #
+@cindex Scheme
+@cindex GUILE
+@cindex Scheme, código en línea
+@cindex acceder a Scheme
+@cindex evaluar Scheme
+@cindex LISP
+
+LilyPond utiliza el lenguaje de programación Scheme, tanto como parte
+de la sintaxis del código de entrada, como para servir de mecanismo
+interno que une los módulos del programa entre sí.  Esta sección es
+una panorámica muy breve sobre cómo introducir datos en Scheme.  Si
+quiere saber más sobre Scheme, consulte
+@uref{http://@/www@/.schemers@/.org}.
+
+LilyPond utiliza la implementación GNU Guile de Scheme, que está
+basada en el estándar @qq{R5RS} del lenguaje.  Si está aprendiendo
+Scheme para usarlo con LilyPond, no se recomienda trabajar con una
+implementación distinta (o que se refiera a un estándar diferente).
+Hay información sobre Guile en
+@uref{http://www.gnu.org/software/guile/}.  El estándar de Scheme
+@qq{R5RS} se encuentra en
+@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+
+La instalación de LilyPond inclute también la de la implementación
+Guile de Scheme.  Sobre casi todos los sistemas puede experimentar en
+una @qq{caja de arena} de Scheme abriendo una ventana del terminal y
+tecleando @q{guile}.  En algunos sistemas, sobre todo en Windows,
+podría necesitar ajustar la variable de entorno @code{GUILE_LOAD_PATH}
+a la carpeta @code{../usr/shr/guile/1.8} dentro de la instalación de
+LilyPond (para conocer la ruta completa a esta carpeta, consulte
+@ref{Other sources of information}).  Como alternativa, los usuarios
+de Windows pueden seleccionar simplemente @q{Ejecutar} del menú Inicio
+e introducir @q{guile}.
+
+El concepto más básico de un lenguaje son sus tipos de datos: números,
+cadenas de caracteres, listas, etc.  He aquí una lista de los tipos de
+datos que son de relevancia respecto de la entrada de LilyPond.
+
+@table @asis
+@item Booleanos
+Los valores Booleanos son Verdadero y Falso.  Verdadero en Scheme es @code{#t}
+y Falso es @code{#f}.
+@funindex ##t
+@funindex ##f
+
+@item Números
+Los números se escriben de la forma normal, @code{1} es el número
+(entero) uno, mientras que @code{-1.5} es un número en coma flotante
+(un número no entero).
+
+@item Cadenas
+Las cadenas se encierran entre comillas:
+
+@example
+"esto es una cadena"
+@end example
+
+Las cadenas pueden abarcar varias líneas:
+
+@example
+"esto
+es
+una cadena"
+@end example
+
+También se pueden añadir comillas y saltos de línea con las llamadas
+secuencias de escape.  La cadena @code{a dijo "b"} se escribe como
+
+@example
+"a dijo \"b\""
+@end example
+
+Los saltos de línea t las barras invertidas se escapan mediante
+@code{\n} y @code{\\} respectivamente.
+@end table
+
+
+En un archivo de música, los fragmentos de código de Scheme se
+escriben con el signo de almohadilla @code{#}.  Así, los ejemplos
+anteriores traducidos a LilyPond son:
+
+@example
+##t ##f
+#1 #-1.5
+#"esto es una cadena"
+#"esto
+es
+una cadena"
+@end example
+
+Observe que los comentarios de LilyPond (@code{%} y @code{%@{ %@}}) no
+se puedden utilizar dentro del código de Scheme.  Los comentarios en
+el Scheme de Guile se introducen como sigue:
+
+@example
+; esto es un comentario de una línea
+
+#!
+  Esto es un comentario de bloque (no anidable) estilo Guile
+  Pero se usan rara vez por parte de los Schemers y nunca dentro del
+  código fuente de LilyPond
+!#
+@end example
+
+Se pueden combinar en un mismo archivo de música varias expresiones de
+Scheme consecutivas mediante la utilización del operador @code{begin}.
+Ello permite que el número de marcas de cuadradillo se redizca a una.
+
+@example
+#(begin
+  (define fulanito 0)
+  (define menganito 1))
+@end example
+
+Si el @code{#} va seguido de un paréntesis de apertura, @code{(}, como
+en el ejemplo anterior, el analizador sintáctico permanece dentro del
+modo de Scheme hasta que encuentra el paréntesis de cierre
+correspondiente, @code{)}, por lo que no son necesarios más símbolos
+de @code{#} para introducir una sección de Scheme.
+
+Durante el resto de esta sección, supondremos que los datos se
+introducen en un archivo de música, por lo que añadiremos almohadillas
+@code{#} en todas partes.
+
+Scheme se puede usar para hacer cálculos.  Utiliza sintaxis
+@emph{prefija}.  Sumar 1 y@tie{}2 se escribe como @code{(+ 1 2)} y no
+como el tradicional @math{1+2}.
+
+@lisp
+#(+ 1 2)
+  @result{} #3
+@end lisp
+
+La flecha @result{} muestra que el resultado de evaluar @code{(+ 1 2)}
+es@tie{}@code{3}.  Los cálculos se pueden anidar; el resultado de una
+función se puede usar para otro cálculo.
+
+@lisp
+#(+ 1 (* 3 4))
+  @result{} #(+ 1 12)
+  @result{} #13
+@end lisp
+
+Estos cálculos son ejemplos de evaluaciones; una expresión como
+@code{(* 3 4)} se sustituye por su valor @code{12}.  Algo similar
+ocurre con las variables.  Después de haber definido una variable
+
+@example
+doce = #12
+@end example
+
+@noindent
+las variables se pueden usar también dentro de las expresiones, aquí
+
+@example
+veintiCuatro = #(* 2 doce)
+@end example
+
+@noindent
+el número 24 se almacena dentro de la variable @code{veintiCuatro}.
+La misma asignación se puede hacer también completamente en Scheme,
+
+@example
+#(define veintiCuatro (* 2 doce))
+@end example
+
+El @emph{nombre} de una variable también es una expresión, similar a
+un número o una cadena.  Se introduce como
+
+@example
+#'veintiCuatro
+@end example
+
+@funindex #'symbol
+@cindex comillas en Scheme
+
+El apóstrofo @code{'} evita que el intérprete de Scheme sustituya
+@code{veintiCuatro} por @code{24}.  En vez de esto, obtenemos el
+nombre @code{veintiCuatro}.
+
+Esta sintaxis se usará con mucha frecuencia, pues muchos de los trucos
+de presentación consisten en asignar valores (de Scheme) a variables
+internas, por ejemplo
+
+@example
+\override Stem #'thickness = #2.6
+@end example
+
+Esta instrucción ajusta el aspecto de las plicas.  El valor @code{2.6}
+se pone dentro de la variable @code{thickness} de un objeto
+@code{Stem}.  @code{thickness} se mide a partir del grosor de las
+líneas del pentagrama, y así estas plicas serán @code{2.6} veces el
+grosor de las líneas del pentagrama.  Esto hace que las plicas sean
+casi el doble de gruesas de lo normal.  Para distinguir entre las
+variables que se definen en los archivos de entrada (como
+@code{veintiCuatro} en el ejemplo anterior) y las variables de los
+objetos internos, llamaremos a las últimas @q{propiedades} y a las
+primeras @q{variables.}  Así, el objeto plica tiene una propiedad
+@code{thickness} (grosor), mientras que @code{veintiCuatro} es una
+variable.
+
+@cindex propiedades frente a variables
+@cindex variables frente a propiedades
+
+Los desplazamientos bidimensionales (coordenadas X e Y) así como los
+tamaños de los objetos (intervalos con un punto izquierdo y otro
+derecho) se introducen como @code{parejas}.  Una pareja@footnote{En la
+terminología de Scheme, la pareja se llama @code{cons}, y sus dos
+elementos se llaman @code{car} y @code{cdr} respectivamente.}  se
+introduce como @code{(primero . segundo)} y, como los símbolos, se deben
+preceder de un apóstrofo:
+
+@example
+\override TextScript #'extra-offset = #'(1 . 2)
+@end example
+
+Esto asigna la pareja (1, 2) a la propiedad @code{extra-offset} del
+objeto TextScript.  Estos números se miden en espacios de pentagrama,
+y así esta instrucción mueve el objeto un espacio de pentagrama a la
+derecha, y dos espacios hacia arriba.
+
+Los dos elementos de una pareja pueden ser valores arbitrarios, por
+ejemplo
+
+@example
+#'(1 . 2)
+#'(#t . #f)
+#'("bla-bla" . 3.14159265)
+@end example
+
+Una lista se escribe encerrando sus elementos entre paréntesis, y
+añadiendo un apóstrofo.  Por ejemplo,
+
+@example
+#'(1 2 3)
+#'(1 2 "cadena" #f)
+@end example
+
+Todo el tiempo hemos estado usando listas.  Un cálculo, como @code{(+
+1 2)} también es una lista (que contiene el símbolo @code{+} y los
+números 1 y@tie{}2).  Normalmente, las listas se interpretan como
+cálculos, y el intérprete de Scheme sustituye el resultado del
+cálculo.  Para escribir una lista, detenemos la evaluación.  Esto se
+hace precediendo la lista por un apóstrofo @code{'}.  Así, para los
+cálculos no usamos ningún apóstrofo.
+
+Dentro de una lista o pareja precedida de apóstrofo, no hay necesidad
+de escribir ningún apóstrofo más.  Lo siguiente es una pareja de
+símbolos, una lista de símbolos y una lista de listas respectivamente:
+
+@example
+#'(stem . head)
+#'(staff clef key-signature)
+#'((1) (2))
+@end example
+
+
+@menu
+* Tweaking with Scheme::
+@end menu
+
+@node Tweaking with Scheme
+@appendixsec Tweaking with Scheme
+
+Hemos visto cómo la salida de LilyPond se puede modificar
+profundamente usando instrucciones como @code{\override TextScript
+#'extra-offset = ( 1 . -1)}.  Pero tenemos incluso mucho más poder si
+utilizamos Scheme.  Para ver una explicación completa de esto,
+consulte el @ref{Scheme tutorial}, y @ruser{Interfaces for
+programmers}.
+
+Podemos usar Scheme simplemente para sobreescribir instrucciones con
+@code{\override},
+
+@c This isn't a valid example with skylining
+@c It works fine without padText  -td
+
+@ignore
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+#{
+  \once \override TextScript #'padding = #$padding
+#})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+@end ignore
+
+Lo podemos usar para crear instrucciones nuevas:
+
+@c Check this is a valid example with skylining
+@c It is - 'padding still works
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded = #(define-music-function (parser location padding tempotext)
+  (number? string?)
+#{
+  \once \override Score.MetronomeMark #'padding = $padding
+  \tempo \markup { \bold $tempotext }
+#})
+
+\relative c'' {
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
+}
+@end lilypond
+
+Incluso se le pueden pasar expresiones musicales:
+
+@lilypond[quote,verbatim,ragged-right]
+pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+#{
+  $x e8 a b $y b a e
+#})
+
+\relative c''{
+  \pattern c8 c8\f
+  \pattern {d16 dis} { ais16-> b\p }
+}
+@end lilypond
+

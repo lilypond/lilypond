@@ -1,0 +1,15 @@
+%% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
+  texidocfr = "
+Lorsque du texte est attaché à un silence multi-mesures, il sera centré
+dans la mesure, au-dessus ou en dessous de la portée.  Afin d'étirer la
+mesure dans le cas ou ce texte est relativement long, il suffit
+d'insérer un silence invisible auquel on attache le texte en question,
+avant le silence multi-mesures.
+
+Rappelez-vous qu'un silence invisible génère une barre de mesure.  Le
+texte attaché à ce silence invisible sera alors aligné sur la gauche de
+là où serait positionnée la note.  Cependant, si la taille de la mesure
+est déterminée par la longueur du texte, il apparaîtra comme centré.
+
+"
+  doctitlefr = "Ajout de texte à un silence multi-mesures"

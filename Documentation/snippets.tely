@@ -1,0 +1,166 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename lilypond-snippets.info
+@settitle LilyPond snippets
+@documentencoding UTF-8
+@documentlanguage en
+
+@iftex
+@afourpaper
+@end iftex
+
+@c This disables @lydoctitle definition in common-macros.itexi
+@set snippets-sections
+
+@include macros.itexi
+
+@ifnothtml
+@macro lydoctitle{TEXT}
+@unnumberedsec \TEXT\
+@end macro
+@end ifnothtml
+
+@ifhtml
+@macro lydoctitle{TEXT}
+@node \TEXT\
+@unnumberedsec \TEXT\
+@end macro
+@end ifhtml
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Snippets}
+@author LilyPond Snippet Repository contributors
+
+@vskip 20pt
+
+This document shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR). It is in the public domain.
+
+We would like to address many thanks to Sebastiano Vigna for maintaining
+LSR web site and database, and the University of Milano for hosting LSR.
+
+Please note that this document is not an exact subset of LSR: some
+snippets come from @file{input/new} LilyPond sources directory, and
+snippets from LSR are converted through @command{convert-ly}, as LSR is
+based on a stable LilyPond version, and this document is for version
+@c @value{version}.
+
+Snippets are grouped by tags; tags listed in the table of contents match
+a section of LilyPond notation manual.  Snippets may have several tags,
+and not all LSR tags may appear in this document.
+
+In the HTML version of this document, you can click on the file name
+or figure for each example to see the corresponding input file.
+
+@end titlepage
+
+@iftex
+@contents
+@end iftex
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- Snippets List
+
+@ifhtml
+@ifclear bigpage
+This document is also available as a
+@uref{source/Documentation/snippets.pdf,PDF} and as
+@uref{source/Documentation/snippets-big-page.html,one big page}.
+@end ifclear
+@ifset bigpage
+This document is also available as a
+@uref{source/Documentation/snippets.pdf,PDF} and as
+@uref{source/Documentation/snippets/index.html,HTML indexed multiple pages}.
+@end ifset
+@end ifhtml
+
+This document shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR). It is in the public domain.
+
+Please note that it is not an exact subset of LSR: some snippets come
+from @file{Documentation/snippets/new} LilyPond sources directory, and
+snippets from LSR are converted through @command{convert-ly}, as LSR is
+based on a stable LilyPond version, and this document is for version
+@version{}.
+
+Snippets are grouped by tags; tags listed in the table of contents match
+a section of LilyPond notation manual.  Snippets may have several tags,
+and not all LSR tags may appear in this document.
+
+In the HTML version of this document, you can click on the file name
+or figure for each example to see the corresponding input file.
+@end ifnottex
+
+@c maybe generate/update @menu and @includes automatically? --jm
+@menu
+Musical notation
+* Pitches::
+* Rhythms::
+* Expressive marks::
+* Repeats::
+* Simultaneous notes::
+* Staff notation::
+* Editorial annotations::
+* Text::
+
+Specialist notation
+* Vocal music::
+* Chords::
+* Keyboards::
+* Percussion::
+* Fretted strings::
+* Unfretted strings::
+* Winds::
+* Ancient notation::
+* World music::
+
+Other collections
+* Contexts and engravers::
+* Tweaks and overrides::
+* Paper and layout::
+* Titles::
+* Spacing::
+* MIDI::
+* Templates::
+@end menu
+
+@contents
+
+
+@c Please take care of naming every .itely
+@c with an existing tag name.
+
+@include pitches.itely
+@include rhythms.itely
+@include expressive-marks.itely
+@include repeats.itely
+@include simultaneous-notes.itely
+@include staff-notation.itely
+@include editorial-annotations.itely
+@include text.itely
+
+@include vocal-music.itely
+@include chords.itely
+@include keyboards.itely
+@include percussion.itely
+@include fretted-strings.itely
+@include unfretted-strings.itely
+@include winds.itely
+@include ancient-notation.itely
+@include world-music.itely
+
+@include contexts-and-engravers.itely
+@include tweaks-and-overrides.itely
+@include paper-and-layout.itely
+@include titles.itely
+@include spacing.itely
+@include midi.itely
+@include template.itely
+
+@bye

@@ -1,0 +1,86 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+
+@ignore
+    Translation of GIT committish: 9bf6dcaf6ca27f7141ec825bb3569de8a5090dbb
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Francisco Vila
+
+@ifclear INSTALL
+@node Install
+@chapter Install
+@end ifclear
+
+Existen dos conjuntos de ediciones o lanzamientos de LilyPond: las
+ediciones estables y las ediciones inestables de desarrollo.  Las
+versiones estables tienen como número @q{menor} de versión un número
+par (es decir: 2.8, 2.10, 2.12, etc).  Las versiones de desarrollo
+tienen un número @q{menor} de versión impar (esto es: 2.7, 2.9, 2.11,
+etc).
+
+La compilación de LilyPond es un proceso muy enrevesado, por tanto
+recomendamos @strong{fervientemente} el uso de los archivos binarios
+precompilados.
+
+@menu
+* Precompiled binaries::
+* Compiling from source::
+@end menu
+
+
+@node Precompiled binaries
+@section Precompiled binaries
+
+@unnumberedsubsec Downloading
+
+Revise el enlace @uref{http://lilypond.org/web/install/} para ver
+información actualizada sobre los paquetes binarios para su
+plataforma.  Si su sistema operativo no está contemplado en dicha
+página general, consulte la lista completa que está en
+@uref{http://download.linuxaudio.org/lilypond/binaries/}
+
+Por el momento estamos creando archivos binarios para
+
+@example
+darwin-ppc  - MacOS X powerpc
+darwin-x86  - MacOS X intel
+freebsd-64  - FreeBSD 6.x, x86_64
+freebsd-x86 - FreeBSD 4.x, x86
+linux-64    - Cualquier distribución de GNU/Linux, x86_64
+linux-ppc   - Cualquier distribución de GNU/Linux, powerpc
+linux-x86   - Cualquier distribución de GNU/Linux, x86
+mingw       - Windows x86
+@end example
+
+@knownissues
+
+Si tiene MacOS 10.3 o 10.4 y quiere usar guiones de Python como
+@command{convert-ly} y @command{lilypond-book}, consulte @ref{Setup
+for MacOS X,,,lilypond-program,Application Usage}.
+
+Es posible compilar LilyPond directamente del código fuente. Ello
+requiere poder leer en inglés, motivo por el que esta sección se deja
+sin traducir.  Si verdaderamente quiere compilar LilyPond, consulte
+@iftex
+@c DO NOT translate the following line at all.
+@ref{Compiling from source,,,lilypond-program,Application Usage}.
+@end iftex
+@ifhtml
+@c Please translate the following line (but not the .html file name)
+la @uref{Compiling-from-source.html,documentación en inglés}.
+@end ifhtml
+
+@c TRANSLATORS:
+@c   Please **do not** translate the file included below.  Users
+@c   should not be compiling LilyPond themselves; if they really
+@c   want to do so, they should be able to read the English docs,
+@c   because they'll probably need to ask questions in English
+@c   on the -devel list.   -gp
+@c Instead, please uncomment and translate the paragraph above,
+@c and remove all stuff (menu, nodes, contents) below this line.

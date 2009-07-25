@@ -1,0 +1,90 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: dd7767dcac679762a47fb629fd8e516d9ac954b4
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Templates
+@appendix Templates
+
+Cette annexe du manuel propose des patrons de partition Lilypond, prets à
+l'emploi.  Il vous suffira d'y ajouter quelques notes, de lancer
+LilyPond, et d'aprécier le résultat.
+
+
+@menu
+* Single staff::
+* Piano templates::
+* String quartet::
+* Vocal ensembles::
+* Ancient notation templates::
+* Jazz combo::
+* lilypond-book templates::
+@end menu
+
+@node Single staff
+@appendixsec Single staff
+
+@untranslated
+
+
+@appendixsubsec Notes only
+@appendixsubsec Notes and lyrics
+@appendixsubsec Notes and chords
+@appendixsubsec Notes, lyrics, and chords.
+@node Piano templates
+@appendixsec Piano templates
+
+@untranslated
+
+
+@appendixsubsec Solo piano
+@appendixsubsec Piano and melody with lyrics
+@appendixsubsec Piano centered lyrics
+@appendixsubsec Piano centered dynamics
+@node String quartet
+@appendixsec String quartet
+
+@untranslated
+
+
+@appendixsubsec String quartet
+@appendixsubsec String quartet parts
+@node Vocal ensembles
+@appendixsec Vocal ensembles
+
+@untranslated
+
+
+@appendixsubsec SATB vocal score
+@appendixsubsec SATB vocal score and automatic piano reduction
+@appendixsubsec SATB with aligned contexts
+@node Ancient notation templates
+@appendixsec Ancient notation templates
+
+@untranslated
+
+
+@appendixsubsec Transcription of mensural music
+@appendixsubsec Gregorian transcription template
+@node Jazz combo
+@appendixsec Jazz combo
+
+@untranslated
+
+
+@node lilypond-book templates
+@appendixsec lilypond-book templates
+
+@untranslated
+
+
+@appendixsubsec LaTeX
+@appendixsubsec Texinfo
+@appendixsubsec xelatex
+
+@c -- SKELETON FILE --
