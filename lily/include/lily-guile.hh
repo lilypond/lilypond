@@ -48,7 +48,7 @@ SCM ly_rational2scm (Rational);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
-SCM ly_chain_assoc_get (SCM key, SCM achain, SCM dfault);
+SCM ly_chain_assoc_get (SCM key, SCM achain, SCM val);
 SCM ly_assoc_cdr (SCM key, SCM alist);
 SCM ly_assoc_get (SCM key, SCM alist, SCM def);
 Interval ly_scm2interval (SCM);
