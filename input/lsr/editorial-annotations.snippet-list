@@ -11,11 +11,15 @@ controlling-the-placement-of-chord-fingerings.ly
 creating-a-delayed-turn.ly
 creating-blank-staves.ly
 default-direction-of-stems-on-the-center-line-of-the-staff.ly
+drawing-boxes-around-grobs.ly
+drawing-circles-around-various-objects.ly
 embedding-native-postscript-in-a--markup-block.ly
 grid-lines--changing-their-appearance.ly
 grid-lines--emphasizing-rhythms-and-notes-synchronization.ly
 making-some-staff-lines-thicker-than-the-others.ly
 marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly
 measure-counter.ly
+positioning-fingering-indications-precisely.ly
 positioning-text-markups-inside-slurs.ly
+printing-text-from-right-to-left.ly
 using-postscript-to-generate-special-note-head-shapes.ly

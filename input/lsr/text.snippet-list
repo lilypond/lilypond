@@ -1,6 +1,8 @@
+adding-the-current-date-to-a-score.ly
 adjusting-lyrics-vertical-spacing.ly
 aligning-and-centering-instrument-names.ly
 aligning-marks-with-various-notation-objects.ly
+aligning-objects-created-with-the--mark-command.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 center-text-below-hairpin-dynamics.ly
 changing-the-default-text-font-family.ly
@@ -15,13 +17,15 @@ formatting-lyrics-syllables.ly
 how-to-put-ties-between-syllables-in-lyrics.ly
 lyrics-alignment.ly
 markup-lines.ly
-multi--measure-rest-markup.ly
+multi-measure-rest-markup.ly
 ottava-text.ly
 outputting-the-version-number.ly
 piano-template-with-centered-lyrics.ly
 printing-marks-at-the-end-of-a-line-or-a-score.ly
 printing-marks-on-every-staff.ly
+printing-text-from-right-to-left.ly
 stand-alone-two-column-markup.ly
 three-sided-box.ly
 utf-8.ly
 vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
+volta-text-markup-using-repeatcommands.ly
