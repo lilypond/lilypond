@@ -17,7 +17,8 @@
 
 LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 	   2, 0, 0, (SCM grob, SCM sym),
-	   "Retrieve @var{sym} for @var{grob} but don't process callbacks.")
+	   "Return the value for property @var{sym} of @var{grob},"
+	   " but do not process callbacks.")
 {
   Grob *sc = unsmob_grob (grob);
 
