@@ -193,10 +193,10 @@ Absolute dynamic marks are specified using a command after a note,
 such as @code{c4\ff}.  The available dynamic marks are
 @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
 @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
-@code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp},
-@code{\spp}, @code{\sfz}, and @code{\rfz}.  Dynamic marks may be
-manually placed above or below the staff; see @ref{Direction and
-placement}.
+@code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
+@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.  Dynamic
+marks may be manually placed above or below the staff; see
+@ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=2]
 c2\ppp c\mp
