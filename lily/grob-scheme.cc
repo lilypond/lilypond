@@ -45,22 +45,21 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 }
 
 LY_DEFINE (ly_grob_property, "ly:grob-property",
-	   2, 1, 0, (SCM grob, SCM sym, SCM deflt),
-	   "Return the value of a value in grob@tie{}@var{g} of property"
-	   " @var{sym}.  It returns @code{'()} (end-of-list) or"
-	   " @var{deflt} (if specified) if @var{sym} is undefined"
-	   " in@tie{}@var{g}.")
+	   2, 1, 0, (SCM grob, SCM sym, SCM val),
+	   "Return the value for property @var{sym} of @var{grob}."
+	   "  If no value is found, return @var{val} or @code{'()}"
+	   " if @var{val} is not specified.")
 {
   Grob *sc = unsmob_grob (grob);
-   
+
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
-  if (deflt == SCM_UNDEFINED)
-    deflt = SCM_EOL;
+  if (val == SCM_UNDEFINED)
+    val = SCM_EOL;
 
   SCM retval = sc->internal_get_property (sym);
   if (retval == SCM_EOL)
-    retval = deflt;
+    retval = val;
   
   return retval;
 }
