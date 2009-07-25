@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: 5f51567fbc5d7a811e147ebd01f103e066f36b3a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -852,8 +852,8 @@ entrecomilladas como @code{"a text string"}.  Para ver más detalles
 relacionados con los símbolos y las cadenas, consulte @ref{Scheme
 tutorial}.
 
-Así pues, la instrucción @code{\override} que necesitamos para
-imprimir la letra en cursiva, es:
+Así pues, la instrucción @code{\override} necesaria para imprimir la
+letra en cursiva, es:
 
 @example
 \override LyricText #'font-shape = #'italic

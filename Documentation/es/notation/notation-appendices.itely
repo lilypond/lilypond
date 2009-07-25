@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
+    Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -580,34 +580,34 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @}}, véase @ref{Formatting text}.
 
 @menu
-* Font Clefs::
-* Font Time Signatures::
-* Font Numbers::
-* Font Accidentals::
-* Font Default Noteheads::
-* Font Special Noteheads::
-* Font Shape-note Noteheads::
-* Font Rests::
-* Font Flags::
-* Font Dots::
-* Font Dynamics::
-* Font Scripts::
-* Font Arrowheads::
-* Font Bracket-tips::
-* Font Pedal::
-* Font Accordion::
-* Font Vaticana::
-* Font Medicaea::
-* Font Hufnagel::
-* Font Mensural::
-* Font Neomensural::
-* Font Petrucci::
-* Font Solesmes::
+* Clef glyphs::
+* Time Signature glyphs::
+* Number glyphs::
+* Accidental glyphs::
+* Default Notehead glyphs::
+* Special Notehead glyphs::
+* Shape-note Notehead glyphs::
+* Rest glyphs::
+* Flag glyphs::
+* Dot glyphs::
+* Dynamic glyphs::
+* Script glyphs::
+* Arrowhead glyphs::
+* Bracket-tip glyphs::
+* Pedal glyphs::
+* Accordion glyphs::
+* Vaticana glyphs::
+* Medicaea glyphs::
+* Hufnagel glyphs::
+* Mensural glyphs::
+* Neomensural glyphs::
+* Petrucci glyphs::
+* Solesmes glyphs::
 @end menu
 
 
-@node Font Clefs
-@unnumberedsubsec Font Clefs
+@node Clef glyphs
+@unnumberedsubsec Clef glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -616,8 +616,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Time Signatures
-@unnumberedsubsec Font Time Signatures
+@node Time Signature glyphs
+@unnumberedsubsec Time Signature glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -626,8 +626,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Numbers
-@unnumberedsubsec Font Numbers
+@node Number glyphs
+@unnumberedsubsec Number glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -636,8 +636,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Accidentals
-@unnumberedsubsec Font Accidentals
+@node Accidental glyphs
+@unnumberedsubsec Accidental glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -646,8 +646,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Default Noteheads
-@unnumberedsubsec Font Default Noteheads
+@node Default Notehead glyphs
+@unnumberedsubsec Default Notehead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -656,8 +656,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Special Noteheads
-@unnumberedsubsec Font Special Noteheads
+@node Special Notehead glyphs
+@unnumberedsubsec Special Notehead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -666,8 +666,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Shape-note Noteheads
-@unnumberedsubsec Font Shape-note Noteheads
+@node Shape-note Notehead glyphs
+@unnumberedsubsec Shape-note Notehead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -676,8 +676,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Rests
-@unnumberedsubsec Font Rests
+@node Rest glyphs
+@unnumberedsubsec Rest glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -686,8 +686,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Flags
-@unnumberedsubsec Font Flags
+@node Flag glyphs
+@unnumberedsubsec Flag glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -696,8 +696,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Dots
-@unnumberedsubsec Font Dots
+@node Dot glyphs
+@unnumberedsubsec Dot glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -706,8 +706,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Dynamics
-@unnumberedsubsec Font Dynamics
+@node Dynamic glyphs
+@unnumberedsubsec Dynamic glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -716,8 +716,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Scripts
-@unnumberedsubsec Font Scripts
+@node Script glyphs
+@unnumberedsubsec Script glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -726,8 +726,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Arrowheads
-@unnumberedsubsec Font Arrowheads
+@node Arrowhead glyphs
+@unnumberedsubsec Arrowhead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -736,8 +736,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Bracket-tips
-@unnumberedsubsec Font Bracket-tips
+@node Bracket-tip glyphs
+@unnumberedsubsec Bracket-tip glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -746,8 +746,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Pedal
-@unnumberedsubsec Font Pedal
+@node Pedal glyphs
+@unnumberedsubsec Pedal glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -756,8 +756,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Accordion
-@unnumberedsubsec Font Accordion
+@node Accordion glyphs
+@unnumberedsubsec Accordion glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -766,8 +766,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Vaticana
-@unnumberedsubsec Font Vaticana
+@node Vaticana glyphs
+@unnumberedsubsec Vaticana glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -776,8 +776,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Medicaea
-@unnumberedsubsec Font Medicaea
+@node Medicaea glyphs
+@unnumberedsubsec Medicaea glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -786,8 +786,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Hufnagel
-@unnumberedsubsec Font Hufnagel
+@node Hufnagel glyphs
+@unnumberedsubsec Hufnagel glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -796,8 +796,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Mensural
-@unnumberedsubsec Font Mensural
+@node Mensural glyphs
+@unnumberedsubsec Mensural glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -806,8 +806,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Neomensural
-@unnumberedsubsec Font Neomensural
+@node Neomensural glyphs
+@unnumberedsubsec Neomensural glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -816,8 +816,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Petrucci
-@unnumberedsubsec Font Petrucci
+@node Petrucci glyphs
+@unnumberedsubsec Petrucci glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -826,8 +826,8 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Font Solesmes
-@unnumberedsubsec Font Solesmes
+@node Solesmes glyphs
+@unnumberedsubsec Solesmes glyphs
 
 @lilypond[quote]
 \include "font-table.ly"

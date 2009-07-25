@@ -4,7 +4,7 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+%% Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
   texidoces = "
 Se puede hacer que los diagramas de posiciones se muestren sólo
 cuando el acorde cambia o al comienzo de una nueva línea.
@@ -13,13 +13,12 @@ cuando el acorde cambia o al comienzo de una nueva línea.
 
   doctitlees = "Cambios de acorde de posiciones de trastes"
 
-%% Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Bunddiagramme können definiert werden, sodass sie nur angezeigt werden,
 wenn der Akkord sich ändert oder eine neue Zeile anfängt.
 
 "
-
 
   doctitlede = "Akkordänderungen für Bunddiagramme"
 

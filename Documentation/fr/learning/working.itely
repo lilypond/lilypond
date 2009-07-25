@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-   Translation of GIT committish: 148e80b8992a7fb9d59ec439c00b79decbbe3bad
+   Translation of GIT committish: 7eee2a7382029cc29cc069f93a431758ae8a13b7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -9,7 +8,7 @@
 
 @c \version "2.12.0"
 
-@c Translators: Ludovic Sardain
+@c Translators: Ludovic Sardain, Jean-Charles Malahieude
 @c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau, Jean-Charles Malahieude
 
 @node Working on LilyPond projects
@@ -24,6 +23,7 @@ de même pas votre temps à lire ce chapitre.
 * Suggestions for writing LilyPond input files::
 * When things don't work::      
 * Scores and parts::            
+* Make and Makefiles::
 @end menu
 
 @node Suggestions for writing LilyPond input files
@@ -73,14 +73,14 @@ en résoudre d'autres.
 
 @itemize
 @item @strong{Ajoutez le numéro de version dans chaque fichier}.
-Notez que chaque fichier modèle contient une ligne @code{\version
-"2.11.32"}.  Nous vous conseillons fortement d'inclure cette ligne,
+Notez que chaque fichier modèle contient une ligne @w{@code{\version
+"@version{}"}}.  Nous vous conseillons fortement d'inclure cette ligne,
 même pour de petits fichiers.  Par expérience, il est très difficile
 de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
-@item @strong{Ajoutez des contrôles}: @ruser{Octave checks}, et
+@item @strong{Ajoutez des contrôles} : @ruser{Octave checks}  et
 @ruser{Bar and bar number checks}.  Si vous avez ajouté des contrôles
 de loin en loin, et que vous faites une erreur, vous pourrez la
 retrouver plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?
@@ -144,9 +144,9 @@ laisser LilyPond placer les sauts de ligne selon son propre algorithme.
 dans un 
 
 @example
-\transpose c tonalite-naturelle @{...@}
+\transpose c tonalité-naturelle @{...@}
 @end example
-(où @code{tonatilte-naturelle} correspond à celle de l'instrument en
+(où @code{tonalité-naturelle} correspond à celle de l'instrument en
 question) de telle sorte que la musique comprise dans cette variable se
 retrouve en ut.  Vous pourrez toujours transposer à l'inverse si besoin
 lorsque vous ferez appel à cette variable.  Des erreurs de transposition
@@ -155,7 +155,7 @@ variables est dans la même et unique tonalité.
 
 De la même manière, prénez toujours le do comme note de départ ou
 d'arrivée.  Ceci aura pour simple conséquence que les autres tonalités
-que vous utiliserez seront celles propres à chacun des instruments --
+que vous utiliserez seront celles propres à chacun des instruments ---
 sib pour une trompette en si bémol, ou lab pour une clarinette en la bémol.
 
 @end itemize
@@ -199,10 +199,10 @@ modifier quoi que ce soit à l'intérieur de la définition
 du @code{violon}.
 
 @example
-fthenp = _\markup@{
+fpuisp = _\markup@{
  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
 violin = \relative c'' @{
-g4\fthenp c'8. e16
+g4\fpuisp c'8. e16
 @}
 @end example
 
@@ -331,19 +331,19 @@ les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -351,7 +351,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 Il y a quelques problèmes de chevauchement ; nous allons arranger
 cela en utilisant les techniques de @ref{Moving objects}.  On peut
 aussi faire quelque chose pour les définitions de @code{mpdolce}
-et @code{tempoMark}.  Elles produisent le résultat que nous désirons,
+et @code{inst}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
 Il suffirait de les copier et coller au début de chaque
 fichier, mais c'est fastidieux.  De plus, cela laisse les définitions
@@ -359,50 +359,53 @@ dans nos fichiers de musique, et je trouve personnellement tous ces
 @code{#()} assez laids.  Stockons-les dans un autre fichier :
 
 @example
-%%% enregistrez ceci dans un fichier nommé "definitions.ly"
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+%%% enregistrez ceci dans un fichier nommé "definitions.ily"
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 @end example
 
+Nous rappellerons ce fichier par une simple commande @code{\include} au
+début de notre fichier de musique.  Lui attribuer l'extension
+@code{.ily} nous permet de distinguer aisément qu'il s'agit d'un fichier
+voué à être inclus dans un fichier maître ; il n'est pas destiné à être
+compilé isolément.
 Maintenant, modifions notre musique (enregistrez ce fichier
-sous @file{"musique.ly"}).
+sous @file{musique.ly}).
 
 @c  We have to do this awkward example/lilypond-non-verbatim
 @c  because we can't do the \include stuff in the manual.
 
 @example
-\include "definitions.ly"
+\include "definitions.ily"
 
 \relative c'' @{
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 @}
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line(#:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -415,18 +418,18 @@ note.  Et pour finir, mon professeur de composition déteste les
 chiffrages de mesure en @qq{C}, nous allons donc le transformer en @qq{4/4}.
 
 Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
-fichier @file{definitions.ly} par ceci :
+fichier @file{definitions.ily} par ceci :
 
 @example
-%%%  definitions.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+%%%  definitions.ily
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout@{
   \context @{ \Score
@@ -444,14 +447,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 \layout{
   \context { \Score
@@ -470,8 +473,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
@@ -479,26 +481,26 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 C'est encore mieux !  Mais supposons maintenant que je veuille publier
 cette pièce.  Mon professeur de composition n'aime pas les chiffrages
 de mesure en @qq{C}, mais moi je les aime bien.  Copions l'actuel
-@file{definitions.ly} dans le fichier @file{publication-web.ly}, et
+@file{definitions.ily} dans le fichier @file{publication-web.ily}, et
 modifions ce dernier.  Puisque la musique est destinée à produire un
 fichier PDF affiché sur écran, nous allons aussi augmenter la taille
 globale de police.
 
 @example
-%%%  definitions.ly
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+%%%  definitions.ily
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#@{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup @{ \bold $markp @}
-#@})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout@{
   \context @{ \Score
-    \override MetronomeMark #'extra-offset = #'(-9 .  0)
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
     \override MetronomeMark #'padding = #'3
   @}
   \context @{ \Staff
@@ -511,14 +513,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
   #:line( #:dynamic "mp" #:text #:italic "dolce" )))
-tempoMark = #(define-music-function (parser location markp) (string?)
-#{
-  \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $markp }
-#})
+
+inst = #(define-music-function (parser location string) (string?)
+  (make-music
+    'TextScriptEvent
+    'direction UP
+    'text (markup #:bold (#:box string))))
 
 #(set-global-staff-size 23)
 \layout{
@@ -535,39 +537,38 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 \relative c'' {
   \tempo 4=50
   a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
-  \once \override Score.RehearsalMark #'padding = #2.0
-  \tempoMark "Poco piu mosso"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
 }
 @end lilypond
 
-Il ne nous reste plus qu'à remplacer @code{\include "definitions.ly"}
-par @code{\include "publication-web.ly"} dans notre fichier de musique.
+Il ne nous reste plus qu'à remplacer @code{\include "definitions.ily"}
+par @code{\include "publication-web.ily"} dans notre fichier de musique.
 
 Il est possible, bien sûr, de rendre cela encore plus pratique.  Nous
-pourrions créer un fichier @file{definitions.ly} qui ne contiendrait
-que les définitions de @code{mpdolce} et de @code{tempoMark}, un
-fichier @file{publication-web.ly} qui ne contiendrait que la section
-@code{layout} décrite ci-dessus et un fichier @file{universite.ly} qui
+pourrions créer un fichier @file{definitions.ily} qui ne contiendrait
+que les définitions de @code{mpdolce} et de @code{inst}, un
+fichier @file{publication-web.ily} qui ne contiendrait que la section
+@code{layout} décrite ci-dessus et un fichier @file{universite.ily} qui
 ne contiendrait que les retouches pour produire le résultat que mon
 professeur préfère.  Le début du fichier @file{musique.ly} ressemblerait
 alors à
 
 @example
-\include "definitions.ly"
+\include "definitions.ily"
 
 %%%  Décommentez seulement une de ces deux lignes !
-\include "publication-web.ly"
-%\include "universite.ly"
+\include "publication-web.ily"
+%\include "universite.ily"
 @end example
 
 Cette approche peut être utile même si vous ne produisez qu'un seul
 jeu de partitions.  J'utilise personnellement une demi-douzaine de
 fichiers de @qq{feuille de style} pour mes projets.  Je commence
-chaque fichier de musique par @code{\include "../global.ly"} qui contient :
+chaque fichier de musique par @code{\include "../global.ily"} qui contient :
 
 @example
-%%%   global.ly
+%%%   global.ily
 \version @w{"@version{}"}
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
@@ -588,6 +589,9 @@ chaque fichier de musique par @code{\include "../global.ly"} qui contient :
 @node Updating old input files
 @subsection Updating old input files
 
+@cindex convert-ly
+@cindex mise à jour d'anciens fichiers
+
 La syntaxe de LilyPond change de temps en temps.  Ces changements de
 syntaxe du langage d'entrée accompagnent les améliorations du
 logiciel.  Ces changements sont parfois destinés à rendre les fichiers
@@ -607,13 +611,89 @@ sont énumérés dans @rprogram{Updating files with convert-ly}.
 
 Par exemple, dans les versions 2.4 et antérieures de LilyPond,
 les accents et les lettres non anglaises étaient entrées en
-utilisant LaTeX --- par exemple, @samp{No\"el}.  À partir de la
-version 2.6, le caratère @samp{ë} doit être entré directement
+utilisant LaTeX --- par exemple, @code{No\"el}.  À partir de la
+version 2.6, le caratère @code{ë} doit être entré directement
 dans le fichier LilyPond comme caractère UTF-8.
 @code{convert-ly} ne peut pas changer tous les caractères
 LaTeX en caractères UTF-8 ; vous devez mettre à jour vos vieux
 fichiers LilyPond manuellement.
 
+
+
+@node Common errors
+@subsection Common errors
+
+The error conditions described below occur often, yet the cause
+is not obvious or easily found.  Once seen and understood, they
+are easily handled.
+
+
+@menu
+* Music runs off the page::
+* Apparent error in ../ly/init.ly::
+* Error message Unbound variable %::
+@end menu
+
+@node Music runs off the page
+@unnumberedsubsubsec Music runs off the page
+
+Lorsque la musique s'épanche au delà de la marge droite ou bien semble
+anormalement comprimée, la raison en est le plus souvent une note à la
+durée erronée ; cela finit par provoquer le débordement de la dernière
+note d'une mesure.  Rien ne s'oppose à ce que la dernière note d'une
+mesure ne s'arrête avant la barre de mesure ; on considère simplement
+qu'elle se prolonge sur la mesure suivante.  Des débordements à
+répétition finissent par générer une musique comprimée ou qui sort de la
+page, pour la simple et bonne raison que les sauts de ligne automatiques
+ne peuvent intervenir qu'à la fin d'une mesure complète, autrement dit
+lorsque toutes les notes sont terminées avant la fin de la mesure.
+
+@warning{Une durée erronée peut empêcher les sauts de ligne, ce qui
+conduit à une musique compressée, voire à un débordement de la page.}
+
+Une erreur de durée sera bien plus facilement localisable si vous
+positionnez régulièrement des contrôles de barre de mesure --- voir 
+@ruser{Bar and bar number checks}.
+
+Si vous tenez absolument à enchainer de tels débordements, vous devrez
+insérer des barres de mesure invisibles là où vous souhaitez positionner
+un saut de ligne.  Consultez le chapitre @ruser{Bar lines} pour plus de
+détails. 
+
+@node Apparent error in ../ly/init.ly
+@unnumberedsubsubsec Apparent error in @code{../ly/init.ly}
+
+Certains messages d'erreur relatifs à une erreur de syntaxe dans le
+fichier @code{../ly/init.ly} peuvent survenir lorsque le fichier est mal
+formaté.  Cela se produit notamment lors d'un défaut de parité de
+bornage ou de guillemets.
+
+L'erreur la plus courante est la simple omission d'une accolade
+fermante (@code{@}} à la fin du bloc @code{Score}.  La solution est
+évidente en pareil cas : i lsuffit de vérifier que le bloc @code{Score}
+est bien clôturé.  La structure des fichiers LilyPond est abordée plus
+en détails au chapitre @ref{How LilyPond input files work}.  C'est la
+raison pour laquelle nous vous invitons à utiliser un éditeur de texte
+qui prenne en charge le contrôle de parité des parnthèses, crochets et
+accolades afin de vous éviter de telles erreurs.
+
+Lorsqu'il s'agit d'un guillemet fermant (@code{"}) omis, le message
+d'erreur devrait vous indiquer un numéro de ligne avoisinant.  L'erreur
+se situe la plupart du temps une ou deux lignes au-dessus de celle
+indiquée. 
+
+
+@node Error message Unbound variable %
+@unnumberedsubsubsec Error message Unbound variable %
+
+Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
+fichier journal, est associé à un message du type @qq{GUILE a signalé
+une erreur @dots{}} survient à chaque fois qu'un commentaire
+@emph{LilyPond} est indûment placé dans une routine @emph{Scheme}.
+
+Un commentaire LilyPond est introduit par le signe pourcent (@code{%})
+et de doit en aucun cas se trouver dans une routine Scheme.  En Scheme,
+les commentaire s'introduisent par un point-virgule (@code{;}).
 
 
 @node Troubleshooting (taking it all apart)
@@ -669,12 +749,7 @@ Maintenant commencez à décommenter petit à petit le partie de
 problème.
 
 Une autre technique de déboguage très utile est la construction
-@iftex
 de @ref{Minimal examples}.
-@end iftex
-@ifnottex
-d'@ref{Minimal examples}.
-@end ifnottex
 
 
 @node Minimal examples
@@ -687,8 +762,8 @@ longs.  Les exemples minimaux sont utilisés pour
 @itemize
 @item les rapports de bogue,
 @item les demandes d'aide sur les listes de diffusion,
-@item un ajout à
-@uref{http://lsr@/.dsi@/.unimi@/.it/,LilyPond Snippet Repository}.
+@item un ajout au
+@uref{http://lsr.dsi.unimi.it/,LilyPond Snippet Repository}.
 @end itemize
 
 Pour construire un exemple minimal, la règle est très simple : enlevez
@@ -714,6 +789,7 @@ celles-ci,
 @item n'utilisez pas de commandes @code{\override} sauf si elles font
 l'intérêt de l'exemple.
 @end itemize
+
 
 @node Scores and parts
 @section Scores and parts
@@ -757,10 +833,10 @@ On établira alors une partie séparée en constituant un nouveau fichier :
 @end example
 
 @noindent
-sera substitué le contenu du fichier @file{musique-Cor.ly}, et de ce
+sera substitué le contenu du fichier @code{musique-Cor.ly}, et de ce
 fait la variable @code{notesCor} se trouvera définie.  La commande
 @code{\transpose f@tie{}c'} indique que son argument @code{\notesCor}
-sera transposé à la quinte supérieure : le son réel @samp{f} s'écrit
+sera transposé à la quinte supérieure : le son réel @code{f} s'écrit
 @code{c'}, ce qui est la caractéristique d'un Cor en fa.  La
 transposition est visible comme suit :
 
@@ -782,18 +858,18 @@ Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
 R2*3
 @end example
 
-Dans une partie séparée, les silences multi-mesures sont compressés.
-Il faut pour cela définir la propriété @code{skipBars} à @q{vrai} :
+Dans une partie séparée, les silences multimesure sont compressés.
+Il faut pour cela définir la propriété @code{skipBars} à @qq{vrai} :
 
 @example
 \set Score.skipBars = ##t
 @end example
 
 @noindent
-Cette commande assigne la valeur @q{vrai} --- @emph{true} en anglais, et
-@samp{#t} dans le langage Scheme --- à cette propriété dans le
+Cette commande assigne la valeur @qq{vrai} --- @emph{true} en anglais, et
+@code{#t} dans le langage Scheme --- à cette propriété dans le
 contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
-silence multi-mesures et cette option, on obtient le résultat suivant :
+silence multimesure et cette option, on obtient le résultat suivant :
 
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {
@@ -805,7 +881,7 @@ silence multi-mesures et cette option, on obtient le résultat suivant :
 @end lilypond
 
 Le conducteur rassemble toute la musique. Si l'on suppose que l'autre
-voix de notre duo se trouve dans le fichier @file{musique-Basson.ly} en
+voix de notre duo se trouve dans le fichier @code{musique-Basson.ly} en
 tant que variable @code{notesBasson}, on établira un conducteur avec
 
 @example
@@ -836,8 +912,380 @@ ce qui équivaut à
 @end lilypond
 
 Des informations plus détaillées sur la mise en place de conducteurs
-et de parties séparées se trouvent dans le manuel : voir
+et de parties séparées se trouvent dans le manuel de notation : voir
 @ruser{Writing parts}.
 
-Les variables (@q{propriétés}) réglables sont abordées en détail dans
+Les variables (@qq{propriétés}) réglables sont abordées en détail dans
 @ruser{The set command}.
+
+
+
+@node Make and Makefiles
+@section Make and Makefiles
+
+@cindex makefiles
+@cindex make
+
+La plupart des plates-formes sur lesquelles tourne LilyPond disposent
+d'un logiciel appelé @code{make}.  Ce logiciel va lire un fichier
+spécial, nommé de @code{Makefile}, qui contient tout ce qu'il
+faut --- les dépendances entre certains fichiers, les instructions
+successives à traiter par le système --- pour aboutir au fichier que
+vous désirez obtenir.  Il pourrait par exemple contenir tout ce qu'il
+faut pour produire @code{ballade.pdf} et @code{ballade.midi} à partir de 
+@code{ballade.ly} en lançant LilyPond.
+
+La création d'un @code{Makefile} peut se révéler pertinente pour
+certains projets, que ce soit par simple goût personnel ou bien par
+respect de ceux qui pourront accéder à vos sources.  Cette manière de
+procéder est particulièrement indiquée lorsque vous travaillez sur un
+projet de grande envergure impliquant de nombreuses inclusions de
+fichiers et différentes éditions --- par exemple un conducteur et un
+matériel d'orchestre complet avec la partition pour le chef et une
+partition séparée pour chacun des pupitres --- ou bien si votre projet
+requiert certaines commandes particulières comme @code{lilypond-book}.
+Les @emph{Makefiles} varient tant en complexité qu'en flexibilité selon
+les besoin et les aptitudes de celui qui les crée.  Le programme GNU Make
+est installé par défaut sur les distributions Linux et sur MacOS@tie{}X,
+et il en existe une version pour les environnements Windows.
+
+Consultez le @strong{GNU Make Manual} pour plus de détails sur ce dont 
+@code{make} est capable --- vous pourrez même en trouver des versions
+françaises à l'aide des moteurs de recherche ---, dans la mesure où ce
+qui suit ne donne qu'un bref apperçu de ses possibilités.
+
+Les commandes permettant de définir les règles diffèrent selon la
+plate-forme : si les différents Linux et MacOS@tie{}X utilisent
+@code{bash}, Windows utilise @code{cmd}.  Dans le cas de MacOS@tie{}X,
+vous devrez toutefois configurer votre système de telle sorte qu'il
+utilise l'interpréteur en ligne de commande.  Voici quelques exemples de
+fichier @emph{Makefile}, avec une version pour Linux ou MacOS et une
+pour Windows.
+
+Pour commencer, une pièce à quatre mouvements pour orchestre et dont les 
+fichiers sont répartis selon l'arborescence suivante :
+
+@example
+Symphonie/
+|-- MIDI/
+|-- Makefile
+|-- Notes/
+|   |-- alto.ily
+|   |-- cor.ily
+|   |-- cello.ily
+|   |-- figures.ily
+|   |-- hautbois.ily
+|   |-- trioCordes.ily
+|   |-- violonOne.ily
+|   `-- violonTwo.ily
+|-- Partitions/
+|   |-- symphonie.ly
+|   |-- symphonieI.ly
+|   |-- symphonieII.ly
+|   |-- symphonieIII.ly
+|   `-- symphonieIV.ly
+|-- PDF/
+|-- Pupitres/
+|   |-- symphon-alto.ly
+|   |-- symphonie-cello.ly
+|   |-- symphonie-cor.ly
+|   |-- symphonie-hautbois.ly
+|   |-- symphonie-violonUn.ly
+|   `-- symphonie-violonDeux.ly
+`-- symphonieDefs.ily
+@end example
+
+Les fichiers @code{.ly} des répertoires @code{Partitions} et
+@code{Pupitres} récupèreront la notation des fichiers @code{.ily}
+contenus dans le répertoire @code{Notes} :
+
+@example
+%%% début du fichier "symphone-cello.ly"
+\include ../definitions.ily
+\include ../Notes/cello.ily
+@end example
+
+Le @emph{Makefile} répertorie des cibles correspondant à @code{score}
+(l'intégrale au format conducteur), @code{mouvements} (chacun des
+mouvements au format conducteur) et @code{pupitres} (une partition par
+pupitre).  Il contient aussi une cible @code{archive} chargée de générer
+une archive des fichiers sources qui pourra être diffusée sur la toile ou
+transmise par courriel.  Voici ce que contiendrait ce @emph{Makefile}
+pour Linux ou MacOS@tie{}X.  Ce fichier doit être enregistré sous le nom
+de @code{Makefile} à la racine du projet --- ici @code{Symphonie}.
+
+@warning{Lorsque vous définissez une cible ou une règle sur plusieurs
+lignes, les lignes à partir de la deuxième @strong{doivent} débuter par
+une tabulation, non pas par des espaces.}
+
+@example
+# Le préfixe au nom des fichiers résultants
+piece = symphonie
+# Détermination du nombre de processeurs
+CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+# La commande d'appel à lilypond
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click -djob-count=$(CPU_CORES)
+
+# Les suffixes utilisés dans ce Makefile
+.SUFFIXES: .ly .ily .pdf .midi
+
+# Les fichiers sources et résultants sont recherchés dans les répertoires
+# listés dans la variable VPATH.  Ceux-ci sont tous des sous-répertoires
+# du répertoire courant (fourni par la variable de GNU make `CURDIR').
+VPATH = \
+  $(CURDIR)/Partitions \
+  $(CURDIR)/PDF \
+  $(CURDIR)/Pupitres \
+  $(CURDIR)/Notes
+
+# La règle type pour créer un PDF et un MIDI à partir d'un fichier
+# source LY.
+# Les .pdf résultants iront dans le sous-répertoire "PDF" et les fichiers
+# .midi dans le sous-répertoire "MIDI".
+%.pdf %.midi: %.ly
+        $(LILY_CMD) $<; \           # cette ligne commence par une tabulation
+        if test -f "$*.pdf"; then \
+            mv "$*.pdf" PDF/; \
+        fi; \
+        if test -f "$*.midi"; then \
+            mv "$*.midi" MIDI/; \
+        fi
+
+notes = \
+  alto.ily \
+  cello.ily \
+  cor.ily \
+  hautbois.ily \
+  violonUn.ily \
+  violonDeux.ily
+
+# Les dépendances selon le mouvement.
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+# Les dépendances pour la partition intégrale.
+$(piece).pdf: $(piece).ly $(notes)
+
+# Les dépendances pour les pupitres.
+$(piece)-alto.pdf: $(piece)-alto.ly alto.ily
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-cor.pdf: $(piece)-cor.ly cor.ily
+$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily
+$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily
+$(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily
+
+# Lancer `make score' pour générer l'intégrale des quatre mouvements en
+# un seul fichier.
+.PHONY: score
+score: $(piece).pdf
+
+# Lancer `make parties' pour obtenir tous les pupitres.
+# Lancer `make toto.pdf' pour obtenir la partie instrumentale de toto.
+# Par exemple : `make symphonie-cello.pdf'.
+.PHONY: parties
+parties: $(piece)-cello.pdf \
+         $(piece)-violonUn.pdf \
+         $(piece)-violonDeux.pdf \
+         $(piece)-alto.pdf \
+         $(piece)-hautbois.pdf \
+         $(piece)-cor.pdf
+
+# Lancer `make mouvements' pour générer un fichier séparé pour chacun
+# des mouvements.
+.PHONY: mouvements
+mouvements: $(piece)I.pdf \
+            $(piece)II.pdf \
+            $(piece)III.pdf \
+            $(piece)IV.pdf
+
+all: score parties mouvements
+
+archive:
+        tar -cvvf symphonie.tar \      # cette ligne commence par une tabulation
+        --exclude=*pdf --exclude=*~ \
+        --exclude=*midi --exclude=*.tar \
+        ../Symphonie/*
+@end example
+
+
+Les choses se compliquent sous Windows.  Une fois GNU Make pour Windows
+téléchargé et installé, il vous faudra correctement définir le chemin
+d'accès au programme @emph{Make} --- dans les variables d'environnement
+du système ---  afin que l'interpréteur de commandes DOS puisse le
+localiser.  Pour cela, faites un clic droite sur @qq{Poste de travail},
+choisissez @code{Propriétés} puis @code{Avancées}.  Cliquez sur
+@code{Variables d'environnement} puis, dans l'onglet @w{@code{Variables
+système}}, mettez @code{path} en surbrillance et cliquez sur
+@code{Modifier}.  Ajoutez alors le chemin d'accès complet à l'exécutable
+de GNU Make, qui devrait ressembler à :
+
+@example
+C:\Program Files\GnuWin32\bin
+@end example
+
+Il va également falloir adapter le @emph{makefile} aux particularités de
+l'interpréteur de commandes et à la présence d'espaces dans le nom de
+certains répertoire de ce système.
+La cible @code{archive} est tout bonnement supprimée, puisque Windows ne
+dispose pas de la commande @code{tar}.  Enfin, les fichiers MIDI ont une
+extension par défaut propre à Windows.
+
+
+@example
+## VERSION POUR WINDOWS
+##
+piece = symphonie
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click \
+                    -djob-count=$(NUMBER_OF_PROCESSORS)
+
+#get the 8.3 name of CURDIR (workaround for spaces in PATH)
+workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+          do @@echo %%~sb)
+
+.SUFFIXES: .ly .ily .pdf .mid
+
+VPATH = \
+  $(workdir)/Partitions \
+  $(workdir)/PDF \
+  $(workdir)/Pupitress \
+  $(workdir)/Notes
+
+%.pdf %.mid: %.ly
+        $(LILY_CMD) $<      # cette ligne commence par une tabulation
+        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # tabulation au début
+        if exist "$*.mid" move /Y "$*.mid" MIDI/  # tabulation au début
+
+notes = \
+  cello.ily \
+  figures.ily \
+  cor.ily \
+  hautbois.ily \
+  trioCordes.ily \
+  alto.ily \
+  violonUn.ily \
+  violonDeux.ily
+
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+$(piece).pdf: $(piece).ly $(notes)
+
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-cor.pdf: $(piece)-cor.ly cor.ily
+$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily
+$(piece)-alto.pdf: $(piece)-alto.ly alto.ily
+$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily
+$(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily
+
+.PHONY: score
+score: $(piece).pdf
+
+.PHONY: parties
+parties: $(piece)-cello.pdf \
+         $(piece)-violonUn.pdf \
+         $(piece)-violonDeux.pdf \
+         $(piece)-alto.pdf \
+         $(piece)-hautbois.pdf \
+         $(piece)-cor.pdf
+
+.PHONY: mouvements
+mouvements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parties mouvements
+@end example
+
+
+Le @emph{Makefile} suivant convient pour un document
+@command{lilypond-book} réalisé avec @LaTeX{}.  Ce projet contiendra un
+index, ce qui nécessitera de lancer une deuxième fois @command{latex}
+pour mettre à jour les liens.  Les fichiers résultants iront dans le
+répertoire @code{out} pour ce qui est des .pdf et dans le répertoire
+@code{htmlout} pour ce qui est du html.
+
+@example
+SHELL=/bin/sh
+FILE=monprojet
+OUTDIR=out
+WEBDIR=htmlout
+VIEWER=acroread
+BROWSER=firefox
+LILYBOOK_PDF=lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
+LILYBOOK_HTML=lilypond-book --output=$(WEBDIR) $(FILE).lytex
+PDF=cd $(OUTDIR) && pdflatex $(FILE)
+HTML=cd $(WEBDIR) && latex2html $(FILE)
+INDEX=cd $(OUTDIR) && makeindex $(FILE)
+PREVIEW=$(VIEWER) $(OUTDIR)/$(FILE).pdf &
+
+all: pdf web keep
+
+pdf:
+        $(LILYBOOK_PDF)  # tabulation en début de ligne
+        $(PDF)           # tabulation en début de ligne
+        $(INDEX)         # tabulation en début de ligne
+        $(PDF)           # tabulation en début de ligne
+        $(PREVIEW)       # tabulation en début de ligne
+
+web:
+        $(LILYBOOK_HTML) # tabulation en début de ligne
+        $(HTML)          # tabulation en début de ligne
+        cp -R $(WEBDIR)/$(FILE)/ ./  # tabulation en début de ligne
+        $(BROWSER) $(FILE)/$(FILE).html &  # tabulation en début de ligne
+
+keep: pdf
+        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf  # tabulation en début de ligne
+
+clean:
+        rm -rf $(OUTDIR) # tabulation en début de ligne
+
+web-clean:
+        rm -rf $(WEBDIR) # tabulation en début de ligne
+
+archive:
+        tar -cvvf monprojet.tar \ # tabulation en début de ligne
+        --exclude=out/* \
+        --exclude=htmlout/* \
+        --exclude=monprojet/* \
+        --exclude=*midi \
+        --exclude=*pdf \
+        --exclude=*~ \
+        ../MonProjet/*
+@end example
+
+AVENIR: faire que ça marche sous Windows
+
+Ce @emph{makefile} n'est malheureusement pas opérationnel sous Windows.
+La seule alternative qui s'offre aux utilisateurs de Windows consiste à
+créer un fichier de traitement par lot (@code{.bat}) qui contienne les
+différentes commandes successives.  Bien que cette manière de procéder
+ne tienne aucun compte des dépendances entre fichiers, elle permet de
+réduire le nombre de processus à lancer dans une seule commande.  Vous
+devrez enregistrer les lignes suivantes dans un fichier
+@code{construire.bat} ou @code{construire.cmd}.  Ce fichier pourra être
+exécuté soit en ligne de commande, soit par un double clic sur son
+icone. 
+
+@example
+lilypond-book --output=out --pdf monprojet.lytex
+cd out
+pdflatex monprojet
+makeindex monprojet
+pdflatex monprojet
+cd ..
+copy out\monprojet.pdf MonProjet.pdf
+@end example
+
+
+@seealso
+Manuel d'utilisation :
+@rprogram{Setup for MacOS X},
+@rprogram{Command-line usage},
+@rprogram{LilyPond-book}
