@@ -1036,10 +1036,12 @@ class LilypondSnippet (Snippet):
         self.do_options (os, self.type)
 
     def verb_ly (self):
-        if NOGETTEXT in self.option_dict:
-            return self.substring ('code')
-        else:
-            return verb_ly_gettext (self.substring ('code'))
+        verb_text = self.substring ('code')
+        if not NOGETTEXT in self.option_dict:
+            verb_text = verb_ly_gettext (verb_text)
+        if not verb_text.endswith ('\n'):
+            verb_text += '\n'
+        return verb_text
 
     def ly (self):
         contents = self.substring ('code')
@@ -1528,7 +1530,11 @@ class LilypondFileSnippet (LilypondSnippet):
         s = self.contents
         s = re_begin_verbatim.split (s)[-1]
         s = re_end_verbatim.split (s)[0]
-        return verb_ly_gettext (s)
+        if not NOGETTEXT in self.option_dict:
+            s = verb_ly_gettext (s)
+        if not s.endswith ('\n'):
+            s += '\n'
+        return s
 
     def ly (self):
         name = self.substring ('filename')
