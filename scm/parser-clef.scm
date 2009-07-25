@@ -1,4 +1,4 @@
-;;;; clef.scm -- Clef settings
+;;;; parser-clef.scm -- Clef settings
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;

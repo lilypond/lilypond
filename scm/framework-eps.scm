@@ -1,4 +1,4 @@
-;;;; framework-ps.scm --
+;;;; framework-eps.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;

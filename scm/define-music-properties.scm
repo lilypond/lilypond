@@ -1,4 +1,4 @@
-;;;; music-property-description.scm -- part of generated backend documentation
+;;;; define-music-properties.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;

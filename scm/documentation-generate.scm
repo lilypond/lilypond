@@ -1,4 +1,4 @@
-;;;; generate-documentation.scm -- Generate documentation
+;;;; documentation-generate.scm -- Generate documentation
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 

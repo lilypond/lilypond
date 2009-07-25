@@ -1,4 +1,4 @@
-;;;; backend-documentation-lib.scm -- Functions for backend documentation
+;;;; document-backend.scm -- Functions for backend documentation
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;

@@ -1,4 +1,4 @@
-# scm/Makefile
+# scm/GNUmakefile
 
 depth = ..
 
