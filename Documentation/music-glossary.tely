@@ -372,6 +372,7 @@ Languages in this order.
 * harmony::
 * hemiola::
 * homophony::
+* hook::
 * hymn meter::
 * interval::
 * inversion::
@@ -857,8 +858,8 @@ I: alterazione,
 F: altération,
 D: Alteration,
 NL: verhoging of verlaging,
-DK: ?,
-S: ?,
+DK: Forandring,
+S: Förändring,
 FI: muunnettu.
 
 An alteration is the modification, raising or lowering, of a note's
@@ -1171,13 +1172,13 @@ FI: ylinouseva intervalli.
 @node augmentation
 @section augmentation
 
-ES: ?,
-I: ?,
+ES: aumentación,
+I: aumentazione,
 F: augmentation,
-D: ?,
-NL: ?,
-DK: ?,
-S: ?,
+D: Augmentation,
+NL: Augmentatio,
+DK: Forøgelse,
+S: Förstoring,
 FI: aika-arvojen pidentäminen.
 
 @c TODO: add definition.
@@ -4405,6 +4406,13 @@ the same rhythm (more or less).  In contrast to @emph{polyphony}.
 
 @seealso
 @ref{polyphony}.
+
+
+@node hook
+@section hook
+
+@seealso
+@ref{flag}.
 
 
 @node hymn meter

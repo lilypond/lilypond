@@ -1,7 +1,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; autochange - fairly related to part combining.
+;; autochange.scm - fairly related to part combining.
 
 (define-public (make-autochange-music parser music)
   (define (generate-split-list change-moment event-list acc)

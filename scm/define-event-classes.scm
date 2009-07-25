@@ -1,4 +1,4 @@
-;;;; stream-event-classes.scm -- define the tree of stream-event classes.
+;;;; define-event-classes.scm -- define the tree of stream-event classes.
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;

@@ -21,13 +21,14 @@ LY_DEFINE (ly_music_length, "ly:music-length",
   return sc->get_length ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_music_property,
-	   "ly:music-property", 2, 1, 0, (SCM mus, SCM sym, SCM dfault),
-	   "Get the property @var{sym} of music expression @var{mus}."
-	   "  If @var{sym} is undefined, return @code{'()}.")
+LY_DEFINE (ly_music_property, "ly:music-property",
+	   2, 1, 0, (SCM mus, SCM sym, SCM val),
+	   "Return the value for property @var{sym} of music expression"
+	   " @var{mus}.  If no value is found, return @var{val} or"
+	   " @code{'()} if @var{val} is not specified.")
 {
   LY_ASSERT_TYPE (unsmob_music, mus, 1);
-  return ly_prob_property (mus, sym, dfault);
+  return ly_prob_property (mus, sym, val);
 }
 
 LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!",
@@ -57,7 +58,7 @@ LY_DEFINE (ly_make_music, "ly:make-music",
 
 LY_DEFINE (ly_music_p, "ly:music?",
 	   1, 0, 0, (SCM obj),
-	   "Type predicate.")
+	   "Is @var{obj} a Music object?")
 {
   return scm_from_bool (unsmob_music (obj));
 }
@@ -76,8 +77,7 @@ LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
 
 LY_DEFINE (ly_music_list_p, "ly:music-list?",
 	   1, 0, 0, (SCM lst),
-	   "Type predicate: Return true if @var{lst} is a list"
-	   " of music objects.")
+	   "Is @var{lst} a list of music objects?")
 {
   if (scm_list_p (lst) == SCM_BOOL_T)
     while (scm_is_pair (lst))

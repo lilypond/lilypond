@@ -14,7 +14,7 @@
 \context {
   \type "Engraver_group"
   \name "FretBoards"
-
+  \description "A context for displaying fret diagrams."
 
   \consists "Fretboard_engraver"
   \consists "Rest_swallow_translator" 
@@ -375,6 +375,7 @@ printing of a single line of lyrics."
 \context {
   \type "Engraver_group"
   \name NoteNames
+  \description "A context for printing the names of notes."
   \consists "Axis_group_engraver"
 
   \override VerticalAxisGroup #'minimum-Y-extent = ##f
@@ -627,6 +628,7 @@ automatically when an output definition (a @code{\score} or
 \context {
   \type "Engraver_group"
   \name "FiguredBass"
+  \description "A context for printing a figured bass line."
 
   \consists "Figured_bass_engraver"
   \consists "Note_swallow_translator"

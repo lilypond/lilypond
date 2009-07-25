@@ -50,7 +50,7 @@ public:
 DECLARE_UNSMOB(Prob,prob);
 
 SCM ly_prob_set_property_x (SCM system, SCM sym, SCM value);
-SCM ly_prob_property (SCM system, SCM sym, SCM dfault);
+SCM ly_prob_property (SCM prob, SCM sym, SCM val);
 
 SCM ly_prob_type_p (SCM obj, SCM sym);
   

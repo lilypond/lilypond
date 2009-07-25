@@ -140,9 +140,10 @@ LY_DEFINE (ly_warning, "ly:warning",
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
 	   1, 0, 0, (SCM s),
-	   "A type predicate.  The direction@tie{}@code{s} is @code{-1},"
-	   " @code{0} or@tie{}@code{1}, where @code{-1} represents"
-	   " left or down and @code{1} represents right or up.")
+	   "Is @var{s} a direction?  Valid directions are @code{-1},"
+	   " @code{0}, or@tie{}@code{1}, where @code{-1} represents"
+	   " left or down, @code{1} represents right or up, and @code{0}"
+	   " represents a neutral direction.")
 {
   if (scm_is_number (s))
     {
@@ -311,10 +312,10 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
-	   2, 1, 0, (SCM key, SCM achain, SCM dfault),
+	   2, 1, 0, (SCM key, SCM achain, SCM val),
 	   "Return value for @var{key} from a list of alists @var{achain}."
-	   "  If no entry is found, return @var{dfault} or @code{#f} if no"
-	   " @var{dfault} is specified.")
+	   "  If no entry is found, return @var{val} or @code{#f} if"
+	   " @var{val} is not specified.")
 {
   if (scm_is_pair (achain))
     {
@@ -322,9 +323,9 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
       if (scm_is_pair (handle))
 	return scm_cdr (handle);
       else
-	return ly_chain_assoc_get (key, scm_cdr (achain), dfault);
+	return ly_chain_assoc_get (key, scm_cdr (achain), val);
     }
-  return dfault == SCM_UNDEFINED ? SCM_BOOL_F : dfault;
+  return val == SCM_UNDEFINED ? SCM_BOOL_F : val;
 }
 
 

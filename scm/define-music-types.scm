@@ -120,19 +120,19 @@ Syntax: @var{note}@code{\\breathe}")
 	(types . (general-music event breathing-event))
 	))
 
+    (ClusterNoteEvent
+     . ((description . "A note that is part of a cluster.")
+	;; not a note-event, to ensure that Note_heads_engraver doesn't eat it.
+	(types . (general-music cluster-note-event melodic-event
+		  rhythmic-event event))
+	))
+
     (ContextChange
      . ((description . "Change staves in Piano staff.
 
 Syntax: @code{\\change Staff = @var{new-id}}")
 	(iterator-ctor . ,ly:change-iterator::constructor)
 	(types . (general-music translator-change-instruction))
-	))
-
-    (ClusterNoteEvent
-     . ((description . "A note that is part of a cluster.")
-	;; not a note-event, to ensure that Note_engraver doesn't eat it.
-	(types . (general-music cluster-note-event melodic-event
-		  rhythmic-event event))
 	))
 
     (ContextSpeccedMusic
@@ -166,11 +166,6 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 		  event))
 	))
 
-    (ExtenderEvent
-     . ((description . "Extend lyrics.")
-	(types . (general-music extender-event event))
-	))
-
     (Event
      . ((description . "Atomic music event.")
 	(types . (general-music event))
@@ -183,6 +178,11 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
 	(to-relative-callback .
 	 ,ly:music-sequence::event-chord-relative-callback)
 	(types . (general-music event-chord simultaneous-music))
+	))
+
+    (ExtenderEvent
+     . ((description . "Extend lyrics.")
+	(types . (general-music extender-event event))
 	))
 
     (FingeringEvent
@@ -405,14 +405,14 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
 
-    (RepeatTieEvent
-     . ((description . "Ties for starting a second volta bracket.")
-	(types . (general-music event repeat-tie-event))
-	))
-
     (RepeatedMusic
      . ((description . "Repeat music in different ways.")
 	(types . (general-music repeated-music))
+	))
+
+    (RepeatTieEvent
+     . ((description . "Ties for starting a second volta bracket.")
+	(types . (general-music event repeat-tie-event))
 	))
 
     (RestEvent

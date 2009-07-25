@@ -1,4 +1,4 @@
-;;;; layout-page-tweaks.scm -- page breaking and page layout
+;;;; layout-page-dump.scm -- page breaking and page layout
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
@@ -13,7 +13,7 @@
   #:use-module (scm layout-page-layout)
   #:use-module (lily)
   #:export (write-page-breaks
-	    ;; utilisties for writing other page dump functions
+	    ;; utilities for writing other page dump functions
 	    record-tweaks dump-all-tweaks))
 
 (define (record-tweaks what property-pairs tweaks)

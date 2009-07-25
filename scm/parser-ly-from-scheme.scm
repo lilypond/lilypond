@@ -1,4 +1,4 @@
-;;;; ly-from-scheme.scm -- parsing LilyPond music expressions from scheme
+;;;; parser-ly-from-scheme.scm -- parsing LilyPond music expressions from scheme
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 

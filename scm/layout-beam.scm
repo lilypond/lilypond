@@ -1,5 +1,5 @@
 ;;;;
-;;;; beam.scm -- Beam scheme stuff
+;;;; layout-beam.scm -- Beam scheme stuff
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 

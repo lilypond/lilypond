@@ -84,8 +84,8 @@ evaluate_with_simple_closure (SCM delayed_argument,
 }
 
 LY_DEFINE (ly_simple_closure_p, "ly:simple-closure?",
-	  1,0,0, (SCM clos),
-	  "Type predicate.")
+	  1, 0, 0, (SCM clos),
+	  "Is @var{clos} a simple closure?")
 {
   return scm_from_bool (is_simple_closure (clos));
 }

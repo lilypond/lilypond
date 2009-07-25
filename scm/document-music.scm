@@ -1,4 +1,4 @@
-;;;; document-markup.scm -- part of generated backend documentation
+;;;; document-music.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
