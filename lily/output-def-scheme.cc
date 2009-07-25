@@ -15,22 +15,22 @@
 #include "lily-parser.hh"
 
 LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
-	   2, 1, 0, (SCM pap, SCM sym, SCM def),
-	   "Look up @var{sym} in the @var{pap} output definition"
-	   " (e.g., @code{\\paper}).  Return the value or @var{def}"
-	   " (which defaults to @code{'()}) if undefined.")
+	   2, 1, 0, (SCM def, SCM sym, SCM val),
+	   "Return the value of @var{sym} in output definition @var{def}"
+	   " (e.g., @code{\\paper}).  If no value is found, return"
+	   " @var{val} or @code{'()} if @var{val} is undefined.")
 {
-  LY_ASSERT_SMOB (Output_def, pap, 1);
-  Output_def *op = unsmob_output_def (pap);
+  LY_ASSERT_SMOB (Output_def, def, 1);
+  Output_def *op = unsmob_output_def (def);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   SCM answer = op->lookup_variable (sym);
   if (answer == SCM_UNDEFINED)
     {
-      if (def == SCM_UNDEFINED)
-	def = SCM_EOL;
+      if (val == SCM_UNDEFINED)
+	val = SCM_EOL;
 
-      answer = def;
+      answer = val;
     }
 
   return answer;
@@ -38,7 +38,7 @@ LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
 
 LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 	   1, 0, 0, (SCM def),
-	   "Get the variable scope inside @var{def}.")
+	   "Return the variable scope inside @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob_output_def (def);
@@ -47,7 +47,7 @@ LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 
 LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
 	   1, 0, 0, (SCM def),
-	   "Get the parent output definition of @var{def}.")
+	   "Return the parent output definition of @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob_output_def (def);
@@ -96,17 +96,17 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 
 LY_DEFINE (ly_output_def_p, "ly:output-def?",
 	   1, 0, 0, (SCM def),
-	   "Is @var{def} a layout definition?")
+	   "Is @var{def} an output definition?")
 {
   return ly_bool2scm (unsmob_output_def (def));
 }
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
-	   1, 0, 0, (SCM bp),
-	   "Get output-scale for @var{bp}.")
+	   1, 0, 0, (SCM def),
+	   "Return the output-scale for output definition @var{def}.")
 {
-  LY_ASSERT_SMOB (Output_def, bp, 1);
-  Output_def *b = unsmob_output_def (bp);
+  LY_ASSERT_SMOB (Output_def, def, 1);
+  Output_def *b = unsmob_output_def (def);
   return scm_from_double (output_scale (b));
 }
 
@@ -118,35 +118,37 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
   return bp->unprotect ();
 }
 
-LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
-	   (SCM paper_smob, SCM chain),
-	   "Return a font metric satisfying the font-qualifiers"
-	   " in the alist chain @var{chain}.  (An alist chain is a"
-	   " list of alists, containing grob properties.)")
+LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
+	   2, 0, 0, (SCM def, SCM chain),
+	   "Find a font metric in output definition @var{def} satisfying"
+	   " the font-qualifiers in alist chain @var{chain}, and return"
+	   " it.  (An alist chain is a list of alists, containing grob"
+	   " properties.)")
 {
-  LY_ASSERT_SMOB (Output_def, paper_smob, 1);
+  LY_ASSERT_SMOB (Output_def, def, 1);
 
-  Output_def *paper = unsmob_output_def (paper_smob);
+  Output_def *paper = unsmob_output_def (def);
   Font_metric *fm = select_font (paper, chain);
   return fm->self_scm ();
 }
 
-LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
-	   (SCM layout_smob, SCM name),
-	   "Return the layout variable @var{name}.")
+LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
+	   2, 0, 0, (SCM def, SCM sym),
+	   "Return the value of variable @var{sym} in output definition"
+	   " @var{def} as a double.")
 {
-  LY_ASSERT_SMOB (Output_def, layout_smob, 1);
-  Output_def *layout = unsmob_output_def (layout_smob);
-  return scm_from_double (layout->get_dimension (name));
+  LY_ASSERT_SMOB (Output_def, def, 1);
+  Output_def *layout = unsmob_output_def (def);
+  return scm_from_double (layout->get_dimension (sym));
 }
 
 LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
-	   1, 0, 0,
-	   (SCM bp),
-	   "Return fonts from the @code{\\paper} block @var{bp}.")
+	   1, 0, 0, (SCM def),
+	   "Return a list containing the fonts from output definition"
+	   " @var{def} (e.g., @code{\\paper}).")
 {
-  LY_ASSERT_SMOB (Output_def, bp, 1);
-  Output_def *b = unsmob_output_def (bp);
+  LY_ASSERT_SMOB (Output_def, def, 1);
+  Output_def *b = unsmob_output_def (def);
 
   SCM tab1 = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
   SCM tab2 = b->lookup_variable (ly_symbol2scm ("pango-fonts"));
