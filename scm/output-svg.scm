@@ -177,6 +177,7 @@
 				  "scale(" scale ", -" scale ")")))
 
   (set-attribute 'd path)
+  (set-attribute 'fill "currentColor")
   (apply entity 'path "" (reverse alist)))
 
 
