@@ -58,7 +58,7 @@ LY_DEFINE (ly_make_music, "ly:make-music",
 
 LY_DEFINE (ly_music_p, "ly:music?",
 	   1, 0, 0, (SCM obj),
-	   "Is @var{obj} a Music object?")
+	   "Is @var{obj} a music object?")
 {
   return scm_from_bool (unsmob_music (obj));
 }
