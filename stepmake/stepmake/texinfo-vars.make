@@ -4,7 +4,7 @@ TEXINFO_SOURCES = $(TEXI_FILES)
 
 OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
 
-OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TEXI_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
+OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TEXI_FILES), $(outdir)/$(f:.texi=.$(format)).omf))
 
 GENERATE_OMF = $(buildscript-dir)/texi2omf --format $(1) --location $(webdir)/$(tree-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
 
