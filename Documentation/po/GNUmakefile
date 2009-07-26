@@ -10,9 +10,9 @@ LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 DOMAIN=lilypond-doc
 DOC_PO_SOURCES = python/auxiliar/postprocess_html.py \
  scripts/build/texi-gettext.py scripts/auxiliar/translations-status.py
-TELY_FILES = $(shell ls $(depth)/Documentation/user/lilypond*.tely)
-TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/user/lilypond*.tely))
-LSR_LYS := $(shell ls $(depth)/input/lsr/*.ly)
+TELY_FILES = $(shell ls $(depth)/Documentation/user/*.tely)
+TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/*.tely))
+LSR_LYS := $(shell ls $(depth)/Documentation/snippets/*.ly)
 TELY_FILES += $(LSR_LYS:%.ly=../%.ly)
 
 messages: $(outdir)/messages

@@ -4,7 +4,7 @@
 .PRECIOUS: $(outdir)-letter/%.ps
 
 
-all: $(OUT_FILES)
+all:
 
 ifeq ($(out),www)
 local-WWW-1: $(ly_examples) $(pdf_examples) $(png_examples)

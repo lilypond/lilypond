@@ -1,9 +1,16 @@
 depth = ..
 
+########################
+#  Documentation build #
+########################
+
+#############
+### Variables
+
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-SUBDIRS = application contributor learning notation snippets\
-  bibliography pictures misc po $(LANGS)
+MANUALS_SUBDIRS = application contributor learning notation
+SUBDIRS = $(MANUALS_SUBDIRS) snippets bibliography pictures misc po $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
@@ -26,8 +33,7 @@ EPS_ILLUSTRATIONS=context-example.eps
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 
-
-### Extra out files
+### Out files
 
 # Dependencies
 GENERATED_ITELY_FILES = $(IN_ITELY_FILES:snippets/%-intro.itely=$(outdir)/%.itely)
@@ -40,25 +46,24 @@ XREF_MAPS_FILES += $(XREF_MAPS_DIR)/internals.xref-map
 OMF_FILES += $(outdir)/internals.html.omf $(outdir)/internals.pdf.omf
 
 # Main manuals
+TEXINFO_MANUALS = internals\
+ $(TELY_FILES:%.tely=%)\
+ $(TEXI_FILES:%.texi=%)
 
-OUT_MASTER_TEXI_FILES = $(outdir)/internals.texi
-#OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
-# $(ITELY_FILES:%.itely=$(outdir)/%.texi)
+PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
-HTML_FILES = \
-$(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
- $(TEXI_FILES:%.texi=$(outdir)/%-big-page.html)\
- $(outdir)/internals-big-page.html
+UNSPLITTED_HTML_MANUALS = changes
+SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
+$(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),, $(manual)))
 
-PDF_FILES = \
-$(TELY_FILES:%.tely=$(outdir)/%.pdf)\
- $(TELY_FILES:%.texi=$(outdir)/%.pdf)\
- $(outdir)/internals.pdf
+OUT_HTML_FILES = $(UNSPLITTED_HTML_MANUALS:%=$(outdir)/%.html)\
+ $(SPLITTED_HTML_MANUALS:%=$(outdir)/%-big-page.html)
+DEEP_HTML_FILES = $(SPLITTED_HTML_MANUALS:%=$(outdir)/%/index.html)
 
-
+# Other out files
 HTML_PAGE_NAMES= index translations devel
-OUT_HTML_FILES= $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
-OUT_CSS_FILES= $(CSS_FILES:%.css=$(outdir)/%.css)
+OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
+OUT_CSS_FILES = $(CSS_FILES:%.css=$(outdir)/%.css)
 
 MAIN_INFO_DOC = lilypond-notation
 INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
@@ -73,32 +78,14 @@ INFO_IMAGES_DIR = lilypond
 DEST_INFO_IMAGES_SUBDIR = Documentation/
 endif
 
-
 include $(depth)/make/stepmake.make
-
-
-default: local-doc
-
-ifeq ($(out),www)
-local-WWW-2: txt-to-html $(OUT_HTML_FILES)
-
-local-WWW-clean: deep-WWW-clean
-
-deep-WWW-clean:
-	rm -rf $(outdir)/wiki-dump
-endif
 
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
-# cd $(outdir) rule gets bit hairy for --srcdir configure builds
-txt-to-html:
-	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
-	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
+###########
+### Targets
 
-$(OUT_HTML_FILES): $(OUT_CSS_FILES)
-
-$(outdir)/%.css: %.css
-	ln -f $< $@
+default: local-doc
 
 local-help: extra-local-help
 
@@ -120,9 +107,6 @@ Translations specific targets (see TRANSLATION for details):\n\
 \n\
 LL refers to the desired locale (most often only the ISO 639 language code).\n"
 
-#####################################
-# Texinfo 
-
 info: $(INFO_FILES)
 	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
 	@echo export PYTHONPATH=$(PYTHONPATH)
@@ -133,17 +117,32 @@ xml: $(outdir)/notation/notation.xml $(outdir)/internals/internals.xml
 local-clean:
 	rm -f $(INFO_IMAGES_DIR)
 
+### Web targets
 
-#
-# Split manuals in HTML
-#
+ifeq ($(out),www)
+local-WWW-1: $(TEXINFO_MANUALS:%=$(outdir)/%.texi) $(PDF_FILES) info
+
+local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
+endif
+
+
+#########
+### Rules
+
+# cd $(outdir) rule gets bit hairy for --srcdir configure builds
+txt-to-html:
+	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
+	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
+
+
+$(OUT_HTML_FILES): $(OUT_CSS_FILES)
+
+$(outdir)/%.css: %.css
+	ln -f $< $@
+
+## Extra images dependencies
 $(outdir)/learning/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
 $(outdir)/notation/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-
-
-#
-# Manuals in one big HTML page
-#
 $(outdir)/learning-big-page.html: $(OUT_PNG_IMAGES)
 $(outdir)/notation-big-page.html: $(OUT_PNG_IMAGES)
 
@@ -158,8 +157,8 @@ $(outdir)/internals/internals.xml: $(outdir)/internals.texi
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 
-$(foreach manual, application contributor learning notation,\
-$(eval $(outdir)/(i).texi: $(call src-wildcard,$(i)/*.ite??)))
+$(foreach manual, $(MANUAL_SUBDIRS),\
+$(eval $(outdir)/(manual).texi: $(call src-wildcard,$(manual)/*.ite??)))
 
 $(outdir)/%.png: %.png
 	convert -depth 8 -geometry 50x50% $< $@
@@ -173,16 +172,6 @@ $(outdir)/%.pdf: %.png
 $(outdir)/%.pdf: %.eps
 	gs -dAutoRotatePages=/None -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
 
-
-### Splitted HTML manuals
-
-DEEP_HTML_FILES =\
- $(outdir)/application/index.html\
- $(outdir)/internals/index.html\
- $(outdir)/learning/index.html\
- $(outdir)/notation/index.html\
- $(outdir)/music-glossary/index.html\
- $(outdir)/snippets/index.html
 
 # Symlinks to refer to external source documents from split and non-split HTML
 source-links = $(outdir)/source $(outdir)/notation/source $(outdir)/music-glossary/source \
@@ -198,34 +187,23 @@ $(outdir)/%/source:
 	mkdir -p $(dir $@)
 	ln -sf $(depth)/.. $(@)
 
-################################
-### Snippets rules idiosyncrases
 
+## Snippets rules idiosyncrases
 $(outdir)/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	xargs $(LYS_TO_TELY) -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
 $(outdir)/snippets.texi: $(GENERATED_ITELY_FILES) $(SNIPPET_LY_FILES)
 
-###############
-### Web targets
-
-ifeq ($(out),www)
-local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) info
-
-local-WWW-2: $(HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
-endif
-
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
 
-# lilypond.texi deps
+## notation.texi deps
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(top-src-dir)/mf
 
 $(outdir)/notation.texi: $(outdir)/ly-grammar.txt
 
-# Rules for the automatically generated documentation
-
+## Rules for the automatically generated documentation
 $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 	cd $(outdir) && $(BISON) -v $<
 	$(auxscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
@@ -237,12 +215,10 @@ $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 $(outdir)/internals.texi: $(LILYPOND_BINARY)
 	cd $(outdir) && $(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation
 
-.SECONDARY:
 
-
-#####################################
-#  Translations maintenance targets #
-#####################################
+###############################################
+#  Documentation and translations maintenance #
+###############################################
 po-update:
 	make -C po po-update
 
@@ -259,39 +235,39 @@ new-lang:
 	then echo "Error: $(ISOLANG) directory already exists. Exiting." ; \
 	exit 3 ; \
 	fi
-	mkdir -p $(ISOLANG)/user
+	mkdir -p $(ISOLANG)/learning
 	cp fr/GNUmakefile $(ISOLANG)
-	cp fr/user/GNUmakefile $(ISOLANG)/user
-	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
+	cp fr/learning/GNUmakefile $(ISOLANG)/learning
+	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/learning/GNUmakefile
 	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../learning.tely
-	mv $(outdir)/*.*tely $(ISOLANG)/user
+	mv $(outdir)/*.*tely $(ISOLANG)/learning
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
-CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??') \
-  $(shell find $(depth)/input/texidocs/ -name '*.texidoc')
+CHECKED_FILES = $(ISOLANG)/index.html.in $(foreach i,learning notation application, \
+  $(shell find $(ISOLANG)/$(manual) -maxdepth 1 -name '*.*te??')) \
+  $(shell find $(ISOLANG)/texidocs/ -name '*.texidoc')
 
-TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
+TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 skeleton-update:
-	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/user/%.tely=../user/%.tely)
-	$(auxscript-dir)/texi-skeleton-update.py $(ISOLANG)/user $(outdir)
+	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
+	$(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
 
 snippet-update:
-	$(auxscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
+	$(auxscript-dir)/update-snippets.py user $(ISOLANG) '*.itely'
 
-DOCUMENTS_INCLUDES:=-I $(ISOLANG)/user \
--I $(top-build-dir)/Documentation/$(ISOLANG)/user/out-www \
--I $(top-src-dir)/input/lsr \
--I $(top-build-dir)/input/lsr/out-www \
--I user -I $(top-build-dir)/Documentation/user/out-www
+DOCUMENTS_INCLUDES:=-I $(ISOLANG) \
+-I $(top-build-dir)/Documentation/$(ISOLANG)/out-www \
+-I $(top-src-dir)/Documentation/snippets \
+-I $(top-build-dir)/Documentation/out-www
 
 else # ISOLANG is empty
 
-DOCUMENTS_INCLUDES:=-I user \
--I $(top-build-dir)/Documentation/user/out-www \
--I $(top-src-dir)/input/lsr \
--I $(top-build-dir)/input/lsr/out-www
+DOCUMENTS_INCLUDES:=-I . \
+-I $(top-build-dir)/Documentation/out-www \
+-I $(top-src-dir)/Documentation/snippets \
+-I $(top-build-dir)/Documentation/snippets/out-www
 
 endif # ISOLANG
 

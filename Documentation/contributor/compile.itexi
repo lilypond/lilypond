@@ -348,8 +348,8 @@ be triggered as they should be; a workaround is to force rebuilding
 by touching appropriate files, e.g.
 
 @example
-touch Documentation/user/*.itely
-touch input/lsr/*.ly
+touch Documentation/notation/*.itely
+touch Documentation/snippets/*.ly
 @end example
 
 
@@ -372,12 +372,13 @@ Please note that this may break sometimes -- for example, if a new
 feature is added with a test file in input/regression, even the latest
 development release of LilyPond will fail to build the docs.
 
-You may build the manual without building all the @file{input/*}
-stuff: change directory, for example to @file{Documentation/user},
-issue @code{make doc}, which will build documentation in a
-subdirectory @file{out-www} from the source files in current
-directory.  In this case, if you also want to browse the documentation
-in its post-processed form, change back to top directory and issue
+You may build the manual without building all the @file{input/*} stuff
+(i.e. mostly regression tests): change directory, for example to
+@file{Documentation/}, issue @code{make doc}, which will build
+documentation in a subdirectory @file{out-www} from the source files in
+current directory.  In this case, if you also want to browse the
+documentation in its post-processed form, change back to top directory
+and issue
 
 @example
 make out=www WWW-post

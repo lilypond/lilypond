@@ -107,7 +107,7 @@ def name2line (n):
 
 if files:
     dir = os.path.dirname (name) or "."
-# don't strip .tely extension, input/lsr uses .itely
+# don't strip .tely extension, Documentation/snippets uses .itely
     name = os.path.basename (name)
     template = template % vars ()
 

@@ -22,12 +22,6 @@ def dir_lang (file, lang, lang_dir_index):
 vc_last_revision = 'git log --pretty=format:%%H %(file_name)s | head -1'
 vc_last_texidoc_revision = 'git log -Stexidoc%(preferred_language)s --pretty=format:%%H %(file_name)s | head -1'
 
-s = 'Translation of GIT [Cc]ommittish'
-texidoc_chunk_re = re.compile (r'^((?:%+\s*' + s + \
-    r'.+)?\s*(?:texidoc|doctitle)([a-zA-Z]{2,4})\s+=(?:.|\n)*?)(?=%+\s*' + \
-    s + r'|\s*(?:texidoc|doctitle)(?:[a-zA-Z]{2,4})\s+=|$(?!.|\n))', re.M)
-
-
 def do_file (file_name, lang_codes):
     if verbose:
         sys.stderr.write ('%s...\n' % file_name)
@@ -42,23 +36,10 @@ def do_file (file_name, lang_codes):
     else:
         check_lang = lang
     if check_lang == C:
-        if not os.path.splitext (file_name)[1] == '.texidoc':
-            raise Exception ('cannot determine language for ' + file_name)
-        translated_contents = open (file_name).read ()
-        if 'ISOLANG' in os.environ:
-            preferred_language = os.environ['ISOLANG']
-        else:
-            raise Exception ('cannot determine language for ' + file_name)
-        for m in texidoc_chunk_re.finditer (translated_contents):
-            if m.group (2) == preferred_language:
-                full_translated_contents = translated_contents
-                translated_contents = m.group (1)
-                translated_contents_start = m.start ()
-                translated_contents_end = m.end ()
-                break
-        else:
-            return
-        original = file_name.replace ('texidocs' + os.path.sep, 'lsr' + os.path.sep, 1)
+        raise Exception ('cannot determine language for ' + file_name)
+    else:
+        if os.path.splitext (file_name)[1] == '.texidoc':
+            original = file_name.replace (os.path.join ('texidocs' + os.path.sep, 'lsr' + os.path.sep, 1)
         original = original.replace ('.texidoc', '.ly', 1)
 
         # URG dirty .texidoc files manipulation in a dirty way
@@ -77,8 +58,6 @@ def do_file (file_name, lang_codes):
             f.write (translated_contents)
             f.write (full_translated_contents[translated_contents_end:])
             return
-
-    else:
         original = dir_lang (file_name, '', lang_dir_index)
         translated_contents = open (file_name).read ()
 

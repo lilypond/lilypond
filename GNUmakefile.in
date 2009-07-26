@@ -108,8 +108,7 @@ install-info-WWW:
 uninstall-WWW:
 	rm -rf $(DESTDIR)$(webdir)
 	-rmdir $(package_docdir)
-	$(MAKE) -C Documentation/user uninstall
-	$(MAKE) -C input/lsr uninstall
+	$(MAKE) -C Documentation uninstall
 
 
 # For online docs with content negotiation, issue `make doc WEB_TARGETS=online'

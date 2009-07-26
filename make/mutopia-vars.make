@@ -7,9 +7,6 @@ include $(make-dir)/lilypond-vars.make
 SCORE_LY_FILES = $(shell cd $(src-dir) && fgrep -l score *.ly)
 
 ILY_FILES = $(call src-wildcard,*.ily)
-M4_FILES = $(call src-wildcard,*.m4)
-LYM4_FILES = $(call src-wildcard,*.lym4)
-EXTRA_DIST_FILES += $(M4_FILES) $(LYM4_FILES)
 
 ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly, $(examples)))
 ly_examples+= $(ILY_FILES:%.ily=$(outdir)/%.ily)
@@ -24,7 +21,4 @@ html_subdirs=$(addprefix --subdirs ,$(SUBDIRS))
 
 name-stem= $(notdir $(basename $<))
 
-OUT_FILES = $(addprefix $(outdir)/,$(M4_FILES:%.m4=%)) \
- $(addprefix $(outdir)/,$(LYM4_FILES:%.lym4=%.ly))
-
-score_ps = $(addprefix $(outdir)/, $(addsuffix .ps.gz, $($SCORE_LY_FILES)))
+score_ps = $(addprefix $(outdir)/, $(addsuffix .ps.gz, $(SCORE_LY_FILES)))

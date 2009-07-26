@@ -176,21 +176,26 @@ to do anything fancy, discuss it on @code{lilypond-devel} first.}
 @node Documentation files
 @subsection Documentation files
 
-The user manuals lives in @file{Documentation/user/}.  In
-particular, the files @file{lilypond-learning.ly} (LM),
-@file{lilypond.itely} (NR), @file{music-glossary.tely} (MG), and
-@file{lilypond-program} (AU).  Each chapter is written in a
-separate file (ending in @file{.itely} for files containing
-lilypond code, and @file{.itexi} for files without lilypond code);
-see the @qq{main} file for each manual to determine the filename
+All manuals live in @file{Documentation/}.
+
+In particular, there are four user manuals, their respective master
+source files are @file{learning.tely} (LM, Learning Manual),
+@file{notation.tely} (NR, Notation Reference),
+@file{music-glossary.tely} (MG, Music Glossary), and
+@file{lilypond-program} (AU).  Each chapter is written in a separate
+file, ending in @file{.itely} for files containing lilypond code, and
+@file{.itexi} for files without lilypond code, located in a subdirectory
+associated to the manual (@file{learning/} for @file{learning.tely}, and
+so on); list the subdirectory of each manual to determine the filename
 of the specific chapter you wish to modify.
 
-Developer manuals live in @file{Documentation/devel}.  Currently
-there is only one; @file{contrib-guide.texi}.
+Developer manuals live in @file{Documentation/} too.  Currently there is
+only one: the Contributors' Guide @file{contrib-guide.texi} you are
+reading.
 
-Although snippets are part of documentation, they are not
-(directly) part of the manuals.  For information about how to
-modify them, see @ref{LSR work}.
+Snippet files are part of documentation, and the Snippet List (SL) lives
+in @file{Documentation/} just like the manuals.  For information about
+how to modify the snippet files and SL, see @ref{LSR work}.
 
 
 @node Sectioning commands
@@ -1006,7 +1011,7 @@ possible into there.
 
 
 It would be @qq{nice} if you spent a lot of time crafting nice
-tweaks for users... but my recommendation is @strong{not} to do
+tweaks for users@dots{} but my recommendation is @strong{not} to do
 this.  There's a lot of doc work to do without adding examples of
 tweaks.  Tweak examples can easily be added by normal users by adding
 them to the LSR.
@@ -1024,7 +1029,7 @@ the difficulty.
 @node Updating docs with convert-ly
 @section Updating doc with @command{convert-ly}
 
-cd into Documentation and run
+cd into @file{Documentation/} and run
 
 @example
 find . -name '*.itely' | xargs convert-ly -e
@@ -1068,7 +1073,8 @@ pieces of software, in order to make use of dedicated helper tools:
 @itemize
 @item Python 2.4 or higher,
 @item GNU Make,
-@item Gettext.
+@item Gettext,
+@item Git.
 @end itemize
 
 It is not required to build LilyPond and the documentation to
@@ -1127,7 +1133,7 @@ the documentation, but is not required to do translation only -- fix
 all dependencies and rerun @command{./configure} (with the same
 options as for @command{autogen.sh}).
 
-Then @command{cd} into @file{Documentation} and run
+Then @command{cd} into @file{Documentation/} and run
 
 @example
 make ISOLANG=@var{MY-LANGUAGE} new-lang
@@ -1209,7 +1215,7 @@ managed through the Free Translation Project.
 
 
 Take care of using typographic rules for your language, especially in
-@file{user/macros.itexi}.
+@file{macros.itexi}.
 
 
 Please keep verbatim copies of music snippets (in @code{@@lilypond}
@@ -1236,23 +1242,21 @@ When you encounter
 @end example
 
 @noindent
-in the source, open @file{input/lsr/@var{filename}.ly}, translate the
+in the source, open @file{Documentation/snippets/@var{filename}.ly}, translate the
 @code{texidoc} header field it contains, enclose it with
 @code{texidoc@var{MY-LANGUAGE} = "} and @code{"}, and write it into
-@file{input/texidocs/@var{filename}.texidoc} -- please keep possibly
-existing translations in other languages!  Additionnally, you may
-translate the snippet's title in @code{doctitle} header field, in case
-@code{doctitle} is a fragment option used in @code{@@lilypondfile};
-you can do this exactly the same way as @code{texidoc}.  For instance,
-@file{input/texidocs/@var{filename}.texidoc} may contain
+@file{Documentation/@var{MY-LANGUAGE}/texidocs/@var{filename}.texidoc}.
+Additionnally, you may translate the snippet's title in @code{doctitle}
+header field, in case @code{doctitle} is a fragment option used in
+@code{@@lilypondfile}; you can do this exactly the same way as
+@code{texidoc}.  For instance,
+@file{Documentation/@var{MY-LANGUAGE}/texidocs/@var{filename}.texidoc}
+may contain
 
 @example
 doctitlees = "Spanish title baz"
 texidoces = "
 Spanish translation blah
-"
-doctitlede = "German title bar"
-texidocde = "German translation foo
 "
 @end example
 
@@ -1271,8 +1275,8 @@ please ask the Translation meister and/or the Documentation Editors on
 @node Translating the Notation Reference and Application Usage
 @unnumberedsubsubsec Translating the Notation Reference and Application Usage
 
-Copy @file{user/lilypond.tely} (or @file{user/lilypond-program.tely},
-respectively) into @file{@var{MY-LANGUAGE}/user}, then translate this
+Copy @file{notation.tely} (or @file{application.tely},
+respectively) into @file{@var{MY-LANGUAGE}}, then translate this
 file and run @code{skeleton-update} -- see @ref{Updating documentation
 translation}.  Your are now ready to translate the Notation Reference
 (Application Usage, respectively) exactly like the Learning Manual.
@@ -1315,7 +1319,7 @@ revision of the translation.  To check a single file, cd into
 @file{Documentation/} and run
 
 @example
-make CHECKED_FILES=@var{MY_LANGUAGE/user/foo.itely} check-translation
+make CHECKED_FILES=@var{MY_LANGUAGE}/@var{manual}/@var{foo}.itely check-translation
 @end example
 
 To see only which files need to be updated, do
@@ -1364,7 +1368,7 @@ make ISOLANG=@var{MY_LANGUAGE} update-translation
 or to update a single file
 
 @example
-make CHECKED_FILES=@var{MY_LANGUAGE/user/foo.itely} update-translation
+make CHECKED_FILES=@var{MY_LANGUAGE/@var{manual}/foo.itely} update-translation
 @end example
 
 For each file to be udpated, update-translation will open your text
@@ -1403,8 +1407,8 @@ make ISOLANG=@var{MY_LANGUAGE} snippet-update
 @end example
 
 This script overwrites music snippets in
-@file{@var{MY_LANGUAGE/user/every.itely}} with music snippets from
-@file{@var{user/every.itely}}.  It ignores skeleton files, and keeps
+@file{@var{MY_LANGUAGE/foo/every.itely}} with music snippets from
+@file{@var{foo/every.itely}}.  It ignores skeleton files, and keeps
 intact music snippets preceded with a line starting with @code{@@c
 KEEP LY}; it reports an error for each @file{.itely} that has not the
 same music snippet count in both languages.  Always use this script
