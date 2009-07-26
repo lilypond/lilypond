@@ -48,7 +48,12 @@
 ;; Helper functions
 (define-public (attributes attributes-alist)
   (apply string-append
-	 (map (lambda (x) (format " ~s=\"~a\"" (car x) (cdr x)))
+	 (map (lambda (x)
+		(let ((attr (car x))
+		      (value (cdr x)))
+		  (if (number? value)
+		      (set! value (ly:format "~4f" value)))
+		  (format " ~s=\"~a\"" attr value)))
 	      attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
