@@ -9431,7 +9431,7 @@ msgstr "Vue d'ensemble de la modification des propriétés"
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @node in Documentation/de/user/changing-defaults.itely
 msgid "The set command"
-msgstr "La commande de fixation (@code{set})"
+msgstr "La commande de fixation (set)"
 
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/fr/user/changing-defaults.itely
