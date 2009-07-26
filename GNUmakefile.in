@@ -101,6 +101,7 @@ ifeq ($(out),www)
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
 	rsync -rl --exclude='*.signature' $(outdir)/offline-root/ $(DESTDIR)$(webdir)
+	$(MAKE) -C Documentation omf-local-install
 
 install-info-WWW:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) install-info && ) true

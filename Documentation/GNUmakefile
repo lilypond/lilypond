@@ -122,7 +122,7 @@ local-clean:
 ifeq ($(out),www)
 local-WWW-1: $(TEXINFO_MANUALS:%=$(outdir)/%.texi) $(PDF_FILES) info
 
-local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
+local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links) $(OMF_FILES)
 endif
 
 
