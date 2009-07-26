@@ -5,7 +5,7 @@ import os
 import glob
 import re
 
-os.environ['PYTHONPATH'] += ':python'
+sys.path.append ('python')
 import langdefs
 
 DEST = os.path.join ('Documentation', 'snippets')
