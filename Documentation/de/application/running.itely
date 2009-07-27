@@ -11,29 +11,32 @@
 
 @c Translators: Reinhold Kainhofer, Till Rettig
 
-@node Running LilyPond
-@chapter Running LilyPond
+@node LilyPond starten
+@chapter LilyPond starten
+@translationof Running LilyPond
 
 Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werden kann.
 
 
 @menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Updating files with convert-ly::
-* Reporting bugs::
+* Übliche Programmbenutzung::
+* Benutzung auf der Kommandozeile::
+* Fehlermeldungen::
+* Dateien mit convert-ly aktualisieren::
+* Fehler melden::
 @end menu
 
-@node Normal usage
-@section Normal usage
+@node Übliche Programmbenutzung
+@section Übliche Programmbenutzung
+@translationof Normal usage
 
 Die meisten Benutzer führen LilyPond von einer graphischen Benutzeroberfläche
-aus. Siehe @rlearning{First steps}, falls Sie dies nicht bereits getan haben.
+aus. Siehe @rlearning{Erste Schritte}, falls Sie dies nicht bereits getan haben.
 
 
-@node Command-line usage
-@section Command-line usage
+@node Benutzung auf der Kommandozeile
+@section Benutzung auf der Kommandozeile
+@translationof Command-line usage
 
 Dieser Abschnitt enthält zusätzliche Informationen, wie Sie LilyPond
 von der Kommandozeile ausführen können.  Dies kann erforderlich sein,
@@ -45,7 +48,7 @@ Unter @q{Kommandozeile} verstehen wir die Kommandozeile des jeweiligen
 Betriebssystems. Windows Benutzern ist sie vielleicht eher unter den
 englischen Begriffen @q{DOS shell} oder @q{command shell} bekannt.
 MacOS@tie{}X Benutzer kennen sie eher unter @q{Terminal} oder @q{Konsole}.
-Sie sollten auch den Abschnitt @ref{Setup for MacOS X} konsultieren.
+Sie sollten auch den Abschnitt @ref{Einrichtung für MacOS X} konsultieren.
 
 Wie die Kommandozeile im jeweiligen Betriebssystem benutzt werden kann,
 soll in diesem Handbuch nicht näher beschrieben werden. Sehen Sie bitte
@@ -54,13 +57,14 @@ Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 
 
 @menu
-* Invoking lilypond::
-* Command line options for lilypond::
-* Environment variables::
+* lilypond aufrufen::
+* Optionen von lilypond auf der Kommandozeile::
+* Umgebungsvariablen::
 @end menu
 
-@node Invoking lilypond
-@subsection Invoking @command{lilypond}
+@node lilypond aufrufen
+@subsection @command{lilypond} aufrufen
+@translationof Invoking lilypond
 
 @cindex @command{lilypond} aufrufen
 @cindex Kommandozeilen-Optionen für @command{lilypond}
@@ -106,8 +110,9 @@ erzeugt daher die Dateien @var{Dateiname}@file{-Geige.pdf} und
 
 
 
-@node Command line options for lilypond
-@subsection Command line options for @command{lilypond}
+@node Optionen von lilypond auf der Kommandozeile
+@subsection Optionen auf der Kommandozeile für @command{lilypond}
+@translationof Command line options for lilypond
 
 Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 
@@ -389,8 +394,9 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 @end table
 
 
-@node Environment variables
-@subsection Environment variables
+@node Umgebungsvariablen
+@subsection Umgebungsvariablen
+@translationof Environment variables
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
@@ -416,8 +422,9 @@ benötigt.  Voreinstellung ist ein Wert von @code{70}.
 @end table
 
 
-@node Error messages
-@section Error messages
+@node Fehlermeldungen
+@section Fehlermeldungen
+@translationof Error messages
 
 @cindex error messages
 Während der Verarbeitung einer Dateien können diverse Meldungen an der
@@ -497,8 +504,9 @@ der angegebenen Zeile keinen Fehler erkennen, sollten Sie auch die Zeilen
 oberhalb der angegebenen Stelle genauer unter die Lupe nehmen.
 
 
-@node Updating files with convert-ly
-@section Updating files with @command{convert-ly}
+@node Dateien mit convert-ly aktualisieren
+@section Dateien mit @command{convert-ly} aktualisieren
+@translationof Updating files with convert-ly
 
 @cindex Aktualisierung von LilyPond-Dateien
 @cindex Aktualisierung mit convert-ly
@@ -531,12 +539,13 @@ und eine Datei @code{meineDatei.ly.NEW} erstellt wird, it
 
 
 @menu
-* Command line options for convert-ly::
-* Problems with convert-ly::
+* Optionen von convert-ly auf der Kommandozeile::
+* Probleme mit convert-ly::
 @end menu
 
-@node Command line options for convert-ly
-@subsection Command line options for @command{convert-ly}
+@node Optionen von convert-ly auf der Kommandozeile
+@subsection Optionen von @command{convert-ly} auf der Kommandozeile
+@translationof Command line options for convert-ly
 
 @command{convert-ly} konvertiert immer bis zur letzten Syntaxänderung,
 die es beherrscht.  Das heißt, dass die neue @code{version}-Nummer
@@ -603,8 +612,9 @@ Benutzerhilfe ausgeben.
 @end table
 
 
-@node Problems with convert-ly
-@subsection Problems with @code{convert-ly}
+@node Probleme mit convert-ly
+@subsection Probleme mit @code{convert-ly}
+@translationof Problems with convert-ly
 
 Nicht alle Änderungen der Syntax können konvertiert werden.  Nur
 eine Ausgabeoption kann angegeben werden.  Scheme- und
@@ -668,8 +678,9 @@ Wunschliste zur Referenz.
 
 
 
-@node Reporting bugs
-@section Reporting bugs
+@node Fehler melden
+@section Fehler melden
+@translationof Reporting bugs
 
 
 @cindex Fehler

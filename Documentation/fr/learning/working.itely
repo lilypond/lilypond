@@ -11,8 +11,9 @@
 @c Translators: Ludovic Sardain, Jean-Charles Malahieude
 @c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau, Jean-Charles Malahieude
 
-@node Working on LilyPond projects
-@chapter Working on LilyPond projects
+@node Travail sur des projets LilyPond
+@chapter Travail sur des projets LilyPond
+@translationof Working on LilyPond projects
 
 Cette section explique comment résoudre ou éviter certains problèmes
 courants.  Si vous avez de l'expérience en programmation, beaucoup de
@@ -20,14 +21,15 @@ ces astuces peuvent vous paraître évidentes, mais vous ne perdrez tout
 de même pas votre temps à lire ce chapitre.
 
 @menu
-* Suggestions for writing LilyPond input files::
-* When things don't work::      
-* Scores and parts::            
-* Make and Makefiles::
+* Suggestions pour la saisie de fichiers LilyPond::
+* Quand ça ne fonctionne pas::      
+* Conducteurs et parties::            
+* De la commande @command{make} et des fichiers @code{Makefile}::
 @end menu
 
-@node Suggestions for writing LilyPond input files
-@section Suggestions for writing LilyPond input files
+@node Suggestions pour la saisie de fichiers LilyPond
+@section Suggestions pour la saisie de fichiers LilyPond
+@translationof Suggestions for writing LilyPond input files
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
 LilyPond --- des pièces entières, et plus seulement les petits
@@ -58,15 +60,16 @@ faciliter leur mise à jour.
 @end itemize
 
 @menu
-* General suggestions::         
-* Typesetting existing music::  
-* Large projects::              
-* Saving typing with variables and functions::  
-* Style sheets::                
+* Suggestions générales::         
+* Gravure de musique existante::  
+* Projets d'envergure::              
+* Économie de saisie grâce aux identificateurs et fonctions::  
+* Feuilles de style::                
 @end menu
 
-@node General suggestions
-@subsection General suggestions
+@node Suggestions générales
+@subsection Suggestions générales
+@translationof General suggestions
 
 Voici quelques conseils qui peuvent vous éviter certains problèmes ou
 en résoudre d'autres.
@@ -80,8 +83,8 @@ de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
-@item @strong{Ajoutez des contrôles} : @ruser{Octave checks}  et
-@ruser{Bar and bar number checks}.  Si vous avez ajouté des contrôles
+@item @strong{Ajoutez des contrôles} : @ruser{Vérifications d'octave}  et
+@ruser{Vérification des limites et numéros de mesure}.  Si vous avez ajouté des contrôles
 de loin en loin, et que vous faites une erreur, vous pourrez la
 retrouver plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?
 Cela dépend de la complexité de la musique.  Pour de la musique très
@@ -112,14 +115,15 @@ variable.  Si vous saisissez @code{c4 d e} au début d'une phrase, vous
 vous épargnerez des problèmes si, plus tard, vous modifiez votre musique.
 
 @item @strong{Séparez les affinages de mise en forme} de la musique
-elle-même. Voyez @ref{Saving typing with variables and functions} et
-@ref{Style sheets}.
+elle-même. Voyez @ref{Économie de saisie grâce aux identificateurs et fonctions} et
+@ref{Feuilles de style}.
 
 @end itemize
 
 
-@node Typesetting existing music
-@subsection Typesetting existing music
+@node Gravure de musique existante
+@subsection Gravure de musique existante
+@translationof Typesetting existing music
 
 Si vous saisissez de la musique à partir d'une partition existante,
 c'est-à-dire de la musique déjà écrite,
@@ -130,7 +134,7 @@ c'est-à-dire de la musique déjà écrite,
 à la fois --- mais toujours une seule mesure par ligne de texte ---,
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
-pour accélérer la compilation --- voir @ruser{Skipping corrected music} ;
+pour accélérer la compilation --- voir @ruser{Ignorer des passages de la partition} ;
 
 @item définissez @code{mBreak = @{\break @}} et insérez
 @code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
@@ -161,8 +165,9 @@ sib pour une trompette en si bémol, ou lab pour une clarinette en la bémol.
 @end itemize
 
 
-@node Large projects
-@subsection Large projects
+@node Projets d'envergure
+@subsection Projets d'envergure
+@translationof Large projects
 
 Lorsque l'on travaille sur un gros projet, il devient vital
 de structurer clairement ses fichiers LilyPond.
@@ -209,8 +214,9 @@ g4\fpuisp c'8. e16
 @end itemize
 
 
-@node Saving typing with variables and functions
-@subsection Saving typing with variables and functions
+@node Économie de saisie grâce aux identificateurs et fonctions
+@subsection Économie de saisie grâce aux identificateurs et fonctions
+@translationof Saving typing with variables and functions
 
 @cindex variables
 @cindex identificateurs
@@ -310,25 +316,26 @@ padText =
 
 Utiliser les identificateurs est aussi un bon moyen pour vous épargner
 du travail si la syntaxe de LilyPond change un jour --- voir
-@ref{Updating old input files}.  Si vous avez une seule définition, par
-exemple @code{\dolce}, pour tous vos fichiers (voir @ref{Style sheets}),
+@ref{Mise à jour d'anciens fichiers}.  Si vous avez une seule définition, par
+exemple @code{\dolce}, pour tous vos fichiers (voir @ref{Feuilles de style}),
 et que la syntaxe change, alors vous n'aurez qu'à mettre à 
 jour votre seule définition @code{\dolce}, au lieu de devoir modifier
 chaque fichier @code{.ly}.
 
 
-@node Style sheets
-@subsection Style sheets
+@node Feuilles de style
+@subsection Feuilles de style
+@translationof Style sheets
 
 La sortie que produit LilyPond peut être largement modifiée --- voir
-@ref{Tweaking output} pour plus de détails.  Mais que faire si vous
+@ref{Retouche de partition} pour plus de détails.  Mais que faire si vous
 avez beaucoup de fichiers auxquels vous souhaitez appliquer vos
 retouches ? Ou si vous souhaitez simplement séparer les retouches de
 la musique elle-même ?  Rien de plus facile.
 
 Prenons un exemple.  Ne vous inquiétez pas si vous ne comprenez pas
 les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
-@ref{Advanced tweaks with Scheme}.
+@ref{Retouches avancées avec Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
@@ -349,7 +356,7 @@ inst = #(define-music-function (parser location string) (string?)
 @end lilypond
 
 Il y a quelques problèmes de chevauchement ; nous allons arranger
-cela en utilisant les techniques de @ref{Moving objects}.  On peut
+cela en utilisant les techniques de @ref{Déplacement d'objets}.  On peut
 aussi faire quelque chose pour les définitions de @code{mpdolce}
 et @code{inst}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
@@ -577,17 +584,19 @@ chaque fichier de musique par @code{\include "../global.ily"} qui contient :
 \include "../init/init-papier.ly"
 @end example
 
-@node When things don't work
-@section When things don't work
+@node Quand ça ne fonctionne pas
+@section Quand ça ne fonctionne pas
+@translationof When things don't work
 
 @menu
-* Updating old files::          
-* Troubleshooting (taking it all apart)::  
-* Minimal examples::            
+* Mise à jour d'anciens fichiers::          
+* Résolution de problèmes -- tout remettre à plat::  
+* Exemples minimalistes::            
 @end menu
 
-@node Updating old input files
-@subsection Updating old input files
+@node Mise à jour d'anciens fichiers
+@subsection Mise à jour d'anciens fichiers
+@translationof Updating old input files
 
 @cindex convert-ly
 @cindex mise à jour d'anciens fichiers
@@ -600,14 +609,14 @@ fonctionnalités.
 
 LilyPond est fourni avec un utilitaire qui facilite cette mise à
 jour : @command{convert-ly}.  Pour savoir comment utiliser ce programme,
-voir @rprogram{Updating files with convert-ly}.
+voir @rprogram{Mise à jour des fichiers avec convert-ly}.
 
 Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
 modifications.  Il s'occupe des changements qui ne requièrent qu'une
 simple substitution de texte --- comme @code{raggedright} devenant
 @code{ragged-right} ---, les autres étant trop compliqués à effectuer.
 Les changements de syntaxe qui ne sont pas gérés par @command{convert-ly}
-sont énumérés dans @rprogram{Updating files with convert-ly}.
+sont énumérés dans @rprogram{Mise à jour des fichiers avec convert-ly}.
 
 Par exemple, dans les versions 2.4 et antérieures de LilyPond,
 les accents et les lettres non anglaises étaient entrées en
@@ -620,8 +629,9 @@ fichiers LilyPond manuellement.
 
 
 
-@node Common errors
-@subsection Common errors
+@node Quelques erreurs des plus courantes
+@subsection Quelques erreurs des plus courantes
+@translationof Common errors
 
 The error conditions described below occur often, yet the cause
 is not obvious or easily found.  Once seen and understood, they
@@ -629,13 +639,14 @@ are easily handled.
 
 
 @menu
-* Music runs off the page::
-* Apparent error in ../ly/init.ly::
-* Error message Unbound variable %::
+* La musique déborde de la page::
+* Erreur renvoyant à ../ly/init.ly::
+* Message d'erreur « Unbound variable % »::
 @end menu
 
-@node Music runs off the page
-@unnumberedsubsubsec Music runs off the page
+@node La musique déborde de la page
+@unnumberedsubsubsec La musique déborde de la page
+@translationof Music runs off the page
 
 Lorsque la musique s'épanche au delà de la marge droite ou bien semble
 anormalement comprimée, la raison en est le plus souvent une note à la
@@ -653,15 +664,16 @@ conduit à une musique compressée, voire à un débordement de la page.}
 
 Une erreur de durée sera bien plus facilement localisable si vous
 positionnez régulièrement des contrôles de barre de mesure --- voir 
-@ruser{Bar and bar number checks}.
+@ruser{Vérification des limites et numéros de mesure}.
 
 Si vous tenez absolument à enchainer de tels débordements, vous devrez
 insérer des barres de mesure invisibles là où vous souhaitez positionner
-un saut de ligne.  Consultez le chapitre @ruser{Bar lines} pour plus de
+un saut de ligne.  Consultez le chapitre @ruser{Barres de mesure} pour plus de
 détails. 
 
-@node Apparent error in ../ly/init.ly
-@unnumberedsubsubsec Apparent error in @code{../ly/init.ly}
+@node Erreur renvoyant à ../ly/init.ly
+@unnumberedsubsubsec Erreur renvoyant à @code{../ly/init.ly}
+@translationof Apparent error in ../ly/init.ly
 
 Certains messages d'erreur relatifs à une erreur de syntaxe dans le
 fichier @code{../ly/init.ly} peuvent survenir lorsque le fichier est mal
@@ -672,7 +684,7 @@ L'erreur la plus courante est la simple omission d'une accolade
 fermante (@code{@}} à la fin du bloc @code{Score}.  La solution est
 évidente en pareil cas : i lsuffit de vérifier que le bloc @code{Score}
 est bien clôturé.  La structure des fichiers LilyPond est abordée plus
-en détails au chapitre @ref{How LilyPond input files work}.  C'est la
+en détails au chapitre @ref{Organisation des fichiers LilyPond}.  C'est la
 raison pour laquelle nous vous invitons à utiliser un éditeur de texte
 qui prenne en charge le contrôle de parité des parnthèses, crochets et
 accolades afin de vous éviter de telles erreurs.
@@ -683,8 +695,9 @@ se situe la plupart du temps une ou deux lignes au-dessus de celle
 indiquée. 
 
 
-@node Error message Unbound variable %
-@unnumberedsubsubsec Error message Unbound variable %
+@node Message d'erreur « Unbound variable % »
+@unnumberedsubsubsec Message d'erreur « Unbound variable % »
+@translationof Error message Unbound variable %
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, est associé à un message du type @qq{GUILE a signalé
@@ -696,8 +709,9 @@ et de doit en aucun cas se trouver dans une routine Scheme.  En Scheme,
 les commentaire s'introduisent par un point-virgule (@code{;}).
 
 
-@node Troubleshooting (taking it all apart)
-@subsection Troubleshooting (taking it all apart)
+@node Résolution de problèmes -- tout remettre à plat
+@subsection Résolution de problèmes -- tout remettre à plat
+@translationof Troubleshooting (taking it all apart)
 
 Tôt ou tard, vous écrirez un fichier que LilyPond ne peut pas
 compiler.  Les messages que LilyPond affiche peuvent vous aider à
@@ -749,11 +763,12 @@ Maintenant commencez à décommenter petit à petit le partie de
 problème.
 
 Une autre technique de déboguage très utile est la construction
-de @ref{Minimal examples}.
+de @ref{Exemples minimalistes}.
 
 
-@node Minimal examples
-@subsection Minimal examples
+@node Exemples minimalistes
+@subsection Exemples minimalistes
+@translationof Minimal examples
 
 Un exemple minimal est un exemple de code aussi court que possible.
 De tels exemples sont bien plus compréhensibles que des exemples
@@ -791,8 +806,9 @@ l'intérêt de l'exemple.
 @end itemize
 
 
-@node Scores and parts
-@section Scores and parts
+@node Conducteurs et parties
+@section Conducteurs et parties
+@translationof Scores and parts
 
 Dans la musique d'orchestre, toutes les notes sont imprimées deux fois.
 D'abord dans les parties séparées destinées aux musiciens, et ensuite
@@ -913,15 +929,16 @@ ce qui équivaut à
 
 Des informations plus détaillées sur la mise en place de conducteurs
 et de parties séparées se trouvent dans le manuel de notation : voir
-@ruser{Writing parts}.
+@ruser{Écriture de parties séparées}.
 
 Les variables (@qq{propriétés}) réglables sont abordées en détail dans
-@ruser{The set command}.
+@ruser{La commande de fixation (set)}.
 
 
 
-@node Make and Makefiles
-@section Make and Makefiles
+@node De la commande @command{make} et des fichiers @code{Makefile}
+@section De la commande @command{make} et des fichiers @code{Makefile}
+@translationof Make and Makefiles
 
 @cindex makefiles
 @cindex make
@@ -1286,6 +1303,6 @@ copy out\monprojet.pdf MonProjet.pdf
 
 @seealso
 Manuel d'utilisation :
-@rprogram{Setup for MacOS X},
-@rprogram{Command-line usage},
+@rprogram{Spécificités pour MacOS X},
+@rprogram{Utilisation en ligne de commande},
 @rprogram{LilyPond-book}

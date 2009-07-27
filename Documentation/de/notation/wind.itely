@@ -10,8 +10,9 @@
 @c \version "2.12.0"
 
 
-@node Wind instruments
-@section Wind instruments
+@node Blasinstrumente
+@section Blasinstrumente
+@translationof Wind instruments
 
 @lilypondfile[quote]{wind-headword.ly}
 
@@ -19,24 +20,26 @@ Dieser Abschnitt beinhaltet einige Notationselemente, die
 bei der Notation von Blasinstrumenten auftreten.
 
 @menu
-* Common notation for wind instruments::
-* Bagpipes::
+* Übliche Notation für Bläser::
+* Dudelsack::
 @end menu
 
 
-@node Common notation for wind instruments
-@subsection Common notation for wind instruments
+@node Übliche Notation für Bläser
+@subsection Übliche Notation für Bläser
+@translationof Common notation for wind instruments
 
 Dieser Abschnitt erklärt Eigenheiten, die für die meisten
 Blasinstrumente gültig sind.
 
 @menu
-* References for wind instruments::
-* Fingerings::
+* Referenz für Blasinstrumente::
+* Fingersatz::
 @end menu
 
-@node References for wind instruments
-@unnumberedsubsubsec References for wind instruments
+@node Referenz für Blasinstrumente
+@unnumberedsubsubsec Referenz für Blasinstrumente
+@translationof References for wind instruments
 
 @cindex Blasinstrumente
 
@@ -45,15 +48,14 @@ Atmung und Spielart zu tun:
 
 @itemize
 @item Atmung kann durch Pausen oder mit Atemzeichen angezeigt werden,,
-siehe @ref{Breath marks}.
+siehe @ref{Atemzeichen}.
 @item Legato kann durch Legatobögen angezeigt werden, siehe
-@ref{Slurs}.
+@ref{Legatobögen}.
 @item Unterschiedliche Artikulationen, Legato, Portato, Staccato,
 werden normalerweise mit Artikulationszeichen angemerkt, teilweise
-auch in Verbindung mit Legatobögen, siehe @ref{Articulations and
-ornamentations} und @ref{List of articulations}.
+auch in Verbindung mit Legatobögen, siehe @ref{Artikulationszeichen und Verzierungen} und @ref{Liste der Arktikulationszeichen}.
 @item Flatterzunge wird angezeigt, indem ein Tremolozeichen und eine
-Anmerkung für die ensprechende Note gesetzt wird. Siehe @ref{Tremolo repeats}.
+Anmerkung für die ensprechende Note gesetzt wird. Siehe @ref{Tremolo-Wiederholung}.
 @end itemize
 
 Es gibt auch noch weitere Aspekte der Notation, die für Blasinstrumente
@@ -61,31 +63,31 @@ relevant sein können:
 
 @itemize
 @item Viele Instrumente sind transponierend, siehe
-@ref{Instrument transpositions}.
+@ref{Transposition von Instrumenten}.
 @item Das Zug-Glissando ist charakteristisch für die Posaune, aber
 auch andere Instrumente können Glissandos ausführen. Siehe
 @ref{Glissando}.
 @item Obertonreihenglissandi, die auf allen Blechblasinstrumenten möglich,
 aber besonders üblich für das Waldhorn sind, werden üblicherweise mit
 Verzierungsnoten geschrieben. Siehe
-@ref{Grace notes}.
+@ref{Verzierungen}.
 @item Tonhöhenschwankungen am Ende eines Tons werden gezeigt in
-@ref{Falls and doits}.
+@ref{Glissando zu unbestimmter Tonhöhe}.
 @item Ventil- oder Klappenschläge werden oft als Kreuznoten
 dargestellt, siehe
-@ref{Special note heads}.
+@ref{Besondere Notenköpfe}.
 @item Holzbläser können tiefe Noten überblasen.  Derartige Noten
 werden als @code{flageolet}-Artikulation notiert. Siehe
-@ref{List of articulations}.
+@ref{Liste der Arktikulationszeichen}.
 @item Die Benutzung von Dämpfern für Blechblasinstrumente wird meistens
 durch Text gefordert, aber bei schnellem Wechsel bietet es sich an,
 die Artikulationszeichen @code{stopped} und @code{open} zu benutzen.
 Siehe
-@ref{Articulations and ornamentations} und
-@ref{List of articulations}.
+@ref{Artikulationszeichen und Verzierungen} und
+@ref{Liste der Arktikulationszeichen}.
 @item Gestopfte Hörner werden mit dem @code{stopped}-Artikulationszeichen
 notiert. Siehe
-@ref{Articulations and ornamentations}.
+@ref{Artikulationszeichen und Verzierungen}.
 @end itemize
 
 @snippets
@@ -96,23 +98,24 @@ notiert. Siehe
 
 @seealso
 Notationsreferenz:
-@ref{Breath marks},
-@ref{Slurs},
-@ref{Articulations and ornamentations},
-@ref{List of articulations},
-@ref{Tremolo repeats},
-@ref{Instrument transpositions},
+@ref{Atemzeichen},
+@ref{Legatobögen},
+@ref{Artikulationszeichen und Verzierungen},
+@ref{Liste der Arktikulationszeichen},
+@ref{Tremolo-Wiederholung},
+@ref{Transposition von Instrumenten},
 @ref{Glissando},
-@ref{Grace notes},
-@ref{Falls and doits},
-@ref{Special note heads},
+@ref{Verzierungen},
+@ref{Glissando zu unbestimmter Tonhöhe},
+@ref{Besondere Notenköpfe},
 
 Schnipsel:
 @rlsr{Winds}
 
 
-@node Fingerings
-@unnumberedsubsubsec Fingerings
+@node Fingersatz
+@unnumberedsubsubsec Fingersatz
+@translationof Fingerings
 
 Alle Blasinstrumente außer der Posaune benötigen mehrere Finger, um
 verschiedene Tonhöhen zu produzieren.
@@ -120,19 +123,21 @@ verschiedene Tonhöhen zu produzieren.
 TBC
 
 
-@node Bagpipes
-@subsection Bagpipes
+@node Dudelsack
+@subsection Dudelsack
+@translationof Bagpipes
 
 Dieser Abschnitt beinhaltet Information zur Notation von Dudelsackmusik.
 
 @menu
-* Bagpipe definitions::
-* Bagpipe example::
+* Dudelsack-Defintionen::
+* Dudelsack-Beispiele::
 @end menu
 
 
-@node Bagpipe definitions
-@unnumberedsubsubsec Bagpipe definitions
+@node Dudelsack-Defintionen
+@unnumberedsubsubsec Dudelsack-Defintionen
+@translationof Bagpipe definitions
 
 @cindex Dudelsack
 @cindex Sackpfeife
@@ -191,8 +196,9 @@ Schnipsel:
 @rlsr{Winds}
 
 
-@node Bagpipe example
-@unnumberedsubsubsec Bagpipe example
+@node Dudelsack-Beispiele
+@unnumberedsubsubsec Dudelsack-Beispiele
+@translationof Bagpipe example
 
 So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für
 Dudelsack notiert.

@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Templates
-@appendix Templates
+@node Vorlagen
+@appendix Vorlagen
+@translationof Templates
 
 Dieser Abschnitt des Handbuches enthält Vorlagen, in denen die 
 LilyPond-Partitur schon eingerichtet ist. Sie müssen nur noch Ihre 
@@ -19,133 +20,140 @@ schönen Notenbild erfreuen!
 
 @c bad node name for ancient notation to avoid conflict
 @menu
-* Single staff::
-* Piano templates::
-* String quartet::
-* Vocal ensembles::
-* Orchestral templates::
-* Ancient notation templates::
-* Jazz combo::
-* Lilypond-book templates::
+* Ein einzelnes System::
+* Klaviervorlagen::
+* Streichquartett::
+* Vokalensemble::
+* Orchestervorlage::
+* Vorlagen für alte Notation::
+* Jazz-Combo::
+* Lilypond-book-Vorlagen::
 @end menu
 
 
-@node Single staff
-@appendixsec Single staff
+@node Ein einzelnes System
+@appendixsec Ein einzelnes System
+@translationof Single staff
 
-@appendixsubsec Notes only
+@appendixsubsec Nur Noten
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
 
-@appendixsubsec Notes and lyrics
+@appendixsubsec Noten und Text
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
 
-@appendixsubsec Notes and chords
+@appendixsubsec Noten und Akkordbezeichnungen
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
 
-@appendixsubsec Notes, lyrics, and chords.
+@appendixsubsec Noten, Text und Akkordbezeichnungen
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
-@node Piano templates
-@appendixsec Piano templates
+@node Klaviervorlagen
+@appendixsec Klaviervorlagen
+@translationof Piano templates
 
-@appendixsubsec Solo piano
+@appendixsubsec Piano Solo
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
 
-@appendixsubsec Piano and melody with lyrics
+@appendixsubsec Klavier und Gesangstimme
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
 
-@appendixsubsec Piano centered lyrics
+@appendixsubsec Klavier mit zentriertem Text
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
 
-@appendixsubsec Piano centered dynamics
+@appendixsubsec Klavier mit zentrierten Lautstärkebezeichnungen
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
 
 
-@node String quartet
-@appendixsec String quartet
+@node Streichquartett
+@appendixsec Streichquartett
+@translationof String quartet
 
-@appendixsubsec String quartet
+@appendixsubsec Streichquartett
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
 
-@appendixsubsec String quartet parts
+@appendixsubsec Streichquartettstimmen
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
-@node Vocal ensembles
-@appendixsec Vocal ensembles
+@node Vokalensemble
+@appendixsec Vokalensemble
+@translationof Vocal ensembles
 
-@appendixsubsec SATB vocal score
+@appendixsubsec SATB-Partitur
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
 
-@appendixsubsec SATB vocal score and automatic piano reduction
+@appendixsubsec SATB-Partitur und automatischer Klavierauszug
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 
-@appendixsubsec SATB with aligned contexts
+@appendixsubsec SATB mit zugehörigen Kontexten
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 
-@node Orchestral templates
-@appendixsec Orchestral templates
+@node Orchestervorlage
+@appendixsec Orchestervorlage
+@translationof Orchestral templates
 
-@appendixsubsec Orchestra, choir and piano
+@appendixsubsec Orchester, Chor und Klavier
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
 @c bad node name to avoid node name conflict
-@node Ancient notation templates
-@appendixsec Ancient notation templates
+@node Vorlagen für alte Notation
+@appendixsec Vorlagen für alte Notation
+@translationof Ancient notation templates
 
-@appendixsubsec Transcription of mensural music
+@appendixsubsec Transkription mensuraler Musik
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 
-@appendixsubsec Gregorian transcription template
+@appendixsubsec Vorlage zur Transkription von Gregorianik
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@node Jazz combo
-@appendixsec Jazz combo
+@node Jazz-Combo
+@appendixsec Jazz-Combo
+@translationof Jazz combo
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {jazz-combo-template.ly}
@@ -220,8 +228,9 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 @end ignore
 
 
-@node Lilypond-book templates
-@appendixsec Lilypond-book templates
+@node Lilypond-book-Vorlagen
+@appendixsec Lilypond-book-Vorlagen
+@translationof Lilypond-book templates
 
 Diese Vorlagen können mit @code{lilypond-book} benutzt werden. Wenn 
 Sie dieses Programm noch nicht kennen, lesen Sie bitte den Abschnitt 

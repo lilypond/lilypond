@@ -8,8 +8,9 @@
 
 @c \version "2.12.0"
 
-@node Editorial annotations
-@section Editorial annotations
+@node Anmerkungen
+@section Anmerkungen
+@translationof Editorial annotations
 
 @lilypondfile[quote]{editorial-headword.ly}
 
@@ -18,28 +19,30 @@ Erscheinung der Noten zu ändern und analytische bzw. pädagogische
 Anmerkungen anzubringen.
 
 @menu
-* Inside the staff::
-* Outside the staff::
+* Innerhalb des Systems::
+* Außerhalb des Notensystems::
 @end menu
 
 
-@node Inside the staff
-@subsection Inside the staff
+@node Innerhalb des Systems
+@subsection Innerhalb des Systems
+@translationof Inside the staff
 
 Dieser Abschnitt zeigt, wie man Elemente hervorhebt, die sich
 innerhalb des Notensystems befinden.
 
 @menu
-* Selecting notation font size::
-* Fingering instructions::
-* Hidden notes::
-* Coloring objects::
-* Parentheses::
-* Stems::
+* Auswahl der Notations-Schriftgröße::
+* Fingersatzanweisungen::
+* Unsichtbare Noten::
+* Farbige Objekte::
+* Klammern::
+* Hälse::
 @end menu
 
-@node Selecting notation font size
-@unnumberedsubsubsec Selecting notation font size
+@node Auswahl der Notations-Schriftgröße
+@unnumberedsubsubsec Auswahl der Notations-Schriftgröße
+@translationof Selecting notation font size
 
 @cindex Font, Größe ändern für Notation
 @cindex Schriftgröße (Notation) ändern
@@ -67,7 +70,7 @@ Damit wird allerdings nicht die Größe von veränderlichen
 Symbolen, wie Balken oder Bögen, geändert.
 
 @warning{Für Schriftgröße von Text, siehe
-@ref{Selecting font and font size}.}
+@ref{Überblick über die wichtigsten Textbeschriftungsbefehle}.}
 
 @lilypond[verbatim,quote,relative=2]
 \huge
@@ -138,8 +141,9 @@ Referenz der Interna:
 @rinternals{font-interface}.
 
 
-@node Fingering instructions
-@unnumberedsubsubsec Fingering instructions
+@node Fingersatzanweisungen
+@unnumberedsubsubsec Fingersatzanweisungen
+@translationof Fingering instructions
 
 @cindex Fingersatz
 @cindex Fingerwechsel
@@ -185,7 +189,7 @@ direkt an die Noten angefügt werden.
 @end lilypond
 
 Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
-@ref{Direction and placement}.
+@ref{Richtung und Platzierung}.
 
 @snippets
 
@@ -200,7 +204,7 @@ Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
 
 @seealso
 Notationsreferenz:
-@ref{Direction and placement}.
+@ref{Richtung und Platzierung}.
 
 Schnipsel:
 @rlsr{Editorial annotations}.
@@ -213,8 +217,9 @@ Referenz der Interna:
 @rinternals{Fingering}.
 
 
-@node Hidden notes
-@unnumberedsubsubsec Hidden notes
+@node Unsichtbare Noten
+@unnumberedsubsubsec Unsichtbare Noten
+@translationof Hidden notes
 
 @cindex Noten verstecken
 @cindex Verstecken von Noten
@@ -268,8 +273,9 @@ Referenz der Interna:
 @rinternals{NoteSpacing}.
 
 
-@node Coloring objects
-@unnumberedsubsubsec Coloring objects
+@node Farbige Objekte
+@unnumberedsubsubsec Farbige Objekte
+@translationof Coloring objects
 
 @cindex Objekte, farbig
 @cindex Farbe
@@ -284,7 +290,7 @@ Referenz der Interna:
 @funindex x11-color
 
 Einzelnen Objekten können einfach eigene Farben zugewiesen werden.
-Gültige Farben-Bezeichnungen sind aufgelistet in @ref{List of colors}.
+Gültige Farben-Bezeichnungen sind aufgelistet in @ref{Liste der Farben}.
 
 @lilypond[verbatim,quote,relative=2]
 \override NoteHead #'color = #red
@@ -347,8 +353,7 @@ gis4 a
 
 @seealso
 Notationsreferenz:
-@ref{List of colors}, @ref{The
-tweak command}.
+@ref{Liste der Farben}, @ref{Der tweak-Befehl}.
 
 Schnipsel:
 @rlsr{Editorial annotations}.
@@ -370,12 +375,13 @@ die Benutzung von einfachen Farben nahegelegt (z. B. @code{#blue},
 @code{#green}, @code{#red}).
 
 Noten in Akkorden können nicht mit @code{\override} eingefärbt werden,
-dazu muss @code{\tweak} benutzt werden. Siehe auch @ref{The tweak command}.
+dazu muss @code{\tweak} benutzt werden. Siehe auch @ref{Der tweak-Befehl}.
 
 
 
-@node Parentheses
-@unnumberedsubsubsec Parentheses
+@node Klammern
+@unnumberedsubsubsec Klammern
+@translationof Parentheses
 
 @cindex Geisternoten
 @cindex Noten in Klammern
@@ -420,8 +426,9 @@ gesetzt, anstatt den gesamten Akkord in eine große Klammer zu fassen.
 
 
 
-@node Stems
-@unnumberedsubsubsec Stems
+@node Hälse
+@unnumberedsubsubsec Hälse
+@translationof Stems
 
 @cindex Hals
 @cindex Hals, unsichtbar
@@ -462,7 +469,7 @@ gemacht.
 
 @seealso
 Notationsreferenz:
-@ref{Direction and placement}.
+@ref{Richtung und Platzierung}.
 
 Schnipsel:
 @rlsr{Editorial annotations}.
@@ -474,20 +481,22 @@ Referenz der Interna:
 
 
 
-@node Outside the staff
-@subsection Outside the staff
+@node Außerhalb des Notensystems
+@subsection Außerhalb des Notensystems
+@translationof Outside the staff
 
 Dieser Abschnitt zeigt, wie man Elemente im System von
 außerhalb des Systems hervorhebt.
 
 @menu
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
+* Erklärungen in Ballonform::
+* Gitternetzlinien::
+* Analyseklammern::
 @end menu
 
-@node Balloon help
-@unnumberedsubsubsec Balloon help
+@node Erklärungen in Ballonform
+@unnumberedsubsubsec Erklärungen in Ballonform
+@translationof Balloon help
 
 @cindex Ballon
 @cindex Blase
@@ -561,8 +570,9 @@ Referenz der Interna:
 @rinternals{balloon-interface}.
 
 
-@node Grid lines
-@unnumberedsubsubsec Grid lines
+@node Gitternetzlinien
+@unnumberedsubsubsec Gitternetzlinien
+@translationof Grid lines
 
 @cindex Gitterlinien
 @cindex Linien, Gitter
@@ -630,8 +640,9 @@ Referenz der Interna:
 @rinternals{grid-point-interface}.
 
 
-@node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
+@node Analyseklammern
+@unnumberedsubsubsec Analyseklammern
+@translationof Analysis brackets
 
 @cindex Klammern
 @cindex Phrasierungsklammern

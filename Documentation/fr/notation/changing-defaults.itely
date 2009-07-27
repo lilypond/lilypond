@@ -13,8 +13,9 @@
 @c Translation checkers: Gilles Thibault
 
 
-@node Changing defaults
-@chapter Changing defaults
+@node Modification des réglages prédéfinis
+@chapter Modification des réglages prédéfinis
+@translationof Changing defaults
 
 LilyPond est conçu pour engendrer, par défaut, des partitions de la
 plus haute qualité.  Cependant, on peut parfois avoir à modifier cette
@@ -58,7 +59,7 @@ notation -- par exemple, le fait d'attribuer un chiffre de mesure distinct à ch
 
 @item
 La mise en page, autrement dit les marges, l'espacement, la taille du papier ; tous ces facteurs
-font l'objet des chapitres @ref{General input and output} et @ref{Spacing issues}.
+font l'objet des chapitres @ref{Généralités en matière d'entrée et sortie} et @ref{Gestion de l'espace}.
 @end itemize
 
 En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP) comme
@@ -66,35 +67,37 @@ infrastructure.  Modifier les choix de mise en page revient à pénétrer dans
 les entrailles du programme, et de ce fait requiert l'emploi du Scheme.
 Les fragments de Scheme, dans un fichier @code{.ly}, sont introduits par le
 caractère @q{hash}, (@code{#}, improprement surnommé @q{dièse}).@footnote{Le
-@rlearning{Scheme tutorial} fournit quelques notions de base pour saisir des nombres,
+@rlearning{Tutoriel Scheme} fournit quelques notions de base pour saisir des nombres,
 des listes, des chaînes de caractères ou des symboles, en Scheme.}
 
 
 @menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Advanced tweaks::
+* Contextes d'interprétation::
+* En quoi consiste la référence du programme::
+* Modification de propriétés::
+* Propriétés et contextes utiles::
+* Retouches avancées::
 @end menu
 
-@node Interpretation contexts
-@section Interpretation contexts
+@node Contextes d'interprétation
+@section Contextes d'interprétation
+@translationof Interpretation contexts
 
 Cette section traite des contextes.
 
 @menu
-* Contexts explained::
-* Creating contexts::
-* Modifying context plug-ins::
-* Layout tunings within contexts::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
+* Tout savoir sur les contextes::
+* Création d'un contexte::
+* Modification des greffons de contexte::
+* Retouches de mise en forme au sein des contextes::
+* Modification des réglages par défaut d'un contexte::
+* Définition de nouveaux contextes::
+* Alignement des contextes::
 @end menu
 
-@node Contexts explained
-@subsection Contexts explained
+@node Tout savoir sur les contextes
+@subsection Tout savoir sur les contextes
+@translationof Contexts explained
 
 @ignore
 @c TODO Rethink and rewrite
@@ -123,44 +126,50 @@ further explanation and with links to the IR.
 
 
 @menu
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
+* Score - le père de tous les contextes::
+* Contextes de haut niveau - les systèmes::
+* Contextes de niveau intermédiaire - les portées::
+* Contextes de bas niveau - les voix::
 @end menu
 
-@node Score - the master of all contexts
-@unnumberedsubsubsec Score - the master of all contexts
+@node Score - le père de tous les contextes
+@unnumberedsubsubsec Score - le père de tous les contextes
+@translationof Score - the master of all contexts @c external
 
 @untranslated
 
 
-@node Top-level contexts - staff containers
-@unnumberedsubsubsec Top-level contexts - staff containers
+@node Contextes de haut niveau - les systèmes
+@unnumberedsubsubsec Contextes de haut niveau - les systèmes
+@translationof Top-level contexts - staff containers @c external
 
 @untranslated
 
 
-@node Intermediate-level contexts - staves
-@unnumberedsubsubsec Intermediate-level contexts - staves
+@node Contextes de niveau intermédiaire - les portées
+@unnumberedsubsubsec Contextes de niveau intermédiaire - les portées
+@translationof Intermediate-level contexts - staves @c external
 
 @untranslated
 
 
-@node Bottom-level contexts - voices
-@unnumberedsubsubsec Bottom-level contexts - voices
+@node Contextes de bas niveau - les voix
+@unnumberedsubsubsec Contextes de bas niveau - les voix
+@translationof Bottom-level contexts - voices @c external
 
 @untranslated
 
 
-@node Creating contexts
-@subsection Creating contexts
+@node Création d'un contexte
+@subsection Création d'un contexte
+@translationof Creating contexts @c external
 
 @untranslated
 
 
-@node Modifying context plug-ins
-@subsection Modifying context plug-ins
+@node Modification des greffons de contexte
+@subsection Modification des greffons de contexte
+@translationof Modifying context plug-ins
 
 Les contextes, tels que @code{Score} ou @code{Staff}, ne contiennent
 pas que des propriétés ; ils mettent également en œuvre certains
@@ -236,7 +245,7 @@ La clé et le chiffre de mesure ont disparu de la deuxième portée.  C'est une 
 quelque peu radicale, puisqu'elle affectera toute la portée jusqu'à la fin de la
 partition.  L'espacement s'en trouve également affecté, ce qui peut être ou non
 l'effet recherché.  Une méthode plus sophistiquée aurait été de rendre ces objets
-transparents (voir @rlearning{Visibility and color of objects}).
+transparents (voir @rlearning{Visibilité et couleur des objets}).
 
 Dans l'exemple suivant, voici une mise en pratique plus utile.  En temps
 normal, les barres de mesure et la métrique sont synchronisées verticalement
@@ -272,8 +281,9 @@ En les enlevant du contexte @code{Score} pour les attribuer au contexte
 
 
 @c deprecated node: delete. --fv
-@node Layout tunings within contexts
-@subsection Layout tunings within contexts
+@node Retouches de mise en forme au sein des contextes
+@subsection Retouches de mise en forme au sein des contextes
+@translationof Layout tunings within contexts
 
 Chaque contexte est chargé de créer plusieurs types d'objets graphiques.
 Il contient également les réglages nécessaires pour chacun de ces objets.
@@ -288,7 +298,7 @@ La syntaxe employée pour ce faire est
 Ici @var{objet} est un objet graphique, tel que @code{Stem} (les hampes)
 ou @code{NoteHead} (les têtes de note) ; @var{propriété} est une variable
 (désignée par un symbole, ce qui explique l'apostrophe) employée par le système
-de mise en page.  La sous-section @ref{Constructing a tweak} vous
+de mise en page.  La sous-section @ref{Élaboration d'une retouche} vous
 aidera à savoir quoi mettre à la place de @var{objet}, @var{propriété} et
 @var{valeur} ; notre propos n'est ici que d'examiner l'emploi de cette commande.
 
@@ -383,12 +393,12 @@ très stricte.  Des références cycliques dans des valeurs Scheme peuvent
 de ce fait interrompre, ou faire planter le programme -- ou bien les deux.
 
 
-@node Changing context default settings
-@subsection Changing context default settings
+@node Modification des réglages par défaut d'un contexte
+@subsection Modification des réglages par défaut d'un contexte
+@translationof Changing context default settings
 
-Les réglages montrés dans les sous-sections @ref{The
-set command}, @ref{Modifying context plug-ins} et
-@ref{Layout tunings within contexts} peuvent également être saisis indépendamment
+Les réglages montrés dans les sous-sections @ref{La commande de fixation (set)}, @ref{Modification des greffons de contexte} et
+@ref{Retouches de mise en forme au sein des contextes} peuvent également être saisis indépendamment
 de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\context} :
 
 @example
@@ -449,8 +459,9 @@ avoir invoqué @code{\RemoveEmptyStaffContext} :
 @end example
 
 
-@node Defining new contexts
-@subsection Defining new contexts
+@node Définition de nouveaux contextes
+@subsection Définition de nouveaux contextes
+@translationof Defining new contexts
 
 Les contextes tels que @code{Staff} ou @code{Voice} sont faits
 de briques de constructions empilées.  En combinant divers graveurs,
@@ -619,13 +630,14 @@ On peut alors saisir la musique, comme dans l'exemple plus haut :
 @end example
 
 
-@node Aligning contexts
-@subsection Aligning contexts
+@node Alignement des contextes
+@subsection Alignement des contextes
+@translationof Aligning contexts
 
 
 Il est possible d'aligner verticalement chaque nouveau contexte,
 en-dessous ou au-dessus, par exemple dans le cas de musique vocale
-(@rlearning{Vocal ensembles}) ou d'@qq{ossias}.
+(@rlearning{Ensemble vocal}) ou d'@qq{ossias}.
 
 @cindex ossia
 @findex alignAboveContext
@@ -645,19 +657,21 @@ ossia = { f4 f f f }
 @end lilypond
 
 
-@node Explaining the Internals Reference
-@section Explaining the Internals Reference
+@node En quoi consiste la référence du programme
+@section En quoi consiste la référence du programme
+@translationof Explaining the Internals Reference
 
 
 @menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
+* Navigation dans la référence du programme::
+* Interfaces de rendu::
+* Détermination de la propriété d'un objet graphique (grob)::
+* Conventions de nommage::
 @end menu
 
-@node Navigating the program reference
-@subsection Navigating the program reference
+@node Navigation dans la référence du programme
+@subsection Navigation dans la référence du programme
+@translationof Navigating the program reference
 
 Comment, par exemple, déplacer le doigté dans le fragment suivant ?
 
@@ -668,7 +682,7 @@ f
 @end lilypond
 
 Sur la page de la documentation relative aux doigtés, c'est-à-dire
-@ref{Fingering instructions}, se trouve l'indication suivante :
+@ref{Doigtés}, se trouve l'indication suivante :
 
 
 @seealso
@@ -775,8 +789,9 @@ francophones.
 @end ignore
 
 
-@node Layout interfaces
-@subsection Layout interfaces
+@node Interfaces de rendu
+@subsection Interfaces de rendu
+@translationof Layout interfaces
 
 @cindex interfaces de rendu
 @cindex rendu, interfaces de
@@ -856,7 +871,7 @@ propriétés internes).
 Pour aller encore plus loin, plutôt que de simplement parler de l'objet
 @code{Fingering}, ce qui ne nous avance pas à grand chose, on peut aller explorer
 son âme même, dans les fichiers source de LilyPond (voir
-@rlearning{Other sources of information}), en l'occurence le fichier
+@rlearning{Autres sources de documentation}), en l'occurence le fichier
 @file{scm/@/define@/-grobs@/.scm} :
 
 @example
@@ -888,8 +903,9 @@ amas de variables et de réglages.  La page de la Référence du programme est
 en fait directement engendrée par cette définition.
 
 
-@node Determining the grob property
-@subsection Determining the grob property
+@node Détermination de la propriété d'un objet graphique (grob)
+@subsection Détermination de la propriété d'un objet graphique (grob)
+@translationof Determining the grob property
 
 
 Nous voulions changer la position du chiffre @b{2} dans le fragment suivant :
@@ -977,14 +993,16 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Vo
 @end quotation
 
 
-@node Naming conventions
-@subsection Naming conventions
+@node Conventions de nommage
+@subsection Conventions de nommage
+@translationof Naming conventions @c external
 
 @untranslated
 
 
-@node Modifying properties
-@section Modifying properties
+@node Modification de propriétés
+@section Modification de propriétés
+@translationof Modifying properties
 
 @c TODO change the menu and subsection node names to use
 @c backslash once the new macro to handle the refs
@@ -992,22 +1010,24 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Vo
 @c the same time. -td
 
 @menu
-* Overview of modifying properties::
-* The set command::
-* The override command::
-* Constructing a tweak::
-* The tweak command::
-* set versus override::
+* Vue d'ensemble de la modification des propriétés::
+* La commande de fixation (set)::
+* La commande de dérogation (@emph{override})::
+* Élaboration d'une retouche::
+* La commande d'affinage (@emph{tweak})::
+* set ou override::
 @end menu
 
-@node Overview of modifying properties
-@subsection Overview of modifying properties
+@node Vue d'ensemble de la modification des propriétés
+@subsection Vue d'ensemble de la modification des propriétés
+@translationof Overview of modifying properties @c external
 
 @untranslated
 
 
-@node The set command
-@subsection The @code{\set} command
+@node La commande de fixation (set)
+@subsection La commande @code{\set}
+@translationof The set command
 
 @cindex propriétés
 @funindex \set
@@ -1132,8 +1152,9 @@ Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
 
-@node The override command
-@subsection The @code{\override} command
+@node La commande de dérogation (@emph{override})
+@subsection La commande @code{\override}
+@translationof The override command
 
 
 La commande @code{\override} permet de modifier la mise en page
@@ -1149,8 +1170,9 @@ La propriété @var{propriété} de l'objet @var{objet}, appartenant au contexte
 
 
 @c deprecated node. Delete. --fv
-@node Constructing a tweak
-@subsection Constructing a tweak
+@node Élaboration d'une retouche
+@subsection Élaboration d'une retouche
+@translationof Constructing a tweak
 
 Les commandes permettant de modifier l'apparence de la partition
 ressemblent en général à
@@ -1195,8 +1217,9 @@ and the program reference.
 @end ignore
 
 
-@node The tweak command
-@subsection The @code{\tweak} command
+@node La commande d'affinage (@emph{tweak})
+@subsection La commande @code{\tweak}
+@translationof The tweak command
 
 
 @funindex \tweak
@@ -1243,11 +1266,12 @@ pas directement rendue ; c'est pourquoi le code suivant ne sera d'aucun effet :
 @end example
 
 @noindent
-Voir pour plus de détails @ref{Displaying music expressions}.
+Voir pour plus de détails @ref{Affichage d'expressions musicales}.
 
 
-@node set versus override
-@subsection @code{\set} vs. @code{\override}
+@node set ou override
+@subsection @code{\set} ou @code{\override}
+@translationof set versus override
 
 
 Si les propriétés peuvent être modifiées de deux façons, par les commandes
@@ -1299,180 +1323,203 @@ courante, une propriété spéciale a été créée.  Elle doit
 
 
 
-@node Useful concepts and properties
-@section Useful concepts and properties
+@node Propriétés et contextes utiles
+@section Propriétés et contextes utiles
+@translationof Useful concepts and properties
 
 
 @menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Staff symbol properties::
-* Spanners::
-* Visibility of objects::
-* Line styles::
-* Rotating objects::
+* Modes de saisie::
+* Direction et positionnement::
+* Distances et unités de mesure::
+* Propriétés des lignes de portée::
+* Extenseurs et prolongateurs::
+* Visibilité des objets::
+* Styles de ligne::
+* Rotation des objets::
 @end menu
 
-@node Input modes
-@subsection Input modes
+@node Modes de saisie
+@subsection Modes de saisie
+@translationof Input modes @c external
 
 @untranslated
 
 
-@node Direction and placement
-@subsection Direction and placement
+@node Direction et positionnement
+@subsection Direction et positionnement
+@translationof Direction and placement @c external
 
 @untranslated
 
 
-@node Distances and measurements
-@subsection Distances and measurements
+@node Distances et unités de mesure
+@subsection Distances et unités de mesure
+@translationof Distances and measurements @c external
 
 @untranslated
 
 
-@node Staff symbol properties
-@subsection Staff symbol properties
+@node Propriétés des lignes de portée
+@subsection Propriétés des lignes de portée
+@translationof Staff symbol properties @c external
 
 @untranslated
 
 
-@node Spanners
-@subsection Spanners
+@node Extenseurs et prolongateurs
+@subsection Extenseurs et prolongateurs
+@translationof Spanners @c external
 
 @untranslated
 
 
-@unnumberedsubsubsec Using the @code{spanner-interface}
-@unnumberedsubsubsec Using the @code{line-spanner-interface}
-@node Visibility of objects
-@subsection Visibility of objects
-
-@untranslated
-
-
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
-
-@node Removing the stencil
-@unnumberedsubsubsec Removing the stencil
-
-@untranslated
-
-
-@node Making objects transparent
-@unnumberedsubsubsec Making objects transparent
-
-@untranslated
-
-
-@node Painting objects white
-@unnumberedsubsubsec Painting objects white
-
-@untranslated
-
-
-@node Using break-visibility
-@unnumberedsubsubsec Using break-visibility
-
-@untranslated
-
-
-@node Special considerations
-@unnumberedsubsubsec Special considerations
-
-@untranslated
-
-
-@node Line styles
-@subsection Line styles
-
-@untranslated
-
-
-@node Rotating objects
-@subsection Rotating objects
+@unnumberedsubsubsec Utilisation de @code{spanner-interface}
+@unnumberedsubsubsec Utilisation de @code{line-spanner-interface}
+@node Visibilité des objets
+@subsection Visibilité des objets
+@translationof Visibility of objects @c external
 
 @untranslated
 
 
 @menu
-* Rotating layout objects::
-* Rotating markup::
+* Suppression des stencils::
+* Transparence des objets::
+* Blanchiment des objets::
+* Utilisation de break-visibility::
+* Considérations spécifiques::
 @end menu
 
-@node Rotating layout objects
-@unnumberedsubsubsec Rotating layout objects
+@node Suppression des stencils
+@unnumberedsubsubsec Suppression des stencils
+@translationof Removing the stencil @c external
 
 @untranslated
 
 
-@node Rotating markup
-@unnumberedsubsubsec Rotating markup
+@node Transparence des objets
+@unnumberedsubsubsec Transparence des objets
+@translationof Making objects transparent @c external
 
 @untranslated
 
 
-@node Advanced tweaks
-@section Advanced tweaks
+@node Blanchiment des objets
+@unnumberedsubsubsec Blanchiment des objets
+@translationof Painting objects white @c external
+
+@untranslated
+
+
+@node Utilisation de break-visibility
+@unnumberedsubsubsec Utilisation de break-visibility
+@translationof Using break-visibility @c external
+
+@untranslated
+
+
+@node Considérations spécifiques
+@unnumberedsubsubsec Considérations spécifiques
+@translationof Special considerations @c external
+
+@untranslated
+
+
+@node Styles de ligne
+@subsection Styles de ligne
+@translationof Line styles @c external
+
+@untranslated
+
+
+@node Rotation des objets
+@subsection Rotation des objets
+@translationof Rotating objects @c external
 
 @untranslated
 
 
 @menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
+* Rotation des objets de mise en forme::
+* Rotation des étiquettes::
 @end menu
 
-@node Aligning objects
-@subsection Aligning objects
+@node Rotation des objets de mise en forme
+@unnumberedsubsubsec Rotation des objets de mise en forme
+@translationof Rotating layout objects @c external
+
+@untranslated
+
+
+@node Rotation des étiquettes
+@unnumberedsubsubsec Rotation des étiquettes
+@translationof Rotating markup @c external
+
+@untranslated
+
+
+@node Retouches avancées
+@section Retouches avancées
+@translationof Advanced tweaks @c external
 
 @untranslated
 
 
 @menu
-* Setting @code{X-offset} and @code{Y-offset} directly::
-* Using the @code{side-position-interface}::
-* Using the @code{self-alignment-interface}::
-* Using the @code{break-alignable-interface}::
+* Alignement des objets::
+* Regroupement vertical d'objets graphiques::
+* Modification des stencils::
+* Modification de l'allure des éléments::
 @end menu
 
-@node Setting @code{X-offset} and @code{Y-offset} directly
-@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+@node Alignement des objets
+@subsection Alignement des objets
+@translationof Aligning objects @c external
 
 @untranslated
 
 
-@node Using the @code{side-position-interface}
-@unnumberedsubsubsec Using the @code{side-position-interface}
+@menu
+* Détermination directe de @code{X-offset} et @code{Y-offset}::
+* Utilisation de @code{side-position-interface}::
+* Utilisation de @code{self-alignment-interface}::
+* Utilisation de @code{break-aligned-interface}::
+@end menu
+
+@node Détermination directe de @code{X-offset} et @code{Y-offset}
+@unnumberedsubsubsec Détermination directe de @code{X-offset} et @code{Y-offset}
+@translationof Setting @code{X-offset} and @code{Y-offset} directly @c external
 
 @untranslated
 
 
-@node Using the @code{self-alignment-interface}
-@unnumberedsubsubsec Using the @code{self-alignment-interface}
+@node Utilisation de @code{side-position-interface}
+@unnumberedsubsubsec Utilisation de @code{side-position-interface}
+@translationof Using the @code{side-position-interface} @c external
 
 @untranslated
 
 
-@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
-@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
-@node Using the @code{break-alignable-interface}
-@unnumberedsubsubsec Using the @code{break-alignable-interface}
+@node Utilisation de @code{self-alignment-interface}
+@unnumberedsubsubsec Utilisation de @code{self-alignment-interface}
+@translationof Using the @code{self-alignment-interface} @c external
 
 @untranslated
 
 
-@node Vertical grouping of grobs
-@subsection Vertical grouping of grobs
+@unnumberedsubsubsec Utilisation des procédures @code{aligned-on-parent}
+@unnumberedsubsubsec Utilisation des procédures @code{centered-on-parent}
+@node Utilisation de @code{break-aligned-interface}
+@unnumberedsubsubsec Utilisation de @code{break-aligned-interface}
+@translationof Using the @code{break-alignable-interface} @c external
+
+@untranslated
+
+
+@node Regroupement vertical d'objets graphiques
+@subsection Regroupement vertical d'objets graphiques
+@translationof Vertical grouping of grobs
 
 Les objets @code{VerticalAlignment} et @code{VerticalAxisGroup}
 travaillent de concert.  Comme leurs noms anglais l'indiquent,
@@ -1484,21 +1531,24 @@ de la partition, mais chaque contexte @code{Staff}, @code{Lyrics}, etc.
 possède son propre @code{VerticalAxisGroup}.
 
 
-@node Modifying stencils
-@subsection Modifying stencils
+@node Modification des stencils
+@subsection Modification des stencils
+@translationof Modifying stencils @c external
 
 @untranslated
 
 
-@node Modifying shapes
-@subsection Modifying shapes
+@node Modification de l'allure des éléments
+@subsection Modification de l'allure des éléments
+@translationof Modifying shapes
 
 @menu
-* Modifying ties and slurs::
+* Modification des liaisons::
 @end menu
 
-@node Modifying ties and slurs
-@unnumberedsubsubsec Modifying ties and slurs
+@node Modification des liaisons
+@unnumberedsubsubsec Modification des liaisons
+@translationof Modifying ties and slurs @c external
 
 @untranslated
 

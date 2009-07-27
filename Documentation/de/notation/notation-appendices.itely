@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Notation manual tables
-@appendix Notation manual tables
+@node Notationsübersicht
+@appendix Notationsübersicht
+@translationof Notation manual tables
 
 @c Please do not delete the following @ignore block.
 @ignore
@@ -24,32 +25,33 @@ menu entries are:
 * Text markup list commands::
 
 and they should go just after
-* Note head styles::
+* Notenkopfstile::
 
 and just before
-* List of articulations::
+* Liste der Arktikulationszeichen::
 @end ignore
 
 @menu
-* Chord name chart::   
-* Common chord modifiers::
-* Predefined fretboard diagrams::         
-* MIDI instruments::         
-* List of colors::              
-* The Feta font::               
-* Note head styles::            
+* Liste der Akkordbezeichnungen::   
+* Übliche Akkord-Variablen::
+* Vordefinierte Bund-Diagramme::         
+* MIDI-Instrumente::         
+* Liste der Farben::              
+* Die Feta-Schriftart::               
+* Notenkopfstile::            
 * Text markup commands::        
 * Text markup list commands::   
-* List of articulations::
-* Percussion notes::   
-* All context properties::      
-* Layout properties::           
-* Identifiers::                 
-* Scheme functions::            
+* Liste der Arktikulationszeichen::
+* Schlagzeugnoten::   
+* Alle Kontexteigenschaften::      
+* Eigenschaften des Layouts::           
+* Bezeichner::                 
+* Scheme-Funktionen::            
 @end menu
 
-@node Chord name chart
-@appendixsec Chord name chart
+@node Liste der Akkordbezeichnungen
+@appendixsec Liste der Akkordbezeichnungen
+@translationof Chord name chart
 
 Die Tabelle zeigt die zwei üblichen Möglichkeiten, wie Akkordbezeichnungen
 ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
@@ -57,8 +59,9 @@ ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
 @lilypondfile{chord-names-jazz.ly}
 
 
-@node Common chord modifiers
-@appendixsec Common chord modifiers
+@node Übliche Akkord-Variablen
+@appendixsec Übliche Akkord-Variablen
+@translationof Common chord modifiers
 
 Die Tabelle zeigt Modifikatoren für Akkorde, die im @code{\chordmode}-Modus
 benutzt werden können, um übliche Akkordkonstrukte zu notieren.
@@ -402,8 +405,9 @@ perfekte Quarte, perfekte Quinte
 @end multitable
 
 
-@node Predefined fretboard diagrams
-@appendixsec Predefined fretboard diagrams
+@node Vordefinierte Bund-Diagramme
+@appendixsec Vordefinierte Bund-Diagramme
+@translationof Predefined fretboard diagrams
 
 Die Tabelle zeigt alle vordefinierten Bunddiagramme.
 
@@ -411,8 +415,9 @@ Die Tabelle zeigt alle vordefinierten Bunddiagramme.
 
 
 
-@node MIDI instruments
-@appendixsec MIDI instruments
+@node MIDI-Instrumente
+@appendixsec MIDI-Instrumente
+@translationof MIDI instruments
 
 Hier eine Liste von Musikinstrumentenbezeichnungen, die als Name für 
 @code{midiInstrument} benutzt werden können.
@@ -467,12 +472,13 @@ cello                     lead 6 (voice)
 @end example
 
 
-@node List of colors
-@appendixsec List of colors
+@node Liste der Farben
+@appendixsec Liste der Farben
+@translationof List of colors
 
-@subsubheading Normal colors
+@subsubheading Normale Farben
 
-Die Syntax zur Benutzung findet sich im Abschnitt @ref{Coloring objects}.
+Die Syntax zur Benutzung findet sich im Abschnitt @ref{Farbige Objekte}.
 
 @cindex Liste der Farben
 @cindex Farben, Liste
@@ -485,7 +491,7 @@ darkcyan    darkmagenta    darkyellow
 @end verbatim
 
 
-@subsubheading X color names
+@subsubheading X-Farbbezeichnungen
 
 X-Farbbezeichnungen haben verschiedene Varianten:
 
@@ -501,7 +507,7 @@ Manche Bezeichnungen können auch ein numerales Suffix tragen
 (etwa @q{LightSalmon4}).
 
 
-@subsubheading Color Names without a numerical suffix:
+@subsubheading Farben ohne eine numerale Endung
 
 @verbatim
 snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
@@ -535,7 +541,7 @@ LightGreen
 @end verbatim
 
 
-@subsubheading Color names with a numerical suffix
+@subsubheading Farben mit einer numeralen Endung
 
 Für die folgenden Bezeichnungen kann das Suffix N durch eine 
 Zahl von 1--4 ersetzt werden.
@@ -560,7 +566,7 @@ thistleN
 @end verbatim
 
 
-@subsubheading Grey Scale
+@subsubheading Grauskala
 
 Eine Grauskala kann mit der Bezeichnung
 
@@ -572,8 +578,9 @@ greyN
 erstellt werden, wobei N eine Zahl von 0--100 darstellt.
 
 
-@node The Feta font
-@appendixsec The Feta font
+@node Die Feta-Schriftart
+@appendixsec Die Feta-Schriftart
+@translationof The Feta font
 
 @cindex Feta font
 @cindex Font, Feta
@@ -582,13 +589,14 @@ Die folgenden Symbole sind als Emmentaler-Schriftart verfügbar; auf sie
 kann direkt zugegriffen werden, indem man die übliche Textbeschriftung 
 benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart 
 zu (bspw. @code{g^\markup @{
-\musicglyph #"scripts.segno" @}}). Siehe auch @ref{Formatting text}.
+\musicglyph #"scripts.segno" @}}). Siehe auch @ref{Text formatieren}.
 
 @lilypondfile[noindent]{font-table.ly}
 
 
-@node Note head styles
-@appendixsec Note head styles
+@node Notenkopfstile
+@appendixsec Notenkopfstile
+@translationof Note head styles
 
 @cindex Notenkopfarten
 @cindex Arten von Notenköpfen
@@ -602,8 +610,9 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 
 @include markup-list-commands.tely
 
-@node List of articulations
-@appendixsec List of articulations
+@node Liste der Arktikulationszeichen
+@appendixsec Liste der Arktikulationszeichen
+@translationof List of articulations
 
 @cindex Akzent
 @cindex Marcato
@@ -634,32 +643,37 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @lilypondfile[quote,texidoc]{script-chart.ly}
 
 
-@node Percussion notes
-@appendixsec Percussion notes
+@node Schlagzeugnoten
+@appendixsec Schlagzeugnoten
+@translationof Percussion notes
 
 @lilypondfile[quote]{percussion-chart.ly}
 
 
-@node All context properties
-@appendixsec All context properties
+@node Alle Kontexteigenschaften
+@appendixsec Alle Kontexteigenschaften
+@translationof All context properties
 
 @include context-properties.tely
 
 
-@node Layout properties
-@appendixsec Layout properties
+@node Eigenschaften des Layouts
+@appendixsec Eigenschaften des Layouts
+@translationof Layout properties
 
 @include layout-properties.tely
 
 
-@node Identifiers
-@appendixsec Identifiers
+@node Bezeichner
+@appendixsec Bezeichner
+@translationof Identifiers
 
 @include identifiers.tely
 
 
-@node Scheme functions
-@appendixsec Scheme functions
+@node Scheme-Funktionen
+@appendixsec Scheme-Funktionen
+@translationof Scheme functions
 
 @include scheme-functions.tely
 

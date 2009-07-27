@@ -13,8 +13,9 @@
 @c Translators: Francisco Vila
 
 @ifclear INSTALL
-@node Install
-@chapter Install
+@node Instalación
+@chapter Instalación
+@translationof Install
 @end ifclear
 
 Existen dos conjuntos de ediciones o lanzamientos de LilyPond: las
@@ -29,15 +30,16 @@ recomendamos @strong{fervientemente} el uso de los archivos binarios
 precompilados.
 
 @menu
-* Precompiled binaries::
-* Compiling from source::
+* Archivos binarios pre-compilados::
+* Compilar a partir del código fuente::
 @end menu
 
 
-@node Precompiled binaries
-@section Precompiled binaries
+@node Archivos binarios pre-compilados
+@section Archivos binarios pre-compilados
+@translationof Precompiled binaries
 
-@unnumberedsubsec Downloading
+@unnumberedsubsec Descarga
 
 Revise el enlace @uref{http://lilypond.org/web/install/} para ver
 información actualizada sobre los paquetes binarios para su
@@ -61,8 +63,7 @@ mingw       - Windows x86
 @knownissues
 
 Si tiene MacOS 10.3 o 10.4 y quiere usar guiones de Python como
-@command{convert-ly} y @command{lilypond-book}, consulte @ref{Setup
-for MacOS X,,,lilypond-program,Application Usage}.
+@command{convert-ly} y @command{lilypond-book}, consulte @ref{Setup for MacOS X,,,lilypond-program,Application Usage}.
 
 Es posible compilar LilyPond directamente del código fuente. Ello
 requiere poder leer en inglés, motivo por el que esta sección se deja

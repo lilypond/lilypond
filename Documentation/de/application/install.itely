@@ -12,8 +12,9 @@
 @c Translators: Till Rettig, Reinhold Kainhofer
 
 @ifclear INSTALL
-@node Install
-@chapter Install
+@node Installieren
+@chapter Installieren
+@translationof Install
 @end ifclear
 
 Es gibt von Lilypond zwei verschiedene Typen von Versionen: stabile
@@ -27,14 +28,15 @@ empfehlen wir @strong{stark}, die vorkompilierten Binär-Pakete zu benutzen.
 
 
 @menu
-* Precompiled binaries::
-* Compiling from source::
+* Vorkompilierte Binär-Pakete::
+* Aus den Quellen übersetzen::
 @end menu
 
-@node Precompiled binaries
-@section Precompiled binaries
+@node Vorkompilierte Binär-Pakete
+@section Vorkompilierte Binär-Pakete
+@translationof Precompiled binaries
 
-@unnumberedsubsec Downloading
+@unnumberedsubsec Herunterladen
 
 
 Aktuelle Informationen zu vorkompilierten Binär-Paketen für Ihre Plattform
@@ -62,8 +64,9 @@ Wenn Sie MacOS 10.3 oder 10.4 benutzen und Python-Skripte wie
 @command{convert-ly} und @command{lilypond-book} benutzen wollen,
 lesen Sie @ref{Setup for MacOS X,,,lilypond-program,Application Usage}.
 
-@node Compiling from source
-@section Compiling from source
+@node Aus den Quellen übersetzen
+@section Aus den Quellen übersetzen
+@translationof Compiling from source
 
 LilyPond kann auch selbst direkt aus dem Quellcode des git-Depots 
 kompiliert werden. Da jedoch für die Kompilierung definitiv 

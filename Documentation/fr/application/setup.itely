@@ -11,8 +11,9 @@
 
 @c Translators: Jean-Charles Malahieude
 
-@node Setup
-@chapter Setup
+@node Environnement de travail
+@chapter Environnement de travail
+@translationof Setup
 
 Ce chapitre traite des options de configuration à effectuer après
 l'installation de LilyPond et de ses dépendances.  Il tient lieu de
@@ -20,25 +21,27 @@ référence en la matière : ne vous intéressez qu'à la rubrique qui vous
 concerne directement.
 
 @menu
-* Setup for specific Operating Systems::
-* Text editor support::
-* Point and click::
+* Spécificités pour certains systèmes::
+* LilyPond et les éditeurs de texte::
+* Pointer-cliquer::
 @end menu
 
-@node Setup for specific Operating Systems
-@section Setup for specific Operating Systems
+@node Spécificités pour certains systèmes
+@section Spécificités pour certains systèmes
+@translationof Setup for specific Operating Systems
 
 Cette partie explique comment optimiser l'installation propres à
 certains systèmes.
 
 @menu
-* Setup for MacOS X::
+* Spécificités pour MacOS X::
 @end menu
 
-@node Setup for MacOS X
-@subsection Setup for MacOS X
+@node Spécificités pour MacOS X
+@subsection Spécificités pour MacOS X
+@translationof Setup for MacOS X
 
-@subsubheading Using Python scripts on MacOS 10.3 or 10.4
+@subsubheading Utilisation de scripts Python sur MacOS 10.3 ou 10.4
 
 Les exécutables de LilyPond pour MacOS X ne fournissent pas Python, bien
 qu'une version au moins de niveau 2.4 soit requise par
@@ -61,7 +64,7 @@ et dans le cas contraire
 @end example
 
 
-@subsubheading MacOS X on the command line
+@subsubheading MacOS X et la ligne de commande
 
 Les scripts tels que @command{lilypond-book}, @command{convert-ly},
 @command{abc2ly}, et même @command{lilypond}, sont insclus dans un
@@ -117,8 +120,9 @@ Ce fichier doit se terminer par une ligne vide.
 Notez que @var{chemin/vers} devrait correspondre à @code{/Applications/}.
 
 
-@node Text editor support
-@section Text editor support
+@node LilyPond et les éditeurs de texte
+@section LilyPond et les éditeurs de texte
+@translationof Text editor support
 
 @cindex editors
 @cindex vim
@@ -130,16 +134,17 @@ Notez que @var{chemin/vers} devrait correspondre à @code{/Applications/}.
 Certains éditeurs de texte prennent en charge LilyPond.
 
 @menu
-* Emacs mode::
-* Vim mode::
+* Mode Emacs::
+* Mode Vim::
 * jEdit::
 * TexShop::
 * TextMate::
 * LilyKDE::
 @end menu
 
-@node Emacs mode
-@subsection Emacs mode
+@node Mode Emacs
+@subsection Mode Emacs
+@translationof Emacs mode
 
 Emacs dispose d'un @file{lilypond-mode} qui fournit l'autocomplétion des
 mots-clés, l'indentation, les appariements spécifiques à LilyPond, la
@@ -166,8 +171,9 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 @end example
 
 
-@node Vim mode
-@subsection Vim mode
+@node Mode Vim
+@subsection Mode Vim
+@translationof Vim mode
 
 En ce qui concerne @uref{http://@/www@/.vim@/.org,VIM}, LilyPond fournit
 un fichier @file{vimrc} qui gère la coloration synthaxique.  Le
@@ -201,6 +207,7 @@ en conséquence.
 
 @node jEdit
 @subsection jEdit
+@translationof jEdit
 
 Créé en tant que greffon pour l'éditeur de texte
 @uref{http://@/www@/.jedit@/.org@/,jEdit}, LilyPondTool est l'outil le
@@ -214,6 +221,7 @@ d'installation sont disponibles sur le site de
 
 @node TexShop
 @subsection TexShop
+@translationof TexShop
 
 L'éditeur
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
@@ -224,6 +232,7 @@ convert-ly, en lui adjoignant les extensions disponibles
 
 @node TextMate
 @subsection TextMate
+@translationof TextMate
 
 TextMate dispose d'un greffon pour LilyPond.  Vous pouvez l'installer en
 lançant :
@@ -237,6 +246,7 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 
 @node LilyKDE
 @subsection LilyKDE
+@translationof LilyKDE
 
 @uref{http://lilykde.googlecode.com/,LilyKDE} est un greffon pour
 @uref{http://kate-editor.org/,Kate}, l'éditeur de texte de
@@ -251,8 +261,9 @@ LilyKDE gère l'hyphénation des paroles, et le gestionnaire de fichiers
 de KDE permet de lancer LilyPond sur plusierus fichiers simultanément.
 
 
-@node Point and click
-@section Point and click
+@node Pointer-cliquer
+@section Pointer-cliquer
+@translationof Point and click
 
 Le pointer-cliquer (@emph{point and click}) permet de se retrouver
 directement dans le fichier source, à la note que l'on pointe dans le

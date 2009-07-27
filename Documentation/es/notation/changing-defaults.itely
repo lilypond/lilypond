@@ -9,8 +9,9 @@ Translation of GIT committish: 45945bd973aa9161b10e3f517902afb7ef4b4a56
 
 @c \version "2.12.0"
 
-@node Changing defaults
-@chapter Changing defaults
+@node Cambiar los valores por omisión
+@chapter Cambiar los valores por omisión
+@translationof Changing defaults
 
 El objetivo del diseño de LilyPond es proporcionar la más alta calidad
 de los resultados, de forma predeterminada.  A pesar de ello, podría
@@ -19,7 +20,7 @@ el papel se controla a través de un amplio número de @q{botones e
 interruptores} llamados en su conjunto @q{propiedades}.  En el Manual
 de aprendizaje podemos encontrar una introducción en forma de tutorial
 al acceso y modificación de estas propiedades, véase
-@rlearning{Tweaking output}.  Éste debería leerse en primer lugar.
+@rlearning{Trucar la salida}.  Éste debería leerse en primer lugar.
 Este capítulo cubre un terreno similar, pero con un estilo más
 adecuado para un manual de referencia.
 
@@ -40,38 +41,38 @@ LISP) para aportar la infraestructura.  La sobreescritura de las
 decisiones de disposición da acceso efectivo a las interioridades del
 programa, lo que requiere código de Scheme como entrada.  Los
 elementos de Scheme se inauguran dentro de un archivo @code{.ly} con
-el símbolo de cuadradillo @code{#}.@footnote{@rlearning{Scheme
-tutorial} contiene un breve tutorial sobre la introducción de números,
+el símbolo de cuadradillo @code{#}.@footnote{@rlearning{Tutorial de Scheme} contiene un breve tutorial sobre la introducción de números,
 listas, cadenas y símbolos en Scheme.}
 
 @menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Advanced tweaks::
+* Contextos de interpretación::
+* Explicación del Manual de referencia de funcionamiento interno::
+* Modificar las propiedades::
+* Conceptos y propiedades útiles::
+* Trucos avanzados::
 @end menu
 
 
-@node Interpretation contexts
-@section Interpretation contexts
+@node Contextos de interpretación
+@section Contextos de interpretación
+@translationof Interpretation contexts
 
 Esta sección explica qué son los contextos y cómo modificarlos.
 
 @menu
-* Contexts explained::
-* Creating contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
+* Explicación de los contextos::
+* Crear contextos::
+* Mantener vivos los contextos::
+* Modificar los complementos (plug-ins) de contexto::
+* Cambiar los valores por omisión de los contextos::
+* Definir contextos nuevos::
+* Alinear los contextos::
 @end menu
 
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Contexts and engravers}.
+@rlearning{Contextos y grabadores}.
 
 Archivos de inicio:
 @file{ly/@/engraver@/-init@/.ly},
@@ -85,20 +86,22 @@ Referencia de funcionamiento interno:
 @rinternals{Engravers and Performers}.
 
 
-@node Contexts explained
-@subsection Contexts explained
+@node Explicación de los contextos
+@subsection Explicación de los contextos
+@translationof Contexts explained
 
 Los contextos se disponen de forma jerárquica:
 
 @menu
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
+* Score: el contexto maestro::
+* Contextos del nivel superior: contenedores de pentagramas::
+* Contextos de nivel intermedio: pentagramas::
+* Contextos del nivel más bajo: voces::
 @end menu
 
-@node Score - the master of all contexts
-@unnumberedsubsubsec Score - the master of all contexts
+@node Score: el contexto maestro
+@unnumberedsubsubsec Score: el contexto maestro
+@translationof Score - the master of all contexts
 
 Este es el contexto de notación del nivel más alto.  Ningún otro
 contexto puede contener a un contexto Score.  De forma predeterminada,
@@ -111,8 +114,9 @@ procesa un bloque @code{\score @{@dots{}@}} o @code{\layout
 @{@dots{}@}}, o explícitamente cuando se ejecuta una instrucción
 @code{\new Score}.
 
-@node Top-level contexts - staff containers
-@unnumberedsubsubsec Top-level contexts - staff containers
+@node Contextos del nivel superior: contenedores de pentagramas
+@unnumberedsubsubsec Contextos del nivel superior: contenedores de pentagramas
+@translationof Top-level contexts - staff containers
 
 @strong{@emph{StaffGroup}}
 
@@ -138,8 +142,9 @@ se conectan verticalmente.
 Igual que @code{GrandStaff}, pero contempla la posibilidad de poner el
 nombre del instrumento a la izquierda del sistema.
 
-@node Intermediate-level contexts - staves
-@unnumberedsubsubsec Intermediate-level contexts - staves
+@node Contextos de nivel intermedio: pentagramas
+@unnumberedsubsubsec Contextos de nivel intermedio: pentagramas
+@translationof Intermediate-level contexts - staves
 
 @strong{@emph{Staff}}
 
@@ -173,8 +178,9 @@ Igual que @code{Staff}, excepto que está diseñado para tipografiar
 piezas en estilo mensural.
 
 
-@node Bottom-level contexts - voices
-@unnumberedsubsubsec Bottom-level contexts - voices
+@node Contextos del nivel más bajo: voces
+@unnumberedsubsubsec Contextos del nivel más bajo: voces
+@translationof Bottom-level contexts - voices
 
 Los contextos del mismo nivel que Voice dan un valor inicial a ciertas
 propiedades e inician los grabadores correspondientes.  Siendo
@@ -222,8 +228,9 @@ Se suele dejar que se cree implícitamente.
 Tipografía nombres de acordes.
 
 
-@node Creating contexts
-@subsection Creating contexts
+@node Crear contextos
+@subsection Crear contextos
+@translationof Creating contexts
 
 Para partituras que sólo tienen una voz y un pentagrama, los contextos
 se crean automáticamente.  Para partituras más complejas, es necesario
@@ -345,8 +352,7 @@ importar qué nombre se le ha dado.
 
 Esta variante se usa con expresiones musicales que se pueden
 interpretar en varios niveles.  Por ejemplo, la instrucción
-@code{\applyOutput} (véase @ref{Running a function on all layout
-objects}).  Sin una instrucción @code{\context} explícita, normalmente
+@code{\applyOutput} (véase @ref{Ejecutar una función sobre todos los objetos de la presentación}).  Sin una instrucción @code{\context} explícita, normalmente
 se aplicaría a @code{Voice}
 
 @example
@@ -363,8 +369,9 @@ Para que se interprete dentro de los niveles de @code{Score} o
 
 @end itemize
 
-@node Keeping contexts alive
-@subsection Keeping contexts alive
+@node Mantener vivos los contextos
+@subsection Mantener vivos los contextos
+@translationof Keeping contexts alive
 
 @cindex contextos, mantener vivos
 @cindex contextos, tiempo de vida
@@ -519,8 +526,9 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 @end lilypond
 
 
-@node Modifying context plug-ins
-@subsection Modifying context plug-ins
+@node Modificar los complementos (plug-ins) de contexto
+@subsection Modificar los complementos (plug-ins) de contexto
+@translationof Modifying context plug-ins
 
 Los contextos de notación (como @code{Score} y @code{Staff}) no sólo
 almacenan propiedades, también contienen «plug-ins» o complementos
@@ -592,7 +600,7 @@ es un método bastante rudimentario de hacer que desaparezcan los
 objetos porque afecta a todo el pentagrama.  Este método también
 afecta al espaciado, lo que puede ser deseable o no serlo.  Se
 muestran métodos más sofisticados para quitar objetos en
-@rlearning{Visibility and color of objects}.
+@rlearning{Visibilidad y color de los objetos}.
 
 El ejemplo siguiente muestra una aplicación práctica.  Normalmente las
 líneas divisorias y las indicaciones de compás están sincronizadas a
@@ -630,8 +638,9 @@ compás independiente.
 @end lilypond
 
 
-@node Changing context default settings
-@subsection Changing context default settings
+@node Cambiar los valores por omisión de los contextos
+@subsection Cambiar los valores por omisión de los contextos
+@translationof Changing context default settings
 
 Los ajustes de contexto que están preparados para usarse de forma
 predeterminada en los contextos @code{Score}, @code{Staff} y
@@ -691,8 +700,9 @@ predeterminados para un pentagrama que utilice
 @end example
 
 
-@node Defining new contexts
-@subsection Defining new contexts
+@node Definir contextos nuevos
+@subsection Definir contextos nuevos
+@translationof Defining new contexts
 
 Los contextos específicos, como @code{Staff} y @code{Voice}, están
 construidos a base de bloques sencillos.  Es posible crear nuevos
@@ -858,12 +868,13 @@ puede escribir como
 @end example
 
 
-@node Aligning contexts
-@subsection Aligning contexts
+@node Alinear los contextos
+@subsection Alinear los contextos
+@translationof Aligning contexts
 
 Los contextos nuevos se pueden alinear por encima o por debajo de
 otros contextos existentes.  Esto podría ser de utilidad al preparar
-un pentagrama vocal (@rlearning{Vocal ensembles}) y un ossia,
+un pentagrama vocal (@rlearning{Conjuntos vocales}) y un ossia,
 
 @cindex ossia
 @findex alignAboveContext
@@ -931,21 +942,23 @@ Lo contrario de @code{\accepts} (acepta) es @code{\denies} (deniega);
 esto suprime un contexto de la lista @qq{accepts}.
 
 
-@node Explaining the Internals Reference
-@section Explaining the Internals Reference
+@node Explicación del Manual de referencia de funcionamiento interno
+@section Explicación del Manual de referencia de funcionamiento interno
+@translationof Explaining the Internals Reference
 
 
 @menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
+* Navegar por la referencia del programa::
+* Interfaces de la presentación::
+* Determinar la propiedad del grob::
+* Convenciones de nombres::
 @end menu
 
 
 
-@node Navigating the program reference
-@subsection Navigating the program reference
+@node Navegar por la referencia del programa
+@subsection Navegar por la referencia del programa
+@translationof Navigating the program reference
 
 Supongamos que queremos mover la indicación de digitación del
 fragmento siguiente:
@@ -957,7 +970,7 @@ f
 @end lilypond
 
 Si hace una visita a la documentación en busca de instrucciones de
-digitación (en @ref{Fingering instructions}), encontrará:
+digitación (en @ref{Indicaciones de digitación}), encontrará:
 
 @quotation
 @strong{Véase también}
@@ -1018,8 +1031,9 @@ de los capítulos relaciona todas las definiciones utilizadas y todas
 las propiedades que se pueden ajustar.
 
 
-@node Layout interfaces
-@subsection Layout interfaces
+@node Interfaces de la presentación
+@subsection Interfaces de la presentación
+@translationof Layout interfaces
 
 @cindex interfaz de la presentación
 @cindex presentación, interfaz de la
@@ -1097,7 +1111,7 @@ pueden modificar.
 
 Hemos estado hablando de @emph{el} objeto @code{Fingering}, pero
 realmente esto no significa mucho.  El archivo de inicialización
-(véase @rlearning{Other sources of information})
+(véase @rlearning{Otras fuentes de información})
 @file{scm/@/define@/-grobs@/.scm} muestra el alma del @q{objeto},
 
 @example
@@ -1130,8 +1144,9 @@ funcionamiento interno se genera directamente a partir de esta
 definición.
 
 
-@node Determining the grob property
-@subsection Determining the grob property
+@node Determinar la propiedad del grob
+@subsection Determinar la propiedad del grob
+@translationof Determining the grob property
 
 Recordemos que queríamos cambiar la posición del @b{2} en
 
@@ -1199,8 +1214,9 @@ El grabador Fingering_engraver es parte de los contextos: @dots{}
 
 
 
-@node Naming conventions
-@subsection Naming conventions
+@node Convenciones de nombres
+@subsection Convenciones de nombres
+@translationof Naming conventions
 
 @ignore
 Another thing that is needed, is an overview of the various naming
@@ -1224,20 +1240,22 @@ Which are rules of the underlying language, and which are
 LP-specific?
 @end ignore
 
-@node Modifying properties
-@section Modifying properties
+@node Modificar las propiedades
+@section Modificar las propiedades
+@translationof Modifying properties
 
 @menu
-* Overview of modifying properties::
-* The set command::
-* The override command::
-* The tweak command::
-* set versus override::
+* Panorámica de la modificación de las propiedades::
+* La instrucción set::
+* La instrucción override::
+* La instrucción tweak::
+* set frente a override::
 @end menu
 
 
-@node Overview of modifying properties
-@subsection Overview of modifying properties
+@node Panorámica de la modificación de las propiedades
+@subsection Panorámica de la modificación de las propiedades
+@translationof Overview of modifying properties
 
 Cada contexto es responsable de la creación de ciertos tipos de
 objetos gráficos.  Los ajustes que se usan para imprimir estos objetos
@@ -1254,7 +1272,7 @@ Aquí @var{nombre} es el nombre de un objeto gráfico, como @code{Stem}
 o @code{NoteHead}, y @var{propiedad} es una variable interna del
 sistema de formateo (@q{propiedad del grob} o @q{propiedad de
 disposición}).  Este último es un símbolo, y por ello debe ir
-precedido de un apóstrofo.  La subsección @ref{Modifying properties}
+precedido de un apóstrofo.  La subsección @ref{Modificar las propiedades}
 explica cómo se deben cumplimentar los conceptos @var{nombre},
 @var{propiedad} y @var{valor}.  Aquí sólo nos ocuparemos de la
 funcionalidad des esta instrucción.
@@ -1358,8 +1376,9 @@ valores Scheme de propiedades pueden producir cuelgues o salidas
 abruptas, o las dos cosas.
 
 
-@node The set command
-@subsection The @code{\set} command
+@node La instrucción set
+@subsection La instrucción @code{\set}
+@translationof The set command
 
 @cindex propiedades
 @funindex \set
@@ -1489,8 +1508,9 @@ usuario.
 
 
 
-@node The override command
-@subsection The @code{\override} command
+@node La instrucción override
+@subsection La instrucción @code{\override}
+@translationof The override command
 
 Las instrucciones que modifican la salida tienen por lo general un
 aspecto como
@@ -1535,8 +1555,9 @@ Mostraremos a continuación cómo localizar esta información en el
 manual de notación y en la referencia de funcionamiento interno.
 
 
-@node The tweak command
-@subsection The @code{\tweak} command
+@node La instrucción tweak
+@subsection La instrucción @code{\tweak}
+@translationof The tweak command
 
 @funindex \tweak
 @cindex trucar
@@ -1566,7 +1587,7 @@ mismo momento musical, como las notas de un acorde, o corchetes de
 tresillo que empiezan al mismo tiempo.
 
 Para ver una introducción a la sintaxis y los usos de la instrucción
-tweak, consulte @rlearning{Tweaking methods}.
+tweak, consulte @rlearning{Métodos de trucaje}.
 
 La instrucción @code{\tweak} fija una propiedad en el objeto que viene
 a continuación de forma directa, sin necesidad de especificar el
@@ -1651,17 +1672,17 @@ f'
 
 El flujo musical que se genera a partir de una sección de un archivo
 de entrada, incluido cualquier elemento insertado automáticamente,
-puede examinarse, véase @ref{Displaying music expressions}.  Esto
+puede examinarse, véase @ref{Presentación de expresiones musicales}.  Esto
 puede ser de utilidad en la determinación de lo que puede modificarse
 por medio de una instrucción @code{\tweak}.
 
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Tweaking methods}.
+@rlearning{Métodos de trucaje}.
 
 Referencia de la notación:
-@ref{Displaying music expressions}.
+@ref{Presentación de expresiones musicales}.
 
 
 @knownissues
@@ -1679,8 +1700,9 @@ La instrucción @code{\tweak} no se puede usar para modificar los
 puntos de control de una única ligadura entre varias dentro de un
 acorde, aparte de la primera que aparece en el archivo de entrada.
 
-@node set versus override
-@subsection @code{\set} vs. @code{\override}
+@node set frente a override
+@subsection @code{\set} frente a @code{\override}
+@translationof set versus override
 
 Hemos visto dos formas de cambiar las propiedades: @code{\set} y
 @code{\override}.  De hecho, en realidad existen dos clases diferentes
@@ -1732,23 +1754,25 @@ Al ser éste un cambio muy común, se creó la propiedad especial
 (modificada con @code{\set}).
 
 
-@node Useful concepts and properties
-@section Useful concepts and properties
+@node Conceptos y propiedades útiles
+@section Conceptos y propiedades útiles
+@translationof Useful concepts and properties
 
 
 @menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Staff symbol properties::
-* Spanners::
-* Visibility of objects::
-* Line styles::
-* Rotating objects::
+* Modos de entrada::
+* Dirección y posición::
+* Distancias y medidas::
+* Propiedades del símbolo del pentagrama::
+* Objetos de extensión::
+* Visibilidad de los objetos::
+* Estilos de línea::
+* Rotación de objetos::
 @end menu
 
-@node Input modes
-@subsection Input modes
+@node Modos de entrada
+@subsection Modos de entrada
+@translationof Input modes
 
 La forma en que se interpreta la notación contenida dentro de un
 archivo de entrada, está determinada por el modo de entrada en curso.
@@ -1757,39 +1781,38 @@ archivo de entrada, está determinada por el modo de entrada en curso.
 
 Se activa con la instrucción @code{\chordmode} y produce que la
 entrada se interprete con al sintaxis de la notación de acordes, véase
-@ref{Chord notation}.  Los acordes se imprimen como notas sobre un
+@ref{Notación de acordes}.  Los acordes se imprimen como notas sobre un
 pentagrama.
 
 El modo de acordes se activa también con la instrucción
 @code{\chords}.  Esto crea también un contexto @code{ChordNames} nuevo
 y produce que el código que sigue se interprete con la sintaxis de la
 notación de acordes y se imprima como nombres de acorde dentro del
-contexto @code{ChordNames}, véase @ref{Printing chord names}.
+contexto @code{ChordNames}, véase @ref{Impresión de los nombres de acorde}.
 
 @strong{Modo de percusión}
 
 Se activa con la instrucción @code{\drummode} y produce que el código
 de entrada se interprete con la sintaxis de la notación de percusión,
-véase @ref{Basic percussion notation}.
+véase @ref{Notación básica de percusión}.
 
 El modo de percusión también se activa con la instrucción
 @code{\drums}.  También crea un contexto @code{DrumStaff} nuevo y hace
 que el código que sigue se interprete con la sintaxis de la notación
 de percusión y se imprima como símbolos de percusión sobre un
-pentagrama de percusión, véase @ref{Basic percussion notation}.
+pentagrama de percusión, véase @ref{Notación básica de percusión}.
 
 @strong{Modo de cifras}
 
 Se activa con la instrucción @code{\figuremode} y hace que el código
 de entrada se interprete con la sintaxis del bajo cifrado, véase
-@ref{Entering figured bass}.
+@ref{Introducir el bajo cifrado}.
 
 El modo de cifrase también se activa con la instrucción
 @code{\figures}.  También crea un contexto de @code{FiguredBass} nuevo
 y hace que el código que viene a continuación se interprete con la
 sintaxis del bajo cifrado y se imprima como símbolos de bajo cifrado
-dentro del contexto @code{FiguredBass}, véase @ref{Introduction to
-figured bass}.
+dentro del contexto @code{FiguredBass}, véase @ref{Introducción al bajo cifrado}.
 
 @strong{Modos de traste y tablatura}
 
@@ -1798,18 +1821,17 @@ trastes y de tablatura.
 
 Para crear diagramas de trastes, escriba las notas o acordes en el
 modo de notas e imprímalos dentro de un contexto @code{TabStaff},
-véase @ref{Default tablatures}.
+véase @ref{Tablaturas predeterminadas}.
 
 Para crear diagramas de trastes encima de un pentagrama, escríbalos
 como elementos de marcado encima de las notas utilizando la
-instrucción @code{\fret-diagram}, véase @ref{Fret diagram markups}.
+instrucción @code{\fret-diagram}, véase @ref{Marcas de diagramas de trastes}.
 
 @strong{Modo de letra}
 
 Se activa con la instrucción @code{\lyricmode}, y hace que la entrada
 se interprete como sílabas de la letra de la canción con duraciones
-opcionales y modificadores de letra asociados, véase @ref{Vocal
-music}.
+opcionales y modificadores de letra asociados, véase @ref{Música vocal}.
 
 El modo de letra también se habilita con la instrucción
 @code{\addlyrics}.  Esto también crea un contexto @code{Lyrics} nuevo
@@ -1819,8 +1841,7 @@ viene a continuación con la música precedente.
 @strong{Modo de marcado}
 
 Se activa con la instrucción @code{\markup}, y hace que la entrada se
-interprete con la sintaxis del marcado, véase @ref{Text markup
-commands}.
+interprete con la sintaxis del marcado, véase @ref{Text markup commands}.
 
 @c silly work-around for texinfo broken-ness
 @c (@strong{Note...} causes a spurious cross-reference in Info)
@@ -1854,8 +1875,9 @@ interpretar dichas indicaciones:
 
 
 
-@node Direction and placement
-@subsection Direction and placement
+@node Dirección y posición
+@subsection Dirección y posición
+@translationof Direction and placement
 
 Al tipografiar música, la dirección y colocación de muchos elementos
 es cuestión de elección.  Por ejemplo, las plicas de las notas se
@@ -1885,7 +1907,7 @@ disponible un contexto apropiado para contenerla.
 @c TODO Add example ?
 
 Se pude cambiar el orden predeterminado en que los contextos se
-presentan, véase @ref{Aligning contexts}
+presentan, véase @ref{Alinear los contextos}
 
 @strong{Indicadores de dirección de las articulaciones}
 
@@ -1934,7 +1956,7 @@ son de la forma:
 
 @noindent
 donde @code{xxxNeutral} significa @qq{utilizar la dirección
-predeterminada}.  Véase @rlearning{Within-staff objects}.
+predeterminada}.  Véase @rlearning{Objetos interiores al pentagrama}.
 
 En alguna que otra ocasión, con el único ejemplo usual del arpegio, el
 valor de la propiedad @code{direction} especifica si el objeto se debe
@@ -1955,8 +1977,9 @@ c2( c)
 @end lilypond
 
 
-@node Distances and measurements
-@subsection Distances and measurements
+@node Distancias y medidas
+@subsection Distancias y medidas
+@translationof Distances and measurements
 
 @cindex distances, absolute
 @cindex distances, scaled
@@ -1976,8 +1999,7 @@ cantidad, @code{\mm}, @code{\cm}, @code{\in}@tie{}(pulgadas), o
 @code{\pt}@tie{}(puntos, 1/72.27 pulgadas).  Las distancias de diseño
 de página se pueden especificar también en unidades escalables (véase
 el párrafo siguiente) adjuntando @code{\staff-space} a la cantidad.
-La disposición de página se describe en detalle en @ref{Page
-formatting}.
+La disposición de página se describe en detalle en @ref{Formateo de las páginas}.
 
 Las distancias escaladas siempre se especifican en unidades de un
 espacio del pentagrama o, más raramente, medio espacio del pentagrama.
@@ -1992,7 +2014,7 @@ las fuentes tipográficas se escalan solamente con los cambios
 efectuados al tamaño global del pentagrama.  Así, el tamaño global del
 pentagrama posibilita la fácil variación del tamaño general de una
 partitura impresa.  Para ver los métodos de establecimiento del tamaño
-global del pentagrama, véase @ref{Setting the staff size}.
+global del pentagrama, véase @ref{Establecer el tamaño del pentagrama}.
 
 @funindex magstep
 
@@ -2005,20 +2027,21 @@ hace sobreescribiendo tanto la propiedad @code{staff-space} de
 nuestra disposición una función de Scheme, @code{magstep}, para
 convertir de un cambio en el tamaño de la fuente al cambio equivalente
 en @code{staff-space}.  Para ver una explicación y un ejemplo de su
-utilización, consulte @rlearning{Length and thickness of objects}.
+utilización, consulte @rlearning{Longitud y grosor de los objetos}.
 
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Length and thickness of objects}.
+@rlearning{Longitud y grosor de los objetos}.
 
 Referencia de la notación:
-@ref{Page formatting},
-@ref{Setting the staff size}.
+@ref{Formateo de las páginas},
+@ref{Establecer el tamaño del pentagrama}.
 
 
-@node Staff symbol properties
-@subsection Staff symbol properties
+@node Propiedades del símbolo del pentagrama
+@subsection Propiedades del símbolo del pentagrama
+@translationof Staff symbol properties
 
 @cindex ajuste del símbolo del pentagrama
 @cindex dibujar el símbolo del pentagrama
@@ -2058,8 +2081,9 @@ resulta afectado por este ajuste.
 @end lilypond
 
 
-@node Spanners
-@subsection Spanners
+@node Objetos de extensión
+@subsection Objetos de extensión
+@translationof Spanners
 
 Muchos objetos de notación musical abarcan varias notas o incluso
 varios compases.  Son ejemplos los crescendi, trinos, corchetes de
@@ -2074,7 +2098,7 @@ Todos los objetos de extensión contemplan el interface
 una línea recta entre los dos objetos, contemplan también el interface
 @code{line-spanner-interface}.
 
-@unnumberedsubsubsec Using the @code{spanner-interface}
+@unnumberedsubsubsec Uso del @code{spanner-interface}
 
 Este interface proporciona dos propiedades que se aplican a varios
 extensores.
@@ -2206,7 +2230,7 @@ su establecimiento a @code{#t} no tienen ningún efecto sobre las
 ligaduras de expresión o de fraseo, o sobre otros extensores para los
 que terminar en la barra de compás no tendría ningún significado.
 
-@unnumberedsubsubsec Using the @code{line-spanner-interface}
+@unnumberedsubsubsec Uso del @code{line-spanner-interface}
 
 Entre los objetos que contemplan el interface
 @code{line-spanner-interface} se encuentran
@@ -2360,8 +2384,9 @@ Referencia de funcionamiento interno:
 @rinternals{line-spanner-interface}.
 
 
-@node Visibility of objects
-@subsection Visibility of objects
+@node Visibilidad de los objetos
+@subsection Visibilidad de los objetos
+@translationof Visibility of objects
 
 @cindex objetos, visibilidad de
 @cindex grobs, visibilidad de
@@ -2373,23 +2398,23 @@ volver transparentes, se pueden pintar de blanco, o se puede
 sobreescribir su propiedad @code{break-visibility}.  Las tres primeras
 se aplican a todos los objetos de presentación; la última sólo a unos
 pocos: los objetos @emph{divisibles}.  El Manual de aprendizaje
-introduce estas cuatro técnicas, véase @rlearning{Visibility and color
-of objects}.
+introduce estas cuatro técnicas, véase @rlearning{Visibilidad y color de los objetos}.
 
 Hay también algunas otras técnicas que son específicas de ciertos
 objetos de presentación.  Se estudian bajo Consideraciones especiales.
 
 @menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
+* Eliminar el sello::
+* Hacer transparentes los objetos::
+* Pintar los objetos de blanco::
+* Uso de break-visibility (visibilidad en el salto)::
+* Consideraciones especiales::
 @end menu
 
 
-@node Removing the stencil
-@unnumberedsubsubsec Removing the stencil
+@node Eliminar el sello
+@unnumberedsubsubsec Eliminar el sello
+@translationof Removing the stencil
 
 @cindex sello, eliminar
 
@@ -2407,8 +2432,9 @@ a a
 a a a
 @end lilypond
 
-@node Making objects transparent
-@unnumberedsubsubsec Making objects transparent
+@node Hacer transparentes los objetos
+@unnumberedsubsubsec Hacer transparentes los objetos
+@translationof Making objects transparent
 
 @cindex transparentes, hacer los objetos
 
@@ -2423,8 +2449,9 @@ a4 a
 a a
 @end lilypond
 
-@node Painting objects white
-@unnumberedsubsubsec Painting objects white
+@node Pintar los objetos de blanco
+@unnumberedsubsubsec Pintar los objetos de blanco
+@translationof Painting objects white
 
 @cindex objetos, coloreado de
 @cindex coloreado de objetos
@@ -2473,8 +2500,9 @@ que se dibuje antes:
 a1
 @end lilypond
 
-@node Using break-visibility
-@unnumberedsubsubsec Using break-visibility
+@node Uso de break-visibility (visibilidad en el salto)
+@unnumberedsubsubsec Uso de break-visibility (visibilidad en el salto)
+@translationof Using break-visibility
 
 @c TODO Add making other objects breakable
 
@@ -2502,7 +2530,7 @@ precaución.
 Este comportamiento se controla por medio de la propiedad
 @code{break-visibility}, que se explica en
 @c Leave this ref on a newline - formats incorrectly otherwise -td
-@rlearning{Visibility and color of objects}.  Esta propiedad toma un
+@rlearning{Visibilidad y color de los objetos}.  Esta propiedad toma un
 vector de tres valores booleanos que, por orden, determinan si el
 objeto se imprime al final, dentro, o al principio de la línea.  O,
 para ser más exactos: antes del salto de línea, si no hay salto, o
@@ -2588,8 +2616,9 @@ imprimirlas y all-invisible para suprimirlas.
 @item OctavateEight: véase más abajo
 @end itemize
 
-@node Special considerations
-@unnumberedsubsubsec Special considerations
+@node Consideraciones especiales
+@unnumberedsubsubsec Consideraciones especiales
+@translationof Special considerations
 
 @strong{@emph{Visibilidad después de un cambio explícito}}
 
@@ -2707,11 +2736,12 @@ el símbolo de octava asociado.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Visibility and color of objects}
+@rlearning{Visibilidad y color de los objetos}
 
 
-@node Line styles
-@subsection Line styles
+@node Estilos de línea
+@subsection Estilos de línea
+@translationof Line styles
 
 Ciertas indicaciones de ejecución, p.ej., @i{rallentando},
 @i{accelerando} y los @i{trinos} se escriben como texto y se extienden
@@ -2759,23 +2789,25 @@ posición vertical de los puntos de anclaje izquierdo y derecho del
 extensor.
 
 Son posibles otros ajustes de los extensores, para ver más detalles
-consulte @ref{Spanners}.
+consulte @ref{Objetos de extensión}.
 
 
-@node Rotating objects
-@subsection Rotating objects
+@node Rotación de objetos
+@subsection Rotación de objetos
+@translationof Rotating objects
 
 Tanto los objetos de presentación como los elementos de texto de
 marcado se pueden girar cualquier ángulo respecto a cualquier punto,
 pero difiere el método de hacerlo.
 
 @menu
-* Rotating layout objects::
-* Rotating markup::
+* Rotación de objetos de presentación::
+* Rotación de elementos de marcado::
 @end menu
 
-@node Rotating layout objects
-@unnumberedsubsubsec Rotating layout objects
+@node Rotación de objetos de presentación
+@unnumberedsubsubsec Rotación de objetos de presentación
+@translationof Rotating layout objects
 
 @cindex rotating objects
 @cindex objects, rotating
@@ -2804,8 +2836,9 @@ g4\< e' d' f\!
 g,,4\< e' d' f\!
 @end lilypond
 
-@node Rotating markup
-@unnumberedsubsubsec Rotating markup
+@node Rotación de elementos de marcado
+@unnumberedsubsubsec Rotación de elementos de marcado
+@translationof Rotating markup
 
 Todos los textos de marcado se pueden rotar para que se dispongan en
 cualquier ángulo precediéndolos de la instrucción @code{\rotate}.  La
@@ -2825,29 +2858,30 @@ des^\markup { \rotate #30 "a D-Flat" }
 fis^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
-@node Advanced tweaks
-@section Advanced tweaks
+@node Trucos avanzados
+@section Trucos avanzados
+@translationof Advanced tweaks
 
 Esta sección trata sobre distintos enfoques en la realización de
 ajustes finos a la apariencia de la partitura impresa.
 
 @menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
+* Alineación de objetos::
+* Agrupación vertical de objetos gráficos::
+* Modificación de los sellos::
+* Modificación de las formas::
 @end menu
 
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Tweaking output},
-@rlearning{Other sources of information}.
+@rlearning{Trucar la salida},
+@rlearning{Otras fuentes de información}.
 
 Referencia de la notación:
-@ref{Explaining the Internals Reference},
-@ref{Modifying properties},
-@ref{Interfaces for programmers}.
+@ref{Explicación del Manual de referencia de funcionamiento interno},
+@ref{Modificar las propiedades},
+@ref{Interfaces para programadores}.
 
 Archivos de inicio:
 @file{scm/@/define@/-grobs@/.scm}.
@@ -2859,8 +2893,9 @@ Referencia de funcionamiento interno:
 @rinternals{All layout objects}.
 
 
-@node Aligning objects
-@subsection Aligning objects
+@node Alineación de objetos
+@subsection Alineación de objetos
+@translationof Aligning objects
 
 Los objetos gráficos que soportan el interface
 @code{self-alignment-interface} y/o el @code{side-position-interface}
@@ -2904,14 +2939,15 @@ propiedades especiales que se encuentran en
 de ensayo sobre dichos objetos.
 
 @menu
-* Setting @code{X-offset} and @code{Y-offset} directly::
-* Using the @code{side-position-interface}::
-* Using the @code{self-alignment-interface}::
-* Using the @code{break-alignable-interface}::
+* Establecer directamente @code{X-offset} y @code{Y-offset}::
+* Uso del @code{side-position-interface}::
+* Uso del @code{self-alignment-interface}::
+* Uso del @code{break-alignable-interface}::
 @end menu
 
-@node Setting @code{X-offset} and @code{Y-offset} directly
-@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+@node Establecer directamente @code{X-offset} y @code{Y-offset}
+@unnumberedsubsubsec Establecer directamente @code{X-offset} y @code{Y-offset}
+@translationof Setting @code{X-offset} and @code{Y-offset} directly
 
 Se pueden dar valores numéricos a las propiedades @code{X-offset} y
 @code{Y-offset} de muchos objetos.  El ejemplo siguiente muestra tres
@@ -2932,8 +2968,9 @@ a
 
 @c TODO write more
 
-@node Using the @code{side-position-interface}
-@unnumberedsubsubsec Using the @code{side-position-interface}
+@node Uso del @code{side-position-interface}
+@unnumberedsubsubsec Uso del @code{side-position-interface}
+@translationof Using the @code{side-position-interface}
 
 Un objeto que contempla el @code{side-position-interface} se puede
 colocar junto a su objeto padre de forma que los bordes especificados
@@ -2973,8 +3010,9 @@ situar el objeto encima o debajo del padre de acuerdo con el valor de
 
 @c TODO Add examples
 
-@node Using the @code{self-alignment-interface}
-@unnumberedsubsubsec Using the @code{self-alignment-interface}
+@node Uso del @code{self-alignment-interface}
+@unnumberedsubsubsec Uso del @code{self-alignment-interface}
+@translationof Using the @code{self-alignment-interface}
 
 @emph{Auto-alineación horizontal de los objetos}
 
@@ -3046,7 +3084,7 @@ a
 @end lilypond
 
 @ignore
-@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+@unnumberedsubsubsec Uso de los procedimientos @code{aligned-on-parent}
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -3065,7 +3103,7 @@ example shows the difference:
 @end ignore
 
 @ignore
-@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+@unnumberedsubsubsec Uso de los procedimientos @code{centered-on-parent}
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -3075,8 +3113,9 @@ example shows the difference:
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
 
-@node Using the @code{break-alignable-interface}
-@unnumberedsubsubsec Using the @code{break-alignable-interface}
+@node Uso del @code{break-alignable-interface}
+@unnumberedsubsubsec Uso del @code{break-alignable-interface}
+@translationof Using the @code{break-alignable-interface}
 
 @cindex alineación a objetos
 @cindex break-align-symbols
@@ -3179,8 +3218,9 @@ e
 @end lilypond
 
 
-@node Vertical grouping of grobs
-@subsection Vertical grouping of grobs
+@node Agrupación vertical de objetos gráficos
+@subsection Agrupación vertical de objetos gráficos
+@translationof Vertical grouping of grobs
 
 Los grobs (objetos gráficos) @code{VerticalAlignment} y
 @code{VerticalAxisGroup} trabajan de manera coordinada.
@@ -3192,8 +3232,9 @@ partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
 @code{VerticalAxisGroup}.
 
 
-@node Modifying stencils
-@subsection Modifying stencils
+@node Modificación de los sellos
+@subsection Modificación de los sellos
+@translationof Modifying stencils
 
 Todos los objetos de presentación tienen una propiedad @code{stencil}
 que es parte del @code{grob-interface}.  De forma predeterminada, esta
@@ -3214,7 +3255,7 @@ procedimiento que imprime texto (@code{ly:text-interface::print}) y
 añadir una propiedad @code{text} al objeto ajustada para que contenga
 el texto de marcado que produce el símbolo requerido.  Debido a la
 flexibilidad del marcado, se pueden conseguir muchas cosas; en
-particular, consulte @ref{Graphic notation inside markup}.
+particular, consulte @ref{Notación gráfica dentro de elementos de marcado}.
 
 El ejemplo siguiente muestra esto cambiando el símbolo de la cabeza de
 la nota a unas aspas dentro de una circunferencia.
@@ -3234,8 +3275,7 @@ XinO = {
 @end lilypond
 
 Cualquiera de los glifos de la fuente tipográfica Feta se puede pasar
-a la instrucción de marcado @code{\musicglyph}: véase @ref{The Feta
-font}.
+a la instrucción de marcado @code{\musicglyph}: véase @ref{La tipografía Feta}.
 
 @c TODO Add inserting eps files or ref to later
 
@@ -3244,21 +3284,23 @@ font}.
 
 @seealso
 Referencia de la notación:
-@ref{Graphic notation inside markup},
-@ref{Formatting text},
+@ref{Notación gráfica dentro de elementos de marcado},
+@ref{Formatear el texto},
 @ref{Text markup commands},
-@ref{The Feta font}.
+@ref{La tipografía Feta}.
 
 
-@node Modifying shapes
-@subsection Modifying shapes
+@node Modificación de las formas
+@subsection Modificación de las formas
+@translationof Modifying shapes
 
 @menu
-* Modifying ties and slurs::
+* Modificación de ligaduras de unión y de expresión::
 @end menu
 
-@node Modifying ties and slurs
-@unnumberedsubsubsec Modifying ties and slurs
+@node Modificación de ligaduras de unión y de expresión
+@unnumberedsubsubsec Modificación de ligaduras de unión y de expresión
+@translationof Modifying ties and slurs
 
 @cindex ligaduras de expresión, modificar
 @cindex ligaduras de unión, modificar

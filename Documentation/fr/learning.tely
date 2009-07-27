@@ -29,6 +29,7 @@
 @ifnottex
 @node Top
 @top GNU LilyPond --- Manuel d'initiation
+@translationof Top
 @end ifnottex
 
 
@@ -163,7 +164,7 @@ Free Documentation License''.
 
 Ce document constitue le manuel d'initiation à GNU LilyPond
 @version{}.  Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez @ref{About the documentation}.
+documentation, consultez @ref{À propos de la documentation}.
 
 @cindex web site
 @cindex URL
@@ -174,19 +175,19 @@ copies en ligne de cette documentation, ainsi qu'une documentation
 supplémentaire.
 
 @menu
-* Preface::
+* Préface::
 * Introduction::                   quoi, pourquoi comment.
-* Tutorial::                       un tutoriel d'introduction.
-* Fundamental concepts::           concepts de base de LilyPond.
-* Tweaking output::                introduction aux retouches de mise en forme.
-* Working on LilyPond projects::   traite de l'utilisation quotidienne.
+* Tutoriel::                       un tutoriel d'introduction.
+* Concepts fondamentaux::           concepts de base de LilyPond.
+* Retouche de partition::                introduction aux retouches de mise en forme.
+* Travail sur des projets LilyPond::   traite de l'utilisation quotidienne.
 
 Annexes
 
-* Templates::                      modèles prêts à l'emploi.
-* Scheme tutorial::                programmer au sein de LilyPond.
+* Modèles::                      modèles prêts à l'emploi.
+* Tutoriel Scheme::                programmer au sein de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
-* LilyPond index::
+* Index de LilyPond::
 @end menu
 @end ifnottex
 
@@ -204,8 +205,9 @@ Annexes
 @include learning/scheme-tutorial.itely
 @include fdl.itexi
 
-@node LilyPond index
-@appendix LilyPond index
+@node Index de LilyPond
+@appendix Index de LilyPond
+@translationof LilyPond index
 
 @printindex cp
 

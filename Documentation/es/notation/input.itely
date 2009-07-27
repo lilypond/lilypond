@@ -9,36 +9,39 @@
 
 @c \version "2.12.0"
 
-@node General input and output
-@chapter General input and output
+@node Entrada y salida generales
+@chapter Entrada y salida generales
+@translationof General input and output
 
 Esta sección trata de asuntos relacionados con la entrada y salida
 generales de LilyPond, más que con la notación específica.
 
 @menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* MIDI output::
+* Estructura del código de entrada::
+* Títulos y cabeceras::
+* Trabajar sobre los archivos de entrada::
+* Controlar la salida::
+* Salida MIDI::
 @end menu
 
 
-@node Input structure
-@section Input structure
+@node Estructura del código de entrada
+@section Estructura del código de entrada
+@translationof Input structure
 
 El formato principal de entrada para LilyPond son archivos de texto.
 Por convenio, el nombre de estos archivos termina en @code{.ly}.
 
 @menu
-* Structure of a score::
-* Multiple scores in a book::
-* File structure::
+* Estructura de una partitura::
+* Varias partituras en un libro::
+* Estructura del archivo::
 @end menu
 
 
-@node Structure of a score
-@subsection Structure of a score
+@node Estructura de una partitura
+@subsection Estructura de una partitura
+@translationof Structure of a score
 
 @funindex \score
 
@@ -93,7 +96,7 @@ complejidad.  Todos los siguientes ejemplos son expresiones musicales:
 @end example
 
 Los comentarios son una excepción a esta regla general (para ver otras
-excepciones, consulte @ref{File structure}).  Tanto los comentarios de
+excepciones, consulte @ref{Estructura del archivo}).  Tanto los comentarios de
 una línea como los que están delimitados por @code{%@{ .. %@}} se
 pueden escribir en cualquier lugar dentro del archivo de entrada.  Se
 pueden escribir dentro o fuera del bloque @code{\score}, y dentro o
@@ -102,13 +105,14 @@ fuera de la expresión musical única dentro del bloque @code{\score}.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Working on input files},
-@rlearning{Music expressions explained},
-@rlearning{Score is a (single) compound musical expression}.
+@rlearning{Trabajar sobre los archivos de entrada},
+@rlearning{Explicación de las expresiones musicales},
+@rlearning{La partitura es una (única) expresión musical compuesta}.
 
 
-@node Multiple scores in a book
-@subsection Multiple scores in a book
+@node Varias partituras en un libro
+@subsection Varias partituras en un libro
+@translationof Multiple scores in a book
 
 @funindex \book
 @cindex movimientos, varios
@@ -155,7 +159,7 @@ archivo @code{.ly}, podemos escribir varios bloques @code{\book},
 donde cada uno de estos bloques @code{\book} dará como resultado un
 archivo de salida distinto.  Si no especificamos ningún bloque
 @code{\book} en el archivo,, LilyPond trata implícitamente todo el
-archivo como un solo bloque @code{\book}, véase @ref{File structure}.
+archivo como un solo bloque @code{\book}, véase @ref{Estructura del archivo}.
 Una excepción importante se da dentro de los documentos de
 lilypond-book, en los que tenemos que escribir explícitamente un
 bloque @code{\book}, pues en caso contrario sólo aparecerá en la
@@ -217,8 +221,9 @@ como el libro propiamente dicho, mediante la especificación del bloque
 @end example
 
 
-@node File structure
-@subsection File structure
+@node Estructura del archivo
+@subsection Estructura del archivo
+@translationof File structure
 
 @funindex \paper
 @funindex \midi
@@ -392,25 +397,27 @@ de la instrucción completa.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{How LilyPond input files work}.
+@rlearning{Cómo funcionan los archivos de entrada de LilyPond}.
 
 
-@node Titles and headers
-@section Titles and headers
+@node Títulos y cabeceras
+@section Títulos y cabeceras
+@translationof Titles and headers
 
 Casi toda la música impresa tiene un título y el nombre del
 compositor; ciertas piezas tienen mucha más información.
 
 @menu
-* Creating titles::
-* Custom titles::
-* Reference to page numbers::
-* Table of contents::
+* Crear títulos::
+* Títulos personalizados::
+* Referencias a números de página::
+* Índice general::
 @end menu
 
 
-@node Creating titles
-@subsection Creating titles
+@node Crear títulos
+@subsection Crear títulos
+@translationof Creating titles
 
 Se crean títulos para cada uno de los bloques @code{\score} así como
 para todo el archivo de entrada (o bloque @code{\book}, libro) y las
@@ -476,7 +483,7 @@ Esto fuerza que el título comience sobre una página nueva (establézcalo a ##t
 @item copyright
 Aviso de Copyright, centrado en la parte inferior de la primera
 página.  Para insertar el símbolo de copyright, consulte
-@ref{Text encoding}.
+@ref{Codificación del texto}.
 
 @funindex tagline
 @item tagline
@@ -486,7 +493,7 @@ Cartel de propósito general en el pie de página, centrado al final de la últi
 
 A continuación presentamos una demostración de todos los campos que
 están disponibles.  Fíjese en que puede utilizar en la cabecera
-cualquier instrucción de marcado de texto (Véase @ref{Formatting text}).
+cualquier instrucción de marcado de texto (Véase @ref{Formatear el texto}).
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
 \paper {
@@ -604,8 +611,9 @@ falso.
 @end example
 
 
-@node Custom titles
-@subsection Custom titles
+@node Títulos personalizados
+@subsection Títulos personalizados
+@translationof Custom titles
 
 Una opción más avanzada es cambiar las definiciones de las variables
 siguientes dentro del bloque @code{\paper}.  El archivo de
@@ -673,8 +681,9 @@ compositor en el extremo derecho sobre una única línea.
 }
 @end verbatim
 
-@node Reference to page numbers
-@subsection Reference to page numbers
+@node Referencias a números de página
+@subsection Referencias a números de página
+@translationof Reference to page numbers
 
 Se puede marcar un lugar determinado de una partitura utilizando la
 instrucción @code{\label} (etiqueta), bien en lo alto de la estructura
@@ -726,8 +735,9 @@ dígitos.
 @endpredefined
 
 
-@node Table of contents
-@subsection Table of contents
+@node Índice general
+@subsection Índice general
+@translationof Table of contents
 
 Se puede insertar un índice general o tabla de contenidos utilizando
 la instrucción @code{\markuplines \table-of-contents}.  Los elementos
@@ -846,19 +856,21 @@ Archivos de inicio:
 @endpredefined
 
 
-@node Working with input files
-@section Working with input files
+@node Trabajar sobre los archivos de entrada
+@section Trabajar sobre los archivos de entrada
+@translationof Working with input files
 
 @menu
-* Including LilyPond files::
-* Different editions from one source::
-* Text encoding::
-* Displaying LilyPond notation::
+* Inclusión de archivos de LilyPond::
+* Distintas ediciones a partir de una misma fuente::
+* Codificación del texto::
+* Presentar la notación de LilyPond::
 @end menu
 
 
-@node Including LilyPond files
-@subsection Including LilyPond files
+@node Inclusión de archivos de LilyPond
+@subsection Inclusión de archivos de LilyPond
+@translationof Including LilyPond files
 
 @funindex \include
 @cindex including files
@@ -880,7 +892,7 @@ define un cierto número de variables que a partir de entonces quedan
 disponibles para poderlas utilizar en el archivo de la partitura
 completa.  En los archivos incluidos se pueden marcar las secciones
 etiquetadas para ayudar a hacerlas utilizables en distintos lugares de
-la partitura, véase @ref{Different editions from one source}.
+la partitura, véase @ref{Distintas ediciones a partir de una misma fuente}.
 
 Los archivos que están en el directorio de trabajo actual se pueden
 referenciar simplemente especificando el nombre después de la
@@ -944,7 +956,7 @@ y en @file{principal.ly} escriba
 Los archivos que se incluyen en muchas partituras se pueden poner en
 el directorio de LilyPond @file{../ly} (la localización de este
 directorio depende de la instalación: véase
-@rlearning{Other sources of information}).  Estos archivos se pueden
+@rlearning{Otras fuentes de información}).  Estos archivos se pueden
 incluir sencillamente por su nombre en un enunciado @code{\include}.
 De esta forma se incluyen los archivos dependientes del idioma como
 @file{espanol.ly}.
@@ -956,18 +968,18 @@ usuario, pero los archivos se pueden identificar ejecutando
 una lista de rutas y archivos que utiliza LilyPond, junto a muchas
 otras indicaciones.  De forma alternativa, pueden verse explicaciones
 sobre los archivos más importantes de este conjunto en
-@rlearning{Other sources of information}.  Estos archivos se pueden
+@rlearning{Otras fuentes de información}.  Estos archivos se pueden
 editar, pero los cambios realizados sobre ellos se perderán al
 instalar una nueva versión de LilyPond.
 
 Pueden verse ejemplos sencillos sobre el uso de @code{\include} en
-@rlearning{Scores and parts}.
+@rlearning{Partituras y particellas}.
 
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Other sources of information},
-@rlearning{Scores and parts}.
+@rlearning{Otras fuentes de información},
+@rlearning{Partituras y particellas}.
 
 
 @knownissues
@@ -977,8 +989,9 @@ archivos de instalación de LilyPond, el archivo que tiene prioridad es
 el de los archivos de instalación de LilyPond.
 
 
-@node Different editions from one source
-@subsection Different editions from one source
+@node Distintas ediciones a partir de una misma fuente
+@subsection Distintas ediciones a partir de una misma fuente
+@translationof Different editions from one source
 
 Se encuentran disponibles varios mecanismos para facilitar la
 producción de distintas versiones de una partitura a partir de la
@@ -991,23 +1004,24 @@ partitura hará que sea más fácil cambiar la estructura dejando intacta
 la notación.
 
 @menu
-* Using variables::
-* Using tags::
+* Uso de las variables::
+* Uso de etiquetas::
 @end menu
 
-@node Using variables
-@unnumberedsubsubsec Using variables
+@node Uso de las variables
+@unnumberedsubsubsec Uso de las variables
+@translationof Using variables
 
 @cindex variables, uso de las
 
 Si las secciones de la música se definen dentro de variables, se
 pueden reutilizar en distintas partes de la partitura, véase
-@rlearning{Organizing pieces with variables}.  Por ejemplo, una
+@rlearning{Organizar las piezas mediante variables}.  Por ejemplo, una
 partitura vocal @notation{a cappella} con frecuencia incluye una
 reducción de piano de las partes para ensayar que es idéntica a la
 música vocal, por lo que ésta sólo se tiene que escribir una vez.  Se
 puede combinar sobre un solo pentagrama la música de dos variables,
-véase @ref{Automatic part combining}.  He aquí un ejemplo:
+véase @ref{Combinación automática de las partes}.  He aquí un ejemplo:
 
 @lilypond[verbatim,quote]
 sopranoMusic = \relative c'' { a4 b c b8( a)}
@@ -1053,12 +1067,12 @@ vocales o sólo la parte de piano, cambiando solamente los enunciados
 estructurales, sin modificar la notación musical.
 
 Para partituras extensas, las definiciones de variable se pueden poner
-en archivos separados que se incluyen más tarde, véase @ref{Including
-LilyPond files}.
+en archivos separados que se incluyen más tarde, véase @ref{Inclusión de archivos de LilyPond}.
 
 
-@node Using tags
-@unnumberedsubsubsec Using tags
+@node Uso de etiquetas
+@unnumberedsubsubsec Uso de etiquetas
+@translationof Using tags
 
 @funindex \tag
 @funindex \keepWithTag
@@ -1198,11 +1212,11 @@ incluso esa sección etiquetada.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Organizing pieces with variables}.
+@rlearning{Organizar las piezas mediante variables}.
 
 Referencia de la notación:
-@ref{Automatic part combining},
-@ref{Including LilyPond files}.
+@ref{Combinación automática de las partes},
+@ref{Inclusión de archivos de LilyPond}.
 
 
 @ignore
@@ -1218,8 +1232,9 @@ than one tagged section at the same place.
 
 @end ignore
 
-@node Text encoding
-@subsection Text encoding
+@node Codificación del texto
+@subsection Codificación del texto
+@translationof Text encoding
 
 @cindex Unicode
 @cindex UTF-8
@@ -1339,8 +1354,9 @@ Para escribir el símbolo de copyright en la nota de créditos, utilice:
 @end example
 
 
-@node Displaying LilyPond notation
-@subsection Displaying LilyPond notation
+@node Presentar la notación de LilyPond
+@subsection Presentar la notación de LilyPond
+@translationof Displaying LilyPond notation
 
 @funindex \displayLilyMusic
 La impresión textual de una expresión musical en notación de LilyPond
@@ -1372,16 +1388,18 @@ lilypond archivo.ly >resultado.txt
 
 
 
-@node Controlling output
-@section Controlling output
+@node Controlar la salida
+@section Controlar la salida
+@translationof Controlling output
 
 @menu
-* Extracting fragments of music::
-* Skipping corrected music::
+* Extracción de fragmentos de música::
+* Saltar la música corregida::
 @end menu
 
-@node Extracting fragments of music
-@subsection Extracting fragments of music
+@node Extracción de fragmentos de música
+@subsection Extracción de fragmentos de música
+@translationof Extracting fragments of music
 
 Es posible citar pequeños fragmentos de una partitura grande
 directamente a partir de la salida.  Puede compararse con la
@@ -1415,11 +1433,12 @@ como archivos EPS, y se convierten en PDF y PNG si estos formatos
 también están activados.
 
 Para ver más información sobre los formatos de salida, consulte
-@rprogram{Invoking lilypond}.
+@rprogram{Invocar a LilyPond}.
 
 
-@node Skipping corrected music
-@subsection Skipping corrected music
+@node Saltar la música corregida
+@subsection Saltar la música corregida
+@translationof Skipping corrected music
 
 @funindex skipTypesetting
 @funindex showFirstLength
@@ -1468,8 +1487,9 @@ En música polifónica, @code{Score.skipTypesetting} afecta a todas las
 voces y pentagramas, ahorrando más tiempo incluso.
 
 
-@node MIDI output
-@section MIDI output
+@node Salida MIDI
+@section Salida MIDI
+@translationof MIDI output
 
 @cindex sonido
 @cindex MIDI
@@ -1494,16 +1514,17 @@ pautas (o 14 si no se usa la percusión).  Otros pentagramas permanecen
 en silencio.
 
 @menu
-* Creating MIDI files::
-* MIDI block::
-* What goes into the MIDI output?::
-* Repeats in MIDI::
-* Controlling MIDI dynamics::
-* Percussion in MIDI::
+* Crear archivos MIDI::
+* El bloque MIDI::
+* ¿Qué sale por el MIDI?::
+* Repeticiones y MIDI::
+* Control de los matices en el MIDI::
+* Percusión en MIDI::
 @end menu
 
-@node Creating MIDI files
-@subsection Creating MIDI files
+@node Crear archivos MIDI
+@subsection Crear archivos MIDI
+@translationof Creating MIDI files
 
 Para crear un MIDI a partir de una pieza de música, escriba un bloque
 @code{\midi} en la partitura, por ejemplo:
@@ -1535,15 +1556,15 @@ de volumen MIDI.  Las marcas dinámicas se traducen a una fracción fija
 del rango de volumen MIDI disponible.  Los crescendi y decrescendi
 hacen que el volumen varía linealmente entre sus dos extremos. El
 efecto de las indicaciones dinámicas sobre la salida MIDI se puede
-eliminar por completo, véase @ref{MIDI block}.
+eliminar por completo, véase @ref{El bloque MIDI}.
 
 El tempo inicial y los cambios de tempo posteriores se pueden
 especificar utilizando la instrucción @code{\tempo} dentro de la
 propia notación musical.  Se reflejan en cambios de tempo en la salida
 MIDI.  Esta instrucción normalmente hace que se imprima la indicación
-metronómica, pero esto se puede eliminar, véase @ref{Metronome marks}.
+metronómica, pero esto se puede eliminar, véase @ref{Indicaciones metronómicas}.
 Más abajo se describe una forma alternativa de especificar el tempo
-MIDI inicial o global, véase @ref{MIDI block}.
+MIDI inicial o global, véase @ref{El bloque MIDI}.
 
 Debido a ciertas limitaciones de Windows, la extensión predeterminada
 para los archivos MIDI en Windows es @code{.mid}. Otros sistemas
@@ -1567,15 +1588,14 @@ lilypond … -dmidi-extension=midi archivoLily.ly
 @end example
 
 
-@unnumberedsubsubsec Instrument names
+@unnumberedsubsubsec Nombres de instrumentos
 
 @cindex instrumento, nombres de
 @funindex Staff.midiInstrument
 
 El nombre del instrumento MIDI se establece mediante la propiedad
 @code{Staff.midiInstrument}.  El nombre del instrumento se debe elegir
-de entre los que están en la lista que aparece en @ref{MIDI
-instruments}.
+de entre los que están en la lista que aparece en @ref{Instrumentos MIDI}.
 
 @example
 \new Staff @{
@@ -1632,8 +1652,9 @@ funcionan se encuentran el Reproductor de Medios de MS Windows y
 @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
 
-@node MIDI block
-@subsection MIDI block
+@node El bloque MIDI
+@subsection El bloque MIDI
+@translationof MIDI block
 
 @cindex bloque MIDI
 
@@ -1675,7 +1696,7 @@ Las definiciones de contexto siguen con precisión la misma sintaxis
 que la de un bloque @code{\layout}.  Los módulos de traducción para el
 sonido reciben el nombre de ejecutantes.  Los contextos para la salida
 MIDI se definen en @file{../ly/@/performer@/-init@/.ly}, véase
-@rlearning{Other sources of information}.  Por ejemplo, para eliminar
+@rlearning{Otras fuentes de información}.  Por ejemplo, para eliminar
 el efecto de los matices de la salida MIDI, inserte las líneas
 siguientes en el bloque @code{\midi@{ @}}.
 
@@ -1704,10 +1725,11 @@ instrucciones @code{\new Score} y @code{\midi} dentro de un bloque
 @}
 @end example
 
-@node What goes into the MIDI output?
-@subsection What goes into the MIDI output?
+@node ¿Qué sale por el MIDI?
+@subsection ¿Qué sale por el MIDI?
+@translationof What goes into the MIDI output?
 
-@unnumberedsubsubsec Supported in MIDI
+@unnumberedsubsubsec Contemplado en el MIDI
 
 @cindex alturas en MIDI
 @cindex MIDI, alturas
@@ -1725,7 +1747,7 @@ Los siguientes elementos de notación se reflejan en la salida MIDI:
 
 @itemize
 @item Alturas
-@item Microtonos (véase @ref{Accidentals}. La reproducción necesita un reproductor que contemple la curvatura de tono o @emph{pitch bend}.)
+@item Microtonos (véase @ref{Alteraciones accidentales}. La reproducción necesita un reproductor que contemple la curvatura de tono o @emph{pitch bend}.)
 @item Acordes escritos como nombres de acorde
 @item Ritmos escritos como duraciones de las notas, incluidos los grupos de valoración especial
 @item Trémolos escritos sin @q{@code{:}[@var{número}]}
@@ -1736,7 +1758,7 @@ Los siguientes elementos de notación se reflejan en la salida MIDI:
 @item Letra de las canciones
 @end itemize
 
-@unnumberedsubsubsec Unsupported in MIDI
+@unnumberedsubsubsec No contemplado en el MIDI
 
 @c TODO index as above
 
@@ -1755,8 +1777,9 @@ salida MIDI:
 @end itemize
 
 
-@node Repeats in MIDI
-@subsection Repeats in MIDI
+@node Repeticiones y MIDI
+@subsection Repeticiones y MIDI
+@translationof Repeats in MIDI
 
 @cindex repeticiones, expandir
 @funindex \unfoldRepeats
@@ -1797,8 +1820,9 @@ y percent --repetición de compases--).  Por ejemplo,
 @end example
 
 
-@node Controlling MIDI dynamics
-@subsection Controlling MIDI dynamics
+@node Control de los matices en el MIDI
+@subsection Control de los matices en el MIDI
+@translationof Controlling MIDI dynamics
 
 La dinámica en el MIDI está implementada por medio del intérprete
 Dynamic_performer que reside de forma predeterminada dentro del
@@ -1806,14 +1830,14 @@ contexto Voice.  Es posible controlar el volumen MIDI general, el
 volumen relativo de los matices dinámicos y el volumen relativo de los
 distintos instrumentos.
 
-@unnumberedsubsubsec Dynamic marks
+@unnumberedsubsubsec Indicaciones dinámicas
 
 Los matices o indicaciones de dinámica se traducen a una fracción fija
 del rango de volumen MIDI disponible.  Las fracciones predeterminadas
 se extienden desde 0.25 para @notation{ppppp} hasta 0.95 para
 @notation{fffff}.  El conjunto de indicaciones dinámicas y las
 fracciones asociadas pueden verse en @file{../scm/midi.scm}, véase
-@rlearning{Other sources of information}.  Este conjunto de fracciones
+@rlearning{Otras fuentes de información}.  Este conjunto de fracciones
 se puede cambiar o extender proporcionando una función que toma como
 argumento una indicación dinámica y devuelve la fracción requerida, y
 estableciendo @code{Score.dynamicAbsoluteVolumeFunction} a esta
@@ -1857,7 +1881,7 @@ fracciones, sería mejor usar el procedimiento
 @file{../scm/midi.scm} y la tabla asociada como modelo.  El último
 ejemplo de esta sección muestra cómo se puede hacer esto.
 
-@unnumberedsubsubsec Overall MIDI volume
+@unnumberedsubsubsec Volumen maestro MIDI
 
 El volumen general máximo y mínimo de las indicaciones dinámicas de
 MIDI se controla estableciendo valores para las propiedades
@@ -1910,7 +1934,7 @@ general MIDI está limitado al intervalo desde 0.2 hasta 0.5.
 }
 @end lilypond
 
-@unnumberedsubsubsec Equalizing different instruments (i)
+@unnumberedsubsubsec Balance entre instrumentos (i)
 
 Si las propiedades de volumen MIDI máximo y mínimo están establecidas
 en el contexto @code{Staff} se pueden controlar los volúmenes
@@ -1959,7 +1983,7 @@ cada instrumento para que esto funcione correctamente.
 }
 @end lilypond
 
-@unnumberedsubsubsec Equalizing different instruments (ii)
+@unnumberedsubsubsec Balance entre instrumentos (i)
 
 Si las propiedades de volumen MIDI máximo y mínimo no están
 establecidas, de forma predeterminada LilyPond aplica un pequeño grado
@@ -2039,7 +2063,7 @@ del clarinete a los mismos valores que el ejemplo anterior.
 
 Microtones consisting of half sharps and half flats are exported
 to the MIDI file and render correctly in MIDI players which support
-pitch bending.  See @ref{Note names in other languages}.  Here is
+pitch bending.  See @ref{Nombres de las notas en otros idiomas}.  Here is
 an example showing all the half sharps and half flats.  It can be
 copied out and compiled to test microtones in your MIDI player.
 
@@ -2060,8 +2084,9 @@ copied out and compiled to test microtones in your MIDI player.
 @end ignore
 
 
-@node Percussion in MIDI
-@subsection Percussion in MIDI
+@node Percusión en MIDI
+@subsection Percusión en MIDI
+@translationof Percussion in MIDI
 
 La notación de los instrumentos de percusión se realiza normalmente en
 un contexto @code{DrumStaff} y cuando se hace de esta forma se les da

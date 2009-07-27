@@ -15,6 +15,7 @@
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node LilyPond-book
 @chapter @command{lilypond-book}: Integrating text and music
+@translationof LilyPond-book @c external
 
 @untranslated
 
@@ -30,9 +31,8 @@ substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
 This is a separate program from @command{lilypond} itself, and is run
-on the command line; for more information, see @ref{Command-line
-usage}.  If you have MacOS 10.3 or 10.4 and you have trouble running
-@code{lilypond-book}, see @ref{Setup for MacOS X}.
+on the command line; for more information, see @ref{コマンド ラインの使用方法}.  If you have MacOS 10.3 or 10.4 and you have trouble running
+@code{lilypond-book}, see @ref{MacOS X のためのセットアップ}.
 
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
 documents.
@@ -61,6 +61,7 @@ documents.
 
 @node An example of a musicological document
 @section An example of a musicological document
+@translationof An example of a musicological document @c external
 
 @untranslated
 
@@ -168,6 +169,7 @@ Larger examples can be put into a separate file, and introduced with
 
 @node Integrating music and text
 @section Integrating music and text
+@translationof Integrating music and text @c external
 
 @untranslated
 
@@ -182,6 +184,7 @@ Here we explain how to integrate LilyPond with various output formats.
 
 @node LaTeX
 @subsection @LaTeX{}
+@translationof LaTeX @c external
 
 @untranslated
 
@@ -379,6 +382,7 @@ other details to know when processing @LaTeX{} documents, see
 
 @node Texinfo
 @subsection Texinfo
+@translationof Texinfo @c external
 
 @untranslated
 
@@ -449,6 +453,7 @@ in-line image.  It always gets a paragraph of its own.
 
 @node HTML
 @subsection HTML
+@translationof HTML @c external
 
 @untranslated
 
@@ -491,6 +496,7 @@ of lilypond.
 
 @node DocBook
 @subsection DocBook
+@translationof DocBook @c external
 
 @untranslated
 
@@ -563,6 +569,7 @@ customization for it.
 
 @node Music fragment options
 @section Music fragment options
+@translationof Music fragment options @c external
 
 @untranslated
 
@@ -786,6 +793,7 @@ cannot find on its own.
 
 @node Invoking lilypond-book
 @section Invoking @command{lilypond-book}
+@translationof Invoking lilypond-book @c external
 
 @untranslated
 
@@ -846,8 +854,7 @@ procedures for Texinfo; this is, either call @command{texi2pdf} or
 @command{texi2dvi} or @command{makeinfo}, depending on the output format
 you want to create.
 @ifinfo
-@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating
-an Info File, , , texinfo, GNU Texinfo}.
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating an Info File, , , texinfo, GNU Texinfo}.
 @end ifinfo
 @ifnotinfo
 See the documentation of Texinfo for further details.
@@ -971,13 +978,13 @@ Only the first @code{\score} of a LilyPond block is processed.
 
 @node Filename extensions
 @section Filename extensions
+@translationof Filename extensions @c external
 
 @untranslated
 
 You can use any filename extension for the input file, but if you do not
 use the recommended extension for a particular format you may need to
-manually specify the output format; for details, see @ref{Invoking
-lilypond-book}.  Otherwise, @command{lilypond-book} automatically
+manually specify the output format; for details, see @ref{Invoking lilypond-book}.  Otherwise, @command{lilypond-book} automatically
 selects the output format based on the input filename's extension.
 
 @quotation
@@ -1007,6 +1014,7 @@ message like @qq{Output would overwrite input file}.
 
 @node Alternate methods of mixing text and music
 @section Alternative methods of mixing text and music
+@translationof Alternate methods of mixing text and music @c external
 
 @untranslated
 
@@ -1021,6 +1029,7 @@ the automated method with @command{lilypond-book}.
 
 @node Many quotes from a large score
 @unnumberedsubsec Many quotes from a large score
+@translationof Many quotes from a large score @c external
 
 @untranslated
 
@@ -1030,6 +1039,7 @@ the clip systems feature, see @ruser{Extracting fragments of music}.
 
 @node Inserting LilyPond output into OpenOffice.org
 @unnumberedsubsec Inserting LilyPond output into OpenOffice.org
+@translationof Inserting LilyPond output into OpenOffice.org @c external
 
 @untranslated
 
@@ -1041,6 +1051,7 @@ LilyPond notation can be added to OpenOffice.org with
 
 @node Inserting LilyPond output into other programs
 @unnumberedsubsec Inserting LilyPond output into other programs
+@translationof Inserting LilyPond output into other programs @c external
 
 @untranslated
 

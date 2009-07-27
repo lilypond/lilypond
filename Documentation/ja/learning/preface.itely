@@ -12,8 +12,9 @@
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node Preface
-@unnumbered Preface
+@node 序文
+@unnumbered 序文
+@translationof Preface
 
 それは 1995 年のある日の EJE (Eindhoven Youth Orchestra) のリハーサル中のでき@c
 ごとでした − ある変わり者のバイオリン奏者であるジャンは同じく変わり者のフレン@c

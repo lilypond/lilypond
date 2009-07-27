@@ -8,8 +8,9 @@
 
 @c \version "2.12.0"
 
-@node Repeats
-@section Repeats
+@node Wiederholungszeichen
+@section Wiederholungszeichen
+@translationof Repeats
 
 @lilypondfile[quote]{repeats-headword.ly}
 
@@ -42,17 +43,18 @@ Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
 
 
 @menu
-* Long repeats::
-* Short repeats::
+* Lange Wiederholungen::
+* Kurze Wiederholungen::
 @end menu
 
-@node Long repeats
-@subsection Long repeats
+@node Lange Wiederholungen
+@subsection Lange Wiederholungen
+@translationof Long repeats
 
 @menu
-* Normal repeats::
-* Manual repeat marks::
-* Written-out repeats::
+* Normale Wiederholungen::
+* Manuelle Wiederholungszeichen::
+* Ausgeschriebene Wiederholungen::
 @end menu
 
 
@@ -71,8 +73,9 @@ Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
 @funindex \alternative
 @funindex \partial
 
-@node Normal repeats
-@unnumberedsubsubsec Normal repeats
+@node Normale Wiederholungen
+@unnumberedsubsubsec Normale Wiederholungen
+@translationof Normal repeats
 
 Die Syntax für normale Wiederholungen ist
 
@@ -166,7 +169,7 @@ c1
 Glossar:
 @rglos{repeat}, @rglos{volta}.
 
-Notationsreferenz: @ref{Bar lines}, @ref{Modifying context plug-ins}.
+Notationsreferenz: @ref{Taktstriche}, @ref{Umgebungs-Plugins verändern}.
 
 Schnipsel: @rlsr{Repeats}.
 
@@ -208,8 +211,9 @@ Befehl @code{\partial} benutzt wird.  Gleichermaßen werden auch
 Bindebögen nicht wiederholt.
 
 
-@node Manual repeat marks
-@unnumberedsubsubsec Manual repeat marks
+@node Manuelle Wiederholungszeichen
+@unnumberedsubsubsec Manuelle Wiederholungszeichen
+@translationof Manual repeat marks
 
 @cindex manuelle Wiederholungszeichen
 @cindex Wiederholung, manuell
@@ -231,7 +235,7 @@ Bindebögen nicht wiederholt.
 Wiederholungskonstruktionen darzustellen und können sich unerwünscht
 verhalten.  In den meisten Fällen sollten Wiederholungen mit dem
 Befehl @code{\\repeat} erstellt werden oder indem die entsprechenden
-Taktstriche eingegeben werden.  Mehr Information in @ref{Bar lines}.}
+Taktstriche eingegeben werden.  Mehr Information in @ref{Taktstriche}.}
 
 Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das 
 Aussehen der Wiederholungen zu beeinflussen. Ihr Argument ist eine 
@@ -295,7 +299,7 @@ b1
 
 Text kann auch in der Volta-Klammer gesetzt werden.  Der Text kann
 aus Zahlen oder einer Zahl oder einer Textbeschriftung bestehen,
-siehe @ref{Formatting text}.  Die einfachste Art Text zu benutzen
+siehe @ref{Text formatieren}.  Die einfachste Art Text zu benutzen
 ist, die Beschriftung zuerst zu definieren und dann die Beschriftung
 in einer Scheme-Liste einzufügen.
 
@@ -320,8 +324,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @seealso
 Notationsreferenz:
-@ref{Bar lines},
-@ref{Formatting text}.
+@ref{Taktstriche},
+@ref{Text formatieren}.
 
 Schnipsel:
 @rlsr{Repeats}.
@@ -332,8 +336,9 @@ Referenz der Interna:
 @rinternals{VoltaRepeatedMusic}.
 
 
-@node Written-out repeats
-@unnumberedsubsubsec Written-out repeats
+@node Ausgeschriebene Wiederholungen
+@unnumberedsubsubsec Ausgeschriebene Wiederholungen
+@translationof Written-out repeats
 
 @cindex ausgeschriebene Wiederholungen
 @cindex wiederholte Musik
@@ -387,8 +392,9 @@ Referenz der Interna:
 
 
 
-@node Short repeats
-@subsection Short repeats
+@node Kurze Wiederholungen
+@subsection Kurze Wiederholungen
+@translationof Short repeats
 
 Dieser Abschnitt zeigt, wie man kurze Wiederholungen notiert.
 Kurze Wiederholungen haben zwei grundlegende Formen: Wiederholungen
@@ -396,12 +402,13 @@ von einer Note bis zu zwei Takten, die mit Schrägstrichen oder
 Prozentzeichen dargestellt werden, und Tremolos.
 
 @menu
-* Percent repeats::
-* Tremolo repeats::
+* Prozent-Wiederholungen::
+* Tremolo-Wiederholung::
 @end menu
 
-@node Percent repeats
-@unnumberedsubsubsec Percent repeats
+@node Prozent-Wiederholungen
+@unnumberedsubsubsec Prozent-Wiederholungen
+@translationof Percent repeats
 
 @cindex Prozent-Wiederholungen
 @cindex Taktweise Wiederholungen
@@ -467,8 +474,9 @@ unterschiedlichen Notenwerten besteht.
 
 
 
-@node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
+@node Tremolo-Wiederholung
+@unnumberedsubsubsec Tremolo-Wiederholung
+@translationof Tremolo repeats
 
 @cindex Tremolobalken
 @cindex Tremolo

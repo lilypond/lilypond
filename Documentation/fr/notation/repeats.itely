@@ -11,8 +11,9 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Repeats
-@section Repeats
+@node Répétitions et reprises
+@section Répétitions et reprises
+@translationof Repeats
 
 @lilypondfile[quote]{repeats-headword.ly}
 
@@ -46,12 +47,13 @@ Ce type permet de réaliser des trémolos sous forme de liens de croches.
 @end table
 
 @menu
-* Long repeats::             
-* Other repeats::               
+* Répétition d'un long passage::             
+* Autres types de répétition::               
 @end menu
 
-@node Long repeats
-@subsection Long repeats
+@node Répétition d'un long passage
+@subsection Répétition d'un long passage
+@translationof Long repeats
 
 Cette section présente la syntaxe des répétitions longues ---
 c'est-à-dire plusieurs mesures.  Ces répétitions peuvent prendre deux
@@ -60,9 +62,9 @@ dans la partition.  Les barres et autres signe de reprise peuvent être
 contrôlés manuellement.
 
 @menu
-* Repeat types::                
-* Repeat syntax::               
-* Manual repeat commands::      
+* Types de répétitions::                
+* Syntaxe des répétitions::               
+* Commandes de reprise manuelles::      
 @end menu
 
 @cindex barres de reprise
@@ -75,8 +77,9 @@ contrôlés manuellement.
 @funindex \repeat
 
 
-@node Repeat types
-@unnumberedsubsubsec Repeat types
+@node Types de répétitions
+@unnumberedsubsubsec Types de répétitions
+@translationof Repeat types
 
 On peut indiquer des répétitions des façons suivantes :
 
@@ -85,8 +88,9 @@ On peut indiquer des répétitions des façons suivantes :
 baz
 @end table
 
-@node Repeat syntax
-@unnumberedsubsubsec Repeat syntax
+@node Syntaxe des répétitions
+@unnumberedsubsubsec Syntaxe des répétitions
+@translationof Repeat syntax
 
 @cindex volta
 
@@ -187,7 +191,7 @@ débuter la ligne suivante avec une section reprise, on peut utiliser
 \repeat volta 2 @{ @dots{}
 @end example
 
-Consultez @ref{Bar lines} pour plus d'informations.
+Consultez @ref{Barres de mesure} pour plus d'informations.
 
 
 @seealso
@@ -203,7 +207,7 @@ Les crochets précédant une reprise s'impriment d'ordinaire seulement
 au-dessus de la portée du haut.  On peut ajuster cela en déplaçant le
 graveur @code{Volta_engraver} vers les contextes de portée
 (@code{Staff}) qui doivent comporter ces crochets ;
-voir @ref{Modifying context plug-ins}, et @rlsr{Repeats}.
+voir @ref{Modification des greffons de contexte}, et @rlsr{Repeats}.
 
 
 @knownissues
@@ -236,8 +240,9 @@ Les crochets qui indiquent les alternatives ne sont pas alignés
 verticalement.
 
 
-@node Manual repeat commands
-@unnumberedsubsubsec Manual repeat commands
+@node Commandes de reprise manuelles
+@unnumberedsubsubsec Commandes de reprise manuelles
+@translationof Manual repeat commands
 
 @funindex repeatCommands
 
@@ -254,7 +259,7 @@ Pour imprimer une barre de reprise @code{:|}
 @item @code{(volta @var{texte})}
 Pour imprimer un crochet indiquant une alternative.  L'argument
 @var{texte} mentionné dans le crochet peut être n'importe quelle chaîne
-de caractères ou indication textuelle --- voir @ref{Formatting text}.
+de caractères ou indication textuelle --- voir @ref{Mise en forme du texte}.
 Attention cependant à changer la police, car la police employée par
 défaut pour les chiffres ne contient aucun caractère alphabétique.
 
@@ -278,17 +283,19 @@ Référence du programme : @rinternals{VoltaBracket},
 @rinternals{UnfoldedRepeatedMusic}.
 
 
-@node Other repeats
-@subsection Other repeats
+@node Autres types de répétition
+@subsection Autres types de répétition
+@translationof Other repeats
 
 @menu
-* Tremolo repeats::             
-* Tremolo subdivisions::        
-* Measure repeats::             
+* Répétition en trémolo::             
+* Subdivision de trémolos::        
+* Répétitions de mesure::             
 @end menu
 
-@node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
+@node Répétition en trémolo
+@unnumberedsubsubsec Répétition en trémolo
+@translationof Tremolo repeats
 
 @cindex ligatures de trémolo
 @cindex trémolo, ligatures de
@@ -313,17 +320,18 @@ alors laisser sans accolades.
 
 
 La subdivision des trémolos aboutit à un résultat semblable : voir
-@ref{Tremolo subdivisions}.
+@ref{Subdivision de trémolos}.
 
 
 @seealso
-Dans ce manuel : @ref{Tremolo subdivisions}, @ref{Repeats}.
+Dans ce manuel : @ref{Subdivision de trémolos}, @ref{Répétitions et reprises}.
 
 Référence du programme : @rinternals{Beam}, @rinternals{StemTremolo}.
 
 
-@node Tremolo subdivisions
-@unnumberedsubsubsec Tremolo subdivisions
+@node Subdivision de trémolos
+@unnumberedsubsubsec Subdivision de trémolos
+@translationof Tremolo subdivisions
 
 @cindex trémolo, indication de
 @funindex tremoloFlags
@@ -350,13 +358,14 @@ le fichier MIDI.
 
 
 @seealso
-Dans ce manuel : @ref{Tremolo repeats}.
+Dans ce manuel : @ref{Répétition en trémolo}.
 
 Référence du programme : @rinternals{StemTremolo}.
 
 
-@node Measure repeats
-@unnumberedsubsubsec Measure repeats
+@node Répétitions de mesure
+@unnumberedsubsubsec Répétitions de mesure
+@translationof Measure repeats
 
 @cindex percent repeats
 @cindex measure repeats

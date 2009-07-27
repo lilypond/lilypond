@@ -10,8 +10,9 @@
 @c \version "2.12.0"
 
 
-@node Spacing issues
-@chapter Spacing issues
+@node Abstände
+@chapter Abstände
+@translationof Spacing issues
 
 Das finale Layout der Seite wird von drei Faktoren bestimmt: dem Layout
 der Seite, den Zeilenumbrüchen und der Platzverteilung.  Jeder Faktor
@@ -40,29 +41,31 @@ beide Umgebungen den gleichen Effekt.  Die Befehle, die in diesem Abschnitt
 erklärt werden, können in beiden Umgebungen nach Bedarf gesetzt werden.
 
 @menu
-* Paper and pages::
-* Music layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
+* Papier und Seiten::
+* Notenlayout::
+* Umbrüche::
+* Vertikale Abstände::
+* Horizontale Abstände::
+* Die Musik auf weniger Seiten zwingen::
 @end menu
 
 
-@node Paper and pages
-@section Paper and pages
+@node Papier und Seiten
+@section Papier und Seiten
+@translationof Paper and pages
 
 Dieser Abschnitt behandelt die Grenzen, die Notationsgebiete
 definieren.
 
 @menu
-* Paper size::
-* Page formatting::
+* Papierformat::
+* Seitenformatierung::
 @end menu
 
 
-@node Paper size
-@subsection Paper size
+@node Papierformat
+@subsection Papierformat
+@translationof Paper size
 
 @cindex Papiergröße
 @cindex Größe, Papier
@@ -139,8 +142,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Page formatting
-@subsection Page formatting
+@node Seitenformatierung
+@subsection Seitenformatierung
+@translationof Page formatting
 
 Ränder, Kopf- und Fußzeilen und andere Layoutvariablen werden
 entsprechend dem Papierformat automatisch gesetzt.
@@ -149,14 +153,15 @@ Dieser Abschnitt zeigt einige der Papiervariablen, die geändert
 werden können.
 
 @menu
-* Vertical dimensions::
-* Horizontal dimensions::
-* Other layout variables::
+* Vertikale Dimensionen::
+* Horizontale Dimensionen::
+* Weitere Layout-Variablen::
 @end menu
 
 
-@node Vertical dimensions
-@unnumberedsubsubsec Vertical dimensions
+@node Vertikale Dimensionen
+@unnumberedsubsubsec Vertikale Dimensionen
+@translationof Vertical dimensions
 
 Diese Variablen werden benutzt um andere vertikale Verhältnisse
 auf einer Seite zu produzieren:
@@ -237,7 +242,7 @@ druckbaren Bereichs ausgerichtet.  Standard: @code{12\mm}.
 @item paper-height
 
 Die Höhe der Seite.  Standard:  Die Höhe des aktuellen Papierformats.
-Zu Einzelheiten siehe @ref{Paper size}.
+Zu Einzelheiten siehe @ref{Papierformat}.
 
 @item top-margin
 
@@ -303,14 +308,15 @@ muss:
 
 @seealso
 Notationsreferenz:
-@ref{Vertical spacing between systems}.
+@ref{Vertikale Abstände zwischen Systemen}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Horizontal dimensions
-@unnumberedsubsubsec Horizontal dimensions
+@node Horizontale Dimensionen
+@unnumberedsubsubsec Horizontale Dimensionen
+@translationof Horizontal dimensions
 
 @funindex horizontal-shift
 @funindex indent
@@ -355,7 +361,7 @@ Die Breite der Notensystems. Standard: @code{paper-width} minus
 @item paper-width
 
 Die Breite der Seite.  Standard: Die Breite des aktuellen
-Papierformats.  Zu Einzelheiten siehe @ref{Paper size}.
+Papierformats.  Zu Einzelheiten siehe @ref{Papierformat}.
 
 @item short-indent
 
@@ -379,8 +385,9 @@ aus den Werten des linken Randes (@code{left-margin}) und der Zeilenbreite
 (@code{line-width}).
 
 
-@node Other layout variables
-@unnumberedsubsubsec Other layout variables
+@node Weitere Layout-Variablen
+@unnumberedsubsubsec Weitere Layout-Variablen
+@translationof Other layout variables
 
 Diese Variablen können verwendet werden, um das allgemeine Layout der Seite
 anzupassen.
@@ -472,13 +479,13 @@ Standard: nicht gesetzt.
 
 Wenn wahr, wird Platz zwischen Systemen eingeschränkt, wenn viel
 Platz auf der Seite ist.  Standard: @code{##f}.  Einzelheiten siehe
-@ref{Vertical spacing between systems}.
+@ref{Vertikale Abstände zwischen Systemen}.
 
 @item page-limit-inter-system-space-factor
 
 Der Faktor, der von @code{page-limit-inter-system-space} verwendet
 wird.  Standard: @code{1.4}.  Einzelheiten siehe
-@ref{Vertical spacing between systems}.
+@ref{Vertikale Abstände zwischen Systemen}.
 
 @item page-spacing-weight
 
@@ -588,17 +595,19 @@ ein System interpretiert, sodass @code{ragged-bottom} und
 das erste System der Partitur setzen.
 
 
-@node Music layout
-@section Music layout
+@node Notenlayout
+@section Notenlayout
+@translationof Music layout
 
 @menu
-* Setting the staff size::
-* Score layout::
+* Die Notensystemgröße einstellen::
+* Partiturlayout::
 @end menu
 
 
-@node Setting the staff size
-@subsection Setting the staff size
+@node Die Notensystemgröße einstellen
+@subsection Die Notensystemgröße einstellen
+@translationof Setting the staff size
 
 @cindex Schriftgröße, Einstellung
 @cindex Systemgröße, Einstellung
@@ -705,7 +714,7 @@ ist relativ zur globalen Systemgröße.
 
 @seealso
 Notationsreferenz:
-@ref{Selecting notation font size}.
+@ref{Auswahl der Notations-Schriftgröße}.
 
 Schnipsel:
 @rlsr{Spacing}.
@@ -717,8 +726,9 @@ Schnipsel:
 Notenlinien.
 
 
-@node Score layout
-@subsection Score layout
+@node Partiturlayout
+@subsection Partiturlayout
+@translationof Score layout
 
 @cindex Partitur, Layout
 @cindex Layout, Partitur
@@ -744,28 +754,30 @@ der Seiten eines gesamten Dokuments enthalten, enthält die
 
 @seealso
 Notationsreferenz:
-@ref{Changing context default settings}.
+@ref{Die Standardeinstellungen von Kontexten ändern}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Breaks
-@section Breaks
+@node Umbrüche
+@section Umbrüche
+@translationof Breaks
 
 @menu
-* Line breaking::
-* Page breaking::
-* Optimal page breaking::
-* Optimal page turning::
-* Minimal page breaking::
-* Explicit breaks::
-* Using an extra voice for breaks::
+* Zeilenumbrüche::
+* Seitenumbrüche::
+* Optimale Seitenumbrüche::
+* Optimale Umbrüche zum Blättern::
+* Minimale Seitenumbrüche::
+* Ausdrückliche Umbrüche::
+* Eine zusätzliche Stimme für Umbrüche benutzen::
 @end menu
 
 
-@node Line breaking
-@subsection Line breaking
+@node Zeilenumbrüche
+@subsection Zeilenumbrüche
+@translationof Line breaking
 
 @cindex Zeilenumbrüche
 @cindex Umbrüche von Zeilen
@@ -888,8 +900,9 @@ Taktlinien reichen.  Das kann mit folgendem Befehl verhindert
 werden: @code{\override Beam #'breakable = ##t}.
 
 
-@node Page breaking
-@subsection Page breaking
+@node Seitenumbrüche
+@subsection Seitenumbrüche
+@translationof Page breaking
 
 @cindex Seiteumbrüche
 @cindex Umbrüche, Seite
@@ -914,7 +927,7 @@ Fall die Notensysteme auf allen Seiten eng nach oben orientiert
 gesetzt werden.  Im zweiten Fall bezieht sich dies nur auf die
 letzte Seite.
 
-Zu Einzelheiten siehe @ref{Vertical spacing}.
+Zu Einzelheiten siehe @ref{Vertikale Abstände}.
 
 Seitenumbrüche werden von der @code{page-breaking}-Funktion errechnet.
 LilyPond kennt drei Algorithmen um Seitenumbrüche zu errechnen:
@@ -979,8 +992,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Optimal page breaking
-@subsection Optimal page breaking
+@node Optimale Seitenumbrüche
+@subsection Optimale Seitenumbrüche
+@translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -996,8 +1010,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Optimal page turning
-@subsection Optimal page turning
+@node Optimale Umbrüche zum Blättern
+@subsection Optimale Umbrüche zum Blättern
+@translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -1011,7 +1026,7 @@ den Vorrang zu geben.
 
 Die Funktion wird in zwei Schritten eingesetzt.  Zunächst muss sie
 in der @code{\paper}-Umgebung aktiviert werden, wie gezeigt in
-@ref{Page breaking}.  Dann muss noch angegeben werden, welche Stellen
+@ref{Seitenumbrüche}.  Dann muss noch angegeben werden, welche Stellen
 bevorzugt für Seitenumbrüche benutzt werden sollen.
 
 Für diesen zweiten Schritt gibt es zwei Methoden.  Am Einfachsten ist
@@ -1087,8 +1102,9 @@ In einer Partitur sollte nur ein @code{Page_turn_engraver} vorkommen.  Wenn
 mehr als einer definiert werden, stören sie sich gegenseitig.
 
 
-@node Minimal page breaking
-@subsection Minimal page breaking
+@node Minimale Seitenumbrüche
+@subsection Minimale Seitenumbrüche
+@translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1112,8 +1128,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Explicit breaks
-@subsection Explicit breaks
+@node Ausdrückliche Umbrüche
+@subsection Ausdrückliche Umbrüche
+@translationof Explicit breaks
 
 Es kann vorkommen, dass LilyPond direkte @code{\break} oder
 @code{\pageBreak}-Befehl nicht beachtet.  Mit folgenden
@@ -1162,8 +1179,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Using an extra voice for breaks
-@subsection Using an extra voice for breaks
+@node Eine zusätzliche Stimme für Umbrüche benutzen
+@subsection Eine zusätzliche Stimme für Umbrüche benutzen
+@translationof Using an extra voice for breaks
 
 Zeilen- und Seitenumbruchbefehle werden normalerweise direkt
 zusammen mit den Noten eingegeben.
@@ -1210,7 +1228,7 @@ dann klarer notiert werden, wenn man Einstellungen der
 @code{line-break-system-details}-Eigenschaft oder
 anderer Eigenschaften von
 @code{NonMusicalPaperColumnGrob} vornimmt (hierzu auch 
-@ref{Vertical spacing}).
+@ref{Vertikale Abstände}).
 
 @lilypond[quote,verbatim]
 \new Score {
@@ -1246,14 +1264,15 @@ anderer Eigenschaften von
 
 @seealso
 Notationsreferenz:
-@ref{Vertical spacing}.
+@ref{Vertikale Abstände}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Vertical spacing
-@section Vertical spacing
+@node Vertikale Abstände
+@section Vertikale Abstände
+@translationof Vertical spacing
 
 @cindex vertikale Positionierung
 @cindex Positionierung, vertikal
@@ -1267,16 +1286,17 @@ Platz zwischen Notensystemen (engl. staff, Pl. staves)
 innerhalb von Gruppen gesetzt wird.
 
 @menu
-* Vertical spacing inside a system::
-* Vertical spacing between systems::
-* Explicit staff and system positioning::
-* Two-pass vertical spacing::
-* Vertical collision avoidance::
+* Vertikale Abstände innerhalb eines Systems::
+* Vertikale Abstände zwischen Systemen::
+* Explizite Positionierung von Systemen::
+* Vertikale Abstände mit zwei Durchgängen::
+* Vermeidung von vertikalen Zusammenstößen::
 @end menu
 
 
-@node Vertical spacing inside a system
-@subsection Vertical spacing inside a system
+@node Vertikale Abstände innerhalb eines Systems
+@subsection Vertikale Abstände innerhalb eines Systems
+@translationof Vertical spacing inside a system
 
 @cindex Abstand zwischen Notensystemen
 @cindex Notensystemabstand
@@ -1398,8 +1418,9 @@ Referenz der Interna:
 @rinternals{Axis_group_engraver}.
 
 
-@node Vertical spacing between systems
-@subsection Vertical spacing between systems
+@node Vertikale Abstände zwischen Systemen
+@subsection Vertikale Abstände zwischen Systemen
+@translationof Vertical spacing between systems
 
 Der Platz zwischen Notensystembruppen wird von vier
 Variablen in der @code{\paper}-Umgebung kontrolliert:
@@ -1461,8 +1482,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Explicit staff and system positioning
-@subsection Explicit staff and system positioning
+@node Explizite Positionierung von Systemen
+@subsection Explizite Positionierung von Systemen
+@translationof Explicit staff and system positioning
 
 Man kann die Einstellungen des @code{VerticalAxisGroup}-Objekts
 und der @code{\paper}-Umgebung, wie sie im vorigen Abschnitt
@@ -1558,7 +1580,7 @@ Diese Partitur nimmt Zeilen- und Seitenumbruchinformationen in einer
 eigenen Stimme vor.  Mit dieser Methode kann die Layout-Information
 einfach von den Noten getrennt werden, was sehr hilfreich ist, wenn
 das Beispiel komplizierter wird.  Siehe auch
-@ref{Using an extra voice for breaks}.
+@ref{Eine zusätzliche Stimme für Umbrüche benutzen}.
 
 Ausdrückliche @code{\break}-Befehle teilen die Noten in sechs Takte
 lange Zeilen.  Die vertikale Platzverteilung wird von LilyPond
@@ -1705,13 +1727,14 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Two-pass vertical spacing
-@subsection Two-pass vertical spacing
+@node Vertikale Abstände mit zwei Durchgängen
+@subsection Vertikale Abstände mit zwei Durchgängen
+@translationof Two-pass vertical spacing
 
 @warning{Vertikale Positionierung in zwei Durchgängen ist veraltet
 (deprecated) und wird in zukünftigen Versionen von LilyPond entfernt
 werden.  Systeme werden jetzt automatisch in einem einzigen
-Durchlauf gedehnt.  Siehe auch @ref{Vertical spacing inside a system}.}
+Durchlauf gedehnt.  Siehe auch @ref{Vertikale Abstände innerhalb eines Systems}.}
 
 Um Systeme zu dehnen, sodass sie den restlichen Platz auf der Seite
 auffüllen, kann ein Verfahren benutzt werden, dass die Positionierung
@@ -1773,8 +1796,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Vertical collision avoidance
-@subsection Vertical collision avoidance
+@node Vermeidung von vertikalen Zusammenstößen
+@subsection Vermeidung von vertikalen Zusammenstößen
+@translationof Vertical collision avoidance
 
 @cindex Vermeidung von vertikalen Zusammenstößen
 @cindex Zusammenstöße, vertikal, vermeiden
@@ -1866,24 +1890,26 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Horizontal spacing
-@section Horizontal spacing
+@node Horizontale Abstände
+@section Horizontale Abstände
+@translationof Horizontal spacing
 
 @cindex horizontale Platzierung
 @cindex horizontale Anordnung
 @cindex Anordnung, horizontal
 
 @menu
-* Horizontal spacing overview::
-* New spacing area::
-* Changing horizontal spacing::
-* Line length::
-* Proportional notation::
+* Überblick über horizontale Abstände::
+* Eine neuer Bereich mit anderen Abständen::
+* Horizontale Abstände verändern::
+* Zeilenlänge::
+* Proportionale Notation::
 @end menu
 
 
-@node Horizontal spacing overview
-@subsection Horizontal spacing overview
+@node Überblick über horizontale Abstände
+@subsection Überblick über horizontale Abstände
+@translationof Horizontal spacing overview
 
 Die Setzmaschine interpretiert unterschiedliche Notendauern als
 dehnbare Abstände (engl. spring) unterschiedlicher Länge.  Längere
@@ -1950,7 +1976,7 @@ würden sie von 1/2 NKA gefolgt werden:
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
-In der Einleitung (siehe @rlearning{Engraving}) wurde erklärt, dass die
+In der Einleitung (siehe @rlearning{Notensatz}) wurde erklärt, dass die
 Richtung der Notenhälse die Platzverteilung beeinflusst.  Das wird
 kontrolliert durch die @code{stem-spacing-correction}-Eigenschaft
 in dem @code{NoteSpacing}-Objekt.  Dieses Objekt wird für jeden
@@ -1972,7 +1998,7 @@ besser sieht:
 }
 @end lilypond
 
-Proportionale Notation ist unterstützt, siehe @ref{Proportional notation}.
+Proportionale Notation ist unterstützt, siehe @ref{Proportionale Notation}.
 
 @seealso
 Schnipsel:
@@ -1998,8 +2024,9 @@ werden, um zusätzlichen Platz in eine Partitur einzufügen.
 Es gibt derzeit keine Möglichkeit, den Platz zu verringern.
 
 
-@node New spacing area
-@subsection New spacing area
+@node Eine neuer Bereich mit anderen Abständen
+@subsection Eine neuer Bereich mit anderen Abständen
+@translationof New spacing area
 
 @cindex horizontale Notenabstände, Abschnitte definierten
 @cindex Notenabstände, Abschnitte definieren
@@ -2037,8 +2064,9 @@ Referenz der Interna:
 @rinternals{SpacingSpanner}.
 
 
-@node Changing horizontal spacing
-@subsection Changing horizontal spacing
+@node Horizontale Abstände verändern
+@subsection Horizontale Abstände verändern
+@translationof Changing horizontal spacing
 
 @cindex Notenabstände, horizontal
 @cindex horizontale Abstände
@@ -2130,8 +2158,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Line length
-@subsection Line length
+@node Zeilenlänge
+@subsection Zeilenlänge
+@translationof Line length
 
 @cindex Seitenumbrüche
 @cindex Umbrechen von Seiten
@@ -2181,8 +2210,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Proportional notation
-@subsection Proportional notation
+@node Proportionale Notation
+@subsection Proportionale Notation
+@translationof Proportional notation
 
 LilyPond hat Unterstützung für proportionale Notation.  Dabei handelt
 es sich um eine horizontale Platzverteilung, die jeder Note einen
@@ -2422,7 +2452,7 @@ Das heißt, dass @code{uniform-stretching} für die gesamte Partitur
 (d.h. für die Reichweite von @code{Score}) entweder an- oder
 ausgeschaltet ist.  Man kann allerdings in einer Partitur unterschiedliche
 Abschnitte mit verschiedenem Platzierungsverhalten definieren.
-Hierzu ist der Befehl @code{\newSpacingSection} da.  Siehe auch @ref{New spacing area}.
+Hierzu ist der Befehl @code{\newSpacingSection} da.  Siehe auch @ref{Eine neuer Bereich mit anderen Abständen}.
 
 Im Folgenden soll gezeigt werden, wie sich der @code{Separating_line_group_engraver}
 auswirkt und warum er normalerweise für proportionale Notation ausgeschaltet wird.
@@ -2531,14 +2561,15 @@ Objekte wie Balken und Glissandi auch über Taktstriche hinweg zu.
 
 @seealso
 Notationsreferenz:
-@ref{New spacing area}.
+@ref{Eine neuer Bereich mit anderen Abständen}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@node Die Musik auf weniger Seiten zwingen
+@section Die Musik auf weniger Seiten zwingen
+@translationof Fitting music onto fewer pages
 
 Manchmal kommt es vor, dass nur ein oder zwei Systeme auf die
 nächste Seite geraten, obwohl es so aussieht, als ob auf der
@@ -2550,16 +2581,17 @@ Funktion @code{annotate-spacing} von sehr großer Hilfe.  Hiermit
 wird in den Musiksatz zusätzlich Information darüber ausgegeben,
 wieviel Platz bestimmten Parametern zugewiesen wird.  Genaueres
 hierzug in
-@ref{Displaying spacing}.
+@ref{Abstände anzeigen lassen}.
 
 @menu
-* Displaying spacing::
-* Changing spacing::
+* Abstände anzeigen lassen::
+* Abstände verändern::
 @end menu
 
 
-@node Displaying spacing
-@subsection Displaying spacing
+@node Abstände anzeigen lassen
+@subsection Abstände anzeigen lassen
+@translationof Displaying spacing
 
 @cindex Platzierung, Layouteinstellungen
 
@@ -2609,19 +2641,20 @@ obere Rand des Intervalls.
 @seealso
 
 Notationsreferenz:
-@ref{Setting the staff size}
+@ref{Die Notensystemgröße einstellen}
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Changing spacing
-@subsection Changing spacing
+@node Abstände verändern
+@subsection Abstände verändern
+@translationof Changing spacing
 
 Die Ausgabe von @code{annotate-spacing} bietet sehr viele
 Details zu den vertikalen Dimensionen einer Paritur.  Zu Information,
 wie Seitenränder und andere Layout-Variablen geändert werden
-können, siehe @ref{Page formatting}.
+können, siehe @ref{Seitenformatierung}.
 
 Neben Rändern gibt es einige weitere Optionen, Platz zu sparen:
 
@@ -2680,7 +2713,7 @@ weit @qq{hervorstehen}, zu verschieben.
 @item
 Die horizontalen Abstände können mit der 
 @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
-@ref{Changing horizontal spacing} für Einzelheiten.  Dieses
+@ref{Horizontale Abstände verändern} für Einzelheiten.  Dieses
 Beispiel zeigt die normalen Abstände:
 
 @lilypond[verbatim,quote]
@@ -2731,8 +2764,8 @@ auf eine ganze @code{\score}-Umgebung aus.
 
 @seealso
 Notationsreferenz:
-@ref{Page formatting},
-@ref{Changing horizontal spacing}.
+@ref{Seitenformatierung},
+@ref{Horizontale Abstände verändern}.
 
 Schnipsel:
 @rlsr{Spacing}.

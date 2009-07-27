@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Scheme tutorial
-@appendix Scheme tutorial
+@node Scheme-Übung
+@appendix Scheme-Übung
+@translationof Scheme tutorial
 
 @funindex #
 @cindex Scheme
@@ -221,18 +222,19 @@ Symbolliste und eine Liste von Listen:
 
 
 @menu
-* Tweaking with Scheme::
+* Optimierungen mit Scheme::
 @end menu
 
-@node Tweaking with Scheme
-@appendixsec Tweaking with Scheme
+@node Optimierungen mit Scheme
+@appendixsec Optimierungen mit Scheme
+@translationof Tweaking with Scheme
 
 Wir haben gesehen wie LilyPond-Eingabe massiv beeinflusst
 werden kann, indem Befehle wie etwa
 @code{\override TextScript #'extra-offset = ( 1 . -1)}
 benutzt werden.  Aber es wurde gezeigt, dass Scheme noch
-mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme tutorial} und in
-@ruser{Interfaces for programmers}.
+mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme-Übung} und in
+@ruser{Schnittstellen für Programmierer}.
 
 Scheme kann auch in einfachen @code{\override}-Befehlen
 benutzt werden:

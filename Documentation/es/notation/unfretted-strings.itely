@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Unfretted string instruments
-@section Unfretted string instruments
+@node Instrumentos de cuerda sin trastes
+@section Instrumentos de cuerda sin trastes
+@translationof Unfretted string instruments
 
 @lilypondfile[quote]
 {unfretted-headword.ly}
@@ -24,11 +25,12 @@ se escribe música para instrumentos de cuerda sin trastes,
 principalmente instrumentos de cuerda orquestales.
 
 @menu
-* Common notation for unfretted strings::
+* Notación común para cuerdas sin trastes::
 @end menu
 
-@node Common notation for unfretted strings
-@subsection Common notation for unfretted strings
+@node Notación común para cuerdas sin trastes
+@subsection Notación común para cuerdas sin trastes
+@translationof Common notation for unfretted strings
 
 Hay poca notación especializada para los instrumentos de cuerdas sin
 trastes.  La notación de la música se realiza en un solo pentagrama, y
@@ -36,14 +38,15 @@ se suele usar una sola voz.  Se pueden necesitar dos voces para
 algunos pasajes en dobles cuerdas o en divisi.
 
 @menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::
+* Referencias para cuerdas sin trastes::
+* Indicaciones de arco::
+* Armónicos::
+* Pizzicato de Bartok (Snap)::
 @end menu
 
-@node References for unfretted strings
-@unnumberedsubsubsec References for unfretted strings
+@node Referencias para cuerdas sin trastes
+@unnumberedsubsubsec Referencias para cuerdas sin trastes
+@translationof References for unfretted strings
 
 La mayor parte de la notación que resulta de utilidad para las cuerdas
 orquestales y otros instrumentos de arco se estudia en otras partes
@@ -53,40 +56,40 @@ del manual:
 
 @item
 Las indicaciones textuales como @qq{pizz.} y @qq{arco} se añaden como
-texto simple: véase @ref{Text scripts}.
+texto simple: véase @ref{Guiones de texto}.
 
 @item
 Las digitaciones, entre ellas la indicación de pulgar, se describen en
-@ref{Fingering instructions}.
+@ref{Indicaciones de digitación}.
 
 @item
 Las dobles cuerdas se indican normalmente escribiendo un acorde, véase
-@ref{Chorded notes}.  Hay otras indicaciones que se pueden añadir para
-la interpretación de acordes, véase @ref{Arpeggio}.
+@ref{Notas en acorde}.  Hay otras indicaciones que se pueden añadir para
+la interpretación de acordes, véase @ref{Arpegio}.
 
 @item
-Hay una plantilla para cuarteto de cuerda en @rlearning{String
-quartet}.  Otras se muestran en la sección de fragmentos de código.
+Hay una plantilla para cuarteto de cuerda en @rlearning{Cuarteto de cuerda}.  Otras se muestran en la sección de fragmentos de código.
 
 @end itemize
 
 
 @seealso
 Manual de aprendizaje:
-@rlearning{String quartet}.
+@rlearning{Cuarteto de cuerda}.
 
 Referencia de la notación:
-@ref{Text scripts},
-@ref{Fingering instructions},
-@ref{Chorded notes},
-@ref{Arpeggio}.
+@ref{Guiones de texto},
+@ref{Indicaciones de digitación},
+@ref{Notas en acorde},
+@ref{Arpegio}.
 
 Fragmentos de código:
 @rlsr{Unfretted strings}.
 
 
-@node Bowing indications
-@unnumberedsubsubsec Bowing indications
+@node Indicaciones de arco
+@unnumberedsubsubsec Indicaciones de arco
+@translationof Bowing indications
 
 @funindex \upbow
 @funindex \downbow
@@ -101,7 +104,7 @@ Fragmentos de código:
 @cindex cuerda al aire, indicación de
 
 Las indicaciones de arco se crean como articulaciones, que se
-describen en @ref{Articulations and ornamentations}.
+describen en @ref{Articulaciones y ornamentos}.
 
 Las instrucciones de arco @code{\upbow} (arco arriba) y
 @code{\downbow} (arco abajo) se usan con ligaduras de expresión de la
@@ -131,12 +134,13 @@ a2^\markup { \small "sul A" }
 
 @seealso
 Referencia de la notación:
-@ref{Articulations and ornamentations},
-@ref{Slurs}.
+@ref{Articulaciones y ornamentos},
+@ref{Ligaduras de expresión}.
 
 
-@node Harmonics
-@unnumberedsubsubsec Harmonics
+@node Armónicos
+@unnumberedsubsubsec Armónicos
+@translationof Harmonics
 
 @funindex \harmonic
 
@@ -173,7 +177,7 @@ d2^\flageolet d_\flageolet
 @end lilypond
 
 Se puede hacer un círculo de menor tamaño, véase la lista de
-fragmentos de código en @ref{References for unfretted strings}.
+fragmentos de código en @ref{Referencias para cuerdas sin trastes}.
 
 @strong{@i{Armónicos artificiales}}
 
@@ -195,12 +199,13 @@ Glosario musical:
 @rglos{harmonics}.
 
 Referencia de la notación:
-@ref{Special note heads},
-@ref{References for unfretted strings}.
+@ref{Cabezas de nota especiales},
+@ref{Referencias para cuerdas sin trastes}.
 
 
-@node Snap (Bartok) pizzicato
+@node Pizzicato de Bartok (Snap)
 @unnumberedsubsubsec Snap (Bartók) pizzicato
+@translationof Snap (Bartok) pizzicato
 
 @cindex pizzicato, Bartók
 @cindex pizzicato, snap

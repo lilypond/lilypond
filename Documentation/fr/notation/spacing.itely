@@ -11,207 +11,234 @@
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
-@node Spacing issues
-@chapter Spacing issues
+@node Gestion de l'espace
+@chapter Gestion de l'espace
+@translationof Spacing issues
 
 
 @menu
-* Paper and pages::
-* Music layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
+* Du papier et des pages::
+* Mise en forme de la musique::
+* Sauts::
+* Espacement vertical::
+* Espacement horizontal::
+* Réduction du nombre de pages de la partition::
 @end menu
 
-@node Paper and pages
-@section Paper and pages
-
-@untranslated
-
-
-@menu
-* Paper size::
-* Page formatting::
-@end menu
-
-@node Paper size
-@subsection Paper size
-
-@untranslated
-
-
-@node Page formatting
-@subsection Page formatting
-
-@untranslated
-
-
-@node Music layout
-@section Music layout
+@node Du papier et des pages
+@section Du papier et des pages
+@translationof Paper and pages @c external
 
 @untranslated
 
 
 @menu
-* Setting the staff size::
-* Score layout::
+* Format du papier::
+* Mise en forme de la page::
 @end menu
 
-@node Setting the staff size
-@subsection Setting the staff size
+@node Format du papier
+@subsection Format du papier
+@translationof Paper size @c external
 
 @untranslated
 
 
-@node Score layout
-@subsection Score layout
+@node Mise en forme de la page
+@subsection Mise en forme de la page
+@translationof Page formatting @c external
 
 @untranslated
 
 
-@node Breaks
-@section Breaks
+@node Mise en forme de la musique
+@section Mise en forme de la musique
+@translationof Music layout @c external
 
 @untranslated
 
 
 @menu
-* Line breaking::
-* Page breaking::
-* Optimal page breaking::
-* Optimal page turning::
-* Minimal page breaking::
-* Explicit breaks::
-* Using an extra voice for breaks::
+* Définition de la taille de portée::
+* Mise en forme de la partition::
 @end menu
 
-@node Line breaking
-@subsection Line breaking
+@node Définition de la taille de portée
+@subsection Définition de la taille de portée
+@translationof Setting the staff size @c external
 
 @untranslated
 
 
-@node Page breaking
-@subsection Page breaking
+@node Mise en forme de la partition
+@subsection Mise en forme de la partition
+@translationof Score layout @c external
 
 @untranslated
 
 
-@node Optimal page breaking
-@subsection Optimal page breaking
-
-@untranslated
-
-
-@node Optimal page turning
-@subsection Optimal page turning
-
-@untranslated
-
-
-@node Minimal page breaking
-@subsection Minimal page breaking
-
-@untranslated
-
-
-@node Explicit breaks
-@subsection Explicit breaks
-
-@untranslated
-
-
-@node Using an extra voice for breaks
-@subsection Using an extra voice for breaks
-
-@untranslated
-
-
-@node Vertical spacing
-@section Vertical spacing
+@node Sauts
+@section Sauts
+@translationof Breaks @c external
 
 @untranslated
 
 
 @menu
-* Vertical spacing inside a system::
-* Vertical spacing between systems::
-* Explicit staff and system positioning::
-* Two-pass vertical spacing::
-* Vertical collision avoidance::
+* Sauts de ligne::
+* Sauts de page::
+* Optimisation des sauts de page::
+* Optimisation des tournes::
+* Minimisation des sauts de page::
+* Sauts explicites::
+* Recours à une voix supplémentaire pour gérer les sauts::
 @end menu
 
-@node Vertical spacing inside a system
-@subsection Vertical spacing inside a system
+@node Sauts de ligne
+@subsection Sauts de ligne
+@translationof Line breaking @c external
 
 @untranslated
 
 
-@node Vertical spacing between systems
-@subsection Vertical spacing between systems
+@node Sauts de page
+@subsection Sauts de page
+@translationof Page breaking @c external
 
 @untranslated
 
 
-@node Explicit staff and system positioning
-@subsection Explicit staff and system positioning
+@node Optimisation des sauts de page
+@subsection Optimisation des sauts de page
+@translationof Optimal page breaking @c external
 
 @untranslated
 
 
-@node Two-pass vertical spacing
-@subsection Two-pass vertical spacing
+@node Optimisation des tournes
+@subsection Optimisation des tournes
+@translationof Optimal page turning @c external
 
 @untranslated
 
 
-@node Vertical collision avoidance
-@subsection Vertical collision avoidance
+@node Minimisation des sauts de page
+@subsection Minimisation des sauts de page
+@translationof Minimal page breaking @c external
 
 @untranslated
 
 
-@node Horizontal spacing
-@section Horizontal Spacing
+@node Sauts explicites
+@subsection Sauts explicites
+@translationof Explicit breaks @c external
+
+@untranslated
+
+
+@node Recours à une voix supplémentaire pour gérer les sauts
+@subsection Recours à une voix supplémentaire pour gérer les sauts
+@translationof Using an extra voice for breaks @c external
+
+@untranslated
+
+
+@node Espacement vertical
+@section Espacement vertical
+@translationof Vertical spacing @c external
 
 @untranslated
 
 
 @menu
-* Horizontal spacing overview::
-* New spacing area::
-* Changing horizontal spacing::
-* Line length::
-* Proportional notation::
+* Espacement vertical au sein d'un système::
+* Espacement vertical entre les systèmes::
+* Positionnement explicite des portées et systèmes::
+* Optimisation du remplissage avec un deuxième passage::
+* Résolution des collisions verticales::
 @end menu
 
-@node Horizontal spacing overview
-@subsection Horizontal spacing overview
+@node Espacement vertical au sein d'un système
+@subsection Espacement vertical au sein d'un système
+@translationof Vertical spacing inside a system @c external
 
 @untranslated
 
 
-@node New spacing area
-@subsection New spacing area
+@node Espacement vertical entre les systèmes
+@subsection Espacement vertical entre les systèmes
+@translationof Vertical spacing between systems @c external
 
 @untranslated
 
 
-@node Changing horizontal spacing
-@subsection Changing horizontal spacing
+@node Positionnement explicite des portées et systèmes
+@subsection Positionnement explicite des portées et systèmes
+@translationof Explicit staff and system positioning @c external
 
 @untranslated
 
 
-@node Line length
-@subsection Line length
+@node Optimisation du remplissage avec un deuxième passage
+@subsection Optimisation du remplissage avec un deuxième passage
+@translationof Two-pass vertical spacing @c external
 
 @untranslated
 
 
-@node Proportional notation
-@subsection Proportional notation
+@node Résolution des collisions verticales
+@subsection Résolution des collisions verticales
+@translationof Vertical collision avoidance @c external
+
+@untranslated
+
+
+@node Espacement horizontal
+@section Espacement horizontal
+@translationof Horizontal spacing @c external
+
+@untranslated
+
+
+@menu
+* Généralités sur l'espacement horizontal::
+* Changement d'espacement au cours de la partition::
+* Modification de l'espacement horizontal::
+* Longueur de ligne::
+* Notation proportionnelle::
+@end menu
+
+@node Généralités sur l'espacement horizontal
+@subsection Généralités sur l'espacement horizontal
+@translationof Horizontal spacing overview @c external
+
+@untranslated
+
+
+@node Changement d'espacement au cours de la partition
+@subsection Changement d'espacement au cours de la partition
+@translationof New spacing area @c external
+
+@untranslated
+
+
+@node Modification de l'espacement horizontal
+@subsection Modification de l'espacement horizontal
+@translationof Changing horizontal spacing @c external
+
+@untranslated
+
+
+@node Longueur de ligne
+@subsection Longueur de ligne
+@translationof Line length @c external
+
+@untranslated
+
+
+@node Notation proportionnelle
+@subsection Notation proportionnelle
+@translationof Proportional notation
 
 Les notes peuvent s'espacer proportionnellement en assignant une durée
 à @code{proportionalNotationDuration}
@@ -253,22 +280,25 @@ Le fichier @file{input/proportional.ly} illustre la notation
 proportionnelle stricte.
 
 
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@node Réduction du nombre de pages de la partition
+@section Réduction du nombre de pages de la partition
+@translationof Fitting music onto fewer pages
 
 @menu
-* Displaying spacing::
-* Changing spacing::
+* Mise en évidence de l'espacement::
+* Modification de l'espacement::
 @end menu
 
-@node Displaying spacing
-@subsection Displaying spacing
+@node Mise en évidence de l'espacement
+@subsection Mise en évidence de l'espacement
+@translationof Displaying spacing @c external
 
 @untranslated
 
 
-@node Changing spacing
-@subsection Changing spacing
+@node Modification de l'espacement
+@subsection Modification de l'espacement
+@translationof Changing spacing
 
 Parfois, une partition peut se terminer avec seulement 
 un ou deux systèmes sur la dernière page. Ceci peut être ennuyeux
@@ -279,7 +309,7 @@ Si vous vous intéressez aux problèmes de mise en page,
 @code{annotate-spacing} peut alors être un outil d'une valeur
 inestimable.  Cette commande imprime les valeurs 
 de nombreuses commandes d'espacement concernant la mise en page.  
-Consultez @ref{Displaying spacing} pour de plus amples informations.  À l'aide 
+Consultez @ref{Mise en évidence de l'espacement} pour de plus amples informations.  À l'aide 
 des informations données par @code{annotate-spacing}, on peut 
 voir quelles marges il est souhaitable de modifier afin de résoudre le
 problème.
@@ -335,7 +365,7 @@ Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
 
 @item
 Modifier l'espacement vertical avec @code{SpacingSpanner}.  Reportez-vous à
-@ref{Changing horizontal spacing} pour plus de détails.
+@ref{Modification de l'espacement horizontal} pour plus de détails.
 
 @lilypond[verbatim,quote]
 \score {

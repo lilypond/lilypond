@@ -12,8 +12,9 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Wind instruments
-@section Wind instruments
+@node Instruments à vent
+@section Instruments à vent
+@translationof Wind instruments
 
 @lilypondfile[quote]{wind-headword.ly}
 
@@ -21,23 +22,25 @@ Ce chapitre traite de certains aspects particuliers en matière de
 notation pour instruments à vent.
 
 @menu
-* Common notation for wind instruments::
-* Bagpipes::
+* Vue d'ensemble des instruments à vent::
+* Cornemuse::
 @end menu
 
-@node Common notation for wind instruments
-@subsection Common notation for wind instruments
+@node Vue d'ensemble des instruments à vent
+@subsection Vue d'ensemble des instruments à vent
+@translationof Common notation for wind instruments
 
 Nous allons aborder ici quelques aspects communs à la plupart des
 instruments à vent.
 
 @menu
-* References for wind instruments::
-* Fingerings::
+* Références en matière d'instruments à vent::
+* Doigtés::
 @end menu
 
-@node References for wind instruments
-@unnumberedsubsubsec References for wind instruments
+@node Références en matière d'instruments à vent
+@unnumberedsubsubsec Références en matière d'instruments à vent
+@translationof References for wind instruments
 
 @cindex instruments à vent
 @cindex vents
@@ -47,15 +50,15 @@ principalement à la respiration et à l'attaque :
 
 @itemize
 @item Les respirations s'indiquent par des silences ou des 
-@ref{Breath marks}. 
-@item Un jeu @emph{legato} s'indique par des @ref{Slurs}.
+@ref{Signes de respiration}. 
+@item Un jeu @emph{legato} s'indique par des @ref{Liaisons d'articulation}.
 @item Les différents types d'attaque -- @emph{legato}, détaché ou piqué
 -- s'indiquent en principe par des signes d'articulation, parfois
 agrémentés de liaisons.  Voir à ce sujet 
-@ref{Articulations and ornamentations} et @ref{List of articulations}.
+@ref{Articulations et ornements} et @ref{Liste des signes d'articulation}.
 @item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant les
 r) s'indique par une marque de trémolo et une étiquette textuelle
-attachée à la note concernée.  Voir à ce sujet @ref{Tremolo repeats}.
+attachée à la note concernée.  Voir à ce sujet @ref{Répétition en trémolo}.
 @end itemize
 
 D'autres aspects de la notation s'appliquent aussi aux instruments à
@@ -63,26 +66,26 @@ vent :
 
 @itemize
 @item De nombreux instruments à vent sont transpositeurs ; voir 
-@ref{Instrument transpositions}.
+@ref{Instruments transpositeurs}.
 @item Les glissandos sont l'une des caractéristiques du trombone à
 coulisse, bien que d'autres instruments puisssent y parvenir en jouant
 sur les pistons ou des clés ; consulter @ref{Glissando}.
 @item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
-sont traditionnellement indiqués par des @ref{Grace notes}.
+sont traditionnellement indiqués par des @ref{Notes d'ornement}.
 @item Les inflections en fin de note sont abordées au chapitre
-@ref{Falls and doits}.
+@ref{Chutes et sauts}.
 @item Les @qq{bruitages} de clé ou de piston s'indiquent souvent par le
-style @code{cross} ou des @ref{Special note heads}.
+style @code{cross} ou des @ref{Têtes de note spécifiques}.
 @item Les bois peuvent émettre des harmoniques dans le bas de leur
 registre.  On les indique avec un @code{flageolet} -- voir 
-@ref{List of articulations}.
+@ref{Liste des signes d'articulation}.
 @item En ce qui concerne les cuivres, la sourdine s'indique en pricipe
 par une étiquette textuelle.  Cependant, lorsque les changements sont
 nombreux et rapides, il est d'usage de recourrir aux articulations
 @code{stopped} et @code{open}. Pour de plus amples détails, voir
-@ref{Articulations and ornamentations} et @ref{List of articulations}.
+@ref{Articulations et ornements} et @ref{Liste des signes d'articulation}.
 @item La sourdine du cor d'harmonie s'indique par un @code{stopped}.
-Voir le chapitre @ref{Articulations and ornamentations}.
+Voir le chapitre @ref{Articulations et ornements}.
 @end itemize
 
 @snippets
@@ -93,23 +96,24 @@ Voir le chapitre @ref{Articulations and ornamentations}.
 
 @seealso
 Manuel de notation :
-@ref{Breath marks},
-@ref{Slurs},
-@ref{Articulations and ornamentations},
-@ref{List of articulations},
-@ref{Tremolo repeats},
-@ref{Instrument transpositions},
+@ref{Signes de respiration},
+@ref{Liaisons d'articulation},
+@ref{Articulations et ornements},
+@ref{Liste des signes d'articulation},
+@ref{Répétition en trémolo},
+@ref{Instruments transpositeurs},
 @ref{Glissando},
-@ref{Grace notes},
-@ref{Falls and doits},
-@ref{Special note heads},
+@ref{Notes d'ornement},
+@ref{Chutes et sauts},
+@ref{Têtes de note spécifiques},
 
 Morceaux choisis :
 @rlsr{Winds}
 
 
-@node Fingerings
-@unnumberedsubsubsec Fingerings
+@node Doigtés
+@unnumberedsubsubsec Doigtés
+@translationof Fingerings
 
 @c TODO add link to LSR snippet by Libero Mureddo once he has added
 @c it (after August 15th).
@@ -118,18 +122,20 @@ plusieurs doigts pour produire un son.
 
 TBC
 
-@node Bagpipes
-@subsection Bagpipes
+@node Cornemuse
+@subsection Cornemuse
+@translationof Bagpipes
 
 Voici quelques informations spécifiques à la cornemuse.
 
 @menu
-* Bagpipe definitions::
-* Bagpipe example::
+* Définitions pour la cornemuse::
+* Exemple pour la cornemuse::
 @end menu
 
-@node Bagpipe definitions
-@unnumberedsubsubsec Bagpipe definitions
+@node Définitions pour la cornemuse
+@unnumberedsubsubsec Définitions pour la cornemuse
+@translationof Bagpipe definitions
 
 @cindex bagpipe
 @cindex cornemuse
@@ -188,8 +194,9 @@ ou un défilé, peut survenir un sol aigu, au doux nom de
 @rlsr{Winds}
 
 
-@node Bagpipe example
-@unnumberedsubsubsec Bagpipe example
+@node Exemple pour la cornemuse
+@unnumberedsubsubsec Exemple pour la cornemuse
+@translationof Bagpipe example
 
 @cindex cornemuse : exemple
 @cindex Amazing Grace : exemple pour cornemuse

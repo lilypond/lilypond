@@ -75,7 +75,7 @@
 
 @macro predefined
 @noindent
-@subsubheading Predefined commands
+@subsubheading Commandes prédéfinies
 @end macro
 
 @c The next macro is a dummy currently since texinfo doesn't
@@ -91,14 +91,14 @@
 
 @macro snippets
 @noindent
-@subsubheading Selected Snippets
+@subsubheading Morceaux choisis
 @end macro
 
 
 @c obsolete, remove when translation is fully updated
 @macro commonprop
 @noindent
-@subsubheading Commonly tweaked properties
+@subsubheading Propriétés couramment modifiées
 @end macro
 
 
@@ -107,14 +107,14 @@
 
 @macro seealso
 @noindent
-@subsubheading See also
+@subsubheading Voir aussi
 @indent
 @end macro
 
 
 @macro knownissues
 @noindent
-@subsubheading Known issues and warnings
+@subsubheading Problèmes connus et avertissements
 @end macro
 
 

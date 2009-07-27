@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Unfretted string instruments
-@section Unfretted string instruments
+@node Bundlose Saiteninstrumente
+@section Bundlose Saiteninstrumente
+@translationof Unfretted string instruments
 
 @lilypondfile[quote]
 {unfretted-headword.ly}
@@ -24,11 +25,12 @@ beim Setzen von Noten für Saiteninstrumente ohne Bund herangezogen
 werden können.
 
 @menu
-* Common notation for unfretted strings::  
+* Übliche Notation für nichtgebundene Saiteninstrumente::  
 @end menu
 
-@node Common notation for unfretted strings
-@subsection Common notation for unfretted strings
+@node Übliche Notation für nichtgebundene Saiteninstrumente
+@subsection Übliche Notation für nichtgebundene Saiteninstrumente
+@translationof Common notation for unfretted strings
 
 Es gibt wenige Spezifikat für die Notation von Saiteninstrumenten ohne
 Bund.  Die Noten werden auf einem System notiert und meistens ist auch nur
@@ -36,14 +38,15 @@ eine Stimme erforderlich.  Zwei Stimmen können für Doppelgriff- oder
 Divisi-Stellen erforderlich sein.
 
 @menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::     
+* Hinweise für ungebundene Saiteninstrumente::
+* Bezeichnung des Bogens::
+* Flageolett::
+* Bartók-Pizzicato::     
 @end menu
 
-@node References for unfretted strings
-@unnumberedsubsubsec References for unfretted strings
+@node Hinweise für ungebundene Saiteninstrumente
+@unnumberedsubsubsec Hinweise für ungebundene Saiteninstrumente
+@translationof References for unfretted strings
 
 Die meisten Notationseigenschaften, die für Orchersterstreicher eingesetzt
 werden, sind an anderer Stelle beschrieben:
@@ -51,36 +54,37 @@ werden, sind an anderer Stelle beschrieben:
 @itemize
 
 @item Textanweisungen wie @qq{pizz.} oder @qq{arco} werden als einfacher
-Text eingefügt, siehe @ref{Text scripts}.
+Text eingefügt, siehe @ref{Textarten}.
 
 @item Fingersatz, auch das Zeichen für den Daumen, ist erklärt in
-@ref{Fingering instructions}.
+@ref{Fingersatzanweisungen}.
 
 @item Doppelgriffe werden normalerweise als Akkord notiert, siehe hierzu
-@ref{Chorded notes}.  Anweisungen, wie Akkorde gespielt werden sollen, können
+@ref{Noten mit Akkorden}.  Anweisungen, wie Akkorde gespielt werden sollen, können
 auch hinzugefügt werden, siehe @ref{Arpeggio}.
 
 @item Eine Vorlage für Streichquartett findet sich in
-@rlearning{String quartet}.  Andere sind als Schnipsel zur Verfügung
+@rlearning{Streichquartett}.  Andere sind als Schnipsel zur Verfügung
 gestellt.
 
 @end itemize
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{String quartet}.
+@rlearning{Streichquartett}.
 
 Notationsreferenz:
-@ref{Text scripts},
-@ref{Fingering instructions},
-@ref{Chorded notes},
+@ref{Textarten},
+@ref{Fingersatzanweisungen},
+@ref{Noten mit Akkorden},
 @ref{Arpeggio}.
 
 Schnipsel:
 @rlsr{Unfretted strings}.
 
-@node Bowing indications
-@unnumberedsubsubsec Bowing indications
+@node Bezeichnung des Bogens
+@unnumberedsubsubsec Bezeichnung des Bogens
+@translationof Bowing indications
 
 @funindex \upbow
 @funindex \downbow
@@ -93,7 +97,7 @@ Schnipsel:
 
 Hinweise zur Bogenfügung können als Artikulationen erstellt werden, wie
 beschrieben in
-@ref{Articulations and ornamentations}.
+@ref{Artikulationszeichen und Verzierungen}.
 
 Die Befehle @code{\upbow} und @code{\downbow} werden mit Legatobögen
 in folgender Weise eingesetzt:
@@ -120,12 +124,13 @@ a2^\markup { \small "sul A" }
 
 @seealso
 Notation Reference:
-@ref{Articulations and ornamentations},
-@ref{Slurs}.
+@ref{Artikulationszeichen und Verzierungen},
+@ref{Legatobögen}.
 
 
-@node Harmonics
-@unnumberedsubsubsec Harmonics
+@node Flageolett
+@unnumberedsubsubsec Flageolett
+@translationof Harmonics
 
 @strong{@i{Natürliches Flageolett}}
 
@@ -175,13 +180,14 @@ Glossar:
 @rglos{harmonics}.
 
 Notationsreferenz:
-@ref{Special note heads},
-@ref{References for unfretted strings}.
+@ref{Besondere Notenköpfe},
+@ref{Hinweise für ungebundene Saiteninstrumente}.
 
 
 
-@node Snap (Bartok) pizzicato
-@unnumberedsubsubsec Snap (Bartok) pizzicato
+@node Bartók-Pizzicato
+@unnumberedsubsubsec Bartók-Pizzicato
+@translationof Snap (Bartok) pizzicato
 
 @cindex Pizzicato, Bartók
 @cindex Pizzicato, Knall-

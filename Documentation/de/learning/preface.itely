@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Preface
-@unnumbered Preface
+@node Vorwort
+@unnumbered Vorwort
+@translationof Preface
 
 Es muss wohl während einer Probe des EJE (Eindhovens Jugendorchester)
  etwa 1995 gewesen sein, als Jan, einer der schrägen Bratschisten,

@@ -14,99 +14,104 @@
 @c Translation status: post-GDP
 
 
-@node Templates
-@appendix Templates
+@node テンプレート
+@appendix テンプレート
+@translationof Templates
 
 このセクションにはセットアップ済みの LilyPond 楽譜を持つテンプレートがあります。音符を付け加えて、LilyPond を実行してください。あとは美しく譜刻された楽譜をお楽しみください！
 
 
 @menu
-* Single staff::
-* Piano templates::
-* String quartet::
-* Vocal ensembles::
+* 単一の譜表::
+* ピアノ テンプレート::
+* 弦楽四重奏::
+* 合唱::
 * Ancient notation templates::
 * Jazz combo::
 * lilypond-book templates::
 @end menu
 
 
-@node Single staff
-@appendixsec Single staff
+@node 単一の譜表
+@appendixsec 単一の譜表
+@translationof Single staff
 
-@appendixsubsec Notes only
+@appendixsubsec 音符のみ
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
-@appendixsubsec Notes and lyrics
+@appendixsubsec 音符と歌詞
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
-@appendixsubsec Notes and chords
+@appendixsubsec 音符とコード
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
-@appendixsubsec Notes, lyrics, and chords.
+@appendixsubsec 音符、歌詞それにコード
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
-@node Piano templates
-@appendixsec Piano templates
+@node ピアノ テンプレート
+@appendixsec ピアノ テンプレート
+@translationof Piano templates
 
-@appendixsubsec Solo piano
+@appendixsubsec ソロ ピアノ
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
-@appendixsubsec Piano and melody with lyrics
+@appendixsubsec ピアノと歌詞を持つ旋律
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
-@appendixsubsec Piano centered lyrics
+@appendixsubsec 中央に歌詞を持つピアノ譜
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec Piano centered dynamics
+@appendixsubsec 中央に強弱記号を持つピアノ譜
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
 
 
-@node String quartet
-@appendixsec String quartet
+@node 弦楽四重奏
+@appendixsec 弦楽四重奏
+@translationof String quartet
 
-@appendixsubsec String quartet
+@appendixsubsec 弦楽四重奏
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
-@appendixsubsec String quartet parts
+@appendixsubsec 弦楽四重奏パート
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
-@node Vocal ensembles
-@appendixsec Vocal ensembles
+@node 合唱
+@appendixsec 合唱
+@translationof Vocal ensembles
 
-@appendixsubsec SATB vocal score
+@appendixsubsec SATB ボーカル譜
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
-@appendixsubsec SATB vocal score and automatic piano reduction
+@appendixsubsec SATB ボーカル譜と自動ピアノ譜
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
-@appendixsubsec SATB with aligned contexts
+@appendixsubsec 整列されたコンテキストを持つ SATB
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
@@ -115,6 +120,7 @@
 @c bad node name to avoid node name conflict
 @node Ancient notation templates
 @appendixsec Ancient notation templates
+@translationof Ancient notation templates
 
 @appendixsubsec Transcription of mensural music
 
@@ -129,6 +135,7 @@
 
 @node Jazz combo
 @appendixsec Jazz combo
+@translationof Jazz combo
 
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
@@ -207,6 +214,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @node lilypond-book templates
 @appendixsec lilypond-book templates
+@translationof lilypond-book templates
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
 with this program, please refer to @rprogram{LilyPond-book}.

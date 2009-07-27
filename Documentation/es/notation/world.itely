@@ -9,34 +9,37 @@
 
 @c \version "2.12.0"
 
-@node World music
-@section World music
+@node Músicas del mundo
+@section Músicas del mundo
+@translationof World music
 
 El propósito de esta sección es remarcar los problemas de notación que
 son de relevancia a las tradiciones musicales distintas a la
 occidental.
 
 @menu
-* Arabic music::
+* Música árabe::
 @end menu
 
-@node Arabic music
-@subsection Arabic music
+@node Música árabe
+@subsection Música árabe
+@translationof Arabic music
 
 Esta sección destaca asuntos relativos a la música árabe.
 
 @menu
-* References for Arabic music::
+* Referencias para música árabe::
 * Arabic note names ::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading::
+* Armaduras de tonalidad árabes::
+* Indicaciones de compás árabes::
+* Ejemplo de música árabe::
+* Lecturas adicionales::
 @end menu
 
 
-@node References for Arabic music
-@unnumberedsubsubsec References for Arabic music
+@node Referencias para música árabe
+@unnumberedsubsubsec Referencias para música árabe
+@translationof References for Arabic music
 
 @cindex árabe, música
 @cindex medios, intervalos
@@ -68,34 +71,34 @@ encuentran cubiertos en otras partes del manual:
 
 @itemize
 @item Los nombres de las notas y sus alteraciones (entre ellos, cuartos de
-tono) se pueden realizar como se estudia en @ref{Note names in other
-languages}.
+tono) se pueden realizar como se estudia en @ref{Nombres de las notas en otros idiomas}.
 
 @item Las armaduras adicionales también pueden realizarse como se describe
-en @ref{Key signature}.
+en @ref{Armadura de la tonalidad}.
 
 @item Los compases complejos pueden requerir agrupaciones manuales de las
-notas tal y como se describe en @ref{Manual beams}.
+notas tal y como se describe en @ref{Barras manuales}.
 
 @item Los @notation{takasim} o improvisaciones libres desde el punto de
 vista rítmico se pueden escribir omitiendo las barras de compás como
-aparece en @ref{Unmetered music}.
+aparece en @ref{Música sin compasear}.
 
 @end itemize
 
 
 @seealso
 Referencia de la notación:
-@ref{Note names in other languages},
-@ref{Key signature},
-@ref{Manual beams}.
+@ref{Nombres de las notas en otros idiomas},
+@ref{Armadura de la tonalidad},
+@ref{Barras manuales}.
 
 Fragmentos de código:
 @rlsr{World music}.
 
 
-@node Arabic note names
-@unnumberedsubsubsec Arabic note names
+@node Nombres de nota árabes
+@unnumberedsubsubsec Nombres de nota árabes
+@translationof Arabic note names
 
 
 @cindex Arabic note names
@@ -106,8 +109,7 @@ ello no se utilizan.  Los nombres ingleses de las notas no son muy
 familiares dentro de la educación musical árabe, por lo que en su
 lugar se utilizan los nombres italo-franco-españoles o del solfeo
 (@code{do, re, mi, fa, sol, la, si}).  También se pueden utilizar los
-modificadores (alteraciones), como se estudia en @ref{Note names in
-other languages}.
+modificadores (alteraciones), como se estudia en @ref{Nombres de las notas en otros idiomas}.
 
 Por ejemplo, así es como puede ser la notación de la escala árabe
 @notation{rast}:
@@ -142,14 +144,15 @@ alterar mediante este método.
 
 @seealso
 Referencia de la notación:
-@ref{Note names in other languages}.
+@ref{Nombres de las notas en otros idiomas}.
 
 Fragmentos de código:
 @rlsr{World music}.
 
 
-@node Arabic key signatures
-@unnumberedsubsubsec Arabic key signatures
+@node Armaduras de tonalidad árabes
+@unnumberedsubsubsec Armaduras de tonalidad árabes
+@translationof Arabic key signatures
 
 @cindex Arabic key signatures
 
@@ -254,10 +257,10 @@ los maqams más comunes a armaduras de tonalidad:
 
 @seealso
 Referencia de la notación:
-@ref{Key signature}.
+@ref{Armadura de la tonalidad}.
 
 Manual de aprendizaje:
-@rlearning{Accidentals and key signatures}.
+@rlearning{Alteraciones accidentales y armaduras}.
 
 Referencia de funcionamiento interno:
 @rinternals{KeySignature}.
@@ -267,8 +270,9 @@ Fragmentos de código:
 @rlsr{Pitches}.
 
 
-@node Arabic time signatures
-@unnumberedsubsubsec Arabic time signatures
+@node Indicaciones de compás árabes
+@unnumberedsubsubsec Indicaciones de compás árabes
+@translationof Arabic time signatures
 
 @cindex árabes, armaduras
 @cindex Semai, forma
@@ -296,19 +300,20 @@ y/o utilizar compases compuestos.
 
 @seealso
 Referencia de la notación:
-@ref{Manual beams},
-@ref{Automatic beams},
-@ref{Unmetered music},
-@ref{Automatic accidentals},
-@ref{Setting automatic beam behavior},
-@ref{Time signature}.
+@ref{Barras manuales},
+@ref{Barras automáticas},
+@ref{Música sin compasear},
+@ref{Alteraciones accidentales automáticas},
+@ref{Establecer el comportamiento de las barras automáticas},
+@ref{Indicación de compás}.
 
 Fragmentos de código:
 @rlsr{World music}.
 
 
-@node Arabic music example
-@unnumberedsubsubsec Arabic music example
+@node Ejemplo de música árabe
+@unnumberedsubsubsec Ejemplo de música árabe
+@translationof Arabic music example
 
 @cindex árabe, ejemplo de música
 @cindex árabe, plantilla de música
@@ -347,8 +352,9 @@ Fragmentos de código:
 @rlsr{World music}
 
 
-@node Further reading
-@unnumberedsubsubsec Further reading
+@node Lecturas adicionales
+@unnumberedsubsubsec Lecturas adicionales
+@translationof Further reading
 
 @enumerate
 

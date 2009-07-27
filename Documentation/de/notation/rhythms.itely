@@ -8,8 +8,9 @@
 
 @c \version "2.12.0"
 
-@node Rhythms
-@section Rhythms
+@node Rhythmus
+@section Rhythmus
+@translationof Rhythms
 
 @lilypondfile[quote]{rhythms-headword.ly}
 
@@ -17,27 +18,29 @@ Dieser Abschnitt erklärt die Eingabe von Rhythmen, Pausen,
 Dauern, Bebalkung und Takten.
 
 @menu
-* Writing rhythms::             
-* Writing rests::               
-* Displaying rhythms::          
-* Beams::                       
-* Bars::                        
-* Special rhythmic concerns::   
+* Rhythmen eingeben::             
+* Pausen eingeben::               
+* Rhythmen anzeigen lassen::          
+* Balken::                       
+* Takte::                        
+* Besondere rhythmische Fragen::   
 @end menu
 
 
-@node Writing rhythms
-@subsection Writing rhythms
+@node Rhythmen eingeben
+@subsection Rhythmen eingeben
+@translationof Writing rhythms
 
 @menu
-* Durations::                   
-* Tuplets::                     
-* Scaling durations::           
-* Ties::                        
+* Tondauern::                   
+* Andere rhythmische Aufteilungen::                     
+* Tondauern skalieren::           
+* Bindebögen::                        
 @end menu
 
-@node Durations
-@unnumberedsubsubsec Durations
+@node Tondauern
+@unnumberedsubsubsec Tondauern
+@translationof Durations
 
 @cindex Dauer
 @cindex Notenlänge
@@ -84,7 +87,7 @@ c4 c8 c16 c32 c64 c64
 Eine Note mit der vierfacheen Dauer einer Brevis kann mit dem
 Befehl @code{\maxima} eingegeben werden, aber ihre Darstellung
 ist nur für die Alte Musiknotation unterstützt.  Zu Einzelheiten
-siehe @ref{Ancient notation}.
+siehe @ref{Notation von alter Musik}.
 
 Wenn die Dauer hinter einer Notenbezeichnung nicht angegeben ist, 
 wird die Dauer der vorhergehenden Note eingesetzt.  Der Standardwert 
@@ -111,16 +114,16 @@ a4 b c4. b8 a4. b4.. c8.
 
 Manche Notenlängen können nicht mit binären Dauern und Punkten
 dargestellt werden, sie können nur erreicht werden, indem man
-Noten überbindet.  Für Einzelheiten siehe @ref{Ties}.
+Noten überbindet.  Für Einzelheiten siehe @ref{Bindebögen}.
 
 Wie den Silben von Gesangtext eigene Dauern zu gewiesen werden 
 können und wie man sie an den Noten ausrichtet ist erklärt in
-@ref{Vocal music}.
+@ref{Notation von Gesang}.
 
 Optional können Noten streng proportional nach ihrer exakten
 Dauer gesetzt werden.  Zu Einzelheiten hierzu und weiteren
 Einstellungen für proportionale Notation siehe
-@ref{Proportional notation}.
+@ref{Proportionale Notation}.
 
 @funindex \dotsUp
 @funindex \dotsDown
@@ -132,7 +135,7 @@ Einstellungen für proportionale Notation siehe
 Punkte werden normalerweise nach oben verschoben, damit sie die Notenlinien 
 nicht berühren.  Fertige Befehle können eingesetzt werden, um
 eine bestimmte Richtung manuell zu erzwingen, zu Einzelheiten
-siehe @ref{Direction and placement}.
+siehe @ref{Richtung und Platzierung}.
 
 @predefined
 @code{\autoBeamOff},
@@ -150,14 +153,14 @@ Glossar:
 @rglos{Duration names notes and rests}.
 
 Notationsreferenz:
-@ref{Automatic beams},
-@ref{Ties},
-@ref{Stems},
-@ref{Writing rhythms},
-@ref{Writing rests},
-@ref{Vocal music},
-@ref{Ancient notation},
-@ref{Proportional notation}.
+@ref{Automatische Balken},
+@ref{Bindebögen},
+@ref{Hälse},
+@ref{Rhythmen eingeben},
+@ref{Pausen eingeben},
+@ref{Notation von Gesang},
+@ref{Notation von alter Musik},
+@ref{Proportionale Notation}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -177,8 +180,9 @@ Maxima (8 Ganze) gesetzt werden.
 
 
 
-@node Tuplets
-@unnumberedsubsubsec Tuplets
+@node Andere rhythmische Aufteilungen
+@unnumberedsubsubsec Andere rhythmische Aufteilungen
+@translationof Tuplets
 
 @cindex N-tolen
 @cindex Triolen
@@ -218,7 +222,7 @@ c4 c \times 2/3 { b4 a g }
 
 Die automatische Platzierung der Triolenklammer über oder unter
 den Noten kann manuell geändert werden mit definierten Befehlen,
-siehe @ref{Direction and placement}.
+siehe @ref{Richtung und Platzierung}.
 
 
 N-tolen können ineinander geschachtelt werden:
@@ -233,7 +237,7 @@ selben musikalischen Zeitpunkt beginnen, muss @code{\tweak}
 eingesetzt werden.
 
 Um die Dauern von Noten zu ändern, ohne die N-tolen-Klammern
-zu setzen, siehe @ref{Scaling durations}.
+zu setzen, siehe @ref{Tondauern skalieren}.
 
 @predefined
 @code{\tupletUp},
@@ -273,13 +277,13 @@ Glossar:
 @rglos{polymetric}.
 
 Handbuch zum Lernen:
-@rlearning{Tweaking methods}.
+@rlearning{Optimierungsmethoden}.
 
 Notationrreferenz:
-@ref{Time administration},
-@ref{Scaling durations},
-@ref{The tweak command},
-@ref{Polymetric notation}.
+@ref{Verwaltung der Zeiteinheiten},
+@ref{Tondauern skalieren},
+@ref{Der tweak-Befehl},
+@ref{Polymetrische Notation}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -302,8 +306,9 @@ N-tolen gesetzt werden.
 
 
 
-@node Scaling durations
-@unnumberedsubsubsec Scaling durations
+@node Tondauern skalieren
+@unnumberedsubsubsec Tondauern skalieren
+@translationof Scaling durations
 
 @cindex Dauern skalieren
 @cindex Skalieren von Dauern
@@ -371,20 +376,21 @@ ausgedehnt werden kann:
 
 @noindent
 Eine Anwendung für diesen Befehl ist polymetrische Notation,
-siehe @ref{Polymetric notation}.
+siehe @ref{Polymetrische Notation}.
 
 @seealso
 Notationsreferenz:
-@ref{Tuplets},
-@ref{Invisible rests},
-@ref{Polymetric notation}.
+@ref{Andere rhythmische Aufteilungen},
+@ref{Unsichtbare Pausen},
+@ref{Polymetrische Notation}.
 
 Schnipsel:
 @rlsr{Rhythms}.
 
 
-@node Ties
-@unnumberedsubsubsec Ties
+@node Bindebögen
+@unnumberedsubsubsec Bindebögen
+@translationof Ties
 
 @cindex Bindebogen
 @cindex Überbindung
@@ -423,8 +429,7 @@ inneren Unterteilungen von Takten hinüberreichen:
 
 Wenn viele Noten über Taktlinien gebunden werden müssen, kann
 es einfacher sein, automatische Notenaufteilung einzustellen,
-wie beschrieben in @ref{Automatic note
-splitting}.  Mit diesem Mechanismus werden lange Noten
+wie beschrieben in @ref{Automatische Aufteilung von Noten}.  Mit diesem Mechanismus werden lange Noten
 automatisch aufgeteilt, wenn sie über Taktgrenzen reichen.
 
 @cindex Bindebögen und Akkorde
@@ -490,7 +495,7 @@ anderer Saiteninstrument- und Schlagzeugnotation verwendet. Sie können folgende
 
 Die vertikale Position von Bindebögen kann kontrolliert werden,
 siehe die vordefinierten Befehle unten oder für Einzelheiten
-@ref{Direction and placement}.
+@ref{Richtung und Platzierung}.
 
 @cindex Bindebögen, Ausehen
 @cindex Bindebögen, gestrichelt
@@ -534,7 +539,7 @@ c2 ~ c
 Die Definition von Muster für die Strichelung der Bindebögen hat
 die gleiche Struktur wie die Definition für Legatobögen.  Zu
 weiterer Information zu komplizierten Strichelungsmustern, siehe
-die Schnipsel im Abschnitt @ref{Slurs}. 
+die Schnipsel im Abschnitt @ref{Legatobögen}. 
 
 @predefined
 @code{\tieUp},
@@ -562,8 +567,8 @@ Glossar:
 @rglos{laissez vibrer}.
 
 Notationsreferenz:
-@ref{Slurs},
-@ref{Automatic note splitting}.
+@ref{Legatobögen},
+@ref{Automatische Aufteilung von Noten}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -584,21 +589,23 @@ ist nicht richtig definiert. In diesen Fällen kann es besser sein, einen
 Legatobogen zu verwenden.
 
 
-@node Writing rests
-@subsection Writing rests
+@node Pausen eingeben
+@subsection Pausen eingeben
+@translationof Writing rests
 
 Pausen werden als Teil der musikalischen Ausdrücke zusammen mit
 den Noten notiert.
 
 
 @menu
-* Rests::                       
-* Invisible rests::             
-* Full measure rests::          
+* Pausen::                       
+* Unsichtbare Pausen::             
+* Ganztaktige Pausen::          
 @end menu
 
-@node Rests
-@unnumberedsubsubsec Rests
+@node Pausen
+@unnumberedsubsubsec Pausen
+@translationof Rests
 
 @cindex Pausen
 @cindex Pausendauern
@@ -645,7 +652,7 @@ Pausen, die ganze Takte ausfüllen und in der Taktmitte zentriert
 werden sollen, müssen als mehrtaktige Pausen eingegeben werden. 
 Sie können sowohl für einen einzigen Takt als auch für mehrere 
 Takte verwendet werden, Näheres im Abschnitt
-@ref{Full measure rests}.
+@ref{Ganztaktige Pausen}.
 
 Um die vertikale Position einer Pause explizit festzulegen, 
 kann eine Note eingegeben werden, gefolgt vom Befehl @code{\rest}. 
@@ -668,7 +675,7 @@ Glossar:
 @rglos{maxima}.
 
 Notationsreferenz:
-@ref{Full measure rests}.
+@ref{Ganztaktige Pausen}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -686,8 +693,9 @@ begrenzt: Es gibt Zeichen für Pausen von einer 128 bis zu einer
 Maxima (8 Ganze).
 
 
-@node Invisible rests
-@unnumberedsubsubsec Invisible rests
+@node Unsichtbare Pausen
+@unnumberedsubsubsec Unsichtbare Pausen
+@translationof Invisible rests
 
 @cindex Skip
 @cindex Überspringen von Zeichen
@@ -750,8 +758,9 @@ Referenz der Interna:
 
 
 
-@node Full measure rests
-@unnumberedsubsubsec Full measure rests
+@node Ganztaktige Pausen
+@unnumberedsubsubsec Ganztaktige Pausen
+@translationof Full measure rests
 
 @cindex Ganztaktpausen
 @cindex Mehrtaktpausen
@@ -942,10 +951,10 @@ Glossar:
 @rglos{multi-measure rest}.
 
 Notationsreferenz:
-@ref{Durations},
+@ref{Tondauern},
 @ref{Text},
-@ref{Formatting text},
-@ref{Text scripts}.
+@ref{Text formatieren},
+@ref{Textarten}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -978,20 +987,22 @@ berücksichtigt.
 
 
 
-@node Displaying rhythms
-@subsection Displaying rhythms
+@node Rhythmen anzeigen lassen
+@subsection Rhythmen anzeigen lassen
+@translationof Displaying rhythms
 
 @menu
-* Time signature::              
-* Upbeats::                     
-* Unmetered music::             
-* Polymetric notation::         
-* Automatic note splitting::    
-* Showing melody rhythms::      
+* Taktangabe::              
+* Auftakte::                     
+* Musik ohne Metrum::             
+* Polymetrische Notation::         
+* Automatische Aufteilung von Noten::    
+* Melodierhythmus anzeigen::      
 @end menu
 
-@node Time signature
-@unnumberedsubsubsec Time signature
+@node Taktangabe
+@unnumberedsubsubsec Taktangabe
+@translationof Time signature
 
 @cindex Taktangabe
 @cindex Metrum
@@ -1012,7 +1023,7 @@ Taktangaben werden zu Beginn eines Stückes gesetzt und immer dann,
 wenn sich die Taktart ändert.  Wenn eine Änderung am Ende einer
 Zeile geschieht, wird eine warnende Taktangabe am Ende der Zeile
 ausgegeben.  Dieses Verhalten kann verändert werden, siehe
-@ref{Visibility of objects}.
+@ref{Sichtbarkeit von Objekten}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4
@@ -1050,7 +1061,7 @@ umgewandelt werden:
 @end lilypond
 
 Symbole für Modus und Proprietas der mensuralen Notation
-werden behandelt unter @ref{Mensural time signatures}.
+werden behandelt unter @ref{Mensurale Taktartenbezeichnungen}.
 
 @predefined
 @code{\numericTimeSignature},
@@ -1074,8 +1085,8 @@ Glossar:
 @rglos{time signature}
 
 Notationsreferenz:
-@ref{Mensural time signatures},
-@ref{Time administration}.
+@ref{Mensurale Taktartenbezeichnungen},
+@ref{Verwaltung der Zeiteinheiten}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1086,8 +1097,9 @@ Referenz der Interna:
 
 
 
-@node Upbeats
-@unnumberedsubsubsec Upbeats
+@node Auftakte
+@unnumberedsubsubsec Auftakte
+@translationof Upbeats
 
 @cindex Auftakt
 @cindex Takte verkürzen
@@ -1131,7 +1143,7 @@ Glossar:
 @rglos{anacrusis}.
 
 Notationsreferenz:
-@ref{Grace notes}.
+@ref{Verzierungen}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1157,8 +1169,9 @@ Befehl innerhalb eines Stückes verwendet wird, können seltsame Warnungen
 auftreten.
 
 
-@node Unmetered music
-@unnumberedsubsubsec Unmetered music
+@node Musik ohne Metrum
+@unnumberedsubsubsec Musik ohne Metrum
+@translationof Unmetered music
 
 @cindex Kadenz
 @cindex Taktlinen, ausschalten
@@ -1211,7 +1224,7 @@ Glossar:
 @rglos{cadenza}.
 
 Notationsreferenz:
-@ref{Visibility of objects}.
+@ref{Sichtbarkeit von Objekten}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1230,8 +1243,9 @@ selber unsichtbare Taktlinien mit
 einfügen, um anzuzeigen, wo umgebrochen werden darf.
 
 
-@node Polymetric notation
-@unnumberedsubsubsec Polymetric notation
+@node Polymetrische Notation
+@unnumberedsubsubsec Polymetrische Notation
+@translationof Polymetric notation
 
 @cindex doppelte Taktartensymbole
 @cindex Taktartensymbole, doppelt
@@ -1258,11 +1272,11 @@ Diese Art der Notation kann erstellt werden, indem für jedes
 System eine identische Taktart eingestellt wird, aber manuell
 für jeden Takt durch Einstellung von @code{timeSignatureFraction}
 auf den gewünschten Bruch geändert und dann die Länge der
-Noten entsprechenden skaliert wird, siehe auch @ref{Time signature}.
+Noten entsprechenden skaliert wird, siehe auch @ref{Taktangabe}.
 Die Skalierung geschieht mit dem Befehl
 @code{\scaleDurations}, der auf ähnliche Weise wie @code{\times}
 benutzt wird, aber keine Klammer über den Noten ausgibt. Siehe
-auch @ref{Scaling durations}.
+auch @ref{Tondauern skalieren}.
 
 @cindex Bebalkung in polymetrischer Notation
 @cindex Polymetrische Notation und Balken
@@ -1359,8 +1373,8 @@ Glossar:
 @rglos{meter}.
 
 Notationreferenz:
-@ref{Time signature},
-@ref{Scaling durations}.
+@ref{Taktangabe},
+@ref{Tondauern skalieren}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1381,8 +1395,9 @@ gesetzt werden, wie es ohne unterschiedliche Taktarten der
 Fall wäre.
 
 
-@node Automatic note splitting
-@unnumberedsubsubsec Automatic note splitting
+@node Automatische Aufteilung von Noten
+@unnumberedsubsubsec Automatische Aufteilung von Noten
+@translationof Automatic note splitting
 
 @cindex Noten, aufteilen
 @cindex Aufteilen von Noten
@@ -1418,8 +1433,8 @@ Notenwerte noch in dem jeweiligen Takt fehlen.
 Glossar: @rglos{tie}
 
 Handbuch zum Lernen:
-@rlearning{Engravers explained},
-@rlearning{Adding and removing engravers}.
+@rlearning{Was sind Engraver?},
+@rlearning{Engraver hinzufügen und entfernen}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -1440,8 +1455,9 @@ trotzdem keine Triolen etc.
 Pausen werden nicht aufgeteilt.
 
 
-@node Showing melody rhythms
-@unnumberedsubsubsec Showing melody rhythms
+@node Melodierhythmus anzeigen
+@unnumberedsubsubsec Melodierhythmus anzeigen
+@translationof Showing melody rhythms
 
 @cindex Melodierhythmus: Anzeige
 @cindex Rhythmus der Melodie anzeigen
@@ -1525,19 +1541,21 @@ Referenz der Interna:
 
 
 
-@node Beams
-@subsection Beams
+@node Balken
+@subsection Balken
+@translationof Beams
 
 @menu
-* Automatic beams::             
-* Setting automatic beam behavior::  
-* Manual beams::                
-* Feathered beams::             
+* Automatische Balken::             
+* Einstellung von automatischen Balken::  
+* Manuelle Balken::                
+* Gespreizte Balken::             
 @end menu
 
 
-@node Automatic beams
-@unnumberedsubsubsec Automatic beams
+@node Automatische Balken
+@unnumberedsubsubsec Automatische Balken
+@translationof Automatic beams
 
 LilyPond setzt Balken (engl. beam) automatisch.
 
@@ -1558,7 +1576,7 @@ LilyPond setzt Balken (engl. beam) automatisch.
 
 Wenn diese automatischen Entscheidungen nicht gut genug sind, können 
 die Balken auch explizit eingegeben werden, siehe
-@ref{Manual beams}.  Balken @emph{müssen} auch auf diese Weise eingegeben
+@ref{Manuelle Balken}.  Balken @emph{müssen} auch auf diese Weise eingegeben
 werden, wenn sie über Pausen hinwegreichen sollen.
 
 Wenn automatische Bebalkung nicht benötigt wird, kann sie mit dem Befehl @code{\autoBeamOff}
@@ -1581,7 +1599,7 @@ sollte die automatische Bebalkung mit @code{\autoBeamOff} ausgeschaltet
 werden und die Balken manuell notiert werden.}
 
 Balkenmuster, die sich von den automatisch erstellen unterscheiden,
-können erstellt werden, siehe @ref{Setting automatic beam behavior}.
+können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 
 @predefined
 @code{\autoBeamOff},
@@ -1607,8 +1625,8 @@ können erstellt werden, siehe @ref{Setting automatic beam behavior}.
 
 @seealso
 Notationsreferenz:
-@ref{Manual beams},
-@ref{Setting automatic beam behavior}.
+@ref{Manuelle Balken},
+@ref{Einstellung von automatischen Balken}.
 
 Installierte Dateien:
 @file{scm/@/auto@/-beam@/.scm}.
@@ -1627,8 +1645,9 @@ Stimmen zusammenstoßen.
 
 
 
-@node Setting automatic beam behavior
-@unnumberedsubsubsec Setting automatic beam behavior
+@node Einstellung von automatischen Balken
+@unnumberedsubsubsec Einstellung von automatischen Balken
+@translationof Setting automatic beam behavior
 
 @cindex Automatische Balken, einstellen
 @cindex Einstellungen der Bebalkung
@@ -1715,7 +1734,7 @@ den Nenner des Taktart-Bruches bestimmt.
 
 Der Standardwert von @code{beatGrouping} wird aus einer Tabelle
 in der Datei @file{scm/@/music@/-functions@/.scm} entnommen.  Um
-sie zu finden, siehe @rlearning{Other sources of information}.
+sie zu finden, siehe @rlearning{Mehr Information}.
 Hier werden Taktzeiten-Gruppen für die Taktarten 5/8, 6/8, 8/8,
 9/8 und alle üblichen zusammengestzten Taktarten definiert.
 
@@ -1723,7 +1742,7 @@ Sowohl @code{measureLength} als auch @code{beatLength} sind
 @i{Momente}, Einheiten musikalischer Dauer.  Eine Größe der
 Art @i{Moment} wird durch die Scheme-Funktion
 @code{ly:make-moment} erstellt.  Für mehr Information zu dieser
-Funktion siehe @ref{Time administration}.
+Funktion siehe @ref{Verwaltung der Zeiteinheiten}.
 
 @code{beatGrouping} ist eine Liste an Integren, die die Anzahl
 von Zählzeiten für jede Gruppe darstellen.
@@ -1772,7 +1791,7 @@ bestehen aus einer Liste an Regeln, die die erlaubten Endpunkte
 definieren.  Die Standardregeln von @code{autoBeamSettings}
 sind in der Datei @file{scm/@/auto@/-beam@/.scm} definiert.  Um
 diese Datei zu finden, siehe
-@rlearning{Other sources of information}.
+@rlearning{Mehr Information}.
 
 Um eine neue Regel zu der Liste hinzuzufügen, muss folgende
 Syntax verwendet werden:
@@ -1970,8 +1989,9 @@ Schnipsel:
 @rlsr{Rhythms}.
 
 
-@node Manual beams
-@unnumberedsubsubsec Manual beams
+@node Manuelle Balken
+@unnumberedsubsubsec Manuelle Balken
+@translationof Manual beams
 
 @cindex manuelle Balken
 @cindex Balken, manuell
@@ -2032,8 +2052,9 @@ g a]
 {flat-flags-and-beam-nibs.ly}
 
 
-@node Feathered beams
-@unnumberedsubsubsec Feathered beams
+@node Gespreizte Balken
+@unnumberedsubsubsec Gespreizte Balken
+@translationof Feathered beams
 
 @cindex Balken, gespreizt
 @cindex gespreizte Balken
@@ -2097,18 +2118,20 @@ Snippets:
 @rlsr{Rhythms}.
 
 
-@node Bars
-@subsection Bars
+@node Takte
+@subsection Takte
+@translationof Bars
 
 @menu
-* Bar lines::                   
-* Bar numbers::                 
-* Bar and bar number checks::   
-* Rehearsal marks::             
+* Taktstriche::                   
+* Taktzahlen::                 
+* Takt- und Taktzahlüberprüfung::   
+* Übungszeichen::             
 @end menu
 
-@node Bar lines
-@unnumberedsubsubsec Bar lines
+@node Taktstriche
+@unnumberedsubsubsec Taktstriche
+@translationof Bar lines
 
 @c wrong word on purpose here:
 @cindex Taktlinien
@@ -2168,7 +2191,7 @@ benutzt werden.  Damit wird ein unsichtbarer Taktstrich an dieser Stelle eingef�
 und damit ein Zeilenumbruch erlaubt (aber nicht erzwungen), ohne 
 dass sich die Anzahl der Takte erhöhen würde.  Um einen
 Zeilenumbruch zu erzwingen, siehe
-@ref{Line breaking}.
+@ref{Zeilenumbrüche}.
 
 @cindex manuelle Taktstriche
 @cindex Taktstriche, manuell
@@ -2218,7 +2241,7 @@ Auch wenn die Taktlinien, die Wiederholungen angeben, manuell
 eingefügt werden können, wird die Wiederholung dadurch nicht von
 LilyPond erkannt.  Wiederholte Stellen werden besser notiert, indem
 man die Wiederholguns-Befehle einsetzt, die automatische die
-richtigen Taktlinien setzen.  Das ist beschrieben in@ref{Repeats}.
+richtigen Taktlinien setzen.  Das ist beschrieben in@ref{Wiederholungszeichen}.
 
 Zusätzlich kann noch @code{"||:"} verwendet werden, dass sich
 genauso wie @code{"|:"} verhält, außer bei Zeilenumbrüchen, wo ein
@@ -2277,9 +2300,9 @@ jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
 
 @seealso
 Notationsreferenz:
-@ref{Line breaking},
-@ref{Repeats},
-@ref{Grouping staves}.
+@ref{Zeilenumbrüche},
+@ref{Wiederholungszeichen},
+@ref{Systeme gruppieren}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -2292,8 +2315,9 @@ properties).
 
 
 
-@node Bar numbers
-@unnumberedsubsubsec Bar numbers
+@node Taktzahlen
+@unnumberedsubsubsec Taktzahlen
+@translationof Bar numbers
 
 @cindex Taktnummern
 @cindex Nummierung von Takten
@@ -2382,8 +2406,9 @@ Systems zusammenstoßen.  Um das zu verhindert, kann die
 um die Zahl zu verschieben.
 
 
-@node Bar and bar number checks
-@unnumberedsubsubsec Bar and bar number checks
+@node Takt- und Taktzahlüberprüfung
+@unnumberedsubsubsec Takt- und Taktzahlüberprüfung
+@translationof Bar and bar number checks
 
 @cindex Taktüberprüfung
 @funindex barCheckSynchronize
@@ -2461,8 +2486,9 @@ nicht mit dem Wert 123 übereinstimmt.
 
 
 
-@node Rehearsal marks
-@unnumberedsubsubsec Rehearsal marks
+@node Übungszeichen
+@unnumberedsubsubsec Übungszeichen
+@translationof Rehearsal marks
 
 @cindex Übungszeichen
 @cindex Abschnitte markieren
@@ -2577,17 +2603,17 @@ c1
 @end lilypond
 
 @noindent
-Siehe @ref{The Feta font}, wo alle Symbole gezeigt sind, die
+Siehe @ref{Die Feta-Schriftart}, wo alle Symbole gezeigt sind, die
 mit dem Befehl @code{\musicglyph} ausgegeben werden können.
 
 Übliche Veränderungen der Positionierung von Übungszeichen finden
 sich in
-@ref{Formatting text}.
+@ref{Text formatieren}.
 
 @seealso
 Notationsreferenz:
-@ref{The Feta font},
-@ref{Formatting text}.
+@ref{Die Feta-Schriftart},
+@ref{Text formatieren}.
 
 Installierte Dateien:
 @file{scm/@/translation@/-functions@/.scm} beinhaltet die Definition
@@ -2602,17 +2628,19 @@ Referenz der Interna:
 @rinternals{RehearsalMark}.
 
 
-@node Special rhythmic concerns
-@subsection Special rhythmic concerns
+@node Besondere rhythmische Fragen
+@subsection Besondere rhythmische Fragen
+@translationof Special rhythmic concerns
 
 @menu
-* Grace notes::                 
-* Aligning to cadenzas::        
-* Time administration::         
+* Verzierungen::                 
+* An Kadenzen ausrichten::        
+* Verwaltung der Zeiteinheiten::         
 @end menu
 
-@node Grace notes
-@unnumberedsubsubsec Grace notes
+@node Verzierungen
+@unnumberedsubsubsec Verzierungen
+@translationof Grace notes
 
 @funindex \grace
 @funindex grace
@@ -2811,8 +2839,9 @@ Ausdrücken benützt werden. Wenn sie ineinandergeschachtelt werden, kann es
 zu Fehlermeldungen oder Abstürzen kommen.
 
 
-@node Aligning to cadenzas
-@unnumberedsubsubsec Aligning to cadenzas
+@node An Kadenzen ausrichten
+@unnumberedsubsubsec An Kadenzen ausrichten
+@translationof Aligning to cadenzas
 
 @cindex Kadenz, Ausrichten an
 @cindex Ausrichten an Kadenz
@@ -2857,8 +2886,9 @@ Schnipsel:
 
 
 
-@node Time administration
-@unnumberedsubsubsec Time administration
+@node Verwaltung der Zeiteinheiten
+@unnumberedsubsubsec Verwaltung der Zeiteinheiten
+@translationof Time administration
 
 @cindex Verwaltung der Zeiteinheiten
 @cindex Zeit (in der Partitur)
@@ -2885,7 +2915,7 @@ um die Zeit in Partituren zu verwalten.
 @table @code
 @item currentBarNumber (aktuelle Taktnummer)
 Die gerade aktuelle Taktzahl.  Für ein Beispiel, das die Benutzung
-dieser Eigenschaft zeigt, siehe @ref{Bar numbers}.
+dieser Eigenschaft zeigt, siehe @ref{Taktzahlen}.
 
 @item measureLength (Taktlänge)
 Die Länge der Takte mit der aktuellen Taktart.  In einem 4/4-Takt
@@ -2934,7 +2964,7 @@ die Dauer Zähler/Nenner einer ganzen Note.  Zum Beispiel heißt
 
 @seealso
 Notationsreferenz:
-@ref{Bar numbers}, @ref{Unmetered music}
+@ref{Taktzahlen}, @ref{Musik ohne Metrum}
 
 Schnipsel:
 @rlsr{Rhythms}.

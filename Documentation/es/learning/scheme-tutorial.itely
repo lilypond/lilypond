@@ -10,8 +10,9 @@
 @c \version "2.12.0"
 
 
-@node Scheme tutorial
-@appendix Scheme tutorial
+@node Tutorial de Scheme
+@appendix Tutorial de Scheme
+@translationof Scheme tutorial
 
 @funindex #
 @cindex Scheme
@@ -44,7 +45,7 @@ tecleando @q{guile}.  En algunos sistemas, sobre todo en Windows,
 podría necesitar ajustar la variable de entorno @code{GUILE_LOAD_PATH}
 a la carpeta @code{../usr/shr/guile/1.8} dentro de la instalación de
 LilyPond (para conocer la ruta completa a esta carpeta, consulte
-@ref{Other sources of information}).  Como alternativa, los usuarios
+@ref{Otras fuentes de información}).  Como alternativa, los usuarios
 de Windows pueden seleccionar simplemente @q{Ejecutar} del menú Inicio
 e introducir @q{guile}.
 
@@ -272,18 +273,18 @@ símbolos, una lista de símbolos y una lista de listas respectivamente:
 
 
 @menu
-* Tweaking with Scheme::
+* Trucos con Scheme::
 @end menu
 
-@node Tweaking with Scheme
-@appendixsec Tweaking with Scheme
+@node Trucos con Scheme
+@appendixsec Trucos con Scheme
+@translationof Tweaking with Scheme
 
 Hemos visto cómo la salida de LilyPond se puede modificar
 profundamente usando instrucciones como @code{\override TextScript
 #'extra-offset = ( 1 . -1)}.  Pero tenemos incluso mucho más poder si
 utilizamos Scheme.  Para ver una explicación completa de esto,
-consulte el @ref{Scheme tutorial}, y @ruser{Interfaces for
-programmers}.
+consulte el @ref{Tutorial de Scheme}, y @ruser{Interfaces para programadores}.
 
 Podemos usar Scheme simplemente para sobreescribir instrucciones con
 @code{\override},

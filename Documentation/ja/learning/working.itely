@@ -14,8 +14,9 @@
 @c Translation status: post-GDP
 
 
-@node Working on LilyPond projects
-@chapter Working on LilyPond projects
+@node LilyPond プロジェクトに取り組む
+@chapter LilyPond プロジェクトに取り組む
+@translationof Working on LilyPond projects
 
 このセクションでは一般的な問題のいくつかを解決または回避する方法について説明し@c
 ます。あなたにプログラミングの経験があるのなら、ここで取り上げる TIPS の多くは@c
@@ -23,14 +24,15 @@
 
 
 @menu
-* Suggestions for writing LilyPond input files::
-* When things don't work::
-* Scores and parts::
+* LilyPond 入力ファイルの記述に対する提案::
+* うまくいかないとき::
+* 楽譜とパート::
 @end menu
 
 
-@node Suggestions for writing LilyPond input files
-@section Suggestions for writing LilyPond input files
+@node LilyPond 入力ファイルの記述に対する提案
+@section LilyPond 入力ファイルの記述に対する提案
+@translationof Suggestions for writing LilyPond input files
 
 今やあなたはもっと大きな LilyPond 入力ファイル -- チュートリアルにあるような小@c
 さな例ではなく、楽曲全体 -- を書き始める準備が整っています。しかしながら、どの@c
@@ -58,16 +60,17 @@ LilyPond 入力ファイルを書いているときに考慮すべきことが�
 @end itemize
 
 @menu
-* General suggestions::
-* Typesetting existing music::
-* Large projects::
-* Saving typing with variables and functions::
-* Style sheets::
+* 一般的な提案::
+* 既存の音楽を譜刻する::
+* 大きなプロジェクト::
+* 変数と関数を用いて入力の手間を省く::
+* スタイル シート::
 @end menu
 
 
-@node General suggestions
-@subsection General suggestions
+@node 一般的な提案
+@subsection 一般的な提案
+@translationof General suggestions
 
 ここで、あなたが問題を回避したり修正する手助けになる可能性がある提案をいくつか@c
 挙げます:
@@ -106,14 +109,14 @@ LilyPond のバージョンを宣言することを必要とします。
 ズの開始時に @code{c4 d e} (@code{c d e} ではなく) と記述しておけば、後になっ@c
 て音楽を再編成する場合に問題の発生を免れる可能性があります。
 
-@item 音楽定義から@strong{調整を分離します}。@ref{Saving typing with variables 
-and functions} と @ref{Style sheets} を参照してください。
+@item 音楽定義から@strong{調整を分離します}。@ref{変数と関数を用いて入力の手間を省く} と @ref{スタイル シート} を参照してください。
 
 @end itemize
 
 
-@node Typesetting existing music
-@subsection Typesetting existing music
+@node 既存の音楽を譜刻する
+@subsection 既存の音楽を譜刻する
+@translationof Typesetting existing music
 
 既存の楽譜からの音楽を入力している (つまり、既存の楽譜の楽曲を譜刻している) の@c
 なら、
@@ -137,8 +140,9 @@ and functions} と @ref{Style sheets} を参照してください。
 @end itemize
 
 
-@node Large projects
-@subsection Large projects
+@node 大きなプロジェクト
+@subsection 大きなプロジェクト
+@translationof Large projects
 
 大きなプロジェクトに取り組んでいるとき、LilyPond 入力ファイルの構造をすっきり@c
 させておくことが不可欠です。
@@ -180,8 +184,9 @@ g4\fthenp c'8. e16
 @end itemize
 
 
-@node Saving typing with variables and functions
-@subsection Saving typing with variables and functions
+@node 変数と関数を用いて入力の手間を省く
+@subsection 変数と関数を用いて入力の手間を省く
+@translationof Saving typing with variables and functions
 
 @cindex variables
 @cindex variables
@@ -277,22 +282,23 @@ padText =
 @end lilypond
 
 変数を使うことは、LilyPond 入力構文に変更があった場合の作業を減らす良い方法で@c
-もあります (@ref{Updating old input files} を参照してください)。あなたがあなた@c
+もあります (@ref{古い入力ファイルをアップデートする} を参照してください)。あなたがあなた@c
 の入力ファイルすべてに使用する単一の定義 (@code{@bs{}dolce} のような) を持って@c
 いて、構文が変更された場合、すべての @code{.ly} ファイルを変更する代わりに、@c
 @code{@bs{}dolce} 定義をアップデートするだけで済みます。
 
 
-@node Style sheets
-@subsection Style sheets
+@node スタイル シート
+@subsection スタイル シート
+@translationof Style sheets
 
 LilyPond が作り出す出力にはさまざまな変更を加えることができます (詳細は 
-@ref{Tweaking output} を参照してください)。しかしながら、調整を加えたい入力@c
+@ref{出力を調整する} を参照してください)。しかしながら、調整を加えたい入力@c
 ファイルがたくさんあるとしたらどうでしょう？また、単に調整を実際の音楽表記から@c
 分離したいとしたらどうでしょう？これはとても簡単なことです。
 
 以下の例を見てみましょう。@code{@hash{}()} を持つ部分を理解できなくても心配し@c
-ないでください。@ref{Advanced tweaks with Scheme} で説明されています。
+ないでください。@ref{Scheme を用いた高度な調整} で説明されています。
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
@@ -312,7 +318,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 }
 @end lilypond
 
-この例には出力が重なり合うという問題がいくつかあり、@ref{Moving objects} のテ@c
+この例には出力が重なり合うという問題がいくつかあり、@ref{オブジェクトを移動させる} のテ@c
 クニックを使ってそれらを修正しています。そこで、さらに @code{mpdolce} 定義と 
 @code{tempoMark} 定義に関して何かしてみましょう。それらは望みの出力を作り出し@c
 ていますが、それらを別の楽曲で使いたいとします。単純にそれらを各ファイルの先頭@c
@@ -532,30 +538,31 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end example
 
 
-@node When things don't work
-@section When things don't work
+@node うまくいかないとき
+@section うまくいかないとき
+@translationof When things don't work
 
 @menu
-* Updating old input files::
-* Troubleshooting (taking it all apart)::
-* Minimal examples::
+* 古い入力ファイルをアップデートする::
+* トラブルシューティング (すべてをバラバラにする)::
+* 最小化例::
 @end menu
 
-@node Updating old input files
-@subsection Updating old input files
+@node 古い入力ファイルをアップデートする
+@subsection 古い入力ファイルをアップデートする
+@translationof Updating old input files
 
 LilyPond 入力構文はしばしば変更されます。LilyPond 自体の改良に合わせて、構文 
 (入力言語) も変更されます。これらの変更は入力を読みやすく/書きやすくするために@c
 行われる場合もありますし、LilyPond の新しい機能のために行われる場合もあります。
 
 LilyPond は、このアップデートをより容易にするファイル: @code{convert-ly} と一@c
-緒に公開されます。このプログラムの実行方法についての詳細は @rprogram{Updating 
-files with convert-ly} を参照してください。
+緒に公開されます。このプログラムの実行方法についての詳細は @rprogram{convert-ly を使ってファイルを更新する} を参照してください。
 
 残念なことに、@code{convert-ly} はすべての入力構文の変更を処理できるわけではあ@c
 りません。単純な探索-置換 (@code{raggedright} が @code{ragged-right} になった@c
 など) を処理しますが、複雑すぎる変更もあります。@code{convert-ly} が処理できな@c
-い構文の変更は @rprogram{Updating files with convert-ly} にリストアップされて@c
+い構文の変更は @rprogram{convert-ly を使ってファイルを更新する} にリストアップされて@c
 います。
 
 例えば、LilyPond 2.4 以前では、アクセントと非英語文字 -- 例えば、@c
@@ -567,8 +574,9 @@ UTF-8 キャラクタとして直接 LilyPond ファイルに入力するよう�
 る必要があります。
 
 
-@node Troubleshooting (taking it all apart)
-@subsection Troubleshooting (taking it all apart)
+@node トラブルシューティング (すべてをバラバラにする)
+@subsection トラブルシューティング (すべてをバラバラにする)
+@translationof Troubleshooting (taking it all apart)
 
 遅かれ早かれ、あなたは LilyPond がコンパイルできないファイルを書くことになりま@c
 す。LilyPond が返すメッセージはエラーを見つけ出す手助けになるかもしれません@c
@@ -615,12 +623,13 @@ bass = \relative c' @{
 そして、問題を起こしている行を見つけ出すまで、@code{bass} パートから少しずつコ@c
 メントを外していきます。
 
-もう 1 つの非常に有用なデバッグ テクニックは @ref{Minimal examples} を構築する@c
+もう 1 つの非常に有用なデバッグ テクニックは @ref{最小化例} を構築する@c
 ことです。
 
 
-@node Minimal examples
-@subsection Minimal examples
+@node 最小化例
+@subsection 最小化例
+@translationof Minimal examples
 
 最小化例は可能な限り小さな例のことです。最小化例は長い例よりも理解することが@c
 ずっと容易です。最小化例は以下の目的で使用されます:
@@ -654,8 +663,9 @@ bass = \relative c' @{
 限り
 @end itemize
 
-@node Scores and parts
-@section Scores and parts
+@node 楽譜とパート
+@section 楽譜とパート
+@translationof Scores and parts
 
 TODO: this is really old stuff from the really old tutorial.
 Rewrite, fix, etc.  Or maybe delete entirely.  -gp

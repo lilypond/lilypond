@@ -11,8 +11,9 @@
 
 @c Translators: Jean-Charles Malahieude
 
-@node Converting from other formats
-@chapter Converting from other formats
+@node Conversion à partir d'autres formats
+@chapter Conversion à partir d'autres formats
+@translationof Converting from other formats
 
 La musique peut aussi être récupérée par importation d'un autre
 format.  Ce chapitre passe en revue les différents outils prévus à cet
@@ -23,9 +24,9 @@ de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
 
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
 en ligne de commande.  Pour plus de précisions, reportez-vous au
-chapitre @ref{Command-line usage}.  Si vous utilisez MacOS 10.3 ou 10.4
+chapitre @ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS 10.3 ou 10.4
 et recontrez quelque problème avec l'un de ces scripts, comme
-@code{convert-ly}, reportez-vous au chapitre @ref{Setup for MacOS X}. 
+@code{convert-ly}, reportez-vous au chapitre @ref{Spécificités pour MacOS X}. 
 
 @knownissues
 
@@ -36,18 +37,19 @@ peu de chance pour que nous soyons en mesure de résoudre les bogues de
 ces programmes.
 
 @menu
-* Invoking midi2ly::            importation de musique au format MIDI.
-* Invoking musicxml2ly::        importation de partitions au format MusicXML.
-* Invoking abc2ly::             importation de partitions au format ABC.
-* Invoking etf2ly::             importation de partitions Finale.
-* Generating LilyPond files::   interfaces graphiques, outils de
+* Utilisation de midi2ly::            importation de musique au format MIDI.
+* Utilisation de musicxml2ly::        importation de partitions au format MusicXML.
+* Utilisation d'abc2ly::             importation de partitions au format ABC.
+* Utilisation d'etf2ly::             importation de partitions Finale.
+* Génération de fichiers LilyPond::   interfaces graphiques, outils de
                                 transcription et de composition algorithmique.
 @end menu
 
 
 
-@node Invoking midi2ly
-@section Invoking @command{midi2ly}
+@node Utilisation de midi2ly
+@section Utilisation de @command{midi2ly}
+@translationof Invoking midi2ly
 
 @cindex MIDI
 
@@ -84,7 +86,7 @@ midi2ly [@var{option}]@dots{} @var{fichier-midi}
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@ref{Command-line usage}. 
+@ref{Utilisation en ligne de commande}. 
 
 @command{midi2ly} accepte les options suivantes :
 
@@ -136,8 +138,9 @@ sera lue et les suivantes ignorées.  Affectez-leur une durée unique et
 ajoutez une indication de phrasé ou de pédale.
 
 
-@node Invoking musicxml2ly
-@section Invoking @code{musicxml2ly}
+@node Utilisation de musicxml2ly
+@section Utilisation de @command{musicxml2ly}
+@translationof Invoking musicxml2ly
 
 @cindex MusicXML
 
@@ -156,7 +159,7 @@ musicxml2ly [@var{option}]@dots{} @var{fichier-xml}
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@ref{Command-line usage}. 
+@ref{Utilisation en ligne de commande}. 
 
 Si le nom du fichier est @file{-}, @command{musicxml2ly} lira
 directement à partir de la ligne de commande.  
@@ -206,8 +209,9 @@ Le fichier d'entrée est un fichier MusicXML zippé.
 @end table
 
 
-@node Invoking abc2ly
-@section Invoking @code{abc2ly}
+@node Utilisation d'abc2ly
+@section Utilisation de @command{abc2ly}
+@translationof Invoking abc2ly
 
 @cindex ABC
 
@@ -271,8 +275,9 @@ ABC synchronise paroles et musique en début de ligne ;
 @command{abc2ly} ignore les ligatures ABC.
 
 
-@node Invoking etf2ly
-@section Invoking @command{etf2ly}
+@node Utilisation d'etf2ly
+@section Utilisation de @command{etf2ly}
+@translationof Invoking etf2ly
 
 @cindex ETF
 @cindex Enigma
@@ -291,7 +296,7 @@ etf2ly [@var{option}]@dots{} @var{fichier-etf}
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@ref{Command-line usage}. 
+@ref{Utilisation en ligne de commande}. 
 
 @command{etf2ly} accepte les options suivantes :
 
@@ -313,8 +318,9 @@ terminent pas de manière satisfaisante.
 
 
 
-@node Generating LilyPond files
-@section Generating LilyPond files
+@node Génération de fichiers LilyPond
+@section Génération de fichiers LilyPond
+@translationof Generating LilyPond files
 
 @cindex programmes externes générant des fichiers LilyPond
 

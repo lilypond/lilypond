@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Chord notation
-@section Chord notation
+@node Notación de acordes
+@section Notación de acordes
+@translationof Chord notation
 
 @lilypondfile[quote]{chords-headword.ly}
 
@@ -20,13 +21,14 @@ acordes.  También se pueden imprimir los nombres de los acordes.
 Además se puede imprimir notación de bajo cifrado.
  
 @menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
+* Modo de acordes::
+* Imprimir los acordes::
+* Bajo cifrado::
 @end menu
 
-@node Chord mode
-@subsection Chord mode
+@node Modo de acordes
+@subsection Modo de acordes
+@translationof Chord mode
 
 @cindex modo de acordes
 
@@ -35,13 +37,14 @@ indicador de la estructura del acorde en lugar de la altura de sus
 notas.
 
 @menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
+* Panorámica del modo de acordes::
+* Acordes más usuales::
+* Acordes extendidos y alterados::
 @end menu
 
-@node Chord mode overview
-@unnumberedsubsubsec Chord mode overview
+@node Panorámica del modo de acordes
+@unnumberedsubsubsec Panorámica del modo de acordes
+@translationof Chord mode overview
 
 @cindex acordes, nombres de
 @cindex acordes, modo de
@@ -50,7 +53,7 @@ notas.
 @cindex jazz, acordes de
 
 Los acordes se pueden escribir como música simultánea, como se explica
-en @ref{Chorded notes}.
+en @ref{Notas en acorde}.
 
 También se pueden escribir los acordes en el @qq{modo de acordes}, que
 es un modo de entrada que se centra en las estructuras de los acordes
@@ -58,7 +61,7 @@ dentro de la música europea tradicional (donde se conoce como «cifrado
 americano») más que en las notas concretas.  Esto es muy práctico para
 los que están familiarizados con la utilización de nombres para
 describir los acordes.  Hay más información sobre los distintos modos
-de entrada en @ref{Input modes}.
+de entrada en @ref{Modos de entrada}.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c1 g a g c }
@@ -87,8 +90,8 @@ Glosario musical:
 @rglos{chord}.
 
 Referencia de la notación:
-@ref{Chorded notes},
-@ref{Input modes}.
+@ref{Notas en acorde},
+@ref{Modos de entrada}.
 
 Fragmentos de código:
 @rlsr{Chords}
@@ -115,8 +118,9 @@ contexto de @code{Staff}:
 }
 @end lilypond
 
-@node Common chords
-@unnumberedsubsubsec Common chords
+@node Acordes más usuales
+@unnumberedsubsubsec Acordes más usuales
+@translationof Common chords
 
 @cindex tríadas
 @cindex séptima, acordes de
@@ -155,7 +159,7 @@ añadida de forma predeterminada a los acordes es menor, lo que hace
 del acorde de séptima dominante el acorde básico de séptima.  Todas
 las alteraciones se consideran en relación con la séptima dominante.
 Hay una tabla más completa donde aparecen los usos de los
-modificadores en @ref{Common chord modifiers}.
+modificadores en @ref{Modificadores de acorde más usuales}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -236,8 +240,8 @@ modificador para crear una tríada mayor.
 
 @seealso
 Referencia de la notación:
-@ref{Common chord modifiers},
-@ref{Extended and altered chords}.
+@ref{Modificadores de acorde más usuales},
+@ref{Acordes extendidos y alterados}.
 
 Fragmentos de código:
 @rlsr{Chords}.
@@ -248,10 +252,11 @@ la nota más aguda del mismo.  Los acordes con más de un modificador se
 analizan sin producir errores ni advertencias, pero el resultado es
 impredecible.  Los acordes que no se pueden conseguir con un solo
 modificador se deben alterar en sus notas individuales como se
-describe en @ref{Extended and altered chords}.
+describe en @ref{Acordes extendidos y alterados}.
 
-@node Extended and altered chords
-@unnumberedsubsubsec Extended and altered chords
+@node Acordes extendidos y alterados
+@unnumberedsubsubsec Acordes extendidos y alterados
+@translationof Extended and altered chords
 
 @cindex acordes extendidos
 @cindex acordes alterados
@@ -383,13 +388,12 @@ de ser movida por efecto de una inversión, mediante el uso de
 @end lilypond
 
 Los modificadores de acorde que se pueden utilizar para producir una
-amplia variedad de acordes estándar se muestran en @ref{Common chord
-modifiers}.
+amplia variedad de acordes estándar se muestran en @ref{Modificadores de acorde más usuales}.
 
 
 @seealso
 Referencia de la notación:
-@ref{Common chord modifiers}.
+@ref{Modificadores de acorde más usuales}.
 
 Fragmentos de código:
 @rlsr{Chords}.
@@ -415,19 +419,21 @@ acorde.
 }
 @end lilypond
 
-@node Displaying chords
-@subsection Displaying chords
+@node Imprimir los acordes
+@subsection Imprimir los acordes
+@translationof Displaying chords
 
 Los acordes se pueden imprimir por su nombre, además de la impresión
 estándar como notas sobre un pentagrama.
 
 @menu
-* Printing chord names::
-* Customizing chord names::
+* Impresión de los nombres de acorde::
+* Nombres de acorde personalizados::
 @end menu
 
-@node Printing chord names
-@unnumberedsubsubsec Printing chord names
+@node Impresión de los nombres de acorde
+@unnumberedsubsubsec Impresión de los nombres de acorde
+@translationof Printing chord names
 
 @cindex impresión de los nombres de acorde
 @cindex acordes, nombres de
@@ -529,7 +535,7 @@ Glosario musical:
 @rglos{chord}.
 
 Referencia de la notación:
-@ref{Writing music in parallel}.
+@ref{Escribir música en paralelo}.
 
 Fragmentos de código:
 @rlsr{Chords}.
@@ -547,8 +553,9 @@ Referencia de funcionamiento interno:
 Los acordes que contienen inversiones o bajos alterados no reciben un
 nombre adecuado si se escriben usando música simultánea.
 
-@node Customizing chord names
-@unnumberedsubsubsec Customizing chord names
+@node Nombres de acorde personalizados
+@unnumberedsubsubsec Nombres de acorde personalizados
+@translationof Customizing chord names
 
 @cindex personalización de los nombres de acorde
 
@@ -564,10 +571,10 @@ de acorde dados se pueden personalizar.
 
 El esquema de nomenclatura de acordes predeterminado es un sistema
 para música de Jazz, propuesto por Klaus Ignatzek (véase
-@ref{Literature list}).  También funcionan otros dos esquemas de
+@ref{Lista bibliográfica}).  También funcionan otros dos esquemas de
 nomenclatura de acordes: una notación de acordes de Jazz alternativa y
 un esquema sistemático llamado Acordes de Banter.  La notación de Jazz
-alternativa también se puede ver en el cuadro @ref{Chord name chart}.
+alternativa también se puede ver en el cuadro @ref{Carta de nombres de acordes}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -687,8 +694,8 @@ acorde está alterado.
 
 @seealso
 Referencia de la notación:
-@ref{Chord name chart},
-@ref{Common chord modifiers}.
+@ref{Carta de nombres de acordes},
+@ref{Modificadores de acorde más usuales}.
 
 Archivos instalados:
 @file{scm/@/chords@/-ignatzek@/.scm},
@@ -722,21 +729,23 @@ myChords = \relative c' {
 >>
 @end lilypond
 
-@node Figured bass
-@subsection Figured bass
+@node Bajo cifrado
+@subsection Bajo cifrado
+@translationof Figured bass
 
 @lilypondfile[quote]{figured-bass-headword.ly}
 
 Se puede imprimir notación de bajo cifrado.
 
 @menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
+* Introducción al bajo cifrado::
+* Introducir el bajo cifrado::
+* Imprimir el bajo cifrado::
 @end menu
 
-@node Introduction to figured bass
-@unnumberedsubsubsec Introduction to figured bass
+@node Introducción al bajo cifrado
+@unnumberedsubsubsec Introducción al bajo cifrado
+@translationof Introduction to figured bass
 
 @cindex Basso continuo
 @cindex Thorough bass
@@ -794,12 +803,13 @@ Fragmentos de código:
 @rlsr{Chords}
 
 
-@node Entering figured bass
-@unnumberedsubsubsec Entering figured bass
+@node Introducir el bajo cifrado
+@unnumberedsubsubsec Introducir el bajo cifrado
+@translationof Entering figured bass
 
 Se usa @code{\figuremode} para cambiar el modo de entrada al modo de
 cifras.  Hay más información sobre los distintos modos de entrada en
-@ref{Input modes}.
+@ref{Modos de entrada}.
 
 En el modo de cifras, un grupo de cifras del bajo está delimitado
 mediante ángulos simples, @code{<} y @code{>}.  La duración se escribe
@@ -990,8 +1000,9 @@ Referencia de funcionamiento interno:
 @c @knownissues
 
 
-@node Displaying figured bass
-@unnumberedsubsubsec Displaying figured bass
+@node Imprimir el bajo cifrado
+@unnumberedsubsubsec Imprimir el bajo cifrado
+@translationof Displaying figured bass
 
 El bajo cifrado se puede imprimir usando el contexto
 @code{FiguredBass}, o dentro de la mayoría de los contextos de

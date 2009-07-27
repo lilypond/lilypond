@@ -31,6 +31,7 @@ Tutorial guidelines:  (different from policy.txt!)
 
 @node Tutorial
 @chapter Tutorial
+@translationof Tutorial
 
 Este tutorial comienza con una introducción al lenguaje musical
 LilyPond y explica cómo producir música impresa.  Después de este
@@ -39,29 +40,31 @@ bella, que contenga notación musical usual.
 
 
 @menu
-* First steps::
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
+* Primeros pasos::
+* Notación en un solo pentagrama::
+* Varias notas a la vez::
+* Canciones::
+* Retoques finales::
 @end menu
 
 
-@node First steps
-@section First steps
+@node Primeros pasos
+@section Primeros pasos
+@translationof First steps
 
 Esta sección le ofrece una introducción básica al trabajo con LilyPond.
 
 @menu
-* Compiling a file::
-* Simple notation::
-* Working on input files::
-* How to read the manual::
+* Compilar un archivo::
+* Notación sencilla::
+* Trabajar sobre los archivos de entrada::
+* Cómo leer el manual::
 @end menu
 
 
-@node Compiling a file
-@subsection Compiling a file
+@node Compilar un archivo
+@subsection Compilar un archivo
+@translationof Compiling a file
 
 @cindex compilación
 @cindex ejemplo inicial
@@ -100,7 +103,7 @@ encuentren al principio o al final de una línea, para evitar
 ambigüedades.  Es posible que se omitan en algunos ejemplos del
 presente manual ¡pero no las omita en su propia música!  Para ver más
 información sobre la presentación de los ejemplos del manual, consulte
-@ref{How to read the manual}.}
+@ref{Cómo leer el manual}.}
 
 Además, la entrada de LilyPond es @strong{sensible a las mayúsculas}.
 @code{ @{ c d e @}} es una entrada válida; @code{@{ C D E @}} produce
@@ -108,7 +111,7 @@ un mensaje de error.
 
 @smallspace
 
-@subheading Entering music and viewing output
+@subheading Introducir música y ver la salida
 
 @cindex PDF, archivo
 @cindex ver la música
@@ -125,7 +128,7 @@ para ver o imprimir el resultado.
 
 Tenga en cuenta que están disponibles varios otros editores de texto
 con un mejor apoyo a la edición de texto de LilyPond.  Para ver más
-información, consulte @rprogram{Text editor support}.
+información, consulte @rprogram{Apoyo respecto de los editores de texto}.
 
 @warning{La primera vez que ejecute LilyPond, tardará un minuto o dos
 porque todas las tipografías del sistema han de ser analizadas
@@ -208,8 +211,9 @@ Convirtiendo a `prueba.pdf'...
 @end example
 
 
-@node Simple notation
-@subsection Simple notation
+@node Notación sencilla
+@subsection Notación sencilla
+@translationof Simple notation
 
 @cindex sencilla, notación
 @cindex notación sencilla
@@ -229,7 +233,7 @@ Este comportamiento se puede modificar, pero en general estos valores
 automáticos son adecuados.
 
 
-@subheading Pitches
+@subheading Alturas
 
 @cindex alturas
 @cindex notas
@@ -352,7 +356,7 @@ El valor inicial de @code{@w{\relative c'}} también puede modificarse
 de esta forma.
 @c " - keeps quotes in order for context-sensitive editor -td
 
-@subheading Durations (rhythms)
+@subheading Duraciones (valores rítmicos)
 
 @cindex duraciones de las notas
 @cindex notas, duraciones de
@@ -402,7 +406,7 @@ especificar de forma explícita (es decir: mediante un número).
 @end lilypond
 
 
-@subheading Rests
+@subheading Silencios
 
 @cindex silencio
 @cindex notación de los silencios
@@ -421,7 +425,7 @@ nombre @code{r}@tie{}:
 @end lilypond
 
 
-@subheading Time signature
+@subheading Indicación de compás
 
 @cindex compás, indicación de
 
@@ -446,7 +450,7 @@ La @notation{indicación de compás} se puede establecer con la orden
 @end lilypond
 
 
-@subheading Clef
+@subheading Clave
 
 @cindex clave
 @cindex sol, clave de
@@ -481,7 +485,7 @@ La @notation{clave} se puede establecer utilizando la orden
 @end lilypond
 
 
-@subheading All together
+@subheading Todo junto
 
 He aquí un pequeño ejemplo que muestra todos los elementos anteriores
 juntos:
@@ -498,15 +502,16 @@ juntos:
 
 @seealso
 Referencia de la notación:
-@ruser{Writing pitches},
-@ruser{Writing rhythms},
-@ruser{Writing rests},
-@ruser{Time signature},
-@ruser{Clef}.
+@ruser{Escritura de notas},
+@ruser{Escritura de las duraciones (valores rítmicos)},
+@ruser{Escritura de silencios},
+@ruser{Indicación de compás},
+@ruser{Clave}.
 
 
-@node Working on input files
-@subsection Working on input files
+@node Trabajar sobre los archivos de entrada
+@subsection Trabajar sobre los archivos de entrada
+@translationof Working on input files
 
 @cindex llaves
 @cindex comentarios
@@ -625,8 +630,9 @@ fragmento muestra algunos posibles usos para los comentarios:
 @end itemize
 
 
-@node How to read the manual
-@subsection How to read the manual
+@node Cómo leer el manual
+@subsection Cómo leer el manual
+@translationof How to read the manual
 
 @cindex cómo leer el manual
 @cindex manual, lectura del
@@ -638,7 +644,7 @@ fragmento muestra algunos posibles usos para los comentarios:
 @cindex construir archivos, consejos
 @cindex archivos, consejos para construir
 
-Como ya vimos en @ref{Working on input files}, el código de entrada de
+Como ya vimos en @ref{Trabajar sobre los archivos de entrada}, el código de entrada de
 LilyPond debe estar rodeado de llaves @{ @} o de @code{@w{\relative
 c'' @{ ... @}}}.  Durante el resto del presente manual, la mayor parte
 de los ejemplos omitirán las llaves.  Para reproducir los ejemplos,
@@ -663,7 +669,7 @@ pieza más grande, por eso hemos formateado el manual de esta manera.
 
 
 
-@subheading Clickable examples
+@subheading Ejemplos con enlace
 
 Muchas personas aprenden a utilizar programas probando y enredando con
 ellos.  Esto también puede hacerse con LilyPond.  Si hace clic sobre
@@ -691,26 +697,28 @@ de entrada en @ref{Suggestions for writing LilyPond files}; pero quizá
 sea mejor leer primero el resto del tutorial.
 
 
-@node Single staff notation
-@section Single staff notation
+@node Notación en un solo pentagrama
+@section Notación en un solo pentagrama
+@translationof Single staff notation
 
 Esta sección es una introducción a la notación corriente que se utiliza para una voz
 o un pentagrama.
 
 @menu
-* Accidentals and key signatures::
-* Ties and slurs::
-* Articulation and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
+* Alteraciones accidentales y armaduras::
+* Ligaduras de unión y de expresión::
+* Articulaciones y matices dinámicos::
+* Añadir texto::
+* Barras automáticas y manuales::
+* Instrucciones rítmicas avanzadas::
 @end menu
 
 
-@node Accidentals and key signatures
-@subsection Accidentals and key signatures
+@node Alteraciones accidentales y armaduras
+@subsection Alteraciones accidentales y armaduras
+@translationof Accidentals and key signatures
 
-@subheading Accidentals
+@subheading Alteraciones accidentales
 
 @cindex accidentales, alteraciones
 @cindex alteraciones
@@ -741,14 +749,14 @@ bemol} se hace añadiendo @code{isis} o @code{eses}.  Esta sintaxis se
 deriva de las convenciones de nomenclatura de las notas en las lenguas
 nórdicas y germánicas como el alemán y el holandés.  Para utilizar
 otros nombres para las @notation{alteraciones accidentales}, véase
-@ruser{Note names in other languages}.
+@ruser{Nombres de las notas en otros idiomas}.
 
 @lilypond[verbatim,quote,relative=2]
 cis1 ees fisis, aeses
 @end lilypond
 
 @cindex tonalidad, armadura de la, establecer
-@subheading Key signatures
+@subheading Armaduras
 
 @cindex tonalidad, armadura de
 @cindex armadura
@@ -783,7 +791,7 @@ a
 
 @smallspace
 
-@subheading Warning: key signatures and pitches
+@subheading Advertencia: armaduras y alturas
 
 Glosario musical:
 @rglos{accidental},
@@ -837,23 +845,24 @@ Poner todas las alteraciones de forma explícita puede que requiera
 algo más de trabajo al teclear, pero la ventaja es que la
 @notation{transposición} es más fácil, y las alteraciones se pueden
 imprimir siguiendo varias convenciones distintas.  Consulte
-@ruser{Automatic accidentals} para ver ejemplos de cómo se pueden
+@ruser{Alteraciones accidentales automáticas} para ver ejemplos de cómo se pueden
 imprimir las alteraciones de acuerdo a reglas diferentes.
 
 
 @seealso
 Referencia de la notación:
-@ruser{Note names in other languages},
-@ruser{Accidentals},
-@ruser{Automatic accidentals},
-@ruser{Key signature}.
+@ruser{Nombres de las notas en otros idiomas},
+@ruser{Alteraciones accidentales},
+@ruser{Alteraciones accidentales automáticas},
+@ruser{Armadura de la tonalidad}.
 
 Glosario musical:
 @rglos{Pitch names}.
 
 
-@node Ties and slurs
-@subsection Ties and slurs
+@node Ligaduras de unión y de expresión
+@subsection Ligaduras de unión y de expresión
+@translationof Ties and slurs
 
 @cindex ligadura de unión
 @cindex ligadura de expresión
@@ -864,7 +873,7 @@ Glosario musical:
 @funindex ( ... )
 @funindex \( ... \)
 
-@subheading Ties
+@subheading Ligaduras de unión
 
 Glosario musical:
 @rglos{tie}.
@@ -877,7 +886,7 @@ g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
 
-@subheading Slurs
+@subheading Ligaduras de expresión
 
 Glosario musical:
 @rglos{slur}.
@@ -890,7 +899,7 @@ abarcando varias notas.  Las notas inicial y final se marcan mediante
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@subheading Phrasing slurs
+@subheading Ligaduras de fraseo
 
 Glosario musical:
 @rglos{slur},
@@ -909,7 +918,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @smallspace
 
 @cindex ligaduras de expresión frente a ligaduras de unión
-@subheading Warnings: slurs vs. ties
+@subheading Advertencias: ligaduras de expresión frente a ligaduras de unión
 
 Glosario musical:
 @rglos{articulation},
@@ -931,15 +940,16 @@ c2~( c8 fis fis4 ~ fis2 g2)
 
 @seealso
 Referencia de la notación:
-@ruser{Ties},
-@ruser{Slurs},
-@ruser{Phrasing slurs}.
+@ruser{Ligaduras de unión},
+@ruser{Ligaduras de expresión},
+@ruser{Ligaduras de fraseo}.
 
 
-@node Articulation and dynamics
-@subsection Articulation and dynamics
+@node Articulaciones y matices dinámicos
+@subsection Articulaciones y matices dinámicos
+@translationof Articulation and dynamics
 
-@subheading Articulations
+@subheading Articulaciones
 
 @cindex articulación
 @cindex acento
@@ -955,7 +965,7 @@ notas utilizando un guión @code{-} seguido de un carácter único:
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
-@subheading Fingerings
+@subheading Digitaciones
 
 @cindex digitaciones
 
@@ -982,7 +992,7 @@ mejor dejar que LilyPond determine la dirección de las articulaciones.
 c_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
-@subheading Dynamics
+@subheading Matices dinámicos
 
 @cindex dinámica, indicaciones de
 @cindex matices
@@ -1026,13 +1036,14 @@ c2\< c2\ff\> c2 c2\!
 
 @seealso
 Referencia de la notación:
-@ruser{Articulations and ornamentations},
-@ruser{Fingering instructions},
-@ruser{Dynamics}.
+@ruser{Articulaciones y ornamentos},
+@ruser{Indicaciones de digitación},
+@ruser{Matices dinámicos}.
 
 
-@node Adding text
-@subsection Adding text
+@node Añadir texto
+@subsection Añadir texto
+@translationof Adding text
 
 @cindex texto, añadir
 @cindex añadir texto
@@ -1059,11 +1070,12 @@ a1_\markup{
 
 @seealso
 Referencia de la notación:
-@ruser{Writing text}.
+@ruser{Escritura del texto}.
 
 
-@node Automatic and manual beams
-@subsection Automatic and manual beams
+@node Barras automáticas y manuales
+@subsection Barras automáticas y manuales
+@translationof Automatic and manual beams
 
 @cindex barras de corchea
 @cindex barrado
@@ -1112,14 +1124,15 @@ a8 c b4 d8. c16 b4
 
 @seealso
 Referencia de la notación:
-@ruser{Automatic beams},
-@ruser{Manual beams}.
+@ruser{Barras automáticas},
+@ruser{Barras manuales}.
 
 
-@node Advanced rhythmic commands
-@subsection Advanced rhythmic commands
+@node Instrucciones rítmicas avanzadas
+@subsection Instrucciones rítmicas avanzadas
+@translationof Advanced rhythmic commands
 
-@subheading Partial measure
+@subheading Compás parcial
 
 @cindex anacrusa
 @cindex compás parcial
@@ -1139,7 +1152,7 @@ anacrusa de negra y @code{\partial 8} de corchea.
 f8 c2 d
 @end lilypond
 
-@subheading Tuplets
+@subheading Grupos especiales
 
 @cindex grupos especiales
 @cindex tresillos
@@ -1164,7 +1177,7 @@ expresa, por tanto un @notation{tresillo} lleva una fracción de 2/3:
 \times 2/3 { d4 a8 }
 @end lilypond
 
-@subheading Grace notes
+@subheading Notas de adorno
 
 @cindex notas de adorno
 @cindex acciaccatura
@@ -1196,13 +1209,14 @@ c2 \acciaccatura b16 c2
 
 @seealso
 Referencia de la notación:
-@ruser{Grace notes},
-@ruser{Tuplets},
-@ruser{Upbeats}.
+@ruser{Notas de adorno},
+@ruser{Grupos especiales},
+@ruser{Anacrusas}.
 
 
-@node Multiple notes at once
-@section Multiple notes at once
+@node Varias notas a la vez
+@section Varias notas a la vez
+@translationof Multiple notes at once
 
 Esta sección es una introducción a las notas simultáneas: varios
 instrumentos, varios pentagramas para un solo instrumento
@@ -1214,16 +1228,17 @@ La palabra @qq{polifonía} en LilyPond se refiere al hecho de tener más
 de una voz en el mismo pentagrama.
 
 @menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single staff polyphony::
+* Explicación de las expresiones musicales::
+* Varios pentagramas::
+* Grupos de pentagramas::
+* Combinar notas para formar acordes::
+* Polifonía en un solo pentagrama::
 @end menu
 
 
-@node Music expressions explained
-@subsection Music expressions explained
+@node Explicación de las expresiones musicales
+@subsection Explicación de las expresiones musicales
+@translationof Music expressions explained
 
 @cindex musical, expresión
 @cindex expresión musical
@@ -1255,7 +1270,7 @@ musical:
 { { a4 g } f g }
 @end lilypond
 
-@subheading Analogy: mathematical expressions
+@subheading Analogía: expresiones matemáticas
 
 Este mecanismo es semejante a las fórmulas matemáticas: una fórmula
 grande se construye combinando fórmulas pequeñas.  Dichas fórmulas se
@@ -1282,7 +1297,7 @@ musicales se pueden anidar a una profundidad arbitraria, lo que se
 hace necesario para músicas complejas como las partituras polifónicas.
 
 
-@subheading Simultaneous music expressions: multiple staves
+@subheading Expresiones musicales simultáneas: varios pentagramas
 
 @cindex varios pentagramas
 @cindex pentagramas, varios
@@ -1333,7 +1348,7 @@ entrada, no relativa a la @code{c''} dentro de la instrucción inicial
 @code{@bs{}\relative}.}
 
 
-@subheading Simultaneous music expressions: single staff
+@subheading Expresiones musicales simultáneas: un solo pentagrama
 
 Para determinar el número de pentagramas en una pieza, LilyPond
 examina el comienzo de la primera expresión.  Si hay una sola nota,
@@ -1349,8 +1364,9 @@ pentagrama.
 }
 @end lilypond
 
-@node Multiple staves
-@subsection Multiple staves
+@node Varios pentagramas
+@subsection Varios pentagramas
+@translationof Multiple staves
 
 @cindex varios pentagramas
 @cindex pentagramas, varios
@@ -1368,7 +1384,7 @@ pentagrama.
 @funindex Lyrics
 @funindex ChordNames
 
-Como ya hemos visto en @ref{Music expressions explained}, los
+Como ya hemos visto en @ref{Explicación de las expresiones musicales}, los
 archivos de entrada para LilyPond se construyen a base de expresiones
 musicales.  Si la partitura comienza con expresiones musicales
 simultáneas, LilyPond crea varios pentagramas.  Sin embargo es más
@@ -1422,8 +1438,9 @@ partituras polirrítmicas.
 }
 @end lilypond
 
-@node Staff groups
-@subsection Staff groups
+@node Grupos de pentagramas
+@subsection Grupos de pentagramas
+@translationof Staff groups
 
 @cindex sistema de piano
 @cindex piano, sistema de
@@ -1442,7 +1459,7 @@ Glosario musical:
 La música para piano se compone tipográficamente en forma de dos
 pentagramas unidos mediante una @notation{llave}. El aspecto impreso
 de este sistema de pentagramas se parece al ejemplo polifónico que
-aparece en @ref{Multiple staves}, pero en esta ocasión la expresión
+aparece en @ref{Varios pentagramas}, pero en esta ocasión la expresión
 completa se coloca dentro de un @code{PianoStaff}:
 
 @example
@@ -1473,12 +1490,13 @@ de las líneas divisorias.
 
 @seealso
 Referencia de la notación:
-@ruser{Keyboard and other multi-staff instruments},
-@ruser{Displaying staves}.
+@ruser{Teclados y otros instrumentos de varios pentagramas},
+@ruser{Impresión de los pentagramas}.
 
 
-@node Combining notes into chords
-@subsection Combining notes into chords
+@node Combinar notas para formar acordes
+@subsection Combinar notas para formar acordes
+@translationof Combining notes into chords
 
 @cindex acordes
 @cindex duraciones de notas en acordes
@@ -1516,8 +1534,9 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @end lilypond
 
 
-@node Single staff polyphony
-@subsection Single staff polyphony
+@node Polifonía en un solo pentagrama
+@subsection Polifonía en un solo pentagrama
+@translationof Single staff polyphony
 
 @cindex polifonía
 @cindex varias voces
@@ -1538,27 +1557,29 @@ estos conceptos y los explican en profundidad.
 
 @seealso
 Manual de aprendizaje:
-@ref{Voices contain music}.
+@ref{Las voces contienen música}.
 
 Referencia de la notación:
-@ruser{Simultaneous notes}.
+@ruser{Notas simultáneas}.
 
 
-@node Songs
-@section Songs
+@node Canciones
+@section Canciones
+@translationof Songs
 
 En esta sección presentamos cómo elaborar música vocal y hojas de
 canción sencillas.
 
 @menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
+* Elaborar canciones sencillas::
+* Alineación de la letra a una melodía::
+* Letra en varios pentagramas::
 @end menu
 
 
-@node Setting simple songs
-@subsection Setting simple songs
+@node Elaborar canciones sencillas
+@subsection Elaborar canciones sencillas
+@translationof Setting simple songs
 
 @cindex letra
 @cindex canciones
@@ -1601,8 +1622,9 @@ Observe las llaves rodeando tanto la música como la letra, y los
 ángulos dobles @w{@code{<< ... >>}} alrededor del fragmento entero
 para expresar que la música y la letra han de suceder al mismo tiempo.
 
-@node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@node Alineación de la letra a una melodía
+@subsection Alineación de la letra a una melodía
+@translationof Aligning lyrics to a melody
 
 @cindex melisma
 @cindex línea de extensión
@@ -1640,7 +1662,7 @@ las notas.  La palabra @q{shine} se debe cantar sobre dos notas, no
 una.  Esto se conoce como @notation{melisma}, una sílaba única que se
 canta sobre más de una nota.  Existen varias formas de hacer que una
 sílaba recaiga sobre varias notas, siendo la más sencilla escribir una
-ligadura de expresión sobre ellas (véase @ref{Ties and slurs}):
+ligadura de expresión sobre ellas (véase @ref{Ligaduras de unión y de expresión}):
 
 @lilypond[verbatim,quote]
 <<
@@ -1661,7 +1683,7 @@ Ahora la letra se alinea correctamente con las notas, pero el barrado
 automático de las notas que corresponden a @notation{shine as} no
 parece correcto.  Podemos remediarlo insertando instrucciones de
 barrado manual para sobreescribir el barrado automático; para ver más
-detalles consulte @ref{Automatic and manual beams}.
+detalles consulte @ref{Barras automáticas y manuales}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1775,11 +1797,12 @@ el aria de Fígaro @notation{Largo al factotum}:
 
 @seealso
 Referencia de la notación:
-@ruser{Vocal music}.
+@ruser{Música vocal}.
 
 
-@node Lyrics to multiple staves
-@subsection Lyrics to multiple staves
+@node Letra en varios pentagramas
+@subsection Letra en varios pentagramas
+@translationof Lyrics to multiple staves
 
 @cindex letra y varios pentagramas
 @cindex varios pentagramas y letra
@@ -1815,32 +1838,34 @@ del @notation{Judas Macabeo} de Haendel:
 Cualquier partitura de una complejidad mayor que la de este sencillo
 ejemplo se hace mejor separando la letra de la estructura de
 pentagramas mediante variables (expresiones con nombre).  Éstas se
-tratan en @ref{Organizing pieces with variables}.
+tratan en @ref{Organizar las piezas mediante variables}.
 
 
 @seealso
 Referencia de la notación:
-@ruser{Vocal music}.
+@ruser{Música vocal}.
 
 
-@node Final touches
-@section Final touches
+@node Retoques finales
+@section Retoques finales
+@translationof Final touches
 
 Éste es el último apartado del tutorial; muestra la forma de dar los
 toques finales a piezas sencillas, y ofrece una introducción al resto
 del manual.
 
 @menu
-* Organizing pieces with variables::
-* Version number::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
+* Organizar las piezas mediante variables::
+* Número de la versión::
+* Añadir títulos::
+* Nombres de nota absolutos::
+* Más allá del tutorial::
 @end menu
 
 
-@node Organizing pieces with variables
-@subsection Organizing pieces with variables
+@node Organizar las piezas mediante variables
+@subsection Organizar las piezas mediante variables
+@translationof Organizing pieces with variables
 
 @cindex variables
 @cindex variables, definir
@@ -1934,8 +1959,9 @@ lugares.  El siguiente ejemplo utiliza las variables anteriores:
 @end example
 
 
-@node Version number
-@subsection Version number
+@node Número de la versión
+@subsection Número de la versión
+@translationof Version number
 
 @cindex versión
 @cindex versión, indicación de
@@ -1964,11 +1990,12 @@ Estas anotaciones hacen menos problemáticas las subsiguientes
 actualizaciones de LilyPond.  Los cambios en la sintaxis se tratan
 mediante un programa especial, @command{convert-ly}, y utiliza
 @code{\version} para determinar qué reglas hay que aplicar.  Para ver
-más detalles, consulte @rprogram{Updating files with convert-ly}).
+más detalles, consulte @rprogram{Actualizar ficheros con convert-ly}).
 
 
-@node Adding titles
-@subsection Adding titles
+@node Añadir títulos
+@subsection Añadir títulos
+@translationof Adding titles
 
 @cindex título
 @cindex cabeceras
@@ -1997,11 +2024,12 @@ sitúa por debajo del número de versión.
 
 Cuando se procesa el archivo, el título y el autor se imprimen por
 encima de la música.  Puede obtener más información sobre los títulos
-en @ruser{Creating titles}.
+en @ruser{Crear títulos}.
 
 
-@node Absolute note names
-@subsection Absolute note names
+@node Nombres de nota absolutos
+@subsection Nombres de nota absolutos
+@translationof Absolute note names
 
 @cindex notas, nombres de
 @cindex notas, nombres absolutos de
@@ -2083,17 +2111,17 @@ contenga intervalos grandes, y será extremadamente útil para hacer
 archivos de LilyPond generados por ordenador.
 
 
-@node After the tutorial
-@subsection After the tutorial
+@node Más allá del tutorial
+@subsection Más allá del tutorial
+@translationof After the tutorial
 
 Después de terminar el tutorial, quizá debería probar a escribir una o
 dos piezas.  Comience con una de las plantillas que aparecen en
-@ref{Templates} y añada algunas notas.  Si necesita un tipo de
+@ref{Plantillas} y añada algunas notas.  Si necesita un tipo de
 notación que no ha sido tratada en el tutorial, eche un vistazo a la
-Referencia de Notación, empezando por @ruser{Musical notation}.  Si
+Referencia de Notación, empezando por @ruser{Notación musical}.  Si
 quiere escribir música para un conjunto instrumental que no está
-cubierto por ninguna plantilla, consulte @ref{Extending the
-templates}.
+cubierto por ninguna plantilla, consulte @ref{Extender las plantillas}.
 
 Una vez que ha escrito algunas piezas cortas, lea el resto del Manual
 de aprendizaje (capítulos 3 al 5).  ¡Por supuesto, no pasa nada por
@@ -2109,8 +2137,7 @@ referencias durante la primera lectura; cuando haya leído el Manual de
 aprendizaje completo, quizá desee releer ciertas secciones y seguir
 las referencias cruzadas para obtener más información.
 
-Si no lo ha hecho aún, le @emph{rogamos} que lea @ref{About the
-documentation}.  Existe una gran cantidad de información sobre
+Si no lo ha hecho aún, le @emph{rogamos} que lea @ref{Sobre la documentación}.  Existe una gran cantidad de información sobre
 LilyPond, de manera que los recién llegados con frecuencia no saben
 exactamente dónde deben buscar la ayuda.  Si emplea cinco minutos en
 leer cuidadosamente esta sección ¡se ahorrará horas de frustración

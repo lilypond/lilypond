@@ -12,8 +12,9 @@
 @c Translators: Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude
 
-@node Fretted string instruments
-@section Fretted string instruments
+@node Instruments à cordes frettées
+@section Instruments à cordes frettées
+@translationof Fretted string instruments
 
 @lilypondfile[quote]{fretted-headword.ly}
 
@@ -27,29 +28,31 @@ instruments à cordes frettées.
 @cindex tablature pour banjo
 
 @menu
-* Common notation for fretted strings::
-* Guitar::
+* Vue d'ensemble des cordes frettées::
+* Guitare::
 * Banjo::
 @end menu
 
-@node Common notation for fretted strings
-@subsection Common notation for fretted strings
+@node Vue d'ensemble des cordes frettées
+@subsection Vue d'ensemble des cordes frettées
+@translationof Common notation for fretted strings
 
 Vue d'ensemble de la notation pour les instruments à cordes frettées.
 
 @menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagram markups::
-* Predefined fret diagrams::
-* Automatic fret diagrams::
-* Right-hand fingerings::
+* Références en matière de cordes frettées::
+* Indications du numéro de corde::
+* Tablatures par défaut::
+* Tablatures personnalisées::
+* Tablatures sous forme d'étiquette::
+* Tablatures prédéfinies::
+* Tablatures automatiques::
+* Doigtés pour la main droite::
 @end menu
 
-@node References for fretted strings
-@unnumberedsubsubsec References for fretted strings
+@node Références en matière de cordes frettées
+@unnumberedsubsubsec Références en matière de cordes frettées
+@translationof References for fretted strings
 
 La musique pour instruments à cordes frettées est généralement notée sur
 une seule portée, en notation traditionnelle ou en tablature, les deux
@@ -64,34 +67,35 @@ cordes frettées :
 
 @itemize
 @item Les doigtés s'obtiennent comme indiqué au chapitre 
-@ref{Fingering instructions}. 
+@ref{Doigtés}. 
 
 @item En plus des @notation{Laissez vibrer}, les liaisons peuvent
 intervenir sur des accords arpégés ou des trémolos.  Reportez-vous au
-chapitre @ref{Ties}. 
+chapitre @ref{Liaisons de prolongation}. 
 
 @item Des indications quant au support polyphonique se trouvent au
-chapitre @ref{Collision resolution}.
+chapitre @ref{Résolution des collisions}.
 
-@item La notation des sons harmoniques se trouve à la section @ref{Harmonics}.
+@item La notation des sons harmoniques se trouve à la section @ref{Harmoniques}.
 
 @end itemize
 
 
 @seealso
 Manuel de notation :
-@ref{Fingering instructions},
-@ref{Ties},
-@ref{Collision resolution},
-@ref{Instrument names},
-@ref{Writing music in parallel},
-@ref{Arpeggio},
-@ref{List of articulations},
-@ref{Clef}.
+@ref{Doigtés},
+@ref{Liaisons de prolongation},
+@ref{Résolution des collisions},
+@ref{Noms d'instrument},
+@ref{Saisie de musique en parallèle},
+@ref{Arpèges},
+@ref{Liste des signes d'articulation},
+@ref{Clefs}.
 
 
-@node String number indications
-@unnumberedsubsubsec String number indications
+@node Indications du numéro de corde
+@unnumberedsubsubsec Indications du numéro de corde
+@translationof String number indications
 
 @cindex cordes numérotées
 @cindex numéro de corde
@@ -133,7 +137,7 @@ de l'ordre dans lequel ils apparaissent dans le code :
 
 @seealso
 Manuel de notation :
-@ref{Fingering instructions}.
+@ref{Doigtés}.
 
 Morceaux choisis :
 @rlsr{Fretted strings}.
@@ -143,8 +147,9 @@ Référence des propriétés internes :
 @rinternals{Fingering}.
 
 
-@node Default tablatures
-@unnumberedsubsubsec Default tablatures
+@node Tablatures par défaut
+@unnumberedsubsubsec Tablatures par défaut
+@translationof Default tablatures
 
 @cindex tablatures, bases
 @cindex tablatures par défaut
@@ -228,7 +233,7 @@ peuvent être ajoutés aux tablatures.
 
 @seealso
 Manuel de notation :
-@ref{Stems}.
+@ref{Hampes}.
 
 Morceaux choisis :
 @rlsr{Fretted strings}.
@@ -265,8 +270,9 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 Le support des modes de jeu propres à la guitare se limite aux sons 
 harmoniques et aux glissandi.
 
-@node Custom tablatures
-@unnumberedsubsubsec Custom tablatures
+@node Tablatures personnalisées
+@unnumberedsubsubsec Tablatures personnalisées
+@translationof Custom tablatures
 
 @cindex tablatures personnalisées
 @cindex banjo, tablature
@@ -364,8 +370,9 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Tab_note_heads_engraver}.
 
-@node Fret diagram markups
-@unnumberedsubsubsec Fret diagram markups
+@node Tablatures sous forme d'étiquette
+@unnumberedsubsubsec Tablatures sous forme d'étiquette
+@translationof Fret diagram markups
 
 @cindex fret, diagrammes
 @cindex accord, diagrammes
@@ -748,8 +755,9 @@ Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
 
 
-@node Predefined fret diagrams
-@unnumberedsubsubsec Predefined fret diagrams
+@node Tablatures prédéfinies
+@unnumberedsubsubsec Tablatures prédéfinies
+@translationof Predefined fret diagrams
 
 
 @cindex fret, diagrammes
@@ -783,7 +791,7 @@ ou d'autres accordages en suivant les exemples du fichier
 
 Les notes des accords peuvent être entrées aussi bien comme musique
 simultanée qu'en utilisant le mode accord (voir 
-@ref{Chord mode overview}).
+@ref{Généralités sur le mode accords}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -852,11 +860,10 @@ mychordlist = {
 La table des diagrammes d'accord contient sept types d'accord (majeur,
 mineur, augmenté, diminué, septième de dominante, majeur sept, mineur
 sept) pour chacune des 17 fondamentales possibles.  Une liste complète
-des diagrammes d'accords prédéfinis se trouve dans @ref{Predefined 
-fretboard diagrams}.   S'il n'y a pas d'entrée dans la table pour un
+des diagrammes d'accords prédéfinis se trouve dans @ref{Tablatures prédéfinies}.   S'il n'y a pas d'entrée dans la table pour un
 accord donné, le graveur @code{Fretboard_engraver} calculera le
 diagramme d'accord en utilisant la fonctionnalité automatique  décrite
-dans @ref{Automatic fret diagrams}.  
+dans @ref{Tablatures automatiques}.  
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -996,10 +1003,10 @@ d'accord donné, les propriétés de l'interface dépendent de
 
 @seealso
 Manuel de notation :
-@ref{Custom tablatures},
-@ref{Automatic fret diagrams},
-@ref{Chord mode overview},
-@ref{Predefined fretboard diagrams}.
+@ref{Tablatures personnalisées},
+@ref{Tablatures automatiques},
+@ref{Généralités sur le mode accords},
+@ref{Tablatures prédéfinies}.
 
 Fichiers sources installés :
 @file{ly/predefined-guitar-fretboards.ly},
@@ -1012,8 +1019,9 @@ Référence des propriétés internes :
 @rinternals {fret-diagram-interface}.
 
 
-@node Automatic fret diagrams
-@unnumberedsubsubsec Automatic fret diagrams
+@node Tablatures automatiques
+@unnumberedsubsubsec Tablatures automatiques
+@translationof Automatic fret diagrams
 
 @cindex fret, diagrammes automatiques
 @cindex accord, diagrammes automatiques
@@ -1140,7 +1148,7 @@ servira à calculer les cordes et les cases du contexte @code{FretBoard}.
 Les cordes et les cases du contexte @code{FretBoards} sont liées à la
 propriété @code{stringTunings}, qui a là même signification que dans le
 contexte @code{TabStaff}.  
-Voir @ref{Custom tablatures} pour plus d'information sur la propriété
+Voir @ref{Tablatures personnalisées} pour plus d'information sur la propriété
 @code{stringTunings}. 
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
@@ -1158,7 +1166,7 @@ d'accord, les propriétés de l'interface dépendent de
 
 @seealso
 Manuel de notation :
-@ref{Custom tablatures}.
+@ref{Tablatures personnalisées}.
 
 Morceaux choisis :
 @rlsr{Fretted strings}.
@@ -1167,8 +1175,9 @@ Référence des propriétés internes :
 @rinternals {fret-diagram-interface}.
 
 
-@node Right-hand fingerings
-@unnumberedsubsubsec Right-hand fingerings
+@node Doigtés pour la main droite
+@unnumberedsubsubsec Doigtés pour la main droite
+@translationof Right-hand fingerings
 
 @cindex cordes frettées, doigtés main droite
 @cindex doigtés main droite et cordes frettées
@@ -1220,8 +1229,9 @@ Référence des propriétés internes :
 @rinternals{StrokeFinger}.
 
 
-@node Guitar
-@subsection Guitar
+@node Guitare
+@subsection Guitare
+@translationof Guitar
 
 La plupart des aspects en matière de notation pour guitare sont traités
 dans la partie commune aux instruments frettés.  Il subsiste cependant
@@ -1234,12 +1244,13 @@ recourrir à un traitement de texte, un éditeur de texte ou, pour les
 utilisateurs experimentés, un logiciel typographique tel que GuitarTex.
 
 @menu
-* Indicating position and barring::
-* Indicating harmonics and dampened notes::
+* Indication de la position et du barré::
+* Indication des harmoniques et notes étouffées::
 @end menu
 
-@node Indicating position and barring
-@unnumberedsubsubsec Indicating position and barring
+@node Indication de la position et du barré
+@unnumberedsubsubsec Indication de la position et du barré
+@translationof Indicating position and barring
 
 @cindex indication de la position et du barré pour cordes frettées
 @cindex cordes frettées, indication de la position et du barré
@@ -1259,15 +1270,16 @@ e16 b g d
 
 @seealso
 Manuel de notation :
-@ref{Text spanners}.
+@ref{Extensions de texte}.
 
 Morceaux choisis :
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
 
 
-@node Indicating harmonics and dampened notes
-@unnumberedsubsubsec Indicating harmonics and dampened notes
+@node Indication des harmoniques et notes étouffées
+@unnumberedsubsubsec Indication des harmoniques et notes étouffées
+@translationof Indicating harmonics and dampened notes
 
 @cindex cordes frettées, notes étouffées
 @cindex cordes frettées, harmoniques
@@ -1294,19 +1306,21 @@ Morceaux choisis :
 @rlsr{Fretted strings}.
 
 Manuel de notation :
-@ref{Special note heads},
-@ref{Note head styles}.
+@ref{Têtes de note spécifiques},
+@ref{Styles de tête de note}.
 
 
 @node Banjo
 @subsection Banjo
+@translationof Banjo
 
 @menu
-* Banjo tablatures::
+* Tablatures pour banjo::
 @end menu
 
-@node Banjo tablatures
-@unnumberedsubsubsec Banjo tablatures
+@node Tablatures pour banjo
+@unnumberedsubsubsec Tablatures pour banjo
+@translationof Banjo tablatures
 
 @cindex banjo, tablatures
 @cindex tablatures pour banjo

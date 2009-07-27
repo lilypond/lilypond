@@ -11,8 +11,9 @@
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
 
-@node Staff notation
-@section Staff notation
+@node Notation sur la portée
+@section Notation sur la portée
+@translationof Staff notation
 
 @lilypondfile[quote]{staff-headword.ly}
 
@@ -22,29 +23,32 @@ d'indications globales d'exécution, présentes sur certaines portées
 seulement.
 
 @menu
-* Displaying staves::           
-* Modifying single staves::     
-* Writing parts::               
+* Gravure des portées::           
+* Modification de portées individuelles::     
+* Écriture de parties séparées::               
 @end menu
 
 
-@node Displaying staves
-@subsection Displaying staves
+@node Gravure des portées
+@subsection Gravure des portées
+@translationof Displaying staves
 
 @menu
-* Instantiating new staves::    
-* Grouping staves::             
-* Nested staff groups::  
+* Initialisation de nouvelles portées::    
+* Regroupement de portées::             
+* Imbrication de regroupements de portées::  
 @end menu
 
-@node Instantiating new staves
-@unnumberedsubsubsec Instantiating new staves
+@node Initialisation de nouvelles portées
+@unnumberedsubsubsec Initialisation de nouvelles portées
+@translationof Instantiating new staves @c external
 
 @untranslated
 
 
-@node Grouping staves
-@unnumberedsubsubsec Grouping staves
+@node Regroupement de portées
+@unnumberedsubsubsec Regroupement de portées
+@translationof Grouping staves
 
 @cindex système, début de
 @cindex crochet vertical
@@ -133,13 +137,15 @@ en profondeur,
 >>
 @end lilypond
 
-@node Nested staff groups
-@unnumberedsubsubsec Nested staff groups
+@node Imbrication de regroupements de portées
+@unnumberedsubsubsec Imbrication de regroupements de portées
+@translationof Nested staff groups @c external
 
 @untranslated
 
-@node Modifying single staves
-@subsection Modifying single staves
+@node Modification de portées individuelles
+@subsection Modification de portées individuelles
+@translationof Modifying single staves
 
 Cette section explique le réglage de la gravure de chaque portée,
 comme la taille de portée ou le nombre de lignes ; sont aussi décrits
@@ -147,13 +153,14 @@ la suspension et la reprise de portées et les portées d'@emph{ossia}.
 
 
 @menu
-* Staff symbol::                
-* Ossia staves::                
-* Hiding staves::               
+* Symbole de la portée::                
+* Portées d'ossia::                
+* Masquage de portées::               
 @end menu
 
-@node Staff symbol
-@unnumberedsubsubsec Staff symbol
+@node Symbole de la portée
+@unnumberedsubsubsec Symbole de la portée
+@translationof Staff symbol
 
 @cindex symbole de portée
 @cindex portée, lignes de
@@ -207,14 +214,16 @@ Référence du programme : @rinternals{StaffSymbol}.
 Exemples : @rlsr{Staff notation}.
 
 
-@node Ossia staves
-@unnumberedsubsubsec Ossia staves
+@node Portées d'ossia
+@unnumberedsubsubsec Portées d'ossia
+@translationof Ossia staves @c external
 
 @untranslated
 
 
-@node Hiding staves
-@unnumberedsubsubsec Hiding staves
+@node Masquage de portées
+@unnumberedsubsubsec Masquage de portées
+@translationof Hiding staves
 
 @cindex Frenched scores
 @cindex Masquer des portées
@@ -266,18 +275,20 @@ d'une @emph{ossia} --- variante d'une partie de la mélodie --- affichée à
 l'aide d'une portée supplémentaire.
 
 
-@node Writing parts
-@subsection Writing parts
+@node Écriture de parties séparées
+@subsection Écriture de parties séparées
+@translationof Writing parts
 
 @menu
-* Metronome marks::             
-* Instrument names::            
-* Quoting other voices::        
-* Formatting cue notes::        
+* Indications métronomiques::             
+* Noms d'instrument::            
+* Citation d'autres voix::        
+* Mise en forme d'une citation::        
 @end menu
 
-@node Metronome marks
-@unnumberedsubsubsec Metronome marks
+@node Indications métronomiques
+@unnumberedsubsubsec Indications métronomiques
+@translationof Metronome marks
 
 @cindex Tempo
 @cindex battements par minute
@@ -318,7 +329,7 @@ c4^\markup {
 @end lilypond
 
 @noindent
-Pour plus de détails, voir @ref{Formatting text}.
+Pour plus de détails, voir @ref{Mise en forme du texte}.
 
 
 @seealso
@@ -338,8 +349,9 @@ indication par rapport à la portée :
 @end example
 
 
-@node Instrument names
-@unnumberedsubsubsec Instrument names
+@node Noms d'instrument
+@unnumberedsubsubsec Noms d'instrument
+@translationof Instrument names
 
 Dans un conducteur, les noms d'instrument sont portés en regard de
 chacune des portées.
@@ -422,7 +434,7 @@ condition de leur affecter le graveur approprié :
 
 @noindent
 Pour de plus amples informations sur la manière d'activer ou
-désactiver un graveur, voir @ref{Modifying context plug-ins}.
+désactiver un graveur, voir @ref{Modification des greffons de contexte}.
 
 Vous pouvez changer d'instrument en cours de morceau :
 
@@ -442,8 +454,9 @@ c1 c c c \break
 Référence du programme : @rinternals{InstrumentName}.
 
 
-@node Quoting other voices
-@unnumberedsubsubsec Quoting other voices
+@node Citation d'autres voix
+@unnumberedsubsubsec Citation d'autres voix
+@translationof Quoting other voices
 
 @cindex cues
 @cindex citation
@@ -539,15 +552,16 @@ Citer des triolets imbriqués peut entraîner un résultat de médiocre qualité
 
 
 @seealso
-Dans ce manuel : @ref{Instrument transpositions}.
+Dans ce manuel : @ref{Instruments transpositeurs}.
 
 Exemples : @rlsr{Staff notation}.
 
 Référence du programme : @rinternals{QuoteMusic}.
 
 
-@node Formatting cue notes
-@unnumberedsubsubsec Formatting cue notes
+@node Mise en forme d'une citation
+@unnumberedsubsubsec Mise en forme d'une citation
+@translationof Formatting cue notes
 
 @cindex petites notes, formater des
 

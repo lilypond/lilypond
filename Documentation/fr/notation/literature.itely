@@ -8,11 +8,11 @@
 @end ignore
 
 
-@node Literature list
-@appendix Literature list
+@node Bibliographie
+@appendix Bibliographie
+@translationof Literature list @c external
 
 @untranslated
 
 
 
-@c -- SKELETON FILE --

@@ -8,19 +8,20 @@
 
 @c \version "2.12.0"
 
-@node Musical notation
-@chapter Musical notation
+@node Musikalische Notation
+@chapter Musikalische Notation
+@translationof Musical notation
 
 Dieses Kapitel erklärt, wie die Notation von Musik erstellt wird.
 
 @menu
-* Pitches::            Tonhöhen von Noten notieren und darstellen.
-* Rhythms::            Tondauern von Noten notieren und darstellen.
-* Expressive marks::   Vortragsbezeichnungen zu Noten hinzufügen.
-* Repeats::            Noten wiederholen.
-* Simultaneous notes:: Mehr als eine Note gleichzeitig.
-* Staff notation::     Notensysteme darstellen.
-* Editorial annotations:: Besondere Notation, um die Lesbarkeit zu verbessern.
+* Tonhöhen::            Tonhöhen von Noten notieren und darstellen.
+* Rhythmus::            Tondauern von Noten notieren und darstellen.
+* Ausdrucksbezeichnungen::   Vortragsbezeichnungen zu Noten hinzufügen.
+* Wiederholungszeichen::            Noten wiederholen.
+* Gleichzeitig erscheinende Noten:: Mehr als eine Note gleichzeitig.
+* Notation auf Systemen::     Notensysteme darstellen.
+* Anmerkungen:: Besondere Notation, um die Lesbarkeit zu verbessern.
 * Text::               Text zur Partitur hinzufügen.
 @end menu
 

@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Working on LilyPond projects
-@chapter Working on LilyPond projects
+@node An LilyPond-Projekten arbeiten
+@chapter An LilyPond-Projekten arbeiten
+@translationof Working on LilyPond projects
 
 Dieses Kapitel erklärt, wie bestimmte häufige Probleme zu 
 lösen oder ganz zu vermeiden sind.  Wenn Sie schon 
@@ -20,15 +21,16 @@ zu lesen.
 
 
 @menu
-* Suggestions for writing LilyPond input files::
-* When things don't work::
-* Scores and parts::
-* Make and Makefiles::
+* Vorschläge, wie LilyPond-Eingabe-Dateien geschrieben werden sollen::
+* Wenn etwas nicht funktioniert::
+* Partituren und Stimmen::
+* Make und Makefiles::
 @end menu
 
 
-@node Suggestions for writing LilyPond input files
-@section Suggestions for writing LilyPond input files
+@node Vorschläge, wie LilyPond-Eingabe-Dateien geschrieben werden sollen
+@section Vorschläge, wie LilyPond-Eingabe-Dateien geschrieben werden sollen
+@translationof Suggestions for writing LilyPond input files
 
 Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben -- 
 nicht nur die kleinen Beispiele aus der Übung, sondern ganze Stücke.
@@ -58,16 +60,17 @@ strukturiert werden, damit sie einfacher aktualisierbar sind.
 @end itemize
 
 @menu
-* General suggestions::
-* Typesetting existing music::
-* Large projects::
-* Saving typing with variables and functions::
-* Style sheets::
+* Allgemeine Vorschläge::
+* Das Kopieren von bereits vorhandener Musik::
+* Große Projekte::
+* Tipparbeit sparen durch Bezeichner und Funktionen::
+* Stil-Dateien::
 @end menu
 
 
-@node General suggestions
-@subsection General suggestions
+@node Allgemeine Vorschläge
+@subsection Allgemeine Vorschläge
+@translationof General suggestions
 
 Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 
@@ -82,8 +85,8 @@ frustrierend sein kann zu erinnern, welche Programmversion man etwa
 vor einem Jahr verwendet hat.  Auch @code{convert-ly} benötigt die 
 Versionsnummer.
 
-@item @strong{Benutzen Sie Überprüfungen}: @ruser{Octave checks}, und
-@ruser{Bar and bar number checks}.  Wenn Sie hier und da diese
+@item @strong{Benutzen Sie Überprüfungen}: @ruser{Oktavenüberprüfung}, und
+@ruser{Takt- und Taktzahlüberprüfung}.  Wenn Sie hier und da diese
 Überprüfungen einfügen, finden Sie einen möglichen Fehler weit
 schneller.  Wie oft aber ist @qq{hier und da}?  Das hängt von der
 Komplexität der Musik ab.  ei einfachen Stücken reicht es vielleicht
@@ -118,15 +121,16 @@ ersparen Sie sich viele Probleme, wenn Sie ihre Musik
 eines Tages umarrangieren wollen.
 
 @item @strong{Trennen Sie Einstellungen} von den eigentlichen 
-Noten.  Siehe auch @ref{Saving typing with variables and functions} 
+Noten.  Siehe auch @ref{Tipparbeit sparen durch Bezeichner und Funktionen} 
 und
-@ref{Style sheets}.
+@ref{Stil-Dateien}.
 
 @end itemize
 
 
-@node Typesetting existing music
-@subsection Typesetting existing music
+@node Das Kopieren von bereits vorhandener Musik
+@subsection Das Kopieren von bereits vorhandener Musik
+@translationof Typesetting existing music
 
 Wenn Sie Musik aus einer fertigen Partitur kopieren (z. B. die 
 LilyPond-Eingabe einer gedruckten Partitur):
@@ -138,7 +142,7 @@ LilyPond-Eingabe einer gedruckten Partitur):
 Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem 
 @code{showLastLength}- oder @code{showFirstLenght}-Befehl können Sie den Übersetzungsprozess 
 beschleunigen. Siehe auch 
-@ruser{Skipping corrected music}.
+@ruser{Korrigierte Musik überspringen}.
 
 @item Definieren Sie @code{mBreak = @{ \break @}} und schreiben Sie
  @code{\mBreak} in der Quelldatei immer dann, wenn im Manuskript 
@@ -171,8 +175,9 @@ eine B-Trompete oder @code{aes} für eine As-Klarinette usw.
 @end itemize
 
 
-@node Large projects
-@subsection Large projects
+@node Große Projekte
+@subsection Große Projekte
+@translationof Large projects
 
 Besonders wenn Sie an größeren Projekten arbeiten, ist es 
 unumgänglich, dass Sie ihre LilyPond-Dateien klar strukturieren.
@@ -200,7 +205,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Trennen Sie Einstellungen von den Noten}.  Diese 
-Empfehlung wurde schon im Abschnitt @ref{General suggestions} gegeben, 
+Empfehlung wurde schon im Abschnitt @ref{Allgemeine Vorschläge} gegeben, 
 aber für große Projekte ist es unumgänglich.  Muss z. B. die 
 Definition für @code{fdannp} verändert werden, so braucht 
 man es nur einmal vorzunehmen und die Noten in der Geigenstimme, 
@@ -217,8 +222,9 @@ g4\fdannp c'8. e16
 @end itemize
 
 
-@node Saving typing with variables and functions
-@subsection Saving typing with variables and functions
+@node Tipparbeit sparen durch Bezeichner und Funktionen
+@subsection Tipparbeit sparen durch Bezeichner und Funktionen
+@translationof Saving typing with variables and functions
 
 @cindex Variable
 @cindex Bezeichner
@@ -319,24 +325,25 @@ padText =
 
 Die Benutzung von Variablen hilft auch, viele Schreibarbeit zu 
 vermeiden, wenn die Eingabesyntax von LilyPond sich verändert 
-(siehe auch @ref{Updating old files}).  Wenn nur eine einzige 
+(siehe auch @ref{Alte Dateien aktualisieren}).  Wenn nur eine einzige 
 Definition (etwa @code{\dolce}) für alle Dateien verwendet wird 
-(vgl. @ref{Style sheets}), muss nur diese einzige Definition 
+(vgl. @ref{Stil-Dateien}), muss nur diese einzige Definition 
 verändert werden, wenn sich die Syntax ändert.  Alle Verwendungen 
 des Befehles beziehen sich dann auf die neue Definition.
 
-@node Style sheets
-@subsection Style sheets
+@node Stil-Dateien
+@subsection Stil-Dateien
+@translationof Style sheets
 
 Die Ausgabe, die LilyPond erstellt, kann sehr stark modifiziert 
-werden, siehe @ref{Tweaking output} für Einzelheiten.  Aber wie 
+werden, siehe @ref{Die Ausgabe verändern} für Einzelheiten.  Aber wie 
 kann man diese Änderungen auf eine ganze Serie von Dateien 
 anwenden?  Oder die Einstellungen von den Noten trennen?  Das 
 Verfahren ist ziemlich einfach.
 
 Hier ist ein Beispiel.  Es ist nicht schlimm, wenn Sie nicht auf 
 Anhieb die Abschnitte mit den ganzen @code{#()} verstehen.  Das 
-wird im Kapitel @ref{Advanced tweaks with Scheme} erklärt.
+wird im Kapitel @ref{Fortgeschrittene Optimierungen mit Scheme} erklärt.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 0 #:translate '(5 . 0)
@@ -357,7 +364,7 @@ inst = #(define-music-function (parser location string) (string?)
 @end lilypond
 
 Es treten einige Probleme mit überlappenden Symbolen auf. Sie 
-werden beseitigt mit den Tricks aus dem Kapitel @ref{Moving objects}.
+werden beseitigt mit den Tricks aus dem Kapitel @ref{Verschieben von Objekten}.
 Aber auch die @code{mpdolce} und @code{inst}-Definitionen 
 können verbessert werden.  Sie produzieren das Ergebnis, das 
 gewünscht ist, aber es wäre schön, sie auch in anderen Stücken 
@@ -589,17 +596,19 @@ für meine Projekte.  Jede Notationsdatei fängt an mit
 @end example
 
 
-@node When things don't work
-@section When things don't work
+@node Wenn etwas nicht funktioniert
+@section Wenn etwas nicht funktioniert
+@translationof When things don't work
 
 @menu
-* Updating old files::
-* Troubleshooting (taking it all apart)::
-* Minimal examples::
+* Alte Dateien aktualisieren::
+* Fehlersuche (alles auseinandernehmen)::
+* Minimalbeispiele::
 @end menu
 
-@node Updating old files
-@subsection Updating old files
+@node Alte Dateien aktualisieren
+@subsection Alte Dateien aktualisieren
+@translationof Updating old files
 
 Die Syntax von LilyPond verändert sich ab und zu.  Wenn LilyPond 
 besser wird, muss auch die Syntax (Eingabesprache) entsprechend 
@@ -609,15 +618,14 @@ Eigenschaften des Programmes benutzbar zu machen.
 
 LilyPond stellt ein Programm bereit, das Aktualisierungen 
 vereinfacht: @code{convert-ly}.  Einzelheiten zur Programmbenutzung 
-finden sich in @rprogram{Updating files with convert-ly}.
+finden sich in @rprogram{Dateien mit convert-ly aktualisieren}.
 
 Leider kann @code{convert-ly} nicht alle Veränderungen der Syntax
 berücksichtigen.  Hier werden einfache @qq{Suchen und
 Ersetzen}-Veränderungen vorgenommen (wie etwa @code{raggedright} zu
 @code{ragged-right}), aber einige Veränderungen sind zu
 kompliziert.  Die Syntax-Veränderungen, die das Programm nicht
-berücksichtigt, sind im Kapitel @rprogram{Updating files with
-convert-ly} aufgelistet.
+berücksichtigt, sind im Kapitel @rprogram{Dateien mit convert-ly aktualisieren} aufgelistet.
 
 Zum Beispiel wurden in LilyPond 2.4 und früheren Versionen 
 Akzente und Umlaute mit LaTeX-Befehlen eingegeben, ein 
@@ -628,8 +636,9 @@ als utf-8-Zeichen eingegeben werden, in diesem Fall also @qq{ë}.
 verändern, das muss manuell vorgenommen werden.
 
 
-@node Troubleshooting (taking it all apart)
-@subsection Troubleshooting (taking it all apart)
+@node Fehlersuche (alles auseinandernehmen)
+@subsection Fehlersuche (alles auseinandernehmen)
+@translationof Troubleshooting (taking it all apart)
 
 Früher oder später werden Sie in die Lage kommen, 
 dass LilyPond Ihre Datei nicht kompilieren will.  Die 
@@ -686,11 +695,12 @@ Bassstimme wieder hineinzunehmen, bis Sie die problematische
 Zeile finden.
 
 Eine andere nützliche Technik zur Problemlösung ist es, 
-@ref{Minimal examples} zu konstruieren.
+@ref{Minimalbeispiele} zu konstruieren.
 
 
-@node Minimal examples
-@subsection Minimal examples
+@node Minimalbeispiele
+@subsection Minimalbeispiele
+@translationof Minimal examples
 
 Ein Minimalbeispiel ist eine Beispieldatei, die so klein wie 
 möglich ist.  Diese Beispiele sind sehr viel einfacher zu 
@@ -731,8 +741,9 @@ Zweck des Beispieles sind.
 @end itemize
 
 
-@node Scores and parts
-@section Scores and parts
+@node Partituren und Stimmen
+@section Partituren und Stimmen
+@translationof Scores and parts
 
 Orchesternoten werden alle zweimal gesetzt. Erstens als Stimmen für 
 die Musiker, und dann als große Partitur für den Dirigenten.  Mit 
@@ -861,8 +872,9 @@ Und mit LilyPond übersetzt:
 @end lilypond
 
 
-@node Make and Makefiles
-@section Make and Makefiles
+@node Make und Makefiles
+@section Make und Makefiles
+@translationof Make and Makefiles
 
 @cindex Makefile
 @cindex Make-Dateien
@@ -1222,6 +1234,6 @@ copy out\myproject.pdf MyProject.pdf
 
 @seealso
 Programmbenutzung:
-@rprogram{Setup for MacOS X},
-@rprogram{Command-line usage},
+@rprogram{Einrichtung für MacOS X},
+@rprogram{Benutzung auf der Kommandozeile},
 @rprogram{LilyPond-book}

@@ -13,6 +13,7 @@
 
 @node Setup
 @chapter Setup
+@translationof Setup
 
 In diesem Kapitel werden verschiedene Konfigurationsoptionen für LilyPond und
 andere Programme behandelt, die nach der Installation auszuführen sind. Dieses
@@ -20,25 +21,27 @@ Kapitel kann als Referenz betrachtet werden, lesen Sie einen Abschnitt nur,
 wenn er auf Sie zutrifft.
 
 @menu
-* Setup for specific Operating Systems::
-* Text editor support::
+* Setup für bestimmte Betriebssysteme::
+* Unterstützung von Texteditoren::
 * Point and click::
 @end menu
 
 
-@node Setup for specific Operating Systems
-@section Setup for specific Operating Systems
+@node Setup für bestimmte Betriebssysteme
+@section Setup für bestimmte Betriebssysteme
+@translationof Setup for specific Operating Systems
 
 Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebssysteme.
 
 @menu
-* Setup for MacOS X::
+* Einrichtung für MacOS X::
 @end menu
 
-@node Setup for MacOS X
-@subsection Setup for MacOS X
+@node Einrichtung für MacOS X
+@subsection Einrichtung für MacOS X
+@translationof Setup for MacOS X
 
-@subsubheading Using Python scripts on MacOS 10.3 or 10.4
+@subsubheading Benutzung von Python-Skripten unter MacOS 10.3 oder 10.4
 
 Das LilyPond-Programmpaket für MacOS X stellt Python nicht zur
 Verfügung, aber Python 2.4 oder höher wird benötigt, um
@@ -60,7 +63,7 @@ andernfalls muss sie heißen:
 #!@var{/path/to/newly_installed/python}
 @end example
 
-@subsubheading MacOS X on the command line
+@subsubheading MacOS X auf der Kommandozeile
 
 Die Skripte (etwa @command{lilypond-book}, @command{convert-ly},
 @command{abc2ly} und sogar @command{lilypond}) befinden sich
@@ -115,8 +118,9 @@ beinhaltet. Die Datei muss mit einer Leerzeile enden.
 Beachten Sie, dass @var{Pfad/zu} üblicherweise @code{/Applications/} ist.
 
 
-@node Text editor support
-@section Text editor support
+@node Unterstützung von Texteditoren
+@section Unterstützung von Texteditoren
+@translationof Text editor support
 
 @cindex Editoren
 @cindex vim
@@ -128,16 +132,17 @@ Beachten Sie, dass @var{Pfad/zu} üblicherweise @code{/Applications/} ist.
 Verschiedene Texteditoren haben Unterstützung für LilyPond.
 
 @menu
-* Emacs mode::
-* Vim mode::
+* Emacs-Modus::
+* Vim-Modus::
 * jEdit::
 * TexShop::
 * TextMate::
 * LilyKDE::
 @end menu
 
-@node Emacs mode
-@subsection Emacs mode
+@node Emacs-Modus
+@subsection Emacs-Modus
+@translationof Emacs mode
 
 Emacs hat einen LilyPond-Modus (@file{lilypond-mode}), eine Datei, die
 die Vervollständigung von Befehlen, Einrückungen, für LilyPond spezifische
@@ -164,8 +169,9 @@ ihrem @var{load-path} hinzufügen, indem Sie folgende Zeile zu Ihrer
 @end example
 
 
-@node Vim mode
-@subsection Vim mode
+@node Vim-Modus
+@subsection Vim-Modus
+@translationof Vim mode
 
 Für @uref{http://@/www@/.vim@/.org,VIM} wird ein @file{vimrc} bereitgestellt,
 zusammen mit Werkzeugen zur Syntaxauszeichnung. Ein Vim-Modus zur
@@ -199,6 +205,7 @@ Pfad entsprechend anpassen.
 
 @node jEdit
 @subsection jEdit
+@translationof jEdit
 
 Das Plugin für den @uref{http://@/www@/.jedit@/.org@/,jEdit}-Texteditor,
 LilyPondTool genannt, ist das vielfältigste textbasierte Werkzeug, um
@@ -212,6 +219,7 @@ Installationsanweisungen finden sich unter
 
 @node TexShop
 @subsection TexShop
+@translationof TexShop
 
 Der
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}-Editor
@@ -222,6 +230,7 @@ Editor heraus zu starten. Die Erweiterung findet sich unter
 
 @node TextMate
 @subsection TextMate
+@translationof TextMate
 
 Es gibt ein LilyPond-Paket für TextMate. Es kann installiert werden,  indem man
 
@@ -237,6 +246,7 @@ ausführt.
 
 @node LilyKDE
 @subsection LilyKDE
+@translationof LilyKDE
 
 @uref{http://lilykde.googlecode.com/,LilyKDE} ist eine Erweiterung für
 den Texteditor @uref{http://kate-editor.org/,Kate} für KDE. LilyKDE
@@ -254,6 +264,7 @@ KDE Dateimanager aus aufzurufen.
 
 @node Point and click
 @section Point and click
+@translationof Point and click
 @cindex Point and click
 
 

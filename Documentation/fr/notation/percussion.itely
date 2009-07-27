@@ -12,15 +12,17 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Percussion
-@section Percussion
+@node Percussions
+@section Percussions
+@translationof Percussion
 
 @menu
-* Common notation for percussion::  
+* Vue d'ensemble des percussions::  
 @end menu
 
-@node Common notation for percussion
-@subsection Common notation for percussion
+@node Vue d'ensemble des percussions
+@subsection Vue d'ensemble des percussions
+@translationof Common notation for percussion
 
 La notation rythmique sert avant tout aux parties de percussions ou de
 batterie, mais on peut aussi s'en servir à des fins pédagogiques, pour
@@ -28,21 +30,23 @@ montrer le rythme d'une mélodie.
 
 
 @menu
-* References for percussion::   
-* Basic percussion notation::   
-* Percussion staves::           
-* Ghost notes::                 
+* Références en matière de notation pour percussions::   
+* Notation de base pour percussions::   
+* Portées de percussion::           
+* Notes fantômes::                 
 @end menu
 
-@node References for percussion
-@unnumberedsubsubsec References for percussion
+@node Références en matière de notation pour percussions
+@unnumberedsubsubsec Références en matière de notation pour percussions
+@translationof References for percussion @c external
 
 
 @untranslated
 
 
-@node Basic percussion notation
-@unnumberedsubsubsec Basic percussion notation
+@node Notation de base pour percussions
+@unnumberedsubsubsec Notation de base pour percussions
+@translationof Basic percussion notation
 
 
 @cindex percussions
@@ -70,8 +74,9 @@ Ces noms sont inventoriés dans le fichier d'initialisation
 Référence du Programme : @rinternals{note-event}.
 
 
-@node Percussion staves
-@unnumberedsubsubsec Percussion staves
+@node Portées de percussion
+@unnumberedsubsubsec Portées de percussion
+@translationof Percussion staves
 
 
 @cindex percussions
@@ -292,17 +297,17 @@ sur le bord de la caisse claire --- donc ils sont remplacés par des
 
 
 
-@node Ghost notes
-@unnumberedsubsubsec Ghost notes
+@node Notes fantômes
+@unnumberedsubsubsec Notes fantômes
+@translationof Ghost notes
 
 
 Des notes fantômes peuvent être créées pour les parties de percussion,
 grâce à la commande @code{\parenthesize} décrite dans
-@ref{Parentheses}. Cependant, le mode @code{\drummode} n'inclut pas par
+@ref{Parenthèses}. Cependant, le mode @code{\drummode} n'inclut pas par
 défaut le graveur @code{Parenthesis_engraver} qui permet d'imprimer ces
 signes.  Il faut donc l'ajouter explicitement dans la définition du
-contexte, suivant la manœuvre indiquée dans @ref{The
-set command}.
+contexte, suivant la manœuvre indiquée dans @ref{La commande de fixation (set)}.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {

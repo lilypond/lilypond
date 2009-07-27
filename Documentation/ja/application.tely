@@ -27,8 +27,9 @@
 @c Translation status: post-GDP
 
 @ifnottex
-@node Top
+@node トップ ページ
 @top GNU LilyPond --- アプリケーション使用方法
+@translationof Top
 @end ifnottex
 
 @ifhtml
@@ -135,7 +136,7 @@ Free Documentation License''.
 
 これは GNU LilyPond バージョン @version{} のためのアプリケーション使用方法マ@c
 ニュアルです。このドキュメントと他のドキュメントとの関係についての更なる情報@c
-は、@rlearning{About the documentation} を参照してください。
+は、@rlearning{このドキュメントについて} を参照してください。
 
 @cindex web site
 @cindex URL
@@ -147,17 +148,17 @@ Free Documentation License''.
 @include dedication.itely
 
 @menu
-* Install::                        インストール方法とコンパイル方法
-* Setup::                          他のプログラムの助けを借りて LilyPond を使@c
+* インストール::                        インストール方法とコンパイル方法
+* セットアップ::                          他のプログラムの助けを借りて LilyPond を使@c
 用する
-* Running LilyPond::               操作方法
+* LilyPond を実行する::               操作方法
 * LilyPond-book::                  テキストと音楽を統合する
 * Converting from other formats::  lilypond ソース形式に変換する
 
 付録
 
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond index::
+* LilyPond インデックス::
 @end menu
 @end ifnottex
 
@@ -172,8 +173,9 @@ Free Documentation License''.
 
 @include fdl.itexi
 
-@node LilyPond index
-@appendix LilyPond index
+@node LilyPond インデックス
+@appendix LilyPond インデックス
+@translationof LilyPond index
 
 @printindex cp
 

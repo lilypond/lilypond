@@ -10,8 +10,9 @@
 @c \version "2.12.0"
 
 
-@node Fundamental concepts
-@chapter Fundamental concepts
+@node Conceptos fundamentales
+@chapter Conceptos fundamentales
+@translationof Fundamental concepts
 
 Ha podido ver en el tutorial cómo producir música bellamente impresa a
 partir de un simple archivo de texto.  Esta sección presenta los
@@ -19,15 +20,16 @@ conceptos y técnicas que se requieren para producir partituras
 igualmente bellas pero más complejas.
 
 @menu
-* How LilyPond input files work::
-* Voices contain music::
-* Contexts and engravers::
-* Extending the templates::
+* Cómo funcionan los archivos de entrada de LilyPond::
+* Las voces contienen música::
+* Contextos y grabadores::
+* Extender las plantillas::
 @end menu
 
 
-@node How LilyPond input files work
-@section How LilyPond input files work
+@node Cómo funcionan los archivos de entrada de LilyPond
+@section Cómo funcionan los archivos de entrada de LilyPond
+@translationof How LilyPond input files work
 
 El formato de entrada de LilyPond es bastante libre en su forma y
 concede a los usuarios con experiencia mucha flexibilidad para
@@ -36,18 +38,19 @@ esta flexibilidad puede hacer que las cosas se vuelvan confusas para
 los nuevos usuarios.  Esta sección le va a explicar parte de esta
 estructura, pero puede obviar ciertos detalles en aras de la
 simplicidad.  Para ver una descripción completa del formato de
-entrada, consulte @ruser{File structure}.
+entrada, consulte @ruser{Estructura del archivo}.
 
 
 @menu
-* Introduction to the LilyPond file structure::
-* Score is a (single) compound musical expression::
-* Nesting music expressions::
-* On the un-nestedness of brackets and ties::
+* Introducción a la estructura de los archivos de LilyPond::
+* La partitura es una (única) expresión musical compuesta::
+* Anidado de expresiones musicales::
+* Acerca de la no anidabilidad de llaves y ligaduras::
 @end menu
 
-@node Introduction to the LilyPond file structure
-@subsection Introduction to the LilyPond file structure
+@node Introducción a la estructura de los archivos de LilyPond
+@subsection Introducción a la estructura de los archivos de LilyPond
+@translationof Introduction to the LilyPond file structure
 
 @cindex entrada, formato de la
 @cindex archivo, estructura del
@@ -123,7 +126,7 @@ complicados, especialmente cuando se usan instrucciones adicionales,
 la creación implícita de los contextos puede dar lugar a resultados
 inesperados, incluso en ocasiones crear pentagramas no deseados.  La
 forma de crear contextos de forma explícita se explica en
-@ref{Contexts and engravers}.
+@ref{Contextos y grabadores}.
 
 @warning{Cuando se escriben más de unas pocas líneas de música, se
 recomienda crear siempre los pentagramas y las voces de forma
@@ -189,8 +192,8 @@ Dos instrucciones más que no hemos visto aún son @code{\layout @{ @}}
 y @code{\midi @{ @}}.  Si aparecen tal y como se muestran aquí, hacen
 que LilyPond produzca una salida impresa y una salida MIDI,
 respectivamente.  Se describen con todo detalle en el manual de
-Referencia de la notación, en @ruser{Score layout} y en
-@ruser{Creating MIDI files}.
+Referencia de la notación, en @ruser{Disposición de la partitura} y en
+@ruser{Crear archivos MIDI}.
 
 @cindex partituras, varias
 @cindex book, bloque implícito
@@ -227,7 +230,7 @@ bloque @code{\score} (que por ello está dentro de un bloque
 @code{\book}, ya sea explícita o implícitamente) afecta a los bloques
 @code{\score} que están dentro de ese @code{\book}.
 
-Para ver más detalles, consulte @ruser{Multiple scores in a book}.
+Para ver más detalles, consulte @ruser{Varias partituras en un libro}.
 
 @cindex variables
 
@@ -249,22 +252,21 @@ Cuando LilyPond examina este archivo, toma el valor de @code{melodia}
 que ve @code{\melodia}.  No se requiere un cuidado especial con los
 nombres (puede ser @code{melodia}, @code{global},
 @code{CompasArmadura}, @code{manoderechadelpiano} o
-@code{fulanomengano}).  Para ver más detalles, consulte @ref{Saving
-typing with variables and functions}.  Recuerde que puede usar casi
+@code{fulanomengano}).  Para ver más detalles, consulte @ref{Ahorrar tecleo mediante variables y funciones}.  Recuerde que puede usar casi
 cualquier nombre que se le ocurra, en la medida en que contenga
 solamente caracteres alfabéticos y sea diferente de cualquiera de los
 nombres de instrucción de LilyPond.  Las limitaciones exactas que
-afectan a los nombres de variable se detallan en @ruser{File
-structure}.
+afectan a los nombres de variable se detallan en @ruser{Estructura del archivo}.
 
 
 @seealso
 Para ver una definición completa del formato del código de entrada,
-consulte @ruser{File structure}.
+consulte @ruser{Estructura del archivo}.
 
 
-@node Score is a (single) compound musical expression
-@subsection Score is a (single) compound musical expression
+@node La partitura es una (única) expresión musical compuesta
+@subsection La partitura es una (única) expresión musical compuesta
+@translationof Score is a (single) compound musical expression
 
 @cindex score
 @cindex partitura
@@ -276,8 +278,7 @@ consulte @ruser{File structure}.
 @funindex \score
 @funindex score
 
-En la sección anterior, @ref{Introduction to the LilyPond file
-structure}, hemos podido ver la organización general de los archivos
+En la sección anterior, @ref{Introducción a la estructura de los archivos de LilyPond}, hemos podido ver la organización general de los archivos
 de entrada de LilyPond.  Pero parece que nos saltamos la parte más
 importante: ¿cómo averiguamos qué escribir después de @code{\score}?
 
@@ -293,7 +294,7 @@ compuesta.}
 @noindent
 Para comprender lo que se entiende por expresión musical y expresión
 musical compuesta, quizá encuentre útil dar un repaso al tutorial,
-@ref{Music expressions explained}.  En esta sección vimos cómo
+@ref{Explicación de las expresiones musicales}.  En esta sección vimos cómo
 elaborar grandes expresiones musicales a partir de pequeñas piezas
 (comenzábamos con notas, luego acordes, etc.).  Ahora partiremos de
 una gran expresión musical y recorreremos el camino inverso hacia
@@ -419,11 +420,12 @@ horizontal).
 
 @seealso
 Referencia de la notación:
-@ruser{Structure of a score}.
+@ruser{Estructura de una partitura}.
 
 
-@node Nesting music expressions
-@subsection Nesting music expressions
+@node Anidado de expresiones musicales
+@subsection Anidado de expresiones musicales
+@translationof Nesting music expressions
 
 @cindex pentagramas temporales
 @cindex temporales, pentagramas
@@ -490,11 +492,12 @@ posición predeterminada que sería por debajo.
 Los fragmentos de ossia se escriben a menudo sin clave y sin
 indicación de compás, y generalmente en un tipo más pequeño.  Esto
 necesitaría más instrucciones que aún no se han visto.  Véase
-@ref{Size of objects} y @ruser{Ossia staves}.
+@ref{Tamaño de los objetos} y @ruser{Pentagramas de Ossia}.
 
 
-@node On the un-nestedness of brackets and ties
-@subsection On the un-nestedness of brackets and ties
+@node Acerca de la no anidabilidad de llaves y ligaduras
+@subsection Acerca de la no anidabilidad de llaves y ligaduras
+@translationof On the un-nestedness of brackets and ties
 
 @cindex corchetes y paréntesis, anidado de
 @cindex corchetes y paréntesis, tipos de
@@ -576,8 +579,9 @@ que sale del interior de un grupo especial (líneas 3 y 4).
 @end lilypond
 
 
-@node Voices contain music
-@section Voices contain music
+@node Las voces contienen música
+@section Las voces contienen música
+@translationof Voices contain music
 
 Igual que los cantantes, LilyPond necesita voces para cantar.  En
 realidad, la música para cualquier instrumento de una partitura está
@@ -585,13 +589,14 @@ siempre contenida dentro de una voz --el concepto de LilyPond más
 fundamental de todos--.
 
 @menu
-* I'm hearing Voices::
-* Explicitly instantiating voices::
-* Voices and vocals::
+* Oigo voces::
+* Voces explícitas::
+* Voces y música vocal::
 @end menu
 
-@node I'm hearing Voices
-@subsection I'm hearing Voices
+@node Oigo voces
+@subsection Oigo voces
+@translationof I'm hearing Voices
 
 @cindex polifonía
 @cindex capas
@@ -781,8 +786,7 @@ voz tres a círculos verdes con aspas, y la voz cuatro (que no se
 utiliza aquí) a aspas color magenta.  @code{\voiceNeutralStyle} (que
 tampoco se usa aquí) devuelve todo al estilo predeterminado.  Veremos
 más adelante cómo el usuario puede crear instrucciones como éstas.
-Véase @ref{Visibility and color of objects} y @ref{Using variables for
-tweaks}.
+Véase @ref{Visibilidad y color de los objetos} y @ref{Uso de variables para los trucos}.
 
 @cindex polifonía y modo relativo
 @cindex relativo, modo, polifonía y
@@ -954,16 +958,17 @@ colocadas de forma predeterminada.  LilyPond proporciona diversas
 maneras de ajustar la colocación horizontal de las notas.  Aún no
 estamos preparados para ver cómo corregir esto, así que dejaremos este
 problema aparcado hasta una sección posterior (véase la propiedad
-@code{force-hshift} en @ref{Fixing overlapping notation}).
+@code{force-hshift} en @ref{Arreglar notación con superposiciones}).
 
 
 @seealso
 Referencia de la notación:
-@ruser{Multiple voices}.
+@ruser{Varias voces}.
 
 
-@node Explicitly instantiating voices
-@subsection Explicitly instantiating voices
+@node Voces explícitas
+@subsection Voces explícitas
+@translationof Explicitly instantiating voices
 
 
 @funindex \voiceOne
@@ -1158,7 +1163,7 @@ que una voz está en silencio, como aquí:
 >>
 @end lilypond
 
-@subsubheading Note columns
+@subsubheading Columnas de notas
 
 @cindex columna de notas
 @cindex colisiones de notas
@@ -1196,7 +1201,7 @@ desplazan hacia la izquierda.
 
 @code{\shiftOnn} y @code{\shiftOnnn} definen niveles adicionales de
 desplazamiento que se pueden especificar temporalmente para resolver
-colisiones en situaciones complejas (véase @ref{Real music example}).
+colisiones en situaciones complejas (véase @ref{Ejemplos reales de música}).
 
 Una columna de notas puede contener sólo una nota (o acorde) de una
 voz con las plicas hacia arriba y una not (o acorde) de una voz con
@@ -1209,11 +1214,12 @@ columnas de notas}.
 
 @seealso
 Referencia de la notación:
-@ruser{Multiple voices}.
+@ruser{Varias voces}.
 
 
-@node Voices and vocals
-@subsection Voices and vocals
+@node Voces y música vocal
+@subsection Voces y música vocal
+@translationof Voices and vocals
 
 
 La música vocal presenta una dificultad especial: tenemos que combinar
@@ -1570,11 +1576,12 @@ refrainwordsB = \lyricmode {
 
 @seealso
 Referencia de la notación:
-@ruser{Vocal music}.
+@ruser{Música vocal}.
 
 
-@node Contexts and engravers
-@section Contexts and engravers
+@node Contextos y grabadores
+@section Contextos y grabadores
+@translationof Contexts and engravers
 
 Los contextos y grabadores se han mencionado de manera informal en
 secciones anteriores; ahora tan sólo vamos a ver estos conceptos con
@@ -1582,15 +1589,16 @@ más detalle, pues son importantes en el ajuste fino de la salida de
 LilyPond.
 
 @menu
-* Contexts explained::
-* Creating contexts::
-* Engravers explained::
-* Modifying context properties::
-* Adding and removing engravers::
+* Explicación de los contextos::
+* Crear contextos::
+* Explicación de los grabadores::
+* Modificar las propiedades de los contextos::
+* Añadir y eliminar grabadores::
 @end menu
 
-@node Contexts explained
-@subsection Contexts explained
+@node Explicación de los contextos
+@subsection Explicación de los contextos
+@translationof Contexts explained
 
 @cindex contextos, explicación de los
 
@@ -1668,11 +1676,12 @@ sin guión ni barra baja, por ejemplo:
 
 @seealso
 Referencia de la notación:
-@ruser{Contexts explained}.
+@ruser{Explicación de los contextos}.
 
 
-@node Creating contexts
-@subsection Creating contexts
+@node Crear contextos
+@subsection Crear contextos
+@translationof Creating contexts
 
 @funindex \new
 @funindex new
@@ -1779,17 +1788,17 @@ también se pueden utilizar dígitos y espacios, pero en este caso aquél
 debe ir entre comillas p.ej. @code{\new Staff = "MiPentagrama 1"
 @var{expresión_musical}}.  El nombre identificativo se utiliza para
 referirnos más tarde a esa instancia en particular de un contexto.
-Hemos visto esto en la sección acerca de la letra, en @ref{Voices and
-vocals}.
+Hemos visto esto en la sección acerca de la letra, en @ref{Voces y música vocal}.
 
 
 @seealso
 Referencia de la notación:
-@ruser{Creating contexts}.
+@ruser{Crear contextos}.
 
 
-@node Engravers explained
-@subsection Engravers explained
+@node Explicación de los grabadores
+@subsection Explicación de los grabadores
+@translationof Engravers explained
 
 @cindex grabadores
 
@@ -1878,8 +1887,9 @@ Referencia de funcionamiento interno:
 @rinternals{Engravers and Performers}.
 
 
-@node Modifying context properties
-@subsection Modifying context properties
+@node Modificar las propiedades de los contextos
+@subsection Modificar las propiedades de los contextos
+@translationof Modifying context properties
 
 @cindex contexto, propiedades de
 @cindex contexto, propiedades de, modificación
@@ -2084,7 +2094,7 @@ se debe encerrar entre comillas dobles, como antes, aunque veremos más
 adelante que el texto realmente se puede especificar de una forma
 mucho más general utilizando la potentísima instrucción @code{markup}.
 
-@subsubheading Setting context properties with @code{\with}
+@subsubheading Cambiar las propiedades de un contexto con @code{\with}
 
 @funindex \with
 @funindex with
@@ -2134,7 +2144,7 @@ valor predeterminado del tamaño de la fuente tipográfica.  Si más
 tarde se modifica con @code{\set}, este nuevo valor predeterminado
 puede restablecerse con la instrucción @code{\unset fontSize}.
 
-@subsubheading Setting context properties with @code{\context}
+@subsubheading Cambiar las propiedades de un contexto con @code{\context}
 
 @cindex contextos, establecer propiedades de, con \context
 @funindex \context
@@ -2178,18 +2188,19 @@ enunciados dentro de un bloque @code{\with}, y mediante instrucciones
 
 @seealso
 Referencia de la notación:
-@ruser{Changing context default settings}.
+@ruser{Cambiar los valores por omisión de los contextos}.
 @c FIXME
 @c uncomment when backslash-node-name issue is resolved -pm
-@c @ruser{The set command}.
+@c @ruser{La instrucción set}.
 
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
 @rinternals{Tunable context properties}.
 
 
-@node Adding and removing engravers
-@subsection Adding and removing engravers
+@node Añadir y eliminar grabadores
+@subsection Añadir y eliminar grabadores
+@translationof Adding and removing engravers
 
 @cindex grabadores, adición
 @cindex grabadores, eliminación
@@ -2208,7 +2219,7 @@ pentagramas, cabezas, plicas, etc.  Si un grabador es eliminado de un
 contexto, ya no podrá producir su salida impresa.  Es una forma algo
 radical de modificar la salida, pero a veces puede ser útil.
 
-@subsubheading Changing a single context
+@subsubheading Cambiar un solo contexto
 
 Para eliminar un grabador de un contexto único, usamos la instrucción
 @code{\with} situada inmediatamente después de la instrucción que crea
@@ -2289,7 +2300,7 @@ pentagrama:
 >>
 @end lilypond
 
-@subsubheading Changing all contexts of the same type
+@subsubheading Cambiar todos los contextos del mismo tipo
 
 @funindex \layout
 @funindex layout
@@ -2338,29 +2349,31 @@ particular incluyendo la instrucción @code{\set} dentro de un bloque
 
 @seealso
 Referencia de la notación:
-@ruser{Modifying context plug-ins},
-@ruser{Changing context default settings}.
+@ruser{Modificar los complementos (plug-ins) de contexto},
+@ruser{Cambiar los valores por omisión de los contextos}.
 
 
-@node Extending the templates
-@section Extending the templates
+@node Extender las plantillas
+@section Extender las plantillas
+@translationof Extending the templates
 
 Ha leído el tutorial y ahora sabe escribir música.  Pero ¿cómo puede
 poner los pentagramas que quiere?  Las plantillas están muy bien, pero
 ¿qué ocurre si quiere algo que no está en una de ellas?  Bien, puede
-encontrar montañas de plantillas (véase @ref{Templates}) que le pueden
+encontrar montañas de plantillas (véase @ref{Plantillas}) que le pueden
 servir como punto de partida.  Pero ¿y si quiere algo que no está
 contemplado aquí? Continúe leyendo.
 
 
 @menu
-* Soprano and cello::
-* Four-part SATB vocal score::
-* Building a score from scratch::
+* Soprano y violoncello::
+* Partitura vocal a cuatro voces SATB::
+* Crear una partitura partiendo de cero::
 @end menu
 
-@node Soprano and cello
-@subsection Soprano and cello
+@node Soprano y violoncello
+@subsection Soprano y violoncello
+@translationof Soprano and cello
 
 @cindex plantilla, modificar
 @cindex modificar plantillas
@@ -2547,11 +2560,12 @@ celloMusic = \relative c {
 
 @seealso
 Las plantillas de inicio se pueden encontrar en el apéndice
-@q{Templates}, véase @ref{Single staff}.
+@q{Templates}, véase @ref{Pentagrama único}.
 
 
-@node Four-part SATB vocal score
-@subsection Four-part SATB vocal score
+@node Partitura vocal a cuatro voces SATB
+@subsection Partitura vocal a cuatro voces SATB
+@translationof Four-part SATB vocal score
 
 La mayor parte de las partituras vocales escritas para coro mixto a
 cuatro voces con acompañamiento orquestal, como el «Elías» de
@@ -2636,7 +2650,7 @@ lower = \relative c, {
 
 Ninguna de las plantillas proporciona esta disposición con exactitud.
 La más parecida es @q{partitura vocal SATB y reducción de piano
-automática} (véase @ref{Vocal ensembles}), pero necesitamos cambiar la
+automática} (véase @ref{Conjuntos vocales}), pero necesitamos cambiar la
 disposición y añadir un acompañamiento de piano que no esté derivado
 automáticamente de las partes vocales.  Las variables que contienen la
 música y la letra de las partes vocales es adecuada, pero tendremos
@@ -2807,8 +2821,9 @@ lower = \relative c, {
 @end lilypond
 
 
-@node Building a score from scratch
-@subsection Building a score from scratch
+@node Crear una partitura partiendo de cero
+@subsection Crear una partitura partiendo de cero
+@translationof Building a score from scratch
 
 @cindex plantilla, escribir su propia
 @cindex ejemplo de escritura de una partitura

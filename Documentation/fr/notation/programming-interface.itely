@@ -13,215 +13,242 @@
 @c Translation checkers: Gilles Thibault
 
 
-@node Interfaces for programmers
-@chapter Interfaces for programmers
+@node Interfaces pour les programmeurs
+@chapter Interfaces pour les programmeurs
+@translationof Interfaces for programmers @c external
 
 @untranslated
 
 
 @menu
-* Music functions::
-* Programmer interfaces::
-* Building complicated functions::
-* Markup programmer interface::
-* Contexts for programmers::
-* Scheme procedures as properties::
-* Using Scheme code instead of tweak::
-* Difficult tweaks::
+* Fonctions musicales::
+* Interfaces de programmation::
+* Construction de fonctions complexes::
+* Interface de programmation des marqueurs de texte::
+* Contextes pour programmeurs::
+* Utilisation de procédures Scheme en tant que propriétés::
+* Utilisation de code Scheme au lieu de \"tweak\"::
+* Retouches complexes::
 @end menu
 
-@node Music functions
-@section Music functions
+@node Fonctions musicales
+@section Fonctions musicales
+@translationof Music functions @c external
 
 @untranslated
 
 
 @menu
-* Overview of music functions::
-* Simple substitution functions::
-* Paired substitution functions::
-* Mathematics in functions::
-* Void functions::
-* Functions without arguments::
-* Overview of available music functions::
+* Aperçu des fonctions musicales::
+* Fonctions de substitution simple::
+* Fonctions de substitution par paire::
+* De l'usage des mathématiques dans les fonctions::
+* Fonctions fantômes::
+* Fonctions dépourvues d'argument::
+* Liste des fonctions musicales prédéfinies::
 @end menu
 
-@node Overview of music functions
-@subsection Overview of music functions
+@node Aperçu des fonctions musicales
+@subsection Aperçu des fonctions musicales
+@translationof Overview of music functions @c external
 
 @untranslated
 
 
-@node Simple substitution functions
-@subsection Simple substitution functions
+@node Fonctions de substitution simple
+@subsection Fonctions de substitution simple
+@translationof Simple substitution functions @c external
 
 @untranslated
 
 
-@node Paired substitution functions
-@subsection Paired substitution functions
+@node Fonctions de substitution par paire
+@subsection Fonctions de substitution par paire
+@translationof Paired substitution functions @c external
 
 @untranslated
 
 
-@node Mathematics in functions
-@subsection Mathematics in functions
+@node De l'usage des mathématiques dans les fonctions
+@subsection De l'usage des mathématiques dans les fonctions
+@translationof Mathematics in functions @c external
 
 @untranslated
 
 
-@node Void functions
-@subsection Void functions
+@node Fonctions fantômes
+@subsection Fonctions fantômes
+@translationof Void functions @c external
 
 @untranslated
 
 
-@node Functions without arguments
-@subsection Functions without arguments
+@node Fonctions dépourvues d'argument
+@subsection Fonctions dépourvues d'argument
+@translationof Functions without arguments @c external
 
 @untranslated
 
 
-@node Overview of available music functions
-@subsection Overview of available music functions
+@node Liste des fonctions musicales prédéfinies
+@subsection Liste des fonctions musicales prédéfinies
+@translationof Overview of available music functions @c external
 
 @untranslated
 
 
 @include identifiers.tely
-@node Programmer interfaces
-@section Programmer interfaces
+@node Interfaces de programmation
+@section Interfaces de programmation
+@translationof Programmer interfaces @c external
 
 @untranslated
 
 
 @menu
-* Input variables and Scheme::
-* Internal music representation::
+* Variables d'entrée et Scheme::
+* Représentation interne de la musique::
 @end menu
 
-@node Input variables and Scheme
-@subsection Input variables and Scheme
+@node Variables d'entrée et Scheme
+@subsection Variables d'entrée et Scheme
+@translationof Input variables and Scheme @c external
 
 @untranslated
 
 
-@node Internal music representation
-@subsection Internal music representation
+@node Représentation interne de la musique
+@subsection Représentation interne de la musique
+@translationof Internal music representation @c external
 
 @untranslated
 
 
-@node Building complicated functions
-@section Building complicated functions
+@node Construction de fonctions complexes
+@section Construction de fonctions complexes
+@translationof Building complicated functions @c external
 
 @untranslated
 
 
 @menu
-* Displaying music expressions::
-* Music properties::
-* Doubling a note with slurs (example)::
-* Adding articulation to notes (example)::
+* Affichage d'expressions musicales::
+* Propriétés de la musique::
+* Exemple : redoubler une note avec liaison::
+* Exemple : ajouter une articulation à plusieurs notes::
 @end menu
 
-@node Displaying music expressions
-@subsection Displaying music expressions
+@node Affichage d'expressions musicales
+@subsection Affichage d'expressions musicales
+@translationof Displaying music expressions @c external
 
 @untranslated
 
 
-@node Music properties
-@subsection Music properties
+@node Propriétés de la musique
+@subsection Propriétés de la musique
+@translationof Music properties @c external
 
 @untranslated
 
 
-@node Doubling a note with slurs (example)
-@subsection Doubling a note with slurs (example)
+@node Exemple : redoubler une note avec liaison
+@subsection Exemple : redoubler une note avec liaison
+@translationof Doubling a note with slurs (example) @c external
 
 @untranslated
 
 
-@node Adding articulation to notes (example)
-@subsection Adding articulation to notes (example)
+@node Exemple : ajouter une articulation à plusieurs notes
+@subsection Exemple : ajouter une articulation à plusieurs notes
+@translationof Adding articulation to notes (example) @c external
 
 @untranslated
 
 
-@node Markup programmer interface
-@section Markup programmer interface
+@node Interface de programmation des marqueurs de texte
+@section Interface de programmation des marqueurs de texte
+@translationof Markup programmer interface @c external
 
 @untranslated
 
 
 @menu
-* Markup construction in Scheme::
-* How markups work internally::
-* New markup command definition::
-* New markup list command definition::
+* Construction Scheme d'un marqueur::
+* Fonctionnement interne des marqueurs::
+* Définition d'une nouvelle commande de marqueur::
+* Définition d'une nouvelle commande de liste de marqueurs::
 @end menu
 
-@node Markup construction in Scheme
-@subsection Markup construction in Scheme
+@node Construction Scheme d'un marqueur
+@subsection Construction Scheme d'un marqueur
+@translationof Markup construction in Scheme @c external
 
 @untranslated
 
 
-@node How markups work internally
-@subsection How markups work internally
+@node Fonctionnement interne des marqueurs
+@subsection Fonctionnement interne des marqueurs
+@translationof How markups work internally @c external
 
 @untranslated
 
 
-@node New markup command definition
-@subsection New markup command definition
+@node Définition d'une nouvelle commande de marqueur
+@subsection Définition d'une nouvelle commande de marqueur
+@translationof New markup command definition @c external
 
 @untranslated
 
 
-@node New markup list command definition
-@subsection New markup list command definition
+@node Définition d'une nouvelle commande de liste de marqueurs
+@subsection Définition d'une nouvelle commande de liste de marqueurs
+@translationof New markup list command definition @c external
 
 @untranslated
 
 
-@node Contexts for programmers
-@section Contexts for programmers
+@node Contextes pour programmeurs
+@section Contextes pour programmeurs
+@translationof Contexts for programmers @c external
 
 @untranslated
 
 
 @menu
-* Context evaluation::
-* Running a function on all layout objects::
+* Évaluation d'un contexte::
+* Application d'une fonction à tous les objets de mise en forme::
 @end menu
 
-@node Context evaluation
-@subsection Context evaluation
+@node Évaluation d'un contexte
+@subsection Évaluation d'un contexte
+@translationof Context evaluation @c external
 
 @untranslated
 
 
-@node Running a function on all layout objects
-@subsection Running a function on all layout objects
+@node Application d'une fonction à tous les objets de mise en forme
+@subsection Application d'une fonction à tous les objets de mise en forme
+@translationof Running a function on all layout objects @c external
 
 @untranslated
 
 
-@node Scheme procedures as properties
-@section Scheme procedures as properties
+@node Utilisation de procédures Scheme en tant que propriétés
+@section Utilisation de procédures Scheme en tant que propriétés
+@translationof Scheme procedures as properties @c external
 
 @untranslated
 
 
 @menu
-* Using Scheme code instead of tweak::
-* Difficult tweaks::
+* Utilisation de code Scheme au lieu de \"tweak\"::
+* Retouches complexes::
 @end menu
 
-@node Using Scheme code instead of tweak
-@section Using Scheme code instead of @code{\tweak}
+@node Utilisation de code Scheme au lieu de \"tweak\"
+@section Utilisation de code Scheme au lieu de @code{\tweak}
+@translationof Using Scheme code instead of tweak
 
 L'inconvénient principal de la commande @code{\tweak} est la rigidité de sa
 syntaxe.  Par exemple, le code suivant produit une erreur.
@@ -239,8 +266,7 @@ En d'autres termes, @code{\tweak} ne se comporte pas comme une articulation :
 il ne peut notamment pas être accolé avec les symboles @samp{^} ou @samp{_}.
 
 C'est en se servant du langage Scheme que l'on peut résoudre ce problème.
-Dans cet exemple, on a recours aux méthodes décrites dans @ref{Adding
-articulation to notes (example)}, en particulier quant à l'emploi de
+Dans cet exemple, on a recours aux méthodes décrites dans @ref{Exemple : ajouter une articulation à plusieurs notes}, en particulier quant à l'emploi de
 @code{\displayMusic}.
 
 @example
@@ -266,8 +292,9 @@ Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
 @samp{m} lui-même.
 
 
-@node Difficult tweaks
-@section Difficult tweaks
+@node Retouches complexes
+@section Retouches complexes
+@translationof Difficult tweaks
 
 Certains réglages sont plus délicats que d'autres.
 

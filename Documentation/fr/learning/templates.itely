@@ -8,8 +8,9 @@
 @end ignore
 
 
-@node Templates
-@appendix Templates
+@node Modèles
+@appendix Modèles
+@translationof Templates
 
 Cette annexe du manuel propose des patrons de partition Lilypond, prets à
 l'emploi.  Il vous suffira d'y ajouter quelques notes, de lancer
@@ -17,68 +18,75 @@ LilyPond, et d'aprécier le résultat.
 
 
 @menu
-* Single staff::
-* Piano templates::
-* String quartet::
-* Vocal ensembles::
-* Ancient notation templates::
-* Jazz combo::
-* lilypond-book templates::
+* Portée unique::
+* Modèles pour claviers::
+* Quatuor à cordes::
+* Ensemble vocal::
+* Exemples de notation ancienne::
+* Symboles de jazz::
+* Squelettes pour lilypond-book::
 @end menu
 
-@node Single staff
-@appendixsec Single staff
+@node Portée unique
+@appendixsec Portée unique
+@translationof Single staff @c external
 
 @untranslated
 
 
-@appendixsubsec Notes only
-@appendixsubsec Notes and lyrics
-@appendixsubsec Notes and chords
-@appendixsubsec Notes, lyrics, and chords.
-@node Piano templates
-@appendixsec Piano templates
+@appendixsubsec Notes seules
+@appendixsubsec Notes et paroles
+@appendixsubsec Notes et accords
+@appendixsubsec Notes, paroles et accords
+@node Modèles pour claviers
+@appendixsec Modèles pour claviers
+@translationof Piano templates @c external
 
 @untranslated
 
 
-@appendixsubsec Solo piano
-@appendixsubsec Piano and melody with lyrics
-@appendixsubsec Piano centered lyrics
-@appendixsubsec Piano centered dynamics
-@node String quartet
-@appendixsec String quartet
+@appendixsubsec Piano seul
+@appendixsubsec Chant et accompagnement
+@appendixsubsec Piano et paroles entre les portées
+@appendixsubsec Piano et nuances entre les portées
+@node Quatuor à cordes
+@appendixsec Quatuor à cordes
+@translationof String quartet @c external
 
 @untranslated
 
 
-@appendixsubsec String quartet
-@appendixsubsec String quartet parts
-@node Vocal ensembles
-@appendixsec Vocal ensembles
+@appendixsubsec Quatuor à cordes
+@appendixsubsec Parties pour quatuor à cordes
+@node Ensemble vocal
+@appendixsec Ensemble vocal
+@translationof Vocal ensembles @c external
 
 @untranslated
 
 
-@appendixsubsec SATB vocal score
-@appendixsubsec SATB vocal score and automatic piano reduction
-@appendixsubsec SATB with aligned contexts
-@node Ancient notation templates
-@appendixsec Ancient notation templates
+@appendixsubsec Partition pour chÅÂur à quatre voix mixtes
+@appendixsubsec Partition pour chÅÂur SATB avec réduction pour piano
+@appendixsubsec Partition pour chÅÂur SATB avec alignement des contextes
+@node Exemples de notation ancienne
+@appendixsec Exemples de notation ancienne
+@translationof Ancient notation templates @c external
 
 @untranslated
 
 
-@appendixsubsec Transcription of mensural music
-@appendixsubsec Gregorian transcription template
-@node Jazz combo
-@appendixsec Jazz combo
+@appendixsubsec Transcription de musique mensurale
+@appendixsubsec Transcription du grégorien
+@node Symboles de jazz
+@appendixsec Symboles de jazz
+@translationof Jazz combo @c external
 
 @untranslated
 
 
-@node lilypond-book templates
-@appendixsec lilypond-book templates
+@node Squelettes pour lilypond-book
+@appendixsec Squelettes pour lilypond-book
+@translationof lilypond-book templates @c external
 
 @untranslated
 
@@ -87,4 +95,3 @@ LilyPond, et d'aprécier le résultat.
 @appendixsubsec Texinfo
 @appendixsubsec xelatex
 
-@c -- SKELETON FILE --

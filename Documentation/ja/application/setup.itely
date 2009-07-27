@@ -13,34 +13,37 @@
 @c Translation status: post-GDP
 
 
-@node Setup
-@chapter Setup
+@node セットアップ
+@chapter セットアップ
+@translationof Setup
 
 この章では、インストール後に行う LilyPond と他の様々なプログラムのための様々な@c
 コンフィグレーション オプションについて議論します。この章はリファレンスと見な@c
 して差し支えないかもしれません: あなたに関係のある節だけを読んでください。
 
 @menu
-* Setup for specific Operating Systems::
-* Text editor support::
-* Point and click::
+* 特定の OS のためのセットアップ::
+* テキスト エディタのサポート::
+* ポイント＆クリック::
 @end menu
 
-@node Setup for specific Operating Systems
-@section Setup for specific Operating Systems
+@node 特定の OS のためのセットアップ
+@section 特定の OS のためのセットアップ
+@translationof Setup for specific Operating Systems
 
 この節では、特定の OS のために必要とされる追加のセットアップを実行する方法につ@c
 いて説明します。
 
 @menu
-* Setup for MacOS X::
+* MacOS X のためのセットアップ::
 @end menu
 
 
-@node Setup for MacOS X
-@subsection Setup for MacOS X
+@node MacOS X のためのセットアップ
+@subsection MacOS X のためのセットアップ
+@translationof Setup for MacOS X
 
-@subsubheading Using Python scripts on MacOS 10.3 or 10.4
+@subsubheading MaxOS 10.3 または 10.4 で Python スクリプトを使用する
 
 MacOS X 用の LilyPond バイナリは Python を提供しませんが、@command{convert-ly} 
 には Python 2.4 以降が必要です。そのため、あなたが MacOS 10.3 または 10.4 を@c
@@ -64,7 +67,7 @@ MacOS X 用の LilyPond バイナリは Python を提供しませんが、@comma
 と変更します。
 
 
-@subsubheading MacOS X on the command line
+@subsubheading MaxOS X のコマンド ライン
 
 MacOS@tie{}Xではスクリプト --- @command{lilypond-book}, @command{convert-ly},
 @command{abc2ly}, あるいは @command{lilypond} 自体のような --- は @code{.app} 
@@ -120,8 +123,9 @@ export PATH=$PATH:~/bin
 い。
 
 
-@node Text editor support
-@section Text editor support
+@node テキスト エディタのサポート
+@section テキスト エディタのサポート
+@translationof Text editor support
 
 @cindex editors
 @cindex vim
@@ -133,16 +137,17 @@ export PATH=$PATH:~/bin
 LilyPond をサポートするテキスト エディタがいくつかあります。
 
 @menu
-* Emacs mode::
-* Vim mode::
+* Emacs モード::
+* Vim モード::
 * jEdit::
 * TexShop::
 * TextMate::
 * LilyKDE::
 @end menu
 
-@node Emacs mode
-@subsection Emacs mode
+@node Emacs モード
+@subsection Emacs モード
+@translationof Emacs mode
 
 Emacs は @file{lilypond-mode} を持ちます。これはキーワード自動補完、インデント@c
 付け、LilyPond 特有の括弧マッチング、構文のカラーリング、便利なコンパイル 
@@ -166,8 +171,9 @@ Emacs は @file{lilypond-mode} を持ちます。これはキーワード自動�
 @end example
 
 
-@node Vim mode
-@subsection Vim mode
+@node Vim モード
+@subsection Vim モード
+@translationof Vim mode
 
 @uref{http://@/www@/.vim@/.org,VIM} から @file{vimrc} と構文カラーリング ツー@c
 ルが入手できます。音楽を入力して LilyPond を実行するための Vim モードは 
@@ -199,6 +205,7 @@ set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 
 @node jEdit
 @subsection jEdit
+@translationof jEdit
 
 LilyPondTool は、LilyPond ソースを編集するために 
 @uref{http://@/www@/.jedit@/.org@/,jEdit} テキスト エディタのためのプラグイン@c
@@ -211,6 +218,7 @@ LilyPondTool は、LilyPond ソースを編集するために
 
 @node TexShop
 @subsection TexShop
+@translationof TexShop
 
 MaxOS@tie{}X 用の @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,
 TexShop} エディタは、
@@ -221,6 +229,7 @@ convert-ly を実行できるように拡張することが可能です。
 
 @node TextMate
 @subsection TextMate
+@translationof TextMate
 
 TextMate 用の LilyPond バンドルがあります。以下を実行することでインストールで@c
 きるでしょう:
@@ -234,6 +243,7 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 
 @node LilyKDE
 @subsection LilyKDE
+@translationof LilyKDE
 
 @uref{http://lilykde.googlecode.com/,LilyKDE} は KDE のテキスト エディタ 
 @uref{http://kate-editor.org/,Kate} 用のプラグインです。これは素早く LilyPond 
@@ -247,8 +257,9 @@ LilyKDE は @uref{http://www.volny.cz/smilauer/rumor/,Rumor} を使うことが�
 ファイルを含めて LilyPond を実行する機能があります。
 
 
-@node Point and click
-@section Point and click
+@node ポイント＆クリック
+@section ポイント＆クリック
+@translationof Point and click
 @cindex point and click
 
 

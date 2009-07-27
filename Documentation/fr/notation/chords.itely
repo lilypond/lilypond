@@ -12,31 +12,34 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Chord notation
-@section Chord notation
+@node Notation des accords
+@section Notation des accords
+@translationof Chord notation @c external
 
 @untranslated
 
 @menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
+* Mode accords::
+* Gravure des accords::
+* Basse chiffrée::
 @end menu
 
-@node Chord mode
-@subsection Chord mode
+@node Mode accords
+@subsection Mode accords
+@translationof Chord mode @c external
 
 @untranslated
 
 @menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
+* Généralités sur le mode accords::
+* Accords courants::
+* Extensions et altération d'accords::
 @end menu
 
 @c This material comes from 'Entering chord names' -FV
-@node Chord mode overview
-@unnumberedsubsubsec Chord mode overview
+@node Généralités sur le mode accords
+@unnumberedsubsubsec Généralités sur le mode accords
+@translationof Chord mode overview
 
 @cindex accords, chiffrage jazz
 
@@ -73,8 +76,9 @@ Notez bien que la valeur rythmique des accords doit être indiquée
 @end example
 
 @c This material comes from 'Chords mode' -FV
-@node Common chords
-@unnumberedsubsubsec Common chords
+@node Accords courants
+@unnumberedsubsubsec Accords courants
+@translationof Common chords
 
 Dans le mode accords, introduit par la commande @code{\chordmode}, les
 accords ne sont indiqués que par leur note fondamentale.
@@ -209,23 +213,26 @@ car elle est indiquée en dernier :
 \chordmode { c:5.5-.5+ }
 @end lilypond
 
-@node Extended and altered chords
-@unnumberedsubsubsec Extended and altered chords
+@node Extensions et altération d'accords
+@unnumberedsubsubsec Extensions et altération d'accords
+@translationof Extended and altered chords @c external
 
 @untranslated
 
-@node Displaying chords
-@subsection Displaying chords
+@node Gravure des accords
+@subsection Gravure des accords
+@translationof Displaying chords @c external
 
 @untranslated
 
 @menu
-* Printing chord names::
-* Customizing chord names::
+* Impression des noms d'accord::
+* Personnalisation des noms d'accord::
 @end menu
 
-@node Printing chord names
-@unnumberedsubsubsec Printing chord names
+@node Impression des noms d'accord
+@unnumberedsubsubsec Impression des noms d'accord
+@translationof Printing chord names
 
 @cindex chiffrages d'accords
 @cindex accords
@@ -285,7 +292,7 @@ s'affichent correctement.
 @end lilypond
 
 Le modèle par défaut des chiffrages d'accord est celui de
-Klaus Ignatzek pour le jazz (cf. @ref{Literature list}).  Il s'agit
+Klaus Ignatzek pour le jazz (cf. @ref{Bibliographie}).  Il s'agit
 d'une notation anglo-saxonne ; cependant vous pouvez
 indiquer vos chiffrages en notation française au moyen de
 la commande \frenchChords (voir plus bas).
@@ -382,7 +389,7 @@ adaptées aux notations de différents pays : @code{\germanChords} et
 @cindex accords jazz, chiffrage
 LilyPond intègre également deux autres modèles de chiffrages : une
 notation Jazz alternative, et un modèle systématique appelé système
-Banter.  Pour la mise en œuvre de ces modèles, voir @ref{Chord name chart}.
+Banter.  Pour la mise en œuvre de ces modèles, voir @ref{Table des noms d'accord}.
 
 
 @predefined
@@ -412,25 +419,28 @@ reconnus, ni les notes ajoutées à la basse.  C'est pourquoi les accords
 saisis au moyen de la syntaxe @code{<.. >} peuvent produire des
 chiffrages étranges.
 
-@node Customizing chord names
-@unnumberedsubsubsec Customizing chord names
+@node Personnalisation des noms d'accord
+@unnumberedsubsubsec Personnalisation des noms d'accord
+@translationof Customizing chord names @c external
 
 @untranslated
 
-@node Figured bass
-@subsection Figured bass
+@node Basse chiffrée
+@subsection Basse chiffrée
+@translationof Figured bass @c external
 
 @untranslated
 
 @menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
+* Introduction à la basse chiffrée::
+* Saisie de la basse chiffrée::
+* Gravure de la basse chiffrée::
 @end menu
 
 @c This material comes from 'Figured bass', needs redistribution by translator --FV
-@node Introduction to figured bass
-@unnumberedsubsubsec Introduction to figured bass
+@node Introduction à la basse chiffrée
+@unnumberedsubsubsec Introduction à la basse chiffrée
+@translationof Introduction to figured bass
 
 @cindex basse continue
 @cindex basse chiffrée
@@ -494,8 +504,7 @@ Les altérations s'obtiennent en ajoutant aux chiffres les caractères
 
 Le caractère @code{_} insère un espace, et l'on peut imprimer des
 crochets avec @code{[} et @code{]}.  Vous pouvez aussi ajouter des
-chaînes de caractères ou des étiquettes --- cf. @ref{Text
-markup commands}.
+chaînes de caractères ou des étiquettes --- cf. @ref{Text markup commands}.
 
 @example
 <[4 6] 8 [_! 12] > <5 \markup @{ \number 6 \super (1) @} >
@@ -635,12 +644,14 @@ Référence du programme : les objets @rinternals{BassFigure},
 @rinternals{FiguredBass}.
 
 
-@node Entering figured bass
-@unnumberedsubsubsec Entering figured bass
+@node Saisie de la basse chiffrée
+@unnumberedsubsubsec Saisie de la basse chiffrée
+@translationof Entering figured bass @c external
 
 @untranslated
 
-@node Displaying figured bass
-@unnumberedsubsubsec Displaying figured bass
+@node Gravure de la basse chiffrée
+@unnumberedsubsubsec Gravure de la basse chiffrée
+@translationof Displaying figured bass @c external
 
 @untranslated

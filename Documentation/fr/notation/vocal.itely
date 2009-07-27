@@ -12,8 +12,9 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude
 
-@node Vocal music
-@section Vocal music
+@node Musique vocale
+@section Musique vocale
+@translationof Vocal music
 
 Dans la mesure où les fichiers LilyPond sont constitués de texte,
 traiter de la musique vocale demande de prendre en compte deux spécificités :
@@ -32,11 +33,11 @@ Plusieurs solutions existent pour ajouter des paroles ; nous les
 examinerons par degré croissant de complexité.
 
 @menu
-* Common notation for vocal music::
-* Entering lyrics::  
-* Aligning lyrics to a melody::  
-* Specific uses of lyrics::         
-* Stanzas::                     
+* Vue d'ensemble de la musique vocale::
+* Saisie des paroles::  
+* Alignement des paroles sur une mélodie::  
+* Situations particulères en matière de paroles::         
+* Couplets::                     
 @end menu
 
 @commonprop
@@ -63,65 +64,74 @@ Pour que les paroles évitent également les barres de mesure, ajoutez
 @end example
 
 
-@node Common notation for vocal music
-@subsection Common notation for vocal music
+@node Vue d'ensemble de la musique vocale
+@subsection Vue d'ensemble de la musique vocale
+@translationof Common notation for vocal music @c external
 
 @untranslated
 
 @menu
-* References for vocal music and lyrics::
-* Opera::
-* Song books::
+* Références en matière de musique vocale::
+* Opéra::
+* Cahier de chants::
 * Chants::
-* Spoken music::
-* Ancient vocal music::
+* Musique parlée::
+* Musique vocale ancienne::
 @end menu
 
-@node References for vocal music and lyrics
-@unnumberedsubsubsec References for vocal music and lyrics
+@node Références en matière de musique vocale
+@unnumberedsubsubsec Références en matière de musique vocale
+@translationof References for vocal music and lyrics @c external
 
 @untranslated
 
-@node Opera
-@unnumberedsubsubsec Opera
+@node Opéra
+@unnumberedsubsubsec Opéra
+@translationof Opera @c external
 
 @untranslated
 
-@node Song books
-@unnumberedsubsubsec Song books
+@node Cahier de chants
+@unnumberedsubsubsec Cahier de chants
+@translationof Song books @c external
 
 @untranslated
 
-@node Spoken music
-@unnumberedsubsubsec Spoken music
+@node Musique parlée
+@unnumberedsubsubsec Musique parlée
+@translationof Spoken music
 
 Le @emph{parlato} est du texte scandé en rythme, mais sans hauteurs
 définies ; il est indiqué par des notes en croix, à l'instar des
-percussions --- voir @ref{Special note heads}.
+percussions --- voir @ref{Têtes de note spécifiques}.
 
 @node Chants
 @unnumberedsubsubsec Chants
+@translationof Chants @c external
 
 @untranslated
 
-@node Ancient vocal music
-@unnumberedsubsubsec Ancient vocal music
+@node Musique vocale ancienne
+@unnumberedsubsubsec Musique vocale ancienne
+@translationof Ancient vocal music @c external
 
 @untranslated
 
 
-@node Entering lyrics
-@subsection Entering lyrics
+@node Saisie des paroles
+@subsection Saisie des paroles
+@translationof Entering lyrics
 
 @menu
-* Lyrics explained::
-* Setting simple songs::
-* Working with lyrics and variables::
+* Tout savoir sur les paroles::
+* Écriture de chants simples::
+* Travail avec des paroles et variables::
 @end menu
 
 
-@node Lyrics explained
-@unnumberedsubsubsec Lyrics explained
+@node Tout savoir sur les paroles
+@unnumberedsubsubsec Tout savoir sur les paroles
+@translationof Lyrics explained
 
 @cindex paroles
 @funindex \lyricmode
@@ -146,7 +156,7 @@ il est aussi possible d'attribuer automatiquement chaque syllabe à une
 note d'une mélodie ou d'une voix existante, avec @code{\addlyrics} ou
 @code{\lyricsto}.  
 @c  TODO: broken but exists Aligning lyrics
-@c For more details see @ref{Aligning contexts}.
+@c For more details see @ref{Alignement des contextes}.
 
 Dans les paroles, un mot ou une syllabe commence par une lettre de
 l'alphabet, et se termine par un espace (éventuellement précédé d'un
@@ -209,7 +219,7 @@ incluant ce symbole (par exemple DejaVuLGC) installée sur le système.
 Pour utiliser des lettres accentuées ou des caractères spéciaux 
 --- cœurs ou guillemets inversés par exemple --- il suffit de les insérer
 dans le fichier et de veiller à sauvegarder ce dernier avec le codage
-UTF-8.  Voir à ce sujet @ref{Text encoding} pour plus de détails.
+UTF-8.  Voir à ce sujet @ref{Codage du texte} pour plus de détails.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' { e4 f e d e f e2 }
@@ -256,8 +266,9 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 Référence du programme : @rinternals{LyricText}, @rinternals{LyricSpace}.
 
 
-@node Setting simple songs
-@unnumberedsubsubsec Setting simple songs
+@node Écriture de chants simples
+@unnumberedsubsubsec Écriture de chants simples
+@translationof Setting simple songs
 
 @cindex \addlyrics
 
@@ -290,11 +301,12 @@ sections @code{\addlyrics}.
 Cependant, la commande @code{\addlyrics} ne peut gérer les
 constructions polyphoniques.  Dans ce cas, mieux vaut employer
 @code{\lyricsto} et @code{\lyricmode}, comme nous le verrons dans
-@ref{Lyrics explained}. 
+@ref{Tout savoir sur les paroles}. 
 
 
-@node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
+@node Travail avec des paroles et variables
+@unnumberedsubsubsec Travail avec des paroles et variables
+@translationof Working with lyrics and variables
 
 @cindex paroles, variables
 
@@ -355,8 +367,9 @@ Référence du programme : @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.  
 
 
-@node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@node Alignement des paroles sur une mélodie
+@subsection Alignement des paroles sur une mélodie
+@translationof Aligning lyrics to a melody
 
 @funindex \lyricmode
 @funindex \addlyrics
@@ -384,17 +397,18 @@ contexte @code{\lyricmode}
 @end itemize
 
 @menu
-* Automatic syllable durations::  
-* Manual syllable durations::   
-* Multiple syllables to one note::  
-* Multiple notes to one syllable::  
-* Skipping notes::              
-* Extenders and hyphens::       
-* Lyrics and repeats::          
+* Durée automatique des syllabes::  
+* Durée explicite des syllabes::   
+* Plusieurs syllabes sur une note::  
+* Plusieurs notes pour une même syllabe::  
+* Saut de notes::              
+* Traits d'union et de prolongation::       
+* Paroles et reprises::          
 @end menu
 
-@node Automatic syllable durations
-@unnumberedsubsubsec Automatic syllable durations
+@node Durée automatique des syllabes
+@unnumberedsubsubsec Durée automatique des syllabes
+@translationof Automatic syllable durations
 
 @cindex durée automatique des syllabes
 @cindex paroles et mélodies
@@ -449,8 +463,9 @@ est exactement la même chose que
 \new Lyrics \lyricsto "blah" @{ PAROLES @}
 @end example
 
-@node Manual syllable durations
-@unnumberedsubsubsec Manual syllable durations
+@node Durée explicite des syllabes
+@unnumberedsubsubsec Durée explicite des syllabes
+@translationof Manual syllable durations
 
 On peut aussi se passer de @code{\addlyrics} et de @code{\lyricsto} pour
 saisir des paroles.  Dans ce cas, les syllabes sont entrées comme des
@@ -492,8 +507,9 @@ Voici un exemple de cette manière de procéder :
 Référence du programme : @rinternals{Lyrics}.
 
 
-@node Multiple syllables to one note
-@unnumberedsubsubsec Multiple syllables to one note
+@node Plusieurs syllabes sur une note
+@unnumberedsubsubsec Plusieurs syllabes sur une note
+@translationof Multiple syllables to one note
 
 @funindex _
 @cindex liaisons, dans les paroles
@@ -523,8 +539,9 @@ Référence du programme : @rinternals{LyricCombineMusic}.
 @c the new title might be more self-explanatory
 
 
-@node Multiple notes to one syllable
-@unnumberedsubsubsec Multiple notes to one syllable
+@node Plusieurs notes pour une même syllabe
+@unnumberedsubsubsec Plusieurs notes pour une même syllabe
+@translationof Multiple notes to one syllable
 
 @cindex mélisme
 @cindex vocalise
@@ -576,7 +593,7 @@ d'adjoindre @code{\melisma} à la première note du groupe, et
 @end lilypond
 
 Enfin, lorsque la fonction de ligature automatique (cf.
-@ref{Setting automatic beam behavior}) est désactivée, le fait de les
+@ref{Définition des règles de ligature automatique}) est désactivée, le fait de les
 connecter manuellement créera un mélisme.
 
 @c TODO: there might be some more relevant place for 
@@ -586,7 +603,7 @@ connecter manuellement créera un mélisme.
 @cindex choral score
 
 Vous trouverez un exemple complet de partition pour chœur dans la
-section @rlearning{Vocal ensembles}.
+section @rlearning{Ensemble vocal}.
 
 
 @predefined
@@ -608,16 +625,18 @@ Exemples : @rlsr{Vocal music}.
 Certains mélismes ne sont pas détectés automatiquement ; vous devrez
 alors prolonger vous-même les syllabes concernées.
 
-@node Skipping notes
-@unnumberedsubsubsec Skipping notes
+@node Saut de notes
+@unnumberedsubsubsec Saut de notes
+@translationof Skipping notes @c external
 
 @untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
 
-@node Extenders and hyphens
-@unnumberedsubsubsec Extenders and hyphens
+@node Traits d'union et de prolongation
+@unnumberedsubsubsec Traits d'union et de prolongation
+@translationof Extenders and hyphens
 
 @cindex mélisme
 @cindex extenseur
@@ -647,29 +666,32 @@ Référence du programme : @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
 
 
-@node Lyrics and repeats
-@unnumberedsubsubsec Lyrics and repeats
+@node Paroles et reprises
+@unnumberedsubsubsec Paroles et reprises
+@translationof Lyrics and repeats @c external
 
 @untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
 
-@node Specific uses of lyrics
-@subsection Specific uses of lyrics
+@node Situations particulères en matière de paroles
+@subsection Situations particulères en matière de paroles
+@translationof Specific uses of lyrics
 
 Une même mélodie peut se voir traitée différemment suivant les couplets.
 La commande @code{\lyricsto} permet de prendre en compte ces variantes.
 
 @menu
-* Divisi lyrics::               
-* Lyrics independent of notes::                
-* Spacing out syllables::       
-* Centering lyrics between staves::  
+* Paroles alternatives::               
+* Paroles indépendantes des notes::                
+* Espacement des syllabes::       
+* Centrage des paroles entre les portées::  
 @end menu
 
-@node Divisi lyrics
-@unnumberedsubsubsec Divisi lyrics
+@node Paroles alternatives
+@unnumberedsubsubsec Paroles alternatives
+@translationof Divisi lyrics
 
 En donnant un nom à chaque voix et en leur attribuant spécifiquement
 des paroles, on peut créer des paroles alternatives --- également
@@ -712,8 +734,9 @@ Cette astuce permet de faire varier les paroles lorsqu'une section est reprise.
 }
 @end lilypond
 
-@node Lyrics independent of notes
-@unnumberedsubsubsec Lyrics independent of notes
+@node Paroles indépendantes des notes
+@unnumberedsubsubsec Paroles indépendantes des notes
+@translationof Lyrics independent of notes
 
 Dans certaines musiques vocales assez complexes, on peut avoir intérêt à
 imprimer les paroles indépendamment des notes.  La mélodie sur laquelle
@@ -746,8 +769,9 @@ lyr = \lyricmode { I like my cat! }
 @englishref
 @end ifnothtml
 
-@node Spacing out syllables
-@unnumberedsubsubsec Spacing out syllables
+@node Espacement des syllabes
+@unnumberedsubsubsec Espacement des syllabes
+@translationof Spacing out syllables
 
 @cindex espacer des paroles
 @cindex paroles, accroître l'espacement
@@ -789,8 +813,9 @@ dans le bloc @code{\layout}.
 }
 @end lilypond
 
-@node Centering lyrics between staves
-@unnumberedsubsubsec Centering lyrics between staves
+@node Centrage des paroles entre les portées
+@unnumberedsubsubsec Centrage des paroles entre les portées
+@translationof Centering lyrics between staves @c external
 
 @untranslated
 @ifnothtml
@@ -798,21 +823,23 @@ dans le bloc @code{\layout}.
 @end ifnothtml
 
 
-@node Stanzas
-@subsection Stanzas
+@node Couplets
+@subsection Couplets
+@translationof Stanzas
 
 @menu
-* Adding stanza numbers::       
-* Adding dynamics marks to stanzas::  
-* Adding singers' names to stanzas::  
-* Stanzas with different rhythms::  
-* Printing stanzas at the end::  
+* Numérotation des couplets::       
+* Indication de nuance et couplets::  
+* Indication du personnage et couplets::  
+* Rythme différent selon le couplet::  
+* Paroles en fin de partition::  
 * Printing stanzas at the end in multiple columns ::  
 @end menu
 
 
-@node Adding stanza numbers
-@unnumberedsubsubsec Adding stanza numbers
+@node Numérotation des couplets
+@unnumberedsubsubsec Numérotation des couplets
+@translationof Adding stanza numbers
 
 @cindex numéro de couplet
 
@@ -834,8 +861,9 @@ On peut ajouter un numéro aux couplets en définissant la variable
 @noindent
 Ces numéros se placeront juste avant le début de la première syllabe.
 
-@node Adding dynamics marks to stanzas
-@unnumberedsubsubsec Adding dynamics marks to stanzas
+@node Indication de nuance et couplets
+@unnumberedsubsubsec Indication de nuance et couplets
+@translationof Adding dynamics marks to stanzas
 
 Lorsque des couplets ont des nuances différentes, vous pouvez ajouter
 une nuance devant chaque numéro.  L'objet @code{StanzaNumber} contient
@@ -860,8 +888,9 @@ text = {
 >>
 @end lilypond
 
-@node Adding singers' names to stanzas
-@unnumberedsubsubsec Adding singers' names to stanzas
+@node Indication du personnage et couplets
+@unnumberedsubsubsec Indication du personnage et couplets
+@translationof Adding singers' names to stanzas
 
 @cindex nom de personnage
 @cindex nom du chanteur
@@ -883,8 +912,9 @@ abrégée.
 }
 @end lilypond
 
-@node Stanzas with different rhythms
-@unnumberedsubsubsec Stanzas with different rhythms
+@node Rythme différent selon le couplet
+@unnumberedsubsubsec Rythme différent selon le couplet
+@translationof Stanzas with different rhythms
 
 @subsubheading Mélismes dans certaines strophes seulement
 
@@ -1023,8 +1053,9 @@ mélodie d'origine, en assignant à la propriété @code{associatedVoice}
 la valeur @code{lahlah}.
 
 
-@node Printing stanzas at the end
-@unnumberedsubsubsec Printing stanzas at the end
+@node Paroles en fin de partition
+@unnumberedsubsubsec Paroles en fin de partition
+@translationof Printing stanzas at the end
 
 Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
 mélodie, et de présenter tous les autres en bloc à la fin du morceau.
@@ -1069,7 +1100,8 @@ its fleece was white as snow.
 @end lilypond
 
 @node Printing stanzas at the end in multiple columns 
-@unnumberedsubsubsec Printing stanzas at the end in multiple columns
+@unnumberedsubsubsec Paroles sur plusieurs colonnes en fin de partition
+@translationof Printing stanzas at the end in multiple columns 
 
 Si les couplets sont vraiment nombreux, il est possible de les imprimer
 sur plusieurs colonnes.  De plus, l'exemple suivant vous montrera

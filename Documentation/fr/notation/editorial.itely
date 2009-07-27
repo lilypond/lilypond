@@ -10,32 +10,35 @@
 
 @c Translators: Jean-Charles Malahieude
 
-@node Editorial annotations
-@section Editorial annotations
+@node Notation éditoriale
+@section Notation éditoriale
+@translationof Editorial annotations
 
 @lilypondfile[quote]{editorial-headword.ly}
 
 @menu
-* Inside the staff::            
-* Outside the staff::           
+* Dans la portée::            
+* Hors de la portée::           
 @end menu
 
 
-@node Inside the staff
-@subsection Inside the staff
+@node Dans la portée
+@subsection Dans la portée
+@translationof Inside the staff
 
 
 @menu
-* Selecting notation font size::  
-* Fingering instructions::      
-* Hidden notes::                
-* Coloring objects::            
-* Parentheses::                 
-* Stems::                       
+* Indication de la taille de fonte musicale::  
+* Doigtés::      
+* Dictée à trous::                
+* Coloration d'objets::            
+* Parenthèses::                 
+* Hampes::                       
 @end menu
 
-@node Selecting notation font size
-@unnumberedsubsubsec Selecting notation font size
+@node Indication de la taille de fonte musicale
+@unnumberedsubsubsec Indication de la taille de fonte musicale
+@translationof Selecting notation font size
 
 Le plus sûr moyen de régler la taille de la police, quelque soit le
 contexte, consiste à définir la propriété @code{fontSize}.
@@ -73,7 +76,7 @@ g
 
 Pour changer la taille des symboles musicaux (police Feta), LilyPond met
 à l'échelle la fonte dont la taille est la plus proche de la taille voulue ---
-cf. @ref{Setting the staff size}.  La taille standard, pour laquelle
+cf. @ref{Définition de la taille de portée}.  La taille standard, pour laquelle
 @code{font-size} vaut 0, dépend de la hauteur de la portée.  À une
 portée de 20 points correspond une police de 10 points.
 
@@ -94,8 +97,9 @@ cours :
 @endpredefined
 
 
-@node Fingering instructions
-@unnumberedsubsubsec Fingering instructions
+@node Doigtés
+@unnumberedsubsubsec Doigtés
+@translationof Fingering instructions
 
 @cindex doigté
 @cindex substitution de doigt
@@ -165,8 +169,9 @@ Référence du programme : @rinternals{Fingering}.
 Exemples : @rlsr{Editorial annotations}.
 
 
-@node Hidden notes
-@unnumberedsubsubsec Hidden notes
+@node Dictée à trous
+@unnumberedsubsubsec Dictée à trous
+@translationof Hidden notes
 
 @cindex Masquées, notes
 @cindex Invisibles, notes
@@ -186,11 +191,12 @@ g4 a
 @end lilypond
 
 
-@node Coloring objects
-@unnumberedsubsubsec Coloring objects
+@node Coloration d'objets
+@unnumberedsubsubsec Coloration d'objets
+@translationof Coloring objects
 
 Des objets peuvent être colorisés individuellement.  Une listes des
-noms des couleurs disponibles se trouvent à l'annexe @ref{List of colors}.
+noms des couleurs disponibles se trouvent à l'annexe @ref{Liste des couleurs}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \override NoteHead #'color = #red
@@ -250,7 +256,7 @@ L'exemple suivant illustre l'utilisation de la fonction
 
 
 @seealso
-Annexes : @ref{List of colors}.
+Annexes : @ref{Liste des couleurs}.
 
 
 @knownissues
@@ -263,11 +269,12 @@ normale ayant un nom similaire.
 
 Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
 @code{\override}. si besoin est, utilisez @code{\tweak}.  
-Pour plus de détails, consultez @ref{The tweak command}.
+Pour plus de détails, consultez @ref{La commande d'affinage (@emph{tweak})}.
 
 
-@node Parentheses
-@unnumberedsubsubsec Parentheses
+@node Parenthèses
+@unnumberedsubsubsec Parenthèses
+@translationof Parentheses
 
 @cindex fantômes, notes
 @cindex notes fantômes
@@ -292,8 +299,9 @@ comprendre qu'une seule note.
 @end example
 
 
-@node Stems
-@unnumberedsubsubsec Stems
+@node Hampes
+@unnumberedsubsubsec Hampes
+@translationof Stems
 
 Dès qu'une note est rencontrée, un objet @rinternals{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
@@ -323,19 +331,21 @@ a4 b c b
 @end lilypond
 
 
-@node Outside the staff
-@subsection Outside the staff
+@node Hors de la portée
+@subsection Hors de la portée
+@translationof Outside the staff
 
 
 @menu
-* Balloon help::                
-* Grid lines::                  
-* Analysis brackets::           
-* Blank music sheet::           
+* Info-bulle::                
+* Quadrillage temporel::                  
+* Crochets d'analyse::           
+* Papier à musique::           
 @end menu
 
-@node Balloon help
-@unnumberedsubsubsec Balloon help
+@node Info-bulle
+@unnumberedsubsubsec Info-bulle
+@translationof Balloon help
 
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
 bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
@@ -366,8 +376,9 @@ et le texte de la bulle.
 Référence du programme : @rinternals{balloon-interface}.
 
 
-@node Grid lines
-@unnumberedsubsubsec Grid lines
+@node Quadrillage temporel
+@unnumberedsubsubsec Quadrillage temporel
+@translationof Grid lines
 
 Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
@@ -409,8 +420,9 @@ les notes.
 Exemples : @rlsr{Editorial annotations}.
 
 
-@node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
+@node Crochets d'analyse
+@unnumberedsubsubsec Crochets d'analyse
+@translationof Analysis brackets
 @cindex crochets
 @cindex crochets de phrasé
 @cindex analyse musicologique
@@ -442,8 +454,9 @@ contexte @rinternals{Staff} comporte le graveur
 Référence du programme : @rinternals{HorizontalBracket}.
 
 
-@node Blank music sheet
-@unnumberedsubsubsec Blank music sheet
+@node Papier à musique
+@unnumberedsubsubsec Papier à musique
+@translationof Blank music sheet
 
 @cindex Papier musique
 @cindex Portées, feuille blanche

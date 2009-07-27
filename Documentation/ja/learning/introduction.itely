@@ -12,33 +12,36 @@
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node Introduction
-@chapter Introduction
+@node 導入部
+@chapter 導入部
+@translationof Introduction
 
 この章では読者に LilyPond とこのドキュメントについての紹介を行います。
 
 @menu
-* Background::
-* About the documentation::
+* バックグラウンド::
+* このドキュメントについて::
 @end menu
 
 
-@node Background
-@section Background
+@node バックグラウンド
+@section バックグラウンド
+@translationof Background
 
 この節は LilyPond の最終目的とアーキテクチャについてカバーします。
 
 @menu
-* Engraving::
-* Automated engraving::
-* What symbols to engrave?::
-* Music representation::
-* Example applications::
+* 譜刻::
+* 自動譜刻::
+* 譜刻するシンボルは何か？::
+* 音楽表記::
+* 例用例::
 @end menu
 
 
-@node Engraving
-@unnumberedsubsec Engraving
+@node 譜刻
+@unnumberedsubsec 譜刻
+@translationof Engraving
 
 @cindex engraving
 @cindex typography, music
@@ -226,8 +229,9 @@ music = {
 ザイン、プログラム設定を調整してきました。
 
 
-@node Automated engraving
-@unnumberedsubsec Automated engraving
+@node 自動譜刻
+@unnumberedsubsec 自動譜刻
+@translationof Automated engraving
 
 @cindex engraving, automated
 @cindex automated engraving
@@ -368,8 +372,9 @@ fragment = {
 @end lilypond
 
 
-@node What symbols to engrave?
-@unnumberedsubsec What symbols to engrave?
+@node 譜刻するシンボルは何か？
+@unnumberedsubsec 譜刻するシンボルは何か？
+@translationof What symbols to engrave?
 
 @cindex engraving
 @cindex typography
@@ -568,8 +573,9 @@ fragment = {
 @end lilypond
 
 
-@node Music representation
-@unnumberedsubsec Music representation
+@node 音楽表記
+@unnumberedsubsec 音楽表記
+@translationof Music representation
 
 @cindex syntax
 @cindex recursive structures
@@ -667,8 +673,9 @@ f4
 めのコンポーネントはソース コード全体の 10 % にも達しません。
 
 
-@node Example applications
-@unnumberedsubsec Example applications
+@node 例用例
+@unnumberedsubsec 例用例
+@translationof Example applications
 
 @cindex simple examples
 @cindex examples, simple
@@ -789,8 +796,9 @@ Texinfo -- に埋め込むことができます。ある特別なプログラム
 
 
 
-@node About the documentation
-@section About the documentation
+@node このドキュメントについて
+@section このドキュメントについて
+@translationof About the documentation
 
 この節では、このドキュメントの各部分について説明します。
 
@@ -804,27 +812,28 @@ Texinfo -- に埋め込むことができます。ある特別なプログラム
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
-* About the Learning Manual::  このマニュアルは表記を作成する方法について丁寧@c
+* 学習マニュアルについて::  このマニュアルは表記を作成する方法について丁寧@c
 な説明をしながら LilyPond についての紹介を行います。
-* About the Music Glossary::  このマニュアルは音楽用語についての説明を行い、そ@c
+* 音楽用語集について::  このマニュアルは音楽用語についての説明を行い、そ@c
 れらの用語の他の言語への訳語を提供します。
-* About the Notation Reference::  このマニュアルはこのドキュメントの主要部分で@c
+* 表記リファレンスについて::  このマニュアルはこのドキュメントの主要部分で@c
 す。表記を作成する方法についての詳細な情報を提供します。このマニュアルは読者が@c
 学習マニュアルでカバーされている基本的な内容を知っていて、音楽用語集に書かれて@c
 いる英語の音楽用語に馴染んでいるものと仮定しています。
-* About the Application Usage::  ここでは実際のプログラムとオペレーティング シ@c
+* アプリケーション使用方法について::  ここでは実際のプログラムとオペレーティング シ@c
 ステム特有の問題について議論します。
-* About the Snippet List::  これは短い LilyPond の例のコレクションです。
-* About the Internals Reference::  このドキュメントは LilyPond の内部構造体に@c
+* 断片集について::  これは短い LilyPond の例のコレクションです。
+* 内部リファレンスについて::  このドキュメントは LilyPond の内部構造体に@c
 ついての参照情報を提供します。調整を行うのに LilyPond の内部構造体についての知@c
 識が必要です。
-* Other documentation::  ここにはこのドキュメントの他の部分 -- ニュースやメール 
+* その他のドキュメント::  ここにはこのドキュメントの他の部分 -- ニュースやメール 
 アーカイブなど -- がいくつかあります。
 @end menu
 
 
-@node About the Learning Manual
-@unnumberedsubsec About the Learning Manual
+@node 学習マニュアルについて
+@unnumberedsubsec 学習マニュアルについて
+@translationof About the Learning Manual
 
 @cindex Learning Manual
 
@@ -840,27 +849,27 @@ Texinfo -- に埋め込むことができます。ある特別なプログラム
 
 @item
 
-@ref{Introduction}: LilyPond のバックグランドと最終目標について説明します。
+@ref{導入部}: LilyPond のバックグランドと最終目標について説明します。
 
 @item
 
-@ref{Tutorial}: 音楽を譜刻するためのやさしい入門を提供します。初めて LilyPond 
+@ref{チュートリアル}: 音楽を譜刻するためのやさしい入門を提供します。初めて LilyPond 
 を使うユーザはここから始めるべきです。
 
 @item
 
-@ref{Fundamental concepts}: LilyPond ファイル フォーマットについてのいくつかの@c
+@ref{基礎となるコンセプト}: LilyPond ファイル フォーマットについてのいくつかの@c
 一般的なコンセプトを説明します。あるコマンドを置くべき場所がわからない場合は、@c
 この章を読んでください！
 
 @item
 
-@ref{Tweaking output}: LilyPond が作り出すデフォルトの譜刻を変更する方法を示し@c
+@ref{出力を調整する}: LilyPond が作り出すデフォルトの譜刻を変更する方法を示し@c
 ます。
 
 @item
 
-@ref{Working on LilyPond projects}: LilyPond の実際的な使用といくつかの一般的@c
+@ref{LilyPond プロジェクトに取り組む}: LilyPond の実際的な使用といくつかの一般的@c
 な問題を回避するための方法について議論します。大きなプロジェクトに取り組む前に@c
 この章を読んでください！
 
@@ -873,7 +882,7 @@ Texinfo -- に埋め込むことができます。ある特別なプログラム
 
 @item
 
-@ref{Templates}: コンパイルの準備が整っている LilyPond 入力を示します。ある@c
+@ref{テンプレート}: コンパイルの準備が整っている LilyPond 入力を示します。ある@c
 テンプレートをファイルにカット＆ペーストし、表記を追加するだけで完了です！
 
 @item
@@ -884,8 +893,9 @@ Texinfo -- に埋め込むことができます。ある特別なプログラム
 
 @end itemize
 
-@node About the Music Glossary
-@unnumberedsubsec About the Music Glossary
+@node 音楽用語集について
+@unnumberedsubsec 音楽用語集について
+@translationof About the Music Glossary
 
 @cindex Music Glossary
 @cindex idiom
@@ -900,8 +910,9 @@ Texinfo -- に埋め込むことができます。ある特別なプログラム
 いのなら)、用語集を引くことはとても役に立ちます。
 
 
-@node About the Notation Reference
-@unnumberedsubsec About the Notation Reference
+@node 表記リファレンスについて
+@unnumberedsubsec 表記リファレンスについて
+@translationof About the Notation Reference
 
 @cindex Notation Reference
 @cindex appendices
@@ -978,14 +989,15 @@ Scheme を用いて音楽関数を作成する方法について説明します�
 
 @item
 
-@ruser{LilyPond index}:
+@ruser{LilyPond インデックス}:
 すべてを網羅する完全なインデックスです。
 
 @end itemize
 
 
-@node About the Application Usage
-@unnumberedsubsec About the Application Usage
+@node アプリケーション使用方法について
+@unnumberedsubsec アプリケーション使用方法について
+@translationof About the Application Usage
 
 @cindex Application Usage
 @cindex integrating LilyPond with other programs
@@ -997,20 +1009,20 @@ Scheme を用いて音楽関数を作成する方法について説明します�
 
 @item
 
-@rprogram{Install}:
+@rprogram{インストール}:
 LilyPond をインストールする方法について、もし望むのならばコンパイルの仕方も含@c
 めて、説明します。
 
 @item
 
-@rprogram{Setup}:
+@rprogram{セットアップ}:
 あなたのコンピュータを LilyPond の使用に合わせて最適にコンフィグレーションする 
 -- ある特定のテキスト エディタによって提供される特別な環境を使用するなど -- 方@c
 法について説明します。
 
 @item
 
-@rprogram{Running LilyPond}:
+@rprogram{LilyPond を実行する}:
 LilyPond とその援助プログラムを実行する方法を示します。さらに、このセクション@c
 は入力ファイルを LilyPond の以前のバージョンからアップグレードする方法について@c
 説明します。
@@ -1033,8 +1045,9 @@ LilyPond とその援助プログラムを実行する方法を示します。�
 @end itemize
 
 
-@node About the Snippet List
-@unnumberedsubsec About the Snippet List
+@node 断片集について
+@unnumberedsubsec 断片集について
+@translationof About the Snippet List
 
 @cindex snippets
 @cindex LSR
@@ -1055,8 +1068,9 @@ LSR とは別に追加されなければなりません。それらは LilyPond 
 もリンクされています。
 
 
-@node About the Internals Reference
-@unnumberedsubsec About the Internals Reference
+@node 内部リファレンスについて
+@unnumberedsubsec 内部リファレンスについて
+@translationof About the Internals Reference
 
 @cindex Internals Reference
 
@@ -1073,8 +1087,9 @@ LSR とは別に追加されなければなりません。それらは LilyPond 
 ションの中にクリック可能なリンクがあります。
 
 
-@node Other documentation
-@unnumberedsubsec Other documentation
+@node その他のドキュメント
+@unnumberedsubsec その他のドキュメント
+@translationof Other documentation
 
 とても有益であるかもしれない他の情報源がいくつかあります。
 
@@ -1132,7 +1147,7 @@ UNIX プラットフォーム向けのバイナリ パッケージでは、通�
 @file{/usr/@/share/@/doc/@/lilypond/} 下のどこかで見つかります。初期化ファイル 
 -- 例えば、@file{scm/@/lily@/.scm} や @file{ly/@/engraver@/-init@/.ly} -- は、@c
 通常、ディレクトリ @file{/usr/@/share/@/lilypond/} の中で見つかります。詳細は 
-@ref{Other sources of information} を参照してください。
+@ref{その他の情報源} を参照してください。
 
 @end itemize
 

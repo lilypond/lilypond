@@ -12,8 +12,9 @@
 @c Translators: John Mandereau
 @c Translation checkers: Jean-Charles Malahieude
 
-@node Install
-@chapter Install
+@node Installation
+@chapter Installation
+@translationof Install
 
 LilyPond est distribué dans deux types de moutures : les versions
 stables, qui portent un numéro mineur de version pair, par exemple 1.6,
@@ -25,14 +26,15 @@ laborieuse, c'est pourquoi nous recommandons @strong{fortement}
 l'utilisation des binaires précompilés.
 
 @menu 
-* Precompiled binaries::
-* Compiling from source::
+* Paquets précompilés::
+* Compilation à partir du code source::
 @end menu
 
-@node Precompiled binaries
-@section Precompiled binaries
+@node Paquets précompilés
+@section Paquets précompilés
+@translationof Precompiled binaries
 
-@unnumberedsubsec Downloading
+@unnumberedsubsec Téléchargement
 
 Consultez @uref{http://lilypond.org/web/install/} pour connaître les
 derniers paquets binaires disponibles pour votre plateforme.  Si votre
@@ -60,8 +62,9 @@ reportez-vous à
 @ref{Setup for MacOS X,,,lilypond-program,Utilisation des programmes}.
 
 
-@node Compiling from source
-@section Compiling from source
+@node Compilation à partir du code source
+@section Compilation à partir du code source
+@translationof Compiling from source
 
 Il est possible de compiler LilyPond à partir du code source.  Comme
 cela requiert une maîtrise de l'anglais, cette section ne sera pas

@@ -9,37 +9,40 @@
 
 @c \version "2.12.0"
 
-@node General input and output
-@chapter General input and output
+@node Allgemeine Eingabe und Ausgabe
+@chapter Allgemeine Eingabe und Ausgabe
+@translationof General input and output
 
 Dieses Kapitel erklärt allgemeine Fragen zur Eingabe und Ausgabe von
 Notation mit LilyPond und weniger direkte Fragen der Notation.
 
 @menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* MIDI output::
+* Eingabestruktur::
+* Titel::
+* Arbeiten an Eingabe-Dateien::
+* Ausgabe kontrollieren::
+* MIDI-Ausgabe::
 @end menu
 
 
-@node Input structure
-@section Input structure
+@node Eingabestruktur
+@section Eingabestruktur
+@translationof Input structure
 
 Das hauptsächliche Eingabeformat von LilyPond sind Textdateien.
 Üblicherweise werden diese Dateien mit der Endung @code{.ly}
 versehen.
 
 @menu
-* Structure of a score::
-* Multiple scores in a book::
-* File structure::
+* Struktur einer Partitur::
+* Mehrere Partituren in einem Buch::
+* Die Dateistruktur::
 @end menu
 
 
-@node Structure of a score
-@subsection Structure of a score
+@node Struktur einer Partitur
+@subsection Struktur einer Partitur
+@translationof Structure of a score
 
 @funindex \score
 
@@ -94,7 +97,7 @@ Alle diese Beispielse sind musikalische Ausdrücke:
 @end example
 
 Kommentare bilden eine Ausnahme dieser Regel.  (Andere Ausnahmen
-siehe @ref{File structure}.)  Sowohl einzeilige als auch
+siehe @ref{Die Dateistruktur}.)  Sowohl einzeilige als auch
 Blockkommentare (eingegrenzt durch @code{%@{ .. %@}}) können
 an beliebiger Stelle einer Eingabedatei geschrieben werden.  Sie
 können innerhalb oder außerhalb der @code{\score}-Umgebung vorkommen,
@@ -104,13 +107,14 @@ innerhalb der @code{\score}-Umgebung.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Working on input files},
-@rlearning{Music expressions explained},
-@rlearning{Score is a (single) compound musical expression}.
+@rlearning{Arbeiten an Eingabe-Dateien},
+@rlearning{Musikalische Ausdrücke erklärt},
+@rlearning{Score ist ein (einziger)  zusammengesetzter musikalischer Ausdruck}.
 
 
-@node Multiple scores in a book
-@subsection Multiple scores in a book
+@node Mehrere Partituren in einem Buch
+@subsection Mehrere Partituren in einem Buch
+@translationof Multiple scores in a book
 
 @funindex \book
 @cindex Sätze, mehrere
@@ -156,7 +160,7 @@ Wenn Sie aber mehrere Ausgabedateien aus einer einzigen @code{.ly}-Datei
 erstellen wollen, können Sie mehrere @code{\book}-Umgebungen notieren.
 Wenn Sie keine @code{\book}-Umgebung in Ihrer Datei angeben, interpretiert
 LilyPond die gesamte Datei als eine große @code{\book}-Umgebung (siehe
-auch @ref{File structure}.  Eine wichtige Ausnahme stellen Dokumente dar,
+auch @ref{Die Dateistruktur}.  Eine wichtige Ausnahme stellen Dokumente dar,
 die mit lilypond-book erstellt werden, für die Sie explizit
 @code{\book}-Umgebungen notieren müssen, weil sonst nur die erste
 @code{\score}- bzw. @code{\markup}-Umgebung angezeigt wird.
@@ -214,8 +218,9 @@ einem Titel innerhalb einer @code{\header}-Umgebung beginnen.
 @}
 @end example
 
-@node File structure
-@subsection File structure
+@node Die Dateistruktur
+@subsection Die Dateistruktur
+@translationof File structure
 
 @funindex \paper
 @funindex \midi
@@ -374,26 +379,28 @@ Ein mehrzeiliger Kommentar, umgeben von @code{%@{ .. %@}}.
 
 @seealso
 Hanbuch zum Lernen:
-@rlearning{How LilyPond input files work}.
+@rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert}.
 
 
-@node Titles and headers
-@section Titles and headers
+@node Titel
+@section Titel
+@translationof Titles and headers
 
 Fast alle gedruckten Noten beinhalten einen Titel und den Namen
 des Komponisten, teilweise wird auch noch sehr viel mehr Information
 zur Verfügung gestellt.
 
 @menu
-* Creating titles::
-* Custom titles::
-* Reference to page numbers::
-* Table of contents::
+* Titel erstellen::
+* Eigene Titel::
+* Verweis auf die Seitenzahlen::
+* Inhaltsverzeichnis::
 @end menu
 
 
-@node Creating titles
-@subsection Creating titles
+@node Titel erstellen
+@subsection Titel erstellen
+@translationof Creating titles
 
 Überschriften können für jede @code{\score}-Umgebung erstellt werden, sowohl
 für die gesamte Datei (oder eine @code{\book}-Umgebung) als auch für
@@ -458,7 +465,7 @@ Hiermit beginnt der Titel auf einer neuen Steite. (Kann die Werte
 @funindex copyright
 @item copyright
 Anzeige eines Copyright, zentriert unten auf der ersten Seite.  Um das
-Copyright-Symbol zu notieren, siehe @ref{Text encoding}.
+Copyright-Symbol zu notieren, siehe @ref{Zeichenkodierung}.
 
 @funindex tagline
 @item tagline
@@ -469,7 +476,7 @@ engraving by LilyPond (@var{version})---www.lilypond.org}
 
 Hier eine Demonstration der möglichen Felder.  Beliebige
 Formatierungsbefehle für Textbeschriftung können in der Titelei
-eingesetzt werden.  Siehe hierzu auch @ref{Formatting text}.
+eingesetzt werden.  Siehe hierzu auch @ref{Text formatieren}.
 
 @c KEEP LY
 @lilypond[quote,verbatim,line-width=11.0\cm]
@@ -587,8 +594,9 @@ falsch gesetzt wird:
 @end example
 
 
-@node Custom titles
-@subsection Custom titles
+@node Eigene Titel
+@subsection Eigene Titel
+@translationof Custom titles
 
 Kompliziertere Anpassungen können vorgenommen werden, indem die
 folgenden Variablen innerhalb der @code{\paper}-Umgebung geändert
@@ -664,8 +672,9 @@ den Komponisten rechtsbündig auf einer einzelnen Zeile:
 @end verbatim
 
 
-@node Reference to page numbers
-@subsection Reference to page numbers
+@node Verweis auf die Seitenzahlen
+@subsection Verweis auf die Seitenzahlen
+@translationof Reference to page numbers
 
 Eine bestimmte Stelle der Partitur kann mit einem @code{\label}-Befehl
 markiert werden, sowohl auf oberster Ebene als auch innerhalb eines
@@ -719,8 +728,9 @@ bestimmt.  Wenn eine Partitur zwischen 10 und 99 Seiten hat, kann man
 @endpredefined
 
 
-@node Table of contents
-@subsection Table of contents
+@node Inhaltsverzeichnis
+@subsection Inhaltsverzeichnis
+@translationof Table of contents
 
 Ein Inhaltsverzeichnis kann eingefügt werden mit dem Befehl
 @code{\markuplines \table-of-contents}.  Die Elemente, die im
@@ -846,19 +856,21 @@ Installierte Dateien: @file{../ly/@/toc@/-init@/.ly}.
 @endpredefined
 
 
-@node Working with input files
-@section Working with input files
+@node Arbeiten an Eingabe-Dateien
+@section Arbeiten an Eingabe-Dateien
+@translationof Working with input files
 
 @menu
-* Including LilyPond files::
-* Different editions from one source::
-* Text encoding::
-* Displaying LilyPond notation::
+* LilyPond-Dateien einfügen::
+* Verschiedene Editionen aus einer Quelldatei::
+* Zeichenkodierung::
+* LilyPond-Notation anzeigen::
 @end menu
 
 
-@node Including LilyPond files
-@subsection Including LilyPond files
+@node LilyPond-Dateien einfügen
+@subsection LilyPond-Dateien einfügen
+@translationof Including LilyPond files
 
 @funindex \include
 @cindex einfügen  von Dateien
@@ -883,8 +895,7 @@ in den eingefügten Dateien einige Variablen definiert, die dann
 auch in der Hauptdatei eingesetzt werden können.  Mit Marken (Tags)
 gekennzeichnete Abschnitte können eingesetzt werden, um die
 entsprechenden Noten etc. an verschiedenen Stellen in der Datei
-zur Verfügung zu stellen. Siehe auch @ref{Different editions from
-one source}.
+zur Verfügung zu stellen. Siehe auch @ref{Verschiedene Editionen aus einer Quelldatei}.
 
 Auf Dateien im aktuellen Verzeichnis kann einfach mit dem Dateinamen
 nach dem @code{\include}-Befehl verwiesen werden.  Dateien an anderen
@@ -949,7 +960,7 @@ In @file{Haupt.ly} steht:
 Dateien, die in vielen Partituren verwendet werden sollen, können
 im LilyPond-Verzeichnis @file{../ly} gespeichert werden.  (Die
 Stelle, an der dieses Verzeichnis sich befindet, hängt vom Betriebssystem
-ab, siehe hierzu @rlearning{Other sources of information}).  Dateien
+ab, siehe hierzu @rlearning{Mehr Information}).  Dateien
 in diesem Verzeichnis können einfach mit ihrem Namen eingefügt werden.
 So werden auch die Sprachdateien wie etwa @file{deutsch.ly} eingefügt.
 
@@ -959,18 +970,18 @@ können identifiziert werden, indem LilyPond auf der Komandozeile mit
 Option aufgerufen wird: @code{lilypond --verbose}.  Hiermit wird
 neben anderer Information auch eine Liste and Pfaden und Dateien
 aufgeführt, die LilyPond benutzt.  Die wichtigeren Dateien werden
-im Abschnitt @rlearning{Other sources of information} besprochen.
+im Abschnitt @rlearning{Mehr Information} besprochen.
 Diese Dateien können verändert werden, aber Änderungen gehen verloren,
 wenn eine neue LilyPond-Version installiert wird.
 
 Eine einfache Beispiele, die die Benutzung von @code{\include} demonstrieren,
 sind dargestellt in
-@rlearning{Scores and parts}.
+@rlearning{Partituren und Stimmen}.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Other sources of information},
-@rlearning{Scores and parts}.
+@rlearning{Mehr Information},
+@rlearning{Partituren und Stimmen}.
 
 @knownissues
 
@@ -979,8 +990,9 @@ dem Installationsverzeichnis von LilyPond entspricht, wird die
 installierte Datei anstelle der eigenen verwendet.
 
 
-@node Different editions from one source
-@subsection Different editions from one source
+@node Verschiedene Editionen aus einer Quelldatei
+@subsection Verschiedene Editionen aus einer Quelldatei
+@translationof Different editions from one source
 
 Es gibt verschiedene Funktionen, die es möglich machen, unterschiedliche
 Versionen einer Partitur aus der gleichen Quelldatei zu produzieren.
@@ -995,23 +1007,24 @@ getrennt notiert werden -- so kann die Struktur geändert werden,
 ohne dass man Änderungen an den Noten vornehmen muss.
 
 @menu
-* Using variables::
-* Using tags::
+* Variablen benutzen::
+* Marken benutzen::
 @end menu
 
-@node Using variables
-@unnumberedsubsubsec Using variables
+@node Variablen benutzen
+@unnumberedsubsubsec Variablen benutzen
+@translationof Using variables
 
 @cindex Variablen, Benutzung
 
 Wenn Notenabschnitt in Variablen definiert werden, können sie
 an unterschiedlichen Stellen in der Partitur eingesetzt werden,
-siehe auch @rlearning{Organizing pieces with variables}.  Zum
+siehe auch @rlearning{Stücke durch Bezeichner organisieren}.  Zum
 Beispiel enthält eine Vokalpartitur für ein @notation{a cappella}
 Stück oft einen Klavierauszug, der das Einüben einfacher macht.
 Der Klavierauszug enthält die gleichen Noten, sodass man sie nur
 einmal notieren muss.  Noten aus zwei Variablen können auf einem
-System kombiniert werden, siehe @ref{Automatic part combining}.
+System kombiniert werden, siehe @ref{Automatische Kombination von Stimmen}.
 Hier ein Beispiel:
 
 @lilypond[verbatim,quote]
@@ -1058,12 +1071,12 @@ Klavier zeigen, können produziert werden, indem die Struktur
 verändert wird; die Noten müssen dazu nicht verändert werden.
 
 Für längere Partituren können Variablen in eigene Dateien notiert
-werden, die dann eingebunden werden, siehe @ref{Including
-LilyPond files}.
+werden, die dann eingebunden werden, siehe @ref{LilyPond-Dateien einfügen}.
 
 
-@node Using tags
-@unnumberedsubsubsec Using tags
+@node Marken benutzen
+@unnumberedsubsubsec Marken benutzen
+@translationof Using tags
 
 @cindex Tag
 @cindex Marke
@@ -1213,11 +1226,11 @@ eben genannten zusätzlich entfernt.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Organizing pieces with variables}.
+@rlearning{Stücke durch Bezeichner organisieren}.
 
 Notationsreferenz:
-@ref{Automatic part combining},
-@ref{Including LilyPond files}.
+@ref{Automatische Kombination von Stimmen},
+@ref{LilyPond-Dateien einfügen}.
 
 
 @ignore
@@ -1233,8 +1246,9 @@ than one tagged section at the same place.
 @end ignore
 
 
-@node Text encoding
-@subsection Text encoding
+@node Zeichenkodierung
+@subsection Zeichenkodierung
+@translationof Text encoding
 
 LilyPond benutzt alle Zeichen, die durch das Unicode-Konsortium
 und ISO/IEC 10646 definiert sind.  Hiermit wird den Zeichen
@@ -1341,8 +1355,9 @@ Um das Copyright-Zeichen zu notieren, kann folgender Code eingesetzt werden:
 @end example
 
 
-@node Displaying LilyPond notation
-@subsection Displaying LilyPond notation
+@node LilyPond-Notation anzeigen
+@subsection LilyPond-Notation anzeigen
+@translationof Displaying LilyPond notation
 
 @funindex \displayLilyMusic
 
@@ -1375,17 +1390,19 @@ lilypond file.ly >display.txt
 
 
 
-@node Controlling output
-@section Controlling output
+@node Ausgabe kontrollieren
+@section Ausgabe kontrollieren
+@translationof Controlling output
 
 @menu
-* Extracting fragments of music::
-* Skipping corrected music::
+* Notationsfragmente extrahieren::
+* Korrigierte Musik überspringen::
 @end menu
 
 
-@node Extracting fragments of music
-@subsection Extracting fragments of music
+@node Notationsfragmente extrahieren
+@subsection Notationsfragmente extrahieren
+@translationof Extracting fragments of music
 
 Es ist möglich, kleine Abschnitte einer großen Partitur direkt aus der
 Quelldatei zu erzeugen.  Das kann damit verglichen werden, dass man
@@ -1419,11 +1436,12 @@ Parameter @code{-dclip-systems} aufgerufen werden.  Die Schnipsel
 werden als EPS ausgegeben und dann zu PDF und PNG konvertiert, wenn
 diese Formate auch als Parameter angegeben werden.
 
-Zu mehr Information über Ausgabeformate siehe @rprogram{Invoking lilypond}.
+Zu mehr Information über Ausgabeformate siehe @rprogram{lilypond aufrufen}.
 
 
-@node Skipping corrected music
-@subsection Skipping corrected music
+@node Korrigierte Musik überspringen
+@subsection Korrigierte Musik überspringen
+@translationof Skipping corrected music
 
 
 @funindex skipTypesetting
@@ -1474,8 +1492,9 @@ alle Stimmen und Systeme aus, sodass noch mehr Zeit bei der
 Übersetzung der Datei gespart wird.
 
 
-@node MIDI output
-@section MIDI output
+@node MIDI-Ausgabe
+@section MIDI-Ausgabe
+@translationof MIDI output
 
 @cindex Klang
 @cindex MIDI
@@ -1499,17 +1518,18 @@ besitzen.  Jedes weitere System bleibt stumm.
 
 
 @menu
-* Creating MIDI files::
-* MIDI block::
-* What goes into the MIDI output?::
-* Repeats in MIDI::
-* Controlling MIDI dynamics::
-* Percussion in MIDI::
+* MIDI-Dateien erstellen::
+* Der MIDI-Block::
+* Was geht in die MIDI-Ausgabe::
+* Wiederholungen im MIDI::
+* MIDI-Lautstärke kontrollieren::
+* Schlagzeug in MIDI::
 @end menu
 
 
-@node Creating MIDI files
-@subsection Creating MIDI files
+@node MIDI-Dateien erstellen
+@subsection MIDI-Dateien erstellen
+@translationof Creating MIDI files
 
 Um eine MIDI-Datei aus einer LilyPond-Quelldatei zu erstellen, muss
 eine @code{\midi}-Umgebung zu der @code{\score}-Umgebung hinzugefügt
@@ -1541,15 +1561,15 @@ Decrescendo werden in den MIDI-Lautstärkekanal übertragen.  Dynamikzeichen
 werden in einen bestimmten Lautstärkenwert übersetzt, Crescendo und
 Decrescendo erreichen einen Übergang zwischen Lautstärkewerten.
 Die Wirkung von Dynamikzeichen kann auch aus der MIDI-Datei entfernt
-werden.  Siehe hierzu @ref{MIDI block}.
+werden.  Siehe hierzu @ref{Der MIDI-Block}.
 
 Das Anfangstempo und spätere Tempoänderungen können mit dem
 @code{\tempo}-Befehl innerhalb der Notation notiert werden.  Er
 bewirkt Tempoänderungen auch in der MIDI-Datei.  Der Befehl setzt
 gleichzeitig auch eine Tempobezeichnung in die Noten, welches aber
-auch unterdrückt werden kann, siehe @ref{Metronome marks}.  Eine
+auch unterdrückt werden kann, siehe @ref{Metronomangabe}.  Eine
 andere möglichkeit, ein eigenes MIDI-Tempo anzugeben, wird weiter
-unten gezeigt, siehe @ref{MIDI block}.
+unten gezeigt, siehe @ref{Der MIDI-Block}.
 
 Aufgrund einiger Einschränkungen auf Windows ist auf Windows-Systemen
 die Standarddateierweiterung von MIDI-Dateien @code{.mid}. Andere
@@ -1571,7 +1591,7 @@ Als Alternative kann man diese Option auch als Kommandozeilenparameter
 lilypond … -dmidi-extension=midi lilyDatei.ly
 @end example
 
-@unnumberedsubsubsec Instrument names
+@unnumberedsubsubsec Instrumentenbezeichnungn
 
 @cindex Instrumentbezeichnungen
 
@@ -1580,7 +1600,7 @@ lilypond … -dmidi-extension=midi lilyDatei.ly
 Das MIDI-Instrument, mit dem ein bestimmtes System wiedergegeben
 werden soll, wird durch die @code{Staff.midiInstrument}-Eigenschaft
 bestimmt, die auf eine Instrumentenbezeichnung gesetzt werden muss.
-Die Bezeichnungen sind aufgelistet in @ref{MIDI instruments} und müssen
+Die Bezeichnungen sind aufgelistet in @ref{MIDI-Instrumente} und müssen
 in der dort definierten Schreibweise notiert werden.
 
 @example
@@ -1615,8 +1635,9 @@ Spieler, die hierzu in der Lage sind, sind unter Anderen MS Windows Media
 Player und @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
 
-@node MIDI block
-@subsection MIDI block
+@node Der MIDI-Block
+@subsection Der MIDI-Block
+@translationof MIDI block
 
 @cindex MIDI-Umgebung
 
@@ -1659,7 +1680,7 @@ der Syntax, wie sie in der @code{\layout}-Umgebung benutzt
 wird.  Klangübersetzungsmodule werden @code{performer}
 genannt.  Die Kontexte für die MIDI-Ausgabe sind in der
 Datei @file{../ly/@/performer@/-init@/.ly} definiert, siehe
-@rlearning{Other sources of information}.  Um beispielsweise
+@rlearning{Mehr Information}.  Um beispielsweise
 die Auswirkung von Dynamikzeichen aus der MIDI-Ausgabe zu
 entfernen, müssen folgende Zeilen eingefügt werden:
 
@@ -1689,11 +1710,12 @@ die @code{\new Score}- als auch die @code{\midi}-Umgebungen in eine
 @end example
 
 
-@node What goes into the MIDI output?
-@subsection What goes into the MIDI output?
+@node Was geht in die MIDI-Ausgabe
+@subsection Was geht in die MIDI-Ausgabe
+@translationof What goes into the MIDI output?
 
 
-@unnumberedsubsubsec Supported in MIDI
+@unnumberedsubsubsec In MIDI unterstützt
 
 @cindex Tonhöhen in MIDI
 @cindex MIDI, Tonhöhen
@@ -1710,7 +1732,7 @@ Die folgenden Notationselemente werden in die MIDI-Ausgabe aufgenommen:
 
 @itemize
 @item Tonhöhen
-@item Mikrotöne (siehe @ref{Accidentals}. Für die Ausgabe wird ein
+@item Mikrotöne (siehe @ref{Versetzungszeichen}. Für die Ausgabe wird ein
 Spieler benötigt, der Tonhöhen verändern kann.)
 @item Akkorde, die als Symbole notiert werden
 @item Rhythmen, die als Dauern notiert sind, inklusive N-tolen
@@ -1723,7 +1745,7 @@ Spieler benötigt, der Tonhöhen verändern kann.)
 @end itemize
 
 
-@unnumberedsubsubsec Unsupported in MIDI
+@unnumberedsubsubsec In MIDI nicht unterstützt
 
 Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbeozogen:
 
@@ -1739,8 +1761,9 @@ Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbeozogen:
 @end itemize
 
 
-@node Repeats in MIDI
-@subsection Repeats in MIDI
+@node Wiederholungen im MIDI
+@subsection Wiederholungen im MIDI
+@translationof Repeats in MIDI
 
 @cindex Wiederholungen in MIDI
 @cindex MIDI und Wiederholungen
@@ -1784,8 +1807,9 @@ aussehen kann:
 @end example
 
 
-@node Controlling MIDI dynamics
-@subsection Controlling MIDI dynamics
+@node MIDI-Lautstärke kontrollieren
+@subsection MIDI-Lautstärke kontrollieren
+@translationof Controlling MIDI dynamics
 
 Dynamik in der MIDI-Ausgabe wird durch den Dynamic_performer
 erstellt, welcher sich in einem @code{Voice}-Kontext befindet.
@@ -1794,14 +1818,14 @@ als auch relative Lautstärken von Dynamikanweisungen und auch
 relative Lautstärke von einzelnen Instrumenten einzustellen.
 
 
-@unnumberedsubsubsec Dynamic marks
+@unnumberedsubsubsec Dynamik-Zeichen
 
 
 Dynamikanweisungen werden als ein bestimmter Bruch der insgesamt
 zur Verfügung stehenden MIDI-Lautstärke notiert.  Die Standardbrüche
 reichen von 0,25 für @notation{ppppp} bis hin zu 0,95 für
 @notation{fffff}.  Diese Anweisung befinden sich in der Datei
-@file{../scm/midi.scm}, siehe auch @rlearning{Other sources of information}.
+@file{../scm/midi.scm}, siehe auch @rlearning{Mehr Information}.
 Diese Brüche können nach Belieben geändert oder erweitert werden, indem
 eine Funktion erstellt wird, die ein Dynamikzeichen als Argument
 nimmt und den erforderlichen Bruch ausgibt; schließlich muss noch
@@ -1844,7 +1868,7 @@ zu benutzen.  Das letzte Beispiel dieses Abschnittes zeigt, wie das
 gemacht werden kann.
 
 
-@unnumberedsubsubsec Overall MIDI volume
+@unnumberedsubsubsec MIDI-Lautstärke
 
 Die generellen Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 wird kontrolliert, indem die Eigenschaften @code{midiMinimumVolume}
@@ -1899,7 +1923,7 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
 @end lilypond
 
 
-@unnumberedsubsubsec Equalizing different instruments (i)
+@unnumberedsubsubsec Verschiedene Instrumente angleichen (i)
 
 Wenn die Mindest- und Höchstwerte für die MIDI-Lautstärke
 innerhalb eines @code{Staff}-Kontextes gesetzt werden,
@@ -1950,7 +1974,7 @@ diese Einstellung korrekt funktioniert.
 @end lilypond
 
 
-@unnumberedsubsubsec Equalizing different instruments (ii)
+@unnumberedsubsubsec Verschidene Instrumente angleichen (ii)
 
 Wenn Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 nicht vorgegeben werden, nimmt LilyPond standardmäßig einige
@@ -2025,8 +2049,9 @@ Lautstärkewerte, die denen des vorigen Beispiels entsprechen.
 
 
 
-@node Percussion in MIDI
-@subsection Percussion in MIDI
+@node Schlagzeug in MIDI
+@subsection Schlagzeug in MIDI
+@translationof Percussion in MIDI
 
 Schlagzeuginstrumente werden üblicherweise in einem @code{DrumStaff}-Kontext
 notiert.  Aus diese Weise werden sie korrekt in den MIDI-Kanal@tie{}10

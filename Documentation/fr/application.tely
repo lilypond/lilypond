@@ -27,7 +27,8 @@
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- Utilisation des programmes
+@top GNU LilyPond --- Utilisation du programme
+@translationof Top
 @end ifnottex
 
 @ifhtml
@@ -135,8 +136,7 @@ Free Documentation License''.
 
 Ce document constitue le manuel d'utilisation des programmes de GNU
 LilyPond @version{}.  Pour connaître le rôle de ce manuel dans la
-documentation de LilyPond, consultez @rlearning{About the
-documentation}.
+documentation de LilyPond, consultez @rlearning{À propos de la documentation}.
 
 @cindex web site
 @cindex URL
@@ -148,16 +148,16 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @include dedication.itely
 
 @menu
-* Install::                        installation, compilation.
-* Setup::                          environnement de travail pour LilyPond.
-* Running LilyPond::               mode d'emploi.
+* Installation::                        installation, compilation.
+* Environnement de travail::                          environnement de travail pour LilyPond.
+* Exécution de LilyPond::               mode d'emploi.
 * LilyPond-book::                  intégration de texte et musique.
-* Converting from other formats::  conversion vers le format source lilypond.
+* Conversion à partir d'autres formats::  conversion vers le format source lilypond.
 
 Annexes
 
 * GNU Free Documentation License:: licence de ce document.
-* LilyPond index::
+* Index de LilyPond::
 @end menu
 @end ifnottex
 
@@ -172,8 +172,9 @@ Annexes
 
 @include fdl.itexi
 
-@node LilyPond index
-@appendix LilyPond index
+@node Index de LilyPond
+@appendix Index de LilyPond
+@translationof LilyPond index
 
 @printindex cp
 

@@ -9,34 +9,37 @@
 
 @c \version "2.12.0"
 
-@node Tweaking output
-@chapter Tweaking output
+@node Trucar la salida
+@chapter Trucar la salida
+@translationof Tweaking output
 
 Este capítulo trata de cómo modificar la salida.  LilyPond es extremadamente
 configurable; prácticamente todos los fragmentos de la salida se pueden cambiar.
 
 
 @menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Placement of objects::
-* Collisions of objects::
-* Further tweaking::
+* Elementos de trucaje::
+* Manual de referencia de funcionamiento interno::
+* Apariencia de los objetos::
+* Colocación de los objetos::
+* Colisiones de objetos::
+* Trucajes adicionales::
 @end menu
 
-@node Tweaking basics
-@section Tweaking basics
+@node Elementos de trucaje
+@section Elementos de trucaje
+@translationof Tweaking basics
 
 @menu
-* Introduction to tweaks::
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
+* Introducción al trucaje::
+* Objetos e interfaces::
+* Convenciones de nombres de objetos y propiedades::
+* Métodos de trucaje::
 @end menu
 
-@node Introduction to tweaks
-@subsection Introduction to tweaks
+@node Introducción al trucaje
+@subsection Introducción al trucaje
+@translationof Introduction to tweaks
 
 El @q{Trucaje} es un término de LilyPond que denota los diversos
 métodos que el usuario tiene a su disposición para modificar el
@@ -54,12 +57,13 @@ tiempo mostraremos la forma de construir dichas instrucciones para que
 pueda aprender cómo desarrollar sus propios trucos.
 
 Antes de comenzar con este capítulo, quizá quiera echar un vistazo a
-la sección @ref{Contexts and engravers}, pues los Contextos, los
+la sección @ref{Contextos y grabadores}, pues los Contextos, los
 Grabadores y las Propiedades que se contienen en ellos son
 fundamentales para comprender y construir los trucos.
 
-@node Objects and interfaces
-@subsection Objects and interfaces
+@node Objetos e interfaces
+@subsection Objetos e interfaces
+@translationof Objects and interfaces
 
 @cindex objeto
 @cindex grob
@@ -123,8 +127,9 @@ interés y de utilidad para el usuario.
 Estos son, en fin, los términos principales relativos a los objetos
 que vamos a utilizar en este capítulo.
 
-@node Naming conventions of objects and properties
-@subsection Naming conventions of objects and properties
+@node Convenciones de nombres de objetos y propiedades
+@subsection Convenciones de nombres de objetos y propiedades
+@translationof Naming conventions of objects and properties
 
 @cindex nomenclatura, convenciones de, para objetos
 @cindex nomenclatura, convenciones de, para propiedades
@@ -132,7 +137,7 @@ que vamos a utilizar en este capítulo.
 @cindex propiedades, convenciones de nomenclatura
 
 Ya hemos visto ciertas convenciones de nomenclatura de objetos, en la
-sección @ref{Contexts and engravers}.  En este lugar, para más fácil
+sección @ref{Contextos y grabadores}.  En este lugar, para más fácil
 referencia, presentamos una lista de los tipos de objetos y
 propiedades más comunes, junto con las convenciones según las cuales
 reciben su nombre, y un par de ejemplos de nombres reales.  Hemos
@@ -170,8 +175,9 @@ objeto se modifican por parte de diferentes instrucciones; así pues,
 es útil poder reconocer el tipo de objeto a partir de sus nombres de
 propiedad.
 
-@node Tweaking methods
-@subsection Tweaking methods
+@node Métodos de trucaje
+@subsection Métodos de trucaje
+@translationof Tweaking methods
 
 @cindex trucaje, métodos de
 
@@ -185,8 +191,7 @@ propiedad.
 
 Ya hemos visto las instrucciones @code{\set} y @code{\with}, que se
 usan para cambiar las propiedades de los @strong{contextos} y para
-quitar y poner @strong{grabadores}, en @ref{Modifying context
-properties} y @ref{Adding and removing engravers}.  Ahora debemos
+quitar y poner @strong{grabadores}, en @ref{Modificar las propiedades de los contextos} y @ref{Añadir y eliminar grabadores}.  Ahora debemos
 examinar algunas otras instrucciones importantes.
 
 La instrucción que cambia las propiedades de los @strong{objetos de
@@ -310,7 +315,7 @@ a b c
 Hay otra forma para la instrucción de sobreescritura,
 @code{\overrideProperty}, que ocasionalmente es necesaria.  La
 mencionamos aquí con un propósito de exhaustividad, pero para ver más
-detalles consulte @ruser{Difficult tweaks}.
+detalles consulte @ruser{Trucos difíciles}.
 @c Maybe explain in a later iteration  -td
 
 @strong{La instrucción \tweak}
@@ -459,22 +464,24 @@ se puede modificar de la forma usual mediante instrucciones
 
 @seealso
 Referencia de la notación:
-@ruser{The tweak command}.
+@ruser{La instrucción tweak}.
 
 
-@node The Internals Reference manual
-@section The Internals Reference manual
+@node Manual de referencia de funcionamiento interno
+@section Manual de referencia de funcionamiento interno
+@translationof The Internals Reference manual
 
 @cindex Internals Reference
 
 @menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
+* Propiedades de los objetos de presentación::
+* Propiedades de los interfaces::
+* Tipos de propiedades::
 @end menu
 
-@node Properties of layout objects
-@subsection Properties of layout objects
+@node Propiedades de los objetos de presentación
+@subsection Propiedades de los objetos de presentación
+@translationof Properties of layout objects
 
 @cindex propiedades de los objetos de presentación
 @cindex propiedades de los grobs
@@ -633,7 +640,7 @@ necesita para hacerlo por sí mismo (aunque aún necesita algo de
 práctica).  La cual vendrá proporcionada por los ejemplos que vienen a
 continuación.
 
-@subheading Finding the context
+@subheading Búsqueda del contexto
 
 @cindex contexto, encontrar
 @cindex contexto, buscar el, correcto
@@ -656,7 +663,7 @@ contextos de más bajo nivel que se encuentra implícito sin ambigüedad
 por el hecho de que estamos escribiendo notas, podemos omitirlo en
 este lugar concreto.
 
-@subheading Overriding once only
+@subheading Sobreescritura por una sola vez
 
 @cindex sobreescritura por una sola vez
 @cindex once override
@@ -702,7 +709,7 @@ Hemos hecho que ahora solamente la primera ligadura sea más gruesa.
 La instrucción o prefijo @code{\once} también se puede usar antes de
 la instrucción @code{\set}.
 
-@subheading Reverting
+@subheading Recuperación del ajuste
 
 @cindex revertir
 @cindex predeterminadas, recuperar las propiedades
@@ -781,8 +788,9 @@ proporcionarle más práctica en cómo extraer información de él.  Estos
 ejemplos irán conteniendo cada vez menos palabras de guía y
 explicación.
 
-@node Properties found in interfaces
-@subsection Properties found in interfaces
+@node Propiedades de los interfaces
+@subsection Propiedades de los interfaces
+@translationof Properties found in interfaces
 
 @cindex interface
 @cindex propiedades de los interfaces
@@ -849,8 +857,7 @@ Algunos de ellos son nombres de propiedades, como @code{thickness} o
 a las propiedades, como @code{italic}.  Observe la distinción entre
 esto y las cadenas de texto arbitrarias, que aparecerían
 entrecomilladas como @code{"a text string"}.  Para ver más detalles
-relacionados con los símbolos y las cadenas, consulte @ref{Scheme
-tutorial}.
+relacionados con los símbolos y las cadenas, consulte @ref{Tutorial de Scheme}.
 
 Así pues, la instrucción @code{\override} necesaria para imprimir la
 letra en cursiva, es:
@@ -886,7 +893,7 @@ de esta forma:
 @noindent
 y toda la letra se imprime en cursiva.
 
-@subheading Specifying the context in lyric mode
+@subheading Especificación del contexto en modo letra
 
 @cindex contexto, especificación en modo letra
 @cindex letra, modo, especificar el contexto en
@@ -917,11 +924,12 @@ nombre del contexto y el nombre del objeto.}
 
 @seealso
 Manual de aprendizaje:
-@ref{Scheme tutorial}.
+@ref{Tutorial de Scheme}.
 
 
-@node Types of properties
-@subsection Types of properties
+@node Tipos de propiedades
+@subsection Tipos de propiedades
+@translationof Types of properties
 
 @cindex propiedades, tipos de
 
@@ -984,24 +992,26 @@ en la instrucción @code{\override}.
 
 @seealso
 Manual de aprendizaje:
-@ref{Scheme tutorial}.
+@ref{Tutorial de Scheme}.
 
 
-@node Appearance of objects
-@section Appearance of objects
+@node Apariencia de los objetos
+@section Apariencia de los objetos
+@translationof Appearance of objects
 
 Ahora vamos a poner en práctica lo que hemos aprendido con unos
 cuantos ejemplos que muestran cómo se pueden usar los trucos para
 cambiar el aspecto de la música impresa.
 
 @menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
+* Visibilidad y color de los objetos::
+* Tamaño de los objetos::
+* Longitud y grosor de los objetos::
 @end menu
 
-@node Visibility and color of objects
-@subsection Visibility and color of objects
+@node Visibilidad y color de los objetos
+@subsection Visibilidad y color de los objetos
+@translationof Visibility and color of objects
 
 Dentro de un uso educativo de la música, podríamos desear imprimir una
 partitura con ciertos elementos omitidos como ejercicio para el
@@ -1013,7 +1023,7 @@ que no se impriman?
 
 Antes de enredarnos con esto, recordemos que las propiedades de los
 objetos se agrupan en lo que hemos llamado @emph{interfaces} (véase
-@ref{Properties found in interfaces}).  Esto es simplemente agrupar
+@ref{Propiedades de los interfaces}).  Esto es simplemente agrupar
 las propiedades que se pueden usar juntas para trucar un objeto
 gráfico: si una de ellas se necesita para un objeto, también las
 otras.  Así, ciertos objetos usan las propiedades de algunos
@@ -1024,7 +1034,7 @@ describe dicho grob, y esas propiedades se pueden ver mirando dichos
 interfaces.
 
 Hemos explicado cómo encontrar información sobre los grobs en
-@ref{Properties of layout objects}.  Usando el mismo enfoque, vamos al
+@ref{Propiedades de los objetos de presentación}.  Usando el mismo enfoque, vamos al
 RFI para buscar el objeto de presentación que imprime las líneas
 divisorias.  A través del enlace @emph{Backend} y @emph{All layout
 objects} encontramos que hay un objeto de presentación llamado
@@ -1037,7 +1047,7 @@ visibilidad de las barras de compás (y, por supuesto, por extensión,
 también la de muchos otros objetos de presentación).  Vamos a
 considerar cada uno de ellos por orden.
 
-@subheading stencil
+@subheading stencil (sello)
 
 @cindex stencil (sello), propiedad
 
@@ -1106,7 +1116,7 @@ que establece el sello a un objeto con tamaño nulo:
 }
 @end lilypond
 
-@subheading break-visibility
+@subheading break-visibility (visibilidad en el salto)
 
 @cindex break-visibility, propiedad
 
@@ -1138,7 +1148,7 @@ en sí dentro de la instrucción @code{\override}.
 
 Y podemos ver que esto también quita todas las líneas divisorias.
 
-@subheading transparent
+@subheading transparent (transparente)
 
 @cindex transparent, propiedad
 @cindex transparencia
@@ -1206,7 +1216,7 @@ en que la línea divisoria blanca puede tapar o no tapar las líneas del
 pentagrama a las que cruza.  Podrá observar en algunos de los ejemplos
 que aparecen a continuación, que esto sucede de forma impredecible.
 Los detalles sobre por qué esto ocurre así, y cómo controlarlo, se
-estudian en @ruser{Painting objects white}; de momento estamos
+estudian en @ruser{Pintar los objetos de blanco}; de momento estamos
 estudiando el color, por lo que le rogamos que acepte esta limitación
 por ahora).
 
@@ -1216,7 +1226,7 @@ ir en esa lista.  La lista que requiere es realmente una lista de
 valores en unidades internas, pero para evitar tener que saber cuáles
 son, se ofrecen varias vías para la especificación de los colores.  La
 primera forma es utilizar uno de los colores @q{normales} que están
-relacionados en la primera tabla de la @ruser{List of colors}.  Para
+relacionados en la primera tabla de la @ruser{Lista de colores}.  Para
 poner las líneas divisorias de color blanco, escribimos:
 
 @cindex BarLine, ejemplo de sobreescritura
@@ -1247,8 +1257,7 @@ una de las otras funciones de la lista.
 @funindex x11-color
 
 La segunda forma de cambiar el color es utilizar la lista de nombres
-de colores de X11 que aparecen en la segunda lista de @ruser{List of
-colors}.  Sin embargo, éstos deben ir precedidos de otra función, que
+de colores de X11 que aparecen en la segunda lista de @ruser{Lista de colores}.  Sin embargo, éstos deben ir precedidos de otra función, que
 convierte los nombres de colores de X11 en la lista de valores
 internos, @code{x11-color}, de la siguiente manera:
 
@@ -1336,8 +1345,9 @@ página del grabador del RFI aparece en qué contexto se puede encontrar
 normalmente el grabador.
 
 
-@node Size of objects
-@subsection Size of objects
+@node Tamaño de los objetos
+@subsection Tamaño de los objetos
+@translationof Size of objects
 
 @cindex cambiar el tamaño de los objetos
 @cindex tamaño de los objetos
@@ -1345,7 +1355,7 @@ normalmente el grabador.
 @cindex objetos, cambiar el tamaño de
 
 Empezaremos examinando de nuevo un ejemplo anterior (véase
-@ref{Nesting music expressions}) que nos mostraba cómo introducir un
+@ref{Anidado de expresiones musicales}) que nos mostraba cómo introducir un
 pentagrama temporal, como en un @rglos{ossia}.
 
 @cindex alignAboveContext, propiedad, ejemplo
@@ -1538,8 +1548,9 @@ y las líneas del pentagrama están demasiado separadas entre sí.  Se
 debe reducir su escala en proporción a la reducción de la tipografía.
 El siguiente apartado trata sobre cómo se hace esto.
 
-@node Length and thickness of objects
-@subsection Length and thickness of objects
+@node Longitud y grosor de los objetos
+@subsection Longitud y grosor de los objetos
+@translationof Length and thickness of objects
 
 @cindex distancias
 @cindex grosor
@@ -1624,23 +1635,25 @@ ajuste global.  Si el grosor de cualquier objeto de presentación en
 particular necesita ajustarse, se puede hacer mejor mediante la
 sobreescritura de su propiedad @code{thickness}.  Anteriormente
 mostramos un ejemplo de cambio de grosor en las ligaduras, en
-@ref{Properties of layout objects}.  El grosor de todos los objetos
+@ref{Propiedades de los objetos de presentación}.  El grosor de todos los objetos
 trazados (es decir, aquellos que no se producen a partir de una
 tipografía) se pueden cambiar de la misma forma.
 
 
-@node Placement of objects
-@section Placement of objects
+@node Colocación de los objetos
+@section Colocación de los objetos
+@translationof Placement of objects
 
 @menu
-* Automatic behaviour::
-* Within-staff objects::
-* Outside-staff objects::
+* Comportamiento automático::
+* Objetos interiores al pentagrama::
+* Objetos fuera del pentagrama::
 @end menu
 
 
-@node Automatic behaviour
-@subsection Automatic behaviour
+@node Comportamiento automático
+@subsection Comportamiento automático
+@translationof Automatic behaviour
 
 @cindex dentro del pentagrama, objetos
 @cindex fuera del pentagrama, objetos
@@ -1717,8 +1730,9 @@ pentagramas adyacentes:
 @end lilypond
 
 
-@node Within-staff objects
-@subsection Within-staff objects
+@node Objetos interiores al pentagrama
+@subsection Objetos interiores al pentagrama
+@translationof Within-staff objects
 
 Ya hemos visto cómo las instrucciones @code{\voiceXXX} afectan a la
 dirección de las ligaduras de expresión y de unión, digitaciones y
@@ -1832,7 +1846,7 @@ nota, deberá elegir entre usar la instrucción @code{\once \override}
 equivalente, o usar la instrucción predefinida, seguida después de la
 nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
 
-@subheading Fingering
+@subheading Digitaciones
 
 @cindex digitación, colocación
 @cindex digitación de acordes
@@ -1981,8 +1995,9 @@ objeto @code{Fingering} del RFI que es @code{-5}, así que probaremos
 @end lilypond
 
 
-@node Outside-staff objects
-@subsection Outside-staff objects
+@node Objetos fuera del pentagrama
+@subsection Objetos fuera del pentagrama
+@translationof Outside-staff objects
 
 Los objetos fuera-del-pentagrama se colocan automáticamente para
 evitar las colisiones.  Los objetos que tienen el valor más bajo de la
@@ -2067,7 +2082,7 @@ Spanners): textos con líneas extensoras por encima de una sección de
 música.  El extensor abarca desde la instrucción @code{\startTextSpan}
 hasta la instrucción @code{\stopTextSpan}, y el formado del texto se
 define por medio de la instrucción @code{\override TextSpanner}.  Para
-ver más detalles, consulte @ruser{Text spanners}.
+ver más detalles, consulte @ruser{Extensiones de texto}.
 
 También muestra la manera de crear corchetes de octava alta y baja.
 
@@ -2171,7 +2186,7 @@ para controlar la situación vertical de los objetos individuales,
 aunque los resultados pueden no siempre ser deseables.  Suponga que
 quiere que @qq{Text3} se sitúe por encima de @qq{Text4} en el ejemplo
 bajo el epígrafe Comportamiento Automático de más arriba (véase
-@ref{Automatic behaviour}).  Todo lo que debemos hacer es localizar la
+@ref{Comportamiento automático}).  Todo lo que debemos hacer es localizar la
 prioridad de @code{TextScript} en el RFI o en las tablas de arriba, y
 aumentar la prioridad de @qq{Text3} hasta un valor superior:
 
@@ -2256,7 +2271,7 @@ c''2
 @end lilypond
 
 
-@subheading Dynamics
+@subheading Matices dinámicos
 
 @cindex trucar la colocación de los matices
 @cindex dinámica, trucar la colocación de las indicaciones de
@@ -2300,7 +2315,7 @@ una instrucción equivalente para las indicaciones de matiz dinámico.
 Por tanto, tendremos que averiguar cómo hacerlo utilizando
 instrucciones @code{\override}.
 
-@subheading Grob sizing
+@subheading Escalado de un «Grob»
 
 @cindex grob, cambio de tamaño de un
 @cindex escala de los grobs
@@ -2375,17 +2390,19 @@ propiedad que lo hace es @code{staff-padding} (relleno de pentagrama)
 que se estudia en la sección siguiente.
 
 
-@node Collisions of objects
-@section Collisions of objects
+@node Colisiones de objetos
+@section Colisiones de objetos
+@translationof Collisions of objects
 
 @menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
+* Mover objetos::
+* Arreglar notación con superposiciones::
+* Ejemplos reales de música::
 @end menu
 
-@node Moving objects
-@subsection Moving objects
+@node Mover objetos
+@subsection Mover objetos
+@translationof Moving objects
 
 @cindex mover objetos superpuestos
 @cindex mover objetos que colisionan
@@ -2407,8 +2424,7 @@ orden:
 @item
 La @strong{dirección} de uno de los objetos que se superponen se puede
 cambiar usando las instrucciones predefinidas que están relacionadas
-arriba para los objetos dentro-del-pentagrama (véase @ref{Within-staff
-objects}).  Se pueden recolocar fácilmente las plicas, ligaduras de
+arriba para los objetos dentro-del-pentagrama (véase @ref{Objetos interiores al pentagrama}).  Se pueden recolocar fácilmente las plicas, ligaduras de
 expresión y de unión, barras de corchea, indicaciones dinámicas, texto
 y grupos de valoración especial de esta forma.  La limitación es que
 sólo tiene la posibilidad de elegir entre dos posiciones, y podría ser
@@ -2428,8 +2444,7 @@ tipo de objeto.  Entre tales propiedades se encuentran:
 @item
 @code{direction} (dirección)
 
-Ya se ha estudiado con cierto detalle: véase @ref{Within-staff
-objects}.
+Ya se ha estudiado con cierto detalle: véase @ref{Objetos interiores al pentagrama}.
 
 @item
 @code{padding} (relleno), @code{left-padding} (relleno por la
@@ -2554,7 +2569,7 @@ La propiedad @code{force-hshift} es una propiedad de una
 de notas en unidades adecuadas a una columna de notas, por ejemplo la
 anchura de la cabeza de la nota de la primera voz.  Se debe usar en
 situaciones complejas donde las instrucciones @code{\shiftOn} normales
-(véase @ref{Explicitly instantiating voices}) no resuelven el
+(véase @ref{Voces explícitas}) no resuelven el
 conflicto entre las notas.  Es preferible a la propiedad
 @code{extra-offset} para este propósito porque no hay necesidad de
 averiguar la distancia en espacios de pentagrama, y mover las notas
@@ -2636,14 +2651,15 @@ moverlos.
 @end multitable
 
 
-@node Fixing overlapping notation
-@subsection Fixing overlapping notation
+@node Arreglar notación con superposiciones
+@subsection Arreglar notación con superposiciones
+@translationof Fixing overlapping notation
 
 Veamos ahora cómo pueden ser de ayuda las propiedades que hemos visto
 en la sección anterior, para resolver problemas de notación que se
 superpone.
 
-@subheading padding property
+@subheading la propiedad padding (relleno)
 
 @cindex relleno
 @cindex arreglar notación que se superpone
@@ -2680,8 +2696,7 @@ Observe en el segundo ejemplo la gran importancia que tiene saber qué
 contexto maneja un determinado objeto.  Puesto que el objeto
 @code{MetronomeMark} se maneja dentro del contexto @code{Score}, los
 cambios de propiedades en el contexto @code{Voice} pasarán
-inadvertidos.  Para ver más detalles, consulte @ruser{Modifying
-properties}.
+inadvertidos.  Para ver más detalles, consulte @ruser{Modificar las propiedades}.
 
 Si la propiedad de relleno @code{padding} de un objeto se incrementa
 cuando dicho objeto se encuentra en una pila de objetos que se están
@@ -2690,7 +2705,7 @@ entonces ese objeto se moverá, y también todos los que están por fuera
 de él.
 
 
-@subheading left-padding and right-padding
+@subheading left-padding y right-padding (relleno por la izquierda y por la derecha)
 
 @cindex left-padding, propiedad
 @cindex right-padding, propiedad
@@ -2744,7 +2759,7 @@ sobreescribiendo @code{right-padding}.
 
 @noindent
 
-@subheading staff-padding property
+@subheading la propiedad staff-padding (relleno de pentagrama)
 
 @cindex alineación de objetos sobre la línea base
 @cindex objetos, alineación sobre la línea base
@@ -2774,7 +2789,7 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 
-@subheading self-alignment-X property
+@subheading la propiedad self-alignment-X (auto-alineación en X)
 
 El ejemplo siguiente muestra cómo esto puede resolver la colisión
 entre un objeto de digitación de cuerda y la plica de una nota
@@ -2791,7 +2806,7 @@ de la nota «padre»:
 < a \2 >
 @end lilypond
 
-@subheading staff-position property
+@subheading la propiedad staff-position (posición en el pentagrama)
 
 @cindex objeto, colisión dentro del pentagrama
 
@@ -2829,7 +2844,7 @@ cuatro semi-espacios de pentagrama, al valor @code{-8}.
 Esto es mejor que utilizar, por ejemplo, @code{extra-offset}, porque
 la línea adicional por encima del silencio se inserta automáticamente.
 
-@subheading extra-offset property
+@subheading la propiedad extra-offset (desplazamiento adicional)
 
 @cindex posicionar objetos
 @cindex posicionar grobs
@@ -2854,7 +2869,7 @@ f-5
 @end lilypond
 
 
-@subheading positions property
+@subheading la propiedad positions (posiciones)
 
 @cindex controlar manualmente grupos especiales, ligaduras y barras
 @cindex manual, control, de grupos especiales, ligaduras y barras
@@ -2937,13 +2952,13 @@ Observe que la sobreescritura sigue aplicándose en la primera voz del
 segundo bloque de corcheas, pero no a ninguna de las barras de la
 segunda voz.
 
-@subheading force-hshift property
+@subheading la propiedad force-hshift (forzar desplazamiento horizontal)
 
 @c FIXME: formatting stuff  (ie not important right now IMO)
 @c @a nchor Chopin finally corrected TODOgp
 
 Ahora podremos ver cómo aplicar las correcciones finales al ejemplo de
-Chopin que presentamos al final de @ref{I'm hearing Voices}, que
+Chopin que presentamos al final de @ref{Oigo voces}, que
 dejamos con este aspecto:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -2993,8 +3008,9 @@ Presentamos a continuación el resultado final:
 @end lilypond
 
 
-@node Real music example
-@subsection Real music example
+@node Ejemplos reales de música
+@subsection Ejemplos reales de música
+@translationof Real music example
 
 Finalizaremos esta sección sobre los trucos mostrando los pasos que se
 deben tomar para tratar con un ejemplo complicado que necesita varios
@@ -3070,7 +3086,7 @@ y el Fa sostenido negra con puntillo, que también está fundida con la
 corchea de su misma altura.  Todo lo demás está en una sola voz, así
 que lo más fácil es introducir estas cuatro voces temporalmente en el
 momento en que se necesiten.  Si ha olvidado cómo hacerlo, lea
-@ref{I'm hearing Voices}.  Vamos a comenzar introduciendo las notas
+@ref{Oigo voces}.  Vamos a comenzar introduciendo las notas
 como dos variables y disponiendo la estructura de pentagramas en un
 bloque Score, y veremos qué produce LilyPond de forma predeterminada:
 
@@ -3176,7 +3192,7 @@ doble barra se produce por medio de la instrucción @code{\bar "||"}.
 Esto podemos hacerlo fácilmente.  A continuación tenemos que corregir
 la colisión entre la ligadura de unión y la indicación de compás.
 Esto se hace mejor moviendo la ligadura hacia arriba.  Estudiamos cómo
-mover objetos anteriormente en @ref{Moving objects}, donde dice que
+mover objetos anteriormente en @ref{Mover objetos}, donde dice que
 los objetos que están situados de forma relativa al pentagrama se
 pueden mover sobreescribiendo su propiedad @code{staff-position}, que
 se especifica en unidades de medio espacio de pentagrama respecto de
@@ -3240,7 +3256,7 @@ voces?  Aquí es donde debemos volver a buscar ayuda en el manual de
 Referencia de la notación. Al buscar la palabra @qq{merge} (mezcla) en
 el índice de la Referencia de la notación llegamos rápidamente a las
 instrucciones para mezclar notas con distinta cabeza y con o sin
-puntillo, en @ruser{Collision resolution}.  En nuestro ejemplo tenemos
+puntillo, en @ruser{Resolución de las colisiones}.  En nuestro ejemplo tenemos
 que fusionar ambos tipos de nota en el transcurso de la sección
 polifónica del compás 3; por tanto, en virtud de la información que
 aparece en la Referencia de la Notación, escribimos
@@ -3440,19 +3456,21 @@ lhMusic = \relative c' {
 @end lilypond
 
 
-@node Further tweaking
-@section Further tweaking
+@node Trucajes adicionales
+@section Trucajes adicionales
+@translationof Further tweaking
 
 @menu
-* Other uses for tweaks::
-* Using variables for tweaks::
-* Other sources of information::
-* Avoiding tweaks with slower processing::
-* Advanced tweaks with Scheme::
+* Otras aplicaciones de los trucos::
+* Uso de variables para los trucos::
+* Otras fuentes de información::
+* Evitar los trucos con un proceso ralentizado::
+* Trucos avanzados con Scheme::
 @end menu
 
-@node Other uses for tweaks
-@subsection Other uses for tweaks
+@node Otras aplicaciones de los trucos
+@subsection Otras aplicaciones de los trucos
+@translationof Other uses for tweaks
 
 @cindex transparent, uso de la propiedad
 @cindex objetos, hace invisibles
@@ -3464,7 +3482,7 @@ lhMusic = \relative c' {
 @cindex objetos invisibles
 @cindex ligar notas entre voces distintas
 
-@subheading Tying notes across voices
+@subheading Ligar notas entre voces distintas
 
 El ejemplo siguiente muestra cómo conectar notas que están en
 distintas voces utilizando ligaduras de unión.  Normalmente sólo se
@@ -3511,7 +3529,7 @@ valor de longitud @code{length} a @code{8},
 >>
 @end lilypond
 
-@subheading Simulating a fermata in MIDI
+@subheading Simulación de un calderón en el MIDI
 
 @cindex sello, uso de la propiedad
 @cindex fermata, realización en MIDI
@@ -3584,8 +3602,9 @@ queríamos, pero la indicación metronómica transparente de la primera
 línea fuerza una colocación muy alta de la indicación de tempo que
 sigue, mientras que la segunda (con el sello suprimido) no lo hace.
 
-@node Using variables for tweaks
-@subsection Using variables for tweaks
+@node Uso de variables para los trucos
+@subsection Uso de variables para los trucos
+@translationof Using variables for tweaks
 
 @cindex variables, uso de, para trucos
 @cindex usar variables para hacer trucos
@@ -3669,8 +3688,9 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
 @end lilypond
 
 
-@node Other sources of information
-@subsection Other sources of information
+@node Otras fuentes de información
+@subsection Otras fuentes de información
+@translationof Other sources of information
 
 La documentación del manual de Referencia de Funcionamiento Interno
 contiene montañas de información sobre LilyPond, pero se puede obtener
@@ -3772,8 +3792,7 @@ explicación adicional sobre estos archivos se encuentra por el momento
 fuera del ámbito de este manual, porque se requieren conocimientos del
 lenguaje Scheme.  Se advierte a los usuarios que se necesita una
 importante cantidad de conocimientos técnicos o de tiempo para
-comprender el lenguaje Scheme y estos archivos (véase @ref{Scheme
-tutorial}).
+comprender el lenguaje Scheme y estos archivos (véase @ref{Tutorial de Scheme}).
 
 Si ya tiene estos conocimientos, los archivos de Scheme que pueden
 interesarle son:
@@ -3799,8 +3818,9 @@ interesarle son:
 
 
 
-@node Avoiding tweaks with slower processing
-@subsection Avoiding tweaks with slower processing
+@node Evitar los trucos con un proceso ralentizado
+@subsection Evitar los trucos con un proceso ralentizado
+@translationof Avoiding tweaks with slower processing
 
 LilyPond puede llevar a cabo comprobaciones adicionales al tiempo que
 procesa los archivos.  Estas instrucciones consumen tiempo, pero el
@@ -3825,8 +3845,9 @@ en línea con la música, de la forma siguiente:
 @}
 @end example
 
-@node Advanced tweaks with Scheme
-@subsection Advanced tweaks with Scheme
+@node Trucos avanzados con Scheme
+@subsection Trucos avanzados con Scheme
+@translationof Advanced tweaks with Scheme
 
 Aunque es posible hacer muchas cosas con las instrucciones
 @code{\override} y @code{\tweak} , tenemos una forma incluso más
@@ -3836,7 +3857,7 @@ puede incorporar código escrito en el lenguaje de programación Scheme,
 directamente en el mecanismo de funcionamiento de LilyPond.  Por
 supuesto, para hacer esto se necesitan al menos unos conocimientos
 básicos de programación en Scheme, y damos una introducción en el
-@ref{Scheme tutorial}.
+@ref{Tutorial de Scheme}.
 
 Como ejemplo que ilustra una de las muchas posibilidades, en lugar de
 dar a una propiedad un valor constante, se puede establecer al
@@ -3881,4 +3902,4 @@ notas un color que depende de su posición dentro del pentagrama.
 @end lilypond
 
 Se pueden encontrar ejemplos adicionales que muestran la utilización
-de estos interfaces programables, en @ref{Tweaking with Scheme}.
+de estos interfaces programables, en @ref{Trucos con Scheme}.

@@ -79,7 +79,7 @@
 
 @macro predefined
 @noindent
-@subsubheading Predefined commands
+@subsubheading 定義済みコマンド
 @end macro
 
 @macro snippets
@@ -93,14 +93,14 @@
 
 @macro seealso
 @noindent
-@subsubheading See also
+@subsubheading 参照
 @indent
 @end macro
 
 
 @macro knownissues
 @noindent
-@subsubheading Known issues and warnings
+@subsubheading 既知の問題と警告
 @end macro
 
 

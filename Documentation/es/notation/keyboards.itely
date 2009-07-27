@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Keyboard and other multi-staff instruments
-@section Keyboard and other multi-staff instruments
+@node Teclados y otros instrumentos de varios pentagramas
+@section Teclados y otros instrumentos de varios pentagramas
+@translationof Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{keyboard-headword.ly}
 
@@ -24,28 +25,30 @@ teclado.
 
 
 @menu
-* Common notation for keyboards::
+* Notación común para instrumentos de teclado::
 * Piano::
-* Accordion::
-* Harp::
+* Acordeón::
+* Arpa::
 @end menu
 
-@node Common notation for keyboards
-@subsection Common notation for keyboards
+@node Notación común para instrumentos de teclado
+@subsection Notación común para instrumentos de teclado
+@translationof Common notation for keyboards
 
 Esta sección trata aspectos de notación que pueden aparecer en casi
 todos los instrumentos de teclado.
 
 @menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-* Cross-staff stems::
+* Referencias para teclados::
+* Cambiar de pentagrama manualmente::
+* Cambiar de pentagrama automáticamente::
+* Líneas de cambio de pentagrama::
+* Plicas de pentagrama cruzado::
 @end menu
 
-@node References for keyboards
-@unnumberedsubsubsec References for keyboards
+@node Referencias para teclados
+@unnumberedsubsubsec Referencias para teclados
+@translationof References for keyboards
 
 @cindex piano, pentagramas de
 @cindex pentagramas de piano
@@ -73,34 +76,32 @@ teclado:
 @itemize
 
 @item La música para teclado suele contener varias voces y el número de
-éstas puede variar ampliamente; esto se describe en @ref{Collision
-resolution}.
+éstas puede variar ampliamente; esto se describe en @ref{Resolución de las colisiones}.
 
 @item La música para teclado se puede escribir en paralelo, como se describe
-en @ref{Writing music in parallel}.
+en @ref{Escribir música en paralelo}.
 
-@item Las digitaciones se indican como puede verse en @ref{Fingering instructions}.
+@item Las digitaciones se indican como puede verse en @ref{Indicaciones de digitación}.
 
 @item Las indicaciones de pedal de órgano se insertan como articulaciones,
-véase @ref{List of articulations}.
+véase @ref{Lista de articulaciones}.
 
-@item Las líneas verticales de rejilla se pueden mostrar como se describe en @ref{Grid lines}.
+@item Las líneas verticales de rejilla se pueden mostrar como se describe en @ref{Líneas de rejilla}.
 
 @item La música para teclado incluye con frecuencia ligaduras
 @notation{Laissez vibrer} así como ligaduras sobre arpegios y
-trémolos, descritos en @ref{Ties}.
+trémolos, descritos en @ref{Ligaduras de unión}.
 
 @item La colocación de arpegios a través de varias voces y pentagramas se
-cubre en @ref{Arpeggio}.
+cubre en @ref{Arpegio}.
 
-@item Las indicaciones de trémolo se describen en @ref{Tremolo repeats}.
+@item Las indicaciones de trémolo se describen en @ref{Repeticiones de trémolo}.
 
 @item Varios de los trucos que pueden ser necesarios en música para teclado
-se muestran en @rlearning{Real music example}.
+se muestran en @rlearning{Ejemplos reales de música}.
 
 @item Las notas ocultas se pueden usar para producir ligaduras de unión que
-se cruzan entre voces, como se explica en @rlearning{Other uses for
-tweaks}.
+se cruzan entre voces, como se explica en @rlearning{Otras aplicaciones de los trucos}.
 
 @end itemize
 
@@ -111,20 +112,20 @@ tweaks}.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Real music example},
-@rlearning{Other uses for tweaks}.
+@rlearning{Ejemplos reales de música},
+@rlearning{Otras aplicaciones de los trucos}.
 
 Referencia de la notación:
-@c @ref{Grouping staves},
-@ref{Instrument names},
-@ref{Collision resolution},
-@ref{Writing music in parallel},
-@ref{Fingering instructions},
-@ref{List of articulations},
-@ref{Grid lines},
-@ref{Ties},
-@ref{Arpeggio},
-@ref{Tremolo repeats}.
+@c @ref{Agrupar pentagramas},
+@ref{Nombres de instrumentos},
+@ref{Resolución de las colisiones},
+@ref{Escribir música en paralelo},
+@ref{Indicaciones de digitación},
+@ref{Lista de articulaciones},
+@ref{Líneas de rejilla},
+@ref{Ligaduras de unión},
+@ref{Arpegio},
+@ref{Repeticiones de trémolo}.
 
 Referencia de funcionamiento interno:
 @rinternals{PianoStaff}.
@@ -144,13 +145,14 @@ Fragmentos de código:
 
 Los matices no se colocan centrados, pero se pueden utilizar ciertas
 alternativas.  Una opción es la plantilla @q{piano con matices
-centrados} que está en @rlearning{Piano templates}; otra opción es
+centrados} que está en @rlearning{Plantillas de piano}; otra opción es
 aumentar el relleno (@code{staff-padding}) de los matices como se
-estudia en @rlearning{Moving objects}.
+estudia en @rlearning{Mover objetos}.
 
 
-@node Changing staff manually
-@unnumberedsubsubsec Changing staff manually
+@node Cambiar de pentagrama manualmente
+@unnumberedsubsubsec Cambiar de pentagrama manualmente
+@translationof Changing staff manually
 
 @cindex manual, cambio de pentagrama
 @cindex pentagrama, cambios manuales de
@@ -178,7 +180,7 @@ bien @code{"MD"} y @code{"MI"}.
 
 El pentagrama al que salta la voz debe existir en el momento del
 salto.  Si es necesario, los pentagramas se tienen que @qq{mantener
-con vida}, véase @ref{Keeping contexts alive}.
+con vida}, véase @ref{Mantener vivos los contextos}.
 
 Las notas de pentagrama cruzado reciben la barra automáticamente:
 
@@ -206,17 +208,17 @@ Si el barrado necesita algún trucaje, efectúe en primer lugar los
 cambios en las direcciones de las plicas.  Las posiciones de las
 barras se miden posteriormente a partir del centro del pentagrama que
 está más cerca de la barra.  Para ver un ejemplo sencillo de trucaje
-de las barras, consulte @rlearning{Fixing overlapping notation}.
+de las barras, consulte @rlearning{Arreglar notación con superposiciones}.
 
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Fixing overlapping notation}.
+@rlearning{Arreglar notación con superposiciones}.
 
 Referencia de la notación:
-@ref{Stems},
-@ref{Automatic beams},
-@ref{Keeping contexts alive}.
+@ref{Plicas},
+@ref{Barras automáticas},
+@ref{Mantener vivos los contextos}.
 
 Fragmentos de código:
 @rlsr{Keyboards}.
@@ -226,8 +228,9 @@ Referencia de funcionamiento interno:
 @rinternals{ContextChange}.
 
 
-@node Changing staff automatically
-@unnumberedsubsubsec Changing staff automatically
+@node Cambiar de pentagrama automáticamente
+@unnumberedsubsubsec Cambiar de pentagrama automáticamente
+@translationof Changing staff automatically
 
 @cindex cambio automático de pentagrama
 @cindex automático, cambio de pentagrama
@@ -307,7 +310,7 @@ en el pentagrama inferior:
 
 @seealso
 Referencia de la notación:
-@ref{Changing staff manually}.
+@ref{Cambiar de pentagrama manualmente}.
 
 Fragmentos de código:
 @rlsr{Keyboards}.
@@ -328,8 +331,9 @@ Los acordes no se dividen entre los pentagramas; se asignan a un
 pentagrama en función de la primera nota nombrada dentro de la
 construcción del acorde.
 
-@node Staff-change lines
-@unnumberedsubsubsec Staff-change lines
+@node Líneas de cambio de pentagrama
+@unnumberedsubsubsec Líneas de cambio de pentagrama
+@translationof Staff-change lines
 
 @cindex seguimiento de voz
 @cindex pentagrama, cambio
@@ -383,8 +387,9 @@ Referencia de funcionamiento interno:
 @rinternals{VoiceFollower}.
 
 
-@node Cross-staff stems
-@unnumberedsubsubsec Cross-staff stems
+@node Plicas de pentagrama cruzado
+@unnumberedsubsubsec Plicas de pentagrama cruzado
+@translationof Cross-staff stems
 
 @cindex plica de pentagrama cruzado
 @cindex pentagrama cruzado, plica de
@@ -448,16 +453,18 @@ Referencia de funcionamiento interno:
 
 @node Piano
 @subsection Piano
+@translationof Piano
 
 Esta sección trata de aspectos de la notación directamente
 relacionados con el piano.
 
 @menu
-* Piano pedals::
+* Pedales de piano::
 @end menu
 
-@node Piano pedals
-@unnumberedsubsubsec Piano pedals
+@node Pedales de piano
+@unnumberedsubsubsec Pedales de piano
+@translationof Piano pedals
 
 @cindex piano, pedales de
 @cindex pedales de piano
@@ -538,7 +545,7 @@ omisión de la instrucción final de levantar el pedal.
 
 @seealso
 Referencia de la notación:
-@ref{Ties}.
+@ref{Ligaduras de unión}.
 
 Fragmentos de código:
 @rlsr{Keyboards}.
@@ -557,19 +564,21 @@ Referencia de funcionamiento interno:
 @rinternals{Piano_pedal_engraver}.
 
 
-@node Accordion
-@subsection Accordion
+@node Acordeón
+@subsection Acordeón
+@translationof Accordion
 
 @cindex acordeón
 
 Esta sección se ocupa de la notación que es exclusiva del acordeón.
 
 @menu
-* Discant symbols::
+* Símbolos de Discanto::
 @end menu
 
-@node Discant symbols
-@unnumberedsubsubsec Discant symbols
+@node Símbolos de Discanto
+@unnumberedsubsubsec Símbolos de Discanto
+@translationof Discant symbols
 
 @cindex acordeón, signos de discanto
 @cindex discanto, signos de, del acordeón
@@ -596,18 +605,20 @@ Fragmentos de código:
 @rlsr{Keyboards}.
 
 
-@node Harp
-@subsection Harp
+@node Arpa
+@subsection Arpa
+@translationof Harp
 
 Esta sección trata sobre asuntos de notación específicos del arpa.
 
 @menu
-* References for harps::
-* Harp pedals::
+* Referencias para notación de arpa::
+* Pedales de arpa::
 @end menu
 
-@node References for harps
-@unnumberedsubsubsec References for harps
+@node Referencias para notación de arpa
+@unnumberedsubsubsec Referencias para notación de arpa
+@translationof References for harps
 @cindex harps
 @cindex bisbiglando
 
@@ -619,24 +630,24 @@ otras partes de la documentación:
 @item El glissando es la técnica más característica del arpa,
 @ref{Glissando}.
 
-@item El @notation{bisbigliando} se escribe como un trémolo, @ref{Tremolo
-repeats}
+@item El @notation{bisbigliando} se escribe como un trémolo, @ref{Repeticiones de trémolo}
 
-@item Los armónicos naturales se estudian bajo el epígrafe @ref{Harmonics}.
+@item Los armónicos naturales se estudian bajo el epígrafe @ref{Armónicos}.
 
-@item Para los arpegios dirigidos y los no arpegios, véase @ref{Arpeggio}.
+@item Para los arpegios dirigidos y los no arpegios, véase @ref{Arpegio}.
 
 @end itemize
 
 @seealso
 Referencia de la notación:
-@ref{Tremolo repeats},
+@ref{Repeticiones de trémolo},
 @ref{Glissando},
-@ref{Arpeggio},
-@ref{Harmonics}.
+@ref{Arpegio},
+@ref{Armónicos}.
 
-@node Harp pedals
-@unnumberedsubsubsec Harp pedals
+@node Pedales de arpa
+@unnumberedsubsubsec Pedales de arpa
+@translationof Harp pedals
 
 @cindex arpa, pedales
 @cindex arpa, diagramas de pedal
@@ -675,5 +686,5 @@ una elipse.
 
 @seealso
 Referencia de la notación:
-@ref{Text scripts},
+@ref{Guiones de texto},
 @ref{Instrument Specific Markup}.

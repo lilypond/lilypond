@@ -12,30 +12,33 @@
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 
-@node Expressive marks
-@section Expressive marks
+@node Signes d'interprétation
+@section Signes d'interprétation
+@translationof Expressive marks
 
 @lilypondfile[quote]{expressive-headword.ly}
 
 @menu
-* Attached to notes::           
-* Curves::                      
-* Lines::                       
+* Indications attachées à des notes::           
+* Courbes::                      
+* Lignes::                       
 @end menu
 
 
-@node Attached to notes
-@subsection Attached to notes
+@node Indications attachées à des notes
+@subsection Indications attachées à des notes
+@translationof Attached to notes
 
 
 @menu
-* Articulations and ornamentations::               
-* Dynamics::                    
-* New dynamic marks::           
+* Articulations et ornements::               
+* Nuances::                    
+* Personnalisation des indications de nuance::           
 @end menu
 
-@node Articulations and ornamentations
-@unnumberedsubsubsec Articulations and ornamentations
+@node Articulations et ornements
+@unnumberedsubsubsec Articulations et ornements
+@translationof Articulations and ornamentations
 
 @cindex articulations
 @cindex symboles d'ornementation
@@ -130,8 +133,9 @@ Ces symboles sont présents sur la partition imprimée, mais
 n'ont pas d'effet sur le rendu de la musique en MIDI.
 
 
-@node Dynamics
-@unnumberedsubsubsec Dynamics
+@node Nuances
+@unnumberedsubsubsec Nuances
+@translationof Dynamics
 
 @cindex nuances
 @funindex \pppp
@@ -250,7 +254,7 @@ a'2\< a a a\!\mf
 @end lilypond
 
 Pour créer des indications de nuances qui restent alignées
-avec les nuances habituelles, voir @ref{New dynamic marks}.
+avec les nuances habituelles, voir @ref{Personnalisation des indications de nuance}.
 
 Le positionnement vertical des nuances est géré par le
 @rinternals{DynamicLineSpanner}.
@@ -305,8 +309,9 @@ Le placement vertical de ces éléments graphiques est géré par le
 @rinternals{DynamicLineSpanner}.
 
 
-@node New dynamic marks
-@unnumberedsubsubsec New dynamic marks
+@node Personnalisation des indications de nuance
+@unnumberedsubsubsec Personnalisation des indications de nuance
+@translationof New dynamic marks
 
 Grâce à la commande @code{make-dynamic-script}, vous pouvez créer de
 nouvelles marques textuelles de nuances que vous combinerez
@@ -345,18 +350,20 @@ boxf = \markup{ \bracket { \dynamic f } }
 
 
 
-@node Curves
-@subsection Curves
+@node Courbes
+@subsection Courbes
+@translationof Curves
 
 @menu
-* Slurs::                       
-* Phrasing slurs::              
-* Breath marks::                
-* Falls and doits::             
+* Liaisons d'articulation::                       
+* Liaisons de phrasé::              
+* Signes de respiration::                
+* Chutes et sauts::             
 @end menu
 
-@node Slurs
-@unnumberedsubsubsec Slurs
+@node Liaisons d'articulation
+@unnumberedsubsubsec Liaisons d'articulation
+@translationof Slurs
 
 @cindex legato
 @cindex liaison d'articulation
@@ -387,7 +394,7 @@ c4_( c) c^( c)
 
 Une seule liaison d'articulation peut être imprimée à la fois.  S'il est
 nécessaire d'imprimer une liaison plus longue, englobant des liaisons
-plus courtes, utilisez des @ref{Phrasing slurs}.
+plus courtes, utilisez des @ref{Liaisons de phrasé}.
 
 
 @commonprop
@@ -422,8 +429,9 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 Référence du programme : @rinternals{Slur}.
 
 
-@node Phrasing slurs
-@unnumberedsubsubsec Phrasing slurs
+@node Liaisons de phrasé
+@unnumberedsubsubsec Liaisons de phrasé
+@translationof Phrasing slurs
 
 @cindex liaisons de phrasé
 @cindex phrasé, liaisons de
@@ -460,8 +468,9 @@ Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
 Référence du programme : @rinternals{PhrasingSlur}.
 
 
-@node Breath marks
-@unnumberedsubsubsec Breath marks
+@node Signes de respiration
+@unnumberedsubsubsec Signes de respiration
+@translationof Breath marks
 
 Les indications de respiration sont indiquées par la commande @code{\breathe}.
 
@@ -491,8 +500,9 @@ Référence du programme : @rinternals{BreathingSign}.
 Exemples : @rlsr{Winds}.
 
 
-@node Falls and doits
-@unnumberedsubsubsec Falls and doits
+@node Chutes et sauts
+@unnumberedsubsubsec Chutes et sauts
+@translationof Falls and doits
 
 Des indications de désinence peuvent être obtenues au moyen de la
 commande @code{\bendAfter} :
@@ -504,17 +514,19 @@ c4-\bendAfter #-3
 @end lilypond
 
 
-@node Lines
-@subsection Lines
+@node Lignes
+@subsection Lignes
+@translationof Lines
 
 @menu
 * Glissando::                   
-* Arpeggio::                    
-* Trills::                      
+* Arpèges::                    
+* Trilles::                      
 @end menu
 
 @node Glissando
 @unnumberedsubsubsec Glissando
+@translationof Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -555,8 +567,9 @@ Il n'est pas possible d'imprimer un texte (tel que @emph{gliss.})
 le long de la ligne de glissando.
 
 
-@node Arpeggio
-@unnumberedsubsubsec Arpeggio
+@node Arpèges
+@unnumberedsubsubsec Arpèges
+@translationof Arpeggio
 
 @cindex arpège
 @cindex accord arpégé
@@ -623,7 +636,7 @@ exemple dans le contexte @rinternals{PianoStaff} :
 
 
 @seealso
-Dans ce même manuel : @ref{Ties}, pour noter explicitement des arpèges.
+Dans ce même manuel : @ref{Liaisons de prolongation}, pour noter explicitement des arpèges.
 
 Référence du programme : @rinternals{Arpeggio}.
 
@@ -635,11 +648,12 @@ Il est impossible de mêler au même instant, dans un contexte
 non connectées.
 
 
-@node Trills
-@unnumberedsubsubsec Trills
+@node Trilles
+@unnumberedsubsubsec Trilles
+@translationof Trills
 
 Les trilles brefs s'indiquent comme n'importe quelle ponctuation :
-voir @ref{Articulations and ornamentations}.
+voir @ref{Articulations et ornements}.
 
 
 Les trilles plus longs sont délimités par @code{\startTrillSpan} et

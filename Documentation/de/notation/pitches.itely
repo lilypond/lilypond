@@ -8,8 +8,9 @@
 
 @c \version "2.12.0"
 
-@node Pitches
-@section Pitches
+@node Tonhöhen
+@section Tonhöhen
+@translationof Pitches
 
 @lilypondfile[quote]{pitches-headword.ly}
 
@@ -18,15 +19,16 @@ Es gibt drei Stufen in diesem Prozess: Eingabe,
 Veränderung und Ausgabe.
 
 @menu
-* Writing pitches::
-* Changing multiple pitches::
-* Displaying pitches::
-* Note heads::
+* Tonhöhen setzen::
+* Viele Tonhöhen gleichzeitig verändern::
+* Tonhöhen anzeigen lassen::
+* Notenköpfe::
 @end menu
 
 
-@node Writing pitches
-@subsection Writing pitches
+@node Tonhöhen setzen
+@subsection Tonhöhen setzen
+@translationof Writing pitches
 
 Dieser Abschnitt zeigt, wie man Tonhöhen notiert.  Es gibt
 zwei verschiedene Möglichkeiten, Noten in bestimmten
@@ -35,14 +37,15 @@ Modus.  In den meisten Fällen eignet sich der relative
 Modus besser.
 
 @menu
-* Absolute octave entry::       
-* Relative octave entry::       
-* Accidentals::                 
-* Note names in other languages::  
+* Absolute Oktavenbezeichnung::       
+* Relative Oktavenbezeichnung::       
+* Versetzungszeichen::                 
+* Notenbezeichnungen in anderen Sprachen::  
 @end menu
 
-@node Absolute octave entry
-@unnumberedsubsubsec Absolute octave entry
+@node Absolute Oktavenbezeichnung
+@unnumberedsubsubsec Absolute Oktavenbezeichnung
+@translationof Absolute octave entry
 
 @cindex Tonhöhenbezeichnungen
 @cindex Absoluter Modus: Tonhöhen
@@ -55,7 +58,7 @@ wird ein aus dem Englischen entlehntes Modell benutzt, das sich
 vom Deutschen dadurch unterscheidet, dass@tie{}@code{b}
 für die Note @qq{H} steht.  Die Benutzung deutscher 
 Notenbezeichnungen mit der Unterscheidung von b und h ist 
-auch möglich, siehe @ref{Note names in other languages}.
+auch möglich, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 Die Notenbezeichnungen @code{c} bis @code{b}
 werden in der Oktave unter dem zweigestrichenen C
 gesetzt.
@@ -98,8 +101,9 @@ Schnipsel:
 @rlsr{Pitches}.
 
 
-@node Relative octave entry
-@unnumberedsubsubsec Relative octave entry
+@node Relative Oktavenbezeichnung
+@unnumberedsubsubsec Relative Oktavenbezeichnung
+@translationof Relative octave entry
 
 @cindex Relativ
 @cindex Relative Oktavbestimmung
@@ -269,7 +273,7 @@ Musickgossar:
 @rglos{Pitch names}.
 
 Notationsreferenz:
-@ref{Octave checks}.
+@ref{Oktavenüberprüfung}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -297,8 +301,9 @@ veraltete Option, die in späteren Programmversionen verschwinden kann.
 Darum wird von der Benutzung abgeraten.
 
 
-@node Accidentals
-@unnumberedsubsubsec Accidentals
+@node Versetzungszeichen
+@unnumberedsubsubsec Versetzungszeichen
+@translationof Accidentals
 
 @cindex Versetzungszeichen
 @cindex Tonart
@@ -313,8 +318,7 @@ Tonhöhe dann im Notenbild dargestellt wird. Eine
 einfache Tonhöhe wie etwa@tie{}@code{c} bedeutet also
 immer das eingestrichene C ohne Versetzungszeichen, egal
 was für Vorzeichen/Tonart oder Schlüssel gesetzt sind.
-Mehr Information dazu in @rlearning{Accidentals and key
-signatures}.}
+Mehr Information dazu in @rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.}
 
 @cindex Notenbezeichnungen, Deutsch
 @cindex Notenbezeichnungen, Holländisch
@@ -335,7 +339,7 @@ und Doppel-Bs werden durch Hinzufügen von @code{-isis} und
 @code{-eses} hinter die Notenbezeichnung erzeugt. Diese
 Syntax leitet sich von den holländischen Notenbezeichnungen
 ab. Um andere Bezeichnungen für Versetzungszeichen zu
-benutzung, siehe @ref{Note names in other languages}.
+benutzung, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 
 @lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
@@ -346,7 +350,7 @@ Auch die deutschen Varianten @code{as} für @code{aes} und
 @code{es} für @code{ees} sind erlaubt. Im Unterschied zum 
 Deutschen ist aber @code{bes} die einzige Version für den Ton
 B, während his als @code{bis} geschrieben werden muss. Das kann
-aber auch verändert werden, siehe @ref{Note names in other languages}.
+aber auch verändert werden, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 
 
 @lilypond[verbatim,quote,relative=2]
@@ -434,12 +438,12 @@ Glossar:
 @rglos{quarter tone}.
 
 Handbuch zum Lernen:
-@rlearning{Accidentals and key signatures}.
+@rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.
 
 Notationsreferenz:
-@ref{Automatic accidentals},
-@ref{Annotational accidentals (musica ficta)},
-@ref{Note names in other languages}.
+@ref{Automatische Versetzungszeichen},
+@ref{Vorgeschlagene Versetzungszeichen (musica ficta)},
+@ref{Notenbezeichnungen in anderen Sprachen}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -461,8 +465,9 @@ Vierteltönen, die Symbole von LilyPond folgen also
 keinem Standard.
 
 
-@node Note names in other languages
-@unnumberedsubsubsec Note names in other languages
+@node Notenbezeichnungen in anderen Sprachen
+@unnumberedsubsubsec Notenbezeichnungen in anderen Sprachen
+@translationof Note names in other languages
 
 @cindex Notenbezeichungen, andere Sprachen
 @cindex Tonhöhenbezeichnungen, andere Sprachen
@@ -604,18 +609,20 @@ Schnipsel:
 @rlsr{Pitches}.
 
 
-@node Changing multiple pitches
-@subsection Changing multiple pitches
+@node Viele Tonhöhen gleichzeitig verändern
+@subsection Viele Tonhöhen gleichzeitig verändern
+@translationof Changing multiple pitches
 
 Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
 
 @menu
-* Octave checks::
-* Transpose::
+* Oktavenüberprüfung::
+* Transposition::
 @end menu
 
-@node Octave checks
-@unnumberedsubsubsec Octave checks
+@node Oktavenüberprüfung
+@unnumberedsubsubsec Oktavenüberprüfung
+@translationof Octave checks
 
 @cindex Oktavenüberprüfung
 @cindex Oktavierungskorrektur
@@ -692,8 +699,9 @@ Referenz der Interna:
 @rinternals{RelativeOctaveCheck}.
 
 
-@node Transpose
-@unnumberedsubsubsec Transpose
+@node Transposition
+@unnumberedsubsubsec Transposition
+@translationof Transpose
 
 @cindex Transposition
 @cindex Transponieren
@@ -799,7 +807,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 @noindent
 Für mehr Information zu transponierenden Instrumenten
-siehe auch @ref{Instrument transpositions}.
+siehe auch @ref{Transposition von Instrumenten}.
 
 @snippets
 
@@ -808,8 +816,8 @@ siehe auch @ref{Instrument transpositions}.
 
 @seealso
 Notationsreferenz:
-@ref{Relative octave entry},
-@ref{Instrument transpositions}.
+@ref{Relative Oktavenbezeichnung},
+@ref{Transposition von Instrumenten}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -833,23 +841,25 @@ zu können, muss ein @code{\relative} innerhalb des
 @code{\tranpose} zusätzlich gesetzt werden.
 
 
-@node Displaying pitches
-@subsection Displaying pitches
+@node Tonhöhen anzeigen lassen
+@subsection Tonhöhen anzeigen lassen
+@translationof Displaying pitches
 
 Dieser Abschnitt zeigt, wie die Ausgabe von Tonhöhen
 verändern werden kann.
 
 @menu
-* Clef::
-* Key signature::
-* Ottava brackets::
-* Instrument transpositions::
-* Automatic accidentals::
-* Ambitus::
+* Notenschlüssel::
+* Tonartbezeichnung::
+* Oktavierungsklammern::
+* Transposition von Instrumenten::
+* Automatische Versetzungszeichen::
+* Tonumfang::
 @end menu
 
-@node Clef
-@unnumberedsubsubsec Clef
+@node Notenschlüssel
+@unnumberedsubsubsec Notenschlüssel
+@translationof Clef
 
 @cindex G-Schlüssel
 @cindex C-Schlüssel
@@ -914,8 +924,8 @@ c2 c
 c2 c
 @end lilypond
 
-Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensural clefs}
-und @ref{Gregorian clefs}.
+Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensurale Schlüssel}
+und @ref{Gregorianische Schlüssel}.
 
 @cindex transponierende Schlüssel
 @cindex Schlüssel, transponierend
@@ -946,7 +956,7 @@ c2 c
 
 @seealso
 Notationsreferenz:
-@ref{Mensural clefs}, @ref{Gregorian clefs}.
+@ref{Mensurale Schlüssel}, @ref{Gregorianische Schlüssel}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -958,8 +968,9 @@ Referenz der Interna:
 @rinternals{clef-interface}.
 
 
-@node Key signature
-@unnumberedsubsubsec Key signature
+@node Tonartbezeichnung
+@unnumberedsubsubsec Tonartbezeichnung
+@translationof Key signature
 
 @cindex Tonart
 @cindex Vorzeichen
@@ -976,8 +987,7 @@ Tonhöhe dann im Notenbild dargestellt wird. Eine
 einfache Tonhöhe wie etwa@tie{}@code{c} bedeutet also
 immer das eingestrichene C ohne Versetzungszeichen, egal
 was für Vorzeichen/Tonart oder Schlüssel gesetzt sind.
-Mehr Information dazu in @rlearning{Accidentals and key
-signatures}.}
+Mehr Information dazu in @rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.}
 
 Die Vorzeichen zeigen die Tonart an, in welcher ein Stück notiert ist.
 Es handelt sich um eine Anzahl von Alterationszeichen (Kreuzen oder 
@@ -1052,7 +1062,7 @@ Glossar:
 @rglos{scordatura}.
 
 Handbuch zum Lernen:
-@rlearning{Accidentals and key signatures}.
+@rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -1067,8 +1077,9 @@ Referenz der Interna:
 @rinternals{key-signature-interface}.
 
 
-@node Ottava brackets
-@unnumberedsubsubsec Ottava brackets
+@node Oktavierungsklammern
+@unnumberedsubsubsec Oktavierungsklammern
+@translationof Ottava brackets
 
 @cindex ottava
 @cindex 15ma
@@ -1116,8 +1127,9 @@ Referenz der Interna:
 @rinternals{ottava-bracket-interface}.
 
 
-@node Instrument transpositions
-@unnumberedsubsubsec Instrument transpositions
+@node Transposition von Instrumenten
+@unnumberedsubsubsec Transposition von Instrumenten
+@translationof Instrument transpositions
 
 @cindex Transposition, MIDI
 @cindex Transposition, Instrumente
@@ -1135,7 +1147,7 @@ Fall muss die Tonart des transponierenden Instruments
 gekennzeichnet werden, weil sonst die MIDI-Ausgabe
 und Stichnoten in anderen Stimmen falsche Tonhöhen
 produzieren.  Mehr Information zu Stichnoten in
-@ref{Quoting other voices}.
+@ref{Stichnoten}.
 
 @example
 \transposition @var{Tonhöhe}
@@ -1208,14 +1220,15 @@ Glossar:
 @rglos{transposing instrument}.
 
 Notationsreferenz:
-@ref{Quoting other voices}, @ref{Transpose}.
+@ref{Stichnoten}, @ref{Transposition}.
 
 Schnipsel:
 @rlsr{Pitches}.
 
 
-@node Automatic accidentals
-@unnumberedsubsubsec Automatic accidentals
+@node Automatische Versetzungszeichen
+@unnumberedsubsubsec Automatische Versetzungszeichen
+@translationof Automatic accidentals
 
 @cindex Akzidentien
 @cindex Versetzungszeichen, Standard
@@ -2225,8 +2238,9 @@ indem man manuell@tie{}@code{!} oder@tie{}@code{?} für die problematischen
 Noten schreibt.
 
 
-@node Ambitus
-@unnumberedsubsubsec Ambitus
+@node Tonumfang
+@unnumberedsubsubsec Tonumfang
+@translationof Ambitus
 
 @cindex Ambitus
 @cindex Stimmumfang
@@ -2290,20 +2304,22 @@ Referenz der Interna:
 Es gibt keine Kollisionskontrolle bei mehreren Ambitus in einem System.
 
 
-@node Note heads
-@subsection Note heads
+@node Notenköpfe
+@subsection Notenköpfe
+@translationof Note heads
 
 Dieser Abschnitt zeigt, wie man Notenköpfe ändern kann.
 
 @menu
-* Special note heads::
-* Easy notation note heads::
-* Shape note heads::
+* Besondere Notenköpfe::
+* Easy-Notation-Notenköpfe::
+* Notenköpfe mit besonderen Formen::
 * Improvisation::
 @end menu
 
-@node Special note heads
-@unnumberedsubsubsec Special note heads
+@node Besondere Notenköpfe
+@unnumberedsubsubsec Besondere Notenköpfe
+@translationof Special note heads
 
 @cindex Notenköpfe, besondere
 @cindex besondere Notenköpfe
@@ -2340,15 +2356,15 @@ von Akkorden benutzt werden kann:
 
 @noindent
 Alle möglichen Notenkopf-Stile finden sich in
-@ref{Note head styles}.
+@ref{Notenkopfstile}.
 
 @seealso
 Schnipsel:
 @rlsr{Pitches}.
 
 Notationsreferenz:
-@ref{Note head styles},
-@ref{Chorded notes}.
+@ref{Notenkopfstile},
+@ref{Noten mit Akkorden}.
 
 Referenz der Interna:
 @rinternals{note-event},
@@ -2360,8 +2376,9 @@ Referenz der Interna:
 @rinternals{ledger-line-spanner-interface}.
 
 
-@node Easy notation note heads
-@unnumberedsubsubsec Easy notation note heads
+@node Easy-Notation-Notenköpfe
+@unnumberedsubsubsec Easy-Notation-Notenköpfe
+@translationof Easy notation note heads
 
 @cindex Notenköpfe, Übung
 @cindex Notenköpfe zum Lernen
@@ -2381,7 +2398,7 @@ Die @qq{einfachen Notenköpfe} haben die Bezeichnung der Note
 im Kopf gedruckt.  Das wird eingesetzt, um die Notation beizubringen.
 Damit die Buchstaben noch lesbar sind, müssen sie sehr groß
 gesetzt werden.  Wie man eine größere Schriftart einstellt, findet
-sich in @ref{Setting the staff size}.
+sich in @ref{Die Notensystemgröße einstellen}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -2404,7 +2421,7 @@ sich in @ref{Setting the staff size}.
 
 @seealso
 Notationsreferenz:
-@ref{Setting the staff size}.
+@ref{Die Notensystemgröße einstellen}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -2416,8 +2433,9 @@ Referenz der Interna:
 @rinternals{note-head-interface}.
 
 
-@node Shape note heads
-@unnumberedsubsubsec Shape note heads
+@node Notenköpfe mit besonderen Formen
+@unnumberedsubsubsec Notenköpfe mit besonderen Formen
+@translationof Shape note heads
 
 @cindex Notenköpfe, Formen
 @cindex Notation, Aiken
@@ -2461,14 +2479,14 @@ entnommen wird.
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 @noindent
-Alle Notenkopfstile finden sich in @ref{Note head styles}.
+Alle Notenkopfstile finden sich in @ref{Notenkopfstile}.
 
 @seealso
 Schnipsel:
 @rlsr{Pitches}.
 
 Notationsreferenz:
-@ref{Note head styles}.
+@ref{Notenkopfstile}.
 
 Referenz der Interna:
 @rinternals{note-event},
@@ -2479,6 +2497,7 @@ Referenz der Interna:
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
+@translationof Improvisation
 
 @cindex Improvisation
 @cindex schräge Notenköpfe

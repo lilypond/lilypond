@@ -12,8 +12,9 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Ludovic Sardain, Damien Heurtebise
 
-@node Preface
-@unnumbered Preface
+@node Préface
+@unnumbered Préface
+@translationof Preface
 
 Ce doit être pendant une répétition de l'Orchestre des Jeunes
 d'Eindhoven, un jour de 1995, que Jan, du pupitre des altistes tordus,

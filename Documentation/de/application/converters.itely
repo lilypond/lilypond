@@ -12,8 +12,9 @@
 @c Translators: Reinhold Kainhofer
 @c Translation checkers: Till Rettig
 
-@node Converting from other formats
-@chapter Converting from other formats
+@node Von anderen Formaten konvertieren
+@chapter Von anderen Formaten konvertieren
+@translationof Converting from other formats
 
 LilyPond kann auch Musik aus diversen anderen Formaten importieren.
 Dieses Kapitel beschreibt die dazu mit LilyPond mitgelieferten
@@ -24,9 +25,9 @@ findet sich auf der @uref{http://@/lilypond@/.org,Homepage} von LilyPond.
 
 Die im Folgenden beschriebenen Programme sind eigenständige Hilfsprogramme
 und werden üblicherweise von der Kommandozeile aufgerufen. Siehe
-@ref{Command-line usage} für weitere Informationen.  Wenn Sie MacOS
+@ref{Benutzung auf der Kommandozeile} für weitere Informationen.  Wenn Sie MacOS
 10.3 oder 10.4 benutzen und Probleme mit diesen Skripten (z. B.
-@code{convert-ly}) haben, lesen Sie @ref{Setup for MacOS X}.
+@code{convert-ly}) haben, lesen Sie @ref{Einrichtung für MacOS X}.
 
 @knownissues
 Leider haben wir nicht ausreichend viele Entwickler, um all die folgenden
@@ -36,16 +37,17 @@ Selbstverständlich sind Patches von Ihnen sehr willkommen!
 
 
 @menu
-* Invoking midi2ly::          Import von MIDI.
-* Invoking musicxml2ly::      Import von MusicXML.
-* Invoking abc2ly::           Import von ABC.
-* Invoking etf2ly::           Import von (alten) Finale-Dateien.
-* Generating LilyPond files:: Grafische Benutzeroberflächen,
+* midi2ly aufrufen::          Import von MIDI.
+* muscxml2ly aufrufen::      Import von MusicXML.
+* abc2ly aufrufen::           Import von ABC.
+* etf2ly aufrufen::           Import von (alten) Finale-Dateien.
+* LilyPond-Dateien erstellen:: Grafische Benutzeroberflächen,
 Musikübersetzer und Programme zur algorithmischen Komposition.
 @end menu
 
-@node Invoking midi2ly
-@section Invoking @command{midi2ly}
+@node midi2ly aufrufen
+@section @command{midi2ly} aufrufen
+@translationof Invoking midi2ly
 
 @cindex MIDI
 
@@ -83,7 +85,7 @@ midi2ly [@var{Optionen}]@dots{} @var{MIDI-Datei}
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
 jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe 
-@ref{Converting from other formats}.
+@ref{Von anderen Formaten konvertieren}.
 
 Die folgenden Kommandozeilenoptionen werden von @command{midi2ly} 
 unterstützt:
@@ -138,8 +140,9 @@ Tonlänge setzen und Phrasierungszeichen oder Pedalindikatoren
 hinzufügen.
 
 
-@node Invoking musicxml2ly
-@section Invoking @code{musicxml2ly}
+@node muscxml2ly aufrufen
+@section @command{muscxml2ly} aufrufen
+@translationof Invoking musicxml2ly
 
 @cindex MusicXML
 
@@ -158,7 +161,7 @@ musicxml2ly [@var{Optionen}]@dots{} @var{XML-Datei}
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
 jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe 
-@ref{Converting from other formats}.
+@ref{Von anderen Formaten konvertieren}.
 
 Wenn als Dateiname @file{-} angegeben wird, liest @command{musicxml2ly}
 Daten direkt von der Kommandozeile ein.
@@ -211,8 +214,9 @@ Dies ist die Standardeinstellung für Dateien mit der Erweiterung
 @end table
 
 
-@node Invoking abc2ly
-@section Invoking @code{abc2ly}
+@node abc2ly aufrufen
+@section @command{abc2ly} aufrufen
+@translationof Invoking abc2ly
 
 @cindex ABC
 
@@ -232,7 +236,7 @@ abc2ly [@var{Optionen}]@dots{} @var{ABC-Datei}
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
 jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe 
-@ref{Converting from other formats}.
+@ref{Von anderen Formaten konvertieren}.
 
 Die folgenden Kommandozeilenoptionen werden von @command{abc2ly}
 unterstützt:
@@ -287,8 +291,9 @@ ABC synchronisiert den Liedtext am Anfang jeder Zeile mit den Noten,
 @command{abc2ly} ignoriert die Balkensetzung in der ABC-Datei.
 
 
-@node Invoking etf2ly
-@section Invoking @command{etf2ly}
+@node etf2ly aufrufen
+@section @command{etf2ly} aufrufen
+@translationof Invoking etf2ly
 
 @cindex ETF
 @cindex enigma
@@ -307,7 +312,7 @@ etf2ly [@var{Optionen}]@dots{} @var{ETF-Datei}
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
 jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe 
-@ref{Converting from other formats}.
+@ref{Von anderen Formaten konvertieren}.
 
 Die folgenden Kommandozeilenoptionen werden von @command{etf2ly}
 unterstützt:
@@ -329,8 +334,9 @@ verwirren @command{etf2ly}. Mehrfache Vorschlagnoten werden falsch
 beendet.
 
 
-@node Generating LilyPond files
-@section Generating LilyPond files
+@node LilyPond-Dateien erstellen
+@section LilyPond-Dateien erstellen
+@translationof Generating LilyPond files
 
 @cindex Externe Programme, LilyPond-Dateien erzeugen
 

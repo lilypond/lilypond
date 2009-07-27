@@ -11,8 +11,9 @@
 @c Translators: Frédéric Chiasson
 @c Translation checkers: Valentin Villenave, Jean-Charles Malahieude
 
-@node Pitches
-@section Pitches
+@node Hauteurs
+@section Hauteurs
+@translationof Pitches
 
 @lilypondfile[quote]{pitches-headword.ly}
 
@@ -21,15 +22,16 @@ trois aspects : la saisie des hauteurs, la modification des hauteurs
 et les options de gravure.
 
 @menu
-* Writing pitches::             
-* Changing multiple pitches::   
-* Displaying pitches::          
-* Note heads::                  
+* Écriture des hauteurs de note::             
+* Modification de plusieurs hauteurs::   
+* Gravure des hauteurs::          
+* Têtes de note::                  
 @end menu
 
 
-@node Writing pitches
-@subsection Writing pitches
+@node Écriture des hauteurs de note
+@subsection Écriture des hauteurs de note
+@translationof Writing pitches
 
 Cette section explique la manière d'indiquer les hauteurs de note.  Il
 y a deux modes d'indiquer l'octave des notes : le mode absolu, et le
@@ -37,14 +39,15 @@ mode relatif.  Le dernier est le plus pratique lors de la saisie d'un
 fichier source au clavier de l'ordinateur.
 
 @menu
-* Absolute octave entry::       
-* Relative octave entry::       
-* Accidentals::                 
-* Note names in other languages::  
+* Hauteurs avec octave absolue::       
+* Octaves relatives::       
+* Altérations::                 
+* Noms de note dans d'autres langues::  
 @end menu
 
-@node Absolute octave entry
-@unnumberedsubsubsec Absolute octave entry
+@node Hauteurs avec octave absolue
+@unnumberedsubsubsec Hauteurs avec octave absolue
+@translationof Absolute octave entry
 
 @cindex noms de note
 @cindex hauteurs
@@ -86,11 +89,12 @@ c, c,, e, g d,, d, d c
 
 Il existe une autre méthode pour préciser à quelle octave se situe la
 note à graver ; cette méthode demande moins d'indications d'octave
-(@code{'} ou @code{,}) --- voir @ref{Relative octave entry}.
+(@code{'} ou @code{,}) --- voir @ref{Octaves relatives}.
 
 
-@node Relative octave entry
-@unnumberedsubsubsec Relative octave entry
+@node Octaves relatives
+@unnumberedsubsubsec Octaves relatives
+@translationof Relative octave entry
 
 @cindex relatif
 @cindex indication d'octave relative
@@ -173,8 +177,9 @@ utiliser \relative dans de la musique transposée, un code
 @code{\relative} additionnel doit être placé dans @code{\transpose}.
 
 
-@node Accidentals
-@unnumberedsubsubsec Accidentals
+@node Altérations
+@unnumberedsubsubsec Altérations
+@translationof Accidentals
 
 @cindex noms de note, hollandais
 @cindex noms de note, par défaut
@@ -210,7 +215,7 @@ a4 aes a2
 LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
 naturel, un mi naturel et un fa naturel}, sans tenir compte de l'armure.
 Pour plus d'information à propos de la distinction entre le contenu
-musical et sa représentation, voir @rlearning{Accidentals and key signatures}.
+musical et sa représentation, voir @rlearning{Altérations et armure}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -264,7 +269,7 @@ Référence du programme : @rinternals{LedgerLineSpanner},
 @rinternals{NoteHead}.
 
 L'impression automatique des altérations peut être affinée de plusieurs
-manières.  Pour plus d'information, voir @ref{Automatic accidentals}.
+manières.  Pour plus d'information, voir @ref{Altérations accidentelles automatiques}.
 
 
 @knownissues
@@ -275,8 +280,9 @@ LilyPond n'est donc conforme à aucun standard.
 
 
 
-@node Note names in other languages
-@unnumberedsubsubsec Note names in other languages
+@node Noms de note dans d'autres langues
+@unnumberedsubsubsec Noms de note dans d'autres langues
+@translationof Note names in other languages
 
 Vous disposez de jeux prédéfinis de noms de notes pour plusieurs autres
 langues.  Pour les utiliser, incluez le fichier d'initialisation
@@ -338,16 +344,18 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 @end example
 
 
-@node Changing multiple pitches
-@subsection Changing multiple pitches
+@node Modification de plusieurs hauteurs
+@subsection Modification de plusieurs hauteurs
+@translationof Changing multiple pitches
 
 @menu
-* Octave checks::                
-* Transpose::                   
+* Vérifications d'octave::                
+* Transposition::                   
 @end menu
 
-@node Octave checks
-@unnumberedsubsubsec Octave checks
+@node Vérifications d'octave
+@unnumberedsubsubsec Vérifications d'octave
+@translationof Octave checks
 
 @cindex vérification d'octave
 
@@ -410,8 +418,9 @@ résultat sur la partition.
 @end lilypond
 
 
-@node Transpose
-@unnumberedsubsubsec Transpose
+@node Transposition
+@unnumberedsubsubsec Transposition
+@translationof Transpose
 
 @cindex transposition
 @cindex transposition des hauteurs
@@ -491,20 +500,22 @@ Si vous voulez utiliser en même temps @code{\transpose} et
 @code{\relative}, puisque @code{\relative} n'aura aucun effet sur la
 musique apparaissant dans un @code{\transpose}.
 
-@node Displaying pitches
-@subsection Displaying pitches
+@node Gravure des hauteurs
+@subsection Gravure des hauteurs
+@translationof Displaying pitches
 
 @menu
-* Clef::                        
-* Key signature::               
-* Ottava brackets::             
-* Instrument transpositions::   
-* Automatic accidentals::       
+* Clefs::                        
+* Armure::               
+* Marques d'octaviation::             
+* Instruments transpositeurs::   
+* Altérations accidentelles automatiques::       
 * Ambitus::                     
 @end menu
 
-@node Clef
-@unnumberedsubsubsec Clef
+@node Clefs
+@unnumberedsubsubsec Clefs
+@translationof Clef
 
 @funindex \clef
 
@@ -581,13 +592,14 @@ apparaître des possibilités de réglage manuel de ces propriétés.
 
 
 @seealso
-Dans ce manuel : @ref{Grace notes}.
+Dans ce manuel : @ref{Notes d'ornement}.
 
 Référence du programme : @rinternals{Clef}.
 
 
-@node Key signature
-@unnumberedsubsubsec Key signature
+@node Armure
+@unnumberedsubsubsec Armure
+@translationof Key signature
 
 @cindex armure
 @funindex \key
@@ -626,8 +638,8 @@ directement cette propriété.
 
 Les nouveaux utilisateurs s'embrouillent souvent dans les altérations et
 les armures, car des notes naturelles prennent ou non un bécarre selon
-l'armure.  Pour plus d'informations, voir @ref{Accidentals} ou
-@rlearning{Accidentals and key signatures}.
+l'armure.  Pour plus d'informations, voir @ref{Altérations} ou
+@rlearning{Altérations et armure}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
@@ -660,8 +672,9 @@ Référence du programme : @rinternals{KeyCancellation},
 @rinternals{KeySignature}.
 
 
-@node Ottava brackets
-@unnumberedsubsubsec Ottava brackets
+@node Marques d'octaviation
+@unnumberedsubsubsec Marques d'octaviation
+@translationof Ottava brackets
 
 Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
 transposition spécifique d'une octave pour la portée en cours.  C'est
@@ -708,8 +721,9 @@ Référence du programme : @rinternals{OttavaBracket}.
 pourraient intervenir alors qu'elle est effective.
 
 
-@node Instrument transpositions
-@unnumberedsubsubsec Instrument transpositions
+@node Instruments transpositeurs
+@unnumberedsubsubsec Instruments transpositeurs
+@translationof Instrument transpositions
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
@@ -729,7 +743,7 @@ Cette transposition s'indique après le mot-clé @code{\transposition}.
 Cette commande détermine la propriété @code{instrumentTransposition},
 dont la valeur sera utilisée pour le fichier MIDI et en cas de
 citation.  Elle n'affecte en rien la manière dont les notes seront
-imprimées sur la portée.  Référez-vous à la section @ref{Transpose}
+imprimées sur la portée.  Référez-vous à la section @ref{Transposition}
 pour obtenir un autre résultat.
 
 La hauteur donnée en argument à @code{\transposition} doit
@@ -764,8 +778,9 @@ c'4^"en sol"
 ...
 @end example
 
-@node Automatic accidentals
-@unnumberedsubsubsec Automatic accidentals
+@node Altérations accidentelles automatiques
+@unnumberedsubsubsec Altérations accidentelles automatiques
+@translationof Automatic accidentals
 @cindex Altérations accidentelles automatiques
 
 Une fonction a été créée pour regrouper les règles suivant lesquelles
@@ -1127,6 +1142,7 @@ Ce problème est à résoudre manuellement, en insérant des @code{!} et des
 
 @node Ambitus
 @unnumberedsubsubsec Ambitus
+@translationof Ambitus
 @cindex ambitus
 
 L'@emph{ambitus} est l'amplitude des hauteurs d'une voix donnée dans une
@@ -1220,18 +1236,20 @@ LilyPond ne gère pas les collisions entre plusieurs @emph{ambitus}
 présents sur une même portée.
 
 
-@node Note heads
-@subsection Note heads
+@node Têtes de note
+@subsection Têtes de note
+@translationof Note heads
 
 @menu
-* Special note heads::          
-* Easy notation note heads::    
-* Shape note heads::            
+* Têtes de note spécifiques::          
+* Têtes de note avec nom de note::    
+* Têtes de note à forme variable::            
 * Improvisation::               
 @end menu
 
-@node Special note heads
-@unnumberedsubsubsec Special note heads
+@node Têtes de note spécifiques
+@unnumberedsubsubsec Têtes de note spécifiques
+@translationof Special note heads
 
 @cindex têtes de note, spéciales
 
@@ -1252,15 +1270,16 @@ e d <c f\harmonic> <d a'\harmonic>
 
 @noindent
 Pour une liste exhaustive des styles de tête de note, consultez 
-@ref{Note head styles}.
+@ref{Styles de tête de note}.
 
 
 @seealso
 Référence du programme : @rinternals{NoteHead}.
 
 
-@node Easy notation note heads
-@unnumberedsubsubsec Easy notation note heads
+@node Têtes de note avec nom de note
+@unnumberedsubsubsec Têtes de note avec nom de note
+@translationof Easy notation note heads
 
 @cindex tête de note, apprentissage
 @cindex notation facile
@@ -1277,7 +1296,7 @@ la tête.  On l'utilise dans des partitions pour débutants.
 La commande @code{\easyHeadsOn} remplace tous les réglages de l'objet
 @rinternals{NoteHead}.  L'impression doit être de plus grande
 taille, afin que les lettres soient lisibles.  Voir à ce propos
-@ref{Setting the staff size}.
+@ref{Définition de la taille de portée}.
 
 
 @predefined
@@ -1286,8 +1305,9 @@ taille, afin que les lettres soient lisibles.  Voir à ce propos
 @endpredefined
 
 
-@node Shape note heads
-@unnumberedsubsubsec Shape note heads
+@node Têtes de note à forme variable
+@unnumberedsubsubsec Têtes de note à forme variable
+@translationof Shape note heads
 
 @cindex tête de note, allure
 
@@ -1327,6 +1347,7 @@ n-ième degré de la gamme.  Toutes les combinaisons sont possibles :
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
+@translationof Improvisation
 
 L'improvisation peut quelquefois s'indiquer à l'aide de notes de forme
 allongée (@emph{slash}).  Ces têtes de notes sont créées  par

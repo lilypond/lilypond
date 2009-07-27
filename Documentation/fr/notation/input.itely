@@ -11,125 +11,140 @@
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
-@node General input and output
-@chapter General input and output
+@node Généralités en matière d'entrée et sortie
+@chapter Généralités en matière d'entrée et sortie
+@translationof General input and output @c external
 
 @untranslated
 
 
 @menu
-* Input structure::             
-* Titles and headers::          
-* Working with input files::    
-* Controlling output::          
-* MIDI output::                 
+* Structure de fichier::             
+* Titres et entêtes::          
+* Travail sur des fichiers texte::    
+* Contrôle des sorties::          
+* Sortie MIDI::                 
 @end menu
 
-@node Input structure
-@section Input structure
+@node Structure de fichier
+@section Structure de fichier
+@translationof Input structure @c external
 
 @untranslated
 
 
 @menu
-* Structure of a score::        
-* Multiple scores in a book::   
-* File structure::              
+* Structure d'une partition::        
+* Plusieurs partitions dans un même ouvrage::   
+* Structure de fichier::              
 @end menu
 
-@node Structure of a score
-@subsection Structure of a score
+@node Structure d'une partition
+@subsection Structure d'une partition
+@translationof Structure of a score @c external
 
 @untranslated
 
 
-@node Multiple scores in a book
-@subsection Multiple scores in a book
+@node Plusieurs partitions dans un même ouvrage
+@subsection Plusieurs partitions dans un même ouvrage
+@translationof Multiple scores in a book @c external
 
 @untranslated
 
 
-@node File structure
-@subsection File structure
+@node Structure de fichier
+@subsection Structure de fichier
+@translationof File structure @c external
 
 @untranslated
 
 
-@node Titles and headers
-@section Titles and headers
+@node Titres et entêtes
+@section Titres et entêtes
+@translationof Titles and headers @c external
 
 @untranslated
 
 
 @menu
-* Creating titles::             
-* Custom titles::               
-* Reference to page numbers::   
-* Table of contents::           
+* Création de titres::             
+* Titres personnalisés::               
+* Référencement des numéros de page::   
+* Table des matières::           
 @end menu
 
-@node Creating titles
-@subsection Creating titles
+@node Création de titres
+@subsection Création de titres
+@translationof Creating titles @c external
 
 @untranslated
 
 
-@node Custom titles
-@subsection Custom titles
+@node Titres personnalisés
+@subsection Titres personnalisés
+@translationof Custom titles @c external
 
 @untranslated
 
 
-@node Reference to page numbers
-@subsection Reference to page numbers
+@node Référencement des numéros de page
+@subsection Référencement des numéros de page
+@translationof Reference to page numbers @c external
 
 @untranslated
 
 
-@node Table of contents
-@subsection Table of contents
+@node Table des matières
+@subsection Table des matières
+@translationof Table of contents @c external
 
 @untranslated
 
 
-@node Working with input files
-@section Working with input files
+@node Travail sur des fichiers texte
+@section Travail sur des fichiers texte
+@translationof Working with input files @c external
 
 @untranslated
 
 
 @menu
-* Including LilyPond files::    
-* Different editions from one source::  
-* Text encoding::               
-* Displaying LilyPond notation::  
+* Insertion de fichiers LilyPond::    
+* Différentes éditions à partir d'une même source::  
+* Codage du texte::               
+* Affichage de notation au format LilyPond::  
 @end menu
 
-@node Including LilyPond files
-@subsection Including LilyPond files
+@node Insertion de fichiers LilyPond
+@subsection Insertion de fichiers LilyPond
+@translationof Including LilyPond files @c external
 
 @untranslated
 
 
-@node Different editions from one source
-@subsection Different editions from one source
+@node Différentes éditions à partir d'une même source
+@subsection Différentes éditions à partir d'une même source
+@translationof Different editions from one source @c external
 
 @untranslated
 
 
 @menu
-* Using variables::             
-* Using tags::                  
+* Utilisation de variables::             
+* Utilisation de balises::                  
 @end menu
 
-@node Using variables
-@unnumberedsubsubsec Using variables
+@node Utilisation de variables
+@unnumberedsubsubsec Utilisation de variables
+@translationof Using variables @c external
 
 @untranslated
 
 
-@node Using tags
-@unnumberedsubsubsec Using tags
+@node Utilisation de balises
+@unnumberedsubsubsec Utilisation de balises
+@translationof Using tags
 @funindex \tag
 @cindex tag
  
@@ -214,79 +229,89 @@ Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
 si vous imprimez une partition avec les deux sections balisées.
 
 
-@node Text encoding
-@subsection Text encoding
+@node Codage du texte
+@subsection Codage du texte
+@translationof Text encoding @c external
 
 @untranslated
 
 
-@node Displaying LilyPond notation
-@subsection Displaying LilyPond notation
+@node Affichage de notation au format LilyPond
+@subsection Affichage de notation au format LilyPond
+@translationof Displaying LilyPond notation @c external
 
 @untranslated
 
 
-@node Controlling output
-@section Controlling output
-
-@untranslated
-
-
-@menu
-* Extracting fragments of music::  
-* Skipping corrected music::    
-@end menu
-
-@node Extracting fragments of music
-@subsection Extracting fragments of music
-
-@untranslated
-
-
-@node Skipping corrected music
-@subsection Skipping corrected music
-
-@untranslated
-
-
-@node MIDI output
-@section MIDI output
+@node Contrôle des sorties
+@section Contrôle des sorties
+@translationof Controlling output @c external
 
 @untranslated
 
 
 @menu
-* Creating MIDI files::         
-* MIDI block::                  
-* What goes into the MIDI output?::  
-* Repeats in MIDI::             
-* Controlling MIDI dynamics::   
+* Extraction de fragments musicaux::  
+* Ignorer des passages de la partition::    
 @end menu
 
-@node Creating MIDI files
-@subsection Creating MIDI files
+@node Extraction de fragments musicaux
+@subsection Extraction de fragments musicaux
+@translationof Extracting fragments of music @c external
 
 @untranslated
 
 
-@unnumberedsubsubsec Instrument names
-@node MIDI block
-@subsection MIDI block
+@node Ignorer des passages de la partition
+@subsection Ignorer des passages de la partition
+@translationof Skipping corrected music @c external
 
 @untranslated
 
 
-@node What goes into the MIDI output?
-@subsection What goes into the MIDI output?
+@node Sortie MIDI
+@section Sortie MIDI
+@translationof MIDI output @c external
 
 @untranslated
 
 
-@unnumberedsubsubsec Supported in MIDI
-@unnumberedsubsubsec Unsupported in MIDI
+@menu
+* Création de fichiers MIDI::         
+* Le bloc MIDI::                  
+* Contenu de la sortie MIDI::  
+* Répétitions et MIDI::             
+* Gestion des nuances en MIDI::   
+@end menu
 
-@node Repeats in MIDI
-@subsection Repeats in MIDI
+@node Création de fichiers MIDI
+@subsection Création de fichiers MIDI
+@translationof Creating MIDI files @c external
+
+@untranslated
+
+
+@unnumberedsubsubsec Noms d'instrument
+@node Le bloc MIDI
+@subsection Le bloc MIDI
+@translationof MIDI block @c external
+
+@untranslated
+
+
+@node Contenu de la sortie MIDI
+@subsection Contenu de la sortie MIDI
+@translationof What goes into the MIDI output? @c external
+
+@untranslated
+
+
+@unnumberedsubsubsec Éléments pris en compte dans le MIDI
+@unnumberedsubsubsec Éléments non pris en compte dans le MIDI
+
+@node Répétitions et MIDI
+@subsection Répétitions et MIDI
+@translationof Repeats in MIDI
 
 @cindex reprises développées
 @funindex \unfoldRepeats
@@ -330,13 +355,14 @@ pourcentage.  Par exemple
 @end example
 
 
-@node Controlling MIDI dynamics
-@subsection Controlling MIDI dynamics
+@node Gestion des nuances en MIDI
+@subsection Gestion des nuances en MIDI
+@translationof Controlling MIDI dynamics @c external
 
 @untranslated
 
 
-@unnumberedsubsubsec Dynamic marks
-@unnumberedsubsubsec Overall MIDI volume
-@unnumberedsubsubsec Equalizing different instruments (i)
-@unnumberedsubsubsec Equalizing different instruments (ii)
+@unnumberedsubsubsec Indications de nuance
+@unnumberedsubsubsec Amplitude du volume en MIDI
+@unnumberedsubsubsec Égalisation de plusieurs instruments (i)
+@unnumberedsubsubsec Égalisation de plusieurs instruments (ii)

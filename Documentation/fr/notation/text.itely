@@ -11,8 +11,9 @@
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
 
-@node Text
-@section Text
+@node Texte
+@section Texte
+@translationof Text
 
 @lilypondfile[quote]{text-headword.ly}
 
@@ -23,27 +24,29 @@ différentes possibilité de formatage.
 Pour écrire des accents et autres caractères spéciaux, il suffit de
 les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 être sauvegardé avec l'encodage UTF-8.  Pour plus d'informations, voir
-@ref{Text encoding}.
+@ref{Codage du texte}.
 
 @menu
-* Writing text::                
-* Formatting text::             
-* Fonts::                       
+* Ajout de texte::                
+* Mise en forme du texte::             
+* Fontes::                       
 @end menu
 
 
-@node Writing text
-@subsection Writing text
+@node Ajout de texte
+@subsection Ajout de texte
+@translationof Writing text
 
 @menu
-* Text scripts::                
-* Text and line spanners::      
-* Text spanners::               
-* Text marks::                  
+* Commentaires textuels::                
+* Indications textuelles et lignes d'extension::      
+* Extensions de texte::               
+* Indications textuelles::                  
 @end menu
 
-@node Text scripts
-@unnumberedsubsubsec Text scripts
+@node Commentaires textuels
+@unnumberedsubsubsec Commentaires textuels
+@translationof Text scripts
 
 @c I'm not fond of this "étiquette" wording of yours Jean-Charles;
 @c j'utiliserais simplement l'expression "bloc \markup" afin
@@ -55,7 +58,7 @@ les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 @cindex ajout de texte
 
 Vous pouvez placer arbitrairement des chaînes de caractères, ou
-@ref{Formatting text} en langage LilyPond, au dessus ou au dessous des
+@ref{Mise en forme du texte} en langage LilyPond, au dessus ou au dessous des
 notes en employant la syntaxe @code{c^"text"}.  Par défaut, ces
 indications n'affecteront en rien l'espacement des notes, sauf à
 utiliser la commande @code{\textLengthOn}.
@@ -75,7 +78,7 @@ c'4^\markup { bla \bold bla }
 @end lilypond
 
 La commande @code{\markup} est décrite plus en détails dans la section
-@ref{Formatting text}.
+@ref{Mise en forme du texte}.
 
 
 @predefined
@@ -99,13 +102,14 @@ Vous pouvez cependant l'y forcer en définissant
 
 
 @seealso
-Dans ce manuel : @ref{Formatting text}.
+Dans ce manuel : @ref{Mise en forme du texte}.
 
 Référence du programme : @rinternals{TextScript}.
 
 
-@node Text and line spanners
-@unnumberedsubsubsec Text and line spanners
+@node Indications textuelles et lignes d'extension
+@unnumberedsubsubsec Indications textuelles et lignes d'extension
+@translationof Text and line spanners
 
 Certaines indications d'interprétation comme @i{rallentando}, 
 @i{accelerando} ou @i{trilles}, s'incrivent textuellement et se
@@ -239,8 +243,9 @@ Référence du programme : @rinternals{TextSpanner},
 Exemples : @rlsr{Expressive marks}.
 
 
-@node Text spanners
-@unnumberedsubsubsec Text spanners
+@node Extensions de texte
+@unnumberedsubsubsec Extensions de texte
+@translationof Text spanners
 
 @cindex Prolongateurs de texte
 
@@ -291,8 +296,9 @@ Pour obtenir une ligne pleine, utilisez
 Référence du programme : @rinternals{TextSpanner}.
 
 
-@node Text marks
-@unnumberedsubsubsec Text marks
+@node Indications textuelles
+@unnumberedsubsubsec Indications textuelles
+@translationof Text marks
 
 @cindex coda sur une barre de mesure
 @cindex segno sur une barre de mesure
@@ -301,11 +307,11 @@ Référence du programme : @rinternals{TextSpanner}.
 @funindex \mark
 
 La commande @code{\mark} est tout d'abord conçue pour les
-@ref{Rehearsal marks}.  Elle peut néanmoins servir à insérer des
+@ref{Indications de repère}.  Elle peut néanmoins servir à insérer des
 signes de coda ou de segno, ou bien un point d'orgue, au dessus d'une
 barre de mesure.  Couplez-la alors à la commande @code{\markup} pour
 avoir accès au symbole approprié (ils sont répertoriés dans 
-@ref{The Feta font}).
+@ref{La fonte Feta}).
 
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
@@ -440,17 +446,19 @@ affectation à chacune des portées :
 Référence du programme : @rinternals{RehearsalMark}.
 
 
-@node Formatting text
-@subsection Formatting text
+@node Mise en forme du texte
+@subsection Mise en forme du texte
+@translationof Formatting text
 
 @menu
-* Text markup introduction::    
-* Nested scores::               
-* Page wrapping text::          
+* Introduction au formatage de texte::    
+* Partitions emboîtées::               
+* Texte avec sauts de page::          
 @end menu
 
-@node Text markup introduction
-@unnumberedsubsubsec Text markup introduction
+@node Introduction au formatage de texte
+@unnumberedsubsubsec Introduction au formatage de texte
+@translationof Text markup introduction
 
 @cindex étiquette
 @cindex commentaire textuel
@@ -500,7 +508,7 @@ pour traiter du texte avec LilyPond.
 
 La commande @code{\markup} peut intervenir à tout moment, y compris en
 dehors d'un bloc @code{\score}. Voir à ce sujet 
-@ref{Multiple scores in a book}. 
+@ref{Plusieurs partitions dans un même ouvrage}. 
 
 @lilypond[quote,ragged-right,verbatim]
 \markup{ Here is some text. }
@@ -615,8 +623,9 @@ compte, et l'espacement de tels textes sera trop large.
 Les erreurs de syntaxe sont peu loquaces.
 
 
-@node Nested scores
-@unnumberedsubsubsec Nested scores
+@node Partitions emboîtées
+@unnumberedsubsubsec Partitions emboîtées
+@translationof Nested scores
 
 Rien ne s'oppose à ce qu'une étiquette ne comporte de la musique.  Il
 suffit que l'expression en question contienne un bloc @code{\score} et
@@ -634,8 +643,9 @@ un bloc @code{\layout}.
 }
 @end lilypond
 
-@node Page wrapping text
-@unnumberedsubsubsec Page wrapping text
+@node Texte avec sauts de page
+@unnumberedsubsubsec Texte avec sauts de page
+@translationof Page wrapping text
 Alors que @code{\markup} s'utilise pour traiter un bloc de texte
 insécable, @code{\markuplines} permet, employé en tête de partition,
 d'obtenir un bloc de lignes réparties différemment et au cas où sur
@@ -674,7 +684,7 @@ se trouve dans @ref{Text markup list commands}.
 
 @seealso
 Dans ce manuel : @ref{Text markup list commands}, 
-@ref{New markup list command definition}.
+@ref{Définition d'une nouvelle commande de liste de marqueurs}.
 
 
 @predefined
@@ -683,8 +693,9 @@ Dans ce manuel : @ref{Text markup list commands},
 @endpredefined
 
 
-@node Fonts
-@subsection Fonts
+@node Fontes
+@subsection Fontes
+@translationof Fonts
 
 @cindex sélection de polices
 @cindex grossissement des polices

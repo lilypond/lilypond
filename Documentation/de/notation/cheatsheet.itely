@@ -12,8 +12,9 @@
 
 @c TODO: add tablature.
 
-@node Cheat sheet
-@appendix Cheat sheet
+@node Befehlsübersicht
+@appendix Befehlsübersicht
+@translationof Cheat sheet
 
 
 @multitable @columnfractions .35 .3 .35

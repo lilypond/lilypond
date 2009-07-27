@@ -8,8 +8,9 @@
 
 @c \version "2.12.0"
 
-@node Repeats
-@section Repeats
+@node Repeticiones
+@section Repeticiones
+@translationof Repeats
 
 @lilypondfile[quote]{repeats-headword.ly}
 
@@ -44,12 +45,13 @@ Hacer barras de trémolo.
 
 
 @menu
-* Long repeats::
-* Short repeats::
+* Repeticiones largas::
+* Repeticiones cortas::
 @end menu
 
-@node Long repeats
-@subsection Long repeats
+@node Repeticiones largas
+@subsection Repeticiones largas
+@translationof Long repeats
 
 Esta sección trata sobre la forma de introducir repeticiones largas,
 normalmente de varios compases.  Las repeticiones adoptan dos formas:
@@ -58,9 +60,9 @@ explícitas, que se usan para escribir música repetitiva.  También se
 pueden controlar manualmente los signos de repetición.
 
 @menu
-* Normal repeats::
-* Manual repeat marks::
-* Written-out repeats::
+* Repeticiones normales::
+* Marcas de repetición manual::
+* Repeticiones explícitas::
 @end menu
 
 @cindex repeticiones normales
@@ -76,8 +78,9 @@ pueden controlar manualmente los signos de repetición.
 @funindex \alternative
 @funindex \partial
 
-@node Normal repeats
-@unnumberedsubsubsec Normal repeats
+@node Repeticiones normales
+@unnumberedsubsubsec Repeticiones normales
+@translationof Normal repeats
 
 La sintaxis de una repetición simple es
 
@@ -175,8 +178,8 @@ Glosario musical:
 @rglos{volta}.
 
 Referencia de la notación:
-@ref{Bar lines},
-@ref{Modifying context plug-ins}.
+@ref{Barras de compás},
+@ref{Modificar los complementos (plug-ins) de contexto}.
 
 Fragmentos de código:
 @rlsr{Repeats}.
@@ -225,8 +228,9 @@ se repiten.
 
 
 
-@node Manual repeat marks
-@unnumberedsubsubsec Manual repeat marks
+@node Marcas de repetición manual
+@unnumberedsubsubsec Marcas de repetición manual
+@translationof Manual repeat marks
 
 
 @cindex manual, marca de repetición
@@ -246,7 +250,7 @@ de repetición poco usuales, y pueden tener un comportamiento distinto
 al esperado.  En casi todas las situaciones, se deben crear las
 repeticiones utilizando la instrucción estándar @code{\\repeat} o
 imprimiendo las barras de compás correspondientes.  Para ver más
-información, consulte @ref{Bar lines}.}
+información, consulte @ref{Barras de compás}.}
 
 Se puede usar la propiedad @code{repeatCommands} para controlar la
 disposición de las repeticiones.  Su valor es una lista de Scheme de
@@ -311,7 +315,7 @@ b1
 
 Se puede incluir texto dentro de la casilla de primera y segunda vez.
 El texto puede ser un número o números, o un elemento de marcado,
-véase @ref{Formatting text}.  La forma más fácil de usar texto de
+véase @ref{Formatear el texto}.  La forma más fácil de usar texto de
 marcado es definir el marcado previamente, y luego incluirlo dentro de
 una lista de Scheme.
 
@@ -335,8 +339,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @seealso
 Referencia de la notación:
-@ref{Bar lines},
-@ref{Formatting text}.
+@ref{Barras de compás},
+@ref{Formatear el texto}.
 
 Fragmentos de código:
 @rlsr{Repeats}.
@@ -347,8 +351,9 @@ Referencia de funcionamiento interno:
 @rinternals{VoltaRepeatedMusic}.
 
 
-@node Written-out repeats
-@unnumberedsubsubsec Written-out repeats
+@node Repeticiones explícitas
+@unnumberedsubsubsec Repeticiones explícitas
+@translationof Written-out repeats
 
 @cindex explícitas, repeticiones
 @cindex repetitiva, música
@@ -403,8 +408,9 @@ Referencia de funcionamiento interno:
 @rinternals{UnfoldedRepeatedMusic}.
 
 
-@node Short repeats
-@subsection Short repeats
+@node Repeticiones cortas
+@subsection Repeticiones cortas
+@translationof Short repeats
 
 Esta sección trata de cómo introducir repeticiones cortas.  Las
 repeticiones cortas adoptan dos formas básicas: repeticiones desde una
@@ -412,12 +418,13 @@ sola nota hasta dos compases representadas por barras inclinadas o
 símbolos de porcentaje, y trémolos.
 
 @menu
-* Percent repeats::
-* Tremolo repeats::
+* Repeticiones de compás o parte de ellos::
+* Repeticiones de trémolo::
 @end menu
 
-@node Percent repeats
-@unnumberedsubsubsec Percent repeats
+@node Repeticiones de compás o parte de ellos
+@unnumberedsubsubsec Repeticiones de compás o parte de ellos
+@translationof Percent repeats
 
 @cindex porcentaje, repetición de
 @cindex compás, repetición de
@@ -488,8 +495,9 @@ repeticiones de un solo pulso consistentes en notas de duraciones
 variables.
 
 
-@node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
+@node Repeticiones de trémolo
+@unnumberedsubsubsec Repeticiones de trémolo
+@translationof Tremolo repeats
 
 @cindex trémolo
 @cindex barras de trémolo

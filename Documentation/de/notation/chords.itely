@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Chord notation
-@section Chord notation
+@node Notation von Akkorden
+@section Notation von Akkorden
+@translationof Chord notation
 
 @lilypondfile[quote]{chords-headword.ly}
 
@@ -20,13 +21,14 @@ europäische Akkordbezeichnungsstile eingesetzt werden.  Akkordbzeichnungen
 und Generalbass können auch angezeigt werden.
 
 @menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
+* Akkord-Modus::
+* Akkorde anzeigen::
+* Generalbass::
 @end menu
 
-@node Chord mode
-@subsection Chord mode
+@node Akkord-Modus
+@subsection Akkord-Modus
+@translationof Chord mode
 
 @cindex Akkorde
 @cindex chord-Akkorde
@@ -36,27 +38,28 @@ Symbol der erwünschten Akkordstruktur notiert, anstatt dass die
 einzelnen Tonhöhen ausgeschrieben werden.
 
 @menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
+* Überblick über den Akkord-Modus::
+* Übliche Akkorde::
+* Erweiterte und modifizierte Akkorde::
 @end menu
 
 
-@node Chord mode overview
-@unnumberedsubsubsec Chord mode overview
+@node Überblick über den Akkord-Modus
+@unnumberedsubsubsec Überblick über den Akkord-Modus
+@translationof Chord mode overview
 
 @cindex Akkordbezeichnungen
 @cindex Akkordmodus
 
 Akkorde können als simultane Noten eingegeben werden, wie gezeigt
-in @ref{Chorded notes}.
+in @ref{Noten mit Akkorden}.
 
 Akkorde können aber auch im Akkordmodus notiert werden.  Das ist
 ein Eingabemodus, der sich an Akkordstrukturen traditioneller
 europäischer Musik und nicht an bestimmten einzelnen Tonhöhen
 orientiert.  Er bietet sich an, wenn man es gewohnt ist, Akkordsymbole
 zur Beschreibung von Akkorden zu benutzen.  Mehr Information zu
-unterschiedlichen Eingabemethoden findet sich in @ref{Input modes}.
+unterschiedlichen Eingabemethoden findet sich in @ref{Eingabe-Modi}.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c1 g a g c }
@@ -83,8 +86,8 @@ Glossar:
 @rglos{chord}.
 
 Notationsreferenz:
-@ref{Chorded notes},
-@ref{Input modes}.
+@ref{Noten mit Akkorden},
+@ref{Eingabe-Modi}.
 
 Schnipsel:
 @rlsr{Chords}
@@ -113,8 +116,9 @@ explizit aufgerufen werden:
 @end lilypond
 
 
-@node Common chords
-@unnumberedsubsubsec Common chords
+@node Übliche Akkorde
+@unnumberedsubsubsec Übliche Akkorde
+@translationof Common chords
 
 @cindex Dreiklänge
 @cindex Septakkorde
@@ -156,7 +160,7 @@ und Septakkorden.   Die siebte Stufe wird standardmäßig als kleine
 Septime realisiert, sodass der Dominantseptakkord die Grundform
 des Septakkordes darstellt.  Alle Alterationen sind relativ zur
 Dominantsept.  Eine vollständigere Tabelle findet sich in
-@ref{Common chord modifiers}.
+@ref{Übliche Akkord-Variablen}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -236,8 +240,8 @@ benutzen, um einen Durdreiklang zu notieren.
 
 @seealso
 Notationsreferenz:
-@ref{Common chord modifiers},
-@ref{Extended and altered chords}.
+@ref{Übliche Akkord-Variablen},
+@ref{Erweiterte und modifizierte Akkorde}.
 
 Schnipsel:
 @rlsr{Chords}.
@@ -250,11 +254,12 @@ werden ohne Warnung oder Fehlermeldung gelesen, aber das Ergebnis ist
 nicht vorhersagbar.  Akkorde, die nicht mit einem einzigen
 Qualitätsmodifikator erreicht werden können, sollten mit einzelnen
 Tonhöhen alteriert werden, wie beschrieben in
-@ref{Extended and altered chords}.
+@ref{Erweiterte und modifizierte Akkorde}.
 
 
-@node Extended and altered chords
-@unnumberedsubsubsec Extended and altered chords
+@node Erweiterte und modifizierte Akkorde
+@unnumberedsubsubsec Erweiterte und modifizierte Akkorde
+@translationof Extended and altered chords
 
 @cindex erweiterte Akkorde
 @cindex veränderte Akkorde
@@ -399,11 +404,11 @@ Plus zwischen den Schrägstrich und die Tonhöhe gesetzt wird:
 
 Akkordmodifikatoren, die benutzt werden können, um eine große
 Anzahl an Standardakkorden zu erzeugen, werden gezeigt in
-@ref{Common chord modifiers}.
+@ref{Übliche Akkord-Variablen}.
 
 @seealso
 Notationsreferenz:
-@ref{Common chord modifiers}.
+@ref{Übliche Akkord-Variablen}.
 
 Schnipsel:
 @rlsr{Chords}
@@ -432,19 +437,21 @@ der Grundton des Akkordes geändert wird.
 @end lilypond
 
 
-@node Displaying chords
-@subsection Displaying chords
+@node Akkorde anzeigen
+@subsection Akkorde anzeigen
+@translationof Displaying chords
 
 Akkorde können zusätzlich zur üblichen Notation als Töne auf
 einem Notensystem auch mit einem Akkordsymbol gesetzt werden.
 
 @menu
-* Printing chord names::
-* Customizing chord names::
+* Akkordbezeichnungen drucken::
+* Akkordbezeichnungen anpassen::
 @end menu
 
-@node Printing chord names
-@unnumberedsubsubsec Printing chord names
+@node Akkordbezeichnungen drucken
+@unnumberedsubsubsec Akkordbezeichnungen drucken
+@translationof Printing chord names
 
 @funindex ChordNames
 
@@ -546,7 +553,7 @@ Glossar:
 @rglos{chord}.
 
 Notationsreferenz:
-@ref{Writing music in parallel}.
+@ref{Musik parallel notieren}.
 
 Schnipsel:
 @rlsr{Chords}.
@@ -566,8 +573,9 @@ werden.
 
 
 
-@node Customizing chord names
-@unnumberedsubsubsec Customizing chord names
+@node Akkordbezeichnungen anpassen
+@unnumberedsubsubsec Akkordbezeichnungen anpassen
+@translationof Customizing chord names
 
 @cindex Anpassen von Akkordsymbolen
 @cindex Akkordsymbole, anpassen
@@ -579,12 +587,12 @@ Symbole, die für den gleichen Akkord angezeigt werden können.  Die
 Bezeichnungen und dargestellten Symbole können angepasst werden.
 
 Die Standardeinstellungen für die Symbole entsprechen den Konventionen
-im Jazz, wie sie von Klaus Ignatzek (siehe @ref{Literature list}).
+im Jazz, wie sie von Klaus Ignatzek (siehe @ref{Literatur}).
 vorgeschlagen wurden.  Das Benennungssystem für die Akkorde kann
 verändert werden, wie weiter unten gezeigt wird.  Ein alternatives
 Notationssystem für Jazzakkorde ist auch erhältlich.  Die
 Ignatzek und die alternative Jazznotation finden sich in der Tabelle in
-@ref{Chord name chart}.
+@ref{Liste der Akkordbezeichnungen}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -704,8 +712,8 @@ Grundton erhöht oder erniedrigt ist.
 
 @seealso
 Notationsreferenz:
-@ref{Chord name chart},
-@ref{Common chord modifiers}.
+@ref{Liste der Akkordbezeichnungen},
+@ref{Übliche Akkord-Variablen}.
 
 Installierte Dateien:
 @file{scm/@/chords@/-ignatzek@/.scm},
@@ -741,22 +749,24 @@ myChords = \relative c' {
 
 
 
-@node Figured bass
-@subsection Figured bass
+@node Generalbass
+@subsection Generalbass
+@translationof Figured bass
 
 @lilypondfile[quote]{figured-bass-headword.ly}
 
 Generalbassnotation kann dargestellt werden.
 
 @menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
+* Grundlagen des Bezifferten Basses::
+* Eingabe des Generalbass'::
+* Generalbass anzeigen::
 @end menu
 
 
-@node Introduction to figured bass
-@unnumberedsubsubsec Introduction to figured bass
+@node Grundlagen des Bezifferten Basses
+@unnumberedsubsubsec Grundlagen des Bezifferten Basses
+@translationof Introduction to figured bass
 
 @cindex Basso continuo
 @cindex Generalbass
@@ -806,12 +816,13 @@ Schnipsel:
 @rlsr{Chords}
 
 
-@node Entering figured bass
-@unnumberedsubsubsec Entering figured bass
+@node Eingabe des Generalbass'
+@unnumberedsubsubsec Eingabe des Generalbass'
+@translationof Entering figured bass
 
 @code{\figuremode} (Zahlenmodus) wird benutzt, um den Eingabemodus
 auf den Zahlenmodus umzustellen.  Mehr Information zu unterschiedlichen
-Eingabemodi findet sich in @ref{Input modes}.
+Eingabemodi findet sich in @ref{Eingabe-Modi}.
 
 Im Zahlenmodus wird eine Gruppe von Bassziffern mit den Zeichen
 @code{<} and @code{>} begrenzt. Die Dauer wird nach dem @code{>}-Zeichen
@@ -992,8 +1003,9 @@ Referenz der Interna:
 
 
 
-@node Displaying figured bass
-@unnumberedsubsubsec Displaying figured bass
+@node Generalbass anzeigen
+@unnumberedsubsubsec Generalbass anzeigen
+@translationof Displaying figured bass
 
 Generalbass kann mit dem @code{FiguredBass}-Kontext, aber auch in
 den meisten anderen @code{Staff}-Kontexten dargestellt werden.

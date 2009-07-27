@@ -8,21 +8,22 @@
 @end ignore
 
 
-@node Scheme tutorial
-@appendix Scheme tutorial
+@node Tutoriel Scheme
+@appendix Tutoriel Scheme
+@translationof Scheme tutorial @c external
 
 @untranslated
 
 
 @menu
-* Tweaking with Scheme::
+* Scheme et les retouches::
 @end menu
 
-@node Tweaking with Scheme
-@appendixsec Tweaking with Scheme
+@node Scheme et les retouches
+@appendixsec Scheme et les retouches
+@translationof Tweaking with Scheme @c external
 
 @untranslated
 
 
 
-@c -- SKELETON FILE --

@@ -9,59 +9,62 @@
 
 @c \version "2.12.0"
 
-@node Percussion
-@section Percussion
+@node Percusión
+@section Percusión
+@translationof Percussion
 
 @menu
-* Common notation for percussion::
+* Notación común para percusión::
 @end menu
 
-@node Common notation for percussion
-@subsection Common notation for percussion
+@node Notación común para percusión
+@subsection Notación común para percusión
+@translationof Common notation for percussion
 
 La notación rítmica se emplea primordialmente para la percusión y la
 batería, pero también se puede utilizar para mostrar los valores
 rítmicos una melodía.
 
 @menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
+* Referencias para percusión::
+* Notación básica de percusión::
+* Redobles::
+* Percusión afinada::
+* Pautas de percusión::
+* Pautas de percusión personalizadas::
+* Notas fantasma::
 @end menu
 
-@node References for percussion
-@unnumberedsubsubsec References for percussion
+@node Referencias para percusión
+@unnumberedsubsubsec Referencias para percusión
+@translationof References for percussion
 
 @itemize
 
 @item
 La notación de algunas percusiones se puede hacer sobre una pauta de
-ritmo; esto se estudia en @ref{Showing melody rhythms} y
-@ref{Instantiating new staves}.
+ritmo; esto se estudia en @ref{Mostrar los ritmos de la melodía} y
+@ref{Crear instancias de pentagramas nuevos}.
 
 @item
-La salida MIDI se trata en una sección aparte; véase @ref{Percussion
-in MIDI}.
+La salida MIDI se trata en una sección aparte; véase @ref{Percusión en MIDI}.
 
 @end itemize
 
 
 @seealso
 Referencia de la notación:
-@ref{Showing melody rhythms},
-@ref{Instantiating new staves}.
-@ref{Percussion in MIDI}.
+@ref{Mostrar los ritmos de la melodía},
+@ref{Crear instancias de pentagramas nuevos}.
+@ref{Percusión en MIDI}.
 
 Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Basic percussion notation
-@unnumberedsubsubsec Basic percussion notation
+@node Notación básica de percusión
+@unnumberedsubsubsec Notación básica de percusión
+@translationof Basic percussion notation
 
 @cindex percusión
 @cindex batería
@@ -91,7 +94,7 @@ Esto es una abreviatura de
 Cada elemento de un set de percusión lleva un nombre completo y un
 nombre abreviado, y los dos se pueden usar en la entrada.  La lista
 completa de nombre de instrumentos de percusión se encuentra en
-@ref{Percussion notes}.
+@ref{Notas de percusión}.
 
 Observe que la notación normal de las notas con altura determinada
 (como @code{cis4}) en un contexto @code{DrumStaff} producen un mensaje
@@ -100,13 +103,13 @@ contexto @code{DrumStaff}, pero también se pueden usar otras claves.
 
 Hay ciertos detalles respecto a cómo está contemplado el MIDI para los
 instrumentos de percusión; para ver los detalles consulte
-@ref{Percussion in MIDI}.
+@ref{Percusión en MIDI}.
 
 
 @seealso
 Referencia de la notación:
-@ref{Percussion in MIDI},
-@ref{Percussion notes}.
+@ref{Percusión en MIDI},
+@ref{Notas de percusión}.
 
 Archivos de inicio:
 @file{ly/@/drumpitch@/-init@/.ly}.
@@ -115,8 +118,9 @@ Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Drum rolls
-@unnumberedsubsubsec Drum rolls
+@node Redobles
+@unnumberedsubsubsec Redobles
+@translationof Drum rolls
 
 Los redobles se indican mediante tres barras cruzadas en la plica.
 Para las negras o notas más largas, las tres barras se muestran
@@ -124,7 +128,7 @@ explícitamente, las corcheas se presentan con dos barras cruzadas
 (siendo la barra de corchea la tercera), y los redobles más breves que
 las corcheas tienen una barra cruzada para complementar las barras
 normales.  Esto se consigue mediante la notación de trémolo,
-@code{:32}, véase @ref{Tremolo repeats}.  He aquí un ejemplo de
+@code{:32}, véase @ref{Repeticiones de trémolo}.  He aquí un ejemplo de
 redobles de caja:
 
 @lilypond[quote,verbatim]
@@ -156,8 +160,9 @@ Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Pitched percussion
-@unnumberedsubsubsec Pitched percussion
+@node Percusión afinada
+@unnumberedsubsubsec Percusión afinada
+@translationof Pitched percussion
 
 Ciertos instrumentos de percusión de altura determinada (p.ej.: el
 xilófono, el vibráfono y los timbales) se escriben usando pentagramas
@@ -169,14 +174,15 @@ normales.  Esto se estudia en otras secciones del manual.
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
 Referencia de la notación:
-@ref{Percussion in MIDI}.
+@ref{Percusión en MIDI}.
 
 Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Percussion staves
-@unnumberedsubsubsec Percussion staves
+@node Pautas de percusión
+@unnumberedsubsubsec Pautas de percusión
+@translationof Percussion staves
 
 @cindex percusión
 @cindex batería
@@ -201,8 +207,7 @@ down = \drummode {
 @end lilypond
 
 El ejemplo anterior muestra una notación polifónica prolija.  La
-notación polifónica abreviada, descrita en @rlearning{I'm hearing
-Voices}, también se puede usar si las voces se instancian primero a
+notación polifónica abreviada, descrita en @rlearning{Oigo voces}, también se puede usar si las voces se instancian primero a
 mano.  Por ejemplo,
 
 @lilypond[quote,verbatim]
@@ -367,8 +372,9 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end table
 
 
-@node Custom percussion staves
-@unnumberedsubsubsec Custom percussion staves
+@node Pautas de percusión personalizadas
+@unnumberedsubsubsec Pautas de percusión personalizadas
+@translationof Custom percussion staves
 
 Si no le gusta ninguna de las listas predefinidas, puede definir su
 propia lista al principio de su archivo
@@ -433,7 +439,7 @@ Observe que en este caso especial se debe alterar la longitud de la
 línea divisoria con @code{\override Staff.BarLine #'bar-size #number}.
 En caso contrario resulta demasiado corta.  También debe definir las
 posiciones de las dos líneas del pentagrama.  Para más información
-sobre estos delicados asuntos, consulte @ref{Staff symbol}.
+sobre estos delicados asuntos, consulte @ref{El símbolo del pentagrama}.
 
 Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}):
 
@@ -580,12 +586,13 @@ Referencia de funcionamiento interno:
 
 
 @c FIXME: check name -gp
-@node Ghost notes
-@unnumberedsubsubsec Ghost notes
+@node Notas fantasma
+@unnumberedsubsubsec Notas fantasma
+@translationof Ghost notes
 
 Las notas fantasma para la batería e instrumentos de percusión se
 pueden crear utilizando la instrucción @code{\parenthesize} detallada
-en @ref{Parentheses}.  Sin embargo, el modo por defecto
+en @ref{Paréntesis}.  Sin embargo, el modo por defecto
 @code{\drummode} no incluye el complemento grabador
 @code{Parenthesis_engraver} que permite esto.
 

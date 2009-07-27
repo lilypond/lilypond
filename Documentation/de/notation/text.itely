@@ -11,6 +11,7 @@
 
 @node Text
 @section Text
+@translationof Text
 
 @lilypondfile[quote]{text-headword.ly}
 
@@ -19,17 +20,18 @@ Formatierung) in Partituren einfügt.
 
 @noindent
 Einige Textelemente, die hier nicht behandelt werden, finden sich
-in anderen Abschnitten: @ref{Vocal music}, @ref{Titles and headers}.
+in anderen Abschnitten: @ref{Notation von Gesang}, @ref{Titel}.
 
 @menu
-* Writing text::
-* Formatting text::
-* Fonts::
+* Text eingeben::
+* Text formatieren::
+* Schriftarten::
 @end menu
 
 
-@node Writing text
-@subsection Writing text
+@node Text eingeben
+@subsection Text eingeben
+@translationof Writing text
 
 Dieser Abschnitt zeigt verschiedene Arten, wie Text in die Partitur
 eingefügt werden kann.
@@ -40,18 +42,19 @@ eingefügt werden kann.
 Zeichen (wie etwa Text mit anderen Alphabeten) eingeben möchte,
 kann man die Zeichen einfach direkt in die Datei einfügen.  Die
 Datei muss als UTF-8 gespeichert werden.  Für mehr Information
-siehe @ref{Text encoding}.}
+siehe @ref{Zeichenkodierung}.}
 
 @menu
-* Text scripts::
-* Text spanners::
-* Text marks::
-* Separate text::
+* Textarten::
+* Text mit Verbindungslinien::
+* Textartige Zeichen::
+* Separater Text::
 @end menu
 
 
-@node Text scripts
-@unnumberedsubsubsec Text scripts
+@node Textarten
+@unnumberedsubsubsec Textarten
+@translationof Text scripts
 
 @cindex Textarten
 @cindex Textelemente, nicht leer
@@ -61,7 +64,7 @@ Am einfachsten kann Text mit geraden Anführungsstrichen
 in eine Partitur eingefügt werden, wie das folgende Beispiel
 zeigt.  Derartiger Text kann manuell über oder unter dem
 Notensystem platziert werden, die Syntax hierzu ist beschrieben
-in @ref{Direction and placement}.
+in @ref{Richtung und Platzierung}.
 
 @lilypond[quote,verbatim,relative=2]
 d8^"pizz." g f e a4-"scherz." f
@@ -71,7 +74,7 @@ Diese Syntax ist eine Kurzform, komplexere Formatierungen
 können einem Text hinzugefügt werden, wenn man
 explizit den @code{\markup}-Befehl mit darauf folgenden
 geschweiften Klammern einsetzt, wie beschrieben in
-@ref{Formatting text}.
+@ref{Text formatieren}.
 
 @lilypond[quote,verbatim,relative=2]
 a8^\markup { \italic pizz. } g f e
@@ -103,8 +106,8 @@ a4_"scherzando" f
 
 @seealso
 Notationsreferenz:
-@ref{Formatting text},
-@ref{Direction and placement}.
+@ref{Text formatieren},
+@ref{Richtung und Platzierung}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -126,8 +129,9 @@ die Überprüfung aber mit folgendem Code einschalten:
 
 
 
-@node Text spanners
-@unnumberedsubsubsec Text spanners
+@node Text mit Verbindungslinien
+@unnumberedsubsubsec Text mit Verbindungslinien
+@translationof Text spanners
 
 @cindex Textstrecker
 @cindex Strecker, Text
@@ -149,7 +153,7 @@ e,\stopTextSpan
 Der Text wird durch Objekteigenschaften beeinflusst.  In den
 Standardeinstellungen wird er kursiv ausgegeben, aber eine andere
 Formatierung kann erreicht werden, indem man @code{\markup}-Blöcke
-einsetzt, wie beschrieben in @ref{Formatting text}.
+einsetzt, wie beschrieben in @ref{Text formatieren}.
 
 @lilypond[quote,relative=2,verbatim]
 \override TextSpanner #'(bound-details left text) =
@@ -159,7 +163,7 @@ e,\stopTextSpan
 @end lilypond
 
 Auch der Stil der Linie kann ähnlich wie der Text mit den Objekteigenschaften
-geändert werden.  Diese Syntax ist beschrieben in @ref{Line styles}.
+geändert werden.  Diese Syntax ist beschrieben in @ref{Zeilenstile}.
 
 
 @predefined
@@ -174,8 +178,8 @@ geändert werden.  Diese Syntax ist beschrieben in @ref{Line styles}.
 
 @seealso
 Notationsreferenz:
-@ref{Line styles},
-@ref{Dynamics}.
+@ref{Zeilenstile},
+@ref{Dynamik}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -185,8 +189,9 @@ Referenz der Interna:
 
 
 
-@node Text marks
-@unnumberedsubsubsec Text marks
+@node Textartige Zeichen
+@unnumberedsubsubsec Textartige Zeichen
+@translationof Text marks
 
 @cindex Coda an Taktlinie
 @cindex Segno an Taktlinie
@@ -197,7 +202,7 @@ Referenz der Interna:
 
 Verschiedene Textelemente können der Partitur hinzugefügt werden,
 indem man die Syntax für Zeichen einsetzen, wie beschrieben in
-@ref{Rehearsal marks}:
+@ref{Übungszeichen}:
 
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
@@ -211,7 +216,7 @@ c c c
 Diese Syntax ermöglicht es, beliebigen Text über eine Taktlinie
 zu platzieren, weitere Formatierungsmöglichkeiten sind mit dem
 @code{\markup}-Befehl gegeben, wie beschrieben in 
-@ref{Formatting text}:
+@ref{Text formatieren}:
 
 @lilypond[fragment,quote,relative=1]
 <c e>1
@@ -225,7 +230,7 @@ Diese Syntax ermöglicht es auch, besondere Zeichen einzufügen, wie
 etwa Coda-, Segno- oder Fermatenzeichen, indem das entsprechende
 Symbol mit dem Befehl @code{\musicglyph} angegeben wird, wie
 beschrieben in
-@ref{Music notation inside markup}:
+@ref{Musikalische Notation innerhalb einer Textbeschriftung}:
 
 @lilypond[fragment,quote,relative=2]
 <bes f>2 <aes d>
@@ -261,10 +266,10 @@ c  c
 
 @seealso
 Notationsreferenz:
-@ref{Rehearsal marks},
-@ref{Formatting text},
-@ref{Music notation inside markup},
-@ref{The Feta font}.
+@ref{Übungszeichen},
+@ref{Text formatieren},
+@ref{Musikalische Notation innerhalb einer Textbeschriftung},
+@ref{Die Feta-Schriftart}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -281,8 +286,9 @@ wird (wo also keine nächste Zeile mehr existiert), wird das Zeichen
 
 
 
-@node Separate text
-@unnumberedsubsubsec Separate text
+@node Separater Text
+@unnumberedsubsubsec Separater Text
+@translationof Separate text
 
 @cindex separater Text
 @cindex Text alleine
@@ -305,7 +311,7 @@ höchsten Ebene.
 Damit kann Text unabhängig von den Noten gesetzt werden.  Das
 bietet sich vor allem in Situationen an, in denen mehrere Stücke
 in einer Datei vorkommen, wie beschrieben in
-@ref{Multiple scores in a book}.
+@ref{Mehrere Partituren in einem Buch}.
 
 @c KEEP LY
 @lilypond[quote,verbatim]
@@ -323,7 +329,7 @@ in einer Datei vorkommen, wie beschrieben in
 Unabhängige Textabschnitte können über mehrere Seiten reichen, so
 dass man Textdokumente oder Bücher ausschließlich mit LilyPond
 setzen kann.  Einzelheiten zu den vielfältigen Möglichkeiten finden
-sich in @ref{Multi-page markup}.
+sich in @ref{Textbeschriftung über mehrere Seiten}.
 
 
 @predefined
@@ -340,10 +346,10 @@ sich in @ref{Multi-page markup}.
 
 @seealso
 Notationsreferenz:
-@ref{Formatting text},
-@ref{File structure}, 
-@ref{Multiple scores in a book},
-@ref{Multi-page markup}.
+@ref{Text formatieren},
+@ref{Die Dateistruktur}, 
+@ref{Mehrere Partituren in einem Buch},
+@ref{Textbeschriftung über mehrere Seiten}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -353,24 +359,26 @@ Referenz der Interna:
 
 
 
-@node Formatting text
-@subsection Formatting text
+@node Text formatieren
+@subsection Text formatieren
+@translationof Formatting text
 
 Dieser Abschnitt zeigt grundlegende und fortgeschrittene
 Formatierung von Text, wobei der Textbeschriftungsmodus
 (@code{\markup} benutzt wird.
 
 @menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-* Multi-page markup::
+* Textbeschriftung (Einleitung)::
+* Überblick über die wichtigsten Textbeschriftungsbefehle::
+* Textausrichtung::
+* Graphische Notation innerhalb einer Textbeschriftung::
+* Musikalische Notation innerhalb einer Textbeschriftung::
+* Textbeschriftung über mehrere Seiten::
 @end menu
 
-@node Text markup introduction
-@unnumberedsubsubsec Text markup introduction
+@node Textbeschriftung (Einleitung)
+@unnumberedsubsubsec Textbeschriftung (Einleitung)
+@translationof Text markup introduction
 
 @cindex markup
 @cindex Textbeschriftung
@@ -477,8 +485,9 @@ Installierte Dateien:
 Syntaxfehler im Textbeschriftungsmodus können sehr verwirrend sein.
 
 
-@node Selecting font and font size
-@unnumberedsubsubsec Selecting font and font size
+@node Überblick über die wichtigsten Textbeschriftungsbefehle
+@unnumberedsubsubsec Überblick über die wichtigsten Textbeschriftungsbefehle
+@translationof Selecting font and font size
 
 @cindex Schriftschnitt verändern
 @funindex \italic
@@ -584,7 +593,7 @@ Befehl @code{\roman} wieder herstellen lässt.
 @noindent
 Einige dieser Schriftarten, etwa die Zahlenschriftart oder die Schriftart
 für Dynamikzeichen, stellen nicht alle Zeichen zur Verfügung, wie beschrieben
-in @ref{New dynamic marks} und @ref{Manual repeat marks}.
+in @ref{Neue Lautstärkezeichen} und @ref{Manuelle Wiederholungszeichen}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command). But we need it here. -vv
@@ -612,7 +621,7 @@ Eine ausführliche Liste der unterschiedlichen Befehl zur Beeinflussung
 der Schriftarten findet sich in @ref{Font}.
 
 Es ist auch möglich, eigene Schriftfamlien zu definieren, wie erklärt in
-@ref{Fonts}.
+@ref{Schriftarten}.
 
 
 @predefined
@@ -638,9 +647,9 @@ Es ist auch möglich, eigene Schriftfamlien zu definieren, wie erklärt in
 @seealso
 Notationsreferenz:
 @ref{Font},
-@ref{New dynamic marks},
-@ref{Manual repeat marks},
-@ref{Fonts}.
+@ref{Neue Lautstärkezeichen},
+@ref{Manuelle Wiederholungszeichen},
+@ref{Schriftarten}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -652,15 +661,16 @@ Installierte Dateien:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
 
 
-@node Text alignment
-@unnumberedsubsubsec Text alignment
+@node Textausrichtung
+@unnumberedsubsubsec Textausrichtung
+@translationof Text alignment
 
 @cindex Text, Ausrichtung
 @cindex Ausrichtung von Text
 
 Dieser Abschnitt zeigt, wie man Text im Textbeschriftungsmodus
 eingibt.  Textobjekte können auch als eine Einheit verschoben
-werden, wie beschrieben in @rlearning{Moving objects}.
+werden, wie beschrieben in @rlearning{Verschieben von Objekten}.
 
 @c Padding commands should be mentioned on this page, but
 @c most of these require \box to be more clearly illustrated. -vv
@@ -705,7 +715,7 @@ a,-\markup { \halign #2 poco }
 Manche Objekte haben eigene Ausrichtungsvorgänge und werden deshalb
 nicht von diesen Befehlen beeinflusst.  Es ist möglich, solche
 Objekte als eine Einheit anzusprechen und zu bewegen, wie
-gezeigt in @ref{Text marks}.
+gezeigt in @ref{Textartige Zeichen}.
 
 @cindex Text, vertikale Ausrichtung
 @cindex vertickale Ausrichtung von Text
@@ -861,11 +871,11 @@ Eine vollständige Liste der Textausrichtungsbefehle findet sich in
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Moving objects}.
+@rlearning{Verschieben von Objekten}.
 
 Notationsreferenz:
 @ref{Align},
-@ref{Text marks}.
+@ref{Textartige Zeichen}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -878,8 +888,9 @@ Referenz der Interna:
 
 
 
-@node Graphic notation inside markup
-@unnumberedsubsubsec Graphic notation inside markup
+@node Graphische Notation innerhalb einer Textbeschriftung
+@unnumberedsubsubsec Graphische Notation innerhalb einer Textbeschriftung
+@translationof Graphic notation inside markup
 
 @cindex Graphik, eingebunden
 @cindex Illustrationen im Text
@@ -1029,7 +1040,7 @@ Eine ausführliche Liste der Graphik-Befehle findet sich in
 @seealso
 Notationsreferenz:
 @ref{Graphic},
-@ref{Editorial annotations}.
+@ref{Anmerkungen}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -1043,8 +1054,9 @@ Installierte Dateien:
 
 
 
-@node Music notation inside markup
-@unnumberedsubsubsec Music notation inside markup
+@node Musikalische Notation innerhalb einer Textbeschriftung
+@unnumberedsubsubsec Musikalische Notation innerhalb einer Textbeschriftung
+@translationof Music notation inside markup
 
 @cindex Notationsobjekte, Einfügen
 @cindex Einfügen von Notationsobjekten
@@ -1097,7 +1109,7 @@ Allgemeiner gesagt kann jedes verfügbare Notationssymbol unabhängig
 von der Notation als ein Textbeschriftungsobjekt eingefügt werden, wie
 unten gezeigt.  Eine vollständige Liste der verfügbaren Symbole findet
 sich in
-@ref{The Feta font}.
+@ref{Die Feta-Schriftart}.
 
 @lilypond[quote,verbatim,relative=2]
 c2
@@ -1110,7 +1122,7 @@ c2^\markup { \musicglyph #"timesig.neomensural94" }
 
 @noindent
 Eine andere Möglichkeit, andere als Textsymbole zu schreiben, findet sich
-in @ref{Fonts explained}.  Diese Methode bietet sich an, um Klammern
+in @ref{Was sind Schriftarten}.  Diese Methode bietet sich an, um Klammern
 unterschiedlicher Größe zu setzen.
 
 Der Textbeschriftungsmodus unterstützt auch Diagramme für bestimmte
@@ -1159,8 +1171,8 @@ Eine vollständige Liste der Musiksymbol-Befehle findet sich in
 @seealso
 Notationsreferenz:
 @ref{Music},
-@ref{The Feta font},
-@ref{Fonts explained}.
+@ref{Die Feta-Schriftart},
+@ref{Was sind Schriftarten}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -1175,8 +1187,9 @@ Installierte Dateien:
 
 
 
-@node Multi-page markup
-@unnumberedsubsubsec Multi-page markup
+@node Textbeschriftung über mehrere Seiten
+@unnumberedsubsubsec Textbeschriftung über mehrere Seiten
+@translationof Multi-page markup
 
 Normale Textbeschriftungsobjekte können nicht getrennt werden, aber mit
 einer spezifischen Umgebung ist es möglich, Text auch über mehrere Seiten
@@ -1213,7 +1226,7 @@ Eine vollständige Liste der Beschriftungslistenbefehle findet sich in
 @seealso
 Notationsreferenz:
 @ref{Text markup list commands},
-@ref{New markup list command definition}.
+@ref{Neue Definitionen von Beschriftungsbefehlen für Listen}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -1230,20 +1243,22 @@ Installierte Dateien:
 @endpredefined
 
 
-@node Fonts
-@subsection Fonts
+@node Schriftarten
+@subsection Schriftarten
+@translationof Fonts
 
 Dieser Abschnitt zeigt, wie Schriftarten eingesetzt werden können und
 wie man sie in Partituren ändern kann.
 
 @menu
-* Fonts explained::
-* Single entry fonts::
-* Entire document fonts::
+* Was sind Schriftarten::
+* Schriftarten für einen Eintrag::
+* Schriftart des gesamten Dokuments::
 @end menu
 
-@node Fonts explained
-@unnumberedsubsubsec Fonts explained
+@node Was sind Schriftarten
+@unnumberedsubsubsec Was sind Schriftarten
+@translationof Fonts explained
 
 @cindex Pango
 @cindex Schriftarten, Hintergrundinformation
@@ -1281,7 +1296,7 @@ Außer den verschiedenen Klammern, die in @code{fetaBraces}
 in verschiedenen Größen enthalten sind, lassen sich alle
 dieses Symbole auch mit einer einfacheren Syntax notieren.
 Sie ist beschrieben in
-@ref{Music notation inside markup}.
+@ref{Musikalische Notation innerhalb einer Textbeschriftung}.
 
 Wenn man die Klammern von @code{fetaBraces} benutzt, wird die
 Größe der Klammer durch einen numeralen Part in der
@@ -1291,7 +1306,7 @@ Ganzzahl von @code{0} bis @code{575} benutzt werden, wobei
 muss durch Ausprobieren herausgefunden werden.  Diese Glyphen
 sind alle linke Klammern, rechte Klammern lassen sich durch
 eine Drehung herstellen, siehe
-@ref{Rotating objects}.
+@ref{Drehen von Objekten}.
 
 Drei Textschriftarten sind verfügbar (auf Englisch @code{family} genannt): 
 mit @code{roman} eine Schriftart
@@ -1323,7 +1338,7 @@ Der Wert, der @code{font-size} übergeben wird, entspricht der geforderten
 Eine ähnliche Syntax kann im Textbeschriftungsmodus eingesetzt werden,
 hier bietet es sich aber an, die einfacheren Befehle zu verwenden, die
 erklärt wurden in
-@ref{Selecting font and font size}:
+@ref{Überblick über die wichtigsten Textbeschriftungsbefehle}:
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1349,19 +1364,20 @@ erklärt wurden in
 
 Auch wenn es einfach ist, zwischen den vorefinierten Schriftarten
 umzuschalten, kann man auch eigene Schriftarten verwenden, wie erklärt
-in folgenden Abschnitten: @ref{Single entry fonts} und
-@ref{Entire document fonts}.
+in folgenden Abschnitten: @ref{Schriftarten für einen Eintrag} und
+@ref{Schriftart des gesamten Dokuments}.
 
 @seealso
 Notationsreferenz:
-@ref{The Feta font},
-@ref{Music notation inside markup},
-@ref{Selecting font and font size},
+@ref{Die Feta-Schriftart},
+@ref{Musikalische Notation innerhalb einer Textbeschriftung},
+@ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
 @ref{Font}.
 
 
-@node Single entry fonts
-@unnumberedsubsubsec Single entry fonts
+@node Schriftarten für einen Eintrag
+@unnumberedsubsubsec Schriftarten für einen Eintrag
+@translationof Single entry fonts
 
 Jede Schriftart, die über das Betriebssystem installiert ist und von
 FontConfig erkannt wird, kann in einer Partitur eingefügt werden.  Dazu
@@ -1393,8 +1409,8 @@ fehlen.
 
 @seealso
 Notationsreferenz:
-@ref{Fonts explained},
-@ref{Entire document fonts}.
+@ref{Was sind Schriftarten},
+@ref{Schriftart des gesamten Dokuments}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -1404,14 +1420,15 @@ Installierte Dateien:
 
 
 
-@node Entire document fonts
-@unnumberedsubsubsec Entire document fonts
+@node Schriftart des gesamten Dokuments
+@unnumberedsubsubsec Schriftart des gesamten Dokuments
+@translationof Entire document fonts
 
 Es ist auch möglich, die Schriftarten für die gesamte Partitur zu ändern.
 In diesem Fall müssen die Familien @code{roman},
 @code{sans} und @code{typewriter} in genaus dieser Reihenfolge
 entsprechend der Syntax unten definiert werden.  Einzelheiten zu
-Schriftarten in @ref{Fonts explained}.
+Schriftarten in @ref{Was sind Schriftarten}.
 
 @cindex Schriftartenfamilien, Definieren
 @funindex make-pango-font-tree
@@ -1439,8 +1456,8 @@ Schriftarten in @ref{Fonts explained}.
 
 @seealso
 Notationsreferenz:
-@ref{Fonts explained},
-@ref{Single entry fonts},
-@ref{Selecting font and font size},
+@ref{Was sind Schriftarten},
+@ref{Schriftarten für einen Eintrag},
+@ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
 @ref{Font}.
 

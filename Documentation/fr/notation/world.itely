@@ -8,66 +8,73 @@
 @end ignore
 
 
-@node World music
-@section World music
+@node Musiques du monde
+@section Musiques du monde
+@translationof World music @c external
 
 @untranslated
 
 
 @menu
-* Arabic music::
+* Musique arabe::
 @end menu
 
-@node Arabic music
-@subsection Arabic music
+@node Musique arabe
+@subsection Musique arabe
+@translationof Arabic music @c external
 
 @untranslated
 
 
 @menu
-* References for Arabic music::
+* Références en matière de musique arabe::
 * Arabic note names ::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading::
+* Tonalités arabes::
+* Métriques arabes::
+* Exemple concret de musique arabe::
+* Autres sources d'information::
 @end menu
 
-@node References for Arabic music
+@node Références en matière de musique arabe
 @unnumberedsubsubsec References for Arabic music 
+@translationof References for Arabic music @c external
 
 @untranslated
 
 
 @node Arabic note names 
 @unnumberedsubsubsec Arabic note names 
+@translationof Arabic note names  @c external
 
 @untranslated
 
 
-@node Arabic key signatures
+@node Tonalités arabes
 @unnumberedsubsubsec Arabic key signatures 
+@translationof Arabic key signatures @c external
 
 @untranslated
 
 
-@node Arabic time signatures
+@node Métriques arabes
 @unnumberedsubsubsec Arabic time signatures 
+@translationof Arabic time signatures @c external
 
 @untranslated
 
 
-@node Arabic music example
+@node Exemple concret de musique arabe
 @unnumberedsubsubsec Arabic music example 
+@translationof Arabic music example @c external
 
 @untranslated
 
 
-@node Further reading
-@unnumberedsubsubsec Further reading
+@node Autres sources d'information
+@unnumberedsubsubsec Autres sources d'information
+@translationof Further reading @c external
 
 @untranslated
 
 
 
-@c -- SKELETON FILE --

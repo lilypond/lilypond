@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Editorial annotations
-@section Editorial annotations
+@node Anotaciones editoriales
+@section Anotaciones editoriales
+@translationof Editorial annotations
 
 @lilypondfile[quote]{editorial-headword.ly}
 
@@ -18,28 +19,30 @@ Esta sección trata de las diversas maneras de modificar el aspecto de
 las notas y de aplicar énfasis analítico o educativo.
 
 @menu
-* Inside the staff::
-* Outside the staff::
+* Dentro del pentagrama::
+* Fuera del pentagrama::
 @end menu
 
 
-@node Inside the staff
-@subsection Inside the staff
+@node Dentro del pentagrama
+@subsection Dentro del pentagrama
+@translationof Inside the staff
 
 Esta sección trata sobre cómo aplicar énfasis a los elementos situados
 dentro del pentagrama.
 
 @menu
-* Selecting notation font size::
-* Fingering instructions::
-* Hidden notes::
-* Coloring objects::
-* Parentheses::
-* Stems::
+* Seleccionar el tamaño de la tipografía para la notación::
+* Indicaciones de digitación::
+* Notas ocultas::
+* Colorear objetos::
+* Paréntesis::
+* Plicas::
 @end menu
 
-@node Selecting notation font size
-@unnumberedsubsubsec Selecting notation font size
+@node Seleccionar el tamaño de la tipografía para la notación
+@unnumberedsubsubsec Seleccionar el tamaño de la tipografía para la notación
+@translationof Selecting notation font size
 
 @cindex fuente tipográfica (de notación), tamaño
 @cindex selección del tamaño de la fuente tipográfica (de notación)
@@ -67,7 +70,7 @@ de notación.  Esto no cambia el tamaño de los símbolos variables, como
 las barras de corchea o las ligaduras.
 
 @warning{Para los tamaños de tipografía del texto, consulte
-@ref{Selecting font and font size}.}
+@ref{Instrucciones de marcado de texto más usuales}.}
 
 @lilypond[verbatim,quote,relative=2]
 \huge
@@ -142,8 +145,9 @@ Referencia de funcionamiento interno:
 @rinternals{font-interface}.
 
 
-@node Fingering instructions
-@unnumberedsubsubsec Fingering instructions
+@node Indicaciones de digitación
+@unnumberedsubsubsec Indicaciones de digitación
+@translationof Fingering instructions
 
 @cindex digitación
 @cindex cambio de dedo
@@ -188,8 +192,7 @@ individuales del acorde escribiéndolas después de las alturas.
 @end lilypond
 
 Las indicaciones de digitación se pueden situar manualmente encima o
-debajo del pentagrama, véase @ref{Direction
-and placement}.
+debajo del pentagrama, véase @ref{Dirección y posición}.
 
 @snippets
 
@@ -205,7 +208,7 @@ and placement}.
 
 @seealso
 Referencia de la notación:
-@ref{Direction and placement}.
+@ref{Dirección y posición}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -218,8 +221,9 @@ Referencia de funcionamiento interno:
 @rinternals{Fingering}.
 
 
-@node Hidden notes
-@unnumberedsubsubsec Hidden notes
+@node Notas ocultas
+@unnumberedsubsubsec Notas ocultas
+@translationof Hidden notes
 
 @cindex ocultas, notas
 @cindex invisibles, notas
@@ -273,8 +277,9 @@ Referencia de funcionamiento interno:
 @rinternals{NoteSpacing}.
 
 
-@node Coloring objects
-@unnumberedsubsubsec Coloring objects
+@node Colorear objetos
+@unnumberedsubsubsec Colorear objetos
+@translationof Coloring objects
 
 @cindex coloreados, objetos
 @cindex colores
@@ -294,7 +299,7 @@ Referencia de funcionamiento interno:
 @funindex x11-color
 
 Se pueden asignar colores a los objetos individuales.  Los nombres de
-color válidos se encuentran relacionados en la @ref{List of colors}.
+color válidos se encuentran relacionados en la @ref{Lista de colores}.
 
 @lilypond[verbatim,quote,relative=2]
 \override NoteHead #'color = #red
@@ -360,8 +365,8 @@ gis4 a
 
 @seealso
 Referencia de la notación:
-@ref{List of colors},
-@ref{The tweak command}.
+@ref{Lista de colores},
+@ref{La instrucción tweak}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -385,12 +390,13 @@ diferencia entre @code{'LimeGreen} (verde lima) y @code{'ForestGreen}
 sea: @code{#blue}, azul, @code{#green}, verde, @code{#red}, rojo).
 
 Las notas de un acorde no se pueden colorear con @code{\override}; en
-su lugar utilice @code{\tweak}.  Consulte @ref{The tweak command} para
+su lugar utilice @code{\tweak}.  Consulte @ref{La instrucción tweak} para
 ver más detalles.
 
 
-@node Parentheses
-@unnumberedsubsubsec Parentheses
+@node Paréntesis
+@unnumberedsubsubsec Paréntesis
+@translationof Parentheses
 
 @cindex fantasma, notas
 @cindex notas fantasma
@@ -437,8 +443,9 @@ individuales entre paréntesis, en vez de un solo paréntesis grande
 rodeando al acorde completo.
 
 
-@node Stems
-@unnumberedsubsubsec Stems
+@node Plicas
+@unnumberedsubsubsec Plicas
+@translationof Stems
 
 @cindex plica
 @cindex plica invisible
@@ -460,7 +467,7 @@ Cuando se encuentra con una nota, se crea automáticamente un objeto
 crean pero se hacen invisibles.
 
 Se puede hacer manualmente que las plicas apunten hacia arriba o hacia
-abajo; véase @ref{Direction and placement}.
+abajo; véase @ref{Dirección y posición}.
 
 @predefined
 @code{\stemUp},
@@ -476,7 +483,7 @@ abajo; véase @ref{Direction and placement}.
 
 @seealso
 Referencia de la notación:
-@ref{Direction and placement}.
+@ref{Dirección y posición}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -487,20 +494,22 @@ Referencia de funcionamiento interno:
 @rinternals{stem-interface}.
 
 
-@node Outside the staff
-@subsection Outside the staff
+@node Fuera del pentagrama
+@subsection Fuera del pentagrama
+@translationof Outside the staff
 
 Esta sección trata sobre cómo enfatizar elementos que están dentro del
 pentagrama, desde fuera del pentagrama.
 
 @menu
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
+* Globos de ayuda::
+* Líneas de rejilla::
+* Corchetes de análisis::
 @end menu
 
-@node Balloon help
-@unnumberedsubsubsec Balloon help
+@node Globos de ayuda
+@unnumberedsubsubsec Globos de ayuda
+@translationof Balloon help
 
 @cindex globo
 @cindex notación, explicación de
@@ -573,8 +582,9 @@ Referencia de funcionamiento interno:
 @rinternals{balloon-interface}.
 
 
-@node Grid lines
-@unnumberedsubsubsec Grid lines
+@node Líneas de rejilla
+@unnumberedsubsubsec Líneas de rejilla
+@translationof Grid lines
 
 @cindex rejilla, líneas de
 @cindex líneas de rejilla
@@ -644,8 +654,9 @@ Referencia de funcionamiento interno:
 @rinternals{grid-point-interface}.
 
 
-@node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
+@node Corchetes de análisis
+@unnumberedsubsubsec Corchetes de análisis
+@translationof Analysis brackets
 
 @cindex corchetes
 @cindex fraseo, corchetes de

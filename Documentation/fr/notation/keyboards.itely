@@ -12,8 +12,9 @@
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Keyboard and other multi-staff instruments
-@section Keyboard and other multi-staff instruments
+@node Instruments utilisant des portées multiples
+@section Instruments utilisant des portées multiples
+@translationof Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{keyboard-headword.ly}
 
@@ -25,28 +26,30 @@ parlerons ici de @qq{clavier} bien que le recours à des portées multiples
 concerne aussi des instruments qui en sont dépourvus.
 
 @menu
-* Common notation for keyboards::  
+* Vue d'ensemble des claviers::  
 * Piano::                       
-* Accordion::                   
-* Harp::                        
+* Accordéon::                   
+* Harpe::                        
 @end menu
 
-@node Common notation for keyboards
-@subsection Common notation for keyboards
+@node Vue d'ensemble des claviers
+@subsection Vue d'ensemble des claviers
+@translationof Common notation for keyboards
 
 Nous allons examiner ici les problèmes qui peuvent survenir en matière
 de notation pour la plupart des instrument à cordes multiples.
 
 @menu
-* References for keyboards::    
-* Changing staff manually::     
-* Changing staff automatically::  
-* Staff-change lines::          
-* Cross-staff stems::           
+* Généralités sur les instruments à clavier::    
+* Changement de portée manuel::     
+* Changement de portée automatique::  
+* Lignes de changement de portée::          
+* Hampes et changements de portée::           
 @end menu
 
-@node References for keyboards
-@unnumberedsubsubsec References for keyboards
+@node Généralités sur les instruments à clavier
+@unnumberedsubsubsec Généralités sur les instruments à clavier
+@translationof References for keyboards
 
 @c untranslated
 @c ifnothtml
@@ -79,55 +82,55 @@ d'autres chapitres :
 @itemize
 
 @item Les claviers ont régulièrement recours à plusieurs voix dont le
-nombre peut varier. voir à ce sujet @ref{Collision resolution}.
+nombre peut varier. voir à ce sujet @ref{Résolution des collisions}.
 
 @item On peut écrire la musique pour claviers de façon parallèle, comme
-l'explique @ref{Writing music in parallel}.
+l'explique @ref{Saisie de musique en parallèle}.
 
 @item Les indications de doigté sont abrodées dans 
-@ref{Fingering instructions}. 
+@ref{Doigtés}. 
 
 @item Les indications en matière de pédalier d'orgue sont traitées comme
-des articulations. Voir à ce sujet @ref{List of articulations}.
+des articulations. Voir à ce sujet @ref{Liste des signes d'articulation}.
 
-@item Pour générer des repères verticaux, voir @ref{Grid lines}.
+@item Pour générer des repères verticaux, voir @ref{Quadrillage temporel}.
 
 @item En plus des @notation{Laissez vibrer}, les liaisons en matière de
 clavier peuvent intervenir sur des accords arpégés ou des trémolos.
-Reportez-vous au chapitre @ref{Ties}.
+Reportez-vous au chapitre @ref{Liaisons de prolongation}.
 
 @item Le traitement des arpèges couvrant plusieurs voix ou portées est
-abordé au chapitre @ref{Arpeggio}.
+abordé au chapitre @ref{Arpèges}.
 
 @item Une description des indications de tremolo est disponible au
-chapitre @ref{Tremolo repeats}.
+chapitre @ref{Répétition en trémolo}.
 
 @item Certaines retouches particulières au monde des claviers sont
-abordées au chapitre @rlearning{Real music example}.
+abordées au chapitre @rlearning{Exemple concret}.
 
 @item Des notes fantômes permettent d'introduire des liaisons de tenue
 qui passent d'une voix à l'autre, comme le montre 
-@rlearning{Other uses for tweaks}.
+@rlearning{Autres utilisations des retouches}.
 
 @end itemize
 
 
 @seealso
 Manuel d'initiation :
-@rlearning{Real music example},
-@rlearning{Other uses for tweaks}.
+@rlearning{Exemple concret},
+@rlearning{Autres utilisations des retouches}.
 
 Manuel de notation :
-@ref{Grouping staves},
-@ref{Instrument names},
-@ref{Collision resolution},
-@ref{Writing music in parallel},
-@ref{Fingering instructions},
-@ref{List of articulations},
-@ref{Grid lines},
-@ref{Ties},
-@ref{Arpeggio},
-@ref{Tremolo repeats}.
+@ref{Regroupement de portées},
+@ref{Noms d'instrument},
+@ref{Résolution des collisions},
+@ref{Saisie de musique en parallèle},
+@ref{Doigtés},
+@ref{Liste des signes d'articulation},
+@ref{Quadrillage temporel},
+@ref{Liaisons de prolongation},
+@ref{Arpèges},
+@ref{Répétition en trémolo}.
 
 Référence des propriétés internes :
 @rinternals{PianoStaff}.
@@ -147,14 +150,15 @@ Exemples de code :
 
 Les nuances ne sont pas automatiquement centrées verticalement, mais il
 existe des astuces.  Voir à ce sujet le modèle @qq{alignement des
-nuances au piano} au chapitre @rlearning{Piano templates} ; une autre
+nuances au piano} au chapitre @rlearning{Modèles pour claviers} ; une autre
 solution consiste à augmenter le décalage des nuances par rapport à la
 portée (@code{staff-pagging}) comme l'indique 
-@rlearning{Moving objects}.
+@rlearning{Déplacement d'objets}.
 
 
-@node Changing staff manually
-@unnumberedsubsubsec Changing staff manually
+@node Changement de portée manuel
+@unnumberedsubsubsec Changement de portée manuel
+@translationof Changing staff manually
 
 @cindex changements de portée manuels
 @cindex changement de portée forcé
@@ -207,17 +211,17 @@ ainsi :
 Si les ligatures demandaient à être retouchées, commencez par
 modifier la direction des hampes.  L'emplacement des ligatures sera
 alors calculé à partir du centre de la portée la plus proche -- voir
-@rlearning{Fixing overlapping notation} pour un exemple de retouche sur
+@rlearning{Correction des collisions d'objets} pour un exemple de retouche sur
 des ligatures. 
 
 
 @seealso
 Manuel d'initiation :
-@rlearning{Fixing overlapping notation}.
+@rlearning{Correction des collisions d'objets}.
 
 Manuel de notation :
-@ref{Stems},
-@ref{Automatic beams}.
+@ref{Hampes},
+@ref{Barres de ligature automatiques}.
 
 Exemples de code :
 @rlsr{Keyboards}.
@@ -227,8 +231,9 @@ Référence des propriétés internes :
 @rinternals{ContextChange}.
 
 
-@node Changing staff automatically
-@unnumberedsubsubsec Changing staff automatically
+@node Changement de portée automatique
+@unnumberedsubsubsec Changement de portée automatique
+@translationof Changing staff automatically
 
 @cindex Changement de portée automatique
 @cindex Automatique, changement de portée
@@ -304,7 +309,7 @@ inférieure :
 
 @seealso
 Dans ce même manuel : 
-@ref{Changing staff manually}.
+@ref{Changement de portée manuel}.
 
 Exemples de code :
 @rlsr{Keyboards}.
@@ -329,8 +334,9 @@ construction de cet accord.
 @code{\times}.
 
 
-@node Staff-change lines
-@unnumberedsubsubsec Staff-change lines
+@node Lignes de changement de portée
+@unnumberedsubsubsec Lignes de changement de portée
+@translationof Staff-change lines
 
 @cindex voix entre deux portées
 @cindex changements de portée
@@ -377,8 +383,9 @@ Référence des propriétés internes :
 @rinternals{VoiceFollower}.
 
 
-@node Cross-staff stems
-@unnumberedsubsubsec Cross-staff stems
+@node Hampes et changements de portée
+@unnumberedsubsubsec Hampes et changements de portée
+@translationof Cross-staff stems
 
 @cindex hampe, enjambement portées
 @cindex distance entre deux portées de piano
@@ -436,15 +443,17 @@ Référence des propriétés internes :
 
 @node Piano
 @subsection Piano
+@translationof Piano
 
 Ce chapitre traîte des aspects de la notation directement liés au piano.  
 
 @menu
-* Piano pedals::                
+* Pédales de piano::                
 @end menu
 
-@node Piano pedals
-@unnumberedsubsubsec Piano pedals
+@node Pédales de piano
+@unnumberedsubsubsec Pédales de piano
+@translationof Piano pedals
 
 @cindex piano et pédales
 @cindex pédales de piano
@@ -524,7 +533,7 @@ relacher.
 
 @seealso
 Manuel de notation :
-@ref{Ties}.
+@ref{Liaisons de prolongation}.
 
 Extraits de code :
 @rlsr{Keyboards}.
@@ -543,15 +552,17 @@ Référence des propriétés internes :
 @rinternals{Piano_pedal_engraver}.
 
 
-@node Accordion
-@subsection Accordion
+@node Accordéon
+@subsection Accordéon
+@translationof Accordion
 
 @menu
-* Discant symbols::             
+* Symboles de jeux::             
 @end menu
 
-@node Discant symbols
-@unnumberedsubsubsec Discant symbols
+@node Symboles de jeux
+@unnumberedsubsubsec Symboles de jeux
+@translationof Discant symbols
 
 @cindex accordéon, symboles de registre
 @cindex registres, symboles pour accordéon
@@ -578,18 +589,20 @@ Morceaux choisis :
 @rlsr{Keyboards}.
 
 
-@node Harp
-@subsection Harp
+@node Harpe
+@subsection Harpe
+@translationof Harp
 
 This section discusses notation issues that are unique to the harp.
 
 @menu
-* References for harps::
-* Harp pedals::
+* Généralités sur la harpe::
+* Pédales de harpe::
 @end menu
 
-@node References for harps
-@unnumberedsubsubsec References for harps
+@node Généralités sur la harpe
+@unnumberedsubsubsec Généralités sur la harpe
+@translationof References for harps
 @cindex harpes
 @cindex bisbigliando
 
@@ -602,23 +615,24 @@ d'autres chapitres, telles que :
 @ref{Glissando}.
 
 @item Le @notation{bisbigliando}, qui s'écrit comme un trémolo, 
-@ref{Tremolo repeats}
+@ref{Répétition en trémolo}
 
-@item Les harmoniques naturelles sont présentées dans @ref{Harmonics}.
+@item Les harmoniques naturelles sont présentées dans @ref{Harmoniques}.
 
-@item For directional arpeggios and non-arpeggios, see @ref{Arpeggio}.
+@item For directional arpeggios and non-arpeggios, see @ref{Arpèges}.
 
 @end itemize
 
 @seealso
 Manuel de notation :
-@ref{Tremolo repeats}
+@ref{Répétition en trémolo}
 @ref{Glissando}
-@ref{Arpeggio}
-@ref{Harmonics}
+@ref{Arpèges}
+@ref{Harmoniques}
 
-@node Harp pedals
-@unnumberedsubsubsec Harp pedals
+@node Pédales de harpe
+@unnumberedsubsubsec Pédales de harpe
+@translationof Harp pedals
 
 @cindex harpe, pédales
 @cindex harpe, diagrammes de pédales
@@ -658,6 +672,6 @@ un symbole par un @code{o} permet de l'inscrire dans un cercle.
 
 @seealso
 Manuel de notation :
-@ref{Text scripts}
+@ref{Commentaires textuels}
 @ref{Instrument Specific Markup}
 

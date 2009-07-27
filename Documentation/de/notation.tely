@@ -58,7 +58,8 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- Notation Reference
+@top GNU LilyPond -- Notationsreferenz
+@translationof Top
 @chapheading Das Notensatzprogramm
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @end ifnottex
@@ -196,7 +197,7 @@ Free Documentation License''.
 @ifnottex
 Das ist das Benutzerhandbuch für GNU LilyPond Version @version{}.
 Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
-dieses Handbuchs siehe @rlearning{About the documentation}.
+dieses Handbuchs siehe @rlearning{Über die Dokumentation}.
 
 @cindex Internetseite
 @cindex URL
@@ -208,22 +209,22 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 @include dedication.itely
 
 @menu
-* Musical notation::               Allgemeine Notation von Musik.
-* Specialist notation::            Notation, die nur für spezielle Zwecke eingesetzt wird.
-* General input and output::       Allgemeine Information über die Quelldateien von LilyPond.
-* Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
-* Changing defaults::              Das Notenbild verfeinern.
-* Interfaces for programmers::     Benutzung für Experten.
+* Musikalische Notation::               Allgemeine Notation von Musik.
+* Spezielle Notation::            Notation, die nur für spezielle Zwecke eingesetzt wird.
+* Allgemeine Eingabe und Ausgabe::       Allgemeine Information über die Quelldateien von LilyPond.
+* Abstände::                 Anzeige der Ausgabe auf dem Papier.
+* Standardeinstellungen verändern::              Das Notenbild verfeinern.
+* Schnittstellen für Programmierer::     Benutzung für Experten.
 
 Anhänge
 
-* Literature list::                Wichtige Literatur über die Notation.
-* Notation manual tables::         Tabellen und Grafiken.
-* Cheat sheet::                    Überblick über die LilyPond-Syntax.
-* LilyPond grammar::               Syntaxdiagramm für LilyPond
+* Literatur::                Wichtige Literatur über die Notation.
+* Notationsübersicht::         Tabellen und Grafiken.
+* Befehlsübersicht::                    Überblick über die LilyPond-Syntax.
+* LilyPond-Grammatik::               Syntaxdiagramm für LilyPond
 * GNU Free Documentation License:: Die Lizenz dieses Handbuchs.
-* LilyPond command index::
-* LilyPond index::
+* Index der LilyPond-Befehle::
+* LilyPond-Index::
 @end menu
 @end ifnottex
 
@@ -244,8 +245,9 @@ Anhänge
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
 
-@node LilyPond grammar
-@appendix LilyPond grammar
+@node LilyPond-Grammatik
+@appendix LilyPond-Grammatik
+@translationof LilyPond grammar
 
 Dieser Anhang enthält eine Beschreibung der LilyPond-Grammatik,
 wie sie der Parser ausgibt.
@@ -254,8 +256,9 @@ wie sie der Parser ausgibt.
 
 @include fdl.itexi
 
-@node LilyPond command index
-@appendix LilyPond command index
+@node Index der LilyPond-Befehle
+@appendix Index der LilyPond-Befehle
+@translationof LilyPond command index
 
 Dieser Index listet alle LilyPond Befehle und Schlüsselwörter auf,
 versehen mit Verweisen zu den Abschnitten im Handbuch, die den Befehl
@@ -265,8 +268,9 @@ erscheint, der zweite Teil zeigt auf den entsprechenden Abschnitt.
 
 @printindex ky
 
-@node LilyPond index
-@appendix LilyPond index
+@node LilyPond-Index
+@appendix LilyPond-Index
+@translationof LilyPond index
 
 Zusätzlich zu allen LilyPond Befehlen und Schlüsselwörtern listet
 dieser Index alle relevanten Begriffe auf und verlinkt sie mit den

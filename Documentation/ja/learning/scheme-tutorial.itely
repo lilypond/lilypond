@@ -10,6 +10,7 @@
 
 @node Scheme tutorial
 @appendix Scheme tutorial
+@translationof Scheme tutorial @c external
 
 @untranslated
 
@@ -20,9 +21,9 @@
 
 @node Tweaking with Scheme
 @appendixsec Tweaking with Scheme
+@translationof Tweaking with Scheme @c external
 
 @untranslated
 
 
 
-@c -- SKELETON FILE --

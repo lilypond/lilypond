@@ -14,6 +14,7 @@
 
 @node Converting from other formats
 @chapter Converting from other formats
+@translationof Converting from other formats @c external
 
 @untranslated
 
@@ -28,25 +29,30 @@
 
 @node Invoking midi2ly
 @section Invoking @command{midi2ly}
+@translationof Invoking midi2ly @c external
 
 @untranslated
 
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
+@translationof Invoking musicxml2ly @c external
 
 @untranslated
 
 @node Invoking abc2ly
 @section Invoking @code{abc2ly}
+@translationof Invoking abc2ly @c external
 
 @untranslated
 @node Invoking etf2ly
 @section Invoking @command{etf2ly}
+@translationof Invoking etf2ly @c external
 
 @untranslated
 
 
 @node Generating LilyPond files
 @section Generating LilyPond files
+@translationof Generating LilyPond files @c external
 
 @untranslated

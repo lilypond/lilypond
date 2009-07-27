@@ -10,20 +10,22 @@
 
 @c \version "2.12.0"
 
-@node Ancient notation
-@section Ancient notation
+@node Notations anciennes
+@section Notations anciennes
+@translationof Ancient notation
 
 @menu
-* Introduction to ancient notation::  
-* Alternative note signs::      
-* Additional note signs::       
-* Pre-defined contexts::        
-* Transcribing ancient music::  
-* Editorial markings::          
+* Introduction aux notations anciennes::  
+* Signes de note alternatifs::      
+* Signes de note supplémentaires::       
+* Contextes prédéfinis::        
+* Transcription de musique mensurale::  
+* Notation éditoriale::          
 @end menu
 
-@node Introduction to ancient notation
-@subsection Introduction to ancient notation
+@node Introduction aux notations anciennes
+@subsection Introduction aux notations anciennes
+@translationof Introduction to ancient notation
 
 
 @cindex Vaticana, Editio
@@ -41,17 +43,17 @@ De nombreux objets graphiques --- @qq{grobs} dans le jargon de LilyPond
 --- disposent d'une propriété @code{style}, comme nous le verrons dans
 @itemize @bullet
 @item
-@ref{Ancient note heads},
+@ref{Têtes de note anciennes},
 @item
-@ref{Ancient accidentals},
+@ref{Altérations anciennes},
 @item
-@ref{Ancient rests},
+@ref{Silences anciens},
 @item
-@ref{Ancient clefs},
+@ref{Clefs anciennes},
 @item
-@ref{Ancient flags},
+@ref{Crochets anciens},
 @item
-@ref{Ancient time signatures}.
+@ref{Métriques anciennes}.
 @end itemize
 
 Manipuler cette propriété permet d'adapter l'aspect typographique des
@@ -59,11 +61,11 @@ grobs à une forme de notation particulière, ce qui évite la création de
 nouveaux concepts de notation.
 
 En plus des signes d'articulation standards décrits à la section
-@ref{Articulations and ornamentations}, la notation ancienne dispose de signes particuliers.
+@ref{Articulations et ornements}, la notation ancienne dispose de signes particuliers.
 
 @itemize @bullet
 @item
-@ref{Ancient articulations}
+@ref{Articulations anciennes}
 @end itemize
 
 D'autres aspects de la notation ancienne ne peuvent pas être gérés
@@ -73,9 +75,9 @@ concepts sont spécifiques à la notation ancienne.
 
 @itemize @bullet
 @item
-@ref{Custodes},
+@ref{Guidons},
 @item
-@ref{Divisiones},
+@ref{Divisions},
 @item
 @ref{Ligatures}.
 @end itemize
@@ -88,9 +90,9 @@ notes.
 
 @itemize @bullet
 @item
-@ref{Gregorian chant contexts},
+@ref{Contextes du chant grégorien},
 @item
-@ref{Mensural contexts}.
+@ref{Les contextes de la musique mensurale}.
 @end itemize
 
 LilyPond gère partiellement la représentation de basses chiffrées,
@@ -99,40 +101,43 @@ harmonie et en analyse.
 
 @itemize @bullet
 @item
-@ref{Figured bass}
+@ref{Basse chiffrée}
 @end itemize
 
 Voici les points que nous allons aborder :
 
 
 @menu
-* Ancient notation supported::  
+* Formes de notation ancienne prises en charge::  
 @end menu
 
-@node Ancient notation supported
-@unnumberedsubsubsec Ancient notation supported
+@node Formes de notation ancienne prises en charge
+@unnumberedsubsubsec Formes de notation ancienne prises en charge
+@translationof Ancient notation supported @c external
 
 @untranslated
 
 
 
-@node Alternative note signs
-@subsection Alternative note signs
+@node Signes de note alternatifs
+@subsection Signes de note alternatifs
+@translationof Alternative note signs @c external
 
 @untranslated
 
 
 @menu
-* Ancient note heads::          
-* Ancient accidentals::         
-* Ancient rests::               
-* Ancient clefs::               
-* Ancient flags::               
-* Ancient time signatures::     
+* Têtes de note anciennes::          
+* Altérations anciennes::         
+* Silences anciens::               
+* Clefs anciennes::               
+* Crochets anciens::               
+* Métriques anciennes::     
 @end menu
 
-@node Ancient note heads
-@unnumberedsubsubsec Ancient note heads
+@node Têtes de note anciennes
+@unnumberedsubsubsec Têtes de note anciennes
+@translationof Ancient note heads
 
 @cindex têtes de note, musique ancienne
 
@@ -172,12 +177,13 @@ comment fonctionnent les graveurs de ligature.
 
 @seealso
 Pour un aperçu de toutes les possibilités,
-consultez @ref{Note head styles}.
+consultez @ref{Styles de tête de note}.
 
 
 
-@node Ancient accidentals
-@unnumberedsubsubsec Ancient accidentals
+@node Altérations anciennes
+@unnumberedsubsubsec Altérations anciennes
+@translationof Ancient accidentals
 
 @cindex altérations
 
@@ -235,17 +241,18 @@ par la propriété @code{glyph-name-alist} de l'objet
 
 
 @seealso
-Dans ce manuel : @ref{Pitches}, @ref{Accidentals}, et
-@ref{Automatic accidentals}, pour les principes généraux d'utilisation
-des altérations ; @ref{Key signature} pour les armures.
+Dans ce manuel : @ref{Hauteurs}, @ref{Altérations}, et
+@ref{Altérations accidentelles automatiques}, pour les principes généraux d'utilisation
+des altérations ; @ref{Armure} pour les armures.
 
 Référence du programme : @rinternals{KeySignature}.
 
 Exemples : @rlsr{Ancient notation}.
 
 
-@node Ancient rests
-@unnumberedsubsubsec Ancient rests
+@node Silences anciens
+@unnumberedsubsubsec Silences anciens
+@translationof Ancient rests
 
 @cindex silences, musique ancienne
 
@@ -273,16 +280,17 @@ défaut.  Voici une liste des styles de silences disponibles.
 @lilypondfile[quote,verbatim,ragged-right]{rest-styles.ly}
 
 Les silences sont absents de la notation grégorienne ; par contre, cette
-notation utilise des @ref{Divisiones}.
+notation utilise des @ref{Divisions}.
 
 
 @seealso
 Dans ce manuel : les principes généraux sur l'utilisation des silences
-sont exposés dans @ref{Rests}.
+sont exposés dans @ref{Silences}.
 
 
-@node Ancient clefs
-@unnumberedsubsubsec Ancient clefs
+@node Clefs anciennes
+@unnumberedsubsubsec Clefs anciennes
+@translationof Ancient clefs
 
 @cindex clefs
 @cindex clés
@@ -295,7 +303,7 @@ pouvez sélectionner avec la commande @code{\clef}.  Certaines de ces
 clés utilisent le même glyphe, attaché à l'une ou l'autre des lignes
 de la portée.  Le chiffre porté en suffixe permet alors de les
 différencier.  Vous pouvez néanmoins forcer le positionnement du
-glyphe sur une ligne, comme expliqué à la section @ref{Clef}.  Dans la
+glyphe sur une ligne, comme expliqué à la section @ref{Clefs}.  Dans la
 colonne exemple, la note suivant la clé montre le do médium.
 
 @multitable @columnfractions .4 .4 .2
@@ -513,7 +521,7 @@ leur ligne de rattachement.
 
 
 @seealso
-Dans ce manuel : voir @ref{Clef}.
+Dans ce manuel : voir @ref{Clefs}.
 
 
 @knownissues
@@ -522,8 +530,9 @@ La clé de sol mensurale est calquée sur celle de Petrucci.
 
 
 
-@node Ancient flags
-@unnumberedsubsubsec Ancient flags
+@node Crochets anciens
+@unnumberedsubsubsec Crochets anciens
+@translationof Ancient flags
 
 @cindex crochets
 
@@ -563,8 +572,9 @@ pas prévues pour être appliquées à la notation mensurale.
 
 
 
-@node Ancient time signatures
-@unnumberedsubsubsec Ancient time signatures
+@node Métriques anciennes
+@unnumberedsubsubsec Métriques anciennes
+@translationof Ancient time signatures
 
 @cindex métrique
 
@@ -654,7 +664,7 @@ Voici les différences entre les styles :
 
 
 @seealso
-Dans ce manuel : @ref{Time signature} expose les principes généraux sur
+Dans ce manuel : @ref{Métrique} expose les principes généraux sur
 l'utilisation des indications de métrique.
 
 
@@ -679,28 +689,30 @@ plutôt un @code{\markup}.
 
 
 
-@node Additional note signs
-@subsection Additional note signs
+@node Signes de note supplémentaires
+@subsection Signes de note supplémentaires
+@translationof Additional note signs @c external
 
 @untranslated
 
 
 @menu
-* Ancient articulations::       
-* Custodes::                    
-* Divisiones::                  
+* Articulations anciennes::       
+* Guidons::                    
+* Divisions::                  
 * Ligatures::                   
-* White mensural ligatures::    
-* Gregorian square neumes ligatures::  
+* Ligatures mensurales::    
+* Neumes ligaturés grégoriens::  
 @end menu
 
-@node Ancient articulations
-@unnumberedsubsubsec Ancient articulations
+@node Articulations anciennes
+@unnumberedsubsubsec Articulations anciennes
+@translationof Ancient articulations
 
 @cindex articulations
 
 En plus des signes d'articulation standards décrits à la section
-@ref{Articulations and ornamentations}, LilyPond fournit des articulations pour la musique
+@ref{Articulations et ornements}, LilyPond fournit des articulations pour la musique
 ancienne.  Elles sont spécifiquement destinées au style Editio Vaticana.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -728,8 +740,9 @@ Le trait d'un episem n'est bien souvent pas apparent et, lorsqu'il
 l'est, son extension à droite est trop longue.
 
 
-@node Custodes
-@unnumberedsubsubsec Custodes
+@node Guidons
+@unnumberedsubsubsec Guidons
+@translationof Custodes
 
 @cindex custos
 @cindex custodes
@@ -808,8 +821,9 @@ Référence du programme : @rinternals{Custos}.
 Exemples : @rlsr{Ancient notation}.
 
 
-@node Divisiones
-@unnumberedsubsubsec Divisiones
+@node Divisions
+@unnumberedsubsubsec Divisions
+@translationof Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -820,7 +834,7 @@ est un symbole ajouté à la portée et utilisé en chant grégorien pour
 séparer les phrases ou parties.  @emph{Divisio minima}, @emph{divisio
 maior} et @emph{divisio maxima} peuvent respectivement s'interpréter
 comme une pauses courte, moyenne ou longue, à l'image des marques de
-respiration --- cf. @ref{Breath marks}.  Le signe @emph{finalis} n'est
+respiration --- cf. @ref{Signes de respiration}.  Le signe @emph{finalis} n'est
 pas uniquement une marque de fin de chant ; il sert aussi à indiquer la
 fin de chaque partie dans une structure verset/répons.
 
@@ -852,7 +866,7 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 
 
 @seealso
-Dans ce manuel : @ref{Breath marks}.
+Dans ce manuel : @ref{Signes de respiration}.
 
 Référence du programme : @rinternals{BreathingSign}.
 
@@ -862,6 +876,7 @@ Exemples : @rlsr{Winds}.
 
 @node Ligatures
 @unnumberedsubsubsec Ligatures
+@translationof Ligatures
 
 @cindex Ligatures
 
@@ -915,10 +930,11 @@ En attendant, vous pouvez inclure le fichier
 qui produit le même résultat, et dont la pérennité est assurée.
 
 
-* White mensural ligatures::
-* Gregorian square neumes ligatures::
-@node White mensural ligatures
-@unnumberedsubsubsec White mensural ligatures
+* Ligatures mensurales::
+* Neumes ligaturés grégoriens::
+@node Ligatures mensurales
+@unnumberedsubsubsec Ligatures mensurales
+@translationof White mensural ligatures
 
 
 @cindex Ligatures mensurales
@@ -1010,8 +1026,9 @@ L'espacement horizontal n'est pas des meilleurs.
 
 
 
-@node Gregorian square neumes ligatures
-@unnumberedsubsubsec Gregorian square neumes ligatures
+@node Neumes ligaturés grégoriens
+@unnumberedsubsubsec Neumes ligaturés grégoriens
+@translationof Gregorian square neumes ligatures
 
 @cindex neumes carrés et ligatures
 @cindex grégorien, ligatures de neumes carrés
@@ -1967,19 +1984,21 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 
 
-@node Pre-defined contexts
-@subsection Pre-defined contexts
+@node Contextes prédéfinis
+@subsection Contextes prédéfinis
+@translationof Pre-defined contexts @c external
 
 @untranslated
 
 
 @menu
-* Gregorian chant contexts::    
-* Mensural contexts::           
+* Contextes du chant grégorien::    
+* Les contextes de la musique mensurale::           
 @end menu
 
-@node Gregorian chant contexts
-@unnumberedsubsubsec Gregorian chant contexts
+@node Contextes du chant grégorien
+@unnumberedsubsubsec Contextes du chant grégorien
+@translationof Gregorian chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -2014,8 +2033,9 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 
 
 
-@node Mensural contexts
-@unnumberedsubsubsec Mensural contexts
+@node Les contextes de la musique mensurale
+@unnumberedsubsubsec Les contextes de la musique mensurale
+@translationof Mensural contexts
 
 
 @cindex MensuralVoiceContext
@@ -2050,53 +2070,60 @@ lancer dans la saisie de votre chant comme ci-après :
 
 
 
-@node Transcribing ancient music
-@subsection Transcribing ancient music
+@node Transcription de musique mensurale
+@subsection Transcription de musique mensurale
+@translationof Transcribing ancient music @c external
 
 @untranslated
 
 @menu
-* Ancient and modern from one source::  
-* Incipits::                    
-* Mensurstriche layout::        
-* Transcribing Gregorian chant::  
+* Différentes éditions à partir d'une même source::  
+* Des incipits::                    
+* Mise en forme de la musique mensurale::        
+* Transcription de chant grégorien::  
 @end menu
 
-@node Ancient and modern from one source
-@unnumberedsubsubsec Ancient and modern from one source
+@node Différentes éditions à partir d'une même source
+@unnumberedsubsubsec Différentes éditions à partir d'une même source
+@translationof Ancient and modern from one source @c external
 
 @untranslated
 
-@node Incipits
-@unnumberedsubsubsec Incipits
-
-@untranslated
-
-
-@node Mensurstriche layout
-@unnumberedsubsubsec Mensurstriche layout
-
-@untranslated
-
-@node Transcribing Gregorian chant
-@unnumberedsubsubsec Transcribing Gregorian chant
+@node Des incipits
+@unnumberedsubsubsec Des incipits
+@translationof Incipits @c external
 
 @untranslated
 
 
-@node Editorial markings
-@subsection Editorial markings
+@node Mise en forme de la musique mensurale
+@unnumberedsubsubsec Mise en forme de la musique mensurale
+@translationof Mensurstriche layout @c external
+
+@untranslated
+
+@node Transcription de chant grégorien
+@unnumberedsubsubsec Transcription de chant grégorien
+@translationof Transcribing Gregorian chant @c external
+
+@untranslated
+
+
+@node Notation éditoriale
+@subsection Notation éditoriale
+@translationof Editorial markings @c external
 
 
 @untranslated
 
 @menu
-* Annotational accidentals::    
-* Baroque rhythmic notation::   
+* Altérations accidentelles suggérées::    
+* Notation du rythme dans la musique baroque::   
 @end menu
 
-@node Annotational accidentals
-@unnumberedsubsubsec Annotational accidentals
+@node Altérations accidentelles suggérées
+@unnumberedsubsubsec Altérations accidentelles suggérées
+@translationof Annotational accidentals
 
 
 @cindex MensuralVoiceContext
@@ -2131,8 +2158,9 @@ lancer dans la saisie de votre chant comme ci-après :
 
 
 
-@node Baroque rhythmic notation
-@unnumberedsubsubsec Baroque rhythmic notation
+@node Notation du rythme dans la musique baroque
+@unnumberedsubsubsec Notation du rythme dans la musique baroque
+@translationof Baroque rhythmic notation @c external
 
 @untranslated
 

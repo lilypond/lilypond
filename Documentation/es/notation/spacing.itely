@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Spacing issues
-@chapter Spacing issues
+@node Problemas de espaciado
+@chapter Problemas de espaciado
+@translationof Spacing issues
 
 La disposición global sobre el papel viene determinada por tres
 factores: el diseño de página, los saltos de línea y el espaciado.
@@ -40,29 +41,31 @@ instrucciones que se muestran en este capítulo se pueden poner en
 cualquiera de los dos.
 
 @menu
-* Paper and pages::
-* Music layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
+* El papel y las páginas::
+* Disposición de la música::
+* Saltos::
+* Espaciado vertical::
+* Espaciado horizontal::
+* Encajar la música en menos páginas::
 @end menu
 
 
-@node Paper and pages
-@section Paper and pages
+@node El papel y las páginas
+@section El papel y las páginas
+@translationof Paper and pages
 
 Esta sección se ocupa de los límites que definen la zona del papel en
 que se puede imprimir la música.
 
 @menu
-* Paper size::
-* Page formatting::
+* Tamaño del papel::
+* Formateo de las páginas::
 @end menu
 
 
-@node Paper size
-@subsection Paper size
+@node Tamaño del papel
+@subsection Tamaño del papel
+@translationof Paper size
 
 @cindex papel, tamaño del
 @cindex página, tamaño de la
@@ -134,8 +137,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Page formatting
-@subsection Page formatting
+@node Formateo de las páginas
+@subsection Formateo de las páginas
+@translationof Page formatting
 
 Los márgenes, encabezamientos y pies de página y otras variables de
 diseño de página se establecen automáticamente de acuerdo con el
@@ -145,14 +149,15 @@ Esta sección relaciona y describe cierto número de variables del papel
 que se pueden alterar.
 
 @menu
-* Vertical dimensions::
-* Horizontal dimensions::
-* Other layout variables::
+* Dimensiones verticales::
+* Dimensiones horizontales::
+* Otras variables de diseño de página::
 @end menu
 
 
-@node Vertical dimensions
-@unnumberedsubsubsec Vertical dimensions
+@node Dimensiones verticales
+@unnumberedsubsubsec Dimensiones verticales
+@translationof Vertical dimensions
 
 Estas variables se utilizan para establecer las diferentes dimensiones
 verticales de la página:
@@ -229,7 +234,7 @@ imprimible.  Predeterminado: @code{12\mm}.
 @funindex paper-height
 
 Altura de la página.  Predeterminado: altura del tamaño actual del
-papel.  Para ver más detalles, consulte @ref{Paper size}.
+papel.  Para ver más detalles, consulte @ref{Tamaño del papel}.
 
 @item top-margin
 @funindex top-margin
@@ -298,14 +303,15 @@ papel.
 
 @seealso
 Referencia de la notación:
-@ref{Vertical spacing between systems}.
+@ref{Espaciado vertical entre sistemas}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Horizontal dimensions
-@unnumberedsubsubsec Horizontal dimensions
+@node Dimensiones horizontales
+@unnumberedsubsubsec Dimensiones horizontales
+@translationof Horizontal dimensions
 
 @warning{Si se establece @code{paper-width} manualmente,
 @code{line-width}, @code{left-margin}, @code{indent} y
@@ -349,7 +355,7 @@ o por @code{set-paper-size}.
 @funindex paper-width
 
 Ancho de la página.  Predeterminado: la anchura del tamaño actual del
-papel.  Para ver más detalles, consulte @ref{Paper size}.
+papel.  Para ver más detalles, consulte @ref{Tamaño del papel}.
 
 @item short-indent
 @funindex short-indent
@@ -373,8 +379,9 @@ margen derecho.  El valor del margen derecho se debe definir ajustando
 los valores de @code{left-margin} y de @code{line-width}.
 
 
-@node Other layout variables
-@unnumberedsubsubsec Other layout variables
+@node Otras variables de diseño de página
+@unnumberedsubsubsec Otras variables de diseño de página
+@translationof Other layout variables
 
 Estas variables se pueden usar para ajustar el diseño de la página en
 general.
@@ -452,15 +459,14 @@ fijar.
 
 Si tiene un valor verdadero, limita el espacio entre los sistemas de
 una página en la que sobra mucho espacio.  Predeterminado: @code{##f}.
-Para ver más detalles, consulte @ref{Vertical spacing between
-systems}.
+Para ver más detalles, consulte @ref{Espaciado vertical entre sistemas}.
 
 @item page-limit-inter-system-space-factor
 @funindex page-limit-inter-system-space-factor
 
 Factor usado por @code{page-limit-inter-system-space}.
 Predeterminado: @code{1.4}.  Para ver más detalles, consulte
-@ref{Vertical spacing between systems}.
+@ref{Espaciado vertical entre sistemas}.
 
 @item page-spacing-weight
 @funindex page-spacing-weight
@@ -586,17 +592,19 @@ tratan como un sistema, por lo que @code{ragged-bottom} y
 sistema de la partitura.
 
 
-@node Music layout
-@section Music layout
+@node Disposición de la música
+@section Disposición de la música
+@translationof Music layout
 
 @menu
-* Setting the staff size::
-* Score layout::
+* Establecer el tamaño del pentagrama::
+* Disposición de la partitura::
 @end menu
 
 
-@node Setting the staff size
-@subsection Setting the staff size
+@node Establecer el tamaño del pentagrama
+@subsection Establecer el tamaño del pentagrama
+@translationof Setting the staff size
 
 @cindex tipografía, establecer tamaño de
 @cindex pentagrama, establecer tamaño de
@@ -696,7 +704,7 @@ pentagrama individuales están en relación al tamaño global.
 
 @seealso
 Referencia de la notación:
-@ref{Selecting notation font size}.
+@ref{Seleccionar el tamaño de la tipografía para la notación}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -708,8 +716,9 @@ Fragmentos de código:
 del pentagrama.
 
 
-@node Score layout
-@subsection Score layout
+@node Disposición de la partitura
+@subsection Disposición de la partitura
+@translationof Score layout
 
 @funindex \layout
 
@@ -733,28 +742,30 @@ disposición específica de cada partitura.
 
 @seealso
 Referencia de la notación:
-@ref{Changing context default settings}.
+@ref{Cambiar los valores por omisión de los contextos}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Breaks
-@section Breaks
+@node Saltos
+@section Saltos
+@translationof Breaks
 
 @menu
-* Line breaking::
-* Page breaking::
-* Optimal page breaking::
-* Optimal page turning::
-* Minimal page breaking::
-* Explicit breaks::
-* Using an extra voice for breaks::
+* Saltos de línea::
+* Saltos de página::
+* Saltos de página óptimos::
+* Paso de página óptimo::
+* Saltos de página mínimos::
+* Saltos de línea explícitos::
+* Utilizar una voz adicional para los saltos de línea::
 @end menu
 
 
-@node Line breaking
-@subsection Line breaking
+@node Saltos de línea
+@subsection Saltos de línea
+@translationof Line breaking
 
 @cindex saltos de línea
 @cindex línea, saltos de
@@ -874,8 +885,9 @@ se puede modificar con el establecimiento de @code{\override Beam
 #'breakable = ##t}.
 
 
-@node Page breaking
-@subsection Page breaking
+@node Saltos de página
+@subsection Saltos de página
+@translationof Page breaking
 
 Se puede sobreescribir el mecanismo predeterminado de salto de página
 insertando instrucciones @code{\pageBreak} o @code{\noPageBreak}.
@@ -896,7 +908,7 @@ establecidos a @code{##t} los sistemas de todas las páginas o sólo de
 la última página, respectivamente, no se verán justificados
 verticalmente.
 
-Para ver más detalles, consulte @ref{Vertical spacing}.
+Para ver más detalles, consulte @ref{Espaciado vertical}.
 
 Los saltos de página se calculan por medio de la función
 @code{page-breaking}.  LilyPond ofrece tres algoritmos para el cómputo
@@ -967,8 +979,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Optimal page breaking
-@subsection Optimal page breaking
+@node Saltos de página óptimos
+@subsection Saltos de página óptimos
+@translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -985,8 +998,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Optimal page turning
-@subsection Optimal page turning
+@node Paso de página óptimo
+@subsection Paso de página óptimo
+@translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -1000,7 +1014,7 @@ introducir vueltas de página en los lugares especificados.
 
 Hay dos etapas en el uso de esta función de división de páginas.  En
 primer lugar debemos habilitarlo en el bloque @code{\paper}, como se
-explicó en @ref{Page breaking}.  Entonces debemos decirle a la función
+explicó en @ref{Saltos de página}.  Entonces debemos decirle a la función
 dónde nos gustaría permitir los saltos de página.
 
 Hay dos formas de conseguir la segunda tarea.  Primero, podemos
@@ -1082,8 +1096,9 @@ Sólo debería haber un grabador @code{Page_turn_engraver} dentro de una
 partitura.  Si hay más de uno, se interferirán entre sí.
 
 
-@node Minimal page breaking
-@subsection Minimal page breaking
+@node Saltos de página mínimos
+@subsection Saltos de página mínimos
+@translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1106,8 +1121,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Explicit breaks
-@subsection Explicit breaks
+@node Saltos de línea explícitos
+@subsection Saltos de línea explícitos
+@translationof Explicit breaks
 
 Lily a veces rechaza las instrucciones @code{\break} y
 @code{\pageBreak} explícitas.  Hay dos instrucciones para
@@ -1156,8 +1172,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Using an extra voice for breaks
-@subsection Using an extra voice for breaks
+@node Utilizar una voz adicional para los saltos de línea
+@subsection Utilizar una voz adicional para los saltos de línea
+@translationof Using an extra voice for breaks
 
 La información sobre saltos de línea y de página suele aparecer
 directamente entremezclado dentro del código de notas.
@@ -1204,7 +1221,7 @@ disposición de los saltos.
 Este patrón resulta especialmente útil cuando se sobreescribe
 @code{line-break-system-details} y las otras útiles (pero largas)
 propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
-@ref{Vertical spacing}.
+@ref{Espaciado vertical}.
 
 @lilypond[quote,verbatim]
 \new Score {
@@ -1240,14 +1257,15 @@ propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
 
 @seealso
 Referencia de la notación:
-@ref{Vertical spacing}.
+@ref{Espaciado vertical}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Vertical spacing
-@section Vertical spacing
+@node Espaciado vertical
+@section Espaciado vertical
+@translationof Vertical spacing
 
 @cindex espaciado vertical
 @cindex vertical, espaciado
@@ -1258,16 +1276,17 @@ la separación entre los sistemas, y la separación entre los
 pentagramas dentro de un sistema.
 
 @menu
-* Vertical spacing inside a system::
-* Vertical spacing between systems::
-* Explicit staff and system positioning::
-* Two-pass vertical spacing::
-* Vertical collision avoidance::
+* Espaciado vertical dentro de un sistema::
+* Espaciado vertical entre sistemas::
+* Posicionamiento explícito de los pentagramas y los sistemas::
+* Espaciado vertical en dos fases::
+* Evitar las colisiones verticales::
 @end menu
 
 
-@node Vertical spacing inside a system
-@subsection Vertical spacing inside a system
+@node Espaciado vertical dentro de un sistema
+@subsection Espaciado vertical dentro de un sistema
+@translationof Vertical spacing inside a system
 
 @cindex distancia entre pentagramas
 @cindex pentagrama, distancia entre los
@@ -1385,8 +1404,9 @@ Referencia de funcionamiento interno:
 @rinternals{Axis_group_engraver}.
 
 
-@node Vertical spacing between systems
-@subsection Vertical spacing between systems
+@node Espaciado vertical entre sistemas
+@subsection Espaciado vertical entre sistemas
+@translationof Vertical spacing between systems
 
 La separación entre los sistemas está controlada por cuatro variables
 del papel:
@@ -1445,8 +1465,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Explicit staff and system positioning
-@subsection Explicit staff and system positioning
+@node Posicionamiento explícito de los pentagramas y los sistemas
+@subsection Posicionamiento explícito de los pentagramas y los sistemas
+@translationof Explicit staff and system positioning
 
 Una forma de entender los ajustes de @code{VerticalAxisGroup} y de
 @code{\paper} que se explicaron en las dos secciones anteriores es
@@ -1540,8 +1561,7 @@ sobreescritura.
 Esta partitura mantiene aislada la información de los saltos de línea
 y de página en una voz dedicada a ello.  Esta técnica de crear una voz
 de saltos ayuda a mantener separada de la escritura de notas conforme
-el ejemplo se vuelve más complicado.  Consulte @ref{Using an extra
-voice for breaks}.
+el ejemplo se vuelve más complicado.  Consulte @ref{Utilizar una voz adicional para los saltos de línea}.
 
 Los saltos explícitos dividen la música de forma regular en seis
 compases por línea.  El espaciado vertical es el resultado de los
@@ -1689,13 +1709,13 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Two-pass vertical spacing
-@subsection Two-pass vertical spacing
+@node Espaciado vertical en dos fases
+@subsection Espaciado vertical en dos fases
+@translationof Two-pass vertical spacing
 
 @warning{El espaciado vertical en dos pasadas está obsoleto y se
 eliminará en una versión futura de LilyPond.  Ahora los sistemas se
-amplían automáticamente en un solo paso.  Véase @ref{Vertical spacing
-inside a system}.}
+amplían automáticamente en un solo paso.  Véase @ref{Espaciado vertical dentro de un sistema}.}
 
 In order to automatically stretch systems so that they should fill the
 space left on a page, a two-pass technique can be used:
@@ -1754,8 +1774,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Vertical collision avoidance
-@subsection Vertical collision avoidance
+@node Evitar las colisiones verticales
+@subsection Evitar las colisiones verticales
+@translationof Vertical collision avoidance
 
 @funindex outside-staff-priority
 @funindex outside-staff-padding
@@ -1841,23 +1862,25 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Horizontal spacing
-@section Horizontal spacing
+@node Espaciado horizontal
+@section Espaciado horizontal
+@translationof Horizontal spacing
 
 @cindex horizontal, espaciado
 @cindex espaciado horizontal
 
 @menu
-* Horizontal spacing overview::
-* New spacing area::
-* Changing horizontal spacing::
-* Line length::
-* Proportional notation::
+* Panorámica del espaciado horizontal::
+* Área de espaciado nueva::
+* Cambiar el espaciado horizontal::
+* Longitud de la línea::
+* Notación proporcional::
 @end menu
 
 
-@node Horizontal spacing overview
-@subsection Horizontal spacing overview
+@node Panorámica del espaciado horizontal
+@subsection Panorámica del espaciado horizontal
+@translationof Horizontal spacing overview
 
 El motor de espaciado traduce las diferencias en las duraciones a
 distancias ampliables (@q{muelles}) de distintas longitudes.  Las
@@ -1922,7 +1945,7 @@ semicorcheas al ejemplo anterior, irían seguidas por medio ACB:
 c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
-En la introducción (véase @rlearning{Engraving}), se explicó que las
+En la introducción (véase @rlearning{Grabado}), se explicó que las
 direcciones de las plicas influyen en el espaciado.  Esto se controla
 con la propiedad @code{stem-spacing-correction} en el objeto
 @rinternals{NoteSpacing}.  Estos se generan para cada uno de los
@@ -1943,8 +1966,7 @@ con los valores predeterminados y otra con correcciones exageradas:
 }
 @end lilypond
 
-Está contemplada la notación proporcional; consulte @ref{Proportional
-notation}.
+Está contemplada la notación proporcional; consulte @ref{Notación proporcional}.
 
 
 @seealso
@@ -1972,8 +1994,9 @@ medida necesaria.
 No existe ningún rodeo para disminuir la magnitud de la separación.
 
 
-@node New spacing area
-@subsection New spacing area
+@node Área de espaciado nueva
+@subsection Área de espaciado nueva
+@translationof New spacing area
 
 Se pueden iniciar secciones nuevas con diferentes parámetros de
 espaciado, con @code{newSpacingSection}.  Esto es útil cuando hay
@@ -2004,8 +2027,9 @@ Referencia de funcionamiento interno:
 @rinternals{SpacingSpanner}.
 
 
-@node Changing horizontal spacing
-@subsection Changing horizontal spacing
+@node Cambiar el espaciado horizontal
+@subsection Cambiar el espaciado horizontal
+@translationof Changing horizontal spacing
 
 Se puede alterar el espaciado horizontal con la propiedad
 @code{base-shortest-duration}.  Aquí compararemos la misma música, una
@@ -2086,8 +2110,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Line length
-@subsection Line length
+@node Longitud de la línea
+@subsection Longitud de la línea
+@translationof Line length
 
 @cindex saltos de página
 @cindex página, saltos de
@@ -2143,8 +2168,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Proportional notation
-@subsection Proportional notation
+@node Notación proporcional
+@subsection Notación proporcional
+@translationof Proportional notation
 
 LilyPond contempla la notación proporcional, un tipo de espaciado
 horizontal en el que cada nota consume una medida horizontal que
@@ -2393,7 +2419,7 @@ está activado para la partitura completa o desactivado para la
 partitura completa.  Sin embargo, podemos sobreescribir este
 comportamiento y activar distintas posibilidades de espaciado en
 distintos lugares de la partitura.  Lo hacemos con la instrucción
-@code{\newSpacingSection}.  Consulte @ref{New spacing area} para más
+@code{\newSpacingSection}.  Consulte @ref{Área de espaciado nueva} para más
 información.
 
 A continuación examinamos los efectos del grabador
@@ -2507,14 +2533,15 @@ partes respectivas del manual para ver estos ajustes relacionados.
 
 @seealso
 Referencia de la notación:
-@ref{New spacing area}.
+@ref{Área de espaciado nueva}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@node Encajar la música en menos páginas
+@section Encajar la música en menos páginas
+@translationof Fitting music onto fewer pages
 
 En ocasiones, podemos terminar con uno o dos pentagramas en una
 segunda página (o tercera, o cuarta...).  Es fastidioso, especialmente
@@ -2524,16 +2551,17 @@ sobra.
 Al investigar los problemas de disposición, una herramienta de valor
 incalculable es @code{annotate-spacing}.  Esta instrucción imprime los
 valores de un cierto número de variables de espaciado; para ver más
-detalles consulte la sección siguiente, @ref{Displaying spacing}.
+detalles consulte la sección siguiente, @ref{Mostrar el espaciado}.
 
 @menu
-* Displaying spacing::
-* Changing spacing::
+* Mostrar el espaciado::
+* Cambiar el espaciado::
 @end menu
 
 
-@node Displaying spacing
-@subsection Displaying spacing
+@node Mostrar el espaciado
+@subsection Mostrar el espaciado
+@translationof Displaying spacing
 
 @cindex espaciado, presentación del
 @funindex annotate-spacing
@@ -2581,19 +2609,20 @@ superior del intervalo.
 
 
 @seealso
-@ref{Setting the staff size}.
+@ref{Establecer el tamaño del pentagrama}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Changing spacing
-@subsection Changing spacing
+@node Cambiar el espaciado
+@subsection Cambiar el espaciado
+@translationof Changing spacing
 
 La salida de @code{annotate-spacing} revela las dimensiones verticales
 con gran detalle.  Para ver más detalles acerca de la modificación de
 los márgenes y otras variables de diseño de la página, consulte
-@ref{Page formatting}.
+@ref{Formateo de las páginas}.
 
 Aparte de los márgenes, hay algunas otras opciones para ahorrar espacio:
 
@@ -2649,7 +2678,7 @@ e4 c g\f c
 
 @item
 Alterar el espaciado horizontal por medio de @code{SpacingSpanner}.
-Para ver más detalles, consulte @ref{Changing horizontal spacing}.  El
+Para ver más detalles, consulte @ref{Cambiar el espaciado horizontal}.  El
 ejemplo siguiente ilustra el espaciado predeterminado:
 
 @lilypond[verbatim,quote]
@@ -2700,8 +2729,8 @@ completa.
 
 @seealso
 Referencia de la notación:
-@ref{Page formatting},
-@ref{Changing horizontal spacing}.
+@ref{Formateo de las páginas},
+@ref{Cambiar el espaciado horizontal}.
 
 Fragmentos de código:
 @rlsr{Spacing}.

@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Notation manual tables
-@appendix Notation manual tables
+@node Tablas del manual sobre notación
+@appendix Tablas del manual sobre notación
+@translationof Notation manual tables
 
 @c Please do not delete the following @ignore block.
 @ignore
@@ -24,42 +25,44 @@ menu entries are:
 * Text markup list commands::
 
 and they should go just after
-* Note head styles::
+* Estilos de cabezas de nota::
 
 and just before
-* List of articulations::
+* Lista de articulaciones::
 @end ignore
 
 @menu
-* Chord name chart::
-* Common chord modifiers::
-* Predefined fretboard diagrams::
-* MIDI instruments::
-* List of colors::
-* The Feta font::
-* Note head styles::
+* Carta de nombres de acordes::
+* Modificadores de acorde más usuales::
+* Diagramas predefinidos de trastes::
+* Instrumentos MIDI::
+* Lista de colores::
+* La tipografía Feta::
+* Estilos de cabezas de nota::
 * Text markup commands::
 * Text markup list commands::
-* List of articulations::
-* Percussion notes::
-* All context properties::
-* Layout properties::
-* Identifiers::
-* Scheme functions::
+* Lista de articulaciones::
+* Notas de percusión::
+* Todas las propiedades de contexto::
+* Propiedades de disposición::
+* Identificadores::
+* Funciones de Scheme::
 @end menu
 
 
 
-@node Chord name chart
-@appendixsec Chord name chart
+@node Carta de nombres de acordes
+@appendixsec Carta de nombres de acordes
+@translationof Chord name chart
 
 Las siguientes tablas muestran dos sistemas estándar para imprimir los nombres de los acordes,
 junto a las notas que representan.
 
 @lilypondfile{chord-names-jazz.ly}
 
-@node Common chord modifiers
-@appendixsec Common chord modifiers
+@node Modificadores de acorde más usuales
+@appendixsec Modificadores de acorde más usuales
+@translationof Common chord modifiers
 
 La tabla siguiente presenta los modificadores de acorde que se pueden
 usar en el modo de acordes @code{\chordmode} para generar las
@@ -405,16 +408,18 @@ Cuarta justa y quinta justa
 
 @end multitable
 
-@node Predefined fretboard diagrams
-@appendixsec Predefined fretboard diagrams
+@node Diagramas predefinidos de trastes
+@appendixsec Diagramas predefinidos de trastes
+@translationof Predefined fretboard diagrams
 
 El cuadro siguiente presenta los diagramas de traste predefinidos.
 
 @lilypondfile{display-predefined-fretboards.ly}
 
 
-@node MIDI instruments
-@appendixsec MIDI instruments
+@node Instrumentos MIDI
+@appendixsec Instrumentos MIDI
+@translationof MIDI instruments
 
 A continuación figura una lista con los nombres que se pueden utilizar para la
 propiedad @code{midiInstrument} (instrumento MIDI).
@@ -466,12 +471,13 @@ cello                     lead 6 (voice)
 @end example
 
 
-@node List of colors
-@appendixsec List of colors
+@node Lista de colores
+@appendixsec Lista de colores
+@translationof List of colors
 
-@subsubheading Normal colors
+@subsubheading Colores normales
 
-La sintaxis para el uso de colores se encuentra detallada en @ref{Coloring objects}.
+La sintaxis para el uso de colores se encuentra detallada en @ref{Colorear objetos}.
 
 @cindex lista de colores
 @cindex colores, lista de
@@ -484,7 +490,7 @@ darkcyan    darkmagenta    darkyellow
 @end verbatim
 
 
-@subsubheading X color names
+@subsubheading Nombres de los colores de X
 
 Los nombres de los colores de X admiten algunas variantes:
 
@@ -498,7 +504,7 @@ La palabra @q{grey} siempre se puede escribir como @q{gray} (p.ej. @q{DarkSlateG
 Algunos nombres admiten un sufijo numérico (p.ej. @q{LightSalmon4}).
 
 
-@subsubheading Color Names without a numerical suffix:
+@subsubheading Nombres de los colores sin sufijo numérico:
 
 @verbatim
 snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
@@ -532,7 +538,7 @@ LightGreen
 @end verbatim
 
 
-@subsubheading Color names with a numerical suffix
+@subsubheading Nombres de los colores con sufijo numérico
 
 En los nombres siguientes, el sufijo N puede ser un número del 1 al 4:
 
@@ -556,7 +562,7 @@ thistleN
 @end verbatim
 
 
-@subsubheading Grey Scale
+@subsubheading Escala de grises
 
 Se puede obtener una escala de grises utilizando:
 
@@ -568,8 +574,9 @@ greyN
 donde N es un número entre 0 y 100.
 
 
-@node The Feta font
-@appendixsec The Feta font
+@node La tipografía Feta
+@appendixsec La tipografía Feta
+@translationof The Feta font
 
 @cindex Feta, tipografía
 @cindex tipografía Feta
@@ -577,7 +584,7 @@ donde N es un número entre 0 y 100.
 Los símbolos siguientes están disponibles en la tipografía Emmentaler
 y es posible acceder a ellos directamente utilizando elementos de
 marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
-@}}, véase @ref{Formatting text}.
+@}}, véase @ref{Formatear el texto}.
 
 @menu
 * Clef glyphs::
@@ -608,6 +615,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Clef glyphs
 @unnumberedsubsec Clef glyphs
+@translationof Clef glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -618,6 +626,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Time Signature glyphs
 @unnumberedsubsec Time Signature glyphs
+@translationof Time Signature glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -628,6 +637,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Number glyphs
 @unnumberedsubsec Number glyphs
+@translationof Number glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -638,6 +648,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Accidental glyphs
 @unnumberedsubsec Accidental glyphs
+@translationof Accidental glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -648,6 +659,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Default Notehead glyphs
 @unnumberedsubsec Default Notehead glyphs
+@translationof Default Notehead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -658,6 +670,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Special Notehead glyphs
 @unnumberedsubsec Special Notehead glyphs
+@translationof Special Notehead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -668,6 +681,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Shape-note Notehead glyphs
 @unnumberedsubsec Shape-note Notehead glyphs
+@translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -678,6 +692,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Rest glyphs
 @unnumberedsubsec Rest glyphs
+@translationof Rest glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -688,6 +703,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Flag glyphs
 @unnumberedsubsec Flag glyphs
+@translationof Flag glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -698,6 +714,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Dot glyphs
 @unnumberedsubsec Dot glyphs
+@translationof Dot glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -708,6 +725,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Dynamic glyphs
 @unnumberedsubsec Dynamic glyphs
+@translationof Dynamic glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -718,6 +736,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Script glyphs
 @unnumberedsubsec Script glyphs
+@translationof Script glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -728,6 +747,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Arrowhead glyphs
 @unnumberedsubsec Arrowhead glyphs
+@translationof Arrowhead glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -738,6 +758,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Bracket-tip glyphs
 @unnumberedsubsec Bracket-tip glyphs
+@translationof Bracket-tip glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -748,6 +769,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Pedal glyphs
 @unnumberedsubsec Pedal glyphs
+@translationof Pedal glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -758,6 +780,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Accordion glyphs
 @unnumberedsubsec Accordion glyphs
+@translationof Accordion glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -768,6 +791,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Vaticana glyphs
 @unnumberedsubsec Vaticana glyphs
+@translationof Vaticana glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -778,6 +802,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Medicaea glyphs
 @unnumberedsubsec Medicaea glyphs
+@translationof Medicaea glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -788,6 +813,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Hufnagel glyphs
 @unnumberedsubsec Hufnagel glyphs
+@translationof Hufnagel glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -798,6 +824,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Mensural glyphs
 @unnumberedsubsec Mensural glyphs
+@translationof Mensural glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -808,6 +835,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Neomensural glyphs
 @unnumberedsubsec Neomensural glyphs
+@translationof Neomensural glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -818,6 +846,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Petrucci glyphs
 @unnumberedsubsec Petrucci glyphs
+@translationof Petrucci glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -828,6 +857,7 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 
 @node Solesmes glyphs
 @unnumberedsubsec Solesmes glyphs
+@translationof Solesmes glyphs
 
 @lilypond[quote]
 \include "font-table.ly"
@@ -836,8 +866,9 @@ marcado textual como @code{g^\markup @{ \musicglyph #"scripts.segno"
 @end lilypond
 
 
-@node Note head styles
-@appendixsec Note head styles
+@node Estilos de cabezas de nota
+@appendixsec Estilos de cabezas de nota
+@translationof Note head styles
 
 @cindex nota, estilos de cabeza
 Se pueden usar los siguientes estilos para las cabezas de las notas.
@@ -848,8 +879,9 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 
 @include markup-list-commands.tely
 
-@node List of articulations
-@appendixsec List of articulations
+@node Lista de articulaciones
+@appendixsec Lista de articulaciones
+@translationof List of articulations
 
 @cindex accent
 @cindex acento
@@ -894,31 +926,36 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @lilypondfile[quote,texidoc]{script-chart.ly}
 
 
-@node Percussion notes
-@appendixsec Percussion notes
+@node Notas de percusión
+@appendixsec Notas de percusión
+@translationof Percussion notes
 
 @lilypondfile[quote]{percussion-chart.ly}
 
 
-@node All context properties
-@appendixsec All context properties
+@node Todas las propiedades de contexto
+@appendixsec Todas las propiedades de contexto
+@translationof All context properties
 
 @include context-properties.tely
 
 
-@node Layout properties
-@appendixsec Layout properties
+@node Propiedades de disposición
+@appendixsec Propiedades de disposición
+@translationof Layout properties
 
 @include layout-properties.tely
 
 
-@node Identifiers
-@appendixsec Identifiers
+@node Identificadores
+@appendixsec Identificadores
+@translationof Identifiers
 
 @include identifiers.tely
 
 
-@node Scheme functions
-@appendixsec Scheme functions
+@node Funciones de Scheme
+@appendixsec Funciones de Scheme
+@translationof Scheme functions
 
 @include scheme-functions.tely

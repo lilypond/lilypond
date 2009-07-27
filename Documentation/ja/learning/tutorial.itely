@@ -32,35 +32,38 @@ Tutorial guidelines:  (different from policy.txt!)
 @c Translation status: post-GDP
 
 
-@node Tutorial
-@chapter Tutorial
+@node チュートリアル
+@chapter チュートリアル
+@translationof Tutorial
 
 このチュートリアルではまず LilyPond 音楽言語についての紹介を行い、楽譜を作り出す方法について説明します。LilyPond との最初の接触の後、我々は一般的な音楽表記を持つ楽譜を作成する方法について説明します。
 
 @menu
-* First steps::
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
+* 最初のステップ::
+* 単一譜表表記::
+* 同時に演奏する複数の音符::
+* 歌曲::
+* 仕上げ::
 @end menu
 
 
-@node First steps
-@section First steps
+@node 最初のステップ
+@section 最初のステップ
+@translationof First steps
 
 この節は LilyPond に取り組むための基本的な入門書です。
 
 @menu
-* Compiling a file::
-* Simple notation::
-* Working on input files::
-* How to read the manual::
+* ファイルをコンパイルする::
+* 簡単な表記::
+* 入力ファイルに取り組む::
+* このマニュアルの読み方::
 @end menu
 
 
-@node Compiling a file
-@subsection Compiling a file
+@node ファイルをコンパイルする
+@subsection ファイルをコンパイルする
+@translationof Compiling a file
 
 @cindex compiling
 @cindex first example
@@ -92,14 +95,14 @@ Tutorial guidelines:  (different from policy.txt!)
 @c !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @warning{LilyPond 入力の音符と歌詞は、
 @strong{@code{@{}} @strong{中括弧} @strong{@code{@}}}
-で囲まれている必要があります。さらに、あいまいさを避けるために、中括弧は行の最初か最後でない限りはスペースによって囲まれているべきです。中括弧はこのマニュアルのいくつかの例では省略されているかもしれませんが、あなた自身が作成する楽譜では忘れないでください！マニュアルの中にある例を表示する方法についての更なる情報については、@ref{How to read the manual} を参照してください。}
+で囲まれている必要があります。さらに、あいまいさを避けるために、中括弧は行の最初か最後でない限りはスペースによって囲まれているべきです。中括弧はこのマニュアルのいくつかの例では省略されているかもしれませんが、あなた自身が作成する楽譜では忘れないでください！マニュアルの中にある例を表示する方法についての更なる情報については、@ref{このマニュアルの読み方} を参照してください。}
 
 さらに、LilyPond 入力は@strong{大文字/小文字}の区別 があります。@w{@code{@{ c d e @}}} は有効な入力ですが、@w{@code{@{ C D E @}}} はエラーになります。
 
 @smallspace
 
 
-@subheading Entering music and viewing output
+@subheading 音楽表記を入力して出力を閲覧する
 @c 音楽の入力と出力の閲覧
 
 @cindex PDF file
@@ -114,7 +117,7 @@ Tutorial guidelines:  (different from policy.txt!)
 
 ここでは、実行すべきコマンドと、出力を閲覧または印刷する方法について説明します。
 
-LilyPond に対してより良いサポートを提供するテキスト エディタがいくつかあります。更なる情報は @rprogram{Text editor support} を参照してください。
+LilyPond に対してより良いサポートを提供するテキスト エディタがいくつかあります。更なる情報は @rprogram{テキスト エディタのサポート} を参照してください。
 @c LilyPond をサポートする テキスト エディタ (Text editor support)
 
 @warning{あなたが初めて LilyPond を実行した場合、1, 2 分かかるかもしれません。なぜなら、まず最初にすべてのシステム フォントが分析されるからです。それから後は、LilyPond はずっと早く実行されます！}
@@ -168,8 +171,9 @@ Converting to `test.pdf'...
 @end example
 
 
-@node Simple notation
-@subsection Simple notation
+@node 簡単な表記
+@subsection 簡単な表記
+@translationof Simple notation
 
 @cindex simple notation
 @cindex notation, simple
@@ -186,7 +190,7 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 この挙動は変更されるかもしれませんが、たいていのケースではこれらの自動値は役に立ちます。
 
 
-@subheading Pitches
+@subheading 音高
 @c 音高
 
 @cindex pitches
@@ -273,7 +277,7 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 @c " - keeps quotes in order for context-sensitive editor -td
 
 
-@subheading Durations (rhythms)
+@subheading 演奏時間 (リズム)
 @c 演奏時間 (原語: Durations, リズム)
 
 @cindex note durations
@@ -312,7 +316,7 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 @end lilypond
 
 
-@subheading Rests
+@subheading 休符
 @c 休符
 
 @cindex rest
@@ -331,7 +335,7 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 @end lilypond
 
 
-@subheading Time signature
+@subheading 拍子記号
 @c 拍子記号
 
 @cindex time signature
@@ -356,7 +360,7 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 @end lilypond
 
 
-@subheading Clef
+@subheading 音部記号
 @c 音部記号
 
 @cindex clef
@@ -387,7 +391,7 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 @end lilypond
 
 
-@subheading All together
+@subheading すべてを一緒に
 @c すべてをまとめて
 
 以上の要素をすべて集めたちょっとした例をお見せします:
@@ -406,12 +410,13 @@ LilyPond はいくつかの表記要素を自動的に追加します。次の�
 @c 参照
 表記リファレンス: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
-@ruser{Time signature}, @ruser{Clef}
+@ruser{拍子記号}, @ruser{音部記号}
 @c 音高を書く, リズムを書く, 休符を書く, 拍子記号, 音部記号
 
 
-@node Working on input files
-@subsection Working on input files
+@node 入力ファイルに取り組む
+@subsection 入力ファイルに取り組む
+@translationof Working on input files
 
 @cindex curly braces
 @cindex braces, curly
@@ -495,8 +500,9 @@ b2 b
 @end itemize
 
 
-@node How to read the manual
-@subsection How to read the manual
+@node このマニュアルの読み方
+@subsection このマニュアルの読み方
+@translationof How to read the manual
 
 @cindex how to read the manual
 @cindex manual, reading
@@ -508,7 +514,7 @@ b2 b
 @cindex constructing files, tips
 @cindex files, tips for constructing
 
-@ref{Working on input files} で見てきたように、LilyPond 入力は @{ @} マークか @code{@w{\relative c'' @{ ... @}}} で囲まれていなければなりません。このマニュアルの残りの部分では、たいていの例はこのことを省略しています。このマニュアルにある例を複製するためにあなたは表示されいている入力をコピーするかもしれませんが、あなたは以下のように @code{@w{\relative c'' @{ @}}} を付け加えなければなりません:
+@ref{入力ファイルに取り組む} で見てきたように、LilyPond 入力は @{ @} マークか @code{@w{\relative c'' @{ ... @}}} で囲まれていなければなりません。このマニュアルの残りの部分では、たいていの例はこのことを省略しています。このマニュアルにある例を複製するためにあなたは表示されいている入力をコピーするかもしれませんが、あなたは以下のように @code{@w{\relative c'' @{ @}}} を付け加えなければなりません:
 
 @example
 \relative c'' @{
@@ -520,7 +526,7 @@ b2 b
 なぜ中括弧を省略するのか？このマニュアルの中のたいていの例はより大きな音楽の途中に挿入することができます。これらの例に対して @code{@w{\relative c'' @{ @}}} を付け加えることには意味がありません -- あなたはある @code{\relative} を他の @code{\relative} の中に置くべきではありません！すべての例の周りに @code{@w{\relative c'' @{ @}}} を置いてしまうと、あなたは小さな例をコピーして、それをより大きなあなた自身の音楽の中にペーストすることができなくなってしまいます。たいていの人は資料を既存の楽曲に付け加えようとしますので、我々はそのようにマニュアルを形作っています。
 
 
-@subheading Clickable examples
+@subheading クリック可能な例
 @c クリック可能な例
 
 多くの人々はすでにあるプログラムを試したり、いじったりすることでプログラムを学びます。これは LilyPond でも可能です。このマニュアルの HTML バージョンの中にある画像をクリックすると、画像を生成するために使用された正確な LilyPond 入力を見ることができます。以下の画像を試してみてください:
@@ -536,30 +542,32 @@ b2 b
 
 
 @seealso
-@ref{Suggestions for writing LilyPond input files} に入力ファイルを構築するための更なる TIPS があります。しかしながら、まずはこのチュートリアルの残りの部分を読み終えることが大切です。
+@ref{LilyPond 入力ファイルの記述に対する提案} に入力ファイルを構築するための更なる TIPS があります。しかしながら、まずはこのチュートリアルの残りの部分を読み終えることが大切です。
 @c LilyPond 入力ファイルの書き方の提案
 
 
-@node Single staff notation
-@section Single staff notation
+@node 単一譜表表記
+@section 単一譜表表記
+@translationof Single staff notation
 
 この節はでは 1 つの譜表の上にある 1 つの声部のために使用される一般的な表記を紹介します。
 
 @menu
-* Accidentals and key signatures::
-* Ties and slurs::
-* Articulation and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
+* 臨時記号と調号::
+* タイとスラー::
+* アーティキュレーションと強弱記号::
+* テキストを追加する::
+* 自動ビームと手動ビーム::
+* 高度なリズム コマンド::
 @end menu
 
 
-@node Accidentals and key signatures
-@subsection Accidentals and key signatures
+@node 臨時記号と調号
+@subsection 臨時記号と調号
+@translationof Accidentals and key signatures
 
 
-@subheading Accidentals
+@subheading 臨時記号
 
 @cindex accidentals
 @cindex accidentals and key signatures
@@ -588,7 +596,7 @@ cis1 ees fisis, aeses
 
 
 @cindex key signature, setting
-@subheading Key signatures
+@subheading 調号
 @c 調号
 
 @cindex key signature
@@ -620,7 +628,7 @@ a
 @smallspace
 
 
-@subheading Warning: key signatures and pitches
+@subheading 警告: 調号と音高
 @c 調号と音高
 
 音楽用語集: @rglos{accidental}, @rglos{key signature},
@@ -655,7 +663,7 @@ b
 @seealso
 @c 参照
 表記リファレンス: @ruser{Note names in other languages},
-@ruser{Accidentals}, @ruser{Automatic accidentals},
+@ruser{臨時記号}, @ruser{Automatic accidentals},
 @ruser{Key signature}
 @c 他の言語での音符名, 臨時記号, 臨時記号の自動譜刻, 調号
 
@@ -663,8 +671,9 @@ b
 @c 音高名
 
 
-@node Ties and slurs
-@subsection Ties and slurs
+@node タイとスラー
+@subsection タイとスラー
+@translationof Ties and slurs
 
 @cindex tie
 @cindex slur
@@ -676,7 +685,7 @@ b
 @funindex \( ... \)
 
 
-@subheading Ties
+@subheading タイ
 
 音楽用語集: @rglos{tie}
 @c タイ (tie)
@@ -689,7 +698,7 @@ c4 ~ c8 a8 ~ a2
 @end lilypond
 
 
-@subheading Slurs
+@subheading スラー
 
 音楽用語集: @rglos{slur}
 @c スラー (slur)
@@ -701,7 +710,7 @@ d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
 
-@subheading Phrasing slurs
+@subheading フレージング スラー
 
 音楽用語集: @rglos{slur}, @rglos{phrasing}
 @c スラー (slur), フレージング (phrasing)
@@ -716,7 +725,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 
 
 @cindex slurs versus ties
-@subheading Warnings: slurs vs. ties
+@subheading 警告: スラー vs. タイ
 
 音楽用語集: @rglos{articulation}, @rglos{slur}, @rglos{tie}
 @c アーティキュレーション (articulation), スラー (slur), タイ (tie)
@@ -729,16 +738,17 @@ c2~( c8 fis fis4 ~ fis2 g2)
 
 @seealso
 @c 参照
-表記リファレンス: @ruser{Ties}, @ruser{Slurs},
-@ruser{Phrasing slurs}
+表記リファレンス: @ruser{タイ}, @ruser{スラー},
+@ruser{フレージング スラー}
 @c タイ, スラー, フレージング スラー
 
 
-@node Articulation and dynamics
-@subsection Articulation and dynamics
+@node アーティキュレーションと強弱記号
+@subsection アーティキュレーションと強弱記号
+@translationof Articulation and dynamics
 
 
-@subheading Articulations
+@subheading アーティキュレーション
 @c アーティキュレーション
 
 @cindex articulation
@@ -755,7 +765,7 @@ c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
 
-@subheading Fingerings
+@subheading 運指法記号
 @c 運指法
 
 @cindex fingering
@@ -779,7 +789,7 @@ c_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
 
-@subheading Dynamics
+@subheading 強弱記号
 @c 強弱記号
 
 @cindex dynamics
@@ -818,12 +828,13 @@ c2\< c2\ff\> c2 c2\!
 
 @seealso
 表記リファレンス: @ruser{Articulations and ornamentations},
-@ruser{Fingering instructions}, @ruser{Dynamics}
+@ruser{Fingering instructions}, @ruser{強弱記号}
 @c アーティキュレーションと装飾, 運指法, 強弱記号
 
 
-@node Adding text
-@subsection Adding text
+@node テキストを追加する
+@subsection テキストを追加する
+@translationof Adding text
 @c テキストの追加
 
 @cindex text, adding
@@ -854,8 +865,9 @@ a1_\markup{
 @c テキストを書く
 
 
-@node Automatic and manual beams
-@subsection Automatic and manual beams
+@node 自動ビームと手動ビーム
+@subsection 自動ビームと手動ビーム
+@translationof Automatic and manual beams
 @c 自動ビームと手動ビーム
 
 @cindex beaming
@@ -903,13 +915,14 @@ a8 c b4 d8. c16 b4
 @c 自動ビーム, 手動ビーム
 
 
-@node Advanced rhythmic commands
-@subsection Advanced rhythmic commands
+@node 高度なリズム コマンド
+@subsection 高度なリズム コマンド
+@translationof Advanced rhythmic commands
 
 @c 高度なリズム コマンド
 
 
-@subheading Partial measure
+@subheading 部分小節
 @c 部分小節
 
 @cindex pickup
@@ -930,7 +943,7 @@ f8 c2 d
 @end lilypond
 
 
-@subheading Tuplets
+@subheading 連符
 @c 連符
 
 @cindex tuplets
@@ -952,7 +965,7 @@ f8 c2 d
 @end lilypond
 
 
-@subheading Grace notes
+@subheading グレース ノート
 @c グレース ノート (小さな音符で書かれた装飾音)
 
 @cindex grace notes
@@ -980,13 +993,14 @@ c2 \acciaccatura b16 c2
 
 
 @seealso
-表記リファレンス: @ruser{Grace notes}, @ruser{Tuplets},
+表記リファレンス: @ruser{グレース ノート}, @ruser{連符},
 @ruser{Upbeats}
 @c グレース ノート, 連符, 上拍
 
 
-@node Multiple notes at once
-@section Multiple notes at once
+@node 同時に演奏する複数の音符
+@section 同時に演奏する複数の音符
+@translationof Multiple notes at once
 @c 複音表記
 
 この節はでは同時に複数の表記 -- 複数の楽器、単一の楽器に対する複数の譜 (すなわちピアノ)、和音 -- を持つ方法について紹介します。
@@ -994,16 +1008,17 @@ c2 \acciaccatura b16 c2
 音楽の中での多声は楽曲の中にある複数の声部を参照します。LilyPond の中での多声は同じ譜表上にある複数の声部を参照します。
 
 @menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single staff polyphony::
+* 音楽表記についての説明::
+* 複数の譜::
+* 譜表グループ::
+* 音符を組み合わせて和音にする::
+* 単一譜表での多声::
 @end menu
 
 
-@node Music expressions explained
-@subsection Music expressions explained
+@node 音楽表記についての説明
+@subsection 音楽表記についての説明
+@translationof Music expressions explained
 @c 音楽表記についての説明
 
 @cindex music expression
@@ -1030,7 +1045,7 @@ a4
 @end lilypond
 
 
-@subheading Analogy: mathematical expressions
+@subheading 数学的表記との類似
 
 このメカニズムは数学式と似ています: 大きな式は小さな式を組み合わせることによって作成されます。そのような式は表記と呼ばれ、それらの定義は再帰的なのであなたは任意に複雑で大きな表記を作ることができます。例えば、
 
@@ -1047,7 +1062,7 @@ a4
 これは表記のシークエンスであり、各表記は次の (より大きな) 表記に組み込まれています。最も単純な表記は数であり、より大きな表記は演算子 (@code{+}, @code{*}, @code{/} など) と括弧を組み合わせることによって作成されます。数学式と同様に、音楽表記も任意の深さにネストさせることができ、それは多声楽譜のような複雑な音楽のために必要なことです。
 
 
-@subheading Simultaneous music expressions: multiple staves
+@subheading 同時進行する音楽表記: 複数の譜
 @c 同時進行の音楽表記: 複数の譜
 
 @cindex multiple staves
@@ -1086,7 +1101,7 @@ a4
 
 
 
-@subheading Simultaneous music expressions: single staff
+@subheading 同時進行する音楽表記: 単一の譜表
 @c 同時進行の音楽表記: 単一の譜
 
 楽曲の中にある譜の数を決定するために、LilPond は最初の音楽表記の始まりを調べます。始まりの音楽表記が単一の表記であった場合、楽譜の中の譜表は 1 つです。同時進行の表記であった場合、譜表は複数になります。
@@ -1099,8 +1114,9 @@ a4
 @end lilypond
 
 
-@node Multiple staves
-@subsection Multiple staves
+@node 複数の譜
+@subsection 複数の譜
+@translationof Multiple staves
 @c 複数の譜
 
 @cindex multiple staves
@@ -1119,7 +1135,7 @@ a4
 @funindex Lyrics
 @funindex ChordNames
 
-@ref{Music expressions explained} で見てきたように、LilyPond 入力ファイルは音楽表記によって構築されています。複数の同時進行の音楽表記で始まる楽譜の場合、LilyPond は複数の譜を作成します。しかしながら、各譜表を明示的に作成すると何が起こるかより容易に見て取ることができます。
+@ref{音楽表記についての説明} で見てきたように、LilyPond 入力ファイルは音楽表記によって構築されています。複数の同時進行の音楽表記で始まる楽譜の場合、LilyPond は複数の譜を作成します。しかしながら、各譜表を明示的に作成すると何が起こるかより容易に見て取ることができます。
 @c 音楽表記についての説明
 
 複数の譜表を譜刻するには、1 つの譜表を形成する音楽の各部分の前に @code{\new Staff} を付け加えます。これらの @code{Staff} 要素は @code{<<} と @code{>>} で並列に組み合わされます:
@@ -1151,8 +1167,9 @@ a4
 @end lilypond
 
 
-@node Staff groups
-@subsection Staff groups
+@node 譜表グループ
+@subsection 譜表グループ
+@translationof Staff groups
 @c 譜表グループ
 
 @cindex piano staff
@@ -1170,7 +1187,7 @@ a4
 音楽用語集: @rglos{brace}
 @c ブレース (brace)
 
-ピアノ譜は@notation{ブレース}でつながれた 2 つの譜表として刻譜されます。そのような譜表を刻譜することは @ref{Multiple staves} での多声の例に似ています。しかしながら、今度は表記全体が @code{PianoStaff} の中に挿入されます:
+ピアノ譜は@notation{ブレース}でつながれた 2 つの譜表として刻譜されます。そのような譜表を刻譜することは @ref{複数の譜} での多声の例に似ています。しかしながら、今度は表記全体が @code{PianoStaff} の中に挿入されます:
 
 @example
 \new PianoStaff <<
@@ -1199,8 +1216,9 @@ a4
 @c 楽器 キーボードと他の複譜表楽器, 譜表の表示
 
 
-@node Combining notes into chords
-@subsection Combining notes into chords
+@node 音符を組み合わせて和音にする
+@subsection 音符を組み合わせて和音にする
+@translationof Combining notes into chords
 @c 音符を組み合わせて和音にする
 
 @cindex chords
@@ -1227,8 +1245,9 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @end lilypond
 
 
-@node Single staff polyphony
-@subsection Single staff polyphony
+@node 単一譜表での多声
+@subsection 単一譜表での多声
+@translationof Single staff polyphony
 @c 単一譜表での多声
 
 @cindex polyphony
@@ -1286,21 +1305,23 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @c 同時進行の音符
 
 
-@node Songs
-@section Songs
+@node 歌曲
+@section 歌曲
+@translationof Songs
 @c 歌曲
 
 この節はでは声楽とシンプルな歌曲譜についての紹介を行います。
 
 @menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
+* 簡単な歌詞をセットする::
+* 歌詞を旋律に揃える::
+* 複数の譜への歌詞::
 @end menu
 
 
-@node Setting simple songs
-@subsection Setting simple songs
+@node 簡単な歌詞をセットする
+@subsection 簡単な歌詞をセットする
+@translationof Setting simple songs
 @c 簡単な歌詞をセットする
 
 @cindex lyrics
@@ -1340,8 +1361,9 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 中括弧が音楽と歌詞を区切っていて、音楽と歌詞が同時進行であることを示すために楽曲全体が @w{@code{<< ... >>}} で囲まれていることに注意してください。
 
 
-@node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@node 歌詞を旋律に揃える
+@subsection 歌詞を旋律に揃える
+@translationof Aligning lyrics to a melody
 @c 歌詞を旋律に揃える
 
 @cindex melisma
@@ -1373,7 +1395,7 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 >>
 @end lilypond
 
-付け足した歌詞は音符に適切に揃っていません。@notation{shine} は 2 音符に亘って歌われるべきですが、そうなっていません。これは@notation{メリスマ}と呼ばれ、単音節が複数の音符に亘って歌われます。ある音節を複数に広げる方法はいくつかあり、最も簡単なのはそれらの音符にスラーを付け加えることです。詳細は @ref{Ties and slurs} を参照してください。
+付け足した歌詞は音符に適切に揃っていません。@notation{shine} は 2 音符に亘って歌われるべきですが、そうなっていません。これは@notation{メリスマ}と呼ばれ、単音節が複数の音符に亘って歌われます。ある音節を複数に広げる方法はいくつかあり、最も簡単なのはそれらの音符にスラーを付け加えることです。詳細は @ref{タイとスラー} を参照してください。
 
 @lilypond[verbatim,quote]
 <<
@@ -1390,7 +1412,7 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 >>
 @end lilypond
 
-今度は、単語が正しく音符に対して並んでいます。しかしながら、@notation{shine as} 上の音符に対する自動ビームは適当でないように見えます。これを修正するために、手動ビーム コマンドを挿入して自動ビームをオーバライドします。詳細は @ref{Automatic and manual beams} を参照してください。
+今度は、単語が正しく音符に対して並んでいます。しかしながら、@notation{shine as} 上の音符に対する自動ビームは適当でないように見えます。これを修正するために、手動ビーム コマンドを挿入して自動ビームをオーバライドします。詳細は @ref{自動ビームと手動ビーム} を参照してください。
 
 @lilypond[verbatim,quote]
 <<
@@ -1485,8 +1507,9 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @c 歌曲譜
 
 
-@node Lyrics to multiple staves
-@subsection Lyrics to multiple staves
+@node 複数の譜への歌詞
+@subsection 複数の譜への歌詞
+@translationof Lyrics to multiple staves
 @ 複数の譜への歌詞
 
 @cindex lyrics and multiple staves
@@ -1517,7 +1540,7 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 >>
 @end lilypond
 
-この簡単な例よりも複雑な楽譜では、変数を使って楽譜構造を音符と歌詞から分離したほうが良いです。このことは @ref{Organizing pieces with variables} で議論されています。
+この簡単な例よりも複雑な楽譜では、変数を使って楽譜構造を音符と歌詞から分離したほうが良いです。このことは @ref{変数を用いて楽曲を編成する} で議論されています。
 
 
 @seealso
@@ -1525,23 +1548,25 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @c 歌曲譜
 
 
-@node Final touches
-@section Final touches
+@node 仕上げ
+@section 仕上げ
+@translationof Final touches
 @c 仕上げ
 
 この節はチュートリアルの最終節です; 単純な曲に仕上げを加える方法を示し、このマニュアルの残りの部分についての紹介を行います。
 
 @menu
-* Organizing pieces with variables::
-* Version number::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
+* 変数を用いて楽曲を編成する::
+* バージョン番号::
+* タイトルを付け加える::
+* 絶対音符名::
+* このチュートリアルの後にすべきこと::
 @end menu
 
 
-@node Organizing pieces with variables
-@subsection Organizing pieces with variables
+@node 変数を用いて楽曲を編成する
+@subsection 変数を用いて楽曲を編成する
+@translationof Organizing pieces with variables
 @c 変数を用いた楽曲の編成
 
 @cindex variables
@@ -1619,8 +1644,9 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @end example
 
 
-@node Version number
-@subsection Version number
+@node バージョン番号
+@subsection バージョン番号
+@translationof Version number
 @c バージョン番号
 
 @cindex versioning
@@ -1644,12 +1670,13 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @noindent
 慣習上、これは LilyPond ファイルの先頭に置きます。
 
-これらの注釈は LilyPond の将来のアップグレードをよりスムーズにします。構文の変更は特別なプログラム -- @command{convert-ly} -- によって扱われます。このプログラムは適用する規則を決定するために @code{\version} を使用します。詳細は @rprogram{Updating files with convert-ly} を参照してください。
+これらの注釈は LilyPond の将来のアップグレードをよりスムーズにします。構文の変更は特別なプログラム -- @command{convert-ly} -- によって扱われます。このプログラムは適用する規則を決定するために @code{\version} を使用します。詳細は @rprogram{convert-ly を使ってファイルを更新する} を参照してください。
 @c conver-ly を用いたファイルのアップデート
 
 
-@node Adding titles
-@subsection Adding titles
+@node タイトルを付け加える
+@subsection タイトルを付け加える
+@translationof Adding titles
 @c タイトルを付け加える
 
 @cindex title
@@ -1678,8 +1705,9 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @c タイトルの作成
 
 
-@node Absolute note names
-@subsection Absolute note names
+@node 絶対音符名
+@subsection 絶対音符名
+@translationof Absolute note names
 @c 絶対音符名
 
 @cindex note names
@@ -1745,11 +1773,12 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 しかしながら、絶対モードは大きな音程を持つ音楽に対しては有用であり、LilyPond ファイルをコンピュータで生成する場合は非常に有用です。
 
 
-@node After the tutorial
-@subsection After the tutorial
+@node このチュートリアルの後にすべきこと
+@subsection このチュートリアルの後にすべきこと
+@translationof After the tutorial
 @c このチュートリアルの後にすべきこと
 
-このチュートリアルを終えた後、あなたは 1、2 の楽譜を書いてみるべきです。@ref{Templates} にある楽譜の 1 つに音符を付け加えることから始めてください。あなたがこのチュートリアルではカバーされなかった表記を行う必要がある場合、@ruser{Musical notation} で始まる表記リファレンスを参照してください。あなたがテンプレートではカバーされていない楽器のアンサンブルのために楽譜を書こうとする場合、@ref{Extending the templates} を参照してください。
+このチュートリアルを終えた後、あなたは 1、2 の楽譜を書いてみるべきです。@ref{テンプレート} にある楽譜の 1 つに音符を付け加えることから始めてください。あなたがこのチュートリアルではカバーされなかった表記を行う必要がある場合、@ruser{Musical notation} で始まる表記リファレンスを参照してください。あなたがテンプレートではカバーされていない楽器のアンサンブルのために楽譜を書こうとする場合、@ref{テンプレートを拡張する} を参照してください。
 @c テンプレート
 @c 音楽表記
 @c テンプレートの拡張
@@ -1758,6 +1787,6 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 
 このチュートリアルと学習マニュアルの残りの部分では、各節の最後に@strong{参照}があり、他の節を参照してます: 初めて本書を読むときはこれらの参照を追うべきではありません。あなたが学習マニュアルをすべて読み終えたとき、いくつかの節を読み返し、さらに参照を追おうと思うかもしれません。
 
-@ref{About the documentation} をまだ読んでいないのなら、それを@emph{読んでください}。LilyPond についての情報は多いため、新しく LilyPond を始める人はしばしばどこを読むべきかわからないことがあります。5 分間使ってその節を注意深く読めば、あなたは何時間も見当違いの場所を読むフラストレーションを持たずに済ますことができるでしょう！
+@ref{このドキュメントについて} をまだ読んでいないのなら、それを@emph{読んでください}。LilyPond についての情報は多いため、新しく LilyPond を始める人はしばしばどこを読むべきかわからないことがあります。5 分間使ってその節を注意深く読めば、あなたは何時間も見当違いの場所を読むフラストレーションを持たずに済ますことができるでしょう！
 @c このドキュメントについて
 

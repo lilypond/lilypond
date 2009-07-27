@@ -27,8 +27,9 @@
 @c Translation status: post-GDP
 
 @ifnottex
-@node Top
+@node トップ ページ
 @top GNU LilyPond --- 学習マニュアル
+@translationof Top
 @end ifnottex
 
 
@@ -155,8 +156,7 @@ Free Documentation License''.
 @ifnottex
 
 これは GNU LilyPond バージョン @version{} のための学習マニュアルです。このド@c
-キュメントと他のドキュメントとの関係についての更なる情報は、@ref{About the 
-documentation} を参照してください。
+キュメントと他のドキュメントとの関係についての更なる情報は、@ref{このドキュメントについて} を参照してください。
 
 @cindex web site
 @cindex URL
@@ -166,21 +166,21 @@ documentation} を参照してください。
 ます。
 
 @menu
-* Preface::
-* Introduction::                   LilyPond とは何なのか、なぜ LilyPond を使う@c
+* 序文::
+* 導入部::                   LilyPond とは何なのか、なぜ LilyPond を使う@c
 のか、どうやって LilyPond を使うのか
-* Tutorial::                       LilyPond 導入の手引き
-* Fundamental concepts::           このマニュアルの残りの部分を読むために必要@c
+* チュートリアル::                       LilyPond 導入の手引き
+* 基礎となるコンセプト::           このマニュアルの残りの部分を読むために必要@c
 とされる基本的なコンセプト
-* Tweaking output::                出力を変更するための導入部
-* Working on LilyPond projects::   実際の使用についての議論
+* 出力を調整する::                出力を変更するための導入部
+* LilyPond プロジェクトに取り組む::   実際の使用についての議論
 
 付録
 
-* Templates::                      作成 (コンパイル) 準備ができているテンプレート
+* テンプレート::                      作成 (コンパイル) 準備ができているテンプレート
 * Scheme tutorial::                LilyPond 内部のプログラミング
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond index::
+* LilyPond インデックス::
 @end menu
 @end ifnottex
 
@@ -198,8 +198,9 @@ documentation} を参照してください。
 @include learning/scheme-tutorial.itely
 @include fdl.itexi
 
-@node LilyPond index
-@appendix LilyPond index
+@node LilyPond インデックス
+@appendix LilyPond インデックス
+@translationof LilyPond index
 
 @printindex cp
 

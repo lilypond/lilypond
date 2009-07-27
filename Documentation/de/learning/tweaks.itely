@@ -9,8 +9,9 @@
 
 @c \version "2.12.0"
 
-@node Tweaking output
-@chapter Tweaking output
+@node Die Ausgabe verändern
+@chapter Die Ausgabe verändern
+@translationof Tweaking output
 
 In diesem Kapitel wird erklärt, wie man die Notenausgabe verändern
 kann. In LilyPond kann man sehr viel konfigurieren, fast jedes 
@@ -18,27 +19,29 @@ Notenfragment kann geändert werden.
 
 
 @menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Placement of objects::
-* Collisions of objects::
-* Further tweaking::
+* Grundlagen für die Optimierung::
+* Die Referenz der Programminterna::
+* Erscheinung von Objekten::
+* Positionierung von Objekten::
+* Kollision von Objekten::
+* Weitere Optimierungen::
 @end menu
 
 
-@node Tweaking basics
-@section Tweaking basics
+@node Grundlagen für die Optimierung
+@section Grundlagen für die Optimierung
+@translationof Tweaking basics
 
 @menu
-* Introduction to tweaks::
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
+* Grundlagen zur Optimierung::
+* Objekte und Schnittstellen::
+* Regeln zur Benennung von Objekten und Eigenschaften::
+* Optimierungsmethoden::
 @end menu
 
-@node Introduction to tweaks
-@subsection Introduction to tweaks
+@node Grundlagen zur Optimierung
+@subsection Grundlagen zur Optimierung
+@translationof Introduction to tweaks
 
 @qq{Optimierung} (engl. tweaking) ist ein LilyPond-Begriff für die
 verschiedenen Methoden, die Aktionen zu beeinflussen, die während
@@ -57,14 +60,15 @@ konstruiert werden, so dass Sie in der Lage sein werden, eigene
 Befehle auf dieser Grundlage zu entwickeln.
 
 Bevor Sie mit diesem Kapitel beginnen, könnte Sie ein Blick in den
-Abschnitt @ref{Contexts and engravers} interessieren, dann
+Abschnitt @ref{Kontexte und Engraver} interessieren, dann
 Kontexte und Engraver sowie die Eigenschaften, die mit ihnen 
 verknüpft sind, sind die Voraussetzung, um die Funktionsweise
 von Optimierungen verstehen zu können.
 
 
-@node Objects and interfaces
-@subsection Objects and interfaces
+@node Objekte und Schnittstellen
+@subsection Objekte und Schnittstellen
+@translationof Objects and interfaces
 
 @cindex Objekte
 @cindex Grobs
@@ -135,8 +139,9 @@ Dies waren die Hauptbegriffe, die in diesem Kapitel zur Anwendung
 kommen sollen.
 
 
-@node Naming conventions of objects and properties
-@subsection Naming conventions of objects and properties
+@node Regeln zur Benennung von Objekten und Eigenschaften
+@subsection Regeln zur Benennung von Objekten und Eigenschaften
+@translationof Naming conventions of objects and properties
 
 @cindex Benennungskonventionen für Objekte
 @cindex Benennungskonventionen für Eigenschaften
@@ -146,7 +151,7 @@ kommen sollen.
 
 Es wurden schon früher einige Regeln zur Benennung von
 Objekten vorgestellt, siehe
-@ref{Contexts and engravers}. Hier eine Referenzliste der
+@ref{Kontexte und Engraver}. Hier eine Referenzliste der
 häufigsten Objekt- und Eigenschaftsbezeichnungen mit 
 den Regeln für ihre Bezeichnung und 
 illustrierenden echten Bezeichnungen. Es wurde @qq{A}
@@ -186,8 +191,9 @@ für ein Objekt es sich handelt, um den entsprechenden
 Befehl einsetzen zu können.
 
 
-@node Tweaking methods
-@subsection Tweaking methods
+@node Optimierungsmethoden
+@subsection Optimierungsmethoden
+@translationof Tweaking methods
 
 @cindex override-Befehl
 @funindex \override
@@ -200,8 +206,7 @@ und @code{\with} bekannt gemacht, mit welchen
 Eigenschaften von @strong{Kontexten} verändert
 und @strong{Engraver} entfernt oder hinzugefügt 
 werden können. Siehe dazu 
-@ref{Modifying context properties} und @ref{Adding
-and removing engravers}. Jetzt wollen wir uns weitere
+@ref{Kontexteigenschaften verändern} und @ref{Engraver hinzufügen und entfernen}. Jetzt wollen wir uns weitere
 wichtige Befehle anschauen.
 
 Der Befehl, um die Eigenschaften von @strong{Layout-Objekten}
@@ -335,7 +340,7 @@ Es gibt eine andere Form des @code{override}-Befehls,
 @code{\overrideProperty} (überschreibe Eigenschaft), 
 welcher ab und zu benötigt wird. Es wird hier nur der
 Vollständigkeit halber erwähnt, sein Einsatz wird demonstriert
-in @ruser{Difficult tweaks}.
+in @ruser{Schwierige Korrekturen}.
 @c Maybe explain in a later iteration  -td
 
 
@@ -496,20 +501,22 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 
 @seealso
 Notationsreferenz:
-@ruser{The tweak command}.
+@ruser{Der tweak-Befehl}.
 
 
-@node The Internals Reference manual
-@section The Internals Reference manual
+@node Die Referenz der Programminterna
+@section Die Referenz der Programminterna
+@translationof The Internals Reference manual
 
 @menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
+* Eigenschaften von Layoutobjekten::
+* Eigenschaften, die Schnittstellen besitzen können::
+* Typen von Eigenschaften::
 @end menu
 
-@node Properties of layout objects
-@subsection Properties of layout objects
+@node Eigenschaften von Layoutobjekten
+@subsection Eigenschaften von Layoutobjekten
+@translationof Properties of layout objects
 
 @cindex Eigenschaften von Layout-Objekten
 @cindex Eigenschaften von Grobs
@@ -689,7 +696,7 @@ eigenen Befehle zu konstruieren -- wenn Sie auch noch etwas
 erhalten.
 
 
-@subheading Finding the context
+@subheading Den Kontext finden
 
 @cindex Kontext, Finden und identifizieren
 
@@ -713,7 +720,7 @@ definiert ist, dass wir Noten eingeben, kann er an dieser Stelle
 auch weggelassen werden.
 
 
-@subheading Overriding once only
+@subheading Nur einmal mit \override verändern
 
 @cindex Override nur einmal
 @cindex once override
@@ -758,7 +765,7 @@ Der @code{\once}-Befehl kann übrigens auch vor einem @code{\set}-Befehl
 eingesetzt werden.
 
 
-@subheading Reverting
+@subheading Rückgängig machen
 
 @cindex Revert
 @cindex Rückgängig machen
@@ -837,8 +844,9 @@ zu geben, die relevante Information dort zu finden. Die Beispiele werden
 Schritt für Schritt immer weniger Erklärungen beinhalten.
 
 
-@node Properties found in interfaces
-@subsection Properties found in interfaces
+@node Eigenschaften, die Schnittstellen besitzen können
+@subsection Eigenschaften, die Schnittstellen besitzen können
+@translationof Properties found in interfaces
 
 @cindex Interface-Eigenschaften
 @cindex Eigenschaften von Interfaces
@@ -912,7 +920,7 @@ die an Eigenschaften übergeben werden können, wie
 Zeichenketten, die immer mit Anführungszeichen, also
 als @code{"Zeichenkette"} auftreten. Für weitere
 Einzelheiten zu Zeichenketten und Werten, siehe 
-@ref{Scheme tutorial}.
+@ref{Scheme-Übung}.
 
 Gut, der @code{\override}-Befehl, mit dem der Gesangstext
 kursiv gesetzt wird, lautet:
@@ -949,7 +957,7 @@ bezieht, etwa so:
 Jetzt wird der Text kursiv gesetzt.
 
 
-@subheading Specifying the context in lyric mode
+@subheading Den Kontext im Liedtextmodus bestimmen
 
 
 @cindex Kontext im Gesangstextmodus angeben
@@ -983,8 +991,9 @@ Gesangstexten müssen Leerzeichen um Punkte zwischen
 Kontext- und Objektbezeichnungen gesetzt werden.}
 
 
-@node Types of properties
-@subsection Types of properties
+@node Typen von Eigenschaften
+@subsection Typen von Eigenschaften
+@translationof Types of properties
 
 @cindex Eigenschaftsarten
 
@@ -1053,25 +1062,27 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
 
 
 @seealso
-Handbuch zum Lernen: @ref{Scheme tutorial}.
+Handbuch zum Lernen: @ref{Scheme-Übung}.
 
 
-@node Appearance of objects
-@section Appearance of objects
+@node Erscheinung von Objekten
+@section Erscheinung von Objekten
+@translationof Appearance of objects
 
 In diesem Abschnitt wollen wir zeigen, wie die Kenntnisse der
 vorigen Abschnitte in der Praxis angewandt werden können,
 um das Aussehen des Musiksatzes zu beeinflussen.
 
 @menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
+* Sichtbarkeit und Farbe von Objekten::
+* Größe von Objekten::
+* Länge und Dicke von Objekten::
 @end menu
 
 
-@node Visibility and color of objects
-@subsection Visibility and color of objects
+@node Sichtbarkeit und Farbe von Objekten
+@subsection Sichtbarkeit und Farbe von Objekten
+@translationof Visibility and color of objects
 
 In Unterrichtsmaterial für den Musikunterricht wird oft
 eine Partitur dargestellt, in der bestimmte Notationselemente
@@ -1084,7 +1095,7 @@ eingefügt.  Wie verhindern wir, dass sie ausgegeben werden?
 Bevor wir uns hieran machen, sei daran erinnert, dass
 Objekteigenschaften in sogenannten @emph{Schnittstellen}
 -- engl. interface -- gruppiert sind, siehe auch
-@ref{Properties found in interfaces}.  Das dient ganz einfach
+@ref{Eigenschaften, die Schnittstellen besitzen können}.  Das dient ganz einfach
 dazu, die Eigenschaften zusammenzufassen, die üblicherweise
 zusammen benötigt werden -- wenn eine davon für ein Objekt
 gilt, dann auch die anderen.  Manche Objekte brauchen die
@@ -1096,7 +1107,7 @@ können betrachtet werden, indem die Seite der entsprechenden
 Schnittstelle geöffnet wird.
 
 Zu Information, wie man Eigenschaften von Grobs findet, siehe
-@ref{Properties of layout objects}.  Wir benutzen also jetzt
+@ref{Eigenschaften von Layoutobjekten}.  Wir benutzen also jetzt
 die selbe Methode um in der IR das Layout-Objekt zu finden,
 dass für die Tatklinien zuständig ist. Über die Überschriften
 @emph{Backend} und @emph{All layout objects} kommen
@@ -1112,7 +1123,7 @@ natürlich auch die Sichtbarkeit von vielen anderen Objekten)
 beeinflussen.  Schauen wir uns diese Eigenschaften eine
 nach der anderen an.
 
-@subheading stencil
+@subheading stencil (Matrize)
 
 @cindex Stencil-Eigenschaft
 @cindex Matrizen-Eigenschaft
@@ -1179,7 +1190,7 @@ die @code{stencil}-Eigenschaft des @code{NoteHead}-Objekts auf
 @code{#f} gesetzt wird.
 
 
-@subheading break-visibility
+@subheading break-visibility (unsichtbar machen)
 
 @cindex break-visibility-Eigenschaft
 @cindex Unsichtbar machen (break-visibility)
@@ -1215,7 +1226,7 @@ den Wert in einem @code{\override}-Befehl anzuführen.
 Auch auf diesem Weg gelingt es, die Taktlinien unsichtbar zu machen.
 
 
-@subheading transparent
+@subheading transparent (durchsichtig)
 
 @cindex transparent-Eigenschaft
 @cindex Durchsichtig machen (transparent)
@@ -1275,7 +1286,7 @@ entfernt, während man mit @code{transparent} ein Objekt
 unsichtbar machen kann, es aber an seinem Platz gelassen wird.
 
 
-@subheading color
+@subheading color (Farbe)
 
 @cindex color-Eigenschaft
 @cindex Farb-Eigenschaft
@@ -1286,7 +1297,7 @@ Taktlinie übermalt manchmal die Taktlinienen, wo sie sie kreuzt,
 manchmal aber auch nicht.  Sie können in den Beispielen unten
 sehen, dass das nicht vorhersagbar ist.  Die Einzelheiten dazu, warum
 das passiert und wie sie es kontrollieren können, werden dargestellt
-in @ruser{Painting objects white}.  Im Moment wollen wir lernen, wie
+in @ruser{Objekte weiß malen}.  Im Moment wollen wir lernen, wie
 man mit Farbe arbeitet, akzeptieren Sie bitte an dieser Stelle die
 Beschränkung.)
 
@@ -1296,7 +1307,7 @@ sein soll.  Die Liste, die benötigt wird, ist eine Liste mit Werten in
 internen Einheiten, aber damit Sie nicht wissen müssen, wie diese
 aussehen, gibt es mehrere Wege, Farben anzugeben.  Der erste
 Weg ist es, @qq{normale} Farben zu benutzen, wie sie in der
-Tabelle in @ruser{List of colors} aufgelistet sind.  Beachten Sie,
+Tabelle in @ruser{Liste der Farben} aufgelistet sind.  Beachten Sie,
 dass die Bezeichnungen auf English sind.  Um die Taktlinien auf
 weiß zu setzen, können Sie schreiben:
 
@@ -1330,7 +1341,7 @@ anderen Funktionen dieser Liste abändern.
 
 Die zweite Art die Farbe zu ändern geschieht, indem die Liste
 der X11-Farbbezeichnungen einzusetzen, siehe die zweite Liste
-in @ruser{List of colors}.  Diesen Farben muss jedoch eine
+in @ruser{Liste der Farben}.  Diesen Farben muss jedoch eine
 andere Funktion vorangestellt werden, die die X11-Farbbezeichnungen
 in interne Werte konvertiert: 
 @code{x11-color}.  Das geschieht wie folgt:
@@ -1425,15 +1436,16 @@ IR finden Sie Information, in welchem Kontext sich der
 Engraver normalerweise befindet.
 
 
-@node Size of objects
-@subsection Size of objects
+@node Größe von Objekten
+@subsection Größe von Objekten
+@translationof Size of objects
 
 @cindex Veränderung von Objektgrößen
 @cindex Objektgrößen, verändern
 @cindex Größen von Objekten verändern
 
 Als Startpunkt wollen wir wieder ein früheres Beispiel
-wählen, siehe @ref{Nesting music expressions}. Hier wurde
+wählen, siehe @ref{Musikalische Ausdrücke ineinander verschachteln}. Hier wurde
 ein neues Notensystem erstellt, wie man es für ein @rglos{ossia}
 braucht.
 
@@ -1637,8 +1649,9 @@ Sie müssen auch proportional zur Schriftart verkleinert
 werden.  Der nächste Abschnitt behandelt diese Anpassung.
 
 
-@node Length and thickness of objects
-@subsection Length and thickness of objects
+@node Länge und Dicke von Objekten
+@subsection Länge und Dicke von Objekten
+@translationof Length and thickness of objects
 
 @cindex Entfernungen
 @cindex Dicke
@@ -1726,23 +1739,25 @@ Layout-Objektes angepasst werden muss, kann man das erreichen,
 indem die entsprechende @code{thickness}-Eigenschaft des
 Objekts mit @code{\override} verändert wird.  Ein Beispiel,
 wie man die Dicke von Bögen ändert, wurde schon gezeigt,
-siehe @ref{Properties of layout objects}.  Die Dicke aller
+siehe @ref{Eigenschaften von Layoutobjekten}.  Die Dicke aller
 gezeichneten Objekte (die also nicht aus einer Schriftart 
 stammen) können auf gleiche Weise geändert werden.
 
 
-@node Placement of objects
-@section Placement of objects
+@node Positionierung von Objekten
+@section Positionierung von Objekten
+@translationof Placement of objects
 
 @menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
+* Automatisches Verhalten::
+* within-staff (Objekte innerhalb des Notensystems)::
+* Objekte außerhalb des Notensystems::
 @end menu
 
 
-@node Automatic behavior
-@subsection Automatic behavior
+@node Automatisches Verhalten
+@subsection Automatisches Verhalten
+@translationof Automatic behavior
 
 @cindex within-staff-Objekte
 @cindex outside-staff-Objekte
@@ -1819,8 +1834,9 @@ Im nächsten Beispiel sehen Sie, wie Noten auf zwei Systemen
 @end lilypond
 
 
-@node Within-staff objects
-@subsection Within-staff objects
+@node within-staff (Objekte innerhalb des Notensystems)
+@subsection within-staff (Objekte innerhalb des Notensystems)
+@translationof Within-staff objects
 
 Es wurde schon gezeigt, wie die Befehle @code{\voiceXXX} die Richtung
 von Bögen, Fingersatz und allen anderen Objekten beeinflusst,
@@ -1934,7 +1950,7 @@ Befehl, gefolgt von dem entsprechenden neutralisierenden
 @code{xxxNeutral}-Befehl nach der Note.
 
 
-@subheading Fingering
+@subheading Fingersatz
 
 @cindex Fingersatz, Positionierung
 @cindex Fingersatz, Akkorde
@@ -2086,8 +2102,9 @@ er ist @code{-5}, versuchen wir es also mit @code{-7}.
 
 
 
-@node Outside-staff objects
-@subsection Outside-staff objects
+@node Objekte außerhalb des Notensystems
+@subsection Objekte außerhalb des Notensystems
+@translationof Outside-staff objects
 
 Objekte außerhalb des Notensystems werden automatisch gesetzt,
 um Kollisionen zu vermeiden.  Objekten mit einem geringeren
@@ -2176,7 +2193,7 @@ erstreckt.  Der Strecker beginnt mit dem
 @code{\startTextSpan}-Befehl und endet mit dem
 @code{\stopTextSpan}-Befehl, und das Format des Textes
 wird mit dem @code{\override TextSpanner}-Befehl bestimmt.
-Mehr Einzelheiten siehe @ruser{Text spanners}.
+Mehr Einzelheiten siehe @ruser{Text mit Verbindungslinien}.
 
 Im Beispiel wird auch gezeigt, wie Oktavierungsklammern
 (Ottava) erstellt werden.
@@ -2282,7 +2299,7 @@ benutzt werden, die vertikale Plazierung von individuellen Objekten
 zu kontrollieren, auch wenn das Ergebnis nicht immer optimal
 ist.  Im nächsten Beispiel soll @qq{Text3} oberhalb von @qq{Text4}
 gesetzt werden, das Beispiel wurde behandelt in
-@ref{Automatic behavior}.  Der Wert der Priorität muss also für
+@ref{Automatisches Verhalten}.  Der Wert der Priorität muss also für
 die Eigenschaft @code{TextScript} entweder in der IR oder in der
 Tabelle oben festgestellt werden und dann die Priorität für
 @qq{Text3} höher eingestellt werden:
@@ -2306,7 +2323,7 @@ Dazu muss offensichtlich horizontal etwas Platz gemacht
 werden.  Das kann erreicht werden mit dem
 @code{textLengthOn}-(Textlänge an)-Befehl.
 
-@subheading \textLengthOn
+@subheading \textLengthOn (Textlänge berücksichtigen)
 
 @cindex Noten, durch Text gespreizt
 @funindex \textLengthOn
@@ -2369,7 +2386,7 @@ c''2
 @end lilypond
 
 
-@subheading Dynamics
+@subheading Dynamik
 
 @cindex Verändern der Positionierung von Dynamikzeichen
 @cindex Dynamikzeichen: Positionierung verändern
@@ -2414,7 +2431,7 @@ müssen also unsere eigenen Befehle mit @code{\override}
 konstruieren.
 
 
-@subheading Grob sizing
+@subheading Verändern der Größe von grobs
 
 @cindex Grob, Größenveränderung
 @cindex Größenveränderung von grobs
@@ -2493,17 +2510,19 @@ die wir uns im folgenden Abschnitt genauer anschauen werden.
 
 
 
-@node Collisions of objects
-@section Collisions of objects
+@node Kollision von Objekten
+@section Kollision von Objekten
+@translationof Collisions of objects
 
 @menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
+* Verschieben von Objekten::
+* Überlappende Notation in Ordnung bringen::
+* Beispiele aus dem Leben::
 @end menu
 
-@node Moving objects
-@subsection Moving objects
+@node Verschieben von Objekten
+@subsection Verschieben von Objekten
+@translationof Moving objects
 
 @cindex Verschieben von überschneidenden Objekten
 @cindex Verschieben von Zusammenstößen
@@ -2527,7 +2546,7 @@ anwenden:
 Die @strong{Richtung} eines der überlappenden Objekte kann 
 geändert werden, indem die vordefinierten Befehle für
 Innersystemobjekte verwendet werden, wie beschrieben in
-@ref{Within-staff objects}.  Hälse, Bögen, Balken, Dynamik-Zeichen
+@ref{within-staff (Objekte innerhalb des Notensystems)}.  Hälse, Bögen, Balken, Dynamik-Zeichen
 und Triolen können auf diese Weise einfach umgeordnet
 werden.  Beschränkt ist diese Methode insofern, als es nur
 zwei Möglichkeiten zur Veränderung gibt: oben oder unten.
@@ -2548,7 +2567,7 @@ gehören:
 @code{direction} (Richtung)
 
 Das wurde schon detailliert behandelt, siehe
-@ref{Within-staff objects}.
+@ref{within-staff (Objekte innerhalb des Notensystems)}.
 
 @item
 @code{padding}, @code{left-padding},
@@ -2690,7 +2709,7 @@ macht es möglich, eine Notenkolumne zu verschieben, dabei gilt als
 Einheit die Breite einer Kolumne, also die Breite des Notenkopfes der
 ersten Stimme.  Diese Eigenschaft kann in Situationen benutzt werden,
 in denen die normalen @code{\shiftOn}-Befehle (siehe auch
-@ref{Explicitly instantiating voices}) das Problem nicht beseitigen.
+@ref{Stimmen explizit beginnen}) das Problem nicht beseitigen.
 Diese Eigenschaft ist besser in solchen Fällen zu verwenden als die
 @code{extra-offset}-Eigenschaft, weil man die richtige Entfernung nicht
 in Notenlinienabständen ausrechnen muss.  Wenn eine Note in eine
@@ -2772,15 +2791,16 @@ welche Eigenschaften benutzt werden können, um es zu verschieben.
 @end multitable
 
 
-@node Fixing overlapping notation
-@subsection Fixing overlapping notation
+@node Überlappende Notation in Ordnung bringen
+@subsection Überlappende Notation in Ordnung bringen
+@translationof Fixing overlapping notation
 
 Hier soll nun gezeigt werden, wie die Eigenschaften, die im
 vorigen Abschnitt vorgestellt wurden, bei der Problemlösung
 mit sich überschneidenden Notationselementen eingesetzt
 werden können.
 
-@subheading padding property
+@subheading padding (Fülleigenschafte)
 
 @cindex padding (Verschiebungs-Eigenschaft)
 @cindex Überschneidende Notation korrigieren
@@ -2819,7 +2839,7 @@ Im zweiten Beispiel können Sie sehen, wie wichtig es ist den richtigen
 Kontext anzugeben.  Weil das @code{MetronomeMark}-Objekt
 sich im @code{Score}-Kontext befindet, werden Eigenschaftsänderungen
 im @code{Voice}-Kontext einfach ignoriert.  Für mehr Einzelheiten siehe
-@ruser{Modifying properties}.
+@ruser{Eignschaften verändern}.
 
 Wenn die @code{padding}-Eigenschaft eines Objektes erhöht wird, das
 sich in einem Stapel von Objekten befindet, die nach ihrer
@@ -2827,7 +2847,7 @@ Außersystempriorität (@code{outside-staff-priority}) positioniert werden,
 werden das Objekt und alle,  die sich außerhalb davon befinden,
 entsprechend verschoben.
 
-@subheading left-padding and right-padding
+@subheading left-padding (Verschieben nach rechts) und right-padding (Verschieben nach links)
 
 @cindex left-padding-Eigenschaft (Verschiebung nach links)
 @cindex Verschiebung nach rechts oder links
@@ -2887,7 +2907,7 @@ von einem B enthält.  Diese werden dann mit @code{right-padding}
 weiter nach rechts verschoben.
 
 
-@subheading staff-padding property
+@subheading staff-padding (Systemfüllungseigenschaft)
 
 @cindex staff-padding-Eigenschaft
 @cindex Objekte an der Grundlinie ausrichten
@@ -2919,7 +2939,7 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 
-@subheading self-alignment-X property
+@subheading self-alignment-X (Selbstausrichtung-X-Eigenschaft)
 
 @cindex self-alignment-X-Eigenschaft
 
@@ -2938,7 +2958,7 @@ Referenzpunkt der abhängigen Note angeordnet wird:
 @end lilypond
 
 
-@subheading staff-position property
+@subheading staff-position (Position innerhalb des Systems)
 
 @cindex staff-position-Eigenschaft
 @cindex Notensystem-Position-Eigenschaft
@@ -2985,7 +3005,7 @@ Das ist besser, als etwa @code{extra-offset} zu benutzen, denn
 in unserem Fall wird die Hilfslinie der Pause automatisch gesetzt.
 
 
-@subheading extra-offset property
+@subheading extra-offset (Genaues Positionieren)
 
 @cindex extra-offset-Eigenschaft
 @cindex Zusätzlicher Abstand, Positionierung
@@ -3011,7 +3031,7 @@ f-5
 @end lilypond
 
 
-@subheading positions property
+@subheading Ausrichtungseigenschaft
 
 @cindex positions-Eigenschaft
 @cindex Kontrolle über Triolen, Bögen und Balken manuell
@@ -3097,7 +3117,7 @@ Hier ist zu beobachten, dass die Veränderung sich auch auf die
 weiteren Achtelbalken der ersten Stimme auwirkt, während sie keine
 Auswirkung auf die Balken der zweiten Stimme hat.
 
-@subheading force-hshift property
+@subheading force-hshift (vertikale Verschiebunseigenschaft)
 
 @cindex force-hshift-Eigenschaft
 @cindex Vertikale Verschiebung erzwingen
@@ -3107,7 +3127,7 @@ Auswirkung auf die Balken der zweiten Stimme hat.
 
 An diesem Punkt können wir den letzten Feinschliff an unserem
 Chopin-Beispiel vornhemen, das wir behandelt haben in
-@ref{I'm hearing Voices}.  Wir hatten es in folgende Form
+@ref{Ich höre Stimmen}.  Wir hatten es in folgende Form
 gebracht:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3160,8 +3180,9 @@ Hier das Endergebnis:
 @end lilypond
 
 
-@node Real music example
-@subsection Real music example
+@node Beispiele aus dem Leben
+@subsection Beispiele aus dem Leben
+@translationof Real music example
 
 Das Kapitel zu Optimierungen soll mit einem komplizierten Beispiel
 beendet werden, in dem verschiedene Optimierungen vorgenommen
@@ -3238,7 +3259,7 @@ Fis, die auch mit einer Achtelnote verschmolzen ist.  Alles
 andere ist eine einzige Stimme, es ist also am einfachsten, die
 Stimmen nur zeitweise zu erstellen, wenn sie auftreten.  Wenn
 Sie vergessen haben, wie man das anstellt, schauen Sie sich
-nochmal den Abschnitt @ref{I'm hearing Voices} an.  Wir
+nochmal den Abschnitt @ref{Ich höre Stimmen} an.  Wir
 wollen anfange, indem wir die Noten in zwei Variablen
 notieren und dann die Systemstruktur in einer
 @code{\score}-Umgebung erstellen.  Das ist, was LilyPond
@@ -3350,7 +3371,7 @@ Befehl @code{\bar "||"} erstellt.  Das ist einfach.  Als nächstes
 muss der Zusammenstoß des Bindebogens mit der Taktartbezeichnung
 gelöst werden.  Das geht am besten, indem wir den Bogen nach
 oben verschieben.  Wie man Objekte verschiebt wurde schon
-behandelt in @ref{Moving objects}, wo stand, dass Objekte
+behandelt in @ref{Verschieben von Objekten}, wo stand, dass Objekte
 die
 relativ zum System positioniert werden, verschoben werden 
 können, indem ihre @code{staff-position}-Eigenschaft
@@ -3415,7 +3436,7 @@ verschmolzen?  Hier nehmen wir wieder die Notationsreferenz
 zu Hilfe.  Die Suche nach @qq{Verschmelzen} (engl. merge)
 im Index führt uns zu den Befehlen um Noten mit
 unterschiedlichen Köpfen und unterschiedlichen Punkten
-zu verschmelzen in @ruser{Collision resolution}.  In unserem
+zu verschmelzen in @ruser{Auflösung von Zusammenstößen}.  In unserem
 Beispiel müssen sowohl unterschiedliche Köpfe also auch
 unterschiedliche Punktierung verschmolzen werden, wir
 brauchen also die Befehle
@@ -3620,19 +3641,21 @@ lhMusic = \relative c' {
 @end lilypond
 
 
-@node Further tweaking
-@section Further tweaking
+@node Weitere Optimierungen
+@section Weitere Optimierungen
+@translationof Further tweaking
 
 @menu
-* Other uses for tweaks::
-* Using variables for tweaks::
-* Other sources of information::
-* Avoiding tweaks with slower processing::
-* Advanced tweaks with Scheme::
+* Andere Benutzung von Optimierungen::
+* Variablen für Optimierungen einsetzen::
+* Mehr Information::
+* Vermeiden von Optimierungen durch langsamere Übersetzung::
+* Fortgeschrittene Optimierungen mit Scheme::
 @end menu
 
-@node Other uses for tweaks
-@subsection Other uses for tweaks
+@node Andere Benutzung von Optimierungen
+@subsection Andere Benutzung von Optimierungen
+@translationof Other uses for tweaks
 
 @cindex Transparente Objekte
 @cindex Entfernen von Objekten
@@ -3645,7 +3668,7 @@ lhMusic = \relative c' {
 @cindex Noten zwischen Stimmen überbinden
 @cindex Überbinden von Noten zwischen Stimmen
 
-@subheading Tying notes across voices
+@subheading Noten zwischen unterschiedlichen Stimmen überbinden
 
 Das nächste Beispiel zeigt, wie man Noten von verschiedenen
 Stimmen miteinander verknüpfen kann, indem man Bindebögen
@@ -3698,7 +3721,7 @@ gesetzt wird:
 @end lilypond
 
 
-@subheading Simulating a fermata in MIDI
+@subheading Eine Fermate in MIDI simulieren
 
 @cindex stencil-Eigenschaft, Benutzung
 @cindex Fermate, Benutzung in MIDI
@@ -3773,8 +3796,9 @@ das im zweiten Beispiel, in dem der @code{stencil} entfernt
 wurde, nicht passiert.
 
 
-@node Using variables for tweaks
-@subsection Using variables for tweaks
+@node Variablen für Optimierungen einsetzen
+@subsection Variablen für Optimierungen einsetzen
+@translationof Using variables for tweaks
 
 @cindex Variablen, Benutzung zur Optimierung
 @cindex Optimierung mit Variablen
@@ -3860,8 +3884,9 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
 @end lilypond
 
 
-@node Other sources of information
-@subsection Other sources of information
+@node Mehr Information
+@subsection Mehr Information
+@translationof Other sources of information
 
 Die Programmreferenz enthält sehr viel Information über LilyPond, aber 
 noch mehr Information findet sich in den internen 
@@ -3965,7 +3990,7 @@ im Moment außerhalb des Rahmens dieses Handbuchs, denn
 sie erfordern einige Kenntnis der Scheme-Sprache.  Die Warnung
 ist hier angebracht, dass des ein gutes technisches Verständnis
 oder sehr viel Zeit braucht, um Scheme und diese
-Dateien zu verstehen (siehe auch @ref{Scheme tutorial}).
+Dateien zu verstehen (siehe auch @ref{Scheme-Übung}).
 
 Wenn Sie sich mit Scheme auskennen, sind hier mögliche
 interessante Dateien:
@@ -3990,8 +4015,9 @@ interessante Dateien:
 @end multitable
 
 
-@node Avoiding tweaks with slower processing
-@subsection Avoiding tweaks with slower processing
+@node Vermeiden von Optimierungen durch langsamere Übersetzung
+@subsection Vermeiden von Optimierungen durch langsamere Übersetzung
+@translationof Avoiding tweaks with slower processing
 
 LilyPond kann einige zusätzliche Tests durchführen, während 
 die Noten gesetzt werden.  Dadurch braucht das Programm länger, 
@@ -4013,8 +4039,9 @@ dass sie sich innerhalb der Ränder befindet.
 @end example
 
 
-@node Advanced tweaks with Scheme
-@subsection Advanced tweaks with Scheme
+@node Fortgeschrittene Optimierungen mit Scheme
+@subsection Fortgeschrittene Optimierungen mit Scheme
+@translationof Advanced tweaks with Scheme
 
 Auch wenn viele Sachen mit @code{\override} und @code{\tweak}
 möglich sind, gibt es eine sehr viel mächtigere Möglichkeit, die
@@ -4023,7 +4050,7 @@ zu beeinflussen.  Code, der in der Scheme-Programmiersprache
 geschrieben ist, kann direkt in die interne Satzmaschine von LilyPond
 eingefügt werden.  Natürlich brauchen Sie dazu wenigstens ein
 grundlegendes Verständnis von Scheme.  Eine Einleitung finden
-Sie in der @ref{Scheme tutorial}.
+Sie in der @ref{Scheme-Übung}.
 
 Zur Illustration der vielen Möglichkeiten soll gezeigt werden, dass eine
 Eigenschaft nicht nur auf eine Konstante, sondern auch auf eine
@@ -4069,4 +4096,4 @@ zu ihrer Position innerhalb der Tonleiter gesetzt.
 @end lilypond
 
 Weiter Beispiele, die die Benutzung dieser programmierbaren
-Schnittstelle zeigen, finden sich in @ref{Tweaking with Scheme}.
+Schnittstelle zeigen, finden sich in @ref{Optimierungen mit Scheme}.

@@ -28,6 +28,7 @@
 @ifnottex
 @node Top
 @top GNU LilyPond -- Handbuch zum Lernen
+@translationof Top
 @end ifnottex
 
 @ifhtml
@@ -158,7 +159,7 @@ Free Documentation License''.
 @ifnottex
 Das ist des Handbuch zum Erlernen von GNU LilyPond Version @version{}.
 Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
-dieses Handbuchs siehe @ref{About the documentation}.
+dieses Handbuchs siehe @ref{Über die Dokumentation}.
 
 @cindex Internetseite
 @cindex URL
@@ -168,20 +169,20 @@ Mehr Information unter
 finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @menu
-* Preface::                        Vorwort.
-* Introduction::                   Was, warum und wie.
-* Tutorial::                       Eine Übung zur Einführung.
-* Fundamental concepts::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.
-* Tweaking output::                Einleitung in die Beeinflussung des Notenbilds.
-* Working on LilyPond projects::   Benutzung des Programms im wirklichen Leben.
+* Vorwort::                        Vorwort.
+* Einleitung::                   Was, warum und wie.
+* Übung::                       Eine Übung zur Einführung.
+* Grundbegriffe::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.
+* Die Ausgabe verändern::                Einleitung in die Beeinflussung des Notenbilds.
+* An LilyPond-Projekten arbeiten::   Benutzung des Programms im wirklichen Leben.
 
 
 Anhänge
 
-* Templates::                      Funktionierende Vorlagen.
-* Scheme tutorial::                Programmierung innerhalb von LilyPond.
+* Vorlagen::                      Funktionierende Vorlagen.
+* Scheme-Übung::                Programmierung innerhalb von LilyPond.
 * GNU Free Documentation License:: Lizenz dieses Handbuchs.
-* LilyPond index::
+* LilyPond-Index::
 @end menu
 @end ifnottex
 
@@ -199,8 +200,9 @@ Anhänge
 @include learning/scheme-tutorial.itely
 @include fdl.itexi
 
-@node LilyPond index
-@appendix LilyPond index
+@node LilyPond-Index
+@appendix LilyPond-Index
+@translationof LilyPond index
 
 @printindex cp
 

@@ -2,21 +2,16 @@ $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%.te
 	mkdir -p $(dir $@)
 	mkdir -p $(outdir)/$*
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$(outdir)/$* --prefix=index --split=section $(TEXI2HTML_INIT) $<
-	find $(outdir)/$* -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | xargs $(buildscript-dir)/html-gettext $(ISOLANG)
 	find $(outdir)/$* -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link --prepend-suffix .$(ISOLANG) hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
 
 
 $(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
-	$(buildscript-dir)/html-gettext $(ISOLANG) $@
 
 
-$(outdir)/%.pdftexi: $(outdir)/%.texi
-	$(buildscript-dir)/texi-gettext $(ISOLANG) $<
-
-$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.pdftexi
+$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.texi
 	cd $(outdir) && \
-	texi2pdf $(TEXI2PDF_FLAGS) $(TEXINFO_PAPERSIZE_OPTION) $*.pdftexi && \
+	texi2pdf $(TEXI2PDF_FLAGS) $(TEXINFO_PAPERSIZE_OPTION) $*.texi && \
 	mkdir -p $(dir $@) && mv $*.pdf $@
 
 $(outdir)/version.%: $(top-src-dir)/VERSION

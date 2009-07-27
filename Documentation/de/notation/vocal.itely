@@ -8,8 +8,9 @@
 
 @c \version "2.12.0"
 
-@node Vocal music
-@section Vocal music
+@node Notation von Gesang
+@section Notation von Gesang
+@translationof Vocal music
 
 @c TODO: inspirational headword
 
@@ -17,32 +18,34 @@ Dieser Abschnitt erklärt, wie Vokalmusik gesetzt werden kann und
 die Silben von Gesangstext an den Noten ausgerichtet werden.
 
 @menu
-* Common notation for vocal music::
-* Entering lyrics::
-* Aligning lyrics to a melody::
-* Specific uses of lyrics::
-* Stanzas::
+* Übliche Notation für Vokalmusik::
+* Eingabe von Text::
+* Text an einer Melodie ausrichten::
+* Besonderheiten der Gesangtextnotation::
+* Strophen::
 @end menu
 
 
-@node Common notation for vocal music
-@subsection Common notation for vocal music
+@node Übliche Notation für Vokalmusik
+@subsection Übliche Notation für Vokalmusik
+@translationof Common notation for vocal music
 
 Dieser Abschnitt behandelt allgemeine Fragen der Notation
 von Vokalmusik und einige spezifische Vokalmusikstile.
 
 @menu
-* References for vocal music and lyrics::
-* Opera::
-* Song books::
-* Spoken music::
-* Chants::
-* Ancient vocal music::
+* Referenz für Vokalmusik und Gesangstext::
+* Oper::
+* Liederhefte::
+* Gesprochene Musik::
+* Hymnen::
+* Alte Vokalmusik::
 @end menu
 
 
-@node References for vocal music and lyrics
-@unnumberedsubsubsec References for vocal music and lyrics
+@node Referenz für Vokalmusik und Gesangstext
+@unnumberedsubsubsec Referenz für Vokalmusik und Gesangstext
+@translationof References for vocal music and lyrics
 
 @c TODO: split this section in two parts? -vv
 
@@ -53,34 +56,35 @@ in anderen Abschnitten befinden:
 @itemize
 @item
 Die meisten Vokalmusikstile benutzen Text für den Gesangstext.  Eine
-Einleitung hierzu findet sich in @rlearning{Setting simple songs}.
+Einleitung hierzu findet sich in @rlearning{Einfache Lieder setzen}.
 
 @item
 Vokalmusik braucht oft die Benutzung von Textbeschriftung (dem
 @code{markup}-Modus) für den Gesangstext oder andere Textelemente
 (Namen von Figuren usw.).  Die entsprechende Syntax ist beschrieben in
-@ref{Text markup introduction}.
+@ref{Textbeschriftung (Einleitung)}.
 
 @item
 Liedblätter können erstellt werden, indem eine Gesangsstimme mit Akkorden
-kombiniert wird, Einzelheiten finden sich in @ref{Chord notation}.
+kombiniert wird, Einzelheiten finden sich in @ref{Notation von Akkorden}.
 
 @item
 @q{Ambitus} können zu Beginn der Stimmen hinzugefügt werden, dies findet
 sich erklärt in
-@ref{Ambitus}.
+@ref{Tonumfang}.
 
 @item
 Gesangsstimmen können auch mit traditionellen Schlüsseln gesetzt werden,
-siehe @ref{Clef}.
+siehe @ref{Notenschlüssel}.
 
 @item
-Alte Vokalmusik ist unterstützt, Einzelheiten hierzu in @ref{Ancient notation}.
+Alte Vokalmusik ist unterstützt, Einzelheiten hierzu in @ref{Notation von alter Musik}.
 @end itemize
 
 
-@node Opera
-@unnumberedsubsubsec Opera
+@node Oper
+@unnumberedsubsubsec Oper
+@translationof Opera
 
 @c TODO
 TBC
@@ -88,8 +92,9 @@ TBC
 @c add characters names snippet -vv
 
 
-@node Song books
-@unnumberedsubsubsec Song books
+@node Liederhefte
+@unnumberedsubsubsec Liederhefte
+@translationof Song books
 
 @c TODO
 TBC
@@ -100,11 +105,12 @@ TBC
 
 @seealso
 Notationsreferenz:
-@ref{Chord notation}.
+@ref{Notation von Akkorden}.
 
 
-@node Spoken music
-@unnumberedsubsubsec Spoken music
+@node Gesprochene Musik
+@unnumberedsubsubsec Gesprochene Musik
+@translationof Spoken music
 
 @cindex Parlato
 @cindex Sprechgesang
@@ -112,7 +118,7 @@ Notationsreferenz:
 Effekte wie @qq{Parlato} bzw. @qq{Sprechgesang} erfordern, dass die Noten
 ohne Tonhöhe, aber mit dem notierten Rhythmus gesprochen werden.  Solche
 Noten werden mit einem Kreuz als Notenkopf notiert, siehe hierzu
-@ref{Special note heads}.
+@ref{Besondere Notenköpfe}.
 
 @c TODO add "marking-notes-on-spoken-parts" snippet -vv
 @c add "showing the rhythm of a melody" snip
@@ -121,15 +127,17 @@ Noten werden mit einem Kreuz als Notenkopf notiert, siehe hierzu
 @c add "lyrics independents of notes" ref
 
 
-@node Chants
-@unnumberedsubsubsec Chants
+@node Hymnen
+@unnumberedsubsubsec Hymnen
+@translationof Chants
 
 @c TODO Add text from lsr and -user
 TBC
 
 
-@node Ancient vocal music
-@unnumberedsubsubsec Ancient vocal music
+@node Alte Vokalmusik
+@unnumberedsubsubsec Alte Vokalmusik
+@translationof Ancient vocal music
 
 @c TODO
 TBC
@@ -139,23 +147,25 @@ TBC
 
 @seealso
 Notationsreferenz:
-@ref{Ancient notation}.
+@ref{Notation von alter Musik}.
 
 
-@node Entering lyrics
-@subsection Entering lyrics
+@node Eingabe von Text
+@subsection Eingabe von Text
+@translationof Entering lyrics
 
 @c TODO add one sentence here. -vv
 
 @menu
-* Lyrics explained::
-* Setting simple songs::
-* Working with lyrics and variables::
+* Was ist Gesangtext::
+* Einfache Lieder setzen::
+* Mit Gesangtexten und Bezeichnern arbeiten::
 @end menu
 
 
-@node Lyrics explained
-@unnumberedsubsubsec Lyrics explained
+@node Was ist Gesangtext
+@unnumberedsubsubsec Was ist Gesangtext
+@translationof Lyrics explained
 
 @cindex Gesangstext
 @funindex \lyricmode
@@ -251,13 +261,13 @@ Dieser Bindebogen ist definiert als das Unicode-Zeichen
 @code{U+203F}; es muss deshalb sichergestellt werden,
 dass eine Schriftart benutzt wird (wie etwa DejaVuLGC),
 die dieses Zeichen enthält.  Mehr Information zur
-Schriftartauswahl findet sich in @ref{Fonts}.
+Schriftartauswahl findet sich in @ref{Schriftarten}.
 
 Um Gesangstext mit Akzenten, Umlauten, besonderen Zeichen
 oder anderen Alphabeten
 zu setzen, müssen diese Zeichen direkt in den Text geschrieben
 werden und die Datei als UTF-8 gespeichert werden.  Für weitere
-Information siehe @ref{Text encoding}.
+Information siehe @ref{Zeichenkodierung}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' { e4 f e d e f e2 }
@@ -304,15 +314,16 @@ stropheEins = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 Notationsreferenz:
-@ref{Fonts}.
+@ref{Schriftarten}.
 
 Referenz der Interna:
 @rinternals{LyricText},
 @rinternals{LyricSpace}.
 
 @c FIXME: this title has to be changed (possible confusion with LM) -vv
-@node Setting simple songs
-@unnumberedsubsubsec Setting simple songs
+@node Einfache Lieder setzen
+@unnumberedsubsubsec Einfache Lieder setzen
+@translationof Setting simple songs
 
 @funindex \addlyrics
 
@@ -345,14 +356,15 @@ weitere @code{\addlyrics}-Abschnitte erstellt werden:
 Der Befehl @code{\addlyrics} funktioniert nicht in polyphonen 
 Situationen.  In diesem Fall solte man @code{\lyricsto} in Kombination
 mit @code{\lyricmode} benutzen, wie erklärt in
-@ref{Lyrics explained}.
+@ref{Was ist Gesangtext}.
 
 @c TODO: one additional section may be needed here,
 @c such as "advanced lyric syntax" or whatever -vv
 
 
-@node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
+@node Mit Gesangtexten und Bezeichnern arbeiten
+@unnumberedsubsubsec Mit Gesangtexten und Bezeichnern arbeiten
+@translationof Working with lyrics and variables
 
 @cindex Gesangstext, Variablen
 @cindex Variablen, Gesangstext
@@ -438,8 +450,9 @@ Referenz der Interna:
 @rinternals{Lyrics}.
 
 
-@node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@node Text an einer Melodie ausrichten
+@subsection Text an einer Melodie ausrichten
+@translationof Aligning lyrics to a melody
 
 @funindex \lyricmode
 @funindex \addlyrics
@@ -475,21 +488,22 @@ angehängt werden soll, darf nicht @qq{gestorben} sein, ansonsten
 werden die Silben danach nicht mehr desetzt.  Das kann passieren,
 wenn die Stimme für einige Zeit nichts zu tun hat.   Für Methoden,
 wie der Kontext am Leben gehalten werden kann, siehe
-@ref{Keeping contexts alive}.
+@ref{Kontexte am Leben halten}.
 
 
 @menu
-* Automatic syllable durations::
-* Manual syllable durations::
-* Multiple syllables to one note::
-* Multiple notes to one syllable::
-* Skipping notes::
-* Extenders and hyphens::
-* Lyrics and repeats::
+* Automatische Silbendauer::
+* Manuelle Silbendauer::
+* Mehrere Silben zu einer Note::
+* Mehrere Noten zu einer Silbe::
+* Noten überspringen::
+* Fülllinien und Trennstriche::
+* Gesangtext und Wiederholungen::
 @end menu
 
-@node Automatic syllable durations
-@unnumberedsubsubsec Automatic syllable durations
+@node Automatische Silbendauer
+@unnumberedsubsubsec Automatische Silbendauer
+@translationof Automatic syllable durations
 
 @cindex automatische Ausrichtung von Silben
 @cindex Gesangstext, Ausrichtung
@@ -556,8 +570,9 @@ bedeutet das Gleiche wie
 @end example
 
 
-@node Manual syllable durations
-@unnumberedsubsubsec Manual syllable durations
+@node Manuelle Silbendauer
+@unnumberedsubsubsec Manuelle Silbendauer
+@translationof Manual syllable durations
 
 Gesangstext kann auch ohne @code{\addlyrics} bezw. @code{\lyricsto}
 notiert werden.  In diesem Fall werden die Silben wie Noten notiert
@@ -596,14 +611,15 @@ Hier ein Beispiel, dass die manuale Ausrichtung von Gesangstext zeigt:
 
 @seealso
 Notationsreferenz:
-@ref{Keeping contexts alive}.
+@ref{Kontexte am Leben halten}.
 
 Referenz der Interna:
 @rinternals{Lyrics}.
 
 
-@node Multiple syllables to one note
-@unnumberedsubsubsec Multiple syllables to one note
+@node Mehrere Silben zu einer Note
+@unnumberedsubsubsec Mehrere Silben zu einer Note
+@translationof Multiple syllables to one note
 
 
 @funindex _
@@ -632,8 +648,9 @@ Referenz der Interna:
 @c the new title might be more self-explanatory
 
 
-@node Multiple notes to one syllable
-@unnumberedsubsubsec Multiple notes to one syllable
+@node Mehrere Noten zu einer Silbe
+@unnumberedsubsubsec Mehrere Noten zu einer Silbe
+@translationof Multiple notes to one syllable
 
 @cindex Melisma
 @cindex Phrasierung, Gesang
@@ -699,8 +716,7 @@ werden:
 
 Zusätzlich werden Noten als Melisma erachtet, wenn man sie manuell
 zu einer Balkengruppe verbindet und die automatische Bebalkung
-gleichzeitig ausgeschaltet ist.  Siehe auch @ref{Setting automatic beam
-behavior}.
+gleichzeitig ausgeschaltet ist.  Siehe auch @ref{Einstellung von automatischen Balken}.
 
 @c FIXME: this now links to LM -vv
 
@@ -709,7 +725,7 @@ behavior}.
 
 Ein vollständiges Beispiel für einen SATB-Chorsatz findet
 sich in
-@rlearning{Vocal ensembles}.
+@rlearning{Vokalensemble}.
 
 
 @predefined
@@ -727,8 +743,9 @@ Melismen werde nicht automatisch erkannt, und Fülllinien müssen
 manuell gestzt werden.
 
 
-@node Skipping notes
-@unnumberedsubsubsec Skipping notes
+@node Noten überspringen
+@unnumberedsubsubsec Noten überspringen
+@translationof Skipping notes
 
 Damit der Gesangstext langsamer als die Melodie fortschreitet,
 kann man @code{\skip}-Befehle einfügen.  Jeder @code{\skip}-Befehl
@@ -746,8 +763,9 @@ Gesangstext einsetzt.
 @end lilypond
 
 
-@node Extenders and hyphens
-@unnumberedsubsubsec Extenders and hyphens
+@node Fülllinien und Trennstriche
+@unnumberedsubsubsec Fülllinien und Trennstriche
+@translationof Extenders and hyphens
 
 @cindex Melisma
 @cindex Fülllinie
@@ -787,15 +805,17 @@ Referenz der Interna:
 @rinternals{LyricHyphen}
 
 
-@node Lyrics and repeats
-@unnumberedsubsubsec Lyrics and repeats
+@node Gesangtext und Wiederholungen
+@unnumberedsubsubsec Gesangtext und Wiederholungen
+@translationof Lyrics and repeats
 
 @c TODO New section.  Add text
 TBC
 
 
-@node Specific uses of lyrics
-@subsection Specific uses of lyrics
+@node Besonderheiten der Gesangtextnotation
+@subsection Besonderheiten der Gesangtextnotation
+@translationof Specific uses of lyrics
 
 @c FIXME This whole section is to be reorganized. -vv
 
@@ -805,16 +825,17 @@ Silbenaufteilung auftreten können.  Derartige Variationen
 können mit @code{\lyricsto} notiert werden.
 
 @menu
-* Divisi lyrics::
-* Lyrics independent of notes::
-* Spacing out syllables::
-* Centering lyrics between staves::
+* Getrennte Texte::
+* Text unabhängig von den Noten::
+* Silben platzieren::
+* Gesangtext zwischen Systemen zentrieren::
 @end menu
 
 
 
-@node Divisi lyrics
-@unnumberedsubsubsec Divisi lyrics
+@node Getrennte Texte
+@unnumberedsubsubsec Getrennte Texte
+@translationof Divisi lyrics
 
 Alternative (oder @emph{divisi} Gesangstexte können notiert
 werden, indem Stimmenkontexten Bezeichnungen zugewiesen werden
@@ -860,8 +881,9 @@ wiederholte Stelle gesetzt werden:
 
 
 
-@node Lyrics independent of notes
-@unnumberedsubsubsec Lyrics independent of notes
+@node Text unabhängig von den Noten
+@unnumberedsubsubsec Text unabhängig von den Noten
+@translationof Lyrics independent of notes
 
 @cindex Devnull-Kontext
 
@@ -904,8 +926,9 @@ ignoriert.
 @c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
 
 
-@node Spacing out syllables
-@unnumberedsubsubsec Spacing out syllables
+@node Silben platzieren
+@unnumberedsubsubsec Silben platzieren
+@translationof Spacing out syllables
 
 @cindex Silben spreizen
 @cindex Spreizen von Silben
@@ -995,27 +1018,30 @@ zusammenstößt, kann folgende Einstellung gesetzt werden:
 @end ignore
 
 
-@node Centering lyrics between staves
-@unnumberedsubsubsec Centering lyrics between staves
+@node Gesangtext zwischen Systemen zentrieren
+@unnumberedsubsubsec Gesangtext zwischen Systemen zentrieren
+@translationof Centering lyrics between staves
 
 @c TODO Add text from -user
 TBC
 
-@node Stanzas
-@subsection Stanzas
+@node Strophen
+@subsection Strophen
+@translationof Stanzas
 
 @menu
-* Adding stanza numbers::
-* Adding dynamics marks to stanzas::
-* Adding singers' names to stanzas::
-* Stanzas with different rhythms::
-* Printing stanzas at the end::
-* Printing stanzas at the end in multiple columns::
+* Strophennummern hinzufügen::
+* Lautstärkebezeichnung zu Strophen hinzufügen::
+* Sängernamen zu Strophen hinzufügen::
+* Strophen mit unterschiedlichem Rhythmus::
+* Die Strophen am Ende ausdrucken::
+* Die Strophen am Ende in mehreren Spalten drucken::
 @end menu
 
 
-@node Adding stanza numbers
-@unnumberedsubsubsec Adding stanza numbers
+@node Strophennummern hinzufügen
+@unnumberedsubsubsec Strophennummern hinzufügen
+@translationof Adding stanza numbers
 
 @cindex Strophennummer
 @cindex Nummerierung, Strophen
@@ -1070,8 +1096,9 @@ stanzaOneThree =  {
 @end ignore
 
 
-@node Adding dynamics marks to stanzas
-@unnumberedsubsubsec Adding dynamics marks to stanzas
+@node Lautstärkebezeichnung zu Strophen hinzufügen
+@unnumberedsubsubsec Lautstärkebezeichnung zu Strophen hinzufügen
+@translationof Adding dynamics marks to stanzas
 
 Dynamikzeichen können zur Strophennummer hinzugefügt werden.
 In LilyPond muss alles, was vor einer Strophe gesetzt wird,
@@ -1097,8 +1124,9 @@ text = {
 @end lilypond
 
 
-@node Adding singers' names to stanzas
-@unnumberedsubsubsec Adding singers' names to stanzas
+@node Sängernamen zu Strophen hinzufügen
+@unnumberedsubsubsec Sängernamen zu Strophen hinzufügen
+@translationof Adding singers' names to stanzas
 
 @cindex Sängername
 @cindex Name von Sänger
@@ -1121,10 +1149,11 @@ kann mit @code{shortVocalName} definiert werden.
 @end lilypond
 
 
-@node Stanzas with different rhythms
-@unnumberedsubsubsec Stanzas with different rhythms
+@node Strophen mit unterschiedlichem Rhythmus
+@unnumberedsubsubsec Strophen mit unterschiedlichem Rhythmus
+@translationof Stanzas with different rhythms
 
-@subsubheading Ignorieren von Melismen
+@subsubheading Melismen ignorieren
 
 Teilweise wird zu einer Silbe ein Melisma in einer Strophe
 gesungen, während in einer anderen jede Note eine Silbe erhält.
@@ -1163,7 +1192,7 @@ verwenden, um den Text einzugrenzen, für den Melismen ignoriert
 werden sollen.
 
 
-@subsubheading Switching to an alternative melody
+@subsubheading Zu einer alternativen Melodie umschalten
 
 Es ist auch möglich, die Silben von verschiedenen Textzeilen an
 unterschiedlichen Melodien auszurichten.  Das wird mit der
@@ -1248,8 +1277,9 @@ Zurück zu der alten Stimme kommt man, indem wieder
 @qq{lahlah} mit dem Text verknüpft wird.
 
 
-@node Printing stanzas at the end
-@unnumberedsubsubsec Printing stanzas at the end
+@node Die Strophen am Ende ausdrucken
+@unnumberedsubsubsec Die Strophen am Ende ausdrucken
+@translationof Printing stanzas at the end
 
 Manchmal soll nur eine Strophe mit der Melodie gesetzt
 werden und die weiteren Strophen als Text under den Noten
@@ -1292,8 +1322,9 @@ its fleece was white as snow.
 @end lilypond
 
 
-@node Printing stanzas at the end in multiple columns
-@unnumberedsubsubsec Printing stanzas at the end in multiple columns
+@node Die Strophen am Ende in mehreren Spalten drucken
+@unnumberedsubsubsec Die Strophen am Ende in mehreren Spalten drucken
+@translationof Printing stanzas at the end in multiple columns
 
 Wenn in einem Lied sehr viele Strophen vorkommen, werden sie oft in 
 mehreren Spalten unter den Noten gesetzt.  Eine nach außen versetzte Zahl

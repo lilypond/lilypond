@@ -9,34 +9,37 @@
 
 @c \version "2.12.0"
 
-@node Setup
-@chapter Setup
+@node Configuración
+@chapter Configuración
+@translationof Setup
 
 Este capítulo trata sobre varias opciones de configuración, posteriores a la instalación, para
 LilyPond y otros programas.  Este capítulo se puede tratar tranquilamente como una referencia:
 lea solamente las secciones que le interesen.
 
 @menu
-* Setup for specific Operating Systems::
-* Text editor support::
-* Point and click::
+* Ajustes para sistemas operativos específicos::
+* Apoyo respecto de los editores de texto::
+* Apuntar y pulsar::
 @end menu
 
 
-@node Setup for specific Operating Systems
-@section Setup for specific Operating Systems
+@node Ajustes para sistemas operativos específicos
+@section Ajustes para sistemas operativos específicos
+@translationof Setup for specific Operating Systems
 
 Esta sección explica cómo realizar puestas a punto adicionales para sistemas operativos
 específicos.
 
 @menu
-* Setup for MacOS X::
+* Configuración para MacOS X::
 @end menu
 
-@node Setup for MacOS X
-@subsection Setup for MacOS X
+@node Configuración para MacOS X
+@subsection Configuración para MacOS X
+@translationof Setup for MacOS X
 
-@subsubheading Using Python scripts on MacOS 10.3 or 10.4
+@subsubheading Uso de guiones Python en MacOS 10.3 o 10.4
 
 Los archivos binarios de LilyPond para MacOS X no incluyen Python,
 pero se necesita Python 2.4 o posterior por parte de
@@ -59,7 +62,7 @@ en caso contrario, debe ser
 @end example
 
 
-@subsubheading MacOS X on the command line
+@subsubheading MacOS X sobre línea de órdenes
 
 Los «scripts» (guiones como @command{lilypond-book},
 @command{convert-ly}, @command{abc2ly} e incluso el propio
@@ -114,8 +117,9 @@ Este archivo debe acabar con una línea en blanco.
 Fíjese en que @var{ruta/hacia} será por lo general @code{/Applications/}.
 
 
-@node Text editor support
-@section Text editor support
+@node Apoyo respecto de los editores de texto
+@section Apoyo respecto de los editores de texto
+@translationof Text editor support
 
 @cindex editores
 @cindex vim
@@ -127,16 +131,17 @@ Fíjese en que @var{ruta/hacia} será por lo general @code{/Applications/}.
 Existe apoyo por parte de varios editores de texto para LilyPond.
 
 @menu
-* Emacs mode::
-* Vim mode::
+* Modo de Emacs::
+* Modo de Vim::
 * jEdit::
 * TexShop::
 * TextMate::
 * LilyKDE::
 @end menu
 
-@node Emacs mode
-@subsection Emacs mode
+@node Modo de Emacs
+@subsection Modo de Emacs
+@translationof Emacs mode
 
 Emacs tiene un @file{lilypond-mode}, que proporciona autocompleción de
 teclado, sangrado, compensación de paréntesis específica de LilyPond
@@ -160,8 +165,9 @@ Como usuario, puede querer añadir su ruta a las fuentes (p.ej. @file{~/site-lis
 @end example
 
 
-@node Vim mode
-@subsection Vim mode
+@node Modo de Vim
+@subsection Modo de Vim
+@translationof Vim mode
 
 Para @uref{http://@/www@/.vim@/.org,VIM} se proporciona un @file{vimrc},
 junto con herramientas de resaltado de sintaxis con colores.  Se encuentra incluido un modo de Vim para escribir música y
@@ -194,6 +200,7 @@ en su momento en @file{/usr/local/}, cambie esta ruta de la forma correspondient
 
 @node jEdit
 @subsection jEdit
+@translationof jEdit
 
 Creado como un «plugin» o añadido para el editor de texto @uref{http://@/www@/.jedit@/.org@/,jEdit},
 LilyPondTool es la herramienta basada en texto más rica en posibilidades para
@@ -206,6 +213,7 @@ instrucciones de instalación, visite
 
 @node TexShop
 @subsection TexShop
+@translationof TexShop
 
 El editor @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
 para Mac OS X se puede extender para la ejecución de LilyPond, lilypond-book y
@@ -215,6 +223,7 @@ convert-ly desde dentro del editor, usando las extensiones disponibles en
 
 @node TextMate
 @subsection TextMate
+@translationof TextMate
 
 Hay un tinglado de LilyPond para TextMate.  Se puede instalar ejecutando
 
@@ -227,6 +236,7 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 
 @node LilyKDE
 @subsection LilyKDE
+@translationof LilyKDE
 
 @uref{http://lilykde.googlecode.com/,LilyKDE} es un plugin o
 complemento para el editor de texto de KDE,
@@ -243,8 +253,9 @@ LilyPond sobre varios archivos de una sola vez desde dentro del
 administrador de archivos de KDE.
 
 
-@node Point and click
-@section Point and click
+@node Apuntar y pulsar
+@section Apuntar y pulsar
+@translationof Point and click
 @cindex apuntar y pulsar
 
 

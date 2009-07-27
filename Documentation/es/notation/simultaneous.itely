@@ -10,8 +10,9 @@
 
 @c Translation status: post-GDP
 
-@node Simultaneous notes
-@section Simultaneous notes
+@node Notas simultáneas
+@section Notas simultáneas
+@translationof Simultaneous notes
 
 @lilypondfile[quote]{simultaneous-headword.ly}
 
@@ -20,23 +21,25 @@ pieza cualquiera de música.  En LilyPond la polifonía hace referencia
 a tener más de una voz en el mismo pentagrama.
 
 @menu
-* Single voice::
-* Multiple voices::
+* Una voz única::
+* Varias voces::
 @end menu
 
-@node Single voice
-@subsection Single voice
+@node Una voz única
+@subsection Una voz única
+@translationof Single voice
 
 Esta sección trata de la notas simultáneas dentro de la misma voz.
 
 @menu
-* Chorded notes::
-* Simultaneous expressions::
-* Clusters::
+* Notas en acorde::
+* Expresiones simultáneas::
+* Racimos (clusters)::
 @end menu
 
-@node Chorded notes
-@unnumberedsubsubsec Chorded notes
+@node Notas en acorde
+@unnumberedsubsubsec Notas en acorde
+@translationof Chorded notes
 
 @cindex acordes
 @cindex paréntesis en ángulo
@@ -61,8 +64,7 @@ referencia la nota precedente, excepto en el caso de la primera nota
 de un acorde: la referencia para la primera nota es la @emph{primera}
 nota del acorde anterior.
 
-Para ver más información sobre los acordes, consulte @ref{Chord
-notation}.
+Para ver más información sobre los acordes, consulte @ref{Notación de acordes}.
 
 
 @seealso
@@ -70,17 +72,18 @@ Glosario musical:
 @rglos{chord}.
 
 Manual de aprendizaje:
-@rlearning{Combining notes into chords}.
+@rlearning{Combinar notas para formar acordes}.
 
 Referencia de la notación:
-@ref{Chord notation}.
+@ref{Notación de acordes}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 
-@node Simultaneous expressions
-@unnumberedsubsubsec Simultaneous expressions
+@node Expresiones simultáneas
+@unnumberedsubsubsec Expresiones simultáneas
+@translationof Simultaneous expressions
 
 Una o más expresiones musicales encerradas entre ángulos dobles se
 entienden como simultáneas.  Si la primera expresión comienza con una
@@ -118,8 +121,9 @@ generar varios pentagramas de forma implícita:
 Aquí no hay problema en tener distintas duraciones.
 
 
-@node Clusters
-@unnumberedsubsubsec Clusters
+@node Racimos (clusters)
+@unnumberedsubsubsec Racimos (clusters)
+@translationof Clusters
 
 @cindex cluster
 @cindex racimo (cluster)
@@ -166,22 +170,24 @@ racimos separados necesitan silencios de separación entre ellos.
 
 Los clusters no producen ninguna salida MIDI.
 
-@node Multiple voices
-@subsection Multiple voices
+@node Varias voces
+@subsection Varias voces
+@translationof Multiple voices
 
 Esta sección trata las notas simultáneas en varias voces o varios
 pentagramas.
 
 @menu
-* Single-staff polyphony::
-* Voice styles::
-* Collision resolution::
-* Automatic part combining::
-* Writing music in parallel::
+* Polifonía en un solo pentagrama::
+* Estilos de voz::
+* Resolución de las colisiones::
+* Combinación automática de las partes::
+* Escribir música en paralelo::
 @end menu
 
-@node Single-staff polyphony
-@unnumberedsubsubsec Single-staff polyphony
+@node Polifonía en un solo pentagrama
+@unnumberedsubsubsec Polifonía en un solo pentagrama
+@translationof Single-staff polyphony
 
 @cindex pentagrama único, polifonía de
 @cindex polifonía en un solo pentagrama
@@ -310,8 +316,7 @@ silencios duplicados.
 
 En todas las partituras excepto las más simples, se recomienda crear
 contextos @code{Voice} explícitos como aparece explicado en
-@rlearning{Contexts and engravers} y en @rlearning{Explicitly
-instantiating voices}.
+@rlearning{Contextos y grabadores} y en @rlearning{Voces explícitas}.
 
 @strong{@i{Duraciones idénticas}}
 
@@ -343,20 +348,21 @@ fragmentos de música no tienen las mismas duraciones exactas.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Voices contain music},
-@rlearning{Explicitly instantiating voices}.
+@rlearning{Las voces contienen música},
+@rlearning{Voces explícitas}.
 
 Referencia de la notación:
-@ref{Percussion staves},
-@ref{Invisible rests},
-@ref{Stems}.
+@ref{Pautas de percusión},
+@ref{Silencios invisibles},
+@ref{Plicas}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 
-@node Voice styles
-@unnumberedsubsubsec Voice styles
+@node Estilos de voz
+@unnumberedsubsubsec Estilos de voz
+@translationof Voice styles
 
 @cindex voice styles
 @cindex styles, voice
@@ -397,15 +403,16 @@ Para recuperar la presentación normal se utiliza la instrucción
 
 @seealso
 Manual de aprendizaje:
-@rlearning{I'm hearing Voices},
-@rlearning{Other sources of information}.
+@rlearning{Oigo voces},
+@rlearning{Otras fuentes de información}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 
-@node Collision resolution
-@unnumberedsubsubsec Collision resolution
+@node Resolución de las colisiones
+@unnumberedsubsubsec Resolución de las colisiones
+@translationof Collision resolution
 
 @cindex mezclar notas
 @cindex notas, colisiones de
@@ -568,9 +575,9 @@ Glosario musical:
 @rglos{polyphony}.
 
 Manual de aprendizaje:
-@rlearning{Multiple notes at once},
-@rlearning{Voices contain music},
-@rlearning{Collisions of objects}.
+@rlearning{Varias notas a la vez},
+@rlearning{Las voces contienen música},
+@rlearning{Colisiones de objetos}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
@@ -592,10 +599,11 @@ tienen también distinto puntillo, no están claros.
 No están contemplados los acordes en que la misma nota se presenta con
 diferentes alteraciones accidentales dentro del mismo.  En este caso
 se recomienda usar la transcripción enarmónica, o usar la notación
-especial de racimos (véase @ref{Clusters}).
+especial de racimos (véase @ref{Racimos (clusters)}).
 
-@node Automatic part combining
-@unnumberedsubsubsec Automatic part combining
+@node Combinación automática de las partes
+@unnumberedsubsubsec Combinación automática de las partes
+@translationof Automatic part combining
 
 @cindex automática, combinación de partes
 @cindex partes, combinación automática
@@ -692,7 +700,7 @@ Glosario musical:
 @rglos{part}.
 
 Referencia de la notación:
-@ref{Writing parts}.
+@ref{Escritura de las particellas}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
@@ -729,8 +737,9 @@ funcionar.
 notas.  No puede determinar si una nota iniciada previamente está
 sonando o no, lo que origina diversos problemas.
 
-@node Writing music in parallel
-@unnumberedsubsubsec Writing music in parallel
+@node Escribir música en paralelo
+@unnumberedsubsubsec Escribir música en paralelo
+@translationof Writing music in parallel
 
 @cindex escribir música en paralelo
 @cindex música intercalada
@@ -844,7 +853,7 @@ global = {
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Organizing pieces with variables}
+@rlearning{Organizar las piezas mediante variables}
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.

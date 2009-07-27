@@ -30,7 +30,8 @@
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- Manuel de notation
+@top GNU LilyPond --- Manuel d'initiation
+@translationof Top
 @end ifnottex
 
 @ifhtml
@@ -138,7 +139,7 @@ Free Documentation License''.
 
 Ce document constitue le manuel de notation de GNU LilyPond
 @version{}.  Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez @rlearning{About the documentation}.
+documentation, consultez @rlearning{À propos de la documentation}.
 
 @cindex web site
 @cindex URL
@@ -150,21 +151,21 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @include dedication.itely
 
 @menu
-* Musical notation::               notation générale.
-* Specialist notation::            notation à usage spécifique.
-* General input and output::       généralités sur les fichiers sources et les sorties.
-* Spacing issues::                 mise en page de la musique sur le papier.
-* Changing defaults::              ajustement de la gravure.
-* Interfaces for programmers::     utilisation avancée.
+* Notation musicale générale::               notation générale.
+* Notation spécialisée::            notation à usage spécifique.
+* Généralités en matière d'entrée et sortie::       généralités sur les fichiers sources et les sorties.
+* Gestion de l'espace::                 mise en page de la musique sur le papier.
+* Modification des réglages prédéfinis::              ajustement de la gravure.
+* Interfaces pour les programmeurs::     utilisation avancée.
 
 Annexes
 
-* Literature list::                ouvrages de référence sur la notation musicale.
-* Notation manual tables::         tables et diagrammes.
-* Cheat sheet::                    résumé de la syntaxe de LilyPond.
+* Bibliographie::                ouvrages de référence sur la notation musicale.
+* Tables du manuel de notation::         tables et diagrammes.
+* Aide-mémoire::                    résumé de la syntaxe de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
-* LilyPond command index::
-* LilyPond index::
+* Index des commandes LilyPond::
+* Index de LilyPond::
 
 @end menu
 @end ifnottex
@@ -187,13 +188,15 @@ Annexes
 @include notation/cheatsheet.itely
 @include fdl.itexi
 
-@node LilyPond command index
-@appendix LilyPond command index
+@node Index des commandes LilyPond
+@appendix Index des commandes LilyPond
+@translationof LilyPond command index
 
 @printindex ky
 
-@node LilyPond index
-@appendix LilyPond index
+@node Index de LilyPond
+@appendix Index de LilyPond
+@translationof LilyPond index
 
 @printindex cp
 

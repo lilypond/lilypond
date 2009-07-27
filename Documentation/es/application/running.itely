@@ -10,30 +10,33 @@
 @c \version "2.12.0"
 
 
-@node Running LilyPond
-@chapter Running LilyPond
+@node Ejecutar LilyPond
+@chapter Ejecutar LilyPond
+@translationof Running LilyPond
 
 Este capítulo detalla los aspectos técnicos de la ejecución de
 LilyPond.
 
 @menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Updating files with convert-ly::
-* Reporting bugs::
+* Utilización normal::
+* Utilización desde la línea de órdenes::
+* Mensajes de error::
+* Actualizar ficheros con convert-ly::
+* Informar de fallos::
 @end menu
 
 
-@node Normal usage
-@section Normal usage
+@node Utilización normal
+@section Utilización normal
+@translationof Normal usage
 
 Casi todos los usuarios ejecutan LilyPond por medio de un interfaz
-gráfico; consulte @rlearning{First steps} si no lo ha leído aún.
+gráfico; consulte @rlearning{Primeros pasos} si no lo ha leído aún.
 
 
-@node Command-line usage
-@section Command-line usage
+@node Utilización desde la línea de órdenes
+@section Utilización desde la línea de órdenes
+@translationof Command-line usage
 
 Esta sección contiene información adicional sobre el uso de LilyPond
 en la línea de órdenes.  Esta forma puede ser preferible para pasarle
@@ -46,7 +49,7 @@ sistema operativo.  Los usuarios de Windows posiblemente estén más
 familiarizados con los términos @q{ventana de MS-DOS} o @q{línea de
 comandos}; Los usuarios de MacOS@tie{}X puede que estén más
 familiarizados con los términos @q{terminal} o @q{consola}.  Éstos
-deberían consultar también el apartado @ref{Setup for MacOS X}.
+deberían consultar también el apartado @ref{Configuración para MacOS X}.
 
 La descripción del uso de esta parte de los sistemas operativos se
 sale del ámbito de este manual; le rogamos que consulte otros
@@ -54,13 +57,14 @@ documentos sobre este tema si no le resulta familiar la línea de
 órdenes.
 
 @menu
-* Invoking lilypond::
-* Command line options for lilypond::
-* Environment variables::
+* Invocar a LilyPond::
+* Opciones de la línea de órdenes para lilypond::
+* Variables de entorno::
 @end menu
 
-@node Invoking lilypond
-@subsection Invoking @command{lilypond}
+@node Invocar a LilyPond
+@subsection Invocar @command{lilypond}
+@translationof Invoking lilypond
 
 @cindex invocar @command{lilypond}
 @cindex opciones de la línea de órdenes para @command{lilypond}
@@ -102,8 +106,9 @@ producirá como salida @var{base}@file{-violin.pdf} y
 @var{base}@file{-cello-1.pdf}.
 
 
-@node Command line options for lilypond
-@subsection Command line options for @command{lilypond}
+@node Opciones de la línea de órdenes para lilypond
+@subsection Opciones de la línea de órdenes para @command{lilypond}
+@translationof Command line options for lilypond
 
 Están contempladas las siguientes opciones:
 
@@ -385,8 +390,9 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 @strong{NINGUNA GARANTÍA}!).
 @end table
 
-@node Environment variables
-@subsection Environment variables
+@node Variables de entorno
+@subsection Variables de entorno
+@translationof Environment variables
 
 
 @cindex LANG
@@ -413,8 +419,9 @@ predeterminado es @code{70}.
 @end table
 
 
-@node Error messages
-@section Error messages
+@node Mensajes de error
+@section Mensajes de error
+@translationof Error messages
 
 @cindex error, mensajes de
 @cindex mensajes de error
@@ -493,8 +500,9 @@ no ve un error en la línea que se indica del archivo de entrada, trate
 de comprobar una o dos líneas por encima de la posición indicada.
 
 
-@node Updating files with convert-ly
-@section Updating files with @command{convert-ly}
+@node Actualizar ficheros con convert-ly
+@section Actualizar ficheros con @command{convert-ly}
+@translationof Updating files with convert-ly
 
 @cindex actualización de un archivo de LilyPond
 @cindex convert-ly
@@ -507,13 +515,14 @@ esto se puede utilizar el programa @command{convert-ly} para manejar
 casi todos los cambios de sintaxis entre versiones de LilyPond.
 
 @menu
-* Invoking convert-ly::
-* Command line options for convert-ly::
-* Problems with convert-ly::
+* Invocar convert-ly::
+* Opciones de la línea de órdenes para convert-ly::
+* Problemas con convert-ly::
 @end menu
 
-@node Invoking convert-ly
-@subsection Invoking @command{convert-ly}
+@node Invocar convert-ly
+@subsection Invocar @command{convert-ly}
+@translationof Invoking convert-ly
 
 @command{convert-ly} utiliza los enunciados @code{\version} de los
 archivos de entrada para detectar el número de versión antiguo.  En
@@ -563,8 +572,9 @@ ventana del terminal del sistema, que se encuentra por lo general bajo
 @code{Inicio > Accesorios > Símbolo del sistema}.
 
 
-@node Command line options for convert-ly
-@subsection Command line options for @command{convert-ly}
+@node Opciones de la línea de órdenes para convert-ly
+@subsection Opciones de la línea de órdenes para @command{convert-ly}
+@translationof Command line options for convert-ly
 
 
 En general, el programa se invoca de la manera siguiente:
@@ -615,8 +625,9 @@ convert-ly --from=... --to=... -s
 @end example
 
 
-@node Problems with convert-ly
-@subsection Problems with @code{convert-ly}
+@node Problemas con convert-ly
+@subsection Problemas con @code{convert-ly}
+@translationof Problems with convert-ly
 
 Al ejecutar convert-ly en una ventana del Símbolo del Sistema bajo
 Windows sobre un archivo que tiene espacios en el nombre o en la ruta,
@@ -704,8 +715,9 @@ adecuadamente.
 @end verbatim
 
 
-@node Reporting bugs
-@section Reporting bugs
+@node Informar de fallos
+@section Informar de fallos
+@translationof Reporting bugs
 
 @cindex bugs (fallos)
 @cindex fallos (bugs)

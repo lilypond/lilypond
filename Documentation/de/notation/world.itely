@@ -11,8 +11,9 @@
 
 @c \version "2.12.0"
 
-@node World music
-@section World music
+@node Weltmusik
+@section Weltmusik
+@translationof World music
 
 Dieser Abschnitt soll Besonderheiten der Notation aufzeigen, die
 insbesondere relevant sind, um Musik nicht-westlicher Tradition
@@ -20,27 +21,29 @@ zu notieren.
 
 
 @menu
-* Arabic music::
+* Arabische Musik::
 @end menu
 
-@node Arabic music
-@subsection Arabic music
+@node Arabische Musik
+@subsection Arabische Musik
+@translationof Arabic music
 
 Dieser Abschnitt zeigt Möglichkeiten, wie arabische Musik notiert
 werden kann.
 
 
 @menu
-* References for Arabic music::
+* Referenz für arabische Musik::
 * Arabic note names ::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading::
+* Arabische Tonarten::
+* Arabische Taktarten::
+* Arabische Notenbeispiele::
+* Weitere Literatur::
 @end menu
 
-@node References for Arabic music
+@node Referenz für arabische Musik
 @unnumberedsubsubsec References for Arabic music 
+@translationof References for Arabic music
 
 @cindex arabische Musik
 @cindex Maqam
@@ -70,27 +73,27 @@ an anderer Stelle behandelt:
 @itemize
 @item Notenbezeichnungen und Versetzungszeichen (inklusive Vierteltöne)
 können angepasst werden, wie behandelt in
-@ref{Note names in other languages}.
+@ref{Notenbezeichnungen in anderen Sprachen}.
 
 @item Zusätzliche Taktarten können erstellt werden, siehe
-@ref{Key signature}.
+@ref{Tonartbezeichnung}.
 
 @item Komplexe Taktarten erfordern evtl., dass Noten manual gruppiert
 werden, wie gezeigt in
-@ref{Manual beams}.
+@ref{Manuelle Balken}.
 
 @item @notation{Takasim}, rhythmisch freie Improvisationen,
 können ohne Taktlinien notiert werden, siehe hierzu
-@ref{Unmetered music}.
+@ref{Musik ohne Metrum}.
 
 @end itemize
 
 
 @seealso
 Notationsreferenz:
-@ref{Note names in other languages},
-@ref{Key signature},
-@ref{Manual beams}.
+@ref{Notenbezeichnungen in anderen Sprachen},
+@ref{Tonartbezeichnung},
+@ref{Manuelle Balken}.
 
 Schnipsel:
 @rlsr{World music}.
@@ -98,6 +101,7 @@ Schnipsel:
 
 @node Arabic note names 
 @unnumberedsubsubsec Arabic note names 
+@translationof Arabic note names 
 
 @cindex arabische Notenbezeichnungen
 @cindex Notenbezeichnungen, arabisch
@@ -108,7 +112,7 @@ Sie werden nicht benutzt.  Englische Notenbezeichnungen hingegen sind
 in der arabischen Musikerziehung recht unbekannt, weshalb italienische
 Notenbezeichnungen (@code{do, re, mi, fa, sol, la, si}) eingesetzt
 werden.  Modifikatoren (Versetzungszeichen) können auch benutzt werden,
-wie gezeigt in @ref{Note names in other languages}.
+wie gezeigt in @ref{Notenbezeichnungen in anderen Sprachen}.
 
 Hier ein Beispiel der arabischen @notation{rast}-Tonleiter:
 
@@ -140,15 +144,16 @@ werden.
 
 @seealso
 Notationsreferenz:
-@ref{Note names in other languages}.
+@ref{Notenbezeichnungen in anderen Sprachen}.
 
 Schnipsel:
 @rlsr{World music}.
 
 
 
-@node Arabic key signatures
+@node Arabische Tonarten
 @unnumberedsubsubsec Arabic key signatures 
+@translationof Arabic key signatures
 
 @cindex arabische Tonarten
 @cindex arabische Vorzeichen
@@ -251,10 +256,10 @@ häufigsten Maqams bestimmten Vorzeichen zugeordnet werden:
 
 @seealso
 Notationsreferenz:
-@ref{Key signature}.
+@ref{Tonartbezeichnung}.
 
 Handbuch zum Lernen:
-@rlearning{Accidentals and key signatures}.
+@rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.
 
 Referenz der Interna:
 @rinternals{KeySignature}.
@@ -264,8 +269,9 @@ Schnipsel:
 @rlsr{Pitches}.
 
 
-@node Arabic time signatures
+@node Arabische Taktarten
 @unnumberedsubsubsec Arabic time signatures 
+@translationof Arabic time signatures
 
 @cindex Arabische Taktarten
 @cindex Taktarten, arabisch
@@ -297,19 +303,20 @@ zu benutzen.
 
 @seealso
 Notationsreferenz:
-@ref{Manual beams},
-@ref{Automatic beams},
-@ref{Unmetered music},
-@ref{Automatic accidentals},
-@ref{Setting automatic beam behavior},
-@ref{Time signature}.
+@ref{Manuelle Balken},
+@ref{Automatische Balken},
+@ref{Musik ohne Metrum},
+@ref{Automatische Versetzungszeichen},
+@ref{Einstellung von automatischen Balken},
+@ref{Taktangabe}.
 
 Schnipsel:
 @rlsr{World music}.
 
 
-@node Arabic music example
+@node Arabische Notenbeispiele
 @unnumberedsubsubsec Arabic music example 
+@translationof Arabic music example
 
 @cindex Beispiel der arabischen Musik
 @cindex arabische Musik, Beispiel
@@ -347,8 +354,9 @@ Schnipsel:
 @rlsr{World music}
 
 
-@node Further reading
-@unnumberedsubsubsec Further reading
+@node Weitere Literatur
+@unnumberedsubsubsec Weitere Literatur
+@translationof Further reading
 
 @enumerate
 

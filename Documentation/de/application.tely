@@ -28,6 +28,7 @@
 @ifnottex
 @node Top
 @top GNU LilyPond -- Programmbenutzung
+@translationof Top
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @end ifnottex
 
@@ -161,7 +162,7 @@ Free Documentation License''.
 @ifnottex
 Das ist das Handbuch zur Programmbenutzung für GNU LilyPond Version @version{}.
 Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
-dieses Handbuchs siehe @rlearning{About the documentation}.
+dieses Handbuchs siehe @rlearning{Über die Dokumentation}.
 
 @cindex Internetseite
 @cindex URL
@@ -170,16 +171,16 @@ dieses Handbuchs siehe @rlearning{About the documentation}.
 finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @menu
-* Install::                        Wie das Programm installiert oder kompiliert wird.
+* Installieren::                        Wie das Programm installiert oder kompiliert wird.
 * Setup::                          Wie LilyPond mit anderen Programmen benutzt werden kann.
-* Running LilyPond::               Betrieb des Programms.
+* LilyPond starten::               Betrieb des Programms.
 * LilyPond-book::                  Kombination von Text und Noten.
-* Converting from other formats::  Konvertierungen in das LilyPond-Quellformat.
+* Von anderen Formaten konvertieren::  Konvertierungen in das LilyPond-Quellformat.
 
 Anhänge
 
 * GNU Free Documentation License:: Die Lizenz dieses Dokuments.
-* LilyPond index::
+* LilyPond-Index::
 @end menu
 @end ifnottex
 
@@ -194,8 +195,9 @@ Anhänge
 
 @include fdl.itexi
 
-@node LilyPond index
-@appendix LilyPond index
+@node LilyPond-Index
+@appendix LilyPond-Index
+@translationof LilyPond index
 
 @printindex cp
 

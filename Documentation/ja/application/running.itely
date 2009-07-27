@@ -12,29 +12,32 @@
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node Running LilyPond
-@chapter Running LilyPond
+@node LilyPond を実行する
+@chapter LilyPond を実行する
+@translationof Running LilyPond
 
 この章では LilyPond を実行するための細かな規定について詳述します。
 
 @menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Updating files with convert-ly::
-* Reporting bugs::
+* 通常の使用方法::
+* コマンド ラインの使用方法::
+* エラー メッセージ::
+* convert-ly を使ってファイルを更新する::
+* バグを報告する::
 @end menu
 
 
-@node Normal usage
-@section Normal usage
+@node 通常の使用方法
+@section 通常の使用方法
+@translationof Normal usage
 
-たいていのユーザは GUI から LilyPond を実行します。@rlearning{First steps} を@c
+たいていのユーザは GUI から LilyPond を実行します。@rlearning{最初のステップ} を@c
 まだ読んでいないのなら、それを読んでください。
 
 
-@node Command-line usage
-@section Command-line usage
+@node コマンド ラインの使用方法
+@section コマンド ラインの使用方法
+@translationof Command-line usage
 
 この節にはコマンド ラインで LilyPond を使用するための追加情報が含まれます。こ@c
 れにはプログラムに追加オプションを渡す必要があるかもしれません。さらに、いくつ@c
@@ -44,7 +47,7 @@
 ここで @q{コマンド ライン} とは、OS の中にあるコマンド ラインを意味します。@c
 Windows ユーザは @q{DOS シェル} という言葉の方が馴染みがあるかもしれません。@c
 MaxOS@tie{}X ユーザは @q{ターミナル} や @q{コンソール} という言葉の方が馴染み@c
-があるかもしれません。MaxOS@tie{}X ユーザは @ref{Setup for MacOS X} も読んでお@c
+があるかもしれません。MaxOS@tie{}X ユーザは @ref{MacOS X のためのセットアップ} も読んでお@c
 くべきです。
 
 OS のコマンド ラインの使用方法についての説明はこのマニュアルが扱う範囲ではあり@c
@@ -53,12 +56,13 @@ OS のコマンド ラインの使用方法についての説明はこのマニ�
 
 @menu
 * Invoking lilypond::
-* Command line options for lilypond::
-* Environment variables::
+* lilypond のコマンド ライン オプション::
+* 環境変数::
 @end menu
 
 @node Invoking lilypond
-@subsection Invoking @command{lilypond}
+@subsection @command{lilypond} を呼び出す
+@translationof Invoking lilypond
 
 @cindex Invoking @command{lilypond}
 @cindex command line options for @command{lilypond}
@@ -98,8 +102,9 @@ sudin から入力を読み込む場合には、@var{file} に対してダッシ
 @var{base}@file{-violin.pdf} と @var{base}@file{-cello-1.pdf} を出力します。
 
 
-@node Command line options for lilypond
-@subsection Command line options for @command{lilypond}
+@node lilypond のコマンド ライン オプション
+@subsection @command{lilypond} のコマンド ライン オプション
+@translationof Command line options for lilypond
 
 以下のオプションがサポートされます:
 
@@ -362,8 +367,9 @@ GNU LilyPond の保証責任を表示します。(GNU LilyPond には@strong{保
 ません}！)
 @end table
 
-@node Environment variables
-@subsection Environment variables
+@node 環境変数
+@subsection 環境変数
+@translationof Environment variables
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
@@ -387,8 +393,9 @@ GNU LilyPond の保証責任を表示します。(GNU LilyPond には@strong{保
 @end table
 
 
-@node Error messages
-@section Error messages
+@node エラー メッセージ
+@section エラー メッセージ
+@translationof Error messages
 
 @cindex error messages
 ファイルのコンパイルの最中にはさまざまなエラー メッセージが表示される可能性が@c
@@ -456,8 +463,9 @@ test.ly:2:19: error: not a duration: 5
 ない場合は、示された位置の 1 行か 2 行上をチェックしてみてください。
 
 
-@node Updating files with convert-ly
-@section Updating files with @command{convert-ly}
+@node convert-ly を使ってファイルを更新する
+@section @command{convert-ly} を使ってファイルを更新する
+@translationof Updating files with convert-ly
 
 @cindex Updating a LilyPond file
 @cindex convert-ly
@@ -484,12 +492,13 @@ myfile.ly に変更が加えられず、myfile.ly.NEW というファイルが�
 myfile.ly はすでに更新されています。
 
 @menu
-* Command line options for convert-ly::
-* Problems with convert-ly::
+* convert-ly のコマンド ライン オプション::
+* convert-ly の問題点::
 @end menu
 
-@node Command line options for convert-ly
-@subsection Command line options for @command{convert-ly}
+@node convert-ly のコマンド ライン オプション
+@subsection @command{convert-ly} のコマンド ライン オプション
+@translationof Command line options for convert-ly
 
 @command{convert-ly} は常にそれが扱っている最新の構文変更に変換します。このこ@c
 とは、通常、ファイルの中にある @code{version} 番号は @command{convert-ly} 自体@c
@@ -549,8 +558,9 @@ convert-ly [@var{option}]@dots{} @var{file}@dots{}
 @end table
 
 
-@node Problems with convert-ly
-@subsection Problems with @code{convert-ly}
+@node convert-ly の問題点
+@subsection @command{convert-ly} の問題点
+@translationof Problems with convert-ly
 
 言語の変更がすべて処理されるわけではありません。指定できる出力オプションは 1 
 つだけです。自動的に Scheme と更新することと LilyPond の Scheme インタフェイス@c
@@ -611,8 +621,9 @@ converted.
 @end verbatim
 
 
-@node Reporting bugs
-@section Reporting bugs
+@node バグを報告する
+@section バグを報告する
+@translationof Reporting bugs
 
 @cindex bugs
 @cindex reporting bugs
