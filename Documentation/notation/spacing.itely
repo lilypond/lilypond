@@ -248,8 +248,12 @@ footer.  Default: @code{4\mm}.
 @item head-separation
 @funindex head-separation
 
-Distance between the top-most music system and the page header.
-Default: @code{4\mm}.
+Distance between the header markup (@code{oddHeaderMarkup} and
+@code{evenHeaderMarkup}) and the title markup
+(@code{bookTitleMarkup}, @code{title}, and others).  If the header
+markup and title markup are not present, it is the distance
+between @code{top-margin} and the spot where the title markup
+would normally appear.  Default: @code{4\mm}.
 
 @item page-top-space
 @funindex page-top-space
