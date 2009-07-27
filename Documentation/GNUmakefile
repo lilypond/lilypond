@@ -139,8 +139,6 @@ txt-to-html:
 	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
 
 
-$(OUT_HTML_FILES): $(OUT_CSS_FILES)
-
 $(outdir)/%.css: %.css
 	ln -f $< $@
 
