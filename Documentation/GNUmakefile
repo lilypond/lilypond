@@ -246,7 +246,7 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 CHECKED_FILES = $(ISOLANG)/index.html.in $(foreach i,learning notation application, \
-  $(shell find $(ISOLANG)/$(manual) -maxdepth 1 -name '*.*te??')) \
+  $(shell find $(ISOLANG)/$(manual) -name '*.*te??' -not -wholename '*out-www*')) \
   $(shell find $(ISOLANG)/texidocs/ -name '*.texidoc')
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
