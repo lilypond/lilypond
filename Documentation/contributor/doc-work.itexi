@@ -1172,6 +1172,9 @@ All files should be encoded in UTF-8.
 @node Translating the Learning Manual and other Texinfo documentation
 @unnumberedsubsubsec Translating the Learning Manual and other Texinfo documentation
 
+@iftex
+@vskip 12pt
+@end iftex
 @cartouche
 @b{Note:} node names and section titles are now translated directly in
 Texinfo source files. In case you have files in your working tree that
