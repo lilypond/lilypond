@@ -47,20 +47,26 @@ LilyPond version currently on LSR, it should be added to LSR, and a
 reference to the snippet should be added to the documentation.
 
 If the new snippet uses new features that are not available in the
-current LSR version, the snippet should be added to @file{input/new} and
-a reference should be added to the manual.
+current LSR version, the snippet should be added to
+@file{Documentation/snippets/new} and a reference should be added to the
+manual.
 
-Snippets created or updated in @file{input/new} should be copied to
-@file{input/lsr} by invoking at top of the source tree
+Snippets created or updated in @file{Documentation/snippets/new} should
+be copied to @file{Documentation/snippets} by invoking at top of the
+source tree
 
 @example
 scripts/auxiliar/makelsr.py
 @end example
 
+@noindent
+This also copies translated texidoc fields and snippet titles into
+snippets in @file{Documentation/snippets}.
+
 Be sure that @command{make doc} runs successfully before submitting a
 patch, to prevent breaking compilation.
 
-@subheading Formatting snippets in @file{input/new}
+@subheading Formatting snippets in @file{Documentation/snippets/new}
 
 When adding a file to this directory, please start the file with
 
@@ -146,50 +152,52 @@ Do a git add / commit / push.
 
 @end enumerate
 
-Note that whenever there is one snippet from @file{input/new} and the
-other from LSR with the same file name, the one from @file{input/new}
-will be copied by @command{makelsr.py}.
+Note that whenever there is one snippet from
+@file{Documentation/snippets/new} and the other from LSR with the same
+file name, the one from @file{Documentation/snippets/new} will be copied
+by @command{makelsr.py}.
 
 
 @node Fixing snippets in LilyPond sources
 @section Fixing snippets in LilyPond sources
 
-In case some snippet from @file{input/lsr} cause the documentation
-compilation to fail, the following steps should be followed to fix it
-reliably.
+In case some snippet from @file{Documentation/snippets} causes the
+documentation compilation to fail, the following steps should be
+followed to fix it reliably.
 
 @enumerate
 
 @item
 Look up the snippet filename @file{@var{foo}.ly} in the error output
-or log, then fix the file @file{input/lsr/@var{foo}.ly} to make the
+or log, then fix the file @file{Documentation/snippets/@var{foo}.ly} to make the
 documentation build succesfully.
 
 @item
 Determine where it comes from by looking at its first line, e.g. run
 
 @example
-head -1 input/lsr/@var{foo}.ly
+head -1 Documentation/snippets/@var{foo}.ly
 @end example
 
 @item
 @strong{In case the snippet comes from LSR}, apply the fix to the
-snippet in LSR and send a notification email to a LSR editor with CC
-to the development list -- see @ref{Adding and editing snippets}.  The
+snippet in LSR and send a notification email to a LSR editor with CC to
+the development list -- see @ref{Adding and editing snippets}.  The
 failure may sometimes not be caused by the snippet in LSR but by the
-syntax conversion made by @command{convert-ly}; in this case, try to
-fix @command{convert-ly} or report the problem on the development
-list, then run @command{makelsr.py} again, see @ref{LSR to Git}.  In
-some cases, when some features has been introduced or vastly changed
-so it requires (or takes significant advantage of) important changes
-in the snippet, it is simpler and recommended to write a new version
-of the snippet in @file{input/new}, then run @command{makelsr.py}.
+syntax conversion made by @command{convert-ly}; in this case, try to fix
+@command{convert-ly} or report the problem on the development list, then
+run @command{makelsr.py} again, see @ref{LSR to Git}.  In some cases,
+when some features has been introduced or vastly changed so it requires
+(or takes significant advantage of) important changes in the snippet, it
+is simpler and recommended to write a new version of the snippet in
+@file{Documentation/snippets/new}, then run @command{makelsr.py}.
 
 @item
-@strong{In case the snippet comes from} @file{input/new}, apply in
-@file{input/new/@var{foo}.ly} the same fix you did in
-@file{input/lsr/@var{foo}.ly}.  In case the build failure was caused
-by a translation string, you may have to fix
+@strong{In case the snippet comes from}
+@file{Documentation/snippets/new}, apply in
+@file{Documentation/snippets/new/@var{foo}.ly} the same fix you did in
+@file{Documentation/snippets/@var{foo}.ly}.  In case the build failure
+was caused by a translation string, you may have to fix
 @file{input/texidocs/@var{foo}.texidoc} instead.
 
 @item
@@ -213,9 +221,9 @@ Download the latest snippet tarball, extract it, and run
 correct stable version.
 
 @item
-Copy relevant snippets (i.e., snippets whose version is equal to or
-less than the new version of LilyPond) from @file{input/new/} into
-the tarball.
+Copy relevant snippets (i.e., snippets whose version is equal to or less
+than the new version of LilyPond) from
+@file{Documentation/snippets/new/} into the tarball.
 
 You must not rename any files during this, or the next, stage.
 
@@ -235,9 +243,10 @@ web-2.0 volunteers will fix it.  It's not our problem.
 Create a tarball and send it back to Sebastiano.
 
 @item
-When LSR has been updated, download another snippet tarball,
-verify that the relevant snippets from @file{input/new/} were
-included, then delete those snippets from @file{input/new/}.
+When LSR has been updated, download another snippet tarball, verify that
+the relevant snippets from @file{Documentation/snippets/new/} were
+included, then delete those snippets from
+@file{Documentation/snippets/new/}.
 
 @end enumerate
 

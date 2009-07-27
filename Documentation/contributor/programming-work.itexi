@@ -751,9 +751,9 @@ translations, older versions of the snippet may be included
 when the documentation is built.
 
 If lsr snippets need to be changed, the snippet should be copied to
-input/new and modified there.  The portions of the snippet that
-are added by makelsr.py should be removed.  The changed snippet
-will then be included in all versions of the documentation.
+@file{Documentation/snippets/new} and modified there.  The portions of
+the snippet that are added by makelsr.py should be removed.  The changed
+snippet will then be included in all versions of the documentation.
 
 If non-snippet text is changed in the english documentation, no
 corresponding changes should be made in the translated documentation.
