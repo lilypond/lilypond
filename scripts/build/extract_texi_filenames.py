@@ -201,7 +201,6 @@ def process_sections (filename, lang_suffix, page):
             if this_title in initial_map:
                 del initial_map[this_title]
         elif sec[0] == "translationof":
-            print sec
             (original_node, external_node) = external_node_re.subn ('', sec[1])
             original_node = remove_texinfo (original_node)
             # The following binds the translator to use the
