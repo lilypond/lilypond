@@ -162,8 +162,8 @@
       (let* ((dx (car rest))
 	     (dy (cadr rest))
 	     (total-x (+ dx next-horiz-adv)))
-	(if (or (not (= 0 (inexact->exact total-x)))
-		(not (= 0 (inexact->exact dy))))
+	(if (or (not (zero? total-x))
+		(not (zero? dy)))
 	    (let ((x (ly:format "~4f" total-x))
 		  (y (ly:format "~4f" dy)))
 	      (set-attribute 'transform
