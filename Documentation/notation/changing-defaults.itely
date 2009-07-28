@@ -1790,6 +1790,7 @@ property (modified with @code{\set}) was created.
 @menu
 * Input modes::
 * Direction and placement::
+* Context layout order::
 * Distances and measurements::
 * Staff symbol properties::
 * Spanners::
@@ -1913,7 +1914,7 @@ left, right or center; etc.  Most of these choices may be left to
 be determined automatically by LilyPond, but in some cases it may
 be desirable to force a particular direction or placement.
 
-@strong{Default actions}
+@strong{Articulation direction indicators}
 
 By default some directions are always up or always down (e.g.
 dynamics or fermata), while other things can alternate between
@@ -1921,26 +1922,12 @@ up or down based on the stem direction (like slurs or accents).
 
 @c TODO Add table showing these
 
-@strong{Context layout order}
-
-Contexts are normally positioned in a system from top to bottom
-in the order in which they are encountered.  Note, however, that
-a context will be created implicitly if a command is encountered
-when there is no suitable context available to contain it.  When
-contexts are nested, the outer context will exclude inner contexts
-which are not included in its @qq{accepts} list; excluded contexts
-will be repositioned below the outer context.
-
-The default order in which contexts are laid out and the
-@qq{accepts} list can be changed, see @ref{Aligning contexts}.
-
-@strong{Articulation direction indicators}
-
-When adding articulations to notes the direction indicator,
-@code{^} (meaning @qq{up}), @code{_} (meaning @qq{down}) or
-@code{-} (meaning @qq{use default direction}), can usually be
-omitted, in which case @code{-} is assumed.  But a direction
-indicator is @strong{always} required before
+The default action may be overridden by prefixing the articulation
+by a @emph{direction indicator}.  Three direction indicators are
+available: @code{^} (meaning @qq{up}), @code{_} (meaning @qq{down})
+and @code{-} (meaning @qq{use default direction}).  The direction
+indicator can usually be omitted, in which case @code{-} is assumed,
+but a direction indicator is @strong{always} required before
 
 @itemize
 @item @code{\tweak} commands
@@ -1951,7 +1938,7 @@ indicator is @strong{always} required before
 @item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
 @end itemize
 
-These indications affect only the next note.
+Direction indicators affect only the next note:
 
 @lilypond[verbatim,quote,relative=2]
 c2( c)
@@ -2008,6 +1995,29 @@ c2( c)
 c2( c)
 @end lilypond
 
+
+@node Context layout order
+@subsection Context layout order
+
+@cindex contexts, layout order
+
+Contexts are normally positioned in a system from top to bottom
+in the order in which they are encountered in the input file.  When
+contexts are nested, the outer context will include inner nested
+contexts as specified in the input file, provided the inner contexts
+are included in the outer context's @qq{accepts} list.  Nested
+contexts which are not included in the outer context's @qq{accepts}
+list will be repositioned below the outer context rather than nested
+within it.
+
+Note that a context will be silently created implicitly if a command
+is encountered when there is no suitable context available to
+contain it.  This can give rise to unexpected new staves or scores.
+
+@c TODO add example of this
+
+The default order in which contexts are laid out and the
+@qq{accepts} list can be changed, see @ref{Aligning contexts}.
 
 
 @node Distances and measurements
