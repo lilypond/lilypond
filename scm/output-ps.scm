@@ -287,7 +287,7 @@
     
     
   (ly:format
-   "1 setlinecap ~a setlinewidth\n~l stroke"
+   "gsave currentpoint translate 1 setlinecap ~a setlinewidth\n~l stroke grestore"
    thickness
-   (convert-path-exps exps) ))
+   (convert-path-exps exps)))
   
