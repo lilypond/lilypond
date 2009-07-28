@@ -37,8 +37,10 @@ Spring::update_blocking_force ()
   else
     blocking_force_ = (min_distance_ - distance_) / inverse_compress_strength_;
 
+  // If the spring is fixed, it's not clear what the natural value
+  // of blocking_force_ would be. -infinity_f works fine for now.
   if (isnan (blocking_force_) || blocking_force_ == infinity_f)
-    blocking_force_ = 0;
+    blocking_force_ = -infinity_f;
 
   if (blocking_force_ >= 0)
     inverse_compress_strength_ = 0;
@@ -51,6 +53,7 @@ Spring::operator*= (Real r)
   distance_ = max (min_distance_, distance_ * r);
   inverse_compress_strength_ = max (0.0, distance_ - min_distance_);
   inverse_stretch_strength_ *= 0.8;
+  update_blocking_force ();
 }
 
 bool
@@ -126,6 +129,8 @@ Spring::set_inverse_stretch_strength (Real f)
     programming_error ("insane spring constant");
   else
     inverse_stretch_strength_ = f;
+
+  update_blocking_force ();
 }
 
 void
@@ -159,6 +164,7 @@ Spring::set_default_strength ()
 {
   inverse_compress_strength_ = (distance_ >= min_distance_) ? distance_ - min_distance_ : 0;
   inverse_stretch_strength_ = distance_;
+  update_blocking_force ();
 }
 
 Real
@@ -167,11 +173,15 @@ Spring::length (Real f) const
   Real force = max (f, blocking_force_);
   Real inv_k = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
 
-  if (isinf (force))
+  if (force == infinity_f)
     {
       programming_error ("cruelty to springs");
       force = 0.0;
     }
 
+  // There is a corner case here: if min_distance_ is larger than
+  // distance_ but the spring is fixed, then inv_k will be zero
+  // and we need to make sure that we return min_distance_.
   return max (min_distance_, distance_ + force * inv_k);
 }
+
