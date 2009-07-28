@@ -397,7 +397,7 @@
      `(fill . ,(if is-filled "currentColor" "none"))
      `(stroke . "currentColor")
      `(stroke-width . ,thick)
-     `(d . ,(ly:format "M~4f,~4f C~4f,~4f  ~4f,~4f ~4f,~4f S~4f,~4f ~4f,~4f"
+     `(d . ,(ly:format "M~4f ~4fC~4f ~4f ~4f ~4f ~4f ~4fS~4f ~4f ~4f ~4fz"
                x-max 0
                x-max y-max
                x-min y-max
