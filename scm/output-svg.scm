@@ -84,7 +84,7 @@
   (define (helper lst)
     (if (null? lst)
 	'()
-	(cons (format "~S,~S" (car lst) (cadr lst))
+	(cons (format "~S ~S" (car lst) (- (cadr lst)))
 	      (helper (cddr lst)))))
 
   (string-join (helper lst) " "))
@@ -409,26 +409,24 @@
   (define (convert-path-exps exps)
     (if (pair? exps)
 	(let*
-	    ((head (car exps))
-	     (rest (cdr exps))
-	     (arity
-	      (cond
-	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
-	       ((memq head '(rcurveto curveto)) 6)
-	       (else 1)))
-	     (args (take rest arity))
-	     (svg-head (assoc-get head '((rmoveto . m)
-					 (rcurveto . c)
-					 (curveto . C)
-					 (moveto . M)
-					 (lineto . L)
-					 (rlineto . l))
-				  ""))
-	     )
+	  ((head (car exps))
+	   (rest (cdr exps))
+	   (arity
+	     (cond ((memq head '(rmoveto rlineto lineto moveto)) 2)
+		   ((memq head '(rcurveto curveto)) 6)
+		   (else 1)))
+	   (args (take rest arity))
+	   (svg-head (assoc-get head
+				'((rmoveto . m)
+				  (rcurveto . c)
+				  (curveto . C)
+				  (moveto . M)
+				  (lineto . L)
+				  (rlineto . l))
+				"")))
 
-	  (cons (format "~a~a "
-			svg-head (number-list->point args)
-			)
+	  (cons (format "~a~a"
+			svg-head (number-list->point args))
 		(convert-path-exps (drop rest arity))))
 	'()))
 
@@ -438,7 +436,7 @@
 	  '(stroke-linecap . "round")
 	  '(stroke . "currentColor")
 	  '(fill . "none")
-	  `(d . ,(string-join (convert-path-exps commands) " "))))
+	  `(d . ,(apply string-append (convert-path-exps commands)))))
 
 (define (placebox x y expr)
   (if (string-null? expr)
