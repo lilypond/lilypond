@@ -78,7 +78,7 @@
        (apply eo (cons entity attributes-alist)) string (ec entity))))
 
 (define (offset->point o)
-  (format " ~S,~S" (car o)  (- (cdr o))))
+  (ly:format "~4f ~4f " (car o) (- (cdr o))))
 
 (define (number-list->point lst)
   (define (helper lst)
@@ -94,11 +94,10 @@
   (let* ((c0 (car (list-tail lst 3)))
 	 (c123 (list-head lst 3)))
     (string-append
-     (if (not close) "M " "L ")
-     (offset->point c0)
-     "C " (apply string-append (map offset->point c123))
-     (if (not close) "" (string-append
-			 "L " (offset->point close))))))
+      (if (not close) "M" "L")
+      (offset->point c0)
+      "C" (apply string-append (map offset->point c123))
+      (if (not close) "" "z"))))
 
 (define (sqr x)
   (* x x))
@@ -306,7 +305,6 @@
 
 (define (bezier-sandwich lst thick)
   (let* ((first (list-tail lst 4))
-	 (first-c0 (car (list-tail first 3)))
 	 (second (list-head lst 4)))
     (entity 'path ""
 	    '(stroke-linejoin . "round")
@@ -315,7 +313,7 @@
 	    '(fill . "currentColor")
 	    `(stroke-width . ,thick)
 	    `(d . ,(string-append (svg-bezier first #f)
-				  (svg-bezier second first-c0)))
+				  (svg-bezier second #t)))
 	    )))
 
 (define (char font i)
