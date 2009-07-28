@@ -583,17 +583,18 @@ DK: ?,
 S: ?,
 FI: kahdelle.
 
-Abbreviated @notation{a2} or @notation{a 2}.  In orchestral scores, @notation{a
-due} indicates that:
+Abbreviated @notation{a2} or @notation{a 2}.  In orchestral scores,
+@notation{a due} indicates that:
 
 @enumerate
 
-@item A single part notated on a single staff that normally carries parts for
-two players (e.g. first and second oboes) is to be played by both players.
+@item A single part notated on a single staff that normally carries parts
+for two players (e.g. first and second oboes) is to be played by both
+players.
 
-@item Or conversely, that two pitches or parts notated on a staff that normally
-carries a single part (e.g. first violin) are to be played by different players,
-or groups of players (@q{desks}).
+@item Or conversely, that two pitches or parts notated on a staff that
+normally carries a single part (e.g. first violin) are to be played by
+different players, or groups of players (@q{desks}).
 
 @end enumerate
 
@@ -659,9 +660,8 @@ S: ?,
 FI: ?.
 
 A grace note which takes its time from the rest or note preceding the
-principal note to which it is attached. The acciaccatura is drawn as a
-small eighth note (quaver) with a line drawn through the flag and
-stem.
+principal note to which it is attached. The acciaccatura is drawn as a small
+eighth note (quaver) with a line drawn through the flag and stem.
 
 @seealso
 @ref{appoggiatura}, @ref{grace notes}, @ref{ornament}.
@@ -685,14 +685,14 @@ An accidental alters a note by:
 
 @item Raising its pitch:
 @itemize
-@item By two semitones (a whole tone)—@notation{double sharp}
+@item By two semitones—@notation{double sharp}
 @item By one semitone—@notation{sharp}
 @end itemize
 
 @item Lowering its pitch:
 @itemize
 @item By one semitone—@notation{flat}
-@item By two semitones (a whole tone)—@notation{double flat}
+@item By two semitones—@notation{double flat}
 @end itemize
 
 @item Or canceling the effects of the key signature or previous accidentals.
@@ -747,8 +747,8 @@ FI: adagio, hitaasti.
 
 @itemize
 
-@item Slow tempo, slower -- especially in even meter -- than @notation{andante}
-and faster than @notation{largo}.
+@item Slow tempo, slower -- especially in even meter -- than
+@notation{andante} and faster than @notation{largo}.
 
 @item A movement in slow tempo, especially the second (slow) movement
 of sonatas, symphonies, etc.
@@ -807,7 +807,7 @@ Since one does not crescendo @emph{to} nothing, it is not correct to use
 
 ES: ?,
 I: ?,
-F: alla breve,à la brève,
+F: alla breve, à la brève,
 D: ?,
 NL: ?,
 DK: ?,
@@ -816,15 +816,17 @@ FI: ?.
 
 [Italian: @q{on the breve}]  Twice as fast as the notation indicates.
 
-Also called @notation{in cut-time}.  The name derives from mensural notation,
-where the @notation{tactus} (or beat) is counted on the semibreve (the modern
-whole note).  Counting @q{on the breve} shifts the tactus to the next longest
-note value, which (in modern usage) effectively halves all note values.
+Also called @notation{in cut-time}.  The name derives from mensural
+notation, where the @notation{tactus} (or beat) is counted on the semibreve
+(the modern whole note).  Counting @q{on the breve} shifts the tactus to the
+next longest note value, which (in modern usage) effectively halves all note
+values.
 
-(In mensural notation, breves and semibreves can have a ternary relationship, in
-which case @notation{alla breve} means thrice (not twice) as fast.  In practice,
-this complication may not have mattered, since Gaffurius's system of multiplex
-proportions makes it easy to explicitly state which proportion is needed.)
+In mensural notation, breves and semibreves can have a ternary relationship,
+in which case @notation{alla breve} means thrice (not twice) as fast.  In
+practice, this complication may not have mattered, since Gaffurius's system
+of multiplex proportions makes it easy to explicitly state which proportion
+is needed.
 
 @seealso
 @ref{breve}, @ref{hemiola}, @ref{mensural notation}, @ref{note value},
@@ -883,9 +885,9 @@ DK: alt,
 S: alt,
 FI: altto, matala naisääni.
 
-A female voice of low range (@emph{contralto}).  Originally the alto
-was a high male voice (hence the name), which by the use of falsetto
-reached the height of the female voice.  This type of voice is also
+A female voice of low range (@emph{contralto}).  Originally the alto was a
+high male voice (hence the name), which by castration or the use of falsetto
+reached the height of the natural female voice.  This type of voice is also
 known as countertenor.
 
 @seealso
@@ -1604,7 +1606,7 @@ lines.
 }
 \addlyrics {
   \override Lyrics . LyricText #'self-alignment-X = #LEFT
-  "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
+  "Soprano     " "Mezzosoprano " "Alto        " "Tenor       " "Baritone    "
 }
 @end lilypond
 
@@ -1700,8 +1702,8 @@ S: cent,
 FI: sentti, puolisävelaskeleen sadasosa tasavireisessä
 viritysjärjestelmässä.
 
-Logarithmic unit of measurement.  1@tie{}cent is 1/1200 of an octave
-(1/100 of an equally tempered semitone).
+Logarithmic unit of measuring pitch differences.  1@tie{}cent is 1/1200 of
+an octave (1/100 of an equally tempered semitone).
 
 @seealso
 @ref{equal temperament}, @ref{semitone}.
@@ -1755,7 +1757,7 @@ minor.
     "diminished  "
     "augmented  "
     "seventh-chord  "
-    ninth-chord
+    "ninth-chord"
   }
 >>
 @end lilypond
@@ -2207,7 +2209,7 @@ A meter that includes a triplet subdivision within the beat: see
 
 @item
 A time signature that additively combines two or more unequal meters, e.g.,
-"3/8 + 2/8" instead of "5/8".  Sometimes called additive time signatures.
+@q{3/8 + 2/8} instead of @q{5/8}.  Sometimes called additive time signatures.
 
 @end enumerate
 
@@ -2300,9 +2302,10 @@ are, technically speaking, @emph{transposing instruments}:
 
 @itemize
 
-@item piccolo (plays an octave higher)
-@item celesta (plays an octave higher)
-@item double bass (plays an octave lower)
+@item piccolo (plays an octave higher than written)
+@item celesta (plays an octave higher than written)
+@item classical guitar (plays an octave lower than written)
+@item double bass (plays an octave lower than written)
 
 @end itemize
 
@@ -2488,18 +2491,18 @@ g4\< a b c | d1\! \bar "|."
 
 ES: notas guía,
 I: notine,
-F: petites notes précédant l'entrée d'un instrument, réplique, "à défaut",
+F: petites notes précédant l'entrée d'un instrument, réplique, @q{à défaut},
 D: Stichnoten,
 NL: stichnoten,
 DK: stiknoder,
 S: inprickningar,
 FI: vihjenuotit.
 
-In a separate part notes belonging to another part with the purpose of
-hinting when to start playing.  Usually printed in a smaller type.
+Notes belonging to one part printed in another to hint when to start
+playing.  Usually printed in a smaller type.
 
 @seealso
-No cross-references.
+Compare: @ref{ossia}.
 
 
 @node custos
@@ -4469,10 +4472,10 @@ S: intervall,
 FI: intervalli, kahden sävelen korkeusero.
 
 Difference in pitch between two notes.  Intervals may be diminished, minor,
-perfect, major, or augmented.  The augmented fourth and the diminished fifth are
-identical (or @emph{enharmonic}) and are called @emph{tritonus} because they
-consist of three whole tones.  The addition of such two intervals forms an
-octave.
+perfect, major, or augmented.  The augmented fourth and the diminished fifth
+are identical (or @emph{enharmonic}) on an equal-tempered twelve-tone scale
+and are called @emph{tritonus} because they consist of three whole tones.
+The addition of such two intervals forms an octave.
 
 @lilypond[quote,notime,line-width=13.0\cm]
 <<
@@ -5425,9 +5428,11 @@ Compound quadruple meter (P. Yon, 1886-1943):
   \bar "||"}
 @end lilypond
 
+@ignore
 @b{@q{Monometer} vs Polymeter}
 
 TODO: add information from discussion on lilypond-user related to polymeter.
+@end ignore
 
 @seealso
 @ref{accent}, @ref{hemiola}, @ref{note value}, @ref{time signature}
@@ -6090,8 +6095,7 @@ the upper note is played first.
 @end lilypond
 
 Other frequently used ornaments are the @emph{turn}, the @emph{mordent}, and
-the
-@emph{prall} (inverted mordent).
+the @emph{prall} (inverted mordent).
 
 @lilypond[quote,line-width=13.0\cm]
 <<
@@ -6131,7 +6135,7 @@ score, usually only a few measures long, which presents another version
 of the music, for example for small hands.
 
 @seealso
-No cross-references.
+Compare: @ref{cue-notes}.
 
 
 @node part
@@ -6754,7 +6758,7 @@ DK: rallentando,
 S: rallentando,
 FI: rallerdando, hidastuen.
 
-[Italian] A performance indication, abbreviated "rall.".
+[Italian] A performance indication, abbreviated @notation{rall.}.
 
 @seealso
 @ref{ritardando}.
@@ -6851,9 +6855,9 @@ FI: rytmi.
 @itemize
 
 @item Metrical rhythm in which every time value is a multiple or
-fraction of a fixed unit of time, called @ref{beat}, and in which the
-normal @ref{accent} recurs in regular intervals, called @ref{measure}.
-The basic scheme of time values is called @ref{meter}.
+fraction of a fixed unit of time, called @emph{beat}, and in which the
+normal @emph{accent} recurs in regular intervals, called @emph{measure}.
+The basic scheme of time values is called @emph{meter}.
 
 @item Measured rhythm which lacks regularly recurrent accent.  In
 modern notation such music appears as a free alternation of different
@@ -6865,8 +6869,7 @@ metrical unit (beat).
 @end itemize
 
 @seealso
-No cross-references.
-
+@ref{accent}, @ref{beat}, @ref{measure}, @ref{meter}.
 
 @node ritardando
 @section ritardando
@@ -7662,7 +7665,6 @@ A symphony may be defined as a @emph{sonata} for orchestra.
 
 @seealso
 @ref{sonata}.
-
 
 
 @node syncopation
@@ -8571,13 +8573,13 @@ No cross-references.
 
 @end multitable
 
-* About the French naming system: @emph{croche} refers to the note's "hook". 
-Therefore, from the eighth note on, the note names mean @q{hook}, @q{doubled
-hook}, @q{trebled hook}, and so on.
+* About the French naming system: @notation{croche} refers to the note's
+@q{hook}. Therefore, from the eighth note on, the note names mean @q{hook},
+@q{doubled hook}, @q{trebled hook}, and so on.
 
-The rest names are based on the @emph{soupir}, or quarter rest.  Subsequent
-rests are expressed as fractions thereof: half a @emph{soupir}, a quarter of
-a @emph{soupir}, and so on.
+The rest names are based on the @notation{soupir}, or quarter rest. 
+Subsequent rests are expressed as fractions thereof: half a
+@notation{soupir}, a quarter of a @notation{soupir}, and so on.
 
 Each of the following tables contains one type of note and its matching rest,
 with abbreviations that apply to both notes and rests.  Just switch the part
@@ -8591,9 +8593,9 @@ that means @q{note} with the part that means @q{rest}, for example:
 
 @end itemize
 
-I put a dash @q{-} when I could not find a language-specific abbreviation for a
-duration name.  If you know of one that I missed, please send it to me, care of
-the lilypond-user discussion list.
+Editor's note: I put a dash @q{-} when I could not find a language-specific
+abbreviation for a duration name.  If you know of one that I missed, please
+send it to me, care of the lilypond-user discussion list.
 
 @multitable @columnfractions .10 .35 .35 .20
 
@@ -8787,55 +8789,56 @@ the lilypond-user discussion list.
 @node Pitch names
 @chapter Pitch names
 
-@c -is/-es endings for Danish per Rune Zedeler, pace
-@c and for Finnish per Risto Vääräniemi
-@c -iss/-ess endings for Swedish per Mats Bengtsson
-@c @columnfractions .105 .145 .125 .125 .125 .125 .125 .125 -->
+@ignore
+	-is/-es endings for Danish per Rune Zedeler, pace,
+	and for Finnish per Risto Vääräniemi;
+	-iss/-ess endings for Swedish per Mats Bengtsson
+	originally spaced with @columnfractions .105 .145 .125 .125 .125 .125 .125 .125
+
+	NOTE: Please leave the first line as-is -- that is, do not wrap it to
+	multiple lines -- as texinfo needs it to allow enough space for the
+	table entries.  (For the curious, it's a list of the widest items in
+	each column of the table.  Romance pitch names are two characters,
+	except for g (sol) ... so there you go.)
+@end ignore
 
 @multitable {g-sharp} {sol sostenido} {sol diesis} {sol dièse} {Gis} {gis} {gis} {giss} {gis}
-@headitem EN
-  @tab ES @tab I @tab F @tab D
-  @tab NL @tab DK @tab S @tab FI
-@item @strong{c} @tab do @tab do @tab ut @tab C
-  @tab c @tab c @tab c @tab c
-@item @strong{c-sharp} @tab do sostenido @tab do diesis @tab ut dièse @tab Cis
-  @tab cis @tab cis @tab ciss @tab cis
+@headitem EN @tab ES @tab I @tab F @tab D @tab NL @tab DK @tab S @tab FI
+@item @strong{c} @tab do @tab do @tab ut @tab C @tab c @tab c @tab c @tab c
+@item @strong{c-sharp} @tab do sostenido @tab do diesis @tab ut dièse
+  @tab Cis @tab cis @tab cis @tab ciss @tab cis
 @item @strong{d-flat} @tab re bemol @tab re bemolle @tab ré bémol @tab Des
   @tab des @tab des @tab dess @tab des
-@item @strong{d} @tab re @tab re @tab ré @tab D
-  @tab d @tab d @tab d @tab d
+@item @strong{d} @tab re @tab re @tab ré @tab D @tab d @tab d @tab d @tab d
 @item @strong{d-sharp} @tab re sostenido @tab re diesis @tab re dièse @tab Dis
   @tab dis @tab dis @tab diss @tab dis
 @item @strong{e-flat} @tab mi bemol @tab mi bemolle @tab mi bémol @tab Es
   @tab es @tab es @tab ess @tab es
-@item @strong{e} @tab mi @tab mi @tab mi @tab E
-  @tab e @tab e @tab e @tab e
-@item @strong{f-flat} = e
-  @tab fa bemol @tab fa bemolle @tab fa bémol @tab Fes
-  @tab fes @tab fes @tab fess @tab fes
-@item @strong{f} @tab fa @tab fa @tab fa @tab F
-  @tab f @tab f @tab f @tab f
-@item @strong{e-sharp} = f
-  @tab mi sostenido @tab mi diesis @tab mi dièse @tab Eis
-  @tab eis @tab eis @tab eiss @tab eis
+@item @strong{e} @tab mi @tab mi @tab mi @tab E @tab e @tab e @tab e @tab e
+@item @strong{f-flat} = e @tab fa bemol @tab fa bemolle @tab fa bémol
+  @tab Fes @tab fes @tab fes @tab fess @tab fes
+@item @strong{f} @tab fa @tab fa @tab fa @tab F @tab f @tab f @tab f @tab f
+@item @strong{e-sharp} = f @tab mi sostenido @tab mi diesis @tab mi dièse
+  @tab Eis @tab eis @tab eis @tab eiss @tab eis
 @item @strong{f-sharp} @tab fa sostenido @tab fa diesis @tab fa dièse @tab Fis
   @tab fis @tab fis @tab fiss @tab fis
 @item @strong{g-flat} @tab sol bemol @tab sol bemolle @tab sol bémol @tab Ges
   @tab ges @tab ges @tab gess @tab ges
-@item @strong{g} @tab sol @tab sol @tab sol @tab G
-  @tab g @tab g @tab g @tab g
-@item @strong{g-sharp} @tab sol sostenido @tab sol diesis @tab sol dièse @tab Gis
-  @tab gis @tab gis @tab giss @tab gis
+@item @strong{g} @tab sol @tab sol @tab sol @tab G @tab g @tab g @tab g @tab g
+@item @strong{g-sharp} @tab sol sostenido @tab sol diesis @tab sol dièse
+  @tab Gis @tab gis @tab gis @tab giss @tab gis
 @item @strong{a-flat} @tab la bemol @tab la bemolle @tab la bémol @tab As
   @tab as @tab as @tab ass @tab as
-@item @strong{a} @tab la @tab la @tab la @tab A
-  @tab a @tab a @tab a @tab a
+@item @strong{a} @tab la @tab la @tab la @tab A @tab a @tab a @tab a @tab a
 @item @strong{a-sharp} @tab la sostenido @tab la diesis @tab la dièse @tab Ais
   @tab ais @tab ais @tab aiss @tab ais
 @item @strong{b-flat} @tab si bemol @tab si bemolle @tab si bémol @tab B
   @tab bes @tab b @tab b @tab b
-@item @strong{b} @tab si @tab si @tab si @tab H
-  @tab b @tab h @tab h @tab h
+@item @strong{b} @tab si @tab si @tab si @tab H @tab b @tab h @tab h @tab h
+@item @strong{c-flat} = b @tab do bemol @tab do bemolle @tab ut bémol @tab Ces
+  @tab ces @tab ces @tab cess @tab ces
+@item @strong{b-sharp} = c @tab si sostenido @tab si diesis @tab si dièse
+  @tab His @tab bis @tab his @tab hiss @tab his
 @end multitable
 
 
