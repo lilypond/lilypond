@@ -641,7 +641,11 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
       current_elts.push_back (elements[i]);
       while (i + 1 < elements.size () 
 	     && scm_eq_p (elements[i+1]->get_property ("outside-staff-priority"), priority))
-	current_elts.push_back (elements[++i]);
+	{
+	  if (!to_boolean (elements[i+1]->get_property ("cross-staff")))
+	    current_elts.push_back (elements[i+1]);
+	  ++i;
+	}
 
       add_grobs_of_one_priority (&skylines, current_elts, x_common, y_common);
     }
