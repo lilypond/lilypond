@@ -78,7 +78,7 @@
        (apply eo (cons entity attributes-alist)) string (ec entity))))
 
 (define (offset->point o)
-  (ly:format "~4f ~4f " (car o) (- (cdr o))))
+  (ly:format "~4f ~4f" (car o) (- (cdr o))))
 
 (define (number-list->point lst)
   (define (helper lst)
@@ -96,7 +96,7 @@
     (string-append
       (if (not close) "M" "L")
       (offset->point c0)
-      "C" (apply string-append (map offset->point c123))
+      "C" (string-join (map offset->point c123) " ")
       (if (not close) "" "z"))))
 
 (define (sqr x)
