@@ -260,6 +260,14 @@ e4(\p f)--
 
 
 @seealso
+Learning Manual:
+@rlearning{Visibility and color of objects}.
+
+Notation Reference:
+@ref{Invisible rests},
+@ref{Visibility of objects},
+@ref{Hiding staves}.
+
 Snippets:
 @rlsr{Editorial annotations}.
 

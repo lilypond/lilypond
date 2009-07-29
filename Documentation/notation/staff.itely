@@ -750,9 +750,15 @@ hide empty staves in ancient music contexts.  Similarly,
 Music Glossary:
 @rglos{Frenched staff}.
 
+Learning Manual:
+@rlearning{Visibility and color of objects}.
+
 Notation Reference:
 @ref{Staff symbol},
-@ref{Ossia staves}.
+@ref{Ossia staves},
+@ref{Hidden notes},
+@ref{Invisible rests},
+@ref{Visibility of objects}.
 
 Snippets:
 @rlsr{Staff notation}.

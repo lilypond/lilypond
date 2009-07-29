@@ -722,10 +722,18 @@ any kind.
 
 
 @seealso
+Learning Manual:
+@rlearning{Visibility and color of objects}.
+
+Notation Reference:
+@ref{Hidden notes},
+@ref{Visibility of objects}.
+
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{SkipMusic}
+Internals Reference: 
+@rinternals{SkipMusic}.
 
 
 @node Full measure rests
