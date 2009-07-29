@@ -250,6 +250,19 @@ This will initiate a search of the remote git repository.
 @section Code style
 @c email to wl@gnu.org when I get here.
 
+@warning{this is pending some confirmation on -devel.  July 2009 -gp}
+
+Command-line script to format stuff with emacs:
+
+@example
+#!/bin/sh
+emacs $1 -batch --eval '(indent-region (point-min) (point-max) nil)' -f save-buffer
+@end example
+
+(that's all on one line)
+
+Save it as a shell script, then run on the file(s) you modified.
+
 @menu
 @end menu
 
