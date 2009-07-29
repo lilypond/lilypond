@@ -50,6 +50,12 @@ TEXINFO_MANUALS = internals\
  $(TELY_FILES:%.tely=%)\
  $(TEXI_FILES:%.texi=%)
 
+## CHAIN_RULE hack: keep the following line *before* including
+# stepmake.make, so the Internals Reference is built before the
+# Notation Reference, thus providing automatically generated sections
+# of the NR
+TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
+
 PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
 UNSPLITTED_HTML_MANUALS = changes
@@ -84,12 +90,6 @@ DEST_INFO_IMAGES_SUBDIR = Documentation/
 endif
 
 include $(depth)/make/stepmake.make
-
-## CHAIN_RULE hack: keep the following line *after* including
-# stepmake.make, so the Internals Reference is built before the
-# Notation Reference, thus providing automatically generated sections
-# of the NR
-TEXI_FILES_FROM_TELY += $(outdir)/internals.texi
 
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
