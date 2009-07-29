@@ -469,8 +469,18 @@
    `(fill . ,(if is-filled "currentColor" "none"))
    '(stroke . "currentColor")
    `(points . ,(string-join
-		(map offset->point (ly:list->offsets '() coords))))
-   ))
+		(map offset->point (ly:list->offsets '() coords))))))
+
+(define (repeat-slash width slope thickness)
+  (define (euclidean-length x y)
+    (sqrt (+ (* x x) (* y y))))
+  (let* ((x-width (euclidean-length thickness (/ thickness slope)))
+	 (height (* width slope)))
+    (entity
+      'path ""
+      '(fill . "currentColor")
+      `(d . ,(ly:format "M0 0l~4f 0 ~4f ~4f ~4f 0z"
+			x-width width (- height) (- x-width))))))
 
 (define (resetcolor)
   "</g>\n")
