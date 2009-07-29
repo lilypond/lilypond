@@ -228,6 +228,29 @@ ode.
 
 @end itemize
 
+Nodes must be included inside a
+
+@example
+@@menu
+* foo::
+* bar::
+@@end menu
+@end example
+
+@noindent
+construct.  These are easily constructed with the emacs
+@code{M-x texinfo-all-menus-update} construct, or by this
+command-line script:
+
+@example
+#!/bin/sh
+emacs $1 -batch -f texinfo-all-menus-update -f save-buffer
+@end example
+
+@noindent
+(save the above as something like @command{texinfo-menus.sh}, make
+it executable, then run @command{texinfo-menus.sh foo.itely})
+
 
 @node LilyPond formatting
 @subsection LilyPond formatting
@@ -594,12 +617,12 @@ required.  Any link in a doc section must be duplicated in the
 Introducing examples must be done with
 
 @example
-     . (ie finish the previous sentence/paragaph)
-     : (ie `in this example:')
-     , (ie `may add foo with the blah construct,')
+. (ie finish the previous sentence/paragaph)
+: (ie `in this example:')
+, (ie `may add foo with the blah construct,')
 @end example
 
-The old "sentence runs directly into the example" method is not
+The old @qq{sentence runs directly into the example} method is not
 allowed any more.
 
 @item
