@@ -2014,11 +2014,12 @@ Note that a context will be silently created implicitly if a command
 is encountered when there is no suitable context available to
 contain it.  This can give rise to unexpected new staves or scores.
 
-@c TODO add example of this
-
 The default order in which contexts are laid out and the
 @qq{accepts} list can be changed, see @ref{Aligning contexts}.
 
+@seealso
+Learning Manual:
+@rlearning{An extra staff appears}.
 
 @node Distances and measurements
 @subsection Distances and measurements
