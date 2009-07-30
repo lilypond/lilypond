@@ -954,10 +954,13 @@ Different types of arpeggios may be written.
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2\arpeggio
+
 \arpeggioArrowUp
 <c e g c>2\arpeggio
+
 \arpeggioArrowDown
 <c e g c>2\arpeggio
+
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond
@@ -976,12 +979,16 @@ Special @emph{bracketed} arpeggio symbols can be created:
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2
+
 \arpeggioBracket
 <c e g c>2\arpeggio
+
 \arpeggioParenthesis
 <c e g c>2\arpeggio
+
 \arpeggioParenthesisDashed
 <c e g c>2\arpeggio
+
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond
