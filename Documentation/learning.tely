@@ -105,7 +105,8 @@ Free Documentation License''.
 @ifnottex
 This is the Learning Manual (LM) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
-documentation, see @ref{About the documentation}.
+documentation, see 
+FIXME FIXME FIXME @c @ref{About the documentation}.
 
 @cindex web site
 @cindex URL
@@ -114,10 +115,11 @@ More information can be found at
 @uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
 of this and other documentation.
 
+@c * Preface::                        Preface.
+@c * Introduction::                   What, Why, How.
 @menu
-* Preface::                        Preface.
-* Introduction::                   What, Why, How.
-* Tutorial::                       A tutorial introduction.
+* Generating output::              Begin here.
+* Common notation::                A tutorial introduction.
 * Fundamental concepts::           Basic concepts required for reading the rest of this manual.
 * Tweaking output::                Introduction to modifying output.
 * Working on LilyPond projects::   Discusses real-life usage.
@@ -134,8 +136,9 @@ Appendices
 @contents
 
 
-@include learning/preface.itely
-@include learning/introduction.itely
+@c @include learning/preface.itely
+@c @include learning/introduction.itely
+@include learning/generating.itely
 @include learning/tutorial.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
