@@ -60,7 +60,7 @@ PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
 UNSPLITTED_HTML_MANUALS = changes
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
-$(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),, $(manual)))
+ $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
 
 OUT_HTML_FILES = $(UNSPLITTED_HTML_MANUALS:%=$(outdir)/%.html)\
  $(SPLITTED_HTML_MANUALS:%=$(outdir)/%-big-page.html)

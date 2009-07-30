@@ -14,8 +14,13 @@ OUT_PNG_IMAGES = \
 
 TELY_FILES := $(call src-wildcard,*.tely)
 MASTER_TEXI_FILES := $(TELY_FILES:%.tely=$(outdir)/%.texi)
-BIG_PAGE_HTML_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html)
-DEEP_HTML_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html)
+
+SPLITTED_HTML_MANUALS = $(foreach manual, $(TELY_FILES:%.tely=%),\
+ $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
+
+OUT_HTML_FILES += $(UNSPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html)
+BIG_PAGE_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html)
+DEEP_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html)
 PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
 
 ITELY_FILES := $(call src-wildcard,*.itely)
