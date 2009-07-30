@@ -180,7 +180,9 @@ Copyright 1999--2009 by the authors
 
 This is the Music Glossary (MG) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
-documentation, see @rlearning{About the documentation}.
+documentation, see 
+FIXME FIXME FIXME
+@c @rlearning{About the documentation}.
 
 
 @c arrowref

@@ -105,8 +105,9 @@ Free Documentation License''.
 @ifnottex
 This is the Learning Manual (LM) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
-documentation, see 
-FIXME FIXME FIXME @c @ref{About the documentation}.
+documentation, see
+FIXME FIXME FIXME 
+@c @ref{About the documentation}.
 
 @cindex web site
 @cindex URL

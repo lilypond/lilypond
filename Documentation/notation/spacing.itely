@@ -1905,7 +1905,10 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
 
-In the introduction (see @rlearning{Engraving}), it was explained that stem
+In the introduction
+FIXME FIXME FIXME
+@c (see @rlearning{Engraving}), 
+it was explained that stem
 directions influence spacing.  This is controlled with the
 @code{stem-spacing-correction} property in the
 @rinternals{NoteSpacing}, object.  These are generated for every

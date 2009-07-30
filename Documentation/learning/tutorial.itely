@@ -1387,7 +1387,8 @@ Learning Manual, you may want to read some sections again and follow
 cross-references for further reading.
 
 If you have not done so already, @emph{please} read
-FIXME FIXME FIXME @c @ref{About the documentation}.
+FIXME FIXME FIXME 
+@c @ref{About the documentation}.
 There is a lot of information about LilyPond, so
 newcomers often do not know where they should look for help.  If
 you spend five minutes reading that section carefully, you might

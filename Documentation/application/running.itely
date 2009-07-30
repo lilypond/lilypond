@@ -27,7 +27,9 @@ This chapter details the technicalities of running LilyPond.
 @node Normal usage
 @section Normal usage
 
-Most users run LilyPond through a GUI; see @rlearning{First steps} if
+Most users run LilyPond through a GUI; see 
+FIXME FIXME FIXME
+@c @rlearning{First steps} if
 you have not read this already.
 
 
