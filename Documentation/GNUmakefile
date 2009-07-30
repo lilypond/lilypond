@@ -78,7 +78,7 @@ OUT_CSS_FILES = $(CSS_FILES:%.css=$(outdir)/%.css)
 
 MAIN_INFO_DOC = lilypond-notation
 INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
- lilypond-learning lilypond-notation music-glossary
+ lilypond-essay lilypond-learning lilypond-notation music-glossary
 ifeq ($(out),www)
 INFO_DOCS += lilypond-snippets 
 endif
