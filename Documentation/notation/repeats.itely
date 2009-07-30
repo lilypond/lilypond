@@ -107,6 +107,9 @@ Normal repeats with alternate endings:
 c1
 @end lilypond
 
+@warning{Do not include @code{@bs{}relative} inside a
+@code{@bs{}repeat}.  It will cause unwanted staves to appear.
+See @rlearning{An extra staff appears}.}
 
 @cindex repeat with upbeat
 @cindex upbeat in a repeat
