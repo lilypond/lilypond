@@ -261,12 +261,15 @@ encloses the contents.
      stencil)
     ))
 
-(define-public (dimension-arrows destination) 
+(define-public (dimension-arrows destination max-size) 
   "Draw twosided arrow from here to @var{destination}"
   
   (let*
       ((e_x 1+0i)
        (e_y 0+1i)
+       (distance (sqrt (+ (* (car destination) (car destination))
+			  (* (cdr destination) (cdr destination)))))
+       (size (min max-size (/ distance 3)))
        (rotate (lambda (z ang)
 		 (* (make-polar 1 ang)
 		    z)))
@@ -275,9 +278,10 @@ encloses the contents.
        
        (z-dest (+ (* e_x (car destination)) (* e_y (cdr destination))))
        (e_z (/ z-dest (magnitude z-dest)))
-       (triangle-points '(-1+0.25i
-			  0
-			  -1-0.25i))
+       (triangle-points (list
+			 (* size -1+0.25i)
+			 0
+			 (* size -1-0.25i)))
        (p1s (map (lambda (z)
 		   (+ z-dest (rotate z (angle z-dest))))
 		 triangle-points))
@@ -295,8 +299,8 @@ encloses the contents.
 	 `(polygon (quote ,(concatenate (map complex-to-offset p2s)))
 		   0.0
 		   #t) null null ) )
-       (thickness 0.1)
-       (shorten-line 0.5)
+       (thickness (min (/ distance 12) 0.1))
+       (shorten-line (min (/ distance 3) 0.5))
        (start (complex-to-offset (/ (* e_z shorten-line) 2)))
        (end (complex-to-offset (- z-dest (/ (* e_z shorten-line) 2))))
        
@@ -352,7 +356,7 @@ encloses the contents.
                                                (ly:format "(~$,~$)"
                                                        (car extent) (cdr extent)))))))
 	      (arrows (ly:stencil-translate-axis 
-		       (dimension-arrows (cons 0 (interval-length extent)))
+		       (dimension-arrows (cons 0 (interval-length extent)) 1.0)
 		       (interval-start extent) Y)))
 	  (set! annotation
                 (center-stencil-on-extent text-stencil))
@@ -367,6 +371,38 @@ encloses the contents.
 				 (ly:stencil-extent annotation X)
 				 (cons 10000 -10000)))))
     annotation))
+
+
+(define*-public (annotate-spacing-spec layout spacing-spec start-Y-offset prev-system-end
+				      #:key (base-color blue))
+  (let* ((get-spacing-var (lambda (sym) (assoc-get sym spacing-spec 0.0)))
+	 (space (get-spacing-var 'space))
+	 (padding (get-spacing-var 'padding))
+	 (min-dist (get-spacing-var 'minimum-distance))
+	 (contrast-color (append (cdr base-color) (list (car base-color)))))
+    (stack-stencils X RIGHT 0.0
+		    (list
+		     (annotate-y-interval layout
+					  "space"
+					  (cons (- start-Y-offset space) start-Y-offset)
+					  #t
+					  #:color (map (lambda (x) (* x 0.25)) base-color))
+		     (annotate-y-interval layout
+					  "min-dist"
+					  (cons (- start-Y-offset min-dist) start-Y-offset)
+					  #t
+					  #:color (map (lambda (x) (* x 0.5)) base-color))
+		     (ly:stencil-add
+		      (annotate-y-interval layout
+					   "bottom-of-extent"
+					   (cons prev-system-end start-Y-offset)
+					   #t
+					   #:color base-color)
+		      (annotate-y-interval layout
+					   "padding"
+					   (cons (- prev-system-end padding) prev-system-end)
+					   #t
+					   #:color contrast-color))))))
 
 
 (define-public (eps-file->stencil axis size file-name)

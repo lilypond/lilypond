@@ -27,6 +27,10 @@
 ;;
      (add-stem-support ,boolean? "If set, the @code{Stem} object is
 included in this script's support.")
+     (after-last-staff-spacing ,list? "An alist of spacing variables
+that controls the spacing after the last staff in this staff group.
+See @var{next-staff-spacing} for a description of the elements of
+this alist.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
 callback for @code{after-line-breaking}.")
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
@@ -95,6 +99,10 @@ beamlet, as a proportion of the distance between two adjacent stems.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger
 a callback function.")
      (between-cols ,pair? "Where to attach a loose column to.")
+     (between-staff-spacing ,list? "An alist of spacing variables
+that controls the spacing between staves within this staff group.
+See @var{next-staff-spacing} for a description of the elements of
+this alist.")
      (bound-details ,list? "An alist of properties for determining
 attachments of spanners to edges.")
      (bound-padding ,number? "The amount of padding to insert around
@@ -188,6 +196,10 @@ an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
 whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
+     (default-next-staff-spacing ,list? "An alist of spacing variables
+that controls the spacing between this staff and the next.
+See @var{next-staff-spacing} for a description of the elements of
+this alist.")
      (details ,list? "Alist of parameters for detailed grob behavior.
 More information on the allowed parameters for a grob can be found by
 looking at the top of the Internals Reference page for each interface
@@ -451,6 +463,13 @@ resolution on this @code{NoteColumn}.")
 configuration to this index, and print the respective scores.")
      (inspect-quants ,number-pair? "If debugging is set, set beam and
 slur quants to this position, and print the respective scores.")
+     (inter-loose-line-spacing ,list? "Specifies how to vertically
+position a non-spaced line relative to the other non-spaced lines
+around it.  See @var{next-staff-spacing} for the format of this list.")
+     (inter-staff-spacing ,list? "Specifies how to vertically
+position a non-spaced line relative to the staff for which it
+has affinity.  See @var{next-staff-spacing} for the format of this list.")
+
 
 
 ;;
@@ -556,6 +575,25 @@ center of the staff.")
 to flip the direction of custos stem.")
      (next ,ly:grob? "Object that is next relation (e.g., the lyric
 syllable following an extender).")
+     (next-staff-spacing ,list? "An alist of properties used to position
+the next staff in the system.  The symbols that can be defined in the alist
+are
+@itemize @bullet
+@item @var{space} -- the amount of stretchable space between the center
+of this staff and the center of the next staff;
+@item @var{padding} -- the minimum amount of whitespace that must be
+present between this staff and the next staff;
+@item @var{stretchability} -- the ease with which the stretchable
+space increases when the system to which this staff belongs is stretched.
+If this is zero, the distance to the next staff will be fixed either at
+@var{space} or at @var{padding} plus the minimum distance to ensure
+there is no overlap, whichever is larger;
+@item @var{minimum-distance} -- the minimum distance to place between
+the center of this staff and the center of the next. This differs
+from @var{padding} in that the height of a staff has no effect on
+the application of @var{minimum-distance} (whereas the height of a
+staff is crucial for @var{padding}).
+@end itemize")
      (no-alignment ,boolean? "If set, don't place this grob in a
 @code{VerticalAlignment}; rather, place it using its own
 @code{Y-offset} callback.")
@@ -703,6 +741,8 @@ duration.  Typically, the width of a note head.  See also
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
+     (staff-affinity ,ly:dir? "The direction of the staff to which this
+line should stick.")
      (staff-padding ,ly:dimension? "Maintain this much space between
 reference points and the staff.  Its effect is to align objects of
 differing sizes (like the dynamics @b{p} and @b{f}) on their
@@ -921,6 +961,7 @@ layout.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
+     (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
      (stems ,ly:grob-array? "An array of stem objects.")

@@ -85,6 +85,27 @@
    (zip (page-property page 'lines)
 	(page-property page 'configuration))))
 
+(define (annotate-top-space first-system layout header-stencil stencil)
+  (let* ((top-margin (ly:output-def-lookup layout 'top-margin))
+	 (sym (if (paper-system-title? first-system)
+		  'first-system-title-spacing
+		  'first-system-spacing))
+	 (spacing-spec (ly:output-def-lookup layout sym))
+	 (X-offset (ly:prob-property first-system 'X-offset 5))
+	 (header-extent (ly:stencil-extent header-stencil Y)))
+
+    (set! stencil
+	  (ly:stencil-add stencil
+			  (ly:stencil-translate-axis
+			   (annotate-spacing-spec layout
+						  spacing-spec
+						  (- top-margin)
+						  (car header-extent)
+						  #:base-color red)
+			   X-offset X)))
+    stencil))
+
+
 (define (annotate-page layout stencil)
   (let ((top-margin (ly:output-def-lookup layout 'top-margin))
 	(paper-height (ly:output-def-lookup layout 'paper-height))
@@ -133,63 +154,6 @@
 
     arrow))
 
-
-
-
-(define (page-headfoot layout scopes number sym separation-symbol dir
-		       is-last-bookpart is-bookpart-last-page)
-  
-  "Create a stencil including separating space."
-
-  (let* ((header-proc (ly:output-def-lookup layout sym))
-	 (sep (ly:output-def-lookup layout separation-symbol))
-	 (stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
-	 (head-stencil
-	  (if (procedure? header-proc)
-	      (header-proc layout scopes number is-last-bookpart is-bookpart-last-page)
-	      #f)))
-    
-    (if (and (number? sep)
-	     (ly:stencil? head-stencil)
-	     (not (ly:stencil-empty? head-stencil)))
-
-	(begin
-	  (set! head-stencil
-		(ly:stencil-combine-at-edge
-		 stencil Y dir head-stencil
-		 sep))
-
-	  
-	  ;; add arrow markers 
-	  (if (or (annotate? layout)
-		  (ly:output-def-lookup layout 'annotate-headers #f)) 
-	      (set! head-stencil
-		    (ly:stencil-add
-		     (ly:stencil-translate-axis
-		      (annotate-y-interval layout 
-					   (symbol->string separation-symbol)
-					   (cons (min 0 (* dir sep))
-						 (max 0 (* dir sep)))
-					   #t)
-		      (/ (ly:output-def-lookup layout 'line-width) 2)
-		      X)
-		     (if (= dir UP)
-			 (ly:stencil-translate-axis
-			  (annotate-y-interval layout
-					      "page-top-space"
-					      (cons
-					       (- (min 0 (* dir sep))
-						  (ly:output-def-lookup layout 'page-top-space))
-					       (min 0 (* dir sep)))
-					      #t)
-			  (+ 7 (interval-center (ly:stencil-extent head-stencil X))) X)
-			 empty-stencil
-			 )
-		     head-stencil
-		     ))
-	      )))
-
-    head-stencil))
 
 (define (page-header-or-footer page dir)
     (let*
@@ -198,16 +162,16 @@
        (scopes (ly:paper-book-scopes paper-book))
        (number (page-page-number page))
        (is-last-bookpart (page-property page 'is-last-bookpart))
-       (is-bookpart-last-page (page-property page 'is-bookpart-last-page)))
-       
-      (page-headfoot layout scopes number
-		(if (= dir UP)
-		    'make-header
-		    'make-footer)
-		(if (= dir UP)
-		    'head-separation
-		    'foot-separation)
-		dir is-last-bookpart is-bookpart-last-page)))
+       (is-bookpart-last-page (page-property page 'is-bookpart-last-page))
+       (sym (if (= dir UP)
+		'make-header
+		'make-footer))
+       (header-proc (ly:output-def-lookup layout sym)))
+
+      (if (procedure? header-proc)
+	  (header-proc layout scopes number is-last-bookpart is-bookpart-last-page)
+	  #f)))
+
 
 (define (page-header page)
   (page-header-or-footer page UP))
@@ -274,7 +238,7 @@
 					    (ly:stencil-translate stencil
 								  (cons
 								   (+ system-xoffset x)
-								   (- 0 head-height y (prop 'top-margin)))
+								   (- 0 y (prop 'top-margin)))
 								  
 								  )))))
        (add-system
@@ -304,25 +268,26 @@
        )
 
     (if (and
-	 (or (annotate? layout)
-	     (ly:output-def-lookup layout 'annotate-systems #f))
+	 (ly:stencil? head)
+	 (not (ly:stencil-empty? head)))
+	(begin
+	  (set! head (ly:stencil-translate-axis head
+						(- 0 head-height (prop 'top-margin)) Y))
+	  (set! page-stencil (ly:stencil-add page-stencil head))))
+
+    (if (and
+	 (annotate? layout)
 	 (pair? lines))
 
 	(begin
+	  (set! page-stencil (annotate-top-space (car lines) layout head page-stencil))
+
 	  (for-each (lambda (sys next-sys)
 		      (paper-system-annotate sys next-sys layout))
 		    lines
 		    (append (cdr lines) (list #f)))
 	  (paper-system-annotate-last (car (last-pair lines)) layout)))
 
-    (if (and
-	 (ly:stencil? head)
-	 (not (ly:stencil-empty? head)))
-	
-	(set! page-stencil (ly:stencil-add page-stencil 
-					   (ly:stencil-translate-axis head
-								      (- 0 head-height (prop 'top-margin)) Y))))
-					   
     (map add-system lines)
 
 
@@ -356,10 +321,8 @@
 	  (ly:stencil-translate page-stencil (cons (prop 'left-margin) 0)))
 
     ;; annotation.
-    (if (or (annotate? layout)
-	    (ly:output-def-lookup layout 'annotate-page #f))
+    (if (annotate? layout)
 	(set! page-stencil (annotate-page layout page-stencil)))
-
 
     page-stencil))
               

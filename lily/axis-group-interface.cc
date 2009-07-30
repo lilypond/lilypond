@@ -10,15 +10,16 @@
 
 #include "align-interface.hh"
 #include "directional-element-interface.hh"
-#include "pointer-group-interface.hh"
 #include "grob-array.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "lookup.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
+#include "pointer-group-interface.hh"
 #include "separation-item.hh"
 #include "skyline-pair.hh"
+#include "staff-grouper-interface.hh"
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
@@ -579,7 +580,7 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
 		  b.translate (Offset (0, dir*dist));
 		  elements[i]->translate_axis (dir*dist, Y_AXIS);
 		}
-	      (*skylines)[dir].insert (b, 0, X_AXIS);
+	      skylines->insert (b, 0, X_AXIS);
 	      elements[i]->set_property ("outside-staff-priority", SCM_BOOL_F);
 	      last_affected_position[dir] = b[X_AXIS][RIGHT];
 	    }
@@ -653,21 +654,6 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   return skylines;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_max_stretch, 1)
-SCM
-Axis_group_interface::calc_max_stretch (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  Real ret = 0;
-  extract_grob_set (me, "elements", elts);
-
-  for (vsize i = 0; i < elts.size (); i++)
-    if (Axis_group_interface::has_interface (elts[i]))
-      ret += robust_scm2double (elts[i]->get_property ("max-stretch"), 0.0);
-
-  return scm_from_double (ret);
-}
-
 MAKE_SCHEME_CALLBACK (Axis_group_interface, print, 1)
 SCM
 Axis_group_interface::print (SCM smob)
@@ -687,20 +673,47 @@ Axis_group_interface::print (SCM smob)
   return ret.smobbed_copy ();
 }
 
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_next_staff_spacing, 1)
+SCM
+Axis_group_interface::calc_next_staff_spacing (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *grouper = unsmob_grob (me->get_object ("staff-grouper"));
+
+  if (grouper)
+    {
+      Grob *last_in_group = Staff_grouper_interface::get_last_grob (grouper);
+      if (me == last_in_group)
+	return grouper->get_property ("after-last-staff-spacing");
+      else
+	return grouper->get_property ("between-staff-spacing");
+    }
+  return me->get_property ("default-next-staff-spacing");
+}
+
 ADD_INTERFACE (Axis_group_interface,
 	       "An object that groups other layout objects.",
 
+	       // TODO: some of these properties are specific to
+	       // VerticalAxisGroup. We should split off a
+	       // vertical-axis-group-interface.
 	       /* properties */
 	       "X-common "
 	       "Y-common "
 	       "adjacent-pure-heights "
 	       "axes "
+	       "default-next-staff-spacing "
 	       "elements "
+	       "inter-loose-line-spacing "
+	       "inter-staff-spacing "
 	       "keep-fixed-while-stretching "
 	       "max-stretch "
+	       "next-staff-spacing "
 	       "no-alignment "
 	       "pure-Y-common "
 	       "pure-relevant-items "
 	       "pure-relevant-spanners "
+	       "staff-affinity "
+	       "staff-grouper "
 	       "vertical-skylines "
 	       );

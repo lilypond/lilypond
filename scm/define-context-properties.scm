@@ -458,6 +458,9 @@ signifying the time signature.  For example, @code{#'(4 . 4)} is a
      (timing ,boolean? "Keep administration of measure length,
 position, bar number, etc.?  Switch off for cadenzas.")
      (tonic ,ly:pitch? "The tonic of the current scale.")
+     (topLevelAlignment ,boolean? "If true, the @var{Vertical_align_engraver}
+will create a @var{VerticalAlignment}; otherwise, it will create a
+@var{StaffGrouper}")
      (trebleStaffProperties ,list? "An alist of property settings to
 apply for the up staff of @code{PianoStaff}.  Used by
 @code{\\autochange}.")

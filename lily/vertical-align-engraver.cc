@@ -33,6 +33,8 @@ protected:
   void process_music ();
   virtual void finalize ();
   virtual void initialize ();
+
+  bool top_level_;
 };
 
 ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
@@ -56,6 +58,7 @@ Vertical_align_engraver::Vertical_align_engraver ()
 {
   valign_ = 0;
   id_to_group_hashtab_ = SCM_EOL;
+  top_level_ = false;
 }
 
 void
@@ -75,7 +78,9 @@ Vertical_align_engraver::process_music ()
 {
   if (!valign_)
     {
-      valign_ = make_spanner ("VerticalAlignment", SCM_EOL);
+      top_level_ = to_boolean (get_property ("topLevelAlignment"));
+
+      valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
       valign_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
       Align_interface::set_ordered (valign_);
     }
@@ -105,7 +110,7 @@ Vertical_align_engraver::qualifies (Grob_info i) const
 void
 Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 {
-  if (qualifies (i))
+  if (top_level_ && qualifies (i))
     {
       string id = i.context ()->id_string ();
 
@@ -144,5 +149,10 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 		}
 	    }
 	}
+    }
+  else if (!top_level_)
+    {
+      Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
+      i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
     }
 }

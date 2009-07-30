@@ -1,5 +1,5 @@
 \version "2.12.0"
-#(use-modules (scm layout-page-layout))
+
 \paper {
 
     %%% WARNING
@@ -41,30 +41,15 @@
 	(is-book-title . #t)
 	))
     
-    %%
-    %% this dimension includes the extent of the
-    %% staves themselves.
-    %%
-    between-system-space = #(* 20 mm)
-    
-    
-    %%
-    %% fixed space between systems.
-    %%
-    between-system-padding = #(* 4 mm)
+    %% Note: these are not scaled; they are in staff-spaces.
+    between-system-spacing = #'((space . 12) (minimum-distance . 8) (padding . 1))
+    after-title-spacing = #'((space . 2) (padding . 0.5))
+    before-title-spacing = #'((space . 5) (padding . 0.5))
+    between-title-spacing = #'((space . 1) (padding . 0.5))
+    first-system-spacing = #'((space . 1) (padding . 0) (min-distance . 0))
+    first-system-title-spacing = #'((space . 1) (padding . 1) (min-distance . 0))
+    last-system-spacing = #'((space . 1) (padding . 0) (min-distance . 0) (stretchability . 5))
 
-    after-title-space = 5 \mm
-    before-title-space = 10 \mm
-    between-title-space = 2 \mm
-
-
-    %%
-    %% Small staves are aligned so they come out on the same place on
-    %% across different pages.
-    %%
-    page-top-space = #(* 12 mm)
-
-    
     ragged-bottom = ##f
 
     %%
@@ -97,7 +82,6 @@
 	(word-space . 0.6)))
 
     #(define page-breaking ly:optimal-breaking)
-    #(define page-post-process post-process-pages)
 
     #(define write-page-layout (ly:get-option 'dump-tweaks))
     #(define system-maximum-stretch-procedure

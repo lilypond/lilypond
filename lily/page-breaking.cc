@@ -68,6 +68,7 @@
 #include "international.hh"
 #include "item.hh"
 #include "output-def.hh"
+#include "page-layout-problem.hh"
 #include "page-spacing.hh"
 #include "paper-book.hh"
 #include "paper-score.hh"
@@ -97,7 +98,9 @@ compress_lines (const vector<Line_details> &orig)
 	  compressed.compressed_nontitle_lines_count_ =
 	    old.compressed_nontitle_lines_count_ + (compressed.title_ ? 0 : 1);
 
-	  compressed.title_ = compressed.title_ && old.title_;
+	  // compressed.title_ is true if and only if the first of its
+	  // compressed lines was a title.
+	  compressed.title_ = old.title_;
 	  ret.back () = compressed;
 	}
       else
@@ -156,7 +159,6 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
   system_count_ = 0;
   ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
   ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
-  page_top_space_ = robust_scm2double (pb->paper_->c_variable ("page-top-space"), 0);
   systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0));
   max_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("max-systems-per-page"), 0));
   min_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0));
@@ -208,12 +210,6 @@ int
 Page_breaking::min_systems_per_page () const
 {
   return min_systems_per_page_;
-}
-
-Real
-Page_breaking::page_top_space () const
-{
-  return page_top_space_;
 }
 
 vsize
@@ -331,25 +327,33 @@ Page_breaking::systems ()
   return scm_append (scm_reverse (ret));
 }
 
-Real
-Page_breaking::page_height (int page_num, bool last) const
+SCM
+Page_breaking::make_page (int page_num, bool last) const
 {
   bool last_part = ly_scm2bool (book_->paper_->c_variable ("is-last-bookpart"));
   SCM mod = scm_c_resolve_module ("scm page");
+  SCM make_page_scm = scm_c_module_lookup (mod, "make-page");
+
+  make_page_scm = scm_variable_ref (make_page_scm);
+
+  return scm_apply_0 (make_page_scm,
+		      scm_list_n (book_->self_scm (),
+				  ly_symbol2scm ("page-number"), scm_from_int (page_num),
+				  ly_symbol2scm ("is-last-bookpart"), scm_from_bool (last_part),
+				  ly_symbol2scm ("is-bookpart-last-page"), scm_from_bool (last),
+				  SCM_UNDEFINED));
+}
+
+Real
+Page_breaking::page_height (int page_num, bool last) const
+{
+  SCM mod = scm_c_resolve_module ("scm page");
+  SCM page = make_page (page_num, last);
   SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
-  SCM make_page = scm_c_module_lookup (mod, "make-page");
-
   calc_height = scm_variable_ref (calc_height);
-  make_page = scm_variable_ref (make_page);
 
-  SCM page = scm_apply_0 (make_page, scm_list_n (
-                  book_->self_scm (),
-                  ly_symbol2scm ("page-number"), scm_from_int (page_num),
-                  ly_symbol2scm ("is-last-bookpart"), scm_from_bool (last_part),
-                  ly_symbol2scm ("is-bookpart-last-page"), scm_from_bool (last),
-                  SCM_UNDEFINED));
   SCM height = scm_apply_1 (calc_height, page, SCM_EOL);
-  return scm_to_double (height) - page_top_space_;
+  return scm_to_double (height);
 }
 
 SCM
@@ -365,38 +369,86 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 }
 
 SCM
-Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
+Page_breaking::get_page_configuration (SCM systems, int page_num, bool ragged, bool last)
 {
-  SCM layout_module = scm_c_resolve_module ("scm layout-page-layout");
-  SCM page_module = scm_c_resolve_module ("scm page");
+  SCM dummy_page = make_page (page_num, last);
+  Page_layout_problem layout (book_, dummy_page, systems);
+  return scm_is_pair (systems) ? layout.solution (ragged) : SCM_EOL;
+}
 
-  SCM make_page = scm_c_module_lookup (layout_module, "stretch-and-draw-page");
+SCM
+Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool last)
+{
+  // Create a stencil for each system.
+  SCM paper_systems = SCM_EOL;
+  for (SCM s = scm_reverse (systems); scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM paper_system = scm_car (s);
+      if (Grob *g = unsmob_grob (scm_car (s)))
+	{
+	  System *sys = dynamic_cast<System*> (g);
+	  paper_system = sys->get_paper_system ();
+	}
+
+      paper_systems = scm_cons (paper_system, paper_systems);
+    }
+
+  // Create the page and draw it.
+  SCM page = make_page (page_num, last);
+  SCM page_module = scm_c_resolve_module ("scm page");
   SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
-  make_page = scm_variable_ref (make_page);
   page_stencil = scm_variable_ref (page_stencil);
 
-  SCM book = book_->self_scm ();
+  Prob *p = unsmob_prob (page);
+  p->set_property ("lines", paper_systems);
+  p->set_property ("configuration", configuration);
+  scm_apply_1 (page_stencil, page, SCM_EOL);
+
+  return page;
+}
+
+SCM
+Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
+{
   int first_page_number
     = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
-  bool last_bookpart = ly_scm2bool (book_->paper_->c_variable ("is-last-bookpart"));
   SCM ret = SCM_EOL;
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
   if (label_page_table == SCM_UNDEFINED)
     label_page_table = SCM_EOL;
 
+  // Build a list of (systems . configuration) pairs. Note that we lay out
+  // the staves and find the configurations before drawing anything. Some
+  // grobs (like tuplet brackets) look at their neighbours while drawing
+  // themselves. If this happens before the neighbouring staves have
+  // been laid out, bad side-effects could happen (in particular,
+  // Align_interface::align_to_ideal_distances might be called).
+  SCM systems_and_configs = SCM_EOL;
+
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
-      SCM page_num = scm_from_int (i + first_page_number);
-      bool partbook_last_page = (i == lines_per_page.size () - 1);
-      SCM rag = scm_from_bool (ragged () || ( partbook_last_page && ragged_last ()));
+      int page_num = i + first_page_number;
+      bool bookpart_last_page = (i == lines_per_page.size () - 1);
+      bool rag = ragged () || (bookpart_last_page && ragged_last ());
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
-      SCM page = scm_apply_0 (make_page,
-			      scm_list_n (book, lines, page_num, rag,
-					  scm_from_bool (last_bookpart),
-					  scm_from_bool (partbook_last_page),
-					  SCM_UNDEFINED));
+      SCM config = get_page_configuration (lines, page_num, rag, bookpart_last_page);
+
+      systems_and_configs = scm_cons (scm_cons (lines, config), systems_and_configs);
+      systems = scm_list_tail (systems, line_count);
+    }
+
+  // Now it's safe to make the pages.
+  int page_num = first_page_number + lines_per_page.size () - 1;
+  for (SCM s = systems_and_configs; scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM lines = scm_caar (s);
+      SCM config = scm_cdar (s);
+      bool bookpart_last_page = (s == systems_and_configs);
+      SCM page = draw_page (lines, config, page_num, bookpart_last_page);
+
       /* collect labels */
+      SCM page_num_scm = scm_from_int (page_num);
       for (SCM l = lines ; scm_is_pair (l)  ; l = scm_cdr (l))
 	{
 	  SCM labels = SCM_EOL;
@@ -409,16 +461,14 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 	    labels = prob->get_property ("labels");
 
 	  for (SCM lbls = labels ; scm_is_pair (lbls) ; lbls = scm_cdr (lbls))
-	    label_page_table = scm_cons (scm_cons (scm_car (lbls), page_num),
+	    label_page_table = scm_cons (scm_cons (scm_car (lbls), page_num_scm),
 					 label_page_table);
 	}
 
-      scm_apply_1 (page_stencil, page, SCM_EOL);
       ret = scm_cons (page, ret);
-      systems = scm_list_tail (systems, line_count);
+      --page_num;
     }
   book_->top_paper ()->set_variable (ly_symbol2scm ("label-page-table"), label_page_table);
-  ret = scm_reverse (ret);
   return ret;
 }
 
@@ -673,10 +723,11 @@ Page_breaking::cache_line_details (vsize configuration_index)
   if (cached_configuration_index_ != configuration_index)
     {
       cached_configuration_index_ = configuration_index;
-      SCM padding_scm = book_->paper_->c_variable ("page-breaking-between-system-padding");
-      if (!scm_is_number (padding_scm))
-	padding_scm = book_->paper_->c_variable ("between-system-padding");
-      Real padding = robust_scm2double (padding_scm, 0.0);
+      Real padding = 0;
+      SCM spacing_spec = book_->paper_->c_variable ("between-system-spacing");
+      SCM page_breaking_spacing_spec = book_->paper_->c_variable ("page-breaking-between-system-spacing");
+      Page_layout_problem::read_spacing_spec (spacing_spec, &padding, ly_symbol2scm ("padding"));
+      Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec, &padding, ly_symbol2scm ("padding"));
 
       Line_division &div = current_configurations_[configuration_index];
       uncompressed_line_details_.clear ();
@@ -756,6 +807,7 @@ vsize
 Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 {
   vsize ret = 1;
+  vsize page_starter = 0;
   Real cur_rod_height = 0;
   Real cur_spring_height = 0;
   Real cur_page_height = page_height (first_page_num, false);
@@ -763,10 +815,8 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
   cache_line_details (configuration);
 
-  // If the first line on a page has titles, allow them some extra space.
-  if (cached_line_details_.size ()
-      && cached_line_details_[0].compressed_nontitle_lines_count_ < cached_line_details_[0].compressed_lines_count_)
-    cur_page_height += page_top_space ();
+  if (cached_line_details_.size ())
+    cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[0]);
 
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
@@ -774,7 +824,8 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
       Real next_rod_height = cur_rod_height + ext_len
 	+ ((cur_rod_height > 0) ? cached_line_details_[i].padding_: 0);
       Real next_spring_height = cur_spring_height + cached_line_details_[i].space_;
-      Real next_height = next_rod_height + (ragged () ? next_spring_height : 0);
+      Real next_height = next_rod_height + (ragged () ? next_spring_height : 0)
+	+ min_whitespace_at_bottom_of_page (cached_line_details_[i]);
       int next_line_count = line_count + cached_line_details_[i].compressed_nontitle_lines_count_;
 
       if ((!too_few_lines (line_count) && (next_height > cur_page_height && cur_rod_height > 0))
@@ -785,10 +836,11 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 	  line_count = cached_line_details_[i].compressed_nontitle_lines_count_;
 	  cur_rod_height = ext_len;
 	  cur_spring_height = cached_line_details_[i].space_;
-	  cur_page_height = page_height (first_page_num + ret, false);
+	  page_starter = i;
 
-	  if (cached_line_details_[i].compressed_nontitle_lines_count_ < cached_line_details_[i].compressed_lines_count_)
-	    cur_page_height += page_top_space ();
+	  cur_page_height = page_height (first_page_num + ret, false);
+	  cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[i]);
+
 	  ret++;
 	}
       else
@@ -813,6 +865,9 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   */
 
   cur_page_height = page_height (first_page_num + ret - 1, true);
+  cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[page_starter]);
+  cur_page_height -= min_whitespace_at_bottom_of_page (cached_line_details_.back ());
+
   Real cur_height = cur_rod_height + ((ragged_last () || ragged ()) ? cur_spring_height : 0);
   if (!too_few_lines (line_count - cached_line_details_.back ().compressed_nontitle_lines_count_)
       && cur_height > cur_page_height
@@ -962,7 +1017,7 @@ Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
 							 vsize first_page_num)
 {
   Page_spacing_result res;
-  Page_spacing space (page_height (first_page_num, false), page_top_space_);
+  Page_spacing space (page_height (first_page_num, false), this);
   vsize line = 0;
   vsize page = 0;
   vsize page_first_line = 0;
@@ -1015,7 +1070,7 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
   Page_spacing_result res;
   vsize page = 0;
   vsize page_first_line = 0;
-  Page_spacing space (page_height (first_page_num, false), page_top_space_);
+  Page_spacing space (page_height (first_page_num, false), this);
 
   cache_line_details (configuration);
   for (vsize line = 0; line < cached_line_details_.size (); line++)
@@ -1117,7 +1172,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
 Page_spacing_result
 Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged)
 {
-  Page_spacing space (page_height, page_top_space_);
+  Page_spacing space (page_height, this);
   Page_spacing_result ret;
   int line_count = 0;
 
@@ -1173,8 +1228,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
   vector<int> page1_status;
   vector<int> page2_status;
 
-  Page_spacing page1 (page1_height, page_top_space_);
-  Page_spacing page2 (page2_height, page_top_space_);
+  Page_spacing page1 (page1_height, this);
+  Page_spacing page2 (page2_height, this);
   int page1_line_count = 0;
   int page2_line_count = 0;
 
@@ -1275,4 +1330,46 @@ vsize
 Page_breaking::last_break_position () const
 {
   return breaks_.size () - 1;  
+}
+
+// This gives the minimum distance between the top of the
+// printable area (ie. the bottom of the top-margin) and
+// the extent box of the topmost system.
+Real
+Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
+{
+  SCM first_system_spacing = book_->paper_->c_variable ("first-system-spacing");
+  if (line.title_)
+    first_system_spacing = book_->paper_->c_variable ("first-system-title-spacing");
+
+  Real min_distance = -infinity_f;
+  Real padding = 0;
+
+  Page_layout_problem::read_spacing_spec (first_system_spacing,
+					  &min_distance,
+					  ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (first_system_spacing,
+					  &padding,
+					  ly_symbol2scm ("padding"));
+
+  // FIXME: take into account the height of the header
+  return max (0.0, max (padding, min_distance - line.extent_[UP]));
+}
+
+Real
+Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
+{
+  SCM last_system_spacing = book_->paper_->c_variable ("last-system-spacing");
+  Real min_distance = -infinity_f;
+  Real padding = 0;
+
+  Page_layout_problem::read_spacing_spec (last_system_spacing,
+					  &min_distance,
+					  ly_symbol2scm ("minimum-distance"));
+  Page_layout_problem::read_spacing_spec (last_system_spacing,
+					  &padding,
+					  ly_symbol2scm ("padding"));
+
+  // FIXME: take into account the height of the footer
+  return max (0.0, max (padding, min_distance + line.extent_[DOWN]));
 }

@@ -744,28 +744,29 @@ SCM
 Tuplet_bracket::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *staff_symbol = 0;
   extract_grob_set (me, "note-columns", cols);
+  extract_grob_set (me, "tuplets", tuplets);
+
+  Grob *commony = common_refpoint_of_array (cols, me, Y_AXIS);
+  commony = common_refpoint_of_array (tuplets, commony, Y_AXIS);
+  if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
+    commony = st->common_refpoint (commony, Y_AXIS);
+  if (me->check_cross_staff (commony))
+    return SCM_BOOL_T;
+
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, cols, &equally_long);
 
-  if (par_beam)
-    return par_beam->get_property ("cross-staff");
+  if (par_beam && to_boolean (par_beam->get_property ("cross-staff")))
+    return SCM_BOOL_T;
 
   for (vsize i = 0; i < cols.size (); i++)
     {
       Grob *stem = unsmob_grob (cols[i]->get_object ("stem"));
-      if (!stem)
-	continue;
-      
-      if (to_boolean (stem->get_property ("cross-staff")))
+      if (stem && to_boolean (stem->get_property ("cross-staff")))
 	return SCM_BOOL_T;
-
-      Grob *stem_staff = Staff_symbol_referencer::get_staff_symbol (stem);
-      if (staff_symbol && (stem_staff != staff_symbol))
-        return SCM_BOOL_T;
-      staff_symbol = stem_staff;
     }
+
   return SCM_BOOL_F;
 }
 

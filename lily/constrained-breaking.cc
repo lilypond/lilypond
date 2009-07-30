@@ -12,6 +12,7 @@
 #include "international.hh"
 #include "main.hh"
 #include "output-def.hh"
+#include "page-layout-problem.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "simple-spacer.hh"
@@ -333,11 +334,15 @@ Constrained_breaking::initialize ()
       
   Output_def *l = pscore_->layout ();
   System *sys = pscore_->root_system ();
-  Real space = robust_scm2double (l->c_variable ("ideal-system-space"), 0);
-  SCM padding_scm = l->c_variable ("page-breaking-between-system-padding");
-  if (!scm_is_number (padding_scm))
-    padding_scm = l->c_variable ("between-system-padding");
-  Real padding = robust_scm2double (padding_scm, 0.0);
+
+  // TODO: add support for minimum-distance and stretchability here and
+  // to the page-breaker.
+  SCM spacing_spec = l->c_variable ("between-system-spacing");
+  SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-between-system-spacing");
+  Real space = 0;
+  Real padding = 0;
+  Page_layout_problem::read_spacing_spec (spacing_spec, &padding, ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec, &padding, ly_symbol2scm ("padding"));
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
   Interval other_lines = line_dimensions_int (pscore_->layout (), 1);

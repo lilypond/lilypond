@@ -747,3 +747,17 @@ robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
   return ext;
 }
 
+// Checks whether there is a vertical alignment in the chain of
+// parents between this and commony.
+bool
+Grob::check_cross_staff (Grob *commony)
+{
+  if (Align_interface::has_interface (commony))
+    return true;
+
+  for (Grob *g = this; g && g != commony; g = g->get_parent (Y_AXIS))
+    if (Align_interface::has_interface (g))
+      return true;
+
+  return false;
+}

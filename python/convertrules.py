@@ -2907,6 +2907,15 @@ def conv(str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
+@rule ((2, 13, 2), _("different settings for vertical layout"))
+def conv(str):
+    if re.search(r'alignment-offsets', str):
+        stderr_write("\n")
+        stderr_write(NOT_SMART % _("alignment-offsets has been changed to alignment-distances: \
+you must now specify the distances between staves rather than the offset of staves.\n"))
+        stderr_write(UPDATE_MANUALLY)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

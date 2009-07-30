@@ -10,6 +10,7 @@
   \grobdescriptions #all-grob-descriptions
 }
 
+% FIXME: replace minimum-Y-extents with proper spacing commands.
 
 \context {
   \type "Engraver_group"
@@ -64,7 +65,7 @@
 
   localKeySignature = #'()
   createSpacing = ##t
-  ignoreFiguredBassRest = ##t 
+  ignoreFiguredBassRest = ##t
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
   
   %% explicitly set instrument, so we don't get 
@@ -110,6 +111,9 @@
 \context {
   \type "Engraver_group"
   \name "ChoirStaff"
+  \consists "Vertical_align_engraver"
+  topLevelAlignment = ##f
+
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
   vocalName = #'()
@@ -291,6 +295,7 @@ contained staves are connected vertically."
   \defaultchild "Staff"
   \accepts "Staff"
   \accepts "FiguredBass"
+  \accepts "Dynamics"
 }
 
 \context{
@@ -302,6 +307,10 @@ contained staves are connected vertically."
 instrument names at the start of each system."
 
   \consists "Instrument_name_engraver"
+  \consists "Vertical_align_engraver"
+  topLevelAlignment = ##f
+
+  \override StaffGrouper #'between-staff-spacing #'stretchability = #5
   
   instrumentName = #'()
   shortInstrumentName = #'()
@@ -310,6 +319,9 @@ instrument names at the start of each system."
 \context {
   \type "Engraver_group"
   \name "StaffGroup"
+
+  \consists "Vertical_align_engraver"
+  topLevelAlignment = ##f
 
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
@@ -337,6 +349,31 @@ staves are connected vertically.  @code{StaffGroup} only consists of
 a collection of staves, with a bracket in front and spanning bar lines."
 }
 
+\context {
+  \type "Engraver_group"
+  \name Dynamics
+  \alias Voice
+  \consists "Output_property_engraver"
+  \consists "Piano_pedal_engraver"
+  \consists "Script_engraver"
+  \consists "New_dynamic_engraver"
+  \consists "Dynamic_align_engraver"
+  \consists "Text_engraver"
+  \consists "Skip_event_swallow_translator"
+  \consists "Axis_group_engraver"
+
+  pedalSustainStrings = #'("Ped." "*Ped." "*")
+  pedalUnaCordaStrings = #'("una corda" "" "tre corde")
+  \override VerticalAxisGroup #'staff-affinity = #CENTER
+  \override DynamicLineSpanner #'Y-offset = #0
+  \override TextScript #'font-size = #2
+  \override TextScript #'font-shape = #'italic
+
+  \description "Holds a single line of dynamics, which will be
+centered between the staves surrounding this context."
+}
+
+
 \context{
   \type "Engraver_group"
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.75 . 2.0)
@@ -359,7 +396,9 @@ printing of a single line of lyrics."
 
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
-  \override VerticalAxisGroup #'keep-fixed-while-stretching = ##t
+  \override VerticalAxisGroup #'staff-affinity = #UP
+  \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 5.5) (stretchability . 1) (padding . 0.5))
+  \override VerticalAxisGroup #'inter-loose-line-spacing = #'((space . 2) (stretchability . 0.5) (padding . 0.2))
   \override SeparationItem #'padding = #0.2
   \override InstrumentName #'self-alignment-Y = ##f
 
@@ -379,6 +418,8 @@ printing of a single line of lyrics."
   \consists "Axis_group_engraver"
 
   \override VerticalAxisGroup #'minimum-Y-extent = ##f
+  % FIXME: not sure what the default should be here.
+  \override VerticalAxisGroup #'staff-affinity = #DOWN
 
   
   \consists "Rest_swallow_translator" 
@@ -403,6 +444,7 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
+  \override VerticalAxisGroup #'staff-affinity = #DOWN
 }
 
 
@@ -618,6 +660,7 @@ automatically when an output definition (a @code{\score} or
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   verticallySpacedContexts = #'(Staff)
+  topLevelAlignment = ##t
   
   timing = ##t
 }
@@ -638,6 +681,7 @@ automatically when an output definition (a @code{\score} or
 
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'remove-first = ##t
+  \override VerticalAxisGroup #'staff-affinity = #UP
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
 }
 

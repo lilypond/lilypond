@@ -1,12 +1,12 @@
 \header {
 
   texidoc = "Alignments may be changed pre system by setting
-  @code{alignment-offsets} in the @code{line-break-system-details}
+  @code{alignment-distances} in the @code{line-break-system-details}
   property"
 
 }
 
-\version "2.12.0"
+\version "2.13.2"
 
 \book {
   \score {
@@ -17,17 +17,17 @@
 	\overrideProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
-	#'((alignment-offsets . (#f #f -30)))
+	#'((alignment-distances . (#f 20)))
 	c1 \break
 	\overrideProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
-	#'((alignment-offsets . (0 -5 -20)))
+	#'((alignment-distances . (5 15)))
 	c1 \break
 	\overrideProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
-	#'((alignment-offsets . (0 -15 -20)))
+	#'((alignment-distances . (15 5)))
 	c1 c
       }
     >>

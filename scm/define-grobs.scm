@@ -257,7 +257,7 @@
      . (
 	(axes . (,Y))
 	(padding . 0.2)
-	(positioning-done . ,ly:align-interface::calc-positioning-done)
+	(positioning-done . ,ly:align-interface::align-to-minimum-distances)
 	(stacking-dir . ,DOWN)
 	(threshold . (2 . 1000))
 	(Y-extent . ,ly:axis-group-interface::height)
@@ -1617,6 +1617,13 @@
 				font-interface
 				span-bar-interface))))))
 
+    (StaffGrouper
+     . (
+	(between-staff-spacing . ((space . 9) (minimum-distance . 7)))
+	(after-last-staff-spacing . ((space . 10.5) (minimum-distance . 8)))
+	(meta . ((class . Spanner)
+		 (interfaces . (staff-grouper-interface))))))
+
     (StaffSpacing
      . (
 	(non-musical . #t)
@@ -1791,7 +1798,6 @@
     (System
      . (
 	(axes . (,X ,Y))
-	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
@@ -2158,11 +2164,8 @@
 
     (VerticalAlignment
      . (
-	(after-line-breaking . ,ly:align-interface::stretch-after-break)
 	(axes . (,Y))
-	(max-stretch . 0)
-	(padding . 0.5)
-	(positioning-done . ,ly:align-interface::calc-positioning-done)
+	(positioning-done . ,ly:align-interface::align-to-ideal-distances)
 	(stacking-dir . -1)
 	(vertical-skylines . ,ly:axis-group-interface::combine-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -2176,7 +2179,8 @@
      . (
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,Y))
-	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
+	(default-next-staff-spacing . ((space . 9) (minimum-distance . 8)))
+	(next-staff-spacing . ,ly:axis-group-interface::calc-next-staff-spacing)
 	(stencil . ,ly:axis-group-interface::print)
 	(vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
