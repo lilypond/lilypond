@@ -2907,7 +2907,7 @@ def conv(str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
-@rule ((2, 13, 2), _("different settings for vertical layout"))
+@rule ((2, 13, 4), _("different settings for vertical layout"))
 def conv(str):
     if re.search(r'alignment-offsets', str):
         stderr_write("\n")
