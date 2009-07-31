@@ -1003,7 +1003,7 @@ the line width, where @var{X} is the number of staff spaces.
 @lilypond[verbatim,quote]
 \\header {
   title = \"My title\"
-  description = \"Lorem ipsum dolor sit amet, consectetur adipisicing
+  myText = \"Lorem ipsum dolor sit amet, consectetur adipisicing
     elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco
     laboris nisi ut aliquip ex ea commodo consequat.\"
@@ -1014,7 +1014,7 @@ the line width, where @var{X} is the number of staff spaces.
     \\column {
       \\fill-line { \\fromproperty #'header:title }
       \\null
-      \\wordwrap-field #'header:descr
+      \\wordwrap-field #'header:myText
     }
   }
 }
@@ -1037,7 +1037,7 @@ the line width, where @var{X} is the number of staff spaces.
 @lilypond[verbatim,quote]
 \\header {
   title = \"My title\"
-  description = \"Lorem ipsum dolor sit amet, consectetur adipisicing
+  myText = \"Lorem ipsum dolor sit amet, consectetur adipisicing
     elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco
     laboris nisi ut aliquip ex ea commodo consequat.\"
@@ -1048,7 +1048,7 @@ the line width, where @var{X} is the number of staff spaces.
     \\column {
       \\fill-line { \\fromproperty #'header:title }
       \\null
-      \\justify-field #'header:description
+      \\justify-field #'header:myText
     }
   }
 }
