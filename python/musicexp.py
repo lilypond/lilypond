@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import inspect
 import sys
 import string
@@ -907,7 +908,7 @@ class BarLine (Music):
         bar_symbol = { 'regular': "|", 'dotted': ":", 'dashed': "dashed",
                        'heavy': "|", 'light-light': "||", 'light-heavy': "|.",
                        'heavy-light': ".|", 'heavy-heavy': ".|.", 'tick': "'",
-                       'short': "'|", 'none': "" }.get (self.type, None)
+                       'short': "'", 'none': "" }.get (self.type, None)
         if bar_symbol <> None:
             printer.dump ('\\bar "%s"' % bar_symbol)
         else:
