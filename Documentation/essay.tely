@@ -88,13 +88,16 @@ Free Documentation License''.
 @end ifnottex
 
 @menu
+* Music engraving::
+* Literature list::
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
 @end menu
 
 @contents
 
-@c Insert the essay text here
+@include essay/engraving.itely
+@include essay/literature.itely
 
 @include fdl.itexi
 

@@ -102,6 +102,7 @@
 @c     @rglos
 @c     @rlearning
 @c     @ruser
+@c     @ressay
 @c     @rprogram
 @c     @rlsr
 @c     @rinternals
@@ -149,6 +150,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay-big-page,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Essay}
 @end macro
 
 @macro rprogram{TEXT}
@@ -218,6 +229,16 @@
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
 @end macro
 
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay,Essay}
+@end macro
+
 @macro rprogram{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,application,Application Usage}
@@ -278,6 +299,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notation Reference}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
 @end macro
 
 @macro rprogram{TEXT}
@@ -357,6 +388,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@end macro
+
+@macro ressay{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,essay,Essay}
 @end macro
 
 @macro rprogram{TEXT}

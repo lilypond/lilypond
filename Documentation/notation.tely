@@ -167,7 +167,6 @@ of this and other documentation.
 
 Appendices
 
-* Literature list::                Reference works about music notation.
 * Notation manual tables::         Tables and charts.
 * Cheat sheet::                    Summary of LilyPond syntax.
 * LilyPond grammar::               Syntax diagram for LilyPond parser.
@@ -176,6 +175,7 @@ Appendices
 * LilyPond index::
 @end menu
 @end ifnottex
+@c * Literature list::                Reference works about music notation.
 
 @contents
 
@@ -190,7 +190,7 @@ Appendices
 @include notation/programming-interface.itely
 
 
-@include notation/literature.itely
+@c @include notation/literature.itely
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
 

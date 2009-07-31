@@ -9,7 +9,7 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = application contributor learning notation
+MANUALS_SUBDIRS = application contributor essay learning notation
 SUBDIRS = $(MANUALS_SUBDIRS) snippets bibliography pictures misc po $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
