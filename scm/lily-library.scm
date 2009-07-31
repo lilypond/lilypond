@@ -545,12 +545,27 @@ possibly turned off."
    (reverse matches))
 
 ;;;;;;;;;;;;;;;;
-; other
+;; other
+
 (define (sign x)
   (if (= x 0)
       0
       (if (< x 0) -1 1)))
 
+(define-public (binary-search start end getter target-val)
+  (_i "Find the index between @var{start} and @var{end} (an integer)
+which will produce the closest match to @var{target-val} when
+applied to function @var{getter}.")
+  (if (<= end start)
+      start
+      (let* ((compare (quotient (+ start end) 2))
+	     (get-val (getter compare)))
+	(cond
+	 ((< target-val get-val)
+	  (set! end (1- compare)))
+	 ((< get-val target-val)
+	  (set! start (1+ compare))))
+	(binary-search start end getter target-val))))
 
 (define-public (car< a b)
   (< (car a) (car b)))

@@ -2598,6 +2598,64 @@ figured bass notation.
     (make-with-dimensions-markup '(-0.55 . 2.9) '(0.4 . 2.4)
       (make-postscript-markup eyeglassesps))))
 
+(define-builtin-markup-command (left-brace layout props size)
+  (number?)
+  other
+  ()
+  "
+A feta brace in point size @var{size}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\left-brace #35
+  \\hspace #2
+  \\left-brace #45
+}
+@end lilypond"
+  (let* ((font (ly:paper-get-font layout
+                                  (cons '((font-encoding . fetaBraces)
+                                          (font-name . #f))
+                                        props)))
+	 (glyph-count (1- (ly:otf-glyph-count font)))
+         (scale (ly:output-def-lookup layout 'output-scale))
+         (scaled-size (/ (ly:pt size) scale))
+         (glyph (lambda (n)
+                  (ly:font-get-glyph font (string-append "brace"
+							 (number->string n)))))
+	 (get-y-from-brace (lambda (brace)
+			     (interval-length
+			      (ly:stencil-extent (glyph brace) Y))))
+         (find-brace (binary-search 0 glyph-count get-y-from-brace scaled-size))
+         (glyph-found (glyph find-brace)))
+
+    (if (or (null? (ly:stencil-expr glyph-found))
+	    (< scaled-size (interval-length (ly:stencil-extent (glyph 0) Y)))
+	    (> scaled-size (interval-length
+			    (ly:stencil-extent (glyph glyph-count) Y))))
+        (begin
+          (ly:warning (_ "no brace found for point size ~S ") size)
+          (ly:warning (_ "defaulting to ~S pt")
+		      (/ (* scale (interval-length
+				   (ly:stencil-extent glyph-found Y)))
+			 (ly:pt 1)))))
+    glyph-found))
+
+(define-builtin-markup-command (right-brace layout props size)
+  (number?)
+  other
+  ()
+  "
+A feta brace in point size @var{size}, rotated 180 degrees.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\right-brace #45
+  \\hspace #2
+  \\right-brace #35
+}
+@end lilypond"
+  (interpret-markup layout props (markup #:rotate 180 #:left-brace size)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
