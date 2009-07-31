@@ -51,7 +51,7 @@ with the book last page.
   
   \bookpart {
     %% a different page breaking function may be used on each part
-    \paper { #(define page-breaking optimal-page-breaks) }
+    \paper { page-breaking = #ly:minimal-breaking }
     \header { subtitle = "First part" }
     \markup { The first book part }
     \markup { a page break }

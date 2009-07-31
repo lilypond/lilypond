@@ -940,11 +940,6 @@ but the value can be changed in the @code{\paper} block:
 @}
 @end example
 
-@c TODO Check this -td
-The old page breaking algorithm is called
-@code{optimal-page-breaks}.  If you are having trouble with the new page
-breakers, you can enable the old one as a workaround.
-
 @funindex \bookpart
 
 When a book has many scores and pages, the page breaking problem may be
@@ -1307,6 +1302,9 @@ first number is generally negative.  The numbers need not match;
 for example, the staff can be made larger at the bottom by setting
 it to @code{(-6 . 4)}.
 
+@ignore
+FIXME: update this section
+
 After page breaks are determined, the vertical spacing within each
 system is reevaluated in order to fill the page more evenly; if a page
 has space left over, systems are stretched in order to fill that space.
@@ -1368,6 +1366,7 @@ the second piano staff:
 }
 }
 @end lilypond
+@end ignore
 
 Vertical alignment of staves is handled by the
 @code{VerticalAlignment} object.  The context parameters

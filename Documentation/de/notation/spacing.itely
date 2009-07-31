@@ -941,11 +941,6 @@ aber der Wert kann in der @code{\paper}-Umgebung geändert werden:
 @}
 @end example
 
-Der alte Algorithmus für Umbruch hat die Bezeichnung
-@code{optimal-page-breaks}.  Wenn Sie Problememit der neuen
-Umbruchsfunktion haben, können sie die alte vorläufig wieder
-aktivieren.
-
 @funindex \bookpart
 
 When a book has many scores and pages, the page breaking problem may be
@@ -1335,6 +1330,9 @@ ist die erste Zahl immer negativ.  Die Zahlen müssen nicht
 gleich sein: man kann etwa die Ausdehnung nach unten vergrößern,
 indem man @code{(-6 . 4)} setzt.
 
+@ignore
+FIXME: update this section
+
 Nachdem die Seitenumbrüche bestimmt wurden, wird die vertikale
 Platzverteilung innerhalb jeder Systemgruppe neu ausgewertet
 um die Seite so gleichmäßig wie möglich zu füllen.  Wenn auf
@@ -1400,6 +1398,7 @@ vornehmen:
 }
 }
 @end lilypond
+@end ignore
 
 Die vertikale Ausrichtung von Notensystemen wird
 von dem @code{VerticalAlignment}-Objekt vorgenommen.

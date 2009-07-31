@@ -923,13 +923,6 @@ cambiar en el bloque @code{\paper}:
 @}
 @end example
 
-@c TODO Check this -td
-El antiguo algoritmo de división de páginas se llama
-@code{optimal-page-breaks}.  Si tiene problemas con los nuevos
-divisores de página, puede habilitar el antiguo como forma de rodear
-el problema.
-
-
 @funindex \bookpart
 
 Cuando un libro tiene muchas partituras y páginas, puede ser difícil
@@ -1321,6 +1314,9 @@ lo que el primer número es negativo en general.  Los números no tienen
 que coincidir; por ejemplo, el pentagrama se puede hacer mayor por
 debajo dándole el valor @code{(-6 . 4)}.
 
+@ignore
+FIXME: update this section
+
 Después de que se han determinado los saltos de página, se reevalúa el
 espaciado vertical dentro de cada sistema para llenar la página de
 forma más regular; si una página tiene más espacio de sobra, se
@@ -1385,6 +1381,7 @@ pentagrama del piano:
 }
 }
 @end lilypond
+@end ignore
 
 La alineación vertical de los pentagramas está manejada por el objeto
 @code{VerticalAlignment}.  Los parámetros de contexto que especifican
