@@ -253,28 +253,6 @@ theScore = \score{
 	    pedalSustainStrings = #'("Ped." "*Ped." "*")
 	    \remove Bar_number_engraver
         }
-	\context {
-	    \type "Engraver_group"
-	    \name Dynamics
-	    \consists "Output_property_engraver"
-	    \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 0)
-
-	    \consists "Script_engraver"
-	    \consists "Dynamic_engraver"
-	    \consists "Text_engraver"
-
-	    %%\override TextScript #'font-size = #1
-	    \override TextScript #'font-shape = #'italic
-
-	    \consists "Skip_event_swallow_translator"
-
-	    \consists "Axis_group_engraver"
-    	}
-
-	\context {
-	    \PianoStaff
-	    \accepts Dynamics
-        }
     }
 }
 			   
