@@ -2269,6 +2269,7 @@ But what if you want something that isn't covered there?  Read on.
 * Soprano and cello::
 * Four-part SATB vocal score::
 * Building a score from scratch::
+* Saving typing with variables and functions::
 * Scores and parts::
 @end menu
 
@@ -2902,6 +2903,114 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
+
+
+@node Saving typing with variables and functions
+@subsection Saving typing with variables and functions
+
+@cindex variables
+@cindex variables
+
+By this point, you've seen this kind of thing:
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+You may even realize that this could be useful in minimalist music:
+
+@lilypond[quote,verbatim,ragged-right]
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+However, you can also use these variables (also known as
+variables, macros, or (user-defined) command) for tweaks:
+
+@c TODO Avoid padtext - not needed with skylining
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+These variables are obviously useful for saving
+typing.  But they're worth considering even if you
+only use them once -- they reduce complexity.  Let's
+look at the previous example without any
+variables.  It's a lot harder to read, especially
+the last line.
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
+So far we've seen static substitution -- when LilyPond
+sees @code{\padText}, it replaces it with the stuff that
+we've defined it to be (ie the stuff to the right of
+@code{padtext=}).
+
+LilyPond can handle non-static substitution, too (you
+can think of these as functions).
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Using variables is also a good way to reduce work if the
+LilyPond input syntax changes (see @ref{Updating old input files}).  If
+you have a single definition (such as @code{\dolce}) for all your
+input files (see @ref{Style sheets}), then if the syntax changes, you
+only need to update your single @code{\dolce} definition,
+instead of making changes throughout every @code{.ly} file.
 
 
 @node Scores and parts
