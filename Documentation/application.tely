@@ -118,8 +118,8 @@ More information can be found at
 @uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
 of this and other documentation.
 
+@c * Install::                        How to install or compile.
 @menu
-* Install::                        How to install or compile.
 * Setup::                          Using LilyPond with other programs.
 * Running LilyPond::               Operation.
 * LilyPond-book::                  Integrating text and music.
@@ -135,7 +135,7 @@ Appendices
 @contents
 
 
-@include application/install.itely
+@c @include application/install.itely
 @include application/setup.itely
 @include application/running.itely
 @include application/lilypond-book.itely

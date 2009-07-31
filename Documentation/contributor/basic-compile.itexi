@@ -3,8 +3,9 @@
 
 @c DO NOT TRANSLATE THIS FILE
 
-@node Compiling from source
-@section Compiling from source
+@c include any node/sections from the higher-level *texi file.
+@c   @n ode Compiling from source
+@c   @s ection Compiling from source
 
 @menu
 * Downloading source code::

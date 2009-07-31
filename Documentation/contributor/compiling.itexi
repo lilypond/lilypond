@@ -12,9 +12,7 @@
 @node Compiling from source
 @section Compiling from source
 
-TODO  (see AU 1 for now)
-@c currently broken; will fix after 2.14
-@c @include compile.itely
+@include contributor/basic-compile.itexi
 
 
 @node Concurrent Stable and Development Versions
