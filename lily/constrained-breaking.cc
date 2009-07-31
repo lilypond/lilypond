@@ -372,6 +372,7 @@ Constrained_breaking::initialize ()
 	    break;
 
 	  Grob *c = all_[breaks_[j]];
+	  line.last_column_ = c;
 	  line.break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
 	  line.page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
 	  line.turn_penalty_ = robust_scm2double (c->get_property ("page-turn-penalty"), 0);

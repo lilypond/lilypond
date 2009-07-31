@@ -488,14 +488,7 @@ Page_breaking::create_system_list ()
     {
       if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (scm_car (s))))
 	{
-	  SCM system_count = ps->layout ()->c_variable ("system-count");
-
-	  if (scm_is_number (system_count))
-	    s = scm_append (scm_list_3 (scm_list_1 (scm_car (s)),
-					scm_vector_to_list (ps->get_paper_systems ()),
-					scm_cdr (s)));
-	  else
-	    system_specs_.push_back (System_spec (ps));
+	  system_specs_.push_back (System_spec (ps));
 	}
       else
         {
@@ -520,8 +513,24 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
     {
       if (system_specs_[i].pscore_)
 	{
-	  vector<Grob*> cols
-	    = system_specs_[i].pscore_->root_system ()->used_columns ();
+	  vector<Grob*> cols;
+
+	  SCM system_count = system_specs_[i].pscore_->layout ()->c_variable ("system-count");
+	  if (scm_is_number (system_count))
+	    {
+	      // With system-count given, the line configuration for
+	      // this score is fixed.  We need to ensure that chunk
+	      // boundaries only occur at line breaks.
+	      Constrained_breaking breaking (system_specs_[i].pscore_);
+	      vector<Line_details> details = breaking.line_details (0, VPOS, scm_to_int (system_count));
+
+	      for (vsize j = 0; j < details.size (); j++)
+		cols.push_back (details[j].last_column_);
+	    }
+	  else
+	    cols = system_specs_[i].pscore_->root_system ()->used_columns ();
+
+	  int last_chunk_idx = -1;
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
@@ -535,10 +544,22 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 						       cols[j],
 						       last);
 
+	      // NOTE: even in the breaks_ list, forced_line_count_
+	      // refers to the number of lines between a
+	      // Break_position and the start of that /chunk/.  This
+	      // is needed for system_count_bounds to work correctly,
+	      // since it mixes Break_positions from breaks_ and
+	      // chunks_.
+	      if (scm_is_number (system_count))
+		cur_pos.forced_line_count_ = j - last_chunk_idx;
+
 	      if (break_point || (i == system_specs_.size () - 1 && last))
 		breaks_.push_back (cur_pos);
 	      if (chunk_end || last)
-		chunks_.push_back (cur_pos);
+		{
+		  chunks_.push_back (cur_pos);
+		  last_chunk_idx = j;
+		}
 
 	      if ((break_point || chunk_end) && !last)
 		line_breaker_columns.push_back (j);
@@ -614,7 +635,10 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks,
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
-      if (system_specs_[sys].pscore_)
+
+      if (chunks[i+1].forced_line_count_)
+	ret[i] = chunks[i+1].forced_line_count_;
+      else if (system_specs_[sys].pscore_)
 	{
 	  vsize start;
 	  vsize end;
@@ -697,7 +721,10 @@ Page_breaking::set_to_ideal_line_configuration (vsize start, vsize end)
   for (vsize i = 0; i+1 < current_chunks_.size (); i++)
     {
       vsize sys = next_system (current_chunks_[i]);
-      if (system_specs_[sys].pscore_)
+
+      if (current_chunks_[i+1].forced_line_count_)
+	div.push_back (current_chunks_[i+1].forced_line_count_);
+      else if (system_specs_[sys].pscore_)
 	{
 	  line_breaker_args (sys, current_chunks_[i], current_chunks_[i+1], &start, &end);
 	  div.push_back (line_breaking_[sys].best_solution (start, end).size ());

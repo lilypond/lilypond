@@ -54,12 +54,17 @@ struct Break_position
   Grob *col_;  
   bool score_ender_;
 
+  /* if non-zero, this is the (fixed, uncompressed) number of lines between
+     this Break_position and the previous. */
+  int forced_line_count_;
+
   Break_position (vsize s=VPOS, vsize brk=VPOS, Grob *g=NULL, bool end=false)
   {
     system_spec_index_ = s;
     score_break_ = brk;
     col_ = g;
     score_ender_ = end;
+    forced_line_count_ = 0;
   }
 
   /*
