@@ -509,7 +509,7 @@
 ;; rotate around given point
 (define (setrotation ang x y)
   (ly:format "<g transform=\"rotate(~4f, ~4f, ~4f)\">\n"
-	     (* -1 ang) x (* -1 y)))
+	     (- ang) x (- y)))
 
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
