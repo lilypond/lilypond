@@ -39,6 +39,7 @@ protected:
 
   static Grob* find_vertical_alignment (System*);
   static void build_system_skyline (vector<Grob*> const&, vector<Real> const&, Skyline* up, Skyline* down);
+  static vector<Grob*> filter_dead_elements (vector<Grob*> const&);
 
   // This is a union (in spirit).
   // Either staves must be empty or prob must be null.

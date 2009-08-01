@@ -10,6 +10,7 @@
 #include "page-layout-problem.hh"
 
 #include "align-interface.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "item.hh"
 #include "output-def.hh"
@@ -156,7 +157,8 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 
   align->set_property ("positioning-done", SCM_BOOL_T);
 
-  extract_grob_set (align, "elements", elts);
+  extract_grob_set (align, "elements", all_elts);
+  vector<Grob*> elts = filter_dead_elements (all_elts);
   vector<Real> minimum_offsets = Align_interface::get_minimum_translations (align, elts, Y_AXIS,
 									    false, 0, 0);
 
@@ -180,19 +182,19 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
   SCM details = get_details (elements_.back ());
   SCM manual_dists = ly_assoc_get (ly_symbol2scm ("alignment-distances"), details, SCM_EOL);
   vsize last_spaceable_staff = 0;
-  bool first_live_element = true;
+  bool found_spaceable_staff = false;
   for (vsize i = 0; i < elts.size (); ++i)
     {
-      if (elts[i]->is_live () && is_spaceable (elts[i]))
+      if (is_spaceable (elts[i]))
 	{
-	  // We don't add a spring for the first live element, since
+	  // We don't add a spring for the first staff, since
 	  // we are only adding springs _between_ staves here.
-	  if (first_live_element)
+	  if (!found_spaceable_staff)
 	    {
 	      if (i > 0)
 		add_loose_lines_as_spaceable_lines (elts, minimum_offsets, 0, i-1);
 
-	      first_live_element = false;
+	      found_spaceable_staff = true;
 	      last_spaceable_staff = i;
 	      continue;
 	    }
@@ -222,71 +224,50 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
     }
   // Any loose lines hanging off the end are treated as spaceable
   // lines.  This might give slightly weird results if the hanging
-  // systems have staff-affinity != UP. It's not quite clear what
+  // systems have staff-affinity != UP.  It's not quite clear what
   // should happen in that case, though.
   if (last_spaceable_staff + 1 < elts.size ())
     add_loose_lines_as_spaceable_lines (elts, minimum_offsets,
-					first_live_element ? 0 : last_spaceable_staff + 1,
+					found_spaceable_staff ? last_spaceable_staff + 1 : 0,
 					elts.size () - 1);
+  // Corner case: there was only one staff, and it wasn't spaceable.
+  // Mark it spaceable, because we do not allow non-spaceable staves
+  // to be at the top or bottom of a system.
+  else if (!found_spaceable_staff && elts.size ())
+    mark_as_spaceable (elts[0]);
 }
 
+// first and  last are inclusive
 void
 Page_layout_problem::add_loose_lines_as_spaceable_lines (vector<Grob*> const& elts,
 							 vector<Real> const& minimum_offsets,
 							 vsize first, vsize last)
 {
-  Direction last_affinity = UP;
-  SCM last_spec = SCM_EOL;
-  bool found_live_line = false;
-  for (vsize i = first; i <= last; ++i)
+  vsize start = first;
+  vsize end = last;
+  if (start > 0)
+    --start;
+  if (end + 1 < elts.size ())
+    ++end;
+  
+  for (vsize i = start; i < end; ++i)
     {
-      if (elts[i]->is_live ())
-	{
-	  Direction affinity = robust_scm2dir (elts[i]->get_property ("staff-affinity"), CENTER);
-	  if (affinity > last_affinity)
-	    {
-	      warning (_ ("staff-affinities should only decrease"));
-	      affinity = last_affinity;
-	    }
-
-	  SCM spec = elts[i]->get_property ("inter-staff-spacing");
-	  if ((affinity != DOWN && found_live_line)
-	      || (affinity == DOWN && i != last)) // FIXME: we want to know if we are the last _live_ line.
-	    spec = elts[i]->get_property ("inter-loose-line-spacing");
-
-	  Spring spring (1.0, 0.0);
-	  // When affinity == DOWN, the spacing spec specifies the
-	  // spacing to the staff below.
-	  if (affinity == DOWN)
-	    alter_spring_from_spacing_spec (last_spec, &spring);
-	  else
-	    alter_spring_from_spacing_spec (spec, &spring);
-
-	  Real min_distance = (i > 0 ? minimum_offsets[i-1] : 0) - minimum_offsets[i];
-	  spring.ensure_min_distance (min_distance);
-
-	  // The first line in a system doesn't get a spring.
-	  if (first > 0 || found_live_line)
-	    springs_.push_back (spring);
-
-	  mark_as_spaceable (elts[i]);
-	  last_spec = spec;
-	  last_affinity = affinity;
-	  found_live_line = true;
-	}
-    }
-
-  if (found_live_line && last + 1 < elts.size ())
-    {
+      SCM spec = get_spacing_spec (elts[i], elts[i+1]);
       Spring spring (1.0, 0.0);
-      if (last_affinity == UP)
-	warning (_ ("a system with staff-affinity UP is stranded above the system"));
-      alter_spring_from_spacing_spec (last_spec, &spring);
+      alter_spring_from_spacing_spec (spec, &spring);
+      if (spec == SCM_BOOL_F)
+	{
+	  spring.set_inverse_compress_strength (10000);
+	  spring.set_inverse_stretch_strength (10000);
+	}
 
-      Real min_distance = minimum_offsets[last] - minimum_offsets[last+1];
+      Real min_distance = minimum_offsets[i] - minimum_offsets[i+1];
       spring.ensure_min_distance (min_distance);
       springs_.push_back (spring);
     }
+
+  for (vsize i = first; i <= last; ++i)
+    mark_as_spaceable (elts[i]);
 }
 
 void
@@ -389,68 +370,51 @@ Page_layout_problem::find_system_offsets ()
 
 	  // Position the staves within this system.
 	  Real translation = 0;
-	  bool found_live_staff = false;
 	  vector<Grob*> loose_lines;
 	  vector<Real> const& min_offsets = elements_[i].min_offsets;
 	  vector<Real> loose_line_min_distances;
 	  Grob *last_spaceable_line = 0;
 	  Real last_spaceable_line_translation = 0;
-	  vsize last_live_staff = 0;
 	  for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size (); ++staff_idx)
 	    {
 	      Grob *staff = elements_[i].staves[staff_idx];
 
-	      // Dead VerticalAxisGroups didn't participate in the
-	      // rod-and-spring problem, but they still need to be
-	      // translated. We translate them by the same amount as
-	      // the VerticalAxisGroup directly before.  (but we don't
-	      // increment spring_idx!)
-	      if (is_spaceable (staff) || !staff->is_live ())
+	      if (is_spaceable (staff))
 		{
-		  if (staff->is_live ())
-		    {
-		      // this is relative to the system: negative numbers are down.
-		      translation = system_position - solution_[spring_idx];
-		      found_live_staff = true;
-		      spring_idx++;
+		  // this is relative to the system: negative numbers are down.
+		  translation = system_position - solution_[spring_idx];
+		  spring_idx++;
 
-		      // Lay out any non-spaceable lines between this line and
-		      // the last one.
-		      if (loose_lines.size ())
-			{
-			  loose_line_min_distances.push_back (min_offsets[last_live_staff] - min_offsets[staff_idx]);
-			  loose_lines.push_back (staff);
-			  distribute_loose_lines (loose_lines, loose_line_min_distances,
-						  last_spaceable_line_translation, translation);
-			  loose_lines.clear ();
-			  loose_line_min_distances.clear ();
-			}
-		      last_spaceable_line = staff;
-		      last_spaceable_line_translation = translation;
-		      last_live_staff = staff_idx;
+		  // Lay out any non-spaceable lines between this line and
+		  // the last one.
+		  if (loose_lines.size ())
+		    {
+		      loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
+		      loose_lines.push_back (staff);
+		      distribute_loose_lines (loose_lines, loose_line_min_distances,
+					      last_spaceable_line_translation, translation);
+		      loose_lines.clear ();
+		      loose_line_min_distances.clear ();
 		    }
+		  last_spaceable_line = staff;
+		  last_spaceable_line_translation = translation;
 
 		  staff->translate_axis (translation, Y_AXIS);
 		}
-	      // We only need to deal with loose lines if we've
-	      // already found a live staff (because any loose lines
-	      // that occur before our first live staff are treated as
-	      // spaced lines anyway).
-	      else if (found_live_staff)
+	      else
 		{
 		  if (loose_lines.empty ())
 		    loose_lines.push_back (last_spaceable_line);
 
 		  loose_lines.push_back (staff);
-		  loose_line_min_distances.push_back (min_offsets[last_live_staff] - min_offsets[staff_idx]);
-		  last_live_staff = staff_idx;
+		  loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		}
 	    }
 
 	  // Corner case: even if a system has no live staves, it still takes up
 	  // one spring (a system with one live staff also takes up one spring),
 	  // which we need to increment past.
-	  if (!found_live_staff)
+	  if (elements_[i].staves.empty ())
 	    spring_idx++;
 
 	  *tail = scm_cons (scm_from_double (system_position), SCM_EOL);
@@ -676,4 +640,20 @@ Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring* spring)
       spring->set_inverse_stretch_strength (stretch);
       spring->set_inverse_compress_strength (stretch);
     }
+}
+
+vector<Grob*>
+Page_layout_problem::filter_dead_elements (vector<Grob*> const& input)
+{
+  vector<Grob*> output;
+  for (vsize i = 0; i < input.size (); ++i)
+    {
+      if (Hara_kiri_group_spanner::has_interface (input[i]))
+	Hara_kiri_group_spanner::consider_suicide (input[i]);
+
+      if (input[i]->is_live ())
+	output.push_back (input[i]);
+    }
+
+  return output;
 }
