@@ -236,7 +236,7 @@ left to be created implicitly.
 @strong{@emph{CueVoice}}
 
 A voice context used to render notes of a reduced size, intended
-primarily for adding cue notes to a staff, see @ref{Formating
+primarily for adding cue notes to a staff, see @ref{Formatting
 cue notes}.  Usually left to be created implicitly.
 
 @strong{@emph{ChordNames}}
