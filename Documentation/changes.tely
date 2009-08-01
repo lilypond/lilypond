@@ -63,6 +63,17 @@ which scares away people.
 @end ignore
 
 @item
+Braces in markup can now be selected by point size using the markup commands
+@code{\left-brace} and @code{\right-brace}.
+@lilypond[quote]
+\markup {
+  \left-brace #35
+  \hspace #2
+  \right-brace #45
+}
+@end lilypond
+
+@item
 Intermediate .ps files which are created by LilyPond
 during compilation are now deleted by default.  To keep them,
 add the following line to your input files:
