@@ -325,7 +325,8 @@
    `(r . ,radius)))
 
 (define (dashed-line thick on off dx dy phase)
-  (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
+  (draw-line thick 0 0 dx dy
+	     `(stroke-dasharray . ,(format "~a,~a" on off))))
 
 (define (draw-line thick x1 y1 x2 y2 . alist)
   (apply entity 'line ""
