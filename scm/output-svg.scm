@@ -503,15 +503,13 @@
 	  '(fill . "currentColor")))
 
 (define (setcolor r g b)
-  (format "<g color=\"rgb(~a%,~a%,~a%)\">\n"
+  (format "<g color=\"rgb(~a%, ~a%, ~a%)\">\n"
 	  (* 100 r) (* 100 g) (* 100 b)))
 
 ;; rotate around given point
 (define (setrotation ang x y)
-  (format "<g transform=\"rotate(~a,~a,~a)\">\n"
-    (number->string (* -1 ang))
-    (number->string x)
-    (number->string (* -1 y))))
+  (ly:format "<g transform=\"rotate(~4f, ~4f, ~4f)\">\n"
+	     (* -1 ang) x (* -1 y)))
 
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
