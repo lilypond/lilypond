@@ -419,9 +419,9 @@ Page_layout_problem::find_system_offsets ()
 		      if (loose_lines.size ())
 			{
 			  loose_line_min_distances.push_back (min_offsets[last_live_staff] - min_offsets[staff_idx]);
-			  distribute_loose_lines (last_spaceable_line, last_spaceable_line_translation,
-						  loose_lines, loose_line_min_distances,
-						  staff, translation);
+			  loose_lines.push_back (staff);
+			  distribute_loose_lines (loose_lines, loose_line_min_distances,
+						  last_spaceable_line_translation, translation);
 			  loose_lines.clear ();
 			  loose_line_min_distances.clear ();
 			}
@@ -438,6 +438,9 @@ Page_layout_problem::find_system_offsets ()
 	      // spaced lines anyway).
 	      else if (found_live_staff)
 		{
+		  if (loose_lines.empty ())
+		    loose_lines.push_back (last_spaceable_line);
+
 		  loose_lines.push_back (staff);
 		  loose_line_min_distances.push_back (min_offsets[last_live_staff] - min_offsets[staff_idx]);
 		  last_live_staff = staff_idx;
@@ -459,93 +462,38 @@ Page_layout_problem::find_system_offsets ()
   return system_offsets;
 }
 
-// Given two lines that are already spaced (line_before and line_after), distribute
-// some unspaced lines between them.  If line_before is null, the unspaced lines
-// will be packed as closely as possible to line_after.  If line_after is null, the
-// unspaced lines will be packed as closely as possible to line_before.  If both are
-// null, the first loose_line will be translated to before_offset and the rest
-// of the loose_lines will be packed as closely as possible to it.
-//
-// min_distances has one more element than loose_lines; the first element of
-// min_distances contains the minimum skyline distance between line_before
-// and loose_lines[0].
+// Given two lines that are already spaced (the first and last
+// elements of loose_lines), distribute some unspaced lines between
+// them.
 void
-Page_layout_problem::distribute_loose_lines (Grob *line_before, Real before_offset,
-					     vector<Grob*> const &loose_lines,
+Page_layout_problem::distribute_loose_lines (vector<Grob*> const &loose_lines,
 					     vector<Real> const &min_distances,
-					     Grob *line_after, Real after_offset)
+					     Real first_translation, Real last_translation)
 {
-  vector<Real> offsets;
-  assert (line_before && line_after);
-
   Simple_spacer spacer;
-  Direction last_affinity = UP;
-  for (vsize i = 0; i < loose_lines.size (); ++i)
+  for (vsize i = 0; i + 1 < loose_lines.size (); ++i)
     {
-      Direction affinity = robust_scm2dir (loose_lines[i]->get_property ("staff-affinity"), CENTER);
-      if (affinity > last_affinity)
-	{
-	  warning (_ ("staff-affinities should only decrease"));
-	  affinity = last_affinity;
-	}
-
-      SCM staff_spec = loose_lines[i]->get_property ("inter-staff-spacing");
-      SCM loose_spec = loose_lines[i]->get_property ("inter-loose-line-spacing");
-      SCM spec = loose_spec;
-      if ((i == 0 && affinity == UP)
-	  || (i + 1 == loose_lines.size () && affinity != UP))
-	spec = staff_spec;
-
+      SCM spec = get_spacing_spec (loose_lines[i], loose_lines[i+1]);
       Spring spring (1.0, 0.0);
       alter_spring_from_spacing_spec (spec, &spring);
+      spring.ensure_min_distance (min_distances[i]);
 
-      if (affinity != last_affinity)
+      if (spec == SCM_BOOL_F)
 	{
-	  if (affinity == CENTER)
-	    {
-	      Spring up_spring (1.0, 0.0);
-	      SCM up_spec = (i == 0) ? staff_spec : loose_spec;
-	      alter_spring_from_spacing_spec (up_spec, &up_spring);
-	      up_spring.ensure_min_distance (min_distances[i]);
-
-	      spacer.add_spring (up_spring);
-	    }
-	  else if (affinity == DOWN && last_affinity == UP)
-	    {
-	      // Insert a very flexible spring, so it doesn't mess things up too much.
-	      Spring extra_spr (1.0, min_distances[i]);
-	      extra_spr.set_inverse_stretch_strength (100000);
-	      extra_spr.set_inverse_compress_strength (100000);
-	      spacer.add_spring (extra_spr);
-	    }
+	  // Insert a very flexible spring, so it doesn't have much effect.
+	  spring.set_inverse_stretch_strength (100000);
+	  spring.set_inverse_compress_strength (100000);
 	}
-      if (affinity == UP)
-	spring.ensure_min_distance (min_distances[i]);
-      else
-	spring.ensure_min_distance (min_distances[i+1]);
 
       spacer.add_spring (spring);
-      last_affinity = affinity;
-    }
-
-  if (last_affinity == UP)
-    {
-      Spring extra_spr (1.0, min_distances.back ());
-      extra_spr.set_inverse_stretch_strength (100000);
-      extra_spr.set_inverse_compress_strength (100000);
-      spacer.add_spring (extra_spr);
     }
 
   // Remember: offsets are decreasing, since we're going from UP to DOWN!
-  spacer.solve (before_offset - after_offset, false);
+  spacer.solve (first_translation - last_translation, false);
 
   vector<Real> solution = spacer.spring_positions ();
   for (vsize i = 1; i + 1 < solution.size (); ++i)
-    offsets.push_back (before_offset - solution[i]);
-
-  assert (offsets.size () == loose_lines.size ());
-  for (vsize i = 0; i < offsets.size (); ++i)
-    loose_lines[i]->translate_axis (offsets[i], Y_AXIS);
+    loose_lines[i]->translate_axis (first_translation - solution[i], Y_AXIS);
 }
 
 SCM
@@ -668,6 +616,47 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
       return true;
     }
   return false;
+}
+
+// Returns the spacing spec connecting BEFORE to AFTER.  A return
+// value of SCM_BOOL_F means that there should be no spring (in
+// practice, this means that we use a very flexible spring).
+SCM
+Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
+{
+  if (is_spaceable (before))
+    {
+      if (is_spaceable (after))
+	return before->get_property ("next-staff-spacing");
+      else
+	{
+	  Direction affinity = to_dir (after->get_property ("staff-affinity"));
+	  return (affinity == DOWN) ? SCM_BOOL_F : after->get_property ("inter-staff-spacing");
+	}
+    }
+  else
+    {
+      if (is_spaceable (after))
+	{
+	  Direction affinity = to_dir (before->get_property ("staff-affinity"));
+	  return (affinity == UP) ? SCM_BOOL_F : before->get_property ("inter-staff-spacing");
+	}
+      else
+	{
+	  Direction before_affinity = to_dir (before->get_property ("staff-affinity"));
+	  Direction after_affinity = to_dir (after->get_property ("staff-affinity"));
+	  if (after_affinity > before_affinity)
+	    {
+	      warning (_ ("staff-affinities should only decrease"));
+	      after_affinity = before_affinity;
+	    }
+	  if (before_affinity != UP)
+	    return before->get_property ("inter-loose-line-spacing");
+	  else if (after_affinity != DOWN)
+	    return before->get_property ("inter-loose-line-spacing");
+	}
+    }
+  return SCM_BOOL_F;
 }
 
 void

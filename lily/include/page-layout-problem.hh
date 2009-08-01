@@ -24,6 +24,7 @@ public:
   static bool read_spacing_spec (SCM spec, Real* dest, SCM sym);
   static bool is_spaceable (Grob *g);
   static SCM get_details (Grob *g);
+  static SCM get_spacing_spec (Grob *before, Grob *after);
 
 protected:
   void append_system (System*, Spring const&, Real padding);
@@ -31,7 +32,7 @@ protected:
 
   void solve_rod_spring_problem (bool ragged);
   SCM find_system_offsets ();
-  void distribute_loose_lines (Grob*, Real, vector<Grob*> const&, vector<Real> const&, Grob*, Real);
+  void distribute_loose_lines (vector<Grob*> const&, vector<Real> const&, Real, Real);
   void add_loose_lines_as_spaceable_lines (vector<Grob*> const&,
 					   vector<Real> const&,
 					   vsize start, vsize end);

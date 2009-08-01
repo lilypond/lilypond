@@ -192,7 +192,7 @@ Align_interface::get_minimum_translations (Grob *me,
 	      if (scm_is_number (forced_dist))
 		dy = scm_to_double (forced_dist) + stacking_dir * (last_spaceable_element_pos - where);
 	    }
-	  last_spaceable_element_details = elems[j]->get_property ("next-staff-padding");
+	  last_spaceable_element_details = elems[j]->get_property ("next-staff-spacing");
 	  found_spaceable_element = true;
 	}
       else
