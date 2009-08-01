@@ -58,72 +58,74 @@ which scares away people.
 
 * Write complete sentences.
 
-* only show user-visible changes. 
+* only show user-visible changes.
 
 @end ignore
 
-@item Intermediate .ps files which are created by LilyPond
+@item
+Intermediate .ps files which are created by LilyPond
 during compilation are now deleted by default.  To keep them,
-add the line
+add the following line to your input files:
 @example
 #(ly:set-option 'delete-intermediate-files #f)
 @end example
-to your input files.
 
-@item Dashed and dotted slurs, phrasing slurs, and ties
+@item
+Dashed and dotted slurs, phrasing slurs, and ties
 have been made variable thickness, and
 partially dashed slurs are now available:
-@lilypond[quote]
-\relative c'' {
-  \slurDashed
-    c4( d e f) |
-  \slurDotted
-    g4( f e d) |
-  \slurHalfDashed
-    c4( d e f)
-}
+@lilypond[quote,relative=2]
+\slurDashed
+c4( d e f) |
+\slurDotted
+g4( f e d) |
+\slurHalfDashed
+c4( d e f)
 @end lilypond
-   
 
-@item An eyeglasses markup was added, incidating strongly to look at the 
+@item
+An eyeglasses markup was added, incidating strongly to look at the
 conductor for instructions:
-@lilypond[quote]
-\relative c'' {
-  \mark \markup {\eyeglasses}
-  c4_\markup{\eyeglasses}
-}
+@lilypond[quote,relative=2]
+\mark \markup { \eyeglasses }
+c4_\markup{ \eyeglasses }
 @end lilypond
 
 @item
 A snap-pizzicato (also known as Bartok-pizzicato) articulation was added:
-@lilypond[quote]
-\relative c'' {
-  c\snappizzicato
-}
+@lilypond[quote,relative=2]
+c4\snappizzicato
 @end lilypond
 
 @item
-Tuplet number formatting functions are now available to print other fractions and to add notes to the number or fraction:
-@lilypond[quote]
-\relative c'' {
-  \once \override TupletNumber #'text = #(tuplet-number::non-default-tuplet-denominator-text 7)
-  \times 2/3  { c4. c4. c4. c4. } % begin verbatim
+Tuplet number formatting functions are now available to print other fractions
+and to add notes to the number or fraction:
+@lilypond[quote,relative=2]
+\once \override TupletNumber #'text =
+  #(tuplet-number::non-default-tuplet-denominator-text 7)
+\times 2/3 { c4. c4. c4. c4. }
 
-  \once \override TupletNumber #'text = #(tuplet-number::non-default-tuplet-fraction-text 12 7)
-  \times 2/3  { c4. c4. c4. c4. }
-  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper (tuplet-number::non-default-tuplet-fraction-text 12 7) "8")
-  \times 2/3  { c4. c4. c4. c4. }
+\once \override TupletNumber #'text =
+  #(tuplet-number::non-default-tuplet-fraction-text 12 7)
+\times 2/3 { c4. c4. c4. c4. }
+\once \override TupletNumber #'text =
+  #(tuplet-number::append-note-wrapper
+    (tuplet-number::non-default-tuplet-fraction-text 12 7) "8")
+\times 2/3 { c4. c4. c4. c4. }
 
-  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper tuplet-number::calc-denominator-text "4")
-  \times 2/3  { c8 c8 c8 c8 c8 c8 }
-  \once \override TupletNumber #'text = #(tuplet-number::append-note-wrapper tuplet-number::calc-fraction-text "4")
-  \times 2/3  { c8 c8 c8 c8 c8 c8 }
+\once \override TupletNumber #'text =
+  #(tuplet-number::append-note-wrapper tuplet-number::calc-denominator-text "4")
+\times 2/3 { c8 c8 c8 c8 c8 c8 }
+\once \override TupletNumber #'text =
+  #(tuplet-number::append-note-wrapper tuplet-number::calc-fraction-text "4")
+\times 2/3 { c8 c8 c8 c8 c8 c8 }
 
-  \once \override TupletNumber #'text = #(tuplet-number::fraction-with-notes "4." "8")
-  \times 2/3  { c4. c4. c4. c4. }
-  \once \override TupletNumber #'text = #(tuplet-number::non-default-fraction-with-notes 12 "8" 4 "4")
-  \times 2/3  { c4. c4. c4. c4. }
-}
+\once \override TupletNumber #'text =
+  #(tuplet-number::fraction-with-notes "4." "8")
+\times 2/3 { c4. c4. c4. c4. }
+\once \override TupletNumber #'text =
+  #(tuplet-number::non-default-fraction-with-notes 12 "8" 4 "4")
+\times 2/3  { c4. c4. c4. c4. }
 @end lilypond
 
 @item
