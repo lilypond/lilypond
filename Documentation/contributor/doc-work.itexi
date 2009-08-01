@@ -371,7 +371,6 @@ easier/faster processing), use this header:
 
 @example
 \paper @{
-  #(define dump-extents #t)
   indent = 0\mm
   line-width = 160\mm - 2.0 * 0.4\in
   ragged-right = ##t
