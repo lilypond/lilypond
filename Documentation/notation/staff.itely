@@ -1318,6 +1318,26 @@ It is possible to tag cued parts with unique names in order to
 process them in different ways.  For details about this procedure,
 see @ref{Using tags}.
 
+@cindex notes, smaller
+@cindex smaller notes
+
+A @code{CueVoice} context may be created explicitly if notes of a
+smaller size are required, for example to set an alternative
+sequence of notes more suitable for a higher or lower voice.
+
+@lilypond[verbatim,relative=2]
+\time 12/8
+\key ees \major
+g4 ees8 f4 g8
+\stemDown
+<<
+  { d4. bes4 c8 }
+  \new CueVoice 
+  { g'4. f4 ees8 }
+>>
+\stemUp
+d2. d2.
+@end lilypond
 
 @seealso
 Notation Reference:

@@ -233,6 +233,12 @@ input entered in @code{\figuremode} mode.
 The voice context used within a @code{TabStaff} context.  Usually
 left to be created implicitly.
 
+@strong{@emph{CueVoice}}
+
+A voice context used to render notes of a reduced size, intended
+primarily for adding cue notes to a staff, see @ref{Formating
+cue notes}.  Usually left to be created implicitly.
+
 @strong{@emph{ChordNames}}
 
 Typesets chord names.
@@ -253,7 +259,6 @@ documented.
 
     * NoteNames
 
-    * CueVoice Not documented
     * Global
         Hard coded entry point for LilyPond. Cannot be tuned.
     * Devnull
