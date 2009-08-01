@@ -233,14 +233,14 @@ This mode is used by default by @command{lilypond-book}.
 @cindex SVG (Scalable Vector Graphics)
  for SVG (Scalable Vector Graphics).
 
- This creates a single SVG file containing the entire music
- output, with embedded fonts.  You need an SVG viewer that
- supports embedded fonts, or an SVG viewer that can replace the
- embedded fonts with OTF fonts.  Under UNIX, you may use
- @uref{http://www.inkscape.org,Inkscape} (version 0.42 or later),
- after copying the OTF fonts from the LilyPond directory
- (typically @file{/usr/share/lilypond/VERSION/fonts/otf/}) to
- @file{~/.fonts/}.
+ This creates a single SVG file containing the entire music output
+ with no embedded fonts.  It is recommended to install the Century
+ Schoolbook fonts, included with your LilyPond installation, for
+ optimal rendering.  Under UNIX, simply copy these fonts from the
+ LilyPond directory (typically
+ @file{/usr/share/lilypond/VERSION/fonts/otf/}) to
+ @file{~/.fonts/}.  The SVG output should be compatible with any
+ SVG editor or user agent.
 
 @item scm
 @cindex Scheme dump
