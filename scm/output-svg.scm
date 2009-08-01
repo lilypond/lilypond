@@ -1,21 +1,17 @@
-;;;; output-svg.scm -- implement Scheme output routines for SVG1
+;;;; output-svg.scm -- implement Scheme output routines for SVG
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
 ;;;; (c) 2002--2009 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                Patrick McCarty <pnorcks@gmail.com>
 
-;;;; http://www.w3.org/TR/SVG11
-;;;; http://www.w3.org/TR/SVG12/ -- page, pageSet in draft
+;;;; Recommendations:
+;;;; http://www.w3.org/TR/SVG11/
+;;;; http://www.w3.org/TR/SVGTiny12/
+;;;; http://www.w3.org/TR/SVGPrint/ -- page, pageSet in draft
 
 ;;;; TODO:
-;;;;  * .cff MUST NOT be in fc's fontpath.
-;;;;    - workaround: remove mf/out from ~/.fonts.conf,
-;;;;      instead add ~/.fonts and symlink all /mf/out/*otf there.
-;;;;    - bug in fontconfig/freetype/pango?
-
 ;;;;  * inkscape page/pageSet support
-;;;;  * inkscape SVG-font support
-;;;;    - use fontconfig/fc-cache for now, see output-gnome.scm
 
 (define-module (scm output-svg))
 (define this-module (current-module))
@@ -37,7 +33,6 @@
   (let ((keyword (car expr)))
     (cond
      ((eq? keyword 'some-func) "")
-     ;;((eq? keyword 'placebox) (dispatch (cadddr expr)))
      (else
       (if (module-defined? this-module keyword)
 	  (apply (eval keyword this-module) (cdr expr))
@@ -75,7 +70,7 @@
   (if (equal? string "")
       (apply eoc entity attributes-alist)
       (string-append
-       (apply eo (cons entity attributes-alist)) string (ec entity))))
+	(apply eo (cons entity attributes-alist)) string (ec entity))))
 
 (define (offset->point o)
   (ly:format "~4f ~4f" (car o) (- (cdr o))))
@@ -313,8 +308,7 @@
 	    '(fill . "currentColor")
 	    `(stroke-width . ,thick)
 	    `(d . ,(string-append (svg-bezier first #f)
-				  (svg-bezier second #t)))
-	    )))
+				  (svg-bezier second #t))))))
 
 (define (char font i)
   (dispatch
@@ -505,13 +499,11 @@
 	  `(width . ,(+ breapth width))
 	  `(height . ,(+ depth height))
 	  `(ry . ,(/ blot-diameter 2))
-	  '(fill . "currentColor")
-	  ))
+	  '(fill . "currentColor")))
 
 (define (setcolor r g b)
   (format "<g color=\"rgb(~a%,~a%,~a%)\">\n"
-	  (* 100 r) (* 100 g) (* 100 b)
-	  ))
+	  (* 100 r) (* 100 g) (* 100 b)))
 
 ;; rotate around given point
 (define (setrotation ang x y)
