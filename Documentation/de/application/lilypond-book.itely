@@ -796,11 +796,6 @@ eingebunden wird, wird der Dateiname (ohne die Pfadangabe) unmittelbar vor
 dem Musikfragment ausgegeben. In HTML-Dateien ist er außerdem ein Link
 auf die LilyPond-Datei.
 
-@item fontload
-Diese Option inkludiert die Schriftarten in allen EPS-Dateien, die von
-diesem Fragment erzeugt werden. Dies ist nötig, wenn das Fragment
-Schriftarten benutzt, die @LaTeX{} nicht selbst findet.
-
 @end table
 
 

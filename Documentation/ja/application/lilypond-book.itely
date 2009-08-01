@@ -783,11 +783,6 @@ the file name right before the music snippet.  For HTML output, this
 is a link.  Only the base name of the file is printed, i.e. the
 directory part of the file path is stripped.
 
-@item fontload
-This option includes fonts in all of the generated EPS-files for this
-snippet.  This should be used if the snippet uses any font that @LaTeX{}
-cannot find on its own.
-
 @end table
 
 

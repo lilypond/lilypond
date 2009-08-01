@@ -802,12 +802,6 @@ antes del fragmento musical.  Para la salida HTML, esto es un enlace.
 Sólo se imprime el nombre base del archivo, es decir, se elimina la
 parte del directorio de la ruta del archivo.
 
-@item fontload
-Esta opción incluye las fuentes tipográficas en todos los archivos EPS
-generados para este fragmento.  Se debe usar si el fragmento usa
-cualquier tipografía que @LaTeX{} no es capaz de encontrar por sí
-solo.
-
 @end table
 
 
