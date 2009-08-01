@@ -508,6 +508,9 @@ doits.
 
 @notation{Slurs} are entered using parentheses:
 
+@warning{In polyphonic music, a slur must be terminated
+in the same voice it began.}
+
 @lilypond[verbatim,quote,relative=2]
 f4( g a) a8 b(
 a4 g2 f4)
