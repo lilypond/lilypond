@@ -414,6 +414,7 @@
 	   (arity
 	     (cond ((memq head '(rmoveto rlineto lineto moveto)) 2)
 		   ((memq head '(rcurveto curveto)) 6)
+		   ((eq? head 'closepath) 0)
 		   (else 1)))
 	   (args (take rest arity))
 	   (svg-head (assoc-get head
@@ -422,7 +423,8 @@
 				  (curveto . C)
 				  (moveto . M)
 				  (lineto . L)
-				  (rlineto . l))
+				  (rlineto . l)
+				  (closepath . z))
 				"")))
 
 	  (cons (format "~a~a"
