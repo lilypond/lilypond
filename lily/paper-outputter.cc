@@ -112,5 +112,14 @@ void
 Paper_outputter::close ()
 {
   if (scm_port_p (file_) == SCM_BOOL_T)
-    scm_close_port (file_);
+    {
+      scm_close_port (file_);
+      /*
+	Remove the "warning" definitions for missing stencil
+	expressions so that we start fresh with the next \book
+	block.  --pmccarty
+      */
+      SCM proc = ly_lily_module_constant ("remove-stencil-warnings");
+      scm_call_1 (proc, output_module_);
+    }
 }

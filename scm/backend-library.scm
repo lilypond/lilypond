@@ -190,6 +190,8 @@
       scope)))
   (apply string-append (map output-scope scopes)))
 
+(define missing-stencil-list '())
+
 (define-public (backend-testing output-module)
   (define (missing-stencil-expression name)
     (begin
@@ -198,7 +200,16 @@
 
   (map (lambda (x)
 	 (if (not (module-defined? output-module x))
-	     (module-define! output-module x
-			     (lambda* (#:optional y . z)
-			       (missing-stencil-expression x)))))
+	     (begin
+	       (module-define! output-module x
+			       (lambda* (#:optional y . z)
+				 (missing-stencil-expression x)))
+	       (set! missing-stencil-list (append (list x)
+						  missing-stencil-list)))))
        (ly:all-stencil-commands)))
+
+(define-public (remove-stencil-warnings output-module)
+  (for-each
+    (lambda (x)
+      (module-remove! output-module x))
+    missing-stencil-list))
