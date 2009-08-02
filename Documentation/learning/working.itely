@@ -259,6 +259,7 @@ are easily handled.
 * An extra staff appears::
 * Apparent error in ../ly/init.ly::
 * Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
 @end menu
 
 @node Music runs off the page
@@ -371,6 +372,13 @@ contains a @emph{LilyPond} rather than a @emph{Scheme} comment.
 LilyPond comments begin with a percent sign, (@code{%}), and must
 not be used within Scheme routines.  Scheme comments begin with a
 semi-colon, (@code{;}).
+
+@node Error message FT_Get_Glyph_Name
+@unnumberedsubsubsec Error message FT_Get_Glyph_Name
+
+This error messages appears in the console output or log file if
+an input file contains a non-ASCII character and was not saved in
+UTF-8 encoding.  For details, see @ruser{Text encoding}.
 
 @node Troubleshooting (taking it all apart)
 @subsection Troubleshooting (taking it all apart)
