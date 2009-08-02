@@ -5,7 +5,7 @@
 \header {
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 He aquí una partitura vocal estándar para cuatro voces SATB. Con
 grupos mayores, suele ser útil incluir una sección que aparezca en
@@ -15,14 +15,16 @@ voces se reagrupan en sólo dos pentagramas.
 
 "
   doctitlees = "Plantilla de conjunto vocal"
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
-  
+
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d  
   texidocde = "
 Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren 
 Stücken ist es oft sinnvoll, eine allgemeine Variable zu bestimmen, 
 die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa 
 sind fast immer gleich in allen Stimmen.
 "
+
+  doctitlede = "Vorlage für Vokalensemble"
 
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "

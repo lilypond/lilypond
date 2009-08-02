@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
  doctitlees = "Grabado manual de las ligaduras"
  texidoces = "
 Se pueden grabar a mano las ligaduras modificando la propiedad
@@ -16,7 +16,7 @@ hacia arriba, -1 = hacia abajo).
 
 "
 
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Überbindungen können manuell gesetzt werden, indem man die
 @code{tie-configuration}-Eigenschaft des @code{TieColumn}-Objekts

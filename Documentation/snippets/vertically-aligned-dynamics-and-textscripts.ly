@@ -5,9 +5,9 @@
 \header {
   lsrtags = "tweaks-and-overrides, spacing"
 
-%% Translation of GIT committish: a71dfe75d190e18a075443575d71140173829504
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
-Mediante el establecimiento de la propiedad @code{Y-extent} a un valor
+Mediante el establecimiento de la propiedad @code{'Y-extent} a un valor
 adecuado, todos los objetos @code{DynamicLineSpanner} (reguladores e
 indicaciones dinámicas textuales) se pueden alinear con un punto de
 referencia común, independientemente de sus dimensiones.  De esta
@@ -20,7 +20,7 @@ largo de su línea de base.
 "
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Indem man die @code{'Y-extent}-Eigenschaft auf einen passenden Wert setzt,
 können alle @code{DynamicLineSpanner}-Objekte (Crescendo-Klammern und

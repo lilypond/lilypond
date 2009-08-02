@@ -5,7 +5,7 @@
 \header {
   lsrtags = "expressive-marks, unfretted-strings"
 
-%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Para hacer más pequeño el círculo de @code{\\flageolet} (armónico)
 utilice la siguiente función de Scheme.
@@ -22,7 +22,7 @@ Il est possible de rapetisser le cercle d'un @code{\\flageolet} grâce
 "
   doctitlefr = "Modifier la taille d'un \\flageolet"
 
-%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Um den @code{\\flageolet}-Kreis kleiner zu machen, kann diese
 Scheme-Funktion eingesetzt werden.

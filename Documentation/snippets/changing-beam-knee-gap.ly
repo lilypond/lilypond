@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Se insertan automáticamente barras en ángulo cuando se detecta un
 intervalo muy grande entre las notas.  Se puede hacer un ajuste
@@ -19,7 +19,7 @@ establecido a 5.5 espacios de pentagrama.
 "
   doctitlees = "Cambiar el salto de las barras en ángulo"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Balken mit Hälsen in unterschiedliche Richtungen werden automatisch
 erstellt, wenn ein großer Sprung zwischen Tonhöhen gefunden wird.  Dieses

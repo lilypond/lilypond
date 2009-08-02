@@ -5,10 +5,10 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 El orden vertical que ocupan las inscripciones gráficas está
-controlado con la propiedad @code{script-priority}. Cuanto más
+controlado con la propiedad @code{'script-priority}. Cuanto más
 bajo es este número, más cerca de la nota se colocará. En este
 ejemplo, el @code{TextScript} (el sostenido) tiene primero la
 prioridad más baja, por lo que se sitúa en la posición más baja en
@@ -21,7 +21,7 @@ lugar.
 "
   doctitlees = "Controlar la ordenación vertical de las inscripciones"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Die vertikale Anordnung von Beschriftungen wird mit der
 @code{'script-priority}-Eigenschaft kontrolliert.  Um so kleiner die

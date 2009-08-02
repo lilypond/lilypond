@@ -5,7 +5,7 @@
 \header {
   lsrtags = "pitches, editorial-annotations"
 
-%% Translation of GIT committish: 48f804da6794a7bc8e7fdd4b1649f485b0b09d26
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
@@ -29,12 +29,12 @@ nota.
 
 "
 
-%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
-  doctitlede = "Notenkopfstile besierend auf der Tonleiterstufe erstellen"
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  doctitlede = "Notenkopfstile basierend auf der Tonleiterstufe erstellen"
   texidocde = "
 Die @code{shapeNoteStyles}-(NotenFormenStile)-Eigenschaft kann benutzt
 werden, um verschiedene Notenstile für jeden Schritt der Tonleiter
-zudefinieren (vorgegeben von der Tonart oder der @q{tonic}
+zu definieren (vorgegeben von der Tonart oder der @qq{tonic}
 (Tonika)-Eigneschaft.  Diese Eigenschaft braucht eine Anzahl von Symbolen,
 welche beliebig sein können (geometrische Ausdrücke wie @code{triangle}
 (Dreieck), @code{cross} (Kreuz) und @code{xcircle} (X-Kreis) sind erlaubt)

@@ -5,12 +5,12 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
-%% Translation of GIT committish: b10de35f895919aec109de6fb1fc84d42ad851b3
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
 texidoces = "
 La creación de un grupeto circular de anticipación entre dos notas,
 donde la nota inferior del grupeto utiliza una alteración, requiere
 varias sobreescriturasw de propiedades.  La propiedad
-@code{outside-staff-priority} se debe establecer al valor #f, pues en
+@code{outside-staff-priority} se debe establecer al valor @code{#f}, pues en
 caso contrario tendría prioridad sobre la propiedad @code{avoid-slur
 property}.  El valor de @code{halign} se utiliza para colocar el
 grupeto horizontalmente.
@@ -20,7 +20,7 @@ grupeto horizontalmente.
 doctitlees = "Crear un grupeto de anticipación"
 
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Einen Doppelschlag mit Vorhalt zu erstellen, wobei die untere Note das
 Vorzeichen benutzt, erfordert einige Einstellungsänderungen.  Die

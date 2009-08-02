@@ -5,7 +5,7 @@
 \header {
   lsrtags = "vocal-music, keyboards, template"
 
-%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Esta plantilla añade una reducción de piano automática a la partitura
 vocal SATB estándar que se mostró en la \"Plantilla de conjunto
@@ -17,7 +17,7 @@ entonces los cambios se aplicarán también a la reducción de piano.
 "
   doctitlees = "Plantilla de conjunto vocal con reducción de piano automática"
   
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In diesem Beispiel wird ein automatischer Klavierauszug zu der 
 Chorpartitur hinzugefügt. Das zeigt eine der Stärken von LilyPond
@@ -33,6 +33,7 @@ tenorMusic), verändert sich auch der Klavierauszug entsprechend.
 定義を何回も使用することができます。ボーカルの音符 (例えば、@code{tenorMusic} 
 の音符) に変更が加えられた場合、その変更はピアノ譜にも適用されます。
 "
+
   texidoc = "
 This template adds an automatic piano reduction to the standard SATB
 vocal score demonstrated in \"Vocal ensemble template\". This

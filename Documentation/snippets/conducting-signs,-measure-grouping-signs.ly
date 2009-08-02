@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Las opciones para agrupar los pulsos de un compás están a nuestra
 disposición a través de la función de Scheme
@@ -22,7 +22,7 @@ pasa a la función @code{set-time-signature} como tercer argumento:
 "
 doctitlees = "Símbolos de dirección, símbolos de agrupación de compás"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Optionen, mit denen die Balken in einem Takt gruppiert werden, sind
 durch die Scheme-Funktion @code{set-time-signature} erhältlich, die
@@ -49,7 +49,7 @@ fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{set-time-signature} créera aussi des symboles
 @code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
 modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
-9/8 este divisée en 2, 2, 2 et 3.  Ceci est fourni en tant que troisième
+9/8 est divisée en 2, 2, 2 et 3.  Ceci est fourni en tant que troisième
 argument à @code{set-time-signature} : @code{'(2 2 2 3)}.
 
 "

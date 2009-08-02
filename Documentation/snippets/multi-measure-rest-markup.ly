@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms, text"
 
-%% Translation of GIT committish: a041509cb268bc38f6491a33fdeabae91ed6de67
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
 texidoces = "
 Los elementos de marcado aplicados a un silencio multicompás se
 centran encima o debajo de éste.  Los elementos de marcado extensos
@@ -24,7 +24,7 @@ longitud del texto, éste aparecerá centrado.
 
 doctitlees = "Marcado de silencios multicompás"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "Textbeschriftungen, die an Mehrtaktpausen gehängt wird,
 wird über oder unter der Pause zentriert.  Lange Beschriftungen
 lassen den Takt nicht breiter werden.  Um eine Mehrtaktpause einer

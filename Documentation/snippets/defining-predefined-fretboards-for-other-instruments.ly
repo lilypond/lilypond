@@ -5,7 +5,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: afbff4903c2dcf413255a42e38b1d26435509370
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Se pueden añadir diagramas de posiciones predefinidas para
@@ -24,7 +24,7 @@ de las cuerdas.  Hay planes para corregir esto en un futuro.
 "
   doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
 
-%% Translation of GIT committish: cd4950757ab1ab6c89805b0b7c978bfca034f940
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
   texidocfr = "
 La liste des diagrammes standards prédéfinis pour la guitare peut être

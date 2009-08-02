@@ -5,7 +5,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 La dirección de las plicas se contola de la misma forma en la
 tablatura que en la notación tradicional. Las barras se pueden
@@ -24,7 +24,7 @@ comme le montre cet exemple.
 "
   doctitlefr = "Hampes et ligatures en mode tablature"
 
-%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Richtung von Hälsen wird in Tabulaturen genauso wie in normaler Notation
 eingestellt.  Balken können horizontal eingestellt werden, wie das Beispiel

@@ -5,18 +5,19 @@
 \header {
   lsrtags = "pitches, text"
 
-%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
-Internamente, la función @code{set-octavation} establece las
-propiedades @code{ottavation} (por ejemplo, a @code{\"8va\"} o a
-@code{\"8vb\"}) y @code{middleCPosition}.  Para sobreescribir el texto
-del corchete, ajuste @code{ottavation} despues de invocar a
-@code{set-octavation}.
+Internamente, @code{\\ottava} establece las propiedades
+@code{ottavation} (por ejemplo, a @code{\"8va\"} o a
+@code{\"8vb\"}) y @code{middleCPosition}.  Para sobreescribir el
+texto del corchete, ajuste @code{ottavation} después de invocar la
+instrucción @code{\\ottava}.
+
 "
+
   doctitlees = "Texto de octava alta y baja"
-%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
   
-  
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Intern setzt die @code{set-octavation}-Funktion die Eigenschaften
 @code{ottavation} (etwa auf den Wert @code{\"8va\"} oder @code{\"8vb\"})

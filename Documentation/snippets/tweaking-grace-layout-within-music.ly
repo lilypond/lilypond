@@ -3,9 +3,21 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Il est possible de changer globalement la mise en forme des petites 
+notes dans un morceau, au moyen de la fonction 
+@code{add-grace-property}.  Ici, par exemple, on ôte la définition de 
+l'orientation des objets @code{Stem} pour toutes les petites notes, 
+afin que les hampes ne soient pas toujours orientées vers le haut, et on 
+leur préfère des têtes en forme de croix.
+
+"
+  doctitlefr = "Mise en forme des notes d'ornement"
+
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 La disposición de las expresiones de adorno se puede cambiar a lo
@@ -21,7 +33,7 @@ cabezas a aspas.
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Das Layout von Verzierungsausdrücken kann in der Musik verändert
 werden mit den Funktionen @code{add-grace-property} und
@@ -31,6 +43,8 @@ Hälse nicht immer nach unten zeigen, und ändert den Standardnotenkopf
 in ein Kreuz.
 "
   doctitlede = "Veränderung des Layouts von Verzierungen innerhalb der Noten"
+
+
 
   texidoc = "
 The layout of grace expressions can be changed throughout the music

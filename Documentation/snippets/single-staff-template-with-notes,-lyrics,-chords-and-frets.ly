@@ -5,7 +5,7 @@
 \header {
   lsrtags = "vocal-music, chords, template"
 
-%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Presentamos a continuación un ejemplo de plantilla para una hoja
 guía de acordes con melodía, letra, acordes y diagramas de

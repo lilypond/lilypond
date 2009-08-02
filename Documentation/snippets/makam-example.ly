@@ -5,20 +5,20 @@
 \header {
   lsrtags = "pitches, world-music"
 
-%% Translation of GIT committish: 33d87eaa6928c0242687fc2361e89de854161c1d
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 El «Makam» es un tipo de melodía de Turquía que
-utiliza intervalos microtonales de 1/9 de tono.  Consulte el
+utiliza alteraciones microtonales de 1/9 de tono.  Consulte el
 archivo de inicio @code{makam.ly} (véase el 'Manual de
 aprendizaje @version{}, 4.6.3 Otras fuentes de información' para
 averiguar la situación de este archivo) para ver detalles de los
 nombres de las notas y las alteraciones.
 
 "
-  doctitlees = "El «Makam»"
+  doctitlees = "Ejemplo de «Makam»"
 
   
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Makam ist eine türkische Melodie, in der 1/9-Tonabstände
 eingesetzt werden.  Sehen Sie sich die Initialisierungsdatei

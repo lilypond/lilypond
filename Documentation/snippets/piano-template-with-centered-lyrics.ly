@@ -3,9 +3,18 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+  texidocfr = "
+Lorsque la mélodie est doublée au piano, cela ne nécessite pas forcément
+une portée spécifique.  Les paroles peuvent s'insérer entre les deux
+portée de la partition pour piano.
+
+"
+  doctitlefr = "Piano et paroles entre les portées"
+
   lsrtags = "text, keyboards, template"
 
-%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 En lugar de tener un pentagrama dedicado a la melodía y la letra, ésta
 se puede centrar entre los pentagramas de un sistema de piano.
@@ -13,7 +22,7 @@ se puede centrar entre los pentagramas de un sistema de piano.
 "
   doctitlees = "Plantilla de piano con letra centrada"
   
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Anstatt ein eigenes System für Melodie und Text zu schreiben, können 
 Sie den Text auch zwischen die beiden Klaviersysteme schreiben

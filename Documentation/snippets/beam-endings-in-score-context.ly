@@ -3,9 +3,18 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Les règles de ligatures définies au niveau du contexte @code{Score}
+s'appliqueront à toutes les portées.  Il est toutefois possible de
+moduler au niveau @code{Staff} ou @code{Voice} :
+
+"
+  doctitlefr = "Définition de règles de ligature pour la partition"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 43774ddb81b9017802da04ba2862cae4586935b2
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Las reglas de final de barra especificadas en el contexto
 @code{Score} se aplican a todos los pentagramas, pero se pueden
@@ -15,7 +24,7 @@ modificar tanto en los niveles de @code{Staff} como de
 "
   doctitlees = "Finales de barra en el contexto Score"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Balkenenderegeln, die im @code{Score}-Kontext definiert werden, wirken
 sich auf alle Systeme aus, können aber auf @code{Staff}- und
@@ -23,6 +32,8 @@ sich auf alle Systeme aus, können aber auf @code{Staff}- und
 
 "
   doctitlede = "Balkenenden auf Score-Ebene"
+
+
 
   texidoc = "
 Beam-ending rules specified in the @code{Score} context apply to all

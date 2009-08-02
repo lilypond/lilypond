@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms, fretted-strings"
 
-%% Translation of GIT committish: 4c465c44a037a2a9570964bde1ce64c1cb15014f
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Para la música de guitarra, es posible mostrar los ritmos de rasgueo,
 además de las notas de la melodía, acordes y diagramas de posiciones.
@@ -13,7 +13,7 @@ además de las notas de la melodía, acordes y diagramas de posiciones.
 "
   doctitlees = "Ritmos rasgueados de guitarra"
 
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In Guitarrennotation kann neben Melodie, Akkordbezeichnungen und
 Bunddiagrammen auch der Schlagrhythmus angegeben werden.
@@ -29,7 +29,7 @@ En matière de notation pour guitare, il arrive que soient indiqués les
 diagrammes de tablature.
 
 "
-  doctitlede = "Rythmique et guitare"
+  doctitlefr = "Rythmique et guitare"
 
   texidoc = "
 For guitar music, it is possible to show strum rhythms, along with

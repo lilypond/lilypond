@@ -5,7 +5,7 @@
 \header {
   lsrtags = "pitches, vocal-music"
 
-%% Translation of GIT committish: 48f804da6794a7bc8e7fdd4b1649f485b0b09d26
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   doctitlees = "Ámbitos con varias voces"
   texidoces = "
 La adición del grabador @code{Ambitus_engraver} al contexto de
@@ -14,7 +14,7 @@ pentagramas con varias voces.
 
 "
 
-%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Indem man den @code{Ambitus_engraver} im @code{Staff}-Kontext
 hinzufügt, erhält man einen einzigen Ambitus pro System, auch in dem

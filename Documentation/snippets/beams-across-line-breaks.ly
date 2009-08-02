@@ -5,17 +5,22 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Normalmente están prohibidos los saltos de línea si las barras
 atraviesan las líneas divisorias.  Se puede cambiar este
 comportamiento como se muestra aquí:
 
 "
+  doctitlees = "Barras que atraviesan saltos de línea"
+  
+
   doctitle = "Barras que atraviesan saltos de línea"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+
+  doctitle = "Barras que atraviesan saltos de línea"
   
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d  
 texidocde = "
 Zeilenumbrüche sind normalerweise während Balken verboten.  Das kann geändert
 werden.

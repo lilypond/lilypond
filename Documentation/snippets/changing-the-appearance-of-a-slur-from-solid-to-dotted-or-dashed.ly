@@ -5,7 +5,7 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations"
 
-%% Translation of GIT committish: 55ea64f469d9c1703222654c9e5bc8490b04a67a
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Se puede cambiar el aspecto de las ligaduras de expresión de
 continuas a punteadas o intermitentes.

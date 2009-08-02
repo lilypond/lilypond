@@ -3,9 +3,20 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Vous pouvez modifier les valeurs des variables @code{startGraceMusic}, 
+@code{stopGraceMusic}, @code{startAcciaccaturaMusic}, 
+@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic}, et 
+@code{stopAppoggiaturaMusic} afin d'en personnaliser les effets.  Pour 
+plus de détails, voir le fichier @code{ly/grace-init.ly}. 
+
+"
+  doctitlefr = "Redéfinition des réglages de mise en forme par défaut des notes d'ornement"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Los valores predeterminados para las notas de adorno están
@@ -21,7 +32,7 @@ efectos.
   doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die globalen Standardeinstellungen für Verzierungsnoten werden in
 den Variablen@code{startGraceMusic}, @code{stopGraceMusic},
@@ -33,6 +44,8 @@ werden.
 
 "
   doctitlede = "Globale Umdefinition von Verzierungsnoten"
+
+
 
   texidoc = "
 The global defaults for grace notes are stored in the identifiers

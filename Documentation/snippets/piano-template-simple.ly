@@ -3,9 +3,16 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+  texidocfr = "
+Voici une simple partition pour piano avec quelques notes.
+
+"
+  doctitlefr = "Piano -- cannevas simple"
+
   lsrtags = "keyboards, template"
 
-%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Presentamos a continuación una plantilla de piano sencilla con algunas
 notas.
@@ -13,7 +20,7 @@ notas.
 "
   doctitlees = "Plantilla de piano (sencilla)"
   
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Hier ein einfaches Klaviersystem.
 

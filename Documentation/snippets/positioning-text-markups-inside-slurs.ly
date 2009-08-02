@@ -5,7 +5,7 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
-%% Translation of GIT committish: b10de35f895919aec109de6fb1fc84d42ad851b3
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Los elementos de marcado de texto deben tener la propiedad
@@ -15,7 +15,7 @@ impriman por dentro de las ligaduras de expresión.
 "
   doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
 @code{outside-staff-priority}-Eigenschaft auf falsch gesetzt wird.

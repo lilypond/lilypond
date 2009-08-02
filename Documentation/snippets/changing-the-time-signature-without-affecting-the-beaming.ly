@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 4f881627b3ff5eb538df5221ad77b73d0637aeb4
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 La instrucción @code{\time} establece las propiedades
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping} y
@@ -18,7 +18,7 @@ de compás sin que cambie ninguna de las demás propiedades:
   doctitlees = "Cambio de compás sin afectar al barrado"
 
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Der @code{\\time}-Befehl verändert die Eigenschaften
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
@@ -33,7 +33,7 @@ Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
-La commande @code{\time} gère les propriétés
+La commande @code{\\time} gère les propriétés
 @code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
 et @code{measureLength} dans le contexte @code{Timing}, normallement
 rattaché à @code{Score}.  Le fait de modifier la valeur de

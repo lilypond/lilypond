@@ -3,9 +3,16 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Les numéros de mesures peuvent être encadrés ou entourés d'un cercle.
+
+"
+  doctitlefr = "Inscrire le numéro de mesure dans un cadre ou un cercle"
+
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Los números de compás también se pueden imprimir dentro de rectángulos o de circunferencias.
@@ -14,12 +21,14 @@ Los números de compás también se pueden imprimir dentro de rectángulos o de 
   doctitlees = "Imprimir números de compás dentro de rectángulos o circunferencias"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Taktnummern können auch in Boxen oder Kreisen gesetzt werden.
 
 "
-  doctitlede = "Setzen von Taktnummern in Boxen oder Kreisen"
+  doctitlede = "Setzen von Taktnummern in Kästen oder Kreisen"
+
+
 
   texidoc = "
 Bar numbers can also be printed inside boxes or circles.

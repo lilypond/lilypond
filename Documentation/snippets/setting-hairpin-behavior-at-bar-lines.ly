@@ -5,17 +5,17 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Si la nota que da fin a un regulador cae sobre la primera parte de
 un compás, el regulador se detiene en la línea divisoria
 inmediatamente precedente.  Se puede controlar este comportamiento
-sobreescribiendo la propiedad @code{to-barline}.
+sobreescribiendo la propiedad @code{'to-barline}.
 
 "
   doctitlees = "Establecer el comportamiento de los reguladores en las barras de compás"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Wenn die Note, an welcher eine Crescendo-Klammer endet, die erste Note
 eines Taktes ist, wird die Klammer an der vorhergehenden Tatklinie

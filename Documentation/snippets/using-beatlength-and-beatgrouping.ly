@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 4f881627b3ff5eb538df5221ad77b73d0637aeb4
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 La propiedad @code{measureLength} determina dónde se deben insertar
 líneas divisorias y, con @code{beatLength} y @code{beatGrouping}, cómo
@@ -18,7 +18,7 @@ explicaciones están en forma de comentarios dentro del código.
 "
   doctitlees = "Utilización de beatLength y beatGrouping"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Eigenschaft @code{measureLength} bestimmt, wo Taktstriche eingefügt
 werden sollen und, zusammen mit @code{beatLength} und
@@ -34,7 +34,7 @@ gegeben.
 %% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
   texidocfr = "
 La propriété @code{measureLength} détermine la pulsation et, combinée à
-@code{beatLength} y @code{beatGrouping}, comment générer les ligatures
+@code{beatLength} et @code{beatGrouping}, comment générer les ligatures
 automatiques selon les durées et la métrique lorsqu'aucune règle n'a été
 définie.  L'exemple commenté qui suit indique différentes façons de
 contrôler les ligatures à l'aide de ces propriétés. 

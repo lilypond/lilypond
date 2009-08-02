@@ -3,9 +3,18 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: bee31293920d834cd3698f00ddcc2402c3164619
+  texidocfr = "
+Pour obtenir des ligatures en groupes de @code{3-4-3-2} croches, dans
+une mesure à 12/8, il faudra préalablement annuler les réglages par
+défaut relatifs à 12/8, puis ajouter nos propres règles :
+
+"
+  doctitlefr = "Annulation des règles de ligature par défaut"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Para tipografiar las barras agrupadas en la forma @code{3-4-3-2}
 en 12/8, en primer lugar tenemos que sobreescribir los finales de
@@ -16,7 +25,7 @@ barra nuevos:
   doctitlees = "Alteración de los finales de barra predeterminados"
 
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Um Balken im 12/8-Takt als @code{3-4-3-2} zu gruppieren, muss man zuerst die
 Standardwerte für die Balken im 12/8-Takt rückgängig machen und dann die neuen
@@ -24,6 +33,8 @@ Werte setzen:
 
 "
   doctitlede = "Standard-Balkenwerte rückgängig machen"
+
+
 
   texidoc = "
 To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary first

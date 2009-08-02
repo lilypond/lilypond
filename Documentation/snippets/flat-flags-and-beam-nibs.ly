@@ -3,9 +3,40 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+En combinant @code{stemLeftBeamCount}, @code{stemRightBeamCount} et des 
+paires de @code{[]}, vous pourrez obtenir des crochets rectilignes et 
+des ligatures qui débordent à leurs extrémités.
+
+Pour des crochets rectilignes à droite sur des notes isolées, il suffit 
+d'ajouter une paire d'indicateurs de ligature @code{[]} et de déterminer 
+@code{stemLeftBeamCount} à zéro, comme dans l'exemple 1.
+
+Pour des crochets rectiligne à gauche, c'est @code{stemRightBeamCount} 
+qu'il faudra déterminer (exemple 2).
+
+Pour que les barres de ligature débordent sur la droite, 
+@code{stemRightBeamCount} doit avoir une valeur positive ; pour un 
+débrodement à gauche, c'est sur @code{stemLeftBeamCount} qu'il faut 
+jouer.  Tout ceci est illustré par l'exemple 3.
+
+Il est parfois judicieux, lorsqu'une note est encadrée de silences, de 
+l'affubler de crochets rectilignes de part et d'autre. L'exemple 4 
+montre qu'il suffit d'adjoindre à cette note un @code{[]}.
+
+(Notez bien que @code{\\set stemLeftBeamCount} sera toujours synonyme de 
+@code{\\once \\set}.  Autrement dit, la détermination des ligatures
+n'est pas @qq{permanente} ; c'est la raison pour laquelle les crochets
+du @code{c'16[]} isolé du dernier exemple n'ont rien à voir avec le 
+@code{\\set} indiqué deux notes auparavant.)
+
+"
+  doctitlefr = "Crochet rectiligne et débordement de ligature"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 5c26e815f2ed54e6c4d022bac10dcc87a9916a29
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
  Son posibles tanto los corchetes rectos sobre notas sueltas como
 extremos de barra sueltos en figuras unidas, con una combinación de
@@ -13,7 +44,7 @@ extremos de barra sueltos en figuras unidas, con una combinación de
 barra @code{[ ]} emparejados.
 
 Para corchetes rectos que apunten a la derecha sobre notas sueltas,
-use indicadores de barra emparejados @code{[ ]} y establezca
+use indicadores de barra emparejados @code{[]} y establezca
 @code{stemLeftBeamCount} a cero (véase el ejemplo 1).
 
 Para corchetes rectos que apunten a la izquierda, establezca en su
@@ -33,14 +64,14 @@ e izquierda.  Hágalo solamente con indicadores de barra emparejados
 (Observe que @code{\\set stemLeftBeamCount} siempre equivale a
 @code{\\once \\set}.  En otras palabras, los ajustes de la cantidad de
 barras no se recuerdan, y por ello el par de corchetes planos
-aplicados a la nota Do semicorchea @code{c'16 [ ]} del último ejemplo
+aplicados a la nota Do semicorchea @code{c'16[]} del último ejemplo
 no tiene nada que ver con el @code{\\set} de dos notas por detrás.)
 
 "
   doctitlees = "Corchetes rectos y extremos de barra sueltos"
 
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Gerade Fähnchen an einzelnen Noten und überstehende Balkenenden bei
 bebalkten Notengruppen sind möglich mit einer Kombination aus
@@ -68,6 +99,8 @@ Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
 
 "
   doctitlede = "Gerade Fähnchen und überstehende Balkenenden"
+
+
 
   texidoc = "
  Flat flags on lone notes and beam nibs at the ends of beamed figures

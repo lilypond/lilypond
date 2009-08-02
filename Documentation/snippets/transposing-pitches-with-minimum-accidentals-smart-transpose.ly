@@ -5,7 +5,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 4866dfd58d5c3a8cab4c6c06d5c4fca8e05a3cd7
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
 doctitlees = "Transportar música con el menor número de alteraciones"
 texidoces = "
 Este ejemplo utiliza código de Scheme para forzar las
@@ -36,7 +36,7 @@ naturales.
 
 "
 
-%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."
   texidocde = "Dieses Beispiel benutzt Scheme-Code, um enharmonische
 Verwechslungen für Noten zu erzwingen, damit nur eine minimale Anzahl

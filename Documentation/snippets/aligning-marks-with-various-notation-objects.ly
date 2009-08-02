@@ -5,7 +5,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Si están especificadas, las marcas de texto se pueden alinear con
 objetos de notación distintos a las líneas divisorias.  Entre estos
@@ -21,7 +21,7 @@ debe hacer este ajuste para todos los pentagramas).
 "
   doctitlees = "Alinear marcas con varios objetos de notación"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn angegeben, können Textzeichen auch an anderen Objekten als Taktstrichen
 ausgerichtet werden.  Zu diesen Objekten gehören @code{ambitus},

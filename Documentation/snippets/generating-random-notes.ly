@@ -5,7 +5,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 48f804da6794a7bc8e7fdd4b1649f485b0b09d26
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Este fragmento de código basado en Scheme genera
 24 notas aleatorias (o tantas como se necesiten), basándose en la

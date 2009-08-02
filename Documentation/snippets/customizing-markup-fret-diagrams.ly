@@ -5,7 +5,7 @@
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
 
-%% Translation of GIT committish: acbcbe3683d629575967b972b64ca5e1589bf330
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones a través de @code{'fret-diagram-details}.  Para los
@@ -27,7 +27,7 @@ le @qq{markup}.
 "
   doctitlefr = "Personnalisation des diagrammes de fret"
 
-%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Bunddiagramme können mit der Eigenschaft @code{'fret-diagram-details}
 angepasst werden.  Bunddiagramme, die als Textbeschriftung eingefügt werden,

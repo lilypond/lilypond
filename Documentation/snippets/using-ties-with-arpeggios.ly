@@ -5,20 +5,19 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
  doctitlees = "Uso de ligaduras en los arpegios"
  texidoces = "
 En ocasiones se usan ligaduras de unión para escribir los arpegios.
 En este caso, las dos notas ligadas no tienen que ser consecutivas.
 Esto se puede conseguir estableciendo la propiedad
-@code{tieWaitForNote} al valor \"verdadero\".  La misma funcionalidad
+@code{tieWaitForNote} al valor @code{#t}.  La misma funcionalidad
 es de utilidad, por ejemplo, para ligar un trémolo a un acorde, pero
-en principio, también se puede usar para notas normales consecutivas,
-como se muestra en este ejemplo.
+en principio también se puede usar para notas normales consecutivas.
 
 "
 
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
  texidocde = "
  Überbindungen werden teilweise benutzt, um Arpeggios zu notieren.  In
  diesem Fall stehen die übergebundenen Noten nicht unbedingt hintereinander.

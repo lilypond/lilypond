@@ -5,7 +5,7 @@
 \header {
   lsrtags = "repeats, staff-notation, chords"
 
-%% Translation of GIT committish: 7e2910d2bc6167b10cfe328eb17a5f710f2a515a
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Mediante la adición del grabador @code{Volta_engraver} al
 pentagrama pertinente, se pueden poner los corchetes de primera y
@@ -15,7 +15,7 @@ segunda vez debajo de los acordes.
   doctitlees = "Corchetes de primera y segunda vez debajo de los acordes"
 
 
-%% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Indem man den @code{Volta_engraver} zu dem entsprechenden Notensystem
 hinzufügt, können Wiederholungsklammern unterhalb der Akkorde gesetzt

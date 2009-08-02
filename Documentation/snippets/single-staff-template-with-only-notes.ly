@@ -3,9 +3,19 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+  texidocfr = "
+Cet exemple simpliste se compose d'une portée agrémentée de quelques
+notes.  Il conviernt tout à fait pour un instrument seul ou un
+fragment mélodique.  Recopiez-le dans un nouveau fichier, ajoutez-y
+d'autres notes et c'est pret !
+
+"
+  doctitlefr = "Portée unique avec quelques notes"
+
   lsrtags = "template"
 
-%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Esta plantilla simple prepara un pentagrama con notas, adecuado para
 un instrumento solista o un fragmento melódico. Córtelo y péguelo en
@@ -13,14 +23,16 @@ un archivo, escriba las notas y ¡ya está!
 
 "
   doctitlees = "Plantilla de un solo pentagrama, con notas únicamente"
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
-  
+
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d  
   texidocde = "
 Das erste Beispiel zeigt ein Notensystem mit Noten, passend für ein 
 Soloinstrument oder ein Melodiefragment. Kopieren Sie es und fügen 
 Sie es in Ihre Datei ein, schreiben Sie die Noten hinzu, und Sie haben 
 eine vollständige Notationsdatei.
 "
+
+  doctitlede = "Vorlage für ein Notensystem"
 
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "

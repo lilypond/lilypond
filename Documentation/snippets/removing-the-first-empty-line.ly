@@ -5,7 +5,7 @@
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides, breaks"
 
-%% Translation of GIT committish: dcd61338c753205b6f8d549389fcb0d999c3a675
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 El primer pentagrama vacío también se puede suprimir de la
 partitura estableciendo la propiedad @code{remove-first} de
@@ -22,7 +22,7 @@ escribe.
 "
   doctitlees = "Quitar la primera línea vacía"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Ein leeres Notensystem kann auch aus der ersten Zeile einer Partitur
 entfernt werden, indem die Eigenschaft @code{remove-first} der

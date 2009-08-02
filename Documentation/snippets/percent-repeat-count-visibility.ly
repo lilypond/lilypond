@@ -5,7 +5,7 @@
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
 
-%% Translation of GIT committish: 43774ddb81b9017802da04ba2862cae4586935b2
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Se pueden mostrar los contadores de las repeticiones del tipo
 porcentaje a intervalos regulares mediante el establecimiento de
@@ -14,7 +14,7 @@ la propiedad de contexto @code{repeatCountVisibility}.
 "
   doctitlees = "Visibilidad del contador de repeticiones de tipo porcentaje"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Prozentwiederholungszähler können in regelmäßigen Intervallen angezeigt
 werden, indem man die Eigenschaft @code{repeatCountVisibility} beeinflusst.

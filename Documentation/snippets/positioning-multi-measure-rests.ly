@@ -5,20 +5,20 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
  doctitlees = "Posicionar los silencios multicompás"
  texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
-predefinida para modificar la posición predefinida de un símbolo
-multicompás sobre el pentagrama, adjuntándolo a una nota,
-independientemente de cuál sea su forma.  Sin embargo, en la música
-polifónica los silencios multicompás de las voces de numeración par e
-impar están separados verticalmente.  La colocación de los silencios
-multicompás se puede controlar como se ve a continuación:
+predefinida para modificar la posición predeterminada de un
+símbolo de silencio multicompás sobre el pentagrama, adjuntándolo
+a una nota, independientemente de cuál sea su forma.  Sin embargo,
+en la música polifónica los silencios multicompás de las voces de
+numeración par e impar están separados verticalmente.  La
+colocación de los silencios multicompás se puede controlar como se
+ve a continuación:
 
 "
-%% Translation of GIT committish: b4f6b5ad66d016c312cddc8d4026ad852f9a7c36
-
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Anders als bei normalen Pausen gibt es keinen direkten Befehl, um die
 vertikale Position von Ganztaktpausen zu beeinflussen, indem man sie an
@@ -33,9 +33,9 @@ werden:
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
 Si l'on peut positionner verticalement un silence simple en le
-rattachant à une note, il n'en va pas de même pur un silence
-multi-mesure.  Néanmoins, et uniquement dans le cadre de musique
-polyphonique, les silences multi-mesures sont positionnées différemment
+rattachant à une note, il n'en va pas de même pour un silence
+multi-mesures.  Néanmoins, et uniquement dans le cadre de musique
+polyphonique, les silences multi-mesures sont positionnés différemment
 selon qu'ils appartiennent à une voix au numéro pair ou impair.  Le
 positionnement des silences multi-mesures peut se contrôler ainsi :
 "

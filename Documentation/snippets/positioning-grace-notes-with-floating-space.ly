@@ -3,9 +3,20 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Lorsque vous activez la propriété @code{'strict-grace-spacing},
+l'espacement des notes d'ornement se fera de manière @qq{élastique}.
+Autrement dit, elles seront décollées de leur note de rattachement :
+LilyPond commence par espacer les notes normales, puis les ornements
+sont placés à la gauche de leur note de rattachement.
+
+"
+  doctitlefr = "Positionnement des notes d'ornement avec espace flottant"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Al establecer la propiedad @code{'strict-grace-spacing} hacemos
@@ -20,7 +31,7 @@ izquierda de las columnas musicales de las notas principales.
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
 werden die Verzierungsnoten \"fließend\" gemacht, d.h. sie sind
@@ -30,6 +41,8 @@ Hauptnote gesetzt.
 
 "
   doctitlede = "Positionierung von Verzierungen mit verschiebbarem Platz"
+
+
 
   texidoc = "
 Setting the property @code{'strict-grace-spacing} makes the musical

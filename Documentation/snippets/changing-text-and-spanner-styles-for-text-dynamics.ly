@@ -5,22 +5,22 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: dff50e8e1d3134657a6b6203b9c93826dc4cef65
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Se puede modificar el texto empleado para los crescendos y
 decrescendos modificando las propiedades de contexto
-@code{crescendoText} y @code{decrescendoText}.  El estiloo de la
+@code{crescendoText} y @code{decrescendoText}.  El estilo de la
 línea de extensión se puede cambiar modificando la propiedad
 @code{'style} de @code{DynamicTextSpanner}.  El valor
 predeterminado es @code{'hairpin} (regulador), y entre otros
 valores posibles se encuentran @code{'line} (línea),
-@code{'dashed-line} (línea intermitente) y @code{'dotted-line}
+@code{'dashed-line} (línea discontinua) y @code{'dotted-line}
 (línea de puntos):
 
 "
   doctitlees = "Cambiar el texto y los estilos de objeto de extensión para las indicaciones dinámicas textuales"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Der Text, der für Crescendo und Decrescendo gestzt wird, kann geändert
 werden, indem man die Eigenschaften @code{crescendoText} und
@@ -28,7 +28,7 @@ werden, indem man die Eigenschaften @code{crescendoText} und
 geändert werden, indem die @code{'style}-Eigenschaft des
 @code{DynamicTextSpanner} beeinflusst wird.  Der Standardwert ist
 @code{'hairpin}, ander Möglichkeiten sind @code{'line}, @code{'dashed-line}
-und @code{'dotted-line}:
+und @code{'dotted-line}.
 "
   doctitlede = "Text und Strecker-Stile für Dynamik-Texte ändern"
 

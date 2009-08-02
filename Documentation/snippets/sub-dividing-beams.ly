@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 151f1bb8c0aae8294e62d0470246ee1019aedfbc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Las barras de semicorcheas (o notas más breves) seguidas no se
 subdividen de forma predeterminada.  Esto es: las tres (o más)
@@ -16,15 +16,16 @@ propiedad @code{subdivideBeams}.  Cuando está establecida, las
 diversas barras se subdividen a intervalos definidos por el valor
 actual de la longitud del pulso @code{beatLength} reduciendo las
 barras múltiples a una sola entre los subgrupos.  Observe que el
-valor predeterminado de @code{beatLength} es de una negra si no
-está establecido explícitamente.  Se debe establecer al valor de
-una fracción que da la duración el subgrupo de barras utilizando
-la función @code{make-moment}, como se muestra aquí:
+valor predeterminado de @code{beatLength} es de una unidad sobre
+el denominador del compás en curso, si no está establecido
+explícitamente.  Se debe establecer al valor de una fracción que
+da la duración el subgrupo de barras utilizando la función
+@code{make-moment}, como se muestra aquí:
 
 "
   doctitlees = "Subdivisión de las barras de semicorchea"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
 werden standardmäßig nicht unterteilt.  Dieses Verhalten kann verändert
@@ -42,7 +43,7 @@ Standardwert für @code{beatLength} ist 1 / Zähler des aktuellen Taktes.
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche
 ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de
-ligature seront continus.  Ce comportement peut être modifié aafin de
+ligature seront continus.  Ce comportement peut être modifié afin de
 diviser la ligature en sous-groupes grâce à la propriété
 @code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
 subdivisées selon un intervalle défini par @code{beatLength} ; il n'y

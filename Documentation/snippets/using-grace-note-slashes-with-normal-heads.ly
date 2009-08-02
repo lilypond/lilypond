@@ -3,9 +3,18 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Le trait que l'on trouve sur les hampes des acciaccatures peut
+être appliqué dans d'autres situations.
+
+"
+
+  doctitlefr = "Utilisation de hampe barrée pour une note normale"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Es posible aplicar la barrita que cruza la barra de las
@@ -14,6 +23,8 @@ acciaccaturas, en otras situaciones.
 "
 
   doctitlees = "Utilizar la barra que tacha las notas de adorno con notas normales"
+
+
 
   texidoc = "
 The slash through the stem found in acciaccaturas can be applied in

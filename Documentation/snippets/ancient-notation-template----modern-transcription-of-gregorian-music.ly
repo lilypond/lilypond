@@ -5,7 +5,7 @@
 \header {
   lsrtags = "ancient-notation, template"
 
-%% Translation of GIT committish: aea975539ec44fd0f1a8fd25930b88b5ab64b53a
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Este ejemplo muestra cómo hacer una transcripción moderna de canto
 gregoriano. El canto gregoriano no tiene compás ni plicas; utiliza
@@ -15,7 +15,7 @@ especiales que indican silencios de distintas longitudes.
 "
 
   doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto gregoriano)"
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   
   texidocde = "
 Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen 
@@ -23,6 +23,8 @@ Chorals. Hier gibt es keine Takte, keine Notenhälse und es werden nur
 halbe und Viertelnoten verwendet. Zusätzliche Zeichen zeigen die 
 Länge von Pausen an.
 "
+
+ doctitlede = "Vorlage für Alte Notation -- moderne Transkription des gregorianischen Chorals"
 
   texidoc = "
 This example demonstrates how to do modern transcription of Gregorian

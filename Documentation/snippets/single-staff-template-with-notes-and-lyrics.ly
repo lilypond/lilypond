@@ -3,9 +3,21 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+
+  texidocfr = "
+Ce canevas comporte une simple ligne mélodique agrémentée de paroles.
+Recopiez-le, ajoutez-y d'autres notes et paroles.  Les ligatures
+automatiques sont ici désactivées, comme il est d'usage en terme de
+musique vocale.  Pour activer la fonction de ligature automatique,
+modifiez ou commentez la ligne en question.
+
+"
+  doctitle = "Portée unique et paroles"
+
   lsrtags = "vocal-music, template"
 
-%% Translation of GIT committish: d35687993883eb31442009fc50d5ae063108bfa7
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
 y péguela, escriba las notas y luego la letra. Este ejemplo desactiva
@@ -15,8 +27,8 @@ comentario la línea correspondiente.
 
 "
   doctitlees = "Plantilla de pentagrama único don notas y letra"
-%% Translation of GIT committish: 17633f6b8681af86230aa84597fe7561e98c91d6
-  
+
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Das nächste Beispiel zeigt eine einfache Melodie mit Text. Kopieren 
 Sie es in Ihre Datei, fügen Sie Noten und Text hinzu und übersetzen 
@@ -26,6 +38,8 @@ wie es für Vokalmusik üblich ist.
 Wenn Sie die Balken wieder einschalten wollen, müssen Sie die 
 entsprechende Zeile entweder ändern oder auskommentieren.
 "
+
+  doctitlede = "Vorlage für ein Notensystem mit Noten und Gesangstext"
 
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "

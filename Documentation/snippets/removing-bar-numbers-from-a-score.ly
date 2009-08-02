@@ -3,9 +3,19 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Désactiver le graveur concerné --- @code{Bar_number_engraver} --- 
+donnera une partition  --- contexte @code{Score} --- sans numéros de 
+mesure.
+
+"
+  doctitlefr = "Supprimer les numéros de mesure d'une partition"
+
+
   lsrtags = "rhythms, contexts-and-engravers"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Se pueden eliminar completamente los números de compás quitando el
@@ -16,7 +26,7 @@ grabador @code{Bar_number_engraver} del contexto de @code{Score}.
   doctitlees = "Suprimir los números de compás de toda la partitura"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e  
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d 
   texidocde = "
 Taktnummern können vollkommen aus den Noten entfernt werden, indem
 man den @code{Bar_number_engraver} aus dem @code{Score}-Kontext
@@ -24,7 +34,6 @@ entfernt.
 
 "
   doctitlede = "Entfernung von Taktnummern in einer Partitur"
-
 
 
 

@@ -5,7 +5,7 @@
 \header {
   lsrtags = "ancient-notation"
 
-%% Translation of GIT committish: 00e3a8264e138ad61b4f115a173190d5e9dc7533
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Las indicaciones de compás también se pueden grabar en estilo antiguo.
 

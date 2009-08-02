@@ -5,7 +5,7 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: a71dfe75d190e18a075443575d71140173829504
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Las marcas de cesura se pueden crear sobreescribiendo la propiedad
 @code{'text} del objeto @code{BreathingSign}.  También está disponible
@@ -14,7 +14,7 @@ una marca de cesura curva.
 "
   doctitlees = "Insertar una cesura"
   
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
  texidocde = "
 Zäsurzeichen können erstellt werden, indem die @code{'text}-Eigenschaft
 des @code{BreathingSign}-Objektes verändert wird.  Ein gekrümmtes

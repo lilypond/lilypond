@@ -5,7 +5,7 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: e968d89055d045a29276db76970570f30ccc917e
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Las marcas se pueden imprimir al final de la línea actual, en vez de
 al comienzo de la línea siguiente.  Esto es útil principalmente cuando
@@ -19,7 +19,7 @@ ejemplo.
 "
   doctitlees = "Imprimir marcas al final de la línea o de la partitura"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Zeichen können auch am Ende der aktuellen Zeile ausgegeben werden, anstatt
 dass sie auf die folgende Zeile verschoben werden.  Das ist nüztlich,

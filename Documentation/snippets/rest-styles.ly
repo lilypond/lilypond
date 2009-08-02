@@ -5,12 +5,12 @@
 \header {
   lsrtags = "rhythms, ancient-notation, tweaks-and-overrides"
 
-%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   doctitlees = "Estilos de silencios"
   texidoces = "
 Los silencios se pueden imprimir en distintos estilos.
 "
-%% Translation of GIT committish: 6743e7d829e2efe37d5d00133094df664f1960df
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
   doctitlede = "Pausenstile"
   texidocde = "

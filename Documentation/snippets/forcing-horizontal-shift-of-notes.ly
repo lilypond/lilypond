@@ -5,17 +5,18 @@
 \header {
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
 
-%% Translation of GIT committish: 73115c93908af74c12a19753e79cbca47b2c2978
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+
  doctitlees = "Forzar el desplazamiento horizontal de las notas"
- texidoces = "
-Cuando el motor de tipografiado no es capaz de todo, se puede usar la
-propiedad force-hshift del objeto NoteColumn para sobreescribir
-decisiones de tipografiado.  Las unidades de medida que se usan aquí
-son espacios de pentagrama.
+ 
+texidoces = "
+ Cuando el motor de tipografiado no es capaz de todo, se puede usar la
+ sintaxis siguiente para sobreescribir las decisiones de tipografía.
+ Las unidades de medida que se usan aquí son espacios de pentagrama.
 
 "
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn es zu Zusammenstößen kommt, kann mit folgender Lösung eine andere
 Position manuell eingestellt werden.  Die Einheiten hier sind

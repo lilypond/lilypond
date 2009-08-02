@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
  doctitlees = "Indicaciones de compases compuestos"
  texidoces = "
 Las indicaciones de compás poco frecuentes como \"5/8\" se pueden
@@ -19,7 +19,7 @@ apropiado en la base de datos).
 
 "
 
-%% Translation of GIT committish: 6ce7f350682dfa99af97929be1dec6b9f1cbc01a
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Ungerade Taktarten werden (wie etwa \"5/8\") werden oft als zusammengesetzte
 Taktarten interpretiert (bspw. \"3/8 + 2/8\"), in welchen zwei oder mehr
@@ -33,8 +33,8 @@ Bebalkung angepasst wird.
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
-Des métriques telles que \"5/8\" pauvent s'interpréter sous une forme
-décomposée --- \"3/8 + 2/8\" par exemple --- qui combine plusieurs
+Des métriques telles que @qq{5/8} peuvent s'interpréter sous une forme
+décomposée --- @qq{3/8 + 2/8} par exemple --- qui combine plusieurs
 métriques.  LilyPond est capable de rendre ce type de notation, plus
   facile à lire et à interpréter, en imprimant cette métrique composite
   et en adaptant les règles de ligature automatique en conséquence.

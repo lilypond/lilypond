@@ -3,9 +3,19 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Vous pouvez imprimer un numéro de mesure à intervalle régulier plutôt
+qu'en tête de chaque ligne seulement, en recourrant à la propriété
+@code{barNumberVisibility}.  Voici comment afficher le numéro toutes les 
+deux mesures sauf en fin de ligne.
+
+"
+  doctitlefr = "Imprimer les numéros de mesure à intervalle régulier"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Se pueden imprimir los números de compás a intervalos regulares
@@ -18,7 +28,7 @@ imprimen a cada dos compases excepto al final de la línea.
   doctitlees = "Imprimir números de compás a intervalos regulares"
 
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Taktnummern können in regelmäßigen Intervallen gesetzt werden, indem
 man die Eigenschaft @code{barNumberVisibility} definiert.  In diesem
@@ -27,6 +37,8 @@ am Ende einer Zeile.
 
 "
   doctitlede = "Setzen der Taktnummern in regelmäßigen Intevallen"
+
+
 
   texidoc = "
 Bar numbers can be printed at regular intervals by setting the property

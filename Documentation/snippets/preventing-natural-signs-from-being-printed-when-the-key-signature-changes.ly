@@ -5,7 +5,7 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 674a5f874c07063ae56d55be25c55fc3b4bdb7bf
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
 doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
 texidoces = "
 Cuando cambia la armadura de la tonalidad, se imprimen becuadros
@@ -15,7 +15,7 @@ propiedad @code{printKeyCancellation} del contexto @code{Staff}.
 
 "
 
-%% Translation of GIT committish: e75f1604a1b866c853dee42dbffcb7800c706a5f
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 doctitlede = "Auflösungzeichen nicht setzen, wenn die Tonart wechselt"
 
 texidocde = "

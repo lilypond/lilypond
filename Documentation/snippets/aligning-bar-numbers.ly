@@ -3,9 +3,19 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Les numéros de mesure s'alignent en principe sur la droite de l'objet 
+dont ils dépendent.  C'est normalement le coin gauche de la portée ou, 
+en cours de ligne, à gauche de la barre.  Vous pouvez toutefois les 
+centrer par rapport à la barre ou les afficher à droite de la barre.
+
+"
+  doctitlefr = "Alignement des numéros de mesure"
+
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 5a33019d8b4a837f564eadd4979501ff07e9dfd5
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 
 Los números de compás se alinean de forma predeterminada por la
@@ -19,7 +29,7 @@ alineados por la izquierda con ella.
 
   doctitlees = "Alineación de los números de compás"
 
-%% Translation of GIT committish: 13ac9d1dfbcc297166948ee396e9ade078d2446e
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
 ausgerichtet.  Das ist normalerweise die linke Ecke einer Linie oder,
@@ -30,6 +40,8 @@ Taktstrich gesetzt werden.
 
 "
   doctitlede = "Taktnummern ausrichten"
+
+
 
   texidoc = "
 Bar numbers by default are right-aligned to their parent object. This
