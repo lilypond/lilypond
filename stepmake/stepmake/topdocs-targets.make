@@ -1,5 +1,5 @@
 
-default: local-doc
+default: local-txt-doc
 
 ifeq ($(out),www)
 local-WWW-1: $(PDF_FILES)

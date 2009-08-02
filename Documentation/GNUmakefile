@@ -96,7 +96,7 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 ###########
 ### Targets
 
-default: local-doc
+default: local-txt-doc
 
 local-help: extra-local-help
 

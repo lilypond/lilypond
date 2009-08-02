@@ -9,7 +9,7 @@ EXTRA_DIST_FILES = $(TEXTS)
 
 include $(depth)/make/stepmake.make
 
-default: local-doc
+default: local-txt-doc
 
 #urg default local-WWW target uses footify before its time;
 # must add footify with txt-to-html target

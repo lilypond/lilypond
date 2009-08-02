@@ -190,6 +190,11 @@ doc: doc-stage-1
 	$(MAKE) out=www WWW-2
 	$(MAKE) out=www WWW-post
 
+local-doc:
+	$(MAKE) out=www local-WWW-1
+	$(MAKE) out=www local-WWW-2
+	$(MAKE) out=www WWW-post
+
 doc-stage-1:
 	$(MAKE) -C $(depth)/scripts/build out=
 	$(MAKE) out=www WWW-1
