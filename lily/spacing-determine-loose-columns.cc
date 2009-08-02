@@ -73,26 +73,13 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 
   */
 
-  extract_grob_set (col, "right-neighbors", rns);
-  extract_grob_set (col, "left-neighbors", lns);
-
-  if (lns.empty () || rns.empty ())
-    return false;
-
-  
-  Item *l_neighbor = dynamic_cast<Item *> (lns[0]);
-  Item *r_neighbor = dynamic_cast<Item *> (rns[0]);
+  Item *r_neighbor = unsmob_item (col->get_object ("right-neighbor"));
+  Item *l_neighbor = unsmob_item (col->get_object ("left-neighbor"));
 
   if (!l_neighbor || !r_neighbor)
     return false;
-
-  l_neighbor = l_neighbor->get_column ();
-  r_neighbor = dynamic_cast<Item *> (Spacing_interface::right_column (r_neighbor));
 
   if (l == l_neighbor && r == r_neighbor)
-    return false;
-
-  if (!l_neighbor || !r_neighbor)
     return false;
 
   /*
@@ -200,19 +187,14 @@ Spacing_spanner::prune_loose_columns (Grob *me,
 
       if (loose)
 	{
-	  extract_grob_set (c, "right-neighbors", rns_arr);
-	  extract_grob_set (c, "left-neighbors", lns_arr);
-
-	  SCM lns = lns_arr.size () ? lns_arr.back ()->self_scm () : SCM_BOOL_F;
-	  SCM rns = rns_arr.size () ? rns_arr.back ()->self_scm () : SCM_BOOL_F;
+	  Grob *right_neighbor = unsmob_grob (c->get_object ("right-neighbor"));
+	  Grob *left_neighbor = unsmob_grob (c->get_object ("left-neighbor"));
 
 	  /*
 	    Either object can be non existent, if the score ends
 	    prematurely.
 	  */
-
-	  extract_grob_set (unsmob_grob (rns), "right-items", right_items);
-	  if (right_items.size () == 0 || !unsmob_grob (lns))
+	  if (!right_neighbor || !left_neighbor)
 	    {
 	      c->programming_error ("Cannot determine neighbors for floating column. ");
 	      c->set_object ("between-cols", scm_cons (cols->at (i-1)->self_scm (),
@@ -220,20 +202,9 @@ Spacing_spanner::prune_loose_columns (Grob *me,
 	    }
 	  else
 	    {
-	      Grob *min_item = 0;
-	      int min_rank = INT_MAX;
-	      for (vsize j = 0; j < right_items.size (); j ++)
-		{
-		  int rank = dynamic_cast<Item*> (right_items[j])->get_column ()->get_rank ();
-		  if (rank < min_rank)
-		    {
-		      min_item = right_items[j];
-		      min_rank = rank;
-		    }
-		}
-	      
-	      c->set_object ("between-cols", scm_cons (lns,
-						       min_item->self_scm ()));
+	      c->set_object ("between-cols", scm_cons (left_neighbor->self_scm (),
+						       right_neighbor->self_scm ()));
+
 
 	      /*
 		Set distance constraints for loose columns
@@ -260,72 +231,38 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob*> const &cols)
 {
   for (vsize i = 0; i < cols.size (); i++)
     {
-      SCM right_neighbors = Grob_array::make_array ();
-      Grob_array *rn_arr = unsmob_grob_array (right_neighbors);
-      int min_rank = INT_MAX;
-
       extract_grob_set (cols[i], "spacing-wishes", wishes);
-      for (vsize k = wishes.size (); k--;)
+      for (vsize j = wishes.size (); j--;)
 	{
-	  Item *wish = dynamic_cast<Item *> (wishes[k]);
+	  Item *wish = dynamic_cast<Item*> (wishes[j]);
+	  Item *left_col = wish->get_column ();
+	  int left_rank = Paper_column::get_rank (left_col);
+	  int min_right_rank = INT_MAX;
 
-	  Item *lc = wish->get_column ();
-	  Grob *right = Spacing_interface::right_column (wish);
-
-	  if (!right)
-	    continue;
-
-	  Item *rc = dynamic_cast<Item *> (right);
-
-	  int right_rank = Paper_column::get_rank (rc);
-	  int left_rank = Paper_column::get_rank (lc);
-
-	  /*
-	    update the left column.
-	  */
-	  if (right_rank <= min_rank)
+	  extract_grob_set (wish, "right-items", right_items);
+	  for (vsize k = right_items.size (); k--;)
 	    {
-	      if (right_rank < min_rank)
-		rn_arr->clear ();
+	      Item *right_col = dynamic_cast<Item*> (right_items[k])->get_column ();
+	      int right_rank = Paper_column::get_rank (right_col);
 
-	      min_rank = right_rank;
-	      rn_arr->add (wish);
-	    }
-
-	  /*
-	    update the right column of the wish.
-	  */
-	  int maxrank = 0;
-
-	  extract_grob_set (rc, "left-neighbors", lns_arr);
-	  if (lns_arr.size ())
-	    {
-	      Item *it = dynamic_cast<Item *> (lns_arr.back ());
-	      maxrank = Paper_column::get_rank (it->get_column ());
-	    }
-
-	  if (left_rank >= maxrank)
-	    {
-
-	      if (left_rank > maxrank)
+	      if (right_rank < min_right_rank)
 		{
-		  Grob_array *ga = unsmob_grob_array (rc->get_object ("left-neighbors"));
-		  if (ga)
-		    ga->clear ();
+		  left_col->set_object ("right-neighbor", right_col->self_scm ());
+		  min_right_rank = right_rank;
 		}
 
-	      Pointer_group_interface::add_grob (rc, ly_symbol2scm ("left-neighbors"), wish);
+	      Grob *old_left_neighbor = unsmob_grob (right_col->get_object ("left-neighbor"));
+	      if (!old_left_neighbor || left_rank > Paper_column::get_rank (old_left_neighbor))
+		right_col->set_object ("left-neighbor", left_col->self_scm ());
 	    }
 	}
-
-      if (rn_arr->size ())
-	cols[i]->set_object ("right-neighbors", right_neighbors);
     }
 }
 
 /*
   Set neighboring columns that have no left/right-neighbor set
   yet. Only do breakable non-musical columns, and musical columns.
+  Why only these? --jneem
 */
 void
 Spacing_spanner::set_implicit_neighbor_columns (vector<Grob*> const &cols)
@@ -336,24 +273,9 @@ Spacing_spanner::set_implicit_neighbor_columns (vector<Grob*> const &cols)
       if (!Paper_column::is_breakable (it) && !Paper_column::is_musical (it))
 	continue;
 
-      /*
-	sloppy with typing left/right-neighbors should take list, but paper-column found instead.
-      */
-      extract_grob_set (cols[i], "left-neighbors", lns);
-      if (lns.empty () && i)
-	{
-	  SCM ga_scm = Grob_array::make_array ();
-	  Grob_array *ga = unsmob_grob_array (ga_scm);
-	  ga->add (cols[i - 1]);
-	  cols[i]->set_object ("left-neighbors", ga_scm);
-	}
-      extract_grob_set (cols[i], "right-neighbors", rns);
-      if (rns.empty () && i + 1 < cols.size ())
-	{
-	  SCM ga_scm = Grob_array::make_array ();
-	  Grob_array *ga = unsmob_grob_array (ga_scm);
-	  ga->add (cols[i + 1]);
-	  cols[i]->set_object ("right-neighbors", ga_scm);
-	}
+      if (i && !unsmob_grob (cols[i]->get_object ("left-neighbor")))
+	cols[i]->set_object ("left-neighbor", cols[i-1]->self_scm ());
+      if (i + 1 < cols.size () && !unsmob_grob (cols[i]->get_object ("right-neighbor")))
+	cols[i]->set_object ("right-neighbor", cols[i+1]->self_scm ());
     }
 }

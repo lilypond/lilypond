@@ -926,11 +926,8 @@ in addition to notes and stems.")
 empty in a particular staff, then that staff is erased.")
 
      (left-items ,ly:grob-array? "DOCME")
-     (left-neighbors ,ly:grob-array? "An array of @code{spacing-wishes} grobs
-that are close to the current column.
-
-The closest @code{spacing-wishes} determine the actual distances between the
-columns.")
+     (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
+for this column.")
 
      (normal-stems ,ly:grob-array? "An array of visible stems.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")
@@ -949,7 +946,7 @@ relevant for finding the @code{pure-Y-extent}.")
      (rest-collision ,ly:grob? "A rest collision that a rest is in.")
      (rests ,ly:grob-array? "An array of rest objects.")
      (right-items ,ly:grob-array? "DOCME")
-     (right-neighbors ,ly:grob-array? "See @code{left-neighbors}.")
+     (right-neighbor ,ly:grob? "See @code{left-neighbor}.")
 
      (separation-item ,ly:grob? "A pointer to a @code{SeparationItem}
 object.")
