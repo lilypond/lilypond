@@ -5,14 +5,6 @@
 ;;;; (c) 2002--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                Patrick McCarty <pnorcks@gmail.com>
 
-;;;; Recommendations:
-;;;; http://www.w3.org/TR/SVG11/
-;;;; http://www.w3.org/TR/SVGTiny12/
-;;;; http://www.w3.org/TR/SVGPrint/ -- page, pageSet in draft
-
-;;;; TODO:
-;;;;  * inkscape page/pageSet support
-
 (define-module (scm output-svg))
 (define this-module (current-module))
 

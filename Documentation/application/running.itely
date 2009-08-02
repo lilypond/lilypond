@@ -243,8 +243,8 @@ This mode is used by default by @command{lilypond-book}.
 
  for SVG (Scalable Vector Graphics).
 
- This creates a single SVG file containing the entire music output
- with no embedded fonts.  It is recommended to install the Century
+ This creates a single SVG file, without embedded fonts, for every
+ page of output.  It is recommended to install the Century
  Schoolbook fonts, included with your LilyPond installation, for
  optimal rendering.  Under UNIX, simply copy these fonts from the
  LilyPond directory (typically
