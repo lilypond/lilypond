@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: dd7767dcac679762a47fb629fd8e516d9ac954b4
+    Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,9 +12,9 @@
 @appendix Modèles
 @translationof Templates
 
-Cette annexe du manuel propose des patrons de partition Lilypond, prets à
-l'emploi.  Il vous suffira d'y ajouter quelques notes, de lancer
-LilyPond, et d'aprécier le résultat.
+Cette annexe du manuel d'initiation propose des patrons de partition
+Lilypond, prets à l'emploi.  Il vous suffira d'y ajouter quelques notes,
+de lancer LilyPond, et d'aprécier le résultat.
 
 
 @menu
@@ -29,26 +29,54 @@ LilyPond, et d'aprécier le résultat.
 
 @node Portée unique
 @appendixsec Portée unique
-@translationof Single staff @c external
-
-@untranslated
-
+@translationof Single staff 
 
 @appendixsubsec Notes seules
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-only-notes.ly}
+
 @appendixsubsec Notes et paroles
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-notes-and-lyrics.ly}
+
 @appendixsubsec Notes et accords
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes-and-chords.ly}
+
 @appendixsubsec Notes, paroles et accords
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes,-lyrics,-and-chords.ly}
+
+
 @node Modèles pour claviers
 @appendixsec Modèles pour claviers
-@translationof Piano templates @c external
-
-@untranslated
-
+@translationof Piano templates
 
 @appendixsubsec Piano seul
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-simple.ly}
+
 @appendixsubsec Chant et accompagnement
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-melody-and-lyrics.ly}
+
 @appendixsubsec Piano et paroles entre les portées
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-lyrics.ly}
+
 @appendixsubsec Piano et nuances entre les portées
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-dynamics.ly}
+
+
 @node Quatuor à cordes
 @appendixsec Quatuor à cordes
 @translationof String quartet @c external
