@@ -365,6 +365,7 @@ a collection of staves, with a bracket in front and spanning bar lines."
   pedalSustainStrings = #'("Ped." "*Ped." "*")
   pedalUnaCordaStrings = #'("una corda" "" "tre corde")
   \override VerticalAxisGroup #'staff-affinity = #CENTER
+  \override VerticalAxisGroup #'inter-staff-spacing = #'((space . 5) (padding . 0.5))
   \override TextScript #'font-shape = #'italic
 
   \description "Holds a single line of dynamics, which will be
