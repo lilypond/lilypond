@@ -71,9 +71,7 @@ def mark_verbatim_section (ly_code):
 
 # '% LSR' comments are to be stripped
 lsr_comment_re = re.compile (r'\s*%+\s*LSR.*')
-
 begin_header_re = re.compile (r'\\header\s*{', re.M)
-
 ly_new_version_re = re.compile (r'\\version\s*"(.+?)"')
 
 # add tags to ly files from LSR
@@ -85,6 +83,22 @@ def add_tags (ly_code, tags):
 def add_version (ly_code):
     return '''%% Note: this file works from version ''' + \
         ly_new_version_re.search (ly_code).group (1) + '\n'
+
+s = 'Translation of GIT [Cc]ommittish'
+texidoc_chunk_re = re.compile (r'^(?:%+\s*' + s + \
+    r'.+)?\s*(?:texidoc|doctitle)([a-zA-Z]{2,4})\s+=(?:.|\n)*?(?=%+\s*' + \
+    s + r'|\n\} % begin verbatim|\n  (?:doctitle|texidoc) |$(?!.|\n))', re.M)
+
+def update_translated_texidoc (m, snippet_path, visited_languages):
+    base = os.path.splitext (os.path.basename (snippet_path))[0]
+    language_code = m.group (1)
+    visited_languages.append (language_code)
+    texidoc_path = os.path.join ('Documentation', language_code,
+                                 'texidocs', base + '.texidoc')
+    if os.path.isfile (texidoc_path):
+        return open (texidoc_path).read ()
+    else:
+        return m.group (0)
 
 def copy_ly (srcdir, name, tags):
     global unsafe
@@ -167,6 +181,25 @@ def dump_file_list (file, file_list, update=False):
     f = open (file, 'w')
     f.write ('\n'.join (sorted (new_list)) + '\n')
 
+def update_ly_in_place (snippet_path):
+    visited_languages = []
+    contents = open (snippet_path).read ()
+    contents = texidoc_chunk_re.sub \
+        (lambda m: update_translated_texidoc (m,
+                                              snippet_path,
+                                              visited_languages),
+         contents)
+    for language_code in langdefs.LANGDICT:
+        if not language_code in visited_languages:
+            base = os.path.splitext (os.path.basename (snippet_path))[0]
+            texidoc_path = os.path.join ('Documentation', language_code,
+                         'texidocs', base + '.texidoc')
+            if os.path.isfile (texidoc_path):
+                texidoc_translation = open (texidoc_path).read ()
+                texidoc_translation = texidoc_translation.replace ('\\', '\\\\')
+                contents = begin_header_re.sub ('\\g<0>\n' + texidoc_translation, contents, 1)
+    open (snippet_path, 'w').write (contents)
+
 if in_dir:
     ## clean out existing lys and generated files
     map (os.remove, glob.glob (os.path.join (DEST, '*.ly')) +
@@ -182,6 +215,10 @@ if in_dir:
         tag_lists[t].update (l[t])
 else:
     snippets, tag_lists = read_source (NEW_LYS)
+    ## update texidocs of snippets that don't come from NEW_LYS
+    for snippet_path in glob.glob (os.path.join (DEST, '*.ly')):
+        if not os.path.basename (snippet_path) in snippets:
+            update_ly_in_place (snippet_path)
 
 for (name, (srcdir, tags)) in snippets.items ():
     copy_ly (srcdir, name, tags)
