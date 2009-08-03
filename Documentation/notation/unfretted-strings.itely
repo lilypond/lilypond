@@ -133,25 +133,24 @@ Notation Reference:
 
 @strong{@i{Natural harmonics}}
 
+@cindex note heads, diamond-shaped
+@cindex diamond-shaped note heads
 @cindex natural harmonics
 @cindex harmonics, natural
+@funindex \harmonicsOn
+@funindex \harmonicsOff
 
 Natural harmonics can be notated in several ways.  A diamond-shaped
 note head generally means to touch the string where you would stop
 the note if it were not a diamond.
 
-@warning{Harmonics @strong{must} be defined inside a chord
-construct even if there is only a single note.}
-
-@c TODO If the default for harmonicDots is changed, change this
-Dotted harmonics indicated with @code{\harmonic} do not show the
-dots.  The context property @code{harmonicDots} should be set if
-dots are required.
-
 @lilypond[verbatim,quote,relative=2]
-<d\harmonic>4 <e\harmonic>2.
-\set harmonicDots = ##t
-<d\harmonic>4 <e\harmonic>2.
+d4 e4.
+\harmonicsOn
+d8 e e
+d4 e4.
+\harmonicsOff
+d8 e e
 @end lilypond
 
 Alternatively a normal note head is shown at the pitch to be
@@ -174,9 +173,20 @@ Artificial harmonics are notated with two notes, one with a normal
 note head indicating the stopped position and one with an open
 diamond note head to indicate the harmonic position.
 
+@c TODO If the default for harmonicDots is changed, change this
+Artificial harmonics indicated with @code{\harmonic} do not show the
+dots.  The context property @code{harmonicDots} should be set if
+dots are required.
+
 @lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2  <c g'\harmonic>
+<e a\harmonic>2.  <c g'\harmonic>4
+\set harmonicDots = ##t
+<e a\harmonic>2.  <c g'\harmonic>4
 @end lilypond
+
+@warning{@code{@bs{}harmonic} @strong{must} be placed inside a
+chord construct even if there is only a single note.  Normally
+@code{@bs{}harmonicsOn} would be used in this situation.}
 
 
 @seealso

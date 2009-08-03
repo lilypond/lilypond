@@ -361,6 +361,10 @@ italianChords = {
   \set chordPrefixSpacer = #0.4
 }
 
+harmonicsOn = \override NoteHead #'style = #'harmonic
+
+harmonicsOff = \revert NoteHead #'style
+
 improvisationOn = {
   \set squashedPosition = #0
   \override NoteHead #'style = #'slash
