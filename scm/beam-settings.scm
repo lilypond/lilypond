@@ -1,4 +1,4 @@
-;;;; default-beam-settings.scm -- Default auto-beam and subdivide-beam settings
+;;;; beam-settings.scm --  Handle auto-beam and subdivide-beam settings
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
