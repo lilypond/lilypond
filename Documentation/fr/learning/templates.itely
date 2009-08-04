@@ -1,12 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+    Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Jean-Charles Malahieude
 
 @node Modèles
 @appendix Modèles
@@ -79,47 +80,185 @@ de lancer LilyPond, et d'aprécier le résultat.
 
 @node Quatuor à cordes
 @appendixsec Quatuor à cordes
-@translationof String quartet @c external
-
-@untranslated
-
+@translationof String quartet 
 
 @appendixsubsec Quatuor à cordes
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-simple.ly}
+
 @appendixsubsec Parties pour quatuor à cordes
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-with-separate-parts.ly}
+
+
 @node Ensemble vocal
 @appendixsec Ensemble vocal
-@translationof Vocal ensembles @c external
+@translationof Vocal ensembles 
 
-@untranslated
+@appendixsubsec Partition pour chœur à quatre voix mixtes
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template.ly}
+
+@appendixsubsec Partition pour chœur SATB avec réduction pour piano
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-automatic-piano-reduction.ly}
+
+@appendixsubsec Partition pour chœur SATB avec alignement des contextes
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 
-@appendixsubsec Partition pour chÅÂur à quatre voix mixtes
-@appendixsubsec Partition pour chÅÂur SATB avec réduction pour piano
-@appendixsubsec Partition pour chÅÂur SATB avec alignement des contextes
+@node Orchestre
+@appendixsec Orchestre
+@translationof Orchestral templates
+
+@appendixsubsec Orchestre, chœur et piano
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{orchestra,-choir-and-piano-template.ly}
+
+
 @node Exemples de notation ancienne
 @appendixsec Exemples de notation ancienne
-@translationof Ancient notation templates @c external
-
-@untranslated
-
+@translationof Ancient notation templates 
 
 @appendixsubsec Transcription de musique mensurale
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+
 @appendixsubsec Transcription du grégorien
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+
 @node Symboles de jazz
 @appendixsec Symboles de jazz
-@translationof Jazz combo @c external
+@translationof Jazz combo 
 
-@untranslated
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{jazz-combo-template.ly}
 
 
 @node Squelettes pour lilypond-book
 @appendixsec Squelettes pour lilypond-book
-@translationof lilypond-book templates @c external
+@translationof lilypond-book templates 
 
-@untranslated
+Les exemples qui suivent sont destinés à des travaux gérés avec
+@code{lilypond-book}.  Pour plus d'information sur ce programme,
+consultez @rprogram{LilyPond-book}.
 
 
 @appendixsubsec LaTeX
+Vous pouvez inclure des fragments de LilyPond dans un document @LaTeX{}. 
+
+@example
+\documentclass[]@{article@}
+
+\begin@{document@}
+
+Des banalités en LaTeX.
+
+\begin@{lilypond@}
+\relative c'' @{
+a4 b c d
+@}
+\end@{lilypond@}
+
+D'autres banalités en LaTeX.
+
+\begin@{lilypond@}
+\relative c'' @{
+d4 c b a
+@}
+\end@{lilypond@}
+\end@{document@}
+@end example
+
 @appendixsubsec Texinfo
+
+Vous pouvez insérer des fragments de LilyPond dans des documents
+Texinfo.  C'est d'ailleurs comme ceci qu'est construite cette
+documentation. 
+
+@example
+\input texinfo
+@@node Accueil
+
+Du texte Texinfo
+
+@@lilypond[verbatim,fragment,ragged-right]
+a4 b c d
+@@end lilypond
+
+Un peu plus de texte en Texinfo
+
+@@lilypond[verbatim,fragment,ragged-right]
+d4 c b a
+@@end lilypond
+
+@@bye
+@end example
+
+
 @appendixsubsec xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%quelques commandes spécifiques à xetex
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%Cette section n'est nécessaire que si vous utilisez pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Vous pouvez inclure ici tous les paquetages gérés par pdftex 
+\usepackage[french,ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Un document succint utilisant LilyPond et xelatex}
+\maketitle
+
+Les commandes habituelles de \textbf{fonte} au fil du \emph{texte}
+sont opérationnelles dans la mesure où elles \textsf{sont supportées
+par \LaTeX{} et XeteX.}
+Pour des commandes du type \verb+\XeTeX+, elles doivent être icluses
+dans un environnement \verb+\ifxetex+. Ceci peut vous servir à imprimer
+la commande \ifxetex \XeTeX{} \else XeTeX \fi qui n'est pas reconnue en
+\LaTeX pur.
+
+Vous pouvez facilement insérer des commandes LilyPond comme ici :
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+et reprendre le fil de votre propos.
+
+Les fontes des inclusions de partition avec LilyPond doivent être
+spacifiées dans le code même de l'extrait. A cet effet, consultez le
+manuel d'utilisation des programmes pour savoir comment utiliser
+lilypond-book. 
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: ß,ł,ã,č,я,щ, wenn sie von der Schriftart
+unterstützt werden.
+\end{document}
+@end verbatim
 
