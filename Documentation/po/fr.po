@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-06 23:05+0200\n"
-"PO-Revision-Date: 2009-07-27 08:34+0200\n"
+"PO-Revision-Date: 2009-08-04 15:30+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -3919,7 +3919,7 @@ msgstr "Scheme et les retouches"
 #. @node in Documentation/user/fdl.itexi
 #. @appendix in Documentation/user/fdl.itexi
 msgid "GNU Free Documentation License"
-msgstr ""
+msgstr "Licence GNU de documentation libre"
 
 #. @subheading in Documentation/user/fdl.itexi
 msgid "ADDENDUM: How to use this License for your documents"
@@ -12433,11 +12433,11 @@ msgstr "pedale"
 
 #. input/lsr/piano-template-with-centered-dynamics.ly:74 (comment)
 msgid "define Dynamics context"
-msgstr ""
+msgstr "personnalisation des contextes de nuance (Dynamics)"
 
 #. input/lsr/piano-template-with-centered-dynamics.ly:95 (comment)
 msgid "modify PianoStaff context to accept Dynamics context"
-msgstr ""
+msgstr "affectation des contextes de nuance personnalisés au PianoStaff"
 
 #. input/lsr/polyphony-in-tablature.ly:56 (context id)
 msgid "tab"
@@ -12676,14 +12676,14 @@ msgstr "original"
 # ça c'est ben vrai !
 #. input/lsr/redefining-grace-note-global-defaults.ly:49 (variable)
 msgid "startAcciaccaturaMusic"
-msgstr ""
+msgstr "ouvreAcciacature"
 
 # ça existe ce terme en français ?
 # ça vient directement de l'italien comme appogiature
 # ça c'est ben vrai !
 #. input/lsr/redefining-grace-note-global-defaults.ly:55 (variable)
 msgid "stopAcciaccaturaMusic"
-msgstr ""
+msgstr "fermeAcciacature"
 
 #. input/lsr/removing-the-first-empty-line.ly:60 (comment)
 msgid "To use the setting globally, uncomment the following line:"
@@ -13105,11 +13105,11 @@ msgstr ""
 msgid ""
 "\\include \\\"piece.ly\\\"             %%% uncomment this line when using a "
 "separate file"
-msgstr ""
+msgstr "\\include \\\"piece.ly\\\"             %%% décommenter cette ligne si utilisation d'un fichier séparé pour les notes"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:139 (comment)
 msgid "{ Uncomment this block when using separate files"
-msgstr ""
+msgstr "garder ce bloc en commentaire si chaque pupitre fait l'objet d'un fichier séparé"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:141 (comment)
 msgid "vn1.ly"
@@ -13117,7 +13117,7 @@ msgstr "vn1.ly"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:142 (comment)
 msgid "(This is the Violin 1 part file)"
-msgstr ""
+msgstr "La partition pour le premier violon"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:151 (comment)
 msgid "vn2.ly"
@@ -13125,7 +13125,7 @@ msgstr "vn2.ly"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:152 (comment)
 msgid "(This is the Violin 2 part file)"
-msgstr ""
+msgstr "La partition pour le second violon"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:161 (comment)
 msgid "vla.ly"
@@ -13133,7 +13133,7 @@ msgstr "vla.ly"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:162 (comment)
 msgid "(This is the Viola part file)"
-msgstr ""
+msgstr "La partition pour l'alto"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:171 (comment)
 msgid "vlc.ly"
@@ -13141,7 +13141,7 @@ msgstr "vcl.ly"
 
 #. input/lsr/string-quartet-template-with-separate-parts.ly:172 (comment)
 msgid "(This is the Cello part file)"
-msgstr ""
+msgstr "La partition pour le violoncelle"
 
 #. input/lsr/sub-dividing-beams.ly:82 (comment)
 msgid "Set beam sub-group length to an eighth note"

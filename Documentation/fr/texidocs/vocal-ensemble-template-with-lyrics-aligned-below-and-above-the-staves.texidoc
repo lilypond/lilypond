@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Ce canevas ressemble beaucoup à celui pour chœur à quatre voix mixtes.
+La différence réside dans le fait que les paroles sont positionnées en
+ayant recours à @code{alignAboveContext} et @code{alignBelowContext}. 
+
+"
+  doctitlefr = "Ensemble vocal avec alignement des paroles selon le contexte"

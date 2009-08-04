@@ -1,13 +1,12 @@
-%% Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
-Lorsque l'on transcrit de la musique mensurale, il est d'usage 
-d'indiquer en début de partition,  par un « incipit », les tonalité 
-et tempo originaux.  De nos jours, les musiciens ont l'habitude de 
-voir des barres de mesure qui les aide à appréhender la structure 
-rythmique.  Ces barres n'existaient pas du temps où ces œuvres ont 
-été écrites ; en fait, la métrique évoluait au fil de la pièce.  Un 
-compromis consiste à imprimer des barres de mesure entre les portées 
-plutôt que sur la portée elle-même.
+Lorsque l'on transcrit de la musique mensurale, un @emph{incipit} permet
+d'indiquer la tonalité et le tempo d'origine.  Si les musiciens sont de
+nos jours habitués aux barres de mesures qui présentent la structure
+rythmique d'une œuvre, elles n'étaient pas en vigueur à l'époque où ces
+pièces ont été composées, d'autant plus que la @qq{métrique} pouvait
+changer au fil des notes.  Un compromis consiste à imprimer des barres
+entre les portées plutôt que sur chacune d'elles.
 
 "
   doctitlefr = "Exemples de notation ancienne -- transcription moderne de musique mensurale"
