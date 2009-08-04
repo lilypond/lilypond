@@ -33,7 +33,7 @@ EXTRA_DOC_FILES = \
   Documentation/out/*.txt\
   Documentation/tex/*.doc\
   Documentation/tex/*.bib\
-  Documentation/pictures/out/lelie_logo.gif\
+  Documentation/logo/out/lelie_logo.gif\
   input\
 
 INSTALLED_EXTRA_DOC_FILES = $(addprefix $(prefix:/%=%)/doc/lilypond/, $(EXTRA_DOC_FILES))

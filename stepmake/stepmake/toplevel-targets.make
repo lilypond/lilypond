@@ -27,7 +27,7 @@ endif
 
 
 $(package-icon):
-	$(MAKE) -C Documentation/pictures icon
+	$(MAKE) -C Documentation/logo icon
 
 
 top-doc:
