@@ -108,7 +108,7 @@ $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Tran
     {FILENAME => "lilypond-web.css", TITLE => "Default style"},
     {FILENAME => "lilypond-web-alt1.css", TITLE => "Alternate style 1"},
     {FILENAME => "lilypond-web-alt2.css", TITLE => "Alternate style 2"},
- ););
+ );
 
 # GOP tweak: We don't have alternate stylesheets right now
 #@Texi2HTML::Config::ALT_CSS_REFS      = (
