@@ -30,7 +30,9 @@ LILYPOND_BOOK_INCLUDES = -I $(src-dir)/ -I $(outdir) -I $(input-dir)	\
  -I $(top-src-dir)/Documentation -I $(top-src-dir)/Documentation/snippets \
  -I $(input-dir)/regression/ -I $(input-dir)/manual/ \
  -I $(input-dir)/tutorial/ -I $(top-build-dir)/mf/$(outconfbase)/	\
- -I $(top-build-dir)/mf/out/ -I $(top-src-dir)/input/manual
+ -I $(top-build-dir)/mf/out/ -I $(top-src-dir)/input/manual \
+ -I $(top-src-dir)/Documentation/pictures \
+ -I $(top-build-dir)/Documentation/pictures/$(outdir)
 
 ## override from cmd line to speed up. 
 ANTI_ALIAS_FACTOR=2
