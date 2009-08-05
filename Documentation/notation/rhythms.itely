@@ -65,7 +65,6 @@ c\longa c\breve c1 c2
 c4 c8 c16 c32 c64 c128 c128
 @end lilypond
 
-@noindent
 Here are the same durations with automatic beaming turned off.
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
@@ -352,7 +351,6 @@ and expanded:
 }
 @end lilypond
 
-@noindent
 One application of this command is in polymetric
 notation, see @ref{Polymetric notation}.
 
@@ -388,8 +386,6 @@ A tie is entered using the tilde symbol (@code{~}).
 a2 ~ a
 @end lilypond
 
-
-@noindent
 Ties are used either when the note crosses a bar line, or when
 dots cannot be used to denote the rhythm.  Ties should also be
 used when note values cross larger subdivisions of the measure:
@@ -445,7 +441,7 @@ have to specify the repeated tie as follows:
 @funindex \laissezVibrer
 @funindex laissezVibrer
 
-@notation{L.v.} ties (@notation{laissez vibrer}) indicate that
+@notation{L.v.}@: ties (@notation{laissez vibrer}) indicate that
 notes must not be damped at the end.  It is used in notation for
 piano, harp and other string and percussion instruments.  They can
 be entered as follows:
@@ -1070,6 +1066,7 @@ entered using the @code{\partial} command, with the syntax
 \partial @var{duration}
 @end example
 
+@noindent
 where @code{duration} is the rhythmic length of the interval
 before the start of the first complete measure:
 
@@ -1085,12 +1082,13 @@ The partial measure can be any duration less than a full measure:
 a2. c,4 |
 @end lilypond
 
-Internally, this is translated into
+Internally, @code{\partial} is translated into
 
 @example
 \set Timing.measurePosition = -@var{duration}
 @end example
 
+@noindent
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.  Note
 that this is set to a negative number by the @code{\partial}
@@ -1583,7 +1581,7 @@ Internals Reference: @rinternals{Beam}.
 
 @knownissues
 
-Beams can collide with note heads and accidentals in other voices
+Beams can collide with note heads and accidentals in other voices.
 
 
 @node Setting automatic beam behavior
@@ -1995,21 +1993,35 @@ Two types of simple bar lines and five types of double bar lines are available
 for manual insertion:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|" f \bar "." g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
+f1 \bar "|"
+f \bar "."
+g \bar "||"
+a \bar ".|"
+b \bar ".|."
+c \bar "|.|"
+d \bar "|."
+e
 @end lilypond
 
 @noindent
 together with dotted and dashed bar lines:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar ":" g \bar "dashed" a
+f1 \bar ":"
+g \bar "dashed"
+a
 @end lilypond
 
 @noindent
 and five types of repeat bar line:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
+f1 \bar "|:"
+g \bar ":|:"
+a \bar ":|.|:"
+b \bar ":|.:"
+c \bar ":|"
+d
 @end lilypond
 
 Additionally, a bar line can be printed as a simple tick:
@@ -2035,7 +2047,6 @@ line at the end of the line and a start repeat at the beginning of
 the next line.
 
 @lilypond[quote,relative=2,verbatim]
-\override Score.RehearsalMark #'padding = #3
 c c c c
 \bar "||:"
 c c c c \break
@@ -2183,10 +2194,10 @@ Internals Reference: @rinternals{BarNumber}.
 
 @knownissues
 
-Bar numbers may collide with the top of the
-@rinternals{StaffGroup} bracket, if there is one.  To solve
-this, the @code{padding} property of @rinternals{BarNumber} can
-be used to position the number correctly.
+Bar numbers may collide with the top of the @code{StaffGroup} bracket,
+if there is one.  To solve this, the @code{padding} property of
+@code{BarNumber} can be used to position the number correctly.  See
+@rinternals{StaffGroup} and @rinternals{BarNumber} for more.
 
 
 
@@ -2283,7 +2294,7 @@ Snippets:
 @funindex \mark
 @funindex mark
 
-To print a rehearsal mark, use the @code{\mark} command
+To print a rehearsal mark, use the @code{\mark} command.
 
 @lilypond[quote,verbatim,relative=2]
 c1 \mark \default
@@ -2347,15 +2358,15 @@ You may use @code{format-mark-barnumbers},
 @code{format-mark-circle-barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
-Other styles of rehearsal mark can be specified manually
+Other styles of rehearsal mark can be specified manually:
 
 @example
 \mark "A1"
 @end example
 
 @noindent
-@code{Score.markFormatter} does not affect marks specified in this
-manner.  However, it is possible to apply a @code{\markup} to the
+Note that @code{Score.markFormatter} does not affect marks specified
+in this manner.  However, it is possible to apply a @code{\markup} to the
 string.
 
 @example
@@ -2438,8 +2449,8 @@ c4 \grace c16 c4
 @end lilypond
 
 LilyPond also supports two special types of grace notes, the
-@emph{acciaccatura}--an unmeasured grace note indicated by a slurred
-small note with a slashed stem--and the @emph{appoggiatura}, which
+@emph{acciaccatura} -- an unmeasured grace note indicated by a slurred
+small note with a slashed stem -- and the @emph{appoggiatura}, which
 takes a fixed fraction of the main note and appears in small print
 without a slash.
 
