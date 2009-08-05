@@ -42,6 +42,7 @@ and just before
 * Text markup list commands::
 * List of articulations::
 * Percussion notes::
+* Technical glossary::
 * All context properties::
 * Layout properties::
 * Identifiers::
@@ -886,6 +887,135 @@ The following styles may be used for note heads.
 @appendixsec Percussion notes
 
 @lilypondfile[quote]{percussion-chart.ly}
+
+
+@node Technical glossary
+@appendixsec Technical glossary
+
+A glossary of the technical terms and concepts used internally.
+
+@menu
+* callback::
+* glyph::
+* grob::
+* lexer::
+* output-def::
+* parser::
+* parser variable::
+* prob::
+* simple-closure::
+* smob::
+* stencil::
+@end menu
+
+@node callback
+@unnumberedsubsec callback
+
+@cindex callback
+
+A @strong{callback} is a routine, function or method whose reference is
+passed as an argument in a call to another routine, so allowing
+the called routine to invoke it.  The technique enables a lower-
+level software layer to call a function defined in a higher
+layer.  Callbacks are used extensively in LilyPond to permit
+user-level Scheme code to define how many low-level actions are
+performed.
+
+@node glyph
+@unnumberedsubsec glyph
+
+@cindex glyph
+@cindex font
+@cindex typeface
+
+A @strong{glyph} is a particular graphical representation of a typographic
+character, or a combination of two characters formating a ligature.
+A set of glyphs with a single style and shape comprise a font, and
+a set of fonts covering several styles and sizes comprise a typeface.
+
+@node grob
+@unnumberedsubsec grob
+
+@cindex grob
+@cindex layout objects
+@cindex graphical objects
+
+LilyPond objects which represent items of notation in the printed
+output such as note heads, stems, slurs, ties, fingering, clefs,
+etc are called @q{Layout objects}, often known as @q{GRaphical
+OBjects}, or @strong{grobs} for short.
+
+@node lexer
+@unnumberedsubsec lexer
+
+@cindex lexer
+
+A @strong{lexer} is a program which converts a sequence of
+characters into a sequence of tokens, a process called lexical
+analysis.  The LilyPond lexer converts an input @code{.ly} file
+into a tokenized file more suited to the next stage of processing,
+parsing, see @ref{parser}.
+
+@node output-def
+@unnumberedsubsec output-def
+TODO
+
+@node parser
+@unnumberedsubsec parser
+
+@cindex parser
+
+A @strong{parser} analyzes the sequence of tokens produced by
+a lexer to determine its grammatical structure as defined by the
+rules governing the format of an input file.
+
+@node parser variable
+@unnumberedsubsec parser variable
+
+These are variables defined directly in Scheme.  Their direct
+use by users is strongly discouraged, because their scoping
+semantics can be confusing.
+
+When the value of such a variable is changed in a @code{.ly} file,
+the change is global, and unless explicitly reverted, the new value
+will persist to the end of the file, affecting subsequent
+@code{\score} blocks as well as external files added with the
+@code{\include} command.  This can lead to unintended consequences
+and in complex typesetting projects the consequent errors can be
+difficult to track down.
+
+LilyPond uses the following parser variables:
+
+@itemize
+@item afterGraceFraction
+@item musicQuotes
+@item mode
+@item output-count
+@item output-suffix
+@item parseStringResult
+@item partCombineListener
+@item pitchnames
+@item toplevel-bookparts
+@item toplevel-scores
+@item showLastLength
+@item showFirstLength
+@end itemize
+
+@node prob
+@unnumberedsubsec prob
+TODO
+
+@node simple-closure
+@unnumberedsubsec simple-closure
+TODO
+
+@node smob
+@unnumberedsubsec smob
+TODO
+
+@node stencil
+@unnumberedsubsec stencil
+TODO
 
 
 @node All context properties

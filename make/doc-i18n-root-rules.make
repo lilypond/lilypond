@@ -27,7 +27,11 @@ $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map
 	$(buildscript-dir)/extract_texi_filenames -o $(XREF_MAPS_DIR) $(XREF_MAP_FLAGS) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
 
-$(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
+$(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES) $(outdir)/pictures
+
+$(outdir)/pictures: pictures-subdir
+	$(MAKE) -C $(top-build-dir)/Documentation/pictures WWW-1
+	ln -sf $(top-build-dir)/Documentation/pictures/$(outdir) $@
 
 $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)
 	find $(outdir) \( -name 'lily-*.png' -o -name 'lily-*.ly' \) | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link hard $(outdir) $(top-build-dir)/Documentation/$(outdir)

@@ -10,8 +10,8 @@
 @c \version "2.12.0"
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
-@node LilyPond-book
-@chapter @command{lilypond-book}: Integrating text and music
+@node lilypond-book
+@chapter Running @command{lilypond-book}
 
 If you want to add pictures of music to a document, you can simply do it
 the way you would do with other types of pictures.  The pictures are
@@ -27,7 +27,7 @@ the music are adjusted to match the layout of your document.
 This is a separate program from @command{lilypond} itself, and is run
 on the command line; for more information, see @ref{Command-line
 usage}.  If you have MacOS 10.3 or 10.4 and you have trouble running
-@code{lilypond-book}, see @ref{Setup for MacOS X}.
+@code{lilypond-book}, see FIXME FIXME @c @ref{Setup for MacOS X}.
 
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
 documents.

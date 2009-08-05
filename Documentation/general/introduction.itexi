@@ -1,0 +1,777 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Introduction
+@unnumbered Introduction
+
+@divClass{column-center-top}
+@subheading Our Goal
+
+@imageFloat{flat-design.png,right}
+
+The inspiration for LilyPond came when two musicians became
+annoyed with the bland and boring look of computer-printed
+sheet music.  All musicians prefer reading beautiful music, so why
+couldn't programmers write software to produce better printed
+parts?
+
+This software just does that: it prints music in the best
+traditions of classical engraving with minimum fuss.  Don't waste
+time on tuning spacing, moving around symbols, or shaping slurs.
+Impress friends and colleagues with sharp sheet music!
+@divEnd
+
+@divClass{column-left-top}
+@subheading Why use LilyPond?
+
+@itemize
+
+@item
+@ref{Features}: What can LilyPond do?
+
+@item
+@ref{Examples}: I want to see some music!
+
+@item
+@ref{Freedom}: LilyPond is Free Software.
+
+@end itemize
+@divEnd
+
+@divClass{column-right-top}
+@subheading Who uses it?
+
+@itemize
+
+@item
+@ref{Productions}: Real-life use of LilyPond.
+
+@item
+@ref{Testimonials}: What do people say?
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Why not use LilyPond?
+
+@itemize
+
+@item
+@ref{Text input}: You write music as @emph{text}?!
+
+@end itemize
+@divEnd
+
+
+
+@divClass{hide}
+@menu
+* Features::                    What can LilyPond do?
+* Examples::                    I want to see some music!
+* Freedom::                     Freedom and the GPL.
+* Productions::                 Real-life use of LilyPond.
+* Testimonials::                What do people say about it?
+* Text input::                  You write music as text?!
+@end menu
+@divEnd
+
+
+
+@node Features
+@unnumberedsec Features
+
+@help{hoping to delegate this.  Desired: an enthusiastic
+attempt to sway people towards trying lilypond.  The warnings
+about writing music as text come in Crash Course, not here.  Maybe
+draw inspiration from
+http://lilypond.org/web/about/features
+and
+http://lilypond.org/web/switch/tour
+and
+http://lilypond.org/web/switch/advantages
+}
+
+@subheading Why switch to LilyPond?
+
+
+@subsubheading Excellent classical engraving
+
+@imageFloat{flat-design.png,right}
+
+The point of using LilyPond is to produce elegant sheet music that
+is easy to read.  LilyPond's developer community has spent
+thousands of hours developing powerful music engraving software
+that results in beautifully engraved music.  All of LilyPond's
+style settings, font designs and algorithms have been inspired by
+the finest hand-engraved music.  LilyPond output has the same
+strong, balanced and elegant look as the best-engraved classical
+scores
+
+
+@subsubheading No fiddling
+
+Don't waste time with tweaking the output; LilyPond gets the
+formatting correct right from the start.  It determines spacing by
+itself, and breaks lines and pages to provide a tight and uniform
+layout.  Clashes between lyrics, notes, and chords are resolved
+and slurs and beams are sloped, automatically!
+
+
+@subsubheading Text-based input
+
+LilyPond takes ASCII input, which you can produce in your favorite
+text editor, quickly and comfortably.  No more futzing with the
+mouse.  The input contains all the information, so there is no
+need to remember complex command sequences.  Simply save an input
+for later reference.
+
+
+@subsubheading Mix music and text
+
+@imageFloat{lilypond-book.png,right}
+
+Put fragments of music into texts without cutting and pasting
+pictures. Integrate music into LaTeX or HTML seamlessly, or add
+music to OpenOffice.org with ooolilypond.
+
+
+
+@subsubheading Free software
+
+LilyPond can be downloaded free of charge! Yep - It's free.  Get
+it from the download page.
+
+It's also free (as in @qq{speech}) software. It comes with source
+code, and permission to change and copy it. So, are you irritated
+by a bug, or yearning for a feature? Simply add it yourself, or
+pay someone else to do it.
+
+
+@subsubheading Extensible design
+
+All settings can be changed to suit your personal
+typographical taste. If that still is not enough, there is always
+the built-in scripting language, a dialect of the powerful
+language LISP. Settings, variables and functions are all
+documented in the comprehensive program reference manual.
+
+
+@subsubheading Excellent support
+
+LilyPond runs on all popular platforms: Linux, MacOS X, and
+Windows.  LilyPond comes with extensive documetation and hundreds
+of example files.  There is an active user community answering
+questions on the Lilypond user mailing list, while the development
+team makes sure that problems are solved quickly.
+
+
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+Still not convinced?  Look at some neat @ref{Examples}.  If you've
+already decided to try LilyPond, first read about our
+@ref{Text input}.
+@divEnd
+
+
+
+@node Examples
+@unnumberedsec Examples
+
+Lilypond is a powerful and flexible tool for engraving tasks of
+all kinds. Please browse our gallery of examples and be inspired!
+
+@ignore
+Here is a passage from Franz Liszt's solo piano transcription
+of the Overture to Wagner's @emph{Tannhäuser}. The spacing
+in this example was all performed by Lilypond's formatting
+algorithms, without tweaks of any kind. It
+handles cross-staff beaming gracefully and puts the system brace
+perfectly around all three staves.
+
+@imageClickable{liszt-wagner-small.png, (click to enlarge),
+liszt-wagner.png, center}
+@end ignore
+
+@newsItem
+@subsubheading Classical Music
+This organ work by J.S. Bach is a fairly typical engraving project
+in Lilypond.
+
+@imageClickable{bach-bwv610-small.png, (click for longer
+excerpt), bach-bwv610.png, center}
+@newsEnd
+
+@newsItem
+@subsubheading Complex Notation
+
+This example from @emph{Goyescas} by Enrique Granados shows some
+of the more advanced features of typesetting, including kneed
+beams, cross-staff stems, and voice-follow lines.
+
+@imageClickable{granados-small.png, (click to enlarge),
+granados.png, center}
+@newsEnd
+
+@newsItem
+@subsubheading Early Music
+Lilypond also supports various types of ancient notation, such
+as this passage of Gregorian chant.
+
+@imageClickable{ancient-headword-small.png, (click to enlarge),
+ancient-headword.png, center}
+@newsEnd
+
+@newsItem
+@subsubheading Modern Music
+Contemporary composers find Lilypond well-suited to displaying
+unusual notation. Here is an excerpt from Trevor Bača's
+@emph{Čáry}, for unaccompanied bass flute.
+
+@imageClickable{cary-small.png, (click to enlarge),
+cary.png, center}
+@newsEnd
+
+
+@newsItem
+@subsubheading Efficient, flexible creation of performance materials
+Various performance materials can be created from the same source
+code. This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
+Nicolas Sceaux's} engraving of Handel's @emph{Giulio Cesare}, in
+full score, piano-vocal reduction, and a violin part.
+
+@imageClickable{sesto-small.png, (click to enlarge),
+sesto.png, center}
+
+@imageClickable{sesto-1-small.png, (click to enlarge),
+sesto-1.png, center}
+
+@imageClickable{sesto-2-small.png, (click to enlarge),
+sesto-2.png, center}
+
+@newsEnd
+
+@help NEED BETTER TABLATURE EXAMPLE!!
+
+@newsItem
+@subsubheading Tablature
+Lilypond supports tablature notation, which can be customized to
+suit any instrument that reads from tablature. Here is a passage
+from a Bach Lute Suite, with tablature generated automatically
+from the notes entered for the traditional staff.
+
+@imageClickable{bach-tab-example-small.png, (click to enlarge),
+bach-tab-example.png, center}
+@newsEnd
+
+@newsItem
+@subsubheading Schenker Graphs
+Standard output can be modified heavily. Here someone has created
+an impressive Schenkerian analysis.
+
+@imageClickable{bach-schenker-small.png, (click to enlarge),
+bach-schenker.png, center}
+@newsEnd
+
+@newsItem
+@subsubheading Vocal Music
+Lilypond is excellent for vocal music of all kinds, from sacred
+hymns to opera. Here is a medieval motet with slightly unusual
+requirements. The tenor voice is written in a different meter
+than the others, but must line up as if it were in the same meter.
+Lilypond handles this most elegantly. Note also the incipits with
+Vaticana style clefs, the slashed stems indicating plicated notes,
+and the ligature braces above certain groups of notes.
+
+@imageClickable{aucun-snippet-small.png, (click to enlarge),
+aucun-snippet.png, center}
+@newsEnd
+
+@newsItem
+@subsubheading Educational Applications
+Lilypond is perfectly suited for educational purposes as well.
+Here is an example of a simple counterpoint exercise.
+
+@imageClickable{theory-small.png, (click to enlarge),
+theory.png, center}
+@newsEnd
+
+@help NEED BETTER POP EXAMPLE!! Also a better theory example would be nice.
+
+@newsItem
+@subsubheading Popular Music
+It is simple to create pop lead sheets with melody, lyrics,
+chord names, and fretboards. In this example you see some of the
+predefined fretboard diagrams, but these can be heavily customized
+to suit nearly any situation.
+
+@imageClickable{chart-small.png, (click to enlarge),
+chart.png, center}
+@newsEnd
+
+@help NEED DIFFERENT ORCHESTRAL OR OPERA EXAMPLE?!
+
+@newsItem
+@subsubheading Large Projects
+Lilypond is excellent for large projects like operas or works for
+full symphony orchestra, as well. Score, parts, piano reductions,
+and conductors' scores can be produced from the same source files.
+
+@imageClickable{orchestral-small.png, (click to enlarge),
+orchestral.png, center}
+@newsEnd
+
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+Still not convinced?  LilyPond is Free software, granting you
+@ref{Freedom}.  If you've already decided to try LilyPond, first
+read about our @ref{Text input}.
+@divEnd
+
+
+@node Freedom
+@unnumberedsec Freedom
+
+@divClass{column-center-top}
+@subheading Free Software
+
+@uref{http://www.gnu.org/, GNU} LilyPond is written and maintained
+by a community of enthusiasts.  It is published under the
+@ref{GPL, GNU General Public License} and the @ref{FDL, GNU Free
+Documentation License}, giving everybody the freedom to fix,
+modify, and extend the program.  Creating beautiful music should
+not require hundreds of dollars of software!
+@divEnd
+
+
+@c @divClass{column-left-top}
+@divClass{color2}
+@divClass{keep-bullets}
+@subheading What are the benefits to users?
+
+@itemize
+
+@item
+No cost: download and try it out!  What do you have to lose?
+
+@item
+Sharing: if you like the program, give a copy to your friends,
+teachers, students, and colleagues!
+
+@item
+Source available: if you are curious about how LilyPond creates
+some notation, you can see exactly how it is done.
+
+@item
+Extendible: you can add features, fix bugs, and change the
+functionality.  If you are not a programmer, you can hire somebody
+to do those tasks.
+
+This may not seem appealing to casual musicians, but the ability
+to extend software can be highly valuable to serious composers,
+companies, and academics.
+
+@item
+Future safety: if a commercial company goes bankrupt, what happens
+to any electronic music which depends on their products?  This is
+not a concern with LilyPond; even if the entire development team
+quits (extremely unlikely), the program will still be legally
+available for copying, modifications, and distribution.
+
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@c @divClass{column-right-top}
+@divClass{color3}
+@divClass{keep-bullets}
+@subheading Why do LilyPond developers @qq{give away} their work for free?
+
+Most of us view LilyPond development as a hobby or volunteer work.
+So this question is really asking @qq{why do people volunteer}?
+
+@itemize
+
+@item
+Fun: working towards a goal can be enjoyable, especially when you
+work as a team!
+
+@item
+Shared goals: we all want beautiful sheet music, but few people
+have the expertise (and nobody has the time!), to create a program
+which can handle all situations.  By working together -- one
+person improves the automatic beaming code, another person
+improves the shape of slurs, and a third person writes
+documentation explaining how to use these features -- we can
+achieve our goal with only a fraction of the individual effort.
+
+@item
+@qq{Gift culture}: the Free Software (or @qq{Open Source})
+movement has created many great software projects, such as
+@uref{http://kernel.org/, GNU/Linux},
+@uref{http://www.getfirefox.com/, Mozilla Firefox}, and
+@uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Having
+benefitted from these projects, some developers want to @qq{give
+back} to the community.
+
+@item
+Work experience: contributing to open-source projects is a great
+way to practice programming, documentation writing, or design.
+This experience has helped some developers gain job offers or
+scholarships.
+
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+Still not convinced?  Read about some of our users'
+@ref{Productions} and sheet music.  If you've already decided to
+try LilyPond, first read about our @ref{Text input}.
+@divEnd
+
+
+@node Productions
+@unnumberedsec Productions
+
+@help{more references to publishers who use lilypond}
+
+@divClass{column-left-top}
+@subheading Concerts
+
+Lilypond engravings have been used for performances around the world.
+Some highlights:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@emph{Affaire Étrangère}, an opera by Valentin Villenave, with
+libretto by Lewis Trondheim, premiered February 1, 2009, by
+@uref{http://www.orchestre-montpellier.com/, L'Opéra Montpellier}.
+
+@item
+@uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}'s
+performance of Lully's @emph{Armide}, May 15-16, 2009, in Houston,
+Texas (engraving by @uref{http://nicolas.sceaux.free.fr/,
+Nicolas Sceaux}).
+
+@item
+Instrumental excerpts from Rameau's @emph{Hippolyte et Aricie} at
+St. James's Church in Manhattan, May 8, 2009, by Frederick Renz
+and his ensemble @uref{http://www.earlymusicny.org/, Early Music
+New York} (engraving by Nicolas Sceaux).
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Published sheet music
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+high-quality scores of sacred music, available for immediate
+download or in traditional paper format.
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+Still not convinced?  Read some of our users' @ref{Testimonials}.
+If you've already decided to try LilyPond, first read about our
+@ref{Text input}.
+@divEnd
+
+
+@node Testimonials
+@unnumberedsec Testimonials
+
+@divClass{testimonial-item}
+@imageFloat{carter-brey.jpg, right}
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
+
+@qq{... I've written a couple of encore pieces for solo cello
+which I've printed with LilyPond and which I'm going to submit to
+Schirmer for publication. I'll bet their engraved version wouldn't
+look half as sharp as mine!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{orm-finnendahl.jpg, left}
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
+
+@qq{Although I don't know [LilyPond] very well yet, I'm *very*
+impressed. I used the program to input a motet of Josquin Desprez
+in mensural notation and there's no doubt that lilypond outscores
+all other notation programs easily concerning speed, ease of use
+and look!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{darius-blasband.jpg, right}
+@subsubheading Darius Blasband, composer (Brussels, Belgium)
+
+@qq{[..after the first orchestra rehearsal] I got numerous
+compliments about the quality of the scores. Even more
+importantly, while Lilypond provides numerous hacks to improve the
+way its scores look, what the orchestra got from me is basically
+the raw, untouched output.}
+
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Kieren MacMillan, composer (Toronto, Canada)
+
+@qq{thanks and kudos to the development team for their incredible
+work. I've never seen anything approaching the output that I get
+from Lilypond -- I'm totally confident that my music publishing
+needs will be fulfilled beyond my expectations using this great
+application. [..] basically untweaked Lilypond output [..] looks
+better than most recent "professional" publications I've compared
+it to (q.v., just about any Warner Bros. score, and even many of
+the most recent by "the old houses"). [..]}
+
+@qq{Beat that, Finale/Sibelius/Igor/whatever!!!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project.
+
+@qq{Lilypond is obviously the zillion-ton gorilla [of great music
+typesetting].}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+
+@qq{The way that music is entered for LilyPond causes me to think in a
+more musical way -- there have been times when I've been stumped as
+to how to tell Lily to engrave something, only to realize that
+even if I did get it exactly as the composer wanted, the music
+would be confusing to read.  LilyPond makes it much easier for me
+to work in my dual editor+engraver role.}
+
+@qq{I've been using LilyPond exclusively for my fledgling music
+publishing business. Virtually without exception, every composer
+has been blown away by the quality of the engraving when presented
+with the proofs of their music about to be published. I deserve
+some of the credit for this -- I spend a lot of time tweaking
+output, especially ties (mainly in chords) -- but LilyPond gives
+me an excellent starting point, a very intuitive interface, and
+the ability to modify absolutely anything if I want to take the
+time. I'm convinced that no commercial product can come close.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
+
+@qq{I think Lilypond is great [..] The more I learn about LilyPond
+the more I like it!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Vaylor Trucks, Electric guitar player (Yes, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, related to})
+
+@qq{I am super impressed with LilyPond [..]}
+
+@qq{THIS IS THE BEST PROGRAM EVER!!!}
+
+@qq{Thank you all SO MUCH for your hard work and dedication!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} contributor
+
+@qq{I had a kind of hate-passion relationship with it. Passion
+because the first score I saw was so amazing! The description of
+LilyPond lies about its beautifulness, it is too modest! [..] as
+LilyPond is getting always better, and as I look closer how things
+are done in scheme, I have less and less frustrations. Anyway,
+what I mean is: thank you for providing LilyPond, it is really
+good.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theatre in Koblenz, Germany and distinguished GNU Hacker.
+
+@qq{Anyway, LilyPond does an amazingly good job!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}.
+
+@qq{I think [LilyPond is] an incredible program, and it produces
+wonderful, wonderful output. when i read an interview about it
+last year, i was raving to several friends of mine about its
+potential.}
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+Read about our @ref{Text input}.
+@divEnd
+
+
+
+@node Text input
+@unnumberedsec Text input
+
+@c TRANSLATORS: so far it's mostly from
+@c http://lilypond.org/web/switch/howto
+
+@subheading @qq{Compiling} Music
+
+@imageClickable{nereid-shot-small.png, (click to enlarge),
+nereid-shot.png, right}
+
+LilyPond is a @emph{compiled} system: it is run on a text file
+containing the notes.  The resulting output is viewed on-screen or
+printed.  In some ways, LilyPond is more similar to a programming
+language than graphical score editing software.
+
+You do not write music by dragging notes from a graphical toolbar
+and placing them on a dynamically refreshing score; you write
+music by typing text.  This text is interpreted (or @qq{compiled})
+by LilyPond, which produces beautifully engraved sheet music.
+
+People accustomed to graphical user interfaces might need to learn
+a new way of working, but the results are definitely worth it!
+
+@warning{We present a quick overview of our text input -- it's not
+as complicated as it sounds!  Don't worry about understanding
+every detail in these examples; our beginner documentation covers
+everything at a much more gradual pace.}
+
+
+@subsubheading It's as simple as A B C
+
+Notes are encoded with letters and numbers.  Special commands are
+entered with backslashes.
+
+@imageFloat{text-input-1-annotate.png,center}
+@imageFloat{text-input-1-output.png,center}
+
+Alterations are made with different names: add @code{-is} for
+sharp, and @code{-es} for flat (these are Dutch note names, other
+languages are available).  LilyPond figures out where to put
+accidentals.
+
+@imageFloat{text-input-2-annotate.png,center}
+@imageFloat{text-input-2-output.png,center}
+
+
+@subsubheading Pop music
+
+Put chords and lyrics together to get a lead sheet:
+
+@help{change the lyrics.  svg available}
+
+@imageFloat{text-input-pop-annotate.png,center}
+@imageFloat{text-input-pop-output.png,center}
+
+
+
+@subsubheading Orchestral parts
+
+The input file contains the notes of piece.  Score and parts can
+be made from a single input file.  So, changing a note always
+affects both parts and score.  To share the notes, the music is
+assigned to a variable:
+
+@imageFloat{text-input-parts-both-annotate.png,center}
+
+
+This variable is then used in a single part (here transposed, with
+condensed multi rests):
+
+@imageFloat{text-input-parts-single-annotate.png,center}
+@imageFloat{text-input-parts-single-output.png,center}
+
+
+The same variable is used in the full score (here in concert
+pitch):
+
+@imageFloat{text-input-score-annotate.png,center}
+@imageFloat{text-input-score-output.png,center}
+
+
+@subsubheading Beginner Documentation
+
+We realize that many users find this way of entering music a bit
+odd.  For this reason, we have written extensive documentation to
+help new users, beginning with @ref{Learning}.
+
+Please read the Learning Manual before complaining about bugs!
+New users occasionally believe that LilyPond is not working
+correctly, when in fact it is working precisely as designed.
+
+@help{any suggestions for a picture here?}
+
+
+@subsubheading Easier editing environments
+
+LilyPond is primarily concerned with producing top-quality
+engraved sheet music; creating a Graphical User Interface (GUI)
+would distract us from this goal.  However, there are other
+projects aimed at making it easier to create LilyPond input files.
+
+Some editing environments include syntax highlighting, automatic
+command completion, and pre-made templates.  Other programs
+actually provide a GUI which allows direct manipulation of a
+graphical score.  For more information, see our documentation
+about @@ref@{FIXME alternate editing environments@}.
+
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+You are now ready to @ref{Download, Download LilyPond}.
+
+Still not convinced?  Many composers, musicians, and conductors
+have learned how to write music in our input format.  Experienced
+users even report that they can enter a full score in LilyPond
+faster than with a piano keyboard or mouse+GUI!  Perhaps you would
+like to review the @ref{Features}, @ref{Examples}, or
+@ref{Freedom} that LilyPond provides, or read about users'
+@ref{Productions} and @ref{Testimonials}.
+@divEnd
+

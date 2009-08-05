@@ -1,0 +1,534 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Download
+@unnumbered Download
+
+@divClass{heading-center}
+@heading Downloads for LilyPond 2.12.2
+
+@divEnd
+
+@warning{LilyPond is a @strong{text-based} music engraver; it is
+more similar to a programming language than a graphical score
+editing program.  Before downloading LilyPond, please read about
+our @ref{Text input}.}
+
+@divClass{column-left-top}
+@subheading For users
+
+@itemize
+
+@item
+@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@ref{Unix, @sourceimage{logo-linux} @sourceimage{logo-freebsd}}
+@ref{Unix, Unix (Linux and FreeBSD)}
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx}}
+@ref{MacOS X, MacOS X}
+
+@item
+@ref{Windows, @sourceimage{logo-windows}}
+@ref{Windows, Microsoft Windows}
+
+@end itemize
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading For developers
+
+@itemize
+
+@item
+@ref{Source}:
+for packagers
+
+@item
+@ref{Old downloads}:
+old versions
+
+@item @ref{Development}:
+latest unstable version
+
+@end itemize
+@divEnd
+
+
+@divClass{column-center-bottom}
+
+@subheading Software License
+
+LilyPond is published under the @ref{GPL, GNU General Public
+License}.
+@divEnd
+
+
+@divClass{color1}
+
+@subheading Sponsors
+
+Many thanks to @uref{http://www.vt.edu/, Virgina Tech} and
+@uref{http://www.linuxaudio.org/, linuxaudio.org} for sponsoring
+our bandwidth.
+
+@sourceimage{VTlogo_ITF} @sourceimage{lao_banner_06_on_white_demo}
+
+@subheading Legalese
+
+@divClass{legal}
+All logos and product images are copyright and trademark
+acknowledged. 
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Unix::                        
+* MacOS X::                     
+* Windows::                     
+* Source::                      
+* Old downloads::     
+* GPL::                         
+@end menu
+@divEnd
+
+
+@node Unix
+@unnumberedsec Unix
+
+@divClass{column-center-top}
+@subheading Generic Packages or Distribution-Specific Packages?
+
+Many distributions include LilyPond in their normal package
+system.  These versions are easier to install and uninstall than
+the generic packages, but they may be older.  If you wish to use
+our generic packages, please uninstall the official version from
+your system using the normal package manager for your distribution.
+See your distribution's documentation about how to use their
+package manager.
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Generic Packages
+
+@subsubheading Download
+
+@itemize
+
+@item
+@sourceimage{logo-linux}
+@uref{http://download.linuxaudio.org/lilypond/binaries/linux-x86/lilypond-2.12.2-1.linux-x86.sh,
+Linux x86: LilyPond 2.12.2} (if in doubt, use this)
+
+@item
+@sourceimage{logo-linux}
+@uref{http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.12.2-1.linux-64.sh,
+Linux 64-bit: LilyPond 2.12.2}
+
+@item
+@sourceimage{logo-linux}
+@uref{http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-2.12.2-1.linux-ppc.sh,
+Linux PPC: LilyPond 2.12.2}
+
+@item
+@sourceimage{logo-freebsd}
+@uref{http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-2.12.2-1.freebsd-x86.sh,
+FreeBSD i386: LilyPond 2.12.2}
+
+@item
+@sourceimage{logo-freebsd}
+@uref{http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-2.12.2-1.freebsd-64.sh,
+FreeBSD amd64: LilyPond 2.12.2}
+
+@end itemize
+
+
+@subsubheading Install
+
+In the shell, type:
+
+@example
+cd PATH-TO-DOWNLOAD-DIRECTORY
+sh lilypond-X.Y.Z-EXAMPLE.sh
+@end example
+
+@subsubheading Uninstall
+
+In the shell, type:
+
+@example
+uninstall-lilypond
+@end example
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Distribution-specific Packages
+
+Please use your distribution's package manager to install or
+upgrade to these versions.
+
+@itemize
+
+@item
+@sourceimage{logo-fedora}
+@uref{https://admin.fedoraproject.org/pkgdb/packages/name/lilypond,
+Fedora: LilyPond 2.12.0}
+
+@item
+@sourceimage{logo-ubuntu}
+@uref{https://launchpad.net/ubuntu/+source/lilypond,
+Ubuntu: LilyPond 2.12.1}
+
+@item
+@sourceimage{logo-slackware}
+@uref{http://www.johannes-schoepfer.de/lilypond/,
+Slackware: LilyPond 2.12.1}
+
+@item
+@sourceimage{logo-debian}
+@uref{http://packages.debian.org/search?keywords=lilypond,
+Debian: LilyPond 2.10.33}
+
+@item
+@sourceimage{logo-suse}
+@uref{http://opensuse.org/?fixme=urg-no-lilypond-package-page,
+openSUSE: LilyPond 2.10.33}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+All logos and product images are copyright and trademark
+acknowledged.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@divEnd
+@divEnd
+
+
+@node MacOS X
+@unnumberedsec MacOS X
+
+@divClass{column-left-top}
+@subheading Packages
+
+@subsubheading Download
+
+@itemize
+
+@item
+@sourceimage{logo-macosx}
+@uref{
+http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.12.2-1.darwin-x86.tar.bz2,
+lilypond-2.12.2-1.darwin-x86.tar.bz2}
+For Intel chips (if in doubt, use this).
+
+@item
+@sourceimage{logo-macosx}
+@uref{
+http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.12.2-1.darwin-ppc.tar.bz2,
+lilypond-2.12.2-1.darwin-ppc.tar.bz2}
+For G3 and G4 CPUs (old Apple computers).
+
+@end itemize
+
+@subsubheading Install
+
+Double-click the downloaded file, then drag it to wherever you
+want.
+
+@subsubheading Uninstall
+
+Delete the LilyPond.app folder.
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Running on the command-line
+
+@warning{If you are happy with the GUI, then please ignore these
+instructions.}
+
+FIXME: once 2.12.4 is out, delete a bunch of this -- IIRC we now
+*do* provide Python, so this stuff gets much easier.
+
+@subsubheading Using Python scripts on MacOS 10.3 or 10.4
+
+LilyPond binaries for MacOS X do not provide Python, but Python 2.4 or
+newer is required by @command{convert-ly}.  Therefore, if you use MacOS
+10.3 or 10.4, you must install a newer Python version from
+@uref{http://python.org/download/}, then edit the first line of
+@command{convert-ly} and @command{lilypond-book} as follows: if the
+Python binary you just installed is in your @var{PATH}, the first line
+should be
+
+@example
+#!/usr/bin/env python
+@end example
+
+@noindent
+otherwise it should be
+
+@example
+#!@var{/path/to/newly_installed/python}
+@end example
+
+
+@subsubheading MacOS X on the command line
+
+The scripts --- such as @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly}, and even @command{lilypond} itself --- are included
+inside the @code{.app} file for MacOS@tie{}X.  They can be run from
+the command line by invoking them directly, e.g.
+
+@example
+@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
+@end example
+
+@noindent
+The same is true of the other scripts in that directory, including
+@command{lilypond-book}, @command{convert-ly}, @command{abc2ly}, etc.
+
+Alternatively, you may create scripts which add the path
+automatically.  Create a directory to store these scripts,
+
+@example
+mkdir -p ~/bin
+cd ~/bin
+@end example
+
+Create a file called @code{lilypond} which contains
+
+@example
+exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+@end example
+
+Create similar files @code{lilypond-book}, @code{convert-ly}, and
+any other helper programs you use (@code{abc2ly}, @code{midi2ly},
+etc).  Simply replace the @code{bin/lilypond} with
+@code{bin/convert-ly} (or other program name) in the above file.
+
+Make the file executable,
+
+@example
+chmod u+x lilypond
+@end example
+
+Now, add this directory to your path.  Modify (or create)
+a file called @code{.profile} in your home directory such that it contains
+
+@example
+export PATH=$PATH:~/bin
+@end example
+
+@noindent
+This file should end with a blank line.
+
+Note that @var{path/to} will generally be @code{/Usages/}.
+
+
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+All logos and product images are copyright and trademark
+acknowledged.
+
+@logoLegalMacOSX
+
+@divEnd
+@divEnd
+
+
+
+@node Windows
+@unnumberedsec Windows
+
+@divClass{column-left-top}
+@subheading Packages
+
+@subsubheading Download
+
+@itemize
+
+@item
+@sourceimage{logo-windows}
+@uref{
+http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.12.2-1.mingw.exe,
+lilypond-2.12.2-1.mingw-exe}
+For Windows ME, NT, 2000, XP, and Vista.
+
+@end itemize
+
+@subsubheading Install
+
+@enumerate
+
+@item
+Locate the downloaded file and double-click on it to start the
+installer. You will be presented a window titled @qq{Open File -
+Security Warning}, click on Run to continue.
+
+@item
+You will be presented the License Agreement; read this carefully,
+and click on the Next button if you accept it.
+
+@item
+Preferably leave the destination folder to the default, else
+browse to choose a different location, and click on the Next
+button.
+
+@item
+Next is the Installation Options window, leave the three options
+checked, as you will want to have all of these installed. Click
+on the Next button.
+
+@item
+Installation now commences, wait a minute or less for installation
+to complete. There is a Show Details button that when clicked on
+will show all the files installed and where, nothing you
+necessarily need to look at. Click on the Finish button.
+
+@item
+Lilypond is now installed.
+
+@end enumerate
+
+@subsubheading Uninstall
+
+There are two uninstallation routes -
+
+@enumerate
+
+@item
+Choose Uninstall from the Lilypond menu from the start menu
+
+@item
+Open your Install/Uninstall Applications on the Control Panel,
+scroll down to Lilypond and click on the Uninstall buttom.
+
+@end enumerate
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Running on the command-line
+
+@warning{If you are happy with the GUI, then please ignore these
+instructions.}
+
+@help{don't know}
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+All logos and product images are copyright and trademark
+acknowledged.
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+
+@node Source
+@unnumberedsec Source
+
+@warning{We @strong{do not} recommend that you attempt to build
+LilyPond yourself; almost all user needs are better met with the
+pre-built version.}
+
+@divClass{column-left-bottom}
+@subheading Source tarball
+
+@uref{http://download.linuxaudio.org/lilypond/sources/v2.12/lilypond-2.12.2.tar.gz,
+lilypond-2.12.2-source.tar.bz2}
+
+For an extensive listing of all versions (old and new), see our
+@uref{http://download.linuxaudio.org/lilypond/binaries/, download
+site}.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Compiling instructions
+
+Instructions are listed in @@ref@{FIXME development-install@}.
+
+@divEnd
+
+
+@node Old downloads
+@unnumberedsec Old downloads
+
+@divClass{column-center-top}
+@subheading All versions
+
+For an extensive listing of all versions (old and new), see our
+@uref{http://download.linuxaudio.org/lilypond/binaries/, download
+site}.
+
+@divEnd
+
+
+@node GPL
+@unnumberedsec GPL
+
+@divClass{column-center-top}
+@subheading Software license
+
+GNU LilyPond is published under the GNU General Public License.
+An introduction to this license, and our reasons for choosing it,
+is given in @ref{Freedom}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU General Public License version 2
+
+@include gpl-2.0.itexi
+
+@divEnd
+
+
+

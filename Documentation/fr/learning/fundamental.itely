@@ -1590,7 +1590,7 @@ contexte @code{Staff} peut contenir plusieurs contextes
 contextes @code{Staff}.
 
 @quotation
-@image{context-example,5cm,,}
+@sourceimage{context-example,5cm,,}
 @end quotation
 
 Chaque contexte est chargé de faire appliquer certaines règles de gravure,

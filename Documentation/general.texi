@@ -1,0 +1,137 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@setfilename lilypond.info
+@settitle GNU LilyPond New Website
+@documentencoding UTF-8
+@documentlanguage en
+
+@set web
+@include macros.itexi
+
+@afourpaper
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- Web site
+@chapheading The music typesetter
+@end ifnottex
+
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{New Website}
+@author The LilyPond development team
+
+Copyright @copyright{} 1999--2009 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+For LilyPond version 
+@end titlepage
+
+@copying
+Copyright @copyright{} 1999--2009 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@divId{pageHeader}
+@heading LilyPond
+
+... music notation for everyone
+@divEnd
+
+@c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
+@imageId{lilylogo,double-lily-modified3.png,LilyPond logo}
+@c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
+
+@divId{quickSummary}
+@subheading What is LilyPond?
+
+LilyPond is an open-source music engraving program, devoted to
+producing the highest-quality sheet music possible.  We bring the
+aesthetics of traditionally engraved music to computer printouts.
+
+@divClass{align-right}
+Read more in our @ref{Introduction}!
+@divEnd
+@divEnd
+
+
+@divId{news}
+FIXME: process news items like the old web site:
+select first 4 items to insert here, and generate
+RSS.
+
+@c @include news-front.itexi
+
+@divClass{float-right}
+(@ref{Old news})
+@divEnd
+
+@divEnd
+
+
+@divId{latestVersion}
+@subheading Quick links
+
+@c TODO: javascript to detect OS and suggest download?
+
+@subsubheading Stable
+
+@ref{Download, Download 2.12.3}
+
+@ref{Manuals, Manuals 2.12.3}
+
+@subsubheading Unstable
+
+@ref{Development, Download 2.13.2}
+
+@ref{Development, Manuals 2.13.2}
+
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Introduction::     Start here to creating sheet music.
+* Download::         Get LilyPond.
+* Manuals::          Read The Fine Manuals (RTFM).
+* Community::        Contact other users.
+@end menu
+@divEnd
+
+@contents
+
+
+@include general/introduction.itexi
+@include general/download.itexi
+@include general/manuals.itexi
+@include general/community.itexi
+
+@bye

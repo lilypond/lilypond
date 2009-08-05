@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg548"
+   sodipodi:version="0.32"
+   width="210mm"
+   height="297mm"
+   sodipodi:docname="annotate-example-lead.svg"
+   inkscape:version="0.42"
+   sodipodi:docbase="/home/hanwen/vc/savannah/lily/newweb/site/graphics">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base"
+     inkscape:zoom="0.86709690"
+     inkscape:cx="310.90043"
+     inkscape:cy="218.54536"
+     inkscape:window-width="1397"
+     inkscape:window-height="1211"
+     inkscape:window-x="8"
+     inkscape:window-y="8"
+     inkscape:current-layer="svg548" />
+  <text
+     xml:space="preserve"
+     style="fill:black;stroke:none;font-family:Luxi Mono;font-style:normal;font-weight:bold;font-size:22.000000;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;font-stretch:normal;font-variant:normal;text-align:start;line-height:125%"
+     x="41.2098694"
+     y="376.520386"
+     id="text551"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan1338"
+       x="41.209869"
+       y="376.52039">&lt;&lt;</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1340"
+       x="41.209869"
+       y="404.02039">  \chords {</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1342"
+       x="41.209869"
+       y="431.52039">    c1:m7 f2:7 c2</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1344"
+       x="41.209869"
+       y="459.02039">  }</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1346"
+       x="41.209869"
+       y="486.52039">  \relative c'' {</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1348"
+       x="41.209869"
+       y="514.02039">    g2 es8( c4.)</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1350"
+       x="41.209869"
+       y="541.52039">    f8 f es d c2</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1352"
+       x="41.209869"
+       y="569.02039">  }</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1354"
+       x="41.209869"
+       y="596.52039">  \addlyrics {</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1356"
+       x="41.209869"
+       y="624.02039">    Li ly,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1358"
+       x="41.209869"
+       y="651.52039">    got me on my knees</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1360"
+       x="41.209869"
+       y="679.02039">  }</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1362"
+       x="41.209869"
+       y="706.52039">&gt;&gt;</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1364"
+       x="41.209869"
+       y="734.02039"></tspan><tspan
+       sodipodi:role="line"
+       id="tspan1366"
+       x="41.209869"
+       y="761.52039">    </tspan><tspan
+       sodipodi:role="line"
+       id="tspan1368"
+       x="41.209869"
+       y="789.02039"></tspan><tspan
+       sodipodi:role="line"
+       id="tspan1370"
+       x="41.209869"
+       y="816.52039"></tspan><tspan
+       sodipodi:role="line"
+       id="tspan1372"
+       x="41.209869"
+       y="844.02039"></tspan><tspan
+       sodipodi:role="line"
+       id="tspan1374"
+       x="41.209869"
+       y="871.52039">  </tspan></text>
+  <rect
+     style="font-size:12.000000px;fill:#0900ad;fill-opacity:0.54744500;fill-rule:evenodd;stroke:none;stroke-width:0.98323898pt"
+     id="rect663"
+     width="303.07663"
+     height="59.471516"
+     x="91.461838"
+     y="604.74438" />
+  <rect
+     style="font-size:12.000000px;fill:#b00000;fill-opacity:0.40875897;fill-rule:evenodd;stroke:none;stroke-width:0.97302504pt"
+     id="rect664"
+     width="236.25644"
+     height="29.735817"
+     x="90.929131"
+     y="409.34128" />
+  <rect
+     style="font-size:12.000000px;fill:#009400;fill-opacity:0.30656901;fill-rule:evenodd;stroke:none;stroke-width:0.94686499pt"
+     id="rect665"
+     width="207.34248"
+     height="54.896721"
+     x="90.530762"
+     y="496.25824" />
+  <path
+     style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#0000b0;stroke-width:2.5668228;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+     d="M 394.14835,631.74801 C 430.98379,629.46083 492.96002,664.17167 452.49749,687.41238"
+     id="path666"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#00b100;stroke-width:2.5668228;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+     d="M 293.22541,527.13655 C 363.64796,521.41927 371.03004,562.59274 443.72411,548.86825"
+     id="path667"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#aa0000;stroke-width:2.5668228;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+     d="M 327.18569,424.75304 C 355.58173,427.04023 443.56575,396.71288 475.47924,436.70789"
+     id="path668"
+     sodipodi:nodetypes="cc" />
+  <text
+     style="font-size:26.000000px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#b00000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter"
+     x="387.3223"
+     y="463.74142"
+     id="text669">
+    <tspan
+       x="387.32230"
+       y="463.74142"
+       sodipodi:role="line"
+       id="tspan672">_("Enter chord names")</tspan>
+  </text>
+  <text
+     style="font-size:26.000000px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00b700;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter"
+     x="457.95572"
+     y="559.27612"
+     id="text674">
+    <tspan
+       x="457.95572"
+       y="559.27612"
+       sodipodi:role="line"
+       id="tspan679">_("Enter melody")</tspan>
+  </text>
+  <text
+     style="font-size:26.000000px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ad;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter"
+     x="382.41147"
+     y="720.53723"
+     id="text681">
+    <tspan
+       id="tspan682">_("Enter lyrics")</tspan>
+  </text>
+  <rect
+     style="font-size:12.000000px;fill:#b25ed5;fill-opacity:0.64347798;fill-rule:evenodd;stroke-width:1.0000000pt"
+     id="rect686"
+     width="172.64890"
+     height="27.448336"
+     x="68.646278"
+     y="574.81348" />
+  <path
+     style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#531d8a;stroke-width:2.5668228;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+     d="M 69.816929,598.17726 C -44.900574,618.74495 -6.3023345,743.82988 123.44372,778.09269"
+     id="path687"
+     sodipodi:nodetypes="cc" />
+  <text
+     style="font-size:26.000000;font-style:normal;font-weight:normal;fill:#531f8a;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter;text-anchor:start;writing-mode:lr;"
+     x="144.12660"
+     y="794.27051"
+     id="text688">
+    <tspan
+       id="tspan689">
+_("Combine melody and lyrics")</tspan>
+  </text>
+  <metadata
+     id="metadata77">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -431,3 +431,47 @@
 @end macro
 
 @end iftex
+
+@c  ***** Macros specific to the web site *****
+
+@ifset web
+
+@c LEGALESE
+
+@macro logoLegalLinux
+Tux the Linux Penguin was created by
+@uref{mailto:lewing@@isc.tamu.edu, lewing@@isc.tamu.edu} with
+@uref{http://www.isc.tamu.edu/~lewing/gimp/, the Gnu Image
+Manipulation Program}.
+
+@end macro
+
+@macro logoLegalFreeBSD
+The FreeBSD logo is a registered trademark of
+@uref{http://www.freebsd.org/, The FreeBSD Foundation}.
+
+@end macro
+
+@macro logoLegalMacOSX
+The @qq{X image} is not a registered trademark.  It was created by
+@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} and
+@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, and
+placed under the GNU Free Documentation License version 1.2 or later.
+We found the image on
+@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+this Wikipedia Commons page}.
+
+@end macro
+
+@macro logoLegalWindows
+The @qq{four colored rectangles image} is not a registered
+trademark.  It was created by
+@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} and
+placed under the GNU Free Documentation License version 1.2.  We
+found the image on
+@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+this Wikipedia Commons page}.
+
+@end macro
+
+@end ifset

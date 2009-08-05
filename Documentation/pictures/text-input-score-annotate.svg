@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xml:space="preserve"
+   id="svg728"
+   sodipodi:version="0.32"
+   width="210mm"
+   height="297mm"
+   sodipodi:docname="example-score.svg"
+   inkscape:version="0.39"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:xml="http://www.w3.org/XML/1998/namespace"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:docbase="/home/hanwen/usr/src/savannah/lily/newweb/site/switch">
+  <defs
+   id="defs730" />
+
+
+  <sodipodi:namedview
+   id="base"
+   inkscape:zoom="0.86709691"
+   inkscape:cx="72.749435"
+   inkscape:cy="693.11745"
+   inkscape:window-width="640"
+   inkscape:window-height="530"
+   inkscape:window-x="827"
+   inkscape:window-y="45" />
+
+
+  <text
+   style="font-size:26.000000;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Luxi Mono;text-anchor:start;writing-mode:lr;"
+   x="21.182615"
+   y="125.72841"
+   id="text731"
+   sodipodi:linespacing="100%"><tspan
+     x="21.182615"
+     y="125.72841"
+     sodipodi:role="line"
+     id="tspan1178">&lt;&lt;</tspan><tspan
+     x="21.182615"
+     y="151.72841"
+     sodipodi:role="line"
+     id="tspan1180">  \new Staff \_("hornNotes")</tspan><tspan
+     x="21.182615"
+     y="177.72841"
+     sodipodi:role="line"
+     id="tspan1182">  \new Staff \_("bassoonNotes")</tspan><tspan
+     x="21.182615"
+     y="203.72841"
+     sodipodi:role="line"
+     id="tspan1184">&gt;&gt;</tspan><tspan
+     x="21.182615"
+     y="229.72841"
+     sodipodi:role="line"
+     id="tspan1186"></tspan><tspan
+     x="21.182615"
+     y="255.72841"
+     sodipodi:role="line"
+     id="tspan1188">  </tspan></text>
+
+
+  <rect
+   style="font-size:12.000000;fill:#c12b28;fill-opacity:0.53658497;fill-rule:evenodd;stroke-width:1.0000000pt;"
+   id="rect758"
+   width="393.38718"
+   height="22.479324"
+   x="58.027321"
+   y="132.13493" />
+
+
+  <rect
+   style="font-size:12.000000;fill:#c12b28;fill-opacity:0.53658497;fill-rule:evenodd;stroke-width:1.0000000pt;"
+   id="rect759"
+   width="392.55447"
+   height="22.479324"
+   x="59.046661"
+   y="158.96379" />
+
+
+  <rect
+   style="font-size:12.000000;fill:#23ca22;fill-opacity:0.58841503;fill-rule:evenodd;stroke-width:1.0000000pt;"
+   id="rect760"
+   width="38.440845"
+   height="101.57295"
+   x="17.647863"
+   y="109.03632" />
+
+
+  <path
+   style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#00b000;stroke-width:1.8750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;"
+   d="M 36.593644,212.69114 C 34.928544,267.64014 84.882535,270.97014 131.50652,270.97014"
+   id="path761" />
+
+
+  <path
+   style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#af0000;stroke-width:1.8750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;"
+   d="M 141.28421,134.21683 C 139.61821,70.941551 161.26521,55.955351 211.21921,54.290251"
+   id="path762" />
+
+
+  <text
+   style="font-size:26.000000;font-style:normal;font-weight:normal;fill:#b00000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter;text-anchor:start;writing-mode:lr;"
+   x="230.36832"
+   y="54.290195"
+   id="text763">
+    <tspan
+   id="tspan764">
+_("Create staff")</tspan>
+  </text>
+
+
+  <text
+   style="font-size:26.000000;font-style:normal;font-weight:normal;fill:#00b000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter;text-anchor:start;writing-mode:lr;"
+   x="154.81793"
+   y="278.46335"
+   id="text766">
+    <tspan
+   id="tspan767">
+_("Combine staffs in parallel")</tspan>
+  </text>
+
+
+<metadata
+   id="metadata1091">
+  <rdf:RDF
+   id="RDF1092">
+    <cc:Work
+   rdf:about=""
+   id="Work1093">
+      <dc:format
+   id="format1094">image/svg+xml</dc:format>
+
+      <dc:type
+   id="type1096"
+   rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+
+    </cc:Work>
+
+  </rdf:RDF>
+
+</metadata>
+
+</svg>

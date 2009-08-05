@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 
-
 @c Don't replace quotes with directed quotes.
 
 @set txicodequoteundirected
@@ -50,7 +49,7 @@
 @ifnotinfo
 
 @macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
-@image{\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
+@image{pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
 @end macro
 
 @end ifnotinfo
@@ -58,7 +57,7 @@
 @ifinfo
 
 @macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
-@image{lilypond/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
+@image{lilypond/pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
 @end macro
 
 @end ifinfo
@@ -124,3 +123,97 @@ UNTRANSLATED NODE: IGNORE ME
 @end macro
 
 @end ifnothtml
+
+
+@c  ***** Macros specific to the web site *****
+
+@ifset web
+
+@macro help{TEXT}
+@html
+<div class="help">
+<strong>
+  <span style="text-decoration:blink">Help wanted:</span>
+</strong> \TEXT\
+</div>
+@end html
+@end macro
+
+@macro divId {ID}
+@html
+<div id="\ID\">
+@end html
+@end macro
+
+@macro divClass {CLASS}
+@html
+<div class="\CLASS\">
+@end html
+@end macro
+
+@macro divEnd
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+
+@c not strictly necessary, but it makes things easier for updating news
+@macro newsItem
+@html
+<div class="news-item">
+@end html
+@end macro
+
+@macro newsEnd
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+
+
+@macro imageClickable{IMAGE-FILE, MORE-TEXT, CLICK-FILE, POSITION}
+@html
+<div class="float-\POSITION\">
+  <a class="clickable" href="\CLICK-FILE\">
+    <img src="\IMAGE-FILE\" alt="\IMAGE-FILE\">
+  </a>
+  <p style="text-align: center">
+    \MORE-TEXT\
+  </p>
+</div>
+@end html
+@ifnothtml
+FIXME: broken image
+@c @image{\IMAGE-FILE\}
+@end ifnothtml
+@end macro
+
+@macro imageFloat{IMAGE-FILE, POSITION}
+@html
+<img class="float-\POSITION\" src="pictures/\IMAGE-FILE\" alt="\IMAGE-FILE\">
+@end html
+@ifnothtml
+FIXME: broken image
+@c @image{\IMAGE-FILE\}
+@end ifnothtml
+@end macro
+
+@macro imageId{ID, IMAGE-FILE, ALT}
+@html
+<div id="\ID\">
+  <img src="pictures/\IMAGE-FILE\" alt="\ALT\">
+</div>
+@end html
+@ifnothtml
+FIXME: broken image
+@c @image{\IMAGE-FILE\}
+@end ifnothtml
+@end macro
+
+@end ifset

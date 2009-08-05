@@ -119,11 +119,16 @@ More information can be found at
 of this and other documentation.
 
 @c * Install::                        How to install or compile.
+@c * Setup::                          Using LilyPond with other programs.
+
+@c  maybe add a "Tasks" or "Specific tasks" or something like
+@c  that, after Suggestions  -gp
 @menu
-* Setup::                          Using LilyPond with other programs.
-* Running LilyPond::               Operation.
-* LilyPond-book::                  Integrating text and music.
+* Running lilypond::               Operation.
+* Updating files with convert-ly:: Updating input files.
+* lilypond-book::                  Integrating text and music.
 * Converting from other formats::  Converting to lilypond source format.
+* Suggestions for writing files::  Best practices
 
 Appendices
 
@@ -136,10 +141,12 @@ Appendices
 
 
 @c @include application/install.itely
-@include application/setup.itely
+@c @include application/setup.itely
 @include application/running.itely
+@include application/updating.itely
 @include application/lilypond-book.itely
 @include application/converters.itely
+@include application/suggestions.itely
 
 @include fdl.itexi
 
