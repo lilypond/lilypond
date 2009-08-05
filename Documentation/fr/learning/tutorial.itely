@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 7eee2a7382029cc29cc069f93a431758ae8a13b7
+   Translation of GIT committish: 95e6825ee09ca7f8eea87580301c8819ff1d571b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -100,7 +100,7 @@ l'image ci-dessous.
 @c DIV specific
 Il est aussi possible d'utiliser les noms de notes français @qq{@w{do 
 re mi fa sol la si}}, en insérant au début du fichier la ligne
-@code{\include@tie{}"italiano.ly"}.
+@w{@code{\include@tie{}"italiano.ly"}}.
 @c END DIV
 
 @warning{Tout extrait de code LilyPond doit être entouré d'une
@@ -150,7 +150,7 @@ en principe plus rapidement lors des exécutions suivantes.}
 @subsubheading MacOS X
 
 Si vous double-cliquez sur @code{LilyPond.app}, un fichier d'exemple
-s'ouvrira.  Sauvegardez-le, par exemple, sous @file{test.ly} sur votre
+s'ouvrira.  Sauvegardez-le, par exemple, sous @code{test.ly} sur votre
 bureau, puis traitez-le avec la commande de menu 
 @w{@code{Compile > Typeset File}}.  Le fichier PDF résultant sera alors
 affiché à l'écran. 
@@ -164,27 +164,27 @@ pendant le traitement, vous la trouverez dans la fenêtre @qq{log}.
 
 Sous Windows, double-cliquez sur l'icône LilyPond qui se trouve sur le
 bureau, un fichier d'exemple s'ouvre dans un simple éditeur de texte.
-Enregistrez-le, par exemple en tant que @file{test.ly} sur le bureau,
+Enregistrez-le, par exemple en tant que @code{test.ly} sur le bureau,
 puis double-cliquez sur son icône (qui montre une note de musique)
 pour le traiter.  Après quelques secondes, vous obtiendrez un fichier
-@file{test.pdf} sur le bureau, fichier que vous pourrez ouvrir pour
+@code{test.pdf} sur le bureau, fichier que vous pourrez ouvrir pour
 voir la partition gravée.  Une autre méthode pour lancer le traitement
-du fichier @file{test.ly} est de le glisser avec votre souris sur
+du fichier @code{test.ly} est de le glisser avec votre souris sur
 l'icône de LilyPond.
 
-Pour modifier un fichier @file{.ly} existant, faites un clic droit
+Pour modifier un fichier @code{.ly} existant, faites un clic droit
 dessus et sélectionnez @qq{Éditer la source}.  Pour partir d'un
 fichier vide, lancez l'éditeur en ouvrant un fichier existant et
 utilisez la commande @qq{New} du menu @qq{File}.
 
 En double-cliquant sur le fichier, vous obtiendrez, en plus du fichier
-PDF, un fichier @file{.log} qui récapitule les opérations que LilyPond
+PDF, un fichier @code{.log} qui récapitule les opérations que LilyPond
 a effectuées sur votre fichier.  Si une erreur survient, vous en
 trouverez les détails dans ce fichier.
 
 @subsubheading UNIX
 
-Créez un fichier texte @file{test.ly} qui contient
+Créez un fichier texte @code{test.ly} qui contient
 
 @verbatim
 {
@@ -193,7 +193,7 @@ Créez un fichier texte @file{test.ly} qui contient
 @end verbatim
 
 @noindent
-Pour traiter @file{test.ly}, entrez la commande suivante dans un
+Pour traiter @code{test.ly}, entrez la commande suivante dans un
 terminal :
 
 @example
@@ -269,7 +269,7 @@ Glossaire musical : @rglos{pitch}, @rglos{interval},
 Le moyen le plus simple d'entrer des notes est d'utiliser le mode
 d'octaves relatives, ou mode @code{\relative}.  Dans ce mode, l'octave
 de chaque note est sélectionnée automatiquement de façon à ce qu'elle
-soit la plus proche possible de la note précédente, c'est-à-dire de
+soit le plus proche possible de la note précédente, c'est-à-dire de
 façon à ce que l'intervalle avec la note précédente soit au plus d'une
 quarte.  Commençons par saisir une partition très simple, à savoir une
 gamme.
@@ -283,11 +283,11 @@ gamme.
 @end lilypond
 
 La note de départ est le @notation{do central}.  Chacune des notes qui
-suivent est placée à l'octave la plus proche de la note précédente ---
+suivent est placée à l'octave la plus proche de la note précédente --
 en d'autres termes, le premier @code{c} est le do central, entre la
-clef de sol et la clef de fa, puis est suivi par le ré le plus proche,
-et ainsi de suite.  On peut bien sûr créer des mélodies avec de plus
-grands intervalles, toujours avec le mode @code{\relative} :
+clef de sol et la clef de fa, puis est suivi par le @notation{ré} le
+plus proche, et ainsi de suite.  On peut bien sûr créer des mélodies
+avec de plus grands intervalles, toujours avec le mode @code{\relative} :
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -297,11 +297,11 @@ grands intervalles, toujours avec le mode @code{\relative} :
 @end lilypond
 
 @noindent
-Remarquez que cet exemple ne commence plus sur le do central : la
-première note --- le @code{d} --- est le ré qui en est le plus proche.
+Remarquez que cet exemple ne commence plus sur le @notation{do central}
+: la première note -- le @code{d} -- est le ré qui en est le plus proche.
 
 Dans l'exemple suivant, on remplace @code{c'} dans la commande
-@code{@w{\relative c' @{}} par @code{c''}, afin de calculer l'octave de
+@w{@code{\relative c' @{}} par @code{c''}, afin de calculer l'octave de
 la première note par rapport au do situé une octave au-dessus du do
 central :
 
@@ -334,12 +334,12 @@ plus à une quarte descendante du si.
 @end lilypond
 
 Notez que le calcul des octaves relatives @strong{ne tient pas compte
-des altérations} des notes, dièses bémols ou bécarre.
+des altérations} des notes, dièse bémol ou bécarre.
 
 Pour obtenir des intervalles supérieurs à une quarte, on peut ajouter
-des apostrophes @code{'} --- qui font chacune monter la hauteur d'une
-octave --- ou des virgules @code{,} --- qui font chacune descendre la
-hauteur d'une octave --- au nom de la note.
+des apostrophes @code{'} -- qui font chacune monter la hauteur d'une
+octave -- ou des virgules @code{,} -- qui font chacune descendre la
+hauteur d'une octave -- au nom de la note.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -350,10 +350,10 @@ hauteur d'une octave --- au nom de la note.
 
 @noindent
 Pour déplacer une note deux octaves (ou davantage !) plus haut ou plus
-bas, il suffit de mettre deux (ou davantage) @code{'} ou @code{,} ---
+bas, il suffit de mettre deux (ou davantage) @code{'} ou @code{,} --
 attention cependant à bien mettre deux apostrophes @code{''}, et non
 un guillemet @code{"}@tie{}!  C'est de cette même manière que l'on
-peut modifier la valeur de départ de @code{@w{\relative c'}}.
+peut modifier la valeur de départ de @w{@code{\relative c'}}.
 
 
 @subheading Durées et rythme
@@ -503,23 +503,22 @@ Le traitement des fichiers source de LilyPond est semblable à celui du
 code de nombreux langages de programmation.  La casse est prise
 en compte, et les caractères considérés comme espaces ont généralement
 peu d'importance.  Les expressions sont délimitées par des accolades @{
-@}, et les commentaires par @code{%} ou @code{%@{ ... %@}}.
+@}, et les commentaires par @code{%} ou @w{@code{%@{ dots{} @}}}.
 
 Si cette phrase vous paraît incompréhensible, ne vous en faites pas !
 Expliquons tous ces termes :
-
-@itemize
 
 @cindex casse, prise en compte de
 @cindex prise en compte de la casse
 @cindex sensibilité à la casse
 
+@itemize
 @item 
 @strong{La casse} :
 LilyPond est sensible à la casse, c'est à dire qu'une lettre capitale
 n'a pas la même valeur qu'une lettre minuscule.  Les notes, par
-exemple, doivent être entrées en minuscule : @code{@{ c d e @}} est
-un code valide, alors que @code{@{ C D E @}} produira un message
+exemple, doivent être entrées en minuscule : @w{@code{@{ c d e @}}} est
+un code valide, alors que @w{@code{@{ C D E @}}} produira un message
 d'erreur.
 
 @cindex espaces multiples, insensibilité
@@ -558,7 +557,7 @@ parenthèses @code{()} en mathématiques.  Pour éviter toute ambiguïté,
 il est préférable d'entourer ces accolades d'espaces ou de retours à
 la ligne.
 
-Un appel de fonction --- @w{@code{\relative @{ @}}} par exemple ---
+Un appel de fonction -- @w{@code{\relative @{ @}}} par exemple --
 compte également comme une seule expression musicale.
 
 @cindex commentaire
@@ -627,7 +626,7 @@ quelques usages possibles des commentaires :
 
 Comme nous l'avons vu dans @ref{Travail sur les fichiers d'entrée}, un code
 LilyPond doit être encadré par des accolades @{ @} ou bien par
-@code{@w{\relative c'' @{ ...  @}}}.  Cependant, dans la suite de ce
+@code{@w{\relative c'' @{ @dots{} @}}}.  Cependant, dans la suite de ce
 manuel, la plupart des exemples ne feront pas apparaître ces signes.
 
 Pour reproduire les exemples, vous pouvez copier et coller le code
@@ -643,8 +642,8 @@ affiché, mais @strong{à condition} d'ajouter
 Pourquoi avoir omis les accolades ?  La plupart des exemples de ce
 manuel peuvent être insérés au milieu d'un morceau de musique plus
 long.  Il n'y a donc aucune raison d'ajouter @code{@w{\relative c'' @{
-@}}} à ces exemples --- en effet, il n'est pas possible d'insérer une
-expression @code{\relative} à l'intérieur d'un autre expression
+@}}} à ces exemples -- en effet, il n'est pas possible d'insérer une
+expression @code{\relative} à l'intérieur d'une autre expression
 @code{\relative}.  Si nous mettions tous nos exemples dans une
 expression @code{\relative}, vous ne pourriez plus copier un bref
 exemple de la documentation pour le coller dans vos pièces.
@@ -652,7 +651,7 @@ exemple de la documentation pour le coller dans vos pièces.
 
 @subheading Exemples cliquables
 
-Beaucoup de gens apprennent à  utiliser les programmes en les essayant
+Beaucoup de gens apprennent à utiliser les programmes en les essayant
 et en bidouillant avec.  C'est également possible avec LilyPond.  Si
 vous cliquez sur une image dans la version HTML de ce manuel, vous
 verrez exactement le code LilyPond utilisé pour générer cette image.
@@ -736,7 +735,7 @@ comme l'allemand ou le hollandais.
 
 @c DIV specific
 Cependant, si vous utilisez la commande
-@code{@w{\include@tie{}"italiano.ly"}} pour entrer les noms de notes
+@w{@code{@w{\include@tie{}"italiano.ly"}}} pour entrer les noms de note
 français au lieu des noms hollandais, il faudra ajouter un @code{d} pour
 obtenir un dièse, et un @code{b} pour un bémol.  Le double dièse et le
 double bémol s'obtiennent en ajoutant respectivement @code{dd} et
@@ -784,18 +783,18 @@ Glossaire musical : @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
 @rglos{transposition}.
 
-La combinaison de l'@notation{armure} et des hauteurs de note --- y
-compris les altérations --- permet à LilyPond de déterminer dans quel
+La combinaison de l'@notation{armure} et des hauteurs de note -- y
+compris les altérations -- permet à LilyPond de déterminer dans quel
 cas imprimer des @notation{altérations accidentelles}.  L'armure
 n'affecte que les altérations @emph{imprimées}, et non les hauteurs
 réelles ! Cette fonctionnalité est souvent source de confusion pour
 les nouveaux utilisateurs, aussi expliquons-la en détail.
 
 LilyPond fait une distinction nette entre le contenu musical et la
-mise en forme.  L'altération d'une note --- @notation{bémol},
-@notation{bécarre} ou @notation{dièse} --- fait partie de sa hauteur,
+mise en forme.  L'altération d'une note -- @notation{bémol},
+@notation{bécarre} ou @notation{dièse} -- fait partie de sa hauteur,
 et relève donc du contenu musical.  La gravure ou non d'une altération
-accidentelle --- un @emph{signe} bémol, bécarre ou dièse --- devant la
+accidentelle -- un @emph{signe} bémol, bécarre ou dièse -- devant la
 note correspondante est une question qui relève de la mise en forme.
 La gravure d'une partition suit des règles, en particulier des règles
 d'indication des altérations accidentelles.  Les hauteurs de note, en
@@ -830,7 +829,8 @@ d'effort dans la phase de saisie, mais cela facilite grandement la
 @notation{transposition}.  De plus, les altérations accidentelles
 peuvent ainsi être imprimées suivant plusieurs conventions.  Pour
 connaître les différentes manières dont les altérations accidentelles
-peuvent être imprimées, consultez @ruser{Altérations accidentelles automatiques}.
+peuvent être imprimées, consultez 
+@ruser{Altérations accidentelles automatiques}.
 
 
 @seealso
@@ -922,7 +922,8 @@ c2~( c8 fis fis4 ~ fis2 g2)
 
 
 @seealso
-Manuel de notation : @ruser{Liaisons de prolongation}, @ruser{Liaisons d'articulation},
+Manuel de notation : @ruser{Liaisons de prolongation}, 
+@ruser{Liaisons d'articulation},
 @ruser{Liaisons de phrasé}.
 
 
@@ -1036,7 +1037,7 @@ On peut ajouter du texte à une partition :
 c1^"espr" a_"legato"
 @end lilypond
 
-Pour mettre en forme du texte, on utilise la commande @code{markup} :
+Pour mettre en forme du texte, on utilise la commande @code{\markup} :
 
 @lilypond[verbatim,quote,relative=2]
 c1^\markup{ \bold espr}
@@ -1099,7 +1100,8 @@ a8 c b4 d8. c16 b4
 
 
 @seealso
-Manuel de notation : @ruser{Barres de ligature automatiques}, @ruser{Barres de ligature manuelles}.
+Manuel de notation : @ruser{Barres de ligature automatiques}, 
+@ruser{Barres de ligature manuelles}.
 
 
 @node Commandes rythmiques avancées
@@ -1226,8 +1228,8 @@ exemple avec deux notes :
 { a4 g4 }
 @end lilypond
 
-La mise entre accolades d'une séquence d'expressions musicales --- des
-notes par exemple --- signifie qu'elles doivent être jouées
+La mise entre accolades d'une séquence d'expressions musicales -- des
+notes par exemple -- signifie qu'elles doivent être jouées
 successivement, les unes après les autres.  Le résultat est une
 expression, qui peut elle-même être regroupée séquentiellement avec
 d'autres expressions.  Ici, l'expression de l'exemple précédent est
@@ -1260,7 +1262,7 @@ arbitrairement longues et complexes.  Par exemple :
 Ceci est une suite d'expressions, où chacune est contenue dans la
 suivante.  Les expressions les plus simples sont les nombres, et de
 plus grandes expressions sont produites en combinant des expressions
-avec des opérateurs --- comme @code{+}, @code{*} et @code{/} --- et
+avec des opérateurs -- comme @code{+}, @code{*} et @code{/} -- et
 des parenthèses.  Tout comme les expressions mathématiques, les
 expressions musicales peuvent être imbriquées avec une profondeur
 arbitraire, ce qui est nécessaire pour des partitions complexes comme
@@ -1305,11 +1307,11 @@ chacune deux notes distinctes) sont combinées simultanément.
 @end lilypond
 
 Notez que nous avons ici indenté chaque niveau du fichier d'entrée
-avec un nombre d'espaces différent.  LilyPond se moque --- ou presque
---- de l'espace qu'il peut y avoir ou non au début d'une ligne, mais
+avec un nombre d'espaces différent.  LilyPond se moque -- ou presque
+-- de l'espace qu'il peut y avoir ou non au début d'une ligne, mais
 un code bien indenté est bien plus lisible par des humains.
 
-@warning{la hauteur de chaque note saisie est relative à la précédente,
+@warning{La hauteur de chaque note saisie est relative à la précédente,
 mais pas au @code{c''} de la commande @code{\relative} de départ.}
 
 
@@ -1372,7 +1374,7 @@ chaque partie de la musique constituant une portée.  Ces éléments
 
 La commande @code{\new} introduit un @qq{contexte de notation}.  Un
 contexte de notation est un environnement dans lequel les événements
-musicaux --- comme les notes ou les commandes @code{\clef} --- sont
+musicaux -- comme les notes ou les commandes @code{\clef} -- sont
 interprétés.  Pour des pièces simples, ces contextes sont créés
 automatiquement.  Pour des pièces plus complexes, il est préférable de
 spécifier explicitement les contextes, afin de s'assurer que chaque
@@ -1381,7 +1383,7 @@ fragment aura sa propre portée.
 Il existe différents types de contextes.  Les contextes @code{Score}
 (partition), @code{Staff} (portée) et @code{Voice} (voix) gèrent la
 notation de la mélodie, alors que @code{Lyrics} gère les paroles et
-@code{ChordNames} imprime des noms d'accords.
+@code{ChordNames} imprime des noms d'accord.
 
 En terme de syntaxe, ajouter @code{\new} devant une expression
 musicale crée une plus grande expression musicale.  En reprenant la
@@ -1451,10 +1453,10 @@ Voici un bref exemple :
 }
 @end lilypond
 
-Vous pouvez générer d'autres de regroupement, avec 
-@code{\new GrandStaff} pour un e partition d'orchestre, ou 
+Vous pouvez générer d'autres formes de regroupement, avec 
+@w{@code{\new GrandStaff}} pour une partition d'orchestre, ou 
 @w{@code{\new ChoirStaff}} qui sied particulièrement aux partitions
-chorales.  Chacun de ces regroupements constituent un contexte à part
+chorales.  Chacun de ces regroupements constitue un contexte à part
 entière, avec ses particularités, tant au niveau du signe qui regroupe
 les portées au sein d'un @notation{système} qu'au niveau de l'étendue
 des barres de mesure.
@@ -1521,7 +1523,7 @@ sujet et préférons vous inciter à consulter les chapitres dédiés à
 l'étude de ces concepts. 
 
 @seealso
-Learning Manual: @ref{Les voix contiennent la musique}.
+Manuel d'initiation : @ref{Les voix contiennent la musique}.
 
 Manuel de notation : @ruser{Notes simultanées}.
 
@@ -1642,7 +1644,8 @@ les notes du mélisme.  Pour les détails, consultez @ref{Liaisons}.
 Les paroles sont maintenant correctement alignées, mais les liens de
 croche automatiques ne conviennent pas pour les notes au-dessus de
 @emph{shine as}.  On peut les corriger en ajoutant des liens de croche
-manuels, pour ceci consultez @ref{Barres de ligature automatiques et manuelles}.
+manuels, pour ceci consultez 
+@ref{Barres de ligature automatiques et manuelles}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1680,9 +1683,9 @@ mélisme sauf la première.
 
 Si une syllabe s'étend sur un grand nombre de notes ou une note très
 longue, on représente souvent le mélisme par un @notation{trait de
-prolongation}, qu'on entre avec @code{__}.  L'exemple suivant montre
-les trois premières mesures de la plainte de Didon, extraite de
-@notation{Didon et Énée} de Purcell.
+prolongation}, qu'on entre avec double caractère souligné @code{__}.
+L'exemple suivant montre les trois premières mesures de la plainte de
+Didon, extraite de @notation{Didon et Énée} de Purcell.
 
 @lilypond[verbatim,quote]
 <<
@@ -1729,7 +1732,7 @@ situation inverse : il peut y avoir plusieurs syllabes sur une seule
 note.  On réalise ceci avec LilyPond grâce à un caractère souligné
 @code{_} sans espace entre les syllabes, ou alors en groupant les
 syllabes avec des guillemets.  L'exemple suivant est extrait de l'air
-de Figaro @emph{Largo al factotum}, dans @emph{Figaro} de Rossini, où
+de Figaro @emph{Largo al factotum}, dans @notation{Figaro} de Rossini, où
 la syllabe @emph{al} est chantée sur la même note que @emph{go}.
 
 @c no ragged-right here because otherwise the hyphens get lost,
@@ -1896,7 +1899,7 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @end example
 
 En fonction de son contenu, un identificateur peut être utilisé à
-différents endroits.  L'exemple suivant utilise les variable définies
+différents endroits.  L'exemple suivant utilise les variables définies
 ci-dessus.
 
 @example
@@ -1954,8 +1957,8 @@ appliquer au fichier source.  Pour plus d'informations, consultez
 @funindex \header
 @funindex header
 
-On indique les informations bibliographiques --- nom du morceau, du
-compositeur, numéro d'opus@dots{} --- dans un bloc à part, le bloc
+On indique les informations bibliographiques -- nom du morceau, du
+compositeur, numéro d'opus@dots{} -- dans un bloc à part, le bloc
 d'en-tête @code{\header}, qui existe indépendamment de l'expression
 musicale principale.  Le bloc @code{\header} est habituellement placé
 en début de fichier, après le numéro de version.
@@ -2068,10 +2071,12 @@ LilyPond créés par des programmes.
 
 Après avoir parcouru ce tutoriel, vous devriez essayer d'écrire un
 morceau ou deux.  Commencez par copier l'un des modèles types et
-ajoutez-y des notes --- consultez les @ref{Modèles}.  Si vous voulez
+ajoutez-y des notes -- consultez les @ref{Modèles}.  Si vous voulez
 employer une notation que vous n'avez pas trouvé dans le tutoriel,
-consultez le manuel de notation, en commençant par la @ruser{Notation musicale générale}.  Si vous désirez écrire pour un ensemble instrumental non
-couvert par les modèles, lisez la section @ref{Extension des modèles}.
+consultez le manuel de notation, en commençant par la 
+@ruser{Notation musicale générale}.  Si vous désirez écrire pour un
+ensemble instrumental non couvert par les modèles, lisez la section
+@ref{Extension des modèles}. 
 
 Après avoir écrit quelques pièces courtes, lisez les chapitres 3 à 5
 du manuel d'initiation.  Rien ne s'oppose à ce que vous consultiez dès
@@ -2088,8 +2093,9 @@ première lecture ; lorsque vous aurez lu l'ensemble du manuel
 d'initiation, vous pourrez en relisant certaines sections suivre ces
 références pour approfondir certains aspects.
 
-Si vous ne l'avez pas encore fait, lisez @ref{À propos de la documentation}.  Les sources de documentation et d'information sur
-LilyPond sont vastes, il est normal pour un débutant de ne pas savoir
-où chercher ; si vous passez quelques minutes à lire attentivement
-cette section, vous vous épargnerez certainement la frustration causée
-par des heures de recherches infructueuses.
+Si vous ne l'avez pas encore fait, lisez 
+@ref{À propos de la documentation}.  Les sources de documentation et
+d'information sur LilyPond sont vastes, il est normal pour un débutant
+de ne pas savoir où chercher ; si vous passez quelques minutes à lire
+attentivement cette section, vous vous épargnerez certainement la
+frustration causée par des heures de recherches infructueuses.
