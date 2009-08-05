@@ -997,6 +997,7 @@ at the start of the staff.  The key signature may be altered:
 @cindex phrygian
 @cindex dorian
 
+@noindent
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
 respectively.  You may also use the standard mode names, also
@@ -2305,7 +2306,6 @@ inside chords:
 <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
 @end lilypond
 
-@noindent
 To see all note head styles, see @ref{Note head styles}.
 
 
@@ -2426,7 +2426,6 @@ base of the scale is determined by the @code{\key} command.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
-@noindent
 To see all note head styles, see @ref{Note head styles}.
 
 
