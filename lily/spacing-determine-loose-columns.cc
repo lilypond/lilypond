@@ -47,8 +47,7 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
     }
 
   
-  if (Paper_column::is_musical (col)
-      || Paper_column::is_breakable (col))
+  if (Paper_column::is_musical (col))
     return false;
 
   /*
@@ -79,8 +78,11 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
   if (!l_neighbor || !r_neighbor)
     return false;
 
-  if (l == l_neighbor && r == r_neighbor)
-    return false;
+  /* If a non-empty column (ie. not \bar "") is placed nicely in series with
+     its neighbor (ie. no funny polyphonic stuff), don't make it loose.
+  */
+  if (l == l_neighbor && r == r_neighbor && col->extent (col, X_AXIS).length () > 0)
+     return false;
 
   /*
     Only declare loose if the bounds make a little sense.  This means
@@ -106,7 +108,12 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 	      Grob *h = gelts[j];
 
 	      if (h && h->get_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
-		return false;
+		{
+		  extract_grob_set (h, "elements", helts);
+		  for (vsize k = helts.size (); k--;)
+		    if ("" != robust_scm2string (helts[k]->get_property ("glyph-name"), ""))
+		      return false;
+		}
 	    }
 	}
     }
@@ -184,6 +191,15 @@ Spacing_spanner::prune_loose_columns (Grob *me,
 
       bool loose = (i > 0 && i + 1 < cols->size ())
 	&& is_loose_column (cols->at (i - 1), c, cols->at (i + 1), options);
+
+      /* Breakable columns never get pruned; even if they are loose,
+        their broken pieces are not.  However, we mark them so that
+        the spacing can take their mid-line looseness into account. */
+      if (loose && Paper_column::is_breakable (c))
+	{
+	  loose = false;
+	  c->set_property ("maybe-loose", SCM_BOOL_T);
+	}
 
       if (loose)
 	{

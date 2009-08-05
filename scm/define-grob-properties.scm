@@ -1004,6 +1004,8 @@ supported by this object.  It is initialized from the @code{meta} field.")
 
      (least-squares-dy ,number? "The ideal beam slope, without damping.")
 
+     (maybe-loose ,boolean? "Used to mark a breakable column that is
+loose if and only if it is in the middle of a line.")
      (meta ,list? "Provide meta information.  It is an alist with the
 entries @code{name} and @code{interfaces}.")
      (minimum-distances ,list? "A list of rods that have the format

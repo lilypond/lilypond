@@ -168,7 +168,7 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
   if (Paper_column::is_musical (left_col))
     {
       if (!Paper_column::is_musical (right_col)
-	  && options->float_nonmusical_columns_
+	  && (options->float_nonmusical_columns_ || to_boolean (right_col->get_property ("maybe-loose")))
 	  && after_right_col
 	  && Paper_column::is_musical (after_right_col))
 	{
