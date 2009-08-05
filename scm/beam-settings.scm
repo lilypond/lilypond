@@ -13,7 +13,7 @@
 ;;;
 ;;; where
 ;;;
-;;;     time-signature = time signature fraction (pair of numbers, (4 .4) )
+;;;     time-signature = time signature fraction (pair of numbers, (4 . 4) )
 ;;;     function = 'end or 'subdivide (possibly implement 'begin in the future)
 ;;;     beam-type = '* or (numerator . denominator); e.g. (1 . 16)
 ;;;       NOTE: numerator is kept in beam-type because of
@@ -49,10 +49,10 @@
     ;;   default: end beams on beats
     ;;   group 1/8 note beams on measure
    (((3 . 4) end) .((* . (3))
-                    ((1 16) . (4 4 4))
-                    ((1 32) . (8 8 8))
-                    ((1 64) . (16 16 16))
-                    ((1 128) . (32 32 32))))
+                    ((1 . 16) . (4 4 4))
+                    ((1 . 32) . (8 8 8))
+                    ((1 . 64) . (16 16 16))
+                    ((1 . 128) . (32 32 32))))
 
     ;; in 3 8 and 3 16 time time:
     ;;   default: group on 3
@@ -101,7 +101,7 @@
     ;;   end beams with 32nd notes each 1 8 beat
    (((6 . 8) end) .
     ((* . (3 3))
-     ((6 . 8) . (4 4 4 4 4 4))))
+     ((1 . 32) . (4 4 4 4 4 4))))
 
     ;; in 6 16 time:
     ;;   default: group at 3 16
