@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 
-
 @c Don't replace quotes with directed quotes.
 
 @set txicodequoteundirected
@@ -50,7 +49,7 @@
 @ifnotinfo
 
 @macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
-@image{\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
+@image{pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
 @end macro
 
 @end ifnotinfo
@@ -58,7 +57,7 @@
 @ifinfo
 
 @macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
-@image{lilypond/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
+@image{lilypond/pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
 @end macro
 
 @end ifinfo

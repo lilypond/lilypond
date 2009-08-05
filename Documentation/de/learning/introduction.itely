@@ -88,32 +88,32 @@ Computer-Ausgabe.
 @item @tab
 @ifnotinfo
 @iftex
-@image{henle-flat-gray,,4cm}
+@image{pictures/henle-flat-gray,,4cm}
 @end iftex
 @ifnottex
-@image{henle-flat-gray,,,png}
+@image{pictures/henle-flat-gray,,,png}
 @end ifnottex
 
 @tab
 @iftex
-@image{baer-flat-gray,,4cm}
+@image{pictures/baer-flat-gray,,4cm}
 @end iftex
 @ifnottex
-@image{baer-flat-gray,,,png}
+@image{pictures/baer-flat-gray,,,png}
 @end ifnottex
 
 @tab
 @iftex
-@image{lily-flat-bw,,4cm}
+@image{pictures/lily-flat-bw,,4cm}
 @end iftex
 @ifnottex
-@image{lily-flat-bw,,,png}
+@image{pictures/lily-flat-bw,,,png}
 @end ifnottex
 @end ifnotinfo
 @ifinfo
-@image{henle-flat-bw,,,png}
-@image{baer-flat-bw,,,,png}
-@image{lily-flat-bw,,,png}
+@image{pictures/henle-flat-bw,,,png}
+@image{pictures/baer-flat-bw,,,,png}
+@image{pictures/lily-flat-bw,,,png}
 @end ifinfo
 
 @item @tab

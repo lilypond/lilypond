@@ -27,8 +27,6 @@ $(outdir)/snippets/index..html: TEXI2HTML_FLAGS += -D short_toc
 
 README_TOP_FILES= DEDICATION THANKS
 LATEX_FILES =$(call src-wildcard,*.latex)
-IMAGES=$(call src-wildcard,*.png)
-EPS_ILLUSTRATIONS=context-example.eps
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
@@ -38,10 +36,6 @@ SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 # Dependencies
 GENERATED_ITELY_FILES = $(IN_ITELY_FILES:snippets/%-intro.itely=$(outdir)/%.itely)
 
-OUT_PDF_IMAGES = $(IMAGES:%.png=$(outdir)/%.pdf)
-OUT_PDF_IMAGES += $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.pdf)
-OUT_PNG_IMAGES = $(OUT_PDF_IMAGES:%.pdf=%.png)
-
 XREF_MAPS_FILES += $(XREF_MAPS_DIR)/internals.xref-map
 OMF_FILES += $(outdir)/internals.html.omf $(outdir)/internals.pdf.omf
 
@@ -49,6 +43,7 @@ OMF_FILES += $(outdir)/internals.html.omf $(outdir)/internals.pdf.omf
 TEXINFO_MANUALS = internals\
  $(TELY_FILES:%.tely=%)\
  $(TEXI_FILES:%.texi=%)
+OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
 
 ## CHAIN_RULE hack: keep the following line *before* including
 # stepmake.make, so the Internals Reference is built before the
@@ -74,7 +69,6 @@ source-links = $(outdir)/source\
 
 HTML_PAGE_NAMES= index translations devel
 OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
-OUT_CSS_FILES = $(CSS_FILES:%.css=$(outdir)/%.css)
 
 MAIN_INFO_DOC = lilypond-notation
 INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
@@ -131,7 +125,7 @@ local-clean:
 ### Web targets
 
 ifeq ($(out),www)
-local-WWW-1: $(TEXINFO_MANUALS:%=$(outdir)/%.texi) $(PDF_FILES) info
+local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
 
 local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links) $(OMF_FILES)
 endif
@@ -145,15 +139,16 @@ txt-to-html:
 	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
 	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
 
-
-$(outdir)/%.css: %.css
-	ln -f $< $@
-
+ifeq ($(out),www)
 ## Extra images dependencies
-$(outdir)/learning/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-$(outdir)/notation/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-$(outdir)/learning-big-page.html: $(OUT_PNG_IMAGES)
-$(outdir)/notation-big-page.html: $(OUT_PNG_IMAGES)
+$(OUT_TEXINFO_MANUALS): $(outdir)/pictures
+
+$(outdir)/pictures: pictures-subdir
+	ln -sf ../pictures/$(outdir) $@
+
+pictures-subdir:
+	$(MAKE) -C pictures WWW-1
+endif
 
 # Ugh, using '%' twice not possible
 $(outdir)/notation/notation.xml: $(outdir)/notation.texi
@@ -169,17 +164,6 @@ $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 $(foreach manual, $(MANUAL_SUBDIRS),\
 $(eval $(outdir)/(manual).texi: $(call src-wildcard,$(manual)/*.ite??)))
 
-$(outdir)/%.png: %.png
-	convert -depth 8 -geometry 50x50% $< $@
-
-$(outdir)/%.png: %.eps
-	gs -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
-
-$(outdir)/%.pdf: %.png
-	convert -depth 8 $< $@
-
-$(outdir)/%.pdf: %.eps
-	gs -dAutoRotatePages=/None -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
 
 
 $(outdir)/source:

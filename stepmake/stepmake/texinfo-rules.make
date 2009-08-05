@@ -38,7 +38,7 @@ $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
 
 $(outdir)/%.html.omf: %.texi

@@ -103,6 +103,11 @@ SOURCE_FILES += $(IN_FILES)
 # Preprocessed .in documentation _FILES:
 OUTIN_FILES = $(addprefix $(outdir)/, $(IN_FILES:%.in=%))
 
+# CSS source files are in a unique directory
+CSS_DIRECTORY = $(top-src-dir)/Documentation/css
+CSS_FILES := $(shell ls $(CSS_DIRECTORY)/*.css)
+OUT_CSS_FILES = $(CSS_FILES:$(CSS_DIRECTORY)/%.css=$(outdir)/%.css)
+
 ALL_SOURCES = $(SOURCE_FILES)
 
 ifeq (cygwin,$(findstring cygwin,$(HOST_ARCH)))
