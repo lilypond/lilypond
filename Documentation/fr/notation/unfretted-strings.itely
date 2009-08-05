@@ -201,5 +201,5 @@ losange, indique l'endroit où la corde doit être effleurée.
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{snap-pizzicato-markup-bartok-pizzicato.ly}
+{snap-pizzicato-bartok-pizzicato.ly}
 

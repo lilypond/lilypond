@@ -1695,12 +1695,6 @@ von Zählzeiten für jede Gruppe darstellen.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {grouping-beats.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{specifying-context-with-beatgrouping.ly}
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{using-beatlength-and-beatgrouping.ly}
-
 @funindex subdivideBeams
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]

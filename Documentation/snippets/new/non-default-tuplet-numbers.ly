@@ -5,7 +5,7 @@
 
   texidoc = "
 LilyPond also provides formatting functions to print tuplet numbers different
-than the actual fraction, as well as to append a note value to the tuplet 
+than the actual fraction, as well as to append a note value to the tuplet
 number or tuplet fraction.
 "
   doctitle = "Non-default tuplet numbers"

@@ -7,4 +7,4 @@ seront automatiquement transposée dès lors qu'elles seront inscrites
 dans une section @code{\\transpose}. 
 
 "
-  doctitle = "Symboles de jazz"
+  doctitlefr = "Symboles de jazz"

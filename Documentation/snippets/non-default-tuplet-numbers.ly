@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.1
-\version "2.13.1"
+\version "2.13.4"
 
 \header {
 %% Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
@@ -40,7 +40,7 @@ au chiffre.
 
   texidoc = "
 LilyPond also provides formatting functions to print tuplet numbers different
-than the actual fraction, as well as to append a note value to the tuplet 
+than the actual fraction, as well as to append a note value to the tuplet
 number or tuplet fraction.
 "
   doctitle = "Non-default tuplet numbers"

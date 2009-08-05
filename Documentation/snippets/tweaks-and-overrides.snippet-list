@@ -41,13 +41,12 @@ rest-styles.ly
 rhythmic-slashes.ly
 separating-key-cancellations-from-key-signature-changes.ly
 setting-hairpin-behavior-at-bar-lines.ly
-specifying-context-with-beatgrouping.ly
 suppressing-warnings-for-clashing-note-columns.ly
 time-signature-in-parentheses.ly
+time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly
 transcription-of-ancient-music-with-incipit.ly
 tweaking-clef-properties.ly
 tweaking-grace-layout-within-music.ly
-using-beatlength-and-beatgrouping.ly
 using-postscript-to-generate-special-note-head-shapes.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 vertically-aligned-dynamics-and-textscripts.ly

@@ -2,7 +2,6 @@ adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rhythms.ly
 adding-drum-parts.ly
 aligning-bar-numbers.ly
 automatic-beam-subdivisions.ly
-automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 avoiding-collisions-with-chord-fingerings.ly
 beam-endings-in-score-context.ly
 beam-grouping-in-7-8-time.ly
@@ -46,11 +45,10 @@ reverting-default-beam-endings.ly
 rhythmic-slashes.ly
 skips-in-lyric-mode-2.ly
 skips-in-lyric-mode.ly
-specifying-context-with-beatgrouping.ly
 stemlets.ly
 sub-dividing-beams.ly
 three-sided-box.ly
+time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly
 tweaking-grace-layout-within-music.ly
-using-beatlength-and-beatgrouping.ly
 using-grace-note-slashes-with-normal-heads.ly
 using-ties-with-arpeggios.ly
