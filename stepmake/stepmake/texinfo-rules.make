@@ -29,6 +29,9 @@ $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
+$(outdir)/lilypond.info: general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $<
 

@@ -9,7 +9,7 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = application contributor essay learning notation
+MANUALS_SUBDIRS = application contributor essay general learning notation
 SUBDIRS = $(MANUALS_SUBDIRS) snippets bibliography logo pictures misc po $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
@@ -51,7 +51,7 @@ OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
 # of the NR
 TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 
-PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
+PDF_FILES = $(subst $(outdir)/general.pdf,,$(TEXINFO_MANUALS:%=$(outdir)/%.pdf))
 
 UNSPLITTED_HTML_MANUALS = changes
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
@@ -72,7 +72,7 @@ OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 MAIN_INFO_DOC = lilypond-notation
 INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
- lilypond-essay lilypond-learning lilypond-notation music-glossary
+ lilypond-essay lilypond-learning lilypond-notation music-glossary lilypond
 ifeq ($(out),www)
 INFO_DOCS += lilypond-snippets 
 endif
@@ -86,6 +86,14 @@ endif
 include $(depth)/make/stepmake.make
 
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
+
+### Web site idiosyncrases
+## No big page
+OUT_HTML_FILES := $(subst $(outdir)/general-big-page.html,,$(OUT_HTML_FILES))
+
+## Different init file and CSS
+$(outdir)/general/index.html: \
+ TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/web-texi2html.init
 
 ###########
 ### Targets
@@ -143,11 +151,9 @@ ifeq ($(out),www)
 ## Extra images dependencies
 $(OUT_TEXINFO_MANUALS): $(outdir)/pictures
 
-$(outdir)/pictures: pictures-subdir
-	ln -sf ../pictures/$(outdir) $@
-
-pictures-subdir:
+$(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
+	ln -sf ../pictures/$(outdir) $@
 endif
 
 # Ugh, using '%' twice not possible

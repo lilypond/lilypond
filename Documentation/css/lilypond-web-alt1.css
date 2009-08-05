@@ -1,0 +1,894 @@
+/* this is Graham Percival's experimental CSS */
+
+/* Generic elements */
+
+html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  position: absolute;
+  top: 0;
+  left: 1%;
+  right: 1%;
+  width: 98%;
+  min-width: 34em;
+  max-width: 70em;
+  font-size: 95%;
+  line-height: 1.5;
+  background: #fff url(../pictures/background-image.png) no-repeat 0 0;
+  text-align: justify;
+  padding: 0;
+  margin: 0 auto;
+}
+
+hr {
+  display: none;
+}
+
+p {
+  margin: 0.5em;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 1em 10px;
+}
+
+li {
+  margin-right: 1em;
+}
+
+a img {
+  border: 0;
+}
+
+/* Table of Contents */
+
+/* first level toc (unnumbered) */
+div#tocframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #9ccc7c;
+  max-width: 70em;
+  font-size: 100%;
+  line-height: 1;
+  padding: 0;
+  -moz-border-radius-bottomleft: 7px;
+  -moz-border-radius-bottomright: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+  -webkit-border-bottom-right-radius: 7px;
+  margin: 0;
+}
+
+#tocframe a {
+  color: #000;
+}
+
+#tocframe ul.toc {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe > ul:first-child > li:first-child a {
+  text-indent: -999em;
+  background: #9ccc7c url(../pictures/lily-home.png) no-repeat 50% 50%;
+  width: 9%;
+  /* css3 no go yet? */
+  border-bottom-left-radius: 30px;
+  -moz-border-radius-bottomleft: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+}
+
+#tocframe > ul:first-child > li:first-child a:hover {
+  background: #bdee9d url(../pictures/lily-home.png) no-repeat 50% 50%;
+  width: 9%;
+}
+
+#tocframe > ul:first-child > li:first-child.toc_current a {
+  text-indent: -999em;
+  background: #8cbc6c url(../pictures/lily-home.png) no-repeat 50% 50%;
+  width: 9%;
+}
+
+#tocframe > ul:first-child > li:first-child.toc_current a:hover {
+  text-indent: -999em;
+  background: #acdd8c url(../pictures/lily-home.png) no-repeat 50% 50%;
+  width: 9%;
+}
+
+#tocframe > ul:first-child > li:last-child {
+  width: 9%;
+  -moz-border-radius-bottomright: 7px;
+  -webkit-border-bottom-right-radius: 7px;
+}
+
+#tocframe li {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+/* search box */
+#tocframe li form {
+  float: left;
+  width: 17%;
+  background: #9ccc7c;
+  font-size: 100%;
+  padding: 0.5em 0.8%;
+  margin: 0;
+}
+
+#tocframe li form input {
+  display: block;
+  float: left;
+  width: 95%;
+  font-size: 100%;
+  padding: 0.1em;
+  border: 0;
+  margin: 0;
+  -moz-border-radius-topright: 20px;
+  -moz-border-radius-bottomright: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+}
+
+#tocframe li a {
+  float: left;
+  width: 18%;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.85em 0;
+  margin: 0;
+  background: #9ccc7c;
+}
+
+#tocframe li a:hover {
+  background: #bdee9d;
+  text-decoration: none;
+}
+
+#tocframe li.toc_current a,
+#tocframe li.toc_current a:hover {
+  background: #8cbc6c;
+  text-decoration: none;
+}
+
+/* second level toc (unnumberedsec) */
+
+#tocframe .toc .toc {
+  position: absolute;
+  top: 3.8em;
+  left: 1%;
+  right: 1%;
+  font-size: 82%;
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe .toc .toc li {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe .toc .toc li:first-child a {
+  -moz-border-radius-topleft: 7px;
+  -moz-border-radius-bottomleft: 7px;
+  -webkit-border-top-left-radius: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+}
+
+#tocframe .toc .toc li:last-child a {
+  -moz-border-radius-topright: 7px;
+  -moz-border-radius-bottomright: 7px;
+  -webkit-border-top-right-radius: 7px;
+  -webkit-border-bottom-right-radius: 7px;
+}
+
+#tocframe .toc .toc li a {
+  float: left;
+  width: auto;
+  background: #ceffae;
+  line-height: 2;
+  text-decoration: none;
+  text-indent: 0;
+  font-weight: normal;
+  padding: 0 0.5em;
+  margin: 0;
+}
+
+
+#tocframe .toc .toc li.toc_current a {
+  background: #8cbc6c;
+}
+
+#tocframe .toc .toc li.toc_current a:hover {
+  background: #acdd8c;
+}
+
+#tocframe .toc .toc li a:hover {
+  background: #bdee9d;
+}
+
+/* colored second-level TOC items */
+#tocframe .toc .toc li.color1 a {
+  text-decoration: none;
+  background: #9ccc7c;
+}
+
+#tocframe .toc .toc li.color2 a {
+  text-decoration: none;
+  background: #bbcf81;
+}
+
+#tocframe .toc .toc li.color3 a {
+  text-decoration: none;
+  background: #dbd286;
+}
+
+#tocframe .toc .toc li.color4 a {
+  text-decoration: none;
+  background: #fad58c;
+}
+
+/* having this useless style makes the perl init file easier */
+#tocframe .toc .toc li.colorDefault a {
+}
+
+#tocframe .toc .toc li.color1 a:hover {
+  background: #addd8d;
+}
+
+#tocframe .toc .toc li.color2 a:hover {
+  background: #ccdf92;
+}
+
+#tocframe .toc .toc li.color3 a:hover {
+  background: #ece297;
+}
+
+#tocframe .toc .toc li.color4 a:hover {
+  background: #fbe69d;
+}
+
+#tocframe .toc .toc li.color1.toc_current a {
+  background: #beee9e;
+}
+
+#tocframe .toc .toc li.color1.toc_current a:hover {
+  background: #beee9e;
+}
+
+#tocframe .toc .toc li.color2.toc_current a {
+  background: #ddefa3;
+}
+
+#tocframe .toc .toc li.color2.toc_current a:hover {
+  background: #ddefa3;
+}
+
+#tocframe .toc .toc li.color3.toc_current a {
+  background: #fdf4a8;
+}
+
+#tocframe .toc .toc li.color3.toc_current a:hover {
+  background: #fdf4a8;
+}
+
+#tocframe .toc .toc li.color4.toc_current a {
+  background: #fcf7ae;
+}
+
+#tocframe .toc .toc li.color4.toc_current a:hover {
+  background: #fcf7ae;
+}
+
+/* third level toc (unnumberedsubsec) */
+
+#tocframe .toc .toc .toc {
+  position: absolute;
+  top: 2em;
+  left: 5%;
+  font-size: 100%;
+}
+
+#tocframe .toc .toc .toc li {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe .toc .toc .toc li a {
+  float: left;
+  width: auto;
+  background: #ceffae;
+  text-decoration: none;
+  text-indent: 0;
+  font-weight: normal;
+  padding: 0 0.75em;
+  margin: 0;
+}
+
+#tocframe .toc .toc .toc li a:hover {
+  background: #bdee9d;
+}
+
+#tocframe .toc .toc .toc li.toc_current a {
+  background: #acdd8c;
+}
+
+#tocframe .toc .toc .toc li.toc_current a:hover {
+  background: #acdd8c;
+}
+
+/* Divs */
+div#main {
+  position: relative;
+  /* this value may need to be adjusted */
+  top: 6.0em;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 70em;
+  margin: 0 auto 11.7em;
+  /* Necessary to stretch over floated content;
+   * will cause scrollbars to appear for content
+   * that is wider than the width of this div
+   */
+  overflow: auto;
+}
+
+/* FIXME: does not work in IE<=6 */
+#main > a:first-child {
+  position: absolute;
+  top: -10em;
+}
+
+div#pageHeader {
+  width: 100%;
+  height: 10em;
+  border: solid #ddd;
+  border-width: 0;
+  margin: 0 0 1.4em 0;
+}
+
+#pageHeader .heading {
+  top: 3em;
+  font-size: 4em;
+  text-align: left;
+  padding: 0;
+  margin: 0 0 0 215px;
+}
+
+#pageHeader p {
+  text-align: left;
+  padding: 0;
+  margin: 0 0 0 215px;
+}
+
+div#lilylogo {
+  position: absolute;
+  top: 0;
+  right: 4em;
+}
+
+div#cmws {
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+div#quickSummary {
+/*
+  text-align: left;
+  margin: 1.4em 13em 0 0;
+  padding-top: 5em;
+*/
+  text-align: left;
+  position: absolute;
+  top: 11em;
+  right: 0;
+  width: 16em;
+  border-left: 1px solid #5b7f64;
+  background: #eef;
+}
+
+#quickSummary .subheading {
+/*
+  padding: 0 0.5em;
+  border-bottom: 10px solid #5b7f64;
+  margin: 0;
+*/
+  background: #5b7f64;
+  color: #fff;
+  text-align: center;
+  padding: 0 0.5em;
+  margin: 0;
+}
+
+#quickSummary p {
+  padding: 0.5em;
+  margin: 0;
+}
+
+div#news {
+  padding: 0;
+  margin: 0 16em 1em 0;
+}
+
+div.news-item {
+}
+
+.news-item .subsubheading {
+  text-align: left;
+  padding: 0 0 0 0.5em;
+  border-bottom: 1px solid #5b7f64;
+  margin: 0;
+  overflow: hidden;
+}
+
+.testimonial-item {
+  /* Not sure how to style the testimonials */
+  clear: both;
+  margin: 2em 0;
+}
+
+.testimonial-item .subsubheading {
+  text-align: left;
+  padding: 0 0 0 0.5em;
+}
+
+.testimonial-item img.float-left,
+.testimonial-item img.float-right {
+  margin: 1em 1em 2em;
+}
+
+.testimonial-item p {
+  padding: 0 0.5em;
+}
+
+.news-item p {
+  text-align: left;
+  padding: 0.5em;
+  margin: 0;
+}
+
+div#latestVersion {
+  position: absolute;
+  top: 32em;
+  right: 0;
+  width: 12em;
+  text-align: center;
+  border-left: 1px solid #5b7f64;
+}
+
+#latestVersion .subheading {
+  background: #5b7f64;
+  color: #fff;
+  text-align: center;
+  padding: 0 0.5em;
+  margin: 0;
+}
+
+#latestVersion .subsubheading {
+  background: #bdee9d;
+  padding: 0.18em 0.25em;
+  border-bottom: 1px solid #5b7f64;
+  margin: 0;
+}
+
+#latestVersion p {
+  font-size: 90%;
+  padding: 0.5em;
+  margin: 0;
+}
+
+div#footer {
+  clear: both;
+  position: relative;
+  width: 100%;
+  /* FIXME: may need to be adjusted */
+  margin-top: 7em;
+}
+
+div#language {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  width: 50%;
+  text-indent: 0.5em;
+  padding: 0;
+}
+
+#language h3 {
+  padding: 0;
+  border-bottom: 10px solid #5b7f64;
+  margin: 0;
+}
+
+#language p {
+  padding: 0;
+  margin: 0.25em 0 0 0;
+}
+
+#verifier_texinfo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 50%;
+}
+
+#verifier_texinfo h3 {
+  text-indent: -9999em;
+  padding: 0;
+  border-bottom: 10px solid #5b7f64;
+  margin: 0 0 0.25em 0;
+}
+
+#verifier_texinfo img {
+  float: right;
+  padding: 0;
+  margin: 0 0.5em 0 0;
+}
+
+#verifier_texinfo p {
+  clear: right;
+  text-align: right;
+  font-size: 0.8em;
+  padding: 0;
+  margin: 0 0.5em;
+}
+
+h1.unnumbered, h2.unnumberedsec, h3.unnumberedsubsec {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  text-indent: -999em;
+  padding: 0;
+  margin: 0;
+}
+
+table {
+  text-align: left;
+  padding: 0 0 0 0.5em;
+  border-left: 3px solid green;
+  margin: 1em 0 0 1em;
+}
+
+table td {
+  padding: 0.4em;
+}
+
+table a {
+  text-align: left;
+}
+
+.verbatim {
+  margin: 10px;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-center {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+.float-right {
+  float: right;
+}
+
+img.float-left,
+img.float-right {
+  background: #fff;
+  padding: 1em;
+  border: 1px solid #bbb;
+  margin: 0.1em 0.5em;
+}
+
+div.float-left a.clickable,
+div.float-center a.clickable,
+div.float-right a.clickable {
+  text-decoration: overline;
+  margin-left: 1em;
+}
+
+.clear-both {
+  clear: both;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.heading-center {
+  text-align: center;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.heading-center h2 {
+  padding: 0.25em 0;
+  margin: 0;
+}
+
+/* Columns */
+
+.column-center-top {
+  float: left;
+  width: 99.5%;
+  text-align: center;
+  border: 1px solid #8bbb6b;
+  margin: 1em auto;
+}
+
+/* color1 */
+.column-center-top h3 {
+  background: #9ccc7c;
+  text-align: left;
+  border-bottom: 1px solid #8bbb6b;
+}
+
+.column-left-top {
+  float: left;
+  width: 49%;
+  margin: 1em 0;
+}
+
+.column-left-bottom {
+  clear: both;
+  float: left;
+  width: 49%;
+  margin: 1em 0;
+}
+
+.column-left-top,
+.column-left-bottom {
+  border: 1px solid #aabe70;
+}
+
+/* color2 */
+.column-left-top h3,
+.column-left-bottom h3 {
+  background: #bbcf81;
+  border-bottom: 1px solid #aabe70;
+}
+
+.column-right-top {
+  float: right;
+  width: 49%;
+  margin: 1em 0;
+}
+
+.column-right-bottom {
+  float: right;
+  width: 49%;
+  margin: 1em 0;
+}
+
+.column-right-top,
+.column-right-bottom {
+  border: 1px solid #cac175;
+}
+
+/* color3 */
+.column-right-top h3,
+.column-right-bottom h3 {
+  background: #dbd286;
+  border-bottom: 1px solid #cac175;
+}
+
+.column-center-bottom {
+  clear: both;
+  width: 99.5%;
+  text-align: center;
+  border: 1px solid #e9c47b;
+  margin: 1em auto 0;
+}
+
+/* color4 */
+.column-center-bottom h3 {
+  background: #fad58c;
+  text-align: left;
+  border-bottom: 1px solid #e9c47b;
+}
+
+.column-center-top,
+.column-center-bottom,
+.column-left-top,
+.column-left-bottom,
+.column-right-top,
+.column-right-bottom {
+  background: #f5fffa;
+}
+
+.column-center-top h3,
+.column-center-bottom h3,
+.column-left-top h3,
+.column-left-bottom h3,
+.column-right-top h3,
+.column-right-bottom h3 {
+  padding: 0 0.5em;
+  margin: 0;
+}
+
+.column-center-top h4,
+.column-center-bottom h4,
+.column-left-top h4,
+.column-left-bottom h4,
+.column-right-top h4,
+.column-right-bottom h4 {
+  padding: 0.5em 0.5em 0;
+  margin: 0 0 0.5em 0;
+}
+
+.column-center-top ul,
+.column-center-bottom ul,
+.column-left-top ul,
+.column-left-bottom ul,
+.column-right-top ul,
+.column-right-bottom ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0.5em 0;
+}
+
+.column-center-top li,
+.column-center-bottom li,
+.column-left-top li,
+.column-left-bottom li,
+.column-right-top li,
+.column-right-bottom li {
+  text-align: left;
+  padding: 0 0.5em 0;
+  margin: 0 0 0.5em 0;
+}
+
+.column-center-top p,
+.column-center-bottom p,
+.column-left-top p,
+.column-left-bottom p,
+.column-right-top p,
+.column-right-bottom p {
+  text-align: left;
+}
+
+.column-center-top img.float-left,
+.column-center-top img.float-right,
+.column-center-bottom img.float-left,
+.column-center-bottom img.float-right,
+.column-left-top img.float-left,
+.column-left-top img.float-right,
+.column-left-bottom img.float-left,
+.column-left-bottom img.float-right,
+.column-right-top img.float-left,
+.column-right-top img.float-right,
+.column-right-bottom img.float-left,
+.column-right-bottom img.float-right {
+  margin: 0.5em;
+}
+
+/* Centered divs by color */
+
+div.color1,
+div.color2,
+div.color3,
+div.color4 {
+  clear: both;
+  width: 99.5%;
+  background: #f5fffa;
+  margin: 1em auto;
+}
+
+div.color1 h3,
+div.color2 h3,
+div.color3 h3,
+div.color4 h3 {
+  padding: 0 0.5em;
+  margin: 0;
+}
+
+div.color1 {
+  border: 1px solid #8bbb6b;
+  margin: 1em auto;
+}
+
+div.color1 h3 {
+  background: #9ccc7c;
+  border-bottom: 1px solid #8bbb6b;
+}
+
+div.color2 {
+  border: 1px solid #aabe70;
+}
+
+div.color2 h3 {
+  background: #bbcf81;
+  border-bottom: 1px solid #aabe70;
+}
+
+div.color3 {
+  border: 1px solid #cac175;
+}
+
+div.color3 h3 {
+  background: #dbd286;
+  border-bottom: 1px solid #cac175;
+}
+
+div.color4 {
+  border: 1px solid #e9c47b;
+}
+
+div.color4 h3 {
+  background: #fad58c;
+  border-bottom: 1px solid #e9c47b;
+}
+
+.keep-bullets ul {
+  list-style-type: disc;
+  padding: 0;
+  margin: 0.5em 1.5em;
+}
+
+.keep-bullets li {
+  padding: 0;
+}
+
+.warning {
+  background: #eef;
+  text-align: left;
+  padding: 0;
+  border: 1px solid green;
+  /* Experimental rounded corners */
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin: 1em;
+}
+
+.warning p {
+  padding: 0.5em;
+  margin: 0;
+}
+
+.hide {
+  position: relative;
+  text-indent: -999em;
+  height: 0;
+  overflow: hidden;
+}
+
+.help {
+  background: #f77;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  width: 75%;
+  padding: 1em;
+  border: 10px dotted green;
+  margin: 1em auto;
+}
+
+.legal {
+  font-size: 0.6em;
+}
+
+
+/* kill title, probably best done in the init file, though */
+h1.settitle {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  text-indent: -999em;
+  padding: 0;
+  margin: 0;
+}
+

@@ -94,7 +94,9 @@ def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
 splitted_docs_re = re.compile ('(Documentation/out-www/(notation|\
-music-glossary|application|learning|snippets))/')
+music-glossary|application|general|learning|snippets))/')
+lily_snippets_re = re.compile ('(href|src)="(../lily-.*?|.*?[.]png)"')
+pictures_re = re.compile ('src="(pictures/.*?)"')
 
 docindex_link_re = re.compile (r'href="index.html"')
 
@@ -105,7 +107,8 @@ docindex_link_re = re.compile (r'href="index.html"')
 # this also fixes missing PNGs only present in translated docs
 def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
-        s = re.sub ('(href|src)="(../lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
+        s = lily_snippets_re.sub ('\\1="../\\2"', s)
+        s = pictures_re.sub ('src="../\\1"', s)
 
     # we also need to replace in the lsr, which is already processed above!
     if 'input/' in prefix or 'Documentation/topdocs' in prefix or \

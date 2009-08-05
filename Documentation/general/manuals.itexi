@@ -1,0 +1,446 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Manuals
+@unnumbered Manuals
+
+@divClass{heading-center}
+@heading Documentation for LilyPond 2.12.2
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Introduction
+
+@itemize
+
+@item @ref{Text input}:
+LilyPond is a @strong{text-based} music engraver.  If you are not
+familiar with this concept, please read this now!
+
+@item @ref{Learning}:
+a @qq{must-read} gentle introduction to LilyPond.
+
+@item @ref{Glossary}:
+@emph{(optional reading)}
+explains musical terms and gives translations for users unfamiliar
+with English musical terms.
+
+@item @ref{Essay}:
+@emph{(optional reading)}
+background information about the engraving process and the
+aesthetics of 19th century music engraving.
+
+
+@end itemize
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading Regular use
+
+@itemize
+
+@item @ref{Notation}:
+the main portion of the documentation; provides detailed
+information about creating notation.
+
+@item @ref{Snippets}:
+short tricks, tips, and examples.
+
+@item @ref{Usage}:
+discusses the actual programs and operating system-specific
+issues.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Infrequent Use
+
+@itemize
+
+@item @ref{FAQ}:
+links to the answers of Frequently Asked Questions.
+
+@item @ref{Changes}:
+updates since the last major version.
+
+@item @ref{Internals}:
+information about LilyPond's internal structures, which is
+required for constructing tweaks.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Other material
+
+@itemize
+
+@item @ref{Translated}:
+translation status for non-English readers.
+
+@item @ref{Old}:
+manuals for older versions.
+
+@item @ref{Development}:
+manuals for the unstable version.
+
+@item @ref{FDL}:
+these manuals are published under the GNU Free Documentation
+License.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{hide}
+@menu
+* Learning::             Learning.
+* Glossary::              Glossary.
+* Essay::                       Essay.       
+* Notation::          Reference.
+* Usage::           Usage.
+* Snippets::                Snippets.
+* FAQ::                         FAQ.
+* Changes::                     NEWS.
+* Internals::         Internals.
+* Translated::          Translation.
+* Old::                 Old.
+* FDL::                     Licence.
+@end menu
+
+@divEnd
+
+
+@c TRANSLATORS: most of the text in this file came from
+@c LM 1.1 About the documentation  (before this section was
+@c removed in July 2009).
+
+@node Learning
+@unnumberedsec Learning
+
+This book explains how to begin learning LilyPond, as well as
+explaining some key concepts in easy terms.  You should read these
+chapters in a linear fashion.
+
+There is a paragraph @strong{See also} at the end of each section,
+which contains cross-references to other sections: you should not
+follow these cross-references at first reading; when you have read
+all of the Learning, you may want to read some sections
+again and follow cross-references for further reading.
+
+@itemize
+
+@item
+@item
+@rlearning{Tutorial}: gives a gentle introduction to typesetting music.
+First time users should start here.
+
+@item
+@rlearning{Fundamental concepts}: explains some general concepts about
+the LilyPond file format.  If you are not certain where to place a
+command, read this chapter!
+
+@item
+@rlearning{Tweaking output}: shows how to change the default engraving
+that LilyPond produces.
+
+@item
+@rlearning{Working on LilyPond projects}: discusses practical uses of
+LilyPond and how to avoid some common problems.  Read this before
+undertaking large projects!
+
+@end itemize
+
+The Learning also contains appendices which are not part of the
+recommended linear reading.  They may be useful for later
+viewing:
+
+@itemize
+
+@item
+@rlearning{Templates}: shows ready-made templates of LilyPond pieces.
+Just cut and paste a template into a file, add notes, and you're
+done!
+
+@item
+@rlearning{Scheme tutorial}: presents a short introduction to Scheme,
+the programming language that music functions use.  This is
+material for advanced tweaks; many users never touch Scheme at
+all.
+
+@end itemize
+
+
+@node Glossary
+@unnumberedsec Glossary
+
+@rglosnamed{Top,Music glossary}
+this explains musical terms, and includes translations to various
+languages.  If you are not familiar with music notation or music
+terminology (especially if you are a non-native English speaker),
+it is highly advisable to consult the glossary.
+
+
+@node Essay
+@unnumberedsec Essay
+
+blah
+
+
+@node Notation
+@unnumberedsec Notation
+
+This book explains all the LilyPond commands which produce
+notation.
+
+@warning{The Notation assumes that the reader knows
+basic material covered in the Learning and is familiar with
+the English musical terms presented in the Musical Glossary.}
+
+@itemize
+
+@item
+@ruser{Musical notation}:
+discusses topics grouped by notation construct.  This section
+gives details about basic notation that will be useful in almost
+any notation project.
+
+@item
+@ruser{Specialist notation}:
+discusses topics grouped by notation construct.  This section
+gives details about special notation that will only be useful for
+particular instrument (or vocal) groups.
+
+@item
+@ruser{General input and output}:
+discusses general information about LilyPond input files and
+controlling output.
+
+@item
+@ruser{Spacing issues}:
+discusses issues which affect the global output, such as selecting
+paper size or specifying page breaks.
+
+@item
+@ruser{Changing defaults}:
+explains how to tweak LilyPond to produce exactly the notation you
+want.
+
+@item
+@ruser{Interfaces for programmers}:
+explains how to create music functions with scheme.
+
+@end itemize
+
+The Notation also contains appendices with useful
+reference charts.
+
+@itemize
+
+@item
+@ruser{Literature list}:
+contains a set of useful reference books for those who wish to
+know more on notation and engraving.
+
+@item
+@ruser{Notation manual tables}:
+are a set of tables showing the chord names, MIDI instruments, a
+list of color names, and the Feta font.
+
+@item
+@ruser{Cheat sheet}:
+is a handy reference of the most common LilyPond commands.
+
+@item
+@ruser{LilyPond command index}:
+an index of all LilyPond @code{\commands}.
+
+@item
+@ruser{LilyPond index}:
+a complete index.
+
+@end itemize
+
+
+@node Usage
+@unnumberedsec Usage
+
+This book explains how to execute the programs and how to integrate
+LilyPond notation with other programs.
+
+@itemize
+
+@item
+@rprogram{Install}:
+explains how to install LilyPond, including compilation if
+desired.
+
+@item
+@rprogram{Setup}:
+describes how to configure your computer for optimum LilyPond
+usage, such as using special environments for certain text
+editors.
+
+@item
+@rprogram{Running LilyPond}:
+shows how to run LilyPond and its helper programs.  In addition,
+this section explains how to upgrade input files from previous
+versions of LilyPond.
+
+@item
+@rprogram{LilyPond-book}:
+explains the details behind creating documents with in-line music
+examples, like this manual.
+
+@item
+@rprogram{Converting from other formats}:
+explains how to run the conversion programs.  These programs are
+supplied with the LilyPond package, and convert a variety of music
+formats to the @code{.ly} format.
+
+@end itemize
+
+
+@node Snippets
+@unnumberedsec Snippets
+
+@rlsrnamed{Top,LilyPond Snippets}: this shows a
+selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  All the snippets are in the public domain.
+
+Please note that this document is not an exact subset of LSR.  LSR
+is running a stable LilyPond version, so any snippet which
+demonstrates new features of a development version must be added
+separately.  These are stored in @file{input/new/} in the LilyPond
+source tree.
+
+The list of snippets for each subsection of the Notation are
+also linked from the @strong{See also} portion.
+
+
+@node FAQ
+@unnumberedsec FAQ
+
+@warning{to be moved into the actual Documentation/ in master)}
+
+
+@subheading Where are the graphical canvas, menus, and toolbars?
+
+LilyPond requires you to write music as text.  Please read about
+our @ref{Text input}.
+
+
+@subheading There's a lot of documentation!  Do I need to read it?
+
+You need to read the @ref{Learning}.  As for the rest of
+documentation, you only need to read the sections which discuss
+the notation that you wish to create.
+
+
+@subheading That's still a lot of reading!  Is it worth it?
+
+Please decide for yourself; the reasons why you might want to use
+LilyPond are given in the @ref{Introduction}.
+
+
+@subheading Something isn't working!  How do I fix it?
+
+This is explained in @@ref@{FIXME LM or AU x.y@}.
+
+
+@subheading Why do you change the syntax?
+
+This is explained in @@ref@{FIXME AU x.y@}.
+
+
+@node Changes
+@unnumberedsec Changes
+
+previous-named "NEWS" doc.
+
+this is a summary of important changes
+and new features in LilyPond since the previous version.
+
+
+
+@node Internals
+@unnumberedsec Internals
+
+@rinternalsnamed{Top,Internals}: this is a set
+of heavily cross linked HTML pages which document the nitty-gritty
+details of each and every LilyPond class, object, and function.
+It is produced directly from the formatting definitions in the
+source code.
+
+Almost all formatting functionality that is used internally is
+available directly to the user.  For example, most variables that
+control thickness values, distances, etc., can be changed in input
+files.  There are a huge number of formatting options, and all of
+them are described in this document.  Each section of the Notation
+Reference has a @b{See also} subsection, which refers to the
+generated documentation.  In the HTML document, these subsections
+have clickable links.
+
+
+
+@node Translated
+@unnumberedsec Translated
+
+blah
+
+
+@node Old
+@unnumberedsec Old
+
+Documentation for previous stable versions:
+
+@itemize
+
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+LilyPond 2.12 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+LilyPond 2.10 Documentation}
+
+@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+LilyPond 2.8 Documentation}
+
+@item FIXME etc.
+
+@end itemize
+
+
+@node FDL
+@unnumberedsec FDL
+
+@divClass{column-center-top}
+@subheading Documentation license
+
+The documentation for GNU LilyPond is published under the GNU Free
+Documentation License.  An introduction to this license, and our
+reasons for choosing it, is given in @ref{Freedom}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU Free Documentation License 1.1
+
+@include fdl.itexi
+
+@divEnd
+
+
