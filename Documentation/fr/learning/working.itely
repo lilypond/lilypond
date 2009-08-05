@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 7eee2a7382029cc29cc069f93a431758ae8a13b7
+   Translation of GIT committish: 95e6825ee09ca7f8eea87580301c8819ff1d571b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -32,7 +32,7 @@ de même pas votre temps à lire ce chapitre.
 @translationof Suggestions for writing LilyPond input files
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
-LilyPond --- des pièces entières, et plus seulement les petits
+LilyPond -- des pièces entières, et plus seulement les petits
 exemples du tutoriel.  Mais comment devriez-vous vous y prendre ?
 
 Tant que LilyPond parvient à comprendre vos fichiers et produit le
@@ -83,23 +83,23 @@ de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
-@item @strong{Ajoutez des contrôles} : @ruser{Vérifications d'octave}  et
-@ruser{Vérification des limites et numéros de mesure}.  Si vous avez ajouté des contrôles
-de loin en loin, et que vous faites une erreur, vous pourrez la
-retrouver plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?
-Cela dépend de la complexité de la musique.  Pour de la musique très
-simple, peut-être une ou deux fois.  Pour de la musique très complexe,
-peut-être à chaque mesure.
+@item @strong{Ajoutez des contrôles} : @ruser{Vérifications d'octave}
+et @ruser{Vérification des limites et numéros de mesure}.  Si vous avez
+ajouté des contrôles de loin en loin, et que vous faites une erreur,
+vous pourrez la retrouver plus rapidement.  @qq{De loin en loin},
+qu'est-ce à dire ?  Cela dépend de la complexité de la musique.  Pour de
+la musique très simple, peut-être une ou deux fois.  Pour de la musique
+très complexe, peut-être à chaque mesure.
 
-@item @strong{Une mesure par ligne de texte}.  Si la musique en elle-même ou
-le résultat que vous désirez contient quelque chose de compliqué, il
-est souvent bon de n'écrire qu'une seule mesure par ligne.  Économiser
-de la place en tassant huit mesures par ligne, ça ne vaut pas vraiment
-le coup si l'on doît corriger vos fichiers.
+@item @strong{Une mesure par ligne de texte}.  Si la musique en
+elle-même ou le résultat que vous désirez contient quelque chose de
+compliqué, il est souvent bon de n'écrire qu'une seule mesure par ligne.
+Économiser de la place en tassant huit mesures par ligne, ça ne vaut pas
+vraiment le coup si l'on doît corriger vos fichiers.
 
 @item @strong{Ajoutez des commentaires}.  Utilisez soit des
 numéros de mesure (assez souvent), soit des références au contenu
-musical --- @qq{second thème des violons}, @qq{quatrième variation}, etc.
+musical -- @qq{second thème des violons}, @qq{quatrième variation}, etc.
 Vous pouvez ne pas avoir besoin des commentaires lorsque vous écrivez
 une pièce pour la première fois, mais si vous souhaitez y revenir deux
 ou trois ans plus tard pour changer quelque chose, ou si vous donnez
@@ -115,7 +115,8 @@ variable.  Si vous saisissez @code{c4 d e} au début d'une phrase, vous
 vous épargnerez des problèmes si, plus tard, vous modifiez votre musique.
 
 @item @strong{Séparez les affinages de mise en forme} de la musique
-elle-même. Voyez @ref{Économie de saisie grâce aux identificateurs et fonctions} et
+elle-même.  Voyez 
+@ref{Économie de saisie grâce aux identificateurs et fonctions} et
 @ref{Feuilles de style}.
 
 @end itemize
@@ -131,10 +132,11 @@ c'est-à-dire de la musique déjà écrite,
 @itemize
 
 @item n'entrez qu'un seul système de la partition originale
-à la fois --- mais toujours une seule mesure par ligne de texte ---,
+à la fois -- mais toujours une seule mesure par ligne de texte --,
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
-pour accélérer la compilation --- voir @ruser{Ignorer des passages de la partition} ;
+pour accélérer la compilation -- voir 
+@ruser{Ignorer des passages de la partition} ;
 
 @item définissez @code{mBreak = @{\break @}} et insérez
 @code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
@@ -148,18 +150,18 @@ laisser LilyPond placer les sauts de ligne selon son propre algorithme.
 dans un 
 
 @example
-\transpose c tonalité-naturelle @{...@}
+\transpose c @var{tonalité-naturelle} @{...@}
 @end example
-(où @code{tonalité-naturelle} correspond à celle de l'instrument en
+(où @var{tonalité-naturelle} correspond à celle de l'instrument en
 question) de telle sorte que la musique comprise dans cette variable se
 retrouve en ut.  Vous pourrez toujours transposer à l'inverse si besoin
 lorsque vous ferez appel à cette variable.  Des erreurs de transposition
 seront moins susceptibles de se produire si la musique de toutes les
 variables est dans la même et unique tonalité.
 
-De la même manière, prénez toujours le do comme note de départ ou
+De la même manière, prenez toujours le do comme note de départ ou
 d'arrivée.  Ceci aura pour simple conséquence que les autres tonalités
-que vous utiliserez seront celles propres à chacun des instruments ---
+que vous utiliserez seront celles propres à chacun des instruments --
 sib pour une trompette en si bémol, ou lab pour une clarinette en la bémol.
 
 @end itemize
@@ -195,7 +197,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Séparez les retouches} des définitions de
-musique.  Nous vous avons déjà invité à adopter une telle pratique, qui
+musique.  Nous vous avons déjà invité à adopter une telle pratique, qui 
 par ailleurs devient vitale pour des projets d'importance.  Nous
 pouvons avoir besoin de changer la définition de
 @code{fpuisp}, mais dans ce cas nous n'aurons besoin de le faire
@@ -247,8 +249,8 @@ violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 @end lilypond
 
 Néanmoins vous pouvez aussi utiliser ces identificateurs
---- aussi connus sous le nom de variables, macros, ou commandes
-(définies par l'utilisateur) --- pour des retouches :
+-- aussi connus sous le nom de variables, macros, ou commandes
+(définies par l'utilisateur) -- pour des retouches :
 
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup{ \italic \bold dolce }
@@ -293,9 +295,9 @@ violin = \relative c'' @{
 
 Jusqu'ici nous avons vu des substitutions statiques : quand LilyPond
 rencontre @code{\padText}, il le remplace par le contenu que nous lui
-avons défini --- c'est-à-dire le contenu à droite de @code{padText=}.
+avons défini -- c'est-à-dire le contenu à droite de @code{padText=}.
 
-LilyPond gère également des substitutions non-statiques --- vous
+LilyPond gère également des substitutions non-statiques -- vous
 pouvez les voir comme des fonctions.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -314,23 +316,23 @@ padText =
 }
 @end lilypond
 
-Utiliser les identificateurs est aussi un bon moyen pour vous épargner
-du travail si la syntaxe de LilyPond change un jour --- voir
-@ref{Mise à jour d'anciens fichiers}.  Si vous avez une seule définition, par
-exemple @code{\dolce}, pour tous vos fichiers (voir @ref{Feuilles de style}),
-et que la syntaxe change, alors vous n'aurez qu'à mettre à 
-jour votre seule définition @code{\dolce}, au lieu de devoir modifier
-chaque fichier @code{.ly}.
+Utiliser des identificateurs est aussi un bon moyen pour vous épargner
+du travail si la syntaxe de LilyPond change un jour -- voir
+@ref{Mise à jour d'anciens fichiers}.  Si vous avez une seule
+définition, par exemple @code{\dolce}, pour tous vos fichiers (voir
+@ref{Feuilles de style}), et que la syntaxe change, alors vous n'aurez
+qu'à mettre à jour votre seule définition @code{\dolce}, au lieu de
+devoir modifier chaque fichier @code{.ly}.
 
 
 @node Feuilles de style
 @subsection Feuilles de style
 @translationof Style sheets
 
-La sortie que produit LilyPond peut être largement modifiée --- voir
-@ref{Retouche de partition} pour plus de détails.  Mais que faire si vous
-avez beaucoup de fichiers auxquels vous souhaitez appliquer vos
-retouches ? Ou si vous souhaitez simplement séparer les retouches de
+La sortie que produit LilyPond peut être largement modifiée -- voir
+@ref{Retouche de partition} pour plus de détails.  Mais que faire si
+vous avez beaucoup de fichiers auxquels vous souhaitez appliquer vos
+retouches ?  Ou si vous souhaitez simplement séparer les retouches de
 la musique elle-même ?  Rien de plus facile.
 
 Prenons un exemple.  Ne vous inquiétez pas si vous ne comprenez pas
@@ -356,7 +358,7 @@ inst = #(define-music-function (parser location string) (string?)
 @end lilypond
 
 Il y a quelques problèmes de chevauchement ; nous allons arranger
-cela en utilisant les techniques de @ref{Déplacement d'objets}.  On peut
+cela en utilisant les techniques de @ref{Déplacement d'objets}.  On peut 
 aussi faire quelque chose pour les définitions de @code{mpdolce}
 et @code{inst}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
@@ -383,7 +385,7 @@ début de notre fichier de musique.  Lui attribuer l'extension
 voué à être inclus dans un fichier maître ; il n'est pas destiné à être
 compilé isolément.
 Maintenant, modifions notre musique (enregistrez ce fichier
-sous @file{musique.ly}).
+sous @code{musique.ly}).
 
 @c  We have to do this awkward example/lilypond-non-verbatim
 @c  because we can't do the \include stuff in the manual.
@@ -422,7 +424,8 @@ est peu visible, c'est pourquoi nous allons l'épaissir et le
 rapprocher des têtes de note.  Déplaçons l'indication métronomique
 au-dessus de la clef, au lieu de la laisser au-dessus de la première
 note.  Et pour finir, mon professeur de composition déteste les
-chiffrages de mesure en @qq{C}, nous allons donc le transformer en @qq{4/4}.
+chiffrages de mesure en @qq{C}, nous allons donc le transformer en
+@qq{4/4}. 
 
 Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
 fichier @file{definitions.ily} par ceci :
@@ -613,14 +616,15 @@ voir @rprogram{Mise à jour des fichiers avec convert-ly}.
 
 Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
 modifications.  Il s'occupe des changements qui ne requièrent qu'une
-simple substitution de texte --- comme @code{raggedright} devenant
-@code{ragged-right} ---, les autres étant trop compliqués à effectuer.
-Les changements de syntaxe qui ne sont pas gérés par @command{convert-ly}
-sont énumérés dans @rprogram{Mise à jour des fichiers avec convert-ly}.
+simple substitution de texte -- comme @code{raggedright} devenant
+@code{ragged-right} --, les autres étant trop compliqués à effectuer.
+Les changements de syntaxe qui ne sont pas gérés par
+@command{convert-ly} sont énumérés dans 
+@rprogram{Mise à jour des fichiers avec convert-ly}.
 
 Par exemple, dans les versions 2.4 et antérieures de LilyPond,
 les accents et les lettres non anglaises étaient entrées en
-utilisant LaTeX --- par exemple, @code{No\"el}.  À partir de la
+utilisant LaTeX -- par exemple, @code{No\"el}.  À partir de la
 version 2.6, le caratère @code{ë} doit être entré directement
 dans le fichier LilyPond comme caractère UTF-8.
 @code{convert-ly} ne peut pas changer tous les caractères
@@ -633,9 +637,10 @@ fichiers LilyPond manuellement.
 @subsection Quelques erreurs des plus courantes
 @translationof Common errors
 
-The error conditions described below occur often, yet the cause
-is not obvious or easily found.  Once seen and understood, they
-are easily handled.
+Les conditions amenant aux erreurs qui suivent sont fréquentes, bien
+qu'elles ne soient pas évidentes ni facilement localisables.  Nous
+espérons que ces explications vous aideront à les résoudre plus
+facilement. 
 
 
 @menu
@@ -663,13 +668,13 @@ lorsque toutes les notes sont terminées avant la fin de la mesure.
 conduit à une musique compressée, voire à un débordement de la page.}
 
 Une erreur de durée sera bien plus facilement localisable si vous
-positionnez régulièrement des contrôles de barre de mesure --- voir 
+positionnez régulièrement des contrôles de barre de mesure -- voir 
 @ruser{Vérification des limites et numéros de mesure}.
 
 Si vous tenez absolument à enchainer de tels débordements, vous devrez
 insérer des barres de mesure invisibles là où vous souhaitez positionner
-un saut de ligne.  Consultez le chapitre @ruser{Barres de mesure} pour plus de
-détails. 
+un saut de ligne.  Consultez le chapitre @ruser{Barres de mesure} pour
+plus de détails. 
 
 @node Erreur renvoyant à ../ly/init.ly
 @unnumberedsubsubsec Erreur renvoyant à @code{../ly/init.ly}
@@ -678,15 +683,15 @@ détails.
 Certains messages d'erreur relatifs à une erreur de syntaxe dans le
 fichier @code{../ly/init.ly} peuvent survenir lorsque le fichier est mal
 formaté.  Cela se produit notamment lors d'un défaut de parité de
-bornage ou de guillemets.
+bornages ou de guillemets.
 
 L'erreur la plus courante est la simple omission d'une accolade
 fermante (@code{@}} à la fin du bloc @code{Score}.  La solution est
-évidente en pareil cas : i lsuffit de vérifier que le bloc @code{Score}
+évidente en pareil cas : il suffit de vérifier que le bloc @code{Score}
 est bien clôturé.  La structure des fichiers LilyPond est abordée plus
 en détails au chapitre @ref{Organisation des fichiers LilyPond}.  C'est la
 raison pour laquelle nous vous invitons à utiliser un éditeur de texte
-qui prenne en charge le contrôle de parité des parnthèses, crochets et
+qui prenne en charge le contrôle de parité des parenthèses, crochets et
 accolades afin de vous éviter de telles erreurs.
 
 Lorsqu'il s'agit d'un guillemet fermant (@code{"}) omis, le message
@@ -701,12 +706,12 @@ indiquée.
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, est associé à un message du type @qq{GUILE a signalé
-une erreur @dots{}} survient à chaque fois qu'un commentaire
+une erreur @dots{}}, survient à chaque fois qu'un commentaire
 @emph{LilyPond} est indûment placé dans une routine @emph{Scheme}.
 
 Un commentaire LilyPond est introduit par le signe pourcent (@code{%})
-et de doit en aucun cas se trouver dans une routine Scheme.  En Scheme,
-les commentaire s'introduisent par un point-virgule (@code{;}).
+et ne doit en aucun cas se trouver dans une routine Scheme.  En Scheme,
+les commentaires s'introduisent par un point-virgule (@code{;}).
 
 
 @node Résolution de problèmes -- tout remettre à plat
@@ -722,7 +727,7 @@ Pour ce faire, les outils les plus puissants sont le commentaire de
 fin de ligne, indiqué par @code{%}, et le commentaire multilignes (ou
 bloc de commentaire), indiqué par @code{%@{ ... %@}}.  Si vous ne
 pouvez localiser le problème, commencez par mettre en commentaire de
-grandes parties de votre fichier d'entrée.  Après avoir mis en
+grandes parties de votre fichier source.  Après avoir mis en
 commentaire une section, essayez de compiler à nouveau.  Si cela
 fonctionne, c'est que le problème se situe dans cette partie du
 fichier.  Si cela ne fonctionne pas, continuez à mettre en commentaire
@@ -744,9 +749,9 @@ Dans un cas extrême, vous pourriez en arriver à
 @noindent
 c'est-à-dire un fichier sans aucune musique.
 
-Si cela arrive, ne vous découragez pas.  Décommentez un peu, la partie
-de basse par exemple, et voyez si ça fonctionne.  Si ce n'est pas le
-cas, placez en commentaire toute la partie de basse, mais laissez
+Si cela se produit, ne vous découragez pas.  Décommentez un peu, la
+partie de basse par exemple, et voyez si ça fonctionne.  Si ce n'est pas
+le cas, placez en commentaire toute la partie de basse, mais laissez
 @code{\basse} décommenté dans le bloc @code{\score}.
 
 @example
@@ -763,7 +768,7 @@ Maintenant commencez à décommenter petit à petit le partie de
 problème.
 
 Une autre technique de déboguage très utile est la construction
-de @ref{Exemples minimalistes}.
+d'@ref{Exemples minimalistes}.
 
 
 @node Exemples minimalistes
@@ -772,7 +777,7 @@ de @ref{Exemples minimalistes}.
 
 Un exemple minimal est un exemple de code aussi court que possible.
 De tels exemples sont bien plus compréhensibles que des exemples
-longs.  Les exemples minimaux sont utilisés pour
+longs.  Les exemples minimalises sont utilisés pour
 
 @itemize
 @item les rapports de bogue,
@@ -812,13 +817,13 @@ l'intérêt de l'exemple.
 
 Dans la musique d'orchestre, toutes les notes sont imprimées deux fois.
 D'abord dans les parties séparées destinées aux musiciens, et ensuite
-dans le conducteur destiné au chef.  Les variables sont là pour vous éviter
-un double travail.  La musique n'est entrée qu'une seule fois, et stockée dans
-une variable, dont le contenu servira à imprimer à la fois la partie
-séparée et la partition d'orchestre.
+dans le conducteur destiné au chef.  Les variables sont là pour vous
+éviter un double travail.  La musique n'est entrée qu'une seule fois, et
+stockée dans une variable, dont le contenu servira à imprimer à la fois
+la partie séparée et la partition d'orchestre.
 
 Il est judicieux de définir les notes dans un fichier séparé. Par
-exemple, supposons que le fichier @file{musique-Cor.ly} contienne la
+exemple, supposons que le fichier @code{musique-Cor.ly} contienne la
 partie suivante pour un duo cor/@/basson.
 
 @example
@@ -851,7 +856,7 @@ On établira alors une partie séparée en constituant un nouveau fichier :
 @noindent
 sera substitué le contenu du fichier @code{musique-Cor.ly}, et de ce
 fait la variable @code{notesCor} se trouvera définie.  La commande
-@code{\transpose f@tie{}c'} indique que son argument @code{\notesCor}
+@w{@code{\transpose f c'}} indique que son argument @code{\notesCor}
 sera transposé à la quinte supérieure : le son réel @code{f} s'écrit
 @code{c'}, ce qui est la caractéristique d'un Cor en fa.  La
 transposition est visible comme suit :
@@ -864,11 +869,11 @@ transposition est visible comme suit :
 @end lilypond
 
 Dans les pièces d'ensemble, il arrive souvent qu'une voix ne joue pas
-pendant plusieurs mesures.  Un silence spécial, appelé silence multi-mesures,
-l'indique alors. On l'obtient par un @samp{R} majuscule, suivi d'une
-durée : @code{1}@tie{}pour une pause, @code{2}@tie{}pour une demi-pause,
-etc.  Cette durée peut être multipliée pour établir de plus longs silences.
-Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
+pendant plusieurs mesures.  Un silence spécial, appelé silence
+multimesures, l'indique alors.  On l'obtient par un @code{R} majuscule,
+suivi d'une durée : @code{1}@tie{}pour une pause, @code{2}@tie{}pour une
+demi-pause, etc.  Cette durée peut être multipliée pour établir de plus
+longs silences. Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
 
 @example
 R2*3
@@ -882,8 +887,8 @@ Il faut pour cela définir la propriété @code{skipBars} à @qq{vrai} :
 @end example
 
 @noindent
-Cette commande assigne la valeur @qq{vrai} --- @emph{true} en anglais, et
-@code{#t} dans le langage Scheme --- à cette propriété dans le
+Cette commande assigne la valeur @qq{vrai} -- @emph{true} en anglais, et
+@code{#t} dans le langage Scheme -- à cette propriété dans le
 contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
 silence multimesure et cette option, on obtient le résultat suivant :
 
@@ -946,8 +951,8 @@ Les variables (@qq{propriétés}) réglables sont abordées en détail dans
 La plupart des plates-formes sur lesquelles tourne LilyPond disposent
 d'un logiciel appelé @code{make}.  Ce logiciel va lire un fichier
 spécial, nommé de @code{Makefile}, qui contient tout ce qu'il
-faut --- les dépendances entre certains fichiers, les instructions
-successives à traiter par le système --- pour aboutir au fichier que
+faut -- les dépendances entre certains fichiers, les instructions
+successives à traiter par le système -- pour aboutir au fichier que
 vous désirez obtenir.  Il pourrait par exemple contenir tout ce qu'il
 faut pour produire @code{ballade.pdf} et @code{ballade.midi} à partir de 
 @code{ballade.ly} en lançant LilyPond.
@@ -957,9 +962,9 @@ certains projets, que ce soit par simple goût personnel ou bien par
 respect de ceux qui pourront accéder à vos sources.  Cette manière de
 procéder est particulièrement indiquée lorsque vous travaillez sur un
 projet de grande envergure impliquant de nombreuses inclusions de
-fichiers et différentes éditions --- par exemple un conducteur et un
+fichiers et différentes éditions -- par exemple un conducteur et un
 matériel d'orchestre complet avec la partition pour le chef et une
-partition séparée pour chacun des pupitres --- ou bien si votre projet
+partition séparée pour chacun des pupitres -- ou bien si votre projet
 requiert certaines commandes particulières comme @code{lilypond-book}.
 Les @emph{Makefiles} varient tant en complexité qu'en flexibilité selon
 les besoin et les aptitudes de celui qui les crée.  Le programme GNU Make
@@ -967,8 +972,8 @@ est installé par défaut sur les distributions Linux et sur MacOS@tie{}X,
 et il en existe une version pour les environnements Windows.
 
 Consultez le @strong{GNU Make Manual} pour plus de détails sur ce dont 
-@code{make} est capable --- vous pourrez même en trouver des versions
-françaises à l'aide des moteurs de recherche ---, dans la mesure où ce
+@code{make} est capable -- vous pourrez même en trouver des versions
+françaises à l'aide des moteurs de recherche --, dans la mesure où ce
 qui suit ne donne qu'un bref apperçu de ses possibilités.
 
 Les commandes permettant de définir les règles diffèrent selon la
@@ -1018,7 +1023,7 @@ contenus dans le répertoire @code{Notes} :
 
 @example
 %%% début du fichier "symphone-cello.ly"
-\include ../definitions.ily
+\include ../symphonieDefs.ily
 \include ../Notes/cello.ily
 @end example
 
@@ -1026,10 +1031,10 @@ Le @emph{Makefile} répertorie des cibles correspondant à @code{score}
 (l'intégrale au format conducteur), @code{mouvements} (chacun des
 mouvements au format conducteur) et @code{pupitres} (une partition par
 pupitre).  Il contient aussi une cible @code{archive} chargée de générer
-une archive des fichiers sources qui pourra être diffusée sur la toile ou
+une archive des fichiers source qui pourra être diffusée sur la toile ou
 transmise par courriel.  Voici ce que contiendrait ce @emph{Makefile}
 pour Linux ou MacOS@tie{}X.  Ce fichier doit être enregistré sous le nom
-de @code{Makefile} à la racine du projet --- ici @code{Symphonie}.
+de @code{Makefile} à la racine du projet -- ici @code{Symphonie}.
 
 @warning{Lorsque vous définissez une cible ou une règle sur plusieurs
 lignes, les lignes à partir de la deuxième @strong{doivent} débuter par
@@ -1130,8 +1135,8 @@ archive:
 
 Les choses se compliquent sous Windows.  Une fois GNU Make pour Windows
 téléchargé et installé, il vous faudra correctement définir le chemin
-d'accès au programme @emph{Make} --- dans les variables d'environnement
-du système ---  afin que l'interpréteur de commandes DOS puisse le
+d'accès au programme @emph{Make} -- dans les variables d'environnement
+du système --  afin que l'interpréteur de commandes DOS puisse le
 localiser.  Pour cela, faites un clic droite sur @qq{Poste de travail},
 choisissez @code{Propriétés} puis @code{Avancées}.  Cliquez sur
 @code{Variables d'environnement} puis, dans l'onglet @w{@code{Variables
