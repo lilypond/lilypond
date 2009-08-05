@@ -3,6 +3,14 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Voici un canevas pour quatuor à cordes.  Notez l'utilisation de la 
+variable @code{\\global} pour traiter la métrique et la tonalité.
+
+"
+  doctitlefr = "Quatuor à cordes (conducteur)"
+
   lsrtags = "unfretted-strings, template"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

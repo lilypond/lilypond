@@ -3,6 +3,19 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Ce fichier constitue un canevas standard de partition pour chœur à
+quatre voix mixtes.  Lorsque les ensembles s'étoffent, il est judicieux
+de recourrir à une section spécifique incluse dans chacune des parties,
+tout particulièrement pour gérer la métrique et la tonalité qui,
+la plupart du temps, sont communes à tous les pupitres.  Comme il est
+d'usage pour les hymnes, les quatre voix sont réparties sur deux
+portées. 
+
+"
+  doctitlefr = "Ensemble vocal (simple)"
+
   lsrtags = "vocal-music, template"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

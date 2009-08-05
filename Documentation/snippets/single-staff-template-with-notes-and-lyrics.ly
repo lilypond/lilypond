@@ -3,16 +3,18 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
 
   texidocfr = "
 Ce canevas comporte une simple ligne mélodique agrémentée de paroles.
 Recopiez-le, ajoutez-y d'autres notes et paroles.  Les ligatures
-automatiques sont ici désactivées, comme il est d'usage en terme de
+automatiques sont ici désactivées, comme il est d'usage en matière de
 musique vocale.  Pour activer la fonction de ligature automatique,
 modifiez ou commentez la ligne en question.
 
 "
+  doctitle = "Portée unique et paroles"
+
   doctitle = "Portée unique et paroles"
 
   lsrtags = "vocal-music, template"

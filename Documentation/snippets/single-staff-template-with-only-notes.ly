@@ -3,10 +3,10 @@
 \version "2.13.1"
 
 \header {
-%% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
 Cet exemple simpliste se compose d'une portée agrémentée de quelques
-notes.  Il conviernt tout à fait pour un instrument seul ou un
+notes.  Il convient tout à fait pour un instrument seul ou un
 fragment mélodique.  Recopiez-le dans un nouveau fichier, ajoutez-y
 d'autres notes et c'est pret !
 

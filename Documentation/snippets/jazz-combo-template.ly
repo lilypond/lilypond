@@ -3,6 +3,17 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Bien que compliqué de prime abord, voici un canevas tout à fait indiqué
+pour les ensembles de jazz.  Vous noterez que tous les instruments sont
+notés en ut (@code{\key c \major}), la tonalité de concert.  Les notes
+seront automatiquement transposée dès lors qu'elles seront inscrites
+dans une section @code{\\transpose}. 
+
+"
+  doctitle = "Symboles de jazz"
+
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

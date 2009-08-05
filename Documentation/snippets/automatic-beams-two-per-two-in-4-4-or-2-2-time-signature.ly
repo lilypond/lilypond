@@ -45,8 +45,8 @@ barrado, este fragmento de código cambia el barrado a pulsos de negra.
 Dans une métrique simple comme 4/4 ou 2/2, les croches sont ligaturées
 par défaut en deux groupes de quatre.
 
-En utilisant une macro qui modifie le comportement des ligatures
-automatiques, voici comment obtenir des ligatures basées sur la valeur
+En utilisant une macro qui modifie le comportement des ligatures 
+automatiques, voici comment obtenir des ligatures basées sur la valeur 
 d'une noire.
 
 "

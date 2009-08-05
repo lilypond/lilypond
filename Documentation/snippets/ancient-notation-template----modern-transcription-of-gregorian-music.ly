@@ -3,6 +3,16 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Voici comment vous pourriez transcrire du grégorien.  Pour mémoire, il
+n'y a en grégorien ni de découpage en mesure, ni de hampe ; seules
+sont utilisées des têtes de note blanches ou noires, ainsi que des
+signes spécifiques permettant d'indiquer des silences de différentes durées.
+
+"
+  doctitlefr = "Exemples de notation ancienne -- transcription moderne de musique grégorienne"
+
   lsrtags = "ancient-notation, template"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

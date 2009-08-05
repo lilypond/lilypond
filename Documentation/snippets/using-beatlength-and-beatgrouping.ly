@@ -75,7 +75,7 @@ La propriété @code{measureLength} détermine la pulsation et, combinée à
 @code{beatLength} et @code{beatGrouping}, comment générer les ligatures
 automatiques selon les durées et la métrique lorsqu'aucune règle n'a été
 définie.  L'exemple commenté qui suit indique différentes façons de
-contrôler les ligatures à l'aide de ces propriétés.
+contrôler les ligatures à l'aide de ces propriétés. 
 
 "
   doctitlefr = "Utilisation conjointe de beatLength et beatGrouping"

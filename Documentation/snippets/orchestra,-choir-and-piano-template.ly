@@ -3,6 +3,19 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Ce canevas illustre l'utilisation de contextes @code{StaffGroup} pour
+regrouper les instruments selon leur famille, imbriqués dans un
+@code{GrandStaff}, ainsi que le recours à la fonction @code{\\transpose}
+pour les instruments transpositeurs.  Dans tous les identificateurs, la
+musique est stockée en ut.  Les notes peuvent tout aussi bien être
+saisies en ut ou dans la tonalité particulière de l'instrument avant
+d'être transposées puis affectées à une variable.
+
+"
+  doctitlefr = "Orchestre, chœur et piano"
+
   lsrtags = "template"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

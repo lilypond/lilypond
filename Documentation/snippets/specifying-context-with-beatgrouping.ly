@@ -40,17 +40,19 @@ commande @code{\\time} :
 
   lsrtags = "rhythms, tweaks-and-overrides"
 
-%% Translation of GIT committish: 5c26e815f2ed54e6c4d022bac10dcc87a9916a29
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
   texidoces = "
 Mediante la especificación del contexto, el efecto de
 @code{beatGrouping} puede limitarse al contexto especificado, y
-sobreescribirse los valores establecidos en contextos de niveles más
-altos:
+sobreescribirse los valores establecidos en contextos de niveles
+más altos.  Las instruccionees @code{\\set} se deben situar
+@emph{después} de todas las instrucciones @code{\\time}:
+
 
 "
   doctitlees = "Especificar el contexto con beatGrouping"
 
-%% Translation of GIT committish: 0364058d18eb91836302a567c18289209d6e9706
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn der Kontext angegeben wird, kann die Auswirkung von @code{beatGrouping}
 auf den angegebenen Kontext beschränkt werden und die Werte, die in Kontexten
@@ -63,11 +65,11 @@ werden:
 
 %% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
   texidocfr = "
-Le fait de spécifier un contexte à @code{beatGrouping} permet d'en
+Le fait de spécifier un contexte à @code{beatGrouping} permet d'en 
 limiter les effets.  Par voie de conséquence, il sera possible
 d'outrepasser les règles définies à un niveau supérieur.  La commande
-@code{\set} destinée à en modifier les valeurs doit se placer après la
-commande @code{\time} :
+@code{\\set} destinée à en modifier les valeurs doit se placer après la 
+commande @code{\\time} :
 
 "
   doctitlefr = "Spécification du contexte auquel s'appliquera beatGrouping"

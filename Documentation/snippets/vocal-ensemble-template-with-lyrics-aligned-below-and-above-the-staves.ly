@@ -3,6 +3,15 @@
 \version "2.13.1"
 
 \header {
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Ce canevas ressemble beaucoup à celui pour chœur à quatre voix mixtes.
+La différence réside dans le fait que les paroles sont positionnées en
+ayant recours à @code{alignAboveContext} et @code{alignBelowContext}. 
+
+"
+  doctitlefr = "Ensemble vocal avec alignement des paroles selon le contexte"
+
   lsrtags = "text, vocal-music, contexts-and-engravers, template"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
