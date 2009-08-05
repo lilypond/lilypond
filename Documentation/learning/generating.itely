@@ -16,7 +16,7 @@ This chapter gives a basic introduction to working with LilyPond.
 
 @menu
 * Compiling a file::            
-* Alternate editors::           
+* Advanced editors::            
 * How to write input files::    
 * How to read the manuals::     
 @end menu
@@ -97,7 +97,7 @@ view or print the output.
 
 Note that there are several other text editors available with
 better support for LilyPond.  For more information, see
-@ref{Alternate editors}.
+@ref{Advanced editors}.
 
 @warning{The first time you ever run LilyPond, it may take a
 minute or two because all of the system fonts have to be analyzed
@@ -181,13 +181,50 @@ Converting to `test.pdf'...
 
 
 
-@node Alternate editors
-@section Alternate editors
+@node Advanced editors
+@section Advanced editors
+
+FIXME: add text
+
+@menu
+* Denemo::                      
+* LilyPondTool::                
+* Emacs::                       
+* Vim::                         
+@end menu
+
+
+@node Denemo
+@subsection Denemo
+
+Available on:
+
+
+
+@node LilyPondTool
+@subsection LilyPondTool
+
+Available on:
+
+
+@node Emacs
+@subsection Emacs
+
+Available on: Windows, MacOS X, Unix
+
+
+@node Vim
+@subsection Vim
+
+Available on: Windows, MacOS X, Unix
+
 
 
 
 @node How to write input files
 @section How to write input files
+
+FIXME: insert text
 
 @menu
 * Simple notation::             
@@ -581,6 +618,19 @@ comments:
 @node How to read the manuals
 @section How to read the manuals
 
+FIXME: fluff here
+
+@menu
+* Omitting braces::             
+* Clickable examples::          
+* Overview of manuals::         
+@end menu
+
+
+@node Omitting braces
+@unnumberedsubsec Omitting braces
+
+
 @cindex how to read the manual
 @cindex manual, reading
 @cindex reading the manual
@@ -615,7 +665,8 @@ own.  Most people want to add material to an existing piece, so we
 format the manual this way.
 
 
-@subheading Clickable examples
+@node Clickable examples
+@unnumberedsubsec Clickable examples
 
 Many people learn programs by trying and fiddling around with the
 program.  This is also possible with LilyPond.  If you click on a
@@ -636,12 +687,12 @@ same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
 
 
-@seealso
-There are more tips for constructing input files in
-@ref{Suggestions for writing LilyPond input files}.  But it might be
-best to read through the rest of the tutorial first.
 
+@node Overview of manuals
+@unnumberedsubsec Overview of manuals
 
-
+FIXME: a brief discussion about the rest of the LM, and pointers
+to specific places.  like NR for general reference, AU for
+suggestions for writing files, etc.
 
 
