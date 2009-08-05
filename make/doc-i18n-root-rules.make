@@ -29,7 +29,7 @@ $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref
 
 $(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES) $(outdir)/pictures
 
-$(outdir)/pictures: pictures-subdir
+$(outdir)/pictures:
 	$(MAKE) -C $(top-build-dir)/Documentation/pictures WWW-1
 	ln -sf $(top-build-dir)/Documentation/pictures/$(outdir) $@
 
