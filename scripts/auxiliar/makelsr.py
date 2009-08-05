@@ -87,7 +87,7 @@ def add_version (ly_code):
 s = 'Translation of GIT [Cc]ommittish'
 texidoc_chunk_re = re.compile (r'^(?:%+\s*' + s + \
     r'.+)?\s*(?:texidoc|doctitle)([a-zA-Z]{2,4})\s+=(?:.|\n)*?(?=%+\s*' + \
-    s + r'|\n\} % begin verbatim|\n  (?:doctitle|texidoc) |$(?!.|\n))', re.M)
+    s + r'|\n\} % begin verbatim|\n  (?:doctitle|texidoc|lsrtags) |$(?!.|\n))', re.M)
 
 def update_translated_texidoc (m, snippet_path, visited_languages):
     base = os.path.splitext (os.path.basename (snippet_path))[0]
