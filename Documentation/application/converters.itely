@@ -22,7 +22,8 @@ These are separate programs from @command{lilypond} itself, and are
 run on the command line; see @ref{Command-line usage} for more
 information.  If you have MacOS 10.3 or 10.4 and you have trouble
 running some of these scripts, e.g. @code{convert-ly}, see
-FIXME FIXME @c @ref{Setup for MacOS X}.
+FIXME FIXME 
+@c @ref{Setup for MacOS X}.
 
 
 @knownissues

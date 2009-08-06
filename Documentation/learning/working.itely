@@ -828,6 +828,8 @@ copy out\myproject.pdf MyProject.pdf
 
 @seealso
 Application Usage:
-@rprogram{Setup for MacOS X},
+FIXME
+@c @rprogram{Setup for MacOS X},
 @rprogram{Command-line usage},
-@rprogram{LilyPond-book}
+FIXME
+@c @rprogram{LilyPond-book}
