@@ -11,6 +11,9 @@ AC_CONFIG_AUX_DIR([stepmake/bin])
 # For stepmake package:
 # AC_CONFIG_AUX_DIR(bin)
 
+# must expand this at top-level for autoconf>=2.64
+AC_PROG_CC
+
 
 STEPMAKE_INIT
 
