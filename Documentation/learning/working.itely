@@ -831,5 +831,4 @@ Application Usage:
 FIXME
 @c @rprogram{Setup for MacOS X},
 @rprogram{Command-line usage},
-FIXME
-@c @rprogram{LilyPond-book}
+@rprogram{lilypond-book}
