@@ -511,12 +511,17 @@ The same output can be obtained by adding
 the duration of the subdivision, and it must be at least 8.  A
 @var{number} value of 8 gives one line across the note stem.  If
 the length is omitted, the last value (stored in
-@code{tremoloFlags}) is used
+@code{tremoloFlags}) is used:
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32
 c: c:
 @end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{cross-staff-tremolos.ly}
 
 
 @seealso

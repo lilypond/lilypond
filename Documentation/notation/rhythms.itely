@@ -1025,8 +1025,11 @@ Mensural time signatures are covered in
 @cindex compound time signatures
 @cindex time signature, compound
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {compound-time-signatures.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
 @seealso
