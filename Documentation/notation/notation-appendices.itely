@@ -898,6 +898,7 @@ A glossary of the technical terms and concepts used internally.
 * callback::
 * glyph::
 * grob::
+* interface::
 * lexer::
 * output-def::
 * parser::
@@ -933,6 +934,11 @@ character, or a combination of two characters formating a ligature.
 A set of glyphs with a single style and shape comprise a font, and
 a set of fonts covering several styles and sizes comprise a typeface.
 
+@seealso
+Notation Reference:
+@ruser{Fonts},
+@ruser{Text encoding}.
+
 @node grob
 @unnumberedsubsec grob
 
@@ -944,6 +950,38 @@ LilyPond objects which represent items of notation in the printed
 output such as note heads, stems, slurs, ties, fingering, clefs,
 etc are called @q{Layout objects}, often known as @q{GRaphical
 OBjects}, or @strong{grobs} for short.
+
+@seealso
+Learning Manual:
+@rlearning{Objects and interfaces},
+@rlearning{Naming conventions of objects and properties},
+@rlearning{Properties of layout objects}.
+
+Internals Reference:
+@rinternals{All layout objects}.
+
+@node interface
+@unnumberedsubsec interface
+
+@cindex interface
+@cindex grob-interface
+@cindex graphical object interfaces
+
+Actions and properties which are common to a number of grobs are
+grouped together in an object called a @code{grob-interface}, or
+just @q{interface} for short.
+
+@seealso
+Learning Manual:
+@rlearning{Objects and interfaces},
+@rlearning{Naming conventions of objects and properties},
+@rlearning{Properties found in interfaces}.
+
+Notation Reference:
+@ruser{Layout interfaces}.
+
+Internals Reference:
+@rinternals{Graphical Object Interfaces}.
 
 @node lexer
 @unnumberedsubsec lexer
@@ -958,7 +996,12 @@ parsing, see @ref{parser}.
 
 @node output-def
 @unnumberedsubsec output-def
-TODO
+
+@cindex output-def
+
+An instance of the @code{Output-def} class contains the methods and
+data structures associated with an output block.  Instances are
+created for midi, layout and paper blocks.
 
 @node parser
 @unnumberedsubsec parser
