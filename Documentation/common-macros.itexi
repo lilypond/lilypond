@@ -67,6 +67,7 @@
 
 @ifclear snippets-sections
 @macro lydoctitle {TEXT}
+@need 600
 @emph{\TEXT\}
 @end macro
 @end ifclear
