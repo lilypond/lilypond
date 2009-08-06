@@ -623,6 +623,7 @@ FIXME: fluff here
 @menu
 * Omitting braces::             
 * Clickable examples::          
+* Keyboard navigation::         
 * Overview of manuals::         
 @end menu
 
@@ -685,6 +686,10 @@ By cutting and pasting everything in the @qq{ly snippet} section,
 you have a starting template for experiments.  To see exactly the
 same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
+
+
+@node Keyboard navigation
+@unnumberedsubsec Keyboard navigation
 
 
 
