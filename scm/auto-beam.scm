@@ -85,4 +85,4 @@
                 ;; start/end at beginning of measure
                 (= (ly:moment-main-numerator pos) 0)
                 ;; end if measure-pos matches a specified ending moment
-                (member measure-pos grouping-moments)))))))
+                (member pos grouping-moments)))))))
