@@ -357,6 +357,13 @@ of an input file is described in @ref{How LilyPond input files work}.
 Using an editor which automatically highlights matching brackets and
 braces is helpful to avoid such errors.
 
+A second common cause is no white space between the last syllable
+of a lyrics block and the terminating brace, (@code{@}}).  Without
+this separation the brace is taken to be part of the syllable.  It
+is always advisable to ensure there is white space before and after
+@emph{every} brace.  For the importance of this when using lyrics,
+see @ruser{Lyrics explained}.
+
 This error message can also appear if a terminating quote sign,
 (@code{"}), is omitted.  In this case an accompanying error message
 @c keep "-matching straight in fancy editors
