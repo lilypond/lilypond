@@ -545,12 +545,27 @@ possibly turned off."
    (reverse matches))
 
 ;;;;;;;;;;;;;;;;
-; other
+;; other
+
 (define (sign x)
   (if (= x 0)
       0
       (if (< x 0) -1 1)))
 
+(define-public (binary-search start end getter target-val)
+  (_i "Find the index between @var{start} and @var{end} (an integer)
+which will produce the closest match to @var{target-val} when
+applied to function @var{getter}.")
+  (if (<= end start)
+      start
+      (let* ((compare (quotient (+ start end) 2))
+	     (get-val (getter compare)))
+	(cond
+	 ((< target-val get-val)
+	  (set! end (1- compare)))
+	 ((< get-val target-val)
+	  (set! start (1+ compare))))
+	(binary-search start end getter target-val))))
 
 (define-public (car< a b)
   (< (car a) (car b)))
@@ -593,17 +608,19 @@ possibly turned off."
 
 ;;; FONT may be font smob, or pango font string...
 (define-public (font-name-style font)
-      ;; FIXME: ughr, (ly:font-name) sometimes also has Style appended.
+  ;; FIXME: ughr, barf: feta-alphabet is actually emmentaler
+  (if (and (string? font)
+	   (string-prefix? "feta-alphabet" font))
+      (string-append "emmentaler"
+		     "-"
+		     (substring font
+				(string-length "feta-alphabet")
+				(string-length font)))
       (let* ((font-name (ly:font-name font))
-	     (full-name (if font-name font-name (ly:font-file-name font)))
-	     (name-style (string-split full-name #\-)))
-	;; FIXME: ughr, barf: feta-alphabet is actually emmentaler
-	(if (string-prefix? "feta-alphabet" full-name)
-	    (list "emmentaler"
-		  (substring  full-name (string-length "feta-alphabet")))
-	    (if (not (null? (cdr name-style)))
-	    name-style
-	    (append name-style '("Regular"))))))
+	     (full-name (if font-name font-name (ly:font-file-name font))))
+	(if (string-prefix? "Aybabtu" full-name)
+	    "aybabtu"
+	    (string-downcase full-name)))))
 
 (define-public (modified-font-metric-font-scaling font)
   (let* ((designsize (ly:font-design-size font))

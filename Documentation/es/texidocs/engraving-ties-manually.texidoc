@@ -1,0 +1,11 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+ doctitlees = "Grabado manual de las ligaduras"
+ texidoces = "
+Se pueden grabar a mano las ligaduras modificando la propiedad
+@code{tie-configuration} del objeto @code{TieColumn}. El primer número
+indica la distancia a partir de la tercera línea del pentagrama en
+espacios de pentagrama, y el segundo número indica la dirección (1 =
+hacia arriba, -1 = hacia abajo).
+
+"
+

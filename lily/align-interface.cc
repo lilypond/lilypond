@@ -12,6 +12,8 @@
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "item.hh"
+#include "page-layout-problem.hh"
+#include "paper-book.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
@@ -19,16 +21,10 @@
 #include "system.hh"
 #include "warn.hh"
 
-/*
-  TODO: for vertical spacing, should also include a rod & spring
-  scheme of sorts into this: the alignment should default to a certain
-  distance between element refpoints, unless bbox force a bigger
-  distance.
- */
 
-MAKE_SCHEME_CALLBACK (Align_interface, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances, 1);
 SCM
-Align_interface::calc_positioning_done (SCM smob)
+Align_interface::align_to_minimum_distances (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -37,47 +33,22 @@ Align_interface::calc_positioning_done (SCM smob)
   SCM axis = scm_car (me->get_property ("axes"));
   Axis ax = Axis (scm_to_int (axis));
 
-  Align_interface::align_elements_to_extents (me, ax);
+  Align_interface::align_elements_to_minimum_distances (me, ax);
 
   return SCM_BOOL_T;
 }
 
-/*
-  TODO: This belongs to the old two-pass spacing. Delete me.
-*/
-MAKE_SCHEME_CALLBACK (Align_interface, stretch_after_break, 1)
+MAKE_SCHEME_CALLBACK (Align_interface, align_to_ideal_distances, 1);
 SCM
-Align_interface::stretch_after_break (SCM grob)
+Align_interface::align_to_ideal_distances (SCM smob)
 {
-  Grob *me = unsmob_grob (grob);
+  Grob *me = unsmob_grob (smob);
 
-  Spanner *me_spanner = dynamic_cast<Spanner *> (me);
-  extract_grob_set (me, "elements", elems);
+  me->set_property ("positioning-done", SCM_BOOL_T);
 
-  if (me_spanner && elems.size ())
-    {
-      Grob *common = common_refpoint_of_array (elems, me, Y_AXIS);
+  Align_interface::align_elements_to_ideal_distances (me);
 
-      /* force position callbacks */
-      for (vsize i = 0; i < elems.size (); i++)
-	elems[i]->relative_coordinate (common, Y_AXIS);
-
-      SCM details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
-      SCM extra_space_handle = scm_assoc (ly_symbol2scm ("fixed-alignment-extra-space"), details);
-      
-      Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
-					    ? scm_cdr (extra_space_handle)
-					    : SCM_EOL,
-					    0.0);
-
-      Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
-					       DOWN);
-      Real delta  = extra_space / elems.size () * stacking_dir;
-      for (vsize i = 0; i < elems.size (); i++)
-	elems[i]->translate_axis (i * delta, Y_AXIS);
-    }
-  
-  return SCM_UNSPECIFIED;
+  return SCM_BOOL_T;
 }
 
 /* for each grob, find its upper and lower skylines. If the grob has
@@ -107,23 +78,6 @@ get_skylines (Grob *me,
 								      : "horizontal-skylines"));
 	  if (skys)
 	    skylines = *skys;
-
-	  /* this is perhaps an abuse of minimum-?-extent: maybe we should create
-	     another property? But it seems that the only (current) use of
-	     minimum-Y-extent is to separate vertically-aligned elements */
-	  SCM min_extent = g->get_property (a == X_AXIS
-					    ? ly_symbol2scm ("minimum-X-extent")
-					    : ly_symbol2scm ("minimum-Y-extent"));
-
-	  if (is_number_pair (min_extent))
-	    {
-	      Box b;
-	      Interval other_extent = g->extent (other_common, other_axis (a));
-	      b[a] = ly_scm2interval (min_extent);
-	      b[other_axis (a)] = other_extent;
-	      if (!other_extent.is_empty ())
-		skylines.insert (b, 0, other_axis (a));
-	    }
 
 	  /* This skyline was calculated relative to the grob g. In order to compare it to
 	     skylines belonging to other grobs, we need to shift it so that it is relative
@@ -177,76 +131,91 @@ get_skylines (Grob *me,
 }
 
 vector<Real>
-Align_interface::get_extents_aligned_translates (Grob *me,
-						 vector<Grob*> const &all_grobs,
-						 Axis a,
-						 bool pure, int start, int end)
+Align_interface::get_minimum_translations (Grob *me,
+					   vector<Grob*> const &all_grobs,
+					   Axis a,
+					   bool pure, int start, int end)
 {
-  Spanner *me_spanner = dynamic_cast<Spanner *> (me);
-
-
-  SCM line_break_details = SCM_EOL;
-  if (a == Y_AXIS && me_spanner)
-    {
-      if (pure)
-	line_break_details = get_root_system (me)->column (start)->get_property ("line-break-system-details");
-      else
-	line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
-
-      if (!me->get_system () && !pure)
-	me->programming_error ("vertical alignment called before line-breaking");
-    }
+  if (!pure && a == Y_AXIS && dynamic_cast<Spanner*> (me) && !me->get_system ())
+    me->programming_error ("vertical alignment called before line-breaking");
   
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					   DOWN);
-
   vector<Grob*> elems (all_grobs); // writable copy
   vector<Skyline_pair> skylines;
 
   get_skylines (me, &elems, a, pure, start, end, &skylines);
 
-  Real where = 0;
-  /* TODO: extra-space stuff belongs to two-pass spacing. Delete me */
-  SCM extra_space_handle = scm_assq (ly_symbol2scm ("alignment-extra-space"), line_break_details);
-  Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
-					? scm_cdr (extra_space_handle)
-					: SCM_EOL,
-					0.0);
+  SCM forced_distances = ly_assoc_get (ly_symbol2scm ("alignment-distances"),
+				       Page_layout_problem::get_details (me),
+				       SCM_EOL);
 
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.0);
+  Real where = 0;
+  Real default_padding = robust_scm2double (me->get_property ("padding"), 0.0);
   vector<Real> translates;
   Skyline down_skyline (stacking_dir);
+  Real last_spaceable_element_pos = 0;
+  Grob *last_spaceable_element = 0;
   for (vsize j = 0; j < elems.size (); j++)
     {
       Real dy = 0;
+      Real padding = default_padding;
+
       if (j == 0)
 	dy = skylines[j][-stacking_dir].max_height ();
       else
 	{
 	  down_skyline.merge (skylines[j-1][stacking_dir]);
 	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
+
+	  SCM spec = Page_layout_problem::get_spacing_spec (elems[j-1], elems[j]);
+	  Page_layout_problem::read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
+
+	  Real min_distance = 0;
+	  if (Page_layout_problem::read_spacing_spec (spec, &min_distance, ly_symbol2scm ("minimum-distance")))
+	    dy = max (dy, min_distance);
+
+	  if (Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
+	    {
+	      // Spaceable staves may have min-distance and padding
+	      // constraints coming from the previous spaceable staff
+	      // as well as from the previous staff.
+	      spec = Page_layout_problem::get_spacing_spec (last_spaceable_element, elems[j]);
+	      Real spaceable_padding = 0;
+	      Page_layout_problem::read_spacing_spec (spec,
+						      &spaceable_padding,
+						      ly_symbol2scm ("padding"));
+	      padding = max (padding, spaceable_padding);
+
+	      Real min_distance = 0;
+	      if (Page_layout_problem::read_spacing_spec (spec,
+							  &min_distance,
+							  ly_symbol2scm ("minimum-distance")))
+		dy = max (dy, min_distance + stacking_dir*(last_spaceable_element_pos - where));
+
+	      if (scm_is_pair (forced_distances))
+		{
+		  SCM forced_dist = scm_car (forced_distances);
+		  forced_distances = scm_cdr (forced_distances);
+
+		  if (scm_is_number (forced_dist))
+		    dy = scm_to_double (forced_dist) + stacking_dir * (last_spaceable_element_pos - where);
+		}
+	    }
 	}
 
       if (isinf (dy)) /* if the skyline is empty, maybe max_height is infinity_f */
 	dy = 0.0;
 
-      dy = max (0.0, dy + padding + extra_space / elems.size ());
+      dy = max (0.0, dy + padding);
       down_skyline.raise (-stacking_dir * dy);
       where += stacking_dir * dy;
       translates.push_back (where);
-    }
 
-  SCM offsets_handle = scm_assq (ly_symbol2scm ("alignment-offsets"),
-				 line_break_details);
-  if (scm_is_pair (offsets_handle))
-    {
-      vsize i = 0;
- 
-      for (SCM s = scm_cdr (offsets_handle);
-	   scm_is_pair (s) && i < translates.size (); s = scm_cdr (s), i++)
+      if (Page_layout_problem::is_spaceable (elems[j]))
 	{
-	  if (scm_is_number (scm_car (s)))
-	    translates[i] = scm_to_double (scm_car (s));
+	  last_spaceable_element = elems[j];
+	  last_spaceable_element_pos = where;
 	}
     }
 
@@ -268,33 +237,23 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 }
 
 void
-Align_interface::align_elements_to_extents (Grob *me, Axis a)
+Align_interface::align_elements_to_ideal_distances (Grob *me)
+{
+  System *sys = me->get_system ();
+  Page_layout_problem layout (NULL, SCM_EOL, scm_list_1 (sys->self_scm ()));
+
+  layout.solution (true);
+}
+
+void
+Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
 {
   extract_grob_set (me, "elements", all_grobs);
 
-  vector<Real> translates = get_extents_aligned_translates (me, all_grobs, a, false, 0, 0);
+  vector<Real> translates = get_minimum_translations (me, all_grobs, a, false, 0, 0);
   if (translates.size ())
     for (vsize j = 0; j < all_grobs.size (); j++)
       all_grobs[j]->translate_axis (translates[j], a);
-}
-
-/* After we have already determined the y-offsets of our children, we may still
-   want to stretch them a little. */
-void
-Align_interface::stretch (Grob *me, Real amount, Axis a)
-{
-  extract_grob_set (me, "elements", elts);
-  Real non_empty_elts = stretchable_children_count (me);
-  Real offset = 0.0;
-  Direction dir = robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
-  for (vsize i = 1; i < elts.size (); i++)
-    {
-      if (!elts[i]->extent (me, a).is_empty ()
-	  && !to_boolean (elts[i]->get_property ("keep-fixed-while-stretching")))
-	offset += amount / non_empty_elts;
-      elts[i]->translate_axis (dir * offset, a);
-    }
-  me->flush_extent_cache (Y_AXIS);
 }
 
 Real
@@ -318,7 +277,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, in
     }
   else
     {
-      vector<Real> translates = get_extents_aligned_translates (me, all_grobs, Y_AXIS, true, start, end);
+      vector<Real> translates = get_minimum_translations (me, all_grobs, Y_AXIS, true, start, end);
 
       if (translates.size ())
 	{
@@ -330,7 +289,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, in
 	return 0;
     }
 
-  programming_error (_ ("tried to get a translation for something that is no child of mine"));
+  programming_error ("tried to get a translation for something that is no child of mine");
   return 0;
 }
 
@@ -364,46 +323,6 @@ Align_interface::set_ordered (Grob *me)
     }
 
   ga->set_ordered (true);
-}
-
-int
-Align_interface::stretchable_children_count (Grob const *me)
-{
-  extract_grob_set (me, "elements", elts);
-  int ret = 0;
-
-  /* start at 1: we will never move the first child while stretching */
-  for (vsize i = 1; i < elts.size (); i++)
-    if (!to_boolean (elts[i]->get_property ("keep-fixed-while-stretching"))
-	&& !elts[i]->extent (elts[i], Y_AXIS).is_empty ())
-      ret++;
-
-  return ret;
-}
-
-MAKE_SCHEME_CALLBACK (Align_interface, calc_max_stretch, 1)
-SCM
-Align_interface::calc_max_stretch (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  Spanner *spanner_me = dynamic_cast<Spanner*> (me);
-  Real ret = 0;
-
-  if (spanner_me && stretchable_children_count (me) > 0)
-    {
-      Paper_column *left = dynamic_cast<Paper_column*> (spanner_me->get_bound (LEFT));
-      Real height = me->extent (me, Y_AXIS).length ();
-      SCM line_break_details = left->get_property ("line-break-system-details");
-      SCM fixed_offsets = scm_assq (ly_symbol2scm ("alignment-offsets"),
-				    line_break_details);
-
-      /* if there are fixed offsets, we refuse to stretch */
-      if (fixed_offsets != SCM_BOOL_F)
-	ret = 0;
-      else
-	ret = height * height / 80.0; /* why this, exactly? -- jneem */
-    }
-  return scm_from_double (ret);
 }
 
 ADD_INTERFACE (Align_interface,

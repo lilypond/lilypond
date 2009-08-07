@@ -83,15 +83,15 @@ struct Page_spacing
   Real rod_height_;
   Real spring_len_;
   Real inverse_spring_k_;
-  Real page_top_space_;
 
   Line_details last_line_;
   Line_details first_line_;
+  Page_breaking const *breaker_;
 
-  Page_spacing (Real page_height, Real page_top_space)
+  Page_spacing (Real page_height, Page_breaking const *breaker)
   {
     page_height_ = page_height;
-    page_top_space_ = page_top_space;
+    breaker_ = breaker;
     clear ();
   }
 

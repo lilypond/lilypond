@@ -40,7 +40,7 @@ and scale down result to prevent jaggies in
 PNG images.")
     (backend ps
 "Select backend.  Possible values: 'eps, 'null,
-'ps, 'scm, 'svg.")
+'ps, 'scm, 'socket, 'svg.")
     (check-internal-types #f
 "Check every property assignment for types.")
     (clip-systems #f
@@ -65,7 +65,7 @@ configurations.")
 "Debug cyclic callback chains.")
     (debug-skylines #f
 "Debug skylines.")
-    (delete-intermediate-files #f
+    (delete-intermediate-files #t
 "Delete unusable, intermediate PostScript files.")
     (dump-profile #f
 "Dump memory and time information for each file.")
@@ -152,6 +152,9 @@ second.  Dump results to `FILE.stacks' and
 "List available font names.")
     (verbose ,(ly:command-line-verbose?)
 "Value of the --verbose flag (read-only).")
+    (warning-as-error #f
+"Change all warning and programming_error
+messages into errors.")
     ))
 
 ;; Need to do this in the beginning.  Other parts of the Scheme
@@ -225,6 +228,11 @@ second.  Dump results to `FILE.stacks' and
 
 (if (ly:get-option 'trace-scheme-coverage)
     (coverage:enable))
+
+(if (ly:get-option 'warning-as-error)
+    (begin
+      (set! ly:warning ly:error)
+      (set! ly:programming-error ly:error)))
 
 (define-public parser #f)
 
@@ -303,16 +311,6 @@ Print a message at LOCATION if any predicate failed."
 	     (recursion-helper (cdr signature) (cdr arguments) (1+ count)))))
   (recursion-helper signature arguments 1))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  output
-
-;; (define-public (output-framework) (write "hello\n"))
-
-(define output-ps-module
-  (make-module 1021 (list (resolve-interface '(scm output-ps)))))
-
-(define-public (ps-output-expression expr port)
-  (display (eval expr output-ps-module) port))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility
@@ -368,6 +366,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "part-combiner.scm"
     "autochange.scm"
     "define-music-properties.scm"
+    "beam-settings.scm"
     "auto-beam.scm"
     "chord-name.scm"
 
@@ -398,6 +397,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
     "paper.scm"
     "backend-library.scm"
     "x11-color.scm"
+    "tablature.scm"
 
     ;; must be after everything has been defined
     "safe-lily.scm"))

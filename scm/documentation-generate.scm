@@ -1,4 +1,4 @@
-;;;; generate-documentation.scm -- Generate documentation
+;;;; documentation-generate.scm -- Generate documentation
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 
@@ -17,6 +17,7 @@
 ;; todo: naming: grob vs. layout property
 
 (map ly:load '("documentation-lib.scm"
+	       "lily-sort.scm"
 	       "document-functions.scm"
 	       "document-translation.scm"
 	       "document-music.scm"
@@ -57,7 +58,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define file-name "lilypond-internals")
+(define file-name "internals")
 (define outname (string-append file-name ".texi"))
 
 (define out-port (open-output-file outname))
@@ -66,8 +67,8 @@
 
 (display
  (string-append
-  (texi-file-head "LilyPond program-reference" file-name
-		  "(lilypond/lilypond-internals.info)")
+  (texi-file-head "LilyPond Internals Reference" file-name
+		  "(lilypond-internals.info)")
   "
 
 @include macros.itexi
@@ -83,11 +84,6 @@
 
 @iftex
 @afourpaper
-@c don't replace quotes with directed quotes
-@tex
-\\gdef\\SETtxicodequoteundirected{Foo}
-\\gdef\\SETtxicodequotebacktick{Bla}
-@end tex
 @end iftex
 
 @finalout
@@ -119,13 +115,13 @@ For LilyPond version @version{}
 @ifhtml
 @ifclear bigpage
 This document is also available as a
-@uref{source/Documentation/user/lilypond-internals.pdf,PDF} and as
-@uref{source/Documentation/user/lilypond-internals-big-page.html,one big page}.
+@uref{source/Documentation/internals.pdf,PDF} and as
+@uref{source/Documentation/internals-big-page.html,one big page}.
 @end ifclear
 @ifset bigpage
 This document is also available as a
-@uref{source/Documentation/user/lilypond-internals.pdf,PDF} and as a
-@uref{source/Documentation/user/lilypond-internals/index.html,HTML indexed multiple pages}.
+@uref{source/Documentation/internals.pdf,PDF} and as a
+@uref{source/Documentation/internals/index.html,HTML indexed multiple pages}.
 @end ifset
 @end ifhtml
 

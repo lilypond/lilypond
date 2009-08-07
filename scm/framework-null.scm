@@ -1,4 +1,4 @@
-;; module for benchmarking.
+;;;; framework-null.scm -- module for benchmarking.
 
 (define-module (scm framework-null)
   #:export (output-framework)

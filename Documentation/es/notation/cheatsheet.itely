@@ -1,0 +1,300 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+
+@ignore
+    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@c TODO: add tablature.
+
+@node Hoja de referencia rápida
+@appendix Hoja de referencia rápida
+@translationof Cheat sheet
+
+
+@multitable @columnfractions .35 .3 .35
+
+@item @b{Sintaxis}
+@tab @b{Descripción}
+@tab @b{Ejemplo}
+
+@item @code{1 2 8 16}
+@tab duraciones
+@tab
+@lilypond[fragment,relative=2,notime]
+\set Staff.autoBeaming = ##f
+\override Staff.Clef #'break-visibility = #all-invisible
+c1 c2 c8 c16
+@end lilypond
+
+@item @code{c4. c4..}
+@tab puntillos
+@tab
+@lilypond[fragment,relative=2,notime]
+\override Staff.Clef #'break-visibility = #all-invisible
+c4. c4..
+@end lilypond
+
+@item @code{c d e f g a b }
+@tab escala
+@tab
+@lilypond[fragment,relative=1,notime]
+c d e f g a b
+@end lilypond
+
+@item @code{fis bes}
+@tab alteración
+@tab
+@lilypond[fragment,relative=1,notime]
+fis bes
+@end lilypond
+
+@item @code{\clef treble \clef bass }
+@tab claves
+@tab
+@lilypond[fragment,notime]
+\clef treble
+s4_" "
+\clef bass
+s4_" "
+@end lilypond
+
+@item @code{\time 3/4 \time 4/4 }
+@tab compás
+@tab
+@lilypond[fragment]
+\override Staff.Clef #'stencil = #empty-stencil
+\time 3/4
+s4_" "
+\time 4/4
+s16_" "
+@end lilypond
+
+
+@item @code{r4 r8}
+@tab silencio
+@tab
+@lilypond[relative=2,notime,fragment]
+\override Staff.Clef #'break-visibility = #all-invisible
+r4 r8
+@end lilypond
+
+@item @code{d ~ d}
+@tab ligadura de unión
+@tab
+@lilypond[relative=2,notime,fragment]
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
+d ~ d
+@end lilypond
+
+@item @code{\key es \major }
+@tab armadura
+@tab
+@lilypond[notime,fragment]
+\clef treble
+\key es \major
+\hideNotes
+c128
+@end lilypond
+
+@item @var{note}@code{'}
+@tab subir una octava
+@tab
+@lilypond[relative=2,notime,fragment]
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
+a a'
+@end lilypond
+
+@item @var{note}@code{,}
+@tab bajar una octava
+@tab
+@lilypond[relative=2,notime,fragment]
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
+c c,
+@end lilypond
+
+
+@item @code{c( d e)}
+@tab ligadura de expresión
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+c( d e)
+@end lilypond
+
+
+@item @code{c\( c( d) e\)}
+@tab ligadura de fraseo
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+c\( c( d) e\)
+@end lilypond
+
+
+@item @code{a8[ b]}
+@tab barra
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+a8-[ b-]
+@end lilypond
+
+
+@item @code{<< \new Staff ... >>}
+@tab más pentagramas
+@tab
+@lilypond[fragment]
+<< \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   }
+   \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   } >>
+@end lilypond
+
+
+@item @code{c-> c-.}
+@tab articulaciones
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+c-> c-.
+@end lilypond
+
+
+@item @code{c2\mf c\sfz}
+@tab matices dinámicos
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+c2\mf c\sfz
+@end lilypond
+
+
+@item @code{a\< a a\!}
+@tab crescendo
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+a\< a a\!
+@end lilypond
+
+@item @code{a\> a a\!}
+@tab decrescendo
+@tab
+@lilypond[fragment,relative=2]
+\set Score.timing = ##f
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.autoBeaming = ##f
+a\> a a\!
+@end lilypond
+
+
+@item @code{< >}
+@tab acorde
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+<c e>
+@end lilypond
+
+
+@item @code{\partial 8}
+@tab anacrusa o compás incompleto
+@tab
+@lilypond[fragment,relative=2]
+\partial 8
+f8 c2 d e
+@end lilypond
+
+
+@item @code{\times 2/3 @{f g a@}}
+@tab tresillos
+@tab
+@lilypond[relative=1,fragment]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\times 2/3 { f8 g a }
+@end lilypond
+
+
+@item @code{\grace}
+@tab mordentes
+@tab
+@lilypond[relative=2,fragment]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\context Voice { \grace b16 c4 }
+@end lilypond
+
+@item @code{\lyricmode @{ twinkle @}}
+@tab escribir la letra
+@tab
+twinkle
+
+
+@item @code{\new Lyrics}
+@tab imprimir la letra
+@tab
+@lilypond[fragment]
+\new Lyrics \lyricmode { twinkle }
+@end lilypond
+
+@item @code{twin -- kle}
+@tab separador de sílabas
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+<<
+   { g'1 g }
+  \new Lyrics \lyricsto "" { twin -- kle }
+>>
+@end lilypond
+
+@item @code{\chordmode @{ c:dim f:maj7 @}}
+@tab acordes
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\chordmode { c:dim f:maj7 }
+@end lilypond
+
+@item @code{\context ChordNames}
+@tab imprimir los nombres de los acordes
+@tab
+@lilypond[fragment,relative=2]
+\chords { c:dim f:maj7 }
+@end lilypond
+
+@item @code{<<@{e f@} \\ @{c d@}>>}
+@tab polifonía
+@tab
+@lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\context Staff <<{e f} \\ {c d}>>
+@end lilypond
+
+
+@item @code{s4 s8 s16}
+@tab silencios de separación
+@tab
+
+@end multitable
+

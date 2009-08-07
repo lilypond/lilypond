@@ -64,7 +64,22 @@ Text_interface::interpret_string (SCM layout_smob,
   Font_metric *fm = select_encoded_font (layout, props);
 
   replace_whitespace (&str);
-  return fm->word_stencil (str).smobbed_copy ();
+
+  /*
+    We want to use "glyph-string" in the SVG backend for all
+    music fonts (Emmentaler and Aybabtu) that pass through the
+    text interface.  Here the font encoding is checked to see if
+    it matches one of the music font encodings.  --pmccarty
+  */
+  SCM encoding = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"),
+				     props,
+				     SCM_BOOL_F);
+  SCM music_encodings = ly_lily_module_constant ("all-music-font-encodings");
+
+  if (scm_memq (encoding, music_encodings) != SCM_BOOL_F)
+    return fm->word_stencil (str, true).smobbed_copy ();
+  else
+    return fm->word_stencil (str, false).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,

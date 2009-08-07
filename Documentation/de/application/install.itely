@@ -1,0 +1,90 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Till Rettig, Reinhold Kainhofer
+
+@ifclear INSTALL
+@node Installieren
+@chapter Installieren
+@translationof Install
+@end ifclear
+
+Es gibt von Lilypond zwei verschiedene Typen von Versionen: stabile
+Versionen und instabile Entwicklerversionen. Stabile Versionen haben
+eine gerade Unter-Versionsnummer (z.B. 2.8, 2.10, 2.12, etc.). 
+Entwicklerversionen haben hingegen ungerade Unter-Versionsnummern (z.B.
+2.7, 2.9, 2.11, etc.).
+
+LilyPond selbst zu kompilieren ist ein relativ komplizierter Vorgang, daher
+empfehlen wir @strong{stark}, die vorkompilierten Binär-Pakete zu benutzen.
+
+
+@menu
+* Vorkompilierte Binär-Pakete::
+* Aus den Quellen übersetzen::
+@end menu
+
+@node Vorkompilierte Binär-Pakete
+@section Vorkompilierte Binär-Pakete
+@translationof Precompiled binaries
+
+@unnumberedsubsec Herunterladen
+
+
+Aktuelle Informationen zu vorkompilierten Binär-Paketen für Ihre Plattform
+finden Sie unter @uref{http://lilypond.org/web/install/}.  Falls Ihr Betriebssystem
+auf dieser allgemeinen Seite nicht behandelt wird, sehen Sie bitte in 
+der vollständigen Liste unter @uref{http://download.linuxaudio.org/lilypond/binaries/}
+nach.
+
+Momentan werden Binärpakete für folgende Plattformen erstellt:
+
+@example
+darwin-ppc  - MacOS X powerpc
+darwin-x86  - MacOS X intel
+freebsd-64  - FreeBSD 6.x, x86_64
+freebsd-x86 - FreeBSD 4.x, x86
+linux-64    - Beliebige GNU/Linux Distribution, x86_64
+linux-ppc   - Beliebige GNU/Linux Distribution, powerpc
+linux-x86   - Beliebige GNU/Linux Distribution, x86
+mingw       - Windows x86
+@end example
+
+@knownissues
+
+Wenn Sie MacOS 10.3 oder 10.4 benutzen und Python-Skripte wie
+@command{convert-ly} und @command{lilypond-book} benutzen wollen,
+lesen Sie @ref{Setup for MacOS X,,,lilypond-program,Application Usage}.
+
+@node Aus den Quellen übersetzen
+@section Aus den Quellen übersetzen
+@translationof Compiling from source
+
+LilyPond kann auch selbst direkt aus dem Quellcode des git-Depots 
+kompiliert werden. Da jedoch für die Kompilierung definitiv 
+Englisch-Kenntnisse vorhanden sein müssen, soll hier lediglich auf die 
+englische Dokumentation verwiesen werden:
+@c DO NOT translate the following line at all.
+@iftex
+@ref{Compiling from source,,,lilypond-program,Application Usage}.
+@end iftex
+@ifhtml
+@c Please translate the following line (but not the .html file name)
+@uref{Compiling-from-source.html,Compiling from Source}.
+@end ifhtml
+
+
+@c TRANSLATORS:
+@c   Please **do not** translate anything below this line.  Users
+@c   should not be compiling LilyPond themselves; if they really 
+@c   want to do so, they should be able to read the English docs,
+@c   because they'll probably need to ask questions in English
+@c   on the -devel list.   -gp

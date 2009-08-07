@@ -34,22 +34,22 @@
           <td class="left-column">
 	  <ul>
 	     <li>
-	       <a class="title" href="user/lilypond-learning/index.es.html">Manual de aprendizaje</a><br>
-	       (también en <a class="title" href="user/lilypond-learning-big-page.es.html">una sola
-	       página</a> ~ 1.5 Mb, o en <a class="title" href="user/lilypond-learning.es.pdf">PDF</a>)<br>
+	       <a class="title" href="learning/index.es.html">Manual de aprendizaje</a><br>
+	       (también en <a class="title" href="learning-big-page.es.html">una sola
+	       página</a> ~ 1.5 Mb, o en <a class="title" href="learning.es.pdf">PDF</a>)<br>
              (comience por aquí)</li>
 
 	     <li>
-              <a class="title" href="user/music-glossary/index.html">Glosario musical</a> multilingüe<br>
-	      (también en <a class="title" href="user/music-glossary-big-page.html">una sola página</a> ~ 500 Kb,
-              o en <a class="title" href="user/music-glossary.pdf">PDF</a>)<br>
+              <a class="title" href="music-glossary/index.html">Glosario musical</a> multilingüe<br>
+	      (también en <a class="title" href="music-glossary-big-page.html">una sola página</a> ~ 500 Kb,
+              o en <a class="title" href="music-glossary.pdf">PDF</a>)<br>
               (para usuarios de habla no inglesa)</li>
 	  </ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
             <li>
-	      <a class="title" href="topdocs/NEWS.es.html">Noticias</a><br>
+	      <a class="title" href="changes.es.html">Noticias</a><br>
               (cambios producidos desde el último<br>lanzamiento importante)</li>
 	    <li>
 	      <a class="title" href="../examples.html">Ejemplos</a><br>
@@ -62,28 +62,28 @@
           <td valign="baseline" class="left-column">
 	  <ul>
 	    <li>
-               <a class="title" href="user/lilypond/index.es.html">Referencia de la notación</a><br>
-               (también en <a class="title" href="user/lilypond-big-page.es.html">una sola página</a> ~ 4 Mb,
-	       o en <a class="title" href="user/lilypond.es.pdf">PDF</a>)<br>
+               <a class="title" href="notation/index.es.html">Referencia de la notación</a><br>
+               (también en <a class="title" href="notation-big-page.es.html">una sola página</a> ~ 4 Mb,
+	       o en <a class="title" href="notation.es.pdf">PDF</a>)<br>
                (escribir música con LilyPond)</li>
 	    <li>
-	      <a class="title" href="user/lilypond-internals/index.html">Referencia de funcionamiento interno</a>
+	      <a class="title" href="internals/index.html">Referencia de funcionamiento interno</a>
 	      [en inglés]<br>
-	      (también en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb, o en <a class="title" href="user/lilypond-internals.pdf">PDF</a>)<br>
+	      (también en <a class="title" href="internals-big-page.html">una sola página</a> ~ 1 Mb, o en <a class="title" href="internals.pdf">PDF</a>)<br>
               (definiciones para hacer trucos)</li>
 	  </ul>
 	</td>
 	<td valign="baseline" class="right-column">
 	  <ul>
             <li>
-	      <a class="title" href="user/lilypond-program/index.es.html">Utilización del programa</a><br>
-	      (también en <a class="title" href="user/lilypond-program-big-page.es.html">una sola página</a>,
-	      o en <a class="title" href="user/lilypond-program.es.pdf">PDF</a>)<br>
+	      <a class="title" href="application/index.es.html">Utilización del programa</a><br>
+	      (también en <a class="title" href="application-big-page.es.html">una sola página</a>,
+	      o en <a class="title" href="application.es.pdf">PDF</a>)<br>
               (cómo instalar y ejecutar el programa)</li>
 	    <li>
-	      <a class="title" href="../input/lsr/lilypond-snippets/index.html">Fragmentos de código</a> [en inglés]<br>
-	      (también en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">una sola página</a> ~ 2 Mb,
-	      o en <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)<br>
+	      <a class="title" href="snippets/index.html">Fragmentos de código</a> [en inglés]<br>
+	      (también en <a class="title" href="snippets-big-page.html">una sola página</a> ~ 2 Mb,
+	      o en <a class="title" href="snippets.pdf">PDF</a>)<br>
               (Trucos breves, consejos y ejemplos)</li>
 	  </ul>
 	</td>
@@ -93,7 +93,7 @@
           <td valign="baseline" class="left-column">
 	  <ul>
 	    <li>
-	      <a class="title" href="devel/index.html">Recursos para desarrolladores</a><br>
+	      <a class="title" href="devel.html">Recursos para desarrolladores</a><br>
               (documentos de interés para desarrolladores y colaboradores)</li>
 	  </ul>
 	  </td>

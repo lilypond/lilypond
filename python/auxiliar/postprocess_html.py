@@ -13,17 +13,19 @@ import langdefs
 
 # This is to try to make the docball not too big with almost duplicate files
 # see process_links()
-non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
-                    'Documentation/user/out-www/lilypond-internals-big-page',
-                    'Documentation/user/out-www/lilypond-learning-big-page',
-                    'Documentation/user/out-www/lilypond-program-big-page',
-                    'Documentation/user/out-www/music-glossary-big-page',
+non_copied_pages = ['Documentation/out-www/notation-big-page',
+                    'Documentation/out-www/internals-big-page',
+                    'Documentation/out-www/learning-big-page',
+                    'Documentation/out-www/application-big-page',
+                    'Documentation/out-www/music-glossary-big-page',
+                    'Documentation/out-www/contributor',
+                    'Documentation/out-www/changes',
+                    'Documentation/out-www/snippets',
                     'out-www/examples',
                     'Documentation/topdocs',
                     'Documentation/bibliography',
                     'Documentation/out-www/THANKS',
                     'Documentation/out-www/DEDICATION',
-                    'Documentation/out-www/devel',
                     'input/']
 
 def _doc (s):
@@ -91,13 +93,10 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
-splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|\
-Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|\
-lilypond-learning))/')
-
-snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
-user_ref_re = re.compile ('href="(?:\.\./)?lilypond\
-(-internals|-learning|-program|(?!-snippets))')
+splitted_docs_re = re.compile ('(Documentation/out-www/(notation|\
+music-glossary|application|general|learning|snippets))/')
+lily_snippets_re = re.compile ('(href|src)="(../lily-.*?|.*?[.]png)"')
+pictures_re = re.compile ('src="(pictures/.*?)"')
 
 docindex_link_re = re.compile (r'href="index.html"')
 
@@ -108,22 +107,18 @@ docindex_link_re = re.compile (r'href="index.html"')
 # this also fixes missing PNGs only present in translated docs
 def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
-        s = re.sub ('(href|src)="(../lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
+        s = lily_snippets_re.sub ('\\1="../\\2"', s)
+        s = pictures_re.sub ('src="../\\1"', s)
 
-    # fix xrefs between documents in different directories ad hoc
-    if 'user/out-www/lilypond' in prefix:
-        s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
-    elif 'input/lsr' in prefix:
-        s = user_ref_re.sub ('href="source/Documentation/user/lilypond\\1', s)
-    
     # we also need to replace in the lsr, which is already processed above!
-    if 'input/' in prefix or 'Documentation/topdocs' in prefix:
+    if 'input/' in prefix or 'Documentation/topdocs' in prefix or \
+            'Documentation/contributor' in prefix:
         # fix the link from the regtest, lsr and topdoc pages to the doc index 
         # (rewrite prefix to obtain the relative path of the doc index page)
         rel_link = re.sub (r'out-www/.*$', '', prefix)
         rel_link = re.sub (r'[^/]*/', '../', rel_link)
-        if 'input/regression' in prefix:
-            indexfile = "Documentation/devel/index"
+        if 'input/regression' in prefix or 'Documentation/contributor' in prefix:
+            indexfile = "Documentation/devel"
         else:
             indexfile = "index"
         s = docindex_link_re.sub ('href="' + rel_link + indexfile + '.html\"', s)
@@ -225,7 +220,8 @@ def process_i18n_big_page_links (match, prefix, lang_ext):
     if big_page_name:
         destination_path = os.path.normpath (os.path.join (os.path.dirname (prefix),
                                                            big_page_name.group (0)))
-        if not lang_ext in pages_dict[destination_path]:
+        if not (destination_path in pages_dict and
+                lang_ext in pages_dict[destination_path]):
             return match.group (0)
     return 'href="' + match.group (1) + '.' + lang_ext \
         + match.group (2) + match.group (3) + '"'

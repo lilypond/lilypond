@@ -34,7 +34,7 @@
   (let* ((fdocs (map (lambda (x)
 		       (document-scheme-function (car x) (cadr x) (cddr x)))
 		     all-scheme-functions))
-	 (sfdocs (sort fdocs string<?))) 
+	 (sfdocs (sort fdocs ly:string-ci<?)))
     (make <texi-node>
       #:name "Scheme functions"
       #:desc "Primitive functions exported by LilyPond."

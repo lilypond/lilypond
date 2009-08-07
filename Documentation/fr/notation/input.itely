@@ -1,0 +1,368 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Jean-Charles Malahieude, Valentin Villenave
+
+@node Généralités en matière d'entrée et sortie
+@chapter Généralités en matière d'entrée et sortie
+@translationof General input and output @c external
+
+@untranslated
+
+
+@menu
+* Structure de fichier::             
+* Titres et entêtes::          
+* Travail sur des fichiers texte::    
+* Contrôle des sorties::          
+* Sortie MIDI::                 
+@end menu
+
+@node Structure de fichier
+@section Structure de fichier
+@translationof Input structure @c external
+
+@untranslated
+
+
+@menu
+* Structure d'une partition::        
+* Plusieurs partitions dans un même ouvrage::   
+* Structure de fichier::              
+@end menu
+
+@node Structure d'une partition
+@subsection Structure d'une partition
+@translationof Structure of a score @c external
+
+@untranslated
+
+
+@node Plusieurs partitions dans un même ouvrage
+@subsection Plusieurs partitions dans un même ouvrage
+@translationof Multiple scores in a book @c external
+
+@untranslated
+
+
+@node Structure de fichier
+@subsection Structure de fichier
+@translationof File structure @c external
+
+@untranslated
+
+
+@node Titres et entêtes
+@section Titres et entêtes
+@translationof Titles and headers @c external
+
+@untranslated
+
+
+@menu
+* Création de titres::             
+* Titres personnalisés::               
+* Référencement des numéros de page::   
+* Table des matières::           
+@end menu
+
+@node Création de titres
+@subsection Création de titres
+@translationof Creating titles @c external
+
+@untranslated
+
+
+@node Titres personnalisés
+@subsection Titres personnalisés
+@translationof Custom titles @c external
+
+@untranslated
+
+
+@node Référencement des numéros de page
+@subsection Référencement des numéros de page
+@translationof Reference to page numbers @c external
+
+@untranslated
+
+
+@node Table des matières
+@subsection Table des matières
+@translationof Table of contents @c external
+
+@untranslated
+
+
+@node Travail sur des fichiers texte
+@section Travail sur des fichiers texte
+@translationof Working with input files @c external
+
+@untranslated
+
+
+@menu
+* Insertion de fichiers LilyPond::    
+* Différentes éditions à partir d'une même source::  
+* Codage du texte::               
+* Affichage de notation au format LilyPond::  
+@end menu
+
+@node Insertion de fichiers LilyPond
+@subsection Insertion de fichiers LilyPond
+@translationof Including LilyPond files @c external
+
+@untranslated
+
+
+@node Différentes éditions à partir d'une même source
+@subsection Différentes éditions à partir d'une même source
+@translationof Different editions from one source @c external
+
+@untranslated
+
+
+@menu
+* Utilisation de variables::             
+* Utilisation de balises::                  
+@end menu
+
+@node Utilisation de variables
+@unnumberedsubsubsec Utilisation de variables
+@translationof Using variables @c external
+
+@untranslated
+
+
+@node Utilisation de balises
+@unnumberedsubsubsec Utilisation de balises
+@translationof Using tags
+@funindex \tag
+@cindex tag
+ 
+La commande @code{\tag} affecte un nom à des expressions musicales.
+Les expressions ainsi balisées pourront être filtrées par la suite.
+Ce mécanisme permet d'obtenir différentes versions à partir d'une même
+source musicale. 
+
+Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
+l'une pour le conducteur, l'autre pour l'instrumentiste, et qui
+comportera les ornements. 
+ 
+@example
+c1
+<<
+  \tag #'partie <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'conducteur R1
+>>
+c1
+@end example
+
+@noindent
+Ce principe peut s'appliquer aux articulations, textes, etc.  Il
+suffit de positionner
+
+@example
+-\tag #@var{votre-balise}
+@end example
+
+@noindent
+avant l'articulation, comme ici :
+
+@example
+c1-\tag #'part ^4
+@end example
+
+@noindent 
+Ceci définira une note avec une indication de doigté conditionnelle.
+ 
+@cindex keepWithTag
+@cindex removeWithTag
+C'est grâce aux commandes @code{\keepWithTag} et @code{\removeWithTag}
+que vous filtrerez les expressions balisées.  Par exemple :
+
+@example
+<<
+  @var{de la musique}
+  \keepWithTag #'score @var{de la musique}
+  \keepWithTag #'part @var{de la musique}
+>>
+@end example
+
+@noindent
+donnerait :
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+Les arguments de la commande @code{\tag} doivent être un symbole (tel
+que @code{#'score} ou @code{#'part}), suivi d'une expression musicale.
+Vous pouvez utiliser de multiples balises dans un morceau en
+saisissant plusieurs @code{\tag}.
+ 
+@example
+\tag #'original-part \tag #'transposed-part @dots{}
+@end example
+
+@ignore
+FIXME
+@seealso
+Exemples : @lsr{parts,tag@/-filter@/.ly}
+@end ignore
+
+
+@knownissues
+
+Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
+si vous imprimez une partition avec les deux sections balisées.
+
+
+@node Codage du texte
+@subsection Codage du texte
+@translationof Text encoding @c external
+
+@untranslated
+
+
+@node Affichage de notation au format LilyPond
+@subsection Affichage de notation au format LilyPond
+@translationof Displaying LilyPond notation @c external
+
+@untranslated
+
+
+@node Contrôle des sorties
+@section Contrôle des sorties
+@translationof Controlling output @c external
+
+@untranslated
+
+
+@menu
+* Extraction de fragments musicaux::  
+* Ignorer des passages de la partition::    
+@end menu
+
+@node Extraction de fragments musicaux
+@subsection Extraction de fragments musicaux
+@translationof Extracting fragments of music @c external
+
+@untranslated
+
+
+@node Ignorer des passages de la partition
+@subsection Ignorer des passages de la partition
+@translationof Skipping corrected music @c external
+
+@untranslated
+
+
+@node Sortie MIDI
+@section Sortie MIDI
+@translationof MIDI output @c external
+
+@untranslated
+
+
+@menu
+* Création de fichiers MIDI::         
+* Le bloc MIDI::                  
+* Contenu de la sortie MIDI::  
+* Répétitions et MIDI::             
+* Gestion des nuances en MIDI::   
+@end menu
+
+@node Création de fichiers MIDI
+@subsection Création de fichiers MIDI
+@translationof Creating MIDI files @c external
+
+@untranslated
+
+
+@unnumberedsubsubsec Noms d'instrument
+@node Le bloc MIDI
+@subsection Le bloc MIDI
+@translationof MIDI block @c external
+
+@untranslated
+
+
+@node Contenu de la sortie MIDI
+@subsection Contenu de la sortie MIDI
+@translationof What goes into the MIDI output? @c external
+
+@untranslated
+
+
+@unnumberedsubsubsec Éléments pris en compte dans le MIDI
+@unnumberedsubsubsec Éléments non pris en compte dans le MIDI
+
+@node Répétitions et MIDI
+@subsection Répétitions et MIDI
+@translationof Repeats in MIDI
+
+@cindex reprises développées
+@funindex \unfoldRepeats
+
+Au prix de quelques réglages, les reprises de toutes sortes peuvent être
+rendues dans le fichier MIDI.  Il suffit pour cela de recourir à la
+fonction @code{\unfoldRepeats}, qui développe toutes les reprises.  En
+d'autre termes, @code{\unfoldRepeats} transforme toutes les reprises
+en reprises de type @code{unfold}.
+
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+
+Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
+MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI, avec
+des reprises explicites, et l'autre pour la partition, avec des reprises
+notées sous forme de barres de reprise, de trémolo ou de symboles de
+pourcentage.  Par exemple
+
+@example
+\score @{
+ @var{..musique..}
+ \layout @{ ..  @}
+@}
+\score @{
+ \unfoldRepeats @var{..musique..}
+ \midi @{ ..  @}
+@}
+@end example
+
+
+@node Gestion des nuances en MIDI
+@subsection Gestion des nuances en MIDI
+@translationof Controlling MIDI dynamics @c external
+
+@untranslated
+
+
+@unnumberedsubsubsec Indications de nuance
+@unnumberedsubsubsec Amplitude du volume en MIDI
+@unnumberedsubsubsec Égalisation de plusieurs instruments (i)
+@unnumberedsubsubsec Égalisation de plusieurs instruments (ii)

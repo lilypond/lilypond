@@ -46,7 +46,7 @@
 
 
 (define (identifier<? a b)
-  (string<?
+  (ly:string-ci<?
    (symbol->string (car a))
    (symbol->string (car b))))
 

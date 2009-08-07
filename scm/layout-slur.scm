@@ -1,4 +1,4 @@
-;;;; slur.scm -- Slur scheme stuff
+;;;; layout-slur.scm -- Slur scheme stuff
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 

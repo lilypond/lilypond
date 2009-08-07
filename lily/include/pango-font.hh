@@ -38,12 +38,12 @@ public:
   string description_string () const; 
   SCM font_file_name () const;
   void register_font_file (string, string, int);
-  Stencil text_stencil (string, bool tight) const;
+  Stencil text_stencil (string, bool, bool) const;
 
-  Stencil pango_item_string_stencil (PangoItem const *, string, bool tight) const;
+  Stencil pango_item_string_stencil (PangoItem const *, string, bool) const;
 
-  virtual Stencil word_stencil (string) const;
-  virtual Stencil text_stencil (string) const;
+  virtual Stencil word_stencil (string, bool) const;
+  virtual Stencil text_stencil (string, bool) const;
   virtual void derived_mark () const;
 };
 

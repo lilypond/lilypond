@@ -1,0 +1,670 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Valentin Villenave, Jean-Charles Malahieude
+@c Translation checkers: John Mandereau
+
+@node Notation sur la portée
+@section Notation sur la portée
+@translationof Staff notation
+
+@lilypondfile[quote]{staff-headword.ly}
+
+Cette section aborde les détails de gravure de la portée, la
+réalisation de partitions avec plusieurs portées et l'ajout
+d'indications globales d'exécution, présentes sur certaines portées
+seulement.
+
+@menu
+* Gravure des portées::           
+* Modification de portées individuelles::     
+* Écriture de parties séparées::               
+@end menu
+
+
+@node Gravure des portées
+@subsection Gravure des portées
+@translationof Displaying staves
+
+@menu
+* Initialisation de nouvelles portées::    
+* Regroupement de portées::             
+* Imbrication de regroupements de portées::  
+@end menu
+
+@node Initialisation de nouvelles portées
+@unnumberedsubsubsec Initialisation de nouvelles portées
+@translationof Instantiating new staves @c external
+
+@untranslated
+
+
+@node Regroupement de portées
+@unnumberedsubsubsec Regroupement de portées
+@translationof Grouping staves
+
+@cindex système, début de
+@cindex crochet vertical
+@cindex accolade verticale
+@cindex portée multiple
+@cindex portées, groupe de
+
+De nombreuses partitions sont écrites sur plusieurs portées.  Ces
+portées peuvent être regroupées de quatre manières différentes.
+
+@itemize @bullet
+@item Le groupe de portées est attaché par une accolade sur la gauche,
+et les barres de mesure sont d'un seul tenant. Il s'agit du contexte
+@rinternals{GrandStaff}.
+
+@lilypond[verbatim,ragged-right,quote]
+\new GrandStaff
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+
+@item Le groupe de portées est attaché par un crochet, et les barres
+de mesure sont d'un seul tenant. Il s'agit du contexte
+@rinternals{StaffGroup}.
+
+@lilypond[verbatim,ragged-right,quote]
+\new StaffGroup
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+
+
+
+@item Le groupe de portées est attaché par un crochet, mais les barres
+de mesure sont séparées d'une portée à l'autre. Il s'agit du contexte
+@rinternals{ChoirStaff}.
+
+@lilypond[verbatim,ragged-right,quote]
+\new ChoirStaff
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+
+@item Les portées du groupe ne sont pas attachées (hormis par une
+simple ligne verticale). Les barres de mesure sont détachées. Il
+s'agit de l'assemblage par défaut.
+
+@lilypond[verbatim,ragged-right,quote]
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+@end itemize
+
+
+@seealso
+Les barres de mesure au début de chaque système prennent l'un des styles
+@rinternals{SystemStartBar}, @rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket}.  Dans chaque contexte, seul l'un de
+ces styles est utilisé, et c'est la propriété
+@code{systemStartDelimiter} qui détermine lequel.
+
+
+@commonprop
+
+Les accolades et crochets délimitant les systèmes peuvent être imbriqués
+en profondeur,
+
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup
+\relative <<
+  \set StaffGroup.systemStartDelimiterHierarchy
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+>>
+@end lilypond
+
+@node Imbrication de regroupements de portées
+@unnumberedsubsubsec Imbrication de regroupements de portées
+@translationof Nested staff groups @c external
+
+@untranslated
+
+@node Modification de portées individuelles
+@subsection Modification de portées individuelles
+@translationof Modifying single staves
+
+Cette section explique le réglage de la gravure de chaque portée,
+comme la taille de portée ou le nombre de lignes ; sont aussi décrits
+la suspension et la reprise de portées et les portées d'@emph{ossia}.
+
+
+@menu
+* Symbole de la portée::                
+* Portées d'ossia::                
+* Masquage de portées::               
+@end menu
+
+@node Symbole de la portée
+@unnumberedsubsubsec Symbole de la portée
+@translationof Staff symbol
+
+@cindex symbole de portée
+@cindex portée, lignes de
+
+Les notes, nuances, etc. sont regroupés dans un assemblage de lignes
+horizontales, que l'on nomme la portée (en anglais @qq{staff}, et
+@qq{staves} au pluriel).  Dans LilyPond, ces lignes sont dessinées au
+moyen d'un objet de mise en forme à part entière, nommé @code{staff
+symbol} --- symbole de portée.
+
+
+L'aspect du symbole de portée peut être modifié selon différentes
+propriétés, telles que le nombre de lignes, leur épaisseur, ou leur
+éloignement.
+@ignore
+Vous en trouverez des exemples dans
+@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} et
+@lsr{staff,changing-the-staff-size.ly}.
+@end ignore
+
+De plus, la portée peut commencer et s'arrêter où l'on veut, grâce aux
+commandes @code{\startStaff} et @code{\stopStaff}.
+
+@lilypond[verbatim,relative=2,fragment]
+b4 b
+\override Staff.StaffSymbol #'line-count = 2
+\stopStaff \startStaff
+b b
+\revert Staff.StaffSymbol #'line-count
+\stopStaff \startStaff
+b b
+@end lilypond
+
+Cette manière de procéder peut être utilisée pour introduire des
+@qq{ossias}, ou dans des partitions à nombre de portées variable,
+comme sur l'exemple suivant :
+
+@cindex ossia
+
+@c @lilypondfile{ossia.ly}
+
+@cindex lignes de portée, nombre de
+@cindex lignes de portée, épaisseur des
+@cindex épaisseur des lignes de portées
+@cindex nombre de lignes de portée
+
+
+@seealso
+Référence du programme : @rinternals{StaffSymbol}.
+
+Exemples : @rlsr{Staff notation}.
+
+
+@node Portées d'ossia
+@unnumberedsubsubsec Portées d'ossia
+@translationof Ossia staves @c external
+
+@untranslated
+
+
+@node Masquage de portées
+@unnumberedsubsubsec Masquage de portées
+@translationof Hiding staves
+
+@cindex Frenched scores
+@cindex Masquer des portées
+
+Dans les partitions d'orchestre, les portées qui n'ont que des
+silences sont habituellement masquées afin de gagner de la place.  Ce
+style d'édition s'appelle en anglais @qq{French Score}.
+Cette fonctionnalité est activée par défaut dans les contextes 
+@rinternals{Lyrics}, @rinternals{ChordNames} et
+@rinternals{FiguredBass}.  Lorsque des lignes appartenant à ces
+contextes se retrouvent vides après placement des sauts de ligne,
+elles sont effacées.
+
+En ce qui concerne les portées normales, il existe un contexte
+@rinternals{Staff} spécifique qui permet d'arriver à ce résultat :
+les portées ne contenant rien ou uniquement des silences multi-mesures
+seront retirées.  La définition de ce contexte est enregistrée dans la
+variable @code{\RemoveEmptyStaffContext}.  Voyez comment la deuxième
+portée disparaît du deuxième système :
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \context { \RemoveEmptyStaffContext }
+}
+
+{
+  \relative c' <<
+    \new Staff { e4 f g a \break c1 }
+    \new Staff { c4 d e f \break R1 }
+  >>
+}
+@end lilypond
+
+Le premier système comportera absolument toutes les portées.  Si vous
+voulez masquer les portées vides y compris pour le premier système,
+vous devrez assigner vrai à la propriété @code{remove-first} dans
+@rinternals{VerticalAxisGroup}. 
+
+@example
+\override Score.VerticalAxisGroup #'remove-first = ##t
+@end example
+
+Pour masquer d'autres types de contextes, vous pouvez utiliser 
+@code{\AncientRemoveEmptyStaffContext} ou
+@code{\RemoveEmptyRhythmicStaffContext}. 
+
+Une application particulière de cette fonctionnalité est la création
+d'une @emph{ossia} --- variante d'une partie de la mélodie --- affichée à
+l'aide d'une portée supplémentaire.
+
+
+@node Écriture de parties séparées
+@subsection Écriture de parties séparées
+@translationof Writing parts
+
+@menu
+* Indications métronomiques::             
+* Noms d'instrument::            
+* Citation d'autres voix::        
+* Mise en forme d'une citation::        
+@end menu
+
+@node Indications métronomiques
+@unnumberedsubsubsec Indications métronomiques
+@translationof Metronome marks
+
+@cindex Tempo
+@cindex battements par minute
+@cindex indication métronomique
+
+Le métronome se règle de la manière suivante,
+@example
+\tempo @var{durée} = @var{par minute}
+@end example
+
+Les indications métronomiques seront interprétées, dans le fichier
+MIDI, comme des changements de tempo.  Ils seront imprimés sur la
+partition comme ici :
+@funindex \tempo
+@lilypond[quote,ragged-right,verbatim,fragment]
+\tempo 8.=120 c''1
+@end lilypond
+
+
+@commonprop
+
+Vous pouvez indiquer un changement de tempo pour le fichier MIDI sans
+pour autant l'imprimer.  Il suffit alors de le rendre invisible pour
+l'impression :
+@example
+\once \override Score.MetronomeMark #'transparent = ##t
+@end example
+
+Vous pouvez imprimer d'autres indications métronomiques, telles que
+des équivalences, en utilisant ce type d'étiquette textuelle :
+@lilypond[quote,ragged-right,verbatim,relative,fragment]
+c4^\markup {
+  (
+  \smaller \general-align #Y #DOWN \note #"16." #1
+  =
+  \smaller \general-align #Y #DOWN \note #"8" #1
+  ) }
+@end lilypond
+
+@noindent
+Pour plus de détails, voir @ref{Mise en forme du texte}.
+
+
+@seealso
+Référence du programme : @rinternals{MetronomeMark}.
+
+
+@knownissues
+
+Les risques de collision ne sont pas vérifiés.  Dans le cas où il y
+aurait des notes au dessus de la portée ou d'autres objets
+(articulations, liaisons, texte, etc), l'indication métronomique peut
+venir en surimpression.  Augmentez alors le décalage de cette
+indication par rapport à la portée :
+
+@example
+\override Score.MetronomeMark #'padding = #2.5
+@end example
+
+
+@node Noms d'instrument
+@unnumberedsubsubsec Noms d'instrument
+@translationof Instrument names
+
+Dans un conducteur, les noms d'instrument sont portés en regard de
+chacune des portées.
+
+Ce résultat s'obtient en spécifiant
+@rinternals{Staff}.@code{instrumentName} et
+@rinternals{Staff}.@code{shortInstrumentName}, ou
+@rinternals{PianoStaff}.@code{instrumentName} et 
+@rinternals{PianoStaff}.@code{shortInstrumentName}.  L'argument
+textuel apparaîtra avant le début de la portée.  La première ligne
+affichera @code{instrumentName}, et les suivantes
+@code{shortInstrumentName}. 
+
+@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+\set Staff.instrumentName = #"Ploink "
+\set Staff.shortInstrumentName = #"Plk "
+c1
+\break
+c''
+@end lilypond
+
+Le recours à la commande @code{\markup} permet de construire des noms
+d'instruments particuliers, tels que
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = \markup {
+  \column { "Clarinetti"
+            \line { "in B" \smaller \flat } } }
+c''1
+@end lilypond
+
+Si vous centrez le nom d'un instrument, il faudra le faire pour tous
+
+@lilypond[quote,verbatim,ragged-right]
+{ <<
+\new Staff {
+  \set Staff.instrumentName = \markup {
+    \center-column { "Clarinetti"
+      \line { "in B" \smaller \flat } } }
+  c''1
+}
+\new Staff {
+  \set Staff.instrumentName = \markup{ \center-align { Vibraphone }}
+  c''1
+}
+>>
+}
+@end lilypond
+
+Losque le nom d'un instrument est relativement long, il est judicieux
+d'augmenter le retrait --- @code{indent} --- au sein du bloc
+@code{\layout}. 
+
+Procédez comme suit pour centrer des noms d'instruments tout en
+préservant un décalage par rapport à la portée :
+
+@lilypond[quote,verbatim,ragged-right]
+\new StaffGroup \relative
+<<
+  \new Staff {
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
+    c1 c1
+  }
+  \new Staff {
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
+    c1 c1
+  }
+>>
+@end lilypond
+
+Des noms d'instruments peuvent s'utiliser dans d'autres contextes, tels
+que @code{GrandStaff}, @code{ChoirStaff}, ou @code{StaffGroup}, à
+condition de leur affecter le graveur approprié :
+
+@example
+\layout@{
+  \context @{\GrandStaff \consists "Instrument_name_engraver"@}
+@}
+@end example
+
+@noindent
+Pour de plus amples informations sur la manière d'activer ou
+désactiver un graveur, voir @ref{Modification des greffons de contexte}.
+
+Vous pouvez changer d'instrument en cours de morceau :
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = #"First"
+\set Staff.shortInstrumentName = #"one"
+c1 c c c \break
+c1 c c c \break
+\set Staff.instrumentName = #"Second"
+\set Staff.shortInstrumentName = #"two"
+c1 c c c \break
+c1 c c c \break
+@end lilypond
+
+
+@seealso
+Référence du programme : @rinternals{InstrumentName}.
+
+
+@node Citation d'autres voix
+@unnumberedsubsubsec Citation d'autres voix
+@translationof Quoting other voices
+
+@cindex cues
+@cindex citation
+
+Grâce aux citations de répliques, vous pouvez insérer directement dans une partie
+des fragments d'une autre partie.  Avant qu'une partie ne puisse être
+mentionnée ailleurs, elle doit être considérée comme reproductible.
+C'est le but de la commande @code{\addQuote}.
+
+@example
+\addQuote @var{nom} @var{musique}
+@end example
+
+
+@noindent
+Ici, @var{nom} représente une chaîne d'identification, et
+@var{musique} n'importe quelle musique.  Voici un exemple de
+@code{\addQuote} :
+
+@example
+\addQuote clarinet \relative c' @{
+  f4 fis g gis
+@}
+@end example
+
+Vous devez placer cette commande au niveau le plus haut, c'est à dire
+en dehors de tout bloc de musique.
+
+Après avoir fait appel à @code{\addquote}, la citation interviendra
+en utilisant @code{\quoteDuring} ou @code{\cueDuring} :
+
+@example
+\quoteDuring #@var{nom} @var{musique}
+@end example
+
+Au cours d'une partie, des extraits de répliques peuvent être cités en
+utilisant la commande @code{\quoteDuring}.
+
+@example
+\quoteDuring #"clarinet" @{ s2. @}
+@end example
+
+Cela citera trois noires (la durée de @code{s2.}) appartenant à la
+voix @code{clarinette} précédemment générée.
+
+Plus précisément, on s'arrête à cet instant de la partie en cours
+d'impression, et l'on extrait les notes à ce même instant dans la voix
+citée --- celle qui contient @code{\addQuote}.  C'est la raison pour
+laquelle l'argument de @code{\addQuote} doit englober toute la voix en
+question, y compris les éventuels silences à son début.
+
+Les citations tiennent compte des transpositions, aussi bien celle de
+l'instrument d'origine que celle de la partie où elle intervient, dans
+la mesure où elles sont spécifiées par la commande @code{\transposition}.
+
+@lilypond[quote,ragged-right,verbatim]
+\addQuote clarinet \relative c' {
+  \transposition bes
+  f4 fis g gis
+}
+
+{
+  e'8 f'8 \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
+
+Le type d'événements pris en charge pour la citation peut se régler
+avec la propriété @code{quotedEventTypes}.  Par défaut, sa valeur est
+fixée à @code{(note-event rest-event)}, ce qui signifie que seuls les
+notes et silences seront mentionnés par @code{\quoteDuring}.
+Définir
+
+@example
+\set Staff.quotedEventTypes =
+       #'(note-event articulation-event dynamic-event)
+@end example
+
+@noindent
+reproduira les notes (mais pas les silences), ainsi que les scripts
+et nuances.
+
+@knownissues
+
+Seul le contenu de la première @rinternals{Voice} rencontrée dans la
+partie marquée d'une commande @code{\addQuote} pourra être retenu. Par
+voie de conséquence, @code{music} ne saurait comprendre de @code{\new}
+ou une instance @code{context Voice} qui la ferait passer à une autre voix.
+
+Citer des notes d'ornement ne fonctionne pas, et peut même entraîner
+un blocage de LilyPond.
+
+Citer des triolets imbriqués peut entraîner un résultat de médiocre qualité.
+
+
+@seealso
+Dans ce manuel : @ref{Instruments transpositeurs}.
+
+Exemples : @rlsr{Staff notation}.
+
+Référence du programme : @rinternals{QuoteMusic}.
+
+
+@node Mise en forme d'une citation
+@unnumberedsubsubsec Mise en forme d'une citation
+@translationof Formatting cue notes
+
+@cindex petites notes, formater des
+
+La section précédente indiquait comment insérer des notes d'une autre
+voix.  Nous allons maintenant voir une fonction musicale avancée,
+@code{\cueDuring}, qui facilite le formatage des petites notes.
+
+Sa syntaxe est :
+
+@example
+  \cueDuring #@var{nom} #@var{updown} @var{musique}
+@end example
+
+Des notes issues de la partie @var{nom} s'insèreront dans une
+@rinternals{Voice} nommée @code{cue}, simultanément avec
+@var{musique} --- habituellement un silence.  L'apparition des petites
+notes initialise une polyphonie temporaire pour la portée concernée.  
+L'argument @var{updown} détermine si ces petites notes seront
+attachées à la première ou à la seconde voix.
+
+
+@lilypond[verbatim,ragged-right]
+smaller = {
+  \set fontSize = #-2
+  \override Stem #'length-fraction = #0.8
+  \override Beam #'thickness = #0.384
+  \override Beam #'length-fraction = #0.8
+}
+
+\addQuote clarinet \relative {
+  R1*20
+  r2 r8 c' f f
+}
+
+\new Staff \relative  <<
+
+  % setup a context for cue notes.
+  \new Voice = "cue" { \smaller \skip 1*21 }
+
+  \set Score.skipBars = ##t
+
+  \new Voice {
+    R1*20
+    \cueDuring #"clarinet" #UP {
+      R1
+    }
+    g4 g2.
+  }
+>>
+@end lilypond
+
+
+Quelques indications pour une citation efficace :
+
+@itemize @bullet
+@item
+ Les notes de la citation sont dans une police plus petite.
+@item
+ La citation comporte une étiquette indiquant l'instrument qui joue.
+@item
+ Lorsque la partie originale reprend sa place, rappeler l'instrument.
+
+@c really?  Are you sure about that last point?  I'll check after 3.0 -gp
+
+@c Yes, this is good practice.  Otherwise, the start of the original
+@c part can only be seen from the font size.  This is not good enough
+@c for sight-reading.  It is possilbe to use other
+@c markers (e.g. a big close-bracket over the staff) to indicate the cue
+@c   notes are
+@c finished.
+@c -hwn
+
+
+Tout autre modification introduite par la citation devrait être
+annulée.  Par exemple, si l'instrument cité utilise une autre clé, il
+faudra revenir à la clé habituelle.
+
+@end itemize
+
+La macro @code{\transposedCueDuring} est particulièrement adaptée pour
+des instrument ayant une tessiture éloignée, comme dans le cas d'un
+piccolo cité dans une partie de contrebasson.
+
+@lilypond[verbatim,ragged-right,quote]
+picc = \relative c''' {
+  \clef "treble^8"
+  R1 |
+  c8 c c e g2 |
+  a4 g g2 |
+}
+\addQuote "picc" { \picc }
+
+cbsn = \relative c, {
+  \clef "bass_8"
+  c4 r g r
+  \transposedCueDuring #"picc" #UP c,, { R1 } |
+  c4 r g r |
+}
+
+<<
+  \context Staff = "picc" \picc
+  \context Staff = "cbsn" \cbsn
+>>
+@end lilypond
+
+

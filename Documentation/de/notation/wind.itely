@@ -1,0 +1,245 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@node Blasinstrumente
+@section Blasinstrumente
+@translationof Wind instruments
+
+@lilypondfile[quote]{wind-headword.ly}
+
+Dieser Abschnitt beinhaltet einige Notationselemente, die
+bei der Notation von Blasinstrumenten auftreten.
+
+@menu
+* Übliche Notation für Bläser::
+* Dudelsack::
+@end menu
+
+
+@node Übliche Notation für Bläser
+@subsection Übliche Notation für Bläser
+@translationof Common notation for wind instruments
+
+Dieser Abschnitt erklärt Eigenheiten, die für die meisten
+Blasinstrumente gültig sind.
+
+@menu
+* Referenz für Blasinstrumente::
+* Fingersatz::
+@end menu
+
+@node Referenz für Blasinstrumente
+@unnumberedsubsubsec Referenz für Blasinstrumente
+@translationof References for wind instruments
+
+@cindex Blasinstrumente
+
+Viele Besonderheiten der Blasinstrumentenotation haben mit
+Atmung und Spielart zu tun:
+
+@itemize
+@item Atmung kann durch Pausen oder mit Atemzeichen angezeigt werden,,
+siehe @ref{Atemzeichen}.
+@item Legato kann durch Legatobögen angezeigt werden, siehe
+@ref{Legatobögen}.
+@item Unterschiedliche Artikulationen, Legato, Portato, Staccato,
+werden normalerweise mit Artikulationszeichen angemerkt, teilweise
+auch in Verbindung mit Legatobögen, siehe @ref{Artikulationszeichen und Verzierungen} und @ref{Liste der Arktikulationszeichen}.
+@item Flatterzunge wird angezeigt, indem ein Tremolozeichen und eine
+Anmerkung für die ensprechende Note gesetzt wird. Siehe @ref{Tremolo-Wiederholung}.
+@end itemize
+
+Es gibt auch noch weitere Aspekte der Notation, die für Blasinstrumente
+relevant sein können:
+
+@itemize
+@item Viele Instrumente sind transponierend, siehe
+@ref{Transposition von Instrumenten}.
+@item Das Zug-Glissando ist charakteristisch für die Posaune, aber
+auch andere Instrumente können Glissandos ausführen. Siehe
+@ref{Glissando}.
+@item Obertonreihenglissandi, die auf allen Blechblasinstrumenten möglich,
+aber besonders üblich für das Waldhorn sind, werden üblicherweise mit
+Verzierungsnoten geschrieben. Siehe
+@ref{Verzierungen}.
+@item Tonhöhenschwankungen am Ende eines Tons werden gezeigt in
+@ref{Glissando zu unbestimmter Tonhöhe}.
+@item Ventil- oder Klappenschläge werden oft als Kreuznoten
+dargestellt, siehe
+@ref{Besondere Notenköpfe}.
+@item Holzbläser können tiefe Noten überblasen.  Derartige Noten
+werden als @code{flageolet}-Artikulation notiert. Siehe
+@ref{Liste der Arktikulationszeichen}.
+@item Die Benutzung von Dämpfern für Blechblasinstrumente wird meistens
+durch Text gefordert, aber bei schnellem Wechsel bietet es sich an,
+die Artikulationszeichen @code{stopped} und @code{open} zu benutzen.
+Siehe
+@ref{Artikulationszeichen und Verzierungen} und
+@ref{Liste der Arktikulationszeichen}.
+@item Gestopfte Hörner werden mit dem @code{stopped}-Artikulationszeichen
+notiert. Siehe
+@ref{Artikulationszeichen und Verzierungen}.
+@end itemize
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing--flageolet-mark-size.ly}
+
+
+@seealso
+Notationsreferenz:
+@ref{Atemzeichen},
+@ref{Legatobögen},
+@ref{Artikulationszeichen und Verzierungen},
+@ref{Liste der Arktikulationszeichen},
+@ref{Tremolo-Wiederholung},
+@ref{Transposition von Instrumenten},
+@ref{Glissando},
+@ref{Verzierungen},
+@ref{Glissando zu unbestimmter Tonhöhe},
+@ref{Besondere Notenköpfe},
+
+Schnipsel:
+@rlsr{Winds}
+
+
+@node Fingersatz
+@unnumberedsubsubsec Fingersatz
+@translationof Fingerings
+
+Alle Blasinstrumente außer der Posaune benötigen mehrere Finger, um
+verschiedene Tonhöhen zu produzieren.
+
+TBC
+
+
+@node Dudelsack
+@subsection Dudelsack
+@translationof Bagpipes
+
+Dieser Abschnitt beinhaltet Information zur Notation von Dudelsackmusik.
+
+@menu
+* Dudelsack-Defintionen::
+* Dudelsack-Beispiele::
+@end menu
+
+
+@node Dudelsack-Defintionen
+@unnumberedsubsubsec Dudelsack-Defintionen
+@translationof Bagpipe definitions
+
+@cindex Dudelsack
+@cindex Sackpfeife
+@cindex Schottischer Dudelsack
+@funindex \taor
+@funindex taor
+@funindex \hideKeySignature
+@funindex hideKeySignature
+@funindex \showKeySignature
+@funindex showKeySignature
+
+LilyPond besitzt spezielle Definitionen, mit der die Musik
+des schottischen Hochland-Dudelsacks notiert wird. Um sie
+zu benutzen, muss
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+am Anfang der LilyPond-Quelldatei eingefügt werden. Hierdurch
+können dann bestimmte Verzierungsnoten, die für die Dudelsackmusik
+üblich sind, mit kurzen Befehlen eingefügt werden. So reicht etwa der
+Befehl @code{\taor}, anstatt
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@noindent zu schreiben.
+
+@code{bagpipe.ly} enthält außerdem Definitionen für Tonhöhen von
+Dudelsacknoten in bestimmten Oktaven, so dass man sich nicht mehr um
+@code{\relative} oder @code{\transpose} kümmern muss.
+
+@lilypond[ragged-right,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+Musik für den Dudelsack wird in D-Dur
+geschrieben (auch wenn das eigentlich nicht stimmt). Weil
+das aber die einzige Tonart ist, die benutzt werden kann, werden
+die Vorzeichen meistens nicht geschrieben. Damit das funktioniert,
+müssen die Noten immer mit @code{\hideKeySignature} beginnen.
+Wenn die Vorzeichen hingegen angezeigt werden sollen, kann das
+mithilfe des Befehls @code{\showKeySignature} vorgenommen werden.
+
+Einige moderne Dudelsacknoten benutzen halbe Finger auf c und f, um
+diese Noten zu erniedrigen.  Das kann angezeigt werden mit @code{cflat}
+bzw. @code{fflat}.  Gleicherweise kann das piobaireachd hohe g als
+@code{gflat} geschrieben werden, wenn es in leichter Musik vorkommt.
+
+@seealso
+Schnipsel:
+@rlsr{Winds}
+
+
+@node Dudelsack-Beispiele
+@unnumberedsubsubsec Dudelsack-Beispiele
+@translationof Bagpipe example
+
+So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für
+Dudelsack notiert.
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
+
+@seealso
+Schnipsel:
+@rlsr{Winds}

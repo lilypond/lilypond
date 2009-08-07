@@ -19,6 +19,7 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
+#include "program-option.hh"
 #include "stencil.hh"
 #include "stream-event.hh"
 #include "system.hh"
@@ -533,6 +534,9 @@ Grob::fixup_refpoint ()
 void
 Grob::warning (string s) const
 {
+  if (get_program_option ("warning-as-error"))
+    error (s);
+
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
     cause = g->get_property ("cause");
@@ -559,6 +563,9 @@ Grob::name () const
 void
 Grob::programming_error (string s) const
 {
+  if (get_program_option ("warning-as-error"))
+    error (s);
+
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
     cause = g->get_property ("cause");
@@ -569,7 +576,7 @@ Grob::programming_error (string s) const
   if (Music *m = unsmob_music (cause))
     m->origin ()->message (s);
   else if (Stream_event *ev = unsmob_stream_event (cause))
-    ev->origin ()->warning (s);
+    ev->origin ()->message (s);
   else
     ::message (s);
 }
@@ -606,8 +613,8 @@ ADD_INTERFACE (Grob,
 	       " properties are variables that are specific to one grob."
 	       "  Typically, lists of other objects, or results from"
 	       " computations are stored in mutable properties.  In"
-	       " particular, every call to @code{set-grob-property} (or its"
-	       " C++ equivalent) sets a mutable property.\n"
+	       " particular, every call to @code{ly:grob-set-property!}"
+	       " (or its C++ equivalent) sets a mutable property.\n"
 	       "\n"
 	       "The properties @code{after-line-breaking} and"
 	       " @code{before-line-breaking} are dummies that are not"
@@ -740,3 +747,17 @@ robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
   return ext;
 }
 
+// Checks whether there is a vertical alignment in the chain of
+// parents between this and commony.
+bool
+Grob::check_cross_staff (Grob *commony)
+{
+  if (Align_interface::has_interface (commony))
+    return true;
+
+  for (Grob *g = this; g && g != commony; g = g->get_parent (Y_AXIS))
+    if (Align_interface::has_interface (g))
+      return true;
+
+  return false;
+}

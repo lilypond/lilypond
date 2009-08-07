@@ -1,14 +1,36 @@
-;;;; backend-documentation-lib.scm -- Functions for backend documentation
+;;;; document-backend.scm -- Functions for backend documentation
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
 ;;;; (c) 2000--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
+(define (sort-grob-properties x)
+  ;; force 'meta to the end of each prop-list
+  (let ((meta (assoc 'meta x)))
+    (append (sort (assoc-remove! x 'meta) ly:alist-ci<?)
+            (list meta))))
+
+;; properly sort all grobs, properties, and interfaces
+;; within the all-grob-descriptions alist
+(map
+  (lambda (x)
+    (let* ((props      (assoc-ref all-grob-descriptions (car x)))
+           (meta       (assoc-ref props 'meta))
+           (interfaces (assoc-ref meta 'interfaces)))
+      (set! all-grob-descriptions
+        (sort (assoc-set! all-grob-descriptions (car x)
+               (sort-grob-properties
+                (assoc-set! props 'meta
+                 (assoc-set! meta 'interfaces
+                  (sort interfaces ly:symbol-ci<?)))))
+              ly:alist-ci<?))))
+  all-grob-descriptions)
+
 (define (interface-doc-string interface grob-description)
   (let* ((name (car interface))
 	 (desc (cadr interface))
-	 (props (sort (caddr interface) symbol<?))
+	 (props (caddr interface))
 	 (docfunc (lambda (pr)
 		    (property->texi
 		     'backend pr grob-description)))
@@ -61,7 +83,7 @@
 				     (hashq-ref iface->grob-table
 						(car interface)
 						'()))
-				string<?)))))
+				ly:string-ci<?)))))
     (make <texi-node>
       #:name name
       #:text (string-append
@@ -93,11 +115,14 @@ node."
 	 (name (cdr (assoc 'name meta)))
 	 ;;       (bla (display name))
 	 (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
-	 (ifacedoc (map (lambda (iface)
-			  (if (pair? iface)
-			      (ref-ify (symbol->string (car iface)))
-			      (ly:error (_ "pair expected in doc ~s") name)))
-			(reverse ifaces)))
+	 (ifacedoc (map ref-ify
+			(sort
+			 (map (lambda (iface)
+				(if (pair? iface)
+				    (symbol->string (car iface))
+				    (ly:error (_ "pair expected in doc ~s") name)))
+			      ifaces)
+			 ly:string-ci<?)))
 	 (engravers (filter
 		     (lambda (x) (engraver-makes-grob? name x))
 		     all-engravers-list))
@@ -139,7 +164,8 @@ node."
      (cons (cons key val)  prior))
    '() (ly:all-grob-interfaces)))
 
-(set! interface-description-alist (sort interface-description-alist alist<?))
+(set! interface-description-alist
+  (sort interface-description-alist ly:alist-ci<?))
 
 ;;;;;;;;;; check for dangling backend properties.
 (define (mark-interface-properties entry)
@@ -171,7 +197,7 @@ node."
     (map interface-doc interface-description-alist)))
 
 (define (backend-properties-doc-string lst)
-  (let* ((ps (sort (map symbol->string lst) string<?))
+  (let* ((ps (sort (map symbol->string lst) ly:string-ci<?))
 	 (descs (map (lambda (prop)
 		       (property->texi 'backend (string->symbol prop) '())) ps))
 	 (texi (description-list->texi descs #f)))

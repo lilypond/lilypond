@@ -1,0 +1,13 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
+ausgerichtet.  Das ist normalerweise die linke Ecke einer Linie oder,
+wenn die Nummern innerhalb einer Zeile gesetzt werden, auf der
+linken Seite eines Taktstrichs.  Die Nummern können auch
+direkt über dem Taktstrich positioniert werden oder rechts vom
+Taktstrich gesetzt werden.
+
+"
+  doctitlede = "Taktnummern ausrichten"
+
+

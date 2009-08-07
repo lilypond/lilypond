@@ -1,0 +1,2770 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@node Abstände
+@chapter Abstände
+@translationof Spacing issues
+
+Das finale Layout der Seite wird von drei Faktoren bestimmt: dem Layout
+der Seite, den Zeilenumbrüchen und der Platzverteilung.  Jeder Faktor
+beeinflusst auch die anderen mit.  Die Wahl der Platzverteilung
+entscheidet, wie eng die Notensysteme gesetzt werden.  Das wiederum
+hat Einfluss auf die gewählten Zeilenumbrüche und letztendlich also
+auch darauf, wieviele Seiten ein Stück beansprucht.
+
+Die Verteilung der Musik auf der Seite geschieht grob gesagt in
+vier Schritten.  Zuerst werden flexible Entfernungen (@qq{springs})
+gewählt, die auf den Notendauern basieren.  Alle möglichen
+Zeilenumbrüche werden getestet und ein @qq{Schlechtigkeitsscore}
+für die Umbrüche erstellt.  Danach wird die mögliche Höhe eines Systems
+ermittelt und schließlich wird eine bestimmte Kombination aus
+Seiten- und Zeilenumbruch ausgewählt, sodass weder die horizontale
+noch die vertikale Platzverteilung zu eng oder zu weit gesetzt wird.
+
+Einstellungen, die das Layout beeinflussen, können in zwei Umgebungen
+gesetzt werden: Die @code{\paper @{...@}}-Umgebung wird außerhalb einer
+@code{\score @{...@}}-Umgebung geschrieben und enthält Einstellungen,
+die für das gesamte Dokument gelten.  Die @code{\layout @{...@}}-Umgebung
+wird innerhalb von einer @code{\score @{...@}}-Umgebung notiert und
+enthält die Einstellungen für eine bestimmte Partitur.  Wenn Sie
+nur eine @code{\score @{...@}}-Umgebung in der Datei haben, haben
+beide Umgebungen den gleichen Effekt.  Die Befehle, die in diesem Abschnitt
+erklärt werden, können in beiden Umgebungen nach Bedarf gesetzt werden.
+
+@menu
+* Papier und Seiten::
+* Notenlayout::
+* Umbrüche::
+* Vertikale Abstände::
+* Horizontale Abstände::
+* Die Musik auf weniger Seiten zwingen::
+@end menu
+
+
+@node Papier und Seiten
+@section Papier und Seiten
+@translationof Paper and pages
+
+Dieser Abschnitt behandelt die Grenzen, die Notationsgebiete
+definieren.
+
+@menu
+* Papierformat::
+* Seitenformatierung::
+@end menu
+
+
+@node Papierformat
+@subsection Papierformat
+@translationof Paper size
+
+@cindex Papiergröße
+@cindex Größe, Papier
+@cindex Seitegröße
+@cindex Größe, Seite
+
+Zwei Funktionen ermöglichen es, die Papiergröße zu ändern:
+@code{set-default-paper-size} und @code{set-paper-size}.
+@code{set-default-paper-size} muss auf der obersten Ebene in
+der Quelldatei gesetzt werden, @code{set-paper-size} hingegegen
+muss sich in einer @code{\paper}-Umgebung befinden:
+
+@example
+#(set-default-paper-size "a4")
+@end example
+
+@example
+\paper @{
+  #(set-paper-size "a4")
+@}
+@end example
+
+@noindent
+@code{set-default-paper-size} bestimmt die Größe aller Seiten, während
+@code{set-paper-size} nur die Seitengröße für die Seiten definiert,
+auf die sich die aktuelle @code{\paper}-Umgebung bezieht.  Wenn die
+@code{\paper}-Umgebung auf der höchsten Ebene steht, bezieht sich die
+Papiergröße auf alle Seiten, wenn sie aber innerhalb einer
+@code{\book}-Umgebung definiert wird, nur auf die Seiten innerhalb
+dieses Buches.
+
+Die normalen Papierformate sind definiert, u.A. @code{a4},
+@code{letter}, @code{legal} und @code{11x17} (auch als
+Tabloit bekannt).  Sehr viel mehr Formate sind unterstützt.
+Einzelheiten finden sich in der Datei
+@file{scm/@/paper@/.scm} in der Definition von
+@code{paper-alist}.
+
+@warning{Das Standardformat ist @code{a4}.}
+
+Weitere Papierformate können hinzugefügt werden, indem die
+Definition von @code{paper-alist} in der Datei
+@file{scm/@/paper@/.scm} verändert wird.  Derartige
+Änderungen werden jedoch bei einer Aktualisierung des
+Programmes überschrieben.
+
+@cindex Ausrichtung, Papier
+@cindex Papier, Ausrichtung
+@cindex hochkant, Papier
+@cindex quer, Papier
+
+@funindex landscape
+
+Wenn das Symbol @code{'landscape} als Argument an die Funktion
+@code{set-default-paper-size}gehänt wird, werden die Seiten um
+90° gedreht und die Notensysteme entsprechend breiter gesetzt.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example
+
+Wenn man die Seitengröße setzt, werden einige Variablen der
+@code{\paper}-Umgebung verändert, wie etwa Seitenränder.  Um
+eine bestimmte Papiergröße mit veränderten @code{\paper}-Variablen
+zubenuttzen, muss die Papiergröße definiert werden, bevor diese
+Variablen neu gesetzt werden.
+
+
+@seealso
+Installierte Dateien:
+@file{scm/@/paper@/.scm}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Seitenformatierung
+@subsection Seitenformatierung
+@translationof Page formatting
+
+Ränder, Kopf- und Fußzeilen und andere Layoutvariablen werden
+entsprechend dem Papierformat automatisch gesetzt.
+
+Dieser Abschnitt zeigt einige der Papiervariablen, die geändert
+werden können.
+
+@menu
+* Vertikale Dimensionen::
+* Horizontale Dimensionen::
+* Weitere Layout-Variablen::
+@end menu
+
+
+@node Vertikale Dimensionen
+@unnumberedsubsubsec Vertikale Dimensionen
+@translationof Vertical dimensions
+
+Diese Variablen werden benutzt um andere vertikale Verhältnisse
+auf einer Seite zu produzieren:
+
+@funindex \paper
+@funindex after-title-space
+@funindex before-title-space
+@funindex between-system-padding
+@funindex between-system-space
+@funindex between-title-space
+@funindex bottom-margin
+@funindex foot-separation
+@funindex head-separation
+@funindex page-top-space
+@funindex paper-height
+@funindex top-margin
+
+@table @code
+
+@item after-title-space
+
+Die Größe des Abstands zwischen der Überschrift und dem ersten
+Notensystem.  Standard: @code{5\mm}.
+
+@item before-title-space
+
+Die Größe des Abstands zwischen dem letzten Notensystem einer
+Partitur und dem Titel der nächsten Partitur. Standard: @code{10\mm}.
+
+@item between-system-padding
+
+Der Mindestabstand zwischen dem untersten Symbol in einem Notensystem
+und dem obersten Symbol im sich darunter befindlichen System.
+Standard: @code{4\mm}.
+
+Wenn dieser Wert erhöht wird, werden Systeme, deren @qq{bounding box}
+sich beinahe berühren, weiter auseinander gezogen.
+
+@item between-system-space
+
+Der Abstand zwischen Systemen.  Das ist der ideale Abstand zwischen
+der Mitte des eines Systems (bzw. des untersten Systems einer Systemgruppe)
+und der Mitte des nächsten Systems (bzw. des obersten System der
+nächsten Systemgruppe).  Standard: @code{20\mm}.
+
+Wenn dieser Wert erhöhrt wird, erscheinen die Noten auf der Seite gleichmäßiger,
+wobei sie aber auch mehr Platz einnehmen.
+
+@item between-title-space
+
+Der Abstand zwischen aufeinanderfolgenden Überschriften (etwa die
+Überschrift für ein @code{book} und die Überschrift einer Partitur.
+Standard: @code{2\mm}.
+
+@item bottom-margin
+
+Der Rand zwischen der Fußzeile und dem unteren Rand der Seite.
+Standard: @code{6\mm}.
+
+@item foot-separation
+
+Der Abstand zwischen dem untersten Notensystem und der Fußzeile.
+Standard: @code{4\mm}.
+
+@item head-separation
+
+Der Abstand zwischen dem obersten System und der Kopfzeile. Standard:
+@code{4\mm}.
+
+@item page-top-space
+
+Der Abstand von der Oberkante des druckbaren Bereichs bis zur
+Mitte des ersten Notensystems.  Das funktioniert nur für Systeme,
+die nicht vertikal ausgedehnt sind.  Hohe Systeme bzw. Systemgruppen
+werden mit ihrer @qq{bounding box} an der Oberkante des
+druckbaren Bereichs ausgerichtet.  Standard: @code{12\mm}.
+
+@item paper-height
+
+Die Höhe der Seite.  Standard:  Die Höhe des aktuellen Papierformats.
+Zu Einzelheiten siehe @ref{Papierformat}.
+
+@item top-margin
+
+Der Rand zwischen der Kopfzeile und dem oberen Rand der Seite. Standard:
+@code{5\mm}.
+
+@end table
+
+
+@snippets
+
+Kopf- und Fußzeile werden von den Funktionen @code{make-footer} und
+@code{make-header} erstellt, welche in der @code{\paper}-Umgebung definiert
+werden.  Die Standardeinstellungen sind in den Dateien
+@file{ly/paper-defaults.ly} und @code{ly/titling-init.ly} dargestellt.
+
+Das Seitenlayout wird durch zwei Funktionen der @code{\paper}-Umgebung
+bestimmt: @code{page-music-height} und @code{page-make-stencil}.  Die erste
+teilt dem Zeilenumbruchsalgorithmus mit, wieviel Platz auf einer Seite
+belegt werden kann, die zweite hingegegen erstellt die konkrete Seite,
+nachdem sie die Systeme entgegengenommen hat, die auf der Seite platziert
+werden sollen.
+
+Beispiel:
+
+@example
+\paper@{
+  paper-width = 2\cm
+  top-margin = 3\cm
+  bottom-margin = 3\cm
+  ragged-last-bottom = ##t
+@}
+@end example
+
+Das nächste Beispiel zentriert Seitenzahlen unten auf jeder Seite:
+
+@example
+\paper @{
+  print-page-number = ##t
+  print-first-page-number = ##t
+  oddHeaderMarkup = \markup \fill-line @{ " " @}
+  evenHeaderMarkup = \markup \fill-line @{ " " @}
+  oddFooterMarkup = \markup @{ \fill-line @{
+     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
+     \fromproperty #'page:page-number-string @} @}
+  evenFooterMarkup = \markup @{ \fill-line @{
+     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
+     \fromproperty #'page:page-number-string @} @}
+@}
+@end example
+
+Werte der @code{\paper}-Umgebung können in Scheme definiert werden.  In diesem
+Fall sind @code{mm}, @code{in}, @code{pt} und @code{cm} Variablen,
+die in der Datei @file{paper-defaults.ly} mit Millimeter-Werten definiert
+sind.  Darum muss der Wert 2 cm in dem Beispiel unten multilpliziert werden
+muss:
+
+@example
+\paper @{
+ #(define bottom-margin (* 2 cm))
+@}
+@end example
+
+@seealso
+Notationsreferenz:
+@ref{Vertikale Abstände zwischen Systemen}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Horizontale Dimensionen
+@unnumberedsubsubsec Horizontale Dimensionen
+@translationof Horizontal dimensions
+
+@funindex horizontal-shift
+@funindex indent
+@funindex left-margin
+@funindex line-width
+@funindex paper-width
+@funindex short-indent
+
+@warning{Wenn @code{paper-width} manuell gesetzt wird, müssen
+möglicherweise auch die Werte von @code{line-width},
+@code{left-margin}, @code{indent} und @code{short-indent} angepasst
+werden.}
+
+Es gibt einige Variablen, die die horizontalen Dimensionen der Seite
+beeinflussen:
+
+@table @code
+
+@item horizontal-shift
+
+Der Wert, um den alle Systeme (und auch Überschriften und Systemtrenner)
+nach rechts verschoben werden.  Standard: @code{0.0}.
+
+@item indent
+
+Der Einzug für das erste System einer Partitur.  Standard:
+@code{paper-width} geteilt durch @code{14}, definiert in
+@code{set-default-paper-size} bzw. @code{set-paper-size}.
+
+@item left-margin
+
+Der Rand zwischen dem linken Rand der Seite und dem Anfang der Notensysteme.
+Standard: @code{10\mm}, definiert in
+@code{set-default-paper-size} oder @code{set-paper-size}.
+
+@item line-width
+
+Die Breite der Notensystems. Standard: @code{paper-width} minus
+@code{20\mm}, dfiniert in @code{set-default-paper-size} bzw.
+@code{set-paper-size}.
+
+@item paper-width
+
+Die Breite der Seite.  Standard: Die Breite des aktuellen
+Papierformats.  Zu Einzelheiten siehe @ref{Papierformat}.
+
+@item short-indent
+
+Der Einzug für alle Systeme einer Partitur ausschließlich das
+erste System.  Standard: @code{0}, dfiniert in
+@code{set-default-paper-size} bzw. @code{set-paper-size}.
+
+@end table
+
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@knownissues
+
+Die Option @code{right-margin} ist definiert, bestimmt aber nicht den
+rechten Rand der Seite.  Der Wert für den rechten Rand ergibt sich
+aus den Werten des linken Randes (@code{left-margin}) und der Zeilenbreite
+(@code{line-width}).
+
+
+@node Weitere Layout-Variablen
+@unnumberedsubsubsec Weitere Layout-Variablen
+@translationof Other layout variables
+
+Diese Variablen können verwendet werden, um das allgemeine Layout der Seite
+anzupassen.
+
+@funindex auto-first-page-number
+@funindex blank-last-page-force
+@funindex blank-page-force
+@funindex first-page-number
+@funindex page-breaking-between-system-padding
+@funindex page-count
+@funindex page-limit-inter-system-space
+@funindex page-limit-inter-system-space-factor
+@funindex page-spacing-weight
+@funindex print-all-headers
+@funindex print-first-page-number
+@funindex print-page-number
+@funindex ragged-bottom
+@funindex ragged-last
+@funindex ragged-last-bottom
+@funindex ragged-right
+@funindex system-separator-markup
+@funindex system-count
+
+@table @code
+
+@item auto-first-page-number
+
+Der Seitenumbruchsalgorithmus wird davon beeinflusst, ob die erste
+Seitenzahl gerade oder ungerade ist.  Wenn die Variable auf wahr
+gesetzt wird, entscheidet der Seitenumbruchsalgorithmus selber,
+ob die Noten auf einer geraden oder ungeraden Seite beginnen sollen.
+Das hat dann zur Folge, dass die erste Seite entweder bleibt wie
+sie ist oder um eins erhöht wird.  Standard: @code{##f}.
+
+@ignore
+
+FIXME: this variable is used, but I don't know what it does. -pm
+@item blank-after-score-page-force
+@funindex blank-after-score-page-force
+
+Default: @code{2}.
+
+@end ignore
+
+@item blank-last-page-force
+
+Die Strafpunkte, wenn eine Partitur auf einer ungeraden Seite
+beendet wird. Stadnard: @code{0}.
+
+@item blank-page-force
+
+Die Strafpunkte, wenn eine leere Seite mitten in einer Partitur
+auftritt.  Das wird nicht benutzt von @code{ly:optimal-breaking},
+weil hiermit niemals leere Seiten mitten in einer Partitur zugelassen
+werden.  Standard: @code{5}.
+
+@item first-page-number
+
+Der Wert der Seitenzahl auf der ersten Seite.  Standard: @code{#1}.
+
+@item max-systems-per-page
+
+Die maximale Anzahl an Notensystemen, die auf einer Seite gesetzt werden.  Das
+wird zur Zeit nur von dem @code{ly:optimal-breaking}-Alghoritmus
+unterstützt.  Standard: nicht gesetzt.
+
+@item min-systems-per-page
+
+Die minimale Anzahl an Notensystemen, die auf einer Seite gesetzt werden. Das
+kann dazu führen, dass Seiten zu dicht gefüllt werden, wenn der Wert
+zu groß gewählt wird.  Die Option ist zur Zeit nur von dem
+@code{ly:optimal-breaking}-Alghoritmus unterstützt.  Standard: nicht gesetzt.
+
+@item page-breaking-between-system-padding
+
+Überlistet die Seitenumbruchfunktion, indem ihr ein anderer Wert
+für @code{between-system-padding} mitgeteilt wird, als in Wirklichkeit
+eingestellt ist.  Wenn diese Variable beispielsweise auf einen
+deutlich größeren Wert als @code{between-system-padding} gesetzt
+wird, setzt die Seitenumbruchsfunktion weniger Systeme auf eine
+Seite.  Standard: nicht gesetzt.
+
+@item page-count
+
+Die Zahl der Seiten, die für eine Partitur benutzt werden sollen.
+Standard: nicht gesetzt.
+
+@item page-limit-inter-system-space
+
+Wenn wahr, wird Platz zwischen Systemen eingeschränkt, wenn viel
+Platz auf der Seite ist.  Standard: @code{##f}.  Einzelheiten siehe
+@ref{Vertikale Abstände zwischen Systemen}.
+
+@item page-limit-inter-system-space-factor
+
+Der Faktor, der von @code{page-limit-inter-system-space} verwendet
+wird.  Standard: @code{1.4}.  Einzelheiten siehe
+@ref{Vertikale Abstände zwischen Systemen}.
+
+@item page-spacing-weight
+
+Die relative Gewichtung von (vertikalem) Abstand auf der Seite und
+(horizontalem) Abstand innerhalb der Zeilen.  Hohe Werte gewichten
+die vertikalen Abstände mehr.  Standard: @code{#10}.
+
+@item print-all-headers
+
+Wenn wahr, werden alle Einträge des Titelfeldes (@code{\header}-Umgebung)
+für jede Partitur ausgegeben.  Normalerweise wird nur die
+Satzbezeichnung und die Opuszahl (@code{piece} und @code{opus})
+ausgegeben.  Standard: @code{##f}.
+
+@item print-first-page-number
+
+Wenn wahr, wird auch auf der ersten Seite die Seitenzahl ausgegeben.
+Standard: @code{##f}.
+
+@item print-page-number
+
+Wenn falsch, werden Seitenzahlen nicht ausgegeben.  Standard:
+@code{##t}.
+
+@item ragged-bottom
+
+Wenn wahr, werden die Systeme nicht gleichmäßig über die Seite
+verteilt sondern am oberen Seitenrand beginnend eng angeordnet.
+Das wirkt sich nicht auf die letzte Seite aus.  Standard: @code{##f}.
+
+Die Variable sollte auf wahr gesetzt werden für Stücke, die nur
+zwei oder drei Systeme pro Seite haben, wie etwa Orchesterpartituren.
+
+@item ragged-last
+
+Wenn wahr, wird die letzte Notenzeile einer Partitur nicht bis
+zum Zeilenende durchgezogen, sondern entsprechend mit Noten
+gefüllt und dann abgebrochen.  Standard: @code{##f}.
+
+@item ragged-last-bottom
+
+Wenn falsch, werden Systeme gleichmäßig über die letzte Seite
+verteilt.  Standard: @code{##t}.
+
+Stücke, die zwei oder mehr Seiten gut füllen, sollten die Option auf wahr
+gesetzt haben.
+
+Sie wirkt sich auch auf die letzte Seite von Buchteilen aus, d.h.
+Teilen eines Buches, die mit der @code{\bookpart}-Umgebung erstellt werden.
+
+@item ragged-right
+
+Wenn wahr, werden Systeme nicht im Blocksatz gesetzt, sondern erhalten
+nur ihre normale Breite.  Standard: @code{##f}.
+
+Wenn eine Partitur nur ein System hat, ist der Standardwert @code{##t}.
+
+@item system-separator-markup
+
+Ein Beschriftungsobjekt, das zwischen zwei Systeme gesetzt wird.  Das
+wird oft in Orchesterpartituren eingesetzt.  Standard: nicht gesetzt.
+
+Der Beschriftungsbefehl @code{\slashSeparator} kann für einen Trenner
+benutzt werden, etwa so:
+
+@lilypond[quote,ragged-right]
+#(set-default-paper-size "a6" 'landscape)
+\book {
+  \score {
+    \relative { c1 \break c1 }
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+  }
+}
+@end lilypond
+
+@item system-count
+
+Die Anzahl der Systeme, auf denen eine Partitur gesetzt werden soll.
+Standard: nicht gesetzt.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Die Anzahl an Systemen, die auf jede Seite gesetzt werden sollen.
+Diese Option wird zur Zeit nur von dem @code{ly:optimal-breaking}-Alghoritmus
+unterstützt.  Standard: nicht gesetzt.
+
+@end table
+
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@knownissues
+
+Die Standard-Kopfzeilendefinition setzt die Seitenzahl und das
+@code{instrument}-Feld aus der @code{\header}-Umgebung in eine
+Zeile.
+
+Die Überschriften (aus der @code{\header}-Umgebung) werden als
+ein System interpretiert, sodass @code{ragged-bottom} und
+@code{ragged-last-bottom} Platz zwischen die Überschrift und
+das erste System der Partitur setzen.
+
+
+@node Notenlayout
+@section Notenlayout
+@translationof Music layout
+
+@menu
+* Die Notensystemgröße einstellen::
+* Partiturlayout::
+@end menu
+
+
+@node Die Notensystemgröße einstellen
+@subsection Die Notensystemgröße einstellen
+@translationof Setting the staff size
+
+@cindex Schriftgröße, Einstellung
+@cindex Systemgröße, Einstellung
+@cindex Verändern der Schriftgröße
+@cindex Verändern der Systemgröße
+@funindex layout file
+
+Die Standardgröße der Notensysteme beträgt 20 Punkte (pt).
+Das kann auf zwei Arten geändert werden:
+
+Um die Systemgröße global für alle Partituren einer
+Datei (bzw. einer @code{\book}-Umgebung) zu verändern,
+geht man wie folgt vor:
+
+@example
+#(set-global-staff-size 14)
+@end example
+
+@noindent
+Hiermit wird die Standardhöhe der Notensysteme auf 14 pt
+gesetzt.  Die Schriftarten werden entsprechend verkleinert.
+
+Um die Systemhöhe für jede Partitur einzeln zu verändern,
+muss
+
+@example
+\score@{
+  ...
+  \layout@{
+  #(layout-set-staff-size 15)
+  @}
+@}
+@end example
+
+@noindent
+eingesetzt werden.
+
+Die Feta-Schriftart stellt die Noten- und Musiksymbole
+für acht verschiedene Größen zur Verfügung.  Jede
+Schriftgröße ist einer bestimmten Systemgröße angepasst:
+für kleinere Schriftgrößen werden die Zeichen etwas
+schwerer, um mit den ebenfalls dickeren Notenlinien
+zu harmonieren.  Die empfohlenen Notensystemgrößen
+sind in der Tabelle aufgeführt:
+
+@quotation
+@multitable @columnfractions .15 .2 .22 .2
+
+@item @b{Schriftbezeichnung}
+@tab @b{Höhe des Systems (pt)}
+@tab @b{Höhe des Systems (mm)}
+@tab @b{Benutzung}
+
+@item feta11
+@tab 11.22
+@tab 3.9
+@tab Taschenparituren
+
+@item feta13
+@tab 12.60
+@tab 4.4
+@tab
+
+@item feta14
+@tab 14.14
+@tab 5.0
+@tab
+
+@item feta16
+@tab 15.87
+@tab 5.6
+@tab
+
+@item feta18
+@tab 17.82
+@tab 6.3
+@tab Liederbücher
+
+@item feta20
+@tab 20
+@tab 7.0
+@tab Orchesterstimmen
+
+@item feta23
+@tab 22.45
+@tab 7.9
+@tab
+
+@item feta26
+@tab 25.2
+@tab 8.9
+@tab
+@c modern rental material?
+
+@end multitable
+@end quotation
+
+Diese Schriftarten sind in allen Größen erhältlich.  Die Kontext-Eigenschaft
+@code{fontSize} und die Layout-Eigenschaft @code{staff-space} (in
+@code{StaffSymbol}) können benutzt werden, um die Schriftgröße für
+einzelne Systeme zu verändern.  Die Größe von einzelnen Systemen
+ist relativ zur globalen Systemgröße.
+
+
+@seealso
+Notationsreferenz:
+@ref{Auswahl der Notations-Schriftgröße}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@knownissues
+
+@code{layout-set-staff-size} verändert nicht den Abstand zwischen den
+Notenlinien.
+
+
+@node Partiturlayout
+@subsection Partiturlayout
+@translationof Score layout
+
+@cindex Partitur, Layout
+@cindex Layout, Partitur
+
+@funindex \layout
+
+Während die @code{\paper}-Umgebung Einstellungen für die Formatierung
+der Seiten eines gesamten Dokuments enthalten, enthält die
+@code{\layout}-Umgebung Einstellungen für einzelne Parituren.
+
+@example
+\layout @{
+  indent = 2.0\cm
+  \context @{ \Staff
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
+  @}
+  \context @{ \Voice
+    \override TextScript #'padding = #1.0
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+@seealso
+Notationsreferenz:
+@ref{Die Standardeinstellungen von Kontexten ändern}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Umbrüche
+@section Umbrüche
+@translationof Breaks
+
+@menu
+* Zeilenumbrüche::
+* Seitenumbrüche::
+* Optimale Seitenumbrüche::
+* Optimale Umbrüche zum Blättern::
+* Minimale Seitenumbrüche::
+* Ausdrückliche Umbrüche::
+* Eine zusätzliche Stimme für Umbrüche benutzen::
+@end menu
+
+
+@node Zeilenumbrüche
+@subsection Zeilenumbrüche
+@translationof Line breaking
+
+@cindex Zeilenumbrüche
+@cindex Umbrüche von Zeilen
+
+Zeilenumbrüche werden normalerweise automatisch erstellt.  Sie
+werden so ausgewählt, dass die Zeilen weder gedrängt nocht zu
+weit gespreizt wirken und aufeinander folgende Seiten einen
+ähnlichen Grauwert haben.  In seltenen Fällen kann es jedoch
+nötig sein, manuell Zeilenumbrüche einzufügen.  Das geschieht
+mit dem Befehl @code{\break}.  Hiermit wird direkt nach dem Befehl
+ein Zeilenumbruch erzwungen.  Zeilenumbrüche können jedoch nur
+am Ende von @qq{vollständigen} Takten stattfinden.  Damit sind
+Takte gemeint, in welchen alle Noten mit der letzten Taktzeit
+komplett abgeschlossen sind und nicht über das Taktende hinausragen.
+Wenn Sie einen Zeilenumbruch an einer Stelle benötigen, an der
+keine Taktlinie vorliegt, können Sie mit @code{\bar ""} eine
+unsichtbare Taktlinie hinzufügen, die dann den Zeilenumbruch
+erlaubt.  Wiederum gilt, dass keine Noten überstehen dürfen,
+sonst wird diese unsichtbare Taktlinie ignoriert.
+
+Mit dem Befehl @code{\noBreak} wird ein Zeilenumbruch an dem
+entsprechenden Taktstrich verboten.
+
+Die grundlegenden Einstellungen, die Einfluss auf die Zeilenlänge
+haben, sind @code{indent} (Einzug) und @code{line-width}
+(Zeilenbreite).  Sie werden in der @code{\layout}-Umgebung
+einestellt.  Der erste Befehl bestimmt den Einzug der ersten
+Zeile, der zweite die Zeilenlänge der weiteren Notenzeilen.
+
+Wenn @code{ragged-right} eingestellt ist (als in der
+@code{\layout}-Umgebung auf den Wert @code{#t} gesetzt wurde),
+werden die Systeme linksbündig gesetzt und nicht bis zum
+rechten Rand hin durchgezogen, sondern den Noten entsprechend
+gesetzt.  Das ist oftmals nützlich für kleine Notenfragmente
+und um zu überprüfen, wie eng die Noten natürlicherweise
+gesetzt werden würden.
+
+Die Option @code{ragged-last} verhält sich ähnlich zu @code{ragged-right},
+aber wirkt sich nur auf die letzte Zeile eines Stückes aus.
+
+@example
+\layout @{
+indent = #0
+line-width = #150
+ragged-last = ##t
+@}
+@end example
+
+@cindex regelmäßige Zeilenumbrüche
+@cindex Zeilenumbrüche in Intervallen
+
+Um Zeilenumbrüche zu erzwingen, die in festgelegten Intervallen
+stattfinden, kann der Befehl @code{\break} in Kombination
+mit unsichtbaren Noten und einer Wiederholung eingesetzt
+werden.  Das folgende Beispiel etwa setzt die nächsten
+28 Takte (im 4/4-Takt) in Zeilen zu jeweils 4 Takten:
+
+@example
+<< \repeat unfold 7 @{
+         s1 \noBreak s1 \noBreak
+         s1 \noBreak s1 \break @}
+   @notation{Hier die Noten}
+>>
+@end example
+
+Eine Zeilenumbruchkonfiguration kann auch als eine @code{.ly}-Datei
+automatisch gespeichert werden.  Damit kann die vertikale Ausrichtung
+während eines zweiten Programmdurchlaufs angepasst werden um die
+Seiten besser zu füllen.  Diese Eigenschaft ist recht neu und
+kompliziert.  Mehr Einzelheiten finden sich in
+@rlsr{Spacing}.
+
+@funindex \break
+@funindex \noBreak
+
+@predefined
+@code{\break},
+@code{\noBreak}.
+@endpredefined
+
+@seealso
+Referenz der Interna:
+@rinternals{LineBreakEvent}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+@knownissues
+
+Zeilenumbrüche können nur gesetzt werden, wenn eine
+@qq{richtige} Taktlinie vorliegt.  Wenn eine Note
+über die Taktlinie übersteht, wie etwa in folgendem
+Beispiel:
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+c4 c2 << c2 {s4 \break } >>  % this does nothing
+c2 c4 |           % a break here would work
+c4 c2 c4 ~ \break % as does this break
+c4 c2 c4
+@end lilypond
+
+@noindent
+kann ein Umbruchbefehl nicht ausgeführt werden.  Dieses
+Verhalten kann jedoch vermieden werden, indem der
+@code{Forbid_line_break_engraver} aus dem Stimmen-Kontext
+entfernt wird.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \with {
+  \remove Forbid_line_break_engraver
+} {
+  c4 c2 << c2 {s4 \break } >>  % now the break is allowed
+  c2 c4
+}
+@end lilypond
+
+@noindent
+Entsprechend werden Umbrüche auch verhindert, wenn Balken über
+Taktlinien reichen.  Das kann mit folgendem Befehl verhindert
+werden: @code{\override Beam #'breakable = ##t}.
+
+
+@node Seitenumbrüche
+@subsection Seitenumbrüche
+@translationof Page breaking
+
+@cindex Seiteumbrüche
+@cindex Umbrüche, Seite
+
+Die Standardseitenumbrüche können verändert werden, indem
+man die Befehle @code{\pageBreak} bzw. @code{\noPageBreak}
+benutzt.  Sie verhalten sich analog zu den Befehlen
+@code{\break} und @code{\noBreak}.  Sie sollten an einem
+Taktstrich notiert werden.  Diese Befehle erzwingen bzw.
+verbieten einen Seitenumbruch.  Mit dem @code{\pageBreak}-Befehl
+wird natürlich gleichzeitig auch ein Zeilenumbruch erzwungen.
+
+Die @code{\pageBreak} und @code{\noPageBreak}-Befehle können
+auch auf der höchsten Ebene einer Datei benutzt werden, etwa
+zwischen Partituren und Textbeschriftungen.
+
+Es gibt auch vertikale Gegenstücke zu den Variablen
+@code{ragged-right} und @code{ragged-last}:
+@code{ragged-bottom} und @code{ragged-last-bottom}.  Wenn diese
+Variablen auf @code{##t} gesetzt werden, werden im ersten
+Fall die Notensysteme auf allen Seiten eng nach oben orientiert
+gesetzt werden.  Im zweiten Fall bezieht sich dies nur auf die
+letzte Seite.
+
+Zu Einzelheiten siehe @ref{Vertikale Abstände}.
+
+Seitenumbrüche werden von der @code{page-breaking}-Funktion errechnet.
+LilyPond kennt drei Algorithmen um Seitenumbrüche zu errechnen:
+@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} und
+@code{ly:minimal-breaking}.  Der Standard ist @code{ly:optimal-breaking},
+aber der Wert kann in der @code{\paper}-Umgebung geändert werden:
+
+@example
+\paper@{
+  #(define page-breaking ly:page-turn-breaking)
+@}
+@end example
+
+@funindex \bookpart
+
+When a book has many scores and pages, the page breaking problem may be
+difficult to solve, requiring large processing time and memory.  To ease
+the page breaking process, @code{\bookpart} blocks are used to divide
+the book into several parts: the page breaking occurs separately on each
+part.  Different page breaking functions may also be used in different
+book parts.
+
+@example
+\bookpart @{
+  \header @{
+    subtitle = "Vorwort"
+  @}
+  \paper @{
+     %% In einem Abschnitt, der vor allem Text hat,
+     %% funktioniert womöglich ly:minimal-breaking besser
+     #(define page-breaking ly:minimal-breaking)
+  @}
+  \markup @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  %% In diesem Abschnitt mit Noten wird
+  %% die Standard-Seitenumbruchsfunktion benutzt.
+  \header @{
+    subtitle = "Erster Satz"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+@funindex \pageBreak
+@funindex \noPageBreak
+
+@predefined
+@code{\pageBreak},
+@code{\noPageBreak}.
+@endpredefined
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Optimale Seitenumbrüche
+@subsection Optimale Seitenumbrüche
+@translationof Optimal page breaking
+
+@funindex ly:optimal-breaking
+
+Die @code{ly:optimal-breaking}-Funktion ist die Standardmethode für
+LilyPond, um Seitenumbrüche zu errechnen.  Hiermit wird versucht,
+Seitenumbrüche zu finden, die das Stauchen oder Strecken von Zeilen
+minimieren, sowohl horizontal als auch vertikal.  Anders als die
+@code{ly:page-turn-breaking}-Funktion hat diese Methode keine
+Möglichkeit, Überlegungen zum Umblättern mit einzubeziehen.
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Optimale Umbrüche zum Blättern
+@subsection Optimale Umbrüche zum Blättern
+@translationof Optimal page turning
+
+@funindex ly:page-turn-breaking
+
+Es ist oft nötig, die Seiten so umzubrechen, dass sich eine Pause am
+Ende jeder zweiten Seite befindet, damit der Musiker es leichter hat,
+die Seite umzublättern ohne das Spielen zu Unterbrechen.  Die
+@code{ly:page-turn-breaking}-Funktion versucht, Seitenumbrüche zu
+finden, died das Stauchen oder Strecken von Zeilen minimieren und
+gleichzeitig auch noch Seitenumbrüchen an angegebenen Stellen 
+den Vorrang zu geben.
+
+Die Funktion wird in zwei Schritten eingesetzt.  Zunächst muss sie
+in der @code{\paper}-Umgebung aktiviert werden, wie gezeigt in
+@ref{Seitenumbrüche}.  Dann muss noch angegeben werden, welche Stellen
+bevorzugt für Seitenumbrüche benutzt werden sollen.
+
+Für diesen zweiten Schritt gibt es zwei Methoden.  Am Einfachsten ist
+es, die möglichen Seitenumbrüche mit dem Befehl @code{\allowPageTurn}
+an jeder Stelle manuell anzugeben.
+
+Wenn Ihnen das zu aufwändig ist, können Sie den @code{Page_turn_engraver}
+zu einem @code{Staff}- oder @code{Voice}-Kontext hinzufügen.  Dieser
+Engraver durchsucht den entsprechenden Kontext nach Stellen ohne Noten.
+(Es wird also nicht nach Pausen gesucht, sondern nach Stellen ohne
+Noten.  Dieses Verhalten verhindert, dass an polyphonen Stellen umgebrochen
+wird, wo nur in einer Stimme Pausen vorhanden sind.)  Wenn eine
+derartige Stelle ohne Noten gefunden wird, fügt der Engraver den
+Befehl @code{\allowPageTurn} am letzten Taktstrich des Abschnitts ein.  Wenn
+in dem Abschnitt ein besonderer Taktstrich vorkommt (wie etwa ein
+Doppelstrich), wird der Befehl nach diesem Taktstrich gesetzt.
+
+@funindex minimumPageTurnLength
+
+Der @code{Page_turn_engraver} list die Kontexteigenschaft
+@code{minimumPageTurnLength} um zu erkennen, wie lang eine Stelle
+frei von Noten sein muss, damit ein Seitenumbruch in Frage kommt.  Der
+Standardwert hierfür ist @code{#(ly:make-moment 1 1)}.  Wenn Sie
+Seitenumbrüche zum Umblättern ausschalten wollen, können Sie
+einen sehr großen Wert angeben.
+
+@example
+\new Staff \with @{ \consists "Page_turn_engraver" @}
+@{
+  a4 b c d |
+  R1 | % Ein Seitenumbruch zum Umblättern erlaubt
+  a4 b c d |
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5 2)
+  R1 | % Seitenumbruch nicht erlaubt
+  a4 b r2 |
+  R1*2 | % Seitenumbruch erlaubt
+  a1
+@}
+@end example
+
+@funindex minimumRepeatLengthForPageTurn
+
+Der @code{Page_turn_engraver} erkennt Wiederholungen vom Typ @code{volta}.
+Ein Seitenumbruch zum Umblättern wird nur zugelassen, wenn vor und nach
+der Wiederholung genug Zeit ist, um die Seite wieder zurückzublättern.
+Wenn die Wiederholung sehr kurz ist, kann auch Umblättern verboten
+werden.  Wenn Sie die Kontexteigenschaft
+@code{minimumRepeatLengthForPageTurn} definieren, erlaubt der
+@code{Page_turn_engraver} nur Umblättern in Wiederholungen, deren
+Dauer länger als dieser Wert ist.
+
+Die Seitenumblätter-Befehle @code{\pageTurn}, @code{\noPageTurn} und
+@code{\allowPageTurn} können auch auf oberster Dateiebene benutzt
+werden, etwa zwischen Parituren und Textabschnitten.
+
+@funindex \pageTurn
+@funindex \noPageTurn
+@funindex \allowPageTurn
+
+@predefined
+@code{\pageTurn},
+@code{\noPageTurn},
+@code{\allowPageTurn}.
+@endpredefined
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+@knownissues
+
+In einer Partitur sollte nur ein @code{Page_turn_engraver} vorkommen.  Wenn
+mehr als einer definiert werden, stören sie sich gegenseitig.
+
+
+@node Minimale Seitenumbrüche
+@subsection Minimale Seitenumbrüche
+@translationof Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+Die @code{ly:minimal-breaking}-Funktion benötigt nur minimale Berechnungen,
+um die Seitenumbrüche zu bestimmen.  Die Seite wird mit möglichst
+vielen Systemen gefüllt und dann zur nächsten Seite gewechselt.  Die
+Funktion kann benutzt werden um Partituren mit vielen Seiten zu
+setzen, wenn die anderen Seitenumbruchsfunktionen zu langsam wären
+oder zu viel Speicher beanspruchen.  Auch für Seiten mit viel Text
+ist die Funktion geeignet.  Sie wird folgendermaßen aktiviert:
+
+@example
+\paper @{
+  #(define page-breaking ly:minimal-breaking)
+@}
+@end example
+
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Ausdrückliche Umbrüche
+@subsection Ausdrückliche Umbrüche
+@translationof Explicit breaks
+
+Es kann vorkommen, dass LilyPond direkte @code{\break} oder
+@code{\pageBreak}-Befehl nicht beachtet.  Mit folgenden
+Einstellungen kann dieses Verhalten ausgeschaltet werden:
+
+@example
+\override NonMusicalPaperColumn #'line-break-permission = ##f
+\override NonMusicalPaperColumn #'page-break-permission = ##f
+@end example
+
+Wenn @code{line-break-permission} die Einstellung falsch
+(@code{##f}) hat, werden Zeilenumbrüche nur an den Befehlen
+@code{\break} eingefügt und nirgendwo anders.  Wenn
+@code{page-break-permission} die Einstellung falsch
+(@code{##f}) hat, werden Seitenumbrüche nur an den Befehlen
+@code{\pageBreak} eingefügt und nirgendwo anders.
+
+@lilypond[quote,verbatim]
+\paper {
+  indent = #0
+  ragged-right = ##t
+  ragged-bottom = ##t
+}
+
+\score {
+  \new Score \with {
+    \override NonMusicalPaperColumn #'line-break-permission = ##f
+    \override NonMusicalPaperColumn #'page-break-permission = ##f
+  } {
+    \new Staff {
+      \repeat unfold 2 { c'8 c'8 c'8 c'8 } \break
+      \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
+      \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
+      \repeat unfold 8 { c'8 c'8 c'8 c'8 } \pageBreak
+      \repeat unfold 8 { c'8 c'8 c'8 c'8 } \break
+      \repeat unfold 6 { c'8 c'8 c'8 c'8 } \break
+      \repeat unfold 4 { c'8 c'8 c'8 c'8 } \break
+      \repeat unfold 2 { c'8 c'8 c'8 c'8 }
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Eine zusätzliche Stimme für Umbrüche benutzen
+@subsection Eine zusätzliche Stimme für Umbrüche benutzen
+@translationof Using an extra voice for breaks
+
+Zeilen- und Seitenumbruchbefehle werden normalerweise direkt
+zusammen mit den Noten eingegeben.
+
+@example
+\new Score @{
+  \new Staff @{
+    \repeat unfold 2 @{ c'4 c'4 c'4 c'4 @}
+    \break
+    \repeat unfold 3 @{ c'4 c'4 c'4 c'4 @}
+  @}
+@}
+@end example
+
+Hierdurch sind zwar die Befehle @code{\break} und @code{\pageBreak}
+einfach zu notieren, es werden aber Informationen zur Notation
+mit Informationen zur Anordnung auf der Seite vermischt.  Man kann
+diese Informationen auch voneinander trennen, indem man eine zusätzliche
+Stimme einfügt, in der Zeilen- und Seitenumbrüche vorgenommen werden.
+Diese zusätzliche Stimme enthält nur unsichtbare Noten und die
+Umbruchbefehle:
+
+@lilypond[quote,verbatim]
+\new Score {
+  \new Staff <<
+     \new Voice {
+        s1 * 2 \break
+        s1 * 3 \break
+        s1 * 6 \break
+        s1 * 5 \break
+     }
+     \new Voice {
+        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+     }
+  >>
+}
+@end lilypond
+
+Mit dieser Herangehensweise kann der Code insbesondere
+dann klarer notiert werden, wenn man Einstellungen der
+@code{line-break-system-details}-Eigenschaft oder
+anderer Eigenschaften von
+@code{NonMusicalPaperColumnGrob} vornimmt (hierzu auch 
+@ref{Vertikale Abstände}).
+
+@lilypond[quote,verbatim]
+\new Score {
+  \new Staff <<
+     \new Voice {
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 0))
+        s1 * 2 \break
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 35))
+        s1 * 3 \break
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 70))
+        s1 * 6 \break
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 105))
+        s1 * 5 \break
+     }
+     \new Voice {
+        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+     }
+  >>
+}
+@end lilypond
+
+
+@seealso
+Notationsreferenz:
+@ref{Vertikale Abstände}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Vertikale Abstände
+@section Vertikale Abstände
+@translationof Vertical spacing
+
+@cindex vertikale Positionierung
+@cindex Positionierung, vertikal
+@cindex Abstände, vertikal
+
+Vertikale Abstände werden durch drei Eigenschaften
+bestimmt:  wieviel Platz frei ist (etwa Papiergröße
+und Ränder), wieviel Platz zwischen Systemgruppen
+(engl. system) gesetzt werden soll und wieviel 
+Platz zwischen Notensystemen (engl. staff, Pl. staves)
+innerhalb von Gruppen gesetzt wird.
+
+@menu
+* Vertikale Abstände innerhalb eines Systems::
+* Vertikale Abstände zwischen Systemen::
+* Explizite Positionierung von Systemen::
+* Vertikale Abstände mit zwei Durchgängen::
+* Vermeidung von vertikalen Zusammenstößen::
+@end menu
+
+
+@node Vertikale Abstände innerhalb eines Systems
+@subsection Vertikale Abstände innerhalb eines Systems
+@translationof Vertical spacing inside a system
+
+@cindex Abstand zwischen Notensystemen
+@cindex Notensystemabstand
+@cindex Platz zwischen Notensystemen
+@cindex Platz innerhalb von Systemgruppen
+@cindex Systemgruppen, Abstände innerhalb
+
+Die Höhe jeder Notensystemgruppe (engl. system) wird automatisch errechnet.
+Um einzelne Notensysteme daran zu hindern, sich zu überschneiden,
+werden Minimalabstände festgelegt.  Indem man diese ändert,
+können die Systeme enger zusammen gerückt werden.  Dadurch
+brauchen die Gruppen weniger Platz und es passen mehr Gruppen
+auf eine Seite.
+
+Normalerweise werden die Notensysteme vertikal gestapelt.  Damit
+die Systeme einen bestimten Abstand einhalten, haben sie
+Füllabstände, die in der Eigenschaft @code{minimum-Y-extent}
+definiert sind.  Wenn diese Eigenschaft für ein
+@code{VerticalAxisGroup}-Objekt gesetzt wird, kann eingestellt
+werden, wieviel Platz nach unten oder oben die vertikale Linie
+(also das Notensystem oder eine Textzeile) einnimmt.  Die
+Eigenschaft braucht ein Zahlenpaar; der Standardwert ist
+@code{#'(-4 . 4)}.  Um also ein Notensystem schmaler zu machen,
+kann man schreiben:
+
+@example
+\override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
+@end example
+
+@noindent
+Damit wird die vertikale Größe des Systems auf jeweils drei
+Notenlinienzwischenräume nach oben und unten von der Systemmitte
+aus eingestellt.  Der Wert @code{(-3 . 3)} wird als ein
+Intervall ausgewertet, dessen Zentrum bei 0 liegt; deshalb
+ist die erste Zahl immer negativ.  Die Zahlen müssen nicht
+gleich sein: man kann etwa die Ausdehnung nach unten vergrößern,
+indem man @code{(-6 . 4)} setzt.
+
+@ignore
+FIXME: update this section
+
+Nachdem die Seitenumbrüche bestimmt wurden, wird die vertikale
+Platzverteilung innerhalb jeder Systemgruppe neu ausgewertet
+um die Seite so gleichmäßig wie möglich zu füllen.  Wenn auf
+einer Seite viel Platz übrigbleibt, werden die Gruppen etwas
+gedehnt um die Seite besser auszufüllen.  Die Größe dieser
+Dehnung kann mit der @code{max-stretch}-Eigenschaft
+des @code{VerticalAlignment}-Grobs eingestellt werden.
+Standardmäßig hat @code{max-stretch} den Wert 0, sodass
+die Dehnung ausgeschaltet ist.  Um sie einzuschalten, kann
+als guter Wert für @code{max-stretch} der Wert von
+@code{ly:align-interface::calc-max-stretch} eingesetzt werden.
+
+In manchen Situationen sollen zwar die meisten Systeme gedehnt
+werden, einige Gruppen sollen aber einen festen Abstand einhalten.
+Das kann etwa der Fall sein, wenn ein Klaviersystem in der
+Mitte einer Orchesterpartitur vorkommt.  Mit der
+@code{keep-fixed-while-stretching}-Eigenschaft des
+@code{VerticalAxisGroup}-Objektes kann das erreicht werden.
+Wenn sie auf @code{##t} gesetzt wird, wird das entsprechende
+System (oder die Textzeile) nicht von der Zeile entfernt, die
+sich direkt darüber befindet.  Man müsste diese Einstellung
+als beispielsweise für das zweite Notensystem eines Klaviersystems
+vornehmen:
+
+@lilypond[verbatim]
+#(set-default-paper-size "a6")
+#(set-global-staff-size 14.0)
+
+\book {
+\paper {
+  ragged-last-bottom = ##f
+}
+
+\new Score \with
+{
+  \override VerticalAlignment #'max-stretch = #ly:align-interface::calc-max-stretch
+}
+{
+\new GrandStaff
+<<
+  \new StaffGroup
+  <<
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+  >>
+
+  \new PianoStaff
+  <<
+    \new Staff {c' d' e' f'}
+    \new Staff \with {
+      \override VerticalAxisGroup #'keep-fixed-while-stretching = ##t
+    }
+    {c' d' e' f'}
+  >>
+
+  \new StaffGroup
+  <<
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+  >>
+>>
+}
+}
+@end lilypond
+@end ignore
+
+Die vertikale Ausrichtung von Notensystemen wird
+von dem @code{VerticalAlignment}-Objekt vorgenommen.
+Die Kontextparameter für die vertikale Ausdehnung
+werden für den @code{Axis_group_engraver} angegeben.
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+@c @lsr{spacing,page-spacing.ly},
+@c @lsr{spacing,alignment-vertical-spacing.ly}.
+
+Referenz der Interna:
+@rinternals{VerticalAlignment},
+@rinternals{Axis_group_engraver}.
+
+
+@node Vertikale Abstände zwischen Systemen
+@subsection Vertikale Abstände zwischen Systemen
+@translationof Vertical spacing between systems
+
+Der Platz zwischen Notensystembruppen wird von vier
+Variablen in der @code{\paper}-Umgebung kontrolliert:
+
+@example
+\paper @{
+  between-system-space = 1.5\cm
+  between-system-padding = #1
+  ragged-bottom=##f
+  ragged-last-bottom=##f
+@}
+@end example
+
+Wenn nur ein paar schmale Systeme auf eine Seite gesetzt werden,
+kann die vertikale Platzverteilung recht negativ ausfallen, so
+dass etwa ein System ganz oben auf der Seite und das nächste
+unten auf der Seite erscheint, mit einer großen Lücke dazwischen.
+Um derartige Situationen zu umgehen, kann der Platz, der zwischen
+Gruppen eingefügt wird, begrenzt werden.  Dieses Verhalten wird
+aktiviert, indem die @code{page-limit-inter-system-space}-Variable
+in der @code{\paper}-Umgebung auf @code{##t} gesetzt wird.  Die
+Variable @code{page-limit-inter-system-space-factor} bestimmt,
+um wieviel der Platz zwischen Gruppen gedehnt werden darf:  Bei
+einem Wert von @code{1.3} etwa darf der Platz 30% größer sein
+als er es wäre, wenn die Seite mit der Option @code{ragged-bottom}
+gesetzt worden wäre.
+
+Im folgenden Beispiel würde das zweite System der ersten Seite
+unten auf der Seite gesetzt werden, wenn der Platz zwischen
+den Systemen nicht begrenzt wäre.  Weil aber die Begrenzung
+eingesetzt wurde, wird das zweite System näher am ersten
+platziert.  Wenn @code{page-limit-inter-system-space-factor}
+auf @code{1} gesetzt wird, wäre die Platzverteilung die gleiche
+auf einer Seite mit @code{ragged-bottom}, wie etwa die letzte
+Seite einer Partitur.
+
+@lilypond[verbatim]
+#(set-default-paper-size "a6")
+\book {
+  \paper {
+    page-limit-inter-system-space = ##t
+    page-limit-inter-system-space-factor = 1.3
+
+    oddFooterMarkup = \markup "page bottom"
+    evenFooterMarkup = \markup "page bottom"
+    oddHeaderMarkup = \markup \fill-line {
+      "page top" \fromproperty #'page:page-number-string }
+    evenHeaderMarkup = \markup \fill-line {
+      "page top" \fromproperty #'page:page-number-string }
+  }
+  \new Staff << \repeat unfold 4 { g'4 g' g' g' \break }
+                { s1*2 \pageBreak } >>
+}
+@end lilypond
+
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Explizite Positionierung von Systemen
+@subsection Explizite Positionierung von Systemen
+@translationof Explicit staff and system positioning
+
+Man kann die Einstellungen des @code{VerticalAxisGroup}-Objekts
+und der @code{\paper}-Umgebung, wie sie im vorigen Abschnitt
+erklärt wurden, als eine Sammlung verschiedenerer Einstellmöglichkeiten
+verstehen, die vor allem die Größe des vertikalen Platzes zwischen
+Notensystemen und Gruppen auf der Seite kontrollieren.
+
+Die vertikale Platzverteilung kann aber auch auf andere Weise
+eingestellt werden: mit den Optionen von
+@code{NonMusicalPaperColumn #'line-break-system-details}.  Während
+Einstellungen in @code{VerticalAxisGroup} und @code{\paper} Füllplatz
+definieren, werden mit
+@code{NonMusicalPaperColumn #'line-break-system-details} absolute vertikale
+Positionen auf der Seite festgelegt.
+
+@code{NonMusicalPaperColumn #'line-break-system-details} akzeptiert eine
+Liste aus fünf unterschiedlichen Einstellungen:
+
+@itemize
+@item @code{X-offset}
+@item @code{Y-offset}
+@item @code{alignment-offsets}
+@item @code{alignment-extra-space}
+@item @code{fixed-alignment-extra-space}
+@end itemize
+
+Veränderungen von Grobs (wozu auch @code{NonMusicalPaperColumn} gehört),
+können an drei unterschiedlichen Stellen in der Quelldatei vorgenommen
+werde:
+
+@itemize
+@item mitten im Notentext
+@item in einer @code{\context}-Umgebung
+@item in einer @code{\with}-Umgebung
+@end itemize
+
+Wenn der Grob @code{NonMusicalPaperColumn} verändert werden soll,
+wird der @code{\override}-Befehl in der @code{\context} oder
+@code{\with}-Umgebung eingesetzt.  Wenn die Veränderungen aber
+mitten im Notentext stattfinden sollen, müssen Sie den Befehl
+@code{\overrideProperty} einsetzen.  Einige Beispiele für eine
+Veränderungen von @code{NonMusicalPaperColumn} mit dem
+@code{\overrideProperty}-Befehl sind hier aufgelistet:
+
+@example
+\overrideProperty NonMusicalPaperColumn
+  #'line-break-system-details #'((X-offset . 20))
+
+\overrideProperty NonMusicalPaperColumn
+  #'line-break-system-details #'((Y-offset . 40))
+
+\overrideProperty NonMusicalPaperColumn
+  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40))
+
+\overrideProperty NonMusicalPaperColumn
+  #'line-break-system-details #'((alignment-offsets . (0 -15)))
+
+\overrideProperty NonMusicalPaperColumn
+  #'line-break-system-details #'((X-offset . 20) (Y-offset . 40)
+                                 (alignment-offsets . (0 -15)))
+@end example
+
+Um zu verstehen, wie jede dieser unterschiedlichen Einstellungen
+funktioniert, wollen wir uns ein Beispiel vornehmen, dass überhaupt
+keine Einstellungen (d.h. @code{override}-Befehle) enthält:
+
+@c \book { } is required in these examples to ensure the spacing
+@c overrides can be seen between systems. -np
+
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Diese Partitur nimmt Zeilen- und Seitenumbruchinformationen in einer
+eigenen Stimme vor.  Mit dieser Methode kann die Layout-Information
+einfach von den Noten getrennt werden, was sehr hilfreich ist, wenn
+das Beispiel komplizierter wird.  Siehe auch
+@ref{Eine zusätzliche Stimme für Umbrüche benutzen}.
+
+Ausdrückliche @code{\break}-Befehle teilen die Noten in sechs Takte
+lange Zeilen.  Die vertikale Platzverteilung wird von LilyPond
+errechnet.  Um den vertikalen Beginn einer jeden Systemgruppe
+genau anzugeben, kann @code{Y-offset} in der
+@code{line-break-system-details}-Eigenschaft des
+@code{NonMusicalPaperColumn}-Grobs wie in dem Beispiel
+ersichtlich benutzt werden:
+
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 0))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 40))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 80))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+In der @code{line-break-system-details}-Eigenschaft kann eine Liste
+mit vielen Einstellungen eingegeben werden, aber hier wird nur eine
+Einstellung angegeben.  Die @code{Y-offset}-Eigenschaft bestimmt
+hier die exakte vertikale Position auf der Seite, an welcher jede
+neue Systemgruppe begonnen wird.
+
+Da jetzt der exakte Beginn eines jeden Systems explizit festgelegt wurde,
+können wir auch den exakten Beginn eines jeden Notensystems in der
+Gruppe festlegen.  Dies geschieht mit der @code{alignment-offsets}-Eigenschaft
+von @code{line-break-system-details}.
+
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 20)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 60)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 100)
+                                           (alignment-offsets . (0 -15)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Dem @code{line-break-system-details}-Attribut des
+@code{NonMusicalPaperColumn}-Grobs werden zwei Eigenschaften
+zugewiesen.  Auch wenn die Liste (alist) von
+@code{line-break-system-details} sehr viel mehr Platzierungsparameter
+akzeptiert, müssen hier nu die Parameter @code{Y-offset} und
+@code{alignment-offsets} gesetzt werden, um den vertikalen Beginn
+jedes Systems und jeder Systemgruppe zu kontrollieren.  @code{Y-offset}
+bestimmt also die vertikale Position von Systemgruppen und @code{alignment-offsets}
+die vertikale Position von einzelnen Notensystemen.
+
+@lilypond[quote]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 0)
+                                           (alignment-offsets . (0 -30 -40)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 60)
+                                           (alignment-offsets . (0 -10 -20)))
+          s1*5 \break
+          \overrideProperty #"Score.NonMusicalPaperColumn"
+            #'line-break-system-details #'((Y-offset . 100)
+                                           (alignment-offsets . (0 -10 -40)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new StaffGroup <<
+        \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+        \new Staff { \repeat unfold 15 { e'4 e' e' e' } }
+      >>
+    >>
+  }
+}
+@end lilypond
+
+Einige Dinge sollten beachtet werden:
+
+@itemize
+@item Wenn @code{alignment-offsets} benutzt wird, werden Gesangtextzeilen
+als ein System gezählt.
+
+@item Die Einheiten der Zahlen, die für @code{X-offset},
+@code{Y-offset} und @code{alignment-offsets} benutzt werden, werden als
+Vielfaches des Abstandes zwischen zwei Notenlinien gewertet.  Positive
+Werte verschieben Systeme und Gesangstext nach oben, negative Werte nach
+unten.
+
+@item Weil die Einstellungen von @code{NonMusicalPaperColumn #'line-break-system-details}
+es möglich machen, Notensysteme und Gruppen an beliebigen Stellen auf der
+Seite zu platzieren, kann man damit auch Ränder überschreiben oder sogar
+Notensysteme übereinander platzieren.  Sinnvolle Werte für diese
+Parameter werden derartiges Verhalten vermeiden.
+@end itemize
+
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Vertikale Abstände mit zwei Durchgängen
+@subsection Vertikale Abstände mit zwei Durchgängen
+@translationof Two-pass vertical spacing
+
+@warning{Vertikale Positionierung in zwei Durchgängen ist veraltet
+(deprecated) und wird in zukünftigen Versionen von LilyPond entfernt
+werden.  Systeme werden jetzt automatisch in einem einzigen
+Durchlauf gedehnt.  Siehe auch @ref{Vertikale Abstände innerhalb eines Systems}.}
+
+Um Systeme zu dehnen, sodass sie den restlichen Platz auf der Seite
+auffüllen, kann ein Verfahren benutzt werden, dass die Positionierung
+in zwei Durchläufen ermittelt:
+
+@enumerate
+@item Im ersten Durchlauf wird der Platz berechnet, um den jede
+Systemgruppe gedehnt werden sollte und in eine Datei geschrieben.
+@item Im zweiten Durchlauf werden die Systemgruppen anhand der
+Daten aus dieser Datei entsprechend gedehnt.
+@end enumerate
+
+Die @code{ragged-bottom}-Eigenschaft fügt den Platz zwischen
+Systemgruppen ein, während mit der Technik in zwei Durchläufen
+die Systemgruppen selber gedehnt werden.
+
+Um dieses Verhalten zu erzeugen, muss die @code{tweak-key}-Eigenschaft
+in der @code{\layout}-Umgebung jeder Partitur definiert werden und diese
+Anpassungen dann in jeder Paritur mit dem Befehl @code{\scoreTweak}
+angewandt werden.
+
+@quotation
+@verbatim
+%% die erstellte Layout-Datei einfügen
+\includePageLayoutFile
+
+\score {
+  \new StaffGroup <<
+    \new Staff <<
+      %% Anpassungen für diese Partitur einfügen
+      \scoreTweak "scoreA"
+      { \clef french c''1 \break c''1 }
+    >>
+    \new Staff { \clef soprano g'1 g'1 }
+    \new Staff { \clef mezzosoprano e'1 e'1 }
+    \new Staff { \clef alto g1 g1 }
+    \new Staff { \clef bass c1 c1 }
+  >>
+  \header {
+    piece = "Score with tweaks"
+  }
+  %% Definieren, wie die Anpassungen für diese Datei genannt werden:
+  \layout { #(define tweak-key "scoreA") }
+}
+@end verbatim
+@end quotation
+
+Für den ersten Durchgang sollte die @code{dump-tweaks}-Option gesetzt
+werden, damit die Layout-Datei erstellt wird.
+
+@example
+lilypond -dbackend=null -d dump-tweaks <file>.ly
+lilypond <file>.ly
+@end example
+
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Vermeidung von vertikalen Zusammenstößen
+@subsection Vermeidung von vertikalen Zusammenstößen
+@translationof Vertical collision avoidance
+
+@cindex Vermeidung von vertikalen Zusammenstößen
+@cindex Zusammenstöße, vertikal, vermeiden
+@cindex vertikale Zusammenstöße, vermeiden
+@cindex Kollisionen, vertikal, vermeiden
+
+@funindex outside-staff-priority
+@funindex outside-staff-padding
+@funindex outside-staff-horizontal-padding
+
+Intuitiv gibt es in der Notation einige Objekte, die zu dem Notensystem
+gehören, und einige andere, die immer außerhalb des Notensystems
+positioniert werden sollten.  Zu diesen letzteren gehören etwa
+Übungszeichen, Textbeschriftung und Dynamikbezeichnung (die als
+Objekte außerhalb des Systems bezeichnet werden können).  LilyPonds
+Regeln um diese Objekte zu positionieren lautet: so nah am Notensystem
+wie möglich, aber gerade so weit weg, dass sie nicht mit anderen
+Objekten zusammenstoßen.
+
+Dabei setzt LilyPon die @code{outside-staff-priority}-Eigenschaft
+ein um herauszufinden, ob ein Grob ein Objekt außerhalb des Systems
+ist: wenn @code{outside-staff-priority} eine Zahl ist, dann handelt
+es sich um ein Objekt außerhalb des Systems.  Zusätzlich teilt
+@code{outside-staff-priority} noch mit, in welcher Reihenfolge
+die Objekte außerhalb des Systems gesetzt werden sollen.
+
+Zuerst werden alle Objekte gesetzt, die nicht außerhalb des Systems
+gehören.  Dann werden die Objekte außerhalb des Systems nach dem Wert
+ihrer @code{outside-staff-priority}  (in aufsteigender Anordnung)
+sortiert.  Eins nach dem anderen werden diese Objekte schließlich
+genommen und so platziert, dass sie nicht mit den Objekten zusammenstoßen,
+die bereits platziert worden sind.  Wenn also zwei Objekte außerhalb
+des Systems um den gleichen Platz streiten, wird das mit dem
+geringeren Wert von @code{outside-staff-priority} näher an das
+entsprechende Notensystem gesetzt.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+c4_"Text"\pp
+r2.
+\once \override TextScript #'outside-staff-priority = #1
+c4_"Text"\pp % this time the text will be closer to the staff
+r2.
+% by setting outside-staff-priority to a non-number,
+% we disable the automatic collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\once \override DynamicLineSpanner #'outside-staff-priority = ##f
+c4_"Text"\pp % now they will collide
+@end lilypond
+
+Der Platz, der zwischen einem Objekt außerhalb des Systems und
+dem vorhergehenden Objekt eingefügt werden kann (auch als
+padding bezeichnet), kann durch @code{outside-staff-padding}
+kontrolliert werden.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\once \override TextScript #'outside-staff-padding = #0
+a'^"This text is placed very close to the note"
+\once \override TextScript #'outside-staff-padding = #3
+c^"This text is padded away from the previous text"
+c^"This text is placed close to the previous text"
+@end lilypond
+
+Standardmäßig werden Objekte außerhalb des Systems so gesetzt,
+dass sie eine horizontale Überschneidung mit einem der
+vorher gesetzten Grobs vermeiden.  Das kann zu Situationen
+führen, in denen Objekte sehr dicht nebeneinander gesetzt
+werden.  Der vertikale Platz zwischen Notensystemen kann
+auch gesetzt werden, sodass Objekte außerhalb des Systems
+ineinander greifen. Mit der Eigenschaft
+@code{outside-staff-horizontal-padding} können Objekte vertikal
+verschoben werden und derartige Situationen kommen nicht
+vor.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+% the markup is too close to the following note
+c4^"Text"
+c4
+c''2
+% setting outside-staff-horizontal-padding fixes this
+R1
+\once \override TextScript #'outside-staff-horizontal-padding = #1
+c,,4^"Text"
+c4
+c''2
+@end lilypond
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Horizontale Abstände
+@section Horizontale Abstände
+@translationof Horizontal spacing
+
+@cindex horizontale Platzierung
+@cindex horizontale Anordnung
+@cindex Anordnung, horizontal
+
+@menu
+* Überblick über horizontale Abstände::
+* Eine neuer Bereich mit anderen Abständen::
+* Horizontale Abstände verändern::
+* Zeilenlänge::
+* Proportionale Notation::
+@end menu
+
+
+@node Überblick über horizontale Abstände
+@subsection Überblick über horizontale Abstände
+@translationof Horizontal spacing overview
+
+Die Setzmaschine interpretiert unterschiedliche Notendauern als
+dehnbare Abstände (engl. spring) unterschiedlicher Länge.  Längere
+Dauern erhalten mehr Platz, kürzere weniger.  Die kürzeste Dauer
+erhält eine feste Breite (die mit @code{shortest-duration-space}
+im @code{SpacingSpanner}-Objekt kontrolliert werden kann).  Je
+länger die Dauer, umso mehr Platz erhält die Note: wenn ihre
+Dauer verdoppelt wird, wird ein bestimmter Platz hinzugefügt
+(dessen Breite durch @code{spacing-increment} bestimmt werden
+kann).
+
+Das folgende Stück beispielsweise enthält Halbe, Viertel und Achtel.
+Die Achtelnote wird gefolgt von einem Notenkopfabstand (NKA).  Die
+Viertel wird von 2 NKA gefolgt, die Halbe von 3 NKA usw.
+
+@lilypond[quote,fragment,verbatim,relative=1]
+c2 c4. c8 c4. c8 c4. c8 c8
+c8 c4 c4 c4
+@end lilypond
+
+Normalerweise ist @code{spacing-increment} definiert als 1.2 mal
+der Abstand zwischen zwei Notenlinien, was in etwa die Breite eines
+Notenkopfes ist.  @code{shortest-duration-space} ist definiert als
+2.0, was bedeutet, dass die kürzeste Note 2.4 Notenlinienabstände
+2.0 mal der Wert von @code{spacing-increment}) horizontalen
+Abstand erhält.  Der Abstand wirdvon der linken Kande des Symbols
+errechnet, so dass die kürzeste Note üblicherweise von 1 NKA
+Abstand gefolgt wird.
+
+Wenn diese Herangehensweise konsequent angewandt würde, würde eine
+einzige Zweiunddreißigstel eine Partitur, in der vor allem Achtel und
+Sechzehntel vorkommen, sehr weit auseinanderdehnen.  Die kürzeste
+Note wäre nun keine Sechzehntel mehr, sondern eine Zweiunddreißigstel,
+wodurch an jede Note der Wert von 1 NKA hinzugefügt würde.  Um das
+zu vermeiden, ist die kürzeste Dauer für die Platzverteilung nicht die
+kürzeste Note einer Partitur, sondern die, die am häufigsten vorkommt.
+
+Die Notendauer, die am häufigsten vorkommt, wird auf folgende
+Weise bestimmt: in jedem Takt wird die kürzeste Note bestimmt.  Die
+häufigste kürzeste Note wird dann als Grundlage für die Platzverteilung
+der Noten herangezogen, mit der Bedingung, dass diese kürzeste
+Note immer ein Achtel oder kürzer sein soll.  Die kürzeste Dauer
+wird ausgegeben, wenn @code{lilypond} mit der Option @code{--verbose}
+aufgerufen wird.
+
+Diese Dauern können aber auch angepasst werden.  Wenn Sie die Eigenschaft
+@code{common-shortest-duration} in dem @code{SpacingSpanner} setzen,
+dann wird hiermit die Grunddauer für die Platzverteilung eingestellt.
+Die maximale Dauer für diesen Grundwert (normalerweise eine Achtel)
+wird definiert mit @code{base-shortest-duration}.
+
+@funindex common-shortest-duration
+@funindex base-shortest-duration
+@funindex stem-spacing-correction
+@funindex spacing
+
+Noten, die noch kürzer sind als die häufigste kürzeste Note, werden
+durch einen Platz voneinander getrennt, der proportional zu ihrer
+Dauer in Beziehung zur häufigsten kürzesten Note ist.  Wenn also
+nur ein paar Sechszehntel zu dem obigen Beispiel hinzugefügt werden,
+würden sie von 1/2 NKA gefolgt werden:
+
+@lilypond[quote,fragment,verbatim,relative=2]
+c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
+@end lilypond
+
+In der Einleitung (siehe @rlearning{Notensatz}) wurde erklärt, dass die
+Richtung der Notenhälse die Platzverteilung beeinflusst.  Das wird
+kontrolliert durch die @code{stem-spacing-correction}-Eigenschaft
+in dem @code{NoteSpacing}-Objekt.  Dieses Objekt wird für jeden
+@code{Voice}-Kontext erstellt.  Das @code{StaffSpacing}-Objekt (in
+einem @code{Staff}-Kontext erstellt) enthält die gleiche Eigenschaft,
+um die Verteilung von Hälsen neben Taktlinien zu kontrollieren.  In
+dem folgenden Beispiel werden diese Einstellungen gezeigt, einmal
+mit den Standardwerten und dann mit größeren Werten, damit man sie
+besser sieht:
+
+@lilypond[quote,ragged-right]
+{
+  c'4 e''4 e'4 b'4 |
+  b'4 e''4 b'4 e''4|
+  \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
+  \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
+  c'4 e''4 e'4 b'4 |
+  b'4 e''4 b'4 e''4|
+}
+@end lilypond
+
+Proportionale Notation ist unterstützt, siehe @ref{Proportionale Notation}.
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+Referenz der Interna:
+@rinternals{SpacingSpanner},
+@rinternals{NoteSpacing},
+@rinternals{StaffSpacing},
+@rinternals{NonMusicalPaperColumn}.
+
+@knownissues
+
+Es gibt keine sinnvolle Möglichkeit, die horizontale Verteilung der
+Noten zu unterdrücken.  Die folgende Problemumgehung, mit der
+dehnbare Abstände (padding) eingesetzt werden, kann benutzt
+werden, um zusätzlichen Platz in eine Partitur einzufügen.
+
+@example
+ \once \override Score.SeparationItem #'padding = #10
+@end example
+
+Es gibt derzeit keine Möglichkeit, den Platz zu verringern.
+
+
+@node Eine neuer Bereich mit anderen Abständen
+@subsection Eine neuer Bereich mit anderen Abständen
+@translationof New spacing area
+
+@cindex horizontale Notenabstände, Abschnitte definierten
+@cindex Notenabstände, Abschnitte definieren
+@cindex Abschnitte definieren, Notenabstände
+
+Neue Abschnitte mit unterschiedlichen Notenabstandsparametern
+können mit dem Befehl @code{newSpacingSection} begonnen werden.
+Das ist hilfreich, wenn in verschiedenen Abschnitten die
+Verhältnisse von kurzen und langen Noten sehr unterschiedlich
+ausfallen.
+
+Im folgenden Beispiel wird durch die neue Taktart ein neuer
+Abschnitt begonnen, in dem die Sechszehntel weiter außeinander
+gesetzt werden sollen.
+
+@lilypond[relative,fragment,verbatim,quote]
+\time 2/4
+c4 c8 c
+c8 c c4 c16[ c c8] c4
+\newSpacingSection
+\time 4/16
+c16[ c c8]
+@end lilypond
+
+Der @code{\newSpacingSection}-Befehl erstellt ein neues
+@code{SpacingSpanner}-Objekt, weshalb auch neue Anpassungen
+mit dem @code{\override}-Befehl an dieser Stelle eingesetzt
+werden können.
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+Referenz der Interna:
+@rinternals{SpacingSpanner}.
+
+
+@node Horizontale Abstände verändern
+@subsection Horizontale Abstände verändern
+@translationof Changing horizontal spacing
+
+@cindex Notenabstände, horizontal
+@cindex horizontale Abstände
+@cindex horizontale Notenabstände
+
+Die horizontalen Abstände können mit der
+@code{base-shortest-duration}-Eigenschaft
+verändert werden.  In den folgenden Beispielen
+werden die gleichen Noten eingesetzt, zuerst
+ohne die Eigenschaft zu verändern, im zweiten
+Beispiel dann mit einem anderen Wert.  Größere
+Werte für @code{ly:make-moment} ergeben dichtere
+Noten.  @code{ly:make-moment} erstellt eine Dauer,
+die als Bruch notiert wird, sodass @code{1 4}
+eine größere Dauer ist als @code{1 16}.
+
+@lilypond[verbatim,line-width=12\cm]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+}
+@end lilypond
+
+@lilypond[verbatim,line-width=12\cm]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 16)
+    }
+  }
+}
+@end lilypond
+
+
+@snippets
+
+Standardmäßig wird die Platzverteilung in Triolen und andern
+rhythmischen Aufteilungen nach verschiedenen nicht von der
+Dauer abgeleiteten Faktoren (wie Versetzungszeichen,
+Schlüsselwechseln usw.) berechnet.  Um diese Symbole zu
+ignorieren und eine gleichmäßige Verteilung der Noten
+zu erzwingen, kann die gleichmäßige Dehnung (engl.
+uniform stretching) zu Beginn einer Partitur eingeschaltet
+werden:
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\new Score \with {
+  \override SpacingSpanner #'uniform-stretching = ##t
+} <<
+  \new Staff{
+    \times 4/5 {
+      c8 c8 c8 c8 c8
+    }
+    c8 c8 c8 c8
+  }
+  \new Staff{
+    c8 c8 c8 c8
+    \times 4/5 {
+      c8 c8 c8 c8 c8
+    }
+  }
+>>
+@end lilypond
+
+Wenn @code{strict-note-spacing} eingestellt ist, werden Noten
+gesetzt, ohne dass Schlüssel, Taktlinine oder Verzierungsnoten
+zusätzlichen Platz erhalten.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\override Score.SpacingSpanner #'strict-note-spacing = ##t
+\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
+@end lilypond
+
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Zeilenlänge
+@subsection Zeilenlänge
+@translationof Line length
+
+@cindex Seitenumbrüche
+@cindex Umbrechen von Seiten
+@cindex Zeilenlänge
+@cindex Länge von Zeilen
+
+@funindex indent
+@funindex line-width
+@funindex ragged-right
+@funindex ragged-last
+
+@c Although line-width can be set in \layout, it should be set in paper
+@c block, to get page layout right.
+@c Setting indent in \paper block makes not much sense, but it works.
+
+@c Bit verbose and vague, use examples?
+Die grundlegenden Einstellungen, die Einfluss auf die Zeilenlänge
+haben, sind @code{indent} (Einzug) und @code{line-width}
+(Zeilenbreite).  Sie werden in der @code{\layout}-Umgebung
+einestellt.  Der erste Befehl bestimmt den Einzug der ersten
+Zeile, der zweite die Zeilenlänge der weiteren Notenzeilen.
+
+Wenn @code{ragged-right} eingestellt ist (als in der
+@code{\layout}-Umgebung auf den Wert @code{#t} gesetzt wurde),
+werden die Systeme linksbündig gesetzt und nicht bis zum
+rechten Rand hin durchgezogen, sondern den Noten entsprechend
+gesetzt.  Das ist oftmals nützlich für kleine Notenfragmente
+und um zu überprüfen, wie eng die Noten natürlicherweise
+gesetzt werden würden.
+
+Die Option @code{ragged-last} verhält sich ähnlich zu @code{ragged-right},
+aber wirkt sich nur auf die letzte Zeile eines Stückes aus.
+Für diese letzte Zeile gibt es keine Einschränkungen.  Das
+Resultat erinnert an Textabsätze im Blocksatz, wo die letzte
+Zeile des Absatzes mit ihrer natürlichen Länge gestzt wird.
+
+@example
+\layout @{
+indent = #0
+line-width = #150
+ragged-last = ##t
+@}
+@end example
+
+@seealso
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Proportionale Notation
+@subsection Proportionale Notation
+@translationof Proportional notation
+
+LilyPond hat Unterstützung für proportionale Notation.  Dabei handelt
+es sich um eine horizontale Platzverteilung, die jeder Note einen
+exakt ihrer Dauer entsprechenden Platz zuordnet.  Man kann es vergleichen
+mit der Notenplatzierung auf einem Raster.  In einigen Partituren
+des späten 20. und frühen 21. Jahrhunderts wird dies proportionale
+Notation benutzt, um sehr komplizierte rhythmische Verhältnisse
+klarer darzustellen, oder um einen Zeitstrahl oder ähnliche Graphiken
+direkt in die Partitur zu integrieren.
+
+LilyPond hat Unterstützung für fünf verschiedene Einstellungen der
+proportionalen Notation, die alle zusammen oder jede für sich
+benutzt werden können:
+
+@itemize
+@item @code{proportionalNotationDuration} (proportionale Notendauer)
+@item @code{uniform-stretching} (gleichmäßige Dehnung)
+@item @code{strict-note-spacing} (strenge Notenverteilung)
+@item @code{\remove Separating_line_group_engraver} (entferne Liniengruppentrennungsengraver)
+@item @code{\override PaperColumn #'used = ##t} (PapierSpalte benutzt = wahr)
+@end itemize
+
+In den Beispielen unten werden diese fünf unterschiedlichen Einstellungen
+für die proportionale Notation vorgestellt und ihre Wirkungen
+untereinander illustriert.
+
+Es soll mit diesem 1 Takt langen Beispiel begonnen werden, in welchem
+die klassischen Abstände und Flattersatz (ragged-right) eingesetzt werden:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Score <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+>>
+@end lilypond
+
+Die Halbe, mit der der Takt beginnt, braucht weitaus weniger
+Platz als die Hälfte des Taktes.  Gleichermaßen haben die
+Sechszehntel und die Sechszehntel-Quintolen (oder Zwanzigstel),
+mit denen der Takt endet, insgesamt weitaus mehr als die Hälfte
+der Taktbreite.
+
+Im klassischen Notensatz kann dieses Verhalten genau das gewünschte
+Ergebnis bringen, weil dadurch horizontaler Platz von der Halben
+weggenommen werden kann und so insgesamt Platz in dem Takt eingespart
+wird.
+
+Wenn allerdings ein Zeitstrahl oder andere zeitliche ablaufende
+Graphiken über oder unter dem Takt eingefügt werden soll, braucht man
+eine Notenplatzierung, die exakt der von ihnen eingenommenen Dauer
+entspricht.  Auf folgende Art wird die proportionale Notation
+eingeschaltet:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Score \with {
+  proportionalNotationDuration = #(ly:make-moment 1 20)
+} <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+>>
+@end lilypond
+
+Die Halbe zu Beginn des Taktes und die schnelleren Noten in der zweiten
+Takthälfte nehmen jetzt genau den gleichen horizontalen Platz ein.  Jetzt
+könnte man einen Zeitstrahl mit dem Takt synchronisieren.
+
+Die Einstellung von @code{proportionalNotationDuration} gehört zum
+@code{Score}-Kontext.  Kontexteinstellungen können an drei verschiedenen
+Stellen in der Quelldatei geschrieben werden: in einer @code{\with}-Umgebung,
+in einer @code{\context}-Unmgebung oder direkt in den Noten mit dem
+@code{\set}-Befehl.  Alle drei Positionen sind gleichwertig und es hängt
+vom Benutzer ab, welche bevorzugt wird.
+
+Die Eigenschaft @code{proportionalNotationDuration} braucht ein Argument,
+welches die Referenzdauer ist, anhand welcher alle Noten platziert werden.
+Hier wird die LilyPond Scheme-Funktion @code{make-moment} eingesetzt.  Sie
+braucht zwei Argumente: einen Zähler und einen Nenner, die einen Bruch einer
+Ganzen darstellen.  Die Funktion @code{#(ly:make-moment 1 20)} ergibt also
+eine Referenzdauer von einer Zwanzigstel.  Genauso gut können etwa die Dauern
+@code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)} oder
+@code{#(ly:make-moment 3 97)} eingesetzt werden.
+
+Die richtige Referenzdauer, mit der eine vernünftige Verteilung der Noten
+proportional möglich ist, muss durch Ausprobieren herausgefunden werden.
+Dabei sollte man mit einer Dauer beginnen, die der kleinsten Note des
+Stückes nahekommt.  Kleine Referenzdauern lassen die Noten sehr gedehnt
+erscheinen, größere Referenzdauern zwingen sie dichter zusammen.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Score \with {
+  proportionalNotationDuration = #(ly:make-moment 1 8)
+} <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+>>
+
+\new Score \with {
+  proportionalNotationDuration = #(ly:make-moment 1 16)
+} <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+>>
+
+\new Score \with {
+  proportionalNotationDuration = #(ly:make-moment 1 32)
+} <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+>>
+@end lilypond
+
+Man muss beachten, dass die Referenzdauer nicht zu groß ist
+(wie die Achtel in dem Beispiel oben), denn dadurch werden
+die Noten so dicht gesetzt, dass sich eventuell sogar Notenköpfe
+von sehr kleinen Notenwerten überschneiden können.  Die proportionale
+Notation nimmt üblicherweise mehr Platz ein als die klassische
+Platzverteilung.  Der rhythmischen Klarheit muss ein eng gesetztes
+Notenbild geopfert werden.
+
+In Folgenden soll betrachtet werden, wie sich überlappende
+rhythmische Aufteilungen am besten positioniert werden.  Als Referenz
+wird das erste Beispiel herangezogen, zu welchem ein zweites
+System mit anderen rhythmischen Werten hinzugefügt wird:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Score <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+  \new RhythmicStaff {
+    \times 8/9 {
+      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+    }
+  }
+>>
+@end lilypond
+
+Die Platzaufteilung ist schlecht, weil die gleichlangen Noten des
+untersten Systems nicht gleichmäßig verteilt sind.  Im klassischen
+Notensatz kommen komplexe rhythmische Verhältnisse wie dieses sehr
+selten vor, sodass der Notensatz nicht in Hinsicht auf sie optimiert
+ist.  @code{proportionalNotationDuration} hilft in
+dieser Situation deutlich:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Score \with {
+  proportionalNotationDuration = #(ly:make-moment 1 20)
+} <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+  \new RhythmicStaff {
+    \times 8/9 {
+      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+    }
+  }
+>>
+@end lilypond
+
+Aber bei sehr genauer Betrachtung sind die Noten der zweiten Hälfte
+der Nonole doch immernoch eine Spur weiter gesetzt als die Noten
+der ersten Hälfte.  Um wirklich gleichmäßige Abstände zu erzwingen,
+sollte auch noch die gleichmäßige Dehnung angeschaltet werden:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Score \with {
+  proportionalNotationDuration = #(ly:make-moment 1 20)
+  \override SpacingSpanner #'uniform-stretching = ##t
+} <<
+  \new RhythmicStaff {
+    c'2
+    c'16 c'16 c'16 c'16
+    \times 4/5 {
+      c'16 c'16 c'16 c'16 c'16
+    }
+  }
+  \new RhythmicStaff {
+    \times 8/9 {
+      c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
+    }
+  }
+>>
+@end lilypond
+
+Das Beispiel mit den zwei Systemen ist nun exakt nach den
+rhythmischen Werten der Noten gesetzt, sodass ein Zeitstrahl
+oder ähnliches eingefügt werden könnte.
+
+Alle Einstellungen zur proportionalen Notation erwarten,
+dass die @code{uniform-stretching}-Eigenschaft des
+@code{SpacingSpanner}-Objekts auf wahr gesetzt wird.  Andernfalls
+kann es vorkommen, dass bestimmte Abstände (etwa von
+unsichtbaren Noten) nicht richtig gesetzt werden.
+
+Das @code{SpacingSpanner}-Objekt ist ein abstraktes Grob, dass sich im
+@code{Score}-Kontext befindet.  Genauso wie die Einstellungen
+von @code{proportionalNotationDuration} können auch diese
+Veränderungen an den drei Stellen in der Quelldatei vorkommen:
+in der @code{\with}-Umgebung innerhalb von @code{Score}, in
+einer @code{\context}-Umgebung oder direkt im Notentext.
+
+Standardmäßig gibt es nur ein @code{SpacingSpanner} pro @code{Score}.
+Das heißt, dass @code{uniform-stretching} für die gesamte Partitur
+(d.h. für die Reichweite von @code{Score}) entweder an- oder
+ausgeschaltet ist.  Man kann allerdings in einer Partitur unterschiedliche
+Abschnitte mit verschiedenem Platzierungsverhalten definieren.
+Hierzu ist der Befehl @code{\newSpacingSection} da.  Siehe auch @ref{Eine neuer Bereich mit anderen Abständen}.
+
+Im Folgenden soll gezeigt werden, wie sich der @code{Separating_line_group_engraver}
+auswirkt und warum er normalerweise für proportionale Notation ausgeschaltet wird.
+In diesem Beispiel wird verdeutlicht, dass vor jeder ersten Note eines Notensystems
+immer etwas zusätzlicher Platz gesetzt wird:
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+Der gleiche horizontale Platz wird vor eine Noten gesetzt, wenn sie
+einer Taktart, einem Schlüssel oder einer Tonartbezeichnung folgt.
+Dieser Platz wird durch @code{Separating_line_group_engraver}
+eingefügt; wenn wir ihn aus der Partitur entfernen, entfällt
+auch dieser zusätzliche Platz:
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff \with {
+  \remove Separating_line_group_engraver
+} {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+Nichmusikalische Elemente wir Takt- und Tonartangaben, Schlüssel und
+Versetzungszeichen sind problematisch in proportionaler
+Notation.  Keine dieser Elemente hat eine rhythmische Dauer, aber
+alle brauchen horizontalen Platz.  Das Problem wird auf unterschiedliche
+Weise gelöst.
+
+Es ist manchmal möglich, Probleme mit Tonarten zu lösen, indem keine
+benutzt werden.  Das ist durchaus eine ernstzunehmende Option, weil
+die meisten Partituren mit proportionaler Notation für heutige
+Musik geschrieben werden.  Ähnliches gilt für Taktarten, insbesondere,
+wenn ein Zeitstrahl in die Partitur eingearbeitet werden soll.
+In den meisten Parituren kommt jedoch irgendeine Taktart vor.
+Schlüssel und Versetzungszeichen sind noch wichtiger; auf
+sie kann selten verzichtet werden.
+
+Eine Lösungsmöglichkeit ist es, die @code{strict-note-spacing}-Eigenschaft
+des @code{SpacingSpanner}-Objekts zu benutzen.  Zum Vergleich
+die beiden Partituren unten:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  c''8
+  c''8
+  c''8
+  \clef alto
+  d'8
+  d'2
+}
+
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \override Score.SpacingSpanner #'strict-note-spacing = ##t
+  c''8
+  c''8
+  c''8
+  \clef alto
+  d'8
+  d'2
+}
+@end lilypond
+
+Bei beiden handelt es sich um proportionale Notation, aber
+die Platzverteilung im oberen Beispiel ist zu weit wegen
+des Schlüsselwechsels.  Die Platzverteilung des zweiten
+Beispiels dagegen bleibt rhythmisch korrekt.
+@code{strict-note-spacing} bewirkt, dass Takt- und
+Tonartbezeichnungen, Schlüssel und Versetzungszeichen
+keine Rolle bei der Berechnung der Abstände spielen.
+
+Zusätzlich zu den hier vorgestellten Einstellungen gibt es
+noch eine Reihe von Möglichkteiten, die oft in proportionaler
+Notation benutzt werden.  Dazu gehören:
+
+@itemize
+@item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
+@item @code{tupletFullLength = ##t}
+@item @code{\override Beam #'breakable = ##t}
+@item @code{\override Glissando #'breakable = ##t}
+@item @code{\override TextSpanner #'breakable = ##t}
+@item @code{\remove Forbid_line_break_engraver in the Voice context}
+@end itemize
+
+Diese Einstellungn bewirken, dass auch Verzierungsnoten proportional
+gesetzt werden, dass Klammern von rhythmischen Gruppen bis zu den
+Anfangs- und Endpunkten ausgedehnt werden und lassen dehnbare
+Objekte wie Balken und Glissandi auch über Taktstriche hinweg zu.
+
+@seealso
+Notationsreferenz:
+@ref{Eine neuer Bereich mit anderen Abständen}.
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Die Musik auf weniger Seiten zwingen
+@section Die Musik auf weniger Seiten zwingen
+@translationof Fitting music onto fewer pages
+
+Manchmal kommt es vor, dass nur ein oder zwei Systeme auf die
+nächste Seite geraten, obwohl es so aussieht, als ob auf der
+vorigen Seite genügend Platz ist, um diese Systeme auch noch
+unterzubringen.
+
+Wenn man derartige Platzierungsprobleme untersucht, ist die
+Funktion @code{annotate-spacing} von sehr großer Hilfe.  Hiermit
+wird in den Musiksatz zusätzlich Information darüber ausgegeben,
+wieviel Platz bestimmten Parametern zugewiesen wird.  Genaueres
+hierzug in
+@ref{Abstände anzeigen lassen}.
+
+@menu
+* Abstände anzeigen lassen::
+* Abstände verändern::
+@end menu
+
+
+@node Abstände anzeigen lassen
+@subsection Abstände anzeigen lassen
+@translationof Displaying spacing
+
+@cindex Platzierung, Layouteinstellungen
+
+@funindex annotate-spacing
+
+Die Dimensionen von vertikalen und horizontalen Platzierungsvariablen,
+die veränderbar sind, lassen sich mit ihren aktuellen Werten im
+Notentext anzeigen, wenn man die Funktion
+@code{annotate-spacing} in der @code{\paper}-Umgebung einschaltet:
+
+@c need to have \book{} otherwise we get the separate systems. -hwn
+@lilypond[verbatim,quote]
+#(set-default-paper-size "a6" 'landscape)
+\book {
+  \score { { c4 } }
+  \paper { annotate-spacing = ##t }
+}
+@end lilypond
+
+@noindent
+Alle Layoutdimensionen werden in Notenlinienzwischenräumen
+aufgelistet, unabhängig von den Einheiten, mit denen sie in der
+@code{\paper}- oder @code{\layout}-Umgebung definiert worden
+sind.  In dem letzten Beispiel hat @code{paper-height} einen Wert von
+59.75 Notenlinienzwischenräumen und @code{staff-size}
+Systemhöhe) ist 20 Punkte.  Dabei gilt:
+
+@multitable {1 Notenlinienzwischenraum} {Systemgröße)/4 * (25.4/72.27) mm}
+
+@item 1 Punkt
+@tab = (25.4/72.27) mm
+
+@item 1 Notenlinienzwischenraum
+@tab = (@code{staff-size})/4 pts
+@item
+@tab = (@code{staff-size})/4 * (25.4/72.27) mm
+
+@end multitable
+
+In diesem Fall ist ein @code{staff-space} (Notenlinienzwischenraum)
+etwa gleich 1.757 mm.  Deshalb entspricht der Wert von 95.75
+@code{staff-space} für @code{paper-height} (Papierhöhe) 105 mm,
+die Höhe eines quer gelegten A6-Papiers.  Die Paare (@var{a},@var{b}) sind
+Intervalle, wobei @var{a} der untere Rand und @var{b} der
+obere Rand des Intervalls.
+
+@seealso
+
+Notationsreferenz:
+@ref{Die Notensystemgröße einstellen}
+
+Schnipsel:
+@rlsr{Spacing}.
+
+
+@node Abstände verändern
+@subsection Abstände verändern
+@translationof Changing spacing
+
+Die Ausgabe von @code{annotate-spacing} bietet sehr viele
+Details zu den vertikalen Dimensionen einer Paritur.  Zu Information,
+wie Seitenränder und andere Layout-Variablen geändert werden
+können, siehe @ref{Seitenformatierung}.
+
+Neben Rändern gibt es einige weitere Optionen, Platz zu sparen:
+
+@itemize
+@item
+LilyPond kann die Systeme so dicht wie möglich platzieren (damit 
+so viele Systeme wie möglich auf eine Seite passen), aber sie 
+dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Die Anzahl der Systeme kann reduziert werden.  Das kann auf
+zwei Arten helfen: wenn einfach nur ein Wert gesetzt wird, auch
+wenn es die gleiche Anzahl ist, die auch schon vorher von LilyPond
+erstellt wurde, kann manchmal dazu führen, dass mehr Systeme
+auf eine Seite gesetzt werden.  Das liegt daran, dass ein
+Schritt im Notensatz ausgelassen wird, der die Seitenverteilung
+nur grob einschätzt, sodass eine bessere Seitenverteilung
+entsteht.  Auch wenn man eine Verringerung der Anzahl an Systemen
+erzwingt, kann oft eine Seite eingespart werden.  Wenn LilyPond 
+die Musik etwa auf 11 Systeme verteilt, kann man die Benutzung von 
+nur 10 Systemen erzwingen.
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Vermeidung von Objekten, die den vertikalen Abstand von Systemen 
+vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen 
+etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf 
+zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie 
+nur auf einer Zeile gedruckt werden.
+
+Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders 
+weit @qq{hervorstehen}, zu verschieben.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  e4 c g\f c
+  \override DynamicText #'extra-offset = #'( -2.2 . 2.0)
+  e4 c g\f c
+}
+@end lilypond
+
+@item
+Die horizontalen Abstände können mit der 
+@code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
+@ref{Horizontale Abstände verändern} für Einzelheiten.  Dieses
+Beispiel zeigt die normalen Abstände:
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+}
+@end lilypond
+
+@noindent
+Das nächste Beispiel verändert @code{common-shortest-duration} (die
+häufigste kürzeste Note) von @code{1/4} zu @code{1/2}.  Die Viertelnote
+ist dennoch die häufigste Note in diesem Abschnitt, sodass der
+Notentext zusammengedrängt, wird, wenn eine Halbe als Standard
+angegeben wird:
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+        #'common-shortest-duration = #(ly:make-moment 1 2)
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Die @code{common-shortest-duration}-Eigenschaft kann nicht
+dynamisch verändert werden, darum muss sie immer in der
+@code{\context}-Umgebung definiert werden und wirkt sich somit
+auf eine ganze @code{\score}-Umgebung aus.
+
+@end itemize
+
+@seealso
+Notationsreferenz:
+@ref{Seitenformatierung},
+@ref{Horizontale Abstände verändern}.
+
+Schnipsel:
+@rlsr{Spacing}.

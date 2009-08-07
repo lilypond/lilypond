@@ -1,0 +1,8 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Die Klammer zu Beginn von Systemgruppen kann auch in eine eckige Klammer
+(@code{SystemStartSquare}) umgewandelt werden, wenn man sie explizit
+im @code{StaffGroup}- oder @code{ChoirStaffGroup}-Kontext setzt.
+
+"
+  doctitlede = "Eine eckige Klammer zu Beginn von Systemgruppen benutzen"

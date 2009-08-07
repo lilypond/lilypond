@@ -15,7 +15,9 @@ $(i)
 $(i): 
 endef
 
-$(eval $(firstword $(MASTER_TEXI_FILES)): $(foreach i, $(wordlist 2, $(words $(MASTER_TEXI_FILES)), $(MASTER_TEXI_FILES)),$(CHAIN_RULE)))
+$(eval $(firstword $(TEXI_FILES_FROM_TELY)):\
+ $(foreach i, $(wordlist 2, $(words $(TEXI_FILES_FROM_TELY)),\
+ $(TEXI_FILES_FROM_TELY)),$(CHAIN_RULE)))
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
@@ -33,14 +35,8 @@ $(outdir)/%.html.omf: %.tely
 $(outdir)/%.pdf.omf: %.tely
 	$(call GENERATE_OMF,pdf)
 
-$(outdir)/%.ps.gz.omf: %.tely
-	$(call GENERATE_OMF,ps.gz)
-
 $(outdir)/%.html.omf: $(outdir)/%.texi
 	$(call GENERATE_OMF,html)
 
 $(outdir)/%.pdf.omf: $(outdir)/%.texi
 	$(call GENERATE_OMF,pdf)
-
-$(outdir)/%.ps.gz.omf: $(outdir)/%.texi
-	$(call GENERATE_OMF,ps.gz)

@@ -1,0 +1,16 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Si hay un solo pentagrama en un de los tipos de sistema
+@code{ChoirStaff} o @code{StaffGroup}, el comportamiento
+predeterminado es que no se imprima el corchete en la barra inicial.
+Esto se puede cambiar sobreescribiendo las propiedades adecuadas.
+
+Observe que en contextos como @code{PianoStaff} y
+@code{GrandStaff} en que los sistemas empiezan con una llave en
+lugar de un corchete, se debe establecer el valor de una propiedad
+distinta, como se ve en el segundo sistema del ejemplo.
+
+"
+  doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
+
+  

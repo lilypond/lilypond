@@ -1,0 +1,9 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Las cifras de digitación orientadas verticalmente se colocan de
+forma predeterminada fuera del pentagrama.  Sin embargo, este
+comportamiento se puede cancelar.
+
+"
+  doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"
+

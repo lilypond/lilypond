@@ -1,0 +1,185 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Frédéric Chiasson, Jean-Charles Malahieude
+
+@node Tables du manuel de notation
+@appendix Tables du manuel de notation
+@translationof Notation manual tables
+
+@c Please do not delete the following @ignore block.
+@ignore
+Note for editors and translators: In the following menu, two entries
+are needed to link to a pair of automatically generated sections.
+Please keep them and, if using emacs, do not run
+texinfo-all-menus-update without manually restoring them back. These
+menu entries are:
+
+* Text markup commands::
+* Text markup list commands::
+
+and they should go just after
+* Styles de tête de note::
+
+and just before
+* Liste des signes d'articulation::
+@end ignore
+
+@menu
+* Table des noms d'accord::
+* Modificateurs d'accord usuels::
+* Tablatures prédéfinies::
+* Instruments MIDI::
+* Liste des couleurs::
+* La fonte Feta::
+* Styles de tête de note::
+* Text markup commands::
+* Text markup list commands::
+* Liste des signes d'articulation::       
+* Notes utilisées en percussion::
+* Liste des propriétés de contexte::      
+* Propriétés de mise en forme::           
+* Variables::                 
+* Fonctions Scheme::            
+@end menu 
+
+@node Table des noms d'accord
+@appendixsec Table des noms d'accord
+@translationof Chord name chart @c external
+
+@untranslated
+
+@node Modificateurs d'accord usuels
+@appendixsec Modificateurs d'accord usuels
+@translationof Common chord modifiers @c external
+
+@untranslated
+
+@node Tablatures prédéfinies
+@appendixsec Tablatures prédéfinies
+@translationof Predefined fretboard diagrams @c external
+
+@untranslated
+
+@node Instruments MIDI
+@appendixsec Instruments MIDI
+@translationof MIDI instruments @c external
+
+@untranslated
+
+@node Liste des couleurs
+@appendixsec Liste des couleurs
+@translationof List of colors @c external
+
+@untranslated
+
+@subsubheading Couleurs de base
+@subsubheading Noms de couleur X
+@subsubheading Noms de couleur sans suffixe numérique
+@subsubheading Noms de couleur avec suffixe numérique
+@subsubheading Échelle de gris
+
+@node La fonte Feta
+@appendixsec La fonte Feta
+@translationof The Feta font @c external
+
+@untranslated
+
+@node Styles de tête de note
+@appendixsec Styles de tête de note
+@translationof Note head styles @c external
+
+@untranslated
+
+@ignore
+Les commandes suivantes peuvent être utilisées dans un bloc
+@code{\markup @{ @}}.
+@end ignore
+
+@include markup-commands.tely
+
+
+@ignore
+Les commandes suivantes peuvent être utilisées dans un
+bloc @code{\markuplines @{ @}}.
+@end ignore
+
+@include markup-list-commands.tely
+
+
+@node Liste des signes d'articulation
+@appendixsec Liste des signes d'articulation
+@translationof List of articulations
+
+@cindex accent
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex point d'orgue
+@cindex point d'arrêt
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex tirer l'archet
+@cindex pousser l'archet
+@cindex bouché
+@cindex sourdine
+@cindex orgue, marque de pédale d'
+@cindex grupetto
+@cindex ouvert
+@cindex flageolet
+@cindex trille
+@cindex mordant
+@cindex ornementation baroque
+@cindex baroque, ornementation
+@cindex pouce
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+
+Voici la liste exhaustive des symboles :
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+
+
+@node Notes utilisées en percussion
+@appendixsec Notes utilisées en percussion
+@translationof Percussion notes
+
+@lilypondfile[quote]{percussion-chart.ly}
+
+@node Liste des propriétés de contexte
+@appendixsec Liste des propriétés de contexte
+@translationof All context properties @c external
+
+@untranslated
+
+
+@node Propriétés de mise en forme
+@appendixsec Propriétés de mise en forme
+@translationof Layout properties @c external
+
+@untranslated
+
+
+@node Variables
+@appendixsec Variables
+@translationof Identifiers @c external
+
+@untranslated
+
+
+@node Fonctions Scheme
+@appendixsec Fonctions Scheme
+@translationof Scheme functions @c external
+
+@untranslated

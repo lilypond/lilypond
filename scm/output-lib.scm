@@ -89,22 +89,6 @@
   ))
 
 
-; default tunings for common string instruments
-(define-public guitar-tuning '(4 -1 -5 -10 -15 -20))
-(define-public guitar-open-g-tuning '(2 -1 -5 -10 -17 -22))
-(define-public bass-tuning '(-17 -22 -27 -32))
-(define-public mandolin-tuning '(16 9 2 -5))
-
-;; tunings for 5-string banjo
-(define-public banjo-open-g-tuning '(2 -1 -5 -10 7))
-(define-public banjo-c-tuning '(2 -1 -5 -12 7))
-(define-public banjo-modal-tuning '(2 0 -5 -10 7))
-(define-public banjo-open-d-tuning '(2 -3 -6 -10 9))
-(define-public banjo-open-dm-tuning '(2 -3 -6 -10 9))
-;; convert 5-string banjo tuning to 4-string by removing the 5th string
-(define-public (four-string-banjo tuning)
-  (reverse (cdr (reverse tuning))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 

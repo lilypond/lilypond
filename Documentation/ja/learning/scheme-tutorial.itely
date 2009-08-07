@@ -1,0 +1,29 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Scheme tutorial
+@appendix Scheme tutorial
+@translationof Scheme tutorial @c external
+
+@untranslated
+
+
+@menu
+* Tweaking with Scheme::
+@end menu
+
+@node Tweaking with Scheme
+@appendixsec Tweaking with Scheme
+@translationof Tweaking with Scheme @c external
+
+@untranslated
+
+
+

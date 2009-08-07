@@ -6,52 +6,61 @@
 ;; (c) 2005--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;
 
-(map ly:register-stencil-expression
-     '(beam
-       bezier-sandwich
-       blank
-       bracket
-       char
-       circle
-       dashed-line
-       dashed-slur
-       dot
-       draw-line
-       ellipse
-       embedded-ps
-       glyph-string
-       named-glyph
-       oval
-       path
-       polygon
-       repeat-slash
-       resetcolor
-       round-filled-box
-       setcolor
-       text
-       url-link
-       utf-8-string
-       white-dot
-       white-text
-       zigzag-line
+;; TODO:
+;;  - stencil-commands should have docstrings.
 
-       grob-cause
-       no-origin
-       placebox
-       unknown
-
-       delay-stencil-evaluation
-       ))
+(define-public (ly:all-stencil-commands)
+  "Return the list of stencil commands that can be
+defined in the output modules (output-*.scm)"
+  '(beam
+    bezier-sandwich
+    blank
+    bracket
+    char
+    circle
+    dashed-line
+    dashed-slur
+    dot
+    draw-line
+    ellipse
+    embedded-ps
+    embedded-svg
+    glyph-string
+    grob-cause
+    named-glyph
+    no-origin
+    oval
+    path
+    placebox
+    polygon
+    repeat-slash
+    resetcolor
+    resetrotation
+    round-filled-box
+    setcolor
+    setrotation
+    text
+    unknown
+    url-link
+    utf-8-string
+    white-dot
+    white-text
+    zigzag-line
+    ))
 
 ;; TODO:
-;;  - generate this list by registering the output-backend-commands
-;;    output-backend-commands should have docstrings.
-;;  - remove hard copies in output-ps
+;;  - output-backend-commands should have docstrings.
 
 (define-public (ly:all-output-backend-commands)
-  "Return list of output backend commands."
-  '(combine-stencil
-    color
-    translate-stencil))
+  "Return the list of extra output backend commands that
+are used internally in lily/stencil-interpret.cc."
+  '(color
+    combine-stencil
+    delay-stencil-evaluation
+    rotate-stencil
+    translate-stencil
+    ))
 
-(map ly:register-stencil-expression (ly:all-output-backend-commands))
+(map ly:register-stencil-expression
+  (append (ly:all-stencil-commands)
+	  (ly:all-output-backend-commands)))

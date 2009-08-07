@@ -1,0 +1,38 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Spezielle Notation
+@chapter Spezielle Notation
+@translationof Specialist notation
+
+Dieser Abschnitt erklärt, wie Notation erstellt wird, die nur für ein
+bestimmtes Instrument oder einen Stil eingesetzt wird.
+
+@menu
+* Notation von Gesang::
+* Tasteninstrumente und andere Instrumente mit mehreren Systemen::
+* Bundlose Saiteninstrumente::
+* Saiteninstrumente mit Bünden::
+* Schlagzeug::
+* Blasinstrumente::
+* Notation von Akkorden::
+* Notation von alter Musik::
+* Weltmusik::
+@end menu
+
+@include notation/vocal.itely
+@include notation/keyboards.itely
+@include notation/unfretted-strings.itely
+@include notation/fretted-strings.itely
+@include notation/percussion.itely
+@include notation/wind.itely
+@include notation/chords.itely
+@include notation/ancient.itely
+@include notation/world.itely

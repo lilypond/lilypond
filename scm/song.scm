@@ -1,4 +1,4 @@
-;;; festival.scm --- Festival singing mode output
+;;; song.scm --- Festival singing mode output
 
 ;; Copyright (C) 2006, 2007 Brailcom, o.p.s.
 

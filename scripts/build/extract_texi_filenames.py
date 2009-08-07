@@ -26,8 +26,10 @@ import re
 import os
 import getopt
 
-options_list, files = getopt.getopt (sys.argv[1:],'o:s:hI:',
-                               ['output=', 'split=', 'help', 'include='])
+options_list, files = getopt.getopt (sys.argv[1:],'o:s:hI:m:',
+                                     ['output=', 'split=',
+                                      'help', 'include=',
+                                      'master-map-file='])
 
 help_text = r"""Usage: %(program_name)s [OPTIONS]... TEXIFILE...
 Extract files names for texinfo (sub)sections from the texinfo files.
@@ -35,6 +37,7 @@ Extract files names for texinfo (sub)sections from the texinfo files.
 Options:
  -h, --help                     print this help
  -I, --include=DIRECTORY        append DIRECTORY to include search path
+ -m, --master-map-file=FILE     use FILE as master map file
  -o, --output=DIRECTORY         write .xref-map files to DIRECTORY
  -s, --split=MODE               split manual according to MODE. Possible values
                                 are section and custom (default)
@@ -47,6 +50,8 @@ def help (text):
 outdir = '.'
 split = "custom"
 include_path = []
+master_map_file = ''
+initial_map = {}
 for opt in options_list:
     o = opt[0]
     a = opt[1]
@@ -59,6 +64,9 @@ for opt in options_list:
         outdir = a
     elif o == '-s' or o == '--split':
         split = a
+    elif o == '-m' or o == '--master-map-file':
+        if os.path.isfile (a):
+            master_map_file = a
     else:
         raise Exception ('unknown option: ' + o)
 
@@ -72,7 +80,9 @@ include_re = re.compile (r'@include ((?!../lily-).*?\.i?texi)$', re.M)
 whitespaces = re.compile (r'\s+')
 section_translation_re = re.compile ('^@(node|(?:unnumbered|appendix)\
 (?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|\
-(?:major|chap|(?:sub){0,2})heading|translationof|lydoctitle) (.*?)\\s*$', re.MULTILINE)
+(?:major|chap|(?:sub){0,2})heading|lydoctitle|translationof) \
+(.+)$', re.MULTILINE)
+external_node_re = re.compile (r'\s+@c\s+external.*')
 
 def expand_includes (m, filename):
     filepath = os.path.join (os.path.dirname (filename), m.group(1))
@@ -106,8 +116,8 @@ def extract_sections (filename):
         result += "@" + sec[0] + " " + sec[1] + "\n"
     return (lang_suffix, result)
 
-# Convert a given node name to its proper file name (normalization as explained
-# in the texinfo manual:
+# Convert a given node name to its proper file name (normalization as
+# explained in the texinfo manual:
 # http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
 def texinfo_file_name(title):
     # exception: The top node is always mapped to index.html
@@ -180,24 +190,38 @@ def process_sections (filename, lang_suffix, page):
     had_section = False
     for sec in sections:
         if sec[0] == "node":
-            # Write out the cached values to the file and start a new section:
+            # Write out the cached values to the file and start a new
+            # section:
             if this_title and this_title != 'Top':
                     f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
             had_section = False
             this_title = remove_texinfo (sec[1])
             this_anchor = create_texinfo_anchor (sec[1])
+            # delete entry from master map file
+            if this_title in initial_map:
+                del initial_map[this_title]
         elif sec[0] == "translationof":
+            (original_node, external_node) = external_node_re.subn ('', sec[1])
+            original_node = remove_texinfo (original_node)
+            # The following binds the translator to use the
+            # translated node name in cross-references in case
+            # it exists
+            if external_node and original_node in initial_map:
+                del initial_map[original_node]
             anchor = create_texinfo_anchor (sec[1])
-            # If @translationof is used, it gives the original node name, which
-            # we use for the anchor and the file name (if it is a numbered node)
+            # If @translationof is used, it gives the original
+            # node name, which we use for the anchor and the file
+            # name (if it is a numbered node)
             this_anchor = anchor
             if not this_unnumbered:
                 this_filename = anchor
+            elif original_node in initial_map:
+                this_filename = initial_map[original_node][2]
         else:
-            # Some pages might not use a node for every section, so treat this
-            # case here, too: If we already had a section and encounter another
-            # one before the next @node, we write out the old one and start
-            # with the new values
+            # Some pages might not use a node for every section, so
+            # treat this case here, too: If we already had a section
+            # and encounter another one before the next @node, we
+            # write out the old one and start with the new values
             if had_section and this_title:
                 f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
                 this_title = remove_texinfo (sec[1])
@@ -205,9 +229,9 @@ def process_sections (filename, lang_suffix, page):
             had_section = True
 
             if split == 'custom':
-                # unnumbered nodes use the previously used file name, only numbered
-                # nodes get their own filename! However, top-level @unnumbered
-                # still get their own file.
+                # unnumbered nodes use the previously used file name,
+                # only numbered nodes get their own filename! However,
+                # top-level @unnumbered still get their own file.
                 this_unnumbered = unnumbered_re.match (sec[0])
                 if not this_unnumbered:
                     this_filename = this_anchor
@@ -220,8 +244,17 @@ def process_sections (filename, lang_suffix, page):
 
     if this_title and this_title != 'Top':
         f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
+
+    for node in initial_map:
+        f.write ("\t".join (initial_map[node]) + "\n")
     f.close ()
 
+xref_map_line_re = re.compile (r'(.*?)\t(.*?)\t(.*?)$')
+if master_map_file:
+    for line in open (master_map_file):
+        m = xref_map_line_re.match (line)
+        if m:
+            initial_map[m.group (1)] = (m.group (1), m.group (2), m.group (3))
 
 for filename in files:
     print "extract_texi_filenames.py: Processing %s" % filename

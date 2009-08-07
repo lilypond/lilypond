@@ -1,8 +1,7 @@
 # rules for directories with LilyPond files.
 
 TELY_FILES := $(call src-wildcard,*.tely)
-MASTER_TEXI_FILES := $(sort $(TELY_FILES:%.tely=$(outdir)/%.texi))\
- $(OUT_MASTER_TEXI_FILES)
+TEXI_FILES_FROM_TELY := $(TELY_FILES:%.tely=$(outdir)/%.texi) $(TEXI_FILES_FROM_TELY)
 
 OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TELY_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
 

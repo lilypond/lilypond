@@ -1,0 +1,10 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Muchas partituras de piano tienen las indicaciones dinámicas
+centradas entre los dos pentagramas.  Esto requiere un poco de
+trucaje, pero puesto que la plantilla está aquí mismo, no tenemos
+que hacer este trucaje por nuestra cuenta.
+
+"
+  doctitlees = "Plantilla de piano con matices centrados"
+

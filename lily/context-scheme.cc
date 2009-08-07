@@ -69,14 +69,14 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 }
 
 LY_DEFINE (ly_context_property, "ly:context-property",
-	   2, 0, 0, (SCM c, SCM name),
-	   "Return the value of @var{name} from context @var{c}.")
+	   2, 0, 0, (SCM context, SCM sym),
+	   "Return the value for property @var{sym} in @var{context}.")
 {
-  LY_ASSERT_SMOB (Context, c, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
+  LY_ASSERT_SMOB (Context, context, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  Context *t = unsmob_context (c);
-  return t->internal_get_property (name);
+  Context *t = unsmob_context (context);
+  return t->internal_get_property (sym);
 }
 
 LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",

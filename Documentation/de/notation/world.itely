@@ -1,0 +1,399 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c Translators: Till Rettig
+
+@c \version "2.12.0"
+
+@node Weltmusik
+@section Weltmusik
+@translationof World music
+
+Dieser Abschnitt soll Besonderheiten der Notation aufzeigen, die
+insbesondere relevant sind, um Musik nicht-westlicher Tradition
+zu notieren.
+
+
+@menu
+* Arabische Musik::
+@end menu
+
+@node Arabische Musik
+@subsection Arabische Musik
+@translationof Arabic music
+
+Dieser Abschnitt zeigt Möglichkeiten, wie arabische Musik notiert
+werden kann.
+
+
+@menu
+* Referenz für arabische Musik::
+* Arabic note names ::
+* Arabische Tonarten::
+* Arabische Taktarten::
+* Arabische Notenbeispiele::
+* Weitere Literatur::
+@end menu
+
+@node Referenz für arabische Musik
+@unnumberedsubsubsec References for Arabic music 
+@translationof References for Arabic music
+
+@cindex arabische Musik
+@cindex Maqam
+
+Arabische Musik wurde bisher vor allem mündlich tradiert.  Wenn
+Musik transkribiert wird, handelt es sich meistens um ein Gerüst,
+auf dem der Musiker eigene Improvisationen ausführt.  Mehr und mehr
+wird die westliche Notation mit einigen Veränderungen benutzt, um
+die arabische Musiktradition weiterzugeben und zu konservieren.
+
+Einige Elemente der westlichen Notation wie etwa die Transkription
+von Akkorden oder eigenständige Stimmen werden für die traditionelleren
+arabischen Noten nicht benötigt.  Es gibt allerdings einige andere
+Probleme, wie etwa die Notwendigkeit, Zwischenintervalle zu
+notieren, die sich irgendwo zwischen einem Halbton und einem
+Ganzton befinden.  Daneben werden auch die westlichen Halb- und
+Ganztöne eingesetzt.  Es muss auch möglich sein, eine große
+Anzahl an maqam (Modi) der arabischen Musik zu bezeichnen und zu
+gruppieren.
+
+Üblicherweise müssen Mikrotöne in der arabischen Musik nicht
+präzise notiert werden.
+
+Einige Bereiche, die für die arabische Notation wichtig sind, sind
+an anderer Stelle behandelt:
+
+@itemize
+@item Notenbezeichnungen und Versetzungszeichen (inklusive Vierteltöne)
+können angepasst werden, wie behandelt in
+@ref{Notenbezeichnungen in anderen Sprachen}.
+
+@item Zusätzliche Taktarten können erstellt werden, siehe
+@ref{Tonartbezeichnung}.
+
+@item Komplexe Taktarten erfordern evtl., dass Noten manual gruppiert
+werden, wie gezeigt in
+@ref{Manuelle Balken}.
+
+@item @notation{Takasim}, rhythmisch freie Improvisationen,
+können ohne Taktlinien notiert werden, siehe hierzu
+@ref{Musik ohne Metrum}.
+
+@end itemize
+
+
+@seealso
+Notationsreferenz:
+@ref{Notenbezeichnungen in anderen Sprachen},
+@ref{Tonartbezeichnung},
+@ref{Manuelle Balken}.
+
+Schnipsel:
+@rlsr{World music}.
+
+
+@node Arabic note names 
+@unnumberedsubsubsec Arabic note names 
+@translationof Arabic note names 
+
+@cindex arabische Notenbezeichnungen
+@cindex Notenbezeichnungen, arabisch
+
+An der arabischen Tradition orientierte Notenbezeichnungen können sehr
+land sein und eignen sich daher nicht gut für die Notation von Musik.
+Sie werden nicht benutzt.  Englische Notenbezeichnungen hingegen sind
+in der arabischen Musikerziehung recht unbekannt, weshalb italienische
+Notenbezeichnungen (@code{do, re, mi, fa, sol, la, si}) eingesetzt
+werden.  Modifikatoren (Versetzungszeichen) können auch benutzt werden,
+wie gezeigt in @ref{Notenbezeichnungen in anderen Sprachen}.
+
+Hier ein Beispiel der arabischen @notation{rast}-Tonleiter:
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative do' {
+  do re misb fa sol la sisb do sisb la sol fa misb re do
+}
+@end lilypond
+
+@cindex arabisches Halb-B Versetzungszeichen
+@cindex Halb-B-Versetzungszeichen, arabische Musik
+
+Das Symbol für das Halb-B sieht anders aus als das Symbol, was
+üblicherweise in arabischer Notation benutzt wird.  Das
+@code{\dwn}-Symbol, das in der Datei @code{arabic.ly} definiert
+ist, kann als ein Workaround eingesetzt werden, wenn es notwendig
+ist, das arabische Symbol zu benutzen.  Das Aussehen des
+Halb-Bs in den Vorzeichen kann mit dieser methode nicht verändert
+werden.
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative do' {
+  \set Staff.extraNatural = ##f
+  dod dob dosd \dwn dob dobsb dodsd do do
+}
+@end lilypond
+
+@seealso
+Notationsreferenz:
+@ref{Notenbezeichnungen in anderen Sprachen}.
+
+Schnipsel:
+@rlsr{World music}.
+
+
+
+@node Arabische Tonarten
+@unnumberedsubsubsec Arabic key signatures 
+@translationof Arabic key signatures
+
+@cindex arabische Tonarten
+@cindex arabische Vorzeichen
+
+Neben den westlichen Dur- und Moll-Tonarten sind folgende
+Tonarten in @code{arabic.ly} definiert: @notation{bayati},
+@notation{rast}, @notation{sikah}, @notation{iraq} und
+@notation{kurd}.  Diese Tonarten definieren eine kleine
+Gruppe von Maqams, die weitverbreitet sind.
+
+Ein Maqam kann die Tonart der Gruppe benutzen, zu der er gehört,
+oder die einer benachbarten Gruppe.  Zusätzlich können verschiedene
+Versetzungszeichen in den Noten markiert werden.
+
+Um also etwa die Tonart des Maqams @qq{muhayer} folgendermaßen
+notiert:
+
+@example
+\key re \bayati
+@end example
+
+@var{re} ist die Tonhöhe für den @qq{muhayer}-Maqam und @var{bayati}
+ist die Bezeichnung des Basismaqams der Gruppe.
+
+Während die Vorzeichen eine Gruppe anzeigen, wird meistens der
+eigentliche Maqam im Titel definiert.  In diesem Beispiel müsste
+also der @qq{muhayer}-Maqam im Titel erscheinen.
+
+Andere Maqams derselben Bayati-Gruppe, wie in der Tabelle unten
+gezeigt ((bayati, hussaini, saba und ushaq) können auf die gleiche
+Weise notiert werden.  Sie sind alle Variationen des
+Grundmaqams Bayati.  Sie unterscheiden sich üblicherweise vom
+grundlegenden Maqam in ihrem oberen Tetrachord oder in bestimmten
+Einzelheiten, die aber nicht ihre eigentliche Qualität verändern.
+
+Der andere Maqam der gleichen Gruppe (Nawa) ist mit bayati durch
+eine Modulation verwandt, deren Grundton in der Tabelle angezeigt
+wird, wenn es sich um einen Maqam handelt, der eine Modulation
+eines anderen Maqams darstellt.  Nawa kann folgenderweise
+notiert werden:
+
+@example
+\key sol \bayati
+@end example
+
+In der arabischen Musik ist ein Begriff wie bayati, der eine
+Maqam-Gruppe bezeichnet, gleichzeitig auch selber ein Maqam,
+meistens der häufigste dieser Gruppe.
+
+Hier ist eine Möglichkeit, Maqams zu gruppieren, womit die
+häufigsten Maqams bestimmten Vorzeichen zugeordnet werden:
+
+@multitable @columnfractions 0.1 0.1 0.1 0.6
+@headitem Maqam-Gruppe
+  @tab Vorzeichen (@code{\key})
+  @tab Finalis
+  @tab Andere Maqams der Gruppe (Finalis)
+@item ajam
+  @tab major
+  @tab sib
+  @tab jaharka (fa)
+@item bayati
+  @tab bayati
+  @tab re
+  @tab hussaini, muhayer, saba, ushaq, nawa (sol)
+@item hijaz
+  @tab kurd
+  @tab re
+  @tab shahnaz, shad arban (sol), hijazkar (do)
+@item iraq
+  @tab iraq
+  @tab sisb
+  @tab -
+@item kurd
+  @tab kurd
+  @tab re
+  @tab hijazkar kurd (do)
+@item nahawand
+  @tab minor
+  @tab do
+  @tab busalik (re), farah faza (sol)
+@item nakriz
+  @tab minor
+  @tab do
+  @tab nawa athar, hisar (re)
+@item rast
+  @tab rast
+  @tab do
+  @tab mahur, yakah (sol)
+@item sikah
+  @tab sikah
+  @tab misb
+  @tab huzam
+@end multitable
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
+
+@seealso
+Notationsreferenz:
+@ref{Tonartbezeichnung}.
+
+Handbuch zum Lernen:
+@rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.
+
+Referenz der Interna:
+@rinternals{KeySignature}.
+
+Schnipsel:
+@rlsr{World music},
+@rlsr{Pitches}.
+
+
+@node Arabische Taktarten
+@unnumberedsubsubsec Arabic time signatures 
+@translationof Arabic time signatures
+
+@cindex Arabische Taktarten
+@cindex Taktarten, arabisch
+@cindex Semai-Form
+@cindex taqasim
+
+Einige klassische Formen der arabischen und türkischen Musik
+wie etwa @notation{Semai} haben ungewöhnliche Taktarten wie
+etwa 10/8.  Das kann dazu führen, dass die automatische
+Bebalkung der Noten nicht zu dem Ergebnis kommt, welches in
+der üblichen Notation dieser Musik eingesetzt wird.  Die Noten
+werden nicht anhand einer Taktzeit, sondern anhand von Kriterien
+gruppiert, die man schwer mit einer automatischen Balkenfunktion
+erfassen kann.  Das kann umgangen werden, indem die automatische
+Bebalkung ausgeschaltet wird und die Balken explizit gesetzt werden.
+Auch wenn es nicht darauf ankommen sollte, eine schon notierte
+Musik nachzuahmen, ist es in vielen Fällen dennoch erforderlich,
+die Bebalkung anzupassen und/oder zusammengesetzte Taktarten
+zu benutzen.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{compound-time-signatures.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{arabic-improvisation.ly}
+
+
+@seealso
+Notationsreferenz:
+@ref{Manuelle Balken},
+@ref{Automatische Balken},
+@ref{Musik ohne Metrum},
+@ref{Automatische Versetzungszeichen},
+@ref{Einstellung von automatischen Balken},
+@ref{Taktangabe}.
+
+Schnipsel:
+@rlsr{World music}.
+
+
+@node Arabische Notenbeispiele
+@unnumberedsubsubsec Arabic music example 
+@translationof Arabic music example
+
+@cindex Beispiel der arabischen Musik
+@cindex arabische Musik, Beispiel
+@cindex Vorlage, arabische Musik
+
+Hier eine Vorlage, welche den Beginn eines türkischen Semai
+benutzt, der in der arabischen Musikerziehung oft herangezogen
+wird, um Besonderheiten der arabischen Musiknotation, wie
+etwa Zwischenintervalle und ungewöhnliche Modi, zu illustrieren.
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\score {
+  \relative re' {
+    \set Staff.extraNatural = ##f
+    \set Staff.autoBeaming = ##f
+    \key re \bayati
+    \time 10/8
+
+    re4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8
+    re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb
+    fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb
+    do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8
+  }
+  \header {
+    title = "Semai Muhayer"
+    composer = "Jamil Bek"
+  }
+}
+@end lilypond
+
+
+@seealso
+Schnipsel:
+@rlsr{World music}
+
+
+@node Weitere Literatur
+@unnumberedsubsubsec Weitere Literatur
+@translationof Further reading
+
+@enumerate
+
+@item
+The Music of the Arabs von Habib Hassan Touma (Amadeus Press, 1996)
+enthält eine Beschreibung von Maqams und Methoden zu ihrer
+Gruppierung.
+
+Es gibt auch einige Internetseiten, die Maqams erklären und
+teilweise auch Klangdateien zur Verfügung stellen:
+
+@itemize @bullet
+@item
+@uref{http://www.maqamworld.com/}
+@item
+@uref{http://www.turath.org/}
+@end itemize
+
+Die Maqam-Gruppierungen unterscheiden sich in einigen Details, auch
+wenn die allgemeinen Kriterien weithin anerkannt sind:
+gemeinsame untere Tetrachorde sowie Modulation.
+
+@item
+Es gibt keine Übereinstimmung darüber, wie die Vorzeichen für
+bestimmte Maqams angegeben werden sollen.  Oft wird eine
+Vorzeichenart für eine ganze Maqam-Gruppe verwendet, anstatt
+dass jeder Maqam eigene Vorzeichen hätte.
+
+Oud-Lehrbücher folgender Autoren enthalten Beispiele vor
+allem türkischer und arabischer Kompositionen:
+
+@itemize @bullet
+@item
+Charbel Rouhana
+@item
+George Farah
+@item
+Ibrahim Ali Darwish Al-masri
+@end itemize
+@end enumerate

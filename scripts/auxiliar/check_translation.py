@@ -19,14 +19,8 @@ def dir_lang (file, lang, lang_dir_index):
     path_components[lang_dir_index] = lang
     return os.path.join (*path_components)
 
-vc_last_revision = 'git log --pretty=format:%%H %(file_name)s | head -1'
-vc_last_texidoc_revision = 'git log -Stexidoc%(preferred_language)s --pretty=format:%%H %(file_name)s | head -1'
-
-s = 'Translation of GIT [Cc]ommittish'
-texidoc_chunk_re = re.compile (r'^((?:%+\s*' + s + \
-    r'.+)?\s*(?:texidoc|doctitle)([a-zA-Z]{2,4})\s+=(?:.|\n)*?)(?=%+\s*' + \
-    s + r'|\s*(?:texidoc|doctitle)(?:[a-zA-Z]{2,4})\s+=|$(?!.|\n))', re.M)
-
+# ugh, this is complicated; where has the good old 'git rev-parse' gone?
+vc_revision_parse = 'git log -1 --pretty=format:%%H %s'
 
 def do_file (file_name, lang_codes):
     if verbose:
@@ -42,46 +36,28 @@ def do_file (file_name, lang_codes):
     else:
         check_lang = lang
     if check_lang == C:
-        if not os.path.splitext (file_name)[1] == '.texidoc':
-            raise Exception ('cannot determine language for ' + file_name)
-        translated_contents = open (file_name).read ()
-        if 'ISOLANG' in os.environ:
-            preferred_language = os.environ['ISOLANG']
-        else:
-            raise Exception ('cannot determine language for ' + file_name)
-        for m in texidoc_chunk_re.finditer (translated_contents):
-            if m.group (2) == preferred_language:
-                full_translated_contents = translated_contents
-                translated_contents = m.group (1)
-                translated_contents_start = m.start ()
-                translated_contents_end = m.end ()
-                break
-        else:
-            return
-        original = file_name.replace ('texidocs' + os.path.sep, 'lsr' + os.path.sep, 1)
-        original = original.replace ('.texidoc', '.ly', 1)
-
-        # URG dirty .texidoc files manipulation in a dirty way
-        if touch_committishes and buildlib.check_translated_doc (original,
-                                         file_name,
-                                         translated_contents,
-                                         color=use_colors and not update_mode)[1]:
-            (estimated_revision, error) = buildlib.read_pipe (vc_last_texidoc_revision % vars ())
-            if error:
-                sys.stderr.write ('warning: %s: %s' % (file_name, error))
-            estimated_revision = estimated_revision.strip ()
-            translated_contents = re.sub (r'(?m)^%+\s*Translation of GIT committish:.*\n', '', translated_contents)
-            f = open (file_name, 'w')
-            f.write (full_translated_contents[:translated_contents_start])
-            f.write ('%% Translation of GIT committish: ' + estimated_revision + '\n')
-            f.write (translated_contents)
-            f.write (full_translated_contents[translated_contents_end:])
-            return
-
+        raise Exception ('cannot determine language for ' + file_name)
     else:
-        original = dir_lang (file_name, '', lang_dir_index)
+        if os.path.splitext (file_name)[1] == '.texidoc':
+            original = file_name.replace (os.path.join (check_lang, 'texidocs'), 'snippets', 1)
+            original = original.replace ('.texidoc', '.ly', 1)
+        else:
+            original = dir_lang (file_name, '', lang_dir_index)
         translated_contents = open (file_name).read ()
 
+        ## experimental feature
+        if not touch_committishes in (current_revision, 'HEAD'):
+            (changes_in_original, error) = \
+                buildlib.check_translated_doc (original,
+                                               file_name,
+                                               translated_contents,
+                                               upper_revision=touch_committishes)
+            if not error and not changes_in_original in ('', '\n'):
+                translated_contents = \
+                    buildlib.revision_re.sub ('GIT committish: ' + current_revision,
+                                              translated_contents, 1)
+                f = open (file_name, 'w').write (translated_contents)
+                return
     (diff_string, error) \
         = buildlib.check_translated_doc (original,
                                          file_name,
@@ -107,7 +83,7 @@ def do_file (file_name, lang_codes):
 def usage ():
     sys.stdout.write (r'''
 Usage:
-check-translation [--language=LANG] [--verbose] [--update] FILE...
+check-translation [--language=LANG] [--verbose] [--update] [-t COMMIT] FILE...
 
 This script is licensed under the GNU GPL.
 ''')
@@ -115,12 +91,15 @@ This script is licensed under the GNU GPL.
 def do_options ():
     global lang, verbose, update_mode, touch_committishes, use_colors
 
-    p = optparse.OptionParser (usage="check-translation [--language=LANG] [--verbose] FILE...",
+    p = optparse.OptionParser (usage=\
+"check-translation [--language=LANG] [--verbose] [--update] [-t COMMIT] FILE...",
                                description="This script is licensed under the GNU GPL.")
     p.add_option ("--language",
                   action='store',
                   default=C,
-                  dest="language")
+                  dest="language",
+                  metavar='LL',
+                  help="assume document language ISO 639 code LL by default")
     p.add_option ("--no-color",
                   action='store_false',
                   default=True,
@@ -132,10 +111,12 @@ def do_options ():
                   dest="verbose",
                   help="print details, including executed shell commands")
     p.add_option ('-t',
-                  action='store_true',
-                  default=False,
+                  action='store',
+                  default='HEAD',
                   dest="touch_committishes",
-                  help=optparse.SUPPRESS_HELP)
+                  metavar='COMMIT',
+                  help='[EXPERIMENTAL] update committishes of all files that were up to \
+date at commit COMMIT')
     p.add_option ('-u', "--update",
                   action='store_true',
                   default=False,
@@ -152,15 +133,20 @@ def do_options ():
     return files
 
 def main ():
-    global update_mode, text_editor
+    global update_mode, text_editor, touch_committishes, current_revision
 
     files = do_options ()
     if 'EDITOR' in os.environ:
         text_editor = os.environ['EDITOR']
     else:
         update_mode = False
-    
     buildlib.verbose = verbose
+    (parsed_revision, error) = buildlib.read_pipe (vc_revision_parse % touch_committishes)
+    if error:
+        sys.stderr.write ('warning: %s' % error)
+    else:
+        touch_committishes = parsed_revision.strip ()
+    current_revision = buildlib.read_pipe (vc_revision_parse % 'HEAD')[0]
 
     for i in files:
         do_file (i, langdefs.LANGDICT.keys ())

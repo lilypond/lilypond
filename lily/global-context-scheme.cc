@@ -24,25 +24,25 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 	   " in its final state.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (context));
-  
-  LY_ASSERT_TYPE (unsmob_global_context, context, 1)
+
+  LY_ASSERT_TYPE (unsmob_global_context, context, 1);
 
   SCM output = g->get_output ();
   progress_indication ("\n");
 
   if (Music_output *od = unsmob_music_output (output))
     od->process ();
-  
+
   return output;
 }
 
 LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
-          1, 0, 0, (SCM global),
-          "Create a translator group and connect it to the global context"
-          " @var{global}.  The translator group is returned.")
+	   1, 0, 0, (SCM global),
+	   "Create a translator group and connect it to the global context"
+	   " @var{global}.  The translator group is returned.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (global));
-  LY_ASSERT_TYPE (unsmob_global_context, global, 1)
+  LY_ASSERT_TYPE (unsmob_global_context, global, 1);
 
   Translator_group *tg = new Translator_group ();
   tg->connect_to_context (g);
@@ -57,7 +57,7 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
 	   " block @var{output_def}.  The context is returned.")
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
-  Output_def *odef = unsmob_output_def (output_def); 
+  Output_def *odef = unsmob_output_def (output_def);
 
   Global_context *glob = new Global_context (odef);
 

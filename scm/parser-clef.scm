@@ -1,4 +1,4 @@
-;;;; clef.scm -- Clef settings
+;;;; parser-clef.scm -- Clef settings
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
@@ -132,3 +132,10 @@
 		       (sort (map car supported-clefs) string<?)))
 	  (make-music 'Music)))))
 
+;; a function to add new clefs at runtime
+(define-public (add-new-clef clef-name clef-glyph clef-position octavation c0-position)
+  "Append the entries for a clef symbol to supported clefs and c0-pitch-alist"
+  (set! supported-clefs
+        (acons clef-name (list clef-glyph clef-position octavation) supported-clefs))
+  (set! c0-pitch-alist
+        (acons clef-glyph c0-position c0-pitch-alist)))

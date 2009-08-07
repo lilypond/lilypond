@@ -13,8 +13,9 @@
   (c) 1999--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "beaming-pattern.hh"
 #include "context.hh"
+#include "beam-settings.hh"
+#include "beaming-pattern.hh"
 
 /*
   Represents a stem belonging to a beam. Sometimes (for example, if the stem
@@ -52,7 +53,7 @@ Beam_rhythmic_element::de_grace ()
 {
   if (start_moment_.grace_part_)
     {
-      start_moment_.main_part_ = start_moment_.grace_part_; 
+      start_moment_.main_part_ = start_moment_.grace_part_;
       start_moment_.grace_part_ = 0;
     }
 }
@@ -150,7 +151,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
 void
 Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
 {
-  Moment measure_pos (0);  
+  Moment measure_pos (0);
   SCM grouping = options.grouping_;
   vsize i = 0;
 
@@ -243,7 +244,7 @@ Beaming_pattern::beamlet_count (int i, Direction d) const
 void
 Beaming_options::from_context (Context *context)
 {
-  grouping_ = context->get_property ("beatGrouping");
+  grouping_ = ly_beat_grouping (context->self_scm ());
   subdivide_beams_ = to_boolean (context->get_property ("subdivideBeams"));
   beat_length_ = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
   measure_length_ = robust_scm2moment (context->get_property ("measureLength"), Moment (4, 4));

@@ -65,12 +65,12 @@ TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_
 endif
 
 
-# no local settings in the build process.
+# no locale settings in the build process.
 LANG=
 export LANG
 
 
-INFO_DIRECTORIES = Documentation/user input/lsr
+INFO_DIRECTORIES = Documentation
 
 # clean file lists:
 #
@@ -102,6 +102,11 @@ SOURCE_FILES += $(IN_FILES)
 
 # Preprocessed .in documentation _FILES:
 OUTIN_FILES = $(addprefix $(outdir)/, $(IN_FILES:%.in=%))
+
+# CSS source files are in a unique directory
+CSS_DIRECTORY = $(top-src-dir)/Documentation/css
+CSS_FILES := $(shell ls $(CSS_DIRECTORY)/*.css)
+OUT_CSS_FILES = $(CSS_FILES:$(CSS_DIRECTORY)/%.css=$(outdir)/%.css)
 
 ALL_SOURCES = $(SOURCE_FILES)
 

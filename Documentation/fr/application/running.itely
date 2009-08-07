@@ -1,0 +1,100 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Exécution de LilyPond
+@chapter Exécution de LilyPond
+@translationof Running LilyPond @c external
+
+@untranslated
+
+
+@menu
+* Utilisation habituelle::
+* Utilisation en ligne de commande::
+* Messages d'erreur::
+* Mise à jour des fichiers avec convert-ly::
+* Rapport de bogue::
+@end menu
+
+@node Utilisation habituelle
+@section Utilisation habituelle
+@translationof Normal usage @c external
+
+@untranslated
+
+
+@node Utilisation en ligne de commande
+@section Utilisation en ligne de commande
+@translationof Command-line usage @c external
+
+@untranslated
+
+
+@menu
+* Lancement de lilypond::
+* Options en ligne de commande::
+* Variables d'environnement::
+@end menu
+
+@node Lancement de lilypond
+@subsection Lancement de lilypond
+@translationof Invoking lilypond @c external
+
+@untranslated
+
+
+@node Options en ligne de commande
+@subsection Options en ligne de commande
+@translationof Command line options @c external
+
+@untranslated
+
+
+@node Variables d'environnement
+@subsection Variables d'environnement
+@translationof Environment variables @c external
+
+@untranslated
+
+
+@node Messages d'erreur
+@section Messages d'erreur
+@translationof Error messages @c external
+
+@untranslated
+
+
+@node Mise à jour des fichiers avec convert-ly
+@section Mise à jour avec @command{convert-ly}
+@translationof Updating files with convert-ly @c external
+
+@untranslated
+
+
+@subsection Options en ligne de commande
+@menu
+* Limitations de convert-ly::
+@end menu
+
+@node Limitations de convert-ly
+@subsection Limitations de @command{convert-ly}
+@translationof Problems with convert-ly @c external
+
+@untranslated
+
+
+@node Rapport de bogue
+@section Rapport de bogue
+@translationof Reporting bugs @c external
+
+@untranslated
+
+
+

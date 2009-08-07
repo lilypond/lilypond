@@ -37,15 +37,15 @@ O_FILES += $(outdir)/lilypond.rc.o
 $(outdir)/lilypond: $(outdir)/lilypond.rc.o
 
 $(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico
-$(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico:
-	$(MAKE) -C $(top-build-dir)/Documentation/pictures
+$(top-build-dir)/Documentation/logo/$(outbase)/lilypond.ico:
+	$(MAKE) -C $(top-build-dir)/Documentation/logo
 
-$(outdir)/lilypond.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico
+$(outdir)/lilypond.ico: $(top-build-dir)/Documentation/logo/$(outbase)/lilypond.ico
 	cp $< $@
-$(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico:
-	$(MAKE) -C $(top-build-dir)/Documentation/pictures
+$(top-build-dir)/Documentation/logo/$(outbase)/ly.ico:
+	$(MAKE) -C $(top-build-dir)/Documentation/logo
 
-$(outdir)/ly.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico
+$(outdir)/ly.ico: $(top-build-dir)/Documentation/logo/$(outbase)/ly.ico
 	cp $< $@
 endif
 

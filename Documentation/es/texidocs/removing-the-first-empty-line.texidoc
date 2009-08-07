@@ -1,0 +1,17 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+El primer pentagrama vacío también se puede suprimir de la
+partitura estableciendo la propiedad @code{remove-first} de
+@code{VerticalAxisGroup}.  Esto se puede hacer globalmente dentro
+del bloque @code{\\layout}, o localmente dentro del pentagrama
+concreto que se quiere suprimir.  En este último caso, tenemos que
+especificar el contexto (@code{Staff} se aplica sólo al pentagrama
+actual) delante de la propiedad.
+
+El pentagrama inferior del segundo grupo no se elimina, porque el
+ajuste sólo se aplica al pentagrama concreto dentro del que se
+escribe.
+
+"
+  doctitlees = "Quitar la primera línea vacía"
+

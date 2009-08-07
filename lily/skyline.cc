@@ -542,6 +542,12 @@ Skyline::is_empty () const
   return b.end_ == infinity_f && b.y_intercept_ == -infinity_f;
 }
 
+void
+Skyline::clear ()
+{
+  buildings_.clear ();
+  empty_skyline (&buildings_);
+}
 
 /****************************************************************/
 

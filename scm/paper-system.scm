@@ -56,63 +56,11 @@
     (set! (ly:prob-property system 'stencil)
 	  stencil)
   ))
-  
+
+; TODO: annotate the spacing for every spaceable staff within the system.
 (define-public (paper-system-annotate system next-system layout)
   "Add arrows and texts to indicate which lengths are set."
   (let* ((annotations (list))
-	 (annotate-extent-and-space
-	  (lambda (extent-accessor next-space
-				   extent-name next-space-name after-space-name)
-	    (let* ((extent-annotations (list))
-		   (this-extent (extent-accessor system))
-		   (next-extent (and next-system (extent-accessor next-system)))
-		   (push-annotation (lambda (stil)
-				      (set! extent-annotations
-					    (cons stil extent-annotations))))
-		   (color (if (paper-system-title? system) darkblue blue))
-		   (space-color (if (paper-system-title? system) darkred red)))
-	      (if (and (number-pair? this-extent)
-		       (not (= (interval-start this-extent)
-			       (interval-end this-extent))))
-		  (push-annotation (annotate-y-interval
-				    layout extent-name this-extent #f
-				    #:color color)))
-	      (if next-system
-		  (push-annotation (annotate-y-interval
-				    layout next-space-name
-				    (interval-translate (cons (- next-space) 0)
-							(if (number-pair? this-extent)
-							    (interval-start this-extent)
-							    0))
-				    #t
-				    #:color color)))
-	      (if (and next-system
-		       (number-pair? this-extent)
-		       (number-pair? next-extent))
-		  (let ((space-after
-			 (- (+ (ly:prob-property next-system 'Y-offset)
-			       (interval-start this-extent))
-			    (ly:prob-property system 'Y-offset)
-			    (interval-end next-extent)
-			    next-space)))
-		    (if (> space-after 0.01)
-			(push-annotation (annotate-y-interval
-					  layout
-					  after-space-name
-					  (interval-translate
-					   (cons (- space-after) 0)
-					   (- (interval-start this-extent)
-					      next-space))
-					  #t
-					  #:color space-color)))))
-	      (if (not (null? extent-annotations))
-		  (set! annotations
-			(stack-stencils X RIGHT 0.5
-					(list annotations
-					      (ly:make-stencil '() (cons 0 1) (cons 0 0))
-					      (apply ly:stencil-add
-						     extent-annotations))))))))
-
 	 (grob (ly:prob-property system 'system-grob))
 	 (estimate-extent (if (ly:grob? grob)
 			      (annotate-y-interval layout
@@ -120,30 +68,21 @@
 						   (ly:grob-property grob 'pure-Y-extent)
 						   #f)
 			      #f)))
-    (let ((next-space (ly:prob-property
-		       system 'next-space
-		       (cond ((and next-system
-				   (paper-system-title? system)
-				   (paper-system-title? next-system))
-			      (ly:output-def-lookup layout 'between-title-space))
-			     ((paper-system-title? system)
-			      (ly:output-def-lookup layout 'after-title-space))
-			     ((and next-system
-				   (paper-system-title? next-system))
-			      (ly:output-def-lookup layout 'before-title-space))
-			     (else
-			      (ly:output-def-lookup layout 'between-system-space)))))
-	  (next-padding (ly:prob-property
-			 system 'next-padding
-			 (ly:output-def-lookup layout 'between-system-padding))))
-      (annotate-extent-and-space (lambda (sys)
-				   (paper-system-extent sys Y))
-				 next-padding
-				 "Y-extent" "next-padding" "space after next-padding")
-      (annotate-extent-and-space paper-system-staff-extents
-				 (+ next-space next-padding)
-				 "staff-refpoint-extent" "next-space+padding"
-				 "space after next-space+padding"))
+    (let* ((spacing-spec (cond ((and next-system
+				     (paper-system-title? system)
+				     (paper-system-title? next-system))
+				(ly:output-def-lookup layout 'between-title-spacing))
+			       ((paper-system-title? system)
+				(ly:output-def-lookup layout 'after-title-spacing))
+			       ((and next-system
+				     (paper-system-title? next-system))
+				(ly:output-def-lookup layout 'before-title-spacing))
+			       (else
+				(ly:output-def-lookup layout 'between-system-spacing))))
+	   (last-staff-Y (car (paper-system-staff-extents system))))
+
+      (set! annotations
+	    (annotate-spacing-spec layout spacing-spec last-staff-Y (car (paper-system-extent system Y)))))
     (if estimate-extent
 	(set! annotations
 	      (stack-stencils X RIGHT 0.5

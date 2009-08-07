@@ -13,7 +13,7 @@
 # prerequisite, otherwise %.info are always outdated (because older
 # than $(outdir)), hence this .dep file
 
-$(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep: $(INFO_DOCS:%=$(outdir)/%.texi)
+$(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep: $(OUT_TEXI_FILES)
 ifneq ($(INFO_IMAGES_DIR),)
 	rm -f $(INFO_IMAGES_DIR)
 	ln -s $(outdir) $(INFO_IMAGES_DIR)
@@ -26,18 +26,22 @@ endif
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
+$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+
+$(outdir)/lilypond.info: general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
 
 $(outdir)/%.html.omf: %.texi

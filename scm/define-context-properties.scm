@@ -1,7 +1,7 @@
 ;;;; define-context-properties.scm -- part of backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 1998--2009  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -14,11 +14,11 @@
 	    (procedure? type?)
 	    (string? description)))
       (throw 'init-format-error))
-	   
-       
+
+
   (if (not (equal? #f (object-property symbol 'translation-doc)))
       (ly:error (_ "symbol ~S redefined" symbol)))
-  
+
   (set-object-property! symbol 'translation-type? type?)
   (set-object-property! symbol 'translation-doc description)
   (set! all-translation-properties (cons symbol all-translation-properties))
@@ -32,14 +32,14 @@
    `(
 
      ;; TODO FIXME
-   
+
      (aDueText ,markup? "Text to print at a unisono passage.")
-     (alignBelowContext ,string? "Where to insert newly created context in
-vertical alignment.")
      (alignAboveContext ,string? "Where to insert newly created context in
 vertical alignment.")
      (alignBassFigureAccidentals ,boolean? "If true, then the accidentals
 are aligned in bass figure context.")
+     (alignBelowContext ,string? "Where to insert newly created context in
+vertical alignment.")
      (associatedVoice ,string? "Name of the @code{Voice} that has the
 melody for this @code{Lyrics} line.")
      (autoAccidentals ,list? "List of different ways to typeset an
@@ -90,9 +90,6 @@ printed. @code{(#t . #f)} does not make sense.
 arguments, @var{context}, @var{dir} [start/stop (-1 or 1)], and
 @var{test} [shortest note in the beam].  A non-@code{#f} return value
 starts or stops the auto beam.")
-     (autoBeamSettings ,list? "Specifies when automatically generated
-beams should begin and end.  See @ruser{Setting automatic beam
-behavior} for more information.")
      (autoBeaming ,boolean? "If set to true then beams are generated
 automatically.")
      (autoCautionaries ,list? "List similar to @code{autoAccidentals},
@@ -105,7 +102,7 @@ be printed automatically; they must be explicitly created with a
 are still counted.  Bar line generation will resume according to that
 count if this property is unset.")
 
-     
+
      (barAlways ,boolean? "If set to true a bar line is drawn after
 each note.")
      (barCheckSynchronize ,boolean? "If true then reset
@@ -120,15 +117,15 @@ format.")
      (bassStaffProperties ,list? "An alist of property settings to
 apply for the down staff of @code{PianoStaff}.  Used by
 @code{\\autochange}.")
+     (beamSettings ,list? "Specifies when automatically generated
+beams should begin and end, as well as beam subdivision behavior.
+See @ruser{Setting automatic beam
+behavior} for more information.")
      (beatLength ,ly:moment? "The length of one beat in this time
 signature.")
-     (beatGrouping ,list? "A list of beatgroups, e.g., in 5/8 time
-@code{'(2 3)}.")
 
 
      (chordChanges ,boolean? "Only show changes in chords scheme?")
-     (chordNameFunction ,procedure? "The function that converts lists
-of pitches to chord names.")
      (chordNameExceptions ,list? "An alist of chord exceptions.
 Contains @code{(@var{chord} . @var{markup})} entries.")
      (chordNameExceptionsFull ,list? "An alist of full chord
@@ -136,6 +133,8 @@ exceptions.  Contains @code{(@var{chord} . @var{markup})} entries.")
      (chordNameExceptionsPartial ,list? "An alist of partial chord
 exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
 @var{suffix-markup}))} entries.")
+     (chordNameFunction ,procedure? "The function that converts lists
+of pitches to chord names.")
      (chordNameSeparator ,markup? "The markup object used to
 separate parts of a chord name.")
      (chordNoteNamer ,procedure? "A function that converts from a pitch
@@ -159,11 +158,11 @@ percent repeats.")
 the clef is changed.")
      (createSpacing ,boolean? "Create @code{StaffSpacing} objects?
 Should be set for staves.")
-     (crescendoText ,markup? "The text to print at start of non-hairpin
-crescendo, i.e., @samp{cresc.}.")
      (crescendoSpanner ,symbol? "The type of spanner to be used for
 crescendi.  Available values are @samp{hairpin} and @samp{text}.  If unset,
 a hairpin crescendo is used.")
+     (crescendoText ,markup? "The text to print at start of non-hairpin
+crescendo, i.e., @samp{cresc.}.")
      (currentBarNumber ,integer? "Contains the current barnumber.
 This property is incremented at every bar line.")
 
@@ -256,12 +255,12 @@ printed as numbers, but only as extender lines.")
 the default time signature.")
      (instrumentCueName ,markup? "The name to print if another
 instrument is to be taken.")
-     (instrumentName ,markup? "The name to print left of a staff.  The
-@code{instrument} property labels the staff in the first system, and
-the @code{instr} property labels following lines.")
      (instrumentEqualizer ,procedure? "A function taking a string
 (instrument name), and returning a @code{(@var{min} . @var{max})} pair
 of numbers for the loudness range of the instrument.")
+     (instrumentName ,markup? "The name to print left of a staff.  The
+@code{instrument} property labels the staff in the first system, and
+the @code{instr} property labels following lines.")
      ;; the definition is reversed wrt traditional transposition
      ;; otherwise \transpose { \transposition .. } won't work
      (instrumentTransposition ,ly:pitch? "Define the transposition of
@@ -270,11 +269,11 @@ This is used to transpose the MIDI output, and @code{\\quote}s.")
      (internalBarNumber ,integer? "Contains the current barnumber.
 This property is used for internal timekeeping, among others by the
 @code{Accidental_engraver}.")
-     
+
 
      (keepAliveInterfaces ,list? "A list of symbols, signifying grob
 interfaces that are worth keeping a staff with @code{remove-empty} set
-around for.")   
+around for.")
      (keyAlterationOrder ,list? "An alist that defines in what order
 alterations should be printed.  The format is @code{(@var{step}
 . @var{alter})}, where @var{step} is a number from 0 to@tie{}6 and
@@ -309,11 +308,6 @@ manual beams are considered.  Possible values include
 @code{beamMelismaBusy}.")
      (metronomeMarkFormatter ,procedure? "How to produce a metronome
 markup.  Called with four arguments: text, duration, count and context.")
-     (midiInstrument ,string? "Name of the MIDI instrument to use.")
-     (midiMaximumVolume ,number? "Analogous to
-@code{midiMinimumVolume}.")
-     (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.
-Ranges from 0 to@tie{}1.")
      (middleCClefPosition ,number? "The position of the middle C,
 as determined only by the clef.  This can be calculated by looking at
 @code{clefPosition} and @code{clefGlyph}.")
@@ -323,6 +317,11 @@ is used for ottava brackets.")
      (middleCPosition ,number? "The place of the middle C, measured in
 half staff-spaces.  Usually determined by looking at
 @code{middleCClefPosition} and @code{middleCOffset}.")
+     (midiInstrument ,string? "Name of the MIDI instrument to use.")
+     (midiMaximumVolume ,number? "Analogous to
+@code{midiMinimumVolume}.")
+     (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.
+Ranges from 0 to@tie{}1.")
      (minimumFret ,number? "The tablature auto string-selecting
 mechanism selects the highest string with a fret at least
 @code{minimumFret}.")
@@ -437,18 +436,18 @@ cautionary suggestions over the note.")
 of the system/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
      (systemStartDelimiterHierarchy ,pair? "A nested list, indicating
-the nesting of a start delimiters.") 
+the nesting of a start delimiters.")
 
 
      (tablatureFormat ,procedure? "A function formatting a tablature
 note head.  Called with three arguments: string number, context and event.
 It returns the text as a string.")
-     (tempoWholesPerMinute ,ly:moment? "The tempo in whole notes per
-minute.")
+     (tempoHideNote ,boolean? "Hide the note=count in tempo marks.")
+     (tempoText ,markup? "Text for tempo marks.")
      (tempoUnitCount ,number? "Count for specifying tempo.")
      (tempoUnitDuration ,ly:duration? "Unit for specifying tempo.")
-     (tempoText ,markup? "Text for tempo marks.")
-     (tempoHideNote ,boolean? "Hide the note=count in tempo marks.")
+     (tempoWholesPerMinute ,ly:moment? "The tempo in whole notes per
+minute.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
 arpeggios.")
@@ -458,6 +457,9 @@ signifying the time signature.  For example, @code{#'(4 . 4)} is a
      (timing ,boolean? "Keep administration of measure length,
 position, bar number, etc.?  Switch off for cadenzas.")
      (tonic ,ly:pitch? "The tonic of the current scale.")
+     (topLevelAlignment ,boolean? "If true, the @var{Vertical_align_engraver}
+will create a @var{VerticalAlignment}; otherwise, it will create a
+@var{StaffGrouper}")
      (trebleStaffProperties ,list? "An alist of property settings to
 apply for the up staff of @code{PianoStaff}.  Used by
 @code{\\autochange}.")
@@ -481,7 +483,7 @@ setting this property, you can make brackets last shorter.
 
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures.")
-     
+
      (verticallySpacedContexts ,list? "List of symbols, containing
 context names whose vertical axis groups should be taken into account
 for vertical spacing of systems.")
@@ -536,7 +538,9 @@ current breakable (clef, key signature, etc.) items.")
 non-breakable items (note heads, lyrics, etc.).")
 
 
-     (dynamicAbsoluteVolumeFunction ,procedure? "[DOCUMENT-ME]")
+     (dynamicAbsoluteVolumeFunction ,procedure? "A procedure that takes
+one argument, the text value of a dynamic event, and returns the absolute
+volume of that dynamic event.")
 
 
      (finalizations ,list? "A list of expressions to evaluate before

@@ -1,0 +1,142 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node LilyPond-book
+@chapter @command{lilypond-book} : association musique-texte
+@translationof LilyPond-book @c external
+
+@untranslated
+
+
+@menu
+* Exemple de document musicologique::
+* Association musique-texte::
+* Options applicables aux fragments de musique::
+* Utilisation de lilypond-book::
+* Extensions de nom de fichier::
+* Autres méthodes d'association texte-musique::
+@end menu
+
+@node Exemple de document musicologique
+@section Exemple de document musicologique
+@translationof An example of a musicological document @c external
+
+@untranslated
+
+
+@subheading Fichier d'entrée
+@subheading Traitement
+@subheading Résultat
+@node Association musique-texte
+@section Association musique-texte
+@translationof Integrating music and text @c external
+
+@untranslated
+
+
+@menu
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
+@end menu
+
+@node LaTeX
+@subsection @LaTeX{}
+@translationof LaTeX @c external
+
+@untranslated
+
+
+@node Texinfo
+@subsection Texinfo
+@translationof Texinfo @c external
+
+@untranslated
+
+
+@node HTML
+@subsection HTML
+@translationof HTML @c external
+
+@untranslated
+
+
+@node DocBook
+@subsection DocBook
+@translationof DocBook @c external
+
+@untranslated
+
+
+@subheading Conventions communes
+@subheading Inclusion d'un fichier LilyPond
+@subheading Inclusion de code LilyPond
+@subheading Génération du document DocBook
+@node Options applicables aux fragments de musique
+@section Options applicables aux fragments de musique
+@translationof Music fragment options @c external
+
+@untranslated
+
+
+@node Utilisation de lilypond-book
+@section Utilisation de @command{lilypond-book}
+@translationof Invoking lilypond-book @c external
+
+@untranslated
+
+
+@subheading Instructions spécifiques à certains formats
+@subsubheading @LaTeX{}
+@subsubheading Texinfo
+@subheading Options en ligne de commande
+@node Extensions de nom de fichier
+@section Extensions de nom de fichier
+@translationof Filename extensions @c external
+
+@untranslated
+
+
+@node Autres méthodes d'association texte-musique
+@section Autres méthodes d'association texte-musique
+@translationof Alternate methods of mixing text and music @c external
+
+@untranslated
+
+
+@menu
+* Extraction de plusieurs fragments d'une grande partition::
+* Insertion du résultat de LilyPond dans OpenOffice.org::
+* Insertion du résultat de LilyPond dans d'autres programmes::
+@end menu
+
+@node Extraction de plusieurs fragments d'une grande partition
+@subsection Extraction de plusieurs fragments d'une grande partition
+@translationof Many quotes from a large score @c external
+
+@untranslated
+
+
+@node Insertion du résultat de LilyPond dans OpenOffice.org
+@subsection Insertion du résultat de LilyPond dans OpenOffice.org
+@translationof Inserting LilyPond output into OpenOffice.org @c external
+
+@untranslated
+
+
+@node Insertion du résultat de LilyPond dans d'autres programmes
+@subsection Insertion du résultat de LilyPond dans d'autres programmes
+@translationof Inserting LilyPond output into other programs @c external
+
+@untranslated
+
+
+

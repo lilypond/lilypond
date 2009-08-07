@@ -15,6 +15,7 @@
 #include "prob.hh"
 
 struct Line_details {
+  Grob *last_column_;
   Real force_;
   Interval extent_;   /* Y-extent of the system */
 
@@ -43,6 +44,7 @@ struct Line_details {
 
   Line_details ()
   {
+    last_column_ = 0;
     force_ = infinity_f;
     padding_ = 0;
     bottom_padding_ = 0;
@@ -61,6 +63,7 @@ struct Line_details {
 
   Line_details (Prob *pb)
   {
+    last_column_ = 0;
     force_ = 0;
     extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
     padding_ = robust_scm2double (pb->get_property ("next-padding"), 0);

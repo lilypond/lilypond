@@ -1,0 +1,218 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+
+@ignore
+    Translation of GIT committish: 41ef91786a08102d9b9a839f6a2f40cec263d723
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Instrumentos de cuerda sin trastes
+@section Instrumentos de cuerda sin trastes
+@translationof Unfretted string instruments
+
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex orquestales, cuerdas
+@cindex cuerdas orquestales
+@cindex cuerdas, escribir música para
+
+Esta sección aporta información y referencias que resultan útiles si
+se escribe música para instrumentos de cuerda sin trastes,
+principalmente instrumentos de cuerda orquestales.
+
+@menu
+* Notación común para cuerdas sin trastes::
+@end menu
+
+@node Notación común para cuerdas sin trastes
+@subsection Notación común para cuerdas sin trastes
+@translationof Common notation for unfretted strings
+
+Hay poca notación especializada para los instrumentos de cuerdas sin
+trastes.  La notación de la música se realiza en un solo pentagrama, y
+se suele usar una sola voz.  Se pueden necesitar dos voces para
+algunos pasajes en dobles cuerdas o en divisi.
+
+@menu
+* Referencias para cuerdas sin trastes::
+* Indicaciones de arco::
+* Armónicos::
+* Pizzicato de Bartok (Snap)::
+@end menu
+
+@node Referencias para cuerdas sin trastes
+@unnumberedsubsubsec Referencias para cuerdas sin trastes
+@translationof References for unfretted strings
+
+La mayor parte de la notación que resulta de utilidad para las cuerdas
+orquestales y otros instrumentos de arco se estudia en otras partes
+del manual:
+
+@itemize
+
+@item
+Las indicaciones textuales como @qq{pizz.} y @qq{arco} se añaden como
+texto simple: véase @ref{Guiones de texto}.
+
+@item
+Las digitaciones, entre ellas la indicación de pulgar, se describen en
+@ref{Indicaciones de digitación}.
+
+@item
+Las dobles cuerdas se indican normalmente escribiendo un acorde, véase
+@ref{Notas en acorde}.  Hay otras indicaciones que se pueden añadir para
+la interpretación de acordes, véase @ref{Arpegio}.
+
+@item
+Hay una plantilla para cuarteto de cuerda en @rlearning{Cuarteto de cuerda}.  Otras se muestran en la sección de fragmentos de código.
+
+@end itemize
+
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Cuarteto de cuerda}.
+
+Referencia de la notación:
+@ref{Guiones de texto},
+@ref{Indicaciones de digitación},
+@ref{Notas en acorde},
+@ref{Arpegio}.
+
+Fragmentos de código:
+@rlsr{Unfretted strings}.
+
+
+@node Indicaciones de arco
+@unnumberedsubsubsec Indicaciones de arco
+@translationof Bowing indications
+
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+
+@cindex arco, indicaciones de
+@cindex arco arriba, indicación
+@cindex arco abajo, indicación
+@cindex arriba, arco
+@cindex abajo, arco
+@cindex al aire, indicación de cuerda
+@cindex cuerda al aire, indicación de
+
+Las indicaciones de arco se crean como articulaciones, que se
+describen en @ref{Articulaciones y ornamentos}.
+
+Las instrucciones de arco @code{\upbow} (arco arriba) y
+@code{\downbow} (arco abajo) se usan con ligaduras de expresión de la
+siguiente manera:
+
+@lilypond[verbatim,quote,relative=2]
+c4(\downbow d) e(\upbow f)
+@end lilypond
+
+@noindent
+y el ejemplo siguiente muestra tres formas distintas de indicar un La
+sobre una cuerda al aire del violín:
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open
+a^\markup { \teeny "II" }
+a2^\markup { \small "sul A" }
+@end lilypond
+
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}.
+@endpredefined
+
+
+@seealso
+Referencia de la notación:
+@ref{Articulaciones y ornamentos},
+@ref{Ligaduras de expresión}.
+
+
+@node Armónicos
+@unnumberedsubsubsec Armónicos
+@translationof Harmonics
+
+@funindex \harmonic
+
+@strong{@i{Armónicos naturales}}
+
+@cindex naturales, armónicos
+@cindex armónicos naturales
+
+La notación de los armónicos naturales se puede realizar de varias
+formas.  Generalmente, una nota con la cabeza en forma de rombo
+significa tocar (sin apretar) la cuerda en el lugar donde se pisaría
+la nota si no fuese un rombo.
+
+@warning{Los armónicos @strong{se deben} definir dentro de una
+construcción de acorde incluso si hay una sola nota.}
+
+@c TODO If the default for harmonicDots is changed, change this
+Los armónicos con puntillo indicados con @code{\harmonic} no muestran
+el puntillo.  Se debe establecer la propiedad de contexto
+@code{harmonicDots} si se necesita el puntillo.
+
+@lilypond[verbatim,quote,relative=2]
+<d\harmonic>4 <e\harmonic>2.
+\set harmonicDots = ##t
+<d\harmonic>4 <e\harmonic>2.
+@end lilypond
+
+Como posibilidad alternativa está la de mostrar una cabeza normal de
+nota en la altura de la nota que debe sonar, con un pequeño círculo
+que indica que se debe tocar como armónico:
+
+@lilypond[verbatim,quote,relative=2]
+d2^\flageolet d_\flageolet
+@end lilypond
+
+Se puede hacer un círculo de menor tamaño, véase la lista de
+fragmentos de código en @ref{Referencias para cuerdas sin trastes}.
+
+@strong{@i{Armónicos artificiales}}
+
+@cindex artificiales, armónicos
+@cindex armónicos artificiales
+
+La notación de los armónicos artificiales se realiza con dos notas,
+una con una cabeza normal que indica la posición donde se pisa, y otra
+con una cabeza en forma de rombo hueco para indicar la posición donde
+se roza la cuerda (sin pisar) para producir el armónico.
+
+@lilypond[verbatim,quote,relative=1]
+<e a\harmonic>2  <c g'\harmonic>
+@end lilypond
+
+
+@seealso
+Glosario musical:
+@rglos{harmonics}.
+
+Referencia de la notación:
+@ref{Cabezas de nota especiales},
+@ref{Referencias para cuerdas sin trastes}.
+
+
+@node Pizzicato de Bartok (Snap)
+@unnumberedsubsubsec Snap (Bartók) pizzicato
+@translationof Snap (Bartok) pizzicato
+
+@cindex pizzicato, Bartók
+@cindex pizzicato, snap
+@cindex Bartók pizzicato
+@cindex snap pizzicato
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{snap-pizzicato-markup-bartok-pizzicato.ly}

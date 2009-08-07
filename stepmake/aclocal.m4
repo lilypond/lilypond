@@ -401,6 +401,7 @@ EOF
 print 'depth=' + ('../' * ( $d-1 ) )
 print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'
 print 'include \$(configure-srcdir)/$mf'
+print 'MODULE_INCLUDES += \$(src-dir)/\$(outbase)'
 EOF
 	    done
 	    for mf in `cd $srcdir ; find -maxdepth $d -mindepth $d -name '*.make' | grep -v config.make `; do

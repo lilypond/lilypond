@@ -1,4 +1,4 @@
-;;;; interface-description.scm -- part of generated backend documentation
+;;;; define-grob-interfaces.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;

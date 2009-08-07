@@ -1,0 +1,8 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Algunos compositores escriben dos ligaduras cuando quieren acordes
+legato.  Esto se puede conseguir estableciendo @code{doubleSlurs}.
+
+"
+  doctitlees = "Utilizar ligaduras dobles para acordes legato"
+  

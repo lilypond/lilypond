@@ -1,0 +1,12 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  doctitlees = "Marca de pizzicato de chasquido (@q{pizzicato de Bartók})"
+  texidoces = "
+El pizzicato de chasquido (también llamado @q{Pizzicato de Bartók}) es un
+@q{pizzicato fuerte en que la cuerda se pulsa verticalmente produciendo un
+chasquido y rebotando en el diapasón del instrumento} (Wikipedia).  Se
+denota mediante una circunferencia con una línea vertical corta que parte
+del centro de aquélla hacia fuera.  Aunque LilyPond no tiene ninguna
+instrucción predefinida para crear esta marca, es fácil hacer la definición
+y colocarla directamente en el archivo de lilypond.
+"
+

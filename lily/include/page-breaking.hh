@@ -54,12 +54,17 @@ struct Break_position
   Grob *col_;  
   bool score_ender_;
 
+  /* if non-zero, this is the (fixed, uncompressed) number of lines between
+     this Break_position and the previous. */
+  int forced_line_count_;
+
   Break_position (vsize s=VPOS, vsize brk=VPOS, Grob *g=NULL, bool end=false)
   {
     system_spec_index_ = s;
     score_break_ = brk;
     col_ = g;
     score_ender_ = end;
+    forced_line_count_ = 0;
   }
 
   /*
@@ -105,12 +110,13 @@ public:
   int max_systems_per_page () const;
   int min_systems_per_page () const;
   Real page_height (int page_number, bool last) const;
-  Real page_top_space () const;
   vsize system_count () const;
   Real line_count_penalty (int line_count) const;
   int line_count_status (int line_count) const;
   bool too_many_lines (int line_count) const;
   bool too_few_lines (int line_count) const;
+  Real min_whitespace_at_top_of_page (Line_details const&) const;
+  Real min_whitespace_at_bottom_of_page (Line_details const&) const;
 
 protected:
   Paper_book *book_;
@@ -162,7 +168,6 @@ private:
   int systems_per_page_;
   int max_systems_per_page_;
   int min_systems_per_page_;
-  Real page_top_space_;
   vsize system_count_;
 
   vector<Line_division> current_configurations_;
@@ -195,5 +200,8 @@ private:
   Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate);
+  SCM make_page (int page_num, bool last) const;
+  SCM get_page_configuration (SCM systems, int page_num, bool ragged, bool last);
+  SCM draw_page (SCM systems, SCM config, int page_num, bool last);
 };
 #endif /* PAGE_BREAKING_HH */

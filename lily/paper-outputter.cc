@@ -37,6 +37,13 @@ Paper_outputter::Paper_outputter (SCM port, string format)
 
   string module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.c_str ());
+
+  /*
+    Enable errors for undefined stencil routines if
+     -dwarning-as-error is specified; else enable warnings.
+  */
+  SCM proc = ly_lily_module_constant ("backend-testing");
+  scm_call_1 (proc, output_module_);
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -105,5 +112,14 @@ void
 Paper_outputter::close ()
 {
   if (scm_port_p (file_) == SCM_BOOL_T)
-    scm_close_port (file_);
+    {
+      scm_close_port (file_);
+      /*
+	Remove the "warning" definitions for missing stencil
+	expressions so that we start fresh with the next \book
+	block.  --pmccarty
+      */
+      SCM proc = ly_lily_module_constant ("remove-stencil-warnings");
+      scm_call_1 (proc, output_module_);
+    }
 }

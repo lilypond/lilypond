@@ -1,0 +1,10 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Las reglas de final de barra especificadas en el contexto
+@code{Score} se aplican a todos los pentagramas, pero se pueden
+modificar tanto en los niveles de @code{Staff} como de
+@code{Voice}:
+
+"
+  doctitlees = "Finales de barra en el contexto Score"
+

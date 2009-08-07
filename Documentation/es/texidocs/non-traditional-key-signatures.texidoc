@@ -1,0 +1,28 @@
+%% Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
+  doctitlees = "Armaduras de tonalidad no tradicionales"
+  texidoces = "
+
+La muy utilizada instrucción @code{\\key} establece la propiedad
+@code{keySignature} property, dentro del contexto @code{Staff}.
+
+Para crear armaduras de tonalidad no estándar, ajuste esta
+propiedad directamente.  El formato de esta instrucción es una
+lista:
+
+@code{\\set Staff.keySignature = #`(((octava . paso) . alteración)
+((octava . paso) . alteración) ...)} donde, para cada elemento
+dentro de la lista, @code{octava} especifica la octava
+(siendo@tie{}cero la octava desde el Do@tie{}central hasta el Si
+por encima), @code{paso} especifica la nota dentro de la octava
+(cero@tie{}significa@tie{}Do y 6@tie{}significa@tie{}Si), y
+@code{alteración} es @code{,SHARP ,FLAT ,DOUBLE-SHARP}
+etc. (observe la coma precedente.)
+
+De forma alternativa, para cada elemento de la lista el uso del
+formato más conciso @code{(paso . alteración)} especifica que la
+misma alteración debe estar en todas las octavas.
+
+He aquí un ejemplo de una posible armadura para generar una escala
+exátona:
+"
+

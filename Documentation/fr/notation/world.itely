@@ -1,0 +1,80 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Musiques du monde
+@section Musiques du monde
+@translationof World music @c external
+
+@untranslated
+
+
+@menu
+* Musique arabe::
+@end menu
+
+@node Musique arabe
+@subsection Musique arabe
+@translationof Arabic music @c external
+
+@untranslated
+
+
+@menu
+* Références en matière de musique arabe::
+* Arabic note names ::
+* Tonalités arabes::
+* Métriques arabes::
+* Exemple concret de musique arabe::
+* Autres sources d'information::
+@end menu
+
+@node Références en matière de musique arabe
+@unnumberedsubsubsec References for Arabic music 
+@translationof References for Arabic music @c external
+
+@untranslated
+
+
+@node Arabic note names 
+@unnumberedsubsubsec Arabic note names 
+@translationof Arabic note names  @c external
+
+@untranslated
+
+
+@node Tonalités arabes
+@unnumberedsubsubsec Arabic key signatures 
+@translationof Arabic key signatures @c external
+
+@untranslated
+
+
+@node Métriques arabes
+@unnumberedsubsubsec Arabic time signatures 
+@translationof Arabic time signatures @c external
+
+@untranslated
+
+
+@node Exemple concret de musique arabe
+@unnumberedsubsubsec Arabic music example 
+@translationof Arabic music example @c external
+
+@untranslated
+
+
+@node Autres sources d'information
+@unnumberedsubsubsec Autres sources d'information
+@translationof Further reading @c external
+
+@untranslated
+
+
+

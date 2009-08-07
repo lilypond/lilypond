@@ -7,6 +7,8 @@
 #(define (make-dynamic-script str)
    (make-music 'AbsoluteDynamicEvent
               'text str))
+
+%% don't exceed ppppp or fffff; see midi.scm.
 ppppp = #(make-dynamic-script "ppppp")
 pppp = #(make-dynamic-script "pppp")
 ppp = #(make-dynamic-script "ppp")
@@ -20,6 +22,7 @@ mf = #(make-dynamic-script "mf")
 ff = #(make-dynamic-script "ff")
 fff = #(make-dynamic-script "fff")
 ffff = #(make-dynamic-script "ffff")
+fffff = #(make-dynamic-script "fffff")
 fp = #(make-dynamic-script "fp")
 sf = #(make-dynamic-script "sf")
 sfp = #(make-dynamic-script "sfp")

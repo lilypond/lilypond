@@ -1,0 +1,11 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
+y péguela, escriba las notas y luego la letra. Este ejemplo desactiva
+el barrado automático, que es lo más frecuente en las partes vocales
+antiguas. Para usar el barrado automático modifique o marque como un
+comentario la línea correspondiente.
+
+"
+  doctitlees = "Plantilla de pentagrama único don notas y letra"
+

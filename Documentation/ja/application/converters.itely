@@ -1,0 +1,58 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node Converting from other formats
+@chapter Converting from other formats
+@translationof Converting from other formats @c external
+
+@untranslated
+
+@menu
+* Invoking midi2ly::            Importing MIDI.
+* Invoking musicxml2ly::        Importing MusicXML.
+* Invoking abc2ly::             Importing ABC.
+* Invoking etf2ly::             Importing Finale.
+* Generating LilyPond files::   GUIs, transcribers, and algorithmic composition programs.
+@end menu
+
+
+@node Invoking midi2ly
+@section Invoking @command{midi2ly}
+@translationof Invoking midi2ly @c external
+
+@untranslated
+
+@node Invoking musicxml2ly
+@section Invoking @code{musicxml2ly}
+@translationof Invoking musicxml2ly @c external
+
+@untranslated
+
+@node Invoking abc2ly
+@section Invoking @code{abc2ly}
+@translationof Invoking abc2ly @c external
+
+@untranslated
+@node Invoking etf2ly
+@section Invoking @command{etf2ly}
+@translationof Invoking etf2ly @c external
+
+@untranslated
+
+
+@node Generating LilyPond files
+@section Generating LilyPond files
+@translationof Generating LilyPond files @c external
+
+@untranslated

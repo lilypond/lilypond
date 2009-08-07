@@ -3,14 +3,14 @@
 # French translation of GNU/lilypond - http//lilypond.org
 # Copyright © 2004 Free Software Foundation, Inc.
 # Michel Robitaille <robitail@IRO.UMontreal.CA>, 1996-2007.
-# Jean-Charles Malahieude <lilyfan@orange.fr>, 2008
+# Jean-Charles Malahieude <lilyfan@orange.fr>, 2007-2009
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.12.0\n"
+"Project-Id-Version: lilypond 2.13.3\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-12-20 11:58+0100\n"
-"PO-Revision-Date: 2008-12-31 13:53+0100\n"
+"PO-Revision-Date: 2009-07-28 18:25+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan@orange.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "\\header { clé = concat + avec + opérateur }"
 #: convertrules.py:58
 #, python-format
 msgid "deprecated %s"
-msgstr "%s obsolète"
+msgstr "%s est obsolète"
 
 #: convertrules.py:70
 msgid "deprecated \\textstyle, new \\key syntax"
@@ -191,7 +191,7 @@ msgstr ""
 "Un \\outputproperty a été localisé.\n"
 "Éditer manuellement, en utilisant\n"
 "\n"
-"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPRIÉTÉ VALEUR>)\n"
 "\n"
 "comme texte de substitution."
 
@@ -269,7 +269,7 @@ msgid ""
 "Page layout has been changed, using paper size and margins.\n"
 "textheight is no longer used.\n"
 msgstr ""
-"La mise en page a été modifiée, utilisant le taille du papier et les marges.\n"
+"La mise en page a été modifiée, utilisant la taille du papier et les marges.\n"
 "« textheight » n'est plus utilisé.\n"
 
 #: convertrules.py:2011
@@ -955,7 +955,7 @@ msgstr "permettre des n-olets de durée DUR*NUM/DEN"
 
 #: midi2ly.py:885
 msgid "treat every text as a lyric"
-msgstr "traiter chaque texte comme des paroles"
+msgstr "traiter tout texte comme étant des paroles"
 
 #: midi2ly.py:888
 msgid "Examples"
@@ -1096,7 +1096,7 @@ msgid ""
 "Convert MusicXML from FILE.xml to LilyPond input.\n"
 "If the given filename is -, musicxml2ly reads from the command line.\n"
 msgstr ""
-"Convertit FICHIER.xml (MusicXML) au format LilyPnd.\n"
+"Convertit FICHIER.xml (MusicXML) au format LilyPond.\n"
 "Si le nom du fichier est « - », musicxml2ly lira la ligne de commande.\n"
 
 #: musicxml2ly.py:2576
@@ -3044,33 +3044,3 @@ msgstr "~a s'est terminé avec le statut ~S"
 #, scheme-format
 msgid "assertion failed: ~S"
 msgstr "erreur d'assertion : ~S"
-
-#~ msgid "requested time signature, but time sig is unknown"
-#~ msgstr "Une métrique est obligatoire, mais la définition trouvée est inconnue"
-
-#~ msgid "Report bugs via"
-#~ msgstr "Rapporter toute anomalie à"
-
-#~ msgid "Negative skip %s"
-#~ msgstr "Retour en arrière de %s"
-
-#~ msgid "ignoring unknown accidental rule: %s"
-#~ msgstr "altération accidentelle inconnue, donc ignorée : %s"
-
-#~ msgid "generate DVI (tex backend only)"
-#~ msgstr "générer le DVI (uniquement pour tex)"
-
-#~ msgid "generate TeX (tex backend only)"
-#~ msgstr "générer le TeX (uniquement pour tex)"
-
-#~ msgid "Computing page breaks..."
-#~ msgstr "Calcul des sauts de page..."
-
-#~ msgid "cannot generate ~S using the postscript back-end"
-#~ msgstr "impossible de générer ~S à l'aide du support postscript"
-
-#~ msgid "TeX file name must not contain whitespace: `~a'"
-#~ msgstr "un nom de fichier TeX ne peut contenir d'espace : « ~a »"
-
-#~ msgid "cannot find ~a in ~a"
-#~ msgstr "impossible de trouver ~a dans ~a"

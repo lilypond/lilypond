@@ -2,14 +2,14 @@ depth = ../..
 
 NAME = documentation
 
-STEPMAKE_TEMPLATES=documentation  texinfo
+STEPMAKE_TEMPLATES = documentation texinfo
 
 TEXTS = $(call src-wildcard,ANNOUNCE-*[0-9]) $(call src-wildcard,CHANGES-*[0-9]) $(call src-wildcard,ChangeLog*[0-9]) $(call src-wildcard,NEWS-*[0-9])
 EXTRA_DIST_FILES = $(TEXTS)
 
 include $(depth)/make/stepmake.make
 
-default: local-doc
+default: local-txt-doc
 
 #urg default local-WWW target uses footify before its time;
 # must add footify with txt-to-html target

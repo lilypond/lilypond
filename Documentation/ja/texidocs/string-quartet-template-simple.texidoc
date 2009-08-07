@@ -1,0 +1,5 @@
+%% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
+  texidocja = "
+これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号のために 
+@code{@bs{}global} セクションを使っています。
+"

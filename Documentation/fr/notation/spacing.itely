@@ -1,0 +1,389 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Frédéric Chiasson, Jean-Charles Malahieude
+
+@node Gestion de l'espace
+@chapter Gestion de l'espace
+@translationof Spacing issues
+
+
+@menu
+* Du papier et des pages::
+* Mise en forme de la musique::
+* Sauts::
+* Espacement vertical::
+* Espacement horizontal::
+* Réduction du nombre de pages de la partition::
+@end menu
+
+@node Du papier et des pages
+@section Du papier et des pages
+@translationof Paper and pages @c external
+
+@untranslated
+
+
+@menu
+* Format du papier::
+* Mise en forme de la page::
+@end menu
+
+@node Format du papier
+@subsection Format du papier
+@translationof Paper size @c external
+
+@untranslated
+
+
+@node Mise en forme de la page
+@subsection Mise en forme de la page
+@translationof Page formatting @c external
+
+@untranslated
+
+
+@node Mise en forme de la musique
+@section Mise en forme de la musique
+@translationof Music layout @c external
+
+@untranslated
+
+
+@menu
+* Définition de la taille de portée::
+* Mise en forme de la partition::
+@end menu
+
+@node Définition de la taille de portée
+@subsection Définition de la taille de portée
+@translationof Setting the staff size @c external
+
+@untranslated
+
+
+@node Mise en forme de la partition
+@subsection Mise en forme de la partition
+@translationof Score layout @c external
+
+@untranslated
+
+
+@node Sauts
+@section Sauts
+@translationof Breaks @c external
+
+@untranslated
+
+
+@menu
+* Sauts de ligne::
+* Sauts de page::
+* Optimisation des sauts de page::
+* Optimisation des tournes::
+* Minimisation des sauts de page::
+* Sauts explicites::
+* Recours à une voix supplémentaire pour gérer les sauts::
+@end menu
+
+@node Sauts de ligne
+@subsection Sauts de ligne
+@translationof Line breaking @c external
+
+@untranslated
+
+
+@node Sauts de page
+@subsection Sauts de page
+@translationof Page breaking @c external
+
+@untranslated
+
+
+@node Optimisation des sauts de page
+@subsection Optimisation des sauts de page
+@translationof Optimal page breaking @c external
+
+@untranslated
+
+
+@node Optimisation des tournes
+@subsection Optimisation des tournes
+@translationof Optimal page turning @c external
+
+@untranslated
+
+
+@node Minimisation des sauts de page
+@subsection Minimisation des sauts de page
+@translationof Minimal page breaking @c external
+
+@untranslated
+
+
+@node Sauts explicites
+@subsection Sauts explicites
+@translationof Explicit breaks @c external
+
+@untranslated
+
+
+@node Recours à une voix supplémentaire pour gérer les sauts
+@subsection Recours à une voix supplémentaire pour gérer les sauts
+@translationof Using an extra voice for breaks @c external
+
+@untranslated
+
+
+@node Espacement vertical
+@section Espacement vertical
+@translationof Vertical spacing @c external
+
+@untranslated
+
+
+@menu
+* Espacement vertical au sein d'un système::
+* Espacement vertical entre les systèmes::
+* Positionnement explicite des portées et systèmes::
+* Optimisation du remplissage avec un deuxième passage::
+* Résolution des collisions verticales::
+@end menu
+
+@node Espacement vertical au sein d'un système
+@subsection Espacement vertical au sein d'un système
+@translationof Vertical spacing inside a system @c external
+
+@untranslated
+
+
+@node Espacement vertical entre les systèmes
+@subsection Espacement vertical entre les systèmes
+@translationof Vertical spacing between systems @c external
+
+@untranslated
+
+
+@node Positionnement explicite des portées et systèmes
+@subsection Positionnement explicite des portées et systèmes
+@translationof Explicit staff and system positioning @c external
+
+@untranslated
+
+
+@node Optimisation du remplissage avec un deuxième passage
+@subsection Optimisation du remplissage avec un deuxième passage
+@translationof Two-pass vertical spacing @c external
+
+@untranslated
+
+
+@node Résolution des collisions verticales
+@subsection Résolution des collisions verticales
+@translationof Vertical collision avoidance @c external
+
+@untranslated
+
+
+@node Espacement horizontal
+@section Espacement horizontal
+@translationof Horizontal spacing @c external
+
+@untranslated
+
+
+@menu
+* Généralités sur l'espacement horizontal::
+* Changement d'espacement au cours de la partition::
+* Modification de l'espacement horizontal::
+* Longueur de ligne::
+* Notation proportionnelle::
+@end menu
+
+@node Généralités sur l'espacement horizontal
+@subsection Généralités sur l'espacement horizontal
+@translationof Horizontal spacing overview @c external
+
+@untranslated
+
+
+@node Changement d'espacement au cours de la partition
+@subsection Changement d'espacement au cours de la partition
+@translationof New spacing area @c external
+
+@untranslated
+
+
+@node Modification de l'espacement horizontal
+@subsection Modification de l'espacement horizontal
+@translationof Changing horizontal spacing @c external
+
+@untranslated
+
+
+@node Longueur de ligne
+@subsection Longueur de ligne
+@translationof Line length @c external
+
+@untranslated
+
+
+@node Notation proportionnelle
+@subsection Notation proportionnelle
+@translationof Proportional notation
+
+Les notes peuvent s'espacer proportionnellement en assignant une durée
+à @code{proportionalNotationDuration}
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+<<
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \new Staff { c8[ c c c c c]  c4 c2 r2 }
+  \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
+>>
+@end lilypond
+
+Manipuler cette propriété affectera l'espacement idéal uniquement pour
+des notes consécutives.  Pour obtenir une véritable notation
+proportionnelle, vous devrez tenir compte des réglages suivants :
+
+@itemize @bullet
+
+@item La véritable notation proportionnelle exige que des symboles
+puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
+@rinternals{Separating_line_group_engraver} du contexte
+@rinternals{Staff}. 
+
+@item L'influence en matière d'espacement induite par le formatage
+(clés, barres de mesure, etc) s'annule en assignant
+@emph{vrai}@tie{}(#t) à la propriété @code{strict-note-spacing} de
+l'objet @rinternals{SpacingSpanner}.
+
+@item Les affinages optiques se règlent en assignant @emph{vrai} à la
+propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}. 
+
+@end itemize
+
+
+@seealso
+Exemples : @rlsr{Spacing}.
+
+Le fichier @file{input/proportional.ly} illustre la notation
+proportionnelle stricte.
+
+
+@node Réduction du nombre de pages de la partition
+@section Réduction du nombre de pages de la partition
+@translationof Fitting music onto fewer pages
+
+@menu
+* Mise en évidence de l'espacement::
+* Modification de l'espacement::
+@end menu
+
+@node Mise en évidence de l'espacement
+@subsection Mise en évidence de l'espacement
+@translationof Displaying spacing @c external
+
+@untranslated
+
+
+@node Modification de l'espacement
+@subsection Modification de l'espacement
+@translationof Changing spacing
+
+Parfois, une partition peut se terminer avec seulement 
+un ou deux systèmes sur la dernière page. Ceci peut être ennuyeux
+surtout si vous constatez, en regardant les pages précédentes, qu'il
+reste encore beaucoup de place sur celles-ci.
+
+Si vous vous intéressez aux problèmes de mise en page,
+@code{annotate-spacing} peut alors être un outil d'une valeur
+inestimable.  Cette commande imprime les valeurs 
+de nombreuses commandes d'espacement concernant la mise en page.  
+Consultez @ref{Mise en évidence de l'espacement} pour de plus amples informations.  À l'aide 
+des informations données par @code{annotate-spacing}, on peut 
+voir quelles marges il est souhaitable de modifier afin de résoudre le
+problème.
+
+
+En plus d'agir sur les marges, il existe d'autres possibilités
+qui permettent de gagner de la place.
+
+@itemize
+@item
+Demander à LilyPond de placer les systèmes aussi 
+près que possible les uns des autres (pour en disposer autant
+que possible sur une page), tout en répartissant les systèmes afin
+de ne pas laisser de blanc en bas de la dernière page.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Obliger LilyPond à mettre un certain nombre de systèmes
+par page.  Par exemple, si LilyPond veut placer onze systèmes dans une page,
+vous pouvez l'obliger à n'en mettre que dix.
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Supprimer (ou réduire) les objets qui augmentent la hauteur du
+système.  C'est le cas en particulier de certaines reprises (avec des 
+alternatives) qui placent des crochets au dessus des portées. Si ces crochets 
+de reprise se poursuivent sur deux systèmes, ils prendront plus de
+place que s'ils sont regroupés sur un même système.
+
+Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
+
+@lilypond[verbatim,quote,fragment]
+\relative c' {
+  e4 c g\f c
+  \override DynamicLineSpanner #'padding = #-1.8
+  \override DynamicText #'extra-offset = #'( -2.1 . 0)
+  e4 c g\f c
+}
+@end lilypond
+
+@item
+Modifier l'espacement vertical avec @code{SpacingSpanner}.  Reportez-vous à
+@ref{Modification de l'espacement horizontal} pour plus de détails.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+

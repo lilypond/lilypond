@@ -1,0 +1,12 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Bei Improvisation oder @emph{taqasim}, die zeitlich frei gespielt
+werden, kann die Taktart ausgelassen werden und @code{\cadenzaOn}
+kann eingesetzt werden.  Es kann nötig sein, den Versetzungszeichenstil
+anzupassen, weil sonst die Versetzungszeichen nur einmal ausgegeben
+werden, da keine Taktlinien gesetzt sind.  Hier ein Beispiel, wie
+der Begin einer @emph{hijaz}-Improvisation aussehen könnte:
+
+"
+
+  doctitlede = "Arabische Improvisation"

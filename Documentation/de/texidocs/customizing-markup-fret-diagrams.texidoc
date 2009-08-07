@@ -1,0 +1,9 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Bunddiagramme können mit der Eigenschaft @code{'fret-diagram-details}
+angepasst werden.  Bunddiagramme, die als Textbeschriftung eingefügt werden,
+können Veränderungen im @code{Voice.TextScript}-Objekt oder direkt in der
+Beschriftung vorgenommen werden.
+
+"
+  doctitlede = "Anpassung von Beschriftungs-Bunddiagrammen"

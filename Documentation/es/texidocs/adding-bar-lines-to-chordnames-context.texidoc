@@ -1,0 +1,9 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Para añadir indicaciones de línea divisoria dentro del contexto de
+los nombres de acorde @code{ChordNames}, incluya el grabador
+@code{Bar_engraver}.
+
+"
+  doctitlees = "Añadir barras de compás al contexto de nombres de acorde (ChordNames)"
+

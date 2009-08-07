@@ -16,9 +16,9 @@
 void
 Page_spacing::calc_force ()
 {
-  /* If the first system contains a title, we add back in the page-top-space. */
-  bool starts_with_title = first_line_.compressed_nontitle_lines_count_ < first_line_.compressed_lines_count_;
-  Real height = starts_with_title ? page_height_ + page_top_space_ : page_height_;
+  Real height = page_height_
+    - breaker_->min_whitespace_at_top_of_page (first_line_)
+    - breaker_->min_whitespace_at_bottom_of_page (last_line_);
 
   if (rod_height_ + last_line_.bottom_padding_ >= height)
     force_ = infinity_f;
@@ -194,7 +194,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 {
   bool last = line == lines_.size () - 1;
   Page_spacing space (breaker_->page_height (page + first_page_num_, last),
-		      breaker_->page_top_space ());
+		      breaker_);
   Page_spacing_node &cur = state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);
   int line_count = 0;

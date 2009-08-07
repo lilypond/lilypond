@@ -601,8 +601,11 @@ Paper_book::pages ()
     }
   else if (scm_is_pair (scores_))
     {
-      SCM proc = paper_->c_variable ("page-breaking-wrapper");
-      pages_ = scm_apply_0 (proc, scm_list_1 (self_scm ()));
+      SCM page_breaking = paper_->c_variable ("page-breaking");
+      pages_ = scm_apply_0 (page_breaking, scm_list_1 (self_scm ()));
+      SCM post_process = paper_->c_variable ("page-post-process");
+      if (ly_is_procedure (post_process))
+	scm_apply_2 (post_process, paper_->self_scm (), pages_, SCM_EOL);
 
       /* set systems_ from the pages */
       if (systems_ == SCM_BOOL_F)

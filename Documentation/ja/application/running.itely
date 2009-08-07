@@ -1,0 +1,642 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@node LilyPond を実行する
+@chapter LilyPond を実行する
+@translationof Running LilyPond
+
+この章では LilyPond を実行するための細かな規定について詳述します。
+
+@menu
+* 通常の使用方法::
+* コマンド ラインの使用方法::
+* エラー メッセージ::
+* convert-ly を使ってファイルを更新する::
+* バグを報告する::
+@end menu
+
+
+@node 通常の使用方法
+@section 通常の使用方法
+@translationof Normal usage
+
+たいていのユーザは GUI から LilyPond を実行します。@rlearning{最初のステップ} を@c
+まだ読んでいないのなら、それを読んでください。
+
+
+@node コマンド ラインの使用方法
+@section コマンド ラインの使用方法
+@translationof Command-line usage
+
+この節にはコマンド ラインで LilyPond を使用するための追加情報が含まれます。こ@c
+れにはプログラムに追加オプションを渡す必要があるかもしれません。さらに、いくつ@c
+かの特別なプログラム (@code{midi2ly} など) はコマンド ラインからしか利用できま@c
+せん。
+
+ここで @q{コマンド ライン} とは、OS の中にあるコマンド ラインを意味します。@c
+Windows ユーザは @q{DOS シェル} という言葉の方が馴染みがあるかもしれません。@c
+MaxOS@tie{}X ユーザは @q{ターミナル} や @q{コンソール} という言葉の方が馴染み@c
+があるかもしれません。MaxOS@tie{}X ユーザは @ref{MacOS X のためのセットアップ} も読んでお@c
+くべきです。
+
+OS のコマンド ラインの使用方法についての説明はこのマニュアルが扱う範囲ではあり@c
+ません。コマンド ラインに馴染みがない場合は、その内容を扱っている他のドキュ@c
+メントをあたってください。
+
+@menu
+* Invoking lilypond::
+* lilypond のコマンド ライン オプション::
+* 環境変数::
+@end menu
+
+@node Invoking lilypond
+@subsection @command{lilypond} を呼び出す
+@translationof Invoking lilypond
+
+@cindex Invoking @command{lilypond}
+@cindex command line options for @command{lilypond}
+@cindex options, command line
+@cindex switches
+
+@command{lilypond} 実行可能形式ファイルはコマンド ラインから以下のように呼び出@c
+されます。
+
+@example
+lilypond [@var{option}]@dots{} @var{file}@dots{}
+@end example
+
+拡張子を持たないファイル名で呼び出された場合、@file{.ly} が最初に試されます。@c
+sudin から入力を読み込む場合には、@var{file} に対してダッシュ (@code{−}) を使@c
+用します。
+
+@file{filename.ly} が処理されると、lilypond は出力として @file{filename.ps} と 
+@file{filename.pdf} を作り出します。いくつかのファイルを指定することもできま@c
+す。その場合、それらのファイルは個々に処理されます。@footnote{GUILE のステータ@c
+スは @code{.ly} 処理後にリセットされません。そのため、Scheme 内部からいかなる@c
+システム デフォルトも変更しないよう注意してください。}
+
+@file{filename.ly} が複数の @code{\score} を含んでいる場合、2 つ目以降の score 
+は @file{filename-1.pdf} から始まる番号付きのファイルに出力されます。さらに、@c
+@code{output-suffix} がベース名と番号の間に挿入されます。以下の内容を含んでい@c
+る入力ファイルは
+
+@example
+#(define output-suffix "violin")
+\book @{ @dots{} @}
+#(define output-suffix "cello")
+\book @{ @dots{} @}
+@end example
+
+@noindent
+@var{base}@file{-violin.pdf} と @var{base}@file{-cello-1.pdf} を出力します。
+
+
+@node lilypond のコマンド ライン オプション
+@subsection @command{lilypond} のコマンド ライン オプション
+@translationof Command line options for lilypond
+
+以下のオプションがサポートされます:
+
+@table @code
+
+@item -e,--evaluate=@var{expr}
+@file{.ly} ファイルを解析する前に Scheme @var{expr} を評価します。複数の 
+@code{-e} オプションが与えられた場合、それらは順番に評価されます。
+
+表記は @code{guile-user} モジュールの中で評価されます。そのため、@var{expr} の@c
+中で definition を使いたいのならば、@code{.ly} ファイルに以下をインクルードして:
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@noindent
+コマンド ラインで以下を使用します:
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+
+
+@item -f,--format=@var{format}
+フォーマットを指定します。@code{format} には @code{svg}, @code{ps}, @code{pdf}, 
+@code{png} を選択します。
+
+例: @code{lilypond -fpng @var{filename}.ly}
+
+
+
+@item -d,--define-default=@var{var}=@var{val}
+これは内部プログラム オプション @var{var} に Scheme 値 @var{val} をセットしま@c
+す。@var{val} が提供されていない場合、@var{#t} が使用されます。オプションを OFF 
+にするには、@var{var} の接頭辞として @code{no-} を付けます。つまり、
+
+@cindex point and click, command line
+
+@example
+-dno-point-and-click
+@end example
+
+@noindent
+は
+@example
+-dpoint-and-click='#f'
+@end example
+と同じです。
+
+ここで興味深いオプションをいくつか挙げます。
+
+@table @samp
+@item help
+@code{lilypond -dhelp} を実行すると使用可能な @code{-d} オプションがすべて表示@c
+されます。
+
+@item paper-size
+このオプションはデフォルトの用紙サイズをセットします。
+@example
+-dpaper-size=\"letter\"
+@end example
+
+@noindent
+文字列はエスケーブされたクォート ( @code{\"} ) で囲まれていなければならないと@c
+いうことに注意してください。
+@c Match " in previous line to help context-sensitive editors
+
+@item safe
+@code{.ly} 入力を信用してはいけません。
+
+Web サーバを通じて LilyPond フォーマットが利用可能な場合、@code{--safe} オプ@c
+ションか @code{--jail} オプションのどちらかを@b{渡さなければなりません}。@c
+@code{--safe} オプションは以下のようなインライン Scheme コードが大混乱をもたら@c
+すことを防ぎます:
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+}
+@end verbatim
+@end quotation
+
+訳者: #(system "rm -rf /") はルート ディレクトリ以下を削除し、export 
+(ly:gulp-file "/etc/passwd") はパスワード ファイルをエクスポートします。
+
+@code{-dsafe} オプションはインライン Sceme 表記を特別なセーフ モジュールの中で@c
+評価します。このセーフ モジュールは GUILE @file{safe-r5rs} モジュールから派生@c
+したものですが、LilyPond API 関数をいくつか追加しています。これらの関数は 
+@file{scm/@/safe@/-lily@/.scm} でリスト アップされています。
+
+さらに、セーフ モードは @code{\include} 指示を却下し、@TeX{} 文字列の中にある@c
+バックスラッシュを無効にします。
+
+セーフ モードでは、LilyPond 変数を Scheme にインポートすることはできません。
+
+@code{-dsafe} はリソースの乱用を検出@emph{しません}。例えば循環データ構造体を@c
+バックエンドに食わせることで、プログラムをハングさせることは可能です。そのた@c
+め、パブリックにアクセス可能な Web サーバ上で LilyPond を使用する場合、そのプ@c
+ロセスの CPU とメモリの両方の使用は制限されるべきです。
+
+セーフ モードは多くの有用な LilyPond 断片がコンパイルされることを妨げます。@c
+@code{--jail} はより安全な代替オプションですが、セット アップにより多くの作業@c
+を必要とします。
+
+@cindex output format, setting
+@item backend
+バックエンドに対して使用する出力フォーマットを指定します。@code{format} の選択@c
+肢には以下があります:
+@table @code
+@item ps
+@cindex PostScript output
+ PostScript
+
+ Postscript ファイルは TTF, Type1, OTF フォントを含んでいます。これらのフォン@c
+トのサブセット化 (訳者: フォント セットを使用するフォントに限定すること) は行@c
+われません。東洋の文字セットを使用する場合、巨大なファイルになる可能性がありま@c
+す。
+
+@item eps
+ 縮約された  PostScript (EPS)。これは各ページ (システム) をフォントを持たない@c
+個別の @file{EPS} ファイルとして吐き出し、フォントを含めたすべてのページ (シス@c
+テム) を持つ @file{EPS} ファイルを 1 つ吐き出します。
+
+このモードは @command{lilypond-book} でデフォルトで使用されます。
+
+@item svg
+@cindex SVG (Scalable Vector Graphics)
+ SVG (Scalable Vector Graphics)。これは各ページをフォントを埋め込まれた個別の 
+@file{SVG} ファイルとして吐き出します。埋め込みフォントをサポートする SVG 
+ビューアか埋め込みフォントを OTF フォントに置き換える機能を持つ SVG ビューアが@c
+必要になります。UNIX では、@uref{http://www.inkscape.org,Inkscape} (バージョン 
+0.42 以降) を使うことになるかもしれません。使用前に、OTF フォントを LilyPond 
+ディレクトリ (一般には @file{/usr/share/lilypond/VERSION/fonts/otf/}) から 
+@file{~/.fonts/} にコピーしてください。
+@item scm
+@cindex Scheme dump
+ 生データ -- 内部 Scheme ベース描画コマンド -- を吐き出します。
+
+@item null
+ 譜刻された楽譜を出力しません。@code{-dno-print-pages} と同じ効果を持ちます。
+@end table
+
+例: @code{lilypond -dbackend=svg @var{filename}.ly}
+
+@item preview
+タイトルとファイル システム情報を保持している出力ファイルを生成します。
+@item print-pages
+
+すべてのページを生成します。デフォルトです。@code{-dno-print-pages} は 
+@code{-dpreview} と組み合わせて使うと有用です。
+
+@end table
+
+
+
+@item -h,--help
+使用方法の要約を表示します。
+
+@item -H,--header=@var{FIELD}
+ヘッダ フィールドをファイル @file{BASENAME.@var{FIELD}} に吐き出します。
+
+@item --include, -I=@var{directory}
+@var{directory} を入力ファイルのサーチ パスに追加します。
+@cindex file searching
+@cindex search path
+
+@item -i,--init=@var{file}
+init ファイルとして @var{file} をセットします (デフォルト: @file{init.ly})。
+
+@item -o,--output=@var{FILE}
+デフォルトの出力ファイルとして @var{FILE} をセットします。適切な接尾辞が追加さ@c
+れます (つまり、pdf ならば拡張子 @code{.pdf} が追加されます)。
+
+@item --ps
+PostScript を生成します。
+
+@item --png
+各ページの図を PNG フォーマットで生成します。これは内部で @code{--ps} を使用し@c
+ます。画像の DPI 解像度は以下のようにセットします:
+@example
+-dresolution=110
+@end example
+
+@item --pdf
+PDF を生成します。これは内部で @code{--ps} を使用します。
+
+
+
+@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
+@command{lilypond} を chroot jail 環境で実行します。
+@c (訳者: chroot jail 環境とはセキュリティのためにカレント プロセスに対して@c
+ルート ディレクトリの位置を変更すること。)
+
+@code{--jail} オプションは、Web サーバを通じて LilyPond 譜刻を実行するときや 
+LilyPond が外部から提供されたソースを実行するときに、@code{--safe} よりも自由@c
+度の高い代替手段を提供します。
+
+@code{--jail} オプションはコンパイル プロセスの開始直前に @command{lilypond} の 
+ルートを @var{jail} に変更します。それからユーザとグループを提供された環境に@c
+マッチするように変更し、カレント ディレクトリは @var{dir} に変更されます。この@c
+セットアップは jail (牢獄) から抜け出せないということを (少なくとも理論的には) 
+保証します。@code{--jail} を指定した @command{lilypond} の実行はルート (ユーザ@c
+名) として行われる必要があります。通常、これは @command{sudo} を用いた安全な方@c
+法で行われます。
+
+jail のセットアップは少々デリケートな問題です。LilyPond がソースをコンパイルす@c
+るのに必要とされるものすべてを @emph{jail の内部} で見つけられるということを保@c
+証しなければならないからです。一般的なセットアップには以下の項目が含まれます:
+
+@table @asis
+@item 専用のファイルシステムをセットアップする
+@code{noexec}, @code{nodev}, @code{nosuid} などのセーフ オプションでマウントす@c
+るための専用ファイルシステムを作成すべきです。こうすることで、LilyPond から実@c
+行可能形式ファイルを実行したり、デバイスに直接書き込むことは不可能になります。@c
+専用のパーティションを作成することを望まないのなら、適当なサイズのファイルを作@c
+成し、それを使用してループ デバイス (ループバック デバイス) をマウントしてくだ@c
+さい。専用ファイルシステムはさらに、 LilyPond が許可されたディスク容量以上には@c
+書き込めないということを保証します。
+
+@item 専用のユーザをセットアップする
+jail 内部で LilyPond を実行する際、低い権限を持つ専用のユーザとグループ (仮に 
+@code{lily}/@code{lily} とします) で行うべきです。このユーザが書き込み可能な@c
+ディレクトリが 1 つだけ存在すべきであり、それを @var{dir} に渡します。
+
+@item jail の準備をする
+LilyPond は実行中にいくつかのファイルを読み込む必要があります。それらのファイ@c
+ルをすべて jail にコピーしておきます。それらのファイルが本当のルート ファイル@c
+システムで存在しているパスと同じパスにコピーします。LilyPond インストールの内@c
+容すべて (例えば、@file{/usr/share/lilypond}) をコピーすべきです。
+
+問題が発生した場合、その原因を突き止める最も簡単な方法は @command{strace} を@c
+使って LilyPond を実行することです。これによりどのファイルが見当たらないのかが@c
+わかります。
+
+@item LilyPond を実行する
+@code{noexec} でマウントされた jail の中では、外部プログラムを実行することは一@c
+切できません。そのため、外部プログラムを必要としないバックエンドで LilyPond を@c
+実行しなければなりません。すでに述べたように、jail モードでの LilyPond の実行@c
+はスーパーユーザ権限で行われなければなりません (もちろん、その権限はすぐに外さ@c
+れます)、たぶん @command{sudo} を使います。LilyPond が使用可能な CPU 時間を数@c
+秒に制限する (例えば、@command{ulimit -t} を使って) というのは良いアイディアで@c
+す。さらに、OS がサポートしているのなら、割り当て可能なメモリ容量を制限すると@c
+いうのも良いアイディアです。
+@end table
+
+
+@item -v,--version
+バージョン情報を表示します。
+
+@item -V,--verbose
+冗長表示モードにします: 読み込むすべてのファイルのフル パスを表示して、時間情@c
+報を表示します。
+
+@item -w,--warranty
+GNU LilyPond の保証責任を表示します。(GNU LilyPond には@strong{保証責任はあり@c
+ません}！)
+@end table
+
+@node 環境変数
+@subsection 環境変数
+@translationof Environment variables
+
+@cindex LANG
+@cindex LILYPOND_DATADIR
+
+@command{lilypond} は以下の環境変数を認識します:
+@table @code
+@item LILYPOND_DATADIR
+これはデフォルトで参照するロケール メッセージとデータ ファイルがあるディレクト@c
+リを指定します。このディレクトリは @file{ly/}, @file{ps/}, @file{tex/} などの@c
+サブディレクトリを保持しているべきです。
+
+@item LANG
+これはワーニング メッセージの言語を選択します。
+
+@item LILYPOND_GC_YIELD
+この変数を使ってメモリ使用量とパフォーマンスを調節することができます。これはメ@c
+モリ管理の振る舞いを調整するパーセント値です。高い値にするとプログラムはより多@c
+くのメモリを使用し、低い値にするとより多くの CPU 時間を使用します。デフォルト@c
+値は @code{70} です。
+
+@end table
+
+
+@node エラー メッセージ
+@section エラー メッセージ
+@translationof Error messages
+
+@cindex error messages
+ファイルのコンパイルの最中にはさまざまなエラー メッセージが表示される可能性が@c
+あります。
+
+@table @emph
+
+@item Warning
+@cindex warning
+何か疑わしいことがあります。あなたが何か普通でないことをリクエストしている場合@c
+は、そのメッセージを理解して、それを無視することができます。しかしながら、@c
+Warning は通常、入力ファイルに何か問題があることを示しています。
+
+@item Error
+何か明らかに問題があります。カレントの処理ステップ (構文解析、構文解釈、フォー@c
+マット) は終了され、次のステップは飛ばされます。
+
+@item Fatal error
+@cindex error
+@cindex fatal error
+何か明らかに問題があり、LilyPond はコンパイルを続けられません。これが起きるこ@c
+とは稀です。これが起こるのはたいてい、フォントのインストールに問題があるためで@c
+す。
+
+@item Scheme error
+@cindex trace, Scheme
+@cindex call trace
+@cindex Scheme error
+Scheme コードの実行中に発生するこのエラーは Sceme インタプリタによって引き起こ@c
+されます。冗長オプション (@code{-V} または @code{--verbose}) 付きで実行してい@c
+る場合、問題となっている関数呼び出しの呼び出し追跡が表示されます。
+
+@item Programming error
+@cindex Programming error
+内部的な矛盾があります。このエラー メッセージはプログラマとデバッガを助けるこ@c
+とを意図したものです。通常、それらは無視できます。時々、それらは非常に大きな@c
+メッセージとなり、他の出力を見えにくくします。
+
+@item Aborted (core dumped)
+これは、プログラムをクラッシュさせる深刻なプログラミング エラーを示していま@c
+す。そのようなエラーは決定的なものだと考えられます。あなたがそのようなエラーで@c
+つまずいた場合、バグ レポートを送ってください。
+@end table
+
+@cindex errors, message format
+警告とエラーを入力ファイルのある部分にリンクさせることが可能な場合、エラー 
+メッセージは以下のような形式になります:
+
+@example
+@var{filename}:@var{lineno}:@var{columnno}: @var{message}
+@var{offending input line}
+@end example
+
+エラーが見つかった場所を示すために問題のある行に改行が挿入されます。例えば:
+
+@example
+test.ly:2:19: error: not a duration: 5
+  @{ c'4 e'
+           5 g' @}
+@end example
+
+これらの位置は LilyPond が警告やエラーが発生した位置を最善を尽くして推測したも@c
+のですが、(ごく当たり前のことですが) 警告とエラーは何か予期しないことが起こっ@c
+たときに発生するものです。入力ファイルの示された行にエラーを見つけることができ@c
+ない場合は、示された位置の 1 行か 2 行上をチェックしてみてください。
+
+
+@node convert-ly を使ってファイルを更新する
+@section @command{convert-ly} を使ってファイルを更新する
+@translationof Updating files with convert-ly
+
+@cindex Updating a LilyPond file
+@cindex convert-ly
+
+LilyPond の入力構文は、さまざまな方法で単純化または改善するために、定期的に変@c
+更されます。その副作用として、LilyPond のインタプリタはしばしば古い入力ファイ@c
+ルと互換性を持たなくなります。これを救済するために、プログラム 
+@command{convert-ly} を用いることで、たいていの LilyPond のバージョン間での構@c
+文変更を処理することができます。
+
+このプログラムは古いバージョン番号を検出するために入力ファイルの @code{version} 
+ステートメントを使用します。たいていの場合、あなたの入力ファイルをアップグレー@c
+ドするには以下を実行することで十分です:
+
+@example
+convert-ly -e myfile.ly
+@end example
+
+@noindent
+MacOS@tie{}X ユーザはこのコマンドをメニュー エントリ (@code{Compile > Update 
+syntax}) 下で実行することになるかもしれません。
+
+myfile.ly に変更が加えられず、myfile.ly.NEW というファイルが作成された場合、@c
+myfile.ly はすでに更新されています。
+
+@menu
+* convert-ly のコマンド ライン オプション::
+* convert-ly の問題点::
+@end menu
+
+@node convert-ly のコマンド ライン オプション
+@subsection @command{convert-ly} のコマンド ライン オプション
+@translationof Command line options for convert-ly
+
+@command{convert-ly} は常にそれが扱っている最新の構文変更に変換します。このこ@c
+とは、通常、ファイルの中にある @code{version} 番号は @command{convert-ly} 自体@c
+のバージョンよりも低いということを意味します。
+
+texinfo ファイルの中にある LilyPond 断片をアップグレードするには以下を使用して@c
+ください:
+
+@example
+convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+2 つのバージョン間での LilyPond 構文の変更を調べるには、以下を使用してください:
+
+@example
+convert-ly --from=... --to=... -s
+@end example
+
+1 度に多くのファイルをアップグレードするには、@code{convert-ly} に標準 UNIX コ@c
+マンドを組み合わせてください。以下の例はカレント ディレクトリの中にあるすべての 
+@code{.ly} ファイルをアップグレードします:
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+一般に、このプログラムは以下のように呼び出されます:
+
+@example
+convert-ly [@var{option}]@dots{} @var{file}@dots{}
+@end example
+
+
+以下のオプションを与えることができます:
+
+@table @code
+@item -e,--edit
+入力ファイルのインライン編集を行います。@code{--output} をオーバライドします。
+
+@item -f,--from=@var{from-patchlevel}
+変換元のバージョンをセットします。これがセットされていない場合、@c
+@command{convert-ly} は入力ファイルの中にある @code{version} 文字列を基に推測@c
+します。
+
+@item -n,--no-version
+通常、@command{convert-ly} は @code{\version} インジケータを出力に付け加えま@c
+す。このオプションを指定すると、それを抑制します。
+
+@item -s, --show-rules
+すべての変換を表示して、終了します。
+
+@item --to=@var{to-patchlevel}
+変換先のバージョンをセットします。デフォルトは利用可能な最新バージョンです。
+
+@item -h, --help
+使用方法についてのヘルプを表示します。
+@end table
+
+
+@node convert-ly の問題点
+@subsection @command{convert-ly} の問題点
+@translationof Problems with convert-ly
+
+言語の変更がすべて処理されるわけではありません。指定できる出力オプションは 1 
+つだけです。自動的に Scheme と更新することと LilyPond の Scheme インタフェイス@c
+を更新することはまったく異なります。Scheme コードの調整は手動で行う覚悟でいて@c
+ください。
+
+convert-ly が処理できないことがいくつかあります。ここに、LilyPond コミュニティ@c
+がそのことについて訴えたリストを挙げます。
+
+convert-ly は必要とされるすべての変更をスムーズに実装できるような構造になって@c
+いないため、このようなバグ レポートがあります。
+
+@verbatim
+1.6->2.0:
+ Doesn't always convert figured bass correctly, specifically things like {<
+>}.  Mats' comment on working around this:
+   To be able to run convert-ly
+   on it, I first replaced all occurrences of '{<' to some dummy like '{#'
+   and similarly I replaced '>}' with '&}'.  After the conversion, I could
+   then change back from '{ #' to '{ <' and from '& }' to '> }'.
+ Doesn't convert all text markup correctly.  In the old markup syntax,
+ it was possible to group a number of markup commands together within
+parentheses, e.g.
+   -#'((bold italic) "string")
+   This will incorrectly be converted into
+   -\markup{{\bold italic} "string"}
+   instead of the correct
+   -\markup{\bold \italic "string"}
+2.0->2.2:
+ Doesn't handle \partcombine
+ Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple
+stanzas.
+2.0->2.4:
+ \magnify isn't changed to \fontsize.
+    - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
+ remove-tag isn't changed.
+    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
+ first-page-number isn't changed.
+    - first-page-number no => print-first-page-number = ##f
+ Line breaks in header strings aren't converted.
+    - \\\\  as line break in \header strings => \markup \center-align <
+      "First Line" "Second Line" >
+ Crescendo and decrescendo terminators aren't converted.
+    - \rced => \!
+    - \rc => \!
+2.2->2.4:
+ \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly
+converted.
+2.4.2->2.5.9
+ \markup{ \center-align <{ ... }> } should be converted to:
+ \markup{ \center-align {\line { ... }} }
+ but now, \line is missing.
+2.4->2.6
+ Special LaTeX characters such as $~$ in text are not converted to UTF8.
+2.8
+ \score{} must now begin with a music expression.  Anything else
+ (particularly \header{}) must come after the music.
+@end verbatim
+
+
+@node バグを報告する
+@section バグを報告する
+@translationof Reporting bugs
+
+@cindex bugs
+@cindex reporting bugs
+
+クラッシュや間違った出力を発生させる入力があれば、それがバグです。我々の Google 
+バグ トラッカ上にカレント バグのリストがあります:
+
+@uref{http://code.google.com/p/lilypond/issues/list}
+
+ここにリスト アップされていないバグを発見した場合、以下の宛先にそのバグを報告@c
+してください:
+
+@uref{http://lilypond.org/web/devel/participating/bugs}
+
+レポートの中のバグの例は最小化して提出してください。我々には可能な限り小さくさ@c
+れてはいないレポートを調査するだけのリソースがありません。

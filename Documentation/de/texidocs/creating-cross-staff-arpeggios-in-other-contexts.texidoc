@@ -1,0 +1,9 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+ texidocde = "
+In einem Klaviersystem (@code{PianoStaff}) ist es möglich, ein Arpeggio
+zwischen beiden Systemen zu verbinden, indem die
+@code{PianoStaff.connectArpeggios}-Eigenschaft gesetzt wird.
+ 
+
+"
+  doctitlede = "Arpeggio zwischen Systemen in einem Klaviersystem erstellen"

@@ -1,0 +1,212 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Unfretted string instruments
+@section Unfretted string instruments
+
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex orchestral strings
+@cindex strings, orchestral
+@cindex strings, writing for
+
+This section provides information and references which are helpful
+when writing for unfretted string instruments, principally
+orchestral strings.
+
+@menu
+* Common notation for unfretted strings::
+@end menu
+
+@node Common notation for unfretted strings
+@subsection Common notation for unfretted strings
+
+There is little specialist notation for unfretted string
+instruments.  The music is notated on a single staff, and
+usually only a single voice is required.  Two voices might
+be required for some double-stopped or divisi passages.
+
+@menu
+* References for unfretted strings::
+* Bowing indications::
+* Harmonics::
+* Snap (Bartok) pizzicato::
+@end menu
+
+@node References for unfretted strings
+@unnumberedsubsubsec References for unfretted strings
+
+Most of the notation which is useful for orchestral strings
+and other bowed instruments is covered elsewhere:
+
+@itemize
+
+@item Textual indications such as @qq{pizz.} and @qq{arco} are
+added as simple text -- see @ref{Text scripts}.
+
+@item Fingerings, including the thumb indication, are described
+in @ref{Fingering instructions}.
+
+@item Double stopping is normally indicated by writing a chord,
+see @ref{Chorded notes}.  Directives for playing chords may be
+added, see @ref{Arpeggio}.
+
+@item A template for a string quartet can be found in
+@rlearning{String quartet}.  Others are shown in the snippets.
+
+@end itemize
+
+
+@seealso
+Learning Manual:
+@rlearning{String quartet}.
+
+Notation Reference:
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes},
+@ref{Arpeggio}.
+
+Snippets:
+@rlsr{Unfretted strings}.
+
+
+@node Bowing indications
+@unnumberedsubsubsec Bowing indications
+
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+
+@cindex bowing indications
+@cindex up bow indication
+@cindex down bow indication
+@cindex open string indication
+@cindex string, indicating open
+
+Bowing indications are created as articulations, which are
+described in @ref{Articulations and ornamentations}.
+
+The bowing commands, @code{\upbow} and @code{\downbow}, are used
+with slurs as follows:
+
+@lilypond[verbatim,quote,relative=2]
+c4(\downbow d) e(\upbow f)
+@end lilypond
+
+@noindent
+and the following example shows three ways in which an open A
+string on a violin might be indicated:
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open
+a^\markup { \teeny "II" }
+a2^\markup { \small "sul A" }
+@end lilypond
+
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}.
+@endpredefined
+
+
+@seealso
+Notation Reference:
+@ref{Articulations and ornamentations},
+@ref{Slurs}.
+
+
+@node Harmonics
+@unnumberedsubsubsec Harmonics
+
+@funindex \harmonic
+
+@strong{@i{Natural harmonics}}
+
+@cindex note heads, diamond-shaped
+@cindex diamond-shaped note heads
+@cindex natural harmonics
+@cindex harmonics, natural
+@funindex \harmonicsOn
+@funindex \harmonicsOff
+
+Natural harmonics can be notated in several ways.  A diamond-shaped
+note head generally means to touch the string where you would stop
+the note if it were not a diamond.
+
+@lilypond[verbatim,quote,relative=2]
+d4 e4.
+\harmonicsOn
+d8 e e
+d4 e4.
+\harmonicsOff
+d8 e e
+@end lilypond
+
+Alternatively a normal note head is shown at the pitch to be
+sounded together with a small circle to indicate it should be
+played as a harmonic:
+
+@lilypond[verbatim,quote,relative=2]
+d2^\flageolet d_\flageolet
+@end lilypond
+
+A smaller circle may be created, see the snippet list in
+@ref{References for unfretted strings}.
+
+@strong{@i{Artificial harmonics}}
+
+@cindex artificial harmonics
+@cindex harmonics, artifical
+
+Artificial harmonics are notated with two notes, one with a normal
+note head indicating the stopped position and one with an open
+diamond note head to indicate the harmonic position.
+
+@c TODO If the default for harmonicDots is changed, change this
+Artificial harmonics indicated with @code{\harmonic} do not show the
+dots.  The context property @code{harmonicDots} should be set if
+dots are required.
+
+@lilypond[verbatim,quote,relative=1]
+<e a\harmonic>2.  <c g'\harmonic>4
+\set harmonicDots = ##t
+<e a\harmonic>2.  <c g'\harmonic>4
+@end lilypond
+
+@warning{@code{@bs{}harmonic} @strong{must} be placed inside a
+chord construct even if there is only a single note.  Normally
+@code{@bs{}harmonicsOn} would be used in this situation.}
+
+
+@seealso
+Music Glossary:
+@rglos{harmonics}.
+
+Notation Reference:
+@ref{Special note heads},
+@ref{References for unfretted strings}.
+
+
+@node Snap (Bartok) pizzicato
+@unnumberedsubsubsec Snap (Bartók) pizzicato
+
+@cindex pizzicato, Bartók
+@cindex pizzicato, snap
+@cindex Bartók pizzicato
+@cindex snap pizzicato
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{snap-pizzicato-markup-bartok-pizzicato.ly}

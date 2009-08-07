@@ -1,0 +1,13 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
+@code{StaffGroup} angezeigt wird, wird die Klammer zu Beginn normalerweise
+nicht gesetzt.  Das kann verändert werden, indem man die ensprechende
+Eigenschaft veränder.
+
+Bei Systemen wie @code{PianoStaff} und @code{GrandStaff}, die mit einer
+geschweiften Klammer beginne, muss eine andere Eigenschaft verändt werden,
+wie das zweite Beispiel zeigt.
+
+"
+  doctitlede = "Klammer anzeigen, wenn nur ein System gesetzt wird"

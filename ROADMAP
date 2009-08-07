@@ -12,25 +12,28 @@ source files.
    .                    Toplevel READMEs, ChangeLog, build bootstrapping,
                           patches for third party programs
    Documentation/
+       application/     Source files for Application Usage manual
        bibliography/    .bib files with references to books and articles
+       contributor/     Source files for the Contribotor's Guide
+       learning/        Source files for the Learning Manual
        misc/            Old announcements, ChangeLogs and NEWS
+       notation/        Source files for Notation Reference manual
        pictures/        The logo
+       snippets/        Snippets from the LilyPond Snippet Repository
+                          (auto-generated, do not modify!)
+           new/         Snippets which are too new for LSR
        topdocs/         Sources for the toplevel READMEs
-                          (README.txt, INSTALL.txt, NEWS.txt etc.)
+                          (README.txt, INSTALL.txt etc.)
        user/            User manuals
        po/              Translated manual node names
        fr/ es/ de/      Docs translated to French, Spanish, German, resp.
+       ja/              Docs translated to Japanese
    elisp/               Emacs LilyPond mode and syntax coloring
    flower/              A simple C++ library
    input/               Music input examples
-       lsr/             Snippets from the LilyPond Snippet Repository
-                          (auto-generated, do not modify!)
        manual/          Examples from the manual
        mutopia/         Real music, more at www.mutopiaproject.org
-       new/             Snippets which are too new for LSR
        regression/      Testing of features, one test per file
-       texidocs/        Translations of texidoc and doctitle fields
-                          (for input/lsr)
        tutorial/        Examples from the tutorial 
    lily/                C++ sources for the LilyPond binary
    ly/                  System music include files

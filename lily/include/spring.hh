@@ -39,6 +39,7 @@ public:
 
   void set_distance (Real);
   void set_min_distance (Real);
+  void ensure_min_distance (Real);
   void set_inverse_stretch_strength (Real);
   void set_inverse_compress_strength (Real);
   void set_blocking_force (Real);

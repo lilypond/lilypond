@@ -120,19 +120,19 @@ Syntax: @var{note}@code{\\breathe}")
 	(types . (general-music event breathing-event))
 	))
 
+    (ClusterNoteEvent
+     . ((description . "A note that is part of a cluster.")
+	;; not a note-event, to ensure that Note_heads_engraver doesn't eat it.
+	(types . (general-music cluster-note-event melodic-event
+		  rhythmic-event event))
+	))
+
     (ContextChange
      . ((description . "Change staves in Piano staff.
 
 Syntax: @code{\\change Staff = @var{new-id}}")
 	(iterator-ctor . ,ly:change-iterator::constructor)
 	(types . (general-music translator-change-instruction))
-	))
-
-    (ClusterNoteEvent
-     . ((description . "A note that is part of a cluster.")
-	;; not a note-event, to ensure that Note_engraver doesn't eat it.
-	(types . (general-music cluster-note-event melodic-event
-		  rhythmic-event event))
 	))
 
     (ContextSpeccedMusic
@@ -147,23 +147,23 @@ specific context.")
     (CrescendoEvent
      . ((description . "Begin or end a crescendo.
 
-Syntax: @var{note}@code{\\cr} @dots{} @var{note}@code{\\rc}
+Syntax: @var{note}@code{\\<} @dots{} @var{note}@code{\\!}
 
-You can also use @code{\\<}, @code{\\!}, @code{\\cresc}, and
-@code{\\endcresc}.  See the Notation Reference for details.")
+An alternative syntax is @var{note}@code{\\cr} @dots{}
+@var{note}@code{\\endcr}.")
 	(types . (general-music span-event span-dynamic-event crescendo-event
 		  event))
 	))
 
     (DecrescendoEvent
-     . ((description . "See @ref{CrescendoEvent}.")
+     . ((description . "Begin or end a decrescendo.
+
+Syntax: @var{note}@code{\\>} @dots{} @var{note}@code{\\!}
+
+An alternative syntax is @var{note}@code{\\decr} @dots{}
+@var{note}@code{\\enddecr}.")
 	(types . (general-music span-event span-dynamic-event decrescendo-event
 		  event))
-	))
-
-    (ExtenderEvent
-     . ((description . "Extend lyrics.")
-	(types . (general-music extender-event event))
 	))
 
     (Event
@@ -178,6 +178,11 @@ You can also use @code{\\<}, @code{\\!}, @code{\\cresc}, and
 	(to-relative-callback .
 	 ,ly:music-sequence::event-chord-relative-callback)
 	(types . (general-music event-chord simultaneous-music))
+	))
+
+    (ExtenderEvent
+     . ((description . "Extend lyrics.")
+	(types . (general-music extender-event event))
 	))
 
     (FingeringEvent
@@ -363,14 +368,16 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
     (PropertySet
      . ((description . "Set a context property.
 
-Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}")
+Syntax: @code{\\set @var{context}.@var{prop} = @var{scheme-val}}")
 	(types . (layout-instruction-event general-music))
 	(iterator-ctor . ,ly:property-iterator::constructor)
 	))
 
     (PropertyUnset
-     . ((description . "Remove the definition of a context
-@code{\\property}.")
+     . ((description . "Restore the default setting for a context
+property.  See @ref{PropertySet}.
+
+Syntax: @code{\\unset @var{context}.@var{prop}}")
 	(types . (layout-instruction-event general-music))
 	(iterator-ctor . ,ly:property-unset-iterator::constructor)
 	))
@@ -398,14 +405,14 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
 
-    (RepeatTieEvent
-     . ((description . "Ties for starting a second volta bracket.")
-	(types . (general-music event repeat-tie-event))
-	))
-
     (RepeatedMusic
      . ((description . "Repeat music in different ways.")
 	(types . (general-music repeated-music))
+	))
+
+    (RepeatTieEvent
+     . ((description . "Ties for starting a second volta bracket.")
+	(types . (general-music event repeat-tie-event))
 	))
 
     (RestEvent

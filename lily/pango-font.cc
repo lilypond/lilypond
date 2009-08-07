@@ -285,19 +285,20 @@ Pango_font::physical_font_tab () const
 }
 
 Stencil
-Pango_font::word_stencil (string str) const
+Pango_font::word_stencil (string str, bool feta) const
 {
-  return text_stencil (str, true);
+  return text_stencil (str, feta, true);
 }
 
 Stencil
-Pango_font::text_stencil (string str) const
+Pango_font::text_stencil (string str, bool feta) const
 {
-  return text_stencil (str, false);
+  return text_stencil (str, feta, false);
 }
 
 Stencil
 Pango_font::text_stencil (string str,
+			  bool feta,
 			  bool tight) const
 {
   GList *items
@@ -346,10 +347,27 @@ Pango_font::text_stencil (string str,
       dest.add_stencil (item_stencil);
     }
 
-  // UGH. Should have flags per output format signifying supported
-  // options.
   string name = get_output_backend_name ();
-  if (name != "ps" && name != "eps")
+  string output_mod = "scm output-" + name;
+  SCM mod = scm_c_resolve_module (output_mod.c_str ());
+
+  bool has_utf8_string = false;
+
+  if (ly_is_module (mod))
+    {
+      SCM utf8_string = ly_module_lookup (mod, ly_symbol2scm ("utf-8-string"));
+      if (utf8_string != SCM_BOOL_F)
+	has_utf8_string = true;
+    }
+
+  /*
+    The SVG backend only uses utf-8-string for the non-music
+    fonts, hence the check here.  --pmccarty
+
+    TODO: use a program option (-dmusic-strings-to-paths) here
+    instead that is enabled only when -dbackend=svg.
+  */
+  if ((name == "svg" && !feta) || (name != "svg" && has_utf8_string))
     {
       // For Pango based backends, we take a shortcut.
       SCM exp = scm_list_3 (ly_symbol2scm ("utf-8-string"),

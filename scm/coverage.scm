@@ -1,3 +1,5 @@
+;;;; coverage.scm
+
 (define-module (scm coverage))
 
 (use-modules (lily)

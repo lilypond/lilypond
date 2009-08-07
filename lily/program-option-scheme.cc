@@ -113,6 +113,8 @@ internal_set_option (SCM var,
       relative_includes = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
+  else if (var == ly_symbol2scm ("warning-as-error"))
+    val = scm_from_bool (to_boolean (val));
 
   scm_hashq_set_x (option_hash, var, val);
 }
@@ -181,7 +183,8 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 
 LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 	   (SCM sym, SCM val, SCM description),
-	   "Add a program option @var{sym} with default @var{val}.")
+	   "Add a program option @var{sym}.  @var{val} is the default"
+	   " value and @var{description} is a string description.")
 {
   if (!option_hash)
     option_hash = scm_permanent_object (scm_c_make_hash_table (11));

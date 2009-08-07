@@ -1,0 +1,9 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+ texidocde = "
+ Crescendo-Klammern können mit einem kleinen Kreis vor der Spitze
+ notiert werden (al niente = bis zum Nichts), indem die
+@code{circled-tip}-Eigenschaft des @code{Hairpin}-Objekts auf
+@code{#t} gesetzt wird.
+
+"
+  doctitlede = "Crescendo Klammern al niente schreiben"

@@ -1,4 +1,4 @@
-;;;; document-markup.scm -- part of generated backend documentation
+;;;; document-music.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
@@ -10,7 +10,7 @@
     #:name "Music properties"
     #:desc "All music properties, including descriptions."
     #:text
-    (let* ((ps (sort (map symbol->string all-music-properties) string<?))
+    (let* ((ps (sort (map symbol->string all-music-properties) ly:string-ci<?))
 	   (descs (map (lambda (prop)
 			 (property->texi 'music (string->symbol prop)))
 		       ps))
@@ -53,9 +53,8 @@
        (symbol->string (car entry))
        "} is in music objects of type "
        (human-listify
-	(sort
-	 (map (lambda (x) (ref-ify (symbol->string x)))
-	      (cdr entry)) string<?))
+	(map ref-ify (sort (map symbol->string (cdr entry))
+	                   ly:string-ci<?)))
        "."
 
        "\n\n"
@@ -72,7 +71,7 @@
     #:children
     (map music-type-doc
 	 (sort
-	  (hash-table->alist music-types->names) alist<?))))
+	  (hash-table->alist music-types->names) ly:alist-ci<?))))
 
 (define (music-doc-str obj)
   (let* ((namesym  (car obj))
@@ -93,7 +92,8 @@
 			 (string-append
 			  "\n\nEvent classes:\n"
 			  (human-listify
-			   (map ref-ify (map symbol->string classes)))
+			   (map ref-ify (sort (map symbol->string classes)
+					      ly:string-ci<?)))
 			  "."
 
 			  "\n\n"
@@ -112,7 +112,7 @@
      (description-list->texi
       (map
        (lambda (x) (property->texi 'music x props))
-       (map car props))
+       (sort (map car props) ly:symbol-ci<?))
       #t))))
 
 (define (music-object-doc obj)

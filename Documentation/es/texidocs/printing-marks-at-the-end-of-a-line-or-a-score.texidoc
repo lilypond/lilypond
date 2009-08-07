@@ -1,0 +1,14 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Las marcas se pueden imprimir al final de la línea actual, en vez de
+al comienzo de la línea siguiente.  Esto es útil principalmente cuando
+se tiene que añadir una marca al final de la partitura (donde no hay
+línea siguiente).
+
+En tales casos, el extremo derecho de la marca se tiene que alinear
+con la última línea divisoria, como muestra la segunda línea de este
+ejemplo.
+
+"
+  doctitlees = "Imprimir marcas al final de la línea o de la partitura"
+

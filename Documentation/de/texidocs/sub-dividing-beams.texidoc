@@ -1,0 +1,14 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Die Balken von aufeinanderfolgenden Sechszehnteln (oder kürzeren Notenwerten)
+werden standardmäßig nicht unterteilt.  Dieses Verhalten kann verändert
+werden, sodass die Balken in Untergruppen aufgeteilt werden, indem man
+die Eigenschaft @code{subdivideBeams} verändert.  Man muss die Unterteilungsintervalle
+als Notenbruch mit der @code{make-moment}-Funktion für @code{beatLength} angeben,
+damit die Balken unterbrochen wird und nur ein Balken durchgezogen bleibt.  Der
+Standardwert für @code{beatLength} ist 1 / Zähler des aktuellen Taktes.
+
+"
+  doctitlede = "Balken in Untergruppen teilen"
+
+

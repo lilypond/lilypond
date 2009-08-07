@@ -1,0 +1,17 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "Textbeschriftungen, die an Mehrtaktpausen gehängt wird,
+wird über oder unter der Pause zentriert.  Lange Beschriftungen
+lassen den Takt nicht breiter werden.  Um eine Mehrtaktpause einer
+Beschriftung anzupassen, muss eine unsichtbare Pause mit der
+Beschriftung direkt vor der Mehrtkatpause eingesetzt werden.
+
+Man sollte beachten, dass unsichtbare Pausen automatische Taktstriche
+nach sich ziehen.  Text, der an eine unsichtbare Pause gehänt wird,
+ist links ausgerichtet an der Position, wo die Pause erscheinen
+würde.  Wenn aber die Länge des Taktes durch die Länge des Textes
+bestimmt wird, sieht es so aus, als ob der Text zentriert gesetzt
+ist."
+
+  doctitlede = "Textbeschriftung und Mehrtaktpausen"
+
+

@@ -1,0 +1,11 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  doctitlede = "Bartók-Pizzicato"
+  texidocde = "
+Das Bartók-Pizzicato @q{ist eine besondere Form des Pizzicato, bei dem der
+Spieler die Saite auf das Griffbrett aufschlagen lässt, sodass zusätzlich
+zum angeschlagenen Ton ein scharfes, knallendes Geräusch ertönt}
+(Wikipedia).  Es wird dargestellt als kleiner Kreis mit einer vertikalen
+Linie, die vom Kreiszentrum aus nach oben weist und ein Stück außerhalb des
+Kreises endet.  Lilypond hat keinen eigenen Glyphen für dieses Symbol; es
+ist aber einfach, direkt eine Definition in die Eingabedatei einzufügen.
+"

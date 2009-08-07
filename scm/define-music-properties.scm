@@ -1,4 +1,4 @@
-;;;; music-property-description.scm -- part of generated backend documentation
+;;;; define-music-properties.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
@@ -16,25 +16,20 @@
   (map
    (lambda (x) (apply music-property-description x))
    `(
-     (X-offset ,number?
-	       "Offset of resulting grob; only used for balloon texts.")
-     (Y-offset ,number?
-	       "Offset of resulting grob; only used for balloon texts.")
-
-     (alteration ,number? "Alteration for figured bass.")
      (absolute-octave ,integer?
 		      "The absolute octave for a octave check note.")
-     (articulations ,ly:music-list?
-		    "Articulation events specifically for this note.")
+     (alteration ,number? "Alteration for figured bass.")
      (articulation-type ,string? "Key for script definitions alist.
 
 TODO: Consider making type into symbol.")
+     (articulations ,ly:music-list?
+		    "Articulation events specifically for this note.")
+     (associated-context ,string? "Name of the Voice context associated with
+this @code{\\lyricsto} section.")
      (augmented ,boolean? "This figure is for an augmented figured bass
 (with @code{+} sign).")
      (augmented-slash ,boolean? "This figure is for an augmented figured bass
 (back-slashed number).")
-     (associated-context ,string? "Name of the Voice context associated with
-this @code{\\newaddlyrics} section.")
 
      (bass ,boolean? "Set if this note is a bass note in a chord.")
      (bracket-start ,boolean? "Start a bracket here.
@@ -56,23 +51,23 @@ Arg@tie{}1: the music, arg@tie{}2: factor.")
      (create-new ,boolean? "Create a fresh context.")
 
      (delta-step ,number? "How much should a fall change pitch?")
+     (denominator ,integer? "Denominator in a time signature.")
      (descend-only ,boolean? "If set, this @code{\\context} only descends
 in the context tree.")
-     (denominator ,integer? "Denominator in a time signature.")
      (digit ,integer? "Digit for fingering.")
      (diminished ,boolean? "This bass figure should be slashed.")
      (direction ,ly:dir? "Print this up or down?")
      (drum-type ,symbol? "Which percussion instrument to play this note on.")
      (duration ,ly:duration? "Duration of this note or lyric.")
 
-     (error-found ,boolean?
-		  "If true, a parsing error was found in this expression.")
      (element ,ly:music? "The single child of a Music_wrapper music object,
 or the body of a repeat.")
      (elements ,ly:music-list? "A list of elements for sequential of
 simultaneous music, or the alternatives of repeated music.")
      (elements-callback ,procedure? "Return a list of children, for use by
 a sequential iterator.  Takes a single music parameter.")
+     (error-found ,boolean?
+		  "If true, a parsing error was found in this expression.")
 
      (figure ,integer? "A bass figure.")
      (force-accidental ,boolean? "If set, a cautionary accidental should
@@ -103,9 +98,9 @@ whether to allow, forbid or force a line break.")
      (no-continuation ,boolean? "If set, disallow continuation lines.")
      (numerator ,integer? "Numerator of a time signature.")
 
-     (once ,boolean? "Apply this operation only during one time step?")
      (octavation ,integer? "This pitch was octavated by how many octaves?
 For chord inversions, this is negative.")
+     (once ,boolean? "Apply this operation only during one time step?")
      (origin ,ly:input-location? "Where was this piece of music defined?")
 
      (page-break-permission ,symbol? "When the music is at top-level,
@@ -115,9 +110,9 @@ whether to allow, forbid or force a page break.")
 top-level, a page marker object is instanciated instead of a score.")
      (page-turn-permission ,symbol? "When the music is at top-level,
 whether to allow, forbid or force a page turn.")
+     (parenthesize ,boolean? "Enclose resulting objects in parentheses?")
      (part-combine-status ,symbol? "Change to what kind of state?
 Options are @code{solo1}, @code{solo2} and @code{unisono}.")
-     (parenthesize ,boolean? "Enclose resulting objects in parentheses?")
      (pitch ,ly:pitch? "The pitch of this note.")
      (pitch-alist ,list? "A list of pitches jointly forming the scale
 of a key signature.")
@@ -129,17 +124,17 @@ It must take a single argument, being the context.")
      (property-operations ,list? "Do these operations for instantiating
 the context.")
 
+     (quoted-context-id ,string? "The ID of the context to direct quotes to,
+e.g., @code{cue}.")
+     (quoted-context-type ,symbol? "The name of the context to
+direct quotes to, e.g., @code{Voice}.")
      (quoted-events ,vector? "A vector of with @code{moment} and
 @code{event-list} entries.")
      (quoted-music-name ,string? "The name of the voice to quote.")
-     (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem
-or down-stem?")
-     (quoted-context-type ,symbol? "The name of the context to
-direct quotes to, e.g., @code{Voice}.")
-     (quoted-context-id ,string? "The ID of the context to direct quotes to,
-e.g., @code{cue}.")
      (quoted-transposition ,ly:pitch? "The pitch used for the quote,
 overriding @code{\\transposition}.")
+     (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem
+or down-stem?")
 
      (repeat-count ,integer? "Do a @code{\\repeat} how often?")
 
@@ -158,21 +153,21 @@ a @code{StringNumberEvent}.")
      (tags ,list? "List of symbols that for denoting extra details, e.g.,
 @code{\\tag #'part @dots{}} could tag a piece of music as only being active
 in a part.")
+     (tempo-unit ,ly:duration? "The unit for the metronome count.")
+     (text ,markup? "Markup expression to be printed.")
      (text-type ,symbol?
 		"Particular type of text script (e.g., finger, dynamic).")
-     (text ,markup? "Markup expression to be printed.")
-     (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (to-relative-callback ,procedure? "How to transform a piece of music
 to relative pitches.")
      (tonic ,ly:pitch? "Base of the scale.")
      (tremolo-type ,integer? "Speed of tremolo, e.g., 16 for @code{c4:16}.")
      (trill-pitch ,ly:pitch? "Pitch of other note of the trill.")
+     (tweaks ,list? "An alist of properties to override in the backend
+for the grob made of this event.")
      (type ,symbol? "The type of this music object.
 Determines iteration in some cases.")
      (types ,list? "The types of this music object; determines by what
 engraver this music expression is processed.")
-     (tweaks ,list? "An alist of properties to override in the backend
-for the grob made of this event.")
 
      (untransposable ,boolean? "If set, this music is not transposed.")
 
@@ -183,4 +178,10 @@ music expression is to be discarded by the toplevel music handler.")
      (what ,symbol? "What to change for auto-change.
 
 FIXME: Naming.")
+
+     (X-offset ,number?
+	       "Offset of resulting grob; only used for balloon texts.")
+
+     (Y-offset ,number?
+	       "Offset of resulting grob; only used for balloon texts.")
     )))

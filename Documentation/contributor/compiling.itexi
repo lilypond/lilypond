@@ -1,0 +1,165 @@
+@c -*- coding: us-ascii; mode: texinfo; -*-
+
+@node Compiling LilyPond
+@chapter Compiling LilyPond
+
+@menu
+* Compiling from source::
+* Concurrent Stable and Development Versions::
+* Using a Virtual Machine to Compile Lilypond::
+@end menu
+
+@node Compiling from source
+@section Compiling from source
+
+@include contributor/basic-compile.itexi
+
+
+@node Concurrent Stable and Development Versions
+@section Concurrent Stable and Development Versions
+
+It can be useful to have both the stable and the development versions
+of Lilypond available at once. One way to do this on GNU/Linux is to
+install the stable version using the precompiled binary, and run the
+development version from the source tree. After running @command{make
+all} from the top directory of the Lilypond source files, there will
+be a binary called @code{lilypond} in the @code{out} directory:
+
+@example
+<@var{path to}>/lilypond/out/bin/lilypond
+@end example
+
+This binary can be run without actually doing the @code{make
+install} command. The advantage to this is that you can have all
+of the latest changes available after pulling from git and running
+@code{make all}, without having to uninstall the old version and
+reinstall the new.
+
+So, to use the stable version, install it as usual and use the
+normal commands:
+
+@example
+lilypond foobar.ly
+@end example
+
+To use the development version, create a link to the binary in the
+source tree by saving the following line in a file somewhere in your
+@code{$PATH}:
+
+@example
+exec <@var{path to}>/lilypond/out/bin/lilypond "$@@"
+@end example
+
+Save it as @code{Lilypond} (with a capital L to distinguish it
+from the stable @code{lilypond}), and make it executable:
+
+@example
+chmod +x Lilypond
+@end example
+
+Then you can invoke the development version this way:
+
+@example
+Lilypond foobar.ly
+@end example
+
+
+TODO: ADD
+
+- other compilation tricks for developers
+
+
+@node Using a Virtual Machine to Compile Lilypond
+@section Using a Virtual Machine to Compile Lilypond
+
+Since it is not possible to compile Lilypond on Windows, some
+developers may find it useful to install a GNU/Linux virtual
+machine. A disk image with a special remix of @strong{Ubuntu}
+has been created for this purpose. It has all of the Lilypond
+build dependencies in place, so that once installed, it is
+ready to compile both Lilypond and the Documentation.
+The @code{lilybuntu} remix is available for download here:
+
+@example
+@uref{http://@/prodet.hu/@/bert/@/lilydev/@/lilybuntu.iso}
+@end example
+
+We do not necessarily recommend any one virtualization tool,
+however the @code{lilybuntu} remix is known to work well on
+@uref{http://www.virtualbox.org/wiki/Downloads, Sun VirtualBox},
+which is a free download. Consult your virtualization software's
+documentation for instructions on setting up the software and
+for general instructions on installing a virtual machine.
+
+Steps to setting up @code{lilybuntu} in a virtual machine:
+
+@enumerate
+@item Download the @code{lilybuntu} disk image.
+
+@item Install @code{lilybuntu}. You will use the @code{.iso}
+file as the boot disk. It should not be necessary to burn it
+to a DVD, but consult the documentation for your virtualization
+software for specific instructions. If possible, use at least
+the recommended amount of RAM for the virtual machine (384 MB on
+VirtualBox), and use a dynamically expanding virtual hard drive
+starting with at least 5-6 GB of space, more if you can spare it.
+The Ubuntu installer should be straightforward, although in the
+partitioning stage do not be afraid to select @qq{use entire disk,}
+since this is only your @strong{virtual disk} and not your
+machine's actual hard drive.
+
+@item After installation is complete, restart the virtual
+machine. (If you are using @strong{VirtualBox}, you may wish
+to install the @qq{Guest Additions,} which will allow you to
+use the virtual machine in full screen.)
+
+@item Open a @strong{terminal}.
+(@code{Applications > Accessories > Terminal})
+
+@item Open @strong{Firefox} (there's an icon for it on the
+panel at the top of the screen) and go to the online Lilypond
+@uref{http://lilypond.org/doc/v2.13/Documentation/devel/contrib-guide, Contributor's Guide}.
+
+@item To retrieve the Lilypond source code from @code{git},
+copy-and-paste each command from the CG @qq{Main source code}
+section into the terminal. (paste into the terminal with keystroke
+@code{CTRL+SHIFT+V})
+
+@item Prepare to build Lilypond by running the configuration script.
+Type
+
+@example
+./autogen.sh
+@end example
+
+When it is finished you should be presented
+with the three most common @code{make} options:
+
+@example
+Type:
+    make all       to build LilyPond
+    make install   to install LilyPond
+    make help      to see all possible targets
+
+Edit local.make for local Makefile overrides.
+@end example
+
+@item First type @code{make all} to build Lilypond. This will take
+a while.
+
+@item When Lilypond is finished building, build the documentation
+by typing
+
+@example
+make doc
+@end example
+
+Depending on your system specs it could take from 30-60 minutes
+to finish.
+
+@end enumerate
+
+At this point everything has been compiled.
+You may install Lilypond using @code{make install}, or you may wish
+to set up your system with concurrent stable and development
+versions as described in the previous section.

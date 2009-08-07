@@ -1,0 +1,30 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Gerade Fähnchen an einzelnen Noten und überstehende Balkenenden bei
+bebalkten Notengruppen sind möglich mit einer Kombination aus
+@code{stemLeftBeamCount}, @code{stemRightBeamCount} und Paaren von
+@code{[]}-Balkenbegrenzungen.
+
+Für gerade Fähnchen, die nach rechts zeigen, kann @code{[]} eingesetzt
+werden und @code{stemLeftBeamCount} auf Null gesetzt werden (wie
+Bsp. 1).
+
+Für gerade Fähnchen, die nach links zeigen, muss @code{stemRightBeamCount}
+eingesetzt werden (Bsp. 2).
+
+Für überstehende Balkenenden nach rechts muss @code{stemRightBeamCount}
+auf einen positiven Wert gesetzt werden, für Balkenenden, die nach links
+zeigen benutzt man @code{stemLeftBeamCount} (Bsp. 3).
+
+Manchmal können einzelne Noten, die von Pausen umgeben sind, auch Balkenenden
+in beide Richtungen tragen.  Das geschieht mit @code{[]}-Klammern (Bsp. 4).
+
+(@code{\\set stemLeftBeamCount} entspricht immer dem Befehl
+@code{\\once \\set}.  Anders gesagt müssen die Einstellungen immer wieder
+wiederholt werden und die Fähnchen des letzten Sechszehntels im letzten
+Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
+
+"
+  doctitlede = "Gerade Fähnchen und überstehende Balkenenden"
+
+

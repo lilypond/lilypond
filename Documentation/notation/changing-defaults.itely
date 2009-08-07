@@ -1,0 +1,3377 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Changing defaults
+@chapter Changing defaults
+
+The purpose of LilyPond's design is to provide the finest quality
+output by default.  Nevertheless, it may happen that you need to
+change this default layout.  The layout is controlled through a large
+number of @q{knobs and switches} collectively called @q{properties}.
+A tutorial introduction to accessing and modifying these properties
+can be found in the Learning Manual, see @rlearning{Tweaking output}.
+This should be read first.  This chapter covers similar ground, but
+in a style more appropriate to a reference manual.
+
+@cindex Internals Reference
+
+The definitive description of the controls available for tuning can
+be found in a separate document: @rinternalsnamed{Top,the Internals
+Reference}.  That manual lists all the variables, functions and
+options available in LilyPond.  It is written as a HTML document,
+which is available
+@c leave the @uref as one long line.
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
+and is also included with the LilyPond documentation package.
+
+Internally, LilyPond uses Scheme (a LISP dialect) to provide
+infrastructure.  Overriding layout decisions in effect accesses the
+program internals, which requires Scheme input.  Scheme elements are
+introduced in a @code{.ly} file with the hash mark
+@code{#}.@footnote{@rlearning{Scheme tutorial}, contains a short tutorial
+on entering numbers, lists, strings, and symbols in Scheme.}
+
+
+@menu
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Advanced tweaks::
+@end menu
+
+
+@node Interpretation contexts
+@section Interpretation contexts
+
+This section describes what contexts are, and how to modify them.
+
+@menu
+* Contexts explained::
+* Creating contexts::
+* Keeping contexts alive::
+* Modifying context plug-ins::
+* Changing context default settings::
+* Defining new contexts::
+* Aligning contexts::
+@end menu
+
+
+@seealso
+Learning Manual:
+@rlearning{Contexts and engravers}.
+
+Installed files:
+@file{ly/@/engraver@/-init@/.ly},
+@file{ly/@/performer@/-init@/.ly}.
+
+Snippets:
+@rlsr{Contexts and engravers}.
+
+Internals Reference:
+@rinternals{Contexts},
+@rinternals{Engravers and Performers}.
+
+
+@node Contexts explained
+@subsection Contexts explained
+
+@ignore
+@c TODO Rethink and rewrite
+
+>> > > - list of contexts: my *danger unmaintainable*
+>> > > alarm just went off.  I'm
+
+I knew it would... And leaving out some of them is perfectly fine
+with me.
+I do think that a list like this, with the main contexts and a
+brief
+description of  what they do (perhaps also with a note about what
+default
+behavior is associated with each of them, but this may be
+unmanageable),
+should be there, and then we could simply list the remaining ones
+without
+further explanation and with links to the IR.
+@end ignore
+
+@c TODO Improve layout, order and consistency of wording -td
+
+@c TODO Add introduction which explains contexts in generality  -td
+
+@c TODO Describe propagation of property values -td
+
+Contexts are arranged hierarchically:
+
+@menu
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
+@end menu
+
+@node Score - the master of all contexts
+@unnumberedsubsubsec Score - the master of all contexts
+
+This is the top level notation context. No other context can
+contain a Score context. By default the Score context handles
+the administration of time signatures and makes sure that items
+such as clefs, time signatures, and key-signatures are aligned
+across staves.
+
+A Score context is instantiated implicitly when a
+@code{\score @{@dots{}@}} or @code{\layout @{@dots{}@}} block is
+processed, or explicitly when a @code{\new Score} command is
+executed.
+
+@node Top-level contexts - staff containers
+@unnumberedsubsubsec Top-level contexts - staff containers
+
+@strong{@emph{StaffGroup}}
+
+Groups staves while adding a bracket on the left side, grouping
+the staves together. The bar lines of the contained staves are
+connected vertically.  @code{StaffGroup} only consists of a collection
+of staves, with a bracket in front and spanning bar lines.
+
+@strong{@emph{ChoirStaff}}
+
+Identical to @code{StaffGroup} except that the bar lines of the
+contained staves are not connected vertically.
+
+@strong{@emph{GrandStaff}}
+
+A group of staves, with a brace on the left side, grouping the
+staves together.  The bar lines of the contained staves are
+connected vertically.
+
+@strong{@emph{PianoStaff}}
+
+Just like @code{GrandStaff}, but with support for instrument names
+to the left of each system.
+
+@node Intermediate-level contexts - staves
+@unnumberedsubsubsec Intermediate-level contexts - staves
+
+@strong{@emph{Staff}}
+
+Handles clefs, bar lines, keys, accidentals.  It can contain
+@code{Voice} contexts.
+
+@strong{@emph{RhythmicStaff}}
+
+Like @code{Staff} but for printing rhythms.  Pitches are ignored;
+the notes are printed on one line.
+
+@strong{@emph{TabStaff}}
+
+Context for generating tablature.  By default lays the music
+expression out as a guitar tablature, printed on six lines.
+
+@strong{@emph{DrumStaff}}
+
+Handles typesetting for percussion.  Can contain @code{DrumVoice}
+
+@strong{@emph{VaticanaStaff}}
+
+Same as @code{Staff}, except that it is designed for typesetting
+a piece in gregorian style.
+
+@strong{@emph{MensuralStaff}}
+
+Same as @code{Staff}, except that it is designed for typesetting
+a piece in mensural style.
+
+@node Bottom-level contexts - voices
+@unnumberedsubsubsec Bottom-level contexts - voices
+
+Voice-level contexts initialise certain properties and start
+appropriate engravers.  Being bottom-level contexts, they cannot
+contain other contexts.
+
+@strong{@emph{Voice}}
+
+Corresponds to a voice on a staff.  This context handles the
+conversion of dynamic signs, stems, beams, super- and sub-scripts,
+slurs, ties, and rests.  You have to instantiate this explicitly
+if you require multiple voices on the same staff.
+
+@strong{@emph{VaticanaVoice}}
+
+Same as @code{Voice}, except that it is designed for typesetting
+a piece in gregorian style.
+
+@strong{@emph{MensuralVoice}}
+
+Same as @code{Voice}, with modifications for typesetting a piece in
+mensural style.
+
+@strong{@emph{Lyrics}}
+
+Corresponds to a voice with lyrics.  Handles the printing of a
+single line of lyrics.
+
+@strong{@emph{DrumVoice}}
+
+The voice context used in a percussion staff.
+
+@strong{@emph{FiguredBass}}
+
+The context in which @code{BassFigure} objects are created from
+input entered in @code{\figuremode} mode.
+
+@strong{@emph{TabVoice}}
+
+The voice context used within a @code{TabStaff} context.  Usually
+left to be created implicitly.
+
+@strong{@emph{CueVoice}}
+
+A voice context used to render notes of a reduced size, intended
+primarily for adding cue notes to a staff, see @ref{Formatting
+cue notes}.  Usually left to be created implicitly.
+
+@strong{@emph{ChordNames}}
+
+Typesets chord names.
+
+@ignore
+TODO
+
+Then the following, which I don't know what to do with:
+
+    * GregorianTranscriptionVoice
+    * GregorianTranscriptionStaff
+
+    * FretBoards
+        Engraves fretboards from chords. Not easy... Not
+documented.
+        There is now some documentation on FretBoards in the NR, under
+         instrument-specific notation -- cds.
+
+    * NoteNames
+
+    * Global
+        Hard coded entry point for LilyPond. Cannot be tuned.
+    * Devnull
+        Silently discards all musical information given to this
+context.
+
+@end ignore
+
+@node Creating contexts
+@subsection Creating contexts
+
+@c TODO \new Score and \score
+@c TODO more complete descriptions rather than learning style
+
+For scores with only one voice and one staff, contexts are
+created automatically.  For more complex scores, it is necessary to
+create them by hand.  There are three commands that do this.
+
+@itemize
+
+@item
+The easiest command is @code{\new}, and it also the quickest to type.
+It is prepended to a music expression, for example
+
+@funindex \new
+@cindex new contexts
+@cindex Context, creating
+
+@example
+\new @var{type} @var{music expression}
+@end example
+
+@noindent
+where @var{type} is a context name (like @code{Staff} or
+@code{Voice}).  This command creates a new context, and starts
+interpreting the @var{music expression} with that.
+
+A practical application of @code{\new} is a score with many
+staves.  Each part that should be on its own staff, is preceded with
+@code{\new Staff}.
+
+@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
+<<
+  \new Staff { c4 c }
+  \new Staff { d4 d }
+>>
+@end lilypond
+
+The @code{\new} command may also give a name to the context,
+
+@example
+\new @var{type} = @var{id} @var{music}
+@end example
+However, this user specified name is only used if there is no other
+context already earlier with the same name.
+
+
+@funindex \context
+
+@item
+Like @code{\new}, the @code{\context} command also directs a music
+expression to a context object, but gives the context an explicit name.  The
+syntax is
+
+@example
+\context @var{type} = @var{id} @var{music}
+@end example
+
+This form will search for an existing context of type @var{type}
+called @var{id}.  If that context does not exist yet, a new
+context with the specified name is created.  This is useful if
+the context is referred to later on.  For example, when
+setting lyrics the melody is in a named context
+
+@example
+\context Voice = "@b{tenor}" @var{music}
+@end example
+
+@noindent
+so the texts can be properly aligned to its notes,
+
+@example
+\new Lyrics \lyricsto "@b{tenor}" @var{lyrics}
+@end example
+
+@noindent
+
+Another possible use of named contexts is funneling two different
+music expressions into one context.  In the following example,
+articulations and notes are entered separately,
+
+@example
+music = @{ c4 c4 @}
+arts = @{ s4-. s4-> @}
+@end example
+
+They are combined by sending both to the same @code{Voice} context,
+
+@example
+<<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
+>>
+@end example
+@lilypond[quote,ragged-right]
+music = { c4 c4 }
+arts = { s4-. s4-> }
+\relative c'' <<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
+>>
+@end lilypond
+
+With this mechanism, it is possible to define an Urtext (original
+edition), with the option to put several distinct articulations on the
+same notes.
+
+@cindex creating contexts
+
+@item
+The third command for creating contexts is
+@example
+\context @var{type} @var{music}
+@end example
+
+
+@noindent
+This is similar to @code{\context} with @code{= @var{id}}, but matches
+any context of type @var{type}, regardless of its given name.
+
+This variant is used with music expressions that can be interpreted at
+several levels.  For example, the @code{\applyOutput} command (see
+@ref{Running a function on all layout objects}).  Without an explicit
+@code{\context}, it is usually applied to @code{Voice}
+
+@example
+\applyOutput #'@var{context} #@var{function}   % apply to Voice
+@end example
+
+To have it interpreted at the @code{Score} or @code{Staff} level use
+these forms
+
+@example
+\applyOutput #'Score #@var{function}
+\applyOutput #'Staff #@var{function}
+@end example
+
+@end itemize
+
+@node Keeping contexts alive
+@subsection Keeping contexts alive
+
+@cindex contexts, keeping alive
+@cindex contexts, lifetime
+
+Contexts are usually terminated at the first musical moment in
+which they have nothing to do.  So @code{Voice} contexts die as
+soon as they contain no events; @code{Staff} contexts die as soon
+as all the @code{Voice} contexts within them contain no events; etc.
+This can cause difficulties if earlier contexts which have died
+have to be referenced, for example, when changing staves with
+@code{\change} commands, associating lyrics with a voice with
+@code{\lyricsto} commands, or when adding further musical events to
+an earlier context.
+
+There is an exception to this general rule: just one of the
+@code{Voice} contexts in a @code{Staff} context or in a
+@code{<<...>>} construct will always persist to the end of the
+enclosing @code{Staff} context or @code{<<...>>} construct, even
+though there may be periods when it has nothing to do.  The context
+to persist in this way will be the first one encountered in the
+first enclosed @code{@{...@}} construct, ignoring any in enclosed
+@code{<<...>>} constructs.
+
+Any context can be kept alive by ensuring it has something to do at
+every musical moment.  @code{Staff} contexts are kept alive by
+ensuring one of their voices is kept alive.  One way of doing this
+is to add spacer rests to a voice in parallel with the real music.
+These need to be added to every @code{Voice} context which needs to
+be kept alive.  If several voices are to be used sporadically it is
+safest to keep them all alive rather than attempting to rely on the
+exceptions mentioned above.
+
+In the following example, both voice A and voice B are kept alive
+in this way for the duration of the piece:
+
+@lilypond[quote,verbatim]
+musicA = \relative c'' { d4 d d d }
+musicB = \relative c'' { g4 g g g }
+keepVoicesAlive = {
+  <<
+    \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
+    \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+  >>
+}
+
+music = {
+  \context Voice = "A" {
+    \voiceOneStyle
+    \musicA
+  }
+  \context Voice = "B" {
+    \voiceTwoStyle
+    \musicB
+  }
+  \context Voice = "A" { \musicA }
+  \context Voice = "B" { \musicB }
+  \context Voice = "A" { \musicA }
+}
+
+\score {
+  \new Staff <<
+    \keepVoicesAlive
+    \music
+  >>
+}
+@end lilypond
+
+@cindex lyrics, aligning with sporadic melody
+
+The following example shows how a sporadic melody line with lyrics
+might be written using this approach.  In a real situation the
+melody and accompaniment would consist of several different
+sections, of course.
+
+@lilypond[quote,verbatim]
+melody = \relative c'' { a4 a a a }
+accompaniment = \relative c' { d4 d d d }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          s1*4  % Keep Voice "melody" alive for 4 bars
+        }
+        {
+          \new Voice = "accompaniment" {
+            \voiceTwo
+            \accompaniment
+          }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+          \context Voice = "accompaniment" { \accompaniment }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+An alternative way, which may be better in many circumstances, is
+to keep the melody line alive by simply including spacer notes to
+line it up correctly with the accompaniment:
+
+@lilypond[quote,verbatim]
+melody = \relative c'' {
+  s1  % skip a bar
+  a4 a a a
+  s1  % skip a bar
+  a4 a a a
+}
+accompaniment = \relative c' {
+  d4 d d d
+  d4 d d d
+  d4 d d d
+  d4 d d d
+}
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          \melody
+        }
+        \new Voice = "accompaniment" {
+          \voiceTwo
+          \accompaniment
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = #"music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+
+@node Modifying context plug-ins
+@subsection Modifying context plug-ins
+
+@c TODO Should this be Modifying engravers or Modifying contexts?
+
+Notation contexts (like @code{Score} and @code{Staff}) not only
+store properties,
+they also contain plug-ins called @q{engravers} that create notation
+elements.  For example, the @code{Voice} context contains a
+@code{Note_head_engraver} and the @code{Staff} context contains a
+@code{Key_signature_engraver}.
+
+For a full a description of each plug-in, see
+@ifhtml
+@rinternals{Engravers and Performers}.
+@end ifhtml
+@ifnothtml
+Internals Reference @expansion{} Translation @expansion{} Engravers.
+@end ifnothtml
+Every context described in
+@ifhtml
+@rinternals{Contexts}
+@end ifhtml
+@ifnothtml
+Internals Reference @expansion{} Translation @expansion{} Context.
+@end ifnothtml
+lists the engravers used for that context.
+
+
+It can be useful to shuffle around these plug-ins.  This is done by
+starting a new context with @code{\new} or @code{\context}, and
+modifying it,
+
+@funindex \with
+
+@example
+\new @var{context} \with @{
+  \consists @dots{}
+  \consists @dots{}
+  \remove @dots{}
+  \remove @dots{}
+  @emph{etc.}
+@}
+@{
+  @emph{..music..}
+@}
+@end example
+
+@noindent
+where the @dots{} should be the name of an engraver.  Here is a simple
+example which removes @code{Time_signature_engraver} and
+@code{Clef_engraver} from a @code{Staff} context,
+
+@lilypond[quote,relative=1,verbatim,fragment]
+<<
+  \new Staff {
+    f2 g
+  }
+  \new Staff \with {
+     \remove "Time_signature_engraver"
+     \remove "Clef_engraver"
+  } {
+    f2 g2
+  }
+>>
+@end lilypond
+
+In the second staff there are no time signature or clef symbols.  This
+is a rather crude method of making objects disappear since it will affect
+the entire staff.  This method also influences the spacing, which may or
+may not be desirable.  More sophisticated methods of blanking objects
+are shown in @rlearning{Visibility and color of objects}.
+
+The next example shows a practical application.  Bar lines and time
+signatures are normally synchronized across the score.  This is done
+by the @code{Timing_translator} and @code{Default_bar_line_engraver}.
+This plug-in keeps an administration of time signature, location
+within the measure, etc.  By moving these engraver from @code{Score} to
+@code{Staff} context, we can have a score where each staff has its own
+time signature.
+
+@cindex polymetric scores
+@cindex Time signatures, multiple
+
+@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
+\new Score \with {
+  \remove "Timing_translator"
+  \remove "Default_bar_line_engraver"
+} <<
+  \new Staff \with {
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  } {
+      \time 3/4
+      c4 c c c c c
+  }
+  \new Staff \with {
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  } {
+       \time 2/4
+       c4 c c c c c
+  }
+>>
+@end lilypond
+
+@knownissues
+
+Usually the order in which the engravers are specified
+does not matter, but in a few special cases the order
+is important, for example where one engraver writes
+a property and another reads it, or where one engraver
+creates a grob and another must process it.  The order in
+which the engravers are specified is the order in which
+they are called to carry out their processing.
+
+The following orderings are important: the
+@code{Bar_engraver} must normally be first, and
+the @code{New_fingering_engraver} must come before
+the @code{Script_column_engraver}.  There may be others
+with ordering dependencies.
+
+@node Changing context default settings
+@subsection Changing context default settings
+
+The context settings which are to be used by default in
+@code{Score}, @code{Staff} and @code{Voice} contexts may be specified
+in a @code{\layout} block, as illustrated in the following example.
+The @code{\layout} block should be placed within the @code{\score}
+block to which it is to apply, but outside any music.
+
+Note that the @code{\set} command itself and the context must be
+omitted when the context default values are specified in this way:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Really small, thicker stems, no time signature" a a a
+    a a a a
+  }
+  \layout {
+    \context {
+      \Staff
+      fontSize = #-4
+      \override Stem #'thickness = #4.0
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+In this example, the @code{\Staff} command specifies that the
+subsequent specifications are to be applied to all staves within
+this score block.
+
+Modifications can be made to the @code{Score} context or all
+@code{Voice} contexts in a similar way.
+
+@knownissues
+
+It is not possible to collect context changes in a variable and apply
+them to a @code{\context} definition by referring to that variable.
+
+The @code{\RemoveEmptyStaffContext} will overwrite your current
+@code{\Staff} settings.  If you wish to change the defaults for a
+staff which uses @code{\RemoveEmptyStaffContext}, you must do so
+after calling @code{\RemoveEmptyStaffContext}, ie
+
+@example
+\layout @{
+  \context @{
+    \RemoveEmptyStaffContext
+
+    \override Stem #'thickness = #4.0
+  @}
+@}
+@end example
+
+@c TODO: add \with in here.
+
+
+
+@node Defining new contexts
+@subsection Defining new contexts
+
+Specific contexts, like @code{Staff} and @code{Voice}, are made of
+simple building blocks.  It is possible to create new types of
+contexts with different combinations of engraver plug-ins.
+
+The next example shows how to build a different type of
+@code{Voice} context from scratch.  It will be similar to
+@code{Voice}, but only prints centered slash note heads.  It can be used
+to indicate improvisation in jazz pieces,
+
+@lilypond[quote,ragged-right]
+\layout { \context {
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Rhythmic_column_engraver"
+  \consists "Text_engraver"
+  \consists Pitch_squash_engraver
+  squashedPosition = #0
+  \override NoteHead #'style = #'slash
+  \override Stem #'transparent = ##t
+  \alias Voice
+}
+\context { \Staff
+  \accepts "ImproVoice"
+}}
+
+\relative c'' {
+  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+   c4 c^"undress" c_"while playing :)" c }
+  a1
+}
+@end lilypond
+
+
+These settings are defined within a @code{\context} block inside a
+@code{\layout} block,
+
+@example
+\layout @{
+  \context @{
+    @dots{}
+  @}
+@}
+@end example
+
+In the following discussion, the example input shown should go in place
+of the @dots{} in the previous fragment.
+
+First it is necessary to define a name for the new context:
+
+@example
+\name ImproVoice
+@end example
+
+Since it is similar to the @code{Voice}, we want commands that work
+on (existing) @code{Voice}s to remain working.  This is achieved by
+giving the new context an alias @code{Voice},
+
+@example
+\alias Voice
+@end example
+
+The context will print notes and instructive texts, so we need to add
+the engravers which provide this functionality,
+
+@example
+\consists Note_heads_engraver
+\consists Text_engraver
+@end example
+
+but we only need this on the center line,
+
+@example
+\consists Pitch_squash_engraver
+squashedPosition = #0
+@end example
+
+The @rinternals{Pitch_squash_engraver} modifies note heads (created
+by @rinternals{Note_heads_engraver}) and sets their vertical
+position to the value of @code{squashedPosition}, in this case@tie{}@code{0},
+the center line.
+
+The notes look like a slash, and have no stem,
+
+@example
+\override NoteHead #'style = #'slash
+\override Stem #'transparent = ##t
+@end example
+
+All these plug-ins have to cooperate, and this is achieved with a
+special plug-in, which must be marked with the keyword @code{\type}.
+This should always be @code{Engraver_group}.
+
+@example
+\type "Engraver_group"
+@end example
+
+Put together, we get
+
+@example
+\context @{
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Text_engraver"
+  \consists Pitch_squash_engraver
+  squashedPosition = #0
+  \override NoteHead #'style = #'slash
+  \override Stem #'transparent = ##t
+  \alias Voice
+@}
+@end example
+
+@funindex \accepts
+Contexts form hierarchies.  We want to hang the @code{ImproVoice}
+under @code{Staff}, just like normal @code{Voice}s.  Therefore, we
+modify the @code{Staff} definition with the @code{\accepts}
+command,
+
+@example
+\context @{
+  \Staff
+  \accepts ImproVoice
+@}
+@end example
+
+@funindex \denies
+The opposite of @code{\accepts} is @code{\denies},
+which is sometimes needed when reusing existing context definitions.
+
+Putting both into a @code{\layout} block, like
+
+@example
+\layout @{
+  \context @{
+    \name ImproVoice
+    @dots{}
+  @}
+  \context @{
+    \Staff
+    \accepts "ImproVoice"
+  @}
+@}
+@end example
+
+Then the output at the start of this subsection can be entered as
+
+@example
+\relative c'' @{
+  a4 d8 bes8
+  \new ImproVoice @{
+    c4^"ad lib" c
+    c4 c^"undress"
+    c c_"while playing :)"
+  @}
+  a1
+@}
+@end example
+
+
+@node Aligning contexts
+@subsection Aligning contexts
+
+New contexts may be aligned above or below existing contexts.  This
+could be useful in setting up a vocal staff (@rlearning{Vocal ensembles}) and
+in ossia,
+
+@c TODO Better example needed.  Ref LM, and expand on it.
+
+@cindex ossia
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+@lilypond[quote,ragged-right]
+ossia = { f4 f f f }
+\score{
+  \relative c' \new Staff = "main" {
+    c4 c c c
+    <<
+      \new Staff \with { alignAboveContext = #"main" } \ossia
+      { d8 f d f d f d f }
+    >>
+  }
+}
+@end lilypond
+
+@cindex nested contexts
+@cindex contexts, nested
+
+@funindex \accepts
+@funindex \denies
+
+Contexts like @code{PianoStaff} can contain other contexts
+nested within them.  Contexts which are acceptable for nesting
+are defined by the @qq{accepts} list of a context.  Contexts
+which are not in this list are placed below the outer context
+in the printed score.
+For example, the @code{PianoStaff} context is defined by default
+to accept @code{Staff} and @code{FiguredBass} contexts within
+it, but not (for example) a @code{Lyrics} context.  So in the
+following structure the lyrics are placed below the piano staff
+rather than between the two staves:
+
+@lilypond[verbatim,quote,relative=1]
+\new PianoStaff
+<<
+  \new Staff { e4 d c2 }
+  \addlyrics { Three blind mice }
+  \new Staff {
+    \clef "bass"
+    { c,1 }
+  }
+>>
+@end lilypond
+
+The @qq{accepts} list of a context can be modified to include
+additional nested contexts, so if we wanted the lyrics to appear
+between the two staves we could use:
+
+@lilypond[verbatim,quote,relative=1]
+\new PianoStaff \with { \accepts Lyrics }
+<<
+  \new Staff { e4 d c2 }
+  \addlyrics { Three blind mice }
+  \new Staff {
+    \clef "bass"
+    { c,1 }
+  }
+>>
+@end lilypond
+
+The opposite of @code{\accepts} is @code{\denies}; this removes a
+context from the @qq{accepts} list.
+
+@node Explaining the Internals Reference
+@section Explaining the Internals Reference
+
+
+@menu
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
+@end menu
+
+@node Navigating the program reference
+@subsection Navigating the program reference
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
+
+Suppose we want to move the fingering indication in the fragment
+below:
+
+@lilypond[quote,fragment,relative=2,verbatim]
+c-2
+\stemUp
+f
+@end lilypond
+
+If you visit the documentation on fingering instructions (in
+@ref{Fingering instructions}), you will notice:
+
+@quotation
+@strong{See also}
+
+Internals Reference: @rinternals{Fingering}.
+
+@end quotation
+
+
+@c  outdated info; probably will delete.
+@ignore
+This fragment points to two parts of the program reference: a page
+on @code{FingeringEvent} and one on @code{Fingering}.
+
+The page on @code{FingeringEvent} describes the properties of the music
+expression for the input @code{-2}.  The page contains many links
+forward.  For example, it says
+
+@quotation
+Accepted by: @rinternals{Fingering_engraver},
+@end quotation
+
+@noindent
+That link brings us to the documentation for the Engraver, the
+plug-in, which says
+
+@quotation
+This engraver creates the following layout objects: @rinternals{Fingering}.
+@end quotation
+
+In other words, once the @code{FingeringEvent}s are interpreted, the
+@code{Fingering_engraver} plug-in will process them.
+@end ignore
+
+@ignore
+@c  I can't figure out what this is supposed to mean.  -gp
+
+The @code{Fingering_engraver} is also listed to create
+@rinternals{Fingering} objects,
+
+@c  old info?  it doesn't make any sense to me with our current docs.
+This is also the
+second bit of information listed under @b{See also} in the Notation
+manual.
+@end ignore
+
+@ifnothtml
+The programmer's reference is available as an HTML document.  It is
+highly recommended that you read it in HTML form, either online or
+by downloading the HTML documentation.  This section will be much more
+difficult to understand if you are using the
+PDF manual.
+@end ifnothtml
+
+Follow the link to @rinternals{Fingering}.  At the top of the
+page, you will see
+
+@quotation
+Fingering objects are created by: @rinternals{Fingering_engraver} and
+@rinternals{New_fingering_engraver}.
+@end quotation
+
+By following related links inside the program reference, we can follow the
+flow of information within the program:
+
+@itemize
+
+@item @rinternals{Fingering}:
+@rinternals{Fingering} objects are created by:
+@rinternals{Fingering_engraver}
+
+@item @rinternals{Fingering_engraver}:
+Music types accepted: @rinternals{fingering-event}
+
+@item @rinternals{fingering-event}:
+Music event type @code{fingering-event} is in Music expressions named
+@rinternals{FingeringEvent}
+@end itemize
+
+This path goes against the flow of information in the program: it
+starts from the output, and ends at the input event.  You could
+also start at an input event, and read with the flow of
+information, eventually ending up at the output object(s).
+
+The program reference can also be browsed like a normal document.  It
+contains chapters on
+@ifhtml
+@rinternals{Music definitions},
+@end ifhtml
+@ifnothtml
+@code{Music definitions}
+@end ifnothtml
+on @rinternals{Translation}, and the @rinternals{Backend}.  Every
+chapter lists all the definitions used and all properties that may be
+tuned.
+
+
+@node Layout interfaces
+@subsection Layout interfaces
+
+@cindex interface, layout
+@cindex layout interface
+@cindex grob
+
+The HTML page that we found in the previous section describes the
+layout object called @rinternals{Fingering}.  Such an object is a
+symbol within the score.  It has properties that store numbers (like
+thicknesses and directions), but also pointers to related objects.  A
+layout object is also called a @emph{Grob}, which is short for Graphical
+Object.  For more details about Grobs, see @rinternals{grob-interface}.
+
+The page for @code{Fingering} lists the definitions for the
+@code{Fingering} object.  For example, the page says
+
+@quotation
+@code{padding} (dimension, in staff space):
+
+@code{0.5}
+@end quotation
+
+@noindent
+which means that the number will be kept at a distance of at least 0.5
+of the note head.
+
+
+Each layout object may have several functions as a notational or
+typographical element.  For example, the Fingering object
+has the following aspects
+
+@itemize
+@item
+Its size is independent of the horizontal spacing, unlike slurs or beams.
+
+@item
+It is a piece of text.  Granted, it is usually a very short text.
+
+@item
+That piece of text is typeset with a font, unlike slurs or beams.
+
+@item
+Horizontally, the center of the symbol should be aligned to the
+center of the note head.
+
+@item
+Vertically, the symbol is placed next to the note and the staff.
+
+@item
+The vertical position is also coordinated with other superscript
+and subscript symbols.
+@end itemize
+
+Each of these aspects is captured in so-called @emph{interface}s,
+which are listed on the @rinternals{Fingering} page at the bottom
+
+@quotation
+This object supports the following interfaces:
+@rinternals{item-interface},
+@rinternals{self-alignment-interface},
+@rinternals{side-position-interface}, @rinternals{text-interface},
+@rinternals{text-script-interface}, @rinternals{font-interface},
+@rinternals{finger-interface}, and @rinternals{grob-interface}.
+@end quotation
+
+Clicking any of the links will take you to the page of the respective
+object interface.  Each interface has a number of properties.  Some of
+them are not user-serviceable (@q{Internal properties}), but others
+can be modified.
+
+We have been talking of @emph{the} @code{Fingering} object, but actually it
+does not amount to much.  The initialization file (see
+@rlearning{Other sources of information})
+@file{scm/@/define@/-grobs@/.scm} shows the soul of the @q{object},
+
+@example
+(Fingering
+  . ((padding . 0.5)
+     (avoid-slur . around)
+     (slur-padding . 0.2)
+     (staff-padding . 0.5)
+     (self-alignment-X . 0)
+     (self-alignment-Y . 0)
+     (script-priority . 100)
+     (stencil . ,ly:text-interface::print)
+     (direction . ,ly:script-interface::calc-direction)
+     (font-encoding . fetaNumber)
+     (font-size . -5) 		; don't overlap when next to heads.
+     (meta . ((class . Item)
+     (interfaces . (finger-interface
+                    font-interface
+                    text-script-interface
+                    text-interface
+                    side-position-interface
+                    self-alignment-interface
+                    item-interface))))))
+@end example
+
+@noindent
+As you can see, the @code{Fingering} object is nothing more than a
+bunch of variable settings, and the webpage in the Internals Reference
+is directly generated from this definition.
+
+
+@node Determining the grob property
+@subsection Determining the grob property
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
+
+Recall that we wanted to change the position of the @b{2} in
+
+@lilypond[quote,fragment,relative=2,verbatim]
+c-2
+\stemUp
+f
+@end lilypond
+
+Since the @b{2} is vertically positioned next to its note, we have to
+meddle with the interface associated with this positioning.  This is
+done using @code{side-position-interface}.  The page for this interface
+says
+
+@quotation
+@code{side-position-interface}
+
+Position a victim object (this one) next to other objects (the
+support).  The property @code{direction} signifies where to put the
+victim object relative to the support (left or right, up or down?)
+@end quotation
+
+@cindex padding
+@noindent
+Below this description, the variable @code{padding} is described as
+
+@quotation
+@table @code
+@item padding
+(dimension, in staff space)
+
+Add this much extra space between objects that are next to each other.
+@end table
+@end quotation
+
+By increasing the value of @code{padding}, we can move the
+fingering away from the note head.  The following command inserts
+3 staff spaces of white
+between the note and the fingering:
+@example
+\once \override Voice.Fingering #'padding = #3
+@end example
+
+Inserting this command before the Fingering object is created,
+i.e., before @code{c2}, yields the following result:
+
+@lilypond[quote,relative=2,fragment,verbatim]
+\once \override Voice.Fingering #'padding = #3
+c-2
+\stemUp
+f
+@end lilypond
+
+
+In this case, the context for this tweak is @code{Voice}.  This
+fact can also be deduced from the program reference, for the page for
+the @rinternals{Fingering_engraver} plug-in says
+
+@quotation
+Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
+@end quotation
+
+
+@node Naming conventions
+@subsection Naming conventions
+
+Another thing that is needed, is an overview of the various naming
+conventions:
+
+    scheme functions: lowercase-with-hyphens (incl. one-word
+names)
+    scheme functions: ly:plus-scheme-style
+    music events, music classes and music properties:
+as-scheme-functions
+    Grob interfaces: scheme-style
+    backend properties: scheme-style (but X and Y!)
+    contexts (and MusicExpressions and grobs): Capitalized or
+CamelCase
+    context properties: lowercaseFollowedByCamelCase
+    engravers:
+Capitalized_followed_by_lowercase_and_with_underscores
+
+Which of these are conventions and which are rules?
+Which are rules of the underlying language, and which are
+LP-specific?
+
+
+@node Modifying properties
+@section Modifying properties
+
+@c TODO change the menu and subsection node names to use
+@c backslash once the new macro to handle the refs
+@c is available.  Need to find and change all refs at
+@c the same time. -td
+
+@menu
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* The tweak command::
+* set versus override::
+@end menu
+
+
+@node Overview of modifying properties
+@subsection Overview of modifying properties
+
+Each context is responsible for creating certain types of graphical
+objects.  The settings used for printing these objects are also stored by
+context.  By changing these settings, the appearance of objects can be
+altered.
+
+The syntax for this is
+
+@example
+\override @var{context}.@var{name} #'@var{property} = #@var{value}
+@end example
+
+Here @var{name} is the name of a graphical object, like
+@code{Stem} or @code{NoteHead}, and @var{property} is an internal
+variable of the formatting system (@q{grob property} or @q{layout
+property}).  The latter is a symbol, so it must be quoted.  The
+subsection @ref{Modifying properties}, explains what to fill in
+for @var{name}, @var{property}, and @var{value}.  Here we only
+discuss the functionality of this command.
+
+The command
+
+@verbatim
+\override Staff.Stem #'thickness = #4.0
+@end verbatim
+
+@noindent
+makes stems thicker (the default is 1.3, with staff line thickness as a
+unit).  Since the command specifies @code{Staff} as context, it only
+applies to the current staff.  Other staves will keep their normal
+appearance.  Here we see the command in action:
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c4
+\override Staff.Stem #'thickness = #4.0
+c4
+c4
+c4
+@end lilypond
+
+The @code{\override} command changes the definition of the @code{Stem}
+within the current @code{Staff}.  After the command is interpreted
+all stems are thickened.
+
+Analogous to @code{\set}, the @var{context} argument may be left out,
+causing the default context @code{Voice} to be used.  Adding
+@code{\once} applies the change during one timestep only.
+
+@lilypond[quote,fragment,verbatim,relative=2]
+c4
+\once \override Stem #'thickness = #4.0
+c4
+c4
+@end lilypond
+
+The @code{\override} must be done before the object is
+started.  Therefore, when altering @emph{Spanner} objects such as slurs
+or beams, the @code{\override} command must be executed at the moment
+when the object is created.  In this example,
+
+@lilypond[quote,fragment,verbatim,relative=2]
+\override Slur #'thickness = #3.0
+c8[( c
+\override Beam #'thickness = #0.6
+c8 c])
+@end lilypond
+
+@noindent
+the slur is fatter but the beam is not.  This is because the command for
+@code{Beam} comes after the Beam is started, so it has no effect.
+
+Analogous to @code{\unset}, the @code{\revert} command for a context
+undoes an @code{\override} command; like with @code{\unset}, it only
+affects settings that were made in the same context.  In other words, the
+@code{\revert} in the next example does not do anything.
+
+@example
+\override Voice.Stem #'thickness = #4.0
+\revert Staff.Stem #'thickness
+@end example
+
+Some tweakable options are called @q{subproperties} and reside inside
+properties.  To tweak those, use commands of the form
+
+@c leave this as a long long
+@example
+\override @var{context}.@var{name} #'@var{property} #'@var{subproperty} = #@var{value}
+@end example
+
+@noindent
+such as
+
+@example
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
+@end example
+
+
+@seealso
+Internals: @rinternals{OverrideProperty}, @rinternals{RevertProperty},
+@rinternals{PropertySet}, @rinternals{Backend}, and
+@rinternals{All layout objects}.
+
+
+@knownissues
+
+The back-end is not very strict in type-checking object properties.
+Cyclic references in Scheme values for properties can cause hangs
+or crashes, or both.
+
+
+
+@node The set command
+@subsection The @code{\set} command
+
+@cindex properties
+@funindex \set
+@cindex changing properties
+
+Each context can have different @emph{properties}, variables contained
+in that context.  They can be changed during the interpretation step.
+This is achieved by inserting the @code{\set} command in the music,
+
+@example
+\set @var{context}.@var{prop} = #@var{value}
+@end example
+
+For example,
+@lilypond[quote,verbatim,relative=2,fragment]
+R1*2
+\set Score.skipBars = ##t
+R1*2
+@end lilypond
+
+This command skips measures that have no notes.  The result is that
+multi-rests are condensed.  The value assigned is a Scheme object.  In
+this case, it is @code{#t}, the boolean True value.
+
+If the @var{context} argument is left out, then the current bottom-most
+context (typically @code{ChordNames}, @code{Voice}, or
+@code{Lyrics}) is used.  In this example,
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c8 c c c
+\set autoBeaming = ##f
+c8 c c c
+@end lilypond
+
+@noindent
+the @var{context} argument to @code{\set} is left out, so automatic
+beaming is switched off in the current @rinternals{Voice}.  Note that
+the bottom-most context does not always contain the property that you
+wish to change -- for example, attempting to set the @code{skipBars}
+property (of the bottom-most context, in this case @code{Voice}) will
+have no effect.
+
+@lilypond[quote,verbatim,relative=2,fragment]
+R1*2
+\set skipBars = ##t
+R1*2
+@end lilypond
+
+Contexts are hierarchical, so if a bigger context was specified, for
+example @code{Staff}, then the change would also apply to all
+@code{Voice}s in the current stave.  The change is applied
+@q{on-the-fly}, during the music, so that the setting only affects the
+second group of eighth notes.
+
+@funindex \unset
+
+There is also an @code{\unset} command,
+@example
+\unset @var{context}.@var{prop}
+@end example
+
+@noindent
+which removes the definition of @var{prop}.  This command removes
+the definition only if it is set in @var{context}, so
+
+@example
+\set Staff.autoBeaming = ##f
+@end example
+
+@noindent
+introduces a property setting at @code{Staff} level.  The setting also
+applies to the current @code{Voice}.  However,
+
+@example
+\unset Voice.autoBeaming
+@end example
+
+@noindent
+does not have any effect.  To cancel this setting, the @code{\unset}
+must be specified on the same level as the original @code{\set}.  In
+other words, undoing the effect of @code{Staff.autoBeaming = ##f}
+requires
+@example
+\unset Staff.autoBeaming
+@end example
+
+Like @code{\set}, the @var{context} argument does not have to be
+specified for a bottom context, so the two statements
+
+@example
+\set Voice.autoBeaming = ##t
+\set autoBeaming = ##t
+@end example
+
+@noindent
+are equivalent.
+
+
+@cindex \once
+Settings that should only apply to a single time-step can be entered
+with @code{\once}, for example in
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c4
+\once \set fontSize = #4.7
+c4
+c4
+@end lilypond
+
+the property @code{fontSize} is unset automatically after the second
+note.
+
+A full description of all available context properties is in the
+program reference, see
+@ifhtml
+@rinternals{Tunable context properties}.
+@end ifhtml
+@ifnothtml
+Translation @expansion{} Tunable context properties.
+@end ifnothtml
+
+
+
+@node The override command
+@subsection The @code{\override} command
+
+Commands which change output generally look like
+
+@example
+\override Voice.Stem #'thickness = #3.0
+@end example
+
+@noindent
+To construct this tweak we must determine these bits of information:
+
+@itemize
+@item the context: here @code{Voice}.
+@item the layout object: here @code{Stem}.
+@item the layout property: here @code{thickness}.
+@item a sensible value: here @code{3.0}.
+@end itemize
+
+Some tweakable options are called @q{subproperties} and reside inside
+properties.  To tweak those, use commands in the form
+
+@example
+\override Stem #'(details beamed-lengths) = #'(4 4 3)
+@end example
+
+@cindex internal documentation
+@cindex finding graphical objects
+@cindex graphical object descriptions
+@cindex tweaking
+@funindex \override
+@cindex internal documentation
+
+For many properties, regardless of the data type of the property, setting the
+property to false ( @code{##f} ) will result in turning it off, causing
+LilyPond to ignore that property entirely.  This is particularly useful for
+turning off grob properties which may otherwise be causing problems.
+
+We demonstrate how to glean this information from the notation manual
+and the program reference.
+
+
+@node The tweak command
+@subsection The @code{\tweak} command
+
+@funindex \tweak
+@cindex tweaking
+
+In some cases, it is possible to take a short-cut for tuning
+graphical objects.  For objects that are created directly from
+an item in the input file, you can use the @code{\tweak} command.
+For example:
+
+@lilypond[relative=2,verbatim]
+< c
+  \tweak #'color #red
+  d
+  g
+  \tweak #'duration-log #1
+  a
+> 4
+-\tweak #'padding #8
+-^
+@end lilypond
+
+@cindex chord, modifying one note in
+
+But the main use of the @code{\tweak} command is to modify just
+one of a number of notation elements which start at the same musical
+moment, like the notes of a chord, or tuplet brackets which start
+at the same time.
+
+For an introduction to the syntax and uses of the tweak command
+see @rlearning{Tweaking methods}.
+
+The @code{\tweak} command sets a property in the following object
+directly, without requiring the grob name or context to be
+specified.  For this to work, it is necessary for the @code{\tweak}
+command to remain immediately adjacent to the object to which it is
+to apply after the input file has been converted to a music stream.
+This is often not the case, as many additional elements are inserted
+into the music stream implicitly.  For example, when a note which is
+not part of a chord is processed, LilyPond implicitly inserts a
+@code{ChordEvent} event before the note, so separating the tweak
+from the note.  However, if chord symbols are placed round the
+tweak and the note, the @code{\tweak} command comes after the
+@code{ChordEvent} in the music stream, so remaining adjacent to the
+note, and able to modify it.
+
+So, this works:
+
+@lilypond[relative=2,verbatim,quote]
+<\tweak #'color #red c>4
+@end lilypond
+
+@noindent
+but this does not:
+
+@lilypond[relative=2,verbatim,quote]
+\tweak #'color #red c4
+@end lilypond
+
+When several similar items are placed at the same musical moment,
+the @code{\override} command cannot be used to modify just one of
+them -- this is where the @code{\tweak} command must be used.
+Items which may appear more than once at the same musical moment
+include the following:
+
+@c TODO expand to include any further uses of \tweak
+@itemize
+@item note heads of notes inside a chord
+@item articulation signs on a single note
+@item ties between notes in a chord
+@item tuplet brackets starting at the same time
+@end itemize
+
+@c TODO add examples of these
+
+@noindent
+and @code{\tweak} may be used to modify any single occurrence of
+these items.
+
+Notably the @code{\tweak} command cannot be used to modify stems,
+beams or accidentals directly, since these are generated later by
+note heads, rather than by music elements in the input stream.
+Nor can a @code{\tweak} command be used to modify clefs or time
+signatures, since these become separated from any preceding
+@code{\tweak} command in the input stream by the automatic
+insertion of extra elements required to specify the context.
+
+But the @code{\tweak} command can be used as an alternative to
+the @code{\override} command to modify those notational elements
+that do not cause any additional implicit elements to be added
+before them in the music stream.  For example, slurs may be
+modified in this way:
+
+@lilypond[verbatim,quote,relative=1]
+c-\tweak #'thickness #5 ( d e f)
+@end lilypond
+
+Also several @code{\tweak} commands may be placed before a
+notational element -- all affect it:
+
+@lilypond[verbatim,quote,relative=1]
+c
+-\tweak #'style #'dashed-line
+-\tweak #'dash-fraction #0.2
+-\tweak #'thickness #3
+-\tweak #'color #red
+ \glissando
+f'
+@end lilypond
+
+The music stream which is generated from a section of an input file,
+including any automatically inserted elements, may be examined,
+see @ref{Displaying music expressions}.  This may be helpful in
+determining what may be modified by a @code{\tweak} command.
+
+
+@seealso
+Learning Manual:
+@rlearning{Tweaking methods}.
+
+Notation Reference:
+@ref{Displaying music expressions}.
+
+
+@knownissues
+
+@cindex tweaks in a variable
+The @code{\tweak} command cannot be used inside a variable.
+
+@cindex tweaks in lyrics
+The @code{\tweak} commands cannot be used in @code{\lyricmode}.
+
+@cindex tweaking control points
+@cindex control points, tweaking
+
+The @code{\tweak} command cannot be used to modify the control
+points of just one of several ties in a chord, other than the first
+one encountered in the input file.
+
+@node set versus override
+@subsection @code{\set} vs. @code{\override}
+
+We have seen two methods of changing properties: @code{\set} and
+@code{\override}.  There are actually two different kinds of
+properties.
+
+Contexts can have properties, which are usually named in
+@code{studlyCaps}.  They mostly control the translation from
+music to notation, eg. @code{localKeySignature} (for determining
+whether to print accidentals), @code{measurePosition} (for
+determining when to print a bar line).  Context properties can
+change value over time while interpreting a piece of music;
+@code{measurePosition} is an obvious example of
+this.  Context properties are modified with @code{\set}.
+
+There is a special type of context property: the element
+description.  These properties are named in @code{StudlyCaps}
+(starting with capital letters).  They contain the
+@q{default settings} for said graphical object as an
+association list.  See @file{scm/@/define@/-grobs@/.scm}
+to see what kind of settings there are.  Element descriptions
+may be modified with @code{\override}.
+
+@code{\override} is actually a shorthand;
+
+@example
+\override @var{context}.@var{name} #'@var{property} = #@var{value}
+@end example
+
+@noindent
+is more or less equivalent to
+
+@c  leave this long line -gp
+@example
+\set @var{context}.@var{name} #'@var{property} = #(cons (cons '@var{property} @var{value}) <previous value of @var{context})
+@end example
+
+The value of @code{context} (the alist) is used to initialize
+the properties of individual grobs.  Grobs also have
+properties, named in Scheme style, with
+@code{dashed-words}.  The values of grob properties change
+during the formatting process: formatting basically amounts
+to computing properties using callback functions.
+
+@code{fontSize} is a special property: it is equivalent to
+entering @code{\override ... #'font-size} for all pertinent
+objects.  Since this is a common change, the special
+property (modified with @code{\set}) was created.
+
+
+@node Useful concepts and properties
+@section Useful concepts and properties
+
+
+@menu
+* Input modes::
+* Direction and placement::
+* Context layout order::
+* Distances and measurements::
+* Staff symbol properties::
+* Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
+@end menu
+
+@node Input modes
+@subsection Input modes
+
+The way in which the notation contained within an input file is
+interpreted is determined by the current input mode.
+
+@strong{Chord mode}
+
+This is activated with the @code{\chordmode} command, and causes
+input to be interpreted with the syntax of chord notation, see
+@ref{Chord notation}.  Chords are rendered as notes on a staff.
+
+Chord mode is also activated with the @code{\chords} command.
+This also creates a new @code{ChordNames} context and
+causes the following input to be interpreted with the syntax of
+chord notation and rendered as chord names in the @code{ChordNames}
+context, see @ref{Printing chord names}.
+
+@strong{Drum mode}
+
+This is activated with the @code{\drummode} command, and causes
+input to be interpreted with the syntax of drum notation, see
+@ref{Basic percussion notation}.
+
+Drum mode is also activated with the @code{\drums} command.
+This also creates a new @code{DrumStaff} context and causes the
+following input to be interpreted with the syntax of drum notation
+and rendered as drum symbols on a drum staff, see @ref{Basic
+percussion notation}.
+
+@strong{Figure mode}
+
+This is activated with the @code{\figuremode} command, and causes
+input to be interpreted with the syntax of figured bass, see
+@ref{Entering figured bass}.
+
+Figure mode is also activated with the @code{\figures} command.
+This also creates a new @code{FiguredBass} context and causes the
+following input to be interpreted with the figured bass syntax
+and rendered as figured bass symbols in the @code{FiguredBass}
+context, see @ref{Introduction to figured bass}.
+
+@strong{Fret and tab modes}
+
+There are no special input modes for entering fret and tab symbols.
+
+To create tab diagrams, enter notes or chords in note mode and
+render them in a @code{TabStaff} context, see
+@ref{Default tablatures}.
+
+To create fret diagrams above a staff, you have two choices.
+You can either use the @code{FretBoards} context (see
+@ref{Automatic fret diagrams} or you can enter them as a markup
+above the notes using the @code{\fret-diagram} command (see
+@ref{Fret diagram markups}).
+
+@strong{Lyrics mode}
+
+This is activated with the @code{\lyricmode} command, and causes
+input to be interpreted as lyric syllables with optional durations
+and associated lyric modifiers, see @ref{Vocal music}.
+
+Lyric mode is also activated with the @code{\addlyrics} command.
+This also creates a new @code{Lyrics} context and an implicit
+@code{\lyricsto} command which associates the following lyrics
+with the preceding music.
+
+@strong{Markup mode}
+
+This is activated with the @code{\markup} command, and causes
+input to be interpreted with the syntax of markup, see
+@ref{Text markup commands}.
+
+@c silly work-around for texinfo broken-ness
+@c (@strong{Note...} causes a spurious cross-reference in Info)
+@b{Note mode}
+
+This is the default mode or it may be activated with the
+@code{\notemode} command.  Input is interpreted as pitches,
+durations, markup, etc and typeset as musical notation on a staff.
+
+It is not normally necessary to specify note mode explicitly, but
+it may be useful to do so in certain situations, for example if you
+are in lyric mode, chord mode or any other mode and want to insert
+something that only can be done with note mode syntax.
+
+For example, to indicate dynamic markings for the verses of a
+choral pieces it is necessary to enter note mode to interpret
+the markings:
+
+@lilypond[verbatim,relative=2,quote]
+{ c4 c4 c4 c4 }
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic f 1. } }
+  To be sung loudly
+}
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic p 2. } }
+  To be sung quietly
+}
+@end lilypond
+
+
+
+@node Direction and placement
+@subsection Direction and placement
+
+In typesetting music the direction and placement of many items is
+a matter of choice.  For example, the stems of notes can
+be directed up or down; lyrics, dynamics, and other expressive
+marks may be placed above or below the staff; text may be aligned
+left, right or center; etc.  Most of these choices may be left to
+be determined automatically by LilyPond, but in some cases it may
+be desirable to force a particular direction or placement.
+
+@strong{Articulation direction indicators}
+
+By default some directions are always up or always down (e.g.
+dynamics or fermata), while other things can alternate between
+up or down based on the stem direction (like slurs or accents).
+
+@c TODO Add table showing these
+
+The default action may be overridden by prefixing the articulation
+by a @emph{direction indicator}.  Three direction indicators are
+available: @code{^} (meaning @qq{up}), @code{_} (meaning @qq{down})
+and @code{-} (meaning @qq{use default direction}).  The direction
+indicator can usually be omitted, in which case @code{-} is assumed,
+but a direction indicator is @strong{always} required before
+
+@itemize
+@item @code{\tweak} commands
+@item @code{\markup} commands
+@item @code{\tag} commands
+@item string markups, e.g. -"string"
+@item fingering instructions, e.g. @code{-1}
+@item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
+@end itemize
+
+Direction indicators affect only the next note:
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+c2_( c)
+c2( c)
+c2^( c)
+@end lilypond
+
+@strong{The direction property}
+
+The position or direction of many layout objects is controlled
+by the @code{direction} property.
+
+The value of the @code{direction} property may be
+set to @code{1}, meaning @qq{up} or @qq{above}, or to @code{-1},
+meaning @qq{down} or @qq{below}.  The symbols @code{UP} and
+@code{DOWN} may be used instead of @code{1} and @code{-1}
+respectively.  The default direction may be specified by setting
+@code{direction} to @code{0} or @code{CENTER}.  Alternatively,
+in many cases predefined commands
+exist to specify the direction.  These are all of the form
+
+@noindent
+@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
+
+@noindent
+where @code{xxxNeutral} means @qq{use the default direction}.
+See @rlearning{Within-staff objects}.
+
+In a few cases, arpeggio being the only common example, the value
+of the @code{direction} property specifies whether the object
+is to be placed to the right or left of the parent object.  In
+this case @code{-1} or @code{LEFT} means @qq{to the left} and
+@code{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
+or @code{CENTER} means @qq{use the default} direction, as before.
+
+@ignore
+These all have side-axis set to #X
+AmbitusAccidental - direction has no effect
+Arpeggio - works
+StanzaNumber - not tried
+TrillPitchAccidental - not tried
+TrillPitchGroup - not tried
+@end ignore
+
+These indications affect all notes until they are cancelled.
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+\slurDown
+c2( c)
+c2( c)
+\slurNeutral
+c2( c)
+@end lilypond
+
+
+@node Context layout order
+@subsection Context layout order
+
+@cindex contexts, layout order
+
+Contexts are normally positioned in a system from top to bottom
+in the order in which they are encountered in the input file.  When
+contexts are nested, the outer context will include inner nested
+contexts as specified in the input file, provided the inner contexts
+are included in the outer context's @qq{accepts} list.  Nested
+contexts which are not included in the outer context's @qq{accepts}
+list will be repositioned below the outer context rather than nested
+within it.
+
+Note that a context will be silently created implicitly if a command
+is encountered when there is no suitable context available to
+contain it.  This can give rise to unexpected new staves or scores.
+
+The default order in which contexts are laid out and the
+@qq{accepts} list can be changed, see @ref{Aligning contexts}.
+
+@seealso
+Learning Manual:
+@rlearning{An extra staff appears}.
+
+@node Distances and measurements
+@subsection Distances and measurements
+
+@cindex distances, absolute
+@cindex distances, scaled
+
+@funindex \mm
+@funindex \cm
+@funindex \in
+@funindex \pt
+
+Distances in LilyPond are of two types: absolute and scaled.
+
+Absolute distances are used for specifying margins, indents, and
+other page layout details, and are by default specified in
+millimeters.  Distances may be specified in other units by
+following the quantity by @code{\mm}, @code{\cm},
+@code{\in}@tie{}(inches), or @code{\pt}@tie{}(points, 1/72.27
+of an inch).  Page layout distances can also be specified in
+scalable units (see the following paragraph) by appending
+@code{\staff-space} to the quantity.
+Page layout is described in detail in @ref{Page formatting}.
+
+Scaled distances are always specified in units of the staff-space
+or, rarely, the half staff-space.  The staff-space is the distance
+between two adjacent staff lines.  The default value can be changed
+globally by setting the global staff size, or it can be overridden
+locally by changing the @code{staff-space} property of
+@code{StaffSymbol}.  Scaled distances automatically scale with any
+change to the either the global staff size or the
+@code{staff-space} property of @code{StaffSymbol}, but fonts scale
+automatically only with changes to the global staff size.
+The global staff size thus enables the overall size of a rendered
+score to be easily varied.  For the methods of setting the global
+staff size see @ref{Setting the staff size}.
+
+@funindex magstep
+
+If just a section of a score needs to be rendered to a different
+scale, for example an ossia section or a footnote, the global staff
+size cannot simply be changed as this would affect the entire score.
+In such cases the change in size is made by overriding both the
+@code{staff-space} property of @code{StaffSymbol} and the size of
+the fonts.  A Scheme function, @code{magstep}, is available to
+convert from a font size change to the equivalent change in
+@code{staff-space}.  For an explanation and an example of its use,
+see @rlearning{Length and thickness of objects}.
+
+
+@seealso
+Learning Manual:
+@rlearning{Length and thickness of objects}.
+
+Notation Reference:
+@ref{Page formatting},
+@ref{Setting the staff size}.
+
+
+@node Staff symbol properties
+@subsection Staff symbol properties
+
+@cindex adjusting staff symbol
+@cindex drawing staff symbol
+@cindex staff symbol, setting of
+
+@c TODO Extend or remove this section.  See also NR 1.6.2 Staff symbol
+@c      Need to think of uses for these properties.  Eg 'line-positions
+@c      is used in a snippet to thicken centre line.
+@c      If retained, add @ref to here in 1.6.2  -td
+
+The vertical position of staff lines and the number of staff lines
+can be defined at the same time.  As the following example shows,
+note positions are not influenced by the staff line positions.
+
+@warning{The @code{'line-positions} property overrides the
+@code{'line-count} property.  The number of staff lines is
+implicitly defined by the number of elements in the list of values
+for @code{'line-positions}.}
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
+}
+{ a4 e' f b | d1 }
+@end lilypond
+
+The width of a staff can be modified.  The units are staff
+spaces.  The spacing of objects inside the staff is not affected by
+this setting.
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'width = #23
+}
+{ a4 e' f b | d1 }
+@end lilypond
+
+
+@node Spanners
+@subsection Spanners
+
+Many objects of musical notation extend over several notes or even
+several bars.  Examples are slurs, beams, tuplet brackets, volta
+repeat brackets, crescendi, trills, and glissandi.  Such objects
+are collectively called @qq{spanners}, and have special properties to control
+their appearance and behaviour.  Some of these properties are common
+to all spanners; others are restricted to a sub-set of the spanners.
+
+All spanners support the @code{spanner-interface}.  A few, esentially
+those that draw a straight line between the two objects, support in
+addition the @code{line-spanner-interface}.
+
+@unnumberedsubsubsec Using the @code{spanner-interface}
+
+This interface provides two properties that apply to several spanners.
+
+@strong{@i{The @code{minimum-length} property}}
+
+The minimum length of the spanner is specified by the
+@code{minimum-length} property.  Increasing this usually has the
+necessary effect of increasing the spacing of the notes between the
+two end points.  However, this override has no effect on
+many spanners, as their length is determined by other considerations.
+A few examples where it is effective are shown below.
+
+@ignore
+Works for:
+  Tie
+  MultiMeasureRest
+  Hairpin
+  Slur
+  PhrasingSlur
+
+Works as long as callback is made:
+  Glissando
+  Beam
+
+Works not at all for:
+  LyricSpace
+  LyricHyphen
+  LyricExtender
+  TextSpanner
+  System
+
+@end ignore
+
+@lilypond[verbatim,quote,relative=2]
+a~a
+a
+% increase the length of the tie
+-\tweak #'minimum-length #5
+~a
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+a1
+\compressFullBarRests
+R1*23
+% increase the length of the rest bar
+\once \override MultiMeasureRest #'minimum-length = #20
+R1*23
+a1
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+a \< a a a \!
+% increase the length of the hairpin
+\override Hairpin #'minimum-length = #20
+a \< a a a \!
+@end lilypond
+
+This override can also be used to increase the length of slurs and
+phrasing slurs:
+
+@lilypond[verbatim,quote,relative=2]
+a( a)
+a
+-\tweak #'minimum-length #5
+( a)
+
+a\( a\)
+a
+-\tweak #'minimum-length #5
+\( a\)
+@end lilypond
+
+For some layout objects, the @code{minimum-length} property becomes
+effective only if the @code{set-spacing-rods} procedure is called
+explicitly.  To do this, the @code{springs-and-rods} property should
+be set to @code{ly:spanner::set-spacing-rods}.   For example,
+the minimum length of a glissando has no effect unless the
+@code{springs-and-rods} property is set:
+
+@lilypond[verbatim,quote,relative=1]
+% default
+e \glissando c'
+
+% not effective alone
+\once \override Glissando #'minimum-length = #20
+e, \glissando c'
+
+% effective only when both overrides are present
+\once \override Glissando #'minimum-length = #20
+\once \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+e, \glissando c'
+@end lilypond
+
+The same is true of the @code{Beam} object:
+
+@lilypond[verbatim,quote,relative=1]
+% not effective alone
+\once \override Beam #'minimum-length = #20
+e8 e e e
+
+% effective only when both overrides are present
+\once \override Beam #'minimum-length = #20
+\once \override Beam #'springs-and-rods = #ly:spanner::set-spacing-rods
+e8 e e e
+@end lilypond
+
+@strong{@i{The @code{to-barline} property}}
+
+The second useful property of the @code{spanner-interface} is
+@code{to-barline}.  By default this is true, causing hairpins and
+other spanners which are terminated on the first note of a measure to
+end instead on the immediately preceding bar line.  If set to false,
+the spanner will extend beyond the bar line and end on the note
+itself:
+
+@lilypond[verbatim,quote,relative=2]
+a \< a a a a \! a a a \break
+\override Hairpin #'to-barline = ##f
+a \< a a a a \! a a a
+@end lilypond
+
+This property is not effective for all spanners.  For example,
+seting it to @code{#t} has no effect on slurs or phrasing slurs
+or on other spanners for which terminating on the bar line would
+not be meaningful.
+
+@unnumberedsubsubsec Using the @code{line-spanner-interface}
+
+Objects which support the @code{line-spanner-interface} include
+
+@itemize
+@item @code{DynamicTextSpanner}
+@item @code{Glissando}
+@item @code{TextSpanner}
+@item @code{TrillSpanner}
+@item @code{VoiceFollower}
+@end itemize
+
+The routine responsible for drawing the stencils for these spanners is
+@code{ly:line-interface::print}.  This routine determines the
+exact location of the two end points and draws a line
+between them, in the style requested.  The locations of the two
+end points of the spanner are computed on-the-fly, but it is
+possible to override their Y-coordinates.  The
+properties which need to be specified are nested
+two levels down within the property hierarchy, but the syntax of
+the @code{\override} command is quite simple:
+
+@lilypond[relative=2,quote,verbatim]
+e2 \glissando b
+\once \override Glissando #'(bound-details left Y) = #3
+\once \override Glissando #'(bound-details right Y) = #-2
+e2 \glissando b
+@end lilypond
+
+The units for the @code{Y} property are @code{staff-space}s,
+with the center line of the staff being the zero point.
+For the glissando, this is the value for @code{Y} at the
+X-coordinate corresponding to the center point of each note head,
+if the line is imagined to be extended to there.
+
+If @code{Y} is not set, the value is computed from the vertical
+position of the corresponding attachment point of the spanner.
+
+In case of a line break, the values for the end points are
+specified by the @code{left-broken} and @code{right-broken}
+sub-lists of @code{bound-details}.  For example:
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+\override Glissando #'breakable = ##t
+\override Glissando #'(bound-details right-broken Y) = #-3
+c1 \glissando \break
+f1
+@end lilypond
+
+
+A number of further properties of the @code{left} and
+@code{right} sub-lists of the @code{bound-details} property
+may be modified in the same way as @code{Y}:
+
+@table @code
+@item Y
+This sets the Y-coordinate of the end point, in @code{staff-space}s
+offset from the staff center line.  By default, it is the center of
+the bound object, so a glissando points to the vertical center of
+the note head.
+
+For horizontal spanners, such as text spanners and trill spanners,
+it is hardcoded to 0.
+
+@item attach-dir
+This determines where the line starts and ends in the X-direction,
+relative to the bound object.  So, a value of @code{-1} (or
+@code{LEFT}) makes the line start/end at the left side of the note
+head it is attached to.
+
+@item X
+This is the absolute X-coordinate of the end point.  It is usually
+computed on the fly, and overriding it has little useful effect.
+
+@item stencil
+Line spanners may have symbols at the beginning or end, which is
+contained in this sub-property.  This is for internal use; it is
+recommended that @code{text} be used instead.
+
+@item text
+This is a markup that is evaluated to yield the stencil.  It is used
+to put @i{cresc.}, @i{tr} and other text on horizontal spanners.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override TextSpanner #'(bound-details left text)
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
+@end lilypond
+
+@item stencil-align-dir-y
+@item stencil-offset
+Without setting one of these, the stencil is simply put at the
+end-point, centered on the line, as defined by the @code{X} and
+@code{Y} sub-properties.  Setting either @code{stencil-align-dir-y}
+or @code{stencil-offset} will move the symbol at the edge vertically
+relative to the end point of the line:
+
+@lilypond[relative=1,fragment,verbatim]
+\override TextSpanner
+  #'(bound-details left stencil-align-dir-y) = #-2
+\override TextSpanner
+  #'(bound-details right stencil-align-dir-y) = #UP
+
+\override TextSpanner
+  #'(bound-details left text) = #"ggg"
+\override TextSpanner
+  #'(bound-details right text) = #"hhh"
+c4^\startTextSpan c c c \stopTextSpan
+@end lilypond
+
+Note that negative values move the text @emph{up}, contrary to the
+effect that might be expected, as a value of @code{-1} or
+@code{DOWN} means align the @emph{bottom} edge of the text with
+the spanner line.  A value of @code{1} or @code{UP} aligns
+the top edge of the text with the spanner line.
+
+@item arrow
+Setting this sub-property to @code{#t} produces an arrowhead at the
+end of the line.
+
+@item padding
+This sub-property controls the space between the specified
+end point of the line and the actual end.  Without padding, a
+glissando would start and end in the center of each note head.
+
+@end table
+
+The music function @code{\endSpanners} terminates the spanner
+which starts on the immediately following note prematurely.  It
+is terminated after exactly one note, or at the following bar line
+if @code{to-barline} is true and a bar line occurs before the next
+note.
+
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+\endSpanners
+c2 \startTextSpan c2 c2
+\endSpanners
+c2 \< c2 c2
+@end lilypond
+
+When using @code{\endSpanners} it is not necessary to close
+\startTextSpan with \stopTextSpan, nor is it necessary to close
+hairpins with @code{\!}.
+
+
+@seealso
+Internals Reference: @rinternals{TextSpanner},
+@rinternals{Glissando}, @rinternals{VoiceFollower},
+@rinternals{TrillSpanner},
+@rinternals{line-spanner-interface}.
+
+
+@node Visibility of objects
+@subsection Visibility of objects
+
+@cindex objects, visibility of
+@cindex grobs, visibility of
+@cindex visibility of objects
+
+There are four main ways in which the visibility of layout objects
+can be controlled: their stencil can be removed, they can be made
+transparent, they can be colored white, or their
+@code{break-visibility} property can be overridden.  The first
+three apply to all layout objects; the last to just a few -- the
+@emph{breakable} objects.  The Learning Manual introduces these
+four techniques, see @rlearning{Visibility and color of objects}.
+
+There are also a few other techniques which are specific to
+certain layout objects.  These are covered under Special
+considerations.
+
+@menu
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
+@end menu
+
+
+@node Removing the stencil
+@unnumberedsubsubsec Removing the stencil
+
+@cindex stencil, removing
+
+Every layout object has a stencil property.  By default this is set
+to the specific function which draws that object.  If this property
+is overridden to @code{#f} no function will be called and the object
+will not be drawn.  The default action can be recovered with
+@code{\revert}.
+
+@lilypond[quote,verbatim,relative=1]
+a1 a
+\override Score.BarLine #'stencil = ##f
+a a
+\revert Score.BarLine #'stencil
+a a a
+@end lilypond
+
+@node Making objects transparent
+@unnumberedsubsubsec Making objects transparent
+
+@cindex transparent, making objects
+
+Every layout object has a transparent property which by default is
+set to @code{#f}.  If set to @code{#t} the object still occupies
+space but is made invisible.
+
+@lilypond[quote,verbatim,relative=2]
+a4 a
+\once \override NoteHead #'transparent = ##t
+a a
+@end lilypond
+
+@node Painting objects white
+@unnumberedsubsubsec Painting objects white
+
+@cindex objects, coloring
+@cindex coloring objects
+@cindex layers
+@cindex printing order
+@cindex overwriting objects
+@cindex objects, overwriting
+@cindex grobs, overwriting
+
+Every layout object has a color property which by default is set
+to @code{black}.  If this is overridden to @code{white} the object
+will be indistinguishable from the white background.  However,
+if the object crosses other objects the color of the crossing
+points will be determined by the order in which they are drawn,
+and this may leave a ghostly image of the white object, as shown
+here:
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.Clef #'color = #white
+a1
+@end lilypond
+
+This may be avoided by changing the order of printing the objects.
+All layout objects have a @code{layer} property which should be set
+to an integer.  Objects with the lowest value of @code{layer} are
+drawn first, then objects with progressively higher values are drawn,
+so objects with higher values overwrite objects with lower values.
+By default most objects are assigned a @code{layer} value of
+@code{1}, although a few objects, including @code{StaffSymbol} and
+@code{BarLine}, are assigned a value of @code{0}.  The order of
+printing objects with the same value of @code{layer} is indeterminate.
+
+In the example above the white clef, with a default @code{layer}
+value of @code{1}, is drawn after the staff lines (default
+@code{layer} value @code{0}), so overwriting them.  To change this,
+the @code{Clef} object must be given in a lower value of
+@code{layer}, say @code{-1}, so that it is drawn earlier:
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.Clef #'color = #white
+\override Staff.Clef #'layer = #-1
+a1
+@end lilypond
+
+@node Using break-visibility
+@unnumberedsubsubsec Using break-visibility
+
+@c TODO Add making other objects breakable
+
+@cindex break-visibility
+
+Most layout objects are printed only once, but some like
+bar lines, clefs, time signatures and key signatures, may need
+to be printed twice when a line break occurs -- once at the end
+of the line and again at the start of the next line.  Such
+objects are called @emph{breakable}, and have a property, the
+@code{break-visibility} property to control their visibility
+at the three positions in which they may appear -- at the
+start of a line, within a line if they are changed, and at the
+end of a line if a change takes place there.
+
+For example, the time signature
+by default will be printed at the start of the first line, but
+nowhere else unless it changes, when it will be printed at the
+point at which the change occurs.  If this change occurs at the
+end of a line the new time signature will be printed at the start
+of the next line and a cautionary time signature will be printed
+at the end of the previous line as well.
+
+This behaviour is controlled by the @code{break-visibility}
+property, which is explained in
+@c Leave this ref on a newline - formats incorrectly otherwise -td
+@rlearning{Visibility and color of objects}.  This property takes
+a vector of three booleans which, in order, determine whether the
+object is printed at the end of, within the body of, or at the
+beginning of a line.  Or to be more precise, before a line break,
+where there is no line break, or after a line break.
+
+Alternatively, these eight combinations may be specified
+by pre-defined functions, defined in @file{scm/output-lib.scm},
+where the last three columns indicate whether the layout objects
+will be visible in the positions shown at the head of the columns:
+
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {yes} {yes} {yes}
+@headitem Function                   @tab Vector                  @tab Before @tab At no    @tab After
+@headitem form                       @tab form                    @tab break  @tab break    @tab break
+
+@item @code{all-visible}             @tab @code{'#(#t #t #t)}     @tab yes    @tab yes      @tab yes
+@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab yes
+@item @code{center-visible}          @tab @code{'#(#f #t #f)}     @tab no     @tab yes      @tab no
+@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}     @tab yes    @tab no       @tab no
+@item @code{begin-of-line-invisible} @tab @code{'#(#t #t #f)}     @tab yes    @tab yes      @tab no
+@item @code{center-invisible}        @tab @code{'#(#t #f #t)}     @tab yes    @tab no       @tab yes
+@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}     @tab no     @tab yes      @tab yes
+@item @code{all-invisible}           @tab @code{'#(#f #f #f)}     @tab no     @tab no       @tab no
+@end multitable
+
+The default settings of @code{break-visibility} depend on the
+layout object.  The following table shows all the layout objects
+of interest which are affected by @code{break-visibility} and the
+default setting of this property:
+
+@multitable @columnfractions .3 .3 .4
+
+@headitem Layout object   @tab Usual context  @tab Default setting
+
+@c omit Ambitus as it appears not to be affected by break-visibility -td
+@c @item @code{Ambitus}          @tab as specified   @tab @code{begin-of-line-visible}
+@item @code{BarLine}             @tab @code{Score}          @tab calculated
+@item @code{BarNumber}           @tab @code{Score}          @tab @code{begin-of-line-visible}
+@c omit the following item until it can be explained -td
+@c @item @code{BreakAlignGroup}  @tab @code{Score}          @tab calculated
+@item @code{BreathingSign}       @tab @code{Voice}          @tab @code{begin-of-line-invisible}
+@item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
+@item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
+@c omit KeyCancellation until it can be explained -td
+@c @item @code{KeyCancellation}  @tab ??             @tab @code{begin-of-line-invisible}
+@item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@c omit LeftEdge until it can be explained -td
+@c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
+@item @code{OctavateEight}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
+@item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
+
+@end multitable
+
+The example below shows the use of the vector form to control the
+visibility of barlines:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+f4 g a b
+f4 g a b
+% Remove bar line at the end of the current line
+\once \override Score.BarLine #'break-visibility = #'#(#f #t #t)
+\break
+f4 g a b
+f4 g a b
+@end lilypond
+
+Although all three components of the vector used to override
+@code{break-visibility} must be present, not all of them are
+effective with every layout object, and some combinations may
+even give errors.  The following limitations apply:
+
+@itemize @bullet
+@item Bar lines cannot be printed at start of line.
+@item A bar number cannot be printed at the start of the first
+line unless it is set to be different from 1.
+@item Clef -- see below
+@item Double percent repeats are either all printed or all
+suppressed.  Use begin-of line-invisible to print and
+all-invisible to suppress.
+@item Key signature -- see below
+@item OctavateEight -- see below
+@end itemize
+
+@node Special considerations
+@unnumberedsubsubsec Special considerations
+
+@strong{@emph{Visibility following explicit changes}}
+
+@cindex key signature, visibility following explicit change
+@cindex explicitKeySignatureVisibility
+@cindex clef, visibility following explicit change
+@cindex explicitClefVisibility
+
+The @code{break-visibility} property controls the visibility of
+key signatures and changes of clef only at the start of lines,
+i.e. after a break.  It has no effect on the visibility of the
+key signature or clef following an explicit key change or an
+explicit clef change within or at the end of a line.  In the
+following example the key signature following the explicit change
+to B-flat major is still visible, even though @code{all-invisible}
+is set.
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+% Try to remove all key signatures
+\override Staff.KeySignature #'break-visibility = #all-invisible
+\key bes \major
+f4 g a b
+\break
+f4 g a b
+f4 g a b
+@end lilypond
+
+The visibility of such explicit key signature and clef changes is
+controlled by the @code{explicitKeySignatureVisibility} and
+@code{explicitClefVisibility} properties.  These are the equivalent
+of the @code{break-visibility} property and both take a vector of
+three booleans or the predefined functions listed above, exactly like
+@code{break-visibility}.  Both are properties of the Staff context,
+not the layout objects themselves, and so they are set using the
+@code{\set} command.  Both are set by default to @code{all-visible}.
+These properties control only the visibility of key signatures and
+clefs resulting from explicit changes and do not affect key
+signatures and clefs at the beginning of lines;
+@code{break-visibility} must still be overridden in the appropriate
+object to remove these.
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Staff.KeySignature #'break-visibility = #all-invisible
+\key bes \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
+@strong{@emph{Visibility of cautionary accidentals}}
+
+To remove the cautionary accidentals printed at an explicit key
+change, set the Staff context property @code{printKeyCancellation}
+to @code{#f}:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.printKeyCancellation = ##f
+\override Staff.KeySignature #'break-visibility = #all-invisible
+\key bes \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
+With these overrides only the accidentals before the notes remain
+to indicate the change of key.
+
+@c TODO Add visibility of cautionary accidentals before notes
+
+@strong{@emph{Automatic bars}}
+
+@cindex automaticBars
+@cindex bar lines, suppressing
+
+As a special case, the printing of bar lines can also be turned off
+by setting the @code{automaticBars} property in the Score context.
+If set to @code{#f}, bar lines will not be printed automatically;
+they must be explicitly created with a @code{\bar} command.  Unlike
+the @code{\cadenzaOn} predefined command, measures are still counted.
+Bar generation will resume according to that count if this property
+is later set to @code{#t}.  When set to @code{#f}, line breaks can
+occur only at explicit @code{\bar} commands.
+
+@c TODO Add example
+
+@strong{@emph{Octavated clefs}}
+
+@cindex octavated clefs, visibility of
+@cindex visibility of octavated clefs
+@cindex clefs, visibility of octavation
+
+The small octavation symbol on octavated clefs is produced by the
+@code{OctavateEight} layout object.  Its visibility is controlled
+independently from that of the @code{Clef} object, so it is
+necessary to apply any required @code{break-visibility} overrides
+to both the @code{Clef} and the @code{OctavateEight} layout objects
+to fully suppress such clef symbols at the start of each line.
+
+For explicit clef changes, the @code{explicitClefVisibility}
+property controls both the clef symbol and any octavation symbol
+associated with it.
+
+
+@seealso
+Learning Manual:
+@rlearning{Visibility and color of objects}
+
+
+@node Line styles
+@subsection Line styles
+
+Some performance indications, e.g., @i{rallentando} and
+@i{accelerando} and @i{trills} are written as text and are
+extended over many measures with lines, sometimes dotted or wavy.
+
+These all use the same routines as the glissando for drawing the
+texts and the lines, and tuning their behavior is therefore also
+done in the same way.  It is done with a spanner, and the routine
+responsible for drawing the spanners is
+@code{ly:line-interface::print}.  This routine determines the
+exact location of the two @i{span points} and draws a line
+between them, in the style requested.
+
+Here is an example showing the different line styles available,
+and how to tune them.
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+d2 \glissando d'2
+\once \override Glissando #'style = #'dashed-line
+d,2 \glissando d'2
+\override Glissando #'style = #'dotted-line
+d,2 \glissando d'2
+\override Glissando #'style = #'zigzag
+d,2 \glissando d'2
+\override Glissando #'style = #'trill
+d,2 \glissando d'2
+@end lilypond
+
+The locations of the end-points of the spanner are computed
+on-the-fly for every graphic object, but it is possible to
+override these:
+
+@c FIXME Complete
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+e2 \glissando f
+\once \override Glissando #'(bound-details right Y) = #-2
+e2 \glissando f
+@end lilypond
+
+The value for @code{Y} is set to @code{-2} for the right end
+point.  The left side may be similarly adjusted by specifying
+@code{left} instead of @code{right}.
+
+If @code{Y} is not set, the value is computed from the vertical
+position of the left and right attachment points of the spanner.
+
+Other adjustments of spanners are possible, for details, see
+@ref{Spanners}.
+
+@node Rotating objects
+@subsection Rotating objects
+
+Both layout objects and elements of markup text can be rotated by
+any angle about any point, but the method of doing so differs.
+
+@menu
+* Rotating layout objects::
+* Rotating markup::
+@end menu
+
+@node Rotating layout objects
+@unnumberedsubsubsec Rotating layout objects
+
+@cindex rotating objects
+@cindex objects, rotating
+
+All layout objects which support the @code{grob-interface} can be
+rotated by setting their @code{rotation} property.  This takes a
+list of three items: the angle of rotation counter-clockwise,
+and the x and y coordinates of the point relative to the object's
+reference point about which the rotation is to be performed.  The
+angle of rotation is specified in degrees and the coordinates in
+staff-spaces.
+
+The angle of rotation and the coordinates of the rotation point must
+be determined by trial and error.
+
+@cindex hairpins, angled
+@cindex angled hairpins
+
+There are only a few situations where the rotation of layout
+objects is useful; the following example shows one situation where
+they may be:
+
+@lilypond[quote,verbatim,relative=1]
+g4\< e' d' f\!
+\override Hairpin #'rotation = #'(20 -1 0)
+g,,4\< e' d' f\!
+@end lilypond
+
+@node Rotating markup
+@unnumberedsubsubsec Rotating markup
+
+All markup text can be rotated to lie at any angle by prefixing it
+with the @code{\rotate} command.  The command takes two arguments:
+the angle of rotation in degrees counter-clockwise and the text to
+be rotated.  The extents of the text are not rotated: they take
+their values from the extremes of the x and y coordinates of the
+rotated text.  In the following example the
+@code{outside-staff-priority} property for text is set to @code{#f}
+to disable the automatic collision avoidance, which would push some
+of the text too high.
+
+@lilypond[quote,verbatim,relative=1]
+\override TextScript #'outside-staff-priority = ##f
+g4^\markup { \rotate #30 "a G" }
+b^\markup { \rotate #30 "a B" }
+des^\markup { \rotate #30 "a D-Flat" }
+fis^\markup { \rotate #30 "an F-Sharp" }
+@end lilypond
+
+@node Advanced tweaks
+@section Advanced tweaks
+
+This section discusses various approaches to fine tuning the
+appearance of the printed score.
+
+@menu
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
+@end menu
+
+
+@seealso
+Learning Manual:
+@rlearning{Tweaking output},
+@rlearning{Other sources of information}.
+
+Notation Reference:
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties},
+@ref{Interfaces for programmers}.
+
+Installed Files:
+@file{scm/@/define@/-grobs@/.scm}.
+
+Snippets:
+@rlsr{Tweaks and overrides}.
+
+Internals Reference:
+@rinternals{All layout objects}.
+
+
+@node Aligning objects
+@subsection Aligning objects
+
+Graphical objects which support the @code{self-alignment-interface} and/or
+the @code{side-position-interface} can be
+aligned to a previously placed object in a variety of ways.  For a list of these objects, see
+@rinternals{self-alignment-interface} and @rinternals{side-position-interface}.
+
+All graphical objects have a reference point, a horizontal extent and a
+vertical extent.  The horizontal extent is a pair of numbers
+giving the displacements from the reference point of the left and
+right edges, displacements to the left being negative.  The
+vertical extent is a pair of numbers giving the displacement from
+the reference point to the bottom and top edges, displacements down
+being negative.
+
+An object's position on a staff is given by the values of the
+@code{X-offset} and @code{Y-offset} properties.  The value of
+@code{X-offset} gives the displacement from the x coordinate of
+the reference point of the parent object, and the value of
+@code{Y-offset} gives the displacement from the center line of the
+staff.   The values of @code{X-offset} and
+@code{Y-offset} may be set directly or may be set to be calculated
+by procedures in order to achieve alignment with the parent object
+in several ways.
+
+@warning{Many objects have special positioning considerations which
+cause any setting of @code{X-offset} or @code{Y-offset} to be
+ignored or modified, even though the object supports the
+@code{self-alignment-interface}.}
+
+For example, an accidental can be repositioned
+vertically by setting @code{Y-offset} but any changes to
+@code{X-offset} have no effect.
+
+Rehearsal marks may be aligned with
+breakable objects such as bar lines, clef symbols, time signature
+symbols and key signatures.  There are special properties to be
+found in the @code{break-aligned-interface} for positioning rehearsal
+marks on such objects.
+
+@menu
+* Setting @code{X-offset} and @code{Y-offset} directly::
+* Using the @code{side-position-interface}::
+* Using the @code{self-alignment-interface}::
+* Using the @code{break-alignable-interface}::
+@end menu
+
+@node Setting @code{X-offset} and @code{Y-offset} directly
+@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+
+Numerical values may be given to the @code{X-offset} and @code{Y-offset}
+properties of many objects.  The following example shows three
+notes with the default fingering position and the positions with @code{X-offset}
+and @code{Y-offset} modified.
+
+@lilypond[verbatim,quote,relative=2]
+a-3
+a
+-\tweak #'X-offset #0
+-\tweak #'Y-offset #0
+-3
+a
+-\tweak #'X-offset #-1
+-\tweak #'Y-offset #1
+-3
+@end lilypond
+
+@c TODO write more
+
+@node Using the @code{side-position-interface}
+@unnumberedsubsubsec Using the @code{side-position-interface}
+
+An object which supports the @code{side-position-interface} can be
+placed next to its parent object so that
+the specified edges of the two objects touch.  The object may be
+placed above, below, to the right or to the left of the parent.
+The parent cannot be specified; it is determined by the order of
+elements in the input stream.  Most objects have the associated
+note head as their parent.
+
+The values of the @code{side-axis} and @code{direction} properties
+determine where the object is to be placed, as follows:
+
+@c TODO add an example of each to the table
+
+@multitable @columnfractions .3 .3 .3
+@headitem @code{side-axis}  @tab @code{direction}  @tab
+@headitem property          @tab property          @tab Placement
+
+@item     @code{0}          @tab @code{-1}         @tab left
+@item     @code{0}          @tab @code{1}          @tab right
+@item     @code{1}          @tab @code{-1}         @tab below
+@item     @code{1}          @tab @code{1}          @tab above
+
+@end multitable
+
+When @code{side-axis} is @code{0}, @code{X-offset} should be set to
+the procedure @code{ly:side-position-interface::x-aligned-side}.
+This procedure will return the correct value of @code{X-offset} to
+place the object to the left or right side of the parent according
+to value of @code{direction}.
+
+When @code{side-axis} is @code{1}, @code{Y-offset} should be set to
+the procedure @code{ly:side-position-interface::y-aligned-side}.
+This procedure will return the correct value of @code{Y-offset} to
+place the object to the top or bottom of the parent according
+to value of @code{direction}.
+
+@c TODO Add examples
+
+@node Using the @code{self-alignment-interface}
+@unnumberedsubsubsec Using the @code{self-alignment-interface}
+
+@emph{Self-aligning objects horizontally}
+
+The horizontal alignment of an object which supports the
+@code{self-alignment-interface} is controlled by the value of
+the @code{self-alignment-X} property, provided the object's
+@code{X-offset} property is set to
+@code{ly:self-alignment-interface::x-aligned-on-self}.
+@code{self-alignment-X}  may be given any
+real value, in units of half the total X extent of the
+object.  Negative values move the object to the right, positive
+to the left.  A value of @code{0} centers the object on the
+reference point of its parent, a value of @code{-1} aligns the
+left edge of the object on the reference point of its parent,
+and a value of @code{1} aligns the right edge of the object on the
+reference point of its parent.  The symbols @code{LEFT},
+@code{CENTER} and @code{RIGHT} may be used instead of the values
+@code{-1, 0, 1} respectively.
+
+Normally the @code{\override} command would be used to modify the
+value of @code{self-alignment-X}, but the @code{\tweak} command
+can be used to separately align several annotations on a single
+note:
+
+@lilypond[quote,verbatim,relative=1]
+a'
+-\tweak #'self-alignment-X #-1
+^"left-aligned"
+-\tweak #'self-alignment-X #0
+^"center-aligned"
+-\tweak #'self-alignment-X #RIGHT
+^"right-aligned"
+-\tweak #'self-alignment-X #-2.5
+^"aligned further to the right"
+@end lilypond
+
+@emph{Self-aligning objects vertically}
+
+Objects may be aligned vertically in an analogous way to aligning
+them horizontally if the @code{Y-offset} property is set to
+@code{ly:self-alignment-interface::y-aligned-on-self}.  However,
+other mechanisms are often involved in vertical alignment: the
+value of @code{Y-offset} is just one variable taken into account.
+This may make adjusting the value of some objects tricky.
+The units are just half the vertical extent of the object, which
+is usually quite small, so quite large numbers may be required.
+A value of @code{-1} aligns the lower edge of the object with
+the reference point of the parent object, a value of @code{0}
+aligns the center of the object with the reference point of the
+parent, and a value of @code{1} aligns the top edge of the object
+with the reference point of the parent.  The symbols @code{DOWN},
+@code{CENTER}, @code{UP} may be substituted for @code{-1, 0, 1}
+respectively.
+
+@emph{Self-aligning objects in both directions}
+
+By setting both @code{X-offset} and @code{Y-offset}, an object may
+be aligned in both directions simultaneously.
+
+The following example shows how to adjust a fingering mark so
+that it nestles close to the note head.
+
+@lilypond[quote,verbatim,relative=2]
+a
+-\tweak #'self-alignment-X #0.5  % move horizontally left
+-\tweak #'Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak #'self-alignment-Y #-1  % move vertically up
+-3  % third finger
+@end lilypond
+
+@ignore
+@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+The @code{aligned-on-parent} procedures are used in the same way
+as the @code{aligned-on-self} procedures, they difference being
+that they permit an object to be aligned with the @emph{edges} of
+the parent rather than the parent's reference point.  The following
+example shows the difference:
+
+@c TODO Add example
+
+@lilypond[verbatim,quote]
+@end lilypond
+
+@end ignore
+
+@ignore
+@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+@end ignore
+
+@c TODO The align-interface, BassFigureAlignment and VerticalAlignment
+
+@node Using the @code{break-alignable-interface}
+@unnumberedsubsubsec Using the @code{break-alignable-interface}
+
+@cindex align to objects
+@cindex break-align-symbols
+
+Rehearsal marks and bar numbers may be aligned with notation
+objects other than bar lines.  These objects include @code{ambitus},
+@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
+@code{left-edge}, @code{key-cancellation}, @code{key-signature}, and
+@code{time-signature}.
+
+By default, rehearsal marks and bar numbers will be horizontally
+centered above the object:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+% the RehearsalMark will be centered above the Clef
+\override Score.RehearsalMark #'break-align-symbols = #'(clef)
+\key a \major
+\clef treble
+\mark "↓"
+e
+% the RehearsalMark will be centered above the TimeSignature
+\override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+\key a \major
+\clef treble
+\time 3/4
+\mark "↓"
+e2.
+@end lilypond
+
+A list of possible target alignment objects may be specified.  If
+some of the objects are invisible at that point due to the setting
+of @code{break-visibility} or the explicit visibility settings for
+keys and clefs, the rehearsal mark or bar number is aligned to the
+first object in the list which is visible.  If no objects in the
+list are visible the object is aligned to the bar line.  If the bar
+line is invisible the object is aligned to the place where the bar
+line would be.
+
+@lilypond[verbatim,quote,relative=1]
+e1
+% the RehearsalMark will be centered above the Key Signature
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e
+% the RehearsalMark will be centered above the Clef
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\key a \minor
+\clef bass
+\mark "↓"
+e,
+@end lilypond
+
+The alignment of the rehearsal mark relative to the notation object
+can be changed, as shown in the following example.  In a score with
+multiple staves, this setting should be done for all the staves.
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be centered above the KeySignature
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\key a \major
+\clef treble
+\time 4/4
+\mark "↓"
+e1
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+\mark "↓"
+\key a \major
+e
+% The RehearsalMark will be aligned with the right edge of the KeySignature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+\key a \major
+\mark "↓"
+e
+@end lilypond
+
+The rehearsal mark can also be offset to the right or left of the left edge
+by an arbitrary amount.  The units are staff-spaces:
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+% and then shifted right by 3.5 staff-spaces
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature #'break-align-anchor = #3.5
+\key a \major
+\mark "↓"
+e
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+% and then shifted left by 2 staff-spaces
+\once \override Score.KeySignature #'break-align-anchor = #-2
+\key a \major
+\mark "↓"
+e
+@end lilypond
+
+
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
+
+@c FIXME Expand this section
+
+The VerticalAlignment and VerticalAxisGroup grobs work together.
+VerticalAxisGroup groups together different grobs like Staff, Lyrics,
+etc.  VerticalAlignment then vertically aligns the different grobs
+grouped together by VerticalAxisGroup.  There is usually only one
+VerticalAlignment per score but every Staff, Lyrics, etc. has its own
+VerticalAxisGroup.
+
+
+@node Modifying stencils
+@subsection Modifying stencils
+
+All layout objects have a @code{stencil} property which is part of
+the @code{grob-interface}.  By default, this property is usually
+set to a function specific to the object that is tailor-made to
+render the symbol which represents it in the output.  For example,
+the standard setting for the @code{stencil} property of the
+@code{MultiMeasureRest} object is @code{ly:multi-measure-rest::print}.
+
+The standard symbol for any object can be replaced by modifying the
+@code{stencil} property to reference a different, specially-written,
+procedure.  This requires a high level of knowledge of the internal
+workings of LilyPond, but there is an easier way which can often
+produce adequate results.
+
+This is to set the @code{stencil} property to the procedure which
+prints text -- @code{ly:text-interface::print} -- and to add a
+@code{text} property to the object which is set to contain the
+markup text which produces the required symbol.  Due to the
+flexibility of markup, much can be achieved -- see in particular
+@ref{Graphic notation inside markup}.
+
+The following example demonstrates this by changing the note head
+symbol to a cross within a circle.
+
+@lilypond[verbatim,quote]
+XinO = {
+  \once \override NoteHead  #'stencil = #ly:text-interface::print
+  \once \override NoteHead #'text = \markup {
+    \combine
+      \halign #-0.7 \draw-circle #0.85 #0.2 ##f
+      \musicglyph #"noteheads.s2cross"
+  }
+}
+\relative c'' {
+  a a \XinO a a
+}
+@end lilypond
+
+Any of the glyphs in the feta Font can be supplied to the
+@code{\musicglyph} markup command -- see @ref{The Feta font}.
+
+@c TODO Add inserting eps files or ref to later
+
+@c TODO Add inserting Postscript or ref to later
+
+
+@seealso
+Notation Reference:
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Feta font}.
+
+
+@node Modifying shapes
+@subsection Modifying shapes
+
+@menu
+* Modifying ties and slurs::
+@end menu
+
+@node Modifying ties and slurs
+@unnumberedsubsubsec Modifying ties and slurs
+
+@cindex slurs, modifying
+@cindex ties, modifying
+@cindex Bézier curves
+@cindex Bézier control points
+
+Ties, slurs and phrasing slurs are drawn as third-order Bézier
+curves.  If the shape of the tie or slur which is calculated
+automatically is not optimum, the shape may be modified manually by
+explicitly specifying the four control points required to define
+a third-order Bézier curve.
+
+Third-order or cubic Bézier curves are defined by four control
+points.  The first and fourth control points are precisely the
+starting and ending points of the curve.  The intermediate two
+control points define the shape.  Animations showing how the curve
+is drawn can be found on the web, but the following description
+may be helpful.  The curve starts from the first control point
+heading directly towards the second, gradually bending over to
+head towards the third and continuing to bend over to head towards
+the fourth, arriving there travelling directly from the third
+control point.  The curve is entirely contained in the
+quadrilateral defined by the four control points.
+
+Here is an example of a case where the tie is not optimum, and
+where @code{\tieDown} would not help.
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  { e1 ~ e }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+One way of improving this tie is to manually modify its control
+points, as follows.
+
+The coordinates of the Bézier control points are specified in units
+of staff-spaces.  The X@tie{}coordinate is relative to the reference
+point of the note to which the tie or slur is attached, and the
+Y@tie{}coordinate is relative to the staff center line.  The
+coordinates are entered as a list of four pairs of decimal numbers
+(reals).  One approach is to estimate the coordinates of the two
+end points, and then guess the two intermediate points.  The optimum
+values are then found by trial and error.
+
+It is useful to remember that a symmetric curve requires symmetric
+control points, and that Bézier curves have the useful property that
+transformations of the curve such as translation, rotation and
+scaling can be achieved by applying the same transformation to the
+curve's control points.
+
+For the example above the following override gives a satisfactory
+tie.  Note the placement -- it has to be immediately before the note
+to which the start of the tie (or slur) is attached.
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    \once \override Tie
+      #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+     e1 ~ e1
+  }
+\\
+  { r4 <g c,> <g c,> <g c,>4  }
+>>
+@end lilypond
+
+@knownissues
+
+It is not possible to modify shapes of ties or slurs by changing
+the @code{control-points} property if there are more than one at
+the same musical moment, not even by using the @code{\tweak}
+command.
+
+
+
+

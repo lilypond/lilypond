@@ -58,7 +58,7 @@
 	      (args (cdr expr)))
 	  (if (eqv? cmd simple-markup) ;; a simple markup
 	      (format #f "~s" (car args))
-	      (format #f "\\~a~{ ~a~}" 
+	      (format #f "\\~a~{ ~a~}"
 		      (proc->command cmd)
 		      (map-in-order arg->string args))))))
   (cond ((string? markup-expr)
@@ -134,33 +134,34 @@
 ;;; post events
 ;;;
 
-(define post-event? (make-music-type-predicate	
-		     'StringNumberEvent
-		     'ArticulationEvent
-		     'FingeringEvent
-		     'TextScriptEvent
-		     'MultiMeasureTextEvent
-		     'HyphenEvent
-		     'ExtenderEvent
-		     'BeamEvent
-		     'SlurEvent
-		     'TieEvent
-		     'CrescendoEvent
-		     'DecrescendoEvent
-		     'PhrasingSlurEvent
-		     'TremoloEvent
-		     'SustainEvent
-		     'SostenutoEvent
-		     'TextSpanEvent
-		     'HarmonicEvent
-		     'BeamForbidEvent
-		     'AbsoluteDynamicEvent
-		     'TupletSpanEvent
-		     'TrillSpanEvent
-		     'GlissandoEvent
-		     'ArpeggioEvent
-		     'NoteGroupingEvent
-		     'UnaCordaEvent))
+(define post-event?
+  (make-music-type-predicate
+    'AbsoluteDynamicEvent
+    'ArpeggioEvent
+    'ArticulationEvent
+    'BeamEvent
+    'BeamForbidEvent
+    'CrescendoEvent
+    'DecrescendoEvent
+    'ExtenderEvent
+    'FingeringEvent
+    'GlissandoEvent
+    'HarmonicEvent
+    'HyphenEvent
+    'MultiMeasureTextEvent
+    'NoteGroupingEvent
+    'PhrasingSlurEvent
+    'SlurEvent
+    'SostenutoEvent
+    'StringNumberEvent
+    'SustainEvent
+    'TextScriptEvent
+    'TextSpanEvent
+    'TieEvent
+    'TremoloEvent
+    'TrillSpanEvent
+    'TupletSpanEvent
+    'UnaCordaEvent))
 
 (define* (event-direction->lily-string event #:optional (required #t))
   (let ((direction (ly:music-property event 'direction)))
@@ -223,7 +224,7 @@
 (define-post-event-display-method MultiMeasureTextEvent (event parser) #t
   (markup->lily-string (ly:music-property event 'text)))
 
-(define-post-event-display-method HarmonicEvent (event parser) #t "\\harmonic")
+(define-post-event-display-method HarmonicEvent (event parser) #f "\\harmonic")
 (define-post-event-display-method GlissandoEvent (event parser) #t "\\glissando")
 (define-post-event-display-method ArpeggioEvent (event parser) #t "\\arpeggio")
 (define-post-event-display-method AbsoluteDynamicEvent (event parser) #f
@@ -247,7 +248,7 @@
 ;;;
 
 (define-display-method GraceMusic (expr parser)
-  (format #f "\\grace ~a" 
+  (format #f "\\grace ~a"
 	  (music->lily-string (ly:music-property expr 'element) parser)))
 
 ;; \acciaccatura \appoggiatura \grace
@@ -265,7 +266,7 @@
 					      ?stop))))
     ;; we check whether ?start and ?stop look like
     ;; startAppoggiaturaMusic stopAppoggiaturaMusic
-    (and (with-music-match (?start (music 
+    (and (with-music-match (?start (music
 				    'SequentialMusic
 				    elements ((music
 					       'EventChord
@@ -276,7 +277,7 @@
 							  'SlurEvent
 							  span-direction START))))))
 			   #t)
-	  (with-music-match (?stop (music 
+	  (with-music-match (?stop (music
 				    'SequentialMusic
 				    elements ((music
 					       'EventChord
@@ -300,7 +301,7 @@
 					      ?stop))))
     ;; we check whether ?start and ?stop look like
     ;; startAcciaccaturaMusic stopAcciaccaturaMusic
-    (and (with-music-match (?start (music 
+    (and (with-music-match (?start (music
 				    'SequentialMusic
 				    elements ((music
 					       'EventChord
@@ -318,7 +319,7 @@
 							grob-value "grace"
 							symbol 'Stem)))))
 			   #t)
-	 (with-music-match (?stop (music 
+	 (with-music-match (?stop (music
 				   'SequentialMusic
 				   elements ((music
 					      'ContextSpeccedMusic
@@ -357,7 +358,7 @@
 
 (define-display-method SequentialMusic (seq parser)
   (let ((force-line-break (and (*force-line-break*)
-			       ;; hm 
+			       ;; hm
 			       (> (length (ly:music-property seq 'elements))
 				  (*max-element-number-before-break*))))
 	(elements (ly:music-property seq 'elements))
@@ -424,7 +425,7 @@ Otherwise, return #f."
     (format #f "\\afterGrace ~a ~a"
 	    (music->lily-string ?before-grace parser)
 	    (music->lily-string ?grace parser))))
-  
+
 ;;;
 ;;; Chords
 ;;;
@@ -439,7 +440,7 @@ Otherwise, return #f."
   ;; tagged_post_event: '-' \tag embedded_scm post_event
 
   (let* ((elements (ly:music-property chord 'elements))
-	 (simple-elements (filter (make-music-type-predicate 
+	 (simple-elements (filter (make-music-type-predicate
 				   'NoteEvent 'ClusterNoteEvent 'RestEvent
 				   'MultiMeasureRestEvent 'SkipEvent 'LyricEvent)
 				  elements)))
@@ -448,7 +449,13 @@ Otherwise, return #f."
 	;; and BreathingEvent (\breathe)
 	(music->lily-string (car elements) parser)
 	(if (and (not (null? simple-elements))
-		 (null? (cdr simple-elements)))
+		 (null? (cdr simple-elements))
+		 ;; special case: if this simple_element has a HarmonicEvent in its
+		 ;; 'articulations list, it should be interpreted instead as a
+		 ;; note_chord_element, since \harmonic only works inside chords,
+		 ;; even for single notes, e.g., < c\harmonic >
+		 (null? (filter (make-music-type-predicate 'HarmonicEvent)
+				(ly:music-property (car simple-elements) 'articulations))))
 	    ;; simple_element : note | figure | rest | mmrest | lyric_element | skip
 	    (let* ((simple-element (car simple-elements))
 		   (duration (ly:music-property simple-element 'duration))
@@ -475,7 +482,7 @@ Otherwise, return #f."
 							     (music->lily-string music parser))
 							   chord-elements)
 					     (duration->lily-string (ly:music-property (car chord-elements)
-										     'duration))
+										       'duration))
 					     (map-in-order (lambda (music)
 							     (music->lily-string music parser))
 							   post-events))))
@@ -562,7 +569,7 @@ Otherwise, return #f."
     (if (or (null? pitch-alist)
 	    (null? tonic))
 	"\\key \\default"
-	(let ((c-pitch-alist (ly:transpose-key-alist pitch-alist 
+	(let ((c-pitch-alist (ly:transpose-key-alist pitch-alist
 						     (ly:pitch-diff (ly:make-pitch 0 0 0) tonic))))
 	  (format #f "\\key ~a \\~a~a"
 		  (note-name->lily-string (ly:music-property key 'tonic) parser)
@@ -607,7 +614,7 @@ Otherwise, return #f."
 		  (else fig))
 	    (if (null? alteration)
 		""
-		(cond 
+		(cond
 		  ((= alteration DOUBLE-FLAT) "--")
 		  ((= alteration FLAT) "-")
 		  ((= alteration NATURAL) "!")
@@ -655,7 +662,7 @@ Otherwise, return #f."
     (parameterize ((*force-line-break* #f)
 		   (*time-factor-numerator* (/ num nd-gcd))
 		   (*time-factor-denominator* (/ den nd-gcd)))
-      (format #f "\\times ~a/~a ~a" 
+      (format #f "\\times ~a/~a ~a"
 	      num
 	      den
 	      (music->lily-string (ly:music-property times 'element) parser)))))
@@ -725,7 +732,7 @@ Otherwise, return #f."
 
 ;;;
 ;;; Contexts
-;;; 
+;;;
 
 (define-display-method ContextSpeccedMusic (expr parser)
   (let ((id    (ly:music-property expr 'context-id))
@@ -742,8 +749,8 @@ Otherwise, return #f."
 		""
 		(format #f " = ~s" id))
 	    (if (null? operations)
-		"" 
-		(format #f " \\with {~{~a~}~%~v_}" 
+		""
+		(format #f " \\with {~{~a~}~%~v_}"
 			(parameterize ((*indent* (+ (*indent*) 2)))
 			  (map (lambda (op)
 				 (format #f "~%~v_\\~a ~s"
@@ -810,8 +817,8 @@ Otherwise, return #f."
 	    (if (and (not (null? once)))
 		"\\once "
 		"")
-	    (if (eqv? (*current-context*) 'Bottom) 
-		"" 
+	    (if (eqv? (*current-context*) 'Bottom)
+		""
 		(format #f "~a . " (*current-context*)))
 	    property
 	    (property-value->lily-string value parser)
@@ -819,8 +826,8 @@ Otherwise, return #f."
 
 (define-display-method PropertyUnset (expr parser)
   (format #f "\\unset ~a~a~a"
-	  (if (eqv? (*current-context*) 'Bottom) 
-	      "" 
+	  (if (eqv? (*current-context*) 'Bottom)
+	      ""
 	      (format #f "~a . " (*current-context*)))
 	  (ly:music-property expr 'symbol)
 	  (new-line->lily-string)))
@@ -841,8 +848,8 @@ Otherwise, return #f."
 		    (not once))
 		""
 		"\\once ")
-	    (if (eqv? (*current-context*) 'Bottom) 
-		"" 
+	    (if (eqv? (*current-context*) 'Bottom)
+		""
 		(format #f "~a . " (*current-context*)))
 	    symbol
 	    (if (null? (cdr properties))
@@ -850,13 +857,13 @@ Otherwise, return #f."
 		properties)
 	    (property-value->lily-string value parser)
 	    (new-line->lily-string))))
-	    
+
 (define-display-method RevertProperty (expr parser)
   (let ((symbol (ly:music-property expr 'symbol))
 	(properties (ly:music-property expr 'grob-property-path)))
     (format #f "\\revert ~a~a #'~a~a"
-	    (if (eqv? (*current-context*) 'Bottom) 
-		"" 
+	    (if (eqv? (*current-context*) 'Bottom)
+		""
 		(format #f "~a . " (*current-context*)))
 	    symbol
 	    (if (null? (cdr properties))
@@ -924,7 +931,7 @@ Otherwise, return #f."
 						 symbol 'tempoText)))))
 			(format #f "\\tempo ~a" (scheme-expr->lily-string ?tempo-text)))))
 
-;;; \clef 
+;;; \clef
 (define clef-name-alist #f)
 (define-public (memoize-clef-names clefs)
   "Initialize `clef-name-alist', if not already set."
@@ -971,32 +978,37 @@ Otherwise, return #f."
 ;;; \time
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If `expr' is a time signature set, return \"\\time ...\".
-Otherwise, return #f."
-  (with-music-match (expr (music 
-			   'ContextSpeccedMusic
-			   element (music 
-				    'ContextSpeccedMusic
-				    context-type 'Timing
-				    element (music 
-					     'SequentialMusic
-					     elements ((music 
-							'PropertySet
-							value ?num+den
-							symbol 'timeSignatureFraction)
-						       (music
-							'PropertySet
-							symbol 'beatLength)
-						       (music
-							'PropertySet
-							symbol 'measureLength)
-						       (music
-							'PropertySet
-							value ?grouping
-							symbol 'beatGrouping))))))
-    (if (null? ?grouping)
-	(format #f "\\time ~a/~a~a" (car ?num+den) (cdr ?num+den) (new-line->lily-string))
-	(format #f "#(set-time-signature ~a ~a '~s)~a"
-		(car ?num+den) (cdr ?num+den) ?grouping (new-line->lily-string)))))
+Otherwise, return #f.  Note: default grouping is not available."
+  (with-music-match
+   (expr (music
+           'ContextSpeccedMusic
+	   element (music
+	            'ContextSpeccedMusic
+		    context-type 'Timing
+		    element (music
+			     'SequentialMusic
+			     elements ?elts))))
+   (and
+    (> (length ?elts) 2)
+    (with-music-match ((cadr ?elts)
+                       (music 'PropertySet
+                              symbol 'beatLength))
+       #t)
+    (with-music-match ((caddr ?elts)
+                       (music 'PropertySet
+                              symbol 'measureLength))
+       #t)
+    (with-music-match ((car ?elts)
+                       (music 'PropertySet
+                              value ?num+den
+                              symbol 'timeSignatureFraction))
+       (if (eq? (length ?elts) 3)
+           (format
+             #f "\\time ~a/~a~a"
+             (car ?num+den) (cdr ?num+den) (new-line->lily-string))
+           (format
+             #f "#(set-time-signature ~a ~a '(<grouping-specifier>))~a"
+             (car ?num+den) (cdr ?num+den)  (new-line->lily-string)))))))
 
 ;;; \bar
 (define-extra-display-method ContextSpeccedMusic (expr parser)
@@ -1032,7 +1044,7 @@ Otherwise, return #f."
 
 (define (moment->duration moment)
   (let ((result (assoc (- moment) moment-duration-alist =)))
-    (and result 
+    (and result
 	 (cdr result))))
 
 (define-extra-display-method ContextSpeccedMusic (expr parser)

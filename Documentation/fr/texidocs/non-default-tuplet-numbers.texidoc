@@ -1,0 +1,8 @@
+%% Translation of GIT committish: fa7695ea860d7ab2db86581dd5f8bc4f413f6705
+  texidocfr = "
+LilyPond sait aussi gérer des nolets dont le chiffrage imprimé ne
+correspond pas exactement à la fraction de mesure à laquelle ils se
+réfèrent, tout comme ceux auxquels une valeur de note vient en complément
+au chiffre.
+"
+  doctitlefr = "Nolets au chiffrage inhabituel"

@@ -13,7 +13,7 @@
 @contents
 
 @include macros.itexi
-@include install.itely
+@include contributor/basic-compile.itexi
 
 @bye
 

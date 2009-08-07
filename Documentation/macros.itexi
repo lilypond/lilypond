@@ -1,0 +1,477 @@
+@c -*- coding: us-ascii; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@include version.itexi
+@include common-macros.itexi
+
+
+@c   ***** Displaying text *****
+
+@c To get decent quotes in `foo' and ``foo''.
+
+@macro q{TEXT}
+@quoteleft{}\TEXT\@quoteright{}
+@end macro
+
+@macro qq{TEXT}
+@quotedblleft{}\TEXT\@quotedblright{}
+@end macro
+
+
+@ifhtml
+
+@macro warning{TEXT}
+@cartouche
+@b{Note:} \TEXT\
+@end cartouche
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro warning{TEXT}
+@quotation
+@quotation
+@cartouche
+@b{Note:} \TEXT\
+@end cartouche
+@end quotation
+@end quotation
+@end macro
+
+@end ifnothtml
+
+
+
+@c   ***** Headings in a doc subsection *****
+
+@c Don't insert an empty line after @predefined!  Right now
+@c it doesn't matter, but a future implementation will probably
+@c add some code which needs this restriction.
+
+@macro predefined
+@noindent
+@subsubheading Predefined commands
+@end macro
+
+@c The next macro is a dummy currently since texinfo doesn't
+@c provide a real ragged-right environment yet.
+@c
+@c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
+@c the macro must not be empty.
+
+@macro endpredefined
+@c
+@end macro
+
+
+@macro snippets
+@noindent
+@subsubheading Selected Snippets
+@end macro
+
+
+@c Don't insert an empty line after @seealso!  Otherwise we get
+@c unwanted extra vertical space in the PDF output.
+
+@macro seealso
+@noindent
+@subsubheading See also
+@indent
+@end macro
+
+
+@macro knownissues
+@noindent
+@subsubheading Known issues and warnings
+@end macro
+
+
+
+@c   ***** Links and references *****
+
+@c  Definitions for references:
+@c
+@c     @rglos
+@c     @rlearning
+@c     @ruser
+@c     @ressay
+@c     @rprogram
+@c     @rlsr
+@c     @rinternals
+@c
+@c  All these also have a @...named version which allows to specify the
+@c  displayed text for the reference as second argument.
+@c
+@c ***** HTML + bigpage is a special case (other manual names); all other
+@c formats are treated similarly.
+
+
+@c *** not TeX ***
+
+@ifnottex
+
+@c ** bigpage **
+
+@ifset bigpage
+
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary-big-page,Music Glossary}
+@end macro
+
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Music Glossary}
+@end macro
+
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,learning-big-page,Learning Manual}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,learning-big-page,Learning Manual}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,notation-big-page,Notation Reference}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay-big-page,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Essay}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,application-big-page,Application Usage}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,application-big-page,Application Usage}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,snippets-big-page,Snippets}
+@end macro
+
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,snippets-big-page,Snippets}
+@end macro
+
+@macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,internals-big-page,Internals Reference}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,internals-big-page,Internals Reference}
+@end macro
+
+@end ifset
+
+
+@c ** not bigpage **
+
+@ifclear bigpage
+
+@ifnotinfo
+
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary,Music Glossary}
+@end macro
+
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@end macro
+
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,learning,Learning Manual}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,,learning,Learning Manual}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,notation,Notation Reference}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay,Essay}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,application,Application Usage}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,application,Application Usage}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,snippets,Snippets}
+@end macro
+
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,snippets,Snippets}
+@end macro
+
+@macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,internals,Internals Reference}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,internals,Internals Reference}
+@end macro
+
+@end ifnotinfo
+
+@ifinfo
+
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary,Music Glossary}
+@end macro
+
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@end macro
+
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-notation,Notation Reference}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notation Reference}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-application,Application Usage}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-application,Application Usage}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Snippets}
+@end macro
+
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
+@end macro
+
+@macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
+@end macro
+
+@end ifinfo
+
+@end ifclear
+
+@end ifnottex
+
+
+@c *** TeX ***
+
+@iftex
+
+@c All commands below should work in the middle of the line;
+@c we thus must not use @vindex directly since it works only if placed
+@c on a line of its own.  To overcome this problem, we define a
+@c replacement macro using the internal definition of @vindex which
+@c delimits arguments in the standard way (i.e., with braces).
+
+@tex
+\gdef\lilyvindex#1{\doind{vr}{\code #1}\ignorespaces}
+@end tex
+
+@macro rglos{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,music-glossary,Music Glossary}
+@end macro
+
+@macro rglosnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@end macro
+
+@macro rlearning{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,learning,Learning Manual}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,learning,Learning Manual}
+@end macro
+
+@macro ruser{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,notation,Notation Reference}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@end macro
+
+@macro ressay{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,essay,Essay}
+@end macro
+
+@macro rprogram{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,application,Application Usage}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,application,Application Usage}
+@end macro
+
+@macro rlsr{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,snippets,Snippets}
+@end macro
+
+@macro rlsrnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,snippets,Snippets}
+@end macro
+
+@macro rinternals{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,internals,Internals Reference}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,internals,Internals Reference}
+@end macro
+
+@end iftex
+
+@c  ***** Macros specific to the web site *****
+
+@ifset web
+
+@c LEGALESE
+
+@macro logoLegalLinux
+Tux the Linux Penguin was created by
+@uref{mailto:lewing@@isc.tamu.edu, lewing@@isc.tamu.edu} with
+@uref{http://www.isc.tamu.edu/~lewing/gimp/, the Gnu Image
+Manipulation Program}.
+
+@end macro
+
+@macro logoLegalFreeBSD
+The FreeBSD logo is a registered trademark of
+@uref{http://www.freebsd.org/, The FreeBSD Foundation}.
+
+@end macro
+
+@macro logoLegalMacOSX
+The @qq{X image} is not a registered trademark.  It was created by
+@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} and
+@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, and
+placed under the GNU Free Documentation License version 1.2 or later.
+We found the image on
+@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+this Wikipedia Commons page}.
+
+@end macro
+
+@macro logoLegalWindows
+The @qq{four colored rectangles image} is not a registered
+trademark.  It was created by
+@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} and
+placed under the GNU Free Documentation License version 1.2.  We
+found the image on
+@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+this Wikipedia Commons page}.
+
+@end macro
+
+@end ifset

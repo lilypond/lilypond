@@ -1,0 +1,35 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  doctitlees = "Trucaje de las propiedades de clave"
+  texidoces = "
+La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
+@code{clefGlyph}, @code{clefPosition} (que controla la posición
+vertical de la clave), @code{middleCPosition} y
+@code{clefOctavation}.  Se imprime una clave cada vez que se
+modifica cualquiera de las propiedades excepto
+@code{middleCPosition}.
+
+Observe que la modificación del glifo, la posición de la clave o
+su octavación, no cambian 'per se' la posición de las siguientes
+notas del pentagrama: para hacer esto también se debe especificar
+la posición del Do central.  Los parámetros posicionales están en
+relación con la tercera línea del pentagrama, los números
+positivos desplazan hacia arriba, contando una unidad por cada
+línea y espacio.  El valor de @code{clefOctavation} se
+establecería normalmente a 7, -7, 15 or -15, pero son válidos
+otros valores.
+
+Cuando se produce un cambio de clave en el salto de línea se
+imprime la clave nueva tanto al final de la línea anterior como al
+principio de la nueva, de forma predeterminada.  Si no se necesita
+la clave de advertencia al final de la línea anterior, se puede
+quitar estableciendo el valor de la propiedad
+@code{explicitClefVisibility} de @code{Staff}, a
+@code{end-of-line-invisible}.  El comportamiento predeterminado se
+puede recuperar con @code{\\unset Staff.explicitClefVisibility}.
+
+Los siguientes ejemplos muestran las posibilidades cuando se
+ajustan estas propiedades manualmente.  En la primera línea, los
+cambios manuales preservan el posicionamiento relativo estándar de
+las claves y las notas, pero no lo hacen en la segunda línea.
+"
+  

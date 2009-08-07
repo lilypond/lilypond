@@ -1,0 +1,261 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+
+@ignore
+    Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Plantillas
+@appendix Plantillas
+@translationof Templates
+
+Esta sección del manual contiene plantillas con la partitura de LilyPond
+ya preparada.  Sólo tiene que escribir las notas, lanzar LilyPond y ¡disfrutar de
+unas hermosas partituras impresas!
+
+@c bad node name for ancient notation to avoid conflict
+@menu
+* Pentagrama único::
+* Plantillas de piano::
+* Cuarteto de cuerda::
+* Conjuntos vocales::
+* Plantillas orquestales::
+* Plantillas para notación antigua::
+* Combo de jazz::
+* Plantillas de lilypond-book::
+@end menu
+
+
+@node Pentagrama único
+@appendixsec Pentagrama único
+@translationof Single staff
+
+@appendixsubsec Sólo notas
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-only-notes.ly}
+
+
+@appendixsubsec Notas y letra
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-notes-and-lyrics.ly}
+
+@appendixsubsec Notas y acordes
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes-and-chords.ly}
+
+@appendixsubsec Notas, letra y acordes.
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes,-lyrics,-and-chords.ly}
+
+
+@node Plantillas de piano
+@appendixsec Plantillas de piano
+@translationof Piano templates
+
+@appendixsubsec Piano solo
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-simple.ly}
+
+@appendixsubsec Piano y melodía con letra
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-melody-and-lyrics.ly}
+
+@appendixsubsec Piano con letra centrada
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-lyrics.ly}
+
+@appendixsubsec Piano con dinámicas centradas
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-dynamics.ly}
+
+
+@node Cuarteto de cuerda
+@appendixsec Cuarteto de cuerda
+@translationof String quartet
+
+@appendixsubsec Cuarteto de cuerda
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-simple.ly}
+
+@appendixsubsec Particellas de cuarteto de cuerda
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-with-separate-parts.ly}
+
+
+@node Conjuntos vocales
+@appendixsec Conjuntos vocales
+@translationof Vocal ensembles
+
+@appendixsubsec Partitura vocal SATB
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template.ly}
+
+@appendixsubsec Partitura vocal SATB y reducción para piano automática
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-automatic-piano-reduction.ly}
+
+@appendixsubsec SATB con contextos alineados
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+
+
+@node Plantillas orquestales
+@appendixsec Plantillas orquestales
+@translationof Orchestral templates
+
+@appendixsubsec Orquesta, coro y piano
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{orchestra,-choir-and-piano-template.ly}
+
+
+@c bad node name to avoid node name conflict
+@node Plantillas para notación antigua
+@appendixsec Plantillas para notación antigua
+@translationof Ancient notation templates
+
+@appendixsubsec Transcripción de música mensural
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+
+@appendixsubsec Plantilla para transcripción de canto gregoriano
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+@node Combo de jazz
+@appendixsec Combo de jazz
+@translationof Jazz combo
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{jazz-combo-template.ly}
+
+@node Plantillas de lilypond-book
+@appendixsec Plantillas de lilypond-book
+@translationof lilypond-book templates
+
+Estas plantillas se usan para @code{lilypond-book}.  Si no está familiarizado con este
+programa, consulte @rprogram{LilyPond-book}.
+
+@appendixsubsec LaTeX
+
+Podemos insertar fragmentos de LilyPond dentro de un documento de LaTeX.
+
+@example
+\documentclass[]@{article@}
+
+\begin@{document@}
+
+Texto normal en LaTeX.
+
+\begin@{lilypond@}
+\relative c'' @{
+a4 b c d
+@}
+\end@{lilypond@}
+
+Más texto en LaTeX.
+
+\begin@{lilypond@}
+\relative c'' @{
+d4 c b a
+@}
+\end@{lilypond@}
+\end@{document@}
+@end example
+
+@appendixsubsec Texinfo
+
+Podemos insertar fragmentos de LilyPond dentro de Texinfo; de hecho, todo el presente manual
+está escrito en Texinfo.
+
+@example
+\input texinfo
+@@node Top
+
+Texto en Texinfo
+
+@@lilypond[verbatim,fragment,ragged-right]
+a4 b c d
+@@end lilypond
+
+Más texto en Texinfo
+
+@@lilypond[verbatim,fragment,ragged-right]
+d4 c b a
+@@end lilypond
+
+@@bye
+@end example
+
+
+@appendixsubsec xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%xetex specific stuff
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%Esto puede estar en blanco si no vamos a usar  pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Aquí podemos insertar todos los paquetes que pdftex también entiende
+\usepackage[spanish,ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Un breve documento con LilyPond y xelatex}
+\maketitle
+
+Las instrucciones \textbf{font} normales dentro del \emph{text}
+funcionan, porque \textsf{están contempladas por \LaTeX{} y XeteX.}
+Si quiere usar instrucciones específicas como \verb+\XeTeX+, debe
+incluirlas también dentro de un entorno \verb+\ifxetex+. Puede usar
+esto para imprimir la instrucción \ifxetex \XeTeX{} \else XeTeX \fi
+que no es conocida para el \LaTeX normal.
+
+Dentro del texto normal puede usar fácilmente instrucciones de
+LilyPond, como ésta:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+etcétera.
+
+Las tipografías de los fragmentos establecidas con LilyPond se tendrán
+que ajustar desde dentro del fragmento. Para esto debe leer el manual
+UA en cuanto a cómo usar lilypond-book.
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: __ ______, wenn sie von der Schriftart
+unterst__tzt werden.
+\end{document}
+@end verbatim

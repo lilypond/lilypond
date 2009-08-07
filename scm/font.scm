@@ -1,7 +1,7 @@
 ;;;; font.scm -- construct font trees
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2004--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 ;; TODO:
@@ -28,14 +28,14 @@
 	 qualifier default)
   (make <Font-tree-node>
     #:qualifier qualifier
-    #:default default 
+    #:default default
     #:children (make-hash-table 11)))
 
 (define-method (display (leaf <Font-tree-leaf>) port)
   (map (lambda (x) (display x port))
        (list
 	"#<Font-size-family:\n"
-	(slot-ref leaf 'default-size) 
+	(slot-ref leaf 'default-size)
 	(slot-ref leaf 'size-vector)
 	"#>"
 	)))
@@ -50,7 +50,7 @@
     "(def: "
     (font-default node)
     ") {\n"))
-  (for-each 
+  (for-each
    (lambda (x)
      (display "\n")
      (display (car x) port)
@@ -65,7 +65,7 @@
 (define-method (add-font (node <Font-tree-node>) fprops size-family)
   (define (assoc-delete key alist)
     (assoc-remove! (list-copy alist) key))
-  
+
   (define (make-node fprops size-family)
     (if (null? fprops)
 	(make-font-tree-leaf (car size-family) (cdr size-family))
@@ -151,12 +151,12 @@
      (fetaNumber ,(ly:pt 20.0) ,feta-alphabet-size-vector)
      (fetaMusic ,(ly:pt 20.0)
 		#(,(delay (ly:system-font-load "emmentaler-11"))
-		  ,(delay (ly:system-font-load "emmentaler-13"))		  
+		  ,(delay (ly:system-font-load "emmentaler-13"))
 		  ,(delay (ly:system-font-load "emmentaler-14"))
-		  ,(delay (ly:system-font-load "emmentaler-16"))		  
+		  ,(delay (ly:system-font-load "emmentaler-16"))
 		  ,(delay (ly:system-font-load "emmentaler-18"))
-		  ,(delay (ly:system-font-load "emmentaler-20"))		  
-		  ,(delay (ly:system-font-load "emmentaler-23"))		  
+		  ,(delay (ly:system-font-load "emmentaler-20"))
+		  ,(delay (ly:system-font-load "emmentaler-23"))
 		  ,(delay (ly:system-font-load "emmentaler-26"))))
      (fetaBraces ,(ly:pt 20.0)
 		 #(,(delay (ly:system-font-load "aybabtu")))))))
@@ -178,9 +178,9 @@
 			  (font-shape . ,shape)))
 		       (ly:pt 12)))))))
 
-  (add-node 'upright 'normal) 
-  (add-node 'caps 'normal) 
-  (add-node 'upright 'bold) 
+  (add-node 'upright 'normal)
+  (add-node 'caps 'normal)
+  (add-node 'upright 'bold)
   (add-node 'italic 'normal)
   (add-node 'italic 'bold))
 
@@ -194,8 +194,17 @@
 
 (define-public (make-century-schoolbook-tree factor)
   (make-pango-font-tree
-    "Century Schoolbook L" 
-    "Sans" "Mono" factor))
+    "Century Schoolbook L,serif"
+    "sans-serif" "monospace" factor))
+
+(define-public all-text-font-encodings
+  '(latin1))
+
+(define-public all-music-font-encodings
+  '(fetaBraces
+    fetaDynamic
+    fetaMusic
+    fetaNumber))
 
 (define-public (magstep s)
   (exp (* (/ s 6) (log 2))))

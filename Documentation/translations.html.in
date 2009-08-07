@@ -38,14 +38,14 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Thu Jun 18 16:38:03 UTC 2009
+ <p><i>Last updated Fri Jul 17 16:08:17 UTC 2009
 </i></p>
 <table align="center" border="2">
  <tr align="center">
   <th>New features in 2.13 since 2.12</th>  <th>es</th>
  </tr>
  <tr align="left">
-  <td>Section titles<br>(180)</td>
+  <td>Section titles<br>(212)</td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
@@ -103,24 +103,24 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1 Introduction<br>(3855)</td>
+  <td>1 Introduction<br>(3866)</td>
   <td>Ludovic Sardain<br>
    John Mandereau<br>
    <small>Jean-Charles Malahieude<br>
    Jean-Yves Baudais<br>
    Damien Heurtebise</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #40fe23">partially up to date</span><br>
   </td>
   <td>Till Rettig<br>
    Reinhold Kainhofer<br>
    <small>Hajo Bäß</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td>Yoshiki Sawada<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #40fe23">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -128,7 +128,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>2 Tutorial<br>(6343)</td>
+  <td>2 Tutorial<br>(6368)</td>
   <td>Nicolas Grandclaude<br>
    Ludovic Sardain<br>
    Gauvain Pocentek<br>
@@ -144,7 +144,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Yoshiki Sawada<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #25fe1f">partially up to date</span><br>
+   <span style="background-color: #2cff20">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -152,7 +152,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>3 Fundamental concepts<br>(10318)</td>
+  <td>3 Fundamental concepts<br>(10323)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>John Mandereau</small><br>
@@ -174,7 +174,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>4 Tweaking output<br>(14816)</td>
+  <td>4 Tweaking output<br>(14834)</td>
   <td>Valentin Villenave<br>
    Nicolas Klutchnikoff<br>
    Damien Heurtebise<br>
@@ -197,22 +197,22 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>5 Working on LilyPond projects<br>(4550)</td>
+  <td>5 Working on LilyPond projects<br>(5033)</td>
   <td>Ludovic Sardain<br>
    <small>Jean-Yves Baudais<br>
    Valentin Villenave<br>
    John Mandereau<br>
    Jean-Charles Malahieude</small><br>
-   <span style="background-color: #dfef77">partially translated (68 %)</span><br>
-   <span style="background-color: #d4ff37">partially up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (53 %)</span><br>
+   <span style="background-color: #e8fe39">partially up to date</span><br>
   </td>
   <td>Till Rettig<br>
-   <span style="background-color: #dfef77">partially translated (68 %)</span><br>
-   <span style="background-color: #a5ff31">partially up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (54 %)</span><br>
+   <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td>Yoshiki Sawada<br>
-   <span style="background-color: #dfef77">partially translated (68 %)</span><br>
-   <span style="background-color: #dbff38">partially up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (53 %)</span><br>
+   <span style="background-color: #f6fe3b">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -237,12 +237,12 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>B Scheme tutorial<br>(960)</td>
+  <td>B Scheme tutorial<br>(1222)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #68ff28">partially up to date</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
@@ -328,17 +328,17 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>3 Running LilyPond<br>(2827)</td>
+  <td>3 Running LilyPond<br>(3023)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Reinhold Kainhofer<br>
    Till Rettig<br>
-   <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (97 %)</span><br>
+   <span style="background-color: #68ff28">partially up to date</span><br>
   </td>
   <td>Yoshiki Sawada<br>
-   <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (97 %)</span><br>
+   <span style="background-color: #68ff28">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -425,7 +425,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1.1 Pitches<br>(3145)</td>
+  <td>1.1 Pitches<br>(3155)</td>
   <td>Frédéric Chiasson<br>
    <small>Valentin Villenave<br>
    Jean-Charles Malahieude</small><br>
@@ -442,13 +442,14 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1.2 Rhythms<br>(4772)</td>
+  <td>1.2 Rhythms<br>(4757)</td>
   <td>Frédéric Chiasson<br>
    Jean-Charles Malahieude<br>
    <small>Valentin Villenave<br>
-   Jean-Charles Malahieude</small><br>
+   Jean-Charles Malahieude<br>
+   </small><br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #ff6d58">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -460,7 +461,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1.3 Expressive marks<br>(1393)</td>
+  <td>1.3 Expressive marks<br>(1392)</td>
   <td>Valentin Villenave<br>
    <small>Jean-Charles Malahieude<br>
    John Mandereau</small><br>
@@ -469,7 +470,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #25fe1f">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -512,7 +513,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1.6 Staff notation<br>(1708)</td>
+  <td>1.6 Staff notation<br>(1689)</td>
   <td>Valentin Villenave<br>
    Jean-Charles Malahieude<br>
    <small>John Mandereau</small><br>
@@ -529,7 +530,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1.7 Editorial annotations<br>(905)</td>
+  <td>1.7 Editorial annotations<br>(919)</td>
   <td>Jean-Charles Malahieude<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6f57">partially up to date</span><br>
@@ -544,7 +545,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1.8 Text<br>(2376)</td>
+  <td>1.8 Text<br>(2412)</td>
   <td>Jean-Charles Malahieude<br>
    <small>Valentin Villenave<br>
    John Mandereau</small><br>
@@ -599,7 +600,7 @@ translations.template.html.in; DO NOT EDIT !-->
    <small>Jean-Charles Malahieude<br>
    John Mandereau</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #25fe1f">partially up to date</span><br>
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -725,7 +726,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>3 General input and output<br>(6024)</td>
+  <td>3 General input and output<br>(6170)</td>
   <td>Jean-Charles Malahieude<br>
    Valentin Villenave<br>
    <span style="background-color: #dfef77">partially translated (5 %)</span><br>
@@ -757,7 +758,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>5 Changing defaults<br>(11747)</td>
+  <td>5 Changing defaults<br>(11800)</td>
   <td>Valentin Villenave<br>
    <small>Gilles Thibault</small><br>
    <span style="background-color: #dfef77">partially translated (45 %)</span><br>
@@ -779,7 +780,9 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #dfef77">partially translated (9 %)</span><br>
    <span style="background-color: #83fe2c">partially up to date</span><br>
   </td>
-  <td>   <span style="background-color: #d0f0f8">not translated</span><br>
+  <td>Till Rettig<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -800,15 +803,15 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>B Notation manual tables<br>(1182)</td>
+  <td>B Notation manual tables<br>(611)</td>
   <td>Frédéric Chiasson<br>
    Jean-Charles Malahieude<br>
-   <span style="background-color: #dfef77">partially translated (6 %)</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (12 %)</span><br>
+   <span style="background-color: #97ff2f">partially up to date</span><br>
   </td>
   <td>Till Rettig<br>
-   <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (69 %)</span><br>
+   <span style="background-color: #91ff2e">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -823,7 +826,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #25fe1f">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>

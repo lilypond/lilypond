@@ -1,0 +1,8 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+texidocde = "
+Arpeggio über mehrere Systeme können in anderen Kontexten als dem
+@code{PianoStaff} erstellt werden, wenn der @code{Span_arpeggio_engraver}
+in den @code{Score}-Kontext eingefügt wird.
+
+"
+  doctitlede = "Arpeggio über mehrere Systeme in anderen Kontexten"

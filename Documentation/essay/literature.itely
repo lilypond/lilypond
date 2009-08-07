@@ -1,0 +1,84 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Literature list
+@chapter Literature list
+
+If you need to know more about music notation, here are some
+interesting titles to read.
+
+
+
+@table @cite
+@item Ignatzek 1995
+Klaus Ignatzek, Die Jazzmethode für Klavier. Schott's Söhne
+1995. Mainz, Germany ISBN 3-7957-5140-3.
+
+A tutorial introduction to playing Jazz on the piano.  One of the first
+chapters contains an overview of chords in common use for Jazz music.
+
+@item Gerou 1996
+
+Tom Gerou and Linda Lusk, Essential Dictionary of Music
+Notation. Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6.
+
+A concise, alphabetically ordered list of typesetting and music
+(notation) issues, covering most of the normal cases.
+
+@item Read 1968
+Gardner Read, Music Notation: A Manual of Modern Practice.
+Taplinger Publishing, New York (2nd edition).
+
+A standard work on music notation.
+
+@item Ross 1987
+Ted Ross, Teach yourself the art of music engraving and processing.
+Hansen House, Miami, Florida 1987.
+
+This book is about music engraving, i.e., professional typesetting.
+It contains directions on stamping, use of pens and notational
+conventions.  The sections on reproduction technicalities and history
+are also interesting.
+
+@item Schirmer 2001
+The G.Schirmer/AMP Manual of Style and Usage. G.Schirmer/AMP, NY, 2001.
+(This book can be ordered from the rental department.)
+
+This manual specifically focuses on preparing print for publication by
+Schirmer.  It discusses many details that are not in other, normal
+notation books.  It also gives a good idea of what is necessary to bring
+printouts to publication quality.
+
+@item Stone 1980
+
+Kurt Stone, Music Notation in the Twentieth Century.
+Norton, New York 1980.
+
+This book describes music notation for modern serious music, but
+starts out with a thorough overview of existing traditional notation
+practices.
+
+@end table
+
+The source archive includes a more elaborate Bib@TeX{} bibliography of
+over 100 entries in
+@ifhtml
+@ifset bigpage
+@uref{../bibliography/index.html, the bibliography}.
+@end ifset
+@ifclear bigpage
+@uref{../../bibliography/index.html, the bibliography}.
+@end ifclear
+@end ifhtml
+@ifnothtml
+@file{Documentation/@/bibliography/}.
+@end ifnothtml
+

@@ -1,0 +1,349 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: 5cf864d550e7148412d594cf336841791bff6f76
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Scheme-Übung
+@appendix Scheme-Übung
+@translationof Scheme tutorial
+
+@funindex #
+@cindex Scheme
+@cindex GUILE
+@cindex Scheme, in einer LilyPond-Datei
+@cindex LISP
+
+LilyPond verwendet die Scheme-Programmiersprache sowohl als Teil 
+der Eingabesyntax als auch als internen Mechanismus, um Programmmodule 
+zusammenzufügen.  Dieser Abschnitt ist ein sehr kurzer Überblick über 
+die Dateneingabe mit Scheme.  Wenn Sie mehr über Scheme wissen wollen,
+gehen Sie zu @uref{http://@/www@/.schemers@/.org}.
+
+LilyPond benutzt die GNU Guile-Implementation von Scheme, die auf dem
+@qq{R5RS}-Standard von Scheme basiert.  Wenn Sie Scheme lernen wollen,
+um es innerhalb von LilyPond zu benutzen, wird es nicht empfohlen,
+mit einer anderen Implementation (die sich auf einen anderen
+Standard bezieht) zu arbeiten.  Information zu Guile findet sich
+unter @uref{http://www.gnu.org/software/guile/}.  Der
+@qq{R5RS}-Standard von Scheme befindet sich unter der Adresse
+@uref{http://www.schemers.org/Documents/Standards/R5RS/}.
+
+Die LilyPond-Installation enthält gleichzeitig auch die
+Guile-Implemenation von Scheme.  Auf den meisten Systemen kann
+man in einer Scheme-sandbox experimentieren, indem man ein
+Kommandozeilen-Fenster öffnet und @code{guile} auffruft.  Unter
+einigen Systemen, insbesondere unter Windows, muss man evtl.
+die Umgebungsvariable @code{GUILE_LOAD_PATH} auf das Verzeichnis
+@code{../usr/shr/guile/1.8} innerhalb des LilyPond-Installationsverzeichnisses
+setzen (der vollständige Pfad ist erklärt in @ref{Other sources of information}).
+Alternativ können Windows-Benutzer auch einfach @qq{Ausführen} im
+Startmenü wählen und @code{guile} schreiben.
+
+Das Grundlegendste an einer Sprache sind Daten: Zahlen, Zeichen, 
+Zeichenketten, Listen usw.  Hier ist eine Liste der Datentypen, die für
+LilyPond-Eingabedateien relevant sind.
+
+@table @asis
+@item Boolesche Variablen
+Werte einer Booleschen Variable sind Wahr oder Falsch. Die Scheme-Entsprechung
+für Wahr ist @code{#t} und für Falsch @code{#f}.
+@funindex ##t
+@funindex ##f
+
+@item Zahlen
+Zahlen werden wie üblich eingegeben, @code{1} ist die (ganze) 
+Zahl Eins, während @code{-1.5} ist eine Gleitkommazahl (also 
+eine nicht-ganze).
+
+@item Zeichenketten
+Zeichenketten werden in doppelte Anführungszeichen gesetzt:
+
+@example
+"Das ist eine Zeichenkette"
+@end example
+
+Zeichenketten können über mehrere Zeilen reichen:
+
+@example
+"Das
+ist
+eine Zeichenkette"
+@end example
+
+Anführungszeichen und neue Zeilen können auch mit sogenannten 
+Fluchtsequenzen eingefügt werden. Die Zeichenkette
+@code{a sagt "b"} wird wie folgt eingegeben:
+
+@example
+"a sagt \"b\""
+@end example
+
+Neue Zeilen und Backslashe werden mit @code{\n} bzw. @code{\\}
+eingegeben.
+@end table
+
+In einer Notationsdatei werden kleine Scheme-Abschnitte mit der 
+Raute (@code{#}) eingeleitet. Die vorigen Beispiele heißen also in 
+LilyPond:
+
+@example
+##t ##f
+#1 #-1.5
+#"Das ist eine Zeichenkette"
+#"Das
+ist
+eine Zeichenkette"
+@end example
+
+LilyPond-Kommentare (@code{%} oder @code{%@{ %@}}) können innerhalb
+von Scheme-Code nicht benutzt werden.  Kommentare in Guile Scheme
+werden wie folgt notiert:
+
+@example
+; Einzeiliges Kommentar
+
+#!
+  Guile-Stil Blockkommentar (nicht schachtelbar)
+  Diese Kommentare werden von Scheme-Programmierern
+  selten benutzt und nie im Quellcode
+  von LilyPond
+!#
++@end example
+
+Merere aufeinander folgende Scheme-Ausdrücke in einer Notationsdatei
+können kombiniert werden, wenn man @code{begin} einsetzt.  Das
+erlaubt es, die Anzahl an Rauten auf eins zu begrenzen.
+
+@example
+#(begin
+  (define foo 0)
+  (define bar 1))
+@end example
+
+Wenn @code{#} von einer öffnenden Klammer, @code{(}, gefolgt wird, wie
+in dem Beispiel oben, bleibt der Parser im Scheme-Modus bis eine
+passende schließende Klammer, @code{)}, gefunden wird, sodass keine
+weiteren @code{#}-Zeichen benötigt werden, um einen Scheme-Abschnitt
+anzuzeigen.
+
+Für den Rest dieses Abschnitts nehmen wir an, dass die Daten immer in 
+einer LilyPond-Datei stehen, darum wird immer die Raute verwendet.
+
+Scheme kann verwendet werden, um Berechnungen durchzuführen. Es 
+verwendet eine @emph{Präfix}-Syntax. Um 1 und@tie{}2 zu addieren, muss 
+man @code{(+ 1 2)} schreiben, und nicht @math{1+2}, wie in traditioneller
+Mathematik.
+
+@lisp
+#(+ 1 2)
+  @result{} #3
+@end lisp
+
+Der Pfeil @result{} zeigt an, dass das Ergebnis der Auswertung von 
+@code{(+ 1 2)} @code{3}@tie{}ist. Berechnungen können geschachtelt 
+werden und das Ergebnis einer Berechnung kann für eine neue 
+Berechnung eingesetzt werden.
+
+@lisp
+#(+ 1 (* 3 4))
+  @result{} #(+ 1 12)
+  @result{} #13
+@end lisp
+
+Diese Berechnungen sind Beispiele von Auswertungen. Ein Ausdruck 
+wie @code{(* 3 4)} wird durch seinen Wert @code{12} ersetzt. Ähnlich 
+verhält es sich mit Variablen. Nachdem eine Variable definiert ist:
+
+@example
+zwoefl = #12
+@end example
+
+@noindent
+kann man sie in Ausdrücken weiterverwenden:
+
+@example
+vierundzwanzig = #(* 2 zwoelf)
+@end example
+
+@noindent
+Die 24 wird in der Variablen @code{vierundzwanzig} gespeichert.
+Die gleiche Zuweisung kann auch vollständig in Scheme geschrieben 
+werden:
+
+@example
+#(define vierundzwanzig (* 2 zwoelf))
+@end example
+
+Der @emph{Name} einer Variable ist auch ein Ausdruck, genauso wie 
+eine Zahl oder eine Zeichenkette. Er wird wie folgt eingegeben:
+
+@example
+#'vierundzwanzig
+@end example
+
+@funindex #'symbol
+@cindex Zitieren in Scheme
+
+Das Apostroph @code{'} verhindert, dass bei der Scheme-Auswertung
+ @code{vierundzwanzig} durch @code{24} ersetzt wird. Anstatt dessen erhalten 
+ wir die Bezeichnung @code{vierundzwanzig}.
+
+Diese Syntax wird sehr oft verwendet, weil es manche
+Einstellungsveränderungen erfordern, dass Scheme-Werte einer 
+internen Variable zugewiesen werden, wie etwa
+
+@example
+\override Stem #'thickness = #2.6
+@end example
+
+Diese Anweisung verändert die Erscheinung der Notenhälse. Der Wert 
+@code{2.6} wird der Variable @code{thickness} (Dicke) eines 
+@code{Stem}-(Hals)-Objektes gleichgesetzt. 
+@code{thickness} wird relativ zu den Notenlinien errechnet, in diesem 
+Fall sind die Hälse also 2,6 mal so dick wie die Notenlinien.  Dadurch 
+werden Hälse fast zweimal so dick dargestellt, wie sie normalerweise sind. 
+Um zwischen Variablen zu unterscheiden, die in den Quelldateien direkt 
+definiert werden (wie @code{vierundzwanzig} weiter oben), und zwischen denen, 
+die für interne Objekte zuständig sind, werden hier die ersteren 
+@qq{Bezeichner} genannt, die letzteren dagegen @qq{Eigenschaften}.
+Das Hals-Objekt hat also eine @code{thickness}-Eigenschaft, während 
+@code{vierundzwanzig} ein Bezeichner ist.
+
+@cindex Eigenschaften versus Bezeichner
+@cindex Bezeichner versus Eigenschaften
+
+Sowohl zweidimensionale Abstände (X- und Y-Koordinaten) als auch 
+Größen von Objekten (Intervalle mit linker und rechter Begrenzung) werden 
+als @code{pairs} (Paare) eingegeben. Ein Paar@footnote{In der 
+Scheme-Terminologie wird ein Paar @code{cons} genannt und seine 
+zwei Elemente @code{car} und @code{cdr}.} wird als @code{(erster . zweiter)}
+eingegeben und sie müssen mit dem Apostroph eingeleitet werden, genauso 
+wie Symbole:
+
+@example
+\override TextScript #'extra-offset = #'(1 . 2)
+@end example
+
+Hierdurch wird das Paar (1, 2) mit der Eigenschaft @code{extra-offset}
+des TextScript-Objektes verknüpft. Diese Zahlen werden in 
+Systembreiten  gemessen, so dass der Befehl das Objekt eine Systembreite 
+nach rechts verschiebt und zwei Breiten nach oben.
+
+Die zwei Elemente eines Paares können von beliebigem Inhalt sein, etwa
+
+@example
+#'(1 . 2)
+#'(#t . #f)
+#'("blah-blah" . 3.14159265)
+@end example
+
+Eine Liste wird eingegeben, indem die Elemente der Liste in Klammern 
+geschrieben werden, mit einem Apostroph davor. Beispielsweise:
+
+@example
+#'(1 2 3)
+#'(1 2 "string" #f)
+@end example
+
+Die ganze Zeit wurde hier schon Listen benutzt. Eine Berechnung, 
+wie @code{(+ 1 2)}, ist auch eine Liste (welche das Symbol @code{+} 
+und die Nummern 1 und@tie{}2 enthält. Normalerweise werden Listen 
+als Berechnungen interpretiert und der Scheme-Interpreter ersetzt 
+die Liste mit dem Ergebnis der Berechnung. Um eine Liste an sich 
+einzugeben, muss die Auswertung angehalten werden. Das geschieht, 
+indem der Liste ein Apostroph vorangestellt wird. Für Berechnungen 
+kann man also den Apostroph nicht verwenden.
+
+Innerhalb einer zitierten Liste (also mit Apostroph) muss man keine 
+Anführungszeichen mehr setzen. Im Folgenden ein Symbolpaar, eine 
+Symbolliste und eine Liste von Listen:
+
+@example
+#'(stem . head)
+#'(staff clef key-signature)
+#'((1) (2))
+@end example
+
+
+
+@menu
+* Optimierungen mit Scheme::
+@end menu
+
+@node Optimierungen mit Scheme
+@appendixsec Optimierungen mit Scheme
+@translationof Tweaking with Scheme
+
+Wir haben gesehen wie LilyPond-Eingabe massiv beeinflusst
+werden kann, indem Befehle wie etwa
+@code{\override TextScript #'extra-offset = ( 1 . -1)}
+benutzt werden.  Aber es wurde gezeigt, dass Scheme noch
+mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme-Übung} und in
+@ruser{Schnittstellen für Programmierer}.
+
+Scheme kann auch in einfachen @code{\override}-Befehlen
+benutzt werden:
+
+TODO Find a simple example
+@c This isn't a valid example with skylining
+@c It works fine without padText  -td
+
+@ignore
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+#{
+  \once \override TextScript #'padding = #$padding
+#})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+@end ignore
+
+Es kann auch benutzt werden, um Befehle zu erstellen:
+
+@c Check this is a valid example with skylining
+@c It is - 'padding still works
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded = #(define-music-function (parser location padding tempotext)
+  (number? string?)
+#{
+  \once \override Score.MetronomeMark #'padding = $padding
+  \tempo \markup { \bold $tempotext }
+#})
+
+\relative c'' {
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
+}
+@end lilypond
+
+Sogar ganze Musikausdrücke können eingefügt werden:
+
+@lilypond[quote,verbatim,ragged-right]
+pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+#{
+  $x e8 a b $y b a e
+#})
+
+\relative c''{
+  \pattern c8 c8\f
+  \pattern {d16 dis} { ais16-> b\p }
+}
+@end lilypond
+
+

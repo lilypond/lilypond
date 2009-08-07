@@ -1,0 +1,344 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Vorlagen
+@appendix Vorlagen
+@translationof Templates
+
+Dieser Abschnitt des Handbuches enthält Vorlagen, in denen die 
+LilyPond-Partitur schon eingerichtet ist. Sie müssen nur noch Ihre 
+Noten einfügen, die Datei mit LilyPond übersetzen und sich an dem 
+schönen Notenbild erfreuen!
+
+@c bad node name for ancient notation to avoid conflict
+@menu
+* Ein einzelnes System::
+* Klaviervorlagen::
+* Streichquartett::
+* Vokalensemble::
+* Orchestervorlage::
+* Vorlagen für alte Notation::
+* Jazz-Combo::
+* Lilypond-book-Vorlagen::
+@end menu
+
+
+@node Ein einzelnes System
+@appendixsec Ein einzelnes System
+@translationof Single staff
+
+@appendixsubsec Nur Noten
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-only-notes.ly}
+
+
+@appendixsubsec Noten und Text
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-notes-and-lyrics.ly}
+
+
+@appendixsubsec Noten und Akkordbezeichnungen
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes-and-chords.ly}
+
+
+@appendixsubsec Noten, Text und Akkordbezeichnungen
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes,-lyrics,-and-chords.ly}
+
+
+@node Klaviervorlagen
+@appendixsec Klaviervorlagen
+@translationof Piano templates
+
+@appendixsubsec Piano Solo
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-simple.ly}
+
+
+@appendixsubsec Klavier und Gesangstimme
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-melody-and-lyrics.ly}
+
+
+@appendixsubsec Klavier mit zentriertem Text
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-lyrics.ly}
+
+
+@appendixsubsec Klavier mit zentrierten Lautstärkebezeichnungen
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-dynamics.ly}
+
+
+@node Streichquartett
+@appendixsec Streichquartett
+@translationof String quartet
+
+@appendixsubsec Streichquartett
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-simple.ly}
+
+
+@appendixsubsec Streichquartettstimmen
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-with-separate-parts.ly}
+
+
+@node Vokalensemble
+@appendixsec Vokalensemble
+@translationof Vocal ensembles
+
+@appendixsubsec SATB-Partitur
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template.ly}
+
+
+@appendixsubsec SATB-Partitur und automatischer Klavierauszug
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-automatic-piano-reduction.ly}
+
+
+@appendixsubsec SATB mit zugehörigen Kontexten
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+
+
+@node Orchestervorlage
+@appendixsec Orchestervorlage
+@translationof Orchestral templates
+
+@appendixsubsec Orchester, Chor und Klavier
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{orchestra,-choir-and-piano-template.ly}
+
+
+@c bad node name to avoid node name conflict
+@node Vorlagen für alte Notation
+@appendixsec Vorlagen für alte Notation
+@translationof Ancient notation templates
+
+@appendixsubsec Transkription mensuraler Musik
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+
+
+@appendixsubsec Vorlage zur Transkription von Gregorianik
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+
+@node Jazz-Combo
+@appendixsec Jazz-Combo
+@translationof Jazz combo
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{jazz-combo-template.ly}
+
+
+@ignore
+
+This isn't very useful, and only duplicates material in
+"global issues".  And if this info changes, this section often
+gets forgotten.
+
+@no de Other templates
+@se ction Other templates
+@su bsection All headers
+
+This template displays all available headers.  Some of them are only
+used in the Mutopia project; they don't affect the printed output at
+all.  They are used if you want the piece to be listed with different
+information in the Mutopia database than you wish to have printed on the
+music.  For example, Mutopia lists the composer of the famous D major
+violin concerto as TchaikovskyPI, whereas perhaps you wish to print
+"Petr Tchaikowski" on your music.
+
+@ The `line-width' is for \header.
+@li lypond[quote,verbatim,ragged-right,line-width]
+\version "2.12.0"
+\header {
+  dedication = "dedication"
+  title = "Title"
+  subtitle = "Subtitle"
+  subsubtitle = "Subsubtitle"
+  composer = "Composer (xxxx-yyyy)"
+  opus = "Opus 0"
+  piece = "Piece I"
+  meter = "meter"
+  instrument = "Instrument"
+  arranger = "Arranger"
+  poet = "Poet"
+  texttranslator = "Translator"
+  copyright = "public domain"
+
+  % These are headers used by the Mutopia Project
+  % http://www.mutopiaproject.org/
+  mutopiatitle = ""
+  mutopiacomposer = ""
+  mutopiapoet = ""
+  mutopiainstrument = ""
+  date = "composer's dates"
+  source = "urtext "
+  maintainer = "your name here"
+  maintainerEmail = "your email here"
+  maintainerWeb = "your home page"
+  lastupdated = "2004/Aug/26"
+}
+
+\score {
+  { c'4 }
+  \header {
+    piece = "piece1"
+    opus = "opus1"
+  }
+}
+
+\score {
+  { c'4 }
+  \header {
+    piece = "piece2"
+    opus = "opus2"
+  }
+}
+@end lilypond
+@end ignore
+
+
+@node Lilypond-book-Vorlagen
+@appendixsec Lilypond-book-Vorlagen
+@translationof Lilypond-book templates
+
+Diese Vorlagen können mit @code{lilypond-book} benutzt werden. Wenn 
+Sie dieses Programm noch nicht kennen, lesen Sie bitte den Abschnitt 
+@rprogram{LilyPond-book}.
+
+@appendixsubsec LaTeX
+
+LilyPond-Noten können in LaTeX-Dokumente eingefügt werden.
+
+@example
+\documentclass[]@{article@}
+
+\begin@{document@}
+
+Normaler LaTeX-Ttext.
+
+\begin@{lilypond@}
+\relative c'' @{
+a4 b c d
+@}
+\end@{lilypond@}
+
+Weiterer LaTeX-Text.
+
+\begin@{lilypond@}
+\relative c'' @{
+d4 c b a
+@}
+\end@{lilypond@}
+\end@{document@}
+@end example
+
+@appendixsubsec Texinfo
+
+LilyPond-Noten können auch in Texinfo eingefügt werden -- dieses 
+gesamte Handbuch ist in Texinfo geschrieben.
+
+@example
+\input texinfo
+@@node Top
+
+Texinfo-Text
+
+@@lilypond[verbatim,fragment,ragged-right]
+a4 b c d
+@@end lilypond
+
+Weiterer Texinfo-Text
+
+@@lilypond[verbatim,fragment,ragged-right]
+d4 c b a
+@@end lilypond
+
+@@bye
+@end example
+
+
+@appendixsubsec xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%xetex specific stuff
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%This can be empty if you are not going to use pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Here you can insert all packages that pdftex also understands
+\usepackage[ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{A short document with LilyPond and xelatex}
+\maketitle
+
+Normal \textbf{font} commands inside the \emph{text} work,
+because they \textsf{are supported by \LaTeX{} and XeteX.}
+If you want to use specific commands like \verb+\XeTeX+, you
+should include them again in a \verb+\ifxetex+ environment.
+You can use this to print the \ifxetex \XeTeX{} command \else
+XeTeX command \fi which is not known to normal \LaTeX .
+
+In normal text you can easily use LilyPond commands, like this:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+and so on.
+
+The fonts of snippets set with LilyPond will have to be set from
+inside 
+of the snippet. For this you should read the AU on how to use
+lilypond-book.
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: ß,ł,ã,č,я,щ, wenn sie von der Schriftart
+unterstützt werden.
+\end{document}
+@end verbatim
+

@@ -1,0 +1,22 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+@quotation
+我々はこのプログラムを音楽を通じて出会ったすべての友人達に捧げたいと思います。
+@c We want to dedicate this program to all the friends that we
+@c met through music.
+
+Han-Wen と Jan
+@end quotation
+

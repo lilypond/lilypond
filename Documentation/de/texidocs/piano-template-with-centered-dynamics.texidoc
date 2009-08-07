@@ -1,0 +1,8 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+In der meisten Klaviernotation werden die Dynamikzeichen zwischen 
+den beiden Systemen zentriert. Für LilyPond muss man die Einstellungen 
+etwas anpassen, aber Sie können ja das angepasste Beispiel von hier 
+kopieren.
+"
+

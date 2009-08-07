@@ -13,7 +13,8 @@
   
 LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
 	  1, 0, 0, (SCM obj),
-	  "Type predicate.")
+	  "Is @var{obj} a C++ @code{Prob} object of type"
+	  " @code{paper-system}?")
 {
   return ly_prob_type_p (obj, ly_symbol2scm ("paper-system"));
 }

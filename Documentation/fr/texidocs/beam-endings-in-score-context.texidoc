@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+  texidocfr = "
+Les règles de ligatures définies au niveau du contexte @code{Score}
+s'appliqueront à toutes les portées.  Il est toutefois possible de
+moduler au niveau @code{Staff} ou @code{Voice} :
+
+"
+  doctitlefr = "Définition de règles de ligature pour la partition"

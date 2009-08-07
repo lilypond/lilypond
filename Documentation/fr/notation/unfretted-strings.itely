@@ -1,0 +1,205 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Valentin Villenave, Matthieu Jacquot
+@c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
+@node Cordes non frettées
+@section Cordes non frettées
+@translationof Unfretted string instruments
+
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex cordes d'orchestre
+@cindex orchestre, cordes
+@cindex cordes, écriture pour
+
+Cette section dispense des informations supplémentaires et utiles à
+l'écriture pour les cordes non frettées, et tout spécialement pour les 
+cordes d'orchestre.
+
+@menu
+* Vue d'ensemble de la notation pour cordes non frettées::  
+@end menu
+
+@node Vue d'ensemble de la notation pour cordes non frettées
+@subsection Vue d'ensemble de la notation pour cordes non frettées
+@translationof Common notation for unfretted strings
+
+Il existe peu d'éléments spécifiques à l'écriture pour instruments à
+cordes non frettées.  La musique est notée sur une portée et ne
+nécessite généralement qu'une seule voix.  Le recours à deux voix
+disticntes peut cependant permettre de traiter efficacement des doubles
+notes ou des divisions.  
+
+@menu
+* Références en matière de cordes non frettées::  
+* Indications d'archet::          
+* Harmoniques::                   
+* Snap (Bartók) pizzicato::     
+@end menu
+
+@node Références en matière de cordes non frettées
+@unnumberedsubsubsec Références en matière de cordes non frettées
+@translationof References for unfretted strings
+
+La majorité des éléments de notation nécessaires en matière de
+cordes d'orchestre et autres instruments à archet est abordée dans
+d'autres chapitres de la documentation : 
+
+@itemize
+
+@item Les indications textuelles telles que @qq{pizz.} ou @qq{arco} sont 
+ajoutées comme du texte simple -- voir à ce sujet @ref{Commentaires textuels}.
+
+@item Les indications de doigtés, incluant les indications du pouce,
+sont décrites dans @ref{Doigtés}.
+
+@item Les doubles notes sont généralement indiquées en écrivant un
+accord, voir @ref{Notes en accords}.  Les précisions pour jouer des accords 
+peuvent être ajoutées, comme l'indique @ref{Arpèges}. 
+
+@item Un modèle pour quatuor à cordes est disponible au chapitre 
+@rlearning{Quatuor à cordes}.  D'autres informations se trouvent dans les
+exemples de code. 
+
+@end itemize
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Quatuor à cordes}.
+
+Manuel de notation :
+@ref{Commentaires textuels},
+@ref{Doigtés},
+@ref{Notes en accords},
+@ref{Arpèges}.
+
+Exemples de code :
+@rlsr{Unfretted strings}.
+
+@node Indications d'archet
+@unnumberedsubsubsec Indications d'archet
+@translationof Bowing indications
+
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+
+@cindex indications d'archet
+@cindex poussé, indication d'archet
+@cindex tiré, indication d'archet
+@cindex indication de corde à vide
+@cindex corde à vide, indication
+
+Les indications d'archet se créent comme des articulations, elles sont
+décrites dans @ref{Articulations et ornements}. 
+
+Les indications d'archet, poussé (@code{\upbow}) et tiré
+(@code{\downbow}), peuvent se combiner à des liaisons comme ici : 
+
+@lilypond[verbatim,quote,relative=2]
+c4(\downbow d) e(\upbow f)
+@end lilypond
+
+@noindent
+ou dans l'exemple suivant qui montre trois manières d'indiquer la corde
+de La, à vide, sur un violon : 
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open
+a^\markup { \teeny "II" }
+a2^\markup { \small "sul A" }
+@end lilypond
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}.
+@endpredefined
+
+
+@seealso
+Manuel de notation :
+@ref{Articulations et ornements},
+@ref{Liaisons d'articulation}.
+
+@node Harmoniques
+@unnumberedsubsubsec Harmoniques
+@translationof Harmonics
+
+@funindex \harmonic
+
+@strong{@i{Harmoniques naturels}}
+
+@cindex harmoniques naturels
+@cindex naturels, harmoniques 
+
+Les harmoniques naturels sont indiqués de différentes manières : une
+tête de note en forme de losange signifie généralement que vous devez
+effleurer la corde à l'endroit où vous l'auriez pincée si la note avait
+été normale. 
+
+@warning{Les harmoniques @strong{doivent} être indiqués dans une
+construction de type accord même s'il n'y a qu'une seule note.} 
+
+@c TODO If the default for harmonicDots is changed, change this
+
+La propriété @code{harmonicDots}, lorsqu'elle est activée, permet
+d'ajouter un point point aux notes pointées affublées d'un
+@code{\harmonic}. 
+
+@lilypond[verbatim,quote,relative=2]
+<d\harmonic>4 <e\harmonic>2.
+\set harmonicDots = ##t
+<d\harmonic>4 <e\harmonic>2.
+@end lilypond
+
+Une autre façon de procéder consiste à faire surmonter la note normale
+d'un petit cercle.  Ceci indique que la note écrite doît être jouée en
+harmonique : 
+
+@lilypond[verbatim,quote,relative=2]
+d2^\flageolet d_\flageolet
+@end lilypond
+
+Un plus petit cercle peut être créé, comme indiqué dans les exemples de
+code contenus dans @ref{Références en matière de cordes non frettées}.
+
+@strong{@i{Harmoniques artificiels}}
+
+@cindex harmoniques artificiels
+@cindex artificiels, harmoniques
+
+Les harmoniques artificiels sont indiqués par une double tête de note :
+l'une, normale, indique la note à pincer, et l'autre, en forme de
+losange, indique l'endroit où la corde doit être effleurée. 
+
+@lilypond[verbatim,quote,relative=1]
+<e a\harmonic>2  <c g'\harmonic>
+@end lilypond
+
+@node Snap (Bartók) pizzicato
+@unnumberedsubsubsec Snap (Bartók) pizzicato
+@translationof Snap (Bartók) pizzicato
+
+@cindex pizzicato, Bartók
+@cindex pizzicato, snap
+@cindex Bartók pizzicato
+@cindex snap pizzicato
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{snap-pizzicato-markup-bartok-pizzicato.ly}
+

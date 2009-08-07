@@ -1,0 +1,356 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: da96eee19a7529842725d0c374ea356987100f91
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Till Rettig, Reinhold Kainhofer
+
+@node Setup
+@chapter Setup
+@translationof Setup
+
+In diesem Kapitel werden verschiedene Konfigurationsoptionen für LilyPond und
+andere Programme behandelt, die nach der Installation auszuführen sind. Dieses
+Kapitel kann als Referenz betrachtet werden, lesen Sie einen Abschnitt nur,
+wenn er auf Sie zutrifft.
+
+@menu
+* Setup für bestimmte Betriebssysteme::
+* Unterstützung von Texteditoren::
+* Point and click::
+@end menu
+
+
+@node Setup für bestimmte Betriebssysteme
+@section Setup für bestimmte Betriebssysteme
+@translationof Setup for specific Operating Systems
+
+Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebssysteme.
+
+@menu
+* Einrichtung für MacOS X::
+@end menu
+
+@node Einrichtung für MacOS X
+@subsection Einrichtung für MacOS X
+@translationof Setup for MacOS X
+
+@subsubheading Benutzung von Python-Skripten unter MacOS 10.3 oder 10.4
+
+Das LilyPond-Programmpaket für MacOS X stellt Python nicht zur
+Verfügung, aber Python 2.4 oder höher wird benötigt, um
+Skripte wie @command{convert-ly} zu benutzen.  Wenn Sie MaxOS
+10.3 oder 10.4 besitzen, müssen Sie eine neurere Python-Version
+von @uref{http://python.org/download/} installieren und dann
+die erste Zeile von @command{convert-ly} und @command{lilypond-book}
+auf folgende Weise ändern: Wenn sich das installierte Python-Programm
+in Ihrem @var{PFAD} befindet, muss die erste Zeile heißen:
+
+@example
+#!/usr/bin/env python
+@end example
+
+@noindent
+andernfalls muss sie heißen:
+
+@example
+#!@var{/path/to/newly_installed/python}
+@end example
+
+@subsubheading MacOS X auf der Kommandozeile
+
+Die Skripte (etwa @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly} und sogar @command{lilypond}) befinden sich
+innerhalb der @code{.app}-Datei für MacOS@tie{}X.  Sie können
+auf der Kommandozeile direkt aufgerufen werden, etwa
+
+@example
+@var{Pfad/zu}/LilyPond.app/Contents/Resources/bin/lilypond
+@end example
+
+@noindent
+Entsprechend funktionieren auch die anderen Skripte wie
+@command{lilypond-book}, @command{convert-ly}, @command{abc2ly} usw.
+
+Sie können sich auch selber Skripte anlegen, die diesen Pfad automatisch
+hinzufügen. Erstellen Sie ein Verzeichnis, indem die Skripte gespeichert werden:
+
+@example
+mkdir -p ~/bin
+cd ~/bin
+@end example
+
+Erstellen Sie eine Datei mit dem Namen @code{lilypond} und dem Inhalt
+
+@example
+exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+@end example
+
+Erstellen Sie entsprechende Dateien mit den Namen @code{lilypond-book},
+ @code{convert-ly} und den Namen der anderen Hilfsprogramme, die Sie benutzen
+ (@code{abc2ly}, @code{midi2ly} usw.). Ersetzen Sie einfach den Teil
+ @code{bin/lilypond} mit @code{bin/convert-ly} (oder einem anderen
+ Programmnamen) in der entsprechenden Datei.
+
+Machen Sie die Datei ausführbar:
+
+@example
+chmod u+x lilypond
+@end example
+
+Jetzt müssen Sie dieses Verzeichnis noch zu Ihrem Pfad (PATH) hinzufügen.
+Verändern Sie die Datei @code{.profile} in Ihrem Benutzerverzeichnis
+(oder erstellen Sie sie), dass sie die Zeile
+
+@example
+export PATH=$PATH:~/bin
+@end example
+
+@noindent
+beinhaltet. Die Datei muss mit einer Leerzeile enden.
+
+Beachten Sie, dass @var{Pfad/zu} üblicherweise @code{/Applications/} ist.
+
+
+@node Unterstützung von Texteditoren
+@section Unterstützung von Texteditoren
+@translationof Text editor support
+
+@cindex Editoren
+@cindex vim
+@cindex emacs
+@cindex Modus, Editoren
+@cindex Syntax-Hervorhebung
+@cindex Hervorhebung der Syntax
+
+Verschiedene Texteditoren haben Unterstützung für LilyPond.
+
+@menu
+* Emacs-Modus::
+* Vim-Modus::
+* jEdit::
+* TexShop::
+* TextMate::
+* LilyKDE::
+@end menu
+
+@node Emacs-Modus
+@subsection Emacs-Modus
+@translationof Emacs mode
+
+Emacs hat einen LilyPond-Modus (@file{lilypond-mode}), eine Datei, die
+die Vervollständigung von Befehlen, Einrückungen, für LilyPond spezifische
+Klammerschließungen und die Markierung der Syntax beherrscht.
+Zusätzlich stehen noch praktische Tastaturkombinationen zum
+Programmaufruf und zum Nachschlagen in den Handbüchern zur
+Verfügung. Siehe unten, wenn die Datei @file{lilypond-mode}
+sich nicht auf Ihrem Computer befindet.
+
+Der Emacs-Modus zur Noteneingabe und zum Programmaufruf ist
+in den Emacs-Quellen im @file{elisp}-Verzeichnis enthalten. Mit
+dem Befehl @command{make install} können Sie es nach @var{elispdir}
+installieren. Die Datei @file{lilypond-init.el} sollte in
+ @var{load-path}@file{/site-start.d/} liegen oder Ihrem
+ @file{~/.emacs} or @file{~/.emacs.el} hinzugefügt werden.
+
+Als Benutzer können Sie Ihren Quellenpfad (etwa @file{~/site-lisp/})
+ihrem @var{load-path} hinzufügen, indem Sie folgende Zeile zu Ihrer
+@file{~/.emacs}-Datei hinzufügen:
+
+@c any reason we do not advise:  (push "~/site-lisp" load-path)
+@example
+(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+@end example
+
+
+@node Vim-Modus
+@subsection Vim-Modus
+@translationof Vim mode
+
+Für @uref{http://@/www@/.vim@/.org,VIM} wird ein @file{vimrc} bereitgestellt,
+zusammen mit Werkzeugen zur Syntaxauszeichnung. Ein Vim-Modus zur
+Noteneingabe und zum Programmaufruf befindet sich im Quellarchiv im
+@code{$VIM}-Verzeichnis.
+
+LilyPond-Dateien werden automatisch erkannt, wenn sich in der Datei
+@file{~/.vim/filetype.vim} folgender Inhalt befindet:
+
+@example
+if exists("did_load_filetypes")
+  finish
+endif
+augroup filetypedetect
+  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
+augroup END
+@end example
+
+Fügen Sie den LilyPond-Pfad in ihre
+@file{~/.vimrc}-Datei ein, indem Sie ihre folgende Zeile hinzufügen:
+
+@example
+set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
+@end example
+
+@noindent
+Dabei wird $@{LILYPOND_VERSION@}durch Ihre LilyPond-Version ersetzt. Sollten
+Sie LilyPond nicht nach @file{/usr/local/} installiert haben, müssen Sie den
+Pfad entsprechend anpassen.
+
+
+@node jEdit
+@subsection jEdit
+@translationof jEdit
+
+Das Plugin für den @uref{http://@/www@/.jedit@/.org@/,jEdit}-Texteditor,
+LilyPondTool genannt, ist das vielfältigste textbasierte Werkzeug, um
+LilyPond-Notationsdateien zu editieren. Zu den besonderen Eigenschaften
+gehört ein Dokument-Ersteller mit Liedtextunterstützung, der die Neuerstellung
+von Dateien erleichtert, und ein integriertes PDF-Anzeigeprogramm mit
+@qq{point-and-click}-Unterstützung. Demos, Bildschirmphotos und
+Installationsanweisungen finden sich unter
+@uref{http://lilypondtool@/.organum@/.hu}
+
+
+@node TexShop
+@subsection TexShop
+@translationof TexShop
+
+Der
+@uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}-Editor
+für MacOS@tie{}X kann erweitert werden, um LilyPond, lilypond-book und convert-ly aus dem
+Editor heraus zu starten. Die Erweiterung findet sich unter
+@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
+
+
+@node TextMate
+@subsection TextMate
+@translationof TextMate
+
+Es gibt ein LilyPond-Paket für TextMate. Es kann installiert werden,  indem man
+
+@example
+mkdir -p /Library/Application\ Support/TextMate/Bundles
+cd /Library/Application\ Support/TextMate/Bundles
+svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
+@end example
+
+@noindent
+ausführt.
+
+
+@node LilyKDE
+@subsection LilyKDE
+@translationof LilyKDE
+
+@uref{http://lilykde.googlecode.com/,LilyKDE} ist eine Erweiterung für
+den Texteditor @uref{http://kate-editor.org/,Kate} für KDE. LilyKDE
+beinhaltet einen mächtigen Assistenten, mit dem sehr schnell neue
+LilyPond-Dokumente erstellt werden könne, sowie einen eingebetteten
+PDF-Betrachter.
+
+LilyKDE benutzt auch @uref{http://www.volny.cz/smilauer/rumor/,Rumor},
+um Musik direkt von einem MIDI-Keyboard einzulesen.
+
+Weitere Fähigkeiten von LilyKDE sind Silbentrennung für Liedtexte oder
+die Möglichkeit, LilyPond gleichzeitig mit mehreren Eingabedateien vom
+KDE Dateimanager aus aufzurufen.
+
+
+@node Point and click
+@section Point and click
+@translationof Point and click
+@cindex Point and click
+
+
+Point and click erlaubt es, die Noten in der Quelldatei zu finden, indem man sie
+im PDF anklickt. Das erleichtert es, fehlerhafte Stellen zu finden.
+
+Wenn diese Funktionalität aktiv ist, fügt LilyPond Hyperlinks zum PDF hinzu.
+Diese werden dann bei einem Klick zum Browser geschickt, der wiederum
+einen Texteditor mit dem Cursor an der richtigen Stelle öffnet.
+
+Damit diese Kettenreaktion funktioniert, müssen Sie ihrem PDF-Programm
+mit dem Skript @file{lilypond-invoke-editor} beibringen, Hyperlinks zu folgen.
+
+Im Falle von Xpdf auf einer UNIX-Maschine sollte folgende Zeile in der Datei
+@file{xpdfrc}@footnote{Unter UNIX befindet sich diese Datei entweder in
+@file{/etc/xpdfrc} oder als @file{.xpdfrc} in Ihrem Heim-Verzeichnis.} stehen.
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+Das Programm @file{lilypond-invoke-editor} ist ein kleines Hilfsprogramm.
+Es ruft einen Editor auf für bestimmte @code{textedit}-URIs und startet
+einen Browser für die anderen. Die Umgebungsvariable @code{EDITOR}
+wird für folgende Zeichenketten:
+
+@table @code
+@item emacs
+  das startet
+@example
+emacsclient --no-wait +@var{line}:@var{column} @var{file}
+@end example
+@item vim
+  das startet
+@example
+gvim --remote +:@var{line}:norm@var{char} @var{file}
+@end example
+
+@item nedit
+ das startet
+@example
+  nc -noask +@var{line} @var{file}'
+@end example
+@end table
+
+Die Umgebungsvariable @code{LYEDITOR} wird verwendet, um dieses zu
+überschreiben. Sie enthält den Befehl, um den Editor aufzurufen, wobei
+die Variablen @code{%(file)s},
+@code{%(column)s}, @code{%(line)s} mit der Datei, Spalte und Zeile
+ersetzt werden. Die Einstellung
+
+@example
+emacsclient --no-wait +%(line)s:%(column)s %(file)s
+@end example
+
+@noindent
+für @code{LYEDITOR} etwa entspricht dem von vornherein eingestellten
+Emacs-Aufruf.
+
+
+@cindex Dateigröße, Ausgabedatei
+
+Die point and click-Links vergrößern die Notationsdatei erheblich. Um die
+Größe der PDF- und PS-Dateien zu verringern, kann point and click
+ausgeschaltet werden, indem die Zeile
+
+@example
+\pointAndClickOff
+@end example
+
+@noindent
+in der @file{.ly}-Datei gesetzt wird. Point and Click kann auch explizit
+eingeschaltet werden durch die Zeile:
+
+@example
+\pointAndClickOn
+@end example
+
+Alternativ können Sie Point and Click auch mit einer
+Kommandozeilenoption ausschalten:
+
+@example
+lilypond -dno-point-and-click file.ly
+@end example
+
+@warning{Sie sollten Point and Click immer für Dateien ausschalten, die
+Sie an andere Personen weitergeben möchten. Anderenfalls werden
+Pfadinformationen Ihres Computers in die PDF-Datei kopiert, was ein
+potentielles Sicherheitsrisiko darstellt.}

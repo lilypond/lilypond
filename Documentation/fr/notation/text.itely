@@ -1,0 +1,804 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Jean-Charles Malahieude
+@c Translation checkers: Valentin Villenave, John Mandereau
+
+@node Texte
+@section Texte
+@translationof Text
+
+@lilypondfile[quote]{text-headword.ly}
+
+Nous allons voir ici comment insérer dans une partition du texte, avec
+différentes possibilité de formatage.
+
+@cindex Texte, autres langues
+Pour écrire des accents et autres caractères spéciaux, il suffit de
+les insérer directement dans votre fichier LilyPond.  Ce fichier devra
+être sauvegardé avec l'encodage UTF-8.  Pour plus d'informations, voir
+@ref{Codage du texte}.
+
+@menu
+* Ajout de texte::                
+* Mise en forme du texte::             
+* Fontes::                       
+@end menu
+
+
+@node Ajout de texte
+@subsection Ajout de texte
+@translationof Writing text
+
+@menu
+* Commentaires textuels::                
+* Indications textuelles et lignes d'extension::      
+* Extensions de texte::               
+* Indications textuelles::                  
+@end menu
+
+@node Commentaires textuels
+@unnumberedsubsubsec Commentaires textuels
+@translationof Text scripts
+
+@c I'm not fond of this "étiquette" wording of yours Jean-Charles;
+@c j'utiliserais simplement l'expression "bloc \markup" afin
+@c d'éviter toute confusion avec les \tags (qui méritent davantage
+@c le titre d'étiquette, stricto sensu) -vv
+
+@cindex Étiquette de texte
+@cindex blocs de texte
+@cindex ajout de texte
+
+Vous pouvez placer arbitrairement des chaînes de caractères, ou
+@ref{Mise en forme du texte} en langage LilyPond, au dessus ou au dessous des
+notes en employant la syntaxe @code{c^"text"}.  Par défaut, ces
+indications n'affecteront en rien l'espacement des notes, sauf à
+utiliser la commande @code{\textLengthOn}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c4^"longtext" \textLengthOn c4_"longlongtext" c4
+@end lilypond
+
+@noindent
+Pour revenir à l'espacement par défaut, utilisez @code{\textLengthOff}.
+
+Des constructions plus élaborées d'étiquette peuvent être obtenues en
+ayant recours à la commande @emph{markup} :
+
+@lilypond[fragment,ragged-right,verbatim,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+La commande @code{\markup} est décrite plus en détails dans la section
+@ref{Mise en forme du texte}.
+
+
+@predefined
+@funindex \textLengthOn
+@code{\textLengthOn},
+@funindex \textLengthOff
+@code{\textLengthOff}.
+@endpredefined
+
+
+@commonprop
+
+S'assurer que tous les éléments textuels et les paroles respectent
+les marges du document requiert des calculs relativement lourds ; c'est
+la raison pour laquelle LilyPond, par défaut, ne s'en préoccupe pas.
+Vous pouvez cependant l'y forcer en définissant
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+
+@seealso
+Dans ce manuel : @ref{Mise en forme du texte}.
+
+Référence du programme : @rinternals{TextScript}.
+
+
+@node Indications textuelles et lignes d'extension
+@unnumberedsubsubsec Indications textuelles et lignes d'extension
+@translationof Text and line spanners
+
+Certaines indications d'interprétation comme @i{rallentando}, 
+@i{accelerando} ou @i{trilles}, s'incrivent textuellement et se
+prolongent sur plusieurs mesures à l'aide d'une ligne pleine, pointillée
+ou ondulée.
+
+Les routines chargées de matérialiser un @emph{glissando} sont tout à
+fait adaptées à une gestion précise, à la fois du placement du texte, et
+du calcul de l'envergure de sa ligne d'extension.  La routine
+@code{ly:line-interface::print} est plus particulièrement en charge de
+déterminer les points d'ancrage de la ligne et de la dessiner selon le
+style requis.
+  
+Voici un exemple qui illustre les différents styles de ligne
+disponibles, ainsi que la manière de les personnaliser.
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+d2 \glissando d'2
+\once \override Glissando #'style = #'dashed-line
+d,2 \glissando d'2
+\override Glissando #'style = #'dotted-line
+d,2 \glissando d'2
+\override Glissando #'style = #'zigzag
+d,2 \glissando d'2
+\override Glissando #'style = #'trill
+d,2 \glissando d'2
+@end lilypond
+
+L'information qui va déterminer les extrémités est calculée à la
+volée pour chaque objet graphique.  Il est tout à fait possible de les
+régler vous-même :
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+e2 \glissando f
+\once \override Glissando #'(bound-details right Y) = #-2
+e2 \glissando f
+@end lilypond
+
+L'objet @code{Glissando}, comme tous ceux qui utilisent la routine
+@code{ly:line-interface::print}, comporte une liste 
+d'associations.  Dans le code ci-dessus, la valeur de @code{Y} est
+fixée, dans la liste d'associations, à @code{-2} pour l'ancrage à
+droite.  Vous pouvez naturellement ajuster l'extrémité gauche en
+remplaçant @code{right} (pour @code{droite}) par @code{left}.
+
+Si @code{Y} n'est pas fixé, sa valeur sera calculée en fonction de la
+hauteur du point de référence droite de la ligne.
+
+Lorsque survient un saut de ligne, la liste des ancrages est
+augmentée d'une liste complémentaire contenant @code{left-broken}
+(brisure à gauche) et @code{right-broken} (brisure à droite), comme
+dans l'exemple suivant :
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+\override Glissando #'breakable = ##T 
+\override Glissando #'(bound-details right-broken Y) = #-3
+c1 \glissando \break
+f1
+@end lilypond
+
+Vous disposez des propriétés suivantes :
+
+@table @code
+@item Y
+Fixe l'ordonnée (coordonnée-Y) de l'extrémité, mesurée en taille de
+portée.  Il s'agit par défaut du centre de l'objet de rattachement ;
+pour un glissando, ce sera le milieu de la tête de note.
+
+Pour des marques horizontales, telles du texte ou le trait d'un
+trille, cette valeur est figée à 0.
+
+@item attach-dir
+Détermine l'endroit où la ligne commence et finit, relativement à
+l'objet de rattachement. Autrement dit, une valeur de @code{-1} (ou
+@code{LEFT} pour gauche) fera commencer ou finir la ligne du côté
+gauche de la tête de note de référence.
+
+@item X
+Coordonnée absolue du point final. Dans la mesure où elle est calculée
+à la volée, il n'y a pas vraiment de raison de l'outrepasser.
+
+@item stencil
+Sous-propriété contenant les éventuels symboles présents avant ou
+après la ligne. Destinée à un usage interne, nous vous recommendons
+d'utiliser plutôt @code{text}.
+
+@item text
+Marqueur qui sera analysé pour alimenter @code{stencil}.  On y trouve
+habituellement les @i{cresc.} ou @i{tr} des extenseurs horizontaux.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override TextSpanner #'(bound-details left text)
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
+@end lilypond
+
+@item stencil-align-dir-y
+@item stencil-offset
+Lorsqu'ils ne sont pas définis, le tracé est tout simplement
+positionné conformément aux sous-propriétés @code{X} et @code{Y}.  En
+fixant soit @code{stencil-align-dir-y}, soit @code{stencil-offset},
+vous pouvez décaler le coin du marqueur par rapport à l'extrémité de
+la ligne.
+
+@lilypond[relative=1,fragment,verbatim]
+\override TextSpanner #'(bound-details left stencil-align-dir-y) = #DOWN
+\override TextSpanner #'(bound-details right stencil-align-dir-y) = #UP
+
+\override TextSpanner #'(bound-details left text) = #"gggg"
+\override TextSpanner #'(bound-details right text) = #"hhhh"
+c4^\startTextSpan c c c \stopTextSpan
+@end lilypond
+
+@item arrow
+Assigner à cette sous-propriété la valeur @code{vrai} (@code{#t})
+produira une terminaison en pointe de flèche.
+
+@item padding
+Cette sous-propriété contrôle l'espace entre les extrémités de la
+ligne, telles que définies, et la réalité.  Sans ce léger décalage, le
+début et la fin d'un glissando seraient en plein milieu des têtes de note.
+
+@end table
+
+
+@seealso
+Référence du programme : @rinternals{TextSpanner},
+@rinternals{Glissando}, @rinternals{VoiceFollower},
+@rinternals{TrillSpanner}, @rinternals{line-spanner-interface}.
+
+Exemples : @rlsr{Expressive marks}.
+
+
+@node Extensions de texte
+@unnumberedsubsubsec Extensions de texte
+@translationof Text spanners
+
+@cindex Prolongateurs de texte
+
+Certaines indications d'interprétation comme @i{rallentando} ou 
+@i{accelerando} s'incrivent en toutes lettres et se prolongent sur
+plusieurs mesures grâce à une ligne pointillée.  Les commandes
+@code{\startTextSpan} et @code{\stopTextSpan}, respectivement
+attachées à la première et à la dernière note qu'elles concernent,
+déterminent l'envergure de ces prolongateurs, ou extenseurs.
+
+La chaîne à imprimer, ainsi que son style, sont définis par des
+propriétés, comme ici :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c1
+\textSpannerDown
+\override TextSpanner #'(bound-details left text) =
+  \markup { \upright "rall" } 
+c2\startTextSpan b c\stopTextSpan a
+\break
+\textSpannerUp
+\override TextSpanner #'(bound-details left text) =
+  \markup { \italic "rit" } 
+c2\startTextSpan b c\stopTextSpan a
+@end lilypond
+
+
+@predefined
+@funindex textSpannerUp
+@code{\textSpannerUp},
+@funindex textSpannerDown
+@code{\textSpannerDown},
+@funindex textSpannerNeutral
+@code{\textSpannerNeutral}.
+@endpredefined
+
+
+@commonprop
+
+Pour obtenir une ligne pleine, utilisez
+
+@example
+\override TextSpanner #'style = #'line
+@end example
+
+
+@seealso
+Référence du programme : @rinternals{TextSpanner}.
+
+
+@node Indications textuelles
+@unnumberedsubsubsec Indications textuelles
+@translationof Text marks
+
+@cindex coda sur une barre de mesure
+@cindex segno sur une barre de mesure
+@cindex point d'orgue sur une barre de mesure
+@cindex barres de mesure, symboles au dessus de
+@funindex \mark
+
+La commande @code{\mark} est tout d'abord conçue pour les
+@ref{Indications de repère}.  Elle peut néanmoins servir à insérer des
+signes de coda ou de segno, ou bien un point d'orgue, au dessus d'une
+barre de mesure.  Couplez-la alors à la commande @code{\markup} pour
+avoir accès au symbole approprié (ils sont répertoriés dans 
+@ref{La fonte Feta}).
+
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+Le résultat de @code{\mark} n'apparaîtra que sur la portée supérieure
+d'un système.  Si vous introduisez la commande @code{\mark} au moment
+d'une barre de mesure, la marque se placera au dessus de la barre.  Si
+vous y faites appel au milieu d'une mesure, cette marque sera
+positionnée entre les notes.  Si elle intervient en début de ligne,
+elle sera placée juste avant la première note de cette portée.  Enfin,
+une marque qui tomberait sur un saut de ligne sera imprimée au début
+de la ligne suivante.
+@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
+@c  delete this sentence.   -gp
+Au cas où il n'y aurait pas de ligne à suivre, la marque ne sera pas imprimée.
+
+
+@commonprop
+
+Pour imprimer une marque à la fin de la portée en cours, procédez
+ainsi :
+
+@example
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+@end example
+
+@code{\mark} est souvent bien utile pour porter une indication à la
+fin d'une mesure.  Pensez alors à modifier la propriété
+@code{#'self-alignment}.  
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+c1 c c c4 c c c
+\once \override Score.RehearsalMark #'self-alignment-X = #right
+\mark "D.S. al Fine "
+@end lilypond
+
+Les indications textuelles peuvent s'aligner par rapport à d'autres
+objets que des barres de mesure, tels que l'armure, la clé ou le chiffre de
+mesure : 
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\relative {
+  c1
+  \key cis \major
+  \clef alto
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  \mark "on key"
+  cis
+  \key ces \major
+  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
+  \clef treble
+  \mark "on clef"
+  ces
+  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+  \key d \minor
+  \clef tenor
+  \time 3/4
+  \mark "on time"
+  c
+}
+@end lilypond
+
+Les symboles pris en charge par @code{break-align-symbols} sont :
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
+@code{key-signature}, et @code{time-signature}.
+
+Par défaut, les indications textuelles sont alignées avec le milieu
+des objets de notation. Bien entendu, vous pouvez modifier les
+propriétés @code{break-align-anchor-alignment} ou
+@code{break-align-anchor} des objets en question pour obtenir un autre
+résultat.
+
+@c KEEP LY
+@lilypond[fragment,quote,ragged-right,verbatim]
+{
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  c1
+  \key cis \major
+
+  % La marque sera alignée sur le côté gauche de l'armure
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #LEFT
+  \mark \default
+  cis1
+  \key ces \major
+
+  % La marque sera alignée sur le côté droit de l'armure
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #RIGHT
+  \mark \default
+  ces1
+  \key cis \major
+
+  %  La marque sera alignée sur le côté gauche de l'armure,
+  % puis décalée vers la droite de 2 unités.
+  \once \override Staff.KeySignature #'break-align-anchor = #2
+  \mark \default
+  ces1
+}
+@end lilypond
+
+Bien que ces indications textuelles ne soient habituellement imprimées
+qu'au niveau de la portée supérieure, vous pouvez forcer leur
+affectation à chacune des portées :
+
+@lilypond[quote,ragged-right,verbatim,relative=2]
+{
+  \new Score \with {
+    \remove "Mark_engraver"
+  }
+  <<
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c''1 \mark "foo" c'' }
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c'1 \mark "foo" c' }
+  >>
+}
+@end lilypond
+
+
+@seealso
+Référence du programme : @rinternals{RehearsalMark}.
+
+
+@node Mise en forme du texte
+@subsection Mise en forme du texte
+@translationof Formatting text
+
+@menu
+* Introduction au formatage de texte::    
+* Partitions emboîtées::               
+* Texte avec sauts de page::          
+@end menu
+
+@node Introduction au formatage de texte
+@unnumberedsubsubsec Introduction au formatage de texte
+@translationof Text markup introduction
+
+@cindex étiquette
+@cindex commentaire textuel
+@cindex étiquette textuelle
+@cindex texte ajouté
+
+La commande @code{\markup} permet d'ajouter du texte.  Vous pouvez y
+inclure des commandes, précédées d'un antislash @code{\} ; les
+caractères @code{\} et @code{#} doivent être encadrés de guillemets
+informatiques @code{"}.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup { hello }
+c1_\markup { hi there }
+c1^\markup { hi \bold there, is \italic {anyone home?} }
+c1_\markup { "\special {weird} #characters" }
+@end lilypond
+
+@noindent
+Pour une liste des différentes commandes disponibles, consultez
+@ref{Text markup commands}. 
+
+
+@code{\markup} est avant tout conçu pour gérer les
+@rinternals{TextScript}s, mais rien ne s'oppose à son utilisation
+pour traiter du texte avec LilyPond.
+
+@lilypond[quote,verbatim]
+\header{ title = \markup{ \bold { foo \italic { bar! } } } }
+\score{
+  \relative c'' {
+    \override Score.RehearsalMark
+      #'break-visibility = #begin-of-line-invisible
+    \override Score.RehearsalMark #'self-alignment-X = #right
+
+    \set Staff.instrumentName = \markup{ \column{ Alto solo } }
+    c2^\markup{ don't be \flat }
+    \override TextSpanner #'(bound-details left text) = \markup{\italic rit }
+    b2\startTextSpan
+    a2\mark \markup{ \large \bold Fine }
+    r2\stopTextSpan
+    \bar "||"
+  }
+  \addlyrics { bar, foo \markup{ \italic bar! } }
+}
+@end lilypond
+
+La commande @code{\markup} peut intervenir à tout moment, y compris en
+dehors d'un bloc @code{\score}. Voir à ce sujet 
+@ref{Plusieurs partitions dans un même ouvrage}. 
+
+@lilypond[quote,ragged-right,verbatim]
+\markup{ Here is some text. }
+@end lilypond
+
+@cindex changer de police
+
+Le @emph{markup} de l'exemple précédent montre comment utiliser les
+commandes de changement de police. Les commandes @code{\bold} et
+@code{\italic} n'affectent que le premier mot qui les suit ; encadrez
+les par des accolades si vous désirez que ces commandent s'appliquent
+à plusieurs mots.
+
+@example
+\markup @{ \bold @{ c'est moi @} @}
+@end example
+
+@noindent
+Une bonne habitude à prendre consiste à utiliser des accolades même
+pour un seul mot, comme ici :
+@example
+\markup @{ qui \italic @{ est @} là ? @}
+@end example
+
+En mode @emph{markup}, vous pouvez composer des expressions comme
+en mathématiques, des documents XML ou bien les expressions musicales.
+Vous pouvez empiler ces expressions grâce à la commande
+@code{\column}, ou les centrer par rapport à leur milieu avec
+@code{\center-column}. 
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup { \column { a bbbb \line { c d } } }
+c1^\markup { \center-column { a bbbb c } }
+c1^\markup { \line { a b c } }
+@end lilypond
+
+Des listes non précédées de commande ne sont pas isolées. Ainsi, 
+@example
+\center-column @{ @{ a b @} @{ c d @} @}
+@end example
+
+@noindent
+
+est la même expression que
+
+@example
+\center-column @{ a b c d @}
+@end example
+
+@noindent
+
+L'utilisation des @code{"} ou de la commande @code{\line} permet de
+différencier les listes de mots.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\textLengthOn
+c4^\markup{ \center-column { on three lines } }
+c4^\markup{ \center-column { "all one line" } }
+c4^\markup{ \center-column { { on three lines } } }
+c4^\markup{ \center-column { \line { on one line } } }
+@end lilypond
+
+Vous pouvez stocker les étiquettes textuelles en tant que variables,
+et attacher ces identificateurs à des notes, comme
+@example
+allegro = \markup @{ \bold \large @{ Allegro @} @}
+ @{ a^\allegro b c d @}
+@end example
+
+Certains objets possèdent leurs propres procédures d'alignement, qui
+annuleront toute spécification d'alignement que vous pourriez affecter
+à un argument de type @emph{markup} que vous leur auriez fourni.  Par
+exemple, les @rinternals{RehearsalMark} sont centrées
+horizontalement ; de fait, utiliser 
+@code{\mark \markup @{ \left-align .. @}} sera sans effet.
+
+Par ailleurs, le placement vertical n'est effectué qu'après la
+création de l'objet @emph{étiquette textuelle}. Si donc vous souhaitez
+déplacer une étiquette, il vous faudra utiliser la propriété
+@code{#'padding} ou créer un @qq{point d'ancrage} à l'intérieur même
+de l'étiquette (généralement avec @code{\hspace #0}).
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\textLengthOn
+c'4^\markup{ \raise #5 "not raised" }
+\once \override TextScript #'padding = #3
+c'4^\markup{ raised }
+c'4^\markup{ \hspace #0 \raise #1.5 raised }
+@end lilypond
+
+Certaines situations particulières, telles que les indications de
+nuance, possèdent des propriétés prédéfinies quant à leur police.
+Nous vous conseillons, en pareil cas, de réinitialiser ces propriétés
+en utilisant @code{normal-text}.  Pour plus d'informations, consultez
+@ref{Text markup commands}. 
+
+
+@seealso
+Dans ce manuel : @ref{Text markup commands}.
+
+Référence du programme : @rinternals{TextScript}.
+
+Fichiers d'initialisation : @file{scm/@/new@/-markup@/.scm}.
+
+
+@knownissues
+
+Le crénage ou la génération de ligatures ne sont accessibles que lors
+d'un retraitement par @TeX{}.  Dans ce cas, LilyPond n'en tient pas
+compte, et l'espacement de tels textes sera trop large.
+
+Les erreurs de syntaxe sont peu loquaces.
+
+
+@node Partitions emboîtées
+@unnumberedsubsubsec Partitions emboîtées
+@translationof Nested scores
+
+Rien ne s'oppose à ce qu'une étiquette ne comporte de la musique.  Il
+suffit que l'expression en question contienne un bloc @code{\score} et
+un bloc @code{\layout}.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  c4 d^\markup {
+    \score {
+      \relative { c4 d e f }
+      \layout { }
+    }
+  }
+  e f
+}
+@end lilypond
+
+@node Texte avec sauts de page
+@unnumberedsubsubsec Texte avec sauts de page
+@translationof Page wrapping text
+Alors que @code{\markup} s'utilise pour traiter un bloc de texte
+insécable, @code{\markuplines} permet, employé en tête de partition,
+d'obtenir un bloc de lignes réparties différemment et au cas où sur
+plusieurs pages.
+
+@verbatim
+\markuplines {
+  \justified-lines {
+    Un long texte constitué de lignes justifiées.
+    ...
+  }
+  \justified-lines {
+    Un autre grand paragraphe justifié.
+    ...
+  }
+  ...
+}
+@end verbatim
+
+@code{\markuplines} prend en argument une liste de lignes de texte,
+qui peut elle-même consister en une suite de commandes générant à leur
+tour des lignes de texte, comme ici :
+
+@verbatim
+\markuplines {
+  \line { ... }    % une ligne alignée à gauche
+  \fill-line { \line { ... } } % une ligne centrée
+  \wordwrap-lines { ... } % une liste de lignes alignées à gauche
+  \justified-lines { ... } % une liste de lignes justifiées
+}
+@end verbatim
+
+Les différentes commandes permettant de générer des listes de lignes
+se trouve dans @ref{Text markup list commands}.
+
+
+@seealso
+Dans ce manuel : @ref{Text markup list commands}, 
+@ref{Définition d'une nouvelle commande de liste de marqueurs}.
+
+
+@predefined
+@funindex \markuplines
+@code{\markuplines}.
+@endpredefined
+
+
+@node Fontes
+@subsection Fontes
+@translationof Fonts
+
+@cindex sélection de polices
+@cindex grossissement des polices
+@funindex font-interface
+
+C'est en jouant sur les propriétés des objets décrites ci-après que
+vous pourrez sélectionner une police parmi les familles de fontes
+préconfigurées.  LilyPond utilise par défaut la police musicale feta.
+Pour le texte, les polices sont sélectionnées par Pango/Fontconfig.
+C'est New Century Schoolbook qui sert de police sérif par défaut, et
+celles définies lors de l'installation de Pango pour ce qui est du
+sans-serif et du @q{typewriter}.
+
+
+@itemize @bullet
+@item @code{font-encoding}
+symbolise le tracé des glyphes. N'utilisez cette propriété que pour
+traiter des éléments non textuels, comme :
+
+
+@code{fetaBraces} pour les accolades de partition pianistique,
+@code{fetaMusic} pour de la musique (y compris musique ancienne),
+@code{fetaDynamic} pour les nuances et @code{fetaNumber} pour les
+chiffres. 
+
+@item @code{font-family}
+symbolise les différentes familles de police : @code{roman} (Computer
+Modern), @code{sans}-serif et @code{typewriter} (espacement fixe).
+
+@item @code{font-shape}
+symbolise le style des caractères. En pratique, chaque famille de
+police dispose de @code{italic}, @code{caps} (petites capitales) ou
+@code{upright} (droit).
+
+@item @code{font-series}
+symbolise le niveau de gras des caractères. Chaque style dispose, pour
+chaque famille, de @code{medium} et @code{bold} (gras).
+
+@end itemize
+
+Les variantes ci-dessus mentionnées font référence à une feuille de
+style prédéfinie.  Vous pouvez cependant faire appel à une autre
+police, en utilisant la propriété @code{font-name} :
+
+@lilypond[fragment,verbatim]
+{
+  \override Staff.TimeSignature #'font-name = #"Charter"
+  \override Staff.TimeSignature #'font-size = #2
+  \time 3/4
+  c'1_\markup {
+    \override #'(font-name . "Vera Bold")
+      { This text is in Vera Bold }
+  }
+}
+@end lilypond
+
+@noindent
+Vous pouvez utiliser n'importe quelle police, du moment qu'elle est
+accessible par Pango/Fontconfig.  Pour obtenir la liste de toutes
+les polices disponibles sur votre machine, lancez
+@example
+lilypond -dshow-available-fonts blabla
+@end example
+(quel qu'il soit, le dernier argument est obligatoire).
+
+
+La propriété @code{font-size} permet de régler la taille de la police.
+La taille effective que vous obtiendrez dépend de
+@code{text-font-size} tel que défini dans le bloc @code{\paper}.
+
+@cindex taille de police
+@cindex police, augmenter la taille
+
+
+Vous pouvez aussi changer la police par défaut au niveau du document.
+Il suffit alors de faire appel à @code{make-pango-font-tree} au sein
+du bloc @code{paper}.  Vous définirez alors la police à utiliser pour
+du texte respectivement en roman, sans serif et monospace, comme ici : 
+
+@cindex polices, définir 
+@cindex Pango
+
+
+@lilypond[verbatim]
+\paper  {
+  myStaffSize = #20
+
+  #(define fonts
+    (make-pango-font-tree "Times New Roman"
+                          "Nimbus Sans"
+                          "Luxi Mono"
+                           (/ myStaffSize 20)))
+}
+
+{
+  c'^\markup { roman: foo \sans bla \typewriter bar }
+}
+@end lilypond
+
+@c we don't do Helvetica / Courier, since GS incorrectly loads
+@c Apple TTF fonts
+
+
+@seealso
+Exemples : @rlsr{Text}.
+

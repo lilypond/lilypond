@@ -8,6 +8,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; backend helpers.
 
+(use-modules (scm ps-to-png)
+	     (ice-9 optargs))
+
 (define-public (ly:system command . rest)
   (let* ((status 0)
 	 (dev-null "/dev/null")
@@ -118,8 +121,6 @@
     (ly:progress "\n")
     (ly:system cmd)))
 
-(use-modules (scm ps-to-png))
-
 (define-public (postscript->png resolution paper-width paper-height name)
   (let* ((verbose (ly:get-option 'verbose))
 	 (rename-page-1 #f))
@@ -189,3 +190,26 @@
       scope)))
   (apply string-append (map output-scope scopes)))
 
+(define missing-stencil-list '())
+
+(define-public (backend-testing output-module)
+  (define (missing-stencil-expression name)
+    (begin
+      (ly:warning (_ "missing stencil expression `~S'") name)
+      ""))
+
+  (map (lambda (x)
+	 (if (not (module-defined? output-module x))
+	     (begin
+	       (module-define! output-module x
+			       (lambda* (#:optional y . z)
+				 (missing-stencil-expression x)))
+	       (set! missing-stencil-list (append (list x)
+						  missing-stencil-list)))))
+       (ly:all-stencil-commands)))
+
+(define-public (remove-stencil-warnings output-module)
+  (for-each
+    (lambda (x)
+      (module-remove! output-module x))
+    missing-stencil-list))

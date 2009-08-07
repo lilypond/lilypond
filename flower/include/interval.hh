@@ -121,7 +121,7 @@ struct Interval_t : public Drul_array<T>
 
   static bool left_less (Interval_t<T> const &a, Interval_t<T> const &b)
   {
-    return a[LEFT] < b[RIGHT];
+    return a[LEFT] < b[LEFT];
   }
 };
 

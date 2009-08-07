@@ -1,0 +1,1043 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Notation manual tables
+@appendix Notation manual tables
+
+@c Please do not delete the following @ignore block.
+@ignore
+Note for editors and translators: In the following menu, two entries
+are needed to link to a pair of automatically generated sections.
+Please keep them and, if using emacs, do not run
+texinfo-all-menus-update without manually restoring them back. These
+menu entries are:
+
+* Text markup commands::
+* Text markup list commands::
+
+and they should go just after
+* Note head styles::
+
+and just before
+* List of articulations::
+@end ignore
+
+@menu
+* Chord name chart::
+* Common chord modifiers::
+* Predefined fretboard diagrams::
+* MIDI instruments::
+* List of colors::
+* The Feta font::
+* Note head styles::
+* Text markup commands::
+* Text markup list commands::
+* List of articulations::
+* Percussion notes::
+* Technical glossary::
+* All context properties::
+* Layout properties::
+* Identifiers::
+* Scheme functions::
+@end menu
+
+
+
+@node Chord name chart
+@appendixsec Chord name chart
+
+The following charts shows two standard systems for printing chord
+names, along with the pitches they represent.
+
+@lilypondfile{chord-names-jazz.ly}
+
+@node Common chord modifiers
+@appendixsec Common chord modifiers
+
+The following table shows chord modifiers that can be used in
+@code{\chordmode} to generate standard chord structures.
+
+@multitable @columnfractions .2 .3 .2 .2
+
+@item
+@b{Chord type}
+@tab
+@b{Intervals}
+@tab
+@b{Modifier(s)}
+@tab
+@b{Example}
+
+
+@item
+Major
+@tab
+Major third, perfect fifth
+@tab
+@code{5} or nothing
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:5
+}
+@end lilypond
+
+@item
+Minor
+@tab
+Minor third, perfect fifth
+@tab
+@code{m} or @code{m5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m
+}
+@end lilypond
+
+@item
+Augmented
+@tab
+Major third, augmented fifth
+@tab
+@code{aug}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug
+}
+@end lilypond
+
+@item
+Diminished
+@tab
+Minor third, diminished fifth
+@tab
+@code{dim}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim
+}
+@end lilypond
+
+@item
+Dominant seventh
+@tab
+Major triad, minor seventh
+@tab
+@code{7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:7
+}
+@end lilypond
+
+@item
+Major seventh
+@tab
+Major triad, major seventh
+@tab
+@code{maj7} or @code{maj}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7
+}
+@end lilypond
+
+@item
+Minor seventh
+@tab
+Minor triad, minor seventh
+@tab
+@code{m7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7
+}
+@end lilypond
+
+@item
+Diminished seventh
+@tab
+Diminished triad, diminished seventh
+@tab
+@code{dim7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim7
+}
+@end lilypond
+
+@item
+Augmented seventh
+@tab
+Augmented triad, minor seventh
+@tab
+@code{aug7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug7
+}
+@end lilypond
+
+@item
+Half-diminished seventh
+@tab
+Diminished triad, minor seventh
+@tab
+@code{m7.5-}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7.5-
+}
+@end lilypond
+
+@item
+Minor-major seventh
+@tab
+Minor triad, major seventh
+@tab
+@code{maj7.5-}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7.5-
+}
+@end lilypond
+
+@item
+Major sixth
+@tab
+Major triad, sixth
+@tab
+@code{6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:6
+}
+@end lilypond
+
+@item
+Minor sixth
+@tab
+Minor triad, sixth
+@tab
+@code{m6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m6
+}
+@end lilypond
+
+@item
+Dominant ninth
+@tab
+Dominant seventh, major ninth
+@tab
+@code{9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:9
+}
+@end lilypond
+
+@item
+Major ninth
+@tab
+Major seventh, major ninth
+@tab
+@code{maj9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj9
+}
+@end lilypond
+
+@item
+Minor ninth
+@tab
+Minor seventh, major ninth
+@tab
+@code{m9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m9
+}
+@end lilypond
+
+@item
+Dominant eleventh
+@tab
+Dominant ninth, perfect eleventh
+@tab
+@code{11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:11
+}
+@end lilypond
+
+@item
+Major eleventh
+@tab
+Major ninth, perfect eleventh
+@tab
+@code{maj11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj11
+}
+@end lilypond
+
+@item
+Minor eleventh
+@tab
+Minor ninth, perfect eleventh
+@tab
+@code{m11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m11
+}
+@end lilypond
+
+@item
+Dominant thirteenth
+@tab
+Dominant ninth, major thirteenth
+@tab
+@code{13}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13
+}
+@end lilypond
+
+@item
+Dominant thirteenth
+@tab
+Dominant eleventh, major thirteenth
+@tab
+@code{13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13.11
+}
+@end lilypond
+
+@item
+Major thirteenth
+@tab
+Major eleventh, major thirteenth
+@tab
+@code{maj13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj13.11
+}
+@end lilypond
+
+@item
+Minor thirteenth
+@tab
+Minor eleventh, major thirteenth
+@tab
+@code{m13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m13.11
+}
+@end lilypond
+
+@item
+Suspended second
+@tab
+Major second, perfect fifth
+@tab
+@code{sus2}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus2
+}
+@end lilypond
+
+@item
+Suspended fourth
+@tab
+Perfect fourth, perfect fifth
+@tab
+@code{sus4}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus4
+}
+@end lilypond
+
+
+@end multitable
+
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
+
+The chart below shows the predefined fretboard diagrams.
+
+@lilypondfile{display-predefined-fretboards.ly}
+
+@node MIDI instruments
+@appendixsec MIDI instruments
+
+The following is a list of names that can be used for the
+@code{midiInstrument} property.
+
+@example
+acoustic grand            contrabass           lead 7 (fifths)
+bright acoustic           tremolo strings      lead 8 (bass+lead)
+electric grand            pizzicato strings    pad 1 (new age)
+honky-tonk                orchestral harp      pad 2 (warm)
+electric piano 1          timpani              pad 3 (polysynth)
+electric piano 2          string ensemble 1    pad 4 (choir)
+harpsichord               string ensemble 2    pad 5 (bowed)
+clav                      synthstrings 1       pad 6 (metallic)
+celesta                   synthstrings 2       pad 7 (halo)
+glockenspiel              choir aahs           pad 8 (sweep)
+music box                 voice oohs           fx 1 (rain)
+vibraphone                synth voice          fx 2 (soundtrack)
+marimba                   orchestra hit        fx 3 (crystal)
+xylophone                 trumpet              fx 4 (atmosphere)
+tubular bells             trombone             fx 5 (brightness)
+dulcimer                  tuba                 fx 6 (goblins)
+drawbar organ             muted trumpet        fx 7 (echoes)
+percussive organ          french horn          fx 8 (sci-fi)
+rock organ                brass section        sitar
+church organ              synthbrass 1         banjo
+reed organ                synthbrass 2         shamisen
+accordion                 soprano sax          koto
+harmonica                 alto sax             kalimba
+concertina                tenor sax            bagpipe
+acoustic guitar (nylon)   baritone sax         fiddle
+acoustic guitar (steel)   oboe                 shanai
+electric guitar (jazz)    english horn         tinkle bell
+electric guitar (clean)   bassoon              agogo
+electric guitar (muted)   clarinet             steel drums
+overdriven guitar         piccolo              woodblock
+distorted guitar          flute                taiko drum
+guitar harmonics          recorder             melodic tom
+acoustic bass             pan flute            synth drum
+electric bass (finger)    blown bottle         reverse cymbal
+electric bass (pick)      shakuhachi           guitar fret noise
+fretless bass             whistle              breath noise
+slap bass 1               ocarina              seashore
+slap bass 2               lead 1 (square)      bird tweet
+synth bass 1              lead 2 (sawtooth)    telephone ring
+synth bass 2              lead 3 (calliope)    helicopter
+violin                    lead 4 (chiff)       applause
+viola                     lead 5 (charang)     gunshot
+cello                     lead 6 (voice)
+@end example
+
+
+@node List of colors
+@appendixsec List of colors
+
+@subsubheading Normal colors
+
+Usage syntax is detailed in @ref{Coloring objects}.
+
+@cindex List of colors
+@cindex Colors, list of
+
+@verbatim
+black       white          red         green
+blue        cyan           magenta     yellow
+grey        darkred        darkgreen   darkblue
+darkcyan    darkmagenta    darkyellow
+@end verbatim
+
+
+@subsubheading X color names
+
+X color names come several variants:
+
+Any name that is spelled as a single word with capitalization
+(e.g. @q{LightSlateBlue}) can also be spelled as space separated
+words without capitalization (e.g. @q{light slate blue}).
+
+The word @q{grey} can always be spelled @q{gray} (e.g. @q{DarkSlateGray}).
+
+Some names can take a numerical suffix (e.g. @q{LightSalmon4}).
+
+
+@subsubheading Color Names without a numerical suffix:
+
+@verbatim
+snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
+OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
+bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
+ivory		LemonChiffon	seashell	honeydew	MintCream
+azure		AliceBlue	lavender	LavenderBlush	MistyRose
+white		black		DarkSlateGrey	DimGrey		SlateGrey
+LightSlateGrey	grey		LightGrey	MidnightBlue	navy
+NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
+LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
+DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
+LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
+turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
+aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
+MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
+green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
+YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
+PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
+LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
+SaddleBrown	sienna		peru		burlywood	beige
+wheat		SandyBrown	tan		chocolate	firebrick
+brown		DarkSalmon	salmon		LightSalmon	orange
+DarkOrange	coral		LightCoral	tomato		OrangeRed
+red		HotPink		DeepPink	pink		LightPink
+PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
+violet		plum		orchid		MediumOrchid	DarkOrchid
+DarkViolet	BlueViolet	purple		MediumPurple	thistle
+DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
+LightGreen
+@end verbatim
+
+
+@subsubheading Color names with a numerical suffix
+
+In the following names the suffix N can be a number in the range 1-4:
+
+@verbatim
+snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
+NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
+LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
+blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
+LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
+CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
+SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
+OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
+yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
+IndianRedN	siennaN		burlywoodN	wheatN		tanN
+chocolateN	firebrickN	brownN		salmonN		LightSalmonN
+orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
+redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
+PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
+plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
+thistleN
+@end verbatim
+
+
+@subsubheading Grey Scale
+
+A grey scale can be obtained using:
+
+@example
+greyN
+@end example
+
+@noindent
+Where N is in the range 0-100.
+
+
+@node The Feta font
+@appendixsec The Feta font
+
+@cindex Feta font
+@cindex Font, Feta
+
+The following symbols are available in the Emmentaler font and may be
+accessed directly using text markup such as @code{g^\markup @{
+\musicglyph #"scripts.segno" @}}, see @ref{Formatting text}.
+
+
+@menu
+* Clef glyphs::
+* Time Signature glyphs::
+* Number glyphs::
+* Accidental glyphs::
+* Default Notehead glyphs::
+* Special Notehead glyphs::
+* Shape-note Notehead glyphs::
+* Rest glyphs::
+* Flag glyphs::
+* Dot glyphs::
+* Dynamic glyphs::
+* Script glyphs::
+* Arrowhead glyphs::
+* Bracket-tip glyphs::
+* Pedal glyphs::
+* Accordion glyphs::
+* Vaticana glyphs::
+* Medicaea glyphs::
+* Hufnagel glyphs::
+* Mensural glyphs::
+* Neomensural glyphs::
+* Petrucci glyphs::
+* Solesmes glyphs::
+@end menu
+
+
+@node Clef glyphs
+@unnumberedsubsec Clef glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #clefs
+@end lilypond
+
+
+@node Time Signature glyphs
+@unnumberedsubsec Time Signature glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #timesig
+@end lilypond
+
+
+@node Number glyphs
+@unnumberedsubsec Number glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #numbers
+@end lilypond
+
+
+@node Accidental glyphs
+@unnumberedsubsec Accidental glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accidentals
+@end lilypond
+
+
+@node Default Notehead glyphs
+@unnumberedsubsec Default Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #default-noteheads
+@end lilypond
+
+
+@node Special Notehead glyphs
+@unnumberedsubsec Special Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #special-noteheads
+@end lilypond
+
+
+@node Shape-note Notehead glyphs
+@unnumberedsubsec Shape-note Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #shape-note-noteheads
+@end lilypond
+
+
+@node Rest glyphs
+@unnumberedsubsec Rest glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #rests
+@end lilypond
+
+
+@node Flag glyphs
+@unnumberedsubsec Flag glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #flags
+@end lilypond
+
+
+@node Dot glyphs
+@unnumberedsubsec Dot glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dots
+@end lilypond
+
+
+@node Dynamic glyphs
+@unnumberedsubsec Dynamic glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dynamics
+@end lilypond
+
+
+@node Script glyphs
+@unnumberedsubsec Script glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #scripts
+@end lilypond
+
+
+@node Arrowhead glyphs
+@unnumberedsubsec Arrowhead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #arrowheads
+@end lilypond
+
+
+@node Bracket-tip glyphs
+@unnumberedsubsec Bracket-tip glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #brackettips
+@end lilypond
+
+
+@node Pedal glyphs
+@unnumberedsubsec Pedal glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #pedal
+@end lilypond
+
+
+@node Accordion glyphs
+@unnumberedsubsec Accordion glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accordion
+@end lilypond
+
+
+@node Vaticana glyphs
+@unnumberedsubsec Vaticana glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #vaticana
+@end lilypond
+
+
+@node Medicaea glyphs
+@unnumberedsubsec Medicaea glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #medicaea
+@end lilypond
+
+
+@node Hufnagel glyphs
+@unnumberedsubsec Hufnagel glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #hufnagel
+@end lilypond
+
+
+@node Mensural glyphs
+@unnumberedsubsec Mensural glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #mensural
+@end lilypond
+
+
+@node Neomensural glyphs
+@unnumberedsubsec Neomensural glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #neomensural
+@end lilypond
+
+
+@node Petrucci glyphs
+@unnumberedsubsec Petrucci glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #petrucci
+@end lilypond
+
+
+@node Solesmes glyphs
+@unnumberedsubsec Solesmes glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #solesmes
+@end lilypond
+
+
+@node Note head styles
+@appendixsec Note head styles
+
+@cindex note head styles
+The following styles may be used for note heads.
+
+@lilypondfile[noindent]{note-head-style.ly}
+
+@include markup-commands.tely
+
+@include markup-list-commands.tely
+
+@node List of articulations
+@appendixsec List of articulations
+
+@cindex accent
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex fermata
+@cindex stopped
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex upbow
+@cindex downbow
+@cindex foot marks
+@cindex organ pedal marks
+@cindex turn
+@cindex open
+@cindex stopped
+@cindex flageolet
+@cindex reverseturn
+@cindex trill
+@cindex prall
+@cindex mordent
+@cindex prallprall
+@cindex prallmordent
+@cindex prall, up
+@cindex prall, down
+@cindex thumb marking
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+
+@lilypondfile[quote,texidoc]{script-chart.ly}
+
+
+@node Percussion notes
+@appendixsec Percussion notes
+
+@lilypondfile[quote]{percussion-chart.ly}
+
+
+@node Technical glossary
+@appendixsec Technical glossary
+
+A glossary of the technical terms and concepts used internally.
+
+@menu
+* callback::
+* glyph::
+* grob::
+* lexer::
+* output-def::
+* parser::
+* parser variable::
+* prob::
+* simple-closure::
+* smob::
+* stencil::
+@end menu
+
+@node callback
+@unnumberedsubsec callback
+
+@cindex callback
+
+A @strong{callback} is a routine, function or method whose reference is
+passed as an argument in a call to another routine, so allowing
+the called routine to invoke it.  The technique enables a lower-
+level software layer to call a function defined in a higher
+layer.  Callbacks are used extensively in LilyPond to permit
+user-level Scheme code to define how many low-level actions are
+performed.
+
+@node glyph
+@unnumberedsubsec glyph
+
+@cindex glyph
+@cindex font
+@cindex typeface
+
+A @strong{glyph} is a particular graphical representation of a typographic
+character, or a combination of two characters formating a ligature.
+A set of glyphs with a single style and shape comprise a font, and
+a set of fonts covering several styles and sizes comprise a typeface.
+
+@node grob
+@unnumberedsubsec grob
+
+@cindex grob
+@cindex layout objects
+@cindex graphical objects
+
+LilyPond objects which represent items of notation in the printed
+output such as note heads, stems, slurs, ties, fingering, clefs,
+etc are called @q{Layout objects}, often known as @q{GRaphical
+OBjects}, or @strong{grobs} for short.
+
+@node lexer
+@unnumberedsubsec lexer
+
+@cindex lexer
+
+A @strong{lexer} is a program which converts a sequence of
+characters into a sequence of tokens, a process called lexical
+analysis.  The LilyPond lexer converts an input @code{.ly} file
+into a tokenized file more suited to the next stage of processing,
+parsing, see @ref{parser}.
+
+@node output-def
+@unnumberedsubsec output-def
+TODO
+
+@node parser
+@unnumberedsubsec parser
+
+@cindex parser
+
+A @strong{parser} analyzes the sequence of tokens produced by
+a lexer to determine its grammatical structure as defined by the
+rules governing the format of an input file.
+
+@node parser variable
+@unnumberedsubsec parser variable
+
+These are variables defined directly in Scheme.  Their direct
+use by users is strongly discouraged, because their scoping
+semantics can be confusing.
+
+When the value of such a variable is changed in a @code{.ly} file,
+the change is global, and unless explicitly reverted, the new value
+will persist to the end of the file, affecting subsequent
+@code{\score} blocks as well as external files added with the
+@code{\include} command.  This can lead to unintended consequences
+and in complex typesetting projects the consequent errors can be
+difficult to track down.
+
+LilyPond uses the following parser variables:
+
+@itemize
+@item afterGraceFraction
+@item musicQuotes
+@item mode
+@item output-count
+@item output-suffix
+@item parseStringResult
+@item partCombineListener
+@item pitchnames
+@item toplevel-bookparts
+@item toplevel-scores
+@item showLastLength
+@item showFirstLength
+@end itemize
+
+@node prob
+@unnumberedsubsec prob
+TODO
+
+@node simple-closure
+@unnumberedsubsec simple-closure
+TODO
+
+@node smob
+@unnumberedsubsec smob
+TODO
+
+@node stencil
+@unnumberedsubsec stencil
+TODO
+
+
+@node All context properties
+@appendixsec All context properties
+
+@include context-properties.tely
+
+
+@node Layout properties
+@appendixsec Layout properties
+
+@include layout-properties.tely
+
+
+@node Identifiers
+@appendixsec Identifiers
+
+@include identifiers.tely
+
+
+@node Scheme functions
+@appendixsec Scheme functions
+
+@include scheme-functions.tely
+

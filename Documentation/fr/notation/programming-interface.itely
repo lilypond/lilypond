@@ -1,0 +1,382 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: 76de7e168dbc9ffc7671d99663c5ce50dae42abb
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Valentin Villenave
+@c Translation checkers: Gilles Thibault
+
+
+@node Interfaces pour les programmeurs
+@chapter Interfaces pour les programmeurs
+@translationof Interfaces for programmers @c external
+
+@untranslated
+
+
+@menu
+* Fonctions musicales::
+* Interfaces de programmation::
+* Construction de fonctions complexes::
+* Interface de programmation des marqueurs de texte::
+* Contextes pour programmeurs::
+* Utilisation de procédures Scheme en tant que propriétés::
+* Utilisation de code Scheme au lieu de \"tweak\"::
+* Retouches complexes::
+@end menu
+
+@node Fonctions musicales
+@section Fonctions musicales
+@translationof Music functions @c external
+
+@untranslated
+
+
+@menu
+* Aperçu des fonctions musicales::
+* Fonctions de substitution simple::
+* Fonctions de substitution par paire::
+* De l'usage des mathématiques dans les fonctions::
+* Fonctions fantômes::
+* Fonctions dépourvues d'argument::
+* Liste des fonctions musicales prédéfinies::
+@end menu
+
+@node Aperçu des fonctions musicales
+@subsection Aperçu des fonctions musicales
+@translationof Overview of music functions @c external
+
+@untranslated
+
+
+@node Fonctions de substitution simple
+@subsection Fonctions de substitution simple
+@translationof Simple substitution functions @c external
+
+@untranslated
+
+
+@node Fonctions de substitution par paire
+@subsection Fonctions de substitution par paire
+@translationof Paired substitution functions @c external
+
+@untranslated
+
+
+@node De l'usage des mathématiques dans les fonctions
+@subsection De l'usage des mathématiques dans les fonctions
+@translationof Mathematics in functions @c external
+
+@untranslated
+
+
+@node Fonctions fantômes
+@subsection Fonctions fantômes
+@translationof Void functions @c external
+
+@untranslated
+
+
+@node Fonctions dépourvues d'argument
+@subsection Fonctions dépourvues d'argument
+@translationof Functions without arguments @c external
+
+@untranslated
+
+
+@node Liste des fonctions musicales prédéfinies
+@subsection Liste des fonctions musicales prédéfinies
+@translationof Overview of available music functions @c external
+
+@untranslated
+
+
+@include identifiers.tely
+@node Interfaces de programmation
+@section Interfaces de programmation
+@translationof Programmer interfaces @c external
+
+@untranslated
+
+
+@menu
+* Variables d'entrée et Scheme::
+* Représentation interne de la musique::
+@end menu
+
+@node Variables d'entrée et Scheme
+@subsection Variables d'entrée et Scheme
+@translationof Input variables and Scheme @c external
+
+@untranslated
+
+
+@node Représentation interne de la musique
+@subsection Représentation interne de la musique
+@translationof Internal music representation @c external
+
+@untranslated
+
+
+@node Construction de fonctions complexes
+@section Construction de fonctions complexes
+@translationof Building complicated functions @c external
+
+@untranslated
+
+
+@menu
+* Affichage d'expressions musicales::
+* Propriétés de la musique::
+* Exemple : redoubler une note avec liaison::
+* Exemple : ajouter une articulation à plusieurs notes::
+@end menu
+
+@node Affichage d'expressions musicales
+@subsection Affichage d'expressions musicales
+@translationof Displaying music expressions @c external
+
+@untranslated
+
+
+@node Propriétés de la musique
+@subsection Propriétés de la musique
+@translationof Music properties @c external
+
+@untranslated
+
+
+@node Exemple : redoubler une note avec liaison
+@subsection Exemple : redoubler une note avec liaison
+@translationof Doubling a note with slurs (example) @c external
+
+@untranslated
+
+
+@node Exemple : ajouter une articulation à plusieurs notes
+@subsection Exemple : ajouter une articulation à plusieurs notes
+@translationof Adding articulation to notes (example) @c external
+
+@untranslated
+
+
+@node Interface de programmation des marqueurs de texte
+@section Interface de programmation des marqueurs de texte
+@translationof Markup programmer interface @c external
+
+@untranslated
+
+
+@menu
+* Construction Scheme d'un marqueur::
+* Fonctionnement interne des marqueurs::
+* Définition d'une nouvelle commande de marqueur::
+* Définition d'une nouvelle commande de liste de marqueurs::
+@end menu
+
+@node Construction Scheme d'un marqueur
+@subsection Construction Scheme d'un marqueur
+@translationof Markup construction in Scheme @c external
+
+@untranslated
+
+
+@node Fonctionnement interne des marqueurs
+@subsection Fonctionnement interne des marqueurs
+@translationof How markups work internally @c external
+
+@untranslated
+
+
+@node Définition d'une nouvelle commande de marqueur
+@subsection Définition d'une nouvelle commande de marqueur
+@translationof New markup command definition @c external
+
+@untranslated
+
+
+@node Définition d'une nouvelle commande de liste de marqueurs
+@subsection Définition d'une nouvelle commande de liste de marqueurs
+@translationof New markup list command definition @c external
+
+@untranslated
+
+
+@node Contextes pour programmeurs
+@section Contextes pour programmeurs
+@translationof Contexts for programmers @c external
+
+@untranslated
+
+
+@menu
+* Évaluation d'un contexte::
+* Application d'une fonction à tous les objets de mise en forme::
+@end menu
+
+@node Évaluation d'un contexte
+@subsection Évaluation d'un contexte
+@translationof Context evaluation @c external
+
+@untranslated
+
+
+@node Application d'une fonction à tous les objets de mise en forme
+@subsection Application d'une fonction à tous les objets de mise en forme
+@translationof Running a function on all layout objects @c external
+
+@untranslated
+
+
+@node Utilisation de procédures Scheme en tant que propriétés
+@section Utilisation de procédures Scheme en tant que propriétés
+@translationof Scheme procedures as properties @c external
+
+@untranslated
+
+
+@menu
+* Utilisation de code Scheme au lieu de \"tweak\"::
+* Retouches complexes::
+@end menu
+
+@node Utilisation de code Scheme au lieu de \"tweak\"
+@section Utilisation de code Scheme au lieu de @code{\tweak}
+@translationof Using Scheme code instead of tweak
+
+L'inconvénient principal de la commande @code{\tweak} est la rigidité de sa
+syntaxe.  Par exemple, le code suivant produit une erreur.
+
+@example
+F = \tweak #'font-size #-3 -\flageolet
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+En d'autres termes, @code{\tweak} ne se comporte pas comme une articulation :
+il ne peut notamment pas être accolé avec les symboles @samp{^} ou @samp{_}.
+
+C'est en se servant du langage Scheme que l'on peut résoudre ce problème.
+Dans cet exemple, on a recours aux méthodes décrites dans @ref{Exemple : ajouter une articulation à plusieurs notes}, en particulier quant à l'emploi de
+@code{\displayMusic}.
+
+@example
+F = #(let ((m (make-music 'ArticulationEvent
+                          'articulation-type "flageolet")))
+       (set! (ly:music-property m 'tweaks)
+             (acons 'font-size -3
+                    (ly:music-property m 'tweaks)))
+       m)
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+Ici les propriétés @code{tweak} de l'objet flageolet nommé
+@samp{m} (créé au moyen de @code{make-music}) sont extraites par
+@code{ly:music-property}, une nouvelle valeur de la taille de fonte
+est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
+@code{acons}), et le résultat de cette opération est renvoyé par @code{set!}.
+Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
+@samp{m} lui-même.
+
+
+@node Retouches complexes
+@section Retouches complexes
+@translationof Difficult tweaks
+
+Certains réglages sont plus délicats que d'autres.
+
+@itemize @bullet
+
+
+@item
+L'un d'entre eux est l'apparence des objets dits @q{spanner}, qui s'étendent
+horizontalement, tels que les liaisons.  Si, en principe, un seul de ces objets
+est créé à la fois et peut donc être modifié de façon habituelle, lorsque ces
+objets doivent enjamber un changement de ligne, ils sont dupliqués au début
+du ou des systèmes suivants.  Comme ces objets sont des clones de l'objet d'origine,
+ils en héritent toutes les propriétés, y compris les éventuelles commandes @code{\override}.
+
+
+En d'autres termes, une commande @code{\override} affecte toujours les deux extrémités
+d'un objet @q{spanner}.  Pour ne modifier que la partie précédant ou suivant le changement
+de ligne, il faut intervenir directement dans le processus de mise en page.
+La fonction de rappel @code{after-line-breaking} contient toute l'opération Scheme
+effectuée lorsque les sauts de lignes ont été déterminés, et que des objets graphiques
+ont été divisés sur des systèmes différents.
+
+Dans l'exemple suivant, on définit une nouvelle opération nommée
+@code{my-callback}.  Cette opération
+
+@itemize @bullet
+@item
+détermine si l'objet a été divisé à l'occasion d'un changement de ligne
+@item
+si oui, recherche les différents morceaux de l'objet
+@item
+vérifie si l'objet considéré est bien la deuxième moitié d'un objet divisé
+@item
+si oui, applique un espacement supplémentaire (@code{extra-offset}).
+@end itemize
+
+On ajoute cette procédure à l'objet @rinternals{Tie} (liaison de tenue),
+de façon à ce que le deuxième morceau d'une liaison divisée soit rehaussé.
+
+@c KEEP LY
+@lilypond[quote,verbatim,ragged-right]
+#(define (my-callback grob)
+  (let* (
+         ; l'objet a-t-il été divisé ?
+         (orig (ly:grob-original grob))
+
+         ; si oui, rechercher les morceaux frères (siblings)
+         (siblings (if (ly:grob? orig)
+                     (ly:spanner-broken-into orig) '() )))
+
+   (if (and (>= (length siblings) 2)
+             (eq? (car (last-pair siblings)) grob))
+     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+
+\relative c'' {
+  \override Tie #'after-line-breaking =
+  #my-callback
+  c1 ~ \break c2 ~ c
+}
+@end lilypond
+
+@noindent
+Lorsque cette astuce va être appliquée, notre nouvelle fonction de rappel
+@code{after-line-breaking} devra également appeler celle d'origine
+(@code{after-line-breaking}), si elle existe.
+Ainsi, pour l'utiliser dans le cas d'un crescendo (objet @code{Hairpin}),
+il faudra appeler également @code{ly:hairpin::after-line-breaking}.
+
+
+@item Pour des raisons d'ordre technique, certains objets ne peuvent être modifiés par
+@code{\override}.  Parmi ceux-là, les objets @code{NonMusicalPaperColumn}
+et @code{PaperColumn}.  La commande @code{\overrideProperty} sert à les modifier, de
+façon similaire à @code{\once \override}, mais avec une syntaxe différente :
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"  % Nom de l'objet
+#'line-break-system-details     % Nom de la propriété
+#'((next-padding . 20))         % valeur
+@end example
+
+Notez cependant que la commande @code{\override} peut tout de même être appliquée
+à @code{NoteMusicalPaperColumn} et @code{PaperColumn} dans un bloc @code{\context}.
+
+@end itemize

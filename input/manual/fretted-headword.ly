@@ -107,8 +107,9 @@ bass = \relative c {
   e,1 | % m. 4
   
   %% new section starts here in A minor
-  #(revert-auto-beam-setting '(end 1 12 4 4) 1 4)
-  #(revert-auto-beam-setting '(end 1 12 4 4) 3 4)
+  \overrideBeamSettings #'Score #'(4 . 4) #'end 
+    #'((* . (1 1 1 1))
+       ((1 . 12)  . (3 3 3 3)))
   \once \override TextScript #'staff-padding = #1.7
   \times 2/3 { a8\p^\andantino e' a c a e a, e' a c a e } | % m. 5
   

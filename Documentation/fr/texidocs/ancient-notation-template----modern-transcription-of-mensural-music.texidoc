@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
+  texidocfr = "
+Lorsque l'on transcrit de la musique mensurale, un @emph{incipit} permet
+d'indiquer la tonalité et le tempo d'origine.  Si les musiciens sont de
+nos jours habitués aux barres de mesures qui présentent la structure
+rythmique d'une œuvre, elles n'étaient pas en vigueur à l'époque où ces
+pièces ont été composées, d'autant plus que la @qq{métrique} pouvait
+changer au fil des notes.  Un compromis consiste à imprimer des barres
+entre les portées plutôt que sur chacune d'elles.
+
+"
+  doctitlefr = "Exemples de notation ancienne -- transcription moderne de musique mensurale"

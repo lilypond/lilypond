@@ -1,0 +1,12 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Mediante la especificación del contexto, el efecto de
+@code{beatGrouping} puede limitarse al contexto especificado, y
+sobreescribirse los valores establecidos en contextos de niveles
+más altos.  Las instruccionees @code{\\set} se deben situar
+@emph{después} de todas las instrucciones @code{\\time}:
+
+
+"
+  doctitlees = "Especificar el contexto con beatGrouping"
+

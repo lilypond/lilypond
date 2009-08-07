@@ -1,0 +1,12 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+texidocde = "
+Anders als bei normalen Pausen gibt es keinen direkten Befehl, um die
+vertikale Position von Ganztaktpausen zu beeinflussen, indem man sie an
+eine Tonhöhe anhängt.  In polyphoner Notation wird aber dennoch die
+Position der Pausen von geraden und ungeraden Stimmen voneinander
+unterschieden.  Die Position von Ganztaktpausen kann wie folgt verändert
+werden:
+ "
+  doctitlede = "Positionierung von Ganztaktpausen"
+
+

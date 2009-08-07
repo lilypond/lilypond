@@ -1,0 +1,833 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
+
+This section explains how to solve or avoid certain common
+problems.  If you have programming experience, many of these
+tips may seem obvious, but it is still advisable to read
+this chapter.
+
+
+@menu
+* Suggestions for writing LilyPond input files::
+* When things don't work::
+* Make and Makefiles::
+@end menu
+
+
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
+
+Now you're ready to begin writing larger LilyPond input files --
+not just the little examples in the tutorial, but whole pieces.
+But how should you go about doing it?
+
+As long as LilyPond can understand your input files and produce
+the output that you want, it doesn't matter what your input files
+look like.  However, there are a few other things to consider when
+writing LilyPond input files.
+
+@itemize
+@item What if you make a mistake?  The structure of a LilyPond
+file can make certain errors easier (or harder) to find.
+
+@item What if you want to share your input files with somebody
+else?  In fact, what if you want to alter your own input files in
+a few years?  Some LilyPond input files are understandable at
+first glance; others may leave you scratching your head
+for an hour.
+
+@item What if you want to upgrade your LilyPond file for use
+with a later version of LilyPond?  The input syntax changes
+occasionally as LilyPond improves.  Most changes can be
+done automatically with @code{convert-ly}, but some changes
+might require manual assistance.  LilyPond input files can be
+structured in order to be easier (or harder) to update.
+
+@end itemize
+
+@menu
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+@end menu
+
+
+@node General suggestions
+@subsection General suggestions
+
+Here are a few suggestions that can help you to avoid or fix
+problems:
+
+@itemize
+@item @strong{Include @code{\version} numbers in every file}.  Note that all
+templates contain @code{\version} information.  We
+highly recommend that you always include the @code{\version}, no matter
+how small your file is.  Speaking from personal experience, it's
+quite frustrating to try to remember which version of LilyPond you were
+using a few years ago.  @command{convert-ly} requires you to declare
+which version of LilyPond you used.
+
+@item @strong{Include checks}: @ruser{Bar and bar number checks},
+@ruser{Octave checks}.  If you include checks every so often, then
+if you make a mistake, you can pinpoint it quicker.  How often is
+@q{every so often}?  It depends on the complexity of the music.
+For very simple music, perhaps just once or twice.  For very
+complex music, perhaps every bar.
+
+@item @strong{One bar per line of text}.  If there is anything complicated,
+either in the music
+itself or in the output you desire, it's often good to write only one bar
+per line.  Saving screen space by cramming eight bars per line just isn't
+worth it if you have to @q{debug} your input files.
+
+@item @strong{Comment your input files}.  Use either bar numbers
+(every so often) or
+references to musical themes (@q{second theme in violins,} @q{fourth
+variation,} etc.).  You may not need comments when you're writing the piece
+for the first time, but if you want to go back to change something two or
+three years later, or if you pass the source over to a friend, it will
+be much more
+challenging to determine your intentions or how your file is structured if
+you didn't comment the file.
+
+@item @strong{Indent your braces}.  A lot of problems are caused by an
+imbalance
+in the number of @code{@{} and @code{@}}.
+
+@item @strong{Explicitly add durations} at the beginnings of sections
+and variables.  If you specify @code{c4 d e} at the beginning of a
+phrase (instead of just @code{c d e}) you can save yourself some
+problems if you rearrange your music later.
+
+@item @strong{Separate tweaks} from music definitions.  See
+@ref{Saving typing with variables and functions}, and
+@ref{Style sheets}.
+
+@end itemize
+
+
+@node Typesetting existing music
+@subsection Typesetting existing music
+
+If you are entering music from an existing score (i.e., typesetting a
+piece of existing sheet music),
+
+@itemize
+
+@item Enter the manuscript (the physical copy of the music) into
+LilyPond one system at a time (but still only one bar per line of text),
+and check each system when you finish it.  You may use the
+@code{showLastLength} or @code{showFirstLength} properties to speed up
+processing -- see @ruser{Skipping corrected music}.
+
+@item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
+in the input file whenever the manuscript has a line break.  This
+makes it much easier to compare the LilyPond music to the original
+music.  When you are finished proofreading your score, you may
+define @code{mBreak = @{ @}} to remove all those line breaks.  This
+will allow LilyPond to place line breaks wherever it feels are
+best.
+
+@item When entering a part for a transposing instrument into a
+variable, it is recommended that the notes are wrapped in
+
+@example
+\transpose c natural-pitch @{...@}
+@end example
+(where @code{natural-pitch} is the open pitch of the instrument) so
+that the music in the variable is effectively in C. You can transpose
+it back again when the variable is used, if required, but you might
+not want to (e.g., when printing a score in concert pitch,
+converting a trombone part from treble to bass clef, etc.)
+Mistakes in transpositions are less likely if all the music in
+variables is at a consistent pitch.
+
+Also, only ever transpose to/from C. That means that the only other
+keys you will use are the natural pitches of the instruments - bes
+for a B-flat trumpet, aes for an A-flat clarinet, etc.
+
+@end itemize
+
+
+@node Large projects
+@subsection Large projects
+
+When working on a large project, having a clear structure to your
+lilypond input files becomes vital.
+
+@itemize
+
+@item @strong{Use a variable for each voice}, with a minimum of
+structure inside the definition.  The structure of the
+@code{\score} section is the most likely thing to change;
+the @code{violin} definition is extremely unlikely to change
+in a new version of LilyPond.
+
+@example
+violin = \relative c'' @{
+g4 c'8. e16
+@}
+...
+\score @{
+  \new GrandStaff @{
+    \new Staff @{
+      \violin
+    @}
+  @}
+@}
+@end example
+
+@item @strong{Separate tweaks from music definitions}.  This
+point was made previously, but for large
+projects it is absolutely vital.  We might need to change
+the definition of @code{fthenp}, but then we only need
+to do this once, and we can still avoid touching anything
+inside @code{violin}.
+
+@example
+fthenp = _\markup@{
+  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+violin = \relative c'' @{
+g4\fthenp c'8. e16
+@}
+@end example
+
+@end itemize
+
+
+@node When things don't work
+@section When things don't work
+
+@menu
+* Updating old input files::
+* Common errors::
+* Troubleshooting (taking it all apart)::
+* Minimal examples::
+@end menu
+
+@node Updating old input files
+@subsection Updating old input files
+
+@cindex convert-ly
+@cindex updating old input files
+
+The LilyPond input syntax occasionally changes.  As LilyPond itself
+improves, the syntax (input language) is modified accordingly.  Sometimes
+these changes are made to make the input easier to read and write or
+sometimes the changes are made to accommodate new features of LilyPond.
+
+LilyPond comes with a file that makes this updating easier:
+@code{convert-ly}.  For details about how to run this program, see
+@rprogram{Updating files with convert-ly}.
+
+Unfortunately, @code{convert-ly} cannot handle all input changes.  It
+takes care of simple search-and-replace changes (such as @code{raggedright}
+becoming @code{ragged-right}), but some changes are too
+complicated.  The syntax changes that @code{convert-ly} cannot handle
+are listed in @rprogram{Updating files with convert-ly}.
+
+For example, in LilyPond 2.4 and earlier, accents and non-English
+letters were entered using LaTeX -- for example,
+@code{No\"el} (this would print the French word for
+@q{Christmas}).  In LilyPond 2.6 and above, the special
+@code{ë} must be entered directly into the LilyPond file as an
+UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
+special characters into UTF-8 characters; you must manually update
+your old LilyPond input files.
+
+@node Common errors
+@subsection Common errors
+
+The error conditions described below occur often, yet the cause
+is not obvious or easily found.  Once seen and understood, they
+are easily handled.
+
+
+@menu
+* Music runs off the page::
+* An extra staff appears::
+* Apparent error in ../ly/init.ly::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
+@end menu
+
+@node Music runs off the page
+@unnumberedsubsubsec Music runs off the page
+
+Music running off the page over the right margin or appearing
+unduly compressed is almost always due to entering an incorrect
+duration on a note, causing the final note in a measure to extend
+over the bar line.  It is not invalid if the final note in a
+measure does not end on the automatically entered bar line, as the
+note is simply assumed to carry over into the next measure.  But
+if a long sequence of such carry-over measures occurs the music
+can appear compressed or may flow off the page because automatic
+line breaks can be inserted only at the end of complete measures,
+i.e., where all notes end before or at the end of the measure.
+
+@warning{An incorrect duration can cause line breaks to be
+inhibited, leading to a line of highly compressed music or
+music which flows off the page.}
+
+The incorrect duration can be found easily if bar checks are used,
+see @ruser{Bar and bar number checks}.
+
+If you actually intend to have a series of such carry-over measures
+you will need to insert an invisible bar line where you want the
+line to break.  For details, see @ruser{Bar lines}.
+
+
+@node An extra staff appears
+@unnumberedsubsubsec An extra staff appears
+
+If contexts are not created explicitly with @code{\new} they will be
+silently created as soon as a command is encountered which cannot
+be applied to an existing context.  In simple scores the automatic
+creation of contexts is useful, and most of the examples in the
+LilyPond manuals take advantage of this simplification.  But
+occasionally the silent creation of contexts can give rise to
+unexpected new staves or scores.  For example, it might be expected
+that the following code would cause all note heads within the
+following staff to be colored red, but in fact it results in two
+staves with the note heads remaining the default black in the lower
+staff.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+This is because a @code{Staff} context does not exist when the
+override is processed, so one is implicitly created and the override
+is applied to it, but then the @code{\new Staff} command creates
+another, separate, staff into which the notes are placed.  The
+correct code to color all note heads red is
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+As a second example, if a @code{\relative} command is placed inside
+a @code{\repeat} command two staves result, the second offset from
+the first, because the @code{\repeat} command generates two
+@code{\relative} blocks, which each implicitly create @code{Staff}
+and @code{Voice} blocks.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 \relative { c d e f }
+@end lilypond
+
+The correct way is to reverse the @code{\repeat} and
+@code{\relative} commands, like this:
+
+@lilypond[quote,verbatim]
+\relative {
+  \repeat unfold 2 { c d e f }
+}
+@end lilypond
+
+
+@node Apparent error in ../ly/init.ly
+@unnumberedsubsubsec Apparent error in @code{../ly/init.ly}
+
+Various obscure error messages may appear about syntax errors in
+@code{../ly/init.ly} if the input file is not correctly formed,
+for example, if it does not contain correctly
+matched braces or quote signs.
+
+The most common error is a missing brace, (@code{@}}), at the end of
+a @code{score} block.  Here the solution is obvious: check the
+@code{score} block is correctly terminated.  The correct structure
+of an input file is described in @ref{How LilyPond input files work}.
+Using an editor which automatically highlights matching brackets and
+braces is helpful to avoid such errors.
+
+This error message can also appear if a terminating quote sign,
+(@code{"}), is omitted.  In this case an accompanying error message
+should give a line number close to the line in error.  The
+mismatched quote will usually be on the line one or two above.
+
+@node Error message Unbound variable %
+@unnumberedsubsubsec Error message Unbound variable %
+
+This error message will appear at the bottom of the console
+output or log file together with a @qq{GUILE signalled an error ...}
+message every time a Scheme routine is called which (invalidly)
+contains a @emph{LilyPond} rather than a @emph{Scheme} comment.
+
+LilyPond comments begin with a percent sign, (@code{%}), and must
+not be used within Scheme routines.  Scheme comments begin with a
+semi-colon, (@code{;}).
+
+@node Error message FT_Get_Glyph_Name
+@unnumberedsubsubsec Error message FT_Get_Glyph_Name
+
+This error messages appears in the console output or log file if
+an input file contains a non-ASCII character and was not saved in
+UTF-8 encoding.  For details, see @ruser{Text encoding}.
+
+@node Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
+
+Sooner or later, you will write a file that LilyPond cannot
+compile.  The messages that LilyPond gives may help
+you find the error, but in many cases you need to do some
+investigation to determine the source of the problem.
+
+The most powerful tools for this purpose are the
+single line comment (indicated by @code{%}) and the block
+comment (indicated by @code{%@{ ... %@}}).  If you don't
+know where a problem is, start commenting out huge portions
+of your input file.  After you comment out a section, try
+compiling the file again.  If it works, then the problem
+must exist in the portion you just commented.  If it doesn't
+work, then keep on commenting out material until you have
+something that works.
+
+In an extreme case, you might end up with only
+
+@example
+\score @{
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(in other words, a file without any music)
+
+If that happens, don't give up.  Uncomment a bit -- say,
+the bass part -- and see if it works.  If it doesn't work,
+then comment out all of the bass music (but leave
+@code{\bass} in the @code{\score} uncommented.
+
+@example
+bass = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+Now start slowly uncommenting more and more of the
+@code{bass} part until you find the problem line.
+
+Another very useful debugging technique is constructing
+@ref{Minimal examples}.
+
+
+@node Minimal examples
+@subsection Minimal examples
+
+A minimal example is an example which is as small as possible.  These
+examples are much easier to understand than long examples.  Minimal
+examples are used for
+
+@itemize
+@item Bug reports
+@item Sending a help request to mailing lists
+@item Adding an example to the @uref{http://lsr.dsi.unimi.it/,
+LilyPond Snippet Repository}
+@end itemize
+
+To construct an example which is as small as possible, the rule is
+quite simple: remove anything which is not necessary.  When trying to
+remove unnecessary parts of a file, it is a very good idea to comment
+out lines instead of deleting them.  That way, if you discover that you
+actually @emph{do} need some lines, you can uncomment them, instead of
+typing them in from scratch.
+
+There are two exceptions to the @qq{as small as possible} rule:
+
+@itemize
+@item Include the @code{\version} number.
+@item If possible, use @code{\paper@{ ragged-right=##t @}} at the
+top of your example.
+@end itemize
+
+The whole point of a minimal example is to make it easy to read:
+
+@itemize
+@item Avoid using complicated notes, keys, or time signatures, unless you
+wish to demonstrate something is about the behavior of those items.
+@item Do not use @code{\override} commands unless that is the point of the
+example.
+@end itemize
+
+
+
+@node Make and Makefiles
+@section Make and Makefiles
+
+@cindex makefiles
+@cindex make
+
+Pretty well all the platforms Lilypond can run on support a software
+facility called @code{make}. This software reads a special file called a
+@code{Makefile} that defines what files depend on what others and what
+commands you need to give the operating system to produce one file from
+another. For example the makefile would spell out how to produce
+@code{ballad.pdf} and @code{ballad.midi} from @code{ballad.ly} by
+running Lilypond.
+
+There are times when it is a good idea to create a @code{Makefile}
+for your project, either for your own convenience or
+as a courtesy to others who might have access to your source files.
+This is true for very large projects with many included files and
+different output options (e.g. full score, parts, conductor's
+score, piano reduction, etc.), or for projects that
+require difficult commands to build them (such as
+@code{lilypond-book} projects). Makefiles vary greatly in
+complexity and flexibility, according to the needs and skills of
+the authors. The program GNU Make comes installed on GNU/Linux
+distributions and on MacOS X, and it is also available for Windows.
+
+See the @strong{GNU Make Manual} for full details on using
+@code{make}, as what follows here gives only a glimpse of what it
+can do.
+
+The commands to define rules in a makefile differ
+according to platform; for instance the various forms of Linux and
+MacOS use @code{bash}, while Windows uses @code{cmd}. Note that on
+MacOS X, you need to configure the system to use the command-line
+intepreter. Here are some example makefiles, with versions for both
+Linux/MacOS and Windows.
+
+The first example is for an orchestral work in four
+movements with a directory structure as follows:
+
+@example
+Symphony/
+|-- MIDI/
+|-- Makefile
+|-- Notes/
+|   |-- cello.ily
+|   |-- figures.ily
+|   |-- horn.ily
+|   |-- oboe.ily
+|   |-- trioString.ily
+|   |-- viola.ily
+|   |-- violinOne.ily
+|   `-- violinTwo.ily
+|-- PDF/
+|-- Parts/
+|   |-- symphony-cello.ly
+|   |-- symphony-horn.ly
+|   |-- symphony-oboes.ly
+|   |-- symphony-viola.ly
+|   |-- symphony-violinOne.ly
+|   `-- symphony-violinTwo.ly
+|-- Scores/
+|   |-- symphony.ly
+|   |-- symphonyI.ly
+|   |-- symphonyII.ly
+|   |-- symphonyIII.ly
+|   `-- symphonyIV.ly
+`-- symphonyDefs.ily
+@end example
+
+The @code{.ly} files in the @code{Scores} and
+@code{Parts} directories get their notes from @code{.ily}
+files in the @code{Notes} directory:
+
+@example
+%%% top of file "symphony-cello.ly"
+\include ../definitions.ily
+\include ../Notes/cello.ily
+@end example
+
+The makefile will have targets of @code{score} (entire piece in
+full score), @code{movements} (individual movements in full score),
+and @code{parts} (individual parts for performers). There
+is also a target @code{archive} that will create a tarball of
+the source files, suitable for sharing via web or email. Here is
+the makefile for GNU/Linux or MacOS X. It should be saved with the
+name @code{Makefile} in the top directory of the project:
+
+@warning{When a target or pattern rule is defined, the
+subsequent lines must begin with tabs, not spaces.}
+
+@example
+# the name stem of the output files
+piece = symphony
+# determine how many processors are present
+CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+# The command to run lilypond
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click -djob-count=$(CPU_CORES)
+
+# The suffixes used in this Makefile.
+.SUFFIXES: .ly .ily .pdf .midi
+
+# Input and output files are searched in the directories listed in
+# the VPATH variable.  All of them are subdirectories of the current
+# directory (given by the GNU make variable `CURDIR').
+VPATH = \
+  $(CURDIR)/Scores \
+  $(CURDIR)/PDF \
+  $(CURDIR)/Parts \
+  $(CURDIR)/Notes
+
+# The pattern rule to create PDF and MIDI files from a LY input file.
+# The .pdf output files are put into the `PDF' subdirectory, and the
+# .midi files go into the `MIDI' subdirectory.
+%.pdf %.midi: %.ly
+        $(LILY_CMD) $<; \           # this line begins with a tab
+        if test -f "$*.pdf"; then \
+            mv "$*.pdf" PDF/; \
+        fi; \
+        if test -f "$*.midi"; then \
+            mv "$*.midi" MIDI/; \
+        fi
+
+notes = \
+  cello.ily \
+  horn.ily \
+  oboe.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+# The dependencies of the movements.
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+# The dependencies of the full score.
+$(piece).pdf: $(piece).ly $(notes)
+
+# The dependencies of the parts.
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+# Type `make score' to generate the full score of all four
+# movements as one file.
+.PHONY: score
+score: $(piece).pdf
+
+# Type `make parts' to generate all parts.
+# Type `make foo.pdf' to generate the part for instrument `foo'.
+# Example: `make symphony-cello.pdf'.
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+# Type `make movements' to generate files for the
+# four movements separately.
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+
+archive:
+        tar -cvvf stamitz.tar \       # this line begins with a tab
+        --exclude=*pdf --exclude=*~ \
+        --exclude=*midi --exclude=*.tar \
+        ../Stamitz/*
+@end example
+
+
+There are special complications on the Windows platform. After
+downloading and installing GNU Make for Windows, you must set the
+correct path in the system's environment variables so that the
+DOS shell can find the Make program. To do this, right-click on
+"My Computer," then choose @code{Properties} and
+@code{Advanced}. Click @code{Environment Variables}, and then
+in the @code{System Variables} pane, highlight @code{Path}, click
+@code{edit}, and add the path to the GNU Make executable file, which
+ will look something like this:
+
+@example
+C:\Program Files\GnuWin32\bin
+@end example
+
+The makefile itself has to be altered to handle different shell
+commands and to deal with spaces that are present
+in some default system directories. The @code{archive} target
+is eliminated since Windows does not have the @code{tar} command,
+and Windows also has a different default extension for midi files.
+
+
+@example
+## WINDOWS VERSION
+##
+piece = symphony
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click \
+                    -djob-count=$(NUMBER_OF_PROCESSORS)
+
+#get the 8.3 name of CURDIR (workaround for spaces in PATH)
+workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+          do @@echo %%~sb)
+
+.SUFFIXES: .ly .ily .pdf .mid
+
+VPATH = \
+  $(workdir)/Scores \
+  $(workdir)/PDF \
+  $(workdir)/Parts \
+  $(workdir)/Notes
+
+%.pdf %.mid: %.ly
+        $(LILY_CMD) $<      # this line begins with a tab
+        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # begin with tab
+        if exist "$*.mid" move /Y "$*.mid" MIDI/  # begin with tab
+
+notes = \
+  cello.ily \
+  figures.ily \
+  horn.ily \
+  oboe.ily \
+  trioString.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+$(piece).pdf: $(piece).ly $(notes)
+
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+.PHONY: score
+score: $(piece).pdf
+
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+@end example
+
+
+The next Makefile is for a @command{lilypond-book} document done in
+LaTeX. This project has an index, which requires that the
+@command{latex} command be run twice to update links. Output files are
+all stored in the @code{out} directory for .pdf output and in the
+@code{htmlout} directory for the html output.
+
+@example
+SHELL=/bin/sh
+FILE=myproject
+OUTDIR=out
+WEBDIR=htmlout
+VIEWER=acroread
+BROWSER=firefox
+LILYBOOK_PDF=lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
+LILYBOOK_HTML=lilypond-book --output=$(WEBDIR) $(FILE).lytex
+PDF=cd $(OUTDIR) && pdflatex $(FILE)
+HTML=cd $(WEBDIR) && latex2html $(FILE)
+INDEX=cd $(OUTDIR) && makeindex $(FILE)
+PREVIEW=$(VIEWER) $(OUTDIR)/$(FILE).pdf &
+
+all: pdf web keep
+
+pdf:
+        $(LILYBOOK_PDF)  # begin with tab
+        $(PDF)           # begin with tab
+        $(INDEX)         # begin with tab
+        $(PDF)           # begin with tab
+        $(PREVIEW)       # begin with tab
+
+web:
+        $(LILYBOOK_HTML) # begin with tab
+        $(HTML)          # begin with tab
+        cp -R $(WEBDIR)/$(FILE)/ ./  # begin with tab
+        $(BROWSER) $(FILE)/$(FILE).html &  # begin with tab
+
+keep: pdf
+        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf  # begin with tab
+
+clean:
+        rm -rf $(OUTDIR) # begin with tab
+
+web-clean:
+        rm -rf $(WEBDIR) # begin with tab
+
+archive:
+        tar -cvvf myproject.tar \ # begin this line with tab
+        --exclude=out/* \
+        --exclude=htmlout/* \
+        --exclude=myproject/* \
+        --exclude=*midi \
+        --exclude=*pdf \
+        --exclude=*~ \
+        ../MyProject/*
+@end example
+
+TODO: make this thing work on Windows
+
+The previous makefile does not work on Windows. An alternative
+for Windows users would be to create a simple batch file
+containing the build commands. This will not
+keep track of dependencies the way a makefile does, but it at
+least reduces the build process to a single command. Save the
+following code as @command{build.bat} or @command{build.cmd}.
+The batch file can be run at the DOS prompt or by simply
+double-clicking its icon.
+
+@example
+lilypond-book --output=out --pdf myproject.lytex
+cd out
+pdflatex myproject
+makeindex myproject
+pdflatex myproject
+cd ..
+copy out\myproject.pdf MyProject.pdf
+@end example
+
+
+@seealso
+Application Usage:
+@rprogram{Setup for MacOS X},
+@rprogram{Command-line usage},
+@rprogram{LilyPond-book}

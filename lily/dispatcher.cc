@@ -13,7 +13,7 @@
 #include "warn.hh"
 
 IMPLEMENT_SMOBS (Dispatcher);
-IMPLEMENT_TYPE_P (Dispatcher, "dispatcher");
+IMPLEMENT_TYPE_P (Dispatcher, "ly:dispatcher?");
 IMPLEMENT_DEFAULT_EQUAL_P (Dispatcher);
 
 Dispatcher::~Dispatcher ()

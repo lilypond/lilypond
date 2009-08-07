@@ -31,19 +31,21 @@ LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
 }
 
 LY_DEFINE (ly_prob_property, "ly:prob-property",
-	   2, 1, 0, (SCM obj, SCM sym, SCM dfault),
-	   "Return the value for @var{sym}.")
+	   2, 1, 0, (SCM prob, SCM sym, SCM val),
+	   "Return the value for property @var{sym} of Prob object"
+	   " @var{prob}.  If no value is found, return @var{val} or"
+	   " @code{'()} if @var{val} is not specified.")
 {
-  LY_ASSERT_SMOB (Prob, obj, 1);
-  Prob *ps = unsmob_prob (obj);
+  LY_ASSERT_SMOB (Prob, prob, 1);
+  Prob *ps = unsmob_prob (prob);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  if (dfault == SCM_UNDEFINED)
-    dfault = SCM_EOL;
+  if (val == SCM_UNDEFINED)
+    val = SCM_EOL;
 
   SCM retval = ps->internal_get_property (sym);
   if (retval == SCM_EOL)
-    return dfault;
+    return val;
   else
     return retval;
 }

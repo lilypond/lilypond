@@ -1,0 +1,11 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Taktnummern können in regelmäßigen Intervallen gesetzt werden, indem
+man die Eigenschaft @code{barNumberVisibility} definiert.  In diesem
+Beispiel werden die Taktnummern jeden zweiten Takt gesetzt, außer
+am Ende einer Zeile.
+
+"
+  doctitlede = "Setzen der Taktnummern in regelmäßigen Intevallen"
+
+

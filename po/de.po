@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the lilypond package.
 # Erwin Dieterich <bamse@gmx.de>, 1999
 # Roland Stigge <stigge@antcom.de>, 2003, 2004, 2005, 2006, 2007
-# Till Rettig <till.rettig@gmx.de>, 2007, 2008
+# Till Paala <till.rettig@gmx.de>, 2007, 2008, 2009
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.12.0\n"
+"Project-Id-Version: lilypond 2.13.3\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-12-20 11:58+0100\n"
-"PO-Revision-Date: 2009-01-06 20:11+0200\n"
-"Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
+"PO-Revision-Date: 2009-08-03 21:17+0300\n"
+"Last-Translator: Till Paala <till.rettig@gmx.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1073,12 +1073,12 @@ msgstr ""
 
 #: musicxml2ly.py:2576
 msgid ""
-"Copyright (c) 2005--2008 by\n"
+"Copyright (c) 2005--2009 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 msgstr ""
-"Copyright (c) 2005--2008\n"
+"Copyright (c) 2005--2009\n"
 "····Han-Wen·Nienhuys·<hanwen@xs4all.nl>,\n"
 "····Jan·Nieuwenhuizen·<janneke@gnu.org>·and\n"
 "····Reinhold·Kainhofer·<reinhold@kainhofer.com>\n"

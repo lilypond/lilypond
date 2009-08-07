@@ -1,19 +1,19 @@
-# translation of lilypond-2.12.0.po to Español
+# translation of lilypond-2.13.3.po to Español
 # Spanish translation of GNU Lilypond - http://lilypond.org
-# Copyright (C) 2002, 2007, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2007, 2008, 2009 Free Software Foundation, Inc.
 #
 # This file is distributed under the same license as the lilypond package.
 #
 # Quique <quique@sindominio.net>, 2002, 2004.
 # Daniel Tonda <daniel dot tonda (at) gmail dot com>, 2006.
-# Francisco Vila <francisco.vila@hispalinux.es>, 2007, 2008.
+# Francisco Vila <francisco.vila@hispalinux.es>, 2007, 2008, 2009.
 # This file is distributed under the same license as the lilypond package.
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond-2.12.0\n"
+"Project-Id-Version: lilypond-2.13.3\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-12-20 11:58+0100\n"
-"PO-Revision-Date: 2008-12-30 01:36+0100\n"
+"PO-Revision-Date: 2009-07-28 17:20+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "%s en desuso"
 #: convertrules.py:290
 #, python-format
 msgid "deprecate %s "
-msgstr "%s en desuso"
+msgstr "%s en desuso "
 
 #: convertrules.py:319
 msgid "new \\notenames format"
@@ -134,7 +134,7 @@ msgstr "suprimir %s"
 
 #: convertrules.py:1001 convertrules.py:1005
 msgid "cluster syntax"
-msgstr "sintaxis de los racimos (cluster)"
+msgstr "sintaxis de los racimos (clusters)"
 
 #: convertrules.py:1014
 msgid "new Pedal style syntax"
@@ -1301,7 +1301,7 @@ msgstr "no se cambia al mismo tipo de contexto: %s"
 #. FIXME: uncomprehensable message
 #: change-iterator.cc:95
 msgid "none of these in my family"
-msgstr "ninguno de éstos en mi familia"
+msgstr "no hay ninguno de estos en mi familia"
 
 #: chord-tremolo-engraver.cc:88
 msgid "No tremolo to end"

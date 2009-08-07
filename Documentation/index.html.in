@@ -34,15 +34,15 @@
 	  <ul>
 	    <li>
 	    <a class="title"
-href="user/lilypond-learning/index.html">Learning Manual</a>
-(in <a class="title" href="user/lilypond-learning-big-page.html">one big page</a> ~ 1.5 MB,
-in <a class="title" href="user/lilypond-learning.pdf">PDF</a>)
+href="learning/index.html">Learning Manual</a>
+(in <a class="title" href="learning-big-page.html">one big page</a> ~ 1.5 MB,
+in <a class="title" href="learning.pdf">PDF</a>)
               <br>(start here)</li>
 
 	   <li><a class="title"
-href="user/music-glossary/index.html">Music Glossary</a>
-(in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 500 kB,
-in <a class="title" href="user/music-glossary.pdf">PDF</a>)
+href="music-glossary/index.html">Music Glossary</a>
+(in <a class="title" href="music-glossary-big-page.html">one big page</a> ~ 500 kB,
+in <a class="title" href="music-glossary.pdf">PDF</a>)
 
      <br>(for non-English users)</li>
 	</ul>
@@ -50,7 +50,7 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 	  <td class="right-column">
 	  <ul>
 	          <li>
-	    <a class="title" href="topdocs/NEWS.html">News</a>
+	    <a class="title" href="changes.html">News</a>
             <br>(changes since the previous major release)</li>
 
 <li><a class="title" href="../examples.html">Examples</a>
@@ -63,17 +63,17 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
           <td valign="baseline" class="left-column">
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.html">Notation
+<a class="title" href="notation/index.html">Notation
 Reference</a>
-(in <a class="title" href="user/lilypond-big-page.html">one big page</a> ~ 4 MB,
-in <a class="title" href="user/lilypond.pdf">PDF</a>)
+(in <a class="title" href="notation-big-page.html">one big page</a> ~ 4 MB,
+in <a class="title" href="notation.pdf">PDF</a>)
      <br>(writing music in LilyPond)</li>
 
        <li>
  <a  class="title"
-href="user/lilypond-internals/index.html">Internals Reference</a>
- (in <a class="title" href="user/lilypond-internals-big-page.html">one big page</a> ~ 1 MB,
-  in <a class="title" href="user/lilypond-internals.pdf">PDF</a>)
+href="internals/index.html">Internals Reference</a>
+ (in <a class="title" href="internals-big-page.html">one big page</a> ~ 1 MB,
+  in <a class="title" href="internals.pdf">PDF</a>)
      <br>(definitions for tweaking)</li>
 
   </ul>
@@ -82,14 +82,14 @@ href="user/lilypond-internals/index.html">Internals Reference</a>
 	  <ul>
               <li>
 	    <a class="title"
-href="user/lilypond-program/index.html">Application Usage</a>
-(in <a class="title" href="user/lilypond-program-big-page.html">one big page</a>,
-in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+href="application/index.html">Application Usage</a>
+(in <a class="title" href="application-big-page.html">one big page</a>,
+in <a class="title" href="application.pdf">PDF</a>)
             <br>(how to install and run the program)</li>
 
-<li><a class="title"href="../input/lsr/lilypond-snippets/index.html">Snippets List</a>
-(in <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">one big page</a> ~ 2MB,
-in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
+<li><a class="title"href="snippets/index.html">Snippets List</a>
+(in <a class="title" href="snippets-big-page.html">one big page</a> ~ 2MB,
+in <a class="title" href="snippets.pdf">PDF</a>)
      <br>(Short tricks, tips, and examples)</li>
 
 	</ul>
@@ -98,7 +98,7 @@ in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
         <tr>
           <td valign="baseline" class="left-column">
 	<ul>
-            <li><a class="title"  href="devel/index.html">Developers resources</a>
+            <li><a class="title"  href="devel.html">Developers resources</a>
               <br>(documentation for developers and contributors)</li>
 	</ul>
     </td><td class="right-column">

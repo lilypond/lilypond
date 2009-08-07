@@ -1,0 +1,38 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 6f84d7b264bf1faa8d9c586bbf06c762ae53183a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Notation spécialisée
+@chapter Notation spécialisée
+@translationof Specialist notation
+
+Ce chapitre explique comment créer la notation musicale
+spécifique à certains intruments ou certaines époques.
+
+@menu
+* Musique vocale::
+* Instruments utilisant des portées multiples::
+* Cordes non frettées::
+* Instruments à cordes frettées::
+* Percussions::
+* Instruments à vent::
+* Notation des accords::
+* Notations anciennes::
+* Musiques du monde::
+@end menu
+
+@include notation/vocal.itely
+@include notation/keyboards.itely
+@include notation/unfretted-strings.itely
+@include notation/fretted-strings.itely
+@include notation/percussion.itely
+@include notation/wind.itely
+@include notation/chords.itely
+@include notation/ancient.itely
+@include notation/world.itely

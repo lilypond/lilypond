@@ -1,0 +1,36 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Musikalische Notation
+@chapter Musikalische Notation
+@translationof Musical notation
+
+Dieses Kapitel erklärt, wie die Notation von Musik erstellt wird.
+
+@menu
+* Tonhöhen::            Tonhöhen von Noten notieren und darstellen.
+* Rhythmus::            Tondauern von Noten notieren und darstellen.
+* Ausdrucksbezeichnungen::   Vortragsbezeichnungen zu Noten hinzufügen.
+* Wiederholungszeichen::            Noten wiederholen.
+* Gleichzeitig erscheinende Noten:: Mehr als eine Note gleichzeitig.
+* Notation auf Systemen::     Notensysteme darstellen.
+* Anmerkungen:: Besondere Notation, um die Lesbarkeit zu verbessern.
+* Text::               Text zur Partitur hinzufügen.
+@end menu
+
+@include notation/pitches.itely
+@include notation/rhythms.itely
+@include notation/expressive.itely
+@include notation/repeats.itely
+@include notation/simultaneous.itely
+@include notation/staff.itely
+@include notation/editorial.itely
+@include notation/text.itely
+

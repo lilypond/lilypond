@@ -1,0 +1,13 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Der @code{\\time}-Befehl verändert die Eigenschaften
+@code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
+und @code{measureLength} im @code{Timing}-Kontext, welcher normalerweise
+gleichbedeutend mit @code{Score} ist.  Wenn der Wert von
+@code{timeSignatureFraction} verändert wird, wird die neue
+Taktart ausgegeben, ohne die anderen Eigenschaften zu beeinflussen:
+
+"
+  doctitlede = "Die Taktart verändern ohne die Bebalkung zu beeinflussen"
+
+

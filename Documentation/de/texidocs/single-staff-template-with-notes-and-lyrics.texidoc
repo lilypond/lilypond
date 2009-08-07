@@ -1,0 +1,13 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  texidocde = "
+Das nächste Beispiel zeigt eine einfache Melodie mit Text. Kopieren 
+Sie es in Ihre Datei, fügen Sie Noten und Text hinzu und übersetzen 
+Sie es mit LilyPond. In dem Beispiel wird die automatische 
+Balkenverbindung ausgeschaltet (mit dem Befehl @code{\autoBeamOff}), 
+wie es für Vokalmusik üblich ist. 
+Wenn Sie die Balken wieder einschalten wollen, müssen Sie die 
+entsprechende Zeile entweder ändern oder auskommentieren.
+"
+
+  doctitlede = "Vorlage für ein Notensystem mit Noten und Gesangstext"
+

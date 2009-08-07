@@ -1,27 +1,47 @@
 depth = ../..
 
-STEPMAKE_TEMPLATES=documentation
-XPM_FILES=$(call src-wildcard,*.xpm)
-EXTRA_DIST_FILES= $(XPM_FILES)
 
-lilypond-icon = $(outdir)/lilypond.ico
-ly-icon = $(outdir)/ly.ico
+BITMAP_IMAGES = $(call src-wildcard,*.png) $(call src-wildcard,*.jpg)
+EPS_ILLUSTRATIONS = $(call src-wildcard,*.eps)
+SVG_FILES = $(call src-wildcard,*.svg)
+
+EXTRA_DIST_FILES = $(BITMAP_IMAGES) $(EPS_ILLUSTRATIONS) $(SVG_FILES)
+
+OUT_PDF_IMAGES = $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.pdf)
+OUT_BITMAP_IMAGES = $(BITMAP_IMAGES:%=$(outdir)/%)
+OUT_BITMAP_IMAGES += $(EPS_ILLUSTRATIONS:%.pdf=$(outdir)/%.png)
+
+STEPMAKE_TEMPLATES = documentation
 
 include $(depth)/make/stepmake.make
 
-ifeq ($(PLATFORM_WINDOWS),yes)
+###########
+### Targets
 
-$(outdir)/%.ico: %.xpm
-	$(buildscript-dir)/genicon $< $@
-
-default: $(lilypond-icon) $(ly-icon)
-
-endif # PLATFORM_WINDOWS
-
-local-dist: $(icon) 
-xgifs: $(OUTGIF_FILES)
-pngs: $(OUTPNG_FILES)
+default:
 
 ifeq ($(out),www)
-local-WWW-1: $(OUTPNG_FILES)
+local-WWW-1: $(OUT_BITMAP_IMAGES) $(OUT_PDF_IMAGES)
 endif
+
+#########
+### Rules
+
+$(outdir)/%-flat-gray.png: %-flat-gray.png
+	convert -depth 8 -geometry 50x50% $< $@
+
+$(outdir)/%-flat-bw.png: %-flat-bw.png
+	convert -depth 8 -geometry 50x50% $< $@
+
+$(outdir)/%.png: %.png
+	ln -f $< $@
+
+$(outdir)/%.jpg: %.jpg
+	ln -f $< $@
+
+$(outdir)/%.png: %.eps
+	gs -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
+
+$(outdir)/%.pdf: %.eps
+	gs -dAutoRotatePages=/None -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
+

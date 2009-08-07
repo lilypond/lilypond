@@ -1,0 +1,550 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@ignore
+    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Wiederholungszeichen
+@section Wiederholungszeichen
+@translationof Repeats
+
+@lilypondfile[quote]{repeats-headword.ly}
+
+Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine 
+ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
+LilyPond unterstützt folgende Arten von Wiederholungen:
+
+@table @code
+@item volta (Wiederholungsklammer)
+Die wiederholte Musik wird nicht geschreiben, sondern zwischen
+zwei Wiederholungstaktstrichen eingeschlossen. Wenn die Wiederholung
+am Anfang eines Stückes beginnt, wird nur am Ende der Wiederholung
+eine Wiederholungstaktlinie gesetzt.  Alternative Schlüsse (Volta)
+werden von links nach rechts mit Klammern gesetzt.  Das ist die
+Standardnotationspraxis für Wiederholungen mit alternativen Schlüssen.
+
+@item unfold (aufklappen)
+Die wiederholte Musik wird ausgeschrieben, so oft, wie es durch
+@var{Wiederholungszähler} definiert wird.  Das erspart Arbeit,
+wenn repititive Musik notiert wird.
+
+@item percent (Prozent-Wiederholung)
+Das sind Noten- oder Taktwiederholungen, sie sehen aus wie ein
+Schrägstrich bzw. wie ein Prozentzeichen.
+
+@item tremolo
+Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
+
+@end table
+
+
+@menu
+* Lange Wiederholungen::
+* Kurze Wiederholungen::
+@end menu
+
+@node Lange Wiederholungen
+@subsection Lange Wiederholungen
+@translationof Long repeats
+
+@menu
+* Normale Wiederholungen::
+* Manuelle Wiederholungszeichen::
+* Ausgeschriebene Wiederholungen::
+@end menu
+
+
+@cindex Wiederholungen
+@cindex Volta
+@cindex Prima volta
+@cindex Seconda volta
+@cindex normale Wiederholung
+@cindex Wiederholung mit alternativem Schluss
+@cindex alternativer Schluss
+@cindex Schluss, alternativer in Wiederholung
+@cindex Klammer, erste (Wiederholung)
+@cindex erste Klammer
+@cindex zweite Klammer
+@funindex \repeat
+@funindex \alternative
+@funindex \partial
+
+@node Normale Wiederholungen
+@unnumberedsubsubsec Normale Wiederholungen
+@translationof Normal repeats
+
+Die Syntax für normale Wiederholungen ist
+
+@example
+\repeat @var{Typ} @var{Wiederholungszähler} @var{musikAusdr}
+@end example
+
+wobei @var{musikAusdr} ein musikalischer Ausdruck ist.  Alternative
+Schlüsse können mit @code{\alternative} gesetzt werden.  Damit die
+alternativen Schlüsse von den wiederholten Noten abgegrenzt werden,
+müssen sie in geschweiften Klammern zusammengefasst werden.  Wenn
+es mehr Wiederholungen gibt, als Alternativen angegeben sind, erhalten
+die ersten Wiederholungen den ersten Schluss.
+
+Normale Wiederholungen ohne alternative Schlüsse:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 2 { c4 d e f }
+c2 d
+\repeat volta 2 { d4 e f g }
+@end lilypond
+
+Normale Wiederholungen mit alternativen Schlüssen:
+
+@lilypond[verbatim,quote,relative=2]
+\repeat volta 4 { c4 d e f }
+\alternative {
+  { d2 e }
+  { f2 g }
+}
+c1
+@end lilypond
+
+
+@cindex Wiederholung mit Auftakt
+@cindex Auftakt in Wiederholung
+@funindex \partial
+
+Normale Wiederholungen mit Auftakt können auf zwei Arten notiert werden:
+
+@lilypond[verbatim,quote,relative=2]
+\partial 4
+e |
+\repeat volta 4 { c2 d | e2 f | }
+\alternative {
+  { g4 g g e }
+  { a4 a a a | b2. }
+}
+@end lilypond
+
+@noindent
+oder
+
+@lilypond[verbatim,quote,relative=2]
+\partial 4
+\repeat volta 4 { e4 | c2 d | e2 f | }
+\alternative {
+  { \partial 4*3 g4 g g }
+  { a4 a a a | b2. }
+}
+@end lilypond
+
+@cindex Wiederholungen mit Überbindung
+@cindex Alternative Schlüsse mit Bindebogen
+@cindex Überbindung in Wiederholung
+@cindex Bindebogen in Wiederholung
+@cindex Bindebogen in alternativem Schluss
+@funindex \repeatTie
+
+Bindebögen können auch an eine zweite Klammer angefügt werden:
+
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat volta 2 { c4 d e f ~ }
+\alternative {
+  { f2 d }
+  { f2\repeatTie f, }
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{shortening-volta-brackets.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-volta-brackets-to-additional-staves.ly}
+
+
+@seealso
+Glossar:
+@rglos{repeat}, @rglos{volta}.
+
+Notationsreferenz: @ref{Taktstriche}, @ref{Umgebungs-Plugins verändern}.
+
+Schnipsel: @rlsr{Repeats}.
+
+Referenz der Interna: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
+
+@knownissues
+
+@cindex verschachtelte Wiederholung
+@cindex Wiederholung, verschachtelt
+@cindex Wiederholung und Zählzeit
+@cindex Zählzeit und Wiederholung
+@cindex Taktposition und Wiederholung
+@cindex Wiederholung und Bindebogen
+@cindex Bindebogen und Wiederholung
+@cindex Wiederholung, mehrdeutig
+
+Eine ineinandergeschachtelte Wiederholung wie 
+
+@example
+\repeat @dots{}
+\repeat @dots{}
+\alternative
+@end example
+
+@noindent
+ist mehrdeutig, weil nicht klar ist, zu welchem @code{\repeat}-Abschnitt 
+die @code{\alternative}-Endung gehört.  Diese Mehrdeutigkeit wird von 
+LilyPond aufgelöst, indem die alternative Endung immer zu der innersten 
+Wiederholung gehört.  Um Klarheit zu schaffen, bietet es sich an, in solchen 
+Situationen Klammern zu benutzen.
+
+Die Taktposition wird bei einer alternativen Endung nicht mitgeteilt, so 
+dass nach einer Wiederholung diese Information manuell angegeben werden 
+muss, 
+entweder durch setzen von @code{Score.measurePosition} oder indem der 
+Befehl @code{\partial} benutzt wird.  Gleichermaßen werden auch
+Bindebögen nicht wiederholt.
+
+
+@node Manuelle Wiederholungszeichen
+@unnumberedsubsubsec Manuelle Wiederholungszeichen
+@translationof Manual repeat marks
+
+@cindex manuelle Wiederholungszeichen
+@cindex Wiederholung, manuell
+@cindex Beginn von Wiederholung
+@cindex Wiederholung, Beginn
+@cindex Wiederholung, Ende
+@cindex Ende von Wiederholung
+@cindex Anzahl der Wiederholung, ändern
+@cindex Wiederholungstaktlinie
+@cindex Taktlinie, Wiederholung
+@cindex Voltaklammer, ändern
+@cindex Wiederholung, Voltaklammer
+@cindex Wiederholung, alternative Schlüsse
+@cindex Klammer, Wiederholung
+@funindex repeatCommands
+@funindex start-repeat
+
+@warning{Diese Methoden werden nur verwendet, um ungewöhnliche
+Wiederholungskonstruktionen darzustellen und können sich unerwünscht
+verhalten.  In den meisten Fällen sollten Wiederholungen mit dem
+Befehl @code{\\repeat} erstellt werden oder indem die entsprechenden
+Taktstriche eingegeben werden.  Mehr Information in @ref{Taktstriche}.}
+
+Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das 
+Aussehen der Wiederholungen zu beeinflussen. Ihr Argument ist eine 
+Scheme-Liste an Wiederholungsbefehlen.
+
+@table @code
+@item start-repeat
+Setzt eine @code{|:} Taktlinie.
+
+@lilypond[verbatim,quote,relative=2]
+c1
+\set Score.repeatCommands = #'(start-repeat)
+d4 e f g
+c1
+@end lilypond
+
+Der Notensatzpraxis folgend werden Wiederholungstaktstrichen nicht zu
+Beginn eines Stückes gesetzt.
+
+@item end-repeat
+Setzt eine @code{:|} Taktlinie.
+
+@lilypond[verbatim,quote,relative=2]
+c1
+d4 e f g
+\set Score.repeatCommands = #'(end-repeat)
+c1
+@end lilypond
+
+@item (volta @var{Zahl}) ... (volta #f)
+Setzt eine Volta-Klammer mit der Beschriftung @var{Nummer}.  Die
+Volta-Klammer muss explizit beendet werden, sonst wird sie nicht
+ausgegeben.
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'((volta "2"))
+g4 a g a
+\set Score.repeatCommands = #'((volta #f))
+c1
+@end lilypond
+
+@end table
+
+Mehrfache Wiederholungszeichen können an der selben Stelle vorkommen:
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'((volta "2, 5") end-repeat)
+g4 a g a
+c1
+\set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
+b1
+\set Score.repeatCommands = #'((volta #f))
+@end lilypond
+
+@cindex Volta-Klammer mit Text
+@cindex Text in Voltaklammer
+@cindex Wiederholungsklammer mit Text
+@cindex Klammer, Wiederholung mit Text
+
+Text kann auch in der Volta-Klammer gesetzt werden.  Der Text kann
+aus Zahlen oder einer Zahl oder einer Textbeschriftung bestehen,
+siehe @ref{Text formatieren}.  Die einfachste Art Text zu benutzen
+ist, die Beschriftung zuerst zu definieren und dann die Beschriftung
+in einer Scheme-Liste einzufügen.
+
+@lilypond[verbatim,quote]
+voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
+\relative c'' {
+  c1
+  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
+  c4 b d e
+  \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
+  f1
+  \set Score.repeatCommands = #'((volta #f))
+}
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
+
+
+@seealso
+Notationsreferenz:
+@ref{Taktstriche},
+@ref{Text formatieren}.
+
+Schnipsel:
+@rlsr{Repeats}.
+
+Referenz der Interna:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic}.
+
+
+@node Ausgeschriebene Wiederholungen
+@unnumberedsubsubsec Ausgeschriebene Wiederholungen
+@translationof Written-out repeats
+
+@cindex ausgeschriebene Wiederholungen
+@cindex wiederholte Musik
+@cindex Wiederholungen, ausgeschrieben
+@cindex repitetive Musik
+@cindex Wiederholung, aufklappen
+@cindex Noten wiederholt schreiben
+@cindex Aufklappen von wiederholten Noten
+@cindex alternative Schlüsse in ausgeschriebenen Wiederholungen
+@funindex unfold
+
+Mit dem @code{unfold}-Befehl können Wiederholungen eingesetzt werden,
+um repitetive Musik zu notieren.  Die Syntax ist
+
+@example
+\repeat unfold @var{Wiederholgunszähler} @var{musikAusdr}
+@end example
+
+wobei @var{musikAusdr} ein musikalischer Ausdruck ist und
+@var{Wiederholungszähler} die Anzahl bezeichnet, mit der
+@var{musikAusdr} wiederholt wird.
+
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat unfold 2 { c4 d e f }
+c1
+@end lilypond
+
+Ausgeschriebene Wiederholungen können auch alternative Schlüsse
+haben.  Wenn mehr Wiederholungen als alternative Schlüsse
+notiert werden, wird der erste Schluss für die ersten
+Wiederholungen benutzt.
+
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat unfold 2 { g4 f e d }
+  \alternative {
+    { cis2 g' }
+    { cis,2 b }
+  }
+c1
+@end lilypond
+
+@seealso
+Schnipsel:
+@rlsr{Repeats}.
+
+Referenz der Interna:
+@rinternals{RepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
+
+
+
+@node Kurze Wiederholungen
+@subsection Kurze Wiederholungen
+@translationof Short repeats
+
+Dieser Abschnitt zeigt, wie man kurze Wiederholungen notiert.
+Kurze Wiederholungen haben zwei grundlegende Formen: Wiederholungen
+von einer Note bis zu zwei Takten, die mit Schrägstrichen oder
+Prozentzeichen dargestellt werden, und Tremolos.
+
+@menu
+* Prozent-Wiederholungen::
+* Tremolo-Wiederholung::
+@end menu
+
+@node Prozent-Wiederholungen
+@unnumberedsubsubsec Prozent-Wiederholungen
+@translationof Percent repeats
+
+@cindex Prozent-Wiederholungen
+@cindex Taktweise Wiederholungen
+@cindex Wiederholung, kurz
+@cindex Wiederholung, taktweise
+@cindex Wiederholung, Prozent
+@funindex \repeat percent
+@funindex percent
+
+Kurze wiederholte Musikphrasen werden unterstützt. Dabei werden
+die Noten einmal gedruckt und dann durch 
+ein spezielles Zeichen ersetzt. Phrasen, 
+die kürzer als ein Takt sind, durch einen Schrägstrich dargestellt,
+Phrasen von ein oder zwei Takten Dauer 
+werden durch ein dem Prozentzeichen ähnlichen Zeichen markiert. 
+Die Syntax lautet
+
+@example
+@code{\repeat percent @var{Wiederholungszahl} @var{musikAusdr}}
+@end example
+
+wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
+
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c4 }
+\repeat percent 2 { b4 a g f }
+\repeat percent 2 { c2 es | f4 fis g c | }
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-counter.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-count-visibility.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{isolated-percent-repeats.ly}
+
+@seealso
+Glossar:
+@rglos{percent repeat}, @rglos{simile}.
+
+Schnipsel: @rlsr{Repeats}.
+
+Referenz der Interna: @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
+
+@knownissues
+
+Nur drei Arten von Prozent-Wiederholungen sind unterstützt: ein
+einfacher Schrägstrich, der einen Taktschlag darstellt (unabhängig
+von der wirklichen Dauer der wiederholten Noten), ein einfacher
+Schrägstrich mit Punkten, der einen ganzen wiederholten Takt
+darstellt und zwei Schrägstriche mit Punkten über eine Taktlinie
+gedruckt, der zwei ganze Takte darstellt.  Weder können mehrere
+Schrägstriche für Taktwiederholungen von Sechzehntelnoten dargestellt
+werden, noch zwei Striche mit Punkten für nur einen Takt, der aus
+unterschiedlichen Notenwerten besteht.
+
+
+
+@node Tremolo-Wiederholung
+@unnumberedsubsubsec Tremolo-Wiederholung
+@translationof Tremolo repeats
+
+@cindex Tremolobalken
+@cindex Tremolo
+@cindex Wiederholung, Tremolo
+@funindex \repeat tremolo
+@funindex tremolo
+
+Tremolos können in zwei Arten notiert werden: als Wechsel zwischen
+zwei Noten oder Akkorden oder als schnelle Wiederholung einer einzigen
+Note.  Tremolos, die als Wechsel realisiert werden, werden dargestellt,
+indem Balken zwischen die Noten gesetzt werden, Tremolos, die
+eine schnelle Wiederholung darstellen, haben Balken oder Schrägstriche
+am Hals einer einzigen Note.
+
+Um Tremolobalken zwischen Noten zu setzen, kann der @code{\repeat}-Befehl
+mit dem Tremolo-Stil benutzt werden:
+
+@lilypond[quote,verbatim,relative=2]
+\repeat tremolo 8 { c16 d }
+\repeat tremolo 6 { c16 d }
+\repeat tremolo 2 { c16 d }
+@end lilypond
+
+Die @code{\repeat tremolo}-Syntax braucht genau zwei Noten innerhalb
+der geschweiften Klammern, und die Anzahl der Wiederholungen muss
+einem Wert entsprechen, der mit einfachen oder punktierten Noten
+ausgedrückt werden kann.  @code{\repeat tremolo 7} funktioniert und
+setzt Tremolo für die Dauer einer Doppeltpunktierten, aber
+@code{\repeat tremolo 9} funktioniert nicht.
+
+Die Dauer des Tremolos entspricht der Dauer der Wertes in Klammern,
+multipliziert mit der Zahl der Wiederholungen: @code{\repeat tremolo
+8 @{ c16 d16 @}} ergibt ein Tremolo für eine Ganze, notiert als zwei
+Ganze, die zwei Tremolobalken zwischen sich haben.
+
+Es gibt zwei Möglichkeiten, ein Tremolozeichen zu einer einzelnen
+Noten hinzuzufügen.  Die @code{\repeat tremolo}-Syntax kann hier auch
+benutzt werden; in diesem Fall wird die Note allerdings nicht
+eingeklammert:
+
+@lilypond[quote,verbatim,ragged-right]
+\repeat tremolo 4 c'16
+@end lilypond
+
+@cindex Tremolozeichen
+@funindex tremoloFlags
+@funindex :
+
+Die gleiche Darstellung wird erreicht, indem nach der Note
+@qq{@code{:}[@var{Zahl}]} geschrieben wird.  Die Zahl zeigt
+die Dauer der Unterteilung an, und sie muss mindestens den
+Wert 8 haben.  Ein Wert von 8 ergibt einen Balken durch den
+Notenhals.  Wenn die Zahl ausgelassen wird, wird der letzte
+benutzte Wert eingesetzt (gespeichert in @code{tremoloFlags}):
+
+@lilypond[quote,verbatim,relative=2]
+c2:8 c:32
+c: c:
+@end lilypond
+
+@seealso
+Schnipsel:
+@rlsr{Repeats}.
+
+@cindex Tremolo über Systeme
+@cindex Systeme, Tremolo zwischen
+@cindex Zwischensystem-Tremolo
+
+@knownissues
+
+Tremolo über Notensysteme hinweg funktioniert nicht gut.

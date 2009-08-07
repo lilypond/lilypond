@@ -14,34 +14,7 @@
 ;;;;   * document output-interface
 
 (define-module (scm output-ps)
-  #:re-export (quote)
-
-  ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
-  #:export (unknown
-	    bezier-sandwich
-	    char
-	    circle
-	    comment
-	    dashed-line
-	    dashed-slur
-	    dot
-	    draw-line
-            ellipse
-	    embedded-ps
-	    named-glyph
-	    no-origin
-            oval
-	    placebox
-	    polygon
-	    repeat-slash
-	    resetcolor
-	    resetrotation
-	    round-filled-box
-	    setcolor
-	    setrotation
-	    text
-	    ))
-
+  #:re-export (quote))
 
 (use-modules (guile)
 	     (ice-9 regex)
@@ -208,9 +181,9 @@
    x-radius y-radius thick))
 
 (define (placebox x y s) 
-  (ly:format
-"~4f ~4f moveto
-~a\n" x y s))
+  (if (not (string-null? s))
+      (ly:format "~4f ~4f moveto ~a\n" x y s)
+      ""))
 
 (define (polygon points blot-diameter filled?)
   (ly:format "~a ~4l ~a ~4f draw_polygon"
@@ -290,9 +263,6 @@
 	     (cdr y)
 	     url))
 
-(define (utf-8-string pango-font-description string)
-  (ly:warning (_ "utf-8-string encountered in PS backend")))
-
 (define (path thickness exps)
   (define (convert-path-exps exps)
     (if (pair? exps)
@@ -303,6 +273,7 @@
 	      (cond
 	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
 	       ((memq head '(rcurveto curveto)) 6)
+	       ((eq? head 'closepath) 0)
 	       (else 1)))
 	     (args (take rest arity))
 	     )
@@ -317,7 +288,7 @@
     
     
   (ly:format
-   "1 setlinecap ~a setlinewidth\n~l stroke"
+   "gsave currentpoint translate 1 setlinecap ~a setlinewidth\n~l stroke grestore"
    thickness
-   (convert-path-exps exps) ))
+   (convert-path-exps exps)))
   

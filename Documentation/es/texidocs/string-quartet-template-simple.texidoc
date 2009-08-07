@@ -1,0 +1,8 @@
+%% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
+  texidoces = "
+Esta plantilla muestra un cuarteto de cuerda normal. También utiliza
+una sección @code{\\global} para el compás y la armadura
+
+"
+  doctitlees = "Plantilla de cuarteto de cuerda (sencilla)"
+

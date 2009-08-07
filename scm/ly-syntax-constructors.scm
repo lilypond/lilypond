@@ -1,4 +1,4 @@
-;;;; define-syntax.scm -- Defines functions for syntax expressions
+;;;; ly-syntax-constructors.scm -- Defines functions for syntax expressions
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 

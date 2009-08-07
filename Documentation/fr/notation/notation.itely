@@ -1,0 +1,36 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 6f84d7b264bf1faa8d9c586bbf06c762ae53183a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Notation musicale générale
+@chapter Notation musicale générale
+@translationof Musical notation
+
+Ce chapitre explique comment créer la notation musicale standard.
+
+@menu
+* Hauteurs::            écriture et gravure des hauteurs de note.
+* Rythme::            écriture et gravure des durées.
+* Signes d'interprétation::   ajout de signes d'exécution et d'interprétation.
+* Répétitions et reprises::            différents types de répétitions de musique.
+* Notes simultanées:: polyphonie et accords.
+* Notation sur la portée::     gravure de la portée.
+* Notation éditoriale:: annotations d'édition ou à usage pédagogique.
+* Texte::               ajout de texte à la partition.
+@end menu
+
+@include notation/pitches.itely
+@include notation/rhythms.itely
+@include notation/expressive.itely
+@include notation/repeats.itely
+@include notation/simultaneous.itely
+@include notation/staff.itely
+@include notation/editorial.itely
+@include notation/text.itely
+

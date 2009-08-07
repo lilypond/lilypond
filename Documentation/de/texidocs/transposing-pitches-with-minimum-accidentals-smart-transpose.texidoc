@@ -1,0 +1,29 @@
+%% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+  doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."
+  texidocde = "Dieses Beispiel benutzt Scheme-Code, um enharmonische
+Verwechslungen für Noten zu erzwingen, damit nur eine minimale Anzahl
+an Versetzungszeichen ausgegeben wird.  In diesem Fall gelten die
+folgenden Regeln:
+
+@itemize
+@item
+Doppelte Versetzungszeichen sollen entfernt werden
+
+@item
+His -> C
+
+@item
+Eis -> F
+
+@item
+Ces -> B
+
+@item
+Fes -> E
+
+@end itemize
+
+Auf diese Art werden am meisten natürliche Tonhöhen als enharmonische
+Variante gewählt.
+"
+

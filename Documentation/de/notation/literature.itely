@@ -1,0 +1,85 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@node Literatur
+@appendix Literatur
+@translationof Literature list
+
+Wenn Sie mehr über Notation und den Notenstich erfahren wollen, sind 
+hier einige interessante Titel gesammelt.
+
+
+@table @cite
+
+@item Ignatzek 1995
+Klaus Ignatzek, Die Jazzmethode für Klavier. Schott's Söhne
+1995. Mainz, Germany ISBN 3-7957-5140-3.
+
+Eine praktische Einführung zum Spielen von Jazz auf dem Klavier. Eins der 
+ersten Kapitel enthält einen Überblick über die Akkorde, die im Jazz 
+verwendet werden.
+
+@item Gerou 1996
+
+Tom Gerou and Linda Lusk, Essential Dictionary of Music
+Notation. Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6.
+
+Eine ausführliche, alphabetische Liste vieler Belange des Musiksatzes 
+und der Notation; die üblichen Fälle werden behandelt.
+
+@item Read 1968
+Gardner Read, Music Notation: A Manual of Modern Practice.
+Taplinger Publishing, New York (2nd edition).
+
+Ein Klassiker für die Musiknotation.
+
+@item Ross 1987
+Ted Ross, Teach yourself the art of music engraving and processing.
+Hansen House, Miami, Florida 1987.
+
+Dieses Buch handelt vom Musiksatz, also vom professionellen Notenstich. 
+Hier sind Anweisungen über Stempel, die Benutzung von Stiften und 
+nationale Konventionen versammelt. Die Kapitel zu Reproduktionstechniken 
+und der historische Überblick sind auch interessant.
+
+@item Schirmer 2001
+The G.Schirmer/AMP Manual of Style and Usage. G.Schirmer/AMP, NY, 2001.
+
+Dieses Handbuch setzt den Fokus auf die Herstellung von Drucksachen für den 
+Schirmer-Verlag. Hier werden viele Details behandelt, die sich in anderen 
+Notationshandbüchern nicht finden. Es gibt auch einen guten Überblick, was 
+nötig ist, um Drucke in publikationstauglicher Qualität zu produzieren.
+
+@item Stone 1980
+
+Kurt Stone, Music Notation in the Twentieth Century.
+Norton, New York 1980.
+
+Dieses Buch enthält einen Überblick über die Notation von moderner E-Musik, 
+beginnt aber mit einem Überblick über bereits existente Praktiken.
+
+@end table
+
+Das Quellenarchiv enthält eine ausführlichere Bib@TeX{}-Bibliographie mit 
+über 100 Titeln in 
+@ifhtml
+@ifset bigpage
+@uref{../bibliography/index.html, der Bibliographie}.
+@end ifset
+@ifclear bigpage
+@uref{../../bibliography/index.html, der Bibliographie}.
+@end ifclear
+@end ifhtml
+@ifnothtml
+@file{Documentation/@/bibliography/}.
+@end ifnothtml
+

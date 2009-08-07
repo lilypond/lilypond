@@ -54,7 +54,8 @@ LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
 
 LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
 	   1, 0, 0, (SCM pb),
-	   "Return pages in book @var{pb}.")
+	   "Return the paper output definition (@code{\\paper})"
+	   " in book @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   Paper_book *pbook = unsmob_paper_book (pb);
