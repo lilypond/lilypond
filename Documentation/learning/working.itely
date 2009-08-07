@@ -240,6 +240,7 @@ are listed in @rprogram{Updating files with convert-ly}.
 For example, in LilyPond 2.4 and earlier, accents and non-English
 letters were entered using LaTeX -- for example,
 @code{No\"el} (this would print the French word for
+@c keep "-matching straight in fancy editors
 @q{Christmas}).  In LilyPond 2.6 and above, the special
 @code{ë} must be entered directly into the LilyPond file as an
 UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
@@ -358,6 +359,7 @@ braces is helpful to avoid such errors.
 
 This error message can also appear if a terminating quote sign,
 (@code{"}), is omitted.  In this case an accompanying error message
+@c keep "-matching straight in fancy editors
 should give a line number close to the line in error.  The
 mismatched quote will usually be on the line one or two above.
 
