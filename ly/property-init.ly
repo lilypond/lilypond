@@ -3,7 +3,7 @@
 \version "2.12.0"
 
 stemUp = \override Stem #'direction = #UP
-stemDown = \override Stem #'direction = #DOWN 
+stemDown = \override Stem #'direction = #DOWN
 stemNeutral = \revert Stem #'direction
 
 slurUp = \override Slur #'direction = #UP
@@ -16,7 +16,7 @@ slurNeutral = \revert Slur #'direction
 slurDashed = {
   \override Slur #'dash-definition =  #'((0 1 0.4 0.75))
 }
-slurDashPattern = 
+slurDashPattern =
 #(define-music-function (parser location dash-fraction dash-period)
   (number? number?)
   #{
@@ -46,7 +46,7 @@ phrasingSlurNeutral = \revert PhrasingSlur #'direction
 phrasingSlurDashed = {
   \override PhrasingSlur #'dash-definition =  #'((0 1 0.4 0.75))
 }
-phrasingSlurDashPattern = 
+phrasingSlurDashPattern =
 #(define-music-function (parser location dash-fraction dash-period)
   (number? number?)
   #{
@@ -94,7 +94,7 @@ tieNeutral = \revert Tie #'direction
 tieDashed = {
   \override Tie #'dash-definition = #'((0 1 0.4 0.75))
 }
-tieDashPattern = 
+tieDashPattern =
 #(define-music-function (parser location dash-fraction dash-period)
   (number? number?)
   #{
@@ -164,7 +164,7 @@ cadenzaOff = {
   \set Timing.measurePosition = #ZERO-MOMENT
 }
 
-% dynamic ly:dir?  text script, articulation script ly:dir? 
+% dynamic ly:dir?  text script, articulation script ly:dir?
 oneVoice = #(context-spec-music (make-voice-props-revert) 'Voice)
 voiceOne = #(context-spec-music (make-voice-props-set 0) 'Voice)
 voiceTwo = #(context-spec-music (make-voice-props-set 1) 'Voice)
@@ -279,9 +279,9 @@ defaultTimeSignature = {
 
 
 % For drawing vertical chord brackets with \arpeggio
-% This is a shorthand for the value of the print-function property 
-% of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether 
-% cross-staff brackets are desired. 
+% This is a shorthand for the value of the print-function property
+% of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether
+% cross-staff brackets are desired.
 
 arpeggio = #(make-music 'ArpeggioEvent)
 
@@ -320,7 +320,7 @@ arpeggioParenthesisDashed = {
 
 glissando = #(make-music 'GlissandoEvent)
 
-fermataMarkup = \markup { \musicglyph #"scripts.ufermata" } 
+fermataMarkup = \markup { \musicglyph #"scripts.ufermata" }
 
 hideNotes = {
   % hide notes, accidentals, etc.
@@ -405,7 +405,7 @@ bassFigureStaffAlignmentNeutral = {
   \revert Staff.BassFigureAlignmentPositioning #'direction
 }
 
-predefinedFretboardsOff = {  
+predefinedFretboardsOff = {
   \set FretBoards.predefinedDiagramTable = ##f
 }
 
@@ -422,53 +422,28 @@ pointAndClickOn = #(define-music-function (parser location) ()
                       (make-music 'SequentialMusic 'void #t))
 
 palmMuteOn = {
-  \override NoteHead #'style = #'do
+ #(override-head-style 'NoteHead 'do)
 }
 
 palmMuteOff = {
-  \revert NoteHead #'style
+ #(revert-head-style 'NoteHead)
 }
 
 palmMute =
 #(define-music-function (parser location note) (ly:music?)
-  ;; are we inside a <...>?
-  (if (eq? (ly:music-property note 'name) 'NoteEvent)
-      ;; yes -> add a tweak
-      (begin (set! (ly:music-property note 'tweaks)
-                    (acons 'style 'do (ly:music-property note 'tweaks)))
-      note)
-      ;; no -> use predefined commands to switch to triangle-shaped note heads
-      #{
-        \palmMuteOn
-        $note
-        \palmMuteOff
-      #}))
+    (style-note-heads 'NoteHead 'do note))
 
 deadNotesOn = {
-  \override TabNoteHead #'style = #'cross
-  \override NoteHead #'style = #'cross
+  #(override-head-style '(TabNoteHead NoteHead) 'cross)
 }
 
 deadNotesOff = {
-  \revert TabNoteHead #'style
-  \revert NoteHead #'style
+  #(revert-head-style '(TabNoteHead NoteHead))
 }
 
 deadNote =
 #(define-music-function (parser location note) (ly:music?)
-  ;; are we inside a <...>?
-  (if (eq? (ly:music-property note 'name) 'NoteEvent)
-      ;; yes -> add a tweak
-      (begin (set! (ly:music-property note 'tweaks)
-                    (acons 'style 'cross (ly:music-property note 'tweaks)))
-       note)
-       ;; no -> use predefined commmands for changing
-       ;; note head and tablature fret signs
-       #{
-         \deadNotesOn
-         $note
-         \deadNotesOff
-       #}))
+   (style-note-heads '(TabNoteHead NoteHead) 'cross note))
 
 tabFullNotation = {
   % time signature
@@ -481,7 +456,7 @@ tabFullNotation = {
   \revert TabVoice.Tie #'stencil
   \revert TabVoice.Tie #'after-line-breaking
   \revert TabVoice.RepeatTie #'stencil
-  \revert TabVoice.RepeatTie #'after-line-braking
+  \revert TabVoice.RepeatTie #'after-line-breaking
   \revert TabVoice.LaissezVibrerTie #'stencil
   \revert TabVoice.Slur #'stencil
   \revert PhrasingSlur #'stencil

@@ -563,7 +563,42 @@ included in .ly file."
   (make-music type
 	      'span-direction span-dir))
 
-(define-public (set-mus-properties! m alist)
+(define-public (override-head-style heads style)
+  "Override style for @var{heads} to @var{style}."
+  (make-sequential-music
+    (if (pair? heads)
+        (map (lambda (h)
+              (make-grob-property-override h 'style style))
+         heads)
+        (list (make-grob-property-override heads 'style style)))))
+
+(define-public (revert-head-style heads)
+  "Revert style for @var{heads}."
+  (make-sequential-music
+    (if (pair? heads)
+        (map (lambda (h)
+              (make-grob-property-revert h 'style))
+         heads)
+        (list (make-grob-property-revert heads 'style)))))
+
+(define-public (style-note-heads heads style music)
+ "Set @var{style} for all @var{heads} in @var{music}.  Works both
+inside of and outside of chord construct."
+  ;; are we inside a <...>?
+  (if (eq? (ly:music-property music 'name) 'NoteEvent)
+      ;; yes -> use a tweak
+      (begin
+        (set! (ly:music-property music 'tweaks)
+              (acons 'style style (ly:music-property music 'tweaks)))
+        music)
+      ;; not in <...>, so use overrides
+      (make-sequential-music
+        (list
+          (override-head-style heads style)
+          music
+          (revert-head-style heads)))))
+
+ (define-public (set-mus-properties! m alist)
   "Set all of ALIST as properties of M."
   (if (pair? alist)
       (begin

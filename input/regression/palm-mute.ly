@@ -1,8 +1,10 @@
 \version "2.13.4"
 
-\header{ texidoc = "The palm mute technique for stringed instruments
-                    is supported by triangle-shaped note heads."
-       }
+\header{
+  texidoc =
+"The palm mute technique for stringed instruments
+is supported by triangle-shaped note heads."
+}
 
 palmmute = \relative c, {
     \time 4/4

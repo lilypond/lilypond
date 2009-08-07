@@ -731,6 +731,12 @@ the `parameters' assoc list.")
 		(cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
    #})
 
+styledNoteHeads =
+#(define-music-function
+   (parser location style heads music)
+   (symbol? list-or-symbol? ly:music?)
+   (_i "Set @var{heads} in @var{music} to @var{style}.")
+   (style-note-heads heads style music))
 
 rightHandFinger =
 #(define-music-function (parser location finger) (number-or-string?)
