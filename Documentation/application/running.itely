@@ -59,12 +59,6 @@ if you are unfamiliar with the command-line.
 @node Invoking lilypond
 @subsection Invoking @command{lilypond}
 
-@cindex Invoking @command{lilypond}
-@cindex command line options for @command{lilypond}
-@cindex options, command line
-@cindex switches
-
-
 The @command{lilypond} executable may be called as follows from the command line.
 
 @example
@@ -102,6 +96,11 @@ will output @var{base}@file{-violin.pdf} and
 
 @node Command line options for lilypond
 @subsection Command line options for @command{lilypond}
+
+@cindex Invoking @command{lilypond}
+@cindex command line options for @command{lilypond}
+@cindex options, command line
+@cindex switches
 
 The following options are supported:
 
@@ -156,10 +155,14 @@ is the same as
 
 Here are a few interesting options.
 
+@cindex help, command line
+
 @table @samp
 @item help
 Running @code{lilypond -dhelp} will print all of the @code{-d} options
 available.
+
+@cindex paper-size, command line
 
 @item paper-size
 This option sets the default paper-size,
@@ -170,6 +173,8 @@ This option sets the default paper-size,
 @noindent
 Note that the string must be enclosed in escaped quotes ( @code{\"} ).
 @c Match " in previous line to help context-sensitive editors
+
+@cindex safe, command line
 
 @item safe
 Do not trust the @code{.ly} input.
@@ -222,6 +227,10 @@ the output format to use for the back-end.  Choices for @code{format} are
   lead to huge files.
 
 @item eps
+
+@cindex Postscript, encapulated
+@cindex EPS (Encapsulated PostScript)
+
  for encapsulated PostScript.  This dumps every page (system) as a separate
 @file{EPS} file, without fonts, and as one collated @file{EPS} file with
 all pages (systems) including fonts.
@@ -229,7 +238,9 @@ all pages (systems) including fonts.
 This mode is used by default by @command{lilypond-book}.
 
 @item svg
+
 @cindex SVG (Scalable Vector Graphics)
+
  for SVG (Scalable Vector Graphics).
 
  This creates a single SVG file containing the entire music output
@@ -242,7 +253,9 @@ This mode is used by default by @command{lilypond-book}.
  SVG editor or user agent.
 
 @item scm
+
 @cindex Scheme dump
+
  for a dump of the raw, internal Scheme-based drawing commands.
 
 @item null
@@ -252,6 +265,7 @@ This mode is used by default by @command{lilypond-book}.
 Example: @code{lilypond -dbackend=svg @var{filename}.ly}
 
 @item preview
+@cindex preview, command line
 Generate an output file containing the titles and the first system
 
 @item print-pages
@@ -280,8 +294,12 @@ Set init file to @var{file} (default: @file{init.ly}).
 Set the default output file to @var{FILE}.  The appropriate
 suffix will be added (e.g. @code{.pdf} for pdf)
 
+@cindex PostScript output
+
 @item --ps
 Generate PostScript.
+
+@cindex Portable Network Graphics (PNG) output
 
 @item --png
 Generate pictures of each page, in PNG format.  This implies
@@ -289,6 +307,8 @@ Generate pictures of each page, in PNG format.  This implies
 @example
 -dresolution=110
 @end example
+
+@cindex Portable Document Format (PDF) output
 
 @item --pdf
 Generate PDF.  This implies @code{--ps}.

@@ -1328,6 +1328,7 @@ lilypond file.ly >display.txt
 @menu
 * Extracting fragments of music::
 * Skipping corrected music::
+* Alternative output formats::
 @end menu
 
 @node Extracting fragments of music
@@ -1412,6 +1413,20 @@ been warned.
 In polyphonic music, @code{Score.skipTypesetting} will affect all
 voices and staves, saving even more time.
 
+@node Alternative output formats
+@subsection Alternative output formats
+
+@cindex scalable vector graphics output
+@cindex SVG output
+@cindex encapsulated postscript output
+@cindex EPS output
+
+The default output formats for the printed score are Portable
+Document Format (PDF) and PostScript (PS).  Scalable Vector
+Graphics (SVG), Encapsulated PostScript (EPS) and Portable
+Network Graphics (PNG) output formats are also available through
+command line options, see @rprogram{Command line options for
+lilypond}.
 
 
 @node MIDI output
