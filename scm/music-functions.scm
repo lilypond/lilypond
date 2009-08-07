@@ -346,8 +346,7 @@ i.e.  this is not an override"
 	      'pop-first #t))
 
 (define-public (make-grob-property-override grob gprop val)
-  "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
-i.e.  this is not an override"
+  "Make a Music expression that overrides GPROP to VAL in GROB."
   (make-music 'OverrideProperty
 	      'symbol grob
 	      'grob-property gprop
