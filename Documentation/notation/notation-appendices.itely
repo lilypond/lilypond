@@ -936,8 +936,8 @@ a set of fonts covering several styles and sizes comprise a typeface.
 
 @seealso
 Notation Reference:
-@ruser{Fonts},
-@ruser{Text encoding}.
+@ref{Fonts},
+@ref{Text encoding}.
 
 @node grob
 @unnumberedsubsec grob
@@ -978,7 +978,7 @@ Learning Manual:
 @rlearning{Properties found in interfaces}.
 
 Notation Reference:
-@ruser{Layout interfaces}.
+@ref{Layout interfaces}.
 
 Internals Reference:
 @rinternals{Graphical Object Interfaces}.
