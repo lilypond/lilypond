@@ -120,6 +120,26 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
   read_spacing_spec (last_system_spacing, &last_padding, ly_symbol2scm ("padding"));
   last_spring.ensure_min_distance (last_padding - bottom_skyline_.max_height () + footer_height_);
   springs_.push_back (last_spring);
+
+  if (elements_.size ())
+    {
+      Real bottom_padding;
+
+      // TODO: junk bottom-space now that we have last-spring-spacing?
+      // bottom-space has the flexibility that one can do it per-system.
+      // NOTE: bottom-space is misnamed since it is not stretchable space.
+      if (Prob *p = elements_.back ().prob)
+	bottom_padding = robust_scm2double (p->get_property ("bottom-space"), 0);
+      else if (elements_.back ().staves.size ())
+	{
+	  SCM details = get_details (elements_.back ());
+	  bottom_padding = robust_scm2double (ly_assoc_get (ly_symbol2scm ("bottom-space"),
+							    details,
+							    SCM_BOOL_F),
+					      0.0);
+	}
+      page_height_ -= bottom_padding;
+    }
 }
 
 void
@@ -191,9 +211,6 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 	  // we are only adding springs _between_ staves here.
 	  if (!found_spaceable_staff)
 	    {
-	      if (i > 0)
-		add_loose_lines_as_spaceable_lines (elts, minimum_offsets, 0, i-1);
-
 	      found_spaceable_staff = true;
 	      last_spaceable_staff = i;
 	      continue;
@@ -204,7 +221,7 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 	  alter_spring_from_spacing_spec (spec, &spring);
 
 	  springs_.push_back (spring);
-	  Real min_distance = minimum_offsets[last_spaceable_staff] - minimum_offsets[i];
+	  Real min_distance = (found_spaceable_staff ? minimum_offsets[last_spaceable_staff] : 0) - minimum_offsets[i];
 	  springs_.back ().ensure_min_distance (min_distance);
 
 	  if (scm_is_pair (manual_dists))
@@ -222,52 +239,12 @@ Page_layout_problem::append_system (System *sys, Spring const& spring, Real padd
 	  last_spaceable_staff = i;
 	}
     }
-  // Any loose lines hanging off the end are treated as spaceable
-  // lines.  This might give slightly weird results if the hanging
-  // systems have staff-affinity != UP.  It's not quite clear what
-  // should happen in that case, though.
-  if (last_spaceable_staff + 1 < elts.size ())
-    add_loose_lines_as_spaceable_lines (elts, minimum_offsets,
-					found_spaceable_staff ? last_spaceable_staff + 1 : 0,
-					elts.size () - 1);
+
   // Corner case: there was only one staff, and it wasn't spaceable.
   // Mark it spaceable, because we do not allow non-spaceable staves
   // to be at the top or bottom of a system.
-  else if (!found_spaceable_staff && elts.size ())
+  if (!found_spaceable_staff && elts.size ())
     mark_as_spaceable (elts[0]);
-}
-
-// first and  last are inclusive
-void
-Page_layout_problem::add_loose_lines_as_spaceable_lines (vector<Grob*> const& elts,
-							 vector<Real> const& minimum_offsets,
-							 vsize first, vsize last)
-{
-  vsize start = first;
-  vsize end = last;
-  if (start > 0)
-    --start;
-  if (end + 1 < elts.size ())
-    ++end;
-  
-  for (vsize i = start; i < end; ++i)
-    {
-      SCM spec = get_spacing_spec (elts[i], elts[i+1]);
-      Spring spring (1.0, 0.0);
-      alter_spring_from_spacing_spec (spec, &spring);
-      if (spec == SCM_BOOL_F)
-	{
-	  spring.set_inverse_compress_strength (10000);
-	  spring.set_inverse_stretch_strength (10000);
-	}
-
-      Real min_distance = minimum_offsets[i] - minimum_offsets[i+1];
-      spring.ensure_min_distance (min_distance);
-      springs_.push_back (spring);
-    }
-
-  for (vsize i = first; i <= last; ++i)
-    mark_as_spaceable (elts[i]);
 }
 
 void
@@ -304,30 +281,7 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged)
   for (vsize i = 0; i < springs_.size (); ++i)
     spacer.add_spring (springs_[i]);
 
-  Real bottom_padding = 0;
-  Interval first_staff_iv (0, 0);
-  Interval last_staff_iv (0, 0);
-  if (elements_.size ())
-    {
-      first_staff_iv = first_staff_extent (elements_[0]);
-      last_staff_iv = last_staff_extent (elements_.back ());
-
-      // TODO: junk bottom-space now that we have last-spring-spacing?
-      // bottom-space has the flexibility that one can do it per-system.
-      // NOTE: bottom-space is misnamed since it is not stretchable space.
-      if (Prob *p = elements_.back ().prob)
-	bottom_padding = robust_scm2double (p->get_property ("bottom-space"), 0);
-      else if (elements_.back ().staves.size ())
-	{
-	  SCM details = get_details (elements_.back ());
-	  bottom_padding = robust_scm2double (ly_assoc_get (ly_symbol2scm ("bottom-space"),
-							    details,
-							    SCM_BOOL_F),
-					      0.0);
-	}
-    }
-
-  spacer.solve (page_height_ - bottom_padding, ragged);
+  spacer.solve (page_height_, ragged);
   solution_ = spacer.spring_positions ();
 }
 
@@ -344,12 +298,19 @@ Page_layout_problem::find_system_offsets ()
 
   // spring_idx 0 is the top of the page. Interesting values start from 1.
   vsize spring_idx = 1;
+  vector<Grob*> loose_lines;
+  vector<Real> loose_line_min_distances;
+  Grob *last_spaceable_line = 0;
+  Real last_spaceable_line_translation = 0;
   for (vsize i = 0; i < elements_.size (); ++i)
     {
       if (elements_[i].prob)
 	{
 	  *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
+
+	  last_spaceable_line = 0;
+	  last_spaceable_line_translation = -solution_[spring_idx];
 	  spring_idx++;
 	}
       else
@@ -370,14 +331,12 @@ Page_layout_problem::find_system_offsets ()
 
 	  // Position the staves within this system.
 	  Real translation = 0;
-	  vector<Grob*> loose_lines;
 	  vector<Real> const& min_offsets = elements_[i].min_offsets;
-	  vector<Real> loose_line_min_distances;
-	  Grob *last_spaceable_line = 0;
-	  Real last_spaceable_line_translation = 0;
+	  bool found_spaceable_staff = false;
 	  for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size (); ++staff_idx)
 	    {
 	      Grob *staff = elements_[i].staves[staff_idx];
+	      staff->set_property ("system-Y-offset", scm_from_double (-system_position));
 
 	      if (is_spaceable (staff))
 		{
@@ -391,15 +350,18 @@ Page_layout_problem::find_system_offsets ()
 		    {
 		      loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		      loose_lines.push_back (staff);
+
 		      distribute_loose_lines (loose_lines, loose_line_min_distances,
-					      last_spaceable_line_translation, translation);
+					      last_spaceable_line_translation, translation - system_position);
 		      loose_lines.clear ();
 		      loose_line_min_distances.clear ();
 		    }
 		  last_spaceable_line = staff;
-		  last_spaceable_line_translation = translation;
+		  // Negative is down but the translation is relative to the whole page.
+		  last_spaceable_line_translation = -system_position + translation;
 
 		  staff->translate_axis (translation, Y_AXIS);
+		  found_spaceable_staff = true;
 		}
 	      else
 		{
@@ -407,19 +369,34 @@ Page_layout_problem::find_system_offsets ()
 		    loose_lines.push_back (last_spaceable_line);
 
 		  loose_lines.push_back (staff);
-		  loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
+		  if (staff_idx)
+		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
+		  else
+		    // FIXME: this should reflect the min distance from the last staff
+		    // to the first loose line of this staff.
+		    loose_line_min_distances.push_back (0);
 		}
 	    }
 
 	  // Corner case: even if a system has no live staves, it still takes up
 	  // one spring (a system with one live staff also takes up one spring),
 	  // which we need to increment past.
-	  if (elements_[i].staves.empty ())
+	  if (!found_spaceable_staff)
 	    spring_idx++;
 
 	  *tail = scm_cons (scm_from_double (system_position), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	}
+    }
+
+  if (loose_lines.size ())
+    {
+      loose_line_min_distances.push_back (0); // FIXME: should be the min distance to the footer.
+      loose_lines.push_back (0);
+
+      distribute_loose_lines (loose_lines, loose_line_min_distances,
+			      last_spaceable_line_translation, -page_height_);
+
     }
 
   assert (spring_idx == solution_.size () - 1);
@@ -442,9 +419,14 @@ Page_layout_problem::distribute_loose_lines (vector<Grob*> const &loose_lines,
       alter_spring_from_spacing_spec (spec, &spring);
       spring.ensure_min_distance (min_distances[i]);
 
-      if (spec == SCM_BOOL_F)
+      if ((spec == SCM_BOOL_F && loose_lines[0] && loose_lines.back ())
+	  || !loose_lines[i]
+	  || !loose_lines[i+1])
 	{
 	  // Insert a very flexible spring, so it doesn't have much effect.
+	  // TODO: set a default distance and a compress strength so that a
+	  // lyrics line, for example, will stay closer to the top staff
+	  // even in a compressed configuration.
 	  spring.set_inverse_stretch_strength (100000);
 	  spring.set_inverse_compress_strength (100000);
 	}
@@ -457,7 +439,10 @@ Page_layout_problem::distribute_loose_lines (vector<Grob*> const &loose_lines,
 
   vector<Real> solution = spacer.spring_positions ();
   for (vsize i = 1; i + 1 < solution.size (); ++i)
-    loose_lines[i]->translate_axis (first_translation - solution[i], Y_AXIS);
+    {
+      Real system_offset = scm_to_double (loose_lines[i]->get_property ("system-Y-offset"));
+      loose_lines[i]->translate_axis (first_translation - solution[i] - system_offset, Y_AXIS);
+    }
 }
 
 SCM
@@ -487,7 +472,9 @@ Page_layout_problem::build_system_skyline (vector<Grob*> const& staves,
 
   assert (staves.size () == minimum_translations.size ());
   Real first_translation = minimum_translations[0];
-  Real last_dy = 0;
+  Real last_spaceable_dy = 0;
+  Real first_spaceable_dy = 0;
+  bool found_spaceable_staff;
 
   for (vsize i = 0; i < staves.size (); ++i)
     {
@@ -503,14 +490,25 @@ Page_layout_problem::build_system_skyline (vector<Grob*> const& staves,
 	  down->raise (-dy);
 	  down->merge ((*sky)[DOWN]);
 	  down->raise (dy);
-
-	  last_dy = dy;
+	}
+      if (is_spaceable (staves[i]))
+	{
+	  if (!found_spaceable_staff)
+	    {
+	      found_spaceable_staff = true;
+	      first_spaceable_dy = dy;
+	    }
+	  last_spaceable_dy = dy;
 	}
     }
 
+  // Leave the up skyline at a position relative
+  // to the top spaceable staff.
+  up->raise (-first_spaceable_dy);
+
   // Leave the down skyline at a position
-  // relative to the bottom staff.
-  down->raise (-last_dy);
+  // relative to the bottom spaceable staff.
+  down->raise (-last_spaceable_dy);
 }
 
 Interval
@@ -588,6 +586,9 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
 SCM
 Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
 {
+  if (!before || !after)
+    return SCM_BOOL_F;
+
   if (is_spaceable (before))
     {
       if (is_spaceable (after))

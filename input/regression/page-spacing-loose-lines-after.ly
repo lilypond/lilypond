@@ -1,6 +1,8 @@
+\version "2.13.4"
+
 \header {
     texidoc = "A loose line (eg. a lyric line) at the bottom of a system
-gets spaced as though it wasn't loose."
+gets spaced appropriately."
 }
 
 \layout {
@@ -22,4 +24,3 @@ gets spaced as though it wasn't loose."
     }
 >>
 
-\version "2.12.0"

@@ -1031,6 +1031,8 @@ Internally used to distribute beam shortening over stems.")
      (skyline-distance ,number? "The distance between this staff and the
 next one, as determined by a skyline algorithm.")
      (stem-info ,pair? "A cache of stem parameters.")
+     (system-Y-offset ,number? "The Y-offset (relative to the bottom of the
+top-margin of the page) of the system to which this staff belongs.")
 
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")

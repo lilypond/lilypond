@@ -715,5 +715,6 @@ ADD_INTERFACE (Axis_group_interface,
 	       "pure-relevant-spanners "
 	       "staff-affinity "
 	       "staff-grouper "
+	       "system-Y-offset "
 	       "vertical-skylines "
 	       );
