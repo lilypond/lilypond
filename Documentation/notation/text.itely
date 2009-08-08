@@ -1434,7 +1434,7 @@ Any font that is installed on the operating system and recognized by
 FontConfig may be used in a score, using the following syntax:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.TimeSignature #'font-name = #"Charter"
+\override Staff.TimeSignature #'font-name = #"Bitstream Charter"
 \override Staff.TimeSignature #'font-size = #2
 \time 3/4
 
