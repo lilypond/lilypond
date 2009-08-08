@@ -82,6 +82,7 @@ The syntax for a normal repeat is
 \repeat volta @var{repeatcount} @var{musicexpr}
 @end example
 
+@noindent
 where @var{musicexpr} is a music expression.  Alternate endings can be
 produced using @code{\alternative}.  In order to delimit the alternate
 endings, the group of alternatives must be enclosed in a set of
@@ -352,6 +353,7 @@ the writing out of repetitious music.  The syntax is
 \repeat unfold @var{repeatcount} @var{musicexpr}
 @end example
 
+@noindent
 where @var{musicexpr} is a music expression and @var{repeatcount} is
 the number of times @var{musicexpr} is repeated.
 
@@ -415,6 +417,7 @@ one or two measures are replaced by percent-like signs.  The syntax is
 @code{\repeat percent @var{number} @var{musicexpr}}
 @end example
 
+@noindent
 where @var{musicexpr} is a music expression.
 
 @lilypond[verbatim,quote,relative=2]
