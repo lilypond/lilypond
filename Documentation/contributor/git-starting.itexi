@@ -21,12 +21,11 @@ at @uref{http://git-scm.com/documentation},
 
 @menu
 * Git introduction::            
+* Git user configuration::      
 * Main source code::            
-* Website source code::         
 * Documentation translations source code::  
 * Other branches::              
 * Other locations for git::     
-* Git user configuration::      
 @end menu
 
 @node Git introduction
@@ -36,9 +35,33 @@ The source code is kept in a Git respository.  This allows us to
 track changes to files, and for multiple people to work on the
 same set of files efficiently.
 
+After downloading the source code, it is important to update the
+repository by @ref{Updating the source code}.
+
 @warning{These instructions assume that you are using the
 command-line version of Git 1.5 or higher.  Windows users should
 skip to @ref{Git on Windows}.}
+
+
+@node Git user configuration
+@subsection Git user configuration
+
+Some useful cofiguration can be performed automatically; cut and
+paste the following section:
+
+@example
+git config --global color.ui auto
+git config --global branch.autosetuprebase always
+@end example
+
+To configure git to automatically use your name and email address
+for commits and patches, edit the below lines by changing all the
+@code{MY...} entries:
+
+@example
+git config --global user.name "MYNAME"
+git config --global user.email MYEMAIL@@EXAMPLE.NET
+@end example
 
 
 @node Main source code
@@ -57,23 +80,11 @@ git checkout -b master origin/master
 @end smallexample
 
 
-@node Website source code
-@subsection Website source code
-
-To get the website (including translations),
-
-@smallexample
-mkdir lilypond-web ; cd lilypond-web
-git init-db
-git remote add -f -t web -m web origin git://git.sv.gnu.org/lilypond.git/
-git checkout -b web origin/web
-@end smallexample
-
-
 @node Documentation translations source code
 @subsection Documentation translations source code
 
 To translate the documentation (@emph{not} the website),
+FIXME: when website is integrated, modify this.
 
 @smallexample
 mkdir lilypond-translation; cd lilypond-translation
@@ -91,17 +102,6 @@ you wish to do so, you will need more familiarity with git.
 
 @itemize
 
-@item @code{gub}:
-This stores the Grand Unified Binary, our cross-platform building
-tool.
-@c TODO: merge the gub stuff with this CG.
-For more info, see @uref{http://lilypond.org/gub}.  The git
-location is:
-
-@example
-http://github.com/janneke/gub
-@end example
-
 @item @code{dev/XYZ}:
 These branches are for individual developers.  They store code
 which is not yet stable enough to be added to the @code{master}
@@ -111,6 +111,15 @@ branch.
 The branches are kept for archival reasons.
 
 @end itemize
+
+Another item of interest might be the Grand Unified Builder, our
+cross-platform building tool.  Since it is used by projects as
+well, it is not stored in our gub repository.  For more info, see
+@uref{http://lilypond.org/gub}.  The git location is:
+
+@example
+http://github.com/janneke/gub
+@end example
 
 
 @node Other locations for git
@@ -130,17 +139,6 @@ SSH and Git protocols fail, which happens e.g. if you connect to
 internet through a router that filters out Git and/or SSH connections.
 
 
-@node Git user configuration
-@subsection Git user configuration
-
-To configure git to automatically use your name and email address
-for commits and patches,
-
-@example
-git config --global user.name "MYNAME"
-git config --global user.email MYEMAIL@@EXAMPLE.NET
-@end example
-
 
 @node Updating the source code
 @section Updating the source code
@@ -159,9 +157,8 @@ In a large project like LilyPond, contributors sometimes edit the same
 file at the same time.  As long as everybody updates their version of
 the file with the most recent changes (@emph{pulling}), there are
 generally no problems with this multiple-person editing.  However,
-boring problems can arise if you do not pull before attempting commit,
-e.g. you may encounter a conflict; in this case, see @ref{Resolving
-conflicts}.
+big problems can arise if you do not pull before attempting to
+commit.  If this occurs, see @ref{Resolving conflicts}.
 
 
 @node Update command
