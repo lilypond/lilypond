@@ -1172,7 +1172,6 @@ c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
 
-@noindent
 Another way of printing non-text glyphs is described in @ref{Fonts
 explained}.  This is useful for printing braces of various sizes.
 
@@ -1459,10 +1458,6 @@ operating system:
 lilypond -dshow-available-fonts x
 @end example
 
-@noindent
-The last argument of the command can be anything, but has to be
-present.
-
 
 @seealso
 Notation Reference:
@@ -1472,8 +1467,9 @@ Notation Reference:
 Snippets:
 @rlsr{Text}.
 
-Installed files:
-@file{lily/@/font@/-config@/-scheme@/.cc}.
+@c A source file gets never installed...
+@c Installed files:
+@c @file{lily/@/font@/-config@/-scheme@/.cc}.
 
 
 @node Entire document fonts
