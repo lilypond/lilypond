@@ -10,7 +10,7 @@ depth = ..
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 MANUALS_SUBDIRS = application contributor essay general learning notation
-SUBDIRS = $(MANUALS_SUBDIRS) snippets bibliography logo pictures misc po $(LANGS)
+SUBDIRS = $(MANUALS_SUBDIRS) snippets bibliography logo pictures misc po css $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
@@ -30,6 +30,8 @@ LATEX_FILES =$(call src-wildcard,*.latex)
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
+
+EXTRA_DIST_FILES = $(call src-wildcard,*.init) $(LATEX_FILES)
 
 ### Out files
 
