@@ -320,7 +320,13 @@ arpeggioParenthesisDashed = {
 
 glissando = #(make-music 'GlissandoEvent)
 
-fermataMarkup = \markup { \musicglyph #"scripts.ufermata" }
+fermataMarkup =
+#(make-music 'MultiMeasureTextEvent
+   ; Set the 'text based on the 'direction
+   'tweaks (list (cons 'text (lambda (grob)
+       (if (eq? (ly:grob-property grob 'direction) DOWN)
+           (markup #:musicglyph "scripts.dfermata")
+           (markup #:musicglyph "scripts.ufermata"))))))
 
 hideNotes = {
   % hide notes, accidentals, etc.
