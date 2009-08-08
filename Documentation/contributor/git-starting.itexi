@@ -175,6 +175,18 @@ the remote @code{git.sv.gnu.org} repository:
 git pull -r
 @end example
 
+@noindent
+The @code{-r} option is short for @code{--rebase}.  If you don't
+want to type @code{-r} every time, add @code{rebase = true} to the
+master branch in your @file{.git/config}, like so:
+
+@example
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+        rebase = true
+@end example
+
 
 @node Resolving conflicts
 @subsection Resolving conflicts
