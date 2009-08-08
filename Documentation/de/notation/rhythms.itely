@@ -18,12 +18,12 @@ Dieser Abschnitt erklärt die Eingabe von Rhythmen, Pausen,
 Dauern, Bebalkung und Takten.
 
 @menu
-* Rhythmen eingeben::             
-* Pausen eingeben::               
-* Rhythmen anzeigen lassen::          
-* Balken::                       
-* Takte::                        
-* Besondere rhythmische Fragen::   
+* Rhythmen eingeben::
+* Pausen eingeben::
+* Rhythmen anzeigen lassen::
+* Balken::
+* Takte::
+* Besondere rhythmische Fragen::
 @end menu
 
 
@@ -32,10 +32,10 @@ Dauern, Bebalkung und Takten.
 @translationof Writing rhythms
 
 @menu
-* Tondauern::                   
-* Andere rhythmische Aufteilungen::                     
-* Tondauern skalieren::           
-* Bindebögen::                        
+* Tondauern::
+* Andere rhythmische Aufteilungen::
+* Tondauern skalieren::
+* Bindebögen::
 @end menu
 
 @node Tondauern
@@ -598,9 +598,9 @@ den Noten notiert.
 
 
 @menu
-* Pausen::                       
-* Unsichtbare Pausen::             
-* Ganztaktige Pausen::          
+* Pausen::
+* Unsichtbare Pausen::
+* Ganztaktpausen::
 @end menu
 
 @node Pausen
@@ -652,7 +652,7 @@ Pausen, die ganze Takte ausfüllen und in der Taktmitte zentriert
 werden sollen, müssen als mehrtaktige Pausen eingegeben werden.
 Sie können sowohl für einen einzigen Takt als auch für mehrere
 Takte verwendet werden, Näheres im Abschnitt
-@ref{Ganztaktige Pausen}.
+@ref{Ganztaktpausen}.
 
 Um die vertikale Position einer Pause explizit festzulegen,
 kann eine Note eingegeben werden, gefolgt vom Befehl @code{\rest}.
@@ -675,7 +675,7 @@ Glossar:
 @rglos{maxima}.
 
 Notationsreferenz:
-@ref{Ganztaktige Pausen}.
+@ref{Ganztaktpausen}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -758,8 +758,8 @@ Referenz der Interna:
 
 
 
-@node Ganztaktige Pausen
-@unnumberedsubsubsec Ganztaktige Pausen
+@node Ganztaktpausen
+@unnumberedsubsubsec Ganztaktpausen
 @translationof Full measure rests
 
 @cindex Ganztaktpausen
@@ -1546,10 +1546,10 @@ Referenz der Interna:
 @translationof Beams
 
 @menu
-* Automatische Balken::             
-* Einstellung von automatischen Balken::  
-* Manuelle Balken::                
-* Gespreizte Balken::             
+* Automatische Balken::
+* Einstellung von automatischen Balken::
+* Manuelle Balken::
+* Gespreizte Balken::
 @end menu
 
 
@@ -1666,8 +1666,14 @@ Stimmen zusammenstoßen.
 @funindex \set
 @funindex set
 
-Die Platzierung der automatischen Bebalkung wird entschieden, indem
-die folgenden Regeln in der dargestellten Reihenfolge angewendet werden:
+Die Platzierung der automatischen Bebalkung wird entsprechend
+der Taktart entschieden.  Drei Arten von Regeln werden eingesetzt,
+um die Endpunkte der automatischen Balken zu bestimmen:
+@emph{Standardregeln} für die Taktart, @emph{ausdrückliche}
+Regeln für einen Balken in einer Taktart und die
+Eigenschaft @emph{beatLenght} (Schlagdauer) der Taktart.
+
+Die folgenden Regeln, in der Reihenfolge ihrer Priorität, gelten, wenn das Aussehen der Balken bestimmt wird:
 
 @itemize
 
@@ -1675,80 +1681,65 @@ die folgenden Regeln in der dargestellten Reihenfolge angewendet werden:
 
 @item wenn @code{\autoBeamOff} eingeschaltet ist, werden keine Balken gesetzt, andernfalls
 
+@item wenn eine ausdrückliche Balkenregel für diesen Balken in
+dieser Taktart definiert ist, wird sie genommen um die möglichen
+Stellen zu errechnen, an denen der Balken enden darf, andernfalls
+
+@item wenn eine Standardbalkenregel für die Taktart definiert ist,
+wird sie genommen, um Noten mit Balken zu gruppieren, andernfalls
+
 @item benutze den Wert von @code{beatLength} um die Noten mit Balken zu gruppieren.
 
 @end itemize
 
-@i{@strong{Die Gruppierung von Noten verändern}}
+@i{@strong{Die Gruppierung von Taktzeiten verändern}}
 
-Sowohl @code{measureLength} als auch @code{beatLength} sind
-@i{Momente}, Einheiten musikalischer Dauer.  Eine Größe der
-Art @i{Moment} wird durch die Scheme-Funktion
+Standardmäßig wird @code{beatLength} (Schlagdauer) von der
+Taktart abgeleitet, die mit dem @code{\time}-Befehl gesetzt
+wurde.  Die Schlagdauer wird definiert als eine Eins über dem
+Nenner der Taktart.
+
+@code{beatLength} ist ein @i{Moment}, eine Einheit musikalischer
+Dauer.  Eine Größe der Art @i{Moment} wird durch die Scheme-Funktion
 @code{ly:make-moment} erstellt.  Für mehr Information zu dieser
 Funktion siehe @ref{Verwaltung der Zeiteinheiten}.
 
-@code{beatGrouping} ist eine Liste an Integren, die die Anzahl
-von Zählzeiten für jede Gruppe darstellen.
+Automatische Bebalkung und Balkenunterteilungen werden gespeichert
+in den Einstellungen der @code{beamSettings}-Eigenschaft.
+Standardwerte von @code{beamSettings} werden in der Datei
+@file{scm/beam-settings.scm} definiert.  Einträge in
+@code{beamSettings} werden nach Taktart und Regelart sortiert.
 
-@snippets
+Die Taktart sollte als Scheme-Paar dargestellt werden, also
+@code{#'(4 . 4)}.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{grouping-beats.ly}
+Die Regelart sollte sein @code{#'end} für Balkenenden und
+@code{#'subdivide} für Balkenunterteilungen.
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{specifying-context-with-beatgrouping.ly}
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{using-beatlength-and-beatgrouping.ly}
-
-@funindex subdivideBeams
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{sub-dividing-beams.ly}
-
-@cindex Taktgruppen
-@cindex Schlaggruppen
-@cindex Taktschläge gruppieren
-@cindex Takt unterteilen
-@cindex Unterteilen von Takten
-
-@funindex autoBeamSettings
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{conducting-signs,-measure-grouping-signs.ly}
-
-
-@strong{@i{Die Endpunkte von Balken bestimmen}}
-
-Balkenenden-Regeln werden benötigt, wenn Balken unterschiedlicher
-Dauer zur gleichen Taktzeit enden sollen.  Es kann beispielsweise
-nötig sein, dass Achtelbalken in einem 4/4-Takt nur am Ende des
-Taktes oder in seiner Mitte enden, Sechszehntelbalken hingegen
-sollen nach jeder Viertel enden, damit lange überbalkte Strecken
-vermieden werden.  Die Regeln funktionieren folgendermaßen:
-
-Automatische Balken beginnen an einer beliebigen Note, enden aber nur
-an den bestimmten Positionen, die durch die Eigenschaften von
-@code{autoBeamSettings} bestimmt werden.  Diese Eigenschaften
-bestehen aus einer Liste an Regeln, die die erlaubten Endpunkte
-definieren.  Die Standardregeln von @code{autoBeamSettings}
-sind in der Datei @file{scm/@/auto@/-beam@/.scm} definiert.  Um
-diese Datei zu finden, siehe
-@rlearning{Mehr Information}.
-
-Um eine neue Regel zu der Liste hinzuzufügen, muss folgende
-Syntax verwendet werden:
+Die Endungs- und Unterteilungsregeln bestehen aus einer
+Scheme-Aliste (oder Liste von Paaren), die den Balkentyp und
+die Gruppierung, die auf diesen Balkentyp angewendet werden
+soll, anzeigt.
 
 @example
-#(override-auto-beam-setting
-  '(Balken-Limit
-    Balken-Zähler Balken-Nenner
-    Taktart-Zähler Taktart-Nenner)
-  Moment-Zähler Moment-Nenner [Kontext])
+#'((beam-type1 . grouping-1)
+   (beam-type2 . grouping-2)
+   (beam-type3 . grouping-3))
 @end example
 
-@noindent
-wobei
+Balkentyp ist entweder ein Scheme-Paar, das die Dauer des Balkens
+anzeigt, etwa @code{(1 . 16)}, oder @code{*}, um eine Standardregel
+anzuzeigen, die auf alle Balken angewendet werden soll, wenn
+keine spezifische Regel vorliegt.
+
+Die Balkengruppierung ist eine Scheme-Liste, die die Gruppierungsart
+für einen Balkentyp darstellt.  Für Standardregeln (in denen
+der Balkentyp @code{*} ist) wird die Gruppierung in Einheiten
+von @code{beatLength} dargestellt.  Für explizite Regeln wird
+die Gruppierung in Einheiten der Balkenart angezeigt.
+
+Balkenregeln werden verändert mit @code{\overrideBeamSettings}
+und @code{\revertBeamSettings}.
 
 @lilypond[quote,relative=2,verbatim]
   \time 5/16
@@ -1758,6 +1749,11 @@ wobei
   \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
   c8^"(3+2)" c16 c8
 @end lilypond
+
+Balkenregelveränderungen können auf bestimmte Kontexte beschränkt
+werden.  Wenn keine Regeln in einen unteren Kontext definiert
+sind, gelten die Regeln des höheren Kontext, in dem sich der
+niedrigere befindet.
 
 @lilypond[quote, verbatim,relative=1]
 \new Staff <<
@@ -1778,14 +1774,14 @@ wobei
 >>
 @end lilypond
 
-Wenn mehrfache Stimmen benutzt werden, muss der @code{Staff}-Kontext
-angegeben werden, wenn die Balkenregeln auf alle Stimmen im System
-angewendet werden sollen:
+Wenn mehrere Stimmen eingesetzt werden, muss der @code{Staff}-Kontext
+definiert werden, wenn die Balkenregeln auf alle Stimmen des
+Systems angewendet werden sollen:
 
 @lilypond[quote,verbatim,relative=2]
 \time 7/8
 % rhythm 3-1-1-2
-% Context Voice specified - does not work correctly
+% Context Voice specified --  does not work correctly
 % Because of autogenerated voices, all beating will
 % be at beatLength (1 . 8)
 \overrideBeamSettings #'Voice #'(7 . 8) #'end #'((* . (3 1 1 2)))
@@ -1796,16 +1792,18 @@ angewendet werden sollen:
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@funindex revert-beam-setting
+@funindex revertBeamSettings
 
-Beam settings can be reverted to get back to default behavior.  This
-is accomplished by using @code{\revertBeamSettings}.  The arguments
-are the same as for @code{\overrideBeamSettings}, except no value
-for @var{grouping} is given:
+Balkenregeln können rückgängig gemacht und das Standardverhalten
+wieder hergestellt werden.  Das erreicht man durch den Einsatz
+von @code{\revertBeamSettings}.  Die Argumente sind die gleichen
+wie für @code{overrideBeamSettings}, außer das kein Wert für
+@var{Gruppierung} gegeben wird:
 
 @example
-\revertBeamSettings context time-signature rule-type
+\revertBeamSettings Kontext Taktart Regelart
 @end example
+
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
@@ -1818,17 +1816,20 @@ for @var{grouping} is given:
 \repeat unfold 16 {a16}
 @end lilypond
 
+
 @snippets
 
-@cindex beams, subdividing
+@cindex Balken, Unterteilung
+@funindex subdivideBeams
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {sub-dividing-beams.ly}
 
-@cindex measure groupings
-@cindex beats, grouping
-@cindex grouping beats
-@cindex measure sub-grouping
+@cindex Taktgruppen
+@cindex Schlaggruppen
+@cindex Taktschläge gruppieren
+@cindex Takt unterteilen
+@cindex Unterteilen von Takten
 
 @funindex autoBeamSettings
 
@@ -1838,23 +1839,22 @@ for @var{grouping} is given:
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@cindex Balken, letzter in einer Partitur
-@cindex letzter Balken einer Partitur
-@cindex Balken, letzter in einer polyphonen Stimme
+@cindex Balken, letzter in Partitur
+@cindex Balken, letzter in polyphoner Stimme
 
 @knownissues
 
-Wenn eine Partitur aufhört, während ein automatischer Balken noch
-nicht geschlossen ist und noch Noten erwartet, wird dieser letzte
-Balken überhaupt nicht ausgegeben.  Das gilt auch für polyphone
-Stimmen, die mit @code{<< @dots{} \\ @dots{} >>} gesetzt wurden.
-Wenn eine polyphone Stimme endet, während ein Balken noch Noten
-erwartet, wird dieser Balken nicht gesetzt.
+Wenn eine Partitur endet, während ein automatischer Balken noch
+nicht beendet wurde und weiterhin Notenerwartet, wird dieser
+letzte Balken nicht ausgegeben.  Das Gleiche gilt auch für
+polyphone Stimmen, die mit der @code{<<
+@dots{} \\ @dots{} >>}-Konstruktion notiert wurden.  Wenn eine
+polyphone Stimme endet, während ein Balken noch weitere Noten
+erwartet, wird der Balken nicht gesetzt.
 
 @seealso
 Schnipsel:
 @rlsr{Rhythms}.
-
 
 @node Manuelle Balken
 @unnumberedsubsubsec Manuelle Balken
