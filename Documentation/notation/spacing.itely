@@ -2094,6 +2094,8 @@ If @code{ragged-right} is set to true in the @code{\layout} block, then
 systems ends at their natural horizontal length, instead of being spread
 horizontally to fill the whole line.  This is useful for
 short fragments, and for checking how tight the natural spacing is.
+The normal default setting is false, but if the score has only one
+system the default value is true.
 
 @cindex page layout
 @cindex vertical spacing
