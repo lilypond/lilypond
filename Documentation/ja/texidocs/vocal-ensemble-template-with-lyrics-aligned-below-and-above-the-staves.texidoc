@@ -1,5 +1,5 @@
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
-このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が 
+このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が
 @code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
 "

@@ -2,7 +2,7 @@
   texidocfr = "
 Ce canevas ressemble beaucoup à celui pour chœur à quatre voix mixtes.
 La différence réside dans le fait que les paroles sont positionnées en
-ayant recours à @code{alignAboveContext} et @code{alignBelowContext}. 
+ayant recours à @code{alignAboveContext} et @code{alignBelowContext}.
 
 "
   doctitlefr = "Ensemble vocal avec alignement des paroles selon le contexte"

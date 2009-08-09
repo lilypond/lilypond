@@ -5,7 +5,7 @@ Die vertikale Anordnung von Beschriftungen wird mit der
 Zahl, umso näher wird die Beschriftung in Bezug auf die Note gesetzt.  In
 diesem Beispiel hat das @code{TextScript}-Objekt (das Kreuz) zuerst
 die niedrigste Priorität, wird also auch am niedrigsten in dem ersten
-Beispiel gesetzt.  Im zweiten Fall hat der Praller (das @code{Script}) 
+Beispiel gesetzt.  Im zweiten Fall hat der Praller (das @code{Script})
 die niedrigste Priorität, darum wird er am nächsten zum System gesetzt.
 Wenn zwei Objekte die gleiche Priorität haben, wird ihre Reihenfolge
 anhand ihres Auftretens in der Quelldatei entschieden.

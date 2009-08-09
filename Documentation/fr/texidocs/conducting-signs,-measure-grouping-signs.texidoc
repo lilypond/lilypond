@@ -4,7 +4,7 @@ Il existe des options qui permettent de grouper les ligatures au sein
 d'une mesure, grâce à la fonction Scheme @code{set-time-signature}.
 Celle-ci prend trois arguments : le nombre de pulsations, la durée de la
 pulsation et le regroupement des pulsations dans la mesure.  Si l'on
-fait appel au @code{Measure_grouping_engraver}, la fonction 
+fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{set-time-signature} créera aussi des symboles
 @code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
 modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à

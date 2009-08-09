@@ -1,6 +1,6 @@
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
   texidocfr = "
-Cet exemple peu académique démontre comment il est possible d'insérer un saut 
+Cet exemple peu académique démontre comment il est possible d'insérer un saut
 de ligne dans un nolet portant une ligature.  Ces ligatures doivent toutefois
 être explicites.
 

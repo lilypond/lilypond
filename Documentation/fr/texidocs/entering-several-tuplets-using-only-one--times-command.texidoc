@@ -2,7 +2,7 @@
   texidocfr = "
 La propriété @code{tupletSpannerDuration} spécifie la longueur voulue de
 chaque crochet.  Avec elle, vous pouvez faire plusieurs nolets en ne
-tapant @code{\\times} qu'une fois, ce qui évite une longue saisie.  
+tapant @code{\\times} qu'une fois, ce qui évite une longue saisie.
 
 Dans l'exemple suivant, deux triolets sont imprimés avec une seule fonction
 @code{\\times}.
