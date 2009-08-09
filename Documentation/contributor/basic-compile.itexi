@@ -157,7 +157,7 @@ about which font packages are necessary for your platform)
 @uref{http://bugs.ghostscript.com/show_bug.cgi?id=688154}
 and the patch from
 @uref{http://bugs.ghostscript.com/show_bug.cgi?id=688017}.
-@item @uref{http://www.nongnu.org/texi2html/,Texi2HTML} 1.80 or newer
+@item @uref{http://www.nongnu.org/texi2html/,Texi2HTML} 1.82 or newer
 @item rsync
 @end itemize
 

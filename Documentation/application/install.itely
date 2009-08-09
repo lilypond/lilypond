@@ -81,4 +81,4 @@ the @uref{Compiling-from-source.html,documentation in English}.
 @c and remove all stuff (menu, nodes, contents) below this line.
 
 
-@include contributor/compile.itexi
+@include contributor/basic-compile.itexi
