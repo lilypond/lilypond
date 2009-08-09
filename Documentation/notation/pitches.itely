@@ -930,7 +930,8 @@ c2 c
 
 @seealso
 Notation Reference:
-@ref{Mensural clefs}, @ref{Gregorian clefs}.
+@ref{Mensural clefs},
+@ref{Gregorian clefs}.
 
 Snippets:
 @rlsr{Pitches}.
@@ -1179,7 +1180,8 @@ Music Glossary:
 @rglos{transposing instrument}.
 
 Notation Reference:
-@ref{Quoting other voices}, @ref{Transpose}.
+@ref{Quoting other voices},
+@ref{Transpose}.
 
 Snippets:
 @rlsr{Pitches}.
@@ -2166,7 +2168,7 @@ Snippets:
 Internals Reference:
 @rinternals{Accidental},
 @rinternals{Accidental_engraver},
-@rinternals{GrandStaff} and
+@rinternals{GrandStaff},
 @rinternals{PianoStaff},
 @rinternals{Staff},
 @rinternals{AccidentalSuggestion},

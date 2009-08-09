@@ -84,7 +84,7 @@ Notation Reference:
 @ref{Input modes}.
 
 Snippets:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @knownissues
@@ -232,6 +232,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}.
+
 
 @knownissues
 Only one quality modifier should be used per chord, typically on the
@@ -383,7 +384,7 @@ Notation Reference:
 @ref{Common chord modifiers}.
 
 Snippets:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @knownissues
@@ -774,7 +775,7 @@ Music Glossary:
 @rglos{figured bass}.
 
 Snippets:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @node Entering figured bass

@@ -54,7 +54,8 @@ Notation Reference:
 @ref{Instantiating new staves}.
 @ref{Percussion in MIDI}.
 
-Snippets: @rlsr{Percussion}.
+Snippets:
+@rlsr{Percussion}.
 
 
 @node Basic percussion notation
@@ -98,11 +99,15 @@ instruments; for details please see @ref{Percussion in MIDI}.
 
 
 @seealso
-Notation Reference: @ref{Percussion in MIDI}, @ref{Percussion notes}.
+Notation Reference:
+@ref{Percussion in MIDI},
+@ref{Percussion notes}.
 
-File: @file{ly/@/drumpitch@/-init@/.ly}
+File:
+@file{ly/@/drumpitch@/-init@/.ly}
 
-Snippets: @rlsr{Percussion}.
+Snippets:
+@rlsr{Percussion}.
 
 
 @node Drum rolls
@@ -140,7 +145,8 @@ overridden to achieve a pleasing baseline.
 
 
 @seealso
-Snippets: @rlsr{Percussion}.
+Snippets:
+@rlsr{Percussion}.
 
 
 @node Pitched percussion
@@ -155,9 +161,11 @@ This is covered in other sections of the manual.
 @c TODO: possibly link to an alternate section of NR 3.5, if
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
-Notation Reference: @ref{Percussion in MIDI}.
+Notation Reference:
+@ref{Percussion in MIDI}.
 
-Snippets: @rlsr{Percussion}.
+Snippets:
+@rlsr{Percussion}.
 
 
 @node Percussion staves
@@ -487,7 +495,7 @@ bellstaff = {
 }
 @end lilypond
 
-Here an short example by maestro Stravinsky (from @q{L'histoire du Soldat})
+Here a short example taken from Stravinsky's @q{L'histoire du Soldat}.
 
 @lilypond[quote,verbatim]
 #(define mydrums '((bassdrum   default #t  4)
@@ -550,9 +558,12 @@ drumsB = {
 
 
 @seealso
-Snippets: @rlsr{Percussion}.
+Snippets:
+@rlsr{Percussion}.
 
-Internals Reference: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
+Internals Reference:
+@rinternals{DrumStaff},
+@rinternals{DrumVoice}.
 
 
 @c TODO: check name -gp
@@ -592,4 +603,5 @@ around each @code{\parenthesize} statement.
 
 
 @seealso
-Snippets: @rlsr{Percussion}.
+Snippets:
+@rlsr{Percussion}.

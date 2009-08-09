@@ -172,14 +172,21 @@ c1
 
 
 @seealso
-Music Glossary: @rglos{repeat}, @rglos{volta}.
+Music Glossary:
+@rglos{repeat},
+@rglos{volta}.
 
-Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
+Notation Reference:
+@ref{Bar lines},
+@ref{Modifying context plug-ins}.
 
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
-Internals Reference: @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
+Internals Reference:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 
@@ -379,9 +386,11 @@ c1
 
 
 @seealso
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
-Internals Reference: @rinternals{RepeatedMusic},
+Internals Reference:
+@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 
@@ -439,14 +448,20 @@ where @var{musicexpr} is a music expression.
 
 
 @seealso
-Music Glossary: @rglos{percent repeat}, @rglos{simile}.
+Music Glossary:
+@rglos{percent repeat},
+@rglos{simile}.
 
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
-Internals Reference: @rinternals{RepeatSlash},
-@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+Internals Reference:
+@rinternals{RepeatSlash},
+@rinternals{PercentRepeat},
+@rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
-@rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 
 @knownissues
@@ -528,7 +543,8 @@ c: c:
 
 
 @seealso
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
 @cindex tremolo, cross-staff
 @cindex cross-staff tremolo

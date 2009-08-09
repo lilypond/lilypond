@@ -265,7 +265,8 @@ Music Glossary:
 @rglos{tuplet},
 @rglos{polymetric}.
 
-Learning Manual: @rlearning{Tweaking methods}.
+Learning Manual:
+@rlearning{Tweaking methods}.
 
 Notation Reference:
 @ref{Time administration},
@@ -280,6 +281,7 @@ Internals Reference:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+
 
 @cindex grace notes within tuplet brackets
 
@@ -1381,7 +1383,8 @@ much each measure is off.
 
 
 @seealso
-Music Glossary: @rglos{tie}
+Music Glossary:
+@rglos{tie}
 
 Learning Manual:
 @rlearning{Engravers explained},
@@ -1579,7 +1582,8 @@ Installed Files:
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{Beam}.
+Internals Reference:
+@rinternals{Beam}.
 
 
 @knownissues
@@ -1647,7 +1651,7 @@ information about this function, see @ref{Time administration}.
 
 Autobeam and beam subdivide settings are stored in the
 @code{beamSettings} property.  Default values of @code{beamSettings}
-are determined in @file{scm/beam-settings.scm}.  Entries in
+are determined in @file{scm/@/beam@/-settings@/.scm}.  Entries in
 @code{beamSettings} are indexed by time signature and
 rule type.
 
@@ -2107,10 +2111,10 @@ Notation Reference:
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{BarLine} (created at
-@rinternals{Staff} level), @rinternals{SpanBar} (across
-staves), @rinternals{Timing_translator} (for Timing
-properties).
+Internals Reference:
+@rinternals{BarLine} (created at @code{Staff} level),
+@rinternals{SpanBar} (across staves),
+@rinternals{Timing_translator} (for Timing properties).
 
 
 @node Bar numbers
@@ -2189,7 +2193,8 @@ c1 | c | c | c
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{BarNumber}.
+Internals Reference:
+@rinternals{BarNumber}.
 
 
 @cindex bar number collision
@@ -2418,7 +2423,8 @@ other formatting functions.
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{RehearsalMark}.
+Internals Reference:
+@rinternals{RehearsalMark}.
 
 
 @node Special rhythmic concerns
@@ -2568,11 +2574,14 @@ Music Glossary:
 @rglos{acciaccatura},
 @rglos{appoggiatura}.
 
-Installed Files: @file{ly/@/grace@/-init@/.ly}.
+Installed Files:
+@file{ly/@/grace@/-init@/.ly}.
 
-Snippets: @rlsr{Rhythms}.
+Snippets:
+@rlsr{Rhythms}.
 
-Internals Reference: @rinternals{GraceMusic}.
+Internals Reference:
+@rinternals{GraceMusic}.
 
 
 @knownissues
@@ -2733,11 +2742,14 @@ notes.
 
 
 @seealso
-This manual: @ref{Bar numbers}, @ref{Unmetered music}
+Notation Reference:
+@ref{Bar numbers},
+@ref{Unmetered music}.
 
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{Timing_translator},
-@rinternals{Score}
+Internals Reference:
+@rinternals{Timing_translator},
+@rinternals{Score}.
 

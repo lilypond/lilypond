@@ -245,7 +245,7 @@ A @code{\score} block.  This score will be collected with other
 toplevel scores, and combined as a single @code{\book}.
 This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
-defined in the init file @file{../scm/@/lily@/.scm}.
+defined in the init file @file{../@/scm/@/lily@/.scm}.
 
 @item
 A @code{\book} block logically combines multiple movements
@@ -260,7 +260,7 @@ a @code{\book} block if you want more than a single @code{\score}
 or @code{\markup} in the same example.  This behavior can be
 changed by setting the variable @code{toplevel-book-handler} at
 toplevel.  The default handler is defined in the init file
-@file{../scm/@/lily@/.scm}.
+@file{../@/scm/@/lily@/.scm}.
 
 @item
 A @code{\bookpart} block.  A book may be divided into several parts,
@@ -294,7 +294,7 @@ music expression will be translated into
 
 This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel.  The default handler is
-defined in the init file @file{../scm/@/lily@/.scm}.
+defined in the init file @file{../@/scm/@/lily@/.scm}.
 
 @item
 A markup text, a verse for example
@@ -375,6 +375,7 @@ must be used around the dot and the equals sign in commands like
 after the entire command.
 
 @end itemize
+
 
 @seealso
 Learning Manual:
@@ -586,7 +587,7 @@ Headers may be completely removed by setting them to false.
 
 A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block.  The init file
-@file{../ly/titling-init.ly} lists the default layout.
+@file{../@/ly/@/titling@/-init@/.ly} lists the default layout.
 
 @table @code
 @funindex bookTitleMarkup
@@ -800,7 +801,7 @@ tocAct =
 
 
 @seealso
-Init files: @file{../ly/@/toc@/-init@/.ly}.
+Init files: @file{../@/ly/@/toc@/-init@/.ly}.
 
 
 @predefined
@@ -1625,7 +1626,7 @@ tempoWholesPerMinute = #(ly:make-moment 270 8)
 Context definitions follow precisely the same syntax as those
 within a @code{\layout} block.  Translation modules for sound are
 called performers.  The contexts for MIDI output are defined in
-@file{../ly/@/performer@/-init@/.ly},
+@file{../@/ly/@/performer@/-init@/.ly},
 see @rlearning{Other sources of information}.
 For example, to remove the effect of dynamics
 from the MIDI output, insert the following lines in the
@@ -1762,7 +1763,7 @@ Dynamic marks are translated to a fixed fraction of the available
 MIDI volume range.  The default fractions range from 0.25 for
 @notation{ppppp} to 0.95 for @notation{fffff}.  The set of dynamic
 marks and the associated fractions can be seen in
-@file{../scm/midi.scm}, see @rlearning{Other sources of information}.
+@file{../@/scm/@/midi.scm}, see @rlearning{Other sources of information}.
 This set of fractions may be changed or extended by providing a
 function which takes a dynamic mark as its argument and returns the
 required fraction, and setting
@@ -1802,7 +1803,7 @@ found, or calls the default function otherwise.
 Alternatively, if the whole table of fractions needs to be
 redefined, it would be better to use the
 @notation{default-dynamic-absolute-volume} procedure in
-@file{../scm/midi.scm} and the associated table as a model.
+@file{../@/scm/@/midi.scm} and the associated table as a model.
 The final example in this section shows how this might be done.
 
 @unnumberedsubsubsec Overall MIDI volume
@@ -1913,7 +1914,7 @@ If the MIDI minimum and maximum volume properties are not set
 LilyPond will, by default, apply a small degree of equalization
 to a few instruments.  The instruments and the equalization
 applied are shown in the table @notation{instrument-equalizer-alist}
-in @file{../scm/midi.scm}.
+in @file{../@/scm/@/midi.scm}.
 
 This basic default equalizer can be replaced by setting
 @code{instrumentEqualizer} in the @code{Score} context to a new
@@ -1923,7 +1924,7 @@ maximum volumes to be applied to that instrument.  This replacement
 is done in the same way as shown for resetting the
 @code{dynamicAbsoluteVolumeFunction} at the start of this section.
 The default equalizer, @notation{default-instrument-equalizer}, in
-@file{../scm/midi.scm} shows how such a procedure might be written.
+@file{../@/scm/@/midi.scm} shows how such a procedure might be written.
 
 The following example sets the relative flute and clarinet volumes
 to the same values as the previous example.

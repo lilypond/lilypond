@@ -331,7 +331,7 @@ This second example centers page numbers at the bottom of every page.
 
 You can also define these values in Scheme.  In that case @code{mm},
 @code{in}, @code{pt}, and @code{cm} are variables defined in
-@file{paper-defaults.ly} with values in millimeters.  That is why the
+@file{paper@/-defaults@/.ly} with values in millimeters.  That is why the
 value must be multiplied in the example
 
 @example
@@ -2540,7 +2540,9 @@ edge and @var{b} the upper edge of the interval.
 
 
 @seealso
-@ref{Setting the staff size}
+Notation Reference:
+@ref{Setting the staff size}.
+
 Snippets:
 @rlsr{Spacing}.
 

@@ -343,7 +343,7 @@ mynotes = {
 
 @seealso
 Installed Files:
-@file{scm/output-lib.scm}.
+@file{scm/@/output@/-lib@/.scm}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -970,6 +970,7 @@ predefined fret diagram, the interface properties belong to
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chordchanges-for-fretboards.ly}
 
+
 @seealso
 Notation Reference:
 @ref{Custom tablatures},
@@ -978,8 +979,8 @@ Notation Reference:
 @ref{Predefined fretboard diagrams}.
 
 Installed Files:
-@file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly}.
+@file{ly/@/predefined@/-guitar@/-fretboards@/.ly},
+@file{ly/@/predefined@/-guitar@/-ninth@/-fretboards@/.ly}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -1060,7 +1061,7 @@ commands:
 
 
 Sometimes the fretboard calculator will be unable to find
-an accceptable diagram.  This can often be remedied by
+an acceptable diagram.  This can often be remedied by
 manually assigning a note to a string.  In many cases, only one
 note need be manually placed on a string; the rest of
 the notes will then be placed appropriately by the @code{FretBoards}
@@ -1331,4 +1332,5 @@ These tunings may be converted to four-string banjo tunings using the
 Snippets:
 @rlsr{Fretted strings}.
 
-The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+Installed Files:
+@file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
