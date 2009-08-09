@@ -35,7 +35,7 @@ The @code{Volta_engraver} by default resides in the @code{Score}
 context, and brackets for the repeat are thus normally only printed
 over the topmost staff. This can be adjusted by adding the
 @code{Volta_engraver} to the @code{Staff} context where the brackets
-should appear; see also the \"Volta multi staff\" snippet.
+should appear; see also the @qq{Volta multi staff} snippet.
 
 "
   doctitle = "Adding volta brackets to additional staves"

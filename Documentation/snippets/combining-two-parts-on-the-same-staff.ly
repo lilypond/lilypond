@@ -52,13 +52,12 @@ kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
   texidoc = "
 The part combiner tool ( @code{\\partcombine} command ) allows the
 combination of several different parts on the same staff.  Text
-directions such as \"solo\" or \"a2\" are added by default; to remove
-them, simply set the property @code{printPartCombineTexts} to
-\"false\". For vocal scores (hymns), there is no need to add
-\"solo\"/\"a2\" texts, so they should be switched off.  However, it
-might be better not to use it if there are any solos, as they won't be
-indicated.  In such cases, standard polyphonic notation may be
-preferable.
+directions such as @qq{solo} or @qq{a2} are added by default; to remove
+them, simply set the property @code{printPartCombineTexts} to @code{f}.
+For vocal scores (hymns), there is no need to add @qq{solo/a2} texts,
+so they should be switched off.  However, it might be better not to use
+it if there are any solos, as they won't be indicated.  In such cases,
+standard polyphonic notation may be preferable.
 
 This snippet presents the three ways two parts can be printed on a same
 staff: standard polyphony, @code{\\partcombine} without texts, and

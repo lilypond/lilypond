@@ -141,7 +141,7 @@ carry both a left- and right-pointing flat flag. Do this with paired
 
 (Note that @code{\\set stemLeftBeamCount} is always equivalent to
 @code{\\once \\set}.  In other words, the beam count settings are not
-\"sticky\", so the pair of flat flags attached to the lone
+@qq{sticky}, so the pair of flat flags attached to the lone
 @code{c'16[]} in the last example have nothing to do with the
 @code{\\set} two notes prior.)
 

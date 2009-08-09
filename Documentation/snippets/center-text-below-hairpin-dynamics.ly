@@ -18,9 +18,9 @@ normalmente un objeto, utilizando código de Scheme.
 
   texidoc = "
 This example provides a function to typeset a hairpin (de)crescendo
-with some additional text below it, such as \"molto\" or \"poco\". The
-example also illustrates how to modify the way an object is normally
-printed, using some Scheme code.
+with some additional text below it, such as @qq{molto} or @qq{poco}.
+The example also illustrates how to modify the way an object is
+normally printed, using some Scheme code.
 
 "
   doctitle = "Center text below hairpin dynamics"

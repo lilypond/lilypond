@@ -37,7 +37,7 @@ notación.
 
   texidoc = "
 In early 20th century works, starting with Schoenberg, Berg and Webern
-(the \"Second\" Viennese school), every pitch in the twelve-tone scale
+(the @qq{Second} Viennese school), every pitch in the twelve-tone scale
 has to be regarded as equal, without any hierarchy such as the
 classical (tonal) degrees. Therefore, these composers print one
 accidental for each note, even at natural pitches, to emphasize their

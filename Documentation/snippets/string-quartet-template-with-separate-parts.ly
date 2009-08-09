@@ -85,10 +85,10 @@ individualisés !
   doctitlefr = "Quatuor à cordes, avec parties séparées"
 
   texidoc = "
-The \"String quartet template\" snippet produces a nice string quartet,
-but what if you needed to print parts? This new template demonstrates
-how to use the @code{\\tag} feature to easily split a piece into
-individual parts.
+The @qq{String quartet template} snippet produces a nice string
+quartet, but what if you needed to print parts? This new template
+demonstrates how to use the @code{\\tag} feature to easily split a
+piece into individual parts.
 
 You need to split this template into separate files; the filenames are
 contained in comments at the beginning of each file. @code{piece.ly}

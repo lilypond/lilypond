@@ -8,7 +8,7 @@
 
   texidoc = "
 It is possible to indicate special articulation techniques such as a
-flute's \"tongue slap\" by replacing the note head with the appropriate
+flute @qq{tongue slap} by replacing the note head with the appropriate
 glyph.
 
 "
@@ -18,13 +18,17 @@ glyph.
 slap =
 #(define-music-function (parser location music) (ly:music?)
 #{
-  \override NoteHead #'stencil = #(lambda (grob)
-    (grob-interpret-markup grob
-      (markup #:musicglyph "scripts.sforzato")))
-  \override NoteHead #'extra-offset = #'(0.1 . 0.0)
+  \override NoteHead #'stencil =
+    #(lambda (grob)
+       (grob-interpret-markup grob
+        (markup #:musicglyph "scripts.sforzato")))
+  \override NoteHead #'stem-attachment =
+    #(lambda (grob)
+       (let ((thickness (ly:staff-symbol-line-thickness grob)))
+         (cons 1 (/ thickness 2))))
   $music
   \revert NoteHead #'stencil
-  \revert NoteHead #'extra-offset
+  \revert NoteHead #'stem-attachment
 #})
 
 \relative c' {

@@ -66,8 +66,8 @@ In the example, two triplets are shown, while @code{\\times} was
 entered only once.
 
 
-For more information about @code{make-moment}, see \"Time
-administration\".
+Read the relevant sections of the Notation Reference for more
+information about @code{make-moment}.
 
 "
   doctitle = "Entering several tuplets using only one \\times command"

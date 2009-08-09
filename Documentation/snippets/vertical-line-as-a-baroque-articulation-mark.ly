@@ -9,7 +9,7 @@
   texidoc = "
 This short vertical line placed above the note is commonly used in
 baroque music.  Its meaning can vary, but generally indicates notes
-that should be played with more \"weight\".  The following example
+that should be played with more @qq{weight}.  The following example
 demonstrates how to achieve such a notation.
 
 "
@@ -29,5 +29,5 @@ upline =
 
 
 \relative c' {
-  a'^\upline a( c d')_\upline
+  a'4^\upline a( c d')_\upline
 }

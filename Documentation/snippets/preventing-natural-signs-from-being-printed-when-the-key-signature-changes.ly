@@ -30,7 +30,7 @@ im @code{Staff}-Kontext auf \"false\" gesetzt wird.
   texidoc = "
 When the key signature changes, natural signs are automatically printed
 to cancel any accidentals from previous key signatures.  This may be
-prevented by setting to \"false\" the @code{printKeyCancellation}
+prevented by setting to @code{f} the @code{printKeyCancellation}
 property in the @code{Staff} context.
 
 "

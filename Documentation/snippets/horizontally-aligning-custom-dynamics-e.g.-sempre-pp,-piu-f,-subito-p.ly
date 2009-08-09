@@ -7,11 +7,11 @@
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
   texidoc = "
-Some dynamic expressions involve additional text, like \"sempre pp\".
-Since lilypond aligns all dynamics centered on the note, the \\pp would
-be displayed way after the note it applies to.
+Some dynamic expressions involve additional text, like @qq{sempre pp}.
+Since dynamics are usually centered under the note, the \\pp would be
+displayed way after the note it applies to.
 
-To correctly align the \"sempre \\pp\" horizontally, so that it is
+To correctly align the @qq{sempre pp} horizontally, so that it is
 aligned as if it were only the \\pp, there are several approaches:
 
 * Simply use @code{\\once\\override DynamicText #'X-offset = #-9.2}
@@ -27,9 +27,9 @@ or dynamics to be shown in that position.
 Drawback: @code{\\once\\override} is needed for every invocation!
 
 * Set the dimensions of the additional text to 0 (using
-@code{#:with-dimensions '(0 . 0) '(0 . 0)}). Drawback: To lilypond
-\"sempre\" has no extent, so it might put other stuff there and create
-collisions (which are not detected by the collision dection!). Also,
+@code{#:with-dimensions '(0 . 0) '(0 . 0)}). Drawback: To LilyPond
+@qq{sempre} has no extent, so it might put other stuff there and create
+collisions (which are not detected by the collision detection!). Also,
 there seems to be some spacing, so it's not exactly the same alignment
 as without the additional text
 

@@ -7,8 +7,8 @@
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
-In \"simple\" lead-sheets, sometimes no actual notes are written,
-instead only \"rhythmic patterns\" and chords above the measures are
+In @qq{simple} lead-sheets, sometimes no actual notes are written,
+instead only @qq{rhythmic patterns} and chords above the measures are
 notated giving the structure of a song. Such a feature is for example
 useful while creating/transcribing the structure of a song and also
 when sharing lead sheets with guitarists or jazz musicians. The

@@ -53,7 +53,7 @@ portées.
 Here is a standard four-part SATB vocal score. With larger ensembles,
 it is often useful to include a section which is included in all parts.
 For example, the time signature and key signature are almost always the
-same for all parts. Like in the \"Hymn\" template, the four voices are
+same for all parts. Like in the @qq{Hymn} template, the four voices are
 regrouped on only two staves.
 
 "

@@ -43,7 +43,7 @@ ayant recours à @code{alignAboveContext} et @code{alignBelowContext}.
   doctitlefr = "Ensemble vocal avec alignement des paroles selon le contexte"
 
   texidoc = "
-This template is basically the same as the simple \"Vocal ensemble\"
+This template is basically the same as the simple @qq{Vocal ensemble}
 template, with the exception that here all the lyrics lines are placed
 using @code{alignAboveContext} and @code{alignBelowContext}.
 

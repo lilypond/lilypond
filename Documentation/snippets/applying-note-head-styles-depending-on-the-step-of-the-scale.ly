@@ -56,8 +56,8 @@ harmonischen Funktionen und dem Notenstil verloren geht.
   texidoc = "
 The @code{shapeNoteStyles} property can be used to define various note
 head styles for each step of the scale (as set by the key signature or
-the \"tonic\" property). This property requires a set of symbols, which
-can be purely arbitrary (geometrical expressions such as
+the @code{tonic} property). This property requires a set of symbols,
+which can be purely arbitrary (geometrical expressions such as
 @code{triangle}, @code{cross}, and @code{xcircle} are allowed) or based
 on old American engraving tradition (some latin note names are also
 allowed).
