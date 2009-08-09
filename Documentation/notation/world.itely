@@ -164,6 +164,7 @@ For example to indicate the key signature of a maqam muhayer piece:
 \key re \bayati
 @end example
 
+@noindent
 Here @var{re} is the default pitch of the muhayer maqam, and
 @var{bayati} is the name of the base maqam in the group.
 
@@ -344,7 +345,7 @@ Snippets:
 @enumerate
 
 @item
-The music of the Arabs by Habib Hassan Touma [Amadeus Press, 1996],
+@emph{The music of the Arabs} by Habib Hassan Touma [Amadeus Press, 1996],
 contains a discussion of maqams and their method of groupings.
 
 There are also various web sites that explain maqams and some
