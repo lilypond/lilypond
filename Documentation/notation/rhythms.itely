@@ -1989,12 +1989,18 @@ counter is not increased.  To force a line break see
 @cindex measure lines, manual
 
 This and other special bar lines may be inserted manually at any
-point.  When they coincide with the end of a measure they replace the
-simple bar line which would have been inserted there automatically.
-When they do not coincide with the end of a measure the specified bar
-line is inserted at that point in the printed output.  Such insertions
-do not affect the calculation and placement of subsequent automatic
-bar lines.
+point.  When they coincide with the end of a measure they replace
+the simple bar line which would have been inserted there
+automatically.  When they do not coincide with the end of a measure
+the specified bar line is inserted at that point in the printed
+output.
+
+Note that manual bar lines are purely visual. They do not affect
+any of the properties that a normal bar line would affect, such as
+measure numbers, accidentals, line breaks, etc.  They do not affect
+the calculation and placement of subsequent automatic bar lines.
+When a manual bar line is placed where a normal bar line already
+exists, the effects of the original bar line are not altered.
 
 Two types of simple bar lines and five types of double bar lines are available
 for manual insertion:
