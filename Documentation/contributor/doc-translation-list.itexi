@@ -16,6 +16,8 @@ Priorities:
 Files marked with priority 3, 4 or 5 may be submitted individually.
 Word counts (excluding LilyPond snippets) are given for each file.
 
+FIXME: take into account the new web site integration in main sources.
+
 @example
 -1- Documentation index and Tutorial
 429   learning.tely

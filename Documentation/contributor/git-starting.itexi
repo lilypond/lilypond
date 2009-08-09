@@ -42,6 +42,10 @@ repository by @ref{Updating the source code}.
 command-line version of Git 1.5 or higher.  Windows users should
 skip to @ref{Git on Windows}.}
 
+Some sections of this guide will redirect to specific Git man pages;
+however, if you think you need to understand more of Git, you might want
+to read the book @uref{http://progit.org/,Pro Git}.
+
 
 @node Git user configuration
 @subsection Git user configuration
@@ -241,24 +245,25 @@ If you added a file to the source code, you must add it to git
 with:
 
 @example
-git add FILENAME
+git add @var{FILENAME}
 @end example
 
 @noindent
 (and possibly modify the @file{GNUmakefile})
 
-These commands will produce one or more files named
-@file{0001-xyz}, @file{0002-abc}, etc. in the top directory of the
-git tree.  Send an email to @email{lilypond-devel@@gnu.org} with
-these files attached, and a developer will review and apply the
-patches to the main repository.
+These commands will produce one or more files named @file{0001-xyz},
+@file{0002-abc}, etc. in the top directory of the git tree.  Send an
+email to @email{lilypond-devel@@gnu.org} with these files attached, and
+a developer will review and apply the patches to the main repository.
+If your patch is some translation work, you may send it to
+@email{translations@@lilynet.net} instead.
 
 
 @node Committing directly
 @subsection Committing directly
 
-Most contributors do not have permission to commit directly.  If you
-do, make sure you have set up your name and email in @ref{Git user
+Most contributors do not have permission to commit directly.  If you do,
+make sure you have set up your name and email in @ref{Git user
 configuration}, then edit @file{.git/config}: change the line
 
 @example
