@@ -345,7 +345,7 @@
 		  (else
 		   (ly:warning (_ "do not know how to embed font ~s ~s ~s")
 			       name file-name font))))))
-	
+
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
 
@@ -509,7 +509,7 @@ fonts inline."
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
 
-(define (clip-systems-to-region basename paper systems region do-pdf)
+(define (clip-systems-to-region basename paper systems region do-pdf do-png)
   (let* ((extents-system-pairs
 	  (filtered-map (lambda (paper-system)
 			  (let* ((x-ext (system-clipped-x-extent
@@ -537,12 +537,17 @@ fonts inline."
 					(ly:get-option 'include-eps-fonts)
 					bbox)
 	 (if do-pdf
-	     (postscript->pdf 0 0 (format "~a.eps" filename)))))
+	     (postscript->pdf 0 0 (format "~a.eps" filename)))
+	 (if do-png
+	     (postscript->png (ly:get-option 'resolution) 0 0
+			      (format "~a.eps" filename)))))
      extents-system-pairs)))
 
 (define-public (clip-system-EPSes basename paper-book)
   (define do-pdf
     (member "pdf" (ly:output-formats)))
+  (define do-png
+    (member "png" (ly:output-formats)))
 
   (define (clip-score-systems basename systems)
     (let* ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
@@ -555,7 +560,7 @@ fonts inline."
 		  (rhythmic-location->file-string (car region))
 		  (rhythmic-location->file-string (cdr region)))
 	  layout systems region
-	  do-pdf))
+	  do-pdf do-png))
        regions)))
 
   ;; partition in system lists sharing their layout blocks
