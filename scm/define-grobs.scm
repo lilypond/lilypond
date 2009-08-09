@@ -864,8 +864,9 @@
 	(padding . 0.3)
 	(self-alignment-X . ,CENTER)
 	(self-alignment-Y . ,CENTER)
-	(stencil . ,ly:system-start-text::print)
-	(X-offset . ,ly:side-position-interface::x-aligned-side)
+	(stencil . ,system-start-text::print)
+	(X-offset . ,system-start-text::calc-x-offset)
+	(Y-offset . ,system-start-text::calc-y-offset)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				self-alignment-interface

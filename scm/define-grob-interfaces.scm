@@ -167,11 +167,10 @@ interesting enough to maintain a hara-kiri staff."
  "A right hand finger instruction."
  '(digit-names))
 
-;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface
- 'tablature-interface
- "An interface for any notes set in a tablature staff."
- '())
+ 'system-start-text-interface
+ "Text in front of the system."
+ '(long-text self-alignment-X self-alignment-Y text))
 
 (ly:add-interface
  'trill-spanner-interface
