@@ -188,6 +188,20 @@ master branch in your @file{.git/config}, like so:
         rebase = true
 @end example
 
+@warning{translators and documentation editors, if you have changed
+committishes in the head of translated files using commits you have not
+yet pushed to @code{git.sv.gnu.org}, please do not rebase.  If you want
+to avoid wondering whether you should rebase each time you pull, please
+always use committishes from master and/or lilypond/translation branch
+on @code{git.sv.gnu.org}, which in particular implies that you must push
+your changes to documentation except committishes updates (possibly
+after having rebased), then update the committishes and push them.}
+
+@c FIXME: when committishes automatic conditional update have been
+@c tested and documented, append the following to the warning above:
+@c Note that using update-committishes make target generally touches
+@c committishes.
+
 
 @node Resolving conflicts
 @subsection Resolving conflicts
