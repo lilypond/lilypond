@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
+    Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -60,12 +60,12 @@ et de mesure.
 Dans les modes de notes, d'accords et de paroles, les durées sont
 écrites avec des chiffres et des points : les durées sont indiquées par
 leur valeur fractionnaire par rapport à la durée d'une ronde.  Une
-noire, par exemple, qui équivaut à un 1/4 de ronde --- @emph{quarter note}
-en anglais --- s'écrit @code{4}, alors qu'une blanche ---
-@emph{half-note}, 1/2 ronde --- s'écrit @code{2}.  Pour des notes plus
+noire, par exemple, qui équivaut à un 1/4 de ronde -- @emph{quarter note}
+en anglais -- s'écrit @code{4}, alors qu'une blanche --
+@emph{half-note}, 1/2 ronde -- s'écrit @code{2}.  Pour des notes plus
 longues qu'une ronde, vous devrez utiliser les commandes @code{\longa}
 pour une longue, et @code{\breve} pour une brève, aussi appelée carrée.
-Des durées plus courtes que la quintuple-croche --- 1/128 de ronde ---
+Des durées plus courtes que la quintuple-croche -- 1/128 de ronde --
 sont possibles, à condition de les ligaturer.
 
 @c Two 64th notes are needed to obtain beams
@@ -196,7 +196,7 @@ soupir à la maxime (valant huit pauses).
 @funindex \times
 @funindex times
 
-Les nolets --- triolets, quintolets, etc. --- sont obtenus en
+Les nolets -- triolets, quintolets, etc. -- sont obtenus en
 multipliant toutes les durées d'une expression musicale par une
 fraction.
 
@@ -226,7 +226,7 @@ c4 c \times 2/3 { b4 a g }
 @funindex tupletNeutral
 
 Des commandes prédéfinies permettent de déroger au positionnement
-automatique du crochet en surplomb ou au-dessous des notes --- voir le
+automatique du crochet en surplomb ou au-dessous des notes -- voir le
 chapitre @ref{Direction et positionnement}.  
 
 Les nolets peuvent être imbriqués ; par exemple,
@@ -314,7 +314,7 @@ se placer au sein de l'expression du nolet.
 @cindex durées, échelonnement
 
 Vous pouvez altérer la durée des notes, silences ou accords en leur
-joignant une fraction @var{N/M}, donnant @qq{@code{*}@var{N/M}} --- ou
+joignant une fraction @var{N/M}, donnant @qq{@code{*}@var{N/M}} -- ou
 @qq{@code{*}@var{N}} si @var{M=1}.  Ceci ne modifiera en rien l'apparence
 des notes ou silences produits, mais affectera le rendu MIDI.
 
@@ -368,7 +368,7 @@ manière de comprimer ou étirer de la musique :
 @end lilypond
 
 @noindent
-Cette technique est tout à fait appropriée à la notation polymétrique ---
+Cette technique est tout à fait appropriée à la notation polymétrique --
 voir @ref{Notation polymétrique}.
 
 
@@ -421,7 +421,7 @@ longues doivent s'aligner sur les subdivisions de la mesure, comme ici :
 
 Lorsque l'on doit lier de nombreuses notes sur plusieurs mesures, il
 devient plus facile d'avoir recours à la division automatique des notes
---- voir @ref{Découpage automatique des notes}.  Ce procédé divise
+-- voir @ref{Découpage automatique des notes}.  Ce procédé divise
 automatiquement les notes trop longues, et les lie par-delà les barres
 de mesure.
 
@@ -484,7 +484,7 @@ lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
 @funindex tieNeutral
 
 Le positionnement vertical des liaisons de prolongation peut être affiné
---- voir à ce sujet les @qq{commandes prédéfinies} et, pour de plus
+-- voir à ce sujet les @qq{commandes prédéfinies} et, pour de plus
 amples détails, @ref{Direction et positionnement}.
 
 @cindex liaison de prolongation, apparence
@@ -696,7 +696,7 @@ soupir à la maxime (équivalant à huit pauses).
 @funindex \skip
 @funindex skip
 
-Un silence invisible --- que l'on pourrait appeler un @qq{saut} ---
+Un silence invisible -- que l'on pourrait appeler un @qq{saut} --
 peut être entré comme une note avec le nom de note @code{s} ou avec
 @code{\skip@tie{}@var{durée}}
 
@@ -793,7 +793,7 @@ R4*5*4 |
 @end lilypond
 
 Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
-une pause, tantôt comme une brève --- ou @qq{bâton de pause} --- et
+une pause, tantôt comme une brève -- ou @qq{bâton de pause} -- et
 sera centré sur la mesure quelle qu'en soit la métrique :
 
 @lilypond[quote,verbatim,fragment]
@@ -815,7 +815,7 @@ R1*2 |
 
 Par défaut, un silence multimesures sera répété sur autant de mesures
 que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
-surplombé du nombre de mesures vides --- ou @qq{à compter} :
+surplombé du nombre de mesures vides -- ou @qq{à compter} :
 
 @lilypond[quote,fragment,verbatim]
 % Default behavior
@@ -1157,7 +1157,7 @@ s'afficher.
 
 Les barres de mesure et les numéros de mesure sont calculés
 automatiquement, ce qui n'est pas souhaitable dans le cas d'une musique
-non mesurée --- les cadences, par exemple. Les commandes
+non mesurée -- les cadences, par exemple. Les commandes
 @code{\cadenzaOn} et @code{\cadenzaOff} permettent de désactiver et de
 rétablir la métrique automatique.
 
@@ -1246,7 +1246,7 @@ pour indiquer où des sauts de ligne peuvent prendre place.
 @funindex times
 
 LilyPond gère les métriques composites, aussi bien de manière explicite
-que de manière détournée --- modification de l'indicateur de métrique
+que de manière détournée -- modification de l'indicateur de métrique
 et échelonnement de la durée des notes.
 
 @strong{@i{Portées aux métriques différentes, mesures d'égale longueur}}
@@ -1257,7 +1257,7 @@ ensuite remplacé dans chacune des portées par un quotient donné en
 argument à la propriété @code{timeSignatureFraction}.  La durée des
 notes sera enfin proratisée selon la métrique commune (voir 
 @ref{Métrique}) grâce à la fonction @code{\scaleDurations}, qui
-s'utilise tout comme la commande @code{\times} --- sans toutefois créer
+s'utilise tout comme la commande @code{\times} -- sans toutefois créer
 de crochet de nolet (voir @ref{Changement d'échelle des durées}).
 
 @cindex ligature et musique polymétrique
@@ -1422,8 +1422,8 @@ Références internes :
 
 @knownissues
 
-Bien que toutes les durées --- particulièrement celles contenant des
-nolets --- ne puissent être exactement représentées avec des notes
+Bien que toutes les durées -- particulièrement celles contenant des
+nolets -- ne puissent être exactement représentées avec des notes
 normales et des points, le graveur @code{Completion_heads_engraver}
 n'insèrera pas de nolet.
 
@@ -1438,7 +1438,7 @@ divise pas les silences.
 @cindex mélodie, affichage du rythme seul
 @cindex rythmique d'une mélodie
 
-Au moyen d'une portée rythmique --- @emph{rhythmic staff} en anglais ---
+Au moyen d'une portée rythmique -- @emph{rhythmic staff} en anglais --
 on peut montrer seulement le rythme d'une mélodie : toutes les notes
 sont ramenées à la même hauteur, sur une portée d'une seule ligne.
 
@@ -1551,13 +1551,13 @@ d'imprimer les ligatures.
 @end lilypond
 
 Lorsque ce comportement automatisé n'est pas satisfaisant, on peut
-définir des groupements manuellement --- voir @ref{Barres de ligature manuelles}.  Dans
+définir des groupements manuellement -- voir @ref{Barres de ligature manuelles}.  Dans
 le cas où le groupe de notes en question contient un silence, il est
 @strong{impératif} d'indiquer explicitement les début et fin de la
 ligature.
 
 Lorsque les ligatures automatiques ne sont pas nécessaires, il suffit de
-désactiver la fonctionnalité par un @code{\autoBeamOff} --- réactivation
+désactiver la fonctionnalité par un @code{\autoBeamOff} -- réactivation
 par @code{\autoBeamOn} :
 
 @lilypond[quote,relative=1,verbatim]
@@ -1654,7 +1654,7 @@ s'appliquent dans l'ordre suivant de priorité :
 
 @itemize
 
-@item Une ligature explicite --- indiquée par @code{[@dots{}]} --- sera
+@item Une ligature explicite -- indiquée par @code{[@dots{}]} -- sera
 toujours respectée ; sinon
 
 @item si @code{\autoBeamOff} a été activé, il n'y aura pas de ligature ;
@@ -1670,7 +1670,7 @@ par des ligatures.
 @code{beatLength} constituent tous deux des
 @strong{moments}, autrement dit des unités de durée musicale.  La
 fonction Scheme @code{ly:make-moment} est tout particulièrement chargée
-de créer cette quantité de type @i{moment} --- pour plus d'information,
+de créer cette quantité de type @i{moment} -- pour plus d'information,
 consultez @ref{Gestion du temps}.
 
 @code{beatGrouping} représente une liste d'entiers correspondant au
@@ -1907,8 +1907,8 @@ Morceaux choisis :
 @rlsr{Rhythms}.
 
 
-@node Barres de mesure
-@subsection Barres de mesure
+@node Mesures
+@subsection Mmesures
 @translationof Bars
 
 
@@ -1936,7 +1936,7 @@ indiquer une reprise. En principe, elles sont insérées automatiquement
 en respectant la métrique en vigueur.
 
 Il est possible de forcer l'impression d'une barre de mesure spéciale,
-avec la commande @code{\bar} --- c'est d'ailleurs l'habitude en fin de
+avec la commande @code{\bar} -- c'est d'ailleurs l'habitude en fin de
 morceau, où l'on voit une double barre :
 
 @lilypond[quote,relative=1,verbatim]
@@ -1966,8 +1966,8 @@ de barre de mesure visible, en utilisant :
 @end example
 
 @noindent
-Ceci insérera une barre de mesure invisible, et permettra --- sans pour
-autant le forcer --- de sauter de ligne à cet endroit, sans incrémenter
+Ceci insérera une barre de mesure invisible, et permettra -- sans pour
+autant le forcer -- de sauter de ligne à cet endroit, sans incrémenter
 le numéro de mesure. Pour forcer le saut de ligne, référez-vous à
 @ref{Sauts de ligne}. 
 
@@ -2125,8 +2125,8 @@ qu'en tête de chaque ligne.  Pour y arriver, il faudra dans un premier
 temps annuler le comportement par défaut afin que les numéros puissent
 être imprimés ailleurs qu'en début de ligne.  Tout ceci est contrôlé par
 la propriété @code{break-visibility} du @code{BarNumber}.  Elle se
-compose de trois commutateurs --- définis à @qq{vrai} (@code{#t}) ou
-@qq{faux} (@code{#f}) --- pour spécifier si le numéro de mesure est
+compose de trois commutateurs -- définis à @qq{vrai} (@code{#t}) ou
+@qq{faux} (@code{#f}) -- pour spécifier si le numéro de mesure est
 visible ou non.  Les valeurs sont rangées dans l'ordre suivant :
 @code{visible en fin de ligne}, @code{visible en cours de ligne},
 @code{visible en début de ligne}.  Voici comment imprimer partout les
@@ -2181,8 +2181,8 @@ Référence du programme :
 @knownissues
 
 Les numéros de mesure peuvent entrer en collision avec les crochets d'un
-@rinternals{StaffGroup}.  La propriété @code{padding} --- décalage
---- de l'objet @rinternals{BarNumber} permet alors d'ajuster leur
+@rinternals{StaffGroup}.  La propriété @code{padding} -- décalage
+-- de l'objet @rinternals{BarNumber} permet alors d'ajuster leur
 positionnement.
 
 
@@ -2453,7 +2453,7 @@ pour chaque petite croche.
 @funindex afterGrace
 
 La commande @code{\afterGrace} sert à placer une petite note après une
-note réelle --- et non @emph{avant} comme d'ordinaire.  Cette commande
+note réelle -- et non @emph{avant} comme d'ordinaire.  Cette commande
 requiert deux arguments : la note réelle, et la ou les petites notes qui
 suivent.
 
@@ -2563,8 +2563,8 @@ comme une @i{appoggiatura}, c'est-à-dire sans trait.
 @c TODO Add link to LSR snippet to add slash when available
 
 La synchronisation des petites notes se fait de façon parfois
-surprenante, car les autres objets de la portée --- barres de mesure,
-armures, etc. --- sont eux aussi synchrones. Pensez-y lorsque vous
+surprenante, car les autres objets de la portée -- barres de mesure,
+armures, etc. -- sont eux aussi synchrones. Pensez-y lorsque vous
 mélez des portées comprenant des petites notes et d'autres sans :
 
 @lilypond[quote,relative=2,verbatim]

@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+Après un changement de tonalité, un bécarre est imprimé pour annuler
+toute altération précédente.  Ceci peut être supprimé en réglant à
+@code{\"false\"} la propriété @code{printKeyCancellation} du contexte
+@code{Staff}. 
+
+"
+
+  doctitlefr = "Suppression des bécarres superflus après un changement de
+tonalité"

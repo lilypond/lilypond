@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 6f84d7b264bf1faa8d9c586bbf06c762ae53183a
+    Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -30,7 +30,7 @@
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- Manuel d'initiation
+@top GNU LilyPond --- Manuel de notation
 @translationof Top
 @end ifnottex
 
@@ -160,15 +160,16 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 
 Annexes
 
-* Bibliographie::                ouvrages de référence sur la notation musicale.
 * Tables du manuel de notation::         tables et diagrammes.
 * Aide-mémoire::                    résumé de la syntaxe de LilyPond.
+* LilyPond grammar::               diagramme syntaxique pour l'analyseur de LilyPond
 * GNU Free Documentation License:: licence de ce document.
 * Index des commandes LilyPond::
 * Index de LilyPond::
-
 @end menu
 @end ifnottex
+
+@c * Bibliographie::                ouvrages de référence sur la notation musicale.
 
 @contents
 
@@ -183,20 +184,41 @@ Annexes
 @include notation/programming-interface.itely
 
 
-@include notation/literature.itely
+@c @include notation/literature.itely
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
+
+@node LilyPond grammar
+@appendix LilyPond grammar
+
+Cette annexe présente la « grammaire » de LilyPond telle qu'elle ressort
+de l'analyseur syntaxique.
+
+@verbatiminclude ly-grammar.txt
+
 @include fdl.itexi
 
 @node Index des commandes LilyPond
 @appendix Index des commandes LilyPond
 @translationof LilyPond command index
 
+Cet index recense toutes les commandes et mots réservés de LilyPond,
+sous forme de lien vers les endroits du manuel où ils sont abordés.
+Chaque lien est constitué de deux parties : la première pointe
+directement là où la commande ou le terme apparaît, la seconde au début
+de la section où la commande ou le terme est abordé. 
+
 @printindex ky
 
 @node Index de LilyPond
 @appendix Index de LilyPond
 @translationof LilyPond index
+
+En plus des commandes et mots réservés de LilyPond, cet index recense
+les termes musicaux qui s'y rapportent.  Tout comme dans l'index des
+commandes, chaque lien est constitué de deux parties : la première
+pointe directement là où la commande ou le terme apparaît, la seconde au
+début de la section où la commande ou le terme est abordé. 
 
 @printindex cp
 
