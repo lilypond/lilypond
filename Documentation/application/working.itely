@@ -19,191 +19,9 @@ this chapter.
 
 
 @menu
-* Suggestions for writing LilyPond input files::
 * When things don't work::
 * Make and Makefiles::
 @end menu
-
-
-@node Suggestions for writing LilyPond input files
-@section Suggestions for writing LilyPond input files
-
-Now you're ready to begin writing larger LilyPond input files --
-not just the little examples in the tutorial, but whole pieces.
-But how should you go about doing it?
-
-As long as LilyPond can understand your input files and produce
-the output that you want, it doesn't matter what your input files
-look like.  However, there are a few other things to consider when
-writing LilyPond input files.
-
-@itemize
-@item What if you make a mistake?  The structure of a LilyPond
-file can make certain errors easier (or harder) to find.
-
-@item What if you want to share your input files with somebody
-else?  In fact, what if you want to alter your own input files in
-a few years?  Some LilyPond input files are understandable at
-first glance; others may leave you scratching your head
-for an hour.
-
-@item What if you want to upgrade your LilyPond file for use
-with a later version of LilyPond?  The input syntax changes
-occasionally as LilyPond improves.  Most changes can be
-done automatically with @code{convert-ly}, but some changes
-might require manual assistance.  LilyPond input files can be
-structured in order to be easier (or harder) to update.
-
-@end itemize
-
-@menu
-* General suggestions::
-* Typesetting existing music::
-* Large projects::
-@end menu
-
-
-@node General suggestions
-@subsection General suggestions
-
-Here are a few suggestions that can help you to avoid or fix
-problems:
-
-@itemize
-@item @strong{Include @code{\version} numbers in every file}.  Note that all
-templates contain @code{\version} information.  We
-highly recommend that you always include the @code{\version}, no matter
-how small your file is.  Speaking from personal experience, it's
-quite frustrating to try to remember which version of LilyPond you were
-using a few years ago.  @command{convert-ly} requires you to declare
-which version of LilyPond you used.
-
-@item @strong{Include checks}: @ruser{Bar and bar number checks},
-@ruser{Octave checks}.  If you include checks every so often, then
-if you make a mistake, you can pinpoint it quicker.  How often is
-@q{every so often}?  It depends on the complexity of the music.
-For very simple music, perhaps just once or twice.  For very
-complex music, perhaps every bar.
-
-@item @strong{One bar per line of text}.  If there is anything complicated,
-either in the music
-itself or in the output you desire, it's often good to write only one bar
-per line.  Saving screen space by cramming eight bars per line just isn't
-worth it if you have to @q{debug} your input files.
-
-@item @strong{Comment your input files}.  Use either bar numbers
-(every so often) or
-references to musical themes (@q{second theme in violins,} @q{fourth
-variation,} etc.).  You may not need comments when you're writing the piece
-for the first time, but if you want to go back to change something two or
-three years later, or if you pass the source over to a friend, it will
-be much more
-challenging to determine your intentions or how your file is structured if
-you didn't comment the file.
-
-@item @strong{Indent your braces}.  A lot of problems are caused by an
-imbalance
-in the number of @code{@{} and @code{@}}.
-
-@item @strong{Explicitly add durations} at the beginnings of sections
-and variables.  If you specify @code{c4 d e} at the beginning of a
-phrase (instead of just @code{c d e}) you can save yourself some
-problems if you rearrange your music later.
-
-@item @strong{Separate tweaks} from music definitions.  See
-@ref{Saving typing with variables and functions}, and
-@ref{Style sheets}.
-
-@end itemize
-
-
-@node Typesetting existing music
-@subsection Typesetting existing music
-
-If you are entering music from an existing score (i.e., typesetting a
-piece of existing sheet music),
-
-@itemize
-
-@item Enter the manuscript (the physical copy of the music) into
-LilyPond one system at a time (but still only one bar per line of text),
-and check each system when you finish it.  You may use the
-@code{showLastLength} or @code{showFirstLength} properties to speed up
-processing -- see @ruser{Skipping corrected music}.
-
-@item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
-in the input file whenever the manuscript has a line break.  This
-makes it much easier to compare the LilyPond music to the original
-music.  When you are finished proofreading your score, you may
-define @code{mBreak = @{ @}} to remove all those line breaks.  This
-will allow LilyPond to place line breaks wherever it feels are
-best.
-
-@item When entering a part for a transposing instrument into a
-variable, it is recommended that the notes are wrapped in
-
-@example
-\transpose c natural-pitch @{...@}
-@end example
-(where @code{natural-pitch} is the open pitch of the instrument) so
-that the music in the variable is effectively in C. You can transpose
-it back again when the variable is used, if required, but you might
-not want to (e.g., when printing a score in concert pitch,
-converting a trombone part from treble to bass clef, etc.)
-Mistakes in transpositions are less likely if all the music in
-variables is at a consistent pitch.
-
-Also, only ever transpose to/from C. That means that the only other
-keys you will use are the natural pitches of the instruments - bes
-for a B-flat trumpet, aes for an A-flat clarinet, etc.
-
-@end itemize
-
-
-@node Large projects
-@subsection Large projects
-
-When working on a large project, having a clear structure to your
-lilypond input files becomes vital.
-
-@itemize
-
-@item @strong{Use a variable for each voice}, with a minimum of
-structure inside the definition.  The structure of the
-@code{\score} section is the most likely thing to change;
-the @code{violin} definition is extremely unlikely to change
-in a new version of LilyPond.
-
-@example
-violin = \relative c'' @{
-g4 c'8. e16
-@}
-...
-\score @{
-  \new GrandStaff @{
-    \new Staff @{
-      \violin
-    @}
-  @}
-@}
-@end example
-
-@item @strong{Separate tweaks from music definitions}.  This
-point was made previously, but for large
-projects it is absolutely vital.  We might need to change
-the definition of @code{fthenp}, but then we only need
-to do this once, and we can still avoid touching anything
-inside @code{violin}.
-
-@example
-fthenp = _\markup@{
-  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violin = \relative c'' @{
-g4\fthenp c'8. e16
-@}
-@end example
-
-@end itemize
 
 
 @node When things don't work
@@ -353,7 +171,7 @@ matched braces or quote signs.
 The most common error is a missing brace, (@code{@}}), at the end of
 a @code{score} block.  Here the solution is obvious: check the
 @code{score} block is correctly terminated.  The correct structure
-of an input file is described in @ref{How LilyPond input files work}.
+of an input file is described in @rlearning{How LilyPond input files work}.
 Using an editor which automatically highlights matching brackets and
 braces is helpful to avoid such errors.
 
@@ -441,7 +259,7 @@ Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
 
 Another very useful debugging technique is constructing
-@ref{Minimal examples}.
+FIXME FIXME @c @ref{Minimal examples}.
 
 
 @node Minimal examples
