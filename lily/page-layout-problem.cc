@@ -129,7 +129,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
   if (elements_.size ())
     {
-      Real bottom_padding;
+      Real bottom_padding = 0;
 
       // TODO: junk bottom-space now that we have bottom-system-spacing?
       // bottom-space has the flexibility that one can do it per-system.
@@ -493,7 +493,7 @@ Page_layout_problem::build_system_skyline (vector<Grob*> const& staves,
   Real first_translation = minimum_translations[0];
   Real last_spaceable_dy = 0;
   Real first_spaceable_dy = 0;
-  bool found_spaceable_staff;
+  bool found_spaceable_staff = false;
 
   for (vsize i = 0; i < staves.size (); ++i)
     {
