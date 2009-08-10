@@ -309,6 +309,23 @@ Page_layout_problem::find_system_offsets ()
 	  *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 
+	  // Lay out any non-spaceable lines between this line and
+	  // the last one.
+	  if (loose_lines.size ())
+	    {
+	      Interval loose_extent = loose_lines.back ()->extent (loose_lines.back (), Y_AXIS);
+	      Interval prob_extent = unsmob_stencil (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
+	      Real min_distance = -loose_extent[DOWN] + prob_extent[UP]; // TODO: include padding/minimum-distance
+
+	      loose_line_min_distances.push_back (min_distance);
+	      loose_lines.push_back (0);
+
+	      distribute_loose_lines (loose_lines, loose_line_min_distances,
+				      last_spaceable_line_translation, -solution_[spring_idx]);
+	      loose_lines.clear ();
+	      loose_line_min_distances.clear ();
+	    }
+
 	  last_spaceable_line = 0;
 	  last_spaceable_line_translation = -solution_[spring_idx];
 	  spring_idx++;
