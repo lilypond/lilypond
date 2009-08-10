@@ -224,10 +224,6 @@
 						       system-separator-markup)
 				     #f))
        
-       (head-height (if (ly:stencil? (prop 'head-stencil))
-			(interval-length (ly:stencil-extent (prop 'head-stencil) Y))
-			0.0))
-
        (page-stencil (ly:make-stencil '()))
 
        (last-system #f)
@@ -271,8 +267,9 @@
 	 (ly:stencil? head)
 	 (not (ly:stencil-empty? head)))
 	(begin
+	  ;; Ensure that the top of the header just touches the top margin.
 	  (set! head (ly:stencil-translate-axis head
-						(- 0 head-height (prop 'top-margin)) Y))
+						(- 0 (cdr (ly:stencil-extent head Y)) (prop 'top-margin)) Y))
 	  (set! page-stencil (ly:stencil-add page-stencil head))))
 
     (if (and
