@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,7 +10,7 @@
 @c \version "2.12.0"
 
 @c Translators: Reinhold Kainhofer
-@c Translation checkers: Till Rettig
+@c Translation checkers: Till Paala
 
 
 @node LilyPond-book
@@ -32,7 +32,9 @@ werden dabei Ihrem Dokument angepasst.
 üblicherweise von der Kommandozeile aufgerufen. Nähere Informationen
 hierzu finden sich in @ref{Benutzung auf der Kommandozeile}.  Wenn Sie MacOS 10.3
 oder 10.4 benutzen und Probleme mit @code{lilypond-book} haben, lesen
-Sie @ref{Einrichtung für MacOS X}.
+Sie
+Einrichtung für MacOS X
+@c @ref{Einrichtung für MacOS X}.
 
 Dieses Vorgehen kann bei @LaTeX{}, HTML, Texinfo oder DocBook Dokumenten
 angewendet werden.
@@ -794,7 +796,8 @@ zitierten Quelltext des Schnipsel werden nicht übersetzt.
 Wenn eine LilyPond-Datei mittels @code{\lilypondfile} und dieser Option
 eingebunden wird, wird der Dateiname (ohne die Pfadangabe) unmittelbar vor 
 dem Musikfragment ausgegeben. In HTML-Dateien ist er außerdem ein Link
-auf die LilyPond-Datei.
+auf die LilyPond-Datei.  Nur der eigentliche Name der Datei wird
+ausgegeben, der Pfad wird also nicht mit angezeigt.
 
 @end table
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 5cf864d550e7148412d594cf336841791bff6f76
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,11 +9,11 @@
 
 @c \version "2.12.0"
 
-@c Translators: Reinhold Kainhofer, Till Rettig
+@c Translators: Reinhold Kainhofer, Till Paala
 
-@node LilyPond starten
-@chapter LilyPond starten
-@translationof Running LilyPond
+@node lilypond starten
+@chapter @command{lilypond} starten
+@translationof Running lilypond
 
 Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werden kann.
 
@@ -22,8 +22,6 @@ Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werde
 * Übliche Programmbenutzung::
 * Benutzung auf der Kommandozeile::
 * Fehlermeldungen::
-* Dateien mit convert-ly aktualisieren::
-* Fehler melden::
 @end menu
 
 @node Übliche Programmbenutzung
@@ -31,7 +29,10 @@ Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werde
 @translationof Normal usage
 
 Die meisten Benutzer führen LilyPond von einer graphischen Benutzeroberfläche
-aus. Siehe @rlearning{Erste Schritte}, falls Sie dies nicht bereits getan haben.
+aus. Siehe
+FIXME
+@c @rlearning{Erste Schritte},
+ falls Sie dies nicht bereits getan haben.
 
 
 @node Benutzung auf der Kommandozeile
@@ -48,7 +49,10 @@ Unter @q{Kommandozeile} verstehen wir die Kommandozeile des jeweiligen
 Betriebssystems. Windows Benutzern ist sie vielleicht eher unter den
 englischen Begriffen @q{DOS shell} oder @q{command shell} bekannt.
 MacOS@tie{}X Benutzer kennen sie eher unter @q{Terminal} oder @q{Konsole}.
-Sie sollten auch den Abschnitt @ref{Einrichtung für MacOS X} konsultieren.
+Sie sollten auch den Abschnitt 
+FIXME
+@c @ref{Einrichtung für MacOS X}
+konsultieren.
 
 Wie die Kommandozeile im jeweiligen Betriebssystem benutzt werden kann,
 soll in diesem Handbuch nicht näher beschrieben werden. Sehen Sie bitte
@@ -168,10 +172,14 @@ dasselbe wie
 
 Hier sind ein paar interessante Optionen:
 
+@cindex Hilfe, Kommandozeile
+
 @table @samp
 @item help
 Die Ausführung von @code{lilypond -dhelp} zeigt alle verfügbaren @code{-d} 
 Optionen.
+
+@cindex Papierformat, Kommandozeile
 
 @item paper-size
 Setzt das Standard-Papierformat,
@@ -183,6 +191,8 @@ Setzt das Standard-Papierformat,
 Die Zeichenkette, die das Format angibt, muss in Anführungszeichen mit Backslash 
 ( @code{\"} ) stehen.
 
+@cindex sicher, Kommandozeile
+@cindex safe, Kommandozeile
 
 @item safe
 Vertraut der @code{.ly} Datei nicht.
@@ -239,6 +249,9 @@ wird die gesamte Schriftart eingefügt und nicht nur die benötigten Zeichen.
 Vor allem wenn nicht-westliche Zeichensätze benutzt werden, kann dies zu sehr
 großen Dateien führen.
 
+@cindex PostScript Ausgabeformat
+@cindex EPS (encapsulated PostScript)
+
 @item eps
 Erzeugt @q{encapsulated PostScript} (EPS). Jede Seite (oder jedes System) wird
 als eigene @file{EPS}-Datei ausgegeben, inklusive Schriftarten. Außerdem wird
@@ -246,16 +259,23 @@ eine Datei mit allen Seiten (bzw. Systemen) und Schriftarten erzeugt.
 
 Dies ist die Standardeinstellung von @command{lilypond-book}.
 
+@cindex SVG (scalable vector graphics)
+@cindex Vektorgraphik (SVG)
+
 @item svg
-SVG-Ausgabe (Scalable Vector Graphics). Jede Seite wird als eigene 
-@file{SVG}-Datei ausgegeben, inklusive eingebetteten Schriftarten.
-@cindex SVG (Scalable Vector Graphics)
-Sie benötigen einen SVG-Betrachter, der eingebettete Schriftarten unterstützt,
-oder einen SVG-Betrachter, der eingebettete Schriftarten durch OTF-Schriften
-ersetzen kann. In UNIX und Linux kann z.B. @uref{http://www.inkscape.org,Inkscape}
-(ab Version 0.42) benutzt werden, nachdem die OTF-Schriften aus dem 
-LilyPond-Verzeichnis (typischerweise @file{/usr/share/lilypond/VERSION/fonts/otf/})
-in das Verzeichnis @file{~/.fonts/} kopiert wurden.
+
+SVG-Ausgabe (Scalable Vector Graphics).
+
+Hiermit wird eine einzelne SVG-Datei ohne eingebundene Schriften
+für jede Seite der Partitur erstellt.  Es wird empfohlen, Century
+Schoolbook-Schriftarten zu installieren, die auch in der LilyPond-Installation
+enthalten sind, um optimales Rendern zu erhalten.  Unter UNIX können
+diese Schriftarten einfach aus dem LilyPond-Verzeichnis (normalerweise
+@file{/usr/share/lilypond/VERSION/fonts/otf/}) nach @file{~/.fonts}
+kopiert werden.  Die SVG-Ausgabe sollte mit allen SVG-Editoren oder
+Betrachtungsprogrammen kompatibel sein.
+
+@cindex Scheme-dump
 
 @item scm
 gibt die rohen Scheme-basierenden Zeichenbefehle aus, wie sie intern von 
@@ -271,6 +291,7 @@ Keine Partitur wird ausgegeben, hat gleichen Effekt wie @code{-dno-print-pages}.
 Beispiel: @code{lilypond -dbackend=svg @var{Dateiname}.ly}
 
 @cindex Ausgabeformat
+@cindex Vorschau
 
 @item preview
 Erzeugt eine Ausgabedatei, die nur die Titelzeilen und das erste System 
@@ -305,8 +326,13 @@ Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
 @var{DATEI}. Die entsprechende Dateinamenserweiterung wird angehängt (z.B. 
 @code{.pdf} für pdf).
 
+@cindex PostScript-Ausgabe
+
 @item --ps
 Erzeugt PostScript.
+
+@cindex PNG-Ausgabe
+@cindex Portable Network Graphics (PNG)
 
 @item --png
 Erzeugt eine Grafik-Datei im PNG-Format von jeder Seite. Diese Option
@@ -315,6 +341,9 @@ werden durch
 @example
 -dresolution=110
 @end example
+
+@cindex PDF-Ausgabe
+@cindex Portable Document (PDF)
 
 @item --pdf
 Erzeugt PDF-Dateien. Dies impliziert @code{--ps}.
@@ -502,232 +531,3 @@ Stelle zwar noch problemlos verarbeiten, ein paar Zeilen später wirkt
 sich der Fehler aber dann doch noch aus.  In solchen Fällen, wo Sie in
 der angegebenen Zeile keinen Fehler erkennen, sollten Sie auch die Zeilen
 oberhalb der angegebenen Stelle genauer unter die Lupe nehmen.
-
-
-@node Dateien mit convert-ly aktualisieren
-@section Dateien mit @command{convert-ly} aktualisieren
-@translationof Updating files with convert-ly
-
-@cindex Aktualisierung von LilyPond-Dateien
-@cindex Aktualisierung mit convert-ly
-@cindex convert-ly: Aktualisierung
-
-Die Eingabesyntax von LilyPond ändert sich graduell um etwa die
-Eingabe zu erleichtern oder neue Funktionen zu ermöglichen.  Ein
-Nebeneffekt hiervon ist, dass das LilyPond-Übersetzerprogramm nicht
-mehr mit älteren Eingabedateien kompatibel sein kann.  Um dies
-zu umgehen, kann @command{convert-ly} benutzt werden, welches die
-meisten der Syntaxänderungen korrigieren kann.
-
-Das Programm benötigt eine @code{\version}-Information in der
-Eingabedatei, um zu wissen, von welcher Version konvertiert werden
-soll.  In den meisten Fällen genügt es, den Befehl
-
-@example
-convert-ly -e meineDatei.ly
-@end example
-
-@noindent
-auszuführen.
-
-Damit wird @code{meineDatei.ly} direkt aktualisiert und die
-Originaldatei unter @code{meineDatei.ly~} gespeichert.
-
-Alternativ kann man der aktualisierten Datei auch einen anderen
-Namen geben, in welchem Fall die Originaldatei unverändert
-gelassen wird.  Das geht mit dem Befehl
-
-@example
-convert-ly meineDatei.ly > meineneueDatei.ly
-@end example
-
-Das Programm zeigt die Versionsnummern an, für die Konvertierungen
-vorgenommen wurden.  Wenn keine Versionsnummern angezeigt werden,
-ist die Datei schon aktuell.
-
-
-MacOS@tie{}X-Benutzer können diesen Befehl im Menu unter
-@code{Compile > Update syntax} finden.
-
-Benutzer unter Windows müssen diesen Befehl auf der Eingabeaufforderung
-schreiben, welche man üblicherweise unter dem Menüeintrag
-@code{Start > Alle Programme > Zubehör > Eingabeaufforderung} zu
-finden ist.
-
-
-@menu
-* Optionen von convert-ly auf der Kommandozeile::
-* Probleme mit convert-ly::
-@end menu
-
-
-@node Optionen von convert-ly auf der Kommandozeile
-@subsection Optionen von @command{convert-ly} auf der Kommandozeile
-@translationof Command line options for convert-ly
-
-@command{convert-ly} konvertiert immer bis zur letzten Syntaxänderung,
-die es beherrscht.  Das heißt, dass die neue @code{version}-Nummer
-in der Datei überlicherweise etwas niedriger ist als die
-Version von @command{convert-ly}.
-
-Die allgemeine Syntax des Programms lautet:
-
-@example
-convert-ly [@var{Option}]@dots{} @var{Dateiname}@dots{}
-@end example
-
-Folgende Optionen sind möglich:
-
-@table @code
-@item -e,--edit
-Führt die Aktualisierung direkt in der Datei durch, die Datei wird
-dabei verändert.
-
-@item -f,--from=@var{von-Versionsnummer}
-Setze die Version, ab welcher konvertiert werden soll.  Wenn diese
-Option nicht gesetzt ist, versucht @command{convert-ly}, die
-Version auf Grundlage von @code{\version} zu raten.
-Beispiel: @code{--from=2.10.25}
-
-@item -n,--no-version
-Normalerweise fügt @command{convert-ly} eine @code{\version}-Zeile
-zur Ausgabe hinzu.  Mit dieser Option kann das unterdrückt werden.
-
-@item -s, --show-rules
-Zeige alle bekannten Konversionsregeln und beende.
-
-@item --to=@var{bis-Versionsnummer}
-Hiermit kann das Ziel der Konversion gesetzt werden.  Standard ist
-die neueste mögliche Version. Beispiel: @code{--to=2.12.2}
-
-@item -h, --help
-Benutzerhilfe ausgeben.
-@end table
-
-Um LilyPond-Fragmente in texinfo-Dateien zu aktualisieren, gilt
-der Befehl:
-
-@example
-convert-ly --from=... --to=... --no-version *.itely
-@end example
-
-Um die Änderungen der LilyPond-Syntax zwischen bestimmten Versionen
-zu sehen, kann der Befehl
-
-@example
-convert-ly --from=... --to=... -s
-@end example
-
-@noindent
-benutzt werden.
-
-Viele Dateien können auf einmal aktualisiert werden, indem
-@code{convert-ly} mit den üblichen UNIX-Befehlen kombiniert
-wird.  Das folgende Beispiel aktualisiert alle @code{.ly}-Dateien
-im aktuellen Verzeichnis:
-
-@example
-for f in *.ly; do convert-ly -e $f; done;
-@end example
-
-
-
-@node Probleme mit convert-ly
-@subsection Probleme mit @code{convert-ly}
-@translationof Problems with convert-ly
-
-Wenn convert-ly unter Windows auf der Eingabeaufforderung mit einer
-Datei benutzt wird, deren Name oder Pfad Leerzeichen enthält, muss
-der gesamte Dateipfad mit drei (!) Anführungszeichen umgeben werden:
-
-@example
-convert-ly """D:/My Scores/Ode.ly""" > """D:/My Scores/new Ode.ly"""
-@end example
-
-Nicht alle Änderungen der Syntax können konvertiert werden.  Nur
-eine Ausgabeoption kann angegeben werden.  Scheme- und
-LilyPond-Scheme-Code wird sehr unwahrscheinlich korrekt aktualisiert,
-hier ist meistens Nacharbeit erforderlich.
-
-@verbatim
-Hier eine Liste einiger Befehle, die convert-ly nicht konvertieren kann.
-
-Diese Liste ist in Form von Fehlermeldungen, denn convert-ly
-ist so strukturiert, dass nicht alle benötigten Änderungen
-implementiert werden können.  Es handelt sich also eher um eine
-Wunschliste zur Referenz.
-
-1.6->2.0:
- Bezifferter Bass wird nicht immer korrekt konvertiert, besonders
- Befehle wie {< >}.  Mats Kommentar hierzu:
-    Um convert-ly korrekt ausführen zu können, müssen alle Vorkommen
-    von '{<' in etwas beliebiges wie '{#' und genauso '>}' in '&}'
-    geändert werden.  Nach der Konversion können sie dann zurück
-    in '{ <' und '> }' verwandelt werden
- Nicht alle Textbeschriftungen werden richtig konvertiert.  In der
- alten Syntax  konnten Beschriftungsbefehle mit Klammern gruppiert
- werden, etwa
-   -#'((bold italic) "string")
-   This will incorrectly be converted into
-   -\markup{{\bold italic} "string"}
-   instead of the correct
-   -\markup{\bold \italic "string"}
-2.0->2.2:
- \partcombine wird nicht konvertiert
- \addlyrics => \lyricsto wird nicht konvertiert, dadurch kompilieren
- manche Dateien mit mehreren Strophen nicht.
-2.0->2.4:
- \magnify wird nicht nach \fontsize konvertiert.
-    - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
- remove-tag wird nicht verändert.
-    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
- first-page-number wird nicht geändert.
-    - first-page-number no => print-first-page-number = ##f
- Zeilenumbrüche im \header-Feld werde nicht konvertiert.
-    - \\\\  als Zeilenumbruch in \header{...} => \markup \center-align <
-      "First Line" "Second Line" >
- Crescendo- und Decrescendo-Enden werden nicht konvertiert.
-    - \rced => \!
-    - \rc => \!
-2.2->2.4:
- \turnOff (in \set Staff.VoltaBracket = \turnOff eingesetzt) wird nicht korrekt behandelt.
-2.4.2->2.5.9
- \markup{ \center-align <{ ... }> } sollte umgewandelt werden in:
- \markup{ \center-align {\line { ... }} }
- aber im Moment fehlt \line.
-2.4->2.6
- Besondere LaTeX-Zeichen wie $~$ im Text werden nicht nach UTF(
- konvertiert.
-2.8
- \score{} muss jetzt mit einem musikalischen Ausdruck beginnen.
- Alles andere (insbesondere \header{}) darf erst nach den Noten
- kommen.
-@end verbatim
-
-
-
-@node Fehler melden
-@section Fehler melden
-@translationof Reporting bugs
-
-
-@cindex Fehler
-@cindex Fehler melden
-
-Wenn Sie eine Datei haben, die zu einem Absturz von LilyPond oder zu einer
-fehlerhaften Ausgabe führt, so ist dies ein @q{Bug}.  Die List der aktuell
-bekannten derartigen Fehler findet sich in unserem @q{Google Bug Tracker}:
-
-@uref{http://code.google.com/p/lilypond/issues/list}
-
-Wenn Sie einen Fehler gefunden haben, der noch nicht aufgelistet ist, melden
-Sie dies bitte anhand der Anweisungen auf der Seite
-
-@uref{http://lilypond.org/web/devel/participating/bugs}
-
-Wenn Sie Beispieldateien für den Fehler erstellen, versuchen Sie bitte, die
-Datei möglichst minimal zu halten und nur jenen LilyPond Code aufzunehmen,
-der auch wirklich für den Fehler verantwortlich ist.  Meldungen mit
-Beispieldateien, die nicht minimal sind, können wir meist aus Zeitgründen
-nicht effektiv bearbeiten.
-

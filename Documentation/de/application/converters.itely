@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,7 +10,7 @@
 @c \version "2.12.0"
 
 @c Translators: Reinhold Kainhofer
-@c Translation checkers: Till Rettig
+@c Translation checkers: Till Paala
 
 @node Von anderen Formaten konvertieren
 @chapter Von anderen Formaten konvertieren
@@ -27,7 +27,9 @@ Die im Folgenden beschriebenen Programme sind eigenständige Hilfsprogramme
 und werden üblicherweise von der Kommandozeile aufgerufen. Siehe
 @ref{Benutzung auf der Kommandozeile} für weitere Informationen.  Wenn Sie MacOS
 10.3 oder 10.4 benutzen und Probleme mit diesen Skripten (z. B.
-@code{convert-ly}) haben, lesen Sie @ref{Einrichtung für MacOS X}.
+@code{convert-ly}) haben, lesen Sie 
+Einrichtung für MacOS X.
+@c @ref{Einrichtung für MacOS X}.
 
 @knownissues
 Leider haben wir nicht ausreichend viele Entwickler, um all die folgenden
