@@ -30,12 +30,12 @@
 
 @c * Preface::                        Preface.
 @c * Introduction::                   What, Why, How.
+@c * Working on LilyPond projects::   Discusses real-life usage.
 @menu
 * Introduction::                   Begin here.
 * Common notation::                A tutorial introduction.
 * Fundamental concepts::           Basic concepts required for reading the rest of this manual.
 * Tweaking output::                Introduction to modifying output.
-* Working on LilyPond projects::   Discusses real-life usage.
 
 Appendices
 
@@ -143,7 +143,7 @@ of this and other documentation.
 @include learning/common-notation.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
-@include learning/working.itely
+@c @include learning/working.itely
 
 @include learning/templates.itely
 @include learning/scheme-tutorial.itely

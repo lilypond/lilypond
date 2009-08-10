@@ -3006,7 +3006,7 @@ padText =
 @end lilypond
 
 Using variables is also a good way to reduce work if the
-LilyPond input syntax changes (see @ref{Updating old input files}).  If
+LilyPond input syntax changes (see @rprogram{Updating old input files}).  If
 you have a single definition (such as @code{\dolce}) for all your
 input files (see @ref{Style sheets}), then if the syntax changes, you
 only need to update your single @code{\dolce} definition,
