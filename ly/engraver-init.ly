@@ -10,8 +10,6 @@
   \grobdescriptions #all-grob-descriptions
 }
 
-% FIXME: replace minimum-Y-extents with proper spacing commands.
-
 \context {
   \type "Engraver_group"
   \name "FretBoards"
@@ -66,7 +64,6 @@
   localKeySignature = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##t
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
 
   %% explicitly set instrument, so we don't get
   %% weird effects when doing instrument names for
@@ -136,7 +133,6 @@ contained staves are not connected vertically."
 \context{
   \type "Engraver_group"
 
-  \override VerticalAxisGroup #'minimum-Y-extent = ##f
   localKeySignature = #'()
   createSpacing = ##t
 
@@ -375,7 +371,6 @@ centered between the staves surrounding this context."
 
 \context{
   \type "Engraver_group"
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.75 . 2.0)
 
   \description "Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics."
@@ -416,7 +411,6 @@ printing of a single line of lyrics."
   \description "A context for printing the names of notes."
   \consists "Axis_group_engraver"
 
-  \override VerticalAxisGroup #'minimum-Y-extent = ##f
   % FIXME: not sure what the default should be here.
   \override VerticalAxisGroup #'staff-affinity = #DOWN
 
@@ -440,10 +434,11 @@ printing of a single line of lyrics."
   \consists "Skip_event_swallow_translator"
   \consists "Hara_kiri_engraver"
 %  \consists "Note_spacing_engraver"
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'staff-affinity = #DOWN
+  \override VerticalAxisGroup #'inter-staff-spacing #'padding = #0.5
+  \override VerticalAxisGroup #'inter-loose-line--spacing #'padding = #0.5
 }
 
 
@@ -682,7 +677,8 @@ automatically when an output definition (a @code{\score} or
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'staff-affinity = #UP
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
+  \override VerticalAxisGroup #'inter-staff-spacing #'padding = #0.5
+  \override VerticalAxisGroup #'inter-loose-line-spacing #'padding = #0.5
 }
 
 \context {
