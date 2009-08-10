@@ -73,6 +73,8 @@ protected:
   Real page_height_;
   Real header_height_;
   Real footer_height_;
+  Real header_padding_;
+  Real footer_padding_;
 };
 
 #endif /* PAGE_LAYOUT_HH */

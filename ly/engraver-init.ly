@@ -438,7 +438,7 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'staff-affinity = #DOWN
   \override VerticalAxisGroup #'inter-staff-spacing #'padding = #0.5
-  \override VerticalAxisGroup #'inter-loose-line--spacing #'padding = #0.5
+  \override VerticalAxisGroup #'inter-loose-line-spacing #'padding = #0.5
 }
 
 

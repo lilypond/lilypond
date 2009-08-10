@@ -27,6 +27,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
   Prob *page = unsmob_prob (page_scm);
   header_height_ = 0;
   footer_height_ = 0;
+  header_padding_ = 0;
+  footer_padding_ = 0;
   page_height_ = 100;
 
   if (page)
@@ -72,6 +74,9 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       // spring at the _top_ of the header.
       page_height_ -= robust_scm2double (paper->c_variable ("top-margin"), 0)
 	+ robust_scm2double (paper->c_variable ("bottom-margin"), 0);
+
+      read_spacing_spec (first_system_spacing, &header_padding_, ly_symbol2scm ("padding"));
+      read_spacing_spec (last_system_spacing, &footer_padding_, ly_symbol2scm ("padding"));
     }
   bool last_system_was_title = false;
 
@@ -397,7 +402,7 @@ Page_layout_problem::find_system_offsets ()
 									   staff,
 									   Y_AXIS);
 		      else // distance to the top margin
-			min_dist = header_height_ + staff->extent (staff, Y_AXIS)[UP];
+			min_dist = header_padding_ + header_height_ + staff->extent (staff, Y_AXIS)[UP];
 
 		      loose_line_min_distances.push_back (min_dist);
 		    }
@@ -419,7 +424,7 @@ Page_layout_problem::find_system_offsets ()
     {
       Grob *last = loose_lines.back ();
       Interval last_ext = last->extent (last, Y_AXIS);
-      loose_line_min_distances.push_back (-last_ext[DOWN] + footer_height_);
+      loose_line_min_distances.push_back (-last_ext[DOWN] + footer_height_ + footer_padding_);
       loose_lines.push_back (0);
 
       distribute_loose_lines (loose_lines, loose_line_min_distances,
