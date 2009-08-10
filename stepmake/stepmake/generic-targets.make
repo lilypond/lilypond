@@ -164,9 +164,17 @@ $(config_make): $(top-src-dir)/configure
 	@echo "************************************************************"
 	@echo "configure changed! You should probably reconfigure manually."
 	@echo "************************************************************"
+# do something for multiple simultaneous configs.
 	(cd $(top-build-dir); ./config.status)
-	touch $@		# do something for multiple simultaneous configs.
+	touch $@
 
+$(top-src-dir)/configure: $(top-src-dir)/configure.in \
+ $(top-src-dir)/stepmake/aclocal.m4
+	@echo "************************************************************"
+	@echo "configure.in and/or stepmake/aclocal.m4 changed!"
+	@echo "Please regenerate configure with autogen.sh."
+	@echo "************************************************************"
+	@false
 
 #### Documentation (website and tarball)
 
