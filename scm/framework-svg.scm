@@ -56,8 +56,7 @@
     (dump (apply eo 'svg (svg-header paper unit-length)))
     (dump (comment (format "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
-				`(begin (set! lily-unit-length
-					      ,unit-length)
+				`(begin (set! lily-unit-length ,unit-length)
 					""))
     (ly:outputter-dump-stencil outputter page)
     (dump (ec 'svg))

@@ -23,14 +23,11 @@
 
 (define (dispatch expr)
   (let ((keyword (car expr)))
-    (cond
-     ((eq? keyword 'some-func) "")
-     (else
-      (if (module-defined? this-module keyword)
-	  (apply (eval keyword this-module) (cdr expr))
-	  (begin
-	    (ly:warning (_ "undefined: ~S") keyword)
-	    ""))))))
+    (cond ((eq? keyword 'some-func) "")
+	  (else (if (module-defined? this-module keyword)
+		    (apply (eval keyword this-module) (cdr expr))
+		    (begin (ly:warning (_ "undefined: ~S") keyword)
+			   ""))))))
 
 ;; Helper functions
 (define-public (attributes attributes-alist)
@@ -115,12 +112,9 @@
   (define alist '())
   (define (set-attribute attr val)
     (set! alist (assoc-set! alist attr val)))
-  (let*
-    ((match-1 (regexp-exec pango-description-regexp-comma str))
-     (match-2 (regexp-exec pango-description-regexp-nocomma str))
-     (match (if match-1
-		match-1
-		match-2)))
+  (let* ((match-1 (regexp-exec pango-description-regexp-comma str))
+	 (match-2 (regexp-exec pango-description-regexp-nocomma str))
+	 (match (if match-1 match-1 match-2)))
 
     (if (regexp-match? match)
 	(begin
@@ -308,13 +302,13 @@
 
 (define (circle radius thick is-filled)
   (entity
-   'circle ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(fill . ,(if is-filled "currentColor" "none"))
-   `(stroke . "currentColor")
-   `(stroke-width . ,thick)
-   `(r . ,radius)))
+    'circle ""
+    '(stroke-linejoin . "round")
+    '(stroke-linecap . "round")
+    `(fill . ,(if is-filled "currentColor" "none"))
+    `(stroke . "currentColor")
+    `(stroke-width . ,thick)
+    `(r . ,radius)))
 
 (define (dashed-line thick on off dx dy phase)
   (draw-line thick 0 0 dx dy
@@ -323,26 +317,26 @@
 (define (draw-line thick x1 y1 x2 y2 . alist)
   (apply entity 'line ""
 	 (append
-	  `((stroke-linejoin . "round")
-	    (stroke-linecap . "round")
-	    (stroke-width . ,thick)
-	    (stroke . "currentColor")
-	    (x1 . ,x1)
-	    (y1 . ,(- y1))
-	    (x2 . ,x2)
-	    (y2 . ,(- y2)))
-	  alist)))
+	   `((stroke-linejoin . "round")
+	     (stroke-linecap . "round")
+	     (stroke-width . ,thick)
+	     (stroke . "currentColor")
+	     (x1 . ,x1)
+	     (y1 . ,(- y1))
+	     (x2 . ,x2)
+	     (y2 . ,(- y2)))
+	   alist)))
 
 (define (ellipse x-radius y-radius thick is-filled)
   (entity
-   'ellipse ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(fill . ,(if is-filled "currentColor" "none"))
-   `(stroke . "currentColor")
-   `(stroke-width . ,thick)
-   `(rx . ,x-radius)
-   `(ry . ,y-radius)))
+    'ellipse ""
+    '(stroke-linejoin . "round")
+    '(stroke-linecap . "round")
+    `(fill . ,(if is-filled "currentColor" "none"))
+    `(stroke . "currentColor")
+    `(stroke-width . ,thick)
+    `(rx . ,x-radius)
+    `(ry . ,y-radius)))
 
 (define (embedded-svg string)
   string)
@@ -374,23 +368,23 @@
 
 (define (oval x-radius y-radius thick is-filled)
   (let ((x-max x-radius)
-        (x-min (- x-radius))
-        (y-max y-radius)
-        (y-min (- y-radius)))
+	(x-min (- x-radius))
+	(y-max y-radius)
+	(y-min (- y-radius)))
     (entity
-     'path ""
-     '(stroke-linejoin . "round")
-     '(stroke-linecap . "round")
-     `(fill . ,(if is-filled "currentColor" "none"))
-     `(stroke . "currentColor")
-     `(stroke-width . ,thick)
-     `(d . ,(ly:format "M~4f ~4fC~4f ~4f ~4f ~4f ~4f ~4fS~4f ~4f ~4f ~4fz"
-               x-max 0
-               x-max y-max
-               x-min y-max
-               x-min 0
-               x-max y-min
-               x-max 0)))))
+      'path ""
+      '(stroke-linejoin . "round")
+      '(stroke-linecap . "round")
+      `(fill . ,(if is-filled "currentColor" "none"))
+      `(stroke . "currentColor")
+      `(stroke-width . ,thick)
+      `(d . ,(ly:format "M~4f ~4fC~4f ~4f ~4f ~4f ~4f ~4fS~4f ~4f ~4f ~4fz"
+			x-max 0
+			x-max y-max
+			x-min y-max
+			x-min 0
+			x-max y-min
+			x-max 0)))))
 
 (define (path thick commands)
   (define (convert-path-exps exps)
@@ -414,8 +408,7 @@
 				  (closepath . z))
 				"")))
 
-	  (cons (format "~a~a"
-			svg-head (number-list->point args))
+	  (cons (format "~a~a" svg-head (number-list->point args))
 		(convert-path-exps (drop rest arity))))
 	'()))
 
@@ -451,14 +444,14 @@
 
 (define (polygon coords blot-diameter is-filled)
   (entity
-   'polygon ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(stroke-width . ,blot-diameter)
-   `(fill . ,(if is-filled "currentColor" "none"))
-   '(stroke . "currentColor")
-   `(points . ,(string-join
-		(map offset->point (ly:list->offsets '() coords))))))
+    'polygon ""
+    '(stroke-linejoin . "round")
+    '(stroke-linecap . "round")
+    `(stroke-width . ,blot-diameter)
+    `(fill . ,(if is-filled "currentColor" "none"))
+    '(stroke . "currentColor")
+    `(points . ,(string-join
+		  (map offset->point (ly:list->offsets '() coords))))))
 
 (define (repeat-slash width slope thickness)
   (define (euclidean-length x y)
@@ -478,21 +471,22 @@
   "</g>\n")
 
 (define (round-filled-box breapth width depth height blot-diameter)
-  (entity 'rect ""
-	  ;; The stroke will stick out.  To use stroke,
-	  ;; the stroke-width must be subtracted from all other dimensions.
-	  ;;'(stroke-linejoin . "round")
-	  ;;'(stroke-linecap . "round")
-	  ;;`(stroke-width . ,blot)
-	  ;;'(stroke . "red")
-	  ;;'(fill . "orange")
+  (entity
+    'rect ""
+    ;; The stroke will stick out.  To use stroke,
+    ;; the stroke-width must be subtracted from all other dimensions.
+    ;;'(stroke-linejoin . "round")
+    ;;'(stroke-linecap . "round")
+    ;;`(stroke-width . ,blot)
+    ;;'(stroke . "red")
+    ;;'(fill . "orange")
 
-	  `(x . ,(- breapth))
-	  `(y . ,(- height))
-	  `(width . ,(+ breapth width))
-	  `(height . ,(+ depth height))
-	  `(ry . ,(/ blot-diameter 2))
-	  '(fill . "currentColor")))
+    `(x . ,(- breapth))
+    `(y . ,(- height))
+    `(width . ,(+ breapth width))
+    `(height . ,(+ depth height))
+    `(ry . ,(/ blot-diameter 2))
+    '(fill . "currentColor")))
 
 (define (setcolor r g b)
   (format "<g color=\"rgb(~a%, ~a%, ~a%)\">\n"
