@@ -10,6 +10,7 @@
 #include "page-layout-problem.hh"
 
 #include "align-interface.hh"
+#include "axis-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "item.hh"
@@ -389,9 +390,17 @@ Page_layout_problem::find_system_offsets ()
 		  if (staff_idx)
 		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		  else
-		    // FIXME: this should reflect the min distance from the last staff
-		    // to the first loose line of this staff.
-		    loose_line_min_distances.push_back (0);
+		    {
+		      Real min_dist = 0;
+		      if (last_spaceable_line)
+			min_dist = Axis_group_interface::minimum_distance (last_spaceable_line,
+									   staff,
+									   Y_AXIS);
+		      else // distance to the top margin
+			min_dist = header_height_ + staff->extent (staff, Y_AXIS)[UP];
+
+		      loose_line_min_distances.push_back (min_dist);
+		    }
 		}
 	    }
 
@@ -408,7 +417,9 @@ Page_layout_problem::find_system_offsets ()
 
   if (loose_lines.size ())
     {
-      loose_line_min_distances.push_back (0); // FIXME: should be the min distance to the footer.
+      Grob *last = loose_lines.back ();
+      Interval last_ext = last->extent (last, Y_AXIS);
+      loose_line_min_distances.push_back (-last_ext[DOWN] + footer_height_);
       loose_lines.push_back (0);
 
       distribute_loose_lines (loose_lines, loose_line_min_distances,

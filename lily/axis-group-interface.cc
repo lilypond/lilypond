@@ -691,6 +691,18 @@ Axis_group_interface::calc_next_staff_spacing (SCM smob)
   return me->get_property ("default-next-staff-spacing");
 }
 
+Real
+Axis_group_interface::minimum_distance (Grob *g1, Grob *g2, Axis a)
+{
+  SCM sym = ly_symbol2scm ((a == Y_AXIS) ? "vertical-skylines" : "horizontal-skylines");
+
+  Skyline_pair *s1 = Skyline_pair::unsmob (g1->get_property (sym));
+  Skyline_pair *s2 = Skyline_pair::unsmob (g2->get_property (sym));
+  if (s1 && s2)
+    return (*s1)[DOWN].distance ((*s2)[UP]);
+  return 0;
+}
+
 ADD_INTERFACE (Axis_group_interface,
 	       "An object that groups other layout objects.",
 
