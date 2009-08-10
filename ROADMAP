@@ -13,7 +13,8 @@ source files.
                           patches for third party programs
    Documentation/
        application/     Source files for Application Usage manual
-       bibliography/    .bib files with references to books and articles
+       essay/           Academic material and .bib files with references
+                          to books and articles
        contributor/     Source files for the Contribotor's Guide
        learning/        Source files for the Learning Manual
        misc/            Old announcements, ChangeLogs and NEWS
