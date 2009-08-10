@@ -9,8 +9,8 @@
 
 @c \version "2.12.0"
 
-@node Generating output
-@chapter Generating output
+@node Introduction
+@chapter Introduction
 
 This chapter gives a basic introduction to working with LilyPond.
 

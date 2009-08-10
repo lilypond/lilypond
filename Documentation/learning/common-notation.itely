@@ -31,10 +31,9 @@ Tutorial guidelines:  (different from policy.txt!)
 @node Common notation
 @chapter Common notation
 
-This tutorial starts with an introduction to the LilyPond music
-language and explains how to produce printed music.  After this first
-contact we will explain how to create beautiful printed music
-containing common musical notation.
+This chapter explains how to create beautiful printed music
+containing common musical notation, following the material in
+@ref{Introduction}.
 
 @menu
 * Single staff notation::
