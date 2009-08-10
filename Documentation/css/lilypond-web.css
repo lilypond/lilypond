@@ -174,12 +174,6 @@ div#tocframe {
 }
 
 #tocframe .toc .toc li:first-child a {
-  /* Hide the gratituous (main) entry */
-  overflow: hidden;
-  display: none;
-}
-
-#tocframe .toc .toc li:first-child + li a {
   -moz-border-radius-topleft: 7px;
   -moz-border-radius-bottomleft: 7px;
   -webkit-border-top-left-radius: 7px;
