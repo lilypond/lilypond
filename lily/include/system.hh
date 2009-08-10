@@ -26,6 +26,8 @@ class System : public Spanner
   
 public:
   Paper_score *paper_score () const;
+  Grob *get_vertical_alignment ();
+  Grob *get_extremal_staff (Direction dir, Interval const&);
   int get_rank () const;
   void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();

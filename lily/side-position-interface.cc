@@ -13,6 +13,7 @@
 
 using namespace std;
 
+#include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "grob.hh"
 #include "main.hh"
@@ -23,6 +24,7 @@ using namespace std;
 #include "staff-symbol.hh"
 #include "stem.hh"
 #include "string-convert.hh"
+#include "system.hh"
 #include "warn.hh"
 
 void
@@ -308,6 +310,35 @@ Side_position_interface::get_axis (Grob *me)
   me->programming_error (msg);
   return NO_AXES;
 }
+
+MAKE_SCHEME_CALLBACK (Side_position_interface, move_to_extremal_staff, 1);
+SCM
+Side_position_interface::move_to_extremal_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  System *sys = dynamic_cast<System*> (me->get_system ());
+  Direction dir = Side_position_interface::get_direction (me);
+  if (dir != DOWN)
+    dir = UP;
+
+  Grob *top_staff = sys->get_extremal_staff (dir, me->extent (sys, X_AXIS));
+
+  if (!top_staff)
+    return SCM_BOOL_F;
+
+  // Only move this grob if it is a direct child of the system.  We
+  // are not interested in moving marks from other staves to the top
+  // staff; we only want to move marks from the system to the top
+  // staff.
+  if (sys != me->get_parent (Y_AXIS))
+    return SCM_BOOL_F;
+
+  me->set_parent (top_staff, Y_AXIS);
+  me->flush_extent_cache (Y_AXIS);
+  Axis_group_interface::add_element (top_staff, me);
+  return SCM_BOOL_T;
+}
+
 
 ADD_INTERFACE (Side_position_interface,
 	       "Position a victim object (this one) next to other objects"

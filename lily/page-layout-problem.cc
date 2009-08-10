@@ -160,26 +160,12 @@ Page_layout_problem::set_footer_height (Real height)
   footer_height_ = height;
 }
 
-Grob*
-Page_layout_problem::find_vertical_alignment (System *sys)
-{
-  extract_grob_set (sys, "elements", elts);
-  for (vsize i = 0; i < elts.size (); ++i)
-    if (Align_interface::has_interface (elts[i]))
-      return elts[i];
-
-  return 0;
-}
-
 void
 Page_layout_problem::append_system (System *sys, Spring const& spring, Real padding)
 {
-  Grob *align = find_vertical_alignment (sys);
+  Grob *align = sys->get_vertical_alignment ();
   if (!align)
-    {
-      sys->programming_error ("no VerticalAlignment in system: can't do vertical spacing");
-      return;
-    }
+    return;
 
   align->set_property ("positioning-done", SCM_BOOL_T);
 

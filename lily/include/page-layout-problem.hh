@@ -34,7 +34,6 @@ protected:
   SCM find_system_offsets ();
   void distribute_loose_lines (vector<Grob*> const&, vector<Real> const&, Real, Real);
 
-  static Grob* find_vertical_alignment (System*);
   static void build_system_skyline (vector<Grob*> const&, vector<Real> const&, Skyline* up, Skyline* down);
   static vector<Grob*> filter_dead_elements (vector<Grob*> const&);
 

@@ -216,6 +216,7 @@
 
     (BarNumber
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	;; want the bar number before the clef at line start.
 	(break-align-symbols . (left-edge staff-bar))
 
@@ -1097,6 +1098,7 @@
 
     (MetronomeMark
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(direction . ,UP)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 1000)
@@ -1404,6 +1406,7 @@
 
     (RehearsalMark
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(baseline-skip . 2)
 	(break-align-symbols . (staff-bar clef))
 	(break-visibility . ,end-of-line-invisible)
@@ -2217,6 +2220,7 @@
 
     (VoltaBracket
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(direction . ,UP)
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(font-encoding . fetaNumber)

@@ -1,5 +1,6 @@
 /*
   vertically-spaced-contexts-engraver.cc -- implement Vertically_spaced_contexts_engraver
+  TODO: junk this, since we now determine spaceability using Page_layout_problem::is_spaceable.
 
   source file of the GNU LilyPond music typesetter
 

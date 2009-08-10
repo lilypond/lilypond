@@ -12,10 +12,12 @@
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "grob-array.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "lookup.hh"
 #include "main.hh"
 #include "output-def.hh"
+#include "page-layout-problem.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
@@ -172,6 +174,12 @@ System::do_break_substitution_and_fixup_refpoints ()
     {
       System *child = dynamic_cast<System*> (broken_intos_[i]);
       child->all_elements_->remove_duplicates ();
+      for (vsize j = 0; j < child->all_elements_->size (); j++)
+	{
+	  Grob *g = child->all_elements_->grob (j);
+
+	  (void) g->get_property ("after-line-breaking");
+	}
     }
 
   if (be_verbose_global)
@@ -295,13 +303,6 @@ System::pre_processing ()
 void
 System::post_processing ()
 {
-  for (vsize i = 0; i < all_elements_->size (); i++)
-    {
-      Grob *g = all_elements_->grob (i);
-
-      (void) g->get_property ("after-line-breaking");
-    }
-
   Interval iv (extent (this, Y_AXIS));
   if (iv.is_empty ())
     programming_error ("system with empty extent");
@@ -513,6 +514,49 @@ get_root_system (Grob *me)
     system_grob = system_grob->get_parent (Y_AXIS);
 
   return dynamic_cast<System*> (system_grob); 
+}
+
+Grob *
+System::get_vertical_alignment ()
+{
+  extract_grob_set (this, "elements", elts);
+  Grob *ret = 0;
+  for (vsize i = 0; i < elts.size (); i++)
+    if (Align_interface::has_interface (elts[i]))
+      {
+	if (ret)
+	  programming_error ("found multiple vertical alignments in this system");
+	ret = elts[i];
+      }
+
+  if (!ret)
+    programming_error ("didn't find a vertical alignment in this system");
+  return ret;
+}
+
+// Finds the furthest staff in the given direction whose x-extent
+// overlaps with the given interval.
+Grob *
+System::get_extremal_staff (Direction dir, Interval const &iv)
+{
+  Grob *align = get_vertical_alignment ();
+  if (!align)
+    return 0;
+
+  extract_grob_set (align, "elements", elts);
+  vsize start = (dir == UP) ? 0 : elts.size () - 1;
+  vsize end = (dir == UP) ? elts.size () : VPOS;
+  for (vsize i = start; i != end; i += dir)
+    {
+      if (Hara_kiri_group_spanner::has_interface (elts[i]))
+	Hara_kiri_group_spanner::consider_suicide (elts[i]);
+
+      Interval intersection = elts[i]->extent (this, X_AXIS);
+      intersection.intersect (iv);
+      if (elts[i]->is_live () && !intersection.is_empty ())
+	return elts[i];
+    }
+  return 0;
 }
 
 ADD_INTERFACE (System,
