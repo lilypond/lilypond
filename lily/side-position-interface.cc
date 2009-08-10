@@ -16,6 +16,7 @@ using namespace std;
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "grob.hh"
+#include "grob-array.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "note-head.hh"
@@ -321,7 +322,9 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
   if (dir != DOWN)
     dir = UP;
 
-  Grob *top_staff = sys->get_extremal_staff (dir, me->extent (sys, X_AXIS));
+  Interval iv = me->extent (sys, X_AXIS);
+  iv.widen (1.0);
+  Grob *top_staff = sys->get_extremal_staff (dir, iv);
 
   if (!top_staff)
     return SCM_BOOL_F;
@@ -336,6 +339,20 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
   me->set_parent (top_staff, Y_AXIS);
   me->flush_extent_cache (Y_AXIS);
   Axis_group_interface::add_element (top_staff, me);
+
+  // Remove any cross-staff side-support dependencies
+  Grob_array *ga = unsmob_grob_array (me->get_object ("side-support-elements"));
+  if (ga)
+    {
+      vector<Grob*> const& elts = ga->array ();
+      vector<Grob*> new_elts;
+      for (vsize i = 0; i < elts.size (); ++i)
+	{
+	  if (me->common_refpoint (elts[i], Y_AXIS) == top_staff)
+	    new_elts.push_back (elts[i]);
+	}
+      ga->set_array (new_elts);
+    }
   return SCM_BOOL_T;
 }
 
