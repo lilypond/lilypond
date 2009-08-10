@@ -126,7 +126,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
     {
       Real bottom_padding;
 
-      // TODO: junk bottom-space now that we have last-spring-spacing?
+      // TODO: junk bottom-space now that we have last-system-spacing?
       // bottom-space has the flexibility that one can do it per-system.
       // NOTE: bottom-space is misnamed since it is not stretchable space.
       if (Prob *p = elements_.back ().prob)
