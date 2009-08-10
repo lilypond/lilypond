@@ -32,9 +32,8 @@
 
 (define format ergonomic-simple-format)
 
-(define (svg-header paper)
+(define (svg-header paper unit-length)
   (let* ((lookup (lambda (x) (ly:output-def-lookup paper x)))
-	 (unit-length (lookup 'output-scale))
 	 (output-scale (* lily-unit->mm-factor unit-length))
 	 (paper-width (lookup 'paper-width))
 	 (paper-height (lookup 'paper-height))
@@ -51,10 +50,15 @@
 
 (define (dump-page paper filename page page-number page-count)
   (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
-	 (dump (lambda (str) (display str (ly:outputter-port outputter)))))
+	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
+	 (unit-length (ly:output-def-lookup paper 'output-scale)))
 
-    (dump (apply eo 'svg (svg-header paper)))
+    (dump (apply eo 'svg (svg-header paper unit-length)))
     (dump (comment (format "Page: ~S/~S" page-number page-count)))
+    (ly:outputter-output-scheme outputter
+				`(begin (set! lily-unit-length
+					      ,unit-length)
+					""))
     (ly:outputter-dump-stencil outputter page)
     (dump (ec 'svg))
     (ly:outputter-close outputter)))
