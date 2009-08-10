@@ -9,8 +9,8 @@ line, whether or not it is spaceable."
 
 \book {
   \paper {
-    first-system-spacing = #'((space . 1) (padding . 10))
-    last-system-spacing = #'((space . 1) (padding . 10))
+    top-system-spacing = #'((space . 1) (padding . 10))
+    bottom-system-spacing = #'((space . 1) (padding . 10))
     annotate-spacing = ##t
     ragged-last-bottom = ##f
   }

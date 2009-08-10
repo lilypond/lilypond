@@ -88,8 +88,8 @@
 (define (annotate-top-space first-system layout header-stencil stencil)
   (let* ((top-margin (ly:output-def-lookup layout 'top-margin))
 	 (sym (if (paper-system-title? first-system)
-		  'first-system-title-spacing
-		  'first-system-spacing))
+		  'top-title-spacing
+		  'top-system-spacing))
 	 (spacing-spec (ly:output-def-lookup layout sym))
 	 (X-offset (ly:prob-property first-system 'X-offset 5))
 	 (header-extent (ly:stencil-extent header-stencil Y)))

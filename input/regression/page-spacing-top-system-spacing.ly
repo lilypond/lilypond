@@ -5,13 +5,13 @@
 \book {
 
   \header {
-    texidoc = "first-system-spacing controls the spacing to the first
+    texidoc = "top-system-spacing controls the spacing to the first
 non-title staff on every page."
     title = "Title"
   }
 
   \paper {
-    first-system-spacing = #'((minimum-distance . 30))
+    top-system-spacing = #'((minimum-distance . 30))
     ragged-bottom = ##t
   }
 

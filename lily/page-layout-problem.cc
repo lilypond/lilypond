@@ -64,13 +64,13 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       after_title_spacing = paper->c_variable ("after-title-spacing");
       before_title_spacing = paper->c_variable ("before-title-spacing");
       between_title_spacing = paper->c_variable ("between-title-spacing");
-      last_system_spacing = paper->c_variable ("last-system-spacing");
-      first_system_spacing = paper->c_variable ("first-system-spacing");
+      last_system_spacing = paper->c_variable ("bottom-system-spacing");
+      first_system_spacing = paper->c_variable ("top-system-spacing");
       if (scm_is_pair (systems) && unsmob_prob (scm_car (systems)))
-	first_system_spacing = paper->c_variable ("first-system-title-spacing");
+	first_system_spacing = paper->c_variable ("top-title-spacing");
 
       // Note: the page height here does _not_ reserve space for headers and
-      // footers. This is because we want to anchor the first-system-spacing
+      // footers. This is because we want to anchor the top-system-spacing
       // spring at the _top_ of the header.
       page_height_ -= robust_scm2double (paper->c_variable ("top-margin"), 0)
 	+ robust_scm2double (paper->c_variable ("bottom-margin"), 0);
@@ -131,7 +131,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
     {
       Real bottom_padding;
 
-      // TODO: junk bottom-space now that we have last-system-spacing?
+      // TODO: junk bottom-space now that we have bottom-system-spacing?
       // bottom-space has the flexibility that one can do it per-system.
       // NOTE: bottom-space is misnamed since it is not stretchable space.
       if (Prob *p = elements_.back ().prob)
