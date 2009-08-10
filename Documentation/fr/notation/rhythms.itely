@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1551,10 +1551,10 @@ d'imprimer les ligatures.
 @end lilypond
 
 Lorsque ce comportement automatisé n'est pas satisfaisant, on peut
-définir des groupements manuellement -- voir @ref{Barres de ligature manuelles}.  Dans
-le cas où le groupe de notes en question contient un silence, il est
-@strong{impératif} d'indiquer explicitement les début et fin de la
-ligature.
+définir des groupements manuellement -- voir 
+@ref{Barres de ligature manuelles}.  Dans le cas où le groupe de notes
+en question contient un silence, il est @strong{impératif} d'indiquer
+explicitement les début et fin de la ligature.
 
 Lorsque les ligatures automatiques ne sont pas nécessaires, il suffit de
 désactiver la fonctionnalité par un @code{\autoBeamOff} -- réactivation
@@ -1643,11 +1643,11 @@ altérations appartenant à d'autres voix.
 @funindex \set
 @funindex set
 
-The placement of automatic beams is determined by the time signature.
-Three types of rules are used for determining the end of automatic
-beams: @emph{default} rules
-for the time signature, @emph{explicit} rules for the beam in the time
-signature, and the @emph{beatLength} for the time signature.
+La gestion automatisée des ligatures est directement liée à la métrique.
+La terminaison d'une ligature automatique peut se définir selon trois
+différents types de règles : des règles @emph{par défaut} relatives à la
+métrique, des règles @emph{explicites} pour la métrique en question, et
+des règles basées sur la @emph{pulsation} (@code{beatLength}).
 
 Les règles déterminant le positionnement des ligatures automatiques
 s'appliquent dans l'ordre suivant de priorité :
@@ -1660,6 +1660,12 @@ toujours respectée ; sinon
 @item si @code{\autoBeamOff} a été activé, il n'y aura pas de ligature ;
 sinon
 
+@item si une règle explicite de terminaison a été définie pour un type
+de ligature dans la métrique en cours, c'est elle qui s'appliquera ; sinon 
+
+@item if a default beam-ending rule is defined in the time signature,
+use it to group notes with beams, otherwise
+
 @item utiliser la valeur de @code{beatLength} pour regrouper les notes
 par des ligatures.
 
@@ -1667,19 +1673,49 @@ par des ligatures.
 
 @i{@strong{Modification des ligatures selon la pulsation}}
 
-@code{beatLength} constituent tous deux des
-@strong{moments}, autrement dit des unités de durée musicale.  La
-fonction Scheme @code{ly:make-moment} est tout particulièrement chargée
-de créer cette quantité de type @i{moment} -- pour plus d'information,
-consultez @ref{Gestion du temps}.
+La pulsation -- @emph{beatlength} en anglais -- découle directement de
+la métrique telle que définie par la commande @code{\time}.  Elle est
+par défaut égale à un sur le dénominateur de la métrique.
 
-@code{beatGrouping} représente une liste d'entiers correspondant au
-nombre de pulsations de chaque groupe.
+@code{beatLength} constitue un @strong{moment}, autrement dit une unité
+de durée musicale.  La fonction Scheme @code{ly:make-moment} est tout
+particulièrement chargée de créer cette quantité de type @i{moment} --
+pour plus d'information, consultez @ref{Gestion du temps}.
 
-@snippets
+Les règles de ligature et de subdivision sont enregistrées dans la
+propriété @code{beamSettings}. Ses valeurs par défaut, rangées par
+métrique et type de règle,  sont contenues dans le fichier
+@code{scm/@/beam@/-settings@/.scm}. 
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{grouping-beats.ly}
+La métrique est constituée d'une paire en langage Scheme -- p.ex.
+@w{@code{#'(4 . 4)}}.
+
+Le type de règle est soit @code{#'end} pour ce qui concerne les
+terminaisons, soit @code{#'subdivide} pour les subdivisions.
+
+Chaque règle, qu'il s'agisse de terminaison ou de subdivision, est
+constituée d'une liste de paires en langage Scheme (un @emph{alist} pour
+les puristes), qui indique le durée de base et sa règle de regroupement. 
+
+@example
+#'((durée-type1 . groupement-1)
+   (durée-type2 . groupement-2)
+   (durée-type3 . groupement-3))
+@end example
+
+@var{durée-type} est soit constitué d'une paire indiquant la durée de
+base -- par exemple @w{@code{(1 . 16)}}, soit du caractère @code{*} pour
+indiquer une règle par défaut qui s'appliquera à toutes les ligatures en
+l'absence de règle explicite. 
+
+@var{groupement} est constitué d'une liste Scheme qui indique le
+regroupement à effectuer.  En ce qui concerne les règles par défaut --
+celles où la durée type est @code{*} -- le regroupement s'indique
+en terme de @code{beatLength} ;  pour les règles explicites, en durée
+type. 
+
+Les règles de ligature automatique se modifient à l'aide des commandes 
+@code{\overrideBeamSettings} et @code{\revertBeamSettings}.
 
 @lilypond[quote,relative=2,verbatim]
   \time 5/16
@@ -1689,6 +1725,11 @@ nombre de pulsations de chaque groupe.
   \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
   c8^"(3+2)" c16 c8
 @end lilypond
+
+Les effets de règles de ligature peuvent être restreints à un contexte
+particulier.  En l'absence de régles particulières déterminées dans un
+contexte de niveau inférieur, les règles définies au niveau directement
+supérieur s'appliqueront.
 
 @lilypond[quote, verbatim,relative=1]
 \new Staff <<
@@ -1709,7 +1750,6 @@ nombre de pulsations de chaque groupe.
 >>
 @end lilypond
 
-
 Lorsque plusieurs voix cohabitent sur une même portée et que les règles
 de ligature doivent s'appliquer sans distinction, il faut spécifier que
 ces règles affectent le contexte @code{Staff} :
@@ -1729,6 +1769,16 @@ ces règles affectent le contexte @code{Staff} :
 @end lilypond
 
 @funindex revertBeamSettings
+
+Pour revenir aux règles de ligature par défaut, il suffit d'utiliser la
+commande @code{\revertBeamSettings}. Ses argument sont identiques à ceux
+fournis à @code{\overrideBeamSettings}, sans toutefois mentionner les
+règles de regroupement.
+
+@example
+\revertBeamSettings contexte métrique type-de-règle
+@end example
+
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
@@ -1908,7 +1958,7 @@ Morceaux choisis :
 
 
 @node Mesures
-@subsection Mmesures
+@subsection Mesures
 @translationof Bars
 
 
