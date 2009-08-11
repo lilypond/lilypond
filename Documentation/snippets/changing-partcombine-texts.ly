@@ -15,7 +15,6 @@ y de unísono:
 "
   doctitlees = "Cambiar los textos de partcombine"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn Stimmen automatisch kombiniert werden, kann der Text, der für

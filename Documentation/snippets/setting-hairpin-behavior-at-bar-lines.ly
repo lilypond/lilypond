@@ -16,7 +16,6 @@ sobreescribiendo la propiedad @code{'to-barline}.
 "
   doctitlees = "Establecer el comportamiento de los reguladores en las barras de compás"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Wenn die Note, an welcher eine Crescendo-Klammer endet, die erste Note

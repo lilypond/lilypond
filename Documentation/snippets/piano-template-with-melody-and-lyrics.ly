@@ -14,12 +14,10 @@ melodía y la letra, y el acompañamiento de piano por debajo.
 "
   doctitlees = "Plantilla de piano con melodía y letra"
 
-
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 これは一般的な歌曲のフォーマットです: 旋律と歌詞を持つ譜表と、その下にピアノ伴奏譜があります。
 "
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Das nächste Beispiel ist typisch für ein Lied: Im oberen System die
@@ -27,7 +25,6 @@ Melodie mit Text, darunter Klavierbegleitung.
 "
 
   doctitlede = "Vorlage für Klavier und Gesangsstimme"
-
 
 %% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
   texidocfr = "

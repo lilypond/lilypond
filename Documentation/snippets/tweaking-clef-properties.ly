@@ -4,6 +4,43 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
+@code{clefPosition} -- qui contrôle la position verticale de la clé --
+@code{middleCPosition} et @code{clefOctavation}.  Une clé est imprimée
+lorsque l'une de ces propriétés, hormis @code{middleCPosition}, est
+modifiée. 
+ Les exemples suivant font
+apparaître des possibilités de réglage manuel de ces propriétés.
+
+
+Modifier le glyphe, la position de la clef ou son octaviation ne
+changera pas la position des notes ; il faut pour y parvenir modifier
+aussi la position du do médium.  Le positionnement est relatif à la
+ligne médiane, un nombre positif faisant monter, chaque ligne ou
+interligne comptant pour 1.  La valeur de @code{clefOctavation} devrait
+être de 7, -7, 15 ou -15, bien que rien ne vous empêche de lui affecter
+une autre valeur.
+
+
+Lorsqu'un changement de clef intervient en même temps qu'un saut de
+ligne, la nouvelle clef est imprimer à la fois en fin de ligne et au
+début de la suivante.  Vous pouvez toujours supprimer cette « clef de 
+précaution » en affectant la valeur @code{end-of-line-invisible} à la
+propriété @code{explicitClefVisibility} du contexte @code{Staff}.  Le
+comportement par défaut sera réactivé par 
+@w{@code{\\unset@tie{}Staff.explicitClefVisibility}}. 
+
+
+Les exemples qui suivent illustrent les différentes possibilités de
+définir ces propriétés manuellement.  Sur la première ligne, la
+position relative des notes par rapport aux clefs sont préservées, ce
+qui n'est pas le cas pour la deuxième ligne.
+
+"
+  doctitlefr = "Affinage des propriétés d'une clef"
+
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -40,7 +77,6 @@ ajustan estas propiedades manualmente.  En la primera línea, los
 cambios manuales preservan el posicionamiento relativo estándar de
 las claves y las notas, pero no lo hacen en la segunda línea.
 "
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Eigenschaften des Schlüssels optimieren"

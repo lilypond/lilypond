@@ -15,7 +15,6 @@ cruce entre los pentagramas ajustando la propiedad
 "
   doctitlees = "Crear arpegios que se cruzan entre pentagramas dentro de un sistema de piano"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Arpeggio über mehrere Systeme können in anderen Kontexten als dem

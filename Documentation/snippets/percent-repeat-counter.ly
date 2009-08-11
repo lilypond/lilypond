@@ -15,7 +15,6 @@ ve en este ejemplo:
 "
   doctitlees = "Percent repeat counter"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Ganztaktwiederholungen mit mehr als zwei Wiederholungen erhalten einen

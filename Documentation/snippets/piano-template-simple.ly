@@ -14,14 +14,12 @@ notas.
 "
   doctitlees = "Plantilla de piano (sencilla)"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Hier ein einfaches Klaviersystem.
 
 "
   doctitlede = "Vorlage für einfache Klaviernotation"
-
 %% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
   texidocfr = "
 Voici une simple partition pour piano avec quelques notes.

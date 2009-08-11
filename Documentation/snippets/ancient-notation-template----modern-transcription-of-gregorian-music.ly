@@ -16,7 +16,6 @@ especiales que indican silencios de distintas longitudes.
 "
 
   doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto gregoriano)"
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
   texidocde = "
@@ -27,7 +26,6 @@ Länge von Pausen an.
 "
 
  doctitlede = "Vorlage für Alte Notation -- moderne Transkription des gregorianischen Chorals"
-
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
 Voici comment vous pourriez transcrire du grégorien.  Pour mémoire, il

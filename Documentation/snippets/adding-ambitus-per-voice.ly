@@ -4,6 +4,15 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+L'@code{ambitus} peut être individualisé par voix.  Il faut en pareil
+cas éviter qu'ils se chevauchent.
+
+"
+  doctitlefr = "Un ambitus par voix"
+
+
   lsrtags = "pitches, staff-notation, vocal-music"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -13,7 +22,6 @@ Se puede añadir un ámbito por cada voz. En este caso, el ámbito se
 debe desplazar manualmente para evitar colisiones.
 
 "
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Ambitus können pro Stimme gesetzt werden. In diesem Fall müssen sie

@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.0
-\version "2.13.4"
+\version "2.13.1"
 
 \header {
 %% Translation of GIT committish: da7ce7d651c3a0d1bfed695f6e952975937a1c79
@@ -56,6 +56,35 @@ für alle Oktaven gelten.
 
 Hier ein Beispiel einer möglichen Tonart für eine Ganztonleiter:
 "
+
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+La commande @code{\\key} détermine la propriété @code{keySignature} d'un 
+contexte @code{Staff}.
+
+Des armures inhabituelles peuvent être spécifiées en modifiant
+directement cette propriété. Il s'agit en l'occurence de définir une
+liste :
+
+@code{\\set Staff.keySignature = #`(((octave . pas) . altération) ((octave
+. pas) . altération) @dots{})} 
+
+dans laquelle, et pour chaque élément, 
+@code{octave} spécifie l'octave (0@tie{}pour celle allant du
+do@tie{}médium au si supérieur), @code{pas} la note dans cette octave
+(0@tie{}pour@tie{}do et 6@tie{}pour@tie{}si), et @code{altération} sera
+@code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.  (attention à la virgule en
+préfixe). 
+
+Une formulation abrégée -- @code{(pas . altération)} -- signifie que
+l'altération de l'élément en question sera valide quel que soit l'octave.
+
+
+Voici, par exemple, comment générer une gamme par ton :
+
+"
+  doctitlefr = "Armures inhabituelles"
+
 
   lsrtags = "pitches, staff-notation"
   texidoc = "

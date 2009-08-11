@@ -20,7 +20,6 @@ ejemplo.
 "
   doctitlees = "Imprimir marcas al final de la línea o de la partitura"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Zeichen können auch am Ende der aktuellen Zeile ausgegeben werden, anstatt

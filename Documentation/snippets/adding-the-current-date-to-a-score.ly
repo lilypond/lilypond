@@ -13,7 +13,6 @@ actual a una partitura.
 "
   doctitlees = "Añadir la fecha actual a una partitura"
 
-
 %% Translation of GIT committish: 7eb450e8e6c935410b8f3212cb53e5a731f4f33f
   texidocfr = "
 Avec un peu de code Scheme, voici comment ajouter facilement

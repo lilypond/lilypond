@@ -2,7 +2,7 @@
 % generated from Documentation/snippets/new
 % This file is in the public domain.
 %% Note: this file works from version 2.13.0
-\version "2.13.4"
+\version "2.13.1"
 
 \header {
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -29,6 +29,17 @@ Handbuch zum Lernen @version{}, 4.6.3 Weitere Information zu
 Hinweisen, wo diese Datei gespeichert ist)."
 
   doctitlede = "Makam-Beispiel"
+
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+Le «makam» est une forme de mélodie turque qui utilise des altérations
+d'un neuvième de ton.  Consultez le fichier d'initialisation
+@code{makam.ly} pour plus de détails sur les hauteurs et altérations
+utilisées (voir le chapitre 4.6.3 - Autres sources d'information du
+manuel d'initiation pour le localiser).
+
+"
+  doctitlefr = "Exemple de musique « Makam »"
 
   lsrtags = "pitches, world-music"
   texidoc = "

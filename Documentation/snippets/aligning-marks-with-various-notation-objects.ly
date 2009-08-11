@@ -22,7 +22,6 @@ debe hacer este ajuste para todos los pentagramas).
 "
   doctitlees = "Alinear marcas con varios objetos de notación"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn angegeben, können Textzeichen auch an anderen Objekten als Taktstrichen

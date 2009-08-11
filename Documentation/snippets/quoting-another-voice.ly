@@ -19,7 +19,6 @@ el fragmento citado porque @code{rest-event} no está dentro de los
 "
   doctitlees = "Citar otra voz"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die @code{quotedEventTypes}-Eigenschaft bestimmt die

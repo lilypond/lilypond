@@ -16,7 +16,6 @@ voces que están sobre el mismo pentagrama si el grabador
 "
   doctitlees = "Crear arpegios entre notas de voces distintas"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Ein Arpeggio kann zwischen Noten aus unterschidlichen Stimmen auf demselben

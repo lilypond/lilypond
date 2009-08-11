@@ -15,7 +15,6 @@ Esta línea se puede suprimir de la siguiente manera:
 "
   doctitlees = "Ocultar la línea de extensión de las expresiones textuales de dinámica"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Dynamik-Texte (wie cresc. und dim.) werden mit einer gestrichelten Linie

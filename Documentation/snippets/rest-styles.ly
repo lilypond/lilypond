@@ -11,14 +11,12 @@
   texidoces = "
 Los silencios se pueden imprimir en distintos estilos.
 "
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
   doctitlede = "Pausenstile"
   texidocde = "
 Pausen können in verschiedenen Stilen dargestellt werden.
 "
-
 
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df

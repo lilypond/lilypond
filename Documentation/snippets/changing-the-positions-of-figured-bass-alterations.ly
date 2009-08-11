@@ -16,7 +16,6 @@ después de los números, según el valor de las propiedades
 "
   doctitlees = "Cambiar las posiciones de las alteraciones del bajo cifrado"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Versetzungszeichen und Pluszeichen können vor oder nach den Ziffern erscheinen,

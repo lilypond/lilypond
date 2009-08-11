@@ -14,7 +14,6 @@ principio de la pieza, sobreescribiendo la propiedad correspondiente:
 "
   doctitlees = "Imprimir puntos de repetición al prinicpio de la pieza"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Ein @code{|:}-Taktstrich kann auch zu Beginn eines Stückes ausgegeben werden, indem

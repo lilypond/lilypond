@@ -4,6 +4,21 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+Au début du XXème siècle, Schoenberg, Berg et Webern -- la « Seconde »
+école de Vienne -- imaginèrent de donner une importance comparable aux
+douze notes de la gamme chromatique, et éviter ainsi toute tonalité.
+Pour ce faire, ces compositions font apparaître une altération à chaque
+note, y compris un bécarre, pour mettre en exergue cette nouvelle
+approche de la théorie et du langage musicaux.
+
+Voici comment obtenir une telle notation.
+
+"
+  doctitlefr = "Le dodécaphonisme : toute note est altérée"
+
+
   lsrtags = "pitches"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -20,7 +35,6 @@ Este fragmento de código muestra cómo conseguir dichas reglas de
 notación.
 
 "
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "

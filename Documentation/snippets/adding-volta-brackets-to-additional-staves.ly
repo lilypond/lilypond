@@ -18,7 +18,6 @@ también el fragmento de código \"Volta multi staff\".
 "
   doctitlees = "Añadir corchetes de primera y segunda vez a más pentagramas"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Der @code{Volta_engraver} befindet sich im @code{Score}-Kontext und Klammern

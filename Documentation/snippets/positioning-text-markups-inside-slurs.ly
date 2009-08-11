@@ -16,7 +16,6 @@ impriman por dentro de las ligaduras de expresión.
 "
   doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die

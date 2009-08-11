@@ -20,7 +20,6 @@ alineados por la izquierda con ella.
 
   doctitlees = "Alineación de los números de compás"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Taktnummern sind standardmäßig links an ihrem Ursprungsobjet
@@ -32,7 +31,6 @@ Taktstrich gesetzt werden.
 
 "
   doctitlede = "Taktnummern ausrichten"
-
 
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409

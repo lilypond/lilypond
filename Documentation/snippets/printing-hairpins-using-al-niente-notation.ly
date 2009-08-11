@@ -15,7 +15,6 @@ Se pueden imprimir reguladores con un círculo en la punta
 "
   doctitlees = "Impresión de reguladores utilizando la notación «al niente»"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
  texidocde = "
  Crescendo-Klammern können mit einem kleinen Kreis vor der Spitze

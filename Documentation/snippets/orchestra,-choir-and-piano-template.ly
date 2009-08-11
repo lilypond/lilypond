@@ -19,7 +19,6 @@ a Do antes de ser asignada a una variable.
 
 "
   doctitlees = "Plantilla de orquesta, coro y piano"
-
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
 Ce canevas illustre l'utilisation de contextes @code{StaffGroup} pour
