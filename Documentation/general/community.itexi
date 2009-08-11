@@ -81,22 +81,27 @@ discussing LilyPond.
 @divClass{column-left-bottom}
 @subheading User Discussions and Help
 
-@subsubheading User mailist
+@subsubheading User mailist: @code{lilypond-user@@gnu.org}
 
-The main place for users to discuss and help each other is the
+This mailist is the main place for users to discuss and help each
+other.
+
+@quotation
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
-lilypond-user@@gnu.org} mailist.  To see what this mailist is
-like, read the
-@uref{http://mail.gnu.org/archive/html/lilypond-user/,
-lilypond-user archives}.
+lilypond-user subscribe and info}
 
-You may easily post messages to the mailist with the
+@uref{http://mail.gnu.org/archive/html/lilypond-user/,
+user archive1}
+@uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
+archive2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
+archive3}
+
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-lilypond.general gmane interface}.
+send to lilypond-user with gmane}
+@end quotation
 
 @warning{When asking questions, please use @ref{Tiny examples}!}
-
-@help{we could add a "subscribe to -user" box here?}
 
 
 @subsubheading IRC
@@ -113,7 +118,20 @@ be useful for others would better be posted to one of the mailing lists.
 
 @subsubheading Other languages
 
-@help{send mailists or forums where non-English discussion occurs.}
+@uref{http://es.groups.yahoo.com/group/lilypond-es,
+Spanish yahoo group}
+
+@uref{http://www.lilypondforum.de/,
+German forum}
+
+@uref{http://groups.google.com/group/lilypond-brasil,
+Portugese group}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+French mailist}
+
+@uref{http://www.lilypondforum.nl/,
+Dutch forum}
 
 @divEnd
 
@@ -126,14 +144,25 @@ be useful for others would better be posted to one of the mailing lists.
 The easiest way to keep touch is by reading our community
 newsletter, the @uref{http://news.lilynet.net/, LilyPond Report}.
 
-@subsubheading Releases mailing list
+@subsubheading Releases mailist: @code{info-lilypond@@gnu.org}
 
-@uref{http://mail.gnu.org/mailman/listinfo/info-lilypond,
-info-lilypond@@gnu.org}
-is a low-volume, read-only list which receives notifications of
-new releases.  To see what the mailist is like, browse the
+This mailist is a low-volume, read-only list which receives
+notifications of new releases.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+info-lilypond subscribe and info}
+
 @uref{http://mail.gnu.org/archive/html/info-lilypond/,
-info-lilypond archive}.
+info archive1}
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+archive2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
+archive3}
+
+@c don't include gmane posting here.  -gp
+@end quotation
+
 
 @divEnd
 
@@ -141,24 +170,51 @@ info-lilypond archive}.
 @divClass{column-right-bottom}
 @subheading Developer Discussion
 
-Most developer discussion takes place on
-@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
-lilypond-devel@@gnu.org}.  Patches should be sent here.  You can
-browse the @uref{http://mail.gnu.org/archive/html/lilypond-devel/,
-lilypond-devel archives}, or send a message directly with the
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.development,
-lilypond.development gmane interface}.
+@subsubheading Developer mailist: @code{lilypond-devel@@gnu.org}
 
-Bug-specific discussion takes place on the
+Most developer discussion takes place on this list.  Patches
+should be sent here.
+
+@quotation
+@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
+lilypond-devel subscribe and info}
+
+@uref{http://mail.gnu.org/archive/html/lilypond-devel/,
+devel archive1}
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
+archive2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
+archive3}
+
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
+send to lilypond-devel with gmane}
+@end quotation
+
+
+@subsubheading Bug mailist: @code{bug-lilypond@@gnu.org}
+
+Bug-specific discussion takes place here.
+
+@quotation
 @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,
-bug-lilypond@@gnu.org}.  You can browse the
-@uref{http://mail.gnu.org/archive/html/bug-lilypond/, bug-lilypond
-archives}.
+bug-lilypond subscribe and info}
+
+@uref{http://mail.gnu.org/archive/html/bug-lilypond/,
+bug archive1}
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
+archive2}
+@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
+archive3}
+
+@c don't include gmane posting here.  -gp
+@end quotation
 
 @warning{Before sending a message to the bug list, please read our
 guidelines for @ref{Bug reports}.}
 
 @divEnd
+
+
 
 
 
