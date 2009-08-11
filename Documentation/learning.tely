@@ -42,11 +42,13 @@ Free Documentation License''.
 @end copying
 
 @macro introText
+@cartouche
 This file provides an introduction to GNU LilyPond version
 @version{}.  For more information about how this fits with the
 other documentation, see
 FIXME FIXME FIXME
 @c @ref{About the documentation}.
+@end cartouche
 @end macro
 
 
@@ -63,6 +65,8 @@ FIXME FIXME FIXME
 @subtitle The music typesetter
 @titlefont{Learning Manual}
 @author The LilyPond development team
+
+@vskip 100pt
 
 @introText{}
 
