@@ -786,18 +786,21 @@
 
     (if (and (pair? live-elts)
 	     (interval-sane? (ly:grob-extent grob system Y)))
-	(let get-extent ((lst live-elts))
-	  (if (pair? lst)
-	      (let ((axis-group (car lst)))
+	(begin
+	  (let get-extent ((lst live-elts))
+	    (if (pair? lst)
+		(let ((axis-group (car lst)))
 
-		(if (and (ly:spanner? axis-group)
-			 (equal? (ly:spanner-bound axis-group LEFT)
-				 left-bound))
-		    (set! extent (add-point extent
-					    (ly:grob-relative-coordinate
-					     axis-group system Y))))
-		(get-extent (cdr lst))))))
+		  (if (and (ly:spanner? axis-group)
+			   (equal? (ly:spanner-bound axis-group LEFT)
+				   left-bound))
+		      (set! extent (add-point extent
+					      (ly:grob-relative-coordinate
+					       axis-group system Y))))
+		  (get-extent (cdr lst)))))
+	  (+
+	   (ly:self-alignment-interface::y-aligned-on-self grob)
+	   (interval-center extent)))
+	;; no live axis group(s) for this instrument name -> remove from system
+	(ly:grob-suicide! grob))))
 
-    (+
-     (ly:self-alignment-interface::y-aligned-on-self grob)
-     (interval-center extent))))
