@@ -106,15 +106,12 @@ $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Tran
 
 @Texi2HTML::Config::CSS_REFS      = (
     {FILENAME => "lilypond-web.css", TITLE => "Default style"},
+);
+
+@Texi2HTML::Config::ALT_CSS_REFS      = (
     {FILENAME => "lilypond-web-alt1.css", TITLE => "Alternate style 1"},
     {FILENAME => "lilypond-web-alt2.css", TITLE => "Alternate style 2"},
- );
-
-# GOP tweak: We don't have alternate stylesheets right now
-#@Texi2HTML::Config::ALT_CSS_REFS      = (
-#    {FILENAME => "lilypond.css", TITLE => "Andrew Hawryluk's design" },
-#    {FILENAME => "lilypond-blue.css", TITLE => "Kurt Kroon's blue design" },
-#);
+);
 
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
@@ -302,11 +299,10 @@ sub lilypond_css_lines ($$)
         $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
     }
 
-    # GOP tweak: We don't have alternate stylesheets
-    #foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
-    #{
-    #    $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
-    #}
+    foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
+    {
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
+    }
 
     # GOP tweak: We aren't using an IE-specific stylesheet
     #$Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
