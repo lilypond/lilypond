@@ -4,8 +4,11 @@
                     within normal staves and tablature."
        }
 
-deadnotes = \relative c,, {
-   e8. \deadNotesOn e16 \deadNotesOff g4 a b |
+mynotes = \relative c,, {
+   \deadNotesOn
+   e8. e16
+   \deadNotesOff
+   g4 a b |
    e8. \deadNote e16 g4 a b |
    e,4. \deadNote { e8 e e } e4 |
    < e, \deadNote b' e >8 < e \deadNote b' e > < e \deadNote b' e >4 < e \deadNote b' e >4 r
@@ -13,14 +16,24 @@ deadnotes = \relative c,, {
 }
 
 \context StaffGroup <<
-  \context Staff <<
-    \clef "bass_8"
-    \deadnotes
-  >>
-  \context TabStaff <<
-    \set TabStaff.stringTunings = #bass-tuning
-    \deadnotes
-  >>
+  \context Staff {
+    \context Voice {  % Warning: explicit voice instantiation is required
+                      %   to have deadNotesOff work properly
+                      %   when deadNotesOn comes at the beginning
+                      %   of the piece
+      \clef "bass_8"
+      \mynotes
+    }
+  }
+  \context TabStaff {
+    \context TabVoice {  % Warning:  explicit voice instantiation is
+                         %   required to have deadNotesOff work properly
+                         %   when deadNotesOn comes at the beginning
+                         %   of the piece
+      \set TabStaff.stringTunings = #bass-tuning
+      \mynotes
+    }
+  }
 >>
 
 

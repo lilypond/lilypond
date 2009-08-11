@@ -427,25 +427,25 @@ pointAndClickOn = #(define-music-function (parser location) ()
                       (ly:set-option 'point-and-click #t)
                       (make-music 'SequentialMusic 'void #t))
 
-palmMuteOn = {
- #(override-head-style 'NoteHead 'do)
-}
+palmMuteOn =
+#(define-music-function (parser location) ()
+   (override-head-style 'NoteHead 'do))
 
-palmMuteOff = {
- #(revert-head-style 'NoteHead)
-}
+palmMuteOff =
+#(define-music-function (parser location) ()
+   (revert-head-style 'NoteHead))
 
 palmMute =
 #(define-music-function (parser location note) (ly:music?)
     (style-note-heads 'NoteHead 'do note))
 
-deadNotesOn = {
-  #(override-head-style '(TabNoteHead NoteHead) 'cross)
-}
+deadNotesOn =
+#(define-music-function (parser location) ()
+   (override-head-style '(TabNoteHead NoteHead) 'cross))
 
-deadNotesOff = {
-  #(revert-head-style '(TabNoteHead NoteHead))
-}
+deadNotesOff =
+#(define-music-function (parser location) ()
+   (revert-head-style '(TabNoteHead NoteHead)))
 
 deadNote =
 #(define-music-function (parser location note) (ly:music?)
