@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: a6b100669bfc3847b3a03029d6a46ee9b1609e73
+    Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -33,9 +33,9 @@ et les options de gravure.
 @subsection Écriture des hauteurs de note
 @translationof Writing pitches
 
-Cette section explique la manière d'indiquer les hauteurs de note.  Il
-y a deux modes d'indiquer l'octave des notes : le mode absolu, et le
-mode relatif.  Le dernier est le plus pratique lors de la saisie d'un
+Cette section explique la manière d'indiquer les hauteurs de note.  Deux 
+modes permettent d'indiquer l'octave des notes : le mode absolu, et le
+mode relatif.  Ce dernier est le plus pratique lors de la saisie d'un
 fichier source au clavier de l'ordinateur.
 
 @menu
@@ -55,41 +55,44 @@ fichier source au clavier de l'ordinateur.
 @cindex absolues, octaves
 @cindex octaves absolues
 
-La hauteur s'écrit --- à moins de préciser une autre langue --- avec la
-notation batave, en utilisant les lettres @code{a} à @code{g}.
-Une gamme ascendante de do majeur s'écrit
+La hauteur s'écrit -- à moins de préciser une autre langue -- avec la
+notation batave, en utilisant les lettres de @code{a} à @code{g}.
+Les notes @code{c} (do) et @code{b} (si) sont écrites une octave sous le
+do central. 
 
-@lilypond[quote,fragment,verbatim,ragged-right]
+@c don't use c' here.
+@lilypond[verbatim,quote,fragment]
 \clef bass
-c d e f g a b c'
+c d e f
+g a b c
+d e f g
 @end lilypond
 
-La note @code{c} est écrite une octave sous le do central.
-
-@lilypond[quote,fragment,verbatim,ragged-right]
-\clef treble
-c1
-\clef bass
-c1
-@end lilypond
+@cindex octave, spécification
 
 @funindex '
 @funindex ,
 
 L'octave peut être précisée sous forme d'une série d'apostrophes
-@samp{'} ou d'une série de virgules @samp{,}.  Chaque @samp{'} hausse la
-note d'une octave, chaque @samp{,} baisse la note d'une octave.
+@code{'} ou d'une série de virgules @code{,}.  Chaque @code{'} hausse la
+note d'une octave, chaque @code{,} baisse la note d'une octave.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c' c'' e' g d'' d' d c
+c' c'' e' g
+d'' d' d c
 \clef bass
-c, c,, e, g d,, d, d c
+c, c,, e, g
+d,, d, d c
 @end lilypond
 
-Il existe une autre méthode pour préciser à quelle octave se situe la
-note à graver ; cette méthode demande moins d'indications d'octave
-(@code{'} ou @code{,}) --- voir @ref{Octaves relatives}.
+
+@seealso
+Glossaire musicologique :
+@rglos{Pitch names}.
+
+Morceaux choisis :
+@rlsr{Pitches}.
 
 
 @node Octaves relatives
@@ -98,109 +101,210 @@ note à graver ; cette méthode demande moins d'indications d'octave
 
 @cindex relatif
 @cindex indication d'octave relative
+@cindex octave relative, indication
+
 @funindex \relative
+@funindex relative
 
 On spécifie les octaves en ajoutant @code{'} et @code{,} aux noms de
 hauteurs.  En recopiant de la musique, on a vite fait de mettre une note
 à la mauvaise octave, et ce genre d'erreur est difficile à retrouver.
-Le mode d'écriture \relative prévient ces erreurs dans la mesure où
-elles deviennent beaucoup plus évidentes : une seule erreur décale le
-reste de la pièce à une mauvaise octave.
+Le mode d'écriture en octave relative prévient ces erreurs dans la
+mesure où elles deviennent beaucoup plus évidentes : une seule erreur
+décale le reste de la pièce à une mauvaise octave.
 
 
 @example
 \relative @var{hauteur_de_référence} @var{musicexpr}
 @end example
 
-@noindent
-ou
+En mode relatif, chaque note est considérée comme étant le plus proche
+possible de celle qui la précède.  L'octave des notes mentionnées dans
+@var{musicexpr} va être calculée de la manière suivante : 
 
-@example
-\relative @var{musicexpr}
-@end example
+@itemize
+@item
+Si aucun signe de changement d'octave n'est utilisé, l'intervalle de
+base entre la note actuelle et la précédente sera toujours au plus d'une
+quarte.  Cet intervalle est déterminé sans tenir compte des altérations. 
 
-@noindent
-@code{c'} est utilisé par défaut si aucune hauteur de départ n'est
-définie.
+@item
+Un signe de changement d'octave @code{'} ou @code{,} peut être ajouté
+pour hausser ou baisser la note d'une octave par rapport à la hauteur
+calculée sans spécification.
 
-L'octave des notes mentionnées dans @var{musicexpr} va être calculée de
-la manière suivante : si aucun signe de changement d'octave n'est
-utilisé, l'intervalle de base entre la note actuelle et la précédente
-sera toujours au plus d'une quarte.  Cet intervalle est déterminé sans
-tenir compte des altérations ; ainsi un @code{fisis} après un
-@code{ceses} sera placé au-dessus du @code{ceses}.  En d'autres termes,
-une quarte doublement augmentée demeure considérée comme un intervavlle
-plus petit qu'une quinte diminuée, bien que la quarte doublement
-augmentée soit de sept demi-tons et la quinte diminuée de seulement six
-demi-tons.
+@item
+Ces signes de changement d'octave peuvent être multipliés. Par exemple,
+@code{''}@tie{}ou@tie{}@code{,,} ajouteront une octave supplémentaire.
 
-Les signes de changement d'octave @code{'} et @code{,} peuvent être
-ajoutés pour hausser ou baisser la note d'une octave supplémentaire.
+@item
 Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de
 départ peut être spécifiée, et agira dès lors comme si elle précédait la
-première note de @var{musicexpr}.  Si aucune hauteur de départ n'est
-spécifiée, le do central sert de point de départ.
+première note de @var{musicexpr}.
 
-Voici le mode \relative en action.
-@lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  b c d c b c bes a
+@end itemize
+
+Voici le mode @code{\relative} en action.
+
+@lilypond[verbatim,quote]
+\relative c {
+  \clef bass
+  c d e f
+  g a b c
+  d e f g
 }
 @end lilypond
 
 On utilise les signes de changement d'octave pour les intervalles
 dépassant la quarte.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[verbatim,quote]
 \relative c'' {
-  c g c f, c' a, e''
+  c g c f,
+  c' a, e'' c
 }
 @end lilypond
+
+Bien que ne comportant aucun signe de changement d'octave, une séquence
+de notes peut tout à fait couvrir un intervalle important.
+
+@lilypond[verbatim,quote]
+\relative c {
+  c f b e
+  a d g c
+}
+@end lilypond
+
+Lorsque plusieurs blocs @code{\relative} sont imbriqués, c'est la
+dernière clause @code{\relative} qui est prise en compte.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  c d e f
+  \relative c'' {
+    c d e f
+  }
+}
+@end lilypond
+
+@code{\relative} est sans effet sur un bloc @code{\chordmode}.
+
+@lilypond[verbatim,quote]
+\new Staff {
+  \relative c''' {
+    \chordmode { c1 }
+  }
+  \chordmode { c1 }
+}
+@end lilypond
+
+@code{\relative} n'est pas permis au sein d'un bloc @code{\chordmode}.
+
+Pour utiliser le mode d'octave relative dans de la musique transposée,
+une clause @code{\relative} additionnelle doit être placée au sein du
+bloc @code{\transpose}. 
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d e
+  \transpose f g {
+    d e
+    \relative c' {
+      d e
+    }
+  }
+}
+@end lilypond
+
+
+@cindex accords et octave relative
+@cindex octave relative et accords
 
 Si l'expression précédente est un accord, c'est la première note de
 l'accord qui détermine l'emplacement de la première note du prochain
-accord.
+accord.  A l'intérieur de l'accord, les notes sont placées relativement
+à celle qui précède.  Examinez avec attention l'exemple suivant, et tout
+particulièrement le positionnement des do.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[verbatim,quote]
 \relative c' {
-  c <c e g>
-  <c' e g>
-  <c, e' g>
+  c
+  <c e g>
+  <c' e g'>
+  <c, e, g''>
 }
 @end lilypond
 
-La hauteur après @code{\relative} contient un nom de note.
+Comme nous l'avons vu, l'octaviation est déterminée sans tenir compte
+des altérations.  Ainsi un mi double-dièse après un si naturel sera
+placé au-dessus de celui-ci, alors qu'un fa double-bémol se retrouvera
+en dessous.  En d'autres termes, une quarte doublement augmentée
+demeure considérée comme un intervalle plus petit qu'une quinte
+diminuée, bien que la quarte doublement augmentée soit de sept demi-tons
+et la quinte diminuée de seulement six demi-tons.
 
-La conversion en mode \relative n'affectera pas les sections @code{\transpose},
-@code{\chordmode} ou @code{\relative} situées dans son argument.  Pour
-utiliser \relative dans de la musique transposée, un code
-@code{\relative} additionnel doit être placé dans @code{\transpose}.
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 fis
+  c2 ges
+  b2 eisis
+  b2 feses
+}
+@end lilypond
+
+
+@seealso
+Glossaire musicologique :
+@rglos{fifth},
+@rglos{interval},
+@rglos{Pitch names}.
+
+Manuel de notation :
+@ref{Vérifications d'octave}.
+
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Référence des propriétés internes :
+@rinternals{RelativeOctaveMusic}.
 
 
 @node Altérations
 @unnumberedsubsubsec Altérations
 @translationof Accidentals
 
+@cindex altération
+@cindex armure
+@cindex clef
+
+@c duplicated in Key signature and in Accidentals
+@warning{Les nouveaux utilisateurs sont parfois déroutés par la gestion
+des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
+matériau brut ; l'armure et la clef ne feront que déterminer comment ce
+matériau sera retranscrit.  Un simple @code{c} signifie tout bonnement 
+@w{@qq{ do naturel}} quels que soient l'armure et la clef en question.
+Pour plus d'information, reportez-vous au chapitre
+@rlearning{Altérations et armure}.} 
+
 @cindex noms de note, hollandais
 @cindex noms de note, par défaut
+@cindex dièse
+@cindex bémol
+@cindex double dièse
+@cindex double bémol
+@cindex flat, double
+@cindex naturel
+@cindex bécarre
 
-Dans la notation par défaut, un dièse est formé en ajoutant @code{-is}
-après le nom de note, un bémol en ajoutant @code{-es}.  Les
-double-dièses et double-bémols sont obtenus en ajoutant @code{-isis}
-ou @code{-eses} au nom de note.
+Dans la notation par défaut, un @notation{dièse} est formé en ajoutant
+@code{-is} après le nom de note, un @notation{bémol} en ajoutant
+@code{-es}.  Les @notation{double-dièses} et @notation{double-bémols}
+sont obtenus en ajoutant @code{-isis} ou @code{-eses} au nom de note.
+Ce sont les noms de note hollandais.  Pour les autres langues, consultez 
+@ref{Noms de note dans d'autres langues}.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a2 ais a aes
-a2 aisis a aeses
-@end lilypond
-
-@noindent
-Ce sont les noms de note hollandais.  En hollandais, on élide @code{aes}
-pour écrire @code{as}, mais les deux formes sont acceptées.  De manière
-similaire, on accepte aussi bien @code{es} que @code{ees}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-a2 as e es
+@lilypond[verbatim,quote,relative=2]
+ais1 aes aisis aeses
 @end lilypond
 
 Un bécarre annule l'effet d'une altération, qu'elle soit accidentelle
@@ -208,24 +312,13 @@ ou à l'armure.  Cependant, dans la syntaxe des noms de note, les
 bécarres ne s'écrivent pas avec un suffixe ; un simple nom de note
 donnera une note bécarre.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a4 aes a2
 @end lilypond
 
-LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
-naturel, un mi naturel et un fa naturel}, sans tenir compte de l'armure.
-Pour plus d'information à propos de la distinction entre le contenu
-musical et sa représentation, voir @rlearning{Altérations et armure}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative]
-\key d \major
-d e f g
-d e fis g
-@end lilypond
-
-
 @cindex quarts de ton
-@cindex demi-bémols, demi-dièses
+@cindex demi-bémols
+@cindex demi-dièses
 
 Les demi-bémols et demi-dièses s'écrivent en ajoutant respectivement
 @code{-eh} et @code{-ih}. Voici une série de dos altérés en hauteurs
@@ -238,39 +331,81 @@ ceseh1 ces ceh c cih cis cisih
 Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 
 
-@cindex altération, de précaution
-@cindex altération, entre parenthèses
 @cindex altération de précaution
-@funindex ?
 @cindex altération entre parenthèses
+@cindex précaution, altération de
+@cindex parenthèses, altération entre
+
+@funindex ?
 @funindex !
 
 Normalement, les altérations sont imprimées automatiquement, mais il se
 peut que vous vouliez les imprimer manuellement.  On peut forcer
 l'impression d'une altération , dite @qq{de précaution}, en ajoutant un
-point d'exclamation @samp{!} après la hauteur de note.  Une altération
+point d'exclamation @code{!} après la hauteur de note.  Une altération
 entre parenthèses peut être obtenue en ajoutant un point d'interrogation
-@samp{?} après la hauteur de note.  Ces signes peuvent aussi être
+@code{?} après la hauteur de note.  Ces signes peuvent aussi être
 utilisés pour imprimer des bécarres.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-cis cis cis! cis? c c? c! c
+@lilypond[verbatim,quote,relative=2]
+cis cis cis! cis? c c c! c?
+@end lilypond
+
+@cindex altération et liaison de tenue
+@cindex liaison de tenue et altération
+
+Lorsqu'une note est prolongée par une liaison de tenue, l'altération ne
+sera réimprimée que s'il y a un saut de ligne.
+
+@lilypond[verbatim,quote,relative=2]
+cis1 ~ cis ~
+\break
+cis
 @end lilypond
 
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc, doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
 
 
 @seealso
-Référence du programme : @rinternals{LedgerLineSpanner},
-@rinternals{NoteHead}.
+Glossaire musicologique :
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{Pitch names},
+@rglos{quarter tone}.
+
+Manuel d'initiation :
+@rlearning{Altérations et armure}.
+
+Manuel de notation :
+@ref{Altérations accidentelles automatiques},
+@ref{Altérations accidentelles suggérées},
+@ref{Noms de note dans d'autres langues}.
+
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Références internes du programme :
+@rinternals{Accidental_engraver},
+@rinternals{Accidental},
+@rinternals{AccidentalCautionary},
+@rinternals{accidental-interface}.
 
 L'impression automatique des altérations peut être affinée de plusieurs
-manières.  Pour plus d'information, voir @ref{Altérations accidentelles automatiques}.
+manières.  Pour plus d'information, voir 
+@ref{Altérations accidentelles automatiques}. 
 
+
+@cindex accidentel, quart de ton
+@cindex quart de ton
 
 @knownissues
 
@@ -284,69 +419,153 @@ LilyPond n'est donc conforme à aucun standard.
 @unnumberedsubsubsec Noms de note dans d'autres langues
 @translationof Note names in other languages
 
-Vous disposez de jeux prédéfinis de noms de notes pour plusieurs autres
+@cindex notes, noms selon la langue
+@cindex noms de note, langues
+@cindex langues, noms de note
+
+Vous disposez de jeux prédéfinis de noms de note pour plusieurs autres
 langues.  Pour les utiliser, incluez le fichier d'initialisation
 spécifique à la langue voulue.  Par exemple, pour les langues romanes,
-ajoutez @code{\include "italiano.ly"} au début du fichier source.  Les
-fichiers de langues disponibles ainsi que les noms de notes utilisés
+ajoutez @w{@code{\include "italiano.ly"}} au début du fichier source.
+
+@warning{Dans la mesure où certains fichiers d'initialisation, comme 
+@w{@code{predefined-fretboards.ly}}, utilisent les conventions bataves,
+la commande @code{\include} concernant la langue que vous décirez
+utiliser doît intervenir après toutes les autres inclusions de fichier
+d'initialisation de LilyPond.}
+
+Les fichiers de langue disponibles ainsi que les noms de note utilisés
 sont les suivants :
 
-@cindex noms de note, autres langues
-@example
-                       Noms de note              dièse       bémol      double          double
-                                                                        dièse           bémol
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es          -isis           -eses
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat     -ss/-x/         -ff/
-                                                                        -sharpshsarp    -flatflat
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es          -isis           -eses
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es     -ississ/-isis   -essess/-eses
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess         -ississ         -essess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b           -dd             -bb
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b           -dd/-ss         -bb
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b           -ss             -bb
-@end example
+@quotation
+@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
+@headitem Fichier linguistique
+  @tab Nom des notes
+@item @file{nederlands.ly}
+  @tab c d e f g a bes b
+@item @file{arabic.ly}
+  @tab do re mi fa sol la sib si
+@item @file{catalan.ly}
+  @tab do re mi fa sol la sib si
+@item @file{deutsch.ly}
+  @tab c d e f g a b h
+@item @file{english.ly}
+  @tab c d e f g a bf b
+@item @file{espanol.ly}
+  @tab do re mi fa sol la sib si
+@item @file{italiano.ly}
+  @tab do re mi fa sol la sib si
+@item @file{norsk.ly}
+  @tab c d e f g a b h
+@item @file{portugues.ly}
+  @tab do re mi fa sol la sib si
+@item @file{suomi.ly}
+  @tab c d e f g a b h
+@item @file{svenska.ly}
+  @tab c d e f g a b h
+@item @file{vlaams.ly}
+  @tab do re mi fa sol la sib si
+@end multitable
+@end quotation
+
+@noindent
+et les suffixes d'altération correspondants :
+
+@quotation
+@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem Fichier linguistique
+  @tab dièse @tab bémol @tab double dièse @tab double bémol
+@item @file{nederlands.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{arabic.ly}
+  @tab -d @tab -b @tab -dd @tab -bb
+@item @file{catalan.ly}
+  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item @file{deutsch.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{english.ly}
+  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
+    @tab -ff/-flatflat
+@item @file{espanol.ly}
+  @tab -s @tab -b @tab -ss/-x @tab -bb
+@item @file{italiano.ly}
+  @tab -d @tab -b @tab -dd @tab -bb
+@item @file{norsk.ly}
+  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
+    @tab -essess/-eses
+@item @file{portugues.ly}
+  @tab -s @tab -b @tab -ss @tab -bb
+@item @file{suomi.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{svenska.ly}
+  @tab -iss @tab -ess @tab -ississ @tab -essess
+@item @file{vlaams.ly}
+  @tab -k @tab -b @tab -kk @tab -bb
+@end multitable
+@end quotation
 
 @noindent
 Notez qu'en hollandais, en allemand, en norvégien et en suédois, un
-@samp{la} altéré de bemol se note @code{aes} et @code{aeses}.  Ces
-formes sont contractées en @code{as} et @code{ases} (ou plus communément
-@code{asas}).  Dans certains fichiers linguistiques, seules ces formes
-abrégées ont été définies ; ceci s'applique aussi aux suffixes pour les
-quarts de ton.
+@notation{la} altéré de @notation{bémol} se note @code{aes} et
+@code{aeses}.  Ces formes sont contractées en @code{as} et @code{ases}
+(ou plus communément @code{asas}).  Dans certains fichiers
+linguistiques, seules ces formes abrégées ont été définies.
+
+@lilypond[verbatim,quote,relative=2]
+a2 as e es a ases e eses
+@end lilypond
+
+
+@cindex microtonalités
+@cindex demi-dièse
+@cindex demi-bémol
+@cindex sesqui-dièse
+@cindex sesqui-bémol
 
 @noindent
 Certaines musiques utilisent des microtonalités, pour lesquelles les
 altérations sont des fractions de dièse ou bémol @qq{normaux}.  Le
 tableau suivant répertorie les noms de note en quart de ton, tels que
-définis dans plusieurs fichiers linguistiques. Les préfixes @q{semi-} et
-@q{sesqui-} correspondent au @q{demi-} et @q{trois demis}.  À noter
-qu'aucune définition n'existe à ce jour pour le norvégien, le suédois,
-le catalan et l'espagnol.
+définis dans plusieurs fichiers linguistiques. Les préfixes @emph{semi-}
+et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
+À noter qu'aucune définition n'existe à ce jour pour le norvégien, le
+suédois, le catalan et l'espagnol.
 
-@c What about Turkish Maquam music and similar microtonal systems?
-@c
-@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
-@c is actually misleading since the alteration is in fact one and a half
-@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+@quotation
+@multitable {@file{nederlands.ly}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@headitem Fichier linguistique
+  @tab semi-dièse @tab semi-bémol @tab sesqui-dièse @tab sesqui-bémol
+@item @file{nederlands.ly}
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item @file{arabic.ly}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item @file{deutsch.ly}
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item @file{english.ly}
+  @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item @file{espanol.ly}
+  @tab -cs @tab -cb @tab -tcs @tab -tcb
+@item @file{italiano.ly}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item @file{portugues.ly}
+  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+@end multitable
+@end quotation
 
-@example
-                        Noms de note           semi-   semi-  sesqui-  sesqui-
-                                               dièse   bémol  dièse    bémol
 
-nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
-english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
-deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
-norsk.ly       c   d   e   f   g   a   b   h   
-svenska.ly     c   d   e   f   g   a   b   h   
-italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
-catalan.ly     do  re  mi  fa  sol la  sib si  
-espanol.ly     do  re  mi  fa  sol la  sib si  
-@end example
+@seealso
+Glossaire musicologique :
+@rglos{Pitch names}.
+
+Morceaux choisis :
+@rlsr{Pitches}.
 
 
 @node Modification de plusieurs hauteurs
 @subsection Modification de plusieurs hauteurs
 @translationof Changing multiple pitches
+
+Cette partie traite de la manière de modifier les hauteurs de note.
 
 @menu
 * Vérifications d'octave::                
@@ -358,64 +577,74 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 @translationof Octave checks
 
 @cindex vérification d'octave
+@cindex octave, vérification
+@cindex contrôle des hauteurs
+
+@funindex =
+@funindex \octaveCheck
+@funindex octaveCheck
+@funindex controlpitch
+
 
 Les tests d'octave rendent la correction d'erreurs d'octave plus facile
-dans le mode d'octave @code{relative} : une note peut être suivie de
-@code{=}@var{apostrophes/virgules} pour indiquer à quelle octave absolue
-elle devrait être.  Dans l'exemple suivant,
+dans le mode d'octave @code{relative} -- un @code{,} ou un @code{'}
+oublié, ça n'arrive pas qu'aux autres ! : une note peut être suivie de 
+@w{@code{=}@var{apostrophes/virgules}} pour indiquer à quelle octave
+absolue elle devrait être.  Dans l'exemple suivant, le @code{d} générera
+un avertissement, puisqu'on attend un @code{d''} mais qu'on obtient un
+@code{d'} -- il n'y a qu'une tierce entre @code{b'} et @code{d''}.  Sur
+la partition, l'octave sera corrigée pour donner un @code{d''} et la
+prochaine note sera calculée en fonction de @code{d''} et non de
+@code{d'}. 
 
-@example
-\relative c'' @{ c='' b=' d,='' @}
-@end example
-
-@noindent
-le @code{d} générera un avertissement, puisqu'on attend un @code{d''}
-mais qu'on obtient un @code{d'} --- il n'y a qu'une tierce entre
-@code{b'} et @code{d''}.  Sur la partition, l'octave sera corrigée pour
-donner un @code{d''} et la prochaine note sera calculée en fonction de
-@code{d''} et non de @code{d'}.
-
-Il existe aussi une vérification d'octave qui ne produit pas de musique
-imprimée, ayant pour syntaxe
-
-@example
-\octaveCheck @var{hauteur}
-@end example
-
-Cette commande vérifie que la @var{hauteur} considérée sans apostrophe
-ni virgule et comme hauteur relative, est la même que la @var{hauteur}
-absolue considérée avec ses éventuelles apostrophes ou virgules.  Sinon,
-un avertissement est émis et l'octave est corrigée.  La @var{hauteur}
-n'est pas considérée comme une note, et donc n'est pas imprimée.
-
-Dans l'exemple ci-dessous, le premier test réussit, puisque le @code{e}
---- dans le mode @code{relative} --- est au plus à une quarte de
-@code{a'}.  Cependant, le deuxième test produit un avertissement,
-puisque le @code{e} est à quinte de @code{b'}.  Le message
-d'avertissement est émis, et l'octave est corrigée afin que les notes
-suivantes soient à nouveau à la bonne octave.
-
-@example
-\relative c' @{
-  e
-  \octaveCheck a'
-  \octaveCheck b'
-@}
-@end example
-
-L'octave d'une note qui suit un test d'octave est déterminée selon la
-note précédente.  Dans l'exemple suivant, la dernière note est un
-@code{a'}, au-dessus du do central.  Cela veut dire que le test
-@code{\octaveCheck} réussit, et peut donc être enlevé sans changer le
-résultat sur la partition.
-
-@lilypond[quote,ragged-right,verbatim,fragment]
-\relative c' {
-  e
-  \octaveCheck b
-  a
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 d='4 d
+  e2 f
 }
 @end lilypond
+
+Il existe aussi une vérification d'octave qui ne produit pas de musique
+imprimée, ayant pour syntaxe @w{@code{\octaveCheck}
+@var{hauteur_référence}} -- @var{hauteur_référence} étant spécifiée en
+mode absolu.  Cette commande vérifie que l'intervalle entre la note qui
+précède et @var{hauteur_référence} est inférieure à la quinte comme il
+se doît en mode relatif.  Dans le cas contraire, un message sera émis et
+la note précédente ne sera pas modifiée.  Les notes suivantes seront,
+par contre, positionnées relativement à @var{hauteur_référence}.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 d
+  \octaveCheck c'
+  e2 f
+}
+@end lilypond
+
+Dans les deux mesures qui suivent, les premier et troisième
+@code{\octaveCheck} échouent, mais le deuxième est concluant.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 f g f
+
+  c4
+  \octaveCheck c'
+  f
+  \octaveCheck c'
+  g
+  \octaveCheck c'
+  f
+}
+@end lilypond
+
+
+@seealso
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Référence des propriétés internes :
+@rinternals{RelativeOctaveCheck}.
 
 
 @node Transposition
@@ -424,47 +653,73 @@ résultat sur la partition.
 
 @cindex transposition
 @cindex transposition des hauteurs
+
 @funindex \transpose
+@funindex transpose
 
 Une expression musicale peut être transposée avec @code{\transpose}.
 Voici la syntaxe :
+
 @example
-\transpose @var{note_de départ} @var{note_d_arrivée} @var{musicexpr}
+\transpose @var{note_de_départ} @var{note_d_arrivée} @var{musicexpr}
 @end example
 
+@noindent
 Cela signifie que @var{musicexpr} est transposé d'un intervalle entre
 les notes @var{note_de_départ} et @var{note_d_arrivée} : toute note
-dont la hauteur était @code{note_de_départ}
-est changée en @code{note_d_arrivée}.
+dont la hauteur était @code{note_de_départ} est changée en
+@code{note_d_arrivée} et les autres note seront changées selon le même
+intervalle. 
+
+@warning{La musique contenue dans un bloc @code{@bs{}transpose} est en
+octaves absolus, sauf à inclure dans ce même bloc une clause
+@code{@bs{}relative}.} 
 
 Prenons comme exemple une pièce écrite en ré majeur.  Si cette pièce est
 un peu trop basse pour l'interprète, elle peut être transposée en mi
-majeur avec
-@example
-\transpose d e @dots{}
-@end example
+majeur.  Vous noterez que l'armure est modifiée automatiquement.
 
-Regardons maintenant une partie écrite pour violon --- un instrument en
+@lilypond[verbatim,quote]
+\transpose d e {
+  \relative c' {
+    \key d \major
+    d4 fis a d
+  }
+}
+@end lilypond
+
+@cindex transpositeur, instrument
+@cindex instruments transpositeurs
+
+Regardons maintenant une partie écrite pour violon -- un instrument en
 ut.  Si cette partie doit être jouée par une clarinette en la (écrite à
 la tierce mineure supérieure, un do écrit donnant un la réel), la
 transposition suivante créera la partie appropriée.
 
-@example
-\transpose a c @dots{}
-@end example
+@lilypond[verbatim,quote]
+\transpose a c' {
+  \relative c' {
+    \key c \major
+    c4 d e g
+  }
+}
+@end lilypond
+
+@noindent
+La présence de @w{@code{\key c \major}} s'explique par le fait que, bien
+que les notes soient effectivement transposées, l'armure ne sera
+imprimée que dans la mesure où elle est explicitement mentionnée.
 
 @code{\transpose} fait la distinction entre les notes enharmoniques :
-@code{\transpose c cis} et @code{\transpose c des} transposeront la
-pièce un demi-ton plus haut.  Mais la première version écrira des
+@w{@code{\transpose c cis}} et @w{@code{\transpose c des}} transposeront
+la pièce un demi-ton plus haut.  Mais la première version écrira des
 dièses et la deuxième des bémols.
 
-@lilypond[quote,ragged-right,verbatim]
-mus = { \key d \major cis d fis g }
+@lilypond[verbatim,quote]
+music = \relative c' { c d e f }
 \new Staff {
-  \clef "F" \mus
-  \clef "G"
-  \transpose c g' \mus
-  \transpose c f' \mus
+  \transpose c cis { \music }
+  \transpose c des { \music }
 }
 @end lilypond
 
@@ -472,37 +727,67 @@ On peut aussi utiliser @code{\transpose} pour entrer des notes écrites
 pour un instrument transpositeur.  Normalement, les hauteurs dans
 LilyPond sont écrites en ut, c'est à dire en sons réels, mais elles
 peuvent être écrites dans un autre ton.  Quand, par exemple, on écrit
-pour une trompette en si bémol, commençant sur ré note réelle, on
+pour une trompette en si bémol, commençant sur un ré à l'oreille, on
 pourrait écrire 
+
 @example
-\transpose c bes @{ e4 @dots{} @}
+musiqueEnSiBemol = @{ e4 @dots{} @}
+\transpose c bes, \musiqueEnSiBemol
 @end example
 
-Pour imprimer cette musique en si bémol à nouveau --- et de ce fait
+@noindent
+Pour imprimer cette musique en si bémol à nouveau -- et de ce fait
 produire une partie de trompette, au lieu d'un conducteur en notes
 réelles, on utilisera un deuxième @code{transpose}
 
 @example
-\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
+musiqueEnSiBemol = @{ e4 @dots{} @}
+\transpose f c' @{ \transpose c bes, \musiqueEnSiBemol @}
 @end example
+
+@noindent
+Pour plus d'information à ce sujet, consultez 
+@ref{Instruments transpositeurs}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
 @seealso
-Référence du programme : @rinternals{TransposedMusic}.
+Manuel de notation :
+@ref{Octaves relatives},
+@ref{Instruments transpositeurs}.
 
-Exemples : @rlsr{Pitches}.
+Morceaux choisis :
+@rlsr{Pitches}.
 
+Référence des propriété internes :
+@rinternals{TransposedMusic}.
+
+
+@funindex \transpose
+@funindex transpose
+@funindex \chordmode
+@funindex chordmode
+@funindex \relative
+@funindex relative
 
 @knownissues
 
-Si vous voulez utiliser en même temps @code{\transpose} et
-@code{\relative}, vous devez mettre @code{\transpose} en dehors de
-@code{\relative}, puisque @code{\relative} n'aura aucun effet sur la
-musique apparaissant dans un @code{\transpose}.
+Si vous voulez utiliser en même temps @code{@bs{}transpose} et
+@code{@bs{}relative}, vous devez mettre @code{@bs{}transpose} en dehors de
+@code{@bs{}relative}, puisque @code{@bs{}relative} n'aura aucun effet sur la
+musique apparaissant dans un @code{@bs{}transpose}.
 
 @node Gravure des hauteurs
 @subsection Gravure des hauteurs
 @translationof Displaying pitches
+
+Nous allons voir dans cette partie comment influer sur la gravure des
+hauteurs. 
 
 @menu
 * Clefs::                        
@@ -517,84 +802,107 @@ musique apparaissant dans un @code{\transpose}.
 @unnumberedsubsubsec Clefs
 @translationof Clef
 
-@funindex \clef
-
-La clé indique quelles lignes de la portée correspondent à telles
-hauteurs.  Elle est réglée par la commande @code{\clef}.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-{ c''2 \clef alto g'2 }
-@end lilypond
-
 @cindex clé de sol
 @cindex clé de fa
 @cindex clé d'ut
 
-Les clés prises en charge sont
+@funindex \clef
+@funindex clef
 
-@multitable @columnfractions .33 .66
-@headitem Clef @tab Position
-@item @code{treble}, violin, G, G2 @tab Clé de sol 2e ligne
-@item @code{alto, C} @tab Clé d'ut 3e ligne
-@item @code{tenor} @tab Clé d'ut 4e ligne
-@item @code{bass, F} @tab Clé de fa 4e ligne
-@item @code{french} @tab Clé de sol 1e ligne
-@item @code{soprano} @tab Clé d'ut 1e ligne
-@item @code{mezzosoprano} @tab Clé d'ut 2e ligne
-@item @code{baritone} @tab Clé d'ut 5e ligne
-@item @code{varbaritone} @tab Clé de fa 3e ligne
-@item @code{subbass} @tab Clé de fa 5e ligne
-@item @code{percussion} @tab Clé de percussion
-@item @code{tab} @tab Clé de tablature
-@end multitable
+La clé indique quelles lignes de la portée correspondent à quelles
+hauteurs.  Elle peut changer au fil du morceau, comme dans l'exemple
+suivant qui indique le do médium dans différentes clefs :
+
+@lilypond[verbatim,quote,relative=1]
+\clef treble
+c2 c
+\clef alto
+c2 c
+\clef tenor
+c2 c
+\clef bass
+c2 c
+@end lilypond
+
+LilyPond met à votre disposition d'autres clefs supplémentaires :
+
+@lilypond[verbatim,quote,relative=1]
+\clef french
+c2 c
+\clef soprano
+c2 c
+\clef mezzosoprano
+c2 c
+\clef baritone
+c2 c
+
+\break
+
+\clef varbaritone
+c2 c
+\clef subbass
+c2 c
+\clef percussion
+c2 c
+\clef tab
+c2 c
+
+\break
+
+\clef G
+c2 c
+\clef F
+c2 c
+\clef C
+c2 c
+
+@end lilypond
+
+Il esxiste d'autres clefs, qui sont plus particulièrement destinées à la
+musique ancienne.  Voir à ce sujet @ref{Clefs anciennes}.
+
+@cindex transposition et clefs
+@cindex clef et transposition
+@cindex octave et clef
+@cindex chorale, clef de tenor
+@cindex tenor, clef
+
 
 En ajoutant @code{_8} ou @code{^8} au nom de la clé, celle-ci est
 transposée à l'octave respectivement inférieure ou supérieure, et
 @code{_15} ou @code{^15} la transpose de deux octaves.  L'argument
-@var{clefname} doit être mis entre guillemets lorsqu'il contient un
-caractère @qq{souligné} ou des chiffres.  Par exemple,
+@var{clefname} doit être mis entre guillemets lorsqu'il contient des
+caractères supplémentaires.  Par exemple,
 
 
-@cindex choral tenor clef
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\clef "G_8" c4
+@lilypond[verbatim,quote,relative=2]
+\clef treble
+c2 c
+\clef "treble_8"
+c2 c
+\clef "bass^15"
+c2 c
 @end lilypond
 
 
-@commonprop
+@snippets
 
-La commande @code{\clef "treble_8"} équivaut à définir @code{clefGlyph},
-@code{clefPosition} --- qui contrôle la position verticale de la clé ---
-@code{middleCPosition} et @code{clefOctavation}.  Une clé est imprimée
-lorsque l'une de ces propriétés est changée.  Les exemples suivant font
-apparaître des possibilités de réglage manuel de ces propriétés.
-
-@lilypond[quote,ragged-right,verbatim]
-{
-  \set Staff.clefGlyph = #"clefs.F"
-  \set Staff.clefPosition = #2
-  c'4
-  \set Staff.clefGlyph = #"clefs.G"
-  c'4
-  \set Staff.clefGlyph = #"clefs.C"
-  c'4
-  \set Staff.clefOctavation = #7
-  c'4
-  \set Staff.clefOctavation = #0
-  \set Staff.clefPosition = #0
-  c'4
-  \clef "bass"
-  c'4
-  \set Staff.middleCPosition = #4
-  c'4
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tweaking-clef-properties.ly}
 
 
 @seealso
-Dans ce manuel : @ref{Notes d'ornement}.
+Manuel de notation :
+@ref{Clefs anciennes}.
 
-Référence du programme : @rinternals{Clef}.
+Morceaux choisis:
+@rlsr{Pitches}.
+
+Référence des propriétés internes :
+@rinternals{Clef_engraver},
+@rinternals{Clef},
+@rinternals{OctavateEight},
+@rinternals{clef-interface}.
 
 
 @node Armure
@@ -602,10 +910,21 @@ Référence du programme : @rinternals{Clef}.
 @translationof Key signature
 
 @cindex armure
+
 @funindex \key
+@funindex key
+
+@c duplicated in Key signature and in Accidentals
+@warning{Les nouveaux utilisateurs sont parfois déroutés par la gestion
+des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
+matériau brut ; l'armure et la clef ne feront que déterminer comment ce
+matériau sera retranscrit.  Un simple @code{c} signifie tout bonnement 
+@w{@qq{ do naturel}} quels que soient l'armure et la clef en question.
+Pour plus d'information, reportez-vous au chapitre
+@rlearning{Altérations et armure}.} 
 
 L'armure indique la tonalité dans laquelle la pièce doit être jouée.
-Elle comprend un ensemble d'altérations (dièses ou bémols) à la clé,
+Elle comprend un ensemble d'altérations (dièses ou bémols) à la clef,
 c'est-à-dire au début de la portée.
 
 On définit ou modifie l'armure avec la commande @code{\key}
@@ -614,111 +933,130 @@ On définit ou modifie l'armure avec la commande @code{\key}
 @code{\key} @var{hauteur} @var{mode}
 @end example
 
-@funindex \minor
 @funindex \major
+@funindex major
 @funindex \minor
+@funindex minor
 @funindex \ionian
+@funindex ionian
 @funindex \locrian
+@funindex locrian
 @funindex \aeolian
+@funindex aeolian
 @funindex \mixolydian
+@funindex mixolydian
 @funindex \lydian
+@funindex lydian
 @funindex \phrygian
+@funindex phrygian
 @funindex \dorian
-@cindex modes anciens
+@funindex dorian
 
+@cindex modes anciens
+@cindex modes
+@cindex majeur
+@cindex mineur
+@cindex ionien
+@cindex locrien
+@cindex éolien
+@cindex mixolydien
+@cindex lydien
+@cindex phrygien
+@cindex dorien
+
+@noindent
 Ici, @var{mode} doit être @code{\major} ou @code{\minor} afin d'avoir
 respectivement @var{hauteur}-majeur ou @var{hauteur}-mineur.  Vous pouvez
 aussi avoir recours aux modes anciens que sont @code{\ionian},
 @code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
 @code{\phrygian}, et @code{\dorian}.
 
-Cette commande fixe la propriété de contexte @code{Staff.keySignature}.
-Des armures inhabituelles peuvent être spécifiées en modifiant
-directement cette propriété.
-
-Les nouveaux utilisateurs s'embrouillent souvent dans les altérations et
-les armures, car des notes naturelles prennent ou non un bécarre selon
-l'armure.  Pour plus d'informations, voir @ref{Altérations} ou
-@rlearning{Altérations et armure}.
-
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+@lilypond[verbatim,quote,relative=2]
 \key g \major
-f1
+fis1
+f
 fis
 @end lilypond
 
 
-@commonprop
+@snippets
 
-Un bécarre est imprimé pour annuler toute altération précédente.  Ceci
-peut être supprimé en réglant la propriété
-@code{Staff.printKeyCancellation}.
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-@lilypond[quote,fragment,ragged-right,fragment,verbatim,relative=2]
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
-\set Staff.printKeyCancellation = ##f
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
 
 
 @seealso
-Référence du programme : @rinternals{KeyCancellation},
-@rinternals{KeySignature}.
+Glossaire musicologique :
+@rglos{church mode},
+@rglos{scordatura}.
+
+Manuel d'initiation :
+@rlearning{Altérations et armure}.
+
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Référence des propriétés internes :
+@rinternals{KeyChangeEvent},
+@rinternals{Key_engraver},
+@rinternals{Key_performer},
+@rinternals{KeyCancellation},
+@rinternals{KeySignature},
+@rinternals{key-cancellation-interface},
+@rinternals{key-signature-interface}.
 
 
 @node Marques d'octaviation
 @unnumberedsubsubsec Marques d'octaviation
 @translationof Ottava brackets
 
+@cindex ottava
+@cindex 15ma
+@cindex 8va
+@cindex 8ve
+@cindex octaviation
+
+@funindex set-octavation
+@funindex \ottava
+@funindex ottava
+
 Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
 transposition spécifique d'une octave pour la portée en cours.  C'est
 la fonction @code{ottava} qui s'en charge.
 
-@cindex ottava
-@cindex 15ma
-@cindex octaviation
-
-@lilypond[quote,ragged-right,verbatim,fragment]
-\relative c''' {
-  a2 b
-  \ottava #1
-  a b
-  \ottava #0
-  a b
-}
+@lilypond[verbatim,quote,relative=2]
+a'2 b
+\ottava #1
+a b
+\ottava #0
+a b
 @end lilypond
 
 La fonction @code{ottava} peut aussi prendre en argument les
-valeurs -1@tie{}(pour 8va bassa), 2@tie{}(pour 15ma --- 2 octaves) ou
--2@tie{}(pour 15ma bassa).   En interne, cette fonction détermine les
-propriétés @code{ottavation} (p.ex. en @code{"8va"} ou @code{"8vb"})
-et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
-d'octaviation en définissant @code{ottavation} après avoir fait appel
-à @code{ottava} :
+valeurs -1@tie{}(pour 8va bassa), 2@tie{}(pour 15ma -- 2 octaves) ou
+-2@tie{}(pour 15ma bassa).   
 
-@lilypond[quote,ragged-right,verbatim]
-{
-  \ottava #1
-  \set Staff.ottavation = #"8"
-  c'''
-}
-@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{ottava-text.ly}
 
 
 @seealso
-Référence du programme : @rinternals{OttavaBracket}.
+Glossarire musicologique :
+@rglos{octavation}.
 
+Morceaux choisis :
+@rlsr{Pitches}.
 
-@knownissues
-
-@code{ottava} gère difficilement les changements de clé qui
-pourraient intervenir alors qu'elle est effective.
+Référence des propriétés internes :
+@rinternals{Ottava_spanner_engraver},
+@rinternals{OttavaBracket},
+@rinternals{ottava-bracket-interface}.
 
 
 @node Instruments transpositeurs
@@ -726,164 +1064,350 @@ pourraient intervenir alors qu'elle est effective.
 @translationof Instrument transpositions
 
 @cindex transposition, MIDI
+@cindex MIDI et transposition
 @cindex transposition, instrument
 
-Vous pouvez spécifier la tonalité d'un instrument transpositeur, ce
-qui est le cas pour de nombreux instruments à vent comme la clarinette
-(si bémol, la ou mi bémol), le cor (fa), ou la trompette (si bémol,
-ut, ré ou mi bémol).
+@funindex \transposition
+@funindex transposition
 
-Cette transposition s'indique après le mot-clé @code{\transposition}.
+Lorsque l'on saisit une partition d'ensemble incluant des instruments
+transpositeurs, certaines parties peuvent être dans une autre tonalité
+que la @notation{tonalité de concert}.  Il faudra en pareil cas indiquer
+la tonalité spécifique de ces @notation{instruments transpositeurs},
+sous peine de fichier MIDI erroné et de citations incorrectes.  Pour
+plus de détails sur les citations, consultez le chapitre 
+@ref{Citation d'autres voix}.
 
 @example
-\transposition bes   %% clarinette en si bémol
+\transposition @var{hauteur}
 @end example
-
-@noindent
-Cette commande détermine la propriété @code{instrumentTransposition},
-dont la valeur sera utilisée pour le fichier MIDI et en cas de
-citation.  Elle n'affecte en rien la manière dont les notes seront
-imprimées sur la portée.  Référez-vous à la section @ref{Transposition}
-pour obtenir un autre résultat.
 
 La hauteur donnée en argument à @code{\transposition} doit
 correspondre à la note entendue lorsqu'un @code{do} écrit sur la
-portée est joué par l'instrument transpositeur.  Par exemple, lorsque
+portée est joué par l'instrument transpositeur.  Cette hauteur doit être
+mentionnée en @notation{mode absolu}.  Par exemple, lorsque
 vous saisissez une partition en notes réelles, toutes les voix
-devraient être en ut ; pour les instruments transpositeurs, il faudra
-procéder de cette manière : 
+devraient être en ut ; si un instrument joue un ton au dessus, il faudra
+lui ajouter un @w{@code{\transposition d'}}.  La commande
+@code{\transposition} s'utilise @strong{si et seulement si} les notes à
+saisir @strong{ne sont pas} dans la tonalité de concert.
 
-@example
-clarinet = @{
-  \transposition c'
-  ...
-@}
-saxophone = @{
-  \transposition c'
-  ...
-@}
-@end example
+Voici un fragment pour violon et clarinette en si bémol (@emph{B-flat})
+pour lequel les parties respectives ont été recopiées à partir du
+conducteur.  Les deux instruments sont à l'unisson.
 
-Lorsque vous entrez de la musique à partir d'une partie transposée,
-utilisez la commande @code{\transposition}.  Si l'on prend l'exemple
-des parties de cor, leur tonalité change souvent au cours d'un morceau ;
-en recopiant cette partie, utilisez @code{\transposition} ainsi :
+@lilypond[verbatim,quote]
+\new GrandStaff <<
+  \new Staff = "violin" {
+    \relative c'' {
+      \set Staff.instrumentName = #"Vln"
+      \set Staff.midiInstrument = #"violin"
+      % not strictly necessary, but a good reminder
+      \transposition c'
 
-@example
-\transposition d'
-c'4^"en ré"
-...
-\transposition g'
-c'4^"en sol"
-...
-@end example
+      \key c \major
+      g4( c8) r c r c4
+    }
+  }
+  \new Staff = "clarinet" {
+    \relative c'' {
+      \set Staff.instrumentName = \markup { Cl (B\flat) }
+      \set Staff.midiInstrument = #"clarinet"
+      \transposition bes
+
+      \key d \major
+      a4( d8) r d r d4
+    }
+  }
+>>
+@end lilypond
+
+La @code{\transposition} peut évoluer au cours d'un morceau.  Un
+clarinettiste peut être amené à jongler entre une clarinette en la et
+une autre en si bémol.
+
+@lilypond[verbatim,quote,relative=2]
+\set Staff.instrumentName = #"Cl (A)"
+\key a \major
+\transposition a
+c d e f
+\textLengthOn
+s1*0^\markup { Switch to B\flat clarinet }
+R1
+
+\key bes \major
+\transposition bes
+c2 g
+@end lilypond
+
+
+@seealso
+Glossaire musicologique :
+@rglos{concert pitch},
+@rglos{transposing instrument}.
+
+Manuel de notation :
+@ref{Citation d'autres voix},
+@ref{Transposition}.
+
+Morceaux choisis :
+@rlsr{Pitches}.
+
 
 @node Altérations accidentelles automatiques
 @unnumberedsubsubsec Altérations accidentelles automatiques
 @translationof Automatic accidentals
 @cindex Altérations accidentelles automatiques
 
-Une fonction a été créée pour regrouper les règles suivant lesquelles
-s'impriment les altérations.  Elle s'invoque de la manière suivante :
+@cindex altération, style
+@cindex altération, style par défaut
+@cindex accidentelles, altérations
+@cindex accidentelles automatiques
+@cindex automatiques, altérations accidentelles
+@cindex default accidental style
+
+@funindex set-accidental-style
+@funindex voice
+@funindex default
+
+
+LilyPond dispose d'une fonction chargée de regrouper les règles suivant 
+lesquelles s'impriment les altérations.  Elle s'invoque de la manière
+suivante : 
 
 @funindex set-accidental-style
 @example
-#(set-accidental-style 'REGLE)
+\new Staff <<
+  #(set-accidental-style 'REGLE)
+  @{ @dots{} @}
+>>
 @end example
 
-@c TODO: check the context stuff below
-@c -does it *really* work?
-@c -the default contexts as specified in
-@c  scm/music-function.scm seem to be different -vv
-
-Cette fonction prend pour argument le nom de la règle d'altération,
-auquel peut s'ajouter, comme argument facultatif, le contexte
-devant être affecté :
+La règle de gestion des altérations s'applique par défaut au contexte
+@code{Staff} en cours, exception faite des styles @code{piano} et
+@code{piano-cautionary} comme nous allons le voir.  Cette fonction
+accepte un éventuel argument supplémentaire chargé de spécifier
+le champ d'action de la règle à suivre.  A titre d'exemple, il faudra
+utiliser, pour que toutes les portées d'un même système -- contexte
+@code{StaffGroup} -- soient soumises à la même règle :
 
 @example
-#(set-accidental-style 'REGLE #('CONTEXTE#))
+#(set-accidental-style 'voice 'StaffGroup)
 @end example
 
-Si aucun contexte n'est spécifié, le contexte @code{Staff} sera affecté ; 
-cependant on peut souhaiter l'appliquer au contexte @code{Voice} en lieu 
-et place.
+Nous vous présentons ci-après les différentes régles d'altération prises
+en charge.  Pour les besoins de la démonstration, nous partirons de
+l'exemple suivant :
 
-Les régles d'altération suivantes sont possibles :
+@lilypond[verbatim,quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'default)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'default)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+Notez bien que pour appliquer le même style aux deux portées, seules les
+dernières lignes de cet exemple nous intéressent.
+
+@example
+\new PianoStaff @{
+  <<
+    \context Staff = "haut" @{
+      %%% voici la ligne à modifier en conséquence :
+      #(set-accidental-style 'default 'Score)
+      \musicA
+    @}
+    \context Staff = "bas" @{
+      \musicB
+    @}
+  >>
+@}
+@end example
+
+
+@c don't use verbatim in this table.
 @table @code
 @item default
+
+@cindex @emph{default}, style d'altérations
+@cindex altérations, style @emph{default}
+
+@funindex default
+
 C'est la règle d'impression par défaut, qui se rapporte à l'usage 
 en vigueur au XVIIIème siècle : les altérations accidentelles sont
-valables tout une mesure, et uniquement à leur propre octave.
+valables tout une mesure, et uniquement à leur propre octave.  C'est la
+raison pour laquelle il n'y a pas de bécarre avant le @notation{si} de
+la deuxième mesure, ni avant le dernier @notation{do}.
 
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       %#(set-accidental-style 'default) 
-       \musicA }
-       \context Staff = "down"{
-	       %#(set-accidental-style 'default)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'default)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'default)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
 @item voice
-En principe, LilyPond se souvient de toutes les altérations présentes sur la
-portée (contexte Staff).  Avec cette règle, cependant, les altérations
-sont indépendantes pour chacune des voix. 
 
+@cindex @emph{voice}, style d'altérations
+@cindex altérations, style @emph{voice}
+@cindex altérations, style @emph{modern}
+@cindex @emph{modern}, style d'altération
+@cindex altérations, style @emph{modern-cautionary}
+@cindex @emph{modern-cautionary}, style d'altération
 
-@example
- \new Staff <<
-        #(set-accidental-style 'voice)
-	@{ @dots{} @}
-	>>
-@end example
+@funindex voice
 
-De ce fait, les altérations d'une voix sont ignorées dans les autres voix,
-ce qui peut donner lieu à un résultat malencontreux.  Dans l'exemple suivant,
-il est difficile de dire si le deuxième @samp{la} est dièse ou naturel.
+En principe, LilyPond se souvient de toutes les altérations présentes
+sur la portée (contexte @code{Staff}).  Avec cette règle, cependant, les
+altérations sont indépendantes pour chacune des voix tout en obéissant
+à la règle @code{default}.
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+De ce fait, les altérations d'une voix sont ignorées dans les autres
+voix, ce qui peut donner lieu à un résultat malencontreux.  Dans
+l'exemple suivant, il est difficile de dire si le deuxième @notation{la}
+est dièse ou naturel.  La règle @code{voice} n'est donc à envisager que
+dans le cas de voix devant être lues par des musiciens différents.  S'il
+s'agit d'un @qq{conducteur}, ou d'une portée destinée à un seul
+musicien, il vaut mieux utiliser @code{modern} ou
+@code{modern-cautionary}.  
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'voice) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'voice)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'voice)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
-La règle @code{voice} n'est à envisager que dans le cas de voix devant
-être lues par des musiciens différents.  S'il s'agit d'un
-@qq{conducteur}, ou d'une portée destinée à un seul musicien, il vaut
-mieux utiliser @code{modern} ou @code{modern-cautionary}. 
+
+
 
 
 @item modern
 @funindex modern style accidentals
+
+@cindex altération, style @emph{modern}
+@cindex @emph{modern}, style d'altération
+
+@funindex modern
+
 Cette règle est la plus courante au XXème siècle.  Les altérations
 accidentelles sont imprimées comme avec le style @code{default}, mais
 lorsqu'une note non-altérée apparaît à une octave différente, ou bien
@@ -891,343 +1415,800 @@ dans la mesure suivante, des bécarres de précaution sont ajoutés.  Dans
 l'exemple suivant, notez ainsi les deux bécarres dans la deuxième mesure
 de la main droite. 
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
-@item @code{modern-cautionary}
+@item modern-cautionary
+
+@cindex altération, style @emph{modern cautionary}
+@cindex @emph{modern cautionary}, style d'altération
+@cindex altération de précaution, style @emph{modern}
+@cindex @emph{modern}, style d'altération de précaution
+
 @funindex modern-cautionary
+
 Cette règle est équivalente à @code{modern}, mais les bécarres de
-précaution sont imprimés de façon particulière : soit plus petits, soit
-(par défaut) entre parenthèses.  Il est possible de le définir au moyen
-de la propriété @code{cautionary-style} pour l'objet
-@rinternals{AccidentalSuggestion}. 
+précaution (absents dans la règle @code{default}) sont imprimés de façon
+particulière : soit plus petits, soit (par défaut) entre parenthèses.
+Il est possible de le définir au moyen de la propriété
+@code{cautionary-style} pour l'objet @code{AccidentalSuggestion}. 
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-cautionary)
+      \musicB
+    }
+  >>
 }
 @end lilypond
+
+@item modern-voice
+
+@cindex @emph{modern}, style d'altération
+@cindex style d'altération @emph{modern}
+@cindex altérations multivoix
+@cindex modern accidental style
+@cindex voix pultiples et altérations
+@cindex multivoix, altérations
 
 @funindex modern-voice
-@item modern-voice
+
 Cette règle sert aux altérations dans de la musique polyphonique destinée
 autant à des musiciens différents qu'à quelqu'un qui lirait l'ensemble
 des voix.  Les altérations sont imprimées voix par voix, mais les autres
-voix, dans le même contexte @rinternals{Staff}, en @emph{tiennent
-compte} cette fois. 
+voix, dans le même contexte @code{Staff}, en @emph{tiennent compte}
+cette fois.  C'est pourquoi le @notation{la} de la dernière mesure est
+affublé d'un bécarre bien qu'il y en ait déjà eu un dans la mesure
+précédente, et que le ré de la main gauche en ait un alors qu'il avait
+auparavant concerné la main droite.
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-voice) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-voice)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice" }}}
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-voice)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
-@funindex modern-voice-cautionary
 @item modern-voice-cautionary
-Cette régle est similaire à la précédente, mais les altérations de précaution
-(celles que n'aurait pas ajoutées @code{voice}), sont imprimées de façon
-particulière.  On retrouve donc toutes les altérations qu'imprimerait
-@code{default}, mais certaines sont considérées comme étant @qq{de précaution}.
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+@cindex altération de précaution style @emph{modern voice}
+@cindex @emph{modern voice}, styme d'altération de précaution
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+@funindex modern-voice-cautionary
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-voice-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-voice-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice-cautionary" }}}
+Cette régle est similaire à la précédente, mais les altérations de
+précaution (celles que n'aurait pas ajoutées @code{voice}), sont
+imprimées de façon particulière.  On retrouve donc toutes les
+altérations qu'imprimerait @code{default}, mais certaines sont
+considérées comme étant @qq{de précaution}. 
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-voice-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-voice-cautionary)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
 @item piano
-@funindex piano accidentals
-Cette règle est adaptée aux contextes GrandStaff -- ce qui n'empêche pas
-de devoir la spécifier pour chaque portée individuelle au sein du
-contexte GrandStaff. 
 
-@example
-\new GrandStaff @{ <<
-  \new Staff = "up" @{ <<
-    #(set-accidental-style 'piano)
-    @{ @dots{} @}
-  >> @}
-  \new Staff = "down"@{ <<
-    #(set-accidental-style 'piano)
-  @{ @dots{} @}
-  >> @}
->> @}
-@end example
+@cindex @emph{piano}, style d'altérations
+@cindex altérations style @emph{piano}
+@cindex piano et altérations
+
+@funindex piano accidentals
 
 Cette règle est communément employée pour les partitions de piano au
 XXème siècle.  Très similaire à @code{modern} de par son comportement,
 elle s'en distingue en ce que les altérations tiennent compte des autre
-portées du contexte @rinternals{GrandStaff} ou @rinternals{PianoStaff}.
+portées du contexte @code{GrandStaff} ou @code{PianoStaff}.
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+Cette règle s'applique par défaut dans un @code{GrandStaff} ou dans un
+@code{PianoStaff}. 
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'piano) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'piano)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano" }}}
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'piano)
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
 @item piano-cautionary
-@funindex #(set-accidental-style 'piano-cautionary)
-Identique à @code{#(set-accidental-style 'piano)}, mais les altérations
-de précaution sont imprimées différemment.
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+@cindex @emph{piano cautionary}, style d'altérations
+@cindex altérations style @emph{piano cautionary}
+@cindex piano et altérations
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+@funindex piano-cautionary
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'piano-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'piano-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano-cautionary" }}}
+Identique au style @code{piano}, mais les altérations de précaution sont
+imprimées différemment. 
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'piano-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern
+
+@cindex @emph{neo-modern}, style d'altérations
+@cindex altérations, style @emph{neo-modern}
+
+@funindex neo-modern
+
+Cette règle suit les pratiques de la musique contemporaine : les
+altérations accidentelles apparaîssent comme dans le style
+@code{modern}, à ceci près qu'elles sont répétées dans la même mesure -- 
+sauf si elles concernent deux notes consécutives.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-cautionary
+
+@cindex @emph{neo-modern-cautionary}, style d'altérations
+@cindex style d'altération @emph{neo-modern-cautionary}
+
+@funindex neo-modern-cautionary
+
+Identique au style @code{neo-modern}, mais les altérations de précaution
+sont imprimées différemment. 
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic
+
+@cindex @emph{dodecaphonic}, style d'altérations
+@cindex altération, style @emph{dodecaphonic}
+
+@funindex dodecaphonic
+
+Cette règle reproduit ce que certains compositeurs du début du XXème
+siècle ont introduit dans leur désir d'abolir la distinction entre les
+notes naturelles ou non.  Ainsi, @emph{chaque} note est affublée d'une
+altération, même si elle est naturelle.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item teaching
+
+@cindex @emph{teaching}, style d'altérations
+@cindex altérations, style @emph{teaching}
+
+@funindex teaching
+
+Cette règle est à usage pédagogique : l'impression d'une simple gamme
+fera apparaître une altération de précaution pour toute note altérée.
+Les altérations accidentelles sont imprimées selon le style
+@code{modern}, et une altération de précaution est ajoutée pour chaque
+dièse ou bémol à la clef -- sauf dans le cas de notes consécutives.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicA
+    }
+    \context Staff = "down" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
 @item no-reset
-@funindex no-reset accidental style
-C'est la même règle que @code{default}, mais l'effet des altérations
+
+@cindex altération, style @emph{no reset}
+@cindex @emph{no reset}, style d'altérations
+
+@funindex no-reset
+
+C'est la même règle que @code{default}, mais l'effet des altérations 
 accidentelles ne cesse jamais, même dans les mesures suivantes.
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'no-reset) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'no-reset)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'no-reset)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'no-reset)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 
 @item forget
-Tout le contraire de @code{no-reset} : l'effet des altérations cesse aussitôt,
-et de ce fait, toutes les altérations, quelque soit leur place dans la
-mesure, sont imprimées en fonction de l'éventuelle armure.
 
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+@cindex @emph{forget}, style d'altérations
+@cindex altérations, style @emph{forget}
 
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
+@funindex forget
 
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'forget) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'forget)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
+Tout le contraire de @code{no-reset} : l'effet des altérations cesse
+aussitôt, et de ce fait, toutes les altérations, quelque soit leur place
+dans la mesure, sont imprimées en fonction de l'éventuelle armure.  A
+l'inverse du style @code{dodecaphonic}, aucun bécarre ne sera ici
+imprimé. 
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'forget)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'forget)
+      \musicB
+    }
+  >>
 }
 @end lilypond
 @end table
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+
 
 @seealso
-Référence du programme : @rinternals{Accidental_engraver},
-@rinternals{Accidental}, @rinternals{AccidentalSuggestion} et
+Référence des propriétés internes : 
+@rinternals{Accidental}, 
+@rinternals{Accidental_engraver},
+@rinternals{GrandStaff} et
+@rinternals{PianoStaff},
+@rinternals{Staff},
+@rinternals{AccidentalSuggestion},
 @rinternals{AccidentalPlacement}. 
+@rinternals{accidental-suggestion-interface}.
+
+
+@cindex altérations et notes simultanées
+@cindex notes simultanées et altérations
+@cindex altérations et accords
+@cindex accords et altérations
 
 
 @knownissues
 
-Les notes simultanées sont considérées comme des évènements séquentiels.
-Ce qui implique que, dans un accord, les altérations accidentelles seront 
-imprimées comme si les notes de l'accord apparaissaient une par une, en
-fonction de l'ordre dans lequels elles ont été saisies -- ce qui peut
-poser problème lorsqu'au sein d'un accord certaines altérations
+Les notes simultanées sont considérées comme des évènements séquentiels. 
+Ce qui implique que, dans un accord, les altérations accidentelles
+seront imprimées comme si les notes de l'accord apparaissaient une par
+une, en fonction de l'ordre dans lequel elles ont été saisies -- ce qui
+peut poser problème lorsqu'au sein d'un accord certaines altérations
 dépendent les unes des autres.  
-Ce problème est à résoudre manuellement, en insérant des @code{!} et des
+Ce problème est à résoudre manuellement, en insérant des @code{!} et des 
 @code{?} après les notes concernées.
 
 
 @node Ambitus
 @unnumberedsubsubsec Ambitus
 @translationof Ambitus
+
 @cindex ambitus
+@cindex tessiture
+@cindex amplitude
 
 L'@emph{ambitus} est l'amplitude des hauteurs d'une voix donnée dans une
 partition.  Ce terme peut aussi désigner la tessiture qu'un instrument
-est capable d'atteindre.  Souvent, cet @emph{ambitus} est imprimé au début des
-partitions vocales, afin que les exécutants puissent voir au premier
-coup d'œil s'ils sont en mesure de tenir la partie en question.
+est capable d'atteindre.  Souvent, cet @emph{ambitus} est imprimé au
+début des partitions vocales, afin que les exécutants puissent voir au
+premier coup d'œil s'ils sont en mesure de tenir la partie en question.
 
-Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clé deux notes
-représentant la hauteur la plus basse et la plus haute.  Pour imprimer
-cet @emph{ambitus}, il faut ajouter le graveur @rinternals{Ambitus_engraver}
-au contexte @rinternals{Voice}.  Ainsi,
+Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clé deux
+notes représentant la hauteur la plus basse et la plus haute.  Les
+éventuelles altérations accidentelles seront automatiquement ajoutées. 
 
-@example
-\layout @{
-  \context @{
-    \Voice
-    \consists Ambitus_engraver
-  @}
-@}
-@end example
-
-@noindent
-aura pour résultat
-
-@lilypond[quote,ragged-right]
+@lilypond[verbatim,quote]
 \layout {
   \context {
-    \Staff
-    \consists Ambitus_engraver
+    \Voice
+    \consists "Ambitus_engraver"
   }
 }
 
-\relative \new Staff {
-  as'' c e2 cis,2
+\relative c'' {
+  aes c e2
+  cis,1
 }
 @end lilypond
 
-Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
-graveur @rinternals{Ambitus_engraver} au contexte @rinternals{Staff}
-plutôt qu'au contexte @rinternals{Voice} ; l'ambitus affiché sera
-alors celui de toutes les voix cumulées, non d'une seule des voix
-actives.
 
-@lilypond[verbatim,ragged-right,quote]
-\new Staff \with {
-  \consists "Ambitus_engraver"
-}
-<<
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c'' {
-    \override Ambitus #'X-offset = #-1.0
-    \voiceOne
-    c4 a d e f2
-  }
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c' {
-    \voiceTwo
-    es4 f g as b2
-  }
->>
-@end lilypond
+@snippets
 
-@noindent
-Cet exemple met en œuvre une fonctionnalité avancée :
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-ambitus-per-voice.ly}
 
-@example
-\override Ambitus #'X-offset = #-1.0
-@end example
-
-@noindent
-Ce réglage déplace l'ambitus vers la gauche.  Le même résultat aurait pu
-être obtenu avec @code{extra-offset}, mais alors le système de mise en
-forme n'aurait pas attribué d'espace supplémentaire pour l'objet
-déplacé.
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{ambitus-with-multiple-voices.ly}
 
 
 @seealso
-Référence du programme : @rinternals{Ambitus},
-@rinternals{AmbitusLine}, @rinternals{AmbitusNoteHead},
-@rinternals{AmbitusAccidental}.
+Glossaire musicologique :
+@rglos{ambitus}.
 
-Exemples : @rlsr{Pitches}, @rlsr{Vocal music}.
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Référence des propriétés internes : 
+@rinternals{Ambitus_engraver},
+@rinternals{Voice},
+@rinternals{Staff},
+@rinternals{Ambitus},
+@rinternals{AmbitusAccidental},
+@rinternals{AmbitusLine}, 
+@rinternals{AmbitusNoteHead},
+@rinternals{ambitus-interface}.
 
 
 @knownissues
@@ -1239,6 +2220,9 @@ présents sur une même portée.
 @node Têtes de note
 @subsection Têtes de note
 @translationof Note heads
+
+Nous allons voir dans ce chapitre comment modifier l'aspect des têtes de
+note. 
 
 @menu
 * Têtes de note spécifiques::          
@@ -1252,29 +2236,55 @@ présents sur une même portée.
 @translationof Special note heads
 
 @cindex têtes de note, spéciales
+@cindex croix, tête de note
+@cindex losange, tête de note
+@cindex parlato, tête de note
+@cindex harmonique, tête de note
+@cindex guitare, tête de note
+@cindex styles, tête de note
+
+@funindex cross
 
 Certains instruments utilisent des têtes de note différentes à des
-fins spécifiques --- des croix pour le @emph{parlato} des chanteurs ou les
+fins spécifiques -- des croix pour le @emph{parlato} des chanteurs ou les
 notes étouffées des guitares ; des losanges pour les harmoniques des
-cordes.  Il existe un raccourci (@code{\harmonic}) pour les notes en
-losange ; pour les autres styles de tête, il vous faudra jouer avec la
-propriété @code{NoteHead}.
+cordes.  
 
-@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
-c4 d
+@lilypond[verbatim,quote,relative=2]
+c4 b a b
 \override NoteHead #'style = #'cross
-e f
+c4 b a b
 \revert NoteHead #'style
-e d <c f\harmonic> <d a'\harmonic>
+c4 d e f
 @end lilypond
 
-@noindent
+Il existe un raccourci pour les notes en losange :
+
+@lilypond[verbatim,quote,relative=2]
+<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
+@end lilypond
+
 Pour une liste exhaustive des styles de tête de note, consultez 
 @ref{Styles de tête de note}.
 
 
 @seealso
-Référence du programme : @rinternals{NoteHead}.
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Manuel de notation :
+@ref{Styles de tête de note},
+@ref{Notes en accord}.
+
+@seealso
+Référence des propriétés internes : 
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{Ledger_line_engraver},
+@rinternals{NoteHead}.
+@rinternals{LedgerLineSpanner},
+@rinternals{note-head-interface},
+@rinternals{ledger-line-spanner-interface}.
 
 
 @node Têtes de note avec nom de note
@@ -1284,25 +2294,48 @@ Référence du programme : @rinternals{NoteHead}.
 @cindex tête de note, apprentissage
 @cindex notation facile
 @cindex Hal Leonard
+@cindex @emph{easy play}, têtes de note
+
+@funindex \easyHeadsOn
+@funindex easyHeadsOn
+@funindex \easyHeadsOff
+@funindex easyHeadsOff
 
 Les notes @qq{easy play} comportent le nom de la note à l'intérieur de
-la tête.  On l'utilise dans des partitions pour débutants.
+la tête.  On l'utilise dans des partitions pour débutants.  L'impression
+doit être de plus grande taille, afin que les lettres soient lisibles.
+Voir à ce propos @ref{Définition de la taille de portée}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
+@lilypond[verbatim,quote]
+#(set-global-staff-size 26)
+\relative c' {
   \easyHeadsOn
-  c'2 e'4 f' | g'1
+  c2 e4 f
+  g1
+  \easyHeadsOff
+  c,1
+}
 @end lilypond
-
-La commande @code{\easyHeadsOn} remplace tous les réglages de l'objet
-@rinternals{NoteHead}.  L'impression doit être de plus grande
-taille, afin que les lettres soient lisibles.  Voir à ce propos
-@ref{Définition de la taille de portée}.
 
 
 @predefined
-@funindex \easyHeadsOn
-@code{\easyHeadsOn}.
+@code{\easyHeadsOn},
+@code{\easyHeadsOff}.
 @endpredefined
+
+
+@seealso
+Manuel de notation :
+@ref{Définition de la taille de portée}.
+
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Référence des propriétés internes :
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
 
 
 @node Têtes de note à forme variable
@@ -1310,69 +2343,111 @@ taille, afin que les lettres soient lisibles.  Voir à ce propos
 @translationof Shape note heads
 
 @cindex tête de note, allure
+@cindex tête de note, Aiken
+@cindex tête de note, harpe sacrée
+@cindex notes profilées
+@cindex Aiken, tête de note
+@cindex harpe sacrée, tête de note
+
+@funindex \key
+@funindex key
+@funindex \aikenHeads
+@funindex aikenHeads
+@funindex \sacredHarpHeads
+@funindex sacredHarpHeads
 
 En notation profilée, le profil d'une tête de note correspond à la
 fonction harmonique de cette note dans la gamme.  Ce style de notation
 était très en vogue dans les recueils de chansons américains du XIXe
-siècle. 
+siècle.  Voici comment procéder :
 
-Des notes profilées sont produites après activation de
-@code{\aikenHeads} ou @code{\sacredHarpHeads}, selon le style.
-
-@lilypond[verbatim,relative=1,fragment]
-  \aikenHeads
-  c8 d4 e8 a2 g1
-  \sacredHarpHeads
-  c8 d4. e8 a2 g1
+@lilypond[verbatim,quote,relative=2]
+\aikenHeads
+c, d e f g a b c
+\sacredHarpHeads
+c, d e f g a b c
 @end lilypond
 
 Les profils sont déterminés par la hauteur dans la gamme, le premier
-degré étant défini par la commande @code{\key}. 
+degré étant défini par la commande @code{\key}.
 
-@funindex \key
-@funindex shapeNoteStyles
-@funindex \aikenHeads
-@funindex \sacredHarpHeads
 
-Les notes profilées sont mises en œuvre par la propriété
-@code{shapeNoteStyles}, dont les valeurs sont constituées d'une liste
-de symboles.  Le n-ième élément indique le style à utiliser pour le
-n-ième degré de la gamme.  Toutes les combinaisons sont possibles :
+@predefined
+@code{\aikenHeads},
+@code{\sacredHarpHeads}.
+@endpredefined
 
-@lilypond[verbatim,relative=1,fragment]
-  \set shapeNoteStyles  = #'#(cross triangle fa #f mensural xcircle diamond)
-  c8 d4. e8 a2 g1
-@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+
+Pour une liste exhaustive des styles de tête de note, consultez 
+@ref{Styles de tête de note}.
+
+
+@seealso
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Manuel de notation :
+@ref{Note head styles}.
+
+Référence des propriétés internes :
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
 
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
 @translationof Improvisation
 
+@cindex improvisation
+@cindex notes penchées
+@cindex note heads, improvisation
+@cindex note heads, slashed
+
+@funindex \improvisationOn
+@funindex improvisationOn
+@funindex \improvisationOff
+@funindex improvisationOff
+
 L'improvisation peut quelquefois s'indiquer à l'aide de notes de forme
-allongée (@emph{slash}).  Ces têtes de notes sont créées  par
-l'adjonction du graveur @rinternals{Pitch_squash_engraver} au
-contexte @rinternals{Voice}, de telle sorte que la commande
+allongée (@emph{slash}).  L'interprète jouera alors les notes qu'il
+veut, en respectant toutefois le rythme affiché. Ces têtes de notes sont
+créées  ainsi :
 
-@example
-\set squashedPosition = #0
-\override NoteHead #'style = #'slash
-@end example
-
-@noindent
-active les notes penchées.
-
-Vous disposez des raccourcis @code{\improvisationOn} et son corollaire
-@code{\improvisationOff} pour cette séquence, comme l'illustre
-l'exemple ci dessous.
-
-@lilypond[verbatim,ragged-right,quote]
+@lilypond[verbatim,quote,relative=2]
 \new Voice \with {
-  \consists Pitch_squash_engraver
-} \transpose c c' {
-  e8 e g a a16(bes)(a8) g \improvisationOn
-  e8
-  ~e2~e8 f4 fis8
-  ~fis2 \improvisationOff a16(bes) a8 g e
+  \consists "Pitch_squash_engraver"
+} {
+  e8 e g a a16( bes) a8 g
+  \improvisationOn
+  e8 ~
+  e2 ~ e8 f4 f8 ~
+  f2
+  \improvisationOff
+  a16( bes) a8 g e
 }
 @end lilypond
+
+
+@predefined
+@code{\improvisationOn},
+@code{\improvisationOff}.
+@endpredefined
+
+
+@seealso
+Morceaux choisis :
+@rlsr{Pitches}.
+
+Référence des propriétés internes :
+@rinternals{Pitch_squash_engraver},
+@rinternals{Voice},
+@rinternals{RhythmicStaff}.
+
+

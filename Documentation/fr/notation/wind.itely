@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a6b100669bfc3847b3a03029d6a46ee9b1609e73
+    Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -35,7 +35,7 @@ instruments à vent.
 
 @menu
 * Références en matière d'instruments à vent::
-* Doigtés::
+* Doigtéspour vents::
 @end menu
 
 @node Références en matière d'instruments à vent
@@ -111,8 +111,8 @@ Morceaux choisis :
 @rlsr{Winds}
 
 
-@node Doigtés
-@unnumberedsubsubsec Doigtés
+@node Doigtés pour vents
+@unnumberedsubsubsec Doigtés pour vents
 @translationof Fingerings
 
 @c TODO add link to LSR snippet by Libero Mureddo once he has added

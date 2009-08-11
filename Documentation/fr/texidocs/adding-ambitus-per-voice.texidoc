@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+L'@code{ambitus} peut être individualisé par voix.  Il faut en pareil
+cas éviter qu'ils se chevauchent.
+
+"
+  doctitlefr = "Un ambitus par voix"
+
