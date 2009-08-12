@@ -59,6 +59,13 @@ LilyPond is Vrije Software, is gratis en is onderdeel van het
 
 @divClass{align-right}
 Lees de @ref{Inleiding}!
+
+@c For this to work, essay needs to be split like we are
+@c   --split=node --node-files
+@c Dat en meer in ons @ressaynamed{Engraving, essay}.
+@c Possibly, node Top always works?
+Dat en meer in ons @ressaynamed{Top, essay}.
+
 @divEnd
 @divEnd
 @divId{news}

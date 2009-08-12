@@ -99,13 +99,13 @@
 
 @c  Definitions for references:
 @c
-@c     @rglos
-@c     @rlearning
-@c     @ruser
 @c     @ressay
-@c     @rprogram
-@c     @rlsr
+@c     @rglos
 @c     @rinternals
+@c     @rlearning
+@c     @rlsr
+@c     @rprogram
+@c     @ruser
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.

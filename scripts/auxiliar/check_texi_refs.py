@@ -144,7 +144,7 @@ else:
 
 
 ref_re = re.compile \
-    ('@(ref|ruser|rlearning|rprogram|rglos)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
+    ('@((?:ressay|rgloss|rinternals|rlearning|rslr|rprogram|ruser|ref)|named)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
 named\\{(?P<refname>[^,\\\\]+?),(?P<display>[^,\\\\\\}]+?))\\}(?P<last>.)',
      re.DOTALL)
 node_include_re = re.compile (r'(?m)^@(node|include)\s+(.+?)$')
