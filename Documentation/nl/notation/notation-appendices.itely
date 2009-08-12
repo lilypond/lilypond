@@ -1,0 +1,469 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of notation.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Notation manual tables
+@appendix Notation manual tables
+
+@untranslated
+
+
+@c Please do not delete the following @ignore block.
+* Text markup commands::
+* Text markup list commands::
+* Note head styles::
+* List of articulations::
+@menu
+* Chord name chart::
+* Common chord modifiers::
+* Predefined fretboard diagrams::
+* MIDI instruments::
+* List of colors::
+* The Feta font::
+* Note head styles::
+* Text markup commands::
+* Text markup list commands::
+* List of articulations::
+* Percussion notes::
+* Technical glossary::
+* All context properties::
+* Layout properties::
+* Identifiers::
+* Scheme functions::
+@end menu
+
+@node Chord name chart
+@appendixsec Chord name chart
+
+@untranslated
+
+
+@node Common chord modifiers
+@appendixsec Common chord modifiers
+
+@untranslated
+
+
+@c ode{\chordmode} to generate standard chord structures.
+@c ode{5} or nothing
+@c ode{m} or @code{m5}
+@c ode{aug}
+@c ode{dim}
+@c ode{7}
+@c ode{maj7} or @code{maj}
+@c ode{m7}
+@c ode{dim7}
+@c ode{aug7}
+@c ode{m7.5-}
+@c ode{maj7.5-}
+@c ode{6}
+@c ode{m6}
+@c ode{9}
+@c ode{maj9}
+@c ode{m9}
+@c ode{11}
+@c ode{maj11}
+@c ode{m11}
+@c ode{13}
+@c ode{13.11}
+@c ode{maj13.11}
+@c ode{m13.11}
+@c ode{sus2}
+@c ode{sus4}
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
+
+@untranslated
+
+
+@node MIDI instruments
+@appendixsec MIDI instruments
+
+@untranslated
+
+
+@c ode{midiInstrument} property.
+@node List of colors
+@appendixsec List of colors
+
+@untranslated
+
+
+@subsubheading Normal colors
+@c index List of colors
+@c index Colors, list of
+@subsubheading X color names
+@subsubheading Color Names without a numerical suffix:
+@subsubheading Color names with a numerical suffix
+@subsubheading Grey Scale
+@node The Feta font
+@appendixsec The Feta font
+
+@untranslated
+
+
+@c index Feta font
+@c index Font, Feta
+@menu
+* Clef glyphs::
+* Time Signature glyphs::
+* Number glyphs::
+* Accidental glyphs::
+* Default Notehead glyphs::
+* Special Notehead glyphs::
+* Shape-note Notehead glyphs::
+* Rest glyphs::
+* Flag glyphs::
+* Dot glyphs::
+* Dynamic glyphs::
+* Script glyphs::
+* Arrowhead glyphs::
+* Bracket-tip glyphs::
+* Pedal glyphs::
+* Accordion glyphs::
+* Vaticana glyphs::
+* Medicaea glyphs::
+* Hufnagel glyphs::
+* Mensural glyphs::
+* Neomensural glyphs::
+* Petrucci glyphs::
+* Solesmes glyphs::
+@end menu
+
+@node Clef glyphs
+@unnumberedsubsec Clef glyphs
+
+@untranslated
+
+
+@node Time Signature glyphs
+@unnumberedsubsec Time Signature glyphs
+
+@untranslated
+
+
+@node Number glyphs
+@unnumberedsubsec Number glyphs
+
+@untranslated
+
+
+@node Accidental glyphs
+@unnumberedsubsec Accidental glyphs
+
+@untranslated
+
+
+@node Default Notehead glyphs
+@unnumberedsubsec Default Notehead glyphs
+
+@untranslated
+
+
+@node Special Notehead glyphs
+@unnumberedsubsec Special Notehead glyphs
+
+@untranslated
+
+
+@node Shape-note Notehead glyphs
+@unnumberedsubsec Shape-note Notehead glyphs
+
+@untranslated
+
+
+@node Rest glyphs
+@unnumberedsubsec Rest glyphs
+
+@untranslated
+
+
+@node Flag glyphs
+@unnumberedsubsec Flag glyphs
+
+@untranslated
+
+
+@node Dot glyphs
+@unnumberedsubsec Dot glyphs
+
+@untranslated
+
+
+@node Dynamic glyphs
+@unnumberedsubsec Dynamic glyphs
+
+@untranslated
+
+
+@node Script glyphs
+@unnumberedsubsec Script glyphs
+
+@untranslated
+
+
+@node Arrowhead glyphs
+@unnumberedsubsec Arrowhead glyphs
+
+@untranslated
+
+
+@node Bracket-tip glyphs
+@unnumberedsubsec Bracket-tip glyphs
+
+@untranslated
+
+
+@node Pedal glyphs
+@unnumberedsubsec Pedal glyphs
+
+@untranslated
+
+
+@node Accordion glyphs
+@unnumberedsubsec Accordion glyphs
+
+@untranslated
+
+
+@node Vaticana glyphs
+@unnumberedsubsec Vaticana glyphs
+
+@untranslated
+
+
+@node Medicaea glyphs
+@unnumberedsubsec Medicaea glyphs
+
+@untranslated
+
+
+@node Hufnagel glyphs
+@unnumberedsubsec Hufnagel glyphs
+
+@untranslated
+
+
+@node Mensural glyphs
+@unnumberedsubsec Mensural glyphs
+
+@untranslated
+
+
+@node Neomensural glyphs
+@unnumberedsubsec Neomensural glyphs
+
+@untranslated
+
+
+@node Petrucci glyphs
+@unnumberedsubsec Petrucci glyphs
+
+@untranslated
+
+
+@node Solesmes glyphs
+@unnumberedsubsec Solesmes glyphs
+
+@untranslated
+
+
+@node Note head styles
+@appendixsec Note head styles
+
+@untranslated
+
+
+@c index note head styles
+@include markup-commands.tely
+@include markup-list-commands.tely
+@node List of articulations
+@appendixsec List of articulations
+
+@untranslated
+
+
+@c index accent
+@c index marcato
+@c index staccatissimo
+@c index espressivo
+@c index fermata
+@c index stopped
+@c index staccato
+@c index portato
+@c index tenuto
+@c index upbow
+@c index downbow
+@c index foot marks
+@c index organ pedal marks
+@c index turn
+@c index open
+@c index stopped
+@c index flageolet
+@c index reverseturn
+@c index trill
+@c index prall
+@c index mordent
+@c index prallprall
+@c index prallmordent
+@c index prall, up
+@c index prall, down
+@c index thumb marking
+@c index segno
+@c index coda
+@c index varcoda
+@node Percussion notes
+@appendixsec Percussion notes
+
+@untranslated
+
+
+@node Technical glossary
+@appendixsec Technical glossary
+
+@untranslated
+
+
+@menu
+* callback::
+* glyph::
+* grob::
+* interface::
+* lexer::
+* output-def::
+* parser::
+* parser variable::
+* prob::
+* simple-closure::
+* smob::
+* stencil::
+@end menu
+
+@node callback
+@unnumberedsubsec callback
+
+@untranslated
+
+
+@c index callback
+@node glyph
+@unnumberedsubsec glyph
+
+@untranslated
+
+
+@c index glyph
+@c index font
+@c index typeface
+@ref{Fonts},
+@ref{Text encoding}.
+@node grob
+@unnumberedsubsec grob
+
+@untranslated
+
+
+@c index grob
+@c index layout objects
+@c index graphical objects
+@node interface
+@unnumberedsubsec interface
+
+@untranslated
+
+
+@c index interface
+@c index grob-interface
+@c index graphical object interfaces
+@ref{Layout interfaces}.
+@node lexer
+@unnumberedsubsec lexer
+
+@untranslated
+
+
+@c index lexer
+@node output-def
+@unnumberedsubsec output-def
+
+@untranslated
+
+
+@c index output-def
+@node parser
+@unnumberedsubsec parser
+
+@untranslated
+
+
+@c index parser
+@node parser variable
+@unnumberedsubsec parser variable
+
+@untranslated
+
+
+@c ode{\score} blocks as well as external files added with the
+@c ode{\include} command.  This can lead to unintended consequences
+@node prob
+@unnumberedsubsec prob
+
+@untranslated
+
+
+@node simple-closure
+@unnumberedsubsec simple-closure
+
+@untranslated
+
+
+@node smob
+@unnumberedsubsec smob
+
+@untranslated
+
+
+@node stencil
+@unnumberedsubsec stencil
+
+@untranslated
+
+
+@node All context properties
+@appendixsec All context properties
+
+@untranslated
+
+
+@include context-properties.tely
+@node Layout properties
+@appendixsec Layout properties
+
+@untranslated
+
+
+@include layout-properties.tely
+@node Identifiers
+@appendixsec Identifiers
+
+@untranslated
+
+
+@include identifiers.tely
+@node Scheme functions
+@appendixsec Scheme functions
+
+@untranslated
+
+
+@include scheme-functions.tely
+
+@c -- SKELETON FILE --

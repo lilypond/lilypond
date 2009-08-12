@@ -1,0 +1,423 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of notation.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Spacing issues
+@chapter Spacing issues
+
+@untranslated
+
+
+@c ode{\score @{...@}} blocks and contains settings that
+@menu
+* Paper and pages::
+* Music layout::
+* Breaks::
+* Vertical spacing::
+* Horizontal spacing::
+* Fitting music onto fewer pages::
+@end menu
+
+@node Paper and pages
+@section Paper and pages
+
+@untranslated
+
+
+@menu
+* Paper size::
+* Page formatting::
+@end menu
+
+@node Paper size
+@subsection Paper size
+
+@untranslated
+
+
+@c index paper size
+@c index page size
+@c ode{set-default-paper-size} and @code{set-paper-size}.
+@c ode{set-default-paper-size} must be placed in the toplevel
+@c ode{set-default-paper-size} sets the size of all pages, whereas
+@c ode{set-paper-size} only sets the size of the pages that the
+@c ode{\paper} block applies to.  For example, if the @code{\paper}
+@c ode{\book}, then the paper size will only apply to that book.
+@c ode{letter}, @code{legal}, and @code{11x17} (also known as
+@c TODO add a new appendix for paper sizes (auto-generated) -pm
+@c ode{paper-alist} in the initialization file
+@c index orientation
+@c index landscape
+@c ode{set-default-paper-size}, pages will be rotated by 90
+@node Page formatting
+@subsection Page formatting
+
+@untranslated
+
+
+@menu
+* Vertical dimensions::
+* Horizontal dimensions::
+* Other layout variables::
+@end menu
+
+@node Vertical dimensions
+@unnumberedsubsubsec Vertical dimensions
+
+@untranslated
+
+
+@c ode{6\mm}.
+@c ode{evenHeaderMarkup}) and the title markup
+@c ode{5\mm}.
+@c ode{in}, @code{pt}, and @code{cm} are variables defined in
+@c ode{\paper} block, @code{page-music-height} and
+@c ode{page-make-stencil}.  The former tells the line-breaking algorithm
+@ref{Vertical spacing between systems}.
+@node Horizontal dimensions
+@unnumberedsubsubsec Horizontal dimensions
+
+@untranslated
+
+
+@c ode{left-margin}, @code{indent}, and @code{short-indent} may
+@c ode{set-default-paper-size} or @code{set-paper-size}.
+@c ode{set-default-paper-size} or @code{set-paper-size}.
+@c ode{20\mm}, as determined by @code{set-default-paper-size} or
+@c ode{set-paper-size}.
+@c ode{set-default-paper-size} or @code{set-paper-size}.
+@c ode{line-width}.
+@node Other layout variables
+@unnumberedsubsubsec Other layout variables
+
+@untranslated
+
+
+@c ode{5}.
+@c ode{#1}.
+@c ode{between-system-padding} is set to something different than
+@ref{Vertical spacing between systems}.
+@c ode{1.4}.  For details, see
+@ref{Vertical spacing between systems}.
+@c ode{##t}.
+@c ode{##f}.
+@node Music layout
+@section Music layout
+
+@untranslated
+
+
+@menu
+* Setting the staff size::
+* Score layout::
+@end menu
+
+@node Setting the staff size
+@subsection Setting the staff size
+
+@untranslated
+
+
+@c index font size, setting
+@c index staff size, setting
+@quotation
+@c modern rental material?
+@end quotation
+@c ode{fontSize} and the layout property @code{staff-space} (in
+@ref{Selecting notation font size}.
+@c ode{layout-set-staff-size} does not change the distance between the
+@node Score layout
+@subsection Score layout
+
+@untranslated
+
+
+@ref{Changing context default settings}.
+@node Breaks
+@section Breaks
+
+@untranslated
+
+
+@menu
+* Line breaking::
+* Page breaking::
+* Optimal page breaking::
+* Optimal page turning::
+* Minimal page breaking::
+* Explicit breaks::
+* Using an extra voice for breaks::
+@end menu
+
+@node Line breaking
+@subsection Line breaking
+
+@untranslated
+
+
+@c index line breaks
+@c index breaking lines
+@c ode{\break}. This will force a line break at this point.  However,
+@c TODO Check and add para on default for ragged-right
+@c index regular line breaks
+@c index four bar music.
+@c TODO Check this
+@c ode{\break},
+@c ode{\noBreak}.
+@c ode{\override Beam #'breakable = ##t}.
+@node Page breaking
+@subsection Page breaking
+
+@untranslated
+
+
+@c ode{\pageBreak} or @code{\noPageBreak} commands.  These commands are
+@c ode{ragged-last} which have the same effect on vertical spacing:
+@c ode{ragged-bottom} and @code{ragged-last-bottom}.  If set to
+@c ode{##t} the systems on all pages or just the last page
+@c ode{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
+@c ode{ly:minimal-breaking}.  The default is @code{ly:optimal-breaking},
+@c ode{\pageBreak},
+@c ode{\noPageBreak}.
+@node Optimal page breaking
+@subsection Optimal page breaking
+
+@untranslated
+
+
+@c ode{ly:page-turn-breaking}, it has no concept of page turns.
+@node Optimal page turning
+@subsection Optimal page turning
+
+@untranslated
+
+
+@c ode{\allowPageTurn} will be inserted at the final @q{special} bar line in
+@c ode{minimumPageTurnLength} to determine how long a note-free section must
+@c ode{minimumPageTurnLength} is @code{#(ly:make-moment 1 1)}.  If you want
+@c ode{minimumRepeatLengthForPageTurn} then the @code{Page_turn_engraver} will
+@c ode{\allowPageTurn}, may also be used at top-level, between scores and
+@c ode{\pageTurn},
+@c ode{\noPageTurn},
+@c ode{\allowPageTurn}.
+@node Minimal page breaking
+@subsection Minimal page breaking
+
+@untranslated
+
+
+@node Explicit breaks
+@subsection Explicit breaks
+
+@untranslated
+
+
+@c ode{page-break-permission} is overridden to false, Lily will insert
+@node Using an extra voice for breaks
+@subsection Using an extra voice for breaks
+
+@untranslated
+
+
+@c ode{line-break-system-details} and the other useful but long properties of
+@c ode{NonMusicalPaperColumnGrob}, as explained in @ref{Vertical spacing}.
+@ref{Vertical spacing}.
+@node Vertical spacing
+@section Vertical spacing
+
+@untranslated
+
+
+@c index vertical spacing
+@c index spacing, vertical
+@menu
+* Vertical spacing inside a system::
+* Vertical spacing between systems::
+* Explicit staff and system positioning::
+* Two-pass vertical spacing::
+* Vertical collision avoidance::
+@end menu
+
+@node Vertical spacing inside a system
+@subsection Vertical spacing inside a system
+
+@untranslated
+
+
+@c index distance between staves
+@c index staff distance
+@c index space between staves
+@c index space inside systems
+@c ode{max-stretch} is set to zero, disabling stretching. To enable
+@c ode{keep-fixed-while-stretching} property of
+@c ode{VerticalAlignment} object.  The context parameters
+@c @lsr{spacing,page-spacing.ly},
+@c @lsr{spacing,alignment-vertical-spacing.ly}.
+@node Vertical spacing between systems
+@subsection Vertical spacing between systems
+
+@untranslated
+
+
+@c ode{page-limit-inter-system-space} variable in the @code{\paper}
+@c ode{1.3} means that the space can be 30% larger than what it would be
+@c ode{1}, the spacing would the same as on a ragged-bottom page, like
+@node Explicit staff and system positioning
+@subsection Explicit staff and system positioning
+
+@untranslated
+
+
+@c ode{NonMusicalPaperColumn #'line-break-system-details}.  Where
+@c ode{VerticalAxisGroup} and @code{\paper} settings specify vertical padding,
+@c ode{NonMusicalPaperColumn #'line-break-system-details} specifies exact
+@c ode{NonMusicalPaperColumn #'line-break-system-details} accepts an associative
+@c ode{\override} command in @code{\context} blocks and in the
+@c ode{\with} block.  On the other hand, when we override
+@c ode{NonMusicalPaperColumn} in the middle of note entry,
+@c ode{\overrideProperty} command:
+@c \book { } is required in these examples to ensure the spacing
+@c overrides can be seen between systems. -np
+@c ode{line-break-system-details} attribute of the
+@c ode{NonMusicalPaperColumn} grob.  Though the
+@c ode{line-break-system-details} attribute alist accepts many
+@c ode{X-offset} pair), we need only set the @code{Y-offset} and
+@c ode{alignment-offsets} pairs to control the vertical startpoint of
+@c ode{Y-offset} and @code{alignment-offsets} are interpreted as multiples
+@node Two-pass vertical spacing
+@subsection Two-pass vertical spacing
+
+@untranslated
+
+
+@quotation
+@end quotation
+@node Vertical collision avoidance
+@subsection Vertical collision avoidance
+
+@untranslated
+
+
+@c ode{outside-staff-priority} tells LilyPond in which order the objects
+@c ode{outside-staff-priority} (in increasing order).  One by one, LilyPond
+@c ode{outside-staff-padding}.
+@node Horizontal spacing
+@section Horizontal spacing
+
+@untranslated
+
+
+@c index horizontal spacing
+@c index spacing, horizontal
+@menu
+* Horizontal spacing overview::
+* New spacing area::
+* Changing horizontal spacing::
+* Line length::
+* Proportional notation::
+@end menu
+
+@node Horizontal spacing overview
+@subsection Horizontal spacing overview
+
+@untranslated
+
+
+@c ode{shortest-duration-space} in the @rinternals{SpacingSpanner}
+@c ode{spacing-increment}) of space to the note.
+@c ode{shortest-duration-space} is set to 2.0, meaning that the
+@c ode{spacing-increment}) of horizontal space.  This space is counted
+@c ode{lilypond} with the @code{--verbose} option.
+@c ode{common-shortest-duration} in @rinternals{SpacingSpanner}, then
+@c (see @rlearning{Engraving}), 
+@c ode{stem-spacing-correction} property in the
+@node New spacing area
+@subsection New spacing area
+
+@untranslated
+
+
+@c ode{newSpacingSection}.  This is useful when there are
+@c ode{SpacingSpanner} object, and hence new @code{\override}s
+@node Changing horizontal spacing
+@subsection Changing horizontal spacing
+
+@untranslated
+
+
+@c ode{base-shortest-duration} property.  Here
+@c ode{Score.SpacingSpanner #'uniform-stretching}.  This
+@node Line length
+@subsection Line length
+
+@untranslated
+
+
+@c index page breaks
+@c index breaking pages
+@c Although line-width can be set in \layout, it should be set in paper
+@c block, to get page layout right.
+@c Setting indent in \paper block makes not much sense, but it works.
+@c Bit verbose and vague, use examples?
+@c ode{line-width}.  They are set in the @code{\layout} block.  They
+@c index page layout
+@c index vertical spacing
+@c Note that for text there are several options for the last line.
+@c While Knuth TeX uses natural length, lead typesetters use the same
+@c stretch as the previous line.  eTeX uses \lastlinefit to
+@c interpolate between both these solutions.
+@node Proportional notation
+@subsection Proportional notation
+
+@untranslated
+
+
+@c ode{\context} block, or directly in music entry
+@c ode{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)}, and
+@c ode{#(ly:make-moment 3 97)} are all possible as well.
+@c ode{proportionalNotationDuration}?  Usually by a process of trial and error,
+@c ode{SpacingSpanner}.
+@c ode{\newSpacingSection}.  See @ref{New spacing area}, for more info.
+@ref{New spacing area}.
+@node Fitting music onto fewer pages
+@section Fitting music onto fewer pages
+
+@untranslated
+
+
+@ref{Displaying spacing}.
+@menu
+* Displaying spacing::
+* Changing spacing::
+@end menu
+
+@node Displaying spacing
+@subsection Displaying spacing
+
+@untranslated
+
+
+@c index spacing, display of layout
+@c ode{annotate-spacing} in the @code{\paper} block:
+@c need to have \book{} otherwise we get the separate systems. -hwn
+@c ode{staff-spaces}, and the @code{staff-size} is 20 points (the
+@c ode{staff-spaces} is equivalent to 105 millimeters, the height
+@ref{Setting the staff size}.
+@node Changing spacing
+@subsection Changing spacing
+
+@untranslated
+
+
+@ref{Page formatting},
+@ref{Changing horizontal spacing}.
+
+@c -- SKELETON FILE --

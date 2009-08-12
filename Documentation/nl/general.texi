@@ -1,0 +1,95 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of general.texi
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@setfilename general.info
+@settitle LilyPond -- Muzieknotatie voor iedereen
+@documentencoding UTF-8
+@documentlanguage en
+@set web
+@include macros.itexi
+@afourpaper
+@ifnottex
+@node Top
+@top
+
+@translationof Top
+
+
+@chapheading
+@end ifnottex
+@finalout
+@titlepage
+@title LilyPond
+@subtitle
+@titlefont{New Website}
+@author Het LilyPond ontwikkelteam
+@quotation
+@end quotation
+@vskip 20pt
+@end titlepage
+@copying
+@quotation
+@end quotation
+@end copying
+@divId{pageHeader}
+@heading LilyPond
+
+... muzieknotatie voor iedereen
+@divEnd
+@c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
+@imageId{lilylogo,double-lily-modified3.png,LilyPond logo}
+@c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
+@divId{quickSummary}
+@subheading Wat is LilyPond?
+TODO FIXME DUTCH
+
+LilyPond is an open-source music engraving program, devoted to
+producing the highest-quality sheet music possible.  We bring the
+aesthetics of traditionally engraved music to computer printouts.
+
+LilyPond is Free Software and part of the
+@uref{http://@/www@/.gnu@/.org/, GNU} project.
+
+@divClass{align-right}
+@divEnd
+@divEnd
+@divId{news}
+@include news-front.itexi
+@divClass{float-right}
+Lees de @ref{Introduction}!
+
+@divEnd
+@divEnd
+@divId{latestVersion}
+@subheading Quick links
+@c TODO: javascript to detect OS and suggest download?
+@subsubheading Stable
+@ref{Download, Download 2.12.3}
+@ref{Manuals, Manuals 2.12.3}
+@subsubheading Unstable
+@ref{Development, Download 2.13.2}
+@ref{Development, Manuals 2.13.2}
+@divEnd
+@divClass{hide}
+@menu
+* Introduction::
+* Download::
+* Manuals::
+* Community::
+@end menu
+
+@divEnd
+@contents
+@include general/introduction.itexi
+@include general/download.itexi
+@include general/manuals.itexi
+@include general/community.itexi
+@bye
+

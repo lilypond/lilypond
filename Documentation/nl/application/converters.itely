@@ -1,0 +1,77 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of application.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Converting from other formats
+@chapter Converting from other formats
+
+@untranslated
+
+
+@c @ref{Setup for MacOS X}.
+@menu
+* Invoking midi2ly::
+* Invoking musicxml2ly::
+* Invoking abc2ly::
+* Invoking etf2ly::
+* Generating LilyPond files::
+@end menu
+
+@node Invoking midi2ly
+@section Invoking @command{midi2ly}
+
+@untranslated
+
+
+@c index MIDI
+@c ommand{midi2ly} translates a Type@tie{}1 MIDI file to a LilyPond source
+@c ommand{midi2ly} converts tracks into @rinternals{Staff} and
+@c ommand{midi2ly} tries to compensate for these timing errors, but is not
+@c ode{:1}.
+@node Invoking musicxml2ly
+@section Invoking @code{musicxml2ly}
+
+@untranslated
+
+
+@c index MusicXML
+@c ommand{musicxml2ly} extracts the notes, articulations, score structure,
+@node Invoking abc2ly
+@section Invoking @code{abc2ly}
+
+@untranslated
+
+
+@c index ABC
+@quotation
+@end quotation
+@c ommand{abc2ly} translates from ABC to LilyPond.  It is invoked as follows:
+@c ommand{abc2ly} does not.
+@c ommand{abc2ly} ignores the ABC beaming.
+@node Invoking etf2ly
+@section Invoking @command{etf2ly}
+
+@untranslated
+
+
+@c index ETF
+@c index enigma
+@c index Finale
+@c index Coda Technology
+@node Generating LilyPond files
+@section Generating LilyPond files
+
+@untranslated
+
+
+@c index External programs, generating LilyPond files
+
+@c -- SKELETON FILE --

@@ -1,0 +1,131 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of application.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
+
+@untranslated
+
+
+@menu
+* When things don't work::
+* Make and Makefiles::
+@end menu
+
+@node When things don't work
+@section When things don't work
+
+@untranslated
+
+
+@menu
+* Updating old input files::
+* Common errors::
+* Troubleshooting (taking it all apart)::
+* Minimal examples::
+@end menu
+
+@node Updating old input files
+@subsection Updating old input files
+
+@untranslated
+
+
+@c index convert-ly
+@c index updating old input files
+@c ode{convert-ly}.  For details about how to run this program, see
+@c ode{No\"el} (this would print the French word for
+@c keep "-matching straight in fancy editors
+@c ode{ë} must be entered directly into the LilyPond file as an
+@node Common errors
+@subsection Common errors
+
+@untranslated
+
+
+@menu
+* Music runs off the page::
+* An extra staff appears::
+* Apparent error in ../ly/init.ly::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
+@end menu
+
+@node Music runs off the page
+@unnumberedsubsubsec Music runs off the page
+
+@untranslated
+
+
+@node An extra staff appears
+@unnumberedsubsubsec An extra staff appears
+
+@untranslated
+
+
+@c ode{\relative} blocks, which each implicitly create @code{Staff}
+@c ode{\relative} commands, like this:
+@node Apparent error in ../ly/init.ly
+@unnumberedsubsubsec Apparent error in @code{../ly/init.ly}
+
+@untranslated
+
+
+@c ode{../ly/init.ly} if the input file is not correctly formed,
+@c ode{score} block is correctly terminated.  The correct structure
+@c keep "-matching straight in fancy editors
+@node Error message Unbound variable %
+@unnumberedsubsubsec Error message Unbound variable %
+
+@untranslated
+
+
+@node Error message FT_Get_Glyph_Name
+@unnumberedsubsubsec Error message FT_Get_Glyph_Name
+
+@untranslated
+
+
+@node Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
+
+@untranslated
+
+
+@c ode{\bass} in the @code{\score} uncommented.
+@c ode{bass} part until you find the problem line.
+@node Minimal examples
+@subsection Minimal examples
+
+@untranslated
+
+
+@node Make and Makefiles
+@section Make and Makefiles
+
+@untranslated
+
+
+@c index makefiles
+@c index make
+@c ode{Makefile} that defines what files depend on what others and what
+@c ode{ballad.pdf} and @code{ballad.midi} from @code{ballad.ly} by
+@c ode{lilypond-book} projects). Makefiles vary greatly in
+@c ode{make}, as what follows here gives only a glimpse of what it
+@c ode{Parts} directories get their notes from @code{.ily}
+@c ode{Advanced}. Click @code{Environment Variables}, and then
+@c ode{edit}, and add the path to the GNU Make executable file, which
+@c ommand{latex} command be run twice to update links. Output files are
+@c ode{htmlout} directory for the html output.
+@c @rprogram{Setup for MacOS X},
+
+@c -- SKELETON FILE --

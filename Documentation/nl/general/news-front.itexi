@@ -1,0 +1,56 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond-general.texi and community.itexi
+
+@c when you add a new item, consider moving the lowest item(s)
+@c into news-old.itexi.
+
+@newsItem
+@subsubheading New Website!  @emph{20 Aug 2009}
+
+As you can see, we have a new website design.  Many thanks to
+texi2html and CSS for being so flexible!
+
+(FIXME: change date when this is actually announced on lilypond.org)
+@newsEnd
+
+
+@newsItem
+@subsubheading  LilyPond 2.13.3.  @emph{July 2, 2009}
+
+This unstable release contains working menus in OSX 10.5; many
+thanks to Christian Hitz for fixing this long-standing problem!
+This release also contains numerous other bugfixes and features
+such as ties with variable thickness, partially dashed slurs, and
+eyeglasses.
+
+We are planning another 2.12 release in the next week or two,
+which will include the menu fixes for OSX 10.5. Normal users may
+wish to wait for this release rather than using an unstable
+release. For changes and download links, see @ref{Development}.
+@newsEnd
+
+
+
+@newsItem
+@subsubheading Hungarian translation!  @emph{22 May 2009}
+
+Elkészült a lilypond.org nagy részének magyar fordítása a LilyPond
+honosítási projekt első lépéseként. A projekt célja a LilyPond
+szabad kottaszedő szoftver minél széleskörűbben elérhetővé tétele
+a magyar felhasználók számára a teljes weboldal és dokumentáció
+lefordítása révén. A teljes dokumentáció lefordításához
+közreműködőket keresünk. Ha részt vennél a honosításban, küldj egy
+e-mailt a harmathdenes AT gmail.com címre!
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond Report #15.  @emph{18 May 2009}
+
+The @emph{LilyPond Report} is a short, informal opinion column
+about the LilyPond project: its team, its world, its community.
+Read it @uref{http://news.lilynet.net/The-LilyPond-Report-15,
+here}!
+@newsEnd
+
+

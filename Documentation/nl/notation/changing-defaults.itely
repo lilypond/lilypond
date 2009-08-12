@@ -1,0 +1,672 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of notation.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Changing defaults
+@chapter Changing defaults
+
+@untranslated
+
+
+@c index Internals Reference
+@c leave the @uref as one long line.
+@c ode{#}.@footnote{@rlearning{Scheme tutorial}, contains a short tutorial
+@menu
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Advanced tweaks::
+@end menu
+
+@node Interpretation contexts
+@section Interpretation contexts
+
+@untranslated
+
+
+@menu
+* Contexts explained::
+* Creating contexts::
+* Keeping contexts alive::
+* Modifying context plug-ins::
+* Changing context default settings::
+* Defining new contexts::
+* Aligning contexts::
+@end menu
+
+@node Contexts explained
+@subsection Contexts explained
+
+@untranslated
+
+
+@c TODO Rethink and rewrite
+@c TODO Improve layout, order and consistency of wording -td
+@c TODO Add introduction which explains contexts in generality  -td
+@c TODO Describe propagation of property values -td
+@menu
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
+@end menu
+
+@node Score - the master of all contexts
+@unnumberedsubsubsec Score - the master of all contexts
+
+@untranslated
+
+
+@c ode{\score @{@dots{}@}} or @code{\layout @{@dots{}@}} block is
+@node Top-level contexts - staff containers
+@unnumberedsubsubsec Top-level contexts - staff containers
+
+@untranslated
+
+
+@node Intermediate-level contexts - staves
+@unnumberedsubsubsec Intermediate-level contexts - staves
+
+@untranslated
+
+
+@c ode{Voice} contexts.
+@node Bottom-level contexts - voices
+@unnumberedsubsubsec Bottom-level contexts - voices
+
+@untranslated
+
+
+@node Creating contexts
+@subsection Creating contexts
+
+@untranslated
+
+
+@c TODO \new Score and \score
+@c TODO more complete descriptions rather than learning style
+@c index new contexts
+@c index Context, creating
+@c ode{Voice}).  This command creates a new context, and starts
+@c ode{\new Staff}.
+@c index creating contexts
+@ref{Running a function on all layout objects}).  Without an explicit
+@c ode{\context}, it is usually applied to @code{Voice}
+@node Keeping contexts alive
+@subsection Keeping contexts alive
+
+@untranslated
+
+
+@c index contexts, keeping alive
+@c index contexts, lifetime
+@c ode{\change} commands, associating lyrics with a voice with
+@c ode{\lyricsto} commands, or when adding further musical events to
+@c ode{Voice} contexts in a @code{Staff} context or in a
+@c ode{<<...>>} construct will always persist to the end of the
+@c ode{<<...>>} constructs.
+@c index lyrics, aligning with sporadic melody
+@node Modifying context plug-ins
+@subsection Modifying context plug-ins
+
+@untranslated
+
+
+@c TODO Should this be Modifying engravers or Modifying contexts?
+@c ode{Note_head_engraver} and the @code{Staff} context contains a
+@c ode{Key_signature_engraver}.
+@c ode{Clef_engraver} from a @code{Staff} context,
+@c ode{Staff} context, we can have a score where each staff has its own
+@c index polymetric scores
+@c index Time signatures, multiple
+@c ode{Bar_engraver} must normally be first, and
+@node Changing context default settings
+@subsection Changing context default settings
+
+@untranslated
+
+
+@c ode{Score}, @code{Staff} and @code{Voice} contexts may be specified
+@c ode{Voice} contexts in a similar way.
+@c ode{\Staff} settings.  If you wish to change the defaults for a
+@c TODO: add \with in here.
+@node Defining new contexts
+@subsection Defining new contexts
+
+@untranslated
+
+
+@c ode{Voice} context from scratch.  It will be similar to
+@c ode{Voice}, but only prints centered slash note heads.  It can be used
+@c ode{\layout} block,
+@node Aligning contexts
+@subsection Aligning contexts
+
+@untranslated
+
+
+@c TODO Better example needed.  Ref LM, and expand on it.
+@c index ossia
+@c index nested contexts
+@c index contexts, nested
+@node Explaining the Internals Reference
+@section Explaining the Internals Reference
+
+@untranslated
+
+
+@menu
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
+@end menu
+
+@node Navigating the program reference
+@subsection Navigating the program reference
+
+@untranslated
+
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
+@ref{Fingering instructions}), you will notice:
+@quotation
+@end quotation
+@c outdated info; probably will delete.
+@quotation
+@end quotation
+@quotation
+@end quotation
+@c ode{Fingering_engraver} plug-in will process them.
+@c I can't figure out what this is supposed to mean.  -gp
+@c old info?  it doesn't make any sense to me with our current docs.
+@quotation
+@end quotation
+@c ode{Music definitions}
+@node Layout interfaces
+@subsection Layout interfaces
+
+@untranslated
+
+
+@c index interface, layout
+@c index layout interface
+@c index grob
+@c ode{Fingering} object.  For example, the page says
+@quotation
+@c ode{padding} (dimension, in staff space):
+@c ode{0.5}
+@end quotation
+@quotation
+@end quotation
+@node Determining the grob property
+@subsection Determining the grob property
+
+@untranslated
+
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
+@quotation
+@c ode{side-position-interface}
+@end quotation
+@c index padding
+@quotation
+@end quotation
+@quotation
+@end quotation
+@node Naming conventions
+@subsection Naming conventions
+
+@untranslated
+
+
+@node Modifying properties
+@section Modifying properties
+
+@untranslated
+
+
+@c TODO change the menu and subsection node names to use
+@c backslash once the new macro to handle the refs
+@c is available.  Need to find and change all refs at
+@c the same time. -td
+@menu
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* The tweak command::
+* set versus override::
+@end menu
+
+@node Overview of modifying properties
+@subsection Overview of modifying properties
+
+@untranslated
+
+
+@c ode{Stem} or @code{NoteHead}, and @var{property} is an internal
+@c ode{\once} applies the change during one timestep only.
+@c ode{Beam} comes after the Beam is started, so it has no effect.
+@c ode{\revert} in the next example does not do anything.
+@c leave this as a long long
+@node The set command
+@subsection The @code{\set} command
+
+@untranslated
+
+
+@c index properties
+@c index changing properties
+@c ode{Lyrics}) is used.  In this example,
+@c ode{Voice}s in the current stave.  The change is applied
+@c index \once
+@node The override command
+@subsection The @code{\override} command
+
+@untranslated
+
+
+@c index internal documentation
+@c index finding graphical objects
+@c index graphical object descriptions
+@c index tweaking
+@c index internal documentation
+@node The tweak command
+@subsection The @code{\tweak} command
+
+@untranslated
+
+
+@c index tweaking
+@c index chord, modifying one note in
+@c ode{ChordEvent} event before the note, so separating the tweak
+@c ode{ChordEvent} in the music stream, so remaining adjacent to the
+@c TODO expand to include any further uses of \tweak
+@c TODO add examples of these
+@c ode{\tweak} command in the input stream by the automatic
+@ref{Displaying music expressions}.
+@c index tweaks in a variable
+@c index tweaks in lyrics
+@c index tweaking control points
+@c index control points, tweaking
+@node set versus override
+@subsection @code{\set} vs. @code{\override}
+
+@untranslated
+
+
+@c ode{\override}.  There are actually two different kinds of
+@c ode{studlyCaps}.  They mostly control the translation from
+@c ode{measurePosition} is an obvious example of
+@c ode{\override} is actually a shorthand;
+@c leave this long line -gp
+@c ode{dashed-words}.  The values of grob properties change
+@c ode{fontSize} is a special property: it is equivalent to
+@node Useful concepts and properties
+@section Useful concepts and properties
+
+@untranslated
+
+
+@menu
+* Input modes::
+* Direction and placement::
+* Context layout order::
+* Distances and measurements::
+* Staff symbol properties::
+* Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
+@end menu
+
+@node Input modes
+@subsection Input modes
+
+@untranslated
+
+
+@ref{Chord notation}.  Chords are rendered as notes on a staff.
+@ref{Basic percussion notation}.
+@ref{Entering figured bass}.
+@ref{Default tablatures}.
+@ref{Automatic fret diagrams} or you can enter them as a markup
+@ref{Fret diagram markups}).
+@c ode{\lyricsto} command which associates the following lyrics
+@ref{Text markup commands}.
+@c silly work-around for texinfo broken-ness
+@c (@strong{Note...} causes a spurious cross-reference in Info)
+@c ode{\notemode} command.  Input is interpreted as pitches,
+@node Direction and placement
+@subsection Direction and placement
+
+@untranslated
+
+
+@c TODO Add table showing these
+@c ode{DOWN} may be used instead of @code{1} and @code{-1}
+@c ode{direction} to @code{0} or @code{CENTER}.  Alternatively,
+@c ode{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
+@c ode{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
+@node Context layout order
+@subsection Context layout order
+
+@untranslated
+
+
+@c index contexts, layout order
+@node Distances and measurements
+@subsection Distances and measurements
+
+@untranslated
+
+
+@c index distances, absolute
+@c index distances, scaled
+@c ode{\in}@tie{}(inches), or @code{\pt}@tie{}(points, 1/72.27
+@c ode{\staff-space} to the quantity.
+@c ode{StaffSymbol}.  Scaled distances automatically scale with any
+@c ode{staff-space} property of @code{StaffSymbol}, but fonts scale
+@c ode{staff-space} property of @code{StaffSymbol} and the size of
+@c ode{staff-space}.  For an explanation and an example of its use,
+@ref{Page formatting},
+@ref{Setting the staff size}.
+@node Staff symbol properties
+@subsection Staff symbol properties
+
+@untranslated
+
+
+@c index adjusting staff symbol
+@c index drawing staff symbol
+@c index staff symbol, setting of
+@c TODO Extend or remove this section.  See also NR 1.6.2 Staff symbol
+@c Need to think of uses for these properties.  Eg 'line-positions
+@c is used in a snippet to thicken centre line.
+@c If retained, add @ref to here in 1.6.2  -td
+@c ode{'line-count} property.  The number of staff lines is
+@node Spanners
+@subsection Spanners
+
+@untranslated
+
+
+@unnumberedsubsubsec Using the @code{spanner-interface}
+@c ode{minimum-length} property.  Increasing this usually has the
+@c ode{springs-and-rods} property is set:
+@c ode{to-barline}.  By default this is true, causing hairpins and
+@unnumberedsubsubsec Using the @code{line-spanner-interface}
+@c ode{ly:line-interface::print}.  This routine determines the
+@c ode{right} sub-lists of the @code{bound-details} property
+@c ode{LEFT}) makes the line start/end at the left side of the note
+@c ode{Y} sub-properties.  Setting either @code{stencil-align-dir-y}
+@c ode{DOWN} means align the @emph{bottom} edge of the text with
+@node Visibility of objects
+@subsection Visibility of objects
+
+@untranslated
+
+
+@c index objects, visibility of
+@c index grobs, visibility of
+@c index visibility of objects
+@c ode{break-visibility} property can be overridden.  The first
+@menu
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
+@end menu
+
+@node Removing the stencil
+@unnumberedsubsubsec Removing the stencil
+
+@untranslated
+
+
+@c index stencil, removing
+@c ode{\revert}.
+@node Making objects transparent
+@unnumberedsubsubsec Making objects transparent
+
+@untranslated
+
+
+@c index transparent, making objects
+@node Painting objects white
+@unnumberedsubsubsec Painting objects white
+
+@untranslated
+
+
+@c index objects, coloring
+@c index coloring objects
+@c index layers
+@c index printing order
+@c index overwriting objects
+@c index objects, overwriting
+@c index grobs, overwriting
+@c ode{1}, although a few objects, including @code{StaffSymbol} and
+@c ode{BarLine}, are assigned a value of @code{0}.  The order of
+@c ode{layer} value @code{0}), so overwriting them.  To change this,
+@c ode{layer}, say @code{-1}, so that it is drawn earlier:
+@node Using break-visibility
+@unnumberedsubsubsec Using break-visibility
+
+@untranslated
+
+
+@c TODO Add making other objects breakable
+@c index break-visibility
+@c ode{break-visibility} property to control their visibility
+@c Leave this ref on a newline - formats incorrectly otherwise -td
+@c omit Ambitus as it appears not to be affected by break-visibility -td
+@c @item @code{Ambitus}          @tab as specified   @tab @code{begin-of-line-visible}
+@c omit the following item until it can be explained -td
+@c @item @code{BreakAlignGroup}  @tab @code{Score}          @tab calculated
+@c omit KeyCancellation until it can be explained -td
+@c @item @code{KeyCancellation}  @tab ??             @tab @code{begin-of-line-invisible}
+@c omit LeftEdge until it can be explained -td
+@c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
+@c ode{break-visibility} must be present, not all of them are
+@node Special considerations
+@unnumberedsubsubsec Special considerations
+
+@untranslated
+
+
+@c index key signature, visibility following explicit change
+@c index explicitKeySignatureVisibility
+@c index clef, visibility following explicit change
+@c index explicitClefVisibility
+@c ode{explicitClefVisibility} properties.  These are the equivalent
+@c ode{break-visibility}.  Both are properties of the Staff context,
+@c ode{\set} command.  Both are set by default to @code{all-visible}.
+@c ode{break-visibility} must still be overridden in the appropriate
+@c TODO Add visibility of cautionary accidentals before notes
+@c index automaticBars
+@c index bar lines, suppressing
+@c TODO Add example
+@c index octavated clefs, visibility of
+@c index visibility of octavated clefs
+@c index clefs, visibility of octavation
+@c ode{OctavateEight} layout object.  Its visibility is controlled
+@node Line styles
+@subsection Line styles
+
+@untranslated
+
+
+@c ode{ly:line-interface::print}.  This routine determines the
+@c FIXME Complete
+@c ode{left} instead of @code{right}.
+@ref{Spanners}.
+@node Rotating objects
+@subsection Rotating objects
+
+@untranslated
+
+
+@menu
+* Rotating layout objects::
+* Rotating markup::
+@end menu
+
+@node Rotating layout objects
+@unnumberedsubsubsec Rotating layout objects
+
+@untranslated
+
+
+@c index rotating objects
+@c index objects, rotating
+@c index hairpins, angled
+@c index angled hairpins
+@node Rotating markup
+@unnumberedsubsubsec Rotating markup
+
+@untranslated
+
+
+@c ode{outside-staff-priority} property for text is set to @code{#f}
+@node Advanced tweaks
+@section Advanced tweaks
+
+@untranslated
+
+
+@menu
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
+@end menu
+
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties},
+@ref{Interfaces for programmers}.
+@node Aligning objects
+@subsection Aligning objects
+
+@untranslated
+
+
+@c ode{X-offset} and @code{Y-offset} properties.  The value of
+@c ode{X-offset} gives the displacement from the x coordinate of
+@c ode{Y-offset} gives the displacement from the center line of the
+@c ode{Y-offset} may be set directly or may be set to be calculated
+@c ode{self-alignment-interface}.}
+@c ode{X-offset} have no effect.
+@menu
+* Setting @code{X-offset} and @code{Y-offset} directly::
+* Using the @code{side-position-interface}::
+* Using the @code{self-alignment-interface}::
+* Using the @code{break-alignable-interface}::
+@end menu
+
+@node Setting @code{X-offset} and @code{Y-offset} directly
+@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+
+@untranslated
+
+
+@c TODO write more
+@node Using the @code{side-position-interface}
+@unnumberedsubsubsec Using the @code{side-position-interface}
+
+@untranslated
+
+
+@c TODO add an example of each to the table
+@c TODO Add examples
+@node Using the @code{self-alignment-interface}
+@unnumberedsubsubsec Using the @code{self-alignment-interface}
+
+@untranslated
+
+
+@c ode{self-alignment-interface} is controlled by the value of
+@c ode{X-offset} property is set to
+@c ode{ly:self-alignment-interface::x-aligned-on-self}.
+@c ode{self-alignment-X}  may be given any
+@c ode{CENTER} and @code{RIGHT} may be used instead of the values
+@c ode{-1, 0, 1} respectively.
+@c ode{ly:self-alignment-interface::y-aligned-on-self}.  However,
+@c ode{CENTER}, @code{UP} may be substituted for @code{-1, 0, 1}
+@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+@c TODO Add example
+@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+@c TODO The align-interface, BassFigureAlignment and VerticalAlignment
+@node Using the @code{break-alignable-interface}
+@unnumberedsubsubsec Using the @code{break-alignable-interface}
+
+@untranslated
+
+
+@c index align to objects
+@c index break-align-symbols
+@c ode{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
+@c ode{left-edge}, @code{key-cancellation}, @code{key-signature}, and
+@c ode{time-signature}.
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
+
+@untranslated
+
+
+@c FIXME Expand this section
+@node Modifying stencils
+@subsection Modifying stencils
+
+@untranslated
+
+
+@c ode{MultiMeasureRest} object is @code{ly:multi-measure-rest::print}.
+@c ode{stencil} property to reference a different, specially-written,
+@c ode{text} property to the object which is set to contain the
+@ref{Graphic notation inside markup}.
+@c ode{\musicglyph} markup command -- see @ref{The Feta font}.
+@c TODO Add inserting eps files or ref to later
+@c TODO Add inserting Postscript or ref to later
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Feta font}.
+@node Modifying shapes
+@subsection Modifying shapes
+
+@untranslated
+
+
+@menu
+* Modifying ties and slurs::
+@end menu
+
+@node Modifying ties and slurs
+@unnumberedsubsubsec Modifying ties and slurs
+
+@untranslated
+
+
+@c index slurs, modifying
+@c index ties, modifying
+@c index Bézier curves
+@c index Bézier control points
+
+@c -- SKELETON FILE --

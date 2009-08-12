@@ -1,0 +1,346 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Common notation
+@chapter Common notation
+
+@untranslated
+
+
+@ref{Introduction}.
+@menu
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
+@end menu
+
+@node Single staff notation
+@section Single staff notation
+
+@untranslated
+
+
+@menu
+* Accidentals and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
+@end menu
+
+@node Accidentals and key signatures
+@subsection Accidentals and key signatures
+
+@untranslated
+
+
+@subheading Accidentals
+@c index accidentals
+@c index accidentals and key signatures
+@c index sharp
+@c index double sharp
+@c index sharp, double
+@c index flat
+@c index double flat
+@c index flat, double
+@c index key signature, setting
+@subheading Key signatures
+@c index key signature
+@c index major
+@c index minor
+@c index accidentals and key signature
+@c index content vs. layout
+@c index layout vs. content
+@subheading Warning: key signatures and pitches
+@c ode{is} and type @code{cis} and @code{fis} in the input file.
+@node Ties and slurs
+@subsection Ties and slurs
+
+@untranslated
+
+
+@c index tie
+@c index slur
+@c index slur, phrasing
+@c index phrasing slur
+@subheading Ties
+@subheading Slurs
+@c ode{)} respectively.
+@subheading Phrasing slurs
+@c ode{\(} and @code{\)}.  You can have both @notation{slurs}
+@c index slurs versus ties
+@subheading Warnings: slurs vs. ties
+@node Articulation and dynamics
+@subsection Articulation and dynamics
+
+@untranslated
+
+
+@subheading Articulations
+@c index articulation
+@c index accent
+@c index staccato
+@subheading Fingerings
+@c index fingering
+@c ode{^} (up) or @code{_} (down).  You can also use multiple
+@subheading Dynamics
+@c index dynamics
+@c index decrescendo
+@c index crescendo
+@c ode{\!} can be used:
+@node Adding text
+@subsection Adding text
+
+@untranslated
+
+
+@c index text, adding
+@c index adding text
+@c index markup
+@node Automatic and manual beams
+@subsection Automatic and manual beams
+
+@untranslated
+
+
+@c index beaming
+@c index automatic beams
+@c index manual beams
+@c index beams, automatic
+@c index beams, manual
+@c index beams, by hand
+@node Advanced rhythmic commands
+@subsection Advanced rhythmic commands
+
+@untranslated
+
+
+@subheading Partial measure
+@c index pickup
+@c index anacrusis
+@c index partial measure
+@c ode{\partial}.  It is followed by a duration: @code{\partial 4}
+@subheading Tuplets
+@c index tuplets
+@c index triplets
+@subheading Grace notes
+@c index grace notes
+@c index acciaccatura
+@c index appoggiatura
+@node Multiple notes at once
+@section Multiple notes at once
+
+@untranslated
+
+
+@menu
+* Music expressions explained::
+* Multiple staves::
+* Staff groups::
+* Combining notes into chords::
+* Single staff polyphony::
+@end menu
+
+@node Music expressions explained
+@subsection Music expressions explained
+
+@untranslated
+
+
+@c index music expression
+@c index expression, music
+@c index compound music expression
+@c index music expression, compound
+@subheading Analogy: mathematical expressions
+@subheading Simultaneous music expressions: multiple staves
+@c index multiple staves
+@c index staves, multiple
+@c index polyphony
+@c index combining expressions in parallel
+@c index parallel expressions
+@c index expressions, parallel
+@c index relative notes and simultaneous music
+@c index relative notes and parallel expressions
+@c index simultaneous music and relative notes
+@c index parallel expressions and relative notes
+@c ode{@bs{}relative} command.}
+@subheading Simultaneous music expressions: single staff
+@node Multiple staves
+@subsection Multiple staves
+
+@untranslated
+
+
+@c index multiple staves
+@c index staves, multiple
+@c index context
+@c index context, notation
+@c index notation context
+@c ode{Staff} elements are then combined in parallel with @code{<<}
+@node Staff groups
+@subsection Staff groups
+
+@untranslated
+
+
+@c index piano staff
+@c index staff, piano
+@c index choir staff
+@c index staff, choir
+@c index grand staff
+@c index staff, grand
+@c index staff group
+@ref{Multiple staves}.  However, now this entire expression is
+@node Combining notes into chords
+@subsection Combining notes into chords
+
+@untranslated
+
+
+@c index chords
+@c index note durations in chords
+@node Single staff polyphony
+@subsection Single staff polyphony
+
+@untranslated
+
+
+@c index polyphony
+@c index multiple voices
+@c index voices, more on one staff
+@c index single staff polyphony
+@c index spacer rest
+@c index rest, spacer
+@node Songs
+@section Songs
+
+@untranslated
+
+
+@menu
+* Setting simple songs::
+* Aligning lyrics to a melody::
+* Lyrics to multiple staves::
+@end menu
+
+@node Setting simple songs
+@subsection Setting simple songs
+
+@untranslated
+
+
+@c index lyrics
+@c index songs
+@node Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
+
+@untranslated
+
+
+@c index melisma
+@c index extender line
+@c index hyphens
+@c index underscore
+@c index lyrics, aligning
+@c index aligning lyrics
+@c index lyrics, multi-syllable words
+@c index words with multiple syllables in lyrics
+@c no ragged-right here because otherwise the hyphens get lost,
+@c but the example is long enough to avoid looking strange.
+@c no ragged-right here because otherwise the hyphens get lost,
+@c but the example is long enough to avoid looking strange.
+@node Lyrics to multiple staves
+@subsection Lyrics to multiple staves
+
+@untranslated
+
+
+@c index lyrics and multiple staves
+@c index multiple staves and lyrics
+@node Final touches
+@section Final touches
+
+@untranslated
+
+
+@menu
+* Organizing pieces with variables::
+* Version number::
+* Adding titles::
+* Absolute note names::
+* After the tutorial::
+@end menu
+
+@node Organizing pieces with variables
+@subsection Organizing pieces with variables
+
+@untranslated
+
+
+@c index variables
+@c index variables, defining
+@c index identifiers
+@c index macros
+@c index assigning variables
+@c index using variables
+@c index variables, using
+@c index variables, characters allowed in
+@c index characters allowed in variables
+@node Version number
+@subsection Version number
+
+@untranslated
+
+
+@c index versioning
+@c index version
+@c index version number
+@c index upgrades
+@c index future upgrades
+@c index updating files
+@c index files, updating
+@node Adding titles
+@subsection Adding titles
+
+@untranslated
+
+
+@c index title
+@c index headers
+@c index header block
+@node Absolute note names
+@subsection Absolute note names
+
+@untranslated
+
+
+@c index note names
+@c index note names, absolute
+@c index absolute mode
+@c index absolute values for pitches
+@c index pitches, absolute values
+@c index absolute note names
+@c ode{b} will always mean the note one step below middle C, and a
+@c ode{g,} will always mean the note on the bottom staff of the
+@node After the tutorial
+@subsection After the tutorial
+
+@untranslated
+
+
+@ref{Templates}.  If you need any notation that was not covered in
+@ref{Extending the templates}.
+@c @ref{About the documentation}.
+
+@c -- SKELETON FILE --

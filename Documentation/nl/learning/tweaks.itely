@@ -1,0 +1,656 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Tweaking output
+@chapter Tweaking output
+
+@untranslated
+
+
+@menu
+* Tweaking basics::
+* The Internals Reference manual::
+* Appearance of objects::
+* Placement of objects::
+* Collisions of objects::
+* Further tweaking::
+@end menu
+
+@node Tweaking basics
+@section Tweaking basics
+
+@untranslated
+
+
+@menu
+* Introduction to tweaks::
+* Objects and interfaces::
+* Naming conventions of objects and properties::
+* Tweaking methods::
+@end menu
+
+@node Introduction to tweaks
+@subsection Introduction to tweaks
+
+@untranslated
+
+
+@ref{Contexts and engravers}, as Contexts, Engravers, and the
+@node Objects and interfaces
+@subsection Objects and interfaces
+
+@untranslated
+
+
+@c index object
+@c index grob
+@c index spanner
+@c index interface
+@c index properties, object
+@c index object properties
+@c index layout object
+@c index object, layout
+@c index interface
+@c ode{Lyrics} objects, as well as objects to represent all
+@node Naming conventions of objects and properties
+@subsection Naming conventions of objects and properties
+
+@untranslated
+
+
+@c index naming conventions for objects
+@c index naming conventions for properties
+@c index objects, naming conventions
+@c index properties, naming conventions
+@ref{Contexts and engravers}.  Here for reference is a list
+@node Tweaking methods
+@subsection Tweaking methods
+
+@untranslated
+
+
+@c index tweaking methods
+@c index override command
+@c index override syntax
+@ref{Adding and removing engravers}.  We must now introduce some more
+@c ode{\override}.  Because this command has to modify
+@c ode{Lyrics}, and we shall omit it in many of the following
+@c index color property, example
+@c index NoteHead, example of overriding
+@c index revert command
+@c index color property, example
+@c index NoteHead, example of overriding
+@c ode{\override} or @code{\set} command to be effective only
+@c index color property, example
+@c index NoteHead, example of overriding
+@c index overrideProperty command
+@c ode{\overrideProperty}, which is occasionally required.
+@c Maybe explain in a later iteration  -td
+@c index tweak command
+@c ode{\once \override} would do:
+@c index font-size property, example
+@c index NoteHead, example of overriding
+@c index font-size property, example
+@c index @code{\tweak}, example
+@c ode{\tweak} command is simply
+@c index color property, example
+@c index @code{\tweak}, example
+@c index tuplets, nested
+@c index triplets, nested
+@c index bracket, tuplet
+@c index bracket, triplet
+@c index tuplet bracket
+@c index triplet bracket
+@c index @code{\tweak}, example
+@c index direction property, example
+@c index color property, example
+@c ode{\override} commands:
+@c index text property, example
+@c index tuplet-number function, example
+@c index transparent property, example
+@c index TupletNumber, example of overriding
+@c NOTE Tuplet brackets collide if notes are high on staff
+@c See issue 509
+@node The Internals Reference manual
+@section The Internals Reference manual
+
+@untranslated
+
+
+@c index Internals Reference
+@menu
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
+@end menu
+
+@node Properties of layout objects
+@subsection Properties of layout objects
+
+@untranslated
+
+
+@c index properties of layout objects
+@c index properties of grobs
+@c index grobs, properties of
+@c index layout objects, properties of
+@c index Internals Reference manual
+@c ode{\override} command would be needed.  But is there a
+@c index override example
+@c index Internals Reference, example of using
+@c index @code{\addlyrics} example
+@c ode{thickness} (number)
+@c ode{thickness} and that the new value should be a number
+@c index Slur example of overriding
+@c index thickness property, example
+@subheading Finding the context
+@c index context, finding
+@c index context, identifying correct
+@c ode{Slur_engraver} page.  At the very bottom it tells
+@subheading Overriding once only
+@c index overriding once only
+@c index once override
+@c index Slur, example of overriding
+@c index thickness property, example
+@subheading Reverting
+@c index revert
+@c index default properties, reverting to
+@c ode{\once} placed immediately before each of the notes where
+@c index Slur, example of overriding
+@c index thickness property, example
+@c index Slur, example of overriding
+@c index thickness property, example
+@node Properties found in interfaces
+@subsection Properties found in interfaces
+
+@untranslated
+
+
+@c index interface
+@c index interface properties
+@c index properties in interfaces
+@c ode{\override} command do we need to do this?  We first look in the
+@c ode{font-interface}.
+@c ode{font-interface} but @code{font-shape} is not?  The answer is
+@c ode{font-shape} is not.  The entries in @code{LyricText} then tell
+@c ode{LyricText}.  Other objects which support @code{font-interface}
+@c ode{italic}.  As before, we'll omit the context.
+@c ode{thickness} or @code{font-shape}, others are used as values that
+@c index font-shape property, example
+@c index italic, example
+@c index LyricText, example of overriding
+@c index @code{\addlyrics}, example
+@subheading Specifying the context in lyric mode
+@c index context, specifying in lyric mode
+@c index lyric mode, specifying context
+@node Types of properties
+@subsection Types of properties
+
+@untranslated
+
+
+@c index property types
+@c ode{symbol}.  To be valid, the value given to a property
+@c ode{\override} command.
+@node Appearance of objects
+@section Appearance of objects
+
+@untranslated
+
+
+@menu
+* Visibility and color of objects::
+* Size of objects::
+* Length and thickness of objects::
+@end menu
+
+@node Visibility and color of objects
+@subsection Visibility and color of objects
+
+@untranslated
+
+
+@c ode{BarLine}.  Its properties include two that control its
+@subheading stencil
+@c index stencil property
+@c index BarLine, example of overriding
+@c index stencil property, example
+@c index BarLine, example of overriding
+@c index stencil property, example
+@c ode{stencil} property of the @code{NoteHead} object is set to
+@c ode{#f}.  If this is the case, you can instead use the
+@c ode{point-stencil} function, which sets the stencil to a object
+@subheading break-visibility
+@c index break-visibility property
+@c ode{break-visibility} property requires a vector of three booleans.
+@c ode{\override} command.
+@c index BarLine, example of overriding
+@c index break-visibility property, example
+@subheading transparent
+@c index transparent property
+@c index transparency
+@c ode{grob-interface}.  So the command to make the time signature
+@c index TimeSignature, example of overriding
+@c index transparent property, example
+@c index TimeSignature, example of overriding
+@c index stencil property, example
+@subheading color
+@c index color property
+@c index BarLine, example of overriding
+@c index color property, example
+@c index color, X11
+@c index X11 colors
+@c ode{x11-color}, like this:
+@c index BarLine, example of overriding
+@c index color property, example
+@c index rgb colors
+@c index color, rgb
+@c index BarLine, example of overriding
+@c index color property, example
+@c index StaffSymbol, example of overriding
+@c index TimeSignature, example of overriding
+@c index Clef, example of overriding
+@c index NoteHead, example of overriding
+@c index Stem, example of overriding
+@c index BarLine, example of overriding
+@c index color property, example
+@c index x11-color, example of using
+@node Size of objects
+@subsection Size of objects
+
+@untranslated
+
+
+@c index changing size of objects
+@c index size of objects
+@c index objects, size of
+@c index objects, changing size of
+@c index alignAboveContext property, example
+@c index @code{\with}, example
+@c index alignAboveContext property, example
+@c index @code{\with}, example
+@c index stencil property, example
+@c index Clef, example of overriding
+@c index TimeSignature, example of overriding
+@c ode{\set} or @code{\override} commands embedded in the
+@c ode{\with} clause, or if none have been set there, the normal
+@c ode{alignBelowContext}, are two such properties -- once the staff
+@c index alignAboveContext property, example
+@c index @code{\with}, example
+@c index Clef, example of overriding
+@c index TimeSignature, example of overriding
+@c index alignAboveContext property, example
+@c index @code{\with}, example
+@c index Clef, example of overriding
+@c index TimeSignature, example of overriding
+@c index fontSize property, example
+@node Length and thickness of objects
+@subsection Length and thickness of objects
+
+@untranslated
+
+
+@c index distances
+@c index thickness
+@c index length
+@c index magstep
+@c index size, changing
+@c index stem length, changing
+@c index staff line spacing, changing
+@c ode{line-thickness.}  For example, by default, the lines of
+@c ode{magstep} provided for exactly this purpose.  It takes
+@c index alignAboveContext property, example
+@c index @code{\with}, example
+@c index Clef, example of overriding
+@c index TimeSignature, example of overriding
+@c index fontSize property, example
+@c index StaffSymbol, example of overriding
+@c index magstep function, example of using
+@c index staff-space property, example
+@c index stencil property, example
+@c ode{thickness} property.  An example of changing the thickness
+@node Placement of objects
+@section Placement of objects
+
+@untranslated
+
+
+@menu
+* Automatic behavior::
+* Within-staff objects::
+* Outside-staff objects::
+@end menu
+
+@node Automatic behavior
+@subsection Automatic behavior
+
+@untranslated
+
+
+@c index within-staff objects
+@c index outside-staff objects
+@c index objects, within-staff
+@c index objects, outside-staff
+@c ode{outside-staff-priority} property to determine the order in
+@c ode{outside-staff-priority}.  The outside-staff objects are
+@c ode{outside-staff-priority}, and placed so that they do not
+@c ode{outside-staff-priority} the one encountered first will be
+@c index markup example
+@node Within-staff objects
+@subsection Within-staff objects
+
+@untranslated
+
+
+@c index down
+@c index up
+@c index center
+@c index neutral
+@c index Stem, example of overriding
+@c index direction property, example
+@c ode{UP} for stems, but for some objects it means @q{center}.
+@c ode{\once \override} command or use the predefined command
+@c ode{\xxxNeutral} command.
+@subheading Fingering
+@c index fingering, placement
+@c index fingering, chords
+@c index Fingering, example of overriding
+@c index direction property, example
+@c index fingering example
+@c index fingering example
+@c index fingering example
+@c ode{\set fingeringOrientations} command.  The format of this
+@c ode{\set fingeringOrientations = #'([up] [left/right] [down])}
+@c ode{\set} is used because @code{fingeringOrientations} is a
+@c ode{New_fingering_engraver}.
+@c ode{up} appears in the list), below (if @code{down} appears),
+@c ode{right} are mutually exclusive -- fingering may be placed
+@c index fingering example
+@c index @code{\set}, example of using
+@c index fingeringOrientations property, example
+@c ode{Fingering} object in the IR to be @code{-5}, so let's
+@node Outside-staff objects
+@subsection Outside-staff objects
+
+@untranslated
+
+
+@c ode{grob-interface} and so is a property of all layout objects.
+@c ode{Staff} or @code{Voice} contexts.
+@c index text spanner
+@c index ottava bracket
+@c index TextSpanner, example of overriding
+@c index bound-details property, example
+@c index tweaking bar number placement
+@c index bar numbers, tweaking placement
+@c index tweaking metronome mark placement
+@c index metronome mark, tweaking placement
+@c index tweaking rehearsal mark placement
+@c index rehearsal marks, tweaking placement
+@c ode{Bar_number_engraver}, @code{Metronome_mark_engraver} or
+@c ode{Mark_engraver} respectively should be removed from the
+@c ode{Score} context and placed in the top @code{Staff} context.  If
+@c ode{outside-staff-priority} values:
+@c ode{TextSpanner}, remembering that @code{OttavaBracket} is created
+@c index TextSpanner, example of overriding
+@c index bound-details property, example
+@c index slurs and outside-staff-priority
+@c index slurs and articulations
+@c index articulations and slurs
+@c index TextScript, example of overriding
+@c index outside-staff-priority property, example
+@subheading \textLengthOn
+@c index notes, spreading out with text
+@c ode{\textLengthOff}.  Remember @code{\once} only works with
+@c ode{\override}, @code{\set}, @code{\revert} or @code{unset},
+@c index markup text, allowing collisions
+@c index TextScript, example of overriding
+@c index outside-staff-priority property, example
+@subheading Dynamics
+@c index tweaking dynamics placement
+@c index dynamics, tweaking placement
+@subheading Grob sizing
+@c index grob sizing
+@c index sizing grobs
+@c ode{grob-interface}.
+@c index @code{extra-spacing-width}
+@c ode{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
+@c ode{'(0 . 0)} so the true width shines through.  This is
+@c index DynamicText, example of overriding
+@c index extra-spacing-width property, example
+@c index DynamicText, example of overriding
+@c index extra-spacing-width property, example
+@c ode{staff-padding} which is covered in the following section.
+@node Collisions of objects
+@section Collisions of objects
+
+@untranslated
+
+
+@menu
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
+@end menu
+
+@node Moving objects
+@subsection Moving objects
+
+@untranslated
+
+
+@c index moving overlapping objects
+@c index moving colliding objects
+@c index moving colliding grobs
+@c index objects, moving colliding
+@c index grobs, moving colliding
+@c ode{direction}
+@ref{Within-staff objects}.
+@c ode{padding}, @code{left-padding},
+@c ode{right-padding}, @code{staff-padding}
+@c index padding
+@c index left-padding property
+@c index padding property
+@c index right-padding property
+@c index staff-padding property
+@c ode{side-position-interface}.
+@c ode{AccidentalPlacement} object has any effect on the placement
+@c ode{padding} property: @code{padding} controls the minimum amount of
+@c ode{side-position-interface} and the nearest other object (generally
+@c ode{self-alignment-X}
+@c index self-alignment-X property
+@c ode{-1} and @code{+1} may be specified, where @code{-1} is
+@c ode{extra-spacing-width}
+@c index extra-spacing-width property
+@c ode{item-interface}.  It takes two numbers, the first is added
+@c ode{staff-position}
+@c index staff-position property
+@c ode{staff-position} is a property of the
+@c ode{staff-symbol-referencer-interface}, which is supported by
+@c ode{force-hshift}
+@c index force-hshift property
+@ref{Explicitly instantiating voices}) do not resolve the note
+@c index extra-offset property
+@c ode{grob-interface}.  It takes a pair of numbers which specify the
+@c index positions property
+@node Fixing overlapping notation
+@subsection Fixing overlapping notation
+
+@untranslated
+
+
+@subheading padding property
+@c index padding
+@c index fixing overlapping notation
+@c index overlapping notation
+@c index Script, example of overriding
+@c index padding property, example
+@c index MetronomeMark, example of overriding
+@c index padding property, example
+@c ode{Voice} context will not be noticed.  For more details, see
+@subheading left-padding and right-padding
+@c index left-padding property
+@c index right-padding property
+@c index Accidental, example of overriding
+@c index text property, example
+@c index stencil property, example
+@c index AccidentalPlacement, example of overriding
+@c index right-padding property, example
+@subheading staff-padding property
+@c index aligning objects on a baseline
+@c index objects, aligning on a baseline
+@c ode{staff-padding} can be used to align objects such as dynamics
+@c ode{DynamicLineSpanner}.  This is because the baseline should apply
+@c index DynamicText, example of overriding
+@c index extra-spacing-width property, example
+@c index DynamicLineSpanner, example of overriding
+@c index staff-padding property, example
+@subheading self-alignment-X property
+@c index StringNumber, example of overriding
+@c index self-alignment-X property, example
+@subheading staff-position property
+@c index object collision within a staff
+@c ode{staff-position} is set to -4 for MultiMeasureRest, so we need to
+@c index MultiMeasureRest, example of overriding
+@c index staff-position property, example
+@subheading extra-offset property
+@c index positioning objects
+@c index positioning grobs
+@c index objects, positioning
+@c index grobs, positioning
+@c index Fingering, example of overriding
+@c index extra-offset property, example
+@subheading positions property
+@c index controlling tuplets, slurs, phrasing slurs, and beams manually
+@c index manually controlling tuplets, slurs, phrasing slurs, and beams
+@c index tuplet beams, controlling manually
+@c index slurs, controlling manually
+@c index phrasing slurs, controlling manually
+@c index beams, controlling manually
+@c index PhrasingSlur, example of overriding
+@c index positions property, example
+@c index Beam, example of overriding
+@c index positions property, example
+@subheading force-hshift property
+@c FIXME: formatting stuff  (ie not important right now IMO)
+@c @a nchor Chopin finally corrected TODOgp
+@c index NoteColumn, example of overriding
+@c index force-hshift property, example
+@node Real music example
+@subsection Real music example
+
+@untranslated
+
+
+@c The following should appear as music without code
+@c This example should not be indexed
+@c ode{staff-position} property, which is specified in half staff
+@c ode{\once \override Tie #'staff-position = #3.5}
+@c index Tie, example of overriding
+@c index staff-position property, example
+@c index NoteColumn, example of overriding
+@c index force-hshift property, example
+@c index Stem, example of overriding
+@c index transparent property, example
+@node Further tweaking
+@section Further tweaking
+
+@untranslated
+
+
+@menu
+* Other uses for tweaks::
+* Using variables for tweaks::
+* Style sheets::
+* Other sources of information::
+* Avoiding tweaks with slower processing::
+* Advanced tweaks with Scheme::
+@end menu
+
+@node Other uses for tweaks
+@subsection Other uses for tweaks
+
+@untranslated
+
+
+@c index transparent property, use of
+@c index objects, making invisible
+@c index removing objects
+@c index objects, removing
+@c index hiding objects
+@c index objects, hiding
+@c index invisible objects
+@c index objects, invisible
+@c index tying notes across voices
+@subheading Tying notes across voices
+@c index Stem, example of overriding
+@c index transparent property, example
+@c ode{length} to @code{8},
+@subheading Simulating a fermata in MIDI
+@c index stencil property, use of
+@c index fermata, implementing in MIDI
+@c index MetronomeMark, example of overriding
+@c index transparent property, example
+@c index MetronomeMark, example of overriding
+@c index stencil property, example
+@node Using variables for tweaks
+@subsection Using variables for tweaks
+
+@untranslated
+
+
+@c index variables, using for tweaks
+@c index using variables for tweaks
+@c index tweaks, using variables for
+@c ode{\override Lyrics . LyricText #'font-shape = #'italic}
+@c ode{\override Lyrics . LyricText #'font-series = #'bold}
+@c ode{\revert Lyrics . LyricText #'font-shape}
+@c ode{\revert Lyrics . LyricText #'font-series}
+@c index LyricText, example of overriding
+@c index font-shape property, example
+@c index font-series property, example
+@node Style sheets
+@subsection Style sheets
+
+@untranslated
+
+
+@ref{Tweaking output}, for details.  But what if you have many
+@ref{Advanced tweaks with Scheme}.
+@c We have to do this awkward example/lilypond-non-verbatim
+@c because we can't do the \include stuff in the manual.
+@c ode{\include "definitions.ily"} with
+@c ode{\include "web-publish.ily"}.  Of course, we could make this
+@node Other sources of information
+@subsection Other sources of information
+
+@untranslated
+
+
+@node Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
+
+@untranslated
+
+
+@node Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
+
+@untranslated
+
+
+@c ode{\tweak} commands, an even more powerful way of modifying
+@c index x11-color function, example of using
+@c index NoteHead, example of overriding
+@c index color property, setting to Scheme procedure
+
+@c -- SKELETON FILE --

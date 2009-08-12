@@ -1,0 +1,204 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of application.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@c Note: keep this node named so that `info lilypond-book' brings you here.
+@node lilypond-book
+@chapter Running @command{lilypond-book}
+
+@untranslated
+
+
+@c ommand{lilypond-book} provides a way to automate this process: This
+@c ommand{lilypond} on them, and outputs the document with pictures
+@c ode{lilypond-book}, see FIXME FIXME @c @ref{Setup for MacOS X}.
+@c index texinfo
+@c index latex
+@c index texinfo
+@c index texi
+@c index html
+@c index docbook
+@c index documents, adding music to
+@c index HTML, music in
+@c index Texinfo, music in
+@c index DocBook, music in
+@c index @LaTeX{}, music in
+@menu
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* Alternate methods of mixing text and music::
+@end menu
+
+@node An example of a musicological document
+@section An example of a musicological document
+
+@untranslated
+
+
+@c index musicology
+@subheading Input
+@quotation
+@end quotation
+@subheading Processing
+@c keep space after @version{} so TeX doesn't choke
+@subheading Output
+@c ode{\lilypondfile}.
+@node Integrating music and text
+@section Integrating music and text
+
+@untranslated
+
+
+@menu
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
+@end menu
+
+@node LaTeX
+@subsection @LaTeX{}
+
+@untranslated
+
+
+@c ode{\lilypond@{@}}, so this command is only useful with the
+@c ode{fragment} option.
+@c ode{\begin@{document@}}.  The @command{lilypond-book} command sends
+@c index titling and lilypond-book
+@c index \header in @LaTeX{} documents
+@c ode{lilypond-book} has split the snippet into several PostScript
+@c index Latex, feta symbols
+@c index fetachar
+@ref{Invoking lilypond-book}.
+@node Texinfo
+@subsection Texinfo
+
+@untranslated
+
+
+@node HTML
+@subsection HTML
+
+@untranslated
+
+
+@c ommand{lilypond-book} then produces an HTML file with appropriate image
+@c index titling in HTML
+@c index preview image
+@c index thumbnail
+@node DocBook
+@subsection DocBook
+
+@untranslated
+
+
+@subheading Common conventions
+@c ode{inlinemediaobject} element, so our snippets can be formatted
+@c ommand{lilypond-book} should have the extension @file{.lyxml}.
+@subheading Including a LilyPond file
+@subheading Including LilyPond code
+@c ode{inlinemediaobject}, and there is a @code{textobject} containing
+@subheading Processing the DocBook document
+@node Music fragment options
+@section Music fragment options
+
+@untranslated
+
+
+@c ode{ragged-right = ##t} is added to the LilyPond snippet.  This is the
+@c ode{pt}.  This option affects LilyPond output (this is, the staff
+@c ode{ragged-right} option.
+@c ode{cm}, @code{mm}, @code{in}, or @code{pt}.  This option affects
+@c ode{noindent} is redundant normally.
+@c ode{relative} option only works when @code{fragment} option is set,
+@c ode{intertext} option (not implemented yet); then the actual music is
+@c ode{LYDOC_LOCALEDIR} to a directory path; the directory should
+@c ode{@@documentlanguage @var{LANG}} and @file{foo@/.ly} header
+@c ode{verbatim} option) is put into a quotation block.  This option is
+@c ode{texidoc} documentation block.
+@c ode{texidoc} option: if @command{lilypond} is called with the
+@c ode{\header}, it creates a file @file{foo@/.doctitle}.  When
+@c ode{doctitle} option is used, the contents of @file{foo@/.doctitle},
+@c ode{@@lydoctitle} should be a macro defined in the Texinfo document.
+@node Invoking lilypond-book
+@section Invoking @command{lilypond-book}
+
+@untranslated
+
+
+@c ommand{lilypond-book} produces a file with one of the following
+@subheading Format-specific instructions
+@subsubheading @LaTeX{}
+@c ommand{dvips}.  The first way is simpler and recommended@footnote{Note
+@c index outline fonts
+@c index type1 fonts
+@c index dvips
+@c index invoking dvips
+@c ommand{dvips} options.
+@subsubheading Texinfo
+@c ommand{texi2dvi} or @command{makeinfo}, depending on the output format
+@subheading Command line options
+@c ommand{lilypond-book} accepts the following command line options:
+@c ode{texi} (the default) or @code{docbook}.  If this option is missing,
+@c ommand{lilypond-book} tries to detect the format automatically, see
+@ref{Filename extensions}. Currently, @code{texi} is the same as
+@c ode{texi-html}.
+@c This complicated detail is not implemented, comment it out -jm
+@c ommand{latex} with the same @code{-I @var{dir}} options.
+@c ommand{lilypond-book} generates lots of small files that LilyPond will
+@c ode{lilypond}.  @code{lilypond-book} will not @code{--filter} and
+@c ode{--process} at the same time.
+@node Filename extensions
+@section Filename extensions
+
+@untranslated
+
+
+@quotation
+@end quotation
+@c ommand{lilypond-book} running, otherwise it will exit with an error
+@node Alternate methods of mixing text and music
+@section Alternative methods of mixing text and music
+
+@untranslated
+
+
+@menu
+* Many quotes from a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
+@end menu
+
+@node Many quotes from a large score
+@unnumberedsubsec Many quotes from a large score
+
+@untranslated
+
+
+@node Inserting LilyPond output into OpenOffice.org
+@unnumberedsubsec Inserting LilyPond output into OpenOffice.org
+
+@untranslated
+
+
+@c index OpenOffice.org
+@node Inserting LilyPond output into other programs
+@unnumberedsubsec Inserting LilyPond output into other programs
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

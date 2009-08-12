@@ -1,0 +1,138 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of general.texi
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Manuals
+@unnumbered Manuals
+
+@untranslated
+
+
+@divClass{heading-center}
+@heading Documentation for LilyPond 2.12.2
+@divEnd
+@divClass{column-center-top}
+@subheading Introduction
+@divEnd
+@divClass{column-left-top}
+@subheading Regular use
+@divEnd
+@divClass{column-right-top}
+@subheading Infrequent Use
+@divEnd
+@divClass{column-center-bottom}
+@subheading Other material
+@divEnd
+@divClass{hide}
+@menu
+* Learning::
+* Glossary::
+* Essay::
+* Notation::
+* Usage::
+* Snippets::
+* FAQ::
+* Changes::
+* Internals::
+* Translated::
+* Old::
+* FDL::
+@end menu
+
+@divEnd
+@c TRANSLATORS: most of the text in this file came from
+@c LM 1.1 About the documentation  (before this section was
+@c removed in July 2009).
+@node Learning
+@unnumberedsec Learning
+
+@untranslated
+
+
+@node Glossary
+@unnumberedsec Glossary
+
+@untranslated
+
+
+@node Essay
+@unnumberedsec Essay
+
+@untranslated
+
+
+@node Notation
+@unnumberedsec Notation
+
+@untranslated
+
+
+@node Usage
+@unnumberedsec Usage
+
+@untranslated
+
+
+@node Snippets
+@unnumberedsec Snippets
+
+@untranslated
+
+
+@node FAQ
+@unnumberedsec FAQ
+
+@untranslated
+
+
+@subheading Where are the graphical canvas, menus, and toolbars?
+@subheading There's a lot of documentation!  Do I need to read it?
+@subheading That's still a lot of reading!  Is it worth it?
+@subheading Something isn't working!  How do I fix it?
+@subheading Why do you change the syntax?
+@node Changes
+@unnumberedsec Changes
+
+@untranslated
+
+
+@node Internals
+@unnumberedsec Internals
+
+@untranslated
+
+
+@node Translated
+@unnumberedsec Translated
+
+@untranslated
+
+
+@node Old
+@unnumberedsec Old
+
+@untranslated
+
+
+@node FDL
+@unnumberedsec FDL
+
+@untranslated
+
+
+@divClass{column-center-top}
+@subheading Documentation license
+@divEnd
+@divClass{column-center-bottom}
+@subheading GNU Free Documentation License 1.1
+@include fdl.itexi
+@divEnd
+
+@c -- SKELETON FILE --

@@ -1,0 +1,76 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@setfilename lilypond-learning.info
+@settitle GNU LilyPond Learning Manual
+@documentencoding UTF-8
+@documentlanguage en
+@include macros.itexi
+@c This produces the unified index
+@afourpaper
+@c don't remove this comment.
+@copying
+@quotation
+@end quotation
+@end copying
+@c artouche
+@c @ref{About the documentation}.
+@c TITLE PAGE
+@ifnottex
+@node Top
+@top GNU LilyPond --- Learning Manual
+
+@untranslated
+
+
+@end ifnottex
+@finalout
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Learning Manual}
+@author The LilyPond development team
+@vskip 100pt
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+@end titlepage
+@c TOC -- non-tex
+@ifnottex
+@menu
+* Introduction::
+* Common notation::
+* Fundamental concepts::
+* Tweaking output::
+* Templates::
+* Scheme tutorial::
+* GNU Free Documentation License::
+* LilyPond index::
+@end menu
+
+@end ifnottex
+@c TOC - tex
+@contents
+@c INCLUDES
+@include learning/introduction.itely
+@include learning/common-notation.itely
+@include learning/fundamental.itely
+@include learning/tweaks.itely
+@include learning/templates.itely
+@include learning/scheme-tutorial.itely
+@include fdl.itexi
+@node LilyPond index
+@appendix LilyPond index
+
+@untranslated
+
+
+@bye
+
+@c -- SKELETON FILE --
