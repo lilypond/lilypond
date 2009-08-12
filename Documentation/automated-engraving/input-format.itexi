@@ -33,7 +33,7 @@ Are a quarter note C1 and eighth note D1, as in this example:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/simple-notation,,,.png}
+@sourceimage{simple-notation,,,.png}
 
 On a microscopic scale, such syntax is easy to use. On a larger scale,
 syntax also  needs structure.  How else can  you enter  complex pieces
@@ -41,85 +41,79 @@ like symphonies and operas? The  structure is formed by the concept of
 music expressions:  by combining small fragments of  music into larger
 ones, more complex music can be expressed.  For example,
 
-@table asis
+@multitable @columnfractions .5 .5
 @item
-
-@tab
 
 c4
 
 @tab
 
-@image{pictures/simultaneous-0,,,.png}
+@sourceimage{simultaneous-0,,,.png}
 
 
-@end table
+@end multitable
 
-Combine this simultaneously with two other notes by enclosing in &lt;&lt
-and &gt;&gt;.
+Combine this simultaneously with two other notes by enclosing in <&lt
+and >>.
 
-@table asis
+@multitable @columnfractions .5 .5
+
 @item
-
-@tab
 
 @verbatim
 
-  &lt&lt;c4 d4 e4&gt;&gt;
+  &lt<c4 d4 e4>>
 
 @end verbatim
 
 
 @tab
 
-@image{pictures/simultaneous-1,,,.png}
+@sourceimage{simultaneous-1,,,.png}
 
 
 
-@end table
+@end multitable
 
 This expression is put in sequence by enclosing it in braces, i.e.,
-@table asis
+@multitable @columnfractions .5 .5
 @item
 
-@tab
 @verbatim
 
-   { &lt;&lt;c4 d4 e4&gt;&gt f4  }
+   { <<c4 d4 e4>&gt f4  }
 @end verbatim
 
 
 @tab
 
-@image{pictures/simultaneous-2,,,.png}
+@sourceimage{simultaneous-2,,,.png}
 
 
 
-@end table
+@end multitable
 
 The above is another expression, and therefore, it may be combined 
 again with a simultaneous expression (in this case, a half note). 
 
-@table asis
+@multitable @columnfractions .5 .5
 @item
-
-@tab
 
 @verbatim
 
-&lt;&lt; { &lt;&lt;c4 d4 e4&gt;&gt; f4 } g2 &gt;&gt; 
+<< { <<c4 d4 e4>> f4 } g2 >> 
 
 @end verbatim
 
 
 @tab
 
-@image{pictures/simultaneous-3,,,.png}
+@sourceimage{simultaneous-3,,,.png}
 
 
 
 
-@end table
+@end multitable
 
 Such recursive structures can be specified neatly and formally in a
 @emph{context-free grammar}.  The parsing code is also generated
@@ -135,35 +129,30 @@ writing decent formatting code is much harder.  This is also
 illustrated by the line-counts for the respective components: parsing
 and representation take up less than 10% of the code.
 
-@table asis
-@item
+@multitable @columnfractions .5 .5
 @item
 Parsing + representation
+@tab
 @item
 total
-
-
-@item
-
 @tab
+@item
 6000 lines C++
-
 @tab
 61500 lines C++
+@end multitable
 
-
-@end table
-
-<! todo :
+@ignore
+  TODO :
 
   blurbs about lilypond today
 
   future?
-  >
+@end ignore
 
 @divClass{float-right}
 @divEnd
-Next: @ref{conclusion.html,wrapping it up}, the conclusion.
+Next: @ref{conclusion,wrapping it up}, the conclusion.
 
 @bye
 

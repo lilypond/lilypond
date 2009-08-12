@@ -7,13 +7,13 @@
 @end ignore
 
 
-
+@node scoring-esthetics
 @unnumberedsec Beautiful numbers 
 	
 How do we actually make formatting decisions?  In other words, which
 of the three configurations should we choose for the following slur?
 
-@image{pictures/slur-esthetics,,,.png}
+@sourceimage{slur-esthetics,,,.png}
 
 There are a few books on the art of music engraving
 available. Unfortunately, they contain rules of simple thumbs and some
@@ -25,7 +25,7 @@ and often not all cases are covered completely.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/ross-beam-scan,,,.jpeg}
+@sourceimage{ross-beam-scan,,,.jpeg}
 
 @divClass{float-center}
 @divEnd
@@ -37,7 +37,7 @@ best formatting solution: score based formatting. The principle is the
 same as a beauty contest: for each possible configuration, we compute an
 ugliness score. Then we choose the least ugly configuration.
 
-@image{pictures/slur-esthetics-annotate-1,,,.png}
+@sourceimage{slur-esthetics-annotate-1,,,.png}
 
 For example, in the above configuration, the slur nicely connects the
 starting and ending note of the figure, a desirable trait. However, it
@@ -45,7 +45,7 @@ also grazes one note head closely, while staying away from the others.
 Therefore, for this configuration, we deduct a `variance' score of
 15.39.
 
-@image{pictures/slur-esthetics-annotate-2,,,.png}
+@sourceimage{slur-esthetics-annotate-2,,,.png}
 
 In this configuration, the slur keeps a uniform distance from the
 heads, but we have to deduct some points because the slur doesn't
@@ -56,7 +56,7 @@ points.
 Furthermore, the slur goes up, while the melody goes down. This incurs
 a penalty of 2.00 points
 
-@image{pictures/slur-esthetics-annotate-3,,,.png}
+@sourceimage{slur-esthetics-annotate-3,,,.png}
 
 Finally, in this configuration, only the ending the slur is far away
 from the ending note head, at a score of 10.04 ugliness points.
@@ -71,12 +71,12 @@ situations, for example
 @item
  determining beam slopes
 
-@image{pictures/beam-scoring-example,,,.png}
+@sourceimage{beam-scoring-example,,,.png}
 
 @item
  formatting tied chords
 
-@image{pictures/ties-scoring-example,,,.png}
+@sourceimage{ties-scoring-example,,,.png}
 @item
  formatting dotted chords
 
@@ -95,7 +95,7 @@ result is much better, and because it makes our lives easy.
 
 @divClass{float-right}
 @divEnd
-Next: @ref{benchmarking.html,Man is the measure of things}: is a
+Next: @ref{benchmarking,Man is the measure of things}: is a
 flexible architecture enough?
 
 @bye

@@ -22,14 +22,14 @@ At first sight, music notation follows a straightforward hierarchical
 pattern.  Consider the example below, with two staves containing two
 measures.
 
-@image{pictures/naive-notation,,,.png}
+@sourceimage{naive-notation,,,.png}
 
 Isn't writing software all about finding hierarchies and modeling the
 real world in terms of trees? In the view of a naive programmer, the
 above fragment of notation is easily abstracted to a nested set of
 boxes
 
-@image{pictures/naive-notation-uml,,,.png}
+@sourceimage{naive-notation-uml,,,.png}
 
 It's easy to follow this model when writing software.  It's obvious
 how to store this data in memory, and writing on disk can be easily
@@ -37,18 +37,18 @@ mirrored. In an XML-file you could write something like
 
 @verbatim
 
-  &lt;score&gt;
-    &lt;staff&gt;
-      &lt;measure id="1"&gt;
-         &lt;chord length="1/2"&gt;
-	   &lt;pitch name="c"&gt;
-         &lt;/chord&gt;
-         &lt;chord&gt;
+  <score>
+    <staff>
+      <measure id="1">
+         <chord length="1/2">
+	   <pitch name="c">
+         </chord>
+         <chord>
 	 
 	 ....
-      &lt;/measure&gt;
-    &lt;/staff&gt;
-  &lt;/score&gt;
+      </measure>
+    </staff>
+  </score>
 
 @end verbatim
 
@@ -57,7 +57,7 @@ used by a lot software. Unfortunately, it's also wrong.  The
 hierarchical representation works for a lot of simpler music, but it
 falls apart for advanced use. Consider the following example:
 
-@image{pictures/nonnaive-notation,,,.png}
+@sourceimage{nonnaive-notation,,,.png}
 
 In this example, several assumptions of the previous model are
 violated: staves start and stop at will, voices jump around between
@@ -69,7 +69,7 @@ simpler musical concept. Hence, software should reflect that separation.
 
 @divClass{float-right}
 @divEnd
-Next: @ref{divide-and-conquer.html,Divide and conqueror},
+Next: @ref{divide-and-conquer,Divide and conqueror},
 a blue print for automated notation
 
 @bye

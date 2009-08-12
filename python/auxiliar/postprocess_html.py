@@ -100,7 +100,7 @@ def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
 # More hardcoding, yay!
-splitted_docs_re = re.compile ('(Documentation/out-www/(essay|notation|music-glossary|application|general|learning|snippets))/')
+splitted_docs_re = re.compile ('(Documentation/out-www/(automated-engraving|essay|notation|music-glossary|application|general|learning|snippets))/')
 lily_snippets_re = re.compile ('(href|src)="(../lily-.*?|.*?[.]png)"')
 pictures_re = re.compile ('src="(pictures/.*?)"')
 

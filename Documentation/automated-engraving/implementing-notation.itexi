@@ -29,7 +29,7 @@ The most basic plug-in creates Note-heads:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-noteheads,,,.png}
+@sourceimage{engraver-noteheads,,,.png}
 
 This plug-in creates graphical objects from musical events.  People
 that put graphics to musical ideas are called copyists or engravers,
@@ -42,7 +42,7 @@ representing the staff lines.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-staff,,,.png}
+@sourceimage{engraver-staff,,,.png}
 
 @item
 
@@ -51,7 +51,7 @@ each head should be placed.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-clef,,,.png}
+@sourceimage{engraver-clef,,,.png}
 
 
 
@@ -61,7 +61,7 @@ For the flags and stems we add  a @code{Stem_engraver}:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-stem,,,.png}
+@sourceimage{engraver-stem,,,.png}
 
 This engraver is notified of any note head coming along.  Every time
 one (or more, for a chord) note head is seen, a stem object is
@@ -75,7 +75,7 @@ note heads, etc.:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-slur,,,.png}
+@sourceimage{engraver-slur,,,.png}
 
 
 
@@ -87,7 +87,7 @@ engraver.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-acc,,,.png}
+@sourceimage{engraver-acc,,,.png}
 
 The @code{Accidental_engraver} is the most complex plug-in: it has
 to look at the key signature, note pitches, ties, and bar lines to
@@ -97,7 +97,8 @@ decide when to print accidentals.
 @end itemize
 
 
-@unnumberedsec  Polyphonic notation
+@c @unnumberedsec  Polyphonic notation
+@heading  Polyphonic notation
 
 The system shown in the last section works well for monophonic music,
 but what about polyphony?  In polyphonic notation, many voices can
@@ -105,7 +106,7 @@ share a staff:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-final,,,.png}
+@sourceimage{engraver-final,,,.png}
 
 In this situation, the accidentals and staff are shared, but the
 stems, slurs, beams, etc. are private to each voice. Hence, engravers
@@ -118,11 +119,11 @@ Score context:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/engraver-score,,,.png}
+@sourceimage{engraver-score,,,.png}
 
 @divClass{float-right}
 @divEnd
-Next: @ref{engraving.html,The art of stamping}:
+Next: @ref{engraving,The art of stamping}:
 how @emph{did} they make hand-made music? 
 
 @bye

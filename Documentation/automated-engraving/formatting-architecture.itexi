@@ -26,7 +26,7 @@ and arpeggio. In the first chord, the objects have all directions down
 
 @divClass{float-center}
 @divEnd
-@image{pictures/directions-updown,,,.png}
+@sourceimage{directions-updown,,,.png}
 
 The process of formatting a score consists of reading and writing
 object variables.
@@ -40,7 +40,7 @@ Some variables have a preset value. For example, the thickness of
 
 @divClass{float-center}
 @divEnd
-@image{pictures/thickness-tweaks,,,.png}
+@sourceimage{thickness-tweaks,,,.png}
 
 @item
 Formatting rules are also preset variables: each object has
@@ -51,14 +51,14 @@ use to draw their symbol is changed during the music fragment:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/mc-squared,,,.png}
+@sourceimage{mc-squared,,,.png}
 
 @end itemize
 
 @divClass{float-right}
 @divEnd
 Next:
- @ref{scoring-esthetics.html,Beautiful numbers}: how
+ @ref{scoring-esthetics,Beautiful numbers}: how
 LilyPond participates in the Miss World contests.
 
 @bye

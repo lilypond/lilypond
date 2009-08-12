@@ -27,8 +27,9 @@ LilyPond 1.4:
 
 @divClass{float-center}
 @divEnd
-@ref{pictures/baer-sarabande-hires.jpeg,
-@image{pictures/baer-sarabande,,,.png}}
+@c @ref{baer-sarabande-hires.jpeg,
+@sourceimage{baer-sarabande,,,.png}
+@c }
 
 @divClass{float-center}
 @divEnd
@@ -36,7 +37,7 @@ B@"arenreiter (click to enlarge)
 
 @divClass{float-center}
 @divEnd
-@image{pictures/lily14-sarabande,,,.png}
+@sourceimage{lily14-sarabande,,,.png}
 
 @divClass{float-center}
 @divEnd
@@ -48,7 +49,7 @@ score showed a lot of errors in the formatting details:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/lily14-sarabande-correct,,,.png}
+@sourceimage{lily14-sarabande-correct,,,.png}
 
 @divClass{float-center}
 @divEnd
@@ -79,7 +80,7 @@ output is very close to publication quality.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/lily17-sarabande,,,.png}
+@sourceimage{lily17-sarabande,,,.png}
 
 @divClass{float-center}
 @divEnd
@@ -87,7 +88,7 @@ LilyPond 1.8
 
 @divClass{float-center}
 @divEnd
-@image{pictures/baer-sarabande,,,.png}
+@sourceimage{baer-sarabande,,,.png}
 
 @divClass{float-center}
 @divEnd
@@ -98,7 +99,7 @@ Another example of benchmarking is our project for the 2.1 series, a
 
 @divClass{float-right}
 @divEnd
-Next: @ref{typography-features.html,Cool features},
+Next: @ref{typography-features,Cool features},
 typographical hoops that we made LilyPond jump through.
 
 @bye

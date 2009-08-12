@@ -30,28 +30,26 @@ is a typical contemporary computer product. Take a few seconds to let
 the looks of both pages sink in. Which one do you like better, and
 why?
 
-@table asis
+@ifnottex
+@multitable @columnfractions .5 .5
 @item
+
+@sourceimage{baer-suite1-fullpage,,,.png}
+
 @tab
 
-@image{pictures/baer-suite1-fullpage,,,.png}
-
-@tab
-
-@image{pictures/henle-suite1-fullpage,,,.png}
+@sourceimage{henle-suite1-fullpage,,,.png}
 
 
 
 @item
-@tab
 B@"arenreiter (BA 320, (c) 1950)
 
 @tab
 Henle (nr. 666 (c) 2000)
 
- 
-
-@end table
+@end multitable
+@end ifnottex
 
 The left picture looks nice: it has flowing lines and movement. It's
 music, and it's alive.  Now, the picture on the right shows the same
@@ -62,7 +60,7 @@ a fragment of both pieces:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/baer-suite1-line,,,.png}
+@sourceimage{baer-suite1-line,,,.png}
 
 @divClass{float-center}
 @divEnd
@@ -72,7 +70,7 @@ Hand-made
 
 @divClass{float-center}
 @divEnd
-@image{pictures/henle-suite1-line,,,.png}
+@sourceimage{henle-suite1-line,,,.png}
 
 @divClass{float-center}
 @divEnd
@@ -107,7 +105,7 @@ to better performances.
 
 @divClass{float-right}
 @divEnd
-Next: @ref{software.html,What's wrong with software}, or how
+Next: @ref{software,What's wrong with software}, or how
 Finale is not the end-all of music software.
 
 

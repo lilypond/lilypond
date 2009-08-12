@@ -6,15 +6,10 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
-
-
 @node engraving 
-
-
-@image{pictures/hader-slaan,,,.jpeg}
-
 @unnumberedsec Music engraving
+
+@sourceimage{hader-slaan,,,.jpeg}
 
 
 When we know what symbols to print, we have to decide where to put
@@ -44,16 +39,16 @@ about the rules of elegant engraving.
 
 @item
  Finally, engraving is about selecting proper distance and
-blackness for scores. @image{pictures/stone-distance,,,.png} The
+blackness for scores. @sourceimage{stone-distance,,,.png} The
 quality of the end result must be judged visually. This is virtually
 impossible to capture in formal rules.
 
 
-@end itemize@*
+@end itemize
 
 @divClass{float-right}
 @divEnd
-Next: @ref{implementing-typography.html,Stamping computer
+Next: @ref{implementing-typography,Stamping computer
 screens?}. Computer hackers take over the engraving business.
 
 

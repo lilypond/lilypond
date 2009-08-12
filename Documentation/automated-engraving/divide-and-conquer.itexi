@@ -7,19 +7,17 @@
 @end ignore
 
 
-
+@node divide-and-conquer
 @unnumberedsec Plan de campagne
 
 Since content and form of a score are separate, we have to match that
 in the design of software. Hence, the basic blueprint  of our program
 should follow this scheme
 
-@table asis
+@multitable @columnfractions .3 .3 .3
 @item
 
-@tab
-
-@image{pictures/simple-notation,,,.png}
+@sourceimage{simple-notation,,,.png}
 
 
 @tab
@@ -29,14 +27,12 @@ should follow this scheme
 
 @tab
 
-@code{{ c'4 d'8 }}
+@code{@{ c'4 d'8 @}}
 
 
 
 
 @item
-
-@tab
 
 1. form
 
@@ -53,7 +49,7 @@ should follow this scheme
 
 
 
-@end table
+@end multitable
 
 In effect, we are conquering the problem by dividing it into
 subproblems
@@ -79,7 +75,7 @@ Finally, whenever you subdivide a problem, a new problem is created,
 
 @divClass{float-right}
 @divEnd
-Next: @ref{implementing-notation.html,Impressive, but does it also
+Next: @ref{implementing-notation,Impressive, but does it also
 work in theory}? A practical approach to capturing notation.
 
 @bye

@@ -7,7 +7,7 @@
 @end ignore
 
 
-
+@node schubert
 @unnumberedsec S@"angers Morgenlied, by Franz Schubert
 
 The benchmarking project for the LilyPond 2.1.x series, was the
@@ -15,15 +15,15 @@ Ed. Peters version of a Schubert song.
 
 The result of 2.1.5 was nice, but certainly not perfect,
 
-@image{pictures/bench-morgenlied,,,.png}
+@sourceimage{bench-morgenlied,,,.png}
 
 Here is the original,
 
-@image{pictures/morgenlied-crop-2,,,.jpeg}
+@sourceimage{morgenlied-crop-2,,,.jpeg}
 
 and the result of LilyPond 2.1.35.
 
-@image{pictures/morgenlied-ly-crop2,,,.png}
+@sourceimage{morgenlied-ly-crop2,,,.png}
 
 This is a page from a song-book, which is printed in a smaller format.
 Normal print uses 20 pt staff height, this uses 17 pt. In smaller
@@ -33,16 +33,11 @@ been implemented in LilyPond 2.1.  The difference is hard to see here,
 due to the limited resolution of computer screens. For a more detailed
 view, see the LilyPond PDF, available
 
-@ref{@@DOC@@v2.2/input/mutopia/F.Schubert/out-www/morgenlied.pdf,here}.
+@uref{http://lilypond.org/documentation/v2.2/input/mutopia/F.Schubert/out-www/morgenlied.pdf,here}.
 
 @divClass{float-right}
 @divEnd
-@ref{benchmarking.html,Back to the essay}
-
- 
-
-
- 
+@ref{benchmarking,Back to the essay}
 
 @bye
 

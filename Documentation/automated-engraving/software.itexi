@@ -25,7 +25,7 @@ the Sarabande of the 2nd Cello Suite by J. S. Bach.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/finale-sarabande-full,,,.png}
+@sourceimage{finale-sarabande-full,,,.png}
 
 This example far surpasses the previous one when it comes to
 formatting errors: there are serious errors in literally
@@ -36,7 +36,7 @@ magnification of that measure:
 
 @divClass{float-center}
 @divEnd
-@image{pictures/finale-flat-detail,,,.png}
+@sourceimage{finale-flat-detail,,,.png}
 
 The errors go down to the teensy details: below is a blowup of the
 beam in that measure. Of course, in proper typography the beam should
@@ -46,7 +46,7 @@ lack thereof) with the underlying PostScript technology.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/finale-beam-detail,,,.png}
+@sourceimage{finale-beam-detail,,,.png}
 
 Now, one could refute that Finale has a graphical interface, and it
 lets you easily move about elements to correct errors, or use plug-ins
@@ -65,7 +65,7 @@ Did it occur to you that the stem of the last eighth note is too long?
 
 @divClass{float-center}
 @divEnd
-@image{pictures/finale-flat-correct,,,.png}
+@sourceimage{finale-flat-correct,,,.png}
 
 Unless you are an expert, typographical errors will irk you without
 being obvious. Many of them will go uncorrected and will still be in the
@@ -105,7 +105,7 @@ doubt, measure the difference with a magnifying glass.
 
 @divClass{float-right}
 @divEnd
-Next: @ref{problem-statement.html,How not to design software},
+Next: @ref{problem-statement,How not to design software},
 or: modeling music notation.
 
 

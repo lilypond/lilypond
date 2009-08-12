@@ -17,23 +17,21 @@ blackness of the page. By using heavy stafflines, and a font design to
 match that, the overall impression is much stronger. This is also very
 clear from the following blowups:
 
-@table asis@item
-@tab
+@multitable @columnfractions .3 .3 .3
+@item
 
-@image{pictures/henle-flat-gray,,,.png}
-
-@tab
-
-@image{pictures/baer-flat-gray,,,.png}
+@sourceimage{henle-flat-gray,,,.png}
 
 @tab
 
-@image{pictures/lily-flat-bw,,,.png}
+@sourceimage{baer-flat-gray,,,.png}
+
+@tab
+
+@sourceimage{lily-flat-bw,,,.png}
 
 
 @item
-
-@tab
 Henle (2000)
 
 @tab
@@ -44,7 +42,7 @@ LilyPond (2003)
 
 
 
-@end table
+@end multitable
 
 Another typical aspect of hand-engraved scores is the general look of
 the symbols. They almost never have sharp corners. This is because
@@ -55,7 +53,8 @@ also present in all glyphs of our "Feta" font.
 
 
  
-@unnumberedsec Spacing
+@c @unnumberedsec Spacing
+@heading Spacing
 
 One of the problems that the Bach piece above inspired us to attack
 is the spacing engine. One of its features is optical spacing.
@@ -63,11 +62,11 @@ It is demonstrated in the fragment below.
 
 @divClass{float-center}
 @divEnd
-@image{pictures/spacing-with-corr,,,.png}
+@sourceimage{spacing-with-corr,,,.png}
 
 @divClass{float-center}
 @divEnd
-@image{pictures/spacing-no-corr,,,.png}
+@sourceimage{spacing-no-corr,,,.png}
 
 This fragment only uses quarter notes: notes that are played in a
 constant rhythm. The spacing should reflect that. Unfortunately, the
@@ -81,7 +80,8 @@ with this correction, the bottom one without.  In the last case, the
 down-stem/up-stems combinations form clumps of notes.
 
 
-@unnumberedsec Ledger lines
+@c @unnumberedsec Ledger lines
+@heading Ledger lines
 
 Ledger lines are typographically difficult. They can easily blot
 together with other signs, such as ledger lines or
@@ -89,27 +89,25 @@ accidentals. Other software prevents these collisions by spacing the
 lines wider (thus taking up more space), or shortening ledger lines
 (which hampers readability.)  
 
-@table asis@item
-@tab
+@multitable @columnfractions .3 .3 .3
+@item
 
-@image{pictures/henle-ledger,,,.png}
+@sourceimage{henle-ledger,,,.png}
 &nbsp;
 
 
 @tab
 
-@image{pictures/baer-ledger,,,.png}&nbsp;
+@sourceimage{baer-ledger,,,.png}&nbsp;
 
 
 
 @tab
 
-@image{pictures/lily-ledger,,,.png}
+@sourceimage{lily-ledger,,,.png}
 
 
 @item
-
-@tab
 Henle (2000)
 
 @tab
@@ -120,7 +118,7 @@ LilyPond (2004)
 
 
 
-@end table
+@end multitable
 
 Traditional engravers would adjust the size of a ledger line,
 depending on what symbols were in the neighborhood. LilyPond does the
@@ -129,7 +127,7 @@ lines, and they are shortened when there is an accidental.
 
 @divClass{float-right}
 @divEnd
-Next: @ref{input-format.html,Use the Source, Luke}, or: what
+Next: @ref{input-format,Use the Source, Luke}, or: what
 goes into LilyPond.
 
 @bye

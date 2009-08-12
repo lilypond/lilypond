@@ -14,18 +14,24 @@
 
 We have shown you what engraved music should look like, and how we built
 our software to emulate that look.  We have put a lot of effort into
-building it.  Thanks to all that hard work, you can @ref{@DEPTH@switch/tour.html,use the program to print nice music
-too}.
+building it.  Thanks to all that hard work, you can
+
+FIXME
+
+@c @ref{@DEPTH@switch/tour.html,use the program to print nice music too}.
 
 To complete the reading of this essay, you may want to have a look at
-@ref{@DEPTH@about/pubs.html,publications and articles},
-especially @ref{http://www.musicbyandrew.ca/finale-lilypond-1.html,Andrew
+
+FIXME
+
+@c @ref{@DEPTH@about/pubs.html,publications and articles},
+especially @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,Andrew
 Hawryluk's writings}, which include Finale and LilyPond notation
 benchmarking.
 
 @divClass{float-right}
 @divEnd
-Go @ref{index,back} to the index.
+@c Go @ref{Top,back} to the top.
 
 @bye
 
