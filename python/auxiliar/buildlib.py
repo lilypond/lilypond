@@ -28,8 +28,9 @@ renames_map = {
     'changes.tely': 'topdocs/NEWS.tely',
 }
 
+# FIXME: Hardcoded file names!?
 manuals_subdirectories_re = \
-    re.compile ('(application|essay|learning|notation)/')
+    re.compile ('(application|essay|general|learning|notation)/')
 
 def add_old_name (file_path):
     for new_path in renames_map:

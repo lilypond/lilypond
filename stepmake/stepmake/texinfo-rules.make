@@ -23,32 +23,25 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
+$(outdir)/%.texi: %.texi
+	cp -p $< $@
+
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
-$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
-
-$(outdir)/lilypond.info: general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
-
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
-	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage --output=$@ $<
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
-	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$@ $<
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) $(TEXI2HTML_SPLIT) $<
 	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
-
-$(outdir)/%.html.omf: %.texi
-	$(call GENERATE_OMF,html)
-
-$(outdir)/%.pdf.omf: %.texi
-	$(call GENERATE_OMF,pdf)
+$(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
@@ -56,11 +49,11 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<
 
-$(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
-	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -o $(XREF_MAPS_DIR) $<
+$(outdir)/%.html.omf: %.texi
+	$(call GENERATE_OMF,html)
 
-$(outdir)/%.texi: %.texi
-	cp -f $< $@
+$(outdir)/%.pdf.omf: %.texi
+	$(call GENERATE_OMF,pdf)
 
 $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo '@macro version'> $@

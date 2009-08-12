@@ -719,6 +719,7 @@ sub print_lilypond_page_foot($)
   # Do not include language selection in div#main
   print $fh "<!-- end div#main here -->\n</div>\n\n";
 
+  if (0) {
   print $fh "<!-- FOOTER -->\n\n";
   print $fh "<div id=\"footer\">\n";
   print $fh "<div id=\"language\">\n";
@@ -726,6 +727,7 @@ sub print_lilypond_page_foot($)
   print $fh "<p><a href=\"\">Deutsch</a>, Español, Français, Magyar.</p>\n";
   print $fh "<p>About automatic language selection.</p>\n";
   print $fh "</div>\n";
+  }
 
   print $fh "<div id=\"verifier_texinfo\">\n";
   print $fh "<h3>Validation</h3>\n";

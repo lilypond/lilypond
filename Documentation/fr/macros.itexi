@@ -176,6 +176,16 @@
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Manuel de notation}
 @end macro
 
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay-big-page,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Essay}
+@end macro
+
 @macro rprogram{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,application-big-page,Manuel d'utilisation du programme}
@@ -240,6 +250,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation,Manuel de notation}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay,Essay}
 @end macro
 
 @macro rprogram{TEXT}
@@ -318,6 +338,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,notation.fr,Manuel de notation}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-essay,Essay}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
 @end macro
 
 @macro rprogram{TEXT}

@@ -60,6 +60,8 @@ for opt in options_list:
     if o == '-I' or o == '--include':
         if os.path.isdir (a):
             include_path.append (a)
+        else:
+            print 'NOT A DIR from: ', os.getcwd (), a
     elif o == '-o' or o == '--output':
         outdir = a
     elif o == '-s' or o == '--split':
@@ -93,7 +95,7 @@ def expand_includes (m, filename):
             filepath = os.path.join (directory, m.group(1))
             if os.path.exists (filepath):
                 return extract_sections (filepath)[1]
-        print "Unable to locate include file " + filepath
+        print 'No such file: ' + filepath
         return ''
 
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)

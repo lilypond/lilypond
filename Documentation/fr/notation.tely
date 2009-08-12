@@ -7,7 +7,7 @@
 @end ignore
 
 @documentencoding UTF-8
-@setfilename lilypond.info
+@setfilename lilypond-notation.info
 @settitle GNU LilyPond -- Manuel de notation
 
 @include macros.itexi

@@ -16,18 +16,30 @@ MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
-XREF_MAPS_DIR = $(top-build-dir)/out/xref-maps
+# FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
+XREF_MAPS_DIR = $(top-build-dir)/$(outbase)/xref-maps
 XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.xref-map) \
  $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.xref-map)
 XREF_MAP_FLAGS += -I $(outdir)
 
-# texi2html flags
+###########
 ifneq ($(ISOLANG),)
 TEXI2HTML_LANG = --lang=$(ISOLANG)
 endif
-TEXI2HTML_FLAGS += $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
-TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
-TEXI2HTML = PERL_UNICODE=SD $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
+
+DOC_TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
+WEB_TEXI2HTML_INIT =--init-file=$(top-src-dir)/Documentation/web-texi2html.init
+TEXI2HTML_INIT = $(DOC_TEXI2HTML_INIT)
+
+DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
+WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
+TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
+
+TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
+TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)
+TEXI2HTML = PERL_UNICODE=SD $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS)
+###########
+
 
 TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)
 

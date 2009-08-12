@@ -93,9 +93,10 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 ## No big page
 OUT_HTML_FILES := $(subst $(outdir)/general-big-page.html,,$(OUT_HTML_FILES))
 
-## Different init file and CSS
-$(outdir)/general/index.html: \
- TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/web-texi2html.init
+$(outdir)/general/index.html:\
+	TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
+$(outdir)/general/index.html:\
+	TEXI2HTML_SPLIT := $(WEB_TEXI2HTML_SPLIT)
 
 ###########
 ### Targets
@@ -143,6 +144,12 @@ endif
 
 #########
 ### Rules
+
+$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+
+$(outdir)/lilypond.info: $(src-dir)/general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
 # cd $(outdir) rule gets bit hairy for --srcdir configure builds
 txt-to-html:
@@ -226,27 +233,54 @@ CHECK_TRANSLATION_FLAGS = --no-color
 endif
 
 ifneq ($(ISOLANG),)
+new-lang-dir:
+	mkdir -p $(ISOLANG)/$(DIR)
+	cp fr/GNUmakefile $(ISOLANG)
+	cp fr/$(DIR)/GNUmakefile $(ISOLANG)/$(DIR)
+	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/$(DIR)/GNUmakefile
+ifeq (ugh,urgh)
+# Law of conservation of badness in action :-)
+	cd $(ISOLANG)/$(DIR) && ../../$(auxscript-dir)/texi-langutils.py -l $(ISOLANG) -o ../../$(outdir)/doc.pot --skeleton --gettext $$(ls -1 ../../$(DIR).tely ../../$(DIR).texi)
+# gets written to wrong directory; texi-langutils.py outdir/output is a mess
+	mv $(ISOLANG)/$(DIR)/$(DIR).* $(ISOLANG) || : 
+# cleanup cruft
+	rm -f $(ISOLANG)/node_list $(ISOLANG)/*/node_list
+else
+	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
+	mv $$(ls $(outdir)/$(DIR).tely $(outdir)/$(DIR).texi) $(ISOLANG) || :
+	mv $$(ls $(outdir)/*.*tely $(outdir)/*.*texi) $(ISOLANG)/$(DIR) ||: 
+endif
+
 new-lang:
+# FIXME: allow this target to update a language too
+#        do not blindly overwrite, use test -e and only create missing files
+#        for inspiration, see [old] lilypond/web GNUmakefile's target new:
 	@if (( $$(file -b $(ISOLANG)) == directory )) 2>/dev/null; \
 	then echo "Error: $(ISOLANG) directory already exists. Exiting." ; \
 	exit 3 ; \
 	fi
-	mkdir -p $(ISOLANG)/learning
-	cp fr/GNUmakefile $(ISOLANG)
-	cp fr/learning/GNUmakefile $(ISOLANG)/learning
-	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/learning/GNUmakefile
-	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../learning.tely
-	mv $(outdir)/*.*tely $(ISOLANG)/learning
+	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
+	cd fr && cp $(EXTRA_TRANSLATION_FILES) ../$(ISOLANG)
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
-CHECKED_FILES = $(ISOLANG)/index.html.in $(foreach i,learning notation application, \
-  $(shell find $(ISOLANG)/$(manual) -name '*.*te??' -not -wholename '*out-www*')) \
-  $(shell find $(ISOLANG)/texidocs/ -name '*.texidoc')
+#TRANSLATION_DIRS = $(shell git ls-files $(ISOLANG) | $(PYTHON) $(buildscript-dir)/pytt.py '/[^/]*$$' / | sort -u )
+TRANSLATION_DIRS = application general learning notation texidocs
+TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
+EXTRA_TRANSLATION_FILES =\
+ dedication.itely\
+ index.html.in\
+ common-macros.itexi\
+ macros.itexi\
+ translations.html.in\
+ translations.template.html.in\
+#
+
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 skeleton-update:
+	mkdir -p $(ISOLANG)
 	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
 	$(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
 
@@ -276,10 +310,10 @@ fix-xrefs:
 	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 check-translation:
-	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
+	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
 update-translation:
-	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
+	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
 translation-status:
 	make -C po out=www messages

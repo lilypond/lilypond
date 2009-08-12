@@ -6,8 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@setfilename lilypond.info
-@settitle GNU LilyPond New Website
+@setfilename general.info
+@settitle LilyPond -- Music notation for everyone
 @documentencoding UTF-8
 @documentlanguage en
 
@@ -18,8 +18,8 @@
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- Web site
-@chapheading The music typesetter
+@top
+@chapheading
 @end ifnottex
 
 
@@ -27,7 +27,7 @@
 
 @titlepage
 @title LilyPond
-@subtitle The music typesetter
+@c @subtitle The music typesetter
 @titlefont{New Website}
 @author The LilyPond development team
 
@@ -73,9 +73,12 @@ Free Documentation License''.
 @divId{quickSummary}
 @subheading What is LilyPond?
 
-LilyPond is a free open-source music engraving program, devoted to
+LilyPond is an open-source music engraving program, devoted to
 producing the highest-quality sheet music possible.  We bring the
 aesthetics of traditionally engraved music to computer printouts.
+
+LilyPond is Free Software and part of the
+@uref{http://@/www@/.gnu@/.org/, GNU} project.
 
 @divClass{align-right}
 Read more in our @ref{Introduction}!
@@ -88,7 +91,7 @@ FIXME: process news items like the old web site:
 select first 4 items to insert here, and generate
 RSS.
 
-@c @include news-front.itexi
+@include news-front.itexi
 
 @divClass{float-right}
 (@ref{Old news})
