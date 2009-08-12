@@ -93,7 +93,7 @@ much thicker than lines in the computer edition.
 @image{pictures/lily-flat-bw,,4cm}
 @end iftex
 @ifnottex
-@image{pitcures/lily-flat-bw,,,png}
+@image{pictures/lily-flat-bw,,,png}
 @end ifnottex
 @end ifnotinfo
 @ifinfo
