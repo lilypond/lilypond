@@ -1,0 +1,61 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+
+
+@node engraving 
+
+
+@image{pictures/hader-slaan,,,.jpeg}
+
+@unnumberedsec Music engraving
+
+
+When we know what symbols to print, we have to decide where to put
+them so the the result looks pleasing. This art is called @emph{music
+engraving}.  The term derives from the traditional process of
+music printing.  Only a few decades ago, sheet music was made by
+cutting and stamping the music into zinc or pewter plates in mirror
+image.  The plate would be inked, and the depressions caused by the
+cutting and stamping would hold ink.  An image was formed by pressing
+paper to the plate. The stamping and cutting was completely done by
+hand. Making corrections was cumbersome, so engraving had to be done
+correctly in one go. Of course, this was a highly specialized skill
+
+
+@itemize
+@item
+ Music engraving is a traditional craft, and was learned in
+practice. An accomplished master had to complete around 10 years of
+practice.
+
+
+@item
+ Most of the knowledge was passed from master to apprentice during
+practical training. Consequently, little has been explicitly laid down
+about the rules of elegant engraving.
+
+
+@item
+ Finally, engraving is about selecting proper distance and
+blackness for scores. @image{pictures/stone-distance,,,.png} The
+quality of the end result must be judged visually. This is virtually
+impossible to capture in formal rules.
+
+
+@end itemize@*
+
+@divClass{float-right}
+@divEnd
+Next: @ref{implementing-typography.html,Stamping computer
+screens?}. Computer hackers take over the engraving business.
+
+
+@bye
+

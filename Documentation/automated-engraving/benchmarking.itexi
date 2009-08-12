@@ -1,0 +1,105 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+
+@node benchmarking 
+
+@unnumberedsec Notation benchmarking
+
+A flexible architecture is necessary for good
+formatting. Unfortunately, it is not sufficient.  Only a careful
+emulation of printed matter will give a good result.  We suggested in
+the introduction to compare program output with existing hand-engraved
+scores.  It is exactly this technique that we use to perfect LilyPond
+output.  In a way, this is a benchmarking technique: the performance of
+the program, in terms of quality, is measured in relation to a known
+quantity.
+
+Here you see parts of a benchmark piece. At the top the reference
+edition (B@"arenreiter BA 320) at the bottom the output from
+LilyPond 1.4:
+
+@divClass{float-center}
+@divEnd
+@ref{pictures/baer-sarabande-hires.jpeg,
+@image{pictures/baer-sarabande,,,.png}}
+
+@divClass{float-center}
+@divEnd
+B@"arenreiter (click to enlarge)
+
+@divClass{float-center}
+@divEnd
+@image{pictures/lily14-sarabande,,,.png}
+
+@divClass{float-center}
+@divEnd
+LilyPond 1.4
+
+The LilyPond output is certainly readable, and for many people it
+would be acceptable. However, close comparison with a hand-engraved
+score showed a lot of errors in the formatting details:
+
+@divClass{float-center}
+@divEnd
+@image{pictures/lily14-sarabande-correct,,,.png}
+
+@divClass{float-center}
+@divEnd
+@itemize
+@item
+ Lots of symbols were unbalanced. In particular the trill sign was
+too large.
+
+
+@item
+ Stems and beams were all wrong: the stems were too long, and
+beam should be slanted to cover staff lines exactly. The beam was also
+too light.
+
+
+@item
+ The spacing was irregular: some measures were too tight, other
+too wide.
+
+
+@end itemize
+(And there were missing notes in the original version for LilyPond)
+
+By addressing the relevant algorithms, settings, and font designs, we
+were able to improve the output. The output for LilyPond 1.8 is shown
+below. Although it is not a clone of the reference edition, this
+output is very close to publication quality.
+
+@divClass{float-center}
+@divEnd
+@image{pictures/lily17-sarabande,,,.png}
+
+@divClass{float-center}
+@divEnd
+LilyPond 1.8
+
+@divClass{float-center}
+@divEnd
+@image{pictures/baer-sarabande,,,.png}
+
+@divClass{float-center}
+@divEnd
+B@"arenreiter
+
+Another example of benchmarking is our project for the 2.1 series, a
+@ref{schubert,Schubert song}.
+
+@divClass{float-right}
+@divEnd
+Next: @ref{typography-features.html,Cool features},
+typographical hoops that we made LilyPond jump through.
+
+@bye
+

@@ -1,0 +1,114 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+
+@node software 
+@unnumberedsec What's wrong with music notation software
+
+Computers have made music printing accessible to the masses, but they
+tend to deliver mediocre typography.  Apparently, programmers have
+been doing a shoddy job on notation programs.  To illustrate that, we
+had an amateur user set a piece of music in one of the most popular
+&lsquo;professional&rsquo; notation programs sold today, Finale
+2003. It was made with all of the default settings. The music is from
+the Sarabande of the 2nd Cello Suite by J. S. Bach.
+
+@emph{
+(Finale is a registered trademark of MakeMusic! Inc.)
+}
+
+@divClass{float-center}
+@divEnd
+@image{pictures/finale-sarabande-full,,,.png}
+
+This example far surpasses the previous one when it comes to
+formatting errors: there are serious errors in literally
+@emph{every} measure. The errors come in all sizes: a big one is the
+oddly s p a c e d &nbsp o u t last line. A smaller one is the flat in
+measure 13, which is covered by the note preceding it. Here is a
+magnification of that measure:
+
+@divClass{float-center}
+@divEnd
+@image{pictures/finale-flat-detail,,,.png}
+
+The errors go down to the teensy details: below is a blowup of the
+beam in that measure. Of course, in proper typography the beam should
+not stick out to the right of the stem, and the ribbles provide a
+telling glimpse into Coda Music Technology programmers' aptness (or
+lack thereof) with the underlying PostScript technology.
+
+@divClass{float-center}
+@divEnd
+@image{pictures/finale-beam-detail,,,.png}
+
+Now, one could refute that Finale has a graphical interface, and it
+lets you easily move about elements to correct errors, or use plug-ins
+to do so.  This is certainly true: in fact, good professional
+engravers that use Finale typically spend the majority of their time
+correcting all the errors that Finale routinely makes.  But do you
+want to spend your time on correcting all glaring errors?  For the
+spaced out line, it is doable, but imagine that you have to correct
+each and every beam that sticks out of the stems....  by hand?
+
+There is a less obvious reason why correcting things by hand is a bad
+idea. Consider again measure 13 reproduced above.  The misplaced flat
+is pretty obvious, but did you notice that repeat bar? Its lines are
+too far apart. Did you notice that the eighth rest is too far down?
+Did it occur to you that the stem of the last eighth note is too long?
+
+@divClass{float-center}
+@divEnd
+@image{pictures/finale-flat-correct,,,.png}
+
+Unless you are an expert, typographical errors will irk you without
+being obvious. Many of them will go uncorrected and will still be in the
+final print.
+
+This example may seem contrived, but in fact, it's not.  All
+major producers of notation software claim to follow engraving
+standards, but we have not seen any that gets the basics right; all of
+them make systematic mistakes.  If you want to assess the output of your
+favorite program, then buy a decent hand-made score from a respectable
+publisher, and try to reproduce one page of it. Then compare them:
+
+@itemize
+@item
+
+How does the page layout compare? Typically, computer scores are more
+widely spaced so they take up more pages, meaning more annoying page
+turns.
+
+
+@item
+
+How does the spacing compare?  Is it as lively and flowing as the
+hand-made score? If in doubt, try measuring both with a ruler.
+
+
+@item
+
+Put both on a music stand, 1 meter away; that is not uncommon when
+performing. Can you read both pages? Almost all computer scores have
+an anemic look: they use lines which are too thin, and symbols which
+are too light. That makes them hard to read from a distance. If in
+doubt, measure the difference with a magnifying glass.
+
+
+@end itemize
+
+@divClass{float-right}
+@divEnd
+Next: @ref{problem-statement.html,How not to design software},
+or: modeling music notation.
+
+
+
+@bye
+

@@ -1,0 +1,115 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+
+@node introduction 
+
+@unnumberedsec What's wrong with computer music notation?
+
+We like to call LilyPond an "automated engraving system." It will
+format music notation beautifully without requiring typographical
+expertise of its users.
+
+LilyPond is not unique in making music notation: there are a lot of
+programs that print music, and nowadays most of the newly printed
+music is made with computers.  Unfortunately, that also shows: just
+ask any musician that plays classical music: new scores do not look as
+nice as old (from before, say, 1970) scores: the new ones have a
+bland, mechanical look. They are not at all pleasurable to play from.
+
+To illustrate this, take a look at the following examples. Both are
+editions of the 1st Cello Suite by J.S.Bach. The one on the left is a
+very beautifully hand-engraved edition from 1950, the one on the right
+is a typical contemporary computer product. Take a few seconds to let
+the looks of both pages sink in. Which one do you like better, and
+why?
+
+@table asis
+@item
+@tab
+
+@image{pictures/baer-suite1-fullpage,,,.png}
+
+@tab
+
+@image{pictures/henle-suite1-fullpage,,,.png}
+
+
+
+@item
+@tab
+B@"arenreiter (BA 320, (c) 1950)
+
+@tab
+Henle (nr. 666 (c) 2000)
+
+ 
+
+@end table
+
+The left picture looks nice: it has flowing lines and movement. It's
+music, and it's alive.  Now, the picture on the right shows the same
+music, and it was written by Bach.  His music surely has liveliness
+and flowing lines.... Except, the score doesn't show it: it looks
+rigid and mechanical.  To understand better why that is, let's blow up
+a fragment of both pieces:
+
+@divClass{float-center}
+@divEnd
+@image{pictures/baer-suite1-line,,,.png}
+
+@divClass{float-center}
+@divEnd
+Hand-made
+
+@*
+
+@divClass{float-center}
+@divEnd
+@image{pictures/henle-suite1-line,,,.png}
+
+@divClass{float-center}
+@divEnd
+Computer-made
+
+The location of the bar lines is a giveaway.  In the new edition,
+both barlines are on exactly the same horizontal location. Also, the
+note heads are on the exact same horizontal location.  When you look
+back at the whole page, you can easily verify that almost all barlines
+are in the same location, as are most of the note heads. The entire
+thing is spaced as if it were put to a big grid, which is what causes
+the mechanical impression.
+
+This is not the only error on this example, and more importantly, this
+piece is not the only one with typographical errors.  Sadly, almost
+all music printed nowadays is full of basic typographical mistakes.
+
+Musicians are usually more absorbed with performing the music than
+with studying its looks, so this nitpicking about typographical
+details may seem academical. That is not justified.  This piece here
+has a monotonous rhythm. If all lines look the same, they become like
+a labyrinth. If the musician looks away once or has a lapse in his
+concentration, he will be lost on the page.
+
+In general, this is a common characteristic of typography. Layout
+should be pretty, not only for its own sake, but especially because it
+helps the reader in his task. For performance material like sheet
+music, this is doubly important: musicians have a limited amount of
+attention. The less attention they need for reading, the more they can
+focus on playing itself.  In other words, better typography translates
+to better performances.
+
+@divClass{float-right}
+@divEnd
+Next: @ref{software.html,What's wrong with software}, or how
+Finale is not the end-all of music software.
+
+
+@bye
+
