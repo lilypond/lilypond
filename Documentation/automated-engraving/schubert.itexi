@@ -19,7 +19,7 @@ The result of 2.1.5 was nice, but certainly not perfect,
 
 Here is the original,
 
-@sourceimage{morgenlied-crop-2,,,.jpeg}
+@sourceimage{morgenlied-crop-2,,,png}
 
 and the result of LilyPond 2.1.35.
 

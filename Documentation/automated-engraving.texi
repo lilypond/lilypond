@@ -32,7 +32,7 @@ hmm, the one big page is too big, but it was really inviting to
 
 @heading What is behind LilyPond?
 
-@sourceimage{hader-collage,,,.jpeg}
+@sourceimage{hader-collage,,,.png}
 
 LilyPond is not unique in making music notation: there are a lot of
 programs that print music, and nowadays most of the newly printed

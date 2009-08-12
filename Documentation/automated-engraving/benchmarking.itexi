@@ -26,7 +26,7 @@ edition (B@"arenreiter BA 320) at the bottom the output from
 LilyPond 1.4:
 
 @divClass{float-center}
-@c @ref{baer-sarabande-hires.jpeg,
+@c @ref{baer-sarabande-hires.png,
 @sourceimage{baer-sarabande,,,.png}
 @c }
 @divEnd

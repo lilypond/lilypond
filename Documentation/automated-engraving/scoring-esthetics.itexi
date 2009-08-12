@@ -24,7 +24,7 @@ handcoded exceptions. Doing all this case analysis is a lot of work,
 and often not all cases are covered completely.
 
 @divClass{float-center}
-@sourceimage{ross-beam-scan,,,.jpeg}
+@sourceimage{ross-beam-scan,,,.png}
 @divEnd
 
 @divClass{float-center}
