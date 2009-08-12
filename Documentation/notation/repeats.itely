@@ -110,7 +110,7 @@ c1
 
 @warning{Do not include @code{@bs{}relative} inside a
 @code{@bs{}repeat}.  It will cause unwanted staves to appear.
-See @rlearning{An extra staff appears}.}
+See @rprogram{An extra staff appears}.}
 
 @cindex repeat with upbeat
 @cindex upbeat in a repeat
