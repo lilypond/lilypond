@@ -11,7 +11,7 @@
 @setfilename general.info
 @settitle LilyPond -- la notation musicale pour tous
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage fr
 @set web
 @include macros.itexi
 @afourpaper

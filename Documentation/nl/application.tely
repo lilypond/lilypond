@@ -11,7 +11,7 @@
 @setfilename lilypond-application.info
 @settitle GNU LilyPond Application usage
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage nl
 @include macros.itexi
 @afourpaper
 @c don't remove this comment.

@@ -9,11 +9,9 @@
 
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@node Manuals
-@unnumbered Manuals
-
-@untranslated
-
+@node Handleiding
+@tranlationof Manuals
+@unnumbered Handleiding
 
 @divClass{heading-center}
 @heading Documentation for LilyPond 2.12.2
@@ -134,5 +132,3 @@
 @subheading GNU Free Documentation License 1.1
 @include fdl.itexi
 @divEnd
-
-@c -- SKELETON FILE --

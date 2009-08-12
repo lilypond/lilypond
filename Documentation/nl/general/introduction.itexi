@@ -9,15 +9,25 @@
 
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@node Introduction
-@unnumbered Introduction
-
-@untranslated
-
+@node Inleiding
+@unnumbered Inleiding
+@translationof Introduction
 
 @divClass{column-center-top}
-@subheading Our Goal
+@subheading Ons Doel
 @imageFloat{flat-design.png,right}
+
+De inspiratie voor LilyPond ontstond toen twee bevriende muzikanten
+ontevreden werden met het saaie en inspiratieloze uiterlijk van
+computerafdrukken.  Elke muzikant leest liever mooie muziek, dus
+zouden wij als programmeurs dat afdrukprobleem niet kunnen oplossen?
+
+Dat is nu precies wat LilyPond doet: het drukt muziek volgens de
+beste tradities van klassieke muziekgravure, zonder gedoe.  Verspil
+geen tijd met het bijstellen van spatiëring, het verplaatsen van
+tekens, of met het vormgeven van legatoboogjes.  Imponeer vrienden
+en collega's met haarscherpe bladmuziek!
+
 @divEnd
 @divClass{column-left-top}
 @subheading Why use LilyPond?
@@ -207,5 +217,3 @@
 @ref{Freedom} that LilyPond provides, or read about users'
 @ref{Productions} and @ref{Testimonials}.
 @divEnd
-
-@c -- SKELETON FILE --

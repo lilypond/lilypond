@@ -11,7 +11,7 @@
 @setfilename lilypond-learning.info
 @settitle GNU LilyPond Learning Manual
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage nl
 @include macros.itexi
 @c This produces the unified index
 @afourpaper

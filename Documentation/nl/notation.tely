@@ -11,7 +11,7 @@
 @setfilename lilypond-notation.info
 @settitle GNU LilyPond Notation Reference
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage nl
 @include macros.itexi
 @afourpaper
 @c Keep this here, since it pertains to the direntry below.

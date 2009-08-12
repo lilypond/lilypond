@@ -11,7 +11,7 @@
 @setfilename general.info
 @settitle LilyPond -- Muzieknotatie voor iedereen
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage nl
 @set web
 @include macros.itexi
 @afourpaper
@@ -48,23 +48,23 @@
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 @divId{quickSummary}
 @subheading Wat is LilyPond?
-TODO FIXME DUTCH
 
-LilyPond is an open-source music engraving program, devoted to
-producing the highest-quality sheet music possible.  We bring the
-aesthetics of traditionally engraved music to computer printouts.
+LilyPond is een Open Source muziek-graveer programma, gewijd aan
+het produceren van de hoogst mogelijke kwaliteit bladmuziek.
 
-LilyPond is Free Software and part of the
+Wij brengen de esthetiek van traditioneel gegraveerde muziek naar
+computer afdrukken.
+
+LilyPond is Vrije Software, is gratis en is onderdeel van het
 @uref{http://@/www@/.gnu@/.org/, GNU} project.
 
 @divClass{align-right}
+Lees de @ref{Inleiding}!
 @divEnd
 @divEnd
 @divId{news}
 @include news-front.itexi
 @divClass{float-right}
-Lees de @ref{Introduction}!
-
 @divEnd
 @divEnd
 @divId{latestVersion}
@@ -72,16 +72,16 @@ Lees de @ref{Introduction}!
 @c TODO: javascript to detect OS and suggest download?
 @subsubheading Stable
 @ref{Download, Download 2.12.3}
-@ref{Manuals, Manuals 2.12.3}
+@ref{Handleiding, Handleiding 2.12.3}
 @subsubheading Unstable
 @ref{Development, Download 2.13.2}
-@ref{Development, Manuals 2.13.2}
+@ref{Handleiding, Handleiding 2.13.2}
 @divEnd
 @divClass{hide}
 @menu
-* Introduction::
+* Inleiding::
 * Download::
-* Manuals::
+* Handleiding::
 * Community::
 @end menu
 
