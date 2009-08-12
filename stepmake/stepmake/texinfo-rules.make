@@ -40,6 +40,9 @@ $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/v
 	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) $(TEXI2HTML_SPLIT) $<
 	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
+$(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
+	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -o $(XREF_MAPS_DIR) $<
+
 $(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
