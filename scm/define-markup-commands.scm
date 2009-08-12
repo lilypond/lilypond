@@ -2595,7 +2595,7 @@ figured bass notation.
 \\markup { \\eyeglasses }
 @end lilypond"
   (interpret-markup layout props
-    (make-with-dimensions-markup '(-0.61 . 3.21) '(0.21 . 2.4)
+    (make-with-dimensions-markup '(-0.61 . 3.22) '(0.2 . 2.41)
       (make-postscript-markup eyeglassesps))))
 
 (define-builtin-markup-command (left-brace layout props size)
