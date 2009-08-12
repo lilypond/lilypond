@@ -1,0 +1,170 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of general.texi
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Community
+@unnumbered Community
+
+@untranslated
+
+
+@divClass{column-center-top}
+@subheading Interacting with the community
+@ref{Contact}: get help, discuss, and keep in touch!
+@ref{Tiny examples}: these are @emph{highly} recommended when
+@ref{Bug reports}: something went wrong.
+@divEnd
+@divClass{column-left-bottom}
+@subheading Making LilyPond better
+@ref{Help us}: your assistance is requested.
+@ref{Development}: for contributors and testers.
+@ref{Authors}: the people who made LilyPond what it is today.
+@divEnd
+@divClass{column-right-bottom}
+@subheading Miscellaneous
+@ref{Publications}: what we wrote, and have had written about us.
+@ref{Old news}: an archive.
+@divEnd
+@divClass{hide}
+@menu
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Development::
+* Authors::
+* Publications::
+* Old news::
+@end menu
+
+@divEnd
+@node Contact
+@unnumberedsec Contact
+
+@untranslated
+
+
+@divClass{column-left-bottom}
+@subheading User Discussions and Help
+@subsubheading User mailist: @code{lilypond-user@@gnu.org}
+@quotation
+@end quotation
+@subsubheading IRC
+@subsubheading Other languages
+@divEnd
+@divClass{column-right-top}
+@subheading Stay Informed
+@subsubheading LilyPond Report
+@subsubheading Releases mailist: @code{info-lilypond@@gnu.org}
+@quotation
+@c don't include gmane posting here.  -gp
+@end quotation
+@divEnd
+@divClass{column-right-bottom}
+@subheading Developer Discussion
+@subsubheading Developer mailist: @code{lilypond-devel@@gnu.org}
+@quotation
+@end quotation
+@subsubheading Bug mailist: @code{bug-lilypond@@gnu.org}
+@quotation
+@c don't include gmane posting here.  -gp
+@end quotation
+@divEnd
+@node Tiny examples
+@unnumberedsec Tiny examples
+
+@untranslated
+
+
+@divClass{column-center-top}
+@subheading What are @qq{Tiny examples}?
+@divEnd
+@divClass{column-left-bottom}
+@subheading Why create them?
+@divClass{keep-bullets}
+@divEnd
+@divEnd
+@divClass{column-right-bottom}
+@subheading How do I create them?
+@divClass{keep-bullets}
+@divEnd
+@divEnd
+@node Bug reports
+@unnumberedsec Bug reports
+
+@untranslated
+
+
+@divClass{column-center-top}
+@subheading Step 1: Known bugs
+@divEnd
+@divClass{column-left-bottom}
+@subheading Step 2: Creating a bug report
+@divEnd
+@divClass{column-right-bottom}
+@subheading Step 3: Sending a bug report
+@divEnd
+@node Help us
+@unnumberedsec Help us
+
+@untranslated
+
+
+@subheading This document
+@subsubheading High priority / blocks release
+@subsubheading Low priority / may never
+@node Development
+@unnumberedsec Development
+
+@untranslated
+
+
+@divClass{heading-center}
+@heading Development materials for LilyPond 2.13.3
+@ref{Manuals}.}
+@divEnd
+@divClass{column-left-bottom}
+@subheading Download
+@subheading Manuals
+@divEnd
+@divClass{column-right-bottom}
+@subheading Contributors' Guide
+@divEnd
+@node Authors
+@unnumberedsec Authors 
+
+@untranslated
+
+
+@node Publications
+@unnumberedsec Publications
+
+@untranslated
+
+
+@divClass{column-center-top}
+@subheading What we wrote
+@divClass{keep-bullets}
+@divEnd
+@divEnd
+@divClass{column-center-bottom}
+@subheading What others wrote
+@divClass{keep-bullets}
+@divEnd
+@divEnd
+@node Old news
+@unnumberedsec Old news
+
+@untranslated
+
+
+@include general/news.itexi
+
+@c -- SKELETON FILE --
