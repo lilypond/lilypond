@@ -18,7 +18,6 @@
 @ifnottex
 @node Top
 @top
-
 @translationof Top
 
 

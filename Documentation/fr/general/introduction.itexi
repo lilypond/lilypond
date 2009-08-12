@@ -94,7 +94,7 @@
 
 @divClass{column-center-top}
 @subheading Free Software
-@ref{GPL, GNU General Public License} and the @ref{FDL, GNU Free
+@ref{GPL, GNU General Public License} and the @ref{FDL, GNU Free Documentation License}
 @divEnd
 @c @divClass{column-left-top}
 @divClass{color2}
