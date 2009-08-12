@@ -238,31 +238,25 @@ new-lang-dir:
 	cp fr/GNUmakefile $(ISOLANG)
 	cp fr/$(DIR)/GNUmakefile $(ISOLANG)/$(DIR)
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/$(DIR)/GNUmakefile
-ifeq (ugh,urgh)
-# Law of conservation of badness in action :-)
-	cd $(ISOLANG)/$(DIR) && ../../$(auxscript-dir)/texi-langutils.py -l $(ISOLANG) -o ../../$(outdir)/doc.pot --skeleton --gettext $$(ls -1 ../../$(DIR).tely ../../$(DIR).texi)
-# gets written to wrong directory; texi-langutils.py outdir/output is a mess
-	mv $(ISOLANG)/$(DIR)/$(DIR).* $(ISOLANG) || : 
-# cleanup cruft
-	rm -f $(ISOLANG)/node_list $(ISOLANG)/*/node_list
-else
+	rm -f $(outdir)/*.*tely $(outdir)/*.*texi
 	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
-	mv $$(ls $(outdir)/$(DIR).tely $(outdir)/$(DIR).texi) $(ISOLANG) || :
-	mv $$(ls $(outdir)/*.*tely $(outdir)/*.*texi) $(ISOLANG)/$(DIR) ||: 
-endif
+	for i in $$(cd $(outdir) && ls -1 $(DIR).tely $(DIR).texi); do\
+	    test -e $(ISOLANG)/$$i || mv $(outdir)/$$i $(ISOLANG)/$$i;\
+	done
+	rm -f $(outdir)/$(DIR).tely $(outdir)/$(DIR).texi
+	for i in $$(cd $(outdir) && ls -1 *.*tely *.*texi); do\
+	    test -e $(ISOLANG)/$(DIR)/$$i\
+		|| mv $(outdir)/$$i $(ISOLANG)/$(DIR)/$$i;\
+	done
 
 new-lang:
-# FIXME: allow this target to update a language too
-#        do not blindly overwrite, use test -e and only create missing files
-#        for inspiration, see [old] lilypond/web GNUmakefile's target new:
-	@if (( $$(file -b $(ISOLANG)) == directory )) 2>/dev/null; \
-	then echo "Error: $(ISOLANG) directory already exists. Exiting." ; \
-	exit 3 ; \
-	fi
+# Also for updating/adding missing files
 	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
-	cd fr && cp $(EXTRA_TRANSLATION_FILES) ../$(ISOLANG)
+	$(foreach i, $(EXTRA_TRANSLATION_FILES), \
+	    (test -e $(ISOLANG)/$(i) \
+		|| cp fr/$(i) $(ISOLANG)/$(i)) && ) true
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
-	cp po/lilypond-doc.pot po/$(ISOLANG).po
+	test -e po/$(ISOLANG).po || cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 #TRANSLATION_DIRS = $(shell git ls-files $(ISOLANG) | $(PYTHON) $(buildscript-dir)/pytt.py '/[^/]*$$' / | sort -u )

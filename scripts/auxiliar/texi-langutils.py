@@ -120,6 +120,8 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                     g.write ('@menu\n')
                 elif item[2] == 'end menu':
                     g.write ('@end menu\n\n')
+                elif item[2] == 'documentlanguage':
+                    g.write ('@documentlanguage ' + doclang + '\n')
                 else:
                     space = ' '
                     if item[3].startswith ('{') or not item[3].strip ():
