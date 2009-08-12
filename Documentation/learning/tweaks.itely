@@ -1768,7 +1768,7 @@ effect to a single note you must either use the equivalent
 followed after the affected note by the corresponding
 @code{\xxxNeutral} command.
 
-@subheading Fingering
+@unnumberedsubsubsec Fingering
 
 @cindex fingering, placement
 @cindex fingering, chords
