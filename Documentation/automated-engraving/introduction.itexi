@@ -1,4 +1,4 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
     Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
@@ -10,7 +10,7 @@
 
 @node introduction 
 
-@unnumberedsec What's wrong with computer music notation?
+@unnumberedsec What is wrong with computer music notation?
 
 We like to call LilyPond an "automated engraving system." It will
 format music notation beautifully without requiring typographical
@@ -59,22 +59,22 @@ rigid and mechanical.  To understand better why that is, let's blow up
 a fragment of both pieces:
 
 @divClass{float-center}
-@divEnd
 @sourceimage{baer-suite1-line,,,.png}
+@divEnd
 
 @divClass{float-center}
-@divEnd
 Hand-made
+@divEnd
 
 @*
 
 @divClass{float-center}
-@divEnd
 @sourceimage{henle-suite1-line,,,.png}
+@divEnd
 
 @divClass{float-center}
-@divEnd
 Computer-made
+@divEnd
 
 The location of the bar lines is a giveaway.  In the new edition,
 both barlines are on exactly the same horizontal location. Also, the
@@ -104,10 +104,6 @@ focus on playing itself.  In other words, better typography translates
 to better performances.
 
 @divClass{float-right}
-@divEnd
-Next: @ref{software,What's wrong with software}, or how
+Next: @ref{software,What is wrong with software}, or how
 Finale is not the end-all of music software.
-
-
-@bye
-
+@divEnd

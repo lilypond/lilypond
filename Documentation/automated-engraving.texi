@@ -28,7 +28,9 @@ hmm, the one big page is too big, but it was really inviting to
 @chapheading
 @end ifnottex
 
-@unnumberedsec What is behind LilyPond?
+@finalout
+
+@heading What is behind LilyPond?
 
 @sourceimage{hader-collage,,,.jpeg}
 
@@ -44,8 +46,8 @@ What is the difference between hand-work and machine work, and what
   them.
 
 @menu
-* introduction:: Introduction -- what's wrong with computer music notation.
-* software:: What's wrong with software -- or how Finale is not the end-all of music software.
+* introduction:: Introduction -- what is wrong with computer music notation.
+* software:: What is wrong with software -- or how Finale is not the end-all of music software.
 * problem-statement:: How not to design software -- or modeling music notation.
 * divide-and-conquer:: Divide and conqueror -- a blue print for automated notation.
 * implementing-notation:: Impressive, but does it also work in theory -- a practical approach to capturing notation.
