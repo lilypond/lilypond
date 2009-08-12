@@ -30,14 +30,14 @@ $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
-	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage --output=$@ $<
+	$(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
-	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$@ $<
+	$(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) $(TEXI2HTML_SPLIT) $<
+	$(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$(dir $@) $(TEXI2HTML_SPLIT) $<
 	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
