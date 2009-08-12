@@ -235,6 +235,7 @@ sub load_map_file ($)
     my $node_map = ();
 
     if (open(XREFFILE, $mapfile)) {
+        print STDERR "Reading map file: $mapfile\n";
         my $line;
         while ( $line = <XREFFILE> ) {
             # parse the tab-separated entries and insert them into the map:
@@ -248,7 +249,7 @@ sub load_map_file ($)
         }
         close (XREFFILE);
     } else {
-        print STDERR "WARNING: Unable to load the map file $mapfile\n";
+        print STDERR "warning: cannot load map file: no such file: $mapfile\n";
     }
     return $node_map;
 }
@@ -454,7 +455,6 @@ sub lilypond_external_href($$$)
 
 my $page_toc_depth = 2;
 my @default_toc = [];
-
 
 # Initialize the toc_depth to 1 if the command-line option -D=short_toc is given
 sub lilypond_init_toc_depth ()

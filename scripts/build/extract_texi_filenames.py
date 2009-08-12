@@ -185,6 +185,7 @@ def process_sections (filename, lang_suffix, page):
     sections = section_translation_re.findall (page)
     basename = os.path.splitext (os.path.basename (filename))[0]
     p = os.path.join (outdir, basename) + lang_suffix + '.xref-map'
+    print 'writing:', p
     f = open (p, 'w')
 
     this_title = ''
