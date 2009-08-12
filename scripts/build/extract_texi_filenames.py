@@ -49,7 +49,7 @@ def help (text):
 
 outdir = '.'
 split = "custom"
-include_path = []
+include_path = ['.',]
 master_map_file = ''
 initial_map = {}
 for opt in options_list:
@@ -87,15 +87,17 @@ section_translation_re = re.compile ('^@(node|(?:unnumbered|appendix)\
 external_node_re = re.compile (r'\s+@c\s+external.*')
 
 def expand_includes (m, filename):
-    filepath = os.path.join (os.path.dirname (filename), m.group(1))
+    include_name = m.group (1)
+    filepath = os.path.join (os.path.dirname (filename), include_name)
     if os.path.exists (filepath):
         return extract_sections (filepath)[1]
     else:
         for directory in include_path:
-            filepath = os.path.join (directory, m.group(1))
+            filepath = os.path.join (directory, include_name)
             if os.path.exists (filepath):
                 return extract_sections (filepath)[1]
-        print 'No such file: ' + filepath
+        print 'No such file: ' + include_name
+        print 'Search path: ' + ':'.join (include_path)
         return ''
 
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)
