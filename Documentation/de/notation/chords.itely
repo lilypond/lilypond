@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: da96eee19a7529842725d0c374ea356987100f91
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -90,7 +90,7 @@ Notationsreferenz:
 @ref{Eingabe-Modi}.
 
 Schnipsel:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @knownissues
@@ -411,7 +411,7 @@ Notationsreferenz:
 @ref{Übliche Akkord-Variablen}.
 
 Schnipsel:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 @knownissues
 
@@ -587,7 +587,7 @@ Symbole, die für den gleichen Akkord angezeigt werden können.  Die
 Bezeichnungen und dargestellten Symbole können angepasst werden.
 
 Die Standardeinstellungen für die Symbole entsprechen den Konventionen
-im Jazz, wie sie von Klaus Ignatzek (siehe @ref{Literatur}).
+im Jazz, wie sie von Klaus Ignatzek (siehe @ressay{Literatur}).
 vorgeschlagen wurden.  Das Benennungssystem für die Akkorde kann
 verändert werden, wie weiter unten gezeigt wird.  Ein alternatives
 Notationssystem für Jazzakkorde ist auch erhältlich.  Die
@@ -813,7 +813,7 @@ Glossar:
 @rglos{figured bass}.
 
 Schnipsel:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @node Eingabe des Generalbass'

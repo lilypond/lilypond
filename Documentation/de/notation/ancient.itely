@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -199,7 +199,7 @@ notieren.
 Ligaturen werden in LilyPond notiert, indem die dazugehörigen Noten zwischen
 @code{\[} und @code{\]} eingeschlossen werden. Einige Ligaturstile benötigen
 zusätzliche Syntax für eine bestimmte Ligatur.  In der Standardeinstellung
-setzt der @rinternals{LigatureBracket}-Engraver ganz einfach eckige
+setzt der @code{LigatureBracket}-Engraver ganz einfach eckige
 Klammern über die Noten der Ligatur.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -218,7 +218,6 @@ Um einen gestimmten Ligaturstil auszuwählen, muss der
 Ligatur-Engraver im Stimmenkontext ausgetauscht werden, wie
 erklärt in @ref{Weiße Mensuralligaturen} und @ref{Ligaturen der gregorianischen Quadratnotation}.
 
-@seealso
 
 @knownissues
 
@@ -255,8 +254,8 @@ Notationsformen, etwa modernen Editionen des Gregorianischen Chorals wie der
 @emph{editio vaticana}.  LilyPond stellt unterschiedliche Custos-Symbole für
 die unterschiedlichen Notationsstile zur Verfügung.
 
-Damit Custodes angezeigt werden, muss ein @rinternals{Custos_engraver}
-im @rinternals{Staff}-Kontext gefordert werden.  Der Aufruf folgt im Rahmen
+Damit Custodes angezeigt werden, muss ein @code{Custos_engraver}
+im @code{Staff}-Kontext gefordert werden.  Der Aufruf folgt im Rahmen
 des Layout-Kontextes, wie das folgende Beispiel zeigt.  Der Stil des
 Custos wird mit dem @code{override}-Befehl eingestellt, wie in dem
 folgenden Beispiel gezeigt:
@@ -285,19 +284,19 @@ und @code{mensural}. Sie werden im folgenden Fragment demonstriert.
 @lilypond[quote,ragged-right,fragment]
 \new Lyrics \lyricmode {
   \markup { \column {
-    \typewriter "vaticana"
+    \typewriter "vaticana "
     \line { " " \musicglyph #"custodes.vaticana.u0" }
   } }
   \markup { \column {
-    \typewriter "medicaea"
+    \typewriter "medicaea "
     \line { " " \musicglyph #"custodes.medicaea.u0" }
   }}
   \markup { \column {
-    \typewriter "hufnagel"
+    \typewriter "hufnagel "
     \line { " " \musicglyph #"custodes.hufnagel.u0" }
   }}
   \markup { \column {
-    \typewriter "mensural"
+    \typewriter "mensural "
     \line { " " \musicglyph #"custodes.mensural.u0" }
   }}
 }
@@ -307,7 +306,7 @@ und @code{mensural}. Sie werden im folgenden Fragment demonstriert.
 Referenz der Interna:
 @rinternals{Custos}.
 
-Beispiele:
+Schnipsel:
 @rlsr{Ancient notation}.
 
 
@@ -377,7 +376,6 @@ werden kann. Siehe das folgende Beispiel:
 }
 @end lilypond
 
-@seealso
 
 
 @c {{{2 Mensural clefs
@@ -559,7 +557,7 @@ Symbole sind starr verknüpft mit bestimmten Brüchen. Darum müssen die Werte
 }
 @end lilypond
 
-Mit der @code{style}-Eigenschaft des Objektes @rinternals{TimeSignature}
+Mit der @code{style}-Eigenschaft des Objektes @code{TimeSignature}
 können die Taktarten angewählt werden. Unterstützte Stile sind:
 @code{neomensural} und @code{mensural}. In der Tabelle oben wurde der
 neomensurale Stil verwendet.  Im folgenden Beispiel sind die
@@ -596,7 +594,7 @@ Notationsreferenz:
 @knownissues
 
 Die Verhältnisse der Notenwerte ändern sich nicht, wenn die Mensur
-gewechselt wird. Zum Beispiel muss das Verhältnis 1 brevis = 3 semibrevis
+gewechselt wird. Zum Beispiel muss das Verhältnis 1@tie{}brevis = 3@tie{}semibrevis
 (tempus perfectum) manuell erstellt werden, indem folgende Variable erstellt
 wird:
 
@@ -626,7 +624,7 @@ werden.
 
 Für die Mensuralnotation kann ein Notenkopfstil ausgewählt werden, der sich
 vom Standard (@code{default}) unterscheidet. Dies wird erreicht, indem die
-@code{style}-Eigenschaft der Notenkopf-(@rinternals{NoteHead})-Objekte auf
+@code{style}-Eigenschaft der Notenkopf-(@code{NoteHead})-Objekte auf
 einen der Werte @code{baroque}, @code{neomensural}, @code{mensural} oder
 @code{petrucci} gesetzt wird.
 
@@ -670,7 +668,7 @@ Notationsreferenz:
 @cindex Fähnchen, Mensuralnotation
 
 Mit der Fähnchen-(@code{flag-style})-Eigenschaft der graphischen Objekte
-@qq{Hals} (@rinternals{Stem}) können auch Mensuralfähnchen gesetzt
+@qq{Hals} (@code{Stem}) können auch Mensuralfähnchen gesetzt
 werden.  Neben dem Standardstil (@code{default}) ist
 nur (@code{mensural}) unterstützt.
 
@@ -689,7 +687,6 @@ Es gibt keinen eigenen Stil für den neomensuralen oder Petrucci-Stil.
 Für die Notation des Gregorianischen Chorals gibt es keine
 Fähnchen.
 
-@seealso
 
 
 @knownissues
@@ -713,7 +710,7 @@ eingesetzt werden.
 
 Besondere Pausensymbole für die Notation der Alten Musik können mit der
 @code{style}-Eigenschaft des graphischen Objektes (grob) @qq{Pause}
-(@rinternals{Rest}) angewählt werden. Unterstützte Stile sind
+(@code{Rest}) angewählt werden. Unterstützte Stile sind
 klassisch (@code{classical}), @code{neomensural} und @code{mensural}.
 Der klassische (@code{classical}) Stil unterscheidet sich vom Standardstil
 (@code{default}) nur darin, dass die Viertelpause wie eine gespiegelte
@@ -786,7 +783,7 @@ notiert wird, wird es aus dem @code{vaticana}-Stil gesetzt.
 
 Der Stil für Versetzungszeichen und Vorzeichen wird durch die
 @code{glyph-name-alist}-Eigenschaft der Grobs
-@rinternals{Accidental} und @rinternals{KeySignature} bestimmt,
+@code{Accidental} und @code{KeySignature} bestimmt,
 also etwa folgendermaßen:
 
 @code{\override Staff.Accidental #'glyph-name-alist =
@@ -866,9 +863,9 @@ Begrenzte Unterstützung für Ligaturen der weißen Mensuralnotation ist
 vorhanden.
 
 Um weiße Mensuralligaturen zu benutzen, muss innerhalb des Layout-Blocks
-im @rinternals{Voice}-Kontext der @rinternals{Mensural_ligature_engraver}
+im @code{Voice}-Kontext der @code{Mensural_ligature_engraver}
 aktiviert werden und gleichzeitig der
-@rinternals{Ligature_bracket_engraver} (der die Klammern über den Noten
+@code{Ligature_bracket_engraver} (der die Klammern über den Noten
 setzt) entfernt werden, wie im Beispiel.
 
 @example
@@ -914,8 +911,8 @@ Eine Datei kann zum Beispiel so aussehen:
 }
 @end lilypond
 
-Wenn der @rinternals{Ligature_bracket_engraver} nicht durch den
-@rinternals{Mensural_ligature_engraver} ersetzt wird, werden die Noten
+Wenn der @code{Ligature_bracket_engraver} nicht durch den
+@code{Mensural_ligature_engraver} ersetzt wird, werden die Noten
 wie folgt ausgegeben:
 
 @lilypond[quote,ragged-right]
@@ -932,7 +929,7 @@ wie folgt ausgegeben:
 }
 @end lilypond
 
-@seealso
+
 
 @knownissues
 
@@ -956,11 +953,11 @@ Die horizontale Positionierung ist sehr schlecht.
 @end menu
 
 Wenn ein gregorianischer Choral notiert wird, wählt der
-@rinternals{Vaticana_ligature_engraver} automatisch die richtigen
+@code{Vaticana_ligature_engraver} automatisch die richtigen
 Notenköpfe aus, so dass man den Notenkopfstil nicht explizit
 setzen muss.  Der Stil kann dennoch gesetzt werden, etwa
 auf @code{vaticana_punctum} um punctum-Neumen zu erzeugen.  Ähnlich
-funktioniert auch der @rinternals{Mensural_ligature_engraver},
+funktioniert auch der @code{Mensural_ligature_engraver},
 der Mensuralligaturen setzt.  Siehe auch @ref{Ligaturen}.
 
 
@@ -1003,8 +1000,6 @@ begonnen werden kann. Siehe das folgende Beispiel:
 }
 @end lilypond
 
-@seealso
-TODO
 
 
 @c {{{2 Gregorian clefs
@@ -1202,7 +1197,7 @@ anderen Stil.
 
 Der Stil für Versetzungs- und Vorzeichen wird von der 
 @code{glyph-name-alist}-Eigenschaft der Grobs
-@rinternals{Accidental} und @rinternals{KeySignature}
+@code{Accidental} und @code{KeySignature}
 kontrolliert, beispielsweise:
 
 @code{\override Staff.Accidental #'glyph-name-alist =
@@ -1309,8 +1304,7 @@ Vaticana-Stils zur Verfügung gestellt.
 }
 @end lilypond
 
-@seealso
-TODO
+
 
 @knownissues
 
@@ -1549,7 +1543,7 @@ werden kann, wobei die Noten @code{g}, @code{a} und @code{b}
 als Tonhöhen eingesetzt werden.
 
 
-@b{Neumen aus einzlenen Noten}
+@b{Neumen aus einzelnen Noten}
 
 @multitable @columnfractions .4 .2 .4
 
@@ -2380,11 +2374,8 @@ moderne Edition aus der selben Quelle erstellt.
 @c TODO Add text
 @c clefs, mensuration signs etc from lsr and -user
 @c use snippet Transcription-of-ancient-music-with-incipit
-TBC
+In Arbeit.
 
-
-@seealso
-@c ... and reference to other sections ...
 
 
 @c {{{2Mensurstriche layout
@@ -2410,8 +2401,6 @@ rhythmisch orientieren kann.
 @c from lsr and -user
 @c TBC
 
-@seealso
-@c ... and reference to other sections ...
 
 
 @c {{{2Transcribing Gregorian chant
@@ -2455,7 +2444,7 @@ aber ein leerer Platz zu Beginn der Noten an der Stelle, wo
 normalerweise die Taktnagabe stehen würde.
 
 In vielen Fällen ergibt @code{\set Score.timing = ##f} gute
-Ergebnisse.  Eine andere Möglichkeit ist es, \@code{\CadenzaOn}
+Ergebnisse.  Eine andere Möglichkeit ist es, @code{\CadenzaOn}
 und @code{\CadenzaOff} zu benutzen.
 
 Um Taktstriche zu entfernen, kann man radikal den @code{Bar_engraver}
@@ -2595,8 +2584,6 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@seealso
-@c ... and reference to other sections ...
 
 
 @c {{{2Ancient and modern from one source
@@ -2606,15 +2593,15 @@ spirLyr = \lyricmode {
 
 @c TODO Add text
 @c Here among others the snippets about reducing note length
-TBC
+In Arbeit.
 
-@seealso
-@c ... and reference to other sections ...
 
 @c {{{2Editorial markings
 @node Herausgeberische Anmerkungen
 @unnumberedsubsubsec Herausgeberische Anmerkungen
 @translationof Editorial markings
+
+In Arbeit.
 
 @c {{{2Baroque rhythmic notation
 @c @node Baroque rhythmic notation
@@ -2634,8 +2621,6 @@ TBC
 @c staff as an hint to performers.  (Karl Hammer)
 
 
-TBC
+In Arbeit.
 
 
-@seealso
-@c ... and reference to other sections ...

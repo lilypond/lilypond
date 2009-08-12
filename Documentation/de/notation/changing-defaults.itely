@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -230,6 +230,14 @@ notiert werden.
 
 Dieser Stimmenkontext wird in einer Tabulatur (@code{TabStaff}-Kontext)
 benutzt.  Er wird normalerweise implizit erstellt.
+
+@strong{@emph{CueVoice}}
+
+Ein Stimmenkontext, der Noten in reduzierter Größe ausgibt und
+vor allem dazu da ist, Stichnoten zu setzen.  Siehe auch
+@ref{Formatting cue notes}.  Wird normalerweise implizit erstellt,
+wenn Stichnoten gesetzt werden.
+
 
 @strong{@emph{ChordNames}}
 
@@ -1855,6 +1863,7 @@ die spezielle Form (die mit @code{\set} verändert wird) erstellt.
 @menu
 * Eingabe-Modi::
 * Richtung und Platzierung::
+* Reihenfolge des Kontextlayouts::
 * Abstände und Maße::
 * Eigenschaften des Staff-Symbols::
 * Strecker::
@@ -1987,32 +1996,16 @@ dieser Eintscheidungen können LilyPond direkt überlassen werden; in
 einigen Fällen kann es allerdings nötig sein, eine bestimmte Richtung
 oder eine Position zu erzwingen.
 
-@strong{Standardeinstellungen}
+@strong{Richtungseinstellung von Artikulationszeichen}
 
 Standardmäßig sind bestimmte Objekte immer nach oben oder unten ausgerichtet,
 wie Dynamikzeichen oder Fermaten, während andere Objekte zwischen
 oben und unten wechseln, was vor allem von der Richtung der Notenhälse
 abhängt und etwa Bögen und Akzente betrifft.
 
-@strong{Anordnung des Kontextlayouts}
-
-Kontexte werden normalerweise in einer Notensystemgruppe von oben nach
-unten erstellt, in der Reihenfolge, in der sie auftreten.  Dabei sollte
-aber bedacht werden, dass ein Kontext implizit erstellt werden kann,
-wenn ein Befehl vorkommt, der in dem gegenwärtigen Kontext nicht
-asgeführt werden kann.  Wenn Kontexte verschachtelt sind, schließt
-der äußere Kontext die inneren Kontexte aus, die nicht in seiner
-@qq{accepts}-Liste aufgeführt sind.  Ausgeschlossene Kontexte werden
-unter dem äußeren Kontext gesetzt.
-
-Die normale Reihenfolge, in der Kontexte angeordnet werden, sowie auch
-die @qq{accepts}-Liste, können geändert werden, siehe
-@ref{Kontexte aneinander ausrichten}.
-
-@strong{Anzeige der Ausrichtung von Artikulationszeichen}
-
-Wenn man Artikulationszeichen an Noten anhängt, können die
-Ausrichtungsmarken @code{^} (bedeutet @qq{nach oben}), @code{_}
+Die Standardeinstellungen können verändert werden, indem dem
+Artikulationszeichen ein Ausrichtungsmarkierer vorangeht.  Drei
+derartige Ausrichtungsmarkierer sind vorhanden:  @code{^} (bedeutet @qq{nach oben}), @code{_}
 (bedeutet @qq{nach unten}) bzw. @code{-} (bedeutet @qq{Standardrichtung}
 benutzen) normalerweise weggelassen werden.  In diesem Fall wird
 @code{-} angenommen.  Eine Richtungsanweisung ist jedoch
@@ -2026,6 +2019,16 @@ benutzen) normalerweise weggelassen werden.  In diesem Fall wird
 @item Fingersagzanweisungen: @code{-1}
 @item Abkürzungen von Artikulationen, wie @code{-.}, @code{->}, @code{--}
 @end itemize
+
+Ausrichtungsmarkierer haben nur eine Auswirkung auf die nächste Note:
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+c2_( c)
+c2( c)
+c2^( c)
+@end lilypond
+
 
 @strong{Die @code{direction}-(Richtungs-)Eigenschaft}
 
@@ -2058,6 +2061,48 @@ Seite das Ursprungsobjektes ausgegeben wird.  In diesem Fall
 bedeutet @code{-1} oder @code{LEFT} @qq{auf der linken Seite}
 und @code{1} oder @code{RIGHT} @qq{auf der rechten Seite}.  @code{0}
 oder @code{CENTER} bedeutet @qq{benutze Standardausrichtung}.
+
+Diese Ausrichtungsanzeigen wirken sich auf alle Noten aus, bis sie
+rückgängig gemacht werden:
+
+@lilypond[verbatim,quote,relative=2]
+c2( c)
+\slurDown
+c2( c)
+c2( c)
+\slurNeutral
+c2( c)
+@end lilypond
+
+
+@node Reihenfolge des Kontextlayouts
+@subsection Reihenfolge des Kontextlayouts
+@translationof Context layout order
+
+@cindex Kontexte, Reihenfolge
+
+Kontexte werden normalerweise in einer Notensystemgruppe dargestellt,
+von oben nach unten in der Reihenfolge, in der sie
+in der Eingabedatei auftreten.  Wenn Kontexte verschachtelt sind,
+enthält der äußere Kontext die inneren geschachtelten Kontexte,
+wie in der Eingabedatei angegeben, vorausgesetzt die inneren
+Kontexte befinden sich in der @qq{accepts}-Liste des äußeren
+Kontextes.  Verschachtelte kontexte, die nicht in dieser Liste
+auftauchen, werden neu unter den äußeren Kontext angeordnet, anstatt
+dass sie innerhalb dieses Kontextes gesetzt werden.
+
+Es ist wichtig zu erinnern, dass ein Kontext implizit erstellt
+werden kann, wenn ein Befehl vorkommt und kein passender Kontext
+zur Verfügung steht, um den Befehl auszuführen.  Dadurch können
+unerwartet neue Systeme oder Partituren erstellt werden.
+
+Die Standardreihenfolge, in der die Kontexte gesetzt werden und
+die @qq{accepts}-Liste können geändert werden, siehe auch
+@ref{Aligning contexts}.
+
+@seealso
+Handbuch zum Lernen
+@rlearning{An extra staff appears}.
 
 
 @node Abstände und Maße
@@ -2643,7 +2688,7 @@ wird.  Oder, genauer gesagt, vor einem Zeilenumbruch, an Stellen,
 wo kein Zeilenumbruch auftritt oder nach einem Zeilenumbruch.
 
 Die acht möglichen Kombinationen können auch durch vordefinierte
-Funktionen besetimmt werden, welche in der Datei @file{scm/output-lib.scm}
+Funktionen besetimmt werden, welche in der Datei @file{scm/@/output@/-lib@/.scm}
 definiert sind.  Die letzten drei Spalten der folgenden Tabelle
 zeigen an, ob das Layout-Objekt an einer besetimmten Position
 sichtbar sein wird oder nicht:
@@ -3409,6 +3454,12 @@ Notationsreferenz:
 @unnumberedsubsubsec Bögen verändern
 @translationof Modifying ties and slurs
 
+@cindex Bögen, verändern
+@cindex Bindebögen, verändern
+@cindex Legatobögen, verändern
+@cindex Bézier-Kurven
+@cindex Kontrollpunkte, Bézier-Kurven
+
 Binde-, Legato- und Phrasierungsbögen werden als Bézierkurven
 dritter Ordnung gezeichnet.  Wenn die Form eines automatischen
 Bogens nicht optimal ist, kann sie manuell verändert werdne,
@@ -3462,13 +3513,17 @@ der Kurve erreicht werden kann, indem man die gleiche
 Skalierung auf die Kontrollpunkte anwendet.
 
 In dem obigen Beispiel geben folgende Werte einen
-zufriedenstellenden Bogen:
+zufriedenstellenden Bogen -- Achtung: der Befehl muss direkt
+vor dem Beginn der Note gesetzt werden, an die der (Binde-)Bogen angehängt
+wird.
 
 @lilypond[verbatim,quote,relative=1]
 <<
+  {
   \once \override Tie
     #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-  { e1 ~ e1 }
+  e1 ~ e1
+  }
 \\
   { r4 <g c,> <g c,> <g c,>4  }
 >>
