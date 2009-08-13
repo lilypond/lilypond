@@ -99,6 +99,7 @@
 
 @c  Definitions for references:
 @c
+@c     @rgeneral
 @c     @ressay
 @c     @rglos
 @c     @rinternals
@@ -150,6 +151,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
+@end macro
+
+@macro rgeneral{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,general-big-page,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,general-big-page,General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -229,6 +240,16 @@
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
 @end macro
 
+@macro rgeneral{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,general,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,general,General Information}
+@end macro
+
 @macro ressay{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,essay,Essay}
@@ -299,6 +320,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notation Reference}
+@end macro
+
+@macro rgeneral{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-general,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-general, General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -388,6 +419,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@end macro
+
+@macro rgeneral{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,general,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,general,General Information}
 @end macro
 
 @macro ressay{TEXT}
