@@ -22,34 +22,38 @@ grob."
     \override Staff.InstrumentName #'self-alignment-X = #RIGHT
     \override Staff.InstrumentName #'padding = #0
     \override Staff.InstrumentName #'stencil =
-    #(lambda (grob)
-       (let* ((instrument-name (ly:grob-property grob 'long-text))
-              (layout (ly:output-def-clone (ly:grob-layout grob)))
-              (music (make-music 'SequentialMusic
-                      'elements (list (make-music 'ContextSpeccedMusic
-                                        'context-type 'MensuralStaff
-                                        'element (make-music 'PropertySet
-                                                   'symbol 'instrumentName
-                                                   'value instrument-name))
-                                      (ly:grob-property grob 'music))))
-              (score (ly:make-score music))
-              (mm (ly:output-def-lookup layout 'mm))
-              (indent (ly:output-def-lookup layout 'indent))
-              (incipit-width (ly:output-def-lookup layout 'incipit-width))
-              (scaled-incipit-width (if (number? incipit-width)
-                                        (* incipit-width mm)
-                                        (* indent 0.5))))
-         (ly:output-def-set-variable! layout 'indent (- indent scaled-incipit-width))
-         (ly:output-def-set-variable! layout 'line-width indent)
-         (ly:output-def-set-variable! layout 'ragged-right #f)
-         (ly:score-add-output-def! score layout)
-         (set! (ly:grob-property grob 'long-text)
-               (markup #:score score))
-         (system-start-text::print grob)))
+      #(lambda (grob)
+         (let* ((instrument-name (ly:grob-property grob 'long-text))
+                (layout (ly:output-def-clone (ly:grob-layout grob)))
+                (music (make-sequential-music
+                        (list (context-spec-music
+                               (make-sequential-music
+                                (list (make-property-set
+                                       'instrumentName instrument-name)
+                                      (make-grob-property-set
+                                       'VerticalAxisGroup
+                                       'Y-extent '(-4 . 4))))
+                               'MensuralStaff)
+                              (ly:grob-property grob 'music))))
+                (score (ly:make-score music))
+                (mm (ly:output-def-lookup layout 'mm))
+                (indent (ly:output-def-lookup layout 'indent))
+                (incipit-width (ly:output-def-lookup layout 'incipit-width))
+                (scaled-incipit-width (if (number? incipit-width)
+                                          (* incipit-width mm)
+                                          (* indent 0.5))))
+           (ly:output-def-set-variable! layout 'indent (- indent scaled-incipit-width))
+           (ly:output-def-set-variable! layout 'line-width indent)
+           (ly:output-def-set-variable! layout 'ragged-right #f)
+           (ly:score-add-output-def! score layout)
+           (set! (ly:grob-property grob 'long-text)
+                 (markup #:score score))
+           (system-start-text::print grob)))
 
     %% the instrument name definition is separated:
     \set Staff.instrumentName = #"Instrument"
-    c'4 d' e' f' g'1
+    c'4 d' e' f'
+    g'1
   }
   \layout {
     indent = 5\cm

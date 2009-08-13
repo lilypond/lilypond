@@ -24,8 +24,12 @@ incipit =
                 (layout (ly:output-def-clone (ly:grob-layout grob)))
                 (music (make-sequential-music
                         (list (context-spec-music
-                               (make-property-set
-                                'instrumentName instrument-name)
+                               (make-sequential-music
+                                (list (make-property-set
+                                       'instrumentName instrument-name)
+                                      (make-grob-property-set
+                                       'VerticalAxisGroup
+                                       'Y-extent '(-4 . 4))))
                                'MensuralStaff)
                               $incipit-music)))
                 (score (ly:make-score music))
