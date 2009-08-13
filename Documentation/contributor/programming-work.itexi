@@ -816,10 +816,10 @@ texidoc strings should be removed as described above.  Then the body
 of the snippet should be changed to:
 
 @example
-\markup {
+\markup @{
   "This snippet is deprecated as of version X.Y.Z and
   will be removed from the documentation."
-}
+@}
 @end example
 
 @noindent
