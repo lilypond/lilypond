@@ -775,7 +775,7 @@ documentation, do:
 find Documentation/ -name '*.itely' | xargs convert-ly -e --from @qq{@var{X.Y.Z}}
 @end example
 
-\noindent
+@noindent
 where @var{X.Y.Z} is the version number of the last released development
 version.
 
