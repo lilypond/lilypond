@@ -1,0 +1,9 @@
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Certains auteurs utilisent deux liaisons lorsqu'ils veulent
+lier des accords. Dans LilyPond, il faut pour cela activer
+la propriété @code{doubleSlurs} :
+
+"
+  doctitlefr = "Accords et double liaison d'articulation"
+

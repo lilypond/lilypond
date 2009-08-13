@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+    Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -192,9 +192,9 @@ bloc @code{\markuplines @{ @}}.
 @cindex varcoda
 
 
-Voici la liste exhaustive des symboles :
+Voici la liste exhaustive des symboles prédéfinis :
 
-@lilypondfile[quote,texidoc]{script-chart.ly}
+@lilypondfile[quote]{script-chart.ly}
 
 
 @node Notes utilisées en percussion
