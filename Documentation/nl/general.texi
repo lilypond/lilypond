@@ -64,7 +64,8 @@ Lees de @ref{Inleiding}!
 @c   --split=node --node-files
 @c Dat en meer in ons @ressaynamed{Engraving, essay}.
 @c Possibly, node Top always works?
-Dat en meer in ons @ressaynamed{Top, essay}.
+@c Dat en meer in ons @ressaynamed{Top, essay}.
+Dat en meer in ons @ref{Top,,Essay,automated-engraving,Essay}.
 
 @divEnd
 @divEnd
