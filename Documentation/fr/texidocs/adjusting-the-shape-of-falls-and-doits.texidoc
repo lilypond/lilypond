@@ -1,0 +1,8 @@
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+La propriété @code{shortest-duration-space} peut devoir être retouchée
+pour ajuster l'apparence des chutes ou sauts.
+
+"
+  doctitlefr = "Adjusting the shape of falls and doits"
+
