@@ -721,11 +721,11 @@ The compilation of the .ly file will then continue.
 When a new feature is to be added to LilyPond, it is necessary to
 ensure that the feature is properly integrated to maintain
 its long-term support.  This section describes the steps necessary
-for feature addition.
+for feature addition and modification.
 
 @subsection Write the code
 
-You should create a new git branch for writing the code, as that
+You should probably create a new git branch for writing the code, as that
 will separate it from the master branch and allow you to continue
 to work on small projects related to master.
 
@@ -748,29 +748,6 @@ multiple-issue regression test.
 Use existing regression tests as templates to demonstrate the type of
 header information that should be included in a regression test.
 
-@subsection Write documentation
-
-Although it is not required, it is helpful if the developer can
-write relevant material for inclusion in the Notation Reference.
-If the developer does not feel qualified to write the documentation,
-a documentation editor will be able to write it from the regression
-tests.
-
-If the modification changes the input syntax so that inline snippets in
-the documentation need to be changed, you will need to change the
-snippets in both the english version of the documentation and any
-translated versions.  If you do not change the snippets in all
-translations, older versions of the snippet may be included
-when the documentation is built.
-
-If lsr snippets need to be changed, the snippet should be copied to
-@file{Documentation/snippets/new} and modified there.  The portions of
-the snippet that are added by makelsr.py should be removed.  The changed
-snippet will then be included in all versions of the documentation.
-
-If non-snippet text is changed in the english documentation, no
-corresponding changes should be made in the translated documentation.
-
 @subsection Write convert-ly rule
 
 If the modification changes the input syntax, a convert-ly rule
@@ -783,6 +760,89 @@ If possible, the convert-ly rule should allow automatic updating
 of the file.  In some cases, this will not be possible, so the
 rule will simply point out to the user that the feature needs
 manual correction.
+
+@subsection Automatically update documentation, snippets, and regtests
+
+convert-ly should be used to update the documentation, the snippets,
+and the regression tests.  This not only makes the necessary syntax
+changes, it also tests the convert-ly rules.
+
+The automatic updating is a three step process.  First, be sure you
+are in the top-level source directory.  Then, for the
+documentation, do:
+
+@example
+find Documentation/ -name '*.itely' | xargs convert-ly -e --from @qq{@var{X.Y.Z}}
+@end example
+
+\noindent
+where @var{X.Y.Z} is the version number of the last released development
+version.
+
+Next, for the snippets, do:
+
+@example
+find Documentation/snippets/ -name '*.ly' | xargs convert-ly -e --from @qq{@var{X.Y.Z}}
+@end example
+
+Finally, for the regression tests, do:
+
+@example
+find input/regression/ -name '*.ly' | xargs convert-ly -e --from @qq{@var{X.Y.Z}}
+
+@end example
+
+@subsection Manually update documentation, snippets, and regtests
+
+Where the convert-ly rule is not able to automatically update the inline
+lilypond code in the documentation (i.e. if a NOT_SMART rule is used), the
+documentation must be manually updated.  The inline snippets that require
+changing must be changed in the English version of the docs and all
+translated versions.  If the inline code is not changed in the
+translated documentation, the old snippets will show up in the
+English version of the documentation.
+
+Where the convert-ly rule is not able to automatically update snippets
+in Documentation/snippets/, those snippets must be manually updated.
+Those snippets should be copied to Documentation/snippets/new.  The
+comments at the top of the snippet describing its automatice generation
+should be removed.  All translated texidoc strings should be removed.
+The comment @qq{% begin verbatim} should be removed.  The syntax of
+the snippet should then be manually edited.
+
+Where snippets in Documentation/snippets are made obsolete, the snippet
+should be copied to Documentation/snippets/new.  The comments and
+texidoc strings should be removed as described above.  Then the body
+of the snippet should be changed to:
+
+@example
+\markup {
+  "This snippet is deprecated as of version X.Y.Z and
+  will be removed from the documentation."
+}
+@end example
+
+@noindent
+where X.Y.Z is the version number for which the convert-ly rule was
+written.
+
+Update the snippet files by running:
+
+@example
+scripts\auxiliar\makelsr.py
+@end example
+
+Where the convert-ly rule is not able to automatically update regression
+tests, the regression tests in input/regression should be manually
+edited.
+
+Although it is not required, it is helpful if the developer
+can write relevant material for inclusion in the Notation
+Reference.  If the developer does not feel qualified to write
+the documentation, a documentation editor will be able to
+write it from the regression tests.  The text that is added to
+or removed from the documentation should be changed only in
+the English version.
 
 @subsection Write NEWS entry
 
@@ -797,6 +857,22 @@ New entries in NEWS go at the top of the file.
 The NEWS entry should be written to show how the new change
 improves LilyPond, if possible.
 
+@subsection Verify successful build
+
+When the changes have been made, successful completion must be
+verified by doing
+
+@example
+make all
+make doc
+@end example
+
+When these commands complete without error, the patch is
+considered to function successfully.
+
+Developers on Windows who are unable to build LilyPond should
+get help from a Linux or OSX developer to do the make tests.
+
 @subsection Verify regression test
 
 In order to avoid breaking LilyPond, it is important to verify that
@@ -806,7 +882,26 @@ the regression tests all succeed.  This process is described in
 @subsection Post patch for comments
 
 For any change other than a minor change, a patch set should be
-posted on Rietveld for comment.
+posted on Rietveld for comment.  This requires the use of an
+external package, git-cl.
+
+git-cl is installed by:
+
+@example
+git clone git://neugierig.org/git-cl.git
+@end example
+
+Then, add the git-cl directory to your PATH, or create a
+symbolic link to the git-cl and upload.py in one of your
+PATH directories (like usr/bin).  git-cl will is then
+configured by
+
+@example
+git-cl config
+@end example
+
+@noindent
+and answering the questions that are asked.
 
 The patch set is posted by issuing the following command, after
 first committing all changes:
