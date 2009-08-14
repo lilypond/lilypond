@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 95e6825ee09ca7f8eea87580301c8819ff1d571b
+   Translation of GIT committish: 35dc92475b9341fbbbaf194afcc2c6e2561840ac
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -645,6 +645,7 @@ facilement.
 
 @menu
 * La musique déborde de la page::
+* Apparition d'une portée supplémentaire::
 * Erreur renvoyant à ../ly/init.ly::
 * Message d'erreur « Unbound variable % »::
 @end menu
@@ -675,6 +676,61 @@ Si vous tenez absolument à enchainer de tels débordements, vous devrez
 insérer des barres de mesure invisibles là où vous souhaitez positionner
 un saut de ligne.  Consultez le chapitre @ruser{Barres de mesure} pour
 plus de détails. 
+
+
+@node Apparition d'une portée supplémentaire
+@unnumberedsubsubsec Apparition d'une portée supplémentaire
+@translationof An extra staff appears
+
+Lorsque les contextes ne sont pas créés explicitement par la commande
+@code{\new}, ils le seront si la commande à exécuter n'est pas censée
+s'appliquer au contexte en cours.  Pour des partitions simples, les fait
+que les contextes soient automatiquement créés rend bien des services,
+et c'est d'ailleurs le cas pour la majorité des exemples contenus dans
+les manuels de LilyPond.  Cependant, la création implicite d'un contexte
+peut aboutir à l'apparition d'une portée @qq{parasite}.  On s'attend par
+exemple, en lisant le code qui suit, à ce que toutes les têtes de notes
+soient en rouge, alors que le résultat nous présente deux portées et que
+les notes, placées sur la portée inférieure, restent en noir.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+Étant donné qu'aucun contexte @code{Staff} n'existe lorsque la
+dérogation est introduite, LilyPond le crée implicitement pour lui
+appliquer la directive considérée.  Survient alors la commande
+@w{@code{\new Staff}} qui, à son tour, crée une nouvelle portée pour
+contenir les notes qui suivent.  Voici la syntaxe correcte pour obtenir
+ces notes en rouge :
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+Autre exemple : la présence d'une commande @code{\relative} à
+l'intérieur d'une section @code{\repeat} génèrera obligatoirement une
+portée intempestive.  Cela tient au fait que la commande @code{\repeat}
+va créer deux blocs @code{\relative} qui, chacun à leur tour, créeront
+implicitement un bloc @code{Staff} assorti d'un bloc @code{Voice}.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 \relative { c d e f }
+@end lilypond
+
+La manière adéquate de procéder consiste à inverser les commandes
+@code{\repeat} et @code{\relative}, comme ceci :
+
+@lilypond[quote,verbatim]
+\relative {
+  \repeat unfold 2 { c d e f }
+}
+@end lilypond
+
 
 @node Erreur renvoyant à ../ly/init.ly
 @unnumberedsubsubsec Erreur renvoyant à @code{../ly/init.ly}
