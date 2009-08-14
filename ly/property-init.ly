@@ -454,7 +454,7 @@ xNote =
 % Define aliases of cross-head notes for specific purposes
 deadNotesOn = \xNotesOn
 deadNotesOff = \xNotesOff
-deadNote = #`(xNote)
+deadNote = #xNote
 
 tabFullNotation = {
   % time signature
