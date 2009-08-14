@@ -1,18 +1,16 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
 @c This file is part of general.texi
 @ignore
-    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+    Translation of GIT committish: dab17828471057f4e12c0d80777ff9bb4c5b2309
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
-@c -*- coding: utf-8; mode: texinfo; -*-
 @node Inleiding
 @unnumbered Inleiding
 @translationof Introduction
-
+ 
 @divClass{column-center-top}
 @subheading Ons Doel
 @imageFloat{flat-design.png,right}
@@ -21,14 +19,14 @@ De inspiratie voor LilyPond ontstond toen twee bevriende muzikanten
 ontevreden werden met het saaie en inspiratieloze uiterlijk van
 computerafdrukken.  Elke muzikant leest liever mooie muziek, dus
 zouden wij als programmeurs dat afdrukprobleem niet kunnen oplossen?
-
+ 
 Dat is nu precies wat LilyPond doet: het drukt muziek volgens de
 beste tradities van klassieke muziekgravure, zonder gedoe.  Verspil
 geen tijd met het bijstellen van spatiëring, het verplaatsen van
 tekens, of met het vormgeven van legatoboogjes.  Imponeer vrienden
 en collega's met haarscherpe bladmuziek!
-
 @divEnd
+
 @divClass{column-left-top}
 @subheading Why use LilyPond?
 @ref{Features}: What can LilyPond do?
@@ -81,17 +79,31 @@ en collega's met haarscherpe bladmuziek!
 @untranslated
 
 
+@imageClickable{examples/liszt-wagner-small.png, (click to enlarge), examples/liszt-wagner.png, center}
 @subsubheading Classical Music
+@imageClickable{examples/bach-bwv610-small.png, (click to enlarge), examples/bach-bwv610.png, center}
 @subsubheading Complex Notation
+@imageClickable{examples/granados-small.png, (click to enlarge), examples/granados.png, center}
 @subsubheading Early Music
+@imageClickable{examples/ancient-headword-small.png, (click to enlarge), examples/ancient-headword.png, center}
 @subsubheading Modern Music
+@imageClickable{examples/cary-small.png, (click to enlarge), examples/cary.png, center}
 @subsubheading Efficient, flexible creation of performance materials
+@imageClickable{examples/sesto-small.png, (click to enlarge), examples/sesto.png, center}
+@imageClickable{examples/sesto-1-small.png, (click to enlarge), examples/sesto-1.png, center}
+@imageClickable{examples/sesto-2-small.png, (click to enlarge), examples/sesto-2.png, center}
 @subsubheading Tablature
+@imageClickable{examples/bach-tab-example-small.png, (click to enlarge), examples/bach-tab-example.png, center}
 @subsubheading Schenker Graphs
+@imageClickable{examples/bach-schenker-small.png, (click to enlarge), examples/bach-schenker.png, center}
 @subsubheading Vocal Music
+@imageClickable{examples/aucun-snippet-small.png, (click to enlarge), examples/aucun-snippet.png, center}
 @subsubheading Educational Applications
+@imageClickable{examples/theory-small.png, (click to enlarge), examples/theory.png, center}
 @subsubheading Popular Music
+@imageClickable{examples/chart-small.png, (click to enlarge), examples/chart.png, center}
 @subsubheading Large Projects
+@imageClickable{examples/orchestral-small.png, (click to enlarge), examples/orchestral.png, center}
 @divClass{column-center-bottom}
 @subheading Where now?
 @ref{Freedom}.  If you've already decided to try LilyPond, first
@@ -104,7 +116,7 @@ en collega's met haarscherpe bladmuziek!
 
 @divClass{column-center-top}
 @subheading Free Software
-@ref{GPL, GNU General Public License} and the @ref{FDL, GNU Free Documentation License}
+@ref{GPL, GNU General Public License} and the @ref{FDL, GNU Free
 @divEnd
 @c @divClass{column-left-top}
 @divClass{color2}
@@ -196,6 +208,7 @@ en collega's met haarscherpe bladmuziek!
 @c TRANSLATORS: so far it's mostly from
 @c http://lilypond.org/web/switch/howto
 @subheading @qq{Compiling} Music
+@imageClickable{examples/nereid-shot-small.png, (click to enlarge), examples/nereid-shot.png, right}
 @subsubheading It's as simple as A B C
 @imageFloat{text-input-1-annotate.png,center}
 @imageFloat{text-input-1-output.png,center}

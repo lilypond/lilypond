@@ -1,7 +1,7 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of general.texi
 @ignore
-    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+    Translation of GIT committish: dab17828471057f4e12c0d80777ff9bb4c5b2309
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,6 +20,8 @@
 @c expected to be found in the `lilypond/' subdirectory.  `lilypond-book'
 @c already generates proper @image commands for images of music; these
 @c macro definitions do the same for other images.
+@image{pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
+@image{lilypond/pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
 @c ***** Headers *****
 @c ***** Indexing *****
 @c Don't remove the `@c' within the macro definition!  See section 19.3,

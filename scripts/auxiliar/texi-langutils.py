@@ -59,7 +59,7 @@ for x in optlist:
     elif x[0] == '-l': # -l ISOLANG  set documentlanguage to ISOLANG
         doclang = '; documentlanguage: ' + x[1]
 
-texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(afourpaper|author|bye|contents|copying|end copying|divClass|divEnd|divId|documentencoding|documentlanguage|finalout|ifnottex|end ifnottex|imageFloat|imageId|include|menu|end menu|node|quotation|end quotation|ref|rgloss|setfilename|settitle|set|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|titlefont|titlepage|end titlepage|title|subtitle|top|vskip|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|c) *(([^ \n].*)|$)", re.M)
+texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(afourpaper|author|bye|contents|copying|end copying|divClass|divEnd|divId|documentencoding|documentlanguage|finalout|ifnottex|end ifnottex|imageClickable|imageFloat|imageId|image|include|menu|end menu|node|quotation|end quotation|ref|rgloss|setfilename|settitle|set|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|titlefont|titlepage|end titlepage|title|sourceimage|subtitle|top|vskip|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|c) *(([^ \n].*)|$)", re.M)
 
 texinfo_re = re.compile (r"^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.+?)$|@(rglos){(.+?)}", re.M)
 
