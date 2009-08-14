@@ -19,7 +19,9 @@ GENHTMLS = engraving colorado computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
 ifeq ($(out),www)
-local-WWW-2: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html) index.html)
+#   temporary build fix; we don't know yet what's happening
+#   to the literature index.  -gp
+# local-WWW-2: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html) lit-index.html)
 endif
 
 $(outdir)/%.bib: %.bib
