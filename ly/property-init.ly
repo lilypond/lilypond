@@ -439,17 +439,22 @@ palmMute =
 #(define-music-function (parser location note) (ly:music?)
     (style-note-heads 'NoteHead 'do note))
 
-deadNotesOn =
+xNotesOn =
 #(define-music-function (parser location) ()
    (override-head-style '(TabNoteHead NoteHead) 'cross))
 
-deadNotesOff =
+xNotesOff =
 #(define-music-function (parser location) ()
    (revert-head-style '(TabNoteHead NoteHead)))
 
-deadNote =
+xNote =
 #(define-music-function (parser location note) (ly:music?)
    (style-note-heads '(TabNoteHead NoteHead) 'cross note))
+
+% Define aliases of cross-head notes for specific purposes
+deadNotesOn = \xNotesOn
+deadNotesOff = \xNotesOff
+deadNote = #`(xNote)
 
 tabFullNotation = {
   % time signature
