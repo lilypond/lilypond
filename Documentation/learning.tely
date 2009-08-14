@@ -45,9 +45,7 @@ Free Documentation License''.
 @cartouche
 This file provides an introduction to GNU LilyPond version
 @version{}.  For more information about how this fits with the
-other documentation, see
-FIXME FIXME FIXME
-@c @ref{About the documentation}.
+other documentation, see @rgeneral{Manuals}.
 @end cartouche
 @end macro
 
