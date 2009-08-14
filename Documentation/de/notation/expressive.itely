@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -202,7 +202,7 @@ Absolute Dynamikbezeichnung wird mit Befehlen nach den Noten
 angezeigt, etwa @code{c4\ff}.  Die vordefinierten Befehle lauten:
 @code{\ppppp}, @code{\pppp}, @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
-@code{\fff}, @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff},
+@code{\fff}, @code{\ffff}, @code{fffff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.  Die
 Dynamikzeichen können manuell unter- oder oberhalb des Systems
 platziert werden, siehe @ref{Richtung und Platzierung}.
@@ -524,6 +524,9 @@ Ein Legatobogen (engl. slur) zeigt an, dass die Noten
 @emph{legato} gespielt werden sollen. Er wird mit Klammern 
 hinter den Notenwerten notiert.
 
+@warning{In polyphoner Musik muss ein Legatobogen in der gleichen
+Stimme beendet werden, in der er begonnen wurde.}
+
 @lilypond[verbatim,quote,relative=2]
 f4( g a) a8 b(
 a4 g2 f4)
@@ -543,14 +546,6 @@ a4 g2 f4)
 Legatobögen können manuell ober- oder unterhalb des Notensystems
 besetzt werden, siehe
 @ref{Richtung und Platzierung}.
-
-@lilypond[verbatim,quote,relative=2]
-c2( d)
-\slurDown
-c2( d)
-\slurNeutral
-c2( d)
-@end lilypond
 
 @cindex Phrasierungsbögen
 @cindex mehrfache Bögen
@@ -709,12 +704,6 @@ Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein
 Phrasierungsbögen können manuell oberhalb oder unterhalb des
 Notensystems gesetzt werden, siehe
 @ref{Richtung und Platzierung}.
-
-@lilypond[verbatim,quote,relative=1]
-c4\( g' c,( b) | c1\)
-\phrasingSlurUp
-c4\( g' c,( b) | c1\)
-@end lilypond
 
 @cindex gleichzeitige Phrasierungsbögen
 @cindex mehrere Phrasierungsbögen
@@ -1000,10 +989,13 @@ her:
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2\arpeggio
+
 \arpeggioArrowUp
 <c e g c>2\arpeggio
+
 \arpeggioArrowDown
 <c e g c>2\arpeggio
+
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond
@@ -1022,12 +1014,16 @@ Besondere Arpeggios mit Klammern können erstellt werden:
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2
+
 \arpeggioBracket
 <c e g c>2\arpeggio
+
 \arpeggioParenthesis
 <c e g c>2\arpeggio
+
 \arpeggioParenthesisDashed
 <c e g c>2\arpeggio
+
 \arpeggioNormal
 <c e g c>2\arpeggio
 @end lilypond

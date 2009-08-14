@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -354,7 +354,7 @@ mynotes = {
 
 @seealso
 Installierte Dateien:
-@file{scm/output-lib.scm}.
+@file{scm/@/output@/-lib@/.scm}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1006,8 +1006,8 @@ Notationsreferenz:
 @ref{Vordefinierte Bund-Diagramme}.
 
 Installierte Dateien:
-@file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly}.
+@file{ly/@/predefined@/-guitar@/-fretboards@/.ly},
+@file{ly/@/predefined@/-guitar@/-ninth@/-fretboards@/.ly}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1372,5 +1372,5 @@ indem die @code{four-string-banjo}-Funktion eingesetzt wird:
 Schnipsel:
 @rlsr{Fretted strings}.
 
-Die Datei @file{scm/@/output@/-lib@/.scm} beinhaltet vordefinierte
-Stimmungen für Banjo.
+Installierte Dateien:
+@file{scm/@/output@/-lib@/.scm} enthält vordefinierte Banjo-Stimmungen.
