@@ -573,8 +573,11 @@ Where N is in the range 0-100.
 @cindex Font, Feta
 
 The following symbols are available in the Emmentaler font and may be
-accessed directly using text markup such as @code{g^\markup @{
-\musicglyph #"scripts.segno" @}}, see @ref{Formatting text}.
+accessed directly using text markup with the name of the glyph
+as shown in the tables below,
+such as @code{g^\markup @{\musicglyph #"scripts.segno" @}} or
+@code{\markup @{\musicglyph #"five"@}}.  For more information,
+see @ref{Formatting text}.
 
 
 @menu
