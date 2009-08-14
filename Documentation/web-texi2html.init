@@ -121,15 +121,13 @@ $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::SPLIT_INDEX   = 0;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
-# FIXME: remove for GOP
-#if ($Texi2HTML::Config::SPLIT eq 'section') {
-#  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
-#}
-
-## GOP tweak:
 # FIXME: creates duplicate anchors, which causes Opera to barf;
 #	 should be fixed in lilypond-texi2html.init too
-# $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
+# Uhm, what about a bug report to Opera?  We need sane names here.
+if ($Texi2HTML::Config::SPLIT eq 'section') {
+  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+}
+$Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
@@ -321,6 +319,137 @@ sub lilypond_css_lines ($$)
 #############################################################################
 
 # FIXME: removed for GOP.
+
+# Uhm, yes: that's what I found.  It was gone.  No need to add that
+# in a comment, DIFF tells me that it's gone.
+
+# Comments can be used to tell *why* something has been removed -- as
+# it seems to me that we *need* this in order to get sane,
+# untranslated, html file names?  Putting it back for this reason.
+
+my $lastfilename;
+my $docnr = 0;
+my $node_to_filename_map = ();
+
+
+# This function makes sure that files are only generated for numbered sections,
+# but not for unnumbered ones. It is called after texi2html has done its own
+# splitting and simply returns the filename for the node given as first argument
+# Nodes with the same filename will be printed out to the same filename, so
+# this really all we need. Also, make sure that the file names for sections
+# are derived from the section title. We also might want to name the anchors
+# according to node titles, which works by simply overriding the id element of
+# the $element hash.
+# If an external nodename<=>filename/anchor map file is found (loaded in
+# the command handler, use the externally created values, otherwise use the
+# same logic here.
+sub lilypond_element_file_name($$$)
+{
+  my $element = shift;
+  my $type = shift;
+  my $docu_name = shift;
+  my $docu_ext = $Texi2HTML::Config::EXTENSION;
+
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  # the snippets page does not use nodes for the snippets, so in this case
+  # we'll have to use the section name!
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the filename/anchor here. In the latter case, external manuals
+  # will not be able to retrieve the file name for xrefs!!! Still, I already
+  # had that code, so I'll leave it in in case something goes wrong with the
+  # extract_texi_filenames.py script in the lilypond build process!
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
+    $filename .= ".$docu_ext" if (defined($docu_ext));
+
+    # unnumbered sections (except those at top-level!) always go to the same
+    # file as the previous numbered section
+    if (not ($element->{number}) and not ($lastfilename eq '') and ($element->{level} > 1)) {
+      $filename = $lastfilename;
+    }
+    if (($filename eq $lastfilename)) {
+      $$element{doc_nr} = $docnr;
+    } else {
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+    }
+    return $filename;
+
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+    return;
+  } else {
+    print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
+        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec')
+               or ($node_name =~ /NOT REALLY USED/);
+
+    # Numbered sections will get a filename Node_title, unnumbered sections will use
+    # the file name of the previous numbered section:
+    if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
+      # normalize to the same file name as texinfo
+      if ($element->{translationof}) {
+        $node_name = main::remove_texi($element->{translationof});
+      }
+      my $filename = texinfo_file_name($node_name);
+      $filename .= ".$docu_ext" if (defined($docu_ext));
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+      return $filename;
+    } else {
+      $$element{doc_nr} = $docnr;
+      return $lastfilename;
+    }
+  }
+
+  return;
+}
+
+sub lilypond_element_target_name($$$)
+{
+  my $element = shift;
+  my $target = shift;
+  my $id = shift;
+  # Target is based on node name (or sec name for secs without node attached)
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the anchor here.
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, $target) = @{$node_to_filename_map->{$node_name}};
+  } else {
+    my $anchor = $node_name;
+    if ($element->{translationof}) {
+      $anchor = main::remove_texi($element->{translationof});
+    }
+    # normalize to the same file name as texinfo
+    $target = texinfo_file_name($anchor);
+  }
+  # TODO: Once texi2html correctly prints out the target and not the id for
+  #       the sections, change this back to ($id, $target)
+  return ($target, $target);
+}
+
+
+## Load the map file for the corrently processed texi file. We do this
+#  using a command init handler, since texi2html does not have any
+#  other hooks that are called after THISDOC is filled but before phase 2
+#  of the texi2html conversion.
+sub lilypond_init_map ()
+{
+    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+    my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	|| main::locate_include_file ("${docu_name}.xref-map");
+    $node_to_filename_map = load_map_file ($map_filename);
+}
+push @Texi2HTML::Config::command_handler_init, \&lilypond_init_map;
 
 
 #############################################################################
