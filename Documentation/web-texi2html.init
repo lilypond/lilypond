@@ -1,6 +1,9 @@
 #!/usr/bin/env perl
 # -*- coding: utf-8; -*-
 
+### WTF, perl cannot read a file?
+###use File::Slurp qw( read_file );
+
 ### texi2html customization script for LilyPond
 ### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
 ###         Some code parts copied from texi2html and adapted. These functions
@@ -619,8 +622,24 @@ sub lilypond_generate_page_toc_body($)
       push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth));
     }
     if (!exists($main::value{'shallow_toc'})) {
-# FIXME: add search entry box
-    push (@toc_entries, "<li><form action=\"#\" method=\"get\"><input onfocus=\"this.value=''\" type=\"text\" name=\"search\" id=\"search\" value=\"Search\"></form></li>\n");
+# WTF, perl needs 6 lines of magic to do: ' ' + open ('file-name').read ()?
+	local $/=undef;
+        my $name = 'search-box.html';
+	open FILE, $name or open FILE, "../$name" or die  die "no such file: $name: $!";
+
+# All these also seems to work, but fail silently.  Great, it runs!
+# It's late already, let's this broken site.
+
+#	push (@toc_entries, '<li>\n' + <FILE> + '</li>\n');
+#	push (@toc_entries, '<li>\n' . <FILE> . '</li>\n');
+#	my $string = '<li>\n' + <FILE> + '</li>\n';
+#       my $string = '<li>\n' + <FILE> + '</li>\n';
+#       my $string = '<li>\n' . <FILE> . '</li>\n';
+	my $string = <FILE>;
+#       $string = '<li>\n' + $string + '</li>\n';
+	$string =  "<li>\n" . $string . "</li>\n";
+	push (@toc_entries, $string);
+	close FILE;
     }
     push (@toc_entries, "</ul>\n");
 #FIXME

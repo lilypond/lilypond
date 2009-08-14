@@ -134,6 +134,11 @@ div#tocframe {
   -webkit-border-bottom-right-radius: 20px;
 }
 
+#tocframe li form input[type="hidden"] {
+  visibility: hidden;
+  background: #f00;
+}
+
 #tocframe li a {
   float: left;
   width: 18%;
