@@ -88,7 +88,7 @@ Read more in our @ref{Introduction}!
 @c This and more in our @ressaynamed{Engraving, essay}.
 @c Possibly, node Top always works?
 @c This and more in our @ressaynamed{Top, essay}.
-This and more in our @ref{Top,,Essay,automated-engraving,Essay}.
+This and more in our @ref{automated-engraving,,Essay,essay,Essay}.
 
 @divEnd
 @divEnd

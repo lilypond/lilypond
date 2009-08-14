@@ -93,11 +93,11 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 ## No big page
 OUT_HTML_FILES := $(subst $(outdir)/general-big-page.html,,$(OUT_HTML_FILES))
 
+$(outdir)/essay/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT) -D=shallow_toc
+$(outdir)/essay/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
+
 $(outdir)/general/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
 $(outdir)/general/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
-
-$(outdir)/automated-engraving/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
-$(outdir)/automated-engraving/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
 
 ###########
 ### Targets
