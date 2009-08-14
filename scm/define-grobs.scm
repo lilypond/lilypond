@@ -311,6 +311,7 @@
 	;; rather long.
 
 	(auto-knee-gap . 5.5)
+	(beam-thickness . 0.48) ; in staff-space
 
 	;; We have some unreferenced problems here.
 	;;
@@ -367,8 +368,6 @@
 
 	(shorten . ,ly:beam::calc-stem-shorten)
 	(stencil . ,ly:beam::print)
-
-	(beam-thickness . 0.48) ; in staff-space
 
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems)))
