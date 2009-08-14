@@ -164,6 +164,14 @@ $(OUT_TEXINFO_MANUALS): $(outdir)/pictures
 $(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
 	ln -sf ../pictures/$(outdir) $@
+
+$(outdir)/general.texi: $(outdir)/examples
+
+$(outdir)/examples:
+	$(MAKE) -C general/examples
+# FIXME: who is replacing src="examples --> src="../examples" ?
+# [ugh, why do most scripts not even say they run anymore?]
+	ln -sf general/examples $@
 endif
 
 # Ugh, using '%' twice not possible
