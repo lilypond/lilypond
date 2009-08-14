@@ -2905,7 +2905,6 @@ def conv(str):
         stderr_write ("\n")
         stderr_write (NOT_SMART % _("Dash parameters for slurs and ties are now in \'dash-details.\n"))
         stderr_write (UPDATE_MANUALLY)
-    str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
     return str
 
 @rule ((2, 13, 4),
@@ -2913,7 +2912,8 @@ def conv(str):
 revert-auto-beam-setting have been eliminated.  \\overrideBeamSettings has been\n\
 added.  BeatGrouping has been eliminated.\n\
 Different settings for vertical layout.\n\
-ly:system-start-text::print -> system-start-text::print"))
+ly:system-start-text::print -> system-start-text::print\n\
+Beam #'thickness -> Beam #'beam-thickness"))
 def conv(str):
     if re.search("override-auto-beam-setting", str):
         stderr_write ("\n")
@@ -2937,6 +2937,7 @@ def conv(str):
 you must now specify the distances between staves rather than the offset of staves.\n"))
         stderr_write(UPDATE_MANUALLY)
     str = re.sub ('ly:system-start-text::print', 'system-start-text::print', str)
+    str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
