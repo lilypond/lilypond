@@ -21,6 +21,8 @@ sesto = {
   r4 r8 g' c''  ees''16[ d''] c''8 c'' |
   c'' g' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c''  b'16[ c''] d''8 g' |
+
+%{
   %%10
   f'4 r8 d'' ees''  d''16[ c''] b'4 |
   c'' r8 c'' c''8. c'16 c'4 |
@@ -47,11 +49,13 @@ sesto = {
   c''2 r |
   %%30
   R1*5 |
+%}
 }
 
 sestoLyrics = \lyricmode {
   Sve -- glia -- te -- vi nel co -- re,
   fu -- rie "d'un" al -- "ma of" -- fe -- sa,
+%{
   a far "d'un" tra -- di -- tor a -- spra ven -- det -- ta!
   sve -- glia -- te -- vi,
   sve -- glia te -- vi nel co -- re,
@@ -68,6 +72,7 @@ sestoLyrics = \lyricmode {
   a far d'un tra -- di -- tor,
   a far d'un tra -- di -- tor, __
   d'un tra -- di -- tor as -- pra ven -- det -- ta!
+%}
 }
 
 violinoI = {
@@ -81,6 +86,7 @@ violinoI = {
   ees'' r8 g'_\p c'' ees''16 d'' c''8 c'' |
   c'' g' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c'' b'16 c'' d''8 g' |
+%{
   %%10
   f'4 r8 d'' ees'' d''16 c'' b'4 |
   c''16 g'' f'' g'' ees'' g'' f'' g'' ees'' g'' f'' g'' ees'' g'' f'' g'' |
@@ -111,6 +117,7 @@ violinoI = {
   f''2 ~ f''8 d'' b' g' |
   c''16 g'' f'' g'' ees'' g'' f'' g'' c'' g'' f'' g'' ees'' g'' f'' g'' |
   b'8 c''16 d'' ees''8 d'' c''4^\fermata r
+%}
 }
 
 violinoII = {
@@ -124,6 +131,7 @@ violinoII = {
   ees''4 r8 g' c'' ees''16 d'' c''8 c'' |
   c'' g' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c'' b'16 c'' d''8 g' |
+%{
   %%10
   f'4 r8 d'' ees'' d''16 c'' b'4 |
   c''16 ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' |
@@ -154,6 +162,7 @@ violinoII = {
   f''2 ~ f''8 d'' b' g' |
   c''16 ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' |
   d'8 ees'16 f' g'8 b' c''4^\fermata r
+%}
 }
 
 bassi = {
@@ -167,6 +176,7 @@ bassi = {
   ees4 r r r8 c_\p |
   c' ees'16 d' c'8 bes aes f bes bes, |
   ees ees, r c ees c g ees |
+%{
   %%10
   aes f d' b c' f g g, |
   c4 r r r8 c' |
@@ -197,128 +207,13 @@ bassi = {
   aes, f, d b, aes f d' b |
   c' c bes bes, aes aes, g g, |
   f c g g, c4^\fermata r
+%}
 }
 
 global = {
   \key c \minor
   \set Score . tempoWholesPerMinute = #(ly:make-moment (/ 80 4) 1 0 1)
-  \time 4/4 s1*34 \bar "|."
+  \time 4/4 
+%s1*34 \bar "|."
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%
-%%% Lead sheet
-%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\book {
-  \paper {
-    #(layout-set-staff-size 14)
-  }
-  \score {
-    \new StaffGroupNoBar <<
-      \new StaffGroupNoBracket <<
-        \new Staff <<
-          \set Staff.instrumentName = "Violino I."
-          \global \clef treble \keepWithTag #'violin \violinoI
-        >>
-        \new Staff <<
-          \set Staff.instrumentName = "Violino II."
-          \global \clef treble \keepWithTag #'violin \violinoII
-        >>
-      >>
-      \new Staff <<
-        \new Voice = "sesto" \with { autoBeaming = ##f } <<
-          \set Staff.instrumentName = \markup \smallCaps Sesto.
-          \global \clef treble \sesto
-        >>
-        \lyricsto "sesto" \new Lyrics \sestoLyrics
-      >>
-      \new Staff <<
-        \set Staff.instrumentName = "Bassi."
-        \global \clef bass \bassi
-      >>
-    >>
-    \layout {
-      indent = 20\mm
-      \context {
-        \Score
-        \name Score
-%% FIXME: vertical engine changed!
-%%        \override VerticalAlignment #'max-stretch = #ly:align-interface::calc-max-stretch
-        \accepts "StaffGroupNoBar"
-        skipBars = ##t
-      }
-      \context {
-        \StaffGroup
-        \name StaffGroupNoBar
-        \description "Like StaffGroup, but without spanbar"
-        \remove "Span_bar_engraver"
-        \accepts "StaffGroupNoBracket"
-      }
-      \context {
-        \StaffGroup
-        \name StaffGroupNoBracket
-        \description "Like StaffGroup, but without brackets"
-        \remove "System_start_delimiter_engraver"
-      }
-    }
-%    \midi { }
-  }
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%
-%%% Reduction
-%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\book {
-  \header { instrument = "Vocal part and keyboard reduction" }
-  \paper {
-    #(layout-set-staff-size 16)
-  }
-  \score {
-    <<
-      \new Staff <<
-        \new Voice = "sesto" \with { autoBeaming = ##f } <<
-          \set Staff.instrumentName = \markup \smallCaps Sesto.
-          \global \clef treble \sesto
-        >>
-        \lyricsto "sesto" \new Lyrics \sestoLyrics
-      >>
-      \new PianoStaff <<
-        \new Staff <<
-          \global \clef treble
-          \partcombine \keepWithTag #'reduction \violinoI \keepWithTag #'reduction \violinoII
-        >>
-        \new Staff <<
-          \global \clef bass \bassi
-        >>
-      >>
-    >>
-    \layout {
-      indent = 20\mm
-      \context { \Voice printPartCombineTexts = ##f }
-    }
-  }
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%
-%%% Violino I
-%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\book {
-  \header { instrument = "Violino I" }
-  \paper {
-    #(layout-set-staff-size 18)
-  }
-  \score {
-    \new Staff <<
-      \global \clef treble \keepWithTag #'violin \violinoI
-    >>
-    \layout { indent = 5\mm }
-  }
-}

@@ -2,14 +2,10 @@ depth=../../..
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 include $(depth)/make/stepmake.make
 
-LILYPOND_PREVIEW = $(LILYPOND_BINARY) --png -dpreview -dresolution=150
+LILYPOND_PREVIEW = $(LILYPOND_BINARY) -dpreview -dresolution=150
 
-FINE_LY_FILES = $(LY_FILES)
-PNG_PAGES = sesto-1 sesto-2
-
-OUT_PNG_FILES = $(FINE_LY_FILES:%.ly=$(outdir)/%.png)
+OUT_PNG_FILES = $(LY_FILES:%.ly=$(outdir)/%.png)
 OUT_PNG_PAGES = $(PNG_PAGES:%=$(outdir)/%.png)
-OUT_PNG_FILES += $(OUT_PNG_PAGES)
 
 OUT_SMALL_PNG_FILES = $(OUT_PNG_FILES:%.png=%-small.png)
 
@@ -24,8 +20,3 @@ $(outdir)/%.png: %.ly
 $(outdir)/%-small.png: $(outdir)/%.png
 	pngtopnm $< | pnmscale -w=600 | pnmtopng > $@
 
-$(outdir)/%-1.png: $(outdir)/%.png
-	mv $(outdir)/$*-1.preview.png $@
-
-$(outdir)/%-2.png: $(outdir)/%.png
-	mv $(outdir)/$*-2.preview.png $@

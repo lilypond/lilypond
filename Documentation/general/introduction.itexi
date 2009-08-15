@@ -242,11 +242,14 @@ code. This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
 Nicolas Sceaux's} engraving of Handel's @emph{Giulio Cesare}, in
 full score, piano-vocal reduction, and a violin part.
 
-@imageClickable{examples/sesto-small.png, (click to enlarge), examples/sesto.png, center}
+@imageClickable{examples/sesto-full-small.png, (click to enlarge),
+examples/sesto-full.png, center}
 
-@imageClickable{examples/sesto-1-small.png, (click to enlarge), examples/sesto-1.png, center}
+@imageClickable{examples/sesto-piano-small.png, (click to enlarge),
+examples/sesto-piano.png, center}
 
-@imageClickable{examples/sesto-2-small.png, (click to enlarge), examples/sesto-2.png, center}
+@imageClickable{examples/sesto-violin-small.png, (click to enlarge),
+examples/sesto-violin.png, center}
 
 @newsEnd
 
