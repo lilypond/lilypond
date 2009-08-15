@@ -1,42 +1,36 @@
 \version "2.12.0"
 \include "example-header.ily"
 
-
 \include "predefined-guitar-fretboards.ly"
 
-%lowerChords = { \override ChordName #'extra-offset = #'( 0.0 . -1.3 ) }
+#(set-global-staff-size 17)
 
 global = {
   \time 4/4
-  \key bes \major
+  \key g \major
+  \partial 4
   \numericTimeSignature
-  #(set-global-staff-size 20)
 }
 
-melody = \relative c'' {
-  \key d \minor
-  \partial 4. 
-  b4-. cis8 d4 r4 r8 cis d e  %1
-  \times 2/3 {f4 e d} e8 d4.    %2
-  g4. bes, ~ bes4    %3
+melody = \relative c' {
+  \global
+  d4
+  g4 b8( a) g4 fis
+  e e e e
+  a c8( b) a4 g
+  fis a d
 }
 
 harmonies = \chordmode {
-  %\lowerChords 
-  s4. d1:m | d:7 | g1:m |   % 1-3
+  \global 
+  s4 g1 | c | a:m | d   % 1-3
 }
 
 text = \lyricmode {
-  We need words! We need some ly -- rics to go
-  with this tune!
+  My eyes are dim, I can -- not see,
+  I have not brought my specs with me!
 }
-%\header {
-%  title = "Lágrimas negras"
-%  composer = "Miguel Matamoros"
-%  poet = "arr. Jonathan Kulp"
-%  arranger = "1894-1971"
-%}
-%
+
 \score {
   <<
     \new ChordNames { \harmonies }
