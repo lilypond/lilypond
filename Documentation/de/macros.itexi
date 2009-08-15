@@ -103,6 +103,7 @@
 @c     @rglos
 @c     @rlearning
 @c     @ruser
+@c     @ressay
 @c     @rprogram
 @c     @rlsr
 @c     @rinternals
@@ -150,6 +151,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notationsreferenz}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay-big-page,Aufsatz}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}
@@ -215,6 +226,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation,Notationsreferenz}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay-big-page,Aufsatz}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}
@@ -292,6 +313,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,notation.de,Notationsreferenz}
+@end macro
+
+@macro ressay{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,essay-big-page,Aufsatz}
+@end macro
+
+@macro ressaynamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}

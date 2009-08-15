@@ -241,7 +241,6 @@ Anhänge
 @include notation/programming-interface.itely
 
 
-@include notation/literature.itely
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
 
