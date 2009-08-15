@@ -16,6 +16,7 @@
 #include "item.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "prob.hh"
 #include "skyline-pair.hh"
@@ -47,27 +48,29 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
   bottom_skyline_.set_minimum_height (-header_height_);
 
   SCM between_system_spacing = SCM_EOL;
+  SCM between_scores_system_spacing = SCM_EOL;
   SCM after_title_spacing = SCM_EOL;
   SCM before_title_spacing = SCM_EOL;
   SCM between_title_spacing = SCM_EOL;
 
-  // first_system_spacing controls the spring from the top of the printable
+  // top_system_spacing controls the spring from the top of the printable
   // area to the first staff. It allows the user to control the offset of
   // the first staff (as opposed to the top of the first system) from the
-  // top of the page. Similarly for last_system_spacing.
-  SCM first_system_spacing = SCM_EOL;
-  SCM last_system_spacing = SCM_EOL;
+  // top of the page. Similarly for bottom_system_spacing.
+  SCM top_system_spacing = SCM_EOL;
+  SCM bottom_system_spacing = SCM_EOL;
   if (pb && pb->paper_)
     {
       Output_def *paper = pb->paper_;
       between_system_spacing = paper->c_variable ("between-system-spacing");
+      between_scores_system_spacing = paper->c_variable ("between-scores-system-spacing");
       after_title_spacing = paper->c_variable ("after-title-spacing");
       before_title_spacing = paper->c_variable ("before-title-spacing");
       between_title_spacing = paper->c_variable ("between-title-spacing");
-      last_system_spacing = paper->c_variable ("bottom-system-spacing");
-      first_system_spacing = paper->c_variable ("top-system-spacing");
+      bottom_system_spacing = paper->c_variable ("bottom-system-spacing");
+      top_system_spacing = paper->c_variable ("top-system-spacing");
       if (scm_is_pair (systems) && unsmob_prob (scm_car (systems)))
-	first_system_spacing = paper->c_variable ("top-title-spacing");
+	top_system_spacing = paper->c_variable ("top-title-spacing");
 
       // Note: the page height here does _not_ reserve space for headers and
       // footers. This is because we want to anchor the top-system-spacing
@@ -75,8 +78,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       page_height_ -= robust_scm2double (paper->c_variable ("top-margin"), 0)
 	+ robust_scm2double (paper->c_variable ("bottom-margin"), 0);
 
-      read_spacing_spec (first_system_spacing, &header_padding_, ly_symbol2scm ("padding"));
-      read_spacing_spec (last_system_spacing, &footer_padding_, ly_symbol2scm ("padding"));
+      read_spacing_spec (top_system_spacing, &header_padding_, ly_symbol2scm ("padding"));
+      read_spacing_spec (bottom_system_spacing, &footer_padding_, ly_symbol2scm ("padding"));
     }
   bool last_system_was_title = false;
 
@@ -94,8 +97,14 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 	      continue;
 	    }
 
-	  SCM spec = first ? first_system_spacing
-	    : (last_system_was_title ? after_title_spacing : between_system_spacing);
+	  SCM spec = between_system_spacing;
+	  if (first)
+	    spec = top_system_spacing;
+	  else if (last_system_was_title)
+	    spec = after_title_spacing;
+	  else if (0 == Paper_column::get_rank (sys->get_bound (LEFT)))
+	    spec = between_scores_system_spacing;
+
 	  Spring spring (first ? 0 : 1, 0.0);
 	  Real padding = 0.0;
 	  alter_spring_from_spacing_spec (spec, &spring);
@@ -106,7 +115,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 	}
       else if (Prob *p = unsmob_prob (scm_car (s)))
 	{
-	  SCM spec = first ? first_system_spacing
+	  SCM spec = first ? top_system_spacing
 	    : (last_system_was_title ? between_title_spacing : before_title_spacing);
 	  Spring spring (first ? 0 : 1, 0.0);
 	  Real padding = 0.0;
@@ -122,8 +131,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
   Spring last_spring (0, 0);
   Real last_padding = 0;
-  alter_spring_from_spacing_spec (last_system_spacing, &last_spring);
-  read_spacing_spec (last_system_spacing, &last_padding, ly_symbol2scm ("padding"));
+  alter_spring_from_spacing_spec (bottom_system_spacing, &last_spring);
+  read_spacing_spec (bottom_system_spacing, &last_padding, ly_symbol2scm ("padding"));
   last_spring.ensure_min_distance (last_padding - bottom_skyline_.max_height () + footer_height_);
   springs_.push_back (last_spring);
 

@@ -232,6 +232,12 @@ follows it.
 The distances are measured from the center of the last staff in the system to
 the baseline of the title that follows it.  See @var{after-title-spacing}.
 
+@item between-scores-system-spacing
+@funindex between-scores-system-spacing
+
+Specifies the spacing between two systems if they are in different scores, but
+there is no title between them. See @var{after-title-spacing}.
+
 @item between-system-spacing
 @funindex between-system-spacing
 
