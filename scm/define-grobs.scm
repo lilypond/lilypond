@@ -2218,7 +2218,6 @@
 
     (VoltaBracket
      . (
-	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(direction . ,UP)
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(font-encoding . fetaNumber)
@@ -2236,10 +2235,11 @@
 
     (VoltaBracketSpanner
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(axes . (,Y))
 	(direction . ,UP)
 	(no-alignment . ,#t)
-	(outside-staff-priority . 100)
+	(outside-staff-priority . 600)
 	(padding . 1)
 	(side-axis . ,Y)
 	(X-extent . ,ly:axis-group-interface::width)
