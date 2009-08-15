@@ -243,8 +243,8 @@ staffPiano = \new PianoStaff {
     \staffPiano
   >>
 
-  \midi {
-  }
+%  \midi {
+%  }
 
   \layout {
     indent = 0.0
