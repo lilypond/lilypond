@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -85,6 +85,7 @@ Die Syntax für normale Wiederholungen ist
 \repeat @var{Typ} @var{Wiederholungszähler} @var{musikAusdr}
 @end example
 
+@noindent
 wobei @var{musikAusdr} ein musikalischer Ausdruck ist.  Alternative
 Schlüsse können mit @code{\alternative} gesetzt werden.  Damit die
 alternativen Schlüsse von den wiederholten Noten abgegrenzt werden,
@@ -110,6 +111,10 @@ Normale Wiederholungen mit alternativen Schlüssen:
 }
 c1
 @end lilypond
+
+@warning{@code{@bs{}relative} darf nicht innerhalb von @code{@bs{}repeat}
+gesetzt werden.  Das würde dazu führen, dass ungewollte Notensysteme
+erscheinen.  Siehe auch @rlearning{An extra staff appears}.}
 
 
 @cindex Wiederholung mit Auftakt
@@ -169,14 +174,20 @@ c1
 
 @seealso
 Glossar:
-@rglos{repeat}, @rglos{volta}.
+@rglos{repeat},
+@rglos{volta}.
 
-Notationsreferenz: @ref{Taktstriche}, @ref{Umgebungs-Plugins verändern}.
+Notationsreferenz:
+@ref{Taktstriche},
+@ref{Umgebungs-Plugins verändern}.
 
-Schnipsel: @rlsr{Repeats}.
+Schnipsel:
+@rlsr{Repeats}.
 
-Referenz der Interna: @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
+Referenz der Interna:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
@@ -359,6 +370,7 @@ um repitetive Musik zu notieren.  Die Syntax ist
 \repeat unfold @var{Wiederholgunszähler} @var{musikAusdr}
 @end example
 
+@noindent
 wobei @var{musikAusdr} ein musikalischer Ausdruck ist und
 @var{Wiederholungszähler} die Anzahl bezeichnet, mit der
 @var{musikAusdr} wiederholt wird.
@@ -432,6 +444,7 @@ Die Syntax lautet
 @code{\repeat percent @var{Wiederholungszahl} @var{musikAusdr}}
 @end example
 
+@noindent
 wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
 
 @lilypond[verbatim,quote,relative=2]
@@ -453,14 +466,19 @@ wobei @var{musikAusdr} ein musikalischer Ausdruck ist.
 
 @seealso
 Glossar:
-@rglos{percent repeat}, @rglos{simile}.
+@rglos{percent repeat},
+@rglos{simile}.
 
-Schnipsel: @rlsr{Repeats}.
+Schnipsel:
+@rlsr{Repeats}.
 
-Referenz der Interna: @rinternals{RepeatSlash},
-@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+Referenz der Interna:
+@rinternals{RepeatSlash},
+@rinternals{PercentRepeat},
+@rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
-@rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 @knownissues
 
@@ -538,6 +556,11 @@ benutzte Wert eingesetzt (gespeichert in @code{tremoloFlags}):
 c2:8 c:32
 c: c:
 @end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{cross-staff-tremolos.ly}
 
 @seealso
 Schnipsel:

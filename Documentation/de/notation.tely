@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,6 +9,8 @@
 @documentlanguage de
 @setfilename lilypond.info
 @settitle GNU LilyPond Benutzerhandbuch
+
+@c Translators: Till Paala
 
 @include macros.itexi
 
