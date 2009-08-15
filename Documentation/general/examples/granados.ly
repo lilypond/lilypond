@@ -7,11 +7,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #(set-global-staff-size 18)
 
+% EXAMPLE BROKEN; uncomment when fixed.
+%{
 \paper {
   ragged-right = ##f
   #(set-paper-size "letter" 'landscape)
   system-count = 1
 }
+%}
 
 csh = \change Staff = "high" 
 csm = \change Staff = "middle"
@@ -108,6 +111,9 @@ lowerVoiceTwo = \relative c, {
 
 
 \score {
+  \new Staff { c'4^"EXAMPLE BROKEN.  (new spacing code to blame?" }
+%  uncomment the below once it works.
+%{
   \new PianoStaff <<
     \set PianoStaff.connectArpeggios = ##t
 %    \override PianoStaff.Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
@@ -135,6 +141,7 @@ lowerVoiceTwo = \relative c, {
       \remove "Bar_number_engraver"
     }
   }
+%}
   %{\midi {
     \context {
       \Score

@@ -4,8 +4,7 @@ include $(depth)/make/stepmake.make
 
 LILYPOND_PREVIEW = $(LILYPOND_BINARY) --png -dpreview -dresolution=150
 
-BROKEN = granados.ly #sesto.ly
-FINE_LY_FILES = $(filter-out $(BROKEN), $(LY_FILES))
+FINE_LY_FILES = $(LY_FILES)
 PNG_PAGES = sesto-1 sesto-2
 
 OUT_PNG_FILES = $(FINE_LY_FILES:%.ly=$(outdir)/%.png)
