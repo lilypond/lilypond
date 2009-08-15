@@ -5,16 +5,16 @@
 % This is a brief passage from Enrique Granados %
 % Goyescas, "Coloquio en la Reja."              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#(set-global-staff-size 18)
+#(set-global-staff-size 17)
 
 % EXAMPLE BROKEN; uncomment when fixed.
-%{
+
 \paper {
   ragged-right = ##f
   #(set-paper-size "letter" 'landscape)
-  system-count = 1
+  %system-count = 1
 }
-%}
+
 
 csh = \change Staff = "high" 
 csm = \change Staff = "middle"
@@ -42,6 +42,7 @@ upperVoiceOne = \relative c'' {
   <c g' c>4\( \voiceTwo <bes es bes'\arpeggio>\) 
     \slurUp <aes aes'>16( <bes bes'> <g g'>8) % end m. 2
   %--------------------------------------------------%
+  \noBreak
   \voiceOne 
   <f aes d f>8\([ \times 4/5{<g g'>32( aes' g f g]) }
   \set subdivideBeams = ##t
