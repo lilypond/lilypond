@@ -111,7 +111,7 @@ lowerVoiceTwo = \relative c, {
 
 
 \score {
-  \new Staff { c'4^"EXAMPLE BROKEN.  (new spacing code to blame?" }
+  \new Staff { c'4^"EXAMPLE BROKEN" }
 %  uncomment the below once it works.
 %{
   \new PianoStaff <<
