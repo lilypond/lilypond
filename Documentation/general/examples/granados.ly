@@ -7,8 +7,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #(set-global-staff-size 17)
 
-% EXAMPLE BROKEN; uncomment when fixed.
-
 \paper {
   ragged-right = ##f
   #(set-paper-size "letter" 'landscape)
@@ -112,9 +110,6 @@ lowerVoiceTwo = \relative c, {
 
 
 \score {
-  \new Staff { c'4^"EXAMPLE BROKEN" }
-%  uncomment the below once it works.
-%{
   \new PianoStaff <<
     \set PianoStaff.connectArpeggios = ##t
 %    \override PianoStaff.Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
@@ -142,7 +137,6 @@ lowerVoiceTwo = \relative c, {
       \remove "Bar_number_engraver"
     }
   }
-%}
   %{\midi {
     \context {
       \Score
