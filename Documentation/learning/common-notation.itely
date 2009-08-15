@@ -172,7 +172,7 @@ b
 Adding all alterations explicitly might require a little more
 effort when typing, but the advantage is that
 @notation{transposing} is easier, and accidentals can be printed
-according to different conventions.  For some examples how
+according to different conventions.  For some examples of how
 accidentals can be printed according to different rules, see
 @ruser{Automatic accidentals}.
 
@@ -703,7 +703,7 @@ creates a bigger music expression.  In this way it resembles the
 minus sign in mathematics.  The formula @math{(4+5)} is an
 expression, so @math{-(4+5)} is a bigger expression.
 
-Time signatures entered in one staff affects all other staves by
+Time signatures entered in one staff affect all other staves by
 default.  On the other hand, the key signature of one staff does
 @emph{not} affect other staves.  This different default behavior
 is because scores with transposing instruments are more common
