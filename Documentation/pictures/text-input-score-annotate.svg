@@ -1,144 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xml:space="preserve"
    id="svg728"
    sodipodi:version="0.32"
-   width="210mm"
-   height="297mm"
-   sodipodi:docname="example-score.svg"
-   inkscape:version="0.39"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:cc="http://web.resource.org/cc/"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:xml="http://www.w3.org/XML/1998/namespace"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   sodipodi:docbase="/home/hanwen/usr/src/savannah/lily/newweb/site/switch">
+   width="536.36145"
+   height="264.42117"
+   sodipodi:docname="text-input-score-annotate.svg"
+   inkscape:version="0.46"
+   sodipodi:docbase="/home/hanwen/usr/src/savannah/lily/newweb/site/switch"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0">
   <defs
-   id="defs730" />
+   id="defs730"><inkscape:perspective
+     sodipodi:type="inkscape:persp3d"
+     inkscape:vp_x="0 : 526.18109 : 1"
+     inkscape:vp_y="0 : 1000 : 0"
+     inkscape:vp_z="744.09448 : 526.18109 : 1"
+     inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+     id="perspective22" /></defs>
 
 
   <sodipodi:namedview
    id="base"
-   inkscape:zoom="0.86709691"
-   inkscape:cx="72.749435"
-   inkscape:cy="693.11745"
+   inkscape:zoom="1.0366144"
+   inkscape:cx="268.18073"
+   inkscape:cy="132.21057"
    inkscape:window-width="640"
-   inkscape:window-height="530"
-   inkscape:window-x="827"
-   inkscape:window-y="45" />
+   inkscape:window-height="708"
+   inkscape:window-x="163"
+   inkscape:window-y="28"
+   showgrid="false"
+   inkscape:current-layer="svg728" />
 
 
   <text
-   style="font-size:26.000000;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Luxi Mono;text-anchor:start;writing-mode:lr;"
-   x="21.182615"
-   y="125.72841"
+   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
+   x="3.5347519"
+   y="99.128212"
    id="text731"
    sodipodi:linespacing="100%"><tspan
-     x="21.182615"
-     y="125.72841"
+     x="3.5347519"
+     y="99.128212"
      sodipodi:role="line"
      id="tspan1178">&lt;&lt;</tspan><tspan
-     x="21.182615"
-     y="151.72841"
+     x="3.5347519"
+     y="125.12821"
      sodipodi:role="line"
-     id="tspan1180">  \new Staff \_("hornNotes")</tspan><tspan
-     x="21.182615"
-     y="177.72841"
+     id="tspan1180">  \new Staff \_(&quot;hornNotes&quot;)</tspan><tspan
+     x="3.5347519"
+     y="151.1282"
      sodipodi:role="line"
-     id="tspan1182">  \new Staff \_("bassoonNotes")</tspan><tspan
-     x="21.182615"
-     y="203.72841"
+     id="tspan1182">  \new Staff \_(&quot;bassoonNotes&quot;)</tspan><tspan
+     x="3.5347519"
+     y="177.1282"
      sodipodi:role="line"
      id="tspan1184">&gt;&gt;</tspan><tspan
-     x="21.182615"
-     y="229.72841"
+     x="3.5347519"
+     y="203.1282"
      sodipodi:role="line"
-     id="tspan1186"></tspan><tspan
-     x="21.182615"
-     y="255.72841"
+     id="tspan1186" /><tspan
+     x="3.5347519"
+     y="229.1282"
      sodipodi:role="line"
      id="tspan1188">  </tspan></text>
 
 
+
+
   <rect
-   style="font-size:12.000000;fill:#c12b28;fill-opacity:0.53658497;fill-rule:evenodd;stroke-width:1.0000000pt;"
+   style="font-size:12px;fill:#c12b28;fill-opacity:0.53658495;fill-rule:evenodd;stroke-width:1pt"
    id="rect758"
    width="393.38718"
    height="22.479324"
-   x="58.027321"
-   y="132.13493" />
+   x="40.379456"
+   y="105.53474" />
 
 
   <rect
-   style="font-size:12.000000;fill:#c12b28;fill-opacity:0.53658497;fill-rule:evenodd;stroke-width:1.0000000pt;"
+   style="font-size:12px;fill:#c12b28;fill-opacity:0.53658495;fill-rule:evenodd;stroke-width:1pt"
    id="rect759"
    width="392.55447"
    height="22.479324"
-   x="59.046661"
-   y="158.96379" />
+   x="41.398796"
+   y="132.3636" />
 
 
   <rect
-   style="font-size:12.000000;fill:#23ca22;fill-opacity:0.58841503;fill-rule:evenodd;stroke-width:1.0000000pt;"
+   style="font-size:12px;fill:#23ca22;fill-opacity:0.58841505;fill-rule:evenodd;stroke-width:1pt"
    id="rect760"
    width="38.440845"
    height="101.57295"
-   x="17.647863"
-   y="109.03632" />
+   x="0"
+   y="82.436127" />
 
 
   <path
-   style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#00b000;stroke-width:1.8750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;"
-   d="M 36.593644,212.69114 C 34.928544,267.64014 84.882535,270.97014 131.50652,270.97014"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   d="M 18.945781,186.09094 C 17.280681,241.03994 67.234672,244.36994 113.85866,244.36994"
    id="path761" />
 
 
   <path
-   style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#af0000;stroke-width:1.8750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;"
-   d="M 141.28421,134.21683 C 139.61821,70.941551 161.26521,55.955351 211.21921,54.290251"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   d="M 123.63635,107.61663 C 121.97035,44.341355 143.61735,29.355155 193.57135,27.690055"
    id="path762" />
 
 
   <text
-   style="font-size:26.000000;font-style:normal;font-weight:normal;fill:#b00000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter;text-anchor:start;writing-mode:lr;"
-   x="230.36832"
-   y="54.290195"
-   id="text763">
-    <tspan
-   id="tspan764">
-_("Create staff")</tspan>
-  </text>
+   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#b00000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+   x="212.72046"
+   y="27.690001"
+   id="text763">     <tspan
+   id="tspan764"> _(&quot;Create staff&quot;)</tspan>   </text>
+
+
 
 
   <text
-   style="font-size:26.000000;font-style:normal;font-weight:normal;fill:#00b000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter;text-anchor:start;writing-mode:lr;"
-   x="154.81793"
-   y="278.46335"
-   id="text766">
-    <tspan
-   id="tspan767">
-_("Combine staffs in parallel")</tspan>
-  </text>
+   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00b000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+   x="137.17007"
+   y="251.86316"
+   id="text766">     <tspan
+   id="tspan767"> _(&quot;Combine staffs in parallel&quot;)</tspan>   </text>
+
+
 
 
 <metadata
    id="metadata1091">
-  <rdf:RDF
-   id="RDF1092">
+  <rdf:RDF>
     <cc:Work
-   rdf:about=""
-   id="Work1093">
-      <dc:format
-   id="format1094">image/svg+xml</dc:format>
+   rdf:about="">
+      <dc:format>image/svg+xml</dc:format>
 
       <dc:type
-   id="type1096"
    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
 
     </cc:Work>
