@@ -1,7 +1,7 @@
 \version "2.13.4"
 
 \header {
-  texidoc = "Page layout and stretching work with system-cound enabled."
+  texidoc = "Page layout and stretching work with system-count enabled."
 }
 
 #(set-default-paper-size "a6")

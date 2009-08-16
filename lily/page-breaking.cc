@@ -524,13 +524,14 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	      Constrained_breaking breaking (system_specs_[i].pscore_);
 	      vector<Line_details> details = breaking.line_details (0, VPOS, scm_to_int (system_count));
 
+	      cols.push_back (system_specs_[i].pscore_->root_system ()->used_columns ()[0]);
 	      for (vsize j = 0; j < details.size (); j++)
 		cols.push_back (details[j].last_column_);
 	    }
 	  else
 	    cols = system_specs_[i].pscore_->root_system ()->used_columns ();
 
-	  int last_chunk_idx = -1;
+	  int last_chunk_idx = 0;
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
