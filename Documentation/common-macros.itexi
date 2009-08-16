@@ -46,19 +46,18 @@
 @c already generates proper @image commands for images of music; these
 @c macro definitions do the same for other images.
 
-@c can't scale images in tex
 @ifnotinfo
 
-@macro sourceimage{FILENAME}
-@image{pictures/\FILENAME\}
+@macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
+@image{pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
 @end macro
 
 @end ifnotinfo
 
 @ifinfo
 
-@macro sourceimage{FILENAME}
-@image{lilypond/pictures/\FILENAME\}
+@macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
+@image{lilypond/pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
 @end macro
 
 @end ifinfo

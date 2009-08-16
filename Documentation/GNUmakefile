@@ -53,7 +53,7 @@ OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
 # of the NR
 TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 
-PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
+PDF_FILES = $(subst $(outdir)/general.pdf,,$(TEXINFO_MANUALS:%=$(outdir)/%.pdf))
 
 UNSPLITTED_HTML_MANUALS = changes
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
