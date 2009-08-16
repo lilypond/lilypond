@@ -1,0 +1,10 @@
+%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+  texidocfr = "
+Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
+@code{NoteColumn}, et des silences à hauteur déterminée, peuvent
+s'avérer utiles pour dicter au programme les choix de placement.  On
+travaille ici en espace de portée.
+
+"
+  doctitlefr = "Cécalage horizontal forcé"
+
