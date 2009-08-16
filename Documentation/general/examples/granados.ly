@@ -10,7 +10,7 @@
 \paper {
   ragged-right = ##f
   #(set-paper-size "letter" 'landscape)
-  %system-count = 1
+  system-count = 1
 }
 
 
