@@ -914,7 +914,7 @@ A glossary of the technical terms and concepts used internally.
 @end menu
 
 @node alist
-@unnumberedsubsubsec alist
+@unnumberedsubsec alist
 
 @cindex alist
 @cindex association list
