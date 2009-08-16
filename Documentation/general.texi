@@ -67,7 +67,7 @@ Free Documentation License''.
 @divEnd
 
 @c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
-@imageId{lilylogo,double-lily-modified3.png,LilyPond logo}
+@imageId{lilylogo,double-lily-modified3,png,LilyPond logo}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 
 @divId{quickSummary}
