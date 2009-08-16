@@ -898,6 +898,7 @@ The following styles may be used for note heads.
 A glossary of the technical terms and concepts used internally.
 
 @menu
+* alist::
 * callback::
 * glyph::
 * grob::
@@ -911,6 +912,20 @@ A glossary of the technical terms and concepts used internally.
 * smob::
 * stencil::
 @end menu
+
+@node alist
+@unnumberedsubsubsec alist
+
+@cindex alist
+@cindex association list
+
+An association list or @strong{alist} for short is a Scheme pair
+which associates a value with a key: @w{@code{(key . value)}}.  For
+example, in @file{scm/lily.scm}, the alist
+@w{@qq{type-p-name-alist}} associates certain type predicates
+(e.g.@tie{}@code{ly:music?}) with names (e.g.@tie{}@qq{music}) so
+that type-check failures can be reported with a console message that
+includes the name of the expected type predicate.
 
 @node callback
 @unnumberedsubsec callback
@@ -999,9 +1014,16 @@ Internals Reference:
 
 A @strong{lexer} is a program which converts a sequence of
 characters into a sequence of tokens, a process called lexical
-analysis.  The LilyPond lexer converts an input @code{.ly} file
-into a tokenized file more suited to the next stage of processing,
-parsing, see @ref{parser}.
+analysis.  The LilyPond lexer converts the stream obtained from an
+input @file{.ly} file into a tokenized stream more suited to the
+next stage of processing - parsing, for which see @ref{parser}.
+The LilyPond lexer is built with Flex from the lexer file
+@file{lily/lexer.ll} which contains the lexical rules.
+
+@seealso
+
+Installed Files:
+@file{lily/lexer.ll}
 
 @node output-def
 @unnumberedsubsec output-def
