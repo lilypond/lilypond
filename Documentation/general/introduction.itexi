@@ -40,6 +40,9 @@ Impress friends and colleagues with sharp sheet music!
 @item
 @ref{Freedom}: LilyPond is Free Software.
 
+@item
+@ref{Background}: Our computational aesthetics.
+
 @end itemize
 @divEnd
 
@@ -65,9 +68,11 @@ Impress friends and colleagues with sharp sheet music!
 @item
 @ref{Text input}: You write music as @emph{text}?!
 
+@item
+@ref{Alternate input}: Other ways of working with LilyPond.
+
 @end itemize
 @divEnd
-
 
 
 @divClass{hide}
@@ -75,9 +80,11 @@ Impress friends and colleagues with sharp sheet music!
 * Features::                    What can LilyPond do?
 * Examples::                    I want to see some music!
 * Freedom::                     Freedom and the GPL.
+* Background::                  Computational aesthetics.
 * Productions::                 Real-life use of LilyPond.
 * Testimonials::                What do people say about it?
 * Text input::                  You write music as text?!
+* Alternate input::             Other ways of working with LilyPond.
 @end menu
 @divEnd
 
@@ -88,14 +95,14 @@ Impress friends and colleagues with sharp sheet music!
 
 @help{hoping to delegate this.  Desired: an enthusiastic
 attempt to sway people towards trying lilypond.  The warnings
-about writing music as text come in Crash Course, not here.  Maybe
-draw inspiration from
-http://lilypond.org/web/about/features
-and
-http://lilypond.org/web/switch/tour
-and
-http://lilypond.org/web/switch/advantages
-}
+about writing music as text come in Crash Course, not here.}
+
+Maybe draw inspiration from
+@uref{http://lilypond.org/web/about/features} and
+@uref{http://lilypond.org/web/switch/tour} and
+@uref{http://lilypond.org/web/switch/advantages}
+
+
 
 @subheading Why switch to LilyPond?
 
@@ -111,12 +118,12 @@ that results in beautifully engraved music.  All of LilyPond's
 style settings, font designs and algorithms have been inspired by
 the finest hand-engraved music.  LilyPond output has the same
 strong, balanced and elegant look as the best-engraved classical
-scores
+scores.  This is further explained in our @ref{Essay}.
 
 
-@subsubheading No fiddling
+@subsubheading Less fiddling
 
-Don't waste time with tweaking the output; LilyPond gets the
+Spend less time with tweaking the output; LilyPond gets the
 formatting correct right from the start.  It determines spacing by
 itself, and breaks lines and pages to provide a tight and uniform
 layout.  Clashes between lyrics, notes, and chords are resolved
@@ -165,7 +172,7 @@ documented in the comprehensive program reference manual.
 @subsubheading Excellent support
 
 LilyPond runs on all popular platforms: Linux, MacOS X, and
-Windows.  LilyPond comes with extensive documetation and hundreds
+Windows.  LilyPond comes with extensive documentation and hundreds
 of example files.  There is an active user community answering
 questions on the Lilypond user mailing list, while the development
 team makes sure that problems are solved quickly.
@@ -431,13 +438,39 @@ scholarships.
 Still not convinced?  Read about some of our users'
 @ref{Productions} and sheet music.  If you've already decided to
 try LilyPond, first read about our @ref{Text input}.
+
+FIXME: rewrite for Background.
+@divEnd
+
+
+@node Background
+@unnumberedsec Background
+
+@divClass{column-center-top}
+@subheading Background essay
+
+We have an extensive essay describing computational aesthetics:
+the art of creating beauty with a computer.  FIXME blah blah.
+
+FIXME: simplify the verbosity below.
+
+If you just want a quick introduction to LilyPond, the essay might
+be too much material to read.  If you would like to read it now,
+please progress to @ref{Essay}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+Still not convinced?  Read about some of our users'
+@ref{Productions} and sheet music.  If you've already decided to
+try LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
 @node Productions
 @unnumberedsec Productions
-
-@help{more references to publishers who use lilypond}
 
 @divClass{column-left-top}
 @subheading Concerts
@@ -478,10 +511,24 @@ New York} (engraving by Nicolas Sceaux).
 @itemize
 
 @item
+@uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
+over 1500 pieces of classical sheet music for free download, and
+the main showcase of LilyPond scores.
+
+@item
 @uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
 high-quality scores of sacred music, available for immediate
 download or in traditional paper format.
+
+@item
+@uref{http://theshadylanepublishing.com/, The Shady Lane
+Publishing},
+a @qq{micro musical publishing house} whose goal is to promote a
+new form of musical economy closer to the musicians and music
+lovers.
+
 @end itemize
+
 @divEnd
 
 @divEnd
@@ -755,6 +802,76 @@ users even report that they can enter a full score in LilyPond
 faster than with a piano keyboard or mouse+GUI!  Perhaps you would
 like to review the @ref{Features}, @ref{Examples}, or
 @ref{Freedom} that LilyPond provides, or read about users'
-@ref{Productions} and @ref{Testimonials}.
+@ref{Productions} and @ref{Testimonials}.  In addition, our
+approach to the computational aesthetics of classical engraving is
+explained in our @ref{Background}.  FIXME
 @divEnd
+
+
+@node Alternate input
+@unnumberedsec Alternate input
+
+@divClass{column-center-top}
+@subheading Graphical environment: Denemo
+
+@sourceimage{logo-linux,,,}
+
+FIXME: insert text and a graphic
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Mixed environment: LilyPondTool
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+
+FIXME: insert text and a graphic
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Text environment: Emacs and Vim
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+
+FIXME: insert text and a graphic
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Other
+
+FIXME: insert text and a graphic(s)
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+All logos and product images are copyright and trademark
+acknowledged.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+
+@divEnd
+
+
+
 

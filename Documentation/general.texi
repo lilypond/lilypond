@@ -16,39 +16,18 @@
 
 @afourpaper
 
-@ifnottex
-@node Top
-@top
-@chapheading
-@end ifnottex
+@c don't remove this comment.
+@ignore
+@omfcreator Graham Percival and Patrick McCarty
+@omfdescription General info about the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
 
-
-@finalout
-
-@titlepage
-@title LilyPond
-@c @subtitle The music typesetter
-@titlefont{New Website}
-@author The LilyPond development team
-
-Copyright @copyright{} 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-For LilyPond version 
-@end titlepage
 
 @copying
-Copyright @copyright{} 1999--2009 by the authors
+Copyright @copyright{} 2009 by the authors.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -59,6 +38,39 @@ A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end quotation
 @end copying
+
+
+@c TITLE PAGE
+@ifnottex
+@node Top
+@top LilyPond... music notation for everyone
+@end ifnottex
+
+
+@c hack for texi2html, bleh -gp
+@ifnothtml
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{General Information}
+@author The LilyPond development team
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying{}
+
+For LilyPond version @version{}
+@end titlepage
+@end ifnothtml
+@c end hack for texi2html
+
+
+@c ************************ WEBSITE START ***************
+
 
 @divId{pageHeader}
 @heading LilyPond
@@ -74,21 +86,12 @@ Free Documentation License''.
 @subheading What is LilyPond?
 
 LilyPond is an open-source music engraving program, devoted to
-producing the highest-quality sheet music possible.  We bring the
-aesthetics of traditionally engraved music to computer printouts.
-
-LilyPond is Free Software and part of the
-@uref{http://@/www@/.gnu@/.org/, GNU} project.
+producing the highest-quality sheet music possible.  This free
+software brings the aesthetics of traditionally engraved music to
+computer printouts.
 
 @divClass{align-right}
 Read more in our @ref{Introduction}!
-
-@c For this to work, essay needs to be split like we are
-@c   --split=node --node-files
-@c This and more in our @ressaynamed{Engraving, essay}.
-@c Possibly, node Top always works?
-@c This and more in our @ressaynamed{Top, essay}.
-This and more in our @ref{automated-engraving,,Essay,essay,Essay}.
 
 @divEnd
 @divEnd
@@ -98,8 +101,6 @@ This and more in our @ref{automated-engraving,,Essay,essay,Essay}.
 FIXME: process news items like the old web site:
 select first 4 items to insert here, and generate
 RSS.
-
-@include news-front.itexi
 
 @divClass{float-right}
 (@ref{Old news})
@@ -128,6 +129,8 @@ RSS.
 @divEnd
 
 
+@ifnottex
+
 @divClass{hide}
 @menu
 * Introduction::     Start here to creating sheet music.
@@ -136,6 +139,8 @@ RSS.
 * Community::        Contact other users.
 @end menu
 @divEnd
+
+@end ifnottex
 
 @contents
 

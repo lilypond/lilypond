@@ -81,10 +81,10 @@ discussing LilyPond.
 @divClass{column-left-bottom}
 @subheading User Discussions and Help
 
-@subsubheading User mailist: @code{lilypond-user@@gnu.org}
+@subsubheading User mailing list: @code{lilypond-user@@gnu.org}
 
-This mailist is the main place for users to discuss and help each
-other.
+This mailing list is the main place for users to discuss and help
+each other.
 
 @quotation
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,
@@ -118,6 +118,7 @@ be useful for others would better be posted to one of the mailing lists.
 
 @subsubheading Other languages
 
+@quotation
 @uref{http://es.groups.yahoo.com/group/lilypond-es,
 Spanish yahoo group}
 
@@ -128,10 +129,11 @@ German forum}
 Portugese group}
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-French mailist}
+French mailing list}
 
 @uref{http://www.lilypondforum.nl/,
 Dutch forum}
+@end quotation
 
 @divEnd
 
@@ -144,9 +146,9 @@ Dutch forum}
 The easiest way to keep touch is by reading our community
 newsletter, the @uref{http://news.lilynet.net/, LilyPond Report}.
 
-@subsubheading Releases mailist: @code{info-lilypond@@gnu.org}
+@subsubheading Releases mailing list: @code{info-lilypond@@gnu.org}
 
-This mailist is a low-volume, read-only list which receives
+This mailing list is a low-volume, read-only list which receives
 notifications of new releases.
 
 @quotation
@@ -170,7 +172,7 @@ archive3}
 @divClass{column-right-bottom}
 @subheading Developer Discussion
 
-@subsubheading Developer mailist: @code{lilypond-devel@@gnu.org}
+@subsubheading Developer mailing list: @code{lilypond-devel@@gnu.org}
 
 Most developer discussion takes place on this list.  Patches
 should be sent here.
@@ -191,7 +193,7 @@ send to lilypond-devel with gmane}
 @end quotation
 
 
-@subsubheading Bug mailist: @code{bug-lilypond@@gnu.org}
+@subsubheading Bug mailing list: @code{bug-lilypond@@gnu.org}
 
 Bug-specific discussion takes place here.
 
@@ -213,8 +215,6 @@ archive3}
 guidelines for @ref{Bug reports}.}
 
 @divEnd
-
-
 
 
 
