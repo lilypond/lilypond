@@ -10,8 +10,8 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg548"
    sodipodi:version="0.32"
-   width="605.17108"
-   height="441.13013"
+   width="600.17102"
+   height="437.48563"
    sodipodi:docname="text-input-pop-annotate.svg"
    inkscape:version="0.46"
    sodipodi:docbase="/home/hanwen/vc/savannah/lily/newweb/site/graphics"
@@ -30,7 +30,7 @@
   <sodipodi:namedview
      id="base"
      inkscape:zoom="1"
-     inkscape:cx="301.03312"
+     inkscape:cx="307.46076"
      inkscape:cy="221.78706"
      inkscape:window-width="719"
      inkscape:window-height="708"
@@ -40,125 +40,125 @@
      showgrid="false" />
   <text
      xml:space="preserve"
-     style="font-size:22px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
-     x="36.074203"
-     y="13.266"
+     style="font-size:21.81822777px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
+     x="35.776142"
+     y="13.156391"
      id="text551"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan1338"
-       x="36.074203"
-       y="13.266">&lt;&lt;</tspan><tspan
+       x="35.776142"
+       y="13.156391">&lt;&lt;</tspan><tspan
        sodipodi:role="line"
        id="tspan1340"
-       x="36.074203"
-       y="40.765999">  \chords {</tspan><tspan
+       x="35.776142"
+       y="40.429176">  \chords {</tspan><tspan
        sodipodi:role="line"
        id="tspan1342"
-       x="36.074203"
-       y="68.265999">    c1:m7 f2:7 c2</tspan><tspan
+       x="35.776142"
+       y="67.701965">    c1:m7 f2:7 c2</tspan><tspan
        sodipodi:role="line"
        id="tspan1344"
-       x="36.074203"
-       y="95.765999">  }</tspan><tspan
+       x="35.776142"
+       y="94.974747">  }</tspan><tspan
        sodipodi:role="line"
        id="tspan1346"
-       x="36.074203"
-       y="123.266">  \relative c'' {</tspan><tspan
+       x="35.776142"
+       y="122.24753">  \relative c'' {</tspan><tspan
        sodipodi:role="line"
        id="tspan1348"
-       x="36.074203"
-       y="150.76601">    g2 es8( c4.)</tspan><tspan
+       x="35.776142"
+       y="149.52031">    g2 es8( c4.)</tspan><tspan
        sodipodi:role="line"
        id="tspan1350"
-       x="36.074203"
-       y="178.26601">    f8 f es d c2</tspan><tspan
+       x="35.776142"
+       y="176.79311">    f8 f es d c2</tspan><tspan
        sodipodi:role="line"
        id="tspan1352"
-       x="36.074203"
-       y="205.76601">  }</tspan><tspan
+       x="35.776142"
+       y="204.06589">  }</tspan><tspan
        sodipodi:role="line"
        id="tspan1354"
-       x="36.074203"
-       y="233.26601">  \addlyrics {</tspan><tspan
+       x="35.776142"
+       y="231.33867">  \addlyrics {</tspan><tspan
        sodipodi:role="line"
        id="tspan1356"
-       x="36.074203"
-       y="260.76599">    Li ly,</tspan><tspan
+       x="35.776142"
+       y="258.61145">    Li ly,</tspan><tspan
        sodipodi:role="line"
        id="tspan1358"
-       x="36.074203"
-       y="288.26599">    got me on my knees</tspan><tspan
+       x="35.776142"
+       y="285.88425">    got me on my knees</tspan><tspan
        sodipodi:role="line"
        id="tspan1360"
-       x="36.074203"
-       y="315.76599">  }</tspan><tspan
+       x="35.776142"
+       y="313.15701">  }</tspan><tspan
        sodipodi:role="line"
        id="tspan1374"
-       x="36.074203"
-       y="343.26599">&gt;&gt;</tspan></text>
+       x="35.776142"
+       y="340.42981">&gt;&gt;</tspan></text>
   <rect
      style="font-size:12px;fill:#5f8dd3;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none;stroke-width:0.98323898pt"
      id="rect663"
-     width="251.07663"
-     height="57.471516"
-     x="86.326164"
-     y="239.49001" />
+     width="249.00218"
+     height="56.99667"
+     x="85.612885"
+     y="237.51135" />
   <rect
      style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none;stroke-width:0.97302504pt"
      id="rect664"
-     width="180.25644"
-     height="28.735817"
-     x="85.793449"
-     y="46.086891" />
+     width="178.76715"
+     height="28.498394"
+     x="85.084633"
+     y="45.7061" />
   <rect
      style="font-size:12px;fill:#5fd35f;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none;stroke-width:0.94686499pt"
      id="rect665"
-     width="168.34248"
-     height="53.896721"
-     x="85.395088"
-     y="131.00386" />
+     width="166.95161"
+     height="53.451401"
+     x="84.689522"
+     y="129.9214" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 339.01268,262.49363 C 375.84812,260.20645 487.82435,300.91729 447.36182,324.158"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 336.21171,260.32487 C 372.74278,258.05662 483.79388,298.43107 443.66565,321.47977"
      id="path666"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 256.08974,151.88217 C 326.51229,146.16489 365.89437,199.33836 438.58844,185.61387"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 253.97385,150.62731 C 323.81464,144.95724 362.8713,197.69136 434.96477,184.08028"
      id="path667"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 268.05002,60.498658 C 296.44606,62.785848 438.43008,33.458498 470.34357,73.453508"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 265.83539,59.998809 C 293.99675,62.267101 434.80768,33.18206 466.45753,72.846626"
      id="path668"
      sodipodi:nodetypes="cc" />
   <text
-     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="382.18661"
-     y="100.48704"
+     style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+     x="379.02905"
+     y="99.656807"
      id="text669">
     <tspan
-       x="382.18661"
-       y="100.48704"
+       x="379.02905"
+       y="99.656807"
        sodipodi:role="line"
        id="tspan672">Enter chord names</tspan>
   </text>
   <text
-     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="452.82004"
-     y="196.02174"
+     style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+     x="449.0787"
+     y="194.40211"
      id="text674">
     <tspan
-       x="452.82004"
-       y="196.02174"
+       x="449.0787"
+       y="194.40211"
        sodipodi:role="line"
        id="tspan679">Enter melody</tspan>
   </text>
   <text
-     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ad;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="377.27579"
-     y="357.28284"
+     style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ad;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+     x="374.1586"
+     y="354.33096"
      id="text681">
     <tspan
        id="tspan682">Enter lyrics</tspan>
@@ -166,19 +166,19 @@
   <rect
      style="font-size:12px;fill:#b25ed5;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt"
      id="rect686"
-     width="168.6489"
-     height="27.448336"
-     x="59.510609"
-     y="211.5591" />
+     width="167.25557"
+     height="27.221554"
+     x="59.018921"
+     y="209.81116" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#531d8a;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 58.681262,224.92288 C -37.036244,256.49057 -11.438005,380.5755 118.30805,414.83831"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#531d8a;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 58.196431,223.06456 C -36.730246,254.37145 -11.343499,377.4312 117.33056,411.41079"
      id="path687"
      sodipodi:nodetypes="cc" />
   <text
-     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#531f8a;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="138.99094"
-     y="431.01611"
+     style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#531f8a;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+     x="137.84265"
+     y="427.4552"
      id="text688">
     <tspan
        id="tspan689">Combine melody and lyrics</tspan>

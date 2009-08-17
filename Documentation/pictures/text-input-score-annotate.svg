@@ -11,8 +11,8 @@
    xml:space="preserve"
    id="svg728"
    sodipodi:version="0.32"
-   width="417.08264"
-   height="249.08209"
+   width="364.08301"
+   height="217.4305"
    sodipodi:docname="text-input-score-annotate.svg"
    inkscape:version="0.46"
    sodipodi:docbase="/home/hanwen/usr/src/savannah/lily/newweb/site/switch"
@@ -29,79 +29,82 @@
   <sodipodi:namedview
    id="base"
    inkscape:zoom="1"
-   inkscape:cx="212.71028"
-   inkscape:cy="132.21059"
+   inkscape:cx="185.72127"
+   inkscape:cy="90.21002"
    inkscape:window-width="590"
    inkscape:window-height="708"
-   inkscape:window-x="163"
-   inkscape:window-y="28"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
    showgrid="false"
    inkscape:current-layer="svg728" />
   <text
-   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
-   x="3.5347519"
-   y="89.062035"
+   style="font-size:22.69612122px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
+   x="3.0855813"
+   y="77.74469"
    id="text731"
    sodipodi:linespacing="100%"><tspan
-     x="3.5347519"
-     y="89.062035"
+     x="3.0855813"
+     y="77.74469"
      sodipodi:role="line"
      id="tspan1178">&lt;&lt;</tspan><tspan
-     x="3.5347519"
-     y="115.06203"
+     x="3.0855813"
+     y="100.44081"
      sodipodi:role="line"
      id="tspan1182">  \new Staff \hornNotes</tspan><tspan
-     x="3.5347519"
-     y="141.06203"
+     x="3.0855813"
+     y="123.13693"
      sodipodi:role="line"
      id="tspan2394">  \new Staff \bassoonNotes</tspan><tspan
-     x="3.5347519"
-     y="167.06203"
+     x="3.0855813"
+     y="145.83305"
      sodipodi:role="line"
      id="tspan1188">&gt;&gt;</tspan></text>
+
 
   <rect
    style="font-size:12px;fill:#ff5555;fill-opacity:0.48945151;fill-rule:evenodd;stroke-width:1pt"
    id="rect758"
-   width="341.33691"
-   height="24.600643"
-   x="34.672348"
-   y="94.407906" />
+   width="297.96231"
+   height="21.474592"
+   x="30.266476"
+   y="82.41127" />
   <rect
    style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt"
    id="rect759"
-   width="379.18369"
-   height="24.600645"
-   x="34.681282"
-   y="120.88321" />
+   width="331.00024"
+   height="21.474594"
+   x="30.274221"
+   y="105.5222" />
   <rect
    style="font-size:12px;fill:#5fd35f;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt"
    id="rect760"
-   width="34.380184"
-   height="100.57295"
+   width="30.011412"
+   height="87.792824"
    x="0"
-   y="70.369949" />
+   y="61.427887" />
   <path
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 15.410247,171.78213 C 13.745147,226.73113 67.234672,234.30377 113.85866,234.30377"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.63673937;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   d="M 13.452029,149.95334 C 11.998512,197.91985 58.691013,204.53017 99.390328,204.53017"
    id="path761"
    sodipodi:nodetypes="cc" />
   <path
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 122.92925,93.307816 C 121.26325,30.032539 143.61735,19.28898 193.57135,17.62388"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.63673937;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   d="M 107.30841,81.450991 C 105.8541,26.216235 125.3676,16.837894 168.97382,15.384385"
    id="path762"
    sodipodi:nodetypes="cc" />
   <text
-   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-   x="207.41716"
-   y="25.402"
+   style="font-size:22.69612122px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+   x="181.0603"
+   y="22.17411"
    id="text763">Create staff</text>
 
+
   <text
-   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-   x="127.97768"
-   y="242.50409"
+   style="font-size:22.69612122px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+   x="111.71525"
+   y="211.68839"
    id="text766">Combine staffs in parallel</text>
+
 
 <metadata
    id="metadata1091">
