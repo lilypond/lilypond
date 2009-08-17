@@ -16,7 +16,6 @@ This chapter gives a basic introduction to working with LilyPond.
 
 @menu
 * Compiling a file::            
-* Advanced editors::            
 * How to write input files::    
 * How to read the manuals::     
 @end menu
@@ -97,7 +96,7 @@ view or print the output.
 
 Note that there are several other text editors available with
 better support for LilyPond.  For more information, see
-@ref{Advanced editors}.
+@rgeneral{Alternate input}.
 
 @warning{The first time you ever run LilyPond, it may take a
 minute or two because all of the system fonts have to be analyzed
@@ -106,6 +105,12 @@ first.  After this, LilyPond will be much faster!}
 
 @node MacOS X
 @subsection MacOS X
+
+@warning{These instructions assume that you are using the built-in
+LilyPad editor.  If you are using any of the programs described in
+@rgeneral{Alternate input}, please consult the documentation for
+those programs if you have any problems compiling a file.}
+
 
 If you double click @command{LilyPond.app}, it will open with an
 example file.  Save it, for example, to @file{test.ly} on your
@@ -120,6 +125,11 @@ any errors occur in processing, please see the log window.
 
 @node Windows
 @subsection Windows
+
+@warning{These instructions assume that you are using the built-in
+LilyPad editor.  If you are using any of the programs described in
+@rgeneral{Alternate input}, please consult the documentation for
+programs if you have any problems compiling a file.}
 
 On Windows, if you double-click in the LilyPond icon on the
 Desktop, it will open a simple text editor with an example file.
@@ -147,6 +157,12 @@ examine this file.
 
 @node Command-line
 @subsection Command-line
+
+@warning{These instructions assume that you are using the built-in
+LilyPad editor.  If you are using any of the programs described in
+@rgeneral{Alternate input}, please consult the documentation for
+programs if you have any problems compiling a file.}
+
 
 Create a text file called @file{test.ly} and enter:
 
@@ -178,46 +194,6 @@ Drawing systems...
 Layout output to `test.ps'...
 Converting to `test.pdf'...
 @end example
-
-
-
-@node Advanced editors
-@section Advanced editors
-
-FIXME: add text
-
-@menu
-* Denemo::                      
-* LilyPondTool::                
-* Emacs::                       
-* Vim::                         
-@end menu
-
-
-@node Denemo
-@subsection Denemo
-
-Available on:
-
-
-
-@node LilyPondTool
-@subsection LilyPondTool
-
-Available on:
-
-
-@node Emacs
-@subsection Emacs
-
-Available on: Windows, MacOS X, Unix
-
-
-@node Vim
-@subsection Vim
-
-Available on: Windows, MacOS X, Unix
-
 
 
 
