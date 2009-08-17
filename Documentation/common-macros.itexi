@@ -210,7 +210,7 @@ FIXME: images broken in info
 </div>
 @end html
 @iftex
-@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
+@image{pictures/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\}
 @end iftex
 @ifinfo
 FIXME: images broken in info
@@ -223,7 +223,7 @@ FIXME: images broken in info
 <img class="float-\POSITION\" src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
 @end html
 @iftex
-@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
+@image{pictures/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
 @end iftex
 @ifinfo
 FIXME: images broken in info
@@ -238,7 +238,7 @@ FIXME: images broken in info
 </div>
 @end html
 @iftex
-@image{pictures/\IMAGE-FILE\,,,\ALT\}
+@image{pictures/out-www/\IMAGE-FILE\,,,\ALT\}
 @end iftex
 @ifinfo
 FIXME: images broken in info
