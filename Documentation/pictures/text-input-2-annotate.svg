@@ -10,8 +10,8 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg548"
    sodipodi:version="0.32"
-   width="681.26355"
-   height="300.84195"
+   width="627.78601"
+   height="293.95193"
    sodipodi:docname="text-input-2-annotate.svg"
    inkscape:version="0.46"
    sodipodi:docbase="/home/hanwen/usr/src/savannah/lily/newweb/site/graphics"
@@ -30,12 +30,12 @@
   <sodipodi:namedview
      id="base"
      inkscape:zoom="1"
-     inkscape:cx="340.63177"
-     inkscape:cy="145.56815"
-     inkscape:window-width="774"
+     inkscape:cx="313.9679"
+     inkscape:cy="165.56815"
+     inkscape:window-width="720"
      inkscape:window-height="708"
-     inkscape:window-x="191"
-     inkscape:window-y="24"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      showgrid="false"
      inkscape:current-layer="svg548" />
   <text
@@ -72,141 +72,137 @@
        x="0"
        y="194.15201"
        sodipodi:role="line"
-       id="tspan966">}</tspan><tspan
-       x="0"
-       y="222.15201"
-       sodipodi:role="line"
-       id="tspan968" /></text>
+       id="tspan968">}</tspan></text>
   <rect
-     style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
+     style="font-size:12px;fill:#ff5555;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect626"
      width="18.366859"
      height="77.710083"
      x="32.190498"
      y="91.468803" />
   <rect
-     style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
+     style="font-size:12px;fill:#ff5555;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect628"
      width="16.250458"
      height="25.903381"
-     x="201.35558"
+     x="200.35558"
      y="115.45953" />
   <rect
-     style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.97468004pt"
+     style="font-size:12px;fill:#ff5555;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.97468004pt"
      id="rect629"
      width="16.719164"
      height="24.725952"
-     x="201.35721"
-     y="144.89482" />
+     x="200.10721"
+     y="145.14482" />
   <rect
-     style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
+     style="font-size:12px;fill:#5fd35f;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect630"
      width="36.500156"
      height="20.016266"
-     x="67.012375"
-     y="91.911186" />
+     x="67.512375"
+     y="92.161186" />
   <rect
-     style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
+     style="font-size:12px;fill:#5fd35f;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect631"
      width="34.145306"
      height="23.548523"
-     x="67.012375"
-     y="146.07246" />
+     x="67.262375"
+     y="145.82246" />
   <rect
-     style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03682003pt"
+     style="font-size:12px;fill:#5fd35f;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03682003pt"
      id="rect632"
      width="32.49921"
      height="25.314667"
-     x="167.87041"
-     y="144.52921" />
+     x="167.37041"
+     y="144.77921" />
   <rect
-     style="font-size:12px;fill:#ad99f2;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
+     style="font-size:12px;fill:#5f8dd3;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect633"
      width="21.674971"
      height="28.378223"
-     x="51.118736"
-     y="59.06012" />
+     x="51.618736"
+     y="59.31012" />
   <rect
-     style="font-size:12px;fill:#ad99f2;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.99361296pt"
+     style="font-size:12px;fill:#5f8dd3;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.99361296pt"
      id="rect634"
      width="37.677589"
      height="26.735905"
-     x="218.90187"
+     x="216.90187"
      y="115.21575" />
   <rect
-     style="font-size:12px;fill:#ad99f2;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03922997pt"
+     style="font-size:12px;fill:#5f8dd3;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03922997pt"
      id="rect635"
      width="37.677547"
      height="24.725952"
-     x="219.01862"
+     x="217.01862"
      y="145.00471" />
   <rect
-     style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03682003pt"
+     style="font-size:12px;fill:#5fd35f;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03682003pt"
      id="rect636"
      width="37.08889"
      height="25.314667"
      x="134.59595"
      y="115.10592" />
   <rect
-     style="font-size:12px;fill:#ad99f2;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.95553303pt"
+     style="font-size:12px;fill:#5f8dd3;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.95553303pt"
      id="rect638"
      width="16.719124"
      height="26.140112"
-     x="169.80193"
+     x="167.80193"
      y="88.378838" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 86.243832,69.907952 C 106.22483,69.907952 213.41043,94.280612 308.32243,72.633612"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 84.243832,69.907952 C 104.22483,69.907952 211.41043,94.280612 306.32243,72.633612"
      id="path639"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 264.28466,130.53191 C 297.58766,130.53191 361.60543,114.26261 381.58743,85.955612"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.65999997;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 262.28466,130.53191 C 295.58766,130.53191 359.60543,114.26261 379.58743,85.955612"
      id="path640"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b300;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 93.941634,176.82716 C 103.93263,193.47816 220.18163,255.29016 301.77363,218.65716"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 91.941634,176.82716 C 101.93263,193.47816 218.18163,255.29016 299.77363,218.65716"
      id="path641"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b300;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 186.11345,180.21915 C 207.76045,208.52615 233.11745,228.42415 300.55545,210.10815"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 184.11345,180.21915 C 205.76045,208.52615 231.11745,228.42415 298.55545,210.10815"
      id="path642"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b30000;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 43.12779,172.55803 C 24.811805,222.51203 19.816808,264.14003 99.742784,279.12603"
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.88;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 41.12779,172.55803 C 22.811805,222.51203 17.816808,264.14003 97.742784,279.12603"
      id="path643" />
   <text
      style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00009e;fill-opacity:1;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="322.47546"
+     x="320.47546"
      y="79.294334"
      id="text694">
     <tspan
-       x="322.47546"
+       x="320.47546"
        y="79.294334"
        sodipodi:role="line"
        id="tspan648">Add articulations</tspan>
   </text>
   <text
-     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00ad00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="307.0423"
+     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+     x="305.0423"
      y="219.60112"
      id="text699">
     <tspan
-       x="307.0423"
+       x="305.0423"
        y="219.60112"
        sodipodi:role="line"
        id="tspan707">Add -es for flat, -is for sharp</tspan>
   </text>
   <text
-     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#a60000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="115.56139"
+     style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+     x="113.56139"
      y="288.28394"
      id="text702">
     <tspan
-       x="115.56139"
+       x="113.56139"
        y="288.28394"
        sodipodi:role="line"
        id="tspan625">Enclose pitches in &lt; &gt; for chords</tspan>
@@ -223,10 +219,10 @@
     </rdf:RDF>
   </metadata>
   <rect
-     style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
+     style="font-size:12px;fill:#ff5555;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect970"
      width="16.250458"
      height="25.903381"
-     x="150.80469"
-     y="88.498466" />
+     x="149.80469"
+     y="87.498466" />
 </svg>

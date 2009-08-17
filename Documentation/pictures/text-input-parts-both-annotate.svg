@@ -12,7 +12,7 @@
    inkscape:version="0.46"
    sodipodi:docname="text-input-parts-both-annotate.svg"
    height="373.27905"
-   width="709.20117"
+   width="631.18286"
    sodipodi:version="0.32"
    id="svg548"
    xml:space="preserve"
@@ -26,19 +26,17 @@
      inkscape:vp_z="744.09448 : 526.18109 : 1"
      inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
      id="perspective35" /></defs>
-
   <sodipodi:namedview
-   inkscape:window-y="5"
-   inkscape:window-x="157"
+   inkscape:window-y="0"
+   inkscape:window-x="0"
    inkscape:window-height="708"
-   inkscape:window-width="818"
+   inkscape:window-width="730"
    inkscape:cy="186.63953"
-   inkscape:cx="354.88018"
+   inkscape:cx="310.00752"
    inkscape:zoom="1"
    id="base"
    showgrid="false"
    inkscape:current-layer="svg548" />
-
   <text
    id="text555"
    y="28.739059"
@@ -96,12 +94,7 @@
      id="tspan1226"
      sodipodi:role="line"
      y="364.73907"
-     x="7.7990665">} </tspan></text>
-
-
-
-
-
+     x="7.7990665">}</tspan></text>
 
   <rect
    y="89.084488"
@@ -109,66 +102,51 @@
    height="25.80957"
    width="72.433189"
    id="rect662"
-   style="font-size:12px;fill:#01b500;fill-opacity:0.56204403;fill-rule:evenodd;stroke:none;stroke-width:1pt;stroke-opacity:1" />
-
+   style="font-size:12px;fill:#5fd35f;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none;stroke-width:1pt;stroke-opacity:1" />
   <rect
    y="0"
    x="0"
    height="31.637497"
    width="203.97852"
    id="rect663"
-   style="font-size:12px;fill:#af3738;fill-opacity:0.56521702;fill-rule:evenodd;stroke-width:1pt" />
-
+   style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt" />
   <rect
    y="200.48082"
    x="0.57910347"
    height="27.80954"
    width="246.43933"
    id="rect664"
-   style="font-size:12px;fill:#af3738;fill-opacity:0.56521702;fill-rule:evenodd;stroke-width:1pt" />
-
+   style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt" />
   <path
    id="path665"
    d="M 110.82412,105.8604 C 183.82412,105.8604 300.38912,82.311399 389.87312,83.489399"
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00ad00;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
-
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
   <path
    sodipodi:nodetypes="cc"
    id="path666"
    d="M 247.34912,218.8364 C 305.04212,191.7554 436.97112,237.1434 439.32512,199.4654"
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b10000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
-
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
   <text
    sodipodi:linespacing="100%"
    id="text667"
    y="91.711288"
    x="399.36646"
-   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#00ad00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
+   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
      y="91.711288"
      x="399.36646"
      id="tspan1315"
      sodipodi:role="line">Enter multi-rest</tspan></text>
-
-
-
-
-
 
   <text
    sodipodi:linespacing="100%"
    id="text674"
    y="189.8231"
    x="373.74023"
-   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#b10000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
+   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
      y="189.8231"
      x="373.74023"
      id="tspan1317"
      sodipodi:role="line">Store notes in variable</tspan></text>
-
-
-
-
-
 
 <metadata
    id="metadata1054">

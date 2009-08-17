@@ -11,8 +11,8 @@
    sodipodi:docbase="/home/hanwen/vc/savannah/lily/newweb/site/graphics"
    inkscape:version="0.46"
    sodipodi:docname="text-input-parts-single-annotate.svg"
-   height="306.22705"
-   width="610.3028"
+   height="289.1824"
+   width="541.65167"
    sodipodi:version="0.32"
    id="svg682"
    xml:space="preserve"
@@ -26,146 +26,102 @@
      inkscape:vp_z="744.09448 : 526.18109 : 1"
      inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
      id="perspective24" /></defs>
-
-
   <sodipodi:namedview
    inkscape:current-layer="svg682"
-   inkscape:window-y="33"
-   inkscape:window-x="233"
+   inkscape:window-y="0"
+   inkscape:window-x="0"
    inkscape:window-height="708"
-   inkscape:window-width="734"
+   inkscape:window-width="642"
    inkscape:cy="145.83431"
-   inkscape:cx="305.1514"
+   inkscape:cx="268.0911"
    inkscape:zoom="1"
    id="base"
    showgrid="false" />
-
-
   <text
    sodipodi:linespacing="100%"
    id="text690"
-   y="93.541931"
+   y="83.387314"
    x="2.52"
    style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"><tspan
      id="tspan1160"
      sodipodi:role="line"
-     y="93.541931"
+     y="83.387314"
      x="2.52">{</tspan><tspan
      id="tspan1162"
      sodipodi:role="line"
-     y="121.54193"
+     y="111.38731"
      x="2.52">  \set Score.skipBars = ##t</tspan><tspan
      id="tspan1164"
      sodipodi:role="line"
-     y="149.54193"
-     x="2.52">  \transpose f c'  \hornNotes</tspan><tspan
+     y="139.38731"
+     x="2.52">  \transpose f c' \hornNotes</tspan><tspan
      id="tspan1168"
      sodipodi:role="line"
-     y="177.54193"
+     y="167.38731"
      x="2.52">}</tspan></text>
 
-
-
-
-
-
-
-
   <rect
-   y="96.397034"
+   y="86.242416"
    x="34.790546"
    height="31.066223"
    width="425.08368"
    id="rect705"
-   style="font-size:12px;fill:#ee9797;fill-opacity:0.73913;fill-rule:evenodd;stroke-width:1pt" />
-
-
+   style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt" />
   <rect
-   y="127.48907"
+   y="117.33445"
    x="34.588528"
    height="28.01602"
    width="250.31258"
    id="rect706"
-   style="font-size:12px;fill:#23e023;fill-opacity:0.49634998;fill-rule:evenodd;stroke-width:1pt" />
-
-
+   style="font-size:12px;fill:#5fd35f;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt" />
   <rect
-   y="127.3708"
-   x="320.40845"
+   y="117.21618"
+   x="302.40845"
    height="27.169315"
    width="171.67058"
    id="rect707"
-   style="font-size:12px;fill:#6165d3;fill-opacity:0.6;fill-rule:evenodd;stroke-width:1pt" />
-
-
+   style="font-size:12px;fill:#5f8dd3;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt" />
   <path
    id="path708"
-   d="M 163.83323,95.335244 C 169.72123,36.463244 222.58789,32.227671 250.84589,27.517671"
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b10000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   d="M 163.83323,85.180624 C 169.72123,26.308624 222.58789,22.073051 250.84589,17.363051"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
    sodipodi:nodetypes="cc" />
-
-
   <path
    id="path709"
-   d="M 71.877889,155.85667 C 29.490919,195.88967 -29.380781,242.98667 22.425919,275.95467"
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b300;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-
-
+   d="M 71.877889,145.70205 C 29.490919,185.73505 -29.380781,232.83205 22.425919,265.80005"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
   <path
    id="path710"
-   d="M 360.92788,155.62399 C 309.12088,207.42999 331.02199,228.85767 363.98999,250.05067"
+   d="M 360.92788,145.46937 C 309.12088,197.27537 331.02199,218.70305 363.98999,239.89605"
    style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
    sodipodi:nodetypes="cc" />
-
-
   <text
    sodipodi:linespacing="100%"
    id="text711"
-   y="35.11462"
+   y="24.959999"
    x="258.03763"
-   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#b00000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
-     y="35.11462"
+   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
+     y="24.959999"
      x="258.03763"
      id="tspan1306"
      sodipodi:role="line">Condense multi-rests</tspan></text>
 
-
-
-
-
-
-
-
   <text
    sodipodi:linespacing="100%"
    id="text718"
-   y="293.66904"
+   y="283.5144"
    x="28.926991"
-   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#00b200;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
-     y="293.66904"
+   style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
+     y="283.5144"
      x="28.926991"
      id="tspan1304"
      sodipodi:role="line">Transpose for F instrument</tspan></text>
 
-
-
-
-
-
-
-
   <text
    id="text723"
-   y="255.64755"
+   y="245.49294"
    x="373.68558"
    style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ab;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter">Reuse variable</text>
-
-
-
-
-
-
-
 
 <metadata
    id="metadata1154">
@@ -173,14 +129,9 @@
     <cc:Work
    rdf:about="">
       <dc:format>image/svg+xml</dc:format>
-
       <dc:type
    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-
     </cc:Work>
-
   </rdf:RDF>
-
 </metadata>
-
 </svg>

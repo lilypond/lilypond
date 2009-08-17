@@ -11,8 +11,8 @@
    xml:space="preserve"
    id="svg728"
    sodipodi:version="0.32"
-   width="536.36145"
-   height="264.42117"
+   width="417.08264"
+   height="249.08209"
    sodipodi:docname="text-input-score-annotate.svg"
    inkscape:version="0.46"
    sodipodi:docbase="/home/hanwen/usr/src/savannah/lily/newweb/site/switch"
@@ -26,122 +26,82 @@
      inkscape:vp_z="744.09448 : 526.18109 : 1"
      inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
      id="perspective22" /></defs>
-
-
   <sodipodi:namedview
    id="base"
    inkscape:zoom="1"
-   inkscape:cx="268.18073"
+   inkscape:cx="212.71028"
    inkscape:cy="132.21059"
-   inkscape:window-width="640"
+   inkscape:window-width="590"
    inkscape:window-height="708"
    inkscape:window-x="163"
    inkscape:window-y="28"
    showgrid="false"
    inkscape:current-layer="svg728" />
-
-
   <text
    style="font-size:26px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
    x="3.5347519"
-   y="99.128212"
+   y="89.062035"
    id="text731"
    sodipodi:linespacing="100%"><tspan
      x="3.5347519"
-     y="99.128212"
+     y="89.062035"
      sodipodi:role="line"
      id="tspan1178">&lt;&lt;</tspan><tspan
      x="3.5347519"
-     y="125.12821"
+     y="115.06203"
      sodipodi:role="line"
-     id="tspan1180">  \new Staff \_(&quot;hornNotes&quot;)</tspan><tspan
+     id="tspan1182">  \new Staff \hornNotes</tspan><tspan
      x="3.5347519"
-     y="151.1282"
+     y="141.06203"
      sodipodi:role="line"
-     id="tspan1182">  \new Staff \_(&quot;bassoonNotes&quot;)</tspan><tspan
+     id="tspan2394">  \new Staff \bassoonNotes</tspan><tspan
      x="3.5347519"
-     y="177.1282"
+     y="167.06203"
      sodipodi:role="line"
-     id="tspan1184">&gt;&gt;</tspan><tspan
-     x="3.5347519"
-     y="203.1282"
-     sodipodi:role="line"
-     id="tspan1186" /><tspan
-     x="3.5347519"
-     y="229.1282"
-     sodipodi:role="line"
-     id="tspan1188">  </tspan></text>
-
-
-
-
-
-
+     id="tspan1188">&gt;&gt;</tspan></text>
 
   <rect
-   style="font-size:12px;fill:#c12b28;fill-opacity:0.53658495;fill-rule:evenodd;stroke-width:1pt"
+   style="font-size:12px;fill:#ff5555;fill-opacity:0.48945151;fill-rule:evenodd;stroke-width:1pt"
    id="rect758"
-   width="403.33691"
+   width="341.33691"
    height="24.600643"
    x="34.672348"
-   y="104.47408" />
-
-
+   y="94.407906" />
   <rect
-   style="font-size:12px;fill:#c12b28;fill-opacity:0.53658495;fill-rule:evenodd;stroke-width:1pt"
+   style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt"
    id="rect759"
-   width="450.18369"
+   width="379.18369"
    height="24.600645"
    x="34.681282"
-   y="130.94939" />
-
-
+   y="120.88321" />
   <rect
-   style="font-size:12px;fill:#23ca22;fill-opacity:0.58841505;fill-rule:evenodd;stroke-width:1pt"
+   style="font-size:12px;fill:#5fd35f;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt"
    id="rect760"
    width="34.380184"
    height="100.57295"
    x="0"
-   y="80.436127" />
-
-
+   y="70.369949" />
   <path
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 15.410247,181.8483 C 13.745147,236.7973 67.234672,244.36994 113.85866,244.36994"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   d="M 15.410247,171.78213 C 13.745147,226.73113 67.234672,234.30377 113.85866,234.30377"
    id="path761"
    sodipodi:nodetypes="cc" />
-
-
   <path
    style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 122.92925,103.37399 C 121.26325,40.098713 143.61735,29.355154 193.57135,27.690054"
+   d="M 122.92925,93.307816 C 121.26325,30.032539 143.61735,19.28898 193.57135,17.62388"
    id="path762"
    sodipodi:nodetypes="cc" />
-
-
   <text
-   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#b00000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
    x="207.41716"
-   y="35.468174"
+   y="25.402"
    id="text763">Create staff</text>
 
-
-
-
-
-
-
   <text
-   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00b000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
    x="127.97768"
-   y="252.57027"
+   y="242.50409"
    id="text766">Combine staffs in parallel</text>
-
-
-
-
-
-
 
 <metadata
    id="metadata1091">
@@ -149,14 +109,9 @@
     <cc:Work
    rdf:about="">
       <dc:format>image/svg+xml</dc:format>
-
       <dc:type
    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-
     </cc:Work>
-
   </rdf:RDF>
-
 </metadata>
-
 </svg>
