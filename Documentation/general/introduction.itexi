@@ -690,8 +690,6 @@ accidentals.
 
 Put chords and lyrics together to get a lead sheet:
 
-@help{change the lyrics.  svg available}
-
 @c @imageFloat{text-input-pop-annotate,png,center}
 @c @imageFloat{text-input-pop-output,png,center}
 

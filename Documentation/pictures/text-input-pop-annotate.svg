@@ -10,7 +10,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg548"
    sodipodi:version="0.32"
-   width="600.17102"
+   width="593.31342"
    height="437.48563"
    sodipodi:docname="text-input-pop-annotate.svg"
    inkscape:version="0.46"
@@ -30,7 +30,7 @@
   <sodipodi:namedview
      id="base"
      inkscape:zoom="1"
-     inkscape:cx="307.46076"
+     inkscape:cx="301.62729"
      inkscape:cy="221.78706"
      inkscape:window-width="719"
      inkscape:window-height="708"
@@ -41,123 +41,123 @@
   <text
      xml:space="preserve"
      style="font-size:21.81822777px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
-     x="35.776142"
+     x="31.918566"
      y="13.156391"
      id="text551"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan1338"
-       x="35.776142"
+       x="31.918566"
        y="13.156391">&lt;&lt;</tspan><tspan
        sodipodi:role="line"
        id="tspan1340"
-       x="35.776142"
+       x="31.918566"
        y="40.429176">  \chords {</tspan><tspan
        sodipodi:role="line"
        id="tspan1342"
-       x="35.776142"
-       y="67.701965">    c1:m7 f2:7 c2</tspan><tspan
+       x="31.918566"
+       y="67.701958">    c1:m7 f2:7 c2</tspan><tspan
        sodipodi:role="line"
        id="tspan1344"
-       x="35.776142"
+       x="31.918566"
        y="94.974747">  }</tspan><tspan
        sodipodi:role="line"
        id="tspan1346"
-       x="35.776142"
+       x="31.918566"
        y="122.24753">  \relative c'' {</tspan><tspan
        sodipodi:role="line"
        id="tspan1348"
-       x="35.776142"
-       y="149.52031">    g2 es8( c4.)</tspan><tspan
+       x="31.918566"
+       y="149.52031">    g2 es8( c4) es8</tspan><tspan
        sodipodi:role="line"
        id="tspan1350"
-       x="35.776142"
-       y="176.79311">    f8 f es d c2</tspan><tspan
+       x="31.918566"
+       y="176.79311">    f8 es d c~ c2</tspan><tspan
        sodipodi:role="line"
        id="tspan1352"
-       x="35.776142"
+       x="31.918566"
        y="204.06589">  }</tspan><tspan
        sodipodi:role="line"
        id="tspan1354"
-       x="35.776142"
+       x="31.918566"
        y="231.33867">  \addlyrics {</tspan><tspan
        sodipodi:role="line"
        id="tspan1356"
-       x="35.776142"
-       y="258.61145">    Li ly,</tspan><tspan
+       x="31.918566"
+       y="258.61145">    You are</tspan><tspan
        sodipodi:role="line"
        id="tspan1358"
-       x="35.776142"
-       y="285.88425">    got me on my knees</tspan><tspan
+       x="31.918566"
+       y="285.88425">    the sky and my rain,</tspan><tspan
        sodipodi:role="line"
        id="tspan1360"
-       x="35.776142"
+       x="31.918566"
        y="313.15701">  }</tspan><tspan
        sodipodi:role="line"
        id="tspan1374"
-       x="35.776142"
+       x="31.918566"
        y="340.42981">&gt;&gt;</tspan></text>
   <rect
      style="font-size:12px;fill:#5f8dd3;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none;stroke-width:0.98323898pt"
      id="rect663"
-     width="249.00218"
+     width="267.0022"
      height="56.99667"
-     x="85.612885"
+     x="81.75531"
      y="237.51135" />
   <rect
      style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none;stroke-width:0.97302504pt"
      id="rect664"
      width="178.76715"
      height="28.498394"
-     x="85.084633"
+     x="81.227058"
      y="45.7061" />
   <rect
      style="font-size:12px;fill:#5fd35f;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none;stroke-width:0.94686499pt"
      id="rect665"
-     width="166.95161"
+     width="199.95161"
      height="53.451401"
-     x="84.689522"
+     x="80.831947"
      y="129.9214" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 336.21171,260.32487 C 372.74278,258.05662 483.79388,298.43107 443.66565,321.47977"
+     d="M 352.35413,263.32487 C 388.8852,261.05662 479.9363,298.43107 439.80807,321.47977"
      id="path666"
      sodipodi:nodetypes="cc" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 253.97385,150.62731 C 323.81464,144.95724 362.8713,197.69136 434.96477,184.08028"
+     d="M 283.11627,152.62731 C 352.95706,146.95724 359.01372,197.69136 431.10719,184.08028"
      id="path667"
      sodipodi:nodetypes="cc" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 265.83539,59.998809 C 293.99675,62.267101 434.80768,33.18206 466.45753,72.846626"
+     d="M 261.97781,59.998809 C 290.13917,62.267101 430.9501,33.18206 462.59995,72.846626"
      id="path668"
      sodipodi:nodetypes="cc" />
   <text
      style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="379.02905"
+     x="375.17148"
      y="99.656807"
      id="text669">
     <tspan
-       x="379.02905"
+       x="375.17148"
        y="99.656807"
        sodipodi:role="line"
        id="tspan672">Enter chord names</tspan>
   </text>
   <text
      style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="449.0787"
+     x="442.22113"
      y="194.40211"
      id="text674">
     <tspan
-       x="449.0787"
+       x="442.22113"
        y="194.40211"
        sodipodi:role="line"
        id="tspan679">Enter melody</tspan>
   </text>
   <text
      style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ad;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="374.1586"
+     x="370.30103"
      y="354.33096"
      id="text681">
     <tspan
@@ -168,16 +168,16 @@
      id="rect686"
      width="167.25557"
      height="27.221554"
-     x="59.018921"
+     x="55.161346"
      y="209.81116" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#531d8a;stroke-width:1.86446702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 58.196431,223.06456 C -36.730246,254.37145 -11.343499,377.4312 117.33056,411.41079"
+     d="M 54.338855,223.06456 C -31.587822,260.37145 -15.201075,377.4312 113.47298,411.41079"
      id="path687"
      sodipodi:nodetypes="cc" />
   <text
      style="font-size:25.78517914px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#531f8a;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-     x="137.84265"
+     x="133.98508"
      y="427.4552"
      id="text688">
     <tspan
