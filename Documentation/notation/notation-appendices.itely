@@ -1011,6 +1011,7 @@ Internals Reference:
 @unnumberedsubsec lexer
 
 @cindex lexer
+@cindex Flex
 
 A @strong{lexer} is a program which converts a sequence of
 characters into a sequence of tokens, a process called lexical
@@ -1038,10 +1039,26 @@ created for midi, layout and paper blocks.
 @unnumberedsubsec parser
 
 @cindex parser
+@cindex Bison
+@cindex grammar for LilyPond
+@cindex BNF
 
-A @strong{parser} analyzes the sequence of tokens produced by
-a lexer to determine its grammatical structure as defined by the
-rules governing the format of an input file.
+A @strong{parser} analyzes the sequence of tokens produced by a
+lexer to determine its grammatical structure, grouping the tokens
+progressively into larger groupings according to the rules of the
+grammar.  If the sequence of tokens is valid the end product is a
+tree of tokens whose root is the grammar's start symbol.  If this
+cannot be achieved the file is invalid and an appropriate error
+message is produced.  The LilyPond parser is built with Bison to
+apply the grammar defined in @file{lily/parser.yy} and shown in
+Backus Normal Form (BNF) in @ref{LilyPond grammar}.  This grammar
+specifies the syntactic groupings and the rules for constructing
+them from their parts.
+
+@seealso
+
+Installed Files:
+@file{lily/parser.yy}
 
 @node parser variable
 @unnumberedsubsec parser variable
