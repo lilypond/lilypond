@@ -201,8 +201,8 @@ FIXME: images broken in info
 @macro imageClickable{IMAGE-FILE, EXT, MORE-TEXT, CLICK-FILE, CLICK-EXT, POSITION}
 @html
 <div class="float-\POSITION\">
-  <a class="clickable" href="\CLICK-FILE\.\CLICK-EXT\">
-    <img src="\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
+  <a class="clickable" href="pictures/\CLICK-FILE\.\CLICK-EXT\">
+    <img src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
     \MORE-TEXT\
