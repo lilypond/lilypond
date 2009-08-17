@@ -31,8 +31,8 @@
   <sodipodi:namedview
    id="base"
    inkscape:zoom="1"
-   inkscape:cx="269.77125"
-   inkscape:cy="132.21057"
+   inkscape:cx="268.18073"
+   inkscape:cy="132.21059"
    inkscape:window-width="640"
    inkscape:window-height="708"
    inkscape:window-x="163"
@@ -76,51 +76,56 @@
 
 
 
+
+
   <rect
    style="font-size:12px;fill:#c12b28;fill-opacity:0.53658495;fill-rule:evenodd;stroke-width:1pt"
    id="rect758"
-   width="393.38718"
-   height="22.479324"
-   x="40.379456"
-   y="105.53474" />
+   width="403.33691"
+   height="24.600643"
+   x="34.672348"
+   y="104.47408" />
 
 
   <rect
    style="font-size:12px;fill:#c12b28;fill-opacity:0.53658495;fill-rule:evenodd;stroke-width:1pt"
    id="rect759"
-   width="392.55447"
-   height="22.479324"
-   x="41.398796"
-   y="132.3636" />
+   width="450.18369"
+   height="24.600645"
+   x="34.681282"
+   y="130.94939" />
 
 
   <rect
    style="font-size:12px;fill:#23ca22;fill-opacity:0.58841505;fill-rule:evenodd;stroke-width:1pt"
    id="rect760"
-   width="38.440845"
-   height="101.57295"
+   width="34.380184"
+   height="100.57295"
    x="0"
-   y="82.436127" />
+   y="80.436127" />
 
 
   <path
    style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 18.945781,186.09094 C 17.280681,241.03994 67.234672,244.36994 113.85866,244.36994"
-   id="path761" />
+   d="M 15.410247,181.8483 C 13.745147,236.7973 67.234672,244.36994 113.85866,244.36994"
+   id="path761"
+   sodipodi:nodetypes="cc" />
 
 
   <path
    style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 123.63635,107.61663 C 121.97035,44.341354 143.61735,29.355154 193.57135,27.690054"
-   id="path762" />
+   d="M 122.92925,103.37399 C 121.26325,40.098713 143.61735,29.355154 193.57135,27.690054"
+   id="path762"
+   sodipodi:nodetypes="cc" />
 
 
   <text
    style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#b00000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-   x="212.72046"
-   y="27.690001"
-   id="text763">     <tspan
-   id="tspan764"> _(&quot;Create staff&quot;)</tspan>   </text>
+   x="207.41716"
+   y="35.468174"
+   id="text763">Create staff</text>
+
+
 
 
 
@@ -128,10 +133,11 @@
 
   <text
    style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00b000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-   x="137.17007"
-   y="251.86316"
-   id="text766">     <tspan
-   id="tspan767"> _(&quot;Combine staffs in parallel&quot;)</tspan>   </text>
+   x="127.97768"
+   y="252.57027"
+   id="text766">Combine staffs in parallel</text>
+
+
 
 
 

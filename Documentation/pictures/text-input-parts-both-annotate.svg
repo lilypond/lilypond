@@ -28,8 +28,8 @@
      id="perspective35" /></defs>
 
   <sodipodi:namedview
-   inkscape:window-y="0"
-   inkscape:window-x="0"
+   inkscape:window-y="5"
+   inkscape:window-x="157"
    inkscape:window-height="708"
    inkscape:window-width="818"
    inkscape:cy="186.63953"
@@ -48,7 +48,7 @@
      id="tspan1190"
      sodipodi:role="line"
      y="28.739059"
-     x="7.7990665">_(&quot;hornNotes&quot;) =</tspan><tspan
+     x="7.7990665">hornNotes =</tspan><tspan
      id="tspan1192"
      sodipodi:role="line"
      y="56.739059"
@@ -76,7 +76,7 @@
      id="tspan1204"
      sodipodi:role="line"
      y="224.73906"
-     x="7.7990665">_(&quot;bassoonNotes&quot;) =</tspan><tspan
+     x="7.7990665">bassoonNotes =</tspan><tspan
      id="tspan1206"
      sodipodi:role="line"
      y="252.73906"
@@ -88,15 +88,16 @@
      id="tspan1210"
      sodipodi:role="line"
      y="308.73907"
-     x="7.7990665">  r4 d,8 f  gis4 c   b bes</tspan><tspan
+     x="7.7990665">  r4 d,8 f gis4 c b bes</tspan><tspan
      id="tspan1212"
      sodipodi:role="line"
      y="336.73907"
-     x="7.7990665">  a8 e f4   g d  gis f</tspan><tspan
+     x="7.7990665">  a8 e f4 g d gis f</tspan><tspan
      id="tspan1226"
      sodipodi:role="line"
      y="364.73907"
      x="7.7990665">} </tspan></text>
+
 
 
 
@@ -119,9 +120,9 @@
    style="font-size:12px;fill:#af3738;fill-opacity:0.56521702;fill-rule:evenodd;stroke-width:1pt" />
 
   <rect
-   y="201.48082"
-   x="4.5791035"
-   height="25.80954"
+   y="200.48082"
+   x="0.57910347"
+   height="27.80954"
    width="246.43933"
    id="rect664"
    style="font-size:12px;fill:#af3738;fill-opacity:0.56521702;fill-rule:evenodd;stroke-width:1pt" />
@@ -134,7 +135,7 @@
   <path
    sodipodi:nodetypes="cc"
    id="path666"
-   d="M 250.34912,221.8364 C 308.04212,194.7554 436.97112,237.1434 439.32512,199.4654"
+   d="M 247.34912,218.8364 C 305.04212,191.7554 436.97112,237.1434 439.32512,199.4654"
    style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b10000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
 
   <text
@@ -146,7 +147,8 @@
      y="91.711288"
      x="399.36646"
      id="tspan1315"
-     sodipodi:role="line">  _(&quot;Enter multi-rest&quot;)   </tspan></text>
+     sodipodi:role="line">Enter multi-rest</tspan></text>
+
 
 
 
@@ -161,7 +163,8 @@
      y="189.8231"
      x="373.74023"
      id="tspan1317"
-     sodipodi:role="line">  _(&quot;Store notes in variable&quot;)   </tspan></text>
+     sodipodi:role="line">Store notes in variable</tspan></text>
+
 
 
 

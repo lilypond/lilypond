@@ -30,12 +30,12 @@
 
   <sodipodi:namedview
    inkscape:current-layer="svg682"
-   inkscape:window-y="0"
-   inkscape:window-x="0"
+   inkscape:window-y="33"
+   inkscape:window-x="233"
    inkscape:window-height="708"
    inkscape:window-width="734"
-   inkscape:cy="153.11353"
-   inkscape:cx="305.15144"
+   inkscape:cy="145.83431"
+   inkscape:cx="305.1514"
    inkscape:zoom="1"
    id="base"
    showgrid="false" />
@@ -58,15 +58,13 @@
      id="tspan1164"
      sodipodi:role="line"
      y="149.54193"
-     x="2.52">  \transpose f c'  \_(&quot;hornNotes&quot;)</tspan><tspan
-     id="tspan1166"
-     sodipodi:role="line"
-     y="177.54193"
-     x="2.52">}</tspan><tspan
+     x="2.52">  \transpose f c'  \hornNotes</tspan><tspan
      id="tspan1168"
      sodipodi:role="line"
-     y="205.54193"
-     x="2.52">  </tspan></text>
+     y="177.54193"
+     x="2.52">}</tspan></text>
+
+
 
 
 
@@ -75,35 +73,36 @@
 
   <rect
    y="96.397034"
-   x="33.022778"
-   height="30.066223"
-   width="429.67987"
+   x="34.790546"
+   height="31.066223"
+   width="425.08368"
    id="rect705"
    style="font-size:12px;fill:#ee9797;fill-opacity:0.73913;fill-rule:evenodd;stroke-width:1pt" />
 
 
   <rect
-   y="127.84262"
-   x="32.820759"
-   height="26.248253"
-   width="249.95901"
+   y="127.48907"
+   x="34.588528"
+   height="28.01602"
+   width="250.31258"
    id="rect706"
    style="font-size:12px;fill:#23e023;fill-opacity:0.49634998;fill-rule:evenodd;stroke-width:1pt" />
 
 
   <rect
-   y="128.43146"
-   x="338.08612"
-   height="22.573122"
-   width="169.54926"
+   y="127.3708"
+   x="320.40845"
+   height="27.169315"
+   width="171.67058"
    id="rect707"
    style="font-size:12px;fill:#6165d3;fill-opacity:0.6;fill-rule:evenodd;stroke-width:1pt" />
 
 
   <path
    id="path708"
-   d="M 164.89389,98.163671 C 170.78189,39.291671 222.58789,32.227671 250.84589,27.517671"
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b10000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+   d="M 163.83323,95.335244 C 169.72123,36.463244 222.58789,32.227671 250.84589,27.517671"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b10000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   sodipodi:nodetypes="cc" />
 
 
   <path
@@ -114,20 +113,23 @@
 
   <path
    id="path710"
-   d="M 361.63499,153.50267 C 309.82799,205.30867 331.02199,228.85767 363.98999,250.05067"
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+   d="M 360.92788,155.62399 C 309.12088,207.42999 331.02199,228.85767 363.98999,250.05067"
+   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   sodipodi:nodetypes="cc" />
 
 
   <text
    sodipodi:linespacing="100%"
    id="text711"
-   y="27.690001"
-   x="262.63382"
+   y="35.11462"
+   x="258.03763"
    style="font-size:26px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#b00000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"><tspan
-     y="27.690001"
-     x="262.63382"
+     y="35.11462"
+     x="258.03763"
      id="tspan1306"
-     sodipodi:role="line"> _(&quot;Condense multi-rests&quot;)   </tspan></text>
+     sodipodi:role="line">Condense multi-rests</tspan></text>
+
+
 
 
 
@@ -143,7 +145,9 @@
      y="293.66904"
      x="28.926991"
      id="tspan1304"
-     sodipodi:role="line"> _(&quot;Transpose for F instrument&quot;)   </tspan></text>
+     sodipodi:role="line">Transpose for F instrument</tspan></text>
+
+
 
 
 
@@ -152,10 +156,11 @@
 
   <text
    id="text723"
-   y="260.64755"
-   x="342.68558"
-   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ab;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter">     <tspan
-   id="tspan724">_(&quot;Reuse variable&quot;)</tspan>   </text>
+   y="255.64755"
+   x="373.68558"
+   style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ab;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter">Reuse variable</text>
+
+
 
 
 

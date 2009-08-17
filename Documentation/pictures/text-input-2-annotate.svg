@@ -30,10 +30,10 @@
   <sodipodi:namedview
      id="base"
      inkscape:zoom="1"
-     inkscape:cx="342.24913"
-     inkscape:cy="150.42096"
-     inkscape:window-width="791"
-     inkscape:window-height="709"
+     inkscape:cx="340.63177"
+     inkscape:cy="145.56815"
+     inkscape:window-width="774"
+     inkscape:window-height="708"
      inkscape:window-x="191"
      inkscape:window-y="24"
      showgrid="false"
@@ -48,7 +48,7 @@
        x="0"
        y="26.152"
        sodipodi:role="line"
-       id="tspan954">\relative c''  {</tspan><tspan
+       id="tspan954">\relative c'' {</tspan><tspan
        x="0"
        y="54.152"
        sodipodi:role="line"
@@ -80,52 +80,52 @@
   <rect
      style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect626"
-     width="19.427519"
+     width="18.366859"
      height="77.710083"
      x="32.190498"
      y="91.468803" />
   <rect
      style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect628"
-     width="14.129138"
+     width="16.250458"
      height="25.903381"
-     x="204.18401"
+     x="201.35558"
      y="115.45953" />
   <rect
      style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.97468004pt"
      id="rect629"
-     width="17.072718"
+     width="16.719164"
      height="24.725952"
-     x="202.41786"
+     x="201.35721"
      y="144.89482" />
   <rect
      style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect630"
      width="36.500156"
      height="20.016266"
-     x="68.780144"
+     x="67.012375"
      y="91.911186" />
   <rect
      style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect631"
      width="34.145306"
      height="23.548523"
-     x="68.780144"
+     x="67.012375"
      y="146.07246" />
   <rect
      style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03682003pt"
      id="rect632"
-     width="30.024336"
+     width="32.49921"
      height="25.314667"
-     x="170.69884"
-     y="146.65053" />
+     x="167.87041"
+     y="144.52921" />
   <rect
      style="font-size:12px;fill:#ad99f2;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect633"
-     width="24.856951"
-     height="25.903351"
+     width="21.674971"
+     height="28.378223"
      x="51.118736"
-     y="60.120781" />
+     y="59.06012" />
   <rect
      style="font-size:12px;fill:#ad99f2;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.99361296pt"
      id="rect634"
@@ -138,30 +138,30 @@
      id="rect635"
      width="37.677547"
      height="24.725952"
-     x="220.07927"
-     y="144.65117" />
+     x="219.01862"
+     y="145.00471" />
   <rect
      style="font-size:12px;fill:#67ee7a;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1.03682003pt"
      id="rect636"
      width="37.08889"
      height="25.314667"
-     x="137.07082"
-     y="115.45947" />
+     x="134.59595"
+     y="115.10592" />
   <rect
      style="font-size:12px;fill:#ad99f2;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:0.95553303pt"
      id="rect638"
-     width="17.072678"
-     height="24.725899"
-     x="171.21614"
+     width="16.719124"
+     height="26.140112"
+     x="169.80193"
      y="88.378838" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 96.850434,70.968612 C 116.83143,70.968612 213.41043,94.280612 308.32243,72.633612"
+     d="M 86.243832,69.907952 C 106.22483,69.907952 213.41043,94.280612 308.32243,72.633612"
      id="path639"
      sodipodi:nodetypes="cc" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 266.05243,125.22861 C 299.35543,125.22861 361.60543,114.26261 381.58743,85.955612"
+     d="M 264.28466,130.53191 C 297.58766,130.53191 361.60543,114.26261 381.58743,85.955612"
      id="path640"
      sodipodi:nodetypes="cc" />
   <path
@@ -187,7 +187,7 @@
        x="322.47546"
        y="79.294334"
        sodipodi:role="line"
-       id="tspan648">_(&quot;Add articulations&quot;)</tspan>
+       id="tspan648">Add articulations</tspan>
   </text>
   <text
      style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00ad00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
@@ -198,7 +198,7 @@
        x="307.0423"
        y="219.60112"
        sodipodi:role="line"
-       id="tspan707">_(&quot;Add -es for flat, -is for sharp&quot;)</tspan>
+       id="tspan707">Add -es for flat, -is for sharp</tspan>
   </text>
   <text
      style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#a60000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
@@ -209,7 +209,7 @@
        x="115.56139"
        y="288.28394"
        sodipodi:role="line"
-       id="tspan625">_(&quot;Enclose pitches in &lt; &gt; for chords&quot;)</tspan>
+       id="tspan625">Enclose pitches in &lt; &gt; for chords</tspan>
   </text>
   <metadata
      id="metadata56">
@@ -225,8 +225,8 @@
   <rect
      style="font-size:12px;fill:#ee9797;fill-opacity:0.48905101;fill-rule:evenodd;stroke:none;stroke-width:1pt"
      id="rect970"
-     width="14.129138"
+     width="16.250458"
      height="25.903381"
-     x="151.86534"
+     x="150.80469"
      y="88.498466" />
 </svg>

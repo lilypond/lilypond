@@ -30,12 +30,12 @@
   <sodipodi:namedview
      id="base"
      inkscape:zoom="1"
-     inkscape:cx="334.13931"
+     inkscape:cx="335.52737"
      inkscape:cy="221.78706"
-     inkscape:window-width="761"
-     inkscape:window-height="708"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="760"
+     inkscape:window-height="711"
+     inkscape:window-x="451"
+     inkscape:window-y="29"
      inkscape:current-layer="svg548"
      showgrid="false" />
   <text
@@ -100,37 +100,37 @@
   <rect
      style="font-size:12px;fill:#0900ad;fill-opacity:0.54744502;fill-rule:evenodd;stroke:none;stroke-width:0.98323898pt"
      id="rect663"
-     width="303.07663"
-     height="59.471516"
+     width="251.07663"
+     height="57.471516"
      x="91.000175"
-     y="241.49001" />
+     y="239.49001" />
   <rect
      style="font-size:12px;fill:#b00000;fill-opacity:0.40875896;fill-rule:evenodd;stroke:none;stroke-width:0.97302504pt"
      id="rect664"
-     width="236.25644"
-     height="29.735817"
+     width="180.25644"
+     height="28.735817"
      x="90.467461"
      y="46.086891" />
   <rect
      style="font-size:12px;fill:#009400;fill-opacity:0.306569;fill-rule:evenodd;stroke:none;stroke-width:0.94686499pt"
      id="rect665"
-     width="207.34248"
-     height="54.896721"
+     width="168.34248"
+     height="53.896721"
      x="90.069099"
-     y="133.00386" />
+     y="131.00386" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000b0;stroke-width:2.56682277;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 393.68669,268.49363 C 430.52213,266.20645 492.49836,300.91729 452.03583,324.158"
+     d="M 343.68669,262.49363 C 380.52213,260.20645 492.49836,300.91729 452.03583,324.158"
      id="path666"
      sodipodi:nodetypes="cc" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00b100;stroke-width:2.56682277;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 292.76375,163.88217 C 363.1863,158.16489 370.56838,199.33836 443.26245,185.61387"
+     d="M 260.76375,151.88217 C 331.1863,146.16489 370.56838,199.33836 443.26245,185.61387"
      id="path667"
      sodipodi:nodetypes="cc" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#aa0000;stroke-width:2.56682277;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 326.72403,61.498658 C 355.12007,63.785848 443.10409,33.458498 475.01758,73.453508"
+     d="M 272.72403,60.498658 C 301.12007,62.785848 443.10409,33.458498 475.01758,73.453508"
      id="path668"
      sodipodi:nodetypes="cc" />
   <text
@@ -142,7 +142,7 @@
        x="386.86063"
        y="100.48704"
        sodipodi:role="line"
-       id="tspan672">_(&quot;Enter chord names&quot;)</tspan>
+       id="tspan672">Enter chord names</tspan>
   </text>
   <text
      style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00b700;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
@@ -153,7 +153,7 @@
        x="457.49405"
        y="196.02174"
        sodipodi:role="line"
-       id="tspan679">_(&quot;Enter melody&quot;)</tspan>
+       id="tspan679">Enter melody</tspan>
   </text>
   <text
      style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#0000ad;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
@@ -161,18 +161,18 @@
      y="357.28284"
      id="text681">
     <tspan
-       id="tspan682">_(&quot;Enter lyrics&quot;)</tspan>
+       id="tspan682">Enter lyrics</tspan>
   </text>
   <rect
      style="font-size:12px;fill:#b25ed5;fill-opacity:0.64347797;fill-rule:evenodd;stroke-width:1pt"
      id="rect686"
-     width="172.6489"
+     width="168.6489"
      height="27.448336"
-     x="68.184616"
+     x="64.184616"
      y="211.5591" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#531d8a;stroke-width:2.56682277;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 69.35527,234.92288 C -45.362236,255.49057 -6.7639974,380.5755 122.98206,414.83831"
+     d="M 63.35527,224.92288 C -32.362236,256.49057 -6.7639974,380.5755 122.98206,414.83831"
      id="path687"
      sodipodi:nodetypes="cc" />
   <text
@@ -181,7 +181,7 @@
      y="431.01611"
      id="text688">
     <tspan
-       id="tspan689">_(&quot;Combine melody and lyrics&quot;)</tspan>
+       id="tspan689">Combine melody and lyrics</tspan>
   </text>
   <metadata
      id="metadata77">
