@@ -4,6 +4,18 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+  texidocfr = "
+D'ordinaire, le graveur @code{Volta_engraver} réside dans le contexte
+@code{Score} ; les crochets précédant une reprise s'impriment donc
+seulement au-dessus de la portée du haut.  On peut ajuster cela en
+déplaçant ce graveur vers les contextes de portée (@code{Staff}) qui
+doivent comporter ces crochets. 
+
+"
+  doctitlefr = "Ajout du crochet de reprise à d'autres portées"
+
+
   lsrtags = "repeats"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

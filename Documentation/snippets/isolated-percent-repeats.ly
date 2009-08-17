@@ -4,6 +4,15 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+  texidocfr = "
+Des symboles de pourcentage isolés peuvent aussi être obtenus, au
+moyen d'un silence multi-mesures dont on modifie l'aspect :
+
+"
+  doctitlefr = "Répétition en pourcent isolée"
+
+
   lsrtags = "repeats"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

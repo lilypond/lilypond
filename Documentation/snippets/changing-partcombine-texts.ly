@@ -4,6 +4,16 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+  texidocfr = "
+Lorsque voue vou regroupez automatiquement des parties, vous pouvez
+modiffier le texte qui sera affiché pour les solos et pour les parties à
+l'unisson :
+
+"
+  doctitlefr = "Modification des indications de parties combinées"
+
+
   lsrtags = "simultaneous-notes"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

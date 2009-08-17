@@ -4,6 +4,22 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Les raccourcis sont répertoriés dans le fichier
+@code{ly/script-init.ly}, dans lequel on retrouve les variables
+@code{dashHat}, @code{dashPlus}, @code{dashDash}, @code{dashBar},
+@code{dashLarger}, @code{dashDot}, et @code{dashUnderscore} ainsi que
+leur valeur par défaut.  Ces valeurs peuvent être modifiées selon vos
+besoins.  Il suffit par exemple, pour affecter au raccourci @code{-+}
+(@code{dashPlus}) le symbole du trille en lieu et place du @code{+}
+(caractère plus), d'assigner la valeur @code{trill} à la variable
+@code{dashPlus} :
+
+"
+  doctitlefr = "Modification de la signification des raccourcis pour les signes d'articulation"
+
+
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

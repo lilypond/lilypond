@@ -4,6 +4,16 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+  texidocfr = "
+Bien qu'allant à l'encontre des usages en matière de gravure, vous
+imprimerez une barre de reprise (@code{|:}) en début de partition si
+vous surchargez la propriété adéquate :
+
+"
+  doctitlefr = "Impression d'une barre de reprise en début de morceau"
+
+
   lsrtags = "repeats, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

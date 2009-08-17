@@ -4,6 +4,17 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+  texidocfr = "
+Dans certains cas de musique polyphonie complexe, une voix
+supplémentaire peut permettre d'eviter les risques de collision.
+Lorsque quatre voix parallèles ne suffisent pas, la fonction Scheme
+@code{context-spec-music} permet d'ajouter des d'autres voix.
+
+"
+  doctitlefr = "Ajout de voix pour éviter les collisions"
+
+
   lsrtags = "simultaneous-notes"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

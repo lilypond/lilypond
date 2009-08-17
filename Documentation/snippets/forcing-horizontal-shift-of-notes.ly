@@ -4,6 +4,17 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+  texidocfr = "
+Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
+@code{NoteColumn}, et des silences à hauteur déterminée, peuvent
+s'avérer utiles pour dicter au programme les choix de placement.  On
+travaille ici en espace de portée.
+
+"
+  doctitlefr = "Cécalage horizontal forcé"
+
+
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca

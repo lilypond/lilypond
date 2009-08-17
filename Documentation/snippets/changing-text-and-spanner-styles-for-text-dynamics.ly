@@ -4,6 +4,19 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Le texte par défaut des crescendos et decrescendos se change en
+modifiant les propriétés de contexte @code{crescendoText} et 
+@code{decrescendoText}. L'aspect de la ligne d'extension est fonction
+de la propriété @code{'style} du @code{DynamicTextSpanner}.  Sa valeur
+par défaut est @code{'hairpin}, mais d'autres valeurs sont disponibles,
+comme @code{'line}, @code{'dashed-line} et @code{'dotted-line}.
+
+"
+  doctitlefr = "Modifidation du texte et de l'extension de nuances textuelles"
+
+
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
