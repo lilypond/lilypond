@@ -1019,12 +1019,9 @@ analysis.  The LilyPond lexer converts the stream obtained from an
 input @file{.ly} file into a tokenized stream more suited to the
 next stage of processing - parsing, for which see @ref{parser}.
 The LilyPond lexer is built with Flex from the lexer file
-@file{lily/lexer.ll} which contains the lexical rules.
-
-@seealso
-
-Installed Files:
-@file{lily/lexer.ll}
+@file{lily/lexer.ll} which contains the lexical rules.  This file
+is part of the source code and is not included in the LilyPond
+binary installation.
 
 @node output-def
 @unnumberedsubsec output-def
@@ -1049,16 +1046,13 @@ progressively into larger groupings according to the rules of the
 grammar.  If the sequence of tokens is valid the end product is a
 tree of tokens whose root is the grammar's start symbol.  If this
 cannot be achieved the file is invalid and an appropriate error
-message is produced.  The LilyPond parser is built with Bison to
-apply the grammar defined in @file{lily/parser.yy} and shown in
-Backus Normal Form (BNF) in @ref{LilyPond grammar}.  This grammar
-specifies the syntactic groupings and the rules for constructing
-them from their parts.
-
-@seealso
-
-Installed Files:
-@file{lily/parser.yy}
+message is produced.  The syntactic groupings and the rules for
+constructing the groupings from their parts for the LilyPond syntax
+are defined in @file{lily/parser.yy} and shown in Backus Normal Form
+(BNF) in @ref{LilyPond grammar}.  This file is used to build the
+parser during the program build by the parser generator, Bison.  It
+is part of the source code and is not included in the LilyPond
+binary installation.
 
 @node parser variable
 @unnumberedsubsec parser variable
