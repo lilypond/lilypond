@@ -646,8 +646,7 @@ Read about our @ref{Text input}.
 
 @subheading @qq{Compiling} Music
 
-@c FIXME: broken image?
-@c @imageClickable{examples/nereid-shot-small,png, (click to enlarge), examples/nereid-shot,png, right}
+@imageClickable{nereid-shot-small,png, (click to enlarge), nereid-shot,png, right}
 
 LilyPond is a @emph{compiled} system: it is run on a text file
 containing the notes.  The resulting output is viewed on-screen or
@@ -673,25 +672,24 @@ everything at a much more gradual pace.}
 Notes are encoded with letters and numbers.  Special commands are
 entered with backslashes.
 
-@c why can't we fscking just conver the svg to png.  :/
-@c @imageFloat{text-input-1-annotate,png,center}
-@c @imageFloat{text-input-1-output,png,center}
+@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-output,png,center}
 
 Alterations are made with different names: add @code{-is} for
 sharp, and @code{-es} for flat (these are Dutch note names, other
 languages are available).  LilyPond figures out where to put
 accidentals.
 
-@c @imageFloat{text-input-2-annotate,png,center}
-@c @imageFloat{text-input-2-output,png,center}
+@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-output,png,center}
 
 
 @subsubheading Pop music
 
 Put chords and lyrics together to get a lead sheet:
 
-@c @imageFloat{text-input-pop-annotate,png,center}
-@c @imageFloat{text-input-pop-output,png,center}
+@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-output,png,center}
 
 
 
@@ -702,21 +700,21 @@ be made from a single input file.  So, changing a note always
 affects both parts and score.  To share the notes, the music is
 assigned to a variable:
 
-@c @imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate,png,center}
 
 
 This variable is then used in a single part (here transposed, with
 condensed multi rests):
 
-@c @imageFloat{text-input-parts-single-annotate,png,center}
-@c @imageFloat{text-input-parts-single-output,png,center}
+@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-output,png,center}
 
 
 The same variable is used in the full score (here in concert
 pitch):
 
-@c @imageFloat{text-input-score-annotate,png,center}
-@c @imageFloat{text-input-score-output,png,center}
+@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-output,png,center}
 
 
 @subsubheading Beginner Documentation
