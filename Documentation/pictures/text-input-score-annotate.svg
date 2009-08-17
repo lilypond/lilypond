@@ -30,8 +30,8 @@
 
   <sodipodi:namedview
    id="base"
-   inkscape:zoom="1.0366144"
-   inkscape:cx="268.18073"
+   inkscape:zoom="1"
+   inkscape:cx="269.77125"
    inkscape:cy="132.21057"
    inkscape:window-width="640"
    inkscape:window-height="708"
@@ -75,6 +75,7 @@
 
 
 
+
   <rect
    style="font-size:12px;fill:#c12b28;fill-opacity:0.53658495;fill-rule:evenodd;stroke-width:1pt"
    id="rect758"
@@ -110,7 +111,7 @@
 
   <path
    style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 123.63635,107.61663 C 121.97035,44.341355 143.61735,29.355155 193.57135,27.690055"
+   d="M 123.63635,107.61663 C 121.97035,44.341354 143.61735,29.355154 193.57135,27.690054"
    id="path762" />
 
 
@@ -124,12 +125,14 @@
 
 
 
+
   <text
    style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#00b000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
    x="137.17007"
    y="251.86316"
    id="text766">     <tspan
    id="tspan767"> _(&quot;Combine staffs in parallel&quot;)</tspan>   </text>
+
 
 
 

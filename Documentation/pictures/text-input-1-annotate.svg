@@ -56,13 +56,13 @@
   </defs>
   <sodipodi:namedview
      id="base"
-     inkscape:zoom="1.8566819"
-     inkscape:cx="321.54135"
+     inkscape:zoom="1"
+     inkscape:cx="324.78146"
      inkscape:cy="112.28523"
-     inkscape:window-width="1278"
-     inkscape:window-height="774"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="749"
+     inkscape:window-height="708"
+     inkscape:window-x="248"
+     inkscape:window-y="24"
      showgrid="false"
      inkscape:current-layer="svg548" />
   <text
@@ -268,7 +268,7 @@
   </metadata>
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#a60000;stroke-width:1.33380878;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="M 83.134232,60.970226 L 83.134222,60.970236 C 115.0175,5.9248066 278.31839,21.393956 278.31839,21.703456"
+     d="M 83.134232,60.970226 L 83.134222,60.970236 C 115.0175,5.9248072 278.31839,21.393956 278.31839,21.703456"
      id="path1014"
      sodipodi:nodetypes="ccc" />
 </svg>

@@ -30,11 +30,11 @@
   <sodipodi:namedview
    inkscape:window-y="0"
    inkscape:window-x="0"
-   inkscape:window-height="774"
-   inkscape:window-width="1278"
+   inkscape:window-height="708"
+   inkscape:window-width="818"
    inkscape:cy="186.63953"
-   inkscape:cx="354.60059"
-   inkscape:zoom="1.510934"
+   inkscape:cx="354.88018"
+   inkscape:zoom="1"
    id="base"
    showgrid="false"
    inkscape:current-layer="svg548" />
@@ -101,6 +101,7 @@
 
 
 
+
   <rect
    y="89.084488"
    x="37.881714"
@@ -150,6 +151,7 @@
 
 
 
+
   <text
    sodipodi:linespacing="100%"
    id="text674"
@@ -160,6 +162,7 @@
      x="373.74023"
      id="tspan1317"
      sodipodi:role="line">  _(&quot;Store notes in variable&quot;)   </tspan></text>
+
 
 
 
