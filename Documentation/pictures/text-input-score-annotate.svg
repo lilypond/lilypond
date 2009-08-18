@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -8,113 +8,137 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xml:space="preserve"
-   id="svg728"
+   width="514"
+   height="264"
+   id="svg4445"
    sodipodi:version="0.32"
-   width="364.08301"
-   height="217.4305"
-   sodipodi:docname="text-input-score-annotate.svg"
    inkscape:version="0.46"
-   sodipodi:docbase="/home/hanwen/usr/src/savannah/lily/newweb/site/switch"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   version="1.0">
+   version="1.0"
+   sodipodi:docname="text-input-score-annotate.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
-   id="defs730"><inkscape:perspective
-     sodipodi:type="inkscape:persp3d"
-     inkscape:vp_x="0 : 526.18109 : 1"
-     inkscape:vp_y="0 : 1000 : 0"
-     inkscape:vp_z="744.09448 : 526.18109 : 1"
-     inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
-     id="perspective22" /></defs>
+     id="defs4447">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective4453" />
+  </defs>
   <sodipodi:namedview
-   id="base"
-   inkscape:zoom="1"
-   inkscape:cx="185.72127"
-   inkscape:cy="90.21002"
-   inkscape:window-width="590"
-   inkscape:window-height="708"
-   inkscape:window-x="0"
-   inkscape:window-y="0"
-   showgrid="false"
-   inkscape:current-layer="svg728" />
-  <text
-   style="font-size:22.69612122px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Luxi Mono"
-   x="3.0855813"
-   y="77.74469"
-   id="text731"
-   sodipodi:linespacing="100%"><tspan
-     x="3.0855813"
-     y="77.74469"
-     sodipodi:role="line"
-     id="tspan1178">&lt;&lt;</tspan><tspan
-     x="3.0855813"
-     y="100.44081"
-     sodipodi:role="line"
-     id="tspan1182">  \new Staff \hornNotes</tspan><tspan
-     x="3.0855813"
-     y="123.13693"
-     sodipodi:role="line"
-     id="tspan2394">  \new Staff \bassoonNotes</tspan><tspan
-     x="3.0855813"
-     y="145.83305"
-     sodipodi:role="line"
-     id="tspan1188">&gt;&gt;</tspan></text>
-
-
-  <rect
-   style="font-size:12px;fill:#ff5555;fill-opacity:0.48945151;fill-rule:evenodd;stroke-width:1pt"
-   id="rect758"
-   width="297.96231"
-   height="21.474592"
-   x="30.266476"
-   y="82.41127" />
-  <rect
-   style="font-size:12px;fill:#ff5555;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt"
-   id="rect759"
-   width="331.00024"
-   height="21.474594"
-   x="30.274221"
-   y="105.5222" />
-  <rect
-   style="font-size:12px;fill:#5fd35f;fill-opacity:0.49019608;fill-rule:evenodd;stroke-width:1pt"
-   id="rect760"
-   width="30.011412"
-   height="87.792824"
-   x="0"
-   y="61.427887" />
-  <path
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#008f00;stroke-width:1.63673937;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 13.452029,149.95334 C 11.998512,197.91985 58.691013,204.53017 99.390328,204.53017"
-   id="path761"
-   sodipodi:nodetypes="cc" />
-  <path
-   style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#af0000;stroke-width:1.63673937;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-   d="M 107.30841,81.450991 C 105.8541,26.216235 125.3676,16.837894 168.97382,15.384385"
-   id="path762"
-   sodipodi:nodetypes="cc" />
-  <text
-   style="font-size:22.69612122px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#af0000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-   x="181.0603"
-   y="22.17411"
-   id="text763">Create staff</text>
-
-
-  <text
-   style="font-size:22.69612122px;font-style:normal;font-weight:normal;writing-mode:lr-tb;text-anchor:start;fill:#008f00;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
-   x="111.71525"
-   y="211.68839"
-   id="text766">Combine staffs in parallel</text>
-
-
-<metadata
-   id="metadata1091">
-  <rdf:RDF>
-    <cc:Work
-   rdf:about="">
-      <dc:format>image/svg+xml</dc:format>
-      <dc:type
-   rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-    </cc:Work>
-  </rdf:RDF>
-</metadata>
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="257"
+     inkscape:cy="162.42641"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="635"
+     inkscape:window-height="708"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata4450">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#87de87"
+       id="rect5251"
+       width="31.1127"
+       height="115.25841"
+       x="23.85965"
+       y="57.76746" />
+    <rect
+       y="115.23402"
+       x="55.353554"
+       height="32"
+       width="351.54773"
+       id="rect5249"
+       style="fill:#ff8080" />
+    <rect
+       style="fill:#ff8080"
+       id="rect4477"
+       width="307"
+       height="32"
+       x="55.353554"
+       y="81.646446" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans Mono;-inkscape-font-specification:Sans Bold"
+       x="26"
+       y="76"
+       id="text4455"><tspan
+         sodipodi:role="line"
+         x="26"
+         y="76"
+         id="tspan4459"
+         style="font-size:24px">&lt;&lt;</tspan><tspan
+         sodipodi:role="line"
+         x="26"
+         y="106"
+         id="tspan4463"
+         style="font-size:24px">  \new Staff \hornNotes</tspan><tspan
+         sodipodi:role="line"
+         x="26"
+         y="136"
+         id="tspan4465"
+         style="font-size:24px">  \new Staff \bassoonNotes</tspan><tspan
+         sodipodi:role="line"
+         x="26"
+         y="166"
+         id="tspan4467"
+         style="font-size:24px">&gt;&gt;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#c83737;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="203"
+       y="37"
+       id="text4469"><tspan
+         sodipodi:role="line"
+         id="tspan4471"
+         x="203"
+         y="37"
+         style="font-size:22px;fill:#c83737">Create staff</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#217821;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="120"
+       y="222"
+       id="text4473"><tspan
+         sodipodi:role="line"
+         id="tspan4475"
+         x="120"
+         y="222"
+         style="font-size:22px;fill:#217821">Combine staves in parallel</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#217821;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 114.72287,214.39161 C 69.821589,214.74516 36.120523,211.11735 36.474077,173.99425"
+       id="path5255"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#c83737;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 199.57568,27.361869 C 107.6518,27.361869 115.42998,58.828121 115.78353,80.041324"
+       id="path5259"
+       sodipodi:nodetypes="cc" />
+  </g>
 </svg>
