@@ -27,9 +27,11 @@
 @ifhtml
 
 @macro warning{TEXT}
-@cartouche
-@b{Note:} \TEXT\
-@end cartouche
+@html
+<div class="warning">
+<b>Note:</b> \TEXT\
+</div>
+@end html
 @end macro
 
 @end ifhtml
