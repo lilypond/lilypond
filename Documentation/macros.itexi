@@ -29,7 +29,9 @@
 @macro warning{TEXT}
 @html
 <div class="warning">
-<b>Note:</b> \TEXT\
+@end html
+@strong{Note:} \TEXT\
+@html
 </div>
 @end html
 @end macro
