@@ -332,7 +332,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 
 @seealso
-manuel de notation :
+Manuel de notation :
 @ref{Barres de mesure},
 @ref{Mise en forme du texte}.
 
@@ -512,7 +512,7 @@ commande @code{\repeat} suivie du style trémolo :
 @end lilypond
 
 La syntaxe de @code{\repeat tremolo} requiert espressément deux notes
-encadrées par des parenthèses, et le nombre de répétitions exprimé en
+encadrées par des accolades, et le nombre de répétitions exprimé en
 durée d'une note (pointée ou non).  Ainsi, dans l'exemple ci-dessus,
 @w{@code{\repeat tremolo 7}} est valide car correspond à une note
 doublement pointée, à l'inverse de @code{\repeat tremolo 9}.

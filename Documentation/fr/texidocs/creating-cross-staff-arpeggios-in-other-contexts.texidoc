@@ -2,7 +2,7 @@
   texidocfr = "
 Il est possible de distribuer un arpège sur plusieurs portées d'un
 système autre que le @code{PianoStaff} dès lors que vous incluez le
-@code{Span_arpeggio_engraver} au conteste @code{Score}.
+@code{Span_arpeggio_engraver} au contexte @code{Score}.
 
 "
   doctitlefr = "Arpège distribué pour un autre contexte que le piano"

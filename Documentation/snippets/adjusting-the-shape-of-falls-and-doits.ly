@@ -10,7 +10,7 @@ La propriété @code{shortest-duration-space} peut devoir être retouchée
 pour ajuster l'apparence des chutes ou sauts.
 
 "
-  doctitlefr = "Adjusting the shape of falls and doits"
+  doctitlefr = "Ajustement du galbe des chutes ou sauts"
 
 
   lsrtags = "expressive-marks"

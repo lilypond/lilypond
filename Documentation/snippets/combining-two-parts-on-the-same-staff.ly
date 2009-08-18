@@ -13,7 +13,7 @@ ou @qq{a2}.  Si votre intention n'est que de fusionner les parties, sans
 ajouter de texte, assignez faux à la propriété
 @code{printPartCombineTexts}.  Dans le cas de partitions vocales, et
 plus particulièrement d'hymnes, ces @qq{solo/a2} ne sont d'aucune
-utilité, aussi vuat-il mieux les désactiver.  Dans le cas où il y aurait
+utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
 alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
 à de la musique polyphonique standard.
 
