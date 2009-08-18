@@ -377,6 +377,6 @@ façon similaire à @code{\once \override}, mais avec une syntaxe différente :
 @end example
 
 Notez cependant que la commande @code{\override} peut tout de même être appliquée
-à @code{NoteMusicalPaperColumn} et @code{PaperColumn} dans un bloc @code{\context}.
+à @code{NonMusicalPaperColumn} et @code{PaperColumn} dans un bloc @code{\context}.
 
 @end itemize
