@@ -49,7 +49,7 @@ div#tocframe {
   top: 0;
   left: 0;
   right: 0;
-  background: #9ccc7c;
+  background: url(pictures/nav-bg.jpg) repeat-x top left;
   max-width: 70em;
   font-size: 100%;
   line-height: 1;
@@ -73,7 +73,7 @@ div#tocframe {
 
 #tocframe > ul:first-child > li:first-child a {
   text-indent: -999em;
-  background: #9ccc7c url(../pictures/lily-home.png) no-repeat 50% 50%;
+  background: url(pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
   width: 9%;
   /* css3 no go yet? */
   border-bottom-left-radius: 30px;
@@ -82,19 +82,19 @@ div#tocframe {
 }
 
 #tocframe > ul:first-child > li:first-child a:hover {
-  background: #bdee9d url(../pictures/lily-home.png) no-repeat 50% 50%;
+  background: url(pictures/lily-home-nav-hover.png) no-repeat 50% 50%;
   width: 9%;
 }
 
 #tocframe > ul:first-child > li:first-child.toc_current a {
   text-indent: -999em;
-  background: #8cbc6c url(../pictures/lily-home.png) no-repeat 50% 50%;
+  background: url(pictures/lily-home-nav-active.png) no-repeat 50% 50%;
   width: 9%;
 }
 
 #tocframe > ul:first-child > li:first-child.toc_current a:hover {
   text-indent: -999em;
-  background: #acdd8c url(../pictures/lily-home.png) no-repeat 50% 50%;
+  background: url(pictures/lily-home-nav-active.png) no-repeat 50% 50%;
   width: 9%;
 }
 
@@ -114,7 +114,7 @@ div#tocframe {
 #tocframe li form {
   float: left;
   width: 17%;
-  background: #9ccc7c;
+  background: url(nav-bg.jpg);
   font-size: 100%;
   padding: 0.5em 0.8%;
   margin: 0;
@@ -146,18 +146,19 @@ div#tocframe {
   font-weight: bold;
   padding: 0.85em 0;
   margin: 0;
-  background: #9ccc7c;
+  background: url(nav-bg.jpg);
 }
 
 #tocframe li a:hover {
-  background: #bdee9d;
-  text-decoration: none;
+  background: url(nav-hover.jpg);
+  text-decoration: underline;
 }
 
 #tocframe li.toc_current a,
 #tocframe li.toc_current a:hover {
-  background: #8cbc6c;
-  text-decoration: none;
+  background: url(nav-active.jpg);
+  color:#000;
+  text-decoration: underline;
 }
 
 /* second level toc (unnumberedsec) */
