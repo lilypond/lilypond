@@ -1,0 +1,235 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node convert-ly を使ってファイルを更新する
+@chapter @command{convert-ly} を使ってファイルを更新する
+@translationof Updating files with convert-ly
+
+@cindex Updating a LilyPond file (LilyPond ファイルを更新する)
+@cindex convert-ly
+
+LilyPond の入力構文は、さまざまな方法で単純化または改善するために、@c
+定期的に変更されます。@c
+その副作用として、LilyPond のインタプリタは@c
+しばしば古い入力ファイルと互換性を持たなくなります。@c
+これを救済するために、プログラム @command{convert-ly} を用いることで、@c
+たいていの LilyPond のバージョン間での構文変更を処理することができます。
+
+
+@menu
+* convert-ly を呼び出す::
+* convert-ly のコマンド ライン オプション::
+* convert-ly の問題点::
+@end menu
+
+@node convert-ly を呼び出す
+@section @command{convert-ly} を呼び出す
+@translationof Invoking convert-ly
+
+@command{convert-ly} は古いバージョン番号を検出するために@c
+入力ファイルの @code{version} ステートメントを使用します。@c
+たいていの場合、あなたの入力ファイルをアップグレードするには、@c
+そのファイルを保持しているディレクトリで以下を実行することで十分です:
+
+@example
+convert-ly -e myfile.ly
+@end example
+
+@noindent
+これにより、@code{myfile.ly} はアップグレードされ、@c
+オリジナル ファイルは @code{myfile.ly~} に保存されます。
+
+ディレクトリの中にある入力ファイルをすべて変換するには、@c
+以下のようにします:
+
+@example
+convert-ly -e *.ly
+@end example
+
+オリジナル ファイルをアップグレードされたファイルで置き換える代わりに、@c
+アップグレードされたファイルに異なるファイル名を指定して、@c
+オリジナル ファイルをそのまま残しておくには、@c
+以下のようにします:
+
+@example
+convert-ly myfile.ly > mynewfile.ly
+@end example
+
+@command{convert-ly} は常にそれが扱っている最新の構文変更に変換します。@c
+このことは、通常、ファイルの中にある @code{version} 番号は 
+@command{convert-ly} 自体のバージョンよりも低いということを意味します。
+
+このプログラムは変換元のバージョン番号をリストアップします。
+バージョン番号がリストアップされない場合、@c
+そのファイルは最新であるということになります。
+
+MacOS@tie{}X ユーザはこのコマンドをメニュー エントリ 
+(@code{Compile > Update syntax}) 下で実行することになるかもしれません。
+
+Windows ユーザはこれらのコマンドを @q{コマンド プロンプト} ウィンドウから@c
+実行する必要があります。@c
+コマンド プロンプトは通常、@code{スタート > アクセサリ > コマンド プロンプト}
+で見つかります。
+
+
+@node convert-ly のコマンド ライン オプション
+@section @command{convert-ly} のコマンド ライン オプション
+@translationof Command line options for convert-ly
+
+一般に、このプログラムは以下のように呼び出されます:
+
+@example
+convert-ly [@var{option}]@dots{} @var{filename}@dots{}
+@end example
+
+
+以下のオプションを与えることができます:
+
+@table @code
+@item -e,--edit
+Apply the conversions direct to the input file, modifying it
+in-place.
+
+@item -f,--from=@var{from-patchlevel}
+変換元のバージョンをセットします。@c
+これがセットされていない場合、@c
+@command{convert-ly} は入力ファイルの中にある 
+@code{version} 文字列を基に推測します。@c
+例: @code{--from=2.10.25}
+
+@item -n,--no-version
+通常、@command{convert-ly} は @code{\version} インジケータを@c
+出力に付け加えます。@c
+このオプションを指定すると、それを抑制します。
+
+@item -s, --show-rules
+すべての変換を表示して、終了します。
+
+@item --to=@var{to-patchlevel}
+変換先のバージョンをセットします。@c
+デフォルトは利用可能な最新バージョンです。@c
+例: @code{--to=2.12.2}
+
+@item -h, --help
+使用方法についてのヘルプを表示します。
+@end table
+
+texinfo ファイルの中にある LilyPond 断片をアップグレードするには@c
+以下を使用してください:
+
+@example
+convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+2 つのバージョン間での LilyPond 構文の変更を調べるには、@c
+以下を使用してください:
+
+@example
+convert-ly --from=... --to=... -s
+@end example
+
+
+@node convert-ly の問題点
+@section @code{convert-ly} の問題点
+@translationof Problems with convert-ly
+
+Windows の @q{コマンド プロンプト} ウィンドウから@c
+スペースを含むファイル名やパスを持つファイルに対して@c
+convert-ly を実行する場合、@c
+入力ファイル名全体を 3 つ (!) のダブル クォートで囲む必要があります:
+
+@example
+convert-ly """D:/My Scores/Ode.ly""" > "D:/My Scores/new Ode.ly"
+@end example
+
+@command{convert-ly -e *.ly} コマンドが@c
+展開時に長くなりすぎて失敗する場合、@c
+@command{convert-ly} コマンドをループさせてやります。@c
+以下の例は UNIX 用であり、@c
+カレント ディレクトリの中にあるすべての @code{.ly} ファイルを@c
+アップグレードします:
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+Windows の @q{コマンド プロンプト} ウィンドウでの@c
+上の例に対応するコマンドは以下の通りです:
+
+@example
+for %x in (*.ly) do convert-ly -e """%x"""
+@end example
+
+言語の変更がすべて処理されるわけではありません。@c
+指定できる出力オプションは 1 つだけです。@c
+自動的に Scheme と更新することと 
+LilyPond の Scheme インタフェイスを更新することはまったく異なります。@c
+Scheme コードの調整は手動で行う覚悟でいてください。
+
+convert-ly が処理できないことがいくつかあります。@c
+ここに、LilyPond コミュニティがそのことについて訴えたリストを挙げます。
+
+convert-ly は必要とされるすべての変更を@c
+スムーズに実装できるような構造にはなっていないため、@c
+このようなバグ レポートがあります。@c
+以下は対応して欲しいという望みのリストであり、@c
+参照のためにここに置かれています。
+
+@verbatim
+1.6->2.0:
+ Doesn't always convert figured bass correctly, specifically things like {<
+>}.  Mats' comment on working around this:
+   To be able to run convert-ly
+   on it, I first replaced all occurrences of '{<' to some dummy like '{#'
+   and similarly I replaced '>}' with '&}'.  After the conversion, I could
+   then change back from '{ #' to '{ <' and from '& }' to '> }'.
+ Doesn't convert all text markup correctly.  In the old markup syntax,
+ it was possible to group a number of markup commands together within
+parentheses, e.g.
+   -#'((bold italic) "string")
+   This will incorrectly be converted into
+   -\markup{{\bold italic} "string"}
+   instead of the correct
+   -\markup{\bold \italic "string"}
+2.0->2.2:
+ Doesn't handle \partcombine
+ Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple
+stanzas.
+2.0->2.4:
+ \magnify isn't changed to \fontsize.
+    - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
+ remove-tag isn't changed.
+    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
+ first-page-number isn't changed.
+    - first-page-number no => print-first-page-number = ##f
+ Line breaks in header strings aren't converted.
+    - \\\\  as line break in \header strings => \markup \center-align <
+      "First Line" "Second Line" >
+ Crescendo and decrescendo terminators aren't converted.
+    - \rced => \!
+    - \rc => \!
+2.2->2.4:
+ \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly
+converted.
+2.4.2->2.5.9
+ \markup{ \center-align <{ ... }> } should be converted to:
+ \markup{ \center-align {\line { ... }} }
+ but now, \line is missing.
+2.4->2.6
+ Special LaTeX characters such as $~$ in text are not converted to UTF8.
+2.8
+ \score{} must now begin with a music expression.  Anything else
+ (particularly \header{}) must come after the music.
+@end verbatim

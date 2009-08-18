@@ -1,0 +1,208 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node LilyPond 入力ファイルの記述に対する提案
+@chapter LilyPond 入力ファイルの記述に対する提案
+@translationof Suggestions for writing LilyPond input files
+
+今やあなたはもっと大きな LilyPond 入力ファイル -- チュートリアルにあるような@c
+小さな例ではなく、楽曲全体 -- を書き始める準備が整っています。@c
+しかしながら、どのように書き進めていくべきなのでしょうか？
+
+LilyPond があなたの入力ファイルを理解でき、望みの出力を作り出している限り、@c
+あなたの入力ファイルがどのようなものであるかは問題になりません。@c
+しかしながら、LilyPond 入力ファイルを書いているときに考慮すべきことが@c
+他にもいくつかあります。
+
+@itemize
+@item あなたがミスをしたとしたらどうでしょうか？@c
+LilyPond ファイルの構造はエラーを見つけ出すことを@c
+より容易に (あるいはより困難に) します。
+
+@item あなたがあなたの入力ファイルを誰か他の人と共有したいとしたら@c
+どうでしょうか？@c
+実際には、あなたが数年前のあなた自身の入力ファイルを変更したいとしたら@c
+どうでしょうか？@c
+一読して理解可能な LilyPond 入力ファイルがある一方で、@c
+あなたを 1 時間も悩ます入力ファイルもあるかもしれません。
+
+@item あなたがあなたの LilyPond ファイルを最近のバージョンの LilyPond のために@c
+アップグレードしたいとしたらどうでしょうか？@c
+入力構文は LilyPond の改良に合わせてしばしば変更されます。@c
+たいていの変更は @code{convert-ly} で自動的に変換できますが、@c
+いくつかの変更は手動での援助を必要とするかもしれません。@c
+LilyPond 入力ファイルはより容易に (あるいはより困難に) 
+アップグレードできるように構成することができます。
+@end itemize
+
+@menu
+* 一般的な提案::
+* 既存の音楽を譜刻する::
+* 大きなプロジェクト::
+@end menu
+
+
+@node 一般的な提案
+@section 一般的な提案
+@translationof General suggestions
+
+ここで、あなたが問題を回避したり修正する手助けになる@c
+可能性がある提案をいくつか挙げます:
+
+@itemize
+@item @strong{すべてのファイルに @code{@bs{}version} 番号を含めます}。@c
+テンプレートはすべて @code{@bs{}version} 情報を保持しているということに@c
+注意してください。@c
+常に @code{@bs{}version} を含めること -- ファイルの大小にかかわらず -- 
+を強く推奨します。@c
+個人的な経験から言って、数年前に使っていた LilyPond のバージョンを@c
+思い出そうとすることは大変なことです。@c
+@command{convert-ly} は使用した LilyPond のバージョンを宣言することを@c
+必要とします。
+
+@item @strong{チェックを含めます}: @ruser{Bar and bar number checks}, 
+@ruser{Octave checks}。@c
+時々チェックを入れておけば、ミスをしたときに素早くそれを@c
+見つけ出すことができます。@c
+@q{時々} とはどれくらいの頻度なのでしょうか？@c
+それはその音楽の複雑さ次第です。@c
+とても簡単な音楽であれば、たぶん 1 回か 2 回です。@c
+とても複雑な音楽であれば、おそらく各小節にチェックを入れます。
+
+@item @strong{テキスト 1 行につき 1 小節にします}。@c
+音楽自体や望みの出力が複雑である場合、1 行に 1 小節だけを記述すると@c
+良い場合が多いです。@c
+画面スペースを節約するために 1 行に 8 小節も詰め込むことは、@c
+入力ファイルを @q{デバッグ} しなければならない場合に、@c
+そうするだけの価値はありません。
+
+@item @strong{入力ファイルにコメントをつけます}。@c
+コメントとして小節番号 (時々) や音楽テーマへの参照 
+(@q{second theme in violins}, @q{fourth variation} 
+(@q{ヴァイオリンの第 2 テーマ}, @q{第 4 ヴァイオリン}) 
+など) を使用します。@c
+初めて楽曲を書いているときはコメントをつける必要は無いかもしれません。@c
+しかしながら、数年後に何か変更を加えたいと思った場合や、@c
+ソースを友人に渡す場合、あなたがファイルにコメントをつけていなければ、@c
+あなたの意図やファイルがどのように構成されているのかを特定することは@c
+ずっと大変になります。
+
+@item @strong{波括弧にインデントを入れる}。@c
+多くの問題は @code{@{} と @code{@}} の数が食い違うことによって生じます。
+
+@item セクションや変数の開始時に@strong{明示的に演奏時間を付け加える}。@c
+フレーズの開始時に @code{c4 d e} (@code{c d e} ではなく) と記述しておけば、@c
+後になって音楽を再編成する場合に問題の発生を免れる可能性があります。
+
+@item 音楽定義から@strong{調整を分離します}。@c
+@rlearning{変数と関数を用いて入力の手間を省く} と 
+@rlearning{スタイル シート} を参照してください。
+
+@end itemize
+
+
+@node 既存の音楽を譜刻する
+@section 既存の音楽を譜刻する
+@translationof Typesetting existing music
+
+既存の楽譜からの音楽を入力している 
+(つまり、既存の楽譜の楽曲を譜刻している) のなら、
+
+@itemize
+
+@item 1 回につき 1 つのシステム 
+(訳者: システムとは譜の集まりのこと。例えば、ピアノ譜での 1 システムとは、@c
+右手譜 1 小節とそれに対応する左手譜 1 小節) 
+を入力し (しかし、それでもテキスト 1 行につき 1 小節だけにします)、@c
+それを終えたときに各システムをチェックします。@c
+処理をスピード アップさせるために @code{showLastLength} プロパティや 
+@code{showFirstLength} プロパティを使うことになるかもしれません -- 
+@ruser{Skipping corrected music} を参照してください。
+
+@item @code{mBreak = @{ @bs{}break @}} を定義して、写している楽譜が@c
+改行するたびに @code{@bs{}mBreak} を入力ファイルに挿入します。@c
+これにより、LilyPond の音楽とオリジナルの音楽を比較することが@c
+ずっと容易になります。@c
+入力した楽譜の校正が終わったときに、それらの改行すべてを削除するために 
+@code{mBreak = @{ @}} を定義することになるかもしれません。@c
+これにより、LilyPond は LilyPond が最適と思う場所に@c
+改行を入れることができるようになります。
+
+@item 移調楽器のパートは変数に入力します。@c
+移調楽器の音符は以下で囲むことを推奨します:
+
+@example
+\transpose c natural-pitch @{...@}
+@end example
+(@code{natural-pitch} はその楽器のオープン ピッチです) 
+これにより、変数の中の音楽は C で効率的に記述することができます。@c
+変数を使用していれば、必要なときに移調しなおすこともできます 
+(例えば、楽譜をコンサート ピッチで譜刻したり、@c
+トロンボーン パートをト音記号からヘ音記号に変換したり、など)。@c
+音楽をすべて変数の中に首尾一貫したピッチで記述しておけば、@c
+移調のミスは起こりにくくなります。
+
+また、移調が C との間で行われるだけ
+-- つまり、他に使用する調が楽器のナチュラル ピッチだけ:
+B-フラット トランペットなら bes、@c
+A-フラット クラリネットなら aes --
+であるとしても、音楽を変数に格納しておくべきです。@c
+
+@end itemize
+
+
+@node 大きなプロジェクト
+@section 大きなプロジェクト
+@translationof Large projects
+
+大きなプロジェクトに取り組んでいるとき、@c
+LilyPond 入力ファイルの構造をすっきりさせておくことが不可欠です。
+
+@itemize
+
+@item @strong{各ボイスに対して変数を使用して}、@c
+定義の中の構造を最小限にします。@c
+@code{@bs{}score} セクションの構造が最も変更される可能性が高い箇所です。@c
+一方、@code{violin} 定義は LilyPond のバージョンが新しくなっても@c
+変更される可能性はまずありません。
+
+@example
+violin = \relative c'' @{
+g4 c'8. e16
+@}
+...
+\score @{
+  \new GrandStaff @{
+    \new Staff @{
+      \violin
+    @}
+  @}
+@}
+@end example
+
+@item @strong{調整を音楽定義から分離します}。@c
+このことは前にも触れましたが、大きなプロジェクトでは絶対に不可欠なことです。@c
+@code{fthenp} の定義を変更する必要が生じた場合、変更は 1 回で済み、@c
+@code{violin} の内部にはまったく手を触れる必要がありません。
+
+@example
+fthenp = _\markup@{
+  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+violin = \relative c'' @{
+g4\fthenp c'8. e16
+@}
+@end example
+
+@end itemize

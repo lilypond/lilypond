@@ -16,13 +16,15 @@
 @chapter インストール
 @translationof Install
 
-LilyPond にはリリースが 2 セットあります: 安定したリリースと、不安定な開発版リ@c
-リースです。 安定バージョンは偶数の @q{マイナー} バージョン番号を持ちます (つ@c
-まり、2.8, 2.10, 2.12 など)。開発バージョンは奇数の @q{マイナー} バージョン番@c
-号を持ちます (つまり、2.7, 2.9, 2.11 など)。
+LilyPond にはリリースが 2 セットあります: 
+安定したリリースと、不安定な開発版リリースです。@c
+安定バージョンは偶数の @q{マイナー} バージョン番号を持ちます 
+(つまり、2.8, 2.10, 2.12 など)。@c
+開発バージョンは奇数の @q{マイナー} バージョン番号を持ちます 
+(つまり、2.7, 2.9, 2.11 など)。
 
-LilyPond のビルドは非常に複雑なプロセスです。そのため、コンパイル済みのバイナ@c
-リを使用することを@strong{強く}推奨します。
+LilyPond のビルドは非常に複雑なプロセスです。@c
+そのため、コンパイル済みのバイナリを使用することを@strong{強く}推奨します。
 
 @menu 
 * コンパイル済みのバイナリ::
@@ -36,11 +38,11 @@ LilyPond のビルドは非常に複雑なプロセスです。そのため、�
 
 @unnumberedsubsec ダウンロードする
 
-あなたの使用しているプラットフォーム向けのバイナリ パッケージについての最新情@c
-報を得るには @uref{http://lilypond.org/web/install/} をチェックしてください。@c
+あなたの使用しているプラットフォーム向けバイナリ パッケージについての@c
+最新情報を得るには @uref{http://lilypond.org/web/install/} をチェックしてください。@c
 あなたの使用している OS がそのページでカバーされていない場合は、@c
-@uref{http://download.linuxaudio.org/lilypond/binaries/} にある完全なバイナリ 
-リストを調べてみてください。
+@uref{http://download.linuxaudio.org/lilypond/binaries/} にある@c
+完全なバイナリ リストを調べてみてください。
 
 現在のところ、以下のバイナリがあります:
 
@@ -58,17 +60,22 @@ mingw       - Windows x86
 
 @knownissues
 
-あなたが MacOS 10.3 または 10.4 を使用していて、@command{convert-ly} や 
-@command{lilypond-book} のような Python スクリプトを使用したいのなら、@ref{Setup for MacOS X,,,lilypond-program,Application Usage} を参照してください。
+あなたが MacOS 10.3 または 10.4 を使用していて、@c
+@command{convert-ly} や @command{lilypond-book} のような 
+Python スクリプトを使用したいのなら、@c
+@c @ref{Setup for MacOS X,,,lilypond-program,Application Usage} 
+@ref{MacOS X のためのセットアップ} 
+を参照してください。
 
 
 @node ソースからコンパイルする
 @section ソースからコンパイルする
 @translationof Compiling from source
 
-ソース コードから直接 LilyPond をコンパイルすることもできます。これを行うには@c
-英語を読めることが必須です。そのため、この節は翻訳されません。本当に LilyPond 
-をコンパイルしたいのなら、
+ソース コードから直接 LilyPond をコンパイルすることもできます。@c
+これを行うには英語を読めることが必須です。@c
+そのため、この節は翻訳されません。@c
+本当に LilyPond をコンパイルしたいのなら、
 @iftex
 @c DO NOT translate the following line at all.
 @ref{Compiling from source,,,lilypond-program,Application Usage}.

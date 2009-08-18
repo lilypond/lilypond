@@ -5,12 +5,15 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
-@documentencoding UTF-8
 @setfilename lilypond-learning.info
 @settitle GNU LilyPond -- 学習マニュアル
-
+@documentencoding UTF-8
+@documentlanguage ja
 
 @include macros.itexi
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
 
 @afourpaper
 
@@ -23,89 +26,17 @@
 @omflanguage Japanese
 @end ignore
 
+
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
-@ifnottex
-@node トップ ページ
-@top GNU LilyPond --- 学習マニュアル
-@translationof Top
-@end ifnottex
-
-
-@ifhtml
-@ifclear bigpage
-このドキュメントは @uref{source/Documentation/learning.pdf,PDF 
-形式} と @uref{source/Documentation/learning-big-page.ja.html,
-大きな 1 ページ形式} でも利用可能です。
-@end ifclear
-@ifset bigpage
-このドキュメントは @uref{source/Documentation/learning.pdf,PDF 
-形式} と @uref{source/Documentation/learning/index.ja.html,複数@c
-のページにインデックス化された形式} でも利用可能です。
-@end ifset
-@end ifhtml
-
-@c 日本語の場合の makeinfo ？？？
-@iftex
-@documentlanguage ja
-@end iftex
-
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
-
-
-@finalout
-
-@titlepage
-@title LilyPond
-@c subtitle Le système de gravure musicale
-@subtitle 音楽譜刻システム
-@c titlefont{学習マニュアル}
-@author LilyPond 開発チーム
-
-
-Copyright @copyright{} 1999--2008 著作者一同
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
-ら、英語で書かれた注意書きだけが法的に有効です。}
-
-@quotation
-GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
-て発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更す@c
-る許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU 
-フリー文書利用許諾契約書」という章に含まれています。
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-Pour LilyPond version @version{}
-@end titlepage
 
 @copying
-Copyright @copyright{} 1999--2008 著作者一同
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+Copyright @copyright{} 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+2006, 2007, 2008, 2009 by the authors.
 
 @emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
 ら、英語で書かれた注意書きだけが法的に有効です。}
-
 
 @quotation
 GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
@@ -124,79 +55,106 @@ Free Documentation License''.
 @end quotation
 @end copying
 
+@macro introText
+@cartouche
+@ignore
+This file provides an introduction to GNU LilyPond version
+@version{}.  For more information about how this fits with the
+other documentation, see
+FIXME FIXME FIXME
+@end ignore
+これは GNU LilyPond バージョン @version{} のための学習マニュアルです。@c
+このドキュメントと他のドキュメントとの関係についての更なる情報は、@c
+FIXME FIXME FIXME を参照してください。
+@c @ref{このドキュメントについて} を参照してください。
+@end cartouche
+@end macro
+
+
+@c TITLE PAGE
 @ifnottex
-このファイルは GNU LilyPond のドキュメントです。
-
-Copyright @copyright{} 1999--2008 著作者一同
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
-@emph{以下は英語を話さない人々のための著作権についての注意書きです。しかしなが@c
-ら、英語で書かれた注意書きだけが法的に有効です。}
-
-@quotation
-GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によっ@c
-て発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更す@c
-る許可を与えます。変更不可部分はありません。この利用許諾契約書のコピーは 「GNU 
-フリー文書利用許諾契約書」という章に含まれています。
-@end quotation
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
+@node トップ ページ
+@top GNU LilyPond --- 学習マニュアル
+@translationof Top
 @end ifnottex
 
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle 音楽譜刻システム
+@c subtitle Le système de gravure musicale
+@titlefont{学習マニュアル}
+@author LilyPond 開発チーム
+
+@vskip 100pt
+
+@introText{}
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying
+
+For LilyPond version @version{}
+@end titlepage
+
+
+@c TOC -- non-tex
+
 @ifnottex
-
-これは GNU LilyPond バージョン @version{} のための学習マニュアルです。このド@c
-キュメントと他のドキュメントとの関係についての更なる情報は、@ref{このドキュメントについて} を参照してください。
-
-@cindex web site
-@cindex URL
-
-@uref{http://@/www@/.lilypond@/.org/} で更なる情報を見つけることができます。こ@c
-のウェブ サイトにはこのドキュメントと他のドキュメントのオンライン コピーがあり@c
-ます。
+@introText{}
 
 @menu
-* 序文::
-* 導入部::                   LilyPond とは何なのか、なぜ LilyPond を使う@c
-のか、どうやって LilyPond を使うのか
-* チュートリアル::                       LilyPond 導入の手引き
-* 基礎となるコンセプト::           このマニュアルの残りの部分を読むために必要@c
-とされる基本的なコンセプト
-* 出力を調整する::                出力を変更するための導入部
-* LilyPond プロジェクトに取り組む::   実際の使用についての議論
+* 導入部::                      ここから始めてください。
+* 一般的な記譜法::              LilyPond 導入の手引き
+* 基礎となるコンセプト::        このマニュアルの残りの部分を読むために@c
+必要とされる基本的なコンセプト
+* 出力を調整する::              出力を変更するための導入部
 
 付録
 
-* テンプレート::                      作成 (コンパイル) 準備ができているテンプレート
-* Scheme tutorial::                LilyPond 内部のプログラミング
-* GNU Free Documentation License:: このドキュメントの使用許諾書
+* テンプレート::                      作成 (コンパイル) 準備ができている@c
+テンプレート
+* Scheme チュートリアル::                    LilyPond 内部のプログラミング
+* GNU Free Documentation License::     このドキュメントの使用許諾書
 * LilyPond インデックス::
 @end menu
+
+
+@ifhtml
+@ifclear bigpage
+このドキュメントは
+@c @uref{source/Documentation/learning.pdf,PDF 形式} と@c
+@uref{source/Documentation/learning-big-page.ja.html,大きな 1 ページ形式}
+でも利用可能です。
+@end ifclear
+@ifset bigpage
+このドキュメントは
+@c @uref{source/Documentation/learning.pdf,PDF 形式} と@c
+@uref{source/Documentation/learning/index.html,複数のページにインデックス化された HTML 形式}
+でも利用可能です。
+@end ifset
+@end ifhtml
+
 @end ifnottex
 
+
+@c TOC - tex
 @contents
 
 
-@include learning/preface.itely
+@c INCLUDES
+
 @include learning/introduction.itely
-@include learning/tutorial.itely
+@include learning/common-notation.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
-@include learning/working.itely
 
 @include learning/templates.itely
 @include learning/scheme-tutorial.itely
 @include fdl.itexi
+
 
 @node LilyPond インデックス
 @appendix LilyPond インデックス

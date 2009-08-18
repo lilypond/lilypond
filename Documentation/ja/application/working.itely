@@ -1,0 +1,747 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
+@ignore
+    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@c Translators: Yoshiki Sawada
+@c Translation status: post-GDP
+
+
+@node LilyPond プロジェクトに取り組む
+@chapter LilyPond プロジェクトに取り組む
+@translationof Working on LilyPond projects
+
+このセクションでは一般的な問題のいくつかを@c
+解決または回避する方法について説明します。@c
+あなたにプログラミングの経験があるのなら、@c
+ここで取り上げる TIPS の多くは当たり前のことに見えるかもしれませんが、@c
+それでも本章を読むことをお勧めします。
+
+@menu
+* うまくいかないとき::
+* Make と Makefile::
+@end menu
+
+
+@node うまくいかないとき
+@section うまくいかないとき
+@translationof When things don't work
+
+@menu
+* 古い入力ファイルをアップデートする::
+* 一般的なエラー::
+* トラブルシューティング (すべてをバラバラにする)::
+* 最小化例::
+@end menu
+
+
+@node 古い入力ファイルをアップデートする
+@subsection 古い入力ファイルをアップデートする
+@translationof Updating old input files
+
+@cindex convert-ly
+@cindex updating old input files (ふるい入力ファイルをアップデートする)
+
+LilyPond 入力構文はしばしば変更されます。@c
+LilyPond 自体の改良に合わせて、構文 (入力言語) も変更されます。@c
+これらの変更は@c
+入力を読みやすく/書きやすくするために行われる場合もありますし、@c
+LilyPond の新しい機能のために行われる場合もあります。
+
+LilyPond は、このアップデートをより容易にするファイル 
+-- @code{convert-ly} -- と一緒に公開されます。@c
+このプログラムの実行方法についての詳細は 
+@rprogram{convert-ly を使ってファイルを更新する} を参照してください。
+
+残念なことに、@code{convert-ly} はすべての入力構文の変更を@c
+処理できるわけではありません。@c
+単純な探索-置換 
+(@code{raggedright} が @code{ragged-right} になったなど) 
+は処理しますが、@c
+複雑すぎる変更もあります。@c
+@code{convert-ly} が処理できない構文の変更は 
+@rprogram{convert-ly を使ってファイルを更新する} にリストアップされています。
+
+例えば、LilyPond 2.4 以前では、アクセントと非英語文字 
+-- 例えば、@code{No@bs{}"el} 
+(これは @q{クリスマス} に対応するフランス語となります) -- は 
+LaTex を使って入力していました。@c
+LilyPond 2.6 以降では、@c
+特殊文字 @code{ë} を UTF-8 キャラクタとして@c
+直接 LilyPond ファイルに入力するようになりました。@c
+@code{convert-ly} はすべての LaTex 特殊文字を 
+UTF-8 キャラクタに変更することはできません。@c
+その場合、あなたが手動で古い LilyPond 入力ファイルを@c
+アップデートする必要があります。
+
+
+@node 一般的なエラー
+@subsection 一般的なエラー
+@translationof Common errors
+
+以下で記述するエラーがしばしば起こりますが、@c
+その原因は明白でなかったり、@c
+簡単には見つからなかったりします。@c
+一旦それらのエラーを経験して理解すれば、@c
+それらの処理は簡単です。
+
+
+@menu
+* 音楽がページからはみ出す::
+* 余計な譜が出現する::
+* 見かけ上 ../ly/init.ly に発生するエラー::
+* エラー メッセージ Unbound variable %::
+* エラー メッセージ FT_Get_Glyph_Name::
+@end menu
+
+@node 音楽がページからはみ出す
+@unnumberedsubsubsec 音楽がページからはみ出す
+@translationof Music runs off the page
+
+右の余白にはみ出した音楽や、過度に密集した音楽の原因は@c
+ほとんどすべて音符の演奏時間を不適切に入力して、@c
+小節の最後の音符が小節線を越えたためです。@c
+小節の最後の音符が自動的に挿入される小節線のところで終わっていなくても@c
+無効ではありません。@c
+なぜなら、その音符は単に次の小節に持ち越すと見なされるからです。@c
+しかしながら、そのような持ち越しの小節が長く続くと、@c
+音楽は密集したり、ページからはみ出す可能性があります。@c
+なぜなら、自動改行を挿入できるのは完全な小節 
+-- つまり、すべての音符がその小節の終端までに終わっている小節 --
+の終端だけだからです。
+
+@warning{不適切な演奏時間は自動改行を抑制し、@c
+その行の音楽は密集したり、ページからはみ出します。}
+
+小節チェックを使うと不適切な演奏時間を簡単に見つけ出すことができます
+-- @ruser{Bar and bar number checks} を参照してください。
+@c -- @ruser{小節と小節番号チェック} を参照してください。
+
+長く続く持ち越しの小節を持とうとするならば、@c
+改行したいところに不可視の小節線を挿入する必要があります。@c
+詳細は @ruser{Bar lines} を参照してください。
+@c 詳細は @ruser{小節線} を参照してください。
+
+
+@node 余計な譜が出現する
+@unnumberedsubsubsec 余計な譜が出現する
+@translationof An extra staff appears
+
+コンテキストが @code{\new} で明示的に作成されてはいない場合、@c
+すでに存在しているコンテキストには適用できないコマンドが発生すると@c
+沈黙のうちにコンテキストが作成されます。@c
+簡単な楽譜ではコンテキストの自動作成機能は有用であり、@c
+この LilyPond マニュアルの中の例の大半がこの機能を利用しています。@c
+しかしながら、@c
+時々このコンテキスト自動作成機能が予期せぬ譜や楽譜を発生させます。@c
+例えば、以下のコードはその後に続く譜の中にある符頭をすべて赤くすると@c
+予期したものかもしれませんが、@c
+実際のところ、その結果は 2 つの譜となり、@c
+下側の譜の中の符頭はデフォルトの黒のままです。
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+こうなった原因は、@c
+オーバライドが処理されたときに 
+@code{Staff} コンテキストは存在しなかったためです。@c
+そのため、@code{Staff} コンテキストが 1 つ暗黙的に作成され、@c
+オーバライドはそのコンテキストに適用されます。@c
+それから、@code{\new Staff} コマンドがもう 1 つ別の譜を作成し、@c
+音符はそこに配置されます。@c
+すべての符頭を赤くするための正しいコードは以下のようになります:
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+次の例として、@c
+@code{\relative} コマンドが @code{\repeat} コマンドの中にある場合、@c
+2 つの譜が生成され、2 番目の譜は 1 番目の譜からずれます。@c
+なぜなら、@c
+@code{\repeat} コマンドは 2 つの @code{\relative} ブロックを生成し、@c
+それぞれのブロックは暗黙的に @code{Staff} ブロックと @code{\Voice} ブロックを@c
+作成するからです。
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 \relative { c d e f }
+@end lilypond
+
+正しい結果を得るには、@c
+以下のように 
+@code{\repeat} コマンドと @code{j\relative} コマンドの位置を入れ換えます:
+
+@lilypond[quote,verbatim]
+\relative {
+  \repeat unfold 2 { c d e f }
+}
+@end lilypond
+
+
+@node 見かけ上 ../ly/init.ly に発生するエラー
+@unnumberedsubsubsec 見かけ上 @code{../ly/init.ly} に発生するエラー
+@translationof Apparent error in ../ly/init.ly
+
+入力ファイルの形式が正しくない場合、@c
+@code{../ly/init.ly} の中に構文エラーがあるという内容の@c
+さまざまな原因が不明瞭なエラー メッセージが表示される可能性があります。@c
+例えば、入力ファイルの中で括弧やクォートが対になっていない場合に、@c
+そのようなエラーが発生します。
+
+最も一般的なエラーは @code{score} ブロックの最後に@c
+波括弧 (@code{@}}) が無いというエラーです。@c
+その解決法は明白です:
+@code{score} ブロックが正しく終わっていることをチェックしてください。@c
+入力ファイルの正しい構造は @rlearning{LilyPond 入力ファイルの仕組み} で@c
+記述しています。@c
+角括弧と波括弧の対を自動的にハイライトするエディタを使用すると@c
+そのようなエラーを防ぐのに役立ちます。
+
+次に一般的なエラーの原因は@c
+歌詞ブロックの最後の音節と閉じ波括弧 (@code{@}}) の間にスペースが@c
+無いという場合です。@c
+このスペースが無いと、@c
+閉じ波括弧は音節の一部になってしまいます。@c
+常に @emph{すべての} 中括弧の前後にスペースを置くことをお勧めします。@c
+これは歌詞を使用するときに重要になります
+-- @ruser{Lyrics explained} を参照してください。
+@c -- @ruser{歌詞の説明} を参照してください。
+
+このエラー メッセージは、@c
+クォート (@code{"}) を閉じることを忘れた場合にも発生します。@c
+そのような場合、@c
+付随するエラー メッセージがエラーを起こした行の行番号を提示します。@c
+対になっていないクォートは通常 1 行あるいは 2 行上にあります。
+
+
+@node エラー メッセージ Unbound variable %
+@unnumberedsubsubsec エラー メッセージ Unbound variable %
+@translationof Error message Unbound variable %
+
+@emph{Scheme} コメントではなく @emph{LilyPond} コメントを@c
+保持している Scheme ルーチン 
+(このような Scheme は無効です) 
+が呼び出されると、@c
+@qq{GUILE signalled an error ...} とともに@c
+このエラー メッセージがコンソール出力やログ ファイルの最後に出現します。
+
+LilyPond コメントはパーセント記号 (@code{%}) で始まりますが、@c
+これを Scheme ルーチン内で使ってはいけません。@c
+Scheme コメントは セミコロン (@code{;}) で始まります。
+
+
+@node エラー メッセージ FT_Get_Glyph_Name
+@unnumberedsubsubsec エラー メッセージ FT_Get_Glyph_Name
+@translationof Error message FT_Get_Glyph_Name
+
+入力ファイルが UTF-8 エンコーディングで保存されていない非 ASCII 文字を@c
+保持している場合、@c
+このエラー メッセージがコンソール出力やログ ファイルに出現します。@c
+詳細は @ruser{Text encoding} を参照してください。
+@c 詳細は @ruser{テキスト エンコーディング} を参照してください。
+
+
+@node トラブルシューティング (すべてをバラバラにする)
+@subsection トラブルシューティング (すべてをバラバラにする)
+@translationof Troubleshooting (taking it all apart)
+
+遅かれ早かれ、あなたは LilyPond がコンパイルできないファイルを@c
+書くことになります。@c
+LilyPond が返すメッセージはエラーを見つけ出す@c
+手助けになるかもしれませんが、多くの場合、@c
+問題の原因を探し出すために調査を行う必要があります。
+
+この目的のための最も強力なツールは 1 行コメント (@code{%} で記述します) と@c
+ブロック コメント (@code{%@{ ... %@}} で記述します) です。@c
+問題がどこにあるかわからない場合、@c
+入力ファイルの大きな一部分をコメント アウトすることから始めます。@c
+あるセクションをコメント アウトして、そのファイルを再びコンパイルしてみます。@c
+コンパイルが通ったのなら、問題は今コメント アウトした部分の中にあります。@c
+コンパイルが通らなかった場合は、コンパイルが通るようになるまで@c
+コメント アウトしたままにしておきます。
+
+極端な場合、最終的に以下のようになるかもしれません:
+
+@example
+\score @{
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(言い換えると、何の音楽も持たないファイルです)
+
+こうなったとしても、あきらめないでください。@c
+少しだけコメントを外して -- 例えば、バス パートを -- 
+コンパイルが通るかどうか試してみます。@c
+コンパイルが通らなかった場合は、バスの音楽をすべてコメント アウトします 
+(しかし、@code{@bs{}score} の中の @code{@bs{}bass} はコメントを@c
+外したままにしておきます)。
+
+@example
+bass = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+そして、問題を起こしている行を見つけ出すまで、@c
+@code{bass} パートから少しずつコメントを外していきます。
+
+もう 1 つの非常に有用なデバッグ テクニックは 
+@c FIXME FIXME FIXME を構築することです。
+@ref{最小化例} を構築することです。
+
+
+@node 最小化例
+@subsection 最小化例
+@translationof Minimal examples
+
+最小化例は可能な限り小さな例のことです。@c
+最小化例は長い例よりも理解することがずっと容易です。@c
+最小化例は以下の目的で使用されます:
+
+@itemize
+@item バグ レポート
+@item メーリング リストに援助要請を送る
+@item @uref{http://lsr.dsi.unimi.it/,LilyPond Snippet Repository} に例を追加する
+@end itemize
+
+可能な限り小さな例を構築するための規則はとても単純です: 
+必要の無いものはすべて削除する。@c
+ファイルの不要な部分を削除しようとしているとき、@c
+実際に削除する代わりにコメント アウトを使用するというのは@c
+とても良いアイディアです。@c
+そうしておけば、ある行が実際には必要だということがわかった場合に、@c
+その行をゼロから入力する代わりに、コメントを外すだけで済みます。
+
+@qq{可能な限り小さく} という規則には 2 つの例外があります:
+
+@itemize
+@item @code{\version} 番号を含める。
+@item 可能であれば、@c
+例の先頭で @code{@bs{}paper@{ ragged-right=##t @}} を使う。
+@end itemize
+
+最小化例の要点は読みやすくするということです:
+
+@itemize
+@item 複雑な音符、調子、拍子を使うことを避ける 
+-- それらの要素の振る舞いについて何かを示そうとしているのでない限り
+@item @code{@bs{}override} コマンドを使わない 
+-- それがその例のポイントでない限り
+@end itemize
+
+
+@node Make と Makefile
+@section Make と Makefile
+@translationof Make and Makefiles
+
+@cindex makefiles
+@cindex make
+
+LilyPond を実行できるほとんどすべてのプラットフォームが 
+@code{make} というソフトウェアをサポートします。@c
+このソフトウェアは @code{Makefile} という名前の特殊なファイルを読み込みます。@c
+ファイル @code{Makefile} は、@c
+ファイルの依存関係と、@c
+あるファイルから別のファイルを作り出すために@c
+オペレーティング システムに渡す必要があるコマンドを定義します。@c
+例えば、@code{Makefile} は LilyPond を実行して 
+@code{ballad.ly} から @code{ballad.pdf} と @code{ballad.midi} を@c
+作り出す方法を記述します。
+
+自身の便利さのためかソース ファイルにアクセスしてくれる他の人のために、@c
+自身のプロジェクト用に @code{Makefile} を作成することが良い場合があります。@c
+これが当てはまるのは、@c
+多くのインクルード ファイルと複数の出力オプション 
+(例えば、フル スコア、パート スコア、指揮譜、ピアノ譜など) を持つ
+非常に大きなプロジェクト、あるいは、@c
+ビルドするために複雑なコマンドを必要とするプロジェクト
+(@code{lilypond-book} プロジェクトなど)
+です。@c
+@code{Makefile} の複雑さと自由度は、必要性と作者のスキルに応じて、@c
+さまざまです。@c
+プログラム GNU Make は 
+GNU/Linux ディストリビューションと MacOS X にインストールされていて、@c
+Windows でも利用可能です。
+
+@code{make} の使い方についてのすべての詳細は 
+@strong{GNU Make マニュアル} を参照してください。@c
+これから示すのは @code{make} でできることのほんの一例です。
+
+@code{Makefile} の中に規則を定義するためのコマンドは、@c
+プラットフォームによって異なります。@c
+例えば、さまざまな種類がある Linux と MacOS は @code{bash} を使いますが、@c
+Windows は @code{cmd} を使います。@c
+MacOS X では、コマンド ライン インタプリタを使用するためにシステムを@c
+コンフィグレーションする必要があるということに注意してください。@c
+ここで、@code{Makefile} の例をいくつか 
+Linux/MacOS 用と Windows 用の両方のバージョンで示します。
+
+最初の例は、4 楽章のオーケストラのためのもので、@c
+以下のようなディレクトリ構造を持ちます:
+
+@example
+Symphony/
+|-- MIDI/
+|-- Makefile
+|-- Notes/
+|   |-- cello.ily
+|   |-- figures.ily
+|   |-- horn.ily
+|   |-- oboe.ily
+|   |-- trioString.ily
+|   |-- viola.ily
+|   |-- violinOne.ily
+|   `-- violinTwo.ily
+|-- PDF/
+|-- Parts/
+|   |-- symphony-cello.ly
+|   |-- symphony-horn.ly
+|   |-- symphony-oboes.ly
+|   |-- symphony-viola.ly
+|   |-- symphony-violinOne.ly
+|   `-- symphony-violinTwo.ly
+|-- Scores/
+|   |-- symphony.ly
+|   |-- symphonyI.ly
+|   |-- symphonyII.ly
+|   |-- symphonyIII.ly
+|   `-- symphonyIV.ly
+`-- symphonyDefs.ily
+@end example
+
+@code{Scores} ディレクトリと @code{Parts} ディレクトリの中にある 
+@code{.ly} ファイルは音符を 
+@code{Notes} ディレクトリの中にある @code{.ily} ファイルから取得します:
+
+@example
+%%% top of file "symphony-cello.ly"
+\include ../definitions.ily
+\include ../Notes/cello.ily
+@end example
+
+この @code{Makefile} はターゲットとして 
+@code{score} (フル スコアの楽曲全体)、@c
+@code{movements} (フル スコアの個々の楽章)、@c
+それに @code{parts} (演奏者のための個々のパート) を持ちます。@c
+さらに、web や email で配布するのに適したソース ファイルの tarball 
+(訳者: 複数のファイルをコマンド @code{tar} で 1 つのファイルにまとめたもの) 
+を作成するターゲット @code{archive} もあります。@c
+ここでは GNU/Linux や MacOS X 用の @code{Makefile} を示します。@c
+これをプロジェクトのトップ ディレクトリに 
+@code{Makefile} という名前で保存する必要があります:
+
+@warning{ターゲットやパターン ルールが定義されたとき、@c
+そのあとの行はスペースではなく Tab で始まる必要があります。}
+
+@example
+# the name stem of the output files
+# 出力ファイル名の語幹: symphonyI.pdf, symphonyIII.ly など
+piece = symphony
+# determine how many processors are present
+# いくつプロセッサがあるかを決定します
+CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+# The command to run lilypond
+# lilypond を実行するコマンド
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click -djob-count=$(CPU_CORES)
+
+# The suffixes used in this Makefile.
+# この Makefile で使用される拡張子
+.SUFFIXES: .ly .ily .pdf .midi
+
+# Input and output files are searched in the directories listed in
+# the VPATH variable.  All of them are subdirectories of the current
+# directory (given by the GNU make variable `CURDIR').
+# 入力ファイルと出力ファイルのサーチは VPATH 変数でリストアップされている
+# ディレクトリの中で行われます。それらのディレクトリはすべて (GNU make 変数 
+# `CURDIR' によって与えられる) カレント ディレクトリのサブディレクトリです。
+VPATH = \
+  $(CURDIR)/Scores \
+  $(CURDIR)/PDF \
+  $(CURDIR)/Parts \
+  $(CURDIR)/Notes
+
+# LY 入力ファイルから PDF ファイルと MIDI ファイルを作成するための
+# パターン ルール。.pdf 出力ファイルは `PDF' サブディレクトリの中に
+# 配置され、.midi ファイルは `MIDI' サブディレクトリの中に配置されます。
+%.pdf %.midi: %.ly
+        $(LILY_CMD) $<; \           # this line begins with a tab
+        if test -f "$*.pdf"; then \
+            mv "$*.pdf" PDF/; \
+        fi; \
+        if test -f "$*.midi"; then \
+            mv "$*.midi" MIDI/; \
+        fi
+
+notes = \
+  cello.ily \
+  horn.ily \
+  oboe.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+# The dependencies of the movements.
+# ターゲット movements の依存関係
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+# The dependencies of the full score.
+# ターゲット score の依存関係
+$(piece).pdf: $(piece).ly $(notes)
+
+# The dependencies of the parts.
+# ターゲット parts の依存関係
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+# Type `make score' to generate the full score of all four
+# movements as one file.
+# 4 つすべての楽章のフル スコアを 1 つのファイルとして生成するには
+# `make score' とタイプします。
+.PHONY: score
+score: $(piece).pdf
+
+# Type `make parts' to generate all parts.
+# Type `make foo.pdf' to generate the part for instrument `foo'.
+# Example: `make symphony-cello.pdf'.
+# すべてのパートを生成するには `make parts' とタイプします。
+# 楽器 `foo' のためのパートを生成するには `make foo.pdf' とタイプします。
+# 例: `make symphony-cello.pdf'
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+# Type `make movements' to generate files for the
+# four movements separately.
+# 4 つの楽章を別個のファイルとして生成するには `make movements' とタイプします。
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+
+archive:
+        tar -cvvf stamitz.tar \       # this line begins with a tab
+        --exclude=*pdf --exclude=*~ \
+        --exclude=*midi --exclude=*.tar \
+        ../Stamitz/*
+@end example
+
+
+Windows プラットフォームには特別な面倒さがあります。@c
+Windows 用の GNU Make をダウンロードしてインストールした後、@c
+システム環境変数に正しいパスを設定して、@c
+DOS シェルが Make プログラムを見つけられるようにする必要があります。@c
+これを行うには、@c
+"マイ コンピュータ" を右クリックして、@code{プロパティ} を選択し、@c
+それから @code{詳細設定} を選択します。@c
+それから @code{環境変数} をクリックして、@c
+@code{システム環境変数} パネルの中にある @code{Path} をハイライトしてから
+@code{編集} をクリックして、@c
+GNU Make の実行ファイルへのパスを追加します。@c
+そのパスは以下のようになります 
+(訳者: GNU Make のインストールのされ方によって異なります):
+
+@example
+C:\Program Files\GnuWin32\bin
+@end example
+
+Linux/MacOS X とは異なるシェル コマンドを扱い、@c
+いくつかのデフォルト システム ディレクトリの中に存在する@c
+ファイル空間を扱うために、@c
+@code{Makefile} 自体を変更する必要があります。@c
+Windows は @code{tar} コマンドを持たないため、@c
+@code{archive} ターゲットは除去されます。@c
+また、Windows が持つ MIDI ファイルのデフォルト拡張子は異なります。
+
+@example
+## WINDOWS VERSION
+##
+piece = symphony
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click \
+                    -djob-count=$(NUMBER_OF_PROCESSORS)
+
+#get the 8.3 name of CURDIR (workaround for spaces in PATH)
+workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+          do @@echo %%~sb)
+
+.SUFFIXES: .ly .ily .pdf .mid
+
+VPATH = \
+  $(workdir)/Scores \
+  $(workdir)/PDF \
+  $(workdir)/Parts \
+  $(workdir)/Notes
+
+%.pdf %.mid: %.ly
+        $(LILY_CMD) $<      # this line begins with a tab
+        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # begin with tab
+        if exist "$*.mid" move /Y "$*.mid" MIDI/  # begin with tab
+
+notes = \
+  cello.ily \
+  figures.ily \
+  horn.ily \
+  oboe.ily \
+  trioString.ily \
+  viola.ily \
+  violinOne.ily \
+  violinTwo.ily
+
+$(piece)I.pdf: $(piece)I.ly $(notes)
+$(piece)II.pdf: $(piece)II.ly $(notes)
+$(piece)III.pdf: $(piece)III.ly $(notes)
+$(piece)IV.pdf: $(piece)IV.ly $(notes)
+
+$(piece).pdf: $(piece).ly $(notes)
+
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
+$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+
+.PHONY: score
+score: $(piece).pdf
+
+.PHONY: parts
+parts: $(piece)-cello.pdf \
+       $(piece)-violinOne.pdf \
+       $(piece)-violinTwo.pdf \
+       $(piece)-viola.pdf \
+       $(piece)-oboes.pdf \
+       $(piece)-horn.pdf
+
+.PHONY: movements
+movements: $(piece)I.pdf \
+           $(piece)II.pdf \
+           $(piece)III.pdf \
+           $(piece)IV.pdf
+
+all: score parts movements
+@end example
+
+
+次の @code{Makefile} は、@c
+LaTeX で処理する @command{lilypond-book} ドキュメント用です。@c
+このドキュメントは目次を持ちます。@c
+目次を作成するには、@c
+リンクを更新するために @command{latex} コマンドを 2 回実行する必要があります。@c
+.pdf 出力ファイルは @code{out} ディレクトリに保存され、@c
+HTML 出力ファイルは @code{htmlout} ディレクトリに保存されます。
+
+@example
+SHELL=/bin/sh
+FILE=myproject
+OUTDIR=out
+WEBDIR=htmlout
+VIEWER=acroread
+BROWSER=firefox
+LILYBOOK_PDF=lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
+LILYBOOK_HTML=lilypond-book --output=$(WEBDIR) $(FILE).lytex
+PDF=cd $(OUTDIR) && pdflatex $(FILE)
+HTML=cd $(WEBDIR) && latex2html $(FILE)
+INDEX=cd $(OUTDIR) && makeindex $(FILE)
+PREVIEW=$(VIEWER) $(OUTDIR)/$(FILE).pdf &
+
+all: pdf web keep
+
+pdf:
+        $(LILYBOOK_PDF)  # begin with tab
+        $(PDF)           # begin with tab
+        $(INDEX)         # begin with tab
+        $(PDF)           # begin with tab
+        $(PREVIEW)       # begin with tab
+
+web:
+        $(LILYBOOK_HTML) # begin with tab
+        $(HTML)          # begin with tab
+        cp -R $(WEBDIR)/$(FILE)/ ./  # begin with tab
+        $(BROWSER) $(FILE)/$(FILE).html &  # begin with tab
+
+keep: pdf
+        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf  # begin with tab
+
+clean:
+        rm -rf $(OUTDIR) # begin with tab
+
+web-clean:
+        rm -rf $(WEBDIR) # begin with tab
+
+archive:
+        tar -cvvf myproject.tar \ # begin this line with tab
+        --exclude=out/* \
+        --exclude=htmlout/* \
+        --exclude=myproject/* \
+        --exclude=*midi \
+        --exclude=*pdf \
+        --exclude=*~ \
+        ../MyProject/*
+@end example
+
+TODO: make this thing work on Windows
+
+この @code{Makefile} は Windows では機能しません。@c
+Windows ユーザの代替手段として、@c
+ビルド コマンドを保持する簡単なバッチ ファイルを作成する方法があります。@c
+これは @code{Makefile} のように依存関係を保持できませんが、@c
+少なくともビルド処理を単一のコマンドに縮小します。@c
+以下のコードを 
+@command{build.bat} あるいは @command{build.cmd} として保存してください。@c
+このバッチ ファイルは DOS プロンプトから実行することができ、@c
+単にそのアイコンをダブル クリックすることでも実行することができます。
+
+@example
+lilypond-book --output=out --pdf myproject.lytex
+cd out
+pdflatex myproject
+makeindex myproject
+pdflatex myproject
+cd ..
+copy out\myproject.pdf MyProject.pdf
+@end example
+
+
+@seealso
+アプリケーションの使用方法:
+FIXME
+@c @rprogram{Setup for MacOS X},
+@rprogram{コマンド ラインの使用方法},
+@rprogram{lilypond-book}

@@ -5,14 +5,15 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
-
-@documentencoding UTF-8
 @setfilename lilypond-program.info
 @settitle GNU LilyPond -- アプリケーション使用方法
+@documentencoding UTF-8
+@documentlanguage ja
 
 @include macros.itexi
 
 @afourpaper
+
 
 @c don't remove this comment.
 @ignore
@@ -30,44 +31,41 @@
 @node トップ ページ
 @top GNU LilyPond --- アプリケーション使用方法
 @translationof Top
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @end ifnottex
 
 @ifhtml
 @ifclear bigpage
-このドキュメントは @uref{source/Documentation/application.pdf,PDF 
-形式} と @uref{source/Documentation/application-big-page.ja.html,
-大きな 1 ページ形式} でも利用可能です。
+このドキュメントは 
+@uref{source/Documentation/application.pdf,PDF 形式} と 
+@uref{source/Documentation/application-big-page.ja.html,大きな 1 ページ形式} 
+でも利用可能です。
 @end ifclear
 @ifset bigpage
-このドキュメントは @uref{source/Documentation/application.pdf,PDF 
-形式} と @uref{source/Documentation/application/index.ja.html,
-複数のページにインデックス化された形式} でも利用可能です。
+このドキュメントは 
+@uref{source/Documentation/application.pdf,PDF 形式} と 
+@uref{source/Documentation/application/index.ja.html,
+複数のページにインデックス化された形式} 
+でも利用可能です。
 @end ifset
 @end ifhtml
 
-@c urg, makeinfo 4.9.91 French translation is funky
-@iftex
-@documentlanguage ja
-@c frenchspacing on
-@end iftex
 
+@c  This produces the unified index
 @syncodeindex fn cp
-@c @syncodeindex ky cp
-@c @syncodeindex pg cp
-@c @syncodeindex tp cp
-@c @syncodeindex vr cp
+@syncodeindex vr cp
+
 
 @finalout
 
 @titlepage
 @title GNU LilyPond
-@c subtitle Le système de gravure musicale
 @subtitle 音楽譜刻システム
-@c titlefont{Utilisation des programmes}
-@c author L'équipe de développement de LilyPond
+@titlefont{アプリケーション使用方法}
 @author LilyPond開発チーム
 
-Copyright @copyright{} 1999--2008 著作者一同
+
+Copyright @copyright{} 1999--2009 著作者一同
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -134,26 +132,35 @@ Free Documentation License''.
 
 @ifnottex
 
-これは GNU LilyPond バージョン @version{} のためのアプリケーション使用方法マ@c
-ニュアルです。このドキュメントと他のドキュメントとの関係についての更なる情報@c
-は、@rlearning{このドキュメントについて} を参照してください。
+これは GNU LilyPond バージョン @version{} のための@c
+アプリケーション使用方法マニュアルです。@c
+このドキュメントと他のドキュメントとの関係についての更なる情報は、@c
+FIXME FIXME FIXME
+@c @rlearning{このドキュメントについて} 
+を参照してください。
 
 @cindex web site
 @cindex URL
 
-@uref{http://@/www@/.lilypond@/.org/} で更なる情報を見つけることができます。こ@c
-のウェブ サイトにはこのドキュメントと他のドキュメントのオンライン コピーがあり@c
-ます。
+@uref{http://@/www@/.lilypond@/.org/} で更なる情報を見つけることができます。@c
+このウェブ サイトにはこのドキュメントと他のドキュメントの@c
+オンライン コピーがあります。
 
 @include dedication.itely
 
-@menu
-* インストール::                        インストール方法とコンパイル方法
-* セットアップ::                          他のプログラムの助けを借りて LilyPond を使@c
+@c * インストール::                        インストール方法とコンパイル方法
+@c * セットアップ::                          他のプログラムの助けを借りて LilyPond を使@c
 用する
-* LilyPond を実行する::               操作方法
-* LilyPond-book::                  テキストと音楽を統合する
+
+@c  maybe add a "Tasks" or "Specific tasks" or something like
+@c  that, after Suggestions  -gp
+@menu
+* lilypond を実行する::            操作方法
+* convert-ly を使ってファイルを更新する:: 入力ファイルをアップデートする
+* lilypond-book::                  テキストと音楽を統合する
 * Converting from other formats::  lilypond ソース形式に変換する
+* LilyPond プロジェクトに取り組む:: 動かないファイルに取り組む
+* LilyPond 入力ファイルの記述に対する提案::  実践してください
 
 付録
 
@@ -165,11 +172,14 @@ Free Documentation License''.
 @contents
 
 
-@include application/install.itely
-@include application/setup.itely
+@c @include application/install.itely
+@c @include application/setup.itely
 @include application/running.itely
+@include application/updating.itely
 @include application/lilypond-book.itely
 @include application/converters.itely
+@include application/working.itely
+@include application/suggestions.itely
 
 @include fdl.itexi
 

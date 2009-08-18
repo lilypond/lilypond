@@ -18,7 +18,10 @@
 @appendix テンプレート
 @translationof Templates
 
-このセクションにはセットアップ済みの LilyPond 楽譜を持つテンプレートがあります。音符を付け加えて、LilyPond を実行してください。あとは美しく譜刻された楽譜をお楽しみください！
+このセクションにはセットアップ済みの LilyPond 楽譜を持つテンプレートが@c
+あります。@c
+音符を付け加えて、LilyPond を実行してください。@c
+あとは美しく譜刻された楽譜をお楽しみください！
 
 
 @menu
@@ -26,9 +29,10 @@
 * ピアノ テンプレート::
 * 弦楽四重奏::
 * 合唱::
+* Orchestral templates::
 * Ancient notation templates::
-* Jazz combo::
-* lilypond-book templates::
+* Jazz コンボ::
+* lilypond-book テンプレート::
 @end menu
 
 
@@ -76,7 +80,7 @@
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec 中央に強弱記号を持つピアノ譜
+@appendixsubsec 中央に強弱記号を持つピアノ譜s
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {piano-template-with-centered-dynamics.ly}
@@ -117,6 +121,15 @@
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 
+@node Orchestral templates
+@appendixsec Orchestral templates
+@translationof Orchestral templates
+
+@appendixsubsec Orchestra, choir and piano
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{orchestra,-choir-and-piano-template.ly}
+
+
 @c bad node name to avoid node name conflict
 @node Ancient notation templates
 @appendixsec Ancient notation templates
@@ -133,10 +146,9 @@
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@node Jazz combo
-@appendixsec Jazz combo
+@node Jazz コンボ
+@appendixsec Jazz コンボ
 @translationof Jazz combo
-
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {jazz-combo-template.ly}
@@ -212,23 +224,24 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 @end ignore
 
 
-@node lilypond-book templates
-@appendixsec lilypond-book templates
+@node lilypond-book テンプレート
+@appendixsec lilypond-book テンプレート
 @translationof lilypond-book templates
 
-These templates are for use with @code{lilypond-book}.  If you're not familiar
-with this program, please refer to @rprogram{LilyPond-book}.
+以下のテンプレートは @code{lilypond-book} で使用するためのものです。@c
+このプログラムに馴染みがないのなら、@rprogram{LilyPond-book} を@c
+参照してください。
 
 @appendixsubsec LaTeX
 
-You can include LilyPond fragments in a LaTeX document.
+LilyPond 断片を LaTeX ドキュメントに含めることができます。
 
 @example
 \documentclass[]@{article@}
 
 \begin@{document@}
 
-Normal LaTeX text.
+通常の LaTeX テキスト。
 
 \begin@{lilypond@}
 \relative c'' @{
@@ -236,7 +249,7 @@ a4 b c d
 @}
 \end@{lilypond@}
 
-More LaTeX text.
+さらに LaTeX テキスト。
 
 \begin@{lilypond@}
 \relative c'' @{
@@ -248,20 +261,20 @@ d4 c b a
 
 @appendixsubsec Texinfo
 
-You can include LilyPond fragments in Texinfo; in fact, this entire manual
-is written in Texinfo.
+LilyPond 断片を Texinfo に含めることができます。@c
+実際、このマニュアル全体が Texinfo で書かれています。
 
 @example
 \input texinfo
 @@node Top
 
-Texinfo text
+Texinfo テキスト
 
 @@lilypond[verbatim,fragment,ragged-right]
 a4 b c d
 @@end lilypond
 
-More Texinfo text
+さらに Texinfo テキスト
 
 @@lilypond[verbatim,fragment,ragged-right]
 d4 c b a
@@ -277,18 +290,19 @@ d4 c b a
 \documentclass{article}
 \usepackage{ifxetex}
 \ifxetex
-%xetex specific stuff
+%xetex 特有の要素
 \usepackage{xunicode,fontspec,xltxtra}
 \setmainfont[Numbers=OldStyle]{Times New Roman}
 \setsansfont{Arial}
 \else
+%pdftex を使おうとしていないのなら、以下の内容は無意味かもしれません
 %This can be empty if you are not going to use pdftex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{mathptmx}%Times
 \usepackage{helvet}%Helvetica
 \fi
-%Here you can insert all packages that pdftex also understands
+%ここで、pdftex も理解できるパッケージをすべて挿入することができます
 \usepackage[ngerman,finnish,english]{babel}
 \usepackage{graphicx}
 
@@ -296,26 +310,26 @@ d4 c b a
 \title{A short document with LilyPond and xelatex}
 \maketitle
 
-Normal \textbf{font} commands inside the \emph{text} work,
-because they \textsf{are supported by \LaTeX{} and XeteX.}
-If you want to use specific commands like \verb+\XeTeX+, you
-should include them again in a \verb+\ifxetex+ environment.
-You can use this to print the \ifxetex \XeTeX{} command \else
-XeTeX command \fi which is not known to normal \LaTeX .
+\emph{text} の内部にある通常の \textbf{font} コマンドは機能します。
+なぜなら、それは \textsf{\LaTeX{} と XeteX でサポートされているから
+です。}もし \verb+\XeTeX+ のような特殊なコマンドを使用したければ、
+それらを再度 \verb+\ifxetex+ 環境の中に入れる必要があります。この方
+法で \ifxetex \XeTeX{} コマンド \else XeTeX コマンド \fi - これは通
+常の \LaTeX ではありません - を表示させることができます。
 
-In normal text you can easily use LilyPond commands, like this:
+通常のテキストの中では、以下のように簡単に LilyPond コマンドを使う
+ことができます:
 
 \begin{lilypond}
 {a2 b c'8 c' c' c'}
 \end{lilypond}
 
 \noindent
-and so on.
+などのようにです。
 
-The fonts of snippets set with LilyPond will have to be set from
-inside
-of the snippet. For this you should read the AU on how to use
-lilypond-book.
+LilyPond に設定されいる断片集のフォントは、断片の内部で設定されて
+いる必要があります。これを行うには、アプリケーション使用方法を読んで
+lilypond-book の使い方を学ぶ必要があります。
 
 \selectlanguage{ngerman}
 Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle

@@ -13,9 +13,9 @@
 @c Translation status: post-GDP
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
-@node LilyPond-book
+@node lilypond-book
 @chapter @command{lilypond-book}: Integrating text and music
-@translationof LilyPond-book @c external
+@translationof lilypond-book @c external
 
 @untranslated
 
@@ -32,7 +32,7 @@ the music are adjusted to match the layout of your document.
 
 This is a separate program from @command{lilypond} itself, and is run
 on the command line; for more information, see @ref{コマンド ラインの使用方法}.  If you have MacOS 10.3 or 10.4 and you have trouble running
-@code{lilypond-book}, see @ref{MacOS X のためのセットアップ}.
+@code{lilypond-book}, see FIXME FIXME @c @ref{MacOS X のためのセットアップ}.
 
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
 documents.

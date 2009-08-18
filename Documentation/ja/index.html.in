@@ -42,7 +42,7 @@ href="learning/index.ja.html">学習マニュアル</a>
 
 	   <li><a class="title"
 href="music-glossary/index.html">音楽用語集</a>
-(<a class="title" href="music-glossary-big-page.html">大きな 1 ページ</a> 形式 ~ 500 kB),
+(<a class="title" href="music-glossary-big-page.html">大きな 1 ページ</a> 形式 ~ 500 kB,
 <a class="title" href="music-glossary.pdf">PDF</a> 形式)
      <br>(非英語圏のユーザ向け)</li>
 	</ul>
@@ -53,7 +53,7 @@ href="music-glossary/index.html">音楽用語集</a>
 	    <a class="title" href="changes.html">News</a>
             <br>(前回のメジャー リリースからの変更点)</li>
 
-<li><a class="title" href="../examples.html">Examples</a>
+<li><a class="title" href="../examples.html">例</a>
      <br>(参照用の例)</li>
 
 	  </ul>
@@ -63,8 +63,8 @@ href="music-glossary/index.html">音楽用語集</a>
           <td valign="baseline" class="left-column">
 	  <ul>
 	    <li>
-<a class="title" href="lilypond/index.ja.html">表記リファレンス</a>
-(<a class="title" href="big-page.ja.html">大きな 1 ページ</a> 形式 ~ 4 MB)<!--,
+<a class="title" href="lilypond/index.ja.html">記譜法リファレンス</a>
+(<a class="title" href="big-page.html">大きな 1 ページ</a> 形式 ~ 4 MB)<!--,
 <a class="title" href="lilypond.ja.pdf">PDF</a> 形式)
 -->
      <br>(音楽を LilyPond で記述する)</li>
@@ -72,9 +72,8 @@ href="music-glossary/index.html">音楽用語集</a>
        <li>
  <a  class="title"
 href="internals/index.ja.html">内部リファレンス</a>
- (<a class="title" href="internals-big-page.ja.html">大きな 1 ページ</a> 形式 ~ 1 MB)<!--,
-  <a class="title" href="internals.ja.pdf">PDF</a> 形式)
--->
+ (<a class="title" href="internals-big-page.html">大きな 1 ページ</a> 形式 ~ 1 MB,
+  <a class="title" href="internals.pdf">PDF</a> 形式)
      <br>(調整のための定義)</li>
 
   </ul>
@@ -83,14 +82,14 @@ href="internals/index.ja.html">内部リファレンス</a>
 	  <ul>
               <li>
 	    <a class="title"
-href="application/index.ja.html">アプリケーションの使用方法</a>
+href="application/index.ja.html">アプリケーション使用方法</a>
 (<a class="title" href="application-big-page.ja.html">大きな 1 ページ</a> 形式)<!--,
 <a class="title" href="application.ja.pdf">PDF</a> 形式)
 -->
             <br>(プログラムをインストールして実行する方法)</li>
 
 <li><a class="title"href="snippets/index.html">断片集</a>
-(<a class="title" href="snippets-big-page.html">大きな 1 ページ</a> 形式 ~ 2MB),
+(<a class="title" href="snippets-big-page.html">大きな 1 ページ</a> 形式 ~ 2MB,
 <a class="title" href="snippets.pdf">PDF</a> 形式)
      <br>(Short tricks, tips, and examples)</li>
 

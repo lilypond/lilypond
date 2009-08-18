@@ -8,8 +8,8 @@
 @end ignore
 
 
-@node Scheme tutorial
-@appendix Scheme tutorial
+@node Scheme チュートリアル
+@appendix Scheme チュートリアル
 @translationof Scheme tutorial @c external
 
 @untranslated
