@@ -68,6 +68,7 @@
     \name GrandStaff
     \accepts RhythmicStaff
     \accepts Staff
+    \accepts Dynamics
     \defaultchild Staff
 }
 
@@ -197,4 +198,8 @@
 
 \context { \Staff \name RhythmicStaff }
 
-
+\context {
+  \type "Performer_group"
+  \name Dynamics
+  \consists "Piano_pedal_performer"
+}
