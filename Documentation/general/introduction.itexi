@@ -139,6 +139,17 @@ need to remember complex command sequences.  Simply save an input
 for later reference.
 
 
+@subsubheading Accessibility
+
+Text-based input also makes score-writing possible for users with
+severe physical disabilities.  Dexterity-impaired users who are
+unable to type or control a computer mouse can use
+speech-recognition software to edit LilyPond files.  Even users
+who are totally blind can use screen-reading software to write
+LilyPond files -- an impossible task in graphical-based
+score-writing programs.
+
+
 @subsubheading Mix music and text
 
 @imageFloat{lilypond-book,png,right}
