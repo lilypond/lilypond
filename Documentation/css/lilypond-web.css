@@ -49,7 +49,7 @@ div#tocframe {
   top: 0;
   left: 0;
   right: 0;
-  background: url(pictures/nav-bg.jpg) repeat-x top left;
+  background: url(../pictures/nav-bg.jpg) repeat-x top left;
   max-width: 70em;
   font-size: 100%;
   line-height: 1;
@@ -73,7 +73,7 @@ div#tocframe {
 
 #tocframe > ul:first-child > li:first-child a {
   text-indent: -999em;
-  background: url(pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
+  background: url(../pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
   width: 9%;
   /* css3 no go yet? */
   border-bottom-left-radius: 30px;
@@ -82,19 +82,19 @@ div#tocframe {
 }
 
 #tocframe > ul:first-child > li:first-child a:hover {
-  background: url(pictures/lily-home-nav-hover.png) no-repeat 50% 50%;
+  background: url(../pictures/lily-home-nav-hover.png) no-repeat 50% 50%;
   width: 9%;
 }
 
 #tocframe > ul:first-child > li:first-child.toc_current a {
   text-indent: -999em;
-  background: url(pictures/lily-home-nav-active.png) no-repeat 50% 50%;
+  background: url(../pictures/lily-home-nav-active.png) no-repeat 50% 50%;
   width: 9%;
 }
 
 #tocframe > ul:first-child > li:first-child.toc_current a:hover {
   text-indent: -999em;
-  background: url(pictures/lily-home-nav-active.png) no-repeat 50% 50%;
+  background: url(../pictures/lily-home-nav-active.png) no-repeat 50% 50%;
   width: 9%;
 }
 
