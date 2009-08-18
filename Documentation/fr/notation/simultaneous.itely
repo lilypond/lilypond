@@ -177,7 +177,7 @@ Les clusters ne sont pas reproduits en MIDI.
 
 @menu
 * Polyphonie sur une portée::             
-* Style de voix::             
+* Styles de voix::             
 * Résolution des collisions::        
 * Regroupement automatique de parties::    
 * Saisie de musique en parallèle::   
@@ -215,7 +215,7 @@ sur une portée est est la suivante :
 @noindent
 Vous constaterez que les voix sont créées  explicitement et qu'elles
 sont nommées.  Les commandes @code{\voiceOne} @dots{} @code{\voiceFour}
-déterminent les voix de telle sorte que les premières et troisièmes
+déterminent les voix de telle sorte que les première et troisième
 auront des hampes vers le haut, et les deuxième et quatrième vers le
 bas.  D'utre prt, les notes des troisièmre et quatrième voix seront
 quelque peu décalées, tout comme leurs silences, afin d'éviter les
@@ -303,7 +303,7 @@ Dans l'exemple qui suit, la voix intermédiaire à des hampes vers le
 haut.   Nous la plaçons donc en troisième position, de telle sorte
 qu'elle adopte les réglages de @code{\voiceThree} qui correspondent à ce
 que nous voulons.  Grâce à des espaces invisibles, nous évitons de
-surcharger la porter avec des demis soupirs.
+surcharger la portée avec des demis soupirs.
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -692,6 +692,8 @@ sans effet sur les hauteurs de @var{expression_musicale_1} ou de
 @var{expression_musicale_2}.
 
 
+@snippets
+
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
@@ -700,17 +702,17 @@ sans effet sur les hauteurs de @var{expression_musicale_1} ou de
 
 
 @seealso
-Music Glossary:
+Glossaire musicologique :
 @rglos{a due},
 @rglos{part}.
 
-Notation Reference:
-@ref{Writing parts}.
+Manuel de notation :
+@ref{Écriture de parties séparées}.
 
-Snippets:
+Morceaux choisis :
 @rlsr{Simultaneous notes}.
 
-Internals Reference:
+Référence des propriétés internes :
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
 

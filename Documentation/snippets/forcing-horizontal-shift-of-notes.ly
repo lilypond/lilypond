@@ -12,7 +12,7 @@ s'avérer utiles pour dicter au programme les choix de placement.  On
 travaille ici en espace de portée.
 
 "
-  doctitlefr = "Cécalage horizontal forcé"
+  doctitlefr = "Décalage horizontal forcé"
 
 
   lsrtags = "simultaneous-notes, tweaks-and-overrides"

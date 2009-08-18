@@ -6,8 +6,8 @@
 \header {
 %% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
   texidocfr = "
-Lorsque voue vou regroupez automatiquement des parties, vous pouvez
-modiffier le texte qui sera affiché pour les solos et pour les parties à
+Lorsque vous regroupez automatiquement des parties, vous pouvez
+modifier le texte qui sera affiché pour les solos et pour les parties à
 l'unisson :
 
 "
