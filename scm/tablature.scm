@@ -80,7 +80,7 @@
         ;; if it is "moderntab", we'll draw it
         (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
                (line-count (ly:grob-property staff-symbol 'line-count))
-               (staff-space (ly:grob-property staff-symbol 'staff-space 1)))
+               (staff-space (ly:staff-symbol-staff-space grob)))
 
           (grob-interpret-markup grob (make-customTabClef-markup line-count
                                                                  staff-space)))
