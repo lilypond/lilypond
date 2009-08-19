@@ -260,7 +260,6 @@
 	(padding . 0.2)
 	(positioning-done . ,ly:align-interface::align-to-minimum-distances)
 	(stacking-dir . ,DOWN)
-	(threshold . (2 . 1000))
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
