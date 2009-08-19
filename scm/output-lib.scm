@@ -47,50 +47,6 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tablature
-
-;; The TabNoteHead tablatureFormat callback.
-;; Compute the text grob-property
-(define-public (fret-number-tablature-format string context event)
-  (let* ((tuning (ly:context-property context 'stringTunings))
-	 (pitch (ly:event-property event 'pitch))
-	 (is-harmonic (apply
-		       functional-or
-		       (map
-			(lambda (ev)
-			  (eq? 'harmonic-event (ly:event-property ev 'class)))
-			(ly:event-property event 'articulations)))))
-
-    (make-whiteout-markup
-     (make-vcenter-markup
-      (format
-       "~a"
-       (- (ly:pitch-semitones pitch)
-	  (list-ref tuning
-		    ;; remove 1 because list index starts at 0
-		    ;;and guitar string at 1.
-		    (1- string))))))))
-
-;; The 5-string banjo has got a extra string, the fifth (duh), which
-;; starts at the fifth fret on the neck.  Frets on the fifth string
-;; are referred to relative to the other frets:
-;;   the "first fret" on the fifth string is really the sixth fret
-;;   on the banjo neck.
-;; We solve this by defining a new fret-number-tablature function:
-(define-public (fret-number-tablature-format-banjo string context event)
-  (let* ((tuning (ly:context-property context 'stringTunings))
-	 (pitch (ly:event-property event 'pitch)))
-
-    (make-whiteout-markup
-     (make-vcenter-markup
-      (let ((fret (- (ly:pitch-semitones pitch) (list-ref tuning (1- string)))))
-	(number->string (cond
-			 ((and (> fret 0) (= string 5))
-			  (+ fret 5))
-			 (else fret))))))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 
 (define-public (stem::calc-duration-log grob)
@@ -191,35 +147,6 @@
 	   (make-with-color-markup white (make-draw-circle-markup
 					  (- radius stem-thickness) 0 #t)))
 	  letter)))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bar numbers
-
-(define-public ((every-nth-bar-number-visible n) barnum)
-  (= 0 (modulo barnum n)))
-
-(define-public ((modulo-bar-number-visible n m) barnum)
-  (and (> barnum 1) (= m (modulo barnum n))))
-
-(define-public ((set-bar-number-visibility n) tr)
-  (let ((bn (ly:context-property tr 'currentBarNumber)))
-    (ly:context-set-property! tr 'barNumberVisibility
-			      (modulo-bar-number-visible n (modulo bn n)))))
-
-(define-public (first-bar-number-invisible barnum) (> barnum 1))
-
-(define-public (all-bar-numbers-visible barnum) #t)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; percent repeat counters
-
-(define-public ((every-nth-repeat-count-visible n) count context)
-  (= 0 (modulo count n)))
-
-(define-public (all-repeat-counts-visible count context) #t)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break visibility
