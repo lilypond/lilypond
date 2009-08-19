@@ -11,26 +11,33 @@
 %%  For more information, see the Contributors' Guide.
 
 
-\version "2.13.0"
+\version "2.13.4"
 
-#(use-modules (ice-9 debugger) (ice-9 debugging trace) (ice-9 debugging steps) (ice-9 debugging ice-9-debugger-extensions)  )
+#(use-modules
+  (ice-9 debugger)
+  (ice-9 debugging trace)
+  (ice-9 debugging steps)
+  (ice-9 debugging ice-9-debugger-extensions))
 
 #(define (break! proc)
-       (install-trap (make <procedure-trap>
-                       #:procedure proc
-                       #:behaviour debug-trap)))
-     
+   (install-trap (make <procedure-trap>
+                   #:procedure proc
+                   #:behaviour debug-trap)))
+
 #(define (trace! proc)
-       (install-trap (make <procedure-trap>
-                       #:procedure proc
-                       #:behaviour (list trace-trap
-                                         trace-at-exit))))
-     
+   (install-trap (make <procedure-trap>
+                   #:procedure proc
+                   #:behaviour (list trace-trap
+                                     trace-at-exit))))
+
 #(define (trace-subtree! proc)
-       (install-trap (make <procedure-trap>
-                       #:procedure proc
-                       #:behaviour (list trace-trap
-                                         trace-until-exit))))
-#(module-define! (resolve-module '(guile-user)) 'lilypond-module (current-module))
+   (install-trap (make <procedure-trap>
+                   #:procedure proc
+                   #:behaviour (list trace-trap
+                                     trace-until-exit))))
+
+#(module-define! (resolve-module '(guile-user))
+                 'lilypond-module
+                 (current-module))
 #(top-repl)
 #(set-current-module lilypond-module)
