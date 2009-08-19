@@ -117,8 +117,8 @@ tieSolid = {
 }
 
 easyHeadsOn = {
-  \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
-  \override NoteHead #'font-size = #-7
+  \override NoteHead #'stencil = #note-head::brew-ez-stencil
+  \override NoteHead #'font-size = #-8
   \override NoteHead #'font-family = #'sans
   \override NoteHead #'font-series = #'bold
 }

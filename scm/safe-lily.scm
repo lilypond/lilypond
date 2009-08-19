@@ -170,7 +170,6 @@
    ly:multi-measure-rest::print
    ly:multi-measure-rest::set-spacing-rods
    ly:note-head::print
-;;   ly:note-head::brew-ez-stencil
    ly:ottava-bracket::print
    ly:paper-column::print
    ly:percent-repeat-item-interface::beat-slash

@@ -157,6 +157,41 @@
 	   (string-append (number->string (max 0 log))
 			  (symbol->string style)))))))
 
+(define-public (note-head::brew-ez-stencil grob)
+  (let* ((log (ly:grob-property grob 'duration-log))
+	 (pitch (ly:event-property (event-cause grob) 'pitch))
+	 (pitch-index (ly:pitch-notename pitch))
+	 (note-names (ly:grob-property grob 'note-names))
+	 (pitch-string (if (vector? note-names)
+			   (vector-ref note-names pitch-index)
+			   (string
+			    (integer->char
+			     (+ (modulo (+ pitch-index 2) 7)
+				(char->integer #\A))))))
+	 (staff-space (ly:staff-symbol-staff-space grob))
+	 (line-thickness (ly:staff-symbol-line-thickness grob))
+	 (stem (ly:grob-object grob 'stem))
+	 (stem-thickness (* (if (ly:grob? stem)
+				(ly:grob-property stem 'thickness)
+				1.3)
+			    line-thickness))
+	 (radius (/ (+ staff-space line-thickness) 2))
+	 (letter (markup #:center-align #:vcenter pitch-string))
+	 (filled-circle (markup #:draw-circle radius 0 #t)))
+
+    (grob-interpret-markup
+     grob
+     (if (>= log 2)
+	 (make-combine-markup
+	  filled-circle
+	  (make-with-color-markup white letter))
+	 (make-combine-markup
+	  (make-combine-markup
+	   filled-circle
+	   (make-with-color-markup white (make-draw-circle-markup
+					  (- radius stem-thickness) 0 #t)))
+	  letter)))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bar numbers
@@ -164,7 +199,8 @@
 (define-public ((every-nth-bar-number-visible n) barnum)
   (= 0 (modulo barnum n)))
 
-(define-public ((modulo-bar-number-visible n m) barnum) (and (> barnum 1) (= m (modulo barnum n))))
+(define-public ((modulo-bar-number-visible n m) barnum)
+  (and (> barnum 1) (= m (modulo barnum n))))
 
 (define-public ((set-bar-number-visibility n) tr)
   (let ((bn (ly:context-property tr 'currentBarNumber)))
