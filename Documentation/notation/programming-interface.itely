@@ -40,6 +40,7 @@ This section discusses how to create music functions within LilyPond.
 * Mathematics in functions::
 * Void functions::
 * Functions without arguments::
+* Overview of available music functions::
 @end menu
 
 @node Overview of music functions
@@ -277,6 +278,16 @@ invoke @command{lilypond} with
 @example
 lilypond -d display-bar-numbers FILENAME.ly
 @end example
+
+
+@node Overview of available music functions
+@subsection Overview of available music functions
+
+@c fixme ; this should be move somewhere else?
+The following commands are music functions
+
+@include identifiers.tely
+
 
 
 @node Programmer interfaces

@@ -45,7 +45,7 @@ and just before
 * Technical glossary::
 * All context properties::
 * Layout properties::
-* Music functions::
+* Identifiers::
 * Scheme functions::
 @end menu
 
@@ -1115,8 +1115,8 @@ TODO
 @include layout-properties.tely
 
 
-@node Music functions
-@appendixsec Music functions
+@node Identifiers
+@appendixsec Identifiers
 
 @include identifiers.tely
 
