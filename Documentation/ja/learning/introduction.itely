@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.12.0"
+@c \version "2.13.4"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -316,7 +316,7 @@ fragment = {
 <<
    \new Staff \fragment
    \new Staff \with {
-      \override Beam #'thickness = #0.3
+      \override Beam #'beam-thickness = #0.3
       \override Stem #'thickness = #0.5
       \override Bar #'thickness = #3.6
       \override Tie #'thickness = #2.2
@@ -355,7 +355,7 @@ fragment = {
   \set autoBeaming = ##f
   \time 2/4
   <d f g>4
-  \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
+  \once \override NoteHead #'stencil = #note-head::brew-ez-stencil
   \once \override NoteHead #'font-size = #-7
   \once \override NoteHead #'font-family = #'sans
   \once \override NoteHead #'font-series = #'bold
@@ -753,7 +753,7 @@ f4
       \key c \minor
       \set subdivideBeams = ##f
       \override Stem  #'french-beaming = ##t
-      \override Beam  #'thickness = #0.3
+      \override Beam  #'beam-thickness = #0.3
       \override Stem  #'thickness = #4.0
       g'16[ b16 fis16 g16]
       << \makeClusters {
