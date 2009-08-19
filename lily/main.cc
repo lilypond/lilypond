@@ -172,14 +172,18 @@ char const *LILYPOND_DATADIR = PACKAGE_DATADIR "/" TOPLEVEL_VERSION;
   && defined(HAVE_FPU_CONTROL_H) && (HAVE_FPU_CONTROL_H == 1))
 
 #include <fpu_control.h>
-static void configure_fpu() {
+static void
+configure_fpu ()
+{
   fpu_control_t fpu_control = 0x027f;
   _FPU_SETCW (fpu_control);
 }
 
 #else
 
-static void configure_fpu() {
+static void
+configure_fpu ()
+{
 }
 
 #endif /* defined(__x86__) || defined(__i386__) */
@@ -220,8 +224,8 @@ static void
 copyright ()
 {
   /* Do not update the copyright years here, run grand-replace.sh.  */
-  printf (_f ("Copyright (c) %s by\n%s  and others.", "1996--2009",
-	      AUTHORS).c_str ());
+  printf ("%s", (_f ("Copyright (c) %s by\n%s  and others.", "1996--2009",
+                     AUTHORS).c_str ()));
   printf ("\n");
 }
 
@@ -247,25 +251,25 @@ LY_DEFINE (ly_usage, "ly:usage",
 	   "Print usage message.")
 {
   /* No version number or newline here.  It confuses help2man.  */
-  printf (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).c_str ());
+  printf ("%s", (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).c_str ()));
   printf ("\n\n");
-  printf (_ ("Typeset music and/or produce MIDI from FILE.").c_str ());
+  printf ("%s", (_ ("Typeset music and/or produce MIDI from FILE.").c_str ()));
   printf ("\n\n");
-  printf (_ ("LilyPond produces beautiful music notation.").c_str ());
+  printf ("%s", (_ ("LilyPond produces beautiful music notation.").c_str ()));
   printf ("\n");
-  printf (_f ("For more information, see %s", PROGRAM_URL).c_str ());
+  printf ("%s", (_f ("For more information, see %s", PROGRAM_URL).c_str ()));
   printf ("\n\n");
-  printf (_ ("Options:").c_str ());
+  printf ("%s", (_ ("Options:").c_str ()));
   printf ("\n");
-  printf (Long_option_init::table_string (options_static).c_str ());
+  printf ("%s", Long_option_init::table_string (options_static).c_str ());
   printf ("\n");
   /* Translators, please translate this string as
-         "Report bugs in English via %s",
+     "Report bugs in English via %s",
      or if there is a LilyPond users list or forum in your language
-         "Report bugs in English via %s or in YOUR_LANG via URI"  */
-  printf (_f ("Report bugs via %s",
-	      "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
-	      ).c_str ());
+     "Report bugs in English via %s or in YOUR_LANG via URI"  */
+  printf ("%s", (_f ("Report bugs via %s",
+		     "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
+		     ).c_str ()));
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;
@@ -278,7 +282,7 @@ warranty ()
   printf ("\n");
   copyright ();
   printf ("\n");
-  printf (_ (WARRANTY).c_str ());
+  printf ("%s", (_ (WARRANTY).c_str ()));
 }
 
 static void
@@ -409,7 +413,7 @@ main_with_guile (void *, int, char **)
       *tail = scm_cons (scm_from_locale_string (arg), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
-  
+
   delete option_parser;
   option_parser = 0;
 
@@ -504,9 +508,10 @@ parse_argv (int argc, char **argv)
 	case 'j':
 	  jail_spec = option_parser->optional_argument_str0_;
 	  break;
-	  
+
 	case 'e':
-	  init_scheme_code_global += option_parser->optional_argument_str0_ + string (" ");
+	  init_scheme_code_global
+            += option_parser->optional_argument_str0_ + string (" ");
 	  break;
 	case 'w':
 	  warranty ();
@@ -561,7 +566,7 @@ parse_argv (int argc, char **argv)
 void
 setup_guile_env ()
 {
-  const char *yield = getenv ("LILYPOND_GC_YIELD");
+  char const *yield = getenv ("LILYPOND_GC_YIELD");
   bool overwrite = true;
   if (!yield)
     {
@@ -581,7 +586,7 @@ setup_guile_env ()
 }
 
 vector<string> start_environment_global;
- 
+
 int
 main (int argc, char **argv, char **envp)
 {
@@ -589,7 +594,7 @@ main (int argc, char **argv, char **envp)
 
   for (char **p = envp; *p; p++)
     start_environment_global.push_back(*p);
-  
+
   if (getenv ("LILYPOND_VERBOSE"))
     be_verbose_global = true;
 
@@ -614,7 +619,7 @@ main (int argc, char **argv, char **envp)
 #else
   scm_boot_guile (argc, argv, main_with_guile, 0);
 #endif
-	
+
   /* Only reachable if GUILE exits.  That is an error.  */
   return 1;
 }
