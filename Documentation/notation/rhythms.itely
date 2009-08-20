@@ -1163,6 +1163,11 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
+Note that these predefined commands affect all staves in the
+score, even when they are placed in just one @code{Voice}
+context.  To change this, move the @code{Timing_translator}
+from the @code{Score} context to the @code{Staff} context, as
+shown in @ref{Polymetric notation}.
 
 @predefined
 @code{\cadenzaOn},
@@ -1175,7 +1180,8 @@ Music Glossary:
 @rglos{cadenza}.
 
 Notation Reference:
-@ref{Visibility of objects}.
+@ref{Visibility of objects},
+@ref{Polymetric notation}.
 
 Snippets:
 @rlsr{Rhythms}.
