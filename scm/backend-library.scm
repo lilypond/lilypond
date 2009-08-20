@@ -85,7 +85,7 @@
  -dDEVICEHEIGHTPOINTS=~$"
 					paper-width paper-height)))
 
-	 (cmd (simple-format #f
+	 (cmd (ly:format
 		      "~a\
  ~a\
  ~a\

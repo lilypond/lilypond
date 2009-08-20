@@ -411,7 +411,7 @@ LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
 }
 
 string
-format_single_argument (SCM arg, int precision)
+format_single_argument (SCM arg, int precision, bool escape = false)
 {
   if (scm_is_integer (arg) && scm_exact_p (arg) == SCM_BOOL_T)
     return (String_convert::int_string (scm_to_int (arg)));
@@ -430,7 +430,19 @@ format_single_argument (SCM arg, int precision)
 	return (String_convert::form_string ("%.*lf", precision, val));
     }
   else if (scm_is_string (arg))
-    return (ly_scm2string (arg));
+    {
+      string s = ly_scm2string (arg);
+      if (escape)
+        {
+          // Escape backslashes and double quotes, wrap it in double quotes
+          replace_all (&s, "\\", "\\\\");
+          replace_all (&s, "\"", "\\\"");
+          replace_all (&s, "%", "\\%");
+          replace_all (&s, "$", "\\$");
+          s = "\"" + s + "\"";
+        }
+      return s;
+    }
   else if (scm_is_symbol (arg))
     return (ly_symbol2string (arg));
   else
@@ -445,7 +457,8 @@ format_single_argument (SCM arg, int precision)
 
 LY_DEFINE (ly_format, "ly:format",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "LilyPond specific format, supporting @code{~a} and @code{~[0-9]f}.")
+	   "LilyPond specific format, supporting @code{~a} and @code{~[0-9]f}. "
+	   "Basic support for @code{~s} is also provided.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
@@ -491,6 +504,8 @@ LY_DEFINE (ly_format, "ly:format",
 	    	   
 	  if (spec == 'a' || spec == 'A' || spec == 'f' || spec == '$')
 	    results.push_back (format_single_argument (arg, precision));
+	  else if (spec == 's' || spec == 'S')
+	    results.push_back (format_single_argument (arg, precision, true));
 	  else if (spec == 'l')
 	    {
 	      SCM s = arg;

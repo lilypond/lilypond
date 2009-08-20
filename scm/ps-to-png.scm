@@ -120,7 +120,7 @@
 	       (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
 		       page-width page-height)
 	       "-dEPSCrop"))
-	  (cmd (format #f "~a\
+	  (cmd (ly:format "~a\
  ~a\
  ~a\
  -dGraphicsAlphaBits=4\
@@ -128,7 +128,7 @@
  -dNOPAUSE\
  -sDEVICE=~a\
  -sOutputFile=~S\
- -r~S\
+ -r~a\
  ~S\
  -c quit"
 		       (search-gs)
