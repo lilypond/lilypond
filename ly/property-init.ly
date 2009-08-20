@@ -2,281 +2,12 @@
 
 \version "2.12.0"
 
-stemUp = \override Stem #'direction = #UP
-stemDown = \override Stem #'direction = #DOWN
-stemNeutral = \revert Stem #'direction
-
-slurUp = \override Slur #'direction = #UP
-slurDown = \override Slur #'direction = #DOWN
-slurNeutral = \revert Slur #'direction
-
+%% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
     (list (list 0 1 dash-fraction dash-period)))
 
-slurDashed = {
-  \override Slur #'dash-definition =  #'((0 1 0.4 0.75))
-}
-slurDashPattern =
-#(define-music-function (parser location dash-fraction dash-period)
-  (number? number?)
-  #{
-     \override Slur #'dash-definition =
-       $(make-simple-dash-definition dash-fraction dash-period)
-  #})
-slurDotted = {
-  \override Slur #'dash-definition =  #'((0 1 0.1 0.75))
-}
-slurHalfDashed = {
-  \override Slur #'dash-definition =  #'((0 0.5 0.4 0.75)
-                                         (0.5 1 1 1))
-}
-slurHalfSolid = {
-  \override Slur #'dash-definition =  #'((0 0.5 1 1)
-                                         (0.5 1 0.4 0.75))
-}
-slurSolid = {
-  \revert Slur #'dash-definition
-}
 
-
-phrasingSlurUp = \override PhrasingSlur #'direction = #UP
-phrasingSlurDown = \override PhrasingSlur #'direction = #DOWN
-phrasingSlurNeutral = \revert PhrasingSlur #'direction
-
-phrasingSlurDashed = {
-  \override PhrasingSlur #'dash-definition =  #'((0 1 0.4 0.75))
-}
-phrasingSlurDashPattern =
-#(define-music-function (parser location dash-fraction dash-period)
-  (number? number?)
-  #{
-     \override PhrasingSlur #'dash-definition =
-       $(make-simple-dash-definition dash-fraction dash-period)
-  #})
-phrasingSlurDotted = {
-  \override PhrasingSlur #'dash-definition =  #'((0 1 0.1 0.75))
-}
-phrasingSlurHalfDashed = {
-  \override PhrasingSlur #'dash-definition =  #'((0 0.5 0.4 0.75)
-                                                 (0.5 1 1 1))
-}
-phrasingSlurHalfSolid = {
-  \override PhrasingSlur #'dash-definition =  #'((0 0.5 1 1)
-                                                 (0.5 1 0.4 0.75))
-}
-phrasingSlurSolid = {
-  \revert PhrasingSlur #'dash-definition
-}
-
-mergeDifferentlyDottedOn = {
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
-}
-mergeDifferentlyDottedOff = {
-  \revert Staff.NoteCollision #'merge-differently-dotted
-}
-
-mergeDifferentlyHeadedOn = {
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-}
-mergeDifferentlyHeadedOff = {
-  \revert Staff.NoteCollision #'merge-differently-headed
-}
-
-shiftOn = \override NoteColumn #'horizontal-shift = #1
-shiftOnn = \override NoteColumn #'horizontal-shift = #2
-shiftOnnn = \override NoteColumn #'horizontal-shift = #3
-shiftOff = \revert NoteColumn #'horizontal-shift
-
-tieUp = \override Tie #'direction = #UP
-tieDown = \override Tie #'direction = #DOWN
-tieNeutral = \revert Tie #'direction
-
-tieDashed = {
-  \override Tie #'dash-definition = #'((0 1 0.4 0.75))
-}
-tieDashPattern =
-#(define-music-function (parser location dash-fraction dash-period)
-  (number? number?)
-  #{
-     \override Tie #'dash-definition =
-       $(make-simple-dash-definition dash-fraction dash-period)
-  #})
-tieDotted = {
-  \override Tie #'dash-definition = #'((0 1 0.1 0.75))
-}
-tieHalfDashed = {
-  \override Tie #'dash-definition =  #'((0 0.5 0.4 0.75)
-                                        (0.5 1 1 1))
-}
-tieHalfSolid = {
-  \override Tie #'dash-definition =  #'((0 0.5 1 1)
-                                        (0.5 1 0.4 0.75))
-}
-tieSolid = {
-  \revert Tie #'dash-definition
-}
-
-easyHeadsOn = {
-  \override NoteHead #'stencil = #note-head::brew-ez-stencil
-  \override NoteHead #'font-size = #-8
-  \override NoteHead #'font-family = #'sans
-  \override NoteHead #'font-series = #'bold
-}
-
-easyHeadsOff = {
-  \revert NoteHead #'stencil
-  \revert NoteHead #'font-size
-  \revert NoteHead #'font-family
-  \revert NoteHead #'font-series
-}
-
-aikenHeads = \set shapeNoteStyles = #'#(do re mi fa #f la ti)
-
-sacredHarpHeads = \set shapeNoteStyles = #'#(fa #f la fa #f la mi)
-
-dynamicUp = {
-  \override DynamicText #'direction = #UP
-  \override DynamicLineSpanner #'direction = #UP
-}
-
-dynamicDown = {
-  \override DynamicText #'direction = #DOWN
-  \override DynamicLineSpanner #'direction = #DOWN
-}
-
-dynamicNeutral = {
-  \revert DynamicText #'direction
-  \revert DynamicLineSpanner #'direction
-}
-
-
-dotsUp = \override Dots #'direction = #UP
-dotsDown = \override Dots #'direction = #DOWN
-dotsNeutral = \revert Dots #'direction
-
-tupletUp = \override TupletBracket #'direction = #UP
-tupletDown = \override TupletBracket #'direction = #DOWN
-tupletNeutral = \revert TupletBracket #'direction
-
-cadenzaOn = \set Timing.timing = ##f
-cadenzaOff = {
-  \set Timing.timing = ##t
-  \set Timing.measurePosition = #ZERO-MOMENT
-}
-
-% dynamic ly:dir?  text script, articulation script ly:dir?
-oneVoice = #(context-spec-music (make-voice-props-revert) 'Voice)
-voiceOne = #(context-spec-music (make-voice-props-set 0) 'Voice)
-voiceTwo = #(context-spec-music (make-voice-props-set 1) 'Voice)
-voiceThree = #(context-spec-music (make-voice-props-set 2) 'Voice)
-voiceFour = #(context-spec-music (make-voice-props-set 3) 'Voice)
-
-voiceOneStyle = {
-  \override NoteHead #'style = #'diamond
-  \override NoteHead #'color = #red
-  \override Stem #'color = #red
-  \override Beam #'color = #red
-}
-voiceTwoStyle = {
-  \override NoteHead #'style = #'triangle
-  \override NoteHead #'color = #blue
-  \override Stem #'color = #blue
-  \override Beam #'color = #blue
-}
-voiceThreeStyle = {
-  \override NoteHead #'style = #'xcircle
-  \override NoteHead #'color = #green
-  \override Stem #'color = #green
-  \override Beam #'color = #green
-}
-voiceFourStyle = {
-  \override NoteHead #'style = #'cross
-  \override NoteHead #'color = #magenta
-  \override Stem #'color = #magenta
-  \override Beam #'color = #magenta
-}
-voiceNeutralStyle = {
-  \revert NoteHead #'style
-  \revert NoteHead #'color
-  \revert Stem #'color
-  \revert Beam #'color
-}
-
-teeny = {
-  \set fontSize = #-3
-}
-
-tiny = {
-  \set fontSize = #-2
-}
-
-small = {
-  \set fontSize = #-1
-}
-
-normalsize = {
-  \set fontSize = #0
-}
-
-large = {
-  \set fontSize = #1
-}
-
-huge = {
-  \set fontSize = #2
-}
-
-%% End the incipit and print a ``normal line start''.
-endincipit = \context Staff {
-  \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
-  \once \override Staff.Clef #'full-size-change = ##t
-  \once \override Staff.Clef #'non-default = ##t
-  \bar ""
-}
-
-autoBeamOff = \set autoBeaming = ##f
-autoBeamOn = \set autoBeaming = ##t
-
-textLengthOn = {
-  \override TextScript #'extra-spacing-width = #'(0 . 0)
-  \override TextScript #'extra-spacing-height = #'(-inf.0 . +inf.0)
-}
-
-textLengthOff = {
-  \override TextScript #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \override TextScript #'extra-spacing-height = #'(0 . 0)
-}
-
-balloonLengthOn = {
-  \override BalloonTextItem #'extra-spacing-width = #'(0 . 0)
-  \override BalloonTextItem #'extra-spacing-height = #'(-inf.0 . +inf.0)
-}
-
-balloonLengthOff = {
-  \override BalloonTextItem #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \override BalloonTextItem #'extra-spacing-height = #'(0 . 0)
-}
-
-
-showStaffSwitch = \set followVoice = ##t
-hideStaffSwitch = \set followVoice = ##f
-
-expandFullBarRests = {
-  \set Score.skipBars = ##f
-}
-
-compressFullBarRests = {
-  \set Score.skipBars = ##t
-}
-
-numericTimeSignature = {
-  \override Staff.TimeSignature #'style = #'()
-}
-
-defaultTimeSignature = {
-  \revert Staff.TimeSignature #'style
-}
-
+%% arpeggios
 
 % For drawing vertical chord brackets with \arpeggio
 % This is a shorthand for the value of the print-function property
@@ -284,7 +15,6 @@ defaultTimeSignature = {
 % cross-staff brackets are desired.
 
 arpeggio = #(make-music 'ArpeggioEvent)
-
 arpeggioArrowUp = {
   \revert Arpeggio  #'stencil
   \revert Arpeggio #'X-extent
@@ -317,16 +47,160 @@ arpeggioParenthesisDashed = {
 }
 
 
+%% auto beaming
 
-glissando = #(make-music 'GlissandoEvent)
+autoBeamOn  = \set autoBeaming = ##t
+autoBeamOff = \set autoBeaming = ##f
+
+
+%% balloon length
+
+balloonLengthOn = {
+  \override BalloonTextItem #'extra-spacing-width = #'(0 . 0)
+  \override BalloonTextItem #'extra-spacing-height = #'(-inf.0 . +inf.0)
+}
+balloonLengthOff = {
+  \override BalloonTextItem #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override BalloonTextItem #'extra-spacing-height = #'(0 . 0)
+}
+
+
+%% bass figures
+
+bassFigureExtendersOn = {
+  \set useBassFigureExtenders = ##t
+  \set Staff.useBassFigureExtenders = ##t
+}
+bassFigureExtendersOff = {
+  \set useBassFigureExtenders = ##f
+  \set Staff.useBassFigureExtenders = ##f
+}
+bassFigureStaffAlignmentDown =
+  \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+bassFigureStaffAlignmentUp =
+  \override Staff.BassFigureAlignmentPositioning #'direction = #UP
+bassFigureStaffAlignmentNeutral =
+  \revert Staff.BassFigureAlignmentPositioning #'direction
+
+
+%% cadenzas
+
+cadenzaOn  = \set Timing.timing = ##f
+cadenzaOff = {
+  \set Timing.timing = ##t
+  \set Timing.measurePosition = #ZERO-MOMENT
+}
+
+
+%% chord names
+
+frenchChords = {
+  \set chordRootNamer = #(chord-name->italian-markup #t)
+  \set chordPrefixSpacer = #0.4
+}
+germanChords = {
+  \set chordRootNamer = #(chord-name->german-markup #t)
+  \set chordNoteNamer = #note-name->german-markup
+}
+semiGermanChords = {
+  \set chordRootNamer = #(chord-name->german-markup #f)
+  \set chordNoteNamer = #note-name->german-markup
+}
+italianChords = {
+  \set chordRootNamer = #(chord-name->italian-markup #f)
+  \set chordPrefixSpacer = #0.4
+}
+
+
+%% compressFullBarRests
+
+compressFullBarRests = \set Score.skipBars = ##t
+expandFullBarRests   = \set Score.skipBars = ##f
+
+
+%% dots
+
+dotsUp      = \override Dots #'direction = #UP
+dotsDown    = \override Dots #'direction = #DOWN
+dotsNeutral = \revert Dots #'direction
+
+
+%% dynamics
+
+dynamicUp = {
+  \override DynamicText #'direction = #UP
+  \override DynamicLineSpanner #'direction = #UP
+}
+dynamicDown = {
+  \override DynamicText #'direction = #DOWN
+  \override DynamicLineSpanner #'direction = #DOWN
+}
+dynamicNeutral = {
+  \revert DynamicText #'direction
+  \revert DynamicLineSpanner #'direction
+}
+
+
+%% easy heads
+
+easyHeadsOn = {
+  \override NoteHead #'stencil = #note-head::brew-ez-stencil
+  \override NoteHead #'font-size = #-8
+  \override NoteHead #'font-family = #'sans
+  \override NoteHead #'font-series = #'bold
+}
+easyHeadsOff = {
+  \revert NoteHead #'stencil
+  \revert NoteHead #'font-size
+  \revert NoteHead #'font-family
+  \revert NoteHead #'font-series
+}
+
+
+%% endincipit
+
+%% End the incipit and print a ``normal line start''.
+endincipit = \context Staff {
+  \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
+  \once \override Staff.Clef #'full-size-change = ##t
+  \once \override Staff.Clef #'non-default = ##t
+  \bar ""
+}
+
+
+%% fermata markup
 
 fermataMarkup =
 #(make-music 'MultiMeasureTextEvent
    ; Set the 'text based on the 'direction
    'tweaks (list (cons 'text (lambda (grob)
        (if (eq? (ly:grob-property grob 'direction) DOWN)
-           (markup #:musicglyph "scripts.dfermata")
-           (markup #:musicglyph "scripts.ufermata"))))))
+	   (markup #:musicglyph "scripts.dfermata")
+	   (markup #:musicglyph "scripts.ufermata"))))))
+
+
+%% font sizes
+
+teeny      = \set fontSize = #-3
+tiny       = \set fontSize = #-2
+small      = \set fontSize = #-1
+normalsize = \set fontSize = #0
+large      = \set fontSize = #1
+huge       = \set fontSize = #2
+
+
+%% glissando
+
+glissando = #(make-music 'GlissandoEvent)
+
+
+%% harmonics
+
+harmonicsOn  = \override NoteHead #'style = #'harmonic
+harmonicsOff = \revert NoteHead #'style
+
+
+%% hideNotes
 
 hideNotes = {
   % hide notes, accidentals, etc.
@@ -337,8 +211,6 @@ hideNotes = {
   \override Beam #'transparent = ##t
   \override Accidental #'transparent = ##t
 }
-
-
 unHideNotes = {
   \revert Accidental #'transparent
   \revert Beam #'transparent
@@ -348,113 +220,153 @@ unHideNotes = {
   \revert Dots #'transparent
 }
 
-germanChords = {
-  \set chordRootNamer = #(chord-name->german-markup #t)
-  \set chordNoteNamer = #note-name->german-markup
-}
-semiGermanChords = {
-  \set chordRootNamer = #(chord-name->german-markup #f)
-  \set chordNoteNamer = #note-name->german-markup
-}
 
-frenchChords = {
-  \set chordRootNamer = #(chord-name->italian-markup #t)
-  \set chordPrefixSpacer = #0.4
-}
-
-italianChords = {
-  \set chordRootNamer = #(chord-name->italian-markup #f)
-  \set chordPrefixSpacer = #0.4
-}
-
-harmonicsOn = \override NoteHead #'style = #'harmonic
-
-harmonicsOff = \revert NoteHead #'style
+%% improvisation
 
 improvisationOn = {
   \set squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Accidental #'stencil = ##f
 }
-
 improvisationOff = {
   \unset squashedPosition
   \revert NoteHead #'style
   \revert Accidental #'stencil
 }
 
-textSpannerUp = \override TextSpanner #'direction = #UP
-textSpannerDown = \override TextSpanner #'direction = #DOWN
-textSpannerNeutral = \revert TextSpanner #'direction
+
+%% merging
+
+mergeDifferentlyDottedOn =
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+mergeDifferentlyDottedOff =
+  \revert Staff.NoteCollision #'merge-differently-dotted
+mergeDifferentlyHeadedOn =
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+mergeDifferentlyHeadedOff =
+  \revert Staff.NoteCollision #'merge-differently-headed
 
 
+%% numeric time signature
 
-bassFigureExtendersOn = {
-  \set useBassFigureExtenders = ##t
-  \set Staff.useBassFigureExtenders = ##t
-}
+numericTimeSignature = \override Staff.TimeSignature #'style = #'()
+defaultTimeSignature = \revert Staff.TimeSignature #'style
 
-bassFigureExtendersOff = {
-  \set useBassFigureExtenders = ##f
-  \set Staff.useBassFigureExtenders = ##f
-}
 
-bassFigureStaffAlignmentDown = {
-  \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
-}
-
-bassFigureStaffAlignmentUp = {
-  \override Staff.BassFigureAlignmentPositioning #'direction = #UP
-}
-
-bassFigureStaffAlignmentNeutral = {
-  \revert Staff.BassFigureAlignmentPositioning #'direction
-}
-
-predefinedFretboardsOff = {
-  \set FretBoards.predefinedDiagramTable = ##f
-}
-
-predefinedFretboardsOn = {
-  \set FretBoards.predefinedDiagramTable = #fretboard-table
-}
-
-pointAndClickOff = #(define-music-function (parser location) ()
-                      (ly:set-option 'point-and-click #f)
-                      (make-music 'SequentialMusic 'void #t))
-
-pointAndClickOn = #(define-music-function (parser location) ()
-                      (ly:set-option 'point-and-click #t)
-                      (make-music 'SequentialMusic 'void #t))
+%% palm mutes
 
 palmMuteOn =
 #(define-music-function (parser location) ()
    (override-head-style 'NoteHead 'do))
-
 palmMuteOff =
 #(define-music-function (parser location) ()
    (revert-head-style 'NoteHead))
-
 palmMute =
 #(define-music-function (parser location note) (ly:music?)
     (style-note-heads 'NoteHead 'do note))
 
-xNotesOn =
+
+%% phrasing slurs
+
+% directions
+phrasingSlurUp      = \override PhrasingSlur #'direction = #UP
+phrasingSlurDown    = \override PhrasingSlur #'direction = #DOWN
+phrasingSlurNeutral = \revert PhrasingSlur #'direction
+
+% dash-patterns (make-simple-dash-definition defined at top of file)
+phrasingSlurDashPattern =
+#(define-music-function (parser location dash-fraction dash-period)
+  (number? number?)
+  #{
+     \override PhrasingSlur #'dash-definition =
+       $(make-simple-dash-definition dash-fraction dash-period)
+  #})
+phrasingSlurDashed =
+  \override PhrasingSlur #'dash-definition = #'((0 1 0.4 0.75))
+phrasingSlurDotted =
+  \override PhrasingSlur #'dash-definition = #'((0 1 0.1 0.75))
+phrasingSlurHalfDashed =
+  \override PhrasingSlur #'dash-definition = #'((0 0.5 0.4 0.75)
+						(0.5 1 1 1))
+phrasingSlurHalfSolid =
+  \override PhrasingSlur #'dash-definition = #'((0 0.5 1 1)
+						(0.5 1 0.4 0.75))
+phrasingSlurSolid =
+  \revert PhrasingSlur #'dash-definition
+
+
+%% point and click
+
+pointAndClickOn  =
 #(define-music-function (parser location) ()
-   (override-head-style '(TabNoteHead NoteHead) 'cross))
-
-xNotesOff =
+   (ly:set-option 'point-and-click #t)
+   (make-music 'SequentialMusic 'void #t))
+pointAndClickOff =
 #(define-music-function (parser location) ()
-   (revert-head-style '(TabNoteHead NoteHead)))
+   (ly:set-option 'point-and-click #f)
+   (make-music 'SequentialMusic 'void #t))
 
-xNote =
-#(define-music-function (parser location note) (ly:music?)
-   (style-note-heads '(TabNoteHead NoteHead) 'cross note))
 
-% Define aliases of cross-head notes for specific purposes
-deadNotesOn = \xNotesOn
-deadNotesOff = \xNotesOff
-deadNote = #xNote
+%% predefined fretboards
+
+predefinedFretboardsOff =
+  \set FretBoards.predefinedDiagramTable = ##f
+predefinedFretboardsOn =
+  \set FretBoards.predefinedDiagramTable = #fretboard-table
+
+
+%% shape note heads
+
+aikenHeads      = \set shapeNoteStyles = #'#(do re mi fa #f la ti)
+sacredHarpHeads = \set shapeNoteStyles = #'#(fa #f la fa #f la mi)
+
+
+%% shifts
+
+shiftOn   = \override NoteColumn #'horizontal-shift = #1
+shiftOnn  = \override NoteColumn #'horizontal-shift = #2
+shiftOnnn = \override NoteColumn #'horizontal-shift = #3
+shiftOff  = \revert NoteColumn #'horizontal-shift
+
+
+%% slurs
+
+% directions
+slurUp         = \override Slur #'direction = #UP
+slurDown       = \override Slur #'direction = #DOWN
+slurNeutral    = \revert Slur #'direction
+
+% dash-patterns (make-simple-dash-definition defined at top of file)
+slurDashPattern =
+#(define-music-function (parser location dash-fraction dash-period)
+  (number? number?)
+  #{
+     \override Slur #'dash-definition =
+       $(make-simple-dash-definition dash-fraction dash-period)
+  #})
+slurDashed     = \override Slur #'dash-definition = #'((0 1 0.4 0.75))
+slurDotted     = \override Slur #'dash-definition = #'((0 1 0.1 0.75))
+slurHalfDashed = \override Slur #'dash-definition = #'((0 0.5 0.4 0.75)
+						       (0.5 1 1 1))
+slurHalfSolid  = \override Slur #'dash-definition = #'((0 0.5 1 1)
+						       (0.5 1 0.4 0.75))
+slurSolid      = \revert Slur #'dash-definition
+
+
+%% staff switches
+
+showStaffSwitch = \set followVoice = ##t
+hideStaffSwitch = \set followVoice = ##f
+
+
+%% stems
+
+stemUp      = \override Stem #'direction = #UP
+stemDown    = \override Stem #'direction = #DOWN
+stemNeutral = \revert Stem #'direction
+
+
+%% tabFullNotation
 
 tabFullNotation = {
   % time signature
@@ -487,3 +399,118 @@ tabFullNotation = {
   \revert TabVoice.TextScript #'stencil
   \revert TabStaff.Arpeggio #'stencil
 }
+
+
+%% text length
+
+textLengthOn = {
+  \override TextScript #'extra-spacing-width = #'(0 . 0)
+  \override TextScript #'extra-spacing-height = #'(-inf.0 . +inf.0)
+}
+textLengthOff = {
+  \override TextScript #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override TextScript #'extra-spacing-height = #'(0 . 0)
+}
+
+
+%% text spanners
+
+textSpannerUp      = \override TextSpanner #'direction = #UP
+textSpannerDown    = \override TextSpanner #'direction = #DOWN
+textSpannerNeutral = \revert TextSpanner #'direction
+
+
+%% ties
+
+% directions
+tieUp      = \override Tie #'direction = #UP
+tieDown    = \override Tie #'direction = #DOWN
+tieNeutral = \revert Tie #'direction
+
+% dash-patterns (make-simple-dash-definition defined at top of file)
+tieDashPattern =
+#(define-music-function (parser location dash-fraction dash-period)
+  (number? number?)
+  #{
+     \override Tie #'dash-definition =
+       $(make-simple-dash-definition dash-fraction dash-period)
+  #})
+tieDashed     = \override Tie #'dash-definition = #'((0 1 0.4 0.75))
+tieDotted     = \override Tie #'dash-definition = #'((0 1 0.1 0.75))
+tieHalfDashed = \override Tie #'dash-definition = #'((0 0.5 0.4 0.75)
+						     (0.5 1 1 1))
+tieHalfSolid  = \override Tie #'dash-definition = #'((0 0.5 1 1)
+						     (0.5 1 0.4 0.75))
+tieSolid      = \revert Tie #'dash-definition
+
+
+%% tuplets
+
+tupletUp      = \override TupletBracket #'direction = #UP
+tupletDown    = \override TupletBracket #'direction = #DOWN
+tupletNeutral = \revert TupletBracket #'direction
+
+
+%% voice properties
+
+% dynamic ly:dir?  text script, articulation script ly:dir?
+voiceOne   = #(context-spec-music (make-voice-props-set 0)  'Voice)
+voiceTwo   = #(context-spec-music (make-voice-props-set 1)  'Voice)
+voiceThree = #(context-spec-music (make-voice-props-set 2)  'Voice)
+voiceFour  = #(context-spec-music (make-voice-props-set 3)  'Voice)
+oneVoice   = #(context-spec-music (make-voice-props-revert) 'Voice)
+
+
+%% voice styles
+
+voiceOneStyle = {
+  \override NoteHead #'style = #'diamond
+  \override NoteHead #'color = #red
+  \override Stem #'color = #red
+  \override Beam #'color = #red
+}
+voiceTwoStyle = {
+  \override NoteHead #'style = #'triangle
+  \override NoteHead #'color = #blue
+  \override Stem #'color = #blue
+  \override Beam #'color = #blue
+}
+voiceThreeStyle = {
+  \override NoteHead #'style = #'xcircle
+  \override NoteHead #'color = #green
+  \override Stem #'color = #green
+  \override Beam #'color = #green
+}
+voiceFourStyle = {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #magenta
+  \override Stem #'color = #magenta
+  \override Beam #'color = #magenta
+}
+voiceNeutralStyle = {
+  \revert NoteHead #'style
+  \revert NoteHead #'color
+  \revert Stem #'color
+  \revert Beam #'color
+}
+
+
+%% x notes
+
+xNotesOn =
+#(define-music-function (parser location) ()
+   (override-head-style '(TabNoteHead NoteHead) 'cross))
+xNotesOff =
+#(define-music-function (parser location) ()
+   (revert-head-style '(TabNoteHead NoteHead)))
+xNote =
+#(define-music-function (parser location note) (ly:music?)
+   (style-note-heads '(TabNoteHead NoteHead) 'cross note))
+
+
+%% dead notes (these need to come after "x notes")
+
+% Define aliases of cross-head notes for specific purposes
+deadNotesOn  = \xNotesOn
+deadNotesOff = \xNotesOff
+deadNote     = #xNote
