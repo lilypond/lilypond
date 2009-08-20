@@ -12,7 +12,7 @@
 @divClass{column-center-top}
 @subheading Our Goal
 
-@imageFloat{flat-design.png,right}
+@imageFloat{flat-design,png,right}
 
 The inspiration for LilyPond came when two musicians became
 annoyed with the bland and boring look of computer-printed
@@ -40,6 +40,9 @@ Impress friends and colleagues with sharp sheet music!
 @item
 @ref{Freedom}: LilyPond is Free Software.
 
+@item
+@ref{Background}: Our computational aesthetics.
+
 @end itemize
 @divEnd
 
@@ -65,9 +68,11 @@ Impress friends and colleagues with sharp sheet music!
 @item
 @ref{Text input}: You write music as @emph{text}?!
 
+@item
+@ref{Alternate input}: Other ways of working with LilyPond.
+
 @end itemize
 @divEnd
-
 
 
 @divClass{hide}
@@ -75,9 +80,11 @@ Impress friends and colleagues with sharp sheet music!
 * Features::                    What can LilyPond do?
 * Examples::                    I want to see some music!
 * Freedom::                     Freedom and the GPL.
+* Background::                  Computational aesthetics.
 * Productions::                 Real-life use of LilyPond.
 * Testimonials::                What do people say about it?
 * Text input::                  You write music as text?!
+* Alternate input::             Other ways of working with LilyPond.
 @end menu
 @divEnd
 
@@ -88,21 +95,21 @@ Impress friends and colleagues with sharp sheet music!
 
 @help{hoping to delegate this.  Desired: an enthusiastic
 attempt to sway people towards trying lilypond.  The warnings
-about writing music as text come in Crash Course, not here.  Maybe
-draw inspiration from
-http://lilypond.org/web/about/features
-and
-http://lilypond.org/web/switch/tour
-and
-http://lilypond.org/web/switch/advantages
-}
+about writing music as text come in Crash Course, not here.}
+
+Maybe draw inspiration from
+@uref{http://lilypond.org/web/about/features} and
+@uref{http://lilypond.org/web/switch/tour} and
+@uref{http://lilypond.org/web/switch/advantages}
+
+
 
 @subheading Why switch to LilyPond?
 
 
 @subsubheading Excellent classical engraving
 
-@imageFloat{flat-design.png,right}
+@imageFloat{flat-design,png,right}
 
 The point of using LilyPond is to produce elegant sheet music that
 is easy to read.  LilyPond's developer community has spent
@@ -111,12 +118,12 @@ that results in beautifully engraved music.  All of LilyPond's
 style settings, font designs and algorithms have been inspired by
 the finest hand-engraved music.  LilyPond output has the same
 strong, balanced and elegant look as the best-engraved classical
-scores
+scores.  This is further explained in our @ref{Essay}.
 
 
-@subsubheading No fiddling
+@subsubheading Less fiddling
 
-Don't waste time with tweaking the output; LilyPond gets the
+Spend less time with tweaking the output; LilyPond gets the
 formatting correct right from the start.  It determines spacing by
 itself, and breaks lines and pages to provide a tight and uniform
 layout.  Clashes between lyrics, notes, and chords are resolved
@@ -132,9 +139,20 @@ need to remember complex command sequences.  Simply save an input
 for later reference.
 
 
+@subsubheading Accessibility
+
+Text-based input also makes score-writing possible for users with
+severe physical disabilities.  Dexterity-impaired users who are
+unable to type or control a computer mouse can use
+speech-recognition software to edit LilyPond files.  Even users
+who are totally blind can use screen-reading software to write
+LilyPond files -- an impossible task in graphical-based
+score-writing programs.
+
+
 @subsubheading Mix music and text
 
-@imageFloat{lilypond-book.png,right}
+@imageFloat{lilypond-book,png,right}
 
 Put fragments of music into texts without cutting and pasting
 pictures. Integrate music into LaTeX or HTML seamlessly, or add
@@ -165,7 +183,7 @@ documented in the comprehensive program reference manual.
 @subsubheading Excellent support
 
 LilyPond runs on all popular platforms: Linux, MacOS X, and
-Windows.  LilyPond comes with extensive documetation and hundreds
+Windows.  LilyPond comes with extensive documentation and hundreds
 of example files.  There is an active user community answering
 questions on the Lilypond user mailing list, while the development
 team makes sure that problems are solved quickly.
@@ -196,8 +214,7 @@ algorithms, without tweaks of any kind. It
 handles cross-staff beaming gracefully and puts the system brace
 perfectly around all three staves.
 
-@imageClickable{liszt-wagner-small.png, (click to enlarge),
-liszt-wagner.png, center}
+@exampleImage{liszt-wagner}
 @end ignore
 
 @newsItem
@@ -205,8 +222,7 @@ liszt-wagner.png, center}
 This organ work by J.S. Bach is a fairly typical engraving project
 in Lilypond.
 
-@imageClickable{bach-bwv610-small.png, (click for longer
-excerpt), bach-bwv610.png, center}
+@exampleImage{bach-bwv610}
 @newsEnd
 
 @newsItem
@@ -216,8 +232,7 @@ This example from @emph{Goyescas} by Enrique Granados shows some
 of the more advanced features of typesetting, including kneed
 beams, cross-staff stems, and voice-follow lines.
 
-@imageClickable{granados-small.png, (click to enlarge),
-granados.png, center}
+@exampleImage{granados}
 @newsEnd
 
 @newsItem
@@ -225,8 +240,7 @@ granados.png, center}
 Lilypond also supports various types of ancient notation, such
 as this passage of Gregorian chant.
 
-@imageClickable{ancient-headword-small.png, (click to enlarge),
-ancient-headword.png, center}
+@exampleImage{ancient-headword}
 @newsEnd
 
 @newsItem
@@ -235,8 +249,7 @@ Contemporary composers find Lilypond well-suited to displaying
 unusual notation. Here is an excerpt from Trevor Bača's
 @emph{Čáry}, for unaccompanied bass flute.
 
-@imageClickable{cary-small.png, (click to enlarge),
-cary.png, center}
+@exampleImage{cary}
 @newsEnd
 
 
@@ -247,14 +260,11 @@ code. This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
 Nicolas Sceaux's} engraving of Handel's @emph{Giulio Cesare}, in
 full score, piano-vocal reduction, and a violin part.
 
-@imageClickable{sesto-small.png, (click to enlarge),
-sesto.png, center}
+@exampleImage{sesto-full}
 
-@imageClickable{sesto-1-small.png, (click to enlarge),
-sesto-1.png, center}
+@exampleImage{sesto-piano}
 
-@imageClickable{sesto-2-small.png, (click to enlarge),
-sesto-2.png, center}
+@exampleImage{sesto-violin}
 
 @newsEnd
 
@@ -267,8 +277,7 @@ suit any instrument that reads from tablature. Here is a passage
 from a Bach Lute Suite, with tablature generated automatically
 from the notes entered for the traditional staff.
 
-@imageClickable{bach-tab-example-small.png, (click to enlarge),
-bach-tab-example.png, center}
+@exampleImage{bach-tab-example}
 @newsEnd
 
 @newsItem
@@ -276,8 +285,7 @@ bach-tab-example.png, center}
 Standard output can be modified heavily. Here someone has created
 an impressive Schenkerian analysis.
 
-@imageClickable{bach-schenker-small.png, (click to enlarge),
-bach-schenker.png, center}
+@exampleImage{bach-schenker}
 @newsEnd
 
 @newsItem
@@ -290,8 +298,7 @@ Lilypond handles this most elegantly. Note also the incipits with
 Vaticana style clefs, the slashed stems indicating plicated notes,
 and the ligature braces above certain groups of notes.
 
-@imageClickable{aucun-snippet-small.png, (click to enlarge),
-aucun-snippet.png, center}
+@exampleImage{aucun-snippet}
 @newsEnd
 
 @newsItem
@@ -299,8 +306,7 @@ aucun-snippet.png, center}
 Lilypond is perfectly suited for educational purposes as well.
 Here is an example of a simple counterpoint exercise.
 
-@imageClickable{theory-small.png, (click to enlarge),
-theory.png, center}
+@exampleImage{theory}
 @newsEnd
 
 @help NEED BETTER POP EXAMPLE!! Also a better theory example would be nice.
@@ -312,8 +318,7 @@ chord names, and fretboards. In this example you see some of the
 predefined fretboard diagrams, but these can be heavily customized
 to suit nearly any situation.
 
-@imageClickable{chart-small.png, (click to enlarge),
-chart.png, center}
+@exampleImage{chart}
 @newsEnd
 
 @help NEED DIFFERENT ORCHESTRAL OR OPERA EXAMPLE?!
@@ -324,8 +329,7 @@ Lilypond is excellent for large projects like operas or works for
 full symphony orchestra, as well. Score, parts, piano reductions,
 and conductors' scores can be produced from the same source files.
 
-@imageClickable{orchestral-small.png, (click to enlarge),
-orchestral.png, center}
+@exampleImage{orchestral}
 @newsEnd
 
 
@@ -445,13 +449,39 @@ scholarships.
 Still not convinced?  Read about some of our users'
 @ref{Productions} and sheet music.  If you've already decided to
 try LilyPond, first read about our @ref{Text input}.
+
+FIXME: rewrite for Background.
+@divEnd
+
+
+@node Background
+@unnumberedsec Background
+
+@divClass{column-center-top}
+@subheading Background essay
+
+We have an extensive essay describing computational aesthetics:
+the art of creating beauty with a computer.  FIXME blah blah.
+
+FIXME: simplify the verbosity below.
+
+If you just want a quick introduction to LilyPond, the essay might
+be too much material to read.  If you would like to read it now,
+please progress to @ref{Essay}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Where now?
+
+Still not convinced?  Read about some of our users'
+@ref{Productions} and sheet music.  If you've already decided to
+try LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
 @node Productions
 @unnumberedsec Productions
-
-@help{more references to publishers who use lilypond}
 
 @divClass{column-left-top}
 @subheading Concerts
@@ -492,10 +522,24 @@ New York} (engraving by Nicolas Sceaux).
 @itemize
 
 @item
+@uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
+over 1500 pieces of classical sheet music for free download, and
+the main showcase of LilyPond scores.
+
+@item
 @uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
 high-quality scores of sacred music, available for immediate
 download or in traditional paper format.
+
+@item
+@uref{http://theshadylanepublishing.com/, The Shady Lane
+Publishing},
+a @qq{micro musical publishing house} whose goal is to promote a
+new form of musical economy closer to the musicians and music
+lovers.
+
 @end itemize
+
 @divEnd
 
 @divEnd
@@ -514,7 +558,7 @@ If you've already decided to try LilyPond, first read about our
 @unnumberedsec Testimonials
 
 @divClass{testimonial-item}
-@imageFloat{carter-brey.jpg, right}
+@imageFloat{carter-brey,jpg, right}
 @subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
 
 @qq{... I've written a couple of encore pieces for solo cello
@@ -525,7 +569,7 @@ look half as sharp as mine!}
 
 
 @divClass{testimonial-item}
-@imageFloat{orm-finnendahl.jpg, left}
+@imageFloat{orm-finnendahl,jpg, left}
 @subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
 
 @qq{Although I don't know [LilyPond] very well yet, I'm *very*
@@ -537,7 +581,7 @@ and look!}
 
 
 @divClass{testimonial-item}
-@imageFloat{darius-blasband.jpg, right}
+@imageFloat{darius-blasband,jpg, right}
 @subsubheading Darius Blasband, composer (Brussels, Belgium)
 
 @qq{[..after the first orchestra rehearsal] I got numerous
@@ -660,8 +704,7 @@ Read about our @ref{Text input}.
 
 @subheading @qq{Compiling} Music
 
-@imageClickable{nereid-shot-small.png, (click to enlarge),
-nereid-shot.png, right}
+@imageClickable{nereid-shot-small,png, (click to enlarge), nereid-shot,png, right}
 
 LilyPond is a @emph{compiled} system: it is run on a text file
 containing the notes.  The resulting output is viewed on-screen or
@@ -687,26 +730,24 @@ everything at a much more gradual pace.}
 Notes are encoded with letters and numbers.  Special commands are
 entered with backslashes.
 
-@imageFloat{text-input-1-annotate.png,center}
-@imageFloat{text-input-1-output.png,center}
+@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-output,png,center}
 
 Alterations are made with different names: add @code{-is} for
 sharp, and @code{-es} for flat (these are Dutch note names, other
 languages are available).  LilyPond figures out where to put
 accidentals.
 
-@imageFloat{text-input-2-annotate.png,center}
-@imageFloat{text-input-2-output.png,center}
+@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-output,png,center}
 
 
 @subsubheading Pop music
 
 Put chords and lyrics together to get a lead sheet:
 
-@help{change the lyrics.  svg available}
-
-@imageFloat{text-input-pop-annotate.png,center}
-@imageFloat{text-input-pop-output.png,center}
+@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-output,png,center}
 
 
 
@@ -717,21 +758,21 @@ be made from a single input file.  So, changing a note always
 affects both parts and score.  To share the notes, the music is
 assigned to a variable:
 
-@imageFloat{text-input-parts-both-annotate.png,center}
+@imageFloat{text-input-parts-both-annotate,png,center}
 
 
 This variable is then used in a single part (here transposed, with
 condensed multi rests):
 
-@imageFloat{text-input-parts-single-annotate.png,center}
-@imageFloat{text-input-parts-single-output.png,center}
+@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-output,png,center}
 
 
 The same variable is used in the full score (here in concert
 pitch):
 
-@imageFloat{text-input-score-annotate.png,center}
-@imageFloat{text-input-score-output.png,center}
+@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-output,png,center}
 
 
 @subsubheading Beginner Documentation
@@ -772,6 +813,76 @@ users even report that they can enter a full score in LilyPond
 faster than with a piano keyboard or mouse+GUI!  Perhaps you would
 like to review the @ref{Features}, @ref{Examples}, or
 @ref{Freedom} that LilyPond provides, or read about users'
-@ref{Productions} and @ref{Testimonials}.
+@ref{Productions} and @ref{Testimonials}.  In addition, our
+approach to the computational aesthetics of classical engraving is
+explained in our @ref{Background}.  FIXME
 @divEnd
+
+
+@node Alternate input
+@unnumberedsec Alternate input
+
+@divClass{column-center-top}
+@subheading Graphical environment: Denemo
+
+@sourceimage{logo-linux,,,}
+
+FIXME: insert text and a graphic
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Mixed environment: LilyPondTool
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+
+FIXME: insert text and a graphic
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Text environment: Emacs and Vim
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+
+FIXME: insert text and a graphic
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Other
+
+FIXME: insert text and a graphic(s)
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+All logos and product images are copyright and trademark
+acknowledged.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+
+@divEnd
+
+
+
 

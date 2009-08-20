@@ -1,0 +1,330 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of notation.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node General input and output
+@chapter General input and output
+
+@untranslated
+
+
+@menu
+* Input structure::
+* Titles and headers::
+* Working with input files::
+* Controlling output::
+* MIDI output::
+@end menu
+
+@node Input structure
+@section Input structure
+
+@untranslated
+
+
+@menu
+* Structure of a score::
+* Multiple scores in a book::
+* File structure::
+@end menu
+
+@node Structure of a score
+@subsection Structure of a score
+
+@untranslated
+
+
+@ref{File structure}.)  Both single-line comments and comments
+@c ode{\score} block.
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+@untranslated
+
+
+@c index movements, multiple
+@c ode{\book} block will result in a separate output.  If you do not
+@c ode{\book}, but if it is not present, the @code{\header} which is at
+@node File structure
+@subsection File structure
+
+@untranslated
+
+
+@c ode{\layout}.  Such a definition at the toplevel changes the default
+@c ode{#(set-default-paper-size "a7" 'landscape)} or
+@c ode{#(ly:set-option 'point-and-click #f)}.
+@c ode{toplevel-score-handler} at toplevel.  The default handler is
+@c ode{\book} blocks in a @code{.ly} file is if you wish to create
+@c ode{toplevel-music-handler} at toplevel.  The default handler is
+@c index variables
+@c index whitespace
+@c ode{\override} and @code{\set} commands.  In particular, spaces
+@c ode{\override Score . LyricText #'font-size = #5} and before and
+@node Titles and headers
+@section Titles and headers
+
+@untranslated
+
+
+@menu
+* Creating titles::
+* Custom titles::
+* Reference to page numbers::
+* Table of contents::
+@end menu
+
+@node Creating titles
+@subsection Creating titles
+
+@untranslated
+
+
+@c ode{\bookpart} blocks).
+@c index page breaks, forcing
+@c ode{\header} inside @code{\score}) by using
+@c index copyright
+@c index tagline
+@c ode{copyright} field from @code{\header} is inserted, and the last
+@node Custom titles
+@subsection Custom titles
+
+@untranslated
+
+
+@c index \paper
+@c index header
+@c index footer
+@c index page layout
+@c index titles
+@node Reference to page numbers
+@subsection Reference to page numbers
+
+@untranslated
+
+
+@c ode{\label},
+@c ode{\page-ref}.
+@node Table of contents
+@subsection Table of contents
+
+@untranslated
+
+
+@c ode{\table-of-contents},
+@c ode{\tocItem}.
+@node Working with input files
+@section Working with input files
+
+@untranslated
+
+
+@menu
+* Including LilyPond files::
+* Different editions from one source::
+* Text encoding::
+* Displaying LilyPond notation::
+@end menu
+
+@node Including LilyPond files
+@subsection Including LilyPond files
+
+@untranslated
+
+
+@c index including files
+@c ode{\include} statements are not interpreted until they have
+@c ode{-drelative-includes} option at the command line
+@node Different editions from one source
+@subsection Different editions from one source
+
+@untranslated
+
+
+@menu
+* Using variables::
+* Using tags::
+@end menu
+
+@node Using variables
+@unnumberedsubsubsec Using variables
+
+@untranslated
+
+
+@c index variables, use of
+@node Using tags
+@unnumberedsubsubsec Using tags
+
+@untranslated
+
+
+@c index tag
+@c index keep tagged music
+@c index remove tagged music
+@c ode{\removeWithTag #'@var{name}}.  The result of applying these filters
+@c ode{\removeWithTag}
+@c ode{\removeWithTag} commands should be a symbol
+@c ode{\tag} entries:
+@ref{Automatic part combining},
+@ref{Including LilyPond files}.
+@c This warning is more general than this placement implies.
+@c Rests are not merged whether or not they come from tagged sections.
+@c Should be deleted?  -td
+@node Text encoding
+@subsection Text encoding
+
+@untranslated
+
+
+@c index Unicode
+@c index UTF-8
+@c index non-ASCII characters
+@c ode{\markup} block, where @code{hhhh} is the hexadecimal code for
+@c index copyright sign
+@node Displaying LilyPond notation
+@subsection Displaying LilyPond notation
+
+@untranslated
+
+
+@c TODO What happens under Windows?
+@node Controlling output
+@section Controlling output
+
+@untranslated
+
+
+@menu
+* Extracting fragments of music::
+* Skipping corrected music::
+* Alternative output formats::
+@end menu
+
+@node Extracting fragments of music
+@subsection Extracting fragments of music
+
+@untranslated
+
+
+@c ode{-dclip-systems}.  The clips are output as EPS files, and are
+@node Skipping corrected music
+@subsection Skipping corrected music
+
+@untranslated
+
+
+@node Alternative output formats
+@subsection Alternative output formats
+
+@untranslated
+
+
+@c index scalable vector graphics output
+@c index SVG output
+@c index encapsulated postscript output
+@c index EPS output
+@node MIDI output
+@section MIDI output
+
+@untranslated
+
+
+@c index Sound
+@c index MIDI
+@c TODO Check this
+@menu
+* Creating MIDI files::
+* MIDI block::
+* What goes into the MIDI output?::
+* Repeats in MIDI::
+* Controlling MIDI dynamics::
+* Percussion in MIDI::
+@end menu
+
+@node Creating MIDI files
+@subsection Creating MIDI files
+
+@untranslated
+
+
+@c ode{\midi} block to a score, for example,
+@c ode{\layout} block, only MIDI output will be produced.  When
+@c ode{.midi}.
+@unnumberedsubsubsec Instrument names
+@c index instrument names
+@c ode{Staff.midiInstrument} property to the instrument name.
+@c In 2.11 the following no longer seems to be a problem -td
+@node MIDI block
+@subsection MIDI block
+
+@untranslated
+
+
+@c index MIDI block
+@c index MIDI context definitions
+@c ode{\midi@{ @}} block.
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
+
+@untranslated
+
+
+@c TODO Check grace notes - timing is suspect?
+@unnumberedsubsubsec Supported in MIDI
+@c index Pitches in MIDI
+@c index MIDI, Pitches
+@c index Quarter tones in MIDI
+@c index MIDI, quarter tones
+@c index Microtones in MIDI
+@c index MIDI, microtones
+@c index Chord names in MIDI
+@c index MIDI, chord names
+@c index Rhythms in MIDI
+@c index MIDI, Rhythms
+@c TODO etc
+@unnumberedsubsubsec Unsupported in MIDI
+@c TODO index as above
+@node Repeats in MIDI
+@subsection Repeats in MIDI
+
+@untranslated
+
+
+@c index repeats in MIDI
+@c ode{\unfoldRepeats} music function.  This function changes all
+@node Controlling MIDI dynamics
+@subsection Controlling MIDI dynamics
+
+@untranslated
+
+
+@unnumberedsubsubsec Dynamic marks
+@c ode{Score.dynamicAbsoluteVolumeFunction} to this function.
+@c ode{\rfz}, is required, this will not by default
+@unnumberedsubsubsec Overall MIDI volume
+@c ode{midiMaximumVolume} at the @code{Score} level.  These
+@unnumberedsubsubsec Equalizing different instruments (i)
+@unnumberedsubsubsec Equalizing different instruments (ii)
+@c ode{instrumentEqualizer} in the @code{Score} context to a new
+@c ode{dynamicAbsoluteVolumeFunction} at the start of this section.
+@c Delete when satisfied this is adequately covered elsewhere -td
+@c index microtones in MIDI
+@node Percussion in MIDI
+@subsection Percussion in MIDI
+
+@untranslated
+
+
+@c ode{DrumStaff} context, to obtain the correct MIDI output.
+@c TODO Expand with examples, and any other issues
+
+@c -- SKELETON FILE --

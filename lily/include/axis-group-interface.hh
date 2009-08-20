@@ -43,6 +43,7 @@ struct Axis_group_interface
   static void get_children (Grob *, vector<Grob*> *);
   static Interval staff_extent (Grob *me, Grob *ref, Axis, Grob *staff, Axis);
   static SCM calc_common (Grob *, Axis);
+  static Real minimum_distance (Grob*, Grob*, Axis);
   DECLARE_GROB_INTERFACE();
 };
 

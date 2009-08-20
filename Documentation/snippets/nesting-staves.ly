@@ -24,7 +24,6 @@ todos los pentagramas. Las posibilidades son
 "
   doctitlees = "Anidado de grupos de pentagramas"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Eigenschaft @code{systemStartDelimiterHierarchy} kann eingesetzt

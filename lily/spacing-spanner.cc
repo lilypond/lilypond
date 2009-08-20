@@ -168,7 +168,7 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
   if (Paper_column::is_musical (left_col))
     {
       if (!Paper_column::is_musical (right_col)
-	  && options->float_nonmusical_columns_
+	  && (options->float_nonmusical_columns_ || to_boolean (right_col->get_property ("maybe-loose")))
 	  && after_right_col
 	  && Paper_column::is_musical (after_right_col))
 	{
@@ -324,21 +324,33 @@ Spacing_spanner::musical_column_spacing (Grob *me,
   else
     {
       vector<Spring> springs;
-      extract_grob_set (left_col, "right-neighbors", neighbors);
+      extract_grob_set (left_col, "spacing-wishes", wishes);
 
-      for (vsize i = 0; i < neighbors.size (); i++)
+      for (vsize i = 0; i < wishes.size (); i++)
 	{
-	  Grob *wish = neighbors[i];
+	  Grob *wish = wishes[i];
+	  if (Spacing_interface::left_column (wish) != left_col)
+	    {
+	      /* This shouldn't really happen, but the ancient music
+		 stuff really messes up the spacing code, grrr
+	      */
+	      continue;
+	    }
 
-	  Item *wish_rcol = Spacing_interface::right_column (wish);
-	  if (Spacing_interface::left_column (wish) != left_col
-	      || (wish_rcol != right_col && wish_rcol != right_col->original ()))
-	    continue;
+	  extract_grob_set (wish, "right-items", right_items);
+	  bool found_matching_column = false;
+	  for (vsize j = 0; j < right_items.size (); j++)
+	    {
+	      Item *it = dynamic_cast<Item*> (right_items[j]);
+	      if (it && (right_col == it->get_column ()
+			 || right_col->original () == it->get_column ()))
+		found_matching_column = true;
+	    }
 
 	  /*
 	    This is probably a waste of time in the case of polyphonic
 	    music.  */
-	  if (Note_spacing::has_interface (wish))
+	  if (found_matching_column && Note_spacing::has_interface (wish))
 	    {
 	      Real inc = options->increment_;
 	      Grob *gsp = unsmob_grob (left_col->get_object ("grace-spacing"));

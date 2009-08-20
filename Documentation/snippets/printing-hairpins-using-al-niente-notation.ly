@@ -4,6 +4,16 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
+manière graphique, en assignant @emph{vrai} (@code{#t}) à la
+propriété @code{circled-tip}, ce qui affiche un cercle à leur extrémité.
+
+"
+  doctitlefr = "Impression de soufflets « al niente »"
+
+
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -14,7 +24,6 @@ Se pueden imprimir reguladores con un círculo en la punta
 
 "
   doctitlees = "Impresión de reguladores utilizando la notación «al niente»"
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
  texidocde = "

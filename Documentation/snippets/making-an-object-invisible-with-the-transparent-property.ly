@@ -8,7 +8,7 @@
 
   texidoc = "
 Setting the @code{transparent} property will cause an object to be
-printed in \"invisible ink\": the object is not printed, but all its
+printed in @qq{invisible ink}: the object is not printed, but all its
 other behavior is retained.  The object still takes up space, it takes
 part in collisions, and slurs, ties and beams can be attached to it.
 

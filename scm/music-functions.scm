@@ -346,8 +346,7 @@ i.e.  this is not an override"
 	      'pop-first #t))
 
 (define-public (make-grob-property-override grob gprop val)
-  "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
-i.e.  this is not an override"
+  "Make a Music expression that overrides GPROP to VAL in GROB."
   (make-music 'OverrideProperty
 	      'symbol grob
 	      'grob-property gprop
@@ -388,7 +387,7 @@ i.e.  this is not an override"
 			  (Voice Dots font-size -3)
 			  (Voice Stem length-fraction 0.8)
 			  (Voice Stem no-stem-extend #t)
-			  (Voice Beam thickness 0.384)
+			  (Voice Beam beam-thickness 0.384)
 			  (Voice Beam length-fraction 0.8)
 			  (Voice Accidental font-size -4)
 			  (Voice AccidentalCautionary font-size -4)
@@ -564,7 +563,42 @@ included in .ly file."
   (make-music type
 	      'span-direction span-dir))
 
-(define-public (set-mus-properties! m alist)
+(define-public (override-head-style heads style)
+  "Override style for @var{heads} to @var{style}."
+  (make-sequential-music
+    (if (pair? heads)
+        (map (lambda (h)
+              (make-grob-property-override h 'style style))
+         heads)
+        (list (make-grob-property-override heads 'style style)))))
+
+(define-public (revert-head-style heads)
+  "Revert style for @var{heads}."
+  (make-sequential-music
+    (if (pair? heads)
+        (map (lambda (h)
+              (make-grob-property-revert h 'style))
+         heads)
+        (list (make-grob-property-revert heads 'style)))))
+
+(define-public (style-note-heads heads style music)
+ "Set @var{style} for all @var{heads} in @var{music}.  Works both
+inside of and outside of chord construct."
+  ;; are we inside a <...>?
+  (if (eq? (ly:music-property music 'name) 'NoteEvent)
+      ;; yes -> use a tweak
+      (begin
+        (set! (ly:music-property music 'tweaks)
+              (acons 'style style (ly:music-property music 'tweaks)))
+        music)
+      ;; not in <...>, so use overrides
+      (make-sequential-music
+        (list
+          (override-head-style heads style)
+          music
+          (revert-head-style heads)))))
+
+ (define-public (set-mus-properties! m alist)
   "Set all of ALIST as properties of M."
   (if (pair? alist)
       (begin

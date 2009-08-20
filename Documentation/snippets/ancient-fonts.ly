@@ -15,7 +15,6 @@ antigua.
 
   doctitlees = "Tipografía de música antigua"
 
-
 %% Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
   texidocfr ="
 Voici comment graver la plupart, sinon tous les symboles que

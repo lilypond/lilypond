@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 5cf864d550e7148412d594cf336841791bff6f76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -529,19 +529,37 @@ convert-ly -e meineDatei.ly
 
 @noindent
 auszuführen.
-@c MacOS@tie{}X-Benutzer können diesen Befehl im Menu unter
-@c @code{Compile > Update syntax} finden.
-@c Does it work? TR
 
-Wenn keine Veränderungen in @code{meineDatei.ly} vorgenommen wurden
-und eine Datei @code{meineDatei.ly.NEW} erstellt wird, it
-@code{meineDatei.ly} schon aktuell.
+Damit wird @code{meineDatei.ly} direkt aktualisiert und die
+Originaldatei unter @code{meineDatei.ly~} gespeichert.
+
+Alternativ kann man der aktualisierten Datei auch einen anderen
+Namen geben, in welchem Fall die Originaldatei unverändert
+gelassen wird.  Das geht mit dem Befehl
+
+@example
+convert-ly meineDatei.ly > meineneueDatei.ly
+@end example
+
+Das Programm zeigt die Versionsnummern an, für die Konvertierungen
+vorgenommen wurden.  Wenn keine Versionsnummern angezeigt werden,
+ist die Datei schon aktuell.
+
+
+MacOS@tie{}X-Benutzer können diesen Befehl im Menu unter
+@code{Compile > Update syntax} finden.
+
+Benutzer unter Windows müssen diesen Befehl auf der Eingabeaufforderung
+schreiben, welche man üblicherweise unter dem Menüeintrag
+@code{Start > Alle Programme > Zubehör > Eingabeaufforderung} zu
+finden ist.
 
 
 @menu
 * Optionen von convert-ly auf der Kommandozeile::
 * Probleme mit convert-ly::
 @end menu
+
 
 @node Optionen von convert-ly auf der Kommandozeile
 @subsection Optionen von @command{convert-ly} auf der Kommandozeile
@@ -551,6 +569,40 @@ und eine Datei @code{meineDatei.ly.NEW} erstellt wird, it
 die es beherrscht.  Das heißt, dass die neue @code{version}-Nummer
 in der Datei überlicherweise etwas niedriger ist als die
 Version von @command{convert-ly}.
+
+Die allgemeine Syntax des Programms lautet:
+
+@example
+convert-ly [@var{Option}]@dots{} @var{Dateiname}@dots{}
+@end example
+
+Folgende Optionen sind möglich:
+
+@table @code
+@item -e,--edit
+Führt die Aktualisierung direkt in der Datei durch, die Datei wird
+dabei verändert.
+
+@item -f,--from=@var{von-Versionsnummer}
+Setze die Version, ab welcher konvertiert werden soll.  Wenn diese
+Option nicht gesetzt ist, versucht @command{convert-ly}, die
+Version auf Grundlage von @code{\version} zu raten.
+Beispiel: @code{--from=2.10.25}
+
+@item -n,--no-version
+Normalerweise fügt @command{convert-ly} eine @code{\version}-Zeile
+zur Ausgabe hinzu.  Mit dieser Option kann das unterdrückt werden.
+
+@item -s, --show-rules
+Zeige alle bekannten Konversionsregeln und beende.
+
+@item --to=@var{bis-Versionsnummer}
+Hiermit kann das Ziel der Konversion gesetzt werden.  Standard ist
+die neueste mögliche Version. Beispiel: @code{--to=2.12.2}
+
+@item -h, --help
+Benutzerhilfe ausgeben.
+@end table
 
 Um LilyPond-Fragmente in texinfo-Dateien zu aktualisieren, gilt
 der Befehl:
@@ -578,43 +630,19 @@ im aktuellen Verzeichnis:
 for f in *.ly; do convert-ly -e $f; done;
 @end example
 
-Die allgemeine Syntax des Programms lautet:
-
-@example
-convert-ly [@var{option}]@dots{} @var{file}@dots{}
-@end example
-
-Folgende Optionen sind möglich:
-
-@table @code
-@item -e,--edit
-Verändere die entsprechende Zeile der Eingabedatei. Überschreibt
-@code{--output}.
-
-@item -f,--from=@var{von-Versionsnummer}
-Setze die Version, ab welcher konvertiert werden soll.  Wenn diese
-Option nicht gesetzt ist, versucht @command{convert-ly}, die
-Version auf Grundlage von @code{\version} zu raten.
-
-@item -n,--no-version
-Normalerweise fügt @command{convert-ly} eine @code{\version}-Zeile
-zur Ausgabe hinzu.  Mit dieser Option kann das unterdrückt werden.
-
-@item -s, --show-rules
-Zeige alle bekannten Konversionsregeln und beende.
-
-@item --to=@var{bis-Versionsnummer}
-Hiermit kann das Ziel der Konversion gesetzt werden.  Standard ist
-die neueste mögliche Version.
-
-@item -h, --help
-Benutzerhilfe ausgeben.
-@end table
 
 
 @node Probleme mit convert-ly
 @subsection Probleme mit @code{convert-ly}
 @translationof Problems with convert-ly
+
+Wenn convert-ly unter Windows auf der Eingabeaufforderung mit einer
+Datei benutzt wird, deren Name oder Pfad Leerzeichen enthält, muss
+der gesamte Dateipfad mit drei (!) Anführungszeichen umgeben werden:
+
+@example
+convert-ly """D:/My Scores/Ode.ly""" > """D:/My Scores/new Ode.ly"""
+@end example
 
 Nicht alle Änderungen der Syntax können konvertiert werden.  Nur
 eine Ausgabeoption kann angegeben werden.  Scheme- und

@@ -1,12 +1,12 @@
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
   texidocfr = "
-Par défaut, LilyPond n'affiche pas le premier numéro de mesure s'il est 
-inférieur à 2. Le fait de définir @code{barNumberVisibility} à  
-@code{all-bar-numbers-visible} vous permettra d'imprimer n'importe quel 
-numéro pour la première mesure.  À noter que l'impression d'un numéro 
-de mesure ne peut intervenir que s'il y a une barre.  Aussi, pour 
-pouvoir le faire au début d'un morceau, devrez-vous ajouter une barre 
-vide avant la première note. 
+Par défaut, LilyPond n'affiche pas le premier numéro de mesure s'il est
+inférieur à 2. Le fait de définir @code{barNumberVisibility} à
+@code{all-bar-numbers-visible} vous permettra d'imprimer n'importe quel
+numéro pour la première mesure.  À noter que l'impression d'un numéro
+de mesure ne peut intervenir que s'il y a une barre.  Aussi, pour
+pouvoir le faire au début d'un morceau, devrez-vous ajouter une barre
+vide avant la première note.
 
 "
   doctitlefr = "Afficher le numéro de la première mesure"

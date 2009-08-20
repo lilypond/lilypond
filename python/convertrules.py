@@ -10,7 +10,7 @@ _ = lilylib._
 
 
 NOT_SMART = _ ("Not smart enough to convert %s")
-UPDATE_MANUALLY	= _ ("Please refer to the manual for details, and update manually.")
+UPDATE_MANUALLY = _ ("Please refer to the manual for details, and update manually.")
 FROM_TO = _ ( "%s has been replaced by %s")
 
 
@@ -2911,7 +2911,10 @@ def conv(str):
        _ ("Autobeaming rules have changed.  override-auto-beam-setting and\n\
 revert-auto-beam-setting have been eliminated.  \\overrideBeamSettings has been\n\
 added.  BeatGrouping has been eliminated.\n\
-Different settings for vertical layout."))
+Different settings for vertical layout.\n\
+ly:system-start-text::print -> system-start-text::print\n\
+Beam #'thickness -> Beam #'beam-thickness\n\
+ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil"))
 def conv(str):
     if re.search("override-auto-beam-setting", str):
         stderr_write ("\n")
@@ -2923,9 +2926,9 @@ def conv(str):
         stderr_write (NOT_SMART % _("override-auto-beam-setting.\n\
    Autobeam settings are now reverted with \\revertBeamSettings.\n"))
         stderr_write (UPDATE_MANUALLY)
-    str = re.sub(r"\\set\s+#\'beatGrouping", r"\\setBeatGrouping", str)
-    if re.search(r"(\w+\.beatGrouping)", str):
-        stderr_write (NOT_SMART % _(".beatGrouping. \n\
+    str = re.sub(r"\\set\s+beatGrouping", r"\\setBeatGrouping", str)
+    if re.search(r"\w+\s*.\s*beatGrouping", str):
+        stderr_write (NOT_SMART % _("beatGrouping. \n\
    beatGrouping with a specified context must now be accomplished with\n\
    \\overrideBeamSettings.\n"))
         stderr_write (UPDATE_MANUALLY)
@@ -2934,6 +2937,9 @@ def conv(str):
         stderr_write(NOT_SMART % _("alignment-offsets has been changed to alignment-distances: \
 you must now specify the distances between staves rather than the offset of staves.\n"))
         stderr_write(UPDATE_MANUALLY)
+    str = re.sub ('ly:(system-start-text::print|note-head::brew-ez-stencil)',
+                  '\\1', str)
+    str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

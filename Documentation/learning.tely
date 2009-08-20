@@ -11,9 +11,11 @@
 @documentlanguage en
 
 @include macros.itexi
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
 
 @afourpaper
-
 
 @c don't remove this comment.
 @ignore
@@ -24,10 +26,75 @@
 @omflanguage English
 @end ignore
 
+
+@copying
+Copyright @copyright{} 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+2006, 2007, 2008, 2009 by the authors.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@macro introText
+@cartouche
+This file provides an introduction to GNU LilyPond version
+@version{}.  For more information about how this fits with the
+other documentation, see @rgeneral{Manuals}.
+@end cartouche
+@end macro
+
+
+@c TITLE PAGE
 @ifnottex
 @node Top
 @top GNU LilyPond --- Learning Manual
 @end ifnottex
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Learning Manual}
+@author The LilyPond development team
+
+@vskip 100pt
+
+@introText{}
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying{}
+
+For LilyPond version @version{}
+@end titlepage
+
+
+@c TOC -- non-tex
+
+@ifnottex
+@introText{}
+
+@menu
+* Introduction::                   Begin here.
+* Common notation::                A tutorial introduction.
+* Fundamental concepts::           Basic concepts required for reading the rest of this manual.
+* Tweaking output::                Introduction to modifying output.
+
+Appendices
+
+* Templates::                      Ready-made templates.
+* Scheme tutorial::                Programming inside LilyPond.
+* GNU Free Documentation License:: License of this document.
+* LilyPond index::
+@end menu
 
 
 @ifhtml
@@ -43,111 +110,24 @@ This document is also available as a
 @end ifset
 @end ifhtml
 
-
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
-
-
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle The music typesetter
-@titlefont{Learning Manual}
-@author The LilyPond development team
-
-
-Copyright @copyright{} 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-For LilyPond version @version{}
-@end titlepage
-
-@copying
-Copyright @copyright{} 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
-
-@ifnottex
-This file documents GNU LilyPond for beginners.
-
-Copyright 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
 @end ifnottex
 
-@ifnottex
-This is the Learning Manual (LM) for GNU LilyPond version @version{}.
-For more information about how this fits with the other
-documentation, see
-FIXME FIXME FIXME 
-@c @ref{About the documentation}.
 
-@cindex web site
-@cindex URL
-
-More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
-of this and other documentation.
-
-@c * Preface::                        Preface.
-@c * Introduction::                   What, Why, How.
-@menu
-* Generating output::              Begin here.
-* Common notation::                A tutorial introduction.
-* Fundamental concepts::           Basic concepts required for reading the rest of this manual.
-* Tweaking output::                Introduction to modifying output.
-* Working on LilyPond projects::   Discusses real-life usage.
-
-Appendices
-
-* Templates::                      Ready-made templates.
-* Scheme tutorial::                Programming inside LilyPond.
-* GNU Free Documentation License:: License of this document.
-* LilyPond index::
-@end menu
-@end ifnottex
-
+@c TOC - tex
 @contents
 
 
-@c @include learning/preface.itely
-@c @include learning/introduction.itely
-@include learning/generating.itely
-@include learning/tutorial.itely
+@c INCLUDES
+
+@include learning/introduction.itely
+@include learning/common-notation.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
-@include learning/working.itely
 
 @include learning/templates.itely
 @include learning/scheme-tutorial.itely
 @include fdl.itexi
+
 
 @node LilyPond index
 @appendix LilyPond index

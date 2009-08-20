@@ -1417,8 +1417,11 @@ such as
 
 
 @seealso
-Internals: @rinternals{OverrideProperty}, @rinternals{RevertProperty},
-@rinternals{PropertySet}, @rinternals{Backend}, and
+Internals:
+@rinternals{OverrideProperty},
+@rinternals{RevertProperty},
+@rinternals{PropertySet},
+@rinternals{Backend},
 @rinternals{All layout objects}.
 
 
@@ -2024,7 +2027,8 @@ The default order in which contexts are laid out and the
 
 @seealso
 Learning Manual:
-@rlearning{An extra staff appears}.
+@rprogram{An extra staff appears}.
+
 
 @node Distances and measurements
 @subsection Distances and measurements
@@ -2412,8 +2416,10 @@ hairpins with @code{\!}.
 
 
 @seealso
-Internals Reference: @rinternals{TextSpanner},
-@rinternals{Glissando}, @rinternals{VoiceFollower},
+Internals Reference:
+@rinternals{TextSpanner},
+@rinternals{Glissando},
+@rinternals{VoiceFollower},
 @rinternals{TrillSpanner},
 @rinternals{line-spanner-interface}.
 
@@ -2561,7 +2567,7 @@ beginning of a line.  Or to be more precise, before a line break,
 where there is no line break, or after a line break.
 
 Alternatively, these eight combinations may be specified
-by pre-defined functions, defined in @file{scm/output-lib.scm},
+by pre-defined functions, defined in @file{scm/@/output@/-lib@/.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 

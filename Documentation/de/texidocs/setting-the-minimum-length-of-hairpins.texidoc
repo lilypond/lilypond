@@ -2,7 +2,7 @@
 texidocde = "
 Wenn Crescendo-Klammern zu kurz sind, können sie verlängert werden, indem
 die @code{minimum-length}-Eigenschaft des @code{Hairpin}-Objektes
-verändert wird. 
+verändert wird.
 
 "
   doctitlede = "Die Mindestlänge von Crescendo-Klammern bestimmen"

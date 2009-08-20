@@ -1,167 +1,163 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
-   xmlns:xml="http://www.w3.org/XML/1998/namespace"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docbase="/home/hanwen/vc/savannah/lily/newweb/site/graphics"
-   inkscape:version="0.41+cvs"
-   sodipodi:docname="annotate-example-single-part.svg"
-   height="297mm"
-   width="210mm"
+   width="527"
+   height="271"
+   id="svg5884"
    sodipodi:version="0.32"
-   id="svg682"
-   xml:space="preserve">
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="text-input-parts-single-annotate.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
-   id="defs684" />
-
-
+     id="defs5886">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective5892" />
+  </defs>
   <sodipodi:namedview
-   inkscape:current-layer="svg682"
-   inkscape:window-y="0"
-   inkscape:window-x="72"
-   inkscape:window-height="1123"
-   inkscape:window-width="1368"
-   inkscape:cy="587.01628"
-   inkscape:cx="509.84015"
-   inkscape:zoom="1.7341938"
-   id="base" />
-
-
-  <text
-   sodipodi:linespacing="100%"
-   id="text690"
-   y="361.213776"
-   x="38.8550110"
-   style="fill:black;stroke:none;font-family:Luxi Mono;font-style:normal;font-weight:bold;font-size:28.000000;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;font-stretch:normal;font-variant:normal;"><tspan
-     id="tspan1160"
-     sodipodi:role="line"
-     y="361.21378"
-     x="38.855011">{</tspan><tspan
-     id="tspan1162"
-     sodipodi:role="line"
-     y="389.21378"
-     x="38.855011">  \set Score.skipBars = ##t</tspan><tspan
-     id="tspan1164"
-     sodipodi:role="line"
-     y="417.21378"
-     x="38.855011">  \transpose f c'  \_("hornNotes")</tspan><tspan
-     id="tspan1166"
-     sodipodi:role="line"
-     y="445.21378"
-     x="38.855011">}</tspan><tspan
-     id="tspan1168"
-     sodipodi:role="line"
-     y="473.21378"
-     x="38.855011">  </tspan></text>
-
-
-
-  <rect
-   y="364.06888"
-   x="69.357788"
-   height="30.066223"
-   width="429.67987"
-   id="rect705"
-   style="font-size:12.000000;fill:#ee9797;fill-opacity:0.73913002;fill-rule:evenodd;stroke-width:1.0000000pt;" />
-
-
-  <rect
-   y="395.51447"
-   x="69.155769"
-   height="26.248253"
-   width="249.95901"
-   id="rect706"
-   style="font-size:12.000000;fill:#23e023;fill-opacity:0.49634996;fill-rule:evenodd;stroke-width:1.0000000pt;" />
-
-
-  <rect
-   y="396.10330"
-   x="374.42114"
-   height="22.573122"
-   width="169.54926"
-   id="rect707"
-   style="font-size:12.000000;fill:#6165d3;fill-opacity:0.60000002;fill-rule:evenodd;stroke-width:1.0000000pt;" />
-
-
-  <path
-   id="path708"
-   d="M 201.22890,365.83552 C 207.11690,306.96352 258.92290,299.89952 287.18090,295.18952"
-   style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#b10000;stroke-width:1.8750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;" />
-
-
-  <path
-   id="path709"
-   d="M 108.21290,423.52852 C 65.825930,463.56152 6.9542299,510.65852 58.760930,543.62652"
-   style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#00b300;stroke-width:1.8750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;" />
-
-
-  <path
-   id="path710"
-   d="M 397.97000,421.17452 C 346.16300,472.98052 367.35700,496.52952 400.32500,517.72252"
-   style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#0000b0;stroke-width:1.8750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;" />
-
-
-  <text
-   sodipodi:linespacing="100.00000%"
-   id="text711"
-   y="295.36185"
-   x="298.96884"
-   style="font-size:26.000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100.00000%;writing-mode:lr-tb;text-anchor:start;fill:#b00000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter"><tspan
-     y="295.36185"
-     x="298.96884"
-     id="tspan1306"
-     sodipodi:role="line"> _("Condense multi-rests")   </tspan></text>
-
-
-
-  <text
-   sodipodi:linespacing="100%"
-   id="text718"
-   y="561.34088"
-   x="65.262001"
-   style="line-height:100%;font-variant:normal;font-stretch:normal;font-family:Bitstream Charter;stroke-opacity:1.0000000;stroke-linejoin:miter;stroke-linecap:butt;stroke-width:1.0000000pt;stroke:none;fill-opacity:1.0000000;fill:#00b200;text-anchor:start;writing-mode:lr;font-weight:normal;font-style:normal;font-size:26.000000"><tspan
-     y="561.34088"
-     x="65.262001"
-     id="tspan1304"
-     sodipodi:role="line"> _("Transpose for F instrument")   </tspan></text>
-
-
-
-  <text
-   id="text723"
-   y="528.31940"
-   x="379.02060"
-   style="font-size:26.000000;font-style:normal;font-weight:normal;fill:#0000ab;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Charter;text-anchor:start;writing-mode:lr;">
-    <tspan
-   id="tspan724">_("Reuse variable")</tspan>
-  </text>
-
-
-
-<metadata
-   id="metadata1154">
-  <rdf:RDF
-   id="RDF1155">
-    <cc:Work
-   id="Work1156"
-   rdf:about="">
-      <dc:format
-   id="format1157">image/svg+xml</dc:format>
-
-      <dc:type
-   rdf:resource="http://purl.org/dc/dcmitype/StillImage"
-   id="type1159" />
-
-    </cc:Work>
-
-  </rdf:RDF>
-
-</metadata>
-
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="255.35714"
+     inkscape:cy="120"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="654"
+     inkscape:window-height="708"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata5889">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#afc6e9;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5928"
+       width="151"
+       height="29"
+       x="283"
+       y="119" />
+    <rect
+       style="fill:#87de87;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5926"
+       width="228"
+       height="27"
+       x="48"
+       y="120" />
+    <rect
+       style="fill:#ff8080;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5924"
+       width="379"
+       height="27"
+       x="50"
+       y="89" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans Mono;-inkscape-font-specification:Sans Bold"
+       x="25"
+       y="69"
+       id="text5894"><tspan
+         sodipodi:role="line"
+         x="25"
+         y="69"
+         id="tspan5898" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans Mono;-inkscape-font-specification:Sans Bold"
+       x="28"
+       y="79"
+       id="text5902"><tspan
+         sodipodi:role="line"
+         id="tspan5904"
+         x="28"
+         y="79">{</tspan><tspan
+         sodipodi:role="line"
+         x="28"
+         y="109"
+         id="tspan5906">  \set Score.skipBars = ##t</tspan><tspan
+         sodipodi:role="line"
+         x="28"
+         y="139"
+         id="tspan5908">  \transpose f c' \hornNotes</tspan><tspan
+         sodipodi:role="line"
+         x="28"
+         y="169"
+         id="tspan5910">}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#c83737;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:Sans"
+       x="248"
+       y="43"
+       id="text5912"><tspan
+         sodipodi:role="line"
+         id="tspan5914"
+         x="248"
+         y="43">Condense multi-rests</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#0044aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="326"
+       y="208"
+       id="text5916"><tspan
+         sodipodi:role="line"
+         id="tspan5918"
+         x="326"
+         y="208">Reuse variable</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#217821;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="35"
+       y="244"
+       id="text5920"><tspan
+         sodipodi:role="line"
+         id="tspan5922"
+         x="35"
+         y="244">Transpose for F instrument</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#c83737;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 242,35 C 217,47 173,36 166,86"
+       id="path7681"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#217821;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 27,236 C -25,207 56,188 90,152"
+       id="path7683"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#0044aa;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 319,200 C 304,196 295,183 333,152"
+       id="path7685"
+       sodipodi:nodetypes="cc" />
+  </g>
 </svg>

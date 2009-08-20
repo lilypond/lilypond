@@ -1,21 +1,18 @@
+\version "2.12.0"
 
 \header {
+  texidoc = "Instrument names are removed when the staves are
+killed off.
 
-  texidoc = "@code{PianoStaff.instrument} and
-@code{PianoStaff.instr} are removed when the staves are killed off.
-
-In this example, the 2nd staff (marked by the barnumber 2) disappears
-as does the instrument name.  "
-
+In this example, the second staff (marked by the bar number 2)
+disappears, as does the instrument name."
 }
-
-\version "2.12.0"
         
-  \new PianoStaff <<
-    \new Staff {
-      \override Staff.VerticalAxisGroup #'remove-empty = ##t  
-      \set PianoStaff.instrumentName ="up" 
-      \set PianoStaff.shortInstrumentName ="u"
-      c'1\break R
-    }
-  >>
+\new PianoStaff <<
+  \new Staff {
+    \override Staff.VerticalAxisGroup #'remove-empty = ##t  
+    \set PianoStaff.instrumentName = #"up" 
+    \set PianoStaff.shortInstrumentName = #"u"
+    c'1\break R
+  }
+>>

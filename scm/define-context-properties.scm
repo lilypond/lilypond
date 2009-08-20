@@ -524,8 +524,6 @@ are described in @rinternals{bar-line-interface}.")
      (barCheckLastFail ,ly:moment? "Where in the measure did the last
 barcheck fail?")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
-     (breakableSeparationItem ,ly:grob? "The breakable items in this
-time step, for this staff.")
      (busyGrobs ,list? "A queue of @code{(@var{end-moment} .
 @var{GROB})} cons cells.  This is for internal (C++) use only.  This
 property contains the grobs which are still busy (e.g. note heads,

@@ -32,7 +32,7 @@ node_blurb = '''@untranslated
 '''
 doclang = ''
 head_committish = read_pipe ('git rev-parse HEAD')
-intro_blurb = '''@c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
+intro_blurb = '''\\input texinfo @c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
 @c This file is part of %(topfile)s
 @ignore
     Translation of GIT committish: %(head_committish)s
@@ -49,6 +49,8 @@ for x in optlist:
     if x[0] == '-o': # -o NAME   set PO output file name to NAME
         output_name = x[1]
     elif x[0] == '-d': # -d DIR    set working directory to DIR
+        print 'FIXME: this is evil.  use cd DIR && texi-langutils ...'
+        # even better, add a sane -o option
         os.chdir (x[1])
     elif x[0] == '-b': # -b BLURB  set blurb written at each node to BLURB
         node_blurb = x[1]
@@ -57,7 +59,7 @@ for x in optlist:
     elif x[0] == '-l': # -l ISOLANG  set documentlanguage to ISOLANG
         doclang = '; documentlanguage: ' + x[1]
 
-texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.*?)$|@(rglos){(.+?)}", re.M)
+texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(afourpaper|author|bye|contents|copying|end copying|divClass|divEnd|divId|documentencoding|documentlanguage|finalout|ifnottex|end ifnottex|imageClickable|imageFloat|imageId|image|include|menu|end menu|node|quotation|end quotation|ref|rgloss|setfilename|settitle|set|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|titlefont|titlepage|end titlepage|title|sourceimage|subtitle|top|vskip|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|c) *(([^ \n].*)|$)", re.M)
 
 texinfo_re = re.compile (r"^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.+?)$|@(rglos){(.+?)}", re.M)
 
@@ -118,8 +120,13 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                     g.write ('@menu\n')
                 elif item[2] == 'end menu':
                     g.write ('@end menu\n\n')
+                elif item[2] == 'documentlanguage':
+                    g.write ('@documentlanguage ' + doclang + '\n')
                 else:
-                    g.write ('@' + item[2] + ' ' + item[3] + '\n')
+                    space = ' '
+                    if item[3].startswith ('{') or not item[3].strip ():
+                        space = ''
+                    g.write ('@' + item[2] + space + item[3] + '\n')
                     if node_trigger:
                         g.write (n_blurb)
                         node_trigger = False
@@ -162,7 +169,15 @@ if make_gettext:
     node_list.write ('# -*- coding: utf-8 -*-\n')
     for texi_file in texi_files:
         # Urgly: scan ly comments and variable names only in English doco
-        is_english_doc = 'Documentation/user' in texi_file
+        is_english_doc = (
+            True
+            and not 'Documentation/de/' in texi_file
+            and not 'Documentation/es/' in texi_file
+            and not 'Documentation/fr/' in texi_file
+            and not 'Documentation/ja/' in texi_file
+            and not 'Documentation/nl/' in texi_file
+            and not 'Documentation/po/' in texi_file
+            )
         process_texi (texi_file, intro_blurb, node_blurb, make_skeleton,
                       os.path.basename (texi_file), node_list,
                       scan_ly=is_english_doc)

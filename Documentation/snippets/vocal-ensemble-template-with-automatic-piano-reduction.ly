@@ -18,7 +18,6 @@ entonces los cambios se aplicarán también a la reducción de piano.
 "
   doctitlees = "Plantilla de conjunto vocal con reducción de piano automática"
 
-
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 このテンプレートは、\"合唱テンプレート\"で示された標準の SATB ボーカル譜に自動@c
@@ -26,7 +25,6 @@ entonces los cambios se aplicarán también a la reducción de piano.
 定義を何回も使用することができます。ボーカルの音符 (例えば、@code{tenorMusic}
 の音符) に変更が加えられた場合、その変更はピアノ譜にも適用されます。
 "
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In diesem Beispiel wird ein automatischer Klavierauszug zu der
@@ -35,7 +33,6 @@ Chorpartitur hinzugefügt. Das zeigt eine der Stärken von LilyPond
 irgendeine Änderung an einer Chorstimme vornehmen, (etwa
 tenorMusic), verändert sich auch der Klavierauszug entsprechend.
 "
-
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -50,7 +47,7 @@ sera automatiquement reportée dans la réduction pour piano.
 
   texidoc = "
 This template adds an automatic piano reduction to the standard SATB
-vocal score demonstrated in \"Vocal ensemble template\". This
+vocal score demonstrated in @qq{Vocal ensemble template}. This
 demonstrates one of the strengths of LilyPond – you can use a music
 definition more than once. If any changes are made to the vocal notes
 (say, @code{tenorMusic}), then the changes will also apply to the piano

@@ -1,0 +1,155 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+
+@node input-format 
+
+@unnumberedsec Input format
+
+As discussed earlier, the ideal input format for a music engraving
+system is the content: the music itself. This poses a formidable
+problem: how can we define what music really @emph{is}? Our way out
+of this problem, is to reverse it.  Instead of defining what music is,
+our program serves as a definition: we write a program capable of
+producing sheet music, and adjust the format to be as lean as
+possible.  When the format can no longer be trimmed down, by
+definition we are left with content itself.
+
+The syntax is also the user-interface for LilyPond, hence it is easily
+typable, e.g.,
+
+@verbatim
+
+  c'4 d'8
+
+@end verbatim
+Are a quarter note C1 and eighth note D1, as in this example:
+
+@divClass{float-center}
+@sourceimage{simple-notation,,,.png}
+@divEnd
+
+On a microscopic scale, such syntax is easy to use. On a larger scale,
+syntax also  needs structure.  How else can  you enter  complex pieces
+like symphonies and operas? The  structure is formed by the concept of
+music expressions:  by combining small fragments of  music into larger
+ones, more complex music can be expressed.  For example,
+
+@multitable @columnfractions .5 .5
+@item
+
+c4
+
+@tab
+
+@sourceimage{simultaneous-0,,,.png}
+
+
+@end multitable
+
+Combine this simultaneously with two other notes by enclosing in <&lt
+and >>.
+
+@multitable @columnfractions .5 .5
+
+@item
+
+@verbatim
+
+  <<c4 d4 e4>>
+
+@end verbatim
+
+
+@tab
+
+@sourceimage{simultaneous-1,,,.png}
+
+
+
+@end multitable
+
+This expression is put in sequence by enclosing it in braces, i.e.,
+@multitable @columnfractions .5 .5
+@item
+
+@verbatim
+
+   { <<c4 d4 e4>> f4  }
+@end verbatim
+
+
+@tab
+
+@sourceimage{simultaneous-2,,,.png}
+
+
+
+@end multitable
+
+The above is another expression, and therefore, it may be combined 
+again with a simultaneous expression (in this case, a half note). 
+
+@multitable @columnfractions .5 .5
+@item
+
+@verbatim
+
+<< { <<c4 d4 e4>> f4 } g2 >> 
+
+@end verbatim
+
+
+@tab
+
+@sourceimage{simultaneous-3,,,.png}
+
+
+
+
+@end multitable
+
+Such recursive structures can be specified neatly and formally in a
+@emph{context-free grammar}.  The parsing code is also generated
+from this grammar. In other words, the  syntax of LilyPond is clearly
+and unambiguously defined.
+
+User-interfaces and syntax are what people see and deal with
+most. They are partly a matter of taste, and also subject of much
+discussion.  Although discussions on taste do have their merit, they
+are not very productive.  In the larger picture of LilyPond, the
+importance of input syntax is small: inventing neat syntax is easy,
+writing decent formatting code is much harder.  This is also
+illustrated by the line-counts for the respective components: parsing
+and representation take up less than 10% of the code.
+
+@multitable @columnfractions .5 .5
+@item
+Parsing + representation
+@tab
+@item
+total
+@tab
+@item
+6000 lines C++
+@tab
+61500 lines C++
+@end multitable
+
+@ignore
+  TODO :
+
+  blurbs about lilypond today
+
+  future?
+@end ignore
+
+@divClass{float-right}
+Next: @ref{conclusion,wrapping it up}, the conclusion.
+@divEnd

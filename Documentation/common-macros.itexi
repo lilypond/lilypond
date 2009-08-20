@@ -67,6 +67,7 @@
 
 @ifclear snippets-sections
 @macro lydoctitle {TEXT}
+@need 600
 @emph{\TEXT\}
 @end macro
 @end ifclear
@@ -175,45 +176,74 @@ UNTRANSLATED NODE: IGNORE ME
 @end html
 @end macro
 
+@macro exampleImage{IMAGE-FILE}
+@html
+<div class="float-center">
+  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  </a>
+  <p style="text-align: center">
+    (click to enlarge)
+  </p>
+</div>
+@end html
+@iftex
+@image{general/examples/out-www/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@end iftex
+@ifinfo
+FIXME: images broken in info
+@c @sourceimage{lilypond/general/examples/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@end ifinfo
+@end macro
 
 
-@macro imageClickable{IMAGE-FILE, MORE-TEXT, CLICK-FILE, POSITION}
+
+@macro imageClickable{IMAGE-FILE, EXT, MORE-TEXT, CLICK-FILE, CLICK-EXT, POSITION}
 @html
 <div class="float-\POSITION\">
-  <a class="clickable" href="\CLICK-FILE\">
-    <img src="\IMAGE-FILE\" alt="\IMAGE-FILE\">
+  <a class="clickable" href="pictures/\CLICK-FILE\.\CLICK-EXT\">
+    <img src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
     \MORE-TEXT\
   </p>
 </div>
 @end html
-@ifnothtml
-FIXME: broken image
-@c @image{\IMAGE-FILE\}
-@end ifnothtml
+@iftex
+@image{pictures/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\}
+@end iftex
+@ifinfo
+FIXME: images broken in info
+@c @sourceimage{lilypond/\IMAGE-FILE\,,,\IMAGE-FILE\}
+@end ifinfo
 @end macro
 
-@macro imageFloat{IMAGE-FILE, POSITION}
+@macro imageFloat{IMAGE-FILE, EXT, POSITION}
 @html
-<img class="float-\POSITION\" src="pictures/\IMAGE-FILE\" alt="\IMAGE-FILE\">
+<img class="float-\POSITION\" src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
 @end html
-@ifnothtml
-FIXME: broken image
-@c @image{\IMAGE-FILE\}
-@end ifnothtml
+@iftex
+@image{pictures/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
+@end iftex
+@ifinfo
+FIXME: images broken in info
+@c @sourceimage{lilypond/\IMAGE-FILE\,,,\EXT\}
+@end ifinfo
 @end macro
 
-@macro imageId{ID, IMAGE-FILE, ALT}
+@macro imageId{ID, IMAGE-FILE, EXT, ALT}
 @html
 <div id="\ID\">
-  <img src="pictures/\IMAGE-FILE\" alt="\ALT\">
+  <img src="pictures/\IMAGE-FILE\.\EXT\" alt="\ALT\">
 </div>
 @end html
-@ifnothtml
-FIXME: broken image
-@c @image{\IMAGE-FILE\}
-@end ifnothtml
+@iftex
+@image{pictures/out-www/\IMAGE-FILE\,,,\ALT\}
+@end iftex
+@ifinfo
+FIXME: images broken in info
+@c @sourceimage{lilypond/\IMAGE-FILE\,,,\ALT\}
+@end ifinfo
 @end macro
 
 @end ifset

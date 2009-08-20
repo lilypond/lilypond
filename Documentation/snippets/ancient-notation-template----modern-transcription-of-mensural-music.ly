@@ -21,7 +21,6 @@ encima de ellos.
 "
   doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Bei der Transkription von Mensuralmusik ist es oft erwünscht, ein
@@ -35,7 +34,6 @@ zwischen den Systemen geschrieben.
 "
 
 doctitlede = "Vorlage für Alte Notation -- moderne Transkription von Mensuralmusik"
-
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "

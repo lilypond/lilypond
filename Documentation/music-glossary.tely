@@ -662,8 +662,8 @@ S: ?,
 FI: ?.
 
 A grace note which takes its time from the rest or note preceding the
-principal note to which it is attached. The acciaccatura is drawn as a small
-eighth note (quaver) with a line drawn through the flag and stem.
+principal note to which it is attached.  The acciaccatura is drawn as a
+small eighth note (quaver) with a line drawn through the flag and stem.
 
 @seealso
 @ref{appoggiatura}, @ref{grace notes}, @ref{ornament}.
@@ -673,7 +673,7 @@ eighth note (quaver) with a line drawn through the flag and stem.
 @section accidental
 
 ES: alteración accidental,
-I: accidento,
+I: alterazione, accidente,
 F: altération accidentelle,
 D: Versetzungszeichen, Akzidenz,
 NL: toevallig (verplaatsings)teken,
@@ -1123,7 +1123,7 @@ No cross-references.
 @section articulation
 
 ES: articulación,
-I: articulazione,
+I: articolazione,
 F: articulation,
 D: Artikulation,
 NL: articulatie,
@@ -1485,7 +1485,7 @@ No cross-references.
 @section bracket
 
 ES: corchete,
-I: ?,
+I: parentesi quadra,
 F: crochet,
 D: ?,
 NL: ?,
@@ -1919,10 +1919,10 @@ the top line high F:
 }
 @end lilypond
 
-Staves of five lines are usually used, and the clef superimposed on
-them indicates which five lines have been selected from this
-@samp{grand staff}. For example, the treble or G clef indicates that
-the top five lines have been selected:
+Staves of five lines are usually used, and the clef superimposed on them
+indicates which five lines have been selected from this @notation{grand
+staff}. For example, the treble or G clef indicates that the top five lines
+have been selected:
 
 @lilypond[quote]
 \score {
@@ -1983,11 +1983,10 @@ the top five lines have been selected:
 The @q{curl} of the G clef is centered on the line that represents the
 pitch G.
 
-In the same way, the bass or F clef indicates that the bottom five
-lines have been selected from the @samp{grand staff}, and the alto or
-C clef indicates the middle five lines have been selected.  This
-relationship is shown below, where the notes show an arpeggio on a C
-major chord.
+In the same way, the bass or F clef indicates that the bottom five lines
+have been selected from the @notation{grand staff}, and the alto or C clef
+indicates the middle five lines have been selected.  This relationship is
+shown below, where the notes show an arpeggio on a C major chord.
 
 @lilypond[quote]
 \score {
@@ -2052,7 +2051,7 @@ major chord.
 @section cluster
 
 ES: racimo,
-I: ?,
+I: cluster,
 F: cluster,
 D: Cluster,
 NL: ?,
@@ -2123,7 +2122,7 @@ Another name for @ref{common time}.
 @section common time
 
 ES: compasillo,
-I: ?,
+I: tempo semplice,
 F: mesure à 4/4,
 D: ?,
 NL: ?,
@@ -2176,7 +2175,7 @@ Intervals larger than an octave.
 @section compound meter
 
 ES: compás compuesto, compás de subdivisión ternaria,
-I: ?,
+I: tempo composto,
 F: mesure composée,
 D: ?,
 NL: ?,
@@ -2247,7 +2246,7 @@ A time signature that additively combines two or more unequal meters, e.g.,
 @section concert pitch
 
 ES: en Do, afinación de concierto,
-I: ?,
+I: intonazione reale,
 F: tonalité de concert, en ut,
 D: ?,
 NL: ?,
@@ -2261,22 +2260,14 @@ all) instruments that play in concert pitch:
 
 @c Let's see how easy (or hard) it is to put bulleted lists in tables.
 
-@multitable {alto trombone} {tenor trombone} {bass trombone}
-@headitem Woodwinds @tab Brass @tab Strings
+@multitable {bassoon} {violoncello}
+@headitem Woodwinds @tab Strings
 
 @item
 @itemize
 @item flute
 @item oboe
 @item bassoon
-@end itemize
-
-@tab
-
-@itemize
-@item alto trombone
-@item tenor trombone
-@item bass trombone
 @end itemize
 
 @tab
@@ -2289,12 +2280,14 @@ all) instruments that play in concert pitch:
 
 @end multitable
 
+@ignore This needs to be reworked.
 The trombones are a special case: although they are said to be @q{in F} (alto or
 bass) or @q{in B-flat} (tenor), this refers to their fundamental note, not to
 their parts' transposition.  (In fact, the trombones' parts are written at
 concert pitch with an appropriate clef -- alto, tenor or bass.)  This differs
 from other instruments @q{in F}, @q{in B-flat}, and so on, which are transposing
 instruments.
+@end ignore
 
 Instruments that play @q{in C} but in a different octave than what is written
 are, technically speaking, @emph{transposing instruments}:
@@ -2508,7 +2501,7 @@ Compare: @ref{ossia}.
 @section custos
 
 ES: custos,
-I: ?,
+I: custos, guida,
 F: guidon,
 D: Notenzeiger, Custos,
 NL: ?,
@@ -2899,7 +2892,7 @@ FI: diminuendo, hiljentyen.
 @section diminution
 
 ES: ?,
-I: ?,
+I: diminuzione,
 F: diminution,
 D: ?,
 NL: ?,
@@ -3302,7 +3295,7 @@ FI: kesto, aika-arvo.
 @section dynamics
 
 ES: dinámica, matices,
-I: ?,
+I: dinamica,
 F: nuances,
 D: Dynamik, Lautstärke,
 NL: ?,
@@ -3388,7 +3381,7 @@ indicate this information are called dynamic marks.
 @c TODO: add languages
 
 ES: sinalefa,
-I: ?,
+I: elisione,
 F: élision,
 D: ?,
 NL: ?,
@@ -3519,7 +3512,7 @@ Performance indications concerning:
 @section extender line
 
 ES: línea de extensión [de melisma, de bajo cifrado, etc.],
-I: ?,
+I: linea di estensione,
 F: ligne d'extension [de mélisme, de basse chiffrée, etc.],
 D: Fülllinie,
 NL: ?,
@@ -4121,7 +4114,7 @@ counted in the rhythm of the bar.
 @section grand staff
 
 ES: sistema de piano,
-I: accolatura,
+I: accollatura,
 F: système [de portées], accolade,
 D: Akkolade, Klaviersystem,
 NL: piano systeem,
@@ -4280,7 +4273,7 @@ A sequence of chords that terminates a musical phrase or section.
 @section harmonics
 
 ES: sonidos del flautín,
-I: suoni flautati,
+I: armonici,
 F: flageolet, sons harmoniques,
 D: Flageolett-Töne,
 NL: ?,
@@ -4349,7 +4342,7 @@ For harmony that uses three or more notes, see @ref{chord}.
 @section hemiola
 
 ES: hemiolia,
-I: ?,
+I: emiolia, (rarely hemiola or emiola),
 F: hémiole,
 D: ?,
 NL: ?,
@@ -4536,7 +4529,7 @@ The addition of such two intervals forms an octave.
 @section inversion
 
 ES: ?,
-I: ?,
+I: rivolto,
 F: renversement,
 D: ?,
 NL: ?,
@@ -4659,7 +4652,7 @@ key of the music.
 @section laissez vibrer
 
 ES: dejar vibrar,
-I: ?,
+I: laissez vibrer,
 F: laissez vibrer,
 D: ?,
 NL: ?,
@@ -4930,7 +4923,7 @@ FI: sidonta sanoituksessa.
 @section lyrics
 
 ES: letra (de la canción),
-I: ?,
+I: testo,
 F: paroles,
 D: Liedtext, Gesangtext,
 NL: liedtekst,
@@ -4980,7 +4973,7 @@ FI: suuri intervalli.
 @section maxima
 
 ES: ?,
-I: ?,
+I: maxima,
 F: maxima, maxime,
 D: ?,
 NL: ?,
@@ -5078,7 +5071,7 @@ mediant (variant tonic).
 @section melisma
 
 ES: melisma,
-I: ?,
+I: melisma,
 F: mélisme, tenue,
 D: Melisma,
 NL: melisma,
@@ -5099,7 +5092,7 @@ No cross-references.
 @c TODO: add languages
 
 ES: línea de melisma,
-I: ?,
+I: linea del melisma,
 F: trait de mélisme, trait de tenue,
 D: ?,
 NL: ?,
@@ -5124,7 +5117,7 @@ FI: melismaviiva.
 @c TODO: add languages
 
 ES: notación mensural,
-I: ?,
+I: notazione mensurale,
 F: notation mensurale,
 D: ?,
 NL: ?,
@@ -5978,7 +5971,7 @@ bracket, or @notation{loco} see octave marking.
 @section octave mark
 
 ES: indicación de octava,
-I: ?,
+I: segno di ottava,
 F: indication d'octave,
 D: ?,
 NL: ?,
@@ -6369,7 +6362,7 @@ No cross-references.
 @section polymeter
 
 ES: compás polimétrico,
-I: ?,
+I: polimetria,
 F: polymétrie,
 D: ?,
 NL: ?,
@@ -6394,7 +6387,7 @@ parts.
 @section polymetric
 
 ES: polimétrico,
-I: ?,
+I: polimetrico,
 F: polymétrique,
 D: ?,
 NL: ?,
@@ -6413,7 +6406,7 @@ simultaneously or in alternation.
 @section polymetric time signature
 
 ES: compás polimétrico,
-I: ?,
+I: tempo polimetrico,
 F: ?,
 D: ?,
 NL: ?,
@@ -6484,7 +6477,7 @@ No cross-references.
 @section proportion
 
 ES: proporción,
-I: proprozione (?),
+I: proporzione,
 F: proportion,
 D: ?,
 NL: ?,
@@ -6715,7 +6708,7 @@ except in jazz.
 @section quarter tone
 
 ES: cuarto de tonno,
-I: ?,
+I: quarto di tono,
 F: quart de ton,
 D: Viertelton,
 NL: kwart toon,
@@ -6797,7 +6790,7 @@ c1_"c minor" d es f g a! b! c
 @section repeat
 
 ES: repetición,
-I: ritornello,
+I: ripetizione,
 F: barre de reprise,
 D: Wiederholung,
 NL: herhaling,
@@ -6870,6 +6863,7 @@ metrical unit (beat).
 @seealso
 @ref{accent}, @ref{beat}, @ref{measure}, @ref{meter}.
 
+
 @node ritardando
 @section ritardando
 
@@ -6882,7 +6876,8 @@ DK: ritardando,
 S: ritardando,
 FI: ritardando, hidastuen,
 
-Gradually slackening in speed.  Mostly abbreviated to rit.@: or ritard.
+Gradually slackening in speed.  Mostly abbreviated to @notation{rit.} or
+@notation{ritard}.
 
 @seealso
 No cross-references.
@@ -7018,7 +7013,7 @@ No cross-references.
 @section second
 
 ES: segunda,
-I: secunda,
+I: seconda,
 F: seconde,
 D: Sekunde,
 NL: secunde,
@@ -7287,7 +7282,7 @@ FI: seksti.
 @section slur
 
 ES: ligadura (de expresión),
-I: legatura (di portamento or espressiva),
+I: legatura (di portamento o espressiva),
 F: liaison, coulé,
 D: Bogen (Legatobogen, Phrasierungsbogen),
 NL: fraseringsboog, legatoboog, streekboog,
@@ -7561,7 +7556,7 @@ The fourth @notation{scale degree}.
 @section submediant
 
 ES: submediante,
-I: sopratonica,
+I: sopradominante,
 F: sous-médiante,
 D: Submediante,
 NL: submediant,
@@ -7597,7 +7592,7 @@ The seventh @ref{scale degree}.
 @section sul G
 
 ES: sobre la cuerda de Sol,
-I: sul g,
+I: sul Sol,
 F: sur la G,
 D: auf G, auf der G-Saite,
 NL: ?,
@@ -7624,7 +7619,7 @@ DK: superdominant,
 S: superdominant,
 FI: ylidominantti.
 
-The sixth @ref{scale degree}.
+The sixth @ref{scale degree}.  Equivalent to the submediant, q.v.
 
 @seealso
 @ref{functional harmony}, @ref{scale degree}, @ref{submediant}.
@@ -7727,7 +7722,7 @@ This comma is also known as the comma of Didymus, or didymic comma.
 @section system
 
 ES: sistema,
-I: accollatura,
+I: sistema,
 F: système,
 D: Notensystem, Partitur,
 NL: systeem,
@@ -7989,7 +7984,7 @@ The first @notation{scale degree}.
 @section transposing instrument
 
 ES: instrumento transpositor,
-I: ?,
+I: strumento traspositore,
 F: instrument transpositeur,
 D: ?,
 NL: ?,
@@ -8011,12 +8006,20 @@ note sounds the A (one and half tones -- a minor third -- lower).
 Not all transposing instruments include the pitch class in their name:
 
 @itemize
-
-@item English horn (in F)
-
 @item Alto flute (in G)
-
+@item English horn (in F)
+@item Saxophones (in B-flat or E-flat)
 @end itemize
+
+@ignore Can we do better?
+
+To make matters more complex, some instruments are transposing instruments,
+but their players play from parts written at concert pitch.  This is the
+case for orchestral trombone and tuba players—whereas trombone players in
+brass bands treat their parts as if written for a true transposing
+instrument in B-flat.
+
+@end ignore
 
 @seealso
 @ref{concert pitch}.
@@ -8213,6 +8216,15 @@ standard.  Tuning forks for other pitches are available.
 
 @node tuplet
 @section tuplet
+
+ES: ?,
+I: gruppi irregolari,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
 
 A non-standard subdivision of a beat or part of a beat, usually
 indicated with a bracket and a number indicating the number of
@@ -8573,7 +8585,7 @@ No cross-references.
 @end multitable
 
 * About the French naming system: @notation{croche} refers to the note's
-@q{hook}. Therefore, from the eighth note on, the note names mean @q{hook},
+@q{hook}.  Therefore, from the eighth note on, the note names mean @q{hook},
 @q{doubled hook}, @q{trebled hook}, and so on.
 
 The rest names are based on the @notation{soupir}, or quarter rest. 

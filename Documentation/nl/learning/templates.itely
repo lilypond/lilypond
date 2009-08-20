@@ -1,0 +1,100 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Templates
+@appendix Templates
+
+@untranslated
+
+
+@c bad node name for ancient notation to avoid conflict
+@menu
+* Single staff::
+* Piano templates::
+* String quartet::
+* Vocal ensembles::
+* Orchestral templates::
+* Ancient notation templates::
+* Jazz combo::
+* lilypond-book templates::
+@end menu
+
+@node Single staff
+@appendixsec Single staff
+
+@untranslated
+
+
+@appendixsubsec Notes only
+@appendixsubsec Notes and lyrics
+@appendixsubsec Notes and chords
+@appendixsubsec Notes, lyrics, and chords.
+@node Piano templates
+@appendixsec Piano templates
+
+@untranslated
+
+
+@appendixsubsec Solo piano
+@appendixsubsec Piano and melody with lyrics
+@appendixsubsec Piano centered lyrics
+@appendixsubsec Piano centered dynamics
+@node String quartet
+@appendixsec String quartet
+
+@untranslated
+
+
+@appendixsubsec String quartet
+@appendixsubsec String quartet parts
+@node Vocal ensembles
+@appendixsec Vocal ensembles
+
+@untranslated
+
+
+@appendixsubsec SATB vocal score
+@appendixsubsec SATB vocal score and automatic piano reduction
+@appendixsubsec SATB with aligned contexts
+@node Orchestral templates
+@appendixsec Orchestral templates
+
+@untranslated
+
+
+@appendixsubsec Orchestra, choir and piano
+@c bad node name to avoid node name conflict
+@node Ancient notation templates
+@appendixsec Ancient notation templates
+
+@untranslated
+
+
+@appendixsubsec Transcription of mensural music
+@appendixsubsec Gregorian transcription template
+@node Jazz combo
+@appendixsec Jazz combo
+
+@untranslated
+
+
+@node lilypond-book templates
+@appendixsec lilypond-book templates
+
+@untranslated
+
+
+@appendixsubsec LaTeX
+@appendixsubsec Texinfo
+@appendixsubsec xelatex
+
+@c -- SKELETON FILE --

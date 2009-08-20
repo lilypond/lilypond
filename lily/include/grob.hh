@@ -54,8 +54,8 @@ public:
   friend SCM ly_grob_basic_properties (SCM);
 
   /* standard callbacks */
-  DECLARE_SCHEME_CALLBACK(x_parent_positioning, (SCM));
-  DECLARE_SCHEME_CALLBACK(y_parent_positioning, (SCM));
+  DECLARE_SCHEME_CALLBACK (x_parent_positioning, (SCM));
+  DECLARE_SCHEME_CALLBACK (y_parent_positioning, (SCM));
   DECLARE_SCHEME_CALLBACK (stencil_height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (stencil_width, (SCM smob));
 

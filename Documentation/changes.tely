@@ -63,6 +63,43 @@ which scares away people.
 @end ignore
 
 @item
+Instrument names and vocal names now take into account the extent of
+system start delimiters in other staves for their positioning,
+resulting in improved default alignment for left-, center- and
+right-aligned names.
+@lilypond[quote,indent=18\mm]
+<<
+  \new StaffGroup <<
+    \new GrandStaff <<
+      \new Staff {
+        \set Staff.instrumentName = #"Piccolo"
+        c''1
+      }
+      \new Staff {
+        \set Staff.instrumentName = #"Flute"
+        c''1
+      }
+    >>
+    \new Staff {
+      \set Staff.instrumentName = #"Bassoon"
+      \clef tenor
+      c'1
+    }
+  >>
+  \new PianoStaff <<
+    \set PianoStaff.instrumentName = #"Piano"
+    \context Staff = "up" {
+      c'1
+    }
+    \context Staff = "down" {
+      \clef bass
+      c1
+    }
+  >>
+>>
+@end lilypond
+
+@item
 Braces in markup can now be selected by point size using the markup commands
 @code{\left-brace} and @code{\right-brace}.
 @lilypond[quote]
@@ -95,7 +132,7 @@ c4( d e f)
 @end lilypond
 
 @item
-An eyeglasses markup was added, incidating strongly to look at the
+An eyeglasses markup was added, indicating strongly to look at the
 conductor for instructions:
 @lilypond[quote,relative=2]
 \mark \markup { \eyeglasses }

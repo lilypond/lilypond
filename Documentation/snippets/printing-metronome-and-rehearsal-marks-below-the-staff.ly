@@ -19,7 +19,6 @@ adecuadamente la propiedad @code{direction} de
   doctitlees = "Impresión de indicaciones metronómicas y letras de ensayo debajo del pentagrama"
 
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Normalerweise werden Metronom- und Übungszeichen über dem Notensystem ausgegeben.

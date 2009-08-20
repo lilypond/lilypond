@@ -17,14 +17,12 @@ voces se reagrupan en sólo dos pentagramas.
 "
   doctitlees = "Plantilla de conjunto vocal"
 
-
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 これは標準の 4 パート SATB (ソプラノ、アルト、テナー、バス) ボーカル譜です。@c
 もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
 便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
 歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren
@@ -34,7 +32,6 @@ sind fast immer gleich in allen Stimmen.
 "
 
   doctitlede = "Vorlage für Vokalensemble"
-
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -53,7 +50,7 @@ portées.
 Here is a standard four-part SATB vocal score. With larger ensembles,
 it is often useful to include a section which is included in all parts.
 For example, the time signature and key signature are almost always the
-same for all parts. Like in the \"Hymn\" template, the four voices are
+same for all parts. Like in the @qq{Hymn} template, the four voices are
 regrouped on only two staves.
 
 "

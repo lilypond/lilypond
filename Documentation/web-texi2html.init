@@ -1,6 +1,9 @@
 #!/usr/bin/env perl
 # -*- coding: utf-8; -*-
 
+### WTF, perl cannot read a file?
+###use File::Slurp qw( read_file );
+
 ### texi2html customization script for LilyPond
 ### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
 ###         Some code parts copied from texi2html and adapted. These functions
@@ -106,30 +109,25 @@ $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Tran
 
 @Texi2HTML::Config::CSS_REFS      = (
     {FILENAME => "lilypond-web.css", TITLE => "Default style"},
+);
+
+@Texi2HTML::Config::ALT_CSS_REFS      = (
     {FILENAME => "lilypond-web-alt1.css", TITLE => "Alternate style 1"},
     {FILENAME => "lilypond-web-alt2.css", TITLE => "Alternate style 2"},
- );
-
-# GOP tweak: We don't have alternate stylesheets right now
-#@Texi2HTML::Config::ALT_CSS_REFS      = (
-#    {FILENAME => "lilypond.css", TITLE => "Andrew Hawryluk's design" },
-#    {FILENAME => "lilypond-blue.css", TITLE => "Kurt Kroon's blue design" },
-#);
+);
 
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::SPLIT_INDEX   = 0;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
-# FIXME: remove for GOP
-#if ($Texi2HTML::Config::SPLIT eq 'section') {
-#  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
-#}
-
-## GOP tweak:
 # FIXME: creates duplicate anchors, which causes Opera to barf;
 #	 should be fixed in lilypond-texi2html.init too
-# $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
+# Uhm, what about a bug report to Opera?  We need sane names here.
+if ($Texi2HTML::Config::SPLIT eq 'section') {
+  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+}
+$Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
@@ -238,6 +236,7 @@ sub load_map_file ($)
     my $node_map = ();
 
     if (open(XREFFILE, $mapfile)) {
+        print STDERR "Reading map file: $mapfile\n";
         my $line;
         while ( $line = <XREFFILE> ) {
             # parse the tab-separated entries and insert them into the map:
@@ -251,7 +250,7 @@ sub load_map_file ($)
         }
         close (XREFFILE);
     } else {
-        print STDERR "WARNING: Unable to load the map file $mapfile\n";
+        print STDERR "warning: cannot load map file: no such file: $mapfile\n";
     }
     return $node_map;
 }
@@ -302,11 +301,10 @@ sub lilypond_css_lines ($$)
         $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
     }
 
-    # GOP tweak: We don't have alternate stylesheets
-    #foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
-    #{
-    #    $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
-    #}
+    foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
+    {
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
+    }
 
     # GOP tweak: We aren't using an IE-specific stylesheet
     #$Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
@@ -321,6 +319,137 @@ sub lilypond_css_lines ($$)
 #############################################################################
 
 # FIXME: removed for GOP.
+
+# Uhm, yes: that's what I found.  It was gone.  No need to add that
+# in a comment, DIFF tells me that it's gone.
+
+# Comments can be used to tell *why* something has been removed -- as
+# it seems to me that we *need* this in order to get sane,
+# untranslated, html file names?  Putting it back for this reason.
+
+my $lastfilename;
+my $docnr = 0;
+my $node_to_filename_map = ();
+
+
+# This function makes sure that files are only generated for numbered sections,
+# but not for unnumbered ones. It is called after texi2html has done its own
+# splitting and simply returns the filename for the node given as first argument
+# Nodes with the same filename will be printed out to the same filename, so
+# this really all we need. Also, make sure that the file names for sections
+# are derived from the section title. We also might want to name the anchors
+# according to node titles, which works by simply overriding the id element of
+# the $element hash.
+# If an external nodename<=>filename/anchor map file is found (loaded in
+# the command handler, use the externally created values, otherwise use the
+# same logic here.
+sub lilypond_element_file_name($$$)
+{
+  my $element = shift;
+  my $type = shift;
+  my $docu_name = shift;
+  my $docu_ext = $Texi2HTML::Config::EXTENSION;
+
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  # the snippets page does not use nodes for the snippets, so in this case
+  # we'll have to use the section name!
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the filename/anchor here. In the latter case, external manuals
+  # will not be able to retrieve the file name for xrefs!!! Still, I already
+  # had that code, so I'll leave it in in case something goes wrong with the
+  # extract_texi_filenames.py script in the lilypond build process!
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
+    $filename .= ".$docu_ext" if (defined($docu_ext));
+
+    # unnumbered sections (except those at top-level!) always go to the same
+    # file as the previous numbered section
+    if (not ($element->{number}) and not ($lastfilename eq '') and ($element->{level} > 1)) {
+      $filename = $lastfilename;
+    }
+    if (($filename eq $lastfilename)) {
+      $$element{doc_nr} = $docnr;
+    } else {
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+    }
+    return $filename;
+
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+    return;
+  } else {
+    print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
+        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec')
+               or ($node_name =~ /NOT REALLY USED/);
+
+    # Numbered sections will get a filename Node_title, unnumbered sections will use
+    # the file name of the previous numbered section:
+    if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
+      # normalize to the same file name as texinfo
+      if ($element->{translationof}) {
+        $node_name = main::remove_texi($element->{translationof});
+      }
+      my $filename = texinfo_file_name($node_name);
+      $filename .= ".$docu_ext" if (defined($docu_ext));
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+      return $filename;
+    } else {
+      $$element{doc_nr} = $docnr;
+      return $lastfilename;
+    }
+  }
+
+  return;
+}
+
+sub lilypond_element_target_name($$$)
+{
+  my $element = shift;
+  my $target = shift;
+  my $id = shift;
+  # Target is based on node name (or sec name for secs without node attached)
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the anchor here.
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, $target) = @{$node_to_filename_map->{$node_name}};
+  } else {
+    my $anchor = $node_name;
+    if ($element->{translationof}) {
+      $anchor = main::remove_texi($element->{translationof});
+    }
+    # normalize to the same file name as texinfo
+    $target = texinfo_file_name($anchor);
+  }
+  # TODO: Once texi2html correctly prints out the target and not the id for
+  #       the sections, change this back to ($id, $target)
+  return ($target, $target);
+}
+
+
+## Load the map file for the corrently processed texi file. We do this
+#  using a command init handler, since texi2html does not have any
+#  other hooks that are called after THISDOC is filled but before phase 2
+#  of the texi2html conversion.
+sub lilypond_init_map ()
+{
+    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+    my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	|| main::locate_include_file ("${docu_name}.xref-map");
+    $node_to_filename_map = load_map_file ($map_filename);
+}
+push @Texi2HTML::Config::command_handler_init, \&lilypond_init_map;
 
 
 #############################################################################
@@ -459,7 +588,6 @@ sub lilypond_external_href($$$)
 my $page_toc_depth = 2;
 my @default_toc = [];
 
-
 # Initialize the toc_depth to 1 if the command-line option -D=short_toc is given
 sub lilypond_init_toc_depth ()
 {
@@ -509,7 +637,7 @@ sub generate_ly_toc_entries($$$)
         "Contact", "Tiny examples", "Bug reports"
 	);
   my @color_2 = (
-        "Features", "Examples", "Freedom",
+        "Features", "Examples", "Freedom", "Background",
 	"Unix", "MacOS X", "Windows",
         "Notation", "Usage", "Snippets",
         "Help us", "Development", "Authors"
@@ -521,9 +649,9 @@ sub generate_ly_toc_entries($$$)
         "Publications", "Old news"
         );
   my @color_4 = (
-        "Text input",
+        "Text input", "Alternate input",
         "GPL",
-        "Translated", "Old", "FDL"
+        "Translated", "All", "FDL"
         );
 
   my $addColor = " colorDefault";
@@ -600,6 +728,9 @@ sub lilypond_generate_page_toc_body($)
       $parentelements{$current_element->{'sectionup'}->{'id'}} = 1
               if ($current_element->{'sectionup'}->{'id'} ne '');
       $current_element = $current_element->{'sectionup'};
+      if (exists($main::value{'shallow_toc'})) {
+	  last;
+      }
     }
     return () if not defined($current_element);
     # Create the toc entries recursively
@@ -614,15 +745,31 @@ sub lilypond_generate_page_toc_body($)
     } else {
         push (@toc_entries, "<li class=\"toc_current\"><a href=\"index.html\">Main</a></li>\n");
     }
-
     my $children = $current_element->{'section_childs'};
 # FIXME: generate toc
     foreach ( @$children ) {
       push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth));
     }
-# FIXME: add search entry box
-    push (@toc_entries, "<li><form action=\"#\" method=\"get\"><input onfocus=\"this.value=''\" type=\"text\" name=\"search\" id=\"search\" value=\"Search\"></form></li>\n");
+    if (!exists($main::value{'shallow_toc'})) {
+# WTF, perl needs 6 lines of magic to do: ' ' + open ('file-name').read ()?
+	local $/=undef;
+        my $name = 'search-box.html';
+	open FILE, $name or open FILE, "../$name" or die  die "no such file: $name: $!";
 
+# All these also seems to work, but fail silently.  Great, it runs!
+# It's late already, let's this broken site.
+
+#	push (@toc_entries, '<li>\n' + <FILE> + '</li>\n');
+#	push (@toc_entries, '<li>\n' . <FILE> . '</li>\n');
+#	my $string = '<li>\n' + <FILE> + '</li>\n';
+#       my $string = '<li>\n' + <FILE> + '</li>\n';
+#       my $string = '<li>\n' . <FILE> . '</li>\n';
+	my $string = <FILE>;
+#       $string = '<li>\n' + $string + '</li>\n';
+	$string =  "<li>\n" . $string . "</li>\n";
+	push (@toc_entries, $string);
+	close FILE;
+    }
     push (@toc_entries, "</ul>\n");
 #FIXME
 #    push (@toc_entries, "</div>\n");
@@ -723,6 +870,7 @@ sub print_lilypond_page_foot($)
   # Do not include language selection in div#main
   print $fh "<!-- end div#main here -->\n</div>\n\n";
 
+  if (0) {
   print $fh "<!-- FOOTER -->\n\n";
   print $fh "<div id=\"footer\">\n";
   print $fh "<div id=\"language\">\n";
@@ -730,6 +878,7 @@ sub print_lilypond_page_foot($)
   print $fh "<p><a href=\"\">Deutsch</a>, Español, Français, Magyar.</p>\n";
   print $fh "<p>About automatic language selection.</p>\n";
   print $fh "</div>\n";
+  }
 
   print $fh "<div id=\"verifier_texinfo\">\n";
   print $fh "<h3>Validation</h3>\n";
@@ -739,11 +888,6 @@ sub print_lilypond_page_foot($)
   print $fh "<img src=\"http://www.w3.org/Icons/valid-html401\"\n";
   print $fh "     alt=\"Valid HTML 4.01 Transitional\"\n";
   print $fh "     height=\"31\" width=\"88\"></a></p>\n";
-  print $fh "<p>Web pages created with";
-  print $fh " <a href=\"http://www.gnu.org/software/texinfo/\">";
-  print $fh " GNU Texinfo</a>\n";
-  print $fh " and <a href=\"http://www.nongnu.org/texi2html/\">";
-  print $fh " texi2html</a>.</p>\n";
   print $fh "</div>";
   print $fh "</div>";
 

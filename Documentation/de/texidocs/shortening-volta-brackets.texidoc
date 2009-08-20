@@ -3,7 +3,7 @@
 Volta-Klammern werden normalerweise über alle Noten der Klammer gezogen, aber
 es ist möglich sie zu verkürzen.  Hierzu muss
 @code{voltaSpannerDuration} definiert werden, in dem Beispiel etwa als
-3/4, sodass die Klammer nur einen Takt dauert. 
+3/4, sodass die Klammer nur einen Takt dauert.
 
 "
   doctitlede = "Volta-Klammern verkürzen"

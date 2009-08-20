@@ -930,7 +930,8 @@ c2 c
 
 @seealso
 Notation Reference:
-@ref{Mensural clefs}, @ref{Gregorian clefs}.
+@ref{Mensural clefs},
+@ref{Gregorian clefs}.
 
 Snippets:
 @rlsr{Pitches}.
@@ -1179,7 +1180,8 @@ Music Glossary:
 @rglos{transposing instrument}.
 
 Notation Reference:
-@ref{Quoting other voices}, @ref{Transpose}.
+@ref{Quoting other voices},
+@ref{Transpose}.
 
 Snippets:
 @rlsr{Pitches}.
@@ -2166,7 +2168,7 @@ Snippets:
 Internals Reference:
 @rinternals{Accidental},
 @rinternals{Accidental_engraver},
-@rinternals{GrandStaff} and
+@rinternals{GrandStaff},
 @rinternals{PianoStaff},
 @rinternals{Staff},
 @rinternals{AccidentalSuggestion},
@@ -2289,25 +2291,58 @@ This section suggests ways of altering note heads.
 
 @funindex cross
 
-Note heads may be altered:
+The appearance of note heads may be altered:
 
 @lilypond[verbatim,quote,relative=2]
-c4 b a b
+c4 b
 \override NoteHead #'style = #'cross
-c4 b a b
+c4 b
+\revert NoteHead #'style
+a b
+\override NoteHead #'style = #'harmonic
+a b
 \revert NoteHead #'style
 c4 d e f
 @end lilypond
 
-There is a shorthand for diamond shapes which can only be used
-inside chords:
+To see all note head styles, see @ref{Note head styles}.
+
+The @code{cross} style is used to represent a variety of musical
+intentions.  The following generic predefined commands modify the
+note head in both staff and tablature contexts and can be used to
+represent any musical meaning:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNotesOn
+ a b c4 b
+\xNotesOff
+c4 d
+@end lilypond
+
+The music function form of this predefined command may be used
+inside and outside chords to generate crossed note heads in both
+staff and tablature contexts:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b
+\xNote { e f }
+c b < g \xNote c f > b
+@end lilypond
+
+There is also a shorthand for diamond shapes which can be used
+only inside chords:
 
 @lilypond[verbatim,quote,relative=2]
 <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
 @end lilypond
 
-To see all note head styles, see @ref{Note head styles}.
-
+@predefined
+@code{\harmonic},
+@code{\xNotesOn},
+@code{\xNotesOff},
+@code{\xNote}.
+@endpredefined
 
 @seealso
 Snippets:

@@ -4,6 +4,18 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+Après un changement de tonalité, un bécarre est imprimé pour annuler
+toute altération précédente.  Ceci peut être supprimé en réglant à
+@code{\"false\"} la propriété @code{printKeyCancellation} du contexte
+@code{Staff}. 
+
+"
+
+  doctitlefr = "Suppression des bécarres superflus après un changement de
+tonalité"
+
   lsrtags = "pitches"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -15,7 +27,6 @@ anteriores.  Esto se puede evitar estableciendo al valor \"falso\" la
 propiedad @code{printKeyCancellation} del contexto @code{Staff}.
 
 "
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 doctitlede = "Auflösungzeichen nicht setzen, wenn die Tonart wechselt"
@@ -30,7 +41,7 @@ im @code{Staff}-Kontext auf \"false\" gesetzt wird.
   texidoc = "
 When the key signature changes, natural signs are automatically printed
 to cancel any accidentals from previous key signatures.  This may be
-prevented by setting to \"false\" the @code{printKeyCancellation}
+prevented by setting to @code{f} the @code{printKeyCancellation}
 property in the @code{Staff} context.
 
 "

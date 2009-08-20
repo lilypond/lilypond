@@ -9,8 +9,8 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = application contributor essay general learning notation
-SUBDIRS = $(MANUALS_SUBDIRS) snippets bibliography logo pictures misc po $(LANGS)
+MANUALS_SUBDIRS = application automated-engraving contributor essay general learning notation
+SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
@@ -30,6 +30,8 @@ LATEX_FILES =$(call src-wildcard,*.latex)
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
+
+EXTRA_DIST_FILES = $(call src-wildcard,*.init) $(LATEX_FILES)
 
 ### Out files
 
@@ -51,7 +53,7 @@ OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
 # of the NR
 TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 
-PDF_FILES = $(subst $(outdir)/general.pdf,,$(TEXINFO_MANUALS:%=$(outdir)/%.pdf))
+PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
 UNSPLITTED_HTML_MANUALS = changes
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
@@ -91,9 +93,11 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 ## No big page
 OUT_HTML_FILES := $(subst $(outdir)/general-big-page.html,,$(OUT_HTML_FILES))
 
-## Different init file and CSS
-$(outdir)/general/index.html: \
- TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/web-texi2html.init
+$(outdir)/essay/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT) -D=shallow_toc
+$(outdir)/essay/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
+
+$(outdir)/general/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
+$(outdir)/general/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
 
 ###########
 ### Targets
@@ -142,6 +146,12 @@ endif
 #########
 ### Rules
 
+$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+
+$(outdir)/lilypond.info: $(src-dir)/general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+
 # cd $(outdir) rule gets bit hairy for --srcdir configure builds
 txt-to-html:
 	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
@@ -154,6 +164,14 @@ $(OUT_TEXINFO_MANUALS): $(outdir)/pictures
 $(outdir)/pictures:
 	$(MAKE) -C pictures WWW-1
 	ln -sf ../pictures/$(outdir) $@
+
+$(outdir)/general.texi: $(outdir)/examples
+
+$(outdir)/examples:
+	$(MAKE) -C general/examples
+# FIXME: who is replacing src="examples --> src="../examples" ?
+# [ugh, why do most scripts not even say they run anymore?]
+	ln -sf general/examples $@
 endif
 
 # Ugh, using '%' twice not possible
@@ -224,27 +242,48 @@ CHECK_TRANSLATION_FLAGS = --no-color
 endif
 
 ifneq ($(ISOLANG),)
-new-lang:
-	@if (( $$(file -b $(ISOLANG)) == directory )) 2>/dev/null; \
-	then echo "Error: $(ISOLANG) directory already exists. Exiting." ; \
-	exit 3 ; \
-	fi
-	mkdir -p $(ISOLANG)/learning
+new-lang-dir:
+	mkdir -p $(ISOLANG)/$(DIR)
 	cp fr/GNUmakefile $(ISOLANG)
-	cp fr/learning/GNUmakefile $(ISOLANG)/learning
-	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/learning/GNUmakefile
-	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../learning.tely
-	mv $(outdir)/*.*tely $(ISOLANG)/learning
+	cp fr/$(DIR)/GNUmakefile $(ISOLANG)/$(DIR)
+	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/$(DIR)/GNUmakefile
+	rm -f $(outdir)/*.*tely $(outdir)/*.*texi
+	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
+	for i in $$(cd $(outdir) && ls -1 $(DIR).tely $(DIR).texi); do\
+	    test -e $(ISOLANG)/$$i || mv $(outdir)/$$i $(ISOLANG)/$$i;\
+	done
+	rm -f $(outdir)/$(DIR).tely $(outdir)/$(DIR).texi
+	for i in $$(cd $(outdir) && ls -1 *.*tely *.*texi); do\
+	    test -e $(ISOLANG)/$(DIR)/$$i\
+		|| mv $(outdir)/$$i $(ISOLANG)/$(DIR)/$$i;\
+	done
+
+new-lang:
+# Also for updating/adding missing files
+	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
+	$(foreach i, $(EXTRA_TRANSLATION_FILES), \
+	    (test -e $(ISOLANG)/$(i) \
+		|| cp fr/$(i) $(ISOLANG)/$(i)) && ) true
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
-	cp po/lilypond-doc.pot po/$(ISOLANG).po
+	test -e po/$(ISOLANG).po || cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
-CHECKED_FILES = $(ISOLANG)/index.html.in $(foreach i,learning notation application, \
-  $(shell find $(ISOLANG)/$(manual) -name '*.*te??' -not -wholename '*out-www*')) \
-  $(shell find $(ISOLANG)/texidocs/ -name '*.texidoc')
+#TRANSLATION_DIRS = $(shell git ls-files $(ISOLANG) | $(PYTHON) $(buildscript-dir)/pytt.py '/[^/]*$$' / | sort -u )
+TRANSLATION_DIRS = application general learning notation texidocs
+TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
+EXTRA_TRANSLATION_FILES =\
+ dedication.itely\
+ index.html.in\
+ common-macros.itexi\
+ macros.itexi\
+ translations.html.in\
+ translations.template.html.in\
+#
+
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 skeleton-update:
+	mkdir -p $(ISOLANG)
 	$(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
 	$(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
 
@@ -274,10 +313,10 @@ fix-xrefs:
 	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 check-translation:
-	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
+	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
 update-translation:
-	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
+	ISOLANG=$(ISOLANG) $(auxscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
 
 translation-status:
 	make -C po out=www messages

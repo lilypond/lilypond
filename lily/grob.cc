@@ -11,6 +11,7 @@
 #include <cstring>
 
 #include "align-interface.hh"
+#include "axis-group-interface.hh"
 #include "input.hh"
 #include "international.hh"
 #include "item.hh"
@@ -761,3 +762,4 @@ Grob::check_cross_staff (Grob *commony)
 
   return false;
 }
+

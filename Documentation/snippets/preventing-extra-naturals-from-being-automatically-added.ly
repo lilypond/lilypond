@@ -19,7 +19,6 @@ dentro del contexto de @code{Staff}.
 
 "
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
 hinzugefügt werden"
@@ -30,8 +29,7 @@ ein vorheriges Versetzungszeichen der gleichen Note aufgehoben werden
 soll.  Um dieses Verhalten zu ändern, muss die Eigenschaft
 @code{extraNatural} im @code{Staff}-Kontext auf \"false\" gesetzt werden.
 "
-
-%% Translation of GIT committish: 203ab4a7388f36b9c89c66671498dbaefccbf86e
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
   texidocfr = "
 En accord avec les règles standards de l'écriture musicale, on grave
 un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
@@ -39,12 +37,13 @@ altération précédente.  Pour modifier ce comportement, assignez la propriét�
 @code{extraNatural} du contexte @code{Staff} à la valeur @code{##f} (faux).
 "
 
+  doctitlefr = "Suppression des bécarres superflus"
 
   texidoc = "
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental on the same
 note needs to be canceled.  To change this behavior, set the
-@code{extraNatural} property to \"false\" in the @code{Staff} context.
+@code{extraNatural} property to @code{f} in the @code{Staff} context.
 
 
 

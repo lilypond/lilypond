@@ -4,6 +4,36 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+Cet exemple, grâce à un peu de code Scheme, donne la priorité aux
+enharmoniques  afin de limiter le nombre d'altérations supplémentaires.  
+La règle appliquable est :
+
+@itemize
+@item
+Les altérations doubles sont supprimées
+
+@item
+Si dièse -> Do
+
+@item
+Mi dièse -> Fa
+
+@item
+Do bémol -> Si
+
+@item
+Fa bémol -> Mi
+
+@end itemize
+
+Cette façon de procéder aboutit à plus d'enharmoniques naturelles.
+
+"
+
+  doctitlefr = "Transposition et réduction du nombrer d'altérations accidentelles"
+
   lsrtags = "pitches"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -36,7 +66,6 @@ De esta forma se selecciona el mayor número de notas enarmónicas
 naturales.
 
 "
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."

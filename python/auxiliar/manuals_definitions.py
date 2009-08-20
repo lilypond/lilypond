@@ -6,6 +6,8 @@ references_dict = {
     'notation': 'ruser',
     'learning': 'rlearning',
     'application': 'rprogram',
+    'essay': 'ressay',
     'snippets': 'rlsr',
     'music-glossary': 'rglos',
-    'internals': 'rinternals' }
+    'internals': 'rinternals',
+    }

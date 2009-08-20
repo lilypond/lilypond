@@ -4,6 +4,15 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Si un soufflet est trop court, il suffit d'ajuster la propriété 
+@code{minimum-length} de l'objet @code{Hairpin} pour l'allonger.
+
+"
+  doctitlefr = "Ajustement de la longueur d'un soufflet"
+
+
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -14,7 +23,6 @@ modificando la propiedad @code{minimum-length} del objeto
 
 "
   doctitlees = "Ajustar la longitud mínima de los reguladores"
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "

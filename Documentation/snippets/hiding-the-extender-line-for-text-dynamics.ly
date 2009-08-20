@@ -4,6 +4,16 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Les crescendos et decrescendos indiqués textuellement -- tels que
+@emph{cresc.} ou @emph{dim.} -- sont suivis de pointillés qui montrent
+leur étendue.  On peut empêcher l'impression de ces pointillés avec :
+
+"
+  doctitlefr = "Masquage de l'extension des nuances textuelles"
+
+
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -14,7 +24,6 @@ Esta línea se puede suprimir de la siguiente manera:
 
 "
   doctitlees = "Ocultar la línea de extensión de las expresiones textuales de dinámica"
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "

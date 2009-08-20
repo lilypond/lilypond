@@ -595,7 +595,7 @@ Some common characteristics of harp music are covered elsewhere:
 @ref{Glissando}.
 
 @item A @notation{bisbigliando} is written as a tremelo @ref{Tremolo
-repeats}
+repeats}.
 
 @item Natural harmonics are covered under @ref{Harmonics}.
 
@@ -605,10 +605,10 @@ repeats}
 
 @seealso
 Notation Reference:
-@ref{Tremolo repeats}
-@ref{Glissando}
-@ref{Arpeggio}
-@ref{Harmonics}
+@ref{Tremolo repeats},
+@ref{Glissando},
+@ref{Arpeggio},
+@ref{Harmonics}.
 
 @node Harp pedals
 @unnumberedsubsubsec Harp pedals
@@ -627,8 +627,10 @@ The position of the pedals may be indicated with text marks:
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
-cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {[ C \natural ]}
+cis1_\markup \concat \vcenter {
+  [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {
+  [ C \natural ] }
 @end lilypond
 
 or pedal diagrams:
@@ -647,5 +649,5 @@ position (sharpened pitch), and @code{|} is the divider. A prefixed
 
 @seealso
 Notation Reference:
-@ref{Text scripts}
-@ref{Instrument Specific Markup}
+@ref{Text scripts},
+@ref{Instrument Specific Markup}.

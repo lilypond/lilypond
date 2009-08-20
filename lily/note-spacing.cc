@@ -235,6 +235,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  Item *it = dynamic_cast<Item *> (items[i]);
 	  if (!Note_column::has_interface (it))
 	    continue;
+	  if (d == RIGHT && it->get_column () != rcolumn)
+	    continue;
 
 	  /*
 	    Find accidentals which are sticking out of the right side.

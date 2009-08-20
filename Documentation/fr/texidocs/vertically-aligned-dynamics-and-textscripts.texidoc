@@ -1,0 +1,14 @@
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Vous pourrez, en jouant sur la propriété @code{'Y-extent}, aligner les
+différents objets @code{DynamicLineSpanner} (souflets ou textuels)
+quelle que soit leur étendue, par rapport à un même point de référence.
+Tous les éléments seront alors centrés sur une même ligne, ce qui sera
+visuellement plus agréable.
+
+C'est le même principe qui sert à aligner les indications textuelles sur
+une ligne de référence.
+
+"
+  doctitlefr = "Alignement vertical des nuances indications textuelles"
+

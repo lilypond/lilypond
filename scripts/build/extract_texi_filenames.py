@@ -49,7 +49,7 @@ def help (text):
 
 outdir = '.'
 split = "custom"
-include_path = []
+include_path = ['.',]
 master_map_file = ''
 initial_map = {}
 for opt in options_list:
@@ -60,6 +60,8 @@ for opt in options_list:
     if o == '-I' or o == '--include':
         if os.path.isdir (a):
             include_path.append (a)
+        else:
+            print 'NOT A DIR from: ', os.getcwd (), a
     elif o == '-o' or o == '--output':
         outdir = a
     elif o == '-s' or o == '--split':
@@ -85,15 +87,17 @@ section_translation_re = re.compile ('^@(node|(?:unnumbered|appendix)\
 external_node_re = re.compile (r'\s+@c\s+external.*')
 
 def expand_includes (m, filename):
-    filepath = os.path.join (os.path.dirname (filename), m.group(1))
+    include_name = m.group (1)
+    filepath = os.path.join (os.path.dirname (filename), include_name)
     if os.path.exists (filepath):
         return extract_sections (filepath)[1]
     else:
         for directory in include_path:
-            filepath = os.path.join (directory, m.group(1))
+            filepath = os.path.join (directory, include_name)
             if os.path.exists (filepath):
                 return extract_sections (filepath)[1]
-        print "Unable to locate include file " + filepath
+        print 'No such file: ' + include_name
+        print 'Search path: ' + ':'.join (include_path)
         return ''
 
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)
@@ -181,6 +185,7 @@ def process_sections (filename, lang_suffix, page):
     sections = section_translation_re.findall (page)
     basename = os.path.splitext (os.path.basename (filename))[0]
     p = os.path.join (outdir, basename) + lang_suffix + '.xref-map'
+    print 'writing:', p
     f = open (p, 'w')
 
     this_title = ''

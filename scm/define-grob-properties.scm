@@ -791,8 +791,6 @@ should use @code{LEFT}.")
      (thickness ,number? "Line thickness, generally measured in
 @code{line-thickness}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
-     (threshold ,number-pair? "@code{(@var{min} . @var{max})}, where
-@var{min} and @var{max} are dimensions in staff space.")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff
@@ -926,11 +924,8 @@ in addition to notes and stems.")
 empty in a particular staff, then that staff is erased.")
 
      (left-items ,ly:grob-array? "DOCME")
-     (left-neighbors ,ly:grob-array? "An array of @code{spacing-wishes} grobs
-that are close to the current column.
-
-The closest @code{spacing-wishes} determine the actual distances between the
-columns.")
+     (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
+for this column.")
 
      (normal-stems ,ly:grob-array? "An array of visible stems.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")
@@ -949,7 +944,7 @@ relevant for finding the @code{pure-Y-extent}.")
      (rest-collision ,ly:grob? "A rest collision that a rest is in.")
      (rests ,ly:grob-array? "An array of rest objects.")
      (right-items ,ly:grob-array? "DOCME")
-     (right-neighbors ,ly:grob-array? "See @code{left-neighbors}.")
+     (right-neighbor ,ly:grob? "See @code{left-neighbor}.")
 
      (separation-item ,ly:grob? "A pointer to a @code{SeparationItem}
 object.")
@@ -1007,6 +1002,8 @@ supported by this object.  It is initialized from the @code{meta} field.")
 
      (least-squares-dy ,number? "The ideal beam slope, without damping.")
 
+     (maybe-loose ,boolean? "Used to mark a breakable column that is
+loose if and only if it is in the middle of a line.")
      (meta ,list? "Provide meta information.  It is an alist with the
 entries @code{name} and @code{interfaces}.")
      (minimum-distances ,list? "A list of rods that have the format
@@ -1032,6 +1029,8 @@ Internally used to distribute beam shortening over stems.")
      (skyline-distance ,number? "The distance between this staff and the
 next one, as determined by a skyline algorithm.")
      (stem-info ,pair? "A cache of stem parameters.")
+     (system-Y-offset ,number? "The Y-offset (relative to the bottom of the
+top-margin of the page) of the system to which this staff belongs.")
 
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")

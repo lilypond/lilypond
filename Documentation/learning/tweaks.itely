@@ -1510,7 +1510,8 @@ properties are measured in units of an internal property called
 hairpins are given a thickness of 1 unit of @code{line-thickness},
 while the @code{thickness} of a note stem is 1.3.  Note, though,
 that some thickness properties are different; for example, the
-thickness of beams is measured in staff-spaces.
+thickness of beams is controlled by the value of the
+@code{beam-thickness} property, which is measured in staff-spaces.
 
 So how are lengths to be scaled in proportion to the font size?
 This can be done with the help of a special function called
@@ -1768,7 +1769,7 @@ effect to a single note you must either use the equivalent
 followed after the affected note by the corresponding
 @code{\xxxNeutral} command.
 
-@subheading Fingering
+@unnumberedsubsubsec Fingering
 
 @cindex fingering, placement
 @cindex fingering, chords

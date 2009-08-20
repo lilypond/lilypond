@@ -24,7 +24,6 @@ Para ver más inforamción sobre @code{make-moment}, véase
 
 "
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Eigenschaft @code{tupletSpannerDuration} bestimmt, wie lange jede
@@ -39,7 +38,6 @@ Mehr Information über @code{make-moment} gibt es in \"Verwaltung der Zeiteinhei
 
 "
   doctitlede = "Mehrere Triolen notieren, aber nur einmal \\times benutzen"
-
 
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
@@ -66,8 +64,8 @@ In the example, two triplets are shown, while @code{\\times} was
 entered only once.
 
 
-For more information about @code{make-moment}, see \"Time
-administration\".
+Read the relevant sections of the Notation Reference for more
+information about @code{make-moment}.
 
 "
   doctitle = "Entering several tuplets using only one \\times command"

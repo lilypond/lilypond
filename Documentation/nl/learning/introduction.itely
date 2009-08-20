@@ -1,0 +1,239 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Introduction
+@chapter Introduction
+
+@untranslated
+
+
+@menu
+* Compiling a file::
+* Advanced editors::
+* How to write input files::
+* How to read the manuals::
+@end menu
+
+@node Compiling a file
+@section Compiling a file
+
+@untranslated
+
+
+@menu
+* Entering input::
+* MacOS X::
+* Windows::
+* Command-line::
+@end menu
+
+@node Entering input
+@subsection Entering input
+
+@untranslated
+
+
+@c index compiling
+@c index first example
+@c index example, first
+@c index case sensitive
+@c in this case we don't want verbatim
+@subheading Entering music and viewing output
+@c index PDF file
+@c index viewing music
+@c index text editors
+@c index running LilyPond under MacOS X
+@c index MacOS X, running LilyPond
+@c index running LilyPond under Windows
+@c index Windows, running LilyPond
+@c index running LilyPond under Unix
+@c index Unix, running LilyPond
+@ref{Advanced editors}.
+@node MacOS X
+@subsection MacOS X
+
+@untranslated
+
+
+@node Windows
+@subsection Windows
+
+@untranslated
+
+
+@node Command-line
+@subsection Command-line
+
+@untranslated
+
+
+@node Advanced editors
+@section Advanced editors
+
+@untranslated
+
+
+@menu
+* Denemo::
+* LilyPondTool::
+* Emacs::
+* Vim::
+@end menu
+
+@node Denemo
+@subsection Denemo
+
+@untranslated
+
+
+@node LilyPondTool
+@subsection LilyPondTool
+
+@untranslated
+
+
+@node Emacs
+@subsection Emacs
+
+@untranslated
+
+
+@node Vim
+@subsection Vim
+
+@untranslated
+
+
+@node How to write input files
+@section How to write input files
+
+@untranslated
+
+
+@menu
+* Simple notation::
+* Working on input files::
+@end menu
+
+@node Simple notation
+@subsection Simple notation
+
+@untranslated
+
+
+@c index simple notation
+@c index notation, simple
+@subheading Pitches
+@c index pitches
+@c index relative mode
+@c index quote, single
+@c index comma
+@c index accidentals and relative mode
+@c index relative mode, and accidentals
+@c ode{c} is the closest C to middle C.  This is followed by the
+@c ode{''} or @code{,,} -- but be careful that you use two single
+@c " - keeps quotes in order for context-sensitive editor -td
+@subheading Durations (rhythms)
+@c index note durations
+@c index durations
+@c index rhythms
+@c index whole note
+@c index half note
+@c index quarter note
+@c index dotted note
+@c index notating durations
+@subheading Rests
+@c index rest
+@c index notating rests
+@c ode{r}@tie{}:
+@subheading Time signature
+@c index time signature
+@subheading Clef
+@c index clef
+@c index treble
+@c index alto
+@c index tenor
+@c index bass
+@subheading All together
+@node Working on input files
+@subsection Working on input files
+
+@untranslated
+
+
+@c index curly braces
+@c index braces, curly
+@c index comments
+@c index line comment
+@c index comment, line
+@c index block comment
+@c index comment, line
+@c index case sensitive
+@c index whitespace insensitive
+@c index expressions
+@c ode{()} in mathematics.  The braces should be surrounded by a
+@c index comments
+@c index line comment
+@c index block comment
+@c ode{%} introduces a line comment; anything after @code{%} on
+@node How to read the manuals
+@section How to read the manuals
+
+@untranslated
+
+
+@menu
+* Omitting braces::
+* Clickable examples::
+* Keyboard navigation::
+* Overview of manuals::
+@end menu
+
+@node Omitting braces
+@unnumberedsubsec Omitting braces
+
+@untranslated
+
+
+@c index how to read the manual
+@c index manual, reading
+@c index reading the manual
+@c index examples, clickable
+@c index clickable examples
+@c index tips for constructing files
+@c index templates
+@c index constructing files, tips
+@c index files, tips for constructing
+@c ode{@w{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
+@c ode{@w{\relative c'' @{ @}}} like this:
+@c ode{\relative}!  If we included @code{@w{\relative c'' @{ @}}}
+@node Clickable examples
+@unnumberedsubsec Clickable examples
+
+@untranslated
+
+
+@c no verbatim here
+@node Keyboard navigation
+@unnumberedsubsec Keyboard navigation
+
+@untranslated
+
+
+@node Overview of manuals
+@unnumberedsubsec Overview of manuals
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

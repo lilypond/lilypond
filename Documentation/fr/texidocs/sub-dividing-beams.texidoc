@@ -6,11 +6,11 @@ ligature seront continus.  Ce comportement peut être modifié afin de
 diviser la ligature en sous-groupes grâce à la propriété
 @code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
 subdivisées selon un intervalle défini par @code{beatLength} ; il n'y
-aura alors plus qu'un seul trait de ligature entre chaque sous-groupe.  
+aura alors plus qu'un seul trait de ligature entre chaque sous-groupe.
 Par défaut, @code{beatLength} fixe la valeur de référence à une noire.
 Il faudra donc lui fournir, à l'aide de la fonction @code{make-moment},
 une fraction correspondant au sous-groupe désiré, comme dans l'exemple
-suivant. 
+suivant.
 
 "
   doctitlefr = "Subdivision des ligatures"

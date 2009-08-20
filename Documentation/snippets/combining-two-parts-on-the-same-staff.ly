@@ -4,6 +4,27 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+  texidocfr = "
+L'outil de combinaison de parties (la commande @code{\\partcombine})
+permet d'avoir deux parties différentes sur une même portée.  LilyPond
+ajoute automatiquement des indications textuelles, telles que @qq{solo}
+ou @qq{a2}.  Si votre intention n'est que de fusionner les parties, sans
+ajouter de texte, assignez faux à la propriété
+@code{printPartCombineTexts}.  Dans le cas de partitions vocales, et
+plus particulièrement d'hymnes, ces @qq{solo/a2} ne sont d'aucune
+utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
+alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
+à de la musique polyphonique standard.
+
+Voici trois moyens d'imprimer deux parties sur un même portée : en
+polyphonie normale, avec @code{\\partcombine} sans indication
+supplémentaire, et avec @code{\\partcombine} commentée.
+
+"
+  doctitlefr = "Combinaison de deux parties sur une même portée"
+
+
   lsrtags = "simultaneous-notes, text"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -28,7 +49,6 @@ textos.
 "
   doctitlees = "Combinar dos partes sobre el mismo pentagrama"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Funktion, die Stimmen kombiniert (also der @code{\\partcombine}-Befehl)
@@ -52,13 +72,12 @@ kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
   texidoc = "
 The part combiner tool ( @code{\\partcombine} command ) allows the
 combination of several different parts on the same staff.  Text
-directions such as \"solo\" or \"a2\" are added by default; to remove
-them, simply set the property @code{printPartCombineTexts} to
-\"false\". For vocal scores (hymns), there is no need to add
-\"solo\"/\"a2\" texts, so they should be switched off.  However, it
-might be better not to use it if there are any solos, as they won't be
-indicated.  In such cases, standard polyphonic notation may be
-preferable.
+directions such as @qq{solo} or @qq{a2} are added by default; to remove
+them, simply set the property @code{printPartCombineTexts} to @code{f}.
+For vocal scores (hymns), there is no need to add @qq{solo/a2} texts,
+so they should be switched off.  However, it might be better not to use
+it if there are any solos, as they won't be indicated.  In such cases,
+standard polyphonic notation may be preferable.
 
 This snippet presents the three ways two parts can be printed on a same
 staff: standard polyphony, @code{\\partcombine} without texts, and

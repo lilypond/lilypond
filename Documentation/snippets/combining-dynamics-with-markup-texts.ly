@@ -16,8 +16,9 @@ bloque @code{\\markup}.
   doctitlees = "Combinar indicaciones dinámicas con marcados textuales"
 
   texidoc = "
-Some dynamics may involve text indications (such as \"più forte\" or
-\"piano subito\"). They can be produced using a @code{\\markup} block.
+Some dynamics may involve text indications (such as @qq{più forte} or
+@qq{piano subito}). These can be produced using a @code{\\markup}
+block.
 
 "
   doctitle = "Combining dynamics with markup texts"

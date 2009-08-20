@@ -9,10 +9,10 @@
   texidoc = "
 If notes from two voices with stems in the same direction are placed at
 the same position, and both voices have no shift or the same shift
-specified, the error message \"warning: ignoring too many clashing note
-columns\" will appear when compiling the LilyPond file.  This message
-can be suppressed by setting the @code{'ignore-collision} property of
-the @code{NoteColumn} object to @code{#t}.
+specified, the error message @samp{warning: ignoring too many clashing
+note columns} will appear when compiling the LilyPond file.  This
+message can be suppressed by setting the @code{'ignore-collision}
+property of the @code{NoteColumn} object to @code{#t}.
 
 "
   doctitle = "Suppressing warnings for clashing note columns"

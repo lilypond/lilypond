@@ -2,15 +2,15 @@
 
   texidocfr = "
 La liste des diagrammes standards prédéfinis pour la guitare peut être
- augmentée d'autres définitions spécifiques à d'autres instruments.  
-Voici comment définir un nouvel accordage ainsi que quelques diagrammes 
+ augmentée d'autres définitions spécifiques à d'autres instruments.
+Voici comment définir un nouvel accordage ainsi que quelques diagrammes
 prédéfinis pour le @qq{cuatro vénézuélien}.
 
-Cet exemple illustre aussi la manière d'ajouter des doigtés aux 
-accords ; ils serviront de référence pour la boucle d'accord et seront 
-indiqués dans les diagrammes et le @code{TabStaff}, mais pas dans la musique. 
+Cet exemple illustre aussi la manière d'ajouter des doigtés aux
+accords ; ils serviront de référence pour la boucle d'accord et seront
+indiqués dans les diagrammes et le @code{TabStaff}, mais pas dans la musique.
 
-Ces diagrammes ne peuvent pas être transposés, dans la mesure où ils 
+Ces diagrammes ne peuvent pas être transposés, dans la mesure où ils
 contiennent des informations sur les cordes.  Ceci est amené à évoluer.
 
 "

@@ -22,7 +22,6 @@ debe hacer este ajuste para todos los pentagramas).
 "
   doctitlees = "Alinear marcas con varios objetos de notación"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn angegeben, können Textzeichen auch an anderen Objekten als Taktstrichen
@@ -75,7 +74,7 @@ be done for all the staves).
   \key a \major
   \clef treble
   \time 3/4
-  \mark "↓"
+  \mark \markup { \char ##x2193 }
   e2.
 
   % the RehearsalMark will be centered above the KeySignature
@@ -83,7 +82,7 @@ be done for all the staves).
   \key a \major
   \clef treble
   \time 4/4
-  \mark "↓"
+  \mark \markup { \char ##x2193 }
   e1
 
   \break
@@ -91,20 +90,20 @@ be done for all the staves).
 
   % the RehearsalMark will be aligned with the left edge of the KeySignature
   \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
-  \mark "↓"
+  \mark \markup { \char ##x2193 }
   \key a \major
   e1
 
   % the RehearsalMark will be aligned with the right edge of the KeySignature
   \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
   \key a \major
-  \mark "↓"
+  \mark \markup { \char ##x2193 }
   e1
 
   % the RehearsalMark will be aligned with the left edge of the KeySignature
   % and then shifted right by one unit.
   \once \override Score.KeySignature #'break-align-anchor = #1
   \key a \major
-  \mark "↓"
+  \mark \markup { \char ##x2193 }
   e1
 }

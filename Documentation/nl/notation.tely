@@ -1,0 +1,106 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of notation.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@setfilename lilypond-notation.info
+@settitle GNU LilyPond Notation Reference
+@documentencoding UTF-8
+@documentlanguage nl
+@include macros.itexi
+@afourpaper
+@c Keep this here, since it pertains to the direntry below.
+@c * lilypond: (lilypond-application)Running LilyPond.      Invoking the
+@c LilyPond  program.
+@c
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@c don't remove this comment.
+@ifnottex
+@node Top
+@top GNU LilyPond --- Notation Reference
+
+@untranslated
+
+
+@chapheading The music typesetter
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+@end ifnottex
+@c This produces the unified index
+@finalout
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Notation Reference}
+@author The LilyPond development team
+@quotation
+@end quotation
+@vskip 20pt
+@end titlepage
+@copying
+@quotation
+@end quotation
+@end copying
+@ifnottex
+@quotation
+@end quotation
+@end ifnottex
+@ifnottex
+@c @rlearning{About the documentation}.
+@c index web site
+@c index URL
+@include dedication.itely
+@menu
+* Musical notation::
+* Specialist notation::
+* General input and output::
+* Spacing issues::
+* Changing defaults::
+* Interfaces for programmers::
+* Notation manual tables::
+* Cheat sheet::
+* LilyPond grammar::
+* GNU Free Documentation License::
+* LilyPond command index::
+* LilyPond index::
+@end menu
+
+@end ifnottex
+@c * Literature list::                Reference works about music notation.
+@contents
+@include notation/notation.itely
+@include notation/specialist.itely
+@include notation/input.itely
+@include notation/spacing.itely
+@include notation/changing-defaults.itely
+@include notation/programming-interface.itely
+@c @include notation/literature.itely
+@include notation/notation-appendices.itely
+@include notation/cheatsheet.itely
+@node LilyPond grammar
+@appendix LilyPond grammar
+
+@untranslated
+
+
+@include fdl.itexi
+@node LilyPond command index
+@appendix LilyPond command index
+
+@untranslated
+
+
+@node LilyPond index
+@appendix LilyPond index
+
+@untranslated
+
+
+@bye
+
+@c -- SKELETON FILE --

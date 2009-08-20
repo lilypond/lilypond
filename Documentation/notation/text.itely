@@ -105,6 +105,7 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
+
 @cindex text outside margin
 @cindex margin, text running over
 @cindex text, keeping inside margin
@@ -346,8 +347,10 @@ requires, are described in @ref{Multi-page markup}.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
+
 @seealso
-Notation Reference: @ref{Formatting text},
+Notation Reference:
+@ref{Formatting text},
 @ref{File structure},
 @ref{Multiple scores in a book},
 @ref{Multi-page markup}.
@@ -355,7 +358,8 @@ Notation Reference: @ref{Formatting text},
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextScript}.
+Internals Reference:
+@rinternals{TextScript}.
 
 
 @node Formatting text
@@ -920,7 +924,8 @@ Notation Reference:
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextScript}.
+Internals Reference:
+@rinternals{TextScript}.
 
 Installed files:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
@@ -1100,7 +1105,8 @@ Notation Reference:
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextScript}.
+Internals Reference:
+@rinternals{TextScript}.
 
 Installed files:
 @file{scm/@/define@/-markup@/-commands@/.scm},
@@ -1172,7 +1178,6 @@ c16
 c2^\markup { \musicglyph #"timesig.neomensural94" }
 @end lilypond
 
-@noindent
 Another way of printing non-text glyphs is described in @ref{Fonts
 explained}.  This is useful for printing braces of various sizes.
 
@@ -1232,7 +1237,8 @@ Notation Reference:
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextScript}.
+Internals Reference:
+@rinternals{TextScript}.
 
 Installed files:
 @file{scm/@/define@/-markup@/-commands@/.scm},
@@ -1295,10 +1301,12 @@ Notation Reference:
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextScript}.
+Internals Reference:
+@rinternals{TextScript}.
 
 Installed files:
 @file{scm/@/define@/-markup@/-commands@/.scm}.
+
 
 @funindex \markuplines
 @funindex markuplines
@@ -1435,7 +1443,7 @@ Any font that is installed on the operating system and recognized by
 FontConfig may be used in a score, using the following syntax:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.TimeSignature #'font-name = #"Charter"
+\override Staff.TimeSignature #'font-name = #"Bitstream Charter"
 \override Staff.TimeSignature #'font-size = #2
 \time 3/4
 
@@ -1459,10 +1467,6 @@ operating system:
 lilypond -dshow-available-fonts x
 @end example
 
-@noindent
-The last argument of the command can be anything, but has to be
-present.
-
 
 @seealso
 Notation Reference:
@@ -1472,8 +1476,9 @@ Notation Reference:
 Snippets:
 @rlsr{Text}.
 
-Installed files:
-@file{lily/@/font@/-config@/-scheme@/.cc}.
+@c A source file gets never installed...
+@c Installed files:
+@c @file{lily/@/font@/-config@/-scheme@/.cc}.
 
 
 @node Entire document fonts

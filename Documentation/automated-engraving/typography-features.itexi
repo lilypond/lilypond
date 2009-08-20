@@ -1,0 +1,129 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+
+@node typography-features 
+
+@unnumberedsec Font design
+
+A large factor that makes LilyPond output look traditional lies in the
+blackness of the page. By using heavy stafflines, and a font design to
+match that, the overall impression is much stronger. This is also very
+clear from the following blowups:
+
+@multitable @columnfractions .3 .3 .3
+@item
+
+@sourceimage{henle-flat-gray,,,.png}
+
+@tab
+
+@sourceimage{baer-flat-gray,,,.png}
+
+@tab
+
+@sourceimage{lily-flat-bw,,,.png}
+
+
+@item
+Henle (2000)
+
+@tab
+B@"arenreiter (1950)
+
+@tab
+LilyPond (2003)
+
+
+
+@end multitable
+
+Another typical aspect of hand-engraved scores is the general look of
+the symbols. They almost never have sharp corners. This is because
+sharp corners of the punching dies are fragile and quickly wear out
+when stamping in metal.  The general rounded shape of music symbols is
+also present in all glyphs of our "Feta" font.
+
+
+
+ 
+@c @unnumberedsec Spacing
+@heading Spacing
+
+One of the problems that the Bach piece above inspired us to attack
+is the spacing engine. One of its features is optical spacing.
+It is demonstrated in the fragment below.
+
+@divClass{float-center}
+@sourceimage{spacing-with-corr,,,.png}
+@divEnd
+
+@divClass{float-center}
+@sourceimage{spacing-no-corr,,,.png}
+@divEnd
+
+This fragment only uses quarter notes: notes that are played in a
+constant rhythm. The spacing should reflect that. Unfortunately, the
+eye deceives us a little: not only does it notice the distance between
+note heads, it also takes into account the distance between
+consecutive stems. As a result, the notes of an up-stem/down-stem
+combination should be put farther apart, and the notes of a down-up
+combination should be put closer together, all depending on the
+combined vertical positions of the notes. The top fragment is printed
+with this correction, the bottom one without.  In the last case, the
+down-stem/up-stems combinations form clumps of notes.
+
+
+@c @unnumberedsec Ledger lines
+@heading Ledger lines
+
+Ledger lines are typographically difficult. They can easily blot
+together with other signs, such as ledger lines or
+accidentals. Other software prevents these collisions by spacing the
+lines wider (thus taking up more space), or shortening ledger lines
+(which hampers readability.)  
+
+@multitable @columnfractions .3 .3 .3
+@item
+
+@sourceimage{henle-ledger,,,.png}
+
+@tab
+
+@sourceimage{baer-ledger,,,.png}
+
+
+
+@tab
+
+@sourceimage{lily-ledger,,,.png}
+
+
+@item
+Henle (2000)
+
+@tab
+B@"arenreiter (1950)
+
+@tab
+LilyPond (2004)
+
+
+
+@end multitable
+
+Traditional engravers would adjust the size of a ledger line,
+depending on what symbols were in the neighborhood. LilyPond does the
+same. Ledgers are shortened so they never collide with neighboring
+lines, and they are shortened when there is an accidental.
+
+@divClass{float-right}
+Next: @ref{input-format,Use the Source Luke}, or: what
+goes into LilyPond.
+@divEnd

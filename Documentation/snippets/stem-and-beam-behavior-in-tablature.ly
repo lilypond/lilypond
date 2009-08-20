@@ -15,7 +15,6 @@ poner horizontales, como se muestra en este ejemplo.
 "
   doctitlees = "Comportamiento de las plicas y las barras de corchea en tablaturas"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Richtung von Hälsen wird in Tabulaturen genauso wie in normaler Notation
@@ -24,7 +23,6 @@ zeigt.
 
 "
   doctitlede = "Hals- und Balkenverhalten in einer Tabulatur"
-
 %% Translation of GIT committish: cd4950757ab1ab6c89805b0b7c978bfca034f940
 
   texidocfr = "

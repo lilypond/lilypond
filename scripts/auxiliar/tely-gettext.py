@@ -22,7 +22,7 @@ _doc = langdefs.translation[lang]
 
 include_re = re.compile (r'@include (.*?)$', re.M)
 whitespaces = re.compile (r'\s+')
-ref_re = re.compile (r'(?ms)@(ruser|rprogram|ref|rlearning)\{(.*?)\}')
+ref_re = re.compile (r'(?ms)@((?:ressay|rgloss|rinternals|rlearning|rslr|rprogram|ruser|ref)|named)\{(.*?)\}')
 node_section_re = re.compile (r'@node (.*?)\n@((?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) (.*?)\n')
 section_only_re = re.compile (r'@((?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) (.*?)\n')
 menu_entry_re = re.compile (r'\* (.*?)::')

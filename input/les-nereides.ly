@@ -1,4 +1,4 @@
-\version "2.12.0"
+\version "2.13.4"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -40,9 +40,9 @@ treble = \new Voice \relative c''{
     <fis fis,>8 <e! e,!>
     | %4
     <dis, a' dis>4)\sustainOn
-    
+
     \change Staff=treble
-    
+
     \slurUp
     \set PianoStaff.connectArpeggios = ##t
 
@@ -53,10 +53,10 @@ treble = \new Voice \relative c''{
     \grace {
         cis8
 	\revert Stem #'direction
-	
+
 	a16[-5_( fis dis]
 	\ottava #0
-	
+
 	cis32[ a-1 fis-4 dis]   cis[ a  fis)-2]
 				% the small grace in lower staff comes after us
 	s32
@@ -68,16 +68,16 @@ treble = \new Voice \relative c''{
 
     | %5
     r8 <a' a,>8(\mf <gis gis,> <fis fis,>
-    
+
     % \fingerUp
     \override Fingering  #'direction = #UP
-    
+
     <gis gis,> <fis fis,> e)-1-4-5 r
 
     | %6
     r <a a,>8(\mf <gis gis,> <fis fis,>
     <gis gis,> <fis fis,>  e) r
-    
+
     | %7
     \bar "||"
 }
@@ -102,7 +102,7 @@ trebleTwo = \new Voice \relative c''{
     \override Fingering #'slur-padding = #0.1
     <cis e,>8[( <d,_3 b'_1>
     | %6
-    <cis_1 a'_2>)] cis'4. d4 
+    <cis_1 a'_2>)] cis'4. d4
     <cis e,>8[( <b d,>
     | %7
     <a cis,>)]
@@ -111,36 +111,36 @@ trebleTwo = \new Voice \relative c''{
 bass = \new Voice \relative c{
     \partial 2
     \key a \major
-    
+
     \slurDown
     \dynamicUp
 
     r8. e,16(\f_2 <a a,>8[ <b b,>]
     | %2
     %\override Staff.SustainPedalLineSpanner #'staff-padding = #5 %tweak
-			   
+
     <cis cis,>4\sustainOn
     \change Staff=treble
     \stemDown
     <a'' eis cis>4)\arpeggio
-    
+
     \change Staff=bass
     \stemNeutral
-    
+
     r8. cis,,16(\sustainOff <fis fis,>8 <gis gis,>
-    
+
     | %3
 
     <a a,>4\sustainOn
     \change Staff=treble
-			
+
     \stemNeutral
-    \stemDown    
+    \stemDown
     <a' fis cis>)\arpeggio
     \change Staff=bass
     \stemNeutral
     r2
-    
+
     | %4
     \stemDown
     <b,, b,>4
@@ -150,46 +150,46 @@ bass = \new Voice \relative c{
         %urg: staff-change: ! on dis
         <cis'' a fis dis!>\arpeggio
     >>
-    
+
     \grace {
 	\override Stem  #'stroke-style = #"grace"
-  
+
         s8
         s16 s s
  	s32 s s
 	s s s
 	\clef bass
 	<e,,, e,>32(\sustainOff\sustainOn
-    
+
 	\revert Stem #'stroke-style
     }
     <gis' e>2)
-    
+
     | %5
     \slurUp
-    
+
     % \fingerDown
     \override Fingering  #'direction = #DOWN
 
-			   
+
     %\override Staff.SustainPedalLineSpanner #'staff-padding = #3.5 %tweak
     \set Staff.pedalSustainStyle = #'mixed
     %%a,8 e'[-5(<a-2 cis-3>])
 
-			   
+
     a,8\sustainOn e'[-5(<a cis>])-2-3
     %%r b,-5 <e-3 gis-5 d'>4
     r b,-5\sustainOff\sustainOn <e gis d'>4-3-5
     \slurNeutral
     e,8[-5(\sustainOff
-    
+
     | %6
     a)-2]\sustainOn
     \slurUp
     e'[(<a cis>)] r b,\sustainOff\sustainOn <e gis d'>4
     \slurNeutral
     e,8[(\sustainOff
-    
+
     | %7
     a)]
 }
@@ -217,7 +217,7 @@ middleDynamics = {
 	s32 s
 	s\> s
 	s32 s s\! s
-    
+
     }
     \textLengthOn
     s32 s-"rall." s s s8 s4
@@ -225,7 +225,7 @@ middleDynamics = {
     | %5
     s2-"a tempo" s8
     s \> s s
-    | %6 
+    | %6
     s8\!
     s2 s8 s\> s
     | %7
@@ -235,6 +235,9 @@ middleDynamics = {
 theScore = \score{
     \context PianoStaff <<
         \new Staff = "treble" <<
+            \overrideBeamSettings #'Score #'(4 . 4) #'end
+              #'((* . (1 1 1 1))
+                 ((1 . 32) (4 4 4 4 4 4 4 4)))
 	    \treble
 	    \trebleTwo
         >>
@@ -255,11 +258,11 @@ theScore = \score{
         }
     }
 }
-			   
+
 \book{
     \score { \theScore }
 }
-    
+
 %%% Local variables:
 %%% coding: utf-8
 %%% LilyPond-indent-level:2

@@ -365,6 +365,7 @@ ADD_INTERFACE (Paper_column,
 	       "line-break-system-details "
 	       "line-break-penalty "
 	       "line-break-permission "
+	       "maybe-loose "
 	       "page-break-penalty "
 	       "page-break-permission "
 	       "page-turn-penalty "

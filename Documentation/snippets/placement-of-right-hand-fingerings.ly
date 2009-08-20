@@ -15,7 +15,6 @@ propiedad específica, como se muestra en el ejemplo siguiente.
 "
   doctitlees = "Posicionamiento de digitaciones de mano derecha"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Man kann die Positionierung von Fingersatz der rechten Hand besser
@@ -24,7 +23,6 @@ das folgende Beispiel zeigt:
 
 "
   doctitlede = "Positionierung von Fingersatz der rechten Hand"
-
 %% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
 
   texidocfr = "

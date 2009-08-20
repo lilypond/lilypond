@@ -1,0 +1,85 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of general.texi
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@setfilename general.info
+@settitle LilyPond -- la notation musicale pour tous
+@documentencoding UTF-8
+@documentlanguage fr
+@set web
+@include macros.itexi
+@afourpaper
+@ifnottex
+@node Top
+@top LilyPond
+
+@translationof Top
+
+
+@chapheading
+@end ifnottex
+@finalout
+@titlepage
+@title LilyPond
+@subtitle
+@titlefont{New Website}
+@author Équipe de développement de LilyPond
+@quotation
+@end quotation
+@vskip 20pt
+@end titlepage
+@copying
+@quotation
+@end quotation
+@end copying
+@divId{pageHeader}
+@heading LilyPond
+
+... la notation musicale pour tous
+@divEnd
+@c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
+@imageId{lilylogo,double-lily-modified3.png,LilyPond logo}
+@c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
+@divId{quickSummary}
+@subheading Qu'est-ce que c'est LilyPond?
+TODO FIXME FRENCH
+@divClass{align-right}
+@divEnd
+@divEnd
+@divId{news}
+@include news-front.itexi
+@divClass{float-right}
+@divEnd
+@divEnd
+@divId{latestVersion}
+@subheading Quick links
+@c TODO: javascript to detect OS and suggest download?
+@subsubheading Stable
+@ref{Download, Download 2.12.3}
+@ref{Manuals, Manuals 2.12.3}
+@subsubheading Unstable
+@ref{Development, Download 2.13.2}
+@ref{Development, Manuals 2.13.2}
+@divEnd
+@divClass{hide}
+@menu
+* Introduction::
+* Download::
+* Manuals::
+* Community::
+@end menu
+
+@divEnd
+@contents
+@include general/introduction.itexi
+@include general/download.itexi
+@include general/manuals.itexi
+@include general/community.itexi
+@bye
+

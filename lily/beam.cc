@@ -82,9 +82,9 @@ Beam::add_stem (Grob *me, Grob *s)
 }
 
 Real
-Beam::get_thickness (Grob *me)
+Beam::get_beam_thickness (Grob *me)
 {
-  return robust_scm2double (me->get_property ("thickness"), 0)
+  return robust_scm2double (me->get_property ("beam-thickness"), 0)
     * Staff_symbol_referencer::staff_space (me);
 }
 
@@ -95,12 +95,12 @@ Beam::get_beam_translation (Grob *me)
   int beam_count = get_beam_count (me);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real line = Staff_symbol_referencer::line_thickness (me);
-  Real thickness = get_thickness (me);
+  Real beam_thickness = get_beam_thickness (me);
   Real fract = robust_scm2double (me->get_property ("length-fraction"), 1.0);
   
   Real beam_translation = beam_count < 4
-    ? (2 * staff_space + line - thickness) / 2.0
-    : (3 * staff_space + line - thickness) / 3.0;
+    ? (2 * staff_space + line - beam_thickness) / 2.0
+    : (3 * staff_space + line - beam_thickness) / 3.0;
 
   return fract * beam_translation;
 }
@@ -564,7 +564,7 @@ Beam::print (SCM grob)
   Real dy = pos[RIGHT] - pos[LEFT];
   Real slope = (dy && span.length ()) ? dy / span.length ()  : 0;
 
-  Real thick = get_thickness (me);
+  Real beam_thickness = get_beam_thickness (me);
   Real beam_dy = get_beam_translation (me);
 
   Direction feather_dir = to_dir (me->get_property ("grow-direction"));
@@ -578,7 +578,7 @@ Beam::print (SCM grob)
 	  local_slope += feather_dir * segments[i].vertical_count_ * beam_dy / span.length ();
 	}
       
-      Stencil b = Lookup::beam (local_slope, segments[i].horizontal_.length (), thick, blot);
+      Stencil b = Lookup::beam (local_slope, segments[i].horizontal_.length (), beam_thickness, blot);
 
       b.translate_axis (segments[i].horizontal_[LEFT], X_AXIS);
       
@@ -794,7 +794,7 @@ Beam::consider_auto_knees (Grob *me)
     }
 
   Real beam_translation = get_beam_translation (me);
-  Real beam_thickness = Beam::get_thickness (me);
+  Real beam_thickness = Beam::get_beam_thickness (me);
   int beam_count = Beam::get_beam_count (me);
   Real height_of_beams = beam_thickness / 2
     + (beam_count - 1) * beam_translation;
@@ -842,11 +842,11 @@ set_minimum_dy (Grob *me, Real *dy)
       */
 
       Real ss = Staff_symbol_referencer::staff_space (me);
-      Real thickness = Beam::get_thickness (me) / ss;
+      Real beam_thickness = Beam::get_beam_thickness (me) / ss;
       Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
-      Real sit = (thickness - slt) / 2;
+      Real sit = (beam_thickness - slt) / 2;
       Real inter = 0.5;
-      Real hang = 1.0 - (thickness - slt) / 2;
+      Real hang = 1.0 - (beam_thickness - slt) / 2;
 
       *dy = sign (*dy) * max (fabs (*dy),
 			      min (min (sit, inter), hang));
@@ -976,7 +976,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM /* posns */)
 	{
 	  /* FIXME. -> UP */
 	  Direction d = (Direction) (sign (chord.delta ()) * UP);
-	  pos[d] = get_thickness (me) / 2;
+	  pos[d] = get_beam_thickness (me) / 2;
 	  pos[-d] = -pos[d];
 	}
       else
@@ -1272,7 +1272,7 @@ Beam::set_stem_lengths (SCM smob)
   if (robust_scm2int (me->get_property ("gap-count"), 0))
     {
       gap = true;
-      thick = get_thickness (me);
+      thick = get_beam_thickness (me);
     }
 
   Grob *fvs = first_normal_stem (me);
@@ -1443,7 +1443,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
     + (stem->relative_coordinate (common, X_AXIS) - x0) * slope;
 
   Real beam_translation = get_beam_translation (beam);
-  Real beam_thickness = Beam::get_thickness (beam);
+  Real beam_thickness = Beam::get_beam_thickness (beam);
 
   /*
     TODO: this is not strictly correct for 16th knee beams.
@@ -1552,7 +1552,7 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
 ADD_INTERFACE (Beam,
 	       "A beam.\n"
 	       "\n"
-	       "The @code{thickness} property is the weight of beams,"
+	       "The @code{beam-thickness} property is the weight of beams,"
 	       " measured in staffspace.  The @code{direction} property is"
 	       " not user-serviceable.  Use the @code{direction} property"
 	       " of @code{Stem} instead.\n"
@@ -1596,6 +1596,7 @@ ADD_INTERFACE (Beam,
 	       "auto-knee-gap "
 	       "beamed-stem-shorten "
 	       "beaming "
+	       "beam-thickness "
 	       "break-overshoot "
 	       "clip-edges "
 	       "concaveness "
@@ -1616,5 +1617,4 @@ ADD_INTERFACE (Beam,
 	       "quantized-positions "
 	       "shorten "
 	       "stems "
-	       "thickness "
 	       );

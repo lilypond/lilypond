@@ -10,6 +10,7 @@
 @documentencoding UTF-8
 @documentlanguage en
 
+@set web
 @include macros.itexi
 
 @afourpaper
@@ -89,6 +90,7 @@ Free Documentation License''.
 
 @menu
 * Music engraving::
+* automated-engraving:: Essay on Automated engraving.
 * Literature list::
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
@@ -97,8 +99,10 @@ Free Documentation License''.
 @contents
 
 @include essay/engraving.itely
+@include automated-engraving.itexi
 @include essay/literature.itely
 
+@clear web
 @include fdl.itexi
 
 @node LilyPond index

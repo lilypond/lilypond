@@ -1,0 +1,226 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of general.texi
+@ignore
+    Translation of GIT committish: dab17828471057f4e12c0d80777ff9bb4c5b2309
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Introduction
+@unnumbered Introduction
+
+@untranslated
+
+
+@divClass{column-center-top}
+@subheading Our Goal
+@imageFloat{flat-design.png,right}
+@divEnd
+@divClass{column-left-top}
+@subheading Why use LilyPond?
+@ref{Features}: What can LilyPond do?
+@ref{Examples}: I want to see some music!
+@ref{Freedom}: LilyPond is Free Software.
+@divEnd
+@divClass{column-right-top}
+@subheading Who uses it?
+@ref{Productions}: Real-life use of LilyPond.
+@ref{Testimonials}: What do people say?
+@divEnd
+@divClass{column-center-bottom}
+@subheading Why not use LilyPond?
+@ref{Text input}: You write music as @emph{text}?!
+@divEnd
+@divClass{hide}
+@menu
+* Features::
+* Examples::
+* Freedom::
+* Productions::
+* Testimonials::
+* Text input::
+@end menu
+
+@divEnd
+@node Features
+@unnumberedsec Features
+
+@untranslated
+
+
+@subheading Why switch to LilyPond?
+@subsubheading Excellent classical engraving
+@imageFloat{flat-design.png,right}
+@subsubheading No fiddling
+@subsubheading Text-based input
+@subsubheading Mix music and text
+@imageFloat{lilypond-book.png,right}
+@subsubheading Free software
+@subsubheading Extensible design
+@subsubheading Excellent support
+@divClass{column-center-bottom}
+@subheading Where now?
+@ref{Text input}.
+@divEnd
+@node Examples
+@unnumberedsec Examples
+
+@untranslated
+
+
+@imageClickable{examples/liszt-wagner-small.png, (click to enlarge), examples/liszt-wagner.png, center}
+@subsubheading Classical Music
+@imageClickable{examples/bach-bwv610-small.png, (click to enlarge), examples/bach-bwv610.png, center}
+@subsubheading Complex Notation
+@imageClickable{examples/granados-small.png, (click to enlarge), examples/granados.png, center}
+@subsubheading Early Music
+@imageClickable{examples/ancient-headword-small.png, (click to enlarge), examples/ancient-headword.png, center}
+@subsubheading Modern Music
+@imageClickable{examples/cary-small.png, (click to enlarge), examples/cary.png, center}
+@subsubheading Efficient, flexible creation of performance materials
+@imageClickable{examples/sesto-small.png, (click to enlarge), examples/sesto.png, center}
+@imageClickable{examples/sesto-1-small.png, (click to enlarge), examples/sesto-1.png, center}
+@imageClickable{examples/sesto-2-small.png, (click to enlarge), examples/sesto-2.png, center}
+@subsubheading Tablature
+@imageClickable{examples/bach-tab-example-small.png, (click to enlarge), examples/bach-tab-example.png, center}
+@subsubheading Schenker Graphs
+@imageClickable{examples/bach-schenker-small.png, (click to enlarge), examples/bach-schenker.png, center}
+@subsubheading Vocal Music
+@imageClickable{examples/aucun-snippet-small.png, (click to enlarge), examples/aucun-snippet.png, center}
+@subsubheading Educational Applications
+@imageClickable{examples/theory-small.png, (click to enlarge), examples/theory.png, center}
+@subsubheading Popular Music
+@imageClickable{examples/chart-small.png, (click to enlarge), examples/chart.png, center}
+@subsubheading Large Projects
+@imageClickable{examples/orchestral-small.png, (click to enlarge), examples/orchestral.png, center}
+@divClass{column-center-bottom}
+@subheading Where now?
+@ref{Freedom}.  If you've already decided to try LilyPond, first
+@divEnd
+@node Freedom
+@unnumberedsec Freedom
+
+@untranslated
+
+
+@divClass{column-center-top}
+@subheading Free Software
+@ref{GPL, GNU General Public License} and the @ref{FDL, GNU Free
+@divEnd
+@c @divClass{column-left-top}
+@divClass{color2}
+@divClass{keep-bullets}
+@subheading What are the benefits to users?
+@divEnd
+@divEnd
+@c @divClass{column-right-top}
+@divClass{color3}
+@divClass{keep-bullets}
+@subheading Why do LilyPond developers @qq{give away} their work for free?
+@divEnd
+@divEnd
+@divClass{column-center-bottom}
+@subheading Where now?
+@ref{Productions} and sheet music.  If you've already decided to
+@divEnd
+@node Productions
+@unnumberedsec Productions
+
+@untranslated
+
+
+@divClass{column-left-top}
+@subheading Concerts
+@divClass{keep-bullets}
+@divEnd
+@divEnd
+@divClass{column-right-top}
+@subheading Published sheet music
+@divClass{keep-bullets}
+@divEnd
+@divEnd
+@divClass{column-center-bottom}
+@subheading Where now?
+@ref{Text input}.
+@divEnd
+@node Testimonials
+@unnumberedsec Testimonials
+
+@untranslated
+
+
+@divClass{testimonial-item}
+@imageFloat{carter-brey.jpg, right}
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
+@divEnd
+@divClass{testimonial-item}
+@imageFloat{orm-finnendahl.jpg, left}
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
+@divEnd
+@divClass{testimonial-item}
+@imageFloat{darius-blasband.jpg, right}
+@subsubheading Darius Blasband, composer (Brussels, Belgium)
+@divEnd
+@divClass{testimonial-item}
+@subsubheading Kieren MacMillan, composer (Toronto, Canada)
+@divEnd
+@divClass{testimonial-item}
+@subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project.
+@divEnd
+@divClass{testimonial-item}
+@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@divEnd
+@divClass{testimonial-item}
+@subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
+@divEnd
+@divClass{testimonial-item}
+@subsubheading Vaylor Trucks, Electric guitar player (Yes, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, related to})
+@divEnd
+@divClass{testimonial-item}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} contributor
+@divEnd
+@divClass{testimonial-item}
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theatre in Koblenz, Germany and distinguished GNU Hacker.
+@divEnd
+@divClass{testimonial-item}
+@subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}.
+@divEnd
+@divClass{column-center-bottom}
+@subheading Where now?
+@divEnd
+@node Text input
+@unnumberedsec Text input
+
+@untranslated
+
+
+@c TRANSLATORS: so far it's mostly from
+@c http://lilypond.org/web/switch/howto
+@subheading @qq{Compiling} Music
+@imageClickable{examples/nereid-shot-small.png, (click to enlarge), examples/nereid-shot.png, right}
+@subsubheading It's as simple as A B C
+@imageFloat{text-input-1-annotate.png,center}
+@imageFloat{text-input-1-output.png,center}
+@imageFloat{text-input-2-annotate.png,center}
+@imageFloat{text-input-2-output.png,center}
+@subsubheading Pop music
+@imageFloat{text-input-pop-annotate.png,center}
+@imageFloat{text-input-pop-output.png,center}
+@subsubheading Orchestral parts
+@imageFloat{text-input-parts-both-annotate.png,center}
+@imageFloat{text-input-parts-single-annotate.png,center}
+@imageFloat{text-input-parts-single-output.png,center}
+@imageFloat{text-input-score-annotate.png,center}
+@imageFloat{text-input-score-output.png,center}
+@subsubheading Beginner Documentation
+@subsubheading Easier editing environments
+@divClass{column-center-bottom}
+@subheading Where now?
+@ref{Freedom} that LilyPond provides, or read about users'
+@ref{Productions} and @ref{Testimonials}.
+@divEnd
+
+@c -- SKELETON FILE --

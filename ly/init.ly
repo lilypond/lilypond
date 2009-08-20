@@ -54,8 +54,10 @@
             (set! toplevel-scores (list))
             (book-handler parser book)))
          ((or (pair? toplevel-scores) output-empty-score-list)
-          (book-handler parser (apply ly:make-book $defaultpaper
-                                      $defaultheader toplevel-scores)))))
+          (let ((book (apply ly:make-book $defaultpaper 
+                             $defaultheader toplevel-scores)))
+            (set! toplevel-scores (list))
+            (book-handler parser book)))))
 
 #(if (eq? expect-error (ly:parser-has-error? parser))
   (ly:parser-clear-error parser)

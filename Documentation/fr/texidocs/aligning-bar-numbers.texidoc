@@ -1,8 +1,8 @@
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
   texidocfr = "
-Les numéros de mesure s'alignent en principe sur la droite de l'objet 
-dont ils dépendent.  C'est normalement le coin gauche de la portée ou, 
-en cours de ligne, à gauche de la barre.  Vous pouvez toutefois les 
+Les numéros de mesure s'alignent en principe sur la droite de l'objet
+dont ils dépendent.  C'est normalement le coin gauche de la portée ou,
+en cours de ligne, à gauche de la barre.  Vous pouvez toutefois les
 centrer par rapport à la barre ou les afficher à droite de la barre.
 
 "

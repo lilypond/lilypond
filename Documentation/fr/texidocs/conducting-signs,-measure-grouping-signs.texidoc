@@ -1,15 +1,18 @@
-%% Translation of GIT committish: b3196fadd8f42d05ba35e8ac42f7da3caf8a3079
+%% Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
   texidocfr = "
+Les règles de ligature par mesure sont gérées par la propriété
+@code{beamSettings}.  Elles peuvent être modifiées par la commande
+@code{\\overrideBeamSettings}.  
 Il existe des options qui permettent de grouper les ligatures au sein
 d'une mesure, grâce à la fonction Scheme @code{set-time-signature}.
 Celle-ci prend trois arguments : le nombre de pulsations, la durée de la
 pulsation et le regroupement des pulsations dans la mesure.  Si l'on
-fait appel au @code{Measure_grouping_engraver}, la fonction 
+fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{set-time-signature} créera aussi des symboles
 @code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
 modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
-9/8 est divisée en 2, 2, 2 et 3.  Ceci est fourni en tant que troisième
-argument à @code{set-time-signature} : @code{'(2 2 2 3)}.
+9/8 est divisée en 2, 2, 2 et 3, alors que la mesure à 5/8 répond aux
+règles par défaut contenues dans le fichier @w{@code{scm/beam-settings.scm}}.
 
 "
   doctitlefr = "Signes de direction, signes de sous-groupe"

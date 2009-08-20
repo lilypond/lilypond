@@ -2,7 +2,7 @@
 ;;;; lily-library.scm -- utilities
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 1998--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
@@ -47,10 +47,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; moments
 
-(define-public ZERO-MOMENT (ly:make-moment 0 1)) 
+(define-public ZERO-MOMENT (ly:make-moment 0 1))
 
 (define-public (moment-min a b)
   (if (ly:moment<? a b) a b))
+
+(define-public (moment<=? a b)
+  (or (equal? a b)
+      (ly:moment<? a b)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
@@ -59,7 +63,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parser <-> output hooks.
-		
+
 (define-public (collect-bookpart-for-book parser book-part)
   "Toplevel book-part handler"
   (define (add-bookpart book-part)
@@ -123,7 +127,7 @@
 
 (define-public (scorify-music music parser)
   "Preprocess MUSIC."
-  
+
   (for-each (lambda (func)
 	      (set! music (func music parser)))
 	    toplevel-music-functions)
@@ -239,7 +243,7 @@ found."
   (hash-fold (lambda (k v acc) (acons  k v  acc))
 	     '() t))
 
-;; todo: code dup with C++. 
+;; todo: code dup with C++.
 (define-safe-public (alist->hash-table lst)
   "Convert alist to table"
   (let ((m (make-hash-table (length lst))))
@@ -263,14 +267,14 @@ found."
 
 (define (split-list lst n)
   "Split LST in N equal sized parts"
-  
+
   (define (helper todo acc-vector k)
     (if (null? todo)
 	acc-vector
 	(begin
 	  (if (< k 0)
 	      (set! k (+ n k)))
-	    
+
 	  (vector-set! acc-vector k (cons (car todo) (vector-ref acc-vector k)))
 	  (helper (cdr todo) acc-vector (1- k)))))
 
@@ -296,7 +300,7 @@ found."
 
 
   (reverse (helper lst '() 1)))
-  
+
 (define-public (list-join lst intermediate)
   "put INTERMEDIATE  between all elts of LST."
 
@@ -314,7 +318,7 @@ found."
 
 
 (define (flatten-list lst)
-  "Unnest LST" 
+  "Unnest LST"
   (if (null? lst)
       '()
       (if (pair? (car lst))
@@ -328,7 +332,7 @@ found."
 (define-public (uniq-list lst)
   "Uniq LST, assuming that it is sorted. Uses equal? for comparisons."
 
-  (reverse! 
+  (reverse!
    (fold (lambda (x acc)
 	   (if (null? acc)
 	       (list x)
@@ -363,7 +367,7 @@ found."
 
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
-	(+ (cdr a) (cdr b)))) 
+	(+ (cdr a) (cdr b))))
 
 (define-public (offset-flip-y o)
   (cons (car o) (- (cdr o))))
@@ -392,6 +396,8 @@ found."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; intervals
 
+(define-public empty-interval '(+inf.0 . -inf.0))
+
 (define-public (interval-length x)
   "Length of the number-pair X, when an interval"
   (max 0 (- (cdr x) (car x))))
@@ -408,7 +414,7 @@ found."
 
 (define-public (interval-index interval dir)
   "Interpolate INTERVAL between between left (DIR=-1) and right (DIR=+1)"
-  
+
   (* (+  (interval-start interval) (interval-end interval)
 	 (* dir (- (interval-end interval) (interval-start interval))))
      0.5))
@@ -447,6 +453,10 @@ found."
 	    (inf? (cdr i))
 	    (> (car i) (cdr i)))))
 
+(define-public (add-point interval p)
+  (cons (min (interval-start interval) p)
+        (max (interval-end interval) p)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; string
@@ -455,10 +465,10 @@ found."
   (equal? suffix (substring s
 			    (max 0 (- (string-length s) (string-length suffix)))
 			    (string-length s))))
-	     
+
 (define-public (string-startswith s prefix)
   (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
-	     
+
 (define-public (string-encode-integer i)
   (cond
    ((= i  0) "o")
@@ -522,7 +532,7 @@ possibly turned off."
   (fold-right conc #f lst))
 
 (define-public (string-regexp-substitute a b str)
-  (regexp-substitute/global #f a str 'pre b 'post)) 
+  (regexp-substitute/global #f a str 'pre b 'post))
 
 (define (regexp-split str regex)
   (define matches '())
@@ -577,8 +587,8 @@ applied to function @var{getter}.")
   (string<? (symbol->string (car lst)) (symbol->string (car r))))
 
 ;;
-;; don't confuse users with #<procedure .. > syntax. 
-;; 
+;; don't confuse users with #<procedure .. > syntax.
+;;
 (define-public (scm->string val)
   (if (and (procedure? val)
 	   (symbol? (procedure-name val)))
@@ -633,7 +643,7 @@ applied to function @var{getter}.")
 
 (define-public (version-not-seen-message input-file-name)
   (ly:message
-   "~a:0: ~a ~a" 
+   "~a:0: ~a ~a"
     input-file-name
     (_ "warning:")
     (format #f
@@ -642,7 +652,7 @@ applied to function @var{getter}.")
 
 (define-public (old-relative-not-used-message input-file-name)
   (ly:message
-   "~a:0: ~a ~a" 
+   "~a:0: ~a ~a"
     input-file-name
     (_ "warning:")
     (_ "old relative compatibility not used")))

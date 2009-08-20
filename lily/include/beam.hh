@@ -79,7 +79,7 @@ public:
   static void set_stemlens (Grob *);
   static int get_beam_count (Grob *me);
   static Real get_beam_translation (Grob *me);
-  static Real get_thickness (Grob *me);
+  static Real get_beam_thickness (Grob *me);
   static void connect_beams (Grob *me);
   static vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common); 
   static Interval no_visible_stem_positions (Grob *me, Interval default_value);

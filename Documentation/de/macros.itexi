@@ -78,12 +78,6 @@
 @end macro
 
 
-@c obsolete, remove when translation is fully updated
-@macro commonprop
-@noindent
-@subsubheading Übliche Veränderungen der Einstellungen
-@end macro
-
 
 @c Don't insert an empty line after @seealso!  Otherwise we get
 @c unwanted extra vertical space in the PDF output.
@@ -103,28 +97,6 @@
 
 
 @c   ***** Links and references *****
-
-@c obsolete
-@c usage: @lsr{ancient,custodes.ly}
-@macro lsr{DIR,TEXT}
-@ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html#\TEXT\,@file{\DIR\/\TEXT\}}
-@end ifhtml
-@ifnothtml
-@file{\DIR\/\TEXT\}
-@end ifnothtml
-@end macro
-
-@c don't update until this macro is correctly set up in English docs
-@macro lsrdir{DIR}
-@ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
-@end ifhtml
-@ifnothtml
-@file{\DIR\}
-@end ifnothtml
-@end macro
-
 
 @c  Definitions for references:
 @c

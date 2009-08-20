@@ -1,0 +1,309 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of notation.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Interfaces for programmers
+@chapter Interfaces for programmers
+
+@untranslated
+
+
+@menu
+* Music functions::
+* Programmer interfaces::
+* Building complicated functions::
+* Markup programmer interface::
+* Contexts for programmers::
+* Scheme procedures as properties::
+* Using Scheme code instead of \tweak::
+* Difficult tweaks::
+@end menu
+
+@node Music functions
+@section Music functions
+
+@untranslated
+
+
+@menu
+* Overview of music functions::
+* Simple substitution functions::
+* Paired substitution functions::
+* Mathematics in functions::
+* Void functions::
+* Functions without arguments::
+* Overview of available music functions::
+@end menu
+
+@node Overview of music functions
+@subsection Overview of music functions
+
+@untranslated
+
+
+@node Simple substitution functions
+@subsection Simple substitution functions
+
+@untranslated
+
+
+@node Paired substitution functions
+@subsection Paired substitution functions
+
+@untranslated
+
+
+@quotation
+@end quotation
+@node Mathematics in functions
+@subsection Mathematics in functions
+
+@untranslated
+
+
+@node Void functions
+@subsection Void functions
+
+@untranslated
+
+
+@c ode{'void} property set to @code{#t}, the parser is told to
+@node Functions without arguments
+@subsection Functions without arguments
+
+@untranslated
+
+
+@node Overview of available music functions
+@subsection Overview of available music functions
+
+@untranslated
+
+
+@c fixme ; this should be move somewhere else?
+@include identifiers.tely
+@node Programmer interfaces
+@section Programmer interfaces
+
+@untranslated
+
+
+@menu
+* Input variables and Scheme::
+* Internal music representation::
+@end menu
+
+@node Input variables and Scheme
+@subsection Input variables and Scheme
+
+@untranslated
+
+
+@c ode{traLaLa}.
+@c ode{\layout} block also contains a @code{traLaLa} variable, which is
+@c
+@c ode{\midi}, and @code{\layout} blocks are scopes nested inside that
+@c ode{twice}:
+@c Due to parser lookahead
+@ref{Void functions}, or
+@c ode{--safe} option.
+@node Internal music representation
+@subsection Internal music representation
+
+@untranslated
+
+
+@c ode{note-event}, a @code{rhythmic-event}, and a
+@c ode{melodic-event}.  All classes of music are listed in the
+@c ode{duration} properties that store the pitch and duration of that
+@c ode{element}.  The body of a repeat is stored in the @code{element}
+@c ode{elements}.
+@node Building complicated functions
+@section Building complicated functions
+
+@untranslated
+
+
+@menu
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
+@end menu
+
+@node Displaying music expressions
+@subsection Displaying music expressions
+
+@untranslated
+
+
+@c index internal storage
+@c index displaying music expressions
+@c index internal representation, displaying
+@c index displayMusic
+@c ode{AbsoluteDynamicEvent} with a @code{"f"} text property.
+@node Music properties
+@subsection Music properties
+
+@untranslated
+
+
+@c ode{'elements} property of @code{someNote}.
+@c ode{\displayMusic} to display the Scheme representation of a music
+@node Doubling a note with slurs (example)
+@subsection Doubling a note with slurs (example)
+
+@untranslated
+
+
+@c ode{'elements} property of each one, and finally make a
+@c ode{SequentialMusic} with the two @code{EventChords}.
+@node Adding articulation to notes (example)
+@subsection Adding articulation to notes (example)
+
+@untranslated
+
+
+@ref{Creating contexts}.  However, suppose that we want to write
+@c ode{event-chord}.  In Scheme, the type of variable is often clear
+@c ode{let} is used to declare local variables.  Here we use one local
+@c ode{(ly:music-deep-copy event-chord)}.  @code{ly:music-deep-copy} is
+@c ode{ly:}.  It is use to make a copy of a music
+@c ode{EventChord} expression.  It is better to not modify the
+@c ode{EventChord} which was given as an argument, because it may be
+@c ode{NoteEventChord} expression and is a copy of @code{event-chord}.  We
+@c ode{result-event-chord} expression.
+@c ode{ly:music-property} is the function used to access music properties
+@c ode{ArticulationEvent} expression, which we copy from the
+@c ode{\displayMusic} output,
+@c ode{cons} is used to add an element to a list without modifying the
+@node Markup programmer interface
+@section Markup programmer interface
+
+@untranslated
+
+
+@menu
+* Markup construction in Scheme::
+* How markups work internally::
+* New markup command definition::
+* New markup list command definition::
+@end menu
+
+@node Markup construction in Scheme
+@subsection Markup construction in Scheme
+
+@untranslated
+
+
+@c index defining markup commands
+@quotation
+@end quotation
+@c ode{markup} macro.  For example, You may use function calls inside
+@c ode{markup} in order to manipulate character strings.  This is
+@ref{New markup command definition}).
+@c ode{#:center}, and @code{#:column} cannot be a variable or
+@c ode{make-center-markup}, or @code{make-column-markup} functions
+@node How markups work internally
+@subsection How markups work internally
+
+@untranslated
+
+
+@c ode{\raise} is actually represented by the @code{raise-markup}
+@c ode{raise-markup} function is called as
+@c ode{text example} string, and then it raises that Stencil by 0.5
+@node New markup command definition
+@subsection New markup command definition
+
+@untranslated
+
+
+@c ode{#'caps} for interpreting @code{Text-in-caps}.
+@c ode{padding} property) from the staff and the notes.  To make sure
+@c ode{#:translate}, we add an empty string (@code{#:hspace 0}) before the
+@c ode{name} is moved in relation to that empty string.  The net effect is
+@c ode{(make-line-markup ...)}.  Finally, the resulting markup is passed
+@c ode{props} arguments.
+@ref{Text markup commands}, for details.
+@c ode{define-markup-command} are limited as follows.
+@c index Scheme signature
+@c index signature, Scheme
+@c ommand{lilypond} complains that it cannot parse @code{foo} due to its
+@node New markup list command definition
+@subsection New markup list command definition
+
+@untranslated
+
+
+@c ode{define-markup-list-command} Scheme macro, which is similar to the
+@c ode{define-markup-command} macro described in
+@ref{New markup command definition}, except that where the latter returns
+@c ode{paragraph} markup list command takes a markup list argument, named
+@c ode{args}.  The predicate for markup lists is @code{markup-list?}.
+@c ode{par-indent}, from the property list @code{props} If the property
+@node Contexts for programmers
+@section Contexts for programmers
+
+@untranslated
+
+
+@menu
+* Context evaluation::
+* Running a function on all layout objects::
+@end menu
+
+@node Context evaluation
+@subsection Context evaluation
+
+@untranslated
+
+
+@c index calling code during interpreting
+@node Running a function on all layout objects
+@subsection Running a function on all layout objects
+
+@untranslated
+
+
+@c index calling code on layout objects
+@node Scheme procedures as properties
+@section Scheme procedures as properties
+
+@untranslated
+
+
+@c ode{AccidentalSuggestion},
+@c ode{ly:self-alignment-interface::centered-on-x-parent} are called
+@node Using Scheme code instead of \tweak
+@section Using Scheme code instead of @code{\tweak}
+
+@untranslated
+
+
+@c ode{^} and @code{_}.
+@c ode{m} (created with @code{make-music}) are extracted with
+@c ode{ly:music-property}, a new key-value pair to change the
+@c ode{acons} Scheme function, and the result is finally
+@c ode{let} block is the return value, @code{m} itself.
+@node Difficult tweaks
+@section Difficult tweaks
+
+@untranslated
+
+
+@c ode{after-line-breaking} callback contains the Scheme procedure that
+@c ode{my-callback}.  This procedure
+@c ode{ly:hairpin::after-line-breaking} should also be called.
+@c ode{\overrideProperty} function, which works similar to @code{\once
+@c ode{NonMusicalPaperColumn} and @code{PaperColumn}, still works as
+
+@c -- SKELETON FILE --

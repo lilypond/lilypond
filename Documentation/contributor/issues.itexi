@@ -100,7 +100,7 @@ Priority-Regression: it used to work.
 @item
 Priority-Medium: normal priority; this is the highest priority a
 non-crashing, non-regression bug report can receive.
-(irregardless of the perceived importance)
+(regardless of the perceived importance)
 
 @item
 Priority-Low: less important than normal.

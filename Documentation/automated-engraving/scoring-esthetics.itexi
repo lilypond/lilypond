@@ -1,0 +1,99 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node scoring-esthetics
+@unnumberedsec Beautiful numbers 
+	
+How do we actually make formatting decisions?  In other words, which
+of the three configurations should we choose for the following slur?
+
+@sourceimage{slur-esthetics,,,.png}
+
+There are a few books on the art of music engraving
+available. Unfortunately, they contain rules of simple thumbs and some
+examples.  Such rules can be instructive, but they are a far cry from
+an algorithm that we could readily implement in a computer.  Following
+the instructions from literature leads to algorithms with lots of
+handcoded exceptions. Doing all this case analysis is a lot of work,
+and often not all cases are covered completely.
+
+@divClass{float-center}
+@sourceimage{ross-beam-scan,,,.png}
+@divEnd
+
+@divClass{float-center}
+@emph{Formatting rules defined by example. Image from Ted Ross' The Art of
+Music Engraving}
+@divEnd
+
+We have developed a much easier and robust method of determining the
+best formatting solution: score based formatting. The principle is the
+same as a beauty contest: for each possible configuration, we compute an
+ugliness score. Then we choose the least ugly configuration.
+
+@sourceimage{slur-esthetics-annotate-1,,,.png}
+
+For example, in the above configuration, the slur nicely connects the
+starting and ending note of the figure, a desirable trait. However, it
+also grazes one note head closely, while staying away from the others.
+Therefore, for this configuration, we deduct a `variance' score of
+15.39.
+
+@sourceimage{slur-esthetics-annotate-2,,,.png}
+
+In this configuration, the slur keeps a uniform distance from the
+heads, but we have to deduct some points because the slur doesn't
+start and end on the note heads.  For the left edge, we deduct 1.71,
+and for the right edge (which is further from the head) we deduct 9.37
+points.
+
+Furthermore, the slur goes up, while the melody goes down. This incurs
+a penalty of 2.00 points
+
+@sourceimage{slur-esthetics-annotate-3,,,.png}
+
+Finally, in this configuration, only the ending the slur is far away
+from the ending note head, at a score of 10.04 ugliness points.
+
+Adding up all scores, we notice that the third option is the least
+ugly, or most beautiful version.   Hence we select that one.
+
+This technique is a general technique, and it is used in a lot of
+situations, for example
+
+@itemize
+@item
+ determining beam slopes
+
+@sourceimage{beam-scoring-example,,,.png}
+
+@item
+ formatting tied chords
+
+@sourceimage{ties-scoring-example,,,.png}
+@item
+ formatting dotted chords
+
+
+@item
+ line breaking
+
+@item
+ page breaking  
+
+@end itemize
+
+This technique evaluates a lot of possibilities, which takes some time
+to compute. However, that is a worthwhile expense, because the end
+result is much better, and because it makes our lives easy.
+
+@divClass{float-right}
+Next: @ref{benchmarking,Man is the measure of things}: is a
+flexible architecture enough?
+@divEnd

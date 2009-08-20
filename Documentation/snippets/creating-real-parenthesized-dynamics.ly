@@ -31,9 +31,9 @@ a @code{\\markup} block, this method has a downside: the created
 objects will behave like text markups, and not like dynamics.
 
 However, it is possible to create a similar object using the equivalent
-Scheme code (as described in \"Markup programmer interface\"), combined
-with the @code{make-dynamic-script} function. This way, the markup will
-be regarded as a dynamic, and therefore will remain compatible with
+Scheme code (as described in the Notation Reference), combined with the
+@code{make-dynamic-script} function. This way, the markup will be
+regarded as a dynamic, and therefore will remain compatible with
 commands such as @code{\\dynamicUp} or @code{\\dynamicDown}.
 
 

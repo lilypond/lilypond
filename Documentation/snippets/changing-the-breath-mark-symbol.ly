@@ -4,6 +4,16 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+On peut choisir le glyphe imprimé par cette commande, en modifiant la
+propriété @code{text} de l'objet @code{BreathingSign}, pour lui affecter
+n'importe quelle indication textuelle.
+
+"
+  doctitlefr = "Modification de l'indicateur de respiration"
+
+
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -14,7 +24,6 @@ sobreescribiendo la propiedad de texto del objeto de presentación
 
 "
   doctitlees = "Cambiar el símbolo de la marca de respiración"
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "

@@ -21,7 +21,6 @@ debe insertar una líinea divisoria vacía antes de la primera nota.
   doctitlees = "Imprimir el número de compás en el primer compás"
 
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Standardmäßig wird die erste Taktzahl einer Paritur nicht gesetzt,
@@ -33,7 +32,6 @@ werden, damit das funktioniert.
 
 "
   doctitlede = "Setzen der Taktnummer für den ersten Takt"
-
 
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409

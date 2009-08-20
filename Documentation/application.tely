@@ -128,6 +128,7 @@ of this and other documentation.
 * Updating files with convert-ly:: Updating input files.
 * lilypond-book::                  Integrating text and music.
 * Converting from other formats::  Converting to lilypond source format.
+* Working on LilyPond projects::   Working on non-working files.
 * Suggestions for writing files::  Best practices
 
 Appendices
@@ -146,6 +147,7 @@ Appendices
 @include application/updating.itely
 @include application/lilypond-book.itely
 @include application/converters.itely
+@include application/working.itely
 @include application/suggestions.itely
 
 @include fdl.itexi

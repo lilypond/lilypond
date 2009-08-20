@@ -267,7 +267,6 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		/* read */
 		"internalBarNumber "
 		"restNumberThreshold "
-		"breakableSeparationItem "
 		"currentCommandColumn "
 		"measurePosition "
 		"measureLength ",

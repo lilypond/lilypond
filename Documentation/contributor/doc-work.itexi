@@ -1065,6 +1065,15 @@ This also updates translated documentation.
 @node Translating the documentation
 @section Translating the documentation
 
+The mailing list @code{translations@@lilynet.net} is dedicated to
+LilyPond web site and documentation translation; on this list, you will
+get support from the Translations Meister and experimented translators,
+and we regularly discuss translations issues common to all languagues.
+All people interested in LilyPond translations are invited to subscribe
+to this list regardless of the amount of their contribution, by sending
+an email to @code{translations-request@@lilynet.net} with subject
+@code{subscribe} and an empty message body.
+
 @menu
 * Getting started with documentation translation::
 * Documentation translation details::
@@ -1104,11 +1113,11 @@ motivation and a suitable system, it can be very useful to build at
 least the documentation so that you can check the output yourself and
 more quickly; if you are interested, see @ref{Compiling from source}.
 
-@menu
-@end menu
 
 @node Which documentation can be translated
 @unnumberedsubsubsec Which documentation can be translated
+
+FIXME: take into account the new web site integration in main sources.
 
 The makefiles and scripts infrastructure currently supports translation
 of the following documentation:
@@ -1329,10 +1338,11 @@ and editing snippets}.
 names, file names and comments should be translated.
 
 Finally, please carefully apply every rule exposed in @ref{Texinfo
-introduction and usage policy}, and @ref{Documentation policy}.  If
-one of these rules conflicts with a rule specific to your language,
-please ask the Translation meister and/or the Documentation Editors on
-@email{lilypond-devel@@gnu.org}.
+introduction and usage policy}, and @ref{Documentation policy}.  If one
+of these rules conflicts with a rule specific to your language, please
+ask the Translation meister on @email{translations@@lilynet.net} list
+and/or the Documentation Editors on @email{lilypond-devel@@gnu.org}
+list.
 
 
 @node Translating the Notation Reference and Application Usage
@@ -1384,6 +1394,11 @@ revision of the translation.  To check a single file, cd into
 @example
 make CHECKED_FILES=@var{MY_LANGUAGE}/@var{manual}/@var{foo}.itely check-translation
 @end example
+
+@noindent
+In case this file has been renamed since you last updated the
+translation, you should specify both old and new file names,
+e.g. @code{CHECKED_FILES=@var{MY_LANGUAGE}/@{@var{manual},user@}/@var{foo}.itely}.
 
 To see only which files need to be updated, do
 

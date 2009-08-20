@@ -9,15 +9,20 @@ LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
 CSS_SOURCE_FILES = $(shell ls $(top-src-dir)/Documentation/lilypond*.css)
 
 TELY_FILES := $(call src-wildcard,*.tely)
-MASTER_TEXI_FILES := $(TELY_FILES:%.tely=$(outdir)/%.texi)
+TEXI_FILES := $(call src-wildcard,*.texi)
+MASTER_TEXI_FILES := $(TEXI_FILES) $(TELY_FILES:%.tely=$(outdir)/%.texi)
 
-SPLITTED_HTML_MANUALS = $(foreach manual, $(TELY_FILES:%.tely=%),\
+TEXINFO_MANUALS =\
+ $(TELY_FILES:%.tely=%)\
+ $(TEXI_FILES:%.texi=%)
+
+SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
 
 OUT_HTML_FILES += $(UNSPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html)
 BIG_PAGE_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html)
 DEEP_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html)
-PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
+#PDF_FILES := $(TEXINFO_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
 
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)
@@ -31,18 +36,41 @@ MAKEINFO_FLAGS += --force --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
-XREF_MAPS_DIR=$(top-build-dir)/out/xref-maps
-XREF_MAPS_FILES=$(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
+# FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
+XREF_MAPS_DIR=$(top-build-dir)/$(outbase)/xref-maps
+XREF_MAPS_FILES=$(TEXINFO_MANUALS:%=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
 XREF_MAP_FLAGS += -I $(outdir)
 
-# texi2html flags
-TEXI2HTML_INIT= --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
-TEXI2HTML_LANG=--lang=$(ISOLANG)
-TEXI2HTML_FLAGS += $(TEXI2HTML_LANG) $(DOCUMENTATION_INCLUDES) \
-  -I $(XREF_MAPS_DIR)
-TEXI2HTML = PERL_UNICODE=SD LANG= $(TEXI2HTML_PROGRAM)
+WEB_MANUALS=general
+
+###########
+ifneq ($(ISOLANG),)
+TEXI2HTML_LANG = --lang=$(ISOLANG)
+endif
+
+DOC_TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
+WEB_TEXI2HTML_INIT =--init-file=$(top-src-dir)/Documentation/web-texi2html.init
+TEXI2HTML_INIT = $(DOC_TEXI2HTML_INIT)
+
+DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
+# --split=node --node-files makes that translated pages have
+# translated file names, that breaks.
+## WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
+WEB_TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
+TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
+
+$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
+	TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
+$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
+	TEXI2HTML_SPLIT := $(WEB_TEXI2HTML_SPLIT)
+
+TEXI2HTML_INCLUDES += --I=. --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
+TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)
+TEXI2HTML = PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
+###########
 
 TEXI2PDF_FLAGS += --batch $(DOCUMENTATION_INCLUDES)
+TEXI2PDF_FLAGS += -I $(LYS_OUTPUT_DIR)
 
 ifdef QUIET_BUILD
 TEXI2PDF_FLAGS += -q

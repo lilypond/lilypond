@@ -1,0 +1,51 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Scheme tutorial
+@appendix Scheme tutorial
+
+@untranslated
+
+
+@c index Scheme
+@c index GUILE
+@c index Scheme, in-line code
+@c index accessing Scheme
+@c index evaluating Scheme
+@c index LISP
+@c ode{GUILE_LOAD_PATH} to the directory @code{../usr/shr/guile/1.8}
+@c ode{1} is the (integer) number one, while @code{-1.5} is a
+@c ode{#} symbols to introduce a Scheme section are not required.
+@c ode{(* 3 4)} is replaced by its value @code{12}.  A similar thing
+@c index quoting in Scheme
+@c ode{24} for the @code{twentyFour}.  Instead, we get the name
+@c ode{twentyFour}.
+@c ode{twentyFour} in the example above) and variables of internal
+@c index properties vs. variables
+@c index variables vs. properties
+@menu
+* Tweaking with Scheme::
+@end menu
+
+@node Tweaking with Scheme
+@appendixsec Tweaking with Scheme
+
+@untranslated
+
+
+@c ode{\override TextScript #'extra-offset = ( 1 . -1)}.  But
+@c This isn't a valid example with skylining
+@c It works fine without padText  -td
+@c Check this is a valid example with skylining
+@c It is - 'padding still works
+
+@c -- SKELETON FILE --

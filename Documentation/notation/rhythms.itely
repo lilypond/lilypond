@@ -265,7 +265,8 @@ Music Glossary:
 @rglos{tuplet},
 @rglos{polymetric}.
 
-Learning Manual: @rlearning{Tweaking methods}.
+Learning Manual:
+@rlearning{Tweaking methods}.
 
 Notation Reference:
 @ref{Time administration},
@@ -280,6 +281,7 @@ Internals Reference:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+
 
 @cindex grace notes within tuplet brackets
 
@@ -1025,8 +1027,11 @@ Mensural time signatures are covered in
 @cindex compound time signatures
 @cindex time signature, compound
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {compound-time-signatures.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
 @seealso
@@ -1158,6 +1163,11 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
+Note that these predefined commands affect all staves in the
+score, even when they are placed in just one @code{Voice}
+context.  To change this, move the @code{Timing_translator}
+from the @code{Score} context to the @code{Staff} context, as
+shown in @ref{Polymetric notation}.
 
 @predefined
 @code{\cadenzaOn},
@@ -1170,7 +1180,8 @@ Music Glossary:
 @rglos{cadenza}.
 
 Notation Reference:
-@ref{Visibility of objects}.
+@ref{Visibility of objects},
+@ref{Polymetric notation}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -1378,7 +1389,8 @@ much each measure is off.
 
 
 @seealso
-Music Glossary: @rglos{tie}
+Music Glossary:
+@rglos{tie}
 
 Learning Manual:
 @rlearning{Engravers explained},
@@ -1576,7 +1588,8 @@ Installed Files:
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{Beam}.
+Internals Reference:
+@rinternals{Beam}.
 
 
 @knownissues
@@ -1644,7 +1657,7 @@ information about this function, see @ref{Time administration}.
 
 Autobeam and beam subdivide settings are stored in the
 @code{beamSettings} property.  Default values of @code{beamSettings}
-are determined in @file{scm/beam-settings.scm}.  Entries in
+are determined in @file{scm/@/beam@/-settings@/.scm}.  Entries in
 @code{beamSettings} are indexed by time signature and
 rule type.
 
@@ -1982,12 +1995,18 @@ counter is not increased.  To force a line break see
 @cindex measure lines, manual
 
 This and other special bar lines may be inserted manually at any
-point.  When they coincide with the end of a measure they replace the
-simple bar line which would have been inserted there automatically.
-When they do not coincide with the end of a measure the specified bar
-line is inserted at that point in the printed output.  Such insertions
-do not affect the calculation and placement of subsequent automatic
-bar lines.
+point.  When they coincide with the end of a measure they replace
+the simple bar line which would have been inserted there
+automatically.  When they do not coincide with the end of a measure
+the specified bar line is inserted at that point in the printed
+output.
+
+Note that manual bar lines are purely visual. They do not affect
+any of the properties that a normal bar line would affect, such as
+measure numbers, accidentals, line breaks, etc.  They do not affect
+the calculation and placement of subsequent automatic bar lines.
+When a manual bar line is placed where a normal bar line already
+exists, the effects of the original bar line are not altered.
 
 Two types of simple bar lines and five types of double bar lines are available
 for manual insertion:
@@ -2104,10 +2123,10 @@ Notation Reference:
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{BarLine} (created at
-@rinternals{Staff} level), @rinternals{SpanBar} (across
-staves), @rinternals{Timing_translator} (for Timing
-properties).
+Internals Reference:
+@rinternals{BarLine} (created at @code{Staff} level),
+@rinternals{SpanBar} (across staves),
+@rinternals{Timing_translator} (for Timing properties).
 
 
 @node Bar numbers
@@ -2186,7 +2205,8 @@ c1 | c | c | c
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{BarNumber}.
+Internals Reference:
+@rinternals{BarNumber}.
 
 
 @cindex bar number collision
@@ -2415,7 +2435,8 @@ other formatting functions.
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{RehearsalMark}.
+Internals Reference:
+@rinternals{RehearsalMark}.
 
 
 @node Special rhythmic concerns
@@ -2565,11 +2586,14 @@ Music Glossary:
 @rglos{acciaccatura},
 @rglos{appoggiatura}.
 
-Installed Files: @file{ly/@/grace@/-init@/.ly}.
+Installed Files:
+@file{ly/@/grace@/-init@/.ly}.
 
-Snippets: @rlsr{Rhythms}.
+Snippets:
+@rlsr{Rhythms}.
 
-Internals Reference: @rinternals{GraceMusic}.
+Internals Reference:
+@rinternals{GraceMusic}.
 
 
 @knownissues
@@ -2730,11 +2754,14 @@ notes.
 
 
 @seealso
-This manual: @ref{Bar numbers}, @ref{Unmetered music}
+Notation Reference:
+@ref{Bar numbers},
+@ref{Unmetered music}.
 
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{Timing_translator},
-@rinternals{Score}
+Internals Reference:
+@rinternals{Timing_translator},
+@rinternals{Score}.
 

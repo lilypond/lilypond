@@ -27,9 +27,13 @@
 @ifhtml
 
 @macro warning{TEXT}
-@cartouche
-@b{Note:} \TEXT\
-@end cartouche
+@html
+<div class="warning">
+@end html
+@strong{Note:} \TEXT\
+@html
+</div>
+@end html
 @end macro
 
 @end ifhtml
@@ -99,13 +103,14 @@
 
 @c  Definitions for references:
 @c
-@c     @rglos
-@c     @rlearning
-@c     @ruser
+@c     @rgeneral
 @c     @ressay
-@c     @rprogram
-@c     @rlsr
+@c     @rglos
 @c     @rinternals
+@c     @rlearning
+@c     @rlsr
+@c     @rprogram
+@c     @ruser
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
@@ -150,6 +155,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
+@end macro
+
+@macro rgeneral{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,general-big-page,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,general-big-page,General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -229,6 +244,16 @@
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
 @end macro
 
+@macro rgeneral{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,general,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,general,General Information}
+@end macro
+
 @macro ressay{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,essay,Essay}
@@ -299,6 +324,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notation Reference}
+@end macro
+
+@macro rgeneral{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-general,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-general, General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -388,6 +423,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@end macro
+
+@macro rgeneral{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,general,General Information}
+@end macro
+
+@macro rgeneralnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,general,General Information}
 @end macro
 
 @macro ressay{TEXT}

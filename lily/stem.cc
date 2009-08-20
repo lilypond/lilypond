@@ -557,7 +557,7 @@ Stem::height (SCM smob)
 	  programming_error ("no stem direction");
 	  dir = UP;
 	}
-      iv[dir] += dir * Beam::get_thickness (beam) * 0.5;
+      iv[dir] += dir * Beam::get_beam_thickness (beam) * 0.5;
     }
 
   return ly_interval2scm (iv);
@@ -740,7 +740,7 @@ Stem::print (SCM smob)
   else if (stemlet)
     {
       Real beam_translation = Beam::get_beam_translation (beam);
-      Real beam_thickness = Beam::get_thickness (beam);
+      Real beam_thickness = Beam::get_beam_thickness (beam);
       int beam_count = beam_multiplicity (me).length () + 1;
 
       y2 -= d
@@ -884,7 +884,7 @@ Stem::calc_stem_info (SCM smob)
     }
   
   Real beam_translation = Beam::get_beam_translation (beam);
-  Real beam_thickness = Beam::get_thickness (beam);
+  Real beam_thickness = Beam::get_beam_thickness (beam);
   int beam_count = Beam::get_direction_beam_count (beam, my_dir);
   Real length_fraction
     = robust_scm2double (me->get_property ("length-fraction"), 1.0);

@@ -186,7 +186,7 @@ mensural notation.
 Ligatures are entered by @emph{enclosing} them in @code{\[} and
 @code{\]}.  Some ligature styles may need additional input syntax
 specific for this particular type of ligature.  By default, the
-@rinternals{LigatureBracket} engraver just puts a square bracket
+@code{LigatureBracket} engraver just puts a square bracket
 above the ligature.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -202,12 +202,12 @@ Gregorian chant, and the Mensural for mensural music (only white
 mensural ligatures are supported for mensural music, and with
 certain limitations).  To use any of these styles, the default
 @code{Ligature_bracket_engraver} has to be replaced with one of the
-specialized ligature engravers in the @rinternals{Voice} context,
+specialized ligature engravers in the @code{Voice} context,
 as explained in @ref{White mensural ligatures} and @ref{Gregorian
 square neume ligatures}.
 
 
-@seealso
+@c @seealso
 @c TODO: nothing here yet ...
 
 
@@ -257,8 +257,8 @@ of Gregorian chant like the @emph{Editio Vaticana}.  There are
 different custos glyphs used in different flavors of notational
 style.
 
-For typesetting custodes, just put a @rinternals{Custos_engraver} into the
-@rinternals{Staff} context when declaring the @code{\layout} block,
+For typesetting custodes, just put a @code{Custos_engraver} into the
+@code{Staff} context when declaring the @code{\layout} block,
 and change the style of the custos with an @code{\override} if
 desired, as shown in the following example:
 
@@ -281,24 +281,24 @@ desired, as shown in the following example:
 
 The custos glyph is selected by the @code{style} property.  The styles
 supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
-@code{mensural}.  They are demonstrated in the following fragment
+@code{mensural}.  They are demonstrated in the following fragment.
 
 @lilypond[quote,ragged-right,fragment]
 \new Lyrics \lyricmode {
   \markup { \column {
-    \typewriter "vaticana"
+    \typewriter "vaticana "
     \line { " " \musicglyph #"custodes.vaticana.u0" }
   } }
   \markup { \column {
-    \typewriter "medicaea"
+    \typewriter "medicaea "
     \line { " " \musicglyph #"custodes.medicaea.u0" }
   }}
   \markup { \column {
-    \typewriter "hufnagel"
+    \typewriter "hufnagel "
     \line { " " \musicglyph #"custodes.hufnagel.u0" }
   }}
   \markup { \column {
-    \typewriter "mensural"
+    \typewriter "mensural "
     \line { " " \musicglyph #"custodes.mensural.u0" }
   }}
 }
@@ -306,9 +306,10 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 
 
 @seealso
-Internals Reference: @rinternals{Custos}.
+Internals Reference:
+@rinternals{Custos}.
 
-Examples:
+Snippets:
 @rlsr{Ancient notation}.
 
 
@@ -372,8 +373,8 @@ entering the chant, as the following excerpt demonstrates:
 @end lilypond
 
 
-@seealso
-TODO: nothing here yet ...
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @c {{{2 Mensural clefs
@@ -486,7 +487,8 @@ petrucci style G clef
 
 
 @seealso
-Notation Reference: see @ref{Clef}.
+Notation Reference:
+@ref{Clef}.
 
 
 @knownissues
@@ -552,7 +554,7 @@ chosen according to the following table
 }
 @end lilypond
 
-Use the @code{style} property of grob @rinternals{TimeSignature}
+Use the @code{style} property of grob @code{TimeSignature}
 to select ancient time signatures.  Supported styles are
 @code{neomensural} and @code{mensural}.  The above table uses the
 @code{neomensural} style.  The following examples show the
@@ -584,15 +586,16 @@ differences in style:
 
 
 @seealso
-Notation Reference: @ref{Time signature}, gives a general introduction to
+Notation Reference:
+@ref{Time signature}, gives a general introduction to
 the use of time signatures.
 
 
 @knownissues
 
 Ratios of note durations do not change with the time signature.  For
-example, the ratio of 1 breve = 3 semibreves (@emph{tempus perfectum}) must
-be made by hand, by setting
+example, the ratio of 1@tie{}breve = 3@tie{}semibreves (@emph{tempus
+perfectum}) must be made by hand, by setting
 
 @example
 breveTP = #(ly:make-duration -1 0 3 2)
@@ -616,7 +619,7 @@ Use @code{\markup @{\musicglyph #"timesig.mensural68alt" @}} instead.
 
 For ancient notation, a note head style other than the @code{default} style
 may be chosen.  This is accomplished by setting the @code{style} property of
-the @rinternals{NoteHead} object to @code{baroque}, @code{neomensural},
+the @code{NoteHead} object to @code{baroque}, @code{neomensural},
 @code{mensural} or @code{petrucci}.
 
 The @code{baroque} style differs from the @code{default} style by:
@@ -650,7 +653,8 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 
 
 @seealso
-@ref{Note head styles} gives an overview of all available note head styles.
+Notation Reference:
+@ref{Note head styles}, gives an overview of all available note head styles.
 
 
 @c {{{2Mensural flags
@@ -659,7 +663,7 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 
 @cindex flags
 
-Use the @code{flag-style} property of grob @rinternals{Stem} to
+Use the @code{flag-style} property of grob @code{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
 only the @code{mensural} style is supported.
 
@@ -682,8 +686,8 @@ There is no particular flag style for neo-mensural or Petrucci notation.
 There are no flags in Gregorian chant notation.
 
 
-@seealso
-TODO: nothing here yet ...
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
@@ -703,7 +707,7 @@ scope for mensural notation).
 
 @cindex rests, ancient
 
-Use the @code{style} property of grob @rinternals{Rest} to select
+Use the @code{style} property of grob @code{Rest} to select
 ancient rests.   Supported styles are @code{classical},
 @code{neomensural}, and @code{mensural}.  @code{classical} differs
 from the @code{default} style only in that the quarter rest looks
@@ -731,7 +735,8 @@ taken.
 See @rlsr{Ancient notation} for a chart of all rests.
 
 @seealso
-Notation Reference: @ref{Rests}, gives a general introduction into the use of
+Notation Reference:
+@ref{Rests}, gives a general introduction into the use of
 rests.
 
 
@@ -773,20 +778,21 @@ will be taken from the @code{vaticana} style.
 @end lilypond
 
 The style for accidentals and key signatures is controlled by the
-@code{glyph-name-alist} property of the  grobs @rinternals{Accidental} and
-@rinternals{KeySignature}, respectively; e.g.:
+@code{glyph-name-alist} property of the grobs @code{Accidental} and
+@code{KeySignature}, respectively; e.g.:
 
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
 
 
 @seealso
-Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
-@ref{Automatic accidentals} give a general introduction of the use of
-accidentals.  @ref{Key signature} gives a general introduction of
-the use of key signatures.
+Notation Reference:
+@ref{Pitches}, @ref{Accidentals}, and @ref{Automatic accidentals}, give a
+general introduction of the use of accidentals.  @ref{Key signature}, gives
+a general introduction of the use of key signatures.
 
-Internals Reference: @rinternals{KeySignature}.
+Internals Reference:
+@rinternals{KeySignature}.
 
 
 @c {{{2 Annotational accidentals (musica ficta)
@@ -831,8 +837,9 @@ ficta = { \once \set suggestAccidentals = ##t }
 
 
 @seealso
-Internals Reference: @rinternals{Accidental_engraver} engraver and
-the @rinternals{AccidentalSuggestion} object.
+Internals Reference:
+@rinternals{Accidental_engraver},
+@rinternals{AccidentalSuggestion}.
 
 
 @c {{{2White mensural ligatures
@@ -845,8 +852,8 @@ the @rinternals{AccidentalSuggestion} object.
 There is limited support for white mensural ligatures.
 
 To engrave white mensural ligatures, in the layout block, replace
-the @rinternals{Ligature_bracket_engraver} with the
-@rinternals{Mensural_ligature_engraver} in the @rinternals{Voice}
+the @code{Ligature_bracket_engraver} with the
+@code{Mensural_ligature_engraver} in the @code{Voice}
 context:
 
 @example
@@ -903,8 +910,8 @@ For example,
 }
 @end lilypond
 
-Without replacing @rinternals{Ligature_bracket_engraver} with
-@rinternals{Mensural_ligature_engraver}, the same music transcribes
+Without replacing @code{Ligature_bracket_engraver} with
+@code{Mensural_ligature_engraver}, the same music transcribes
 to the following
 
 @lilypond[quote,ragged-right]
@@ -922,8 +929,8 @@ to the following
 @end lilypond
 
 
-@seealso
-TODO: nothing here yet ...
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
@@ -946,11 +953,11 @@ Horizontal spacing of ligatures is poor.
 @end menu
 
 When typesetting a piece in Gregorian chant notation, the
-@rinternals{Vaticana_ligature_engraver} automatically selects the
+@code{Vaticana_ligature_engraver} automatically selects the
 proper note heads, so there is no need to explicitly set the note
 head style.  Still, the note head style can be set, e.g., to
 @code{vaticana_punctum} to produce punctum neumes.  Similarly, the
-@rinternals{Mensural_ligature_engraver} automatically assembles
+@code{Mensural_ligature_engraver} automatically assembles
 mensural ligatures.  See @ref{Ligatures}, for how ligature
 engravers work.
 
@@ -990,8 +997,8 @@ the following excerpt demonstrates:
 @end lilypond
 
 
-@seealso
-TODO: nothing here yet ...
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @c {{{2 Gregorian clefs
@@ -1128,7 +1135,8 @@ hufnagel style combined do/fa clef
 
 
 @seealso
-Notation Reference: see @ref{Clef}.
+Notation Reference:
+@ref{Clef}.
 
 
 @c {{{2 Gregorian accidentals and key signatures
@@ -1182,20 +1190,21 @@ different style.
 @c {ancient-accidentals.ly}
 
 The style for accidentals and key signatures is controlled by the
-@code{glyph-name-alist} property of the  grobs @rinternals{Accidental} and
-@rinternals{KeySignature}, respectively; e.g.:
+@code{glyph-name-alist} property of the grobs @code{Accidental} and
+@code{KeySignature}, respectively; e.g.:
 
 @code{\override Staff.Accidental #'glyph-name-alist =
 #alteration-mensural-glyph-name-alist}
 
 
 @seealso
-Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
-@ref{Automatic accidentals} give a general introduction of the use of
-accidentals.  @ref{Key signature} gives a general introduction of
-the use of key signatures.
+Notation Reference:
+@ref{Pitches}, @ref{Accidentals}, and @ref{Automatic accidentals}, give a
+general introduction of the use of accidentals.  @ref{Key signature}, gives
+a general introduction of the use of key signatures.
 
-Internals Reference: @rinternals{KeySignature}.
+Internals Reference:
+@rinternals{KeySignature}.
 
 
 @c {{{2Divisiones
@@ -1273,8 +1282,8 @@ Vaticana} style are provided.
 @end lilypond
 
 
-@seealso
-TODO: nothing here yet ...
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
@@ -1311,11 +1320,14 @@ note that you can say @code{\augmentum @{a g@}} as a shortcut for
 
 
 @seealso
-Notation Reference: @ref{Breath marks}.
+Notation Reference:
+@ref{Breath marks}.
 
-Internals Reference: @rinternals{BreathingSign}.
+Internals Reference:
+@rinternals{BreathingSign}.
 
-Examples: @rlsr{Ancient notation}.
+Snippets:
+@rlsr{Ancient notation}.
 
 
 @c {{{2Gregorian square neumes ligatures
@@ -1434,7 +1446,7 @@ produced by making a regular @code{pes} or @code{flexa} and
 modifying the shape of the second note: @code{\[ a \pes \deminutum
 b \] }, the second by modifying the shape of a single-note neume
 with @code{\auctum} and one of the direction markers
-@code{\descendens} or @code{\ascendens}, e.g. @code{ \[ \auctum
+@code{\descendens} or @code{\ascendens}, e.g., @code{ \[ \auctum
 \descendens a \] }.
 
 @noindent
@@ -1465,7 +1477,7 @@ quilisma.
 In addition to the note signs, gregorian.ly also defines the
 commands @code{\versus}, @code{\responsum}, @code{\ij},
 @code{\iij}, @code{\IJ}, and @code{\IIJ}, that will produce the
-corresponding characters, e.g. for use in lyrics, as section
+corresponding characters, e.g., for use in lyrics, as section
 markers, etc.  These commands use special unicode characters and
 will only work if a font is used which supports them.
 
@@ -2259,15 +2271,15 @@ respectively.
 Use the unary music function @code{\augmentum} to add augmentum dots.
 
 
-@seealso
-TODO: nothing here yet ...
+@c @seealso
+@c TODO: nothing here yet ...
 
 
 @knownissues
 
 When an @code{\augmentum} dot appears at the end of the last staff
 within a ligature, it is sometimes vertically placed wrong.  As a
-workaround, add an additional skip note (e.g. @code{s8}) as last note
+workaround, add an additional skip note (e.g., @code{s8}) as last note
 of the staff.
 
 @code{\augmentum} should be implemented as a head prefix rather than a
@@ -2315,7 +2327,7 @@ same source.
 TBC
 
 
-@seealso
+@c @seealso
 @c ... and reference to other sections ...
 
 
@@ -2341,7 +2353,7 @@ orientation aids that bar lines give.
 @c TBC
 
 
-@seealso
+@c @seealso
 @c ... and reference to other sections ...
 
 
@@ -2381,7 +2393,7 @@ transparent, will leave an empty space in the score, since the
 invisible signature will still take up space.
 
 In many cases, @code{\set Score.timing = ##f} will give good
-results.  Another alternative is to use \@code{\CadenzaOn} and
+results.  Another alternative is to use @code{\CadenzaOn} and
 @code{\CadenzaOff}.
 
 To remove the barlines, the radical approach is to @code{\remove}
@@ -2468,7 +2480,7 @@ melismatic chants, i.e. chants with a varying number of notes
 to each syllable.  In this case, one would want to set the
 syllable groups clearly apart, usually also the subdivisions of a
 longer melisma.  One way to achieve this is to use a fixed
-@code{\time}, e.g. 1/4, and let each syllable or note group fill
+@code{\time}, e.g., 1/4, and let each syllable or note group fill
 one of these measures, with the help of tuplets or shorter
 durations.  If the barlines and all other rhythmical indications
 are made transparent, and the space around the barlines is
@@ -2518,7 +2530,7 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@seealso
+@c @seealso
 @c ... and reference to other sections ...
 
 @c {{{2Ancient and modern from one source
@@ -2529,7 +2541,7 @@ spirLyr = \lyricmode {
 @c Here among others the snippets about reducing note length
 TBC
 
-@seealso
+@c @seealso
 @c ... and reference to other sections ...
 
 @c {{{2Editorial markings
@@ -2557,6 +2569,6 @@ TBC
 TBC
 
 
-@seealso
+@c @seealso
 @c ... and reference to other sections ...
 

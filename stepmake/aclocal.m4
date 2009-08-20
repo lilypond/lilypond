@@ -163,8 +163,7 @@ AC_DEFUN(STEPMAKE_BISON, [
     fi
 ])
 
-
-AC_DEFUN(STEPMAKE_COMPILE, [
+AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
     # -O is necessary to get inlining
     CFLAGS=${CFLAGS-""}
     CXXFLAGS=${CXXFLAGS-$CFLAGS}
@@ -204,8 +203,13 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     if test $debug_b = yes; then
 	OPTIMIZE="$OPTIMIZE -g"
     fi
- 
-    AC_PROG_CC
+])
+
+AC_DEFUN(STEPMAKE_COMPILE, [
+
+    AC_REQUIRE([STEPMAKE_COMPILE_BEFORE])
+    AC_REQUIRE([AC_PROG_CC])
+
     STEPMAKE_OPTIONAL_REQUIRED(CC, cc, $1)
     LD='$(CC)'
     AC_SUBST(LD)

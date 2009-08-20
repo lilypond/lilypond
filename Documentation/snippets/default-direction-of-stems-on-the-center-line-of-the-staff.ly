@@ -15,7 +15,6 @@ del pentagrama está determinada por la propiedad
 "
   doctitlees = "Dirección predeterminada de las plicas sobre la tercera línea del pentagrama"
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Richtung von Hälsen auf der mittleren Linie kann mit der @code{Stem}-Eigenschaft

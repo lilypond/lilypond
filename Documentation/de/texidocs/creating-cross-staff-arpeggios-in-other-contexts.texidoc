@@ -3,7 +3,7 @@
 In einem Klaviersystem (@code{PianoStaff}) ist es möglich, ein Arpeggio
 zwischen beiden Systemen zu verbinden, indem die
 @code{PianoStaff.connectArpeggios}-Eigenschaft gesetzt wird.
- 
+
 
 "
   doctitlede = "Arpeggio zwischen Systemen in einem Klaviersystem erstellen"

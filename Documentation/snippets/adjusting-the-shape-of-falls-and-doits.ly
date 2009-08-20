@@ -4,6 +4,15 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+La propriété @code{shortest-duration-space} peut devoir être retouchée
+pour ajuster l'apparence des chutes ou sauts.
+
+"
+  doctitlefr = "Ajustement du galbe des chutes ou sauts"
+
+
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -14,7 +23,6 @@ caídas y subidas de tono («falls» y «doits»).
 
 "
   doctitlees = "Ajustar la forma de las subidas y caídas de tono"
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "

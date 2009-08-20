@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 5131c3292d30cabdf08839daa02a006e4d3c96c5
+    Translation of GIT committish: 5cf864d550e7148412d594cf336841791bff6f76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -374,6 +374,35 @@ Ein einzeiliger Kommentar, beginnend mit @code{%}.
 
 @item
 Ein mehrzeiliger Kommentar, umgeben von @code{%@{ .. %@}}.
+
+@end itemize
+
+@cindex Leerzeichen
+
+Leerzeichen zwischen Einheiten in der Eingabe werden generell ignoriert
+und können nach Belieben weggelassen werden oder hinzugefügt werden,
+um die Lesbarkeit des Codes zu verbessern.  Mindestens ein Leerzeichen
+sollte jedoch unter folgenden Umständen immer eingesetzt werden, um
+Fehler zu vermeiden:
+
+@itemize
+@item
+Vor und hinter jeder schließenden oder öffnenden Klammer,
+@item
+nach jedem Befehl oder jeder Variable, also jeder Einheit, die mit
+@code{\} beginnt,
+@item
+nach jeder Einheit, die als Scheme-Ausdruck interpretiert werden,
+also alle Einheiten, die mit @code{#} beginnen.
+@item
+Alle Einheiten von Scheme-Ausdrücken müssen mit Leerzeichen getrennt
+werden,
+@item
+in Gesangstextabschnitten (@code{lyricmode}) müssen Leerzeichen
+zwischen alle Ausdrücke in @code{\override}- und @code{\set}-Befehlen
+gesetzt werden.  Insbesondere müssen um Punkte und Gleichzeitszeichen
+in Befehlen wie @code{\override Score . LyricTex #'font-size = #5)}
+und vor dem gesamten Befehl geschrieben werden.
 
 @end itemize
 
@@ -1250,6 +1279,10 @@ than one tagged section at the same place.
 @subsection Zeichenkodierung
 @translationof Text encoding
 
+@cindex Unicode
+@cindex UTF-8
+@cindex Nicht-ASCII-Zeichen
+
 LilyPond benutzt alle Zeichen, die durch das Unicode-Konsortium
 und ISO/IEC 10646 definiert sind.  Hiermit wird den Zeichen
 fast aller Schriftsysteme der Welt ein eindeutiger Name und ein
@@ -1345,6 +1378,8 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
 }
 \markup { "Copyright 2008--2009" \char ##x00A9 }
 @end lilypond
+
+@cindex Copyright-Zeichen
 
 Um das Copyright-Zeichen zu notieren, kann folgender Code eingesetzt werden:
 

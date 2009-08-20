@@ -41,7 +41,6 @@ no tiene nada que ver con el @code{\\set} de dos notas por detrás.)
   doctitlees = "Corchetes rectos y extremos de barra sueltos"
 
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Gerade Fähnchen an einzelnen Noten und überstehende Balkenenden bei
@@ -70,7 +69,6 @@ Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
 
 "
   doctitlede = "Gerade Fähnchen und überstehende Balkenenden"
-
 
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
@@ -141,7 +139,7 @@ carry both a left- and right-pointing flat flag. Do this with paired
 
 (Note that @code{\\set stemLeftBeamCount} is always equivalent to
 @code{\\once \\set}.  In other words, the beam count settings are not
-\"sticky\", so the pair of flat flags attached to the lone
+@qq{sticky}, so the pair of flat flags attached to the lone
 @code{c'16[]} in the last example have nothing to do with the
 @code{\\set} two notes prior.)
 

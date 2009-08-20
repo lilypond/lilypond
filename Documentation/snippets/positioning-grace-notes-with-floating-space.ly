@@ -21,7 +21,6 @@ izquierda de las columnas musicales de las notas principales.
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
 
 
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
@@ -32,7 +31,6 @@ Hauptnote gesetzt.
 
 "
   doctitlede = "Positionierung von Verzierungen mit verschiebbarem Platz"
-
 
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409

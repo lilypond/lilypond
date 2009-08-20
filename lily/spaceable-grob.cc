@@ -95,10 +95,10 @@ ADD_INTERFACE (Spaceable_grob,
 	       "allow-loose-spacing "
 	       "ideal-distances "
 	       "keep-inside-line "
-	       "left-neighbors "
+	       "left-neighbor "
 	       "measure-length "
 	       "minimum-distances "
-	       "right-neighbors "
+	       "right-neighbor "
 	       "spacing-wishes "
 	       );
 

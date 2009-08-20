@@ -1,0 +1,73 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+
+
+@node problem-statement 
+@unnumberedsec Designing notation software: how not to do it
+
+It would be nice if notation software didn't need any babysitting to
+produce acceptable output. 
+
+Our goal with @emph{LilyPond} was to write such a system: a program
+that will produce beautiful music ("engraving") automatically.
+
+At first sight, music notation follows a straightforward hierarchical
+pattern.  Consider the example below, with two staves containing two
+measures.
+
+@sourceimage{naive-notation,,,.png}
+
+Isn't writing software all about finding hierarchies and modeling the
+real world in terms of trees? In the view of a naive programmer, the
+above fragment of notation is easily abstracted to a nested set of
+boxes
+
+@sourceimage{naive-notation-uml,,,.png}
+
+It's easy to follow this model when writing software.  It's obvious
+how to store this data in memory, and writing on disk can be easily
+mirrored. In an XML-file you could write something like
+
+@verbatim
+
+  <score>
+    <staff>
+      <measure id="1">
+         <chord length="1/2">
+	   <pitch name="c">
+         </chord>
+         <chord>
+	 
+	 ....
+      </measure>
+    </staff>
+  </score>
+
+@end verbatim
+
+In short, this model is obvious, simple and neat.  It's the format
+used by a lot software. Unfortunately, it's also wrong.  The
+hierarchical representation works for a lot of simpler music, but it
+falls apart for advanced use. Consider the following example:
+
+@sourceimage{nonnaive-notation,,,.png}
+
+In this example, several assumptions of the previous model are
+violated: staves start and stop at will, voices jump around between
+staves, and sometimes span two staves.
+
+Music notation is really different from music itself. Notation is an
+intricate symbolic diagramming language for visualizing an often much
+simpler musical concept. Hence, software should reflect that separation.
+
+@divClass{float-right}
+Next: @ref{divide-and-conquer,Divide and conqueror},
+a blue print for automated notation
+@divEnd

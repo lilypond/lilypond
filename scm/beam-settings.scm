@@ -73,12 +73,10 @@
 
     ;; in 4 4 (common) time:
     ;;   default: end beams on beats
-    ;;  use beatLength for all except 32nd notes:
-    ;;  end beams with 32nd notes each 1 8 beat
+    ;;   end beams with 8th notes each 1 2 beat
    (((4 . 4) end) .
-    ((* . (2 2))
-     ((1 . 32) . (4 4 4 4
-                  4 4 4 4))))
+    ((* . (1 1 1 1))
+     ((1 . 8) . (4 4))))
 
     ;; in 4 8 time:
     ;;   default: group on 1 4 notes

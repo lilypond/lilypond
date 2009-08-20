@@ -45,7 +45,7 @@ and just before
 * Technical glossary::
 * All context properties::
 * Layout properties::
-* Identifiers::
+* Available music functions::
 * Scheme functions::
 @end menu
 
@@ -573,8 +573,11 @@ Where N is in the range 0-100.
 @cindex Font, Feta
 
 The following symbols are available in the Emmentaler font and may be
-accessed directly using text markup such as @code{g^\markup @{
-\musicglyph #"scripts.segno" @}}, see @ref{Formatting text}.
+accessed directly using text markup with the name of the glyph
+as shown in the tables below,
+such as @code{g^\markup @{\musicglyph #"scripts.segno" @}} or
+@code{\markup @{\musicglyph #"five"@}}.  For more information,
+see @ref{Formatting text}.
 
 
 @menu
@@ -895,6 +898,7 @@ The following styles may be used for note heads.
 A glossary of the technical terms and concepts used internally.
 
 @menu
+* alist::
 * callback::
 * glyph::
 * grob::
@@ -908,6 +912,20 @@ A glossary of the technical terms and concepts used internally.
 * smob::
 * stencil::
 @end menu
+
+@node alist
+@unnumberedsubsec alist
+
+@cindex alist
+@cindex association list
+
+An association list or @strong{alist} for short is a Scheme pair
+which associates a value with a key: @w{@code{(key . value)}}.  For
+example, in @file{scm/lily.scm}, the alist
+@w{@qq{type-p-name-alist}} associates certain type predicates
+(e.g.@tie{}@code{ly:music?}) with names (e.g.@tie{}@qq{music}) so
+that type-check failures can be reported with a console message that
+includes the name of the expected type predicate.
 
 @node callback
 @unnumberedsubsec callback
@@ -934,10 +952,12 @@ character, or a combination of two characters formating a ligature.
 A set of glyphs with a single style and shape comprise a font, and
 a set of fonts covering several styles and sizes comprise a typeface.
 
+
 @seealso
 Notation Reference:
-@ruser{Fonts},
-@ruser{Text encoding}.
+@ref{Fonts},
+@ref{Text encoding}.
+
 
 @node grob
 @unnumberedsubsec grob
@@ -951,6 +971,7 @@ output such as note heads, stems, slurs, ties, fingering, clefs,
 etc are called @q{Layout objects}, often known as @q{GRaphical
 OBjects}, or @strong{grobs} for short.
 
+
 @seealso
 Learning Manual:
 @rlearning{Objects and interfaces},
@@ -959,6 +980,7 @@ Learning Manual:
 
 Internals Reference:
 @rinternals{All layout objects}.
+
 
 @node interface
 @unnumberedsubsec interface
@@ -971,6 +993,7 @@ Actions and properties which are common to a number of grobs are
 grouped together in an object called a @code{grob-interface}, or
 just @q{interface} for short.
 
+
 @seealso
 Learning Manual:
 @rlearning{Objects and interfaces},
@@ -978,21 +1001,27 @@ Learning Manual:
 @rlearning{Properties found in interfaces}.
 
 Notation Reference:
-@ruser{Layout interfaces}.
+@ref{Layout interfaces}.
 
 Internals Reference:
 @rinternals{Graphical Object Interfaces}.
+
 
 @node lexer
 @unnumberedsubsec lexer
 
 @cindex lexer
+@cindex Flex
 
 A @strong{lexer} is a program which converts a sequence of
 characters into a sequence of tokens, a process called lexical
-analysis.  The LilyPond lexer converts an input @code{.ly} file
-into a tokenized file more suited to the next stage of processing,
-parsing, see @ref{parser}.
+analysis.  The LilyPond lexer converts the stream obtained from an
+input @file{.ly} file into a tokenized stream more suited to the
+next stage of processing - parsing, for which see @ref{parser}.
+The LilyPond lexer is built with Flex from the lexer file
+@file{lily/lexer.ll} which contains the lexical rules.  This file
+is part of the source code and is not included in the LilyPond
+binary installation.
 
 @node output-def
 @unnumberedsubsec output-def
@@ -1007,10 +1036,23 @@ created for midi, layout and paper blocks.
 @unnumberedsubsec parser
 
 @cindex parser
+@cindex Bison
+@cindex grammar for LilyPond
+@cindex BNF
 
-A @strong{parser} analyzes the sequence of tokens produced by
-a lexer to determine its grammatical structure as defined by the
-rules governing the format of an input file.
+A @strong{parser} analyzes the sequence of tokens produced by a
+lexer to determine its grammatical structure, grouping the tokens
+progressively into larger groupings according to the rules of the
+grammar.  If the sequence of tokens is valid the end product is a
+tree of tokens whose root is the grammar's start symbol.  If this
+cannot be achieved the file is invalid and an appropriate error
+message is produced.  The syntactic groupings and the rules for
+constructing the groupings from their parts for the LilyPond syntax
+are defined in @file{lily/parser.yy} and shown in Backus Normal Form
+(BNF) in @ref{LilyPond grammar}.  This file is used to build the
+parser during the program build by the parser generator, Bison.  It
+is part of the source code and is not included in the LilyPond
+binary installation.
 
 @node parser variable
 @unnumberedsubsec parser variable
@@ -1073,8 +1115,8 @@ TODO
 @include layout-properties.tely
 
 
-@node Identifiers
-@appendixsec Identifiers
+@node Available music functions
+@appendixsec Available music functions
 
 @include identifiers.tely
 

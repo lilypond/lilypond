@@ -140,11 +140,13 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 	      if (arr[i] == before_grob)
 		{
 		  arr.insert (arr.begin () + i, added);
+		  added->set_property ("staff-affinity", scm_from_int (DOWN));
 		  break;
 		}
 	      else if (arr[i] == after_grob)
 		{
 		  arr.insert (arr.begin () + i + 1, added);
+		  added->set_property ("staff-affinity", scm_from_int (UP));
 		  break;
 		}
 	    }

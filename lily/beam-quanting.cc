@@ -111,14 +111,14 @@ Beam::quanting (SCM smob, SCM posns)
     divided by the current staff_space.
   */
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real thickness = Beam::get_thickness (me) / ss;
+  Real beam_thickness = Beam::get_beam_thickness (me) / ss;
   Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
 
   Real dy_mus = robust_scm2double (me->get_property ("least-squares-dy"), 0);
   Real straddle = 0.0;
-  Real sit = (thickness - slt) / 2;
+  Real sit = (beam_thickness - slt) / 2;
   Real inter = 0.5;
-  Real hang = 1.0 - (thickness - slt) / 2;
+  Real hang = 1.0 - (beam_thickness - slt) / 2;
   Real quants [] = {straddle, sit, inter, hang };
 
   int num_quants = int (sizeof (quants) / sizeof (Real));
@@ -249,7 +249,7 @@ Beam::quanting (SCM smob, SCM posns)
     if (qscores[i].demerits < reasonable_score)
       {
 	Real d = score_forbidden_quants (qscores[i].yl, qscores[i].yr,
-					 rad, slt, thickness, beam_translation,
+					 rad, slt, beam_thickness, beam_translation,
 					 edge_beam_counts, ldir, rdir, &parameters);
 	qscores[i].demerits += d;
 
@@ -441,7 +441,7 @@ Real
 Beam::score_forbidden_quants (Real yl, Real yr,
 			      Real radius,
 			      Real slt,
-			      Real thickness, Real beam_translation,
+			      Real beam_thickness, Real beam_translation,
 			      Drul_array<int> beam_counts,
 			      Direction ldir, Direction rdir,
 
@@ -469,8 +469,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	    will be in the gap of the (2, sit) quant, leading to a
 	    false demerit.
 	  */
-	  Real gap1 = y[d] - stem_dir * ((j - 1) * beam_translation + thickness / 2 - slt / 2.2);
-	  Real gap2 = y[d] - stem_dir * (j * beam_translation - thickness / 2 + slt / 2.2);
+	  Real gap1 = y[d] - stem_dir * ((j - 1) * beam_translation + beam_thickness / 2 - slt / 2.2);
+	  Real gap2 = y[d] - stem_dir * (j * beam_translation - beam_thickness / 2 + slt / 2.2);
 
 	  Interval gap;
 	  gap.add_point (gap1);
@@ -498,9 +498,9 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   if (max (beam_counts[LEFT], beam_counts[RIGHT]) >= 2)
     {
       Real straddle = 0.0;
-      Real sit = (thickness - slt) / 2;
+      Real sit = (beam_thickness - slt) / 2;
       Real inter = 0.5;
-      Real hang = 1.0 - (thickness - slt) / 2;
+      Real hang = 1.0 - (beam_thickness - slt) / 2;
 
       Direction d = LEFT;
       do

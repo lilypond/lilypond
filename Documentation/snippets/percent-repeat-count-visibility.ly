@@ -4,6 +4,15 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+  texidocfr = "
+Le numéro de mesure répétée sera imprimé à intervalle régulier si vous
+déterminez la propriété de contexte @code{repeatCountVisibility}.
+
+"
+  doctitlefr = "Affichage du numéro de répétition en pourcent"
+
+
   lsrtags = "repeats, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -14,7 +23,6 @@ la propiedad de contexto @code{repeatCountVisibility}.
 
 "
   doctitlees = "Visibilidad del contador de repeticiones de tipo porcentaje"
-
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "

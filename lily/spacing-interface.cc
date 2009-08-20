@@ -92,20 +92,7 @@ Spacing_interface::minimum_distance (Grob *me, Grob *right)
 }
 
 /*
-  Compute the column of the right-items.  This is a big function,
-  since RIGHT-ITEMS may span more columns (eg. if a clef is inserted,
-  this will add a new column to RIGHT-ITEMS. Here we look at the
-  columns, and return the left-most. If there are multiple columns, we
-  prune RIGHT-ITEMS.
-
-  If we end up pruning, we add a left-neighbor to every column that
-  gets pruned. This ensures that loose columns in cross-staff music
-  do indeed get marked as loose. The problem situation is when a voice
-  passes from staff 1 to staff 2 and a clef appears later on in staff 1.
-  Then the NoteSpacing attached to the last note in staff 1 has two
-  right-items: one pointing to the next note in staff 2 and one pointing
-  to the clef. We will prune the clef right-item here and, unless we add
-  a left-neighbor to the clef, it won't get marked as loose.
+  Compute the left-most column of the right-items.
 */
 Item *
 Spacing_interface::right_column (Grob *me)
@@ -116,7 +103,6 @@ Spacing_interface::right_column (Grob *me)
   Grob_array *a = unsmob_grob_array (me->get_object ("right-items"));
   Item *mincol = 0;
   int min_rank = INT_MAX;
-  bool prune = false;
   for (vsize i = 0; a && i < a->size (); i++)
     {
       Item *ri = a->item (i);
@@ -127,30 +113,7 @@ Spacing_interface::right_column (Grob *me)
       if (rank < min_rank)
 	{
 	  min_rank = rank;
-	  if (mincol)
-	    prune = true;
-
 	  mincol = col;
-	}
-      else if (rank > min_rank)
-	prune = true;
-    }
-
-  if (prune && a)
-    {
-      vector<Grob*> &right = a->array_reference ();
-      for (vsize i = right.size (); i--;)
-	{
-	  if (dynamic_cast<Item *> (right[i])->get_column () != mincol)
-	    {
-	      extract_grob_set (right[i], "left-neighbors", lns);
-	      if (lns.empty ())
-		Pointer_group_interface::add_grob (right[i],
-						   ly_symbol2scm ("left-neighbors"),
-						   dynamic_cast<Item*> (me)->get_column ());
-
-	      right.erase (right.begin () + i);
-	    }
 	}
     }
 

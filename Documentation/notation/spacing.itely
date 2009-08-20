@@ -195,43 +195,61 @@ page:
 
 @table @code
 
-@item after-title-space
-@funindex after-title-space
+@item after-title-spacing
+@funindex after-title-spacing
 
-The amount of space between the title and the first system.
-Default: @code{5\mm}.
+Specifies how to calculate the space between a title (or top-level markup)
+and the system that follows it.  This is an associative list with five
+components:
+@itemize @bullet
+@item @var{space} -- the amount of stretchable space between the baseline
+of a title and the center of the staff that follows it;
+@item @var{padding} -- the minimum amount of whitespace that must be
+present between a title and the staff that follows it;
+@item @var{stretchability} -- the ease with which the stretchable
+space increases when a page is stretched.
+If this is zero, the distance to the next staff will not stretch at all;
+@item @var{minimum-distance} -- the minimum distance to place between
+the baseline of a title and the center of the staff that follows it. This differs
+from @var{padding} in that the height of a staff has no effect on
+the application of @var{minimum-distance} (whereas the height of a
+staff is crucial for @var{padding}).
+@end itemize
 
-@item before-title-space
-@funindex before-title-space
+If a page has a ragged bottom, @var{space} is not stretched. In particular, the
+resulting distance on such a page is the largest of
+@itemize @bullet
+@item @var{space},
+@item @var{minimum-distance}, and
+@item @var{padding} plus the smallest distance necessary to eliminate overlap.
+@end itemize
 
-Amount of space between the last system of the previous piece and the
-title of the next.  Default: @code{10\mm}.
+@item before-title-spacing
+@funindex before-title-spacing
 
-@item between-system-padding
-@funindex between-system-padding
+Specifies the spacing between a system and the title (or top-level markup) that
+follows it.
+The distances are measured from the center of the last staff in the system to
+the baseline of the title that follows it.  See @var{after-title-spacing}.
 
-The minimum amount of white space that will always be present
-between the bottom-most symbol of one system, and the top-most of
-the next system.  Default: @code{4\mm}.
+@item between-scores-system-spacing
+@funindex between-scores-system-spacing
 
-Increasing this will put systems whose bounding boxes almost touch
-farther apart.
+Specifies the spacing between two systems if they are in different scores, but
+there is no title between them. See @var{after-title-spacing}.
 
-@item between-system-space
-@funindex between-system-space
+@item between-system-spacing
+@funindex between-system-spacing
 
-The distance between systems.  It is the ideal distance between
-the center of the bottom staff of one system and the center of the
-top staff of the next system.  Default: @code{20\mm}.
+Specifies the spacing between the center of the bottom staff of one system
+and the center of the top staff of the following system.  See @var{after-title-spacing}.
 
-Increasing this value will provide a more even appearance of the
-page at the cost of using more vertical space.
+@item between-title-spacing
+@funindex between-title-spacing
 
-@item between-title-space
-@funindex between-title-space
-
-Amount of space between consecutive titles (e.g., the title of the
-book and the title of a piece).  Default: @code{2\mm}.
+Specifies the spacing between two titles (or top-level markups).
+The distances are measured from the baseline of the first title to the baseline
+of the second.  See @var{after-title-spacing}.
 
 @item bottom-margin
 @funindex bottom-margin
@@ -239,29 +257,35 @@ book and the title of a piece).  Default: @code{2\mm}.
 The margin between footer and bottom of the page.  Default:
 @code{6\mm}.
 
+@item bottom-system-spacing
+@funindex bottom-system-spacing
+
+Specifies the spacing from the center of the last staff (or the
+baseline of the last top-level markup) to the bottom of the
+printable area (ie. the top of the bottom margin).
+See @var{after-title-spacing}.
+
 @item foot-separation
 @funindex foot-separation
 
 Distance between the bottom-most music system and the page
 footer.  Default: @code{4\mm}.
 
-@item head-separation
-@funindex head-separation
+@item top-title-spacing
+@funindex top-title-spacing
 
-Distance between the header markup (@code{oddHeaderMarkup} and
-@code{evenHeaderMarkup}) and the title markup
-(@code{bookTitleMarkup}, @code{title}, and others).  If the header
-markup and title markup are not present, it is the distance
-between @code{top-margin} and the spot where the title markup
-would normally appear.  Default: @code{4\mm}.
+Specifies the spacing from the top of the printable area (ie.
+the bottom of the top margin) to the baseline of the title.
+See @var{after-title-spacing}.
 
-@item page-top-space
-@funindex page-top-space
+@item top-system-spacing
+@funindex top-system-spacing
 
-Distance from the top of the printable area to the center of the
-first staff.  This only works for staves that are vertically
-small.  Big staves are set with the top of their bounding box
-aligned to the top of the printable area.  Default: @code{12\mm}.
+Specifies the spacing from the top of the printable area (ie.
+the bottom of the top margin) to the center of the first staff.
+This only takes effect if there is no title at the top of the
+page (in which case @var{top-title-spacing} is used instead).
+See @var{after-title-spacing}.
 
 @item paper-height
 @funindex paper-height
@@ -331,7 +355,7 @@ This second example centers page numbers at the bottom of every page.
 
 You can also define these values in Scheme.  In that case @code{mm},
 @code{in}, @code{pt}, and @code{cm} are variables defined in
-@file{paper-defaults.ly} with values in millimeters.  That is why the
+@file{paper@/-defaults@/.ly} with values in millimeters.  That is why the
 value must be multiplied in the example
 
 @example
@@ -2094,6 +2118,8 @@ If @code{ragged-right} is set to true in the @code{\layout} block, then
 systems ends at their natural horizontal length, instead of being spread
 horizontally to fill the whole line.  This is useful for
 short fragments, and for checking how tight the natural spacing is.
+The normal default setting is false, but if the score has only one
+system the default value is true.
 
 @cindex page layout
 @cindex vertical spacing
@@ -2540,7 +2566,9 @@ edge and @var{b} the upper edge of the interval.
 
 
 @seealso
-@ref{Setting the staff size}
+Notation Reference:
+@ref{Setting the staff size}.
+
 Snippets:
 @rlsr{Spacing}.
 

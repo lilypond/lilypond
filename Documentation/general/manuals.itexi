@@ -90,8 +90,8 @@ required for constructing tweaks.
 @item @ref{Translated}:
 translation status for non-English readers.
 
-@item @ref{Old}:
-manuals for older versions.
+@item @ref{All}:
+manuals for older versions and downloadable versions.
 
 @item @ref{Development}:
 manuals for the unstable version.
@@ -117,7 +117,7 @@ License.
 * Changes::                     NEWS.
 * Internals::         Internals.
 * Translated::          Translation.
-* Old::                 Old.
+* All::                 All manuals.
 * FDL::                     Licence.
 @end menu
 
@@ -131,16 +131,57 @@ License.
 @node Learning
 @unnumberedsec Learning
 
+@divClass{column-left-top}
+@subheading Learning manual
+
 This book explains how to begin learning LilyPond, as well as
 explaining some key concepts in easy terms.  You should read these
 chapters in a linear fashion.
 
 There is a paragraph @strong{See also} at the end of each section,
 which contains cross-references to other sections: you should not
-follow these cross-references at first reading; when you have read
-all of the Learning, you may want to read some sections
-again and follow cross-references for further reading.
+follow these cross-references at first reading.  When you have
+read all of the manual, you may want to read some sections again
+and follow those cross-references for more information.
+@divEnd
 
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item @rlearningnamed{Top,Learning}:
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../learning/index.html, Learning (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../learning-big-page.html, Learning (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../learning.pdf, learning.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, learning.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
+@ignore
 @itemize
 
 @item
@@ -182,6 +223,7 @@ material for advanced tweaks; many users never touch Scheme at
 all.
 
 @end itemize
+@end ignore
 
 
 @node Glossary
@@ -210,6 +252,7 @@ notation.
 basic material covered in the Learning and is familiar with
 the English musical terms presented in the Musical Glossary.}
 
+@ignore
 @itemize
 
 @item
@@ -273,6 +316,7 @@ an index of all LilyPond @code{\commands}.
 a complete index.
 
 @end itemize
+@end ignore
 
 
 @node Usage
@@ -281,6 +325,7 @@ a complete index.
 This book explains how to execute the programs and how to integrate
 LilyPond notation with other programs.
 
+@ignore
 @itemize
 
 @item
@@ -312,6 +357,7 @@ supplied with the LilyPond package, and convert a variety of music
 formats to the @code{.ly} format.
 
 @end itemize
+@end ignore
 
 
 @node Snippets
@@ -403,11 +449,35 @@ have clickable links.
 blah
 
 
-@node Old
-@unnumberedsec Old
+@node All
+@unnumberedsec All
 
-Documentation for previous stable versions:
+@divClass{column-left-top}
+@subheading Downloadable versions
 
+FIXME: compare tarball vs. zip size, ask about windows users
+dealing with tarballs (both gz and bz2), etc.
+
+@divClass{keep-bullets}
+@itemize
+
+@item html-split zip
+
+@item html-big zip
+
+@item pdf zip
+
+@item info zip maybe?!?!
+
+@end itemize
+
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading Previous stable versions
+
+@divClass{keep-bullets}
 @itemize
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
@@ -422,6 +492,9 @@ LilyPond 2.8 Documentation}
 @item FIXME etc.
 
 @end itemize
+
+@divEnd
+@divEnd
 
 
 @node FDL

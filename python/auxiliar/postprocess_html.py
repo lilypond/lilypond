@@ -44,6 +44,12 @@ footer = '''
 </p>
 </div>
 '''
+
+web_footer = '''
+<div class="footer">
+</div>
+'''
+
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
 # ugh, must not have "_doc" in strings because it is naively replaced with "_" in hacked gettext process
 footer_report_links = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome, please report errors to our <a href="%(mail_address_url)s">bug list</a>.')
@@ -93,9 +99,9 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
-splitted_docs_re = re.compile ('(Documentation/out-www/(notation|\
-music-glossary|application|general|learning|snippets))/')
-lily_snippets_re = re.compile ('(href|src)="(../lily-.*?|.*?[.]png)"')
+# More hardcoding, yay!
+splitted_docs_re = re.compile ('(Documentation/out-www/(automated-engraving|essay|notation|music-glossary|application|general|learning|snippets))/')
+lily_snippets_re = re.compile ('(href|src)="([0-9a-f]{2}/lily-.*?)"')
 pictures_re = re.compile ('src="(pictures/.*?)"')
 
 docindex_link_re = re.compile (r'href="index.html"')
@@ -342,7 +348,10 @@ def process_html_files (package_name = '',
 
             ### add footer
             if footer_tag_re.search (s) == None:
-                s = add_footer (s, footer_tag + footer)
+                if 'general' in file_name:
+                    s = add_footer (s, footer_tag + web_footer)
+                else:
+                    s = add_footer (s, footer_tag + footer)
 
                 available, missing = find_translations (prefix, lang_ext)
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)

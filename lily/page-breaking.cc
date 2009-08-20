@@ -524,13 +524,14 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	      Constrained_breaking breaking (system_specs_[i].pscore_);
 	      vector<Line_details> details = breaking.line_details (0, VPOS, scm_to_int (system_count));
 
+	      cols.push_back (system_specs_[i].pscore_->root_system ()->used_columns ()[0]);
 	      for (vsize j = 0; j < details.size (); j++)
 		cols.push_back (details[j].last_column_);
 	    }
 	  else
 	    cols = system_specs_[i].pscore_->root_system ()->used_columns ();
 
-	  int last_chunk_idx = -1;
+	  int last_chunk_idx = 0;
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
@@ -1365,9 +1366,9 @@ Page_breaking::last_break_position () const
 Real
 Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 {
-  SCM first_system_spacing = book_->paper_->c_variable ("first-system-spacing");
+  SCM first_system_spacing = book_->paper_->c_variable ("top-system-spacing");
   if (line.title_)
-    first_system_spacing = book_->paper_->c_variable ("first-system-title-spacing");
+    first_system_spacing = book_->paper_->c_variable ("top-title-spacing");
 
   Real min_distance = -infinity_f;
   Real padding = 0;
@@ -1386,7 +1387,7 @@ Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 Real
 Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
 {
-  SCM last_system_spacing = book_->paper_->c_variable ("last-system-spacing");
+  SCM last_system_spacing = book_->paper_->c_variable ("bottom-system-spacing");
   Real min_distance = -infinity_f;
   Real padding = 0;
 

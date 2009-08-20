@@ -1,0 +1,115 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of application.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Running lilypond
+@chapter Running @command{lilypond}
+
+@untranslated
+
+
+@menu
+* Normal usage::
+* Command-line usage::
+* Error messages::
+@end menu
+
+@node Normal usage
+@section Normal usage
+
+@untranslated
+
+
+@c @rlearning{First steps} if
+@node Command-line usage
+@section Command-line usage
+
+@untranslated
+
+
+@c @ref{Setup for MacOS X}.
+@menu
+* Invoking lilypond::
+* Command line options for lilypond::
+* Environment variables::
+@end menu
+
+@node Invoking lilypond
+@subsection Invoking @command{lilypond}
+
+@untranslated
+
+
+@c ode{output-suffix} will be inserted between the basename and the
+@node Command line options for lilypond
+@subsection Command line options for @command{lilypond}
+
+@untranslated
+
+
+@c index Invoking @command{lilypond}
+@c index command line options for @command{lilypond}
+@c index options, command line
+@c index switches
+@c ode{svg}, @code{ps}, @code{pdf}, and @code{png}.
+@c index point and click, command line
+@c index help, command line
+@c index paper-size, command line
+@c Match " in previous line to help context-sensitive editors
+@c index safe, command line
+@c ode{--safe} or the @code{--jail} option @b{MUST} be passed.  The
+@c ode{--safe} option will prevent inline Scheme code from wreaking
+@quotation
+@end quotation
+@c ode{-dsafe} does @emph{not} detect resource overuse.  It is still possible to
+@c index output format, setting
+@c index PostScript output
+@c index Postscript, encapulated
+@c index EPS (Encapsulated PostScript)
+@c index SVG (Scalable Vector Graphics)
+@c index Scheme dump
+@c index preview, command line
+@c index file searching
+@c index search path
+@c index PostScript output
+@c index Portable Network Graphics (PNG) output
+@c ode{--ps}.  The resolution in DPI of the image may be set with
+@c index Portable Document Format (PDF) output
+@c ode{--safe} when LilyPond formatting is available through a web
+@c ode{--jail} to work @command{lilypond} must be run as root, which is usually
+@c ode{nosuid}.  In this way, it is impossible to run executables or to
+@node Environment variables
+@subsection Environment variables
+
+@untranslated
+
+
+@c index LANG
+@c index LILYPOND_DATADIR
+@c ommand{lilypond} recognizes the following environment variables:
+@node Error messages
+@section Error messages
+
+@untranslated
+
+
+@c index error messages
+@c index warning
+@c index error
+@c index fatal error
+@c index trace, Scheme
+@c index call trace
+@c index Scheme error
+@c ode{--verbose}) then a call trace of the offending
+@c index Programming error
+@c index errors, message format
+
+@c -- SKELETON FILE --

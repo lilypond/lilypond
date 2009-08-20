@@ -27,7 +27,6 @@ los archivos independientes!
 "
   doctitlees = "Plantilla de cuarteto de cuerda con particellas independientes"
 
-
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 \"弦楽四重奏テンプレート\" は適切な弦楽四重奏の楽譜を作り出しますが、個々の@c
@@ -42,7 +41,6 @@ los archivos independientes!
 
 別々のファイルに分ける場合は、指定されたコメントを外すことを忘れないでください！
 "
-
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Mit diesem Beispiel können Sie ein schönes Streichquartett notieren,
@@ -61,7 +59,6 @@ zugewiesen, auf den zurückgegriffen werden kann.
 "
 
   doctitlede = "Vorlage für Streichquartett mit einzelnen Stimmen"
-
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -85,10 +82,10 @@ individualisés !
   doctitlefr = "Quatuor à cordes, avec parties séparées"
 
   texidoc = "
-The \"String quartet template\" snippet produces a nice string quartet,
-but what if you needed to print parts? This new template demonstrates
-how to use the @code{\\tag} feature to easily split a piece into
-individual parts.
+The @qq{String quartet template} snippet produces a nice string
+quartet, but what if you needed to print parts? This new template
+demonstrates how to use the @code{\\tag} feature to easily split a
+piece into individual parts.
 
 You need to split this template into separate files; the filenames are
 contained in comments at the beginning of each file. @code{piece.ly}

@@ -342,5 +342,4 @@ ADD_INTERFACE (Align_interface,
 	       "padding "
 	       "positioning-done "
 	       "stacking-dir "
-	       "threshold "
 	       );

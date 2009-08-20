@@ -82,6 +82,7 @@ The syntax for a normal repeat is
 \repeat volta @var{repeatcount} @var{musicexpr}
 @end example
 
+@noindent
 where @var{musicexpr} is a music expression.  Alternate endings can be
 produced using @code{\alternative}.  In order to delimit the alternate
 endings, the group of alternatives must be enclosed in a set of
@@ -109,7 +110,7 @@ c1
 
 @warning{Do not include @code{@bs{}relative} inside a
 @code{@bs{}repeat}.  It will cause unwanted staves to appear.
-See @rlearning{An extra staff appears}.}
+See @rprogram{An extra staff appears}.}
 
 @cindex repeat with upbeat
 @cindex upbeat in a repeat
@@ -171,14 +172,21 @@ c1
 
 
 @seealso
-Music Glossary: @rglos{repeat}, @rglos{volta}.
+Music Glossary:
+@rglos{repeat},
+@rglos{volta}.
 
-Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
+Notation Reference:
+@ref{Bar lines},
+@ref{Modifying context plug-ins}.
 
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
-Internals Reference: @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
+Internals Reference:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 
@@ -352,6 +360,7 @@ the writing out of repetitious music.  The syntax is
 \repeat unfold @var{repeatcount} @var{musicexpr}
 @end example
 
+@noindent
 where @var{musicexpr} is a music expression and @var{repeatcount} is
 the number of times @var{musicexpr} is repeated.
 
@@ -377,9 +386,11 @@ c1
 
 
 @seealso
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
-Internals Reference: @rinternals{RepeatedMusic},
+Internals Reference:
+@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 
@@ -415,6 +426,7 @@ one or two measures are replaced by percent-like signs.  The syntax is
 @code{\repeat percent @var{number} @var{musicexpr}}
 @end example
 
+@noindent
 where @var{musicexpr} is a music expression.
 
 @lilypond[verbatim,quote,relative=2]
@@ -436,14 +448,20 @@ where @var{musicexpr} is a music expression.
 
 
 @seealso
-Music Glossary: @rglos{percent repeat}, @rglos{simile}.
+Music Glossary:
+@rglos{percent repeat},
+@rglos{simile}.
 
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
-Internals Reference: @rinternals{RepeatSlash},
-@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+Internals Reference:
+@rinternals{RepeatSlash},
+@rinternals{PercentRepeat},
+@rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
-@rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 
 @knownissues
@@ -511,16 +529,22 @@ The same output can be obtained by adding
 the duration of the subdivision, and it must be at least 8.  A
 @var{number} value of 8 gives one line across the note stem.  If
 the length is omitted, the last value (stored in
-@code{tremoloFlags}) is used
+@code{tremoloFlags}) is used:
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32
 c: c:
 @end lilypond
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{cross-staff-tremolos.ly}
+
 
 @seealso
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
 @cindex tremolo, cross-staff
 @cindex cross-staff tremolo

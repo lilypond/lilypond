@@ -363,7 +363,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 @}
 @end example
 
-For different or more complex orderings, the best way is to setup the
+For different or more complex orderings, the best way is to set up the
 hierarchy of staves and lyrics first, e.g.,
 @example
 \new ChoirStaff <<
@@ -374,6 +374,7 @@ hierarchy of staves and lyrics first, e.g.,
 >>
 @end example
 
+@noindent
 and then combine the appropriate melodies and lyric lines
 
 @example
@@ -382,7 +383,6 @@ and then combine the appropriate melodies and lyric lines
 @end example
 
 @noindent
-
 The final input would resemble
 
 @example
@@ -448,7 +448,7 @@ Lyrics aligning and typesetting are prepared with the help of skips,
 hyphens and extender lines.
 
 Lyrics are printed by interpreting them in the context called
-@rinternals{Lyrics}.
+@code{Lyrics}; see @rinternals{Lyrics}, for more.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -461,7 +461,7 @@ of the syllables:
 @item
 by automatically aligning
 the lyrics to a melody or other voice of music, using @code{\addlyrics}
-or @code{\lyricsto}.
+or @code{\lyricsto}
 
 @item
 or by specifying the duration of each syllable
@@ -499,8 +499,9 @@ melody and the lyrics with the @code{\lyricsto} expression
 \new Lyrics \lyricsto @var{name} @dots{}
 @end example
 
+@noindent
 This aligns the lyrics to the
-notes of the @rinternals{Voice} context called @var{name}, which must
+notes of the @code{Voice} context called @var{name}, which must
 already exist.  Therefore normally the @code{Voice} is specified first, and
 then the lyrics are specified with @code{\lyricsto}.  The command
 @code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
@@ -516,7 +517,7 @@ The following example uses different commands for entering lyrics.
     c4 b8. a16 g4. f8 e4 d c2
   }
 
-% not recommended: left aligns syllables
+% not recommended: left-aligned syllables
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
 
 % wrong: durations needed
@@ -569,7 +570,7 @@ The alignment to a melody can be specified with the
 
 @noindent
 The value of the property (here: @code{"lala"}) should be the name of
-a @rinternals{Voice} context.  Without this setting, extender lines
+a @code{Voice} context.  Without this setting, extender lines
 will not be formatted properly.
 
 Here is an example demonstrating manual lyric durations,
@@ -591,7 +592,8 @@ Notation Reference:
 @ref{Keeping contexts alive}.
 
 Internals Reference:
-@rinternals{Lyrics}.
+@rinternals{Lyrics},
+@rinternals{Voice}.
 
 
 @node Multiple syllables to one note
@@ -604,10 +606,10 @@ Internals Reference:
 In order to assign more than one syllable to a single note, you can
 surround them with quotes or use a @code{_} character, to get spaces
 between syllables, or use tilde  symbol (@code{~}) to get a lyric
-tie@footnote{The lyric ties is implemented with the Unicode character
+tie.@footnote{The lyric ties is implemented with the Unicode character
 U+203F, so be
-sure to have a font (Like DejaVuLGC) installed that includes this
-glyph.}.
+sure to have a font (like DejaVuLGC) installed that includes this
+glyph.}
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
@@ -621,6 +623,7 @@ glyph.}.
 @seealso
 Internals Reference:
 @rinternals{LyricCombineMusic}.
+
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -697,7 +700,7 @@ behavior}) is switched off.
 @cindex SATB
 @cindex choral score
 
-A complete example of a SATB score setup is in section
+A complete example of a SATB score setup is in
 @rlearning{Vocal ensembles}.
 
 
@@ -709,7 +712,7 @@ A complete example of a SATB score setup is in section
 @endpredefined
 
 
-@seealso
+@c @seealso
 @c @lsr{vocal,lyric@/-combine.ly}.
 
 
@@ -726,8 +729,6 @@ inserting @code{\skip}s into the lyrics.  For every @code{\skip},
 the text will be delayed another note.  The @code{\skip} command
 must be followed by a valid duration, but this is ignored when
 @code{\skip} is used in lyrics.
-
-For example,
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c' { c c g' }
@@ -774,7 +775,7 @@ distance between two syllables) and the @code{minimum-length}
 @seealso
 Internals Reference:
 @rinternals{LyricExtender},
-@rinternals{LyricHyphen}
+@rinternals{LyricHyphen}.
 
 
 @node Lyrics and repeats
@@ -895,8 +896,8 @@ the implicit melismata get ignored.
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
 
-To increase the spacing between lyrics, set the minimum-distance property of
-LyricSpace.
+To increase the spacing between lyrics, set the @code{minimum-distance}
+property of @code{LyricSpace}.
 
 @lilypond[relative,verbatim,fragment,quote,ragged-right]
 {
@@ -910,6 +911,7 @@ LyricSpace.
 }
 @end lilypond
 
+@noindent
 To make this change for all lyrics in the score, set the property in the
 layout.
 

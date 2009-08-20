@@ -140,15 +140,15 @@
 
 (define-public (postprocess-output paper-book module filename formats)
   (let* ((completed (completize-formats formats))
-	 (base (string-regexp-substitute "\\.[a-z]+$" "" filename))
+	 (base (dir-basename filename ".ps" ".eps"))
 	 (intermediate (remove (lambda (x) (member x formats)) completed)))
-    
     (for-each (lambda (f)
 		((eval (string->symbol (format "convert-to-~a" f))
 		       module) paper-book filename)) completed)
     (if (ly:get-option 'delete-intermediate-files)
 	(for-each (lambda (f)
-		    (delete-file (string-append base "." f))) intermediate))))
+		    (if (file-exists? f) (delete-file f)))
+		  (map (lambda (x) (string-append base "." x)) intermediate)))))
 
 (define-public (completize-formats formats)
   (define new-fmts '())

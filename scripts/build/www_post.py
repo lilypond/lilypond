@@ -39,9 +39,9 @@ dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
     exclude_dirs = '(^|/)((' + \
-        r'po|out|out-test|out-cov|.*?[.]t2d|\w*?-root)|^Documentation/(' + \
+        r'po|xref-maps|out|out-test|out-cov|.*?[.]t2d|\w*?-root)|^Documentation/(' + \
         '|'.join ([l.code for l in langdefs.LANGUAGES]) + '))(/|$)',
-    find_files = r'.*?\.(?:midi|html|pdf|png|txt|i?ly|signature|css|zip)$|VERSION',
+    find_files = r'.*?\.(?:midi|html|pdf|png|jpe?g|txt|i?ly|signature|css|zip)$|VERSION',
     exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
 
 # actual mirrorring stuff

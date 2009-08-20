@@ -1,193 +1,174 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
-   xmlns:xml="http://www.w3.org/XML/1998/namespace"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docbase="/home/hanwen/vc/savannah/lily/newweb/site/graphics"
-   inkscape:version="0.41+cvs"
-   sodipodi:docname="annotate-example-parts.svg"
-   height="297mm"
-   width="210mm"
+   width="565"
+   height="439"
+   id="svg7717"
    sodipodi:version="0.32"
-   id="svg548"
-   xml:space="preserve">
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="text-input-parts-both-annotate.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
-   id="defs550" />
-
+     id="defs7719">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective7725" />
+  </defs>
   <sodipodi:namedview
-   inkscape:window-y="40"
-   inkscape:window-x="24"
-   inkscape:window-height="1183"
-   inkscape:window-width="1399"
-   inkscape:cy="420.94487"
-   inkscape:cx="297.63779"
-   inkscape:zoom="1.7341938"
-   id="base" />
-
-  <text
-   sodipodi:linespacing="100%"
-   id="text555"
-   y="283.503632"
-   x="63.5809479"
-   style="fill:black;stroke:none;font-family:Luxi Mono;font-style:normal;font-weight:bold;font-size:28.000000;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;font-stretch:normal;font-variant:normal;"><tspan
-     id="tspan1190"
-     sodipodi:role="line"
-     y="283.50363"
-     x="63.580948">_("hornNotes") =</tspan><tspan
-     id="tspan1192"
-     sodipodi:role="line"
-     y="311.50363"
-     x="63.580948">\relative c {</tspan><tspan
-     id="tspan1194"
-     sodipodi:role="line"
-     y="339.50363"
-     x="63.580948">  \time 2/4</tspan><tspan
-     id="tspan1196"
-     sodipodi:role="line"
-     y="367.50363"
-     x="63.580948">  R2*3</tspan><tspan
-     id="tspan1198"
-     sodipodi:role="line"
-     y="395.50363"
-     x="63.580948">  r4 f8 a cis4 f e d</tspan><tspan
-     id="tspan1200"
-     sodipodi:role="line"
-     y="423.50363"
-     x="63.580948">}</tspan><tspan
-     id="tspan1202"
-     sodipodi:role="line"
-     y="451.50363"
-     x="63.580948" /><tspan
-     id="tspan1204"
-     sodipodi:role="line"
-     y="479.50363"
-     x="63.580948">_("bassoonNotes") =</tspan><tspan
-     id="tspan1206"
-     sodipodi:role="line"
-     y="507.50363"
-     x="63.580948">\relative c {</tspan><tspan
-     id="tspan1208"
-     sodipodi:role="line"
-     y="535.50363"
-     x="63.580948">  \clef bass</tspan><tspan
-     id="tspan1210"
-     sodipodi:role="line"
-     y="563.50363"
-     x="63.580948">  r4 d,8 f  gis4 c   b bes</tspan><tspan
-     id="tspan1212"
-     sodipodi:role="line"
-     y="591.50363"
-     x="63.580948">  a8 e f4   g d  gis f</tspan><tspan
-     id="tspan1214"
-     sodipodi:role="line"
-     y="619.50363"
-     x="63.580948">}</tspan><tspan
-     id="tspan1216"
-     sodipodi:role="line"
-     y="647.50363"
-     x="63.580948" /><tspan
-     id="tspan1218"
-     sodipodi:role="line"
-     y="675.50363"
-     x="63.580948">    </tspan><tspan
-     id="tspan1220"
-     sodipodi:role="line"
-     y="703.50363"
-     x="63.580948" /><tspan
-     id="tspan1222"
-     sodipodi:role="line"
-     y="731.50363"
-     x="63.580948" /><tspan
-     id="tspan1224"
-     sodipodi:role="line"
-     y="759.50363"
-     x="63.580948" /><tspan
-     id="tspan1226"
-     sodipodi:role="line"
-     y="787.50363"
-     x="63.580948">  </tspan></text>
-
-
-  <rect
-   y="343.849060"
-   x="93.6635971"
-   height="25.8095703"
-   width="72.4331894"
-   id="rect662"
-   style="font-size:12;fill:#01b500;fill-opacity:0.562044;fill-rule:evenodd;stroke:none;stroke-width:1pt;stroke-opacity:1;" />
-
-  <rect
-   y="254.764572"
-   x="55.781881"
-   height="31.637497"
-   width="203.978513"
-   id="rect663"
-   style="font-size:12;fill:#af3738;fill-opacity:0.565217;fill-rule:evenodd;stroke-width:1pt;" />
-
-  <rect
-   y="456.245392"
-   x="60.3609848"
-   height="25.8095398"
-   width="246.439331"
-   id="rect664"
-   style="font-size:12;fill:#af3738;fill-opacity:0.565217;fill-rule:evenodd;stroke-width:1pt;" />
-
-  <path
-   transform="translate(0.000000,-3.051758e-5)"
-   id="path665"
-   d="M 166.606 360.625 C 239.606 360.625 356.171 337.076 445.655 338.254 "
-   style="fill:none;fill-rule:evenodd;stroke:#00ad00;stroke-opacity:1;stroke-width:1.875;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;stroke-dasharray:none;" />
-
-  <path
-   transform="translate(0.000000,-3.051758e-5)"
-   sodipodi:nodetypes="cc"
-   id="path666"
-   d="M 306.131 476.601 C 363.824 449.52 492.753 491.908 495.107 454.23 "
-   style="fill:none;fill-rule:evenodd;stroke:#b10000;stroke-opacity:1;stroke-width:1.875;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;stroke-dasharray:none;" />
-
-  <text
-   sodipodi:linespacing="100%"
-   id="text667"
-   y="346.47586"
-   x="455.14835"
-   style="line-height:100%;font-variant:normal;font-stretch:normal;font-family:Bitstream Charter;stroke-opacity:1.0000000;stroke-linejoin:miter;stroke-linecap:butt;stroke-width:1.0000000pt;stroke:none;fill-opacity:1.0000000;fill:#00ad00;text-anchor:start;writing-mode:lr;font-weight:normal;font-style:normal;font-size:26.000000"><tspan
-     y="346.47586"
-     x="455.14835"
-     id="tspan1315"
-     sodipodi:role="line">  _("Enter multi-rest")   </tspan></text>
-
-
-  <text
-   sodipodi:linespacing="100%"
-   id="text674"
-   y="444.58768"
-   x="429.52213"
-   style="line-height:100%;font-variant:normal;font-stretch:normal;font-family:Bitstream Charter;stroke-opacity:1.0000000;stroke-linejoin:miter;stroke-linecap:butt;stroke-width:1.0000000pt;stroke:none;fill-opacity:1.0000000;fill:#b10000;text-anchor:start;writing-mode:lr;font-weight:normal;font-style:normal;font-size:26.000000"><tspan
-     y="444.58768"
-     x="429.52213"
-     id="tspan1317"
-     sodipodi:role="line">  _("Store notes in variable")   </tspan></text>
-
-
-<metadata
-   id="metadata1054">
-  <rdf:RDF
-   id="RDF1055">
-    <cc:Work
-   id="Work1056"
-   rdf:about="">
-      <dc:format
-   id="format1057">image/svg+xml</dc:format>
-      <dc:type
-   rdf:resource="http://purl.org/dc/dcmitype/StillImage"
-   id="type1059" />
-    </cc:Work>
-  </rdf:RDF>
-</metadata>
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="285.55612"
+     inkscape:cy="240"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="689"
+     inkscape:window-height="708"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata7722">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#87de87;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7765"
+       width="74"
+       height="27"
+       x="45"
+       y="105" />
+    <rect
+       style="fill:#ff8080;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7767"
+       width="223"
+       height="30"
+       x="12"
+       y="222" />
+    <rect
+       style="fill:#ff8080;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7763"
+       width="174"
+       height="34"
+       x="16"
+       y="8" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans Mono;-inkscape-font-specification:Sans Bold"
+       x="23"
+       y="35"
+       id="text7727"><tspan
+         sodipodi:role="line"
+         id="tspan7729"
+         x="23"
+         y="35">hornNotes =</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="65"
+         id="tspan7731">\relative c {</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="95"
+         id="tspan7733">  \time 2/4</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="125"
+         id="tspan7735">  R2*3</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="155"
+         id="tspan7737">  r4 f8 a cis4 f e d</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="185"
+         id="tspan7739">}</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="215"
+         id="tspan7741" /><tspan
+         sodipodi:role="line"
+         x="23"
+         y="245"
+         id="tspan7743">bassoonNotes =</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="275"
+         id="tspan7745">\relative c {</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="305"
+         id="tspan7747">  \clef bass</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="335"
+         id="tspan7749">  r4 d,8 f gis4 g b bes</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="365"
+         id="tspan7751">  a8 e f4 g d gis f</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="395"
+         id="tspan7753">}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#217821;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="327"
+       y="73"
+       id="text7755"><tspan
+         sodipodi:role="line"
+         id="tspan7757"
+         x="327"
+         y="73">Enter multi-rest</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#c83737;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="292"
+       y="212"
+       id="text7759"><tspan
+         sodipodi:role="line"
+         id="tspan7761"
+         x="292"
+         y="212">Store notes in variable</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#217821;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 321,66 C 228,66 251,121 127,120"
+       id="path7769"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#c83737;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 407,220 C 404,260 280,205 241,237"
+       id="path7771"
+       sodipodi:nodetypes="cc" />
+  </g>
 </svg>

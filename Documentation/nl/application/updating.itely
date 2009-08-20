@@ -1,0 +1,52 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of application.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Updating files with convert-ly
+@chapter Updating files with @command{convert-ly}
+
+@untranslated
+
+
+@c index Updating a LilyPond file
+@c index convert-ly
+@menu
+* Invoking convert-ly::
+* Command line options for convert-ly::
+* Problems with convert-ly::
+@end menu
+
+@node Invoking convert-ly
+@section Invoking @command{convert-ly}
+
+@untranslated
+
+
+@c ommand{convert-ly} uses @code{\version} statements in the input
+@c ode{myfile.ly} in-place and preserve the original file in
+@c ode{myfile.ly~}.
+@c ommand{convert-ly} always converts up to the last syntax change
+@c ode{Compile > Update syntax}.
+@c ode{Start > Accessories > Command Prompt}.
+@node Command line options for convert-ly
+@section Command line options for @command{convert-ly}
+
+@untranslated
+
+
+@node Problems with convert-ly
+@section Problems with @code{convert-ly}
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

@@ -71,7 +71,7 @@ example serves as a useful starting place.
 @cindex book
 @cindex score
 
-Up to this point none of the examples you have seen has used a
+Up to this point none of the examples you have seen have used a
 @code{\score@{@}} command.  This is because LilyPond automatically
 adds the extra commands which are needed when you give it simple
 input.  LilyPond treats input like this:
@@ -1703,7 +1703,7 @@ brackets because it requires only one voice.)
 @cindex contexts, naming
 @cindex naming contexts
 
-The @code{\new} command may also give a identifying name to the
+The @code{\new} command may also give an identifying name to the
 context to distinguish it from other contexts of the same type,
 
 @example
@@ -2006,7 +2006,7 @@ hash sign, @code{#}, while a true or false value is specified by
 @code{##t} and @code{##f}, with two hash signs.  A text property
 should be enclosed in double quotation signs, as above, although we
 shall see later that text can actually be specified in a much more
-general way by using the very powerful @code{markup} command.
+general way by using the very powerful @code{\markup} command.
 
 @subsubheading Setting context properties with @code{\with}
 
@@ -2281,7 +2281,7 @@ But what if you want something that isn't covered there?  Read on.
 
 Start off with the template that seems closest to what you want to end
 up with.  Let's say that you want to write something for soprano and
-cello.  In this case, we would start with @q{Notes and lyrics} (for the
+cello.  In this case, we would start with the @q{Notes and lyrics} template (for the
 soprano part).
 
 @example
@@ -2936,7 +2936,7 @@ violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 @end lilypond
 
 However, you can also use these variables (also known as
-variables, macros, or (user-defined) command) for tweaks:
+macros, or user-defined commands) for tweaks:
 
 @c TODO Avoid padtext - not needed with skylining
 @lilypond[quote,verbatim,ragged-right]
@@ -3006,7 +3006,7 @@ padText =
 @end lilypond
 
 Using variables is also a good way to reduce work if the
-LilyPond input syntax changes (see @ref{Updating old input files}).  If
+LilyPond input syntax changes (see @rprogram{Updating old input files}).  If
 you have a single definition (such as @code{\dolce}) for all your
 input files (see @ref{Style sheets}), then if the syntax changes, you
 only need to update your single @code{\dolce} definition,

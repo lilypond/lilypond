@@ -208,6 +208,7 @@ voices in a single staff is illustrated in the following example:
 >>
 @end lilypond
 
+@noindent
 Here, voices are instantiated explicitly and are given names. The
 @code{\voiceOne} ... @code{\voiceFour} commands set up the voices
 so that first and third voices get stems up, second and fourth
@@ -228,6 +229,7 @@ construct:
 >> \oneVoice
 @end example
 
+@noindent
 Here, the first expression within a temporary polyphonic passage is
 placed into the @code{Voice} context which was in use immediately
 before the polyphonic passage, and that same @code{Voice} context
@@ -259,6 +261,7 @@ during and after a polyphonic section:
 >>
 @end lilypond
 
+@noindent
 Here, the @code{\voiceOne} and @code{\voiceTwo} commands are
 required to define the settings of each voice.
 

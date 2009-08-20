@@ -216,6 +216,7 @@
 
     (BarNumber
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	;; want the bar number before the clef at line start.
 	(break-align-symbols . (left-edge staff-bar))
 
@@ -259,7 +260,6 @@
 	(padding . 0.2)
 	(positioning-done . ,ly:align-interface::align-to-minimum-distances)
 	(stacking-dir . ,DOWN)
-	(threshold . (2 . 1000))
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
@@ -310,6 +310,7 @@
 	;; rather long.
 
 	(auto-knee-gap . 5.5)
+	(beam-thickness . 0.48) ; in staff-space
 
 	;; We have some unreferenced problems here.
 	;;
@@ -366,9 +367,6 @@
 
 	(shorten . ,ly:beam::calc-stem-shorten)
 	(stencil . ,ly:beam::print)
-
-	;; TODO: should be in SLT.
-	(thickness . 0.48) ; in staff-space
 
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems)))
@@ -864,8 +862,9 @@
 	(padding . 0.3)
 	(self-alignment-X . ,CENTER)
 	(self-alignment-Y . ,CENTER)
-	(stencil . ,ly:system-start-text::print)
-	(X-offset . ,ly:side-position-interface::x-aligned-side)
+	(stencil . ,system-start-text::print)
+	(X-offset . ,system-start-text::calc-x-offset)
+	(Y-offset . ,system-start-text::calc-y-offset)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				self-alignment-interface
@@ -1096,6 +1095,7 @@
 
     (MetronomeMark
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(direction . ,UP)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 1000)
@@ -1403,6 +1403,7 @@
 
     (RehearsalMark
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(baseline-skip . 2)
 	(break-align-symbols . (staff-bar clef))
 	(break-visibility . ,end-of-line-invisible)
@@ -2233,10 +2234,11 @@
 
     (VoltaBracketSpanner
      . (
+	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(axes . (,Y))
 	(direction . ,UP)
 	(no-alignment . ,#t)
-	(outside-staff-priority . 100)
+	(outside-staff-priority . 600)
 	(padding . 1)
 	(side-axis . ,Y)
 	(X-extent . ,ly:axis-group-interface::width)
