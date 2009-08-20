@@ -215,8 +215,8 @@ For details see @ruser{Multiple scores in a book}.
 
 @cindex variables
 
-Another great shorthand is the ability to define variables.  All
-the templates use this
+Another great shorthand is the ability to define variables (see
+@ref{Organizing pieces with variables}.  All the templates use this
 
 @example
 melody = \relative c' @{
@@ -276,24 +276,11 @@ music expression, you may find it useful to review the tutorial,
 @ref{Music expressions explained}.  In that section, we saw how to
 build big music expressions from small pieces -- we started from
 notes, then chords, etc.  Now we're going to start from a big
-music expression and work our way down.
-
-@example
-\score @{
-  @{ % this brace begins the overall compound music expression
-    \new StaffGroup <<
-      @var{...insert the whole score of a Wagner opera in here...}
-    >>
-  @} % this brace ends the overall compound music expression
-  \layout @{ @}
-@}
-@end example
-
-A whole Wagner opera would easily double the length of this
-manual, so let's just add a singer and piano.  We don't need a
+music expression and work our way down.  For simplicity, we'll use
+just a singer and piano in our example.  We don't need a
 @code{StaffGroup} for this ensemble, which simply groups a number
-of staves together with a bracket at the left, so we shall remove
-it.  We @emph{do} need a singer and a piano, though.
+of staves together with a bracket at the left, but we do need
+staves for a singer and a piano, though.
 
 @example
 \score @{
@@ -307,16 +294,23 @@ it.  We @emph{do} need a singer and a piano, though.
 @}
 @end example
 
+Here we have given names to the staves -- @qq{singer} and
+@qq{piano}.  This is not essential here, but it is a useful habit
+to cultivate so that you can see at a glance what each stave is
+for.
+
 Remember that we use @code{<< ... >>} instead of @code{@{ ... @}} to
-show simultaneous music.  And we definitely want to show the vocal
-part and piano part at the same time, not one after the other!  Note
-that the @code{<< ... >>} construct is not really necessary for the
-Singer staff, as it contains only one sequential music expression;
-however, using @code{<< ... >>} instead of braces is still necessary
-if the music in the Staff is made of two simultaneous expressions,
-e.g. two simultaneous Voices, or a Voice with lyrics.  We'll add some
-real music later; for now let's just put in some dummy notes and
-lyrics.
+show simultaneous music.  This causes the vocal part and piano part
+to appear one above the other in the score.  The @code{<< ... >>}
+construct would not be necessary for the Singer staff in the example
+above if it were going to contain only one sequential music
+expression, but @code{<< ... >>} rather than braces is necessary if
+the music in the Staff is to contain two or more simultaneous
+expressions, e.g. two simultaneous Voices, or a Voice with lyrics.
+We're going to have a voice with lyrics, so angle brackets are
+required.  We'll add some real music later; for now let's just put
+in some dummy notes and lyrics.  If you've forgotten how to add lyrics
+you may wish to review @code{\addlyrics} in @ref{Setting simple songs}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -339,7 +333,8 @@ contains a @code{Voice} (in LilyPond, this term refers to a set of
 notes, not necessarily vocal notes -- for example, a violin
 generally plays one voice) and some lyrics.  We also have a piano
 staff: it contains an upper staff (right hand) and a lower staff
-(left hand).
+(left hand), although the lower staff has yet to be given a bass
+clef.
 
 At this stage, we could start filling in notes.  Inside the curly
 braces next to @code{\new Voice = "vocal"}, we could start writing
@@ -353,8 +348,15 @@ braces next to @code{\new Voice = "vocal"}, we could start writing
 But if we did that, the @code{\score} section would get pretty
 long, and it would be harder to understand what was happening.  So
 let's use variables instead.  These were introduced at the end
-of the previous section, remember?  So, adding a few notes, we
-now have a piece of real music:
+of the previous section, remember?  To ensure the contents of the
+@code{text} variable are interpreted as lyrics we preface them with
+@code{\lyricmode}.  Like @code{\addlyrics}, this switches the input
+mode to lyrics.  Without that, LilyPond would try to interpret the
+contents as notes, which would generate errors.  (Several other
+input modes are available, see @ruser{Input modes}.)
+
+So, adding a few notes and a bass clef for the left hand, we now
+have a piece of real music:
 
 @lilypond[verbatim,quote,ragged-right]
 melody = \relative c'' { r4 d8\noBeam g, c4 r }
@@ -379,14 +381,6 @@ lower  = \relative c { b2 e2 }
   \layout { }
 }
 @end lilypond
-
-
-Be careful about the difference between notes, which are introduced
-with @code{\relative} or which are directly included in a music
-expression, and lyrics, which are introduced with
-@code{\lyricmode}.  These are essential to tell LilyPond
-to interpret the following content as music and text
-respectively.
 
 When writing (or reading) a @code{\score} section, just take it
 slowly and carefully.  Start with the outer level, then work on
