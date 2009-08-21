@@ -65,6 +65,15 @@ which scares away people.
 @end ignore
 
 @item
+Text crescendo spanners can now be added directly using @code{\cresc},
+@code{\dim} and @code{\decresc}.
+@lilypond[quote,relative=2]
+c4\cresc c c c\f |
+c4\dim c c c\!
+@end lilypond
+
+
+@item
 The documented syntax of @samp{lilypond} environments in the @LaTeX{}
 mode of @command{lilypond-book} has been changed to conform with
 standard @LaTeX{} syntax: options now come after the environment name:

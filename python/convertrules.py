@@ -2997,6 +2997,11 @@ def conv(str):
     str = re.sub (r"\\AncientRemoveEmptyStaffContext",
                   r"\\VaticanaStaff \\RemoveEmptyStaves",
                   str);
+
+@rule ((2,13,20),
+      _ ("\\cresc etc. are now postfix operators"))
+def conv (str):
+    str = re.sub (r'\\(cresc|dim|endcresc|enddim\w+)', r'\\deprecated\1', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

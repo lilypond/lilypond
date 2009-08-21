@@ -22,56 +22,61 @@ episemInitium = #(make-span-event 'EpisemaEvent START)
 episemFinis = #(make-span-event 'EpisemaEvent STOP)
 
 
-% STOP: junkme!
-cresc =  {
+cresc = #(make-music 'CrescendoEvent 'span-direction START 'span-type 'text 'span-text "cresc.")
+endcresc =  #(make-span-event 'CrescendoEvent STOP)
+dim = #(make-music 'DecrescendoEvent 'span-direction START 'span-type 'text 'span-text "dim.")
+enddim =  #(make-span-event 'DecrescendoEvent STOP)
+decresc = #(make-music 'DecrescendoEvent 'span-direction START 'span-type 'text 'span-text "decresc.")
+enddecresc =  #(make-span-event 'DecrescendoEvent STOP)
+
+% Deprecated functions:
+% TODO: DEPRECATED_2_13_19
+deprecatedcresc =  {
   #(ly:export (make-event-chord (list cr)))
   \once \set crescendoText = \markup { \italic "cresc." }
   \once \set crescendoSpanner = #'text
 }
 
 
-dim =  {
+deprecateddim =  {
   #(ly:export (make-event-chord (list decr)))
   \once \set decrescendoText = \markup { \italic "dim." }
   \once \set decrescendoSpanner = #'text
 }
 
-enddim =  {
+deprecatedenddim =  {
   #(ly:export (make-event-chord (list enddecr)))
 %  \unset decrescendoText 
 %  \unset decrescendoSpanner 
 }
 
-endcresc =  {
+deprecatedendcresc =  {
   #(ly:export (make-event-chord (list endcr)))
 %  \unset crescendoText 
 %  \unset crescendoSpanner 
 }
+
 
 %%%%%%%%%%%%%%%%
 
 crescTextCresc = {
     \set crescendoText = \markup { \italic "cresc." }
     \set crescendoSpanner = #'text
-    \override DynamicTextSpanner #'style = #'dashed-line
 }
 
 dimTextDecresc = {
     \set decrescendoText = \markup { \italic "decresc." }
     \set decrescendoSpanner = #'text
-    \override DynamicTextSpanner #'style = #'dashed-line
 }
 
 dimTextDecr = {
     \set decrescendoText = \markup { \italic "decr." }
     \set decrescendoSpanner = #'text
-    \override DynamicTextSpanner #'style = #'dashed-line
 }
 
 dimTextDim = {
     \set decrescendoText = \markup { \italic "dim." }
     \set decrescendoSpanner = #'text
-    \override DynamicTextSpanner #'style = #'dashed-line
 }
 
 crescHairpin = {
