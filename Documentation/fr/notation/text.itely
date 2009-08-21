@@ -451,8 +451,11 @@ Référence du programme : @rinternals{RehearsalMark}.
 @translationof Formatting text
 
 @menu
-* Introduction au formatage de texte::    
-* Partitions emboîtées::               
+* Introduction au formatage de texte::
+* Sélection de la fonte et de la taille::    
+* Alignement du texte::
+* Éléments graphiques dans du texte formaté::
+* Notation musicale dans du texte formaté::             
 * Texte avec sauts de page::          
 @end menu
 
@@ -623,9 +626,32 @@ compte, et l'espacement de tels textes sera trop large.
 Les erreurs de syntaxe sont peu loquaces.
 
 
-@node Partitions emboîtées
-@unnumberedsubsubsec Partitions emboîtées
-@translationof Nested scores
+@node Sélection de la fonte et de la taille
+@unnumberedsubsubsec Sélection de la fonte et de la taille
+@translationof Selecting font and font size
+
+@untranslated
+
+@node Alignement du texte
+@unnumberedsubsubsec Alignement du texte
+@translationof Text alignment
+
+@untranslated
+
+
+@node Éléments graphiques dans du texte formaté
+@unnumberedsubsubsec Éléments graphiques dans du texte formaté
+@translationof Graphic notation inside markup
+
+@untranslated
+
+
+@node Notation musicale dans du texte formaté
+@unnumberedsubsubsec Notation musicale dans du texte formaté
+@translationof Music notation inside markup
+
+@untranslated
+          
 
 Rien ne s'oppose à ce qu'une étiquette ne comporte de la musique.  Il
 suffit que l'expression en question contienne un bloc @code{\score} et
@@ -646,6 +672,7 @@ un bloc @code{\layout}.
 @node Texte avec sauts de page
 @unnumberedsubsubsec Texte avec sauts de page
 @translationof Page wrapping text
+
 Alors que @code{\markup} s'utilise pour traiter un bloc de texte
 insécable, @code{\markuplines} permet, employé en tête de partition,
 d'obtenir un bloc de lignes réparties différemment et au cas où sur

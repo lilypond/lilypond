@@ -1670,7 +1670,7 @@ y como está especificado; en caso contrario:
 Tanto @code{measureLength} como @code{beatLength} son @i{momentos},
 unidades de duración musical.  Las cantidades del tipo @i{moment} se
 crean por la función de Scheme @code{ly:make-moment}.  Para ver más
-información sobre esta función, consulte @ref{Time administration}.
+información sobre esta función, consulte @ref{Gestión del tiempo}.
 
 @lilypond[quote,relative=2,verbatim]
   \time 5/16

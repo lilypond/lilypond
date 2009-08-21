@@ -103,7 +103,7 @@ Reportez-vous au chapitre @ref{Liaisons de prolongation}.
 abordé au chapitre @ref{Arpèges}.
 
 @item Une description des indications de tremolo est disponible au
-chapitre @ref{Répétition en trémolo}.
+chapitre @ref{Répétitions en trémolo}.
 
 @item Certaines retouches particulières au monde des claviers sont
 abordées au chapitre @rlearning{Exemple concret}.
@@ -130,7 +130,7 @@ Manuel de notation :
 @ref{Quadrillage temporel},
 @ref{Liaisons de prolongation},
 @ref{Arpèges},
-@ref{Répétition en trémolo}.
+@ref{Répétitions en trémolo}.
 
 Référence des propriétés internes :
 @rinternals{PianoStaff}.
@@ -615,7 +615,7 @@ d'autres chapitres, telles que :
 @ref{Glissando}.
 
 @item Le @notation{bisbigliando}, qui s'écrit comme un trémolo, 
-@ref{Répétition en trémolo}
+@ref{Répétitions en trémolo}
 
 @item Les harmoniques naturelles sont présentées dans @ref{Harmoniques}.
 
@@ -625,7 +625,7 @@ d'autres chapitres, telles que :
 
 @seealso
 Manuel de notation :
-@ref{Répétition en trémolo}
+@ref{Répétitions en trémolo}
 @ref{Glissando}
 @ref{Arpèges}
 @ref{Harmoniques}

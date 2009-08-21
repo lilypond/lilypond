@@ -1034,7 +1034,7 @@ changé pour un style numérique :
 
 
 Les métriques anciennes sont abordées au chapitre 
-@ref{Métriques mensurales}.
+@ref{Métriques anciennes}.
 
 
 @predefined
@@ -1060,7 +1060,7 @@ Glossaire musicologique :
 @rglos{time signature}
 
 Manuel de notation :
-@ref{Métriques mensurales},
+@ref{Métriques anciennes},
 @ref{Gestion du temps}.
 
 Morceaux choisis :
@@ -1970,7 +1970,7 @@ Morceaux choisis :
 @end menu
 
 @node Barres de mesure
-@unnumberedsubsubsec Barres de mesure
+@subsection Barres de mesure
 @translationof Bar lines
 
 @cindex barres de mesure

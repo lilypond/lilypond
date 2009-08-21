@@ -5937,7 +5937,7 @@ msgstr "simile"
 #. @node in Documentation/de/user/repeats.itely
 #. @unnumberedsubsubsec in Documentation/de/user/repeats.itely
 msgid "Tremolo repeats"
-msgstr "Répétition en trémolo"
+msgstr "Répétitions en trémolo"
 
 #. Documentation/user/simultaneous.itely:94 (comment)
 msgid "explicit single voice"

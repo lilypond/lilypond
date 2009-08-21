@@ -2274,7 +2274,7 @@ Morceaux choisis :
 
 Manuel de notation :
 @ref{Styles de tête de note},
-@ref{Notes en accord}.
+@ref{Notes en accords}.
 
 @seealso
 Référence des propriétés internes : 
@@ -2392,7 +2392,7 @@ Morceaux choisis :
 @rlsr{Pitches}.
 
 Manuel de notation :
-@ref{Note head styles}.
+@ref{Styles de tête de note}.
 
 Référence des propriétés internes :
 @rinternals{note-event},
