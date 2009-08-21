@@ -26,7 +26,7 @@ et de mesure.
 * Écriture des silences::               
 * Gravure du rythme::          
 * Barres de ligature::                       
-* Barres de mesure::                        
+* Mesures::                        
 * Fonctionnalités rythmiques particulières::   
 @end menu
 
@@ -1970,7 +1970,7 @@ Morceaux choisis :
 @end menu
 
 @node Barres de mesure
-@subsection Barres de mesure
+@unnumberedsubsubsec Barres de mesure
 @translationof Bar lines
 
 @cindex barres de mesure
