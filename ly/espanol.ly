@@ -1,20 +1,30 @@
+%%%% espanol.ly -- common Spanish names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 2002--2009 Carlos García Suárez <cgscqmp@terra.es>
+%%%%                Maximiliano G. G. <mxgdvg@yahoo.it>
+%%%%                  (double-flats, double-sharps, quarter-tones, etc.)
+
+\version "2.12.0"
+
 %{
 
- Common Spanish names for notes. "b" means flat (bemol), "s" means sharp (sostenido).
- Adapted from italiano.ly.
+  b   = flat (bemol)
+  bb  = double-flat
+  cb  = quarter-tone flat (cuarto [de tono] bemol)
+  tcb = three-quarters-tone flat (trés cuarto [de tono] bemol)
 
- English: a   b   c   d   e   f   g
- Spanish: la  si  do  re  mi  fa  sol
+  s   = sharp (sostenido)
+  x   = double-sharp
+  ss  = double-sharp
+  cs  = quarter-tone sharp (cuarto de tono sostenido)
+  tcs = three-quarters-tone sharp (trés cuarto [de tono] sostenido)
 
-%}
+  English: c   d   e   f   g   a   b
+  Spanish: do  re  mi  fa  sol la  si
 
-%{
-
- contributed by Carlos García Suárez <<cgscqmp@terra.es>>
- 
- and contributed by Maximiliano G. G. <<mxgdvg@yahoo.it>> con:
- doble alteración alternativa, x para doble sostenido
- cuartos de tono: tcb, cb, cs, tcs
+  Adapted from italiano.ly.
 
 %}
 
@@ -99,7 +109,5 @@ pitchnamesEspanol = #`(
 )
 
 pitchnames = \pitchnamesEspanol
-
-\version "2.12.0"
 
 #(ly:parser-set-note-names parser pitchnames)

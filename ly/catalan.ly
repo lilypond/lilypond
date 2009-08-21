@@ -1,23 +1,29 @@
+%%%% catalan.ly -- common Catalan names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 1998--2009 Jaume Obrador <jobrador@ipc4.uib.es>
+
+\version "2.12.0"
+
 %{
 
- Common catalan names for notes. "b" means flat (bemoll), "d" means sharp
- (diesi).  Also "s" is included for sharp (sostingut).  Both "diesi" and
- "sostingut" are approved by "Diccionari de la Llengua Catalana" from
- "Institut d'Estudis Catalans".
+  b  = flat (bemoll)
+  bb = double-flat
 
- Adapted from italiano.ly.
+  d  = sharp (diesi)
+  dd = double-sharp
 
- English: a   b   c   d   e   f   g
- Catalan: la  si  do  re  mi  fa  sol
+  s  = sharp (sostingut)
+  ss = double-sharp
 
- For spanish naming just use the sharp sign "s" (sostenido) instead of "s"
-(sostenido) .
+  English: c   d   e   f   g   a   b
+  Catalan: do  re  mi  fa  sol la  si
+
+  Adapted from italiano.ly.
+
 %}
 
-% contributed by Jaume Obrador <<jobrador@ipc4.uib.es>>
-
-
-% For using "sostingut" notation, which is also correct
 pitchnamesCatalan = #`(
 	(dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(dob . ,(ly:make-pitch -1 0 FLAT))
@@ -73,7 +79,5 @@ pitchnamesCatalan = #`(
 )
 
 pitchnames = \pitchnamesCatalan
-
-\version "2.12.0"
 
 #(ly:parser-set-note-names parser pitchnames)

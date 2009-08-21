@@ -1,7 +1,23 @@
-%
-% common Swedish names for notes. "ess" means flat, "iss" means sharp
-%
-% by Mats Bengtsson.
+%%%% svenska.ly -- common Swedish names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 1997--2009 Mats Bengtsson <mabe@violin.s3.kth.se>
+
+\version "2.12.0"
+
+%{
+
+  ess    = flat
+  essess = double-flat
+
+  iss    = sharp
+  ississ = double-sharp
+
+  English: c  d  e  f  g  a  bf b
+  Swedish: c  d  e  f  g  a  b  h
+
+%}
 
 pitchnamesSvenska = #`(
 	(cessess . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
@@ -42,6 +58,5 @@ pitchnamesSvenska = #`(
 )
 
 pitchnames = \pitchnamesSvenska
-\version "2.12.0"
 
 #(ly:parser-set-note-names parser pitchnames)

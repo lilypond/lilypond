@@ -1,15 +1,29 @@
+%%%% portugues.ly -- common Portuguese names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 2004--2009 Pedro Kröger <kroeger@pedrokroeger.net>
+
+\version "2.12.0"
+
 %{
 
- Common Portuguese names for notes. "b" means flat (bemol), "s" means
- sharp (sustenido).  Adapted from espanol.ly and italian.ly.
+  b    = flat (bemol)
+  bb   = double-flat
+  bqt  = quarter-tone flat
+  btqt = three-quarters-tone flat
 
- English: a   b   c   d   e   f   g
- Portuguese: la  si  do  re  mi  fa  sol
+  s    = sharp (sustenido)
+  ss   = double-sharp
+  sqt  = quarter-tone sharp
+  stqt = three-quarters-tone sharp
+
+     English: c   d   e   f   g   a   b
+  Portuguese: do  re  mi  fa  sol la  si
+
+  Adapted from espanol.ly and italiano.ly.
 
 %}
-
-% contributed by Pedro Kröger <<kroeger@pedrokroeger.net>>
-
 
 pitchnamesPortuguese = #`(
 	(dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
@@ -85,7 +99,5 @@ pitchnamesPortuguese = #`(
 )
 
 pitchnames = \pitchnamesPortuguese
-
-\version "2.12.0"
 
 #(ly:parser-set-note-names parser pitchnames)

@@ -1,15 +1,24 @@
-%{
-     English note names spelled out in full, and abbreviated
+%%%% english.ly -- common English names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 1996--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
-         ff  for double-flat
-			tqf for three-quarters flat
-			f   for flat
-			qf  for quarter-flat
-			
-			qs  for quarter-sharp
-			s   for sharp
-			tqs for three-quarters sharp
-			x   for double-sharp
+\version "2.12.0"
+
+%{
+
+  f   = flat
+  ff  = double-flat
+  qf  = quarter-flat
+  tqf = three-quarters flat
+
+  s   = sharp
+  x   = double-sharp
+  ss  = double-sharp
+  qs  = quarter-sharp
+  tqs = three-quarters sharp
+
 %}
 
 pitchnamesEnglish = #`(
@@ -128,8 +137,5 @@ pitchnamesEnglish = #`(
 )
 
 pitchnames = \pitchnamesEnglish
-
-\version "2.12.0"
-
 
 #(ly:parser-set-note-names parser pitchnames)

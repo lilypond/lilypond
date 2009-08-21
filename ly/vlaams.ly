@@ -1,17 +1,25 @@
-\version "2.12.0" %hier stond 2.1.36, mocht ik dat wel veranderen?
+%%%% vlaams.ly -- common Flemish names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 2004--2009 Hendrik Maryns <hendrik.maryns@ugent.be>
+
+\version "2.12.0"
 
 %{
 
- Common Flemish names for notes. "b" means flat (bemol), "k" means sharp (kruis).
- Adapted from espanol.ly.
+  b  = flat (bemol)
+  bb = double-flat
 
- English: a   b   c   d   e   f   g
- Flemish: la  si  do  re  mi  fa  sol
+  k  = sharp (kruis)
+  kk = double-sharp
+
+  English: c   d   e   f   g   a   b
+  Flemish: do  re  mi  fa  sol la  si
+
+  Adapted from espanol.ly.
 
 %}
-
-% contributed by Hendrik Maryns <<hendrik.maryns@ugent.be>> 06/06/2004
-
 
 pitchnamesVlaams = #`(
 	(dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))

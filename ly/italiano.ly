@@ -1,15 +1,33 @@
+%%%% italiano.ly -- common Italian names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 1998--2009 Paolo Zuliani <zuliap@easynet.it>
+%%%%                Eric Wurbel <wurbel@univ-tln.fr>
+%%%%                  (additions for semi-sharps and semi-flats)
+
+\version "2.12.0"
+
 %{
- Common italian names for notes. "b" means flat (bemolle), "d" means sharp (diesis) and "s" means semi- (semi-).
- Adapted from dutch.ly.
 
- English: a   b   c   d   e   f   g
- Italian: la  si  do  re  mi  fa  sol
+  b   = flat (bemolle)
+  bb  = double-flat
+  sb  = quarter-tone flat (semi-bemolle)
+  bsb = three-quarters-tone flat
 
- For french naming just change 'do' in 'ut'.
+  d   = sharp (diesis)
+  dd  = double-sharp
+  sd  = quarter-tone sharp (semi-diesis)
+  dsd = three-quarters-tone sharp
+
+  English: c   d   e   f   g   a   b
+  Italian: do  re  mi  fa  sol la  si
+
+  Adapted from nederlands.ly.
+
+  For french naming just change 'do' to 'ut'.
+
 %}
-
-% contributed by Paolo Zuliani <<zuliap@easynet.it>>
-% additions for semi-sharps and semi-flats by Eric Wurbel <<wurbel@univ-tln.fr>>
 
 pitchnamesItaliano = #`(
 	(dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
@@ -85,7 +103,5 @@ pitchnamesItaliano = #`(
 )
 
 pitchnames = \pitchnamesItaliano
-
-\version "2.12.0"
 
 #(ly:parser-set-note-names parser pitchnames)

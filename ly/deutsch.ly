@@ -1,11 +1,31 @@
-% common german names for notes. "es" means flat, "is" means sharp
-%
-% by Roland Meier <<meier@informatik.th-darmstadt.de>>
-% based on swedish.ly by Mats Bengtsson.
+%%%% deutsch.ly -- common German names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 1997--2009 Roland Meier <meier@informatik.th-darmstadt.de>
+%%%%                Bjoern Jacke <bjoern.jacke@gmx.de>
+%%%%                  (added asas; added comment to ases)
 
-% 1999/06/09 Bjoern Jacke <<bjoern.jacke@gmx.de>>
-%            added asas and marked ases as `unusual'
+\version "2.12.0"
 
+%{
+
+  es   = flat
+  eses = double-flat
+  eh   = quarter-tone flat
+  eseh = three-quarter-tones flat
+
+  is   = sharp
+  isis = double-sharp
+  ih   = quarter-tone sharp
+  isih = three-quarter-tones sharp
+
+  English: c  d  e  f  g  a  bf b
+   German: c  d  e  f  g  a  b  h
+
+  Adapted from svenska.ly
+
+%}
 
 pitchnamesDeutsch = #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
@@ -83,7 +103,5 @@ pitchnamesDeutsch = #`(
 
 
 pitchnames = \pitchnamesDeutsch
-
-\version "2.12.0"
 
 #(ly:parser-set-note-names parser pitchnames)

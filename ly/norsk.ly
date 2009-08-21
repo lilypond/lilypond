@@ -1,29 +1,25 @@
+%%%% norsk.ly -- common Norwegian names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 1998--2009 Arvid Grøtting <arvidg@ifi.uio.no>
 
-% 	Idx norsk.ly,v 1.1 1998/03/25 11:38:28 arvidg Exp arvidg $	
+\version "2.12.0"
 
 %{
 
- Common norwegian names for notes, including versions without the
- double s-es to save typing, as well as the traditional names with
- them not to confuse musicians.  "es" or "ess" means flat, "is" or
- "iss" means sharp.
+  es     = flat
+  ess    = flat
+  eses   = double-flat
+  essess = double-flat
 
- Otherwise, the main difference from the dutch names is the that the
- "b" is called "h" in norwegian, while the dutch "bes" is a norwegian
- "b".
+  is     = sharp
+  iss    = sharp
+  isis   = double-sharp
+  ississ = double-sharp
 
- Staying within the (proud?) naming convention for norwegian language
- setup used in LaTeX, this file is called "norsk.ly" instead of
- "norwegian.ly", even if all other languages' files use the english
- name.
-
- This file is based on "dutch.ly".  Basically, I copied "dutch.ly",
- duplicated all lines containing at least one "is" or "es", changed
- every other "is" into an "iss" and every other "es" into an "ess",
- added "ass" et al, and made some b->h-related changes.  There may be
- bugs in here please tell me (or send patches) if you find any.
-
-                                  Arvid Gr=F8tting <<arvidg@ifi.uio.no>>
+    English: c  d  e  f  g  a  bf b
+  Norwegian: c  d  e  f  g  a  b  h
 
 %}
 
@@ -102,9 +98,6 @@ pitchnamesNorsk = #`(
 	(hississ . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
 
-
-pitchnames =\pitchnamesNorsk
-
-\version "2.12.0"
+pitchnames = \pitchnamesNorsk
 
 #(ly:parser-set-note-names parser pitchnames)

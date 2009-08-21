@@ -1,10 +1,25 @@
-% common finnish names for notes. "es" means flat, "is" means sharp
-%
-% by Heikki Junes <<heikki.junes@hut.fi>>
-% based on svenska.ly by Mats Bengtsson.
+%%%% suomi.ly -- common Finnish names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 2001--2009 Heikki Junes <heikki.junes@hut.fi>
 
-% 2001/08/28 Heikki Junes <<heikki.junes@hut.fi>>
-%            added bb and marked heses as `unusual'
+\version "2.12.0"
+
+%{
+
+  es   = flat
+  eses = double-flat
+
+  is   = sharp
+  isis = double-sharp
+
+  English: c  d  e  f  g  a  bf b
+  Finnish: c  d  e  f  g  a  b  h
+
+  Adapted from svenska.ly
+
+%}
 
 pitchnamesSuomi = #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
@@ -48,7 +63,5 @@ pitchnamesSuomi = #`(
 )
 
 pitchnames = \pitchnamesSuomi
-
-\version "2.12.0"
 
 #(ly:parser-set-note-names parser pitchnames)

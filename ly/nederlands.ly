@@ -1,14 +1,30 @@
-\version "2.12.0"
-%{
- common dutch names for notes. es means flat, is means sharp
+%%%% nederlands.ly -- common Dutch names for notes
+%%%%
+%%%% source file of the GNU LilyPond music typesetter
+%%%%
+%%%% (c) 1996--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
-notenames should only contain letters. No digits or punctuation.
+\version "2.12.0"
+
+%{
+
+  es   = flat
+  eses = double-flat
+  eh   = quarter-tone flat
+  eseh = three-quarter-tones flat
+
+  is   = sharp
+  isis = double-sharp
+  ih   = quarter-tone sharp
+  isih = three-quarter-tones sharp
+
+  English: c  d  e  f  g  a  bf b
+    Dutch: c  d  e  f  g  a  b  h
 
 %}
 
 dutchPitchnames = #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
-
 	(ceh . ,(ly:make-pitch -1 0 SEMI-FLAT))
 	(ces . ,(ly:make-pitch -1 0 FLAT))
 	(ceseh . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
@@ -83,6 +99,6 @@ dutchPitchnames = #`(
 	(bisis . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 	)
 
+pitchnames = \dutchPitchnames
 
-pitchnames = \dutchPitchnames 
 #(ly:parser-set-note-names parser pitchnames)
