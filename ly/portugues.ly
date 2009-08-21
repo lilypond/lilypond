@@ -11,12 +11,12 @@
   b    = flat (bemol)
   bb   = double-flat
   bqt  = quarter-tone flat
-  btqt = three-quarters-tone flat
+  btqt = three-quarter-tones flat
 
   s    = sharp (sustenido)
   ss   = double-sharp
   sqt  = quarter-tone sharp
-  stqt = three-quarters-tone sharp
+  stqt = three-quarter-tones sharp
 
      English: c   d   e   f   g   a   b
   Portuguese: do  re  mi  fa  sol la  si

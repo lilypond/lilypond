@@ -10,14 +10,14 @@
 
   f   = flat
   ff  = double-flat
-  qf  = quarter-flat
-  tqf = three-quarters flat
+  qf  = quarter[-tone] flat
+  tqf = three-quarter[-tones] flat
 
   s   = sharp
   x   = double-sharp
   ss  = double-sharp
-  qs  = quarter-sharp
-  tqs = three-quarters sharp
+  qs  = quarter[-tone] sharp
+  tqs = three-quarter[-tones] sharp
 
 %}
 

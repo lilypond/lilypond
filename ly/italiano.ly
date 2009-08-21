@@ -13,12 +13,12 @@
   b   = flat (bemolle)
   bb  = double-flat
   sb  = quarter-tone flat (semi-bemolle)
-  bsb = three-quarters-tone flat
+  bsb = three-quarter-tones flat
 
   d   = sharp (diesis)
   dd  = double-sharp
   sd  = quarter-tone sharp (semi-diesis)
-  dsd = three-quarters-tone sharp
+  dsd = three-quarter-tones sharp
 
   English: c   d   e   f   g   a   b
   Italian: do  re  mi  fa  sol la  si

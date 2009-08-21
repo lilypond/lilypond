@@ -12,14 +12,14 @@
 
   b   = flat (bemol)
   bb  = double-flat
-  cb  = quarter-tone flat (cuarto [de tono] bemol)
-  tcb = three-quarters-tone flat (trés cuarto [de tono] bemol)
+  cb  = quarter-tone flat (cuarto [de tono de] bemol)
+  tcb = three-quarter-tones flat (tres cuartos [de tonos de] bemol)
 
   s   = sharp (sostenido)
   x   = double-sharp
   ss  = double-sharp
-  cs  = quarter-tone sharp (cuarto de tono sostenido)
-  tcs = three-quarters-tone sharp (trés cuarto [de tono] sostenido)
+  cs  = quarter-tone sharp (cuarto [de tono de] sostenido)
+  tcs = three-quarter-tones sharp (tres cuartos [de tonos de] sostenido)
 
   English: c   d   e   f   g   a   b
   Spanish: do  re  mi  fa  sol la  si
