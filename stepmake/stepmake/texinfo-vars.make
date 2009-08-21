@@ -17,7 +17,7 @@ MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
 # FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
-XREF_MAPS_DIR = $(top-build-dir)/$(outbase)/xref-maps
+XREF_MAPS_DIR = $(top-build-dir)/$(outdir)/xref-maps
 XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.xref-map) \
  $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.xref-map)
 XREF_MAP_FLAGS += -I $(outdir)

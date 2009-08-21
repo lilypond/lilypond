@@ -1,10 +1,10 @@
 default:
 
 ifeq ($(out),www)
-ifeq ($(ISOLANG),ja)
+ifneq ($(N0_PDF_FILES),)
 local-WWW-1: $(MASTER_TEXI_FILES) $(XREF_MAPS_FILES)
 endif
-ifneq ($(ISOLANG),ja)
+ifeq ($(NO_PDF_FILES),)
 local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) $(XREF_MAPS_FILES)
 endif
 

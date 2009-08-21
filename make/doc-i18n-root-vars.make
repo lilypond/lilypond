@@ -22,7 +22,7 @@ SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
 OUT_HTML_FILES += $(UNSPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html)
 BIG_PAGE_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html)
 DEEP_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html)
-#PDF_FILES := $(TEXINFO_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
+PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
 
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)
@@ -37,7 +37,7 @@ MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 # texi2html xref map files
 # FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
-XREF_MAPS_DIR=$(top-build-dir)/$(outbase)/xref-maps
+XREF_MAPS_DIR=$(top-build-dir)/$(outdir)/xref-maps
 XREF_MAPS_FILES=$(TEXINFO_MANUALS:%=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
 XREF_MAP_FLAGS += -I $(outdir)
 
