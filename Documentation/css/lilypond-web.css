@@ -406,6 +406,13 @@ div#quickSummary {
   margin: 0;
 }
 
+div.separator {
+  background: transparent url(../pictures/squiggle.jpg) 40% 60% no-repeat;
+  height: 36px;
+  clear: both;
+  padding: 10px;
+}
+
 div#news {
   padding: 0;
   margin: 0 13em 1em 0;
@@ -619,7 +626,7 @@ div.float-right a.clickable {
 .column-center-top {
   float: left;
   width: 99.5%;
-  text-align: center;
+  text-align: left;
   border: 1px solid #8bbb6b;
   margin: 1em auto;
 }
