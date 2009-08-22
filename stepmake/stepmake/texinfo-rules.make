@@ -37,7 +37,7 @@ $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
-	$(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$(dir $@) $(TEXI2HTML_SPLIT) $<
+	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(dir $@) $<
 	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
