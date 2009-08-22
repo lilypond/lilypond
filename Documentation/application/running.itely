@@ -76,7 +76,7 @@ they will each be processed independently.  @footnote{The status of
 GUILE is not reset after processing a @code{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
-If @file{filename.ly} contains more than one @code{\score}
+If @file{filename.ly} contains more than one @code{\book}
 block, then the rest of the scores will be output in numbered files,
 starting with @file{filename-1.pdf}.  In addition, the value of
 @code{output-suffix} will be inserted between the basename and the
