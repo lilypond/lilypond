@@ -1,56 +1,55 @@
+% script-init.ly
+
 \version "2.12.0"
 
-
 % code char abbreviations
-%
-dashHat= "marcato"
-dashPlus= "stopped"
-dashDash= "tenuto"
-dashBar= "staccatissimo"
-dashLarger= "accent"
-dashDot= "staccato"
+dashHat = "marcato"
+dashPlus = "stopped"
+dashDash = "tenuto"
+dashBar = "staccatissimo"
+dashLarger = "accent"
+dashDot = "staccato"
 dashUnderscore = "portato"
 
 harmonic = #(make-music 'HarmonicEvent)
 
-thumb = #(make-articulation "thumb")
 accent = #(make-articulation "accent")
-espressivo = #(make-articulation "espressivo")
-marcato = #(make-articulation "marcato")
-staccatissimo = #(make-articulation "staccatissimo")
-portato = #(make-articulation "portato")
-signumcongruentiae = #(make-articulation "signumcongruentiae")
-fermata = #(make-articulation "fermata")
-shortfermata = #(make-articulation "shortfermata")
-longfermata = #(make-articulation "longfermata")
-verylongfermata = #(make-articulation "verylongfermata")
-stopped = #(make-articulation "stopped")
-staccato = #(make-articulation "staccato")
-tenuto = #(make-articulation "tenuto")
-upbow = #(make-articulation "upbow")
+coda = #(make-articulation "coda")
 downbow = #(make-articulation "downbow")
-lheel = #(make-articulation "lheel")
-rheel = #(make-articulation "rheel")
-ltoe = #(make-articulation "ltoe")
-rtoe = #(make-articulation "rtoe")
-turn = #(make-articulation "turn")
-open = #(make-articulation "open")
-flageolet = #(make-articulation "flageolet")
-reverseturn = #(make-articulation "reverseturn")
-trill = #(make-articulation "trill")
-prall = #(make-articulation "prall")
-mordent = #(make-articulation "mordent")
-upmordent = #(make-articulation "upmordent")
 downmordent = #(make-articulation "downmordent")
+downprall = #(make-articulation "downprall")
+espressivo = #(make-articulation "espressivo")
+fermata = #(make-articulation "fermata")
+flageolet = #(make-articulation "flageolet")
+lheel = #(make-articulation "lheel")
+lineprall = #(make-articulation "lineprall")
+longfermata = #(make-articulation "longfermata")
+ltoe = #(make-articulation "ltoe")
+marcato = #(make-articulation "marcato")
+mordent = #(make-articulation "mordent")
+open = #(make-articulation "open")
+portato = #(make-articulation "portato")
+prall = #(make-articulation "prall")
+pralldown = #(make-articulation "pralldown")
+prallmordent = #(make-articulation "prallmordent")
 prallprall = #(make-articulation "prallprall")
 prallup = #(make-articulation "prallup")
-pralldown = #(make-articulation "pralldown")
-lineprall = #(make-articulation "lineprall")
-prallmordent = #(make-articulation "prallmordent")
-upprall = #(make-articulation "upprall")
-downprall = #(make-articulation "downprall")
+reverseturn = #(make-articulation "reverseturn")
+rheel = #(make-articulation "rheel")
+rtoe = #(make-articulation "rtoe")
 segno = #(make-articulation "segno")
-coda = #(make-articulation "coda")
-varcoda = #(make-articulation "varcoda")
+shortfermata = #(make-articulation "shortfermata")
+signumcongruentiae = #(make-articulation "signumcongruentiae")
 snappizzicato = #(make-articulation "snappizzicato")
-
+staccatissimo = #(make-articulation "staccatissimo")
+staccato = #(make-articulation "staccato")
+stopped = #(make-articulation "stopped")
+tenuto = #(make-articulation "tenuto")
+thumb = #(make-articulation "thumb")
+trill = #(make-articulation "trill")
+turn = #(make-articulation "turn")
+upbow = #(make-articulation "upbow")
+upmordent = #(make-articulation "upmordent")
+upprall = #(make-articulation "upprall")
+varcoda = #(make-articulation "varcoda")
+verylongfermata = #(make-articulation "verylongfermata")
