@@ -45,7 +45,7 @@ This section discusses how to create music functions within LilyPond.
 @node Overview of music functions
 @subsection Overview of music functions
 
-Making a function which substitutes a variable into LilyPond
+Making a function that substitutes a variable into LilyPond
 code is easy.  The general form of these functions is
 
 @example
@@ -67,10 +67,9 @@ where
  variables as @code{#$var1}, etc.
 @end multitable
 
-There following input types may be used as variables
-in a music function.  This list is not exhaustive; see
-other documentation specifically about Scheme for more
-variable types.
+The following input types may be used as variables in a music
+function.  This list is not exhaustive; see other documentation
+specifically about Scheme for more variable types.
 
 @multitable @columnfractions .33 .66
 @headitem Input type          @tab @var{vari-type?} notation
@@ -228,7 +227,7 @@ withAlt = #(define-music-function (parser location mag music) (number? ly:music?
 @subsection Void functions
 
 A music function must return a music expression, but sometimes we
-may want to have a function which does not involve music (such as
+may want to have a function that does not involve music (such as
 turning off Point and Click).  To do this, we return a @code{void}
 music expression.
 
@@ -254,7 +253,7 @@ noPointAndClick =
 @subsection Functions without arguments
 
 In most cases a function without arguments should be written
-with an variable,
+with a variable,
 
 @example
 dolce = \markup@{ \italic \bold dolce @}
@@ -351,11 +350,11 @@ traLaLa = { c'4 d'4 }
 
 @c Due to parser lookahead
 
-In this example, the assignment happens after parser has verified that
-nothing interesting happens after @code{traLaLa = @{ ... @}}.  Without
-the dummy statement in the above example, the @code{newLa} definition
-is executed before @code{traLaLa} is defined, leading to a syntax
-error.
+In this example, the assignment happens after the parser has
+verified that nothing interesting happens after
+@code{traLaLa = @{ ... @}}.  Without the dummy statement in the
+above example, the @code{newLa} definition is executed before
+@code{traLaLa} is defined, leading to a syntax error.
 
 The above example shows how to @q{export} music expressions from the
 input to the Scheme interpreter.  The opposite is also possible.  By
@@ -422,8 +421,8 @@ class @code{Music}.
 The actual information of a music expression is stored in properties.
 For example, a @rinternals{NoteEvent} has @code{pitch} and
 @code{duration} properties that store the pitch and duration of that
-note.  A list of all properties available is in the internals manual,
-under @rinternals{Music properties}.
+note.  A list of all properties available can be found in the
+Internals Reference, under @rinternals{Music properties}.
 
 A compound music expression is a music object that contains other
 music objects in its properties.  A list of objects can be stored in
@@ -569,7 +568,7 @@ of the @code{NoteEvent} object,
 (ly:make-pitch 0 0 0)
 @end example
 
-The note pitch can be changed by setting this 'pitch property,
+The note pitch can be changed by setting this @code{'pitch} property,
 
 @funindex \displayLilyMusic
 
@@ -586,10 +585,9 @@ d'
 @node Doubling a note with slurs (example)
 @subsection Doubling a note with slurs (example)
 
-Suppose we want to create a function which translates
-input like @code{a} into @code{a( a)}.  We begin
-by examining the internal representation of the music
-we want to end up with.
+Suppose we want to create a function that translates input like
+@code{a} into @code{a( a)}.  We begin by examining the internal
+representation of the desired result.
 
 @example
 \displayMusic@{ a'( a') @}
@@ -672,11 +670,11 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 The easy way to add articulation to notes is to merge two music
 expressions into one context, as explained in
 @ref{Creating contexts}.  However, suppose that we want to write
-a music function which does this.
+a music function that does this.
 
 A @code{$variable} inside the @code{#@{...#@}} notation is like
-using a regular @code{\variable} in classical LilyPond
-notation.  We know that
+a regular @code{\variable} in classical LilyPond notation.  We
+know that
 
 @example
 @{ \music -. -> @}
@@ -776,15 +774,16 @@ function).  Recall that our purpose is to add a marcato to an
 used elsewhere.
 
 Now we have a @code{result-event-chord}, which is a
-@code{NoteEventChord} expression and is a copy of @code{event-chord}.  We
-add the marcato to its elements list property.
+@code{NoteEventChord} expression and is a copy of
+@code{event-chord}.  We add the marcato to its @code{'elements}
+list property.
 
 @example
 (set! place new-value)
 @end example
 
-Here, what we want to set (the @q{place}) is the @q{elements} property of
-@code{result-event-chord} expression.
+Here, what we want to set (the @q{place}) is the @code{'elements}
+property of @code{result-event-chord} expression.
 
 @example
 (ly:music-property result-event-chord 'elements)
@@ -793,7 +792,7 @@ Here, what we want to set (the @q{place}) is the @q{elements} property of
 @code{ly:music-property} is the function used to access music properties
 (the @code{'elements}, @code{'duration}, @code{'pitch}, etc, that we
 see in the @code{\displayMusic} output above).  The new value is the
-former elements property, with an extra item: the
+former @code{'elements} property, with an extra item: the
 @code{ArticulationEvent} expression, which we copy from the
 @code{\displayMusic} output,
 
@@ -803,10 +802,10 @@ former elements property, with an extra item: the
       (ly:music-property result-event-chord 'elements))
 @end example
 
-@code{cons} is used to add an element to a list without modifying the
-original list.  This is what we
-want: the same list as before, plus the new @code{ArticulationEvent}
-expression.  The order inside the elements property is not important here.
+@code{cons} is used to add an element to a list without modifying
+the original list.  This is what we want: the same list as before,
+plus the new @code{ArticulationEvent} expression.  The order
+inside the @code{'elements} property is not important here.
 
 Finally, once we have added the marcato articulation to its @code{elements}
 property, we can return @code{result-event-chord}, hence the last line of
@@ -839,7 +838,7 @@ We may verify that this music function works correctly,
 @section Markup programmer interface
 
 Markups are implemented as special Scheme functions which produce a
-Stencil object given a number of arguments.
+@code{Stencil} object given a number of arguments.
 
 @menu
 * Markup construction in Scheme::
@@ -878,7 +877,7 @@ LilyPond markup syntax and Scheme markup syntax.
 @item @code{\markup markup1} @tab @code{(markup markup1)}
 @item @code{\markup @{ markup1 markup2 ... @}} @tab
         @code{(markup markup1 markup2 ... )}
-@item @code{\command} @tab @code{#:command}
+@item @code{\markup-command} @tab @code{#:markup-command}
 @item @code{\variable} @tab @code{variable}
 @item @code{\center-column @{ ... @}} @tab @code{#:center-column ( ... )}
 @item @code{string} @tab @code{"string"}
@@ -1020,7 +1019,7 @@ cons'ing a list with the extra setting.
 Suppose that we are typesetting a recitative in an opera and
 we would like to define a command that will show character names in a
 custom manner.  Names should be printed with small caps and moved a
-bit to the left and top.  We will define a @code{\character} command
+bit up and to the left.  We will define a @code{\character} command
 which takes into account the necessary translation and uses the newly
 defined @code{\smallcaps} command:
 
@@ -1078,8 +1077,8 @@ The final result is as follows:
 
 We have used the @code{caps} font shape, but suppose that our font
 does not have a small-caps variant.  In that case we have to fake
-the small caps font by setting a string in upcase with the first
-letter a little larger:
+the small caps font by setting a string in uppercase with the
+first letter a little larger:
 
 @example
 #(define-markup-command (smallcaps layout props str) (string?)
@@ -1166,7 +1165,7 @@ Markup list commands are defined with the
 @code{define-markup-list-command} Scheme macro, which is similar to the
 @code{define-markup-command} macro described in
 @ref{New markup command definition}, except that where the latter returns
-a single stencil, the former returns a list stencils.
+a single stencil, the former returns a list of stencils.
 
 In the following example, a @code{\paragraph} markup list command is
 defined, which returns a list of justified lines, the first one being
@@ -1184,14 +1183,14 @@ Besides the usual @code{layout} and @code{props} arguments, the
 @code{args}.  The predicate for markup lists is @code{markup-list?}.
 
 First, the function gets the indent width, a property here named
-@code{par-indent}, from the property list @code{props} If the property
-is not found, the default value is @code{2}.  Then, a list of justified
-lines is made using the @code{make-justified-lines-markup-list}
-function, which is related to the @code{\justified-lines}
-built-in markup list command.  An horizontal space is added at the
-beginning using the @code{make-hspace-markup} function.  Finally, the
-markup list is interpreted using the @code{interpret-markup-list}
-function.
+@code{par-indent}, from the property list @code{props}.  If the
+property is not found, the default value is @code{2}.  Then, a
+list of justified lines is made using the 
+@code{make-justified-lines-markup-list} function, which is related
+to the @code{\justified-lines} built-in markup list command.  A
+horizontal space is added at the beginning using the
+@code{make-hspace-markup} function.  Finally, the markup list is
+interpreted using the @code{interpret-markup-list} function.
 
 This new markup list command can be used as follows:
 @example
@@ -1231,9 +1230,10 @@ syntax for this is
 \applyContext @var{function}
 @end example
 
-@var{function} should be a Scheme function taking a single argument,
-being the context to apply it to.  The following code will print the
-current bar number on the standard output during the compile:
+@var{function} should be a Scheme function that takes a single
+argument: the context in which the @code{\applyContext} command is
+being called.  The following code will print the current bar
+number on the standard output during the compile:
 
 @example
 \applyContext
@@ -1295,8 +1295,8 @@ note-heads on the center-line:
 @node Scheme procedures as properties
 @section Scheme procedures as properties
 
-Properties (like thickness, direction, etc.) can be set at fixed values
-with \override, e.g.
+Properties (like @code{thickness}, @code{direction}, etc.) can be
+set at fixed values with @code{\override}, e.g.
 
 @example
 \override Stem #'thickness = #2.0
@@ -1378,11 +1378,11 @@ F = \tweak #'font-size #-3 -\flageolet
 @end example
 
 @noindent
-With other words, @code{\tweak} doesn't behave like an articulation
+In other words, @code{\tweak} doesn't behave like an articulation
 regarding the syntax; in particular, it can't be attached with
 @code{^} and @code{_}.
 
-Using Scheme, this problem can be circumvented.  The route to the
+Using Scheme, this problem can be avoided.  The route to the
 result is given in @ref{Adding articulation to notes (example)},
 especially how to use @code{\displayMusic} as a helping guide.
 
@@ -1419,12 +1419,13 @@ There are a few classes of difficult adjustments.
 
 
 @item
-One type of difficult adjustment is the appearance of spanner objects,
-such as slur and tie.  Initially, only one of these objects is created,
-and they can be adjusted with the normal mechanism.  However, in some
-cases the spanners cross line breaks.  If this happens, these objects
-are cloned.  A separate object is created for every system that it is
-in.  These are clones of the original object and inherit all
+One type of difficult adjustment involves the appearance of
+spanner objects, such as slurs and ties.  Usually, only one
+spanner object is created at a time, and it can be adjusted with
+the normal mechanism.  However, occasionally a spanner crosses a
+line break.  When this happens, the object is cloned.  A separate
+object is created for every system in which the spanner appears.  
+The new objects are clones of the original object and inherit all
 properties, including @code{\override}s.
 
 
@@ -1432,7 +1433,7 @@ In other words, an @code{\override} always affects all pieces of a
 broken spanner.  To change only one part of a spanner at a line break,
 it is necessary to hook into the formatting process.  The
 @code{after-line-breaking} callback contains the Scheme procedure that
-is called after the line breaks have been determined, and layout
+is called after the line breaks have been determined and layout
 objects have been split over different systems.
 
 In the following example, we define a procedure
@@ -1440,17 +1441,17 @@ In the following example, we define a procedure
 
 @itemize
 @item
-determines if we have been split across line breaks
+determines if the spanner has been split across line breaks
 @item
 if yes, retrieves all the split objects
 @item
-checks if we are the last of the split objects
+checks if this grob is the last of the split objects
 @item
 if yes, it sets @code{extra-offset}.
 @end itemize
 
 This procedure is installed into @rinternals{Tie}, so the last part
-of the broken tie is translated up.
+of the broken tie is repositioned.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
