@@ -278,23 +278,6 @@ grace =
 
 
 
-%% see comment for page-layout-parser definition below.
-includePageLayoutFile =
-#(define-music-function (parser location) ()
-   (_i "Include the file @var{<basename>-page-layout.ly}. Deprecated as
-part of two-pass spacing.")
-   (if (not (ly:get-option 'dump-tweaks))
-       (let ((tweak-filename (format #f "~a-page-layout.ly"
-				     (ly:parser-output-name parser))))
-	 (if (access? tweak-filename R_OK)
-	     (begin
-	       (ly:message "Including tweak file ~a" tweak-filename)
-	       (set! page-layout-parser (ly:parser-clone parser))
-	       (ly:parser-parse-string page-layout-parser
-				       (format #f "\\include \"~a\""
-					       tweak-filename))))))
-   (make-music 'SequentialMusic 'void #t))
-
 instrumentSwitch =
 #(define-music-function
    (parser location name) (string?)
@@ -460,10 +443,6 @@ or @code{\"GrobName\"}")
 		       (set! (ly:grob-property grob property) value))))))
 
 
-
-%% Parser used to read page-layout file (see includePageLayoutFile
-%% above), and then retreive score tweaks (see scoreTweak below).
-#(define page-layout-parser #f)
 
 %% pageBreak and pageTurn are music functions (iso music indentifiers),
 %% because music identifiers are not allowed at top-level.
@@ -714,18 +693,6 @@ scaleDurations =
    (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
    (ly:music-compress music
 		      (ly:make-moment (car fraction) (cdr fraction))))
-
-%% see comment for page-layout-parser definition above.
-scoreTweak =
-#(define-music-function (parser location name) (string?)
-   (_i "Include the score tweak, if exists.")
-   (if (and page-layout-parser (not (ly:get-option 'dump-tweaks)))
-       (let ((tweak-music (ly:parser-lookup page-layout-parser
-					    (string->symbol name))))
-	 (if (ly:music? tweak-music)
-	     tweak-music
-	     (make-music 'SequentialMusic)))
-       (make-music 'SequentialMusic)))
 
 setBeatGrouping =
 #(define-music-function (parser location grouping) (pair?)
