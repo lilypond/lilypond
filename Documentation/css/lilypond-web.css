@@ -73,6 +73,9 @@ div#tocframe {
 
 #tocframe > ul:first-child > li:first-child a {
   text-indent: -999em;
+  /* only css3 */
+  /*background:  url(nav-bg.jpg) top left repeat-x,
+url(../pictures/lily-home.jpg) no-repeat 50% 50%, #582007;*/
   background: url(../pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
   width: 9%;
   /* css3 no go yet? */
@@ -148,7 +151,7 @@ div#tocframe {
   width: 18%;
   text-align: center;
   font-weight: bold;
-  padding: 0.85em 0;
+  padding: 0.71em 0;
   margin: 0;
   background: url(../pictures/nav-bg.jpg);
 }
