@@ -1,6 +1,12 @@
 #!/usr/bin/env perl
 # -*- coding: utf-8; -*-
 
+# this file is a complete mess.  Some things are commented out
+# because that's the only way it works.  About 70% of the code in
+# this file is never called.  All in all, it's in drastic need of
+# a complete review/editing, but we don't have the time right now.
+
+
 ### WTF, perl cannot read a file?
 ###use File::Slurp qw( read_file );
 
@@ -125,7 +131,7 @@ $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not
 #	 should be fixed in lilypond-texi2html.init too
 # Uhm, what about a bug report to Opera?  We need sane names here.
 #if ($Texi2HTML::Config::SPLIT eq 'section') {
-  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+#  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
 #}
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
