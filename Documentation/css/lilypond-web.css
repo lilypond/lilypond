@@ -114,9 +114,9 @@ div#tocframe {
 #tocframe li form {
   float: left;
   width: 17%;
-  background: url(nav-bg.jpg);
+  background: url(../pictures/nav-bg.jpg);
   font-size: 100%;
-  padding: 0.5em 0.8%;
+  padding: 0.4em 0.8% 0.25em;
   margin: 0;
 }
 
@@ -146,17 +146,17 @@ div#tocframe {
   font-weight: bold;
   padding: 0.85em 0;
   margin: 0;
-  background: url(nav-bg.jpg);
+  background: url(../pictures/nav-bg.jpg);
 }
 
 #tocframe li a:hover {
-  background: url(nav-hover.jpg);
+  background: url(../pictures/nav-hover.jpg);
   text-decoration: underline;
 }
 
 #tocframe li.toc_current a,
 #tocframe li.toc_current a:hover {
-  background: url(nav-active.jpg);
+  background: url(../pictures/nav-active.jpg);
   color:#000;
   text-decoration: underline;
 }
