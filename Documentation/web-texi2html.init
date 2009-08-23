@@ -880,6 +880,8 @@ sub print_lilypond_page_foot($)
   print $fh "</div>\n";
   }
 
+  # FIXME: This div and p#languages need to be in div#footer.
+  #        Should we move this div to postprocess_html.py ?
   print $fh "<div id=\"verifier_texinfo\">\n";
   print $fh "<h3>Validation</h3>\n";
   print $fh "<p>Thanks to <a href=\"http://www.webdev.nl/\">webdev.nl</a>";
@@ -888,7 +890,6 @@ sub print_lilypond_page_foot($)
   print $fh "<img src=\"http://www.w3.org/Icons/valid-html401\"\n";
   print $fh "     alt=\"Valid HTML 4.01 Transitional\"\n";
   print $fh "     height=\"31\" width=\"88\"></a></p>\n";
-  print $fh "</div>";
   print $fh "</div>";
 
   # Print the TOC frame and reset the TOC:
