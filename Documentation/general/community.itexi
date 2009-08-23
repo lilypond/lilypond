@@ -413,7 +413,7 @@ generally.  Right now it's (deliberately) website-specific.
 @heading Development materials for LilyPond 2.13.3
 
 @warning{These are @emph{unstable development} versions.  If you
-have the slighest doubt about how to use or install LilyPond, we
+have the slightest doubt about how to use or install LilyPond, we
 urge you to use the stable @ref{Download}, and read the stable
 @ref{Manuals}.}
 
