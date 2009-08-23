@@ -35,7 +35,7 @@ $(outdir)/%-flat-bw.png: %-flat-bw.png
 	convert -depth 8 -geometry 50x50% $< $@
 
 $(outdir)/%.png: %.svg
-	convert -depth 8 -alpha Off -background white -layers flatten -trim +repage $< $@
+	convert -depth 8 -alpha Off -background white -layers flatten -trim -page +0+0 $< $@
 
 $(outdir)/%.png: %.png
 	ln -f $< $@
