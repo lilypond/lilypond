@@ -124,9 +124,9 @@ $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not
 # FIXME: creates duplicate anchors, which causes Opera to barf;
 #	 should be fixed in lilypond-texi2html.init too
 # Uhm, what about a bug report to Opera?  We need sane names here.
-if ($Texi2HTML::Config::SPLIT eq 'section') {
+#if ($Texi2HTML::Config::SPLIT eq 'section') {
   $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
-}
+#}
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
