@@ -116,7 +116,7 @@ div#tocframe {
   width: 17%;
   background: url(../pictures/nav-bg.jpg);
   font-size: 100%;
-  padding: 0.4em 0.8% 0.25em;
+  padding: 0.5em 0.8%;
   margin: 0;
 }
 
@@ -135,8 +135,12 @@ div#tocframe {
 }
 
 #tocframe li form input[type="hidden"] {
-  visibility: hidden;
-  background: #f00;
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  text-indent: -999em;
+  padding: 0;
+  margin: 0;
 }
 
 #tocframe li a {
@@ -407,7 +411,7 @@ div#quickSummary {
 }
 
 div.separator {
-  background: transparent url(../pictures/squiggle.jpg) 40% 60% no-repeat;
+  background: transparent url(../pictures/squiggle.jpg) no-repeat 40% 60%;
   height: 36px;
   clear: both;
   padding: 10px;
