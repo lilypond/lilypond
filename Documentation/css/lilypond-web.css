@@ -49,7 +49,7 @@ div#tocframe {
   top: 0;
   left: 0;
   right: 0;
-  background: url(../pictures/nav-bg.jpg) repeat-x top left;
+  background: url(../pictures/nav-bg.png) repeat-x top left;
   max-width: 70em;
   font-size: 100%;
   line-height: 1;
@@ -74,8 +74,8 @@ div#tocframe {
 #tocframe > ul:first-child > li:first-child a {
   text-indent: -999em;
   /* only css3 */
-  /*background:  url(nav-bg.jpg) top left repeat-x,
-url(../pictures/lily-home.jpg) no-repeat 50% 50%, #582007;*/
+  /*background:  url(nav-bg.png) top left repeat-x,
+url(../pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
   background: url(../pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
   width: 9%;
   /* css3 no go yet? */
@@ -117,7 +117,7 @@ url(../pictures/lily-home.jpg) no-repeat 50% 50%, #582007;*/
 #tocframe li form {
   float: left;
   width: 17%;
-  background: url(../pictures/nav-bg.jpg);
+  background: url(../pictures/nav-bg.png);
   font-size: 100%;
   padding: 0.5em 0.8%;
   margin: 0;
@@ -153,17 +153,17 @@ url(../pictures/lily-home.jpg) no-repeat 50% 50%, #582007;*/
   font-weight: bold;
   padding: 0.71em 0;
   margin: 0;
-  background: url(../pictures/nav-bg.jpg);
+  background: url(../pictures/nav-bg.png);
 }
 
 #tocframe li a:hover {
-  background: url(../pictures/nav-hover.jpg);
+  background: url(../pictures/nav-hover.png);
   text-decoration: underline;
 }
 
 #tocframe li.toc_current a,
 #tocframe li.toc_current a:hover {
-  background: url(../pictures/nav-active.jpg);
+  background: url(../pictures/nav-active.png);
   color:#000;
   text-decoration: underline;
 }
@@ -229,21 +229,25 @@ url(../pictures/lily-home.jpg) no-repeat 50% 50%, #582007;*/
 #tocframe .toc .toc li.color1 a {
   text-decoration: none;
   background: #9ccc7c;
+  background: url(../pictures/color1-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2 a {
   text-decoration: none;
   background: #bbcf81;
+  background: url(../pictures/color2-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3 a {
   text-decoration: none;
   background: #dbd286;
+  background: url(../pictures/color3-bg.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4 a {
   text-decoration: none;
   background: #fad58c;
+  background: url(../pictures/color4-bg.png) repeat-x top left;
 }
 
 /* having this useless style makes the perl init file easier */
@@ -252,50 +256,62 @@ url(../pictures/lily-home.jpg) no-repeat 50% 50%, #582007;*/
 
 #tocframe .toc .toc li.color1 a:hover {
   background: #addd8d;
+  background: url(../pictures/color1-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2 a:hover {
   background: #ccdf92;
+  background: url(../pictures/color2-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3 a:hover {
   background: #ece297;
+  background: url(../pictures/color3-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4 a:hover {
   background: #fbe69d;
+  background: url(../pictures/color4-hover.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color1.toc_current a {
   background: #beee9e;
+  background: url(../pictures/color1-active.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color1.toc_current a:hover {
   background: #beee9e;
+  background: url(../pictures/color1-active.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2.toc_current a {
   background: #ddefa3;
+  background: url(../pictures/color2-active.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color2.toc_current a:hover {
   background: #ddefa3;
+  background: url(../pictures/color2-active.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3.toc_current a {
   background: #fdf4a8;
+  background: url(../pictures/color3-active.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color3.toc_current a:hover {
   background: #fdf4a8;
+  background: url(../pictures/color3-active.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4.toc_current a {
   background: #fcf7ae;
+  background: url(../pictures/color4-active.png) repeat-x top left;
 }
 
 #tocframe .toc .toc li.color4.toc_current a:hover {
   background: #fcf7ae;
+  background: url(../pictures/color4-active.png) repeat-x top left;
 }
 
 /* third level toc (unnumberedsubsec) */
