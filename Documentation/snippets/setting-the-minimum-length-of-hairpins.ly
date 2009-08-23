@@ -4,15 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Si un soufflet est trop court, il suffit d'ajuster la propriété 
-@code{minimum-length} de l'objet @code{Hairpin} pour l'allonger.
-
-"
-  doctitlefr = "Ajustement de la longueur d'un soufflet"
-
-
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -32,6 +23,14 @@ verändert wird.
 
 "
   doctitlede = "Die Mindestlänge von Crescendo-Klammern bestimmen"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Si un soufflet est trop court, il suffit d'ajuster la propriété 
+@code{minimum-length} de l'objet @code{Hairpin} pour l'allonger.
+
+"
+  doctitlefr = "Ajustement de la longueur d'un soufflet"
+
 
   texidoc = "
 If hairpins are too short, they can be lengthened by modifying the

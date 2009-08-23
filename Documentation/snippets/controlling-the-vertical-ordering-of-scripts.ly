@@ -4,22 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Les symboles s'ordonnent verticalement suivant la propriété
-@code{script-priority}. Plus sa valeur numérique est faible, plus le
-symbole sera proche de la note. Dans l'exemple suivant, l'objet
-@code{TextScript} -- le dièse -- a d'abord la propriété la
-plus basse, et il est donc placé plus près de la note ; ensuite c'est
-l'objet @code{Script} -- le mordant -- qui a la propriété la plus basse,
-et il se place alors sous le dièse.  Lorsque deux objets ont la même
-priorité, c'est l'ordre dans lequel ils sont indiqués qui détermine
-lequel sera placé en premier.
-
-"
-  doctitlefr = "Contrôle de l'ordre vertical des articulations et ornements"
-
-
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -52,6 +36,21 @@ anhand ihres Auftretens in der Quelldatei entschieden.
 
 "
   doctitlede = "Die vertikale Anordnung von Beschriftungen kontrollieren"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Les symboles s'ordonnent verticalement suivant la propriété
+@code{script-priority}. Plus sa valeur numérique est faible, plus le
+symbole sera proche de la note. Dans l'exemple suivant, l'objet
+@code{TextScript} -- le dièse -- a d'abord la propriété la
+plus basse, et il est donc placé plus près de la note ; ensuite c'est
+l'objet @code{Script} -- le mordant -- qui a la propriété la plus basse,
+et il se place alors sous le dièse.  Lorsque deux objets ont la même
+priorité, c'est l'ordre dans lequel ils sont indiqués qui détermine
+lequel sera placé en premier.
+
+"
+  doctitlefr = "Contrôle de l'ordre vertical des articulations et ornements"
+
 
   texidoc = "
 The vertical ordering of scripts is controlled with the

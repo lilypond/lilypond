@@ -4,16 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Il est possible de distribuer un arpège sur plusieurs portées d'un
-système autre que le @code{PianoStaff} dès lors que vous incluez le
-@code{Span_arpeggio_engraver} au contexte @code{Score}.
-
-"
-  doctitlefr = "Arpège distribué pour un autre contexte que le piano"
-
-
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -34,6 +24,15 @@ zwischen beiden Systemen zu verbinden, indem die
 
 "
   doctitlede = "Arpeggio zwischen Systemen in einem Klaviersystem erstellen"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Il est possible de distribuer un arpège sur plusieurs portées d'un
+système autre que le @code{PianoStaff} dès lors que vous incluez le
+@code{Span_arpeggio_engraver} au contexte @code{Score}.
+
+"
+  doctitlefr = "Arpège distribué pour un autre contexte que le piano"
+
 
   texidoc = "
 Cross-staff arpeggios can be created in contexts other than

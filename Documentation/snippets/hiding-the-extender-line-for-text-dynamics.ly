@@ -4,16 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Les crescendos et decrescendos indiqués textuellement -- tels que
-@emph{cresc.} ou @emph{dim.} -- sont suivis de pointillés qui montrent
-leur étendue.  On peut empêcher l'impression de ces pointillés avec :
-
-"
-  doctitlefr = "Masquage de l'extension des nuances textuelles"
-
-
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -33,6 +23,15 @@ unterdrückt werden:
 
 "
   doctitlede = "Crescendo-Linien von Dynamik-Texten unterdrücken"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Les crescendos et decrescendos indiqués textuellement -- tels que
+@emph{cresc.} ou @emph{dim.} -- sont suivis de pointillés qui montrent
+leur étendue.  On peut empêcher l'impression de ces pointillés avec :
+
+"
+  doctitlefr = "Masquage de l'extension des nuances textuelles"
+
 
   texidoc = "
 Text style dynamic changes (such as cresc. and dim.) are printed with a

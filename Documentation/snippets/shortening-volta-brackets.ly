@@ -4,17 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
-  texidocfr = "
-Les crochets indiquant les fins alternatives s'étalent tout au long ce
-celle-ci.  On peut les raccourcir en définissant la propriété
-@code{voltaSpannerDuration}.  Dans l'exemple suivant, le crochet ne se
-prolonge que sur une mesure à 3/4.
-
-"
-  doctitlefr = "Diminution de la taille du crochet d'alternative"
-
-
   lsrtags = "repeats"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -37,6 +26,16 @@ es ist möglich sie zu verkürzen.  Hierzu muss
 
 "
   doctitlede = "Volta-Klammern verkürzen"
+%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+  texidocfr = "
+Les crochets indiquant les fins alternatives s'étalent tout au long ce
+celle-ci.  On peut les raccourcir en définissant la propriété
+@code{voltaSpannerDuration}.  Dans l'exemple suivant, le crochet ne se
+prolonge que sur une mesure à 3/4.
+
+"
+  doctitlefr = "Diminution de la taille du crochet d'alternative"
+
 
   texidoc = "
 By default, the volta brackets will be drawn over all of the

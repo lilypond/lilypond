@@ -4,16 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
-  texidocfr = "
-Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
-graveur @code{Ambitus_engraver} au contexte @code{Staff} afin d'obtenir
-l'ambitus de toutes les voix cumulées, non d'une seule des voix actives. 
-
-"
-  doctitlefr = "Ambitus sur plusieurs voix"
-
-
   lsrtags = "pitches, vocal-music"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -32,6 +22,15 @@ hinzufügt, erhält man einen einzigen Ambitus pro System, auch in dem
 Fall, dass mehrere Stimmen sich im gleichen System befinden.
 "
   doctitlede = "Ambitus mit vielen Stimmen"
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
+graveur @code{Ambitus_engraver} au contexte @code{Staff} afin d'obtenir
+l'ambitus de toutes les voix cumulées, non d'une seule des voix actives. 
+
+"
+  doctitlefr = "Ambitus sur plusieurs voix"
+
 
   texidoc = "
 Adding the @code{Ambitus_engraver} to the @code{Staff} context creates

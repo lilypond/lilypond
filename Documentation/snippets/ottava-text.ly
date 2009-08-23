@@ -4,19 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
-  texidocfr = "
-En interne, la fonction @code{\\ottava} détermine les
-propriétés @code{ottavation} (p.ex. en @code{\"8va\"} ou @code{\"8vb\"})
-et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
-d'octaviation en définissant @code{ottavation} après avoir fait appel
-à @code{ottava} :
-
-"
-
-  doctitlefr = "Texte des marques d'octaviation"
-
-
   lsrtags = "pitches, text"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -42,6 +29,18 @@ und @code{middleCPosition}.  Um den Text der Oktavierungsklammer zu
 "
 
 doctitlede = "Ottava-Text"
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+En interne, la fonction @code{\\ottava} détermine les
+propriétés @code{ottavation} (p.ex. en @code{\"8va\"} ou @code{\"8vb\"})
+et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
+d'octaviation en définissant @code{ottavation} après avoir fait appel
+à @code{ottava} :
+
+"
+
+  doctitlefr = "Texte des marques d'octaviation"
+
 
   texidoc = "
 Internally, @code{\\ottava} sets the properties @code{ottavation} (for

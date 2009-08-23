@@ -4,16 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-De nos jours, il peut arriver que la note d'arrivée d'un glissando soit
-absente de la partition.  Pour ce faire, il vous faudra utiliser une
-cadence et « masquer » la note d'arrivée.
-
-"
-  doctitlefr = "Glissando contemporain"
-
-
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -31,6 +21,15 @@ eine Kadenz eingesetzt wird und die Endnote unsichtbar gemacht wird.
 
 "
   doctitlede = "Moderne Glissandi"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+De nos jours, il peut arriver que la note d'arrivée d'un glissando soit
+absente de la partition.  Pour ce faire, il vous faudra utiliser une
+cadence et « masquer » la note d'arrivée.
+
+"
+  doctitlefr = "Glissando contemporain"
+
 
   texidoc = "
 A contemporary glissando without a final note can be typeset using a

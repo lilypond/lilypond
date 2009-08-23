@@ -4,15 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-La propriété @code{shortest-duration-space} peut devoir être retouchée
-pour ajuster l'apparence des chutes ou sauts.
-
-"
-  doctitlefr = "Ajustement du galbe des chutes ou sauts"
-
-
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -31,6 +22,14 @@ das Aussehen von unbestimmten Glissandi anzupassen.
 
 "
   doctitlede = "Das Aussehen von unbestimmten Glissandi anpassen"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+La propriété @code{shortest-duration-space} peut devoir être retouchée
+pour ajuster l'apparence des chutes ou sauts.
+
+"
+  doctitlefr = "Ajustement du galbe des chutes ou sauts"
+
 
   texidoc = "
 The @code{shortest-duration-space} property may have to be tweaked to

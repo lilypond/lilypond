@@ -4,16 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Certains auteurs utilisent deux liaisons lorsqu'ils veulent
-lier des accords. Dans LilyPond, il faut pour cela activer
-la propriété @code{doubleSlurs} :
-
-"
-  doctitlefr = "Accords et double liaison d'articulation"
-
-
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -31,6 +21,15 @@ werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
 
 "
   doctitlede = "Doppelte Bögen für Legato-Akkorde benutzen"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Certains auteurs utilisent deux liaisons lorsqu'ils veulent
+lier des accords. Dans LilyPond, il faut pour cela activer
+la propriété @code{doubleSlurs} :
+
+"
+  doctitlefr = "Accords et double liaison d'articulation"
+
 
   texidoc = "
 Some composers write two slurs when they want legato chords.  This can

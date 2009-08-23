@@ -22,4 +22,5 @@ measure-counter.ly
 positioning-fingering-indications-precisely.ly
 positioning-text-markups-inside-slurs.ly
 printing-text-from-right-to-left.ly
+string-number-extender-lines.ly
 using-postscript-to-generate-special-note-head-shapes.ly

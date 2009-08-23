@@ -4,21 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Vous pourrez, en jouant sur la propriété @code{'Y-extent}, aligner les
-différents objets @code{DynamicLineSpanner} (souflets ou textuels)
-quelle que soit leur étendue, par rapport à un même point de référence.
-Tous les éléments seront alors centrés sur une même ligne, ce qui sera
-visuellement plus agréable.
-
-C'est le même principe qui sert à aligner les indications textuelles sur
-une ligne de référence.
-
-"
-  doctitlefr = "Alignement vertical des nuances indications textuelles"
-
-
   lsrtags = "tweaks-and-overrides, spacing"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -50,6 +35,20 @@ Grundlinie auszurichten.
 
 "
   doctitlede = "Vertikale Ausrichtung von Dynamik und Textbeschriftung beeinflussen"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Vous pourrez, en jouant sur la propriété @code{'Y-extent}, aligner les
+différents objets @code{DynamicLineSpanner} (souflets ou textuels)
+quelle que soit leur étendue, par rapport à un même point de référence.
+Tous les éléments seront alors centrés sur une même ligne, ce qui sera
+visuellement plus agréable.
+
+C'est le même principe qui sert à aligner les indications textuelles sur
+une ligne de référence.
+
+"
+  doctitlefr = "Alignement vertical des nuances indications textuelles"
+
 
   texidoc = "
 By setting the @code{'Y-extent} property to a suitable value, all

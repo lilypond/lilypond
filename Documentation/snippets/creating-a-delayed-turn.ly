@@ -4,19 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse
-est altérée requiert quelques surcharges.  La propriété
-@w{@code{outside-staff-priority}} doît être désactivée (@code{#f}) pour
-éviter qu'elle prenne le pas sur la propriété @w{@code{avoid-slur}}.  La
-valeur assignée à @code{halign} permet de gérer horizonalement le 
-@w{« retard »}. 
-
-"
-
-  doctitlefr = "Création d'un grupetto retardé"
-
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -45,6 +32,18 @@ wird benutzt, um den Doppelschlag horizontal zu positionieren.
 "
 
   doctitlede = "Einen  Doppelschlag mit Vorhalt erstellen"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse
+est altérée requiert quelques surcharges.  La propriété
+@w{@code{outside-staff-priority}} doît être désactivée (@code{#f}) pour
+éviter qu'elle prenne le pas sur la propriété @w{@code{avoid-slur}}.  La
+valeur assignée à @code{halign} permet de gérer horizonalement le 
+@w{« retard »}. 
+
+"
+
+  doctitlefr = "Création d'un grupetto retardé"
 
   texidoc = "
 Creating a delayed turn, where the lower note of the turn uses the

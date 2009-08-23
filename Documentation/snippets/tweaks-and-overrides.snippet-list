@@ -41,6 +41,7 @@ rest-styles.ly
 rhythmic-slashes.ly
 separating-key-cancellations-from-key-signature-changes.ly
 setting-hairpin-behavior-at-bar-lines.ly
+string-number-extender-lines.ly
 suppressing-warnings-for-clashing-note-columns.ly
 time-signature-in-parentheses.ly
 time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly
