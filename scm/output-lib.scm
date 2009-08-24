@@ -99,6 +99,11 @@
        (if (< log 0)
 	   (string-append (number->string log) "neomensural")
 	   (number->string log)))
+      ((altdefault)
+       ;; Like default, but brevis is drawn with double vertical lines
+       (if (= log -1)
+	   (string-append (number->string log) "double")
+	   (number->string log)))
       ((mensural)
        (string-append (number->string log) (symbol->string style)))
       ((petrucci)

@@ -35,61 +35,65 @@ pattern = <<
   s1*0^\markup { "default" }
   \pattern
 
-  \override Staff.NoteHead  #'style = #'baroque
-  s1*0^\markup { "baroque" }
+  \override Staff.NoteHead  #'style = #'altdefault
+  s1*0^\markup { "altdefault" }
   \pattern
 
   \break
+
+  \override Staff.NoteHead  #'style = #'baroque
+  s1*0^\markup { "baroque" }
+  \pattern
 
   \override Staff.NoteHead  #'style = #'neomensural
   s1*0^\markup { "neomensural" }
   \pattern
 
+  \break
+
   \override Staff.NoteHead  #'style = #'mensural
   s1*0^\markup { "mensural" }
   \pattern
-
-  \break
 
   \override Staff.NoteHead  #'style = #'petrucci
   s1*0^\markup { "petrucci" }
   \pattern
 
+  \break
+
   \override Staff.NoteHead  #'style = #'harmonic
   s1*0^\markup { "harmonic" }
   \pattern
-
-  \break
 
   \override Staff.NoteHead  #'style = #'harmonic-black
   s1*0^\markup { "harmonic-black" }
   \pattern
 
+  \break
+
   \override Staff.NoteHead  #'style = #'harmonic-mixed
   s1*0^\markup { "harmonic-mixed" }
   \pattern
-
-  \break
 
   \override Staff.NoteHead  #'style = #'diamond
   s1*0^\markup { "diamond" }
   \pattern
 
+  \break
+
   \override Staff.NoteHead  #'style = #'cross
   s1*0^\markup { "cross" }
   \pattern
-
-  \break
 
   \override Staff.NoteHead  #'style = #'xcircle
   s1*0^\markup { "xcircle" }
   \pattern
 
+  \break
+
   \override Staff.NoteHead  #'style = #'triangle
   s1*0^\markup { "triangle" }
   \pattern
-
-  \break
 
   \override Staff.NoteHead  #'style = #'slash
   s1*0^\markup { "slash" }
