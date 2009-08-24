@@ -89,13 +89,6 @@ get_skylines (Grob *me,
 	{
 	  assert (a == Y_AXIS);
 	  Interval extent = g->pure_height (g, start, end);
-	  if (!extent.is_empty ())
-	    {
-	      Box b;
-	      b[a] = extent;
-	      b[other_axis (a)] = Interval (0, infinity_f);
-	      skylines.insert (b, 0, other_axis (a));
-	    }
 
 	  // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
 	  // It's quite common for a treble clef to be the highest element of one system
@@ -111,6 +104,7 @@ get_skylines (Grob *me,
 	  if (Axis_group_interface::has_interface (g)
 	      && !Hara_kiri_group_spanner::request_suicide (g, start, end))
 	    {
+	      extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
 	      Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
 	      if (!begin_of_line_extent.is_empty ())
 		{
@@ -119,6 +113,14 @@ get_skylines (Grob *me,
 		  b[other_axis (a)] = Interval (-infinity_f, -1);
 		  skylines.insert (b, 0, other_axis (a));
 		}
+	    }
+
+	  if (!extent.is_empty ())
+	    {
+	      Box b;
+	      b[a] = extent;
+	      b[other_axis (a)] = Interval (0, infinity_f);
+	      skylines.insert (b, 0, other_axis (a));
 	    }
 	}
 
