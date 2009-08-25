@@ -45,12 +45,14 @@ highly specialized skill; a craftsman had to complete around five years
 of training before earning the title of master engraver, and another
 five years of experience were necessary to become truly skilled.
 
+@quotation
 @iftex
 @image{pictures/hader-slaan,,7cm}
 @end iftex
 @ifnottex
 @sourceimage{hader-slaan,,,jpg}
 @end ifnottex
+@end quotation
 
 Nowadays, all newly printed music is produced with computers. This has
 obvious advantages: prints are cheaper to make, editorial work can be
@@ -134,12 +136,14 @@ Below is a sample of two music fonts: the upper set is the default font
 in the Sibelius software (the @emph{Opus} font), and the lower set is
 our own LilyPond font.
 
+@quotation
 @iftex
 @image{pictures/pdf/OpusAndFeta,,,}
 @end iftex
 @ifnottex
 @sourceimage{OpusAndFeta,,,png}
 @end ifnottex
+@end quotation
 
 The LilyPond symbols are heavier and their weight is more consistent,
 which makes them easier to read. Fine endings, such as the one on the
