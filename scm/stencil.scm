@@ -418,6 +418,9 @@ encloses the contents.
 		   0))
        (scaled-bbox
 	(map (lambda (x) (* factor x)) bbox))
+       ; We need to shift the whole eps to (0,0), otherwise it will appear 
+       ; displaced in lilypond (displacement will depend on the scaling!)
+       (translate-string (ly:format "~a ~a translate" (- (list-ref bbox 0)) (- (list-ref bbox 1))))
        (clip-rect-string (ly:format
 			  "~a ~a ~a ~a rectclip"
 			  (list-ref bbox 0) 
@@ -438,8 +441,9 @@ currentpoint translate
 BeginEPSF
 ~a dup scale
 ~a 
+~a
 %%BeginDocument: ~a
-" 	   factor clip-rect-string
+"         factor translate-string  clip-rect-string
 
 	   file-name
 	   )
@@ -448,9 +452,10 @@ BeginEPSF
 EndEPSF
 grestore
 "))
-	
-	 (cons (list-ref scaled-bbox 0) (list-ref scaled-bbox 2))
-	 (cons (list-ref scaled-bbox 1) (list-ref scaled-bbox 3)))
+	 ; Stencil starts at (0,0), since we have shifted the eps, and its 
+         ; size is exactly the size of the scaled bounding box
+	 (cons 0 (- (list-ref scaled-bbox 2) (list-ref scaled-bbox 0)))
+	 (cons 0 (- (list-ref scaled-bbox 3) (list-ref scaled-bbox 1))))
 	
 	(ly:make-stencil "" '(0 . 0) '(0 . 0)))
     ))
