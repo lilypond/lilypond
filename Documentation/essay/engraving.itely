@@ -69,6 +69,14 @@ traditional music engraving. Along the way, we have learned a great deal
 about the work that goes into a well-engraved score. Below we describe
 several of those aspects that we have tried to imitate in LilyPond.
 
+@menu
+* Music Fonts::                 
+* Optical Spacing::             
+* Ledger Lines::                
+* Slurs::                       
+* Why work so hard?::           
+@end menu
+
 @node Music Fonts
 @unnumberedsubsec Music Fonts
 
@@ -325,6 +333,12 @@ to see and love to play from.
 
 @cindex engraving, automated
 @cindex automated engraving
+
+@menu
+* Beauty contests::             
+* Notation benchmarking::       
+* Flexible architecture::       
+@end menu
 
 @node Beauty contests
 @unnumberedsubsec Beauty contests
