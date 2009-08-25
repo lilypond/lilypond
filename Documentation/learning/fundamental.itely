@@ -471,10 +471,11 @@ and @ruser{Ossia staves}.
 @cindex bracket types
 @cindex brackets, enclosing vs. marking
 
-You have already met a number of different types of bracket in
-writing the input file to LilyPond.  These obey different rules
-which can be confusing at first.  Before we explain the rules
-let's first review the different types of bracket.
+You have already met a number of different types of bracket and
+bracket-like constructs in writing the input file to LilyPond.
+These obey different rules which can be confusing at first.
+Let's first review the different types of brackets and bracket-like
+constructs.
 
 @c attempt to force this onto a new page
 @need 50
@@ -506,9 +507,10 @@ different types to be properly nested, like this, @code{<< [ @{ ( .. )
 opposite order to the opening brackets.  This @strong{is} a
 requirement for the three types of bracket described by the word
 @q{Encloses} in the table above -- they must nest properly.  However,
-the remaining brackets, described with the word @q{Marks} in the table
-above together with ties and tuplets, do @strong{not} have to nest
-properly with any of the brackets.  In fact, these are not brackets in
+the remaining bracket-like constructs, described with the word
+@q{Marks} in the table above together with ties and tuplets, do
+@strong{not} have to nest properly with any of the brackets or
+bracket-like constructs.  In fact, these are not brackets in
 the sense that they enclose something -- they are simply markers to
 indicate where something starts and ends.
 
@@ -520,13 +522,12 @@ musical, perhaps, but possible:
  { g8\( a b[ c b\) a] }
 @end lilypond
 
-In general, different kinds of brackets, and those implied by
-tuplets, ties and grace notes, may be mixed freely.
-This example shows a beam extending into a tuplet (line 1),
-a slur extending into a tuplet (line 2),
-a beam and a slur extending into a tuplet, a tie crossing
-two tuplets, and a phrasing slur extending out of a tuplet
-(lines 3 and 4).
+In general, different kinds of brackets, bracket-like constructs,
+and those implied by tuplets, ties and grace notes, may be mixed
+freely.  This example shows a beam extending into a tuplet (line 1),
+a slur extending into a tuplet (line 2), a beam and a slur
+extending into a tuplet, a tie crossing two tuplets, and a
+phrasing slur extending out of a tuplet (lines 3 and 4).
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
