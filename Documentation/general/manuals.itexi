@@ -239,7 +239,51 @@ it is highly advisable to consult the glossary.
 @node Essay
 @unnumberedsec Essay
 
-blah
+@divClass{column-left-top}
+@subheading Essay
+
+This book gives a brief history of music typography, followed by
+an examination of LilyPond's engraving techniques.  A comparison
+between LilyPond and other music engraving systems is given.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item @ressaynamed{Top,Essay}:
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../essay/index.html, Essay (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../essay-big-page.html, Essay (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around FIXME? Mb)}
+
+@item @uref{../essay.pdf, essay.pdf}:
+download as a PDF file.
+@emph{(large single download, FIXME? Mb)}
+
+@item @uref{FIXME, essay.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
 
 
 @node Notation
