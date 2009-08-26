@@ -122,14 +122,13 @@
 
     (AmbitusLine
      . (
-	(join-heads . #t)
-	(stencil . ,ly:ambitus::print)
+	(gap . 0.35)
+	(stencil . ,ambitus::print)
 	(thickness . 2)
 	(X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
 	(meta . ((class . Item)
 		 (interfaces . (ambitus-interface
-				font-interface
-				staff-symbol-referencer-interface))))))
+				font-interface))))))
 
     (AmbitusNoteHead
      . (

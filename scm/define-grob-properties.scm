@@ -471,7 +471,6 @@ position a non-spaced line relative to the staff for which it
 has affinity.  See @var{next-staff-spacing} for the format of this list.")
 
 
-
 ;;
 ;; k
 ;;
@@ -1073,8 +1072,6 @@ ligature grob in (in @code{staff-space} units).")
 
      (inclinatum ,boolean? "Is this neume an inclinatum?")
 
-     (join-heads ,boolean? "Whether to join the note heads of an ambitus
-grob with a vertical line.")
      (join-right-amount ,number? "A length used for calculating the
 Y-extent of mensural ligatures.")
 

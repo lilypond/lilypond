@@ -1,13 +1,11 @@
-\header {
-  texidoc = "Ambituses use actual pitch not lexicographic ordering."
-  }
-
 \version "2.12.0"
 
-\paper {
-  ragged-right=##t
+\header {
+  texidoc = "Ambitus use actual pitch not lexicographic ordering."
 }
 
 \new Voice \with { \consists "Ambitus_engraver" } {
-  \clef F c eis fes
+  \clef F
+  c4 eis fes2
 }
+

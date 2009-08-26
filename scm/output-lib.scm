@@ -766,3 +766,38 @@
     (+
      (ly:self-alignment-interface::y-aligned-on-self grob)
      (interval-center extent))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ambitus
+
+(define-public (ambitus::print grob)
+  (let ((heads (ly:grob-object grob 'note-heads)))
+
+    (if (and (ly:grob-array? heads)
+	     (= (ly:grob-array-length heads) 2))
+	(let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
+	       (head-down (ly:grob-array-ref heads 0))
+	       (head-up (ly:grob-array-ref heads 1))
+	       (gap (ly:grob-property grob 'gap 0.35))
+	       (point-min (+ (interval-end (ly:grob-extent head-down common Y))
+			     gap))
+	       (point-max (- (interval-start (ly:grob-extent head-up common Y))
+			     gap)))
+
+	  (if (< point-min point-max)
+	      (let* ((layout (ly:grob-layout grob))
+		     (line-thick (ly:output-def-lookup layout 'line-thickness))
+		     (blot (ly:output-def-lookup layout 'blot-diameter))
+		     (grob-thick (ly:grob-property grob 'thickness 2))
+		     (width (* line-thick grob-thick))
+		     (x-ext (symmetric-interval (/ width 2)))
+		     (y-ext (cons point-min point-max))
+		     (line (ly:round-filled-box x-ext y-ext blot))
+		     (y-coord (ly:grob-relative-coordinate grob common Y)))
+
+		(ly:stencil-translate-axis line (- y-coord) Y))
+	      empty-stencil))
+	(begin
+	  (ly:grob-suicide! grob)
+	  (list)))))

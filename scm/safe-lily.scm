@@ -144,7 +144,6 @@
    ;;$defaultlayout
 
    ly:accidental-interface::print
-   ly:ambitus::print
    ly:arpeggio::print
    ly:arpeggio::brew-chord-bracket
    ly:bar-line::print

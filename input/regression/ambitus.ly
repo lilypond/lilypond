@@ -1,27 +1,28 @@
-\header {
-    texidoc = "Ambituses indicate pitch ranges for voices.
-
-Accidentals only show up if they're not part of key
-signature. @code{AmbitusNoteHead} grobs also have ledger lines.
-
-"
-}
 \version "2.12.0"
 
-\layout {
-    ragged-right = ##t
-    \context {
-	\Voice
-	\consists Ambitus_engraver
-    }
+\header {
+  texidoc = "Ambitus indicate pitch ranges for voices.
+
+Accidentals only show up if they're not part of key
+signature.  @code{AmbitusNoteHead} grobs also have ledger lines.
+"
 }
 
-\relative
+\layout {
+  \context {
+    \Voice
+    \consists "Ambitus_engraver"
+  }
+}
+
 <<
-    \new Staff {  \time  2/4 c4 f' }
-    \new Staff \relative {
-	\time  2/4
-	\key d \major
-	cis as'
-    }
+  \new Staff \relative c'{
+    \time 2/4
+    c4 f'
+  }
+  \new Staff \relative c' {
+    \time  2/4
+    \key d \major
+    cis as'
+  }
 >>

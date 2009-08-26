@@ -2914,7 +2914,8 @@ added.  BeatGrouping has been eliminated.\n\
 Different settings for vertical layout.\n\
 ly:system-start-text::print -> system-start-text::print\n\
 Beam #'thickness -> Beam #'beam-thickness\n\
-ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil"))
+ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil\n\
+ly:ambitus::print -> ambitus::print"))
 def conv(str):
     if re.search("override-auto-beam-setting", str):
         stderr_write ("\n")
@@ -2937,7 +2938,7 @@ def conv(str):
         stderr_write(NOT_SMART % _("alignment-offsets has been changed to alignment-distances: \
 you must now specify the distances between staves rather than the offset of staves.\n"))
         stderr_write(UPDATE_MANUALLY)
-    str = re.sub ('ly:(system-start-text::print|note-head::brew-ez-stencil)',
+    str = re.sub ('ly:(system-start-text::print|note-head::brew-ez-stencil|ambitus::print)',
                   '\\1', str)
     str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
     return str

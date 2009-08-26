@@ -398,6 +398,9 @@ found."
 
 (define-public empty-interval '(+inf.0 . -inf.0))
 
+(define-public (symmetric-interval expr)
+  (cons (- expr) expr))
+
 (define-public (interval-length x)
   "Length of the number-pair X, when an interval"
   (max 0 (- (cdr x) (car x))))
