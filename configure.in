@@ -58,7 +58,7 @@ AC_SUBST(LINK_GXX_STATICALLY)
 # must come before any header checks
 STEPMAKE_COMPILE
 
-AC_CHECK_PROG(FCMATCH, fc-match, fc-match)
+AC_CHECK_PROG(FCLIST, fc-list, fc-list)
 AC_MSG_CHECKING([New Century Schoolbook PFB files])
 AC_SUBST(NCSB_SOURCE_FILES)
 if test "$NCSB_DIR" != "" ;  then
@@ -71,9 +71,9 @@ if test "$NCSB_DIR" != "" ;  then
     fi
   done
 else
-  if test "$FCMATCH" != ""; then
+  if test "$FCLIST" != ""; then
     for style in Roman Italic "Bold Italic" Bold; do
-      NCSB_FILE=`$FCMATCH --verbose "Century Schoolbook L:style=$style:foundry=urw" \
+      NCSB_FILE=`$FCLIST --verbose "Century Schoolbook L:style=$style:foundry=urw" \
                 | grep 'file:' \
                 | grep -v "\.@<:@ot@:>@tf"`
 
@@ -83,7 +83,7 @@ else
     done
   else
     AC_MSG_RESULT(not found)
-    echo "Can't find Century Schoolbook files. Install FontConfig's fc-match,"
+    echo "Can't find Century Schoolbook files. Install FontConfig's fc-list,"
     echo "or use --with-ncsb-dir"
   fi
 fi
