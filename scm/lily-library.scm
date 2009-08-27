@@ -405,12 +405,9 @@ found."
   "Length of the number-pair X, when an interval"
   (max 0 (- (cdr x) (car x))))
 
-(define-public interval-start car)
 (define-public (ordered-cons a b)
   (cons (min a b)
 	(max a b)))
-
-(define-public interval-end cdr)
 
 (define-public (interval-bound interval dir)
   ((if (= dir RIGHT) cdr car) interval))
@@ -429,7 +426,9 @@ found."
       (/ (+ (car x) (cdr x)) 2)))
 
 (define-public interval-start car)
+
 (define-public interval-end cdr)
+
 (define-public (interval-translate iv amount)
   (cons (+ amount (car iv))
 	(+ amount (cdr iv))))
@@ -440,7 +439,6 @@ found."
 (define-public (interval-widen iv amount)
    (cons (- (car iv) amount)
          (+ (cdr iv) amount)))
-
 
 (define-public (interval-empty? iv)
    (> (car iv) (cdr iv)))
@@ -459,7 +457,6 @@ found."
 (define-public (add-point interval p)
   (cons (min (interval-start interval) p)
         (max (interval-end interval) p)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; string
