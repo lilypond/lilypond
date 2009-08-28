@@ -442,36 +442,42 @@ GNU info format for documentation.  FIXME, link broken.
 @node FAQ
 @unnumberedsec FAQ
 
-@warning{to be moved into the actual Documentation/ in master. Maybe.}
+@divClass{column-center-top}
+@subheading Introductory questions
 
-
-@subheading Where are the graphical canvas, menus, and toolbars?
+@subsubheading Where are the graphical canvas, menus, and toolbars?
 
 LilyPond requires you to write music as text.  Please read about
 our @ref{Text input}.
 
 
-@subheading There's a lot of documentation!  Do I need to read it?
+@subsubheading There's a lot of documentation!  Do I need to read it?
 
-You need to read the @ref{Learning}.  As for the rest of
-documentation, you only need to read the sections which discuss
-the notation that you wish to create.
+You need to read the @ref{Learning, Learning manual}.  As for the
+rest of documentation, you only need to read the sections which
+discuss the notation that you wish to create.
 
 
-@subheading That's still a lot of reading!  Is it worth it?
+@subsubheading That's still a lot of reading!  Is it worth it?
 
 Please decide for yourself; the reasons why you might want to use
 LilyPond are given in the @ref{Introduction}.
 
+@divEnd
 
-@subheading Something isn't working!  How do I fix it?
+@divClass{column-center-bottom}
+@subheading Usage questions
+
+@subsubheading Something isn't working!  How do I fix it?
 
 This is explained in @@ref@{FIXME LM or AU x.y@}.
 
 
-@subheading Why do you change the syntax?
+@subsubheading Why do you change the syntax?
 
 This is explained in @@ref@{FIXME AU x.y@}.
+
+@divEnd
 
 
 @node Changes

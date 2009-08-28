@@ -721,7 +721,6 @@ div.float-right a.clickable {
 /* color4 */
 .column-center-bottom h3 {
   background: #fad58c;
-  text-align: left;
   border-bottom: 1px solid #e9c47b;
 }
 
@@ -740,6 +739,7 @@ div.float-right a.clickable {
 .column-left-bottom h3,
 .column-right-top h3,
 .column-right-bottom h3 {
+  text-align: left;
   padding: 0 0.5em;
   margin: 0;
 }
@@ -750,6 +750,7 @@ div.float-right a.clickable {
 .column-left-bottom h4,
 .column-right-top h4,
 .column-right-bottom h4 {
+  text-align: left;
   padding: 0.5em 0.5em 0;
   margin: 0 0 0.5em 0;
 }
