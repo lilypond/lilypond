@@ -73,7 +73,8 @@ if test "$NCSB_DIR" != "" ;  then
 else
   if test "$FCLIST" != ""; then
     for style in Roman Italic "Bold Italic" Bold; do
-      NCSB_FILE=`$FCLIST "Century Schoolbook L:style=$style:foundry=urw:fontformat=Type 1" file`
+      NCSB_FILE=`$FCLIST "Century Schoolbook L:style=$style:foundry=urw:fontformat=Type 1" file \
+                | head -n 1`
       NCSB_FILE=`echo $NCSB_FILE | sed 's/^\(.*\):$/\1/g'`
       NCSB_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $NCSB_FILE`
       NCSB_SOURCE_FILES="$NCSB_FILE $NCSB_SOURCE_FILES"
