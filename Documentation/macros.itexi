@@ -111,6 +111,7 @@
 @c     @rlsr
 @c     @rprogram
 @c     @ruser
+@c     @rchanges
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
@@ -155,6 +156,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes-big-page,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
 @end macro
 
 @macro rgeneral{TEXT}
@@ -244,6 +255,16 @@
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
 @end macro
 
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,changes,Changes}
+@end macro
+
 @macro rgeneral{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,general,General Information}
@@ -324,6 +345,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notation Reference}
+@end macro
+
+@macro rchanges{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
 @end macro
 
 @macro rgeneral{TEXT}
@@ -423,6 +454,16 @@
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
+@end macro
+
+@macro rchanges{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,changes,Changes}
+@end macro
+
+@macro rchangesnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
 @macro rgeneral{TEXT}
