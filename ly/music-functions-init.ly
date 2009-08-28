@@ -289,7 +289,7 @@ instrumentSwitch =
 	)
 
      (if (not handle)
-	 (ly:input-message "No such instrument: ~a" name))
+	 (ly:input-message location "No such instrument: ~a" name))
      (context-spec-music
       (make-music 'SimultaneousMusic
 		  'elements
