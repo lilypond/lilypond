@@ -181,59 +181,56 @@ GNU info format for documentation.  FIXME, link broken.
 @divEnd
 @divEnd
 
-@ignore
-@itemize
-
-@item
-@item
-@rlearning{Tutorial}: gives a gentle introduction to typesetting music.
-First time users should start here.
-
-@item
-@rlearning{Fundamental concepts}: explains some general concepts about
-the LilyPond file format.  If you are not certain where to place a
-command, read this chapter!
-
-@item
-@rlearning{Tweaking output}: shows how to change the default engraving
-that LilyPond produces.
-
-@item
-@rlearning{Working on LilyPond projects}: discusses practical uses of
-LilyPond and how to avoid some common problems.  Read this before
-undertaking large projects!
-
-@end itemize
-
-The Learning also contains appendices which are not part of the
-recommended linear reading.  They may be useful for later
-viewing:
-
-@itemize
-
-@item
-@rlearning{Templates}: shows ready-made templates of LilyPond pieces.
-Just cut and paste a template into a file, add notes, and you're
-done!
-
-@item
-@rlearning{Scheme tutorial}: presents a short introduction to Scheme,
-the programming language that music functions use.  This is
-material for advanced tweaks; many users never touch Scheme at
-all.
-
-@end itemize
-@end ignore
-
 
 @node Glossary
 @unnumberedsec Glossary
 
-@rglosnamed{Top,Music glossary}
-this explains musical terms, and includes translations to various
+@divClass{column-left-top}
+@subheading Glossay
+
+This explains musical terms, and includes translations to various
 languages.  If you are not familiar with music notation or music
 terminology (especially if you are a non-native English speaker),
 it is highly advisable to consult the glossary.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item
+@rglosnamed{Top,Music glossary}:
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../glossary/index.html, Glossary (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../glossary-big-page.html, Glossay (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../glossary.pdf, glossary.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, glossary.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
 
 
 @node Essay
@@ -285,9 +282,11 @@ GNU info format for documentation.  FIXME, link broken.
 @divEnd
 
 
-
 @node Notation
 @unnumberedsec Notation
+
+@divClass{column-left-top}
+@subheading Notation reference
 
 This book explains all the LilyPond commands which produce
 notation.
@@ -295,120 +294,101 @@ notation.
 @warning{The Notation assumes that the reader knows
 basic material covered in the Learning and is familiar with
 the English musical terms presented in the Musical Glossary.}
+@divEnd
 
-@ignore
-@itemize
-
-@item
-@ruser{Musical notation}:
-discusses topics grouped by notation construct.  This section
-gives details about basic notation that will be useful in almost
-any notation project.
-
-@item
-@ruser{Specialist notation}:
-discusses topics grouped by notation construct.  This section
-gives details about special notation that will only be useful for
-particular instrument (or vocal) groups.
-
-@item
-@ruser{General input and output}:
-discusses general information about LilyPond input files and
-controlling output.
-
-@item
-@ruser{Spacing issues}:
-discusses issues which affect the global output, such as selecting
-paper size or specifying page breaks.
-
-@item
-@ruser{Changing defaults}:
-explains how to tweak LilyPond to produce exactly the notation you
-want.
-
-@item
-@ruser{Interfaces for programmers}:
-explains how to create music functions with scheme.
-
-@end itemize
-
-The Notation also contains appendices with useful
-reference charts.
+@divClass{column-right-top}
+@subheading Read it now
 
 @itemize
 
-@item
-@ruser{Literature list}:
-contains a set of useful reference books for those who wish to
-know more on notation and engraving.
-
-@item
-@ruser{Notation manual tables}:
-are a set of tables showing the chord names, MIDI instruments, a
-list of color names, and the Feta font.
-
-@item
-@ruser{Cheat sheet}:
-is a handy reference of the most common LilyPond commands.
-
-@item
-@ruser{LilyPond command index}:
-an index of all LilyPond @code{\commands}.
-
-@item
-@ruser{LilyPond index}:
-a complete index.
+@item @rusernamed{Top,Notation}:
+read this manual in the same format as this one.
 
 @end itemize
-@end ignore
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../notation/index.html, Notation (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../notation-big-page.html, Notation (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../notation.pdf, notation.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, notation.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
 
 
 @node Usage
 @unnumberedsec Usage
 
-This book explains how to execute the programs and how to integrate
-LilyPond notation with other programs.
+@divClass{column-left-top}
+@subheading Learning manual
 
-@ignore
+This book explains how to execute the programs, how to integrate
+LilyPond notation with other programs, and suggests @qq{best
+practices} for efficient use.  It is recommended reading before
+attempting any large projects.
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
 @itemize
 
-@item
-@rprogram{Install}:
-explains how to install LilyPond, including compilation if
-desired.
-
-@item
-@rprogram{Setup}:
-describes how to configure your computer for optimum LilyPond
-usage, such as using special environments for certain text
-editors.
-
-@item
-@rprogram{Running LilyPond}:
-shows how to run LilyPond and its helper programs.  In addition,
-this section explains how to upgrade input files from previous
-versions of LilyPond.
-
-@item
-@rprogram{LilyPond-book}:
-explains the details behind creating documents with in-line music
-examples, like this manual.
-
-@item
-@rprogram{Converting from other formats}:
-explains how to run the conversion programs.  These programs are
-supplied with the LilyPond package, and convert a variety of music
-formats to the @code{.ly} format.
+@item @rprogramnamed{Top,Usage}:
+read this manual in the same format as this one.
 
 @end itemize
-@end ignore
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../application/index.html, Usage (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../application-big-page.html, Usage (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../application.pdf, application.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, application.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
 
 
 @node Snippets
 @unnumberedsec Snippets
 
-@rlsrnamed{Top,LilyPond Snippets}: this shows a
-selected set of LilyPond snippets from the
+@divClass{column-left-top}
+@subheading Learning manual
+
+This shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  All the snippets are in the public domain.
 
@@ -418,14 +398,51 @@ demonstrates new features of a development version must be added
 separately.  These are stored in @file{input/new/} in the LilyPond
 source tree.
 
-The list of snippets for each subsection of the Notation are
-also linked from the @strong{See also} portion.
+The list of snippets for each subsection of the Notation are also
+linked from the @strong{See also} portion.
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item @rlsrnamed{Top,Snippets}:
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../snippets/index.html, Snippets (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../snippets-big-page.html, Snippets (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../snippets.pdf, snippets.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, snippets.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
 
 
 @node FAQ
 @unnumberedsec FAQ
 
-@warning{to be moved into the actual Documentation/ in master)}
+@warning{to be moved into the actual Documentation/ in master. Maybe.}
 
 
 @subheading Where are the graphical canvas, menus, and toolbars?
@@ -460,21 +477,64 @@ This is explained in @@ref@{FIXME AU x.y@}.
 @node Changes
 @unnumberedsec Changes
 
-previous-named "NEWS" doc.
+@divClass{column-left-top}
+@subheading Learning manual
 
-this is a summary of important changes
-and new features in LilyPond since the previous version.
+This is a summary of important changes and new features in
+LilyPond since the previous stable version.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item FIXME @c @rchangesnamed{Top,Changes}:
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+FIXME change to rchanges.
+
+@item @uref{../learning/index.html, Learning (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../learning-big-page.html, Learning (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../learning.pdf, learning.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, learning.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
 
 
 
 @node Internals
 @unnumberedsec Internals
 
-@rinternalsnamed{Top,Internals}: this is a set
-of heavily cross linked HTML pages which document the nitty-gritty
-details of each and every LilyPond class, object, and function.
-It is produced directly from the formatting definitions in the
-source code.
+@divClass{column-left-top}
+@subheading Learning manual
+
+This is a set of heavily cross linked HTML pages which document
+the nitty-gritty details of each and every LilyPond class, object,
+and function.  It is produced directly from the formatting
+definitions in the source code.
 
 Almost all formatting functionality that is used internally is
 available directly to the user.  For example, most variables that
@@ -484,6 +544,44 @@ them are described in this document.  Each section of the Notation
 Reference has a @b{See also} subsection, which refers to the
 generated documentation.  In the HTML document, these subsections
 have clickable links.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item @rinternalsnamed{Top,Internals}: 
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../internals/index.html, Internals (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../internals-big-page.html, Internals (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../internals.pdf, internals.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, internals.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
 
 
 
