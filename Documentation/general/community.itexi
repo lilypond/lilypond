@@ -225,8 +225,6 @@ guidelines for @ref{Bug reports}.}
 @subheading What are @qq{Tiny examples}?
 
 A tiny example is an example from which nothing can be removed.
-
-These used to be called @qq{minimal examples}.
 @divEnd
 
 @divClass{column-left-bottom}
@@ -452,31 +450,48 @@ lilypond-2.13.3-1.mingw-exe}
 
 @subheading Manuals
 
-LM:
+FIXME: these need the automatic symlinks or something.  Maybe even
+a hard-coded url to lilypond.org/docs/2.13 or something??
+
+Learning:
 @uref{lm-html, html}
+@uref{lm-big-html, big html}
 @uref{lm-pdf, pdf}
 
-MG:
+Glossary:
 @uref{mg-html, html}
+@uref{mg-big-html, big html}
 @uref{mg-pdf, pdf}
 
-AE:
-@uref{ae-html, html}
-@uref{ae-pdf, pdf}
+Essay:
+@uref{essay-html, html}
+@uref{essay-big-html, big html}
+@uref{essay-pdf, pdf}
 
-@smallspace
+Notation:
+@uref{notation-html, html}
+@uref{notation-big-html, big html}
+@uref{notation-pdf, pdf}
 
-NR:
-@uref{nr-html, html}
-@uref{nr-pdf, pdf}
+Usage:
+@uref{usage-html, html}
+@uref{usage-big-html, big html}
+@uref{usage-pdf, pdf}
 
-...etc...
-SL-link
-AU-link
+Snippets:
+@uref{snippets-html, html}
+@uref{snippets-big-html, big html}
+@uref{snippets-pdf, pdf}
 
-FAQ-link  (? maybe?)
-Changes-link
-IR-link
+Changes:
+@uref{changes-html, html}
+@uref{changes-big-html, big html}
+@uref{changes-pdf, pdf}
+
+Internals:
+@uref{internals-html, html}
+@uref{internals-big-html, big html}
+@uref{internals-pdf, pdf}
 
 @divEnd
 
@@ -484,7 +499,32 @@ IR-link
 @divClass{column-right-bottom}
 @subheading Contributors' Guide
 
-FIXME write CG intro + links.
+LilyPond development is a fairly complicated matter.  LilyPond is
+a large, (mostly) stable project.  At any point in time, we have
+between 5 and 25 active contributors.  In order to help new
+contributors, and to keep the whole system (mostly) stable, we
+have written a manual for contributors.
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../contributor/index.html, Contributor's guide (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../contributor-big-page.html, Contributor's guide (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{../contributor.pdf, contributor.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, contributor.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
 
 @divEnd
 
