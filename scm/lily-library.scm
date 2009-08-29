@@ -134,27 +134,35 @@
 
   (ly:make-score music))
 
+
+(define (get-outfile-name parser base)
+(let*
+    ((output-suffix (ly:parser-lookup parser 'output-suffix))
+     (counter-alist (ly:parser-lookup parser 'counter-alist))
+     (output-count (assoc-get output-suffix counter-alist 0))
+     (result base ))
+    ;; Allow all ASCII alphanumerics, including accents
+    (if (string? output-suffix)
+        (set! result (format "~a-~a" base (string-regexp-substitute
+            "[^-[:alnum:]]" "_" output-suffix))))
+
+    ;; assoc-get call will always have returned a number
+    (if (> output-count 0) (set! result (format #f "~a-~a" result output-count)))
+
+    (ly:parser-define!
+        parser 'counter-alist
+        (assoc-set! counter-alist output-suffix (1+ output-count)))
+    result))
+
 (define (print-book-with parser book process-procedure)
   (let*
       ((paper (ly:parser-lookup parser '$defaultpaper))
        (layout (ly:parser-lookup parser '$defaultlayout))
        (count (ly:parser-lookup parser 'output-count))
        (base (ly:parser-output-name parser))
-       (output-suffix (ly:parser-lookup parser 'output-suffix)) )
+       (outfile-name (get-outfile-name parser base)))
 
-    (if (string? output-suffix)
-	(set! base (format "~a-~a" base (string-regexp-substitute
-					   "[^a-zA-Z0-9-]" "_" output-suffix))))
-
-    ;; must be careful: output-count is under user control.
-    (if (not (integer? count))
-	(set! count 0))
-
-    (if (> count 0)
-	(set! base (format #f "~a-~a" base count)))
-    (ly:parser-define! parser 'output-count (1+ count))
-    (process-procedure book paper layout base)
-    ))
+      (process-procedure book paper layout outfile-name)))
 
 (define-public (print-book-with-defaults parser book)
   (print-book-with parser book ly:book-process))
