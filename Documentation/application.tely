@@ -11,9 +11,11 @@
 @documentlanguage en
 
 @include macros.itexi
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
 
 @afourpaper
-
 
 @c don't remove this comment.
 @ignore
@@ -25,59 +27,9 @@
 @end ignore
 
 
-@ifnottex
-@node Top
-@top GNU LilyPond --- Application Usage
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-@end ifnottex
-
-
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/application.pdf,PDF} and as
-@uref{source/Documentation/application-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/application.pdf,PDF} and as
-@uref{source/Documentation/application/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-
-
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
-
-
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle The music typesetter
-@titlefont{Program usage}
-@author The LilyPond development team
-
-
-Copyright @copyright{} 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-For LilyPond version @version{}
-@end titlepage
-
 @copying
-Copyright @copyright{} 1999--2009 by the authors
+Copyright @copyright{} 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+2006, 2007, 2008, 2009 by the authors.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -89,34 +41,50 @@ Free Documentation License''.
 @end quotation
 @end copying
 
+@macro introText
+@cartouche
+This file explains how to execute the programs distributed with
+GNU LilyPond version @version{}.  In addition, it suggests some
+@qq{best practices} for efficient usage.
+
+For more information about how this fits with the other
+documentation, or to read this manual in other formats, see
+@rgeneral{Manuals}.
+@end cartouche
+@end macro
+
+
+@c TITLE PAGE
 @ifnottex
-This file documents GNU LilyPond program usage.
-
-Copyright 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
+@node Top
+@top GNU LilyPond --- Learning Manual
 @end ifnottex
 
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Learning Manual}
+@author The LilyPond development team
+
+@vskip 100pt
+
+@introText{}
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying{}
+
+For LilyPond version @version{}
+@end titlepage
+
+
+@c TOC -- non-tex
+
 @ifnottex
-This is the Application Usage (AU) manual for GNU LilyPond version @version{}.
-For more information about how this fits with the other
-documentation, see 
-FIXME FIXME FIXME
-@c @rlearning{About the documentation}.
-
-@cindex web site
-@cindex URL
-
-More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
-of this and other documentation.
+@introText{}
 
 @c * Install::                        How to install or compile.
 @c * Setup::                          Using LilyPond with other programs.

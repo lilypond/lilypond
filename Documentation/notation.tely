@@ -153,17 +153,17 @@ More information can be found at
 @uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
 of this and other documentation.
 
-@include dedication.itely
 
 @menu
-* Musical notation::               Musical notation.
+* Musical notation::               Notation which is used in
+    almost all projects.
 * Specialist notation::            Notation which is only used for
     specific purposes.
 * General input and output::       General information about
     LilyPond input and output.
 * Spacing issues::                 Display of output on paper.
 * Changing defaults::              Tuning output.
-* Interfaces for programmers::     Expert usage.
+* Interfaces for programmers::     How to interface with scheme.
 
 Appendices
 

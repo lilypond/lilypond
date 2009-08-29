@@ -44,8 +44,11 @@ Free Documentation License''.
 @macro introText
 @cartouche
 This file provides an introduction to GNU LilyPond version
-@version{}.  For more information about how this fits with the
-other documentation, see @rgeneral{Manuals}.
+@version{}.
+
+For more information about how this fits with the other
+documentation, or to read this manual in other formats, see
+@rgeneral{Manuals}.
 @end cartouche
 @end macro
 
@@ -83,9 +86,9 @@ For LilyPond version @version{}
 @introText{}
 
 @menu
-* Introduction::                   Begin here.
-* Common notation::                A tutorial introduction.
-* Fundamental concepts::           Basic concepts required for reading the rest of this manual.
+* Introduction::                   Basics of typesetting with LilyPond.
+* Common notation::                Writing very commmon notation.
+* Fundamental concepts::           Basic concepts required for reading the rest of the manuals.
 * Tweaking output::                Introduction to modifying output.
 
 Appendices
@@ -97,6 +100,7 @@ Appendices
 @end menu
 
 
+@ignore
 @ifhtml
 @ifclear bigpage
 This document is also available as a
@@ -109,6 +113,7 @@ This document is also available as a
 @uref{source/Documentation/learning/index.html,HTML indexed multiple pages}.
 @end ifset
 @end ifhtml
+@end ignore
 
 @end ifnottex
 
