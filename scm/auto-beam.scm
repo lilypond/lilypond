@@ -34,7 +34,7 @@
 ;;  2. exceptions for specific time signature, for specific duration type
 
 
-(define-public (default-auto-beam-check context dir test-beam)
+(define-public (default-auto-beam-check context dir measure-pos test-beam)
   (define (get name default)
     (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
@@ -60,7 +60,6 @@
                  (measure-length (get 'measureLength (ly:make-moment 1 1)))
                  (time-signature-fraction
                    (get 'timeSignatureFraction '(4 . 4)))
-                 (measure-pos (get 'measurePosition ZERO-MOMENT))
                  (settings (get 'beamSettings '()))
                  (function (if (= dir START) 'begin 'end))
                  (type (cons (ly:moment-main-numerator test-beam)

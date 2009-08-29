@@ -108,7 +108,7 @@ Beam::get_beam_translation (Grob *me)
   Real line = Staff_symbol_referencer::line_thickness (me);
   Real beam_thickness = get_beam_thickness (me);
   Real fract = robust_scm2double (me->get_property ("length-fraction"), 1.0);
-  
+
   Real beam_translation = beam_count < 4
     ? (2 * staff_space + line - beam_thickness) / 2.0
     : (3 * staff_space + line - beam_thickness) / 3.0;
@@ -136,15 +136,15 @@ SCM
 Beam::calc_normal_stems (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
+
   extract_grob_set (me, "stems", stems);
   SCM val = Grob_array::make_array ();
   Grob_array *ga = unsmob_grob_array (val);
   for (vsize i = 0; i < stems.size ();  i++)
     if (Stem::is_normal_stem (stems[i]))
       ga->add (stems[i]);
-  
-  return val;  
+
+  return val;
 }
 
 MAKE_SCHEME_CALLBACK (Beam, calc_direction, 1);
@@ -173,7 +173,7 @@ Beam::calc_direction (SCM smob)
 
 	  return SCM_UNSPECIFIED;
 	}
-      else 
+      else
 	{
 	  Grob *stem = first_normal_stem (me);
 
@@ -182,8 +182,8 @@ Beam::calc_direction (SCM smob)
 	  */
 	  if (!stem)
 	    stem = stems[0];
-	  
-	  if (is_direction (stem->get_property_data ("direction"))) 
+
+	  if (is_direction (stem->get_property_data ("direction")))
 	    dir = to_dir (stem->get_property_data ("direction"));
 	  else
 	    dir = to_dir (stem->get_property ("default-direction"));
@@ -194,7 +194,7 @@ Beam::calc_direction (SCM smob)
     {
       if (!dir)
 	dir = get_default_dir (me);
-      
+
       consider_auto_knees (me);
     }
 
@@ -202,7 +202,7 @@ Beam::calc_direction (SCM smob)
     {
       set_stem_directions (me, dir);
     }
-  
+
   return scm_from_int (dir);
 }
 
@@ -255,12 +255,12 @@ SCM
 Beam::calc_beaming (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
+
   extract_grob_set (me, "stems", stems);
 
   Slice last_int;
   last_int.set_empty ();
-  
+
   SCM last_beaming = scm_cons (SCM_EOL, scm_list_1 (scm_from_int (0)));
   Direction last_dir = CENTER;
   for (vsize i = 0; i < stems.size (); i++)
@@ -299,7 +299,7 @@ Beam::calc_beaming (SCM smob)
       else
 	{
 	  /*
-	    FIXME: what's this for? 
+	    FIXME: what's this for?
 	   */
 	  SCM s = scm_cdr (this_beaming);
 	  for (; scm_is_pair (s); s = scm_cdr (s))
@@ -309,7 +309,7 @@ Beam::calc_beaming (SCM smob)
 	      last_int.add_point (np);
 	    }
 	}
-      
+
       if (scm_ilength (scm_cdr (this_beaming)) > 0)
 	{
 	  last_beaming = this_beaming;
@@ -327,7 +327,7 @@ operator <(Beam_stem_segment const &a,
   return a.rank_ < b.rank_;
 }
 
-typedef map<int, vector<Beam_stem_segment> >  Position_stem_segments_map; 
+typedef map<int, vector<Beam_stem_segment> >  Position_stem_segments_map;
 
 vector<Beam_segment>
 Beam::get_beam_segments (Grob *me_grob, Grob **common)
@@ -345,7 +345,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
   commonx = me->get_bound (RIGHT)->common_refpoint (commonx, X_AXIS);
 
   *common = commonx;
-  
+
   int gap_count = robust_scm2int (me->get_property ("gap-count"), 0);
   Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
 
@@ -381,13 +381,13 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      int beam_rank = scm_to_int (scm_car (s));
 	      ranks.add_point (beam_rank);
 	    }
-	  
+
 	  for (SCM s = index_get_cell (beaming, d);
 	       scm_is_pair (s); s = scm_cdr (s))
 	    {
 	      if (!scm_is_integer (scm_car (s)))
 		continue;
-	  
+
 	      int beam_rank = scm_to_int (scm_car (s));
 	      Beam_stem_segment seg;
 	      seg.stem_ = stem;
@@ -397,9 +397,9 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      seg.stem_index_ = i;
 	      seg.dir_ = d;
 	      seg.max_connect_ = robust_scm2int (stem->get_property ("max-beam-connect"), 1000);
-	      
+
 	      Direction stem_dir = get_grob_direction (stem);
-	      
+
 	      seg.gapped_
 		= (stem_dir * beam_rank < (stem_dir * ranks[-stem_dir] + gap_count));
 	      stem_segments[beam_rank].push_back (seg);
@@ -450,12 +450,12 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      bool inside_stem = (event_dir == LEFT)
 		? seg.stem_index_ > 0
 		: seg.stem_index_ + 1 < stems.size () ;
-		      
+
 	      bool event = on_beam_bound
 		|| abs (seg.rank_ - neighbor_seg.rank_) > 1
 		|| (abs (vertical_count) >= seg.max_connect_
 		    || abs (vertical_count) >= neighbor_seg.max_connect_);
-	      
+
 	      if (!event)
 		// Then this edge of the current segment is irrelevent because it will
 		// be connected with the next segment in the event_dir direction.
@@ -531,7 +531,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	    }
 	  while (flip (&event_dir) != LEFT);
 	}
-      
+
     }
 
   return segments;
@@ -553,7 +553,7 @@ Beam::print (SCM grob)
     }
   else
     {
-      extract_grob_set (me, "stems", stems);      
+      extract_grob_set (me, "stems", stems);
       span[LEFT] = stems[0]->relative_coordinate (commonx, X_AXIS);
       span[RIGHT] = stems.back ()->relative_coordinate (commonx, X_AXIS);
     }
@@ -579,7 +579,7 @@ Beam::print (SCM grob)
   Real beam_dy = get_beam_translation (me);
 
   Direction feather_dir = to_dir (me->get_property ("grow-direction"));
-  
+
   Stencil the_beam;
   for (vsize i = 0; i < segments.size (); i ++)
     {
@@ -588,18 +588,18 @@ Beam::print (SCM grob)
 	{
 	  local_slope += feather_dir * segments[i].vertical_count_ * beam_dy / span.length ();
 	}
-      
+
       Stencil b = Lookup::beam (local_slope, segments[i].horizontal_.length (), beam_thickness, blot);
 
       b.translate_axis (segments[i].horizontal_[LEFT], X_AXIS);
-      
+
       b.translate_axis (local_slope
 			* (segments[i].horizontal_[LEFT] - span.linear_combination (feather_dir))
 			+ pos.linear_combination (feather_dir)
 			+ beam_dy * segments[i].vertical_count_, Y_AXIS);
-      the_beam.add_stencil (b);      
+      the_beam.add_stencil (b);
     }
-	 
+
 #if (DEBUG_BEAM_SCORING)
   SCM annotation = me->get_property ("annotation");
   if (!scm_is_string (annotation))
@@ -608,10 +608,10 @@ Beam::print (SCM grob)
       if (to_boolean (debug))
 	annotation = me->get_property ("quant-score");
     }
-  
+
   if (scm_is_string (annotation))
     {
-      extract_grob_set (me, "stems", stems);      
+      extract_grob_set (me, "stems", stems);
 
       /*
 	This code prints the demerits for each beam. Perhaps this
@@ -637,7 +637,7 @@ Beam::print (SCM grob)
   the_beam.translate_axis (-me->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return the_beam.smobbed_copy ();
 }
- 
+
 Direction
 Beam::get_default_dir (Grob *me)
 {
@@ -691,7 +691,7 @@ Beam::get_default_dir (Grob *me)
       else if (extremes[UP] < -extremes[DOWN])
 	return UP;
     }
-  
+
   Direction dir = CENTER;
   Direction d = CENTER;
   if ((d = (Direction) sign (count[UP] - count[DOWN])))
@@ -704,7 +704,7 @@ Beam::get_default_dir (Grob *me)
     dir = d;
   else
     dir = to_dir (me->get_property ("neutral-direction"));
-  
+
   return dir;
 }
 
@@ -864,14 +864,14 @@ set_minimum_dy (Grob *me, Real *dy)
     }
 }
 
-  
+
 
 MAKE_SCHEME_CALLBACK (Beam, calc_stem_shorten, 1)
 SCM
 Beam::calc_stem_shorten (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
+
   /*
     shortening looks silly for x staff beams
   */
@@ -895,7 +895,7 @@ Beam::calc_stem_shorten (SCM smob)
 
   shorten *= forced_fraction;
 
-  
+
   if (shorten)
     return scm_from_double (shorten);
 
@@ -909,7 +909,7 @@ Beam::no_visible_stem_positions (Grob *me, Interval default_value)
   extract_grob_set (me, "stems", stems);
   if (stems.empty ())
     return default_value;
-  
+
   Interval head_positions;
   Slice multiplicity;
   for (vsize i = 0; i < stems.size(); i++)
@@ -1144,7 +1144,7 @@ Beam::slope_damping (SCM smob, SCM posns)
   if (normal_stem_count (me) <= 1)
     return posns;
 
-  
+
   SCM s = me->get_property ("damping");
   Real damping = scm_to_double (s);
   Real concaveness = robust_scm2double (me->get_property ("concaveness"), 0.0);
@@ -1154,7 +1154,7 @@ Beam::slope_damping (SCM smob, SCM posns)
       me->set_property ("least-squares-dy", scm_from_double (0));
       damping = 0;
     }
-  
+
   if (damping)
     {
       scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
@@ -1209,7 +1209,7 @@ where_are_the_whole_beams (SCM beaming)
    in POS for stem S.  This Y position is relative to S. */
 Real
 Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
-		   Real xl, Real xr, Direction feather_dir, 
+		   Real xl, Real xr, Direction feather_dir,
 		   Drul_array<Real> pos, bool french)
 {
   Real beam_translation = get_beam_translation (me);
@@ -1233,15 +1233,15 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
 
   /*
     feather dir = 1 , relx 0->1 : factor 0 -> 1
-    feather dir = 0 , relx 0->1 : factor 1 -> 1    
-    feather dir = -1, relx 0->1 : factor 1 -> 0    
+    feather dir = 0 , relx 0->1 : factor 1 -> 1
+    feather dir = -1, relx 0->1 : factor 1 -> 0
    */
   Real feather_factor = 1;
   if (feather_dir > 0)
     feather_factor = relx;
   else if (feather_dir < 0)
     feather_factor = 1 - relx;
-  
+
   stem_y += feather_factor * beam_translation
     * beam_multiplicity[Direction(((french) ? DOWN : UP)*stem_dir)];
   Real id = me->relative_coordinate (common[Y_AXIS], Y_AXIS)
@@ -1254,7 +1254,7 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
   Hmm.  At this time, beam position and slope are determined.  Maybe,
   stem directions and length should set to relative to the chord's
   position of the beam.  */
-MAKE_SCHEME_CALLBACK (Beam, set_stem_lengths, 1); 
+MAKE_SCHEME_CALLBACK (Beam, set_stem_lengths, 1);
 SCM
 Beam::set_stem_lengths (SCM smob)
 {
@@ -1265,7 +1265,7 @@ Beam::set_stem_lengths (SCM smob)
   (void) me->get_property ("beaming");
 
   SCM posns = me->get_property ("positions");
-  
+
   extract_grob_set (me, "stems", stems);
   if (!stems.size ())
     return posns;
@@ -1370,7 +1370,7 @@ Beam::forced_stem_count (Grob *me)
       /* I can imagine counting those boundaries as a half forced stem,
 	 but let's count them full for now. */
       Direction defdir = to_dir (s->get_property ("default-direction"));
-      
+
       if (abs (Stem::chord_start_y (s)) > 0.1
 	  && defdir
 	  && get_grob_direction (s) != defdir)
@@ -1419,7 +1419,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
     return scm_from_int (0);
 
   Real offset = robust_scm2double (prev_offset, 0.0);
-  
+
   Grob *st = unsmob_grob (rest->get_object ("stem"));
   Grob *stem = st;
   if (!stem)
@@ -1442,9 +1442,9 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Drul_array<Grob*> visible_stems (first_normal_stem (beam),
 				   last_normal_stem (beam));
   extract_grob_set (beam, "stems", stems);
-  
+
   Grob *common = common_refpoint_of_array (stems, beam, X_AXIS);
-  
+
   Real x0 = visible_stems[LEFT]->relative_coordinate (common, X_AXIS);
   Real dx = visible_stems[RIGHT]->relative_coordinate (common, X_AXIS) - x0;
   Real slope = dy && dx ? dy / dx : 0;
@@ -1474,7 +1474,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
    */
   Interval rest_extent = rest->extent (common_y, Y_AXIS);
   rest_extent.translate (offset);
-  
+
   Real rest_dim = rest_extent[d];
   Real minimum_distance
     = staff_space * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
@@ -1601,7 +1601,7 @@ ADD_INTERFACE (Beam,
                "Damping slope which is considered zero for purposes of"
                " calculating direction penalties.\n"
                "@end table\n",
-	       
+
 	       /* properties */
 	       "annotation "
 	       "auto-knee-gap "

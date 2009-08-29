@@ -245,6 +245,51 @@ Beaming_pattern::beamlet_count (int i, Direction d) const
   return infos_.at (i).beam_count_drul_[d];
 }
 
+Moment
+Beaming_pattern::start_moment (int i) const
+{
+  return infos_.at (i).start_moment_;
+}
+
+Moment
+Beaming_pattern::end_moment (int i) const
+{
+  Duration *dur = new Duration (2 + max (beamlet_count (i, LEFT),
+                                        beamlet_count (i, RIGHT)),
+                               0);
+
+  return infos_.at (i).start_moment_ + dur->get_length();
+}
+
+bool
+Beaming_pattern::invisibility (int i) const
+{
+  return infos_.at (i).invisible_;
+}
+
+/*
+    Split a beamin pattern at index i and return a new
+    Beaming_pattern containing the removed elements
+*/
+Beaming_pattern *
+Beaming_pattern::split_pattern (int i)
+{
+  Beaming_pattern* new_pattern=0;
+  int count;
+
+  new_pattern = new Beaming_pattern ();
+  for (vsize j=i+1; j<infos_.size (); j++)
+    {
+      count = max(beamlet_count (j, LEFT), beamlet_count(j, RIGHT));
+      new_pattern->add_stem (start_moment (j),
+                             count,
+                             invisibility (j));
+    }
+  for (vsize j=i+1; j<infos_.size (); )
+    infos_.pop_back ();
+  return (new_pattern);
+}
+
 void
 Beaming_options::from_context (Context *context)
 {

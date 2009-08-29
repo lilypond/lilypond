@@ -32,7 +32,7 @@ struct Beaming_options
   Moment measure_length_;
 
   Beaming_options ();
-  void from_context (Context*);  
+  void from_context (Context*);
 };
 
 struct Beam_rhythmic_element
@@ -42,7 +42,7 @@ struct Beam_rhythmic_element
 
   int rhythmic_importance_;
   bool invisible_;
-  
+
   Beam_rhythmic_element (Moment, int, bool);
   Beam_rhythmic_element ();
 
@@ -58,12 +58,16 @@ class Beaming_pattern
 {
 public:
   Beaming_pattern ();
-  
+
   void beamify (Beaming_options const&);
   void de_grace ();
   void add_stem (Moment d, int beams, bool invisible);
   int beamlet_count (int idx, Direction d) const;
-  
+  bool invisibility (int idx) const;
+  Moment start_moment (int idx) const;
+  Moment end_moment (int idx) const;
+  Beaming_pattern* split_pattern(int idx);
+
 private:
   vector<Beam_rhythmic_element> infos_;
   Direction flag_direction (Beaming_options const&, vsize) const;
