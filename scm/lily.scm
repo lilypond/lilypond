@@ -38,6 +38,9 @@
 "Render at higher resolution (using given factor)
 and scale down result to prevent jaggies in
 PNG images.")
+    (aux-files #t 
+"Create .tex, .texi, .count files in the 
+EPS backend.")
     (backend ps
 "Select backend.  Possible values: 'eps, 'null,
 'ps, 'scm, 'socket, 'svg.")
