@@ -194,7 +194,8 @@ Anhänge
 @include learning/tutorial.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
-@include learning/working.itely
+@c @include learning/working.itely
+@c moved to application.tely
 
 @include learning/templates.itely
 @include learning/scheme-tutorial.itely
