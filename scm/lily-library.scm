@@ -170,6 +170,28 @@
 (define-public (print-book-with-defaults-as-systems parser book)
   (print-book-with parser book ly:book-process-to-systems))
 
+;; Add a score to the current bookpart, book or toplevel
+(define-public (add-score parser score)
+    (cond
+      ((ly:parser-lookup parser '$current-bookpart)
+          ((ly:parser-lookup parser 'bookpart-score-handler)
+	        (ly:parser-lookup parser '$current-bookpart) score))
+      ((ly:parser-lookup parser '$current-book)
+          ((ly:parser-lookup parser 'book-score-handler)
+	        (ly:parser-lookup parser '$current-book) score))
+      (else
+          ((ly:parser-lookup parser 'toplevel-score-handler) parser score))))
+
+(define-public (add-text parser text)
+  (add-score parser (list text)))
+
+(define-public (add-music parser music)
+  (collect-music-aux (lambda (score)
+		       (add-score parser score))
+                     parser
+		     music))
+
+
 ;;;;;;;;;;;;;;;;
 ;; alist
 
