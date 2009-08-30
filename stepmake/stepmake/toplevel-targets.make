@@ -9,6 +9,7 @@ local-distclean:
 		config.cache config.status config.log index.html \
 		stepmake/stepmake/stepmake stepmake/stepmake/bin
 	rm -rf autom4te.cache
+	rm -rf $(outdir)
 
 local-maintainerclean:
 	rm -f configure

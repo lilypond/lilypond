@@ -8,12 +8,12 @@ man:
 	$(LOOP)
 
 clean: local-clean
-	-rm -rf "./$(outdir)"
+	-rm -rf $(outdir)
 	$(LOOP)
 
 ifeq (,$(findstring metafont,$(STEPMAKE_TEMPLATES)))
 bin-clean: local-bin-clean
-	-rm -rf "./$(outdir)"
+	-rm -rf $(outdir)
 	$(LOOP)
 else
 bin-clean:
@@ -27,7 +27,6 @@ dist:
 endif
 
 distclean: clean
-	$(LOOP)
 	$(MAKE) local-distclean
 
 cvs-clean:
