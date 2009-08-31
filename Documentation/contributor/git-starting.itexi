@@ -2,9 +2,11 @@
 @node Starting with git
 @chapter Starting with git
 
-To complete or present in another form the introduction to Git usage
-in this chapter, it may be a good idea to look for Git documentation
-at @uref{http://git-scm.com/documentation},
+The goal of this chapter is to provide all the git commands that
+contributors should know for basic lilypond development.  However,
+to complete or present in another form the introduction to Git
+usage in this chapter, it may be a good idea to look at the other
+Git documentation listed in @ref{Other git documentation}.
 
 @menu
 * Getting the source code::     
@@ -12,6 +14,7 @@ at @uref{http://git-scm.com/documentation},
 * Sharing your changes::        
 * Advanced git stuff::          
 * Git on Windows::
+* Other git documentation::
 @end menu
 
 
@@ -41,10 +44,6 @@ repository by @ref{Updating the source code}.
 command-line version of Git 1.5 or higher.  Windows users should
 skip to @ref{Git on Windows}.}
 
-Some sections of this guide will redirect to specific Git man pages;
-however, if you think you need to understand more of Git, you might want
-to read the book @uref{http://progit.org/,Pro Git}.
-
 
 @node Git user configuration
 @subsection Git user configuration
@@ -54,7 +53,6 @@ paste the following section:
 
 @example
 git config --global color.ui auto
-git config --global branch.autosetuprebase always
 @end example
 
 To configure git to automatically use your name and email address
@@ -86,8 +84,7 @@ git checkout -b master origin/master
 @node Documentation translations source code
 @subsection Documentation translations source code
 
-To translate the documentation (@emph{not} the website),
-FIXME: when website is integrated, modify this.
+To translate the documentation,
 
 @smallexample
 mkdir lilypond-translation; cd lilypond-translation
@@ -101,7 +98,8 @@ git checkout -b lilypond/translation origin/lilypond/translation
 @subsection Other branches
 
 Most contributors will never need to touch the other branches.  If
-you wish to do so, you will need more familiarity with git.
+you wish to do so, you will need more familiarity with git; please
+see @ref{Other git documentation}.
 
 @itemize
 
@@ -177,8 +175,9 @@ git pull -r
 
 @noindent
 The @code{-r} option is short for @code{--rebase}.  If you don't
-want to type @code{-r} every time, add @code{rebase = true} to the
-master branch in your @file{.git/config}, like so:
+edit translated documentation and don't want to type @code{-r}
+every time, add @code{rebase = true} to the master branch in your
+@file{.git/config}, like so:
 
 @example
 [branch "master"]
@@ -187,14 +186,15 @@ master branch in your @file{.git/config}, like so:
         rebase = true
 @end example
 
-@warning{translators and documentation editors, if you have changed
-committishes in the head of translated files using commits you have not
-yet pushed to @code{git.sv.gnu.org}, please do not rebase.  If you want
-to avoid wondering whether you should rebase each time you pull, please
-always use committishes from master and/or lilypond/translation branch
-on @code{git.sv.gnu.org}, which in particular implies that you must push
-your changes to documentation except committishes updates (possibly
-after having rebased), then update the committishes and push them.}
+@warning{translators and documentation editors, if you have
+changed committishes in the head of translated files using commits
+you have not yet pushed to @code{git.sv.gnu.org}, please do not
+rebase.  If you want to avoid wondering whether you should rebase
+each time you pull, please always use committishes from master
+and/or lilypond/translation branch on @code{git.sv.gnu.org}, which
+in particular implies that you must push your changes to
+documentation except committishes updates (possibly after having
+rebased), then update the committishes and push them.}
 
 @c FIXME: when committishes automatic conditional update have been
 @c tested and documented, append the following to the warning above:
@@ -214,6 +214,10 @@ versions.
 If you need some documentation to understand and resolve conflicts,
 see paragraphs @emph{How conflicts are presented} and @emph{How to
 resolve conflicts} in @command{git merge} man page.
+
+If all else fails, you can follow the instructions in
+@ref{Reverting all local changes}.  Be aware that this eliminates
+any changes you have made!
 
 
 @node Sharing your changes
@@ -270,6 +274,17 @@ email to @email{lilypond-devel@@gnu.org} with these files attached, and
 a developer will review and apply the patches to the main repository.
 If your patch is some translation work, you may send it to
 @email{translations@@lilynet.net} instead.
+
+To check if you have correctly added any new files, use:
+
+@example
+git status
+@end example
+
+@noindent
+If this command lists any @emph{Changed but not updated} files,
+you should do a @command{git commit}.  If it lists any
+@emph{Untracked files}, then you should do a @command{git add}.
 
 
 @node Committing directly
@@ -977,4 +992,21 @@ supplement these include
 
 Once familiarity with using git on Windows has been gained the
 standard git manuals can be used to learn about these.
+
+
+@node Other git documentation
+@section Other git documentation
+
+@itemize
+
+@item
+Official git man pages: @uref{FIXME}
+
+@item
+More in-depth tutorials: @uref{http://git-scm.com/documentation}
+
+@item
+Book about git: @uref{http://progit.org/,Pro Git}
+
+@end itemize
 
