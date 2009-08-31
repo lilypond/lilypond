@@ -117,8 +117,8 @@ program(s) you use.
 @end itemize
 
 There are several other text editors available with better support
-for LilyPond.  For more information, see @rgeneral{Alternate
-input}.
+for LilyPond.  For more information, see
+@rgeneral{Alternate input}.
 
 @warning{The first time you ever run LilyPond, it may take a
 minute or two because all of the system fonts have to be analyzed
