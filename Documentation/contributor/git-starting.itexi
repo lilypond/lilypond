@@ -1000,7 +1000,7 @@ standard git manuals can be used to learn about these.
 @itemize
 
 @item
-Official git man pages: @uref{FIXME}
+Official git man pages: @uref{http://www.kernel.org/pub/software/scm/git/docs/}
 
 @item
 More in-depth tutorials: @uref{http://git-scm.com/documentation}
