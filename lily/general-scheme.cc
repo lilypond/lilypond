@@ -437,7 +437,8 @@ format_single_argument (SCM arg, int precision, bool escape = false)
           // Escape backslashes and double quotes, wrap it in double quotes
           replace_all (&s, "\\", "\\\\");
           replace_all (&s, "\"", "\\\"");
-          replace_all (&s, "%", "\\%");
+          // don't replace percents, since the png backend uses %d as escape sequence
+          // replace_all (&s, "%", "\\%");
           replace_all (&s, "$", "\\$");
           s = "\"" + s + "\"";
         }
