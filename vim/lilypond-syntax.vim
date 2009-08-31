@@ -2,7 +2,7 @@
 " Language:	LilyPond
 " Maintainer:	Heikki Junes <hjunes@cc.hut.fi>
 " Created:      Oct 17, 2002
-" Last Change:	Sep 23, 2003
+" Last Change:	Aug 30, 2009
 " Version:	6.1-1
 "
 " Installed As:	vim/syntax/lilypond.vim
@@ -81,3 +81,5 @@ if version >= 508 || !exists("did_lily_syn_inits")
 
   delcommand HiLink
 endif
+
+let b:current_syntax = "lilypond"
