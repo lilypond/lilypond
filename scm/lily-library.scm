@@ -455,6 +455,10 @@ found."
    (cons (min (car i1) (car i2))
 	 (max (cdr i1) (cdr i2))))
 
+(define-public (interval-intersection i1 i2)
+   (cons (max (car i1) (car i2))
+	 (min (cdr i1) (cdr i2))))
+
 (define-public (interval-sane? i)
   (not (or  (nan? (car i))
 	    (inf? (car i))
