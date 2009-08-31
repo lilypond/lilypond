@@ -632,7 +632,7 @@ FIXME: fluff here
 
 
 @node Omitting braces
-@unnumberedsubsec Omitting braces
+@subsection Omitting braces
 
 
 @cindex how to read the manual
@@ -670,7 +670,9 @@ format the manual this way.
 
 
 @node Clickable examples
-@unnumberedsubsec Clickable examples
+@subsection Clickable examples
+
+@warning{This features is only available in the HTML manuals.}
 
 Many people learn programs by trying and fiddling around with the
 program.  This is also possible with LilyPond.  If you click on a
@@ -692,15 +694,49 @@ cut-&-pastable section} to the bottom of the file.
 
 
 @node Keyboard navigation
-@unnumberedsubsec Keyboard navigation
+@subsection Keyboard navigation
 
+@warning{This features is only available in the HTML manuals.}
+
+@c TODO: once this is figured out, insert it here.
+
+We are currently working on this feature.
 
 
 @node Overview of manuals
-@unnumberedsubsec Overview of manuals
+@subsection Overview of manuals
 
-FIXME: a brief discussion about the rest of the LM, and pointers
-to specific places.  like NR for general reference, AU for
-suggestions for writing files, etc.
+There is a lot of documentation for LilyPond.  New users are
+sometimes confused about what part(s) they should read, and
+occasionally skip over reading vital portions.
+
+@warning{Please do not skip over important parts of the
+documentation.  You will find it much harder to understand later
+sections.}
+
+@itemize
+
+@item
+@strong{Before trying to do @emph{anything}}: read the Learning
+manual's @ref{Introduction}, and @ref{Common notation}.  If you
+encounter musical terms which you do not recognize, please look
+them up in the @rglosnamed{Top, Glossary}.
+
+@item
+@strong{Before trying to write a complete piece of music}: read
+the Learning manual's @ref{Fundamental concepts}.  After that, you
+may want to look in relevant sections of the
+@rusernamed{Top, Notation reference}.
+
+@item
+@strong{Before trying to change the default output}: read the
+Learning manual's @ref{Tweaking output}.
+
+@item
+@strong{Before undertaking a large project}: read Usage document's
+@rprogram{Suggestions for writing files}.
+
+@end itemize
+
 
 
