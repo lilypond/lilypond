@@ -37,6 +37,7 @@ mode.  In most cases, relative mode will be more convenient.
 * Relative octave entry::
 * Accidentals::
 * Note names in other languages::
+* Non-Western note names and accidentals::
 @end menu
 
 
@@ -388,9 +389,6 @@ cis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{makam-example.ly}
-
 
 @seealso
 Music Glossary:
@@ -571,6 +569,70 @@ Music Glossary:
 
 Snippets:
 @rlsr{Pitches}.
+
+
+@node Non-Western note names and accidentals
+@unnumberedsubsubsec Non-Western note names and accidentals
+
+Many non-Western musics (and some Western folk and
+traditional musics) employ alternative or extended tuning
+systems that do not fit readily into standard classical
+notation.
+
+In some cases standard notation is still used, with the
+pitch differences being implicit.  For example, Arabic
+music is notated with standard semitone and quarter-tone
+accidentals, with the precise pitch alterations being
+determined by context.  Others require extended or unique
+notations.
+
+@notation{Turkish classical music}, or Ottoman music,
+employs melodic forms known as @notation{makamlar}, whose
+intervals are based on 1/9 divisions of the whole tone.
+From a modern notational point of view, it is convenient
+to use the standard Western staff notes (c, d, e, ...)
+with special accidentals unique to Turkish music.  These
+accidentals are defined in @file{makam.ly} (see the
+Learning Manual 2.12.2, section 4.6.3,  `Other sources of
+information', for the location of this file).  The
+following table gives their names, the accidental suffix
+that must be added to notes, and their pitch alteration
+as a fraction of one whole tone.
+
+@c TODO: can we include the actual accidentals in this table?
+@quotation
+@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
+@headitem Accidental name
+  @tab suffix @tab pitch alteration
+
+@item büyük mücenneb (sharp)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (sharp)
+  @tab -k @tab +5/9
+@item bakiye (sharp)
+  @tab -b @tab +4/9
+@item koma (sharp)
+  @tab -c @tab +1/9
+
+@item koma (flat)
+  @tab -fc @tab -1/9
+@item bakiye (flat)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (flat)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (flat)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+For further information on Turkish classical music and
+makamlar, see @ref{Turkish classical music}.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
 
 
 @node Changing multiple pitches
