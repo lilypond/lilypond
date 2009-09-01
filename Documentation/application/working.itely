@@ -31,7 +31,6 @@ this chapter.
 * Updating old input files::
 * Common errors::
 * Troubleshooting (taking it all apart)::
-* Minimal examples::
 @end menu
 
 @node Updating old input files
@@ -259,47 +258,7 @@ Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
 
 Another very useful debugging technique is constructing
-FIXME FIXME @c @ref{Minimal examples}.
-
-
-@node Minimal examples
-@subsection Minimal examples
-
-A minimal example is an example which is as small as possible.  These
-examples are much easier to understand than long examples.  Minimal
-examples are used for
-
-@itemize
-@item Bug reports
-@item Sending a help request to mailing lists
-@item Adding an example to the @uref{http://lsr.dsi.unimi.it/,
-LilyPond Snippet Repository}
-@end itemize
-
-To construct an example which is as small as possible, the rule is
-quite simple: remove anything which is not necessary.  When trying to
-remove unnecessary parts of a file, it is a very good idea to comment
-out lines instead of deleting them.  That way, if you discover that you
-actually @emph{do} need some lines, you can uncomment them, instead of
-typing them in from scratch.
-
-There are two exceptions to the @qq{as small as possible} rule:
-
-@itemize
-@item Include the @code{\version} number.
-@item If possible, use @code{\paper@{ ragged-right=##t @}} at the
-top of your example.
-@end itemize
-
-The whole point of a minimal example is to make it easy to read:
-
-@itemize
-@item Avoid using complicated notes, keys, or time signatures, unless you
-wish to demonstrate something is about the behavior of those items.
-@item Do not use @code{\override} commands unless that is the point of the
-example.
-@end itemize
-
+@rgeneral{Tiny examples}.
 
 
 @node Make and Makefiles
