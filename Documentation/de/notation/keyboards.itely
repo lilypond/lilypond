@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c Translators: Till Paala
 
 @c \version "2.12.0"
 
@@ -620,7 +622,7 @@ Einige übliche Notationseigenheiten für Harfe sind woanders behandelt:
 @item Glissando ist die üblichste Harfentechnik, siehe
 @ref{Glissando}.
 
-@item Ein @notation{Bisbigliando} wird als ein Tremolo notiert, siehe @ref{Tremolo-Wiederholung}
+@item Ein @notation{Bisbigliando} wird als ein Tremolo notiert, siehe @ref{Tremolo-Wiederholung}.
 
 @item Flageolettöne werden hier beschrieben: @ref{Flageolett}.
 
@@ -630,10 +632,10 @@ Einige übliche Notationseigenheiten für Harfe sind woanders behandelt:
 
 @seealso
 Notationsreferenz:
-@ref{Tremolo-Wiederholung}
-@ref{Glissando}
-@ref{Arpeggio}
-@ref{Flageolett}
+@ref{Tremolo-Wiederholung},
+@ref{Glissando},
+@ref{Arpeggio},
+@ref{Flageolett}.
 
 
 
@@ -655,8 +657,10 @@ Seite.  Die Position des Pedals kann mit Textbeschriftungselementen:
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
-cis1_\markup \concat \vcenter { [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {[ C \natural ]}
+cis1_\markup \concat \vcenter {
+  [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c!1_\markup \concat \vcenter {
+  [ C \natural ] }
 @end lilypond
 
 @noindent
@@ -676,5 +680,5 @@ Trenner.  Ein @code{o} vor der Definition umrandet das Symbol.
 
 @seealso
 Notationsreferenz:
-@ref{Textarten}
+@ref{Textarten},
 @ref{Instrument Specific Markup}.

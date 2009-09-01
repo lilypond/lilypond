@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 6bf3e9149eb97e66b4c813e41dc7625f06c501aa
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c Translators: Till Paala
 
 @c \version "2.12.0"
 
@@ -43,7 +45,8 @@ and just before
 * Text markup list commands::   
 * Liste der Arktikulationszeichen::
 * Schlagzeugnoten::   
-* Alle Kontexteigenschaften::      
+* Alle Kontexteigenschaften::
+* Technisches Glossar::   
 * Eigenschaften des Layouts::           
 * Bezeichner::                 
 * Scheme-Funktionen::            
@@ -211,7 +214,7 @@ Verminderter Dreklang, kleine Sept
 @item
 Kleine MollSept
 @tab
-Molldreiklang, Durseptime
+Molldreiklang, große Septime
 @tab
 @code{maj7.5-}
 @tab
@@ -302,7 +305,7 @@ Dominantnone, perfekte Undezime
 @item
 Durundezime
 @tab
-Große None, perfekte Unidezime
+Große None, perfekte Undezime
 @tab
 @code{maj11}
 @tab
@@ -340,6 +343,8 @@ Dominantnone, große 13
 
 @item
 Dominant-13
+@tab
+Dominant-Undezime, große 13
 @tab
 @code{13.11}
 @tab
@@ -591,7 +596,285 @@ benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart
 zu (bspw. @code{g^\markup @{
 \musicglyph #"scripts.segno" @}}). Siehe auch @ref{Text formatieren}.
 
-@lilypondfile[noindent]{font-table.ly}
+@menu
+* Notenschlüssel-Glyphen::
+* Taktart-Glyphen::
+* Zahlen-Glyphen::
+* Versetzungszeichen-Glyphen::
+* Standard-Notenkopf-Glyphen::
+* Spezielle Notenkopf-Glyphen::
+* Geformte Notenkopf-Glyphen::
+* Pausen-Glyphen::
+* Fähnchen-Glyphen::
+* Punkt-Glyphen::
+* Dynamik-Glyphen::
+* Schrift-Glyphen::
+* Pfeilkopf-Glyphen::
+* Klammerspitzen-Glyphen::
+* Pedal-Glyphen::
+* Akkordion-Glyphen::
+* Vaticana-Glyphen::
+* Medicaea-Glyphen::
+* Hufnagel-Glyphen::
+* Mensural-Glyphen::
+* Neomensural-Glyphen::
+* Petrucci-Glyphen::
+* Solesmes-Glyphen::
+@end menu
+
+
+@node Notenschlüssel-Glyphen
+@unnumberedsubsec Notenschlüssel-Glyphen
+@translationof Clef glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #clefs
+@end lilypond
+
+
+@node Taktart-Glyphen
+@unnumberedsubsec Taktart-Glyphen
+@translationof Time Signature glyphs
+
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #timesig
+@end lilypond
+
+
+@node Zahlen-Glyphen
+@unnumberedsubsec Zahlen-Glyphen
+@translationof Number glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #numbers
+@end lilypond
+
+
+@node Versetzungszeichen-Glyphen
+@unnumberedsubsec Versetzungszeichen-Glyphen
+@translationof Accidental glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accidentals
+@end lilypond
+
+
+@node Standard-Notenkopf-Glyphen
+@unnumberedsubsec Standard-Notenkopf-Glyphen
+@translationof Default Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #default-noteheads
+@end lilypond
+
+
+@node Spezielle Notenkopf-Glyphen
+@unnumberedsubsec Spezielle Notenkopf-Glyphen
+@translationof Special Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #special-noteheads
+@end lilypond
+
+
+@node Geformte Notenkopf-Glyphen
+@unnumberedsubsec Geformte Notenkopf-Glyphen
+@translationof Shape-note Notehead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #shape-note-noteheads
+@end lilypond
+
+
+@node Pausen-Glyphen
+@unnumberedsubsec Pausen-Glyphen
+@translationof Rest glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #rests
+@end lilypond
+
+
+@node Fähnchen-Glyphen
+@unnumberedsubsec Fähnchen-Glyphen
+@translationof Flag glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #flags
+@end lilypond
+
+
+@node Punkt-Glyphen
+@unnumberedsubsec Punkt-Glyphen
+@translationof Dot glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dots
+@end lilypond
+
+
+@node Dynamik-Glyphen
+@unnumberedsubsec Dynamik-Glyphen
+@translationof Dynamic glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #dynamics
+@end lilypond
+
+
+@node Schrift-Glyphen
+@unnumberedsubsec Schrift-Glyphen
+@translationof Script glyphs
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #scripts
+@end lilypond
+
+
+@node Pfeilkopf-Glyphen
+@unnumberedsubsec Pfeilkopf-Glyphen
+@translationof Arrowhead glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #arrowheads
+@end lilypond
+
+
+@node Klammerspitzen-Glyphen
+@unnumberedsubsec Klammerspitzen-Glyphen
+@translationof Bracket-tip glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #brackettips
+@end lilypond
+
+
+@node Pedal-Glyphen
+@unnumberedsubsec Pedal-Glyphen
+@translationof Pedal glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #pedal
+@end lilypond
+
+
+@node Akkordion-Glyphen
+@unnumberedsubsec Akkordion-Glyphen
+@translationof Accordion glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #accordion
+@end lilypond
+
+
+@node Vaticana-Glyphen
+@unnumberedsubsec Vaticana-Glyphen
+@translationof Vaticana glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #vaticana
+@end lilypond
+
+
+@node Medicaea-Glyphen
+@unnumberedsubsec Medicaea-Glyphen
+@translationof Medicaea glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #medicaea
+@end lilypond
+
+
+@node Hufnagel-Glyphen
+@unnumberedsubsec Hufnagel-Glyphen
+@translationof Hufnagel glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #hufnagel
+@end lilypond
+
+
+@node Mensural-Glyphen
+@unnumberedsubsec Mensural-Glyphen
+@translationof Mensural glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #mensural
+@end lilypond
+
+
+@node Neomensural-Glyphen
+@unnumberedsubsec Neomensural-Glyphen
+@translationof Neomensural glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #neomensural
+@end lilypond
+
+
+@node Petrucci-Glyphen
+@unnumberedsubsec Petrucci-Glyphen
+@translationof Petrucci glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #petrucci
+@end lilypond
+
+
+@node Solesmes-Glyphen
+@unnumberedsubsec Solesmes-Glyphen
+@translationof Solesmes glyphs
+
+@lilypond[quote]
+\include "font-table.ly"
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #solesmes
+@end lilypond
+
 
 
 @node Notenkopfstile
@@ -648,6 +931,214 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 @translationof Percussion notes
 
 @lilypondfile[quote]{percussion-chart.ly}
+
+
+@node Technisches Glossar
+@appendixsec Technisches Glossar
+@translationof Technical glossary
+
+Ein Glossar der technischen Ausdrücke und Konzepte, die von
+LilyPond intern benutzt werden.
+
+@menu
+* callback::
+* glyph (Glyphe)::
+* grob (Grob)::
+* interface (Schnittstelle)::
+* lexer::
+* output-def::
+* parser (Syntaxanalysierer)::
+* parser variable::
+* prob::
+* simple-closure::
+* smob::
+* stencil::
+@end menu
+
+@node callback
+@unnumberedsubsec callback
+@translationof callback
+
+@cindex callback
+
+Ein @strong{callback} ist eine Routine, Funktion oder Methode,
+deren Referenz in einem Aufruf als Argument an eine andere
+Routine weitergereicht wird, sodass die aufgerufene Routine
+ermöglicht wird, das Argument zu aktivieren.  Die Technik
+ermöglicht es einer niedrigeren Ebene des Programmes, eine
+Funktion  aufzurufen, die auf höherer Ebene definiert wurde.
+Callbacks werden sehr ausgiebig in LilyPond eingesetzt, um
+es Scheme-Code auf der Benutzerebene zu erlauben, wie viele
+Funktionen der niedrigeren Ebene ausgeführt werden sollen.
+
+@node glyph (Glyphe)
+@unnumberedsubsec glyph (Glyphe)
+@translationof glyph
+
+@cindex glyph
+@cindex Glyphe
+@cindex font
+@cindex typeface
+@cindex Schriftfamilie
+
+Ein @strong{glyph} ist eine bestimmte graphische Repräsentation
+eines typographischen Charakters oder einer Kombination von
+zwei oder mehr Charakteren, die dann eine Ligatur bilden.  Eine
+Gruppe an Glyphen des gleichen Stils bilden ein Font, und
+eine Gruppe an Fonts, die mehrere Stile darstellen, bilden
+eine Schriftfamilie (engl. typeface).
+
+
+@seealso
+Notationsreferenz:
+@ref{Fonts},
+@ref{Text encoding}.
+
+
+@node grob (Grob)
+@unnumberedsubsec grob (Grob)
+@translationof grob
+
+@cindex grob
+@cindex layout objects
+@cindex graphical objects
+@cindex Layoutobjekte
+@cindex graphische Objekte
+
+LilyPond-Objekte, die Elemente der Notation in der graphischen
+Ausgabe des Programmen darstellen, wie etwa Notenköpfe, Hälse,
+Bögen, Bindebögen, Fingersatz, Schlüssel usw., werden 
+@qq{Layout-Objekte} genannt, auch oft als @qq{GRaphische OBjekte}
+bezeichnet, was dann zu  @strong{grob} abgekürzt wird.
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Objects and interfaces},
+@rlearning{Naming conventions of objects and properties},
+@rlearning{Properties of layout objects}.
+
+Referenz der Interna:
+@rinternals{All layout objects}.
+
+
+@node interface (Schnittstelle)
+@unnumberedsubsec interface (Schnittstelle)
+@translationof interface
+
+@cindex interface
+@cindex grob-interface
+@cindex Schnittstelle von graphischen Objekten
+@cindex graphische Objekte, Schnittstellen
+
+Aktionen und Eigenschaften, die eine Gruppe von Grobs gemeinsam
+haben, werden in ein Objekt gesammelt, das als @code{grob-interface}
+oder auch @qq{Schnittstelle} (engl. interface) bezeichnet wird.
+
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Objects and interfaces},
+@rlearning{Naming conventions of objects and properties},
+@rlearning{Properties found in interfaces}.
+
+Notationsreferenz:
+@ref{Layout interfaces}.
+
+Referenz der Interna:
+@rinternals{Graphical Object Interfaces}.
+
+
+@node lexer
+@unnumberedsubsec lexer
+@translationof lexer
+
+@cindex lexer
+
+Ein @strong{lexer} ist ein Programm, das eine Charaktersequenz
+in eines Sequenz von Tokens übersetzt.  Dieser Prozess wird als
+lexikalische Analyse bezeichnet.  Der LilyPond-Lexer konvertiert
+eine Eingabedatei (@code{.ly} in eine Datei mit Tokens, die sich
+besser für den nächsten Schritt der Verarbeitung, nämlich das
+Parsen, eignet.  Siehe @ref{parser}.
+
+@node output-def
+@unnumberedsubsec output-def
+@translationof output-def
+
+@cindex output-def
+
+Eine Instanz der @code{Output-def}-Klasse enthält die Methoden und
+Datenstruktur, die mit einem Ausgabeabschnitt assoziiert wird.
+Instanzen werden für @code{midi}, @code{layout} und @code{paper}-Umgebungen
+erstellt.
+
+
+@node parser (Syntaxanalysierer)
+@unnumberedsubsec parser (Syntaxanalysierer)
+@translationof parser
+
+@cindex parser
+
+Ein @strong{parser} analysiert die Tokensequenzen, die von einem
+Lexer erstellt wurden, um deren grammatikalische Struktur zu entschlüsseln,
+wie sie von den Regeln des Eingabeformates vorgegeben werden.
+
+
+@node parser variable
+@unnumberedsubsec parser variable
+@translationof parser variable
+
+Diese Variablen werden direkt in Scheme definiert.  Von ihrer direkten
+Benutzung durch den Benutzer wird streng abgeraten, weil ihre
+Semantikzuordnung sehr verwirrend sein kann.
+
+Wenn der Wert einer derartigen Variable in einer @code{.ly}-Datei
+verändert wird, ist diese Änderung global, und wenn sie nicht
+explizit rückgängig gemacht wird, wird der neue Wert bis zum Ende
+der Datei gelten und dabei sowohl aufeinander folgende
+@code{\score}-Umgebungen als auch externe Dateien, die mit
+@code{\include} geladen werden, beeinflussen.  Das kann zu nicht
+gewollten Konsequenzen führen, und in komplizierteren Projekten
+kann es sehr schwer sein, die immer wieder auftretenden Fehler
+zu beheben.
+
+LilyPond benutzt folgende Parser-Variablen:
+
+@itemize
+@item afterGraceFraction
+@item musicQuotes
+@item mode
+@item output-count
+@item output-suffix
+@item parseStringResult
+@item partCombineListener
+@item pitchnames
+@item toplevel-bookparts
+@item toplevel-scores
+@item showLastLength
+@item showFirstLength
+@end itemize
+
+
+@node prob
+@unnumberedsubsec prob
+@translationof prob
+TODO
+
+@node simple-closure
+@unnumberedsubsec simple-closure
+@translationof simple-closure
+TODO
+
+@node smob
+@unnumberedsubsec smob
+@translationof smob
+TODO
+
+@node stencil
+@unnumberedsubsec stencil
+@translationof stencil
+TODO
 
 
 @node Alle Kontexteigenschaften

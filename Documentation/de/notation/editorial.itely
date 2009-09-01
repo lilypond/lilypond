@@ -1,12 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @c \version "2.12.0"
+
+@c Translators: Till Paala
 
 @node Anmerkungen
 @section Anmerkungen
@@ -265,6 +267,14 @@ e4(\p f)--
 @endpredefined
 
 @seealso
+Handbuch zum Lernen:
+@rlearning{Visibility and color of objects}.
+
+Notationsreferenz:
+@ref{Invisible rests},
+@ref{Visiblity of objects},
+@ref{Hiding staves}.
+
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -449,6 +459,9 @@ Immer, wenn das Programm eine Note findet, wird automatisch
 ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch 
 für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
 gemacht.
+
+Hälse können manuell gesetzt werden, um nach oben oder unten zu
+zeigen, siehe @ref{Direction and placement}.
 
 @predefined
 @code{\stemUp} (Hälse nach oben),

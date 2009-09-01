@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,6 +9,7 @@
 
 @c \version "2.12.0"
 
+@c Translators: Till Paala
 @quotation
 Wir wollen dieses Programm allen Freunden widmen, die wir
 durch die Musik kennengelernt haben.
