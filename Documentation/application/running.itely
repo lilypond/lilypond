@@ -25,10 +25,8 @@ This chapter details the technicalities of running LilyPond.
 @node Normal usage
 @section Normal usage
 
-Most users run LilyPond through a GUI; see 
-FIXME FIXME FIXME
-@c @rlearning{First steps} if
-you have not read this already.
+Most users run LilyPond through a GUI; see @rlearning{First steps}
+if you have not read this already.
 
 
 @node Command-line usage
@@ -41,10 +39,9 @@ as @code{midi2ly}) which are only available on the command-line.
 
 By @q{command-line}, we mean the command line in the operating system.
 Windows users might be more familiar with the terms @q{DOS shell} or
-@q{command shell}; MacOS@tie{}X users might be more familiar with the terms
-@q{terminal} or @q{console}.  They should also consult 
-FIXME 
-@c @ref{Setup for MacOS X}.
+@q{command shell}.  MacOS@tie{}X users might be more familiar with the terms
+@q{terminal} or @q{console}.  Some additional setup is required
+for MacOS@tie{}X users; please see @rgeneral{MacOS X}.
 
 Describing how to use this part of an operating system is outside the
 scope of this manual; please consult other documentation on this topic
@@ -57,9 +54,10 @@ if you are unfamiliar with the command-line.
 @end menu
 
 @node Invoking lilypond
-@subsection Invoking @command{lilypond}
+@unnumberedsubsec Invoking @command{lilypond}
 
-The @command{lilypond} executable may be called as follows from the command line.
+The @command{lilypond} executable may be called as follows from
+the command line.
 
 @example
 lilypond [@var{option}]@dots{} @var{file}@dots{}
@@ -95,7 +93,7 @@ will output @var{base}@file{-violin.pdf} and
 
 
 @node Command line options for lilypond
-@subsection Command line options for @command{lilypond}
+@unnumberedsubsec Command line options for @command{lilypond}
 
 @cindex Invoking @command{lilypond}
 @cindex command line options for @command{lilypond}
@@ -387,7 +385,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @end table
 
 @node Environment variables
-@subsection Environment variables
+@unnumberedsubsec Environment variables
 
 
 @cindex LANG
@@ -428,12 +426,12 @@ However, warnings usually indicate that something is wrong with the
 input file.
 
 @item Error
+@cindex error
 Something is definitely wrong.  The current processing step (parsing,
 interpreting, or formatting) will be finished, but the next step will
 be skipped.
 
 @item Fatal error
-@cindex error
 @cindex fatal error
 Something is definitely wrong, and LilyPond cannot continue.  This
 happens rarely.  The most usual cause is misinstalled fonts.
@@ -455,6 +453,7 @@ ignored.  Sometimes, they come in such big quantities that they obscure
 other output.
 
 @item Aborted (core dumped)
+@cindex Aborted (core dumped)
 This signals a serious programming error that caused the program to
 crash.  Such errors are considered critical.  If you stumble on one,
 send a bug-report.
@@ -485,5 +484,6 @@ when something unexpected happens.  If you can't see an error in the
 indicated line of your input file, try checking one or two lines
 above the indicated position.
 
+More information about errors is given in @ref{Common errors}.
 
 
