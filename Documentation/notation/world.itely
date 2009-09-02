@@ -439,7 +439,7 @@ From a modern notational point of view it is convenient to
 use the standard Western staff notes (c, d, e, ...) with
 special accidentals that raise or lower notes by intervals
 of 1/9, 4/9, 5/9 and 8/9 of a tone.  These accidentals are
-defined in the file @file{makam.ly} (see the Learning Manual
-2.12.2, section 4.6.3,  `Other sources of information', for
-the location of this file) and are described in more detail
-in @ref{Non-Western note names and accidentals}.
+defined in the file @file{makam.ly} (see
+@rlearning{Other sources of information} for the location
+of this file) and are described in more detail in
+@ref{Non-Western note names and accidentals}.

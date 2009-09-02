@@ -592,12 +592,11 @@ intervals are based on 1/9 divisions of the whole tone.
 From a modern notational point of view, it is convenient
 to use the standard Western staff notes (c, d, e, ...)
 with special accidentals unique to Turkish music.  These
-accidentals are defined in @file{makam.ly} (see the
-Learning Manual 2.12.2, section 4.6.3,  `Other sources of
-information', for the location of this file).  The
-following table gives their names, the accidental suffix
-that must be added to notes, and their pitch alteration
-as a fraction of one whole tone.
+accidentals are defined in @file{makam.ly} (see
+@rlearning{Other sources of information} for the location
+of this file).  The following table gives their names,
+the accidental suffix that must be added to notes, and
+their pitch alteration as a fraction of one whole tone.
 
 @c TODO: can we include the actual accidentals in this table?
 @quotation
