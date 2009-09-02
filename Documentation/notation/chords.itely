@@ -503,6 +503,10 @@ Rests passed to a @code{ChordNames} context will cause the
 
 @snippets
 
+@c Keep index entries with following snippet
+@cindex chords, suppressing repeated
+@funindex chordChanges
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {showing-chords-at-changes.ly}
 
