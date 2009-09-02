@@ -1,6 +1,12 @@
 #!/usr/bin/env perl
 # -*- coding: utf-8; -*-
 
+# this file is a complete mess.  Some things are commented out
+# because that's the only way it works.  About 70% of the code in
+# this file is never called.  All in all, it's in drastic need of
+# a complete review/editing, but we don't have the time right now.
+
+
 ### WTF, perl cannot read a file?
 ###use File::Slurp qw( read_file );
 
@@ -124,9 +130,9 @@ $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not
 # FIXME: creates duplicate anchors, which causes Opera to barf;
 #	 should be fixed in lilypond-texi2html.init too
 # Uhm, what about a bug report to Opera?  We need sane names here.
-if ($Texi2HTML::Config::SPLIT eq 'section') {
-  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
-}
+#if ($Texi2HTML::Config::SPLIT eq 'section') {
+#  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+#}
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
@@ -880,6 +886,8 @@ sub print_lilypond_page_foot($)
   print $fh "</div>\n";
   }
 
+  # FIXME: This div and p#languages need to be in div#footer.
+  #        Should we move this div to postprocess_html.py ?
   print $fh "<div id=\"verifier_texinfo\">\n";
   print $fh "<h3>Validation</h3>\n";
   print $fh "<p>Thanks to <a href=\"http://www.webdev.nl/\">webdev.nl</a>";
@@ -888,7 +896,6 @@ sub print_lilypond_page_foot($)
   print $fh "<img src=\"http://www.w3.org/Icons/valid-html401\"\n";
   print $fh "     alt=\"Valid HTML 4.01 Transitional\"\n";
   print $fh "     height=\"31\" width=\"88\"></a></p>\n";
-  print $fh "</div>";
   print $fh "</div>";
 
   # Print the TOC frame and reset the TOC:

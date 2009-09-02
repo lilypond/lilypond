@@ -33,7 +33,7 @@ fet_beginchar ("Pedal asterisk", "*");
 	save bulb, p, radius, thin, inner_r;
 	path pat;
 
-	set_char_box (0, 7/9 pedalh#, 0, pedalh#);
+	set_char_box (0, 7/9 pedalh#, 0, 7/9 pedalh#);
 
 	z0 = (1/2 w, h - 1/2 w);
 

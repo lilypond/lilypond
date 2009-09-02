@@ -14,6 +14,8 @@
 #(define toplevel-bookparts (list))
 #(define output-count 0) 
 #(define $defaultheader #f)
+#(define $current-book #f)
+#(define $current-bookpart #f)
 #(define version-seen #f)
 #(define expect-error #f) 
 #(define output-empty-score-list #f)

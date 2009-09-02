@@ -1567,7 +1567,7 @@ fet_beginchar ("snap pizzicato (Bartok pizzicato)", "snappizzicato");
 	define_pixels (height, width);
 	define_whole_blacker_pixels (thickness);
 
-	set_char_box (width# / 2, width# / 2, height# / 2, height# / 2);
+	set_char_box (width# / 2, width# / 2, height# / 2, height# * 3 / 4);
 
 	penpos1 (thickness, 90);
 	penpos2 (thickness, 180);
@@ -1575,10 +1575,10 @@ fet_beginchar ("snap pizzicato (Bartok pizzicato)", "snappizzicato");
 	penpos4 (thickness, 0);
 
 	x1 = 0;
-	y1r = h;
+	y1r = height / 2;
 	x3 = x1;
 	y3r = -y1r;
-	x4r = w;
+	x4r = width / 2;
 	y4 = 0;
 	x2r = -x4r;
 	y2 = y4;
@@ -1601,10 +1601,13 @@ fet_beginchar ("snap pizzicato (Bartok pizzicato)", "snappizzicato");
 		     .. z4
 		     .. cycle;
 	fi;
+
 	z5 = (0, 0);
-	z6 = (x5, 1.5*y1r);
-	pickup pencircle scaled thickness;
-        draw z5 -- z6;
+	z6 = (x5, 1.5 y1r);
+
+	draw_gridline (z5, z6, thickness);
+
+	labels (5, 6);
 fet_endchar;
 
 fet_endgroup ("scripts");

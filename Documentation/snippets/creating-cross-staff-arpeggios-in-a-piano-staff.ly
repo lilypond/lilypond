@@ -4,16 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Dans une double portée pour piano (@code{PianoStaff}), un arpège peut
-s'étendre sur les deux portées grâce à la propriété 
-@code{PianoStaff.connectArpeggios}.
-
-"
-  doctitlefr = "Arpège distribué sur une partition pour piano"
-
-
   lsrtags = "expressive-marks"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -33,6 +23,15 @@ in den @code{Score}-Kontext eingefügt wird.
 
 "
   doctitlede = "Arpeggio über mehrere Systeme in anderen Kontexten"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Dans une double portée pour piano (@code{PianoStaff}), un arpège peut
+s'étendre sur les deux portées grâce à la propriété 
+@code{PianoStaff.connectArpeggios}.
+
+"
+  doctitlefr = "Arpège distribué sur une partition pour piano"
+
 
   texidoc = "
 In a @code{PianoStaff}, it is possible to let an arpeggio cross between

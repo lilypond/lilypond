@@ -28,42 +28,9 @@ this chapter.
 @section When things don't work
 
 @menu
-* Updating old input files::
 * Common errors::
 * Troubleshooting (taking it all apart)::
-* Minimal examples::
 @end menu
-
-@node Updating old input files
-@subsection Updating old input files
-
-@cindex convert-ly
-@cindex updating old input files
-
-The LilyPond input syntax occasionally changes.  As LilyPond itself
-improves, the syntax (input language) is modified accordingly.  Sometimes
-these changes are made to make the input easier to read and write or
-sometimes the changes are made to accommodate new features of LilyPond.
-
-LilyPond comes with a file that makes this updating easier:
-@code{convert-ly}.  For details about how to run this program, see
-@rprogram{Updating files with convert-ly}.
-
-Unfortunately, @code{convert-ly} cannot handle all input changes.  It
-takes care of simple search-and-replace changes (such as @code{raggedright}
-becoming @code{ragged-right}), but some changes are too
-complicated.  The syntax changes that @code{convert-ly} cannot handle
-are listed in @rprogram{Updating files with convert-ly}.
-
-For example, in LilyPond 2.4 and earlier, accents and non-English
-letters were entered using LaTeX -- for example,
-@code{No\"el} (this would print the French word for
-@c keep "-matching straight in fancy editors
-@q{Christmas}).  In LilyPond 2.6 and above, the special
-@code{ë} must be entered directly into the LilyPond file as an
-UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
-special characters into UTF-8 characters; you must manually update
-your old LilyPond input files.
 
 @node Common errors
 @subsection Common errors
@@ -259,47 +226,7 @@ Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
 
 Another very useful debugging technique is constructing
-FIXME FIXME @c @ref{Minimal examples}.
-
-
-@node Minimal examples
-@subsection Minimal examples
-
-A minimal example is an example which is as small as possible.  These
-examples are much easier to understand than long examples.  Minimal
-examples are used for
-
-@itemize
-@item Bug reports
-@item Sending a help request to mailing lists
-@item Adding an example to the @uref{http://lsr.dsi.unimi.it/,
-LilyPond Snippet Repository}
-@end itemize
-
-To construct an example which is as small as possible, the rule is
-quite simple: remove anything which is not necessary.  When trying to
-remove unnecessary parts of a file, it is a very good idea to comment
-out lines instead of deleting them.  That way, if you discover that you
-actually @emph{do} need some lines, you can uncomment them, instead of
-typing them in from scratch.
-
-There are two exceptions to the @qq{as small as possible} rule:
-
-@itemize
-@item Include the @code{\version} number.
-@item If possible, use @code{\paper@{ ragged-right=##t @}} at the
-top of your example.
-@end itemize
-
-The whole point of a minimal example is to make it easy to read:
-
-@itemize
-@item Avoid using complicated notes, keys, or time signatures, unless you
-wish to demonstrate something is about the behavior of those items.
-@item Do not use @code{\override} commands unless that is the point of the
-example.
-@end itemize
-
+@rgeneral{Tiny examples}.
 
 
 @node Make and Makefiles

@@ -4,15 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
-  texidocfr = "
-Le numéro de mesure répétée sera imprimé à intervalle régulier si vous
-déterminez la propriété de contexte @code{repeatCountVisibility}.
-
-"
-  doctitlefr = "Affichage du numéro de répétition en pourcent"
-
-
   lsrtags = "repeats, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -30,6 +21,14 @@ Prozentwiederholungszähler können in regelmäßigen Intervallen angezeigt
 werden, indem man die Eigenschaft @code{repeatCountVisibility} beeinflusst.
 "
   doctitlede = "Sichtbarkeit von Prozent-Wiederholungen"
+%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+  texidocfr = "
+Le numéro de mesure répétée sera imprimé à intervalle régulier si vous
+déterminez la propriété de contexte @code{repeatCountVisibility}.
+
+"
+  doctitlefr = "Affichage du numéro de répétition en pourcent"
+
 
   texidoc = "
 Percent repeat counters can be shown at regular intervals by setting

@@ -4,27 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
-  texidocfr = "
-La propriété @code{shapeNoteStyles} permet d'affecter un profil
-particulier à chaque degré de la gamme -- à partir de l'armure ou
-de la propriété @code{tonic}.  Ses valeurs sont constituées d'une liste 
-de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
-@code{cross}, ou @code{xcircle}) ou basés sur la tradition des graveurs
-américains (avec quelques noms de note latins).
-
-LilyPond dispose de deux raccourcis, @code{\aikenHeads} et
-@code{\sacredHarpHeads}, permettant de reproduire déanciens recueils de
-chansons américaines. 
-
-L'exemple suivant montre plusieurs manières de profiler les têtes de
-note, ainsi que la capacité de trnsposer tout en respectant la fonction
-harmonique de chaque note dans la gamme. 
-
-"
-  doctitlefr = "Profilage des notes selon leur degré dans la gamme"
-
-
   lsrtags = "pitches, editorial-annotations"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -72,6 +51,26 @@ eine Melodie transponieren kann, ohne dass das Verhältnis zwischen den
 harmonischen Funktionen und dem Notenstil verloren geht.
 
 "
+%% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
+  texidocfr = "
+La propriété @code{shapeNoteStyles} permet d'affecter un profil
+particulier à chaque degré de la gamme -- à partir de l'armure ou
+de la propriété @code{tonic}.  Ses valeurs sont constituées d'une liste 
+de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
+@code{cross}, ou @code{xcircle}) ou basés sur la tradition des graveurs
+américains (avec quelques noms de note latins).
+
+LilyPond dispose de deux raccourcis, @code{\aikenHeads} et
+@code{\sacredHarpHeads}, permettant de reproduire déanciens recueils de
+chansons américaines. 
+
+L'exemple suivant montre plusieurs manières de profiler les têtes de
+note, ainsi que la capacité de trnsposer tout en respectant la fonction
+harmonique de chaque note dans la gamme. 
+
+"
+  doctitlefr = "Profilage des notes selon leur degré dans la gamme"
+
 
   texidoc = "
 The @code{shapeNoteStyles} property can be used to define various note

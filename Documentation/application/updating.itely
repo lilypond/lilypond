@@ -23,10 +23,46 @@ the program @command{convert-ly} can be used to deal with most of the
 syntax changes between LilyPond versions.
 
 @menu
+* Why does the syntax change?::
 * Invoking convert-ly::
 * Command line options for convert-ly::
-* Problems with convert-ly::
+* Problems running convert-ly::
+* Manual conversions::
 @end menu
+
+
+@node Why does the syntax change?
+@section Why does the syntax change?
+
+@cindex convert-ly
+@cindex updating old input files
+
+The LilyPond input syntax occasionally changes.  As LilyPond
+itself improves, the syntax (input language) is modified
+accordingly.  Sometimes these changes are made to make the input
+easier to read and write or sometimes the changes are made to
+accommodate new features of LilyPond.
+
+For example, all @code{\paper} and @code{\layout} property names
+are supposed to be written in the form @code{first-second-third}.
+However, in version 2.11.60, we noticed that the
+@code{printallheaders} property did not follow this convention.
+Should we leave it alone (confusing new users who must deal with
+an inconsistent input format), or change it (annoying old users
+with existing scores)?  In this case, we decided to change the
+name to @code{print-all-headers}.  Fortunately, this change can be
+automated with our @command{convert-ly} tool.
+
+Unfortunately, @code{convert-ly} cannot handle all input changes.
+For example, in LilyPond 2.4 and earlier, accents and non-English
+letters were entered using LaTeX -- displaying the French word for
+Christmas was entered as @code{No\"el}.  But in LilyPond
+@c keep "-matching straight in fancy editors
+2.6 and above, the special @code{ë} must be entered directly into
+the LilyPond file as an UTF-8 character.  @code{convert-ly} cannot
+change all the LaTeX special characters into UTF-8 characters; you
+must manually update your old LilyPond input files.
+
 
 @node Invoking convert-ly
 @section Invoking @command{convert-ly}
@@ -44,6 +80,11 @@ in the directory containing the file.  This will upgrade
 @code{myfile.ly} in-place and preserve the original file in
 @code{myfile.ly~}.
 
+@warning{@command{convert-ly} always converts up to the last
+syntax change handled by it.  This means that the @code{\version}
+number left in the file is usually lower than the version of
+@command{convert-ly} itself.}
+
 To convert all the input files in a directory together use
 
 @example
@@ -58,27 +99,22 @@ use
 convert-ly myfile.ly > mynewfile.ly
 @end example
 
-@command{convert-ly} always converts up to the last syntax change
-handled by it.  This means that the @code{\version} number left in
-the file is usually lower than the version of @command{convert-ly}
-itself.
-
 The program will list the version numbers for which conversions
 have been made.  If no version numbers are listed the file is
 already up to date.
 
-@noindent
 MacOS@tie{}X users may execute these commands under the menu entry
 @code{Compile > Update syntax}.
 
-Windows users should enter these commands in a Command Prompt window,
-which is usually found under
+Windows users should enter these commands in a Command Prompt
+window, which is usually found under
 @code{Start > Accessories > Command Prompt}.
+
 
 @node Command line options for convert-ly
 @section Command line options for @command{convert-ly}
 
-In general, the program is invoked as follows:
+The program is invoked as follows:
 
 @example
 convert-ly [@var{option}]@dots{} @var{filename}@dots{}
@@ -125,8 +161,8 @@ convert-ly --from=... --to=... -s
 @end example
 
 
-@node Problems with convert-ly
-@section Problems with @code{convert-ly}
+@node Problems running convert-ly
+@section Problems running @code{convert-ly}
 
 When running convert-ly in a Command Prompt window under Windows
 on a file which has spaces in the filename or in the path to it,
@@ -157,14 +193,25 @@ specified.  Automatically updating scheme and LilyPond scheme
 interfaces is quite unlikely; be prepared to tweak scheme code
 manually.
 
+
+@node Manual conversions
+@section Manual conversions
+
+In theory, a program like @command{convert-ly} could handle any
+syntax change.  After all, a computer program interprets the old
+version and the new version, so another computer program can
+translate one file into another@footnote{At least, this is
+possible in any LilyPond file which does not contain scheme.  If
+there is scheme in the file, then the LilyPond file contains a
+Turing-complete language, and we run into problems with the famous
+@qq{Halting Problem} in computer science.}.
+
+However, the LilyPond project has limited resources: not all
+conversions are performed automatically.  Below is a list of known
+problems.
+
+
 @verbatim
-There are a few things that the convert-ly cannot handle.  Here's a list
-of limitations that the community has complained about.
-
-This bug report structure has been chosen because convert-ly has a
-structure that doesn't allow to smoothly implement all needed changes.
-Thus this is just a wishlist, placed here for reference.
-
 1.6->2.0:
  Doesn't always convert figured bass correctly, specifically things like {<
 >}.  Mats' comment on working around this:

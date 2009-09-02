@@ -387,6 +387,12 @@ Constrained_breaking::initialize ()
 	  line.turn_permission_ = min_permission (line.page_permission_,
 						  line.turn_permission_);
 
+	  // TODO: see the hack regarding begin_of_line and
+	  // rest_of_line extents in align-interface.  Perhaps we
+	  // should do the same thing here so that the effect extends
+	  // between systems as well as within systems.  It isn't as
+	  // crucial here, however, because the effect is largest when
+	  // dealing with large systems.
 	  line.extent_ = (extent.is_empty ()
 			  || isnan (extent[LEFT])
 			  || isnan (extent[RIGHT]))

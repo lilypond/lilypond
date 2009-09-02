@@ -446,11 +446,9 @@ scholarships.
 @divClass{column-center-bottom}
 @subheading Where now?
 
-Still not convinced?  Read about some of our users'
-@ref{Productions} and sheet music.  If you've already decided to
-try LilyPond, first read about our @ref{Text input}.
-
-FIXME: rewrite for Background.
+Still not convinced?  Read our extensive essay about our engraving
+philosophy in @ref{Background}.  If you've already decided to try
+LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
@@ -461,14 +459,11 @@ FIXME: rewrite for Background.
 @subheading Background essay
 
 We have an extensive essay describing computational aesthetics:
-the art of creating beauty with a computer.  FIXME blah blah.
-
-FIXME: simplify the verbosity below.
+the art of creating beauty with a computer.
 
 If you just want a quick introduction to LilyPond, the essay might
 be too much material to read.  If you would like to read it now,
 please progress to @ref{Essay}.
-
 @divEnd
 
 @divClass{column-center-bottom}
@@ -799,23 +794,16 @@ Some editing environments include syntax highlighting, automatic
 command completion, and pre-made templates.  Other programs
 actually provide a GUI which allows direct manipulation of a
 graphical score.  For more information, see our documentation
-about @@ref@{FIXME alternate editing environments@}.
+about @ref{Alternate input}.
 
 
 @divClass{column-center-bottom}
 @subheading Where now?
 
-You are now ready to @ref{Download, Download LilyPond}.
+You are now ready to @ref{Download, Download LilyPond}.  Still not
+convinced?  Read about easier editing environments in
+@ref{Alternate input}.
 
-Still not convinced?  Many composers, musicians, and conductors
-have learned how to write music in our input format.  Experienced
-users even report that they can enter a full score in LilyPond
-faster than with a piano keyboard or mouse+GUI!  Perhaps you would
-like to review the @ref{Features}, @ref{Examples}, or
-@ref{Freedom} that LilyPond provides, or read about users'
-@ref{Productions} and @ref{Testimonials}.  In addition, our
-approach to the computational aesthetics of classical engraving is
-explained in our @ref{Background}.  FIXME
 @divEnd
 
 
@@ -864,7 +852,23 @@ FIXME: insert text and a graphic(s)
 
 @divEnd
 
+
 @divClass{column-center-bottom}
+@subheading Where now?
+
+You are now ready to @ref{Download, Download LilyPond}.
+
+Still not convinced?  Many composers, musicians, and conductors
+have learned how to write music in our input format.  Experienced
+users even report that they can enter a full score in LilyPond
+faster than with a piano keyboard or mouse+GUI!  Perhaps you would
+like to review the @ref{Features}, @ref{Examples}, or the
+@ref{Freedom} that LilyPond provides, or read about users'
+@ref{Productions} and @ref{Testimonials}.  In addition, our
+approach to the computational aesthetics of classical engraving is
+explained in our @ref{Background}.
+
+
 @subheading Legalese
 
 @divClass{legal}

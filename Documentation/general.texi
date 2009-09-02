@@ -96,6 +96,9 @@ Read more in our @ref{Introduction}!
 @divEnd
 @divEnd
 
+@divClass{separator}
+@divEnd
+
 
 @divId{news}
 FIXME: process news items like the old web site:

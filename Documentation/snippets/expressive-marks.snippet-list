@@ -21,6 +21,8 @@ creating-simultaneous-rehearsal-marks.ly
 creating-slurs-across-voices.ly
 creating-text-spanners.ly
 double-glissando.ly
+dynamics-custom-text-spanner-postfix.ly
+dynamics-text-spanner-postfix.ly
 hiding-the-extender-line-for-text-dynamics.ly
 horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
 inserting-a-caesura.ly

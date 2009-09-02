@@ -18,6 +18,8 @@ display-bracket-with-only-one-staff-in-a-system.ly
 dotted-harmonics.ly
 drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
+dynamics-custom-text-spanner-postfix.ly
+dynamics-text-spanner-postfix.ly
 fine-tuning-pedal-brackets.ly
 forcing-horizontal-shift-of-notes.ly
 fret-diagrams-explained-and-developed.ly
@@ -41,6 +43,7 @@ rest-styles.ly
 rhythmic-slashes.ly
 separating-key-cancellations-from-key-signature-changes.ly
 setting-hairpin-behavior-at-bar-lines.ly
+string-number-extender-lines.ly
 suppressing-warnings-for-clashing-note-columns.ly
 time-signature-in-parentheses.ly
 time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly

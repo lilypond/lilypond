@@ -4,6 +4,8 @@
 \version "2.13.4"
 
 \header {
+  lsrtags = "repeats, keyboards"
+
 %% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
   texidocfr = "
 Dans la mesure où @code{\\repeat tremolo} requiert deux arguments
@@ -14,8 +16,6 @@ la commande @code{\\change Staff}.
 "
   doctitlefr = "Trémolo et changement de portée"
 
-
-  lsrtags = "repeats, keyboards"
 
   texidoc = "
 Since @code{\\repeat tremolo} expects exactly two musical arguments for

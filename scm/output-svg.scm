@@ -186,12 +186,12 @@
 ;;
 (define (glyph-element-regexp name)
   (make-regexp (string-append "<glyph"
-			      "(([\r\n\t ]+[-a-z]+=\"[^\"]*\")+)?"
-			      "[\r\n\t ]+glyph-name=\"("
+			      "(([[:space:]]+[-a-z]+=\"[^\"]*\")+)?"
+			      "[[:space:]]+glyph-name=\"("
 			      name
 			      ")\""
-			      "(([\r\n\t ]+[-a-z]+=\"[^\"]*\")+)?"
-			      "([\r\n\t ]+)?"
+			      "(([[:space:]]+[-a-z]+=\"[^\"]*\")+)?"
+			      "([[:space:]]+)?"
 			      "/>")))
 
 (define (extract-glyph all-glyphs name size . rest)

@@ -4,13 +4,14 @@ depth = ../..
 BITMAP_IMAGES = $(call src-wildcard,*.png) $(call src-wildcard,*.jpg)
 EPS_ILLUSTRATIONS = $(call src-wildcard,*.eps)
 SVG_FILES = $(call src-wildcard,*.svg)
+PDF_DIR = $(call src-wildcard,pdf/*.pdf)
 
 EXTRA_DIST_FILES = $(BITMAP_IMAGES) $(EPS_ILLUSTRATIONS) $(SVG_FILES)
+EXTRA_DIST_FILES += $(PDF_DIR)
 
 OUT_PDF_IMAGES = $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.pdf)
 OUT_BITMAP_IMAGES = $(BITMAP_IMAGES:%=$(outdir)/%)
 OUT_BITMAP_IMAGES += $(EPS_ILLUSTRATIONS:%.pdf=$(outdir)/%.png)
-OUT_SVG_IMAGES = $(SVG_FILES:%.svg=$(outdir)/%.png)
 
 STEPMAKE_TEMPLATES = documentation
 
@@ -22,7 +23,7 @@ include $(depth)/make/stepmake.make
 default:
 
 ifeq ($(out),www)
-local-WWW-1: $(OUT_BITMAP_IMAGES) $(OUT_PDF_IMAGES) $(OUT_SVG_IMAGES)
+local-WWW-1: $(OUT_BITMAP_IMAGES) $(OUT_PDF_IMAGES)
 endif
 
 #########
@@ -33,9 +34,6 @@ $(outdir)/%-flat-gray.png: %-flat-gray.png
 
 $(outdir)/%-flat-bw.png: %-flat-bw.png
 	convert -depth 8 -geometry 50x50% $< $@
-
-$(outdir)/%.png: %.svg
-	convert -depth 8 -alpha Off -background white -layers flatten -trim +repage $< $@
 
 $(outdir)/%.png: %.png
 	ln -f $< $@

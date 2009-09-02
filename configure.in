@@ -58,7 +58,7 @@ AC_SUBST(LINK_GXX_STATICALLY)
 # must come before any header checks
 STEPMAKE_COMPILE
 
-AC_CHECK_PROG(FCMATCH, fc-match, fc-match)
+AC_CHECK_PROG(FCLIST, fc-list, fc-list)
 AC_MSG_CHECKING([New Century Schoolbook PFB files])
 AC_SUBST(NCSB_SOURCE_FILES)
 if test "$NCSB_DIR" != "" ;  then
@@ -71,17 +71,17 @@ if test "$NCSB_DIR" != "" ;  then
     fi
   done
 else
-  if test "$FCMATCH" != ""; then
+  if test "$FCLIST" != ""; then
     for style in Roman Italic "Bold Italic" Bold; do
-      NCSB_FILE=`$FCMATCH --verbose "Century Schoolbook L:style=$style:foundry=urw" | grep 'file:' | grep -v "\.ttf"`
-
-      NCSB_FILE=`echo $NCSB_FILE | sed 's/^.*"\(.*\)".*$/\1/g'`
+      NCSB_FILE=`$FCLIST "Century Schoolbook L:style=$style:foundry=urw:fontformat=Type 1" file \
+                | head -n 1`
+      NCSB_FILE=`echo $NCSB_FILE | sed 's/^\(.*\):$/\1/g'`
       NCSB_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $NCSB_FILE`
       NCSB_SOURCE_FILES="$NCSB_FILE $NCSB_SOURCE_FILES"
     done
   else
     AC_MSG_RESULT(not found)
-    echo "Can't find Century Schoolbook files. Install FontConfig's fc-match,"
+    echo "Can't find Century Schoolbook files. Install FontConfig's fc-list,"
     echo "or use --with-ncsb-dir"
   fi
 fi

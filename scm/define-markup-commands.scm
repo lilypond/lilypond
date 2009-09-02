@@ -2314,7 +2314,7 @@ Draw @var{arg} in color specified by @var{color}.
     (ly:make-stencil (list 'color color (ly:stencil-expr stil))
 		     (ly:stencil-extent stil X)
 		     (ly:stencil-extent stil Y))))
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; glyphs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3033,7 +3033,7 @@ Set @var{arg} in subscript with a normal font size.
    (interpret-markup layout props arg)
    (* -0.5 baseline-skip)
    Y))
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; brackets.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3079,7 +3079,7 @@ Draw vertical brackets around @var{arg}.
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Delayed markup evaluation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3112,7 +3112,7 @@ when @var{label} is not found."
 				    (markup #:concat (#:hspace gap page-markup)))))))
      x-ext
      y-ext)))
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

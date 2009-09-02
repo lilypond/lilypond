@@ -78,6 +78,15 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
 Interval
 Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
 {
+  Interval iv = begin_of_line_pure_height (me, start);
+  iv.unite (rest_of_line_pure_height (me, start, end));
+
+  return iv;
+}
+
+Interval
+Axis_group_interface::rest_of_line_pure_height (Grob *me, int start, int end)
+{
   SCM adjacent_pure_heights = me->get_property ("adjacent-pure-heights");
 
   if (!scm_is_pair (adjacent_pure_heights)

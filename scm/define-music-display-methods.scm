@@ -81,7 +81,7 @@
     (if (and (car alist) (test item (cdar alist)))
 	(set! result (car alist)))))
 
-(define (note-name->lily-string ly-pitch parser)
+(define-public (note-name->lily-string ly-pitch parser)
   ;; here we define a custom pitch= function, since we do not want to
   ;; test whether octaves are also equal. (otherwise, we would be using equal?)
   (define (pitch= pitch1 pitch2)
@@ -92,7 +92,7 @@
 	(car result)
 	#f)))
 
-(define (octave->lily-string pitch)
+(define-public (octave->lily-string pitch)
   (let ((octave (ly:pitch-octave pitch)))
     (cond ((>= octave 0)
 	   (make-string (1+ octave) #\'))
@@ -103,7 +103,7 @@
 ;;;
 ;;; durations
 ;;;
-(define* (duration->lily-string ly-duration #:key (prev-duration (*previous-duration*))
+(define*-public (duration->lily-string ly-duration #:key (prev-duration (*previous-duration*))
 			(force-duration (*force-duration*))
 			(time-factor-numerator (*time-factor-numerator*))
 			(time-factor-denominator (*time-factor-denominator*)))

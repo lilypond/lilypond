@@ -655,6 +655,7 @@ book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
 		pop_paper (PARSER);
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), SCM_BOOL_F);
 	}
 	;
 
@@ -670,11 +671,13 @@ book_body:
 		$$->paper_->unprotect ();
 		push_paper (PARSER, $$->paper_);
 		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader"); 
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
 	}
 	| BOOK_IDENTIFIER {
 		$$ = unsmob_book ($1);
 		$$->protect ();
 		$$->origin ()->set_spot (@$);
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
 	}
 	| book_body paper_block {
 		$$->paper_ = $2;
@@ -722,6 +725,7 @@ book_body:
 bookpart_block:
 	BOOKPART '{' bookpart_body '}' {
 		$$ = $3;
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
 	}
 	;
 
@@ -729,11 +733,13 @@ bookpart_body:
 	{
 		$$ = new Book;
 		$$->origin ()->set_spot (@$);
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$->self_scm ());
 	}
 	| BOOK_IDENTIFIER {
 		$$ = unsmob_book ($1);
 		$$->protect ();
 		$$->origin ()->set_spot (@$);
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 	}
 	| bookpart_body paper_block {
 		$$->paper_ = $2;

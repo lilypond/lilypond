@@ -134,33 +134,63 @@
 
   (ly:make-score music))
 
-(define (print-book-with parser book process-procedure)
-  (let*
-      ((paper (ly:parser-lookup parser '$defaultpaper))
-       (layout (ly:parser-lookup parser '$defaultlayout))
-       (count (ly:parser-lookup parser 'output-count))
-       (base (ly:parser-output-name parser))
-       (output-suffix (ly:parser-lookup parser 'output-suffix)) )
 
+(define (get-outfile-name parser base)
+  (let* ((output-suffix (ly:parser-lookup parser 'output-suffix))
+	 (counter-alist (ly:parser-lookup parser 'counter-alist))
+	 (output-count (assoc-get output-suffix counter-alist 0))
+	 (result base))
+    ;; Allow all ASCII alphanumerics, including accents
     (if (string? output-suffix)
-	(set! base (format "~a-~a" base (string-regexp-substitute
-					   "[^a-zA-Z0-9-]" "_" output-suffix))))
+	(set! result (format "~a-~a"
+			     base (string-regexp-substitute
+				    "[^-[:alnum:]]" "_" output-suffix))))
 
-    ;; must be careful: output-count is under user control.
-    (if (not (integer? count))
-	(set! count 0))
+    ;; assoc-get call will always have returned a number
+    (if (> output-count 0)
+	(set! result (format #f "~a-~a" result output-count)))
 
-    (if (> count 0)
-	(set! base (format #f "~a-~a" base count)))
-    (ly:parser-define! parser 'output-count (1+ count))
-    (process-procedure book paper layout base)
-    ))
+    (ly:parser-define!
+      parser 'counter-alist
+      (assoc-set! counter-alist output-suffix (1+ output-count)))
+    result))
+
+(define (print-book-with parser book process-procedure)
+  (let* ((paper (ly:parser-lookup parser '$defaultpaper))
+	 (layout (ly:parser-lookup parser '$defaultlayout))
+	 (count (ly:parser-lookup parser 'output-count))
+	 (base (ly:parser-output-name parser))
+	 (outfile-name (get-outfile-name parser base)))
+
+    (process-procedure book paper layout outfile-name)))
 
 (define-public (print-book-with-defaults parser book)
   (print-book-with parser book ly:book-process))
 
 (define-public (print-book-with-defaults-as-systems parser book)
   (print-book-with parser book ly:book-process-to-systems))
+
+;; Add a score to the current bookpart, book or toplevel
+(define-public (add-score parser score)
+    (cond
+      ((ly:parser-lookup parser '$current-bookpart)
+          ((ly:parser-lookup parser 'bookpart-score-handler)
+	        (ly:parser-lookup parser '$current-bookpart) score))
+      ((ly:parser-lookup parser '$current-book)
+          ((ly:parser-lookup parser 'book-score-handler)
+	        (ly:parser-lookup parser '$current-book) score))
+      (else
+          ((ly:parser-lookup parser 'toplevel-score-handler) parser score))))
+
+(define-public (add-text parser text)
+  (add-score parser (list text)))
+
+(define-public (add-music parser music)
+  (collect-music-aux (lambda (score)
+		       (add-score parser score))
+                     parser
+		     music))
+
 
 ;;;;;;;;;;;;;;;;
 ;; alist
@@ -398,16 +428,16 @@ found."
 
 (define-public empty-interval '(+inf.0 . -inf.0))
 
+(define-public (symmetric-interval expr)
+  (cons (- expr) expr))
+
 (define-public (interval-length x)
   "Length of the number-pair X, when an interval"
   (max 0 (- (cdr x) (car x))))
 
-(define-public interval-start car)
 (define-public (ordered-cons a b)
   (cons (min a b)
 	(max a b)))
-
-(define-public interval-end cdr)
 
 (define-public (interval-bound interval dir)
   ((if (= dir RIGHT) cdr car) interval))
@@ -426,7 +456,9 @@ found."
       (/ (+ (car x) (cdr x)) 2)))
 
 (define-public interval-start car)
+
 (define-public interval-end cdr)
+
 (define-public (interval-translate iv amount)
   (cons (+ amount (car iv))
 	(+ amount (cdr iv))))
@@ -438,13 +470,16 @@ found."
    (cons (- (car iv) amount)
          (+ (cdr iv) amount)))
 
-
 (define-public (interval-empty? iv)
    (> (car iv) (cdr iv)))
 
 (define-public (interval-union i1 i2)
    (cons (min (car i1) (car i2))
 	 (max (cdr i1) (cdr i2))))
+
+(define-public (interval-intersection i1 i2)
+   (cons (max (car i1) (car i2))
+	 (min (cdr i1) (cdr i2))))
 
 (define-public (interval-sane? i)
   (not (or  (nan? (car i))
@@ -456,7 +491,6 @@ found."
 (define-public (add-point interval p)
   (cons (min (interval-start interval) p)
         (max (interval-end interval) p)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; string

@@ -4,15 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
-  texidocfr = "
-Lorsqu'il vous faut inscrire une annotation à l'intérieur d'une liaison,
-la propriété @code{outside-staff-priority} doît être désactivée.
-
-"
-  doctitlefr = "Positionnement d'une annotation à l'intérieur d'une liaison"
-
-
   lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -32,6 +23,14 @@ Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
 
 "
   doctitlede = "Textbeschriftung innerhalb von Bögen positionieren"
+%% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
+  texidocfr = "
+Lorsqu'il vous faut inscrire une annotation à l'intérieur d'une liaison,
+la propriété @code{outside-staff-priority} doît être désactivée.
+
+"
+  doctitlefr = "Positionnement d'une annotation à l'intérieur d'une liaison"
+
 
   texidoc = "
 Text markups need to have the @code{outside-staff-priority} property

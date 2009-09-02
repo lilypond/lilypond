@@ -22,8 +22,7 @@ The result will be files named
 \version "2.12.0"
 
 #(ly:set-option 'clip-systems)
-
-#(set! output-count 1)
+#(define output-suffix "1")
 
 origScore = \score{
     \relative {
@@ -70,8 +69,8 @@ origScore = \score{
   }
 }
 
-#(set! output-count 0)
 #(ly:set-option 'clip-systems #f)
+#(define output-suffix #f)
 
 \book {
   \score { \origScore }

@@ -895,20 +895,25 @@ The following styles may be used for note heads.
 @node Technical glossary
 @appendixsec Technical glossary
 
-A glossary of the technical terms and concepts used internally.
+A glossary of the technical terms and concepts used internally in
+LilyPond.  These terms may appear in the manuals, on mailing lists
+or in the source code.
 
 @menu
 * alist::
 * callback::
+* closure::
 * glyph::
 * grob::
+* immutable::
 * interface::
 * lexer::
+* mutable::
 * output-def::
 * parser::
 * parser variable::
 * prob::
-* simple-closure::
+* simple closure::
 * smob::
 * stencil::
 @end menu
@@ -940,6 +945,32 @@ layer.  Callbacks are used extensively in LilyPond to permit
 user-level Scheme code to define how many low-level actions are
 performed.
 
+
+@node closure
+@unnumberedsubsec closure
+
+@cindex closure
+@cindex simple closure
+
+In Scheme, a @strong{closure} is created when a function, usually
+a lambda expression, is passed as a variable.  The closure contains
+the function's code plus references to the lexical bindings of the
+function's free variables (i.e. those variables used in the
+expression but defined outside it).  When this function is applied
+to different arguments later, the free variable bindings that were
+captured in the closure are used to obtain the values of the free
+variables to be used in the calculation.  One useful property of
+closures is the retention of internal variable values between
+invocations, so permitting state to be maintained.
+
+A @strong{simple closure} is a closure whose expression has no free
+variables and hence no free variable bindings.
+
+A simple closure is represented in LilyPond by a smob containing
+the expression and a method to apply the expression to a passed
+list of arguments.
+
+
 @node glyph
 @unnumberedsubsec glyph
 
@@ -969,8 +1000,8 @@ Notation Reference:
 LilyPond objects which represent items of notation in the printed
 output such as note heads, stems, slurs, ties, fingering, clefs,
 etc are called @q{Layout objects}, often known as @q{GRaphical
-OBjects}, or @strong{grobs} for short.
-
+OBjects}, or @strong{grobs} for short.  They are represented by
+instances of the @code{Grob} class.
 
 @seealso
 Learning Manual:
@@ -979,8 +1010,29 @@ Learning Manual:
 @rlearning{Properties of layout objects}.
 
 Internals Reference:
+@rinternals{grob-interface},
 @rinternals{All layout objects}.
 
+
+@node immutable
+@unnumberedsubsec immutable
+
+@cindex immutable objects
+@cindex immutable properties
+@cindex shared properties
+
+An @strong{immutable} object is one whose state cannot be modified
+after creation, in contrast to a mutable object, which can be
+modified after creation.
+
+In LilyPond, immutable or shared properties define the default
+style and behavior of grobs.  They are shared between many objects.
+In apparent contradiction to the name, they can be changed using
+@code{\override} and @code{\revert}.
+
+@seealso
+Notation Reference:
+@ref{mutable}.
 
 @node interface
 @unnumberedsubsec interface
@@ -992,7 +1044,6 @@ Internals Reference:
 Actions and properties which are common to a number of grobs are
 grouped together in an object called a @code{grob-interface}, or
 just @q{interface} for short.
-
 
 @seealso
 Learning Manual:
@@ -1023,6 +1074,25 @@ The LilyPond lexer is built with Flex from the lexer file
 is part of the source code and is not included in the LilyPond
 binary installation.
 
+
+@node mutable
+@unnumberedsubsec mutable
+
+@cindex mutable objects
+@cindex mutable properties
+
+A @strong{mutable} object is one whose state can be modified after
+creation, in contrast to an immutable object, whose state is fixed
+at the time of creation.
+
+In LilyPond, mutable properties contain values that are specific to
+one grob.  Typically, lists of other objects or results from
+computations are stored in mutable properties.
+
+@seealso
+Notation Reference:
+@ref{immutable}.
+
 @node output-def
 @unnumberedsubsec output-def
 
@@ -1031,6 +1101,7 @@ binary installation.
 An instance of the @code{Output-def} class contains the methods and
 data structures associated with an output block.  Instances are
 created for midi, layout and paper blocks.
+
 
 @node parser
 @unnumberedsubsec parser
@@ -1054,8 +1125,25 @@ parser during the program build by the parser generator, Bison.  It
 is part of the source code and is not included in the LilyPond
 binary installation.
 
+
 @node parser variable
 @unnumberedsubsec parser variable
+
+@cindex parser variable
+@cindex Scheme variable
+@cindex global variable
+@cindex afterGraceFraction
+@cindex musicQuotes
+@cindex mode
+@cindex output-count
+@cindex output-suffix
+@cindex parseStringResult
+@cindex partCombineListener
+@cindex pitchnames
+@cindex toplevel-bookparts
+@cindex toplevel-scores
+@cindex showLastLength
+@cindex showFirstLength
 
 These are variables defined directly in Scheme.  Their direct
 use by users is strongly discouraged, because their scoping
@@ -1086,21 +1174,62 @@ LilyPond uses the following parser variables:
 @item showFirstLength
 @end itemize
 
+
 @node prob
 @unnumberedsubsec prob
-TODO
 
-@node simple-closure
-@unnumberedsubsec simple-closure
-TODO
+@cindex prob
+@cindex property object
+
+PRoperty OBjects, or @strong{probs} for short, are instances of
+the @code{Prob} class, a simple base class for objects which have
+mutable and immutable property alists and the methods to manipulate
+them.  The @code{Music} and @code{Stream_event} classes derive from
+@code{Prob}.  Instances of the @code{Prob} class are also created
+to hold the formatted content of system grobs and titling blocks
+during page layout.
+
+
+@node simple closure
+@unnumberedsubsec simple closure
+
+See @ref{closure}.
+
 
 @node smob
 @unnumberedsubsec smob
-TODO
+
+@cindex smob
+@cindex Scheme object
+
+@strong{Smobs}, or ScheMe OBjects, are part of the mechanism used
+by Guile to export C and C++ objects to Scheme code.  In LilyPond,
+smobs are created from C++ objects through macros.  There are two
+types of smob objects: simple smobs, intended for simple immutable
+objects like numbers, and complex smobs, used for objects with
+identities.  If you have access to the LilyPond sources, more
+information can be found in @file{lily/includes/smob.hh}.
 
 @node stencil
 @unnumberedsubsec stencil
-TODO
+
+@cindex stencil
+
+An instance of the @strong{stencil} class holds the information
+required to print a typographical object.  It is a simple smob
+containing a confining box, which defines the vertical and
+horizontal extents of the object, and a Scheme expression which
+will print the object when evaluated.  Stencils may be combined
+to form more complex stencils defined by a tree of Scheme
+expressions formed from the Scheme expressions of the component
+stencils.
+
+The @code{stencil} property, which connects a grob to its stencil,
+is defined in the @code{grob-interface} interface.
+
+@seealso
+Internals Reference:
+@rinternals{grob-interface}.
 
 
 @node All context properties

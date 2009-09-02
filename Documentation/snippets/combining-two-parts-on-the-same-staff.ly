@@ -4,27 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
-  texidocfr = "
-L'outil de combinaison de parties (la commande @code{\\partcombine})
-permet d'avoir deux parties différentes sur une même portée.  LilyPond
-ajoute automatiquement des indications textuelles, telles que @qq{solo}
-ou @qq{a2}.  Si votre intention n'est que de fusionner les parties, sans
-ajouter de texte, assignez faux à la propriété
-@code{printPartCombineTexts}.  Dans le cas de partitions vocales, et
-plus particulièrement d'hymnes, ces @qq{solo/a2} ne sont d'aucune
-utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
-alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
-à de la musique polyphonique standard.
-
-Voici trois moyens d'imprimer deux parties sur un même portée : en
-polyphonie normale, avec @code{\\partcombine} sans indication
-supplémentaire, et avec @code{\\partcombine} commentée.
-
-"
-  doctitlefr = "Combinaison de deux parties sur une même portée"
-
-
   lsrtags = "simultaneous-notes, text"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -68,6 +47,26 @@ kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
 
 "
   doctitlede = "Zwei Stimmen auf einem System kombinieren"
+%% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
+  texidocfr = "
+L'outil de combinaison de parties (la commande @code{\\partcombine})
+permet d'avoir deux parties différentes sur une même portée.  LilyPond
+ajoute automatiquement des indications textuelles, telles que @qq{solo}
+ou @qq{a2}.  Si votre intention n'est que de fusionner les parties, sans
+ajouter de texte, assignez faux à la propriété
+@code{printPartCombineTexts}.  Dans le cas de partitions vocales, et
+plus particulièrement d'hymnes, ces @qq{solo/a2} ne sont d'aucune
+utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
+alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
+à de la musique polyphonique standard.
+
+Voici trois moyens d'imprimer deux parties sur un même portée : en
+polyphonie normale, avec @code{\\partcombine} sans indication
+supplémentaire, et avec @code{\\partcombine} commentée.
+
+"
+  doctitlefr = "Combinaison de deux parties sur une même portée"
+
 
   texidoc = "
 The part combiner tool ( @code{\\partcombine} command ) allows the

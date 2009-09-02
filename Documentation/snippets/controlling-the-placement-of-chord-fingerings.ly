@@ -30,7 +30,9 @@ Le positionnement des doigtés peut être contrôlé de manière très précise.
 
 
   texidoc = "
-The placement of fingering numbers can be controlled precisely.
+The placement of fingering numbers can be controlled precisely. For
+fingering orientation to apply, you must use a chord construct <> even
+if it is a single note.
 
 "
   doctitle = "Controlling the placement of chord fingerings"

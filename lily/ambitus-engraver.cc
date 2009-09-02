@@ -82,8 +82,8 @@ Ambitus_engraver::create_ambitus ()
 Ambitus_engraver::Ambitus_engraver ()
 {
   ambitus_ = 0;
-  heads_[LEFT] = heads_[RIGHT] = 0;
-  accidentals_[LEFT] = accidentals_[RIGHT] = 0;
+  heads_.set (0, 0);
+  accidentals_.set (0, 0);
   group_ = 0;
   is_typeset_ = false;
   start_key_sig_ = SCM_EOL;
@@ -145,8 +145,7 @@ Ambitus_engraver::finalize ()
   if (ambitus_ && !pitch_interval_.is_empty ())
     {
       Grob *accidental_placement =
-	make_item ("AccidentalPlacement",
-		   accidentals_[DOWN]->self_scm ());
+	make_item ("AccidentalPlacement", accidentals_[DOWN]->self_scm ());
 
       Direction d = DOWN;
       do
@@ -154,8 +153,7 @@ Ambitus_engraver::finalize ()
 	  Pitch p = pitch_interval_[d];
 	  heads_[d]->set_property ("cause", causes_[d]->self_scm());
 	  heads_[d]->set_property ("staff-position",
-				   scm_from_int (start_c0_
-						 + p.steps ()));
+				   scm_from_int (start_c0_ + p.steps ()));
 
 	  SCM handle = scm_assoc (scm_cons (scm_from_int (p.get_octave ()),
 					    scm_from_int (p.get_notename ())),
@@ -166,7 +164,8 @@ Ambitus_engraver::finalize ()
 				start_key_sig_);
 
 	  Rational sig_alter = (handle != SCM_BOOL_F)
-	    ? robust_scm2rational (scm_cdr (handle), Rational (0)) : Rational (0);
+	    ? robust_scm2rational (scm_cdr (handle), Rational (0))
+	    : Rational (0);
 
 	  if (sig_alter == p.get_alteration ())
 	    {
@@ -174,17 +173,19 @@ Ambitus_engraver::finalize ()
 	      heads_[d]->set_object ("accidental-grob", SCM_EOL);
 	    }
 	  else
-	    {
-	      accidentals_[d]->set_property ("alteration", ly_rational2scm (p.get_alteration ()));
-	    }
-	  Separation_item::add_conditional_item (heads_[d], accidental_placement);
-	  Accidental_placement::add_accidental (accidental_placement, accidentals_[d]);
+	    accidentals_[d]->
+	      set_property ("alteration",
+			    ly_rational2scm (p.get_alteration ()));
+	  Separation_item::add_conditional_item (heads_[d],
+						 accidental_placement);
+	  Accidental_placement::add_accidental (accidental_placement,
+						accidentals_[d]);
+	  Pointer_group_interface::add_grob (ambitus_,
+					     ly_symbol2scm ("note-heads"),
+					     heads_[d]);
 	}
       while (flip (&d) != DOWN);
 
-
-      Pointer_group_interface::add_grob (ambitus_, ly_symbol2scm ("note-heads"), heads_[DOWN]);
-      Pointer_group_interface::add_grob (ambitus_, ly_symbol2scm ("note-heads"), heads_[UP]);
       Axis_group_interface::add_element (group_, accidental_placement);
     }
   else
@@ -194,7 +195,7 @@ Ambitus_engraver::finalize ()
 	{
 	  accidentals_[d]->suicide ();
 	  heads_[d]->suicide ();
- 	}
+	}
       while (flip (&d) != DOWN);
 
       ambitus_->suicide ();
@@ -204,7 +205,7 @@ Ambitus_engraver::finalize ()
 ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
 ADD_TRANSLATOR (Ambitus_engraver,
 		/* doc */
-		"",
+		"Create an ambitus.",
 
 		/* create */
 		"AccidentalPlacement "
@@ -214,7 +215,8 @@ ADD_TRANSLATOR (Ambitus_engraver,
 		"AmbitusNoteHead ",
 
 		/* read */
-		"",
+		"keySignature "
+		"middleCPosition ",
 
 		/* write */
 		""

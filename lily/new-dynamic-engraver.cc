@@ -33,6 +33,8 @@ protected:
   virtual void process_music ();
   virtual void stop_translation_timestep ();
 private:
+  SCM get_property_setting (Stream_event *evt, char const *evprop, char const *ctxprop);
+
   Drul_array<Stream_event *> accepted_spanevents_drul_;
   Spanner *current_spanner_;
   Spanner *finished_spanner_;
@@ -68,6 +70,14 @@ New_dynamic_engraver::listen_span_dynamic (Stream_event *ev)
   ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[d], ev);
 }
 
+SCM
+New_dynamic_engraver::get_property_setting (Stream_event *evt, char const *evprop, char const *ctxprop)
+{
+  SCM spanner_type = evt->get_property (evprop);
+  if (spanner_type == SCM_EOL)
+    spanner_type = get_property (ctxprop);
+  return spanner_type;
+}
 
 void
 New_dynamic_engraver::process_music ()
@@ -105,7 +115,8 @@ New_dynamic_engraver::process_music ()
 	  return;
 	}
       
-      SCM cresc_type = get_property ((start_type + "Spanner").c_str ());
+      SCM cresc_type = get_property_setting (current_span_event_, "span-type",
+                                       (start_type + "Spanner").c_str ());
 
       if (cresc_type == ly_symbol2scm ("text"))
 	{
@@ -113,7 +124,8 @@ New_dynamic_engraver::process_music ()
 	    = make_spanner ("DynamicTextSpanner",
 			    accepted_spanevents_drul_[START]->self_scm ());
 
-	  SCM text = get_property ((start_type + "Text").c_str ());
+	  SCM text = get_property_setting (current_span_event_, "span-text",
+                                       (start_type + "Text").c_str ());
 	  if (Text_interface::is_markup (text))
 	    {
 	      current_spanner_->set_property ("text", text);

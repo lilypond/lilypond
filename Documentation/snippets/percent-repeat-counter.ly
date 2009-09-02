@@ -4,16 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
-  texidocfr = "
-Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
-si l'on active la propriété @code{countPercentRepeats} comme le montre
-l'exemple suivant :
-
-"
-  doctitlefr = "Compteur de répétition en pourcent"
-
-
   lsrtags = "repeats"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -32,6 +22,15 @@ Zähler, wenn man die entsprechende Eigenschaft einsetzt:
 
 "
   doctitlede = "Prozent-Wiederholungen zählen"
+%% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
+  texidocfr = "
+Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
+si l'on active la propriété @code{countPercentRepeats} comme le montre
+l'exemple suivant :
+
+"
+  doctitlefr = "Compteur de répétition en pourcent"
+
 
   texidoc = "
 Measure repeats of more than two repeats can get a counter when the

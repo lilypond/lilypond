@@ -2,17 +2,19 @@
 @node Starting with git
 @chapter Starting with git
 
-To complete or present in another form the introduction to Git usage
-in this chapter, it may be a good idea to look for Git documentation
-at @uref{http://git-scm.com/documentation},
+The goal of this chapter is to provide all the git commands that
+contributors should know for basic lilypond development.  However,
+to complete or present in another form the introduction to Git
+usage in this chapter, it may be a good idea to look at the other
+Git documentation listed in @ref{Other git documentation}.
 
 @menu
 * Getting the source code::     
 * Updating the source code::    
 * Sharing your changes::        
 * Advanced git stuff::          
-* Git on Windows::              
-* Development inside VirtualBox (compiling on Windows)::  
+* Git on Windows::
+* Other git documentation::
 @end menu
 
 
@@ -42,10 +44,6 @@ repository by @ref{Updating the source code}.
 command-line version of Git 1.5 or higher.  Windows users should
 skip to @ref{Git on Windows}.}
 
-Some sections of this guide will redirect to specific Git man pages;
-however, if you think you need to understand more of Git, you might want
-to read the book @uref{http://progit.org/,Pro Git}.
-
 
 @node Git user configuration
 @subsection Git user configuration
@@ -55,7 +53,6 @@ paste the following section:
 
 @example
 git config --global color.ui auto
-git config --global branch.autosetuprebase always
 @end example
 
 To configure git to automatically use your name and email address
@@ -87,8 +84,7 @@ git checkout -b master origin/master
 @node Documentation translations source code
 @subsection Documentation translations source code
 
-To translate the documentation (@emph{not} the website),
-FIXME: when website is integrated, modify this.
+To translate the documentation,
 
 @smallexample
 mkdir lilypond-translation; cd lilypond-translation
@@ -102,7 +98,8 @@ git checkout -b lilypond/translation origin/lilypond/translation
 @subsection Other branches
 
 Most contributors will never need to touch the other branches.  If
-you wish to do so, you will need more familiarity with git.
+you wish to do so, you will need more familiarity with git; please
+see @ref{Other git documentation}.
 
 @itemize
 
@@ -178,8 +175,9 @@ git pull -r
 
 @noindent
 The @code{-r} option is short for @code{--rebase}.  If you don't
-want to type @code{-r} every time, add @code{rebase = true} to the
-master branch in your @file{.git/config}, like so:
+edit translated documentation and don't want to type @code{-r}
+every time, add @code{rebase = true} to the master branch in your
+@file{.git/config}, like so:
 
 @example
 [branch "master"]
@@ -188,14 +186,15 @@ master branch in your @file{.git/config}, like so:
         rebase = true
 @end example
 
-@warning{translators and documentation editors, if you have changed
-committishes in the head of translated files using commits you have not
-yet pushed to @code{git.sv.gnu.org}, please do not rebase.  If you want
-to avoid wondering whether you should rebase each time you pull, please
-always use committishes from master and/or lilypond/translation branch
-on @code{git.sv.gnu.org}, which in particular implies that you must push
-your changes to documentation except committishes updates (possibly
-after having rebased), then update the committishes and push them.}
+@warning{translators and documentation editors, if you have
+changed committishes in the head of translated files using commits
+you have not yet pushed to @code{git.sv.gnu.org}, please do not
+rebase.  If you want to avoid wondering whether you should rebase
+each time you pull, please always use committishes from master
+and/or lilypond/translation branch on @code{git.sv.gnu.org}, which
+in particular implies that you must push your changes to
+documentation except committishes updates (possibly after having
+rebased), then update the committishes and push them.}
 
 @c FIXME: when committishes automatic conditional update have been
 @c tested and documented, append the following to the warning above:
@@ -215,6 +214,10 @@ versions.
 If you need some documentation to understand and resolve conflicts,
 see paragraphs @emph{How conflicts are presented} and @emph{How to
 resolve conflicts} in @command{git merge} man page.
+
+If all else fails, you can follow the instructions in
+@ref{Reverting all local changes}.  Be aware that this eliminates
+any changes you have made!
 
 
 @node Sharing your changes
@@ -271,6 +274,17 @@ email to @email{lilypond-devel@@gnu.org} with these files attached, and
 a developer will review and apply the patches to the main repository.
 If your patch is some translation work, you may send it to
 @email{translations@@lilynet.net} instead.
+
+To check if you have correctly added any new files, use:
+
+@example
+git status
+@end example
+
+@noindent
+If this command lists any @emph{Changed but not updated} files,
+you should do a @command{git commit}.  If it lists any
+@emph{Untracked files}, then you should do a @command{git add}.
 
 
 @node Committing directly
@@ -618,14 +632,15 @@ git reset --hard origin/master
 @section Git on Windows
 
 @c Some of this may duplicate stuff in other sections
-@c Clear this up later  -td
+@c But it is probably best for windows users to have it all together
+@c If necessary, clear this up later  -td
 
 @subsection Background to nomenclature
 
 Git is a system for tracking the changes made to source files by
 a distributed set of editors.  It is designed to work without a
 master repository, but we have chosen to have a master respository
-for LilyPond files.  Editors hold local copies of the master
+for LilyPond files.  Editors hold a local copy of the master
 repository together with any changes they have made locally.  Local
 changes are held in a local @q{branch}, of which there may be
 several, but these instructions assume you are using just one.  The
@@ -635,13 +650,14 @@ on the currently @q{checked out} local branch.
 Files are edited on a local branch, and in that state the
 changes are said to be @q{unstaged}.  When editing is complete, the
 changes are moved to being @q{staged for commit}, and finally the
-changes are @q{committed} to the local branch.  Once
-committed, the changes are given a unique reference number called the
-@q{Committish} which identifies them to Git.  Such committed changes
-can be sent to the master repository by @q{pushing} them (if you
-have write permission) or by sending them by email to someone who
-has, either complete or as a @q{diff} or @q{patch} (which send
-just the differences from master).
+changes are @q{committed} to the local branch.  Once committed, the
+changes (called a @q{commit}) are given a unique 40-digit hexadecimal
+reference number called the @q{Committish} or @q{SHA1 ID} which
+identifies the commit to Git.  Such committed changes can be sent to
+the master repository by @q{pushing} them (if you have write
+permission) or by sending them by email to someone who has, either
+as a complete file or as a @q{diff} or @q{patch} (which send just
+the differences from the master repository).
 
 @subsection Installing git
 
@@ -665,8 +681,10 @@ and are terminated by keying a newline.
 
 Decide where you wish to place your local Git repository,
 creating the folders in Windows as necessary.  Here we
-call the folder to contain the repository [path]/Git.
-You will need to have space for around 150Mbytes.
+call the folder to contain the repository @code{[path]/Git}, but 
+if you intend using Git for other projects a directory name like
+@code{lilypond-git} might be better.  You will need to have space
+for around 100Mbytes.
 
 Start the Git bash shell by clicking on the desk-top icon installed
 with Git and type
@@ -706,24 +724,28 @@ and the $ prompt.}
 
 We now need to generate a local copy of the downloaded files
 in a new local branch.  Your local branch needs to have a
-name, here we call it @q{lily-local} - you may wish to make up
-your own.
+name.  It is usual to call it @q{master} and we shall do that
+here.
 
-Then, finally, type
+To do this, type
 
 @example
-git checkout -b lily-local origin/master
+git checkout -b master origin/master
 @end example
 
-to create the lily-local branch containing the local copies of the
-master files.  You will be advised your local branch has been set
-up to track the remote branch.
+This creates a second branch called @q{master}.  You will see
+two warnings (ignore these), and a message advising you that
+your local branch @q{master} has been set up to track the remote
+branch.  You now have two branches, a local branch called
+@q{master}, and a tracking branch called @q{origin/master},
+which is a shortened form of @q{remotes/origin/master}.
 
 Return to Windows Explorer and look in your Git repository.  You
 should see lots of folders.  For example, the LilyPond documentation
-can be found in Git/Documentation/user.
+can be found in [path]/Git/Documentation/.
 
-Terminate the Git bash shell by typing @code{exit}.
+The Git bash shell is terminated by typing @code{exit} or by
+clicking on the usual Windows close-window widget.
 
 @subsection Git GUI
 
@@ -742,16 +764,18 @@ and 7 pull-down menus.  At this stage do not use any of the
 commands under Branch, Commit, Merge or Remote.  These will
 be explained later.
 
-The two panels on the left contain the names of files which
-you are in the process of editing (Unstaged Changes), and
+The top panel on the left contains the names of files which
+you are in the process of editing (Unstaged Changes), and the
+lower panel on the left contains the names of
 files you have finished editing and have staged ready for
-committing (Staged Changes).  At this stage these panels will
+committing (Staged Changes).  At present, these panels will
 be empty as you have not yet made any changes to any file.
 After a file has been edited and saved the top panel on the right
 will display the differences between the edited file selected
-in one of the panels on the left and the last version committed.
+in one of the panels on the left and the last version committed
+on the current branch.
 
-The final panel at bottom right is used to enter a descriptive
+The panel at bottom right is used to enter a descriptive
 message about the change before committing it.
 
 The Git GUI is terminated by entering CNTL-Q while it is the
@@ -788,21 +812,21 @@ both identical.  To see them click on
 Branch -> Checkout
 @end example
 
-You should have one local branch called @w{lily-local} and one
-tracking branch called @w{origin/master}.  The latter is your
-local copy of the @w{remote/origin/master} branch in the master
-LilyPond repository.  The @w{lily-local} branch is where you
+You should have one local branch called @q{master} and one
+tracking branch called @q{origin/master}.  The latter is your
+local copy of the @q{remotes/origin/master} branch in the master
+LilyPond repository.  The local @q{master} branch is where you
 will make your local changes.
 
 When a particular branch is selected, i.e., checked out, the
 files visible in your repository are changed to reflect the
 state of the files on that branch.
 
-@subsection Updating files from @w{remote/origin/master}
+@subsection Updating files from @q{remote/origin/master}
 
-Before starting the editing of a file, ensure your local branches
-contain the latest version in @w{remote/origin/master} by first
-clicking
+Before starting the editing of a file, ensure your local repository
+contains the latest version of the files in the remote repository
+by first clicking
 
 @example
 Remote -> Fetch from -> origin
@@ -812,13 +836,13 @@ Remote -> Fetch from -> origin
 in the Git GUI.
 
 This will place the latest version of every file, including all the
-changes made by others,
-into the @q{origin/master} branch of the tracking branches
-in your git repository.  You can see these files by checking
-out this branch.  This will not affect any files you have
-modified in your local branch.
+changes made by others, into the @q{origin/master} branch of the
+tracking branches in your git repository.  You can see these files
+by checking out this branch, but you must @emph{never} edit any
+files while this branch is checked out.  Check out your local
+@q{master} branch again.
 
-You then need to merge these fetched files into your local
+You then need to merge these fetched files into your local @q{master}
 branch by clicking on
 
 @example
@@ -826,32 +850,31 @@ Merge -> Local Merge
 @end example
 
 @noindent
-and if necessary select the local branch into which the merge
-is to be made.
+and if necessary select the local @q{master} branch.
 
-Note that a merge cannot be completed if there are any local
-uncommitted changes on the lily-local branch.
+Note that a merge cannot be completed if you have made any local
+changes which have not yet been committed.
 
-This will update all the files in that branch to reflect the
-current state of the @w{origin/master} branch.  If any of the
-changes conflict with changes you have made yourself recently
+This merge will update all the files in the @q{master} branch to
+reflect the current state of the @q{origin/master} branch.  If any
+of the changes conflict with changes you have made yourself recently
 you will be notified of the conflict (see below).
 
 @subsection Editing files
 
-First ensure your lily-local branch is checked out, then
+First ensure your @q{master} branch is checked out, then
 simply edit the files in your local Git repository with your
 favourite editor and save them back there.  If any file contains
 non-ASCII characters ensure you save it in UTF-8 format.  Git will
 detect any changes whenever you restart Git GUI and the file names
 will then be listed in the Unstaged Changes panel.
 Or you can click the Rescan button to refresh the panel
-contents at any time.  You may break off and resume at
-editing any time.
+contents at any time.  You may break off and resume editing any
+time.
 
-The changes you have made may be displayed in diff form
-in the top right-hand panel by clicking on the name in
-Git GUI.
+The changes you have made may be displayed in diff form in the top
+right-hand panel of Git GUI by clicking on the file name shown in
+one of the left panels.
 
 When your editing is complete, move the files from being
 Unstaged to Staged by clicking the document symbol to
@@ -860,7 +883,7 @@ be moved back by clicking on the ticked box to the
 left of the name.
 
 Finally the changes you have made may be committed to
-your lily-local branch by entering a brief message in
+your @q{master} branch by entering a brief message in
 the Commit Message box and clicking the Commit button.
 
 If you wish to amend your changes after a commit has been
@@ -872,7 +895,7 @@ Commit -> Amend Last Commit
 @end example
 
 @noindent
-or by checking the Amend Last Commit radio button at bottom left.
+or by checking the Amend Last Commit radio button at bottom right.
 This will return the changes to the Staged state, so further
 editing made be carried out within that commit.  This must only be
 done @emph{before} the changes have been Pushed or sent to your
@@ -880,10 +903,10 @@ mentor for Pushing - after that it is too late and corrections
 have to be made as a separate commit.
 
 
-@subsection Sending changes to remote/origin/master
+@subsection Sending changes to @q{remotes/origin/master}
 
-If you do not have write access to @w{remote/origin/master} you will
-need to send your changes by email to someone who does.
+If you do not have write access to @q{remotes/origin/master} you
+will need to send your changes by email to someone who does.
 
 First you need to create a diff or patch file containing
 your changes.  To create this, the file must first be
@@ -901,19 +924,19 @@ git format-patch origin
 @end example
 
 This will create a patch file for all the locally committed files
-which differ from @w{origin/master}.  The patch file can be found
-in [path]/Git and will have a name formed from n and the commit
+which differ from @q{origin/master}.  The patch file can be found
+in [path]/Git and will have a name formed from the commit
 message.
 
 @subsection Resolving merge conflicts
 
-As soon as you have committed a changed file your local
-branch has diverged from @w{origin/master}, and will
+As soon as you have committed a changed file your local @q{master}
+branch has diverged from @q{origin/master}, and will
 remain diverged until your changes have been committed
-in @w{remote/origin/master} and Fetched back into your
-@w{origin/master}.  Similarly, if a new commit has been made
-to @w{remote/origin/master} by someone else and Fetched, your
-lily-local branch is divergent.  You can detect a divergent
+in @q{remotes/origin/master} and Fetched back into your
+@q{origin/master} branch.  Similarly, if a new commit has been made
+to @q{remotes/origin/master} by someone else and Fetched, your
+local @q{master} branch is divergent.  You can detect a divergent
 branch by clicking on
 
 @example
@@ -921,28 +944,28 @@ Repository -> Visualise all branch history
 @end example
 
 This opens up a very useful new window called @q{gitk}.
-Use this to browse all the commits made by others.
+Use this to browse all the commits made by yourself and others.
 
 If the diagram at top left of the resulting window
-does not show your branch's tag on the same node as
-the @w{remote/origins/master} tag your branch has diverged from
-@w{origin/master}.  This is quite normal if files you have modified
-yourself have not yet been Pushed to @w{remote/origin/master} and
+does not show your @q{master} tag on the same node as
+the @q{remotes/origin/master} tag your branch has diverged from
+@q{origin/master}.  This is quite normal if files you have modified
+yourself have not yet been Pushed to @q{remotes/origin/master} and
 Fetched, or if files modified and committed by others have been
-Fetched since you last Merged @w{origin/master} into your lily-local
-branch.
+Fetched since you last Merged @q{origin/master} into your local
+@q{master} branch.
 
-If a file being merged from @w{origin/master} differs from
+If a file being merged from @q{origin/master} differs from
 one you have modified in a way that cannot be resolved
 automatically by git, Merge will report a Conflict
 which you must resolve by editing the file to create the
 version you wish to keep.
 
-This could happen if the person updating @w{remote/origin/master}
+This could happen if the person updating @q{remotes/origin/master}
 for you has added some changes of his own before
-committing your changes to @w{remote/origin/master}, or if someone
+committing your changes to @q{remotes/origin/master}, or if someone
 else has changed the same file since you last
-fetched the file from @w{remote/origin/master}.
+fetched the file from @q{remotes/origin/master}.
 
 Open the file in your editor and look for sections which
 are delimited with ...
@@ -971,9 +994,19 @@ Once familiarity with using git on Windows has been gained the
 standard git manuals can be used to learn about these.
 
 
-@node Development inside VirtualBox (compiling on Windows)
-@section Development inside VirtualBox (compiling on Windows)
+@node Other git documentation
+@section Other git documentation
 
+@itemize
 
+@item
+Official git man pages: @uref{http://www.kernel.org/pub/software/scm/git/docs/}
 
+@item
+More in-depth tutorials: @uref{http://git-scm.com/documentation}
+
+@item
+Book about git: @uref{http://progit.org/,Pro Git}
+
+@end itemize
 

@@ -127,8 +127,8 @@ Book::set_parent (Book *parent)
       paper_->unprotect ();
     }
   paper_->parent_ = parent->paper_;
-  /* If this part is the first child of parent, copy its header */
-  if (ly_is_module (parent->header_) && (scm_is_null (parent->bookparts_)))
+  /* Copy the header block of the parent */
+  if (ly_is_module (parent->header_))
     {
       SCM tmp_header = ly_make_anonymous_module (false);
       ly_module_copy (tmp_header, parent->header_);

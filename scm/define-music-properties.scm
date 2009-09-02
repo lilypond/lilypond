@@ -139,9 +139,11 @@ or down-stem?")
      (repeat-count ,integer? "Do a @code{\\repeat} how often?")
 
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
-     (span-type ,string? "What kind of spanner should be created?
+     (span-type ,string? "What kind of spanner should be created? E.g. ligature
+for ligatures, or text or hairpin for (de-)crescendi.
 
 TODO: Consider making type into symbol.")
+     (span-text ,string? "The displayed text for text spanners (e.g. cresc.)")
      (split-list ,list? "Splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative length
 of starting grace notes.  This property can only be defined as initializer

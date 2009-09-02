@@ -62,6 +62,10 @@ on one staff.
 @node Accidentals and key signatures
 @subsection Accidentals and key signatures
 
+@warning{New users are often confused by these -- please read the
+warning at the bottom of this page, especially if you are not
+familiar with music theory!}
+
 @subheading Accidentals
 
 @cindex accidentals
@@ -168,6 +172,11 @@ note with pitch B-natural.}  In the key of A-flat major, it
 \key aes \major
 b
 @end lilypond
+
+If the above seems confusing, consider this: if you were playing a
+piano, which key would you hit?  If you would press a black key,
+then you @emph{must} add @code{-is} or @code{-es} to the note
+name!
 
 Adding all alterations explicitly might require a little more
 effort when typing, but the advantage is that

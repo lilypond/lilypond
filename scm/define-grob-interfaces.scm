@@ -16,6 +16,11 @@ note)."
  '())
 
 (ly:add-interface
+ 'ambitus-interface
+ "The line between note heads for a pitch range."
+ '(gap note-heads thickness))
+
+(ly:add-interface
  'bass-figure-interface
  "A bass figure text."
  '(implicit))

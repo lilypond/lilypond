@@ -160,10 +160,8 @@ def add_header (s, prefix):
             if not n:
                 s = header + s
 
-        s = header_tag + '\n' + s
-
         if doctype_re.search (s) == None:
-            s = doctype + s
+            s = doctype + header_tag + '\n' + s
 
         if css_re.search (s) == None:
             depth = (prefix.count ('/') - 1) * '../'

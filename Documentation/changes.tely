@@ -63,6 +63,17 @@ which scares away people.
 @end ignore
 
 @item
+A version of the breve notehead has been added with two vertical lines on each side.
+@lilypond
+\relative c'' {
+  \time 4/2
+  \override Staff.NoteHead  #'style = #'altdefault
+  c\breve b\breve
+}
+@end lilypond
+
+
+@item
 Instrument names and vocal names now take into account the extent of
 system start delimiters in other staves for their positioning,
 resulting in improved default alignment for left-, center- and

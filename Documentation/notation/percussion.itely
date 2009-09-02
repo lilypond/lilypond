@@ -194,13 +194,11 @@ down = \drummode {
 
 The above example shows verbose polyphonic notation.  The short
 polyphonic notation, described in @rlearning{I'm hearing Voices},
-can also be used if the voices are instantiated by hand first.
+can also be used.
 For example,
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<
-  \new DrumVoice = "1" { s1*2 }
-  \new DrumVoice = "2" { s1*2 }
   \drummode {
     bd4 sn4 bd4 sn4
     << {

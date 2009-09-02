@@ -66,7 +66,7 @@ the result looks like this:
 @end lilypond
 
 @warning{Notes and lyrics in LilyPond input must always be
-surrounded by @strong{@{ curly braces @}}.  The braces
+surrounded by @w{@strong{@{ curly braces @}}}.  The braces
 should also be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.  The braces may
 be omitted in some examples in this manual, but don't forget them
@@ -77,10 +77,12 @@ In addition, LilyPond input is @strong{case sensitive}.
 @w{@code{@{ c d e @}}} is valid input; @w{@code{@{ C D E @}}} will
 produce an error message.
 
+
 @smallspace
 
-@subheading Entering music and viewing output
+@subheading Viewing output
 
+@c TODO: move index entries
 @cindex PDF file
 @cindex viewing music
 @cindex text editors
@@ -91,11 +93,31 @@ produce an error message.
 @cindex running LilyPond under Unix
 @cindex Unix, running LilyPond
 
-In this section we will explain what commands to run and how to
-view or print the output.
+Producing output depends on your operating system and the
+program(s) you use.
 
-Note that there are several other text editors available with
-better support for LilyPond.  For more information, see
+@itemize
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, MacOS X} (graphical)
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows} (graphical)
+
+@item
+@ref{Command-line, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+}
+@ref{Command-line, All operating systems} (command-line)
+
+@end itemize
+
+There are several other text editors available with better support
+for LilyPond.  For more information, see
 @rgeneral{Alternate input}.
 
 @warning{The first time you ever run LilyPond, it may take a
@@ -122,6 +144,7 @@ For future use of LilyPond, you should begin by selecting @q{New}
 or @q{Open}.  You must save your file before typesetting it.  If
 any errors occur in processing, please see the log window.
 
+@c FIXME: add screenshots
 
 @node Windows
 @subsection Windows
@@ -129,7 +152,7 @@ any errors occur in processing, please see the log window.
 @warning{These instructions assume that you are using the built-in
 LilyPad editor.  If you are using any of the programs described in
 @rgeneral{Alternate input}, please consult the documentation for
-programs if you have any problems compiling a file.}
+those programs if you have any problems compiling a file.}
 
 On Windows, if you double-click in the LilyPond icon on the
 Desktop, it will open a simple text editor with an example file.
@@ -154,14 +177,17 @@ also produces a @file{.log} file that contains some information on
 what LilyPond has done to the file.  If any errors occur, please
 examine this file.
 
+@c FIXME: add screenshots
+
 
 @node Command-line
 @subsection Command-line
 
-@warning{These instructions assume that you are using the built-in
-LilyPad editor.  If you are using any of the programs described in
-@rgeneral{Alternate input}, please consult the documentation for
-programs if you have any problems compiling a file.}
+@warning{These instructions assume that you are using commond unix
+command-line programs.  If you are using any of the programs
+described in @rgeneral{Alternate input}, please consult the
+documentation for those programs if you have any problems
+compiling a file.}
 
 
 Create a text file called @file{test.ly} and enter:
@@ -195,6 +221,7 @@ Layout output to `test.ps'...
 Converting to `test.pdf'...
 @end example
 
+You may view or print the resulting @file{text.pdf}.
 
 
 @node How to write input files
@@ -605,7 +632,7 @@ FIXME: fluff here
 
 
 @node Omitting braces
-@unnumberedsubsec Omitting braces
+@subsection Omitting braces
 
 
 @cindex how to read the manual
@@ -643,7 +670,9 @@ format the manual this way.
 
 
 @node Clickable examples
-@unnumberedsubsec Clickable examples
+@subsection Clickable examples
+
+@warning{This features is only available in the HTML manuals.}
 
 Many people learn programs by trying and fiddling around with the
 program.  This is also possible with LilyPond.  If you click on a
@@ -665,15 +694,49 @@ cut-&-pastable section} to the bottom of the file.
 
 
 @node Keyboard navigation
-@unnumberedsubsec Keyboard navigation
+@subsection Keyboard navigation
 
+@warning{This features is only available in the HTML manuals.}
+
+@c TODO: once this is figured out, insert it here.
+
+We are currently working on this feature.
 
 
 @node Overview of manuals
-@unnumberedsubsec Overview of manuals
+@subsection Overview of manuals
 
-FIXME: a brief discussion about the rest of the LM, and pointers
-to specific places.  like NR for general reference, AU for
-suggestions for writing files, etc.
+There is a lot of documentation for LilyPond.  New users are
+sometimes confused about what part(s) they should read, and
+occasionally skip over reading vital portions.
+
+@warning{Please do not skip over important parts of the
+documentation.  You will find it much harder to understand later
+sections.}
+
+@itemize
+
+@item
+@strong{Before trying to do @emph{anything}}: read the Learning
+manual's @ref{Introduction}, and @ref{Common notation}.  If you
+encounter musical terms which you do not recognize, please look
+them up in the @rglosnamed{Top, Glossary}.
+
+@item
+@strong{Before trying to write a complete piece of music}: read
+the Learning manual's @ref{Fundamental concepts}.  After that, you
+may want to look in relevant sections of the
+@rusernamed{Top, Notation reference}.
+
+@item
+@strong{Before trying to change the default output}: read the
+Learning manual's @ref{Tweaking output}.
+
+@item
+@strong{Before undertaking a large project}: read Usage document's
+@rprogram{Suggestions for writing files}.
+
+@end itemize
+
 
 

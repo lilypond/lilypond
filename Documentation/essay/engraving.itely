@@ -33,54 +33,62 @@ LilyPond.
 @cindex plate engraving
 @cindex music engraving
 
-The art of music typography is called @emph{(plate) engraving}.
-The term derives from the traditional process of music printing.
-Just a few decades ago, sheet music was made by cutting and
-stamping the music into a zinc or pewter plate in mirror image.
-The plate would be inked, and the depressions caused by the cutting
-and stamping would hold ink.  An image was formed by pressing
-paper to the plate.  The stamping and cutting was done completely
-by hand.  Making a correction was cumbersome, if possible at all,
-so the engraving had to be perfect in one go.  Engraving was a
-highly specialized skill; a craftsman had to complete around five
-years of training before earning the title of master engraver, and
-another five years of experience were necessary to become truly
-skilled.
+The art of music typography is called @emph{(plate) engraving}. The term
+derives from the traditional process of music printing. Just a few
+decades ago, sheet music was made by cutting and stamping the music into
+a zinc or pewter plate in mirror image. The plate would be inked, and
+the depressions caused by the cutting and stamping would hold ink. An
+image was formed by pressing paper to the plate. The stamping and
+cutting was done completely by hand. Making a correction was cumbersome,
+so the engraving had to be nearly perfect in one go. Engraving was a
+highly specialized skill; a craftsman had to complete around five years
+of training before earning the title of master engraver, and another
+five years of experience were necessary to become truly skilled.
 
-Nowadays, all newly printed music is produced with computers.
-This has obvious advantages: prints are cheaper to make, and
-editorial work can be delivered by email.  Unfortunately, the
-pervasive use of computers has also decreased the graphical
-quality of scores.  Computer printouts have a bland, mechanical
-look, which makes them unpleasant to play from.
-
-
-@c introduce illustrating aspects of engraving, font...
-The images below illustrate the difference between traditional
-engraving and typical computer output, and the third picture shows
-how LilyPond mimics the traditional look.  The left picture shows
-a scan of a flat symbol from an edition published in 2000.  The
-center depicts a symbol from a hand-engraved Bärenreiter edition
-of the same music.  The left scan illustrates typical flaws of
-computer print: the staff lines are thin, the weight of the flat
-symbol matches the light lines and it has a straight layout with
-sharp corners.  By contrast, the Bärenreiter flat has a bold,
-almost voluptuous rounded look.  Our flat symbol is designed
-after this one, among others.  It is rounded, and its weight
-harmonizes with the thickness of our staff lines, which are also
-much thicker than lines in the computer edition.
-
-@multitable @columnfractions .125 .25 .25 .25 .125
-@item @tab
-@ifnotinfo
+@quotation
 @iftex
-@image{pictures/henle-flat-gray,,4cm}
+@image{pictures/hader-slaan,,7cm}
 @end iftex
 @ifnottex
-@image{pictures/henle-flat-gray,,,png}
+@sourceimage{hader-slaan,,,jpg}
 @end ifnottex
+@end quotation
 
-@tab
+Nowadays, all newly printed music is produced with computers. This has
+obvious advantages: prints are cheaper to make, editorial work can be
+delivered by email, and the original data can be easily stored.
+Unfortunately, computer-generated scores rarely match the quality of
+hand-engraved scores. Instead, computer printouts have a bland,
+mechanical look, which makes them unpleasant to play from.
+
+From the beginning, we designed LilyPond to mimic the beauty of
+traditional music engraving. Along the way, we have learned a great deal
+about the work that goes into a well-engraved score. Below we describe
+several of those aspects that we have tried to imitate in LilyPond.
+
+@menu
+* Music Fonts::                 
+* Optical Spacing::             
+* Ledger Lines::                
+* Slurs::                       
+* Why work so hard?::           
+@end menu
+
+@node Music Fonts
+@unnumberedsubsec Music Fonts
+
+The images below illustrate the difference between traditional engraving
+and typical computer output. The left picture shows a scan of a flat
+symbol from a hand-engraved Bärenreiter edition, while the right picture
+depicts a symbol from an edition of the same music published in 2000.
+Although both images are printed in the shame shade of ink, the earlier
+version looks darker: the staff lines are heavier, and the Bärenreiter
+flat has a bold, almost voluptuous rounded look. The right scan, on the
+other hand, has thinner lines and a straight layout with sharp corners.
+
+@multitable @columnfractions .25 .25 .25 .25
+@item @tab
+@ifnotinfo
 @iftex
 @image{pictures/baer-flat-gray,,4cm}
 @end iftex
@@ -90,68 +98,79 @@ much thicker than lines in the computer edition.
 
 @tab
 @iftex
-@image{pictures/lily-flat-bw,,4cm}
+@image{pictures/henle-flat-gray,,4cm}
 @end iftex
 @ifnottex
-@image{pictures/lily-flat-bw,,,png}
+@image{pictures/henle-flat-gray,,,png}
 @end ifnottex
+
 @end ifnotinfo
 @ifinfo
-@image{lilypond/pictures/henle-flat-bw,,,,png} @image{lilypond/pictures/baer-flat-bw,,,,png}
+@image{lilypond/pictures/henle-flat-bw,,,,png}
+@image{lilypond/pictures/baer-flat-bw,,,,png}
 @image{lilypond/pictures/lily-flat-bw,,,,png}
 @end ifinfo
 
+
 @item @tab
-Henle (2000)
-@tab
 Bärenreiter (1950)
 @tab
-LilyPond Feta font (2003)
+Henle (2000)
 
 @end multitable
-
 
 @cindex musical symbols
 @cindex font
 @cindex blackness
 @cindex balance
 
-@c introduce illustrating aspects of engraving, spacing...
+When we wanted to write a computer program to create music typography,
+there were no musical fonts freely available that could match the
+elegance of our favorite scores. Not let down, we created a font of
+musical symbols, relying on nice printouts of hand-engraved music. The
+experience helped develop a typographical taste, and it made us
+appreciate subtle design details. Without that experience, we would not
+have realized how ugly the fonts were that we admired at first.
+
+Below is a sample of two music fonts: the upper set is the default font
+in the Sibelius software (the @emph{Opus} font), and the lower set is
+our own LilyPond font.
+
+@quotation
+@iftex
+@image{pictures/pdf/OpusAndFeta,,,}
+@end iftex
+@ifnottex
+@sourceimage{OpusAndFeta,,,png}
+@end ifnottex
+@end quotation
+
+The LilyPond symbols are heavier and their weight is more consistent,
+which makes them easier to read. Fine endings, such as the one on the
+bottom of the quarter rest, should not end in sharp points, but rather
+in rounded shapes. This is because sharp corners of the punching dies
+are fragile and quickly wear out when stamping in metal. Taken together,
+the blackness of the font must be carefully tuned together with the
+thickness of lines, beams and slurs to give a strong yet balanced
+overall impression.
+
+Also, notice that our half-notehead is not elliptic but slightly diamond
+shaped. The vertical stem of a flat symbol is slightly brushed, becoming
+wider at the top. The sharp and the natural are easier to distinguish
+from a distance because their angled lines have different slopes and the
+vertical strokes are heavier.
+
+@node Optical Spacing
+@unnumberedsubsec Optical Spacing
+
 In spacing, the distribution of space should reflect the durations
 between notes.  However, many modern scores adhere to the
 durations with mathematical precision, which leads to poor
-results.  In the next example a motive is printed twice: once
-using exact mathematical spacing, and once with corrections.  Can
-you spot which fragment is which?
+results.  In the next example a motive is printed twice: the first time
+using exact mathematical spacing, and the second with corrections.
+Which do you prefer?
 
 @cindex optical spacing
-@c file spacing-optical.
-@c need to include it here,  because we want two images.
-@lilypond
-\paper {
-  ragged-right = ##t
-  indent = #0.0
-}
-
-music = {
-   c'4 e''4 e'4 b'4 |
-   \stemDown
-   b'8[ e'' a' e'']
-   \stemNeutral
-   e'8[ e'8 e'8 e'8]
-}
-
-\score
-{
-  \music
-  \layout {
-    \context {
-      \Staff
-      \override NoteSpacing #'stem-spacing-correction = #0.6
-    }
-  }
-}
-@end lilypond
 
 @lilypond
 \paper {
@@ -180,6 +199,32 @@ music = {
 }
 @end lilypond
 
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4 |
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing #'stem-spacing-correction = #0.6
+    }
+  }
+}
+@end lilypond
+
 @cindex regular rhythms
 @cindex regular spacing
 @cindex spacing, regular
@@ -193,9 +238,54 @@ up-stem/@/down-stem combination should be put farther apart, and
 the notes of a down-stem/@/up-stem combination should be put
 closer together, all depending on the combined vertical positions
 of the notes.  The upper two measures are printed with this
-correction, the lower two measures, however, form
-down-stem/@/up-stem clumps of notes.
+correction, the lower two measures, however, form down-stem/@/up-stem
+clumps of notes. A master engraver would adjust the spacing as needed to
+please the eye.
 
+Another example of optical spacing is the visual interplay between the
+stems and the bar lines. When an up-stem precedes the bar line, a little
+more space is needed to keep it from feeling crowded:
+
+@lilypond
+\paper {
+  ragged-right = ##t
+}
+
+\score {
+  {
+    c''8 c'' c'' c'' c'' c'' c'' c'' \break
+    a' a' a' a' a' a' a' a'
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \override NoteSpacing #'stem-spacing-correction = #0.7
+    }
+  }
+}
+@end lilypond
+
+@node Ledger Lines
+@unnumberedsubsec Ledger Lines
+
+@ifnotinfo
+@iftex
+@image{pictures/baer-ledger,4cm}
+@end iftex
+@ifnottex
+@image{pictures/baer-ledger,,,png}
+@end ifnottex
+@end ifnotinfo
+@ifinfo
+@image{lilypond/pictures/baer-ledger,,,,png}
+@end ifinfo
+
+@node Slurs
+@unnumberedsubsec Slurs
+
+@node Why work so hard?
+@unnumberedsubsec Why work so hard?
 
 Musicians are usually more absorbed with performing than with
 studying the looks of a piece of music, so nitpicking
@@ -237,6 +327,69 @@ to see and love to play from.
 
 @cindex engraving, automated
 @cindex automated engraving
+
+@menu
+* Beauty contests::             
+* Notation benchmarking::       
+* Flexible architecture::       
+@end menu
+
+@node Beauty contests
+@unnumberedsubsec Beauty contests
+
+@node Notation benchmarking
+@unnumberedsubsec Notation benchmarking
+
+Bärenreiter:
+
+@ifnotinfo
+@iftex
+@image{pictures/baer-sarabande,16cm}
+@end iftex
+@ifnottex
+@image{pictures/baer-sarabande,,,png}
+@end ifnottex
+@end ifnotinfo
+@ifinfo
+@image{lilypond/pictures/baer-sarabande,,,,png}
+@end ifinfo
+
+LilyPond 1.4:
+
+@ifnotinfo
+@iftex
+@image{pictures/lily14-sarabande,16cm}
+@end iftex
+@ifnottex
+@image{pictures/lily14-sarabande,,,png}
+@end ifnottex
+@end ifnotinfo
+@ifinfo
+@image{lilypond/pictures/lily14-sarabande,,,,png}
+@end ifinfo
+
+LilyPond @version{}:
+
+@lilypond[relative=0,staffsize=19,line-width=16\cm]
+{
+  \clef "bass"
+  \key d \minor
+  \time 3/4
+  \mergeDifferentlyDottedOn
+  << {d8. e16 e4. d16 e} \\ {d4 a2} >>
+  <f' a, d,>4. e8 d c
+  bes g' f e16( f g a bes d,)
+  cis4. b8 a g
+  << {d'8. e16 e4. d16 e} \\ {<f, a>4 a2} >>
+}
+@end lilypond
+
+[LilyPond snippet above not finished]
+
+[a few bars of LilyPond vs. Finale can go here]
+
+@node Flexible architecture
+@unnumberedsubsec Flexible architecture
 
 How do we go about implementing typography?  If craftsmen need
 over ten years to become true masters, how could we simple hackers
