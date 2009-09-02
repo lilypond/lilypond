@@ -652,7 +652,7 @@ No cross-references.
 @node acciaccatura
 @section acciaccatura
 
-ES: ?,
+ES: mordente de una nota,
 I: acciaccatura,
 F: acciaccatura, appoggiature brève,
 D: ?,
@@ -736,7 +736,7 @@ An accidental alters a note by:
 @node adagio
 @section adagio
 
-ES: adagio,
+ES: adagio, lento,
 I: adagio,
 F: adagio, lent,
 D: Adagio, Langsam,
@@ -764,7 +764,7 @@ of sonatas, symphonies, etc.
 @node al niente
 @section al niente
 
-ES: ?,
+ES: al niente,
 I: al niente,
 F: al niente, en mourant,
 D: ?,
@@ -807,7 +807,7 @@ Since one does not crescendo @emph{to} nothing, it is not correct to use
 @node alla breve
 @section alla breve
 
-ES: ?,
+ES: alla breve,
 I: ?,
 F: alla breve, à la brève,
 D: ?,
@@ -838,7 +838,7 @@ is needed.
 @node allegro
 @section allegro
 
-ES: allegro,
+ES: allegro, rápido,
 I: allegro,
 F: allegro, gaiement,
 D: Allegro, Schnell, Fröhlich, Lustig,
@@ -1356,7 +1356,7 @@ A clef setting with middle C on the first top ledger line.
 @node beam
 @section beam
 
-ES: barra
+ES: barra (de corcheas),
 I: coda,
 F: ligature, barre (de croches),
 D: Balken,
@@ -2245,7 +2245,7 @@ A time signature that additively combines two or more unequal meters, e.g.,
 @node concert pitch
 @section concert pitch
 
-ES: en Do, afinación de concierto,
+ES: en Do, tono de concierto,
 I: intonazione reale,
 F: tonalité de concert, en ut,
 D: ?,
@@ -2588,7 +2588,7 @@ No cross-references.
 @node dal niente
 @section dal niente
 
-ES: ?,
+ES: dal niente, de la nada,
 I: dal niente,
 F: partant de rien,
 D: ?,
@@ -2891,7 +2891,7 @@ FI: diminuendo, hiljentyen.
 @node diminution
 @section diminution
 
-ES: ?,
+ES: disminución,
 I: diminuzione,
 F: diminution,
 D: ?,
@@ -2909,7 +2909,7 @@ This is a stub for diminution (@emph{wrt} mensural notation).
 @node direct
 @section direct
 
-ES: ?,
+ES: directo,
 I: ?,
 F: ?,
 D: Weiser, Zeiger,
@@ -2978,7 +2978,7 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 @node divisio
 @section divisio
 
-ES: ?,
+ES: división,
 I: ?,
 F: ?,
 D: ?,
@@ -3013,7 +3013,7 @@ No cross-references.
 @node doit
 @section doit
 
-ES: ?,
+ES: elevación [de tono],
 I: ?,
 F: saut,
 D: ?,
@@ -3212,7 +3212,7 @@ FI: kaksoisylennysmerkki.
 @node double time signature
 @section double time signature
 
-ES: ?,
+ES: compás polimétrico,
 I: ?,
 F: ?,
 D: ?,
@@ -3632,7 +3632,7 @@ Double Bass).
 @node fall
 @section fall
 
-ES: ?,
+ES: caída [de tono],
 I: ?,
 F: chute,
 D: ?,
@@ -3651,7 +3651,7 @@ Indicator for a indeterminately falling pitch bend.  Compare with
 @node feathered beam
 @section feathered beam
 
-ES: barra punteada,
+ES: barra progresiva,
 I: ?,
 F: ligature en soufflet, lien de croches en soufflet,
 D: gespreizter Balken,
@@ -3815,7 +3815,7 @@ g64-"64th" s8
 @node flageolet
 @section flageolet
 
-ES: ?,
+ES: armónico,
 I: ?,
 F: flageolet,
 D: ?,
@@ -3867,7 +3867,7 @@ FI: alennusmerkki.
 @node forte
 @section forte
 
-ES: forte,
+ES: forte, fuerte,
 I: forte,
 F: forte,
 D: forte, laut,
@@ -4272,7 +4272,7 @@ A sequence of chords that terminates a musical phrase or section.
 @node harmonics
 @section harmonics
 
-ES: sonidos del flautín,
+ES: armónicos, sonidos aflautados,
 I: armonici,
 F: flageolet, sons harmoniques,
 D: Flageolett-Töne,
@@ -4528,7 +4528,7 @@ The addition of such two intervals forms an octave.
 @node inversion
 @section inversion
 
-ES: ?,
+ES: inversión,
 I: rivolto,
 F: renversement,
 D: ?,
@@ -4972,7 +4972,7 @@ FI: suuri intervalli.
 @node maxima
 @section maxima
 
-ES: ?,
+ES: máxima,
 I: maxima,
 F: maxima, maxime,
 D: ?,
@@ -5163,7 +5163,7 @@ TODO: add to definition (including summary info on proportional notation)
 
 @c TODO: add languages
 
-ES: ?,
+ES: signo de mensuración,
 I: ?,
 F: signe de mensuration,
 D: ?,
@@ -5484,7 +5484,7 @@ Exact tempo indication (in beats per minute).  Abbreviated @notation{M.M.} or
 @node mezzo
 @section mezzo
 
-ES: ?,
+ES: mezzo,
 I: mezzo,
 F: mezzo,
 D: ?,
@@ -5718,7 +5718,7 @@ No cross-references.
 @node multi-measure rest
 @section multi-measure rest
 
-ES: compases de espera,
+ES: compases de espera, silencio multicompás,
 I: pausa multipla,
 F: pause multiple, mesure à compter,
 NL: meermaats rust,
@@ -5768,7 +5768,7 @@ FI: palautusmerkki.
 
 @c TODO: add definition.
  
-ES: ?,
+ES: tonos vecinos,
 I: ?,
 F: tons voisins,
 D: ?,
@@ -5859,7 +5859,7 @@ indicate the instrument.
 @node note value
 @section note value
 
-ES: valor (duración),
+ES: valor, duración,
 I: valore, durata,
 F: durée, valeur (d'une note),
 D: Notenwert,
@@ -6133,7 +6133,7 @@ Compare: @ref{cue-notes}.
 @node part
 @section part
 
-ES: parte,
+ES: parte, particella,
 I: voce, parte,
 F: partie,
 D: Stimme,
@@ -6278,7 +6278,7 @@ melody.  Phrasing may be indicated by a @notation{slur}.
 @node piano
 @section piano
 
-ES: piano,
+ES: piano, suave,
 I: piano,
 F: piano,
 D: piano, leise,
@@ -6405,7 +6405,7 @@ simultaneously or in alternation.
 @node polymetric time signature
 @section polymetric time signature
 
-ES: compás polimétrico,
+ES: indicación de compás polimétrico,
 I: tempo polimetrico,
 F: ?,
 D: ?,
@@ -6455,7 +6455,7 @@ without changing the bow's direction. It is used for passages of a
 @node presto
 @section presto
 
-ES: presto,
+ES: presto, muy rápido,
 I: presto,
 F: presto, très rapide, enlevé,
 D: Presto, Sehr schnell,
@@ -6620,7 +6620,7 @@ FI: kvartoli.
 @node quality
 @section quality
 
-ES: ?,
+ES: variante [de acorde o intervalo],
 I: qualità (?),
 F: qualité (?),
 D: ?,
@@ -6707,7 +6707,7 @@ except in jazz.
 @node quarter tone
 @section quarter tone
 
-ES: cuarto de tonno,
+ES: cuarto de tono,
 I: quarto di tono,
 F: quart de ton,
 D: Viertelton,
@@ -6725,7 +6725,7 @@ An interval equal to half a semitone.
 @node quintuplet
 @section quintuplet
 
-ES: cinquillo, quintillo.
+ES: cinquillo, quintillo,
 I: quintina,
 F: quintolet,
 D: Quintole,
@@ -6867,7 +6867,7 @@ metrical unit (beat).
 @node ritardando
 @section ritardando
 
-ES: ritardando,
+ES: ritardando, retardando,
 I: ritardando,
 F: ritardando, en ralentissant,
 D: ritardando, langsamer werden,
@@ -6886,7 +6886,7 @@ No cross-references.
 @node ritenuto
 @section ritenuto
 
-ES: ritenuto,
+ES: ritenuto, reteniendo,
 I: ritenuto,
 F: ritenuto, en retenant,
 D: ritenuto,
@@ -7143,7 +7143,7 @@ FI: korotusmerkki.
 @node simile
 @section simile
 
-ES: simile,
+ES: simile, similar,
 I: simile,
 F: simile,
 D: ?,
@@ -7281,7 +7281,7 @@ FI: seksti.
 @node slur
 @section slur
 
-ES: ligadura (de expresión),
+ES: ligadura de expresión,
 I: legatura (di portamento o espressiva),
 F: liaison, coulé,
 D: Bogen (Legatobogen, Phrasierungsbogen),
@@ -7427,7 +7427,7 @@ No cross-references.
 @section staff
 
 UK: stave,
-ES: pentagrama,
+ES: pentagrama, pauta,
 I: pentagramma, rigo (musicale),
 F: portée,
 D: Notensystem, Notenzeile,
@@ -7482,7 +7482,7 @@ whole note.
 @node stringendo
 @section stringendo
 
-ES: ?,
+ES: stringendo, acelerando,
 I: stringendo,
 F: stringendo, en accélérant,
 D: ?,
@@ -7895,7 +7895,7 @@ FI: terssi.
 @node tie
 @section tie
 
-ES: ligadura de prolongación, ligadura de unión,
+ES: ligadura de unión (o de prolongación),
 I: legatura (di valore),
 F: liaison (de tenue),
 D: Haltebogen, Bindebogen,
@@ -8028,7 +8028,7 @@ instrument in B-flat.
 @node transposition
 @section transposition
 
-ES: transporte,
+ES: transporte, transposición,
 I: trasposizione,
 F: transposition,
 D: Transposition,
@@ -8067,7 +8067,7 @@ No cross-references.
 @node treble clef
 @section treble clef
 
-ES: clave de sol,
+ES: clave de sol en segunda,
 I: chiave di violino,
 F: clef de sol,
 D: Violinschlüssel, Sopranschlüssel,
@@ -8197,7 +8197,7 @@ FI: tritonus.
 @node tuning fork
 @section tuning fork
 
-ES: diapasón, horquilla de afinación,
+ES: diapasón [de horquilla],
 I: diapason, corista,
 F: diapason,
 D: Stimmgabel,
@@ -8217,7 +8217,7 @@ standard.  Tuning forks for other pitches are available.
 @node tuplet
 @section tuplet
 
-ES: ?,
+ES: grupo de valoración especial,
 I: gruppi irregolari,
 F: ?,
 D: ?,
