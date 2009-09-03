@@ -495,7 +495,7 @@ site}.
 @divClass{column-right-bottom}
 @subheading Compiling instructions
 
-Instructions are listed in @@ref@{FIXME development-install@}.
+Instructions are listed in @rcontrib{Compiling LilyPond}.
 
 @divEnd
 

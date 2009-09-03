@@ -417,6 +417,18 @@ urge you to use the stable @ref{Download}, and read the stable
 
 @divEnd
 
+@divClass{column-center-top}
+@subheading Release numbers
+
+There are two sets of releases for LilyPond: stable releases, and
+unstable development releases.  Stable versions have an
+even-numbered @q{minor} version number (e.g., 2.8, 2.10, 2.12).
+Development versions have an odd-numbered @q{minor} version number
+(e.g., 2.7, 2.9, 2.11).
+
+@divEnd
+
+
 @divClass{column-left-bottom}
 @subheading Download
 

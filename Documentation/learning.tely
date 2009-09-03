@@ -45,10 +45,6 @@ Free Documentation License''.
 @cartouche
 This file provides an introduction to GNU LilyPond version
 @version{}.
-
-For more information about how this fits with the other
-documentation, or to read this manual in other formats, see
-@rgeneral{Manuals}.
 @end cartouche
 @end macro
 
@@ -99,23 +95,9 @@ Appendices
 * LilyPond index::
 @end menu
 
-
-@ignore
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/learning.pdf,PDF} and as
-@uref{source/Documentation/learning-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/learning.pdf,PDF} and as
-@uref{source/Documentation/learning/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-@end ignore
-
 @end ifnottex
+
+@docMain
 
 
 @c TOC - tex
