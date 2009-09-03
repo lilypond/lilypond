@@ -53,6 +53,17 @@
 @end ifnothtml
 
 
+@macro docMain
+@cartouche
+For more information about how this manual fits with the other
+documentation, or to read this manual in other formats, see
+@rgeneral{Manuals}.
+
+If you are missing any manuals, the complete documentation can be
+found at @uref{http://@/www@/.lilypond@/.org/}.
+@end cartouche
+@end macro
+
 
 @c   ***** Headings in a doc subsection *****
 
@@ -112,6 +123,7 @@
 @c     @rprogram
 @c     @ruser
 @c     @rchanges
+@c     @rcontrib
 @c
 @c  All these also have a @...named version which allows to specify the
 @c  displayed text for the reference as second argument.
@@ -166,6 +178,16 @@
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor-big-page,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor-big-page,Contributor's Guide}
 @end macro
 
 @macro rgeneral{TEXT}
@@ -265,6 +287,16 @@
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
+@end macro
+
 @macro rgeneral{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,general,General Information}
@@ -355,6 +387,16 @@
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
+@end macro
+
+@macro rcontrib{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Contributor's Guide}
 @end macro
 
 @macro rgeneral{TEXT}
@@ -464,6 +506,16 @@
 @macro rchangesnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
+@end macro
+
+@macro rcontrib{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,contributor,Contributor's Guide}
+@end macro
+
+@macro rcontribnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
 @macro rgeneral{TEXT}
