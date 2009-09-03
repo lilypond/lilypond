@@ -393,10 +393,6 @@ classical music.
 @menu
 * References for Turkish classical music::
 * Turkish note names::
-@c TODO * Turkish key signatures::
-@c TODO * Turkish time signatures::
-@c TODO * Turkish music example::
-@c TODO * Further reading::
 @end menu
 
 
@@ -414,9 +410,18 @@ period roughly contemporaneous with classical music in Europe,
 and has continued on into the 20th and 21st centuries as a
 vibrant and distinct tradition with its own compositional
 forms, theory and performance styles.  Among its striking
-features is the use of microtonal intervals based on `commas'
+features is the use of microtonal intervals based on @q{commas}
 of 1/9 of a tone, from which are constructed the melodic
 forms known as @notation{makam} (plural @notation{makamlar}).
+
+Some issues relevant to Turkish classical music are covered
+elsewhere:
+
+@itemize
+@item Note names and accidentals are provided in
+@ref{Non-Western note names and accidentals}.
+
+@end itemize
 
 
 @node Turkish note names
@@ -439,7 +444,7 @@ From a modern notational point of view it is convenient to
 use the standard Western staff notes (c, d, e, ...) with
 special accidentals that raise or lower notes by intervals
 of 1/9, 4/9, 5/9 and 8/9 of a tone.  These accidentals are
-defined in the file @file{makam.ly} (see
-@rlearning{Other sources of information} for the location
-of this file) and are described in more detail in
+defined in the file @file{makam.ly} (to locate this file on
+your system, see @rlearning{Other sources of information}).
+A more detailed description is provided in
 @ref{Non-Western note names and accidentals}.
