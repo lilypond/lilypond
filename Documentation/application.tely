@@ -46,10 +46,6 @@ Free Documentation License''.
 This file explains how to execute the programs distributed with
 GNU LilyPond version @version{}.  In addition, it suggests some
 @qq{best practices} for efficient usage.
-
-For more information about how this fits with the other
-documentation, or to read this manual in other formats, see
-@rgeneral{Manuals}.
 @end cartouche
 @end macro
 
@@ -57,7 +53,7 @@ documentation, or to read this manual in other formats, see
 @c TITLE PAGE
 @ifnottex
 @node Top
-@top GNU LilyPond --- Learning Manual
+@top GNU LilyPond --- Application Usage
 @end ifnottex
 
 @finalout
@@ -65,7 +61,7 @@ documentation, or to read this manual in other formats, see
 @titlepage
 @title LilyPond
 @subtitle The music typesetter
-@titlefont{Learning Manual}
+@titlefont{Application Usage}
 @author The LilyPond development team
 
 @vskip 100pt
@@ -86,9 +82,6 @@ For LilyPond version @version{}
 @ifnottex
 @introText{}
 
-@c * Install::                        How to install or compile.
-@c * Setup::                          Using LilyPond with other programs.
-
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
@@ -96,8 +89,7 @@ For LilyPond version @version{}
 * Updating files with convert-ly:: Updating input files.
 * lilypond-book::                  Integrating text and music.
 * Converting from other formats::  Converting to lilypond source format.
-* Working on LilyPond projects::   Working on non-working files.
-* Suggestions for writing files::  Best practices
+* Suggestions for writing files::  Best practices and effective bug-fixing.
 
 Appendices
 
@@ -106,16 +98,15 @@ Appendices
 @end menu
 @end ifnottex
 
+@docMain
+
 @contents
 
 
-@c @include application/install.itely
-@c @include application/setup.itely
 @include application/running.itely
 @include application/updating.itely
 @include application/lilypond-book.itely
 @include application/converters.itely
-@include application/working.itely
 @include application/suggestions.itely
 
 @include fdl.itexi
