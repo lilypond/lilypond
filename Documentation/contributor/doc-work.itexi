@@ -1044,7 +1044,6 @@ would be ideal if every significant known issue had a workaround to avoid
 the difficulty.
 
 @seealso
-
 @ref{Adding and editing snippets}.
 
 
@@ -1427,7 +1426,6 @@ up-to-dateness percentages for each translated file, and update word
 counts of documentation files in this Guide.
 
 @seealso
-
 @ref{Maintaining without updating translations}.
 
 
@@ -1512,7 +1510,6 @@ Use this command with caution, and keep in mind it will not be really
 useful until translations are stabilized after the end of GDP and GOP.
 
 @seealso
-
 @ref{Maintaining without updating translations},
 @ref{Adding and editing snippets}.
 
