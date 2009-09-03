@@ -1,0 +1,51 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.13.4"
+
+
+@node Contemporary music
+@section Contemporary music
+
+From the beginning of the 20th Century there has been a massive
+expansion of compositional style and technique.  New harmonic
+and rhythmic developments, an expansion of the pitch spectrum
+and the development of a wide range of new instrumental
+techniques have been accompanied by a parallel evolution and
+expansion of musical notation.  The purpose of this section is
+to provide references and information relevant to working with
+these new notational techniques.
+
+@menu
+* Pitches and harmony in contemporary music::
+* Contemporary approaches to rhythm::
+* Graphical notation::
+* Contemporary scoring techniques::
+* New instrumental techniques::
+@end menu
+
+
+@node Pitches and harmony in contemporary music
+@subsection Pitches and harmony in contemporary music
+
+
+@node Contemporary approaches to rhythm
+@subsection Contemporary approaches to rhythm
+
+
+@node Graphical notation
+@subsection Graphical notation
+
+
+@node Contemporary scoring techniques
+@subsection Contemporary scoring techniques
+
+
+@node New instrumental techniques
+@subsection New instrumental techniques
+
