@@ -186,6 +186,50 @@ points into your home directory, e.g.
 @end example
 
 
+@unnumberedsubsubsec Compiling on Mac OS X
+
+Here are special instructions for compiling under OS X. These instructions
+assume that dependencies are installed using @uref{http://www.macports.org/, MacPorts.}
+The instructions have been tested using OS X 10.5 (Leopard).
+
+First, install the relevant dependencies using MacPorts.
+
+Next, add the following to your relevant shell initialization files. This is
+@code{~/.profile} by default. You should create this file if it does not exist.
+
+@example
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources:\
+/opt/local/lib:$DYLD_LIBRARY_PATH
+@end example
+
+Now you must edit the generated @code{config.make} file. Change
+
+@example
+FLEXLEXER_FILE = /usr/include/FlexLexer.h
+@end example
+
+to:
+
+@example
+FLEXLEXER_FILE = /opt/local/include/FlexLexer.h
+@end example
+
+At this point, you should verify that you have the appropriate fonts installed
+with your ghostscript installation. Check @code{ls /opt/local/share/ghostscript/fonts} for:
+'c0590*' files (.pfb, .pfb and .afm). If you don't have them, run the following commands
+to grab them from the ghostscript SVN server and install them in the appropriate location:
+
+@example
+$ svn export http://svn.ghostscript.com/ghostscript/tags/urw-fonts-1.0.7pre44/
+$ sudo mv urw-fonts-1.0.7pre44/* /opt/local/share/ghostscript/fonts/
+# Cleanup
+$ rm -rf urw-fonts-1.07pre44
+@end example
+
+Now run the @code{./configure} script. To avoid complications with automatic font
+detection, specify @code{'--with-ncsb-dir=/opt/local/share/ghostscript/fonts'}.
+
 @unnumberedsubsubsec Compiling for multiple platforms
 
 If you want to build multiple versions of LilyPond with different
@@ -395,7 +439,7 @@ export LD_LIBRARY_PATH=/usr/lib
 exec /usr/bin/pngtopnm "$@"
 @end verbatim
 
-On MacOS@tie{}X, I use this:
+On Mac OS X, I use this:
 
 @verbatim
 export DYLD_LIBRARY_PATH=/sw/lib
@@ -508,7 +552,7 @@ for your hierarchy.)
 
 @unnumberedsubsubsec International fonts
 
-On MacOS@tie{}X, all fonts are installed by default.  However, finding all
+On Mac OS X, all fonts are installed by default.  However, finding all
 system fonts requires a bit of configuration; see
 @uref{http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00472.html,
 this post} on the @code{lilypond-user} mailing list.
@@ -531,4 +575,3 @@ Debian GNU/Linux
         ttf-kochi-gothic ttf-kochi-mincho \
         xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi
 @end verbatim
-
