@@ -186,50 +186,6 @@ points into your home directory, e.g.
 @end example
 
 
-@unnumberedsubsubsec Compiling on Mac OS X
-
-Here are special instructions for compiling under OS X. These instructions
-assume that dependencies are installed using @uref{http://www.macports.org/, MacPorts.}
-The instructions have been tested using OS X 10.5 (Leopard).
-
-First, install the relevant dependencies using MacPorts.
-
-Next, add the following to your relevant shell initialization files. This is
-@code{~/.profile} by default. You should create this file if it does not exist.
-
-@example
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources:\
-/opt/local/lib:$DYLD_LIBRARY_PATH
-@end example
-
-Now you must edit the generated @code{config.make} file. Change
-
-@example
-FLEXLEXER_FILE = /usr/include/FlexLexer.h
-@end example
-
-to:
-
-@example
-FLEXLEXER_FILE = /opt/local/include/FlexLexer.h
-@end example
-
-At this point, you should verify that you have the appropriate fonts installed
-with your ghostscript installation. Check @code{ls /opt/local/share/ghostscript/fonts} for:
-'c0590*' files (.pfb, .pfb and .afm). If you don't have them, run the following commands
-to grab them from the ghostscript SVN server and install them in the appropriate location:
-
-@example
-$ svn export http://svn.ghostscript.com/ghostscript/tags/urw-fonts-1.0.7pre44/
-$ sudo mv urw-fonts-1.0.7pre44/* /opt/local/share/ghostscript/fonts/
-# Cleanup
-$ rm -rf urw-fonts-1.07pre44
-@end example
-
-Now run the @code{./configure} script. To avoid complications with automatic font
-detection, specify @code{'--with-ncsb-dir=/opt/local/share/ghostscript/fonts'}.
-
 @unnumberedsubsubsec Compiling for multiple platforms
 
 If you want to build multiple versions of LilyPond with different
@@ -515,6 +471,51 @@ $ vi +4919 out/parser.cc
 # save
 $ make
 @end example
+
+
+@unnumberedsubsubsec Compiling on Mac OS X
+
+Here are special instructions for compiling under OS X. These instructions
+assume that dependencies are installed using @uref{http://www.macports.org/, MacPorts.}
+The instructions have been tested using OS X 10.5 (Leopard).
+
+First, install the relevant dependencies using MacPorts.
+
+Next, add the following to your relevant shell initialization files. This is
+@code{~/.profile} by default. You should create this file if it does not exist.
+
+@example
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources:\
+/opt/local/lib:$DYLD_LIBRARY_PATH
+@end example
+
+Now you must edit the generated @code{config.make} file. Change
+
+@example
+FLEXLEXER_FILE = /usr/include/FlexLexer.h
+@end example
+
+to:
+
+@example
+FLEXLEXER_FILE = /opt/local/include/FlexLexer.h
+@end example
+
+At this point, you should verify that you have the appropriate fonts installed
+with your ghostscript installation. Check @code{ls /opt/local/share/ghostscript/fonts} for:
+'c0590*' files (.pfb, .pfb and .afm). If you don't have them, run the following commands
+to grab them from the ghostscript SVN server and install them in the appropriate location:
+
+@example
+$ svn export http://svn.ghostscript.com/ghostscript/tags/urw-fonts-1.0.7pre44/
+$ sudo mv urw-fonts-1.0.7pre44/* /opt/local/share/ghostscript/fonts/
+# Cleanup
+$ rm -rf urw-fonts-1.07pre44
+@end example
+
+Now run the @code{./configure} script. To avoid complications with automatic font
+detection, specify @code{'--with-ncsb-dir=/opt/local/share/ghostscript/fonts'}.
 
 
 @unnumberedsubsubsec Solaris
