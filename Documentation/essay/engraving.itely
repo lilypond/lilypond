@@ -77,14 +77,15 @@ several of those aspects that we have tried to imitate in LilyPond.
 @node Music Fonts
 @unnumberedsubsec Music Fonts
 
-The images below illustrate the difference between traditional engraving
-and typical computer output. The left picture shows a scan of a flat
-symbol from a hand-engraved Bärenreiter edition, while the right picture
-depicts a symbol from an edition of the same music published in 2000.
-Although both images are printed in the shame shade of ink, the earlier
-version looks darker: the staff lines are heavier, and the Bärenreiter
-flat has a bold, almost voluptuous rounded look. The right scan, on the
-other hand, has thinner lines and a straight layout with sharp corners.
+The images below illustrate some differences between traditional
+engraving and typical computer output. The left picture shows a scan of
+a flat symbol from a hand-engraved Bärenreiter edition, while the right
+picture depicts a symbol from an edition of the same music published in
+2000. Although both images are printed in the shame shade of ink, the
+earlier version looks darker: the staff lines are heavier, and the
+Bärenreiter flat has a bold, almost voluptuous rounded look. The right
+scan, on the other hand, has thinner lines and a straight layout with
+sharp corners.
 
 @multitable @columnfractions .25 .25 .25 .25
 @item @tab
@@ -269,27 +270,60 @@ more space is needed to keep it from feeling crowded:
 @node Ledger Lines
 @unnumberedsubsec Ledger Lines
 
-@ifnotinfo
+@cindex ledger lines
+@cindex collisions
+
+Ledger lines present a typographical challenge: they make it more
+difficult to space musical symbols close together and they must be clear
+enough to identify the pitch at a glance. In the example below, we see
+that ledger lines should be thicker than normal staff lines and that an
+expert engraver will shorten a ledger line to allow closer spacing with
+accidentals. We have included this feature in LilyPond's engraving.
+
+@multitable @columnfractions .25 .25 .25 .25
+@item @tab
+
 @iftex
-@image{pictures/baer-ledger,4cm}
+@image{pictures/baer-ledger,3cm}
 @end iftex
 @ifnottex
-@image{pictures/baer-ledger,,,png}
+@sourceimage{baer-ledger,,,png}
 @end ifnottex
-@end ifnotinfo
-@ifinfo
-@image{lilypond/pictures/baer-ledger,,,,png}
-@end ifinfo
+
+@tab
+
+@iftex
+@image{pictures/lily-ledger,3cm}
+@end iftex
+@ifnottex
+@sourceimage{lily-ledger,,,png}
+@end ifnottex
+
+@end multitable
 
 @node Slurs
 @unnumberedsubsec Slurs
+
+slur-tilt example
 
 @node Why work so hard?
 @unnumberedsubsec Why work so hard?
 
 Musicians are usually more absorbed with performing than with
 studying the looks of a piece of music, so nitpicking
-typographical details may seem academic.  But it is not.  In
+typographical details may seem academic.  But it is not.
+
+Sheet music is performance material: everything is done to aid the
+musician in letting him perform better. Music often is far away from its
+reader--it might be on a music stand. To make it clearly readable,
+traditionally printed sheet music always uses bold symbols, on heavy
+staff lines, and is printed on large sheets of paper. This "strong" look
+is also present in the horizontal spacing. To minimize the number of
+page breaks, (hand-engraved) sheet music is spaced very tightly. Yet, by
+a careful distribution of white space, the feeling of balance is
+retained, and a clutter of symbols is avoided. (1.8)
+
+In
 larger pieces with monotonous rhythms, spacing corrections lead to
 subtle variations in the layout of every line, giving each one a
 distinct visual signature.  Without this signature all lines would
@@ -342,31 +376,21 @@ to see and love to play from.
 
 Bärenreiter:
 
-@ifnotinfo
 @iftex
-@image{pictures/baer-sarabande,16cm}
+@image{pictures/baer-sarabande-hires,16cm}
 @end iftex
 @ifnottex
-@image{pictures/baer-sarabande,,,png}
+@sourceimage{baer-sarabande,,,png}
 @end ifnottex
-@end ifnotinfo
-@ifinfo
-@image{lilypond/pictures/baer-sarabande,,,,png}
-@end ifinfo
 
 LilyPond 1.4:
 
-@ifnotinfo
 @iftex
 @image{pictures/lily14-sarabande,16cm}
 @end iftex
 @ifnottex
-@image{pictures/lily14-sarabande,,,png}
+@sourceimage{lily14-sarabande,,,png}
 @end ifnottex
-@end ifnotinfo
-@ifinfo
-@image{lilypond/pictures/lily14-sarabande,,,,png}
-@end ifinfo
 
 LilyPond @version{}:
 
