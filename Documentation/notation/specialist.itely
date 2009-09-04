@@ -22,9 +22,9 @@ types of instrument or in specific styles.
 * Percussion::
 * Wind instruments::
 * Chord notation::
+* Contemporary music::
 * Ancient notation::
 * World music::
-* Contemporary music::
 @end menu
 
 @include notation/vocal.itely
@@ -34,7 +34,7 @@ types of instrument or in specific styles.
 @include notation/percussion.itely
 @include notation/wind.itely
 @include notation/chords.itely
+@include notation/contemporary.itely
 @include notation/ancient.itely
 @include notation/world.itely
-@include notation/contemporary.itely
 

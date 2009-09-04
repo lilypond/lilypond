@@ -22,7 +22,7 @@ to provide references and information relevant to working with
 these new notational techniques.
 
 @menu
-* Pitches and harmony in contemporary music::
+* Pitch and harmony in contemporary music::
 * Contemporary approaches to rhythm::
 * Graphical notation::
 * Contemporary scoring techniques::
@@ -30,8 +30,51 @@ these new notational techniques.
 @end menu
 
 
-@node Pitches and harmony in contemporary music
-@subsection Pitches and harmony in contemporary music
+@node Pitch and harmony in contemporary music
+@subsection Pitch and harmony in contemporary music
+
+This section highlights issues that are relevant to notating
+pitch and harmony in contemporary music.
+
+@menu
+* References for pitch and harmony in contemporary music::
+* Microtonal notation::
+* Contemporary key signatures and harmony::
+@end menu
+
+
+@node References for pitch and harmony in contemporary music
+@unnumberedsubsubsec References for pitch and harmony in contemporary music
+
+@itemize
+@item Standard quarter-tone notation is addressed in
+@ref{Note names in other languages}.
+
+@item Non-standard key signatures are addressed in
+@ref{Key signature}.
+
+@item Contemporary practises in displaying accidentals are
+addressed in @ref{Automatic accidentals}.
+
+@end itemize
+
+
+@node Microtonal notation
+@unnumberedsubsubsec Microtonal notation
+
+@ignore
+    Discussion of microtones other than quarter-tones,
+    alternative notations (arrows, slash-flats), etc.
+@end ignore
+
+
+@node Contemporary key signatures and harmony
+@unnumberedsubsubsec Contemporary key signatures and harmony
+
+@ignore
+    Discussion of contemporary key signatures:
+    non-standard, polytonality, etc.
+@end ignore
 
 
 @node Contemporary approaches to rhythm
