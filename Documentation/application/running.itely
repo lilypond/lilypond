@@ -594,10 +594,6 @@ There is support for different text editors for LilyPond.
 @menu
 * Emacs mode::                  
 * Vim mode::                    
-* jEdit::                       
-* TexShop::                     
-* TextMate::                    
-* LilyKDE::                     
 @end menu
 
 @node Emacs mode
@@ -656,52 +652,6 @@ set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 where $@{LILYPOND_VERSION@} is your LilyPond version.  If LilyPond was not
 installed in @file{/usr/local/}, then change this path accordingly.
 
-
-@node jEdit
-@subsection jEdit
-
-Created as a plugin for the @uref{http://@/www@/.jedit@/.org@/,jEdit}
-text editor, LilyPondTool is the most feature-rich text-based tool for
-editing LilyPond scores.  Its features include a Document Wizard with
-lyrics support to set up documents easier, and embedded PDF viewer with
-advanced point-and-click support.  For screenshots, demos and
-installation instructions, visit
-@uref{http://lilypondtool@/.organum@/.hu}
-
-
-@node TexShop
-@subsection TexShop
-
-The @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
-editor for MacOS@tie{}X can be extended to run LilyPond, lilypond-book and
-convert-ly from within the editor, using the extensions available at
-@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
-
-
-@node TextMate
-@subsection TextMate
-
-There is a LilyPond bundle for TextMate.  It may be installed by running
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
-@end example
-
-
-@node LilyKDE
-@subsection LilyKDE
-
-@uref{http://lilykde.googlecode.com/,LilyKDE} is a plugin for KDE's
-text editor @uref{http://kate-editor.org/,Kate}.  It has a powerful Score
-Wizard to quickly setup a LilyPond document and an embedded PDF viewer.
-
-LilyKDE can use @uref{http://www.volny.cz/smilauer/rumor/,Rumor},
-so music can entered by playing on a MIDI keyboard.
-
-Other features are lyric hyphenation and running LilyPond on multiple files
-at once from within the KDE file manager.
 
 
 
