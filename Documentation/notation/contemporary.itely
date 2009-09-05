@@ -27,6 +27,7 @@ these new notational techniques.
 * Graphical notation::
 * Contemporary scoring techniques::
 * New instrumental techniques::
+* Further reading::
 @end menu
 
 
@@ -172,4 +173,53 @@ addressed in @ref{Grouping staves}.
 
 @node New instrumental techniques
 @subsection New instrumental techniques
+
+
+@node Further reading
+@subsection Further reading
+
+This section suggests books, musical examples and other
+resources useful in studying contemporary musical notation.
+
+@menu
+* Books and articles on contemporary musical notation::
+* Scores and musical examples::
+@end menu
+
+
+@node Books and articles on contemporary musical notation
+@unnumberedsubsubsec Books and articles on contemporary musical notation
+
+@itemize
+@item
+@emph{Music Notation in the Twentieth Century: A Practical Guidebook}
+by Kurt Stone [W. W. Norton, 1980]
+
+@item
+@emph{Music Notation: A Manual of Modern Practice} by Gardner Read
+[Taplinger, 1979]
+
+@item
+@emph{Instrumentation and Orchestration} by Alfred Blatter [Schirmer,
+2nd ed. 1997]
+
+@end itemize
+
+
+@node Scores and musical examples
+@unnumberedsubsubsec Scores and musical examples
+
+@ignore
+    Rough list of composers whose work could be included
+    (in alphabetical order, perhaps with suggested work):
+
+        Pierre Boulez (Le Marteau Sans Maître?)
+        John Cage (Freeman Etudes?)
+        George Crumb (Black Angels?)
+        Brian Ferneyhough (Transit?  Time & Motion Studies?)
+        Ben Johnston (extended just intonation example)
+        György Ligeti (several, including Hamburg Concerto)
+        Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
+        Karlheinz Stockhausen (Gruppen?)
+@end ignore
 
