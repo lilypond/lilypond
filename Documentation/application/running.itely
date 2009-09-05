@@ -589,7 +589,7 @@ your computer in the .pdf file, which can pose a security risk.}
 @cindex syntax coloring
 @cindex coloring, syntax
 
-There is support from different text editors for LilyPond.
+There is support for different text editors for LilyPond.
 
 @menu
 * Emacs mode::                  
