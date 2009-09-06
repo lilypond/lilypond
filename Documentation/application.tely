@@ -7,13 +7,13 @@
 @end ignore
 
 @setfilename lilypond-application.info
-@settitle GNU LilyPond Application usage
+@settitle LilyPond Application usage
 @documentencoding UTF-8
 @documentlanguage en
 
 @macro manualIntro
 This file explains how to execute the programs distributed with
-GNU LilyPond version @version{}.  In addition, it suggests some
+LilyPond version @version{}.  In addition, it suggests some
 @qq{best practices} for efficient usage.
 @end macro
 

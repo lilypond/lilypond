@@ -13,7 +13,7 @@
 
 @macro manualIntro
 This essay discusses automatic music engraving functions within
-GNU LilyPond version @version{}.
+LilyPond version @version{}.
 @end macro
 
 @c TODO: we shouldn't need this!

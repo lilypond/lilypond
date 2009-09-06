@@ -13,7 +13,7 @@
 
 @macro manualIntro
 This manual provides a reference for all notation that can be
-produced with GNU LilyPond version @version{}.  It assumes that
+produced with LilyPond version @version{}.  It assumes that
 the reader is familiar with the material in the
 @rlearningnamed{Top, Learning Manual}.
 @end macro

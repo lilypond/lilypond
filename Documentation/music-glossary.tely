@@ -178,7 +178,7 @@ Copyright 1999--2009 by the authors
 @c @evenheading @thispage @| @|
 @c @oddheading @| @| @thispage @|
 
-This is the Music Glossary (MG) for GNU LilyPond version @version{}.
+This is the Music Glossary (MG) for LilyPond version @version{}.
 For more information about how this fits with the other
 documentation, see 
 FIXME FIXME FIXME

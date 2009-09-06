@@ -12,7 +12,7 @@
 @documentlanguage en
 
 @macro manualIntro
-This manual documents contributing to GNU LilyPond version
+This manual documents contributing to LilyPond version
 @version{}.  It discusses technical issues and policies that
 contributors should follow.
 @end macro

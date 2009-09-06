@@ -12,7 +12,7 @@
 @documentlanguage en
 
 @macro manualIntro
-This file provides an introduction to GNU LilyPond version
+This file provides an introduction to LilyPond version
 @version{}.
 @end macro
 
