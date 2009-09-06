@@ -32,8 +32,11 @@ class New_dynamic_engraver : public Engraver
 protected:
   virtual void process_music ();
   virtual void stop_translation_timestep ();
+  virtual void finalize ();
+
 private:
   SCM get_property_setting (Stream_event *evt, char const *evprop, char const *ctxprop);
+  string get_spanner_type (Stream_event *ev);
 
   Drul_array<Stream_event *> accepted_spanevents_drul_;
   Spanner *current_spanner_;
@@ -85,7 +88,7 @@ New_dynamic_engraver::process_music ()
   if (current_spanner_
       && (accepted_spanevents_drul_[STOP] || script_event_ || accepted_spanevents_drul_[START]))
     {
-      Stream_event* ender = accepted_spanevents_drul_[STOP];
+      Stream_event *ender = accepted_spanevents_drul_[STOP];
       if (!ender)
 	ender = script_event_;
 
@@ -101,20 +104,8 @@ New_dynamic_engraver::process_music ()
   if (accepted_spanevents_drul_[START])
     {
       current_span_event_ = accepted_spanevents_drul_[START];
-      
-      SCM start_sym = current_span_event_->get_property ("class");
-      string start_type;
-	  
-      if (start_sym == ly_symbol2scm ("decrescendo-event"))
-	start_type = "decrescendo";
-      else if (start_sym == ly_symbol2scm ("crescendo-event"))
-	start_type = "crescendo";
-      else
-	{
-	  programming_error ("unknown dynamic spanner type");
-	  return;
-	}
-      
+
+      string start_type = get_spanner_type (current_span_event_);
       SCM cresc_type = get_property_setting (current_span_event_, "span-type",
                                        (start_type + "Spanner").c_str ());
 
@@ -135,7 +126,6 @@ New_dynamic_engraver::process_music ()
 	{
 	  if (cresc_type != ly_symbol2scm ("hairpin"))
 	    {
-	      // Fixme: should put value in error message.
 	      string as_string = ly_scm_write_string (cresc_type);
 	      current_span_event_
 		->origin()->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.", as_string.c_str()));
@@ -195,6 +185,38 @@ New_dynamic_engraver::stop_translation_timestep ()
   script_event_ = 0;
   accepted_spanevents_drul_.set (0, 0);
   finished_spanner_ = 0;
+}
+
+void
+New_dynamic_engraver::finalize ()
+{
+  if (current_spanner_
+      && !current_spanner_->is_live ())
+    current_spanner_ = 0;
+  if (current_spanner_)
+    {
+      current_span_event_
+	->origin ()->warning (_f ("unterminated %s",
+				  get_spanner_type (current_span_event_)
+				  .c_str ()));
+      current_spanner_->suicide ();
+      current_spanner_ = 0;
+    }
+}
+
+string
+New_dynamic_engraver::get_spanner_type (Stream_event *ev)
+{
+  string type;
+  SCM start_sym = ev->get_property ("class");
+
+  if (start_sym == ly_symbol2scm ("decrescendo-event"))
+    type = "decrescendo";
+  else if (start_sym == ly_symbol2scm ("crescendo-event"))
+    type = "crescendo";
+  else
+    programming_error ("unknown dynamic spanner type");
+  return type;
 }
 
 void
