@@ -30,7 +30,7 @@ contributors should follow.
 @end ignore
 
 
-@lilyTitlePage{Learning Manual}
+@lilyTitlePage{Contributor's Guide}
 
 
 @c TOC -- non-tex
@@ -46,6 +46,10 @@ contributors should follow.
 * Regression tests::
 * Programming work::
 * Release work::
+
+Appendices
+
+* GNU Free Documentation License:: License of this document.
 @end menu
 
 @docMain
@@ -63,6 +67,8 @@ contributors should follow.
 @include contributor/regressions.itexi
 @include contributor/programming-work.itexi
 @include contributor/release-work.itexi
+
+@include fdl.itexi
 
 @bye
 

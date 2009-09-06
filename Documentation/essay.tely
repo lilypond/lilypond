@@ -5,12 +5,17 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 @setfilename lilypond-essay.info
-@settitle GNU LilyPond Notation Reference
+@settitle LilyPond Notation Reference
 @documentencoding UTF-8
 @documentlanguage en
 
-@set web
+@macro manualIntro
+This essay discusses automatic music engraving functions within
+GNU LilyPond version @version{}.
+@end macro
+
 @include macros.itexi
 
 @afourpaper
@@ -23,70 +28,11 @@
 @omflanguage English
 @end ignore
 
-@ifnottex
-@node Top
-@top Essay on automated music engraving
-@end ifnottex
 
+@lilyTitlePage{Essay on automated music engraving}
 
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/essay.pdf,PDF} and as
-@uref{source/Documentation/essay-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/essay.pdf,PDF} and as a
-@uref{source/Documentation/essay/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle The music typesetter
-@titlefont{Essay on automated music engraving}
-@author Han-Wen Nienhuys and Jan Nieuwenhuizen
-
-Copyright @copyright{} ???? by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end titlepage
-
-@copying
-Copyright @copyright{} ???? by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
 
 @ifnottex
-Copyright ???? by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
 
 @menu
 * Music engraving::
@@ -95,6 +41,8 @@ Free Documentation License''.
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
 @end menu
+@end ifnottex
+
 
 @contents
 

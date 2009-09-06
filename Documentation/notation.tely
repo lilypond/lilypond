@@ -5,15 +5,22 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 @setfilename lilypond-notation.info
-@settitle GNU LilyPond Notation Reference
+@settitle LilyPond Notation Reference
 @documentencoding UTF-8
 @documentlanguage en
 
+@macro manualIntro
+This manual provides a reference for all notation that can be
+produced with GNU LilyPond version @version{}.  It assumes that
+the reader is familiar with the material in the
+@rlearningnamed{Top, Learning Manual}.
+@end macro
+
 @include macros.itexi
 
-@afourpaper
-
+@c  TODO: all the direntry stuff should be moved to general.texi
 @c  Keep this here, since it pertains to the direntry below.
 @ignore
 Distributions will want to install lilypond.info in postinstall, doing:
@@ -31,8 +38,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c    LilyPond  program.
 @end ignore
 
-
-@c
 @c Info files are no longer installed in a subdirectory, images are
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond --- the music typesetter
@@ -60,99 +65,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @omflanguage English
 @end ignore
 
-@ifnottex
-@node Top
-@top GNU LilyPond --- Notation Reference
-@chapheading The music typesetter
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-@end ifnottex
 
+@lilyTitlePage{Notation Reference}
 
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/notation.pdf,PDF} and as
-@uref{source/Documentation/notation-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/notation.pdf,PDF} and as a
-@uref{source/Documentation/notation/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-
-
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
-
-
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle The music typesetter
-@titlefont{Notation Reference}
-@author The LilyPond development team
-
-Copyright @copyright{} 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-For LilyPond version @version{}
-@end titlepage
-
-@copying
-Copyright @copyright{} 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
 
 @ifnottex
-This file documents GNU LilyPond.
-
-Copyright 1999--2009 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
-
-@ifnottex
-This is the Notation Reference (NR) for GNU LilyPond version @version{}.
-For more information about how this fits with the other
-documentation, see
-FIXME FIXME FIXME 
-@c @rlearning{About the documentation}.
-
-@cindex web site
-@cindex URL
-
-More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
-of this and other documentation.
-
 
 @menu
 * Musical notation::               Notation which is used in
@@ -174,8 +91,9 @@ Appendices
 * LilyPond command index::
 * LilyPond index::
 @end menu
+
+@docMain
 @end ifnottex
-@c * Literature list::                Reference works about music notation.
 
 @contents
 
@@ -190,9 +108,10 @@ Appendices
 @include notation/programming-interface.itely
 
 
-@c @include notation/literature.itely
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
+
+
 
 @node LilyPond grammar
 @appendix LilyPond grammar
@@ -202,7 +121,9 @@ output from the parser.
 
 @verbatiminclude ly-grammar.txt
 
+
 @include fdl.itexi
+
 
 @node LilyPond command index
 @appendix LilyPond command index

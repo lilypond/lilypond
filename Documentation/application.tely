@@ -5,17 +5,20 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 @setfilename lilypond-application.info
 @settitle GNU LilyPond Application usage
 @documentencoding UTF-8
 @documentlanguage en
 
-@include macros.itexi
-@c  This produces the unified index
-@syncodeindex fn cp
-@syncodeindex vr cp
+@macro manualIntro
+This file explains how to execute the programs distributed with
+GNU LilyPond version @version{}.  In addition, it suggests some
+@qq{best practices} for efficient usage.
+@end macro
 
-@afourpaper
+@include macros.itexi
+
 
 @c don't remove this comment.
 @ignore
@@ -27,60 +30,11 @@
 @end ignore
 
 
-@copying
-Copyright @copyright{} 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-2006, 2007, 2008, 2009 by the authors.
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
-
-@macro introText
-@cartouche
-This file explains how to execute the programs distributed with
-GNU LilyPond version @version{}.  In addition, it suggests some
-@qq{best practices} for efficient usage.
-@end cartouche
-@end macro
-
-
-@c TITLE PAGE
-@ifnottex
-@node Top
-@top GNU LilyPond --- Application Usage
-@end ifnottex
-
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle The music typesetter
-@titlefont{Application Usage}
-@author The LilyPond development team
-
-@vskip 100pt
-
-@introText{}
-
-@vskip 0pt plus 1filll
-@c @vskip 20pt
-
-@insertcopying{}
-
-For LilyPond version @version{}
-@end titlepage
+@lilyTitlePage{Usage}
 
 
 @c TOC -- non-tex
-
 @ifnottex
-@introText{}
 
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
@@ -96,9 +50,10 @@ Appendices
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
 @end menu
-@end ifnottex
 
 @docMain
+@end ifnottex
+
 
 @contents
 
