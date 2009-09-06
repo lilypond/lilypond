@@ -5,97 +5,36 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 @setfilename lilypond-contributor.info
-@settitle GNU LilyPond Contributor's Guide
+@settitle LilyPond Contributor's Guide
 @documentencoding UTF-8
 @documentlanguage en
 
+@macro manualIntro
+This manual documents contributing to GNU LilyPond version
+@version{}.  It discusses technical issues and policies that
+contributors should follow.
+@end macro
+
 @include macros.itexi
 
-@afourpaper
 
+@c don't remove this comment.
+@ignore
+@omfcreator LilyPond Development Team
+@omfdescription Contributor's Guide of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+
+@lilyTitlePage{Learning Manual}
+
+
+@c TOC -- non-tex
 @ifnottex
-@node Top
-@top GNU LilyPond --- Contributor's Guide
-@chapheading The music typesetter
-@end ifnottex
-
-
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/contributor.pdf,PDF} and as
-@c FIXME: update @uref{} stuff.
-@uref{source/Documentation/contributor-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/devel/contributor.pdf,PDF} and as a
-@uref{source/Documentation/devel/contributor/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-
-
-@iftex
-@exampleindent 0
-@finalout
-
-@titlepage
-@title LilyPond
-@subtitle The music typesetter
-@titlefont{Contributor's Guide}
-@author The LilyPond development team
-
-Copyright @copyright{} 1999--2008 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-
-@vskip 20pt
-
-For LilyPond version
-@end titlepage
-@end iftex
-
-@copying
-Copyright @copyright{} 1999--2008 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
-
-@ifnottex
-This file documents contributing to GNU LilyPond.
-
-Copyright 1999--2008 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end ifnottex
-
-@ifnottex
-
-More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains
-on-line copies of this and other documentation.
 
 @menu
 * Starting with git::
@@ -108,9 +47,12 @@ on-line copies of this and other documentation.
 * Programming work::
 * Release work::
 @end menu
+
+@docMain
 @end ifnottex
 
 @contents
+
 
 @include contributor/git-starting.itexi
 @include contributor/compiling.itexi
