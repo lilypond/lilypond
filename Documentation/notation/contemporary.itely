@@ -80,6 +80,87 @@ addressed in @ref{Automatic accidentals}.
 @node Contemporary approaches to rhythm
 @subsection Contemporary approaches to rhythm
 
+This section highlights issues that are relevant to the
+notation of rhythm in contemporary music.
+
+@menu
+* References for contemporary approaches to rhythm::
+* Tuplets in contemporary music::
+* Contemporary time signatures::
+* Extended polymetric notation::
+* Beams in contemporary music::
+* Bar lines in contemporary music::
+@end menu
+
+
+@node References for contemporary approaches to rhythm
+@unnumberedsubsubsec References for contemporary approaches to rhythm
+
+@itemize
+@item Compound time signatures are addressed in @ref{Time signature}.
+
+@item Basic polymetric notation is addressed in
+@ref{Polymetric notation}.
+
+@item Feathered beams are addressed in @ref{Feathered beams}.
+
+@item Mensurstriche barlines (barlines between staves only) are
+addressed in @ref{Grouping staves}.
+
+@end itemize
+
+
+@node Tuplets in contemporary music
+@unnumberedsubsubsec Tuplets in contemporary music
+
+@ignore
+    Extended discussion of modern tuplets, including
+    non-standard ratios, nested tuplets and customising
+    the appearance of tuplets (ratios, note values etc.)
+    Also how to provide an ossia RhythmicStaff to help
+    players break down a complicated tuplet.
+@end ignore
+
+
+@node Contemporary time signatures
+@unnumberedsubsubsec Contemporary time signatures
+
+@ignore
+    Extended discussion of compound time signatures
+    including Graham P.'s work; non-standard time
+    signatures such as 7/10, 5/6; alternative
+    notations such as Orff-esque 4/note, placing a
+    single time signature across multiple staves, or
+    placing time signatures at the top of StaffGroups
+    or systems rather than in the stave.
+@end ignore
+
+
+@node Extended polymetric notation
+@unnumberedsubsubsec Extended polymetric notation
+
+@ignore
+    Extended examples e.g. different instruments
+    or ensembles with independent tempi
+@end ignore
+
+
+@node Beams in contemporary music
+@unnumberedsubsubsec Beams in contemporary music
+
+@ignore
+    Beaming practises, stemlets, Boulez-esque displaying
+    of beamed notes with flags
+@end ignore
+
+
+@node Bar lines in contemporary music
+@unnumberedsubsubsec Bar lines in contemporary music
+
+@ignore
+    Mensurstriche barlines, tick barlines, etc.
+@end ignore
+
 
 @node Graphical notation
 @subsection Graphical notation
