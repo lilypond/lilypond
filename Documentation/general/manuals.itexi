@@ -597,7 +597,14 @@ GNU info format for documentation.  FIXME, link broken.
 @node Translated
 @unnumberedsec Translated
 
-blah
+@divClass{column-center-bottom}
+@subheading Translation status
+
+TODO: clean up / prettify
+
+@uref{../translations.html}.
+
+@divEnd
 
 
 @node All
