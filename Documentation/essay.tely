@@ -16,6 +16,8 @@ This essay discusses automatic music engraving functions within
 GNU LilyPond version @version{}.
 @end macro
 
+@c TODO: we shouldn't need this!
+@set web
 @include macros.itexi
 
 @afourpaper
@@ -41,6 +43,8 @@ GNU LilyPond version @version{}.
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
 @end menu
+
+@docMain
 @end ifnottex
 
 

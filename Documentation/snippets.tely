@@ -1,12 +1,32 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+
 @setfilename lilypond-snippets.info
 @settitle LilyPond snippets
 @documentencoding UTF-8
 @documentlanguage en
 
-@iftex
-@afourpaper
-@end iftex
+@macro manualIntro
+This document shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR). It is in the public domain.
+
+We would like to address many thanks to Sebastiano Vigna for maintaining
+LSR web site and database, and the University of Milano for hosting LSR.
+
+Please note that this document is not an exact subset of LSR: some
+snippets come from @file{input/new} LilyPond sources directory, and
+snippets from LSR are converted through @command{convert-ly}, as LSR is
+based on a stable LilyPond version, and this document is for
+version @version{}.
+
+Snippets are grouped by tags; tags listed in the table of contents match
+a section of LilyPond notation manual.  Snippets may have several tags,
+and not all LSR tags may appear in this document.
+
+In the HTML version of this document, you can click on the file name
+or figure for each example to see the corresponding input file.
+
+@end macro
 
 @c This disables @lydoctitle definition in common-macros.itexi
 @set snippets-sections
@@ -26,78 +46,12 @@
 @end macro
 @end ifhtml
 
-@finalout
 
-@titlepage
-@title LilyPond
-@subtitle The music typesetter
-@titlefont{Snippets}
-@author LilyPond Snippet Repository contributors
+@lilyTitlePage{Snippets}
 
-@vskip 20pt
-
-This document shows a selected set of LilyPond snippets from the
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR). It is in the public domain.
-
-We would like to address many thanks to Sebastiano Vigna for maintaining
-LSR web site and database, and the University of Milano for hosting LSR.
-
-Please note that this document is not an exact subset of LSR: some
-snippets come from @file{input/new} LilyPond sources directory, and
-snippets from LSR are converted through @command{convert-ly}, as LSR is
-based on a stable LilyPond version, and this document is for version
-@c @value{version}.
-
-Snippets are grouped by tags; tags listed in the table of contents match
-a section of LilyPond notation manual.  Snippets may have several tags,
-and not all LSR tags may appear in this document.
-
-In the HTML version of this document, you can click on the file name
-or figure for each example to see the corresponding input file.
-
-@end titlepage
-
-@iftex
-@contents
-@end iftex
-
-@ifnottex
-@node Top
-@top GNU LilyPond --- Snippets List
-
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/snippets.pdf,PDF} and as
-@uref{source/Documentation/snippets-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/snippets.pdf,PDF} and as
-@uref{source/Documentation/snippets/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-
-This document shows a selected set of LilyPond snippets from the
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR). It is in the public domain.
-
-Please note that it is not an exact subset of LSR: some snippets come
-from @file{Documentation/snippets/new} LilyPond sources directory, and
-snippets from LSR are converted through @command{convert-ly}, as LSR is
-based on a stable LilyPond version, and this document is for version
-@version{}.
-
-Snippets are grouped by tags; tags listed in the table of contents match
-a section of LilyPond notation manual.  Snippets may have several tags,
-and not all LSR tags may appear in this document.
-
-In the HTML version of this document, you can click on the file name
-or figure for each example to see the corresponding input file.
-@end ifnottex
 
 @c maybe generate/update @menu and @includes automatically? --jm
+@ifnottex
 @menu
 Musical notation
 * Pitches::
@@ -129,6 +83,9 @@ Other collections
 * MIDI::
 * Templates::
 @end menu
+
+@docMain
+@end ifnottex
 
 @contents
 
