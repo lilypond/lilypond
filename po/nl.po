@@ -1,5 +1,5 @@
 # nl.po -- GNU LilyPond's dutch language file
-# Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006 Jan Nieuwenhuizen <janneke@gnu.org>, Han-Wen Nienhuys <hanwen@cs.uu.nl>.
+# Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Jan Nieuwenhuizen <janneke@gnu.org>, Han-Wen Nienhuys <hanwen@xs4all.nl>.
 # Jan Nieuwenhuizen <janneke@gnu.org>, 1998.
 # Han-Wen Nienhuys <hanwen@cs.uu.nl>, 1998.
 #
@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.22\n"
+"Project-Id-Version: lilypond 2.13.4\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2007-04-28 12:03+0200\n"
-"PO-Revision-Date: 2007-05-29 15:01+0200\n"
+"PO-Revision-Date: 2009-09-06 15:01+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -1474,9 +1474,7 @@ msgstr "FreeType gezicht heeft geen PostScript fontnaam"
 
 #: paper-column-engraver.cc:199
 msgid "forced break was overridden by some other event, should you be using bar checks?"
-msgstr ""
-"geforceerde breuk werd opgeheft door andere gebeurtenis, zou je maatcontrole\n"
-"moeten gebruiken?"
+msgstr "geforceerde breuk werd opgeheven door andere gebeurtenis, misschien moet je maatcontrole gebruiken?"
 
 #: paper-outputter-scheme.cc:30
 #, c-format
