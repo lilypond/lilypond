@@ -508,7 +508,7 @@ Internals:
 @divEnd
 
 
-@divClass{column-right-bottom}
+@divClass{column-right-top}
 @subheading Contributors' Guide
 
 LilyPond development is a fairly complicated matter.  LilyPond is
@@ -537,10 +537,29 @@ GNU info format for documentation.  FIXME, link broken.
 
 @end itemize
 @divEnd
-
 @divEnd
 
+@divClass{column-right-bottom}
+@subheading Regression tests
 
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../../input/regression/collated-files.html, Regression tests}:
+This releases' tests.  (also in
+@uref{../../input/regression/collated-files.pdf, pdf})
+
+@item @uref{../../input/regression/musicxml/collated-files.html,
+MusicXML Regression tests}:
+This releases' MusicXML tests.  (also in
+@uref{../../input/regression/musicxml/collated-files.pdf, pdf})
+
+@item @uref{http://lilypond.org/test, Archive of regression tests}:
+Comparisons beteween versions.
+
+@end itemize
+@divEnd
+@divEnd
 
 @node Authors
 @unnumberedsec Authors 
