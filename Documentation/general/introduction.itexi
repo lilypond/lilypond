@@ -567,12 +567,11 @@ look half as sharp as mine!}
 @imageFloat{orm-finnendahl,jpg, left}
 @subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
 
-@qq{Although I don't know [LilyPond] very well yet, I'm *very*
-impressed. I used the program to input a motet of Josquin Desprez
-in mensural notation and there's no doubt that lilypond outscores
-all other notation programs easily concerning speed, ease of use
-and look!}
-@divEnd
+@qq{Although I don't know [LilyPond] very well yet, I'm
+@strong{*very} impressed. I used the program to input a motet of
+Josquin Desprez in mensural notation and there's no doubt that
+lilypond outscores all other notation programs easily concerning
+speed, ease of use and look!} @divEnd
 
 
 @divClass{testimonial-item}
@@ -596,9 +595,9 @@ work. I've never seen anything approaching the output that I get
 from Lilypond -- I'm totally confident that my music publishing
 needs will be fulfilled beyond my expectations using this great
 application. [..] basically untweaked Lilypond output [..] looks
-better than most recent "professional" publications I've compared
+better than most recent @qq{professional} publications I've compared
 it to (q.v., just about any Warner Bros. score, and even many of
-the most recent by "the old houses"). [..]}
+the most recent by @qq{the old houses}}). [..]}
 
 @qq{Beat that, Finale/Sibelius/Igor/whatever!!!}
 @divEnd
