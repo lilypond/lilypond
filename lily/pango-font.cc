@@ -356,7 +356,12 @@ Pango_font::text_stencil (string str,
   if (ly_is_module (mod))
     {
       SCM utf8_string = ly_module_lookup (mod, ly_symbol2scm ("utf-8-string"));
-      if (utf8_string != SCM_BOOL_F)
+      /*
+	has_utf8_string should only be true when utf8_string is a
+	variable that is bound to a *named* procedure.
+      */
+      if (utf8_string != SCM_BOOL_F
+	  && scm_procedure_name (SCM_VARIABLE_REF (utf8_string)) != SCM_BOOL_F)
 	has_utf8_string = true;
     }
 
