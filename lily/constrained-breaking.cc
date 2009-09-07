@@ -174,10 +174,13 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
             {
               if (brk != end_brk)
                 {
-                  warning (_ ("cannot find line breaking that satisfies constraints" ));
+		  brk = st.at (brk, sys).prev_;
+		  sys--;
+                  warning (_ ("cannot find line breaking that satisfies constraints"));
                   ret.push_back (space_line (brk, end_brk));
                 }
-              /* build up the good solution */
+
+              /* build up the good part of the solution */
               for (vsize cur_sys = sys; cur_sys != VPOS; cur_sys--)
                 {
 		  vsize prev_brk = st.at (brk, cur_sys).prev_;
@@ -237,16 +240,52 @@ Constrained_breaking::best_solution (vsize start, vsize end)
 std::vector<Line_details>
 Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
 {
-  vsize brk = prepare_solution (start, end, sys_count);
+  vsize end_brk = prepare_solution (start, end, sys_count);
   Matrix<Constrained_break_node> const &st = state_[start];
   vector<Line_details> ret;
 
-  for (int sys = sys_count-1; sys >= 0 && brk != VPOS; sys--)
+  /* This loop structure is C&Ped from solve(). */
+  /* find the first solution that satisfies constraints */
+  for (vsize sys = sys_count-1; sys != VPOS; sys--)
     {
-      ret.push_back (st.at (brk, sys).details_);
-      brk = st.at (brk, sys).prev_;
+      for (vsize brk = end_brk; brk != VPOS; brk--)
+        {
+          if (!isinf (st.at (brk, sys).details_.force_))
+            {
+              if (brk != end_brk)
+		{
+		  /*
+		    During initialize(), we only fill out a
+		    Line_details for lines that are valid (ie. not too
+		    long), otherwise line breaking becomes O(n^3).
+		    In case sys_count is such that no valid solution
+		    is found, we need to fill in the Line_details.
+		  */
+		  Line_details details;
+		  brk = st.at (brk, sys).prev_;
+		  sys--;
+		  fill_line_details (&details, brk, end_brk);
+		  ret.push_back (details);
+		}
+
+              /* build up the good part of the solution */
+              for (vsize cur_sys = sys; cur_sys != VPOS; cur_sys--)
+                {
+		  vsize prev_brk = st.at (brk, cur_sys).prev_;
+                  assert (brk != VPOS);
+                  ret.push_back (st.at (brk, cur_sys).details_);
+                  brk = prev_brk;
+                }
+              reverse (ret);
+              return ret;
+            }
+        }
     }
-  reverse (ret);
+
+  /* if we get to here, just put everything on one line */
+  Line_details details;
+  fill_line_details (&details, 0, end_brk);
+  ret.push_back (details);
   return ret;
 }
 
@@ -331,18 +370,28 @@ Constrained_breaking::initialize ()
 
   ragged_right_ = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
   ragged_last_ = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
-      
-  Output_def *l = pscore_->layout ();
-  System *sys = pscore_->root_system ();
+  /* NOTE: currently, we aren't using the space_ field of a
+     Line_details for anything.  That's because the approximations
+     used for scoring a page configuration don't actually space things
+     properly (for speed reasong) using springs anchored at the staff
+     refpoints.  Rather, the "space" is placed between the extent
+     boxes.  To get a good result, therefore, the "space" value for
+     page breaking needs to be much smaller than the "space" value for
+     page layout.  Currently, we just make it zero always.
+  */
+  between_system_space_ = 0;
+  between_system_padding_ = 0;
 
-  // TODO: add support for minimum-distance and stretchability here and
-  // to the page-breaker.
+  Output_def *l = pscore_->layout ();
+
   SCM spacing_spec = l->c_variable ("between-system-spacing");
   SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-between-system-spacing");
-  Real space = 0;
-  Real padding = 0;
-  Page_layout_problem::read_spacing_spec (spacing_spec, &padding, ly_symbol2scm ("padding"));
-  Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec, &padding, ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (spacing_spec,
+					  &between_system_padding_,
+					  ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
+					  &between_system_padding_,
+					  ly_symbol2scm ("padding"));
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
   Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
@@ -358,9 +407,6 @@ Constrained_breaking::initialize ()
     {
       for (vsize j = i + 1; j < breaks_.size (); j++)
 	{
-	  int start = Paper_column::get_rank (all_[breaks_[i]]);
-	  int end = Paper_column::get_rank (all_[breaks_[j]]);
-	  Interval extent = sys->pure_height (sys, start, end);
 	  bool last = j == breaks_.size () - 1;
 	  bool ragged = ragged_right_ || (last && ragged_last_);
 	  Line_details &line = lines_.at (j, i);
@@ -371,35 +417,7 @@ Constrained_breaking::initialize ()
 	  if (isinf (line.force_))
 	    break;
 
-	  Grob *c = all_[breaks_[j]];
-	  line.last_column_ = c;
-	  line.break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
-	  line.page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
-	  line.turn_penalty_ = robust_scm2double (c->get_property ("page-turn-penalty"), 0);
-	  line.break_permission_ = c->get_property ("line-break-permission");
-	  line.page_permission_ = c->get_property ("page-break-permission");
-	  line.turn_permission_ = c->get_property ("page-turn-permission");
-	  
-	  /* turn permission should always be stricter than page permission
-	     and page permission should always be stricter than line permission */
-	  line.page_permission_ = min_permission (line.break_permission_,
-						  line.page_permission_);
-	  line.turn_permission_ = min_permission (line.page_permission_,
-						  line.turn_permission_);
-
-	  // TODO: see the hack regarding begin_of_line and
-	  // rest_of_line extents in align-interface.  Perhaps we
-	  // should do the same thing here so that the effect extends
-	  // between systems as well as within systems.  It isn't as
-	  // crucial here, however, because the effect is largest when
-	  // dealing with large systems.
-	  line.extent_ = (extent.is_empty ()
-			  || isnan (extent[LEFT])
-			  || isnan (extent[RIGHT]))
-	    ? Interval (0, 0) : extent;
-	  line.padding_ = padding;
-	  line.space_ = space;
-	  line.inverse_hooke_ = extent.length () + space;
+	  fill_line_details (&line, i, j);
 	}
     }
 
@@ -413,6 +431,49 @@ Constrained_breaking::initialize ()
       start_[i] = breaks_[j];
     }
   state_.resize (start_.size ());
+}
+
+/*
+  Fills out all of the information contained in a Line_details,
+  except for information about horizontal spacing.
+*/
+void
+Constrained_breaking::fill_line_details (Line_details *const out, vsize start, vsize end)
+{
+  int start_rank = Paper_column::get_rank (all_[breaks_[start]]);
+  int end_rank = Paper_column::get_rank (all_[breaks_[end]]);
+  System *sys = pscore_->root_system ();
+  Interval extent = sys->pure_height (sys, start_rank, end_rank);
+
+  Grob *c = all_[breaks_[end]];
+  out->last_column_ = c;
+  out->break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
+  out->page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
+  out->turn_penalty_ = robust_scm2double (c->get_property ("page-turn-penalty"), 0);
+  out->break_permission_ = c->get_property ("line-break-permission");
+  out->page_permission_ = c->get_property ("page-break-permission");
+  out->turn_permission_ = c->get_property ("page-turn-permission");
+
+  /* turn permission should always be stricter than page permission
+     and page permission should always be stricter than line permission */
+  out->page_permission_ = min_permission (out->break_permission_,
+					  out->page_permission_);
+  out->turn_permission_ = min_permission (out->page_permission_,
+					  out->turn_permission_);
+
+  // TODO: see the hack regarding begin_of_line and
+  // rest_of_line extents in align-interface.  Perhaps we
+  // should do the same thing here so that the effect extends
+  // between systems as well as within systems.  It isn't as
+  // crucial here, however, because the effect is largest when
+  // dealing with large systems.
+  out->extent_ = (extent.is_empty ()
+		  || isnan (extent[LEFT])
+		  || isnan (extent[RIGHT]))
+    ? Interval (0, 0) : extent;
+  out->padding_ = between_system_padding_;
+  out->space_ = between_system_space_;
+  out->inverse_hooke_ = extent.length () + between_system_space_;
 }
 
 Real

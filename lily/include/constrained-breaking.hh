@@ -130,6 +130,8 @@ private:
   vsize systems_;
   bool ragged_right_;
   bool ragged_last_;
+  Real between_system_space_;
+  Real between_system_padding_;
 
   /* the (i,j)th entry is the configuration for breaking between
     columns i and j */
@@ -153,6 +155,7 @@ private:
 
   Real combine_demerits (Real force, Real prev_force);
 
-  bool calc_subproblem(vsize start, vsize systems, vsize max_break_index);
+  bool calc_subproblem (vsize start, vsize systems, vsize max_break_index);
+  void fill_line_details (Line_details *const, vsize, vsize);
 };
 #endif /* CONSTRAINED_BREAKING_HH */
