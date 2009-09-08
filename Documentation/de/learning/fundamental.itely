@@ -3172,7 +3172,7 @@ Musik sehr nützlich sein könnte:
 @lilypond[quote,verbatim,ragged-right]
 fragmentA = \relative c'' { a4 a8. b16 }
 fragmentB = \relative c'' { a8. gis16 ees4 }
-violin = \new Staff { \fragmentA \fragmentA \fragmentB fragmentA }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 \score {
   {
     \violin

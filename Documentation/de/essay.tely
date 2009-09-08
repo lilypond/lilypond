@@ -155,7 +155,7 @@ Free Documentation License''.
 
 @contents
 
-@c @include essay/engraving.itely
+@include essay/engraving.itely
 @include essay/literature.itely
 
 @include fdl.itexi
