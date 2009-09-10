@@ -2594,24 +2594,10 @@ objects outside it are moved.
 
 The @code{right-padding} property affects the spacing between the
 accidental and the note to which it applies.  It is not often
-required, but the following example shows one situation where it
-is needed.  Suppose we wish to show a chord containing both
-a B-natural and a B-flat.  To avoid ambiguity we would like to
-precede the notes with both a natural and a flat sign.  Here
-are a few attempts to do this:
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<b bes>
-<b! bes>
-<b? bes>
-@end lilypond
-
-None work, with the second two showing bad collisions between
-the two signs.
-
-One way of achieving this is to override the accidental stencil
-with a markup containing the natural and flat symbols in the
-order we would like, like this:
+required, but the default spacing may be wrong for certain special
+accidental glyphs or combination of glyphs used in some microtonal
+music.  These have to be entered by overriding the accidental
+stencil with a markup containing the desired symbol(s), like this:
 
 @cindex Accidental, example of overriding
 @cindex text property, example
@@ -2620,13 +2606,20 @@ order we would like, like this:
 @cindex right-padding property, example
 
 @lilypond[quote,ragged-right,verbatim]
-naturalplusflat = \markup { \natural \flat }
+sesquisharp = \markup { \sesquisharp }
 \relative c'' {
+  c
+  % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #naturalplusflat
-  \once \override Score.AccidentalPlacement #'right-padding = #1.5
-  <b bes>
+  \once \override Accidental #'text = #sesquisharp
+  cis c
+  % This improves the spacing
+  \once \override Score.AccidentalPlacement #'right-padding = #0.6
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #sesquisharp
+  cis
 }
 @end lilypond
 
@@ -2634,9 +2627,9 @@ naturalplusflat = \markup { \natural \flat }
 This necessarily uses an override for the accidental stencil which
 will not be covered until later.  The stencil type must be a
 procedure, here changed to print the contents of the @code{text}
-property of @code{Accidental}, which itself is set to be a natural
-sign followed by a flat sign.  These are then moved further away
-from the note head by overriding @code{right-padding}.
+property of @code{Accidental}, which itself is set to be a
+sesquisharp sign.  This sign is then moved further away from the
+note head by overriding @code{right-padding}.
 
 @noindent
 
