@@ -368,8 +368,9 @@ stemDown    = \override Stem #'direction = #DOWN
 stemNeutral = \revert Stem #'direction
 
 
-%% tabFullNotation
+%% tablature
 
+% switch to full notation
 tabFullNotation = {
   % time signature
   \revert TabStaff.TimeSignature #'stencil
@@ -402,6 +403,20 @@ tabFullNotation = {
   \revert TabStaff.Arpeggio #'stencil
 }
 
+%tie/repeat tie behaviour
+hideSplitTiedTabNotes = {
+  \override TabVoice.TabNoteHead #'(details tied-properties break-visibility) = #all-invisible
+  \override TabVoice.TabNoteHead #'(details tied-properties parenthesize) = ##f
+  \override TabVoice.TabNoteHead #'(details repeat-tied-properties note-head-visible) = ##f
+  \override TabVoice.TabNoteHead #'(details repeat-tied-properties parenthesize) = ##f
+}
+
+showSplitTiedTabNotes = {
+  \override TabVoice.TabNoteHead #'(details tied-properties break-visibility) = #begin-of-line-visible
+  \override TabVoice.TabNoteHead #'(details tied-properties parenthesize) = ##t
+  \override TabVoice.TabNoteHead #'(details repeat-tied-properties note-head-visible) = ##t
+  \override TabVoice.TabNoteHead #'(details repeat-tied-properties parenthesize) = ##t
+}
 
 %% text length
 

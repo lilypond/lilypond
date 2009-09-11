@@ -1867,6 +1867,10 @@
 
     (TabNoteHead
      . (
+	(details . ((tied-properties . ((break-visibility . ,begin-of-line-visible)
+					(parenthesize . #t)))
+		    (repeat-tied-properties . ((note-head-visible . #t)
+					       (parenthesize . #t)))))
 	(direction . ,CENTER)
 	(duration-log . ,note-head::calc-duration-log)
 	(font-series . bold)
