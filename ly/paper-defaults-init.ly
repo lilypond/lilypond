@@ -86,11 +86,17 @@
 
   \include "titling-init.ly"
 
+  check-consistency = ##t
+
   top-margin = 5 \mm
   bottom-margin = 6 \mm
+
+  left-margin-default = 10 \mm
+  right-margin-default = 10 \mm
+
   head-separation = 4 \mm
   foot-separation = 4 \mm
 
   first-page-number = #1
-  print-first-page-number =##f
+  print-first-page-number = ##f
 }

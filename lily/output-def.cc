@@ -11,6 +11,7 @@
 #include "context-def.hh"
 #include "file-path.hh"
 #include "global-context.hh"
+#include "international.hh"
 #include "interval.hh"
 #include "main.hh"
 #include "output-def.hh"
@@ -29,7 +30,7 @@ Output_def::Output_def ()
   parent_ = 0;
 
   smobify_self ();
-  
+
   scope_ = ly_make_anonymous_module (false);
 }
 
@@ -75,7 +76,7 @@ assign_context_def (Output_def * m, SCM transdef)
     {
       SCM sym = tp->get_context_name ();
       m->set_variable (sym, transdef);
-    }  
+    }
 }
 
 /* find the translator for NAME. NAME must be a symbol. */
@@ -109,10 +110,10 @@ Output_def::lookup_variable (SCM sym) const
   SCM var = ly_module_lookup (scope_, sym);
   if (SCM_VARIABLEP (var) && SCM_VARIABLE_REF (var) != SCM_UNDEFINED)
     return SCM_VARIABLE_REF (var);
-  
+
   if (parent_)
     return parent_->lookup_variable (sym);
-  
+
   return SCM_UNDEFINED;
 }
 
@@ -128,7 +129,93 @@ Output_def::set_variable (SCM sym, SCM val)
   scm_module_define (scope_, sym, val);
 }
 
-  
+void
+Output_def::normalize ()
+{
+  Real paper_width;
+  SCM scm_paper_width = c_variable ("paper-width");
+
+  Real left_margin, left_margin_default;
+  SCM scm_left_margin_default = c_variable ("left-margin-default");
+  SCM scm_left_margin = c_variable ("left-margin");
+
+  Real right_margin, right_margin_default;
+  SCM scm_right_margin_default = c_variable ("right-margin-default");
+  SCM scm_right_margin = c_variable ("right-margin");
+
+  if (scm_paper_width == SCM_UNDEFINED
+      || scm_left_margin_default == SCM_UNDEFINED
+      || scm_right_margin_default == SCM_UNDEFINED)
+    {
+      programming_error ("called normalize() on paper with missing settings");
+      return;
+    }
+  else
+    {
+      paper_width = scm_to_double (scm_paper_width);
+      left_margin_default = scm_to_double (scm_left_margin_default);
+      right_margin_default = scm_to_double (scm_right_margin_default);
+    }
+
+  Real line_width;
+  Real line_width_default = paper_width - left_margin_default - right_margin_default;
+  SCM scm_line_width = c_variable ("line-width");
+
+  if (scm_line_width == SCM_UNDEFINED)
+    {
+      left_margin = ((scm_left_margin == SCM_UNDEFINED) ? left_margin_default : scm_to_double(scm_left_margin));
+      right_margin = ((scm_right_margin == SCM_UNDEFINED) ? right_margin_default : scm_to_double(scm_right_margin));
+      line_width = paper_width - left_margin - right_margin;
+    }
+  else
+    {
+      line_width = scm_to_double (scm_line_width);
+      if (scm_left_margin == SCM_UNDEFINED)
+        {
+          if (scm_right_margin == SCM_UNDEFINED) // Vertically center systems if only line-width is given
+            {
+              left_margin = (paper_width - line_width) / 2;
+              right_margin = left_margin;
+            }
+          else
+            {
+              right_margin = scm_to_double (scm_right_margin);
+              left_margin = paper_width - line_width - right_margin;
+            }
+        }
+      else
+        {
+          left_margin = scm_to_double (scm_left_margin);
+          right_margin = ((scm_right_margin == SCM_UNDEFINED)
+                           ? (paper_width - line_width - left_margin)
+                           : scm_to_double (scm_right_margin));
+        }
+    }
+
+  if (to_boolean (c_variable ("check-consistency")))
+    {
+      // Consistency checks. If values don't match, set defaults.
+      if (abs(paper_width - line_width - left_margin - right_margin) > 1e-6)
+        {
+          line_width = line_width_default;
+          left_margin = left_margin_default;
+          right_margin = right_margin_default;
+          warning (_ ("margins do not fit with line-width, setting default values"));
+        }
+      else if ((left_margin < 0) || (right_margin < 0))
+        {
+          line_width = line_width_default;
+          left_margin = left_margin_default;
+          right_margin = right_margin_default;
+          warning (_ ("systems run off the page due to improper paper settings, setting default values"));
+        }
+    }
+
+  set_variable (ly_symbol2scm ("left-margin"), scm_from_double (left_margin));
+  set_variable (ly_symbol2scm ("right-margin"), scm_from_double (right_margin));
+  set_variable (ly_symbol2scm ("line-width"), scm_from_double (line_width));
+}
+
 /* FIXME.  This is broken until we have a generic way of
    putting lists inside the \layout block.  */
 Interval

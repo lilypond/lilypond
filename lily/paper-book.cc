@@ -159,12 +159,21 @@ Paper_book::output (SCM output_channel)
 {
   int first_page_number = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
   int first_performance_number = 0;
+
+  /* FIXME: We need a line-width for ps output (framework-ps.scm:92). If we don't have any, we take the paper-width
+     unless we know better which line-width to choose (e.g. if there are \bookparts with different line-widths)
+     and why we need it at all. */
+
+  if (paper_->c_variable ("line-width") == SCM_UNDEFINED)
+    paper_->set_variable (ly_symbol2scm ("line-width"), paper_->c_variable ("paper-width"));
+ 
   if (!output_aux (output_channel,
 		   true,
 		   &first_page_number,
 		   &first_performance_number))
     return;
-      
+    
+ 
   SCM scopes = SCM_EOL;
   if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);

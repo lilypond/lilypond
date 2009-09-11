@@ -184,11 +184,7 @@
   (let*
       ((paper-height (ly:output-def-lookup layout 'paper-height))
        (paper-width (ly:output-def-lookup layout 'paper-width))
-       (lmargin (ly:output-def-lookup layout 'left-margin #f))
-       (left-margin (if lmargin
-		       lmargin
-		       (/ (- paper-width
-			     (ly:output-def-lookup layout 'line-width)) 2)))
+       (left-margin (ly:output-def-lookup layout 'left-margin))
        (bottom-edge (- paper-height
 		       (ly:output-def-lookup layout 'bottom-margin)) )
        (top-margin (ly:output-def-lookup layout 'top-margin))
