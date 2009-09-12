@@ -10,4 +10,6 @@ someNotes = \relative c' { \repeat unfold 40 { c4 d e f } }
   line-width = 100 \mm
 }
 
-\score { \someNotes }
+\book {
+  \score { \someNotes }
+}

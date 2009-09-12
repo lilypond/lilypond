@@ -8,7 +8,11 @@ are specified, default values are used."
 
 someNotes = \relative c' { \repeat unfold 40 { c4 d e f } }
 
-\paper { }
+\paper {
+  #(set-paper-size (ly:get-option 'paper-size))
+}
 
-\score { \someNotes }
+\book {
+  \score { \someNotes }
+}
 

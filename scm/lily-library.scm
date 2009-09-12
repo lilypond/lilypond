@@ -333,14 +333,12 @@
    (lambda (x) x)
    (map proc lst)))
 
-
-(define (flatten-list lst)
-  "Unnest LST"
-  (if (null? lst)
-      '()
-      (if (pair? (car lst))
-	  (append (flatten-list (car lst)) (flatten-list  (cdr lst)))
-	  (cons (car lst) (flatten-list (cdr lst))))))
+(define (flatten-list x)
+  "Unnest list."
+  (cond ((null? x) '())
+        ((not (pair? x)) (list x))
+        (else (append (flatten-list (car x))
+                      (flatten-list (cdr x))))))
 
 (define (list-minus a b)
   "Return list of elements in A that are not in B."
@@ -606,6 +604,29 @@ applied to function @var{getter}.")
 
 (define-public (symbol-key<? lst r)
   (string<? (symbol->string (car lst)) (symbol->string (car r))))
+
+(define-public (eval-carefully symbol module . default)
+  "Check if all symbols in expr SYMBOL are reachable
+   in module MODULE. In that case evaluate, otherwise
+   print a warning and set an optional DEFAULT."
+  (let* ((unavailable? (lambda (sym)
+                         (not (module-defined? module sym))))
+	 (sym-unavailable (if (pair? symbol)
+	                      (filter
+			        unavailable?
+			        (filter symbol? (flatten-list symbol)))
+			      (if (unavailable? symbol)
+			           #t
+				   '()))))
+    (if (null? sym-unavailable)
+        (eval symbol module)
+        (let* ((def (and (pair? default) (car default))))
+          (ly:programming-error
+            "cannot evaluate ~S in module ~S, setting to ~S"
+            (object->string symbol)
+            (object->string module)
+            (object->string def))
+          def))))
 
 ;;
 ;; don't confuse users with #<procedure .. > syntax.

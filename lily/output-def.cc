@@ -136,11 +136,11 @@ Output_def::normalize ()
   SCM scm_paper_width = c_variable ("paper-width");
 
   Real left_margin, left_margin_default;
-  SCM scm_left_margin_default = c_variable ("left-margin-default");
+  SCM scm_left_margin_default = c_variable ("left-margin-default-scaled");
   SCM scm_left_margin = c_variable ("left-margin");
 
   Real right_margin, right_margin_default;
-  SCM scm_right_margin_default = c_variable ("right-margin-default");
+  SCM scm_right_margin_default = c_variable ("right-margin-default-scaled");
   SCM scm_right_margin = c_variable ("right-margin");
 
   if (scm_paper_width == SCM_UNDEFINED

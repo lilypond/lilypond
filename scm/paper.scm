@@ -16,7 +16,7 @@
 		    indent
 		    ledger-line-thickness
 		    left-margin
-                    left-margin-default
+                    left-margin-default-scaled
 		    line-thickness
 		    line-width
 		    mm
@@ -24,7 +24,7 @@
 		    paper-width
 		    pt
 		    right-margin
-                    right-margin-default
+                    right-margin-default-scaled
 		    short-indent
 		    staff-height
 		    staff-space
@@ -213,13 +213,63 @@ size. SZ is in points"
 
 (define (set-paper-dimensions m w h)
   "M is a module (i.e. layout->scope_ )"
-  (begin
+  (let*
     ;; page layout - what to do with (printer specific!) margin settings?
-    (module-define! m 'paper-width w)
-    (module-define! m 'paper-height h)
-    (module-define! m 'indent (/ w 14))
-    (module-define! m 'short-indent 0))
-    (module-remove! m 'line-width))
+    ((paper-default (eval-carefully
+                      (assoc-get
+		        (ly:get-option 'paper-size)
+			paper-alist
+			#f
+			#t)
+		      m
+		      (cons w h)))
+     (scaleable-values `(("left-margin" . ,w)
+                         ("right-margin" . ,w)
+                         ("top-margin" . ,h)
+                         ("bottom-margin" . ,h)
+                         ("head-separation" . ,h)
+                         ("foot-separation" . ,h)
+                         ("indent" . ,w)
+                         ("short-indent" . ,w)))
+     (scaled-values
+       (map
+         (lambda (entry)
+           (let ((entry-symbol
+	           (string->symbol
+                     (string-append (car entry) "-default")))
+		 (orientation (cdr entry)))
+	      (if paper-default
+		  (cons (car entry)
+		        (round (* orientation
+				  (/ (eval-carefully entry-symbol m 0)
+				     (if (= orientation w)
+				         (car paper-default)
+				         (cdr paper-default))))))
+		  entry)))
+	 scaleable-values)))
+
+  (module-define! m 'paper-width w)
+  (module-define! m 'paper-height h)
+  ;; Left and right margin are stored in renamed variables because
+  ;; they must not be overwritten.
+  ;; Output_def::normalize () needs to know
+  ;; whether the user set the value or not.
+  (module-define! m 'left-margin-default-scaled
+    (assoc-get "left-margin" scaled-values 0 #t))
+  (module-define! m 'right-margin-default-scaled
+    (assoc-get "right-margin" scaled-values 0 #t))
+  ;; Sometimes, lilypond-book doesn't estimate a correct line-width.
+  ;; Therefore, we need to unset line-width.
+  (module-remove! m 'line-width)
+  (set! scaled-values (assoc-remove!
+                        (assoc-remove! scaled-values "left-margin")
+			"right-margin"))
+  (for-each
+     (lambda (value)
+        (let ((value-symbol (string->symbol (car value)))
+              (number (cdr value)))
+          (module-define! m value-symbol number)))
+     scaled-values)))
 
 (define (internal-set-paper-size module name landscape?)
   (define (swap x)
