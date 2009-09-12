@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: e9049b4f3899b7006134987004bd18e813b96d27
+    Translation of GIT committish: 67373601dabc72e32e3e7a4364c8be123d785e0b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -155,7 +155,7 @@ Free Documentation License''.
 
 @contents
 
-@c @include essay/engraving.itely
+@include essay/engraving.itely
 @include essay/literature.itely
 
 @include fdl.itexi

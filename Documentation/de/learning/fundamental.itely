@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+    Translation of GIT committish: 67373601dabc72e32e3e7a4364c8be123d785e0b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -271,7 +271,7 @@ Nähere Details finden sich im Abschnitt @ruser{Mehrere Partituren in einem Buch
 @cindex Variablen
 @cindex Bezeichner
 
-Eine gute Möglichkeit zur Vereinfachung sind selbst definierte Variablen. 
+Eine gute Möglichkeit zur Vereinfachung sind selbst definierte Variablen (siehe auch @ref{Organizing pieces with variables}.)
 Alle Vorlagen verwenden diese Möglichkeit.
 
 @example
@@ -338,23 +338,11 @@ Kapitel wurde gezeigt, wie sich große musikalische Ausdrücke
 aus kleinen Teilen zusammensetzen.  Noten können zu Akkorden 
 verbunden werden usw. Jetzt gehen wir aber in die andere Richtung 
 und betrachten, wie sich ein großer musikalischer Ausdruck 
-zerlegen lässt.
-
-@example
-\score @{
-  @{   % diese Klammer startet den großen mus. Ausdruck
-    \new StaffGroup <<
-      @var{...hier eine ganze Wagner-Oper einfügen...}
-    >>
-  @}   % diese Klammer beendet den Ausdruck
-  \layout @{ @}
-@}
-@end example
-
-Eine Wagner-Oper ist mindestens doppelt so lang wie dieses Handbuch,
-beschränken wir uns also auf einen Sänger und Klavier.  Wir brauchen 
-keine ganze Orchesterpartitur, infolgedessen können wir die Systemgruppe
-(StaffGroup) auslassen, aber wir brauchen einen Sänger und ein Klavier.
+zerlegen lässt. Zur Einfachheit soll nur ein Sänger und Klavier
+in unserem Beispiel eingesetzt werden.  Wir brauchen 
+keine Systemgruppe (StaffGroup), die einfach nur bewirkt,
+dass die Systeme mit einer Klammer zusammengefasst werden; sie
+wird also entfernt.  Wir @emph{brauchen} aber einen Sänger und ein Klavier.
 
 @example
 \score @{
@@ -370,18 +358,24 @@ keine ganze Orchesterpartitur, infolgedessen können wir die Systemgruppe
 @}
 @end example
 
+Hier wurden die Systeme (Staff) benannt: @qq{Sänger} und
+@qq{Klavier}.  Das ist nicht direkt notwendig in diesem Fall,
+aber es ist gut, sich diese Schreibweise anzugewöhnen, damit man
+immer sofort erkennt, um welches System es sich handelt.
+
 Zur Erinnerung: mit @code{<<} und @code{>>} werden Noten gleichzeitig
-gesetzt; wir wollen ja auch Klavier- und Sängerstimme gleichzeitig 
-und nicht hintereinander haben.  Bei genauerem Hinsehen fällt auf, dass
-die @code{<< ... >>}-Konstruktion für die Notenzeile des Sängers eigentlich 
-nicht unbedingt nötig wäre, da sie ja nur einen (sequenzielle) musikalischen
-Ausdruck enthält, nämlich alle Noten des Sängers hintereinander.  Daher
-könnte an sich auch einfach ein @code{@{...@}} benutzt werden.  Die 
-Spitzklammern sind allerdings notwendig, sobald die Notenzeile mehrere
-parallelle Ausdrücke -- wie etwa zwei parallele Stimmen oder eine Stimme
-mit zugehörigem Text -- enthält. 
-Wir werden die Musik später in das Beispiel einfügen, im Moment begnügen 
-wir uns mit einigen Platzhalter-Noten und -Texten.
+gesetzt.  Dadurch werden Vokalstimme und Klaviersysteme übereinander
+ausgegeben.  Die @code{<< ... >>}-Konstruktion ist für das
+Sänger-System nicht notwendig, wenn hier nur die Noten einer
+einzigen Stimme eingefügt werden sollen, aber @code{<< ... >>}
+anstelle von geschwungenen Klammern sind notwendig,
+sobald mehr als eine Stimme oder etwa eine Notenstimme und
+Gesangstext eingefügt werden sollen.  In unserem Fall soll eine
+Stimme mit Gesangstext notiert werden, sodass die spitzen Klammern
+benötigt werden.  Die Noten sollen erst später hinzugefügt werden,
+hier also erstmal nur ein paar Platzhalternoten und Text.  Wenn
+Sie sich nicht erinnern, wie man Gesangstext notiert, lesen
+Sie noch einmal @code{\addlyrics} in @ref{Setting simple songs}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -408,7 +402,8 @@ PianoStaff} gesetzt.  @code{PianoStaff} bezeichnet die Piano-Umgebung (etwa
 durchgehende Taktstriche und die geschweifte Klammer am Anfang), in der 
 dann wiederum zwei eigene Systeme ("oben" für die rechte Hand und 
 "unten" 
-für die linke) erstellt werden.
+für die linke) erstellt werden, auch wenn das untere System noch
+einen Bassschlüssel erhalten muss.
 
 Jetzt könnte man in diese Umgebung Noten einfügen.  Innerhalb der 
 geschweiften Klammern neben @code{\new Voice = "Singstimme"}
@@ -424,7 +419,18 @@ könnte man
 schreiben.  Aber wenn man seine Datei so direkt schreibt, wird 
 der @code{\score}-Abschnitt sehr lang und es wird ziemlich schwer zu 
 verstehen, wie alles zusammenhängt.  Darum bietet es sich an, Bezeichner 
-(oder Variablen) zu verwenden.
+(oder Variablen) zu verwenden.  Sie wurden zu Beginn des vorigen
+Abschnitts erklärt, erinnern Sie sich?  Damit wir sicher gehen
+können, dass der Inhalt der @code{text}-Variable als Gesangstext
+interpretiert wird, wird ihm @code{\lyricmode} vorangesetzt.  Wie
+@code{\addlyrics} wird hiermit in den Eingabemodus für Gesangstext
+gewechselt. Ohne diesen Befehl würde LilyPond versuchen, den Inhalt
+der Variable als Noten zu interpretieren und dabei eine Menge
+Fehler produzieren. (Einige andere Eingabemodi sind außerdem noch
+verfügtbar, siehe @ruser{Input modes}.)
+
+Also haben wir, wenn wir ein paar Noten und einen Bassschlüssel
+für die linke Hand hinzufügen, folgendes Beispiel:
 
 @lilypond[verbatim,quote,ragged-right]
 melodie = \relative c'' { r4 d8\noBeam g, c4 r }
@@ -449,15 +455,6 @@ unten   = \relative c { b2 e2 }
   \layout { }
 }
 @end lilypond
-
-Achten Sie auf den Unterschied zwischen Noten, die mit @code{\relative}
-oder direkt in einem musikalischen Ausruck eingegeben werden, und 
-dem Text des Lieds, der innerhalb @code{\lyricmode} angegeben 
-werden muss.  Diese Unterscheidung ist für LilyPond essentiell,
-um zu entscheiden, ob der folgende Inhalt als Musik oder Text 
-interpretiert werden soll.  Wie könnte LilyPond sonst entscheiden, 
-ob @code{@{a b c@}} die drei Noten a, b und c darstellen soll oder
-den Text eines Lieds über das Alphabet!
 
 Beim Schreiben (oder Lesen) einer @code{\score}-Umgebung 
 sollte man langsam und sorgfältig vorgehen.  Am besten fängt 
@@ -979,7 +976,8 @@ Stimmen tragen Hälse nach oben, die gerade Hälse nach unten.  Die Hälse
 für die Stimmen 1 und 2 stimmen, aber die Hälse in der dritten Stimme
 sollen in diesem Beispiel eigentlich nach unten zeigen.  Wir können das
 korrigieren, indem wir die dritte Stimme einfach auslassen und die
-Noten in die vierte Stimme verschieben:
+Noten in die vierte Stimme verschieben.  Das wird einfach vorgenommen,
+indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
 
 @c KEEP LY
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -1681,8 +1679,8 @@ Der Quellcode ist sehr kurz und knapp, während in der
 Notenausgabe Taktlinien, Vorzeichen, ein Schlüssel und
 eine Taktart hinzugefügt wurden.  Während LilyPond
 den Eingabetext @emph{interpretiert}, wird die
-musikalische Information in zeitlicher Reihenfolge
-inspiziert, etwa wie man eine Partitur von links nach
+musikalische Information von rechts nach links gelesen,
+in etwa, wie man eine Partitur von links nach
 rechts liest.  Während das Programm den Code liest,
 merkt es sich, wo sich Taktgrenzen befinden und
 für welche Tonhöhen Versetzungszeichen gesetzt werden
@@ -1693,8 +1691,8 @@ beziehen sich nur auf ein System, Taktlinien dagegen
 
 Innerhalb von LilyPond sind diese Regeln und 
 Informationshappen in @emph{Kontexten} (engl.
-contexts) gruppiert.  Wir sind schon auf den
-@code{Voice} (Stimmen)-Kontext gestoßen.  Daneben
+contexts) gruppiert.  Der @code{Voice} (Stimmen)-Kontext
+wurde schon vorgestellt.  Daneben
 gibt es noch die @code{Staff} (Notensystem-) und
 @code{Score} (Partitur)-Kontexte.  Kontexte sind
 hierarchisch geschichtet um die hierarchische
@@ -2180,7 +2178,7 @@ die Werte wahr und falsch (mit @code{##t} und @code{##f}
 notiert) immer mit zwei Rauten beginnen.  Eine Eigenschaft, die
 aus Text besteht, muss in doppelte Anführungsstriche gesetzt werden,
 auch wenn wir später sehen werden, dass Text auf eine sehr viel
-allgmeinere und mächtigere Art mit dem @code{markup}-Befehl
+allgmeinere und mächtigere Art mit dem @code{\markup}-Befehl
 eingegeben werden kann.
 
 @subsubheading Kontexteigenschaften mit @code{\with} setzen
@@ -2469,6 +2467,8 @@ was Sie brauchen? Lesen Sie weiter.
 * Sopran und Cello::
 * Vierstimmige SATB-Partitur::
 * Eine Partitur von Grund auf erstellen::
+* Tipparbeit durch Variablen und Funktionen ersparen::
+* Partitur und Stimmen::
 @end menu
 
 
@@ -3149,7 +3149,238 @@ PedalOrganMusic = \relative c {
 @end lilypond
 
 
+@node Tipparbeit durch Variablen und Funktionen ersparen
+@subsection Tipparbeit durch Variablen und Funktionen ersparen
+@translationof Saving typing with variables and functions
 
+@cindex Variablen
+
+Bis jetzt wurde immer derartige Notation vorgestellt:
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+Sie können sich vorstellen, dass das etwa für minimalistische
+Musik sehr nützlich sein könnte:
+
+@lilypond[quote,verbatim,ragged-right]
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+Diese Variablen (die man auch als Makros oder Benutzer-Befehl
+bezeichnet) können jedoch auch für eigene Anpassungen eingesetzt
+werden:
+
+@c TODO Avoid padtext - not needed with skylining
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+Derartige Variablen sind offensichtlich sehr nützlich, zu Tipparbeit zu ersparen.  Aber es lohnt sich schon, sie zu
+benutzen, wenn man sie nur einmal benutzen will, denn sie
+vereinfachen die Struktur einer Datei sehr stark.  Hier das
+vorige Beispiel ohne jede Benutzung von Variablen.  Es ist
+sehr viel schwerer lesbar, besonders die letzte Zeile.
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
+Bisher haben wir vor allem statische Ersetzungen betrachtet:
+wenn LilyPond etwa @code{\padText} sieht, wird es ersetzt mit
+all dem Code, mit dem wir es definiert haben (also alles,
+was sich rechts von @code{padtext=} befindet).
+
+LilyPond kann auch nicht-statische Ersetzungen bewältigen.  Man
+kann sie sich als Funktionen vorstellen.
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Die Benutzung von Variablen ist auch eine gute Möglichkeit,
+Arbeit zu vermeiden, wenn sich einmal die Syntax von LilyPond
+ändern sollte (siehe auch @rprogram{Updating old input iles}).
+Wenn man eine einzige Definition hat (wie etwa @code{\dolce}),
+die für alle Vorkommen in der Notation eingesetzt wird, muss
+man auch nur einmal diese Definition aktualisieren, anstatt
+dass man sie in jeder @code{.ly}-Datei einzeln ändern müsste.
+
+
+@node Partitur und Stimmen
+@subsection Partitur und Stimmen
+@translationof Scores and parts
+
+In Orchestermusik werden alle Noten zweimal gedruckt.  Einmal
+in einer Stimme für die Spieler, und einmal ein der Partitur
+für den Dirigenten.  Variablen können benutzen, um sich doppelte
+Arbeit zu ersparen.  Die Noten werden nur einmal eingegeben und
+in einer Variable abgelegt.  Der Inhalt der Variable wird dann
+benutzt um sowohl die Stimme als auch die Paritur zu erstellen.
+
+Es bietet sich an, die Noten in einer extra Datei abzulegen.
+Nehmen wir an, dass die Datei @file{horn-music.ly} folgende
+Noten eines Horn/@/Fagott-Duos enthält:
+
+@example
+hornNotes = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+Eine Stimme wird also erstellt, indem man folgendes in eine
+Datei schreibt:
+
+@example
+\include "horn-music.ly"
+\header @{
+  instrument = "Horn in F"
+@}
+
+@{
+ \transpose f c' \hornNotes
+@}
+@end example
+
+Die Zeile
+
+@example
+\include "horn-music.ly"
+@end example
+
+@noindent
+ersetzt den Inhalt von @file{horn-music.ly} an dieser Position
+in der Datei, sodass @code{hornNotes} im Folgenden definiert
+ist.  Der Befehl @code{\transpose f@tie{}c'} zeigt an, dass
+das Argument (@code{\hornNotes}) eine Quinte nach oben transponiert
+werden soll.  Klingendes @code{f} wird als @code{c'}, wie es
+die Stimmung eines normalen F-Hornes verlangt.  Die Transposition
+kann in folgender Notenausgabe gesehen werden:
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+In Ensemblestücken sind manche Stimmen für viele Takte stumm.
+Das wird durch eine besondere Pause notiert, die Mehrtaktpause.
+Sie wird mit einem großen @code{R} notiert, gefolgt von der
+Dauer (@code{1}@tie{}für eine Ganze, @code{2}@tie{}für eine Halbe usw.).  Indem man die Dauern multipliziert, kann man auch
+längere Dauern erzeugen.  Diese Pause etwa dauert drei Takte
+in einem 2/4-Takt:
+
+@example
+R2*3
+@end example
+
+Wenn die Stimme gesetzt wird, werden Mehrtaktpausen komprimiert.  Das schieht, indem man folgendes in die Datei
+schreibt:
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+Dieser Befehl setzt die Eigenschaft @code{skipBars} im
+@code{Score}-Kontext auf wahr (@code{##t}).  Die Pause und diese Option zu der Musik von oben hinzugefügt, ergibt folgendes
+Beispiel:
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+Die Partitur wird erstellt, indem man alle Noten kombiniert.
+Angenommen, die andere Stimme ist in @code{bassoonNotes}
+in der Datei @file{bassoon-music.ly} definiert, würde eine
+Paritur erstellt mit:
+
+@example
+\include "bassoon-music.ly"
+\include "horn-music.ly"
+
+<<
+  \new Staff \hornNotes
+  \new Staff \bassoonNotes
+>>
+@end example
+
+@noindent
+leading to
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
 
 
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 499a511d4166feaada31114e097f86b5e0c56421
+    Translation of GIT committish: 67373601dabc72e32e3e7a4364c8be123d785e0b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,7 +13,7 @@
 
 
 @node Literatur
-@appendix Literatur
+@chapter Literatur
 @translationof Literature list
 
 Wenn Sie mehr über Notation und den Notenstich erfahren wollen, sind 
