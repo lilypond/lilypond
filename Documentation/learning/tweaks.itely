@@ -2896,7 +2896,8 @@ dynamics, fingering and pedalling.
 
 @c The following should appear as music without code
 @c This example should not be indexed
-@lilypond[quote,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
   c4.\( g8 |
@@ -2908,7 +2909,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   bes2.^\markup {\bold "Moderato"} r8
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Reposition the c2 to the right of the merged note
     {c,8~ \once \override NoteColumn #'force-hshift = #1.0
@@ -2959,7 +2960,8 @@ by entering the notes as two variables and setting up the staff
 structure in a score block, and see what LilyPond produces by
 default:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4. g8 |
   bes1~ |
@@ -3000,15 +3002,15 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-All the notes are right, but the appearance is far from satisfactory.
-The tie clashes with the change in time signature, the beaming in the
-third bar is wrong, the notes are not merged together, and several
-notation elements are missing.  Let's first deal with the easier
-things.  We can correct the beaming by inserting a beam manually, and
-we can easily add the left hand slur and the right hand phrasing slur,
+All the notes are right, but the appearance is far from
+satisfactory.  The tie clashes with the change in time signature,
+the notes are not merged together, and several notation elements
+are missing.  Let's first deal with the easier things.  We can
+easily add the left hand slur and the right hand phrasing slur,
 since these were all covered in the Tutorial.  Doing this gives:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   bes1~ |
@@ -3016,7 +3018,7 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3069,7 +3071,8 @@ to 3.5 half staff spaces above the center line:
 
 This completes bar two, giving:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3079,7 +3082,7 @@ rhMusic = \relative c'' {
   bes2. r8
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3115,9 +3118,9 @@ lhMusic = \relative c' {
 On to bar three and the start of the Moderato section.  The tutorial
 showed how to add embolded text with the @code{\markup} command, so
 adding @q{Moderato} in bold is easy.  But how do we merge notes in
-different voices together?  This is where we need to turn to the
-Notation Reference for help.  A search for @qq{merge} in the Notation
-Reference index quickly leads us to the commands for merging
+different voices together?  This is where we need to turn again to
+the Notation Reference for help.  A search for @qq{merge} in the
+Notation Reference index quickly leads us to the commands for merging
 differently headed and differently dotted notes in @ruser{Collision
 resolution}.  In our example we need to merge both types of note for
 the duration of the polyphonic section in bar 3, so using the
@@ -3139,7 +3142,8 @@ to the start of that section and
 @noindent
 to the end, giving:
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3151,7 +3155,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     {c,8~ c2 | }
   \\
@@ -3204,7 +3208,8 @@ Applying these changes gives:
 @cindex Tie, example of overriding
 @cindex staff-position property, example
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2 c4.\( g8 |
   \once \override Tie #'staff-position = #3.5
@@ -3216,7 +3221,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Move the c2 out of the main note column so the merge will work
     {c,8~ \shiftOnn c2 | }
@@ -3264,7 +3269,8 @@ the @code{force-hshift} property.  Here's the final result:
 @cindex Stem, example of overriding
 @cindex transparent property, example
 
-@lilypond[quote,verbatim,ragged-right]
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=5.5\in]
 rhMusic = \relative c'' {
   r2
   c4.\( g8 |
@@ -3276,7 +3282,7 @@ rhMusic = \relative c'' {
   \mergeDifferentlyHeadedOn
   \mergeDifferentlyDottedOn
   <<
-    {c,8[ d fis bes a] | }
+    {c,8 d fis bes a | }
   \\
     % Reposition the c2 to the right of the merged note
     {c,8~ \once \override NoteColumn #'force-hshift = #1.0
