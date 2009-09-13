@@ -87,7 +87,7 @@
    ((note? object)
     (let ((pitch (ly:pitch-semitones (note-pitch object))))
       (format #f "~a~a~a~a"
-              (cdr (assoc (modulo pitch 12) pp-pitch-names))
+              (assoc-get (modulo pitch 12) pp-pitch-names)
               (let ((octave (+ (inexact->exact (floor (/ pitch 12))) 1)))
                 (cond
                  ((= octave 0)

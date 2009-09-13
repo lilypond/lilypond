@@ -2260,10 +2260,10 @@
   ;;  (newline)
   (let* ((name-sym  (car x))
 	 (grob-entry (cdr x))
-	 (meta-entry (cdr (assoc 'meta grob-entry)))
-	 (class (cdr (assoc 'class meta-entry)))
+	 (meta-entry (assoc-get 'meta grob-entry))
+	 (class (assoc-get 'class meta-entry))
 	 (ifaces-entry
-	  (cdr (assoc 'interfaces meta-entry))))
+	  (assoc-get 'interfaces meta-entry)))
 
     (cond
      ((eq? 'Item class)

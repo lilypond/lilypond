@@ -480,11 +480,11 @@ OTTAVATION to `8va', or whatever appropriate."
 	    (ly:context-unset-property where 'ottavation)))
 
       (let* ((offset (* -7 octavation))
-	     (string (cdr (assoc octavation '((2 . "15ma")
-					      (1 . "8va")
-					      (0 . #f)
-					      (-1 . "8vb")
-					      (-2 . "15mb"))))))
+	     (string (assoc-get octavation '((2 . "15ma")
+		     		             (1 . "8va")
+					     (0 . #f)
+					     (-1 . "8vb")
+					     (-2 . "15mb")))))
 	(ly:context-set-property! context 'middleCOffset offset)
 	(ly:context-set-property! context 'ottavation string)
 	(ly:set-middle-C! context)))
@@ -671,7 +671,7 @@ inside of and outside of chord construct."
 
 "
   (let ((meta (ly:grob-property grob 'meta)))
-    (if (equal?  (cdr (assoc 'name meta)) grob-name)
+    (if (equal? (assoc-get 'name meta) grob-name)
 	(set! (ly:grob-property grob symbol) val))))
 
 

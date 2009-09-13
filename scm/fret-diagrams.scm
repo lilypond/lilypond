@@ -268,11 +268,11 @@ with magnification @var{mag} of the string @var{text}."
            (* size (assoc-get 'xo-padding details 0.2))) ; needed only here
          (parameters (fret-parse-marking-list marking-list my-fret-count))
          (capo-fret (assoc-get 'capo-fret parameters 0))
-         (dot-list (cdr (assoc 'dot-list parameters)))
-         (xo-list (cdr (assoc 'xo-list parameters)))
-         (fret-range (cdr (assoc 'fret-range parameters)))
+         (dot-list (assoc-get 'dot-list parameters))
+         (xo-list (assoc-get 'xo-list parameters))
+         (fret-range (assoc-get 'fret-range parameters))
          (my-fret-count (fret-count fret-range))
-         (barre-list (cdr (assoc 'barre-list parameters)))
+         (barre-list (assoc-get 'barre-list parameters))
          (barre-type
            (assoc-get 'barre-type details 'curved))
          (fret-diagram-stencil '()))

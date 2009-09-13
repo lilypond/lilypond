@@ -116,7 +116,7 @@
 			      ((symbol . middleCClefPosition)
 			       (value . ,(+ oct
 					    (caddr e)
-					    (cdr (assoc (cadr e) c0-pitch-alist)))))
+					    (assoc-get (cadr e) c0-pitch-alist))))
 			      ((symbol . clefPosition) (value . ,(caddr e)))
 			      ((symbol . clefOctavation) (value . ,(- oct))))))
 	       (recalc-mid-C (make-music 'ApplyContext))

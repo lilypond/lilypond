@@ -63,7 +63,7 @@
  (lambda (x)
    (let* ((metah (assoc 'meta (cdr x)))
 	  (meta (cdr metah))
-	  (ifaces (cdr (assoc 'interfaces meta))))
+	  (ifaces (assoc-get 'interfaces meta)))
 
      (map (lambda (iface)
 	    (hashq-set!
@@ -112,9 +112,9 @@ node."
 
   (let* ((metah (assoc 'meta description))
 	 (meta (cdr metah))
-	 (name (cdr (assoc 'name meta)))
+	 (name (assoc-get 'name meta))
 	 ;;       (bla (display name))
-	 (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
+	 (ifaces (map lookup-interface (assoc-get 'interfaces meta)))
 	 (ifacedoc (map ref-ify
 			(sort
 			 (map (lambda (iface)
