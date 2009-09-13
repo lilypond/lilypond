@@ -53,10 +53,7 @@ WEB_TEXI2HTML_INIT =--init-file=$(top-src-dir)/Documentation/web-texi2html.init
 TEXI2HTML_INIT = $(DOC_TEXI2HTML_INIT)
 
 DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
-# --split=node --node-files makes that translated pages have
-# translated file names, that breaks.
-## WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
-WEB_TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
+WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
 TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
 
 $(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
