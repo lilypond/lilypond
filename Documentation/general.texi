@@ -10,6 +10,7 @@
 @settitle LilyPond -- Music notation for everyone
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @set web
 @include macros.itexi

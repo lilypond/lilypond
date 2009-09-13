@@ -10,6 +10,7 @@
 @settitle LilyPond Notation Reference
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @macro manualIntro
 This essay discusses automatic music engraving functions within

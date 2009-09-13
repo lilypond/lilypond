@@ -3,10 +3,9 @@
 @settitle Music Glossary
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @include macros.itexi
-
-@afourpaper
 
 @c see lilypond.tely for info installation note
 @dircategory LilyPond

@@ -4,6 +4,7 @@
 @settitle LilyPond snippets
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @macro manualIntro
 This document shows a selected set of LilyPond snippets from the

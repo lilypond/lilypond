@@ -10,6 +10,7 @@
 @settitle LilyPond Contributor's Guide
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @macro manualIntro
 This manual documents contributing to LilyPond version
