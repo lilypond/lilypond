@@ -397,11 +397,18 @@ export LD_LIBRARY_PATH=/usr/lib
 exec /usr/bin/pngtopnm "$@"
 @end verbatim
 
-On MacOS X, I use this:
+On MacOS X with fink, I use this:
 
 @verbatim
 export DYLD_LIBRARY_PATH=/sw/lib
 exec /sw/bin/pngtopnm "$@"
+@end verbatim
+
+On MacOS X with macports, you should use this:
+
+@verbatim
+export DYLD_LIBRARY_PATH=/opt/local/lib
+exec /opt/local/bin/pngtopnm "$@"
 @end verbatim
 
 
