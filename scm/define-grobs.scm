@@ -1885,6 +1885,7 @@
 				 rhythmic-grob-interface
 				 rhythmic-head-interface
 				 staff-symbol-referencer-interface
+				 tab-note-head-interface
 				 text-interface))))))
 
     (TextScript

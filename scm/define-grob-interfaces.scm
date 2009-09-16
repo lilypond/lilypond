@@ -179,7 +179,7 @@ interesting enough to maintain a hara-kiri staff."
 
 (ly:add-interface
  'tab-note-head-interface
- "Details for TabNoteHeads."
+ "A note head in tablature."
  '(details))
 
 (ly:add-interface
