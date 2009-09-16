@@ -2,11 +2,24 @@
 @documentencoding utf-8
 @documentlanguage en
 @setfilename AUTHORS.info
-@settitle AUTHORS - who did what on GNU LilyPond-
+@settitle AUTHORS - who did what on GNU LilyPond
 
 
 @node Top
 @top
+
+@contents
+
+@ignore
+@include macros.itexi
+@include general/basic-authors.itexi
+
+@developersCurrent
+
+@developersPrevious
+
+@contributors
+@end ignore
 
 @unnumbered AUTHORS
 

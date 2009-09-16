@@ -1,0 +1,39 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
+
+@macro developersCurrent
+
+@itemize
+@item Han-Wen Nienhuys
+Main author.
+
+@item Jan Nieuwenhuizen
+Main author.
+
+@item Graham Percival
+Blah
+
+@end itemize
+@end macro 
+
+
+
+@macro developersPrevious
+
+@itemize
+@item Old Blah
+
+@end itemize
+@end macro
+
+
+
+@macro contributors
+
+@itemize
+@item New Guy
+
+@end itemize
+@end macro
+
+

@@ -6,6 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@include general/basic-authors.itexi
+
 @node Community
 @unnumbered Community
 
@@ -573,6 +575,29 @@ Documentation/topdocs/AUTHORS.texi
 and maybe:
 http://lilypond.org/web/switch/
 
+@divClass{column-left-top}
+@subheading Current Development Team
+
+@divClass{keep-bullets}
+@developersCurrent
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading Previous Development Team Positions
+
+@divClass{keep-bullets}
+@developersPrevious
+@divEnd
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Contributors
+
+@divClass{keep-bullets}
+@contributors
+@divEnd
+@divEnd
 
 
 
@@ -580,7 +605,6 @@ http://lilypond.org/web/switch/
 @unnumberedsec Publications
 
 @divClass{column-center-top}
-
 @subheading What we wrote
 
 @divClass{keep-bullets}
