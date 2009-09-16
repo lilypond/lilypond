@@ -35,11 +35,15 @@ sich @code{rest-event} nicht in @code{quotedEventTypes} befindet.
 
   texidoc = "
 The @code{quotedEventTypes} property determines the music event types
-that are quoted.  The default value is @code{(note-event rest-event)},
-which means that only notes and rests of the quoted voice appear in the
-@code{\\quoteDuring} expression. In the following example, a 16th rest
-is not quoted since @code{rest-event} is not in
+which should be quoted.  The default value is @code{(note-event
+rest-event tie-event beam-event tuplet-span-event)}, which means that
+only the notes, rests, ties, beams and tuplets of the quoted voice will
+appear in the @code{\\quoteDuring} expression. In the following
+example, a 16th rest is not quoted since @code{rest-event} is not in
 @code{quotedEventTypes}.
+
+For a list of event types, consult the @qq{Music classes} section of
+the Internals Reference.
 
 "
   doctitle = "Quoting another voice"

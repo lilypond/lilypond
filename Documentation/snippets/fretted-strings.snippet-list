@@ -1,6 +1,7 @@
 adding-fingerings-to-a-score.ly
 adding-fingerings-to-tablatures.ly
 allowing-fingerings-to-be-printed-inside-the-staff.ly
+bar-chords-notation-for-guitar--with-text-spanner.ly
 chordchanges-for-fretboards.ly
 controlling-the-placement-of-chord-fingerings.ly
 customizing-fretboard-fret-diagrams.ly
@@ -10,6 +11,7 @@ faking-a-hammer-in-tablatures.ly
 fingerings,-string-indications,-and-right-hand-fingerings.ly
 flamenco-notation.ly
 fret-diagrams-explained-and-developed.ly
+guitar-slides.ly
 guitar-strum-rhythms.ly
 how-to-change-fret-diagram-position.ly
 jazz-combo-template.ly
