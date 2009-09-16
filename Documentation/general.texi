@@ -120,15 +120,15 @@ RSS.
 
 @subsubheading Stable
 
-@ref{Download, Download 2.12.3}
+@ref{Download, Download @versionStable}
 
-@ref{Manuals, Manuals 2.12.3}
+@ref{Manuals, Manuals @versionStable}
 
 @subsubheading Unstable
 
-@ref{Development, Download 2.13.2}
+@ref{Development, Download @versionDevel}
 
-@ref{Development, Manuals 2.13.2}
+@ref{Development, Manuals @versionDevel}
 
 @divEnd
 

@@ -62,6 +62,14 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo '@macro version'> $@
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
+	echo ''>> $@
+	echo '@macro versionStable'>> $@
+	echo $(TOPLEVEL_VERSION_STABLE)>> $@
+	echo '@end macro'>> $@
+	echo ''>> $@
+	echo '@macro versionDevel'>> $@
+	echo $(TOPLEVEL_VERSION_DEVEL)>> $@
+	echo '@end macro'>> $@
 
 .SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
   $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep \
