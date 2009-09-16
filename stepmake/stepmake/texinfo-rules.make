@@ -70,6 +70,16 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo '@macro versionDevel'>> $@
 	echo $(TOPLEVEL_VERSION_DEVEL)>> $@
 	echo '@end macro'>> $@
+	echo ''>> $@
+	echo '@macro downloadStableLinux'>> $@
+	echo -n '@uref{http://download.linuxaudio.org/'>> $@
+	echo -n 'lilypond/binaries/linux-x86/lilypond-'>> $@
+	echo -n $(TOPLEVEL_VERSION_STABLE)>> $@
+	echo '-1.linux-x86.sh,'>> $@
+	echo -n 'Linux x86: LilyPond '>> $@
+	echo -n $(TOPLEVEL_VERSION_STABLE)>> $@
+	echo '}'>> $@
+	echo '@end macro'>> $@
 
 .SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
   $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep \
