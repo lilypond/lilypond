@@ -389,9 +389,9 @@ acknowledged.
 
 @item
 @sourceimage{logo-windows,,,}
-@uref{
-http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-@versionStable{}-1.mingw.exe,
-lilypond-@versionStable{}.mingw-exe}
+@c @uref{
+@c http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-@versionStable{}-1.mingw.exe,
+@c lilypond-@versionStable{}.mingw-exe}
 For Windows ME, NT, 2000, XP, and Vista.
 
 @end itemize
