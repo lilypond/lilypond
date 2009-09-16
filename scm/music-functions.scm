@@ -481,7 +481,7 @@ OTTAVATION to `8va', or whatever appropriate."
 
       (let* ((offset (* -7 octavation))
 	     (string (assoc-get octavation '((2 . "15ma")
-		     		             (1 . "8va")
+					     (1 . "8va")
 					     (0 . #f)
 					     (-1 . "8vb")
 					     (-2 . "15mb")))))

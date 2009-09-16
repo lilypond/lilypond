@@ -61,7 +61,7 @@
 
 (define (texi-section-command level)
   (assoc-get level '(
-         	     ;; Hmm, texinfo doesn't have ``part''
+		     ;; Hmm, texinfo doesn't have ``part''
 		     (0 . "@top")
 		     (1 . "@chapter")
 		     (2 . "@section")
@@ -71,7 +71,7 @@
 
 (define (texi-appendix-section-command level)
   (assoc-get level '((0 . "@top")
-	             (1 . "@appendix")
+		     (1 . "@appendix")
 		     (2 . "@appendixsec")
 		     (3 . "@appendixsubsec")
 		     (4 . "@appendixsubsubsec")
