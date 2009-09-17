@@ -1,5 +1,5 @@
 /*
-  lily-guile.cc -- implement assorted Guile bindings
+  general-scheme.cc -- implement assorted Guile bindings
 
   source file of the GNU LilyPond music typesetter
 
@@ -14,18 +14,19 @@
 #include <cstring>  /* memset */
 using namespace std;
 
+#include "dimensions.hh"
+#include "file-name.hh"
+#include "file-path.hh"
 #include "international.hh"
 #include "libc-extension.hh"
 #include "lily-guile.hh"
-#include "misc.hh"
-#include "warn.hh"
-#include "version.hh"
-#include "dimensions.hh"
 #include "main.hh"
-#include "file-path.hh"
+#include "misc.hh"
+#include "program-option.hh"
 #include "relocate.hh"
-#include "file-name.hh"
 #include "string-convert.hh"
+#include "version.hh"
+#include "warn.hh"
 
 LY_DEFINE (ly_start_environment, "ly:start-environment",
 	   0, 0, 0, (),
@@ -123,7 +124,12 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  programming_error (ly_scm2string (str));
+
+  if (get_program_option ("warning-as-error"))
+    error (ly_scm2string (str));
+  else
+    programming_error (ly_scm2string (str));
+
   return SCM_UNSPECIFIED;
 }
 
@@ -134,7 +140,12 @@ LY_DEFINE (ly_warning, "ly:warning",
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  warning (ly_scm2string (str));
+
+  if (get_program_option ("warning-as-error"))
+    error (ly_scm2string (str));
+  else
+    warning (ly_scm2string (str));
+
   return SCM_UNSPECIFIED;
 }
 

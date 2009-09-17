@@ -229,11 +229,6 @@ messages into errors.")
 (if (ly:get-option 'trace-scheme-coverage)
     (coverage:enable))
 
-(if (ly:get-option 'warning-as-error)
-    (begin
-      (set! ly:warning ly:error)
-      (set! ly:programming-error ly:error)))
-
 (define-public parser #f)
 
 
