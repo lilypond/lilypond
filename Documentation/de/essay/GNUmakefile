@@ -1,4 +1,4 @@
-depth = ../..
+depth = ../../..
 
 LOCALSTEPMAKE_TEMPLATES = ly
 
