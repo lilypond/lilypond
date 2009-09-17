@@ -151,10 +151,7 @@
   (let* ((name-sym (assoc-get 'context-name context-desc))
 	 (name (symbol->string name-sym))
 	 (aliases (map symbol->string (assoc-get 'aliases context-desc)))
-	 (desc-handle (assoc 'description context-desc))
-	 (desc (if (and  (pair? desc-handle) (string? (cdr desc-handle)))
-		   (cdr desc-handle) "(not documented)"))
-	
+	 (desc (assoc-get 'description context-desc "(not documented"))
 	 (accepts (assoc-get 'accepts context-desc))
 	 (consists (assoc-get 'consists context-desc))
 	 (props (assoc-get 'property-ops context-desc))

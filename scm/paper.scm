@@ -1,7 +1,7 @@
 ;;;; paper.scm -- manipulate the paper and layout block.
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2004--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-public (set-paper-dimension-variables mod)
@@ -53,7 +53,7 @@
 		(module-define! module sym val))))
 
     (setm! 'text-font-size (* 12 factor))
-    
+
     (setm! 'output-scale ss)
     (setm! 'fonts (make-century-schoolbook-tree factor))
     (setm! 'staff-height staff-height)
@@ -61,10 +61,10 @@
 
     (setm! 'line-thickness (calc-line-thickness ss pt))
 
-    ;;  sync with feta  
+    ;;  sync with feta
     (setm! 'ledger-line-thickness (+ (* 0.5 pt) (/ ss 10)))
 
-    ;;  sync with feta  
+    ;;  sync with feta
     (setm! 'blot-diameter (* 0.4 pt))
     ))
 
@@ -89,11 +89,11 @@ size. SZ is in points"
 
 	 ; maybe not necessary.
 	 ; but let's be paranoid. Maybe someone still refers to the
-	 ; old one. 
+	 ; old one.
 	 (new-paper (ly:output-def-clone pap))
-	 
+
 	 (new-scope (ly:output-def-scope new-paper)))
-    
+
     (if in-layout?
 	(ly:warning (_ "set-global-staff-size: not in toplevel scope")))
 
@@ -228,23 +228,23 @@ size. SZ is in points"
 (define (internal-set-paper-size module name landscape?)
   (define (swap x)
     (cons (cdr x) (car x)))
-  
-  (let* ((entry (assoc name paper-alist))
+
+  (let* ((entry (assoc-get name paper-alist))
 	 (is-paper? (module-defined? module 'is-paper))
 	 (mm (eval 'mm module)))
-    
+
     (cond
      ((not is-paper?)
       (ly:warning (_ "This is not a \\layout {} object, ~S") module))
-     ((pair? entry)
+     (entry
 
-      (set! entry (eval (cdr entry) module))
+      (set! entry (eval entry module))
       (if landscape?
 	  (set! entry (swap entry)))
       (set-paper-dimensions module (car entry) (cdr entry))
 
       (module-define! module 'papersizename name)
-      (module-define! module 'landscape 
+      (module-define! module 'landscape
 		      (if landscape? #t #f)))
      (else
       (ly:warning (_ "Unknown paper size: ~a") name)))))
@@ -279,10 +279,10 @@ size. SZ is in points"
 	     (module-define! scope v
 			     (/ val scale))
 
-	     ;; spurious warnings, eg. for paper-width, paper-height. 
+	     ;; spurious warnings, eg. for paper-width, paper-height.
 	     ;; (ly:warning (_ "not a number, ~S = ~S " v  val))
 	     )))
-     
+
      dim-vars)
-    
+
     new-pap))

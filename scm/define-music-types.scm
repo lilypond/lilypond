@@ -690,14 +690,14 @@ and values. E.g:
       m)))
 
 (define-public (make-repeated-music name)
-  (let* ((handle (assoc name '(("volta" . VoltaRepeatedMusic)
-			       ("unfold" . UnfoldedRepeatedMusic)
-			       ("percent" . PercentRepeatedMusic)
-			       ("tremolo" . TremoloRepeatedMusic))))
-	 (music-name (if (pair? handle)
-			 (cdr handle)
-			 (begin
-			   (ly:warning (_ "unknown repeat type `~S'") name)
-			   (ly:warning (_ "See define-music-types.scm for supported repeats"))
-			   'VoltaRepeatedMusic))))
-    (make-music music-name)))
+  (let* ((repeated-music (assoc-get name '(("volta" . VoltaRepeatedMusic)
+			           ("unfold" . UnfoldedRepeatedMusic)
+			           ("percent" . PercentRepeatedMusic)
+			           ("tremolo" . TremoloRepeatedMusic))))
+	 (repeated-music-name (if repeated-music
+			          repeated-music
+        			  (begin
+			            (ly:warning (_ "unknown repeat type `~S'") name)
+			            (ly:warning (_ "See define-music-types.scm for supported repeats"))
+			            'VoltaRepeatedMusic))))
+    (make-music repeated-music-name)))

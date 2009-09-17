@@ -61,8 +61,7 @@
 ;; extract ifaces, and put grob into the hash table.
 (map
  (lambda (x)
-   (let* ((metah (assoc 'meta (cdr x)))
-	  (meta (cdr metah))
+   (let* ((meta (assoc-get 'meta (cdr x)))
 	  (ifaces (assoc-get 'interfaces meta)))
 
      (map (lambda (iface)
@@ -110,8 +109,7 @@
   "Given a property alist DESCRIPTION, make a documentation
 node."
 
-  (let* ((metah (assoc 'meta description))
-	 (meta (cdr metah))
+  (let* ((meta (assoc-get 'meta description))
 	 (name (assoc-get 'name meta))
 	 ;;       (bla (display name))
 	 (ifaces (map lookup-interface (assoc-get 'interfaces meta)))

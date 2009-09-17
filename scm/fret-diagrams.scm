@@ -101,9 +101,9 @@ found."
   (define (helper key alist-list default)
     (if (null? alist-list)
         default
-        (let* ((handle (assoc key (car alist-list))))
-          (if (pair? handle)
-              (append (cdr handle) (chain-assoc-get key (cdr alist-list) '()))
+        (let* ((entry (assoc-get key (car alist-list))))
+          (if entry
+              (append entry (chain-assoc-get key (cdr alist-list) '()))
               (helper key (cdr alist-list) default)))))
 
   (helper key alist-list
@@ -254,7 +254,7 @@ with magnification @var{mag} of the string @var{text}."
                                                        ; and draw-barre
          (dot-position
            (assoc-get
-             'dot-position details default-dot-position)) ; needed for 
+             'dot-position details default-dot-position)) ; needed for
                                                     ; draw-dots and draw-barre
          (th
            (* (ly:output-def-lookup layout 'line-thickness)
@@ -751,7 +751,7 @@ at @var{fret}."
                  xo-stencil 'fret orientation))
              (xo-stencil-offset
               (stencil-coordinate-offset
-               (- diagram-fret-top 
+               (- diagram-fret-top
                   xo-fret-offset
                   (* size xo-padding))
                0)))

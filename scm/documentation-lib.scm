@@ -182,7 +182,7 @@ with init values from ALIST (1st optional argument)
 	 (type (object-property sym type?-name))
 	 (typename (type-name type))
 	 (desc (object-property sym doc-name))
-	 (handle (assoc sym alist)))
+	 (init-value (assoc-get sym alist)))
 
     (if (eq? desc #f)
 	(ly:error (_ "cannot find description for property ~S (~S)") sym where))
@@ -190,10 +190,10 @@ with init values from ALIST (1st optional argument)
     (cons
      (string-append "@code{" name "} "
 		    "(" typename ")"
-		    (if handle
+		    (if init-value
 			(string-append
 			 ":\n\n"
-			 (scm->texi (cdr handle))
+			 (scm->texi init-value)
 			 "\n\n")
 			""))
      desc)))
