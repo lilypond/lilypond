@@ -25,7 +25,7 @@ IN_FILES := $(call src-wildcard,*.in)
 RELEASE_FILES = ChangeLog RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
 OUT_DIST_FILES += $(RELEASE_OUT_FILES)
-EXTRA_DIST_FILES = VERSION .gitignore \
+EXTRA_DIST_FILES = VERSION .gitignore .mailmap \
   $(README_FILES) $(SCRIPTS) $(IN_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
