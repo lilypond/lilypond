@@ -1,5 +1,7 @@
 \version "2.12.0"
 
+#(ly:set-option 'warning-as-error #f)
+
 \header {
   texidoc = "The harp-pedal markup function does some sanity checks. All 
 the diagrams here violate the standard (7 pedals with divider after third), so
