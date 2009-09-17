@@ -1,17 +1,49 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
 
+@ignore
+
+  This file lists authors of LilyPond, and what they wrote.  Each
+  list is sorted alphabetically by surname.  This file lists people
+  that have contributed more than a few hours of work.
+
+  Developers are people who are (or have been) listed under the
+  "Development Team" in the THANKS, and can choose their own
+  titles.  Contributors are everybody else, and simply list their
+  contributions.
+
+  Anybody who has finished doing a "main devel team" task should
+  list it under developersPrevious, even if they're still doing
+  other "main devel team" stuff.  See "Graham Percival" for an
+  example.
+
+  Contributors are split into:
+    ...Core (programming)
+    ...Font (duh)
+    ...Doc (documentation and examples)
+    ...Support (building, distributions, editors,
+                lilypond-book, LSR, but *not* answering emails)
+    ...Translations (duh)
+  We might add a "general" or "other" if there's something else.
+
+
+@end ignore
+
 @macro developersCurrent
 
 @itemize
-@item Han-Wen Nienhuys
+
+@item Mats Bengtsson:
+Support guru.
+
+@item Han-Wen Nienhuys:
 Main author.
 
-@item Jan Nieuwenhuizen
+@item Jan Nieuwenhuizen:
 Main author.
 
-@item Graham Percival
-Blah
+@item @uref{http://percival-music.ca, Graham Percival}:
+Project Manager.
 
 @end itemize
 @end macro 
@@ -21,19 +53,224 @@ Blah
 @macro developersPrevious
 
 @itemize
-@item Old Blah
+@item Pedro Kroeger:
+Build meister
+
+@item Erik Sandberg:
+Bug meister
 
 @end itemize
 @end macro
 
 
 
-@macro contributors
+@macro contributorsCore
 
 @itemize
-@item New Guy
+@item Erlend Aasland:
+Color support, tablature improvements, trivial @code{\\mark} stuff,
+al-niente hairpins.
 
 @end itemize
 @end macro
 
+
+
+@macro contributorsFont
+
+@itemize
+@item @uref{http://www.juergen-reuter.de, Jürgen Reuter}:
+Ancient notation font Exact Type1 font outlines for feta,
+feta-alphabet.
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsDoc
+
+@itemize
+@item @uref{http://www.s3.kth.se/~mabe/, Mats Bengtsson}:
+Example files, documentation
+
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsSupport
+
+@itemize
+@item Anthony Fok:
+Debian package: @file{debian/*}.
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsTranslations
+
+@itemize
+@item Bjoern Jacke:
+German glossary translations.
+
+
+@end itemize
+@end macro
+
+
+
+
+@ignore
+    OLD MATERIAL
+
+Core code:
+
+@itemize @bullet
+@item @email{erlenda@@gmail.com,Erlend Aasland}
+   Color support, tablature improvements, trivial \mark stuff,
+al-niente hairpins.
+   
+@item @email{benkop@@freestart.hu,Pal Benko},
+    Ancient notation.
+@item @email{jch@@pps.jussieu.fr, Juliusz Chroboczek},
+    Type42 code.
+@item @email{david.feuer@@gmail.com, David Feuer},
+    PS output code refactoring.
+@item @email{bernard@@fong-hurley.org.uk, Bernard Hurley},
+    X11 color.
+@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
+    Piano pedals, directed arpeggios.
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Fine tuning for quarter tones in midi output.
+@item @email{reinhold@@kainhofer.com, Reinhold Kainhofer},
+    @uref{http://reinhold.kainhofer.com},
+    Musicxml2ly development, various features and fixes.
+@item @email{m.krause@@tu-harburg.de, Michael Krause},
+    Breathing signs.
+@item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
+    Tablature support.
+@item @email{wl@@gnu.org, Werner Lemberg},
+    @TeX{} glue code.
+@item @email{joeneeman@@gmail.com, Joe Neeman}, 
+    Constrained line breaking.
+@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Main author.
+
+@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
+    @uref{http://www.xs4all.nl/~jantien/},
+    Main author.
+@item @email{reuter_j@@web.de, Jürgen Reuter},
+    @uref{http://www.juergen-reuter.de},
+    Ancient notation  support (mensural notation,
+    Gregorian chant notation), ambitus, clusters.
+@item @email{nicolas.sceaux@@free.fr, Nicolas Sceaux},
+    Scheme macros, \markup syntax.
+@item @email{c_sorensen@@byu.edu, Carl Sorensen},    
+    Fret diagrams.    
+@item @email{, Rune Zedeler},
+    Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
+    fret, @code{subdivideBeams}.
+@end itemize
+
+Font
+
+@itemize @bullet
+
+@item @email{reuter_j@@web.de, Jürgen Reuter},
+    @uref{http://www.juergen-reuter.de},
+    Ancient notation font
+    Exact Type1 font outlines for feta, feta-alphabet.
+@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
+    Arpeggio arrow
+@item @email{, Rune Zedeler},
+    16th and shorter rests, 
+@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Main author.
+@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
+    @uref{http://www.xs4all.nl/~jantien/},
+    Main author.
+@item @email{tca@@gnu.org, Tom Cato Amundsen},
+    Accordion symbols.
+@item @email{arno@@arnowaschk.de, Arno Waschk},
+    "espressivo" mark.
+@end itemize
+
+
+Documentation and examples
+
+@itemize
+@item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
+    @uref{http://www.s3.kth.se/~mabe/},
+    Example files, documentation
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Cleanups in docs and example files.
+@item @email{john.mandereau@@free.fr, John Mandereau},
+    Internationalization.
+@item @email{scancm@@biobase.dk, Christian Mondrup},
+    Glossary.
+@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Main author.
+@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
+    @uref{http://www.xs4all.nl/~jantien/},
+    Main author.
+@item @email{gpermus@@gmail.com, Graham Percival},
+    @uref{http://percival-music.ca},
+    Documentation Editor.
+@item @email{pinard@@iro.umontreal.ca, François Pinard},
+    @uref{http://www.iro.umontreal.ca/~pinard/},
+    Parts of Documentation/user/glossary*, started
+    internationalization stuff.
+@item @email{, Rune Zedeler},
+    Schumann example.
+@end itemize
+
+Support (distributions, editor support, lilypond-book)
+
+@itemize
+@item @email{foka@@debian.org, Anthony Fok}, 
+    Debian package: debian/*.
+@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
+    Emacs mode indentation.
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Major Emacs- and Vim-mode updates.
+@item @email{svoboda@@cmu.edu, David Svoboda},
+    what-beat emacs module.
+@end itemize
+  
+
+Translations
+
+@itemize
+@item @email{bjoern.jacke@@gmx.de, Bjoern Jacke},
+    German glossary translations.
+@item @email{nj104@@cus.cam.ac.uk, Neil Jerram}, 
+    Glossary translations.
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Finnish translations.
+@item @email{tdm@@dds.nl, Tineke de Munnik},
+    Dutch website translation.
+@item @email{august@@infran.ru, August S. Sigov},
+    Russian translation.
+@item @email{, David González},
+    Spanish glossary translations.
+@item @email{ngclaude@@123mail.org, Nicolas Grandclaude},
+    French documentation translation.
+@item @email{lolyfan@@wanadoo.fr, Jean-Charles Malahieude},
+    French translation of messages, website and documentation.
+@item @email{john.mandereau@@free.fr, John Mandereau},
+    French translation of messages, website and documentation
+@item @email{gauvainpocentek@@yahoo.fr, Gauvain Pocentek},
+    French website translation.
+@item @email{ludovicsardain@@gmail.com, Ludovic Sardain},
+    French documentation translation.
+@end itemize
+
+@end ignore
 
