@@ -4,4 +4,6 @@ SUBDIRS = application general learning notation texidocs
 STEPMAKE_TEMPLATES = documentation
 LOCALSTEPMAKE_TEMPLATES = lilypond ly doc-i18n-root
 
+EXTRA_DIST = general.texi
+
 include $(depth)/make/stepmake.make
