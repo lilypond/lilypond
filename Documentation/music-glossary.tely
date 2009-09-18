@@ -1907,7 +1907,7 @@ the top line high F:
       \override SpacingSpanner
         #'base-shortest-duration = #(ly:make-moment 1 1)
       \override  NonMusicalPaperColumn
-        #'line-break-system-details = #'((alignment-offsets . (3 0 -3 -6)))
+        #'line-break-system-details = #'((alignment-distances . (3 3)))
       \override BarLine #'stencil = ##f
     }
     \context {
@@ -1968,7 +1968,7 @@ have been selected:
       \override SpacingSpanner
         #'base-shortest-duration = #(ly:make-moment 2 1)
       \override  NonMusicalPaperColumn
-        #'line-break-system-details = #'((alignment-offsets . (3 0 -3 -6)))
+        #'line-break-system-details = #'((alignment-distances . (3 3)))
       \override BarLine #'stencil = ##f
     }
     \context {
@@ -2031,7 +2031,7 @@ shown below, where the notes show an arpeggio on a C major chord.
       \override SpacingSpanner #'base-shortest-duration =
         #(ly:make-moment 2 1)
       \override  NonMusicalPaperColumn
-        #'line-break-system-details = #'((alignment-offsets . (0 -3 -6)))
+        #'line-break-system-details = #'((alignment-distances . (3 3)))
       \override BarLine #'stencil = ##f
     }
     \context {
