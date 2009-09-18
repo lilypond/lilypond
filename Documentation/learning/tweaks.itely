@@ -1925,10 +1925,24 @@ The @code{outside-staff-priority} is defined in the
 @code{grob-interface} and so is a property of all layout objects.
 By default it is set to @code{#f} for all within-staff objects,
 and to a numerical value appropriate to each outside-staff object
-when the object is created.  The following table shows
-the default numerical values for some of the commonest
-outside-staff objects which are, by default, placed in the
-@code{Staff} or @code{Voice} contexts.
+when the object is created.  The following table shows the default
+numerical values for some of the commonest outside-staff objects
+which are, by default, placed in the @code{Staff} or @code{Voice}
+contexts.
+
+@cindex spanners
+
+Note the unusual names for some of the objects: spanner objects
+are automatically created to control the vertical positioning of
+grobs which (might) start and end at different musical moments, so
+changing the @code{outside-staff-priority} of the underlying grob
+will have no effect.  For example, changing
+@code{outside-staff-priority} of the @code{Hairpin} object will
+have no effect on the vertical positioning of hairpins -- you must
+change @code{outside-staff-priority} of the associated
+@code{DynamicLineSpanner} object instead.  This override must be
+placed at the start of the spanner, which might include several
+linked hairpins and dynamics.
 
 @multitable @columnfractions .3 .3 .3
 @headitem Layout Object
@@ -1980,14 +1994,13 @@ these.
 % Start Ottava Bracket
 \ottava #1
 c' \startTextSpan
-% Add Dynamic Text
-c\pp
-% Add Dynamic Line Spanner
-c\<
+% Add Dynamic Text and hairpin
+c\pp\<
+c
 % Add Text Script
 c^Text
 c c
-% Add Dynamic Text
+% Add Dynamic Text and terminate hairpin
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
 \ottava #0
