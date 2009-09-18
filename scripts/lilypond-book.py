@@ -1116,14 +1116,6 @@ class LilypondSnippet (Snippet):
         if not INDENT in self.option_dict:
             self.option_dict[INDENT] = '0\\mm'
 
-        # The QUOTE pattern from ly_options only emits the `line-width'
-        # keyword.
-        if has_line_width and QUOTE in self.option_dict:
-            if no_line_width_value:
-                del self.option_dict[LINE_WIDTH]
-            else:
-                del self.option_dict[QUOTE]
-
     def compose_ly (self, code):
         if FRAGMENT in self.option_dict:
             body = FRAGMENT_LY
