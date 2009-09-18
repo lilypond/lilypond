@@ -1,5 +1,5 @@
 Andrew Hawryluk <ahawryluk@gmail.com>
-Andrew Hawryluk <andrew@obi-wan.(none)> # or maybe Andrew Wilson
+Andrew Hawryluk <andrew@obi-wan.(none)>
 Andrew Wilson <andrew@rivendale.net>
 Arjan Bos <arjan.bos@hetnet.nl>
 Carl D. Sorensen <carldsorensen>
@@ -22,6 +22,7 @@ Francisco Vila <fravd@salvia.org>
 Francisco Vila <paconet.org@gmail.com>
 Frederic Bron <frederic.bron@m4x.org>
 Graham Percival <gpercival>
+Graham Percival <gperciva@gperciva-desktop.(none)>
 Graham Percival <gperciva@opihi.cs.uvic.ca>
 Graham Percival <gperciva@p214-046.public.uvic.ca>
 Graham Percival <gperciva@p214-056.public.uvic.ca>
@@ -77,6 +78,7 @@ Graham Percival <gperciva@tsubasa.local>
 Graham Percival <gperciva@tsubasa.(none)>
 Graham Percival <gpermus@gmail.com>
 Graham Percival <graham@percival-music.ca>
+Graham Percival <lilypond@server.kainhofer.com>
 Graham Percival <root@tsubasa.(none)>
 Hajo Dezelski <dl1sdz@gmail.com>
 Han-Wen Nienhuys and Jan Nieuwenhuizen <fred> # see note below
@@ -177,7 +179,5 @@ Werner Lemberg <wl@rigel.orion>
 Werner Lemberg <wl@rigel.site>
 Wilbert Berendsen <lilykde@xs4all.nl>
 Wilbert Berendsen <wbsoft@xs4all.nl>
-
-Lilypond GDP <lilypond@server.kainhofer.com>
 
 # Note on <fred>: http://lists.gnu.org/archive/html/lilypond-devel/2009-02/msg00035.html
