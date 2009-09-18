@@ -691,13 +691,13 @@ and values. E.g:
 
 (define-public (make-repeated-music name)
   (let* ((repeated-music (assoc-get name '(("volta" . VoltaRepeatedMusic)
-			           ("unfold" . UnfoldedRepeatedMusic)
-			           ("percent" . PercentRepeatedMusic)
-			           ("tremolo" . TremoloRepeatedMusic))))
+					   ("unfold" . UnfoldedRepeatedMusic)
+					   ("percent" . PercentRepeatedMusic)
+					   ("tremolo" . TremoloRepeatedMusic))))
 	 (repeated-music-name (if repeated-music
-			          repeated-music
+				  repeated-music
         			  (begin
-			            (ly:warning (_ "unknown repeat type `~S'") name)
-			            (ly:warning (_ "See define-music-types.scm for supported repeats"))
-			            'VoltaRepeatedMusic))))
+				    (ly:warning (_ "unknown repeat type `~S'") name)
+				    (ly:warning (_ "See define-music-types.scm for supported repeats"))
+				    'VoltaRepeatedMusic))))
     (make-music repeated-music-name)))
