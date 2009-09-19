@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 01361d46dc9d514a79683d003eeea5f4fbf2b746
+    Translation of GIT committish: 4582b7b24d22b2041bfcba49e716a714effcce92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -191,7 +191,7 @@ Anhänge
 
 @include learning/preface.itely
 @include learning/introduction.itely
-@include learning/tutorial.itely
+@include learning/common-notation.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
 @c @include learning/working.itely

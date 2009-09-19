@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: d415427752fa5fd83b0da189d677481d1c7f3043
+    Translation of GIT committish: 4582b7b24d22b2041bfcba49e716a714effcce92
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,1172 +15,805 @@
 @chapter Einleitung
 @translationof Introduction
 
-Dieses Kapitel stellt dem Leser die Idee hinter LilyPond und die Dokumentation
-von LilyPond vor.
+Dieses Kapitel stellt dem Leser das grundlegende Arbeiten mit LilyPond
+vor.
 
 @menu
-* Hintergrund::
-* Über die Dokumentation::
+* Eine Quelldatei übersetzen::
+* Einfache Notation::
+* Arbeiten an Eingabe-Dateien::
+* Wie soll das Handbuch gelesen werden::
 @end menu
 
 
-@node Hintergrund
-@section Hintergrund
-@translationof Background
+@node Eine Quelldatei übersetzen
+@subsection Eine Quelldatei übersetzen
+@translationof Compiling a file
 
-Dieser Abschnitt behandelt die allgemeinen Ziele und die Architektur von LilyPond.
+FIXME: Text hier
 
 @menu
-* Notensatz::
-* Automatisierter Notensatz::
-* Welche Symbole?::
-* Die Darstellung der Musik::
-* Beispielanwendung::
+* Noten eingeben::              
+* MacOS X::                     
+* Windows::                     
+* Kommandozeile::                
 @end menu
 
+@node Noten eingeben
+@subsection Noten eingeben
+@translationof Entering input
 
-@node Notensatz
-@unnumberedsubsec Notensatz
-@translationof Engraving
+@cindex Kompilieren
+@cindex erstes Beispiel
+@cindex Beispiel, erstes
+@cindex Übersetzen von Quelltext
+@cindex Groß- und Kleinschreibung
+@cindex Quelltext, übersetzen
+@cindex Großbuchstaben
+@cindex Kleinbuchstaben
 
-@cindex Notensatz
-@cindex Typographie
-@cindex Notengravur
-@cindex Gravur, Notensatz
-@cindex Plattendruck, Noten
+@qq{Kompilation} ist der Begriff, der benutzt wird, um eine
+Lilypond-Eingabedatei mit dem Programm LilyPond in eine
+Notenausgabe umzuwandeln, die ausgedruckt werden kann. 
+Zusätzlich besteht die Option, eine MIDI-Datei zu produzieren,
+die abgespielt werden kann. Das erste Beispiel zeigt, wie
+solch eine einfache Eingabedatei ausschauen kann.
 
-Die Kunst des Notensatzes wird auch als Notenstich bezeichnet. Dieser 
-Begriff stammt aus dem traditionellen Notendruck. Noch bis vor etwa 20 
-Jahren wurden Noten erstellt, indem man sie in eine Zink- oder Zinnplatte 
-schnitt oder mit Stempeln schlug. Diese Platte wurde dann mit Druckerschwärze
- versehen, so dass sie in den geschnittenen und gestempelten Vertiefungen 
-blieb. Diese Vertiefungen schwärzten dann ein auf die Platte gelegtes 
-Papier. Das Gravieren wurde vollständig von Hand erledigt. Es war darum 
-sehr mühsam, Korrekturen anzubringen, weshalb man von vornherein richtig
- schneiden musste. Es handelte sich dabei um ein sehr spezialisiertes Handwerk.
+Um Notensatz zu erstellen, muss die Notation in der Eingabedatei
+beschrieben werden. Wenn man z.@w{}B. schreibt:
 
-Heutzutage wird fast alle gedruckte Musik von Computern erstellt. Das 
-hat einige deutliche Vorteile: Drucke sind billiger als die gravierten
-Platten und der Computersatz kann per E-Mail verschickt werden. Leider
-hat der intensive Einsatz des Computers die graphische Qualität
-des Notensatzes vermindert. Mit dem Computer erstellte Noten sehen 
-langweilig und mechanisch aus, was es erschwert, von ihnen zu spielen.
+@example
+@{
+  c' e' g' e'
+@}
+@end example
 
+@noindent
+so erhält man folgendes Resultat:
 
-@c introduce illustrating aspects of engraving, font...
-Die Abbildung unten illustriert den Unterschied zwischen  
-traditionellem Notensatz und einem typischen Computersatz. Das 
-dritte Bild zeigt, wie LilyPond die Formen des traditionellen
-Satzes nachahmt. Das linke Bild zeigt ein eingescanntes b-Vorzeichen 
-aus einer 2000 herausgegebenen Edition. Das mittlere Bild
-zeigt das b-Vorzeichen derselben Musik aus einer handgestochenen 
-Bärenreiter-Ausgabe. Das linke Bild zeigt die typischen Makel
-des Computer-Satzes: Die Notenlinien sind sehr dünn, die Schwärze 
-des Vorzeichens entspricht den dünnen Linien und hat eine gerade 
-Form mit scharfen Ecken und Kanten. Im Gegensatz dazu hat das
-Bärenreiter-Vorzeichen dicke, geradezu sinnlich rundliche
-Formen. Unser Symbol für das Vorzeichen hat neben anderen 
-auch dieses b als Vorbild. Es ist abgerundet und passt zu unseren
-Notenlinien, die sehr viel dicker sind als die der entsprechenden
-Computer-Ausgabe.
-
-@multitable @columnfractions .125 .25 .25 .25 .125
-@item @tab
-@ifnotinfo
-@iftex
-@image{pictures/henle-flat-gray,,4cm}
-@end iftex
-@ifnottex
-@image{pictures/henle-flat-gray,,,png}
-@end ifnottex
-
-@tab
-@iftex
-@image{pictures/baer-flat-gray,,4cm}
-@end iftex
-@ifnottex
-@image{pictures/baer-flat-gray,,,png}
-@end ifnottex
-
-@tab
-@iftex
-@image{pictures/lily-flat-bw,,4cm}
-@end iftex
-@ifnottex
-@image{pictures/lily-flat-bw,,,png}
-@end ifnottex
-@end ifnotinfo
-@ifinfo
-@image{pictures/henle-flat-bw,,,png}
-@image{pictures/baer-flat-bw,,,,png}
-@image{pictures/lily-flat-bw,,,png}
-@end ifinfo
-
-@item @tab
-Henle (2000)
-@tab
-Bärenreiter (1950)
-@tab
-LilyPond Feta-Schriftart (2003)
-
-@end multitable
-
-
-@cindex Musiksymbole
-@cindex Schriftart
-@cindex Dichte
-@cindex Balance
-
-@c introduce illustrating aspects of engraving, spacing...
-Die Verteilung der Noten innerhalb des Taktes sollte ihrer Dauer
-entsprechen. Moderne Partituren zeigen diese Verhältnisse jedoch 
-mit einer mathematischen Präzision, die nur sehr schlechte 
-Ergebnisse bringt. Im nächsten Beispiel ist ein Motiv zweimal
-gesetzt: einmal mit den exakten mathematischen Längenverhältnissen, dann
-mit kleinen Korrekturen. Welches von beiden ist mit dieser Korrektur
-gesetzt?
-
-@cindex Optischer Ausgleich
-@c file spacing-optical.
-@c need to include it here,  because we want two images.
-@lilypond
-\paper {
-  ragged-right = ##t
-  indent = #0.0
-}
-
-music = {
-   c'4 e''4 e'4 b'4 |
-   \stemDown
-   b'8[ e'' a' e'']
-   \stemNeutral
-   e'8[ e'8 e'8 e'8]
-}
-
-\score
+@c  in this case we don't want verbatim
+@lilypond[quote]
 {
-  \music
-  \layout {
-    \context {
-      \Staff
-      \override NoteSpacing #'stem-spacing-correction = #0.6
-    }
-  }
+  c' e' g' e'
 }
 @end lilypond
 
-@lilypond
-\paper {
-  ragged-right = ##t
-  indent = #0.0
+@warning{In jeder LilyPond-Datei müssen
+@strong{@{ geschweifte Klammern @}} um die Noten
+oder Gesangstext
+gesetzt werden. Vor und hinter den Klammern sollten
+Leerzeichen eingegeben werden, damit keine Unklarheiten
+in Verbindung mit den eigentlichen Notensymbolen entstehen.
+An Anfang und Ende der Zeile können diese Leerzeichen auch
+weggelassen werden. Es kann sein, dass in diesem Handbuch
+die Klammern in manchen Beispielen fehlen, aber man sollte
+immer daran denken, sie in den eigenen Dateien zu benutzen!
+Mehr Informationen zu der Darstellung der Beispiele in diesem
+Handbuch gibt der Abschnitt @ref{Wie soll das Handbuch gelesen werden}.}
+
+Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
+@w{@code{ @{ c d e @}}} ist zulässiger Code,
+@w{@code{ @{ C D E @}}} dagegen resultiert in einer Fehlermeldung.
+
+@smallspace
+
+@subheading Ansicht des Ergebnisses
+
+@cindex PDF-Datei
+@cindex Noten anzeigen
+@cindex Anzeigen der Noten
+@cindex Ansicht von Noten
+@cindex Editoren
+@cindex Texteditoren
+@cindex LilyPond unter MacOS X
+@cindex Windows, LilyPond starten
+@cindex MacOS X, LilyPond starten
+@cindex Unix, LilyPond starten
+@cindex Starten von LilyPond
+
+Das Erstellen der Notenausgabe hängt davon ab, welches Betriebssystem
+und welche Programme Sie benutzen.
+
+@itemize
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, MacOS X} (graphisch)
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows} (graphisch)
+
+@item
+@ref{Kommandozeile, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
 }
+@ref{Kommandozeile, Alle Betriebssysteme} (Kommandozeile)
 
-music = {
-   c'4 e''4 e'4 b'4 |
-   \stemDown
-   b'8[ e'' a' e'']
-   \stemNeutral
-   e'8[ e'8 e'8 e'8]
-}
-\score
-{
-  \music
-  \layout {
-    \context {
-      \Staff
-      \override NoteSpacing #'stem-spacing-correction = #0.0
-      \override NoteSpacing #'same-direction-correction = #0.0
-      \override StaffSpacing #'stem-spacing-correction = #0.0
-    }
-  }
-}
-@end lilypond
-
-@cindex normale Rhythmen
-@cindex normale Abstände
-@cindex Abstände, normal
-@cindex Rhythmen, normal
-
-In diesem Ausschnitt kommen nur Viertel vor, Noten, die in einem
- gleichmäßigen Rhythmus gespielt werden. Die Abstände sollten das
- widerspiegeln. Leider lässt uns aber das Auge im Stich: es beachtet
- nicht nur den Abstand von aufeinander folgenden Notenköpfen, sondern
- auch den ihrer Hälse. Also müssen Noten, deren Hälse in direkter
- Folge zuerst nach oben und dann nach unten ausgerichtet sind, weiter
- auseinander gezogen werden, während die unten/oben-Folge engere
- Abstände fordert, und das alles auch noch in Abhängigkeit von der 
-vertikalen Position der Noten. Das obere Beispiel ist mit dieser 
-Korrektur gesetzt, das untere ohne. In letzterem Fall bilden sich 
-für das Auge bei unten/oben-Folgen Notenklumpen mit schmalen Abständen 
-zwischen den Notenhälsen.
-
-@cindex Typographie
-
-Musiker sind üblicherweise zu sehr damit beschäftigt, die Musik aufzuführen, 
-als dass sie das Aussehen der Noten studieren könnten; und diese 
-Beschäftigung mit typographischen Details mag akademisch wirken. 
-Das ist sie aber nicht. Unser Beispielstück hat einen 
-monotonen Rhythmus, und wenn alle Zeilen einförmig aussehen, wird 
-das Notenblatt zu einem Labyrinth. Wenn der Spieler auch nur 
-einmal wegschaut oder kurze Zeit unkonzentriert ist, findet er 
-nicht mehr zurück zu der Stelle, an der er war.
-
-Der dichtere Eindruck, den die dickeren Notenlinien und schwereren
-Notationssymbole schaffen, eignet sich auch besser für Noten,
-die weit vom Leser entfernt stehen, etwa auf einem Notenständer.
-Eine sorgfältige Verteilung der Zwischenräume erlaubt es, die 
-Noten sehr dicht zu setzen, ohne dass die Symbole zusammenklumpen. 
-Dadurch werden unnötige Seitenumbrüche vermieden, so dass man 
-nicht so oft blättern muss.
-
-Dies sind die Anforderungen der Typographie: Das Layout sollte
-schön sein -- nicht aus Selbstzweck, sondern um dem Leser zu helfen. Für 
-Aufführungsmaterial ist das umso wichtiger, denn Musiker haben eine begrenzte
-Aufnahmefähigkeit. Je weniger Mühe nötig ist, die Noten zu erfassen, desto mehr
-Zeit bleibt für die Gestaltung der eigentlichen Musik. Das heißt: Gute 
-Typographie führt zu besseren Aufführungen!
-
-Die Beispiele haben gezeigt, dass der Notensatz eine subtile und 
-komplexe Kunst ist und gute Ergebnisse nur mit viel Erfahrung 
-erlangt werden können, die Musiker normalerweise nicht haben.
-LilyPond stellt unser Bemühen dar, die graphische Qualität
-handgestochener Notenseiten ins Computer-Zeitalter zu transportieren 
-und sie für normale Musiker erreichbar zu machen. Wir haben 
-unsere Algorithmen, die Gestalt der Symbole und die Programm-Einstellungen
-darauf abgestimmt, einen Ausdruck zu erzielen, der der Qualität 
-der alten Editionen entspricht, die wir so gerne betrachten 
-und aus denen wir gerne spielen.
-
-
-
-@node Automatisierter Notensatz
-@unnumberedsubsec Automatisierter Notensatz
-@translationof Automated engraving
-
-@cindex Notensatz, automatisch
-@cindex automatischer Notensatz
-
-Wie sollen wir also jetzt die Typographie anwenden?
-Wie können wir erwarten, dass wir in der Lage wären, 
-ein Programm zu schreiben, dass den Beruf des 
-Notenstechers ersetzt, wo dieser doch mehr als zehn 
-Jahre braucht, um ein Meister zu werden?
-
-Wir können es tatsächlich nicht! Da Typographie allein 
-durch das menschliche Auge bestimmt ist, kann der Mensch 
-nicht ersetzt werden. Aber sehr viel mechanische Arbeit 
-kann automatisiert werden. Indem etwa LilyPond die üblichen 
-Situationen kennt und bewältigt, können die restlichen 
-Fehler von Hand beseitigt werden. Das ist schon ein 
-großer Fortschritt im Vergleich zu den existierenden 
-Programmen. Und mit der Zeit können immer mehr Fälle 
-automatisiert werden, so dass immer weniger Eingriffe 
-von Hand notwendig werden.
-
-
-Als wir anfingen, haben wir LilyPond vollständig in der Programmiersprache C++
-geschrieben. Das hieß, dass der Funktionsumfang des Programms vollständig durch
-die Programmierer festgelegt war. Das stellte sich aus einer Reihe von Gründen
-als unzureichend heraus:
-
-@itemize @bullet
-@item Wenn LilyPond Fehler macht, muss der Benutzer die
-Einstellungen ändern können. Er muss also Zugang zur 
-Formatierungsmaschinerie haben. Deshalb können die Regeln und 
-Einstellungen nicht beim Kompilieren des Programms festgelegt 
-werden, sondern sie müssen zugänglich sein, während das Programm
-aktiv ist.
-
-
-@item Notensatz ist eine Frage des Augenmaßes, und damit auch vom
- Geschmack abhängig. Benutzer können mit unseren Entscheidungen 
-unzufrieden sein. Darum müssen also auch die Definitionen des 
-typographischen Stils dem Benutzer zugänglich sein.
-
-@item Schließlich verfeinern wir unseren Formatierungsalgorithmus 
-immer weiter, also müssen die Regeln auch flexibel sein. Die
-Sprache C++ zwingt zu einer bestimmten Gruppierungsmethode, 
-die nicht den Regeln für den Notensatz entspricht.
 @end itemize
 
-@cindex Scheme-Programmiersprache
+Beachten Sie, dass es eine Reihe an Texteditoren mit besserer 
+Unterstützung für LilyPond gibt. Mehr dazu im Abschnitt
+@rprogram{Unterstützung von Texteditoren}.
+@c FIXME: link to @rgeneral{Alternate input}
 
-Diese Probleme wurden angegangen, indem ein Übersetzer für 
-die Programmiersprache Scheme integriert wurde und Teile
-von LilyPond in Scheme neu geschrieben wurden. Die derzeitige 
-Formatierungsarchitektur ist um die Notation von graphischen 
-Objekten herum aufgebaut, die von Scheme-Variablen und -Funktionen
-beschrieben werden. Diese Architektur umfasst Formatierungsregeln,
-typographische Stile und individuelle Formatierungsentscheidungen. 
-Der Benutzer hat direkten Zugang zu den meisten dieser Einstellungen.
+@warning{Das erste Mal, wenn Sie LilyPond benutzen, kann es eine 
+Minute oder länger dauern, weil das Programm zuerst alle Schriftarten,
+die auf dem System zur Verfügung stehen, untersucht. Aber nach 
+diesem ersten Mal läuft LilyPond sehr viel schneller.}
 
-Scheme-Variablen steuern Layout-Entscheidungen. Zum Beispiel haben 
-viele graphische Objekte eine Richtungsvariable, die zwischen 
-oben und unten (oder rechts und links) wählen kann. Hier etwa 
-sind zwei Akkorde mit Akzenten und Arpeggien. 
-Beim ersten Akkord sind alle Objekte nach unten (oder links)
- ausgerichtet, beim zweiten nach oben (rechts).
+@node MacOS X
+@subsection MacOS X
+@translationof MacOS X
 
-@lilypond[quote,ragged-right]
-\new Score \with {
-   \override SpacingSpanner #'spacing-increment = #3
-   \override TimeSignature #'transparent = ##t
-} \relative c' {
-   \stemDown <e g b>4_>-\arpeggio
-   \override Arpeggio #'direction = #RIGHT
-   \stemUp <e g b>4^>-\arpeggio
-}
-@end lilypond
+@warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rgeneral{Alternate input} beschrieben sind, schauen
+Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
+eine Datei zu kompilieren.}
 
-@cindex Formatierung einer Partitur
-@cindex Partitur, Formatierung
-@cindex Formatierungsregeln
+
+Wenn Sie das @command{LilyPond.app}-Symbol doppelt klicken, öffnet
+sich eine Beispiel-Datei. Speichern Sie sie etwa als
+ @file{test.ly} auf dem Desktop und übersetzen Sie sie
+mit dem Menü-Befehl  @w{@qq{Compile > Typeset File}}.
+Die PDF-Datei mit dem fertigen Notensatz wird automatisch
+geöffnet.
+
+Das nächste Mal, wenn Sie LilyPond benutzen, sollten Sie
+ @qq{New} oder @qq{Open} wählen.  Sie müssen die Datei
+speichern, bevor Sie sie übersetzen können. Wenn es Fehler gibt,
+lesen Sie die Meldungen im Log-Fenster.
+
+@node Windows
+@subsection Windows
+@translationof Windows
+
+@warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rgeneral{Alternate input} beschrieben sind, schauen
+Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
+eine Datei zu kompilieren.}
+
+Wenn sie auf das LilyPond-Symbol auf dem Desktop doppelklicken,
+öffnet sich ein einfacher Texteditor mit einer Beispieldatei. Speichern
+Sie sie z. B. als @file{test.ly} auf dem Desktop und klicken Sie dann
+doppelt auf die Datei, um die Übersetzung zu beginnen (das Dateisymbol 
+ist eine Note). Nach einigen
+Sekunden wird eine Datei @file{test.pdf} auf dem Desktop erscheinen.
+Mit einem Doppelklick kann das fertige Notenbild in 
+der PDF-Datei angezeigt werden.
+Eine Alternative ist es, die @file{test.ly}-Datei mit der Maus auf das
+LilyPond-Symbol zu ziehen.
+
+Um eine schon existierende Datei zu bearbeiten, klicken Sie mit der rechten 
+Maustaste auf die Datei und wählen Sie @qq{Edit source}. Um eine leere 
+Datei zu erhalten, mit der Sie ein neues Stück beginnen können, öffnen Sie 
+den Texteditor durch Doppelklick auf das LilyPond-Symbol und benutzen Sie 
+@qq{New} im @qq{File}-Menü, oder klicken Sie mit der rechten
+Maustaste auf den Desktop und wählen Sie @qq{Neu...Textdatei},
+ändern Sie dann den Namen so wie Sie möchten und ändern Sie 
+die Dateiendung in @code{.ly}. Doppelklicken Sie auf die Datei,
+um Ihren LilyPond-Eingabecode einzugeben.
+
+Mit dem Doppelklick wird nicht nur die PDF-Datei erstellt, sondern
+auch eine @file{.log}-Datei. Hier wird gespeichert, was LilyPond aus
+der Quelldatei gelesen hat. Sollten Fehler auftreten, hilft oft ein 
+Blick in diese Datei.
+
+@node Kommandozeile
+@subsection Kommandozeile
+@translationof Command-line
+
+@warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rgeneral{Alternate input} beschrieben sind, schauen
+Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
+eine Datei zu kompilieren.}
+
+
+Erstellen Sie eine Text-Datei mit dem Namen @file{test.ly} und 
+geben Sie folgenden Text ein:
+
+@example
+@{
+  c' e' g' e'
+@}
+@end example
+
+Um die Datei zu bearbeiten, geben sie an der Konsole
+
+@example
+lilypond test.ly
+@end example
 
 @noindent
-Der Prozess des Notensetzens besteht für das Programm darin,
-die Variablen der graphischen Objekte zu lesen und zu
-schreiben. Einige Variablen haben festgelegte Werte. So 
-ist etwa die Dicke von vielen Linien – ein Charakteristikum 
-des typographischen Stils – von vornherein festgelegt. 
-Wenn sie geändert werden, ergibt sich ein anderer typographischer Eindruck.
+ein.
+Sie werden ungefähr folgende Meldungen sehen:
 
-@lilypond[quote,ragged-right]
-fragment = {
-   \clef bass f8 as8
-   c'4-~ c'16 as g f e16 g bes c' des'4
-}
-<<
-   \new Staff \fragment
-   \new Staff \with {
-      \override Beam #'beam-thickness = #0.3
-      \override Stem #'thickness = #0.5
-      \override Bar #'thickness = #3.6
-      \override Tie #'thickness = #2.2
-      \override StaffSymbol #'thickness = #3.0
-      \override Tie #'extra-offset = #'(0 .  0.3)
-      }
-      \fragment
->>
-@end lilypond
 
-Formatierungsregeln sind auch vorbelegte Variablen. Zu jedem Objekt gehören
-Variablen, die Prozeduren enthalten. Diese Prozeduren machen die eigentliche 
-Satzarbeit aus, und wenn man sie durch andere ersetzt, kann die Darstellung 
-von Objekten verändert werden. Im nächsten Beispiel wird die Regel, nach der 
-die Notenköpfe gezeichnet werden, während des Ausschnitts verändert.
+@example
+lilypond test.ly
+GNU LilyPond @version{}
+»test.ly« wird verarbeitet
+Analysieren...
+Interpretation der Musik...
+Vorverarbeitung der grafischen Elemente...
+Ideale Seitenanzahl wird gefunden...
+Musik wird auf eine Seite angepasst...
+Systeme erstellen...
+Layout nach »test.ps« ausgeben...
+Konvertierung nach »test.pdf«...
+@end example
 
-@lilypond[quote,ragged-right]
-#(set-global-staff-size 30)
-
-#(define (mc-squared grob orig current)
-  (let* ((interfaces (ly:grob-interfaces grob))
-         (pos (ly:grob-property grob 'staff-position)))
-    (if (memq 'note-head-interface interfaces)
-        (begin
-          (ly:grob-set-property! grob 'stencil
-            (grob-interpret-markup grob
-              (make-lower-markup 0.5
-                (case pos
-                  ((-5) "m")
-                  ((-3) "c ")
-                  ((-2) (make-smaller-markup (make-bold-markup "2")))
-                  (else "bla")))))))))
-
-\new Voice \relative c' {
-  \stemUp
-  \set autoBeaming = ##f
-  \time 2/4
-  <d f g>4
-  \once \override NoteHead #'stencil = #note-head::brew-ez-stencil
-  \once \override NoteHead #'font-size = #-7
-  \once \override NoteHead #'font-family = #'sans
-  \once \override NoteHead #'font-series = #'bold
-  <d f g>4
-  \once \override NoteHead #'style = #'cross
-  <d f g>4
-  \applyOutput #'Voice #mc-squared
-  <d f g>4
-  <<
-    { d8[ es-( fis^^ g] fis2-) }
-    \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
-  >>
-}
-@end lilypond
+Als Ergebnis erhalten Sie ein @file{test.pdf}, das Sie mit den
+Standardprogrammen Ihres Betriebssystemes anschauen können.
 
 
 
-@node Welche Symbole?
-@unnumberedsubsec Welche Symbole?
-@translationof What symbols to engrave?
+@node How to write input files
+@section How to write input files
 
-@cindex Notensatz
-@cindex Typographie
-@cindex Stempel
-@cindex Matrize
-@cindex Engraver
-@cindex Plugin
+FIXME: Text hier
 
-Während des Notensatzprozesses entscheidet sich, wo
-Symbole platziert werden. Das kann aber nur gelingen, 
-wenn vorher entschieden wird, @emph{welche} Symbole
-gesetzt werden sollen, also welche Art von Notation benutzt
-werden soll.
+@menu
+* Einfache Notation::             
+* Arbeiten an Eingabe-Dateien::      
+@end menu
 
-Die heutige Notation ist ein System zur Musikaufzeichnung,
-das sich über die letzten 1000 Jahre entwickelt hat. Die 
-Form, die heute üblicherweise benutzt wird, stammt aus dem 
-Barock. Auch wenn sich die grundlegenden Formen (also
-die Notenköpfe, das Fünfliniensystem) nicht verändert haben, 
-entwickeln sich die Details trotzdem immer noch weiter, um 
-die Errungenschaften der Neuen Musik darstellen zu können. Die 
-Notation umfasst also 500 Jahre Musikgeschichte. Ihre Anwendung 
-reicht von monophonen Melodien bis zu ungeheuer komplexem Kontrapunkt 
-für großes Orchester.
 
-Wie bekommen wir dieses vielköpfige Monster zu fassen? 
-Unsere Lösung ist es, eine strikte Trennung zwischen der Notation, 
-also welche Symbole benutzt werden, und dem Satz, also wohin sie 
-gesetzt werden, zu machen. Um das Problem anzupacken, haben wir 
-es in kleine (programmierbare) Happen zerteilt, so dass jede Art 
-von Symbol durch ein eigenes Plugin verarbeitet wird. Alle Plugins
- kooperieren durch die LilyPond-Architektur. Sie sind vollständig 
-modular und unabhängig und können somit auch unabhängig voneinander
- entwickelt werden. Der Schreiber, der die Musik in Graphik umwandelt,
- ist ein Kopist oder Notenstecher (engl. engraver). Darum werden 
-die Plugins  als @code{engraver} bezeichnet.
 
-Im nächsten Beispiel wird gezeigt, wie mit dem Plugin für die Notenköpfe, 
-dem @code{Note_heads_engraver} (@qq{Notenkopfstecher}) der Satz begonnen wird.
+@node Einfache Notation
+@subsection Einfache Notation
+@translationof Simple notation
 
-@lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+@cindex einfache Notation
+@cindex Notation, einfach
 
-\score {
-  \topVoice
-  \layout {
-    \context {
-      \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
-    }
-    \context {
-      \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Clef_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-      \remove "Staff_symbol_engraver"
-      \consists "Pitch_squash_engraver"
-    }
-  }
+LilyPond fügt einige Bestandteile des Notenbildes automatisch hinzu. Im
+nächsten Beispiel sind nur vier Tonhöhen angegeben, aber LilyPond setzt
+trotzdem einen Schlüssel, eine Taktangabe und Notendauern.
+
+@lilypond[verbatim,quote]
+{
+  c' e' g' e'
 }
 @end lilypond
 
 @noindent
-Dann fügt ein @code{Staff_symbol_engraver} (@qq{Notensystemstecher}) 
-die Notenlinien hinzu.
+Diese Einstellungen können verändert werden, aber in den meisten Fällen
+sind die automatischen Werte durchaus brauchbar.
 
-@lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+@subheading Tonhöhen
 
-\score {
-  \topVoice
-  \layout {
-    \context {
-      \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
-    }
-    \context {
-      \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Clef_engraver"
-      \remove "Bar_engraver"
-      \consists "Pitch_squash_engraver"
-      \remove "Time_signature_engraver"
-    }
-  }
+@cindex Tonhöhen
+@cindex relativer Modus
+@cindex Apostroph
+@cindex Komma
+@cindex Versetzungszeichen und relativer Modus
+@cindex relativer Modus und Versetzungszeichen
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
+
+
+Glossar: @rglos{pitch}, @rglos{interval},
+@rglos{scale}, @rglos{middle C}, @rglos{octave},
+@rglos{accidental}.
+
+@c Addition for German users about pitch naming conventions
+Die Tonhöhen werden mit Kleinbuchstaben eingegeben, die den Notennamen
+entsprechen. Es ist jedoch wichtig zu wissen, dass LilyPond in seiner
+Standardeinstellung die englischen Notennamen verwendet. Bis auf eine
+Ausnahme entsprechen sie den deutschen, deshalb wird die Voreinstellung
+von LilyPond für diese Übung beibehalten. Die @emph{Ausnahme} ist das h -- in 
+LilyPond muss man anstelle dessen b schreiben! Das deutsche b dagegen
+wird als bes notiert, ein his dagegen würde bis geschrieben. Siehe auch
+@ruser{Versetzungszeichen} und @ruser{Notenbezeichnungen in anderen Sprachen}, hier
+wird beschrieben,
+wie sich die deutschen Notennamen benutzen lassen.
+@c end addition
+
+Am einfachsten können Noten im @code{\relative}-Modus
+eingegeben werden. In diesem Modus wird die Oktave der Note automatisch
+gewählt, indem angenommen wird, dass die folgende Note immer so nah 
+wie möglich in Bezug auf die vorhergehende gesetzt wird, d. h. sie 
+wird höchstens drei Notenzeilen höher oder tiefer als die vorhergehende 
+Note gesetzt. Fangen
+wir unser erstes Notationsbeispiel mit einer @notation{scale} an, wo also
+die nächste Note immer nur eine Notenlinie über der vorherigen steht.
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+% Beginnpunkt auf das mittlere C setzen
+\relative c' {
+  c d e f
+  g a b c
+}
+@end lilypond
+
+Die erste Note ist ein @notation{eingestrichenes C}. Jede folgende Note
+befindet sich so nah wie möglich bei der vorherigen -- das erste 
+@q{C} ist also das nächste C vom
+eingestrichenen C aus gerechnet. Darauf folgt das nächstmögliche
+D in Bezug auf die vorhergehende Note. Mit diesen Regeln können
+auch Melodien mit größeren Intervallen im @code{\relative}-Modus
+gebildet werden:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d f a g
+  c b f d
 }
 @end lilypond
 
 @noindent
-Der @code{Clef_engraver} (@qq{Notenschlüsselstecher}) definiert 
-eine Referenzstelle für das System.
+Es ist nicht notwendig, dass die erste Note der Melodie mit der 
+Note beginnt, die die erste Tonhöhe angibt.
+Die erste Note (das @q{D}) des vorigen Beispiels ist das nächste D 
+vom eingestrichenen C aus gerechnet.
 
-@lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+Indem man Apostrophe @code{'} (Taste Shift+#) oder Kommata @code{,} 
+zu dem @w{@code{\relative c' @{}} hinzufügt oder entfernt, kann die 
+Oktave der ersten Tonhöhe verändert werden:
 
-\score {
-  \topVoice
-  \layout {
-    \context {
-      \Voice
-      \remove "Stem_engraver"
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
-    }
-    \context {
-      \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-    }
-  }
+@c KEEP LY
+@lilypond[verbatim,quote]
+% zweigestrichenes C
+\relative c'' {
+  e c a c
+}
+@end lilypond
+
+Der relative Modus kann zunächst verwirrend erscheinen, aber es ist die 
+einfachste Art, die meisten Melodien zu notieren. Schauen wir uns an, 
+wie diese relative Berechnung in der Praxis funktioniert. Wenn wir mit 
+einem H beginnen (@code{b} in der LilyPond-Syntax), welches sich auf der 
+mittleren Linie im Violinschlüssel befindet, können wir C, D und E 
+aufwärts notieren, und A, G und F unter dem H. Wenn also die Note, die 
+auf das H folgt, ein C, D oder E ist, setzt LilyPond es oberhalb des 
+Hs, wenn es ein A, G oder F ist, wird es darunter gesetzt.
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+\relative c'' {
+  b c  % c ist 1 Zeile aufwärts, also c über dem b
+  b d  % d ist 2 Zeilen aufwärts, oder 5 runter, also d über dem b
+  b e  % e ist 3 aufwärts oder 4 runter, also e über dem b
+  b a  % a ist 6 aufwärts oder 1 runter, also a unter dem b
+  b g  % g ist 5 aufwärts oder 2 runter, also g unter dem b
+  b f  % f ist 4 aufwärts oder 3 runter, also f unter dem b
+}
+@end lilypond
+
+Die gleiche Berechnung findet auch statt, wenn eine der Noten erhöht 
+oder erniedrigt ist. @notation{Versetzungszeichen} werden 
+@strong{vollständig ignoriert} bei der Berechnung. Genau die 
+gleiche Berechnung wird analog von jeder folgenden Tonhöhe aus 
+für die nächste Tonhöhe neu ausgeführt.
+
+Um Intervalle zu notieren, die größer als drei Notenzeilen sind, kann man die Oktave verändern. Mit einem Apostroph @code{'} (Taste Shift+#)
+direkt hinter dem Notennamen wird die Oktave um eins erhöht, mit einem Komma @code{,} um eins erniedrigt.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a a, c' f,
+  g g'' a,, f'
 }
 @end lilypond
 
 @noindent
-Der @code{Stem_engraver} (@qq{Halsstecher}) schließlich fügt
- Hälse hinzu.
+Um eine Notenhöhe um zwei (oder mehr!) Oktaven zu verändern,
+werden sukzessive @code{''} oder @code{,,} benutzt -- es muss
+sich dabei wirklich um zwei einzelne Apostrophen und nicht um das
+Anführungszeichen @code{"}@tie{} (Taste Shift+2) handeln! Auch
+die Anfangsoktave für einen @w{@code{\relative c'}}-Abschnitt kann so
+verändert werden.
 
-@lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+@subheading Tondauern (Rhythmen)
 
-\score {
-  \topVoice
-  \layout {
-    \context {
-      \Voice
-      \remove "Phrasing_slur_engraver"
-      \remove "Slur_engraver"
-      \remove "Script_engraver"
-      \remove "Beam_engraver"
-      \remove "Auto_beam_engraver"
-    }
-    \context {
-      \Staff
-      \remove "Accidental_engraver"
-      \remove "Key_engraver"
-      \remove "Bar_engraver"
-      \remove "Time_signature_engraver"
-    }
-  }
+@cindex Notendauern
+@cindex Dauern
+@cindex Rhythmus
+@cindex Ganze Noten
+@cindex Halbe Noten
+@cindex Viertelnoten
+@cindex punktierte Noten
+
+Glossar: @rglos{beam}, @rglos{duration},
+@rglos{whole note}, @rglos{half note}, @rglos{quarter note},
+@rglos{dotted note}.
+
+Die @notation{Dauer} einer Note wird durch eine Zahl bezeichnet,
+die direkt auf den Notennamen folgend eingegeben wird.
+@code{1} für eine @notation{ganze Note}, @code{2} für eine 
+@notation{halbe Note}, @code{4} für eine @notation{Viertelnote} 
+und so weiter. @notation{Notenhälse} und @notation{Balken} werden
+automatisch hinzugefügt.
+
+Wenn keine Dauer bezeichnet wird, wird die der vorhergehenden Note
+verwendet. Für die erste Note ist eine Viertel als Standard definiert.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a1
+  a2 a4 a8 a
+  a16 a a a a32 a a a a64 a a a a a a a a2
 }
 @end lilypond
 
-@noindent
-Dem @code{Stem_engraver} wird jeder Notenkopf mitgeteilt, 
-der vorkommt. Jedes Mal, wenn ein Notenkopf erscheint (oder mehrere bei 
-einem Akkord), wird ein Hals-Objekt erstellt und an den 
-Kopf geheftet. Wenn wir dann noch engraver für Balken, Bögen, 
-Akzente, Vorzeichen, Taktlinien, Taktangaben und Tonartbezeichnungen 
-hinzufügen, erhalten wir eine vollständige Notation.
+Um @notation{punktierte Noten} zu erzeugen, wird einfach ein Punkt 
+@code{.} hinter die Notendauer geschrieben. Die Dauer einer 
+punktierten Note muss explizit, also inklusive der Nummer, 
+angegeben werden.
 
-
-@lilypond[quote,ragged-right]
-\include "engraver-example.ily"
-\score { \topVoice }
+@lilypond[verbatim,quote]
+\relative c'' {
+  a a a4. a8
+  a8. a16 a a8. a8 a4.
+}
 @end lilypond
 
-@cindex Polyphonie
-@cindex Mehrstimmigkeit
-@cindex Notensatz, Mehrstimmigkeit
-@cindex Kontexte
 
-Dieses System funktioniert gut für monophone Musik, aber wie geht 
-es mit Polyphonie? Hier müssen sich mehrere Stimmen ein System teilen.
+@subheading Pausen
 
-@lilypond[quote,ragged-right]
-\include "engraver-example.ily"
-\new Staff << \topVoice \\ \botVoice >>
+@cindex Pausen
+@cindex schreiben von Pausen
+@cindex notieren von Pausen
+
+Eine @notation{Pause} wird genauso wie eine Noten eingegeben; ihre
+Bezeichnung ist @code{r}@tie{}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a r r2
+  r8 a r4 r4. r8
+}
 @end lilypond
 
-In diesem Fall benutzen beide Stimmen das System und die Vorzeichen gemeinsam,
-aber die 
-Hälse, Bögen, Balken usw. sind jeder einzelnen Stimme eigen. Die engraver 
-müssen also gruppiert werden. Die Köpfe, Hälse, Bögen usw. werden 
-in einer Gruppe mit dem Namen @qq{Voice context} (Stimmenkontext) 
-zusammengefasst, die engraver für den Schlüssel, die Vorzeichen, 
-Taktstriche usw. dagegen in einer Gruppe mit dem Namen @qq{Staff context} 
-(Systemkontext). Im Falle von Polyphonie hat ein Staff-Kontext dann also 
-mehr als nur einen Voice-Kontext. Auf gleiche Weise können auch mehrere Staff-Kontexte
-in einen großen Score-Kontext (Partiturkontext) eingebunden werden.
+
+@subheading Taktangabe
+
+@cindex Taktart
+
+@funindex \time
+@funindex time
+
+Glossar: @rglos{time signature}.
+
+Die @notation{Taktart} kann mit dem 
+@code{\time}-Befehl definiert werden:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  a4 a a
+  \time 6/8
+  a4. a
+  \time 4/4
+  a4 a a a
+}
+@end lilypond
+
+
+@subheading Notenschlüssel
+
+@cindex Schlüssel
+@cindex Alt
+@cindex Sopran
+@cindex Tenor
+@cindex Bass
+
+@funindex \clef
+@funindex clef
+
+Glossar: @rglos{time signature}.
+
+Der @notation{Notenschlüssel} kann mit dem @code{\clef}-Befehl 
+gesetzt werden:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \clef treble
+  c1
+  \clef alto
+  c1
+  \clef tenor
+  c1
+  \clef bass
+  c1
+}
+@end lilypond
+
+
+@subheading Alles zusammen
+
+Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
+
+@lilypond[verbatim,quote]
+\relative c, {
+  \time 3/4
+  \clef bass
+  c2 e8 c' g'2.
+  f4 e d c4 c, r4
+}
+@end lilypond
 
 
 @seealso
-Programmreferenz: @rinternals{Contexts}.
+Notationsreferenz: @ruser{Tonhöhen setzen},
+@ruser{Rhythmen eingeben}, @ruser{Pausen eingeben},
+@ruser{Taktangabe}, @ruser{Notenschlüssel}.
 
 
-@lilypond[quote,ragged-right]
-\include "engraver-example.ily"
-\score {
-   <<
-      \new Staff << \topVoice \\ \botVoice >>
-      \new Staff << \pah \\ \hoom >>
-   >>
-}
-@end lilypond
+@node Arbeiten an Eingabe-Dateien
+@subsection Arbeiten an Eingabe-Dateien
+@translationof Working on input files
 
-@node Die Darstellung der Musik
-@unnumberedsubsec Die Darstellung der Musik
-@translationof Music representation
+@cindex geschweifte Klammern
+@cindex Klammern, geschweift
+@cindex Kommentare
+@cindex Zeilenkommentare
+@cindex Block-Kommentare
+@cindex Groß- und Kleinschreibung
+@cindex Ausdrücke
+@cindex Großbuchstaben
+@cindex Kleinbuchstaben
 
-@cindex Syntax
-@cindex rekursive Strukturen
+@funindex { ... }
+@funindex %
+@funindex %@{ ... %@}
 
-Idealerweise ist das Eingabeformat für ein komplexes Satzsystem die 
-abstrakte Beschreibung des Inhaltes. In diesem Fall wäre das die 
-Musik selber. Das stellt uns aber vor ein ziemlich großes Problem, 
-denn wie können wir definieren, was Musik wirklich ist? Anstatt darauf 
-eine Antwort zu suchen, haben wir die Frage einfach umgedreht. Wir
-schreiben ein Programm, das den Notensatz beherrscht und machen das 
-Format so einfach wie möglich. Wenn es nicht mehr vereinfacht 
-werden kann, haben wir per Definition nur noch den reinen Inhalt. Unser 
-Format dient als die formale Definition eines Musiktextes.
 
-Die Syntax ist gleichzeitig die Benutzerschnittstelle bei LilyPond, 
-darum soll sie einfach zu schreiben sein; z. B. bedeutet
+LilyPonds Quelldateien ähneln Dateien in den meisten
+Programmiersprachen: Es ist auf Groß- und Kleinschreibung
+zu achten und Leerzeichen werden ignoriert. Ausdrücke werden 
+mit geschweiften Klammern @{ @} eingeklammert und Kommentare 
+mit dem Prozentzeichen @code{%} auskommentiert
+oder mit @code{%@{ ... %@}} umgeben.
 
+Wenn das jetzt unverständlich erscheint, sind hier die  Erklärungen:
+
+@itemize
+
+@item
+@strong{Groß- und Kleinschreibung:}
+Die Bedeutung eines Zeichens verändert sich, je
+nachdem, ob es groß (@w{@code{A, B, S, T}}) oder klein
+ (@w{@code{a, b, s, t}}) geschrieben wird. Noten müssen
+immer klein geschrieben werden,  @w{@code{@{ c d e @}}} funktioniert,
+während @w{@code{@{ C D E @}}} einen Fehler produziert.
+
+@item @strong{Leerzeichen:}
+Es spielt keine Rolle, wie viele Leerzeichen oder Tabulatoren oder
+leere Zeilen sich zwischen den Zeichen der Quelldatei befinden.
+@w{@code{@{ c d e @}}} bedeutet das Gleiche wie
+@w{@code{@{ c @ @ @ @ @  d e @}}} oder
 @example
-c'4 d'8
+          @{
+c                        d
+  e @}
 @end example
 
 @noindent
-eine Viertel c' und eine Achtel d', wie in diesem Beispiel:
-
-@lilypond[quote]
-{
-  c'4 d'8
-}
-@end lilypond
-
-In kleinem Rahmen ist diese Syntax sehr einfach zu benutzen. In 
-größeren Zusammenhängen aber brauchen wir Struktur. Wie sonst kann 
-man große Opern oder Symphonien notieren? Diese Struktur wird 
-gewährleistet durch sog. music expressions (Musikausdrücke): indem 
-kleine Teile zu größeren kombiniert werden, kann komplexere Musik 
-dargestellt werden. So etwa hier:
-
-@lilypond[quote,verbatim,fragment,relative=1]
-f4
-@end lilypond
-
-@noindent
-Gleichzeitig erklingende Noten werden hinzugefügt, indem man alle in @code{<<} und @code{>>} einschließt.
-
-@c < > is not a music expression,
-@c so we use <<>> iso. <> to drive home the point of
-@c expressions.  Don't change this back --hwn.
+Natürlich ist das letzte Beispiel etwas schwer zu lesen. Eine gute Daumenregel
+ist es, Code-Blöcke mit der Tab-Taste oder zwei Leerzeichen einzurücken:
 @example
-<<c4 d4 e4>>
+@{
+  c d e
+@}
 @end example
 
-@lilypond[quote,fragment,relative=1]
-\new Voice { <<c4 d4 e>> }
-@end lilypond
+Leerzeichen @emph{sind} jedoch nötig, um viele syntaktische Elemente
+voneinander zu trennen.  Leerzeichen können also immer @emph{hinzugefügt}
+werden, aber sie dürfen nicht @emph{entfernt} werden.  Da fehlende
+Leerzeichen sehr seltsame Fehlermeldungen hervorrrufen können, wird
+es nahe gelegt, immer ein Leerzeichen vor und nach jedem syntaktischen
+Element, etwa vor und nach geschweiften Kklammern, einzufügen.
 
-@noindent
-Um aufeinanderfolgende Noten darzustellen, werden sie in geschweifte Klammern gefasst:
+@item @strong{Ausdrücke:}
+Auch der kleinste Abschnitt an LilyPond-Code muss in
+@strong{@{ geschweifte Klammern @}} eingeschlossen werden. Diese
+Klammern zeigen LilyPond an, dass es sich um einen zusammengehörenden
+musikalischen Ausdruck handelt, genauso wie Klammern @q{()} in der Mathematik.
+Die Klammern sollten von jeweils einem Leerzeichen umgeben sein, um
+Zweideutigkeiten auszuschließen, es sei denn, sie
+befinden sich am Anfang oder Ende einer Zeile.
+Ein LilyPond-Befehl gefolgt von einem einfachen Ausdruck
+in Klammern (wie etwa @code{\relative @{ @}}) 
+wird auch als ein einzelner Musikausdruck gewertet.
 
-@code{@{@tie{}@dots{}@tie{}@}}
+@cindex Kommentare
+@cindex Zeilenkommentare
+@cindex Blockkommentare
+
+@item 
+@strong{Kommentare:}
+Ein Kommentar ist eine Bemerkung für den menschlichen Leser
+einer Quelldatei, es wird bei der Dateianalyse durch das Programm
+ignoriert, so dass es also keine Auswirkung auf die Druckausgabe der
+Noten hat. Es gibt zwei verschiedene Typen von Kommentaren. Das
+Prozentzeichen @q{%} geht einem Zeilen-Kommentar voraus: Alles
+nach diesem Zeichen wird in dieser Zeile ignoriert. 
+Üblicherweise wird ein Kommentar @emph{über} dem Code gesetzt,
+auf den es sich bezieht.
 
 @example
-@{ f4 <<c4 d4 e4>> @}
+a4 a a a
+% Dieser Kommentar bezieht sich auf das H
+b2 b
 @end example
 
-@lilypond[quote,relative=1,fragment]
-{ f4 <<c d e4>> }
-@end lilypond
 
-@noindent
-Dieses Gebilde ist in sich wieder ein Ausdruck, und kann 
-daher mit einem anderen Ausdruck kombiniert werden (hier mit einer Halben).
+Ein Block-Kommentar ist ein ganzer Abschnitt mit einem
+Kommentar. Alles, was von @code{%@{}
+und @code{%@}} umgeben ist, wird ignoriert. Das heißt,
+dass sich ein Block-Kommentar nicht ein einem anderen
+Blockkommentar befinden kann. Wenn Sie das versuchen sollten,
+beendet schon das erste @code{%@}} @emph{beide} 
+Block-Kommentare. Das folgende Beispiel zeigt eine
+mögliche Anwendung von Kommentaren:
 
 @example
-<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>
+% Noten für twinkle twinkle hier
+  c4 c g' g a a g2
+
+%@{
+    Diese Zeilen, und die Noten unten werden
+    ignoriert, weil sie sich in einem Block-Kommentar
+    befinden.
+
+    f f e e d d c2
+%@}
 @end example
 
-@lilypond[quote,fragment,relative=2]
-\new Voice { << g2 \\ { f4 <<c d e>> } >> }
-@end lilypond
-
-Solche geschachtelten Strukturen können sehr gut in einer 
-kontextunabhängigen Grammatik beschrieben werden. Der Programmcode 
-für den Satz ist auch mit solch einer Grammatik erstellt. Die Syntax 
-von LilyPond ist also klar und ohne Zweideutigkeiten definiert.
-
-Die Benutzerschnittstelle und die Syntax werden als erstes vom Benutzer 
-wahrgenommen. Teilweise sind sie eine Frage des Geschmackes und werden viel
-diskutiert. Auch wenn Geschmacksfragen ihre Berechtigung 
-haben, sind sie nicht sehr produktiv. Im großen Rahmen von LilyPond 
-spielt die Eingabe-Syntax nur eine geringe Rolle, denn eine logische 
-Syntax zu schreiben ist einfach, guten Formatierungscode aber sehr viel 
-schwieriger. Das kann auch die Zeilenzahl der Programmzeilen zeigen: 
-Analysieren und Darstellen nimmt nur etwa 10% des Codes ein:
-
-@node Beispielanwendung
-@unnumberedsubsec Beispielanwendung
-@translationof Example applications
-
-@cindex einfaches Beispiel
-@cindex Beispiel, einfach
-
-Wir haben LilyPond als einen Versuch geschrieben, wie man die Kunst des 
-Musiksatzes in ein Computerprogramm gießen kann. Dieses 
-Programm kann nun dank vieler harter Arbeitsstunden benutzt werden, 
-um sinnvolle Aufgaben zu erledigen. Die einfachste ist dabei der 
-Notendruck.
-
-@lilypond[quote,relative=1]
-{
-  \time 2/4
-  c4 c g'4 g a4 a g2
-}
-@end lilypond
-
-@noindent
-Indem wir Akkordsymbole und einen Text hinzufügen, erhalten wir 
-ein Lead Sheet.
-
-@lilypond[quote,ragged-right]
-<<
-   \chords { c2 c f2 c }
-   \new Staff
-   \relative c' {
-     \time 2/4
-     c4 c g' g a a g2
-   }
-   \addlyrics { twin -- kle twin -- kle lit -- tle star }
->>
-@end lilypond
-
-Mehrstimmige Notation und Klaviermusik kann auch gesetzt werden. Das 
-nächste Beispiel zeigt einige etwas exotischere Konstruktionen:
-
-@lilypond[quote]
-\header {
-  title = "Screech and boink"
-  subtitle = "Random complex notation"
-  composer = "Han-Wen Nienhuys"
-}
-
-\score {
-  \context PianoStaff <<
-    \new Staff = "up" {
-      \time 4/8
-      \key c \minor
-      << {
-        \revert Stem #'direction
-        \change Staff = down
-        \set subdivideBeams = ##t
-        g16.[
-          \change Staff = up
-          c'''32
-          \change Staff = down
-          g32
-          \change Staff = up
-          c'''32
-          \change Staff = down
-          g16]
-        \change Staff = up
-        \stemUp
-        \set followVoice = ##t
-        c'''32([ b''16 a''16 gis''16 g''32)]
-      } \\ {
-        s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d'']
-      } \\ {
-        s4 \autoBeamOff d''8.. f''32
-      } \\ {
-        s4 es''4
-      } >>
-    }
-
-    \new Staff = "down" {
-      \clef bass
-      \key c \minor
-      \set subdivideBeams = ##f
-      \override Stem  #'french-beaming = ##t
-      \override Beam  #'beam-thickness = #0.3
-      \override Stem  #'thickness = #4.0
-      g'16[ b16 fis16 g16]
-      << \makeClusters {
-        as16 <as b>
-        <g b>
-        <g cis>
-      } \\ {
-        \override Staff.Arpeggio  #'arpeggio-direction =#down
-        <cis, e, gis, b, cis>4\arpeggio
-      }
-    >> }
-  >>
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 60 8)
-    }
-  }
-  \layout {
-    \context {
-      \Staff
-      \consists Horizontal_bracket_engraver
-    }
-  }
-}
-@end lilypond
-
-Die obenstehenden Beispiele wurde manuell erstellt, aber das ist nicht 
-die einzige Möglichkeit. Da der Satz fast vollständig automatisch abläuft, 
-kann er auch von anderen Programmen angesteuert werden, die Musik oder Noten
-verarbeiten. So können etwa ganze Datenbanken musikalischer Fragmente automatisch 
-in Notenbilder umgewandelt werden, die dann auf Internetseiten oder 
-in Multimediapräsentation Anwendung finden.
-
-Dieses Benutzerhandbuch zeigt eine weitere Möglichkeit: Die Noten werden als 
-reiner Text eingegeben und können darum sehr einfach integriert werden
-in andere textbasierte Formate wie etwa @LaTeX{}, HTML oder, wie in diesem 
-Fall, Texinfo. Durch ein spezielles Programm werden die Eingabefragmente durch 
-Notenbilder in der resultierenden PDF- oder HTML-Datei ersetzt. Dadurch ist
-es sehr einfach, Noten und Text zu kombinieren.
+@end itemize
 
 
 
-@node Über die Dokumentation
-@section Über die Dokumentation
-@translationof About the documentation
+@node How to read the manuals
+@section How to read the manuals
 
-@cindex Handbuch zum Lernen
-@cindex Glossar
-@cindex Anwendungsbenutzung
-@cindex Schnipselliste
-@cindex Referenz der Interna
+FIXME: fluff here
 
-Die Dokumentation zu LilyPond ist unterteilt in mehrere Handbücher.
-
-@c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
-@c This is actually a limitation of texi2html. -jm
 @menu
-* Über das Handbuch zum Lernen (LM)::  Dieses Handbuch stellt LilyPond vor und vermittelt die Grundkenntnisse, um damit arbeiten zu können.
-* Über das Glossar (MG)::  Dieses Handbuch erklärt zahlreiche musikalische Fachausdrücke inklusive Übersetzungen in verschiedene Sprachen.
-* Über die Notationsreferenz (NR)::  Dieses Handbuch stellt den Hauptteil der Dokumentation dar.  Es liefert detaillierte Informationen zum Notensatz mit LilyPond.  Als Voraussetzung werden die Kenntnisse des @qq{Handbuchs zum Lernen} angenommen.
-* Über die Anwendungsbenutzung (AU)::  Dieses Handbuch diskutiert den konkreten Aufruf des @qq{lilypond}-Programms und wie LilyPond-Notensatz in andere Programme integriert werden kann.
-* Über die Schnipselliste::  Dies ist eine Sammlung von kurzen LilyPond-Beispielen.
-* Über die Referenz der Iterna (IR)::  Dieses Dokument liefert Referenzwissen über LilyPonds interne Strukturen und ist vor allem bei der Erstellung von tiefergehenden Optimierungen und Anpassungen hilfreich.
-* Andere Dokumentation::         Es existieren noch etliche weitere Teile der Dokumentation, wie etwa die @q{Neueigkeiten} Seite oder das Archiv der Mailingliste.
+* Klammern weglassen::             
+* Anklickbare Beispiele::          
+* Navigation mit der Tastatur::         
+* Überblick über die Handbücher::         
 @end menu
 
 
-@node Über das Handbuch zum Lernen (LM)
-@unnumberedsubsec Über das Handbuch zum Lernen (LM)
-@translationof About the Learning Manual
+@node Wie soll das Handbuch gelesen werden
+@subsection Wie soll das Handbuch gelesen werden
+@translationof How to read the manual
 
-@cindex Handbuch zum Lernen
+@node Klammern weglassen
+@subsection Klammern weglassen
+@translationof Omitting braces
 
-Dieses Handbuch erklärt die Grundbegriffe von LilyPond und stellt 
-die fundamentalen Konzepte hinter dem Programm vor. Diese Kapitel sollten
-in linearer Reihenfolge gelesen werden.
+@cindex Handbuch, Lesen
+@cindex Wie soll das Handbuch gelesen werden
+@cindex Lesen des Handbuchs
+@cindex Beispiele, klickbar
+@cindex klickbare Beispiele
+@cindex Vorlagen
+@cindex Templates
+@cindex Dateien konstruieren, Hinweise
+@cindex Konstruieren von Dateien, Hinweise
+@cindex Hinweise zur Konstruktion von Dateien
 
-Am Ende jedes Abschnitts findet sich ein Absatz @strong{Siehe auch}, der
-Kreuzreferenzen zu anderen Abschnitten enthält. Beim ersten Durchlesen
-empfiehlt es sich nicht, diesen gleich zu folgen, da meist noch
-zahlreiche Grundbegriffe zum Verständnis fehlen. Wenn Sie sich durch
-das Handbuch zum Lernen geackert haben, wollen Sie vielleicht einzelne 
-Abschnitte nochmal durchgehen und dann den Kreuzverweisen zur Vertiefung
-der Zusammenhänge folgen.
+LilyPond-Code muss immer von  @{ @} Zeichen oder einem 
+@code{@w{\relative c'' @{ ... @}}} umgeben sein, wie
+gezeigt in @ref{Arbeiten an Eingabe-Dateien}.
+Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
+verzichten. Um sie zu reproduzieren, können Sie den entsprechenden 
+Quellcode kopieren und in eine Textdatei einfügen, aber Sie 
+@strong{müssen} dabei
+@code{@w{\relative c'' @{ @}}} einfügen, wie hier gezeigt:
 
-@itemize
+@example
+\relative c'' @{
+  ... hier das Beispiel ...
+@}
+@end example
 
-@item
-@ref{Einleitung}: erklärt den Hintergrund und das Ziel von LilyPond.
-
-@item
-@ref{Übung}: liefert eine einfache Einführung in das Setzen von Musik 
-mit LilyPond. Neulinge sollten mit diesem Kapitel beginnen.
-
-@item
-@ref{Grundbegriffe}: erklärt etliche allgemeine Konzepte
-hinter dem Dateiformat von LilyPond. Wenn Sie sich nicht sicher 
-sind, an welcher Stelle Sie einen Befehl in die Datei einfügen sollen,
-ist dieses Kapitel genau das richtige!
-
-@item
-@ref{Die Ausgabe verändern}: stellt dar, wie die Standardeinstellungen von 
-LilyPond verändert werden können.
-
-@item
-@ref{An LilyPond-Projekten arbeiten}: liefert Tipps im praktischen Umgang mit
-Lilypond und gibt Hinweise, wie gängige Fehler vermieden werden können. 
-Bevor Sie mit einem großen Projekt beginnen, sollten Sie dieses Kapitel 
-unbedingt gelesen haben!
-
-@end itemize
-
-Das Handbuch zum Lernen enthält auch zahlreiche Anhänge, die nicht
-zum linearen Durchlesen geeignet sind.  Sie sind allerdings zur späteren
-Referenz sehr gut geeignet:
-
-@itemize
-
-@item
-@ref{Vorlagen}: zeigt einige fertige Dokumentvorlagen für diverse
-Stücke mit unterschiedlichen Charakteristika.  Kopieren Sie einfach 
-die Vorlagen in Ihre eigene Datei, fügen Sie die Noten hinzu und Sie 
-sind fertig!
-
-@item
-@ref{Scheme-Übung}: liefert eine kurze Einführung in Scheme, die
-Programmiersprache, die die Musikfunktionen in LilyPond intern benutzen.  
-Dies stellt tiefgehendes Wissen dar, wenn Sie LilyPond bis ins kleinste Detail
-konfigurieren möchten. Die meisten Benutzer brauchen dies jedoch selten bis 
-gar nicht.
-
-@end itemize
+Warum werden die Klammern hier meist weggelassen?  Die meisten
+der Beispiele können in ein längeres Musikstück hineinkopiert
+werden, und dann ist es natürlich nicht sinnvoll, wenn auch noch
+@code{@w{\relative c'' @{ @}}} dazukommt; ein @code{\relative} darf
+nicht innerhalb eines anderen @code{\relative} gesetzt werden,
+deshalb wird es hier weggelassen, damit die Beispiele auch innerhalb
+eines anderen Kontextes funktionieren.  Wenn bei jedem 
+Beispiel @code{@w{\relative c'' @{ @}}} eingesetzt würde,
+könnten Sie die kleinen Beispiele der Dokumentation
+nicht einfach zu Ihrem eigenen Notentext hinzufügen. 
+Die meisten Benutzer wollen 
+Noten zu einer schon bestehenden Datei irgendwo in der Mitte
+hinzufügen, deshalb wurde der relative Modus für die Beispiele
+im Handbuch weggelassen.
 
 
-@node Über das Glossar (MG)
-@unnumberedsubsec Über das Glossar (MG)
-@translationof About the Music Glossary
+@node Anklickbare Beispiele
+@subsection Anklickbare Beispiele
+@translationof Clickable examples
 
-@cindex Idiom
-@cindex Jargon
-@cindex Terminologie
-@cindex Übersetzungen
-@cindex Sprachen
-@cindex Glossar
-@cindex Thesaurus
-@cindex Fremdsprache
+@warning{Diese Eigenschaft gibt es nur in der HTML-Dokumentation.}
 
-@rglosnamed{Top,Das Glossar} erklärt musikalische Fachausdrücke und 
-enthält auch deren Übersetzungen in diverse Sprachen.  Wenn Sie mit
-Musiknotation oder der (englisch-sprachigen) Musikterminologie nicht vertraut 
-sind (vor allem, wenn Englisch nicht Ihre Muttersprache ist), ist es
-sehr empfehlenswert, das Glossar immer wieder zu Rate zu ziehen.
+Viele Leute lernen Programme, indem sie einfach herumprobieren. Das
+geht auch mit LilyPond. Wenn Sie in der HTML-Version dieses Handbuchs
+eine Abbildung in der HTML-Version dieses Handbuches anklicken,
+erhalten sie exakt den LilyPond-Code, der
+zum Satz der Abbildung benutzt wurde. Versuchen Sie es mit dieser
+Abbildung:
+
+@c no verbatim here
+@c KEEP LY
+@lilypond[quote]
+\relative c'' {
+  c-\markup { \bold \huge { Hier klicken!  } }
+}
+@end lilypond
+
+Wenn Sie einfach alles kopieren, was im
+ @qq{ly snippet}-Abschnitt steht, und in eine Text-Datei
+einfügen, haben Sie schon eine fertige Vorlage für weitere
+Experimente. Damit Sie genau das gleiche Erscheinungsbild wie 
+bei dem Beispiel selber erreichen, müssen Sie alles kopieren ab der 
+Zeile @qq{Start
+cut-&-pastable section} bis ganz zum Ende der Datei.
 
 
-@node Über die Notationsreferenz (NR)
-@unnumberedsubsec Über die Notationsreferenz (NR)
-@translationof About the Notation Reference
+@node Navigation mit der Tastatur
+@subsection Navigation mit der Tastatur
+@translationof Keyboard navigation
 
-@cindex Notationsreferenz
-@cindex Anhänge
-@cindex Referenz zum Notensatz
+@warning{Diese Funktion gibt es nur für die HTML-Version der Handbücher.}
 
-In diesem Buch werden alle LilyPond-Befehle erklärt, die Notationszeichen 
-produzieren. Es geht von der Annahme aus, dass der Leser sich mit den 
-Grundkonzepten des Programmes im Handbuch zum Lernen bekannt gemacht hat.
+@c TODO: once this is figured out, insert it here.
 
-@itemize @bullet
+Es wird gegenwärtig an dieser Funktion gearbeitet.
 
-@item
-@emph{@ruser{Musikalische Notation}}:
-erklärt alles über die grundlegenden Notationskonstruktionen. Dieses Kapitel 
-ist für fast jedes Notationsprojekt nützlich.
 
-@item
-@emph{@ruser{Spezielle Notation}}:
-erklärt spezifische Schwierigkeiten, die sich bei bestimmten Notationstypen 
-ergeben. Dieses Kapitel ist nur in entsprechenden Fällen bestimmter Instrumente 
-oder bei Gesang zu konsultieren.
 
-@item
-@emph{@ruser{Allgemeine Eingabe und Ausgabe}}:
-erläutert allgemeine Informationen über die Eingabedateien von Lilypond und
-wie die Ausgabe gesteuert werden kann.
+@node Überblick über die Handbücher
+@subsection Überblick über die Handbücher
+@translationof Overview of manuals
 
-@item
-@emph{@ruser{Abstände}}:
-befasst sich mit globalen Fragen wie der Definition von Papierformaten 
-oder wie man Seitenumbrüche definiert.
 
-@item
-@emph{@ruser{Standardeinstellungen verändern}}:
-erklärt, wie des Layout getrimmt werden kann um genau zum gewünschten Ergebnis 
-zu kommen.
+Es gibt sehr viele Dokumentation für LilyPond. Neue Benutzer sind
+oft verwirrt, welche Teile davon sie lesen sollen, und so kommt
+es vor, dass machnmal wichtige Abschnitte nicht gelesen werden.
 
-@item
-@emph{@ruser{Schnittstellen für Programmierer}}:
-demonstriert die Erstellung von musikalischen Funktionen.
-
-@end itemize
-
-Ds Benutzerhandbuch enthält auch Anhänge mit nützlichen Referenztabellen.
+@warning{Bitte überspringen Sie keine wichtigen Teile der
+Dokumentation.  Sonst wird es Ihnen später sehr viel schwerer
+fallen, spätere Abschnitte zu verstehen.}
 
 @itemize
 
 @item
-Die @ruser{Literatur}
-enthält einige wichtige Quellen für alle, die mehr über Notation und 
-den Notensatz erfahren wollen.
+@strong{Bevor Sie @emph{irgendetwas} ausprobieren}: Lesen Sie die
+Abschnitte @ref{Einleitung} und @ref{Übliche Notation}.  Wenn
+Sie auf musikalische Fachbegriffen stoßen, die Sie nicht kennen,
+schauen Sie diese im @rglosnamed{Top, Glossar} nach.
 
 @item
-@ruser{Notationsübersicht}
-sind Tabellen, in denen Akkordbezeichnungen, MIDI-Instrumente, 
-Farbbezeichnungen und die Zeichen der Feta-Schriftart gesammelt sind.
+@strong{Bevor Sie ein vollständiges Stück notieren}:  Lesen
+Sie den Abschnitt @ref{Grundbegriffe} im Handbuch zum Lernen.
+Danach können Sie sich die für Ihr Projekt wichtigen Abschnitte
+in der
+@rusernamed{Top, Notationsreferenz} anschauen.
 
 @item
-Die
-@emph{@ruser{Befehlsübersicht}}
-zeigt die wichtigsten LilyPond-Befehle.
+@strong{Bevor Sie versuchen, die Standardnotation zu verändern}:
+Lesen Sie @ref{Die Ausgabe verändern} im Handbuch zum Lernen.
 
 @item
-Der
-@emph{@ruser{Index der LilyPond-Befehle}}
-listet alle Befehle auf, die mit @code{\} anfangen.
-
-@item
-Der 
-@emph{@ref{LilyPond-Index}}
-ist ein vollständiger Index.
-
-@end itemize
-
-
-
-@node Über die Anwendungsbenutzung (AU)
-@unnumberedsubsec Über die Anwendungsbenutzung (AU)
-@translationof About the Application Usage
-
-@cindex Anwendungsbenutzung
-@cindex Benutzung, lilypond-Programm
-@cindex Integration von LilyPond in andere Programme
-
-In diesem Buch wird erklärt, wie das Programm ausgeführt wird und 
-wie die Notation von LilyPond in andere Programme integriert werden 
-kann.
-
-@itemize @bullet
-
-@item
-@emph{@rprogram{Installieren}}:
-erklärt wie LilyPond installiert wird (inklusive Kompilation, wenn es 
-nötig sein sollte).
-
-@item
-@emph{@rprogram{Setup}}:
-erklärt wie der Computer eingerichtet wird, damit LilyPond optimal genutzt 
-werden kann. Hierzu gehören etwa spezielle Umgebungen für bestimmte 
-Texteditoren.
-
-@item
-@emph{@rprogram{LilyPond starten}}:
-zeigt, wie LilyPond und seine Hilfsprogramme gestartet werden. Zusätzlich 
-wird hier erklärt, wie Quelldateien von alten LilyPond-Versionen aktualisiert 
-werden können.
-
-@item
-@emph{@rprogram{LilyPond-book}}:
-erklärt die Details, um einen Text mit eingefügten Notenbeispielen (wie 
-etwa dieses Handbuch) zu 
-erstellen.
-
-@item
-@emph{@rprogram{Von anderen Formaten konvertieren}}:
-erklärt, wie die Konvertierungsprogramme aufgerufen werden. Diese 
-Programme kommen mit LilyPond zusammen und konvertieren eine Vielzahl 
-von Notensatzformaten in das @code{.ly}-Format.
-
-@end itemize
-
-
-@node Über die Schnipselliste
-@unnumberedsubsec Über die Schnipselliste
-@translationof About the Snippet List
-
-@cindex Schnipsel
-@cindex LSR
-@cindex LilyPond Snippet Repository
-@cindex LilyPond-Schnipsel-Depot
-
-Die @rlsrnamed{Top,LilyPond-Schnipsel} sind eine ausführliche Sammlung kurzer 
-Beispiele, anhand derer Tricks, Tipps und Spezialfunktionen von LilyPond
-demonstriert werden. Die meisten dieser Schnipsel können auch im 
- @uref{http://lsr.dsi.unimi.it/,LilyPond-Schnipsel-Depot} betrachtet 
-werden. Diese Internetseite verfügt auch über ein 
-durchsuchbares LilyPond-Handbuch.
-
-Die Liste der Schnipsel zu einem Abschnitt des Benutzerhandbuchs ist auch
-dort jeweils im Abschnitt @strong{Siehe auch} verlinkt.
-
-
-@node Über die Referenz der Iterna (IR)
-@unnumberedsubsec Über die Referenz der Iterna (IR)
-@translationof About the Internals Reference
-
-@cindex Referenz der Interna
-
-Die @rinternalsnamed{Top,Referenz der Interna} ist eine Sammlung intensiv 
-verlinkter HTML-Seiten, die alle Details jeder einzelnen 
-LilyPond-Klasse, jedes Objektes und jeder Funktion erklären. Sie wird 
-direkt aus den Satzdefinitionen im Quellcode produziert.
-
-So gut wie alle Formatierungsmöglichkeiten, die intern verwendet werden, 
-sind auch direkt für den Benutzer zugänglich. Alle Variablen z. B., die
-Dicke-Werte, Entfernungen usw. kontrollieren, können in den Eingabe-Dateien 
-verändert werden. Es gibt eine riesige Anzahl von Formatierungsoptionen, und 
-alle haben einen @qq{Siehe}-Abschnitt, der auf die Dokumentation verweist.
-Im HTML-Handbuch haben diese Abschnitte klickbare Links.
-
-Die Programmreferenz ist nur auf englisch verfügbar.
-
-
-@node Andere Dokumentation
-@unnumberedsubsec Andere Dokumentation
-@translationof Other documentation
-
-Es gibt noch eine Reihe weiterer wertvoller Informationsquellen zu LilyPond:
-
-
-@itemize
-
-@item
-@ifhtml
-@ifset bigpage
-@uref{../topdocs/NEWS.html,Neuigkeiten}:
-@end ifset
-@ifclear bigpage
-@uref{../../topdocs/NEWS.html,Neuigkeiten}:
-@end ifclear
-@end ifhtml
-@ifnothtml
-Neuigkeiten:
-@end ifnothtml
-eine Zusammenfassung der Änderungen in LilyPond seit der letzten Version.
-
-@item @uref{http://lists.gnu.org/archive/html/lilypond-user/,Das Archiv 
-der lilypond-user Mailing-Liste}: enthält alle bisher an die Liste
-gesendeten Mails.  Viele Fragen werden immer wieder gestellt und auch
-beantwortet.  Die Chance, dass Ihre Frage auch schon mal aufgetaucht ist,
-ist also relativ groß.  In diesem Fall finden Sie die Antwort in diesem
-Archiv.
-
-@item @uref{http://lists.gnu.org/archive/html/lilypond-devel/,Das Archiv
-der lilypond-devel Mailing-Liste}: enthält alle bisher an die 
-Entwicklerliste gesendeten Mails.  Diese Diskussionen sind dementsprechend
-technisch gehalten.  Wenn Sie eine tiefergehende Frage zu den Interna von 
-LilyPond haben, finden Sie die Antwort vielleicht in diesem Archiv.
-
-@item Eingebettete Musikbeispiele: Auf allen HTML-Seiten mit Notenbeispielen,
-die von LilyPond erzeugt wurden, kann die originale Quelldatei durch einen Klick auf das 
-Bild betrachtet werden.
-
-@item Initialisierungsdateien von LilyPond:
-
-Der Speicherort der Dokumentationsdateien unterscheidet sich evtl. je 
-nach Betriebssystem. Manchmal wird hier auf Initialisierungs- oder 
-Beispieldateien verwiesen. Das Handbuch nimmt dabei an, dass diese 
-Dateien sich relativ zum Quellverzeichnis befinden. Zum Beispiel würde 
-der Pfad @file{input/@/lsr/@/Verzeichnis/@/bla@/.ly} etwa auf die Datei 
-@file{lilypond@/2.x.y/@/input/@/lsr/@/Verzeichnis/@/bla@/.ly} verweisen. In den 
-Binärpaketen für Unix-Plattformen sind Dokumentation und Beispiele 
-üblicherweise in einem Verzeichnis wie @file{/usr/@/share/@/doc/@/lilypond/}
-gespeichert. Initialisierungsdateien, etwa  @file{scm/@/lily@/.scm}
-oder @file{ly/@/engraver@/-init@/.ly}, befinden sich normalerweise im 
-Verzeichnis @file{/usr/@/share/@/lilypond/}.
-
-Weiterführende Informationen finden Sie unter @ref{Mehr Information}.
+@strong{Bevor Sie sich an ein größeres Projekt machen}: Lesen
+Sie den Abschnitt
+@rprogram{Suggestions for writing files}
+in der Programmbenutzung.
 
 @end itemize
 
