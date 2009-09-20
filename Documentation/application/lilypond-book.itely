@@ -202,7 +202,7 @@ or
 or
 
 @example
-\lilypond@{ YOUR LILYPOND CODE @}
+\lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
 @end example
 
 Additionally, @code{\lilypondversion} displays the current version
