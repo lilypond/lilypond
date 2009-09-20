@@ -320,13 +320,19 @@ is trivial.
 
 If a greater number of systems is requested, a @TeX{} conditional must
 be used before the @code{\endinput}.  In this example, replace @q{2} by
-the number of systems you want in the output,
+the number of systems you want in the output.
 
 @example
 \def\betweenLilyPondSystem#1@{
-    \ifnum##1<2\else\endinput\fi
+    \ifnum##1<2\else\expandafter\endinput\fi
 @}
 @end example
+
+@noindent
+(Since @code{\endinput} immediately stops the processing of the current
+input file we need @code{\expandafter} to delay the call of @code{\endinput}
+after executing @code{\fi} so that the @code{\if}-@code{\fi} clause is
+balanced.)
 
 Remember that the definition of @code{\betweenLilyPondSystem} is
 effective until @TeX{} quits the current group (such as the @LaTeX{}
@@ -345,7 +351,8 @@ This may be simplified by defining a @TeX{} macro
 
 @example
 \def\onlyFirstNSystems#1@{
-    \def\betweenLilyPondSystem##1@{\ifnum##1<#1\else\endinput\fi@}
+    \def\betweenLilyPondSystem##1@{%
+      \ifnum##1<#1\else\expandafter\endinput\fi@}
 @}
 @end example
 
