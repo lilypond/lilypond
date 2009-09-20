@@ -1,21 +1,23 @@
-If you want to redistribute LilyPond, you must comply with the GNU
-General Public License (reproduced below). This license applies to
-LilyPond with the following exceptions:
+GNU Lilypond is free software; you can redistribute it and/or modify
+it under the terms of version 2 of the GNU General Public License as
+published by the Free Software Foundation.  A copy of the license is
+contained in this file.
 
-- It does not apply to example input files (which are in
-the subdirectory input/) that explicitly specify another license.
+The following exceptions are granted to this license:
 
-- If you create a document which uses fonts included in LilyPond, and
-embed this font or unaltered portions of this font into the document,
-then this font does not by itself cause the resulting document to be
-covered by the GNU General Public License. This exception does not
-however invalidate any other reasons why the document might be covered
-by the GNU General Public License. If you modify this font, you may
-extend this exception to your version of the font, but you are not
-obligated to do so. If you do not wish to do so, delete this exception
-statement from your version.
+ -- It does not apply to example input files (contained in the
+    subdirectory input/) that explicitly specify another license.
 
-
+ -- If you create a document which uses fonts included in Lilypond,
+    and embed this font or unaltered portions of this font into the
+    document, then this font does not by itself cause the resulting
+    document to be covered by the GNU General Public License.  This
+    exception does not however invalidate any other reasons why the
+    document might be covered by the GNU General Public License.
+    If you modify one or more of the fonts, you may extend this
+    exception to your version of the fonts but you are not obliged
+    to do so.  If you do not wish to do so, delete this exception
+    statement from your version.
 
 
 		    GNU GENERAL PUBLIC LICENSE
