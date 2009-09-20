@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-	Translation of GIT committish: 95e6825ee09ca7f8eea87580301c8819ff1d571b
+	Translation of GIT committish: 7cf1ff2069f1b0e945d0c0852791b2306451db97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2655,25 +2655,11 @@ les autres objets du groupe.
 
 La propriété @code{right-padding} joue sur l'espacement entre une 
 altération et la note sur laquelle elle porte.  On ne l'utilise pas
-souvent, mais l'exemple ci-dessous montre une situation où elle est
-nécessaire.  Imaginons que nous voulions faire apparaître un accord qui
-contienne à la fois un si bécarre et un si bémol.  Pour qu'il n'y ait
-pas de doute, nous chercherions à faire précéder la note d'un signe
-bécarre et d'un signe bémol.  Voici différentes tentatives pour y
-parvenir : 
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<b bes>
-<b! bes>
-<b? bes>
-@end lilypond
-
-Aucune n'est satifaisante, et la seconde se solde même par une
-collision  entre les deux signes. 
-
-Une solution pour arriver à nos fins consiste à retoucher le stencil des 
-altérations grâce à un markup qui contient les symboles bécarre et 
-bémol, dans l'ordre que nous souhaitons, comme ceci :
+souvent, mais l'espacement par défaut peut se révéler inadéquat avec
+certaines altérations ou certains glyphes utilisés en musique
+microtonale.  Le stencil de l'altération devra alors être construit sous
+la forme d'un @code{markup} qui contiendra le ou les symboles requis,
+comme ceci : 
 
 @cindex Accidental, exemple de dérogation
 @cindex text, exemple d'utilisation de la propriété
@@ -2682,13 +2668,20 @@ bémol, dans l'ordre que nous souhaitons, comme ceci :
 @cindex right-padding, exemple d'utilisation de la propriété
 
 @lilypond[quote,ragged-right,verbatim]
-naturalplusflat = \markup { \natural \flat }
+sesquisharp = \markup { \sesquisharp }
 \relative c'' {
+  c
+  % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #naturalplusflat
-  \once \override Score.AccidentalPlacement #'right-padding = #1.5
-  <b bes>
+  \once \override Accidental #'text = #sesquisharp
+  cis c
+  % This improves the spacing
+  \once \override Score.AccidentalPlacement #'right-padding = #0.6
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #sesquisharp
+  cis
 }
 @end lilypond
 
@@ -2697,8 +2690,8 @@ Cette méthode utilise, pour le stencil des altérations, une retouche
 qui ne sera pas reprise par la suite.  Le type de stencil est
 obligatoirement une procédure, qui consiste ici à imprimer le contenu de
 la propriété @code{text} de @code{Accidental}, déclaré comme étant un
-signe bécarre suivi d'un signe bémol.  Celui-ci est ensuite repoussé
-devant la tête de note par la retouche de @code{right-padding}.
+signe sesqui-dièse.  Celui-ci est ensuite repoussé devant la tête de
+note par la retouche de @code{right-padding}. 
 
 @noindent
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 7b70644b95f383b4281e9ffa146d315d2ada11d3
+    Translation of GIT committish: 7cf1ff2069f1b0e945d0c0852791b2306451db97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1184,6 +1184,12 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
+Notez bien que ces commandes prédéfinies affecteront toutes les portées
+de la partition, même si vous ne les placez que dans un simple contexte
+@code{Voice}.  Pour éviter ce désagrément, transférez le
+@code{Timing_translator} du contexte @code{Score} au contexte
+@code{Staff}, comme indiqué au chapitre @ref{Notation polymétrique}.
+
 
 @predefined
 @code{\cadenzaOn},
@@ -1196,7 +1202,8 @@ Glossaire musicologique :
 @rglos{cadenza}.
 
 Manuel de notation :
-@ref{Visibilité des objets}.
+@ref{Visibilité des objets},
+@ref{Notation polymétrique}.
 
 Morceaux choisis :
 @rlsr{Rhythms}.
