@@ -281,8 +281,9 @@ Delete the LilyPond.app folder.
 @warning{If you are happy with the GUI, then please ignore these
 instructions.}
 
-FIXME: once 2.12.4 is out, delete a bunch of this -- IIRC we now
-*do* provide Python, so this stuff gets much easier.
+@ignore
+FIXME: I had one report that we don't need this stuff; will delete
+after confirmation.  -gp
 
 @subsubheading Using Python scripts on MacOS 10.3 or 10.4
 
@@ -304,61 +305,80 @@ otherwise it should be
 @example
 #!@var{/path/to/newly_installed/python}
 @end example
-
+@end ignore
 
 @subsubheading MacOS X on the command line
 
-The scripts --- such as @command{lilypond-book}, @command{convert-ly},
-@command{abc2ly}, and even @command{lilypond} itself --- are included
-inside the @code{.app} file for MacOS@tie{}X.  They can be run from
-the command line by invoking them directly, e.g.
+The most convenient way to run lilypond scripts is by setting up
+@qq{helper} scripts of your own.
 
-@example
-@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
-@end example
+@enumerate
 
-@noindent
-The same is true of the other scripts in that directory, including
-@command{lilypond-book}, @command{convert-ly}, @command{abc2ly}, etc.
-
-Alternatively, you may create scripts which add the path
-automatically.  Create a directory to store these scripts,
+@item
+Create a directory to store these scripts,
 
 @example
 mkdir -p ~/bin
 cd ~/bin
 @end example
 
-Create a file called @code{lilypond} which contains
 
-@example
-exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end example
+@item
+Create a file called @command{lilypond} which contains
 
-Create similar files @code{lilypond-book}, @code{convert-ly}, and
-any other helper programs you use (@code{abc2ly}, @code{midi2ly},
-etc).  Simply replace the @code{bin/lilypond} with
-@code{bin/convert-ly} (or other program name) in the above file.
+FIXME: obvious css issues to be dealt with.  :(
+@c we need a small font here to fit.  -gp
+@smallexample
+exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+@end smallexample
 
+@warning{@var{DIR} will generally be @code{/Applications/}}
+
+
+@item
+Create similar files @command{lilypond-book},
+@command{convert-ly}, and any other scripts you wish to use, by
+replacing the @command{bin/lilypond} with @command{bin/convert-ly}
+(or other program name).
+
+
+@item
 Make the file executable,
 
 @example
 chmod u+x lilypond
 @end example
 
-Now, add this directory to your path.  Modify (or create)
-a file called @code{.profile} in your home directory such that it contains
+
+@item
+Now, add this directory to your path.  Modify (or create) a file
+called @code{.profile} in your home directory such that it
+contains
 
 @example
 export PATH=$PATH:~/bin
 @end example
 
-@noindent
 This file should end with a blank line.
 
-Note that @var{path/to} will generally be @code{/Usages/}.
+@end enumerate
 
 
+@subsubheading Invoking individual scripts
+
+The scripts --- such as @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly}, and even @command{lilypond} itself --- are included
+inside the @code{.app} file for MacOS@tie{}X.
+
+Scripts can also be run from the command line by invoking them
+directly:
+
+@example
+@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
+@end example
+
+The same is true for all other scripts in that directory, such as
+@command{lilypond-book} and @command{convert-ly}.
 
 @divEnd
 
