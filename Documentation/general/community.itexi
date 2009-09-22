@@ -664,6 +664,14 @@ PDF 750k})
 @itemize
 
 @item
+September 2009
+
+The German LinuxUser magazine wrote an
+@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+article about lilypond}.
+
+
+@item
 February 2008
 
 In @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
@@ -676,7 +684,7 @@ including comparisons with a reference hand-engraved edition.
 @item
 December 2005
 
-linux journal cover Linux Journal publishes an article titled
+Linux journal cover Linux Journal publishes an article titled
 @uref{http://www.linuxjournal.com/article/8364, Make Stunning
 Schenker Graphs with GNU LilyPond}.  It is a in-depth but hands-on
 feature article with crisp LilyPond graphics.  Author Kris Shaffer
