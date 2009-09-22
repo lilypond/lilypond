@@ -760,7 +760,7 @@ sub lilypond_generate_page_toc_body($)
 # WTF, perl needs 6 lines of magic to do: ' ' + open ('file-name').read ()?
 	local $/=undef;
         my $name = "search-box.html";
-	open FILE, $name or open FILE, "$ENV{SRC_DIR}/$name" or die  die "no such file: $name: $!";
+	open FILE, "$ENV{SRC_DIR}/$name" or open FILE, "$ENV{SRC_DIR}/../$name" or die  die "no such file: $name: $!";
 
 # All these also seems to work, but fail silently.  Great, it runs!
 # It's late already, let's this broken site.
