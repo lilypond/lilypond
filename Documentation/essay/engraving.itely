@@ -20,8 +20,8 @@ LilyPond.
 * Automated engraving::         
 * What symbols to engrave?::    
 * Music representation::        
-* Example applications::
-* Appendix
+* Example applications::        
+* Appendix::                    
 @end menu
 
 
@@ -48,7 +48,7 @@ five years of experience were necessary to become truly skilled.
 
 @quotation
 @iftex
-@image{pictures/hader-slaan,,7cm}
+@sourceimage{hader-slaan,,7cm,}
 @end iftex
 @ifnottex
 @sourceimage{hader-slaan,,,jpg}
@@ -68,10 +68,10 @@ about the work that goes into a well-engraved score. Below we describe
 several of those aspects that we have tried to imitate in LilyPond.
 
 @menu
-* Music fonts::
-* Optical spacing::
-* Ledger lines::
-* Optical sizes::
+* Music fonts::                 
+* Optical spacing::             
+* Ledger lines::                
+* Optical sizing::              
 * Why work so hard?::           
 @end menu
 
@@ -92,25 +92,25 @@ sharp corners.
 @item @tab
 @ifnotinfo
 @iftex
-@image{pictures/baer-flat-gray,,4cm}
+@sourceimage{baer-flat-gray,,4cm,}
 @end iftex
 @ifnottex
-@image{pictures/baer-flat-gray,,,png}
+@sourceimage{baer-flat-gray,,,png}
 @end ifnottex
 
 @tab
 @iftex
-@image{pictures/henle-flat-gray,,4cm}
+@sourceimage{henle-flat-gray,,4cm,}
 @end iftex
 @ifnottex
-@image{pictures/henle-flat-gray,,,png}
+@sourceimage{henle-flat-gray,,,png}
 @end ifnottex
 
 @end ifnotinfo
 @ifinfo
-@image{lilypond/pictures/henle-flat-bw,,,,png}
-@image{lilypond/pictures/baer-flat-bw,,,,png}
-@image{lilypond/pictures/lily-flat-bw,,,,png}
+@sourceimage{henle-flat-bw,,,png}
+@sourceimage{baer-flat-bw,,,png}
+@sourceimage{lily-flat-bw,,,png}
 @end ifinfo
 
 
@@ -140,7 +140,7 @@ our own LilyPond font.
 
 @quotation
 @iftex
-@image{pictures/pdf/OpusAndFeta,,,}
+@sourceimage{pdf/OpusAndFeta,,,}
 @end iftex
 @ifnottex
 @sourceimage{OpusAndFeta,,,png}
@@ -285,7 +285,7 @@ accidentals. We have included this feature in LilyPond's engraving.
 @item @tab
 
 @iftex
-@image{pictures/baer-ledger,3cm}
+@sourceimage{baer-ledger,3cm,,}
 @end iftex
 @ifnottex
 @sourceimage{baer-ledger,,,png}
@@ -294,7 +294,7 @@ accidentals. We have included this feature in LilyPond's engraving.
 @tab
 
 @iftex
-@image{pictures/lily-ledger,3cm}
+@sourceimage{lily-ledger,3cm,,}
 @end iftex
 @ifnottex
 @sourceimage{lily-ledger,,,png}
@@ -319,7 +319,7 @@ to a range of music sizes. This is a LilyPond engraving at staff size
 
 @quotation
 @iftex
-@image{pictures/pdf/size26,,23mm}
+@sourceimage{pdf/size26,,23mm,}
 @end iftex
 @ifnottex
 @sourceimage{size26,,,png}
@@ -332,7 +332,7 @@ magnified by 236% to print at the same size as the previous example:
 
 @quotation
 @iftex
-@image{pictures/pdf/size11,,23mm}
+@sourceimage{pdf/size11,,23mm,}
 @end iftex
 @ifnottex
 @sourceimage{size11,,,png}
@@ -479,14 +479,14 @@ hand-engraved edition (Bärenreiter BA320), and as engraved by LilyPond
 1.4:
 
 @iftex
-@image{pictures/baer-sarabande-hires,16cm}
+@sourceimage{baer-sarabande-hires,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{baer-sarabande,,,png}
 @end ifnottex
 
 @iftex
-@image{pictures/lily14-sarabande,16cm}
+@sourceimage{lily14-sarabande,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{lily14-sarabande,,,png}
@@ -1124,7 +1124,7 @@ Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
 1989):
 
 @iftex
-@image{pictures/bwv861-baer,16cm}
+@sourceimage{bwv861-baer,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{bwv861-baer-small,,,png}
@@ -1137,7 +1137,7 @@ this demsontrates slight variations in the engraving decisions, even
 from the same publisher and edition:
 
 @iftex
-@image{pictures/bwv861-baer-alt,16cm}
+@sourceimage{bwv861-baer-alt,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{bwv861-baer-alt-small,,,png}
@@ -1150,7 +1150,7 @@ markings (fingerings, articulations, etc.) have been removed for clearer
 comparison with the other editions here:
 
 @iftex
-@image{pictures/bwv861-breitkopf,16cm}
+@sourceimage{bwv861-breitkopf,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{bwv861-breitkopf-small,,,png}
@@ -1161,24 +1161,24 @@ Bach-Gessellschaft edition (Leipzig, 1866), available from the Petrucci
 Music Library (IMSPL #02221):
 
 @iftex
-@image{pictures/bwv861-gessellschaft,16cm}
+@sourceimage{bwv861-gessellschaft,16cm,,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-baer-gessellschaft-small,,,png}
+@sourceimage{bwv861-gessellschaft-small,,,png}
 @end ifnottex
 
 @noindent
 Finale 2008:
 
 @iftex
-@image{pictures/pdf/bwv861-finale2008a}
+@sourceimage{pdf/bwv861-finale2008a,,,}
 @end iftex
 @ifnottex
-@sourceimage{bwv-finale2008a,,,png}
+@sourceimage{bwv861-finale2008a,,,png}
 @end ifnottex
 
 @noindent
-LilyPond, version @version:
+LilyPond, version @version{}:
 
 @lilypond[staffsize=14.3,line-width=15.9\cm]
 global = {\key g \minor}
