@@ -165,9 +165,7 @@ $(outdir)/general.texi: $(outdir)/examples
 
 $(outdir)/examples:
 	$(MAKE) -C general/examples
-# FIXME: who is replacing src="examples --> src="../examples" ?
-# [ugh, why do most scripts not even say they run anymore?]
-	ln -sf general/examples $@
+	ln -sf ../general/examples/$(outdir) $@
 endif
 
 # Ugh, using '%' twice not possible
