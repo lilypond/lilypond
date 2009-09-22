@@ -8,6 +8,10 @@ The following exceptions are granted to this license:
  -- It does not apply to example input files (contained in the
     subdirectory input/) that explicitly specify another license.
 
+ -- It does not apply to the documentation files (contained in
+    the subdirectory Documentation/).  The documentation is
+    covered by the COPYING.DOCUMENTATION file.
+
  -- If you create a document which uses fonts included in Lilypond,
     and embed this font or unaltered portions of this font into the
     document, then this font does not by itself cause the resulting
