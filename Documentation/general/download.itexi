@@ -138,28 +138,24 @@ package manager.
 
 @item
 @sourceimage{logo-linux,,,}
-@downloadStableLinux
+@downloadStableLinuxNormal
 (if in doubt, use this)
 
 @item
 @sourceimage{logo-linux,,,}
-@c @uref{http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-@versionStable{}-1.linux-64.sh,
-@c Linux 64-bit: LilyPond @versionStable{}}
+@downloadStableLinuxBig
 
 @item
 @sourceimage{logo-linux,,,}
-@c @uref{http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-@versionStable{}-1.linux-ppc.sh,
-@c Linux PPC: LilyPond @versionStable{}}
+@downloadStableLinuxPPC
 
 @item
 @sourceimage{logo-freebsd,,,}
-@c @uref{http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-@versionStable{}-1.freebsd-x86.sh,
-@c FreeBSD i386: LilyPond @versionStable{}}
+@downloadStableFreeBSDNormal
 
 @item
 @sourceimage{logo-freebsd,,,}
-@c @uref{http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-@versionStable{}-1.freebsd-64.sh,
-@c FreeBSD amd64: LilyPond @versionStable{}}
+@downloadStableFreeBSDBig
 
 @end itemize
 
@@ -249,16 +245,12 @@ acknowledged.
 
 @item
 @sourceimage{logo-macosx,,,}
-@c @uref{
-@c http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-@versionStable{}-1.darwin-x86.tar.bz2,
-@c lilypond-@versionStable{}.darwin-x86.tar.bz2}
+@downloadStableDarwinNormal
 For Intel chips (if in doubt, use this).
 
 @item
 @sourceimage{logo-macosx,,,}
-@c @uref{
-@c http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-@versionStable{}-1.darwin-ppc.tar.bz2,
-@c lilypond-@versionStable{}.darwin-ppc.tar.bz2}
+@downloadStableDarwinPPC
 For G3 and G4 CPUs (old Apple computers).
 
 @end itemize
@@ -409,9 +401,7 @@ acknowledged.
 
 @item
 @sourceimage{logo-windows,,,}
-@c @uref{
-@c http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-@versionStable{}-1.mingw.exe,
-@c lilypond-@versionStable{}.mingw-exe}
+@downloadStableWindows
 For Windows ME, NT, 2000, XP, and Vista.
 
 @end itemize
