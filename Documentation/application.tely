@@ -18,6 +18,12 @@ LilyPond version @version{}.  In addition, it suggests some
 @qq{best practices} for efficient usage.
 @end macro
 
+@macro copyrightDeclare
+Copyright @copyright{} 
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+by the authors.
+@end macro
+
 @include macros.itexi
 
 

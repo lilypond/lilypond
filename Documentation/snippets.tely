@@ -33,6 +33,12 @@ or figure for each example to see the corresponding input file.
 
 @end macro
 
+@macro copyrightDeclare
+Copyright @copyright{} 
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+by the authors.
+@end macro
+
 @c This disables @lydoctitle definition in common-macros.itexi
 @set snippets-sections
 

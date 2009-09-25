@@ -19,6 +19,13 @@ the reader is familiar with the material in the
 @rlearningnamed{Top, Learning Manual}.
 @end macro
 
+@macro copyrightDeclare
+Copyright @copyright{} 
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+by the authors.
+@end macro
+
+
 @include macros.itexi
 
 @c  TODO: all the direntry stuff should be moved to general.texi
