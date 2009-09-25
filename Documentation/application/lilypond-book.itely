@@ -27,7 +27,7 @@ the music are adjusted to match the layout of your document.
 This is a separate program from @command{lilypond} itself, and is run
 on the command line; for more information, see @ref{Command-line
 usage}.  If you have MacOS 10.3 or 10.4 and you have trouble running
-@code{lilypond-book}, see FIXME FIXME @c @ref{Setup for MacOS X}.
+@code{lilypond-book}, see @rgeneral{MacOS X}.
 
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
 documents.

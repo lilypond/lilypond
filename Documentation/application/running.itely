@@ -738,10 +738,11 @@ There is support for different text editors for LilyPond.
 @menu
 * Emacs mode::                  
 * Vim mode::                    
+* Other editors::
 @end menu
 
 @node Emacs mode
-@subsection Emacs mode
+@unnumberedsubsec Emacs mode
 
 Emacs has a @file{lilypond-mode}, which provides keyword
 autocompletion, indentation, LilyPond specific parenthesis matching
@@ -766,7 +767,7 @@ your @var{load-path} by appending the following line (as modified) to your
 
 
 @node Vim mode
-@subsection Vim mode
+@unnumberedsubsec Vim mode
 
 For @uref{http://@/www@/.vim@/.org,VIM}, a @file{vimrc} is supplied,
 along with syntax coloring tools.  A Vim mode for entering music and
@@ -797,5 +798,11 @@ where $@{LILYPOND_VERSION@} is your LilyPond version.  If LilyPond was not
 installed in @file{/usr/local/}, then change this path accordingly.
 
 
+@node Other editors
+@unnumberedsubsec Other editors
 
+Other editors (both text and graphical) support LilyPond, but
+their special configuration files are not distributed with
+LilyPond.  Consult their documentation for more information.  Such
+editors are listed in @rgeneral{Alternate editors}.
 

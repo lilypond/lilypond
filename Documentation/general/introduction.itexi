@@ -902,6 +902,38 @@ Other features are lyric hyphenation and running LilyPond on
 multiple files at once from within the KDE file manager.
 
 
+FIXME
+Other programs can export LilyPond code:
+
+@itemize
+@item
+@uref{http://@/www@/.denemo@/.org/,Denemo}, a graphical score editor.
+@item
+@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime
+monophonic MIDI to LilyPond converter.
+@item
+@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an
+Emacs major mode.
+@item
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, which imports
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@item
+@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
+which imports @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@item
+@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
+which imports MIDI
+@item
+@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
+a LISP library to generate music notation
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml},
+has experimental export for LilyPond.
+@item
+@uref{http://www.tuxguitar.com.ar/}, can export to LilyPond.
+@item
+@uref{http://musescore.org} can also export to LilyPond.
+@end itemize
 @divEnd
 
 

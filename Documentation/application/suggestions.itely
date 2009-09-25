@@ -44,7 +44,7 @@ structured in order to be easier (or harder) to update.
 * General suggestions::         
 * Typesetting existing music::  
 * Large projects::              
-* When things don't work::      
+* Troubleshooting::             
 * Make and Makefiles::          
 @end menu
 
@@ -194,15 +194,8 @@ g4\fthenp c'8. e16
 @end itemize
 
 
-@node When things don't work
-@section When things don't work
-
-@menu
-* Troubleshooting (taking it all apart)::  
-@end menu
-
-@node Troubleshooting (taking it all apart)
-@subsection Troubleshooting (taking it all apart)
+@node Troubleshooting
+@section Troubleshooting
 
 Sooner or later, you will write a file that LilyPond cannot
 compile.  The messages that LilyPond gives may help

@@ -22,8 +22,7 @@ These are separate programs from @command{lilypond} itself, and are
 run on the command line; see @ref{Command-line usage} for more
 information.  If you have MacOS 10.3 or 10.4 and you have trouble
 running some of these scripts, e.g. @code{convert-ly}, see
-FIXME FIXME 
-@c @ref{Setup for MacOS X}.
+@rgeneral{MacOS X}.
 
 
 @knownissues
@@ -36,7 +35,7 @@ bug reports will almost certainly not be resolved.
 * Invoking musicxml2ly::        Importing MusicXML.
 * Invoking abc2ly::             Importing ABC.
 * Invoking etf2ly::             Importing Finale.
-* Generating LilyPond files::   GUIs, transcribers, and algorithmic composition programs.
+* Other formats::
 @end menu
 
 
@@ -199,6 +198,9 @@ input file is a zip-compressed MusicXML file.
 @node Invoking abc2ly
 @section Invoking @code{abc2ly}
 
+@warning{This program is not supported, and may be remove from
+future versions of LilyPond.}
+
 @cindex ABC
 
 ABC is a fairly simple ASCII based format.  It is described at the ABC site:
@@ -264,6 +266,9 @@ ABC synchronizes words and notes at the beginning of a line;
 @node Invoking etf2ly
 @section Invoking @command{etf2ly}
 
+@warning{This program is not supported, and may be remove from
+future versions of LilyPond.}
+
 @cindex ETF
 @cindex enigma
 @cindex Finale
@@ -301,43 +306,12 @@ The list of articulation scripts is incomplete.  Empty measures
 confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 
 
-@node Generating LilyPond files
-@section Generating LilyPond files
+@node Other formats
+@section Other formats
 
 @cindex External programs, generating LilyPond files
 
-LilyPond itself does not come with support for any other formats, but
-there are some external tools that also generate LilyPond files.
-
-These tools include
-
-@itemize
-@item
-@uref{http://@/www@/.denemo@/.org/,Denemo}, a graphical score editor.
-@item
-@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime
-monophonic MIDI to LilyPond converter.
-@item
-@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an
-Emacs major mode.
-@item
-@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, which imports
-@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
-@item
-@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
-which imports @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
-@item
-@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
-which imports MIDI
-@item
-@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
-a LISP library to generate music notation
-@item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml},
-has experimental export for LilyPond.
-@item
-@uref{http://www.tuxguitar.com.ar/}, can export to LilyPond.
-@item
-@uref{http://musescore.org} can also export to LilyPond.
-@end itemize
+LilyPond itself does not come with support for any other formats,
+but some external tools can also generate LilyPond files.  These
+are listed in @rgeneral{Alternate editors}.
 
