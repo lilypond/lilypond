@@ -26,13 +26,11 @@ $(outdir)/snippets/index..html: TEXI2HTML_FLAGS += -D short_toc
 ### Extra source files
 
 README_TOP_FILES= DEDICATION THANKS
-LATEX_FILES =$(call src-wildcard,*.latex)
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 
-EXTRA_DIST_FILES = $(call src-wildcard,*.init) $(LATEX_FILES) \
-  search-box.html
+EXTRA_DIST_FILES = $(call src-wildcard,*.init) search-box.html
 
 ### Out files
 
