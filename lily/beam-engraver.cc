@@ -9,6 +9,7 @@
 #include "beam.hh"
 #include "beaming-pattern.hh"
 #include "context.hh"
+#include "directional-element-interface.hh"
 #include "drul-array.hh"
 #include "duration.hh"
 #include "engraver.hh"
@@ -36,6 +37,8 @@ protected:
   Stream_event *prev_start_ev_;
 
   Stream_event *stop_ev_;
+
+  Direction forced_direction_;
 
   Beaming_pattern *beam_info_;
   Beaming_pattern *finished_beam_info_;
@@ -91,6 +94,7 @@ Beam_engraver::Beam_engraver ()
   finished_beam_ = 0;
   finished_beam_info_ = 0;
   beam_info_ = 0;
+  forced_direction_ = CENTER;
   stop_ev_ = 0;
   start_ev_ = 0;
   prev_start_ev_ = 0;
@@ -103,7 +107,13 @@ Beam_engraver::listen_beam (Stream_event *ev)
   Direction d = to_dir (ev->get_property ("span-direction"));
 
   if (d == START && valid_start_point ())
-    ASSIGN_EVENT_ONCE (start_ev_, ev);
+    {
+      ASSIGN_EVENT_ONCE (start_ev_, ev);
+
+      Direction updown = to_dir (ev->get_property ("direction"));
+      if (updown)
+	forced_direction_ = updown;
+    }
   else if (d == STOP && valid_end_point ())
     ASSIGN_EVENT_ONCE (stop_ev_, ev);
 }
@@ -130,7 +140,9 @@ Beam_engraver::process_music ()
       set_melisma (true);
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
-      Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
+
+      Moment mp (robust_scm2moment (get_property ("measurePosition"),
+				    Moment (0)));
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
@@ -155,13 +167,20 @@ Beam_engraver::typeset_beam ()
     {
       if (!finished_beam_->get_bound (RIGHT))
 	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
-      
+      if (forced_direction_)
+	{
+	  Grob *stem = finished_beam_->get_bound (RIGHT);
+	  set_grob_direction (stem, forced_direction_);
+	  forced_direction_ = CENTER;
+	}
       finished_beam_info_->beamify (finished_beaming_options_);
+
       Beam::set_beaming (finished_beam_, finished_beam_info_);
 
       delete finished_beam_info_;
       finished_beam_info_ = 0;
       finished_beam_ = 0;
+
     }
 }
 
@@ -171,9 +190,7 @@ Beam_engraver::start_translation_timestep ()
   start_ev_ = 0;
 
   if (beam_)
-    {
-      set_melisma (true);
-    }
+    set_melisma (true);
 }
 
 void
@@ -214,13 +231,9 @@ Beam_engraver::acknowledge_rest (Grob_info info)
 {
   if (beam_
       && !scm_is_number (info.grob ()->get_property_data ("staff-position")))
-    {
-      chain_offset_callback (info.grob (),
-			     Beam::rest_collision_callback_proc, Y_AXIS);
-    }
+    chain_offset_callback (info.grob (),
+			   Beam::rest_collision_callback_proc, Y_AXIS);
 }
-
-
 
 void
 Beam_engraver::acknowledge_stem (Grob_info info)
@@ -235,8 +248,6 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   Item *stem = dynamic_cast<Item *> (info.grob ());
   if (Stem::get_beam (stem))
     return;
-
-  
   
   Stream_event *ev = info.ultimate_event_cause ();
   if (!ev->in_event_class ("rhythmic-event"))
@@ -258,8 +269,10 @@ Beam_engraver::acknowledge_stem (Grob_info info)
       */
     }
 
-  stem->set_property ("duration-log",
-		      scm_from_int (durlog));
+  if (forced_direction_)
+    set_grob_direction (stem, forced_direction_);
+
+  stem->set_property ("duration-log", scm_from_int (durlog));
   Moment stem_location = now - beam_start_mom_ + beam_start_location_;
   beam_info_->add_stem (stem_location,
 			max (durlog- 2, 0),
