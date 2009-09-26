@@ -146,21 +146,71 @@ Internals Reference:
 @funindex TabStaff
 @funindex TabVoice
 
-Tablature notation is used for notating music for plucked string
-instruments.  Pitches are not denoted with note heads, but by
-numbers indicating on which string and fret a note must be played.
-LilyPond offers limited support for tablature.
+Music for plucked string instruments is frequently notated using a
+finger/touch notation or tablature. In contrast to traditional
+notation pitches are not denoted with note heads, but by numbers (or
+letterlike symbols in historical intavolatura). The numbers
+indicate on which string and fret a note must be played. The numbers
+are printed on top of each other if they are to be played
+simultaneously.
 
-The string number associated with a note is given as a backslash
-followed by a number.  By default, string 1 is the highest,
+
+By default, string 1 is the highest,
 and the tuning defaults to the standard guitar tuning (with 6 strings).
 The notes are printed as tablature, by using @code{TabStaff} and
 @code{TabVoice} contexts
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\new TabStaff {
-  a,4\5 c'\2 a\3 e'\1
-  e\4 c'\2 a\3 e'\1
+\new TabStaff \relative c' {
+	a,8 a' <c e> a
+	d, a' <d f> a
+}
+@end lilypond
+
+Default tablatures do not contain any symbols for tone duration nor any
+other musical symbols such as e.g. expressive marks.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c ~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  <<
+    \new Staff { \clef "G_8" \symbols }
+    \new TabStaff   { \symbols }
+  >>
+}
+@end lilypond
+
+@funindex \tabFullNotation
+
+If all musical symbols used in traditional notation should also show up
+in tablature one has to apply the command @code{\tabFullNotation} in a
+@code{TabStaff}-context. Please bear in mind that half notes are
+double-stemmed in tablature in order to distinguish them from quarter
+notes.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c ~ c2\!
+  c'2.\prall\)
+}
+
+\score {
+  \new TabStaff {
+    \tabFullNotation
+    \symbols
+  }
 }
 @end lilypond
 
@@ -168,26 +218,107 @@ The notes are printed as tablature, by using @code{TabStaff} and
 
 @cindex fret
 
-
-When no string is specified for a note, the note is assigned to
-the highest string that can generate the note with a fret number
-greater than or equal to the value of @code{minimumFret}.
-The default value for @code{minimumFret} is 0.
+By default pitches are assigned to the lowest playing position on the
+fret-board (first position). Open strings are automatically preferred.
+If you would like a certain pitch to be played on a specific string
+you can add a string number indication to the pitch name. If you
+define pitch names and string numbers without a chord construct
+(@code{<>}) the string number indications do not appear in traditional
+notation. It is much more comfortable to define the playing position
+by using the value of @code{minimumFret}. The default value for
+minimumFret is 0.
 
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
+     \time 2/4
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      c,16 d e f g4
    }
    \new TabStaff \relative c {
      c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
      c,16 d e f g4
    }
 >>
+@end lilypond
+
+
+Ties over a line break are parenthesized by default. The same holds for
+the second alternative of a repeat.
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+	\repeat volta 2 {
+	e2. f4~
+	f2 g2~ }
+	\alternative {
+		{ g4 f2. }
+		{ g4\repeatTie c,2. }
+	}
+	b1~\break
+	b1  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+    \context Staff  {
+        \clef "treble_8"
+        \ties
+    }
+      \context TabStaff  {
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
+@end lilypond
+
+@funindex \hideSplitTiedTabNotes
+
+The command @code{\hideSplitTiedTabNotes} cancels the behavior of
+engraving fret numbers in parentheses:
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative c' {
+	\repeat volta 2 {
+	e2. f4~
+	f2 g2~ }
+	\alternative {
+		{ g4 f2. }
+		{ g4\repeatTie c,2. }
+	}
+	b1~\break
+	b1  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+    \context Staff  {
+        \clef "treble_8"
+        \ties
+    }
+      \context TabStaff  {
+      \hideSplitTiedTabNotes
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
 @end lilypond
 
 @cindex harmonic indications in tablature notation
@@ -198,7 +329,7 @@ The default value for @code{minimumFret} is 0.
 Harmonic indications and slides can be added to tablature
 notation.
 
-@lilypond[fragment, verbatim, quote, relative=1]
+@lilypond[verbatim, quote, relative=1]
 \new TabStaff {
   \new TabVoice {
     <c g'\harmonic> d\2\glissando e\2
@@ -607,8 +738,8 @@ element of the list indicates an item to be placed on the fret diagram.
 @end lilypond
 
 Fingering indications and barres can be included in a
-fret-diagram-verbose markup string.  Unique to the 
-fret-diagram-verbose interface is a capo indication that 
+fret-diagram-verbose markup string.  Unique to the
+fret-diagram-verbose interface is a capo indication that
 can be placed on the fret diagram.  The capo indication is
 a thick bar that covers all strings.  The fret with the
 capo will be the lowest fret in the fret diagram.
@@ -853,7 +984,7 @@ mychords = \chordmode{
 @cindex adding custom fret diagrams
 
 Fret diagrams can be added to the fret diagram table.  To add a diagram,
-you must specify the chord for the diagram, the tuning to be used, and 
+you must specify the chord for the diagram, the tuning to be used, and
 a definition for the diagram.  The diagram definition can be either a
 fret-diagram-terse definition string or a fret-diagram-verbose
 marking list.
@@ -934,7 +1065,7 @@ marking lists.
 
 \storePredefinedDiagram \chordmode {f''}
                         #guitar-tuning
-                        #(chord-shape 'powerf guitar-tuning) 
+                        #(chord-shape 'powerf guitar-tuning)
 \storePredefinedDiagram \chordmode {g''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
@@ -1254,7 +1385,7 @@ Special note heads can be used to indicate dampened notes or
 harmonics.  Harmonics are normally further explained with a
 text markup.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \clef "treble_8"
   \override Staff.NoteHead #'style = #'cross
