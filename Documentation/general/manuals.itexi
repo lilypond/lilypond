@@ -363,19 +363,19 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../application/index.html, Usage (split HTML)}:
+@item @uref{../usage/index.html, Usage (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../application-big-page.html, Usage (big HTML)}:
+@item @uref{../usage-big-page.html, Usage (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../application.pdf, application.pdf}:
+@item @uref{../usage.pdf, usage.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, application.info}:
+@item @uref{FIXME, lilypond-usage.info}:
 GNU info format for documentation.  FIXME, link broken.
 
 @end itemize

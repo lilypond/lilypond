@@ -280,12 +280,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application-big-page,Application Usage}
+@ref{\TEXT\,,,usage-big-page,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application-big-page,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage-big-page,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
@@ -387,12 +387,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application,Application Usage}
+@ref{\TEXT\,,,usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
@@ -489,12 +489,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-application,Application Usage}
+@ref{\TEXT\,,,lilypond-usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-application,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,lilypond-usage,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
@@ -608,12 +608,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,application,Application Usage}
+@ref{\TEXT\,,,usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,application,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
