@@ -28,8 +28,10 @@ This chapter details the technicalities of running LilyPond.
 @node Normal usage
 @section Normal usage
 
-Most users run LilyPond through a GUI; see @rlearning{First steps}
-if you have not read this already.
+Most users run LilyPond through a GUI; if you have not done so
+already, read @rlearning{Introduction}.  If you use an alternate
+editor to write lilypond files, see the documentation for that
+program.
 
 
 @node Command-line usage

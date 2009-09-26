@@ -291,9 +291,10 @@ GNU info format for documentation.  FIXME, link broken.
 This book explains all the LilyPond commands which produce
 notation.
 
-@warning{The Notation assumes that the reader knows
-basic material covered in the Learning and is familiar with
-the English musical terms presented in the Musical Glossary.}
+@warning{The Notation assumes that the reader knows basic material
+covered in the Learning manual and is familiar with the English musical
+terms presented in the Musical Glossary.}
+
 @divEnd
 
 @divClass{column-right-top}
@@ -337,7 +338,7 @@ GNU info format for documentation.  FIXME, link broken.
 @unnumberedsec Usage
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Usage manual
 
 This book explains how to execute the programs, how to integrate
 LilyPond notation with other programs, and suggests @qq{best
@@ -386,7 +387,7 @@ GNU info format for documentation.  FIXME, link broken.
 @unnumberedsec Snippets
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Snippets
 
 This shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
@@ -484,7 +485,7 @@ This is explained in @@ref@{FIXME AU x.y@}.
 @unnumberedsec Changes
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Changes
 
 This is a summary of important changes and new features in
 LilyPond since the previous stable version.
@@ -538,7 +539,7 @@ GNU info format for documentation.  FIXME, link broken.
 @unnumberedsec Internals
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Internals reference
 
 This is a set of heavily cross linked HTML pages which document
 the nitty-gritty details of each and every LilyPond class, object,
