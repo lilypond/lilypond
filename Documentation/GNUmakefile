@@ -9,7 +9,7 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = application automated-engraving contributor essay general learning notation
+MANUALS_SUBDIRS = usage automated-engraving contributor essay general learning notation
 SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
@@ -72,7 +72,7 @@ HTML_PAGE_NAMES= index translations devel
 OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 MAIN_INFO_DOC = lilypond-notation
-INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
+INFO_DOCS = lilypond-usage lilypond-changes lilypond-contributor lilypond-internals \
  lilypond-essay lilypond-learning lilypond-notation music-glossary \
  lilypond-general
 ifeq ($(out),www)

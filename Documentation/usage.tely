@@ -6,8 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@setfilename lilypond-application.info
-@settitle LilyPond Application usage
+@setfilename lilypond-usage.info
+@settitle LilyPond Application Usage
 @documentencoding UTF-8
 @documentlanguage en
 @afourpaper
@@ -66,11 +66,11 @@ Appendices
 @contents
 
 
-@include application/running.itely
-@include application/updating.itely
-@include application/lilypond-book.itely
-@include application/converters.itely
-@include application/suggestions.itely
+@include usage/running.itely
+@include usage/updating.itely
+@include usage/lilypond-book.itely
+@include usage/converters.itely
+@include usage/suggestions.itely
 
 @include fdl.itexi
 
