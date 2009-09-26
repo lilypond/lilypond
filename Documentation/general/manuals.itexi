@@ -471,12 +471,12 @@ LilyPond are given in the @ref{Introduction}.
 
 @subsubheading Something isn't working!  How do I fix it?
 
-This is explained in @@ref@{FIXME LM or AU x.y@}.
+This is explained in @rprogram{Troubleshooting}.
 
 
 @subsubheading Why do you change the syntax?
 
-This is explained in @@ref@{FIXME AU x.y@}.
+This is explained in @rprogram{Why does the syntax change?}.
 
 @divEnd
 
