@@ -695,6 +695,20 @@ In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
 behavior}) is switched off.
 
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+<<
+  \new Voice = "lala" {
+    \time 3/4
+    \autoBeamOff
+    f4 g8[ f e f]
+    e2
+  }
+  \new Lyrics \lyricsto "lala" {
+    la di __ daah
+  }
+>>
+@end lilypond
+
 @c FIXME: this now links to LM -vv
 
 @cindex SATB
