@@ -25,7 +25,6 @@ beautiful printed scores!
 * Orchestral templates::
 * Ancient notation templates::
 * Jazz combo::
-* lilypond-book templates::
 @end menu
 
 
@@ -209,118 +208,5 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 @end lilypond
 @end ignore
 
-
-@node lilypond-book templates
-@appendixsec lilypond-book templates
-
-These templates are for use with @code{lilypond-book}.  If you're not familiar
-with this program, please refer to 
-@rprogram{lilypond-book}.
-
-@appendixsubsec LaTeX
-
-You can include LilyPond fragments in a LaTeX document.
-
-@example
-\documentclass[]@{article@}
-
-\begin@{document@}
-
-Normal LaTeX text.
-
-\begin@{lilypond@}
-\relative c'' @{
-a4 b c d
-@}
-\end@{lilypond@}
-
-More LaTeX text.
-
-\begin@{lilypond@}
-\relative c'' @{
-d4 c b a
-@}
-\end@{lilypond@}
-\end@{document@}
-@end example
-
-@appendixsubsec Texinfo
-
-You can include LilyPond fragments in Texinfo; in fact, this entire manual
-is written in Texinfo.
-
-@example
-\input texinfo
-@@node Top
-
-Texinfo text
-
-@@lilypond[verbatim,fragment,ragged-right]
-a4 b c d
-@@end lilypond
-
-More Texinfo text
-
-@@lilypond[verbatim,fragment,ragged-right]
-d4 c b a
-@@end lilypond
-
-@@bye
-@end example
-
-
-@appendixsubsec xelatex
-
-@verbatim
-\documentclass{article}
-\usepackage{ifxetex}
-\ifxetex
-%xetex specific stuff
-\usepackage{xunicode,fontspec,xltxtra}
-\setmainfont[Numbers=OldStyle]{Times New Roman}
-\setsansfont{Arial}
-\else
-%This can be empty if you are not going to use pdftex
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{mathptmx}%Times
-\usepackage{helvet}%Helvetica
-\fi
-%Here you can insert all packages that pdftex also understands
-\usepackage[ngerman,finnish,english]{babel}
-\usepackage{graphicx}
-
-\begin{document}
-\title{A short document with LilyPond and xelatex}
-\maketitle
-
-Normal \textbf{font} commands inside the \emph{text} work,
-because they \textsf{are supported by \LaTeX{} and XeteX.}
-If you want to use specific commands like \verb+\XeTeX+, you
-should include them again in a \verb+\ifxetex+ environment.
-You can use this to print the \ifxetex \XeTeX{} command \else
-XeTeX command \fi which is not known to normal \LaTeX .
-
-In normal text you can easily use LilyPond commands, like this:
-
-\begin{lilypond}
-{a2 b c'8 c' c' c'}
-\end{lilypond}
-
-\noindent
-and so on.
-
-The fonts of snippets set with LilyPond will have to be set from
-inside
-of the snippet. For this you should read the AU on how to use
-lilypond-book.
-
-\selectlanguage{ngerman}
-Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
-anderen
-seltsamen Zeichen: __ ______, wenn sie von der Schriftart
-unterst__tzt werden.
-\end{document}
-@end verbatim
 
 
