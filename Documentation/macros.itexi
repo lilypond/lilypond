@@ -70,6 +70,9 @@ found at @w{@uref{http://@/www@/.lilypond@/.org/}}.
 @syncodeindex fn cp
 @syncodeindex vr cp
 
+
+@c   ***** Copyright stuff *****
+@ifset FDL
 @copying
 @copyrightDeclare
 
@@ -82,9 +85,17 @@ A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end quotation
 @end copying
+@end ifset
+
+@ifclear FDL
+@copying
+This document has been placed in the public domain.
+@end copying
+@end ifclear
 
 
-@c TITLE PAGE
+
+@c   ***** Title page *****
 @ifnottex
 @node Top
 @top LilyPond --- \TITLE\

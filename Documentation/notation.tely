@@ -26,6 +26,7 @@ by the authors.
 @end macro
 
 
+@set FDL
 @include macros.itexi
 
 @c  TODO: all the direntry stuff should be moved to general.texi

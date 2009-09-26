@@ -23,6 +23,7 @@ Copyright @copyright{}
 by the authors.
 @end macro
 
+@set FDL
 @c TODO: we shouldn't need this!
 @set web
 @include macros.itexi
