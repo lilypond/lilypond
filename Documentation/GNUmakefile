@@ -73,7 +73,8 @@ OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 MAIN_INFO_DOC = lilypond-notation
 INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
- lilypond-essay lilypond-learning lilypond-notation music-glossary lilypond
+ lilypond-essay lilypond-learning lilypond-notation music-glossary \
+ lilypond-general
 ifeq ($(out),www)
 INFO_DOCS += lilypond-snippets 
 endif
@@ -141,9 +142,6 @@ endif
 ### Rules
 
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
-
-$(outdir)/lilypond.info: $(src-dir)/general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
 # cd $(outdir) rule gets bit hairy for --srcdir configure builds
