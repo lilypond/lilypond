@@ -24,7 +24,7 @@ beautiful printed scores!
 * Vocal ensembles::
 * Orchestral templates::
 * Ancient notation templates::
-* Jazz combo::
+* Other templates::
 @end menu
 
 
@@ -132,8 +132,11 @@ beautiful printed scores!
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
-@node Jazz combo
-@appendixsec Jazz combo
+
+@node Other templates
+@appendixsec Other templates
+
+@appendixsubsec Jazz combo
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {jazz-combo-template.ly}
