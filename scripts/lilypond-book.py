@@ -1743,17 +1743,17 @@ def get_latex_textwidth (source):
     os.unlink (logfile)
 
     columns = 0
-    m = re.search ('columns=([0-9.]*)', parameter_string)
+    m = re.search ('columns=([0-9.]+)', parameter_string)
     if m:
         columns = int (m.group (1))
 
     columnsep = 0
-    m = re.search ('columnsep=([0-9.]*)pt', parameter_string)
+    m = re.search ('columnsep=([0-9.]+)pt', parameter_string)
     if m:
         columnsep = float (m.group (1))
 
     textwidth = 0
-    m = re.search ('textwidth=([0-9.]*)pt', parameter_string)
+    m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
     if m:
         textwidth = float (m.group (1))
         if columns:
