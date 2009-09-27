@@ -50,12 +50,12 @@ aesthetics of 19th century music engraving.
 the main portion of the documentation; provides detailed
 information about creating notation.
 
-@item @ref{Snippets}:
-short tricks, tips, and examples.
-
 @item @ref{Usage}:
 discusses the actual programs and operating system-specific
 issues.
+
+@item @ref{Snippets}:
+short tricks, tips, and examples.
 
 @end itemize
 
