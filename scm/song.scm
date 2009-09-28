@@ -87,7 +87,7 @@
    ((note? object)
     (let ((pitch (ly:pitch-semitones (note-pitch object))))
       (format #f "~a~a~a~a"
-              (cdr (assoc (modulo pitch 12) pp-pitch-names))
+              (assoc-get (modulo pitch 12) pp-pitch-names)
               (let ((octave (+ (inexact->exact (floor (/ pitch 12))) 1)))
                 (cond
                  ((= octave 0)
@@ -277,7 +277,7 @@
   joined ; to the next note
   origin
   )
-  
+
 (defstruct rest
   duration
   origin
@@ -424,7 +424,7 @@
   count ; number of repetitions
   )
 
-(defstruct verse ; 
+(defstruct verse ;
   text ; separate text element (syllable or word)
   notelist/rests ; list of note lists (slurs) and rests
   (unfinished #f) ; whether to be merged with the following verse
@@ -643,7 +643,7 @@
             (warning (safe-car (if (null? note-list) consumed note-list))
                      "Unfinished slur: ~a ~a" context consumed))
         (values (reverse consumed) note-list))))
-  
+
 (define (consume-skip-notes skip note-list context)
   ;; Returns either note list (skip word defined) or rest instance (no skip word) + new note-list.
   (assert (skip? skip))
@@ -773,7 +773,7 @@
                   (insert-lyrics! (get-lyrics (music-context-music music-context) context)
                                   score-list context)
                   (debug "Final score list" score-list)))
-              music-context-list)    
+              music-context-list)
     (extract-verses score-list)))
 
 
@@ -786,7 +786,7 @@
   (let* ((semitones (ly:pitch-semitones pitch))
          (octave (inexact->exact (floor (/ semitones 12))))
          (tone (modulo semitones 12)))
-    (format #f "~a~a" (cadr (assoc tone festival-note-mapping))
+    (format #f "~a~a" (car (assoc-get tone festival-note-mapping))
             (+ octave *base-octave* *base-octave-shift*))))
 
 (define (write-header port tempo)

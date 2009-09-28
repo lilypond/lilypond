@@ -480,11 +480,11 @@ OTTAVATION to `8va', or whatever appropriate."
 	    (ly:context-unset-property where 'ottavation)))
 
       (let* ((offset (* -7 octavation))
-	     (string (cdr (assoc octavation '((2 . "15ma")
-					      (1 . "8va")
-					      (0 . #f)
-					      (-1 . "8vb")
-					      (-2 . "15mb"))))))
+	     (string (assoc-get octavation '((2 . "15ma")
+					     (1 . "8va")
+					     (0 . #f)
+					     (-1 . "8vb")
+					     (-2 . "15mb")))))
 	(ly:context-set-property! context 'middleCOffset offset)
 	(ly:context-set-property! context 'ottavation string)
 	(ly:set-middle-C! context)))
@@ -671,7 +671,7 @@ inside of and outside of chord construct."
 
 "
   (let ((meta (ly:grob-property grob 'meta)))
-    (if (equal?  (cdr (assoc 'name meta)) grob-name)
+    (if (equal? (assoc-get 'name meta) grob-name)
 	(set! (ly:grob-property grob symbol) val))))
 
 
@@ -1074,15 +1074,15 @@ specifies whether accidentals should be canceled in different octaves."
 	 (need-accidental #f)
 	 (previous-alteration #f)
 	 (from-other-octaves #f)
-	 (from-same-octave (ly:assoc-get pitch-handle local-key-sig))
-	 (from-key-sig (ly:assoc-get notename local-key-sig)))
+	 (from-same-octave (assoc-get pitch-handle local-key-sig))
+	 (from-key-sig (assoc-get notename local-key-sig)))
 
     ;; If no key signature match is found from localKeySignature, we may have a custom
     ;; type with octave-specific entries of the form ((octave . pitch) alteration)
     ;; instead of (pitch . alteration).  Since this type cannot coexist with entries in
     ;; localKeySignature, try extracting from keySignature instead.
     (if (equal? from-key-sig #f)
-	(set! from-key-sig (ly:assoc-get pitch-handle key-sig)))
+	(set! from-key-sig (assoc-get pitch-handle key-sig)))
 
     ;; loop through localKeySignature to search for a notename match from other octaves
     (let loop ((l local-key-sig))

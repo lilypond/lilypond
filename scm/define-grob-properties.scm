@@ -884,8 +884,8 @@ constructed from a whole number of squiggles.")
      (accidental-grob ,ly:grob? "The accidental for this note.")
      (accidental-grobs ,list? "An alist with @code{(@var{notename} .
 @var{groblist})} entries.")
-     (adjacent-hairpins ,ly:grob-array? "An array of directly neighboring
-hairpins.")
+     (adjacent-spanners ,ly:grob-array? "An array of directly neighboring
+dynamic spanners.")
      (all-elements ,ly:grob-array? "An array of all grobs in this line.  Its
 function is to protect objects from being garbage collected.")
      (arpeggio ,ly:grob? "A pointer to an @code{Arpeggio} object.")

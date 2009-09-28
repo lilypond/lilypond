@@ -43,6 +43,7 @@ rest-styles.ly
 rhythmic-slashes.ly
 separating-key-cancellations-from-key-signature-changes.ly
 setting-hairpin-behavior-at-bar-lines.ly
+showing-the-same-articulation-above-and-below-a-note-or-chord.ly
 string-number-extender-lines.ly
 suppressing-warnings-for-clashing-note-columns.ly
 time-signature-in-parentheses.ly

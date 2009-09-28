@@ -68,7 +68,7 @@
      (tag (if (and cause (integer? (ly:event-property cause 'input-tag)))
 	      (ly:event-property cause 'input-tag)
 	      -1))
-     (name (cdr (assoc 'name (ly:grob-property grob 'meta)))))
+     (name (assoc-get 'name (ly:grob-property grob 'meta))))
 
     (apply format
 	   (append (list "cause ~a \"~a\" ~a ~a ~a ~a\n" tag name)

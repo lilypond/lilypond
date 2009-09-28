@@ -19,12 +19,12 @@
        (engraver-accepts-music-types? (cdr types) grav))))
 
 (define (engraver-doc-string engraver in-which-contexts)
-  (let* ((propsr (cdr (assoc 'properties-read (ly:translator-description engraver))))
-	 (propsw (cdr (assoc 'properties-written (ly:translator-description engraver))))
-	 (accepted  (cdr (assoc 'events-accepted (ly:translator-description engraver))))
+  (let* ((propsr (assoc-get 'properties-read (ly:translator-description engraver)))
+	 (propsw (assoc-get 'properties-written (ly:translator-description engraver)))
+	 (accepted  (assoc-get 'events-accepted (ly:translator-description engraver)))
 	 (name-sym  (ly:translator-name engraver))
 	 (name-str (symbol->string name-sym))
-	 (desc (cdr (assoc 'description (ly:translator-description engraver))))
+	 (desc (assoc-get 'description (ly:translator-description engraver)))
 	 (grobs (engraver-grobs engraver)))
 
     (string-append
@@ -70,13 +70,13 @@
 		 (apply append
 			(map
 			 (lambda (x)
-			   (let* ((context (cdr (assoc 'context-name x)))
+			   (let* ((context (assoc-get 'context-name x))
 				  (group (assq-ref x 'group-type))
 				  (consists (append
 					     (if group
 						 (list group)
 						 '())
-					     (cdr (assoc 'consists x)))))
+					     (assoc-get 'consists x))))
 			     (if (member name-sym consists)
 				 (list context)
 				 '())))
@@ -148,16 +148,13 @@
 
 
 (define (context-doc context-desc)
-  (let* ((name-sym (cdr (assoc 'context-name context-desc)))
+  (let* ((name-sym (assoc-get 'context-name context-desc))
 	 (name (symbol->string name-sym))
-	 (aliases (map symbol->string (cdr (assoc 'aliases context-desc))))
-	 (desc-handle (assoc 'description context-desc))
-	 (desc (if (and  (pair? desc-handle) (string? (cdr desc-handle)))
-		   (cdr desc-handle) "(not documented)"))
-	
-	 (accepts (cdr (assoc 'accepts context-desc)))
-	 (consists (cdr (assoc 'consists context-desc)))
-	 (props (cdr (assoc 'property-ops context-desc)))
+	 (aliases (map symbol->string (assoc-get 'aliases context-desc)))
+	 (desc (assoc-get 'description context-desc "(not documented"))
+	 (accepts (assoc-get 'accepts context-desc))
+	 (consists (assoc-get 'consists context-desc))
+	 (props (assoc-get 'property-ops context-desc))
 	 (grobs  (context-grobs context-desc))
 	 (grob-refs (map ref-ify (sort grobs ly:string-ci<?))))
 
@@ -214,7 +211,7 @@
 		 grav)))
     (if (eq? eg #f)
 	'()
-	(map symbol->string (cdr (assoc 'grobs-created (ly:translator-description eg)))))))
+	(map symbol->string (assoc-get 'grobs-created (ly:translator-description eg))))))
 
 (define (context-grobs context-desc)
   (let* ((group (assq-ref context-desc 'group-type))
@@ -222,7 +219,7 @@
 		    (if group
 			(list group)
 			'())
-		    (cdr (assoc 'consists context-desc))))
+		    (assoc-get 'consists context-desc)))
 	 (grobs  (apply append
 			(map engraver-grobs consists))))
     grobs))

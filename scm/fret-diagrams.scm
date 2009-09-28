@@ -101,9 +101,9 @@ found."
   (define (helper key alist-list default)
     (if (null? alist-list)
         default
-        (let* ((handle (assoc key (car alist-list))))
-          (if (pair? handle)
-              (append (cdr handle) (chain-assoc-get key (cdr alist-list) '()))
+        (let* ((entry (assoc-get key (car alist-list))))
+          (if entry
+              (append entry (chain-assoc-get key (cdr alist-list) '()))
               (helper key (cdr alist-list) default)))))
 
   (helper key alist-list
@@ -254,7 +254,7 @@ with magnification @var{mag} of the string @var{text}."
                                                        ; and draw-barre
          (dot-position
            (assoc-get
-             'dot-position details default-dot-position)) ; needed for 
+             'dot-position details default-dot-position)) ; needed for
                                                     ; draw-dots and draw-barre
          (th
            (* (ly:output-def-lookup layout 'line-thickness)
@@ -268,11 +268,11 @@ with magnification @var{mag} of the string @var{text}."
            (* size (assoc-get 'xo-padding details 0.2))) ; needed only here
          (parameters (fret-parse-marking-list marking-list my-fret-count))
          (capo-fret (assoc-get 'capo-fret parameters 0))
-         (dot-list (cdr (assoc 'dot-list parameters)))
-         (xo-list (cdr (assoc 'xo-list parameters)))
-         (fret-range (cdr (assoc 'fret-range parameters)))
+         (dot-list (assoc-get 'dot-list parameters))
+         (xo-list (assoc-get 'xo-list parameters))
+         (fret-range (assoc-get 'fret-range parameters))
          (my-fret-count (fret-count fret-range))
-         (barre-list (cdr (assoc 'barre-list parameters)))
+         (barre-list (assoc-get 'barre-list parameters))
          (barre-type
            (assoc-get 'barre-type details 'curved))
          (fret-diagram-stencil '()))
@@ -751,7 +751,7 @@ at @var{fret}."
                  xo-stencil 'fret orientation))
              (xo-stencil-offset
               (stencil-coordinate-offset
-               (- diagram-fret-top 
+               (- diagram-fret-top
                   xo-fret-offset
                   (* size xo-padding))
                0)))

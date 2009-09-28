@@ -10,6 +10,10 @@
 (define-public guitar-seven-string-tuning '(4 -1 -5 -10 -15 -20 -25))
 (define-public guitar-drop-d-tuning '(4 -1 -5 -10 -15 -22))
 (define-public guitar-open-g-tuning '(2 -1 -5 -10 -17 -22))
+(define-public guitar-open-d-tuning '(2 -3 -6 -10 -15 -22))
+(define-public guitar-dadgad-tuning '(2 -3 -7 -10 -15 -22))
+(define-public guitar-lute-tuning '(4 -1 -6 -10 -15 -20))
+(define-public guitar-asus4-tuning '(4 -3 -8 -10 -15 -20))
 ;; bass tunings
 (define-public bass-tuning '(-17 -22 -27 -32))
 (define-public bass-four-string-tuning '(-17 -22 -27 -32))
@@ -153,9 +157,9 @@
                (parentheses-item::calc-parenthesis-stencils grob)))
         (parentheses-item::calc-parenthesis-stencils grob))))
 
-;; the handler for ties in tablature;; split ties yield in a parenthesized
-;; fret number, otherwise the fret number will be invisible.
-(define-public (tie::handle-tab-tie grob)
+;; the handler for ties in tablature; according to TabNoteHead #'details,
+;; the 'tied to' note is handled differently after a line break
+(define-public (tie::handle-tab-note-head grob)
   (let* ((original (ly:grob-original grob))
          (tied-tab-note-head (ly:spanner-bound grob RIGHT))
          (siblings (if (ly:grob? original)
@@ -163,18 +167,41 @@
 
     (if (and (>= (length siblings) 2)
              (eq? (car (last-pair siblings)) grob))
-        ;; tie is split -> parenthesize
-        (ly:grob-set-property! tied-tab-note-head 'stencil
-                               (lambda (grob)
-                                 (parenthesize-tab-note-head grob)))
+        ;; tie is split -> get TabNoteHead #'details
+        (let* ((details (ly:grob-property tied-tab-note-head 'details))
+               (tied-properties (assoc-get 'tied-properties details '()))
+               (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t))
+               ;; we need the begin-of-line entry in the 'break-visibility vector
+               (tab-note-head-visible
+                (vector-ref (assoc-get 'break-visibility
+                                       tied-properties #(#f #f #t)) 2)))
+
+              (if tab-note-head-visible
+                 ;; tab note head is visible
+                 (if tab-note-head-parenthesized
+                     (ly:grob-set-property! tied-tab-note-head 'stencil
+                                            (lambda (grob)
+                                                    (parenthesize-tab-note-head grob))))
+                 ;; tab note head is invisible
+                 (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
 
         ;; tie is not split -> make fret number invisible
         (ly:grob-set-property! tied-tab-note-head 'transparent #t))))
 
 ;; repeat ties occur within alternatives in a repeat construct;
-;; the correspondig fret numbers are shown in parentheses:
-(define-public (repeat-tie::parenthesize-tab-note-head grob)
-  (let ((tied-tab-note-head (ly:grob-object grob 'note-head)))
+;; TabNoteHead #'details handles the appearance in this case
+(define-public (repeat-tie::handle-tab-note-head grob)
+  (let* ((tied-tab-note-head (ly:grob-object grob 'note-head))
+         (details (ly:grob-property tied-tab-note-head 'details))
+         (repeat-tied-properties (assoc-get 'repeat-tied-properties details '()))
+         (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
+         (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
 
-    (ly:grob-set-property! tied-tab-note-head 'stencil
-                           (lambda (grob) (parenthesize-tab-note-head grob)))))
+        (if tab-note-head-visible
+            ;; tab note head is visible
+            ( if tab-note-head-parenthesized
+                 (ly:grob-set-property! tied-tab-note-head 'stencil
+                                        (lambda (grob)
+                                                (parenthesize-tab-note-head grob))))
+            ;; tab note head is invisible
+            (ly:grob-set-property! tied-tab-note-head 'transparent #t))))

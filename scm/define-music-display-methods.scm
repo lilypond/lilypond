@@ -961,11 +961,11 @@ Otherwise, return #f."
 								 symbol 'clefOctavation)
 							  (music 'ApplyContext
 								 procedure ly:set-middle-C!)))))
-    (let ((clef-prop+name (assoc (list ?clef-glyph ?clef-position 0)
+    (let ((clef-name (assoc-get (list ?clef-glyph ?clef-position 0)
 				 clef-name-alist)))
-      (if clef-prop+name
+      (if clef-name
 	  (format #f "\\clef \"~a~{~a~a~}\"~a"
-		  (cdr clef-prop+name)
+		  clef-name
 		  (cond ((= 0 ?clef-octavation)
 			 (list "" ""))
 			((> ?clef-octavation 0)
@@ -1033,6 +1033,7 @@ Otherwise, return #f."
 	     ((= i dots) m)
 	   (set! m (+ m delta)))
 	 factor))))
+
 (define moment-duration-alist (map (lambda (duration)
 				     (cons (duration->moment duration)
 					   duration))
@@ -1043,9 +1044,7 @@ Otherwise, return #f."
 					       (list 0 1 2 3 4))))
 
 (define (moment->duration moment)
-  (let ((result (assoc (- moment) moment-duration-alist =)))
-    (and result
-	 (cdr result))))
+  (assoc-get (- moment) moment-duration-alist))
 
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If `expr' is a partial measure, return \"\\partial ...\".

@@ -2,7 +2,7 @@
 ;;;; documentation-lib.scm -- Assorted Functions for generated documentation
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2000--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -60,22 +60,22 @@
 
 
 (define (texi-section-command level)
-  (cdr (assoc level '(
-		      ;; Hmm, texinfo doesn't have ``part''
-		      (0 . "@top")
-		      (1 . "@chapter")
-		      (2 . "@section")
-		      (3 . "@subsection")
-		      (4 . "@unnumberedsubsubsec")
-		      (5 . "@unnumberedsubsubsec")))))
+  (assoc-get level '(
+		     ;; Hmm, texinfo doesn't have ``part''
+		     (0 . "@top")
+		     (1 . "@chapter")
+		     (2 . "@section")
+		     (3 . "@subsection")
+		     (4 . "@unnumberedsubsubsec")
+		     (5 . "@unnumberedsubsubsec"))))
 
 (define (texi-appendix-section-command level)
-  (cdr (assoc level '((0 . "@top")
-		      (1 . "@appendix")
-		      (2 . "@appendixsec")
-		      (3 . "@appendixsubsec")
-		      (4 . "@appendixsubsubsec")
-		      (5 . "@appendixsubsubsec")))))
+  (assoc-get level '((0 . "@top")
+		     (1 . "@appendix")
+		     (2 . "@appendixsec")
+		     (3 . "@appendixsubsec")
+		     (4 . "@appendixsubsubsec")
+		     (5 . "@appendixsubsubsec"))))
 
 (define (one-item->texi label-desc-pair)
   "Document one (LABEL . DESC); return empty string if LABEL is empty string."
@@ -100,13 +100,13 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
   "Generate what is between @menu and @end menu."
   (let ((maxwid
 	 (apply max (map (lambda (x) (string-length (car x))) items-alist))))
-    
+
     (string-append
      "\n@menu"
      (apply string-append
 	    (map (lambda (x)
 		   (string-append
-		    (string-pad-right 
+		    (string-pad-right
 		     (string-append "\n* " (car x) ":: ")
 		     (+ maxwid 8))
 		    (cdr x)))
@@ -155,7 +155,7 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
 
 (define (human-listify lst)
   "Produce a textual enumeration from LST, a list of strings"
-  
+
   (cond
    ((null? lst) "none")
    ((null? (cdr lst)) (car lst))
@@ -177,23 +177,23 @@ with init values from ALIST (1st optional argument)
 	 (alist (if (pair? rest) (car rest) '()))
 	 (type?-name (string->symbol
 		      (string-append (symbol->string where) "-type?")))
-	 (doc-name (string->symbol		    
+	 (doc-name (string->symbol
 		    (string-append (symbol->string where) "-doc")))
 	 (type (object-property sym type?-name))
 	 (typename (type-name type))
 	 (desc (object-property sym doc-name))
-	 (handle (assoc sym alist)))
+	 (init-value (assoc-get sym alist)))
 
     (if (eq? desc #f)
 	(ly:error (_ "cannot find description for property ~S (~S)") sym where))
-    
+
     (cons
      (string-append "@code{" name "} "
 		    "(" typename ")"
-		    (if handle
+		    (if init-value
 			(string-append
 			 ":\n\n"
-			 (scm->texi (cdr handle))
+			 (scm->texi init-value)
 			 "\n\n")
 			""))
      desc)))

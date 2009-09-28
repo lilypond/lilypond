@@ -10,6 +10,7 @@
 @settitle LilyPond Learning Manual
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @macro manualIntro
 This file provides an introduction to LilyPond version

@@ -109,15 +109,15 @@
 	  (set! oct
 		(* (if (equal? (match:substring match 2) "^") -1 1)
 		   (- (string->number (match:substring match 3)) 1)))))
-    (set! e (assoc clef-name supported-clefs))
-    (if (pair? e)
+    (set! e (assoc-get clef-name supported-clefs))
+    (if e
 	(let* ((musics (map make-prop-set
-			    `(((symbol . clefGlyph) (value . ,(cadr e)))
+			    `(((symbol . clefGlyph) (value . ,(car e)))
 			      ((symbol . middleCClefPosition)
 			       (value . ,(+ oct
-					    (caddr e)
-					    (cdr (assoc (cadr e) c0-pitch-alist)))))
-			      ((symbol . clefPosition) (value . ,(caddr e)))
+					    (cadr e)
+					    (assoc-get (car e) c0-pitch-alist))))
+			      ((symbol . clefPosition) (value . ,(cadr e)))
 			      ((symbol . clefOctavation) (value . ,(- oct))))))
 	       (recalc-mid-C (make-music 'ApplyContext))
 	       (seq (make-music 'SequentialMusic

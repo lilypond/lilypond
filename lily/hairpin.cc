@@ -70,7 +70,7 @@ Hairpin::print (SCM smob)
 
   broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT);
   broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT)->is_live ();
-  
+
   if (broken[RIGHT])
     {
       Spanner *next = me->broken_neighbor (RIGHT);
@@ -86,8 +86,8 @@ Hairpin::print (SCM smob)
     Use the height and thickness of the hairpin when making a circled tip
   */
   bool circled_tip = ly_scm2bool (me->get_property ("circled-tip"));
-  Real height = robust_scm2double (me->get_property ("height"), 0.2) *
-		Staff_symbol_referencer::staff_space (me);
+  Real height = robust_scm2double (me->get_property ("height"), 0.2)
+    * Staff_symbol_referencer::staff_space (me);
   /*
     FIXME: 0.525 is still just a guess...
   */
@@ -95,7 +95,7 @@ Hairpin::print (SCM smob)
   Real thick = 1.0;
   if (circled_tip)
     thick = robust_scm2double (me->get_property ("thickness"), 1.0)
-	    * Staff_symbol_referencer::line_thickness (me);
+      * Staff_symbol_referencer::line_thickness (me);
 
   do
     {
@@ -117,37 +117,47 @@ Hairpin::print (SCM smob)
 	  else
 	    {
 	      bool neighbor_found = false;
-	      extract_grob_set (me, "adjacent-hairpins", pins);
-	      for (vsize i = 0; i < pins.size (); i++)
+	      Spanner *adjacent;
+	      extract_grob_set (me, "adjacent-spanners", neighbors);
+	      for (vsize i = 0; i < neighbors.size (); i++)
 		{
 		  /*
 		    FIXME: this will fuck up in case of polyphonic
 		    notes in other voices. Need to look at note-columns
 		    in the current staff/voice.
 		  */
-
-		  Spanner *pin = dynamic_cast<Spanner *> (pins[i]);
-		  if (pin
-		      && (pin->get_bound (LEFT)->get_column () == b->get_column ()
-			  || pin->get_bound (RIGHT)->get_column () == b->get_column ()))
-		    neighbor_found = true;
+		  adjacent = dynamic_cast<Spanner *> (neighbors[i]);
+		  if (adjacent
+		      && (adjacent->get_bound (-d)->get_column ()
+			  == b->get_column ()))
+		    {
+		      neighbor_found = true;
+		      break;
+		    }
 		}
 
 	      Interval e = robust_relative_extent (b, common, X_AXIS);
 	      if (neighbor_found)
 		{
-		  /*
-		    Handle back-to-back hairpins with a circle in the middle
-		  */
-		  if (circled_tip && (grow_dir != d))
-		    x_points[d] = e.center () + d * (rad - thick / 2.0);
-		  /*
-		    If we're hung on a paper column, that means we're not
-		    adjacent to a text-dynamic, and we may move closer. We
-		    make the padding a little smaller, here.
-		  */
+		  if (Hairpin::has_interface (adjacent))
+		    {
+		      /*
+			Handle back-to-back hairpins with a circle in the middle
+		      */
+		      if (circled_tip && (grow_dir != d))
+			x_points[d] = e.center () + d * (rad - thick / 2.0);
+		      /*
+			If we're hung on a paper column, that means we're not
+			adjacent to a text-dynamic, and we may move closer. We
+			make the padding a little smaller, here.
+		      */
+		      else
+			x_points[d] = e.center () - d * padding / 3;
+		    }
+		  // Our neighbor is a dynamic text spanner, so add the
+		  // same amount of padding as for text dynamics
 		  else
-		    x_points[d] = e.center () - d * padding / 3;
+		    x_points[d] = e[-d] - d * padding;
 		}
 	      else
 		{
@@ -156,10 +166,10 @@ Hairpin::print (SCM smob)
 		    x_points[d] = e[-d];
 		  else
 		    x_points[d] = e[d];
-		  
+
 		  Item *bound = me->get_bound (d);
 		  if (bound->is_non_musical (bound))
-		    x_points[d] -=  d * padding;
+		    x_points[d] -= d * padding;
 		}
 	    }
 	}
@@ -218,16 +228,16 @@ Hairpin::print (SCM smob)
   if (circled_tip)
     {
       Box extent (Interval (-rad, rad), Interval (-rad, rad));
-      
+
       /* Hmmm, perhaps we should have a Lookup::circle () method? */
       Stencil circle (extent,
-		     scm_list_4 (ly_symbol2scm ("circle"),
-				 scm_from_double (rad),
-				 scm_from_double (thick),
-				 SCM_BOOL_F));
+		      scm_list_4 (ly_symbol2scm ("circle"),
+				  scm_from_double (rad),
+				  scm_from_double (thick),
+				  SCM_BOOL_F));
 
       /*
-	don't add another circle the hairpin is broken
+	don't add another circle if the hairpin is broken
       */
       if (!broken[tip_dir])
 	mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0);
@@ -243,7 +253,7 @@ ADD_INTERFACE (Hairpin,
 	       "A hairpin crescendo or decrescendo.",
 
 	       /* properties */
-	       "adjacent-hairpins "
+	       "adjacent-spanners "
 	       "circled-tip "
 	       "bound-padding "
 	       "grow-direction "

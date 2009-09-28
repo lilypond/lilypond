@@ -229,11 +229,6 @@ messages into errors.")
 (if (ly:get-option 'trace-scheme-coverage)
     (coverage:enable))
 
-(if (ly:get-option 'warning-as-error)
-    (begin
-      (set! ly:warning ly:error)
-      (set! ly:programming-error ly:error)))
-
 (define-public parser #f)
 
 
@@ -453,8 +448,8 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 	 (stats (gc-stats)))
     (list (- (+ (tms:cutime t)
 		(tms:utime t))
-	     (ly:assoc-get 'gc-time-taken stats))
-	  (ly:assoc-get 'total-cells-allocated  stats 0))))
+	     (assoc-get 'gc-time-taken stats))
+	  (assoc-get 'total-cells-allocated  stats 0))))
 
 (define (dump-profile base last this)
   (let* ((outname (format "~a.profile" (dir-basename base ".ly")))
@@ -535,10 +530,8 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 		   (format "~a ~a ~a\n"
 			   gc-protect-stat-count
 			   sym
-			   (let ((sym-stat (assoc sym stats)))
-			     (if sym-stat
-				 (cdr sym-stat)
-				 "?")))
+			   (assoc-get sym stats "?"))
+
 		   outfile))
 		'(protected-objects bytes-malloced cell-heap-size)))
     (set! gc-dumping #f)

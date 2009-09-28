@@ -63,6 +63,4 @@
   (type-name (match-predicate obj type-p-name-alist)))
 
 (define-public (type-name predicate)
-  (let ((entry (assoc predicate type-p-name-alist)))
-    (if (pair? entry) (cdr entry)
-	"unknown")))
+  (assoc-get predicate type-p-name-alist "unknown"))

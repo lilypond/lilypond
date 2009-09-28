@@ -1,15 +1,12 @@
 /* 
   new-dynamic-engraver.cc -- implement New_dynamic_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2008--2009 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
 */
 
-
 #include "engraver.hh"
-
 #include "hairpin.hh"
 #include "international.hh"
 #include "item.hh"
@@ -35,13 +32,14 @@ protected:
   virtual void finalize ();
 
 private:
-  SCM get_property_setting (Stream_event *evt, char const *evprop, char const *ctxprop);
+  SCM get_property_setting (Stream_event *evt, char const *evprop,
+			    char const *ctxprop);
   string get_spanner_type (Stream_event *ev);
 
   Drul_array<Stream_event *> accepted_spanevents_drul_;
   Spanner *current_spanner_;
   Spanner *finished_spanner_;
-  
+
   Item *script_;
   Stream_event *script_event_;
   Stream_event *current_span_event_;
@@ -74,7 +72,9 @@ New_dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 }
 
 SCM
-New_dynamic_engraver::get_property_setting (Stream_event *evt, char const *evprop, char const *ctxprop)
+New_dynamic_engraver::get_property_setting (Stream_event *evt,
+					    char const *evprop,
+					    char const *ctxprop)
 {
   SCM spanner_type = evt->get_property (evprop);
   if (spanner_type == SCM_EOL)
@@ -86,7 +86,9 @@ void
 New_dynamic_engraver::process_music ()
 {
   if (current_spanner_
-      && (accepted_spanevents_drul_[STOP] || script_event_ || accepted_spanevents_drul_[START]))
+      && (accepted_spanevents_drul_[STOP]
+	  || script_event_
+	  || accepted_spanevents_drul_[START]))
     {
       Stream_event *ender = accepted_spanevents_drul_[STOP];
       if (!ender)
@@ -94,7 +96,7 @@ New_dynamic_engraver::process_music ()
 
       if (!ender)
 	ender = accepted_spanevents_drul_[START];
-      
+
       finished_spanner_ = current_spanner_;
       announce_end_grob (finished_spanner_, ender->self_scm ());
       current_spanner_ = 0;
@@ -107,7 +109,7 @@ New_dynamic_engraver::process_music ()
 
       string start_type = get_spanner_type (current_span_event_);
       SCM cresc_type = get_property_setting (current_span_event_, "span-type",
-                                       (start_type + "Spanner").c_str ());
+					     (start_type + "Spanner").c_str ());
 
       if (cresc_type == ly_symbol2scm ("text"))
 	{
@@ -116,11 +118,9 @@ New_dynamic_engraver::process_music ()
 			    accepted_spanevents_drul_[START]->self_scm ());
 
 	  SCM text = get_property_setting (current_span_event_, "span-text",
-                                       (start_type + "Text").c_str ());
+					   (start_type + "Text").c_str ());
 	  if (Text_interface::is_markup (text))
-	    {
-	      current_spanner_->set_property ("text", text);
-	    }
+	    current_spanner_->set_property ("text", text);
 	}
       else
 	{
@@ -132,16 +132,17 @@ New_dynamic_engraver::process_music ()
 	    }
 	  current_spanner_ = make_spanner ("Hairpin",
 					   current_span_event_->self_scm ());
-	  if (finished_spanner_)
-	    {
-	      Pointer_group_interface::add_grob (finished_spanner_,
-						 ly_symbol2scm ("adjacent-hairpins"),
-						 current_spanner_);
-
-	      Pointer_group_interface::add_grob (current_spanner_,
-						 ly_symbol2scm ("adjacent-hairpins"),
-						 finished_spanner_);
-	    }
+	}
+      if (finished_spanner_)
+	{
+	  if (Hairpin::has_interface (finished_spanner_))
+	    Pointer_group_interface::add_grob (finished_spanner_,
+					       ly_symbol2scm ("adjacent-spanners"),
+					       current_spanner_);
+	  if (Hairpin::has_interface (current_spanner_))
+	    Pointer_group_interface::add_grob (current_spanner_,
+					       ly_symbol2scm ("adjacent-spanners"),
+					       finished_spanner_);
 	}
     }
 
@@ -161,26 +162,24 @@ New_dynamic_engraver::process_music ()
 	    set_nested_property (current_spanner_,
 				 scm_list_3 (ly_symbol2scm ("bound-details"),
 					     ly_symbol2scm ("left"),
-					     ly_symbol2scm ("attach-dir")
-					     ),
+					     ly_symbol2scm ("attach-dir")),
 				 scm_from_int (RIGHT));
-
 	}
     }
 }
-
-
 
 void
 New_dynamic_engraver::stop_translation_timestep ()
 {
   if (finished_spanner_ && !finished_spanner_->get_bound (RIGHT))
-    finished_spanner_->set_bound (RIGHT,
-				  unsmob_grob (get_property ("currentMusicalColumn")));
+    finished_spanner_
+      ->set_bound (RIGHT,
+		   unsmob_grob (get_property ("currentMusicalColumn")));
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
-    current_spanner_->set_bound (LEFT,
-				 unsmob_grob (get_property ("currentMusicalColumn")));
+    current_spanner_
+      ->set_bound (LEFT,
+		   unsmob_grob (get_property ("currentMusicalColumn")));
   script_ = 0;
   script_event_ = 0;
   accepted_spanevents_drul_.set (0, 0);
@@ -216,6 +215,7 @@ New_dynamic_engraver::get_spanner_type (Stream_event *ev)
     type = "crescendo";
   else
     programming_error ("unknown dynamic spanner type");
+
   return type;
 }
 

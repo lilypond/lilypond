@@ -1,4 +1,5 @@
 Andrew Hawryluk <ahawryluk@gmail.com>
+Andrew Hawryluk <andrew@obi-wan.(none)>
 Andrew Wilson <andrew@rivendale.net>
 Arjan Bos <arjan.bos@hetnet.nl>
 Carl D. Sorensen <carldsorensen>
@@ -9,15 +10,19 @@ Daniel Johnson <il.basso.buffo@gmail.com>
 Daniel Tonda Castillo <daniel.tonda@gmail.com>
 Dieter Grollmann <groll-ay@bluewin.ch>
 Ed Catmur <ed@capella.catmur.co.uk>
+Erik Sandberg <erik>
 Erlend Aasland <erlenda>
 Erlend Aasland <erlend.aasland@mac.com>
 Erlend Aasland <erlenda@gmail.com>
 Erlend Aasland <erlend@iMac.local>
 Eyolf Østrem <eyolf@oestrem.com>
-Francisco Vila <francisco.vila@hispalinux.es>
+Francisco Vila <francisco.vila@hispalinux.es> # AKA Paco Vila
+Francisco Vila <fravd@salvia.(none)>
+Francisco Vila <fravd@salvia.org>
 Francisco Vila <paconet.org@gmail.com>
-Frederic Bron <frederic.bron@m4x.org>
+Frédéric Bron <frederic.bron@m4x.org>
 Graham Percival <gpercival>
+Graham Percival <gperciva@gperciva-desktop.(none)>
 Graham Percival <gperciva@opihi.cs.uvic.ca>
 Graham Percival <gperciva@p214-046.public.uvic.ca>
 Graham Percival <gperciva@p214-056.public.uvic.ca>
@@ -73,10 +78,14 @@ Graham Percival <gperciva@tsubasa.local>
 Graham Percival <gperciva@tsubasa.(none)>
 Graham Percival <gpermus@gmail.com>
 Graham Percival <graham@percival-music.ca>
+Graham Percival <lilypond@server.kainhofer.com>
+Graham Percival <root@tsubasa.(none)>
 Hajo Dezelski <dl1sdz@gmail.com>
+Han-Wen Nienhuys and Jan Nieuwenhuizen <fred> # see note below
 Han-Wen Nienhuys <hanwen>
 Han-Wen Nienhuys <hanwen@lilypond.org>
 Han-Wen Nienhuys <hanwen@xs4all.nl>
+Han-Wen Nienhuys <uid67283> #?
 Heikki Junes <hjunes>
 Heikki Junes <hjunes@gmail.com>
 Heikki Junes <hjunes@hjunes-laptop.(none)>
@@ -107,6 +116,8 @@ John Mandereau <lilydev@freemousse.(none)>
 Jonathan Kulp <jon@bashtop.(none)>
 Jonathan Kulp <jonlancekulp@gmail.com>
 Joseph Wakeling <joseph.wakeling@webdrake.net>
+Jürgen Reuter <reuter>
+Jürgen Reuter <reuter@ipd.uka.de>
 Kevin Dalley <kevin@kelphead.org>
 Kieren MacMillan <kieren_macmillan@sympatico.ca>
 Kurt Kroon <kroon@winfirst.com>
@@ -124,6 +135,8 @@ Maximilian Albert <Anhalter42@gmx.de>
 Maximilian Albert <cilix@daphne.(none)>
 Maximilian Albert <cilix@dike.(none)>
 Maximilian Albert <maximilian.albert@gmail.com>
+Maximiliano García de Veas <maxi@intelacer.(none)>
+Maximiliano García de Veas <mxgdvg@yahoo.it>
 Michael Käppler <xmichael-k@web.de>
 Michael Welsh Duggan <md5i@maru.(none)>
 Milan Zamazal <pdm@brailcom.org>
@@ -131,11 +144,9 @@ Neil Puttock <n.puttock@gmail.com>
 Nicolas Sceaux <nicolas@robert.local>
 Nicolas Sceaux <nicolas.sceaux@free.fr>
 Nicolas Sceaux <nsceaux>
-Paco Vila <francisco.vila@hispalinux.es>
-Paco Vila <fravd@salvia.(none)>
-Paco Vila <fravd@salvia.org>
 Patrick McCarty <pnorcks@gmail.com>
 Paul Jarc <prj@po.cwru.edu>
+Pedro Kroger <kroger>
 Ralph Palmer <palmeer.r.violin@gmail.com>
 Ralph Palmer <palmer.r.violin@gmail.com>
 Ralph Palmer <palmer.r.violin@treda.co.uk>
@@ -147,8 +158,6 @@ Risto Vääräniemi <risvaara@gmail.com>
 Rune Zedeler <rune@zedeler.dk>
 Rune Zedeler <rz>
 Rune Zedeler <rz@daimi.au.dk>
-Sawada Yoshiki <sawada@ubuntu.ubuntu-domain>
-Sawada Yoshiki <sawada.yoshiki@gmail.com>
 Simon Bailey <binabik@gmail.com>
 Simon Bailey <binabik@pc6143-c703.uibk.ac.at>
 Stefan Weil <weil@mail.berlios.de>
@@ -168,16 +177,7 @@ Werner Lemberg <wl@rigel.orion>
 Werner Lemberg <wl@rigel.site>
 Wilbert Berendsen <lilykde@xs4all.nl>
 Wilbert Berendsen <wbsoft@xs4all.nl>
+Yoshiki Sawada <sawada@ubuntu.ubuntu-domain>
+Yoshiki Sawada <sawada.yoshiki@gmail.com>
 
-
-
-Maximiliano <maxi@intelacer.(none)>
-Maximiliano <mxgdvg@yahoo.it>
-Lilypond GDP <lilypond@server.kainhofer.com>
-kroger <kroger>
-reuter <reuter>
-root <root@tsubasa.(none)>
-andrew <andrew@obi-wan.(none)>
-erik <erik>
-fred <fred>
-uid67283 <uid67283>
+# Note on <fred>: http://lists.gnu.org/archive/html/lilypond-devel/2009-02/msg00035.html

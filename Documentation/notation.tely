@@ -10,6 +10,7 @@
 @settitle LilyPond Notation Reference
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @macro manualIntro
 This manual provides a reference for all notation that can be

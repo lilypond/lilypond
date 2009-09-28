@@ -1,7 +1,7 @@
 ;;;; midi.scm -- scm midi variables and functions
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2000--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -14,7 +14,7 @@
 ;; define factor of total volume per dynamic marking
 (define-public absolute-volume-alist '())
 (set! absolute-volume-alist
-      (append 
+      (append
       '(
 	("sf" . 1.00)
 	("fffff" . 0.95)
@@ -33,14 +33,12 @@
       absolute-volume-alist))
 
 (define-public (default-dynamic-absolute-volume s)
-  (let ((entry (assoc s absolute-volume-alist)))
-    (if entry
-	(cdr entry))))
+  (assoc-get s absolute-volume-alist))
 
 ;; define factors of total volume of minimum and maximum volume
 (define-public instrument-equalizer-alist '())
 (set! instrument-equalizer-alist
-      (append 
+      (append
        '(
 	 ("flute" . (0 . 0.7))
 	 ("oboe" . (0 . 0.7))
@@ -57,9 +55,7 @@
        instrument-equalizer-alist))
 
 (define-public (default-instrument-equalizer s)
-  (let ((entry (assoc s instrument-equalizer-alist)))
-    (if entry
-	(cdr entry))))
+  (assoc-get s instrument-equalizer-alist))
 
 ;; (name . program+32768*(channel10 ? 1 : 0))
 (define instrument-names-alist '())
@@ -259,16 +255,19 @@
 returns whether the instrument should use midi channel 9
 "
   (let* ((inst  (symbol->string instrument))
-         (entry (assoc inst instrument-names-alist)))
-     (and entry (>= (cdr entry) 32768))))
+         (entry (assoc-get inst instrument-names-alist)))
+     (and entry (>= entry 32768)
+          entry)))
 
 (define-public (midi-program instrument)
 "
 returns the program of the instrument
 "
   (let* ((inst  (symbol->string instrument))
-         (entry (assoc inst instrument-names-alist)))
-    (if entry (modulo (cdr entry) 32768) #f)))
+         (entry (assoc-get inst instrument-names-alist)))
+    (if entry
+        (modulo entry 32768)
+	#f)))
 
 ;; 90 == 90/127 == 0.71 is supposed to be the default value
 ;; urg: we should set this at start of track
@@ -276,7 +275,7 @@ returns the program of the instrument
 
 (define-public (alterations-in-key pitch-list)
   "Count number of sharps minus number of flats"
-  
+
   (* (apply + (map cdr pitch-list)) 2))
 
 

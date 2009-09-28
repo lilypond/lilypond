@@ -1,9 +1,14 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 
+@c FIXME: dump "public domain" notice in this manual, and fix
+@c the generic doc page title macro to not automatically put
+@c FDL on stuff.  Or maybe make a separate macro.
+
 @setfilename lilypond-snippets.info
 @settitle LilyPond snippets
 @documentencoding UTF-8
 @documentlanguage en
+@afourpaper
 
 @macro manualIntro
 This document shows a selected set of LilyPond snippets from the

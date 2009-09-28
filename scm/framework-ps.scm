@@ -580,11 +580,13 @@ fonts inline."
      #f
      systems)
     (for-each (lambda (system-list)
-		(clip-score-systems
-		 (if (> count 0)
-		     (format "~a-~a" basename count)
-		     basename)
-		 system-list))
+		;; filter out headers and top-level markup
+		(if (pair? system-list)
+		    (clip-score-systems
+		     (if (> count 0)
+			 (format "~a-~a" basename count)
+			 basename)
+		     system-list)))
 	      score-system-list)))
 
 (define-public (output-preview-framework basename book scopes fields)

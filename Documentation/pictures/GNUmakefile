@@ -1,5 +1,6 @@
 depth = ../..
 
+SUBDIRS = pdf
 
 BITMAP_IMAGES = $(call src-wildcard,*.png) $(call src-wildcard,*.jpg)
 EPS_ILLUSTRATIONS = $(call src-wildcard,*.eps)
@@ -7,7 +8,6 @@ SVG_FILES = $(call src-wildcard,*.svg)
 PDF_DIR = $(call src-wildcard,pdf/*.pdf)
 
 EXTRA_DIST_FILES = $(BITMAP_IMAGES) $(EPS_ILLUSTRATIONS) $(SVG_FILES)
-EXTRA_DIST_FILES += $(PDF_DIR)
 
 OUT_PDF_IMAGES = $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.pdf)
 OUT_BITMAP_IMAGES = $(BITMAP_IMAGES:%=$(outdir)/%)

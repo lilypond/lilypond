@@ -1,5 +1,7 @@
 \version "2.12.0"
 
+#(ly:set-option 'warning-as-error #f)
+
 \header {
   texidoc = "Basic harp diagram functionality, including circled pedal boxes. 
 The third diagram uses an empty string, the third contains invalid characters. 

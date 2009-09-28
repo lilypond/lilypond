@@ -1867,6 +1867,10 @@
 
     (TabNoteHead
      . (
+	(details . ((tied-properties . ((break-visibility . ,begin-of-line-visible)
+					(parenthesize . #t)))
+		    (repeat-tied-properties . ((note-head-visible . #t)
+					       (parenthesize . #t)))))
 	(direction . ,CENTER)
 	(duration-log . ,note-head::calc-duration-log)
 	(font-series . bold)
@@ -1881,6 +1885,7 @@
 				 rhythmic-grob-interface
 				 rhythmic-head-interface
 				 staff-symbol-referencer-interface
+				 tab-note-head-interface
 				 text-interface))))))
 
     (TextScript
@@ -2256,10 +2261,10 @@
   ;;  (newline)
   (let* ((name-sym  (car x))
 	 (grob-entry (cdr x))
-	 (meta-entry (cdr (assoc 'meta grob-entry)))
-	 (class (cdr (assoc 'class meta-entry)))
+	 (meta-entry (assoc-get 'meta grob-entry))
+	 (class (assoc-get 'class meta-entry))
 	 (ifaces-entry
-	  (cdr (assoc 'interfaces meta-entry))))
+	  (assoc-get 'interfaces meta-entry)))
 
     (cond
      ((eq? 'Item class)

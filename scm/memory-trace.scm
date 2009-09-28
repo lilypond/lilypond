@@ -34,7 +34,7 @@
   (if (eq? (current-thread) trace-thread)
       #t ;; do nothing.
       (let*
-	  ((cells (cdr (assoc 'total-cells-allocated (gc-stats))))
+	  ((cells (assoc-get 'total-cells-allocated (gc-stats)))
 	   (proc (arg-procedure args))
 	   (time (tms:utime (times)))
 	   (stack (extract-trace continuation)))
@@ -67,7 +67,7 @@
   (set! trace-points '())
   (set! continue-tracing #t)
   (set! trace-count 0)
-  (set! start-memory (cdr (assoc 'total-cells-allocated (gc-stats))))
+  (set! start-memory (assoc-get 'total-cells-allocated (gc-stats)))
   (set! start-time (tms:utime (times)))
   
   (install-tracepoint))
@@ -100,10 +100,10 @@
     (for-each
      (lambda (r)
        (let*
-	   ((mem (- (cdr (assoc 'cells r)) start-memory))
-	    (proc (cdr (assoc 'proc r)))
-	    (stack (cdr (assoc 'stack r)))
-	    (time (- (cdr (assoc 'time r)) start-time)))
+	   ((mem (- (assoc-get 'cells r) start-memory))
+	    (proc (assoc-get 'proc r))
+	    (stack (assoc-get 'stack r))
+	    (time (- (assoc-get 'time r) start-time)))
 	 
 	 (format graph-out "~a ~a\n" time mem)
 	 (if stack
@@ -113,7 +113,7 @@
 		       (- mem last-mem) proc)
 	       (do
 		   ((j 0 (1+ j))
-		    (stack (cdr (assoc 'stack r)) stack))
+		    (stack (assoc-get 'stack r) stack))
 		   ((>= j (vector-length stack)))
 		 
 		 (format stacks-out "\t~a\n"

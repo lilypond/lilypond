@@ -75,7 +75,7 @@ To get the main source code and documentation,
 @c and in Introduction to Git concepts
 @smallexample
 mkdir lilypond; cd lilypond
-git init-db
+git init
 git remote add -f -t master -m master origin git://git.sv.gnu.org/lilypond.git/
 git checkout -b master origin/master
 @end smallexample
@@ -88,7 +88,7 @@ To translate the documentation,
 
 @smallexample
 mkdir lilypond-translation; cd lilypond-translation
-git init-db
+git init
 git remote add -f -t lilypond/translation -m lilypond/translation origin git://git.sv.gnu.org/lilypond.git/
 git checkout -b lilypond/translation origin/lilypond/translation
 @end smallexample

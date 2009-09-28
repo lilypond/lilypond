@@ -178,6 +178,11 @@ interesting enough to maintain a hara-kiri staff."
  '(long-text self-alignment-X self-alignment-Y text))
 
 (ly:add-interface
+ 'tab-note-head-interface
+ "A note head in tablature."
+ '(details))
+
+(ly:add-interface
  'trill-spanner-interface
  "A trill spanner."
  '())

@@ -1,37 +1,135 @@
-\input texinfo @c -*-texinfo-*-
-@documentencoding utf-8
-@documentlanguage en
-@setfilename AUTHORS.info
-@settitle AUTHORS - who did what on GNU LilyPond
-
-
-@node Top
-@top
-
-@contents
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
 
 @ignore
-@include macros.itexi
-@include general/basic-authors.itexi
 
-@developersCurrent
+  This file lists authors of LilyPond, and what they wrote.  Each
+  list is sorted alphabetically by surname.  This file lists people
+  that have contributed more than a few hours of work.
 
-@developersPrevious
+  Developers are people who are (or have been) listed under the
+  "Development Team" in the THANKS, and can choose their own
+  titles.  Contributors are everybody else, and simply list their
+  contributions.
 
-@contributors
+  Anybody who has finished doing a "main devel team" task should
+  list it under developersPrevious, even if they're still doing
+  other "main devel team" stuff.  See "Graham Percival" for an
+  example.
+
+  Contributors are split into:
+    ...Core (programming)
+    ...Font (duh)
+    ...Doc (documentation and examples)
+    ...Support (building, distributions, editors,
+                lilypond-book, LSR, but *not* answering emails)
+    ...Translations (duh)
+  We might add a "general" or "other" if there's something else.
+
+
 @end ignore
 
-@unnumbered AUTHORS
+@macro developersCurrent
 
-This file lists authors of LilyPond, and what they wrote.  This list
-is alphabetically ordered by surname. This file lists people that have
-contributed over 100 lines of code.
+@itemize
+
+@item Mats Bengtsson:
+Support guru.
+
+@item Han-Wen Nienhuys:
+Main author.
+
+@item Jan Nieuwenhuizen:
+Main author.
+
+@item @uref{http://percival-music.ca, Graham Percival}:
+Project Manager.
+
+@end itemize
+@end macro 
 
 
-@c Authors are encouraged to maintain their own entry.
 
-@c Sorted by family name.
+@macro developersPrevious
 
+@itemize
+@item Pedro Kroeger:
+Build meister
+
+@item @uref{http://percival-music.ca, Graham Percival}:
+Documentation editor, Bug meister, Grand Documentation Project
+leader.
+
+@item Erik Sandberg:
+Bug meister
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsCore
+
+@itemize
+@item Erlend Aasland:
+Color support, tablature improvements, trivial @code{\\mark} stuff,
+al-niente hairpins.
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsFont
+
+@itemize
+@item @uref{http://www.juergen-reuter.de, Jürgen Reuter}:
+Ancient notation font Exact Type1 font outlines for feta,
+feta-alphabet.
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsDoc
+
+@itemize
+@item @uref{http://www.s3.kth.se/~mabe/, Mats Bengtsson}:
+Example files, documentation
+
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsSupport
+
+@itemize
+@item Anthony Fok:
+Debian package: @file{debian/*}.
+
+@end itemize
+@end macro
+
+
+
+@macro contributorsTranslations
+
+@itemize
+@item Bjoern Jacke:
+German glossary translations.
+
+
+@end itemize
+@end macro
+
+
+
+
+@ignore
+    OLD MATERIAL
 
 Core code:
 
@@ -178,5 +276,5 @@ Translations
     French documentation translation.
 @end itemize
 
+@end ignore
 
-@bye

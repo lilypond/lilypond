@@ -202,21 +202,21 @@
 (define-public (bar-line::calc-glyph-name grob)
   (let* ((glyph (ly:grob-property grob 'glyph))
 	 (dir (ly:item-break-dir grob))
-	 (result (assoc glyph  bar-glyph-alist))
+	 (result (assoc-get glyph bar-glyph-alist))
 	 (glyph-name (if (= dir CENTER)
 			 glyph
 		         (if (and result
-				  (string? (index-cell (cdr result) dir)))
-			     (index-cell (cdr result) dir)
+				  (string? (index-cell result dir)))
+			     (index-cell result dir)
 			     #f))))
     glyph-name))
 
 (define-public (bar-line::calc-break-visibility grob)
   (let* ((glyph (ly:grob-property grob 'glyph))
-	 (result (assoc glyph bar-glyph-alist)))
+	 (result (assoc-get glyph bar-glyph-alist)))
 
     (if result
-	(vector (string? (cadr result)) #t (string? (cddr result)))
+	(vector (string? (car result)) #t (string? (cdr result)))
 	all-invisible)))
 
 (define-public (shift-right-at-line-begin g)

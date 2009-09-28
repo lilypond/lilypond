@@ -1,14 +1,14 @@
 ;;;; define-markup-commands.scm -- markup commands
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2000--2009  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
 
 ;;; markup commands
 ;;;  * each markup function should have a doc string with
-;;     syntax, description and example. 
+;;     syntax, description and example.
 
 (use-modules (ice-9 regex))
 
@@ -163,7 +163,7 @@ Create a beam with the specified parameters.
 	 (half (/ thickness 2)))
 
     (ly:make-stencil
-     `(polygon ',(list 
+     `(polygon ',(list
 		  0 (/ thickness -2)
 		    width (+ (* width slope)  (/ thickness -2))
 		    width (+ (* width slope)  (/ thickness 2))
@@ -279,7 +279,7 @@ c4^\\markup {
   }
 }
 c,8. c16 c4 r
-@end lilypond" 
+@end lilypond"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (pad (* (magstep font-size) box-padding))
@@ -429,12 +429,12 @@ Use a stencil as markup.
   "Extract the bbox from STRING, or return #f if not present."
   (let*
       ((match (regexp-exec bbox-regexp string)))
-    
+
     (if match
 	(map (lambda (x)
 	       (string->number (match:substring match x)))
 	     (cdr (iota 5)))
-	     
+
 	#f)))
 
 (define-builtin-markup-command (epsfile layout props axis size file-name)
@@ -622,7 +622,7 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
 	   (join-stencil (interpret-markup layout props tie-str))
 	   )
 
-	(interpret-markup layout 
+	(interpret-markup layout
 			  (prepend-alist-chain
 			   'word-space
 			   (/ (interval-length (ly:stencil-extent join-stencil X)) -3.5)
@@ -645,10 +645,10 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
 	Return a list of paddings."
   (cond
    ((null? text-widths) '())
-   
+
    ;; special case first padding
    ((= (length text-widths) word-count)
-    (cons 
+    (cons
      (- (- (/ line-width (1- word-count)) (car text-widths))
 	(/ (car (cdr text-widths)) 2))
      (get-fill-space word-count line-width (cdr text-widths))))
@@ -657,7 +657,7 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
     (list (- (/ line-width (1- word-count))
 	     (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
    (else
-    (cons 
+    (cons
      (- (/ line-width (1- word-count))
 	(/ (+ (car text-widths) (car (cdr text-widths))) 2))
      (get-fill-space word-count line-width (cdr text-widths))))))
@@ -707,14 +707,14 @@ If there are no arguments, return an empty stencil.
 	 (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
 	 (fill-space
 	 	(cond
-			((= word-count 1) 
+			((= word-count 1)
 				(list
 					(/ (- line-width text-width) 2)
 					(/ (- line-width text-width) 2)))
 			((= word-count 2)
 				(list
 					(- line-width text-width)))
-			(else 
+			(else
 				(get-fill-space word-count line-width text-widths))))
 	 (fill-space-normal
 	  (map (lambda (x)
@@ -722,7 +722,7 @@ If there are no arguments, return an empty stencil.
 		     word-space
 		     x))
 	       fill-space))
-					
+
 	 (line-stencils (if (= word-count 1)
 			    (list
 			     point-stencil
@@ -737,7 +737,7 @@ If there are no arguments, return an empty stencil.
 	empty-stencil
 	(stack-stencils-padding-list X
 				     RIGHT fill-space-normal line-stencils))))
-	
+
 (define-builtin-markup-command (line layout props args)
   (markup-list?)
   align
@@ -803,7 +803,7 @@ equivalent to @code{\"fi\"}.
 
 (define (wordwrap-stencils stencils
 			   justify base-space line-width text-dir)
-  "Perform simple wordwrap, return stencil of each line."  
+  "Perform simple wordwrap, return stencil of each line."
   (define space (if justify
                     ;; justify only stretches lines.
 		    (* 0.7 base-space)
@@ -833,7 +833,7 @@ equivalent to @code{\"fi\"}.
                                         line-stencils))))
 	   (line-word-space (cond ((not justify) space)
                                   ;; don't stretch last line of paragraph.
-                                  ;; hmmm . bug - will overstretch the last line in some case. 
+                                  ;; hmmm . bug - will overstretch the last line in some case.
                                   ((null? (cdr line-break))
                                    base-space)
                                   ((null? line-stencils) 0.0)
@@ -948,7 +948,7 @@ the line width, where @var{X} is the number of staff spaces.
   ((baseline-skip)
    wordwrap-string-internal-markup-list)
   "Wordwrap a string.  Paragraphs may be separated with double newlines.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(line-width . 40)
@@ -974,7 +974,7 @@ the line width, where @var{X} is the number of staff spaces.
   ((baseline-skip)
    wordwrap-string-internal-markup-list)
   "Justify a string.  Paragraphs may be separated with double newlines
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(line-width . 40)
@@ -999,7 +999,7 @@ the line width, where @var{X} is the number of staff spaces.
   align
   ()
   "Wordwrap the data which has been assigned to @var{symbol}.
-  
+
 @lilypond[verbatim,quote]
 \\header {
   title = \"My title\"
@@ -1033,7 +1033,7 @@ the line width, where @var{X} is the number of staff spaces.
   align
   ()
   "Justify the data which has been assigned to @var{symbol}.
-  
+
 @lilypond[verbatim,quote]
 \\header {
   title = \"My title\"
@@ -1093,7 +1093,7 @@ curly braces as an argument; the follow example will not compile:
 
 ;;
 ;; TODO: should extract baseline-skip from each argument somehow..
-;; 
+;;
 (define-builtin-markup-command (column layout props args)
   (markup-list?)
   align
@@ -1155,7 +1155,7 @@ setting of the @code{direction} layout property.
 
 (define (general-column align-dir baseline mols)
   "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
-  
+
   (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols)))
     (stack-lines -1 0.0 baseline aligned-mols)))
 
@@ -1184,7 +1184,7 @@ Put @code{args} in a centered column.
   align
   ((baseline-skip))
  "
-@cindex text columns, left-aligned 
+@cindex text columns, left-aligned
 
 Put @code{args} in a left-aligned column.
 
@@ -1392,7 +1392,7 @@ alignment accordingly.
   "
 @cindex setting extent of text objects
 
-Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."  
+Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
   (let* ((m (interpret-markup layout props arg)))
     (ly:make-stencil (ly:stencil-expr m) x y)))
 
@@ -1401,7 +1401,7 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
   align
   ()
   "Add padding @var{amount} all around @var{arg}.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\box {
@@ -1465,7 +1465,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   other
   ()
   "Make @var{arg} transparent.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\transparent {
@@ -1642,7 +1642,7 @@ may be any property supported by @rinternals{font-interface},
   font
   ()
   "Decrease the font size relative to the current setting.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\fontsize #3.5 {
@@ -1771,7 +1771,7 @@ Use @code{\\fontsize} otherwise.
 }
 @end lilypond"
   (interpret-markup
-   layout 
+   layout
    (prepend-alist-chain 'font-size (magnification->font-size sz) props)
    arg))
 
@@ -1780,7 +1780,7 @@ Use @code{\\fontsize} otherwise.
   font
   ()
   "Switch to bold font-series.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   default
@@ -1796,7 +1796,7 @@ Use @code{\\fontsize} otherwise.
   font
   ()
   "Switch to the sans serif font family.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   default
@@ -1830,7 +1830,7 @@ some punctuation; it has no letters.
   font
   ()
   "Set font family to @code{roman}.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\sans \\bold {
@@ -1883,7 +1883,7 @@ some punctuation; it has no letters.
   font
   ()
   "Set font size to default.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\teeny {
@@ -1904,7 +1904,7 @@ some punctuation; it has no letters.
   font
   ()
   "Set font size to -1.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   default
@@ -1920,7 +1920,7 @@ some punctuation; it has no letters.
   font
   ()
   "Set font size to -2.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   default
@@ -1936,7 +1936,7 @@ some punctuation; it has no letters.
   font
   ()
   "Set font size to -3.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   default
@@ -1952,7 +1952,7 @@ some punctuation; it has no letters.
   font
   ()
   "Set @code{font-shape} to @code{caps}
-  
+
 Note: @code{\\fontCaps} requires the installation and selection of
 fonts which support the @code{caps} font shape."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
@@ -2046,7 +2046,7 @@ done in a different font.  The recommended font for this is bold and italic.
   font
   ()
   "Use a text font instead of music symbol or music alphabet font.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\number {
@@ -2084,7 +2084,7 @@ done in a different font.  The recommended font for this is bold and italic.
   font
   ()
   "Use @code{font-family} typewriter for @var{arg}.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   default
@@ -2196,7 +2196,7 @@ normal text font, no matter what font was used earlier.
   \\sesquisharp
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))					 
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (sharp layout props)
   ()
@@ -2369,7 +2369,7 @@ the possible glyphs.
   (let* ((font (ly:paper-get-font layout
 				  (cons '((font-encoding . fetaMusic)
 					  (font-name . #f))
-					
+
 						 props)))
 	 (glyph (ly:font-get-glyph font glyph-name)))
     (if (null? (ly:stencil-expr glyph))
@@ -2383,7 +2383,7 @@ the possible glyphs.
   other
   ()
   "Lookup a glyph by name.
-  
+
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(font-encoding . fetaBraces) {
@@ -2427,7 +2427,7 @@ format require the prefix @code{#x}.
 (define (number->markletter-string vec n)
   "Double letters for big marks."
   (let* ((lst (vector-length vec)))
-    
+
     (if (>= n lst)
 	(string-append (number->markletter-string vec (1- (quotient n lst)))
 		       (number->markletter-string vec (remainder n lst)))
@@ -2513,7 +2513,7 @@ and continue with double letters.
          (num-y (interval-widen (cons center center) (abs dy)))
          (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
          (slash-stencil (if is-sane
-                            (make-line-stencil thickness 
+                            (make-line-stencil thickness
                                          (car num-x) (- (interval-center num-y) dy)
                                          (cdr num-x) (+ (interval-center num-y) dy))
                             #f)))
@@ -2569,7 +2569,7 @@ figured bass notation.
   (slashed-digit-internal layout props num #f font-size thickness))
 
 ;; eyeglasses
-(define eyeglassesps 
+(define eyeglassesps
      "0.15 setlinewidth
       -0.9 0 translate
       1.1 1.1 scale
@@ -2689,14 +2689,14 @@ Construct a note symbol, with stem.  By using fractional values for
 		 "")))
 	 (list (if (= dir UP) "u" "d")
 	       "s")))
-		   
+
   (define (get-glyph-name font cands)
     (if (null? cands)
      ""
      (if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
 	 (get-glyph-name font (cdr cands))
 	 (car cands))))
-    
+
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)) props)))
 	 (size-factor (magstep font-size))
          (stem-length (*  size-factor (max 3 (- log 1))))
@@ -2719,7 +2719,7 @@ Construct a note symbol, with stem.  By using fractional values for
 			   (cons (min stemy (cdr attach-off))
 				 (max stemy (cdr attach-off)))
 			   (/ stem-thickness 3))))
-	 
+
          (dot (ly:font-get-glyph font "dots.dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
@@ -2755,7 +2755,7 @@ Construct a note symbol, with stem.  By using fractional values for
                stem-glyph)))
     stem-glyph))
 
-(define-public log2 
+(define-public log2
   (let ((divisor (log 2)))
     (lambda (z) (inexact->exact (/ (log z) divisor)))))
 
@@ -2853,7 +2853,7 @@ Translate @var{arg} by @var{offset}, scaling the offset by the
   ()
   "
 @cindex raising text
-  
+
 Raise @var{arg} by the distance @var{amount}.
 A negative @var{amount} indicates lowering, see also @code{\\lower}.
 
@@ -2940,7 +2940,7 @@ Set @var{arg} in superscript with a normal font size.
   font
   ((font-size 0)
    (baseline-skip))
-  "  
+  "
 @cindex superscript text
 
 Set @var{arg} in superscript.
@@ -2969,7 +2969,7 @@ Set @var{arg} in superscript.
   ()
   "
 @cindex translating text
-  
+
 Translate @var{arg} relative to its surroundings.  @var{offset}
 is a pair of numbers representing the displacement in the X and Y axis.
 
@@ -3044,7 +3044,7 @@ Set @var{arg} in subscript with a normal font size.
   ()
   "
 @cindex placing horizontal brackets around text
-  
+
 Draw horizontal brackets around @var{arg}.
 
 @lilypond[verbatim,quote]
@@ -3066,7 +3066,7 @@ Draw horizontal brackets around @var{arg}.
   ()
   "
 @cindex placing vertical brackets around text
-  
+
 Draw vertical brackets around @var{arg}.
 
 @lilypond[verbatim,quote]
@@ -3102,8 +3102,9 @@ when @var{label} is not found."
      `(delay-stencil-evaluation
        ,(delay (ly:stencil-expr
 		(let* ((table (ly:output-def-lookup layout 'label-page-table))
-		       (label-page (and (list? table) (assoc label table)))
-		       (page-number (and label-page (cdr label-page)))
+		       (page-number (if (list? table)
+		                        (assoc-get label table)
+					#f))
 		       (page-markup (if page-number (format "~a" page-number) default))
 		       (page-stencil (interpret-markup layout props page-markup))
 		       (gap (- (interval-length x-ext)

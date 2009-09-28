@@ -6,6 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@include general/basic-authors.itexi
+
 @node Community
 @unnumbered Community
 
@@ -564,6 +566,8 @@ Comparisons beteween versions.
 @node Authors
 @unnumberedsec Authors 
 
+@help{Under construction; this is not an accurate list!}
+
 combo of:
 
 http://lilypond.org/web/about/thanks
@@ -574,13 +578,54 @@ and maybe:
 http://lilypond.org/web/switch/
 
 
+@divClass{column-left-top}
+@subheading Current Development Team
+
+@divClass{keep-bullets}
+@developersCurrent
+@divEnd
+@divEnd
+
+@divClass{column-right-top}
+@subheading Previous Development Team Positions
+
+@divClass{keep-bullets}
+@developersPrevious
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Programming contributors
+
+@divClass{keep-bullets}
+@contributorsCore
+
+@subheading Font contributors
+
+@contributorsFont
+
+@subheading Documentation contributors
+
+@contributorsDoc
+
+@subheading Support contributors
+
+@contributorsSupport
+
+@subheading Translation contributors
+
+@contributorsTranslations
+
+@divEnd
+@divEnd
+
 
 
 @node Publications
 @unnumberedsec Publications
 
 @divClass{column-center-top}
-
 @subheading What we wrote
 
 @divClass{keep-bullets}
