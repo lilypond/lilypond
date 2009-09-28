@@ -1227,7 +1227,9 @@ class LilypondSnippet (Snippet):
             except ImportError:
                 from md5 import md5
 
-            hash = md5 (self.relevant_contents (self.full_ly ()))
+            # We only want to calculate the hash based
+            # on the snippet code, not the snippet + preamble
+            hash = md5 (self.relevant_contents (self.ly ()))
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
