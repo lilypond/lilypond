@@ -1305,13 +1305,13 @@ moving the @code{Timing_translator} and the
   \new Staff {
     \time 3/4
     c4 c c |
-    c c c |
+    c4 c c |
   }
   \new Staff {
     \time 2/4
     c4 c |
-    c c |
-    c c |
+    c4 c |
+    c4 c |
   }
   \new Staff {
     \time 3/8
@@ -1589,7 +1589,13 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference:
-@rinternals{Beam}.
+@rinternals{Auto_beam_engraver},
+@rinternals{Beam_engraver},
+@rinternals{Beam},
+@rinternals{BeamEvent},
+@rinternals{BeamForbidEvent},
+@rinternals{beam-interface},
+@rinternals{unbreakable-spanner-interface}.
 
 
 @knownissues
@@ -1626,20 +1632,24 @@ The following rules, in order of priority, apply when determining
 the appearance of beams:
 
 @itemize
-
-@item If a manual beam is specified with @code{[..]} set the beam
+@item
+If a manual beam is specified with @code{[..]} set the beam
 as specified, otherwise
 
-@item if @code{\autoBeamOff} is in force do not beam, otherwise
+@item
+if @code{\autoBeamOff} is in force do not beam, otherwise
 
-@item if an explicit beam-ending rule is defined for the beam type
+@item
+if an explicit beam-ending rule is defined for the beam type
 in the time signature, use it to determine the valid
 places where beams may end, otherwise
 
-@item if a default beam-ending rule is defined in the time signature,
+@item
+if a default beam-ending rule is defined in the time signature,
 use it to group notes with beams, otherwise
 
-@item use the value of @code{beatLength} to group notes with beams
+@item
+use the value of @code{beatLength} to group notes with beams
 
 @end itemize
 
@@ -1691,12 +1701,12 @@ Beam settings are changed with
 @code{\overrideBeamSettings} and @code{\revertBeamSettings}.
 
 @lilypond[quote,relative=2,verbatim]
-  \time 5/16
-  c8^"beats" c16 c8 |
-  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (2 3)))
-  c8^"(2+3)" c16 c8
-  \overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
-  c8^"(3+2)" c16 c8
+\time 5/16
+c8^"beats" c16 c8 |
+\overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (2 3)))
+c8^"(2+3)" c16 c8
+\overrideBeamSettings #'Score #'(5 . 16) #'end #'((* . (3 2)))
+c8^"(3+2)" c16 c8
 @end lilypond
 
 Beam setting changes can be limited to specific contexts.  If no
@@ -1754,14 +1764,21 @@ for @var{grouping} is given:
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\repeat unfold 16 {a16}
+\repeat unfold 16 { a16 }
 % set default rule for (1 1 1 1) grouping
 \overrideBeamSettings #'Score #'(4 . 4) #'end #'((* . (1 1 1 1)))
-\repeat unfold 16 {a16}
+\repeat unfold 16 { a16 }
 % revert the new rule
 \revertBeamSettings #'Score #'(4 . 4) #'end
-\repeat unfold 16 {a16}
+\repeat unfold 16 { a16 }
 @end lilypond
+
+
+@predefined
+@code{\overrideBeamSettings},
+@code{\revertBeamSettings}.
+@endpredefined
+
 
 @snippets
 
@@ -1778,11 +1795,23 @@ for @var{grouping} is given:
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
+@cindex beam, last in score
+@cindex beam, last in polyphonic voice
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@cindex beam, last in score
-@cindex beam, last in polyphonic voice
+
+@seealso
+Snippets:
+@rlsr{Rhythms}.
+
+Internals Reference:
+@rinternals{Auto_beam_engraver},
+@rinternals{Beam},
+@rinternals{BeamForbidEvent},
+@rinternals{beam-interface}.
+
 
 @knownissues
 
@@ -1791,11 +1820,6 @@ still accepting notes, this last beam will not be typeset at all.
 The same holds for polyphonic voices, entered with @code{<<
 @dots{} \\ @dots{} >>}.  If a polyphonic voice ends while an
 automatic beam is still accepting notes, it is not typeset.
-
-
-@seealso
-Snippets:
-@rlsr{Rhythms}.
 
 
 @node Manual beams
@@ -1811,15 +1835,20 @@ In some cases it may be necessary to override the automatic
 beaming algorithm.  For example, the autobeamer will not put beams
 over rests or bar lines, and in choral scores the beaming is
 often set to follow the meter of the lyrics rather than the
-notes. Such beams can be specified manually by
-marking the begin and end point with @code{[} and @code{]}
+notes.  Such beams can be specified manually by
+marking the begin and end point with @code{[} and @code{]}.
 
 @lilypond[quote,relative=1,verbatim]
-{
-  r4 r8[ g' a r8] r8 g[ | a] r8
-}
+r4 r8[ g' a r8] r8 g[ | a] r8
 @end lilypond
 
+@cindex manual beams, direction shorthand for
+
+Beaming direction can be set manually using direction indicators:
+
+@lilypond[quote,relative=2,verbatim]
+c8^[ d e] c,_[ d e f g]
+@end lilypond
 
 @funindex \noBeam
 @funindex noBeam
@@ -1828,7 +1857,8 @@ Individual notes may be marked with @code{\noBeam} to prevent them
 from being beamed:
 
 @lilypond[quote,verbatim,relative=2]
-\time 2/4 c8 c\noBeam c c
+\time 2/4
+c8 c\noBeam c c
 @end lilypond
 
 @funindex stemLeftBeamCount
@@ -1848,16 +1878,37 @@ a8[ r16 f g a]
 a8[ r16
 \set stemLeftBeamCount = #2
 \set stemRightBeamCount = #1
-f
+f16
 \set stemLeftBeamCount = #1
-g a]
+g16 a]
 @end lilypond
+
+
+@predefined
+@code{\noBeam}.
+@endpredefined
 
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
+
+
+@seealso
+Notation Reference:
+@ref{Direction and placement}.
+
+Snippets:
+@rlsr{Rhythms}.
+
+Internals Reference:
+@rinternals{Beam},
+@rinternals{BeamEvent},
+@rinternals{Beam_engraver},
+@rinternals{beam-interface},
+@rinternals{Stem_engraver}.
+
 
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams
@@ -1910,15 +1961,20 @@ the last four 32nd notes are at a constant tempo.
 The spacing in the printed output represents the
 note durations only approximately, but the MIDI output is exact.
 
-@knownissues
 
-The @code{\featherDurations} command only works with very short
-music snippets, and when numbers in the fraction are small.
-
+@predefined
+@code{\featherDurations}.
+@endpredefined
 
 @seealso
 Snippets:
 @rlsr{Rhythms}.
+
+
+@knownissues
+
+The @code{\featherDurations} command only works with very short
+music snippets, and when numbers in the fraction are small.
 
 
 @node Bars
@@ -1977,7 +2033,7 @@ music which flows off the page.}
 
 Line breaks are also permitted at manually inserted bar lines
 even within incomplete measures.  To allow a line break without
-printing a bar line, use
+printing a bar line, use the following:
 
 @example
 \bar ""
@@ -2001,25 +2057,25 @@ automatically.  When they do not coincide with the end of a measure
 the specified bar line is inserted at that point in the printed
 output.
 
-Note that manual bar lines are purely visual. They do not affect
+Note that manual bar lines are purely visual.  They do not affect
 any of the properties that a normal bar line would affect, such as
 measure numbers, accidentals, line breaks, etc.  They do not affect
 the calculation and placement of subsequent automatic bar lines.
 When a manual bar line is placed where a normal bar line already
 exists, the effects of the original bar line are not altered.
 
-Two types of simple bar lines and five types of double bar lines are available
-for manual insertion:
+Two types of simple bar lines and five types of double bar lines are
+available for manual insertion:
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "|"
-f \bar "."
-g \bar "||"
-a \bar ".|"
-b \bar ".|."
-c \bar "|.|"
-d \bar "|."
-e
+f1 \bar "."
+g1 \bar "||"
+a1 \bar ".|"
+b1 \bar ".|."
+c1 \bar "|.|"
+d1 \bar "|."
+e1
 @end lilypond
 
 @noindent
@@ -2027,8 +2083,8 @@ together with dotted and dashed bar lines:
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar ":"
-g \bar "dashed"
-a
+g1 \bar "dashed"
+a1
 @end lilypond
 
 @noindent
@@ -2036,20 +2092,20 @@ and five types of repeat bar line:
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "|:"
-g \bar ":|:"
-a \bar ":|.|:"
-b \bar ":|.:"
-c \bar ":|"
-d
+g1 \bar ":|:"
+a1 \bar ":|.|:"
+b1 \bar ":|.:"
+c1 \bar ":|"
+d1
 @end lilypond
 
 Additionally, a bar line can be printed as a simple tick:
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "'"
 @end lilypond
-However, as such ticks are typically used in Gregorian chant, it is preferable
-to use @code{\divisioMinima} there instead, described in the section
-@ref{Divisiones} in Gregorian chant.
+However, as such ticks are typically used in Gregorian chant, it is
+preferable to use @code{\divisioMinima} there instead, described in
+the section @ref{Divisiones} in Gregorian chant.
 
 
 @cindex repeats
@@ -2066,11 +2122,11 @@ line at the end of the line and a start repeat at the beginning of
 the next line.
 
 @lilypond[quote,relative=2,verbatim]
-c c c c
+c4 c c c
 \bar "||:"
-c c c c \break
+c4 c c c \break
 \bar "||:"
-c c c c
+c4 c c c
 @end lilypond
 
 In scores with many staves, a @code{\bar} command in one staff is
@@ -2078,13 +2134,13 @@ automatically applied to all staves.  The resulting bar lines are
 connected between different staves of a @code{StaffGroup},
 @code{PianoStaff}, or @code{GrandStaff}.
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,relative=1,verbatim]
 <<
   \new StaffGroup <<
     \new Staff {
-      e'4 d'
+      e4 d
       \bar "||"
-      f' e'
+      f4 e
     }
     \new Staff { \clef bass c4 g e g }
   >>
@@ -2106,8 +2162,7 @@ connected between different staves of a @code{StaffGroup},
 
 The command @code{\bar }@var{bartype} is a shortcut for
 @code{\set Timing.whichBar = }@var{bartype}.  A bar line is
-created whenever the @code{whichBar} property is
-set.
+created whenever the @code{whichBar} property is set.
 
 The default bar type used for automatically inserted bar lines is
 @code{"|"}.  This may be changed at any time
@@ -2144,7 +2199,7 @@ the first line.  The number itself is stored in the
 @code{currentBarNumber} property, which is normally updated
 automatically for every measure.  It may also be set manually:
 
-@lilypond[verbatim,quote,fragment,relative=1]
+@lilypond[verbatim,quote,relative=1]
 c1 c c c
 \break
 \set Score.currentBarNumber = #50
@@ -2206,7 +2261,8 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference:
-@rinternals{BarNumber}.
+@rinternals{BarNumber},
+@rinternals{Bar_number_engraver}.
 
 
 @cindex bar number collision
@@ -2218,7 +2274,6 @@ Bar numbers may collide with the top of the @code{StaffGroup} bracket,
 if there is one.  To solve this, the @code{padding} property of
 @code{BarNumber} can be used to position the number correctly.  See
 @rinternals{StaffGroup} and @rinternals{BarNumber} for more.
-
 
 
 @node Bar and bar number checks
@@ -2243,7 +2298,7 @@ next example, the second bar check will signal an error.
 \time 3/4 c2 e4 | g2 |
 @end example
 
-Bar checks can also be used in lyrics, for example
+Bar checks can also be used in lyrics:
 
 @example
 \lyricmode @{
@@ -2428,7 +2483,7 @@ Notation Reference:
 
 Installed Files:
 @file{scm/@/translation@/-functions@/.scm} contains
-the definition of @code{format-mark-numbers} and
+the definitions of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
 other formatting functions.
 
@@ -2436,6 +2491,8 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference:
+@rinternals{MarkEvent},
+@rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
 
 
@@ -2487,8 +2544,10 @@ staves.  In the following example, there are two sixteenth grace
 notes for every eighth grace note
 
 @lilypond[quote,relative=2,verbatim]
-<< \new Staff { e2 \grace { c16[ d e f] } e2 }
-   \new Staff { c2 \grace { g8[ b] } c2 } >>
+<<
+  \new Staff { e2 \grace { c16[ d e f] } e2 }
+  \new Staff { c2 \grace { g8[ b] } c2 }
+>>
 @end lilypond
 
 @cindex grace notes, following
@@ -2532,8 +2591,10 @@ note after a space lasting 7/8 of the main note.
 
 @lilypond[quote,verbatim,relative=2]
 \new Voice {
-  << { d1^\trill_( }
-     { s2 s4. \grace { c16[ d] } } >>
+  <<
+    { d1^\trill_( }
+    { s2 s4. \grace { c16[ d] } }
+  >>
   c1)
 }
 @end lilypond
@@ -2546,8 +2607,8 @@ A @code{\grace} music expression will introduce special
 typesetting settings, for example, to produce smaller type, and
 set directions.  Hence, when introducing layout tweaks to
 override the special settings, they should be placed inside
-the grace expression. The overrides should also be reverted
-inside the grace expression. Here, the grace note's default stem
+the grace expression.  The overrides should also be reverted
+inside the grace expression.  Here, the grace note's default stem
 direction is overridden and then reverted.
 
 @lilypond[quote,verbatim,relative=2]
@@ -2593,7 +2654,10 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference:
-@rinternals{GraceMusic}.
+@rinternals{GraceMusic},
+@rinternals{Grace_beam_engraver},
+@rinternals{Grace_engraver},
+@rinternals{Grace_spacing_engraver}.
 
 
 @knownissues
