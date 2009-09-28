@@ -64,15 +64,15 @@ which scares away people.
 @end ignore
 
 @item
-A version of the breve notehead has been added with two vertical lines on each side.
-@lilypond
-\relative c'' {
-  \time 4/2
-  \override Staff.NoteHead  #'style = #'altdefault
-  c\breve b\breve
-}
-@end lilypond
+The direction of manual beams can be set with @code{^[} and @code{_[}.
 
+@item
+A version of the breve note head has been added with two vertical lines on each side.
+@lilypond[quote,relative=2]
+\time 4/2
+\override Staff.NoteHead #'style = #'altdefault
+c\breve | b\breve
+@end lilypond
 
 @item
 Instrument names and vocal names now take into account the extent of
@@ -148,7 +148,7 @@ An eyeglasses markup was added, indicating strongly to look at the
 conductor for instructions:
 @lilypond[quote,relative=2]
 \mark \markup { \eyeglasses }
-c4_\markup{ \eyeglasses }
+c4_\markup { \eyeglasses }
 @end lilypond
 
 @item
@@ -191,8 +191,6 @@ and to add notes to the number or fraction:
 @item
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
-
-
 
 @end itemize
 
