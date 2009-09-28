@@ -48,7 +48,7 @@
     ;; in 3 4 time:
     ;;   default: end beams on beats
     ;;   group 1/8 note beams on measure
-   (((3 . 4) end) .((* . (3))
+   (((3 . 4) end) .((* . (1 1 1))
                     ((1 . 16) . (4 4 4))
                     ((1 . 32) . (8 8 8))
                     ((1 . 64) . (16 16 16))

@@ -730,7 +730,7 @@ Notation Reference:
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: 
+Internals Reference:
 @rinternals{SkipMusic}.
 
 
@@ -1697,8 +1697,20 @@ the beam.  For default rules (where beam type is
 @code{*}, the grouping is in units of @code{beatLength}.
 For explicit rules, the grouping is in units of the beam type.
 
+For reference, the default beaming rules are found in
+@file{scm/beam-settings.scm}.
+
 Beam settings are changed with
 @code{\overrideBeamSettings} and @code{\revertBeamSettings}.
+
+@warning{
+The ending and subdivision settings must be
+@emph{complete} rules.  That is, every rule that should apply to
+the current time signature must be included in the setting.
+It is not possible to change the grouping of only one beam type
+for a given time signature.  While this may seem cumbersome,
+it means that the current beaming settings need not be known
+in order to specify a new beaming pattern.}
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
@@ -1764,13 +1776,13 @@ for @var{grouping} is given:
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\repeat unfold 16 { a16 }
+\repeat unfold 8 {a8}
 % set default rule for (1 1 1 1) grouping
 \overrideBeamSettings #'Score #'(4 . 4) #'end #'((* . (1 1 1 1)))
-\repeat unfold 16 { a16 }
+\repeat unfold 8 {a8}
 % revert the new rule
 \revertBeamSettings #'Score #'(4 . 4) #'end
-\repeat unfold 16 { a16 }
+\repeat unfold 8 {a8}
 @end lilypond
 
 
@@ -1803,6 +1815,9 @@ for @var{grouping} is given:
 
 
 @seealso
+Installed files:
+@file{scm/beam-settings.scm}.
+
 Snippets:
 @rlsr{Rhythms}.
 
