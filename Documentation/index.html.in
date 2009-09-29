@@ -82,9 +82,9 @@ href="internals/index.html">Internals Reference</a>
 	  <ul>
               <li>
 	    <a class="title"
-href="application/index.html">Application Usage</a>
-(in <a class="title" href="application-big-page.html">one big page</a>,
-in <a class="title" href="application.pdf">PDF</a>)
+href="usage/index.html">Application Usage</a>
+(in <a class="title" href="usage-big-page.html">one big page</a>,
+in <a class="title" href="usage.pdf">PDF</a>)
             <br>(how to install and run the program)</li>
 
 <li><a class="title"href="snippets/index.html">Snippets List</a>

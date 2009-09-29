@@ -76,10 +76,10 @@
 	  <td valign="baseline" class="right-column">
 	  <ul>
             <li>
-	    <a class="title" href="application/index.fr.html">Utilisation des programmes</a>
+	    <a class="title" href="usage/index.fr.html">Utilisation des programmes</a>
 (partiellement traduit,<br>aussi en <a class="title"
-		href="application-big-page.fr.html">page unique</a>, ou
-	    <a class="title" href="application.fr.pdf">au format PDF</a>)
+		href="usage-big-page.fr.html">page unique</a>, ou
+	    <a class="title" href="usage.fr.pdf">au format PDF</a>)
             <br>&mdash; installation et exécution des programmes</li>
 	    <li><a class="title" href="snippets/index.html">Exemples de code</a>
 (en anglais, aussi en <a class="title" href="snippets-big-page.html">page unique</a> ~ 2 Mo,
