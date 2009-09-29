@@ -185,12 +185,12 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application-big-page,Anwendungsbenutzung}
+@ref{\TEXT\,,,usage-big-page,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application-big-page,Anwendungsbenutzung}
+@ref{\TEXT\,,\DISPLAY\,usage-big-page,Anwendungsbenutzung}
 @end macro
 
 @macro rlsr{TEXT}
@@ -280,12 +280,12 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application,Anwendungsbenutzung}
+@ref{\TEXT\,,,usage,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application,Anwendungsbenutzung}
+@ref{\TEXT\,,\DISPLAY\,usage,Anwendungsbenutzung}
 @end macro
 
 @macro rlsr{TEXT}
@@ -387,12 +387,12 @@
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,application.de,Anwendungsbenutzung}
+@ref{\TEXT\,,,usage.de,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,application.de,Anwendungsbenutzung}
+@ref{\TEXT\,,\DISPLAY\,usage.de,Anwendungsbenutzung}
 @end macro
 
 @macro rlsr{TEXT}

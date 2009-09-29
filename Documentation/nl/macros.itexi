@@ -188,12 +188,12 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application-big-page,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,usage-big-page,Manuel d'utilisation du programme}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application-big-page,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,usage-big-page,Manuel d'utilisation du programme}
 @end macro
 
 @macro rlsr{TEXT}
@@ -264,12 +264,12 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,usage,Manuel d'utilisation du programme}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,usage,Manuel d'utilisation du programme}
 @end macro
 
 @macro rlsr{TEXT}
@@ -352,12 +352,12 @@
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,application.fr,Manuel d'utilisation du programme}
+@ref{\TEXT\,,,usage.fr,Manuel d'utilisation du programme}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,application.fr,Manuel d'utilisation du programme}
+@ref{\TEXT\,,\DISPLAY\,usage.fr,Manuel d'utilisation du programme}
 @end macro
 
 @macro rlsr{TEXT}

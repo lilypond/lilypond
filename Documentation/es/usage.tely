@@ -36,13 +36,13 @@
 @ifhtml
 @ifclear bigpage
 Este documento también está disponible en formato
-@uref{source/Documentation/application.es.pdf,PDF} y como
-@uref{source/Documentation/application-big-page.es.html,una sola página}.
+@uref{source/Documentation/usage.es.pdf,PDF} y como
+@uref{source/Documentation/usage-big-page.es.html,una sola página}.
 @end ifclear
 @ifset bigpage
 Este documento también está disponible en formato
-@uref{source/Documentation/application.es.pdf,PDF} y como
-@uref{source/Documentation/application/index.es.html,un documento HTML normal de muchas páginas}.
+@uref{source/Documentation/usage.es.pdf,PDF} y como
+@uref{source/Documentation/usage/index.es.html,un documento HTML normal de muchas páginas}.
 @end ifset
 @end ifhtml
 
@@ -187,11 +187,11 @@ Apéndices
 
 @contents
 
-@include application/install.itely
-@include application/setup.itely
-@include application/running.itely
-@include application/lilypond-book.itely
-@include application/converters.itely
+@include usage/install.itely
+@include usage/setup.itely
+@include usage/running.itely
+@include usage/lilypond-book.itely
+@include usage/converters.itely
 
 @include fdl.itexi
 

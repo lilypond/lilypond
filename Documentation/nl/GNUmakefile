@@ -1,6 +1,6 @@
 ISOLANG = nl
 depth = ../..
-SUBDIRS = application general learning notation texidocs
+SUBDIRS = general learning notation texidocs usage
 STEPMAKE_TEMPLATES = documentation
 LOCALSTEPMAKE_TEMPLATES = lilypond ly doc-i18n-root
 NO_PDF_FILES = 1

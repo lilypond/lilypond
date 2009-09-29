@@ -7,7 +7,7 @@
 @end ignore
 @documentencoding UTF-8
 @documentlanguage de
-@setfilename lilypond-application.info
+@setfilename lilypond-usage.info
 @settitle GNU LilyPond Programmbenutzung
 
 @include macros.itexi
@@ -35,13 +35,13 @@
 @ifhtml
 @ifclear bigpage
 Dieses Dokument ist auch als
-@uref{source/Documentation/application.de.pdf,PDF} und auf
+@uref{source/Documentation/usage.de.pdf,PDF} und auf
 @uref{source/Documentation/appplication-big-page.de.html,einer großen Seite}
 @end ifclear
 @ifset bigpage
 Dieses Dokument ist auch als
-@uref{source/Documentation/application.de.pdf,PDF} und auf
-@uref{source/Documentation/application/index.de.html,separaten HTML-Seiten mit Index}
+@uref{source/Documentation/usage.de.pdf,PDF} und auf
+@uref{source/Documentation/usage/index.de.html,separaten HTML-Seiten mit Index}
 @end ifset
 verfügbar.
 @end ifhtml
@@ -192,14 +192,14 @@ Anhänge
 @contents
 
 
-@include application/install.itely
-@include application/setup.itely
-@include application/running.itely
-@c @include application/updating.itely
-@include application/lilypond-book.itely
-@include application/converters.itely
-@include application/working.itely
-@c @include application/suggestions.itely
+@include usage/install.itely
+@include usage/setup.itely
+@include usage/running.itely
+@c @include usage/updating.itely
+@include usage/lilypond-book.itely
+@include usage/converters.itely
+@include usage/working.itely
+@c @include usage/suggestions.itely
 
 @include fdl.itexi
 

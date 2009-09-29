@@ -259,7 +259,7 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 #TRANSLATION_DIRS = $(shell git ls-files $(ISOLANG) | $(PYTHON) $(buildscript-dir)/pytt.py '/[^/]*$$' / | sort -u )
-TRANSLATION_DIRS = application general learning notation texidocs
+TRANSLATION_DIRS = general learning notation texidocs usage
 TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
 EXTRA_TRANSLATION_FILES =\
  dedication.itely\

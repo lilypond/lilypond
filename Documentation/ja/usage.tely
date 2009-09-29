@@ -37,14 +37,14 @@
 @ifhtml
 @ifclear bigpage
 このドキュメントは 
-@uref{source/Documentation/application.pdf,PDF 形式} と 
-@uref{source/Documentation/application-big-page.ja.html,大きな 1 ページ形式} 
+@uref{source/Documentation/usage.pdf,PDF 形式} と 
+@uref{source/Documentation/usage-big-page.ja.html,大きな 1 ページ形式} 
 でも利用可能です。
 @end ifclear
 @ifset bigpage
 このドキュメントは 
-@uref{source/Documentation/application.pdf,PDF 形式} と 
-@uref{source/Documentation/application/index.ja.html,
+@uref{source/Documentation/usage.pdf,PDF 形式} と 
+@uref{source/Documentation/usage/index.ja.html,
 複数のページにインデックス化された形式} 
 でも利用可能です。
 @end ifset
@@ -172,14 +172,14 @@ FIXME FIXME FIXME
 @contents
 
 
-@c @include application/install.itely
-@c @include application/setup.itely
-@include application/running.itely
-@include application/updating.itely
-@include application/lilypond-book.itely
-@include application/converters.itely
-@include application/working.itely
-@include application/suggestions.itely
+@c @include usage/install.itely
+@c @include usage/setup.itely
+@include usage/running.itely
+@include usage/updating.itely
+@include usage/lilypond-book.itely
+@include usage/converters.itely
+@include usage/working.itely
+@include usage/suggestions.itely
 
 @include fdl.itexi
 
