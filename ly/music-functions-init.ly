@@ -322,7 +322,8 @@ killCues =
    (_i "Remove cue notes from @var{music}.")
    (music-map
     (lambda (mus)
-      (if (string? (ly:music-property mus 'quoted-music-name))
+      (if (and (string? (ly:music-property mus 'quoted-music-name))
+	       (string=? (ly:music-property mus 'quoted-context-id) "cue"))
 	  (ly:music-property mus 'element)
 	  mus)) music))
 
