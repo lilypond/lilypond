@@ -243,6 +243,9 @@ This book gives a brief history of music typography, followed by
 an examination of LilyPond's engraving techniques.  A comparison
 between LilyPond and other music engraving systems is given.
 
+@warning{The detailed typographical examples are easier to analyze
+in the PDF version due to its higher resolution.}
+
 @divEnd
 
 @divClass{column-right-top}
