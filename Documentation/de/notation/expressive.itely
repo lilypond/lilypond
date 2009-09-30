@@ -657,8 +657,7 @@ Glossar:
 @rglos{slur}.
 
 Handbuch zum Lernen:
-@c FIXME: compile failure for PDF
-@c @rlearning{Über die Nicht-Schachtelung von Klammern und Bindebögen}.
+@rlearning{Über die Nicht-Schachtelung von Klammern und Bindebögen}.
 
 Notationsreferenz:
 @ref{Richtung und Platzierung},
@@ -797,8 +796,7 @@ die Schnipsel im Abschnitt @ref{Legatobögen}.
 
 @seealso
 Handbuch zum Lernen:
-@c FIXME: compile failure for PDF
-@c @rlearning{Über die Nicht-Schachtelung von Klammern und Bindebögen}.
+@rlearning{Über die Nicht-Schachtelung von Klammern und Bindebögen}.
 
 Notationsreferenz:
 @ref{Richtung und Platzierung}.
