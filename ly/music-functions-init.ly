@@ -323,7 +323,7 @@ killCues =
    (music-map
     (lambda (mus)
       (if (and (string? (ly:music-property mus 'quoted-music-name))
-	       (string=? (ly:music-property mus 'quoted-context-id) "cue"))
+	       (string=? (ly:music-property mus 'quoted-context-id "") "cue"))
 	  (ly:music-property mus 'element)
 	  mus)) music))
 
