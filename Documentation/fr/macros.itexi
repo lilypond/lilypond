@@ -307,7 +307,7 @@
 @c delimits arguments in the standard way (i.e., with braces).
 
 @tex
-\gdef\lilyvindex#1{\doind{vr}{\code #1}\ignorespaces}
+\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
 @end tex
 
 @macro rglos{TEXT}
