@@ -49,9 +49,9 @@
     ;;   default: set grouping to (3) so we'll get
     ;;     the proper measure grouping symbol
     ;;
-    ;;   set all beams to end on beats
-   (((3 . 4) end) .((* . (1 1 1))
-                    ((1 . 8) . (2 2 2))
+    ;;   set all beams to end on beats, but 1 8 to beam entire measure
+   (((3 . 4) end) .((* . (3))
+                    ((1 . 8) . (6))
                     ((1 . 16) . (4 4 4))
                     ((1 . 32) . (8 8 8))
                     ((1 . 64) . (16 16 16))
