@@ -147,7 +147,7 @@ Output_def::normalize ()
       || scm_left_margin_default == SCM_UNDEFINED
       || scm_right_margin_default == SCM_UNDEFINED)
     {
-      programming_error ("called normalize() on paper with missing settings");
+      programming_error ("called normalize () on paper with missing settings");
       return;
     }
   else
@@ -158,13 +158,18 @@ Output_def::normalize ()
     }
 
   Real line_width;
-  Real line_width_default = paper_width - left_margin_default - right_margin_default;
+  Real line_width_default
+    = paper_width - left_margin_default - right_margin_default;
   SCM scm_line_width = c_variable ("line-width");
 
   if (scm_line_width == SCM_UNDEFINED)
     {
-      left_margin = ((scm_left_margin == SCM_UNDEFINED) ? left_margin_default : scm_to_double(scm_left_margin));
-      right_margin = ((scm_right_margin == SCM_UNDEFINED) ? right_margin_default : scm_to_double(scm_right_margin));
+      left_margin = ((scm_left_margin == SCM_UNDEFINED)
+		     ? left_margin_default
+		     : scm_to_double (scm_left_margin));
+      right_margin = ((scm_right_margin == SCM_UNDEFINED)
+		      ? right_margin_default
+		      : scm_to_double (scm_right_margin));
       line_width = paper_width - left_margin - right_margin;
     }
   else
@@ -172,7 +177,8 @@ Output_def::normalize ()
       line_width = scm_to_double (scm_line_width);
       if (scm_left_margin == SCM_UNDEFINED)
         {
-          if (scm_right_margin == SCM_UNDEFINED) // Vertically center systems if only line-width is given
+	  // Vertically center systems if only line-width is given
+	  if (scm_right_margin == SCM_UNDEFINED)
             {
               left_margin = (paper_width - line_width) / 2;
               right_margin = left_margin;
@@ -195,7 +201,7 @@ Output_def::normalize ()
   if (to_boolean (c_variable ("check-consistency")))
     {
       // Consistency checks. If values don't match, set defaults.
-      if (abs(paper_width - line_width - left_margin - right_margin) > 1e-6)
+      if (abs (paper_width - line_width - left_margin - right_margin) > 1e-6)
         {
           line_width = line_width_default;
           left_margin = left_margin_default;

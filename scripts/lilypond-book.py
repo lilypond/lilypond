@@ -1117,14 +1117,14 @@ class LilypondSnippet (Snippet):
             self.option_dict[INDENT] = '0\\mm'
 
         # Set a default line-width if there is none. We need this, because
-	# lilypond-book has set left-padding by default and therefore does
-	# #(define line-width (- line-width (* 3 mm)))
-	# TODO: Junk this ugly hack if the code gets rewritten to concatenate
-	# all settings before writing them in the \paper block.
+        # lilypond-book has set left-padding by default and therefore does
+        # #(define line-width (- line-width (* 3 mm)))
+        # TODO: Junk this ugly hack if the code gets rewritten to concatenate
+        # all settings before writing them in the \paper block.
         if not LINE_WIDTH in self.option_dict:
-	    if not QUOTE in self.option_dict:
-	        if not LILYQUOTE in self.option_dict:
-		    self.option_dict[LINE_WIDTH] = "#(- paper-width \
+            if not QUOTE in self.option_dict:
+                if not LILYQUOTE in self.option_dict:
+                    self.option_dict[LINE_WIDTH] = "#(- paper-width \
 left-margin-default right-margin-default)"
 
     def compose_ly (self, code):
