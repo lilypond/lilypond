@@ -1,4 +1,4 @@
-\version "2.13.4"
+\version "2.13.5"
 
 #(ly:set-option 'warning-as-error #f)
 
@@ -8,7 +8,7 @@
 
 #(set-default-paper-size "a4")
 
-someNotes = \relative c' { \repeat unfold 40 { c4 d e f }}
+someNotes = \relative c' { \repeat unfold 40 { c4 d e f } }
 
 \paper {
   left-margin = 20 \mm

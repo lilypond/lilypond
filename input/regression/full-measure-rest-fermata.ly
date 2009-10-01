@@ -1,6 +1,6 @@
-\version "2.12.4"
+\version "2.13.4"
 
-\header{
+\header {
   texidoc="
 Fermata over full-measure rests should invert when below and
 be closer to the staff than other articulations."
