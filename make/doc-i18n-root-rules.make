@@ -1,4 +1,4 @@
-$(outdir)/%.texi: %.texi
+$(outdir)/%.texi: $(src-dir)/%.texi
 	cp -p $< $@
 
 $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map $(TRANSLATION_LILY_IMAGES)

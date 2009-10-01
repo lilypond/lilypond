@@ -23,7 +23,7 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
-$(outdir)/%.texi: %.texi
+$(outdir)/%.texi: $(src-dir)/%.texi
 	cp -p $< $@
 
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
