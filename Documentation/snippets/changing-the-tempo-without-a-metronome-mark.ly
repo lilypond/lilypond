@@ -23,6 +23,15 @@ Noten auszugeben, kann die Metronombezeichnung unsichtbar gemacht werden:
 "
 
   doctitlede = "Das Tempo ohne Metronom-Angabe verändern"
+%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+  texidocfr = "
+Vous pouvez indiquer un changement de tempo pour le fichier MIDI sans
+pour autant l'imprimer.  Il suffit alors de le rendre invisible aux
+interprètes. 
+
+"
+  doctitlefr = "Changement de tempo sans indication sur la partition"
+
 
   texidoc = "
 To change the tempo in MIDI output without printing anything, make the

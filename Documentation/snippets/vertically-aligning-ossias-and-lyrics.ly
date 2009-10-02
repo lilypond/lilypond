@@ -23,6 +23,15 @@ die Positionierung von Gesangstext und Ossia-Abschnitten zu kontrollieren.
 
 "
   doctitlede = "Gesangstext und Ossia vertikal ausrichten"
+%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+  texidocfr = "
+Cet exemple illustre la manière de positionner une portée d'ossia et
+des paroles à l'aide des propriétés de contexte @code{alignBelowContext}
+et @code{alignAboveContext}.  
+
+"
+  doctitlefr = "Positionnement d'une ossia et des paroles"
+
 
   texidoc = "
 This snippet demonstrates the use of the context properties

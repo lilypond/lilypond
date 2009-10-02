@@ -27,6 +27,18 @@ herangezogen.
 
 "
   doctitlede = "Eine Linie des Notensystems dicker als die anderen machen"
+%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+  texidocfr = "
+Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
+lignes d'une portée plus épaisses que les autres, comme la ligne médiane
+ou bien pour mettre en exergue la ligne portant la clé de sol.  Il
+suffit pour cela d'ajouter une ligne qui sera accolée à celle qui doît
+être mise en évidence, grâce à la propriété @code{line-positions} de
+l'objet @code{StaffSymbol}.
+
+"
+  doctitlefr = "Empâtement de certaines lignes d'une portée"
+
 
   texidoc = "
 For pedagogical purposes, a staff line can be thickened (e.g., the
