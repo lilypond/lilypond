@@ -43,7 +43,7 @@ by the authors.
 @ifnottex
 
 @menu
-* Introduction::                   Basics of typesetting with LilyPond.
+* Tutorial::                       Basics of typesetting with LilyPond.
 * Common notation::                Writing very commmon notation.
 * Fundamental concepts::           Basic concepts required for reading the rest of the manuals.
 * Tweaking output::                Introduction to modifying output.
@@ -66,7 +66,7 @@ Appendices
 
 @c INCLUDES
 
-@include learning/introduction.itely
+@include learning/tutorial.itely
 @include learning/common-notation.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely

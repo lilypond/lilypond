@@ -9,8 +9,8 @@
 
 @c \version "2.12.0"
 
-@node Introduction
-@chapter Introduction
+@node Tutorial 
+@chapter Tutorial
 
 This chapter gives a basic introduction to working with LilyPond.
 
@@ -718,7 +718,7 @@ sections.}
 
 @item
 @strong{Before trying to do @emph{anything}}: read the Learning
-manual's @ref{Introduction}, and @ref{Common notation}.  If you
+manual's @ref{Tutorial}, and @ref{Common notation}.  If you
 encounter musical terms which you do not recognize, please look
 them up in the @rglosnamed{Top, Glossary}.
 
