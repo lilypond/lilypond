@@ -511,15 +511,15 @@ have written a manual for contributors.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../contributor/index.html, Contributor's guide (split HTML)}:
+@item @uref{contributor/index.html, Contributor's guide (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../contributor-big-page.html, Contributor's guide (big HTML)}:
+@item @uref{contributor-big-page.html, Contributor's guide (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../contributor.pdf, contributor.pdf}:
+@item @uref{contributor.pdf, contributor.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -536,14 +536,14 @@ GNU info format for documentation.  FIXME, link broken.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../../input/regression/collated-files.html, Regression tests}:
+@item @uref{../input/regression/collated-files.html, Regression tests}:
 This releases' tests.  (also in
-@uref{../../input/regression/collated-files.pdf, pdf})
+@uref{../input/regression/collated-files.pdf, pdf})
 
-@item @uref{../../input/regression/musicxml/collated-files.html,
+@item @uref{../input/regression/musicxml/collated-files.html,
 MusicXML Regression tests}:
 This releases' MusicXML tests.  (also in
-@uref{../../input/regression/musicxml/collated-files.pdf, pdf})
+@uref{../input/regression/musicxml/collated-files.pdf, pdf})
 
 @item @uref{http://lilypond.org/test, Archive of regression tests}:
 Comparisons beteween versions.

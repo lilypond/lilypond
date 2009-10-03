@@ -160,15 +160,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../learning/index.html, Learning (split HTML)}:
+@item @uref{learning/index.html, Learning (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../learning-big-page.html, Learning (big HTML)}:
+@item @uref{learning-big-page.html, Learning (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../learning.pdf, learning.pdf}:
+@item @uref{learning.pdf, learning.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -213,15 +213,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../glossary/index.html, Glossary (split HTML)}:
+@item @uref{glossary/index.html, Glossary (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../glossary-big-page.html, Glossay (big HTML)}:
+@item @uref{glossary-big-page.html, Glossay (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../glossary.pdf, glossary.pdf}:
+@item @uref{glossary.pdf, glossary.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -259,15 +259,15 @@ in the PDF version due to its higher resolution.}
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../essay/index.html, Essay (split HTML)}:
+@item @uref{essay/index.html, Essay (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../essay-big-page.html, Essay (big HTML)}:
+@item @uref{essay-big-page.html, Essay (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around FIXME? Mb)}
 
-@item @uref{../essay.pdf, essay.pdf}:
+@item @uref{essay.pdf, essay.pdf}:
 download as a PDF file.
 @emph{(large single download, FIXME? Mb)}
 
@@ -311,15 +311,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../notation/index.html, Notation (split HTML)}:
+@item @uref{notation/index.html, Notation (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../notation-big-page.html, Notation (big HTML)}:
+@item @uref{notation-big-page.html, Notation (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../notation.pdf, notation.pdf}:
+@item @uref{notation.pdf, notation.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -360,15 +360,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../usage/index.html, Usage (split HTML)}:
+@item @uref{usage/index.html, Usage (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../usage-big-page.html, Usage (big HTML)}:
+@item @uref{usage-big-page.html, Usage (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../usage.pdf, usage.pdf}:
+@item @uref{usage.pdf, usage.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -417,15 +417,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../snippets/index.html, Snippets (split HTML)}:
+@item @uref{snippets/index.html, Snippets (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../snippets-big-page.html, Snippets (big HTML)}:
+@item @uref{snippets-big-page.html, Snippets (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../snippets.pdf, snippets.pdf}:
+@item @uref{snippets.pdf, snippets.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -508,18 +508,18 @@ read this manual in the same format as this one.
 
 @c Changes isn't available as a split manual.
 @c  (maybe it should be, but it isn't so far)
-@c @item @uref{../changes/index.html, Changes (split HTML)}:
+@c @item @uref{changes/index.html, Changes (split HTML)}:
 @c the manual is split between many HTML pages.
 @c @emph{(small download for each page)}
 
-@c @item @uref{../changes-big-page.html, Changes (big HTML)}:
+@c @item @uref{changes-big-page.html, Changes (big HTML)}:
 @c read this manual as one huge HTML page.
 @c @emph{(large single download, around 10? Mb)}
 
-@item @uref{../changes.html, Changes}:
+@item @uref{changes.html, Changes}:
 read this manual as a HTML page.
 
-@item @uref{../changes.pdf, changes.pdf}:
+@item @uref{changes.pdf, changes.pdf}:
 download as a PDF file.
 @emph{(small single download, 0.5 ?? Mb)}
 
@@ -571,15 +571,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../internals/index.html, Internals (split HTML)}:
+@item @uref{internals/index.html, Internals (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../internals-big-page.html, Internals (big HTML)}:
+@item @uref{internals-big-page.html, Internals (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../internals.pdf, internals.pdf}:
+@item @uref{internals.pdf, internals.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -600,7 +600,7 @@ GNU info format for documentation.  FIXME, link broken.
 
 TODO: clean up / prettify
 
-@uref{../translations.html}.
+@uref{translations.html}.
 
 @divEnd
 
