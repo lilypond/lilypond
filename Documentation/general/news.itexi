@@ -28,35 +28,30 @@ FIXME
   * add macro for long Google issues list URL
 @end ignore
 
+
 @newsItem
-@subsubheading New Website!  @emph{20 Aug 2009}
+@subsubheading New Website!  @emph{October 3, 2009}
 
 As you can see, we have a new website design.  Many thanks to
 texi2html and CSS for being so flexible!
 
-(FIXME: change date when this is actually announced on lilypond.org)
 @newsEnd
 
 
 @newsItem
-@subsubheading  LilyPond 2.13.3.  @emph{July 2, 2009}
+@subsubheading LilyPond Report #16.  @emph{September 6, 2009}
 
-This unstable release contains working menus in OSX 10.5; many
-thanks to Christian Hitz for fixing this long-standing problem!
-This release also contains numerous other bugfixes and features
-such as ties with variable thickness, partially dashed slurs, and
-eyeglasses.
+The LilyPond Report is back! This short, informal opinion column is
+about the LilyPond project: its team, its world, its community.
+Read @uref{http://news.lilynet.net/The-LilyPond-Report-16, issue 16}
+now!
 
-We are planning another 2.12 release in the next week or two,
-which will include the menu fixes for OSX 10.5. Normal users may
-wish to wait for this release rather than using an unstable
-release. For changes and download links, see @ref{Development}.
 @newsEnd
 
 
 
 @newsItem
-@subsubheading Hungarian translation!  @emph{22 May 2009}
+@subsubheading Hungarian translation!  @emph{May 22, 2009}
 
 Elkészült a lilypond.org nagy részének magyar fordítása a LilyPond
 honosítási projekt első lépéseként. A projekt célja a LilyPond
@@ -69,7 +64,7 @@ e-mailt a harmathdenes AT gmail.com címre!
 
 
 @newsItem
-@subsubheading LilyPond Report #15.  @emph{18 May 2009}
+@subsubheading LilyPond Report #15.  @emph{May 18, 2009}
 
 The @emph{LilyPond Report} is a short, informal opinion column
 about the LilyPond project: its team, its world, its community.

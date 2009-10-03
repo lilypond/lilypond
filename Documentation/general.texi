@@ -103,9 +103,9 @@ Read more in our @ref{Introduction}!
 
 
 @divId{news}
-FIXME: process news items like the old web site:
-select first 4 items to insert here, and generate
-RSS.
+
+@c TODO: generate this automatically, including RSS feed.
+@include general/news-front.itexi
 
 @divClass{float-right}
 (@ref{Old news})
