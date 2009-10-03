@@ -605,10 +605,8 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Quadrillage temporel
 @translationof Grid lines
 
-@cindex grid lines
-@cindex lines, grid
-@cindex vertical lines between staves
-@cindex lines, vertical between staves
+@cindex cadrillage temporel
+@cindex temporel, cadrillage
 
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver
@@ -617,13 +615,13 @@ Référence des propriétés internes :
 Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
 
-The @code{Grid_point_engraver} must be used to create the end
-points of the lines, while the @code{Grid_line_span_engraver} must
-be used to actually draw the lines.  By default this centers grid
-lines horizontally below and to the left side of each note head.
-Grid lines extend from the middle lines of each staff.  The
-@code{gridInterval} must specify the duration between the grid
-lines.
+LilyPond a recours à deux graveurs distincts afin d'afficher le
+cadrillage :  le @code{Grid_point_engraver} se charge de 
+déterminer l'envergure du crochet, alors que le
+@code{Grid_line_span_engraver} se consacrera au tracé des lignes.  
+Les lignes sont par défaut centrées horizontalement sous les notes et
+alignées sur la gauche des têtes.  La propriété @code{gridInterval}
+spécifie quant à elle l'espace de temps entre chaque ligne.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
@@ -678,34 +676,59 @@ Référence des propriétés internes :
 @node Crochets d'analyse
 @unnumberedsubsubsec Crochets d'analyse
 @translationof Analysis brackets
+
 @cindex crochets
 @cindex crochets de phrasé
 @cindex analyse musicologique
 @cindex crochet de regroupement de notes
 
-On utilise des crochets en analyse musicale, pour indiquer la
-structure d'une pièce.  LilyPond permet d'utiliser une forme
-simplifiée de crochets horizontaux imbriqués, dans la mesure où le
-contexte @rinternals{Staff} comporte le graveur
-@rinternals{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
-@code{\startGroup}, et se ferme avec @code{\stopGroup}.
+@funindex Horizontal_bracket_engraver
+@funindex \startGroup
+@funindex startGroup
+@funindex \stopGroup
+@funindex stopGroup
 
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    c4\startGroup\startGroup
-    c4\stopGroup
-    c4\startGroup
-    c4\stopGroup\stopGroup
+On utilise des crochets en analyse musicale, pour indiquer la
+structure d'une pièce. 
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
   }
-  \layout {
-    \context {
-      \Staff \consists "Horizontal_bracket_engraver"
-}}}
+}
+\relative c'' {
+  c2\startGroup
+  d\stopGroup
+}
+@end lilypond
+
+Les crochets d'analyses sont susceptibles d'être imbriqués :
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative c'' {
+  c4\startGroup\startGroup
+  d4\stopGroup
+  e4\startGroup
+  d4\stopGroup\stopGroup
+}
 @end lilypond
 
 
 @seealso
-Référence du programme : @rinternals{HorizontalBracket}.
+Morceaux choisis :
+@rlsr{Editorial annotations}.
 
+Référence des propriétés internes :
+@rinternals{Horizontal_bracket_engraver},
+@rinternals{HorizontalBracket},
+@rinternals{horizontal-bracket-interface},
+@rinternals{Staff}.
 
