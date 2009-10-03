@@ -68,7 +68,7 @@ source-links = $(outdir)/source\
 
 # Other out files
 
-HTML_PAGE_NAMES= index translations devel
+HTML_PAGE_NAMES= translations devel
 OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 MAIN_INFO_DOC = lilypond-notation
@@ -93,6 +93,10 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 $(outdir)/general/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
 $(outdir)/general/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
+
+OUT_HTML_FILES += $(outdir)/index.html
+$(outdir)/index.html: $(outdir)/general/index.html
+	mv $(outdir)/general/* $(outdir)/
 
 ###########
 ### Targets
@@ -263,7 +267,6 @@ TRANSLATION_DIRS = general learning notation texidocs usage
 TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
 EXTRA_TRANSLATION_FILES =\
  dedication.itely\
- index.html.in\
  common-macros.itexi\
  macros.itexi\
  translations.html.in\

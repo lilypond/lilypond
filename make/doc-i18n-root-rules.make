@@ -43,9 +43,6 @@ $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
-$(outdir)/lilypond.info: $(outdir)/general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
-
-$(outdir)/general/index.html: $(outdir)/macros.itexi $(outdir)/common-macros.itexi
+$(outdir)/index.html: $(outdir)/macros.itexi $(outdir)/common-macros.itexi
 
 .SECONDARY:

@@ -1,4 +1,4 @@
-HTML_PAGE_NAMES = index translations
+HTML_PAGE_NAMES = translations
 HTML_FILES = $(HTML_PAGE_NAMES:%=%.html)
 OUT_HTML_FILES = $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
@@ -56,9 +56,9 @@ DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
 WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
 TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
 
-$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
+$(top-build-dir)/Documentation/$(outdir)/index.$(ISOLANG).html:\
 	TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
-$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
+$(top-build-dir)/Documentation/$(outdir)/index.$(ISOLANG).html:\
 	TEXI2HTML_SPLIT := $(WEB_TEXI2HTML_SPLIT)
 
 TEXI2HTML_INCLUDES += --I=. --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
