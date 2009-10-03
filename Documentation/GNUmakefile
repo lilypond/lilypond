@@ -68,7 +68,7 @@ source-links = $(outdir)/source\
 
 # Other out files
 
-HTML_PAGE_NAMES= translations devel
+HTML_PAGE_NAMES= translations
 OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 MAIN_INFO_DOC = lilypond-notation

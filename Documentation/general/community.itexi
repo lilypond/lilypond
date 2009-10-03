@@ -434,6 +434,15 @@ Development versions have an odd-numbered @q{minor} version number
 @divClass{column-left-bottom}
 @subheading Download
 
+Instructions for git and compiling are in the Contributor's Guide.
+
+@quotation
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git repository}
+@end quotation
+
+Documentation writers and testers will generally want to download
+the latest binary:
+
 @downloadDevelLinuxNormal
 
 @downloadDevelLinuxBig
