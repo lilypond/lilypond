@@ -574,14 +574,16 @@ the first, because the @code{\repeat} command generates two
 and @code{Voice} blocks.
 
 @lilypond[quote,verbatim]
-\repeat unfold 2 \relative { c d e f }
+\repeat unfold 2 {
+  \relative c' { c d e f }
+}
 @end lilypond
 
 The correct way is to reverse the @code{\repeat} and
 @code{\relative} commands, like this:
 
 @lilypond[quote,verbatim]
-\relative {
+\relative c' {
   \repeat unfold 2 { c d e f }
 }
 @end lilypond
