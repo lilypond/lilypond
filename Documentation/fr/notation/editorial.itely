@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 33ba8d40c3493011a4b39ab8b1369701f8013bd6
+    Translation of GIT committish: ca543ea73189a1e53af94973dad0b8a5042c130c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -16,6 +16,9 @@
 
 @lilypondfile[quote]{editorial-headword.ly}
 
+Ce chapitre traite de la manière de modifier l'apparence des notes dans
+un but pédagogique ou d'analyse.
+
 @menu
 * Dans la portée::            
 * Hors de la portée::           
@@ -26,6 +29,8 @@
 @subsection Dans la portée
 @translationof Inside the staff
 
+Nous allons voir ici comment mettre en exergue certains éléments à
+l'intérieur même de la portée.
 
 @menu
 * Indication de la taille de fonte musicale::  
@@ -40,20 +45,50 @@
 @unnumberedsubsubsec Indication de la taille de fonte musicale
 @translationof Selecting notation font size
 
+@cindex selection de la taille (notation)
+@cindex notes, taille
+@cindex taille des notes
+@cindex têtes de note
+
+@funindex fontSize
+@funindex font-size
+@funindex magstep
+@funindex \huge
+@funindex \large
+@funindex \normalsize
+@funindex \small
+@funindex \tiny
+@funindex \teeny
+@funindex huge
+@funindex large
+@funindex normalsize
+@funindex small
+@funindex tiny
+@funindex teeny
+
+
 Le plus sûr moyen de régler la taille de la police, quelque soit le
 contexte, consiste à définir la propriété @code{fontSize}.
-
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
-\set fontSize = #-4
-c f
-\set fontSize = #3
-g
-@end lilypond
-
-@noindent
 Ceci ne modifiera en rien la taille des différents symboles tels que
 ligatures ou liaisons.
+
+@warning{En matière de taille des éléments textuels, référez-vous au
+chapitre @ref{Sélection de la fonte et de la taille}.}
+
+@lilypond[verbatim,quote,relative=2]
+\huge
+c4.-> d8---3
+\large
+c4.-> d8---3
+\normalsize
+c4.-> d8---3
+\small
+c4.-> d8---3
+\tiny
+c4.-> d8---3
+\teeny
+c4.-> d8---3
+@end lilypond
 
 En interne, la propriété @code{fontSize} d'un contexte aura pour effet
 de définir la propriété @code{font-size} pour tous les objets de
@@ -66,35 +101,51 @@ convertit le nombre affecté à @code{font-size} en facteur d'échelle.
 Vous pouvez aussi définir directement la propriété @code{font-size} de
 manière à n'affecter seulement que certains objets de rendu.
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
+@lilypond[verbatim,quote,relative=2]
+\set fontSize = #3
+c4.-> d8---3
 \override NoteHead #'font-size = #-4
-c f
-\override NoteHead #'font-size = #3
-g
+c4.-> d8---3
+\override Script #'font-size = #2
+c4.-> d8---3
+\override Stem #'font-size = #-5
+c4.-> d8---3
 @end lilypond
 
+@cindex standard, taille des notes
+@cindex notes, taille standard
+
+@funindex font-interface
+@funindex font-size
+
 Pour changer la taille des symboles musicaux (police Feta), LilyPond met
-à l'échelle la fonte dont la taille est la plus proche de la taille voulue ---
-cf. @ref{Définition de la taille de portée}.  La taille standard, pour laquelle
-@code{font-size} vaut 0, dépend de la hauteur de la portée.  À une
-portée de 20 points correspond une police de 10 points.
+à l'échelle la fonte dont la taille est la plus proche de la taille
+voulue -- cf. @ref{Définition de la taille de portée}.  La taille
+standard (pour laquelle @w{@code{font-size = #0}}) dépend de la hauteur
+de la portée.  À une portée de 20 points correspond une police de 10 
+points. 
 
 La propriété @code{font-size} ne peut intervenir que pour les objets
 qui utilisent des polices, autrement dit ceux qui disposent de
-l'interface de rendu @rinternals{font-interface}.
+l'interface de rendu @code{font-interface}.
 
 
 @predefined
-Les commandes suivantes définissent @code{fontSize} pour la voix en
-cours :
-@funindex \tiny
+@code{\teeny},
 @code{\tiny},
-@funindex \small
 @code{\small},
-@funindex \normalsize
-@code{\normalsize}.
+@code{\normalsize},
+@code{\large},
+@code{\huge}.
 @endpredefined
+
+
+@seealso
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{font-interface}.
 
 
 @node Doigtés
@@ -104,101 +155,162 @@ cours :
 @cindex doigté
 @cindex substitution de doigt
 
+@funindex \finger
+@funindex finger
 
 Les doigtés peuvent être indiqués comme suit :
-@example
 @var{note}-@var{chiffre_du_doigt}
-@end example
+
+@lilypond[verbatim,quote,relative=2]
+c4-1 d-2 f-4 e-3
+@end lilypond
+
 Pour les substitutions de doigts, on a recours à une indication
 textuelle (commande @code{\markup}) de doigté
 (commande @code{\finger}).
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-c4-1 c-2 c-3 c-4
-c^\markup { \finger "2 - 3" }
+@lilypond[verbatim,quote,relative=2]
+c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
 
+@cindex pouce, doigté
+
+@funindex \thumb
+@funindex thumb
 
 La commande @code{\thumb} peut être utilisée pour indiquer, par exemple
 dans une partition de violoncelle, si une note doit être jouée avec le
-pouce (@q{thumb} en anglais).
+pouce (@emph{thumb} en anglais).
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
+@lilypond[verbatim,quote,relative=2]
+<a_\thumb a'-3>2 <b_\thumb b'-3>
 @end lilypond
 
+@cindex doigtés des accords
+@cindex accords, doigtés
 
 Les doigtés des accords peuvent être saisis note par note,
 en les indiquant après chaque hauteur de note.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-< c-1 e-2 g-3 b-5 >4
+@lilypond[verbatim,quote,relative=2]
+<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
 @end lilypond
 
-
-@commonprop
-
-On peut contrôler précisément les doigtés des accords en réglant
-la propriété @code{fingeringOrientations}.
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-\set fingeringOrientations = #'(left down)
-<c-1 es-2 g-4 bes-5 > 4
-\set fingeringOrientations = #'(up right down)
-<c-1 es-2 g-4 bes-5 > 4
-@end lilypond
-
-
-Cette propriété permet également, dans de la musique monophonique,
-d'indiquer des doigtés très proches des têtes de notes.
-
-@lilypond[verbatim,ragged-right,quote,fragment]
-\set fingeringOrientations = #'(right)
-<es'-2>4
-@end lilypond
+L'indication des doigtés peut se apparaître au-dessus ou en-dessous de
+la portée -- voir @ref{Direction et positionnement} à ce sujet.
 
 @snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{controlling-the-placement-of-chord-fingerings.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {avoiding-collisions-with-chord-fingerings.ly}
 
 
 @seealso
-Référence du programme : @rinternals{Fingering}.
+Manuel de notation :
+@ref{Direction et positionnement}
 
-Exemples : @rlsr{Editorial annotations}.
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{FingeringEvent},
+@rinternals{fingering-event},
+@rinternals{Fingering_engraver},
+@rinternals{New_fingering_engraver},
+@rinternals{Fingering}.
 
 
 @node Dictée à trous
 @unnumberedsubsubsec Dictée à trous
 @translationof Hidden notes
 
-@cindex Masquées, notes
-@cindex Invisibles, notes
-@cindex Transparentes, notes
+@cindex masquées, notes
+@cindex invisibles, notes
+@cindex transparentes, notes
 
 @funindex \hideNotes
+@funindex hideNotes
 @funindex \unHideNotes
-Les notes masquées --- ou invisibles ou encore transparentes --- sont
+@funindex unHideNotes
+
+Les notes masquées -- ou invisibles ou encore transparentes -- sont
 utiles dans le cadre d'exercices de théorie ou de composition.
 
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-c4 d4
+@lilypond[verbatim,quote,relative=2]
+c4 d
 \hideNotes
-e4 f4
+e4 f
 \unHideNotes
-g4 a
+g a
+\hideNotes
+b
+\unHideNotes
+c
 @end lilypond
+
+Les objets de notation attachés à une note invisible ne seront pas
+masqués pour autant.
+
+@lilypond[verbatim,quote,relative=2]
+c4( d)
+\hideNotes
+e4(\p f)--
+@end lilypond
+
+
+@predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
+
+
+@seealso
+Manuel d'initiation :
+@rlearning{Visibilité et couleur des objets}.
+
+Manuel de notation :
+@ref{Silences invisibles},
+@ref{Visibilité des objets},
+@ref{Masquage de portées}.
+
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{Note_spacing_engraver},
+@rinternals{NoteSpacing}.
 
 
 @node Coloration d'objets
 @unnumberedsubsubsec Coloration d'objets
 @translationof Coloring objects
 
-Des objets peuvent être colorisés individuellement.  Une listes des
-noms des couleurs disponibles se trouvent à l'annexe @ref{Liste des couleurs}.
+@cindex objets en couleur
+@cindex couleurs
+@cindex colorisation d'objets
+@cindex coloration d'objets
+@cindex coloration de notes
+@cindex colorisation de notes
+@cindex notes en couleur
+@cindex x11, couleurs
+@cindex couleurs x11
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+@funindex color
+@funindex \with-color
+@funindex with-color
+@funindex x11-color
+
+Des objets peuvent être colorisés individuellement.  Une listes des
+noms des couleurs disponibles se trouvent à l'annexe 
+@ref{Liste des couleurs}.
+
+@lilypond[verbatim,quote,relative=2]
 \override NoteHead #'color = #red
 c4 c
 \override NoteHead #'color = #(x11-color 'LimeGreen)
@@ -208,68 +320,92 @@ e
 @end lilypond
 
 L'intégralité de la palette des couleurs définies pour X11 est
-accessible par la fonction Scheme x11-color.  Cette fonction prend
-en argument une expression symbolique
+accessible par la fonction Scheme @code{x11-color}.  Cette fonction
+prend en argument une expression symbolique de la forme @var{'TaraTata}
+ou bien une chaîne de caractères comme @var{"TaraTata"}.  La première
+formulation est à la fois plus rapide à écrire et aussi plus efficace.
+Néanmoins, la deuxième forme permet d'accéder aux noms composés des
+couleurs de X11. 
 
-@example
-\override Beam #'color = #(x11-color 'MediumTurquoise)
-@end example
-
-ou une chaîne de caractères
-
-@example
-\override Beam #'color = #(x11-color "MediumTurquoise")
-@end example
-
-La première formulation est à la fois plus rapide à écrire et aussi
-plus efficace.  Néanmoins, la deuxième forme permet d'accéder aux noms
-composés des couleurs de X11.
-
-@example
-\override Beam #'color = #(x11-color "medium turquoise")
-@end example
-
-Lorsque la fonction x11-color ne trouve pas le paramètre fourni, elle
-revient à la couleur par défaut, le noir.  Le problème ressort de
+Lorsque la fonction @code{x11-color} ne trouve pas le paramètre fourni,
+elle revient à la couleur par défaut, le noir.  Le problème ressort de
 façon évidente au vu de la partition finale.
 
-L'exemple suivant illustre l'utilisation de la fonction
-@code{x11-color}.  Notez que, après avoir été définie à (x11-color
-'Boggle), la couleur des hampes repasse au noir.
-
-@lilypond[quote,ragged-right,verbatim]
-{
-  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
-  }
-  \time 2/4
-  gis''8 a''
-  \override Beam #'color = #(x11-color "medium turquoise")
-  gis'' a''
-  \override NoteHead #'color = #(x11-color "LimeGreen")
-  gis'' a''
-  \override Stem #'color = #(x11-color 'Boggle)
-  gis'' a''
+@lilypond[verbatim,quote,relative=2]
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
 }
+
+gis8 a
+\override Beam #'color = #(x11-color "medium turquoise")
+gis a
+\override Accidental #'color = #(x11-color 'DarkRed)
+gis a
+\override NoteHead #'color = #(x11-color "LimeGreen")
+gis a
+% this is deliberate nonsense; note that the stems remain black
+\override Stem #'color = #(x11-color 'Boggle)
+b2 cis
+@end lilypond
+
+@cindex rgb-color
+@cindex couleur rgb
+@cindex couleur rvb
+@cindex rgb, couleur
+@cindex rvb, couleur
+
+@funindex rgb-color
+
+Un autre moyen consiste à fournir à la fonction Scheme @code{rgb-color}
+les composantes de la couleur exacte au format rouge-vert-bleu
+(@emph{RGB}).
+
+@lilypond[verbatim,quote,relative=2]
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
+}
+
+\override Stem #'color = #(rgb-color 0 0 0)
+gis8 a
+\override Stem #'color = #(rgb-color 1 1 1)
+gis8 a
+\override Stem #'color = #(rgb-color 0 0 0.5)
+gis4 a
 @end lilypond
 
 
 @seealso
-Annexes : @ref{Liste des couleurs}.
+Manuel de notation :
+@ref{Liste des couleurs},
+@ref{La commande d'affinage (@emph{tweak})}.
 
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+
+@cindex x11, couleur
+@cindex couleur, notes d'un accord
+@cindex notes colorisées dans un accord
+@cindex accords et couleur
+
+@funindex x11-color
 
 @knownissues
-Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
-internet.  Aussi nous vous recommandons, dans le cadre d'une
-présentation multimedia, d'utiliser des couleurs de base.
-
 Une couleur x11 n'aura pas forcément le même rendu qu'une couleur
 normale ayant un nom similaire.
 
+Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
+internet.  Aussi nous vous recommandons, dans le cadre d'une
+présentation multimedia, d'utiliser des couleurs de base @code{#blue},
+@code{#green}, @code{#red} -- bleu, vert, rouge.
+
+
 Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
-@code{\override}. si besoin est, utilisez @code{\tweak}.  
-Pour plus de détails, consultez @ref{La commande d'affinage (@emph{tweak})}.
+@code{\override}.  Si besoin est, utilisez @code{\tweak}.  
+Pour plus de détails, consultez 
+@ref{La commande d'affinage (@emph{tweak})}.
 
 
 @node Parenthèses
@@ -280,144 +416,263 @@ Pour plus de détails, consultez @ref{La commande d'affinage (@emph{tweak})}.
 @cindex notes fantômes
 @cindex parenthèses, notes entre
 
-Des objets peuvent être mis entre parenthèses en saisissant
-@code{\parenthesize} juste avant l'événement musical.
+@funindex \parenthesize
+@funindex parenthesize
 
-@lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \parenthesize d
-  g
->4-\parenthesize -.
+Des objets peuvent être mis entre parenthèses en saisissant
+@code{\parenthesize} juste avant l'événement musical.  Si l'instruction
+préfixe un accord, chaque note le composant se présentera entre
+parenethèses.  Vous pouvez aussi mettre individuellement entre
+parenthèses les notes d'un accord.
+
+@lilypond[verbatim,quote,relative=2]
+c2 \parenthesize d
+c2 \parenthesize <c e g>
+c2 <c \parenthesize e g>
 @end lilypond
 
-Ceci n'est opérationnel que dans le cadre d'un accord, qui peut ne
-comprendre qu'une seule note.
+Les objets autres que des notes peuvent aussi être entre parenthèses.
+En ce qui concerne les articulations, l'instruction @code{\parenthesize}
+doît cependant être précédée d'un tiret.
 
-@example
-< \parenthesize NOTE>
-@end example
+@lilypond[verbatim,quote,relative=2]
+c2-\parenthesize -. d
+c2 \parenthesize r
+@end lilypond
+
+
+@seealso
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{Parenthesis_engraver},
+@rinternals{ParenthesesItem},
+@rinternals{parentheses-interface}.
+
+
+@knownissues
+
+Lorsqu'un accord est mis entre parenthèses, celles-ci s'appliquent
+individuellement à chacune des notes le composant, alors qu'on
+attendrait une seule paire de parenthèses encadrant tout l'accord.
 
 
 @node Hampes
 @unnumberedsubsubsec Hampes
 @translationof Stems
 
-Dès qu'une note est rencontrée, un objet @rinternals{Stem} se crée
+@cindex hampes
+@cindex hampes invisibles
+@cindex visibilité des hampes
+@cindex masquage des hampes
+
+@funindex \stemUp
+@funindex stemUp
+@funindex \stemDown
+@funindex stemDown
+@funindex \stemNeutral
+@funindex stemNeutral
+@cindex stem, direction
+@cindex stem, up
+@cindex stem, down
+@cindex stem, neutral
+
+Dès qu'une note est rencontrée, un objet @code{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
 créés, mais en mode invisible.
 
+La direction des hampes peut être définie manuellement -- voir 
+@ref{Direction et positionnement} à ce sujet.
+
 
 @predefined
-@funindex \stemUp
 @code{\stemUp},
-@funindex \stemDown
 @code{\stemDown},
-@funindex \stemNeutral
 @code{\stemNeutral}.
 @endpredefined
 
 
-@commonprop
+@snippets
 
-Pour changer la direction des hampes au milieu de la portée, utilisez
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Direction et positionnement}.
+
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{Stem_engraver},
+@rinternals{Stem},
+@rinternals{stem-interface}.
 
 
 @node Hors de la portée
 @subsection Hors de la portée
 @translationof Outside the staff
 
+Nous allons nous intéresser ici à souligner des éléments inscrits dans
+la portée par des éléments qui lui seront externes.
 
 @menu
 * Info-bulle::                
 * Quadrillage temporel::                  
 * Crochets d'analyse::           
-* Papier à musique::           
 @end menu
 
 @node Info-bulle
 @unnumberedsubsubsec Info-bulle
 @translationof Balloon help
 
+@cindex bulle
+@cindex notation, explication
+@cindex info-bulle
+
+@funindex \balloonGrobText
+@funindex \balloonText
+@funindex Balloon_engraver
+@funindex balloonGrobText
+@funindex balloonText
+@funindex \balloonLengthOn
+@funindex balloonLengthOn
+@funindex \balloonLengthOff
+@funindex balloonLengthOff
+
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
-bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
+bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la 
 notation. 
 
 En voici un exemple :
 @c KEEP LY
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
-  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+  a8
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Je suis un silence" }
+  r
+  <c, g'-\balloonText #'(-2 . -2) \markup { "Je suis une tête de note" } c>2.
 }
 @end lilypond
 
-@noindent
-Vous disposez de deux fonctions musicales, @code{balloonText} et
-@code{balloonGrobText}.  @code{balloonGrobText} prend en argument
+
+Vous disposez de deux fonctions musicales, @code{balloonGrobText} et
+@code{balloonText}.  @code{balloonGrobText} prend en argument
 l'objet graphique à agrémenter, alors que @code{balloonText} s'utilise
 comme une simple articulation.  Les autres arguments sont le décalage
 et le texte de la bulle.
 
-@cindex bulles
-@cindex notation, expliquer
+Les info-bulles ont une influence sur les espacements, que l'on peut
+gérer ainsi :
+
+@c KEEP LY
+@lilypond[verbatim,quote,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonLengthOff
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
+  a8
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Je suis un silence" }
+  r
+  \balloonLengthOn
+  <c, g'-\balloonText #'(-2 . -2) \markup { "Je suis une tête de note" } c>2.
+}
+@end lilypond
+
+
+@predefined
+@code{\balloonLengthOn},
+@code{\balloonLengthOff}.
+@endpredefined
 
 
 @seealso
-Référence du programme : @rinternals{balloon-interface}.
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{Balloon_engraver},
+@rinternals{BalloonTextItem},
+@rinternals{balloon-interface}.
 
 
 @node Quadrillage temporel
 @unnumberedsubsubsec Quadrillage temporel
 @translationof Grid lines
 
+@cindex grid lines
+@cindex lines, grid
+@cindex vertical lines between staves
+@cindex lines, vertical between staves
+
+@funindex Grid_point_engraver
+@funindex Grid_line_span_engraver
+@funindex gridInterval
+
 Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
+
+The @code{Grid_point_engraver} must be used to create the end
+points of the lines, while the @code{Grid_line_span_engraver} must
+be used to actually draw the lines.  By default this centers grid
+lines horizontally below and to the left side of each note head.
+Grid lines extend from the middle lines of each staff.  The
+@code{gridInterval} must specify the duration between the grid
+lines.
+
 @c KEEP LY
-@lilypond[ragged-right,quote,verbatim]
+@lilypond[verbatim,quote]
 \layout {
   \context {
     \Staff
     \consists "Grid_point_engraver" %% active les guides
     gridInterval = #(ly:make-moment 1 4)
   }
+  \context {
+    \Score
+    \consists "Grid_line_span_engraver"
+     %% centre les lignes guides horizontalement sous les notes
+  }
 }
 
-\new Score \with {
-  \consists "Grid_line_span_engraver"
-  %% centre les lignes guides horizontalement sous les notes
-  \override NoteColumn #'X-offset = #-0.5
-}
-
-\new ChoirStaff <<
-  \new Staff {
-    \stemUp
-    \relative {
+\score {
+  \new ChoirStaff <<
+    \new Staff \relative c'' {
+      \stemUp
       c'4. d8 e8 f g4
     }
-  }
-  \new Staff {
+    \new Staff \relative c {
     %% centre les lignes guides verticalement
-    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
-    \stemDown
-    \clef bass
-    \relative c {
+      \clef bass
+      \stemDown
       c4  g'  f  e
     }
-  }
->>
+  >>
+}
 @end lilypond
 
-Exemples : @rlsr{Editorial annotations}.
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{grid-lines--changing-their-appearance.ly}
+
+
+@seealso
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{Grid_line_span_engraver},
+@rinternals{Grid_point_engraver},
+@rinternals{GridLine},
+@rinternals{GridPoint},
+@rinternals{grid-line-interface},
+@rinternals{grid-point-interface}.
 
 
 @node Crochets d'analyse
@@ -452,38 +707,5 @@ contexte @rinternals{Staff} comporte le graveur
 
 @seealso
 Référence du programme : @rinternals{HorizontalBracket}.
-
-
-@node Papier à musique
-@unnumberedsubsubsec Papier à musique
-@translationof Blank music sheet
-
-@cindex Papier musique
-@cindex Portées, feuille blanche
-
-Une feuille de papier musique s'obtient en utilisant des notes
-invisibles, et en invalidant le @code{Bar_number_engraver}.
-
-@c KEEP LY
-@lilypond[quote,verbatim]
-\layout{ indent = #0 }
-emptymusic = {
-  \repeat unfold 2 % À modifier pour plus de lignes.
-  { s1\break }
-  \bar "|."
-}
-\new Score \with {
-  \override TimeSignature #'transparent = ##t
-% décommenter la  ligne suivante selon besoin
-%  \override Clef #'transparent = ##t
-  defaultBarType = #""
-  \remove Bar_number_engraver
-} <<
-
-% à adapter selon les portées désirées
-  \new Staff \emptymusic
-  \new TabStaff \emptymusic
->>
-@end lilypond
 
 
