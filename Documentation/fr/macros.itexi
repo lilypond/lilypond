@@ -44,9 +44,15 @@
 @ifhtml
 
 @macro warning{TEXT}
-@cartouche
-@b{Note :} \TEXT\
-@end cartouche
+@html
+<div class="warning">
+@end html
+@strong{Note :} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
 @end macro
 
 @end ifhtml

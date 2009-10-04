@@ -31,6 +31,8 @@
 <div class="warning">
 @end html
 @strong{Note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
 @html
 </div>
 @end html
