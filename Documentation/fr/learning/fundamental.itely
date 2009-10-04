@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 95e6825ee09ca7f8eea87580301c8819ff1d571b
+    Translation of GIT committish: c0ea3a158b80f5f6201e3ebebb82730827431000
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -227,8 +227,9 @@ Pour plus de détail à ce sujet, consultez
 @cindex identificateurs
 
 Un autre raccourci pratique est la possibilité de définir
-des variables -- également appelées @qq{identificateurs}. Dans tous
-les modèles, vous trouverez :
+des variables, également appelées @qq{identificateurs} -- voir
+@ref{Organisation du code source avec des variables} à ce sujet.  Dans
+tous les modèles, vous trouverez :
 
 @example
 melodie = \relative c' @{
@@ -288,24 +289,11 @@ Peut-être serait-il judicieux de relire la section
 appris à construire de grandes expressions musicales petit bout
 par petit bout -- nous avons vu les notes, puis les accords, etc.
 Maintenant, nous allons partir d'une grande expression musicale,
-et remonter la pente.
-
-@example
-\score @{
-  @{   % cette accolade marque le début de l'expression musicale
-    \new StaffGroup <<
-    @var{...insérez ici l'intégralité d'un opéra de Wagner...}
-    >>
-  @}   % cette accolade marque la fin de l'expression musicale
-  \layout @{ @}
-@}
-@end example
-
-Un opéra de Wagner multiplierait facilement la longueur de ce manuel
-par deux ou trois, alors contentons-nous d'une voix et d'un piano.  On
-n'a plus besoin d'une partition d'orchestre -- c.-à-d. des
-portées regroupées en @code{StaffGroup} -- donc laissons cela de
-côté.  Par contre, nous voulons bien une voix et un piano.
+et remonter la pente.  Pour rester simple, nous nous contenterons d'un
+chanteur accompagné au piano.  On n'a pas besoin d'une partition
+d'orchestre -- c.-à-d. des portées regroupées en @code{StaffGroup} --
+donc laissons cela de côté.  Par contre, nous voulons bien une voix et
+une double portée de piano. 
 
 @example
 \score @{
@@ -313,13 +301,18 @@ côté.  Par contre, nous voulons bien une voix et un piano.
     <<
       \new Staff = "chanteur" <<
       >>
-      \new PianoStaff = piano <<
+      \new PianoStaff = "piano" <<
       >>
     >>
   @}
   \layout @{ @}
 @}
 @end example
+
+Nous avons ici attribué des noms aux portées -- @qq{chanteur} et
+@qq{piano}.  Bien que cela ne soit pas primordial, c'est une 
+habitude qu'il est bon d'adopter dès le départ : vous saurez au premier
+coup d'œil à quoi correspond chaque portée.
 
 Vous vous souvenez que nous avons recours à @code{<<} et @code{>>} 
 en lieu et place de @code{@{ @dots{} @}} pour gérer des musiques
@@ -329,7 +322,11 @@ faire appel à @code{<< ... >>} ne soit pas réellement nécessaire pour la
 portée du chanteur, dans la mesure où elle ne contient qu'une seule
 expression musicale, nous vous recommandons de prendre l'habitude de
 l'encadrer ainsi plutôt que par de simples accolades -- une portée peut
-en effet contenir plusieurs voix. 
+en effet contenir plusieurs voix, ou bien des notes @strong{et} des
+paroles.  Dans la mesure où nous y ajouterons des paroles, les chevrons
+sont donc obligatoires.  Si vous avez oublier comment ajouter des
+paroles à l'aide de la commande @code{\addlyrics}, relisez le chapitre 
+@ref{Écriture de chants simples}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -354,12 +351,13 @@ que de voix chantée -- ce pourrait être une partie de violon par
 exemple --, et des paroles.
 
 Nous avons également une partie de piano, qui contient deux portées :
-une pour la main droite, une autre pour la main gauche.
+une pour la main droite, une autre pour la main gauche.  Il nous faudra
+d'ailleurs ajouter une clef de fa à cette dernière.
 
 
 À ce point, on pourrait commencer à ajouter les notes.  Dans les
-accolades qui suivent @code{\new Voice = chant}, on pourrait commencer
-à écrire
+accolades qui suivent @code{\new Voice =  "chant"}, on pourrait
+commencer à écrire
 
 @example
 \relative c'' @{
@@ -369,8 +367,16 @@ accolades qui suivent @code{\new Voice = chant}, on pourrait commencer
 
 Mais si l'on procédait ainsi, la section @code{\score} deviendrait
 vite assez touffue, et très rapidement on ne s'y retrouverait plus.
-C'est pourquoi on utilisera plutôt des variables, ou identificateurs.
-Avec quelques notes de plus, nous pourrions avoir :
+C'est pourquoi on utilisera plutôt des variables, ou identificateurs,
+comme nous l'avons vu plus haut.  Pour s'assurer que le contenu de la
+variable @code{texte} soit bien interprété comme des paroles, nous le
+préfixons d'un @code{\lyricmode}.  Sans cette précaution, LilyPond
+tenterait d'interpréter le contenu de cette variable comme des notes, ce
+qui déclencherait immanquablement des erreurs.  LilyPond dispose de
+différents types de données -- voir @ruser{Modes de saisie} pour plus de
+détails. 
+
+Avec quelques notes de plus et une clef de fa, nous pourrions avoir :
 
 @lilypond[verbatim,quote,ragged-right]
 melody = \relative c'' { r4 d8\noBeam g, c4 r }
@@ -395,12 +401,6 @@ lower  = \relative c { b2 e2 }
   \layout { }
 }
 @end lilypond
-
-Respectez bien la différence entre les notes -- introduites par
-@code{\relative} --,  et les paroles -- introduites par
-@code{\lyricmode}.  Cette distinction est primordiale afin que LilyPond
-puisse interpréter ce qui les suit comme étant respectivement de la
-musique ou du texte.
 
 Quand on écrit, ou que l'on lit, une section @code{\score}, mieux vaut
 y aller lentement et soigneusement. Commencez par le niveau le plus
@@ -488,8 +488,8 @@ parlé.  Voir @ref{Taille des objets} et @ruser{Portées d'ossia}.
 
 Nous avons déjà rencontré plusieurs types de crochets au fil de nos
 fichiers LilyPond.  Ils obéissent à des règles différentes qui peuvent
-paraître déroutantes.  Avant d'examiner ces règles, voici une liste des 
-différents types de crochet :
+paraître déroutantes de prime abord.  Avant d'examiner ces règles, voici
+une liste des différents types de crochet :
 
 @c attempt to force this onto a new page
 @need 50
