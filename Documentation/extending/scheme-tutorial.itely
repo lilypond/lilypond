@@ -10,7 +10,7 @@
 @c \version "2.12.0"
 
 @node Scheme tutorial
-@appendix Scheme tutorial
+@chapter Scheme tutorial
 
 @funindex #
 @cindex Scheme
@@ -40,7 +40,7 @@ opening a terminal window and typing @q{guile}.  On some systems,
 notably Windows, you may need to set the environment variable
 @code{GUILE_LOAD_PATH} to the directory @code{../usr/shr/guile/1.8}
 in the LilyPond installation (for the full path to this directory
-see @ref{Other sources of information}).  Alternatively, Windows
+see @rlearning{Other sources of information}).  Alternatively, Windows
 users may simply choose @q{Run} from the Start menu and enter
 @q{guile}.
 
@@ -262,7 +262,7 @@ respectively,
 @end menu
 
 @node Tweaking with Scheme
-@appendixsec Tweaking with Scheme
+@section Tweaking with Scheme
 
 We have seen how LilyPond output can be heavily modified using
 commands like
