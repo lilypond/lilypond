@@ -17,6 +17,13 @@ This file provides an introduction to LilyPond version
 @version{}.
 @end macro
 
+@macro copyrightDeclare
+Copyright @copyright{} 
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+by the authors.
+@end macro
+
+@set FDL
 @include macros.itexi
 
 
@@ -36,7 +43,7 @@ This file provides an introduction to LilyPond version
 @ifnottex
 
 @menu
-* Introduction::                   Basics of typesetting with LilyPond.
+* Tutorial::                       Basics of typesetting with LilyPond.
 * Common notation::                Writing very commmon notation.
 * Fundamental concepts::           Basic concepts required for reading the rest of the manuals.
 * Tweaking output::                Introduction to modifying output.
@@ -44,7 +51,6 @@ This file provides an introduction to LilyPond version
 Appendices
 
 * Templates::                      Ready-made templates.
-* Scheme tutorial::                Programming inside LilyPond.
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
 @end menu
@@ -59,13 +65,12 @@ Appendices
 
 @c INCLUDES
 
-@include learning/introduction.itely
+@include learning/tutorial.itely
 @include learning/common-notation.itely
 @include learning/fundamental.itely
 @include learning/tweaks.itely
 
 @include learning/templates.itely
-@include learning/scheme-tutorial.itely
 @include fdl.itexi
 
 

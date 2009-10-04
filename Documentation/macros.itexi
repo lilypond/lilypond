@@ -31,6 +31,8 @@
 <div class="warning">
 @end html
 @strong{Note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
 @html
 </div>
 @end html
@@ -70,9 +72,11 @@ found at @w{@uref{http://@/www@/.lilypond@/.org/}}.
 @syncodeindex fn cp
 @syncodeindex vr cp
 
+
+@c   ***** Copyright stuff *****
+@ifset FDL
 @copying
-Copyright @copyright{} 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-2006, 2007, 2008, 2009 by the authors.
+@copyrightDeclare
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -83,9 +87,17 @@ A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end quotation
 @end copying
+@end ifset
+
+@ifclear FDL
+@copying
+This document has been placed in the public domain.
+@end copying
+@end ifclear
 
 
-@c TITLE PAGE
+
+@c   ***** Title page *****
 @ifnottex
 @node Top
 @top LilyPond --- \TITLE\
@@ -181,6 +193,7 @@ For LilyPond version @version{}
 @c     @rprogram
 @c     @ruser
 @c     @rchanges
+@c     @rextend
 @c     @rcontrib
 @c
 @c  All these also have a @...named version which allows to specify the
@@ -228,6 +241,16 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending-big-page,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending-big-page,Extending}
+@end macro
+
 @macro rchanges{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,changes-big-page,Changes}
@@ -270,12 +293,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application-big-page,Application Usage}
+@ref{\TEXT\,,,usage-big-page,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application-big-page,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage-big-page,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
@@ -345,6 +368,16 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,Extending}
+@end macro
+
 @macro rcontrib{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,contributor,Contributor's Guide}
@@ -377,12 +410,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application,Application Usage}
+@ref{\TEXT\,,,usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
@@ -447,6 +480,16 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extending}
+@end macro
+
 @macro rcontrib{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-contributor,Contributor's Guide}
@@ -479,12 +522,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-application,Application Usage}
+@ref{\TEXT\,,,lilypond-usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-application,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,lilypond-usage,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
@@ -523,7 +566,7 @@ For LilyPond version @version{}
 @c delimits arguments in the standard way (i.e., with braces).
 
 @tex
-\gdef\lilyvindex#1{\doind{vr}{\code #1}\ignorespaces}
+\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
 @end tex
 
 @macro rglos{TEXT}
@@ -566,6 +609,16 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
+@macro rextend{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,extending,Extending}
+@end macro
+
 @macro rcontrib{TEXT}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,,contributor,Contributor's Guide}
@@ -598,12 +651,12 @@ For LilyPond version @version{}
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,application,Application Usage}
+@ref{\TEXT\,,,usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,application,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,usage,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}

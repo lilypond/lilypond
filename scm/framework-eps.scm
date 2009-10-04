@@ -51,6 +51,9 @@ alignment."
 
   (define paper
     (ly:paper-book-paper book))
+    
+  (define create-aux-files
+    (ly:get-option 'aux-files))
 
   (define (dump-infinite-stack-EPS stencils)
     (let* ((dump-me (stack-stencils Y DOWN 2.0 stencils)))
@@ -65,61 +68,61 @@ alignment."
 			   (ly:get-option 'include-eps-fonts))
       (string-append name ".eps")))
 
-  (define (dump-stencils-as-separate-EPS stencils count)
-    (if (pair? stencils)
-	(let* ((line (car stencils))
-	       (rest (cdr stencils))
-	       (system-base-name (format "~a-~a" basename count)))
-	  (dump-stencil-as-EPS paper line system-base-name)
-	  (if do-pdf
-	      (postscript->pdf 0 0
-			       (string-append system-base-name ".eps")))
-	  (dump-stencils-as-separate-EPS rest (1+ count)))))
-
   ;; main body
-  (let* ((write-file (lambda (str-port ext)
-		       (let* ((name (format "~a-systems.~a" basename ext))
-			      (port (open-output-file name)))
-			 (ly:message (_ "Writing ~a...") name)
-			 (display (get-output-string str-port) port)
-			 (close-output-port port))))
-	 (tex-system-port (open-output-string))
-	 (texi-system-port (open-output-string))
-	 (count-system-port (open-output-string))
-	 (widened-stencils (widen-left-stencil-edges stencils))
-	 (counted-systems  (count-list widened-stencils))
-	 (eps-files (map dump-counted-stencil counted-systems)))
-    (if do-pdf
-	;; par-for-each: a bit faster ...
-	(for-each (lambda (y)
-		    (postscript->pdf 0 0 y))
-		  eps-files))
-    (for-each (lambda (c)
-		(if (< 0 c)
-		    (display (format
-			      "\\ifx\\betweenLilyPondSystem \\undefined
+  ;; First, create the output, then if necessary, individual staves and 
+  ;; finally write some auxiliary files if desired
+  (dump-infinite-stack-EPS stencils)
+  (postprocess-output book framework-eps-module
+			(format "~a.eps" basename) (ly:output-formats))
+
+  ;; individual staves (*-1.eps etc.); only print if more than one stencil
+  ;; Otherwise the .eps and the -1.eps file will be identical and waste space
+  ;; Also always create if aux-files=##t
+  (if (or create-aux-files (< 1 (length stencils)))
+    (let* ((widened-stencils (widen-left-stencil-edges stencils))
+	   (counted-systems  (count-list widened-stencils))
+	   (eps-files (map dump-counted-stencil counted-systems)))
+      (if do-pdf
+	  ;; par-for-each: a bit faster ...
+	  (for-each (lambda (y) (postscript->pdf 0 0 y))
+		    eps-files))))
+
+  ;; Now, write some aux files if requested: .texi, .tex and .count
+  ;; for direct inclusion into latex and texinfo
+  (if create-aux-files
+    (let* ((write-file (lambda (str-port ext)
+			 (if create-aux-files
+		           (let* ((name (format "~a-systems.~a" basename ext))
+			          (port (open-output-file name)))
+			     (ly:message (_ "Writing ~a...") name)
+			     (display (get-output-string str-port) port)
+			     (close-output-port port)))))
+	   (tex-system-port (open-output-string))
+	   (texi-system-port (open-output-string))
+	   (count-system-port (open-output-string)))
+      (for-each (lambda (c)
+		  (if (< 0 c)
+		      (display (format
+			        "\\ifx\\betweenLilyPondSystem \\undefined
   \\linebreak
 \\else
   \\expandafter\\betweenLilyPondSystem{~a}%
 \\fi
 " c)
-			     tex-system-port))
-		(display (format "\\includegraphics{~a-~a}%\n"
-				 basename (1+ c)) tex-system-port)
-		(display (format "@image{~a-~a}\n"
-				 basename (1+ c)) texi-system-port))
-	      (iota (length stencils)))
-    (display "@c eof\n" texi-system-port)
-    (display "% eof\n" tex-system-port)
-    (display (format "~a" (length stencils)) count-system-port)
-    (dump-infinite-stack-EPS stencils)
-    (postprocess-output book framework-eps-module
-			(format "~a.eps" basename) (ly:output-formats))
-    (write-file texi-system-port "texi")
-    (write-file tex-system-port "tex")
-    ;; do this as the last action so we know the rest is complete if
-    ;; this file is present.
-    (write-file count-system-port "count")))
+			       tex-system-port))
+		  (display (format "\\includegraphics{~a-~a}%\n"
+				   basename (1+ c)) tex-system-port)
+		  (display (format "@image{~a-~a}\n"
+				   basename (1+ c)) texi-system-port))
+	        (iota (length stencils)))
+      (display "@c eof\n" texi-system-port)
+      (display "% eof\n" tex-system-port)
+      (display (format "~a" (length stencils)) count-system-port)
+      (write-file texi-system-port "texi")
+      (write-file tex-system-port "tex")
+      ;; do this as the last action so we know the rest is complete if
+      ;; this file is present.
+      (write-file count-system-port "count"))))
 
 (define-public (output-classic-framework basename book scopes fields)
   (output-scopes scopes fields basename)

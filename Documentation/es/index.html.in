@@ -76,9 +76,9 @@
 	<td valign="baseline" class="right-column">
 	  <ul>
             <li>
-	      <a class="title" href="application/index.es.html">Utilización del programa</a><br>
-	      (también en <a class="title" href="application-big-page.es.html">una sola página</a>,
-	      o en <a class="title" href="application.es.pdf">PDF</a>)<br>
+	      <a class="title" href="usage/index.es.html">Utilización del programa</a><br>
+	      (también en <a class="title" href="usage-big-page.es.html">una sola página</a>,
+	      o en <a class="title" href="usage.es.pdf">PDF</a>)<br>
               (cómo instalar y ejecutar el programa)</li>
 	    <li>
 	      <a class="title" href="snippets/index.html">Fragmentos de código</a> [en inglés]<br>

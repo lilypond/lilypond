@@ -58,13 +58,14 @@ public:
   SCM c_variable (string id) const;
   SCM lookup_variable (SCM sym) const;
   void set_variable (SCM sym, SCM val);
+  void normalize ();
   Real get_dimension (SCM symbol) const;
 };
 SCM get_font_table (Output_def *def);
 void assign_context_def (Output_def *m, SCM transdef);
 SCM find_context_def (Output_def const *m, SCM name);
 
-Interval line_dimensions_int (Output_def*def, int);
+Interval line_dimensions_int (Output_def *def, int);
  
 
 Font_metric *select_encoded_font (Output_def *layout, SCM chain);

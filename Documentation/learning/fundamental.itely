@@ -1618,15 +1618,17 @@ Notation Reference: @ruser{Contexts explained}.
 @cindex creating contexts
 @cindex contexts, creating
 
-There can be only one top level context: the @code{Score} context.
-This is created with the @code{\score} command, or, in simple scores,
-it is created automatically.
+In an input file a score block, introduced with a @code{\score}
+command, contains a single music expression and an associated
+output definition (either a @code{\layout} or a @code{\midi} block).
+The @code{Score} context is usually left to be created automatically
+when the interpretation of that music expression starts.
 
 For scores with only one voice and one staff, the @code{Voice} and
-@code{Staff} contexts may be left to be created automatically, but for
-more complex scores it is necessary to create them by hand.  The
-simplest command that does this is @code{\new}.  It is prepended to a
-music expression, for example
+@code{Staff} contexts may also be left to be created automatically,
+but for more complex scores it is necessary to create them by hand.
+The simplest command that does this is @code{\new}.  It is prepended
+to a music expression, for example
 
 @example
 \new @var{type} @var{music-expression}
@@ -1637,9 +1639,16 @@ where @var{type} is a context name (like @code{Staff} or
 @code{Voice}).  This command creates a new context, and starts
 interpreting the @var{music-expression} within that context.
 
-Note that there is no @code{\new Score} command;
-the single top-level @code{Score} context is introduced
-with @code{\score}.
+(Note that a @code{\new Score} command is not normally required,
+as the essential top-level @code{Score} context is created
+automatically when the music expression within the @code{\score}
+block is interpreted.  The only reason for creating a @code{Score}
+context explicitly using @code{\new Score} is to introduce a
+@code{\with} block in which one or more score-wide default values
+of context properties may be specified.  Information on using
+@code{\with} blocks can be found under the heading
+@qq{Setting context properties with @code{\\with} } in
+@ref{Modifying context properties}.)
 
 You have seen many practical examples which created new
 @code{Staff} and @code{Voice} contexts in earlier sections, but
@@ -2009,14 +2018,14 @@ general way by using the very powerful @code{\markup} command.
 @funindex with
 @cindex context properties, setting with \with
 
-Context properties may also be set at the time the context is
-created.  Sometimes this is a clearer way of specifying a
+The default value of context properties may be set at the time the
+context is created.  Sometimes this is a clearer way of setting a
 property value if it is to remain fixed for the duration of
 the context.  When a context is created with a @code{\new}
-command it may be followed immediately by a
-@code{\with @{ .. @}} block in which the property values are
-set.  For example, if we wish to suppress the printing of
-extra naturals for the duration of a staff we would write:
+command it may be followed immediately by a @code{\with @{ .. @}}
+block in which the default property values are set.  For example,
+if we wish to suppress the printing of extra naturals for the
+duration of a staff we would write:
 
 @example
 \new Staff \with @{ extraNatural = ##f @}
@@ -2038,15 +2047,36 @@ like this:
 >>
 @end lilypond
 
+Or, if the property override is to be applied to all staves
+within the score, it may be appended to an explicit
+@code{\new Score} command, like this:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \new Score \with { extraNatural = ##f } <<
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gis ges aes ais
+      }
+    }
+  >>
+}
+@end lilypond
+
 Properties set in this way may still be changed dynamically using
-@code{\set} and returned to their default value with @code{\unset}.
+@code{\set} and returned to the default value set in the
+@code{\with} block with @code{\unset}.
 
 @cindex fontSize, default and setting
 
-The @code{fontSize} property is treated differently.  If this is
-set in a @code{\with} clause it effectively resets the default
-value of the font size.  If it is later changed with @code{\set},
-this new default value may be restored with the
+So if the @code{fontSize} property is set in a @code{\with} clause
+it sets the default value of the font size.  If it is later changed
+with @code{\set}, this new default value may be restored with the
 @code{\unset fontSize} command.
 
 @subsubheading Setting context properties with @code{\context}

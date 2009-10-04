@@ -21,6 +21,7 @@ LilyPond.
 * What symbols to engrave?::    
 * Music representation::        
 * Example applications::        
+* Appendix::                    
 @end menu
 
 
@@ -47,7 +48,7 @@ five years of experience were necessary to become truly skilled.
 
 @quotation
 @iftex
-@image{pictures/hader-slaan,,7cm}
+@sourceimage{hader-slaan,,7cm,}
 @end iftex
 @ifnottex
 @sourceimage{hader-slaan,,,jpg}
@@ -67,15 +68,15 @@ about the work that goes into a well-engraved score. Below we describe
 several of those aspects that we have tried to imitate in LilyPond.
 
 @menu
-* Music Fonts::                 
-* Optical Spacing::             
-* Ledger Lines::                
-* Slurs::                       
+* Music fonts::                 
+* Optical spacing::             
+* Ledger lines::                
+* Optical sizing::              
 * Why work so hard?::           
 @end menu
 
-@node Music Fonts
-@unnumberedsubsec Music Fonts
+@node Music fonts
+@unnumberedsubsec Music fonts
 
 The images below illustrate some differences between traditional
 engraving and typical computer output. The left picture shows a scan of
@@ -91,25 +92,25 @@ sharp corners.
 @item @tab
 @ifnotinfo
 @iftex
-@image{pictures/baer-flat-gray,,4cm}
+@sourceimage{baer-flat-gray,,4cm,}
 @end iftex
 @ifnottex
-@image{pictures/baer-flat-gray,,,png}
+@sourceimage{baer-flat-gray,,,png}
 @end ifnottex
 
 @tab
 @iftex
-@image{pictures/henle-flat-gray,,4cm}
+@sourceimage{henle-flat-gray,,4cm,}
 @end iftex
 @ifnottex
-@image{pictures/henle-flat-gray,,,png}
+@sourceimage{henle-flat-gray,,,png}
 @end ifnottex
 
 @end ifnotinfo
 @ifinfo
-@image{lilypond/pictures/henle-flat-bw,,,,png}
-@image{lilypond/pictures/baer-flat-bw,,,,png}
-@image{lilypond/pictures/lily-flat-bw,,,,png}
+@sourceimage{henle-flat-bw,,,png}
+@sourceimage{baer-flat-bw,,,png}
+@sourceimage{lily-flat-bw,,,png}
 @end ifinfo
 
 
@@ -139,7 +140,7 @@ our own LilyPond font.
 
 @quotation
 @iftex
-@image{pictures/pdf/OpusAndFeta,,,}
+@sourceimage{pdf/OpusAndFeta,,,}
 @end iftex
 @ifnottex
 @sourceimage{OpusAndFeta,,,png}
@@ -161,8 +162,8 @@ wider at the top. The sharp and the natural are easier to distinguish
 from a distance because their angled lines have different slopes and the
 vertical strokes are heavier.
 
-@node Optical Spacing
-@unnumberedsubsec Optical Spacing
+@node Optical spacing
+@unnumberedsubsec Optical spacing
 
 In spacing, the distribution of space should reflect the durations
 between notes.  However, many modern scores adhere to the
@@ -267,8 +268,8 @@ more space is needed to keep it from feeling crowded:
 }
 @end lilypond
 
-@node Ledger Lines
-@unnumberedsubsec Ledger Lines
+@node Ledger lines
+@unnumberedsubsec Ledger lines
 
 @cindex ledger lines
 @cindex collisions
@@ -284,7 +285,7 @@ accidentals. We have included this feature in LilyPond's engraving.
 @item @tab
 
 @iftex
-@image{pictures/baer-ledger,3cm}
+@sourceimage{baer-ledger,3cm,,}
 @end iftex
 @ifnottex
 @sourceimage{baer-ledger,,,png}
@@ -293,7 +294,7 @@ accidentals. We have included this feature in LilyPond's engraving.
 @tab
 
 @iftex
-@image{pictures/lily-ledger,3cm}
+@sourceimage{lily-ledger,3cm,,}
 @end iftex
 @ifnottex
 @sourceimage{lily-ledger,,,png}
@@ -301,49 +302,114 @@ accidentals. We have included this feature in LilyPond's engraving.
 
 @end multitable
 
-@node Slurs
-@unnumberedsubsec Slurs
 
-slur-tilt example
+@node Optical sizing
+@unnumberedsubsec Optical sizing
+
+Music may need to be printed in a range of sizes. Originally, this was
+accomplished by creating punching dies in each of the required sizes,
+which meant that each die was designed to look its best at that size.
+With the advent of digital fonts, a single outline can be mathematically
+scaled to any size, which is very convenient, but at the smaller sizes
+the glyphs will appear very light.
+
+In LilyPond, we have created fonts in a range of weights, corresponding
+to a range of music sizes. This is a LilyPond engraving at staff size
+26:
+
+@quotation
+@iftex
+@sourceimage{pdf/size26,,23mm,}
+@end iftex
+@ifnottex
+@sourceimage{size26,,,png}
+@end ifnottex
+@end quotation
+
+@noindent
+and this is the same engraving set at staff size 11, then
+magnified by 236% to print at the same size as the previous example:
+
+@quotation
+@iftex
+@sourceimage{pdf/size11,,23mm,}
+@end iftex
+@ifnottex
+@sourceimage{size11,,,png}
+@end ifnottex
+@end quotation
+
+At smaller sizes, LilyPond uses proportionally heavier lines and so the
+music will still read well. This also allows staves of different
+sizes to coexist peacefully when used together on the same page:
+
+@c Grieg's Violin Sonata Op. 45
+@lilypond[indent=1.5cm]
+global = {
+  \time 6/8
+  \key c \minor
+}
+
+\new Score <<
+  \new Staff \with {
+      fontSize = #-4
+      \override StaffSymbol #'staff-space = #(magstep -4)
+      \override StaffSymbol #'thickness = #(magstep -3)
+    }
+    \relative c' {
+      \global
+      \set Staff.instrumentName = #"Violin"
+      c8.(\f^> b16 c d) ees8.(^> d16 c b)
+      g8.(^> b16 c ees) g8-.^> r r
+      R2.
+    }
+  \new PianoStaff <<
+    \set PianoStaff.instrumentName = #"Piano"
+    \new Staff \relative c' {
+      \global
+      s2.
+      s4. s8 r8 r16 <c f aes c>
+      <c f aes c>4.^> <c ees g>8 r r
+    }
+    \new Staff \relative c {
+      \global
+      \clef "bass"
+      << {
+        \once \override DynamicText #'X-offset = #-3
+        <ees g c>2.~->^\f
+        <ees g c>4.~ <ees g c>8
+      } \\ {
+        <c g c,>2.~
+        <c g c,>4.~ <c g c,>8
+      } >>
+      r8 r16 <f, c' aes'>16
+      <f c' aes'>4.-> <c' g'>8 r r
+    }
+  >>
+>>
+@end lilypond
 
 @node Why work so hard?
 @unnumberedsubsec Why work so hard?
 
-Musicians are usually more absorbed with performing than with
-studying the looks of a piece of music, so nitpicking
-typographical details may seem academic.  But it is not.
+Musicians are usually more absorbed with performing than with studying
+the looks of a piece of music, so nitpicking typographical details may
+seem academic. But it is not. Sheet music is performance material:
+everything is done to aid the musician in letting her perform better,
+and anything that is unclear or unpleasant to read is a hinderance.
 
-Sheet music is performance material: everything is done to aid the
-musician in letting him perform better. Music often is far away from its
-reader--it might be on a music stand. To make it clearly readable,
-traditionally printed sheet music always uses bold symbols, on heavy
-staff lines, and is printed on large sheets of paper. This "strong" look
-is also present in the horizontal spacing. To minimize the number of
-page breaks, (hand-engraved) sheet music is spaced very tightly. Yet, by
-a careful distribution of white space, the feeling of balance is
-retained, and a clutter of symbols is avoided. (1.8)
+Traditionally engraved music uses bold symbols on heavy staff to create
+a strong, well-balanced look that stands out well when the music is far
+away from the reader: for example, if it is on a music stand. A careful
+distribution of white space allows music to be set very tightly without
+crowding symbols together. The result minimizes the number of page
+turns, which is a great advantage.
 
-In
-larger pieces with monotonous rhythms, spacing corrections lead to
-subtle variations in the layout of every line, giving each one a
-distinct visual signature.  Without this signature all lines would
-look the same, and they become like a labyrinth.  A distinct visual
-signature helps to keep musicians from losing their place on the
-page when they look away or have a lapse in concentration.
-
-Similarly, the strong visual look of bold symbols on heavy staff
-lines stands out better when the music is far away from the
-reader: for example, if it is on a music stand.  A careful
-distribution of white space allows music to be set very tightly
-without crowding symbols together.  The result minimizes the
-number of page turns, which is a great advantage.
-
-This is a common characteristic of typography.  Layout should be
-pretty, not only for its own sake, but especially because it helps
-the reader in her task.  For performance material like sheet
-music, this is of double importance: musicians have a limited
-amount of attention.  The less attention they need for reading,
-the more they can focus on playing the music.  In other words,
+This is a common characteristic of typography. Layout should be pretty,
+not only for its own sake, but especially because it helps the reader in
+his task. For sheet music this is of double importance because musicians
+have a limited amount of attention. The less attention they need for
+reading, the more they can focus on playing the music. In other words,
 better typography translates to better performances.
 
 These examples demonstrate that music typography is an art that is
@@ -371,46 +437,110 @@ to see and love to play from.
 @node Beauty contests
 @unnumberedsubsec Beauty contests
 
+Rather than trying to write rules that describe how to draw an
+attractive slur for every possible scenario, we have written rules that
+describe an attractive slur and LilyPond finds the nicest possibility.
+For example, here are three possible slur configurations, and LilyPond
+has given each one a score in `ugly points':
+
+@lilypond
+%\layout { #(define debug-slur-scoring #t) }
+
+\relative c {
+    \clef bass
+    \once \override Slur #'positions = #'(1.5 . 1)
+    e8[(_"15.39" f] g[ a b d,)] r4
+    \once \override Slur #'positions = #'(2 . 3)
+    e8[(_"13.08" f] g[ a b d,)] r4
+    e8[(_"12.04" f] g[ a b d,)] r4
+}
+@end lilypond
+
+@noindent
+
+The first example gets 15.39 points for grazing one of the notes. The
+second one is nicer, but the slur doesn't start or end on the noteheads.
+It gets 1.71 points for the left side and 9.37 points for the right
+side, plus another 2 points because the slur ascends while the melody
+descends for a total of 13.08 ulgy points. The final slur gets 10.04
+points for the gap on the right and 2 points for the upward slope, but
+it is the most attractive of the three configurations, so LilyPond
+selects that one.
+
+This technique is quite general, and is used to select beam
+configurations, ties and dots in chords, line breaks, and page breaks.
+
 @node Notation benchmarking
 @unnumberedsubsec Notation benchmarking
 
-Bärenreiter:
+We have tuned LilyPond's layout rules by comparing its output to
+hand-engraved scores. Here is one line of a benchmark piece from a
+hand-engraved edition (Bärenreiter BA320), and as engraved by LilyPond
+1.4:
 
 @iftex
-@image{pictures/baer-sarabande-hires,16cm}
+@sourceimage{baer-sarabande-hires,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{baer-sarabande,,,png}
 @end ifnottex
 
-LilyPond 1.4:
-
 @iftex
-@image{pictures/lily14-sarabande,16cm}
+@sourceimage{lily14-sarabande,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{lily14-sarabande,,,png}
 @end ifnottex
 
-LilyPond @version{}:
+@noindent
+On careful inspection, there are a number of errors in the LilyPond 1.4
+output:
 
-@lilypond[relative=0,staffsize=19,line-width=16\cm]
-{
+@itemize @bullet
+@item most of the stems are too long
+@item the trill marks are too big
+@item the second and fourth measures are too narrow
+@item the slur is awkward-looking
+@item the stems are too thin
+@end itemize
+
+@noindent
+(There were also two missing notes, and one wrong one!)
+
+By adjusting the layout rules and font design, the output has improved
+considerably. This is the same piece, engraved by the current version of
+LilyPond (@version{}):
+
+@lilypond[staffsize=19,line-width=15.9\cm]
+\relative c {
   \clef "bass"
   \key d \minor
   \time 3/4
   \mergeDifferentlyDottedOn
-  << {d8. e16 e4. d16 e} \\ {d4 a2} >>
-  <f' a, d,>4. e8 d c
-  bes g' f e16( f g a bes d,)
-  cis4. b8 a g
-  << {d'8. e16 e4. d16 e} \\ {<f, a>4 a2} >>
+  << {\slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e)}
+     \\ {d4_2 a2}
+  >>
+  \slurDashed
+  <f' a, d,>4. e8( d c)
+  \slurSolid
+  bes g' f e16( f g_1 a_2 bes_3 d,_2)
+  \slurDashed
+  cis4.-\trill b8_3( a g)
+  << {\slurDashed d'8.( e16) e4.-\trill( d16 e)}
+     \\ {<f, a>4 a2}
+  >>
 }
 @end lilypond
 
-[LilyPond snippet above not finished]
+[AH: I have not written or edited beyond this point. Here I want to do a
+comparison of the last seven measures of Bach's Fugue in G minor from
+the Well-Tempered Clavier, Book I, BWV 861. The appendix has all of the
+source material, but I have some writing to do. This should demonstrate
+LilyPond's excellent output, particularly compared to the default Finale
+output, but more fairly than was done before. This will also show that
+there are always situations that can be improved with some human
+intervention, leading nicely into the next section.]
 
-[a few bars of LilyPond vs. Finale can go here]
 
 @node Flexible architecture
 @unnumberedsubsec Flexible architecture
@@ -980,3 +1110,146 @@ makes it easy to mix music and text in documents.
 
 
 TODO: add extra chapter for computer aesthetics?
+
+@page
+@node Appendix
+@unnumberedsec Appendix
+
+This appendix contaions four reference engravings and two
+software-engraved versions of Bach's Fugue in G minor from the
+Well-Tempered Clavier, Book I, BWV 861 (the last seven measures).
+
+@noindent
+Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
+1989):
+
+@iftex
+@sourceimage{bwv861-baer,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-baer-small,,,png}
+@end ifnottex
+
+@noindent
+Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
+1989), an alternate musical source. Aside from the textual differences,
+this demsontrates slight variations in the engraving decisions, even
+from the same publisher and edition:
+
+@iftex
+@sourceimage{bwv861-baer-alt,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-baer-alt-small,,,png}
+@end ifnottex
+
+@noindent
+Breitkopf & Härtel, edited by Ferruccio Busoni (Wiesbaden, 1894), also
+available from the Petrucci Music Library (IMSLP #22081). The editorial
+markings (fingerings, articulations, etc.) have been removed for clearer
+comparison with the other editions here:
+
+@iftex
+@sourceimage{bwv861-breitkopf,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-breitkopf-small,,,png}
+@end ifnottex
+
+@noindent
+Bach-Gessellschaft edition (Leipzig, 1866), available from the Petrucci
+Music Library (IMSPL #02221):
+
+@iftex
+@sourceimage{bwv861-gessellschaft,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-gessellschaft-small,,,png}
+@end ifnottex
+
+@noindent
+Finale 2008:
+
+@iftex
+@sourceimage{pdf/bwv861-finale2008a,,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-finale2008a,,,png}
+@end ifnottex
+
+@noindent
+LilyPond, version @version{}:
+
+@lilypond[staffsize=14.3,line-width=15.9\cm]
+global = {\key g \minor}
+
+partI = \relative c' {
+  \voiceOne
+  fis8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a d8 r r4
+  r2 r8 d16 ees f8 ees16 d
+  ees4 ~ ees16 d c bes a4 r8 ees'16 d
+  c8 d16 ees d8 e16 fis g8 fis16 g a4 ~
+  a8 d, g f ees d c bes
+  a2 g\fermata \bar "|."
+}
+
+partII = \relative c' {
+  \voiceTwo
+  d4 r4 r8 d'16 c bes8 c16 d
+  ees8 d c ees a, r r4
+  r8 fis16 g a8 g16 fis g2 ~
+  g2 r8 d' ees g,
+  fis4 g r8 a16 bes c8 bes16 a
+  bes4. <g b>8 <a c> r <d, g> r
+  <ees g>4 <d fis> d2
+}
+partIII = \relative c' {
+  \voiceOne
+  r2 r8 d ees g, fis4 g r8 a16 bes c8 bes16 a
+  bes2 ~ bes8 b16 a g8 a16 b
+  c4 r r2
+  R1
+  r8 d ees g, fis4 g
+  r8 a16 bes c8 bes16 a b2
+}
+partIV = \relative c {
+  \voiceTwo
+  d4 r r2
+  r8 d ees g, fis4 a
+  d,8 d'16 c bes8 c16 d ees2 ~
+  ees8 ees16 d c8 d16 ees fis,8 a16 g fis8 g16 a
+  d,8 d'16 c bes8 c16 d ees8 c a fis'
+  g f ees d c bes a g
+  c a d d, g2\fermata
+}
+
+\score {
+  <<
+    % \set Score.barNumberVisibility = #all-bar-numbers-visible
+    % required in 2.13
+    \set Score.currentBarNumber = #28
+    \bar ""
+    \new PianoStaff <<
+      \new Staff = "RH" <<
+        \global
+        \new Voice = "voiceI" { \partI }
+        \new Voice = "voiceII" { \partII }
+      >>
+
+      \new Staff = "LH" <<
+        \clef "bass"
+        \global
+        \new Voice = "voiceIII" { \partIII }
+        \new Voice = "voiceIV" { \partIV }
+      >>
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond

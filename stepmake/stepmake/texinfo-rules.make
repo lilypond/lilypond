@@ -23,7 +23,7 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
-$(outdir)/%.texi: %.texi
+$(outdir)/%.texi: $(src-dir)/%.texi
 	cp -p $< $@
 
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
@@ -63,23 +63,7 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
 	echo ''>> $@
-	echo '@macro versionStable'>> $@
-	echo $(TOPLEVEL_VERSION_STABLE)>> $@
-	echo '@end macro'>> $@
-	echo ''>> $@
-	echo '@macro versionDevel'>> $@
-	echo $(TOPLEVEL_VERSION_DEVEL)>> $@
-	echo '@end macro'>> $@
-	echo ''>> $@
-	echo '@macro downloadStableLinux'>> $@
-	echo -n '@uref{http://download.linuxaudio.org/'>> $@
-	echo -n 'lilypond/binaries/linux-x86/lilypond-'>> $@
-	echo -n $(TOPLEVEL_VERSION_STABLE)>> $@
-	echo '-1.linux-x86.sh,'>> $@
-	echo -n 'Linux x86: LilyPond '>> $@
-	echo -n $(TOPLEVEL_VERSION_STABLE)>> $@
-	echo '}'>> $@
-	echo '@end macro'>> $@
+	python $(top-src-dir)/scripts/build/create-version-itexi.py >> $@
 
 .SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
   $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep \

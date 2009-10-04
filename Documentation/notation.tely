@@ -19,6 +19,14 @@ the reader is familiar with the material in the
 @rlearningnamed{Top, Learning Manual}.
 @end macro
 
+@macro copyrightDeclare
+Copyright @copyright{} 
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+by the authors.
+@end macro
+
+
+@set FDL
 @include macros.itexi
 
 @c  TODO: all the direntry stuff should be moved to general.texi
@@ -49,6 +57,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * LilyPond Snippets: (lilypond-snippets).         Short tricks, tips, and examples.
 * LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
 * LilyPond Application Usage: (lilypond-application). Installing and running applications.
+* LilyPond Website: (lilypond-general).    Preview of new website.
 * abc2ly: (lilypond-application)Invoking abc2ly.      Importing ABC.      
 * convert-ly: (lilypond-application)Updating files with convert-ly. Older LilyPond versions.
 * etf2ly: (lilypond-application)Invoking etf2ly.      Importing Finale.
@@ -81,7 +90,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
     LilyPond input and output.
 * Spacing issues::                 Display of output on paper.
 * Changing defaults::              Tuning output.
-* Interfaces for programmers::     How to interface with scheme.
 
 Appendices
 
@@ -106,7 +114,6 @@ Appendices
 @include notation/spacing.itely
 
 @include notation/changing-defaults.itely
-@include notation/programming-interface.itely
 
 
 @include notation/notation-appendices.itely

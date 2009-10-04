@@ -18,6 +18,13 @@ This manual documents contributing to LilyPond version
 contributors should follow.
 @end macro
 
+@macro copyrightDeclare
+Copyright @copyright{} 
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+by the authors.
+@end macro
+
+@set FDL
 @include macros.itexi
 
 

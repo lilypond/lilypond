@@ -13,7 +13,7 @@
   % Measures 6 - 10;
 
   composer = "Trevor Bača"
-  copyright = "Copyright 2006 Trevor Bača - all rights reserved."
+  copyright = "Copyright 2006 Trevor Bača, licensed under the FDL 1.1 or higher"
   
 }
 
@@ -22,8 +22,8 @@
 % Upper staff gives fingerings;
 % Lower staff gives special types of breath.
 %
-% Copyright 2006 for the entire score;
-% All rights reserved by the composer.
+% Copyright 2006 Trevor Baca, but this exerpt is licensed under
+% the FDL 1.1 or higher.
 
 \include "english.ly"
 \include "cary-layout.ily"

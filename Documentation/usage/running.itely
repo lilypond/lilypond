@@ -1,0 +1,812 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+
+@node Running lilypond
+@chapter Running @command{lilypond}
+
+This chapter details the technicalities of running LilyPond.
+
+@menu
+* Normal usage::                
+* Command-line usage::          
+* Error messages::              
+* Common errors::               
+* Point and click::             
+* Text editor support::         
+@end menu
+
+
+@node Normal usage
+@section Normal usage
+
+Most users run LilyPond through a GUI; if you have not done so
+already, read @rlearning{Introduction}.  If you use an alternate
+editor to write lilypond files, see the documentation for that
+program.
+
+
+@node Command-line usage
+@section Command-line usage
+
+This section contains extra information about using LilyPond on the
+command-line.  This may be desirable to pass extra options to the
+program.  In addition, there are certain extra @q{helper} programs (such
+as @code{midi2ly}) which are only available on the command-line.
+
+By @q{command-line}, we mean the command line in the operating system.
+Windows users might be more familiar with the terms @q{DOS shell} or
+@q{command shell}.  MacOS@tie{}X users might be more familiar with the terms
+@q{terminal} or @q{console}.  Some additional setup is required
+for MacOS@tie{}X users; please see @rgeneral{MacOS X}.
+
+Describing how to use this part of an operating system is outside the
+scope of this manual; please consult other documentation on this topic
+if you are unfamiliar with the command-line.
+
+@menu
+* Invoking lilypond::           
+* Command line options for lilypond::  
+* Environment variables::       
+@end menu
+
+@node Invoking lilypond
+@unnumberedsubsec Invoking @command{lilypond}
+
+The @command{lilypond} executable may be called as follows from
+the command line.
+
+@example
+lilypond [@var{option}]@dots{} @var{file}@dots{}
+@end example
+
+
+When invoked with a filename that has no extension, the @file{.ly}
+extension is tried first.  To read input from stdin, use a
+dash (@code{-}) for @var{file}.
+
+When @file{filename.ly} is processed it will produce @file{filename.ps}
+and @file{filename.pdf} as output.  Several files can be specified;
+they will each be processed independently.  @footnote{The status of
+GUILE is not reset after processing a @code{.ly} file, so be careful
+not to change any system defaults from within Scheme.}
+
+If @file{filename.ly} contains more than one @code{\book}
+block, then the rest of the scores will be output in numbered files,
+starting with @file{filename-1.pdf}.  In addition, the value of
+@code{output-suffix} will be inserted between the basename and the
+number.  An input file containing
+
+@example
+#(define output-suffix "violin")
+\score @{ @dots{} @}
+#(define output-suffix "cello")
+\score @{ @dots{} @}
+@end example
+
+@noindent
+will output @var{base}@file{-violin.pdf} and
+@var{base}@file{-cello-1.pdf}.
+
+
+@node Command line options for lilypond
+@unnumberedsubsec Command line options for @command{lilypond}
+
+@cindex Invoking @command{lilypond}
+@cindex command line options for @command{lilypond}
+@cindex options, command line
+@cindex switches
+
+The following options are supported:
+
+@table @code
+
+@item -e,--evaluate=@var{expr}
+Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
+Multiple @code{-e} options may be given, they will be evaluated
+sequentially.
+
+The expression will be evaluated in the @code{guile-user} module, so
+if you want to use definitions in @var{expr}, use
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+on the command-line, and include
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@noindent
+at the top of the @code{.ly} file.
+
+@item -f,--format=@var{format}
+which formats should be written.  Choices for @code{format} are
+@code{svg}, @code{ps}, @code{pdf}, and @code{png}.
+
+Example: @code{lilypond -fpng @var{filename}.ly}
+
+
+
+@item -d,--define-default=@var{var}=@var{val}
+This sets the internal program option @var{var} to the Scheme value
+@var{val}.  If @var{val} is not supplied, then @var{#t} is used.  To
+switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
+
+@cindex point and click, command line
+
+@example
+-dno-point-and-click
+@end example
+
+@noindent
+is the same as
+@example
+-dpoint-and-click='#f'
+@end example
+
+Here are a few interesting options.
+
+@cindex help, command line
+
+@table @samp
+@item help
+Running @code{lilypond -dhelp} will print all of the @code{-d} options
+available.
+
+@cindex paper-size, command line
+
+@item paper-size
+This option sets the default paper-size,
+@example
+-dpaper-size=\"letter\"
+@end example
+
+@noindent
+Note that the string must be enclosed in escaped quotes ( @code{\"} ).
+@c Match " in previous line to help context-sensitive editors
+
+@cindex safe, command line
+
+@item safe
+Do not trust the @code{.ly} input.
+
+When LilyPond formatting is available through a web server, either the
+@code{--safe} or the @code{--jail} option @b{MUST} be passed.  The
+@code{--safe} option will prevent inline Scheme code from wreaking
+havoc, for example
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+}
+@end verbatim
+@end quotation
+
+The @code{-dsafe} option works by evaluating in-line Scheme
+expressions in a special safe module.  This safe module is derived from
+GUILE @file{safe-r5rs} module, but adds a number of functions of the
+LilyPond API.  These functions are listed in @file{scm/@/safe@/-lily@/.scm}.
+
+In addition, safe mode disallows @code{\include} directives and
+disables the use of backslashes in @TeX{} strings.
+
+In safe mode, it is not possible to import LilyPond variables
+into Scheme.
+
+@code{-dsafe} does @emph{not} detect resource overuse.  It is still possible to
+make the program hang indefinitely, for example by feeding cyclic data
+structures into the backend.  Therefore, if using LilyPond on a
+publicly accessible webserver, the process should be limited in both
+CPU and memory usage.
+
+The safe mode will prevent many useful LilyPond snippets from being
+compiled.  The @code{--jail} is a more secure alternative, but
+requires more work to set up.
+
+@cindex output format, setting
+@item backend
+the output format to use for the back-end.  Choices for @code{format} are
+@table @code
+@item ps
+@cindex PostScript output
+ for PostScript.
+
+  Postscript files include TTF, Type1 and OTF fonts.  No subsetting of
+  these fonts is done.  When using oriental character sets, this can
+  lead to huge files.
+
+@item eps
+
+@cindex Postscript, encapulated
+@cindex EPS (Encapsulated PostScript)
+
+ for encapsulated PostScript.  This dumps every page (system) as a separate
+@file{EPS} file, without fonts, and as one collated @file{EPS} file with
+all pages (systems) including fonts.
+
+This mode is used by default by @command{lilypond-book}.
+
+@item svg
+
+@cindex SVG (Scalable Vector Graphics)
+
+ for SVG (Scalable Vector Graphics).
+
+ This creates a single SVG file, without embedded fonts, for every
+ page of output.  It is recommended to install the Century
+ Schoolbook fonts, included with your LilyPond installation, for
+ optimal rendering.  Under UNIX, simply copy these fonts from the
+ LilyPond directory (typically
+ @file{/usr/share/lilypond/VERSION/fonts/otf/}) to
+ @file{~/.fonts/}.  The SVG output should be compatible with any
+ SVG editor or user agent.
+
+@item scm
+
+@cindex Scheme dump
+
+ for a dump of the raw, internal Scheme-based drawing commands.
+
+@item null
+ do not output a printed score; has the same effect as @code{-dno-print-pages}.
+@end table
+
+Example: @code{lilypond -dbackend=svg @var{filename}.ly}
+
+@item preview
+@cindex preview, command line
+Generate an output file containing the titles and the first system
+
+@item print-pages
+Generate the full pages, the default.  @code{-dno-print-pages} is
+useful in combination with @code{-dpreview}.
+
+@end table
+
+
+
+@item -h,--help
+Show a summary of usage.
+
+@item -H,--header=@var{FIELD}
+Dump a header field to file @file{BASENAME.@var{FIELD}}.
+
+@item --include, -I=@var{directory}
+Add @var{directory} to the search path for input files.
+@cindex file searching
+@cindex search path
+
+@item -i,--init=@var{file}
+Set init file to @var{file} (default: @file{init.ly}).
+
+@item -o,--output=@var{FILE}
+Set the default output file to @var{FILE}.  The appropriate
+suffix will be added (e.g. @code{.pdf} for pdf)
+
+@cindex PostScript output
+
+@item --ps
+Generate PostScript.
+
+@cindex Portable Network Graphics (PNG) output
+
+@item --png
+Generate pictures of each page, in PNG format.  This implies
+@code{--ps}.  The resolution in DPI of the image may be set with
+@example
+-dresolution=110
+@end example
+
+@cindex Portable Document Format (PDF) output
+
+@item --pdf
+Generate PDF.  This implies @code{--ps}.
+
+
+
+@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
+Run @command{lilypond} in a chroot jail.
+
+The @code{--jail} option provides a more flexible alternative to
+@code{--safe} when LilyPond formatting is available through a web
+server or whenever LilyPond executes externally provided
+sources.
+
+The @code{--jail} option works by changing the root of @command{lilypond} to
+@var{jail} just before starting the actual compilation process.  The user
+and group are then changed to match those provided, and the current
+directory is changed to @var{dir}.  This setup guarantees that it is not
+possible (at least in theory) to escape from the jail.  Note that for
+@code{--jail} to work @command{lilypond} must be run as root, which is usually
+accomplished in a safe way using @command{sudo}.
+
+Setting up a jail is a slightly delicate matter, as we must be sure that
+LilyPond is able to find whatever it needs to compile the source
+@emph{inside the jail}.  A typical setup comprises the following items:
+
+@table @asis
+@item Setting up a separate filesystem
+A separate filesystem should be created for LilyPond, so that it can be
+mounted with safe options such as @code{noexec}, @code{nodev}, and
+@code{nosuid}.  In this way, it is impossible to run executables or to
+write directly to a device from LilyPond.  If you do not want to create a
+separate partition, just create a file of reasonable size and use it to
+mount a loop device.  A separate filesystem also guarantees that LilyPond
+cannot write more space than it is allowed.
+
+@item Setting up a separate user
+A separate user and group (say, @code{lily}/@code{lily}) with low
+privileges should be used to run LilyPond inside the jail.  There should
+be a single directory writable by this user, which should be passed in
+@var{dir}.
+
+@item Preparing the jail
+LilyPond needs to read a number of files while running.  All these files
+are to be copied into the jail, under the same path they appear in the
+real root filesystem.  The entire content of the LilyPond installation
+(e.g., @file{/usr/share/lilypond})
+should be copied.
+
+If problems arise, the simplest way to trace them down is to run
+LilyPond using @command{strace}, which will allow you to determine which
+files are missing.
+
+@item Running LilyPond
+In a jail mounted with @code{noexec} it is impossible to execute any external
+program.  Therefore LilyPond must be run with a backend that does not
+require any such program.  As we already mentioned, it must be also run
+with superuser privileges (which, of course, it will lose immediately),
+possibly using @command{sudo}.  It is a good idea to limit the number of
+seconds of CPU time LilyPond can use (e.g., using @command{ulimit
+-t}), and, if your operating system supports it, the amount of memory
+that can be allocated.
+@end table
+
+
+@item -v,--version
+Show version information.
+
+@item -V,--verbose
+Be verbose: show full paths of all files read, and give timing
+information.
+
+@item -w,--warranty
+Show the warranty with which GNU LilyPond comes. (It comes with
+@strong{NO WARRANTY}!)
+@end table
+
+@node Environment variables
+@unnumberedsubsec Environment variables
+
+
+@cindex LANG
+@cindex LILYPOND_DATADIR
+
+@command{lilypond} recognizes the following environment variables:
+@table @code
+@item LILYPOND_DATADIR
+This specifies a directory where locale messages and
+data files will be looked up by default.  The directory should contain
+subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
+
+@item LANG
+This selects the language for the warning messages.
+
+@item LILYPOND_GC_YIELD
+With this variable the memory footprint and performance can be
+adjusted.  It is a percentage tunes memory management behavior.  With
+higher values, the program uses more memory, with smaller values, it
+uses more CPU time.  The default value is @code{70}.
+
+@end table
+
+
+@node Error messages
+@section Error messages
+
+@cindex error messages
+Different error messages can appear while compiling a file:
+
+@table @emph
+
+@item Warning
+@cindex warning
+Something looks suspect.  If you are requesting something out of the
+ordinary then you will understand the message, and can ignore it.
+However, warnings usually indicate that something is wrong with the
+input file.
+
+@item Error
+@cindex error
+Something is definitely wrong.  The current processing step (parsing,
+interpreting, or formatting) will be finished, but the next step will
+be skipped.
+
+@item Fatal error
+@cindex fatal error
+Something is definitely wrong, and LilyPond cannot continue.  This
+happens rarely.  The most usual cause is misinstalled fonts.
+
+@item Scheme error
+@cindex trace, Scheme
+@cindex call trace
+@cindex Scheme error
+Errors that occur while executing Scheme code are caught by the Scheme
+interpreter.  If running with the verbose option (@code{-V} or
+@code{--verbose}) then a call trace of the offending
+function call is printed.
+
+@item Programming error
+@cindex Programming error
+There was some internal inconsistency.  These error messages are
+intended to help the programmers and debuggers.  Usually, they can be
+ignored.  Sometimes, they come in such big quantities that they obscure
+other output.
+
+@item Aborted (core dumped)
+@cindex Aborted (core dumped)
+This signals a serious programming error that caused the program to
+crash.  Such errors are considered critical.  If you stumble on one,
+send a bug-report.
+@end table
+
+@cindex errors, message format
+If warnings and errors can
+be linked to some part of the input file, then error messages have the
+following form
+
+@example
+@var{filename}:@var{lineno}:@var{columnno}: @var{message}
+@var{offending input line}
+@end example
+
+A line-break is inserted in the offending line to indicate the column
+where the error was found.  For example,
+
+@example
+test.ly:2:19: error: not a duration: 5
+  @{ c'4 e'
+           5 g' @}
+@end example
+
+These locations are LilyPond's best guess about where the warning or
+error occurred, but (by their very nature) warnings and errors occur
+when something unexpected happens.  If you can't see an error in the
+indicated line of your input file, try checking one or two lines
+above the indicated position.
+
+More information about errors is given in @ref{Common errors}.
+
+
+@node Common errors
+@section Common errors
+
+The error conditions described below occur often, yet the cause
+is not obvious or easily found.  Once seen and understood, they
+are easily handled.
+
+
+@menu
+* Music runs off the page::     
+* An extra staff appears::      
+* Apparent error in ../ly/init.ly::  
+* Error message Unbound variable %::  
+* Error message FT_Get_Glyph_Name::  
+@end menu
+
+@node Music runs off the page
+@unnumberedsubsec Music runs off the page
+
+Music running off the page over the right margin or appearing
+unduly compressed is almost always due to entering an incorrect
+duration on a note, causing the final note in a measure to extend
+over the bar line.  It is not invalid if the final note in a
+measure does not end on the automatically entered bar line, as the
+note is simply assumed to carry over into the next measure.  But
+if a long sequence of such carry-over measures occurs the music
+can appear compressed or may flow off the page because automatic
+line breaks can be inserted only at the end of complete measures,
+i.e., where all notes end before or at the end of the measure.
+
+@warning{An incorrect duration can cause line breaks to be
+inhibited, leading to a line of highly compressed music or
+music which flows off the page.}
+
+The incorrect duration can be found easily if bar checks are used,
+see @ruser{Bar and bar number checks}.
+
+If you actually intend to have a series of such carry-over measures
+you will need to insert an invisible bar line where you want the
+line to break.  For details, see @ruser{Bar lines}.
+
+
+@node An extra staff appears
+@unnumberedsubsec An extra staff appears
+
+If contexts are not created explicitly with @code{\new} they will be
+silently created as soon as a command is encountered which cannot
+be applied to an existing context.  In simple scores the automatic
+creation of contexts is useful, and most of the examples in the
+LilyPond manuals take advantage of this simplification.  But
+occasionally the silent creation of contexts can give rise to
+unexpected new staves or scores.  For example, it might be expected
+that the following code would cause all note heads within the
+following staff to be colored red, but in fact it results in two
+staves with the note heads remaining the default black in the lower
+staff.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead #'color = #red
+\new Staff { a }
+@end lilypond
+
+This is because a @code{Staff} context does not exist when the
+override is processed, so one is implicitly created and the override
+is applied to it, but then the @code{\new Staff} command creates
+another, separate, staff into which the notes are placed.  The
+correct code to color all note heads red is
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead #'color = #red
+  a
+}
+@end lilypond
+
+As a second example, if a @code{\relative} command is placed inside
+a @code{\repeat} command two staves result, the second offset from
+the first, because the @code{\repeat} command generates two
+@code{\relative} blocks, which each implicitly create @code{Staff}
+and @code{Voice} blocks.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 {
+  \relative c' { c d e f }
+}
+@end lilypond
+
+The correct way is to reverse the @code{\repeat} and
+@code{\relative} commands, like this:
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \repeat unfold 2 { c d e f }
+}
+@end lilypond
+
+
+@node Apparent error in ../ly/init.ly
+@unnumberedsubsec Apparent error in @code{../ly/init.ly}
+
+Various obscure error messages may appear about syntax errors in
+@code{../ly/init.ly} if the input file is not correctly formed,
+for example, if it does not contain correctly
+matched braces or quote signs.
+
+The most common error is a missing brace, (@code{@}}), at the end of
+a @code{score} block.  Here the solution is obvious: check the
+@code{score} block is correctly terminated.  The correct structure
+of an input file is described in @rlearning{How LilyPond input files work}.
+Using an editor which automatically highlights matching brackets and
+braces is helpful to avoid such errors.
+
+A second common cause is no white space between the last syllable
+of a lyrics block and the terminating brace, (@code{@}}).  Without
+this separation the brace is taken to be part of the syllable.  It
+is always advisable to ensure there is white space before and after
+@emph{every} brace.  For the importance of this when using lyrics,
+see @ruser{Lyrics explained}.
+
+This error message can also appear if a terminating quote sign,
+(@code{"}), is omitted.  In this case an accompanying error message
+@c keep "-matching straight in fancy editors
+should give a line number close to the line in error.  The
+mismatched quote will usually be on the line one or two above.
+
+@node Error message Unbound variable %
+@unnumberedsubsec Error message Unbound variable %
+
+This error message will appear at the bottom of the console
+output or log file together with a @qq{GUILE signalled an error ...}
+message every time a Scheme routine is called which (invalidly)
+contains a @emph{LilyPond} rather than a @emph{Scheme} comment.
+
+LilyPond comments begin with a percent sign, (@code{%}), and must
+not be used within Scheme routines.  Scheme comments begin with a
+semi-colon, (@code{;}).
+
+@node Error message FT_Get_Glyph_Name
+@unnumberedsubsec Error message FT_Get_Glyph_Name
+
+This error messages appears in the console output or log file if
+an input file contains a non-ASCII character and was not saved in
+UTF-8 encoding.  For details, see @ruser{Text encoding}.
+
+
+@node Point and click
+@section Point and click
+
+@cindex point and click
+
+Point and click lets you find notes in the input by clicking on them
+in the PDF viewer.  This makes it easier to find input that causes
+some error in the sheet music.
+
+When this functionality is active, LilyPond adds hyperlinks to the PDF
+file.  These hyperlinks are sent to the web-browser, which opens a
+text-editor with the cursor in the right place.
+
+To make this chain work, you should configure your PDF viewer to
+follow hyperlinks using the @file{lilypond-invoke-editor} script
+supplied with LilyPond.
+
+For Xpdf on UNIX, the following should be present in
+@file{xpdfrc}@footnote{On UNIX, this file is found either in
+@file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+The program @file{lilypond-invoke-editor} is a small helper
+program.  It will invoke an editor for the special @code{textedit}
+URIs, and run a web browser for others.  It tests the environment
+variable @code{EDITOR} for the following patterns,
+
+@table @code
+@item emacs
+  this will invoke
+@example
+emacsclient --no-wait +@var{line}:@var{column} @var{file}
+@end example
+@item vim
+  this will invoke
+@example
+gvim --remote +:@var{line}:norm@var{char} @var{file}
+@end example
+
+@item nedit
+this will invoke
+@example
+  nc -noask +@var{line} @var{file}'
+@end example
+@end table
+
+The environment variable @code{LYEDITOR} is used to override this.  It
+contains the command line to start the editor, where @code{%(file)s},
+@code{%(column)s}, @code{%(line)s} is replaced with the file, column
+and line respectively.  The  setting
+
+@example
+emacsclient --no-wait +%(line)s:%(column)s %(file)s
+@end example
+
+@noindent
+for @code{LYEDITOR} is equivalent to the standard emacsclient
+invocation.
+
+
+@cindex file size, output
+
+The point and click links enlarge the output files significantly.  For
+reducing the size of PDF and PS files, point and click may be switched
+off by issuing
+
+@example
+\pointAndClickOff
+@end example
+
+@noindent
+in a @file{.ly} file.  Point and click may be explicitly enabled with
+
+@example
+\pointAndClickOn
+@end example
+
+Alternately, you may disable point and click with a command-line
+option:
+
+@example
+lilypond -dno-point-and-click file.ly
+@end example
+
+@warning{You should always turn off point and click in any LilyPond
+files to be distributed to avoid including path information about
+your computer in the .pdf file, which can pose a security risk.}
+@node Text editor support
+@section Text editor support
+
+@cindex editors
+@cindex vim
+@cindex emacs
+@cindex modes, editor
+@cindex syntax coloring
+@cindex coloring, syntax
+
+There is support for different text editors for LilyPond.
+
+@menu
+* Emacs mode::                  
+* Vim mode::                    
+* Other editors::
+@end menu
+
+@node Emacs mode
+@unnumberedsubsec Emacs mode
+
+Emacs has a @file{lilypond-mode}, which provides keyword
+autocompletion, indentation, LilyPond specific parenthesis matching
+and syntax coloring, handy compile short-cuts and reading LilyPond
+manuals using Info.  If @file{lilypond-mode} is not installed on your
+platform, see below.
+
+An Emacs mode for entering music and running LilyPond is contained in
+the source archive in the @file{elisp} directory.  Do @command{make
+install} to install it to @var{elispdir}.  The file @file{lilypond-init.el}
+should be placed to @var{load-path}@file{/site-start.d/} or appended
+to your @file{~/.emacs} or @file{~/.emacs.el}.
+
+As a user, you may want add your source path (e.g. @file{~/site-lisp/}) to
+your @var{load-path} by appending the following line (as modified) to your
+@file{~/.emacs}
+
+@c any reason we do not advise:  (push "~/site-lisp" load-path)
+@example
+(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+@end example
+
+
+@node Vim mode
+@unnumberedsubsec Vim mode
+
+For @uref{http://@/www@/.vim@/.org,VIM}, a @file{vimrc} is supplied,
+along with syntax coloring tools.  A Vim mode for entering music and
+running LilyPond is contained in the source archive in @code{$VIM}
+directory.
+
+The LilyPond file type is detected if the file
+@file{~/.vim/filetype.vim} has the following content
+
+@example
+if exists("did_load_filetypes")
+  finish
+endif
+augroup filetypedetect
+  au! BufNewFile,BufRead *.ly,*.ily           setf lilypond
+augroup END
+@end example
+
+Please include this path by appending the following line to your
+@file{~/.vimrc}
+
+@example
+set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
+@end example
+
+@noindent
+where $@{LILYPOND_VERSION@} is your LilyPond version.  If LilyPond was not
+installed in @file{/usr/local/}, then change this path accordingly.
+
+
+@node Other editors
+@unnumberedsubsec Other editors
+
+Other editors (both text and graphical) support LilyPond, but
+their special configuration files are not distributed with
+LilyPond.  Consult their documentation for more information.  Such
+editors are listed in @rgeneral{Alternate editors}.
+

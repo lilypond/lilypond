@@ -9,7 +9,8 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = application automated-engraving contributor essay general learning notation
+MANUALS_SUBDIRS = usage automated-engraving contributor essay \
+  general learning notation extending
 SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
@@ -26,13 +27,11 @@ $(outdir)/snippets/index..html: TEXI2HTML_FLAGS += -D short_toc
 ### Extra source files
 
 README_TOP_FILES= DEDICATION THANKS
-LATEX_FILES =$(call src-wildcard,*.latex)
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 
-EXTRA_DIST_FILES = $(call src-wildcard,*.init) $(LATEX_FILES) \
-  search-box.html
+EXTRA_DIST_FILES = $(call src-wildcard,*.init) search-box.html
 
 ### Out files
 
@@ -70,12 +69,13 @@ source-links = $(outdir)/source\
 
 # Other out files
 
-HTML_PAGE_NAMES= index translations devel
+HTML_PAGE_NAMES= translations
 OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 MAIN_INFO_DOC = lilypond-notation
-INFO_DOCS = lilypond-application lilypond-changes lilypond-contributor lilypond-internals \
- lilypond-essay lilypond-learning lilypond-notation music-glossary lilypond
+INFO_DOCS = lilypond-usage lilypond-changes lilypond-contributor lilypond-internals \
+ lilypond-essay lilypond-learning lilypond-notation music-glossary \
+ lilypond-general lilypond-extending
 ifeq ($(out),www)
 INFO_DOCS += lilypond-snippets 
 endif
@@ -94,6 +94,10 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 $(outdir)/general/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
 $(outdir)/general/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
+
+OUT_HTML_FILES += $(outdir)/index.html
+$(outdir)/index.html: $(outdir)/general/index.html
+	mv $(outdir)/general/* $(outdir)/
 
 ###########
 ### Targets
@@ -145,9 +149,6 @@ endif
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
-$(outdir)/lilypond.info: $(src-dir)/general.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
-	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
-
 # cd $(outdir) rule gets bit hairy for --srcdir configure builds
 txt-to-html:
 	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
@@ -165,9 +166,7 @@ $(outdir)/general.texi: $(outdir)/examples
 
 $(outdir)/examples:
 	$(MAKE) -C general/examples
-# FIXME: who is replacing src="examples --> src="../examples" ?
-# [ugh, why do most scripts not even say they run anymore?]
-	ln -sf general/examples $@
+	ln -sf ../general/examples/$(outdir) $@
 endif
 
 # Ugh, using '%' twice not possible
@@ -265,11 +264,10 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 #TRANSLATION_DIRS = $(shell git ls-files $(ISOLANG) | $(PYTHON) $(buildscript-dir)/pytt.py '/[^/]*$$' / | sort -u )
-TRANSLATION_DIRS = application general learning notation texidocs
+TRANSLATION_DIRS = general learning notation texidocs usage
 TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
 EXTRA_TRANSLATION_FILES =\
  dedication.itely\
- index.html.in\
  common-macros.itexi\
  macros.itexi\
  translations.html.in\

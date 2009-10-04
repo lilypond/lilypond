@@ -377,32 +377,9 @@ account.
 @node Help us
 @unnumberedsec Help us
 
-FIXME: before going live, rewrite this to apply to lilypond
-generally.  Right now it's (deliberately) website-specific.
-
-@subheading This document
-
-@subsubheading High priority / blocks release
-
-- Features page.
-
-- python: automatically insert latest version numbers into these
-  pages.  Script already exists for the old website, but might
-  (or might not!) require tweaking.
-
-- translation infrastructure.
-
-@subsubheading Low priority / may never
-
-- perl: web-texi2html.pl needs to be un-hacked; I did things
-  really messily.  Possibly even merge/share functions with
-  the doc init.pl file?
-
-- somebody to implement/work on a media=handheld CSS sheet
-
-- remove the attributes from the <body> tag.  In general, clean up
-  the HTML produced by texi2html
-
+TODO: talk about the Frogs, document suggestions, encourage getting
+involved, etc.  Maybe mention GLISS and GOP, if those are happening
+in the near future.
 
 
 @node Development
@@ -410,7 +387,7 @@ generally.  Right now it's (deliberately) website-specific.
 
 
 @divClass{heading-center}
-@heading Development materials for LilyPond 2.13.3
+@heading Development materials for LilyPond @versionDevel{}
 
 @warning{These are @emph{unstable development} versions.  If you
 have the slightest doubt about how to use or install LilyPond, we
@@ -434,32 +411,34 @@ Development versions have an odd-numbered @q{minor} version number
 @divClass{column-left-bottom}
 @subheading Download
 
-@uref{http://download.linuxaudio.org/lilypond/binaries/linux-x86/lilypond-2.13.3-1.linux-x86.sh,
-lilypond-2.13.3-1.linux-x86.sh}
+Instructions for git and compiling are in the Contributor's Guide.
 
-@uref{http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.13.3-1.linux-64.sh,
-lilypond-2.13.3-1.linux-64.sh}
+@quotation
+@uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git repository}
+@end quotation
 
-@uref{http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-2.13.3-1.linux-ppc.sh,
-lilypond-2.13.3-1.linux-ppc.sh}
+Documentation writers and testers will generally want to download
+the latest binary:
 
-@uref{http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-2.13.3-1.freebsd-x86.sh,
-lilypond-2.13.3-1.freebsd-x86.sh}
+@quotation
 
-@uref{http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-2.13.3-1.freebsd-64.sh,
-lilypond-2.13.3-1.freebsd-64.sh}
+@downloadDevelLinuxNormal
 
-@uref{
-http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.13.3-1.darwin-x86.tar.bz2,
-lilypond-2.13.3-1.darwin-x86.tar.bz2}
+@downloadDevelLinuxBig
 
-@uref{
-http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.13.3-1.darwin-ppc.tar.bz2,
-lilypond-2.13.3-1.darwin-ppc.tar.bz2}
+@downloadDevelLinuxPPC
 
-@uref{
-http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.13.3-1.mingw.exe,
-lilypond-2.13.3-1.mingw-exe}
+@downloadDevelFreeBSDNormal
+
+@downloadDevelFreeBSDBig
+
+@downloadDevelDarwinNormal
+
+@downloadDevelDarwinPPC
+
+@downloadDevelWindows
+
+@end quotation
 
 
 @subheading Manuals
@@ -522,15 +501,15 @@ have written a manual for contributors.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../contributor/index.html, Contributor's guide (split HTML)}:
+@item @uref{contributor/index.html, Contributor's guide (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../contributor-big-page.html, Contributor's guide (big HTML)}:
+@item @uref{contributor-big-page.html, Contributor's guide (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../contributor.pdf, contributor.pdf}:
+@item @uref{contributor.pdf, contributor.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -547,14 +526,14 @@ GNU info format for documentation.  FIXME, link broken.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../../input/regression/collated-files.html, Regression tests}:
+@item @uref{../input/regression/collated-files.html, Regression tests}:
 This releases' tests.  (also in
-@uref{../../input/regression/collated-files.pdf, pdf})
+@uref{../input/regression/collated-files.pdf, pdf})
 
-@item @uref{../../input/regression/musicxml/collated-files.html,
+@item @uref{../input/regression/musicxml/collated-files.html,
 MusicXML Regression tests}:
 This releases' MusicXML tests.  (also in
-@uref{../../input/regression/musicxml/collated-files.pdf, pdf})
+@uref{../input/regression/musicxml/collated-files.pdf, pdf})
 
 @item @uref{http://lilypond.org/test, Archive of regression tests}:
 Comparisons beteween versions.
@@ -632,12 +611,6 @@ http://lilypond.org/web/switch/
 @itemize
 
 @item
-Han-Wen Nienhuys and Jan Nieuwenhuizen, @emph{LilyPond, a system
-for automated music engraving}.  Proceedings of the XIV Colloquium
-on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
-(@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
-
-@item
 Han-Wen Nienhuys, @emph{LilyPond, Automated music formatting and
 the Art of Shipping}.  Forum Internacional Software Livre 2006
 (FISL7.0) (@uref{http://lilypond.org/web/images/FISL7-slides.pdf,
@@ -649,6 +622,12 @@ GNU Lilypond}. Master's Thesis, Uppsala University, Department of
 Information Technology March 2006.
 (@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
 PDF 750k}) 
+
+@item
+Han-Wen Nienhuys and Jan Nieuwenhuizen, @emph{LilyPond, a system
+for automated music engraving}.  Proceedings of the XIV Colloquium
+on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
+(@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
 
 @end itemize
 
@@ -664,6 +643,14 @@ PDF 750k})
 @itemize
 
 @item
+September 2009
+
+The German LinuxUser magazine wrote an
+@uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+article about lilypond}.
+
+
+@item
 February 2008
 
 In @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
@@ -676,7 +663,7 @@ including comparisons with a reference hand-engraved edition.
 @item
 December 2005
 
-linux journal cover Linux Journal publishes an article titled
+Linux journal cover Linux Journal publishes an article titled
 @uref{http://www.linuxjournal.com/article/8364, Make Stunning
 Schenker Graphs with GNU LilyPond}.  It is a in-depth but hands-on
 feature article with crisp LilyPond graphics.  Author Kris Shaffer

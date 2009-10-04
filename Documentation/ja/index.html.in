@@ -82,9 +82,9 @@ href="internals/index.ja.html">内部リファレンス</a>
 	  <ul>
               <li>
 	    <a class="title"
-href="application/index.ja.html">アプリケーション使用方法</a>
-(<a class="title" href="application-big-page.ja.html">大きな 1 ページ</a> 形式)<!--,
-<a class="title" href="application.ja.pdf">PDF</a> 形式)
+href="usage/index.ja.html">アプリケーション使用方法</a>
+(<a class="title" href="usage-big-page.ja.html">大きな 1 ページ</a> 形式)<!--,
+<a class="title" href="usage.ja.pdf">PDF</a> 形式)
 -->
             <br>(プログラムをインストールして実行する方法)</li>
 

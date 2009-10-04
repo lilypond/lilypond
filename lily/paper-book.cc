@@ -63,7 +63,7 @@ Paper_book::mark_smob (SCM smob)
 }
 
 int
-Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
+Paper_book::print_smob (SCM smob, SCM port, scm_print_state *)
 {
   Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
   (void)b;
@@ -157,14 +157,26 @@ Paper_book::output_aux (SCM output_channel,
 void
 Paper_book::output (SCM output_channel)
 {
-  int first_page_number = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
+  int first_page_number
+    = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
   int first_performance_number = 0;
+
+  /* FIXME: We need a line-width for ps output (framework-ps.scm:92).
+     If we don't have any, we take the paper-width unless we know
+     better which line-width to choose (e.g. if there are \bookparts
+     with different line-widths) and why we need it at all.
+  */
+
+  if (paper_->c_variable ("line-width") == SCM_UNDEFINED)
+    paper_->set_variable (ly_symbol2scm ("line-width"),
+			  paper_->c_variable ("paper-width"));
+ 
   if (!output_aux (output_channel,
 		   true,
 		   &first_page_number,
 		   &first_performance_number))
     return;
-      
+
   SCM scopes = SCM_EOL;
   if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
@@ -175,7 +187,8 @@ Paper_book::output (SCM output_channel)
 
   if (get_program_option ("print-pages"))
     {
-      SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-framework"));
+      SCM framework = ly_module_lookup (mod,
+					ly_symbol2scm ("output-framework"));
 
       if (framework != SCM_BOOL_F)
 	{
@@ -193,7 +206,8 @@ Paper_book::output (SCM output_channel)
 
   if (get_program_option ("preview"))
     {
-      SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
+      SCM framework
+	= ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
 
       if (framework != SCM_BOOL_F)
 	{
@@ -315,12 +329,12 @@ Paper_book::score_title (SCM header)
 void
 set_page_permission (SCM sys, SCM symbol, SCM permission)
 {
-  if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (sys)))
+  if (Paper_score *ps = dynamic_cast<Paper_score *> (unsmob_music_output (sys)))
     {
-      vector<Grob*> cols = ps->get_columns ();
+      vector<Grob *> cols = ps->get_columns ();
       if (cols.size ())
 	{
-	  Paper_column *col = dynamic_cast<Paper_column*> (cols.back ());
+	  Paper_column *col = dynamic_cast<Paper_column *> (cols.back ());
 	  col->set_property (symbol, permission);
 	  col->find_prebroken_piece (LEFT)->set_property (symbol, permission);
 	}
@@ -350,7 +364,8 @@ set_system_penalty (SCM sys, SCM header)
 				   ly_symbol2scm ("force"));
 	    }
 	  else
-	    set_page_permission (sys, ly_symbol2scm ("page-break-permission"), SCM_EOL);
+	    set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
+				 SCM_EOL);
 	}
     }
 }
@@ -358,16 +373,17 @@ set_system_penalty (SCM sys, SCM header)
 void
 set_labels (SCM sys, SCM labels)
 {
-  if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (sys)))
+  if (Paper_score *ps = dynamic_cast<Paper_score *> (unsmob_music_output (sys)))
     {
       vector<Grob*> cols = ps->get_columns ();
       if (cols.size ())
 	{
-	  Paper_column *col = dynamic_cast<Paper_column*> (cols[0]);
+	  Paper_column *col = dynamic_cast<Paper_column *> (cols[0]);
 	  col->set_property ("labels", 
 			     scm_append_x (scm_list_2 (col->get_property ("labels"),
 						       labels)));
-	  Paper_column *col_right = dynamic_cast<Paper_column*> (col->find_prebroken_piece (RIGHT));
+	  Paper_column *col_right
+	    = dynamic_cast<Paper_column *> (col->find_prebroken_piece (RIGHT));
 	  col_right->set_property ("labels", 
 				   scm_append_x (scm_list_2 (col_right->get_property ("labels"),
 							     labels)));
@@ -391,7 +407,8 @@ Paper_book::get_score_title (SCM header)
 	TODO: this should come from the \layout {} block, which should
 	override settings from \paper {}
       */
-      SCM props = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
+      SCM props
+	= paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
 
@@ -406,14 +423,15 @@ SCM
 Paper_book::get_system_specs ()
 {
   SCM system_specs = SCM_EOL;
-  
+
   Stencil title = book_title ();
   if (!title.is_empty ())
     {
-      SCM props = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
+      SCM props
+	= paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
-      
+
       system_specs = scm_cons (ps->self_scm (), system_specs);
       ps->unprotect ();
     }
@@ -492,9 +510,11 @@ Paper_book::get_system_specs ()
 	      SCM t = scm_car (list);
 	      // TODO: init props
 	      Prob *ps = make_paper_system (SCM_EOL);
-	      ps->set_property ("page-break-permission", ly_symbol2scm ("allow"));
-	      ps->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
-	      
+	      ps->set_property ("page-break-permission",
+				ly_symbol2scm ("allow"));
+	      ps->set_property ("page-turn-permission",
+				ly_symbol2scm ("allow"));
+
 	      paper_system_set_stencil (ps, *unsmob_stencil (t));
 	      ps->set_property ("is-title", SCM_BOOL_T); 
 	      if (scm_is_pair (scm_cdr (list)))
@@ -508,7 +528,7 @@ Paper_book::get_system_specs ()
 		}
 	      system_specs = scm_cons (ps->self_scm (), system_specs);
 	      ps->unprotect ();
-	      
+
 	      if (scm_is_pair (labels))
 		{
 		  set_labels (scm_car (system_specs), labels);
@@ -537,16 +557,20 @@ Paper_book::systems ()
     {
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
 	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
-	  systems_ = scm_append_x (scm_list_2 (systems_, pbookpart->systems ()));
+	  systems_ = scm_append_x (scm_list_2 (systems_,
+					       pbookpart->systems ()));
     }
   else
     {
       SCM specs = get_system_specs ();
       for (SCM s = specs; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  if (Paper_score *pscore = dynamic_cast<Paper_score*> (unsmob_music_output (scm_car (s))))
+	  if (Paper_score *pscore
+	      = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
 	    {
-	      SCM system_list = scm_vector_to_list (pscore->get_paper_systems ());
+	      SCM system_list
+		= scm_vector_to_list (pscore->get_paper_systems ());
+
 	      system_list = scm_reverse (system_list);
 	      systems_ = scm_append (scm_list_2 (system_list, systems_));
 	    }
@@ -564,7 +588,7 @@ Paper_book::systems ()
 	{
 	  Prob *ps = unsmob_prob (scm_car (s));
 	  ps->set_property ("number", scm_from_int (++i));
-	  
+
 	  if (last
 	      && to_boolean (last->get_property ("is-title"))
 	      && !scm_is_number (ps->get_property ("penalty")))

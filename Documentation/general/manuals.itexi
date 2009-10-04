@@ -50,12 +50,12 @@ aesthetics of 19th century music engraving.
 the main portion of the documentation; provides detailed
 information about creating notation.
 
-@item @ref{Snippets}:
-short tricks, tips, and examples.
-
 @item @ref{Usage}:
 discusses the actual programs and operating system-specific
 issues.
+
+@item @ref{Snippets}:
+short tricks, tips, and examples.
 
 @end itemize
 
@@ -72,6 +72,9 @@ links to the answers of Frequently Asked Questions.
 
 @item @ref{Changes}:
 updates since the last major version.
+
+@item @ref{Extend}:
+programming fancy tweaks in lilypond.
 
 @item @ref{Internals}:
 information about LilyPond's internal structures, which is
@@ -115,6 +118,7 @@ License.
 * Snippets::                Snippets.
 * FAQ::                         FAQ.
 * Changes::                     NEWS.
+* Extend::         Programming.
 * Internals::         Internals.
 * Translated::          Translation.
 * All::                 All manuals.
@@ -162,15 +166,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../learning/index.html, Learning (split HTML)}:
+@item @uref{learning/index.html, Learning (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../learning-big-page.html, Learning (big HTML)}:
+@item @uref{learning-big-page.html, Learning (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../learning.pdf, learning.pdf}:
+@item @uref{learning.pdf, learning.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -186,7 +190,7 @@ GNU info format for documentation.  FIXME, link broken.
 @unnumberedsec Glossary
 
 @divClass{column-left-top}
-@subheading Glossay
+@subheading Glossary
 
 This explains musical terms, and includes translations to various
 languages.  If you are not familiar with music notation or music
@@ -200,8 +204,7 @@ it is highly advisable to consult the glossary.
 
 @itemize
 
-@item
-@rglosnamed{Top,Music glossary}:
+@item @rglosnamed{Top,Music glossary}:
 read this manual in the same format as this one.
 
 @end itemize
@@ -213,15 +216,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../glossary/index.html, Glossary (split HTML)}:
+@item @uref{music-glossary/index.html, Glossary (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../glossary-big-page.html, Glossay (big HTML)}:
+@item @uref{music-glossary-big-page.html, Glossay (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../glossary.pdf, glossary.pdf}:
+@item @uref{music-glossary.pdf, glossary.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -243,6 +246,9 @@ This book gives a brief history of music typography, followed by
 an examination of LilyPond's engraving techniques.  A comparison
 between LilyPond and other music engraving systems is given.
 
+@warning{The detailed typographical examples are easier to analyze
+in the PDF version due to its higher resolution.}
+
 @divEnd
 
 @divClass{column-right-top}
@@ -262,15 +268,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../essay/index.html, Essay (split HTML)}:
+@item @uref{essay/index.html, Essay (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../essay-big-page.html, Essay (big HTML)}:
+@item @uref{essay-big-page.html, Essay (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around FIXME? Mb)}
 
-@item @uref{../essay.pdf, essay.pdf}:
+@item @uref{essay.pdf, essay.pdf}:
 download as a PDF file.
 @emph{(large single download, FIXME? Mb)}
 
@@ -291,9 +297,10 @@ GNU info format for documentation.  FIXME, link broken.
 This book explains all the LilyPond commands which produce
 notation.
 
-@warning{The Notation assumes that the reader knows
-basic material covered in the Learning and is familiar with
+@warning{The Notation reference assumes that the reader knows
+basic material covered in the Learning manual and is familiar with
 the English musical terms presented in the Musical Glossary.}
+
 @divEnd
 
 @divClass{column-right-top}
@@ -313,15 +320,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../notation/index.html, Notation (split HTML)}:
+@item @uref{notation/index.html, Notation (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../notation-big-page.html, Notation (big HTML)}:
+@item @uref{notation-big-page.html, Notation (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../notation.pdf, notation.pdf}:
+@item @uref{notation.pdf, notation.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -337,7 +344,7 @@ GNU info format for documentation.  FIXME, link broken.
 @unnumberedsec Usage
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Usage manual
 
 This book explains how to execute the programs, how to integrate
 LilyPond notation with other programs, and suggests @qq{best
@@ -362,19 +369,19 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../application/index.html, Usage (split HTML)}:
+@item @uref{usage/index.html, Usage (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../application-big-page.html, Usage (big HTML)}:
+@item @uref{usage-big-page.html, Usage (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../application.pdf, application.pdf}:
+@item @uref{usage.pdf, usage.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, application.info}:
+@item @uref{FIXME, lilypond-usage.info}:
 GNU info format for documentation.  FIXME, link broken.
 
 @end itemize
@@ -386,7 +393,7 @@ GNU info format for documentation.  FIXME, link broken.
 @unnumberedsec Snippets
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Snippets
 
 This shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
@@ -419,15 +426,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../snippets/index.html, Snippets (split HTML)}:
+@item @uref{snippets/index.html, Snippets (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../snippets-big-page.html, Snippets (big HTML)}:
+@item @uref{snippets-big-page.html, Snippets (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../snippets.pdf, snippets.pdf}:
+@item @uref{snippets.pdf, snippets.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -470,12 +477,12 @@ LilyPond are given in the @ref{Introduction}.
 
 @subsubheading Something isn't working!  How do I fix it?
 
-This is explained in @@ref@{FIXME LM or AU x.y@}.
+This is explained in @rprogram{Troubleshooting}.
 
 
 @subsubheading Why do you change the syntax?
 
-This is explained in @@ref@{FIXME AU x.y@}.
+This is explained in @rprogram{Why does the syntax change?}.
 
 @divEnd
 
@@ -484,7 +491,7 @@ This is explained in @@ref@{FIXME AU x.y@}.
 @unnumberedsec Changes
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Changes
 
 This is a summary of important changes and new features in
 LilyPond since the previous stable version.
@@ -510,18 +517,18 @@ read this manual in the same format as this one.
 
 @c Changes isn't available as a split manual.
 @c  (maybe it should be, but it isn't so far)
-@c @item @uref{../changes/index.html, Changes (split HTML)}:
+@c @item @uref{changes/index.html, Changes (split HTML)}:
 @c the manual is split between many HTML pages.
 @c @emph{(small download for each page)}
 
-@c @item @uref{../changes-big-page.html, Changes (big HTML)}:
+@c @item @uref{changes-big-page.html, Changes (big HTML)}:
 @c read this manual as one huge HTML page.
 @c @emph{(large single download, around 10? Mb)}
 
-@item @uref{../changes.html, Changes}:
+@item @uref{changes.html, Changes}:
 read this manual as a HTML page.
 
-@item @uref{../changes.pdf, changes.pdf}:
+@item @uref{changes.pdf, changes.pdf}:
 download as a PDF file.
 @emph{(small single download, 0.5 ?? Mb)}
 
@@ -533,12 +540,58 @@ GNU info format for documentation.  FIXME, link broken.
 @divEnd
 
 
+@node Extend
+@unnumberedsec Extend
+
+@divClass{column-left-top}
+@subheading Extend LilyPond
+
+This manual explains how to write extensions to LilyPond.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item @rextendnamed{Top,Extend}: 
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{extending/index.html, Extend (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{extending-big-page.html, Extend (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{extending.pdf, extending.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, extending.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
 
 @node Internals
 @unnumberedsec Internals
 
 @divClass{column-left-top}
-@subheading Learning manual
+@subheading Internals reference
 
 This is a set of heavily cross linked HTML pages which document
 the nitty-gritty details of each and every LilyPond class, object,
@@ -573,15 +626,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../internals/index.html, Internals (split HTML)}:
+@item @uref{internals/index.html, Internals (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{../internals-big-page.html, Internals (big HTML)}:
+@item @uref{internals-big-page.html, Internals (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{../internals.pdf, internals.pdf}:
+@item @uref{internals.pdf, internals.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -602,7 +655,7 @@ GNU info format for documentation.  FIXME, link broken.
 
 TODO: clean up / prettify
 
-@uref{../translations.html}.
+@uref{translations.html}.
 
 @divEnd
 

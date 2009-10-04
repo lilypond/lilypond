@@ -1116,6 +1116,17 @@ class LilypondSnippet (Snippet):
         if not INDENT in self.option_dict:
             self.option_dict[INDENT] = '0\\mm'
 
+        # Set a default line-width if there is none. We need this, because
+        # lilypond-book has set left-padding by default and therefore does
+        # #(define line-width (- line-width (* 3 mm)))
+        # TODO: Junk this ugly hack if the code gets rewritten to concatenate
+        # all settings before writing them in the \paper block.
+        if not LINE_WIDTH in self.option_dict:
+            if not QUOTE in self.option_dict:
+                if not LILYQUOTE in self.option_dict:
+                    self.option_dict[LINE_WIDTH] = "#(- paper-width \
+left-margin-default right-margin-default)"
+
     def compose_ly (self, code):
         if FRAGMENT in self.option_dict:
             body = FRAGMENT_LY
@@ -1227,7 +1238,9 @@ class LilypondSnippet (Snippet):
             except ImportError:
                 from md5 import md5
 
-            hash = md5 (self.relevant_contents (self.full_ly ()))
+            # We only want to calculate the hash based
+            # on the snippet code, not the snippet + preamble
+            hash = md5 (self.relevant_contents (self.ly ()))
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
@@ -1743,17 +1756,17 @@ def get_latex_textwidth (source):
     os.unlink (logfile)
 
     columns = 0
-    m = re.search ('columns=([0-9.]*)', parameter_string)
+    m = re.search ('columns=([0-9.]+)', parameter_string)
     if m:
         columns = int (m.group (1))
 
     columnsep = 0
-    m = re.search ('columnsep=([0-9.]*)pt', parameter_string)
+    m = re.search ('columnsep=([0-9.]+)pt', parameter_string)
     if m:
         columnsep = float (m.group (1))
 
     textwidth = 0
-    m = re.search ('textwidth=([0-9.]*)pt', parameter_string)
+    m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
     if m:
         textwidth = float (m.group (1))
         if columns:

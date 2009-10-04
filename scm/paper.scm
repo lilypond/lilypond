@@ -16,6 +16,7 @@
 		    indent
 		    ledger-line-thickness
 		    left-margin
+                    left-margin-default
 		    line-thickness
 		    line-width
 		    mm
@@ -23,6 +24,7 @@
 		    paper-width
 		    pt
 		    right-margin
+                    right-margin-default
 		    short-indent
 		    staff-height
 		    staff-space
@@ -207,23 +209,17 @@ size. SZ is in points"
     ("f4" . (cons (* 210 mm) (* 330 mm)))
    ))
 
-;; todo: take dimension arguments.
+; todo: take dimension arguments.
 
 (define (set-paper-dimensions m w h)
   "M is a module (i.e. layout->scope_ )"
-  (let* ((mm (eval 'mm m)))
+  (begin
+    ;; page layout - what to do with (printer specific!) margin settings?
     (module-define! m 'paper-width w)
     (module-define! m 'paper-height h)
-    (module-define! m 'line-width (- w
-				     (ly:modules-lookup (list m) 'left-margin (* 10 mm))
-				     (ly:modules-lookup (list m) 'right-margin (* 10 mm))))
-
     (module-define! m 'indent (/ w 14))
-    (module-define! m 'short-indent 0)
-
-    ;; page layout - what to do with (printer specific!) margin settings?
-
-    ))
+    (module-define! m 'short-indent 0))
+    (module-remove! m 'line-width))
 
 (define (internal-set-paper-size module name landscape?)
   (define (swap x)

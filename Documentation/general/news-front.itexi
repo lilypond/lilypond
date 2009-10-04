@@ -1,0 +1,26 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond-general.texi and community.itexi
+
+@c when you add a new item, consider moving the lowest item(s)
+@c into news-old.itexi.
+
+@newsItem
+@subsubheading New Website!  @emph{October 3, 2009}
+
+As you can see, we have a new website design.  Many thanks to
+texi2html and CSS for being so flexible!
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond Report #16.  @emph{September 6, 2009}
+
+The LilyPond Report is back! This short, informal opinion column is
+about the LilyPond project: its team, its world, its community.
+Read @uref{http://news.lilynet.net/The-LilyPond-Report-16, issue 16}
+now!
+
+@newsEnd
+
+

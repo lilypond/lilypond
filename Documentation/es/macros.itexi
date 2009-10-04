@@ -27,9 +27,15 @@
 @ifhtml
 
 @macro warning{TEXT}
-@cartouche
-@b{Nota:} \TEXT\
-@end cartouche
+@html
+<div class="warning">
+@end html
+@strong{Nota:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
 @end macro
 
 @end ifhtml
@@ -162,12 +168,12 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application-big-page,Utilización del Programa}
+@ref{\TEXT\,,,usage-big-page,Utilización del Programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application-big-page,Utilización del Programa}
+@ref{\TEXT\,,\DISPLAY\,usage-big-page,Utilización del Programa}
 @end macro
 
 @macro rlsr{TEXT}
@@ -227,12 +233,12 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,application,Utilización del Programa}
+@ref{\TEXT\,,,usage,Utilización del Programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,application,Utilización del Programa}
+@ref{\TEXT\,,\DISPLAY\,usage,Utilización del Programa}
 @end macro
 
 @macro rlsr{TEXT}
@@ -269,7 +275,7 @@
 @c delimits arguments in the standard way (i.e., with braces).
 
 @tex
-\gdef\lilyvindex#1{\doind{vr}{\code #1}\ignorespaces}
+\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
 @end tex
 
 @macro rglos{TEXT}
@@ -304,12 +310,12 @@
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,application.es,Utilización del Programa}
+@ref{\TEXT\,,,usage.es,Utilización del Programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,application.es,Utilización del Programa}
+@ref{\TEXT\,,\DISPLAY\,usage.es,Utilización del Programa}
 @end macro
 
 @macro rlsr{TEXT}

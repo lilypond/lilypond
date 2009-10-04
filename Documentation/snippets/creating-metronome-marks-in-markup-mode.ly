@@ -22,6 +22,15 @@ aber sie ändern nicht das Tempo für die MIDI-Ausgabe.
 "
 
   doctitlede = "Eine Metronombezeichnung als Textbeschriftung erstellen"
+%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+  texidocfr = "
+Vous pouvez créer des indications de tempo sous la forme d'étiquettes
+textuelles -- des objets @code{markup} -- notamment des équivalences.
+Cependant, elles n'apparaîtront pas dans le fichier MIDI.
+
+"
+  doctitlefr = "Création d'une indication métronomique sous forme d'étiquette"
+
 
   texidoc = "
 New metronome marks can be created in markup mode, but they will not

@@ -1,0 +1,84 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
+@c This file is part of usage.tely
+@ignore
+    Translation of GIT committish: 1b3da70d81938d19a2b107382bbe25a267cf130b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@setfilename lilypond-usage.info
+@settitle GNU LilyPond Application usage
+@documentencoding UTF-8
+@documentlanguage nl
+@include macros.itexi
+@afourpaper
+@c don't remove this comment.
+@ifnottex
+@node Top
+@top GNU LilyPond --- Application Usage
+
+@untranslated
+
+
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+@end ifnottex
+@c This produces the unified index
+@finalout
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Program usage}
+@author The LilyPond development team
+@quotation
+@end quotation
+@vskip 20pt
+@end titlepage
+@copying
+@quotation
+@end quotation
+@end copying
+@ifnottex
+@quotation
+@end quotation
+@end ifnottex
+@ifnottex
+@c @rlearning{About the documentation}.
+@c index web site
+@c index URL
+@c * Install::                        How to install or compile.
+@c * Setup::                          Using LilyPond with other programs.
+@c maybe add a "Tasks" or "Specific tasks" or something like
+@c that, after Suggestions  -gp
+@menu
+* Running lilypond::
+* Updating files with convert-ly::
+* lilypond-book::
+* Converting from other formats::
+* Working on LilyPond projects::
+* Suggestions for writing files::
+* GNU Free Documentation License::
+* LilyPond index::
+@end menu
+
+@end ifnottex
+@contents
+@c @include usage/install.itely
+@c @include usage/setup.itely
+@include usage/running.itely
+@include usage/updating.itely
+@include usage/lilypond-book.itely
+@include usage/converters.itely
+@include usage/working.itely
+@include usage/suggestions.itely
+@include fdl.itexi
+@node LilyPond index
+@appendix LilyPond index
+
+@untranslated
+
+
+@bye
+
+@c -- SKELETON FILE --

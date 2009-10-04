@@ -9,7 +9,7 @@
 
 \version "2.12.0"
 
-\include "../../input/typography-demo.ly"
+\include "typography-demo.ly"
 %\book { \score { {c4 } } }
 
 #(define (prop-stats>?  x y)

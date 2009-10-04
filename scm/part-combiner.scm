@@ -186,36 +186,44 @@ Voice-state objects
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-public (recording-group-emulate music odef)
-  "Interprets music according to odef, but stores all events in a chronological list, similar to the Recording_group_engraver in 2.8 and earlier"
+  "Interprets music according to odef, but stores all events in a chronological
+list, similar to the Recording_group_engraver in 2.8 and earlier"
   (let*
-      ((context-list '())
-       (now-mom (ly:make-moment 0 0))
-       (global (ly:make-global-context odef))
-       (mom-listener (ly:make-listener
-		      (lambda (tev)
-			(set! now-mom (ly:event-property tev 'moment)))))
-       (new-context-listener
-	(ly:make-listener
-	 (lambda (sev)
-	     (let*
-		 ((child (ly:event-property sev 'context))
-		  (this-moment-list
-		   (cons (ly:context-id child) '()))
-		  (dummy
-		   (set! context-list (cons this-moment-list context-list)))
-		  (acc '())
-		  (accumulate-event-listener
-		   (ly:make-listener (lambda (ev)
-				       (set! acc (cons (cons ev #t) acc)))))
-		  (save-acc-listener (ly:make-listener (lambda (tev)
-							 (if (pair? acc)
-							     (let ((this-moment (cons (cons now-mom (ly:context-property child 'instrumentTransposition))
-										      acc)))
-							       (set-cdr! this-moment-list (cons this-moment (cdr this-moment-list)))
-							       (set! acc '())))))))
-	       (ly:add-listener accumulate-event-listener (ly:context-event-source child) 'music-event)
-	       (ly:add-listener save-acc-listener (ly:context-event-source global) 'OneTimeStep))))))
-    (ly:add-listener new-context-listener (ly:context-events-below global) 'AnnounceNewContext)
+     ((context-list '())
+      (now-mom (ly:make-moment 0 0))
+      (global (ly:make-global-context odef))
+      (mom-listener (ly:make-listener
+             (lambda (tev) (set! now-mom (ly:event-property tev 'moment)))))
+      (new-context-listener
+       (ly:make-listener
+        (lambda (sev)
+          (let*
+             ((child (ly:event-property sev 'context))
+              (this-moment-list (cons (ly:context-id child) '()))
+              (dummy (set! context-list (cons this-moment-list context-list)))
+              (acc '())
+              (accumulate-event-listener
+                  (ly:make-listener (lambda (ev)
+                                       (set! acc (cons (cons ev #t) acc)))))
+              (save-acc-listener
+                  (ly:make-listener (lambda (tev)
+                      (if (pair? acc)
+                        (let ((this-moment
+                              (cons (cons now-mom
+                                (ly:context-property child 'instrumentTransposition))
+                                ;; The accumulate-event-listener above creates
+                                ;; the list of events in reverse order, so we
+                                ;; have to revert it to the original order again
+                                (reverse acc))))
+                          (set-cdr! this-moment-list
+                                (cons this-moment (cdr this-moment-list)))
+                          (set! acc '())))))))
+            (ly:add-listener accumulate-event-listener
+                (ly:context-event-source child) 'StreamEvent)
+            (ly:add-listener save-acc-listener
+                (ly:context-event-source global) 'OneTimeStep))))))
+    (ly:add-listener new-context-listener
+        (ly:context-events-below global) 'AnnounceNewContext)
     (ly:add-listener mom-listener (ly:context-event-source global) 'Prepare)
     (ly:interpret-music-expression (make-non-relative-music music) global)
     context-list))

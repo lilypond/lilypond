@@ -177,12 +177,8 @@ make -f lilypond.make update-versions
 @end example
 
 @item
-Download
-@uref{http://lilypond.org/download/binaries/test-output/lilypond-2.13.0-0.test-output.tar.bz2,lilypond-2.13.0-0.test-output.tar.bz2}
-
-@item 
-Copy / move / link it to uploads, but rename it to
-@file{lilypond-2-13.test-output.tar.bz2}
+If you do not have the previous release test-output tarball, download
+it and put it in @code{uploads/}
 
 @item
 Run:
@@ -197,7 +193,7 @@ To upload:
 
 @itemize
 
-@item remove the "t" from the rsync command in test-lily/rsync-lily-doc.py
+@item Remove the "t" from the rsync command in test-lily/rsync-lily-doc.py
 
 @item run:
 
@@ -213,7 +209,7 @@ python test-lily/upload.py --branch=master --url git://git.sv.gnu.org/lilypond.g
 @itemize
 
 @item
-Build with GUB, and check the regtests.
+Build with GUB, and if it's a stable release, check the regtests.
 
 @item
 Upload the tarballs and sh scripts.

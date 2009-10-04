@@ -16,6 +16,6 @@ local-test:
 		echo -e '\n\n\n' ; \
 		(cd $(top-src-dir) && git diff ) ; \
 	fi > $(outdir)/tree.gittxt
-	$(MAKE) LILYPOND_BOOK_LILYPOND_FLAGS="-dbackend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-lily-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= $(outdir)/collated-files.html LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb
+	$(MAKE) LILYPOND_BOOK_LILYPOND_FLAGS="-dbackend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-lily-fonts --header=texidoc -I $(top-src-dir)/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= $(outdir)/collated-files.html LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb
 	rsync -L -a --exclude 'out-*' --exclude 'out' --exclude mf --exclude source --exclude mf $(top-build-dir)/out/share $(outdir)
 

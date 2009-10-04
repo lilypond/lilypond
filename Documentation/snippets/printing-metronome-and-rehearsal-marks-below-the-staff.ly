@@ -27,6 +27,16 @@ von @code{MetronomeMark} oder @code{RehearsalMark} entsprechend verändert werde
 
 "
   doctitlede = "Metronom- und Übungszeichen unter das System setzen"
+%% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
+  texidocfr = "
+Les indications de tempo et les marques de repère s'impriment par défaut
+au-dessus de la portée.  Le fait de régler en conséquence la propriété
+@code{direction} des objets @code{MetronomeMark} ou @code{RehearsalMark}
+les placera au-dessous de la portée.
+
+"
+  doctitlefr = "Impression du métronome et des repères sous la portée"
+
 
   texidoc = "
 By default, metronome and rehearsal marks are printed above the staff.

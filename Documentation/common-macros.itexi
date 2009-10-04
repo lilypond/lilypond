@@ -180,7 +180,7 @@ UNTRANSLATED NODE: IGNORE ME
 @html
 <div class="float-center">
   <a class="clickable" href="examples/\IMAGE-FILE\.png">
-    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+    <img src="general/examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
     (click to enlarge)
@@ -188,11 +188,10 @@ UNTRANSLATED NODE: IGNORE ME
 </div>
 @end html
 @iftex
-@image{general/examples/out-www/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
+@image{examples/\IMAGE-FILE\-small,,,\IMAGE-FILE\,png}
 @end iftex
 @ifinfo
-FIXME: images broken in info
-@c @sourceimage{lilypond/general/examples/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
+@image{lilypond/examples/\IMAGE-FILE\,,,\IMAGE-FILE\,png}
 @end ifinfo
 @end macro
 
@@ -210,11 +209,10 @@ FIXME: images broken in info
 </div>
 @end html
 @iftex
-@image{pictures/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\}
+@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
 @end iftex
 @ifinfo
-FIXME: images broken in info
-@c @sourceimage{lilypond/\IMAGE-FILE\,,,\IMAGE-FILE\}
+@image{lilypond/pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
 @end ifinfo
 @end macro
 
@@ -223,11 +221,10 @@ FIXME: images broken in info
 <img class="float-\POSITION\" src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
 @end html
 @iftex
-@image{pictures/out-www/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
+@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
 @end iftex
 @ifinfo
-FIXME: images broken in info
-@c @sourceimage{lilypond/\IMAGE-FILE\,,,\EXT\}
+@image{lilypond/pictures/\IMAGE-FILE\,,,\EXT\}
 @end ifinfo
 @end macro
 
@@ -238,11 +235,10 @@ FIXME: images broken in info
 </div>
 @end html
 @iftex
-@image{pictures/out-www/\IMAGE-FILE\,,,\ALT\}
+@image{pictures/\IMAGE-FILE\,,,\ALT\}
 @end iftex
 @ifinfo
-FIXME: images broken in info
-@c @sourceimage{lilypond/\IMAGE-FILE\,,,\ALT\}
+@image{lilypond/pictures/\IMAGE-FILE\,,,\ALT\}
 @end ifinfo
 @end macro
 
