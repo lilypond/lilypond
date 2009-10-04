@@ -41,15 +41,33 @@ a img {
   border: 0;
 }
 
-/* Table of Contents */
+/* Hyperlinks */
 
+/* no dotted line around clicked tabs */
+a:focus {
+  outline-style: none;
+}
+
+a:link {
+  color: #00b945;
+}
+
+a:visited {
+  color: #5b2c26;
+}
+
+a:hover {
+  color: #006919;
+}
+
+/* Table of Contents */
 /* first level toc (unnumbered) */
 div#tocframe {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  background: url(pictures/nav-bg.png) repeat-x top left;
+  background: #6aec7c url(pictures/nav-bg.png) repeat-x top left;
   max-width: 70em;
   font-size: 100%;
   line-height: 1;
@@ -62,7 +80,8 @@ div#tocframe {
 }
 
 #tocframe a {
-  color: #000;
+  color: #fff;
+  text-decoration: none;
 }
 
 #tocframe ul.toc {
@@ -73,10 +92,7 @@ div#tocframe {
 
 #tocframe > ul:first-child > li:first-child a {
   text-indent: -999em;
-  /* only css3 */
-  /*background:  url(nav-bg.png) top left repeat-x,
-url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
-  background: url(pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
+  background: #6aec7c url(pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
   width: 9%;
   /* css3 no go yet? */
   border-bottom-left-radius: 30px;
@@ -85,7 +101,7 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
 }
 
 #tocframe > ul:first-child > li:first-child a:hover {
-  background: url(pictures/lily-home-nav-hover.png) no-repeat 50% 50%;
+  background: #6aec7c url(pictures/lily-home-nav-hover.png) no-repeat 50% 50%;
   width: 9%;
 }
 
@@ -117,9 +133,9 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
 #tocframe li form {
   float: left;
   width: 17%;
-  background: url(pictures/nav-bg.png);
+  background: #6aec7c url(pictures/nav-bg.png);
   font-size: 100%;
-  padding: 0.5em 0.8%;
+  padding: 0.45em 0.8%;
   margin: 0;
 }
 
@@ -151,9 +167,9 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
   width: 18%;
   text-align: center;
   font-weight: bold;
-  padding: 0.71em 0;
+  padding: 0.68em 0;
   margin: 0;
-  background: url(pictures/nav-bg.png);
+  background: #6aec7c url(pictures/nav-bg.png);
 }
 
 #tocframe li a:hover {
@@ -164,12 +180,11 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
 #tocframe li.toc_current a,
 #tocframe li.toc_current a:hover {
   background: url(pictures/nav-active.png);
-  color:#000;
+  color: #fff;
   text-decoration: underline;
 }
 
 /* second level toc (unnumberedsec) */
-
 #tocframe .toc .toc {
   position: absolute;
   top: 3.8em;
@@ -205,6 +220,7 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
   width: auto;
   background: #ceffae;
   line-height: 2;
+  color: #000;
   text-decoration: none;
   text-indent: 0;
   font-weight: normal;
@@ -215,6 +231,7 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
 
 #tocframe .toc .toc li.toc_current a {
   background: #8cbc6c;
+  color: #000;
 }
 
 #tocframe .toc .toc li.toc_current a:hover {
@@ -252,8 +269,18 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
 
 /* having this useless style makes the perl init file easier */
 #tocframe .toc .toc li.colorDefault a {
+  color: #000;
+  text-decoration: none;
+  background: #9ccc7c;
+  background: url(pictures/nav-bg-2.png) repeat-x top left;
 }
 
+#tocframe .toc .toc li.colorDefault a:hover {
+  color: #fff;
+  text-decoration: underline;
+  background: #9ccc7c;
+  background: url(pictures/nav-hover-2.png) repeat-x top left;
+}
 #tocframe .toc .toc li.color1 a:hover {
   background: #addd8d;
   background: url(pictures/color1-hover.png) repeat-x top left;
@@ -315,7 +342,6 @@ url(pictures/lily-home.png) no-repeat 50% 50%, #582007;*/
 }
 
 /* third level toc (unnumberedsubsec) */
-
 #tocframe .toc .toc .toc {
   position: absolute;
   top: 2em;
@@ -420,7 +446,6 @@ div#quickSummary {
   background: #fff url(pictures/summary-gradient.png) repeat-y 0 0;
   color: #fff;
   padding: 0 0.5em;
-  /* border-bottom: 10px solid #5b7f64; */
   margin: 0;
 }
 
@@ -495,9 +520,18 @@ div#latestVersion {
   margin: 0;
 }
 
+/* this might not work in certain browsers */
+a[name="Stable"] + h4 {
+  background: #bdee9d url(pictures/color1-bg.png) repeat-x top left;
+}
+
+/* this might not work in certain browsers */
+a[name="Unstable"] + h4 {
+  background: #fad58c url(pictures/color4-bg.png) repeat-x top left;
+}
+
 #latestVersion .subsubheading {
-  background: #bdee9d;
-  padding: 0.18em 0.25em;
+  padding: 0.08em 0.25em;
   border-bottom: 1px solid #5b7f64;
   margin: 0;
 }
@@ -538,7 +572,7 @@ div#language {
 }
 
 #verifier_texinfo {
-  position: absolute;
+  position: relative;
   bottom: 0;
   right: 0;
   left: 50%;
@@ -645,7 +679,6 @@ div.float-right a.clickable {
 }
 
 /* Columns */
-
 .column-center-top {
   float: left;
   width: 99.5%;
@@ -656,7 +689,7 @@ div.float-right a.clickable {
 
 /* color1 */
 .column-center-top h3 {
-  background: #9ccc7c;
+  background: #9ccc7c url(pictures/color1-bg.png) repeat-x top left;
   text-align: left;
   border-bottom: 1px solid #8bbb6b;
 }
@@ -682,7 +715,7 @@ div.float-right a.clickable {
 /* color2 */
 .column-left-top h3,
 .column-left-bottom h3 {
-  background: #bbcf81;
+  background: #bbcf81 url(pictures/color2-bg.png) repeat-x top left;
   border-bottom: 1px solid #aabe70;
 }
 
@@ -706,7 +739,7 @@ div.float-right a.clickable {
 /* color3 */
 .column-right-top h3,
 .column-right-bottom h3 {
-  background: #dbd286;
+  background: #dbd286 url(pictures/color3-bg.png) repeat-x top left;
   border-bottom: 1px solid #cac175;
 }
 
@@ -720,7 +753,8 @@ div.float-right a.clickable {
 
 /* color4 */
 .column-center-bottom h3 {
-  background: #fad58c;
+  background: #fad58c url(pictures/color4-bg.png) repeat-x top left;
+  text-align: left;
   border-bottom: 1px solid #e9c47b;
 }
 
@@ -802,7 +836,6 @@ div.float-right a.clickable {
 }
 
 /* Centered divs by color */
-
 div.color1,
 div.color2,
 div.color3,
@@ -916,4 +949,3 @@ h1.settitle {
   padding: 0;
   margin: 0;
 }
-
