@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS = regression mutopia
+SUBDIRS = regression 
 
 examples = les-nereides wilhelmus proportional bach-schenker cary
 
