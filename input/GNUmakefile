@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS = regression tutorial mutopia manual
+SUBDIRS = regression tutorial mutopia
 
 examples = typography-demo les-nereides wilhelmus proportional bach-schenker cary
 
