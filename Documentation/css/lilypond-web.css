@@ -8,9 +8,9 @@ html {
 body {
   position: absolute;
   top: 0;
-  left: 1%;
-  right: 1%;
-  width: 98%;
+  left: 0.5%;
+  right: 0.5%;
+  width: 99%;
   min-width: 42em;
   max-width: 70em;
   font-size: 95%;
@@ -188,8 +188,8 @@ div#tocframe {
 #tocframe .toc .toc {
   position: absolute;
   top: 3.8em;
-  left: 1%;
-  right: 1%;
+  left: 0.5%;
+  right: 0.5%;
   font-size: 82%;
   padding: 0;
   margin: 0;
