@@ -90,7 +90,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
     LilyPond input and output.
 * Spacing issues::                 Display of output on paper.
 * Changing defaults::              Tuning output.
-* Interfaces for programmers::     How to interface with scheme.
 
 Appendices
 
@@ -115,7 +114,6 @@ Appendices
 @include notation/spacing.itely
 
 @include notation/changing-defaults.itely
-@include notation/programming-interface.itely
 
 
 @include notation/notation-appendices.itely

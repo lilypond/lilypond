@@ -669,7 +669,7 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 
 The easy way to add articulation to notes is to merge two music
 expressions into one context, as explained in
-@ref{Creating contexts}.  However, suppose that we want to write
+@ruser{Creating contexts}.  However, suppose that we want to write
 a music function that does this.
 
 A @code{$variable} inside the @code{#@{...#@}} notation is like
@@ -1109,7 +1109,7 @@ to the @code{interpret-markup} function, with the @code{layout} and
 
 Note: there is now an internal command @code{\smallCaps} which can
 be used to set text in small caps.  See
-@ref{Text markup commands}, for details.
+@ruser{Text markup commands}, for details.
 
 @knownissues
 

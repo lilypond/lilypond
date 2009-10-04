@@ -1296,10 +1296,12 @@ An exhaustive list of markup list commands can be found in
 @seealso
 Notation Reference:
 @ref{Text markup list commands},
-@ref{New markup list command definition}.
 
 Snippets:
 @rlsr{Text}.
+
+Extending:
+@rextend{New markup list command definition}.
 
 Internals Reference:
 @rinternals{TextScript}.

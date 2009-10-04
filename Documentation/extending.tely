@@ -45,6 +45,7 @@ by the authors.
 
 @menu
 * Scheme tutorial::                Programming inside LilyPond.
+* Interfaces for programmers::     How to interface with scheme.
 
 Appendices
 
@@ -60,6 +61,7 @@ Appendices
 
 
 @include extending/scheme-tutorial.itely
+@include extending/programming-interface.itely
 
 @include fdl.itexi
 

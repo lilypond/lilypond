@@ -391,7 +391,7 @@ any context of type @var{type}, regardless of its given name.
 
 This variant is used with music expressions that can be interpreted at
 several levels.  For example, the @code{\applyOutput} command (see
-@ref{Running a function on all layout objects}).  Without an explicit
+@rextend{Running a function on all layout objects}).  Without an explicit
 @code{\context}, it is usually applied to @code{Voice}
 
 @example
@@ -1729,7 +1729,7 @@ f'
 
 The music stream which is generated from a section of an input file,
 including any automatically inserted elements, may be examined,
-see @ref{Displaying music expressions}.  This may be helpful in
+see @rextend{Displaying music expressions}.  This may be helpful in
 determining what may be modified by a @code{\tweak} command.
 
 
@@ -1737,8 +1737,8 @@ determining what may be modified by a @code{\tweak} command.
 Learning Manual:
 @rlearning{Tweaking methods}.
 
-Notation Reference:
-@ref{Displaying music expressions}.
+Extending:
+@rextend{Displaying music expressions}.
 
 
 @knownissues
@@ -2914,13 +2914,15 @@ Learning Manual:
 Notation Reference:
 @ref{Explaining the Internals Reference},
 @ref{Modifying properties},
-@ref{Interfaces for programmers}.
 
 Installed Files:
 @file{scm/@/define@/-grobs@/.scm}.
 
 Snippets:
 @rlsr{Tweaks and overrides}.
+
+Extending:
+@rextend{Interfaces for programmers}.
 
 Internals Reference:
 @rinternals{All layout objects}.

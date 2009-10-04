@@ -461,7 +461,7 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 @end lilypond
 
 The Scheme form of markup mode may be used instead.  Its syntax is
-explained in @ref{Markup construction in Scheme}.
+explained in @rextend{Markup construction in Scheme}.
 
 @lilypond[verbatim,quote]
 moltoF = #(make-dynamic-script
@@ -481,12 +481,15 @@ Font settings in markup mode are described in
 Notation Reference:
 @ref{Formatting text},
 @ref{Selecting font and font size},
-@ref{Markup construction in Scheme},
 @ref{What goes into the MIDI output?},
 @ref{Controlling MIDI dynamics}.
 
 Snippets:
 @rlsr{Expressive marks}.
+
+Extend:
+@rextend{Markup construction in Scheme},
+
 
 
 @node Curves
