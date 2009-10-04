@@ -145,7 +145,7 @@ read all of the manual, you may want to read some sections again
 and follow those cross-references for more information.
 @divEnd
 
-@divClass{column-right-bottom}
+@divClass{column-right-top}
 @subheading Read it now
 
 @itemize
@@ -154,7 +154,9 @@ and follow those cross-references for more information.
 read this manual in the same format as this one.
 
 @end itemize
+@divEnd
 
+@divClass{column-center-bottom}
 @subheading Other formats
 
 @divClass{keep-bullets}
@@ -184,7 +186,7 @@ GNU info format for documentation.  FIXME, link broken.
 @unnumberedsec Glossary
 
 @divClass{column-left-top}
-@subheading Glossay
+@subheading Glossary
 
 This explains musical terms, and includes translations to various
 languages.  If you are not familiar with music notation or music
@@ -198,16 +200,13 @@ it is highly advisable to consult the glossary.
 
 @itemize
 
-@item
-@rglosnamed{Top,Music glossary}:
+@item @rglosnamed{Top,Music glossary}:
 read this manual in the same format as this one.
 
 @end itemize
-@ignore
 @divEnd
 
 @divClass{column-center-bottom}
-@end ignore
 @subheading Other formats
 
 @divClass{keep-bullets}
@@ -239,11 +238,6 @@ GNU info format for documentation.  FIXME, link broken.
 @divClass{column-center-top}
 @subheading Essay
 
-@quotation
-@ressaynamed{Top,Essay}:
-read this manual in the same format as this one.
-@end quotation
-
 This book gives a brief history of music typography, followed by
 an examination of LilyPond's engraving techniques.  A comparison
 between LilyPond and other music engraving systems is given.
@@ -251,6 +245,17 @@ between LilyPond and other music engraving systems is given.
 @warning{The detailed typographical examples are easier to analyze
 in the PDF version due to its higher resolution.}
 
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item @ressaynamed{Top,Essay}:
+read this manual in the same format as this one.
+
+@end itemize
 @divEnd
 
 @divClass{column-center-bottom}
@@ -288,9 +293,9 @@ GNU info format for documentation.  FIXME, link broken.
 This book explains all the LilyPond commands which produce
 notation.
 
-@warning{The Notation assumes that the reader knows basic material
-covered in the Learning manual and is familiar with the English musical
-terms presented in the Musical Glossary.}
+@warning{The Notation reference assumes that the reader knows
+basic material covered in the Learning manual and is familiar with
+the English musical terms presented in the Musical Glossary.}
 
 @divEnd
 
