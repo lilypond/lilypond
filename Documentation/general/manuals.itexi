@@ -73,6 +73,9 @@ links to the answers of Frequently Asked Questions.
 @item @ref{Changes}:
 updates since the last major version.
 
+@item @ref{Extend}:
+programming fancy tweaks in lilypond.
+
 @item @ref{Internals}:
 information about LilyPond's internal structures, which is
 required for constructing tweaks.
@@ -115,6 +118,7 @@ License.
 * Snippets::                Snippets.
 * FAQ::                         FAQ.
 * Changes::                     NEWS.
+* Extend::         Programming.
 * Internals::         Internals.
 * Translated::          Translation.
 * All::                 All manuals.
@@ -535,6 +539,52 @@ GNU info format for documentation.  FIXME, link broken.
 @divEnd
 @divEnd
 
+
+@node Extend
+@unnumberedsec Extend
+
+@divClass{column-left-top}
+@subheading Extend LilyPond
+
+This manual explains how to write extensions to LilyPond.
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading Read it now
+
+@itemize
+
+@item @rextendnamed{Top,Extend}: 
+read this manual in the same format as this one.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Other formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{extending/index.html, Extend (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{extending-big-page.html, Extend (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
+
+@item @uref{extending.pdf, extending.pdf}:
+download as a PDF file.
+@emph{(large single download, 2.8 Mb)}
+
+@item @uref{FIXME, extending.info}:
+GNU info format for documentation.  FIXME, link broken.
+
+@end itemize
+@divEnd
+@divEnd
 
 
 @node Internals

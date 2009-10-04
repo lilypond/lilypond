@@ -651,7 +651,7 @@ sub generate_ly_toc_entries($$$)
   my @color_3 = (
         "Productions", "Testimonials",
 	"Source", "Old downloads",
-        "FAQ", "Changes", "Internals",
+        "FAQ", "Changes", "Extend", "Internals",
         "Publications", "Old news"
         );
   my @color_4 = (

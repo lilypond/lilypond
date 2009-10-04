@@ -816,8 +816,8 @@ LilyPond.  Some of them are the names of properties, like
 @code{thickness} or @code{font-shape}, others are used as values that
 can be given to properties, like @code{italic}.  Note the distinction
 from arbitrary text strings, which would appear as @code{"a text
-string"}; for more details about symbols and strings, see @ref{Scheme
-tutorial}.
+string"}; for more details about symbols and strings, see
+@rextend{Scheme tutorial}.
 
 So we see that the @code{\override} command needed to print the lyrics
 in italics is:
@@ -882,7 +882,7 @@ the dot between the context name and the object name.}
 
 
 @seealso
-Learning Manual: @ref{Scheme tutorial}.
+Extending: @rextend{Scheme tutorial}.
 
 
 @node Types of properties
@@ -954,7 +954,7 @@ by apostrophe-hash, @code{'#}.
 
 
 @seealso
-Learning Manual: @ref{Scheme tutorial}.
+Extending: @rextend{Scheme tutorial}.
 
 
 @node Appearance of objects
@@ -3913,7 +3913,7 @@ LilyPond internal operation.  Further explanation of these files
 is currently outside the scope of this manual, as a knowledge of
 the Scheme language is required.  Users should be warned that
 a substantial amount of technical knowledge or time is required
-to understand Scheme and these files (see @ref{Scheme tutorial}).
+to understand Scheme and these files (see @rextend{Scheme tutorial}).
 
 If you have this knowledge, the Scheme files which may be of
 interest are:
@@ -3974,7 +3974,7 @@ interface to the LilyPond internal operation.  Code written in
 the Scheme programming language can be incorporated directly in
 the internal operation of LilyPond.  Of course, at least a basic
 knowledge of programming in Scheme is required to do this, and an
-introduction is provided in the @ref{Scheme tutorial}.
+introduction is provided in the @rextend{Scheme tutorial}.
 
 As an illustration of one of the many possibilities, instead of
 setting a property to a constant it can be set to a Scheme
@@ -4019,7 +4019,7 @@ the staff.
 @end lilypond
 
 Further examples showing the use of these programmable interfaces
-can be found in @ref{Tweaking with Scheme}.
+can be found in @rextend{Tweaking with Scheme}.
 
 
 

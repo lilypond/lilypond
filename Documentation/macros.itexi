@@ -193,6 +193,7 @@ For LilyPond version @version{}
 @c     @rprogram
 @c     @ruser
 @c     @rchanges
+@c     @rextend
 @c     @rcontrib
 @c
 @c  All these also have a @...named version which allows to specify the
@@ -238,6 +239,16 @@ For LilyPond version @version{}
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending-big-page,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending-big-page,Extending}
 @end macro
 
 @macro rchanges{TEXT}
@@ -357,6 +368,16 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,extending,Extending}
+@end macro
+
 @macro rcontrib{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,contributor,Contributor's Guide}
@@ -457,6 +478,16 @@ For LilyPond version @version{}
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
+@end macro
+
+@macro rextend{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extending}
 @end macro
 
 @macro rcontrib{TEXT}
@@ -576,6 +607,16 @@ For LilyPond version @version{}
 @macro rchangesnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
+@end macro
+
+@macro rextend{TEXT}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,,extending,Extending}
+@end macro
+
+@macro rextendnamed{TEXT,DISPLAY}
+@lilyvindex{\TEXT\}
+@ref{\TEXT\,,\DISPLAY\,extending,Extending}
 @end macro
 
 @macro rcontrib{TEXT}
