@@ -377,32 +377,9 @@ account.
 @node Help us
 @unnumberedsec Help us
 
-FIXME: before going live, rewrite this to apply to lilypond
-generally.  Right now it's (deliberately) website-specific.
-
-@subheading This document
-
-@subsubheading High priority / blocks release
-
-- Features page.
-
-- python: automatically insert latest version numbers into these
-  pages.  Script already exists for the old website, but might
-  (or might not!) require tweaking.
-
-- translation infrastructure.
-
-@subsubheading Low priority / may never
-
-- perl: web-texi2html.pl needs to be un-hacked; I did things
-  really messily.  Possibly even merge/share functions with
-  the doc init.pl file?
-
-- somebody to implement/work on a media=handheld CSS sheet
-
-- remove the attributes from the <body> tag.  In general, clean up
-  the HTML produced by texi2html
-
+TODO: talk about the Frogs, document suggestions, encourage getting
+involved, etc.  Maybe mention GLISS and GOP, if those are happening
+in the near future.
 
 
 @node Development
@@ -634,12 +611,6 @@ http://lilypond.org/web/switch/
 @itemize
 
 @item
-Han-Wen Nienhuys and Jan Nieuwenhuizen, @emph{LilyPond, a system
-for automated music engraving}.  Proceedings of the XIV Colloquium
-on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
-(@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
-
-@item
 Han-Wen Nienhuys, @emph{LilyPond, Automated music formatting and
 the Art of Shipping}.  Forum Internacional Software Livre 2006
 (FISL7.0) (@uref{http://lilypond.org/web/images/FISL7-slides.pdf,
@@ -651,6 +622,12 @@ GNU Lilypond}. Master's Thesis, Uppsala University, Department of
 Information Technology March 2006.
 (@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
 PDF 750k}) 
+
+@item
+Han-Wen Nienhuys and Jan Nieuwenhuizen, @emph{LilyPond, a system
+for automated music engraving}.  Proceedings of the XIV Colloquium
+on Musical Informatics (XIV CIM 2003), Firenze, Italy, May 2003.
+(@uref{ http://lilypond.org/web/images/xivcim.pdf, PDF 95k})
 
 @end itemize
 
