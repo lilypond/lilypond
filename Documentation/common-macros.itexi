@@ -180,7 +180,7 @@ UNTRANSLATED NODE: IGNORE ME
 @html
 <div class="float-center">
   <a class="clickable" href="examples/\IMAGE-FILE\.png">
-    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+    <img src="general/examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
     (click to enlarge)
