@@ -212,15 +212,15 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{glossary/index.html, Glossary (split HTML)}:
+@item @uref{music-glossary/index.html, Glossary (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{glossary-big-page.html, Glossay (big HTML)}:
+@item @uref{music-glossary-big-page.html, Glossay (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{glossary.pdf, glossary.pdf}:
+@item @uref{music-glossary.pdf, glossary.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
