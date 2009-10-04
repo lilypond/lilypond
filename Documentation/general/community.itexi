@@ -443,6 +443,8 @@ Instructions for git and compiling are in the Contributor's Guide.
 Documentation writers and testers will generally want to download
 the latest binary:
 
+@quotation
+
 @downloadDevelLinuxNormal
 
 @downloadDevelLinuxBig
@@ -458,6 +460,8 @@ the latest binary:
 @downloadDevelDarwinPPC
 
 @downloadDevelWindows
+
+@end quotation
 
 
 @subheading Manuals
