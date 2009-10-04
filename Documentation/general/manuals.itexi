@@ -235,7 +235,7 @@ GNU info format for documentation.  FIXME, link broken.
 @node Essay
 @unnumberedsec Essay
 
-@divClass{column-center-top}
+@divClass{column-left-top}
 @subheading Essay
 
 This book gives a brief history of music typography, followed by
