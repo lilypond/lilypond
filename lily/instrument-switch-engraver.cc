@@ -9,6 +9,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
+#include "text-interface.hh"
 #include "translator.icc"
 
 
@@ -41,8 +42,12 @@ Instrument_switch_engraver::process_music ()
   
   if (!scm_is_eq (cue_name_, cue_text))
     {
-      text_ = make_item ("InstrumentSwitch", SCM_EOL);
-      text_->set_property ("text", cue_text);
+      if (Text_interface::is_markup (cue_text))
+//       if (!scm_is_null (cue_text))
+        {
+          text_ = make_item ("InstrumentSwitch", SCM_EOL);
+          text_->set_property ("text", cue_text);
+        }
       cue_name_ = cue_text;
     }
 }
