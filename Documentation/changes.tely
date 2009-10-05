@@ -64,6 +64,12 @@ which scares away people.
 @end ignore
 
 @item
+In addition to the existing @code{\hspace} markup command,
+a new @code{\vspace} command has been added to provide an easy
+and flexible way to add vertical space in markups.  This feature
+is based on Nicolas Sceaux's work.
+
+@item
 The direction of manual beams can be set with @code{^[} and @code{_[}.
 
 @item

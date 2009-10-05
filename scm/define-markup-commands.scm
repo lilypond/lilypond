@@ -401,6 +401,33 @@ Create an invisible object taking up horizontal space @var{amount}.
       (ly:make-stencil "" (cons 0 amount) '(-1 . 1))
       (ly:make-stencil "" (cons amount amount) '(-1 . 1))))
 
+;; todo: fix negative space
+(define-builtin-markup-command (vspace layout props amount)
+ (number?)
+ align
+ ()
+ "
+@cindex creating vertical spaces in text
+
+Create an invisible object taking up vertical space
+of @var{amount} multiplied by 3.
+
+@lilypond[verbatim,quote]
+\\markup {
+    \\center-column {
+    one
+    \\vspace #2
+    two
+    \\vspace #5
+    three
+  }
+}
+@end lilypond"
+  (let ((amount (* amount 3.0)))
+    (if (> amount 0)
+        (ly:make-stencil "" (cons -1 1) (cons 0 amount))
+        (ly:make-stencil "" (cons -1 1) (cons amount amount)))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; importing graphics.
