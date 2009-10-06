@@ -149,8 +149,9 @@ read all of the manual, you may want to read some sections again
 and follow those cross-references for more information.
 @divEnd
 
-@divClass{column-right-top}
-@subheading Read it now
+@c FIXME: new format; please leave here.
+@divClass{column-right-bottom}
+@subheading Read it
 
 @itemize
 
@@ -158,9 +159,7 @@ and follow those cross-references for more information.
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading Other formats
 
 @divClass{keep-bullets}
@@ -199,7 +198,8 @@ it is highly advisable to consult the glossary.
 
 @divEnd
 
-@divClass{column-right-top}
+@c FIXME: new format; please leave here.
+@divClass{column-right-bottom}
 @subheading Read it now
 
 @itemize
@@ -208,9 +208,7 @@ it is highly advisable to consult the glossary.
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading Other formats
 
 @divClass{keep-bullets}
