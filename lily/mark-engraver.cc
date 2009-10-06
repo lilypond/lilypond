@@ -32,6 +32,7 @@ class Mark_engraver : public Engraver
 
   void create_items (Stream_event *);
   Item *text_;
+  Item *final_text_;
   Stream_event *mark_ev_;
 
 public:
@@ -39,7 +40,9 @@ public:
 
 protected:
   void process_music ();
+  void start_translation_timestep ();
   void stop_translation_timestep ();
+  virtual void finalize ();
 
   DECLARE_TRANSLATOR_LISTENER (mark);
   DECLARE_ACKNOWLEDGER (break_alignment);
@@ -48,6 +51,7 @@ protected:
 Mark_engraver::Mark_engraver ()
 {
   text_ = 0;
+  final_text_ = 0;
   mark_ev_ = 0;
 }
 
@@ -57,11 +61,14 @@ Mark_engraver::acknowledge_break_alignment (Grob_info inf)
   Grob *s = inf.grob ();
   if (text_
       && dynamic_cast<Item *> (s))
-    {
-      text_->set_parent (s, X_AXIS);
-    }
+    text_->set_parent (s, X_AXIS);
 }
 
+void
+Mark_engraver::start_translation_timestep ()
+{
+  final_text_ = 0;
+}
 
 void
 Mark_engraver::stop_translation_timestep ()
@@ -70,9 +77,19 @@ Mark_engraver::stop_translation_timestep ()
   {
     text_->set_object ("side-support-elements",
 		       grob_list_to_grob_array (get_property ("stavesFound")));
+    final_text_ = text_;
     text_ = 0;
   }
   mark_ev_ = 0;
+}
+
+void
+Mark_engraver::finalize ()
+{
+  if (final_text_)
+    final_text_->set_property ("break-visibility",
+			       scm_c_make_vector (3, SCM_BOOL_T));
+  final_text_ = 0;
 }
 
 void
