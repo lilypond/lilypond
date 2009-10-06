@@ -11,7 +11,8 @@ NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 MANUALS_SUBDIRS = usage automated-engraving contributor essay \
   general learning notation extending
-SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs $(LANGS)
+SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs \
+  included $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
