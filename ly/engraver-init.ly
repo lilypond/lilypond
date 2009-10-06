@@ -714,8 +714,24 @@ context."
 
   %% No accidental in tablature !
   \remove "Accidental_engraver"
-  %% remove stems, beams, dots and rests ...
-  \override Stem #'stencil = ##f
+  %% make the Stems as short as possible to minimize their influence 
+  %% on the slur::calc-control-points routine
+  \override Stem #'length = #0
+  \override Stem #'no-stem-extend = ##t
+  \override Stem #'flag-style = #'no-flag
+  \override Stem #'details = #'((lengths 0 0 0 0 0 0)
+                                (beamed-lengths 0 0 0)
+                                (beamed-minimum-free-lengths 0 0 0)
+                                (beamed-extreme-minimum-free-lengths 0 0)
+                                (stem-shorten 0 0))
+  %% after all, the stubs of thestems may still be visible, so ...
+  \override Stem #'transparent = ##t
+  %% automatic beams should be suppressed for similar reasons ...
+  autoBeaming = ##f
+  %% ... and we ignore collision warnings that may occur due to
+  %% stem overlapping ...
+  \override NoteColumn #'ignore-collision = ##t
+  %% remove beams, dots and rests ...
   \override Beam #'stencil = ##f
   \override Dots #'stencil = ##f
   \override Rest #'stencil = ##f
@@ -724,7 +740,7 @@ context."
   \override Tie  #'stencil = ##f
   \override RepeatTie #'stencil = ##f
   \override LaissezVibrerTie #'stencil = ##f
-  \override Slur #'stencil = ##f
+  \override Slur #'stencil = #slur::draw-tab-slur
   \override PhrasingSlur #'stencil = ##f
   %% 'tied to' fret numbers become invisible or parenthesized, respectively)
   \override Tie #'after-line-breaking = #tie::handle-tab-note-head

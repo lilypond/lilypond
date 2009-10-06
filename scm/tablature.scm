@@ -205,3 +205,20 @@
                                                 (parenthesize-tab-note-head grob))))
             ;; tab note head is invisible
             (ly:grob-set-property! tied-tab-note-head 'transparent #t))))
+
+;; the slurs should not be too far apart from the corresponding fret number, so
+;; we move the slur towards the TabNoteHeads:
+#(define-public (slur::draw-tab-slur grob)
+  ;; TODO: use a less "brute-force" method to decrease
+  ;; the distance between the slur ends and the fret numbers
+  (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
+         (staff-space (ly:grob-property staff-symbol 'staff-space))
+         (control-points (ly:grob-property grob 'control-points))
+         (new-control-points (map (lambda (p)
+                                          (cons (car p) (- (cdr p)
+                                                        (* staff-space
+                                                           (ly:grob-property grob 'direction)
+                                                           0.35))))
+                                  control-points)))
+        (ly:grob-set-property! grob 'control-points new-control-points)
+        (ly:slur::print grob)))

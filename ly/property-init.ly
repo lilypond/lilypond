@@ -375,7 +375,14 @@ tabFullNotation = {
   % time signature
   \revert TabStaff.TimeSignature #'stencil
   % stems (the half note gets a double stem)
+  \revert Stem #'length
+  \revert Stem #'no-stem-extend
+  \revert Stem #'flag-style
+  \revert Stem #'details
+  \revert Stem #'transparent
   \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
+  autoBeaming = ##t
+  \revert NoteColumn #'ignore-collision
   % beams, dots
   \revert TabVoice.Beam #'stencil
   \revert TabVoice.Dots #'stencil
