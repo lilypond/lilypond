@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 5cf864d550e7148412d594cf336841791bff6f76
+    Translation of GIT committish: 32114617e6b96617749a3c4efb4fa2203a8c3d50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2865,27 +2865,13 @@ entsprechend verschoben.
 
 Die @code{right-padding}-Eigenschaft wirkt sich auf den Abstand
 zwischen einem Versetzungszeichen und der Note, auf das sie sich
-bezieht, aus.  Sie wird nicht sehr oft benötigt, aber das folgende
-Beispiel zeigt eine Situation, wo man sie braucht.  Das Beispiel
-stellt eine Situation dar, in der in einem Akkord sowohl H als auch
-B vorkommen sollen.  Damit keine Ambiguität ensteht, sollen beide
-Noten ein Zeichen haben, also ein B und ein Auflösungszeichen.
-Hier einige Notationsversuche:
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<b bes>
-<b! bes>
-<b? bes>
-@end lilypond
-
-@noindent
-Keiner davon funktioniert, und der zweite und dritte weist 
-hässliche Zusammenstöße zwischen den Zeichen auf.
-
-Eine Möglichkeit, das Gewünschte zu erhalten, ist es den
-Stencil des Versetzungszeichens zu ersetzen mit einer
-Textbeschriftung (Markup), die sowohl das B als auch das
-Aulösungszeichen enthält:
+bezieht, aus.  Sie wird nicht sehr oft benötigt, aber die
+Standardanordnung kann für einige spezielle Versetzungszeichen-Glyphen
+oder Kombinationsglyphen,
+wie sie für Mikrotonale Musik benutzt werden, falsch sein.  Derartige
+Glyphen müssen notiert werden, indem man den Stencil des
+Versetzungszeichens mit einer Textbeschriftung (Markup) ersetzt,
+wie im folgenden Beispiel:
 
 @cindex Versetzungszeichen, Beispiel zur Veränderung
 @cindex Accidental, Beispiel zur Veränderung
@@ -2896,13 +2882,20 @@ Aulösungszeichen enthält:
 @cindex Verschiebung nach rechts (rigth-padding), Beispiel
 
 @lilypond[quote,ragged-right,verbatim]
-naturalplusflat = \markup { \natural \flat }
-\relative c'' {
+sesquisharp = \markup { \sesquisharp }
+ \relative c'' {
+  c
+  % This prints a sesquisharp but the spacing is too small
   \once \override Accidental
     #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #naturalplusflat
-  \once \override Score.AccidentalPlacement #'right-padding = #1.5
-  <b bes>
+  \once \override Accidental #'text = #sesquisharp
+  cis c
+  % This improves the spacing
+  \once \override Score.AccidentalPlacement #'right-padding = #0.6
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #sesquisharp
+  cis
 }
 @end lilypond
 
@@ -2911,11 +2904,11 @@ Dazu ist aber ein @code{\override}-Befehl für den Stencil des
 Versetzungszeichens nötig, der bisher nicht behandelt wurde.
 Der Typ des Stencils muss eine Prozedur sein, die hier geändert
 wurde, um den Inhalt der @code{text}-Eigenschaft des
-@code{Accidental} (Versetzungszeichen)-Objekts zu setzen,
-die dann so definiert wird, dass sie ein Auflösungszeichen gefolgt
-von einem B enthält.  Diese werden dann mit @code{right-padding}
-weiter nach rechts verschoben.
-
+@code{Accidental} (Versetzungszeichen)-Objekts zu setzen.  Die
+@code{text}-Eigenschaft wiederum wird als @code{sesquisharp}-Glyph
+definiert.  Dieser Glyph wird dann weiter vom Notenkopf entfernt
+durch die Veränderung von @code{right-padding} mit einem
+@code{\override}-Befehl.
 
 @subheading staff-padding (Systemfüllungseigenschaft)
 
