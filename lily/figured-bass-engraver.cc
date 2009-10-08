@@ -202,13 +202,18 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 	      && groups_[i].group_is_equal_to (ev))
 	    {
 	      groups_[i].current_event_ = ev;
-	      groups_[i].force_no_continuation_
-		= to_boolean (ev->get_property ("no-continuation"));
-	      continuation_ = true;
-	      return; 
+	      bool no_cont = to_boolean (ev->get_property ("no-continuation"));
+	      groups_[i].force_no_continuation_ = no_cont;
+	      // Exit only if this is a real continuation. If it is broken,
+	      // continue just as usual (otherwise the figure will still be
+	      // vertically aligned with the previous figure!)
+	      if (!no_cont) {
+	        continuation_ = true;
+	        return;
+	      }
 	    }
 	}
-    }  
+    }
   new_events_.push_back (ev);
 }
 
