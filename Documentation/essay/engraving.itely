@@ -34,17 +34,26 @@ LilyPond.
 @cindex plate engraving
 @cindex music engraving
 
-The art of music typography is called @emph{(plate) engraving}. The term
-derives from the traditional process of music printing. Just a few
-decades ago, sheet music was made by cutting and stamping the music into
-a zinc or pewter plate in mirror image. The plate would be inked, and
-the depressions caused by the cutting and stamping would hold ink. An
-image was formed by pressing paper to the plate. The stamping and
-cutting was done completely by hand. Making a correction was cumbersome,
-so the engraving had to be nearly perfect in one go. Engraving was a
-highly specialized skill; a craftsman had to complete around five years
-of training before earning the title of master engraver, and another
-five years of experience were necessary to become truly skilled.
+The art of music typography is called @emph{(plate) engraving}, a term
+that derives from the manual process of music printing@footnote{Early
+european printers explored several processes, including hand-carved
+wooden blocks, movable type, and engraved sheets of thin metal.
+Typesetting had the advantage of being more easily corrected and
+facilitating the inclusion of text and lyrics, but only engraving
+offered the ability to do unimpeded layout and unanticipated notation.
+In the end, hand-engraved scores became the standard for all printed
+music, with the exception of some hymnals and songbooks where
+typesetting was justified by its ease and economy, even into the
+twentieth century.}. Just a few decades ago, sheet music was made by
+cutting and stamping the music into a zinc or pewter plate in mirror
+image. The plate would be inked, and the depressions caused by the
+cutting and stamping would hold ink. An image was formed by pressing
+paper to the plate. The stamping and cutting was done completely by hand
+and making a correction was cumbersome, so the engraving had to be
+nearly perfect in one go. Engraving was a highly specialized skill; a
+craftsman had to complete around five years of training before earning
+the title of master engraver, and another five years of experience were
+necessary to become truly skilled.
 
 @quotation
 @iftex
@@ -55,7 +64,7 @@ five years of experience were necessary to become truly skilled.
 @end ifnottex
 @end quotation
 
-Nowadays, all newly printed music is produced with computers. This has
+Now all newly printed music is produced with computers. This has
 obvious advantages: prints are cheaper to make, editorial work can be
 delivered by email, and the original data can be easily stored.
 Unfortunately, computer-generated scores rarely match the quality of
@@ -492,9 +501,9 @@ hand-engraved edition (Bärenreiter BA320), and as engraved by LilyPond
 @sourceimage{lily14-sarabande,,,png}
 @end ifnottex
 
-@noindent
-On careful inspection, there are a number of errors in the LilyPond 1.4
-output:
+@noindent The LilyPond 1.4 output is certainly readable, but close
+comparison with the hand-engraved score showed a lot of errors in the
+formatting details:
 
 @itemize @bullet
 @item most of the stems are too long
@@ -502,16 +511,24 @@ output:
 @item the second and fourth measures are too narrow
 @item the slur is awkward-looking
 @item the stems are too thin
+@item there was too much space before the time signature
 @end itemize
 
 @noindent
 (There were also two missing notes, and one wrong one!)
 
 By adjusting the layout rules and font design, the output has improved
-considerably. This is the same piece, engraved by the current version of
-LilyPond (@version{}):
+considerably. This is the same musical quotation compared to the output
+from the current version of LilyPond (@version{}):
 
-@lilypond[staffsize=19,line-width=15.9\cm]
+@iftex
+@sourceimage{baer-sarabande-hires,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{baer-sarabande,,,png}
+@end ifnottex
+
+@lilypond[staffsize=17.5,line-width=15.9\cm]
 \relative c {
   \clef "bass"
   \key d \minor
@@ -532,31 +549,71 @@ LilyPond (@version{}):
 }
 @end lilypond
 
-[AH: I have not written or edited beyond this point. Here I want to do a
-comparison of the last seven measures of Bach's Fugue in G minor from
-the Well-Tempered Clavier, Book I, BWV 861. The appendix has all of the
-source material, but I have some writing to do. This should demonstrate
-LilyPond's excellent output, particularly compared to the default Finale
-output, but more fairly than was done before. This will also show that
-there are always situations that can be improved with some human
-intervention, leading nicely into the next section.]
+@noindent
+The current output is not a clone of the reference edition, but it is
+much closer to publication quality that the earlier output.
 
+@c TODO: remove 3mm eps bounding box left padding for this example
+@c This will require adding a new snippet option to lilypond-book.py
+@c TODO: Why is the beaming in measure 3 wrong in 2.13.5?
 
-@node Flexible architecture
-@unnumberedsubsec Flexible architecture
+[@strong{Andrew H:} This comparison is not finished. I promise not to
+leave it in such a mess!]
 
-How do we go about implementing typography?  If craftsmen need
-over ten years to become true masters, how could we simple hackers
-ever write a program to take over their jobs?
+Another valuable form of benchmarking is comparing LilyPond's output to
+the output of a commercial software product. In this case we have chosen
+Finale 2008, which is one of the most popular commercial scorewriters,
+particularly in North America. Sibelius is their major rival and they
+appear to be especially strong in the European market.
 
-The answer is: we cannot.  Typography relies on human judgment of
+We have selected the last seven measures of Bach's Fugue in G minor from
+the Well-Tempered Clavier, Book I, BWV 861. In the final draft there
+will be pitcures here, but for now please consult the appendix
+(currently pp. 12--14) for the output from both programs and images from
+four reference engravings.
+
+My findings so far:
+
+@itemize @bullet
+@item Finale rests are always at the same heights (in v1/v2 situations).
+@item Finale doesn't interlock notes nicely (mm. 28--29).
+@item Finale misses the B-flat in mm. 33!
+@item Finale's beamed stems are almost always too long when they extend
+off the staff.
+@item LilyPond 2.13.5 has a vertical spacing problem (no padding).
+@item LilyPond could use a little more space before the first note of
+mm. 30, 33--34.
+@item LilyPond's ties to beat 1 of mm. 31 are shorter than any of the
+reference scores, and Finale's are even worse.
+@item LilyPond's stems are often shorter than any of the references,
+especially RH mm. 31.
+@item In some locations, the Bärenreiter engraver(s) place rests
+further from the staff than strictly necessary in order to keep them
+vertically close to the subsequent element in that voice (e.g. mm. 28).
+@item There is some acceptable variation within the reference scores,
+although some scores are more attractive than others.
+@end itemize
+
+@c How do we go about implementing typography?  If craftsmen need
+@c over ten years to become true masters, how could we simple hackers
+@c ever write a program to take over their jobs?
+
+@c The answer is: we cannot.
+
+The last two points lead into this concluding/transition paragraph:
+
+Typography relies on human judgment of
 appearance, so people cannot be replaced completely.  However,
 much of the dull work can be automated.  If LilyPond solves most
 of the common situations correctly, this will be a huge
 improvement over existing software.  The remaining cases can be
 tuned by hand.  Over the course of years, the software can be
 refined to do more and more things automatically, so manual
-overrides are less and less necessary.
+overrides are less and less necessary. Where manual adjustments are
+needed, LilyPond's structure must be ...
+
+@node Flexible architecture
+@unnumberedsubsec Flexible architecture
 
 When we started, we wrote the LilyPond program entirely in the C++
 programming language; the program's functionality was set in stone
