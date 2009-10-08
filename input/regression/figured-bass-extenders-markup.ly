@@ -1,7 +1,6 @@
-\version "2.12.0"
+\version "2.13.6"
 
 \header {
-
 
   texidoc = "When using extender lines in FiguredBass, markup objects should
 be treated like ordinary figures and work correctly with extender lines.
@@ -12,7 +11,6 @@ Extenders should only be used if the markup is really identical."
 
 
 \paper { ragged-right = ##t }
-
 
 <<
   \context Voice {
@@ -27,5 +25,3 @@ Extenders should only be used if the markup is really identical."
       <\markup{\draw-circle #0.7 #0.1 ##t }> <6>
   }
 >>
-
-

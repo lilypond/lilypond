@@ -1,10 +1,10 @@
+\version "2.13.6"
+
 \header {
 
   texidoc = "The @code{Voice.instrumentCueName} property generates instrument
 names for cue notes. It can also be unset properly."
   }
-
-\version "2.13.5"
 
 
 \relative c'' {
