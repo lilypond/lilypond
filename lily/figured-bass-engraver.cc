@@ -62,23 +62,32 @@ struct Figure_group
     group_ = 0;
     current_event_ = 0;
   }
+  /* Mark the members of the struct as used for the GUILE Garbage Collection */
+  void gc_mark () const
+  {
+    scm_gc_mark (number_);
+    scm_gc_mark (alteration_);
+    scm_gc_mark (augmented_);
+    scm_gc_mark (diminished_);
+    scm_gc_mark (augmented_slash_);
+    scm_gc_mark (text_);
+  }
+  bool group_is_equal_to (Stream_event *evt) const
+  {
+    return
+      ly_is_equal (number_, evt->get_property ("figure"))
+      && ly_is_equal (alteration_, evt->get_property ("alteration"))
+      && ly_is_equal (augmented_, evt->get_property ("augmented"))
+      && ly_is_equal (diminished_, evt->get_property ("diminished"))
+      && ly_is_equal (augmented_slash_, evt->get_property ("augmented-slash"))
+      && ly_is_equal (text_, evt->get_property ("text"));
+  }
   bool is_continuation () const
   {
     return
       current_event_
       && !force_no_continuation_
-      && ly_is_equal (number_,
-		      current_event_->get_property ("figure"))
-      && ly_is_equal (alteration_,
-		      current_event_->get_property ("alteration"))
-      && ly_is_equal (augmented_,
-		      current_event_->get_property ("augmented"))
-      && ly_is_equal (diminished_,
-		      current_event_->get_property ("diminished"))
-      && ly_is_equal (augmented_slash_,
-		      current_event_->get_property ("augmented-slash"))
-      && ly_is_equal (text_,
-		      current_event_->get_property ("text"));
+      && group_is_equal_to (current_event_);
   }
 };
 
@@ -116,12 +125,7 @@ Figured_bass_engraver::derived_mark () const
 {
   for (vsize i = 0; i < groups_.size (); i++)
     {
-      scm_gc_mark (groups_[i].number_);
-      scm_gc_mark (groups_[i].alteration_);
-      scm_gc_mark (groups_[i].augmented_);
-      scm_gc_mark (groups_[i].diminished_);
-      scm_gc_mark (groups_[i].augmented_slash_);
-      scm_gc_mark (groups_[i].text_);
+      groups_[i].gc_mark ();
     }
 }
 
