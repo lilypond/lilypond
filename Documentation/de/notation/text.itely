@@ -258,7 +258,7 @@ c  c
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line-or-a-score.ly}
+{printing-marks-at-the-end-of-a-line.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {aligning-marks-with-various-notation-objects.ly}
@@ -277,14 +277,9 @@ Schnipsel:
 @rlsr{Text}.
 
 Referenz der Interna:
+@rinternals{MarkEvent},
+@rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
-
-@knownissues
-@c  To be removed when Issue 69 in the tracker gets fixed. -vv
-
-Wenn ein Zeichen am Ende des letzten Taktes eines Stückes notiert
-wird (wo also keine nächste Zeile mehr existiert), wird das Zeichen
-überhaupt nicht gesetzt.
 
 
 

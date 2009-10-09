@@ -245,7 +245,7 @@ c  c
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line-or-a-score.ly}
+{printing-marks-at-the-end-of-a-line.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {aligning-marks-with-various-notation-objects.ly}
@@ -265,14 +265,11 @@ Fragmentos de código:
 @rlsr{Text}.
 
 Referencia de funcionamiento interno:
+@rinternals{MarkEvent},
+@rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
 
 
-@knownissues
-@c  To be removed when Issue 69 in the tracker gets fixed. -vv
-
-Si se introduce una llamada al final del último compás de la partitura
-(donde no hay línea siguiente), la llamada no se imprime en absoluto.
 
 @node Texto separado
 @unnumberedsubsubsec Texto separado
