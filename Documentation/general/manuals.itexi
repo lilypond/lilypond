@@ -160,7 +160,7 @@ read this manual in the same format as this one.
 
 @end itemize
 
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -200,7 +200,7 @@ it is highly advisable to consult the glossary.
 
 @c FIXME: new format; please leave here.
 @divClass{column-right-bottom}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -209,7 +209,7 @@ read this manual in the same format as this one.
 
 @end itemize
 
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -250,7 +250,7 @@ in the PDF version due to its higher resolution.}
 @divEnd
 
 @divClass{column-right-top}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -261,7 +261,7 @@ read this manual in the same format as this one.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -302,7 +302,7 @@ the English musical terms presented in the Musical Glossary.}
 @divEnd
 
 @divClass{column-right-top}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -313,7 +313,7 @@ read this manual in the same format as this one.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -351,7 +351,7 @@ attempting any large projects.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -362,7 +362,7 @@ read this manual in the same format as this one.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -408,7 +408,7 @@ linked from the @strong{See also} portion.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -419,7 +419,7 @@ read this manual in the same format as this one.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -497,7 +497,7 @@ LilyPond since the previous stable version.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -508,7 +508,7 @@ read this manual in the same format as this one.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -549,7 +549,7 @@ This manual explains how to write extensions to LilyPond.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -560,7 +560,7 @@ read this manual in the same format as this one.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
@@ -608,7 +608,7 @@ have clickable links.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Read it now
+@subheading Read it
 
 @itemize
 
@@ -619,7 +619,7 @@ read this manual in the same format as this one.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Other formats
+@subheading All formats
 
 @divClass{keep-bullets}
 @itemize
