@@ -4,15 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: ca543ea73189a1e53af94973dad0b8a5042c130c
-  texidocfr = "
-Modifier certaines des propriétés du cadrillage temporel aura pour effet
-d'en changer l'apparence.
-
-"
-  doctitlefr = "Apparence du cadrillage temporel"
-
-
   lsrtags = "editorial-annotations"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -30,6 +21,14 @@ geändert werden.
 
 "
   doctitlede = "Gitternetzlinien: Aussehen verändern"
+%% Translation of GIT committish: ca543ea73189a1e53af94973dad0b8a5042c130c
+  texidocfr = "
+Modifier certaines des propriétés du cadrillage temporel aura pour effet
+d'en changer l'apparence.
+
+"
+  doctitlefr = "Apparence du cadrillage temporel"
+
 
   texidoc = "
 The appearance of grid lines can be changed by overriding some of their
