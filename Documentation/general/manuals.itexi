@@ -149,7 +149,6 @@ read all of the manual, you may want to read some sections again
 and follow those cross-references for more information.
 @divEnd
 
-@c FIXME: new format; please leave here.
 @divClass{column-right-bottom}
 @subheading Read it
 
@@ -177,8 +176,9 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, learning.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c TODO: should make links to info?
+@c @item @uref{TODO, learning.info}:
+@c GNU info format for documentation.  link broken.
 
 @end itemize
 @divEnd
@@ -198,7 +198,6 @@ it is highly advisable to consult the glossary.
 
 @divEnd
 
-@c FIXME: new format; please leave here.
 @divClass{column-right-bottom}
 @subheading Read it
 
@@ -226,8 +225,8 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, glossary.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, glossary.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -249,7 +248,7 @@ in the PDF version due to its higher resolution.}
 
 @divEnd
 
-@divClass{column-right-top}
+@divClass{column-right-bottom}
 @subheading Read it
 
 @itemize
@@ -258,9 +257,7 @@ in the PDF version due to its higher resolution.}
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading All formats
 
 @divClass{keep-bullets}
@@ -272,14 +269,14 @@ the manual is split between many HTML pages.
 
 @item @uref{essay-big-page.html, Essay (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around FIXME? Mb)}
+@emph{(large single download, around ?? Mb)}
 
 @item @uref{essay.pdf, essay.pdf}:
 download as a PDF file.
-@emph{(large single download, FIXME? Mb)}
+@emph{(large single download, ?? Mb)}
 
-@item @uref{FIXME, essay.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, essay.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -301,7 +298,7 @@ the English musical terms presented in the Musical Glossary.}
 
 @divEnd
 
-@divClass{column-right-top}
+@divClass{column-right-bottom}
 @subheading Read it
 
 @itemize
@@ -310,9 +307,7 @@ the English musical terms presented in the Musical Glossary.}
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading All formats
 
 @divClass{keep-bullets}
@@ -330,8 +325,8 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, notation.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, notation.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -350,7 +345,7 @@ practices} for efficient use.  It is recommended reading before
 attempting any large projects.
 @divEnd
 
-@divClass{column-right-top}
+@divClass{column-right-bottom}
 @subheading Read it
 
 @itemize
@@ -359,9 +354,7 @@ attempting any large projects.
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading All formats
 
 @divClass{keep-bullets}
@@ -379,8 +372,8 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, lilypond-usage.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, lilypond-usage.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -407,7 +400,7 @@ The list of snippets for each subsection of the Notation are also
 linked from the @strong{See also} portion.
 @divEnd
 
-@divClass{column-right-top}
+@divClass{column-right-bottom}
 @subheading Read it
 
 @itemize
@@ -416,9 +409,7 @@ linked from the @strong{See also} portion.
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading All formats
 
 @divClass{keep-bullets}
@@ -436,8 +427,8 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, snippets.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, snippets.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -496,7 +487,7 @@ LilyPond since the previous stable version.
 
 @divEnd
 
-@divClass{column-right-top}
+@divClass{column-right-bottom}
 @subheading Read it
 
 @itemize
@@ -505,9 +496,7 @@ LilyPond since the previous stable version.
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading All formats
 
 @divClass{keep-bullets}
@@ -530,8 +519,8 @@ read this manual as a HTML page.
 download as a PDF file.
 @emph{(small single download, 0.5 ?? Mb)}
 
-@item @uref{FIXME, changes.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, changes.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -548,7 +537,7 @@ This manual explains how to write extensions to LilyPond.
 
 @divEnd
 
-@divClass{column-right-top}
+@divClass{column-right-bottom}
 @subheading Read it
 
 @itemize
@@ -557,9 +546,7 @@ This manual explains how to write extensions to LilyPond.
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading All formats
 
 @divClass{keep-bullets}
@@ -577,8 +564,8 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, extending.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, extending.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -607,7 +594,7 @@ have clickable links.
 
 @divEnd
 
-@divClass{column-right-top}
+@divClass{column-right-bottom}
 @subheading Read it
 
 @itemize
@@ -616,9 +603,7 @@ have clickable links.
 read this manual in the same format as this one.
 
 @end itemize
-@divEnd
 
-@divClass{column-center-bottom}
 @subheading All formats
 
 @divClass{keep-bullets}
@@ -636,8 +621,8 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, internals.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, internals.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
@@ -664,8 +649,11 @@ TODO: clean up / prettify
 @divClass{column-left-top}
 @subheading Downloadable versions
 
-FIXME: compare tarball vs. zip size, ask about windows users
-dealing with tarballs (both gz and bz2), etc.
+@help{compare tarball vs. zip size, ask about windows users
+dealing with tarballs (both gz and bz2), etc.}
+
+@help{on second thought, wait until the new doc build.  write an
+apology here for no tarballs}
 
 @divClass{keep-bullets}
 @itemize
@@ -698,7 +686,7 @@ LilyPond 2.10 Documentation}
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Documentation}
 
-@item FIXME etc.
+@help anybody want to write this stuff?
 
 @end itemize
 

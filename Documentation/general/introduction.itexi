@@ -814,7 +814,7 @@ convinced?  Read about easier editing environments in
 
 @sourceimage{logo-linux,,,}
 
-FIXME: insert text and a graphic
+@help insert text and a graphic
 
 @divEnd
 
@@ -826,6 +826,8 @@ FIXME: insert text and a graphic
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+@help insert text and a graphic
+
 Created as a plugin for the
 @uref{http://@/www@/.jedit@/.org@/,jEdit} text editor,
 LilyPondTool is one of the most feature-rich text-based tool for
@@ -834,7 +836,6 @@ with lyrics support to set up documents easier, and embedded PDF
 viewer with advanced point-and-click support.  For screenshots,
 demos, and installation instructions, visit
 @uref{http://lilypondtool@/.organum@/.hu}
-
 
 @divEnd
 
@@ -847,14 +848,14 @@ demos, and installation instructions, visit
 @sourceimage{logo-windows,,,}
 
 
-FIXME: insert text and a graphic
+@help insert text and a graphic
 
 @divEnd
 
 @divClass{column-center-top}
 @subheading Other
 
-FIXME: insert text and a graphic(s)
+@help insert text and a graphic(s)
 
 @subsubheading TexShop
 
@@ -902,7 +903,8 @@ Other features are lyric hyphenation and running LilyPond on
 multiple files at once from within the KDE file manager.
 
 
-FIXME
+@help clean up this list, check links, etc.
+
 Other programs can export LilyPond code:
 
 @itemize

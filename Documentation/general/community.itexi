@@ -515,8 +515,8 @@ read this manual as one huge HTML page.
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
-@item @uref{FIXME, contributor.info}:
-GNU info format for documentation.  FIXME, link broken.
+@c @item @uref{TODO, contributor.info}:
+@c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd

@@ -2,6 +2,7 @@
 
 @ignore
 
+(I'd rather have the below in the CG.  -gp)
 NOTE:
 
   * avoid "HERE" as name for links, use descriptive link names like
@@ -23,7 +24,7 @@ NOTE:
   on one day.
 
 
-FIXME
+TODO
 
   * add macro for long Google issues list URL
 @end ignore
