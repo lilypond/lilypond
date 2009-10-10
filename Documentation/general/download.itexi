@@ -318,7 +318,7 @@ cd ~/bin
 @item
 Create a file called @command{lilypond} which contains
 
-FIXME: obvious css issues to be dealt with.  :(
+@help obvious css issue to be dealt with.  :(
 @c we need a small font here to fit.  -gp
 @smallexample
 exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
@@ -493,8 +493,7 @@ pre-built version.}
 @divClass{column-left-bottom}
 @subheading Source tarball
 
-@c FIXME link @uref{http://download.linuxaudio.org/lilypond/sources/v2.12/lilypond-@versionStable{}.tar.gz,
-@c lilypond-@versionStable{}-source.tar.bz2}
+@downloadStableSource{}
 
 For an extensive listing of all versions (old and new), see our
 @uref{http://download.linuxaudio.org/lilypond/binaries/, download

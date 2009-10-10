@@ -438,12 +438,14 @@ the latest binary:
 
 @downloadDevelWindows
 
+@downloadDevelSource
+
 @end quotation
 
 
 @subheading Manuals
 
-FIXME: these need the automatic symlinks or something.  Maybe even
+@help these need the automatic symlinks or something.  Maybe even
 a hard-coded url to lilypond.org/docs/2.13 or something??
 
 Learning:

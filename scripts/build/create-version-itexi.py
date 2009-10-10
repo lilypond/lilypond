@@ -40,6 +40,15 @@ def make_download(name, osA, osB, version, revision, text):
 	string += "}"
 	make_macro(name, string)
 
+def make_download_source(name, vstring, version):
+	string = "@uref{http://download.linuxaudio.org/lilypond/sources/"
+	string += vstring + "/"
+	string += "lilypond-" + version + ".tar.gz"
+	string += ", "
+	string += "lilypond-" + version + ".tar.gz"
+	string += "}"
+	make_macro(name, string)
+
 def make_all_downloads(macroName, version):
 	make_download("download"+macroName+"LinuxNormal", "linux-x86/",
 		"linux-x86.sh",	version, "1", "Linux x86")
@@ -67,4 +76,8 @@ make_macro("versionDevel", VERSION_DEVEL)
 
 make_all_downloads("Stable", VERSION_STABLE)
 make_all_downloads("Devel", VERSION_DEVEL)
+
+# FIXME: icky hard-coding!  -gp
+make_download_source("downloadStableSource", "v2.12", VERSION_STABLE)
+make_download_source("downloadDevelSource", "v2.13", VERSION_DEVEL)
 
