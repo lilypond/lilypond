@@ -9,7 +9,7 @@ import lilylib
 _ = lilylib._
 
 
-NOT_SMART = _ ("Not smart enough to convert %s")
+NOT_SMART = "\n" + _ ("Not smart enough to convert %s")
 UPDATE_MANUALLY = _ ("Please refer to the manual for details, and update manually.")
 FROM_TO = _ ( "%s has been replaced by %s")
 
@@ -2655,7 +2655,8 @@ def conv (str):
     return str
 
 
-@rule ((2, 11, 15), "TextSpanner #'edge-height -> #'bound-details #'right/left #'text = ...")
+@rule ((2, 11, 15), "TextSpanner #'edge-height -> #'bound-details #'right/left #'text = ...\n\
+Remove 'forced-distance for fixed spacing between staves in a PianoStaff.")
 def conv (str):
     def sub_edge_height (m):
         s = ''
@@ -2679,6 +2680,11 @@ def conv (str):
 
 
     str = re.sub (r"(\\once)?\s*\\override\s*([a-zA-Z]+\s*[.]\s*)?TextSpanner\s*#'edge-height\s*=\s*#'\(\s*([0-9.-]+)\s+[.]\s+([0-9.-]+)\s*\)", sub_edge_height, str)
+    if re.search (r"#'forced-distance", str):
+        stderr_write (NOT_SMART % ("VerticalAlignment #'forced-distance.\n"))
+        stderr_write (_ ("Use the `alignment-offsets' sub-property of\n"))
+        stderr_write (_ ("NonMusicalPaperColumn #'line-break-system-details\n"))
+        stderr_write (_ ("to set fixed distances between staves.\n"))
     return str
 
 
@@ -2910,12 +2916,14 @@ def conv(str):
 @rule ((2, 13, 4),
        _ ("Autobeaming rules have changed.  override-auto-beam-setting and\n\
 revert-auto-beam-setting have been eliminated.  \\overrideBeamSettings has been\n\
-added.  BeatGrouping has been eliminated.\n\
+added.  beatGrouping has been eliminated.\n\
 Different settings for vertical layout.\n\
 ly:system-start-text::print -> system-start-text::print\n\
 Beam #'thickness -> Beam #'beam-thickness\n\
 ly:note-head::brew-ez-stencil -> note-head::brew-ez-stencil\n\
-ly:ambitus::print -> ambitus::print"))
+ly:ambitus::print -> ambitus::print\n\
+Explicit dynamics context definition from `Piano centered dynamics'\n\
+template replaced by new `Dynamics' context."))
 def conv(str):
     if re.search("override-auto-beam-setting", str):
         stderr_write ("\n")
@@ -2941,6 +2949,8 @@ you must now specify the distances between staves rather than the offset of stav
     str = re.sub ('ly:(system-start-text::print|note-head::brew-ez-stencil|ambitus::print)',
                   '\\1', str)
     str = re.sub ('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', str)
+    str = re.sub (r'(\\context\s*\{{1}[^\}]+\\name\s+"*Dynamics"*[^\}]*\}{1})',
+                  '', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
