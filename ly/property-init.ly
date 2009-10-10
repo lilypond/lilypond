@@ -381,7 +381,7 @@ tabFullNotation = {
   \revert Stem #'details
   \revert Stem #'transparent
   \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
-  autoBeaming = ##t
+  \set autoBeaming = ##t
   \revert NoteColumn #'ignore-collision
   % beams, dots
   \revert TabVoice.Beam #'stencil

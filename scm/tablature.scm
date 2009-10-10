@@ -33,7 +33,7 @@
   (reverse (cdr (reverse tuning))))
 
 ;; for more control over glyph-name calculations,
-;; we use a custom callback for tab noteheads
+;; we use a custom callback for tab note heads
 ;; which will ignore 'style = 'do
 (define-public (tab-note-head::calc-glyph-name grob)
   (let ((style (ly:grob-property grob 'style)))
@@ -41,7 +41,7 @@
     (case style
       ((cross) "2cross"))))
 
-;; ensure we only call notehead callback when
+;; ensure we only call note head callback when
 ;; 'style = 'cross
 (define-public (tab-note-head::whiteout-if-style-set grob)
   (let ((style (ly:grob-property grob 'style)))
@@ -176,14 +176,14 @@
                 (vector-ref (assoc-get 'break-visibility
                                        tied-properties #(#f #f #t)) 2)))
 
-              (if tab-note-head-visible
-                 ;; tab note head is visible
-                 (if tab-note-head-parenthesized
-                     (ly:grob-set-property! tied-tab-note-head 'stencil
-                                            (lambda (grob)
-                                                    (parenthesize-tab-note-head grob))))
-                 ;; tab note head is invisible
-                 (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
+	  (if tab-note-head-visible
+	      ;; tab note head is visible
+	      (if tab-note-head-parenthesized
+		  (ly:grob-set-property! tied-tab-note-head 'stencil
+					 (lambda (grob)
+					   (parenthesize-tab-note-head grob))))
+	      ;; tab note head is invisible
+	      (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
 
         ;; tie is not split -> make fret number invisible
         (ly:grob-set-property! tied-tab-note-head 'transparent #t))))
@@ -197,28 +197,30 @@
          (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
          (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
 
-        (if tab-note-head-visible
-            ;; tab note head is visible
-            ( if tab-note-head-parenthesized
-                 (ly:grob-set-property! tied-tab-note-head 'stencil
-                                        (lambda (grob)
-                                                (parenthesize-tab-note-head grob))))
-            ;; tab note head is invisible
-            (ly:grob-set-property! tied-tab-note-head 'transparent #t))))
+    (if tab-note-head-visible
+	;; tab note head is visible
+	(if tab-note-head-parenthesized
+	    (ly:grob-set-property! tied-tab-note-head 'stencil
+				   (lambda (grob)
+				     (parenthesize-tab-note-head grob))))
+	;; tab note head is invisible
+	(ly:grob-set-property! tied-tab-note-head 'transparent #t))))
 
 ;; the slurs should not be too far apart from the corresponding fret number, so
 ;; we move the slur towards the TabNoteHeads:
-#(define-public (slur::draw-tab-slur grob)
+(define-public (slur::draw-tab-slur grob)
   ;; TODO: use a less "brute-force" method to decrease
   ;; the distance between the slur ends and the fret numbers
-  (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
-         (staff-space (ly:grob-property staff-symbol 'staff-space))
+  (let* ((staff-space (ly:staff-symbol-staff-space grob))
          (control-points (ly:grob-property grob 'control-points))
-         (new-control-points (map (lambda (p)
-                                          (cons (car p) (- (cdr p)
-                                                        (* staff-space
-                                                           (ly:grob-property grob 'direction)
-                                                           0.35))))
-                                  control-points)))
-        (ly:grob-set-property! grob 'control-points new-control-points)
-        (ly:slur::print grob)))
+         (new-control-points (map
+			      (lambda (p)
+				(cons (car p)
+				      (- (cdr p)
+					 (* staff-space
+					    (ly:grob-property grob 'direction)
+					    0.35))))
+			      control-points)))
+
+    (ly:grob-set-property! grob 'control-points new-control-points)
+    (ly:slur::print grob)))
