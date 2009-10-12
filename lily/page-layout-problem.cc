@@ -446,19 +446,6 @@ Page_layout_problem::distribute_loose_lines (vector<Grob*> const &loose_lines,
       Spring spring (1.0, 0.0);
       alter_spring_from_spacing_spec (spec, &spring);
       spring.ensure_min_distance (min_distances[i]);
-
-      if ((spec == SCM_BOOL_F && loose_lines[0] && loose_lines.back ())
-	  || !loose_lines[i]
-	  || !loose_lines[i+1])
-	{
-	  // Insert a very flexible spring, so it doesn't have much effect.
-	  // TODO: set a default distance and a compress strength so that a
-	  // lyrics line, for example, will stay closer to the top staff
-	  // even in a compressed configuration.
-	  spring.set_inverse_stretch_strength (100000);
-	  spring.set_inverse_compress_strength (100000);
-	}
-
       spacer.add_spring (spring);
     }
 
@@ -608,14 +595,33 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real* dest, SCM sym)
   return false;
 }
 
-// Returns the spacing spec connecting BEFORE to AFTER.  A return
-// value of SCM_BOOL_F means that there should be no spring (in
-// practice, this means that we use a very flexible spring).
+static SCM
+add_stretchability (SCM alist, Real stretch)
+{
+  if (!scm_is_pair (scm_sloppy_assq (ly_symbol2scm ("stretchability"), alist)))
+    return scm_acons (ly_symbol2scm ("stretchability"), scm_from_double (stretch), alist);
+
+  return alist;
+}
+
+// We want to put a large stretch between a non-spaceable line and its
+// non-affinity staff. We want to put an even larger stretch between
+// a non-spaceable line and the top/bottom of the page. That way,
+// a spacing-affinity UP line at the bottom of the page will still be
+// placed close to its staff.
+const double LARGE_STRETCH = 10e5;
+const double HUGE_STRETCH = 10e7;
+
+// Returns the spacing spec connecting BEFORE to AFTER.
 SCM
 Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
 {
+  // If there are no spacing wishes, return a very flexible spring.
+  // This will occur, for example, if there are lyrics at the bottom of
+  // the page, in which case we don't want the spring from the lyrics to
+  // the bottom of the page to have much effect.
   if (!before || !after)
-    return SCM_BOOL_F;
+    return add_stretchability (SCM_EOL, HUGE_STRETCH);
 
   if (is_spaceable (before))
     {
@@ -624,7 +630,9 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
       else
 	{
 	  Direction affinity = to_dir (after->get_property ("staff-affinity"));
-	  return (affinity == DOWN) ? SCM_BOOL_F : after->get_property ("inter-staff-spacing");
+	  return (affinity == DOWN)
+	    ? add_stretchability (after->get_property ("non-affinity-spacing"), LARGE_STRETCH)
+	    : after->get_property ("inter-staff-spacing");
 	}
     }
   else
@@ -632,7 +640,9 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
       if (is_spaceable (after))
 	{
 	  Direction affinity = to_dir (before->get_property ("staff-affinity"));
-	  return (affinity == UP) ? SCM_BOOL_F : before->get_property ("inter-staff-spacing");
+	  return (affinity == UP)
+	    ? add_stretchability (before->get_property ("non-affinity-spacing"), LARGE_STRETCH)
+	    : before->get_property ("inter-staff-spacing");
 	}
       else
 	{
@@ -647,8 +657,11 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after)
 	    return before->get_property ("inter-loose-line-spacing");
 	  else if (after_affinity != DOWN)
 	    return before->get_property ("inter-loose-line-spacing");
+	  return add_stretchability (before->get_property ("non-affinity-spacing"), LARGE_STRETCH);
 	}
     }
+
+  assert (0);
   return SCM_BOOL_F;
 }
 

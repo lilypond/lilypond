@@ -2186,6 +2186,7 @@
 	(axes . (,Y))
 	(default-next-staff-spacing . ((space . 9) (minimum-distance . 8)))
 	(next-staff-spacing . ,ly:axis-group-interface::calc-next-staff-spacing)
+	(non-affinity-spacing . ((padding . 0.5)))
 	(stencil . ,ly:axis-group-interface::print)
 	(vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)

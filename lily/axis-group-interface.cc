@@ -729,6 +729,7 @@ ADD_INTERFACE (Axis_group_interface,
 	       "inter-staff-spacing "
 	       "keep-fixed-while-stretching "
 	       "max-stretch "
+	       "non-affinity-spacing "
 	       "next-staff-spacing "
 	       "no-alignment "
 	       "pure-Y-common "

@@ -600,6 +600,11 @@ staff is crucial for @var{padding}).
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
 get stems extending to the middle staff line.")
+     (non-affinity-spacing ,list? "An alist of spacing variables
+that controls the spacing from a loose line (see @var{staff-affinity})
+to the staff for which the loose line does not have affinity.
+See @var{next-staff-spacing} for a description of the elements of
+this alist.")
      (non-default ,boolean? "Set for manually specified clefs.")
      (non-musical ,boolean? "True if the grob belongs to a
 @code{NonMusicalPaperColumn}.")
