@@ -381,16 +381,21 @@ Constrained_breaking::initialize ()
   */
   between_system_space_ = 0;
   between_system_padding_ = 0;
+  before_title_padding_ = 0;
 
   Output_def *l = pscore_->layout ();
 
   SCM spacing_spec = l->c_variable ("between-system-spacing");
+  SCM title_spec = l->c_variable ("before-title-spacing");
   SCM page_breaking_spacing_spec = l->c_variable ("page-breaking-between-system-spacing");
   Page_layout_problem::read_spacing_spec (spacing_spec,
 					  &between_system_padding_,
 					  ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
 					  &between_system_padding_,
+					  ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (title_spec,
+					  &before_title_padding_,
 					  ly_symbol2scm ("padding"));
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
@@ -472,6 +477,7 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
 		  || isnan (extent[RIGHT]))
     ? Interval (0, 0) : extent;
   out->padding_ = between_system_padding_;
+  out->title_padding_ = before_title_padding_;
   out->space_ = between_system_space_;
   out->inverse_hooke_ = extent.length () + between_system_space_;
 }
@@ -485,3 +491,28 @@ Constrained_breaking::combine_demerits (Real force, Real prev_force)
   return force * force + (prev_force - force) * (prev_force - force);
 }
 
+Line_details::Line_details (Prob *pb, Output_def *paper)
+{
+  SCM spec = paper->c_variable ("after-title-spacing");
+  SCM title_spec = paper->c_variable ("between-title-spacing");
+  padding_ = 0;
+  title_padding_ = 0;
+  Page_layout_problem::read_spacing_spec (spec, &padding_, ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (title_spec, &title_padding_, ly_symbol2scm ("padding"));
+
+  last_column_ = 0;
+  force_ = 0;
+  extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
+  bottom_padding_ = 0;
+  space_ = robust_scm2double (pb->get_property ("next-space"), 1.0);
+  inverse_hooke_ = 1.0;
+  break_permission_ = ly_symbol2scm ("allow");
+  page_permission_ = pb->get_property ("page-break-permission");
+  turn_permission_ = pb->get_property ("page-turn-permission");
+  break_penalty_ = 0;
+  page_penalty_ = robust_scm2double (pb->get_property ("page-break-penalty"), 0);
+  turn_penalty_ = robust_scm2double (pb->get_property ("page-turn-penalty"), 0);
+  title_ = to_boolean (pb->get_property ("is-title"));
+  compressed_lines_count_ = 1;
+  compressed_nontitle_lines_count_ = title_ ? 0 : 1;
+}

@@ -89,8 +89,10 @@ compress_lines (const vector<Line_details> &orig)
 	{
 	  Line_details const &old = ret.back ();
 	  Line_details compressed = orig[i];
+	  Real padding = orig[i].title_ ? old.title_padding_ : old.padding_;
+
 	  compressed.extent_[DOWN] = old.extent_[DOWN];
-	  compressed.extent_[UP] = old.extent_[UP] + orig[i].extent_.length () + old.padding_;
+	  compressed.extent_[UP] = old.extent_[UP] + orig[i].extent_.length () + padding;
 	  compressed.space_ += old.space_;
 	  compressed.inverse_hooke_ += old.inverse_hooke_;
 
@@ -751,11 +753,6 @@ Page_breaking::cache_line_details (vsize configuration_index)
   if (cached_configuration_index_ != configuration_index)
     {
       cached_configuration_index_ = configuration_index;
-      Real padding = 0;
-      SCM spacing_spec = book_->paper_->c_variable ("between-system-spacing");
-      SCM page_breaking_spacing_spec = book_->paper_->c_variable ("page-breaking-between-system-spacing");
-      Page_layout_problem::read_spacing_spec (spacing_spec, &padding, ly_symbol2scm ("padding"));
-      Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec, &padding, ly_symbol2scm ("padding"));
 
       Line_division &div = current_configurations_[configuration_index];
       uncompressed_line_details_.clear ();
@@ -774,10 +771,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	  else
 	    {
 	      assert (div[i] == 1);
-	      uncompressed_line_details_.push_back (Line_details (system_specs_[sys].prob_));
-	      uncompressed_line_details_.back ().padding_ =
-                robust_scm2double (system_specs_[sys].prob_->get_property ("next-padding"),
-                                   padding);
+	      uncompressed_line_details_.push_back (Line_details (system_specs_[sys].prob_, book_->paper_));
 	    }
 	}
       cached_line_details_ = compress_lines (uncompressed_line_details_);
@@ -849,8 +843,12 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
       Real ext_len = cached_line_details_[i].extent_.length ();
-      Real next_rod_height = cur_rod_height + ext_len
-	+ ((cur_rod_height > 0) ? cached_line_details_[i].padding_: 0);
+      Real padding = 0;
+      if (cur_rod_height > 0)
+	padding = cached_line_details_[i].title_ ?
+	  cached_line_details_[i-1].title_padding_ : cached_line_details_[i-1].padding_;
+
+      Real next_rod_height = cur_rod_height + ext_len + padding;
       Real next_spring_height = cur_spring_height + cached_line_details_[i].space_;
       Real next_height = next_rod_height + (ragged () ? next_spring_height : 0)
 	+ min_whitespace_at_bottom_of_page (cached_line_details_[i]);

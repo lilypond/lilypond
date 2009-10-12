@@ -21,6 +21,7 @@ struct Line_details {
 
   Real padding_;  /* compulsory space after this system (if we're not
 		     last on a page) */
+  Real title_padding_;
   Real bottom_padding_;
   Real space_;    /* spring length */
   Real inverse_hooke_;
@@ -47,6 +48,7 @@ struct Line_details {
     last_column_ = 0;
     force_ = infinity_f;
     padding_ = 0;
+    title_padding_ = 0;
     bottom_padding_ = 0;
     space_ = 0;
     inverse_hooke_ = 1;
@@ -61,25 +63,7 @@ struct Line_details {
     compressed_nontitle_lines_count_ = 1;
   }
 
-  Line_details (Prob *pb)
-  {
-    last_column_ = 0;
-    force_ = 0;
-    extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
-    padding_ = robust_scm2double (pb->get_property ("next-padding"), 0);
-    bottom_padding_ = 0;
-    space_ = robust_scm2double (pb->get_property ("next-space"), 1.0);
-    inverse_hooke_ = 1.0;
-    break_permission_ = ly_symbol2scm ("allow");
-    page_permission_ = pb->get_property ("page-break-permission");
-    turn_permission_ = pb->get_property ("page-turn-permission");
-    break_penalty_ = 0;
-    page_penalty_ = robust_scm2double (pb->get_property ("page-break-penalty"), 0);
-    turn_penalty_ = robust_scm2double (pb->get_property ("page-turn-penalty"), 0);
-    title_ = to_boolean (pb->get_property ("is-title"));
-    compressed_lines_count_ = 1;
-    compressed_nontitle_lines_count_ = title_ ? 0 : 1;
-  }
+  Line_details (Prob *pb, Output_def *paper);
 };
 
 /*
@@ -131,6 +115,7 @@ private:
   bool ragged_right_;
   bool ragged_last_;
   Real between_system_space_;
+  Real before_title_padding_;
   Real between_system_padding_;
 
   /* the (i,j)th entry is the configuration for breaking between

@@ -40,7 +40,7 @@ Page_spacing::append_system (const Line_details &line)
   if (!rod_height_)
     first_line_ = line;
 
-  rod_height_ += last_line_.padding_;
+  rod_height_ += line.title_ ? last_line_.title_padding_ : last_line_.padding_;
 
   rod_height_ += line.extent_.length ();
   spring_len_ += line.space_;
@@ -55,7 +55,7 @@ void
 Page_spacing::prepend_system (const Line_details &line)
 {
   if (rod_height_)
-    rod_height_ += line.padding_;
+    rod_height_ += first_line_.title_ ? line.title_padding_ : line.padding_;
   else
     last_line_ = line;
 
