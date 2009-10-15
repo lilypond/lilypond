@@ -375,11 +375,11 @@ tabFullNotation = {
   % time signature
   \revert TabStaff.TimeSignature #'stencil
   % stems (the half note gets a double stem)
-  \revert Stem #'length
-  \revert Stem #'no-stem-extend
-  \revert Stem #'flag-style
-  \revert Stem #'details
-  \revert Stem #'transparent
+  \revert TabVoice.Stem #'length
+  \revert TabVoice.Stem #'no-stem-extend
+  \revert TabVoice.Stem #'flag-style
+  \revert TabVoice.Stem #'details
+  \revert TabVoice.Stem #'transparent
   \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
   \set autoBeaming = ##t
   \revert NoteColumn #'ignore-collision
@@ -392,22 +392,24 @@ tabFullNotation = {
   \revert TabVoice.RepeatTie #'after-line-breaking
   \revert TabVoice.LaissezVibrerTie #'stencil
   \revert TabVoice.Slur #'stencil
-  \revert PhrasingSlur #'stencil
+  \revert TabVoice.PhrasingSlur #'stencil
   % tuplet stuff
   \revert TabVoice.TupletBracket #'stencil
   \revert TabVoice.TupletNumber #'stencil
   % dynamic signs
-  \revert DynamicText #'transparent
-  \revert DynamicTextSpanner #'stencil
+  \revert TabVoice.DynamicText #'transparent
+  \revert TabVoice.DynamicTextSpanner #'stencil
   \revert TabVoice.DynamicTextSpanner #'stencil
   \revert TabVoice.Hairpin #'transparent
   % rests
   \revert TabVoice.Rest #'stencil
   \revert TabVoice.MultiMeasureRest #'stencil
+  \revert TabVoice.MultiMeasureRestNumber #'transparent
   % markups etc.
   \revert TabVoice.Script #'stencil
   \revert TabVoice.TextScript #'stencil
   \revert TabStaff.Arpeggio #'stencil
+  \revert TabStaff.NoteColumn #'ignore-collision
 }
 
 %tie/repeat tie behaviour

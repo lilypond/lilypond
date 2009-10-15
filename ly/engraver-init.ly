@@ -729,14 +729,12 @@ context."
   \override Stem #'transparent = ##t
   %% automatic beams should be suppressed for similar reasons ...
   autoBeaming = ##f
-  %% ... and we ignore collision warnings that may occur due to
-  %% stem overlapping ...
-  \override NoteColumn #'ignore-collision = ##t
   %% remove beams, dots and rests ...
   \override Beam #'stencil = ##f
   \override Dots #'stencil = ##f
   \override Rest #'stencil = ##f
   \override MultiMeasureRest #'stencil = ##f
+  \override MultiMeasureRestNumber #'transparent = ##t
   %% ... all kinds of ties/slurs
   \override Tie  #'stencil = ##f
   \override RepeatTie #'stencil = ##f
@@ -796,6 +794,9 @@ context."
   \override ParenthesesItem #'stencils = #parentheses-item::calc-tabstaff-parenthesis-stencils
   %% no arpeggios
   \override Arpeggio #'stencil = ##f
+  %% we ignore collision warnings that may occur due to
+  %% stem overlapping, because we have no stems ;-)
+  \override NoteColumn #'ignore-collision = ##t
   %% Special "TAB" clef
   clefGlyph = #"clefs.tab"
   clefPosition = #0
