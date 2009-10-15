@@ -15,6 +15,18 @@
 This section covers the overall goals and architecture of
 LilyPond.
 
+@c TODO:
+@c update LP 1.4 example with PDF
+@c annotate typography errors in old LilyPond
+@c add Schubert
+@c add 'tweaked' versions of LP & Finale BWV 861
+@c find a good value for #'between-staff-spacing #'padding
+@c remove 3mm eps bounding box left padding for Sarabande (This will
+@c     require adding a new snippet option to lilypond-book.py
+
+@c Notes:
+@c Incorrect beaming in the Sarabande is a known bug.
+
 @menu
 * Engraving::                   
 * Automated engraving::         
@@ -24,9 +36,112 @@ LilyPond.
 * Appendix::                    
 @end menu
 
+@node The LilyPond story
+@unnumberedsec The LilyPond story
 
-@node Engraving
-@unnumberedsec Engraving
+Before LilyPond had a community of users around the world, before it had
+been used to produce university course notes or world-premier opera
+performance scores, before there was an essay on music engraving or any
+computer code or even an organized team of developers, LilyPond began
+with a question:
+
+@quotation
+Why does most computer output fail to achieve the beauty and balance of
+a hand-engraved score?
+@end quotation
+
+Some of the answers can be found by examining the two scores
+@ifnottex
+below.
+@end ifnottex
+@iftex
+on the following pages.
+@end iftex
+The first score is a beautiful hand-engraved score from 1950 and the
+second is a modern, computer-engraved edition.
+
+@ifnottex
+@noindent
+Bärenreiter BA 320, @copyright{}1950:
+
+@sourceimage{baer-suite1-fullpage,,,png}
+
+@noindent
+Henle no. 666, @copyright{}2000:
+
+@sourceimage{henle-suite1-fullpage,,,png}
+@end ifnottex
+
+The notes here are identical, taken from Bach's first Suite for solo
+cello, but the appearance is different, especially if you print them out
+and veiw them from a distance.
+@ifnottex
+(The PDF version of this manual has high-resolution images suitable for
+printing.)
+@end ifnottex
+Try reading or playing from each of the scores and you will find that
+the hand-engraved score is more enjoyable to use. It has flowing lines
+and movement, and it feels like a living, breathing piece of music,
+while the newer edition seems cold and mechanical.
+
+It is kind of hard to immediately see what makes the difference with the
+newer edition. Everything looks neat and tiny, possibly even ``better''
+because it looks more computerized and uniform. This really puzzled us
+for quite a while. We wanted to improve computer notation, but we first
+had to figure out what was wrong with it.
+
+The answer lies in the precise, mathematical uniformity of the newer
+edition. Find the barline in the middle of each line: in the
+hand-engraved score the position of these barlines has some natural
+natural variation, while in the newer version they line up almost
+perfectly. This is shown in these simplified page layout diagrams,
+traced from the hand-engraved (left) and computer-generated music
+(right):
+
+@quotation
+@iftex
+@sourceimage{pdf/page-layout-comparison,,,}
+@end iftex
+@ifnottex
+@sourceimage{page-layout-comparison,,,png}
+@end ifnottex
+@end quotation
+@noindent
+
+In the computer-generated output, even the individual noteheads are
+aligned in vertical columns, making the contour of the melody disappear
+into a rigid grid of musical markings.
+
+There are other differences as well: in the hand-engraved edition the
+vertical lines are all stronger, the slurs lie closer to the noteheads,
+and there is more visual variety in the placement of the beams. Although
+such details may seem like nitpicking, the result is a score that is
+easier to read. In the computer-generated output, each line is nearly
+identical and if the musician looks away for a moment, she will be lost
+on the page.
+
+LilyPond was designed to solve the problems we found in existing
+software and to create beautiful music that mimics the finest
+hand-engraved scores. Along the way, we have learned a great deal about
+the work that goes into a well-engraved score. In this essay we describe
+several of those aspects that we have tried to imitate in LilyPond.
+
+@iftex
+@page
+@noindent
+Bärenreiter BA 320, @copyright{}1950:
+
+@sourceimage{baer-suite1-fullpage,16cm,,}
+@page
+@noindent
+Henle no. 666, @copyright{}2000:
+@sp 3
+@sourceimage{henle-suite1-fullpage,16cm,,}
+@page
+@end iftex
+
+@node Engraving details
+@unnumberedsec Engraving details
 
 @cindex engraving
 @cindex typography, music
@@ -64,17 +179,12 @@ necessary to become truly skilled.
 @end ifnottex
 @end quotation
 
-Now all newly printed music is produced with computers. This has
-obvious advantages: prints are cheaper to make, editorial work can be
-delivered by email, and the original data can be easily stored.
-Unfortunately, computer-generated scores rarely match the quality of
-hand-engraved scores. Instead, computer printouts have a bland,
-mechanical look, which makes them unpleasant to play from.
-
-From the beginning, we designed LilyPond to mimic the beauty of
-traditional music engraving. Along the way, we have learned a great deal
-about the work that goes into a well-engraved score. Below we describe
-several of those aspects that we have tried to imitate in LilyPond.
+@c Now all newly printed music is produced with computers. This has
+@c obvious advantages: prints are cheaper to make, editorial work can be
+@c delivered by email, and the original data can be easily stored.
+@c Unfortunately, computer-generated scores rarely match the quality of
+@c hand-engraved scores. Instead, computer printouts have a bland,
+@c mechanical look, which makes them unpleasant to play from.
 
 @menu
 * Music fonts::                 
@@ -91,7 +201,7 @@ The images below illustrate some differences between traditional
 engraving and typical computer output. The left picture shows a scan of
 a flat symbol from a hand-engraved Bärenreiter edition, while the right
 picture depicts a symbol from an edition of the same music published in
-2000. Although both images are printed in the shame shade of ink, the
+2000. Although both images are printed in the same shade of ink, the
 earlier version looks darker: the staff lines are heavier, and the
 Bärenreiter flat has a bold, almost voluptuous rounded look. The right
 scan, on the other hand, has thinner lines and a straight layout with
@@ -137,7 +247,7 @@ Henle (2000)
 
 When we wanted to write a computer program to create music typography,
 there were no musical fonts freely available that could match the
-elegance of our favorite scores. Not let down, we created a font of
+elegance of our favorite scores. Undeterred, we created a font of
 musical symbols, relying on nice printouts of hand-engraved music. The
 experience helped develop a typographical taste, and it made us
 appreciate subtle design details. Without that experience, we would not
@@ -157,8 +267,8 @@ our own LilyPond font.
 @end quotation
 
 The LilyPond symbols are heavier and their weight is more consistent,
-which makes them easier to read. Fine endings, such as the one on the
-bottom of the quarter rest, should not end in sharp points, but rather
+which makes them easier to read. Fine endings, such as the ones on the
+sides of the quarter rest, should not end in sharp points, but rather
 in rounded shapes. This is because sharp corners of the punching dies
 are fragile and quickly wear out when stamping in metal. Taken together,
 the blackness of the font must be carefully tuned together with the
@@ -175,11 +285,11 @@ vertical strokes are heavier.
 @unnumberedsubsec Optical spacing
 
 In spacing, the distribution of space should reflect the durations
-between notes.  However, many modern scores adhere to the
-durations with mathematical precision, which leads to poor
-results.  In the next example a motive is printed twice: the first time
-using exact mathematical spacing, and the second with corrections.
-Which do you prefer?
+between notes. However, as we saw in the Bach Suite above, many modern
+scores adhere to the durations with mathematical precision, which leads
+to poor results. In the next example a motive is printed twice: the
+first time using exact mathematical spacing, and the second with
+corrections. Which do you prefer?
 
 @cindex optical spacing
 
@@ -240,18 +350,17 @@ music = {
 @cindex regular spacing
 @cindex spacing, regular
 
-Each bar in the fragment only uses notes that are played in a
-constant rhythm.  The spacing should reflect that.  Unfortunately,
-the eye deceives us a little; not only does it notice the distance
-between note heads, it also takes into account the distance
-between consecutive stems.  As a result, the notes of an
-up-stem/@/down-stem combination should be put farther apart, and
-the notes of a down-stem/@/up-stem combination should be put
-closer together, all depending on the combined vertical positions
-of the notes.  The upper two measures are printed with this
-correction, the lower two measures, however, form down-stem/@/up-stem
-clumps of notes. A master engraver would adjust the spacing as needed to
-please the eye.
+Each bar in the fragment only uses notes that are played in a constant
+rhythm. The spacing should reflect that. Unfortunately, the eye deceives
+us a little; not only does it notice the distance between note heads, it
+also takes into account the distance between consecutive stems. As a
+result, the notes of an up-stem/@/down-stem combination should be put
+farther apart, and the notes of a down-stem/@/up-stem combination should
+be put closer together, all depending on the combined vertical positions
+of the notes. The lower two measures are printed with this correction,
+the upper two measures, however, form down-stem/@/up-stem clumps of
+notes. A master engraver would adjust the spacing as needed to please
+the eye.
 
 Another example of optical spacing is the visual interplay between the
 stems and the bar lines. When an up-stem precedes the bar line, a little
@@ -272,6 +381,10 @@ more space is needed to keep it from feeling crowded:
       \Staff
       \remove "Time_signature_engraver"
       \override NoteSpacing #'stem-spacing-correction = #0.7
+    }
+    \context {
+      \Score
+      \remove "Bar_number_engraver"
     }
   }
 }
@@ -484,8 +597,8 @@ configurations, ties and dots in chords, line breaks, and page breaks.
 
 We have tuned LilyPond's layout rules by comparing its output to
 hand-engraved scores. Here is one line of a benchmark piece from a
-hand-engraved edition (Bärenreiter BA320), and as engraved by LilyPond
-1.4:
+hand-engraved edition (Bärenreiter BA320), and as engraved by an old
+version of LilyPond (version 1.4, released May 2001):
 
 @iftex
 @sourceimage{baer-sarabande-hires,16cm,,}
@@ -553,10 +666,6 @@ from the current version of LilyPond (@version{}):
 The current output is not a clone of the reference edition, but it is
 much closer to publication quality that the earlier output.
 
-@c TODO: remove 3mm eps bounding box left padding for this example
-@c This will require adding a new snippet option to lilypond-book.py
-@c TODO: Why is the beaming in measure 3 wrong in 2.13.5?
-
 [@strong{Andrew H:} This comparison is not finished. I promise not to
 leave it in such a mess!]
 
@@ -593,6 +702,13 @@ vertically close to the subsequent element in that voice (e.g. mm. 28).
 @item There is some acceptable variation within the reference scores,
 although some scores are more attractive than others.
 @end itemize
+
+@c Han-Wen said once:
+@c A lot of readers misinterpret the Finale example. Finale is a
+@c powerful package, and in the hands of a good engraver — which is
+@c something different from a good musician — it can produce very good
+@c scores. However, the friendly GUI is misleading: you need a lot of
+@c time and expertise to get decent scores from Finale.
 
 @c How do we go about implementing typography?  If craftsmen need
 @c over ten years to become true masters, how could we simple hackers
