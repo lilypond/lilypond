@@ -179,7 +179,7 @@ UNTRANSLATED NODE: IGNORE ME
 @macro exampleImage{IMAGE-FILE}
 @html
 <div class="float-center">
-  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+  <a class="clickable" href="general/examples/\IMAGE-FILE\.png">
     <img src="general/examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
