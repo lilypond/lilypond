@@ -28,7 +28,8 @@ LilyPond.
 @c Incorrect beaming in the Sarabande is a known bug.
 
 @menu
-* Engraving::                   
+* The LilyPond story::          
+* Engraving details::           
 * Automated engraving::         
 * What symbols to engrave?::    
 * Music representation::        
