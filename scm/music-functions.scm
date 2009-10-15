@@ -1293,6 +1293,29 @@ use GrandStaff as a context. "
 					   ,(make-accidental-rule 'same-octave 1)
 				           ,neo-modern-accidental-rule)
 				   context))
+      ((equal? style 'neo-modern-voice)
+       (set-accidentals-properties #f
+				   `(Voice ,(make-accidental-rule 'same-octave 0)
+					   ,(make-accidental-rule 'any-octave 0)
+					   ,(make-accidental-rule 'same-octave 1)
+					   ,neo-modern-accidental-rule
+				     Staff ,(make-accidental-rule 'same-octave 0)
+					   ,(make-accidental-rule 'any-octave 0)
+					   ,(make-accidental-rule 'same-octave 1)
+				      ,neo-modern-accidental-rule)
+				   '()
+				   context))
+      ((equal? style 'neo-modern-voice-cautionary)
+       (set-accidentals-properties #f
+				   `(Voice ,(make-accidental-rule 'same-octave 0))
+				   `(Voice ,(make-accidental-rule 'any-octave 0)
+					   ,(make-accidental-rule 'same-octave 1)
+					   ,neo-modern-accidental-rule
+				     Staff ,(make-accidental-rule 'same-octave 0)
+					   ,(make-accidental-rule 'any-octave 0)
+					   ,(make-accidental-rule 'same-octave 1)
+					   ,neo-modern-accidental-rule)
+				   context))
       ;; Accidentals as they were common in dodecaphonic music with no tonality.
       ;; Each note gets one accidental.
       ((equal? style 'dodecaphonic)

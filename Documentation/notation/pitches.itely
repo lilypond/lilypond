@@ -1308,13 +1308,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1390,13 +1391,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1462,13 +1464,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1524,13 +1527,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1587,13 +1591,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1653,13 +1658,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1713,13 +1719,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1777,13 +1784,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1836,13 +1844,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1894,13 +1903,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1950,13 +1960,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -1977,6 +1988,122 @@ musicB = {
 }
 @end lilypond
 
+
+@item neo-modern-voice
+
+@cindex neo-modern-voice accidental style
+@cindex accidental style, neo-modern-voice
+
+@funindex neo-modern-voice
+
+This rule is used for multivoice accidentals to be read both by
+musicians playing one voice and musicians playing all voices.
+Accidentals are typeset for each voice as with @code{neo-modern},
+but they are canceled across voices in the same @code{Staff}.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-voice)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-voice-cautionary
+
+@cindex neo-modern-voice-cautionary accidental style
+@cindex accidental style, neo-modern-voice-cautionary
+
+@funindex neo-modern-voice-cautionary
+
+This rule is similar to @code{neo-modern-voice}, but the extra
+accidentals are printed as cautionary accidentals.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8 <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-voice-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-voice-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
 
 @item dodecaphonic
 
@@ -2010,13 +2137,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -2070,13 +2198,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -2130,13 +2259,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
@@ -2189,13 +2319,14 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>4
+      <fis, a cis>8 <fis a cis>
       \change Staff = up
-      cis'
+      cis' cis
       \change Staff = down
-      <fis, a>
+      <fis, a> <fis a>
+      \showStaffSwitch
       \change Staff = up
-      dis' |
+      dis'4 |
       \change Staff = down
       <fis, a cis>4 gis <f a d>2 |
     }
