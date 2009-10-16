@@ -821,12 +821,13 @@ convinced?  Read about easier editing environments in
 @divClass{column-center-top}
 @subheading Mixed environment: LilyPondTool
 
+@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
+  (click to enlarge),lilypondtool-2.12-screenshot,png,right}
+
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
-
-@help insert text and a graphic
 
 Created as a plugin for the
 @uref{http://@/www@/.jedit@/.org@/,jEdit} text editor,
@@ -856,6 +857,20 @@ demos, and installation instructions, visit
 @subheading Other
 
 @help insert text and a graphic(s)
+
+@subsubheading Frescobaldi
+
+@imageFloat{frescobaldi-lilypond-editor-small,png,right}
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+
+Frescobaldi is a dedicated LilyPond music and text editor with
+built-in PDF previewer, a powerful score wizard and many editing
+features. It is built on top of the KDE4 libraries and runs
+currently on all flavours of Linux and other UNIX-like operating
+systems.
+
 
 @subsubheading TexShop
 
