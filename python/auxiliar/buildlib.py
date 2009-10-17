@@ -22,7 +22,7 @@ def read_pipe (command):
 ### Renamed files map to ensure continuity of file history
 ## Map of new_name: old_name
 renames_map = {
-    'application.tely': 'user/lilypond-program.tely',
+    'usage.tely': 'user/lilypond-program.tely',
     'notation.tely': 'user/lilypond.tely',
     'learning.tely': 'user/lilypond-learning.tely',
     'changes.tely': 'topdocs/NEWS.tely',
@@ -30,7 +30,7 @@ renames_map = {
 
 # FIXME: Hardcoded file names!?
 manuals_subdirectories_re = \
-    re.compile ('(application|automated-engraving|essay|general|learning|notation)/')
+    re.compile ('(usage|automated-engraving|essay|extending|general|learning|notation)/')
 
 def add_old_name (file_path):
     for new_path in renames_map:
