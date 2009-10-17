@@ -29,7 +29,7 @@ This chapter details the technicalities of running LilyPond.
 @section Normal usage
 
 Most users run LilyPond through a GUI; if you have not done so
-already, read @rlearning{Introduction}.  If you use an alternate
+already, please read the @rlearning{Tutorial}.  If you use an alternate
 editor to write lilypond files, see the documentation for that
 program.
 

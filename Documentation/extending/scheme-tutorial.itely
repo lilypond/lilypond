@@ -269,7 +269,7 @@ commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
 we have even more power if we use Scheme.  For a full explanation
 of this, see the @ref{Scheme tutorial}, and
-@ruser{Interfaces for programmers}.
+@ref{Interfaces for programmers}.
 
 We can use Scheme to simply @code{\override} commands,
 

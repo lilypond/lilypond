@@ -990,7 +990,7 @@ message like @qq{Output would overwrite input file}.
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
 with this program, please refer to 
-@rprogram{lilypond-book}.
+@ref{lilypond-book}.
 
 @subsection LaTeX
 

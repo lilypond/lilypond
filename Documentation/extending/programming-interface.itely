@@ -14,7 +14,7 @@
 
 Advanced tweaks may be performed by using Scheme.  If you are
 not familiar with Scheme, you may wish to read our
-@rlearning{Scheme tutorial}.
+@ref{Scheme tutorial}.
 
 @menu
 * Music functions::

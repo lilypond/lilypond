@@ -9,7 +9,7 @@
 
 @c \version "2.12.0"
 
-@node Tutorial 
+@node Tutorial
 @chapter Tutorial
 
 This chapter gives a basic introduction to working with LilyPond.

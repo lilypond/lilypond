@@ -601,8 +601,8 @@ copy out\myproject.pdf MyProject.pdf
 
 
 @seealso
-Application Usage:
-FIXME
-@c @rprogram{Setup for MacOS X},
-@rprogram{Command-line usage},
-@rprogram{lilypond-book}
+
+This manual:
+@ref{Command-line usage},
+@ref{lilypond-book}
+

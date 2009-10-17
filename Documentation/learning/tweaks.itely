@@ -305,7 +305,7 @@ a b c
 There is another form of the override command,
 @code{\overrideProperty}, which is occasionally required.
 We mention it here for completeness, but for details see
-@ruser{Difficult tweaks}.
+@rextend{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
 @strong{\tweak command}
