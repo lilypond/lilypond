@@ -57,7 +57,7 @@ TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
 TOPDIR_HTML_MANUALS = general
-UNSPLITTED_HTML_MANUALS = changes
+UNSPLITTED_HTML_MANUALS =
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
 NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLITTED_HTML_MANUALS),\

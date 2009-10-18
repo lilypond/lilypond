@@ -502,18 +502,13 @@ read this manual in the same format as this one.
 @divClass{keep-bullets}
 @itemize
 
-@c Changes isn't available as a split manual.
-@c  (maybe it should be, but it isn't so far)
-@c @item @uref{changes/index.html, Changes (split HTML)}:
-@c the manual is split between many HTML pages.
-@c @emph{(small download for each page)}
+@item @uref{changes/index.html, Changes (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
 
-@c @item @uref{changes-big-page.html, Changes (big HTML)}:
-@c read this manual as one huge HTML page.
-@c @emph{(large single download, around 10? Mb)}
-
-@item @uref{changes.html, Changes}:
-read this manual as a HTML page.
+@item @uref{changes-big-page.html, Changes (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 10? Mb)}
 
 @item @uref{changes.pdf, changes.pdf}:
 download as a PDF file.
