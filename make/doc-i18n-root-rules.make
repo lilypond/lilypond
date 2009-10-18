@@ -43,6 +43,11 @@ $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
-$(outdir)/index.html: $(outdir)/macros.itexi $(outdir)/common-macros.itexi
+$(outdir)/index.$(ISOLANG).html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
+$(outdir)/index.$(ISOLANG).html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
+
+$(outdir)/index.$(ISOLANG).html:
+	$(TEXI2HTML) $(TEXI2HTML_FLAGS) $(TEXI2HTML_SPLIT) --output=$(outdir)/ general.texi
+	find $(outdir)/ -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link --prepend-suffix .$(ISOLANG) hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
 
 .SECONDARY:
