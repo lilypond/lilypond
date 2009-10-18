@@ -16,12 +16,16 @@ TEXINFO_MANUALS =\
  $(TELY_FILES:%.tely=%)\
  $(TEXI_FILES:%.texi=%)
 
+TOPDIR_HTML_MANUALS = general
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
+NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLITTED_HTML_MANUALS),\
+ $(if $(findstring $(manual), $(TOPDIR_HTML_MANUALS)),,$(manual)))
 
-OUT_HTML_FILES += $(UNSPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html)
+OUT_HTML_FILES += $(UNSPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html) 
+# $(TOPDIR_HTML_MANUALS:%=$(outdir)/index.$(ISOLANG).html)
 BIG_PAGE_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html)
-DEEP_HTML_FILES := $(SPLITTED_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html)
+DEEP_HTML_FILES := $(NOT_TOPDIR_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html)
 PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
 
 ITELY_FILES := $(call src-wildcard,*.itely)
