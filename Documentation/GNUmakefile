@@ -56,13 +56,17 @@ TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 
 PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
+TOPDIR_HTML_MANUALS = general
 UNSPLITTED_HTML_MANUALS = changes
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
+NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLITTED_HTML_MANUALS),\
+ $(if $(findstring $(manual), $(TOPDIR_HTML_MANUALS)),,$(manual)))
 
 OUT_HTML_FILES = $(UNSPLITTED_HTML_MANUALS:%=$(outdir)/%.html)\
- $(SPLITTED_HTML_MANUALS:%=$(outdir)/%-big-page.html)
-DEEP_HTML_FILES = $(SPLITTED_HTML_MANUALS:%=$(outdir)/%/index.html)
+ $(SPLITTED_HTML_MANUALS:%=$(outdir)/%-big-page.html)\
+ $(TOPDIR_HTML_MANUALS:%=$(outdir)/index.html)
+DEEP_HTML_FILES = $(NOT_TOPDIR_HTML_MANUALS:%=$(outdir)/%/index.html)
 
 # Symlinks to refer to external source documents from split and non-split HTML
 source-links = $(outdir)/source\
@@ -93,12 +97,11 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 ### Web site idiosyncrases
 
-$(outdir)/general/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
-$(outdir)/general/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
+$(outdir)/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
+$(outdir)/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
 
-OUT_HTML_FILES += $(outdir)/index.html
-$(outdir)/index.html: $(outdir)/general/index.html
-	mv $(outdir)/general/* $(outdir)/
+$(outdir)/index.html: $(outdir)/general.texi
+	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output $(outdir)/ $(outdir)/general.texi
 
 ###########
 ### Targets
