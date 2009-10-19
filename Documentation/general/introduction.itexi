@@ -219,6 +219,7 @@ perfectly around all three staves.
 
 @newsItem
 @subsubheading Classical Music
+
 This organ work by J.S. Bach is a fairly typical engraving project
 in Lilypond.
 
@@ -237,6 +238,7 @@ beams, cross-staff stems, and voice-follow lines.
 
 @newsItem
 @subsubheading Early Music
+
 Lilypond also supports various types of ancient notation, such
 as this passage of Gregorian chant.
 
@@ -245,9 +247,10 @@ as this passage of Gregorian chant.
 
 @newsItem
 @subsubheading Modern Music
+
 Contemporary composers find Lilypond well-suited to displaying
-unusual notation. Here is an excerpt from Trevor Bača's
-@emph{Čáry}, for unaccompanied bass flute.
+unusual notation. Here is an excerpt from Trevor Baca's
+@emph{Cáry}, for unaccompanied bass flute.
 
 @exampleImage{cary}
 @newsEnd
@@ -255,6 +258,7 @@ unusual notation. Here is an excerpt from Trevor Bača's
 
 @newsItem
 @subsubheading Efficient, flexible creation of performance materials
+
 Various performance materials can be created from the same source
 code. This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
 Nicolas Sceaux's} engraving of Handel's @emph{Giulio Cesare}, in
@@ -268,10 +272,9 @@ full score, piano-vocal reduction, and a violin part.
 
 @newsEnd
 
-@help NEED BETTER TABLATURE EXAMPLE!!
-
 @newsItem
 @subsubheading Tablature
+
 Lilypond supports tablature notation, which can be customized to
 suit any instrument that reads from tablature. Here is a passage
 from a Bach Lute Suite, with tablature generated automatically
@@ -282,6 +285,7 @@ from the notes entered for the traditional staff.
 
 @newsItem
 @subsubheading Schenker Graphs
+
 Standard output can be modified heavily. Here someone has created
 an impressive Schenkerian analysis.
 
@@ -290,6 +294,7 @@ an impressive Schenkerian analysis.
 
 @newsItem
 @subsubheading Vocal Music
+
 Lilypond is excellent for vocal music of all kinds, from sacred
 hymns to opera. Here is a medieval motet with slightly unusual
 requirements. The tenor voice is written in a different meter
@@ -303,16 +308,16 @@ and the ligature braces above certain groups of notes.
 
 @newsItem
 @subsubheading Educational Applications
+
 Lilypond is perfectly suited for educational purposes as well.
 Here is an example of a simple counterpoint exercise.
 
 @exampleImage{theory}
 @newsEnd
 
-@help NEED BETTER POP EXAMPLE!! Also a better theory example would be nice.
-
 @newsItem
 @subsubheading Popular Music
+
 It is simple to create pop lead sheets with melody, lyrics,
 chord names, and fretboards. In this example you see some of the
 predefined fretboard diagrams, but these can be heavily customized
@@ -321,15 +326,15 @@ to suit nearly any situation.
 @exampleImage{chart}
 @newsEnd
 
-@help NEED DIFFERENT ORCHESTRAL OR OPERA EXAMPLE?!
-
 @newsItem
 @subsubheading Large Projects
-Lilypond is excellent for large projects like operas or works for
-full symphony orchestra, as well. Score, parts, piano reductions,
-and conductors' scores can be produced from the same source files.
 
-@exampleImage{orchestral}
+Lilypond is excellent for large projects like operas or works for
+full symphony orchestra, as well.  In addition, the text-based
+input provides greater accessibility -- this example was
+contributed by Hu Haipeng, a blind composer.
+
+@exampleImage{orchestra}
 @newsEnd
 
 
