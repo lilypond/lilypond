@@ -44,7 +44,7 @@
   before-title-spacing = #'((space . 5) (padding . 0.5))
   between-title-spacing = #'((space . 1) (padding . 0.5))
   top-system-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0))
-  top-title-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0))
+  top-title-spacing = #'((space . 0) (padding . 1) (minimum-distance . 0))
   bottom-system-spacing = #'((space . 1) (padding . 1) (minimum-distance . 0) (stretchability . 5))
 
   ragged-bottom = ##f

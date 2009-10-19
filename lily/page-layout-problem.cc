@@ -105,7 +105,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 	  else if (0 == Paper_column::get_rank (sys->get_bound (LEFT)))
 	    spec = between_scores_system_spacing;
 
-	  Spring spring (first ? 0 : 1, 0.0);
+	  Spring spring (0, 0);
 	  Real padding = 0.0;
 	  alter_spring_from_spacing_spec (spec, &spring);
 	  read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
@@ -117,7 +117,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 	{
 	  SCM spec = first ? top_system_spacing
 	    : (last_system_was_title ? between_title_spacing : before_title_spacing);
-	  Spring spring (first ? 0 : 1, 0.0);
+	  Spring spring (0, 0);
 	  Real padding = 0.0;
 	  alter_spring_from_spacing_spec (spec, &spring);
 	  read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
