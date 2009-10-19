@@ -253,6 +253,8 @@ Page_layout_problem::append_prob (Prob *prob, Spring const& spring, Real padding
 {
   Skyline_pair *sky = Skyline_pair::unsmob (prob->get_property ("vertical-skylines"));
   Real minimum_distance = 0;
+  bool tight_spacing = to_boolean (prob->get_property ("tight-spacing"));
+
   if (sky)
     {
       minimum_distance = (*sky)[UP].distance (bottom_skyline_);
@@ -266,10 +268,17 @@ Page_layout_problem::append_prob (Prob *prob, Spring const& spring, Real padding
       bottom_skyline_.clear ();
       bottom_skyline_.set_minimum_height (iv[DOWN]);
     }
-  minimum_distance += padding;
 
   Spring spring_copy = spring;
-  spring_copy.ensure_min_distance (minimum_distance);
+  if (tight_spacing)
+    {
+      spring_copy.set_min_distance (minimum_distance);
+      spring_copy.set_inverse_stretch_strength (0.0);
+      spring_copy.set_distance (0.0);
+    }
+  else
+    spring_copy.ensure_min_distance (minimum_distance + padding);
+
   springs_.push_back (spring_copy);
   elements_.push_back (Element (prob));
 }

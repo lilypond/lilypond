@@ -516,16 +516,12 @@ Paper_book::get_system_specs ()
 				ly_symbol2scm ("allow"));
 
 	      paper_system_set_stencil (ps, *unsmob_stencil (t));
-	      ps->set_property ("is-title", SCM_BOOL_T); 
-	      if (scm_is_pair (scm_cdr (list)))
-		{
-		  /* If an other markup is following, set this markup 
-		   * next padding and next space to 0, so that baseline-skip 
-		   * only should be taken into account for lines vertical
-		   * spacing. */
-		  ps->set_property ("next-padding", scm_double2num (0.0));
-		  ps->set_property ("next-space", scm_double2num (0.0));
-		}
+	      ps->set_property ("is-title", SCM_BOOL_T);
+	      if (list != texts)
+		/* For each markup other than the first, place it as closely as
+		   possible to the previous markup and don't allow stretching. */
+		ps->set_property ("tight-spacing", SCM_BOOL_T);
+
 	      system_specs = scm_cons (ps->self_scm (), system_specs);
 	      ps->unprotect ();
 
