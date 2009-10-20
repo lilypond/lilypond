@@ -164,8 +164,9 @@
      (fetaBraces ,(ly:pt 20.0)
 		 #(,(delay (ly:system-font-load
 			    ;;; TODO: rename aybabtu to emmentaler-brace
-			    (string-replace "emmentaler-brace" "aybabtu"
-					    (string-append name "-brace"))
+			    (string-replace "emmentaler-brace" "aybabtu" 0
+					    (string-length
+					      (string-append name "-brace")))
 			    )))))))
 
 (define-public (add-pango-fonts node lily-family family factor)
