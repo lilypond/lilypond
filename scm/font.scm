@@ -140,26 +140,33 @@
 
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
-(define-public (add-music-fonts node factor)
+(define-public (add-music-fonts node name family factor)
   (for-each
    (lambda (x)
      (add-font node
-	       (list (cons 'font-encoding (car x)))
+	       (list (cons 'font-encoding (car x))
+		     (cons 'font-family family))
 	       (cons (* factor (cadr x))
 		     (caddr x))))
    `((fetaDynamic ,(ly:pt 20.0) ,feta-alphabet-size-vector)
      (fetaNumber ,(ly:pt 20.0) ,feta-alphabet-size-vector)
      (fetaMusic ,(ly:pt 20.0)
-		#(,(delay (ly:system-font-load "emmentaler-11"))
-		  ,(delay (ly:system-font-load "emmentaler-13"))
-		  ,(delay (ly:system-font-load "emmentaler-14"))
-		  ,(delay (ly:system-font-load "emmentaler-16"))
-		  ,(delay (ly:system-font-load "emmentaler-18"))
-		  ,(delay (ly:system-font-load "emmentaler-20"))
-		  ,(delay (ly:system-font-load "emmentaler-23"))
-		  ,(delay (ly:system-font-load "emmentaler-26"))))
+		#(
+		  ,(delay (ly:system-font-load (string-append name "-11")))
+		  ,(delay (ly:system-font-load (string-append name "-13")))
+		  ,(delay (ly:system-font-load (string-append name "-14")))
+		  ,(delay (ly:system-font-load (string-append name "-16")))
+		  ,(delay (ly:system-font-load (string-append name "-18")))
+		  ,(delay (ly:system-font-load (string-append name "-20")))
+		  ,(delay (ly:system-font-load (string-append name "-23")))
+		  ,(delay (ly:system-font-load (string-append name "-26")))
+		  ))
      (fetaBraces ,(ly:pt 20.0)
-		 #(,(delay (ly:system-font-load "aybabtu")))))))
+		 #(,(delay (ly:system-font-load
+			    ;;; TODO: rename aybabtu to emmentaler-brace
+			    (string-replace "emmentaler-brace" "aybabtu"
+					    (string-append name "-brace"))
+			    )))))))
 
 (define-public (add-pango-fonts node lily-family family factor)
   (define (add-node shape series)
@@ -186,7 +193,9 @@
 
 (define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
-    (add-music-fonts n factor)
+    (add-music-fonts n "emmentaler" 'feta factor)
+;; Let's not do this [yet], see input/regression/gonville.ly
+;;    (add-music-fonts n "gonville" 'gonville factor)
     (add-pango-fonts n 'roman roman-str factor)
     (add-pango-fonts n 'sans sans-str factor)
     (add-pango-fonts n 'typewriter typewrite-str factor)

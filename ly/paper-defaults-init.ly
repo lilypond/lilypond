@@ -68,7 +68,7 @@
   page-limit-inter-system-space-factor = 1.4
 
   #(define font-defaults
-     '((font-encoding . fetaMusic)))
+    '((font-family . feta) (font-encoding . fetaMusic)))
 
   %%
   %% the font encoding `latin1' is a dummy value for Pango fonts

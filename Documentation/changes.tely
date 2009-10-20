@@ -198,6 +198,10 @@ and to add notes to the number or fraction:
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
 
+@item
+Support for using an alternative music font, such as Gonville, is now
+added.
+
 @end itemize
 
 
