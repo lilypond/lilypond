@@ -50,7 +50,8 @@ def process_file (filename, master_file_dir='.', included=False):
     page = f.read ()
     f.close()
     page = ref_re.sub (ref_gettext, page)
-    page = node_section_re.sub (node_gettext, page)
+    if not '\\n@translationof' in page:
+        page = node_section_re.sub (node_gettext, page)
     page = section_only_re.sub (section_gettext, page)
     page = menu_entry_re.sub (menu_entry_gettext, page)
     page = page.replace ("""@c -- SKELETON FILE --
