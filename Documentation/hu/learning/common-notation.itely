@@ -1,0 +1,393 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: b495410261a92003aaf22b974ccd14c36da6fd33
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Common notation
+@chapter Common notation
+@translationof Common notation
+@translationof Common notation
+
+@untranslated
+
+
+@ref{Első lecke}.
+@menu
+* Egyszólamú lejegyzés::
+* Több hang egyszerre::
+* Dalok::
+* Utolsó simítások::
+@end menu
+
+@node Egyszólamú lejegyzés
+@section Egyszólamú lejegyzés
+@translationof Single staff notation
+@translationof Single staff notation
+
+@untranslated
+
+
+@menu
+* Módosítás és előjegyzés::
+* Átkötés és kötőív::
+* Artikuláció és dinamika::
+* Szöveges utasítások::
+* Automatikus és kézi gerendázás::
+* Haladó ritmikai parancsok::
+@end menu
+
+@node Módosítás és előjegyzés
+@subsection Módosítás és előjegyzés
+@translationof Accidentals and key signatures
+@translationof Accidentals and key signatures
+
+@untranslated
+
+
+@subheading Módosítójelek
+@c index accidentals
+@c index accidentals and key signatures
+@c index sharp
+@c index double sharp
+@c index sharp, double
+@c index flat
+@c index double flat
+@c index flat, double
+@c index key signature, setting
+@subheading Előjegyzés
+@c index key signature
+@c index major
+@c index minor
+@c index accidentals and key signature
+@c index content vs. layout
+@c index layout vs. content
+@subheading Figyelmeztetés az előjegyzés és a módosítójelek viszonyával kapcsolatban
+@c ode{is} and type @code{cis} and @code{fis} in the input file.
+@node Átkötés és kötőív
+@subsection Átkötés és kötőív
+@translationof Ties and slurs
+@translationof Ties and slurs
+
+@untranslated
+
+
+@c index tie
+@c index slur
+@c index slur, phrasing
+@c index phrasing slur
+@subheading Átkötés
+@subheading Kötőív
+@c ode{)} respectively.
+@subheading Frazeálóív
+@c ode{\(} and @code{\)}.  You can have both @notation{slurs}
+@c index slurs versus ties
+@subheading Figyelmeztetés az átkötés és kötőív viszonyával kapcsolatban
+@node Artikuláció és dinamika
+@subsection Artikuláció és dinamika
+@translationof Articulation and dynamics
+@translationof Articulation and dynamics
+
+@untranslated
+
+
+@subheading Artikuláció
+@c index articulation
+@c index accent
+@c index staccato
+@subheading Ujjrend
+@c index fingering
+@c ode{^} (up) or @code{_} (down).  You can also use multiple
+@subheading Dinamika
+@c index dynamics
+@c index decrescendo
+@c index crescendo
+@c ode{\!} can be used:
+@node Szöveges utasítások
+@subsection Szöveges utasítások
+@translationof Adding text
+@translationof Adding text
+
+@untranslated
+
+
+@c index text, adding
+@c index adding text
+@c index markup
+@node Automatikus és kézi gerendázás
+@subsection Automatikus és kézi gerendázás
+@translationof Automatic and manual beams
+@translationof Automatic and manual beams
+
+@untranslated
+
+
+@c index beaming
+@c index automatic beams
+@c index manual beams
+@c index beams, automatic
+@c index beams, manual
+@c index beams, by hand
+@node Haladó ritmikai parancsok
+@subsection Haladó ritmikai parancsok
+@translationof Advanced rhythmic commands
+@translationof Advanced rhythmic commands
+
+@untranslated
+
+
+@subheading Felütés
+@c index pickup
+@c index anacrusis
+@c index partial measure
+@c ode{\partial}.  It is followed by a duration: @code{\partial 4}
+@subheading n-olák
+@c index tuplets
+@c index triplets
+@subheading Előkék
+@c index grace notes
+@c index acciaccatura
+@c index appoggiatura
+@node Több hang egyszerre
+@section Több hang egyszerre
+@translationof Multiple notes at once
+@translationof Multiple notes at once
+
+@untranslated
+
+
+@menu
+* A zenei kifejezés fogalma::
+* Több kottasor::
+* Kottasor-csoport::
+* Hangok akkordba foglalása::
+* Több szólam egy kottasoron belül::
+@end menu
+
+@node A zenei kifejezés fogalma
+@subsection A zenei kifejezés fogalma
+@translationof Music expressions explained
+@translationof Music expressions explained
+
+@untranslated
+
+
+@c index music expression
+@c index expression, music
+@c index compound music expression
+@c index music expression, compound
+@subheading Analógia: matematikai kifejezések
+@subheading Egyidejű zenei kifejezések: több kottasor
+@c index multiple staves
+@c index staves, multiple
+@c index polyphony
+@c index combining expressions in parallel
+@c index parallel expressions
+@c index expressions, parallel
+@c index relative notes and simultaneous music
+@c index relative notes and parallel expressions
+@c index simultaneous music and relative notes
+@c index parallel expressions and relative notes
+@c ode{@bs{}relative} command.}
+@subheading Egyidejű zenei kifejezések: egy kottasor
+@node Több kottasor
+@subsection Több kottasor
+@translationof Multiple staves
+@translationof Multiple staves
+
+@untranslated
+
+
+@c index multiple staves
+@c index staves, multiple
+@c index context
+@c index context, notation
+@c index notation context
+@c ode{Staff} elements are then combined in parallel with @code{<<}
+@node Kottasor-csoport
+@subsection Kottasor-csoport
+@translationof Staff groups
+@translationof Staff groups
+
+@untranslated
+
+
+@c index piano staff
+@c index staff, piano
+@c index choir staff
+@c index staff, choir
+@c index grand staff
+@c index staff, grand
+@c index staff group
+@ref{Több kottasor}.  However, now this entire expression is
+@node Hangok akkordba foglalása
+@subsection Hangok akkordba foglalása
+@translationof Combining notes into chords
+@translationof Combining notes into chords
+
+@untranslated
+
+
+@c index chords
+@c index note durations in chords
+@node Több szólam egy kottasoron belül
+@subsection Több szólam egy kottasoron belül
+@translationof Single staff polyphony
+@translationof Single staff polyphony
+
+@untranslated
+
+
+@c index polyphony
+@c index multiple voices
+@c index voices, more on one staff
+@c index single staff polyphony
+@c index spacer rest
+@c index rest, spacer
+@node Dalok
+@section Dalok
+@translationof Songs
+@translationof Songs
+
+@untranslated
+
+
+@menu
+* Egyszerű dalok kottázása::
+* Dalszöveg igazítása a dallamhoz::
+* Azonos dalszöveg több kottasorhoz::
+@end menu
+
+@node Egyszerű dalok kottázása
+@subsection Egyszerű dalok kottázása
+@translationof Setting simple songs
+@translationof Setting simple songs
+
+@untranslated
+
+
+@c index lyrics
+@c index songs
+@node Dalszöveg igazítása a dallamhoz
+@subsection Dalszöveg igazítása a dallamhoz
+@translationof Aligning lyrics to a melody
+@translationof Aligning lyrics to a melody
+
+@untranslated
+
+
+@c index melisma
+@c index extender line
+@c index hyphens
+@c index underscore
+@c index lyrics, aligning
+@c index aligning lyrics
+@c index lyrics, multi-syllable words
+@c index words with multiple syllables in lyrics
+@c no ragged-right here because otherwise the hyphens get lost,
+@c but the example is long enough to avoid looking strange.
+@c no ragged-right here because otherwise the hyphens get lost,
+@c but the example is long enough to avoid looking strange.
+@node Azonos dalszöveg több kottasorhoz
+@subsection Azonos dalszöveg több kottasorhoz
+@translationof Lyrics to multiple staves
+@translationof Lyrics to multiple staves
+
+@untranslated
+
+
+@c index lyrics and multiple staves
+@c index multiple staves and lyrics
+@node Utolsó simítások
+@section Utolsó simítások
+@translationof Final touches
+@translationof Final touches
+
+@untranslated
+
+
+@menu
+* Művek szervezettebbé tétele változók segítségével::
+* Verziószám::
+* Cím és más adatok megadása::
+* Abszolút hangmagasság-megadás::
+* Az első lecke után::
+@end menu
+
+@node Művek szervezettebbé tétele változók segítségével
+@subsection Művek szervezettebbé tétele változók segítségével
+@translationof Organizing pieces with variables
+@translationof Organizing pieces with variables
+
+@untranslated
+
+
+@c index variables
+@c index variables, defining
+@c index identifiers
+@c index macros
+@c index assigning variables
+@c index using variables
+@c index variables, using
+@c index variables, characters allowed in
+@c index characters allowed in variables
+@node Verziószám
+@subsection Verziószám
+@translationof Version number
+@translationof Version number
+
+@untranslated
+
+
+@c index versioning
+@c index version
+@c index version number
+@c index upgrades
+@c index future upgrades
+@c index updating files
+@c index files, updating
+@node Cím és más adatok megadása
+@subsection Cím és más adatok megadása
+@translationof Adding titles
+@translationof Adding titles
+
+@untranslated
+
+
+@c index title
+@c index headers
+@c index header block
+@node Abszolút hangmagasság-megadás
+@subsection Abszolút hangmagasság-megadás
+@translationof Absolute note names
+@translationof Absolute note names
+
+@untranslated
+
+
+@c index note names
+@c index note names, absolute
+@c index absolute mode
+@c index absolute values for pitches
+@c index pitches, absolute values
+@c index absolute note names
+@c ode{b} will always mean the note one step below middle C, and a
+@c ode{g,} will always mean the note on the bottom staff of the
+@node Az első lecke után
+@subsection Az első lecke után
+@translationof After the tutorial
+@translationof After the tutorial
+
+@untranslated
+
+
+@ref{Sablonok}.  If you need any notation that was not covered in
+@ref{A sablonok kibővítése}.
+@c @ref{A dokumentációról}.
+

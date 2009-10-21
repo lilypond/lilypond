@@ -1,0 +1,435 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
+@c This file is part of learning.tely
+@ignore
+    Translation of GIT committish: b495410261a92003aaf22b974ccd14c36da6fd33
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c \version "2.12.0"
+@node Alapfogalmak
+@chapter Alapfogalmak
+@translationof Fundamental concepts
+@translationof Fundamental concepts
+
+@untranslated
+
+
+@menu
+* Hogyan működnek a LilyPond bemeneti fájlok?::
+* A szólamok zenét tartalmaznak::
+* Kontextusok és ábrázolók::
+* A sablonok kibővítése::
+@end menu
+
+@node Hogyan működnek a LilyPond bemeneti fájlok?
+@section Hogyan működnek a LilyPond bemeneti fájlok?
+@translationof How LilyPond input files work
+@translationof How LilyPond input files work
+
+@untranslated
+
+
+@menu
+* Bevezetés a LilyPond fájlok szerkezetébe::
+* A kotta egy összetett zenei kifejezés::
+* Zenei kifejezések egymásba ágyazása::
+* A gerendák és ívek átfedhetik egymást::
+@end menu
+
+@node Bevezetés a LilyPond fájlok szerkezetébe
+@subsection Bevezetés a LilyPond fájlok szerkezetébe
+@translationof Introduction to the LilyPond file structure
+@translationof Introduction to the LilyPond file structure
+
+@untranslated
+
+
+@c index input format
+@c index file structure
+@c index book
+@c index score
+@c ode{\score@{@}} command.  This is because LilyPond automatically
+@c index implicit contexts
+@c index contexts, implicit
+@ref{Kontextusok és ábrázolók}.
+@c ode{\score} command, leaving the others to default.
+@c index header
+@c index layout
+@c index midi
+@c ode{\midi} -- are special: unlike many other commands which begin
+@c ode{\header} is often placed above the @code{\score} command, as the
+@c ode{\layout @{ @}} and @code{\midi @{@}}.  If these appear as
+@c index scores, multiple
+@c index book block, implicit
+@c index implicit book block
+@c ode{\book} command should be used to separate the different
+@c ode{\book} block.
+@c index layout block, effect of location
+@c ode{\book} block in which it appears -- i.e., a @code{\layout}
+@c index variables
+@ref{Művek szervezettebbé tétele változók segítségével}.  All the templates use this
+@c ode{melody} (everything after the equals sign) and inserts it
+@c ode{TimeKey},
+@c ode{pianorighthand}, or @code{foofoobarbaz}.  For more details,
+@node A kotta egy összetett zenei kifejezés
+@subsection A kotta egy összetett zenei kifejezés
+@translationof Score is a (single) compound musical expression
+@translationof Score is a (single) compound musical expression
+
+@untranslated
+
+
+@c index score
+@c index contents of a score block
+@c index score block, contents of
+@c index compound music expression
+@c index music expression, compound
+@quotation
+@end quotation
+@ref{A zenei kifejezés fogalma}.  In that section, we saw how to
+@c ode{StaffGroup} for this ensemble, which simply groups a number
+@c ode{text} variable are interpreted as lyrics we preface them with
+@c ode{\lyricmode}.  Like @code{\addlyrics}, this switches the input
+@node Zenei kifejezések egymásba ágyazása
+@subsection Zenei kifejezések egymásba ágyazása
+@translationof Nesting music expressions
+@translationof Nesting music expressions
+
+@untranslated
+
+
+@c index staves, temporary
+@c index temporary staves
+@c index ossias
+@c index staff, positioning
+@node A gerendák és ívek átfedhetik egymást
+@subsection A gerendák és ívek átfedhetik egymást
+@translationof On the un-nestedness of brackets and ties
+@translationof On the un-nestedness of brackets and ties
+
+@untranslated
+
+
+@c index brackets, nesting
+@c index bracket types
+@c index brackets, enclosing vs. marking
+@c attempt to force this onto a new page
+@node A szólamok zenét tartalmaznak
+@section A szólamok zenét tartalmaznak
+@translationof Voices contain music
+@translationof Voices contain music
+
+@untranslated
+
+
+@menu
+* Hangzatos szólamok::
+* Szólamok kézi létrehozása::
+* Szólamok és vokális zene::
+@end menu
+
+@node Hangzatos szólamok
+@subsection Hangzatos szólamok
+@translationof I'm hearing Voices
+@translationof I'm hearing Voices
+
+@untranslated
+
+
+@c index polyphony
+@c index layers
+@c index multiple voices
+@c index voices, multiple
+@c index Voice context
+@c index context, Voice
+@c index simultaneous music
+@c index music, simultaneous
+@c index concurrent music
+@c index music, concurrent
+@c index voices vs. chords
+@c index chords vs. voices
+@c ode{\\}, to place them in separate voices.  Without these, the
+@c index voices, naming
+@c index voices crossing brackets
+@c index slurs crossing brackets
+@c index ties crossing brackest
+@ref{Változók felhasználása a finomhangoláshoz}.
+@c index polyphony and relative note entry
+@c index relative note entry and polyphony
+@c ode{\relative @{ @}} block.  Each note is still calculated
+@c ode{noteB} is relative to @code{noteA}                      @*
+@c ode{noteC} is relative to @code{noteB}, not @code{noteA};   @*
+@c ode{noteD} is relative to @code{noteB}, not @code{noteA} or
+@c ode{noteC};                                                 @*
+@c ode{noteE} is relative to @code{noteD}, not @code{noteA}.
+@c The following should appear as music without code
+@c The following should appear as music without code
+@c The three voice styles should be defined in -init
+@c index stem down
+@c index voices and stem directions
+@c index stem directions and voices
+@c index stem up
+@node Szólamok kézi létrehozása
+@subsection Szólamok kézi létrehozása
+@translationof Explicitly instantiating voices
+@translationof Explicitly instantiating voices
+
+@untranslated
+
+
+@c index voice contexts, creating
+@c ode{\voiceOne} ... @code{\voiceFour} to indicate the required
+@c The following example should not display the code
+@c index voices, reverting to single
+@c index reverting to a single voice
+@c ode{\voiceFour} make them point downwards.  These commands also
+@c ode{\oneVoice}, @code{\voiceOne} and @code{voiceTwo} have on
+@c index nesting music expressions
+@c index nesting simultaneous constructs
+@c index nesting voices
+@c index voices, temporary
+@c index voices, nesting
+@c index spacing notes
+@subsubheading Hangoszlopok
+@c index note column
+@c index note collisions
+@c index collisions, notes
+@c index shift commands
+@c ode{\shiftOff} commands specify the degree to which notes and
+@c ode{\shiftOnn} and @code{\shiftOnnn} define further shift
+@node Szólamok és vokális zene
+@subsection Szólamok és vokális zene
+@translationof Voices and vocals
+@translationof Voices and vocals
+
+@untranslated
+
+
+@c index Lyrics context, creating
+@c index lyrics, linking to voice
+@c index lyrics and beaming
+@c index beaming and lyrics
+@c ode{\autoBeamOff} to turn off the automatic beaming.
+@c index vocal score structure
+@c index choir staff
+@c ode{\lyricmode} to ensure they are interpreted as lyrics
+@c index hymn structure
+@c index SATB structure
+@c index vocal scores with multiple verses
+@c index multiple vocal verses
+@c index verses, multiple vocal
+@c index verse and refrain
+@c index book, example of using
+@c ode{\score} blocks within an implicit @code{\book} block, as
+@node Kontextusok és ábrázolók
+@section Kontextusok és ábrázolók
+@translationof Contexts and engravers
+@translationof Contexts and engravers
+
+@untranslated
+
+
+@menu
+* A kontextus fogalma::
+* Kontextusok létrehozása::
+* Az ábrázoló fogalma::
+* Kontextusok tulajdonságainak módosítása::
+* Ábrázolók hozzáadása és eltávolítása::
+@end menu
+
+@node A kontextus fogalma
+@subsection A kontextus fogalma
+@translationof Contexts explained
+@translationof Contexts explained
+
+@untranslated
+
+
+@c index contexts explained
+@quotation
+@sourceimage{context-example,5cm,,}
+@end quotation
+@c ode{Score} and @code{Staff} contexts.
+@c ode{Voice} contexts there are contexts which fit between
+@c ode{PianoStaff} and @code{ChoirStaff} contexts.  There
+@c ode{GregorianTranscriptionStaff}.
+@node Kontextusok létrehozása
+@subsection Kontextusok létrehozása
+@translationof Creating contexts
+@translationof Creating contexts
+
+@untranslated
+
+
+@c index new contexts
+@c index creating contexts
+@c index contexts, creating
+@c ode{Staff} contexts may also be left to be created automatically,
+@c ode{Voice}).  This command creates a new context, and starts
+@c ode{\with} block in which one or more score-wide default values
+@c ode{\with} blocks can be found under the heading
+@ref{Kontextusok tulajdonságainak módosítása}.)
+@c ode{Staff} and @code{Voice} contexts in earlier sections, but
+@c index contexts, naming
+@c index naming contexts
+@c ode{Staff}, @code{Voice}, etc, and the identifying name of a
+@node Az ábrázoló fogalma
+@subsection Az ábrázoló fogalma
+@translationof Engravers explained
+@translationof Engravers explained
+
+@untranslated
+
+
+@c index engravers
+@c ode{Metronome_mark_engraver}, whose action and output apply to the
+@c ode{Score} context.
+@c The old Dynamic_engraver is deprecated. -jm
+@node Kontextusok tulajdonságainak módosítása
+@subsection Kontextusok tulajdonságainak módosítása
+@translationof Modifying context properties
+@translationof Modifying context properties
+
+@untranslated
+
+
+@c index context properties
+@c index context properties, modifying
+@c index modifying context properties
+@c ode{\set} command.  This takes the form
+@c ode{Staff} or @code{Voice}.  It may be omitted,
+@c attempt to force this onto a new page
+@c index properties operating in contexts
+@c index setting properties within contexts
+@c ode{instrumentName} clearly lives in the @code{Staff} context, since
+@c ode{\set} command set the property @code{instrumentName} in the
+@c ode{Voice} context to @qq{Alto}, but as LilyPond does not look
+@c ode{\set} or @code{\unset} again.  Let's try changing the
+@c ode{##t} and @code{##f}, with two hash signs.  A text property
+@subsubheading Kontextusok tulajdonságainak beállítása a @code{\with} paranccsal
+@c index context properties, setting with \with
+@c ode{\new Score} command, like this:
+@c ode{\set} and returned to the default value set in the
+@c ode{\with} block with @code{\unset}.
+@c index fontSize, default and setting
+@c ode{\unset fontSize} command.
+@subsubheading Kontextusok tulajdonságainak beállítása a @code{\context} paranccsal
+@c index context properties, setting with \context
+@c ode{\with} block, introduced above.  It is placed in a
+@c ode{\context} block within a @code{\layout} block.  Each
+@c ode{\context} block will affect all contexts of the type specified
+@c ode{\layout} block appears.  Here is a example to show the format:
+@c ode{\set} commands embedded in music statements.
+@c FIXME
+@c uncomment when backslash-node-name issue is resolved -pm
+@c @ruser{The set command}.
+@node Ábrázolók hozzáadása és eltávolítása
+@subsection Ábrázolók hozzáadása és eltávolítása
+@translationof Adding and removing engravers
+@translationof Adding and removing engravers
+
+@untranslated
+
+
+@c index engravers, adding
+@c index adding engravers
+@c index engravers, removing
+@c index removing engravers
+@subsubheading Egyetlenegy kontextus módosítása
+@c ode{\with} command placed immediately after the context creation
+@c index ambitus engraver
+@c ode{\consists @var{Engraver_name}},
+@c ode{Ambitus_engraver}, which is not normally included in any
+@c ode{Staff} context, it calculates the range from all
+@subsubheading Azonos típusú kontextusok módosítása
+@c ode{\set} command in a @code{\context} block in the
+@node A sablonok kibővítése
+@section A sablonok kibővítése
+@translationof Extending the templates
+@translationof Extending the templates
+
+@untranslated
+
+
+@menu
+* Szoprán és cselló::
+* Négyszólamú vegyeskar::
+* Kotta létrehozása az alapoktól::
+* Kevesebb gépelés változókkal és függvényekkel::
+* Partitúra és szólamkották::
+@end menu
+
+@node Szoprán és cselló
+@subsection Szoprán és cselló
+@translationof Soprano and cello
+@translationof Soprano and cello
+
+@untranslated
+
+
+@c index template, modifying
+@c index modifying templates
+@c ode{melody} section.  We don't want two @code{\score} sections
+@c ode{text} to be @code{sopranoLyrics}.  Remember to rename both
+@c ode{melody = \relative c' @{ } part) and the name's use (in the
+@c ode{\score} section).
+@c ode{>>} around the music -- that tells LilyPond that there's
+@c Indentation in this example is deliberately poor
+@node Négyszólamú vegyeskar
+@subsection Négyszólamú vegyeskar
+@translationof Four-part SATB vocal score
+@translationof Four-part SATB vocal score
+
+@untranslated
+
+
+@c index template, SATB
+@c index SATB template
+@c The following should appear as music without code
+@c ode{\voiceXXX} commands should be removed.  We also need to specify
+@node Kotta létrehozása az alapoktól
+@subsection Kotta létrehozása az alapoktól
+@translationof Building a score from scratch
+@translationof Building a score from scratch
+
+@untranslated
+
+
+@c index template, writing your own
+@c index example of writing a score
+@c index writing a score, example
+@c index score, example of writing
+@c ode{<< .. >>} for the manual two staff and the pedal organ staff,
+@c ode{@{ .. @}} in case your music is coded in several variables
+@c ode{\voiceOne} and @code{\voiceTwo}, and enter the time signature
+@node Kevesebb gépelés változókkal és függvényekkel
+@subsection Kevesebb gépelés változókkal és függvényekkel
+@translationof Saving typing with variables and functions
+@translationof Saving typing with variables and functions
+
+@untranslated
+
+
+@c index variables
+@c index variables
+@c TODO Avoid padtext - not needed with skylining
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+@c ode{padtext=}).
+@node Partitúra és szólamkották
+@subsection Partitúra és szólamkották
+@translationof Scores and parts
+@translationof Scores and parts
+
+@untranslated
+
+
+@c ode{\transpose f@tie{}c'} indicates that the argument, being
+@c ode{\hornNotes}, should be transposed by a fifth upwards.  Sounding
+@c ode{f} is denoted by notated @code{c'}, which corresponds with the
+@c ode{Score} context to true (@code{##t}).  Prepending the rest and
+
