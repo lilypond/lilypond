@@ -1,0 +1,205 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
+@ignore
+    Translation of GIT committish: a30fa41fac8fb2771a76f6d1edbec9714298ee36
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+@documentencoding UTF-8
+@documentlanguage hu
+@setfilename lilypond-learning.info
+@settitle GNU LilyPond Tankönyv
+
+@include macros.itexi
+
+@afourpaper
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen és Graham Percival
+@omfdescription A LilyPond kottaszedő rendszer tankönyve
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage Hungarian
+@end ignore
+
+@c Translators: Benkő Pál, Fodor Bertalan, Harmath Dénes, Rébeli-Szabó Tamás, Selyem Zoltán Csaba, Szervác Attila, Udvari Gábor
+
+@ifnottex
+@node Oldal teteje
+@top GNU LilyPond -- Tankönyv
+@translationof Top
+@end ifnottex
+
+@ifhtml
+@ifclear bigpage
+Ez a dokumentum
+@uref{source/Documentation/user/lilypond-learning.hu.pdf,PDF formátumban} és
+@uref{source/Documentation/user/lilypond-learning-big-page.hu.html,egy nagy oldalként}
+is elérhető.
+@end ifclear
+@ifset bigpage
+Ez a dokumentum
+@uref{source/Documentation/user/lilypond-learning.hu.pdf,PDF formátumban} és
+@uref{source/Documentation/user/lilypond-learning/index.hu.html,külön HTML oldalakként}
+is elérhető.
+@end ifset
+@end ifhtml
+
+
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle A kottaszedő program
+@titlefont{Tankönyv}
+@author A LilyPond fejlesztői csapata
+
+
+Copyright @copyright{} 1999--2009 a szerzők
+
+@emph{Az alábbi licencszerződés fordítása az angolul nem értők
+kedvéért szerepel itt, jogilag azonban csak az angol változat
+érvényes.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@quotation
+Ezt a dokumentumot a GNU Free Documentation License (GNU Szabad
+Dokumentációs Licenc) 1.1-es vagy frissebb, a Free Software Foundation
+(Szabad Szoftver Alapítvány) által kiadott verziójának megfelelően
+lehet másolni, terjeszteni és/vagy módosítani, nem változtatható szakaszok nélkül.
+A licenc másolata a ,,GNU Free Documentation License'' című függelékben
+található.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+A LilyPond @version{} verziójához
+@end titlepage
+
+@copying
+Copyright @copyright{} 1999--2009 a szerzők
+
+@emph{Az alábbi licencszerződés fordítása az angolul nem értők
+kedvéért szerepel itt, jogilag azonban csak az angol változat
+érvényes.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@quotation
+Ezt a dokumentumot a GNU Free Documentation License (GNU Szabad
+Dokumentációs Licenc) 1.1-es vagy frissebb, a Free Software Foundation
+(Szabad Szoftver Alapítvány) által kiadott verziójának megfelelően
+lehet másolni, terjeszteni és/vagy módosítani, nem változtatható szakaszok nélkül.
+A licenc másolata a ,,GNU Free Documentation License'' című függelékben
+található.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@ifnottex
+Ez a tankönyv a GNU LilyPond használatára oktat.
+
+Copyright @copyright{} 1999--2009 a szerzők
+
+@emph{Az alábbi licencszerződés fordítása az angolul nem értők
+kedvéért szerepel itt, jogilag azonban csak az angol változat
+érvényes.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@quotation
+Ezt a dokumentumot a GNU Free Documentation License (GNU Szabad
+Dokumentációs Licenc) 1.1-es vagy frissebb, a Free Software Foundation
+(Szabad Szoftver Alapítvány) által kiadott verziójának megfelelően
+lehet másolni, terjeszteni és/vagy módosítani, nem változtatható szakaszok nélkül.
+A licenc másolata a ,,GNU Free Documentation License'' című függelékben
+található.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end ifnottex
+
+@ifnottex
+Ez a LilyPond @version{} verziójához írt tankönyv.
+További információk a tankönyv szerepéről a teljes dokumentáción belül az
+@ref{A dokumentációról} című részben olvashatók.
+
+@cindex Weboldal
+@cindex URL
+
+Bővebb információval a
+@uref{http://@/www@/.lilypond@/.org/} honlap szolgál.
+Ezen a weboldalon található az online dokumentáció is.
+
+@menu
+* Előszó::                        Elöljáróban.
+* Bevezetés::                   Mit, miért, hogyan.
+* Első lecke::                       Bevezető gyakorlat.
+* Alapfogalmak::           Alapvető fogalmak, melyek a továbbiak megértéséhez szükségesek.
+* A kimenet finomhangolása::                Bevezetés a kottakép finomhangolásába.
+* Munka LilyPond projekteken::   Életszerű, gyakorlati alkalmazások.
+
+
+Függelék
+
+* Sablonok::                      Előre elkészített sablonok.
+* Scheme gyorstalpaló::                A LilyPond programozási képességei.
+* GNU szabad dokumentációs licenc:: E dokumentum licence.
+* LilyPond tárgymutató::
+@end menu
+@end ifnottex
+
+@contents
+
+@include learning/tutorial.itely
+@include learning/common-notation.itely
+@include learning/fundamental.itely
+@include learning/tweaks.itely
+
+@include learning/templates.itely
+@include fdl.itexi
+
+@node LilyPond tárgymutató
+@appendix LilyPond tárgymutató
+@translationof LilyPond index
+
+@printindex cp
+
+@bye

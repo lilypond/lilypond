@@ -1,0 +1,1021 @@
+# translation of LilyPond documentation
+# Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# This file is distributed under the same license as the lilypond package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-28 12:21+0200\n"
+"PO-Revision-Date: 2009-09-24 17:21+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
+
+#. -*- coding: utf-8 -*-
+#. @node in user/lilypond-learning.tely
+msgid "Top"
+msgstr "Oldal teteje"
+
+#. @node in user/lilypond-learning.tely
+msgid "LilyPond index"
+msgstr "LilyPond tárgymutató"
+
+#. @subsubheading in user/macros.itexi
+msgid "Predefined commands"
+msgstr "Előre definiált parancsok"
+
+#. @subsubheading in user/macros.itexi
+msgid "Selected Snippets"
+msgstr "Válogatott kódrészletek"
+
+#. @subsubheading in user/macros.itexi
+msgid "See also"
+msgstr "Lásd még"
+
+#. @subsubheading in user/macros.itexi
+msgid "Known issues and warnings"
+msgstr "Ismert problémák és figyelmeztetések"
+
+#. @node in user/preface.itely
+msgid "Preface"
+msgstr "Előszó"
+
+#. @node in user/introduction.itely
+msgid "Introduction"
+msgstr "Bevezetés"
+
+#. @node in user/introduction.itely
+msgid "Background"
+msgstr "Háttér"
+
+#. @node in user/introduction.itely
+msgid "Engraving"
+msgstr "Kottaszedés"
+
+#. @node in user/introduction.itely
+msgid "Automated engraving"
+msgstr "Automatikus kottaszedés"
+
+#. @node in user/introduction.itely
+msgid "What symbols to engrave?"
+msgstr "Milyen szimbólumokat nyomtassunk?"
+
+#. @node in user/introduction.itely
+msgid "Music representation"
+msgstr "A zene reprezentációja"
+
+#. @node in user/introduction.itely
+msgid "Example applications"
+msgstr "Alkalmazási példák"
+
+#. @node in user/introduction.itely
+msgid "About the documentation"
+msgstr "A dokumentációról"
+
+#. @node in user/introduction.itely
+msgid "About the Learning Manual"
+msgstr "A Tankönyvről"
+
+#. @node in user/introduction.itely
+msgid "About the Music Glossary"
+msgstr "A Fogalomtárról"
+
+#. @node in user/introduction.itely
+msgid "About the Notation Reference"
+msgstr "A kottaírás kézikönyvéről"
+
+#. @node in user/introduction.itely
+msgid "About the Application Usage"
+msgstr "Az alkalmazás használatának leírásáról"
+
+#. @node in user/introduction.itely
+msgid "About the Snippet List"
+msgstr "A Kódrészletek listájáról"
+
+#. @node in user/introduction.itely
+msgid "About the Internals Reference"
+msgstr "A belső működés referenciájáról"
+
+#. @node in user/introduction.itely
+msgid "Other documentation"
+msgstr "Más dokumentációk"
+
+msgid "foo"
+msgstr "izé"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Tutorial"
+msgstr "Első lecke"
+
+#. @node in user/tutorial.itely
+msgid "First steps"
+msgstr "Az első lépések"
+
+#. @node in user/tutorial.itely
+msgid "Compiling a file"
+msgstr "Fájlok fordítása"
+
+#. @subheading in user/tutorial.itely
+msgid "Entering music and viewing output"
+msgstr "Zene bevitele és a kimenet megtekintése"
+
+#. @subsubheading in user/tutorial.itely
+msgid "MacOS X"
+msgstr "Mac OS X"
+
+#. @subsubheading in user/tutorial.itely
+msgid "Windows"
+msgstr "Windows"
+
+#. @subsubheading in user/tutorial.itely
+msgid "UNIX"
+msgstr "UNIX"
+
+#. @node in user/tutorial.itely
+msgid "Simple notation"
+msgstr "Egyszerű kottázás"
+
+#. @subheading in user/tutorial.itely
+msgid "Pitches"
+msgstr "Hangmagasság"
+
+#. @rglos in user/tutorial.itely
+msgid "pitch"
+msgstr "hangmagasság"
+
+#. @rglos in user/tutorial.itely
+msgid "interval"
+msgstr "hangköz"
+
+#. @rglos in user/tutorial.itely
+msgid "scale"
+msgstr "skála"
+
+#. @rglos in user/tutorial.itely
+msgid "middle C"
+msgstr "egyvonalas c"
+
+#. @rglos in user/tutorial.itely
+msgid "octave"
+msgstr "oktáv"
+
+#. @rglos in user/tutorial.itely
+msgid "accidental"
+msgstr "módosítójel"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Durations (rhythms)"
+msgstr "Ritmusérték"
+
+msgid "beam"
+msgstr "gerenda"
+
+#. @rglos in user/tutorial.itely
+msgid "duration"
+msgstr "időtartam"
+
+#. @rglos in user/tutorial.itely
+msgid "whole note"
+msgstr "egész érték"
+
+#. @rglos in user/tutorial.itely
+msgid "half note"
+msgstr "fél érték"
+
+#. @rglos in user/tutorial.itely
+msgid "quarter note"
+msgstr "negyed érték"
+
+#. @rglos in user/tutorial.itely
+msgid "dotted note"
+msgstr "pontozott hang"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Rests"
+msgstr "Szünetek"
+
+msgid "rest"
+msgstr "szünet"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Time signature"
+msgstr "Ütemmutató"
+
+msgid "time signature"
+msgstr "ütemmutató"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Clef"
+msgstr "Kulcs"
+
+msgid "clef"
+msgstr "kulcs"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "All together"
+msgstr "Mindez együtt"
+
+#. @node in user/tutorial.itely
+msgid "Working on input files"
+msgstr "A bemeneti fájlok jellemzői"
+
+#. @node in user/tutorial.itely
+msgid "How to read the manual"
+msgstr "Hogyan olvassuk a tankönyvet?"
+
+#. @subheading in user/tutorial.itely
+msgid "Clickable examples"
+msgstr "Kattintható példák"
+
+#. @node in user/tutorial.itely
+msgid "Single staff notation"
+msgstr "Egyszólamú lejegyzés"
+
+#. @node in user/tutorial.itely
+msgid "Accidentals and key signatures"
+msgstr "Módosítás és előjegyzés"
+
+#. @subheading in user/tutorial.itely
+msgid "Accidentals"
+msgstr "Módosítójelek"
+
+#. @rglos in user/tutorial.itely
+msgid "sharp"
+msgstr "kereszt"
+
+#. @rglos in user/tutorial.itely
+msgid "flat"
+msgstr "bé"
+
+#. @rglos in user/tutorial.itely
+msgid "double sharp"
+msgstr "kettős kereszt"
+
+#. @rglos in user/tutorial.itely
+msgid "double flat"
+msgstr "kettős bé"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Key signatures"
+msgstr "Előjegyzés"
+
+#. @rglos in user/tutorial.itely
+msgid "key signature"
+msgstr "előjegyzés"
+
+#. @rglos in user/tutorial.itely
+msgid "major"
+msgstr "dúr"
+
+#. @rglos in user/tutorial.itely
+msgid "minor"
+msgstr "moll"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Warning: key signatures and pitches"
+msgstr "Figyelmeztetés az előjegyzés és a módosítójelek viszonyával kapcsolatban"
+
+#. @rglos in user/tutorial.itely
+msgid "natural"
+msgstr "feloldójel"
+
+#. @rglos in user/tutorial.itely
+msgid "transposition"
+msgstr "transzponálás"
+
+#. @rglos in user/tutorial.itely
+msgid "Pitch names"
+msgstr "Hangnevek"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Ties and slurs"
+msgstr "Átkötés és kötőív"
+
+#. @subheading in user/tutorial.itely
+msgid "Ties"
+msgstr "Átkötés"
+
+#. @rglos in user/tutorial.itely
+msgid "tie"
+msgstr "átkötés"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Slurs"
+msgstr "Kötőív"
+
+#. @rglos in user/tutorial.itely
+msgid "slur"
+msgstr "kötőív"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Phrasing slurs"
+msgstr "Frazeálóív"
+
+#. @rglos in user/tutorial.itely
+msgid "phrasing"
+msgstr "frazeáló"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Warnings: slurs vs. ties"
+msgstr "Figyelmeztetés az átkötés és kötőív viszonyával kapcsolatban"
+
+msgid "articulation"
+msgstr "artikuláció"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Articulation and dynamics"
+msgstr "Artikuláció és dinamika"
+
+#. @subheading in user/tutorial.itely
+msgid "Articulations"
+msgstr "Artikuláció"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Fingerings"
+msgstr "Ujjrend"
+
+msgid "fingering"
+msgstr "ujjrend"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+#. @subheading in user/tweaks.itely
+msgid "Dynamics"
+msgstr "Dinamika"
+
+msgid "dynamics"
+msgstr "dinamika"
+
+#. @rglos in user/tutorial.itely
+msgid "crescendo"
+msgstr "crescendo"
+
+#. @rglos in user/tutorial.itely
+msgid "decrescendo"
+msgstr "decrescendo"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Adding text"
+msgstr "Szöveges utasítások"
+
+#. @node in user/tutorial.itely
+msgid "Automatic and manual beams"
+msgstr "Automatikus és kézi gerendázás"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Advanced rhythmic commands"
+msgstr "Haladó ritmikai parancsok"
+
+#. @subheading in user/tutorial.itely
+msgid "Partial measure"
+msgstr "Felütés"
+
+msgid "anacrusis"
+msgstr "felütés"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Tuplets"
+msgstr "n-olák"
+
+msgid "note value"
+msgstr "ritmusérték"
+
+#. @rglos in user/tutorial.itely
+msgid "triplet"
+msgstr "triola"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Grace notes"
+msgstr "Előkék"
+
+msgid "grace notes"
+msgstr "előkék"
+
+#. @rglos in user/tutorial.itely
+msgid "acciaccatura"
+msgstr "acciaccatura"
+
+#. @rglos in user/tutorial.itely
+msgid "appoggiatura"
+msgstr "appoggiatura"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Multiple notes at once"
+msgstr "Több hang egyszerre"
+
+#. @node in user/tutorial.itely
+msgid "Music expressions explained"
+msgstr "A zenei kifejezés fogalma"
+
+#. @subheading in user/tutorial.itely
+msgid "Analogy: mathematical expressions"
+msgstr "Analógia: matematikai kifejezések"
+
+#. @subheading in user/tutorial.itely
+msgid "Simultaneous music expressions: multiple staves"
+msgstr "Egyidejű zenei kifejezések: több kottasor"
+
+msgid "polyphony"
+msgstr "polifónia"
+
+#. @rglos in user/tutorial.itely
+#. @subheading in user/tutorial.itely
+msgid "Simultaneous music expressions: single staff"
+msgstr "Egyidejű zenei kifejezések: egy kottasor"
+
+#. @node in user/tutorial.itely
+msgid "Multiple staves"
+msgstr "Több kottasor"
+
+#. @node in user/tutorial.itely
+msgid "Staff groups"
+msgstr "Kottasor-csoport"
+
+msgid "brace"
+msgstr "kapocs"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Combining notes into chords"
+msgstr "Hangok akkordba foglalása"
+
+msgid "chord"
+msgstr "akkord"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Single staff polyphony"
+msgstr "Több szólam egy kottasoron belül"
+
+#. @node in user/tutorial.itely
+msgid "Songs"
+msgstr "Dalok"
+
+#. @node in user/tutorial.itely
+msgid "Setting simple songs"
+msgstr "Egyszerű dalok kottázása"
+
+msgid "lyrics"
+msgstr "dalszöveg"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Aligning lyrics to a melody"
+msgstr "Dalszöveg igazítása a dallamhoz"
+
+msgid "melisma"
+msgstr "melizma"
+
+#. @rglos in user/tutorial.itely
+msgid "extender line"
+msgstr "szótagjelző vonal"
+
+#. @rglos in user/tutorial.itely
+#. @node in user/tutorial.itely
+msgid "Lyrics to multiple staves"
+msgstr "Azonos dalszöveg több kottasorhoz"
+
+#. @node in user/tutorial.itely
+msgid "Final touches"
+msgstr "Utolsó simítások"
+
+#. @node in user/tutorial.itely
+msgid "Organizing pieces with variables"
+msgstr "Művek szervezettebbé tétele változók segítségével"
+
+#. @node in user/tutorial.itely
+msgid "Version number"
+msgstr "Verziószám"
+
+#. @node in user/tutorial.itely
+msgid "Adding titles"
+msgstr "Cím és más adatok megadása"
+
+#. @node in user/tutorial.itely
+msgid "Absolute note names"
+msgstr "Abszolút hangmagasság-megadás"
+
+#. @node in user/tutorial.itely
+msgid "After the tutorial"
+msgstr "Az első lecke után"
+
+#. @node in user/fundamental.itely
+msgid "Fundamental concepts"
+msgstr "Alapfogalmak"
+
+#. @node in user/fundamental.itely
+msgid "How LilyPond input files work"
+msgstr "Hogyan működnek a LilyPond bemeneti fájlok?"
+
+#. @node in user/fundamental.itely
+msgid "Introduction to the LilyPond file structure"
+msgstr "Bevezetés a LilyPond fájlok szerkezetébe"
+
+#. @node in user/fundamental.itely
+msgid "Score is a (single) compound musical expression"
+msgstr "A kotta egy összetett zenei kifejezés"
+
+#. @node in user/fundamental.itely
+msgid "Nesting music expressions"
+msgstr "Zenei kifejezések egymásba ágyazása"
+
+msgid "ossia"
+msgstr "ossia"
+
+#. @rglos in user/fundamental.itely
+#. @node in user/fundamental.itely
+msgid "On the un-nestedness of brackets and ties"
+msgstr "A gerendák és ívek átfedhetik egymást"
+
+#. @node in user/fundamental.itely
+msgid "Voices contain music"
+msgstr "A szólamok zenét tartalmaznak"
+
+#. @node in user/fundamental.itely
+msgid "I'm hearing Voices"
+msgstr "Hangzatos szólamok"
+
+#. @node in user/fundamental.itely
+msgid "Explicitly instantiating voices"
+msgstr "Szólamok kézi létrehozása"
+
+#. @subsubheading in user/fundamental.itely
+msgid "Note columns"
+msgstr "Hangoszlopok"
+
+#. @node in user/fundamental.itely
+msgid "Voices and vocals"
+msgstr "Szólamok és vokális zene"
+
+#. @node in user/fundamental.itely
+msgid "Contexts and engravers"
+msgstr "Kontextusok és ábrázolók"
+
+#. @node in user/fundamental.itely
+msgid "Contexts explained"
+msgstr "A kontextus fogalma"
+
+#. @node in user/fundamental.itely
+msgid "Creating contexts"
+msgstr "Kontextusok létrehozása"
+
+#. @node in user/fundamental.itely
+msgid "Engravers explained"
+msgstr "Az ábrázoló fogalma"
+
+#. @node in user/fundamental.itely
+msgid "Modifying context properties"
+msgstr "Kontextusok tulajdonságainak módosítása"
+
+#. @subsubheading in user/fundamental.itely
+msgid "Setting context properties with @code{\\with}"
+msgstr "Kontextusok tulajdonságainak beállítása a @code{\\with} paranccsal"
+
+#. @subsubheading in user/fundamental.itely
+msgid "Setting context properties with @code{\\context}"
+msgstr "Kontextusok tulajdonságainak beállítása a @code{\\context} paranccsal"
+
+#. @node in user/fundamental.itely
+msgid "Adding and removing engravers"
+msgstr "Ábrázolók hozzáadása és eltávolítása"
+
+#. @subsubheading in user/fundamental.itely
+msgid "Changing a single context"
+msgstr "Egyetlenegy kontextus módosítása"
+
+msgid "ambitus"
+msgstr "hangterjedelem"
+
+#. @rglos in user/fundamental.itely
+#. @subsubheading in user/fundamental.itely
+msgid "Changing all contexts of the same type"
+msgstr "Azonos típusú kontextusok módosítása"
+
+#. @node in user/fundamental.itely
+msgid "Extending the templates"
+msgstr "A sablonok kibővítése"
+
+#. @node in user/fundamental.itely
+msgid "Soprano and cello"
+msgstr "Szoprán és cselló"
+
+#. @node in user/fundamental.itely
+msgid "Four-part SATB vocal score"
+msgstr "Négyszólamú vegyeskar"
+
+#. @node in user/fundamental.itely
+msgid "Building a score from scratch"
+msgstr "Kotta létrehozása az alapoktól"
+
+#. @node in user/tweaks.itely
+msgid "Tweaking output"
+msgstr "A kimenet finomhangolása"
+
+#. @node in user/tweaks.itely
+msgid "Tweaking basics"
+msgstr "A finomhangolás alapjai"
+
+#. @node in user/tweaks.itely
+msgid "Introduction to tweaks"
+msgstr "Bevezetés a finomhangolásba"
+
+#. @node in user/tweaks.itely
+msgid "Objects and interfaces"
+msgstr "Objektumok és interfészek"
+
+#. @node in user/tweaks.itely
+msgid "Naming conventions of objects and properties"
+msgstr "Objektumok és tulajdonságok elnevezési konvenciói"
+
+#. @node in user/tweaks.itely
+msgid "Tweaking methods"
+msgstr "Finomhangolási módszerek"
+
+#. @node in user/tweaks.itely
+msgid "The Internals Reference manual"
+msgstr "A belső működés referenciája"
+
+#. @node in user/tweaks.itely
+msgid "Properties of layout objects"
+msgstr "Elrendezési objektumok tulajdonságai"
+
+#. @subheading in user/tweaks.itely
+msgid "Finding the context"
+msgstr "A kívánt kontextus megkeresése"
+
+#. @subheading in user/tweaks.itely
+msgid "Overriding once only"
+msgstr "Felülírás csak egy alkalommal"
+
+#. @subheading in user/tweaks.itely
+msgid "Reverting"
+msgstr "Tulajdonság visszaállítása"
+
+#. @node in user/tweaks.itely
+msgid "Properties found in interfaces"
+msgstr "Interfészek tulajdonságai"
+
+#. @subheading in user/tweaks.itely
+msgid "Specifying the context in lyric mode"
+msgstr "Kontextus megadása dalszöveg-beviteli módban"
+
+#. @node in user/tweaks.itely
+msgid "Types of properties"
+msgstr "Tulajdonságok típusai"
+
+#. @node in user/tweaks.itely
+msgid "Appearance of objects"
+msgstr "Objektumok megjelenése"
+
+#. @node in user/tweaks.itely
+msgid "Visibility and color of objects"
+msgstr "Objektumok láthatósága és színe"
+
+#. @subheading in user/tweaks.itely
+msgid "stencil"
+msgstr "stencil (láthatóság)"
+
+#. @subheading in user/tweaks.itely
+msgid "break-visibility"
+msgstr "break-visibility (láthatóság sortörések körül)"
+
+#. @subheading in user/tweaks.itely
+msgid "transparent"
+msgstr "transparent (átlátszóság)"
+
+#. @subheading in user/tweaks.itely
+msgid "color"
+msgstr "color (szín)"
+
+#. @node in user/tweaks.itely
+msgid "Size of objects"
+msgstr "Objektumok mérete"
+
+#. @rglos in user/tweaks.itely
+#. @node in user/tweaks.itely
+msgid "Length and thickness of objects"
+msgstr "Objektumok hossza és vastagsága"
+
+#. @node in user/tweaks.itely
+msgid "Placement of objects"
+msgstr "Objektumok elhelyezése"
+
+#. @node in user/tweaks.itely
+msgid "Automatic behavior"
+msgstr "Automatikus viselkedés"
+
+#. @node in user/tweaks.itely
+msgid "Within-staff objects"
+msgstr "Vonalrendszeren belüli objektumok"
+
+#. @subheading in user/tweaks.itely
+msgid "Fingering"
+msgstr "Ujjrend"
+
+#. @node in user/tweaks.itely
+msgid "Outside-staff objects"
+msgstr "Vonalrendszeren kívüli objektumok"
+
+#. @subheading in user/tweaks.itely
+msgid "\\textLengthOn"
+msgstr "A \\textLengthOn parancs"
+
+#. @subheading in user/tweaks.itely
+msgid "Grob sizing"
+msgstr "Grobok méretezése"
+
+#. @node in user/tweaks.itely
+msgid "Collisions of objects"
+msgstr "Objektumok ütközése"
+
+#. @node in user/tweaks.itely
+msgid "Moving objects"
+msgstr "Objektumok mozgatása"
+
+#. @node in user/tweaks.itely
+msgid "Fixing overlapping notation"
+msgstr "Egymást átfedő jelek javítása"
+
+#. @subheading in user/tweaks.itely
+msgid "padding property"
+msgstr "padding (térköz) tulajdonság"
+
+#. @subheading in user/tweaks.itely
+msgid "left-padding and right-padding"
+msgstr "left-padding (bal térköz) és right-padding (jobb térköz) tulajdonságok"
+
+#. @subheading in user/tweaks.itely
+msgid "staff-padding property"
+msgstr "staff-padding (kottasorok közötti térköz) tulajdonság"
+
+#. @subheading in user/tweaks.itely
+msgid "self-alignment-X property"
+msgstr "self-alignment-X (vízszintes igazítás) tulajdonság"
+
+#. @subheading in user/tweaks.itely
+msgid "staff-position property"
+msgstr "staff-position (kottasor-pozíció) tulajdonság"
+
+#. @subheading in user/tweaks.itely
+msgid "extra-offset property"
+msgstr "extra-offset (extra eltolás) tulajdonság"
+
+#. @subheading in user/tweaks.itely
+msgid "positions property"
+msgstr "positions (pozíciók) tulajdonság"
+
+#. @subheading in user/tweaks.itely
+msgid "force-hshift property"
+msgstr "force-hshift (kényszerített vízszintes eltolás) tulajdonság"
+
+#. @node in user/tweaks.itely
+msgid "Real music example"
+msgstr "Valós zenei példa"
+
+#. @node in user/tweaks.itely
+msgid "Further tweaking"
+msgstr "További finomhangolás"
+
+#. @node in user/tweaks.itely
+msgid "Other uses for tweaks"
+msgstr "A finomhangolás más felhasználási módjai"
+
+#. @subheading in user/tweaks.itely
+msgid "Tying notes across voices"
+msgstr "Átkötés különböző szólamok hangjai között"
+
+#. @subheading in user/tweaks.itely
+msgid "Simulating a fermata in MIDI"
+msgstr "Korona szimulációja MIDI-ben"
+
+#. @node in user/tweaks.itely
+msgid "Using variables for tweaks"
+msgstr "Változók felhasználása a finomhangoláshoz"
+
+#. @node in user/tweaks.itely
+msgid "Other sources of information"
+msgstr "További információforrások"
+
+#. @node in user/tweaks.itely
+msgid "Avoiding tweaks with slower processing"
+msgstr "A lassabban feldolgozható finomhangolások elkerülése"
+
+#. @node in user/tweaks.itely
+msgid "Advanced tweaks with Scheme"
+msgstr "Haladó finomhangolás Scheme-mel"
+
+#. @node in user/working.itely
+msgid "Working on LilyPond projects"
+msgstr "Munka LilyPond projekteken"
+
+#. @node in user/working.itely
+msgid "Suggestions for writing LilyPond input files"
+msgstr "Tanácsok LilyPond bemeneti fájlok írásához"
+
+#. @node in user/working.itely
+msgid "General suggestions"
+msgstr "Általános tanácsok"
+
+#. @node in user/working.itely
+msgid "Typesetting existing music"
+msgstr "Létező művek bevitele"
+
+#. @node in user/working.itely
+msgid "Large projects"
+msgstr "Nagy projektek"
+
+#. @node in user/working.itely
+msgid "Saving typing with variables and functions"
+msgstr "Kevesebb gépelés változókkal és függvényekkel"
+
+#. @node in user/working.itely
+msgid "Style sheets"
+msgstr "Stíluslapok"
+
+#. @node in user/working.itely
+msgid "When things don't work"
+msgstr "Ha valami nem működik"
+
+#. @node in user/working.itely
+msgid "Updating old input files"
+msgstr "Régi bemeneti fájlok frissítése"
+
+#. @node in user/working.itely
+msgid "Troubleshooting (taking it all apart)"
+msgstr "Hibakeresés (a probléma beazonosítása)"
+
+#. @node in user/working.itely
+msgid "Minimal examples"
+msgstr "Minimális példák"
+
+#. @node in user/working.itely
+msgid "Scores and parts"
+msgstr "Partitúra és szólamkották"
+
+#. @node in user/templates.itely
+msgid "Templates"
+msgstr "Sablonok"
+
+#. @node in user/templates.itely
+msgid "Single staff"
+msgstr "Egy kottasor"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Notes only"
+msgstr "Csak hangok"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Notes and lyrics"
+msgstr "Hangok és dalszöveg"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Notes and chords"
+msgstr "Hangok és akkordok"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Notes, lyrics, and chords."
+msgstr "Hangok, dalszöveg és akkordok"
+
+#. @node in user/templates.itely
+msgid "Piano templates"
+msgstr "Zongorasablonok"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Solo piano"
+msgstr "Szólózongora"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Piano and melody with lyrics"
+msgstr "Zongora és dallam dalszöveggel"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Piano centered lyrics"
+msgstr "Zongora középre igazított dalszöveggel"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Piano centered dynamics"
+msgstr "Zongora középre igazított dinamikai jelzésekkel"
+
+#. @node in user/templates.itely
+#. @appendixsubsec in user/templates.itely
+msgid "String quartet"
+msgstr "Vonósnégyes"
+
+#. @appendixsubsec in user/templates.itely
+msgid "String quartet parts"
+msgstr "Vonósnégyes szólamkották"
+
+#. @node in user/templates.itely
+msgid "Vocal ensembles"
+msgstr "Kórus"
+
+#. @appendixsubsec in user/templates.itely
+msgid "SATB vocal score"
+msgstr "Négyszólamú vegyeskar"
+
+#. @appendixsubsec in user/templates.itely
+msgid "SATB vocal score and automatic piano reduction"
+msgstr "Négyszólamú vegyeskar és automatikus zongorakivonat"
+
+#. @appendixsubsec in user/templates.itely
+msgid "SATB with aligned contexts"
+msgstr "Négyszólamú vegyeskar igazított kontextusokkal"
+
+#. @node in user/templates.itely
+msgid "Orchestral templates"
+msgstr "Zenekari sablonok"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Orchestra, choir and piano"
+msgstr "Zenekar, kórus és zongora"
+
+#. @node in user/templates.itely
+msgid "Ancient notation templates"
+msgstr "Sablonok régizenéhez"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Transcription of mensural music"
+msgstr "Menzurális notációval lejegyzett művek átírása"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Gregorian transcription template"
+msgstr "Gregorián tételek átírása"
+
+#. @node in user/templates.itely
+msgid "Jazz combo"
+msgstr "Dzsesszegyüttes"
+
+#. @node in user/templates.itely
+msgid "lilypond-book templates"
+msgstr "lilypond-book sablonok"
+
+#. @appendixsubsec in user/templates.itely
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#. @appendixsubsec in user/templates.itely
+msgid "Texinfo"
+msgstr "Texinfo"
+
+#. @appendixsubsec in user/templates.itely
+msgid "xelatex"
+msgstr "xelatex"
+
+#. @node in user/scheme-tutorial.itely
+msgid "Scheme tutorial"
+msgstr "Scheme gyorstalpaló"
+
+#. @node in user/scheme-tutorial.itely
+msgid "Tweaking with Scheme"
+msgstr "Finomhangolás Scheme-mel"
+
+#. @node in user/fdl.itexi
+msgid "GNU Free Documentation License"
+msgstr "GNU szabad dokumentációs licenc"
+
+#. @subheading in user/fdl.itexi
+msgid "ADDENDUM: How to use this License for your documents"
+msgstr "FÜGGELÉK: Hogyan használható ez a licenc más dokumentumokban"
+
+msgid "Up:"
+msgstr "Fel:"
+
+msgid "Next:"
+msgstr "Következő:"
+
+msgid "Previous:"
+msgstr "Előző:"
+
+msgid "Appendix "
+msgstr "Függelék"
+
+msgid "Footnotes"
+msgstr "Lábjegyzet"
+
+msgid "Table of Contents"
+msgstr "Tartalomjegyzék"
+

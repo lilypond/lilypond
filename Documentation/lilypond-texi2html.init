@@ -85,6 +85,9 @@ $LY_LANGUAGES->{'ja'} = {
     'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
 };
 
+$LY_LANGUAGES->{'hu'} = {
+    'Back to Documentation Index' => 'Vissza a dokumentációk jegyzékéhez',
+};
 
 sub ly_get_string () {
     my $lang = $Texi2HTML::THISDOC{current_lang};

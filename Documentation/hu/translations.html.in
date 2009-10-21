@@ -1,0 +1,34 @@
+<html>
+<!--
+    Translation of GIT committish: a30fa41fac8fb2771a76f6d1edbec9714298ee36
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+!-->
+<head>
+  <title>A LilyPond dokumentáció fordításának állapota</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+<p><a href="index.html">Vissza a dokumentációk jegyzékéhez</a></p>
+
+<h1>A LilyPond dokumentáció fordításának állapota</h1>
+
+<p>Ez az áttekintés azt mutatja, hogy a LilyPond @TOPLEVEL_VERSION@ dokumentációjának
+mely részei vannak lefordítva. Minden szakasznál látszik, hogy hány szóból áll az adott
+szakasz, kik a fordítók és a lektorok (a lektorok nevei kisbetűvel vannak írva),
+mekkora hányada van már az adott résznek lefordítva, mennyire naprakész a fordítás,
+és hogy a fordítást frissítették-e már a dokumentáció teljes átdolgozásának kezdete óta.
+</p>
+
+<p>Mivel a projekt során az angol dokumentáció sokat változik, valószínűleg a fordítás
+nem mindig naprakész; ez persze nem azt jelenti, hogy a fordítás tartalmilag ne lenne érvényes
+a LilyPond aktuális verziójára, csak azt jelenti, hogy nem pontosan az eredeti dokumentáció
+szövegét tükrözi. Minden tőlünk telhetőt megteszünk, hogy a dokumentáció mindig konzisztens
+legyen a LilyPond nyelvtanával és képességeivel, és szakaszonként frissítjük, amikor
+a megfelelő angol szakasz átdolgozásra került.
+</p>
+
+</body>
+</html>
