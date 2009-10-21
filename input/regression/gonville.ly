@@ -10,7 +10,8 @@
 
 \paper {
   % Load the alternative font definitions into the font tree.
-  #(add-music-fonts fonts "gonville" 'gonville (/ staff-height (* 20 pt)))
+% temporarily disabled to allow a release.  -gp
+%  #(add-music-fonts fonts "gonville" 'gonville (/ staff-height (* 20 pt)))
 }
 
 %{
@@ -47,7 +48,8 @@
 
 \score {
   \relative c'' {
-    \set Staff.instrumentName = #"Gonville"
+% temporarily disabled to allow a release.  -gp
+%    \set Staff.instrumentName = #"Gonville"
     a4-\trill b8 c16 d32
   }
   \layout {
