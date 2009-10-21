@@ -107,7 +107,6 @@
     (AmbitusAccidental
      . (
 	(direction . ,LEFT)
-	(font-family . music)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(padding . 0.5)
 	(side-axis . ,X)
@@ -481,7 +480,6 @@
 	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
-	(font-family . music)
 	(glyph-name . ,ly:clef::calc-glyph-name)
 	(non-musical . #t)
 	(space-alist . ((ambitus . (extra-space . 2.0))
