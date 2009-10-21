@@ -119,6 +119,7 @@ extra-local-help:
 \n\
 Translations specific targets (see TRANSLATION for details):\n\
   new-lang ISOLANG=LL  create and initialize subdirectory \'LL' for language \'LL\n\
+(if \'LL exists, update missing file)\n\
   po-update            update and replace PO files for documentation with msgmerged versions\n\
   check-translation ISOLANG=LL   show changes in English docs since last translation update\n\
   update-translation ISOLANG=LL  call $$$$EDITOR to help updating the translation\n\
@@ -257,30 +258,20 @@ new-lang-dir:
 	rm -f $(outdir)/$(DIR).tely $(outdir)/$(DIR).texi
 	for i in $$(cd $(outdir) && ls -1 *.*tely *.*texi); do\
 	    test -e $(ISOLANG)/$(DIR)/$$i\
+		|| test -e $(ISOLANG)/$$i\
 		|| mv $(outdir)/$$i $(ISOLANG)/$(DIR)/$$i;\
 	done
 
 new-lang:
 # Also for updating/adding missing files
+	mkdir -p $(ISOLANG)
 	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
-	$(foreach i, $(EXTRA_TRANSLATION_FILES), \
-	    (test -e $(ISOLANG)/$(i) \
-		|| cp fr/$(i) $(ISOLANG)/$(i)) && ) true
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	test -e po/$(ISOLANG).po || cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
-#TRANSLATION_DIRS = $(shell git ls-files $(ISOLANG) | $(PYTHON) $(buildscript-dir)/pytt.py '/[^/]*$$' / | sort -u )
-TRANSLATION_DIRS = general learning notation texidocs usage
+TRANSLATION_DIRS = general texidocs
 TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
-EXTRA_TRANSLATION_FILES =\
- dedication.itely\
- common-macros.itexi\
- macros.itexi\
- translations.html.in\
- translations.template.html.in\
-#
-
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 skeleton-update:

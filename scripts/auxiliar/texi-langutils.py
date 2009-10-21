@@ -110,7 +110,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
             subst.update (locals ())
             g.write (i_blurb % subst)
             tutu = texinfo_with_menus_re.findall (texifile)
-            node_trigger = False
+            node_just_defined = ''
             for item in tutu:
                 if item[0] == '*':
                     g.write ('* ' + item[1] + '::\n')
@@ -127,9 +127,10 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                     if item[3].startswith ('{') or not item[3].strip ():
                         space = ''
                     g.write ('@' + item[2] + space + item[3] + '\n')
-                    if node_trigger:
+                    if node_just_defined:
+                        g.write ('@translationof ' + node_just_defined + '\n')
                         g.write (n_blurb)
-                        node_trigger = False
+                        node_just_defined = ''
                     elif item[2] == 'include':
                         includes.append (item[3])
                     else:
@@ -137,7 +138,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                             output_file.write ('# @' + item[2] + ' in ' + \
                                 printedfilename + '\n_(r"' + item[3].strip () + '")\n')
                         if item[2] == 'node':
-                            node_trigger = True
+                            node_just_defined = item[3].strip ()
             g.write (end_blurb)
             g.close ()
 
