@@ -42,9 +42,9 @@ class Output_printer:
 
     """A class that takes care of formatting (eg.: indenting) a
     Music expression as a .ly file.
-    
+
     """
-    
+
     def __init__ (self):
         self._line = ''
         self._indent = 4
@@ -57,19 +57,19 @@ class Output_printer:
 
     def set_file (self, file):
         self._file = file
-        
+
     def dump_version (self):
         self.newline ()
         self.print_verbatim ('\\version "@TOPLEVEL_VERSION@"')
         self.newline ()
-        
+
     def get_indent (self):
         return self._nesting * self._indent
-    
+
     def override (self):
         last = self._output_state_stack[-1]
         self._output_state_stack.append (last.copy())
-        
+
     def add_factor (self, factor):
         self.override()
         self._output_state_stack[-1].factor *=  factor
@@ -87,21 +87,21 @@ class Output_printer:
 
     def unformatted_output (self, str):
         # don't indent on \< and indent only once on <<
-        self._nesting += ( str.count ('<') 
-                         - str.count ('\<') - str.count ('<<') 
+        self._nesting += ( str.count ('<')
+                         - str.count ('\<') - str.count ('<<')
                          + str.count ('{') )
         self._nesting -= ( str.count ('>') - str.count ('\>') - str.count ('>>')
                                            - str.count ('->') - str.count ('_>')
                                            - str.count ('^>')
                          + str.count ('}') )
         self.print_verbatim (str)
-        
+
     def print_duration_string (self, str):
         if self._last_duration == str:
             return
-        
+
         self.unformatted_output (str)
-                  
+
     def add_word (self, str):
         if (len (str) + 1 + len (self._line) > self._line_len):
             self.newline()
@@ -111,7 +111,7 @@ class Output_printer:
             self._line += ' '
         self.unformatted_output (str)
         self._skipspace = False
-        
+
     def newline (self):
         self._file.write (self._line + '\n')
         self._line = ' ' * self._indent * self._nesting
@@ -119,10 +119,10 @@ class Output_printer:
 
     def skipspace (self):
         self._skipspace = True
-        
+
     def __call__(self, arg):
         self.dump (arg)
-    
+
     def dump (self, str):
         if self._skipspace:
             self._skipspace = False
@@ -144,7 +144,7 @@ class Duration:
         self.duration_log = 0
         self.dots = 0
         self.factor = Rational (1)
-        
+
     def lisp_expression (self):
         return '(ly:make-duration %d %d %d %d)' % (self.duration_log,
                              self.dots,
@@ -173,14 +173,14 @@ class Duration:
                 str += '*%d' % factor.numerator ()
 
         return str
-    
+
     def print_ly (self, outputter):
         str = self.ly_expression (self.factor / outputter.duration_factor ())
         outputter.print_duration_string (str)
-        
+
     def __repr__(self):
         return self.ly_expression()
-        
+
     def copy (self):
         d = Duration ()
         d.dots = self.dots
@@ -282,7 +282,7 @@ class Pitch:
         self.step = 0
         self.octave = 0
         self._force_absolute_pitch = False
-        
+
     def __repr__(self):
         return self.ly_expression()
 
@@ -292,7 +292,7 @@ class Pitch:
         c.step += interval.step
         c.octave += interval.octave
         c.normalize ()
-        
+
         target_st = self.semitones()  + interval.semitones()
         c.alteration += target_st - c.semitones()
         return c
@@ -313,7 +313,7 @@ class Pitch:
         p = Pitch ()
         p.alteration = self.alteration
         p.step = self.step
-        p.octave = self.octave 
+        p.octave = self.octave
         return p
 
     def steps (self):
@@ -321,8 +321,8 @@ class Pitch:
 
     def semitones (self):
         return self.octave * 12 + [0,2,4,5,7,9,11][self.step] + self.alteration
-    
-    def ly_step_expression (self): 
+
+    def ly_step_expression (self):
         return pitch_generating_function (self)
 
     def absolute_pitch (self):
@@ -357,26 +357,26 @@ class Pitch:
             str += self.absolute_pitch ()
 
         return str
-    
+
     def print_ly (self, outputter):
         outputter (self.ly_expression())
-    
+
 class Music:
     def __init__ (self):
         self.parent = None
         self.start = Rational (0)
         self.comment = ''
         self.identifier = None
-        
+
     def get_length(self):
         return Rational (0)
-    
+
     def get_properties (self):
         return ''
-    
+
     def has_children (self):
         return False
-    
+
     def get_index (self):
         if self.parent:
             return self.parent.elements.index (self)
@@ -384,12 +384,12 @@ class Music:
             return None
     def name (self):
         return self.__class__.__name__
-    
+
     def lisp_expression (self):
         name = self.name()
 
         props = self.get_properties ()
-        
+
         return "(make-music '%s %s)" % (name,  props)
 
     def set_start (self, start):
@@ -406,20 +406,20 @@ class Music:
 
         if not text:
             return
-            
+
         if text == '\n':
             printer.newline ()
             return
-        
+
         lines = string.split (text, '\n')
         for l in lines:
             if l:
                 printer.unformatted_output ('% ' + l)
             printer.newline ()
-            
+
 
     def print_with_identifier (self, printer):
-        if self.identifier: 
+        if self.identifier:
             printer ("\\%s" % self.identifier)
         else:
             self.print_ly (printer)
@@ -456,7 +456,7 @@ class RelativeMusic (MusicWrapper):
         previous_pitch = self.basepitch
         if not previous_pitch:
             previous_pitch = Pitch ()
-        func ('\\relative %s%s' % (pitch_generating_function (previous_pitch), 
+        func ('\\relative %s%s' % (pitch_generating_function (previous_pitch),
                                    previous_pitch.absolute_pitch ()))
         MusicWrapper.print_ly (self, func)
         relative_pitches = prev_relative_pitches
@@ -484,8 +484,8 @@ class TimeScaledMusic (MusicWrapper):
             func ("\\once \\override TupletBracket #'stencil = #ly:slur::print")
             func.newline ()
 
-        base_number_function = {None: "#f", 
-             "actual": "tuplet-number::calc-denominator-text", 
+        base_number_function = {None: "#f",
+             "actual": "tuplet-number::calc-denominator-text",
              "both": "tuplet-number::calc-fraction-text"}.get (self.display_number, None)
         # If we have non-standard numerator/denominator, use our custom function
         if self.display_number == "actual" and self.display_denominator:
@@ -520,12 +520,12 @@ class TimeScaledMusic (MusicWrapper):
                 else:
                     num_duration = den_duration
                 if (self.display_denominator or self.display_numerator):
-                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::non-default-fraction-with-notes %s \"%s\" %s \"%s\")" % 
+                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::non-default-fraction-with-notes %s \"%s\" %s \"%s\")" %
                                 (self.display_denominator, den_duration,
                                  self.display_numerator, num_duration))
                     func.newline ()
                 else:
-                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::fraction-with-notes \"%s\" \"%s\")" % 
+                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::fraction-with-notes \"%s\" \"%s\")" %
                                 (den_duration, num_duration))
                     func.newline ()
         else:
@@ -550,7 +550,7 @@ class NestedMusic(Music):
     def append (self, what):
         if what:
             self.elements.append (what)
-            
+
     def has_children (self):
         return self.elements
 
@@ -558,7 +558,7 @@ class NestedMusic(Music):
         assert elt.parent == None
         assert succ == None or succ in self.elements
 
-        
+
         idx = 0
         if succ:
             idx = self.elements.index (succ)
@@ -572,7 +572,7 @@ class NestedMusic(Music):
 
         self.elements.insert (idx, elt)
         elt.parent = self
-        
+
     def get_properties (self):
         return ("'elements (list %s)"
             % string.join (map (lambda x: x.lisp_expression(),
@@ -593,10 +593,10 @@ class NestedMusic(Music):
 
     def delete_element (self, element):
         assert element in self.elements
-        
+
         self.elements.remove (element)
         element.parent = None
-        
+
     def set_start (self, start):
         self.start = start
         for e in self.elements:
@@ -606,13 +606,13 @@ class NestedMusic(Music):
         r = Music.find_first (self, predicate)
         if r:
             return r
-        
+
         for e in self.elements:
             r = e.find_first (predicate)
             if r:
                 return r
         return None
-        
+
 class SequentialMusic (NestedMusic):
     def get_last_event_chord (self):
         value = None
@@ -639,15 +639,15 @@ class SequentialMusic (NestedMusic):
         printer ('}')
         if newline:
             printer.newline()
-            
+
     def lisp_sub_expression (self, pred):
         name = self.name()
 
 
         props = self.get_subset_properties (pred)
-        
+
         return "(make-music '%s %s)" % (name,  props)
-    
+
     def set_start (self, start):
         for e in self.elements:
             e.set_start (start)
@@ -830,7 +830,7 @@ class ChordEvent (NestedMusic):
         rest_events = [e for e in self.elements if
                isinstance (e, RhythmicEvent)
                and not isinstance (e, NoteEvent)]
-        
+
         other_events = [e for e in self.elements if
                 not isinstance (e, RhythmicEvent)]
 
@@ -853,7 +853,7 @@ class ChordEvent (NestedMusic):
             self.grace_elements.print_ly (printer, False)
             printer ('{}')
 
-        # Print all overrides and other settings needed by the 
+        # Print all overrides and other settings needed by the
         # articulations/ornaments before the note
         for e in other_events:
             e.print_before_note (printer)
@@ -877,7 +877,7 @@ class ChordEvent (NestedMusic):
                 duration.print_ly (printer)
         else:
             pass
-        
+
         for e in other_events:
             e.print_ly (printer)
 
@@ -889,7 +889,7 @@ class ChordEvent (NestedMusic):
             self.after_grace_elements.print_ly (printer, False)
 
         self.print_comment (printer)
-            
+
 class Partial (Music):
     def __init__ (self):
         Music.__init__ (self)
@@ -903,7 +903,7 @@ class BarLine (Music):
         Music.__init__ (self)
         self.bar_number = 0
         self.type = None
-        
+
     def print_ly (self, printer):
         bar_symbol = { 'regular': "|", 'dotted': ":", 'dashed': "dashed",
                        'heavy': "|", 'light-light': "||", 'light-heavy': "|.",
@@ -955,13 +955,13 @@ class SpanEvent (Event):
 
 class SlurEvent (SpanEvent):
     def print_before_note (self, printer):
-        command = {'dotted': '\\slurDotted', 
+        command = {'dotted': '\\slurDotted',
                   'dashed' : '\\slurDashed'}.get (self.line_type, '')
         if command and self.span_direction == -1:
             printer.dump (command)
     def print_after_note (self, printer):
         # reset non-solid slur types!
-        command = {'dotted': '\\slurSolid', 
+        command = {'dotted': '\\slurSolid',
                   'dashed' : '\\slurSolid'}.get (self.line_type, '')
         if command and self.span_direction == -1:
             printer.dump (command)
@@ -1017,7 +1017,7 @@ class OctaveShiftEvent (SpanEvent):
         value = ''
         if dir:
             value = '\ottava #%s' % dir
-        return { 
+        return {
             -1: value,
             1: '\ottava #0'}.get (self.span_direction, '')
 
@@ -1033,7 +1033,7 @@ class GlissandoEvent (SpanEvent):
             style= {
                 "dashed" : "dashed-line",
                 "dotted" : "dotted-line",
-                "wavy"   : "zigzag" 
+                "wavy"   : "zigzag"
             }. get (self.line_type, None)
             if style:
                 printer.dump ("\once \override Glissando #'style = #'%s" % style)
@@ -1075,10 +1075,10 @@ class HairpinEvent (SpanEvent):
             return '\!'
         else:
             return {1: '\<', -1: '\>'}.get (self.span_type, '')
-    
+
     def ly_expression (self):
         return self.hairpin_to_ly ()
-    
+
     def print_ly (self, printer):
         val = self.hairpin_to_ly ()
         if val:
@@ -1261,7 +1261,7 @@ class ChordPitch:
         self.step = 0
     def __repr__(self):
         return self.ly_expression()
-    def ly_expression (self): 
+    def ly_expression (self):
         return pitch_generating_function (self)
 
 class ChordModification:
@@ -1354,11 +1354,11 @@ class RhythmicEvent(Event):
 
     def get_length (self):
         return self.duration.get_length()
-        
+
     def get_properties (self):
         return ("'duration %s"
                 % self.duration.lisp_expression ())
-    
+
 class RestEvent (RhythmicEvent):
     def __init__ (self):
         RhythmicEvent.__init__ (self)
@@ -1370,7 +1370,7 @@ class RestEvent (RhythmicEvent):
             return res + "%s%s\\rest" % (self.pitch.ly_expression (), self.duration.ly_expression ())
         else:
             return 'r%s' % self.duration.ly_expression ()
-    
+
     def print_ly (self, printer):
         for ev in self.associated_events:
             ev.print_ly (printer)
@@ -1384,7 +1384,7 @@ class RestEvent (RhythmicEvent):
 
 class SkipEvent (RhythmicEvent):
     def ly_expression (self):
-        return 's%s' % self.duration.ly_expression () 
+        return 's%s' % self.duration.ly_expression ()
 
 class NoteEvent(RhythmicEvent):
     def  __init__ (self):
@@ -1396,14 +1396,14 @@ class NoteEvent(RhythmicEvent):
 
     def get_properties (self):
         str = RhythmicEvent.get_properties (self)
-        
+
         if self.pitch:
             str += self.pitch.lisp_expression ()
         elif self.drum_type:
             str += "'drum-type '%s" % self.drum_type
 
         return str
-    
+
     def pitch_mods (self):
         excl_question = ''
         if self.cautionary:
@@ -1499,8 +1499,8 @@ class TimeSignatureChange (Music):
 
     def ly_expression (self):
         st = ''
-        # Print out the style if we have ome, but the '() should only be 
-        # forced for 2/2 or 4/4, since in all other cases we'll get numeric 
+        # Print out the style if we have ome, but the '() should only be
+        # forced for 2/2 or 4/4, since in all other cases we'll get numeric
         # signatures anyway despite the default 'C signature style!
         is_common_signature = self.fractions in ([2,2], [4,4], [4,2])
         if self.style:
@@ -1518,7 +1518,7 @@ class TimeSignatureChange (Music):
             return st + "\\compoundMeter #'%s" % self.format_fraction (self.fractions)
         else:
             return st + ''
-    
+
 class ClefChange (Music):
     def __init__ (self):
         Music.__init__ (self)
@@ -1551,7 +1551,7 @@ class ClefChange (Music):
         "C": ("clefs.C", 0, 0),
         "F": ("clefs.F", 2, 6),
         }
-    
+
     def lisp_expression (self):
         try:
             (glyph, pos, c0) = self.clef_dict[self.type]
@@ -1607,7 +1607,7 @@ class TempoMark (Music):
         return False
     def duration_to_markup (self, dur):
         if dur:
-            # Generate the markup to print the note, use scheme mode for 
+            # Generate the markup to print the note, use scheme mode for
             # ly_expression to get longa and not \longa (which causes an error)
             return "\\general-align #Y #DOWN \\smaller \\note #\"%s\" #UP" % dur.ly_expression(None, True)
         else:
@@ -1774,7 +1774,7 @@ class StaffGroup:
         printer.dump ("<<")
         printer.newline ()
         if self.stafftype and self.instrument_name:
-            printer.dump ("\\set %s.instrumentName = %s" % (self.stafftype, 
+            printer.dump ("\\set %s.instrumentName = %s" % (self.stafftype,
                     escape_instrument_string (self.instrument_name)))
             printer.newline ()
         if self.stafftype and self.short_instrument_name:
@@ -1874,7 +1874,7 @@ class DrumStaff (Staff):
 class RhythmicStaff (Staff):
     def __init__ (self, command = "RhythmicStaff"):
         Staff.__init__ (self, command)
-        
+
 class Score:
     def __init__ (self):
         self.contents = None
@@ -1882,7 +1882,7 @@ class Score:
 
     def set_contents (self, contents):
         self.contents = contents
-    
+
     def set_part_information (self, part_id, staves_info):
         if self.contents:
           self.contents.set_part_information (part_id, staves_info)
@@ -1914,8 +1914,8 @@ def test_pitch ():
     down = Pitch ()
     down.step = -4
     down.normalize ()
-    
-    
+
+
     print bflat.semitones()
     print bflat.transposed (fifth),  bflat.transposed (fifth).transposed (fifth)
     print bflat.transposed (fifth).transposed (fifth).transposed (fifth)
@@ -1940,7 +1940,7 @@ def test_printer ():
         m.append (make_note ())
         m.append (make_note ())
 
-        
+
         t = TimeScaledMusic ()
         t.numerator = 2
         t.denominator = 3
@@ -1951,14 +1951,14 @@ def test_printer ():
     m.append (make_tup ())
     m.append (make_tup ())
     m.append (make_tup ())
-    
+
     printer = Output_printer()
     m.print_ly (printer)
     printer.newline ()
-    
+
 def test_expr ():
     m = SequentialMusic()
-    l = 2  
+    l = 2
     evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
@@ -1976,7 +1976,7 @@ def test_expr ():
     evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
-    n.pitch.step = 2 
+    n.pitch.step = 2
     evc.insert_around (None, n, 0)
     m.insert_around (None, evc, 0)
 
@@ -1991,7 +1991,7 @@ def test_expr ():
     n = KeySignatureChange()
     n.tonic=tonic.copy()
     n.scale = [0, 0, -2, 0, 0,-2,-2]
-    
+
     evc.insert_around (None, n, 0)
     m.insert_around (None, evc, 0)
 
@@ -2002,7 +2002,7 @@ if __name__ == '__main__':
     test_printer ()
     raise 'bla'
     test_pitch()
-    
+
     expr = test_expr()
     expr.set_start (Rational (0))
     print expr.ly_expression()
@@ -2011,6 +2011,6 @@ if __name__ == '__main__':
     def sub(x, start=start, stop=stop):
         ok = x.start >= start and x.start +x.get_length() <= stop
         return ok
-    
+
     print expr.lisp_sub_expression(sub)
 
