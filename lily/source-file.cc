@@ -308,7 +308,12 @@ Source_file::get_counts (char const *pos_str0,
       else
 	(*column)++;
 
-      (*line_char)++;
+      /*
+	For accurate error output, consider multibyte
+	characters as a series of characters.
+      */
+      (*line_char) += thislen;
+
       /* Advance past this character. */
       line_chars += thislen;
       left -= thislen;
