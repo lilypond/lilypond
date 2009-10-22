@@ -13,6 +13,9 @@
 @documentencoding UTF-8
 @documentlanguage nl
 @include macros.itexi
+
+@c Translators: Test
+
 @afourpaper
 @c Keep this here, since it pertains to the direntry below.
 @c * lilypond: (lilypond-application)Running LilyPond.      Invoking the

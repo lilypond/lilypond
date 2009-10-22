@@ -88,7 +88,8 @@ texi_level = {
     'chapter': ('n', 1),
     'section': ('n', 2),
     'subsection': ('n', 3),
-    'appendix': ('l', 1)
+    'appendix': ('l', 1),
+    'appendixsec': ('l', 2),
 }
 
 appendix_number_trans = string.maketrans ('@ABCDEFGHIJKLMNOPQRSTUVWXY',
@@ -225,7 +226,10 @@ class TranslatedTelyDocument (TelyDocument):
             try:
                 self.translators = parent_translation.translators
             except:
-                error ('%s: no translator name found, \nplease \
+                if 'macros.itexi' in self.filename:
+                    self.translators = ['']
+                else:
+                    error ('%s: no translator name found, \nplease \
 specify at least one in the master file as a line containing\n\
 @c Translators: FirstName1 LastName1, FirstName2 LastName2' % self.filename)
         m = checkers_re.search (self.contents)
@@ -562,7 +566,7 @@ status_txt_file = 'out/translations-status.txt'
 progress ("Writing %s..." % status_txt_file)
 open (status_txt_file, 'w').write (main_status_txt)
 
-translation_instructions_file = 'devel/doc-translation-list.itexi'
+translation_instructions_file = 'contributor/doc-translation-list.itexi'
 progress ("Updating %s..." % translation_instructions_file)
 translation_instructions = open (translation_instructions_file).read ()
 

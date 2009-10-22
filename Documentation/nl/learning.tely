@@ -13,6 +13,9 @@
 @documentencoding UTF-8
 @documentlanguage nl
 @include macros.itexi
+
+@c Translators: Test
+
 @c This produces the unified index
 @afourpaper
 @c don't remove this comment.

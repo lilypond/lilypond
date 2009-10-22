@@ -21,6 +21,7 @@
 
 @translationof Top
 
+@c Translators: Test
 
 @chapheading
 @end ifnottex
