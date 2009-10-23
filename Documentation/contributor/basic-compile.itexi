@@ -252,7 +252,13 @@ make doc
 @end example
 
 After compilation, the HTML documentation tree is available in
-@file{out-www/offline-root/}, and can be browsed locally.
+@file{out-www/offline-root/}, and can be browsed locally.  Various
+portions of the documentation can be found by looking in
+@file{out/} and @file{out-www} subdirectories in other places in
+the source tree, but these are only @emph{portions} of the docs.
+Please do not complain about anything which is broken in those
+places; the only complete set of documentation is in
+@file{out-www/offline-root/} from the top of the source tree.
 
 The HTML, PDF and if available Info files can be installed into the
 standard documentation path by issuing
