@@ -146,8 +146,8 @@ local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
 
 local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links) $(OMF_FILES)
 	# fix links from other manuals to general
-	find $(outdir) -name "*.html" | xargs sed -i 's/\.\.\/general\//\.\.\//'
-	ls $(outdir)/*.html | xargs sed -i 's/<a href=\"\.\.\//<a href=\"/'
+	find $(outdir) -name "*.html" | xargs sed -i 's/..\/general\//..\//'
+	ls $(outdir)/*.html | xargs sed -i 's/<a href=\"..\//<a href=\"/'
 endif
 
 
