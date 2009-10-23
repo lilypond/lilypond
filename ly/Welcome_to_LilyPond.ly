@@ -17,7 +17,7 @@ Now to take it for the first test run.
   4. To print or view the result, click on the newly produced file
      called
 
-        test.PDF
+        test.pdf
 
   5. If you see a piece of music with a scale, LilyPond is working properly.
 
