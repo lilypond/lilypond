@@ -853,8 +853,18 @@ demos, and installation instructions, visit
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+Emacs is a text editor with language-sensitive capabilities for
+many different computer languages.  Emacs is a highly extensible
+editor and can be used as an Integrated Development Environment.
+There is a @q{lilypond mode} which supplies the language
+definitions for working with Lilypond source files.
 
-@help insert text and a graphic
+Vim is a minimal text editor and is an extension of the older Unix
+@command{vi} editor.  It is also extensible and configurable.
+
+As a general rule, if you are not already familiar with emacs or
+vim, then you would probably prefer to use a different editor for
+writing LilyPond input files.
 
 @divEnd
 
