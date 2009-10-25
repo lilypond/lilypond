@@ -817,9 +817,15 @@ convinced?  Read about easier editing environments in
 @divClass{column-center-top}
 @subheading Graphical environment: Denemo
 
+@imageClickable{screenshot-denemo-small,png,
+  (click to enlarge),screenshot-denemo,png,right}
 @sourceimage{logo-linux,,,}
 
-@help insert text and a graphic
+Denemo is graphical editor which generates Lilypond source code
+and also allows audio playback.  It is currently in development
+and generates code for older versions of Lilypond (V2.8.7).  It
+allows users to view the Lilypond source code in parallel to the
+graphical view.
 
 @divEnd
 
@@ -882,7 +888,7 @@ writing LilyPond input files.
 
 Frescobaldi is a dedicated LilyPond music and text editor with
 built-in PDF previewer, a powerful score wizard and many editing
-features. It is built on top of the KDE4 libraries and runs
+features.  It is built on top of the KDE4 libraries and runs
 currently on all flavours of Linux and other UNIX-like operating
 systems.
 
