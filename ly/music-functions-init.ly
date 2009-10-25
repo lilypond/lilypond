@@ -449,7 +449,7 @@ or @code{\"GrobName\"}")
 %% because music identifiers are not allowed at top-level.
 pageBreak =
 #(define-music-function (location parser) ()
-   (_i "Force a page break. May be used at toplevel (ie between scores or
+   (_i "Force a page break. May be used at toplevel (i.e. between scores or
 markups), or inside a score.")
    (make-music 'EventChord
 	       'page-marker #t
@@ -584,13 +584,16 @@ parenthesize =
 
 partcombine =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
-		(make-part-combine-music parser
-					 (list part1 part2)))
+   (_i "Take the music in @var{part1} and @var{part2} and typeset so that they share a staff.")
+   (make-part-combine-music parser
+			    (list part1 part2)))
 
 pitchedTrill =
 #(define-music-function
    (parser location main-note secondary-note)
    (ly:music? ly:music?)
+   (_i "Print a trill with @var{main-note} as the main note of the trill and
+print @var{secondary-note} as a stemless note head in parentheses.")
    (let*
        ((get-notes (lambda (ev-chord)
 		     (filter
@@ -622,8 +625,12 @@ pitchedTrill =
 
 quoteDuring =
 #(define-music-function
-  (parser location what main-music)
-  (string? ly:music?)
+   (parser location what main-music)
+   (string? ly:music?)
+   (_i "Indicate a section of music to be quoted.  @var{what} indicates the name
+of the quoted voice, as specified in an @code{\\addQuote} command.
+@var{main-music} is used to indicate the length of music to be quoted;
+usually contains spacers or multi-measure rests.")
   (make-music 'QuoteMusic
 	      'element main-music
 	      'quoted-music-name what
@@ -803,7 +810,10 @@ tweak =
 
 unfoldRepeats =
 #(define-music-function (parser location music) (ly:music?)
-		  (unfold-repeats music))
+   (_i "Force any @code{\\repeat volta}, @code{\\repeat tremolo} or
+@code{\\repeat percent} commands in @var{music} to be interpreted
+as @code{\\repeat unfold}.")
+   (unfold-repeats music))
 
 
 

@@ -278,7 +278,9 @@ phrasingSlurNeutral = \revert PhrasingSlur #'direction
 % dash-patterns (make-simple-dash-definition defined at top of file)
 phrasingSlurDashPattern =
 #(define-music-function (parser location dash-fraction dash-period)
-  (number? number?)
+   (number? number?)
+   (_i "Set up a custom style of dash pattern for @var{dash-fraction} ratio of
+line to space repeated at @var{dash-period} interval.")
   #{
      \override PhrasingSlur #'dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
@@ -301,10 +303,16 @@ phrasingSlurSolid =
 
 pointAndClickOn  =
 #(define-music-function (parser location) ()
+   (_i "Enable generation of code in final-format (e.g. pdf) files to reference the
+originating lilypond source statement;
+this is helpful when developing a score but generates bigger final-format files.")
    (ly:set-option 'point-and-click #t)
    (make-music 'SequentialMusic 'void #t))
+
 pointAndClickOff =
 #(define-music-function (parser location) ()
+   (_i "Suppress generating extra code in final-format (e.g. pdf) files to point
+back to the lilypond source statement.")
    (ly:set-option 'point-and-click #f)
    (make-music 'SequentialMusic 'void #t))
 
