@@ -46,7 +46,7 @@ copied_files = [
     'txi-de.tex',
     'txi-en.tex',
     'txi-fr.tex',
-    'txi-sf.tex',
+    'txi-es.tex',
     ]
 
 def main ():
