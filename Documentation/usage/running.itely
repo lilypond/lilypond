@@ -673,10 +673,10 @@ variable @code{EDITOR} for the following patterns,
 @example
 emacsclient --no-wait +@var{line}:@var{column} @var{file}
 @end example
-@item vim
+@item gvim
   this will invoke
 @example
-gvim --remote +:@var{line}:norm@var{char} @var{file}
+gvim --remote +:@var{line}:norm@var{column} @var{file}
 @end example
 
 @item nedit
