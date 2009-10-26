@@ -528,11 +528,13 @@ download as a PDF file.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{../input/regression/collated-files.html, Regression tests}:
+@c add an extra ../ to counteract the sed hack in the makefile
+@item @uref{../../input/regression/collated-files.html, Regression tests}:
 This releases' tests.  (also in
 @uref{../input/regression/collated-files.pdf, pdf})
 
-@item @uref{../input/regression/musicxml/collated-files.html,
+@c add an extra ../ to counteract the sed hack in the makefile
+@item @uref{../../input/regression/musicxml/collated-files.html,
 MusicXML Regression tests}:
 This releases' MusicXML tests.  (also in
 @uref{../input/regression/musicxml/collated-files.pdf, pdf})
