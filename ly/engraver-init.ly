@@ -350,6 +350,7 @@ a collection of staves, with a bracket in front and spanning bar lines."
   \name Dynamics
   \alias Voice
   \consists "Output_property_engraver"
+  \consists "Bar_engraver"
   \consists "Piano_pedal_engraver"
   \consists "Script_engraver"
   \consists "New_dynamic_engraver"
