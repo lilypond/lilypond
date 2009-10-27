@@ -1617,8 +1617,12 @@
 
     (StaffGrouper
      . (
-	(between-staff-spacing . ((space . 9) (minimum-distance . 7)))
-	(after-last-staff-spacing . ((space . 10.5) (minimum-distance . 8)))
+	(between-staff-spacing . ((space . 9)
+				  (minimum-distance . 7)
+				  (padding . 1)))
+	(after-last-staff-spacing . ((space . 10.5)
+				     (minimum-distance . 8)
+				     (padding . 1)))
 	(meta . ((class . Spanner)
 		 (interfaces . (staff-grouper-interface))))))
 
@@ -2182,7 +2186,9 @@
      . (
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,Y))
-	(default-next-staff-spacing . ((space . 9) (minimum-distance . 8)))
+	(default-next-staff-spacing . ((space . 9)
+				       (minimum-distance . 8)
+				       (padding . 1)))
 	(next-staff-spacing . ,ly:axis-group-interface::calc-next-staff-spacing)
 	(non-affinity-spacing . ((padding . 0.5)))
 	(stencil . ,ly:axis-group-interface::print)
