@@ -64,6 +64,10 @@ which scares away people.
 @end ignore
 
 @item
+Support for using an alternative music font, such as Gonville, is now
+added.
+
+@item
 In addition to the existing @code{\hspace} markup command,
 a new @code{\vspace} command has been added to provide an easy
 and flexible way to add vertical space in markups.  This feature
@@ -197,10 +201,6 @@ and to add notes to the number or fraction:
 @item
 FretBoards now have a chordChanges property to keep repeated FretBoard objects
 from being typeset.
-
-@item
-Support for using an alternative music font, such as Gonville, is now
-added.
 
 @end itemize
 
