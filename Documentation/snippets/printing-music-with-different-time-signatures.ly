@@ -14,6 +14,13 @@ each part, the @code{Default_barline_engraver} and
 @code{Timing_translator} are moved from the @code{Score} context to the
 @code{Staff} context.
 
+If bar numbers are required, the @code{Bar_number_engraver} should also
+be moved, since it relies on properties set by the
+@code{Timing_translator}; a @code{\\with} block can be used to add bar
+numbers to the relevant staff.
+
+
+
 "
   doctitle = "Printing music with different time signatures"
 } % begin verbatim
@@ -31,6 +38,7 @@ global = { \time 3/4 { s2.*3 } \bar "" \break { s2.*3 } }
     \remove "Timing_translator"
     \remove "Time_signature_engraver"
     \remove "Default_bar_line_engraver"
+    \remove "Bar_number_engraver"
     \override SpacingSpanner #'uniform-stretching = ##t
     \override SpacingSpanner #'strict-note-spacing = ##t
     proportionalNotationDuration = #(ly:make-moment 1 64)
@@ -48,7 +56,11 @@ global = { \time 3/4 { s2.*3 } \bar "" \break { s2.*3 } }
   }
 }
 
-Bassklarinette = \new Staff <<
+Bassklarinette = \new Staff \with {
+  \consists "Bar_number_engraver"
+  barNumberVisibility = #(every-nth-bar-number-visible 2)
+  \override BarNumber #'break-visibility = #end-of-line-invisible
+} <<
   \global {
     \bar "|"
     \clef treble

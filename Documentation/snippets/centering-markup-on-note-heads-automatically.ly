@@ -47,6 +47,7 @@ textScriptCenterOnNote = \override TextScript #'X-offset =
 \relative c' {
   \override TextScript #'self-alignment-X = #CENTER
   \textScriptCenterOnNote
-  c1-\markup \arrow-head #Y #UP ##t
+  <c e g c>1-\markup \arrow-head #Y #UP ##t
+  <c e g c>1-\markup \huge "^"
 }
 
