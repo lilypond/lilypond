@@ -9,15 +9,15 @@
 
 #include "text-interface.hh"
 
-
-#include "main.hh"
 #include "config.hh"
+#include "font-interface.hh"
+#include "grob.hh"
+#include "main.hh"
+#include "misc.hh"
+#include "modified-font-metric.hh"
+#include "output-def.hh"
 #include "pango-font.hh"
 #include "warn.hh"
-#include "grob.hh"
-#include "font-interface.hh"
-#include "output-def.hh"
-#include "modified-font-metric.hh"
 
 static void
 replace_whitespace (string *str)
@@ -27,24 +27,13 @@ replace_whitespace (string *str)
 
   while (i < n)
     {
-      vsize char_len = 1;
       char cur = (*str)[i];
-      
-      // U+10000 - U+10FFFF
-      if ((cur & 0xF0) == 0xF0)
-	char_len = 4;
-      // U+0800 - U+FFFF
-      else if ((cur & 0xE0) == 0xE0)
-	char_len = 3;
-      // U+0080 - U+07FF
-      else if ((cur & 0xC0) == 0xC0)
-	char_len = 2;
-      else if (cur & 0x80)
-	programming_error ("invalid utf-8 string");
-      else
-	// avoid the locale-dependent isspace
-	if (cur == '\n' || cur == '\t' || cur == '\v')
-	  (*str)[i] = ' ';
+
+      // avoid the locale-dependent isspace
+      if (cur == '\n' || cur == '\t' || cur == '\v')
+	(*str)[i] = ' ';
+
+      vsize char_len = utf8_char_len (cur);
 
       i += char_len;
     }

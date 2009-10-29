@@ -47,6 +47,7 @@ Real directed_round (Real f, Direction d);
 Real peak_around (Real epsilon,  Real threshold, Real x);
 Real convex_amplifier (Real standard_x, Real increase_factor, Real x);
 string camel_case_to_lisp_identifier (string in);
+vsize utf8_char_len (char);
 
 #endif
 

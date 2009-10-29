@@ -9,6 +9,7 @@
 
 
 #include "misc.hh"
+#include "warn.hh"
 
 /*
   Return the 2-log, rounded down
@@ -86,3 +87,22 @@ camel_case_to_lisp_identifier (string in)
   return result;
 }
 
+vsize
+utf8_char_len (char current)
+{
+  vsize char_len = 1;
+
+  // U+10000 - U+10FFFF
+  if ((current & 0xF0) == 0xF0)
+    char_len = 4;
+  // U+0800 - U+FFFF
+  else if ((current & 0xE0) == 0xE0)
+    char_len = 3;
+  // U+0080 - U+07FF
+  else if ((current & 0xC0) == 0xC0)
+    char_len = 2;
+  else if (current & 0x80)
+    programming_error ("invalid UTF-8 string");
+
+  return char_len;
+}
