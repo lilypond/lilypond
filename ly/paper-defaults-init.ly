@@ -87,6 +87,7 @@
   \include "titling-init.ly"
 
   check-consistency = ##t
+  two-sided = ##f
 
   % These margins apply to the default paper format given by (ly:get-option 'paper-size)
   % and are scaled accordingly for other formats
@@ -96,6 +97,10 @@
 
   left-margin-default = 10 \mm
   right-margin-default = 10 \mm
+
+  inner-margin-default = 10 \mm
+  outer-margin-default = 20 \mm
+  binding-offset-default = 0 \mm
 
   head-separation-default = 4 \mm
   foot-separation-default = 4 \mm

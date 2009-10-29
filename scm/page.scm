@@ -15,7 +15,7 @@
 	    page-printable-height
 	    layout->page-init
 	    page-lines
-	    page-force 
+	    page-force
 	    page-penalty
 	    page-configuration
 	    page-lines
@@ -23,7 +23,7 @@
 	    page-system-numbers
 	    page-stencil
 	    page-free-height
-	    page? 
+	    page?
 	    ))
 
 (use-modules (lily)
@@ -46,9 +46,9 @@
 
     (page-set-property! p 'head-stencil (page-header p))
     (page-set-property! p 'foot-stencil (page-footer p))
-    
+
     p))
-	
+
 (define page-property ly:prob-property)
 (define page-set-property! ly:prob-set-property!)
 (define (page-property? page sym)
@@ -56,7 +56,7 @@
 (define (page? x)  (ly:prob-type? x 'page))
 
 
-;; define accessors. 
+;; define accessors.
 (for-each
  (lambda (j)
    (module-define!
@@ -64,7 +64,7 @@
     (string->symbol (format "page-~a" j))
     (lambda (pg)
       (page-property pg j))))
- 
+
  '(page-number prev lines force penalty lines))
 
 (define (page-system-numbers page)
@@ -81,7 +81,7 @@
 
        (if (not (number? (ly:prob-property sys 'Y-offset)))
 	   (ly:prob-set-property! sys 'Y-offset off))))
-   
+
    (zip (page-property page 'lines)
 	(page-property page 'configuration))))
 
@@ -115,19 +115,19 @@
 			     (ly:stencil-add stencil
 					     (ly:stencil-translate-axis y 6 X))))))
     (add-stencil
-     (ly:stencil-translate-axis 
+     (ly:stencil-translate-axis
       (annotate-y-interval layout "paper-height"
 			   (cons (- paper-height) 0)
 			   #t)
       1 X))
     (add-stencil
-     (ly:stencil-translate-axis 
+     (ly:stencil-translate-axis
       (annotate-y-interval layout "top-margin"
 			   (cons (- top-margin) 0)
 			   #t)
       2 X))
     (add-stencil
-     (ly:stencil-translate-axis 
+     (ly:stencil-translate-axis
       (annotate-y-interval layout "bottom-margin"
 			   (cons (- paper-height) (- bottom-margin paper-height))
 			   #t)
@@ -156,7 +156,7 @@
 
 
 (define (page-header-or-footer page dir)
-    (let*
+  (let*
       ((paper-book (page-property page 'paper-book))
        (layout (ly:paper-book-paper paper-book))
        (scopes (ly:paper-book-scopes paper-book))
@@ -168,9 +168,9 @@
 		'make-footer))
        (header-proc (ly:output-def-lookup layout sym)))
 
-      (if (procedure? header-proc)
-	  (header-proc layout scopes number is-last-bookpart is-bookpart-last-page)
-	  #f)))
+    (if (procedure? header-proc)
+	(header-proc layout scopes number is-last-bookpart is-bookpart-last-page)
+	#f)))
 
 
 (define (page-header page)
@@ -185,21 +185,23 @@
       ((paper-height (ly:output-def-lookup layout 'paper-height))
        (paper-width (ly:output-def-lookup layout 'paper-width))
        (left-margin (ly:output-def-lookup layout 'left-margin))
+       (right-margin (ly:output-def-lookup layout 'right-margin))
        (bottom-edge (- paper-height
 		       (ly:output-def-lookup layout 'bottom-margin)) )
        (top-margin (ly:output-def-lookup layout 'top-margin))
        )
-    
+
     `((paper-height . ,paper-height)
       (paper-width . ,paper-width)
       (left-margin . ,left-margin)
+      (right-margin . ,right-margin)
       (top-margin . ,top-margin)
       (bottom-edge . ,bottom-edge)
       )))
 
 (define (make-page-stencil page)
   "Construct a stencil representing the page from PAGE."
-  
+
 
   (page-translate-systems page)
   (let*
@@ -211,7 +213,7 @@
        (number (page-page-number page))
 
        ;; TODO: naming paper-height/paper-width not analogous to TeX.
-       
+
        (system-xoffset (ly:output-def-lookup layout 'horizontal-shift 0.0))
        (system-separator-markup (ly:output-def-lookup layout 'system-separator-markup))
        (system-separator-stencil (if (markup? system-separator-markup)
@@ -219,7 +221,7 @@
 						       (layout-extract-page-properties layout)
 						       system-separator-markup)
 				     #f))
-       
+
        (page-stencil (ly:make-stencil '()))
 
        (last-system #f)
@@ -231,7 +233,7 @@
 								  (cons
 								   (+ system-xoffset x)
 								   (- 0 y (prop 'top-margin)))
-								  
+
 								  )))))
        (add-system
 	(lambda (system)
@@ -298,7 +300,7 @@
 	(set! page-stencil
 	      (ly:stencil-add page-stencil
 			      (annotate-space-left page))))
-    
+
     (if (and (ly:stencil? foot)
 	     (not (ly:stencil-empty? foot)))
 	(set! page-stencil
@@ -310,22 +312,29 @@
 		      (+ (- (prop 'bottom-edge))
 			 (- (car (ly:stencil-extent foot Y)))))))))
 
-    (set! page-stencil
-	  (ly:stencil-translate page-stencil (cons (prop 'left-margin) 0)))
+    (if (ly:output-def-lookup layout 'two-sided #f)
+	(set! page-stencil
+	      (ly:stencil-translate page-stencil
+				    (cons (prop (if (even? number)
+						    'left-margin
+						    'right-margin))
+					  0)))
+	(set! page-stencil
+	      (ly:stencil-translate page-stencil (cons (prop 'left-margin) 0))))
 
     ;; annotation.
     (if (annotate? layout)
 	(set! page-stencil (annotate-page layout page-stencil)))
 
     page-stencil))
-              
+
 
 (define-public (page-stencil page)
   (if (not (ly:stencil? (page-property page 'stencil)))
 
       ;; todo: make tweakable.
       ;; via property + callbacks.
-      
+
       (page-set-property! page 'stencil (make-page-stencil page)))
   (page-property page 'stencil))
 
@@ -335,9 +344,9 @@
       ((paper-book (page-property page 'paper-book))
        (layout (ly:paper-book-paper paper-book))
        (h (- (ly:output-def-lookup layout 'paper-height)
-	       (ly:output-def-lookup layout 'top-margin)
-	       (ly:output-def-lookup layout 'bottom-margin)))
-       
+	     (ly:output-def-lookup layout 'top-margin)
+	     (ly:output-def-lookup layout 'bottom-margin)))
+
        (head (page-property page 'head-stencil))
        (foot (page-property page 'foot-stencil))
        (available
@@ -347,13 +356,13 @@
 	   (if (ly:stencil? foot)
 	       (interval-length (ly:stencil-extent foot Y))
 	       0))))
-    
+
     ;; (display (list "\n available" available head foot))
     available))
 
 (define (page-printable-height page)
   (if (not (number? (page-property page 'printable-height)))
       (page-set-property! page 'printable-height (calc-printable-height page)))
-  
+
   (page-property page 'printable-height))
 

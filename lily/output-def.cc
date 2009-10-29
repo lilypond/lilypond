@@ -135,13 +135,24 @@ Output_def::normalize ()
   Real paper_width;
   SCM scm_paper_width = c_variable ("paper-width");
 
+  bool twosided = to_boolean (c_variable ("two-sided"));
+  // We don't distinguish between outer-margin / left-margin and so on
+  // until page-stencil positioning in page.scm
   Real left_margin, left_margin_default;
-  SCM scm_left_margin_default = c_variable ("left-margin-default-scaled");
-  SCM scm_left_margin = c_variable ("left-margin");
+  SCM scm_left_margin_default = (twosided
+                                 ? c_variable ("outer-margin-default-scaled")
+                                 : c_variable ("left-margin-default-scaled"));
+  SCM scm_left_margin = (twosided
+                         ? c_variable ("outer-margin")
+                         : c_variable ("left-margin"));
 
   Real right_margin, right_margin_default;
-  SCM scm_right_margin_default = c_variable ("right-margin-default-scaled");
-  SCM scm_right_margin = c_variable ("right-margin");
+  SCM scm_right_margin_default = (twosided
+                                  ? c_variable ("inner-margin-default-scaled")
+                                  : c_variable ("right-margin-default-scaled"));
+  SCM scm_right_margin = (twosided
+                          ? c_variable ("inner-margin")
+                          : c_variable ("right-margin"));
 
   if (scm_paper_width == SCM_UNDEFINED
       || scm_left_margin_default == SCM_UNDEFINED
@@ -162,14 +173,18 @@ Output_def::normalize ()
     = paper_width - left_margin_default - right_margin_default;
   SCM scm_line_width = c_variable ("line-width");
 
+  Real binding_offset = 0;
+  if (twosided)
+    binding_offset = robust_scm2double (c_variable ("binding-offset"), 0);
+
   if (scm_line_width == SCM_UNDEFINED)
     {
       left_margin = ((scm_left_margin == SCM_UNDEFINED)
-		     ? left_margin_default
-		     : scm_to_double (scm_left_margin));
+                     ? left_margin_default
+                     : scm_to_double (scm_left_margin));
       right_margin = ((scm_right_margin == SCM_UNDEFINED)
-		      ? right_margin_default
-		      : scm_to_double (scm_right_margin));
+                      ? right_margin_default
+                      : scm_to_double (scm_right_margin)) + binding_offset;
       line_width = paper_width - left_margin - right_margin;
     }
   else
@@ -177,15 +192,15 @@ Output_def::normalize ()
       line_width = scm_to_double (scm_line_width);
       if (scm_left_margin == SCM_UNDEFINED)
         {
-	  // Vertically center systems if only line-width is given
-	  if (scm_right_margin == SCM_UNDEFINED)
+          // Vertically center systems if only line-width is given
+          if (scm_right_margin == SCM_UNDEFINED)
             {
               left_margin = (paper_width - line_width) / 2;
               right_margin = left_margin;
             }
           else
             {
-              right_margin = scm_to_double (scm_right_margin);
+              right_margin = scm_to_double (scm_right_margin) + binding_offset;
               left_margin = paper_width - line_width - right_margin;
             }
         }
@@ -194,7 +209,7 @@ Output_def::normalize ()
           left_margin = scm_to_double (scm_left_margin);
           right_margin = ((scm_right_margin == SCM_UNDEFINED)
                            ? (paper_width - line_width - left_margin)
-                           : scm_to_double (scm_right_margin));
+                           : scm_to_double (scm_right_margin)) + binding_offset;
         }
     }
 

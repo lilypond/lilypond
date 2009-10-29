@@ -14,12 +14,16 @@
 		    horizontal-shift
 		    in
 		    indent
+		    inner-margin
+		    inner-margin-default-scaled
 		    ledger-line-thickness
 		    left-margin
                     left-margin-default-scaled
 		    line-thickness
 		    line-width
 		    mm
+		    outer-margin
+		    outer-margin-default-scaled
 		    paper-height
 		    paper-width
 		    pt
@@ -35,15 +39,15 @@
 
   ;; !! synchronize with feta-params.mf
   (let*
-    ((x1 (* 4.125 pt))
-     (x0 (* 5 pt))
-     (f1 (* 0.47 pt))
-     (f0 (* 0.50 pt)))
+      ((x1 (* 4.125 pt))
+       (x0 (* 5 pt))
+       (f1 (* 0.47 pt))
+       (f0 (* 0.50 pt)))
 
     (/
      (+
       (* f1 (- staff-space x0))
-	   (* f0 (- x1 staff-space)))
+      (* f0 (- x1 staff-space)))
      (- x1 x0))))
 
 (define-public (layout-set-absolute-staff-size-in-module module staff-height)
@@ -89,9 +93,9 @@ size. SZ is in points"
 	 (in-layout? (or (module-defined? current-mod 'is-paper)
 			 (module-defined? current-mod 'is-layout)))
 
-	 ; maybe not necessary.
-	 ; but let's be paranoid. Maybe someone still refers to the
-	 ; old one.
+	 ;; maybe not necessary.
+	 ;; but let's be paranoid. Maybe someone still refers to the
+	 ;; old one.
 	 (new-paper (ly:output-def-clone pap))
 
 	 (new-scope (ly:output-def-scope new-paper)))
@@ -207,68 +211,67 @@ size. SZ is in points"
     ("pa10" . (cons (* 26 mm) (* 35 mm)))
     ;; F4 used in southeast Asia and Australia
     ("f4" . (cons (* 210 mm) (* 330 mm)))
-   ))
+    ))
 
-; todo: take dimension arguments.
+;; todo: take dimension arguments.
 
 (define (set-paper-dimensions m w h)
   "M is a module (i.e. layout->scope_ )"
   (let*
-    ;; page layout - what to do with (printer specific!) margin settings?
-    ((paper-default (eval-carefully
-                      (assoc-get
+      ;; page layout - what to do with (printer specific!) margin settings?
+      ((paper-default (eval-carefully
+		       (assoc-get
 		        (ly:get-option 'paper-size)
 			paper-alist
 			#f
 			#t)
-		      m
-		      (cons w h)))
-     (scaleable-values `(("left-margin" . ,w)
-                         ("right-margin" . ,w)
-                         ("top-margin" . ,h)
-                         ("bottom-margin" . ,h)
-                         ("head-separation" . ,h)
-                         ("foot-separation" . ,h)
-                         ("indent" . ,w)
-                         ("short-indent" . ,w)))
-     (scaled-values
-       (map
+		       m
+		       (cons w h)))
+       ;; Horizontal margins, marked with 'preserve, are stored
+       ;; in renamed variables because they must not be overwritten.
+       ;; Output_def::normalize () needs to know
+       ;; whether the user set the value or not.
+       (scaleable-values `((("left-margin" . ,w) . preserve)
+			   (("right-margin" . ,w) . preserve)
+			   (("inner-margin" . ,w) . preserve)
+			   (("outer-margin" . ,w) . preserve)
+			   (("binding-offset" . ,w) . '())
+			   (("top-margin" . ,h) . '())
+			   (("bottom-margin" . ,h) . '())
+			   (("head-separation" . ,h) . '())
+			   (("foot-separation" . ,h) . '())
+			   (("indent" . ,w) . '())
+			   (("short-indent" . ,w) . '())))
+       (scaled-values
+	(map
          (lambda (entry)
            (let ((entry-symbol
-	           (string->symbol
-                     (string-append (car entry) "-default")))
-		 (orientation (cdr entry)))
-	      (if paper-default
-		  (cons (car entry)
-		        (round (* orientation
-				  (/ (eval-carefully entry-symbol m 0)
-				     (if (= orientation w)
-				         (car paper-default)
-				         (cdr paper-default))))))
-		  entry)))
+		  (string->symbol
+		   (string-append (caar entry) "-default")))
+		 (orientation (cdar entry)))
+	     (if paper-default
+		 (cons (if (eq? (cdr entry) 'preserve)
+			   (string-append (caar entry) "-default-scaled")
+			   (caar entry))
+		       (round (* orientation
+				 (/ (eval-carefully entry-symbol m 0)
+				    (if (= orientation w)
+					(car paper-default)
+					(cdr paper-default))))))
+		 entry)))
 	 scaleable-values)))
 
-  (module-define! m 'paper-width w)
-  (module-define! m 'paper-height h)
-  ;; Left and right margin are stored in renamed variables because
-  ;; they must not be overwritten.
-  ;; Output_def::normalize () needs to know
-  ;; whether the user set the value or not.
-  (module-define! m 'left-margin-default-scaled
-    (assoc-get "left-margin" scaled-values 0 #t))
-  (module-define! m 'right-margin-default-scaled
-    (assoc-get "right-margin" scaled-values 0 #t))
-  ;; Sometimes, lilypond-book doesn't estimate a correct line-width.
-  ;; Therefore, we need to unset line-width.
-  (module-remove! m 'line-width)
-  (set! scaled-values (assoc-remove!
-                        (assoc-remove! scaled-values "left-margin")
-			"right-margin"))
-  (for-each
+    (module-define! m 'paper-width w)
+    (module-define! m 'paper-height h)
+    ;; Sometimes, lilypond-book doesn't estimate a correct line-width.
+    ;; Therefore, we need to unset line-width.
+    (module-remove! m 'line-width)
+
+    (for-each
      (lambda (value)
-        (let ((value-symbol (string->symbol (car value)))
-              (number (cdr value)))
-          (module-define! m value-symbol number)))
+       (let ((value-symbol (string->symbol (car value)))
+	     (number (cdr value)))
+	 (module-define! m value-symbol number)))
      scaled-values)))
 
 (define (internal-set-paper-size module name landscape?)
