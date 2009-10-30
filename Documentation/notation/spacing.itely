@@ -175,6 +175,11 @@ Snippets:
 Margins, headers, and footers and other layout variables are
 automatically set according to the paper size.
 
+Default margin values are accessible in
+@file{ly/@/paper@/-defaults@/-init@/.ly}.  They apply to the default
+paper size (a4, unless specified differently) and are scaled
+accordingly for other paper sizes.
+
 This section lists and describes a number of paper variables that
 may be altered.
 
@@ -328,7 +333,7 @@ example
 Example:
 
 @example
-\paper@{
+\paper @{
   paper-width = 2\cm
   top-margin = 3\cm
   bottom-margin = 3\cm
@@ -355,7 +360,7 @@ This second example centers page numbers at the bottom of every page.
 
 You can also define these values in Scheme.  In that case @code{mm},
 @code{in}, @code{pt}, and @code{cm} are variables defined in
-@file{paper@/-defaults@/.ly} with values in millimeters.  That is why the
+@file{paper@/-defaults@/-init@/.ly} with values in millimeters.  That is why the
 value must be multiplied in the example
 
 @example
@@ -366,7 +371,7 @@ value must be multiplied in the example
 
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\paper}.  The default
-implementations are in @file{ly/@/paper@/-defaults@/.ly} and
+implementations are in @file{ly/@/paper@/-defaults@/-init@/.ly} and
 @file{ly/@/titling@/-init@/.ly}.
 
 The page layout itself is done by two functions in the
@@ -387,9 +392,6 @@ Snippets:
 @node Horizontal dimensions
 @unnumberedsubsubsec Horizontal dimensions
 
-@warning{If @code{paper-width} is manually set, @code{line-width},
-@code{left-margin}, @code{indent}, and @code{short-indent} may
-have to be adjusted as well.}
 
 There are a few variables that determine the horizontal dimensions
 on a page:
@@ -406,22 +408,25 @@ separators) are shifted to the right.  Default: @code{0.0}.
 @funindex indent
 
 The level of indentation for the first system in a score.
-Default: @code{paper-width} divided by @code{14}, as determined by
-@code{set-default-paper-size} or @code{set-paper-size}.
+Default: @code{15\mm}.
 
 @item left-margin
 @funindex left-margin
 
 The margin between the left edge of the page and the beginning of
-each system.  Default: @code{10\mm}, as determined by
-@code{set-default-paper-size} or @code{set-paper-size}.
+each system.  Default: @code{10\mm}.
+
+@item right-margin
+@funindex right-margin
+
+The margin between the right edge of the page and the beginning of
+each system.  Default: @code{10\mm}.
 
 @item line-width
 @funindex line-width
 
 The width of music systems.  Default: @code{paper-width} minus
-@code{20\mm}, as determined by @code{set-default-paper-size} or
-@code{set-paper-size}.
+@code{left-margin} and @code{right-margin}.
 
 @item paper-width
 @funindex paper-width
@@ -433,23 +438,85 @@ size.  For details, see @ref{Paper size}.
 @funindex short-indent
 
 The level of indentation for all systems in a score besides the
-first system.  Default: @code{0}, as determined by
-@code{set-default-paper-size} or @code{set-paper-size}.
+first system.  Default: @code{0}.
 
 @end table
 
+If some values are not set, defaults will be taken. Their exact
+value is adjusted, depending on the paper size specified.  Currently,
+the following values are affected by this scaling:
+
+@itemize
+@item @var{left-margin}
+@item @var{right-margin}
+@item @var{top-margin}
+@item @var{bottom-margin}
+@item @var{head-separation}
+@item @var{foot-separation}
+@item @var{indent}
+@item @var{short-indent}
+@end itemize
+
+The settings for @code{line-width}, @code{left-margin},
+@code{right-margin} and @code{paper-width} depend on
+each other, but they do not have to be specified
+completely.
+
+@example
+\paper @{
+  left-margin = 30\mm
+@}
+@end example
+
+In this example, only @code{left-margin} is set.  The value for
+@code{right-margin} will remain default, @code{line-width} is
+calculated automatically.
+
+@example
+\paper @{
+  line-width = 150\mm
+@}
+@end example
+
+Here @code{left-margin} and @code{right-margin} will be set
+to the same value.  Therefore, @code{line-width} is subtracted
+from @code{paper-width} and divided by two.  That means systems
+are centered on the page, if only @code{line-width} is
+specified.
+
+Some checks occur to ensure the values are set correctly.
+If the values do not match or systems would run off the page,
+a warning is printed and default values are set.
+
+@example
+\paper @{
+  paper-width = 210\mm
+  left-margin = 20\mm
+  right-margin = 30\mm
+  line-width = 100\mm
+@}
+@end example
+
+These checks can be avoided by setting @code{check-consistency}
+to false.
+
+@example
+\paper @{
+  paper-width = 210\mm
+  left-margin = 20\mm
+  line-width = 200\mm
+  check-consistency = ##f
+@}
+@end example
+
+@warning{If @code{paper-width} is manually set, @code{line-width},
+@code{left-margin}, @code{indent}, and @code{short-indent} may
+have to be adjusted as well.}
 
 @seealso
 Snippets:
 @rlsr{Spacing}.
 
-
-@knownissues
-
-The option @code{right-margin} is defined but doesn't set the
-right margin yet.  The value for the right margin has to be
-defined by adjusting the values of @code{left-margin} and
-@code{line-width}.
 
 
 @node Other layout variables
@@ -491,6 +558,13 @@ The penalty for having a blank page in the middle of a
 score.  This is not used by @code{ly:optimal-breaking} since it will
 never consider blank pages in the middle of a score.  Default:
 @code{5}.
+
+@item check-consistency
+@funindex check-consistency
+
+If set to true, check whether @code{left-margin}, @code{right-margin} and
+@code{line-width} fit each other. Also make sure that their combination
+does not exceed the available @code{paper-width}.  Default: @code{##t}.
 
 @item first-page-number
 @funindex first-page-number
@@ -1865,7 +1939,7 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 
 In the introduction
 FIXME FIXME FIXME
-@c (see @rlearning{Engraving}), 
+@c (see @rlearning{Engraving}),
 it was explained that stem
 directions influence spacing.  This is controlled with the
 @code{stem-spacing-correction} property in the

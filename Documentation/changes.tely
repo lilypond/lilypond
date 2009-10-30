@@ -63,6 +63,17 @@ which scares away people.
 
 @end ignore
 
+
+@item
+Paper margin defaults, as specified in @file{ly/@/paper@/-defaults@/-init@/.ly}, apply
+to the default paper size (a4) and are automatically scaled according to the
+paper size chosen.
+
+@item
+All combinations of @code{left-margin}, @code{right-margin} and
+@code{line-width} work now.  There is no more need to set @code{line-width}
+manually unless you explicitly want to.
+
 @item
 Support for using an alternative music font, such as Gonville, is now
 added.
