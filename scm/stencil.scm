@@ -62,12 +62,12 @@
   "Add brackets around STIL, producing a new stencil."
 
   (let* ((ext (ly:stencil-extent stil axis))
-	 (lb (ly:bracket axis ext thick (- protusion)))
-	 (rb (ly:bracket axis ext thick protusion)))
+	 (lb (ly:bracket axis ext thick protusion))
+	 (rb (ly:bracket axis ext thick (- protusion))))
     (set! stil
-	  (ly:stencil-combine-at-edge stil (other-axis axis) 1 lb padding))
+	  (ly:stencil-combine-at-edge stil (other-axis axis) 1 rb padding))
     (set! stil
-	  (ly:stencil-combine-at-edge stil (other-axis axis) -1 rb padding))
+	  (ly:stencil-combine-at-edge lb (other-axis axis) 1 stil padding))
     stil))
 
 (define-public (make-line-stencil width startx starty endx endy)
