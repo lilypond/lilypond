@@ -276,11 +276,11 @@ full score, piano-vocal reduction, and a violin part.
 @subsubheading Tablature
 
 Lilypond supports tablature notation, which can be customized to
-suit any instrument that reads from tablature. Here is a passage
-from a Bach Lute Suite, with tablature generated automatically
-from the notes entered for the traditional staff.
+suit any instrument that reads from tablature.  The tablature
+staff is generated automatically from notes entered for the 5-line
+staff.
 
-@exampleImage{bach-tab-example}
+@exampleImage{tab-example}
 @newsEnd
 
 @newsItem
@@ -821,6 +821,8 @@ convinced?  Read about easier editing environments in
   (click to enlarge),screenshot-denemo,png,right}
 @sourceimage{logo-linux,,,}
 
+@uref{http://FIXME}
+
 Denemo is graphical editor which generates Lilypond source code
 and also allows audio playback.  It is currently in development
 and generates code for older versions of Lilypond (V2.8.7).  It
@@ -840,14 +842,14 @@ graphical view.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+@uref{http://lilypondtool@/.organum@/.hu}
+
 Created as a plugin for the
 @uref{http://@/www@/.jedit@/.org@/,jEdit} text editor,
 LilyPondTool is one of the most feature-rich text-based tool for
 editing LilyPond scores.  Its features include a Document Wizard
 with lyrics support to set up documents easier, and embedded PDF
-viewer with advanced point-and-click support.  For screenshots,
-demos, and installation instructions, visit
-@uref{http://lilypondtool@/.organum@/.hu}
+viewer with advanced point-and-click support.
 
 @divEnd
 
@@ -858,6 +860,8 @@ demos, and installation instructions, visit
 @sourceimage{logo-freebsd,,,}
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
+
+@uref{http://FIXME}
 
 Emacs is a text editor with language-sensitive capabilities for
 many different computer languages.  Emacs is a highly extensible
@@ -881,10 +885,13 @@ writing LilyPond input files.
 
 @subsubheading Frescobaldi
 
-@imageFloat{frescobaldi-lilypond-editor-small,png,right}
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (click to enlarge),frescobaldi-lilypond-editor,png,right}
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
+
+@uref{http://www.frescobaldi.org}
 
 Frescobaldi is a dedicated LilyPond music and text editor with
 built-in PDF previewer, a powerful score wizard and many editing
@@ -896,6 +903,8 @@ systems.
 @subsubheading TexShop
 
 @sourceimage{logo-macosx,,,}
+
+@uref{http://FIXME}
 
 The
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
