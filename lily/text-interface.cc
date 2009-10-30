@@ -31,15 +31,15 @@ replace_whitespace (string *str)
       char cur = (*str)[i];
       
       // U+10000 - U+10FFFF
-      if ((cur & 0x11110000) == 0x11110000)
+      if ((cur & 0xF0) == 0xF0)
 	char_len = 4;
       // U+0800 - U+FFFF
-      else if ((cur & 0x11100000) == 0x11100000)
+      else if ((cur & 0xE0) == 0xE0)
 	char_len = 3;
       // U+0080 - U+07FF
-      else if ((cur & 0x11000000) == 0x11000000)
+      else if ((cur & 0xC0) == 0xC0)
 	char_len = 2;
-      else if (cur & 0x10000000)
+      else if (cur & 0x80)
 	programming_error ("invalid utf-8 string");
       else
 	// avoid the locale-dependent isspace
