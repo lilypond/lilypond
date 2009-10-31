@@ -719,7 +719,7 @@ required for constructing tweaks.
 @divEnd
 
 
-@divClass{column-left-top}
+@divClass{column-center-bottom}
 @subheading Downloadable versions
 
 @help{compare tarball vs. zip size, ask about windows users
@@ -742,9 +742,7 @@ apology here for no tarballs}
 @end itemize
 
 @divEnd
-@divEnd
 
-@divClass{column-right-top}
 @subheading Previous stable versions
 
 @divClass{keep-bullets}
