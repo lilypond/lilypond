@@ -2,22 +2,24 @@
 
 #(set-global-staff-size 22.45)
 
-% TODO
-%{
-- you might want to add a custom #'gap = #0.5 and #'extra-offset to
-  glissandi that go to an accidental'd note.  You might want to
-  do a similar thing, because I see collisions.
+#(define (glissando::calc-extra-dy grob)
+   (let* ((original (ly:grob-original grob))
+          (left-bound (ly:spanner-bound original LEFT))
+          (right-bound (ly:spanner-bound original RIGHT))
+          (left-pitch (ly:event-property (event-cause left-bound) 'pitch))
+          (right-pitch (ly:event-property (event-cause right-bound) 'pitch)))
 
-- the fermata seems awfully high
-- why are there so many clashing notehead warnings?
-%}
+     (if (and (= (ly:pitch-octave left-pitch) (ly:pitch-octave right-pitch))
+              (= (ly:pitch-notename left-pitch) (ly:pitch-notename right-pitch)))
+         (- (ly:pitch-alteration right-pitch) (ly:pitch-alteration left-pitch))
+         0 )))
 
 %% Hide fret number: useful to draw slide into/from a casual point of
 %% the fretboard.
 hideFretNumber = { \once \override TabNoteHead #'transparent = ##t 
-                 \once \override NoteHead #'transparent = ##t 
-                 \once \override Stem #'transparent = ##t
-                 \once \override NoteHead #'no-ledgers = ##t 
+                   \once \override NoteHead #'transparent = ##t 
+                   \once \override Stem #'transparent = ##t
+                   \once \override NoteHead #'no-ledgers = ##t 
 }
 
 \paper {
@@ -37,13 +39,13 @@ upper=  \relative c' {
   <e-3>\2 ( <d-1> b ) \grace <ais-2>16 ( \glissando  a8  g ) s4. |
   s4.  < d'\3 g\2 >8  < gis,\4  d'\3 fis\2 >2\arpeggio ~ |
   
-  < gis\4  d'\3 fis\2 >2  < b'\2\harmonic e\harmonic >2^\markup { \musicglyph #"scripts.ufermata" } |
+  < gis\4  d'\3 fis\2 >2  < b'\2\harmonic e\harmonic >2\fermata |
   
 }
 
 lower=  \relative c {
   \set fingeringOrientations = #'(left)
-  
+
   \partial 4. s4. |
   s4  e,4  s2 |
   s2 s8 <e'-3>4. ~ |
@@ -55,8 +57,17 @@ lower=  \relative c {
 \score {
   \new StaffGroup <<
     \new Staff = "guitar" <<
-      \context Voice = "upper guitar" { \clef "G_8" \voiceOne \upper }
-      \context Voice = "lower guitar" { \clef "G_8" \voiceTwo \lower }
+      \context Voice = "upper guitar" { \clef "G_8" \voiceOne
+                                        \override Glissando #'gap = #0.5
+                                        \override Glissando #'extra-offset = #'(-0.5 . 0)
+                                        \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+                                        \override Glissando #'minimum-length = #4
+                                        \override Glissando #'extra-dy = #glissando::calc-extra-dy
+                                        \upper }
+      \context Voice = "lower guitar" { \clef "G_8" \voiceTwo
+                                        \override  Glissando #'bound-details #'right #'padding = #1
+                                        \override  Glissando #'bound-details #'left #'padding = #0.2
+                                        \lower }
     >>
     \new TabStaff = "tab" <<
       \context TabVoice = "upper tab" { \clef "moderntab" \voiceOne \upper }
