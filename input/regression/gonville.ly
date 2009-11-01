@@ -55,5 +55,7 @@
   \layout {
     #(define font-defaults
       '((font-family . gonville) (font-encoding . fetaMusic)))
+    #(define font-defaults
+      '((font-family . gonville) (font-encoding . fetaBraces)))
   }
 }
