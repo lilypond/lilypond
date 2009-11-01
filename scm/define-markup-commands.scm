@@ -531,7 +531,7 @@ grestore
 (define-builtin-markup-command (score layout props score)
   (ly:score?)
   music
-  ()
+  ((baseline-skip))
   "
 @cindex inserting music into text
 
@@ -576,11 +576,13 @@ Inline an image of music.
   }
 }
 @end lilypond"
-  (let* ((output (ly:score-embedded-format score layout)))
+  (let ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)
-	(paper-system-stencil
-	 (vector-ref (ly:paper-score-paper-systems output) 0))
+	(stack-stencils Y DOWN baseline-skip
+			(map paper-system-stencil
+			     (vector->list
+			      (ly:paper-score-paper-systems output))))
 	(begin
 	  (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
 	  empty-stencil))))

@@ -425,6 +425,7 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 	(,ly:music-output? . "music output")
 	(,ly:pitch? . "pitch")
 	(,ly:translator? . "translator")
+        (,ly:score? . "score")
 	(,ly:simple-closure? . "simple closure")
 	(,ly:skyline-pair? . "pair of skylines")
 	(,ly:stencil? . "stencil")
