@@ -21,6 +21,8 @@ class Script_interface
 {
 public:
   static Stencil get_stencil (Grob *, Direction d);
+  static Direction get_direction (Grob *);
+
   DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));

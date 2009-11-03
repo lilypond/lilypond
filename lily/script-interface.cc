@@ -53,12 +53,28 @@ Script_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
+Direction
+Script_interface::get_direction (Grob *me)
+{
+  Direction relative_dir = Direction (1);
+  SCM reldir = me->get_property ("side-relative-direction");
+  if (is_direction (reldir))
+    relative_dir = to_dir (reldir);
+
+  SCM other_elt = me->get_object ("direction-source");
+  Grob *e = unsmob_grob (other_elt);
+  if (e)
+    return (Direction) (relative_dir * get_grob_direction (e));
+
+  return CENTER;
+}
+
 MAKE_SCHEME_CALLBACK (Script_interface, calc_direction, 1);
 SCM
 Script_interface::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Direction d = Side_position_interface::get_direction (me);
+  Direction d = Script_interface::get_direction (me);
 
   if (!d)
     {
@@ -126,11 +142,13 @@ ADD_INTERFACE (Script_interface,
 	       /* properties */
 	       "add-stem-support "
 	       "avoid-slur "
+	       "direction-source "
 	       "positioning-done "
 	       "script-priority "
 	       "script-stencil "
-	       "toward-stem-shift "
+	       "side-relative-direction "
 	       "slur "
 	       "slur-padding "
+	       "toward-stem-shift "
 	       );
 

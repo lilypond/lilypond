@@ -38,7 +38,6 @@ public:
   DECLARE_GROB_INTERFACE();
   static void add_support (Grob *, Grob *);
   static void add_staff_support (Grob *);
-  static Direction get_direction (Grob *);
 };
 
 #endif /* SIDE_POSITION_INTERFACE_HH */

@@ -34,22 +34,6 @@ Side_position_interface::add_support (Grob *me, Grob *e)
   Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
 }
 
-Direction
-Side_position_interface::get_direction (Grob *me)
-{
-  Direction relative_dir = Direction (1);
-  SCM reldir = me->get_property ("side-relative-direction");
-  if (is_direction (reldir))
-    relative_dir = to_dir (reldir);
-
-  SCM other_elt = me->get_object ("direction-source");
-  Grob *e = unsmob_grob (other_elt);
-  if (e)
-    return (Direction) (relative_dir * get_grob_direction (e));
-
-  return CENTER;
-}
-
 /* Put the element next to the support, optionally taking in
    account the extent of the support.
 
@@ -318,7 +302,7 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   System *sys = dynamic_cast<System*> (me->get_system ());
-  Direction dir = Side_position_interface::get_direction (me);
+  Direction dir = get_grob_direction (me);
   if (dir != DOWN)
     dir = UP;
 
@@ -369,12 +353,10 @@ ADD_INTERFACE (Side_position_interface,
 
 	       /* properties */
 	       "direction "
-	       "direction-source "
 	       "minimum-space "
 	       "padding "
 	       "quantize-position "
 	       "side-axis "
-	       "side-relative-direction "
 	       "side-support-elements "
 	       "slur-padding "
 	       "staff-padding "
