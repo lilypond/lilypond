@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node Download
+@node download
 @unnumbered Download
 
 @divClass{heading-center}
@@ -102,18 +102,18 @@ acknowledged.
 
 @divClass{hide}
 @menu
-* Unix::                        
+* UNIX::                        
 * MacOS X::                     
 * Windows::                     
-* Source::                      
-* Old downloads::     
+* source::                      
+* old downloads::     
 * GPL::                         
 @end menu
 @divEnd
 
 
-@node Unix
-@unnumberedsec Unix
+@node UNIX
+@unnumberedsec UNIX
 
 @divClass{column-center-top}
 @subheading Generic Packages or Distribution-Specific Packages?
@@ -483,7 +483,7 @@ acknowledged.
 
 
 
-@node Source
+@node source
 @unnumberedsec Source
 
 @warning{We @strong{do not} recommend that you attempt to build
@@ -509,7 +509,7 @@ Instructions are listed in @rcontrib{Compiling LilyPond}.
 @divEnd
 
 
-@node Old downloads
+@node old downloads
 @unnumberedsec Old downloads
 
 @divClass{column-center-top}

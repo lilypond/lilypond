@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node Introduction
+@node introduction
 @unnumbered Introduction
 
 @divClass{column-center-top}
@@ -77,20 +77,20 @@ Impress friends and colleagues with sharp sheet music!
 
 @divClass{hide}
 @menu
-* Features::                    What can LilyPond do?
-* Examples::                    I want to see some music!
-* Freedom::                     Freedom and the GPL.
-* Background::                  Computational aesthetics.
-* Productions::                 Real-life use of LilyPond.
-* Testimonials::                What do people say about it?
-* Text input::                  You write music as text?!
-* Alternate input::             Other ways of working with LilyPond.
+* features::                    What can LilyPond do?
+* examples::                    I want to see some music!
+* freedom::                     Freedom and the GPL.
+* background::                  Computational aesthetics.
+* productions::                 Real-life use of LilyPond.
+* testimonials::                What do people say about it?
+* text input::                  You write music as text?!
+* alternate input::             Other ways of working with LilyPond.
 @end menu
 @divEnd
 
 
 
-@node Features
+@node features
 @unnumberedsec Features
 
 @help{hoping to delegate this.  Desired: an enthusiastic
@@ -200,7 +200,7 @@ already decided to try LilyPond, first read about our
 
 
 
-@node Examples
+@node examples
 @unnumberedsec Examples
 
 Lilypond is a powerful and flexible tool for engraving tasks of
@@ -347,7 +347,7 @@ read about our @ref{Text input}.
 @divEnd
 
 
-@node Freedom
+@node freedom
 @unnumberedsec Freedom
 
 @divClass{column-center-top}
@@ -457,7 +457,7 @@ LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
-@node Background
+@node background
 @unnumberedsec Background
 
 @divClass{column-center-top}
@@ -480,7 +480,7 @@ try LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
-@node Productions
+@node productions
 @unnumberedsec Productions
 
 @divClass{column-left-top}
@@ -554,7 +554,7 @@ If you've already decided to try LilyPond, first read about our
 @divEnd
 
 
-@node Testimonials
+@node testimonials
 @unnumberedsec Testimonials
 
 @divClass{testimonial-item}
@@ -695,7 +695,7 @@ Read about our @ref{Text input}.
 
 
 
-@node Text input
+@node text input
 @unnumberedsec Text input
 
 @c TRANSLATORS: so far it's mostly from
@@ -811,7 +811,7 @@ convinced?  Read about easier editing environments in
 @divEnd
 
 
-@node Alternate input
+@node alternate input
 @unnumberedsec Alternate input
 
 @divClass{column-center-top}

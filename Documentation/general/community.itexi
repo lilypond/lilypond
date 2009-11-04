@@ -8,7 +8,7 @@
 
 @include general/basic-authors.itexi
 
-@node Community
+@node community
 @unnumbered Community
 
 
@@ -64,19 +64,19 @@ discussing LilyPond.
 
 @divClass{hide}
 @menu
-* Contact::                     
-* Tiny examples::               
-* Bug reports::                 
-* Help us::                     
-* Development::                 
-* Authors::                     
-* Publications::                
-* Old news::                    
+* contact::                     
+* tiny examples::               
+* bug reports::                 
+* help us::                     
+* development::                 
+* authors::                     
+* publications::                
+* old news::                    
 @end menu
 @divEnd
 
 
-@node Contact
+@node contact
 @unnumberedsec Contact
 
 
@@ -220,7 +220,7 @@ guidelines for @ref{Bug reports}.}
 
 
 
-@node Tiny examples
+@node tiny examples
 @unnumberedsec Tiny examples
 
 @divClass{column-center-top}
@@ -293,7 +293,7 @@ is about those particular commands.
 
 
 
-@node Bug reports
+@node bug reports
 @unnumberedsec Bug reports
 
 @divClass{column-center-top}
@@ -374,7 +374,7 @@ account.
 @divEnd
 
 
-@node Help us
+@node help us
 @unnumberedsec Help us
 
 TODO: talk about the Frogs, document suggestions, encourage getting
@@ -382,7 +382,7 @@ involved, etc.  Maybe mention GLISS and GOP, if those are happening
 in the near future.
 
 
-@node Development
+@node development
 @unnumberedsec Development
 
 
@@ -546,7 +546,7 @@ Comparisons beteween versions.
 @divEnd
 @divEnd
 
-@node Authors
+@node authors
 @unnumberedsec Authors 
 
 @help{Under construction; this is not an accurate list!}
@@ -605,7 +605,7 @@ http://lilypond.org/web/switch/
 
 
 
-@node Publications
+@node publications
 @unnumberedsec Publications
 
 @divClass{column-center-top}
@@ -735,7 +735,7 @@ issue CMS06.
 @divEnd
 
 
-@node Old news
+@node old news
 @unnumberedsec Old news
 
 @include general/news.itexi
