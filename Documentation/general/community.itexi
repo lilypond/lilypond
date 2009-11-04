@@ -18,14 +18,14 @@
 @itemize
 
 @item
-@ref{Contact}: get help, discuss, and keep in touch!
+@ref{contact}: get help, discuss, and keep in touch!
 
 @item
-@ref{Tiny examples}: these are @emph{highly} recommended when
+@ref{tiny examples}: these are @emph{highly} recommended when
 discussing LilyPond.
 
 @item
-@ref{Bug reports}: something went wrong.
+@ref{bug reports}: something went wrong.
 
 @end itemize
 @divEnd
@@ -36,13 +36,13 @@ discussing LilyPond.
 @itemize
 
 @item
-@ref{Help us}: your assistance is requested.
+@ref{help us}: your assistance is requested.
 
 @item
-@ref{Development}: for contributors and testers.
+@ref{development}: for contributors and testers.
 
 @item
-@ref{Authors}: the people who made LilyPond what it is today.
+@ref{authors}: the people who made LilyPond what it is today.
 
 @end itemize
 @divEnd
@@ -53,10 +53,10 @@ discussing LilyPond.
 @itemize
 
 @item
-@ref{Publications}: what we wrote, and have had written about us.
+@ref{publications}: what we wrote, and have had written about us.
 
 @item
-@ref{Old news}: an archive.
+@ref{old news}: an archive.
 
 @end itemize
 @divEnd
@@ -103,7 +103,7 @@ archive3}
 send to lilypond-user with gmane}
 @end quotation
 
-@warning{When asking questions, please use @ref{Tiny examples}!}
+@warning{When asking questions, please use @ref{tiny examples}!}
 
 
 @subsubheading IRC
@@ -214,7 +214,7 @@ archive3}
 @end quotation
 
 @warning{Before sending a message to the bug list, please read our
-guidelines for @ref{Bug reports}.}
+guidelines for @ref{bug reports}.}
 
 @divEnd
 
@@ -320,9 +320,9 @@ free to add more information to that report.}
 If you have discovered a bug which is not listed, please help us
 by creating a bug report.
 
-@warning{We only accept bug reports in the form of @ref{Tiny
-examples}.  We have very limited resources to deal with bug
-reports, so any non-minimal example will be rejected.  Almost
+@warning{We only accept bug reports in the form of
+@ref{tiny examples}.  We have very limited resources to deal with
+bug reports, so any non-minimal example will be rejected.  Almost
 every bug can be demonstrated in four notes or less!}
 
 Here is an example of a good bug report:
@@ -391,8 +391,8 @@ in the near future.
 
 @warning{These are @emph{unstable development} versions.  If you
 have the slightest doubt about how to use or install LilyPond, we
-urge you to use the stable @ref{Download}, and read the stable
-@ref{Manuals}.}
+urge you to use the stable @ref{download}, and read the stable
+@ref{manuals}.}
 
 @divEnd
 

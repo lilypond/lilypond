@@ -32,16 +32,16 @@ Impress friends and colleagues with sharp sheet music!
 @itemize
 
 @item
-@ref{Features}: What can LilyPond do?
+@ref{features}: What can LilyPond do?
 
 @item
-@ref{Examples}: I want to see some music!
+@ref{examples}: I want to see some music!
 
 @item
-@ref{Freedom}: LilyPond is Free Software.
+@ref{freedom}: LilyPond is Free Software.
 
 @item
-@ref{Background}: Our computational aesthetics.
+@ref{background}: Our computational aesthetics.
 
 @end itemize
 @divEnd
@@ -52,10 +52,10 @@ Impress friends and colleagues with sharp sheet music!
 @itemize
 
 @item
-@ref{Productions}: Real-life use of LilyPond.
+@ref{productions}: Real-life use of LilyPond.
 
 @item
-@ref{Testimonials}: What do people say?
+@ref{testimonials}: What do people say?
 
 @end itemize
 @divEnd
@@ -66,10 +66,10 @@ Impress friends and colleagues with sharp sheet music!
 @itemize
 
 @item
-@ref{Text input}: You write music as @emph{text}?!
+@ref{text input}: You write music as @emph{text}?!
 
 @item
-@ref{Alternate input}: Other ways of working with LilyPond.
+@ref{alternate input}: Other ways of working with LilyPond.
 
 @end itemize
 @divEnd
@@ -118,7 +118,7 @@ that results in beautifully engraved music.  All of LilyPond's
 style settings, font designs and algorithms have been inspired by
 the finest hand-engraved music.  LilyPond output has the same
 strong, balanced and elegant look as the best-engraved classical
-scores.  This is further explained in our @ref{Essay}.
+scores.  This is further explained in our @ref{essay}.
 
 
 @subsubheading Less fiddling
@@ -193,9 +193,9 @@ team makes sure that problems are solved quickly.
 @divClass{column-center-bottom}
 @subheading Where now?
 
-Still not convinced?  Look at some neat @ref{Examples}.  If you've
+Still not convinced?  Look at some neat @ref{examples}.  If you've
 already decided to try LilyPond, first read about our
-@ref{Text input}.
+@ref{text input}.
 @divEnd
 
 
@@ -342,8 +342,8 @@ contributed by Hu Haipeng, a blind composer.
 @subheading Where now?
 
 Still not convinced?  LilyPond is Free software, granting you
-@ref{Freedom}.  If you've already decided to try LilyPond, first
-read about our @ref{Text input}.
+@ref{freedom}.  If you've already decided to try LilyPond, first
+read about our @ref{text input}.
 @divEnd
 
 
@@ -452,8 +452,8 @@ scholarships.
 @subheading Where now?
 
 Still not convinced?  Read our extensive essay about our engraving
-philosophy in @ref{Background}.  If you've already decided to try
-LilyPond, first read about our @ref{Text input}.
+philosophy in @ref{background}.  If you've already decided to try
+LilyPond, first read about our @ref{text input}.
 @divEnd
 
 
@@ -468,15 +468,15 @@ the art of creating beauty with a computer.
 
 If you just want a quick introduction to LilyPond, the essay might
 be too much material to read.  If you would like to read it now,
-please progress to @ref{Essay}.
+please progress to @ref{essay}.
 @divEnd
 
 @divClass{column-center-bottom}
 @subheading Where now?
 
 Still not convinced?  Read about some of our users'
-@ref{Productions} and sheet music.  If you've already decided to
-try LilyPond, first read about our @ref{Text input}.
+@ref{productions} and sheet music.  If you've already decided to
+try LilyPond, first read about our @ref{text input}.
 @divEnd
 
 
@@ -548,9 +548,9 @@ lovers.
 @divClass{column-center-bottom}
 @subheading Where now?
 
-Still not convinced?  Read some of our users' @ref{Testimonials}.
+Still not convinced?  Read some of our users' @ref{testimonials}.
 If you've already decided to try LilyPond, first read about our
-@ref{Text input}.
+@ref{text input}.
 @divEnd
 
 
@@ -690,7 +690,7 @@ potential.}
 @divClass{column-center-bottom}
 @subheading Where now?
 
-Read about our @ref{Text input}.
+Read about our @ref{text input}.
 @divEnd
 
 
@@ -778,7 +778,7 @@ pitch):
 
 We realize that many users find this way of entering music a bit
 odd.  For this reason, we have written extensive documentation to
-help new users, beginning with @ref{Learning}.
+help new users, beginning with @ref{learning}.
 
 Please read the Learning Manual before complaining about bugs!
 New users occasionally believe that LilyPond is not working
@@ -798,15 +798,15 @@ Some editing environments include syntax highlighting, automatic
 command completion, and pre-made templates.  Other programs
 actually provide a GUI which allows direct manipulation of a
 graphical score.  For more information, see our documentation
-about @ref{Alternate input}.
+about @ref{alternate input}.
 
 
 @divClass{column-center-bottom}
 @subheading Where now?
 
-You are now ready to @ref{Download, Download LilyPond}.  Still not
+You are now ready to @ref{download, Download LilyPond}.  Still not
 convinced?  Read about easier editing environments in
-@ref{Alternate input}.
+@ref{alternate input}.
 
 @divEnd
 
@@ -987,17 +987,17 @@ has experimental export for LilyPond.
 @divClass{column-center-bottom}
 @subheading Where now?
 
-You are now ready to @ref{Download, Download LilyPond}.
+You are now ready to @ref{download, Download LilyPond}.
 
 Still not convinced?  Many composers, musicians, and conductors
 have learned how to write music in our input format.  Experienced
 users even report that they can enter a full score in LilyPond
 faster than with a piano keyboard or mouse+GUI!  Perhaps you would
-like to review the @ref{Features}, @ref{Examples}, or the
-@ref{Freedom} that LilyPond provides, or read about users'
-@ref{Productions} and @ref{Testimonials}.  In addition, our
+like to review the @ref{features}, @ref{examples}, or the
+@ref{freedom} that LilyPond provides, or read about users'
+@ref{productions} and @ref{testimonials}.  In addition, our
 approach to the computational aesthetics of classical engraving is
-explained in our @ref{Background}.
+explained in our @ref{background}.
 
 
 @subheading Legalese

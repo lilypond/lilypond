@@ -93,7 +93,7 @@ software brings the aesthetics of traditionally engraved music to
 computer printouts.
 
 @divClass{align-right}
-Read more in our @ref{Introduction}!
+Read more in our @ref{introduction}!
 
 @divEnd
 @divEnd
@@ -108,7 +108,7 @@ Read more in our @ref{Introduction}!
 @include general/news-front.itexi
 
 @divClass{float-right}
-(@ref{Old news})
+(@ref{old news})
 @divEnd
 
 @divEnd
@@ -121,15 +121,15 @@ Read more in our @ref{Introduction}!
 
 @subsubheading Stable
 
-@ref{Download, Download @versionStable}
+@ref{download, Download @versionStable}
 
-@ref{Manuals, Manuals @versionStable}
+@ref{manuals, Manuals @versionStable}
 
 @subsubheading Unstable
 
-@ref{Development, Download @versionDevel}
+@ref{development, Download @versionDevel}
 
-@ref{Development, Manuals @versionDevel}
+@ref{development, Manuals @versionDevel}
 
 @divEnd
 

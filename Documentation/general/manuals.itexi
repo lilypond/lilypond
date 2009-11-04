@@ -22,19 +22,19 @@
 
 @itemize
 
-@item @ref{Text input}:
+@item @ref{text input}:
 LilyPond is a @strong{text-based} music engraver.  If you are not
 familiar with this concept, please read this now!
 
-@item @ref{Learning}:
+@item @ref{learning}:
 a @qq{must-read} gentle introduction to LilyPond.
 
-@item @ref{Glossary}:
+@item @ref{glossary}:
 @emph{(optional reading)}
 explains musical terms and gives translations for users unfamiliar
 with English musical terms.
 
-@item @ref{Essay}:
+@item @ref{essay}:
 @emph{(optional reading)}
 background information about the engraving process and the
 aesthetics of 19th century music engraving.
@@ -49,15 +49,15 @@ aesthetics of 19th century music engraving.
 
 @itemize
 
-@item @ref{Notation}:
+@item @ref{notation}:
 the main portion of the documentation; provides detailed
 information about creating notation.
 
-@item @ref{Usage}:
+@item @ref{usage}:
 discusses the actual programs and operating system-specific
 issues.
 
-@item @ref{Snippets}:
+@item @ref{snippets}:
 short tricks, tips, and examples.
 
 @end itemize
@@ -73,13 +73,13 @@ short tricks, tips, and examples.
 @item @ref{FAQ}:
 links to the answers of Frequently Asked Questions.
 
-@item @ref{Changes}:
+@item @ref{changes}:
 updates since the last major version.
 
-@item @ref{Extend}:
+@item @ref{extend}:
 programming fancy tweaks in LilyPond.
 
-@item @ref{Internals}:
+@item @ref{internals}:
 information about LilyPond's internal structures, which is
 required for constructing tweaks.
 
@@ -93,13 +93,13 @@ required for constructing tweaks.
 
 @itemize
 
-@item @ref{Translated}:
+@item @ref{translated}:
 translation status for non-English readers.
 
-@item @ref{All}:
+@item @ref{all}:
 quick links, downloadable manuals, and old manuals.
 
-@item @ref{Development}:
+@item @ref{development}:
 manuals for the unstable version.
 
 @item @ref{FDL}:
@@ -447,12 +447,12 @@ download as a PDF file.
 @subsubheading Where are the graphical canvas, menus, and toolbars?
 
 LilyPond requires you to write music as text.  Please read about
-our @ref{Text input}.
+our @ref{text input}.
 
 
 @subsubheading There's a lot of documentation!  Do I need to read it?
 
-You need to read the @ref{Learning, Learning manual}.  As for the
+You need to read the @ref{learning, Learning manual}.  As for the
 rest of documentation, you only need to read the sections which
 discuss the notation that you wish to create.
 
@@ -460,7 +460,7 @@ discuss the notation that you wish to create.
 @subsubheading That's still a lot of reading!  Is it worth it?
 
 Please decide for yourself; the reasons why you might want to use
-LilyPond are given in the @ref{Introduction}.
+LilyPond are given in the @ref{introduction}.
 
 @divEnd
 
@@ -648,7 +648,7 @@ TODO: clean up / prettify
 @heading Documentation quick links
 
 Links to other formats of these manuals can be found in
-@ref{Manuals}.
+@ref{manuals}.
 
 @divEnd
 
@@ -773,7 +773,7 @@ LilyPond 2.8 Documentation}
 
 The documentation for GNU LilyPond is published under the GNU Free
 Documentation License.  An introduction to this license, and our
-reasons for choosing it, is given in @ref{Freedom}.
+reasons for choosing it, is given in @ref{freedom}.
 
 @divEnd
 
