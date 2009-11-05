@@ -23,7 +23,6 @@ FIXME: take into account the new web site integration in main sources.
 132   learning.tely
 2678  learning/tutorial.itely
 4138  learning/common-notation.itely
-23    dedication.itely
 1059  macros.itexi
 161   translations.template.html.in
 1670  po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
