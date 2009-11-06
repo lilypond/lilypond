@@ -772,12 +772,13 @@ context."
   \denies "Voice"
   \consists "Tab_staff_symbol_engraver"
 
-  \description "Context for generating tablature. [DOCME]"
+  \description "Context for generating tablature. It accepts only @code{TabVoice}
+contexts and handles the line spacing, the tablature clef etc. properly."
 
   \accepts "TabVoice"
   \defaultchild "TabVoice"
 
-  %% 6 strings
+  %% 6 strings, bigger spacing
   \override StaffSymbol #'staff-space = #1.5
 
   %% Don't draw stems over the tablature figures !
@@ -786,7 +787,9 @@ context."
   %% No accidental in tablature !
   \remove "Accidental_engraver"
   \remove "Key_engraver"
+
   \remove "String_number_engraver"
+  \remove "Ottava_spanner_engraver"
   %% the clef handler
   \override Clef #'stencil = #clef::print-modern-tab-if-set
   %% no time signature
