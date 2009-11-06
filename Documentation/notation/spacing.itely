@@ -398,6 +398,14 @@ on a page:
 
 @table @code
 
+@item binding-offset
+@funindex binding-offset
+
+The amount @code{inner-margin} is increased
+to make sure nothing will be hidden by the binding.
+Works only with @code{two-sided} set to true.  Default:
+@code{0}.
+
 @item horizontal-shift
 @funindex horizontal-shift
 
@@ -410,16 +418,17 @@ separators) are shifted to the right.  Default: @code{0.0}.
 The level of indentation for the first system in a score.
 Default: @code{15\mm}.
 
+@item inner-margin
+@funindex inner-margin
+
+The margin all pages have at the inner side if they are part
+of a book.  Works only with @code{two-sided} set to true.
+Default: @code{10\mm}.
+
 @item left-margin
 @funindex left-margin
 
 The margin between the left edge of the page and the beginning of
-each system.  Default: @code{10\mm}.
-
-@item right-margin
-@funindex right-margin
-
-The margin between the right edge of the page and the beginning of
 each system.  Default: @code{10\mm}.
 
 @item line-width
@@ -428,11 +437,24 @@ each system.  Default: @code{10\mm}.
 The width of music systems.  Default: @code{paper-width} minus
 @code{left-margin} and @code{right-margin}.
 
+@item outer-margin
+@funindex outer-margin
+
+The margin all pages have at the outer side if they are part
+of a book.  Works only with @code{two-sided} set to true.
+Default: @code{20\mm}.
+
 @item paper-width
 @funindex paper-width
 
 The width of the page.  Default: the width of the current paper
 size.  For details, see @ref{Paper size}.
+
+@item right-margin
+@funindex right-margin
+
+The margin between the right edge of the page and the beginning of
+each system.  Default: @code{10\mm}.
 
 @item short-indent
 @funindex short-indent
@@ -707,6 +729,14 @@ Default: unset.
 The number of systems that should be placed on each page.
 This is currently supported only by the @code{ly:optimal-breaking} algorithm.
 Default: unset.
+
+@item two-sided
+@funindex two-sided
+
+If set to true, use @code{inner-margin}, @code{outer-margin} and
+@code{binding-offset} to determine margins depending on whether
+the page number is odd or even.  This overrides @code{left-margin}
+and @code{right-margin}.  Default: @code{##f}.
 
 @end table
 
