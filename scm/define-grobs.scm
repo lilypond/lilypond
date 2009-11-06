@@ -978,7 +978,7 @@
 			(clef . (extra-space . 0.8))
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.0))
-			(key-signature . (extra-space . 0.0))
+			(key-signature . (extra-space . 0.8))
 			(key-cancellation . (extra-space . 0.0))
 			))
 	(X-extent . (0 . 0))
