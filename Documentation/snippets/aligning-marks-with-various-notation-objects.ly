@@ -4,6 +4,30 @@
 \version "2.13.4"
 
 \header {
+%% Translation of GIT committish: c2e8b1d6d671dbfc138f890cbc7e9882b7be2761
+  texidocfr = "
+Les indications textuelles peuvent s'aligner par rapport à d'autres
+objets que des barres de mesure, tels que @code{ambitus},
+@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
+@code{left-edge}, @code{key-cancellation}, @code{key-signature}, ou
+@code{time-signature}.
+
+
+
+Par défaut, les indications textuelles sont alignées avec le milieu
+des objets de notation. Bien entendu, vous pouvez modifier les
+propriétés des objets en question pour obtenir un autre
+résultat comme l'illustre la deuxième ligne de l'exemple.  Dans le cas
+de portées multiples, ces réglages doivent être faits pour chacune
+d'entre elles.
+
+
+
+"
+  doctitlefr = "Alignement des indications par rapport à divers objets
+de notation"
+
+
   lsrtags = "text"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
