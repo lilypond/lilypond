@@ -1,0 +1,9 @@
+%% Translation of GIT committish: c2e8b1d6d671dbfc138f890cbc7e9882b7be2761
+  texidocfr = "
+Bien que ces indications textuelles ne soient habituellement imprimées
+qu'au niveau de la portée supérieure, vous pouvez forcer leur
+affectation à chacune des portées.
+
+"
+  doctitlefr = "Impression des indications sur toutes les portées d'un système"
+
