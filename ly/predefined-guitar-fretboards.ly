@@ -214,7 +214,7 @@
                         #(chord-shape 'f:7 guitar-tuning)
 \storePredefinedDiagram \chordmode {f:maj7} 
                         #guitar-tuning 
-                        #"x;3-3;3-4;2-2;1-1;"  
+                        #"x;x;3-3;2-2;1-1;o;"  
 \storePredefinedDiagram \chordmode {f:m7} 
                         #guitar-tuning 
                         #(chord-shape 'f:m7 guitar-tuning)
