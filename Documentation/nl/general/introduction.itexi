@@ -7,9 +7,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node Inleiding
+@node inleiding
 @unnumbered Inleiding
-@translationof Introduction
+@translationof introduction
  
 @divClass{column-center-top}
 @subheading Ons Doel
@@ -44,17 +44,17 @@ en collega's met haarscherpe bladmuziek!
 @divEnd
 @divClass{hide}
 @menu
-* Features::
-* Examples::
-* Freedom::
-* Productions::
-* Testimonials::
-* Text input::
+* features::
+* examples::
+* freedom::
+* productions::
+* testimonials::
+* text input::
 @end menu
 
 @divEnd
-@node Features
-@unnumberedsec Features
+@node features
+@unnumberedsec features
 
 @untranslated
 
@@ -73,7 +73,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Text input}.
 @divEnd
-@node Examples
+@node examples
 @unnumberedsec Examples
 
 @untranslated
@@ -108,7 +108,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Freedom}.  If you've already decided to try LilyPond, first
 @divEnd
-@node Freedom
+@node freedom
 @unnumberedsec Freedom
 
 @untranslated
@@ -134,7 +134,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Productions} and sheet music.  If you've already decided to
 @divEnd
-@node Productions
+@node productions
 @unnumberedsec Productions
 
 @untranslated
@@ -154,7 +154,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Text input}.
 @divEnd
-@node Testimonials
+@node testimonials
 @unnumberedsec Testimonials
 
 @untranslated
@@ -199,7 +199,7 @@ en collega's met haarscherpe bladmuziek!
 @divClass{column-center-bottom}
 @subheading Where now?
 @divEnd
-@node Text input
+@node text input
 @unnumberedsec Text input
 
 @untranslated

@@ -9,7 +9,7 @@
 
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@node Download
+@node download
 @unnumbered Download
 
 @untranslated
@@ -45,17 +45,17 @@
 @divEnd
 @divClass{hide}
 @menu
-* Unix::
+* UNIX::
 * MacOS X::
 * Windows::
-* Source::
-* Old downloads::
+* source::
+* old downloads::
 * GPL::
 @end menu
 
 @divEnd
-@node Unix
-@unnumberedsec Unix
+@node UNIX
+@unnumberedsec UNIX
 
 @untranslated
 
@@ -136,7 +136,7 @@
 @divClass{legal}
 @divEnd
 @divEnd
-@node Source
+@node source
 @unnumberedsec Source
 
 @untranslated
@@ -148,7 +148,7 @@
 @divClass{column-right-bottom}
 @subheading Compiling instructions
 @divEnd
-@node Old downloads
+@node old downloads
 @unnumberedsec Old downloads
 
 @untranslated

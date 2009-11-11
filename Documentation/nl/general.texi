@@ -86,10 +86,10 @@ Dat en meer in ons @ref{automated-engraving,,Essay,essay,Essay}.
 @divEnd
 @divClass{hide}
 @menu
-* Inleiding::
-* Download::
-* Handleiding::
-* Community::
+* inleiding::
+* download::
+* handleiding::
+* community::
 @end menu
 
 @divEnd

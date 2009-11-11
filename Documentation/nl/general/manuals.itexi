@@ -7,9 +7,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node Handleiding
+@node handleiding
 @unnumbered Handleiding
-@translationof Manuals
+@translationof manuals
 
 @divClass{heading-center}
 @heading Documentation for LilyPond 2.12.2
@@ -28,17 +28,17 @@
 @divEnd
 @divClass{hide}
 @menu
-* Learning::
-* Glossary::
-* Essay::
-* Notation::
-* Usage::
-* Snippets::
+* learning::
+* glossary::
+* essay::
+* notation::
+* usage::
+* snippets::
 * FAQ::
-* Changes::
-* Internals::
-* Translated::
-* Old::
+* changes::
+* internals::
+* translated::
+* old::
 * FDL::
 @end menu
 
@@ -46,37 +46,37 @@
 @c TRANSLATORS: most of the text in this file came from
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
-@node Learning
+@node learning
 @unnumberedsec Learning
 
 @untranslated
 
 
-@node Glossary
+@node glossary
 @unnumberedsec Glossary
 
 @untranslated
 
 
-@node Essay
+@node essay
 @unnumberedsec Essay
 
 @untranslated
 
 
-@node Notation
+@node notation
 @unnumberedsec Notation
 
 @untranslated
 
 
-@node Usage
+@node usage
 @unnumberedsec Usage
 
 @untranslated
 
 
-@node Snippets
+@node snippets
 @unnumberedsec Snippets
 
 @untranslated
@@ -93,25 +93,25 @@
 @subheading That's still a lot of reading!  Is it worth it?
 @subheading Something isn't working!  How do I fix it?
 @subheading Why do you change the syntax?
-@node Changes
+@node changes
 @unnumberedsec Changes
 
 @untranslated
 
 
-@node Internals
+@node internals
 @unnumberedsec Internals
 
 @untranslated
 
 
-@node Translated
+@node translated
 @unnumberedsec Translated
 
 @untranslated
 
 
-@node Old
+@node old
 @unnumberedsec Old
 
 @untranslated

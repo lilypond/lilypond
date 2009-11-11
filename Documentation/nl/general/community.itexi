@@ -9,7 +9,7 @@
 
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@node Community
+@node community
 @unnumbered Community
 
 @untranslated
@@ -34,18 +34,18 @@
 @divEnd
 @divClass{hide}
 @menu
-* Contact::
-* Tiny examples::
-* Bug reports::
-* Help us::
-* Development::
-* Authors::
-* Publications::
-* Old news::
+* contact::
+* tiny examples::
+* bug reports::
+* help us::
+* development::
+* authors::
+* publications::
+* old news::
 @end menu
 
 @divEnd
-@node Contact
+@node contact
 @unnumberedsec Contact
 
 @untranslated
@@ -77,7 +77,7 @@
 @c don't include gmane posting here.  -gp
 @end quotation
 @divEnd
-@node Tiny examples
+@node tiny examples
 @unnumberedsec Tiny examples
 
 @untranslated
@@ -96,7 +96,7 @@
 @divClass{keep-bullets}
 @divEnd
 @divEnd
-@node Bug reports
+@node bug reports
 @unnumberedsec Bug reports
 
 @untranslated
@@ -111,7 +111,7 @@
 @divClass{column-right-bottom}
 @subheading Step 3: Sending a bug report
 @divEnd
-@node Help us
+@node help us
 @unnumberedsec Help us
 
 @untranslated
@@ -120,7 +120,7 @@
 @subheading This document
 @subsubheading High priority / blocks release
 @subsubheading Low priority / may never
-@node Development
+@node development
 @unnumberedsec Development
 
 @untranslated
@@ -137,13 +137,13 @@
 @divClass{column-right-bottom}
 @subheading Contributors' Guide
 @divEnd
-@node Authors
+@node authors
 @unnumberedsec Authors 
 
 @untranslated
 
 
-@node Publications
+@node publications
 @unnumberedsec Publications
 
 @untranslated
@@ -159,7 +159,7 @@
 @divClass{keep-bullets}
 @divEnd
 @divEnd
-@node Old news
+@node old news
 @unnumberedsec Old news
 
 @untranslated
