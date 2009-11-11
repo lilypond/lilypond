@@ -67,7 +67,7 @@ l'intérieur même de la portée.
 @funindex teeny
 
 
-Le plus sûr moyen de régler la taille de la police, quelque soit le
+Le plus sûr moyen de régler la taille de la police, quel que soit le
 contexte, consiste à définir la propriété @code{fontSize}.
 Ceci ne modifiera en rien la taille des différents symboles tels que
 ligatures ou liaisons.
@@ -196,7 +196,7 @@ en les indiquant après chaque hauteur de note.
 <c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
 @end lilypond
 
-L'indication des doigtés peut se apparaître au-dessus ou en-dessous de
+Les indications de doigtés peuvent se placer au-dessus ou en dessous de
 la portée -- voir @ref{Direction et positionnement} à ce sujet.
 
 @snippets
@@ -422,7 +422,7 @@ Pour plus de détails, consultez
 Des objets peuvent être mis entre parenthèses en saisissant
 @code{\parenthesize} juste avant l'événement musical.  Si l'instruction
 préfixe un accord, chaque note le composant se présentera entre
-parenethèses.  Vous pouvez aussi mettre individuellement entre
+parenthèses.  Vous pouvez aussi mettre individuellement entre
 parenthèses les notes d'un accord.
 
 @lilypond[verbatim,quote,relative=2]
@@ -433,7 +433,7 @@ c2 <c \parenthesize e g>
 
 Les objets autres que des notes peuvent aussi être entre parenthèses.
 En ce qui concerne les articulations, l'instruction @code{\parenthesize}
-doît cependant être précédée d'un tiret.
+doit cependant être précédée d'un tiret.
 
 @lilypond[verbatim,quote,relative=2]
 c2-\parenthesize -. d

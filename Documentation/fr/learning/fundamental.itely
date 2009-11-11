@@ -316,7 +316,7 @@ coup d'œil à quoi correspond chaque portée.
 
 Vous vous souvenez que nous avons recours à @code{<<} et @code{>>} 
 en lieu et place de @code{@{ @dots{} @}} pour gérer des musiques
-simultanées.  Et,  pour le coup, on aimerait @emph{vraiment} que la
+simultanées.  Et, pour le coup, on aimerait @emph{vraiment} que la
 partie vocale et l'accompagnement soient imprimés ensemble@dots{}  Bien que
 faire appel à @code{<< ... >>} ne soit pas réellement nécessaire pour la
 portée du chanteur, dans la mesure où elle ne contient qu'une seule
@@ -324,7 +324,7 @@ expression musicale, nous vous recommandons de prendre l'habitude de
 l'encadrer ainsi plutôt que par de simples accolades -- une portée peut
 en effet contenir plusieurs voix, ou bien des notes @strong{et} des
 paroles.  Dans la mesure où nous y ajouterons des paroles, les chevrons
-sont donc obligatoires.  Si vous avez oublier comment ajouter des
+sont donc obligatoires.  Si vous avez oublié comment ajouter des
 paroles à l'aide de la commande @code{\addlyrics}, relisez le chapitre 
 @ref{Écriture de chants simples}.
 
@@ -1782,7 +1782,7 @@ modifiées afin d'influencer le comportement du graveur et par voie de
 conséquence le rendu des éléments dont il a la charge.
 
 Les graveurs ont tous un nom composé, formé des différents mots
-décrivant leur fonction. Seule l'initiale du premier mot est en
+décrivant leur fonction.  Seule l'initiale du premier mot est en
 majuscule, et les mots qui le composent sont joints par un caractère
 souligné.  Ainsi, le @code{Staff_symbol_engraver} est chargé de créer
 les lignes de la portée, et le @code{Clef_engraver} détermine la hauteur

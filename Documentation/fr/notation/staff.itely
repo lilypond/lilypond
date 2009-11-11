@@ -212,7 +212,7 @@ crochet sur la gauche, et les barres de mesure sont individuelles.
 >>
 @end lilypond
 
-Dan sun @code{GrandStaff}, le groupe de portées est signifié par une
+Dans un @code{GrandStaff}, le groupe de portées est signifié par une
 accolade sur la gauche, et les barres de mesure sont d'un seul tenant. 
 
 @lilypond[verbatim,quote,relative=2]
@@ -239,7 +239,7 @@ Les barres de mesure au début de chaque système adoptent l'un des styles
 @code{SystemStartBracket}.  Dans chaque contexte, seul l'un de 
 ces styles est utilisé, et c'est la propriété
 @code{systemStartDelimiter} qui détermine lequel.  Un quatrième style,
-@code{SystemStartSquare}, doît quant à lui être spécifié de manière
+@code{SystemStartSquare}, doit quant à lui être spécifié de manière
 explicite. 
 
 Vous pouvez aussi créer vos propres contextes de regroupement, comme
@@ -430,7 +430,7 @@ lignes supplémentaires.
 @end lilypond
 
 Vous trouverez de plus amples détails sur les propriétés du
-@code{StaffSymbol}  au chapitre @rinternals{staff-symbol-interface}.
+@code{StaffSymbol} au chapitre @rinternals{staff-symbol-interface}.
 
 @cindex fin de portée
 @cindex début de portée
@@ -702,7 +702,7 @@ Cette fonctionnalité masque et supprime toutes les portées vides d'une
 partition, hormis celles du premièr système.
 
 @warning{Une portée est considérée comme vide dès lors qu'elle ne
-contient que des silences multi-mesure, des silences invisibles ou
+contient que des silences multimesures, des silences invisibles ou
 d'espacement (les @emph{\skip}) ou bien une combinaison de ces
 éléments.} 
 
