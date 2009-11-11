@@ -147,8 +147,8 @@ Input::line_number () const
 int
 Input::column_number () const
 {
-  int line, chr, col = 0;
-  source_file_->get_counts (start_, &line, &chr, &col);
+  int line, chr, col, offset = 0;
+  source_file_->get_counts (start_, &line, &chr, &col, &offset);
 
   return col;
 }
@@ -164,16 +164,16 @@ Input::end_line_number () const
 int
 Input::end_column_number () const
 {
-  int line, chr, col = 0;
-  source_file_->get_counts (end_, &line, &chr, &col);
+  int line, chr, col, offset = 0;
+  source_file_->get_counts (end_, &line, &chr, &col, &offset);
 
   return col;
 }
 
 void
-Input::get_counts (int *line, int *chr, int *col) const
+Input::get_counts (int *line, int *chr, int *col, int *offset) const
 {
-  source_file_->get_counts (start_, line, chr, col);
+  source_file_->get_counts (start_, line, chr, col, offset);
 }
 
 void

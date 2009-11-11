@@ -16,12 +16,6 @@
 
 #include "config.hh"
 
-#if HAVE_UTF8_WCHAR_H
-#include <utf8/wchar.h>  /* mbrtowc */
-#else /* !HAVE_UTF8_WCHAR_H */
-#include <cwchar> /* mbrtowc */
-#endif /* HAVE_UTF8_WCHAR_H */
-
 #include <cstdio>
 
 #if HAVE_SSTREAM
@@ -34,6 +28,7 @@ using namespace std;
 
 #include "file-name-map.hh"
 #include "international.hh"
+#include "misc.hh"
 #include "warn.hh"
 
 void
@@ -173,8 +168,8 @@ Source_file::file_line_column_string (char const *context_str0) const
     return " (" + _ ("position unknown") + ")";
   else
     {
-      int l, ch, col;
-      get_counts (context_str0, &l, &ch, &col);
+      int l, ch, col, offset;
+      get_counts (context_str0, &l, &ch, &col, &offset);
 
       return name_string () + ":" + to_string (l)
 	+ ":" + to_string (col);
@@ -187,13 +182,13 @@ Source_file::quote_input (char const *pos_str0) const
   if (!contains (pos_str0))
     return " (" + _ ("position unknown") + ")";
 
-  int l, ch, col;
-  get_counts (pos_str0, &l, &ch, &col);
+  int l, ch, col, offset;
+  get_counts (pos_str0, &l, &ch, &col, &offset);
   string line = line_string (pos_str0);
-  string context = line.substr (0, ch)
+  string context = line.substr (0, offset)
     + to_string ('\n')
     + to_string (' ', col)
-    + line.substr (ch, line.length ()-ch);
+    + line.substr (offset, line.length () - offset);
   return context;
 }
 
@@ -253,11 +248,10 @@ void
 Source_file::get_counts (char const *pos_str0,
 			 int *line_number,
 			 int *line_char,
-			 int *column) const
+			 int *column,
+			 int *byte_offset) const
 {
   *line_number = 0;
-  *line_char = 0;
-  *column = 0;
     
   if (!contains (pos_str0))
     return;
@@ -272,47 +266,27 @@ Source_file::get_counts (char const *pos_str0,
   string line_begin (line_start, left);
   char const *line_chars = line_begin.c_str ();
 
-  *column = 0;
   *line_char = 0;
-
-  mbstate_t state;
-
-  /* Initialize the state.  */
-  memset (&state, '\0', sizeof (state));
+  *column = 0;
+  *byte_offset = 0;
 
   while (left > 0)
     {
-      /*
-	FIXME, this is apparently locale dependent.
-      */
-#if HAVE_MBRTOWC
-      wchar_t multibyte[2];
-      size_t thislen = mbrtowc (multibyte, line_chars, left, &state);
-#else
-      size_t thislen = 1;
-#endif /* !HAVE_MBRTOWC */
-
-      /* Stop converting at invalid character;
-	 this can mean we have read just the first part
-	 of a valid character.  */
-      if (thislen == (size_t) -1)
-	break;
-
-      /* We want to handle embedded NUL bytes
-	 but the return value is 0.  Correct this.  */
-      if (thislen == 0)
-	thislen = 1;
+      size_t thislen = utf8_char_len (*line_chars);
 
       if (thislen == 1 && line_chars[0] == '\t')
 	(*column) = (*column / 8 + 1) * 8;
       else
 	(*column)++;
 
+      (*line_char)++;
+
       /*
-	For accurate error output, consider multibyte
-	characters as a series of characters.
+	To have decent output in UTF-8 aware terminals,
+	we must keep track of the number of bytes from
+	the left edge of the terminal.
       */
-      (*line_char) += thislen;
+      *byte_offset += thislen;
 
       /* Advance past this character. */
       line_chars += thislen;

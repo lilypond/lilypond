@@ -53,7 +53,7 @@ public:
 public:
   Slice line_slice (char const *pos_str0) const;
   string line_string (char const *pos_str0) const;
-  void get_counts (char const *pos_str0, int *, int *, int *) const;
+  void get_counts (char const *pos_str0, int *, int *, int *, int *) const;
   
   SCM get_port () const;
   string name_;

@@ -45,7 +45,7 @@ public:
   int end_line_number ()const;
   int end_column_number ()const;
 
-  void get_counts (int *line, int *char_count, int *col) const;
+  void get_counts (int *, int *, int *, int *) const;
 
   Input (Input const &i);
   Input ();

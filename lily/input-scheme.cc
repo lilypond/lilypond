@@ -46,10 +46,8 @@ LY_DEFINE (ly_input_file_line_char_column,
   LY_ASSERT_TYPE (unsmob_input, sip, 1);
   Input *ip = unsmob_input (sip);
 
-  int l = 0;
-  int ch = 0;
-  int col = 0;
-  ip->get_counts (&l, &ch, &col);
+  int l, ch, col, offset = 0;
+  ip->get_counts (&l, &ch, &col, &offset);
   return scm_list_4 (ly_string2scm (ip->file_string ()),
 		     scm_from_int (l),
 		     scm_from_int (ch),
