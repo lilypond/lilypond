@@ -146,9 +146,7 @@ AC_LANG_POP(C++)
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([chroot fopencookie funopen gettext isinf mbrtowc memmem snprintf vsnprintf wcrtomb])
-AC_CHECK_HEADERS([utf8/wchar.h], LIBS="$LIBS -lutf8")
-AC_SEARCH_LIBS(mbrtowc, [mingwex msvcp60])
+AC_CHECK_FUNCS([chroot fopencookie funopen gettext isinf memmem snprintf vsnprintf wcrtomb])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 

@@ -34,9 +34,6 @@
 /* define if you have memmem */
 #define HAVE_MEMMEM 0
 
-/* define if you have mbrtowc */
-#define HAVE_MBRTOWC 0
-
 /* define if you have snprintf */
 #define HAVE_SNPRINTF 0
 
@@ -100,6 +97,3 @@
 
 /* define if you have pango FT2 binding */
 #define HAVE_PANGO_FT2 0
-
-/* define if you have utf8/wchar.h */
-#define HAVE_UTF8_WCHAR_H 0
