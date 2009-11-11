@@ -117,6 +117,28 @@ Some level of support is provided on our IRC channel,
 This channel has no public archive, so any question that may
 be useful for others would better be posted to one of the mailing lists. 
 
+@html
+<form action="http://webchat.freenode.net"
+      method="get"
+      name="f_lily_irc"
+  <label>irc name:
+    <input name="nick" type="text" size="15" value="">
+  </label>
+  <input name="channels" type="hidden" value="lilypond">
+  <input type="submit" value="Join #lilypond IRC Chat">
+</form>
+
+<script language="JavaScript" type="text/javascript">
+  var username = "web";
+  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
+  : window.navigator.language;
+  username += '-' + lang.substr(0, 2);
+  username += '-' + navigator.appName.substr(0, 2);
+  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
+  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
+  document.forms["f_lily_irc"].nick.value = username;
+</script>
+@end html
 
 @subsubheading Other languages
 
