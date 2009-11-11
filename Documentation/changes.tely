@@ -63,6 +63,12 @@ which scares away people.
 
 @end ignore
 
+@item
+Chords can be repeated using the @code{q} shortcut:
+
+@lilypond[verbatim,quote,relative=2]
+<c e g>8.-^ q16 q4-^
+@end lilypond
 
 @item
 Paper margin defaults, as specified in @file{ly/@/paper@/-defaults@/-init@/.ly}, apply
@@ -81,8 +87,7 @@ added.
 @item
 In addition to the existing @code{\hspace} markup command,
 a new @code{\vspace} command has been added to provide an easy
-and flexible way to add vertical space in markups.  This feature
-is based on Nicolas Sceaux's work.
+and flexible way to add vertical space in markups.
 
 @item
 The direction of manual beams can be set with @code{^[} and @code{_[}.

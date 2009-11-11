@@ -266,6 +266,7 @@ If we give names, Bison complains.
 %token <scm> BOOK_IDENTIFIER
 %token <scm> CHORDMODIFIER_PITCH
 %token <scm> CHORD_MODIFIER
+%token <scm> CHORD_REPETITION
 %token <scm> CONTEXT_DEF_IDENTIFIER
 %token <scm> DRUM_PITCH
 %token <scm> DURATION_IDENTIFIER
@@ -1001,7 +1002,9 @@ simultaneous_music:
 	;
 
 simple_music:
-	event_chord
+	event_chord {
+                PARSER->lexer_->chord_repetition_.last_chord_ = $$;
+	}
 	| MUSIC_IDENTIFIER
 	| music_property_def
 	| context_change
@@ -1413,6 +1416,14 @@ event_chord:
 		 * i = @$; */
 		i.set_location (@1, @2);
 		$$ = MAKE_SYNTAX ("event-chord", i, elts);
+	}
+	| CHORD_REPETITION optional_notemode_duration post_events {
+		Input i;
+		i.set_location (@1, @3);
+		$$ = MAKE_SYNTAX ("repetition-chord", i,
+				  PARSER->lexer_->chord_repetition_.last_chord_,
+				  PARSER->lexer_->chord_repetition_.repetition_function_,
+				  $2, $3);
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
 		Input i;

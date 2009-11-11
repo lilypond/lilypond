@@ -19,6 +19,20 @@ bool busy_parsing ();
 void kill_lexer ();
 void set_lexer ();
 
+struct Chord_repetition
+{
+  Chord_repetition ()
+  {
+    last_chord_ = SCM_EOL;
+    repetition_function_ = SCM_EOL;
+    repetition_symbol_ = SCM_EOL;
+  }
+
+  SCM repetition_symbol_;
+  SCM repetition_function_;
+  SCM last_chord_;
+};
+
 class Lily_lexer : public Includable_lexer
 {
   DECLARE_SMOBS (Lily_lexer);
@@ -47,6 +61,8 @@ public:
   /* Scheme hash tables with (oct name acc)  values, and symbol keys.  */
   SCM chordmodifier_tab_;
   SCM pitchname_tab_stack_;
+
+  Chord_repetition chord_repetition_;
 
   int error_level_;
   Input last_input_;

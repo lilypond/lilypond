@@ -19,6 +19,8 @@ maxima = #(ly:make-duration -3 0)
 \include "chord-modifiers-init.ly"
 \include "script-init.ly"
 
+\include "chord-repetition-init.ly"
+
 % declarations for standard directions
 left = #-1
 right = #1

@@ -8,11 +8,11 @@
 mus = \relative c' { c2 c c c c c c c }
 \addQuote #"M" \mus
 
-q = \relative c' { 
+quot = \relative c' { 
   d2 \quoteDuring #"M" { s1 } e2 \cueDuring #"M" #UP { s1 } f2
 }
 
 \score { <<
-  \q
-  \killCues \q
+  \quot
+  \killCues \quot
 >> }

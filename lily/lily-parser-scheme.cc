@@ -212,6 +212,32 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_parser_set_repetition_symbol, "ly:parser-set-repetition-symbol",
+           2, 0, 0, (SCM parser, SCM sym),
+           "Replace the current repetition symbol in @var{parser}."
+           "  @var{sym} is the new repetition symbol.")
+{
+  LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  Lily_parser *p = unsmob_lily_parser (parser);
+
+  p->lexer_->chord_repetition_.repetition_symbol_ = sym;
+
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parser_set_repetition_function, "ly:parser-set-repetition-function",
+           2, 0, 0, (SCM parser, SCM fun),
+           "Replace the current repetition function in @var{parser}."
+           "  @var{fun} is the new repetition function.")
+{
+  LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  Lily_parser *p = unsmob_lily_parser (parser);
+
+  p->lexer_->chord_repetition_.repetition_function_ = fun;
+
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
 	   1, 0, 0, (SCM parser),
 	   "Return the base name of the output file.")

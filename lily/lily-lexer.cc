@@ -95,6 +95,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   error_level_ = 0;
   is_main_input_ = false;
   start_module_ = SCM_EOL;
+  chord_repetition_ = Chord_repetition ();
   smobify_self ();
 
   add_scope (ly_make_anonymous_module (false));
@@ -111,6 +112,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
   start_module_ = SCM_EOL;
+  chord_repetition_ = Chord_repetition ();
 
   error_level_ = src.error_level_;
   is_main_input_ = src.is_main_input_;
