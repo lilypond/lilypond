@@ -1053,6 +1053,9 @@ function_arglist_nonmusic_last:
 	EXPECT_MARKUP function_arglist full_markup {
 		$$ = scm_cons ($3, $2);
 	}
+	| EXPECT_MARKUP function_arglist simple_string {
+		$$ = scm_cons ($3, $2);
+	}
 	| EXPECT_SCM function_arglist function_scm_argument {
 		$$ = scm_cons ($3, $2);
 	}
@@ -1062,6 +1065,9 @@ function_arglist_nonmusic: EXPECT_NO_MORE_ARGS {
 		$$ = SCM_EOL;
 	}
 	| EXPECT_MARKUP function_arglist_nonmusic full_markup {
+		$$ = scm_cons ($3, $2);
+	}
+	| EXPECT_MARKUP function_arglist_nonmusic simple_string {
 		$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM function_arglist_nonmusic function_scm_argument {
