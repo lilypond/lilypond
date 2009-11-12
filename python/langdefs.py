@@ -64,7 +64,7 @@ es = LanguageDef ('es', 'español')
 de = LanguageDef ('de', 'deutsch')
 nl = LanguageDef ('nl', 'nederlands')
 ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
-hu = LanguageDef ('hu', 'hungarian')
+hu = LanguageDef ('hu', 'magyar')
 
 # Outdated or broken translations may be disabled
 # (please run 'make doc-clean' before doing that):

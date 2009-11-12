@@ -1,7 +1,7 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
 @c This file is part of learning.tely
 @ignore
-    Translation of GIT committish: b495410261a92003aaf22b974ccd14c36da6fd33
+    Translation of GIT committish: 2d8b567afe459b0ab6503731e0c2568915a5c4ef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.

@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond-learning.tely
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
+
 @ignore
-    Translation of GIT committish: a30fa41fac8fb2771a76f6d1edbec9714298ee36
+    Translation of GIT committish: 2d8b567afe459b0ab6503731e0c2568915a5c4ef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,60 +9,33 @@
 
 @c \version "2.12.0"
 
-@ignore
-Tutorial guidelines:  (different from policy.txt!)
-- unless you have a really good reason, use either
-    @lilypond[verbatim,quote]
-  or
-    @lilypond[verbatim,quote,relative=2]
-
-  Don't use any other relative=X commands.
-
-- use "aes" and "ees" instead of "as" and "es".  I know it's not
-  correct Dutch naming, but let's not confuse people with this
-  until we get to the Basic notation chapter.
-
-- Add "Music Glossary: @rglos{foo}" to the *top* of the relevant
-  portions of the tutorial.
-
-@end ignore
-
-
 @node Első lecke
 @chapter Első lecke
 @translationof Tutorial
 
 Tankönyvünk első leckéje bemutatja a LilyPond nyelvét, és elmagyarázza,
-hogyan kell nyomtatható kottát előállítani. Az első találkozás után
-ismertetjük, hogyan lehet a gyakori kottaelemek felhasználásával
-gyönyörű kottákat készíteni.
-
-@menu
-* Az első lépések::
-* Egyszólamú lejegyzés::
-* Több hang egyszerre::
-* Dalok::
-* Utolsó simítások::
-@end menu
-
-
-@node Az első lépések
-@section Az első lépések
-@translationof First steps
-
-Ez a szakasz a LilyPonddal végzett munka alapjaiba nyújt bevezetést.
+hogyan kell nyomtatható kottát előállítani.
 
 @menu
 * Fájlok fordítása::
-* Egyszerű kottázás::
-* A bemeneti fájlok jellemzői::
-* Hogyan olvassuk a tankönyvet?::
+* Bemeneti fájlok írása::
+* Hogyan olvassuk a dokumentációt?::
 @end menu
 
-
 @node Fájlok fordítása
-@subsection Fájlok fordítása
+@section Fájlok fordítása
 @translationof Compiling a file
+
+@menu
+* Zene bevitele::
+* Mac OS X::
+* Windows::
+* Parancssor::
+@end menu
+
+@node Zene bevitele
+@subsection Zene bevitele
+@translationof Entering input
 
 @cindex fordítás
 @cindex első példa
@@ -71,7 +44,7 @@ Ez a szakasz a LilyPonddal végzett munka alapjaiba nyújt bevezetést.
 A LilyPond bemeneti fájljai egyszerű szöveges állományok.
 Egy kotta létrehozásához egy bemeneti fájlban (másnéven forrásfájlban) kell
 azt szöveges formában leírni.
-@qq{Fordítás}nak nevezzük azt a folyamatot, melynek során egy LilyPond
+@qq{Fordítás} a neve annak a folyamatnak, melynek során egy LilyPond
 formátumú forrásfájlból egy nyomtatható kotta és (szabadon választhatóan)
 egy meghallgatható MIDI fájl áll elő.
 
@@ -100,7 +73,7 @@ A kapcsos zárójeleket legtöbbször szóközzel vesszük körül, hacsak
 a sor elején vagy végén nem állnak, hogy környezetükkel ne folyjanak
 egybe, így kétértelműséget okozván. A tankönyv példáiban olykor a
 rövidség kedvéért elhagyjuk a kapcsos zárójeleket, de a forrásfájlokban
-nem szabad elfelejteni kitenni őket! A @ref{Hogyan olvassuk a tankönyvet?}
+nem szabad elfelejteni kitenni őket! A @ref{Hogyan olvassuk a dokumentációt?}
 c. fejezetben olvasható több információ a tankönyv példáiról és megjelenítésük
 módjáról.}
 
@@ -110,7 +83,7 @@ eredményez.
 
 @smallspace
 
-@subheading Zene bevitele és a kimenet megtekintése
+@subheading A kimenet megtekintése
 
 @cindex PDF fájl
 @cindex megtekintés
@@ -121,17 +94,20 @@ eredményez.
 @cindex Unix, a LilyPond futtatása
 
 Ez a szakasz arról szól, hogy milyen parancsokat kell futtatni
-a kotta előállításához és a kimenet megtekintéséhez vagy
-kinyomtatásához.
+a kotta előállításához és a kimenet megtekintéséhez a felhasználó operációs
+rendszerétől függően.
 
 Bizonyos szövegszerkesztőkbe beépíthető LilyPond támogatás, ami hatékonyabb
-szerkesztést tesz lehetőve; erről a @rprogram{Text editor support} fejezet ír.
+szerkesztést tesz lehetőve; erről a @rprogram{Szövegszerkesztői támogatás}
+fejezet ír.
 
 @warning{Amikor a LilyPond első alkalommal fut, egy-két percig várni kell,
 amíg megvizsgálja a rendszer betűtípusait. Ezután természetesen sokkal
 gyorsabban fog futni!}
 
-@subsubheading Mac OS X
+@node Mac OS X
+@subsection Mac OS X
+@translationof MacOS X
 
 Ha elindítjuk a @command{LilyPond.app} alkalmazást, egy példaállományt látunk
 megnyitva. Mentsük el (pl. @file{test.ly} néven az Asztalra), majd a
@@ -143,7 +119,9 @@ A következő parancsok, melyekre szükség lehet, a @q{New} (@q{Új}) és az @q
 mindig el kell menteni. Ha a feldolgozás során bármilyen hiba történt, a
 naplóablakban láthatjuk a hibák leírását.
 
-@subsubheading Windows
+@node Windows
+@subsection Windows
+@translationof Windows
 
 Windows alatt az Asztalon levő LilyPond ikonra duplán kattintva indíthatjuk el
 a LilyPondot, mely először egy példafájlt nyit meg egy egyszerű
@@ -167,7 +145,9 @@ Ha duplán kattintunk egy @code{.ly} fájlra, nem csak egy PDF-et kapunk, hanem
 egy @code{.log} kiterjesztésű naplófájlt is, amely a LilyPond futásáról
 tartalmaz információkat. Hiba esetén ajánlatos megvizsgálni.
 
-@subsubheading UNIX
+@node Parancssor
+@subsection Parancssor
+@translationof Command-line
 
 Hozzunk létre egy fájlt @file{test.ly} néven, és írjuk bele a következőket:
 
@@ -200,6 +180,14 @@ Layout output to `test.ps'...
 Converting to `test.pdf'...
 @end example
 
+@node Bemeneti fájlok írása
+@section Bemeneti fájlok írása
+@translationof How to write input files
+
+@menu
+* Egyszerű kottázás::
+* A bemeneti fájlok jellemzői::
+@end menu
 
 @node Egyszerű kottázás
 @subsection Egyszerű kottázás
@@ -375,7 +363,7 @@ adni számmal.
 @end lilypond
 
 
-@subheading Szünetek
+@subheading Szünet
 
 @cindex szünet
 
@@ -461,7 +449,7 @@ Alább látható egy rövid példa, mely az eddig tanult elemeket mutatja be:
 @seealso
 Referencia: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
-@ruser{Ütemmutató}, @ruser{Kulcs}.
+@ruser{Time signature}, @ruser{Clef}.
 
 
 @node A bemeneti fájlok jellemzői
@@ -567,9 +555,13 @@ A következő részlet a megjegyzések használatára mutat példát:
 @end itemize
 
 
-@node Hogyan olvassuk a tankönyvet?
-@subsection Hogyan olvassuk a tankönyvet?
+@node Hogyan olvassuk a dokumentációt?
+@section Hogyan olvassuk a dokumentációt?
 @translationof How to read the manual
+
+@node Kapcsos zárójelek elhagyása
+@subsection Kapcsos zárójelek elhagyása
+@translationof Omitting braces
 
 @cindex hogyan olvassuk a kézikönyvet
 @cindex kézikönyv
@@ -601,7 +593,9 @@ műbe. Mivel a legtöbb felhasználó a neki kellő kódrészleteket egyszerűen
 kimásolja a kézikönyvből, úgy döntöttünk, hogy leegyszerűsítjük a példákat.
 
 
-@subheading Kattintható példák
+@node Kattintható példák
+@subsection Kattintható példák
+@translationof Clickable examples
 
 A legtöbb ember úgy tanul bele egy program használatába, hogy a gyakorlatban
 próbálgatja azt, és játszadozik vele. Ez a LilyPonddal is lehetséges.
@@ -622,1333 +616,37 @@ rendelkezésre áll egy kiindulópont a kísérletezéshez. A kép egy az egyben
 előáll (ugyanakkora méretben), ha a @qq{Start cut-&-pastable section}
 résztől kezdve a fájl végéig kimásoljuk a szöveget.
 
-
-@seealso
-A @ref{Tanácsok LilyPond bemeneti fájlok írásához} részben további hasznos
-tanácsok olvashatóak a LilyPond fájlok írásával kapcsolatban. De előbb
-javasolt elolvasni a lecke többi részét.
-
-
-@node Egyszólamú lejegyzés
-@section Egyszólamú lejegyzés
-@translationof Single staff notation
-
-Ebben a szakaszban bemutatjuk a kotta gyakori elemeit, egyelőre egy szólamnál
-maradva.
-
-@menu
-* Módosítás és előjegyzés::
-* Átkötés és kötőív::
-* Artikuláció és dinamika::
-* Szöveges utasítások::
-* Automatikus és kézi gerendázás::
-* Haladó ritmikai parancsok::
-@end menu
-
-
-@node Módosítás és előjegyzés
-@subsection Módosítás és előjegyzés
-@translationof Accidentals and key signatures
-
-@subheading Módosítójelek
-
-@cindex módosítójelek
-@cindex előjegyzés és módosítójelek
-@cindex kereszt
-@cindex kettős kereszt
-@cindex kereszt, kettős
-@cindex bé
-@cindex kettős bé
-@cindex bé, kettős
-@cindex bebé
-
-@funindex es
-@funindex is
-@funindex eses
-@funindex isis
-
-Fogalomtár: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}, @rglos{accidental}.
-
-@notation{Keresztes} hangot a hang neve után közvetlenül @code{is} utótagot
-írva kapunk, @notation{bés} hangot pedig @code{es}-t írva. Értelemszerűen
-@notation{kettős kereszt} és @notation{kettős bé} rendre @code{isis} és
-@code{eses} hozzáadásával írható le. Ez a szabály az északi és a germán
-nyelvek elnevezési hagyományaiból ered. Más megnevezésű
-@notation{módosítójelek} használata a @ruser{Note names in other languages}
-c. fejezetben van leírva.
-
-@lilypond[verbatim,quote,relative=2]
-cis1 ees fisis, aeses
-@end lilypond
-
-@subheading Előjegyzés
-
-@cindex előjegyzés
-@cindex dúr
-@cindex moll
-@cindex előjegyzés és módosítójelek
-@cindex hangzás és lejegyzés különbsége
-
-@funindex \key
-@funindex key
-@funindex \major
-@funindex major
-@funindex \minor
-@funindex minor
-
-Fogalomtár: @rglos{key signature}, @rglos{major},
-@rglos{minor}.
-
-Az @notation{előjegyzés} a @code{\key} parancs segítségével állítható be,
-melyet a hangnem alaphangja és színezete (dúr: @code{\major} vagy
-moll: @code{\minor}) követ.
-
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-a1
-\key c \minor
-a
-@end lilypond
-
-@smallspace
-
-@subheading Figyelmeztetés az előjegyzés és a módosítójelek viszonyával kapcsolatban
-
-Fogalomtár: @rglos{accidental}, @rglos{key signature},
-@rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
-@rglos{transposition}.
-
-A @notation{módosítások}, az @notation{előjegyzés} és az ütemvonalak
-együttesen határozzák meg, hogy milyen @notation{módosítójelek} jelennek meg
-a kottában. A LilyPond forrásfájlban az előjegyzés után is ki kell tenni
-a megfelelő módosításokat! Ez a viselkedés elsőre zavart okozhat, úgyhogy
-bővebb magyarázatra szorul.
-
-A LilyPond különbséget tesz a zenei tartalom és megjelenés, azaz a hangzó
-és a lejegyzett zene között. A módosítás (hogy egy hang fel van-e emelve
-vagy le van-e süllyesztve) a hangmagassághoz tartozik, így a zenei tartalom
-része. Az, hogy a kottában a hang előtt szerepel-e egy kereszt, feloldójel
-vagy bé, a lejegyzéshez tartozik. A kotta lejegyzésének szigorú szabályai
-vannak, és a módosítójelek előállításánál a LilyPond intelligens módon
-ezeket a szabályokat követi. A hangmagasságokat a felhasználó határozza meg:
-mindig azt kell pontosan leírni, amit az ember hall.
-
-Ebben a példában:
-
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-d cis fis
-@end lilypond
-
-@noindent
-egyik hang előtt sincs a kottában módosítójel, de ettől a LilyPond
-forrásfájlban még ki kell rakni az @code{is}
-utótagokat, hiszen cisz és fisz hang szól.
-
-Ha leírunk egy @code{b}-t, azaz egy h hangot, az nem azt jelenti, hogy
-@qq{a megfelelő vonalra egy kottafejet kell írni}, hanem azt, hogy
-@qq{itt egy h hang szól}. Pl. Asz-dúrban a h hang elé kerül módosítójel:
-
-@lilypond[verbatim,quote,relative=2]
-\key aes \major
-b
-@end lilypond
-
-Az, hogy minden módosítást külön meg kell adni, csak kevés többletmunkát
-igényel a begépelésnél, de több előnye van: könnyebb a
-@notation{transzponálás}, valamint a konkrét kiírt módosítójelek többfajta
-rendszer szerint határozhatóak meg. Ezekre a rendszerekre látható néhány példa
-az @ruser{Automatic accidentals} c. fejezetben.
-
-
-@seealso
-Referencia: @ruser{Note names in other languages},
-@ruser{Módosítójelek}, @ruser{Automatic accidentals},
-@ruser{Key signature}.
-
-Fogalomtár: @rglos{Pitch names}.
-
-
-@node Átkötés és kötőív
-@subsection Átkötés és kötőív
-@translationof Ties and slurs
-
-@cindex átkötés
-@cindex kötőív
-@cindex frazeálóív
-
-@funindex ~
-@funindex ( ... )
-@funindex \( ... \)
-
-@subheading Átkötés
-
-
-Fogalomtár: @rglos{tie}.
-
-@notation{Átkötött} hangot úgy kaphatunk, hogy a hang után egy @code{~}
-karaktert írunk.
-
-@lilypond[verbatim,quote,relative=2]
-g4~ g c2~
-c4 ~ c8 a8 ~ a2
-@end lilypond
-
-@subheading Kötőív
-
-
-Fogalomtár: @rglos{slur}.
-
-A @notation{kötőív} egy dallamot összefogó ív. Kezdőhangja után
-@code{(}, záróhangja után @code{)} írandó.
-
-@lilypond[verbatim,quote,relative=2]
-d4( c16) cis( d e c cis d) e( d4)
-@end lilypond
-
-@subheading Frazeálóív
-
-Fogalomtár: @rglos{slur}, @rglos{phrasing}.
-
-A @notation{frázisokat} jelölő ívek elejét és végét a @code{\(} és
-@code{\)} jelek határozzák meg. Szerepelhet egyszerre kötőív és frazeálóív,
-de egyszerre két kötőív vagy két frazeálóív nem.
-
-@lilypond[verbatim,quote,relative=2]
-a8(\( ais b c) cis2 b'2 a4 cis,\)
-@end lilypond
-
-@smallspace
-
-@cindex kötőív és átkötés különbsége
-@subheading Figyelmeztetés az átkötés és kötőív viszonyával kapcsolatban
-
-Fogalomtár: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
-
-A @notation{kötőív} kinézetre hasonlít az @notation{átkötéshez}, de más a
-jelentése. Az átkötés egy hang hosszát toldja meg a következő, ugyanolyan
-magasságú hangéval. A kötőív egy dallam @notation{artikulációját} határozza
-meg, és több hangot átívelhet. Természetesen egy kötőíven belül lehetnek
-átkötött hangok.
-
-@lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4 ~ fis2 g2)
-@end lilypond
-
-
-@seealso
-Referencia: @ruser{Átkötés}, @ruser{Kötőív},
-@ruser{Frazeálóív}.
-
-
-@node Artikuláció és dinamika
-@subsection Artikuláció és dinamika
-@translationof Articulation and dynamics
-
-
-@subheading Artikuláció
-
-@cindex artikuláció
-@cindex hangsúly
-@cindex staccato
-
-Fogalomtár: @rglos{articulation}.
-
-Egy hang @notation{artikulációját} egy gondolatjel (@code{-}) után írt megfelelő
-karakterrel lehet jelezni, pl. a staccatóhoz @code{-.} írandó a hang után:
-
-@lilypond[verbatim,quote,relative=2]
-c-. c-- c-> c-^ c-+ c-_
-@end lilypond
-
-@subheading Ujjrend
-
-@cindex fingering
-
-@funindex ^
-@funindex _
-
-Fogalomtár: @rglos{fingering}.
-
-Hasonlóan az artikulációhoz, az @notation{ujjrend} a hang után írt
-gondolatjellel (@code{-}) és számmal jelezhető:
-
-@lilypond[verbatim,quote,relative=2]
-c-3 e-5 b-2 a-1
-@end lilypond
-
-Az artikulációs jelzések és ujjrendek automatikusan a hang helyes oldalára
-kerülnek, de ez felülírható, ha a gondolatjelet (@code{-}) kicseréljük
-@code{^} vagy @code{_} karakterre, ami azt jelenti, hogy a jelzés az előbbi
-esetben mindig a hang felett, ill. az utóbbi esetben mindig a hang alatt fog
-elhelyezkedni. Egy hangon több artikulációs jel is lehet. Mindazonáltal a
-legtöbb esetben legjobb, ha a LilyPond határozza meg, melyik oldalra
-kerüljenek a jelzések.
-
-@lilypond[verbatim,quote,relative=2]
-c_-^1 d^. f^4_2-> e^-_+
-@end lilypond
-
-@subheading Dinamika
-
-@cindex dinamika
-@cindex decrescendo
-@cindex crescendo
-
-@funindex \f
-@funindex \ff
-@funindex \mp
-@funindex \p
-@funindex \mf
-@funindex \pp
-@funindex \<
-@funindex <
-@funindex \>
-@funindex >
-@funindex \!
-@funindex !
-
-Fogalomtár: @rglos{dynamics}, @rglos{crescendo},
-@rglos{decrescendo}.
-
-@notation{Dinamikai jelzések} kottába írásához a megfelelő rövidítést kell
-@code{\} karakterrel együtt azon hang után írni, amelytől kezdve érvényes:
-
-@lilypond[verbatim,quote,relative=2]
-c\ff c\mf c\p c\pp
-@end lilypond
-
-A @notation{crescendo} és @notation{decrescendo} a @code{\<}, ill. @code{\>}
-paranccsal kezdődik, és a következő dinamikai jelzésnél vagy a @code{\!}
-parancsnál fejeződik be:
-
-@lilypond[verbatim,quote,relative=2]
-c2\< c2\ff\> c2 c2\!
-@end lilypond
-
-
-@seealso
-Referencia: @ruser{Articulations and ornamentations},
-@ruser{Fingering instructions}, @ruser{Dinamika}.
-
-
-@node Szöveges utasítások
-@subsection Szöveges utasítások
-@translationof Adding text
-
-@cindex szöveg
-@cindex formázott szöveg
-
-@funindex \markup
-@funindex markup
-
-A hangokhoz a következő módon lehet szöveges jelzéseket rendelni:
-
-@lilypond[verbatim,quote,relative=2]
-c1^"espr" a_"legato"
-@end lilypond
-
-Ez nem dalszöveg, hanem szöveges előadási utasítások bevitelére szolgál!
-Formázott szöveget a @code{\markup} blokkon belülre kell elhelyezni:
-
-@lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr}
-a1_\markup{
-  \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
-}
-@end lilypond
-
-
-@seealso
-Referencia: @ruser{Writing text}.
-
-
-@node Automatikus és kézi gerendázás
-@subsection Automatikus és kézi gerendázás
-@translationof Automatic and manual beams
-
-@cindex gerendázás
-@cindex automatikus gerendázás
-@cindex kézi gerendázás
-@cindex gerendázás, automatikus
-@cindex gerendázás, kézi
-
-@funindex [ ... ]
-@funindex [
-@funindex ]
-@funindex \autoBeamOff
-@funindex autoBeamOff
-@funindex \autoBeamOn
-@funindex autoBeamOn
-
-Fogalomtár: @rglos{beam}.
-
-A @notation{gerendák} automatikus elhelyezéséről a LilyPond gondoskodik:
-
-@lilypond[verbatim,quote,relative=2]
-a8 ais d ees r d c16 b a8
-@end lilypond
-
-Amennyiben az automatikus gerendázás nem megfelelő, kézzel felüldefiniálható.
-Ha egyszeri alkalommal kell a gerendázást megváltoztatni, a gerenda első
-hangja után @code{[}, az utolsó hangja után @code{]} írandó.
-
-@lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] a b
-@end lilypond
-
-Az automatikus gerendázás kikapcsolására az @code{\autoBeamOff} parancs
-szolgál. Egészen addig tart a hatása, amíg vissza nem kapcsoljuk az
-automatikus gerendázást az @code{\autoBeamOn} segítségével.
-
-@lilypond[verbatim,quote,relative=2]
-\autoBeamOff
-a8 c b4 d8. c16 b4
-\autoBeamOn
-a8 c b4 d8. c16 b4
-@end lilypond
-
-
-@seealso
-Referencia: @ruser{Automatic beams}, @ruser{Manual beams}.
-
-
-@node Haladó ritmikai parancsok
-@subsection Haladó ritmikai parancsok
-@translationof Advanced rhythmic commands
-
-@subheading Felütés
-
-@cindex felütés
-@cindex csonkaütem
-
-@funindex \partial
-@funindex partial
-
-Fogalomtár: @rglos{anacrusis}.
-
-@notation{Felütés} a @code{\partial} kulcsszó segítségével kapható.
-A parancs után egy ritmusértéket kell írni: @code{\partial 4} egy
-negyed értékű felütést, @code{\partial 8} egy nyolcad értékű felütést
-eredményez.
-
-@lilypond[verbatim,quote,relative=2]
-\partial 8
-f8 c2 d
-@end lilypond
-
-@subheading n-olák
-
-@cindex triola
-@cindex n-ola
-
-@funindex \times
-@funindex times
-
-Fogalomtár: @rglos{note value}, @rglos{triplet}.
-
-Triolák, kvintolák stb. (általánosan @notation{n-olák}) a @code{\times}
-kulcsszóval írhatóak le. A parancs után egy törtszámot és egy dallamot kell
-írni: a dallamban a hangok hosszúságai a törtszámmal szorzódnak meg. Például
-a @notation{triolák} lejegyzett hosszúságuk 2/3 részéig szólnak, így triolánál
-2/3 kell, hogy legyen a tört értéke.
-
-@lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
-@end lilypond
-
-@subheading Előkék
-
-@cindex előke
-@cindex acciaccatura
-@cindex appoggiatura
-
-@funindex \grace
-@funindex grace
-@funindex \acciaccatura
-@funindex acciaccatura
-@funindex \appoggiatura
-@funindex acciaccatura
-
-Fogalomtár: @rglos{grace notes}, @rglos{acciaccatura},
-@rglos{appoggiatura}.
-
-Az @notation{előkéket} a @code{\grace} parancs jelöli. Súlyos előkék előtt
-az @code{\appoggiatura}, súlytalanok előtt az @code{\acciaccatura} parancs
-áll:
-
-@lilypond[verbatim,quote,relative=2]
-c2 \grace { a32[ b] } c2
-c2 \appoggiatura b16 c2
-c2 \acciaccatura b16 c2
-@end lilypond
-
-
-@seealso
-Referencia: @ruser{Előkék}, @ruser{n-olák},
-@ruser{Upbeats}.
-
-
-@node Több hang egyszerre
-@section Több hang egyszerre
-@translationof Multiple notes at once
-
-Ebben a szakaszban annak a lehetőségeit vizsgáljuk meg, hogyan lehet
-többszólamú zenét írni a LilyPondban. Ebbe beletartozik a több hangszerre,
-több kottasort elfoglaló hangszerre (pl. zongorára) írt művek, valamint
-akkordok lejegyzése.
-
-A @notation{polifónia} szót ezentúl annak a speciális esetnek a megnevezésére
-használjuk, amikor egy vonalrendszeren belül több szólam szerepel.
-
-@menu
-* A zenei kifejezés fogalma::
-* Több kottasor::
-* Kottasor-csoport::
-* Hangok akkordba foglalása::
-* Több szólam egy kottasoron belül::
-@end menu
-
-
-@node A zenei kifejezés fogalma
-@subsection A zenei kifejezés fogalma
-@translationof Music expressions explained
-
-@cindex zenei kifejezés
-@cindex kifejezés, zenei
-@cindex összetett zenei kifejezés
-@cindex zenei kifejezés, összetett
-
-A LilyPond bemeneti fájljaiban a zene @emph{zenei kifejezésekből} épül fel.
-Egy hang már egy kifejezés:
-
-@lilypond[verbatim,quote,relative=2]
-a4
-@end lilypond
-
-Ha több hangot kapcsos zárójelbe teszünk, egy @emph{összetett zenei
-kifejezés} jön létre. Az alábbi példában az összetett zenei kifejezés
-két hangból áll:
-
-@lilypond[verbatim,quote,relative=2]
-{ a4 g4 }
-@end lilypond
-
-A kapcsos zárójel azt jelenti, hogy a benne szereplő zenei kifejezések egymás
-után következnek: mindegyik akkor kezdődik, amikor az előtte álló befejeződik.
-A zenei kifejezések egymásba ágyazhatóak:
-
-@lilypond[verbatim,quote,relative=2]
-{ { a4 g } f g }
-@end lilypond
-
-@subheading Analógia: matematikai kifejezések
-
-Ez a mechanizmus a matematikai képletekhez hasonló: egy nagy képlet
-sok kicsi képletből, vagyis kifejezésből épül fel, melyek további
-kifejezéseket tartalmazhatnak, és így tetszőleges bonyolultságú kifejezések
-létrehozhatóak. Például:
-
-@example
-1
-
-1 + 2
-
-(1 + 2) * 3
-
-((1 + 2) * 3) / (4 * 5)
-@end example
-
-Ebben a sorozatban minden kifejezés a következő kifejezésben egy nagyobb
-kifejezés részeként szerepel. A legegyszerűbb kifejezések a számok, összetett
-kifejezéseket pedig úgy hozhatunk létre, hogy meglevő kifejezéseket
-műveletekkel (mint pl. @code{+}, @code{*} vagy @code{/}) és zárójelekkel
-kombinálunk össze. Akárcsak a matematikai kifejezések, a zenei kifejezések is
-tetszőleges mélységig egymásba ágyazhatóak, és éppen erre van szükség
-többszólamú zene esetén.
-
-
-@subheading Egyidejű zenei kifejezések: több kottasor
-
-@cindex több kottasor
-@cindex kottasor
-@cindex vonalrendszer
-@cindex polifónia
-@cindex párhuzamos kifejezések
-@cindex kifejezések, párhuzamos
-@cindex relatív mód és párhuzamos kifejezések
-
-@funindex <<
-@funindex >>
-@funindex << ... >>
-
-Fogalomtár: @rglos{polyphony}.
-
-A fent leírt technikát alkalmazzuk @notation{polifónia} lejegyzésénél.
-Több kottasort vagy több kottasoron belüli szólamot tartalmazó zenénél
-párhuzamosan (egyidejűen) kell összekombinálni a kifejezéseket.
-Annak a jelzésére, hogy több szólam egyszerre kezd játszani,
-@code{<<} és @code{>>} közé kell foglalni őket; ez jelenti azt, hogy
-nem egymás után, hanem @q{egy időben kezdődnek}. A következő példában
-három dallamot (ezek mindegyike két hangból áll) kombinálunk össze
-három szólammá:
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  <<
-    { a4 g }
-    { f e }
-    { d b }
-  >>
-}
-@end lilypond
-
-Amikor egy kifejezés egy másik kifejezésen belül szerepel, érdemes
-eggyel nagyobb behúzással kezdeni. A LilyPondnak ez nem számít,
-de a LilyPond forrásfájlt olvasó emberek számára áttekinthetőbb lesz
-a bemenet.
-
-@warning{Relatív módban minden hang magasságát a forrásfájlban őt megelőző
-hanghoz képest számítja ki a LilyPond, nem pedig az első @code{\relative}
-parancs viszonyítási hangjához képest.}
-
-
-@subheading Egyidejű zenei kifejezések: egy kottasor
-
-A LilyPond onnan állapítja meg, hogy egy vagy több kottasor szerepel-e a
-darabban, hogy az első kifejezés többszólamú-e. Ha nem, egy kottasort
-hoz létre, ha igen, többet.
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  c2 <<c e>>
-  << { e f } { c <<b d>> } >>
-}
-@end lilypond
-
-@node Több kottasor
-@subsection Több kottasor
-@translationof Multiple staves
-
-@cindex több kottasor
-@cindex kottasor, több
-@cindex kontextus
-
-@funindex \new Staff
-@funindex new Staff
-@funindex Staff
-@funindex \new
-@funindex new
-@funindex Score
-@funindex Voice
-@funindex Lyrics
-@funindex ChordNames
-
-Ahogy azt az előző, @ref{A zenei kifejezés fogalma} c. szakaszban láttuk,
-a LilyPond bemeneti fájljai zenei kifejezésekből épülnek fel, és ha egy
-párhuzamos kifejezés az első, akkor több kottasorból áll a mű. Jobban látható,
-hogy mi történik, ha világosan megmondjuk, mi szerepeljen külön kottasorban.
-és mi nem.
-
-Egy kottasor kézzel történő létrehozásához a zenei kifejezés elé
-@code{\new Staff} parancsot kell írni.
-Az így kapott kottasorokat, ahogy már megszoktuk, a @code{<<} és
-@code{>>} jelekkel kell összekombinálni:
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  <<
-    \new Staff { \clef treble c }
-    \new Staff { \clef bass c,, }
-  >>
-}
-@end lilypond
-
-A @code{\new} parancs egy új @q{kontextus} létrehozására szolgál.
-Egy kontextus egy zárt környezet, amely zenei eseményeket
-(pl. hangokat vagy a @code{\clef} paranccsal jelölt kulcsokat) tartalmaz.
-Egyszerűbb esetekben sok környezet automatikusan létrejön. Bonyolultabb
-műveknél érdemes ezeket a környezeteket kézzel létrehozni.
-
-Sokfajta környezet létezik. Többek között a @code{Score} (kotta),
-@code{Staff} (kottasor) és @code{Voice} (szólam) környezetek tartalmazhatnak
-dallamokat, míg a @code{Lyrics} (dalszöveg) környezet dalszöveget
-tartalmazhat, a @code{ChordNames} (akkordnevek) környezet pedig akkordok
-neveit tartalmazhatja.
-
-A nyelvtanban a @code{\new} parancs egy zenei kifejezés elé fűzve
-egy nagyobb zenei kifejezésnek számít. Bizonyos szempontból a negatív
-előjelre hasonlít a matematikában. A @math{(4+5)} képlet egy kifejezés,
-így a @math{-(4+5)} képlet egy nagyobb kifejezés.
-
-Egy kottasorban elhelyezett ütemmutató minden más kottasorra is hat
-alapesetben. Ugyanakkor az egy kottasorban szereplő előjegyzés
-@emph{nem} hat a többi kottasorra. Ez azért az alapértelmezett viselkedés,
-mert a transzponáló hangszereket tartalmozó és a politonális zene gyakoribb,
-mint a poliritmikus.
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  <<
-    \new Staff { \clef treble \key d \major \time 3/4 c }
-    \new Staff { \clef bass c,, }
-  >>
-}
-@end lilypond
-
-
-
-
-@node Kottasor-csoport
-@subsection Kottasor-csoport
-@translationof Staff groups
-
-@cindex zongoraszólam
-@cindex kórusszólam
-
-@funindex PianoStaff
-@funindex GrandStaff
-@funindex ChoirStaff
-
-Fogalomtár: @rglos{brace}.
-
-A zongoramuzsikát két összekapcsolt kottasorban szokás lejegyezni.
-Egy zongoraszólam így hasonló a @ref{Több kottasor} c. szakaszban
-szereplő több kottasort tartalmazó példához, csak most az egész párhuzamos
-kifejezés egy @code{PianoStaff} kontextuson belül szerepel:
-
-@example
-\new PianoStaff <<
-  \new Staff @dots{}
-  \new Staff @dots{}
->>
-@end example
-
-Egy rövid zongoradarab-részlet:
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e g g, }
-    \new Staff { \clef bass c,, c' e c }
-  >>
-}
-@end lilypond
-
-Másfajta kottasor-csoportok is léteznek: a zenekari szólamok összekapcsolására
-használatos @code{\new GrandStaff} vagy a kórusszólamok csoportosítására
-szolgáló @w{@code{\new ChoirStaff}}. Ezek hasonló kontextusok, mint a
-@code{\new PianoStaff}, csak másfajta kapcsot használnak, és máshogy kötik
-össze az ütemvonalakat.
-
-
-@seealso
-Referencia: @ruser{Keyboard and other multi-staff instruments},
-@ruser{Displaying staves}.
-
-
-@node Hangok akkordba foglalása
-@subsection Hangok akkordba foglalása
-@translationof Combining notes into chords
-
-@cindex akkordok
-@cindex ritmusérték, akkordok
-
-@funindex <
-@funindex >
-@funindex < ... >
-
-Fogalomtár: @rglos{chord}.
-
-Korábban láttuk, hogyan lehet több szólamot elérni dupla kacsacsőrök
-használatával. Ehhez hasonló az akkordok leírása: az akkord hangjait
-@emph{egyszeres} kacsacsőrök közé kell zárni. Mivel egy akkord minden
-hangja ugyanannyi ideig tart, az akkord ritmusértékét nem az egyes
-akkordhangok, hanem a záró kacsacsőr után kell megadni.
-
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g>4 <c f a>2
-@end lilypond
-
-Az akkordokra érdemes úgy gondolni, mint az egyes hangokra:
-szinte minden, amit egy hanghoz lehet rendelni, az egy egész akkordhoz is
-rendelhető, ha a kacsacsőrökön @emph{kívül} helyezzük el.
-Például így lehet átkötött vagy másképpen gerendázott akkordokat elérni:
-a megfelelő jelzések a kacsacsőrök után szerepelnek.
-
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
-@end lilypond
-
-
-@node Több szólam egy kottasoron belül
-@subsection Több szólam egy kottasoron belül
-@translationof Single staff polyphony
-
-@cindex polifónia
-@cindex több szólam egy kottasoron belül
-@cindex kottasoron belüli szólamok
-@cindex láthatatlan szünet
-@cindex szünet, láthatatlan
-
-@funindex << ... \\ ... >>
-@funindex <<
-@funindex \\
-@funindex >>
-
-A polifónia, azaz egy kottasoron belüli szólamok lejegyzése, bár nem
-bonyolult jelenség, olyan fogalmak megértését feltételezi, amelyeket
-még nem tárgyaltunk. Ezt most sem fogjuk megtenni. Ehelyett a
-tankönyv megfelelő részére hivatkozunk, amely részletesen
-elmagyarázza a témakört.
-
-@seealso
-Tankönyv: @ref{A szólamok zenét tartalmaznak}.
-
-Referencia: @ruser{Simultaneous notes}.
-
-@node Dalok
-@section Dalok
-@translationof Songs
-
-Ez a szakasz a vokális zene és egyszerű dalok, valamint könnyűzenei számok
-lejegyzésébe nyújt betekintést.
-
-@menu
-* Egyszerű dalok kottázása::
-* Dalszöveg igazítása a dallamhoz::
-* Azonos dalszöveg több kottasorhoz::
-@end menu
-
-
-@node Egyszerű dalok kottázása
-@subsection Egyszerű dalok kottázása
-@translationof Setting simple songs
-
-@cindex dalszöveg
-@cindex dal
-
-@funindex \addlyrics
-@funindex addlyrics
-
-Fogalomtár: @rglos{lyrics}.
-
-Egy angol gyermekdal, a @notation{Girls and boys come out to play} így
-kezdődik:
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  \key g \major
-  \time 6/8
-  d4 b8 c4 a8 d4 b8 g4
-}
-@end lilypond
-
-@notation{Dalszöveget} legegyszerűbben úgy lehet hozzáadni a dallamhoz,
-hogy a dallam után írjuk az @code{\addlyrics} parancsot, majd a dalszöveget.
-Minden szótagot szóközzel kell elválasztani.
-
-@lilypond[verbatim,quote]
-<<
-  \relative c'' {
-    \key g \major
-    \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-  }
-  \addlyrics {
-    Girls and boys come out to play,
-  }
->>
-@end lilypond
-
-Mind a dallamot, mind a dalszöveget kapcsos zárójelbe kell tenni, az egész
-dalt pedig @w{@code{<< ... >>}} közé, mivel a zene és a szöveg egyszerre
-kezdődik.
-
-@node Dalszöveg igazítása a dallamhoz
-@subsection Dalszöveg igazítása a dallamhoz
-@translationof Aligning lyrics to a melody
-
-@cindex melizma
-@cindex aláhúzás
-@cindex kötőjel
-@cindex dalszöveg igazítása
-@cindex dalszöveg, többszótagú szavak
-
-Fogalomtár: @rglos{melisma}, @rglos{extender line}.
-
-A gyerekdal következő sora: @notation{The moon doth shine as bright as day}.
-Írjuk be ezt is:
-
-@lilypond[verbatim,quote]
-<<
-  \relative c'' {
-    \key g \major
-    \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c b a d4 b8 g4.
-  }
-  \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
-  }
->>
-@end lilypond
-
-A @notation{shine} szót két hangra kellene énekelni, így a dalszöveg nem
-illeszkedik helyesen a hangokra. Egy @notation{melizmát} kell létrehozni.
-Több lehetőség van arra, hogy egy szótagot több hangra elnyújtsunk; a
-legegyszerűbb, ha a melizma hangjait kötőívvel összekötjük (ld. az
-@ref{Átkötés és kötőív} szakaszt):
-
-@lilypond[verbatim,quote]
-<<
-  \relative c'' {
-    \key g \major
-    \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c( b) a d4 b8 g4.
-  }
-  \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
-  }
->>
-@end lilypond
-
-Most már a dalszöveg jól illeszkedik a dallamra, de az automatikus gerendázás
-az angolszász konvenció értelmében nem megfelelő a @notation{shine as}
-szavakon. Írjuk felül ezt kézzel (ld. az @ref{Automatikus és kézi gerendázás}
-szakaszt):
-
-@lilypond[verbatim,quote]
-<<
-  \relative c'' {
-    \key g \major
-    \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c([ b]) a d4 b8 g4.
-  }
-  \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine as bright as day;
-  }
->>
-@end lilypond
-
-A melizmát úgy adhatjuk meg másképp a kötőív helyett, hogy a dalszövegben
-annyi alulvonás karakterrel (@code{_}) látjuk el a szótagot, ahány hangra (az elsőt
-leszámítva) kiterjed:
-
-@lilypond[verbatim,quote]
-<<
-  \relative c'' {
-    \key g \major
-    \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c[ b] a d4 b8 g4.
-  }
-  \addlyrics {
-    Girls and boys come out to play,
-    The moon doth shine _ as bright as day;
-  }
->>
-@end lilypond
-
-Ha egy melizma nagyon hosszú, @notation{szótagjelző vonalat} szokás húzni,
-amíg a melizma tart. Ezt két alulvonással (@code{__}) jelezzük. Íme Purcell
-@notation{Dido és Aeneas} c. operájából @notation{Dido búcsúáriájának} első
-három üteme:
-
-@lilypond[verbatim,quote]
-<<
-  \relative c'' {
-    \key g \minor
-    \time 3/2
-    g2 a bes bes( a)
-    b c4.( bes8 a4. g8 fis4.) g8 fis1
-  }
-  \addlyrics {
-    When I am laid,
-    am laid __ in earth,
-  }
->>
-@end lilypond
-
-Eddig még egy példában sem szerepelt több szótagból álló szó.
-Általában minden szótagot külön hangra kell énekelni, a szótagok
-közé kötőjel kerül a kottában. Ezt a forrásfájlban két gondolatjel
-@code{--} jelzi. Következő példánkban mindaz szerepel, amit eddig
-megtanultunk a dallam és szöveg összekapcsolásáról:
-
-@c no ragged-right here because otherwise the hyphens get lost,
-@c but the example is long enough to avoid looking strange.
-@lilypond[verbatim,quote,noragged-right]
-<<
-  \relative c' {
-    \key g \major
-    \time 3/4
-    \partial 4
-    d4 g4 g a8( b) g4 g4
-    b8( c) d4 d e4 c2
-  }
-  \addlyrics {
-    A -- way in a __ man -- ger,
-    no __ crib for a bed, __
-  }
->>
-@end lilypond
-
-Más dalszövegeknél, főleg olasz nyelvűeknél, épp ennek ellenkezőjére van
-szükség: több szótagot kell egy hangra énekelni. Ezt úgy érhetjük el,
-hogy összekötjük a két szótagot egy alulvonás karakterrel (@code{_}),
-szóközök nélkül, vagy idézőjelbe rakjuk őket.
-Rossini operájának alábbi részletében, Figaro @notation{Largo al factotum}
-c. áriájában a @notation{Largo} szó @notation{go} szótagját és az
-@notation{al} szót ugyanarra a hangra kell énekelni:
-
-@c no ragged-right here because otherwise the hyphens get lost,
-@c but the example is long enough to avoid looking strange.
-@lilypond[verbatim,quote,noragged-right]
-<<
-  \relative c' {
-    \clef bass
-    \key c \major
-    \time 6/8
-    c4.~ c8 d b c([ d]) b c d b c
-  }
-  \addlyrics {
-    Lar -- go_al fac -- to -- tum del -- la cit -- tà
-  }
->>
-@end lilypond
-
-
-@seealso
-Referencia: @ruser{Vocal music}.
-
-
-@node Azonos dalszöveg több kottasorhoz
-@subsection Azonos dalszöveg több kottasorhoz
-@translationof Lyrics to multiple staves
-
-@cindex dalszöveg több szólamhoz
-
-Ha ugyanazt a dalszöveget akarjuk több szólamhoz rendelni,
-választhatjuk az egyszerű megközelítést, mint ebben a példában,
-mely Händel @notation{Júdás Makkabeus} c. oratóriumából való:
-
-@lilypond[verbatim,quote]
-<<
-  \relative c'' {
-    \key f \major
-    \time 6/8
-    \partial 8
-    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
-  }
-  \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn, __
-  }
-  \relative c' {
-    \key f \major
-    \time 6/8
-    \partial 8
-    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
-  }
-  \addlyrics {
-    Let flee -- cy flocks the hills a -- dorn,
-  }
->>
-@end lilypond
-
-Érdemes azonban a dalszöveget csak egyszer leírni, és később hivatkozni rá
-változók segítségével. Ez a módszer a @ref{Művek szervezettebbé tétele változók segítségével}
-c. szakaszban olvasható.
-
-@seealso
-Referencia: @ruser{Vocal music}.
-
-
-@node Utolsó simítások
-@section Utolsó simítások
-@translationof Final touches
-
-Ez gyakorlatunk befejező szakasza. Bemutatja, hogyan végezzük el az utolsó
-simításokat egyszerű műveken, valamint bevezetést nyújt a tankönyv további
-részébe.
-
-@menu
-* Művek szervezettebbé tétele változók segítségével::
-* Verziószám::
-* Cím és más adatok megadása::
-* Abszolút hangmagasság-megadás::
-* Az első lecke után::
-@end menu
-
-
-@node Művek szervezettebbé tétele változók segítségével
-@subsection Művek szervezettebbé tétele változók segítségével
-@translationof Organizing pieces with variables
-
-@cindex változók
-@cindex azonosítók
-@cindex makrók
-@cindex értékadás
-@cindex hozzárendelés
-@cindex újrafelhasználás
-@cindex hivatkozás
-@cindex változók, megengedett karakterek
-
-Amikor a fentebb tárgyalt elemeket hosszabb művekké kombináljuk össze,
-nagyon nagy és összetett zenei kifejezések állhatnak elő.
-Sok szólam esetén a bemeneti fájlok áttekinthetetlenekké válnak.
-Átláthatóságukat @emph{változók} használatával javíthatjuk.
-
-A változók (másnéven azonosítók vagy makrók) segítségével a komplex
-zenei kifejezéseket kisebb részekre bonthatjuk.
-Egy változóhoz a következőképpen rendelhetünk értéket:
-
-@example
-dallam = @{ @dots{} @}
-@end example
-
-A @code{dallam} nevű zenei kifejezés tartalma később bárhová beilleszthető.
-Ehhez csak egy @code{\} karaktert kell a neve elé írni (@code{\dallam},
-akárcsak egy LilyPond parancs esetén).
-
-@c KEEP LY
-@lilypond[verbatim,quote]
-hegedu = \new Staff {
-  \relative c'' {
-    a4 b c b
-  }
-}
-csello = \new Staff {
-  \relative c {
-    \clef bass
-    e2 d
-  }
-}
-{
-  <<
-    \hegedu
-    \csello
-  >>
-}
-@end lilypond
-
-@noindent
-A változók nevei csak az angol ábécé betűit tartalmazhatják. Nem
-tartalmazhatnak ékezetes karaktert, számot, aláhúzást, kötőjelet stb.
-
-A változókat azelőtt kell definiálni, mielőtt még hivatkoznánk rájuk,
-de később akármennyiszer felhasználhatjuk őket, így pl. könnyebben vihetünk
-be sokszor ismétlődő szakaszokat.
-Akár egy másik változó definíciójában is hivatkozhatunk egy korábbi
-változóra.
-
-@c KEEP LY
-@lilypond[verbatim,quote]
-triolaA = \times 2/3 { c,8 e g }
-utemA = { \triolaA \triolaA \triolaA \triolaA }
-
-\relative c'' {
- \utemA \utemA
-}
-@end lilypond
-
-Sok más típusú értéket is hozzárendelhetünk egy változóhoz. Például:
-
-@example
-szelesseg = 4.5\cm
-nev = "Wendy"
-AOtosLap = \paper @{ paperheight = 21.0 \cm @}
-@end example
-
-Tartalmától függően egy változó különböző helyeken használható fel.
-Az alábbi példa a fenti változókat hasznosítja újra:
-
-@example
-\paper @{
-  \AOtosLap
-  line-width = \szelesseg
-@}
-@{
-  c4^\name
-@}
-@end example
-
-
-@node Verziószám
-@subsection Verziószám
-@translationof Version number
-
-@cindex verzió
-@cindex verziószám
-@cindex frissítés
-
-@funindex \version
-@funindex version
-@funindex convert-ly
-
-A @code{\version} utasítással kell megadni, hogy a LilyPond melyik verziója
-számára készült a fájl:
-
-@example
-\version @w{"@version{}"}
-@end example
-
-@noindent
-Ezt megállapodás szerint a LilyPond fájl legelejére helyezzük.
-
-A verziómegjelölés célja, hogy a LilyPond későbbi verziójára való átállás
-minél zökkenőmentesebb legyen. A nyelvtanban bekövetkezett változásokat egy
-speciális program, a @command{convert-ly} képes kezelni, és a @code{\version}
-utasítás alapján állapítja meg, hogy milyen szabályok szerint frissítse a
-fájlt. Erről bővebb információ a @rprogram{Updating files with convert-ly}
-szakaszban található.
-
-@node Cím és más adatok megadása
-@subsection Cím és más adatok megadása
-@translationof Adding titles
-
-@cindex cím
-@cindex szerző
-@cindex fejléc
-@cindex metaadatok
-
-@funindex \header
-@funindex header
-
-A címet, szerzőt, opus-számot és hasonló adatokat a @code{\header}
-blokkban kell megadni. Ez a fő zenei kifejezésen kívül helyezendő el; a
-@code{\header} blokk általában a verziószám alatt szerepel.
-
-@example
-\version @w{"@version{}"}
-\header @{
-  title = "Szimfónia"
-  composer = "Én"
-  opus = "Op. 9"
-@}
-
-@{
-  @dots{} music @dots{}
-@}
-@end example
-
-Amikor a fájl feldolgozásra kerül, a cím és a szerző neve a kotta tetején
-jelenik meg nyomtatásban. A mű egyéb adatainak megadási módja és elhelyezése
-a @ruser{Creating titles} c. fejezetben található.
-
-
-@node Abszolút hangmagasság-megadás
-@subsection Abszolút hangmagasság-megadás
-@translationof Absolute note names
-
-@cindex hangmagasság
-@cindex abszolút hangnevek
-@cindex abszolút mód
-@cindex abszolút hangmagasság-megadás
-
-Eddig mindig @code{\relative} módban adtuk meg a hangmagasságot.
-Ez a legkönnyebb módja a legtöbb zenemű bevitelének, de létezik a
-hangmagasság megadásának egy másik módja is: az abszolút mód.
-
-A LilyPond a @code{\relative} blokk elhagyása esetén minden hangmagasságot
-abszolútként értelmez. A @code{c'} mindig az egyvonalas c hangot jelöli, a
-@code{b} az alatta levő hangot, a kis h-t, a @code{g,} pedig a nagy g-t.
-
-@lilypond[verbatim,quote]
-{
-  \clef bass
-  c' b g, g,
-  g, f, f c'
-}
-@end lilypond
-
-Íme egy négy oktávos skála:
-
-@lilypond[verbatim,quote]
-{
-  \clef bass
-  c, d, e, f,
-  g, a, b, c
-  d e f g
-  a b c' d'
-  \clef treble
-  e' f' g' a'
-  b' c'' d'' e''
-  f'' g'' a'' b''
-  c'''1
-}
-@end lilypond
-
-Amint az látható, a magas hangok beviteléhez sok @code{'} jel szükséges.
-Itt van például egy Mozart-idézet:
-
-@lilypond[verbatim,quote]
-{
-  \key a \major
-  \time 6/8
-  cis''8. d''16 cis''8 e''4 e''8
-  b'8. cis''16 b'8 d''4 d''8
-}
-@end lilypond
-
-A sok aposztróftól kevésbé lesz olvasható a bemenet, és így könnyebb hibázni.
-A @code{\relative} módban az előző példát sokkal könnyebb elolvasni és
-begépelni:
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  \key a \major
-  \time 6/8
-  cis8. d16 cis8 e4 e8
-  b8. cis16 b8 d4 d8
-}
-@end lilypond
-
-Ha relatív módban hibát vét az ember (eggyel több vagy kevesebb @code{'} vagy
-@code{,} jelet használ), a hiba azonnal szembetűnő -- a hibás hangtól kezdve
-minden hang elcsúszik egy oktávval. Abszolút módban az egyszeri hiba nem
-ilyen könnyen észrevehető, és nehezebb megtalálni.
-
-Az abszolút mód olyan dallamoknál lehet előnyös, amelyekben nagy
-hangközugrások vannak, de leginkább a LilyPond-fájlok
-számítógéppel történő generálásánál bizonyul különösen hasznosnak.
-
-
-@node Az első lecke után
-@subsection Az első lecke után
-@translationof After the tutorial
-
-Gratulálunk az alapok elsajátításához! Az első lecke befejezése után
-javasolt egy-két darab begépelésével nagyobb gyakorlatra szert tenni.
-Egy lehetőség például a @ref{Sablonok} használata.
-Ha valamilyen kottaelem ismertetésére még nem került volna sor, a
-Kottaírás kézikönyvéből kikereshető, a @ruser{Musical notation} fejezettől
-kezdve. A sablonok között nem szereplő hangszeregyüttes esetén érdemes
-@ref{A sablonok kibővítése} c. fejezetet elolvasni.
-
-Pár rövid darab megírása után következhetnek a tankönyv további fejezetei.
-Természetesen már most is elolvashatóak, de mivel nagyobb jártasságot
-feltételeznek a LilyPond nyelvében, tanácsos most ezeket átlapozni, és csak
-azután visszatérni rájuk, amikor már több tapasztalatot szerzett az ember.
-
-A tankönyv minden szakaszának végén található egy @strong{Lásd még} bekezdés
-is, mely más szakaszokra mutató kereszthivatkozásokat tartalmaz: ezeket első
-olvasásra nem praktikus követni, csak az egész tankönyv elolvasása után, az
-összefüggések meglátása végett.
-
-Minél előbb ajánlott elolvasni @ref{A dokumentációról} c. szakaszt.
-Mivel nagy mennyiségű segédanyag áll rendelkezésre a LilyPondról, az új
-felhasználók sokszor nem tudják, hova forduljanak segítségért. A
-dokumentációról szóló rész figyelmes elolvasása csak öt percbe kerül,
-de megelőzi azt, hogy az olvasó bosszantó órákat töltsön azzal, hogy rossz
-helyen keresgél.
+@node A kézikönyvek áttekintése
+@subsection A kézikönyvek áttekintése
+@translationof Overview of manuals
+
+A LilyPondhoz nagyon sok dokumentáció áll rendelkezésre.
+Az új felhasználóknak emiatt gyakran nem világos, hogy mely részeket
+kell elolvasniuk, és olykor alapvető fontosságú részeket hagynak ki.
+
+@warning{A dokumentáció fontos részeit erősen ajánlott elolvasni, különben
+a későbbi részek megértése jóval nehezebb lesz.}
+
+@itemize
+
+@item
+@strong{@emph{Legelőször is}}: a tankönyvből az @ref{Első lecke}, majd az
+@ref{Elemi kottaírás} fejezeteket kell elolvasni. Amennyiben egy zenei
+fogalom jelentése nem világos, a @rglosnamed{Top, Zenei fogalomtárban} lehet
+megkeresni.
+
+@item
+@strong{Egy teljes darab írása előtt}: a tankönyv @ref{Alapfogalmak} c.
+fejezetét javasolt elolvasni. Ezután a
+@rusernamed{Top, Kottaírás kézikönyvében} lehet az előforduló kottaelemek
+beviteli módját megnézni.
+
+@item
+@strong{Az alapértelmezett kimenet megváltoztatása előtt}:
+@ref{A kimenet finomhangolása} olvasandó el.
+
+@item
+@strong{Egy nagy mű bevitele előtt}: a program használatának kézikönyvéből a
+@rprogram{Tanácsok LilyPond bemeneti fájlok írásához} c. fejezetet érdemes elolvasni.
+
+@end itemize
