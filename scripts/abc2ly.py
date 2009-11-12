@@ -123,32 +123,45 @@ def alphabet (i):
     return chr (i + ord('A'))
     
 def check_clef(s):
+    # the number gives the base_octave
+    clefs = [("treble", "treble", 0),
+             ("treble1", "french", 0),
+             ("bass3", "varbaritone", 0),
+             ("bass", "bass", 0),
+             ("alto4", "tenor", 0),
+             ("alto2", "mezzosoprano", 0),
+             ("alto1", "soprano", 0),
+             ("alto", "alto", 0),
+             ("perc", "percussion", 0)]
+    modifier = [("-8va", "_8", -1),
+                ("-8", "_8", -1),
+                ("\+8", "^8", +1),
+                ("8", "_8", -1)]
+
     if not s:
         return ''
-    if re.match('-8va', s) or re.match('treble8', s):
-        # treble8 is used by abctab2ps; -8va is used by barfly,
-        # and by my patch to abc2ps. If there's ever a standard
-        # about this we'll support that.
-        s = s[4:]
-        state.base_octave = -1
-        voices_append("\\clef \"G_8\"\n")
-    elif re.match('^treble', s):
-        s = s[6:]
-        if re.match ('^-8', s):
-            s = s[2:]
-            state.base_octave = -2
-            voices_append("\\clef \"G_8\"\n")
-        else:
-            state.base_octave = 0
-            voices_append("\\clef treble\n")
-    elif re.match('^alto', s):
-        s = s[4:]
-        state.base_octave = -1
-        voices_append ("\\clef alto\n" )
-    elif re.match('^bass',s ):
-        s = s[4:]
-        state.base_octave = -2
-        voices_append ("\\clef bass\n" )
+    clef = None;
+    octave = 0;
+    for c in clefs:
+      m = re.match('^'+c[0], s)
+      if m:
+        (clef, octave) = (c[1], c[2])
+        s = s[m.end():]
+        break;
+    if not clef:
+      return s
+
+    mod = "";
+    for md in modifier:
+      m = re.match('^'+md[0], s)
+      if m:
+        mod = md[1];
+        octave += md[2];
+        s = s[m.end():]
+        break;
+
+    state.base_octave = octave
+    voices_append ("\\clef \""+clef+mod+"\"\n")
     return s
 
 def select_voice (name, rol):
