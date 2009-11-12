@@ -1373,7 +1373,7 @@ def get_option_parser ():
                   action='store')
     p.add_option ('-s', '--strict', help=_ ("be strict about success"),
                   action='store_true')
-    p.add_option ('-b', '--beams', help=_ ("preserve ABC's notion of beams"))
+    p.add_option ('-b', '--beams', help=_ ("preserve ABC's notion of beams"), action="store_true")
     p.add_option_group ('',
                         description=(
             _ ('Report bugs via %s')
