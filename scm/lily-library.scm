@@ -362,7 +362,9 @@
   Example: (split-at-predicate < '(1 2 3 2 1)) ==> ((1 2 3) . (2 1))"
   (if (null? lst)
       (list lst)
-      (let ((i (list-index pred (cdr lst) lst)))
+      (let ((i (list-index (lambda (x y) (not (pred x y)))
+			   lst
+			   (cdr lst))))
         (if i
             (cons (take lst (1+ i)) (drop lst (1+ i)))
             (list lst)))))
