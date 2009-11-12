@@ -357,7 +357,7 @@ sub lilypond_element_file_name($$$)
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
     }
-    return $filename;
+    return lc($filename);
 
   } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
     return;
@@ -378,10 +378,10 @@ sub lilypond_element_file_name($$$)
       $docnr += 1;
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
-      return $filename;
+      return lc($filename);
     } else {
       $$element{doc_nr} = $docnr;
-      return $lastfilename;
+      return lc($filename);
     }
   }
 
