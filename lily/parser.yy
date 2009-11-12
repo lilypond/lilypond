@@ -44,7 +44,7 @@ of the parse stack onto the heap. */
 
 or
 
-    \repeat { \repeat } \alternative 
+    \repeat { \repeat } \alternative
 */
 
 
@@ -151,8 +151,8 @@ void set_music_properties (Music *p, SCM a);
 
    FIXME: Bison needs to translate some of these, eg, STRING.
 
-*/	
-   
+*/
+
 /* Keyword tokens with plain escaped name.  */
 %token ACCEPTS "\\accepts"
 %token ADDLYRICS "\\addlyrics"
@@ -672,6 +672,8 @@ book_body:
 		push_paper (PARSER, $$->paper_);
 		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader"); 
 		PARSER->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-output-suffix"), SCM_BOOL_F);
+		PARSER->lexer_->set_identifier (ly_symbol2scm ("book-filename"), SCM_BOOL_F);
 	}
 	| BOOK_IDENTIFIER {
 		$$ = unsmob_book ($1);

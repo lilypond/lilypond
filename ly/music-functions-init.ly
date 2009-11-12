@@ -130,7 +130,7 @@ balloonGrobText =
 #(define-music-function (parser location grob-name offset text)
 			(symbol? number-pair? markup?)
   (_i "Attach @var{text} to @var{grob-name} at offset @var{offset}
-(use like @code{\\once})")
+use like @code{\\once})")
     (make-music 'AnnotateOutputEvent
 		'symbol grob-name
 		'X-offset (car offset)
@@ -169,7 +169,20 @@ bendAfter =
 #(define-music-function (parser location delta) (real?)
   (_i "Create a fall or doit of pitch interval @var{delta}.")
   (make-music 'BendAfterEvent
-   'delta-step delta))
+              'delta-step delta))
+
+bookOutputName =
+#(define-music-function (parser location newfilename) (string?)
+  (_i "Direct output for the current book block to @var{newfilename}.")
+  (set! book-filename newfilename)
+  (make-music 'SequentialMusic 'void #t))
+
+bookOutputSuffix =
+#(define-music-function (parser location newsuffix) (string?)
+  (_i "Set the output filename suffix for the current book block to
+@var{newsuffix}.")
+  (set! book-output-suffix newsuffix)
+  (make-music 'SequentialMusic 'void #t))
 
 %% why a function?
 breathe =
@@ -586,7 +599,7 @@ partcombine =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so that they share a staff.")
    (make-part-combine-music parser
-			    (list part1 part2)))
+                            (list part1 part2)))
 
 pitchedTrill =
 #(define-music-function
@@ -594,34 +607,31 @@ pitchedTrill =
    (ly:music? ly:music?)
    (_i "Print a trill with @var{main-note} as the main note of the trill and
 print @var{secondary-note} as a stemless note head in parentheses.")
-   (let*
-       ((get-notes (lambda (ev-chord)
-		     (filter
-		      (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
-		      (ly:music-property ev-chord 'elements))))
-	(sec-note-events (get-notes secondary-note))
-	(trill-events (filter (lambda (m) (music-has-type m 'trill-span-event))
-			      (ly:music-property main-note 'elements))))
+   (let* ((get-notes (lambda (ev-chord)
+                       (filter
+                        (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
+                        (ly:music-property ev-chord 'elements))))
+          (sec-note-events (get-notes secondary-note))
+          (trill-events (filter (lambda (m) (music-has-type m 'trill-span-event))
+                                (ly:music-property main-note 'elements))))
 
      (if (pair? sec-note-events)
-	 (begin
-	   (let*
-	       ((trill-pitch (ly:music-property (car sec-note-events) 'pitch))
-		(forced (ly:music-property (car sec-note-events ) 'force-accidental)))
+         (begin
+           (let* ((trill-pitch (ly:music-property (car sec-note-events) 'pitch))
+                  (forced (ly:music-property (car sec-note-events) 'force-accidental)))
 
-	     (if (ly:pitch? trill-pitch)
-		 (for-each (lambda (m) (ly:music-set-property! m 'pitch trill-pitch))
-			   trill-events)
-		 (begin
-		   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
-		   (display sec-note-events)))
+             (if (ly:pitch? trill-pitch)
+                 (for-each (lambda (m)
+                             (ly:music-set-property! m 'pitch trill-pitch)) trill-events)
+                 (begin
+                   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
+                   (display sec-note-events)))
 
-	     (if (eq? forced #t)
-		 (for-each (lambda (m) (ly:music-set-property! m 'force-accidental forced))
-			   trill-events)))))
+             (if (eq? forced #t)
+                 (for-each (lambda (m)
+                             (ly:music-set-property! m 'force-accidental forced))
+                           trill-events)))))
      main-note))
-
-
 
 quoteDuring =
 #(define-music-function
@@ -631,12 +641,10 @@ quoteDuring =
 of the quoted voice, as specified in an @code{\\addQuote} command.
 @var{main-music} is used to indicate the length of music to be quoted;
 usually contains spacers or multi-measure rests.")
-  (make-music 'QuoteMusic
-	      'element main-music
-	      'quoted-music-name what
-	      'origin location))
-
-
+   (make-music 'QuoteMusic
+               'element main-music
+               'quoted-music-name what
+               'origin location))
 
 removeWithTag =
 #(define-music-function

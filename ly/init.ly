@@ -12,14 +12,15 @@
 #(ly:set-option 'old-relative #f)
 #(define toplevel-scores (list))
 #(define toplevel-bookparts (list))
-#(define output-count 0) 
 #(define $defaultheader #f)
 #(define $current-book #f)
 #(define $current-bookpart #f)
 #(define version-seen #f)
-#(define expect-error #f) 
+#(define expect-error #f)
 #(define output-empty-score-list #f)
 #(define output-suffix #f)
+#(define book-filename #f)
+#(define book-output-suffix #f)
 #(use-modules (scm clip-region))
 \maininput
 %% there is a problem at the end of the input file
