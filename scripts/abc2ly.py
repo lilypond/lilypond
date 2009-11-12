@@ -680,16 +680,19 @@ def try_parse_header_line (ln, state):
         if g == 'K': # KEY
             a = check_clef(a)
             if a:
-                m = re.match ('^([^ \t]*) *(.*)$', a) # seperate clef info
+                m = re.match ('^([^ \t]*) *([^ ]*)( *)(.*)$', a) # seperate clef info
                 if m:
                     # there may or may not be a space
                     # between the key letter and the mode
-                    if key_lookup.has_key(m.group(2)[0:3]):
-                        key_info = m.group(1) + m.group(2)[0:3]
-                        clef_info = m.group(2)[4:]
+                    # convert the mode to lower-case before comparing
+                    mode = m.group(2)[0:3].lower();
+                    if key_lookup.has_key(mode):
+                        # use the full mode, not only the first three letters
+                        key_info = m.group(1) + m.group(2).lower()
+                        clef_info = a[m.start(4):]
                     else:
                         key_info = m.group(1)
-                        clef_info = m.group(2)
+                        clef_info = a[m.start(2):]
                     __main__.global_key  = compute_key (key_info)
                     k = lily_key (key_info)
                     if k:
