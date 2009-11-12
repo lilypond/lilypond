@@ -395,14 +395,13 @@ Page_layout_problem::find_system_offsets ()
 		  if (loose_lines.empty ())
 		    loose_lines.push_back (last_spaceable_line);
 
-		  loose_lines.push_back (staff);
 		  if (staff_idx)
 		    loose_line_min_distances.push_back (min_offsets[staff_idx-1] - min_offsets[staff_idx]);
 		  else
 		    {
 		      Real min_dist = 0;
-		      if (last_spaceable_line)
-			min_dist = Axis_group_interface::minimum_distance (last_spaceable_line,
+		      if (loose_lines.back ())
+			min_dist = Axis_group_interface::minimum_distance (loose_lines.back (),
 									   staff,
 									   Y_AXIS);
 		      else // distance to the top margin
@@ -410,6 +409,7 @@ Page_layout_problem::find_system_offsets ()
 
 		      loose_line_min_distances.push_back (min_dist);
 		    }
+		  loose_lines.push_back (staff);
 		}
 	    }
 
