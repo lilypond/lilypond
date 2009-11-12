@@ -255,19 +255,17 @@ def dump_voices (outf):
         outf.write ("\n}")
 
 def try_parse_q(a):
-    global midi_specs
-    #assume that Q takes the form "Q:1/4=120"
+    #assume that Q takes the form "Q:'opt. description' 1/4=120"
     #There are other possibilities, but they are deprecated
-    if a.count ('/') == 1:
-        array = a.split('/')
-        numerator=array[0]
-        if int(numerator) != 1:
-            sys.stderr.write("abc2ly: Warning, unable to translate a Q specification with a numerator of %s: %s\n" % (numerator, a))
-        array2 = array[1].split ('=')
-        denominator=array2[0]
-        perminute=array2[1]
-        duration = str (int (denominator) / int (numerator))
-        midi_specs = ' '.join(["\n\t\t\\context {\n\t\t \\Score tempoWholesPerMinute = #(ly:make-moment ", perminute, " ", duration, ")\n\t\t }\n"])
+    r = re.compile ('^(.*) *([0-9]+) */ *([0-9]+) *=* *([0-9]+)\s*')
+    m = r.match (a)
+    if m:
+        descr = m.group(1) # possibly empty
+        numerator = int(m.group (2))
+        denominator = int(m.group (3))
+        tempo = m.group (4)
+        dur = duration_to_lilypond_duration ((numerator,denominator), 1, 0)
+        voices_append ("\\tempo " + descr + " " + dur + "=" + tempo + "\n")
     else:
         sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
 
