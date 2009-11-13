@@ -320,10 +320,13 @@ If you like using font-lock, you can also add this to your
                     ))
 @end verbatim
 
+Some source files may not currently have proper indenting.  If this
+is the case, it is desirable to fix the improper indenting when the
+file is modified, with the hope of continually improving the code.
+
 @subsection Indenting files with emacs in script mode
 
 @c email to wl@gnu.org when I get here.
-@c should be moved to Indentation section
 
 @warning{this is pending some confirmation on -devel.  July 2009 -gp}
 
@@ -430,6 +433,28 @@ We reject broken-in-advance on principle.
 
 @subsection Naming
 
+Variable names should be complete words, rather than abbreviations.
+For example, it is preferred to use @code{thickness} rather than
+@code{th} or @code{t}.
+
+Multi-word variable names in C++ should have the words separated
+by the underscore character (@q{_}).
+
+Multi-word variable names in Scheme should have the words separated
+by a hyphen (@q{-}).
+
+@subsection Comments
+
+Comments may not be needed if descriptive variable names are used
+in the code and the logic is straightforward.  However, if the
+logic is difficult to follow, and particularly if non-obvious
+code has been included to resolve a bug, a comment describing
+the logic and/or the need for the non-obvious code should be included.
+
+There are instances where the current code could be commented better.
+If significant time is required to understand the code as part of
+preparing a patch, it would be wise to add comments reflecting your
+understanding to make future work easier.
 
 @subsection Messages
 
@@ -475,7 +500,7 @@ output strings (PostScript, TeX, etc.)
 @end itemize
 
 @item
-Messages to be localised must be encapsulated in `_ (STRING)' or
+Messages to be localized must be encapsulated in `_ (STRING)' or
 `_f (FORMAT, ...)'. E.g.:
 
 @example
@@ -588,7 +613,7 @@ _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
 @end example
 
 @item
-Do not modularise too much; words frequently cannot be translated
+Do not modularize too much; words frequently cannot be translated
 without context. It is probably safe to treat most occurences of
 words like stem, beam, crescendo as separately translatable words.
 
@@ -1018,10 +1043,48 @@ the status.
 
 FIXME -- this is a placeholder for a tutorial on iterators
 
+Iterators are routines written in C++ that process music expressions
+and sent the music events to the appropriate engravers and/or
+performers.
+
 @node Engraver tutorial
 @section Engraver tutorial
 
 FIXME -- This is a placeholder for a tutorial on how engravers work.
+
+Engravers are C++ classes that catch music events and
+create the appropriate grobs for display on the page.  Each different
+type of grob has its own engraver.
+
+A typical engraver has protected functions including some or all
+of the following:
+
+@itemize
+@item @code{start_translation_timestep ()}
+@item @code{process_music ()}
+@item @code{stop_translation_timestep ()}
+@item @code{derived_mark ()}
+@item @code{try_music ()}
+@end itemize
+
+There are also protected functions that are specific to particular
+engraver, as needed by the engraving process.
+
+External interfaces to to the engraver are implemented by protected
+macros including one or more of the following:
+
+@itemize
+@item @code{DECLARE_ACKNOWLEDGER (grob)}
+@item @code{DECLARE_TRANSLATOR_LISTENER (grob)}
+@item @code{DECLARE_END_ACKNOWLEDGER (grob)}
+@end itemize
+
+where @var{grob} is the
+type of grob with which the engraver works.
+These macros declare the kinds of grobs that will be processed by
+the engraver.
+
+
 
 @node Callback tutorial
 @section Callback tutorial
