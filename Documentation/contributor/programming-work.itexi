@@ -371,8 +371,9 @@ and pressing =.
 
 A scheme.vim file will help improve the indentation.  This one
 was suggested by Patrick McCarty.  It should be saved in
-~/.vim/after/syntax/scheme.vim
+~/.vim/after/syntax/scheme.vim.
 
+@verbatim
 " Additional Guile-specific 'forms'
 syn keyword schemeSyntax define-public define* define-safe-public
 syn keyword schemeSyntax use-modules define-module
@@ -395,6 +396,7 @@ set lw-=set!
 
 " Try to highlight all ly: procedures
 syn match schemeFunc "ly:[^) ]\+"
+@end verbatim
 
 @subsection Classes and Types
 
