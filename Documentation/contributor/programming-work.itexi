@@ -1065,6 +1065,7 @@ of the following:
 @item @code{stop_translation_timestep ()}
 @item @code{derived_mark ()}
 @item @code{try_music ()}
+@item @code{finalize ()}
 @end itemize
 
 There are also protected functions that are specific to particular
@@ -1079,12 +1080,38 @@ macros including one or more of the following:
 @item @code{DECLARE_END_ACKNOWLEDGER (grob)}
 @end itemize
 
+@noindent
 where @var{grob} is the
 type of grob with which the engraver works.
 These macros declare the kinds of grobs that will be processed by
 the engraver.
 
+An engraver will also generally have a public macro
 
+@itemize
+@item @code{TRANSLATOR_DECLARATIONS (Engraver_name)}
+@end itemize
+
+@noindent
+where @code{Engraver_name} is the name of the engraver.
+
+At the end of the engraver file, the following macros are generally
+called:
+
+@itemize
+@item @code{ADD_ACKNOWLEDGER (Engraver_name, grob)}
+@item @code{ADD_TRANSLATOR (Engraver_name, Engraver_doc,
+    Engraver_creates, Engraver_reads, Engraver_writes)}
+@end itemize
+
+@noindent
+where @code{Engraver_name} is the name of the engraver, @code{grob}
+is a placeholder for a grob that will be acknowledged,
+@code{Engraver_doc} is a docstring for the engraver,
+@code{Engraver_creates} is the grob created by the engraver,
+@code{Engraver_reads} is the set of properties read by the engraver,
+and @code{Engraver_writes} is the set of properties written by
+the engraver.
 
 @node Callback tutorial
 @section Callback tutorial
