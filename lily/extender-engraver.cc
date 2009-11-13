@@ -7,7 +7,6 @@
   Han-Wen Nienhuys <hanwen@xs4all.nl>,
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
-
 #include "context.hh"
 #include "engraver.hh"
 #include "international.hh"
@@ -18,6 +17,7 @@
 #include "stream-event.hh"
 #include "warn.hh"
 #include "spanner.hh"
+#include "paper-column.hh"
 
 #include "translator.icc"
 
@@ -28,6 +28,7 @@ class Extender_engraver : public Engraver
   Stream_event *ev_;
   Spanner *extender_;
   Spanner *pending_extender_;
+  bool current_lyric_is_skip_;
 
 public:
   TRANSLATOR_DECLARATIONS (Extender_engraver);
@@ -44,6 +45,7 @@ protected:
 
 Extender_engraver::Extender_engraver ()
 {
+  current_lyric_is_skip_ = false;
   extender_ = 0;
   pending_extender_ = 0;
   ev_ = 0;
@@ -70,7 +72,10 @@ Extender_engraver::acknowledge_lyric_syllable (Grob_info i)
   if (extender_)
     extender_->set_bound (LEFT, item);
 
-  if (pending_extender_)
+  SCM text = item->get_property ("text");
+  current_lyric_is_skip_ = ly_is_equal (text, scm_from_locale_string (" "));
+
+  if (pending_extender_ && !current_lyric_is_skip_)
     {
       pending_extender_->set_object ("next", item->self_scm ());
       completize_extender (pending_extender_);
@@ -94,17 +99,31 @@ Extender_engraver::stop_translation_timestep ()
 						 ly_symbol2scm ("heads"), h);
 	    }
 
-	  if (pending_extender_)
-	    {
-	      Pointer_group_interface::add_grob (pending_extender_,
-						 ly_symbol2scm ("heads"), h);
-             if (!melisma_busy (voice))
-               {
-                 completize_extender (pending_extender_);
-                 pending_extender_ = 0;
-               }
-	    }
-	}
+        if (pending_extender_)
+          {
+            Pointer_group_interface::add_grob (pending_extender_,
+                                              ly_symbol2scm ("heads"), h);
+            /*
+              The following check addresses the case where the lyrics end before
+              the associated voice. The current_lyric_is_skip_ check is
+              necessary to handle manual melismata, which should not result in
+              extenders being completized. We also need to make sure that we're not
+              in the middle of a note (happens when this function is called because
+              of an event in a voice other than our associated one).
+            */
+            if (!melisma_busy (voice) && !current_lyric_is_skip_)
+              {
+                Moment now = voice->now_mom ();
+                Paper_column *column = (dynamic_cast<Item *> (h))->get_column ();
+                Moment *start_mom = column ? unsmob_moment (column->get_property ("when")) : 0;
+                if (!column || (start_mom->main_part_ == now.main_part_))
+                  {
+                    completize_extender (pending_extender_);
+                    pending_extender_ = 0;
+                  }
+              }
+            }
+        }
       else
 	{
 	  if (pending_extender_

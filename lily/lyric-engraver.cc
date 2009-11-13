@@ -64,8 +64,11 @@ Lyric_engraver::process_music ()
 	  if (last_text_)
 	    last_text_->set_property ("self-alignment-X", scm_from_int (LEFT));
 	}
-      else
-	text_ = make_item ("LyricText", event_->self_scm ());
+      /*
+        "Empty" LyricText objects are needed to allow the Extender_engraver to
+        distinguish between the end of a lyrics block and manual melismata.
+      */
+      text_ = make_item ("LyricText", event_->self_scm ());
     }
 }
 

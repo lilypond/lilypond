@@ -25,6 +25,7 @@ class Hyphen_engraver : public Engraver
 
   Spanner *hyphen_;
   Spanner *finished_hyphen_;
+  bool current_lyric_is_skip_;
 
 public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
@@ -42,6 +43,7 @@ protected:
 
 Hyphen_engraver::Hyphen_engraver ()
 {
+  current_lyric_is_skip_ = false;
   hyphen_ = 0;
   finished_hyphen_ = 0;
   finished_ev_ = 0;
@@ -52,14 +54,16 @@ void
 Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
 {
   Item *item = i.item ();
+  SCM text = item->get_property ("text");
+  current_lyric_is_skip_ = ly_is_equal (text, scm_from_locale_string (" "));
   
-  if (!hyphen_)
+  if (!hyphen_ && !current_lyric_is_skip_)
     hyphen_ = make_spanner ("LyricSpace", item->self_scm ());
 
   if (hyphen_)
     hyphen_->set_bound (LEFT, item);
       
-  if (finished_hyphen_)
+  if (finished_hyphen_ && !current_lyric_is_skip_)
     finished_hyphen_->set_bound (RIGHT, item);
 }
 
@@ -127,7 +131,7 @@ Hyphen_engraver::stop_translation_timestep ()
       finished_ev_ = 0;
     }
   
-  if (finished_hyphen_ && hyphen_)
+  if (finished_hyphen_ && hyphen_ && !current_lyric_is_skip_)
     {
       programming_error ("hyphen not finished yet");
       finished_hyphen_ = 0;
