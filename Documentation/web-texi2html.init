@@ -110,6 +110,9 @@ sub ly_get_string () {
 ###  SETTINGS FOR TEXI2HTML
 #############################################################################
 
+# no bgcolor and link colors in <body> tag
+# in texi2html >=1.83, override $Texi2HTML::Config::html_default_bodytext instead
+$Texi2HTML::Config::BODYTEXT = "";
 # Validation fix for texi2html<=1.82
 $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 
