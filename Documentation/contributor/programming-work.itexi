@@ -10,6 +10,9 @@
 * Code style::
 * Debugging LilyPond::
 * Adding or modifying features::
+* Iterator tutorial::
+* Engraver tutorial::
+* Callback tutorial::
 @end menu
 
 @node Overview of LilyPond architecture
@@ -248,20 +251,6 @@ This will initiate a search of the remote git repository.
 
 @node Code style
 @section Code style
-@c email to wl@gnu.org when I get here.
-
-@warning{this is pending some confirmation on -devel.  July 2009 -gp}
-
-Command-line script to format stuff with emacs:
-
-@example
-#!/bin/sh
-emacs $1 -batch --eval '(indent-region (point-min) (point-max) nil)' -f save-buffer
-@end example
-
-(that's all on one line)
-
-Save it as a shell script, then run on the file(s) you modified.
 
 @menu
 @end menu
@@ -331,6 +320,81 @@ If you like using font-lock, you can also add this to your
                     ))
 @end verbatim
 
+@subsection Indenting files with emacs in script mode
+
+@c email to wl@gnu.org when I get here.
+@c should be moved to Indentation section
+
+@warning{this is pending some confirmation on -devel.  July 2009 -gp}
+
+Command-line script to format stuff with emacs:
+
+@example
+#!/bin/sh
+emacs $1 -batch --eval '(indent-region (point-min) (point-max) nil)' -f save-buffer
+@end example
+
+(that's all on one line)
+
+Save it as a shell script, then run on the file(s) you modified.
+
+@subsection Indenting with vim
+
+Although emacs indentation is the LilyPond standard, acceptable
+indentation can usually be accomplished with vim.  Some hints for
+vim are as follows:
+
+A workable .vimrc:
+
+@verbatim
+set cindent
+set smartindent
+set autoindent
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+filetype plugin indent on
+set incsearch
+set ignorecase smartcase
+set hlsearch
+set confirm
+set statusline=%F%m%r%h%w\ %{&ff}\ %Y\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ %04l,%04v\ %p%%\ [LEN=%L]
+set laststatus=2
+set number
+" Remove trailing whitespace on write
+autocmd BufWritePre * :%s/\s\+$//e
+@end verbatim
+
+With this .vimrc, files can be reindented automatically by highlihting
+the lines to be indented in visual mode (use V to enter visual mode)
+and pressing =.
+
+A scheme.vim file will help improve the indentation.  This one
+was suggested by Patrick McCarty.  It should be saved in
+~/.vim/after/syntax/scheme.vim
+
+" Additional Guile-specific 'forms'
+syn keyword schemeSyntax define-public define* define-safe-public
+syn keyword schemeSyntax use-modules define-module
+syn keyword schemeSyntax defmacro-public define-macro
+syn keyword schemeSyntax define-builtin-markup-command
+syn keyword schemeSyntax define-markup-command
+syn keyword schemeSyntax define-builtin-markup-list-command
+syn keyword schemeSyntax let-keywords* lambda* define*-public
+syn keyword schemeSyntax defmacro* defmacro*-public
+
+" All of the above should influence indenting too
+set lw+=define-public,define*,define-safe-public,use-modules,define-module
+set lw+=defmacro-public,define-macro,define-builtin-markup-command
+set lw+=define-markup-command,define-builtin-markup-list-command
+set lw+=let-keywords*,lambda*,define*-public,defmacro*,defmacro*-public
+
+" These forms should not influence indenting
+set lw-=if
+set lw-=set!
+
+" Try to highlight all ly: procedures
+syn match schemeFunc "ly:[^) ]\+"
 
 @subsection Classes and Types
 
@@ -391,7 +455,7 @@ Every message to the user should be localized (and thus be marked
 for localization). This includes warning and error messages.
 
 @item
-Don't localize/gettextify:
+Do not localize/gettextify:
 
 @itemize
 @item
@@ -946,3 +1010,19 @@ issue tracker for LilyPond, the author should change the status to
 the author does not have privileges to change the status, an email
 should be sent to bug-lilypond requesting the BugMeister to change
 the status.
+
+@node Iterator tutorial
+@section Iterator tutorial
+
+FIXME -- this is a placeholder for a tutorial on iterators
+
+@node Engraver tutorial
+@section Engraver tutorial
+
+FIXME -- This is a placeholder for a tutorial on how engravers work.
+
+@node Callback tutorial
+@section Callback tutorial
+
+FIXME -- This is a placeholder for a tutorial on callback functions.
+
