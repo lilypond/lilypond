@@ -259,6 +259,7 @@ test:
 	@echo
 	$(MAKE) -C input/regression/ out=test local-test
 	$(MAKE) -C input/regression/musicxml out=test local-test
+	$(MAKE) -C input/regression/abc2ly out=test local-test
 
 test-baseline: 
 	@if test -d .git ; then \
@@ -268,6 +269,7 @@ test-baseline:
 	$(MAKE) test
 	$(MAKE) out=test -C input/regression/ local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
+	$(MAKE) out=test -C input/regression/abc2ly local-test-baseline
 	$(MAKE) test-snippets-clean
 
 
