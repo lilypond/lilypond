@@ -1,0 +1,13 @@
+X: 1
+T: Various different clefs
+L: 1/4
+K: none
+CEGc | [K: C treble] CEGc |[K: Cm bass]CEGc |
+w: none | treble | bass |
+[K: C bass3]CEGc | [K: Cm alto4]CEGc| [K: C alto]CEGc |
+w: baritone | tenor | alto |
+[K: Cm alto2]CEGc | [K: C alto1]CEGc | [K: Cm treble-8]CEGc |
+w: mezzosoprano | soprano | treble-8 | 
+[K: C treble-8va]CEGc | [K: Cm treble+8]CEGc | [K: C treble8]CEGc |]
+w: treble-8va | treble+8 | treble8 | 
+
