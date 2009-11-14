@@ -11,8 +11,35 @@
 @node Introduction to website work
 @section Introduction to website work
 
-Short answer: don't do it yet.  We're completely revamping the
-website.
+The website is written is @emph{not} written directly in HTML;
+instead, the source is texinfo, which is then generated into HTML,
+pdf, and info formats.  The sources are
+
+@verbatim
+Documentation/general.texi
+Documentation/general/*.texi
+@end verbatim
+
+Unless otherwise specified, follow the instructions and policies
+given in @ref{Documentation work}.  That chapter also contains a
+quick introduction to texinfo; consulting an external texinfo
+manual should be not necessary.
+
+@subheading Exceptions to the documentation policies
+
+@itemize
+
+@item
+Sectioning: the website only uses chapters and sections; no
+subsections or subsubsections.
+
+@dots{}
+
+@item
+For anything not listed here, just follow the same style as the
+existing texinfo files.
+
+@end itemize
 
 
 @node Translating the website
