@@ -299,7 +299,7 @@ bookoutput function"
 (define (functional-or . rest)
   (if (pair? rest)
       (or (car rest)
-	   (apply functional-and (cdr rest)))
+	   (apply functional-or (cdr rest)))
       #f))
 
 (define (functional-and . rest)
