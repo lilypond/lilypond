@@ -8,7 +8,7 @@
 
 (define-builtin-markup-command (harp-pedal layout props definition-string) (string?)
   instrument-specific-markup ; markup type for the documentation!
-  ((size 1.0)
+  ((size 1.2)
    (harp-pedal-details)
    (thickness 0.5))
   "Make a harp pedal diagram.
@@ -66,7 +66,7 @@ divider) and @code{space-after-divider} (box spacing after the divider).
 ;;
 ;; (define-builtin-markup-command (harp-pedal-verbose layout props pedal-list) (list?)
 ;;   instrument-specific-markup ; markup type
-;;   ((size 1.0)
+;;   ((size 1.2)
 ;;    (harp-pedal-details)
 ;;    (thickness 0.5))
 ;;   "Make a harp pedal diagram containing the directions indicated in @var{pedal-list}."
