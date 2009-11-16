@@ -90,7 +90,10 @@ Tie_performer::start_translation_timestep ()
 void
 Tie_performer::stop_translation_timestep ()
 {
-  if (ties_created_)
+  // Clear tie information if we created ties. If we didn't create ties,
+  // We might have dangling open ties like c~ d. Close them, unless we have
+  // tieWaitForNote set...
+  if (ties_created_ || !to_boolean (get_property ("tieWaitForNote")))
     {
       heads_to_tie_.clear ();
       ties_created_ = false;
@@ -117,8 +120,8 @@ ADD_TRANSLATOR (Tie_performer,
 		"",
 
 		/* read */
-		"tieMelismaBusy",
+		"tieWaitForNote",
 
 		/* write */
-		""
+		"tieMelismaBusy"
 		);
