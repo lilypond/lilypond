@@ -19,7 +19,7 @@ midi.parse (s)
 
 returns a MIDI file as the tuple
 
- (format, division, TRACKLIST) 
+ ((format, division), TRACKLIST) 
 
 each track is an EVENTLIST, where EVENT is
 
