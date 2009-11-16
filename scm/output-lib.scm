@@ -140,18 +140,21 @@
 	 (letter (markup #:center-align #:vcenter pitch-string))
 	 (filled-circle (markup #:draw-circle radius 0 #t)))
 
-    (grob-interpret-markup
-     grob
-     (if (>= log 2)
-	 (make-combine-markup
-	  filled-circle
-	  (make-with-color-markup white letter))
-	 (make-combine-markup
+    (ly:stencil-translate-axis
+     (grob-interpret-markup
+      grob
+      (if (>= log 2)
 	  (make-combine-markup
 	   filled-circle
-	   (make-with-color-markup white (make-draw-circle-markup
-					  (- radius stem-thickness) 0 #t)))
-	  letter)))))
+	   (make-with-color-markup white letter))
+	  (make-combine-markup
+	   (make-combine-markup
+	    filled-circle
+	    (make-with-color-markup white (make-draw-circle-markup
+					   (- radius stem-thickness) 0 #t)))
+	   letter)))
+     radius X)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break visibility
