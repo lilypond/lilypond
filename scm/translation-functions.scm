@@ -370,13 +370,7 @@
 ;; Compute the text grob-property
 (define-public (fret-number-tablature-format string context event)
   (let* ((tuning (ly:context-property context 'stringTunings))
-	 (pitch (ly:event-property event 'pitch))
-	 (is-harmonic (apply
-		       functional-or
-		       (map
-			(lambda (ev)
-			  (eq? 'harmonic-event (ly:event-property ev 'class)))
-			(ly:event-property event 'articulations)))))
+	 (pitch (ly:event-property event 'pitch)))
 
     (make-whiteout-markup
      (make-vcenter-markup
