@@ -2386,6 +2386,51 @@ manually inserting@tie{}@code{!} and@tie{}@code{?} for the
 problematic notes.
 
 
+Cautionary cancellation of accidentals is done by looking at previous measure.
+However, in the @code{\alternative} block following a @code{\repeat volta N}
+section, one would expect the cancellation being calculated using the previous
+@emph{played} measure, not previous @emph{printed} measure.
+In the following example, the natural @code{c} in the second alternative does
+not need a natural sign:
+
+@lilypond[quote]
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     c'
+  }
+  \bar "|."
+}
+@end lilypond
+
+The following work-around can be used: define a function that locally changes
+the accidental style to @code{forget}:
+
+@lilypond[verbatim,quote]
+forget = #(define-music-function (parser location music) (ly:music?) #{
+  #(set-accidental-style 'forget)
+  $music
+  #(set-accidental-style 'modern)
+#})
+{
+  #(set-accidental-style 'modern)
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     \forget c'
+  }
+  \bar "|."
+}
+@end lilypond
+
 @node Ambitus
 @unnumberedsubsubsec Ambitus
 
