@@ -22,6 +22,8 @@ Spring::Spring (Real dist, Real min_dist)
 {
   distance_ = 1.0;
   min_distance_ = 1.0;
+  inverse_stretch_strength_ = 1.0;
+  inverse_compress_strength_ = 1.0;
 
   set_distance (dist);
   set_min_distance (min_dist);
