@@ -62,14 +62,18 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
       else
         now_heads_.push_back (inf);
 
-      for (vsize i = heads_to_tie_.size (); i--;)
-	{
-	  Stream_event *right_mus = inf.event_;
+      // Find a previous note that ties to the current note. If it exists, 
+      // remove it from the heads_to_tie vector and create the tie
+      vector<Audio_element_info>::iterator it;
+      bool found = false;
+      Stream_event *right_mus = inf.event_;
+      for ( it = heads_to_tie_.begin() ; (!found) && (it < heads_to_tie_.end()); it++ )
+        {
+	  Audio_element_info et = *it;
+	  Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
+	  Stream_event *left_mus = et.event_;
 
-	  Audio_note *th = dynamic_cast<Audio_note *> (heads_to_tie_[i].elem_);
-	  Stream_event *left_mus = heads_to_tie_[i].event_;
-
-	  if (right_mus && left_mus
+	  if (th && right_mus && left_mus
 	      && ly_is_equal (right_mus->get_property ("pitch"),
 			      left_mus->get_property ("pitch")))
 	    {
@@ -90,7 +94,6 @@ Tie_performer::start_translation_timestep ()
 void
 Tie_performer::stop_translation_timestep ()
 {
-  // Clear tie information if we created ties. If we didn't create ties,
   // We might have dangling open ties like c~ d. Close them, unless we have
   // tieWaitForNote set...
   if (ties_created_ || !to_boolean (get_property ("tieWaitForNote")))
