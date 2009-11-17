@@ -42,13 +42,15 @@ Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing)
 }
 
 void
-Audio_note::tie_to (Audio_note *t)
+Audio_note::tie_to (Audio_note *t, Moment skip)
 {
   tied_ = t;
   Audio_note *first = t;
   while (first->tied_)
     first = first->tied_;
-  first->length_mom_ += length_mom_;
+  // Add the skip to the tied note and the length of the appended note
+  // to the full duration of the tie...
+  first->length_mom_ += skip + length_mom_;
   length_mom_ = 0;
 }
 
