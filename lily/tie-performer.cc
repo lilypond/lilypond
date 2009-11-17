@@ -77,8 +77,11 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 	      && ly_is_equal (right_mus->get_property ("pitch"),
 			      left_mus->get_property ("pitch")))
 	    {
+	      found = true;
 	      an->tie_to (th);
 	      ties_created_ = true;
+	      // this invalidates the iterator, we are leaving the loop anyway
+	      heads_to_tie_.erase (it);
 	    }
 	}
     }
@@ -96,7 +99,7 @@ Tie_performer::stop_translation_timestep ()
 {
   // We might have dangling open ties like c~ d. Close them, unless we have
   // tieWaitForNote set...
-  if (ties_created_ || !to_boolean (get_property ("tieWaitForNote")))
+  if (!to_boolean (get_property ("tieWaitForNote")))
     {
       heads_to_tie_.clear ();
       ties_created_ = false;
