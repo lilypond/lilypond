@@ -20,8 +20,6 @@ class Tie_performer : public Performer
   vector<Audio_element_info> now_tied_heads_;
   vector<Audio_element_info> heads_to_tie_;
 
-  bool ties_created_;
-
 protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -35,7 +33,6 @@ public:
 Tie_performer::Tie_performer ()
 {
   event_ = 0;
-  ties_created_ = false;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Tie_performer, tie);
@@ -79,7 +76,6 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 	    {
 	      found = true;
 	      an->tie_to (th);
-	      ties_created_ = true;
 	      // this invalidates the iterator, we are leaving the loop anyway
 	      heads_to_tie_.erase (it);
 	    }
@@ -102,7 +98,6 @@ Tie_performer::stop_translation_timestep ()
   if (!to_boolean (get_property ("tieWaitForNote")))
     {
       heads_to_tie_.clear ();
-      ties_created_ = false;
     }
 
   if (event_)
