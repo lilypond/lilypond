@@ -1210,8 +1210,8 @@ staff line, you will need to insert invisible bar lines with
 @noindent
 to indicate where breaks can occur.
 
-You have to explicitly create a Voice context when you
-start a piece with @code{\cadenzaOn},
+You must explicitly create a @code{Voice} context when starting a
+piece with @code{\cadenzaOn}, otherwise strange errors may occur.
 
 @lilypond[verbatim,relative=2,fragment]
 \new Voice \relative c'{
@@ -1220,8 +1220,7 @@ start a piece with @code{\cadenzaOn},
   \cadenzaOff
 }
 @end lilypond
-ZZZ
-otherwise strange errors may occur.
+
 
 @node Polymetric notation
 @unnumberedsubsubsec Polymetric notation
