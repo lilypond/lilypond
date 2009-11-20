@@ -13,12 +13,25 @@
 #include "stream-event.hh"
 #include "translator.icc"
 
+struct Head_event_tuple
+{
+  Audio_element_info head_;
+  Moment moment_;
+  Head_event_tuple () { }
+  Head_event_tuple (Audio_element_info h, Moment m)
+  {
+    head_ = h;
+    moment_ = m;
+  }
+};
+
+
 class Tie_performer : public Performer
 {
   Stream_event *event_;
-  vector<Audio_element_info> now_heads_;
-  vector<Audio_element_info> now_tied_heads_;
-  vector<Audio_element_info> heads_to_tie_;
+  vector<Head_event_tuple> now_heads_;
+  vector<Head_event_tuple> now_tied_heads_;
+  vector<Head_event_tuple> heads_to_tie_;
 
 protected:
   void stop_translation_timestep ();
@@ -54,19 +67,20 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_note *an = dynamic_cast<Audio_note *> (inf.elem_))
     {
+      Head_event_tuple inf_mom (inf, now_mom ());
       if (an->tie_event_)
-        now_tied_heads_.push_back (inf);
+        now_tied_heads_.push_back (inf_mom);
       else
-        now_heads_.push_back (inf);
+        now_heads_.push_back (inf_mom);
 
       // Find a previous note that ties to the current note. If it exists, 
       // remove it from the heads_to_tie vector and create the tie
-      vector<Audio_element_info>::iterator it;
+      vector<Head_event_tuple>::iterator it;
       bool found = false;
       Stream_event *right_mus = inf.event_;
       for ( it = heads_to_tie_.begin() ; (!found) && (it < heads_to_tie_.end()); it++ )
         {
-	  Audio_element_info et = *it;
+	  Audio_element_info et = (*it).head_;
 	  Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
 	  Stream_event *left_mus = et.event_;
 
@@ -75,7 +89,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 			      left_mus->get_property ("pitch")))
 	    {
 	      found = true;
-	      an->tie_to (th);
+	      Moment skip = now_mom() - (*it).moment_ - th->length_mom_;
+	      an->tie_to (th, skip);
 	      // this invalidates the iterator, we are leaving the loop anyway
 	      heads_to_tie_.erase (it);
 	    }
@@ -102,7 +117,8 @@ Tie_performer::stop_translation_timestep ()
 
   if (event_)
     {
-      heads_to_tie_ = now_heads_;
+      for (vsize i = now_heads_.size (); i--;)
+        heads_to_tie_.push_back (now_heads_[i]);
     }
 
   for (vsize i = now_tied_heads_.size (); i--;)
