@@ -819,15 +819,23 @@ convinced?  Read about easier editing environments in
 
 @imageClickable{screenshot-denemo-small,png,
   (click to enlarge),screenshot-denemo,png,right}
+
 @sourceimage{logo-linux,,,}
+@sourceimage{logo-windows,,,}
 
-@uref{http://FIXME}
+@uref{http://denemo.org}
 
-Denemo is graphical editor which generates Lilypond source code
+Denemo is graphical editor which generates LilyPond source code
 and also allows audio playback.  It is currently in development
-and generates code for older versions of Lilypond (V2.8.7).  It
-allows users to view the Lilypond source code in parallel to the
+and generates code for older versions of LilyPond (V2.8.7).  It
+allows users to view the LilyPond source code in parallel to the
 graphical view.
+
+@ignore
+Import: LilyPond, MIDI
+
+Export: Lilypond, MIDI, ABC, CSound Score File, PDF
+@end ignore
 
 @divEnd
 
@@ -883,7 +891,7 @@ writing LilyPond input files.
 
 @help insert text and a graphic(s)
 
-@subsubheading Frescobaldi
+@subsubheading Mixed environment: Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (click to enlarge),frescobaldi-lilypond-editor,png,right}
@@ -900,18 +908,18 @@ currently on all flavours of Linux and other UNIX-like operating
 systems.
 
 
-@subsubheading TexShop
+@subsubheading Text environment: TexShop
 
 @sourceimage{logo-macosx,,,}
 
-@uref{http://FIXME}
+@uref{http://@/www@/.uoregon@/.edu/~koch/texshop}
 
 The
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
 editor for MacOS@tie{}X can be extended to run LilyPond,
-lilypond-book and convert-ly from within the editor, using the
-extensions available at
-@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
+@command{lilypond-book} and @command{convert-ly} from within the editor,
+using the extensions available at
+@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html#desktoppub}.
 
 
 @ignore
@@ -931,10 +939,12 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 @end example
 @end ignore
 
-@subsubheading LilyKDE
+@subsubheading Mixed environment: LilyKDE
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
+
+@uref{http://lilykde.googlecode.com/}
 
 @uref{http://lilykde.googlecode.com/,LilyKDE} is a plugin for
 KDE's text editor @uref{http://kate-editor.org/,Kate}.  It has a
@@ -953,8 +963,6 @@ multiple files at once from within the KDE file manager.
 Other programs can export LilyPond code:
 
 @itemize
-@item
-@uref{http://@/www@/.denemo@/.org/,Denemo}, a graphical score editor.
 @item
 @uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime
 monophonic MIDI to LilyPond converter.
