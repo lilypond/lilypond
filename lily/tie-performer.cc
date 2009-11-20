@@ -12,6 +12,8 @@
 #include "context.hh"
 #include "stream-event.hh"
 #include "translator.icc"
+// #include "international.hh"
+#include <deque>
 
 struct Head_event_tuple
 {
@@ -29,9 +31,14 @@ struct Head_event_tuple
 class Tie_performer : public Performer
 {
   Stream_event *event_;
-  vector<Head_event_tuple> now_heads_;
-  vector<Head_event_tuple> now_tied_heads_;
-  vector<Head_event_tuple> heads_to_tie_;
+  // We don't really need a deque here. A vector would suffice. However,
+  // for some strange reason, using vectors always leads to memory 
+  // corruption in the STL templates! (i.e. after the first
+  // now_heads_.push_back (inf_mom), the now_heads_.size() will be 
+  // something like 3303820998 :(
+  deque<Head_event_tuple> now_heads_;
+  deque<Head_event_tuple> now_tied_heads_;
+  deque<Head_event_tuple> heads_to_tie_;
 
 protected:
   void stop_translation_timestep ();
@@ -67,15 +74,17 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_note *an = dynamic_cast<Audio_note *> (inf.elem_))
     {
+//       message (_f ("acknowledge_audio_element, Size of now_heads_=%d", now_heads_.size ()));
       Head_event_tuple inf_mom (inf, now_mom ());
       if (an->tie_event_)
         now_tied_heads_.push_back (inf_mom);
       else
         now_heads_.push_back (inf_mom);
 
+//       message (_f ("acknowledge_audio_element, added, Size of now_heads_=%d", now_heads_.size ()));
       // Find a previous note that ties to the current note. If it exists, 
       // remove it from the heads_to_tie vector and create the tie
-      vector<Head_event_tuple>::iterator it;
+      deque<Head_event_tuple>::iterator it;
       bool found = false;
       Stream_event *right_mus = inf.event_;
       for ( it = heads_to_tie_.begin() ; (!found) && (it < heads_to_tie_.end()); it++ )
