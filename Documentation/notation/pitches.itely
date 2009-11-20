@@ -2404,7 +2404,6 @@ not need a natural sign:
      cis'
      c'
   }
-  \bar "|."
 }
 @end lilypond
 
@@ -2427,7 +2426,6 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
      cis'
      \forget c'
   }
-  \bar "|."
 }
 @end lilypond
 
