@@ -1,5 +1,5 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl -*-
-@c This file is part of general.texi
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of web.texi
 @ignore
     Translation of GIT committish: dab17828471057f4e12c0d80777ff9bb4c5b2309
 
@@ -7,26 +7,18 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node inleiding
-@unnumbered Inleiding
-@translationof introduction
- 
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Introduction
+@unnumbered Introduction
+
+@untranslated
+
+
 @divClass{column-center-top}
-@subheading Ons Doel
+@subheading Our Goal
 @imageFloat{flat-design.png,right}
-
-De inspiratie voor LilyPond ontstond toen twee bevriende muzikanten
-ontevreden werden met het saaie en inspiratieloze uiterlijk van
-computerafdrukken.  Elke muzikant leest liever mooie muziek, dus
-zouden wij als programmeurs dat afdrukprobleem niet kunnen oplossen?
- 
-Dat is nu precies wat LilyPond doet: het drukt muziek volgens de
-beste tradities van klassieke muziekgravure, zonder gedoe.  Verspil
-geen tijd met het bijstellen van spatiëring, het verplaatsen van
-tekens, of met het vormgeven van legatoboogjes.  Imponeer vrienden
-en collega's met haarscherpe bladmuziek!
 @divEnd
-
 @divClass{column-left-top}
 @subheading Why use LilyPond?
 @ref{Features}: What can LilyPond do?
@@ -44,17 +36,17 @@ en collega's met haarscherpe bladmuziek!
 @divEnd
 @divClass{hide}
 @menu
-* features::
-* examples::
-* freedom::
-* productions::
-* testimonials::
-* text input::
+* Features::
+* Examples::
+* Freedom::
+* Productions::
+* Testimonials::
+* Text input::
 @end menu
 
 @divEnd
-@node features
-@unnumberedsec features
+@node Features
+@unnumberedsec Features
 
 @untranslated
 
@@ -73,7 +65,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Text input}.
 @divEnd
-@node examples
+@node Examples
 @unnumberedsec Examples
 
 @untranslated
@@ -108,7 +100,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Freedom}.  If you've already decided to try LilyPond, first
 @divEnd
-@node freedom
+@node Freedom
 @unnumberedsec Freedom
 
 @untranslated
@@ -134,7 +126,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Productions} and sheet music.  If you've already decided to
 @divEnd
-@node productions
+@node Productions
 @unnumberedsec Productions
 
 @untranslated
@@ -154,7 +146,7 @@ en collega's met haarscherpe bladmuziek!
 @subheading Where now?
 @ref{Text input}.
 @divEnd
-@node testimonials
+@node Testimonials
 @unnumberedsec Testimonials
 
 @untranslated
@@ -199,7 +191,7 @@ en collega's met haarscherpe bladmuziek!
 @divClass{column-center-bottom}
 @subheading Where now?
 @divEnd
-@node text input
+@node Text input
 @unnumberedsec Text input
 
 @untranslated
@@ -230,3 +222,5 @@ en collega's met haarscherpe bladmuziek!
 @ref{Freedom} that LilyPond provides, or read about users'
 @ref{Productions} and @ref{Testimonials}.
 @divEnd
+
+@c -- SKELETON FILE --

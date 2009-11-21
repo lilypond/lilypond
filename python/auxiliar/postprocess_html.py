@@ -100,7 +100,7 @@ def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
 # More hardcoding, yay!
-splitted_docs_re = re.compile('(Documentation/out-www/(automated-engraving|essay|notation|changes|music-glossary|usage|general|learning|snippets))/')
+splitted_docs_re = re.compile('(Documentation/out-www/(automated-engraving|essay|notation|changes|music-glossary|usage|web|learning|snippets))/')
 lily_snippets_re = re.compile ('(href|src)="([0-9a-f]{2}/lily-.*?)"')
 pictures_re = re.compile ('src="(pictures/.*?)"')
 
@@ -346,7 +346,7 @@ def process_html_files (package_name = '',
 
             ### add footer
             if footer_tag_re.search (s) == None:
-                if 'general' in file_name:
+                if 'web' in file_name:
                     s = add_footer (s, footer_tag + web_footer)
                 else:
                     s = add_footer (s, footer_tag + footer)

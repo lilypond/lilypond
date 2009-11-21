@@ -45,7 +45,7 @@ XREF_MAPS_DIR=$(top-build-dir)/$(outdir)/xref-maps
 XREF_MAPS_FILES=$(TEXINFO_MANUALS:%=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
 XREF_MAP_FLAGS += -I $(outdir)
 
-WEB_MANUALS=general
+WEB_MANUALS=web
 
 ###########
 ifneq ($(ISOLANG),)
@@ -60,9 +60,9 @@ DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
 WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
 TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
 
-$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
+$(top-build-dir)/Documentation/$(outdir)/web/index.$(ISOLANG).html:\
 	TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
-$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
+$(top-build-dir)/Documentation/$(outdir)/web/index.$(ISOLANG).html:\
 	TEXI2HTML_SPLIT := $(WEB_TEXI2HTML_SPLIT)
 
 TEXI2HTML_INCLUDES += --I=. --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)

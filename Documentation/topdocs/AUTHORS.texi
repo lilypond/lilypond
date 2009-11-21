@@ -12,7 +12,7 @@
 
 @ignore
 @include macros.itexi
-@include general/basic-authors.itexi
+@include web/basic-authors.itexi
 
 @developersCurrent
 

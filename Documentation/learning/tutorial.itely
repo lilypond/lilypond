@@ -118,7 +118,7 @@ program(s) you use.
 
 There are several other text editors available with better support
 for LilyPond.  For more information, see
-@rgeneral{Alternate input}.
+@rweb{Alternate input}.
 
 @warning{The first time you ever run LilyPond, it may take a
 minute or two because all of the system fonts have to be analyzed
@@ -130,7 +130,7 @@ first.  After this, LilyPond will be much faster!}
 
 @warning{These instructions assume that you are using the built-in
 LilyPad editor.  If you are using any of the programs described in
-@rgeneral{Alternate input}, please consult the documentation for
+@rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems compiling a file.}
 
 
@@ -151,7 +151,7 @@ any errors occur in processing, please see the log window.
 
 @warning{These instructions assume that you are using the built-in
 LilyPad editor.  If you are using any of the programs described in
-@rgeneral{Alternate input}, please consult the documentation for
+@rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems compiling a file.}
 
 On Windows, if you double-click in the LilyPond icon on the
@@ -185,7 +185,7 @@ examine this file.
 
 @warning{These instructions assume that you are using commond unix
 command-line programs.  If you are using any of the programs
-described in @rgeneral{Alternate input}, please consult the
+described in @rweb{Alternate input}, please consult the
 documentation for those programs if you have any problems
 compiling a file.}
 

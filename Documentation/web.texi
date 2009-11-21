@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@setfilename general.info
+@setfilename web.info
 @settitle LilyPond -- Music notation for everyone
 @documentencoding UTF-8
 @documentlanguage en
@@ -105,7 +105,7 @@ Read more in our @ref{introduction}!
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include general/news-front.itexi
+@include web/news-front.itexi
 
 @divClass{float-right}
 (@ref{old news})
@@ -150,9 +150,9 @@ Read more in our @ref{introduction}!
 @contents
 
 
-@include general/introduction.itexi
-@include general/download.itexi
-@include general/manuals.itexi
-@include general/community.itexi
+@include web/introduction.itexi
+@include web/download.itexi
+@include web/manuals.itexi
+@include web/community.itexi
 
 @bye

@@ -179,7 +179,7 @@ Copyright 1999--2009 by the authors
 
 This is the Music Glossary (MG) for LilyPond version @version{}.
 For more information about how this fits with the other
-documentation, see @rgeneral{Manuals}.
+documentation, see @rweb{Manuals}.
 
 @c arrowref
 @macro aref{word}

@@ -169,14 +169,14 @@
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,general-big-page,General Information}
+@ref{\TEXT\,,,web-big-page,General Information}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,general-big-page,General Information}
+@ref{\TEXT\,,\DISPLAY\,web-big-page,General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -264,14 +264,14 @@
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-general,General Information}
+@ref{\TEXT\,,,lilypond-web,General Information}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-general, General Information}
+@ref{\TEXT\,,\DISPLAY\,lilypond-web, General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -371,14 +371,14 @@
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,general,General Information}
+@ref{\TEXT\,,,web,General Information}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,general,General Information}
+@ref{\TEXT\,,\DISPLAY\,web,General Information}
 @end macro
 
 @macro ressay{TEXT}

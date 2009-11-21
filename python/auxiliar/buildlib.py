@@ -30,7 +30,7 @@ renames_map = {
 
 # FIXME: Hardcoded file names!?
 manuals_subdirectories_re = \
-    re.compile ('(usage|automated-engraving|changes|essay|extending|general|learning|notation)/')
+    re.compile ('(usage|automated-engraving|changes|essay|extending|web|learning|notation)/')
 
 def add_old_name (file_path):
     for new_path in renames_map:

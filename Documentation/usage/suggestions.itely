@@ -246,7 +246,7 @@ Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
 
 Another very useful debugging technique is constructing
-@rgeneral{Tiny examples}.
+@rweb{Tiny examples}.
 
 
 @node Make and Makefiles

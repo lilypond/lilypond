@@ -22,7 +22,7 @@ These are separate programs from @command{lilypond} itself, and are
 run on the command line; see @ref{Command-line usage} for more
 information.  If you have MacOS 10.3 or 10.4 and you have trouble
 running some of these scripts, e.g. @code{convert-ly}, see
-@rgeneral{MacOS X}.
+@rweb{MacOS X}.
 
 
 @knownissues
@@ -313,5 +313,5 @@ confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 
 LilyPond itself does not come with support for any other formats,
 but some external tools can also generate LilyPond files.  These
-are listed in @rgeneral{Alternate editors}.
+are listed in @rweb{Alternate editors}.
 

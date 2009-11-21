@@ -243,8 +243,8 @@ grand-replace:
 ################################################################
 # website (without the rest of the docs)
 web-gop:
-	touch Documentation/general.texi
-	cd Documentation && make out=www out-www/general/index.html
+	touch Documentation/web.texi
+	cd Documentation && make out=www out-www/web/index.html
 
 
 ################################################################

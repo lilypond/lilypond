@@ -59,7 +59,7 @@
 @cartouche
 For more information about how this manual fits with the other
 documentation, or to read this manual in other formats, see
-@rgeneral{manuals}.
+@rweb{manuals}.
 
 If you are missing any manuals, the complete documentation can be
 found at @w{@uref{http://@/www@/.lilypond@/.org/}}.
@@ -184,7 +184,7 @@ For LilyPond version @version{}
 
 @c  Definitions for references:
 @c
-@c     @rgeneral
+@c     @rweb
 @c     @ressay
 @c     @rglos
 @c     @rinternals
@@ -271,14 +271,14 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Contributor's Guide}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,general-big-page,General Information}
+@ref{\TEXT\,,,web-big-page,General Information}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,general-big-page,General Information}
+@ref{\TEXT\,,\DISPLAY\,web-big-page,General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -388,14 +388,14 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,general,General Information}
+@ref{\TEXT\,,,web,General Information}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,general,General Information}
+@ref{\TEXT\,,\DISPLAY\,web,General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -500,14 +500,14 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Contributor's Guide}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-general,General Information}
+@ref{\TEXT\,,,lilypond-web,General Information}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-general, General Information}
+@ref{\TEXT\,,\DISPLAY\,lilypond-web, General Information}
 @end macro
 
 @macro ressay{TEXT}
@@ -629,14 +629,14 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
-@macro rgeneral{TEXT}
+@macro rweb{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,general,General Information}
+@ref{\TEXT\,,,web,General Information}
 @end macro
 
-@macro rgeneralnamed{TEXT,DISPLAY}
+@macro rwebnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,general,General Information}
+@ref{\TEXT\,,\DISPLAY\,web,General Information}
 @end macro
 
 @macro ressay{TEXT}

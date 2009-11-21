@@ -46,7 +46,7 @@ By @q{command-line}, we mean the command line in the operating system.
 Windows users might be more familiar with the terms @q{DOS shell} or
 @q{command shell}.  MacOS@tie{}X users might be more familiar with the terms
 @q{terminal} or @q{console}.  Some additional setup is required
-for MacOS@tie{}X users; please see @rgeneral{MacOS X}.
+for MacOS@tie{}X users; please see @rweb{MacOS X}.
 
 Describing how to use this part of an operating system is outside the
 scope of this manual; please consult other documentation on this topic
@@ -808,5 +808,5 @@ installed in @file{/usr/local/}, then change this path accordingly.
 Other editors (both text and graphical) support LilyPond, but
 their special configuration files are not distributed with
 LilyPond.  Consult their documentation for more information.  Such
-editors are listed in @rgeneral{Alternate editors}.
+editors are listed in @rweb{Alternate editors}.
 

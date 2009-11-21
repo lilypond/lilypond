@@ -16,8 +16,8 @@ instead, the source is texinfo, which is then generated into HTML,
 pdf, and info formats.  The sources are
 
 @verbatim
-Documentation/general.texi
-Documentation/general/*.texi
+Documentation/web.texi
+Documentation/web/*.texi
 @end verbatim
 
 Unless otherwise specified, follow the instructions and policies

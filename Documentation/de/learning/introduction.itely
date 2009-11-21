@@ -137,7 +137,7 @@ und welche Programme Sie benutzen.
 Beachten Sie, dass es eine Reihe an Texteditoren mit besserer 
 Unterstützung für LilyPond gibt. Mehr dazu im Abschnitt
 @rprogram{Unterstützung von Texteditoren}.
-@c FIXME: link to @rgeneral{Alternate input}
+@c FIXME: link to @rweb{Alternate input}
 
 @warning{Das erste Mal, wenn Sie LilyPond benutzen, kann es eine 
 Minute oder länger dauern, weil das Programm zuerst alle Schriftarten,
@@ -149,7 +149,7 @@ diesem ersten Mal läuft LilyPond sehr viel schneller.}
 @translationof MacOS X
 
 @warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rgeneral{Alternate input} beschrieben sind, schauen
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
@@ -171,7 +171,7 @@ lesen Sie die Meldungen im Log-Fenster.
 @translationof Windows
 
 @warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rgeneral{Alternate input} beschrieben sind, schauen
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
@@ -206,7 +206,7 @@ Blick in diese Datei.
 @translationof Command-line
 
 @warning{Diese Anweisungen gehen davon aus, dass Sie den installierten
-LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rgeneral{Alternate input} beschrieben sind, schauen
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in @rweb{Alternate input} beschrieben sind, schauen
 Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
 eine Datei zu kompilieren.}
 
