@@ -399,12 +399,159 @@ account.
 @node help us
 @unnumberedsec Help us
 
-TODO: talk about the Frogs, document suggestions, encourage getting
-involved, etc.  Maybe mention GLISS and GOP, if those are happening
-in the near future.
+@divClass{heading-center}
+@heading We need you!
 
-frog mailist: @uref{http://frogs.lily.net}
+The LilyPond development team is quite small; we really want to
+get more people involved.  Please consider helping us, even with
+small tasks -- anything that you do will allow an experienced
+developer to work on advanced tasks.
 
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Ways of contributing
+
+Many users ask @qq{I can't program; how can I help?}
+
+@divClass{keep-bullets}
+@subsubheading No source, no programming
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@itemize
+@item
+Mailist support: we have many users asking for him.
+
+@item
+LilyPond Snippet Repository (LSR): create and fix snippets.  See
+@rcontrib{Adding and editing snippets}.
+
+@item
+Bug reporting: our infrastructure for organizing bug reports only
+requires a web browser.  Please do not add bugs directly unless
+you have learned how we like to handle such reports.  See
+@rcontrib{Issues}.
+
+@item
+Discussions, reviews, and testing: the developers often ask for
+feedback about new documentation, potential syntax changes, and
+testing new features.  We rarely receive as much feedback as we
+would like; please consider responding to these requests!  (even
+if your only contribution is @qq{wow, looks great!})
+
+@end itemize
+
+@subsubheading With source, no programming
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+To get the source code, see @rcontrib{Starting with git}.
+
+@itemize
+@item
+Documentation:
+@rcontrib{Building documentation without compiling LilyPond}.
+
+@item
+Website: the website is built from the normal documentation
+source.  See the info about documentation, and also
+@rcontrib{Website work}.
+
+@item
+Translations: see @rcontrib{Translating the documentation}, and
+@rcontrib{Translating the website}.
+
+@end itemize
+
+@subsubheading Programming
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+
+To the best of our knowledge, nobody has compiled LilyPond on
+Windows.  We have therefore created @emph{lilybuntu}, a custom
+@emph{Ubuntu} variant configured for LilyPond development.  This
+runs inside a virtual machine, without disturbing the Windows
+operating system.  For more information, see
+@rcontrib{Using a Virtual Machine to Compile LilyPond}.
+
+@itemize
+@item
+Bugfixes, new features: the best way to begin is to join the
+Frogs.
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Projects
+
+@subsubheading Frogs
+
+Website and mailist: @uref{http://frogs.lilynet.net}
+
+The Frogs are simple LilyPond users who have chosen to get
+involved in their favorite software's development.  Fixing bugs,
+implementing new features, documenting the source code: there's a
+lot to be done, but most importantly: this is a chance for
+everyone to learn more about LilyPond, about Free Software, about
+programming... and to have fun.  If you're curious about any of
+it, then the word is: @emph{Join the Frogs!}
+
+
+
+@help{not active yet; either comment out or begin these projects
+before 2.14}
+
+@subsubheading Grand LilyPond Input Syntax Standardization
+
+Website and mailist: TODO
+
+GLISS will stabilize the (non-tweak) input syntax for the upcoming
+LilyPond 3.0.  After updating to 3.0, the input syntax for
+untweaked music will remain stable for the foreseeable future.
+
+We will have an extensive discussion period to determine the final
+input specification.
+
+@subsubheading Grand Organizing Project
+
+Website and mailist: TODO
+
+GOP is our big recruiting drive for new contributors.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Legalese
+
+@divClass{legal}
+All logos and product images are copyright and trademark
+acknowledged.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+
+@divEnd
 
 @node development
 @unnumberedsec Development
