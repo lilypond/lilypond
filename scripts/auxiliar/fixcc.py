@@ -435,7 +435,6 @@ Typical use with LilyPond:
 
  fixcc $(find flower kpath-guile lily -name '*cc' -o -name '*hh' | grep -v /out)
 
-This script is licensed under the GNU GPL
 ''')
 
 def do_options ():

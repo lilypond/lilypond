@@ -64,6 +64,9 @@ which scares away people.
 @end ignore
 
 @item
+LilyPond is now licensed under the GNU GPL v3+.
+
+@item
 Chords can be repeated using the @code{q} shortcut:
 
 @lilypond[verbatim,quote,relative=2]

@@ -15,7 +15,6 @@
 #        formatting
 #
 #  Copyright 2005 by Carl D. Sorensen
-#  Licensed under the GPL, version 2 or any later version
 
 # to create input file, run
 #   bison -v parser.yy

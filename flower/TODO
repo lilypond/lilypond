@@ -16,8 +16,6 @@
 
 	* Automake, libtool
 
-	* LGPL?
-
 	* disable this auto conv: const pointer -> bool -> string
 
 	* Pointer_array

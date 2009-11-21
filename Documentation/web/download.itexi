@@ -535,9 +535,9 @@ is given in @ref{Freedom}.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading GNU General Public License version 2
+@subheading GNU General Public License
 
-@include gpl-2.0.itexi
+@include gpl.itexi
 
 @divEnd
 

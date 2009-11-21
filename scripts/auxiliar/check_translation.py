@@ -84,8 +84,6 @@ def usage ():
     sys.stdout.write (r'''
 Usage:
 check-translation [--language=LANG] [--verbose] [--update] [-t COMMIT] FILE...
-
-This script is licensed under the GNU GPL.
 ''')
 
 def do_options ():
@@ -93,7 +91,7 @@ def do_options ():
 
     p = optparse.OptionParser (usage=\
 "check-translation [--language=LANG] [--verbose] [--update] [-t COMMIT] FILE...",
-                               description="This script is licensed under the GNU GPL.")
+                               description="")
     p.add_option ("--language",
                   action='store',
                   default=C,
