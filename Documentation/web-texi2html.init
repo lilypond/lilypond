@@ -134,7 +134,7 @@ $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not
 #	 should be fixed in lilypond-texi2html.init too
 # Uhm, what about a bug report to Opera?  We need sane names here.
 #if ($Texi2HTML::Config::SPLIT eq 'section') {
-#  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+$Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
 #}
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
@@ -232,6 +232,8 @@ sub texinfo_file_name($)
     $result = 't_g' . $result;
   }
   # DONE
+  # we also want lower-case
+  $result = lc($result);
   return $result
 }
 
@@ -327,15 +329,6 @@ sub lilypond_css_lines ($$)
 ###  SPLITTING BASED ON NUMBERED SECTIONS
 #############################################################################
 
-# FIXME: removed for GOP.
-
-# Uhm, yes: that's what I found.  It was gone.  No need to add that
-# in a comment, DIFF tells me that it's gone.
-
-# Comments can be used to tell *why* something has been removed -- as
-# it seems to me that we *need* this in order to get sane,
-# untranslated, html file names?  Putting it back for this reason.
-
 my $lastfilename;
 my $docnr = 0;
 my $node_to_filename_map = ();
@@ -371,7 +364,10 @@ sub lilypond_element_file_name($$$)
   # will not be able to retrieve the file name for xrefs!!! Still, I already
   # had that code, so I'll leave it in in case something goes wrong with the
   # extract_texi_filenames.py script in the lilypond build process!
-  if (exists ($node_to_filename_map->{$node_name})) {
+
+  # FIXME: disable this section of code, I don't understand why but
+  # it gives us the filenames we want.  -gp
+  if (0 and exists ($node_to_filename_map->{$node_name})) {
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
 
@@ -398,7 +394,8 @@ sub lilypond_element_file_name($$$)
 
     # Numbered sections will get a filename Node_title, unnumbered sections will use
     # the file name of the previous numbered section:
-    if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
+    # FIXME: above comment is false; for web we want to give them all new filenames.
+    if (1 or ($element->{number}) or ($lastfilename eq '') or ($element->{level} > 1)) {
       # normalize to the same file name as texinfo
       if ($element->{translationof}) {
         $node_name = main::remove_texi($element->{translationof});
@@ -408,10 +405,10 @@ sub lilypond_element_file_name($$$)
       $docnr += 1;
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
-      return $filename;
+      return lc($filename);
     } else {
       $$element{doc_nr} = $docnr;
-      return $lastfilename;
+      return lc($lastfilename);
     }
   }
 
