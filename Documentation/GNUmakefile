@@ -56,7 +56,7 @@ TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 
 PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
-TOPDIR_HTML_MANUALS = general
+TOPDIR_HTML_MANUALS = 
 UNSPLITTED_HTML_MANUALS =
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
@@ -64,8 +64,7 @@ NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLITTED_HTML_MANUALS),\
  $(if $(findstring $(manual), $(TOPDIR_HTML_MANUALS)),,$(manual)))
 
 OUT_HTML_FILES = $(UNSPLITTED_HTML_MANUALS:%=$(outdir)/%.html)\
- $(SPLITTED_HTML_MANUALS:%=$(outdir)/%-big-page.html)\
- $(TOPDIR_HTML_MANUALS:%=$(outdir)/index.html)
+ $(SPLITTED_HTML_MANUALS:%=$(outdir)/%-big-page.html)
 DEEP_HTML_FILES = $(NOT_TOPDIR_HTML_MANUALS:%=$(outdir)/%/index.html)
 
 # Symlinks to refer to external source documents from split and non-split HTML
@@ -74,7 +73,7 @@ source-links = $(outdir)/source\
 
 # Other out files
 
-HTML_PAGE_NAMES= translations
+HTML_PAGE_NAMES= translations index
 OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 MAIN_INFO_DOC = lilypond-notation
@@ -97,11 +96,11 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 ### Web site idiosyncrases
 
-$(outdir)/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
-$(outdir)/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
+$(outdir)/general/index.html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
+$(outdir)/general/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
 
-$(outdir)/index.html: $(outdir)/general.texi
-	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output $(outdir)/ $(outdir)/general.texi
+#$(outdir)/general/index.html:
+#	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output $(outdir)/ $(outdir)/general.texi
 
 ###########
 ### Targets
@@ -145,9 +144,6 @@ ifeq ($(out),www)
 local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
 
 local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links) $(OMF_FILES)
-	# fix links from other manuals to general
-	find $(outdir) -name "*.html" | xargs sed -i 's/..\/general\//..\//'
-	ls $(outdir)/*.html | xargs sed -i 's/<a href=\"..\//<a href=\"/'
 endif
 
 

@@ -469,8 +469,8 @@ the latest binary:
 
 @subheading Manuals
 
-@help these need the automatic symlinks or something.  Maybe even
-a hard-coded url to lilypond.org/docs/2.13 or something??
+@help {these need the automatic symlinks or something.  Maybe even
+a hard-coded url to lilypond.org/docs/2.13 or something??}
 
 Learning:
 @uref{lm-html, html}
@@ -527,15 +527,15 @@ have written a manual for contributors.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{contributor/index.html, Contributor's guide (split HTML)}:
+@item @uref{../contributor/index.html, Contributor's guide (split HTML)}:
 the manual is split between many HTML pages.
 @emph{(small download for each page)}
 
-@item @uref{contributor-big-page.html, Contributor's guide (big HTML)}:
+@item @uref{../contributor-big-page.html, Contributor's guide (big HTML)}:
 read this manual as one huge HTML page.
 @emph{(large single download, around 10? Mb)}
 
-@item @uref{contributor.pdf, contributor.pdf}:
+@item @uref{../contributor.pdf, contributor.pdf}:
 download as a PDF file.
 @emph{(large single download, 2.8 Mb)}
 
@@ -552,12 +552,10 @@ download as a PDF file.
 @divClass{keep-bullets}
 @itemize
 
-@c add an extra ../ to counteract the sed hack in the makefile
 @item @uref{../../input/regression/collated-files.html, Regression tests}:
 This releases' tests.  (also in
 @uref{../input/regression/collated-files.pdf, pdf})
 
-@c add an extra ../ to counteract the sed hack in the makefile
 @item @uref{../../input/regression/musicxml/collated-files.html,
 MusicXML Regression tests}:
 This releases' MusicXML tests.  (also in

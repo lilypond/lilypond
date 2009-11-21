@@ -688,7 +688,7 @@ sub lilypond_print_toc_div ($$)
     }
     my $reldir = "";
     $reldir = "../" if ($Texi2HTML::Config::SPLIT eq 'section');
-    my $uplink = $reldir."manuals.${lang}html";
+    my $uplink = $reldir."general/manuals.${lang}html";
 
     print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\" 
          title=\"Documentation Index\">&lt;&lt; " .

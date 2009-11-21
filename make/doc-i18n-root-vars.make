@@ -16,7 +16,7 @@ TEXINFO_MANUALS =\
  $(TELY_FILES:%.tely=%)\
  $(TEXI_FILES:%.texi=%)
 
-TOPDIR_HTML_MANUALS = general
+TOPDIR_HTML_MANUALS = 
 SPLITTED_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLITTED_HTML_MANUALS)),,$(manual)))
 NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLITTED_HTML_MANUALS),\
@@ -60,9 +60,9 @@ DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
 WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
 TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
 
-$(top-build-dir)/Documentation/$(outdir)/index.$(ISOLANG).html:\
+$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
 	TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)
-$(top-build-dir)/Documentation/$(outdir)/index.$(ISOLANG).html:\
+$(top-build-dir)/Documentation/$(outdir)/general/index.$(ISOLANG).html:\
 	TEXI2HTML_SPLIT := $(WEB_TEXI2HTML_SPLIT)
 
 TEXI2HTML_INCLUDES += --I=. --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)

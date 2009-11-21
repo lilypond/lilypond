@@ -179,8 +179,8 @@ UNTRANSLATED NODE: IGNORE ME
 @macro exampleImage{IMAGE-FILE}
 @html
 <div class="float-center">
-  <a class="clickable" href="general/examples/\IMAGE-FILE\.png">
-    <img src="general/examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
+  <a class="clickable" href="examples/\IMAGE-FILE\.png">
+    <img src="examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
     (click to enlarge)
@@ -200,8 +200,8 @@ UNTRANSLATED NODE: IGNORE ME
 @macro imageClickable{IMAGE-FILE, EXT, MORE-TEXT, CLICK-FILE, CLICK-EXT, POSITION}
 @html
 <div class="float-\POSITION\">
-  <a class="clickable" href="pictures/\CLICK-FILE\.\CLICK-EXT\">
-    <img src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
+  <a class="clickable" href="../pictures/\CLICK-FILE\.\CLICK-EXT\">
+    <img src="../pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
   </a>
   <p style="text-align: center">
     \MORE-TEXT\
@@ -209,7 +209,7 @@ UNTRANSLATED NODE: IGNORE ME
 </div>
 @end html
 @iftex
-@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
+@image{../pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
 @end iftex
 @ifinfo
 @image{lilypond/pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
@@ -218,10 +218,10 @@ UNTRANSLATED NODE: IGNORE ME
 
 @macro imageFloat{IMAGE-FILE, EXT, POSITION}
 @html
-<img class="float-\POSITION\" src="pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
+<img class="float-\POSITION\" src="../pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
 @end html
 @iftex
-@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
+@image{../pictures/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
 @end iftex
 @ifinfo
 @image{lilypond/pictures/\IMAGE-FILE\,,,\EXT\}
@@ -231,11 +231,11 @@ UNTRANSLATED NODE: IGNORE ME
 @macro imageId{ID, IMAGE-FILE, EXT, ALT}
 @html
 <div id="\ID\">
-  <img src="pictures/\IMAGE-FILE\.\EXT\" alt="\ALT\">
+  <img src="../pictures/\IMAGE-FILE\.\EXT\" alt="\ALT\">
 </div>
 @end html
 @iftex
-@image{pictures/\IMAGE-FILE\,,,\ALT\}
+@image{../pictures/\IMAGE-FILE\,,,\ALT\}
 @end iftex
 @ifinfo
 @image{lilypond/pictures/\IMAGE-FILE\,,,\ALT\}
