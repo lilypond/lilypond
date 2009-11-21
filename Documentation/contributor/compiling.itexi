@@ -6,7 +6,7 @@
 @menu
 * Compiling from source::
 * Concurrent Stable and Development Versions::
-* Using a Virtual Machine to Compile Lilypond::
+* Using a Virtual Machine to Compile LilyPond::
 @end menu
 
 @node Compiling from source
@@ -69,8 +69,8 @@ TODO: ADD
 - other compilation tricks for developers
 
 
-@node Using a Virtual Machine to Compile Lilypond
-@section Using a Virtual Machine to Compile Lilypond
+@node Using a Virtual Machine to Compile LilyPond
+@section Using a Virtual Machine to Compile LilyPond
 
 Since it is not possible to compile Lilypond on Windows, some
 developers may find it useful to install a GNU/Linux virtual
