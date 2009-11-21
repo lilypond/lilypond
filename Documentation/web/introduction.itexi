@@ -941,6 +941,9 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 
 @subsubheading Mixed environment: LilyKDE
 
+@imageClickable{lilykde-screenshot-small,png,
+  (click to enlarge),lilykde-screenshot,png,right}
+
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
 
@@ -973,21 +976,24 @@ Emacs major mode.
 @uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, which imports
 @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
+@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
+a LISP library to generate music notation
+@item
 @uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
 which imports @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
 @uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
 which imports MIDI
 @item
-@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
-a LISP library to generate music notation
-@item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml},
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 has experimental export for LilyPond.
 @item
-@uref{http://www.tuxguitar.com.ar/}, can export to LilyPond.
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, can export to LilyPond.
 @item
-@uref{http://musescore.org} can also export to LilyPond.
+@uref{http://musescore.org,MuseScore} can export to LilyPond.
+@item
+@uref{http://canorus.org,Canorus} can also export to LilyPond, but is still
+beta-software. Testers welcome though.
 @end itemize
 @divEnd
 
