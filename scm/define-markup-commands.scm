@@ -5,10 +5,102 @@
 ;;;; (c) 2000--2009  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
-
-;;; markup commands
-;;;  * each markup function should have a doc string with
-;;     syntax, description and example.
+;;;
+;;; Markup commands and markup-list commands definitions.
+;;;
+;;; Markup commands which are part of LilyPond, are defined
+;;; in the (lily) module, which is the current module in this file,
+;;; using the `define-builtin-markup-command' macro.
+;;;
+;;; Usage:
+;;;
+;;; (define-builtin-markup-command (command-name layout props args...)
+;;;   args-signature
+;;;   category
+;;;   property-bindings
+;;;   documentation-string
+;;;   ..body..)
+;;;
+;;; with:
+;;;   command-name
+;;;     the name of the markup command
+;;;
+;;;   layout and props
+;;;     arguments that are automatically passed to the command when it
+;;;     is interpreted.
+;;;     `layout' is an output def, which properties can be accessed
+;;;     using `ly:output-def-lookup'.
+;;;     `props' is a list of property settings which can be accessed
+;;;     using `chain-assoc-get' (more on that below)
+;;;
+;;;   args...
+;;;     the command arguments. There are restrictions on the
+;;;     possible arguments for a markup command.
+;;;     First, arguments are distingued according to their type:
+;;;       1) a markup (or a string), corresponding to type predicate `markup?'
+;;;       2) a list of markups, corresponding to type predicate `markup-list?'
+;;;       3) any scheme object, corresponding to type predicates such as
+;;;       `list?', 'number?', 'boolean?', etc.
+;;;     The supported arrangements of arguments, according to their type, are:
+;;;       - no argument
+;;;       - markup
+;;;       - scheme
+;;;       - markup, markup
+;;;       - markup-list
+;;;       - scheme, scheme
+;;;       - scheme, markup
+;;;       - scheme, scheme, markup
+;;;       - scheme, scheme, markup, markup
+;;;       - scheme, markup, markup
+;;;       - scheme, scheme, scheme
+;;;     This combinations are hard-coded in the lexer and in the parser
+;;;     (lily/lexer.ll and lily/parser.yy)
+;;;
+;;;   args-signature
+;;;     the arguments signature, i.e. a list of type predicates which
+;;;     are used to type check the arguments, and also to define the general
+;;;     argument types (markup, markup-list, scheme) that the command is
+;;;     expecting.
+;;;     For instance, if a command expects a number, then a markup, the
+;;;     signature would be: (number? markup?)
+;;;
+;;;   category
+;;;     for documentation purpose, builtin markup commands are grouped by
+;;;     category. This can be any symbol. When documentation is generated,
+;;;     the symbol is converted to a capitalized string, where hyphens are
+;;;     replaced by spaces.
+;;;
+;;;   property-bindings
+;;;     this is used both for documentation generation, and to ease
+;;;     programming the command itself. It is list of
+;;;        (property-name default-value)
+;;;     or (property-name)
+;;;     elements. Each property is looked-up in the `props' argument, and
+;;;     the symbol naming the property is bound to its value.
+;;;     When the property is not found in `props', then the symbol is bound
+;;;     to the given default value. When no default value is given, #f is
+;;;     used instead.
+;;;     Thus, using the following property bindings:
+;;;       ((thickness 0.1)
+;;;        (font-size 0))
+;;;     is equivalent to writing:
+;;;       (let ((thickness (chain-assoc-get 'thickness props 0.1))
+;;;             (font-size (chain-assoc-get 'font-size props 0)))
+;;;         ..body..)
+;;;     When a command `B' internally calls an other command `A', it may
+;;;     desirable to see in `B' documentation all the properties and
+;;;     default values used by `A'. In that case, add `A-markup' to the
+;;;     property-bindings of B. (This is used when generating
+;;;     documentation, but won't create bindings.)
+;;;
+;;;   documentation-string
+;;;     the command documentation string (used to generate manuals)
+;;;
+;;;   body
+;;;     the command body. The function is supposed to return a stencil.
+;;;
+;;; Each markup command definition shall have a documentation string
+;;; with description, syntax and example.
 
 (use-modules (ice-9 regex))
 
