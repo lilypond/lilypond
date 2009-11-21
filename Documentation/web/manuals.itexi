@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node manuals
+@node Manuals
 @unnumbered Manuals
 
 @divClass{heading-center}
@@ -22,19 +22,19 @@
 
 @itemize
 
-@item @ref{text input}:
+@item @ref{Text input}:
 LilyPond is a @strong{text-based} music engraver.  If you are not
 familiar with this concept, please read this now!
 
-@item @ref{learning}:
+@item @ref{Learning}:
 a @qq{must-read} gentle introduction to LilyPond.
 
-@item @ref{glossary}:
+@item @ref{Glossary}:
 @emph{(optional reading)}
 explains musical terms and gives translations for users unfamiliar
 with English musical terms.
 
-@item @ref{essay}:
+@item @ref{Essay}:
 @emph{(optional reading)}
 background information about the engraving process and the
 aesthetics of 19th century music engraving.
@@ -49,15 +49,15 @@ aesthetics of 19th century music engraving.
 
 @itemize
 
-@item @ref{notation}:
+@item @ref{Notation}:
 the main portion of the documentation; provides detailed
 information about creating notation.
 
-@item @ref{usage}:
+@item @ref{Usage}:
 discusses the actual programs and operating system-specific
 issues.
 
-@item @ref{snippets}:
+@item @ref{Snippets}:
 short tricks, tips, and examples.
 
 @end itemize
@@ -73,13 +73,13 @@ short tricks, tips, and examples.
 @item @ref{FAQ}:
 links to the answers of Frequently Asked Questions.
 
-@item @ref{changes}:
+@item @ref{Changes}:
 updates since the last major version.
 
-@item @ref{extend}:
+@item @ref{Extend}:
 programming fancy tweaks in LilyPond.
 
-@item @ref{internals}:
+@item @ref{Internals}:
 information about LilyPond's internal structures, which is
 required for constructing tweaks.
 
@@ -93,13 +93,13 @@ required for constructing tweaks.
 
 @itemize
 
-@item @ref{translated}:
+@item @ref{Translated}:
 translation status for non-English readers.
 
-@item @ref{all}:
+@item @ref{All}:
 quick links, downloadable manuals, and old manuals.
 
-@item @ref{development}:
+@item @ref{Development}:
 manuals for the unstable version.
 
 @item @ref{FDL}:
@@ -113,18 +113,18 @@ License.
 
 @divClass{hide}
 @menu
-* learning::             Learning.
-* glossary::              Glossary.
-* essay::                       Essay.       
-* notation::          Reference.
-* usage::           Usage.
-* snippets::                Snippets.
+* Learning::             Learning.
+* Glossary::              Glossary.
+* Essay::                       Essay.       
+* Notation::          Reference.
+* Usage::           Usage.
+* Snippets::                Snippets.
 * FAQ::                         FAQ.
-* changes::                     NEWS.
-* extend::         Programming.
-* internals::         Internals.
-* translated::          Translation.
-* all::                 All manuals.
+* Changes::                     NEWS.
+* Extend::         Programming.
+* Internals::         Internals.
+* Translated::          Translation.
+* All::                 All manuals.
 * FDL::                     Licence.
 @end menu
 
@@ -135,7 +135,7 @@ License.
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node learning
+@node Learning
 @unnumberedsec Learning
 
 @divClass{column-left-top}
@@ -188,7 +188,7 @@ download as a PDF file.
 @divEnd
 
 
-@node glossary
+@node Glossary
 @unnumberedsec Glossary
 
 @divClass{column-left-top}
@@ -236,7 +236,7 @@ download as a PDF file.
 @divEnd
 
 
-@node essay
+@node Essay
 @unnumberedsec Essay
 
 @divClass{column-left-top}
@@ -286,7 +286,7 @@ download as a PDF file.
 @divEnd
 
 
-@node notation
+@node Notation
 @unnumberedsec Notation
 
 @divClass{column-left-top}
@@ -336,7 +336,7 @@ download as a PDF file.
 @divEnd
 
 
-@node usage
+@node Usage
 @unnumberedsec Usage
 
 @divClass{column-left-top}
@@ -383,7 +383,7 @@ download as a PDF file.
 @divEnd
 
 
-@node snippets
+@node Snippets
 @unnumberedsec Snippets
 
 @divClass{column-left-top}
@@ -447,12 +447,12 @@ download as a PDF file.
 @subsubheading Where are the graphical canvas, menus, and toolbars?
 
 LilyPond requires you to write music as text.  Please read about
-our @ref{text input}.
+our @ref{Text input}.
 
 
 @subsubheading There's a lot of documentation!  Do I need to read it?
 
-You need to read the @ref{learning, Learning manual}.  As for the
+You need to read the @ref{Learning, Learning manual}.  As for the
 rest of documentation, you only need to read the sections which
 discuss the notation that you wish to create.
 
@@ -460,7 +460,7 @@ discuss the notation that you wish to create.
 @subsubheading That's still a lot of reading!  Is it worth it?
 
 Please decide for yourself; the reasons why you might want to use
-LilyPond are given in the @ref{introduction}.
+LilyPond are given in the @ref{Introduction}.
 
 @divEnd
 
@@ -479,7 +479,7 @@ This is explained in @rprogram{Why does the syntax change?}.
 @divEnd
 
 
-@node changes
+@node Changes
 @unnumberedsec Changes
 
 @divClass{column-left-top}
@@ -525,7 +525,7 @@ download as a PDF file.
 @divEnd
 
 
-@node extend
+@node Extend
 @unnumberedsec Extend
 
 @divClass{column-left-top}
@@ -570,7 +570,7 @@ download as a PDF file.
 @divEnd
 
 
-@node internals
+@node Internals
 @unnumberedsec Internals
 
 @divClass{column-left-top}
@@ -628,7 +628,7 @@ download as a PDF file.
 
 
 
-@node translated
+@node Translated
 @unnumberedsec Translated
 
 @divClass{column-center-bottom}
@@ -641,14 +641,14 @@ TODO: clean up / prettify
 @divEnd
 
 
-@node all
+@node All
 @unnumberedsec All
 
 @divClass{heading-center}
 @heading Documentation quick links
 
 Links to other formats of these manuals can be found in
-@ref{manuals}.
+@ref{Manuals}.
 
 @divEnd
 
@@ -773,7 +773,7 @@ LilyPond 2.8 Documentation}
 
 The documentation for GNU LilyPond is published under the GNU Free
 Documentation License.  An introduction to this license, and our
-reasons for choosing it, is given in @ref{freedom}.
+reasons for choosing it, is given in @ref{Freedom}.
 
 @divEnd
 

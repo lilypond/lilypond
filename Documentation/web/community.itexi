@@ -8,7 +8,7 @@
 
 @include web/basic-authors.itexi
 
-@node community
+@node Community
 @unnumbered Community
 
 
@@ -18,14 +18,14 @@
 @itemize
 
 @item
-@ref{contact}: get help, discuss, and keep in touch!
+@ref{Contact}: get help, discuss, and keep in touch!
 
 @item
-@ref{tiny examples}: these are @emph{highly} recommended when
+@ref{Tiny examples}: these are @emph{highly} recommended when
 discussing LilyPond.
 
 @item
-@ref{bug reports}: something went wrong.
+@ref{Bug reports}: something went wrong.
 
 @end itemize
 @divEnd
@@ -36,13 +36,13 @@ discussing LilyPond.
 @itemize
 
 @item
-@ref{help us}: your assistance is requested.
+@ref{Help us}: your assistance is requested.
 
 @item
-@ref{development}: for contributors and testers.
+@ref{Development}: for contributors and testers.
 
 @item
-@ref{authors}: the people who made LilyPond what it is today.
+@ref{Authors}: the people who made LilyPond what it is today.
 
 @end itemize
 @divEnd
@@ -53,10 +53,10 @@ discussing LilyPond.
 @itemize
 
 @item
-@ref{publications}: what we wrote, and have had written about us.
+@ref{Publications}: what we wrote, and have had written about us.
 
 @item
-@ref{old news}: an archive.
+@ref{Old news}: an archive.
 
 @end itemize
 @divEnd
@@ -64,19 +64,19 @@ discussing LilyPond.
 
 @divClass{hide}
 @menu
-* contact::                     
-* tiny examples::               
-* bug reports::                 
-* help us::                     
-* development::                 
-* authors::                     
-* publications::                
-* old news::                    
+* Contact::                     
+* Tiny examples::               
+* Bug reports::                 
+* Help us::                     
+* Development::                 
+* Authors::                     
+* Publications::                
+* Old news::                    
 @end menu
 @divEnd
 
 
-@node contact
+@node Contact
 @unnumberedsec Contact
 
 
@@ -103,7 +103,7 @@ archive3}
 send to lilypond-user with gmane}
 @end quotation
 
-@warning{When asking questions, please use @ref{tiny examples}!}
+@warning{When asking questions, please use @ref{Tiny examples}!}
 
 
 @subsubheading IRC
@@ -236,13 +236,13 @@ archive3}
 @end quotation
 
 @warning{Before sending a message to the bug list, please read our
-guidelines for @ref{bug reports}.}
+guidelines for @ref{Bug reports}.}
 
 @divEnd
 
 
 
-@node tiny examples
+@node Tiny examples
 @unnumberedsec Tiny examples
 
 @divClass{column-center-top}
@@ -315,7 +315,7 @@ is about those particular commands.
 
 
 
-@node bug reports
+@node Bug reports
 @unnumberedsec Bug reports
 
 @divClass{column-center-top}
@@ -342,9 +342,9 @@ free to add more information to that report.}
 If you have discovered a bug which is not listed, please help us
 by creating a bug report.
 
-@warning{We only accept bug reports in the form of
-@ref{tiny examples}.  We have very limited resources to deal with
-bug reports, so any non-minimal example will be rejected.  Almost
+@warning{We only accept bug reports in the form of @ref{Tiny
+examples}.  We have very limited resources to deal with bug
+reports, so any non-minimal example will be rejected.  Almost
 every bug can be demonstrated in four notes or less!}
 
 Here is an example of a good bug report:
@@ -396,9 +396,10 @@ account.
 @divEnd
 
 
-@node help us
+@node Help us
 @unnumberedsec Help us
 
+ TODO: talk about the Frogs, document suggestions, encourage getting
 @divClass{heading-center}
 @heading We need you!
 
@@ -553,7 +554,7 @@ acknowledged.
 
 @divEnd
 
-@node development
+@node Development
 @unnumberedsec Development
 
 
@@ -562,8 +563,8 @@ acknowledged.
 
 @warning{These are @emph{unstable development} versions.  If you
 have the slightest doubt about how to use or install LilyPond, we
-urge you to use the stable @ref{download}, and read the stable
-@ref{manuals}.}
+urge you to use the stable @ref{Download}, and read the stable
+@ref{Manuals}.}
 
 @divEnd
 
@@ -715,7 +716,7 @@ Comparisons beteween versions.
 @divEnd
 @divEnd
 
-@node authors
+@node Authors
 @unnumberedsec Authors 
 
 @help{Under construction; this is not an accurate list!}
@@ -774,7 +775,7 @@ http://lilypond.org/web/switch/
 
 
 
-@node publications
+@node Publications
 @unnumberedsec Publications
 
 @divClass{column-center-top}
@@ -904,7 +905,7 @@ issue CMS06.
 @divEnd
 
 
-@node old news
+@node Old news
 @unnumberedsec Old news
 
 @include web/news.itexi

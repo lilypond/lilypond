@@ -93,7 +93,7 @@ software brings the aesthetics of traditionally engraved music to
 computer printouts.
 
 @divClass{align-right}
-Read more in our @ref{introduction}!
+Read more in our @ref{Introduction}!
 
 @divEnd
 @divEnd
@@ -108,7 +108,7 @@ Read more in our @ref{introduction}!
 @include web/news-front.itexi
 
 @divClass{float-right}
-(@ref{old news})
+(@ref{Old news})
 @divEnd
 
 @divEnd
@@ -121,15 +121,15 @@ Read more in our @ref{introduction}!
 
 @subsubheading Stable
 
-@ref{download, Download @versionStable}
+@ref{Download, Download @versionStable}
 
-@ref{manuals, Manuals @versionStable}
+@ref{Manuals, Manuals @versionStable}
 
 @subsubheading Unstable
 
-@ref{development, Download @versionDevel}
+@ref{Development, Download @versionDevel}
 
-@ref{development, Manuals @versionDevel}
+@ref{Development, Manuals @versionDevel}
 
 @divEnd
 
@@ -138,10 +138,10 @@ Read more in our @ref{introduction}!
 
 @divClass{hide}
 @menu
-* introduction::     Start here to creating sheet music.
-* download::         Get LilyPond.
-* manuals::          Read The Fine Manuals (RTFM).
-* community::        Contact other users.
+* Introduction::     Start here to creating sheet music.
+* Download::         Get LilyPond.
+* Manuals::          Read The Fine Manuals (RTFM).
+* Community::        Contact other users.
 @end menu
 @divEnd
 
