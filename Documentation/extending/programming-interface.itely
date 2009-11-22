@@ -406,198 +406,86 @@ of this section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 @node New markup command definition
 @subsection New markup command definition
 
-New markup commands can be defined
-with the @code{define-markup-command} Scheme macro.
+This section discusses the definition of new markup commands.
+
+@menu
+* Markup command definition syntax::
+* On properties::
+* A complete example::
+* Adapting builtin commands::
+@end menu
+
+@node Markup command definition syntax
+@unnumberedsubsubsec Markup command definition syntax
+
+New markup commands can be defined using the
+@code{define-markup-command} Scheme macro, at top-level.
 
 @lisp
 (define-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
-            (@var{arg1-type?} @var{arg2-type?} ...)
+    (@var{arg1-type?} @var{arg2-type?} ...)
+    [ #:properties ((@var{property1} @var{default-value1})
+                    ...) ]
   ..command body..)
 @end lisp
 
 The arguments are
 
 @table @var
+@item command-name
+the markup command name
+@item layout
+the @q{layout} definition.
+@item props
+a list of associative lists, containing all active properties.
 @item argi
 @var{i}th command argument
 @item argi-type?
 a type predicate for the i@var{th} argument
-@item layout
-the @q{layout} definition
-@item props
-a list of alists, containing all active properties.
 @end table
 
-As a simple example, we show how to add a @code{\smallcaps} command,
-which selects a small caps font.  Normally we could select the
-small caps font,
-
-@example
-\markup @{ \override #'(font-shape . caps) Text-in-caps @}
-@end example
-
-@noindent
-This selects the caps font by setting the @code{font-shape} property to
-@code{#'caps} for interpreting @code{Text-in-caps}.
-
-To make the above available as @code{\smallcaps} command, we must
-define a function using @code{define-markup-command}.  The command should
-take a single argument of type @code{markup}.  Therefore the start of the
-definition should read
-
-@example
-(define-markup-command (smallcaps layout props argument) (markup?)
-@end example
-
-@noindent
-
-What follows is the content of the command: we should interpret
-the @code{argument} as a markup, i.e.,
-
-@example
-(interpret-markup layout @dots{} argument)
-@end example
-
-@noindent
-This interpretation should add @code{'(font-shape . caps)} to the active
-properties, so we substitute the following for the @dots{} in the
-above example:
-
-@example
-(cons (list '(font-shape . caps) ) props)
-@end example
-
-@noindent
-The variable @code{props} is a list of alists, and we prepend to it by
-cons'ing a list with the extra setting.
-
-
-Suppose that we are typesetting a recitative in an opera and
-we would like to define a command that will show character names in a
-custom manner.  Names should be printed with small caps and moved a
-bit up and to the left.  We will define a @code{\character} command
-which takes into account the necessary translation and uses the newly
-defined @code{\smallcaps} command:
-
-@example
-#(define-markup-command (character layout props name) (string?)
-  "Print the character name in small caps, translated to the left and
-  top.  Syntax: \\character #\"name\""
-  (interpret-markup layout props
-   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps name)))
-@end example
-
-There is one complication that needs explanation: texts above and below
-the staff are moved vertically to be at a certain distance (the
-@code{padding} property) from the staff and the notes.  To make sure
-that this mechanism does not annihilate the vertical effect of our
-@code{#:translate}, we add an empty string (@code{#:hspace 0}) before the
-translated text.  Now the @code{#:hspace 0} will be put above the notes,
-and the
-@code{name} is moved in relation to that empty string.  The net effect is
-that the text is moved to the upper left.
-
-The final result is as follows:
-
-@example
-@{
-  c''^\markup \character #"Cleopatra"
-  e'^\markup \character #"Giulio Cesare"
-@}
-@end example
-
-@lilypond[quote,ragged-right]
-#(define-markup-command (smallcaps layout props str) (string?)
-  "Print the string argument in small caps.  Syntax: \\smallcaps #\"string\""
-  (interpret-markup layout props
-   (make-line-markup
-    (map (lambda (s)
-          (if (= (string-length s) 0)
-              s
-              (markup #:large (string-upcase (substring s 0 1))
-                      #:translate (cons -0.6 0)
-                      #:tiny (string-upcase (substring s 1)))))
-         (string-split str #\Space)))))
-
-#(define-markup-command (character layout props name) (string?)
-  "Print the character name in small caps, translated to the left and
-  top.  Syntax: \\character #\"name\""
-  (interpret-markup layout props
-   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps name)))
-
-{
-  c''^\markup \character #"Cleopatra" c'' c'' c''
-  e'^\markup \character #"Giulio Cesare" e' e' e'
-}
-@end lilypond
-
-We have used the @code{caps} font shape, but suppose that our font
-does not have a small-caps variant.  In that case we have to fake
-the small caps font by setting a string in uppercase with the
-first letter a little larger:
-
-@example
-#(define-markup-command (smallcaps layout props str) (string?)
-  "Print the string argument in small caps."
-  (interpret-markup layout props
-   (make-line-markup
-    (map (lambda (s)
-          (if (= (string-length s) 0)
-              s
-              (markup #:large (string-upcase (substring s 0 1))
-                      #:translate (cons -0.6 0)
-                      #:tiny (string-upcase (substring s 1)))))
-         (string-split str #\Space)))))
-@end example
-
-The @code{smallcaps} command first splits its string argument into
-tokens separated by spaces (@code{(string-split str #\Space)}); for
-each token, a markup is built with the first letter made large and
-upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
-second markup built with the following letters made tiny and upcased
-(@code{#:tiny (string-upcase (substring s 1))}).  As LilyPond
-introduces a space between markups on a line, the second markup is
-translated to the left (@code{#:translate (cons -0.6 0) ...}).  Then,
-the markups built for each token are put in a line by
-@code{(make-line-markup ...)}.  Finally, the resulting markup is passed
-to the @code{interpret-markup} function, with the @code{layout} and
-@code{props} arguments.
-
-Note: there is now an internal command @code{\smallCaps} which can
-be used to set text in small caps.  See
-@ruser{Text markup commands}, for details.
+If the command uses properties from the @var{props} arguments, the
+@code{#:properties} keyword can be used, to specify which properties are
+used, and their default values.
 
 @knownissues
+There are restrictions on the possible arguments to a markup command.
 
-Currently, the available combinations of arguments (after the standard
-@var{layout} and @var{props} arguments) to a markup command defined with
+Arguments are distingued according to their type:
+@itemize
+@item a markup, corresponding to type predicate @code{markup?};
+@item a list of markup, corresponding to type predicate
+@code{markup-list?};
+@item any other scheme object, corresponding to type predicates such as
+@code{list?}, @code{number?}, @code{boolean?}, etc.
+@end itemize
+
+The available combinations of arguments (after the standard @var{layout}
+and @var{props} arguments) to a markup command defined with
 @code{define-markup-command} are limited as follows.
 
 @table @asis
 @item (no argument)
-@itemx @var{list}
+@itemx @var{markup-list}
 @itemx @var{markup}
 @itemx @var{markup markup}
-@itemx @var{scm}
-@itemx @var{scm markup}
-@itemx @var{scm scm}
-@itemx @var{scm scm markup}
-@itemx @var{scm scm markup markup}
-@itemx @var{scm markup markup}
-@itemx @var{scm scm scm}
+@itemx @var{scheme}
+@itemx @var{scheme markup}
+@itemx @var{scheme scheme}
+@itemx @var{scheme scheme markup}
+@itemx @var{scheme scheme markup markup}
+@itemx @var{scheme markup markup}
+@itemx @var{scheme scheme scheme}
 @end table
 
 @noindent
-In the above table, @var{scm} represents native Scheme data types like
-@q{number} or @q{string}.
-
-As an example, it is not possible to use a markup command @code{foo} with
-four arguments defined as
+This means that it is not possible to define with e.g. three scheme
+arguments and a markup arguments, like:
 
 @example
 #(define-markup-command (foo layout props
-                         num1    str1    num2    str2)
-                        (number? string? number? string?)
+                         num1    num2    a-list a-markup)
+                        (number? number? list?  markup?)
   ...)
 @end example
 
@@ -605,7 +493,7 @@ four arguments defined as
 If you apply it as, say,
 
 @example
-\markup \foo #1 #"bar" #2 #"baz"
+\markup \foo #1 #2 #'(bar baz) Blah
 @end example
 
 @cindex Scheme signature
@@ -613,6 +501,221 @@ If you apply it as, say,
 @noindent
 @command{lilypond} complains that it cannot parse @code{foo} due to its
 unknown Scheme signature.
+
+@node On properties
+@unnumberedsubsubsec On properties
+
+The @code{layout} and @code{props} arguments of markup commands bring a
+context for the markup interpretation: font size, line width, etc.
+
+The @code{layout} argument allows access to properties defined in
+@code{paper} blocks, using the @code{ly:output-def-lookup} function.
+For instance, the line width (the same as the one used in scores) is
+read using:
+
+@example
+(ly:output-def-lookup layout 'line-width)
+@end example
+
+The @code{props} argument makes some properties accessible to markup
+commands.  For instance, when a book title markup is interpreted, all
+the variables defined in the @code{\header} block are automatically
+added to @code{props}, so that the book title markup can access the book
+title, composer, etc.  It is also a way to configure the behaviour of a
+markup command: for example, when a command uses font size during
+processing, the font size is read from @code{props} rather than having a
+@code{font-size} argument.  The caller of a markup command may change
+the value of the font size property in order to change the behaviour.
+Use the @code{#:properties} keyword of @code{define-markup-command} to
+specify which properties shall be read from the @code{props} arguments.
+
+The example in next section illustrates how to access and override
+properties in a markup command.
+
+@node A complete example
+@unnumberedsubsubsec A complete example
+
+The following example defines a markup command to draw a double box
+around a piece of text.
+
+Firstly, we need to build an approximative result using markups.
+Consulting the @ruser{Text markup commands} shows us the @code{\box}
+command is useful:
+
+@lilypond[quote,verbatim,ragged-right]
+\markup \box \box HELLO
+@end lilypond
+
+Now, we consider that more padding between the text and the boxes is
+preferable.  According to the @code{\box} documentation, this command
+uses a @code{box-padding} property, which defaults to 0.2.  The
+documentation also mentions how to override it:
+
+@lilypond[quote,verbatim,ragged-right]
+\markup \box \override #'(box-padding . 0.6) \box A
+@end lilypond
+
+Then, the padding between the two boxes is considered too small, so we
+override it too:
+
+@lilypond[quote,verbatim,ragged-right]
+\markup \override #'(box-padding . 0.4) \box \override #'(box-padding . 0.6) \box A
+@end lilypond
+
+Repeating this lengthy markup would be painful.  This is where a markup
+command is needed.  Thus, we write a @code{double-box} markup command,
+taking one argument (the text).  This draws the two boxes, with some
+padding.
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  "Draw a double box around text."
+  (interpret-markup layout props
+    (markup #:override '(box-padding . 0.4) #:box
+            #:override '(box-padding . 0.6) #:box text)))
+@end lisp
+
+@code{text} is the name of the command argument, and @code{markup?} its
+type: it identifies it as a markup.  The @code{interpret-markup}
+function is used in most of markup commands: it builds a stencil, using
+@code{layout}, @code{props}, and a markup.  Here, this markup is built
+using the @code{markup} scheme macro, see @ref{Markup construction in Scheme}.
+The transformation from @code{\markup} expression to scheme
+markup expression is straight-forward.
+
+The new command can be used as follow:
+
+@example
+\markup \double-box A
+@end example
+
+It would be nice to make the @code{double-box} command customizable:
+here, the @code{box-padding} values are hard coded, and cannot be
+changed by the user.  Also, it would be better to distinguish the
+padding between the two boxes, from the padding between the inner box
+and the text. So we will introduce a new property,
+@code{inter-box-padding}, for the padding between the two boxes. The
+@code{box-padding} will be used for the inner padding.  The new code is
+now as follows:
+
+@lisp 
+#(define-markup-command (double-box layout props text) (markup?)
+  #:properties ((inter-box-padding 0.4)
+                (box-padding 0.6))
+  "Draw a double box around text."
+  (interpret-markup layout props
+    (markup #:override `(box-padding . ,inter-box-padding) #:box
+            #:override `(box-padding . ,box-padding) #:box text)))
+@end lisp
+
+Here, the @code{#:properties} keyword is used so that the
+@code{inter-box-padding} and @code{box-padding} properties are read from
+the @code{props} argument, and default values are given to them if the
+properties are not defined.
+
+Then, these values are used to override the @code{box-padding}
+properties used by the two @code{\box} commands.  Note the backquote and
+the comma in the @code{\override} argument: they allow you to introduce
+a variable value into a literal expression.
+
+Now, the command can be used in a markup, and the boxes padding be
+customized:
+
+@lilypond[quote,verbatim,ragged-right]
+#(define-markup-command (double-box layout props text) (markup?)
+  #:properties ((inter-box-padding 0.4)
+                (box-padding 0.6))
+  "Draw a double box around text."
+  (interpret-markup layout props
+    (markup #:override `(box-padding . ,inter-box-padding) #:box
+            #:override `(box-padding . ,box-padding) #:box text)))
+
+\markup \double-box A
+\markup \override #'(inter-box-padding . 0.8) \double-box A
+\markup \override #'(box-padding . 1.0) \double-box A
+@end lilypond
+
+@node Adapting builtin commands
+@unnumberedsubsubsec Adapting builtin commands
+
+A good way to start writing a new markup command, is to take example on
+a builtin one.  Most of the markup commands provided with LilyPond can be
+found in file @file{scm/@/define@/-markup@/-commands@/.scm}.
+
+For instance, we would like to adapt the @code{\draw-line} command, to
+draw a double line instead.  The @code{\draw-line} command is defined as
+follow (documentation stripped):
+
+@lisp
+(define-markup-command (draw-line layout props dest)
+  (number-pair?)
+  #:category graphic
+  #:properties ((thickness 1))
+  "..documentation.."
+  (let ((th (* (ly:output-def-lookup layout 'line-thickness)
+               thickness))
+        (x (car dest))
+        (y (cdr dest)))
+    (make-line-stencil th 0 0 x y)))
+@end lisp
+
+To define a new command based on an existing one, copy the definition,
+and change the command name.  The @code{#:category} keyword can be
+safely removed, as it is only used for generating LilyPond
+documentation, and is of no use for user-defined markup commands.
+
+@lisp
+(define-markup-command (draw-double-line layout props dest)
+  (number-pair?)
+  #:properties ((thickness 1))
+  "..documentation.."
+  (let ((th (* (ly:output-def-lookup layout 'line-thickness)
+               thickness))
+        (x (car dest))
+        (y (cdr dest)))
+    (make-line-stencil th 0 0 x y)))
+@end lisp
+
+Then, a property for setting the gap between two lines is added, called
+@code{line-gap}, defaulting e.g. to 0.6:
+
+@lisp
+(define-markup-command (draw-double-line layout props dest)
+  (number-pair?)
+  #:properties ((thickness 1) 
+                (line-gap 0.6))
+  "..documentation.."
+  ...
+@end lisp
+
+Finally, the code for drawing two lines is added.  Two calls to
+@code{make-line-stencil} are used to draw the lines, and the resulting
+stencils are combined using @code{ly:stencil-add}:
+
+@lilypond[quote,verbatim,ragged-right]
+#(define-markup-command (my-draw-line layout props dest)
+  (number-pair?) 
+  #:properties ((thickness 1) 
+                (line-gap 0.6))
+  "..documentation.."
+  (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
+                thickness))
+         (dx (car dest))
+         (dy (cdr dest))
+         (w (/ line-gap 2.0))
+         (x (cond ((= dx 0) w)
+                  ((= dy 0) 0)
+                  (else (/ w (sqrt (+ 1 (* (/ dx dy) (/ dx dy))))))))
+         (y (* (if (< (* dx dy) 0) 1 -1)
+               (cond ((= dy 0) w)
+                     ((= dx 0) 0)
+                     (else (/ w (sqrt (+ 1 (* (/ dy dx) (/ dy dx))))))))))
+     (ly:stencil-add (make-line-stencil th x y (+ dx x) (+ dy y))
+                     (make-line-stencil th (- x) (- y) (- dx x) (- dy y)))))
+
+\markup \my-draw-line #'(4 . 3)
+\markup \override #'(line-gap . 1.2) \my-draw-line #'(4 . 3)
+@end lilypond
 
 
 @node New markup list command definition
@@ -628,10 +731,10 @@ defined, which returns a list of justified lines, the first one being
 indented.  The indent width is taken from the @code{props} argument.
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
-   (let ((indent (chain-assoc-get 'par-indent props 2)))
-     (interpret-markup-list layout props
-       (make-justified-lines-markup-list (cons (make-hspace-markup indent)
-                                               args)))))
+   #:properties ((par-indent 2))
+   (interpret-markup-list layout props
+     (make-justified-lines-markup-list (cons (make-hspace-markup par-indent)
+                                             args))))
 @end example
 
 Besides the usual @code{layout} and @code{props} arguments, the
