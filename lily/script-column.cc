@@ -66,7 +66,7 @@ Script_column::row_before_line_breaking (SCM smob)
 	  affect_all_grobs.push_back (sc);
 	}
       else if (sc->get_property_data ("Y-offset") !=
-	       Side_position_interface::x_aligned_side_proc)
+	       Side_position_interface::y_aligned_side_proc)
 	{
 	  head_scripts_map[sc->get_parent (Y_AXIS)].push_back (sc);
 	}
