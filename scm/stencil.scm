@@ -56,14 +56,14 @@
 	  (set! result (car p)))))
 
   result)
-    
 
-(define-public (bracketify-stencil stil axis thick protusion padding)
+
+(define-public (bracketify-stencil stil axis thick protrusion padding)
   "Add brackets around STIL, producing a new stencil."
 
   (let* ((ext (ly:stencil-extent stil axis))
-	 (lb (ly:bracket axis ext thick protusion))
-	 (rb (ly:bracket axis ext thick (- protusion))))
+	 (lb (ly:bracket axis ext thick protrusion))
+	 (rb (ly:bracket axis ext thick (- protrusion))))
     (set! stil
 	  (ly:stencil-combine-at-edge stil (other-axis axis) 1 rb padding))
     (set! stil

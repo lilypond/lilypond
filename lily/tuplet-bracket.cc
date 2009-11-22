@@ -62,14 +62,13 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
 
 
 void
-flatten_number_pair_property (Grob *me,
-			      Direction xdir,  SCM sym)
+flatten_number_pair_property (Grob *me, Direction xdir, SCM sym)
 {
   Drul_array<Real> zero (0, 0);
   Drul_array<Real> pair
     = robust_scm2drul (me->internal_get_property (sym), zero);
   pair[xdir] = 0.0;
-  
+
   me->set_property (sym, ly_interval2scm (pair));
 }
 
@@ -87,7 +86,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
       || me->get_bound (RIGHT)->break_status_dir ())
     return 0;
 
-  Drul_array<Grob*> stems (Note_column::get_stem (cols[0]),
+  Drul_array<Grob *> stems (Note_column::get_stem (cols[0]),
 			   Note_column::get_stem (cols.back ()));
 
   if (!stems[RIGHT]
@@ -96,14 +95,14 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
 	  != me->get_bound (RIGHT)->get_column ()))
     return 0;
 
-  Drul_array<Grob*> beams;
+  Drul_array<Grob *> beams;
   Direction d = LEFT;
   do {
     beams[d] = stems[d] ? Stem::get_beam (stems[d]) : 0;
   } while (flip (&d) != LEFT);
-  
+
   *equally_long = false;
-  if (! (beams[LEFT] && (beams[LEFT] == beams[RIGHT]) && !me->is_broken ()))
+  if (!(beams[LEFT] && (beams[LEFT] == beams[RIGHT]) && !me->is_broken ()))
     return 0;
 
   extract_grob_set (beams[LEFT], "stems", beam_stems);
@@ -121,7 +120,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
 }
 
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors, 1);
 SCM
 Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 {
@@ -136,7 +135,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
   do
     {
       Direction break_dir = bounds[d]->break_status_dir ();
-      Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original ());
+      Spanner *orig_spanner = dynamic_cast<Spanner *> (me->original ());
       vsize neighbor_idx = me->get_break_index () - break_dir;
       if (break_dir
 	  && d == RIGHT
@@ -163,19 +162,19 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
   return SCM_EOL;
 }
 
-Grob* 
+Grob * 
 Tuplet_bracket::get_common_x (Spanner *me)
 {
   extract_grob_set (me, "note-columns", columns);
 
-  Grob * commonx = common_refpoint_of_array (columns, me, X_AXIS);
+  Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
   commonx = commonx->common_refpoint (me->get_bound (LEFT), X_AXIS);
   commonx = commonx->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
   return commonx;
 }
-  
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_control_points,1)
+
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_control_points, 1)
 SCM
 Tuplet_bracket::calc_control_points (SCM smob)
 {
@@ -186,12 +185,12 @@ Tuplet_bracket::calc_control_points (SCM smob)
   SCM scm_positions = me->get_property ("positions");
   if (!me->is_live ())
     return SCM_EOL;
-  
+
   if (!scm_is_pair (scm_positions))
     programming_error ("Positions should be number pair");
-    
+
   Drul_array<Real> positions
-    = robust_scm2drul (scm_positions, Drul_array<Real> (0,0));
+    = robust_scm2drul (scm_positions, Drul_array<Real> (0, 0));
 
   Grob *commonx = get_common_x (me);
   Direction dir = get_grob_direction (me);
@@ -203,8 +202,7 @@ Tuplet_bracket::calc_control_points (SCM smob)
   Drul_array<bool> connect_to_other =
     robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
 			 Drul_array<bool> (false, false));
-  
-    
+
   Interval x_span;
   Direction d = LEFT;
   do
@@ -219,10 +217,11 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	  if (d == RIGHT)
 	    x_span[d] += d * overshoot[d];
 	  else
-	    x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[RIGHT]
+	    x_span[d] = robust_relative_extent (bounds[d],
+						commonx, X_AXIS)[RIGHT]
 	      - overshoot[LEFT];
 	}
-      
+
       else if (d == RIGHT
 	       && (columns.empty ()
 		   || (bounds[d]->get_column ()
@@ -249,8 +248,7 @@ Tuplet_bracket::calc_control_points (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  
-  
+
   x_span -= me->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS);
   return scm_list_2 (ly_offset2scm (Offset (x_span[LEFT], positions[LEFT])),
 		     ly_offset2scm (Offset (x_span[RIGHT], positions[RIGHT])));
@@ -272,7 +270,7 @@ Tuplet_bracket::print (SCM smob)
   extract_grob_set (me, "note-columns", columns);
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
-  
+
   bool bracket_visibility = !(par_beam && equally_long);
   /*
     Fixme: the type of this prop is sucky.
@@ -283,8 +281,11 @@ Tuplet_bracket::print (SCM smob)
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     bracket_visibility = !par_beam;
   
-  /* Don't print a tuplet bracket and number if no control-points were calculated */
-  SCM cpoints =  me->get_property ("control-points");
+  /*
+    Don't print a tuplet bracket and number if
+    no control-points were calculated
+  */
+  SCM cpoints = me->get_property ("control-points");
   if (scm_ilength (cpoints) < 2)
     {
       me->suicide ();
@@ -297,18 +298,18 @@ Tuplet_bracket::print (SCM smob)
   {
       bracket_visibility = false;
   }
-  
+
   Drul_array<Offset> points;
   points[LEFT] = ly_scm2offset (scm_car (cpoints));
   points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
-  
+
   Interval x_span (points[LEFT][X_AXIS], points[RIGHT][X_AXIS]);
   Drul_array<Real> positions (points[LEFT][Y_AXIS], points[RIGHT][Y_AXIS]);
 
   Output_def *pap = me->layout ();
 
   Grob *number_grob = unsmob_grob (me->get_object ("tuplet-number"));
-  
+
   /*
     No bracket when it would be smaller than the number.
   */
@@ -319,7 +320,7 @@ Tuplet_bracket::print (SCM smob)
       if (!ext.is_empty ())
 	{
 	  gap = ext.length () + 1.0;
-      
+
 	  if (0.75 * x_span.length () < gap)
 	    bracket_visibility = false;
 	}
@@ -338,7 +339,7 @@ Tuplet_bracket::print (SCM smob)
       Drul_array<Stencil> edge_stencils;
 
       Direction dir = get_grob_direction (me);
-      
+
       scale_drul (&height, -ss * dir);
       scale_drul (&flare, ss);
       scale_drul (&shorten, ss);
@@ -364,11 +365,13 @@ Tuplet_bracket::print (SCM smob)
 		  SCM text = index_get_cell (edge_text, d);
 		  if (Text_interface::is_markup (text))
 		    {
-		      SCM t = Text_interface::interpret_markup (pap->self_scm (),
-								properties, text);
+		      SCM t
+			= Text_interface::interpret_markup (pap->self_scm (),
+							    properties, text);
 
 		      Stencil *edge_text = unsmob_stencil (t);
-		      edge_text->translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
+		      edge_text->translate_axis (x_span[d] - x_span[LEFT],
+						 X_AXIS);
 		      edge_stencils[d] = *edge_text;
 		    }
 		}
@@ -408,7 +411,7 @@ Tuplet_bracket::print (SCM smob)
 */
 Stencil
 Tuplet_bracket::make_bracket (Grob *me, // for line properties.
-			      Axis protusion_axis,
+			      Axis protrusion_axis,
 			      Offset dz,
 			      Drul_array<Real> height,
 			      Interval gap,
@@ -420,7 +423,7 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
   Real length = dz.length ();
   Drul_array<Offset> gap_corners;
 
-  Axis bracket_axis = other_axis (protusion_axis);
+  Axis bracket_axis = other_axis (protrusion_axis);
 
   Drul_array<Offset> straight_corners = corners;
 
@@ -440,7 +443,7 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
   do
     {
       flare_corners[d][bracket_axis] = straight_corners[d][bracket_axis];
-      flare_corners[d][protusion_axis] += height[d];
+      flare_corners[d][protrusion_axis] += height[d];
       straight_corners[d][bracket_axis] += -d * flare[d];
     }
   while (flip (&d) != LEFT);
@@ -461,7 +464,7 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
   if (gap.is_empty ())
     m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
 					 straight_corners[RIGHT]));
-  
+
   return m;
 }
 
@@ -521,12 +524,12 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 	  staff.widen (pad);
 	}
     }
-  
+
   Direction dir = get_grob_direction (me);
 
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
-  
+
   Item *lgr = get_x_bound_item (me, LEFT, dir);
   Item *rgr = get_x_bound_item (me, RIGHT, dir);
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
@@ -594,7 +597,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       for (vsize i = 0; i < columns.size (); i++)
 	{
-	  Interval note_ext = Note_column::cross_staff_extent (columns[i], commony);
+	  Interval note_ext = Note_column::cross_staff_extent (columns[i],
+							       commony);
 	  Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
 
 	  points.push_back (Offset (x, note_ext[dir]));
@@ -621,12 +625,12 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       if (!tuplets[i]->is_live ())
 	continue;
-      
-      Direction d = LEFT;
-      Drul_array<Real> positions = robust_scm2interval (tuplets[i]->get_property ("positions"),
-							Interval (0,0));
 
-      
+      Direction d = LEFT;
+      Drul_array<Real> positions
+	= robust_scm2interval (tuplets[i]->get_property ("positions"),
+			       Interval (0,0));
+
       Real other_dy = positions[RIGHT] - positions[LEFT];
 
       do
@@ -681,7 +685,6 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     }
 }
 
-
 MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_direction, 1);
 SCM
 Tuplet_bracket::calc_direction (SCM smob)
@@ -700,10 +703,10 @@ Tuplet_bracket::calc_positions (SCM smob)
   Real dy = 0.0;
   Real offset = 0.0;
   calc_position_and_height (me, &offset, &dy);
-  
+
   SCM x = scm_cons (scm_from_double (offset),
 		    scm_from_double (offset + dy));
-  
+
   return x;
 }
 
@@ -798,5 +801,3 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "thickness "
 	       "tuplets "
 	       );
-
-
