@@ -507,7 +507,7 @@ Do not use @@itemize @@bullet.
 To get LilyPond version, use @@version@{@} (this does not work
 inside LilyPond snippets).  If you write "@@version@{@}" (enclosed
 with quotes), or generally if @@version@{@} is not followed by a
-space, tere will be an ugly line break in PDF output unless you
+space, there will be an ugly line break in PDF output unless you
 enclose it with
 
 @example
@@ -539,8 +539,9 @@ enclose it with
 @@funindex - is for a \lilycommand.
 
 @item
-@@example ... @@end ignore - example text that should be set as a
+@@example ... @@end example - example text that should be set as a
   blockquote.  Any @{@} must be escaped with @@@{ @}@@
+
 @item
 @@itemize @@item
 A @@item
@@ -551,13 +552,16 @@ B ... @@end itemize - for bulleted lists.
 @@code@{@} - typeset in a tt-font. Use for actual lilypond code or
   property/context names.  If the name contains a space, wrap
   the entire thing inside @@w@{@@code@{  @}@}.
+
 @item
 @@notation@{@} - refers to pieces of notation, e.g.
   "@@notation@{cres.@}".  Also use to specific lyrics ("the
   @@notation@{A - men@} is centered").  Only use once per subsection
   per term.
+
 @item
 @@q@{@} - Single quotes. Used for `vague' terms.
+
 @item
 @@qq@{@} - Double quotes.  Used for actual quotes ("he said") or for
   introducing special input modes.
@@ -570,6 +574,7 @@ B ... @@end itemize - for bulleted lists.
 
 @item
 @@var - Use for variables.
+
 @item
 @@warning@{@} - produces a "Note: " box. Use for important messages.
 
@@ -581,18 +586,25 @@ B ... @@end itemize - for bulleted lists.
 @item
 @@ref@{@} - normal references (type the exact node name inside the
 @{@}).
+
 @item
 @@ruser@{@} - link to the NR.
+
 @item
 @@rlearning@{@} - link to the LM.
+
 @item
 @@rglos@{@} - link to the MG.
+
 @item
 @@rprogram@{@} - link to the AU.
+
 @item
 @@rlsr@{@} - link to a Snippet section.
+
 @item
 @@rinternals@{@} - link to the IR.
+
 @item
 @@uref@{@} - link to an external url.
 
