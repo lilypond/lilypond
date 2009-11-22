@@ -209,7 +209,7 @@ UNTRANSLATED NODE: IGNORE ME
 </div>
 @end html
 @iftex
-@image{../pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
+@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
 @end iftex
 @ifinfo
 @image{lilypond/pictures/\IMAGE-FILE\,,,\IMAGE-FILE\}
@@ -221,7 +221,7 @@ UNTRANSLATED NODE: IGNORE ME
 <img class="float-\POSITION\" src="../pictures/\IMAGE-FILE\.\EXT\" alt="\IMAGE-FILE\">
 @end html
 @iftex
-@image{../pictures/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
+@image{pictures/\IMAGE-FILE\,,,\IMAGE-FILE\,\EXT\}
 @end iftex
 @ifinfo
 @image{lilypond/pictures/\IMAGE-FILE\,,,\EXT\}
@@ -235,7 +235,7 @@ UNTRANSLATED NODE: IGNORE ME
 </div>
 @end html
 @iftex
-@image{../pictures/\IMAGE-FILE\,,,\ALT\}
+@image{pictures/\IMAGE-FILE\,,,\ALT\}
 @end iftex
 @ifinfo
 @image{lilypond/pictures/\IMAGE-FILE\,,,\ALT\}
