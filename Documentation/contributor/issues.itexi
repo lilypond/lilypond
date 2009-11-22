@@ -7,6 +7,7 @@
 * Issue classification::        
 * Adding issues to the tracker::  
 * Checking regression tests::
+* Checking old issues::
 @end menu
 
 
@@ -164,4 +165,18 @@ Although we have a system for checking the regtests between two versions,
 occasionally a bug will slip through the cracks.  It is therefore good to
 manually compare all the regtests twice a year or so.
 
+
+
+@node Checking old issues
+@section Checking old issues
+
+We try to mark each Issue @q{fixed} when we fix it, but
+occasionally one or two issues will slip through the cracks.
+Also, sometimes the Bug Meister will forget to verify that an
+issue has been fixed.
+
+It is therefore good to check all Issues once every 18 months or
+so.  If you see the same (broken) output as the initial report,
+then simply post a "Problem still exists in 2.x.y" message to the
+issue.
 
