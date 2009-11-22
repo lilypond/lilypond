@@ -6,6 +6,7 @@
 * Introduction to issues::      
 * Issue classification::        
 * Adding issues to the tracker::  
+* Checking regression tests::
 @end menu
 
 
@@ -156,5 +157,11 @@ what you're doing.
 
 
 
+@node Checking regression tests
+@section Checking regression tests
+
+Although we have a system for checking the regtests between two versions,
+occasionally a bug will slip through the cracks.  It is therefore good to
+manually compare all the regtests twice a year or so.
 
 

@@ -399,65 +399,58 @@ account.
 @node Help us
 @unnumberedsec Help us
 
-@divClass{heading-center}
-@heading We need you!
+@divClass{column-center-top}
+@subheading We need you!
 
 The LilyPond development team is quite small; we really want to
-get more people involved.  Please consider helping us, even with
-small tasks -- anything that you do will allow an experienced
-developer to work on advanced tasks.
+get more people involved.  Please consider helping your fellow
+LilyPond users by contributing to development!
+
+Even working on small tasks can have a big impact: taking care
+of them let experienced developers work on advanced tasks, instead
+of spending time on those simple tasks.
 
 @divEnd
 
 
 @divClass{column-left-top}
-@subheading Ways of contributing
-
-Many users ask @qq{I can't program; how can I help?}
+@subheading Simple tasks
 
 @divClass{keep-bullets}
-@subsubheading No source, no programming
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
 
 @itemize
 @item
-Mailist support: we have many users asking for him.
+Mailing list support: answer questions from fellow users.
+
+@item
+Bug reporting: help users create proper @ref{Bug reports}, and aid
+the Bug Team in handling @rcontrib{Issues}.
+
+@item
+Documentation: small changes can be proposed by following the
+guidelines for @rcontrib{Documentation suggestions}.
 
 @item
 LilyPond Snippet Repository (LSR): create and fix snippets.  See
 @rcontrib{Adding and editing snippets}.
 
 @item
-Bug reporting: our infrastructure for organizing bug reports only
-requires a web browser.  Please do not add bugs directly unless
-you have learned how we like to handle such reports.  See
-@rcontrib{Issues}.
-
-@item
 Discussions, reviews, and testing: the developers often ask for
 feedback about new documentation, potential syntax changes, and
-testing new features.  We rarely receive as much feedback as we
-would like; please consider responding to these requests!  (even
-if your only contribution is @qq{wow, looks great!})
+testing new features.  Please contribute to these discussions!
 
 @end itemize
 
-@subsubheading With source, no programming
+@subheading Moderate tasks
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-To get the source code, see @rcontrib{Starting with git}.
+@warning{These jobs generally require that you have the program
+and documentation source files, but do not require a full
+development environment.  See @rcontrib{Starting with git}.}
 
 @itemize
 @item
-Documentation:
+Documentation: see
+@rcontrib{Documentation work}, and
 @rcontrib{Building documentation without compiling LilyPond}.
 
 @item
@@ -471,23 +464,21 @@ Translations: see @rcontrib{Translating the documentation}, and
 
 @end itemize
 
-@subsubheading Programming
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
+@subheading Complex tasks
 
-To the best of our knowledge, nobody has compiled LilyPond on
-Windows.  We have therefore created @emph{lilybuntu}, a custom
-@emph{Ubuntu} variant configured for LilyPond development.  This
-runs inside a virtual machine, without disturbing the Windows
-operating system.  For more information, see
+@warning{These jobs generally require that you have the source
+code and can compile LilyPond.  See @rcontrib{Starting with git},
+and @rcontrib{Compiling LilyPond}.}
+
+We suggest that new contributors using Windows use a virtual
+machine to run @emph{lilybuntu}.  See
 @rcontrib{Using a Virtual Machine to Compile LilyPond}.
 
 @itemize
 @item
 Bugfixes, new features: the best way to begin is to join the
-Frogs.
+Frogs, and read @rcontrib{Programming work}.
 
 @end itemize
 
@@ -534,28 +525,17 @@ GOP is our big recruiting drive for new contributors.
 
 @divEnd
 
+
+@ignore
 @divClass{column-center-bottom}
-@subheading Legalese
-
-@divClass{legal}
-All logos and product images are copyright and trademark
-acknowledged.
-
-@logoLegalLinux
-
-@logoLegalFreeBSD
-
-@logoLegalMacOSX
-
-@logoLegalWindows
+@subheading Interested?
 
 @divEnd
+@end ignore
 
-@divEnd
 
 @node Development
 @unnumberedsec Development
-
 
 @divClass{heading-center}
 @heading Development materials for LilyPond @versionDevel{}
@@ -666,8 +646,7 @@ Internals:
 @subheading Contributors' Guide
 
 LilyPond development is a fairly complicated matter.  LilyPond is
-a large, (mostly) stable project.  At any point in time, we have
-between 5 and 25 active contributors.  In order to help new
+a large, (mostly) stable project.  In order to help new
 contributors, and to keep the whole system (mostly) stable, we
 have written a manual for contributors.
 
@@ -676,21 +655,35 @@ have written a manual for contributors.
 
 @item @uref{../contributor/index.html, Contributor's guide (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @  @emph{(small download for each page)}
 
 @item @uref{../contributor-big-page.html, Contributor's guide (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@*@ @  @emph{(large single download, around 10? Mb)}
 
 @item @uref{../contributor.pdf, contributor.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@*@ @  @emph{(large single download, 2.8 Mb)}
 
 @c @item @uref{TODO, contributor.info}:
 @c GNU info format for documentation.  TODO, link broken.
 
 @end itemize
 @divEnd
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Frogs: new contributors
+
+The Frogs are a collection of new contributors being mentored in
+how to @qq{eat} (fix) bugs and add new features to LilyPond.
+Programmers unfamiliar with LilyPond are encouraged to send
+patches to the Frogs first for initial discussion and
+encouragement.
+
+Website and mailist: @uref{http://frogs.lilynet.net}
+
 @divEnd
 
 @divClass{column-right-bottom}
@@ -709,7 +702,7 @@ This releases' MusicXML tests.  (also in
 @uref{../input/regression/musicxml/collated-files.pdf, pdf})
 
 @item @uref{http://lilypond.org/test, Archive of regression tests}:
-Comparisons beteween versions.
+Comparisons between versions.
 
 @end itemize
 @divEnd
