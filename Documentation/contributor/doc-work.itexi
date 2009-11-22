@@ -2,6 +2,16 @@
 @node Documentation work
 @chapter Documentation work
 
+There are currently 11 manuals for LilyPond, not including the
+translations.  Each book is available in HTML, PDF, and info.  The
+documentation is written in a language called @code{texinfo} --
+this allows us to generate different output formats from a single
+set of source files.
+
+To organize multiple authors working on the documentation, we use a
+Version Control System (VCS) called git, previously discussed in
+@ref{Starting with git}.
+
 @menu
 * Introduction to documentation work::
 * Documentation suggestions::
