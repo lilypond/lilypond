@@ -9,7 +9,7 @@
 (define-builtin-markup-command (harp-pedal layout props definition-string) (string?)
   instrument-specific-markup ; markup type for the documentation!
   ((size 1.2)
-   (harp-pedal-details)
+   (harp-pedal-details '())
    (thickness 0.5))
   "Make a harp pedal diagram.
 
@@ -50,78 +50,8 @@ divider) and @code{space-after-divider} (box spacing after the divider).
 \\markup \\harp-pedal #\"^-v|--ov^\"
 @end lilypond
 "
-  (make-harp-pedal layout props (harp-pedals-parse-string definition-string)))
-
-
-;; There is also a \harp-pedal-verbose version, which takes a list of -1/0/1
-;; directions, o and a possible |. It's commented out, because it has some
-;; issues (see below) and does not add any new functionality over \harp-pedal
-;; The caveats:
-;;   1) the | cannot be given as a string "|" but as a character #\| and
-;;      the "o" has to be given as #\o.
-;;   2) if one wants to use directions like UP, CENTER or DOWN, one cannot use
-;;      '(UP DOWN CENTER #\| ....), because the contents of that list are
-;;      never evaluated to -1/0/1. Instead one has to explicitly create a
-;;      list like (list UP DOWN CENTER #\| ....)
-;;
-;; (define-builtin-markup-command (harp-pedal-verbose layout props pedal-list) (list?)
-;;   instrument-specific-markup ; markup type
-;;   ((size 1.2)
-;;    (harp-pedal-details)
-;;    (thickness 0.5))
-;;   "Make a harp pedal diagram containing the directions indicated in @var{pedal-list}."
-;;   (make-harp-pedal layout props pedal-list))
-
-
-
-;; Parse the harp pedal definition string into list of directions (-1/0/1), #\o and #\|
-(define (harp-pedals-parse-string definition-string)
- "Parse a harp pedals diagram string and return a list containing 1, 0, -1, #\\o or #\\|"
-  (map (lambda (c)
-    (case c
-      ((#\^) 1)
-      ((#\v) -1)
-      ((#\-) 0)
-      ((#\| #\o) c)
-      (else c)))
-    (string->list definition-string)))
-
-
-;; Analyze the pedal-list: Return (pedalcount . (divider positions))
-(define (harp-pedal-info pedal-list)
-  (let check ((pedals pedal-list)
-              (pedalcount 0)
-              (dividerpositions '()))
-    (if (null? pedals)
-      (cons pedalcount (reverse dividerpositions))
-
-      (case (car pedals)
-        ((-1 0 1) (check (cdr pedals) (+ pedalcount 1) dividerpositions))
-        ((#\|)    (check (cdr pedals) pedalcount (cons pedalcount dividerpositions)))
-        (else     (check (cdr pedals) pedalcount dividerpositions))))))
-
-
-;; Sanity checks, spit out warning if pedal-list violates the conventions
-(define (harp-pedal-check pedal-list)
-  "Perform some sanity checks for harp pedals (7 pedals, divider after third)"
-  (let ((info (harp-pedal-info pedal-list)))
-    ; 7 pedals:
-    (if (not (equal? (car info) 7))
-      (ly:warning "Harp pedal diagram contains ~a pedals rather than the usual 7." (car info)))
-    ; One divider after third pedal:
-    (if (null? (cdr info))
-      (ly:warning "Harp pedal diagram does not contain a divider (usually after third pedal).")
-      (if (not (equal? (cdr info) '(3)))
-        (ly:warning "Harp pedal diagram contains dividers at positions ~a. Normally, there is only one divider after the third pedal." (cdr info))))))
-
-
-(define (make-harp-pedal layout props pedal-list)
-  "Make a harp pedals diagram markup"
-
-  (harp-pedal-check pedal-list)
-
-  (let* ((size (chain-assoc-get 'size props 1.2))
-        (details (chain-assoc-get 'harp-pedal-details props '()))
+  (let* ((pedal-list (harp-pedals-parse-string definition-string))
+        (details (begin (harp-pedal-check pedal-list) harp-pedal-details))
         (dy (* size (assoc-get 'box-offset details 0.8))) ; offset of the box center from the line
         (line-width (* (ly:output-def-lookup layout 'line-thickness)
                        (chain-assoc-get 'thickness props 0.5)))
@@ -185,3 +115,42 @@ divider) and @code{space-after-divider} (box spacing after the divider).
         (make-line-stencil line-width 0 0 final-x 0)
         stencils))))
 
+;; Parse the harp pedal definition string into list of directions (-1/0/1), #\o and #\|
+(define (harp-pedals-parse-string definition-string)
+ "Parse a harp pedals diagram string and return a list containing 1, 0, -1, #\\o or #\\|"
+  (map (lambda (c)
+    (case c
+      ((#\^) 1)
+      ((#\v) -1)
+      ((#\-) 0)
+      ((#\| #\o) c)
+      (else c)))
+    (string->list definition-string)))
+
+
+;; Analyze the pedal-list: Return (pedalcount . (divider positions))
+(define (harp-pedal-info pedal-list)
+  (let check ((pedals pedal-list)
+              (pedalcount 0)
+              (dividerpositions '()))
+    (if (null? pedals)
+      (cons pedalcount (reverse dividerpositions))
+
+      (case (car pedals)
+        ((-1 0 1) (check (cdr pedals) (+ pedalcount 1) dividerpositions))
+        ((#\|)    (check (cdr pedals) pedalcount (cons pedalcount dividerpositions)))
+        (else     (check (cdr pedals) pedalcount dividerpositions))))))
+
+
+;; Sanity checks, spit out warning if pedal-list violates the conventions
+(define (harp-pedal-check pedal-list)
+  "Perform some sanity checks for harp pedals (7 pedals, divider after third)"
+  (let ((info (harp-pedal-info pedal-list)))
+    ; 7 pedals:
+    (if (not (equal? (car info) 7))
+      (ly:warning "Harp pedal diagram contains ~a pedals rather than the usual 7." (car info)))
+    ; One divider after third pedal:
+    (if (null? (cdr info))
+      (ly:warning "Harp pedal diagram does not contain a divider (usually after third pedal).")
+      (if (not (equal? (cdr info) '(3)))
+        (ly:warning "Harp pedal diagram contains dividers at positions ~a. Normally, there is only one divider after the third pedal." (cdr info))))))
