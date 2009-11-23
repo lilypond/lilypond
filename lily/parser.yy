@@ -1277,7 +1277,7 @@ property_operation:
 		$$ = scm_list_2 (ly_symbol2scm ("unset"),
 			scm_string_to_symbol ($2));
 	}
-	| OVERRIDE simple_string property_path '=' embedded_scm {
+	| OVERRIDE simple_string property_path '=' scalar {
 		$$ = scm_append (scm_list_2 (scm_list_3 (ly_symbol2scm ("push"),
 							scm_string_to_symbol ($2), $5),
 					     $3));
