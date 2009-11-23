@@ -102,6 +102,13 @@ $(outdir)/web/index.html: TEXI2HTML_SPLIT = $(WEB_TEXI2HTML_SPLIT)
 #$(outdir)/web/index.html:
 #	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output $(outdir)/ $(outdir)/web.texi
 
+
+### bad hack for badly-integrated roadmap.
+$(outdir)/ROADMAP:
+	cp $(top-src-dir)/ROADMAP $(outdir)
+$(outdir)/contributor.texi: $(outdir)/ROADMAP
+
+
 ###########
 ### Targets
 

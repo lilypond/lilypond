@@ -15,6 +15,7 @@ Git documentation listed in @ref{Other git documentation}.
 * Advanced git stuff::          
 * Git on Windows::
 * Other git documentation::
+* Roadmap of directories::
 @end menu
 
 
@@ -1009,4 +1010,11 @@ More in-depth tutorials: @uref{http://git-scm.com/documentation}
 Book about git: @uref{http://progit.org/,Pro Git}
 
 @end itemize
+
+
+@node Roadmap of directories
+@section Roadmap of directories
+
+@c TODO: integrate the roadmap better
+@verbatiminclude ROADMAP
 
