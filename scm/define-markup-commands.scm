@@ -824,7 +824,6 @@ If there are no arguments, return an empty stencil.
 	       stencils))
 	 (text-width (apply + text-widths))
 	 (word-count (length stencils))
-	 (prop-line-width (chain-assoc-get 'line-width props #f))
 	 (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
 	 (fill-space
 	 	(cond
@@ -3290,7 +3289,7 @@ where @var{X} is the number of staff spaces."
   ((baseline-skip))
   "Like @code{\\column}, but return a list of lines instead of a single markup.
 @code{baseline-skip} determines the space between each markup in @var{args}."
-  (space-lines (chain-assoc-get 'baseline-skip props)
+  (space-lines baseline-skip
 	       (interpret-markup-list layout props args)))
 
 (define-builtin-markup-list-command (override-lines layout props new-prop args)
