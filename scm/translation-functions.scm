@@ -1,7 +1,7 @@
 ;;;; translation-functions.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 1998--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -170,7 +170,7 @@
 ;; fret diagrams
 
 (define-public (determine-frets context grob notes string-numbers)
-  
+
   (define (ensure-number a b)
     (if (number? a)
 	a
@@ -186,7 +186,7 @@
 			 (fret (cadr sf))
 			 (finger (caddr sf)))
 
-		    (vector-set! 
+		    (vector-set!
 		     desc (1- string)
 		     (if (= 0 fret)
 			 (list 'open string)
@@ -196,7 +196,7 @@
 		string-frets)
 
       (vector->list desc)))
-    
+
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
 ;   (_i "Search through @var{predefined-fret-table} looking for a predefined
 ;fretboard with a key of @var{(tuning . pitches)}.  The search will check
@@ -212,12 +212,12 @@
     (let ((test-fretboard (get-fretboard (cons tuning pitches))))
       (if (not (null? test-fretboard))
 	  test-fretboard
-	  (let ((test-fretboard 
+	  (let ((test-fretboard
 		 (get-fretboard
 		  (cons tuning (map (lambda (x) (shift-octave x 1)) pitches)))))
 	    (if (not (null? test-fretboard))
 		test-fretboard
-		(get-fretboard 
+		(get-fretboard
 		 (cons tuning (map (lambda (x) (shift-octave x -1))
 				   pitches))))))))
 
@@ -226,34 +226,42 @@
 	 (my-string-count (length tunings))
 	 (details (ly:grob-property grob 'fret-diagram-details))
 	 (predefined-frets
-	  (ly:context-property context 'predefinedDiagramTable)) 
-	 (minimum-fret (ensure-number
-			(ly:context-property context 'minimumFret) 0))
-	 (max-stretch (ensure-number
-		       (ly:context-property context 'maximumFretStretch) 4))
-	 (string-frets (determine-frets-mf notes string-numbers
-					   minimum-fret max-stretch
-					   tunings))
-	 (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes)))
+	  (ly:context-property context 'predefinedDiagramTable))
+	 (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes))
+         (predefined-fretboard
+          (if predefined-frets
+              (get-predefined-fretboard
+               predefined-frets
+               tunings
+               pitches)
+              '())))
 
     (set! (ly:grob-property grob 'fret-diagram-details)
-
           (if (null? details)
-              (acons 'string-count (length tunings) '())
-              (acons 'string-count (length tunings) details)))
+              (acons 'string-count my-string-count '())
+              (acons 'string-count my-string-count details)))
 
     (set! (ly:grob-property grob 'dot-placement-list)
-	  (if predefined-frets
-	      (let ((predefined-fretboard 
-		     (get-predefined-fretboard
-                      predefined-frets
-                      tunings
-                      pitches)))
-		(if (null? predefined-fretboard)
-		    (string-frets->dot-placement 
-		     string-frets my-string-count)  ;no predefined diagram
-		    predefined-fretboard)) ;found default diagram
-	      (string-frets->dot-placement string-frets my-string-count)))))
+          (if (not (null? predefined-fretboard))
+              predefined-fretboard
+              (let ((minimum-fret
+                     (ensure-number
+                      (ly:context-property context 'minimumFret)
+                      0))
+                    (max-stretch
+                     (ensure-number
+                      (ly:context-property context 'maximumFretStretch)
+                      4))
+                    (string-frets
+                     (determine-frets-mf
+                       notes
+                       string-numbers
+                       minimum-fret
+                       max-stretch
+                       tunings)))
+		(string-frets->dot-placement
+		  string-frets
+                  my-string-count))))))
 
 (define-public (determine-frets-mf notes string-numbers
 				   minimum-fret max-stretch
@@ -303,7 +311,7 @@
 
   (define specified-frets '())
   (define free-strings '())
-  
+
   (define (close-enough fret)
     (reduce
      (lambda (x y)
@@ -350,12 +358,12 @@
    (lambda (note)
      (if (note-string note)
 	 (set-fret note (note-string note))
-	 (let* ((fit-string (find (lambda (string) 
+	 (let* ((fit-string (find (lambda (string)
 				    (string-qualifies string (note-pitch note)))
 				  free-strings)))
 	   (if fit-string
 	       (set-fret note fit-string)
-	       (ly:warning "No string for pitch ~a (given frets ~a)" 
+	       (ly:warning "No string for pitch ~a (given frets ~a)"
                            (note-pitch note)
 			   specified-frets)))))
    (sort notes note-pitch>?))
