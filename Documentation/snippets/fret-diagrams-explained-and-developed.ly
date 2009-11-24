@@ -30,7 +30,7 @@ diagrams.
       #'fret-diagram-details #'finger-code = #'below-string
     \override TextScript #'fret-diagram-details #'dot-color = #'black
 
-    %% A chord for ukelele
+    %% A chord for ukulele
     a'2^\markup {
       \override #'(fret-diagram-details . (
                    (string-count . 4)
@@ -40,7 +40,7 @@ diagrams.
       }
     }
 
-    %% A chord for ukelele, with formatting defined in definition string
+    %% A chord for ukulele, with formatting defined in definition string
     %  1.2 * size, 4 strings, 4 frets, fingerings below string
     %  dot radius .35 of fret spacing, dot position 0.55 of fret spacing
     a'2^\markup {

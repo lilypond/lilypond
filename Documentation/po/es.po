@@ -7357,7 +7357,7 @@ msgstr "misNotas"
 
 #. Documentation/user/fretted-strings.itely:453 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:32 (comment)
-msgid "A chord for ukelele"
+msgid "A chord for ukulele"
 msgstr "Un acorde de ukelele"
 
 #. Documentation/user/fretted-strings.itely:785 (variable)
@@ -11794,7 +11794,7 @@ msgstr ""
 "msg00215.html"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:42 (comment)
-msgid "A chord for ukelele, with formatting defined in definition string"
+msgid "A chord for ukulele, with formatting defined in definition string"
 msgstr "Acorde para el ukelele, con el formato definido en la cadena de definición"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:43 (comment)

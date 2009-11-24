@@ -2902,7 +2902,7 @@ msgstr "Introduction aux retouches"
 msgid "Objects and interfaces"
 msgstr "Objets et interfaces"
 
-# jcm - Journal officiel de la République française du 19/11/2008 
+# jcm - Journal officiel de la République française du 19/11/2008
 # jcm - (NOR : CTNX0825937X) traduction de naming
 #. @node in Documentation/user/tweaks.itely
 #. @subsection in Documentation/user/tweaks.itely
@@ -7354,7 +7354,7 @@ msgstr "mesnotes"
 
 #. Documentation/user/fretted-strings.itely:453 (comment)
 #. input/lsr/fret-diagrams-explained-and-developed.ly:32 (comment)
-msgid "A chord for ukelele"
+msgid "A chord for ukulele"
 msgstr "Un accord pour ukulele"
 
 #. Documentation/user/fretted-strings.itely:785 (variable)
@@ -11783,7 +11783,7 @@ msgstr ""
 "msg00215.html"
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:42 (comment)
-msgid "A chord for ukelele, with formatting defined in definition string"
+msgid "A chord for ukulele, with formatting defined in definition string"
 msgstr ""
 
 #. input/lsr/fret-diagrams-explained-and-developed.ly:43 (comment)

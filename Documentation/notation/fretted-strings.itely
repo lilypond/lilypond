@@ -575,7 +575,7 @@ can be changed in the fret-diagram markup string.
 @end lilypond
 
 The number of strings in a fret diagram can be changed to accomodate
-different instruments such as banjos and ukeleles with the fret-diagram
+different instruments such as banjos and ukuleles with the fret-diagram
 markup string.
 
 @lilypond[quote, verbatim]
@@ -586,7 +586,7 @@ markup string.
      }
   }
   \context Staff {
-        %% A chord for ukelele
+        %% A chord for ukulele
     a'1 ^\markup \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
   }
 >>

@@ -2,7 +2,7 @@
 
 \header {
   texidoc="
-Number of frets and number of strings can be changed from the 
+Number of frets and number of strings can be changed from the
 defaults.
 
 "
@@ -25,7 +25,7 @@ defaults.
       \fret-diagram #"6-x;5-x;4-o;3-2-1;2-3-2;1-2-3;"
     } |
 
-    % A chord for ukelele -- change both string and fret count
+    % A chord for ukulele -- change both string and fret count
     a'1 ^\markup {
       \fret-diagram #"w:4;h:5;4-2-2;3-1-1;2-o;1-o;"
     }

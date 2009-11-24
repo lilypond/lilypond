@@ -465,7 +465,7 @@ Instrumente anzupassen, wie etwas Banjo oder Ukulele.
      }
   }
   \context Staff {
-        %% A chord for ukelele
+        %% A chord for ukulele
     a'1 ^\markup \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
   }
 >>
@@ -960,7 +960,7 @@ oder als @code{fret-diagram-verbose}-Liste erstellt werden.
 
 \storePredefinedDiagram \chordmode {f''}
                         #guitar-tuning
-                        #(chord-shape 'powerf guitar-tuning) 
+                        #(chord-shape 'powerf guitar-tuning)
 \storePredefinedDiagram \chordmode {g''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
@@ -1355,7 +1355,7 @@ Saite gesetzt werden:
 @funindex four-string-banjo
 
 Eine Anzahl von üblichen Stimmungen für Banjo sind in LilyPond
-vordefiniert: 
+vordefiniert:
 @code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
 @code{banjo-open-d-tuning} (aDF#AD) und @code{banjo-open-dm-tuning}
 (aDFAD).

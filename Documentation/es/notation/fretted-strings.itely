@@ -464,7 +464,7 @@ la cadena de marcado del diagrama.
      }
   }
   \context Staff {
-        %% A chord for ukelele
+        %% A chord for ukulele
     a'1 ^\markup \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
   }
 >>
@@ -965,7 +965,7 @@ fret-diagram-verbose.
 
 \storePredefinedDiagram \chordmode {f''}
                         #guitar-tuning
-                        #(chord-shape 'powerf guitar-tuning) 
+                        #(chord-shape 'powerf guitar-tuning)
 \storePredefinedDiagram \chordmode {g''}
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
