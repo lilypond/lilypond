@@ -4,6 +4,8 @@
 \version "2.13.4"
 
 \header {
+  lsrtags = "text"
+
 %% Translation of GIT committish: c2e8b1d6d671dbfc138f890cbc7e9882b7be2761
   texidocfr = "
 Les indications textuelles peuvent être imprimées à la fin d'une ligne 
@@ -13,8 +15,6 @@ droite de l'indication sur la barre de mesure.
 "
   doctitlefr = "Indication texuelle en fin de ligne"
 
-
-  lsrtags = "text"
 
   texidoc = "
 Marks can be printed at the end of the current line, instead of the

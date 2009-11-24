@@ -7,6 +7,7 @@ changing-form-of-multi-measure-rests.ly
 changing-properties-for-individual-grobs.ly
 changing-the-default-text-font-family.ly
 changing-the-staff-size.ly
+controlling-spanner-visibility-after-a-line-break.ly
 controlling-the-vertical-ordering-of-scripts.ly
 controlling-tuplet-bracket-visibility.ly
 creating-a-delayed-turn.ly

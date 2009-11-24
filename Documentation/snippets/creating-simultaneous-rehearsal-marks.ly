@@ -42,9 +42,12 @@ end of one system and the start of the following system.
   \mark \markup { \bold { Senza denti } }
 
   % the hidden measure and bar line
+  % \cadenzaOn turns off automatic calculation of bar numbers
+  \cadenzaOn
   \once \override Score.TimeSignature #'stencil = ##f
   \time 1/16
   s16 \bar ""
+  \cadenzaOff
 
   \time 4/4
   \once \override Score.RehearsalMark #'self-alignment-X = #LEFT

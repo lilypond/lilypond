@@ -46,7 +46,7 @@ regroupements imbriqués complexes.  La commande
 @code{\\set@tie{}StaffGroup.systemStartDelimiterHierarchy} prend en
 argument la liste alphabétique des sous-groupes à hiérarchiser.  Chaque
 sous-groupe peut être affublé d'un délimiteur particulier.  Chacun des
-regroupements intermédiaires doît être borné par des parenthèses.  Bien
+regroupements intermédiaires doit être borné par des parenthèses.  Bien
 que des éléments de la liste puissent être omis, le premier délimiteur
 embrassera toujours l'intégralité des portées.  Vous disposez des quatre
 délimiteurs @code{SystemStartBar}, @code{SystemStartBracket},

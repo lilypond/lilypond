@@ -4,15 +4,6 @@
 \version "2.13.4"
 
 \header {
-%% Translation of GIT committish: c2e8b1d6d671dbfc138f890cbc7e9882b7be2761
-  texidocfr = "
-L'utilisation de la commande @code{\\markup} permet de distribuer un bloc
-de texte indépendant sur plusieurs colonnes.
-
-"
-  doctitlefr = "Bloc de texte indépendant sur deux colonnes"
-
-
   lsrtags = "text"
 
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
@@ -30,6 +21,14 @@ angeordnet werden:
 
 "
   doctitlede = "Isolierter Text in zwei Spalten"
+%% Translation of GIT committish: c2e8b1d6d671dbfc138f890cbc7e9882b7be2761
+  texidocfr = "
+L'utilisation de la commande @code{\\markup} permet de distribuer un bloc
+de texte indépendant sur plusieurs colonnes.
+
+"
+  doctitlefr = "Bloc de texte indépendant sur deux colonnes"
+
 
   texidoc = "
 Stand-alone text may be arranged in several columns using
