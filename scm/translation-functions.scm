@@ -244,16 +244,16 @@
     (set! (ly:grob-property grob 'dot-placement-list)
           (if (not (null? predefined-fretboard))
               predefined-fretboard
-              (let ((minimum-fret
-                     (ensure-number
-                      (ly:context-property context 'minimumFret)
-                      0))
-                    (max-stretch
-                     (ensure-number
-                      (ly:context-property context 'maximumFretStretch)
-                      4))
-                    (string-frets
-                     (determine-frets-mf
+              (let* ((minimum-fret
+                      (ensure-number
+                       (ly:context-property context 'minimumFret)
+                       0))
+                     (max-stretch
+                      (ensure-number
+                       (ly:context-property context 'maximumFretStretch)
+                       4))
+                     (string-frets
+                      (determine-frets-mf
                        notes
                        string-numbers
                        minimum-fret
