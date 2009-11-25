@@ -87,7 +87,7 @@ def compare_png_images (old, new, dest_dir):
     system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
     system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
 
-    system ('compare -depth 8 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
+    system ('compare -depth 8 -dissimilarity-threshold 1 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
 
     system ("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals ())
 
