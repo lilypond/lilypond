@@ -4,6 +4,8 @@
 %%%%
 %%%% (c) 2008--2009 Carl D. Sorensen <c_sorensen@byu.edu>
 
+\include "predefined-guitar-ninth-fretboards.ly"
+
 %%%  Add basic chordshapes
 
 \version "2.12.0"

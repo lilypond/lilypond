@@ -408,9 +408,13 @@ Perfect fourth, perfect fifth
 @node Predefined fretboard diagrams
 @appendixsec Predefined fretboard diagrams
 
-The chart below shows the predefined fretboard diagrams.
+The chart below shows the predefined fretboard diagrams for guitar.
 
 @lilypondfile{display-predefined-fretboards.ly}
+
+The chart below shows the predefined fretboard diagrams for ukulele.
+
+@lilypondfile{display-predefined-ukulele-fretboards.ly}
 
 @node MIDI instruments
 @appendixsec MIDI instruments

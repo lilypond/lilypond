@@ -402,12 +402,13 @@ LilyPond tabulature automatically calculates the fret for
 a note based on the string to which the note is assigned.
 In order to do this, the tuning of the strings must be
 specified.  The tuning of the strings is given in the
-@code{StringTunings} property.
+@code{stringTunings} property.
 
 LilyPond comes with predefined string tunings for banjo, mandolin,
-guitar and bass guitar.  LilyPond automatically sets the correct
-transposition for predefined tunings.  The following example is
-for bass guitar, which sounds an octave lower than written.
+guitar, bass guitar and ukulele.  LilyPond automatically sets
+the correct transposition for predefined tunings.  The following
+example is for bass guitar, which sounds an octave lower than
+written.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -430,7 +431,7 @@ The default string tuning is @code{guitar-tuning}, which
 is the standard EADGBE tuning.  Some other predefined tunings are
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} and
 @code{banjo-open-g-tuning}.  The predefined string tunings
-are found in @code{scm/output-lib.scm}.
+are found in @code{scm/tablature.scm}.
 
 A string tuning is a Scheme list of string pitches,
 one for each string, ordered by string number from 1 to N,
@@ -474,7 +475,7 @@ mynotes = {
 
 @seealso
 Installed Files:
-@file{scm/@/output@/-lib@/.scm}.
+@file{scm/@/tablature@/.scm}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -482,6 +483,10 @@ Snippets:
 Internals Reference:
 @rinternals{Tab_note_heads_engraver}.
 
+@knownissues
+Automatic tablature calculations do not work properly in most
+cases for instruments where string pitches do not vary
+monotonically with string number, such as ukuleles.
 
 @node Fret diagram markups
 @unnumberedsubsubsec Fret diagram markups
@@ -888,6 +893,24 @@ diagrams can be added for other instruments or other tunings
 by following the examples found in
 @code{predefined-guitar-fretboards.ly}.
 
+Fret diagrams for the ukulele are contained in the file
+@code{predefined-ukulele-fretboards.ly}.
+
+@lilypond[verbatim, ragget-right, quote]
+\include "predefined-ukulele-fretboards.ly"
+
+myChords = \chordmode { a1 a:m a:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
+
 Chord pitches can be entered
 either as simultaneous music or using chord mode (see
 @ref{Chord mode overview}).
@@ -955,9 +978,13 @@ mychordlist = {
 @end lilypond
 
 
-The predefined fret diagram table contains seven chords (major, minor,
-augmented, diminished, dominant seventh, major seventh, minor seventh)
-for each of 17 keys.  A complete list of the predefined fret diagrams is
+The predefined fret diagram table for guitar contains eight chords (major, minor,
+augmented, diminished, dominant seventh, major seventh, minor seventh, dominant ninth)
+for each of 17 keys.
+The predefined fret diagram table for ukulele contains these chords
+plus an additional three chords (major sixth, suspended second, and
+suspended fourth).
+A complete list of the predefined fret diagrams is
 shown in @ref{Predefined fretboard diagrams}.  If there is no entry in
 the table for a chord, the FretBoards engraver will calculate a
 fret-diagram using the automatic fret diagram functionality described in
@@ -966,7 +993,7 @@ fret-diagram using the automatic fret diagram functionality described in
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 mychords = \chordmode{
-  c1 c:9
+  c1 c:maj9
 }
 
 <<
@@ -992,12 +1019,12 @@ marking list.
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram \chordmode {c:9}
+\storePredefinedDiagram \chordmode {c:maj9}
                         #guitar-tuning
-                        #"x;3-2;2-1;3-3;3-4;x;"
+                        #"x;3-2;o;o;o;o;"
 
 mychords = \chordmode{
-  c1 c:9
+  c1 c:maj9
 }
 
 <<
@@ -1273,6 +1300,10 @@ Snippets:
 
 Internals Reference:
 @rinternals {fret-diagram-interface}.
+
+@knownissues
+Automatic fretboard calculations do not work properly for instruments
+with non-monotonic tunings.
 
 
 @node Right-hand fingerings

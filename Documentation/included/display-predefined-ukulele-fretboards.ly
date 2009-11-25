@@ -1,8 +1,12 @@
-\include "predefined-guitar-fretboards.ly"
-\version "2.12.0"
+\version "2.13.9"
+\include "predefined-ukulele-fretboards.ly"
 
 
-mychords = \chordmode {c1 c:m c:aug c:dim c:7 c:maj7 c:m7 c:9 \break }
+mychords = \chordmode {
+  c1 c:m c:aug c:dim c:7 c:maj7 c:m7
+  c:6 c:sus2 c:sus4 c:9
+  \break
+}
 
 chordsline = {
   \mychords
@@ -61,6 +65,7 @@ chordsline = {
     \chordsline
   }
   \context FretBoards {
+    \set stringTunings = #ukulele-tuning
     \chordsline
   }
   \context Staff {

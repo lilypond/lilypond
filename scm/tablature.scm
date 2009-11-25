@@ -31,6 +31,12 @@
 ;; convert 5-string banjo tuning to 4-string by removing the 5th string
 (define-public (four-string-banjo tuning)
   (reverse (cdr (reverse tuning))))
+;; ukulele tunings
+(define-public ukulele-tuning '(9 4 0 7)) ;ukulele  a' e' c' g'
+(define-public ukulele-d-tuning '(11 6 2 9)) ;ukulele d tuning, b' fis' d' a'
+(define-public ukulele-tenor-tuning '(-5 0 4 9)) ;tenor ukulele, g c' e' a'
+(define-public ukulele-baritone-tuning '(-10 -5 -1 4)) ;baritone ukulele, d g b e'
+
 
 ;; for more control over glyph-name calculations,
 ;; we use a custom callback for tab note heads
