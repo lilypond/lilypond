@@ -56,9 +56,10 @@ opt_parser.add_option ('-p', '--check-punctuation',
 opt_parser.add_option ("-I", '--include', help="add DIR to include path",
                        metavar="DIR",
                        action='append', dest='include_path',
-                       default=[os.path.abspath (os.getcwd ())])
+                       default=[])
 
 (options, files) = opt_parser.parse_args ()
+options.include_path.append (os.path.abspath (os.getcwd ()))
 
 class InteractionError (Exception):
     pass
