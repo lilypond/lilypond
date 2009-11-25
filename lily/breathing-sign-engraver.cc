@@ -1,7 +1,7 @@
 /*
-  breathing_sign-engraver.cc -- implement Breathing_sign_engraver
+  This file is part of LilyPond, the GNU music typesetter.
 
-  (c) 1999--2009 Michael Krause
+  Copyright (C) 1999--2009 Michael Krause
 
   written for the GNU LilyPond music typesetter
 
@@ -10,6 +10,19 @@
   . Cancel any beams running through the breathing sign
   ([e8 \breathe f e f] should become [e8] \breathe [f e f])
   . Spacing is not yet completely pretty
+
+  LilyPond is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  LilyPond is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "breathing-sign.hh"

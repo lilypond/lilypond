@@ -1,9 +1,25 @@
 #! /usr/bin/env python
 #
 #  yyout2grammar.py
+
+# This file is part of LilyPond, the GNU music typesetter.
 #
-#  Auxiliary script of the GNU LilyPond music engraver
+# Copyright (C) 2005 by Carl D. Sorensen <c_sorensen@byu.edu>
 #
+# LilyPond is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# LilyPond is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
+
 #  Convert from bison output file parser.output to
 #  Grammar and index.
 #  Drops all of the state information.
@@ -14,8 +30,6 @@
 #  Wraps lines that are longer than 78 characters for improved
 #        formatting
 #
-#  Copyright 2005 by Carl D. Sorensen
-
 # to create input file, run
 #   bison -v parser.yy
 # this will create a file parser.output

@@ -1,10 +1,19 @@
+;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;;  x11-color.scm -- allows access to x11 color codes
+;;;; Copyright (C) 2005--2009 Bernard Hurley <bernard@fong-hurley.org.uk>
 ;;;;
-;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
-;;;; (c) 2005--2009 Bernard Hurley <bernard@fong-hurley.org.uk>
+;;;; LilyPond is free software: you can redistribute it and/or modify
+;;;; it under the terms of the GNU General Public License as published by
+;;;; the Free Software Foundation, either version 3 of the License, or
+;;;; (at your option) any later version.
 ;;;;
+;;;; LilyPond is distributed in the hope that it will be useful,
+;;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;;; GNU General Public License for more details.
+;;;;
+;;;; You should have received a copy of the GNU General Public License
+;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define x11-color-list 	    
   '((snow 1 0.98039215686274506 0.98039215686274506)

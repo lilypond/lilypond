@@ -1,9 +1,4 @@
-%%%% predefined-ukulele-fretboards.ly
-%%%%
-%%%% source file of the GNU LilyPond music typesetter
-%%%%
 %%%% copyrignt (c) 2009 Matt Corks <mvcorks@alumni.uwaterloo.ca>
-%%%%
 
 %%%% sources:
 %%%%   ukulele hall of fame museum website (http://www.ukulele.org/),

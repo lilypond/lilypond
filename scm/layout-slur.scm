@@ -1,8 +1,19 @@
-;;;; layout-slur.scm -- Slur scheme stuff
+;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; source file of the GNU LilyPond music typesetter
-;;;; 
-;;;; (c) 2000--2009 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 2000--2009 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;
+;;;; LilyPond is free software: you can redistribute it and/or modify
+;;;; it under the terms of the GNU General Public License as published by
+;;;; the Free Software Foundation, either version 3 of the License, or
+;;;; (at your option) any later version.
+;;;;
+;;;; LilyPond is distributed in the hope that it will be useful,
+;;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;;; GNU General Public License for more details.
+;;;;
+;;;; You should have received a copy of the GNU General Public License
+;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 				;
 ; this is put into the slur-details property of Slur and PhrasingSlur
 (define default-slur-details

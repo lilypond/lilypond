@@ -1,15 +1,26 @@
-;;;;
-;;;; lilypond-mode.el --- Major mode for editing GNU LilyPond music scores
-;;;;
-;;;; source file of the GNU LilyPond music typesetter
+;;;; lilypond-mode.el -- Major mode for editing GNU LilyPond music scores
+;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;  
-;;;; (c) 1999--2009 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; 
+;;;; Copyright (C) 1999--2009 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
 ;;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
 ;;;;    * Keyboard shortcuts (12th Sep 2001)
 ;;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
 ;;;;    * Autocompletion & Info (23rd Nov 2002)
+;;;;
+;;;; LilyPond is free software: you can redistribute it and/or modify
+;;;; it under the terms of the GNU General Public License as published by
+;;;; the Free Software Foundation, either version 3 of the License, or
+;;;; (at your option) any later version.
+;;;;
+;;;; LilyPond is distributed in the hope that it will be useful,
+;;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;;; GNU General Public License for more details.
+;;;;
+;;;; You should have received a copy of the GNU General Public License
+;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;;; Inspired on auctex
 

@@ -1,11 +1,21 @@
-% -%-Fundamental-%- -*-Metafont-*-
-% parmesan-generic.mf -- implement generic stuff: include lots of files,
-% but don't set dimensions.
+% Feta (not the Font-En-Tja) music font --  generic stuff: include lots of files,
+% This file is part of LilyPond, the GNU music typesetter.
 %
-% source file of LilyPond's pretty-but-neat music font
+% Copyright (C) 2002--2009 Juergen Reuter <reuter@ipd.uka.de>
 %
-% (c) 2002--2009 Juergen Reuter <reuter@ipd.uka.de>
 %
+% LilyPond is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% LilyPond is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
 if test = -1:

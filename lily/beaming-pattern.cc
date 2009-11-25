@@ -1,16 +1,20 @@
 /*
-  beaming-pattern.cc -- implement Beam_rhythmic_element, Beaming_pattern
+  This file is part of LilyPond, the GNU music typesetter.
 
-  A Beaming_pattern object takes a set of stems at given moments and calculates
-  the pattern of their beam. That is, it works out, for each stem, how many
-  beams should be connected to the right and left sides of that stem. In
-  calculating this, Beaming_pattern takes into account
-   - the rhythmic position of the stems
-   - the options that are defined in Beaming_options
+  Copyright (C) 1999--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
-  source file of the GNU LilyPond music typesetter
+  LilyPond is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-  (c) 1999--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  LilyPond is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "context.hh"

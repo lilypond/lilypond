@@ -1,15 +1,25 @@
+% Feta (not the Font-En-Tja) music font -- administrative MF routines
+% This file is part of LilyPond, the GNU music typesetter.
 %
-% autometric.mf -- administrative MF routines
-%
-% source file of the Feta (not an acronym for Font-En-Tja)
-% pretty-but-neat music font
-%
-% (c) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
+% Copyright (C) 1997--2009 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %          Jan Nieuwenhuizen <janneke@gnu.org>
 %
 % These macros help create ascii logging output
 % to automate generation of the lily tables.
 % The output should be parsed by the mf-to-table script.
+%
+% LilyPond is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% LilyPond is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
 message "******************************************************";
