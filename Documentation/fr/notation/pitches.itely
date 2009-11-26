@@ -2398,7 +2398,7 @@ Il existe un raccourci pour les notes en losange :
 @end lilypond
 
 Pour une liste exhaustive des styles de tête de note, consultez 
-@ref{Styles de tête de note}.
+@ref{Têtes de note}.
 
 
 @seealso
@@ -2406,7 +2406,7 @@ Morceaux choisis :
 @rlsr{Pitches}.
 
 Manuel de notation :
-@ref{Styles de tête de note},
+@ref{Têtes de note},
 @ref{Notes en accords}.
 
 @seealso
@@ -2517,7 +2517,7 @@ degré étant défini par la commande @code{\key}.
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Pour une liste exhaustive des styles de tête de note, consultez 
-@ref{Styles de tête de note}.
+@ref{Têtes de note}.
 
 
 @seealso
@@ -2525,7 +2525,7 @@ Morceaux choisis :
 @rlsr{Pitches}.
 
 Manuel de notation :
-@ref{Styles de tête de note}.
+@ref{Têtes de note}.
 
 Référence des propriétés internes :
 @rinternals{note-event},

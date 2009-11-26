@@ -170,7 +170,7 @@ e,\stopTextSpan
 
 Le style de ligne se définit lui aussi comme une propriété de l'objet.
 Les détails concernant la syntaxe à utiliser sont expliqués au chapitre 
-@ref{Styles de ligne}.
+@ref{Lignes}.
 
 
 @funindex \textSpannerUp
@@ -190,7 +190,7 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 
 @seealso
 Manuel de notation :
-@ref{Styles de ligne},
+@ref{Lignes},
 @ref{Nuances}.
 
 Morceaux choisis :
@@ -349,7 +349,7 @@ au chapitre @ref{Plusieurs partitions dans un même ouvrage}.
 Les blocs de textes peuvent s'étendre sur plusieurs pages, ce qui permet
 de générer des ouvrages complets uniquement grâce à LilyPond.  Cette
 fonctionnalité ainsi que la syntaxe appropriée est abordée plus en
-détail au chapitre @ref{Texte avec saut de page}.
+détail au chapitre @ref{Texte avec sauts de page}.
 
 
 @funindex \markup
@@ -374,7 +374,7 @@ Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Structure de fichier},
 @ref{Plusieurs partitions dans un même ouvrage},
-@ref{Texte avec saut de page}.
+@ref{Texte avec sauts de page}.
 
 Morceaux choisis :
 @rlsr{Text}.

@@ -819,7 +819,7 @@ c2. \breathe d4
 
 LilyPond gère les @emph{divisiones}, signes utilisés en notation
 ancienne pour indiquer les respirations. Pour de plus amples détails,
-voir @ref{Divisiones}. 
+voir @ref{Divisions}. 
 
 
 @snippets
@@ -838,7 +838,7 @@ Glossaire musicologique :
 @rglos{caesura}.
 
 Manuel de notation :
-@ref{Divisiones}.
+@ref{Divisions}.
 
 Morceaux choisis :
 @rlsr{Expressive marks}.
@@ -920,7 +920,7 @@ c2\glissando c,
 @end lilypond
 
 Un glissando est indiqué graphiquement, par une ligne ou des
-vaguelettes -- voir @ref{Styles de ligne}.
+vaguelettes -- voir @ref{Lignes}.
 
 
 @snippets
@@ -934,7 +934,7 @@ Glossaire musicologique :
 @rglos{glissando}.
 
 Manuel de notation :
-@ref{Styles de ligne}.
+@ref{Lignes}.
 
 Morceaux choisis :
 @rlsr{Expressive marks}.

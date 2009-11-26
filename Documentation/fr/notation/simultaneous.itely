@@ -72,7 +72,7 @@ Glossaire musical :
 @rglos{chord}.
 
 Manuel d'initiation :
-@rlearning{Combinaison de notes en accords}.
+@ref{Notes en accords}.
 
 Manuel de notation :
 @ref{Notation des accords}.
@@ -409,7 +409,7 @@ présentation normale.
 @seealso
 Manuel d'initiation :
 @rlearning{J'entends des Voix},
-@rlearning{Autres sources d'information}.
+@ref{Autres sources d'information}.
 
 Morceaux choisis :
 @rlsr{Simultaneous notes}.
