@@ -586,7 +586,7 @@ markup string.
      }
   }
   \context Staff {
-        %% A chord for ukulele
+        %% An A chord for ukulele
     a'1 ^\markup \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
   }
 >>
