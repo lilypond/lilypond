@@ -66,6 +66,16 @@ notags_files = []
 # mark the section that will be printed verbatim by lilypond-book
 end_header_re = re.compile ('(\\header {.+?doctitle = ".+?})\n', re.M | re.S)
 
+doctitle_re = re.compile (r'(doctitle[a-zA-Z_]{0,6}\s*=\s*")((?:\\"|[^"\n])*)"')
+texinfo_q_re = re.compile (r'@q{(.*?)}')
+texinfo_qq_re = re.compile (r'@qq{(.*?)}')
+def doctitle_sub (title_match):
+    # Comma forbidden in Texinfo node name
+    title = title_match.group (2).replace (',', '')
+    title = texinfo_q_re.sub (r"`\1'", title)
+    title = texinfo_qq_re.sub (r'"\1"', title)
+    return title_match.group (1) + title + '"'
+
 def mark_verbatim_section (ly_code):
     return end_header_re.sub ('\\1 % begin verbatim\n\n', ly_code, 1)
 
@@ -118,6 +128,7 @@ def copy_ly (srcdir, name, tags):
             texidoc_translation = texidoc_translation.replace ('\\', '\\\\')
             s = begin_header_re.sub ('\\g<0>\n' + texidoc_translation, s, 1)
 
+    s = doctitle_re.sub (doctitle_sub, s)
     if in_dir and in_dir in srcdir:
         s = LY_HEADER_LSR + add_tags (s, tags)
     else:
