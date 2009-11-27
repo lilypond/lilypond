@@ -38,7 +38,7 @@ melody = {
   \layout { }
 }
 
-\score {
+\score { 
   \new Staff <<
     \new Voice {
       r\mf

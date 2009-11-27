@@ -17,7 +17,7 @@ transparentes de tipo porcentaje.
 
   texidoc = "
 This snippet provides a workaround for emitting measure counters using
-transparent percent repeats.
+transparent percent repeats. 
 
 "
   doctitle = "Measure counter"

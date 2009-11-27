@@ -21,6 +21,7 @@ encima de ellos.
 "
   doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Bei der Transkription von Mensuralmusik ist es oft erwünscht, ein
@@ -34,6 +35,7 @@ zwischen den Systemen geschrieben.
 "
 
 doctitlede = "Vorlage für Alte Notation -- moderne Transkription von Mensuralmusik"
+
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -55,7 +57,7 @@ musicians are used to bar lines in order to faster recognize rhythmic
 patterns, bar lines were not yet invented during the period of mensural
 music; in fact, the meter often changed after every few notes. As a
 compromise, bar lines are often printed between the staves rather than
-on the staves.
+on the staves. 
 
 "
   doctitle = "Ancient notation template -- modern transcription of mensural music"

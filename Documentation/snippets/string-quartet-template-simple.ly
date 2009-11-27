@@ -14,11 +14,13 @@ una sección @code{\\global} para el compás y la armadura
 "
   doctitlees = "Plantilla de cuarteto de cuerda (sencilla)"
 
+
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号のために
 @code{@bs{}global} セクションを使っています。
 "
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier
@@ -27,6 +29,7 @@ Vorzeichen benutzt.
 "
 
   doctitlede = "Vorlage für Streichquartett (einfach)"
+
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -51,39 +54,39 @@ global= {
 
 violinOne = \new Voice \relative c'' {
   \set Staff.instrumentName = #"Violin 1 "
-
+  
   c2 d
   e1
-
+  
   \bar "|."
 }
-
+ 
 violinTwo = \new Voice \relative c'' {
   \set Staff.instrumentName = #"Violin 2 "
-
+  
   g2 f
   e1
-
+  
   \bar "|."
 }
 
 viola = \new Voice \relative c' {
-  \set Staff.instrumentName = #"Viola "
+  \set Staff.instrumentName = #"Viola "  
   \clef alto
-
+  
   e2 d
   c1
-
+  
   \bar "|."
 }
 
 cello = \new Voice \relative c' {
   \set Staff.instrumentName = #"Cello "
   \clef bass
-
+  
   c2 b
   a1
-
+  
   \bar "|."
 }
 

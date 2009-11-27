@@ -41,6 +41,7 @@ no tiene nada que ver con el @code{\\set} de dos notas por detrás.)
   doctitlees = "Corchetes rectos y extremos de barra sueltos"
 
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Gerade Fähnchen an einzelnen Noten und überstehende Balkenenden bei
@@ -69,6 +70,7 @@ Beispiel haben nichts mit dem @code{\\set}-Befehl zwei Noten vorher zu tun.)
 
 "
   doctitlede = "Gerade Fähnchen und überstehende Balkenenden"
+
 
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
@@ -104,7 +106,7 @@ du @code{c'16[]} isolé du dernier exemple n'ont rien à voir avec le
 
   texidoc = "
  Flat flags on lone notes and beam nibs at the ends of beamed figures
-are both possible with a combination of @code{stemLeftBeamCount},
+are both possible with a combination of @code{stemLeftBeamCount}, 
 @code{stemRightBeamCount} and paired @code{[]} beam indicators.
 
 
@@ -132,15 +134,15 @@ nibs at the start of a run of beamed notes, set
 
 Sometimes it may make sense for a lone note surrounded by rests to
 carry both a left- and right-pointing flat flag. Do this with paired
-@code{[]} beam indicators alone (Example 4).
+@code{[]} beam indicators alone (Example 4).  
 
 
 
 
-(Note that @code{\\set stemLeftBeamCount} is always equivalent to
-@code{\\once \\set}.  In other words, the beam count settings are not
-@qq{sticky}, so the pair of flat flags attached to the lone
-@code{c'16[]} in the last example have nothing to do with the
+(Note that @code{\\set stemLeftBeamCount} is always equivalent to 
+@code{\\once \\set}.  In other words, the beam count settings are not 
+@qq{sticky}, so the pair of flat flags attached to the lone 
+@code{c'16[]} in the last example have nothing to do with the 
 @code{\\set} two notes prior.)
 
 
@@ -158,14 +160,14 @@ carry both a left- and right-pointing flat flag. Do this with paired
       c16[]
       r8.
     }
-
+    
     % Example 2
     \new RhythmicStaff {
       r8.
       \set stemRightBeamCount = #0
       c16[]
     }
-
+    
     % Example 3
     \new RhythmicStaff {
       c16 c
@@ -174,7 +176,7 @@ carry both a left- and right-pointing flat flag. Do this with paired
       \set stemLeftBeamCount = #2
       c16 c c
     }
-
+    
     % Example 4
     \new RhythmicStaff {
       c16 c

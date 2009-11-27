@@ -24,6 +24,7 @@ todos los pentagramas. Las posibilidades son
 "
   doctitlees = "Anidado de grupos de pentagramas"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Eigenschaft @code{systemStartDelimiterHierarchy} kann eingesetzt
@@ -39,6 +40,7 @@ die gesamte Gruppe.  Die Möglichkeiten der Anfangsklammer sind: @code{SystemSta
 
 "
   doctitlede = "Systeme schachteln"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 La propriété @code{systemStartDelimiterHierarchy} permet de créer des

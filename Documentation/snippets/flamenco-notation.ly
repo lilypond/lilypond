@@ -11,40 +11,28 @@ For flamenco guitar, special notation is used:
 
 
 * a golpe symbol to indicate a slap on the guitar body with the nail of
-the ring finger
-
-
-* an arrow to indicate (the direction of) strokes
-
-
-* different letters for fingering (\"p\": thumb, \"i\": index finger,
-\"m\": middle finger, \"a\": ring finger and \"x\": little finger)
-
-
-* 3- and 4-finger rasgueados; stroke upwards with all fingers, ending
-with an up- and down using the index finger
-
-
-* abanicos: strokes (in tuples) with thumb (down), little and index
-finger (both up). There's also an abanico 2 where middle and ring
-finger are used instead of the little finger.
-
-
-* alza pua: fast playing with the thumb
+the ring finger * an arrow to indicate (the direction of) strokes *
+different letters for fingering (@qq{p}: thumb, @qq{i}: index finger,
+@qq{m}: middle finger, @qq{a}: ring finger and @qq{x}: little finger) *
+3- and 4-finger rasgueados; stroke upwards with all fingers, ending
+with an up- and down using the index finger * abanicos: strokes (in
+tuples) with thumb (down), little and index finger (both up). There's
+also an abanico 2 where middle and ring finger are used instead of the
+little finger. * alza pua: fast playing with the thumb
 
 
 Most figures use arrows in combination with fingering; with abanicos
 and rasgueados, noteheads are printed only for the first chord.
 
 This snippet contains some header-like code that can be copied as
-@samp{flamenco.ly} and included in source files.
+@samp{flamenco.ly} and included in source files. 
 
 "
   doctitle = "Flamenco notation"
 } % begin verbatim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%  Cut here ----- Start 'flamenco.ly'
+%%%%%%%  Cut here ----- Start 'flamenco.ly' 
 
 % Text indicators
 abanico   = \markup { \italic Abanico }
@@ -85,7 +73,7 @@ golpe = \markup { \postscript #"
   -0.6  1.0 lineto
   0.5  1.0 lineto
   stroke
-"}
+"}  
 
 strokeUpGolpe = \markup { \column { \golpe \line { \strokeUp }}}
 iUpGolpe = \markup { \column { \golpe \line { \small i } \line { \strokeUp }}}
@@ -131,7 +119,7 @@ headsOn = {
   \override NoteHead #'no-ledgers = ##f
 }
 
-%%%%%%%  Cut here ----- End 'flamenco.ly'
+%%%%%%%  Cut here ----- End 'flamenco.ly' 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 part = \relative c' {
@@ -139,15 +127,15 @@ part = \relative c' {
   <a e' a cis e>8^\iDown
   r4
   r2^\golpe
-
+    
   <a e' a cis e>8^\iUp
   <a e' a cis e>8^\iDown
   <a e' a cis e>8^\iUpGolpe
   <a e' a cis e>8^\iDown
   r2
-
+      
   <a e' a cis e>16^\aUp
-  \headsOff
+  \headsOff 
   <a e' a cis e>^\mUp
   <a e' a cis e>^\iUp
   <a e' a cis e>^\iDown~
@@ -167,7 +155,7 @@ part = \relative c' {
   }
   <a e' a cis e>2
   r4
-
+    
   \tupletsOff
   \times 2/3 {
     <a e' a cis e>8^\pDown
@@ -176,7 +164,7 @@ part = \relative c' {
     <a e' a cis e>^\iUp
     \headsOn
   }
-
+  
   \times 2/3 {
     <a e' a cis e>8^\pDown
     \headsOff
@@ -184,7 +172,7 @@ part = \relative c' {
     <a e' a cis e>^\iUp
     \headsOn
   }
-
+    
   \times 2/3 {
     <a e' a cis e>8^\pDown
     \headsOff
@@ -199,7 +187,7 @@ part = \relative c' {
     <a e' a cis e>^\iUp
     \headsOn
   }
-
+  
   \tupletsOff
   \override Beam #'positions = #'(2 . 2)
   \times 2/3 {
@@ -223,7 +211,7 @@ part = \relative c' {
     <e a>^\strokeDown
   }
   \tupletsOn
-
+    
   \once \override TextScript #'extra-offset = #'(0 . -1)
   <g, b f'>1_\golpe^\mUp
   \bar "|."

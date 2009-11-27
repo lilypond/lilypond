@@ -17,12 +17,14 @@ voces se reagrupan en sólo dos pentagramas.
 "
   doctitlees = "Plantilla de conjunto vocal"
 
+
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 これは標準の 4 パート SATB (ソプラノ、アルト、テナー、バス) ボーカル譜です。@c
 もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
 便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
 歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren
@@ -32,6 +34,7 @@ sind fast immer gleich in allen Stimmen.
 "
 
   doctitlede = "Vorlage für Vokalensemble"
+
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -115,12 +118,12 @@ bassWords = \lyricmode {
         \voiceTwo << \global \bassMusic >>
       }
     >>
-    \new Lyrics = basses { s1 }
+    \new Lyrics = basses { s1 }    
     \context Lyrics = sopranos \lyricsto sopranos \sopWords
     \context Lyrics = altos \lyricsto altos \altoWords
     \context Lyrics = tenors \lyricsto tenors \tenorWords
     \context Lyrics = basses \lyricsto basses \bassWords
-  >>
+  >>  
   \layout {
     \context {
       % a little smaller so lyrics

@@ -7,7 +7,7 @@
   lsrtags = "staff-notation, fretted-strings"
 
   texidoc = "
-Tablature can be formatted using letters instead of numbers.
+Tablature can be formatted using letters instead of numbers. 
 
 "
   doctitle = "Letter tablature formatting"
@@ -34,7 +34,7 @@ music = \relative c {
     \clef "G_8"
     \music
   }
-  \new TabStaff \with {
+  \new TabStaff \with { 
     tablatureFormat = #letter-tablature-format
   }
   {

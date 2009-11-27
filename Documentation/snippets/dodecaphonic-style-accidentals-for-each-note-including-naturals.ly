@@ -6,7 +6,7 @@
 
 \header {
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
-  doctitlees = "Alteraciones de estilo dodecafónico para todas las notas, incluidas las naturales"
+  doctitlees = "Alteraciones de estilo dodecafónico para todas las notas incluidas las naturales"
   texidoces = "
 En las obras de principios del s.XX, empezando por Schoenberg, Berg y
 Webern (la \"Segunda\" escuela de Viena), cada nota de la escala de

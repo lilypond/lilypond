@@ -22,7 +22,7 @@ Horizontal alignment for lyrics cam be set by overriding the
 @code{self-alignment-X} property of the @code{LyricText} object.
 @code{#-1} is left, @code{#0} is center and @code{#1} is right;
 however, you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as
-well.
+well. 
 
 "
   doctitle = "Lyrics alignment"
@@ -38,7 +38,7 @@ well.
   \once \override LyricText #'self-alignment-X = #LEFT
   "This is left-aligned"
   \once \override LyricText #'self-alignment-X = #CENTER
-  "This is centered"
+  "This is centered" 
   \once \override LyricText #'self-alignment-X = #1
   "This is right-aligned"
 }

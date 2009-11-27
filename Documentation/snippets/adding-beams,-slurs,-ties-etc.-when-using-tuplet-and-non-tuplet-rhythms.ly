@@ -21,7 +21,7 @@ expresión y de unión y las ligaduras de fraseo, con secciones de
 valoración especial (encerradas entre llaves).
 
 "
-  doctitlees = "Añadir barras, ligaduras de expresión y de unión, etc. cuando se usan ritmos con y sin grupos de valoración especial."
+  doctitlees = "Añadir barras ligaduras de expresión y de unión etc. cuando se usan ritmos con y sin grupos de valoración especial."
 
   texidoc = "
 LilyPond syntax can involve many unusual placements for parentheses,
@@ -32,10 +32,10 @@ the right square bracket should directly follow the note which is to be
 at the end of the requested beaming, even if this note happens to be
 inside a tuplet section. This snippet demonstrates how to combine
 manual beaming, manual slurs, ties and phrasing slurs with tuplet
-sections (enclosed within curly braces).
+sections (enclosed within curly braces). 
 
 "
-  doctitle = "Adding beams, slurs, ties etc. when using tuplet and non-tuplet rhythms"
+  doctitle = "Adding beams slurs ties etc. when using tuplet and non-tuplet rhythms"
 } % begin verbatim
 
 {

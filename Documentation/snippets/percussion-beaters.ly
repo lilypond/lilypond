@@ -16,8 +16,8 @@ demonstrated in this example.
   doctitle = "Percussion beaters"
 } % begin verbatim
 
-stick = \markup {
-  \with-dimensions #'(0 . 5) #'(0 . 5)
+stick = \markup { 
+  \with-dimensions #'(0 . 5) #'(0 . 5) 
   \postscript #"
     0 6 translate
     0.8 -0.8 scale

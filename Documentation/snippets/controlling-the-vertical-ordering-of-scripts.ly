@@ -22,6 +22,7 @@ lugar.
 "
   doctitlees = "Controlar la ordenación vertical de las inscripciones"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Die vertikale Anordnung von Beschriftungen wird mit der
@@ -36,6 +37,7 @@ anhand ihres Auftretens in der Quelldatei entschieden.
 
 "
   doctitlede = "Die vertikale Anordnung von Beschriftungen kontrollieren"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Les symboles s'ordonnent verticalement suivant la propriété
@@ -60,7 +62,7 @@ sharp symbol) first has the lowest priority, so it is put lowest in the
 first example. In the second, the prall trill (the @code{Script}) has
 the lowest, so it is on the inside. When two objects have the same
 priority, the order in which they are entered determines which one
-comes first.
+comes first. 
 
 "
   doctitle = "Controlling the vertical ordering of scripts"
@@ -69,7 +71,7 @@ comes first.
 \relative c''' {
   \once \override TextScript #'script-priority = #-100
   a2^\prall^\markup { \sharp }
-
+  
   \once \override Script #'script-priority = #-100
   a2^\prall^\markup { \sharp }
 }

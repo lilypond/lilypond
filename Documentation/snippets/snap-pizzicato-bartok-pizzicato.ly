@@ -6,7 +6,7 @@
 
 \header {
 %% Translation of GIT committish: b2d4318d6c53df8469dfa4da09b27c15a374d0ca
-  doctitlees = "Marca de pizzicato de chasquido (@q{pizzicato de Bartók})"
+  doctitlees = "Marca de pizzicato de chasquido (`pizzicato de Bartók')"
   texidoces = "
 El pizzicato de chasquido (también llamado @q{Pizzicato de Bartók}) es un
 @q{pizzicato fuerte en que la cuerda se pulsa verticalmente produciendo un
@@ -38,7 +38,7 @@ rebounds off the fingerboard of the instrument} (Wikipedia).  It is
 denoted by a circle with a vertical line going from the center upwards
 outside the circle.
 "
-  doctitle = "Snap-pizzicato (@qq{Bartok pizzicato})"
+  doctitle = "Snap-pizzicato ("Bartok pizzicato")"
 } % begin verbatim
 
 

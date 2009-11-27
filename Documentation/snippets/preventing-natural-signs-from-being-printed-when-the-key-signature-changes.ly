@@ -16,8 +16,9 @@ propiedad @code{printKeyCancellation} del contexto @code{Staff}.
 
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
-doctitlede = "Auflösungzeichen nicht setzen, wenn die Tonart wechselt"
+doctitlede = "Auflösungzeichen nicht setzen wenn die Tonart wechselt"
 
 texidocde = "
 Wenn die Tonart wechselt, werden automatisch Auflösungszeichen ausgegeben,
@@ -25,6 +26,7 @@ um Versetzungszeichen der vorherigen Tonart aufzulösen.  Das kann
 verhindert werden, indem die @code{printKeyCancellation}-Eigenschaft
 im @code{Staff}-Kontext auf \"false\" gesetzt wird.
 "
+
 %% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
   texidocfr = "
 Après un changement de tonalité, un bécarre est imprimé pour annuler
@@ -41,7 +43,7 @@ tonalité"
 When the key signature changes, natural signs are automatically printed
 to cancel any accidentals from previous key signatures.  This may be
 prevented by setting to @code{f} the @code{printKeyCancellation}
-property in the @code{Staff} context.
+property in the @code{Staff} context. 
 
 "
   doctitle = "Preventing natural signs from being printed when the key signature changes"

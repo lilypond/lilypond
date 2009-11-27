@@ -8,7 +8,7 @@
 
   texidoc = "
 Make an extender line for string number indications, showing that a
-series of notes is supposed to be played all on the same string.
+series of notes is supposed to be played all on the same string. 
 
 "
   doctitle = "String number extender lines"
@@ -30,8 +30,8 @@ stringNumberSpanner =
   \textSpannerDown
   a8\startTextSpan
   b c d e f\stopTextSpan
-  \stringNumberSpanner "4"
-  g\startTextSpan a
+  \stringNumberSpanner "4" 
+  g\startTextSpan a 
   bes4 a g2\stopTextSpan
 }
 

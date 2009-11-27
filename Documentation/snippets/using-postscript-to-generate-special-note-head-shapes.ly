@@ -18,8 +18,8 @@ têtes ressemblant à des parallélogrammes.
 
   texidoc = "
 When a note head with a special shape cannot easily be generated with
-graphic markup, PostScript code can be used to generate the shape.
-This example shows how a parallelogram-shaped note head is generated.
+graphic markup, PostScript code can be used to generate the shape. 
+This example shows how a parallelogram-shaped note head is generated. 
 
 "
   doctitle = "Using PostScript to generate special note head shapes"

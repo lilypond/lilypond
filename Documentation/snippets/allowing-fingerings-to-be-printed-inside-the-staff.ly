@@ -15,6 +15,7 @@ comportamiento se puede cancelar.
 "
   doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Normalerweise werden vertikal orientierte Fingersatzzahlen außerhalb des Systems
@@ -22,6 +23,7 @@ gesetzt.  Das kann aber verändert werden.
 
 "
   doctitlede = "Fingersatz auch innerhalb des Systems setzen"
+
 %% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
   texidocfr = "
 L'empilement des indications de doigté se fait par défaut à l'extérieur de la portée.  Néanmoins, il est possible d'annuler ce comportement.

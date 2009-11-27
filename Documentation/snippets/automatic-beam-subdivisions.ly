@@ -18,7 +18,7 @@ posiciones de pulso (tal y como se especifica en @code{beatLength}).
   texidoc = "
 Beams can be subdivided automatically.  By setting the property
 @code{subdivideBeams}, beams are subdivided at beat positions (as
-specified in @code{beatLength}).
+specified in @code{beatLength}). 
 
 "
   doctitle = "Automatic beam subdivisions"

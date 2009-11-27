@@ -15,6 +15,7 @@ Se pueden imprimir reguladores con un círculo en la punta
 "
   doctitlees = "Impresión de reguladores utilizando la notación «al niente»"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
  texidocde = "
  Crescendo-Klammern können mit einem kleinen Kreis vor der Spitze
@@ -24,6 +25,7 @@ Se pueden imprimir reguladores con un círculo en la punta
 
 "
   doctitlede = "Crescendo Klammern al niente schreiben"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
@@ -37,7 +39,7 @@ propriété @code{circled-tip}, ce qui affiche un cercle à leur extrémité.
   texidoc = "
 Hairpins may be printed with a circled tip (al niente notation) by
 setting the @code{circled-tip} property of the @code{Hairpin} object to
-@code{#t}.
+@code{#t}. 
 
 "
   doctitle = "Printing hairpins using al niente notation"

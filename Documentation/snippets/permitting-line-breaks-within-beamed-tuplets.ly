@@ -16,6 +16,7 @@ sincopados se deben barrar manualmente.
 
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Dieses künstliche Beispiel zeigt, wie sowohl automatische als auch
@@ -25,6 +26,7 @@ gesetzt werden.
 
 "
   doctitlede = "Zeilenumbrüche bei N-tolen mit Balken erlauben"
+
 
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df

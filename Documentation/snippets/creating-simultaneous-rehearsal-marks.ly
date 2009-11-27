@@ -23,11 +23,11 @@ siguiente.
 
   texidoc = "
 Unlike text scripts, rehearsal marks cannot be stacked at a particular
-point in a score: only one @code{RehearsalMark} object is created.
+point in a score: only one @code{RehearsalMark} object is created. 
 Using an invisible measure and bar line, an extra rehearsal mark can be
 added, giving the appearance of two marks in the same column. This
 method may also prove useful for placing rehearsal marks at both the
-end of one system and the start of the following system.
+end of one system and the start of the following system. 
 
 "
   doctitle = "Creating simultaneous rehearsal marks"

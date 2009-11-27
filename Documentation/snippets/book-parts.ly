@@ -48,7 +48,7 @@ with the book last page.
     parttagline = "Part tagline"
     tagline = "Book tagline"
   }
-
+  
   \bookpart {
     %% a different page breaking function may be used on each part
     \paper { page-breaking = #ly:minimal-breaking }

@@ -13,14 +13,14 @@ guía de acordes con melodía, letra, acordes y diagramas de
 trastes.
 "
 
-  doctitlees = "Plantilla para un pentagrama único con música, letra, acordes y trastes"
+  doctitlees = "Plantilla para un pentagrama único con música letra acordes y trastes"
 
   texidoc = "
 Here is a simple lead sheet template with melody, lyrics, chords and
 fret diagrams.
 
 "
-  doctitle = "Single staff template with notes, lyrics, chords and frets"
+  doctitle = "Single staff template with notes lyrics chords and frets"
 } % begin verbatim
 
 verseI = \lyricmode {

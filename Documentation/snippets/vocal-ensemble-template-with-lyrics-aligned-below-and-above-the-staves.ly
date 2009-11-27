@@ -16,11 +16,13 @@ colocan utilizando @code{alignAboveContext} y
 "
   doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"
 
+
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が
 @code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
 "
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In diesem Beispiel werden die Texte mit den Befehlen
@@ -29,6 +31,7 @@ In diesem Beispiel werden die Texte mit den Befehlen
 "
 
   doctitlede = "Vorlage für Vokalensemble mit dem Gesangstext über und unter dem System"
+
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -92,7 +95,7 @@ bassWords = \lyricmode {
     % we could remove the line about this with the line below, since we want
     % the alto lyrics to be below the alto Voice anyway.
     % \new Lyrics \lyricsto altos \altoWords
-
+    
     \new Staff = men <<
       \clef bass
       \new Voice = "tenors" { \voiceOne << \global \tenorMusic >> }

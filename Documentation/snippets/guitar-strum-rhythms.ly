@@ -14,6 +14,7 @@ además de las notas de la melodía, acordes y diagramas de posiciones.
 "
   doctitlees = "Ritmos rasgueados de guitarra"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 In Guitarrennotation kann neben Melodie, Akkordbezeichnungen und
@@ -21,6 +22,7 @@ Bunddiagrammen auch der Schlagrhythmus angegeben werden.
 
 "
   doctitlede = "Schlagrhythmus für Guitarren"
+
 
 
 %% Translation of GIT committish: fa7695ea860d7ab2db86581dd5f8bc4f413f6705

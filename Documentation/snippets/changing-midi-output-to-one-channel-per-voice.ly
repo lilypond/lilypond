@@ -34,7 +34,7 @@ However, by moving the @code{Staff_performer} to the @code{Voice}
 context, each voice on a staff can have its own MIDI channel, as is
 demonstrated by the following example: despite being on the same staff,
 two MIDI channels are created, each with a different
-@code{midiInstrument}.
+@code{midiInstrument}. 
 
 "
   doctitle = "Changing MIDI output to one channel per voice"
@@ -69,7 +69,7 @@ two MIDI channels are created, each with a different
     }
     \context {
       \Voice
-      \consists "Staff_performer"
+      \consists "Staff_performer"      
     }
     \context {
       \Score

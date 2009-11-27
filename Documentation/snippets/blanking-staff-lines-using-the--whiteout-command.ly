@@ -18,9 +18,9 @@ objetos.
   doctitlees = "Poner en blanco las líneas del pentagrama utilizando la instrucción \\whiteout"
 
   texidoc = "
-The @code{\\whiteout} command underlays a markup with a white box.
+The @code{\\whiteout} command underlays a markup with a white box. 
 Since staff lines are in a lower layer than most other grobs, this
-white box will not overlap any other grob.
+white box will not overlap any other grob. 
 
 "
   doctitle = "Blanking staff lines using the \\whiteout command"
@@ -30,5 +30,5 @@ white box will not overlap any other grob.
 \relative c' {
   \override TextScript #'extra-offset = #'(2 . 4)
   c2-\markup { \whiteout \pad-markup #0.5 "middle C" } c
-}
+} 
 

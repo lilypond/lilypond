@@ -19,6 +19,7 @@ adecuadamente la propiedad @code{direction} de
   doctitlees = "Impresión de indicaciones metronómicas y letras de ensayo debajo del pentagrama"
 
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Normalerweise werden Metronom- und Übungszeichen über dem Notensystem ausgegeben.
@@ -27,6 +28,7 @@ von @code{MetronomeMark} oder @code{RehearsalMark} entsprechend verändert werde
 
 "
   doctitlede = "Metronom- und Übungszeichen unter das System setzen"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 Les indications de tempo et les marques de repère s'impriment par défaut
@@ -39,7 +41,7 @@ les placera au-dessous de la portée.
 
 
   texidoc = "
-By default, metronome and rehearsal marks are printed above the staff.
+By default, metronome and rehearsal marks are printed above the staff. 
 To place them below the staff simply set the @code{direction} property
 of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
 
@@ -50,7 +52,7 @@ of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
 \layout { ragged-right = ##f }
 
 {
-  % Metronome marks below the staff
+  % Metronome marks below the staff 
   \override Score.MetronomeMark #'direction = #DOWN
   \tempo 8. = 120
   c''1

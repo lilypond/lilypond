@@ -24,7 +24,7 @@ hidden voice.
       e2\glissando g
     }
     \\
-    {
+    { 
       % original voice with chords rearranged so that
       % glissando is attached to a & c
       <e a,>2\glissando <g c,>

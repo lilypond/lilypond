@@ -16,7 +16,7 @@ bloque @code{\\markup}.
 
   texidoc = "
 PostScript code can be directly inserted inside a @code{\\markup}
-block.
+block. 
 
 "
   doctitle = "Embedding native PostScript in a \\markup block"
@@ -27,7 +27,7 @@ block.
 \relative c'' {
   a4-\markup { \postscript #"3 4 moveto 5 3 rlineto stroke" }
   -\markup { \postscript #"[ 0 1 ] 0 setdash 3 5 moveto 5 -3 rlineto stroke " }
-
+  
   b4-\markup { \postscript #"3 4 moveto 0 0 1 2 8 4 20 3.5 rcurveto stroke" }
   s2
   a'1

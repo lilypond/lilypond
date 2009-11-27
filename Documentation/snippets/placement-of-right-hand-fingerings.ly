@@ -15,6 +15,7 @@ propiedad específica, como se muestra en el ejemplo siguiente.
 "
   doctitlees = "Posicionamiento de digitaciones de mano derecha"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Man kann die Positionierung von Fingersatz der rechten Hand besser
@@ -23,6 +24,7 @@ das folgende Beispiel zeigt:
 
 "
   doctitlede = "Positionierung von Fingersatz der rechten Hand"
+
 %% Translation of GIT committish: 3f880f886831b8c72c9e944b3872458c30c6c839
 
   texidocfr = "
@@ -37,7 +39,7 @@ l'exemple suivant.
   texidoc = "
 It is possible to exercise greater control over the placement of
 right-hand fingerings by setting a specific property, as demonstrated
-in the following example. Note: you must use a chord construct
+in the following example. Note: you must use a chord construct 
 
 "
   doctitle = "Placement of right-hand fingerings"
@@ -47,13 +49,13 @@ in the following example. Note: you must use a chord construct
 
 \relative c {
   \clef "treble_8"
-
+  
   \set strokeFingerOrientations = #'(up down)
   <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >4
-
+  
   \set strokeFingerOrientations = #'(up right down)
   <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >4
-
+  
   \set strokeFingerOrientations = #'(left)
   <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >2
 }

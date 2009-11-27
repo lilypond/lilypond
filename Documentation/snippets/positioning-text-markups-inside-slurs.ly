@@ -16,6 +16,7 @@ impriman por dentro de las ligaduras de expresión.
 "
   doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
@@ -23,6 +24,7 @@ Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
 
 "
   doctitlede = "Textbeschriftung innerhalb von Bögen positionieren"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Lorsqu'il vous faut inscrire une annotation à l'intérieur d'une liaison,
@@ -34,7 +36,7 @@ la propriété @code{outside-staff-priority} doît être désactivée.
 
   texidoc = "
 Text markups need to have the @code{outside-staff-priority} property
-set to false in order to be printed inside slurs.
+set to false in order to be printed inside slurs. 
 
 "
   doctitle = "Positioning text markups inside slurs"

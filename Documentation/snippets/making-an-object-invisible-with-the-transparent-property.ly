@@ -16,7 +16,7 @@ part in collisions, and slurs, ties and beams can be attached to it.
 This snippet demonstrates how to connect different voices using ties.
 Normally, ties only connect two notes in the same voice.  By
 introducing a tie in a different voice, and blanking the first up-stem
-in that voice, the tie appears to cross voices.
+in that voice, the tie appears to cross voices. 
 
 "
   doctitle = "Making an object invisible with the 'transparent property"

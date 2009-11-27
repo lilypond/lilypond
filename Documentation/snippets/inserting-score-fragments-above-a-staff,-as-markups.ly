@@ -11,7 +11,7 @@ The @code{\\markup} command is quite versatile.  In this snippet, it
 contains a @code{\\score} block instead of texts or marks.
 
 "
-  doctitle = "Inserting score fragments above a staff, as markups"
+  doctitle = "Inserting score fragments above a staff as markups"
 } % begin verbatim
 
 tuning = \markup {

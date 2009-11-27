@@ -14,16 +14,19 @@ se puede centrar entre los pentagramas de un sistema de piano.
 "
   doctitlees = "Plantilla de piano con letra centrada"
 
+
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 旋律と歌詞のための譜表を持つ代わりに、歌詞をピアノ譜の 2 つの譜の間に置くことができます。
 "
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Anstatt ein eigenes System für Melodie und Text zu schreiben, können
 Sie den Text auch zwischen die beiden Klaviersysteme schreiben
 (und damit das zusätzliche System für die Gesangstimme auslassen).
 "
+
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -46,16 +49,16 @@ upper = \relative c'' {
   \clef treble
   \key c \major
   \time 4/4
-
-  a4 b c d
+  
+  a4 b c d  
 }
 
 lower = \relative c {
   \clef bass
   \key c \major
   \time 4/4
-
-  a2 c
+  
+  a2 c  
 }
 
 text = \lyricmode {

@@ -46,7 +46,7 @@ not at the center of pp.
 
 
 "
-  doctitle = "Horizontally aligning custom dynamics (e.g. \"sempre pp\", \"piu f\", \"subito p\")"
+  doctitle = "Horizontally aligning custom dynamics (e.g. \"sempre pp\" \"piu f\" \"subito p\")"
 } % begin verbatim
 
 \header { title = "Horizontally aligning custom dynamics" }
@@ -100,7 +100,7 @@ semppG =
 % Drawback: One needs to set DynamicText #'X-offset!
 % Drawback: Aligned at the right edge of the additional text, not at the center of pp
 semppMII =
-#(make-dynamic-script (markup #:line(#:right-align
+#(make-dynamic-script (markup #:line(#:right-align 
   #:normal-text #:italic "sempre" #:dynamic "pp")))
 
 \context StaffGroup <<

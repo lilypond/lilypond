@@ -21,12 +21,12 @@ diagrams.
       c c c d d
     }
   }
-
+  
   \new Voice = "mel" {
     \textLengthOn
     % Set global properties of fret diagram
     \override TextScript #'size = #1.2
-    \override TextScript
+    \override TextScript 
       #'fret-diagram-details #'finger-code = #'below-string
     \override TextScript #'fret-diagram-details #'dot-color = #'black
 
@@ -50,7 +50,7 @@ diagrams.
         \fret-diagram #"s:1.2;w:4;h:3;f:2;d:0.35;p:0.55;4-2-2;3-1-1;2-o;1-o;"
       }
     }
-
+    
       %% These chords will be in normal orientation
 
     %% C major for guitar, barred on third fret
@@ -73,7 +73,7 @@ diagrams.
         }
       }
     }
-
+    
     %% C major for guitar, barred on third fret
     %% Double barre used to test barre function
     %  verbose style
@@ -101,7 +101,7 @@ diagrams.
         }
       }
     }
-
+    
     %% C major for guitar, with capo on third fret
     %  verbose style
     c'2^\markup {
@@ -124,7 +124,7 @@ diagrams.
         }
       }
     }
-
+    
     %% simple D chord
     d'2^\markup {
       \override #'(fret-diagram-details . (
@@ -150,7 +150,7 @@ diagrams.
     }
 
       % These chords will be in landscape orientation
-    \override TextScript
+    \override TextScript 
        #'fret-diagram-details #'orientation = #'landscape
 
     %% C major for guitar, barred on third fret
@@ -173,7 +173,7 @@ diagrams.
         }
       }
     }
-
+    
     %% C major for guitar, barred on third fret
     %% Double barre used to test barre function
     %  verbose style
@@ -201,7 +201,7 @@ diagrams.
         }
       }
     }
-
+    
     %% C major for guitar, with capo on third fret
     %  verbose style
     c'2^\markup {
@@ -224,7 +224,7 @@ diagrams.
         }
       }
     }
-
+    
     %% simple D chord
     d'2^\markup {
       \override #'(fret-diagram-details . (
@@ -249,7 +249,7 @@ diagrams.
     }
 
       % These chords will be in opposing-landscape orientation
-    \override TextScript #'fret-diagram-details
+    \override TextScript #'fret-diagram-details 
                            #'orientation = #'opposing-landscape
 
     %% C major for guitar, barred on third fret
@@ -272,7 +272,7 @@ diagrams.
         }
       }
     }
-
+    
     %% C major for guitar, barred on third fret
     %% Double barre used to test barre function
     %  verbose style
@@ -300,7 +300,7 @@ diagrams.
         }
       }
     }
-
+    
     %% C major for guitar, with capo on third fret
     %  verbose style
     c'2^\markup {
@@ -323,7 +323,7 @@ diagrams.
         }
       }
     }
-
+    
     %% simple D chord
     d'2^\markup {
       \override #'(fret-diagram-details . (

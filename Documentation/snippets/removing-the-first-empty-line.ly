@@ -23,6 +23,7 @@ escribe.
 "
   doctitlees = "Quitar la primera línea vacía"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Ein leeres Notensystem kann auch aus der ersten Zeile einer Partitur
@@ -38,6 +39,7 @@ gültig sind.
 
 "
   doctitlede = "Die erste leere Notenzeile auch entfernen"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 Par défaut, le premier système comportera absolument toutes les portées.
@@ -67,15 +69,15 @@ front of the property.
 
 The lower staff of the second staff group is not removed, because the
 setting applies only to the specific staff inside of which it is
-written.
+written. 
 
 "
   doctitle = "Removing the first empty line"
 } % begin verbatim
 
 \layout {
-  \context {
-    \RemoveEmptyStaffContext
+  \context { 
+    \RemoveEmptyStaffContext 
     % To use the setting globally, uncomment the following line:
     % \override VerticalAxisGroup #'remove-first = ##t
   }

@@ -13,20 +13,20 @@ by using \\override Staff.TimeSignature #'style = #'single-digit to
 change the style permanently. By using \\revert Staff.TimeSignature
 #'style, this setting can be reversed. To apply the single-digit style
 to only one time signature, use the \\override command and prefix it
-with a \\once.
+with a \\once. 
 
 "
   doctitle = "Time signature printing only the numerator as a number (instead of the fraction)"
 } % begin verbatim
 
 \relative c'' {
-  \time 3/4
+  \time 3/4 
   c4 c c
   % Change the style permanently
   \override Staff.TimeSignature #'style = #'single-digit
-  \time 2/4
+  \time 2/4 
   c c
-  \time 3/4
+  \time 3/4 
   c c c
   % Revert to default style:
   \revert Staff.TimeSignature #'style

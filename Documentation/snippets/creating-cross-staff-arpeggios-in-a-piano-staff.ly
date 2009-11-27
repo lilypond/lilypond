@@ -15,6 +15,7 @@ cruce entre los pentagramas ajustando la propiedad
 "
   doctitlees = "Crear arpegios que se cruzan entre pentagramas dentro de un sistema de piano"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Arpeggio über mehrere Systeme können in anderen Kontexten als dem
@@ -23,6 +24,7 @@ in den @code{Score}-Kontext eingefügt wird.
 
 "
   doctitlede = "Arpeggio über mehrere Systeme in anderen Kontexten"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Dans une double portée pour piano (@code{PianoStaff}), un arpège peut
@@ -36,7 +38,7 @@ s'étendre sur les deux portées grâce à la propriété
   texidoc = "
 In a @code{PianoStaff}, it is possible to let an arpeggio cross between
 the staves by setting the property @code{PianoStaff.connectArpeggios}.
-
+ 
 
 "
   doctitle = "Creating cross-staff arpeggios in a piano staff"

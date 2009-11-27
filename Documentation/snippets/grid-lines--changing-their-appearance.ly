@@ -14,6 +14,7 @@ sobreescribiendo algunas de sus propiedades.
 "
   doctitlees = "Líneas de rejilla: modificar su aspecto"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Erscheinung der Gitternetzlinien kann durch einige Eigenschaften
@@ -21,6 +22,7 @@ geändert werden.
 
 "
   doctitlede = "Gitternetzlinien: Aussehen verändern"
+
 %% Translation of GIT committish: ca543ea73189a1e53af94973dad0b8a5042c130c
   texidocfr = "
 Modifier certaines des propriétés du cadrillage temporel aura pour effet

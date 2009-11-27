@@ -10,7 +10,7 @@
 Though the simplest way to resize staves is to use
 @code{#(set-global-staff-size xx)}, an individual staff's size can be
 changed by scaling the properties @code{'staff-space} and
-@code{fontSize}.
+@code{fontSize}. 
 
 "
   doctitle = "Changing the staff size"

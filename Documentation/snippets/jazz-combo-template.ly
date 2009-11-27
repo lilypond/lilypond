@@ -17,6 +17,7 @@ dentro de una sección @code{\\transpose}.
 "
   doctitlees = "Plantilla para combo de jazz"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung:
@@ -27,6 +28,7 @@ sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
 "
 
   doctitlede = "Vorlage für Jazz-Combo"
+
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
 Bien que compliqué de prime abord, voici un canevas tout à fait indiqué
@@ -284,7 +286,7 @@ drumContents = {
       \new Staff = "barisax" \bariSax
       \new Staff = "trombone" \trombone
     >>
-
+    
     \new StaffGroup = "rhythm" <<
       \new ChordNames = "chords" \gtrHarmony
       \new Staff = "guitar" \guitar
@@ -293,7 +295,7 @@ drumContents = {
       \new DrumStaff \drumContents
     >>
   >>
-
+  
   \layout {
     \context { \RemoveEmptyStaffContext }
     \context {
@@ -303,7 +305,7 @@ drumContents = {
       skipBars = ##t
     }
   }
-
+  
   \midi { }
 }
 

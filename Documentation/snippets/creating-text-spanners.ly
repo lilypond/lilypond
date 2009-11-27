@@ -35,14 +35,14 @@ to modify its output.
   a4 \startTextSpan
   b4 c
   a4 \stopTextSpan
-
+  
   \override TextSpanner #'style = #'line
   \once \override TextSpanner
     #'(bound-details left stencil-align-dir-y) = #CENTER
   a4 \startTextSpan
   b4 c
   a4 \stopTextSpan
-
+  
   \override TextSpanner #'style = #'dashed-line
   \override TextSpanner #'(bound-details left text) =
     \markup { \draw-line #'(0 . 1) }
@@ -53,7 +53,7 @@ to modify its output.
   a4 \startTextSpan
   b4 c
   a4 \stopTextSpan
-
+  
   \set Staff.middleCPosition = #-13
   \override TextSpanner #'dash-period = #10
   \override TextSpanner #'dash-fraction = #0.5

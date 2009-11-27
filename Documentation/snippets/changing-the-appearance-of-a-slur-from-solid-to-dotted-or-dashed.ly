@@ -15,7 +15,7 @@ continuas a punteadas o intermitentes.
   doctitlees = "Modificar el aspecto continuo de una ligadura de expresión a punteado o intermitente"
 
   texidoc = "
-The appearance of slurs may be changed from solid to dotted or dashed.
+The appearance of slurs may be changed from solid to dotted or dashed. 
 
 "
   doctitle = "Changing the appearance of a slur from solid to dotted or dashed"

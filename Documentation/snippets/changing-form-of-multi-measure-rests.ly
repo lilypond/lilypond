@@ -17,6 +17,7 @@ puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
 
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
@@ -26,6 +27,7 @@ zehn kann geändert werden, indem man die @code{expand-limit}-Eigenschaft
 setzt:
 "
   doctitlede = "Die Erscheinung von Pausentakten ändern"
+
 
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df

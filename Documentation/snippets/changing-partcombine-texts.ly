@@ -15,6 +15,7 @@ y de unísono:
 "
   doctitlees = "Cambiar los textos de partcombine"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn Stimmen automatisch kombiniert werden, kann der Text, der für
@@ -22,6 +23,7 @@ Solo- und Unisono-Stellen ausgegeben wird, geändert werden:
 
 "
   doctitlede = "Partcombine-Text ändern"
+
 %% Translation of GIT committish: c39256c433c9e0d80429fb768cde5834541524f8
   texidocfr = "
 Lorsque vous regroupez automatiquement des parties, vous pouvez

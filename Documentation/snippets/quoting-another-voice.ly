@@ -19,6 +19,7 @@ el fragmento citado porque @code{rest-event} no está dentro de los
 "
   doctitlees = "Citar otra voz"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die @code{quotedEventTypes}-Eigenschaft bestimmt die
@@ -32,6 +33,7 @@ sich @code{rest-event} nicht in @code{quotedEventTypes} befindet.
 "
 
   doctitlede = "Eine andere Stimme zitieren"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 Les types d'événement pris en charge pour la citation peuvent se régler
@@ -59,7 +61,7 @@ example, a 16th rest is not quoted since @code{rest-event} is not in
 @code{quotedEventTypes}.
 
 For a list of event types, consult the @qq{Music classes} section of
-the Internals Reference.
+the Internals Reference. 
 
 "
   doctitle = "Quoting another voice"

@@ -15,6 +15,7 @@ caídas y subidas de tono («falls» y «doits»).
 "
   doctitlees = "Ajustar la forma de las subidas y caídas de tono"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Die @code{shortest-duration-space}-Eigenschaft kann verändert werden, um
@@ -22,6 +23,7 @@ das Aussehen von unbestimmten Glissandi anzupassen.
 
 "
   doctitlede = "Das Aussehen von unbestimmten Glissandi anpassen"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 La propriété @code{shortest-duration-space} peut devoir être retouchée

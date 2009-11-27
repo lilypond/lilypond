@@ -32,7 +32,7 @@ lower = \relative c {
       \upper
     }
     \new Staff {
-      \override Staff.StaffSymbol #'line-count = #4
+      \override Staff.StaffSymbol #'line-count = #4 
       \lower
     }
   >>

@@ -15,6 +15,7 @@ ve en este ejemplo:
 "
   doctitlees = "Percent repeat counter"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Ganztaktwiederholungen mit mehr als zwei Wiederholungen erhalten einen
@@ -22,6 +23,7 @@ Zähler, wenn man die entsprechende Eigenschaft einsetzt:
 
 "
   doctitlede = "Prozent-Wiederholungen zählen"
+
 %% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
   texidocfr = "
 Les répétitions de plus de 2 mesures sont surmontées d'un compteur,

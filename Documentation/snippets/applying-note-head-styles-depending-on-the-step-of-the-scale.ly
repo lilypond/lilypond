@@ -30,6 +30,7 @@ nota.
 
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Notenkopfstile basierend auf der Tonleiterstufe erstellen"
   texidocde = "
@@ -51,6 +52,7 @@ eine Melodie transponieren kann, ohne dass das Verhältnis zwischen den
 harmonischen Funktionen und dem Notenstil verloren geht.
 
 "
+
 %% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
@@ -87,7 +89,7 @@ predefined note head styles available through shortcut commands such as
 
 This example shows different ways to obtain shape note heads, and
 demonstrates the ability to transpose a melody without losing the
-correspondence between harmonic functions and note head styles.
+correspondence between harmonic functions and note head styles. 
 
 "
   doctitle = "Applying note head styles depending on the step of the scale"
@@ -102,7 +104,7 @@ fragment = {
 }
 
 \new Staff {
-  \transpose c d
+  \transpose c d 
   \relative c' {
     \set shapeNoteStyles = #'#(do re mi fa
                                #f la ti)

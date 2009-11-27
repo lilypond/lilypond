@@ -18,7 +18,8 @@ alternativa) escribirse en el tono del instrumento y transportada
 a Do antes de ser asignada a una variable.
 
 "
-  doctitlees = "Plantilla de orquesta, coro y piano"
+  doctitlees = "Plantilla de orquesta coro y piano"
+
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
 Ce canevas illustre l'utilisation de contextes @code{StaffGroup} pour
@@ -30,7 +31,7 @@ saisies en ut ou dans la tonalité particulière de l'instrument avant
 d'être transposées puis affectées à une variable.
 
 "
-  doctitlefr = "Orchestre, chœur et piano"
+  doctitlefr = "Orchestre chœur et piano"
 
   texidoc = "
 This template demonstrates the use of nested @code{StaffGroup} and
@@ -41,7 +42,7 @@ entered in C or, alternatively, entered in the instrument key and
 transposed to C before being assigned to a variable.
 
 "
-  doctitle = "Orchestra, choir and piano template"
+  doctitle = "Orchestra choir and piano template"
 } % begin verbatim
 
 #(set-global-staff-size 17)

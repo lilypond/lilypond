@@ -23,6 +23,7 @@ truco se aplique a toda la partitura.
 "
   doctitlees = "Añadir un bajo cifrado encima o debajo de las notas"
 
+
 %% Translation of GIT committish: 7eb450e8e6c935410b8f3212cb53e5a731f4f33f
   doctitlefr = "Ajout d'une basse chiffrée au-dessus ou au-dessous des notes"
 
@@ -35,7 +36,7 @@ in a @code{Staff} context). Choices are @code{#UP} (or @code{#1}),
 
 As you can see here, this property can be changed as many times as you
 wish. Use @code{\\once \\override} if you don't want the tweak to apply
-to the whole score.
+to the whole score. 
 
 "
   doctitle = "Adding a figured bass above or below the notes"

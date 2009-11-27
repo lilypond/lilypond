@@ -15,6 +15,7 @@ modificando la propiedad @code{minimum-length} del objeto
 "
   doctitlees = "Ajustar la longitud mínima de los reguladores"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Wenn Crescendo-Klammern zu kurz sind, können sie verlängert werden, indem
@@ -23,6 +24,7 @@ verändert wird.
 
 "
   doctitlede = "Die Mindestlänge von Crescendo-Klammern bestimmen"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Si un soufflet est trop court, il suffit d'ajuster la propriété 
@@ -34,7 +36,7 @@ Si un soufflet est trop court, il suffit d'ajuster la propriété
 
   texidoc = "
 If hairpins are too short, they can be lengthened by modifying the
-@code{minimum-length} property of the @code{Hairpin} object.
+@code{minimum-length} property of the @code{Hairpin} object. 
 
 "
   doctitle = "Setting the minimum length of hairpins"

@@ -7,8 +7,8 @@
   lsrtags = "text"
 
   texidoc = "
-By default the @code{\\mark} command centers objects over a bar line.
-This behavior can be modified to align at right or left.
+By default the @code{\\mark} command centers objects over a bar line. 
+This behavior can be modified to align at right or left.  
 
 "
   doctitle = "Aligning objects created with the \\mark command"

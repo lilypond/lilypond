@@ -15,12 +15,14 @@ Los números de compás también se pueden imprimir dentro de rectángulos o de 
   doctitlees = "Imprimir números de compás dentro de rectángulos o circunferencias"
 
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Taktnummern können auch in Boxen oder Kreisen gesetzt werden.
 
 "
   doctitlede = "Setzen von Taktnummern in Kästen oder Kreisen"
+
 
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409

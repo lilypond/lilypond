@@ -14,6 +14,7 @@ puede ajustar mediante majorSevenSymbol.
 "
   doctitlees = "Nombre de acorde maj7"
 
+
 %% Translation of GIT committish: d4f58bb3ad4e7fe1967a6b48f25e3addffc8aa14
  texidocde = "
 Das Aussehen des großen Septakkords kann mit @code{majorSevenSymbol} verändert werden.
@@ -25,7 +26,7 @@ Das Aussehen des großen Septakkords kann mit @code{majorSevenSymbol} verändert
 
 
   texidoc = "
-The layout of the major 7 can be tuned with @code{majorSevenSymbol}.
+The layout of the major 7 can be tuned with @code{majorSevenSymbol}. 
 
 "
   doctitle = "chord name major7"

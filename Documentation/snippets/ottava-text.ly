@@ -18,6 +18,7 @@ instrucción @code{\\ottava}.
 
   doctitlees = "Texto de octava alta y baja"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Intern setzt die @code{set-octavation}-Funktion die Eigenschaften
@@ -29,6 +30,7 @@ und @code{middleCPosition}.  Um den Text der Oktavierungsklammer zu
 "
 
 doctitlede = "Ottava-Text"
+
 %% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
   texidocfr = "
 En interne, la fonction @code{\\ottava} détermine les

@@ -15,6 +15,7 @@ cualquiera.
 "
   doctitlees = "Imprimir marcas en cualquier pentagrama"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Normalerweise werden Textzeichen nur über dem obersten Notensystem gesetzt.  Sie
@@ -22,6 +23,7 @@ können aber auch über jedem System ausgegeben werden.
 
 "
   doctitlede = "Zeichen über jedem System ausgeben"
+
 %% Translation of GIT committish: c2e8b1d6d671dbfc138f890cbc7e9882b7be2761
   texidocfr = "
 Bien que ces indications textuelles ne soient habituellement imprimées

@@ -30,12 +30,12 @@ around some text (or other markup).
     (set! stencil (ly:stencil-combine-at-edge stencil Y -1 x-rule 0.0))
     stencil))
 
-% The corresponding markup command, based on the \box command defined
+% The corresponding markup command, based on the \box command defined 
 % in scm/define-markup-commands.scm
 #(define-markup-command (NWS-box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup."
+thickness and padding around the markup."  
   (let* ((th (chain-assoc-get 'thickness props  0.1))
          (size (chain-assoc-get 'font-size props 0))
          (pad (* (magstep size)

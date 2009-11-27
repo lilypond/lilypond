@@ -17,6 +17,7 @@ acciaccaturas, en otras situaciones.
   doctitlees = "Utilizar la barra que tacha las notas de adorno con notas normales"
 
 
+
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409
   texidocfr = "
 Le trait que l'on trouve sur les hampes des acciaccatures peut

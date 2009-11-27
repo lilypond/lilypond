@@ -15,12 +15,14 @@ la propiedad de contexto @code{repeatCountVisibility}.
 "
   doctitlees = "Visibilidad del contador de repeticiones de tipo porcentaje"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Prozentwiederholungszähler können in regelmäßigen Intervallen angezeigt
 werden, indem man die Eigenschaft @code{repeatCountVisibility} beeinflusst.
 "
   doctitlede = "Sichtbarkeit von Prozent-Wiederholungen"
+
 %% Translation of GIT committish: e98b2d804c2a136edfa28adc894bb584f676c884
   texidocfr = "
 Le numéro de mesure répétée sera imprimé à intervalle régulier si vous

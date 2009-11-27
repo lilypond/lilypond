@@ -20,7 +20,7 @@ invisible notes in that voice (as shown in the second example).
  If you need to move the fret according with a rythmic position inside
 the bar (in the example, the third beat of the measure) the second
 example is better, because the fret is aligned with the third beat
-itself.
+itself.  
 
 "
   doctitle = "How to change fret diagram position"
@@ -47,7 +47,7 @@ harmonies = \chordmode
      b4.~^\markup { \fret-diagram  #"6-x;5-2;4-4;3-2;2-2;1-4;"  } b4. a8\break
 % HERE IS THE SECOND METHOD
      <<
-       { a8 b4.~ b4. a8}
+       { a8 b4.~ b4. a8} 
        { s4 s4 s4^\markup { \fret-diagram  #"6-x;5-2;4-4;3-2;2-2;1-4;"  }
        }
      >>

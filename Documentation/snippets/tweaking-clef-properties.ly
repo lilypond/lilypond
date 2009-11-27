@@ -41,6 +41,7 @@ cambios manuales preservan el posicionamiento relativo estándar de
 las claves y las notas, pero no lo hacen en la segunda línea.
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Eigenschaften des Schlüssels optimieren"
   texidocde = "
@@ -73,6 +74,7 @@ Eigenschaften manuell setzt.  Auf der ersten Zeile erhalten die manuellen
 Änderungen die ursprüngliche relative Positionierung von Schlüssel und
 Noten, auf der zweiten Zeile nicht.
 "
+
 %% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
@@ -138,7 +140,7 @@ with  @code{\\unset Staff.explicitClefVisibility}.
 The following examples show the possibilities when setting these
 properties manually. On the first line, the manual changes preserve the
 standard relative positioning of clefs and notes, whereas on the second
-line, they do not.
+line, they do not. 
 
 "
   doctitle = "Tweaking clef properties"
@@ -186,7 +188,7 @@ line, they do not.
   \set Staff.clefOctavation = #0
   \set Staff.clefPosition = #0
   c'1
-
+  
   % Return to the normal clef:
 
   \set Staff.middleCPosition = #0

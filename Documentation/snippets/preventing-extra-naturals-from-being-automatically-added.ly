@@ -19,6 +19,7 @@ dentro del contexto de @code{Staff}.
 
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
 hinzugefügt werden"
@@ -29,6 +30,7 @@ ein vorheriges Versetzungszeichen der gleichen Note aufgehoben werden
 soll.  Um dieses Verhalten zu ändern, muss die Eigenschaft
 @code{extraNatural} im @code{Staff}-Kontext auf \"false\" gesetzt werden.
 "
+
 %% Translation of GIT committish: 59968a089729d7400f8ece38d5bc98dbb3656a2b
   texidocfr = "
 En accord avec les règles standards de l'écriture musicale, on grave

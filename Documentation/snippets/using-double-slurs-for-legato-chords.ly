@@ -14,6 +14,7 @@ legato.  Esto se puede conseguir estableciendo @code{doubleSlurs}.
 "
   doctitlees = "Utilizar ligaduras dobles para acordes legato"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Einige Komponisten schreiben doppelte Bögen, wenn Legato-Akkorde notiert
@@ -21,6 +22,7 @@ werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
 
 "
   doctitlede = "Doppelte Bögen für Legato-Akkorde benutzen"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Certains auteurs utilisent deux liaisons lorsqu'ils veulent
@@ -33,7 +35,7 @@ la propriété @code{doubleSlurs} :
 
   texidoc = "
 Some composers write two slurs when they want legato chords.  This can
-be achieved by setting @code{doubleSlurs}.
+be achieved by setting @code{doubleSlurs}. 
 
 "
   doctitle = "Using double slurs for legato chords"

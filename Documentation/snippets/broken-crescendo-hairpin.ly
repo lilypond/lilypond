@@ -44,7 +44,7 @@ y-origin of the rectangle.
 
 
 Make sure to put the hairpin in a lower layer than the text markup to
-draw the rectangle over the hairpin.
+draw the rectangle over the hairpin. 
 
 "
   doctitle = "Broken Crescendo Hairpin"

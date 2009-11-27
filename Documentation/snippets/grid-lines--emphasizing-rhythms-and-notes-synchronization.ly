@@ -41,7 +41,7 @@ this snippet.
         \override Staff.StaffSymbol #'line-count = #0
         \override Staff.TimeSignature #'transparent = ##t
         \override Staff.Clef #'transparent = ##t
-
+        
         % dummy notes to force regular note spacing
         \once  \override Score.GridLine #'thickness = #4.0
         c8 c c

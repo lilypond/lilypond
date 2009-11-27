@@ -27,6 +27,7 @@ los archivos independientes!
 "
   doctitlees = "Plantilla de cuarteto de cuerda con particellas independientes"
 
+
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 \"弦楽四重奏テンプレート\" は適切な弦楽四重奏の楽譜を作り出しますが、個々の@c
@@ -41,6 +42,7 @@ los archivos independientes!
 
 別々のファイルに分ける場合は、指定されたコメントを外すことを忘れないでください！
 "
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Mit diesem Beispiel können Sie ein schönes Streichquartett notieren,
@@ -59,6 +61,7 @@ zugewiesen, auf den zurückgegriffen werden kann.
 "
 
   doctitlede = "Vorlage für Streichquartett mit einzelnen Stimmen"
+
 
 %% Translation of GIT committish: 892286cbfdbe89420b8181975032ea975e79d2f5
   texidocfr = "
@@ -79,7 +82,7 @@ N'oubliez pas de supprimer les commentaires superflus des fichiers
 individualisés !
 
 "
-  doctitlefr = "Quatuor à cordes, avec parties séparées"
+  doctitlefr = "Quatuor à cordes avec parties séparées"
 
   texidoc = "
 The @qq{String quartet template} snippet produces a nice string
@@ -94,7 +97,7 @@ contains all the music definitions. The other files – @code{score.ly},
 produce the appropriate part.
 
 
-Do not forget to remove specified comments when using separate files!
+Do not forget to remove specified comments when using separate files! 
 
 "
   doctitle = "String quartet template with separate parts"

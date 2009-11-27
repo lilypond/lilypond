@@ -19,6 +19,7 @@ se transportan todas las notas (incluidas las citadas).
 
 doctitlees = "Citar otra voz con transposición"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Zitate berücksichtigen sowohl die Transposition der Quelle als auch
@@ -29,6 +30,7 @@ in diesem Fall werden alle Noten (auch die zitierten) transponiert.
 
 "
   doctitlede = "Eine Stimme mit Transposition zitieren"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 Les citations tiennent compte de la transposition, aussi bien celle de 

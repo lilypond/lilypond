@@ -22,6 +22,7 @@ distinta, como se ve en el segundo sistema del ejemplo.
   doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
 
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
@@ -34,7 +35,8 @@ geschweiften Klammer beginne, muss eine andere Eigenschaft verändt werden,
 wie das zweite Beispiel zeigt.
 
 "
-  doctitlede = "Klammer anzeigen, wenn nur ein System gesetzt wird"
+  doctitlede = "Klammer anzeigen wenn nur ein System gesetzt wird"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 Lorsque, dans des regoupements de type @code{ChoirStaff} ou
@@ -59,7 +61,7 @@ relevant properties.
 
 Note that in contexts such as @code{PianoStaff} and @code{GrandStaff}
 where the systems begin with a brace instead of a bracket, another
-property has to be set, as shown on the second system in the example.
+property has to be set, as shown on the second system in the example. 
 
 "
   doctitle = "Display bracket with only one staff in a system"

@@ -17,8 +17,8 @@ cifrado americano se puede cambiar por la alemana
   doctitlees = "Cambiar la nomenclatura de los acordes del cifrado americano por la notación alemana o semi-alemana"
 
   texidoc = "
-The english naming of chords (default) can be changed to german
-(@code{\\germanChords} replaces B and Bes to H and B) or semi-german
+The english naming of chords (default) can be changed to german 
+(@code{\\germanChords} replaces B and Bes to H and B) or semi-german 
 (@code{\\semiGermanChords} replaces B and Bes to H and Bb).
 
 
@@ -31,7 +31,7 @@ The english naming of chords (default) can be changed to german
 music = \chordmode {
   c1/c cis/cis
   b/b bis/bis bes/bes
-}
+} 
 
 %% The following is only here to print the names of the
 %% chords styles; it can be removed if you do not need to

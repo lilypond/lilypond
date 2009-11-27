@@ -21,13 +21,13 @@ overridden.
   \set fingeringOrientations = #'(up)
   \set stringNumberOrientations = #'(up)
   \set strokeFingerOrientations = #'(up)
-
+  
   % Default behavior
   r8
   <f c'-5>8
   <f c'\5>8
   <f c'-\rightHandFinger #2 >8
-
+  
   % Corrected to avoid collisions
   r8
   \override Fingering #'add-stem-support = ##t

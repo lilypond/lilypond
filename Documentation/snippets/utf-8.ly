@@ -8,7 +8,7 @@
 
   texidoc = "
 Various scripts may be used for texts (like titles and lyrics) by
-entering them in UTF-8 encoding, and using a Pango based backend.
+entering them in UTF-8 encoding, and using a Pango based backend. 
 Depending on the fonts installed, this fragment will render Bulgarian
 (Cyrillic), Hebrew, Japanese and Portuguese.
 
@@ -28,13 +28,13 @@ You may have to install additional fonts.
 Red Hat Fedora
 
     taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
-   ttfonts-zh_CN fonts-ja fonts-hebrew
+   ttfonts-zh_CN fonts-ja fonts-hebrew 
 
 Debian GNU/Linux
 
    apt-get install emacs-intl-fonts xfonts-intl-.* \
   ttf-kochi-gothic ttf-kochi-mincho \
-  xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi
+  xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
 %}
 
 % Cyrillic font

@@ -25,6 +25,7 @@ de las cuerdas.  Hay planes para corregir esto en un futuro.
 "
   doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
 
+
 %% Translation of GIT committish: 33f623301a41fcc53efadf96bca1c72834763415
   texidocde = "
 Vordefinierte Bunddiagramme können für neue Instrumente hinzugefügt werden
@@ -42,6 +43,7 @@ enthalten.  Das soll in der Zukunft verbessert werden.
 
 "
   doctitlede = "Eigene vordefinierte Bunddiagramme für andere Instrumente erstellen"
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 
   texidocfr = "
@@ -73,7 +75,7 @@ diagram and the @code{TabStaff}, but not the music.
 
 
 These fretboards are not transposable because they contain string
-information.  This is planned to be corrected in the future.
+information.  This is planned to be corrected in the future. 
 
 "
   doctitle = "Defining predefined fretboards for other instruments"
@@ -114,7 +116,7 @@ gMajor = { <b\4 b\1 d\3 g\2> }
 #(set-global-staff-size 16)
 
 primerosNames = \chordmode {
-  d:6 d a:maj7 d:maj7
+  d:6 d a:maj7 d:maj7 
   g
 }
 primeros = {
@@ -132,7 +134,7 @@ primeros = {
     \new Staff {
       \new Voice \with {
         \remove "New_fingering_engraver"
-      }
+      } 
       \relative c'' {
         \primeros
       }
@@ -151,10 +153,10 @@ primeros = {
       \set TabStaff.stringTunings = #cuatroTuning
       \primeros
     }
-
+    
   >>
 
-  \layout {
+  \layout { 
     \context {
       \Score
       \override SpacingSpanner

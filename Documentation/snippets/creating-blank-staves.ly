@@ -22,7 +22,7 @@ de los compases @code{Bar_engraver} del contexto de @code{Staff}.
 To create blank staves, generate empty measures then remove the
 @code{Bar_number_engraver} from the @code{Score} context, and the
 @code{Time_signature_engraver}, @code{Clef_engraver} and
-@code{Bar_engraver} from the @code{Staff} context.
+@code{Bar_engraver} from the @code{Staff} context. 
 
 "
   doctitle = "Creating blank staves"
@@ -31,8 +31,8 @@ To create blank staves, generate empty measures then remove the
 #(set-global-staff-size 20)
 
 \score {
-  {
-    \repeat unfold 12 { s1 \break }
+  { 
+    \repeat unfold 12 { s1 \break } 
   }
   \layout {
     indent = 0\in

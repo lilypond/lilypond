@@ -14,6 +14,7 @@ utilizando una nota oculta y temporalización de cadenza.
 "
   doctitlees = "Glissando contemporáneo"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Ein modernes Glissando ohne eine Endnote kann gesetzt werden, indem
@@ -21,6 +22,7 @@ eine Kadenz eingesetzt wird und die Endnote unsichtbar gemacht wird.
 
 "
   doctitlede = "Moderne Glissandi"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 De nos jours, il peut arriver que la note d'arrivée d'un glissando soit
@@ -46,7 +48,7 @@ hidden note and cadenza timing.
   \cadenzaOn
   c4\glissando
   \hideNotes
-  c,,4
+  c,,4 
   \unHideNotes
   \cadenzaOff
   \bar "|"

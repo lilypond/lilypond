@@ -17,6 +17,7 @@ destacar, utilizando la propiedad @code{line-positions} del objeto
 "
   doctitlees = "Hacer unas líneas del pentagrama más gruesas que las otras"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Für den pädagogischen Einsatz kann eine Linie des Notensystems dicker
@@ -27,6 +28,7 @@ herangezogen.
 
 "
   doctitlede = "Eine Linie des Notensystems dicker als die anderen machen"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
@@ -45,7 +47,7 @@ For pedagogical purposes, a staff line can be thickened (e.g., the
 middle line, or to emphasize the line of the G clef).  This can be
 achieved by adding extra lines very close to the line that should be
 emphasized, using the @code{line-positions} property of the
-@code{StaffSymbol} object.
+@code{StaffSymbol} object. 
 
 "
   doctitle = "Making some staff lines thicker than the others"

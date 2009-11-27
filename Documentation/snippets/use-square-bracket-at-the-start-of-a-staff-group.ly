@@ -15,6 +15,7 @@ un contexto @code{StaffGroup} o @code{ChoirStaffGroup}.
 "
   doctitlees = "Uso del corchete recto al comienzo de un grupo de pentagramas"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Klammer zu Beginn von Systemgruppen kann auch in eine eckige Klammer
@@ -23,6 +24,7 @@ im @code{StaffGroup}- oder @code{ChoirStaffGroup}-Kontext setzt.
 
 "
   doctitlede = "Eine eckige Klammer zu Beginn von Systemgruppen benutzen"
+
 %% Translation of GIT committish: d78027a94928ddcdd18fd6534cbe6d719f80b6e6
   texidocfr = "
 Un regroupement de portées sera indiqué par un simple rectangle
@@ -37,14 +39,14 @@ mentionnerez explicitement au sein d'un contexte @code{StaffGroup} ou
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by
 setting it explicitly in a @code{StaffGroup} or @code{ChoirStaffGroup}
-context.
+context. 
 
 "
   doctitle = "Use square bracket at the start of a staff group"
 } % begin verbatim
 
 \score {
-  \new StaffGroup { <<
+  \new StaffGroup { << 
   \set StaffGroup.systemStartDelimiter = #'SystemStartSquare
     \new Staff { c'4 d' e' f' }
     \new Staff { c'4 d' e' f' }

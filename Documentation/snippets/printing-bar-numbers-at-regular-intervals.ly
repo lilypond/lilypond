@@ -19,6 +19,7 @@ imprimen a cada dos compases excepto al final de la línea.
   doctitlees = "Imprimir números de compás a intervalos regulares"
 
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Taktnummern können in regelmäßigen Intervallen gesetzt werden, indem
@@ -28,6 +29,7 @@ am Ende einer Zeile.
 
 "
   doctitlede = "Setzen der Taktnummern in regelmäßigen Intevallen"
+
 
 
 %% Translation of GIT committish: 21c8461ea87cd670a35a40b91d3ef20de03a0409

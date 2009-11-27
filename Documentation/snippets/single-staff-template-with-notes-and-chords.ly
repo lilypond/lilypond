@@ -15,10 +15,12 @@ melodía y acordes?  ¡No busque más!
 
 doctitlees = "Plantilla de pentagrama único con música y acordes"
 
+
 %% Translation of GIT committish: 06d99c3c9ad1c3472277b4eafd7761c4aadb84ae
   texidocja = "
 旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
 "
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben?  Hier ist
@@ -26,6 +28,7 @@ das richtige Beispiel für Sie!
 "
 
   doctitlede = "Vorlage für eine Notenzeile mit Akkorden"
+
 
 %% Translation of GIT committish: 9ba35398048fdf1ca8c83679c7c144b1fd48e75b
   texidocfr = "
@@ -48,7 +51,7 @@ melody = \relative c' {
   \clef treble
   \key c \major
   \time 4/4
-
+  
   f4 e8[ c] d4 g
   a2 ~ a
 }
@@ -65,7 +68,7 @@ harmonies = \chordmode {
       \harmonies
     }
     \new Staff \melody
-  >>
+  >>  
   \layout{ }
   \midi { }
 }

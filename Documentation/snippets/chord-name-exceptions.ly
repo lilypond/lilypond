@@ -15,6 +15,7 @@ específicos.
 "
   doctitlees = "Excepciones para los nombres de acorde"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Die Eigenschaft @code{chordNameExceptions} kann benutzt werden, um eine
@@ -25,7 +26,7 @@ Liste an besonderen Notationen für bestimmte Akkorde zu speichern.
 
   texidoc = "
 The property @code{chordNameExceptions} can be used to store a list of
-special notations for specific chords.
+special notations for specific chords. 
 
 "
   doctitle = "Chord name exceptions"
@@ -50,10 +51,10 @@ theMusic = \chordmode {
 }
 
 \layout {
-  ragged-right = ##t
+  ragged-right = ##t 
 }
 
 << \context ChordNames \theMusic
    \context Voice \theMusic
->>
+>>  
 

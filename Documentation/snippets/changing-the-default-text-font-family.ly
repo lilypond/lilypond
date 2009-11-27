@@ -8,19 +8,19 @@
 
   texidoc = "
 The default font families for text can be overridden with
-@code{make-pango-font-tree}.
+@code{make-pango-font-tree}. 
 
 "
   doctitle = "Changing the default text font family"
 } % begin verbatim
 
 \paper {
-  % change for other default global staff size.
+  % change for other default global staff size. 
   myStaffSize = #20
   %{
      run
          lilypond -dshow-available-fonts blabla
-     to show all fonts available in the process log.
+     to show all fonts available in the process log.  
   %}
 
   #(define fonts
@@ -34,7 +34,7 @@ The default font families for text can be overridden with
 
 \relative c'' {
   c4^\markup {
-    roman: foo \bold bla \italic bar \italic \bold baz
+    roman: foo \bold bla \italic bar \italic \bold baz 
   }
   c'4_\markup {
     \override #'(font-family . sans)
@@ -48,6 +48,6 @@ The default font families for text can be overridden with
       mono: foo \bold bla \italic bar \italic \bold baz
     }
   }
-}
+}  
 
 

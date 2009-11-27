@@ -25,7 +25,7 @@ to align the right end of the mark with the bar line.
   doctitle = "Printing marks at the end of a line"
 } % begin verbatim
 
-\relative c'' {
+\relative c'' {  
   g2 c
   d,2 a'
   \once \override Score.RehearsalMark #'break-visibility = #end-of-line-visible

@@ -38,7 +38,7 @@ smallFlageolet =
   <e d'>^\smallFlageolet_\smallFlageolet
 
   % it works only if you wrap the note inside a chord. By default,
-  % all articulations will be printed above, so you have to tweak
+  % all articulations will be printed above, so you have to tweak 
   % the direction.
   s4^"Works if written inside a chord:"
   <e-\tweak #'direction #DOWN -\smallFlageolet d'^\smallFlageolet>

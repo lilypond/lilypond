@@ -16,7 +16,7 @@ nuevo una vez que la pieza ha comenzado.
 
   texidoc = "
 An extra staff can be added (possibly temporarily) after the start of a
-piece.
+piece.  
 
 "
   doctitle = "Adding an extra staff"

@@ -19,6 +19,7 @@ configurar a la forma de corchete en el contexto de @code{PianoStaff}.
 "
   doctitlees = "Indicar acordes de pentagrama cruzado con corchetes de arpegio"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Eine Arpeggioklammer kann anzeigen, dass Noten auf zwei unterschiedlichen
@@ -40,7 +41,7 @@ arpeggios must be set to the bracket shape in the @code{PianoStaff}
 context.
 
 
-(Debussy, Les collines d’Anacapri, m. 65)
+(Debussy, Les collines d’Anacapri, m. 65) 
 
 "
   doctitle = "Indicating cross-staff chords with arpeggio bracket"

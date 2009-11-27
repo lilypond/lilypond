@@ -21,6 +21,7 @@ grupeto horizontalmente.
 doctitlees = "Crear un grupeto de anticipación"
 
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   texidocde = "
 Einen Doppelschlag mit Vorhalt zu erstellen, wobei die untere Note das
@@ -32,6 +33,7 @@ wird benutzt, um den Doppelschlag horizontal zu positionieren.
 "
 
   doctitlede = "Einen  Doppelschlag mit Vorhalt erstellen"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse

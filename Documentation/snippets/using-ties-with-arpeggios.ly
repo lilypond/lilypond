@@ -18,6 +18,7 @@ en principio también se puede usar para notas normales consecutivas.
 
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
  texidocde = "
  Überbindungen werden teilweise benutzt, um Arpeggios zu notieren.  In
@@ -28,6 +29,7 @@ ein Tremolo mit einem Akkord zu überbinden, kann aber prinzipiell auch
 für normale Überbindungen eingesetzt werden
 "
   doctitlede = "Überbingungen für Arpeggio genutzen"
+
 
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df
@@ -45,7 +47,7 @@ Ties are sometimes used to write out arpeggios.  In this case, two tied
 notes need not be consecutive.  This can be achieved by setting the
 @code{tieWaitForNote} property to @code{#t}.  The same feature is also
 useful, for example, to tie a tremolo to a chord, but in principle, it
-can also be used for ordinary consecutive notes.
+can also be used for ordinary consecutive notes. 
 
 "
   doctitle = "Using ties with arpeggios"

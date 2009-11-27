@@ -10,8 +10,8 @@
 Ambitus indicate pitch ranges for voices.
 
 
-Accidentals only show up if they are not part of the key signature.
-@code{AmbitusNoteHead} grobs also have ledger lines.
+Accidentals only show up if they are not part of the key signature. 
+@code{AmbitusNoteHead} grobs also have ledger lines. 
 
 "
   doctitle = "Ambitus"

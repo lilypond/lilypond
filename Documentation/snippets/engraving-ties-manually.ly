@@ -17,6 +17,7 @@ hacia arriba, -1 = hacia abajo).
 
 "
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Überbindungen können manuell gesetzt werden, indem man die
@@ -27,6 +28,7 @@ Notensystemabständen an, die zweite Zahl zeigt die Richtung an (1 = nach oben,
 
 "
   doctitlede = "Bindebögen manuell setzen"
+
 
 
 %% Translation of GIT committish: e71f19ad847d3e94ac89750f34de8b6bb28611df

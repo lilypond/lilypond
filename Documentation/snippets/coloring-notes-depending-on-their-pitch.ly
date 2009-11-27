@@ -9,7 +9,7 @@
   texidoc = "
 It is possible to color note heads depending on their pitch and/or
 their names: the function used in this example even makes it possible
-to distinguish enharmonics.
+to distinguish enharmonics. 
 
 "
   doctitle = "Coloring notes depending on their pitch"

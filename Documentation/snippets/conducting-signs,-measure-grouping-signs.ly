@@ -20,7 +20,7 @@ pasa a la función @code{set-time-signature} como tercer argumento:
 @code{'(2 2 2 3)}:
 
 "
-doctitlees = "Símbolos de dirección, símbolos de agrupación de compás"
+doctitlees = "Símbolos de dirección símbolos de agrupación de compás"
 
 
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
@@ -37,7 +37,7 @@ der @code{set-time-signature}-Funktion als das dritte Argument mitgegeben:
 @code{'(2 2 2 3)}:
 
 "
-  doctitlede = "Dirigirzeichen, Taktgruppenzeichen"
+  doctitlede = "Dirigirzeichen Taktgruppenzeichen"
 
 
 
@@ -58,7 +58,7 @@ modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
 règles par défaut contenues dans le fichier @w{@code{scm/beam-settings.scm}}.
 
 "
-  doctitlefr = "Signes de direction, signes de sous-groupe"
+  doctitlefr = "Signes de direction signes de sous-groupe"
 
   lsrtags = "rhythms"
   texidoc = "
@@ -77,7 +77,7 @@ patterns using the two different methods, while the 5/8 measure
 is grouped according to the default setting in
 @file{scm/beam-settings.scm}:
 "
-  doctitle = "Conducting signs, measure grouping signs"
+  doctitle = "Conducting signs measure grouping signs"
 } % begin verbatim
 
 

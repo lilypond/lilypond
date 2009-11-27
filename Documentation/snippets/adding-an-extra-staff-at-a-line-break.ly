@@ -42,7 +42,7 @@ workaround is to add a setting of
          \key f \major
          \once \override Staff.TimeSignature #'stencil = ##f
          c1 | c
-       }
+       } 
     >>
     c1 | c^"Fixed here" \break
     << { c1 | c }

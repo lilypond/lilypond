@@ -15,6 +15,7 @@ símbolos modificando los argumentos de @code{\\raise}.
 "
   doctitlees = "Símbolos de acordeón discanto"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
   doctitlede = "Symbole für Akkordeon-Diskantregister"
   texidocde = "
@@ -161,7 +162,7 @@ accClarin = ^\markup {
 
 accPiccolo = ^\markup {
     \combine
-       \discant
+       \discant 
        \raise #2.5 \dot
 }
 

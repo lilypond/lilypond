@@ -21,6 +21,7 @@ valores posibles se encuentran @code{'line} (línea),
 "
   doctitlees = "Cambiar el texto y los estilos de objeto de extensión para las indicaciones dinámicas textuales"
 
+
 %% Translation of GIT committish: d96023d8792c8af202c7cb8508010c0d3648899d
 texidocde = "
 Der Text, der für Crescendo und Decrescendo gestzt wird, kann geändert
@@ -32,6 +33,7 @@ geändert werden, indem die @code{'style}-Eigenschaft des
 und @code{'dotted-line}.
 "
   doctitlede = "Text und Strecker-Stile für Dynamik-Texte ändern"
+
 %% Translation of GIT committish: ae814f45737bd1bdaf65b413a4c37f70b84313b7
   texidocfr = "
 Le texte par défaut des crescendos et decrescendos se change en
@@ -51,7 +53,7 @@ modifying the context properties @code{crescendoText} and
 @code{decrescendoText}. The style of the spanner line can be changed by
 modifying the @code{'style} property of @code{DynamicTextSpanner}.  The
 default value is @code{'hairpin}, and other possible values include
-@code{'line}, @code{'dashed-line} and @code{'dotted-line}.
+@code{'line}, @code{'dashed-line} and @code{'dotted-line}. 
 
 "
   doctitle = "Changing text and spanner styles for text dynamics"

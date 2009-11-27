@@ -9,7 +9,7 @@
   texidoc = "
 The @code{s} syntax for skips is only available in note mode and chord
 mode. In other situations, for example, when entering lyrics, using the
-@code{\\skip} command is recommended.
+@code{\\skip} command is recommended. 
 
 "
   doctitle = "Skips in lyric mode"
