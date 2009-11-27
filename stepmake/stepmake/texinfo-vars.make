@@ -28,11 +28,11 @@ TEXI2HTML_LANG = --lang=$(ISOLANG)
 endif
 
 DOC_TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
-WEB_TEXI2HTML_INIT =--init-file=$(top-src-dir)/Documentation/web-texi2html.init
+WEB_TEXI2HTML_INIT =-D web_manual --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 TEXI2HTML_INIT = $(DOC_TEXI2HTML_INIT)
 
 DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
-WEB_TEXI2HTML_SPLIT = --prefix=index --split=section
+WEB_TEXI2HTML_SPLIT = --prefix=index --split=subsubsection
 TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
 
 TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)

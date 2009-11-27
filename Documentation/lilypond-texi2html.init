@@ -66,11 +66,13 @@
 
 package Texi2HTML::Config;
 
+use utf8;
+use Encode qw(decode);
+
 #############################################################################
 ### TRANSLATIONS
 #############################################################################
 
-use utf8;
 my $LY_LANGUAGES = {};
 $LY_LANGUAGES->{'fr'} = {
     'Back to Documentation Index' => 'Retour à l\'accueil de la documentation',
@@ -89,6 +91,9 @@ $LY_LANGUAGES->{'hu'} = {
     'Back to Documentation Index' => 'Vissza a dokumentációk jegyzékéhez',
 };
 
+# FIXME: request translation and send it to texi2html/texinfo devs
+$LANGUAGES->{'hu'} = $LANGUAGES->{'en'};
+
 sub ly_get_string () {
     my $lang = $Texi2HTML::THISDOC{current_lang};
     my $string = shift;
@@ -101,28 +106,54 @@ sub ly_get_string () {
 
 
 #############################################################################
+### FUNCTIONALITY FOR MAIN WEB PAGES
+#############################################################################
+
+my $web_manual = 0;
+sub lilypond_init_web_manual ()
+{
+  if (exists($main::value{'web_manual'}))
+  {
+      print STDERR "Initializing settings for web site\n";
+    $web_manual = 1;
+    web_settings();
+  }
+}
+push @Texi2HTML::Config::command_handler_process, \&lilypond_init_web_manual;
+
+#############################################################################
 ###  SETTINGS FOR TEXI2HTML
 #############################################################################
 
-@Texi2HTML::Config::CSS_REFS      = (
-    {FILENAME => "lilypond-mccarty.css", TITLE => "Patrick McCarty's design"}
-);
+# Validation fix for texi2html<=1.82
+$Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+
+sub web_settings() {
+  if ($web_manual) {
+    @Texi2HTML::Config::CSS_REFS      = (
+      {FILENAME => "lilypond-web.css", TITLE => "Default style"}
+    );
+  } else {
+    @Texi2HTML::Config::CSS_REFS      = (
+      {FILENAME => "lilypond-mccarty.css", TITLE => "Patrick McCarty's design"}
+    );
+  }
+}
 @Texi2HTML::Config::ALT_CSS_REFS      = (
     {FILENAME => "lilypond.css", TITLE => "Andrew Hawryluk's design" },
     {FILENAME => "lilypond-blue.css", TITLE => "Kurt Kroon's blue design" },
 );
-# no bgcolor and link colors in <body> tag
-# in texi2html >=1.83, override $Texi2HTML::Config::html_default_bodytext instead
-$Texi2HTML::Config::BODYTEXT = "";
-$Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::SPLIT_INDEX   = 0;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
-if ($Texi2HTML::Config::SPLIT eq 'section') {
+
+if ($Texi2HTML::Config::SPLIT eq 'section' or
+    $Texi2HTML::Config::SPLIT eq 'subsubsection') {
   $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
 }
+
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
@@ -219,9 +250,8 @@ sub texinfo_file_name($)
     $result = 't_g' . $result;
   }
   # DONE
-  return $result
+  return lc($result)
 }
-
 
 # Load a file containing a nodename<=>filename map (tab-sepatared, i.e.
 # NODENAME\tFILENAME\tANCHOR
@@ -231,9 +261,11 @@ sub load_map_file ($)
     my $mapfile = shift;
     my $node_map = ();
 
-    if (open(XREFFILE,'<:encoding(utf8)', $mapfile)) {
+    # For some unknown reason, Perl on my system (5.10.0 on Fedora 12)
+    # refuses to open map files of translated documents with '<:encoding'
+    if (open(XREFFILE,'<', $mapfile)) {
         my $line;
-        while ( $line = <XREFFILE> ) {
+        while ( $line = decode ('UTF-8', <XREFFILE>) ) {
             # parse the tab-separated entries and insert them into the map:
             chomp($line);
             my @entries = split(/\t/, $line);
@@ -243,6 +275,7 @@ sub load_map_file ($)
               print STDERR "Invalid entry in the node file $mapfile: $line\n";
             }
         }
+	# print STDERR %{$node_map};
         close (XREFFILE);
     } else {
         print STDERR "WARNING: Unable to load the map file $mapfile\n";
@@ -299,6 +332,8 @@ sub lilypond_css_lines ($$)
     {
         $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
     }
+    # FIXME: the website doesn't use ie7-specific fixes; do the
+    # docs still need this?  -gp
     $Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
 }
 
@@ -361,7 +396,8 @@ sub lilypond_element_file_name($$$)
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
     }
-    return $filename;
+    # print STDERR "File name: $filename\n";
+    return lc($filename);
 
   } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
     return;
@@ -382,10 +418,12 @@ sub lilypond_element_file_name($$$)
       $docnr += 1;
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
-      return $filename;
+      print STDERR "File name: $filename\n";
+      return lc($filename);
     } else {
       $$element{doc_nr} = $docnr;
-      return $lastfilename;
+      print STDERR "File name: $filename\n";
+      return lc($filename);
     }
   }
 
@@ -417,6 +455,7 @@ sub lilypond_element_target_name($$$)
   }
   # TODO: Once texi2html correctly prints out the target and not the id for
   #       the sections, change this back to ($id, $target)
+  $target = lc($target);
   return ($target, $target);
 }
 
@@ -430,6 +469,7 @@ sub lilypond_init_map ()
     my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
     my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
 	|| main::locate_include_file ("${docu_name}.xref-map");
+    print STDERR "Map filename is: $map_filename\nDocu name is $docu_name\n";
     $node_to_filename_map = load_map_file ($map_filename);
 }
 push @Texi2HTML::Config::command_handler_init, \&lilypond_init_map;
@@ -450,7 +490,7 @@ sub lilypond_external_ref($$$$$$)
   my $section = shift;
   my $book = shift;
   my $file_node = shift;
-  my $href = shift;
+  my $href = lc(shift);
   my $cross_ref = shift;
 
   my $displaytext = '';
@@ -555,7 +595,7 @@ sub lilypond_external_href($$$)
   }
 
   if (defined $file) {
-    return &$default_external_href($node, $node_id, $node_hxmlt_id, $file);
+    return &$default_external_href($node, $node_id, $node_hxmlt_id, lc($file));
   } else {
     return &$default_external_href($node, $node_id, $node_hxmlt_id);
   }
@@ -571,7 +611,6 @@ sub lilypond_external_href($$$)
 
 my $page_toc_depth = 2;
 my @default_toc = [];
-
 
 # Initialize the toc_depth to 1 if the command-line option -D=short_toc is given
 sub lilypond_init_toc_depth ()
@@ -599,14 +638,71 @@ sub generate_ly_toc_entries($$$)
 {
   my $element = shift;
   my $element_path = shift;
-  my $maxlevel = shift;
+  if ($web_manual) {
+    my $maxlevel = 1;
+  } else {
+    my $maxlevel = shift;
+  }
   # Skip undefined sections, plus all sections generated by index splitting
   return() if (not defined($element) or exists($element->{'index_page'}));
   my @result = ();
   my $level = $element->{'toc_level'};
   my $is_parent_of_current = $element->{'id'} && $element_path->{$element->{'id'}};
   my $ind = '  ' x $level;
-  my $this_css_class = $is_parent_of_current ? " class=\"toc_current\"" : "";
+  my $this_css_class;
+  if ($web_manual) {
+    $this_css_class = " class=\"";
+  } else {
+    $this_css_class = "";
+  }
+  $this_css_class .= $is_parent_of_current ? " toc_current" : "";
+# HORRIBLE HACK
+  my @color_1 = (
+        "Learning", "Glossary", "Essay",
+        "Contact", "Tiny examples", "Bug reports"
+	);
+  my @color_2 = (
+        "Features", "Examples", "Freedom", "Background",
+	"Unix", "MacOS X", "Windows",
+        "Notation", "Usage", "Snippets",
+        "Help us", "Development", "Authors"
+	);
+  my @color_3 = (
+        "Productions", "Testimonials",
+	"Source", "Old downloads",
+        "FAQ", "Changes", "Extend", "Internals",
+        "Publications", "Old news"
+        );
+  my @color_4 = (
+        "Text input", "Alternate input",
+        "GPL",
+        "Translated", "All", "FDL"
+        );
+
+  my $addColor = " colorDefault";
+  foreach $color (@color_1) {
+    if ($element->{'text'} eq $color) {
+      $addColor = " color1";
+    }
+  }
+  foreach $color (@color_2) {
+    if ($element->{'text'} eq $color) {
+      $addColor = " color2";
+    }
+  }
+  foreach $color (@color_3) {
+    if ($element->{'text'} eq $color) {
+      $addColor = " color3";
+    }
+  }
+  foreach $color (@color_4) {
+    if ($element->{'text'} eq $color) {
+      $addColor = " color4";
+    }
+  }
+
+  $this_css_class .= $addColor . "\"";
+
 
   my $entry = "$ind<li$this_css_class>" . &$anchor ($element->{'tocid'}, "$element->{'file'}#$element->{'target'}",$element->{'text'});
 
@@ -627,7 +723,11 @@ sub generate_ly_toc_entries($$$)
     # are ignored, don't generate a list at all...
     if (@child_result) {
       push (@result, "\n$ind<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
-      push (@result, @child_result);
+      if ($web_manual) {
+        push (@result, "$ind<li$this_css_class>" . &$anchor ($element->{'tocid'}, "$element->{'file'}#$element->{'target'}","(main)"));
+      } else {
+        push (@result, @child_result);
+      }
       push (@result, "$ind</ul>\n");
     }
   }
@@ -651,13 +751,43 @@ sub lilypond_generate_page_toc_body($)
       $parentelements{$current_element->{'sectionup'}->{'id'}} = 1
               if ($current_element->{'sectionup'}->{'id'} ne '');
       $current_element = $current_element->{'sectionup'};
+      if ($web_manual) {
+        if (exists($main::value{'shallow_toc'})) {
+          last;
+        }
+      }
     }
     return () if not defined($current_element);
     # Create the toc entries recursively
-    my @toc_entries = ("<div class=\"contents\">\n", "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+    my @toc_entries = "";
+    if ($web_manual) {
+        push (@toc_entries, "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+        # FIXME: add link to main page, really hackily.
+        if ($element->{'sectionup'}) {
+            # it's not the top element
+            push (@toc_entries, "<li><a href=\"index.html\">Main</a></li>\n");
+        } else {
+            push (@toc_entries, "<li class=\"toc_current\"><a href=\"index.html\">Main</a></li>\n");
+        }
+    } else {
+        push (@toc_entries, "<div class=\"contents\">\n");
+        push (@toc_entries, "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+    }
     my $children = $current_element->{'section_childs'};
     foreach ( @$children ) {
       push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth));
+    }
+    # search box
+    if ($web_manual) {
+        # WTF, perl needs 6 lines of magic to do: ' ' + open ('file-name').read ()?
+	local $/=undef;
+        my $name = "search-box.html";
+	open FILE, "$ENV{SRC_DIR}/$name" or open FILE, "$ENV{SRC_DIR}/../$name" or die  die "no such file: $name: $!";
+
+	my $string = <FILE>;
+	$string =  "<li>\n" . $string . "</li>\n";
+	push (@toc_entries, $string);
+	close FILE;
     }
     push (@toc_entries, "</ul>\n");
     push (@toc_entries, "</div>\n");
@@ -690,16 +820,20 @@ sub lilypond_print_toc_div ($$)
     $reldir = "../" if ($Texi2HTML::Config::SPLIT eq 'section');
     my $uplink = $reldir."web/manuals.${lang}html";
 
-    print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\" 
+    if ($web_manual) {
+    } else {
+      print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\" 
          title=\"Documentation Index\">&lt;&lt; " .
 	 &ly_get_string ('Back to Documentation Index') .
 	 "</a></p>\n";
 
-    print $fh '<h4 class="toc_header"> ' . &$anchor('',
+      print $fh '<h4 class="toc_header"> ' . &$anchor('',
                                     $Texi2HTML::HREF{'Top'},
                                     $topname,
                                     'title="Start of the manual"'
                                    ) . "</h4>\n";
+    }
+
     foreach my $line (@lines) {
       print $fh $line;
     }
@@ -751,6 +885,20 @@ sub print_lilypond_page_foot($)
 #   print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
   print $fh "<!-- FOOTER -->\n\n";
   print $fh "<!-- end div#main here -->\n</div>\n\n";
+
+  if ($web_manual) {
+    # FIXME: This div and p#languages need to be in div#footer.
+    #        Should we move this div to postprocess_html.py ?
+    print $fh "<div id=\"verifier_texinfo\">\n";
+    print $fh "<h3>Validation</h3>\n";
+    print $fh "<p>Thanks to <a href=\"http://www.webdev.nl/\">webdev.nl</a>";
+    print $fh " for hosting <code>lilypond.org</code>.\n";
+    print $fh "<a href=\"http://validator.w3.org/check?uri=referer\">\n";
+    print $fh "<img src=\"http://www.w3.org/Icons/valid-html401\"\n";
+    print $fh "     alt=\"Valid HTML 4.01 Transitional\"\n";
+    print $fh "     height=\"31\" width=\"88\"></a></p>\n";
+    print $fh "</div>";
+  }
 
   # Print the TOC frame and reset the TOC:
   lilypond_print_toc_div ($fh, \@this_page_toc);
@@ -915,7 +1063,11 @@ sub lilypond_print_navigation
     $result .= "</td>" unless $beginofline;
     $result .= "</tr>" unless $vertical;
     $result .= "</table>\n";
-    return $result;
+    if ($web_manual) {
+      return "\n";
+    } else {
+      return $result;
+    }
 }
 
 
@@ -1092,6 +1244,10 @@ sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
 # For split pages, use index.html as start page!
 if ($Texi2HTML::Config::SPLIT eq 'section') {
   $Texi2HTML::Config::TOP_FILE = 'index.html';
+}
+if ($web_node) {
+} else {
+  push @Texi2HTML::Config::command_handler_process, \&lilypond_init_toc_depth;
 }
 
 

@@ -53,11 +53,11 @@ TEXI2HTML_LANG = --lang=$(ISOLANG)
 endif
 
 DOC_TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
-WEB_TEXI2HTML_INIT =--init-file=$(top-src-dir)/Documentation/web-texi2html.init
+WEB_TEXI2HTML_INIT =-D web_manual --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 TEXI2HTML_INIT = $(DOC_TEXI2HTML_INIT)
 
 DOC_TEXI2HTML_SPLIT = --prefix=index --split=section
-WEB_TEXI2HTML_SPLIT = --prefix=index --split=node --node-files
+WEB_TEXI2HTML_SPLIT = --prefix=index --split=subsubsection --node-files
 TEXI2HTML_SPLIT = $(DOC_TEXI2HTML_SPLIT)
 
 $(top-build-dir)/Documentation/$(outdir)/web/index.$(ISOLANG).html:\
@@ -66,7 +66,7 @@ $(top-build-dir)/Documentation/$(outdir)/web/index.$(ISOLANG).html:\
 	TEXI2HTML_SPLIT := $(WEB_TEXI2HTML_SPLIT)
 
 TEXI2HTML_INCLUDES += --I=. --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
-TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)
+TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_LANG) $(TEXI2HTML_INIT) 
 TEXI2HTML = SRC_DIR=$(src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 ###########
 
