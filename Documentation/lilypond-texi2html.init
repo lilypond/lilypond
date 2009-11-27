@@ -262,7 +262,8 @@ sub load_map_file ($)
     my $node_map = ();
 
     # For some unknown reason, Perl on my system (5.10.0 on Fedora 12)
-    # refuses to open map files of translated documents with '<:encoding'
+    # refuses to open map files of translated documents with
+    # '<:encoding(utf8)', but decoding from UTF-8 line by line works. -jm
     if (open(XREFFILE,'<', $mapfile)) {
         my $line;
         while ( $line = decode ('UTF-8', <XREFFILE>) ) {
