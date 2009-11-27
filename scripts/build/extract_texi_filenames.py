@@ -18,8 +18,16 @@
 #        NODE\tFILENAME\tANCHOR
 # LANG is the document language in case it's not 'en'
 # Note: The filename does not have any extension appended!
-# This file can then be used by our texi2html init script to determine
+# This file should then be used by our texi2html init script to determine
 # the correct file name and anchor for external refs
+
+# For translated documentation: cross-references to nodes that exist
+# only in documentation in English are allowed, that's why the already
+# generated map file of docs in English is loaded with
+# --master-map-file option, then the node names that are defined in
+# the map for the manual in English but not in the translated manual
+# are added to the map for the translated manual.
+
 
 import sys
 import re
@@ -154,9 +162,10 @@ def texinfo_file_name(title):
         result = 't_g' + result
     return result
 
-texinfo_re = re.compile (r'@.*{(.*)}')
+texinfo_re = re.compile (r'@.*?{(.*?)}')
 def remove_texinfo (title):
-    return texinfo_re.sub (r'\1', title)
+    title = title.replace ('--', '-')
+    return texinfo_re.sub (r'\1', title).strip ()
 
 def create_texinfo_anchor (title):
     return texinfo_file_name (remove_texinfo (title))
