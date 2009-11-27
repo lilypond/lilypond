@@ -59,7 +59,7 @@ mingw       - Windows x86
 Si vous utilisez MacOS 10.3 ou 10.4 et voulez exécuter des scripts
 Python tels que @command{convert-ly} et @code{lilypond-book},
 reportez-vous à
-@ref{Setup for MacOS X,,,lilypond-program,Utilisation des programmes}.
+@ref{Setup for MacOS X,,,usage,Utilisation des programmes}.
 
 
 @node Compilation à partir du code source
@@ -71,7 +71,7 @@ cela requiert une maîtrise de l'anglais, cette section ne sera pas
 traduite.  Si vous voulez vraiment compiler LilyPond, reportez-vous à
 @iftex
 @c DO NOT translate the following line at all.
-@ref{Compiling from source,,,lilypond-program,Application Usage}.
+@ref{Compiling from source,,,usage,Application Usage}.
 @end iftex
 @ifhtml
 @c Please translate the following line (but not the .html file name)
