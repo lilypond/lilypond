@@ -505,11 +505,11 @@ def update_category_word_counts_sub (m):
 
 progress ("Reading documents...")
 
-tely_files = \
-    buildlib.read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
-tely_files.sort ()
+master_files = \
+    buildlib.read_pipe ("find -maxdepth 2 -and -name '*.tely' -or -name '*.texi'")[0].splitlines ()
+master_files.sort ()
 master_docs = [MasterTelyDocument (os.path.normpath (filename))
-               for filename in tely_files]
+               for filename in master_files]
 master_docs = [doc for doc in master_docs if doc.translations]
 
 main_status_page = open ('translations.template.html.in').read ()

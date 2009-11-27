@@ -7,7 +7,6 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @setfilename web.info
 @settitle LilyPond -- Muzieknotatie voor iedereen
 @documentencoding UTF-8
@@ -20,6 +19,7 @@
 @top
 @translationof Top
 
+@c Translators: Test
 
 @chapheading
 @end ifnottex
