@@ -8,6 +8,7 @@
 * Adding issues to the tracker::  
 * Checking regression tests::
 * Checking old issues::
+* Summary of project status::
 @end menu
 
 
@@ -179,4 +180,15 @@ It is therefore good to check all Issues once every 18 months or
 so.  If you see the same (broken) output as the initial report,
 then simply post a "Problem still exists in 2.x.y" message to the
 issue.
+
+
+@node Summary of project status
+@section Summary of project status
+
+The best overview of our current status is given by the grid view:
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids}
+@end example
+
 
