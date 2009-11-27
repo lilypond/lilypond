@@ -13,6 +13,7 @@
 * Iterator tutorial::
 * Engraver tutorial::
 * Callback tutorial::
+* LilyPond scoping::
 @end menu
 
 @node Overview of LilyPond architecture
@@ -1117,4 +1118,51 @@ the engraver.
 @section Callback tutorial
 
 FIXME -- This is a placeholder for a tutorial on callback functions.
+
+@node LilyPond scoping
+@section LilyPond scoping
+
+The Lilypond language has a concept of scoping, ie you can do
+
+@example
+foo = 1
+
+#(begin
+   (display (+ foo 2)))
+@end example
+
+@noindent with @code{\paper}, @code{\midi} and @code{\header} being
+nested scope inside the .ly file-level scope.  @w{@code{foo = 1}} is
+translated in to a scheme variable definition.
+
+This implemented using modules, with each scope being an anonymous
+module that imports its enclosing scope's module.
+
+The reason to put some functions (@qq{builtin}) outside the .ly level,
+is that in case of
+
+@example
+lilypond a.ly b.ly
+@end example
+
+@noindent
+we want to reuse the built-in definitions, without changes
+effected in a.ly leaking into the processing of b.ly.
+
+Maintaining this scoping when one .ly file can be included in another
+.ly file can be challenging.  A @code{define-public-toplevel} macro
+has been created in order to handle a difficulty caused by the modules
+being not the same when a .ly file is included into another.
+This provided a way to define all markup commands in the same module.
+At this time, we have found no easier way to define a function in a given
+module (not the current one) than to define this macro.
+
+With this architecture, the guile module system is not bypassed:
+module-define!, module-export!  and module-ref are all guile module
+primitives.
+
+A second reason for using this current architecture is to avoid memory
+leaks that could occur when running multiple files if toplevel
+functions were registered permanently.
+
 
