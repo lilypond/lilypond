@@ -191,4 +191,10 @@ The best overview of our current status is given by the grid view:
 @uref{http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids}
 @end example
 
+Also of interest might be the issues hindering future development:
+
+@example
+@uref{http://code.google.com/p/lilypond/issues/list?q=label:Maintainability}
+@end example
+
 
