@@ -800,6 +800,12 @@ set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 @noindent
 where $@{LILYPOND_VERSION@} is your LilyPond version.  If LilyPond was not
 installed in @file{/usr/local/}, then change this path accordingly.
+The path may differ significantly. In Fedora the path leads to the
+current version of Vim instead of Lilypond:
+
+@example
+set runtimepath+=/usr/share/vim/vim72/
+@end example
 
 
 @node Other editors
