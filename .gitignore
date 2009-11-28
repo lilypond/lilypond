@@ -67,9 +67,7 @@ lily-[0-9a-f][0-9a-f][0-9a-f]*
 lsr-unsafe.txt
 nohup.out
 out
-out-cov
-out-scons
-out-test
+out-*
 pats
 tags
 test-output-distance
