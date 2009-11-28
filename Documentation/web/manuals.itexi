@@ -115,7 +115,7 @@ License.
 @menu
 * Learning::             Learning.
 * Glossary::              Glossary.
-* Essay::                       Essay.       
+* Essay::                       Essay.
 * Notation::          Reference.
 * Usage::           Usage.
 * Snippets::                Snippets.
@@ -173,11 +173,11 @@ the manual is split between many HTML pages.
 
 @item @uref{../learning-big-page.html, Learning (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 1 Mb)}
 
 @item @uref{../learning.pdf, learning.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@emph{(large single download, 3 Mb)}
 
 @c TODO: should make links to info?
 @c @item @uref{../TODO, learning.info}:
@@ -222,11 +222,11 @@ the manual is split between many HTML pages.
 
 @item @uref{../music-glossary-big-page.html, Glossay (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 700 kb)}
 
 @item @uref{../music-glossary.pdf, glossary.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@emph{(large single download, 1.5 Mb)}
 
 @c @item @uref{../TODO, glossary.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -322,11 +322,11 @@ the manual is split between many HTML pages.
 
 @item @uref{../notation-big-page.html, Notation (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 3 Mb)}
 
 @item @uref{../notation.pdf, notation.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@emph{(large single download, 18 Mb)}
 
 @c @item @uref{../TODO, notation.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -369,11 +369,11 @@ the manual is split between many HTML pages.
 
 @item @uref{../usage-big-page.html, Usage (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 300 kb)}
 
 @item @uref{../usage.pdf, usage.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@emph{(large single download, 400 kb)}
 
 @c @item @uref{../TODO, lilypond-usage.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -424,11 +424,11 @@ the manual is split between many HTML pages.
 
 @item @uref{../snippets-big-page.html, Snippets (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 1 Mb)}
 
 @item @uref{../snippets.pdf, snippets.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@emph{(large single download, 8 Mb)}
 
 @c @item @uref{../TODO, snippets.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -511,7 +511,7 @@ the manual is split between many HTML pages.
 
 @item @uref{../changes-big-page.html, Changes (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 6 kb)}
 
 @item @uref{../changes.pdf, changes.pdf}:
 download as a PDF file.
@@ -540,7 +540,7 @@ This manual explains how to write extensions to LilyPond.
 
 @itemize
 
-@item @rextendnamed{Top,Extend}: 
+@item @rextendnamed{Top,Extend}:
 read this manual in the same format as this one.
 
 @end itemize
@@ -556,11 +556,11 @@ the manual is split between many HTML pages.
 
 @item @uref{../extending-big-page.html, Extend (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 200 kb)}
 
 @item @uref{../extending.pdf, extending.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@emph{(large single download, 400 kb)}
 
 @c @item @uref{../TODO, extending.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -597,7 +597,7 @@ have clickable links.
 
 @itemize
 
-@item @rinternalsnamed{Top,Internals}: 
+ @rinternalsnamed{Top,Internals}:
 read this manual in the same format as this one.
 
 @end itemize
@@ -613,7 +613,7 @@ the manual is split between many HTML pages.
 
 @item @uref{../internals-big-page.html, Internals (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 10? Mb)}
+@emph{(large single download, around 2 Mb)}
 
 @item @uref{../internals.pdf, internals.pdf}:
 download as a PDF file.
