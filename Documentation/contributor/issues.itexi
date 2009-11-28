@@ -2,13 +2,16 @@
 @node Issues
 @chapter Issues
 
+This chapter deals with defects, feature requests, and
+miscellaneous development tasks.
+
 @menu
 * Introduction to issues::      
 * Issue classification::        
 * Adding issues to the tracker::  
-* Checking regression tests::
-* Checking old issues::
+* Checking and verifying issues::
 * Summary of project status::
+* Finding the cause of a regression::
 @end menu
 
 
@@ -159,27 +162,42 @@ what you're doing.
 
 
 
-@node Checking regression tests
-@section Checking regression tests
+@node Checking and verifying issues
+@section Checking and verifying issues
 
-Although we have a system for checking the regtests between two versions,
-occasionally a bug will slip through the cracks.  It is therefore good to
-manually compare all the regtests twice a year or so.
+After each release (both stable and unstable):
 
+@itemize
 
+@item
+Regression test comparison: check the relevant version in
+@uref{http://lilypond.org/test/}.
 
-@node Checking old issues
-@section Checking old issues
+@item
+Issues to verify:
+@uref{http://code.google.com/p/lilypond/issues/list?can=7}.
 
-We try to mark each Issue @q{fixed} when we fix it, but
-occasionally one or two issues will slip through the cracks.
-Also, sometimes the Bug Meister will forget to verify that an
-issue has been fixed.
+@end itemize
 
-It is therefore good to check all Issues once every 18 months or
-so.  If you see the same (broken) output as the initial report,
-then simply post a "Problem still exists in 2.x.y" message to the
-issue.
+Once every year or so:
+
+@itemize
+
+@item
+Checking all regtests: although we have a system for checking the
+regtests between two versions, occasionally a bug will slip
+through the cracks.  It is therefore good to manually examine all
+the regtests twice a year or so (compare the images to the text
+description).
+
+@item
+Checking all issues: we try to mark each Issue @q{fixed} when we
+fix it, but occasionally one or two issues will slip through the
+cracks.  It is therefore good to check all Issues. If you see the
+same (broken) output as the initial report, then simply post a
+"Problem still exists in 2.x.y" message to the issue.
+
+@end itemize
 
 
 @node Summary of project status
@@ -196,5 +214,18 @@ Also of interest might be the issues hindering future development:
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?q=label:Maintainability}
 @end example
+
+
+@node Finding the cause of a regression
+@section Finding the cause of a regression
+
+Git has special functionality to help tracking down the exact
+commit which causes a problem.  See the git manual page for
+@code{git bisect}.
+
+This is a job that non-programmers can do; once a problematic
+commit is identified, the programmers' job is much easier.  In
+fact, for most regression bugs, the majority of the time is spent
+simply finding the problematic commit.
 
 
