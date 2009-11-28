@@ -2323,6 +2323,7 @@
 (define pure-print-callbacks
   (list
    fret-board::calc-stencil
+   note-head::brew-ez-stencil
    print-circled-text-callback
    lyric-text::print
    ly:arpeggio::print
