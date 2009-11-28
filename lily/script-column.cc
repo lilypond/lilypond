@@ -116,7 +116,7 @@ Script_column::before_line_breaking (SCM smob)
 	  Side_position_interface::x_aligned_side_proc)
 	staff_sided.push_back (sc);
     }
-  
+
   order_grobs (staff_sided);
   return SCM_UNSPECIFIED;
 }
@@ -145,19 +145,25 @@ Script_column::order_grobs (vector<Grob*> grobs)
 	  Grob *g = unsmob_grob (scm_car (s));
 	  if (last)
 	    {
-	      SCM outside_staff = last->get_property ("outside-staff-priority");
-	      if (scm_is_number (outside_staff))
+	      SCM last_outside_staff = last->get_property ("outside-staff-priority");
+	      if (scm_is_number (last_outside_staff))
 		{
-		  /* we allow the outside-staff-priority ordering to override the
-		     script-priority ordering */
-		  if (!scm_is_number (g->get_property ("outside-staff-priority")))
-		    g->set_property ("outside-staff-priority",
-				     scm_from_double (scm_to_double (outside_staff) + 0.1));
+		  /*
+                    we allow the outside-staff-priority ordering to override the
+		    script-priority ordering; we must set new
+                    outside-staff-priority if outside-staff-priority is
+                    missing or equal to last
+                  */
+                  SCM g_outside_staff = g->get_property ("outside-staff-priority");
+		  if ((!scm_is_number (g_outside_staff)) ||
+                      (fabs (scm_to_double (g_outside_staff) -
+                             scm_to_double(last_outside_staff)) < 0.001))
+		      g->set_property ("outside-staff-priority",
+				     scm_from_double (scm_to_double (last_outside_staff) + 0.1));
 		}
 	      else
 		Side_position_interface::add_support (g, last);
 	    }
-
 	  last = g;
 	}
     }
@@ -167,7 +173,7 @@ Script_column::order_grobs (vector<Grob*> grobs)
 ADD_INTERFACE (Script_column,
 	       "An interface that sorts scripts according to their"
 	       " @code{script-priority}.",
-	       
+
 	       /* properties */
 	       ""
 	       );
