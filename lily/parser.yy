@@ -1013,9 +1013,7 @@ simultaneous_music:
 	;
 
 simple_music:
-	event_chord {
-                PARSER->lexer_->chord_repetition_.last_chord_ = $$;
-	}
+	event_chord
 	| MUSIC_IDENTIFIER
 	| music_property_def
 	| context_change
@@ -1419,6 +1417,11 @@ event_chord:
 	/* TODO: Create a special case that avoids the creation of
 	   EventChords around simple_elements that have no post_events?
 	 */
+	/* event_chords like simple notes, note chords, etc, are
+	   saved into PARSER->lexer_->chord_repetition_ so that
+	   the chord repetition mechanism can copy them when a
+	   chord repetition symbol is found
+	*/
 	simple_chord_elements post_events	{
 		SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
 
@@ -1427,6 +1430,7 @@ event_chord:
 		 * i = @$; */
 		i.set_location (@1, @2);
 		$$ = MAKE_SYNTAX ("event-chord", i, elts);
+		PARSER->lexer_->chord_repetition_.last_chord_ = $$;
 	}
 	| CHORD_REPETITION optional_notemode_duration post_events {
 		Input i;
@@ -1442,7 +1446,9 @@ event_chord:
 		$$ = MAKE_SYNTAX ("multi-measure-rest", i, $2, $3);
 	}
 	| command_element
-	| note_chord_element
+	| note_chord_element	{
+		PARSER->lexer_->chord_repetition_.last_chord_ = $$;
+	}
 	;
 
 

@@ -123,7 +123,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
   start_module_ = SCM_EOL;
-  chord_repetition_ = Chord_repetition ();
+  chord_repetition_ = src.chord_repetition_;
 
   error_level_ = src.error_level_;
   is_main_input_ = src.is_main_input_;
