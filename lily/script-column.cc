@@ -140,6 +140,8 @@ Script_column::order_grobs (vector<Grob*> grobs)
       ss = scm_stable_sort_x (ss, ly_grob_script_priority_less_proc);
 
       Grob *last = 0;
+      Grob *first = unsmob_grob (scm_car (ss));
+      SCM default_outside_staff = first->get_property("outside-staff-priority");
       for (SCM s = ss; scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Grob *g = unsmob_grob (scm_car (s));
@@ -155,11 +157,21 @@ Script_column::order_grobs (vector<Grob*> grobs)
                     missing or equal to last
                   */
                   SCM g_outside_staff = g->get_property ("outside-staff-priority");
-		  if ((!scm_is_number (g_outside_staff)) ||
-                      (fabs (scm_to_double (g_outside_staff) -
-                             scm_to_double(last_outside_staff)) < 0.001))
+		  if (!scm_is_number (g_outside_staff))
 		      g->set_property ("outside-staff-priority",
 				     scm_from_double (scm_to_double (last_outside_staff) + 0.1));
+                  else if (fabs (scm_to_double (g_outside_staff) -
+                             scm_to_double(default_outside_staff)) < 0.001)
+                    {
+                      SCM last_script = last->get_property ("script-priority");
+                      SCM g_script = g->get_property("script-priority");
+		      g->set_property (
+                          "outside-staff-priority",
+			  scm_from_double (scm_to_double (last_outside_staff) +
+                            scm_to_double (g_script) -
+                            scm_to_double (last_script)));
+                    }
+                  default_outside_staff = g_outside_staff;
 		}
 	      else
 		Side_position_interface::add_support (g, last);
