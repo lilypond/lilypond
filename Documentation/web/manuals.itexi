@@ -70,6 +70,9 @@ short tricks, tips, and examples.
 
 @itemize
 
+@item @ref{Web}:
+this document.
+
 @item @ref{FAQ}:
 links to the answers of Frequently Asked Questions.
 
@@ -119,6 +122,7 @@ License.
 * Notation::          Reference.
 * Usage::           Usage.
 * Snippets::                Snippets.
+* Web::                      Web.
 * FAQ::                         FAQ.
 * Changes::                     NEWS.
 * Extend::         Programming.
@@ -436,6 +440,54 @@ download as a PDF file.
 @end itemize
 @divEnd
 @divEnd
+
+
+@node Web
+@unnumberedsec Web
+
+@divClass{column-left-top}
+@subheading Web
+
+This manual supplies general information about LilyPond.  It also
+contains information about various community forums, bug
+reporting, and development.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Read it
+
+@itemize
+
+@item @rweb{Top,Web}:
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{../web/index.html, Web (split HTML)}:
+the manual is split between many HTML pages.
+@emph{(small download for each page)}
+
+@item @uref{../web-big-page.html, Web (big HTML)}:
+read this manual as one huge HTML page.
+@emph{(large single download, around 1 Mb)}
+
+@item @uref{../web.pdf, web.pdf}:
+download as a PDF file.
+@emph{(large single download, 2 Mb)}
+
+@c @item @uref{../TODO, web.info}:
+@c GNU info format for documentation.  TODO, link broken.
+
+@end itemize
+@divEnd
+@divEnd
+
 
 
 @node FAQ
