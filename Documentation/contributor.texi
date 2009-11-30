@@ -16,6 +16,10 @@
 This manual documents contributing to LilyPond version
 @version{}.  It discusses technical issues and policies that
 contributors should follow.
+
+This manual is not intended to be read sequentially; new contributors
+should only read the sections which are relevant to them.  For more
+information about different jobs, see @rweb{Help us}.
 @end macro
 
 @macro copyrightDeclare

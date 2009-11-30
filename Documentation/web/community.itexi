@@ -650,6 +650,10 @@ a large, (mostly) stable project.  In order to help new
 contributors, and to keep the whole system (mostly) stable, we
 have written a manual for contributors.
 
+This manual is not intended to be read sequentially; new contributors
+should only read the sections which are relevant to them.  For more
+information about different jobs, see @ref{Help us}.
+
 @divClass{keep-bullets}
 @itemize
 
