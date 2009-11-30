@@ -38,7 +38,7 @@ rebounds off the fingerboard of the instrument} (Wikipedia).  It is
 denoted by a circle with a vertical line going from the center upwards
 outside the circle.
 "
-  doctitle = "Snap-pizzicato ("Bartok pizzicato")"
+  doctitle = "Snap-pizzicato (`Bartok pizzicato')"
 } % begin verbatim
 
 
