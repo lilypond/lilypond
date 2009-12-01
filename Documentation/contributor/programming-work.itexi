@@ -936,17 +936,17 @@ write it from the regression tests.  The text that is added to
 or removed from the documentation should be changed only in
 the English version.
 
-@subsection Write NEWS entry
+@subsection Edit changes.tely
 
-An entry should be added to the NEWS file to describe the feature
-changes to be implemented.  This is especially important for changes
-that change input file syntax.
+An entry should be added to Documentation/changes.tely to describe
+the feature changes to be implemented.  This is especially important
+for changes that change input file syntax.
 
-Hints for NEWS file entries are given at the top of the NEWS file.
+Hints for changes.tely entries are given at the top changes.tely.
 
-New entries in NEWS go at the top of the file.
+New entries in changes.tely go at the top of the file.
 
-The NEWS entry should be written to show how the new change
+The changes.tely entry should be written to show how the new change
 improves LilyPond, if possible.
 
 @subsection Verify successful build
