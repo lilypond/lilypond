@@ -1024,7 +1024,8 @@ can be used.
 After prompting for your Google email address and password, the
 patch set will be posted to Rietveld.
 
-An email should then be sent to lilypond-devel, with a subject line
+You should then announce the patch by sending
+an email to lilypond-devel, with a subject line
 starting with PATCH:, asking for comments on the patch.
 
 As revisions are made in response to comments, successive patch sets
