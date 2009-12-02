@@ -1091,16 +1091,27 @@ External interfaces to to the engraver are implemented by protected
 macros including one or more of the following:
 
 @itemize
-@item @code{DECLARE_ACKNOWLEDGER (grob)}
-@item @code{DECLARE_TRANSLATOR_LISTENER (grob)}
-@item @code{DECLARE_END_ACKNOWLEDGER (grob)}
+@item @code{DECLARE_TRANSLATOR_LISTENER (event)}
+@item @code{IMPLEMENT_TRANSLATOR_LISTENER (Engraver_name, event)}
 @end itemize
 
 @noindent
-where @var{grob} is the
-type of grob with which the engraver works.
-These macros declare the kinds of grobs that will be processed by
-the engraver.
+where @var{event} is the type of event required to provide the input
+the engraver needs and @code{Engraver_name} is the name of the
+engraver.  These macros set up the mechanism and declare the
+methods for passing the information in events of this kind to the
+engraver.
+
+Some engravers also need information from grobs as they are created
+and as they terminate.  The mechanism and methods to obtain this
+information are set up by the macros:
+
+@itemize
+@item @code{DECLARE_ACKNOWLEDGER (grob)}
+@item @code{DECLARE_END_ACKNOWLEDGER (grob)}
+@end itemize
+
+where @var{grob} is the type of grob of interest.
 
 An engraver will also generally have a public macro
 
@@ -1109,10 +1120,12 @@ An engraver will also generally have a public macro
 @end itemize
 
 @noindent
-where @code{Engraver_name} is the name of the engraver.
+where @code{Engraver_name} is the name of the engraver.  This
+defines the common variables and methods used by every engraver.
 
-At the end of the engraver file, the following macros are generally
-called:
+At the end of the engraver file, one or both of the following
+macros are generally called to document the engraver in the
+Internals Reference:
 
 @itemize
 @item @code{ADD_ACKNOWLEDGER (Engraver_name, grob)}
@@ -1122,7 +1135,7 @@ called:
 
 @noindent
 where @code{Engraver_name} is the name of the engraver, @code{grob}
-is a placeholder for a grob that will be acknowledged,
+is the name of those grobs that will be acknowledged,
 @code{Engraver_doc} is a docstring for the engraver,
 @code{Engraver_creates} is the grob created by the engraver,
 @code{Engraver_reads} is the set of properties read by the engraver,
