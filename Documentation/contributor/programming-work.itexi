@@ -975,7 +975,7 @@ the regression tests all succeed.  This process is described in
 
 For any change other than a minor change, a patch set should be
 posted on Rietveld for comment.  This requires the use of an
-external package, git-cl.
+external package, git-cl, and an email account on Google.
 
 git-cl is installed by:
 
@@ -985,18 +985,25 @@ git clone git://neugierig.org/git-cl.git
 
 Then, add the git-cl directory to your PATH, or create a
 symbolic link to the git-cl and upload.py in one of your
-PATH directories (like usr/bin).  git-cl will is then
-configured by
+PATH directories (like usr/bin).  git-cl is then
+configured by entering the command
 
 @example
 git-cl config
 @end example
 
 @noindent
-and answering the questions that are asked.
+in the LilyPond git directory and answering the questions that
+are asked.  If you do not understand the question answer with just
+a newline (CR).
 
-The patch set is posted by issuing the following command, after
-first committing all changes:
+The patch set is posted to Rietveld as follows.  Ensure your changes
+are committed in a separate branch, which should differ from the
+reference branch to be used by just the changes to be uploaded.
+If the reference branch is to be origin/master, ensure this is
+up-to-date.  If necessary, use git rebase to rebase the branch
+containing the changes to the head of origin/master.  Finally,
+check out branch with the changes and enter the command:
 
 @example
 git-cl upload <reference SHA1 ID>
@@ -1004,17 +1011,25 @@ git-cl upload <reference SHA1 ID>
 
 @noindent
 where <reference SHA1 ID> is the SHA1 ID of the commit to be used
-as a reference source for the patch (generally, this will be the
-SHA1 ID of origin/master).
+as a reference source for the patch.  Generally, this will be the
+SHA1 ID of origin/master, and in that case the command
 
-After prompting for an email and a password, the patch set will be
-posted to Rietveld.
+@example
+git-cl upload origin/master
+@end example
+
+@noindent
+can be used.
+
+After prompting for your Google email address and password, the
+patch set will be posted to Rietveld.
 
 An email should then be sent to lilypond-devel, with a subject line
 starting with PATCH:, asking for comments on the patch.
 
 As revisions are made in response to comments, successive patch sets
-for the same issue can be uploaded by reissuing the git-cl command.
+for the same issue can be uploaded by reissuing the git-cl command
+with the modified branch checked out.
 
 @subsection Push patch
 
