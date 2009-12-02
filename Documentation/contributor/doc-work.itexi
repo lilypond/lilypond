@@ -19,6 +19,7 @@ Version Control System (VCS) called git, previously discussed in
 * Documentation policy::
 * Tips for writing docs::
 * Updating docs with convert-ly::
+* Docstrings in scheme::
 * Translating the documentation::
 @end menu
 
@@ -1081,6 +1082,18 @@ find . -name '*.itely' | xargs convert-ly -e
 @noindent
 This also updates translated documentation.
 
+
+
+@node Docstrings in scheme
+@section Docstrings in scheme
+
+Material in the Internals reference is generated automatically
+from our source code.  Any doc work on Internals therefore
+requires modifying files in @file{scm/*.scm}.  Texinfo is allowed
+in these docstrings.
+
+Most documentation writers never touch these, though.  If you want
+to work on them, please ask for help.
 
 
 @node Translating the documentation
