@@ -61,6 +61,8 @@ C++ class of Engraver type is created.  The Engraver is also declared as a
 translator.  Much of the work of translating is handled by Scheme functions,
 which is one of the keys to LilyPond's exceptional flexibility.
 
+@sourceimage{architecture-diagram,,,png}
+
 
 @node LilyPond programming languages
 @section LilyPond programming languages
