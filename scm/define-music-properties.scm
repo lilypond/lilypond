@@ -113,6 +113,8 @@ whether to allow, forbid or force a line break.")
 For chord inversions, this is negative.")
      (once ,boolean? "Apply this operation only during one time step?")
      (origin ,ly:input-location? "Where was this piece of music defined?")
+     (original-chord ,ly:music? "Original chord of a repeated chord.
+Used by repeated chords in \\relative mode, to determine the first note octave")
 
      (page-break-permission ,symbol? "When the music is at top-level,
 whether to allow, forbid or force a page break.")

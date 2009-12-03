@@ -97,6 +97,15 @@ repeated.
 <c e g>8\p q q4-| q8.^"text" q16 q4-|
 @end lilypond
 
+Note chords (entered using angle brackets) only are memorized in order
+to be repeated by @code{q}: it is possible to repeat a chord even if for
+instance a simple note (without angle brackets) or a rest have been
+entered meanwhile.
+
+@lilypond[verbatim,quote,relative=1]
+<c e g>8 c' q c r4 q
+@end lilypond
+
 @seealso
 Installed Files:
 @file{ly/@/chord-repetition-init@/.ly}.

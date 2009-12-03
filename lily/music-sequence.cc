@@ -193,3 +193,58 @@ Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
 				 p, true).smobbed_copy ();
 }
 
+MAKE_SCHEME_CALLBACK (Music_sequence, repeated_chord_relative_callback, 2);
+SCM
+Music_sequence::repeated_chord_relative_callback (SCM music, SCM pitch)
+{
+  Music *me = unsmob_music (music);
+  Music *repeated_chord = unsmob_music (me->get_property ("element"));
+  Music *original_chord = unsmob_music (me->get_property ("original-chord"));
+
+  /* A repeated chord octave is not computed from the previous pitch,
+   * (this function `pitch' argument), but from the original chord, so
+   * that repeated chords have the same octave have the original chord,
+   * even though other simple notes have been entered meanwhile.
+   */
+  assert (repeated_chord);
+  Pitch *p = 0;
+  /* Get the original chord first pitch */
+  if (original_chord)
+    {
+      for (SCM s = original_chord->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
+	{
+	  if (Music *m = unsmob_music (scm_car (s)))
+	    {
+	      p = unsmob_pitch (m->get_property ("pitch"));
+	      if (p)
+		break;
+	    }
+	}
+    }
+  /* Use the `pitch' argument if no pitch found in original chord. */
+  if (! p)
+    p = unsmob_pitch (pitch);
+
+  /* Change the first note pitch to -1, to avoid octaviation.  Indeed,
+   * the first pitch should be the same as the original chord first
+   * pitch. */
+  for (SCM s = repeated_chord->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
+    {
+      if (Music *m = unsmob_music (scm_car (s)))
+	{
+	  Pitch *first_pitch = unsmob_pitch (m->get_property ("pitch"));
+	  if (first_pitch)
+	    {
+	      Pitch new_pitch = Pitch (-1,
+				       first_pitch->get_notename (),
+				       first_pitch->get_alteration ());
+	      m->set_property ("pitch", new_pitch.smobbed_copy ());
+	      break;
+	    }
+	}
+    }
+  music_list_to_relative (repeated_chord->get_property ("elements"), *p, true).smobbed_copy ();
+  /* Return `pitch' instead of the repeated chord first pitch,
+   * because `pitch' is the last explicitly entered pitch */
+  return pitch;
+}

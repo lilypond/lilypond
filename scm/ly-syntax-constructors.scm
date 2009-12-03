@@ -143,9 +143,10 @@
 	      'origin location))
 
 (define-ly-syntax (repetition-chord parser location previous-chord repetition-function duration articulations)
-  (let ((new-chord (repetition-function previous-chord duration articulations)))
-    (set! (ly:music-property new-chord 'origin) location)
-    new-chord))
+  (make-music 'RepeatedChord
+	      'original-chord previous-chord
+	      'element (repetition-function previous-chord location duration articulations)
+	      'origin location))
 
 (define-ly-syntax-simple (context-specification type id mus ops create-new)
   (let* ((type-sym (if (symbol? type) type (string->symbol type)))

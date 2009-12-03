@@ -416,6 +416,15 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
 
+    (RepeatedChord
+     . ((description . "A chord repetition")
+	(to-relative-callback . ,ly:music-sequence::repeated-chord-relative-callback)
+	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
+	(start-callback . ,ly:music-wrapper::start-callback)
+	(length-callback . ,ly:music-wrapper::length-callback)
+	(types . (general-music music-wrapper-music))
+	))
+
     (RepeatedMusic
      . ((description . "Repeat music in different ways.")
 	(types . (general-music repeated-music))
