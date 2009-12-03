@@ -116,9 +116,12 @@ use the virtual machine in full screen.)
 @item Open a @strong{terminal}.
 (@code{Applications > Accessories > Terminal})
 
+@c FIXME: make sure the url link below doesn't get broken -vv
+
 @item Open @strong{Firefox} (there's an icon for it on the
 panel at the top of the screen) and go to the online Lilypond
-@uref{http://lilypond.org/doc/v2.13/Documentation/devel/contrib-guide, Contributor's Guide}.
+@uref{http://lilypond.org/doc/latest/Documentation/contributor/,
+Contributor's Guide}.
 
 @item To retrieve the Lilypond source code from @code{git},
 copy-and-paste each command from the CG @qq{Main source code}
