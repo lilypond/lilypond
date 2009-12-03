@@ -124,6 +124,14 @@ Other lables:
 @itemize
 
 @item
+Patch: a patch to fix an issue is attached.
+
+@item
+Frog: the fix is believed to be suitable for a new contributor
+(does not require a great deal of knowledge about LilyPond).  The
+issue should also have an estimated time in a comment.
+
+@item
 Security: not used.  TODO: delete, unless anybody is serious about
 this.
 
@@ -206,13 +214,29 @@ same (broken) output as the initial report, then simply post a
 The best overview of our current status is given by the grid view:
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids}
+@uref{
+http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids
+}
 @end example
 
 Also of interest might be the issues hindering future development:
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list?q=label:Maintainability}
+@uref{
+http://code.google.com/p/lilypond/issues/list?can=2&q=label:Maintainability&mode=grid&y=Priority&x=Type&cells=ids
+}
+@end example
+
+Finally, issues tagged with @code{Frog} indicates a task suitable
+for a relatively new contributor.  The time given is a quick
+(inaccurate) estimate of the time required for somebody who is
+familiar with material in this manual, but does not know anything
+else about LilyPond development.
+
+@example
+@uref{
+http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog&mode=grid&y=Priority&x=Type&cells=ids
+}
 @end example
 
 
