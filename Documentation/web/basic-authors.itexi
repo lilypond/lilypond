@@ -124,72 +124,8 @@ Bug meister
 
 @itemize
 @item Erlend Aasland:
-Color support, tablature improvements, trivial @code{\\mark} stuff,
-al-niente hairpins.
-
-@end itemize
-@end macro
-
-
-
-@macro fontPrevious
-
-@itemize
-@item @uref{http://www.juergen-reuter.de, Jürgen Reuter}:
-Ancient notation font Exact Type1 font outlines for feta,
-feta-alphabet.
-
-@end itemize
-@end macro
-
-
-
-@macro docPrevious
-
-@itemize
-@item @uref{http://www.s3.kth.se/~mabe/, Mats Bengtsson}:
-Example files, documentation
-
-
-@end itemize
-@end macro
-
-
-
-@macro supportPrevious
-
-@itemize
-@item Anthony Fok:
-Debian package: @file{debian/*}.
-
-@end itemize
-@end macro
-
-
-
-@macro translationsPrevious
-
-@itemize
-@item Bjoern Jacke:
-German glossary translations.
-
-
-@end itemize
-@end macro
-
-
-
-
-@ignore
-    OLD MATERIAL
-
-Core code:
-
-@itemize @bullet
-@item @email{erlenda@@gmail.com,Erlend Aasland}
-   Color support, tablature improvements, trivial \mark stuff,
-al-niente hairpins.
-   
+    Color support, tablature improvements, trivial @code{\\mark} stuff,
+    al-niente hairpins.
 @item @email{benkop@@freestart.hu,Pal Benko},
     Ancient notation.
 @item @email{jch@@pps.jussieu.fr, Juliusz Chroboczek},
@@ -216,7 +152,6 @@ al-niente hairpins.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
     Main author.
-
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
     Main author.
@@ -231,38 +166,44 @@ al-niente hairpins.
 @item @email{, Rune Zedeler},
     Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
     fret, @code{subdivideBeams}.
+
 @end itemize
+@end macro
 
-Font
 
-@itemize @bullet
 
-@item @email{reuter_j@@web.de, Jürgen Reuter},
-    @uref{http://www.juergen-reuter.de},
-    Ancient notation font
-    Exact Type1 font outlines for feta, feta-alphabet.
+@macro fontPrevious
+
+@itemize
+@item @email{tca@@gnu.org, Tom Cato Amundsen},
+    Accordion symbols.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Arpeggio arrow
-@item @email{, Rune Zedeler},
-    16th and shorter rests, 
+    Arpeggio arrow 
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
     Main author.
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
     Main author.
-@item @email{tca@@gnu.org, Tom Cato Amundsen},
-    Accordion symbols.
+@item @email{reuter_j@@web.de, Jürgen Reuter}
+    @uref{http://www.juergen-reuter.de, Jürgen Reuter}:
+    Ancient notation font Exact Type1 font outlines for feta,
+    feta-alphabet.
 @item @email{arno@@arnowaschk.de, Arno Waschk},
     "espressivo" mark.
+@item @email{, Rune Zedeler},
+    16th and shorter rests,
+
 @end itemize
+@end macro
 
 
-Documentation and examples
+
+@macro docPrevious
 
 @itemize
 @item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
-    @uref{http://www.s3.kth.se/~mabe/},
+     @uref{http://www.s3.kth.se/~mabe/, Mats Bengtsson},
     Example files, documentation
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
     Cleanups in docs and example files.
@@ -280,30 +221,41 @@ Documentation and examples
     @uref{http://percival-music.ca},
     Documentation Editor.
 @item @email{pinard@@iro.umontreal.ca, François Pinard},
-    @uref{http://www.iro.umontreal.ca/~pinard/},
+    @uref{http://pinard.progiciels-bpi.ca/},
     Parts of Documentation/user/glossary*, started
     internationalization stuff.
 @item @email{, Rune Zedeler},
     Schumann example.
-@end itemize
 
-Support (distributions, editor support, lilypond-book)
+@end itemize
+@end macro
+
+
+
+@macro supportPrevious
 
 @itemize
-@item @email{foka@@debian.org, Anthony Fok}, 
-    Debian package: debian/*.
+@item @email{foka@@debian.org, Anthony Fok},
+    Debian package: @file{debian/*}.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Emacs mode indentation.
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
     Major Emacs- and Vim-mode updates.
 @item @email{svoboda@@cmu.edu, David Svoboda},
     what-beat emacs module.
-@end itemize
-  
 
-Translations
+@end itemize
+@end macro
+
+
+
+@macro translationsPrevious
 
 @itemize
+@item @email{, David González},
+    Spanish glossary translations.
+@item @email{ngclaude@@123mail.org, Nicolas Grandclaude},
+    French documentation translation.
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke},
     German glossary translations.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}, 
@@ -312,12 +264,6 @@ Translations
     Finnish translations.
 @item @email{tdm@@dds.nl, Tineke de Munnik},
     Dutch website translation.
-@item @email{august@@infran.ru, August S. Sigov},
-    Russian translation.
-@item @email{, David González},
-    Spanish glossary translations.
-@item @email{ngclaude@@123mail.org, Nicolas Grandclaude},
-    French documentation translation.
 @item @email{lolyfan@@wanadoo.fr, Jean-Charles Malahieude},
     French translation of messages, website and documentation.
 @item @email{john.mandereau@@free.fr, John Mandereau},
@@ -326,6 +272,50 @@ Translations
     French website translation.
 @item @email{ludovicsardain@@gmail.com, Ludovic Sardain},
     French documentation translation.
+@item @email{august@@infran.ru, August S. Sigov},
+    Russian translation.
+
+
+@end itemize
+@end macro
+
+
+
+
+@ignore
+    OLD MATERIAL
+
+Core code:
+
+@itemize @bullet
+
+@end itemize
+
+Font
+
+@itemize @bullet
+
+
+@end itemize
+
+
+Documentation and examples
+
+@itemize
+
+@end itemize
+
+Support (distributions, editor support, lilypond-book)
+
+@itemize
+
+@end itemize
+  
+
+Translations
+
+@itemize
+
 @end itemize
 
 @end ignore
