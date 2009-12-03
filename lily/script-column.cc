@@ -146,7 +146,7 @@ Script_column::order_grobs (vector<Grob*> grobs)
       if (scm_is_pair (ss))
         {
            first = unsmob_grob (scm_car (ss));
-           default_outside_staff = first-0>get_property ("outside-staff-priority");
+           default_outside_staff = first->get_property ("outside-staff-priority");
         }
       for (SCM s = ss; scm_is_pair (s); s = scm_cdr (s))
 	{
@@ -167,7 +167,7 @@ Script_column::order_grobs (vector<Grob*> grobs)
 		      g->set_property ("outside-staff-priority",
 				       scm_from_double (
                                          scm_to_double (last_outside_staff) + 0.1));
-                  else if (scm_to_double (g_outside_staff) -
+                  else if (fabs (scm_to_double (g_outside_staff) -
                              robust_scm2double (default_outside_staff, 0)) < 0.001)
                     {
                       SCM last_script = last->get_property ("script-priority");
