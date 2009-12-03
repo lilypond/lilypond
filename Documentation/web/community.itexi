@@ -744,27 +744,57 @@ http://lilypond.org/web/switch/
 @divEnd
 
 
-@divClass{column-center-bottom}
-@subheading Programming contributors
+@divClass{column-center-top}
+@subheading Current Contributors
 
 @divClass{keep-bullets}
-@contributorsCore
+@subsubheading Programming
 
-@subheading Font contributors
+@coreCurrent
 
-@contributorsFont
+@subsubheading Font
 
-@subheading Documentation contributors
+@fontCurrent
 
-@contributorsDoc
+@subsubheading Documentation
 
-@subheading Support contributors
+@docCurrent
 
-@contributorsSupport
+@subsubheading Support
 
-@subheading Translation contributors
+@supportCurrent
 
-@contributorsTranslations
+@subsubheading Translation
+
+@translationsCurrent
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Previous Contributors
+
+@divClass{keep-bullets}
+@subsubheading Programming
+
+@corePrevious
+
+@subsubheading Font
+
+@fontPrevious
+
+@subsubheading Documentation
+
+@docPrevious
+
+@subsubheading Support
+
+@supportPrevious
+
+@subsubheading Translation
+
+@translationsPrevious
 
 @divEnd
 @divEnd

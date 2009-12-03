@@ -10,24 +10,25 @@
   Developers are people who are (or have been) listed under the
   "Development Team" in the THANKS, and can choose their own
   titles.  Contributors are everybody else, and simply list their
-  contributions.
+  contributions.  All lists are sorted alphabetically.
 
   Anybody who has finished doing a "main devel team" task should
   list it under developersPrevious, even if they're still doing
   other "main devel team" stuff.  See "Graham Percival" for an
   example.
 
-  Contributors are split into:
-    ...Core (programming)
-    ...Font (duh)
-    ...Doc (documentation and examples)
-    ...Support (building, distributions, editors,
-                lilypond-book, LSR, but *not* answering emails)
-    ...Translations (duh)
+  Contributors are also split between Current and Previous, and
+  each category contains:
+    core...     (programming)
+    font...     (duh)
+    doc...      (documentation and examples)
+    support...  (building, distributions, editors,
+                 lilypond-book, LSR, but *not* answering emails)
+    translations... (duh)
   We might add a "general" or "other" if there's something else.
 
-
 @end ignore
+
 
 @macro developersCurrent
 
@@ -67,8 +68,59 @@ Bug meister
 @end macro
 
 
+@c  *****************  current contributors
 
-@macro contributorsCore
+@macro coreCurrent
+
+@itemize
+@item foo
+
+@end itemize
+@end macro
+
+
+
+@macro fontCurrent
+
+@itemize
+@item foo
+
+@end itemize
+@end macro
+
+
+
+@macro docCurrent
+
+@itemize
+@item foo
+
+@end itemize
+@end macro
+
+
+@macro supportCurrent
+
+@itemize
+@item foo
+
+@end itemize
+@end macro
+
+
+
+@macro translationsCurrent
+
+@itemize
+@item foo
+
+@end itemize
+@end macro
+
+
+@c  *****************  previous contributors
+
+@macro corePrevious
 
 @itemize
 @item Erlend Aasland:
@@ -80,7 +132,7 @@ al-niente hairpins.
 
 
 
-@macro contributorsFont
+@macro fontPrevious
 
 @itemize
 @item @uref{http://www.juergen-reuter.de, Jürgen Reuter}:
@@ -92,7 +144,7 @@ feta-alphabet.
 
 
 
-@macro contributorsDoc
+@macro docPrevious
 
 @itemize
 @item @uref{http://www.s3.kth.se/~mabe/, Mats Bengtsson}:
@@ -104,7 +156,7 @@ Example files, documentation
 
 
 
-@macro contributorsSupport
+@macro supportPrevious
 
 @itemize
 @item Anthony Fok:
@@ -115,7 +167,7 @@ Debian package: @file{debian/*}.
 
 
 
-@macro contributorsTranslations
+@macro translationsPrevious
 
 @itemize
 @item Bjoern Jacke:
