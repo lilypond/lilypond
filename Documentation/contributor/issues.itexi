@@ -6,9 +6,9 @@ This chapter deals with defects, feature requests, and
 miscellaneous development tasks.
 
 @menu
-* Introduction to issues::      
-* Issue classification::        
-* Adding issues to the tracker::  
+* Introduction to issues::
+* Issue classification::
+* Adding issues to the tracker::
 * Checking and verifying issues::
 * Summary of project status::
 * Finding the cause of a regression::
@@ -117,9 +117,9 @@ like Ancient notation, which nobody wants to touch.
 
 @end itemize
 
-Opsys lables: pretty self-explanatory.
+Opsys labels: pretty self-explanatory.
 
-Other lables:
+Other labels:
 
 @itemize
 
@@ -163,7 +163,7 @@ false/misleading warning message.
 @node Adding issues to the tracker
 @section Adding issues to the tracker
 
-FIXME: prettify.
+TODO: prettify.
 
 only done by Bug Meister, unless you're really certain you know
 what you're doing.
@@ -232,7 +232,6 @@ else about LilyPond development.
 @example
 @uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog&mode=grid&y=Priority&x=Type&cells=ids}
 @end example
-
 
 @node Finding the cause of a regression
 @section Finding the cause of a regression

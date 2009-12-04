@@ -110,6 +110,14 @@ in @file{scm/@/script@/.scm}.  Articulations and ornamentations
 may be manually placed above or below the staff; see
 @ref{Direction and placement}.
 
+Articulations are @code{Script} objects.  Their properties are
+described more fully in @rinternals{Script}.
+
+In addition to articulations, text and markups can be attached to
+notes.  See @ref{Text scripts}.
+
+For more information about the ordering of Scripts and TextScripts that
+are attached to the notes, see @rlearning{Placement of objects}.
 
 @snippets
 
@@ -129,7 +137,12 @@ Music Glossary:
 @rglos{staccato},
 @rglos{portato}.
 
+Learning Manual:
+@rlearning{Placement of objects}.
+
+
 Notation Reference:
+@ref{Text scripts},
 @ref{Direction and placement},
 @ref{List of articulations},
 @ref{Trills}.

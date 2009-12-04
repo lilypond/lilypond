@@ -82,6 +82,11 @@ a8^"pizz." g f e
 a4_"scherzando" f
 @end lilypond
 
+In addition to text scripts, articulations can be attached to notes.
+For more information, see @ref{Articulations and ornamentations}.
+
+For more information about the relative ordering of text scripts and
+articulations, see @rlearning{Placement of objects}.
 
 @funindex \textLengthOn
 @funindex textLengthOn
@@ -95,6 +100,9 @@ a4_"scherzando" f
 
 
 @seealso
+Learning Manual:
+@rlearning{Placement of objects}.
+
 Notation Reference:
 @ref{Formatting text},
 @ref{Direction and placement}.
