@@ -160,10 +160,10 @@ Bug meister
     Ancient notation  support (mensural notation,
     Gregorian chant notation), ambitus, clusters.
 @item @email{nicolas.sceaux@@free.fr, Nicolas Sceaux},
-    Scheme macros, \markup syntax.
+    Scheme macros, @code{\\markup} syntax.
 @item @email{c_sorensen@@byu.edu, Carl Sorensen},    
     Fret diagrams.    
-@item @email{, Rune Zedeler},
+@item Rune Zedeler,
     Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
     fret, @code{subdivideBeams}.
 
