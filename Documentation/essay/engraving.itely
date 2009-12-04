@@ -16,13 +16,10 @@ This section covers the overall goals and architecture of
 LilyPond.
 
 @c TODO:
-@c update LP 1.4 example with PDF
-@c annotate typography errors in old LilyPond
-@c add Schubert
-@c add 'tweaked' versions of LP & Finale BWV 861
-@c find a good value for #'between-staff-spacing #'padding
 @c remove 3mm eps bounding box left padding for Sarabande (This will
 @c     require adding a new snippet option to lilypond-book.py
+@c check formatting of HTML output
+@c
 
 @c Notes:
 @c Incorrect beaming in the Sarabande is a known bug.
@@ -51,6 +48,7 @@ Why does most computer output fail to achieve the beauty and balance of
 a hand-engraved score?
 @end quotation
 
+@noindent
 Some of the answers can be found by examining the two scores
 @ifnottex
 below.
@@ -179,6 +177,12 @@ necessary to become truly skilled.
 @sourceimage{hader-slaan,,,jpg}
 @end ifnottex
 @end quotation
+
+LilyPond is inspired by traditional manual engravings published by
+European music publishers in and towards the end of the first half of
+the twentieth century, inlcuding Baerenreiter, Duhem, Durand,
+Hofmeister, Peters, and Schott. This is sometimes regarded as the peak
+of traditional musical engraving practice.
 
 @c Now all newly printed music is produced with computers. This has
 @c obvious advantages: prints are cheaper to make, editorial work can be
@@ -462,9 +466,16 @@ magnified by 236% to print at the same size as the previous example:
 @end ifnottex
 @end quotation
 
-At smaller sizes, LilyPond uses proportionally heavier lines and so the
-music will still read well. This also allows staves of different
-sizes to coexist peacefully when used together on the same page:
+@noindent
+At smaller sizes, LilyPond uses proportionally heavier lines so the
+music will still read well.
+
+@ignore
+This also allows staves of different sizes to coexist peacefully when
+used together on the same page:
+
+@c TODO: are the stems in this example the right thickness? How should
+@c line wieghts be scaled for small staves?
 
 @c Grieg's Violin Sonata Op. 45
 @lilypond[indent=1.5cm]
@@ -511,6 +522,7 @@ global = {
   >>
 >>
 @end lilypond
+@end ignore
 
 @node Why work so hard?
 @unnumberedsubsec Why work so hard?
@@ -551,6 +563,12 @@ to see and love to play from.
 @cindex engraving, automated
 @cindex automated engraving
 
+This section describes what is required to create software that can
+mimic the layout of engraved scores: a method of explaining good
+layouts to the computer, detailed comparisons with real engravings,
+and enough flexibility to deal with the wide range of challenges
+that printed music can present.
+
 @menu
 * Beauty contests::             
 * Notation benchmarking::       
@@ -560,46 +578,96 @@ to see and love to play from.
 @node Beauty contests
 @unnumberedsubsec Beauty contests
 
-Rather than trying to write rules that describe how to draw an
-attractive slur for every possible scenario, we have written rules that
-describe an attractive slur and LilyPond finds the nicest possibility.
-For example, here are three possible slur configurations, and LilyPond
-has given each one a score in `ugly points':
+How do we actually make formatting decisions?  In other words, which
+of the three configurations should we choose for the following slur?
 
 @lilypond
-%\layout { #(define debug-slur-scoring #t) }
+\relative c {
+    \clef bass
+    \once \override Slur #'positions = #'(1.5 . 1)
+    e8[( f] g[ a b d,)] r4
+    \once \override Slur #'positions = #'(2 . 3)
+    e8[( f] g[ a b d,)] r4
+    e8[( f] g[ a b d,)] r4
+}
+@end lilypond
 
+There are a few books on the art of music engraving
+available. Unfortunately, they contain rules of simple thumbs and some
+examples.  Such rules can be instructive, but they are a far cry from
+an algorithm that we could readily implement in a computer.  Following
+the instructions from literature leads to algorithms with lots of
+handcoded exceptions. Doing all this case analysis is a lot of work,
+and often not all cases are covered completely:
+
+@quotation
+@iftex
+@sourceimage{ross-beam-scan,7cm,,}
+@end iftex
+@ifnottex
+@sourceimage{ross-beam-scan,,,.jpg}
+@end ifnottex
+@end quotation
+
+(Image source: Ted Ross, @emph{The Art of Music Engraving})
+
+Rather than trying to write detailed layout rules for every possible
+scenario, we only have to describe the objectives well enough that
+LilyPond can judge the attractiveness of several alternatives. Then,
+for each possible configuration we compute an ugliness score and we
+choose the least ugly configuration.
+
+For example, here are three possible slur configurations, and LilyPond
+has given each one a score in `ugly points'. The first example gets 15.39
+points for grazing one of the notes:
+
+@lilypond
 \relative c {
     \clef bass
     \once \override Slur #'positions = #'(1.5 . 1)
     e8[(_"15.39" f] g[ a b d,)] r4
+}
+@end lilypond
+
+The
+second one is nicer, but the slur doesn't start or end on the noteheads.
+It gets 1.71 points for the left side and 9.37 points for the right
+side, plus another 2 points because the slur ascends while the melody
+descends for a total of 13.08 ulgy points:
+
+@lilypond
+\relative c {
+    \clef bass
     \once \override Slur #'positions = #'(2 . 3)
     e8[(_"13.08" f] g[ a b d,)] r4
+}
+@end lilypond
+
+The final slur gets 10.04
+points for the gap on the right and 2 points for the upward slope, but
+it is the most attractive of the three configurations, so LilyPond
+selects this one:
+
+@lilypond
+\relative c {
+    \clef bass
     e8[(_"12.04" f] g[ a b d,)] r4
 }
 @end lilypond
 
-@noindent
+This technique is quite general, and is used to make optimal decisions
+for beam configurations, ties and dots in chords, line breaks, and page
+breaks. The results of these decisions can be judged by comparison to
+real engravings.
 
-The first example gets 15.39 points for grazing one of the notes. The
-second one is nicer, but the slur doesn't start or end on the noteheads.
-It gets 1.71 points for the left side and 9.37 points for the right
-side, plus another 2 points because the slur ascends while the melody
-descends for a total of 13.08 ulgy points. The final slur gets 10.04
-points for the gap on the right and 2 points for the upward slope, but
-it is the most attractive of the three configurations, so LilyPond
-selects that one.
+@node Improvement by benchmarking
+@unnumberedsubsec Improvement by benchmarking
 
-This technique is quite general, and is used to select beam
-configurations, ties and dots in chords, line breaks, and page breaks.
+LilyPond's output has improved gradually over time, and it continues to
+improve by comparing its output to hand-engraved scores.
 
-@node Notation benchmarking
-@unnumberedsubsec Notation benchmarking
-
-We have tuned LilyPond's layout rules by comparing its output to
-hand-engraved scores. Here is one line of a benchmark piece from a
-hand-engraved edition (Bärenreiter BA320), and as engraved by an old
-version of LilyPond (version 1.4, released May 2001):
+For example, here is one line of a benchmark piece from a
+hand-engraved edition (Bärenreiter BA320):
 
 @iftex
 @sourceimage{baer-sarabande-hires,16cm,,}
@@ -608,8 +676,12 @@ version of LilyPond (version 1.4, released May 2001):
 @sourceimage{baer-sarabande,,,png}
 @end ifnottex
 
+@noindent
+and the same quotation as engraved by a very old version of LilyPond
+(version 1.4, May 2001):
+
 @iftex
-@sourceimage{lily14-sarabande,16cm,,}
+@sourceimage{pdf/lily14-sarabande,16cm,,}
 @end iftex
 @ifnottex
 @sourceimage{lily14-sarabande,,,png}
@@ -619,20 +691,28 @@ version of LilyPond (version 1.4, released May 2001):
 comparison with the hand-engraved score showed a lot of errors in the
 formatting details:
 
+@iftex
+@sourceimage{lily14-sarabande-annotated-hires,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{lily14-sarabande-annotated,,,png}
+@end ifnottex
+
 @itemize @bullet
-@item most of the stems are too long
-@item the trill marks are too big
+@item there is too much space before the time signature
+@item the stems of the beamed notes are too long
 @item the second and fourth measures are too narrow
 @item the slur is awkward-looking
+@item the trill marks are too big
 @item the stems are too thin
-@item there was too much space before the time signature
 @end itemize
 
 @noindent
-(There were also two missing notes, and one wrong one!)
+(There were also two missing noteheads, several missing editorial
+annotations, and an incorrect pitch!)
 
 By adjusting the layout rules and font design, the output has improved
-considerably. This is the same musical quotation compared to the output
+considerably. Compare the same reference score and the output
 from the current version of LilyPond (@version{}):
 
 @iftex
@@ -667,67 +747,187 @@ from the current version of LilyPond (@version{}):
 The current output is not a clone of the reference edition, but it is
 much closer to publication quality that the earlier output.
 
-[@strong{Andrew H:} This comparison is not finished. I promise not to
-leave it in such a mess!]
+@node Getting things right
+@unnumberedsubsec Getting things right
 
-Another valuable form of benchmarking is comparing LilyPond's output to
-the output of a commercial software product. In this case we have chosen
-Finale 2008, which is one of the most popular commercial scorewriters,
-particularly in North America. Sibelius is their major rival and they
-appear to be especially strong in the European market.
+We can also measure LilyPond's ability to make music engraving decisions
+automatically by comparing LilyPond's output to the output of a
+commercial software product. In this case we have chosen Finale 2008,
+which is one of the most popular commercial scorewriters, particularly
+in North America. Sibelius is their major rival and they appear to be
+especially strong in the European market.
 
-We have selected the last seven measures of Bach's Fugue in G minor from
-the Well-Tempered Clavier, Book I, BWV 861. In the final draft there
-will be pitcures here, but for now please consult the appendix
-(currently pp. 12--14) for the output from both programs and images from
-four reference engravings.
+For our comparison we chose Bach's Fugue in G minor from the
+Well-Tempered Clavier, Book I, BWV 861, whose opening subject is
 
-My findings so far:
+@lilypond
+\relative c' {
+  \key g \minor
+  \clef "treble_8"
+  r8 d ees g, fis4 g
+  r8 a16 bes c8 bes16 a bes8
+}
+@end lilypond
 
+@noindent
+
+We made our comparison by engraving the last seven measures of the piece
+(28--34) in Finale and LilyPond. This is the point in the piece where
+the subject returns in a three-part stretto and leads into the closing
+section. In the Finale version, we have resisted the temptation to make
+any adjustments to the default output because we are trying to show the
+things that each software package gets right without assistance.
+
+Many of the differences between the two engravings are visible in
+measures 28--29, as shown here with Finale first and LilyPond second:
+
+@iftex
+@sourceimage{pdf/bwv861mm28-29,14cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861mm28-29,,,png}
+@end ifnottex
+
+@lilypond[staffsize=19.5,line-width=14\cm]
+global = {\key g \minor}
+
+partI = \relative c' {
+  \voiceOne
+  fis8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a d8 r r4
+}
+
+partII = \relative c' {
+  \voiceTwo
+  d4 r4 r8 d'16 c bes8 c16 d
+  ees8 d c ees a, r r4
+}
+partIII = \relative c' {
+  \voiceOne
+  r2 r8 d ees g, fis4 g r8 a16 bes c8 bes16 a
+}
+partIV = \relative c {
+  \voiceTwo
+  d4 r r2
+  r8 d ees g, fis4 a
+}
+
+\score {
+  <<
+    % \set Score.barNumberVisibility = #all-bar-numbers-visible
+    % required in 2.13
+    \set Score.currentBarNumber = #28
+    \bar ""
+    \new PianoStaff <<
+      \new Staff = "RH" <<
+        \global
+        \new Voice = "voiceI" { \partI }
+        \new Voice = "voiceII" { \partII }
+      >>
+
+      \new Staff = "LH" <<
+        \clef "bass"
+        \global
+        \new Voice = "voiceIII" { \partIII }
+        \new Voice = "voiceIV" { \partIV }
+      >>
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
+    \context {
+      \PianoStaff
+      \override StaffGrouper #'between-staff-spacing #'padding = #1
+    }
+  }
+}
+@end lilypond
+
+Some shortcomings in the unedited Finale output include:
 @itemize @bullet
-@item Finale rests are always at the same heights (in v1/v2 situations).
-@item Finale doesn't interlock notes nicely (mm. 28--29).
-@item Finale misses the B-flat in mm. 33!
-@item Finale's beamed stems are almost always too long when they extend
-off the staff.
-@item LilyPond 2.13.5 has a vertical spacing problem (no padding).
-@item LilyPond could use a little more space before the first note of
-mm. 30, 33--34.
-@item LilyPond's ties to beat 1 of mm. 31 are shorter than any of the
-reference scores, and Finale's are even worse.
-@item LilyPond's stems are often shorter than any of the references,
-especially RH mm. 31.
-@item In some locations, the Bärenreiter engraver(s) place rests
-further from the staff than strictly necessary in order to keep them
-vertically close to the subsequent element in that voice (e.g. mm. 28).
-@item There is some acceptable variation within the reference scores,
-although some scores are more attractive than others.
+@item Most of the beams extend too far off the staff. A beam that points
+towards the center of the staff should have a length of about one
+octave, but engravers shorten this when the beam points away from the
+staff in multi-voice music. The Finale beaming can be easily improved
+with the Patterson Beams plug-in, but we elected to skip that step for
+this example.
+@item Finale doesn't adjust the positions of interlocking noteheads,
+which makes the music extremely difficult to read when the upper and
+lower voices exchange positions temporarily:
+
+@lilypond
+collide = \once \override NoteColumn #'force-hshift = #0
+\new Score <<
+  \new Voice = "sample" \relative c''{
+    \key g \minor
+    <<
+      {\voiceOne g4 \collide g4}
+      \new Voice {\voiceTwo bes \collide bes}
+    >>
+  }
+  \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
+>>
+@end lilypond
+
+@item Finale has placed all of the rests at fixed heights on the staff.
+The user is free to adjust them as needed, but the software makes no
+attempt to consider the content of the other voice. As luck would have
+it, there are no true collsions between notes and rests in this example,
+but that has more to do with the positions of the notes than the rest.
+In other words, Bach deserves more credit for avoiding a complete
+collision that Finale does.
+
 @end itemize
 
-@c Han-Wen said once:
-@c A lot of readers misinterpret the Finale example. Finale is a
-@c powerful package, and in the hands of a good engraver — which is
-@c something different from a good musician — it can produce very good
-@c scores. However, the friendly GUI is misleading: you need a lot of
-@c time and expertise to get decent scores from Finale.
+This example is not intended to suggest that Finale cannot be used to
+produce beautiful output. On the contrary, in the hands of a skilled
+user it can and does, but it requires skill and time. One of the
+fundamental differences between LilyPond and commercial scorewriters is
+that LilyPond hopes to reduce the amount of human intervention to an
+absolute minimum, while other packages try to provide an attractive
+interface in which to make these types of edits.
 
-@c How do we go about implementing typography?  If craftsmen need
-@c over ten years to become true masters, how could we simple hackers
-@c ever write a program to take over their jobs?
+One particularly glaring omission we found in the Finale sample is a
+missing flat in measure 33:
 
-@c The answer is: we cannot.
+@quotation
+@iftex
+@sourceimage{pdf/bwv861mm33-34-annotate,7.93cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861mm33-34-annotate,,,png}
+@end ifnottex
+@end quotation
 
-The last two points lead into this concluding/transition paragraph:
+@noindent
+The flat symbol is required to cancel out the natural in the same
+measure, but Finale misses it because it occurred in a different voice.
+The user must not only remember to run a beaming plug-in and respace the
+noteheads and rests, she must also check each measure for cross-voice
+accidentals if she is to avoid interrupting a rehearsal for an engraving
+error.
 
-Typography relies on human judgment of
-appearance, so people cannot be replaced completely.  However,
-much of the dull work can be automated.  If LilyPond solves most
-of the common situations correctly, this will be a huge
-improvement over existing software.  The remaining cases can be
-tuned by hand.  Over the course of years, the software can be
-refined to do more and more things automatically, so manual
-overrides are less and less necessary. Where manual adjustments are
-needed, LilyPond's structure must be ...
+If you are interested in examining these examples in more detail, the
+full seven-measure excerpt can be found at the end of this essay in
+engravings by Finale and LilyPond along with four different published
+engravings. Close examination reveals that there is some acceptible
+variation among the hand-engravings, but that LilyPond compares
+reasonably well to that acceptible range. There are still some
+shortcomings in the LilyPond output, for example, it appears a bit too
+agressive in shortening some of the stems, so there is room for further
+development and fine-tuning.
+
+Of course, typography relies on human judgment of appearance, so people
+cannot be replaced completely. However, much of the dull work can be
+automated. If LilyPond solves most of the common situations correctly,
+this will be a huge improvement over existing software. Over the course
+of years, the software can be refined to do more and more things
+automatically, so manual overrides are less and less necessary. Where
+manual adjustments are needed, LilyPond's structure has been designed
+with that flexibility in mind.
 
 @node Flexible architecture
 @unnumberedsubsec Flexible architecture
@@ -1351,6 +1551,7 @@ Finale 2008:
 @sourceimage{bwv861-finale2008a,,,png}
 @end ifnottex
 
+@sp 4
 @noindent
 LilyPond, version @version{}:
 
@@ -1423,6 +1624,10 @@ partIV = \relative c {
     \context {
       \Staff
       \remove "Time_signature_engraver"
+    }
+    \context {
+      \PianoStaff
+      \override StaffGrouper #'between-staff-spacing #'padding = #1
     }
   }
 }
