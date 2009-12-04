@@ -139,51 +139,39 @@ Script_column::order_grobs (vector<Grob*> grobs)
       SCM ss = scm_reverse_x (scripts_drul[d], SCM_EOL);
       ss = scm_stable_sort_x (ss, ly_grob_script_priority_less_proc);
 
-      Grob *last = 0;
-      Grob *first = 0;
-      SCM default_outside_staff = scm_from_double (0);
-      // script_column may have no entries
-      if (scm_is_pair (ss))
-        {
-           first = unsmob_grob (scm_car (ss));
-           default_outside_staff = first->get_property ("outside-staff-priority");
-        }
-      for (SCM s = ss; scm_is_pair (s); s = scm_cdr (s))
+      Grob *g = 0;  // current grob in list
+      Grob *last = 0; // previous grob in list
+      SCM initial_outside_staff = SCM_EOL;  // initial outside_staff_priority of current grob
+      SCM last_initial_outside_staff = SCM_EOL;  // initial outside_staff_priority of previous grob
+
+      //  loop over all grobs in script column (already sorted by script_priority)
+      for (SCM s = ss; scm_is_pair (s);
+           s = scm_cdr (s), last = g, last_initial_outside_staff = initial_outside_staff)
 	{
-	  Grob *g = unsmob_grob (scm_car (s));
-	  if (last)
-	    {
+	  g = unsmob_grob (scm_car (s));
+          initial_outside_staff = g->get_property ("outside-staff-priority");
+          if (last)    //not the first grob in the list
+            {
 	      SCM last_outside_staff = last->get_property ("outside-staff-priority");
-	      if (scm_is_number (last_outside_staff))
-		{
-		  /*
-                    we allow the outside-staff-priority ordering to override the
-		    script-priority ordering; we must set new
-                    outside-staff-priority if outside-staff-priority is
-                    missing or equal to last
-                  */
-                  SCM g_outside_staff = g->get_property ("outside-staff-priority");
-		  if (!scm_is_number (g_outside_staff))
-		      g->set_property ("outside-staff-priority",
-				       scm_from_double (
-                                         scm_to_double (last_outside_staff) + 0.1));
-                  else if (fabs (scm_to_double (g_outside_staff) -
-                             robust_scm2double (default_outside_staff, 0)) < 0.001)
-                    {
-                      SCM last_script = last->get_property ("script-priority");
-                      SCM g_script = g->get_property ("script-priority");
-		      g->set_property (
-                          "outside-staff-priority",
-			  scm_from_double (scm_to_double (last_outside_staff) +
-                            scm_to_double (g_script) -
-                            scm_to_double (last_script)));
-                    }
-                  default_outside_staff = g_outside_staff;
-		}
-	      else
+              /*
+                if outside_staff_priority is missing for previous grob, just
+                use it as a support for the current grob
+              */
+	      if (!scm_is_number (last_outside_staff))
 		Side_position_interface::add_support (g, last);
+              /*
+                if outside_staff_priority is missing or is equal to original
+                outside_staff_priority of previous grob, set new
+                outside_staff_priority to just higher than outside_staff_priority
+                of previous grob in order to preserve ordering.
+              */
+              else if ((!scm_is_number (initial_outside_staff)) ||
+                       (fabs (scm_to_double (initial_outside_staff) -
+                             robust_scm2double (last_initial_outside_staff, 0)) < 0.001))
+                g->set_property ("outside-staff-priority",
+				     scm_from_double (
+                                       scm_to_double (last_outside_staff) + 0.1));
 	    }
-	  last = g;
 	}
     }
   while (flip (&d) != DOWN);
@@ -191,7 +179,7 @@ Script_column::order_grobs (vector<Grob*> grobs)
 
 ADD_INTERFACE (Script_column,
 	       "An interface that sorts scripts according to their"
-	       " @code{script-priority}.",
+	       " @code{script-priority} and @code{outside-staff-priority}.",
 
 	       /* properties */
 	       ""
