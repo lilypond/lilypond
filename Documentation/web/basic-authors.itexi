@@ -35,16 +35,17 @@
 @itemize
 
 @item Mats Bengtsson:
-Support guru.
+Support guru
 
 @item Han-Wen Nienhuys:
-Main author.
+Main author
 
 @item Jan Nieuwenhuizen:
-Main author.
+Main author
 
-@item @uref{http://percival-music.ca, Graham Percival}:
-Project Manager.
+@item Graham Percival:
+@uref{http://percival-music.ca},
+Project Manager
 
 @end itemize
 @end macro 
@@ -57,9 +58,10 @@ Project Manager.
 @item Pedro Kroeger:
 Build meister
 
-@item @uref{http://percival-music.ca, Graham Percival}:
-Documentation editor, Bug meister, Grand Documentation Project
-leader.
+@item Graham Percival:
+@uref{http://percival-music.ca},
+Documentation editor, Bug meister, 
+Grand Documentation Project leader
 
 @item Erik Sandberg:
 Bug meister
@@ -124,48 +126,63 @@ Bug meister
 
 @itemize
 @item Erlend Aasland:
-    Color support, tablature improvements, trivial @code{\\mark} stuff,
-    al-niente hairpins.
-@item @email{benkop@@freestart.hu,Pal Benko},
-    Ancient notation.
-@item @email{jch@@pps.jussieu.fr, Juliusz Chroboczek},
-    Type42 code.
-@item @email{david.feuer@@gmail.com, David Feuer},
-    PS output code refactoring.
-@item @email{bernard@@fong-hurley.org.uk, Bernard Hurley},
-    X11 color.
-@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Piano pedals, directed arpeggios.
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Fine tuning for quarter tones in midi output.
-@item @email{reinhold@@kainhofer.com, Reinhold Kainhofer},
-    @uref{http://reinhold.kainhofer.com},
-    Musicxml2ly development, various features and fixes.
-@item @email{m.krause@@tu-harburg.de, Michael Krause},
-    Breathing signs.
-@item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
-    Tablature support.
-@item @email{wl@@gnu.org, Werner Lemberg},
-    @TeX{} glue code.
-@item @email{joeneeman@@gmail.com, Joe Neeman}, 
-    Constrained line breaking.
-@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
-    Main author.
-@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
-    @uref{http://www.xs4all.nl/~jantien/},
-    Main author.
-@item @email{reuter_j@@web.de, Jürgen Reuter},
-    @uref{http://www.juergen-reuter.de},
-    Ancient notation  support (mensural notation,
-    Gregorian chant notation), ambitus, clusters.
-@item @email{nicolas.sceaux@@free.fr, Nicolas Sceaux},
-    Scheme macros, @code{\\markup} syntax.
-@item @email{c_sorensen@@byu.edu, Carl Sorensen},    
-    Fret diagrams.    
-@item Rune Zedeler,
-    Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
-    fret, @code{subdivideBeams}.
+Color support, tablature improvements, trivial @code{\\mark} stuff, al-niente hairpins
+@item Pal Benko:
+@email{benkop@@freestart.hu},
+Ancient notation
+@item Juliusz Chroboczek:
+@email{jch@@pps.jussieu.fr},
+Type42 code
+@item David Feuer:
+@email{david.feuer@@gmail.com},
+PS output code refactoring.
+@item Bernard Hurley:
+@email{bernard@@fong-hurley.org.uk},
+X11 color
+@item Chris Jackson:
+@email{chris@@fluffhouse.org.uk},
+Piano pedals, directed arpeggios
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Fine tuning for quarter tones in midi output
+@item Reinhold Kainhofer:
+@email{reinhold@@kainhofer.com},
+@uref{http://reinhold.kainhofer.com},
+Musicxml2ly development, various features and fixes
+@item Michael Krause:
+@email{m.krause@@tu-harburg.de},
+Breathing signs
+@item Jean-Baptiste Lamy:
+@email{jiba@@tuxfamily.org},
+Tablature support
+@item Werner Lemberg:
+@email{wl@@gnu.org},
+@TeX{} glue code
+@item Joe Neeman:
+@email{joeneeman@@gmail.com}, 
+Constrained line breaking
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl}, 
+@uref{http://www.xs4all.nl/~hanwen/},
+Main author
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org}, 
+@uref{http://www.xs4all.nl/~jantien/},
+Main author
+@item Jürgen Reuter:
+@email{reuter_j@@web.de},
+@uref{http://www.juergen-reuter.de},
+Ancient notation support (Mensural and Gregorian chant)
+ambitus, clusters
+@item Nicolas Sceaux:
+@email{nicolas.sceaux@@free.fr},
+Scheme macros, @code{\\markup} syntax
+@item Carl Sorensen:
+@email{c_sorensen@@byu.edu},    
+Fret diagrams  
+@item Rune Zedeler:
+Auto-accidental code, zigzag glissandi, rest bugfixes, 
+minimum fret, @code{subdivideBeams}.
 
 @end itemize
 @end macro
@@ -175,24 +192,30 @@ Bug meister
 @macro fontPrevious
 
 @itemize
-@item @email{tca@@gnu.org, Tom Cato Amundsen},
-    Accordion symbols.
-@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Arpeggio arrow 
-@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
-    Main author.
-@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
-    @uref{http://www.xs4all.nl/~jantien/},
-    Main author.
-@item @email{reuter_j@@web.de, Jürgen Reuter}
-    @uref{http://www.juergen-reuter.de, Jürgen Reuter}:
-    Ancient notation font Exact Type1 font outlines for feta,
-    feta-alphabet.
-@item @email{arno@@arnowaschk.de, Arno Waschk},
-    "espressivo" mark.
-@item @email{, Rune Zedeler},
-    16th and shorter rests,
+@item Tom Cato Amundsen:
+@email{tca@@gnu.org},
+Accordion symbols
+@item Chris Jackson:
+@email{chris@@fluffhouse.org.uk},
+Arpeggio arrow 
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl}, 
+@uref{http://www.xs4all.nl/~hanwen/},
+Main author
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org}, 
+@uref{http://www.xs4all.nl/~jantien/},
+Main author
+@item Jürgen Reuter:
+@email{reuter_j@@web.de},
+@uref{http://www.juergen-reuter.de},
+Ancient notation font Exact Type1 font outlines for feta,
+feta-alphabet
+@item Arno Waschk:
+@email{arno@@arnowaschk.de},
+"Espressivo" mark
+@item Rune Zedeler:
+16th and shorter rests
 
 @end itemize
 @end macro
@@ -202,30 +225,38 @@ Bug meister
 @macro docPrevious
 
 @itemize
-@item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
-     @uref{http://www.s3.kth.se/~mabe/, Mats Bengtsson},
-    Example files, documentation
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Cleanups in docs and example files.
-@item @email{john.mandereau@@free.fr, John Mandereau},
-    Internationalization.
-@item @email{scancm@@biobase.dk, Christian Mondrup},
-    Glossary.
-@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
-    Main author.
-@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
-    @uref{http://www.xs4all.nl/~jantien/},
-    Main author.
-@item @email{gpermus@@gmail.com, Graham Percival},
-    @uref{http://percival-music.ca},
-    Documentation Editor.
-@item @email{pinard@@iro.umontreal.ca, François Pinard},
-    @uref{http://pinard.progiciels-bpi.ca/},
-    Parts of Documentation/user/glossary*, started
-    internationalization stuff.
-@item @email{, Rune Zedeler},
-    Schumann example.
+@item Mats Bengtsson:
+@email{mats.bengtsson@@s3.kth.se},
+@uref{http://www.s3.kth.se/~mabe/},
+Example files, documentation
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Clean-ups in documentation and example files.
+@item John Mandereau:
+@email{john.mandereau@@free.fr},
+Internationalization
+@item Christian Mondrup:
+@email{scancm@@biobase.dk},
+Glossary
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl}, 
+@uref{http://www.xs4all.nl/~hanwen/},
+Main author
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org}, 
+@uref{http://www.xs4all.nl/~jantien/},
+Main author
+@item Graham Percival:
+@email{gpermus@@gmail.com},
+@uref{http://percival-music.ca},
+Documentation editor
+@item François Pinard:
+@email{pinard@@iro.umontreal.ca},
+@uref{http://pinard.progiciels-bpi.ca/},
+Parts of Documentation/user/glossary*, 
+started internationalization stuff
+@item Rune Zedeler:
+Schumann example
 
 @end itemize
 @end macro
@@ -235,14 +266,18 @@ Bug meister
 @macro supportPrevious
 
 @itemize
-@item @email{foka@@debian.org, Anthony Fok},
-    Debian package: @file{debian/*}.
-@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Emacs mode indentation.
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Major Emacs- and Vim-mode updates.
-@item @email{svoboda@@cmu.edu, David Svoboda},
-    what-beat emacs module.
+@item Anthony Fok:
+@email{foka@@debian.org},
+Debian package: @file{debian/*}
+@item Chris Jackson:
+@email{chris@@fluffhouse.org.uk},
+Emacs mode indentation
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Major emacs and vim-mode updates
+@item David Svoboda:
+@email{svoboda@@cmu.edu},
+What-beat emacs module
 
 @end itemize
 @end macro
@@ -252,38 +287,43 @@ Bug meister
 @macro translationsPrevious
 
 @itemize
-@item @email{, David González},
-    Spanish glossary translations.
-@item @email{ngclaude@@123mail.org, Nicolas Grandclaude},
-    French documentation translation.
-@item @email{bjoern.jacke@@gmx.de, Bjoern Jacke},
-    German glossary translations.
-@item @email{nj104@@cus.cam.ac.uk, Neil Jerram}, 
-    Glossary translations.
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Finnish translations.
-@item @email{tdm@@dds.nl, Tineke de Munnik},
-    Dutch website translation.
-@item @email{lolyfan@@wanadoo.fr, Jean-Charles Malahieude},
-    French translation of messages, website and documentation.
-@item @email{john.mandereau@@free.fr, John Mandereau},
-    French translation of messages, website and documentation
-@item @email{gauvainpocentek@@yahoo.fr, Gauvain Pocentek},
-    French website translation.
-@item @email{ludovicsardain@@gmail.com, Ludovic Sardain},
-    French documentation translation.
-@item @email{august@@infran.ru, August S. Sigov},
-    Russian translation.
-
+@item David González:
+Spanish glossary translation
+@item Nicolas Grandclaude:
+@email{ngclaude@@123mail.org},
+French documentation translation
+@item Bjoern Jacke:
+@email{bjoern.jacke@@gmx.de},
+German glossary translation
+@item Neil Jerram:
+@email{nj104@@cus.cam.ac.uk}, 
+Glossary translation
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Finnish translations
+@item Tineke de Munnik:
+@email{tdm@@dds.nl},
+Dutch website translation
+@item Jean-Charles Malahieude:
+@email{lolyfan@@wanadoo.fr},
+French translation of messages, website and documentation
+@item John Mandereau:
+@email{john.mandereau@@free.fr},
+French translation of messages, website and documentation
+@item Gauvain Pocentek:
+@email{gauvainpocentek@@yahoo.fr},
+French website translation
+@item Ludovic Sardain:
+@email{ludovicsardain@@gmail.com},
+French documentation translation
+@item August S. Sigov:
+@email{august@@infran.ru},
+Russian translation
 
 @end itemize
 @end macro
 
-
-
-
-@ignore
-    OLD MATERIAL
+OLD MATERIAL
 
 Core code:
 
@@ -298,7 +338,6 @@ Font
 
 @end itemize
 
-
 Documentation and examples
 
 @itemize
@@ -310,7 +349,6 @@ Support (distributions, editor support, lilypond-book)
 @itemize
 
 @end itemize
-  
 
 Translations
 
