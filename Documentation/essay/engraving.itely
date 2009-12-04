@@ -13,14 +13,13 @@
 @node Music engraving
 @chapter Music engraving
 
-This section covers the overall goals and architecture of
-LilyPond.
+This essay describes why LilyPond was created and how it can produce
+such beautiful sheet music.
 
 @c TODO:
 @c remove 3mm eps bounding box left padding for Sarabande (This will
 @c     require adding a new snippet option to lilypond-book.py
 @c check formatting of HTML output
-@c
 
 @c Notes:
 @c Incorrect beaming in the Sarabande is a known bug.
@@ -38,11 +37,10 @@ LilyPond.
 @node The LilyPond story
 @unnumberedsec The LilyPond story
 
-Before LilyPond had a community of users around the world, before it had
-been used to produce university course notes or world-premier opera
-performance scores, before there was an essay on music engraving or any
-computer code or even an organized team of developers, LilyPond began
-with a question:
+Long before LilyPond had been used to engrave beautiful performance
+scores, before it could create university course notes or even simple
+melodies, before there was a community of users around the world or even
+an essay on music engraving, LilyPond began with a question:
 
 @quotation
 Why does most computer output fail to achieve the beauty and balance of
@@ -61,15 +59,19 @@ The first score is a beautiful hand-engraved score from 1950 and the
 second is a modern, computer-engraved edition.
 
 @ifnottex
+@quotation
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
 @sourceimage{baer-suite1-fullpage,,,png}
+@end quotation
 
+@quotation
 @noindent
 Henle no. 666, @copyright{}2000:
 
 @sourceimage{henle-suite1-fullpage,,,png}
+@end quotation
 @end ifnottex
 
 The notes here are identical, taken from Bach's first Suite for solo
@@ -131,12 +133,12 @@ several of those aspects that we have tried to imitate in LilyPond.
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
-@sourceimage{baer-suite1-fullpage,16cm,,}
+@sourceimage{baer-suite1-fullpage-hires,16cm,,}
 @page
 @noindent
 Henle no. 666, @copyright{}2000:
 @sp 3
-@sourceimage{henle-suite1-fullpage,16cm,,}
+@sourceimage{henle-suite1-fullpage-hires,16cm,,}
 @page
 @end iftex
 
@@ -368,33 +370,10 @@ the upper two measures, however, form down-stem/@/up-stem clumps of
 notes.  A master engraver would adjust the spacing as needed to please
 the eye.
 
-Another example of optical spacing is the visual interplay between the
-stems and the bar lines.  When an up-stem precedes the bar line, a little
-more space is needed to keep it from feeling crowded:
-
-@lilypond
-\paper {
-  ragged-right = ##t
-}
-
-\score {
-  {
-    c''8 c'' c'' c'' c'' c'' c'' c'' \break
-    a' a' a' a' a' a' a' a'
-  }
-  \layout {
-    \context {
-      \Staff
-      \remove "Time_signature_engraver"
-      \override NoteSpacing #'stem-spacing-correction = #0.7
-    }
-    \context {
-      \Score
-      \remove "Bar_number_engraver"
-    }
-  }
-}
-@end lilypond
+The spacing algorthims in LilyPond even take the barlines into account,
+which is why the final up-stem in the properly spaced example has been
+given a little more space before the barline to keep it from looking
+crowded. A down-stem would not need this adjustment.
 
 @node Ledger lines
 @unnumberedsubsec Ledger lines
@@ -564,7 +543,7 @@ to see and love to play from.
 @cindex engraving, automated
 @cindex automated engraving
 
-This section describes what is required to create software that can
+Here we describe what is required to create software that can
 mimic the layout of engraved scores: a method of explaining good
 layouts to the computer, detailed comparisons with real engravings,
 and enough flexibility to deal with the wide range of challenges
@@ -595,11 +574,11 @@ of the three configurations should we choose for the following slur?
 @end lilypond
 
 There are a few books on the art of music engraving
-available.  Unfortunately, they contain rules of simple thumbs and some
+available.  Unfortunately, they contain simple rules of thumb and some
 examples.  Such rules can be instructive, but they are a far cry from
 an algorithm that we could readily implement in a computer.  Following
 the instructions from literature leads to algorithms with lots of
-hand coded exceptions.  Doing all this case analysis is a lot of work,
+hand-coded exceptions.  Doing all this case analysis is a lot of work,
 and often not all cases are covered completely:
 
 @quotation
@@ -759,7 +738,7 @@ which is one of the most popular commercial score writers, particularly
 in North America.  Sibelius is their major rival and they appear to be
 especially strong in the European market.
 
-For our comparison we chose Bach's Fugue in G minor from the
+For our comparison we selected Bach's Fugue in G minor from the
 Well-Tempered Clavier, Book I, BWV 861, whose opening subject is
 
 @lilypond
@@ -778,7 +757,12 @@ We made our comparison by engraving the last seven measures of the piece
 the subject returns in a three-part stretto and leads into the closing
 section.  In the Finale version, we have resisted the temptation to make
 any adjustments to the default output because we are trying to show the
-things that each software package gets right without assistance.
+things that each software package gets right without assistance. The
+only major edits that we made were adjusting the page size to match this
+essay and forcing the music onto two systems to make the comparison
+easier. By default Finale would have engraved two systems of three
+measures each and a final, full-width system containing a single
+measure.
 
 Many of the differences between the two engravings are visible in
 measures 28--29, as shown here with Finale first and LilyPond second:
@@ -885,15 +869,15 @@ collision than Finale does.
 @end itemize
 
 This example is not intended to suggest that Finale cannot be used to
-produce beautiful output.  On the contrary, in the hands of a skilled
-user it can and does, but it requires skill and time.  One of the
-fundamental differences between LilyPond and commercial score writers is
+produce publication-quality output. On the contrary, in the hands of a
+skilled user it can and does, but it requires skill and time. One of the
+fundamental differences between LilyPond and commercial scorewriters is
 that LilyPond hopes to reduce the amount of human intervention to an
 absolute minimum, while other packages try to provide an attractive
 interface in which to make these types of edits.
 
-One particularly glaring omission we found in the Finale sample is a
-missing flat in measure 33:
+One particularly glaring omission we found from Finale is a missing flat
+in measure 33:
 
 @quotation
 @iftex
@@ -907,20 +891,19 @@ missing flat in measure 33:
 @noindent
 The flat symbol is required to cancel out the natural in the same
 measure, but Finale misses it because it occurred in a different voice.
-The user must not only remember to run a beaming plug-in and respace the
-note heads and rests, she must also check each measure for cross-voice
-accidentals if she is to avoid interrupting a rehearsal for an engraving
-error.
+So in addition to running a beaming plug-in and checking the spacing on
+the noteheads and rests, the user must also check each measure for
+cross-voice accidentals to avoid interrupting a rehearsal over an
+engraving error.
 
 If you are interested in examining these examples in more detail, the
-full seven-measure excerpt can be found at the end of this essay in
-engravings by Finale and LilyPond along with four different published
-engravings.  Close examination reveals that there is some acceptable
-variation among the hand-engravings, but that LilyPond compares
-reasonably well to that acceptable range.  There are still some
-shortcomings in the LilyPond output, for example, it appears a bit too
-aggressive in shortening some of the stems, so there is room for further
-development and fine-tuning.
+full seven-measure excerpt can be found at the end of this essay along
+with four different published engravings. Close examination reveals that
+there is some acceptible variation among the hand-engravings, but that
+LilyPond compares reasonably well to that acceptible range. There are
+still some shortcomings in the LilyPond output, for example, it appears
+a bit too agressive in shortening some of the stems, so there is room
+for further development and fine-tuning.
 
 Of course, typography relies on human judgment of appearance, so people
 cannot be replaced completely.  However, much of the dull work can be
