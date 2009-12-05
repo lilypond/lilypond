@@ -46,7 +46,6 @@ by the authors.
 
 @menu
 * Music engraving::
-* automated-engraving:: Essay on Automated engraving.
 * Literature list::
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
@@ -59,7 +58,6 @@ by the authors.
 @contents
 
 @include essay/engraving.itely
-@include automated-engraving.itexi
 @include essay/literature.itely
 
 @clear web
