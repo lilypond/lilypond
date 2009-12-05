@@ -26,7 +26,6 @@ breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0)
 maxima = #(ly:make-duration -3 0)
 
-\include "markup-init.ly"
 \include "music-functions-init.ly"
 \include "toc-init.ly"
 

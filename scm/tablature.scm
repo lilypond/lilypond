@@ -74,11 +74,10 @@
 (add-new-clef "moderntab" "markup.moderntab" 0 0 0)
 
 ;; define sans serif-style tab-Clefs as a markup:
-(define-builtin-markup-command (customTabClef
+(define-markup-command (customTabClef
                                 layout props num-strings staff-space)
   (integer? number?)
-  music
-  ()
+  #:category music
   "Draw a tab clef sans-serif style."
   (define (square x) (* x x))
   (let* ((scale-factor (/ staff-space 1.5))

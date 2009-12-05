@@ -927,14 +927,14 @@ a fret-indication list with the appropriate values"
     `(,props . ,output-list))) ; ugh -- hard coded; proc is better
 
 
-(define-builtin-markup-command
+(define-markup-command
   (fret-diagram-verbose layout props marking-list)
   (pair?) ; argument type (list, but use pair? for speed)
-  instrument-specific-markup ; markup type
-  ((align-dir -0.4) ; properties and defaults
-   (size 1.0)
-   (fret-diagram-details)
-   (thickness 0.5))
+  #:category instrument-specific-markup ; markup type
+  #:properties ((align-dir -0.4) ; properties and defaults
+		(size 1.0)
+		(fret-diagram-details)
+		(thickness 0.5))
   "Make a fret diagram containing the symbols indicated in @var{marking-list}.
 
   For example,
@@ -980,10 +980,10 @@ indications per string.
   (make-fret-diagram layout props marking-list))
 
 
-(define-builtin-markup-command (fret-diagram layout props definition-string)
+(define-markup-command (fret-diagram layout props definition-string)
   (string?) ; argument type
-  instrument-specific-markup ; markup category
-  (fret-diagram-verbose-markup) ; properties and defaults
+  #:category instrument-specific-markup ; markup category
+  #:properties (fret-diagram-verbose-markup) ; properties and defaults
   "Make a (guitar) fret diagram.  For example, say
 
 @example
@@ -1057,11 +1057,11 @@ Note: There is no limit to the number of fret indications per string.
     (fret-diagram-verbose-markup
      layout (car definition-list) (cdr definition-list))))
 
-(define-builtin-markup-command
+(define-markup-command
   (fret-diagram-terse layout props definition-string)
   (string?) ; argument type
-  instrument-specific-markup ; markup category
-  (fret-diagram-verbose-markup) ; properties
+  #:category instrument-specific-markup ; markup category
+  #:properties (fret-diagram-verbose-markup) ; properties
   "Make a fret diagram markup using terse string-based syntax.
 
 Here is an example

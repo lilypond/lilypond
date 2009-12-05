@@ -17,11 +17,11 @@
 
 
 
-(define-builtin-markup-command (harp-pedal layout props definition-string) (string?)
-  instrument-specific-markup ; markup type for the documentation!
-  ((size 1.2)
-   (harp-pedal-details '())
-   (thickness 0.5))
+(define-markup-command (harp-pedal layout props definition-string) (string?)
+  #:category instrument-specific-markup ; markup type for the documentation!
+  #:properties ((size 1.2)
+		(harp-pedal-details '())
+		(thickness 0.5))
   "Make a harp pedal diagram.
 
 Possible elements in @var{definition-string}:

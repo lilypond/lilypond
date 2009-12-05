@@ -391,16 +391,15 @@ was suggested by Patrick McCarty.  It should be saved in
 syn keyword schemeSyntax define-public define* define-safe-public
 syn keyword schemeSyntax use-modules define-module
 syn keyword schemeSyntax defmacro-public define-macro
-syn keyword schemeSyntax define-builtin-markup-command
 syn keyword schemeSyntax define-markup-command
-syn keyword schemeSyntax define-builtin-markup-list-command
+syn keyword schemeSyntax define-markup-list-command
 syn keyword schemeSyntax let-keywords* lambda* define*-public
 syn keyword schemeSyntax defmacro* defmacro*-public
 
 " All of the above should influence indenting too
 set lw+=define-public,define*,define-safe-public,use-modules,define-module
-set lw+=defmacro-public,define-macro,define-builtin-markup-command
-set lw+=define-markup-command,define-builtin-markup-list-command
+set lw+=defmacro-public,define-macro
+set lw+=define-markup-command,define-markup-list-command
 set lw+=let-keywords*,lambda*,define*-public,defmacro*,defmacro*-public
 
 " These forms should not influence indenting
