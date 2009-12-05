@@ -11,7 +11,7 @@
 @node Introduction to website work
 @section Introduction to website work
 
-The website is written is @emph{not} written directly in HTML;
+The website is @emph{not} written directly in HTML;
 instead, the source is texinfo, which is then generated into HTML,
 pdf, and info formats.  The sources are
 
