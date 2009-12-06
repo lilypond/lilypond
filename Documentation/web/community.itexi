@@ -64,14 +64,14 @@ discussing LilyPond.
 
 @divClass{hide}
 @menu
-* Contact::                     
-* Tiny examples::               
-* Bug reports::                 
-* Help us::                     
-* Development::                 
-* Authors::                     
-* Publications::                
-* Old news::                    
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Development::
+* Authors::
+* Publications::
+* Old news::
 @end menu
 @divEnd
 
@@ -115,7 +115,7 @@ Some level of support is provided on our IRC channel,
 @end example
 
 This channel has no public archive, so any question that may
-be useful for others would better be posted to one of the mailing lists. 
+be useful for others would better be posted to one of the mailing lists.
 
 @html
 <form action="http://webchat.freenode.net"
@@ -663,7 +663,7 @@ the manual is split between many HTML pages.
 
 @item @uref{../contributor-big-page.html, Contributor's guide (big HTML)}:
 read this manual as one huge HTML page.
-@*@ @  @emph{(large single download, around 10? Mb)}
+@*@ @  @emph{(large single download, 500 kb)}
 
 @item @uref{../contributor.pdf, contributor.pdf}:
 download as a PDF file.
@@ -713,7 +713,7 @@ Comparisons between versions.
 @divEnd
 
 @node Authors
-@unnumberedsec Authors 
+@unnumberedsec Authors
 
 @help{Under construction; this is not an accurate list!}
 
@@ -821,7 +821,7 @@ Erik Sandberg, @emph{Separating input language and formatter in
 GNU Lilypond}. Master's Thesis, Uppsala University, Department of
 Information Technology March 2006.
 (@uref{http://lilypond.org/web/images/thesis-erik-sandberg.pdf,
-PDF 750k}) 
+PDF 750k})
 
 @item
 Han-Wen Nienhuys and Jan Nieuwenhuizen, @emph{LilyPond, a system
@@ -858,7 +858,7 @@ articles on his personal site}, Andrew Hawryluk compares Finale
 and LilyPond in general terms, and evaluates in detail engraving
 capabilities of both pieces of software.  The second article is an
 instructive analysis of Rachmaninoff's Piano Prelude 6 engraving,
-including comparisons with a reference hand-engraved edition. 
+including comparisons with a reference hand-engraved edition.
 
 @item
 December 2005
@@ -880,7 +880,7 @@ Delen van KENNIS zonder WINSTBEJAG} (Non-profit sharing of
 knowlegde) in its `DS2 bijlage'.  LilyPond is used as an example
 and the article is interspersed with quotes from an `email
 interview' with Jan Nieuwenhuizen. This marks LilyPond's first
-appearance in mainstream printed press. 
+appearance in mainstream printed press.
 
 @item
 June 2005

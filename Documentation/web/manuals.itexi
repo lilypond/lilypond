@@ -173,15 +173,15 @@ read this manual in the same format as this one.
 
 @item @uref{../learning/index.html, Learning (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../learning-big-page.html, Learning (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 1 Mb)}
+@*@ @ @emph{(large single download, 1.5 Mb)}
 
 @item @uref{../learning.pdf, learning.pdf}:
 download as a PDF file.
-@emph{(large single download, 3 Mb)}
+@*@ @ @emph{(large single download, 3 Mb)}
 
 @c TODO: should make links to info?
 @c @item @uref{../TODO, learning.info}:
@@ -222,15 +222,15 @@ read this manual in the same format as this one.
 
 @item @uref{../music-glossary/index.html, Glossary (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../music-glossary-big-page.html, Glossay (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 700 kb)}
+@*@ @ @emph{(large single download, 1 mb)}
 
 @item @uref{../music-glossary.pdf, glossary.pdf}:
 download as a PDF file.
-@emph{(large single download, 1.5 Mb)}
+@*@ @ @emph{(large single download, 1.5 Mb)}
 
 @c @item @uref{../TODO, glossary.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -272,15 +272,15 @@ read this manual in the same format as this one.
 
 @item @uref{../essay/index.html, Essay (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../essay-big-page.html, Essay (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around ?? Mb)}
+@*@ @ @emph{(large single download, 2 Mb)}
 
 @item @uref{../essay.pdf, essay.pdf}:
 download as a PDF file.
-@emph{(large single download, ?? Mb)}
+@*@ @ @emph{(large single download, 2.5 Mb)}
 
 @c @item @uref{../TODO, essay.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -322,15 +322,15 @@ read this manual in the same format as this one.
 
 @item @uref{../notation/index.html, Notation (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../notation-big-page.html, Notation (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 3 Mb)}
+@*@ @ @emph{(large single download, 7 Mb)}
 
 @item @uref{../notation.pdf, notation.pdf}:
 download as a PDF file.
-@emph{(large single download, 18 Mb)}
+@*@ @ @emph{(large single download, 18 Mb)}
 
 @c @item @uref{../TODO, notation.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -369,15 +369,15 @@ read this manual in the same format as this one.
 
 @item @uref{../usage/index.html, Usage (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../usage-big-page.html, Usage (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 300 kb)}
+@*@ @ @emph{(large single download, 300 kb)}
 
 @item @uref{../usage.pdf, usage.pdf}:
 download as a PDF file.
-@emph{(large single download, 400 kb)}
+@*@ @ @emph{(large single download, 400 kb)}
 
 @c @item @uref{../TODO, lilypond-usage.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -424,15 +424,15 @@ read this manual in the same format as this one.
 
 @item @uref{../snippets/index.html, Snippets (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../snippets-big-page.html, Snippets (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 1 Mb)}
+@*@ @ @emph{(large single download, 2.5 Mb)}
 
 @item @uref{../snippets.pdf, snippets.pdf}:
 download as a PDF file.
-@emph{(large single download, 8 Mb)}
+@*@ @ @emph{(large single download, 8 Mb)}
 
 @c @item @uref{../TODO, snippets.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -471,15 +471,15 @@ read this manual in the same format as this one.
 
 @item @uref{../web/index.html, Web (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../web-big-page.html, Web (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 1 Mb)}
+@*@ @ @emph{(large single download, 1 Mb)}
 
 @item @uref{../web.pdf, web.pdf}:
 download as a PDF file.
-@emph{(large single download, 2 Mb)}
+@*@ @ @emph{(large single download, 2 Mb)}
 
 @c @item @uref{../TODO, web.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -559,15 +559,15 @@ read this manual in the same format as this one.
 
 @item @uref{../changes/index.html, Changes (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../changes-big-page.html, Changes (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 6 kb)}
+@*@ @ @emph{(large single download, 6 kb)}
 
 @item @uref{../changes.pdf, changes.pdf}:
 download as a PDF file.
-@emph{(small single download, 0.5 ?? Mb)}
+@*@ @ @emph{(small single download, 200 kb)}
 
 @c @item @uref{../TODO, changes.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -604,15 +604,15 @@ read this manual in the same format as this one.
 
 @item @uref{../extending/index.html, Extend (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../extending-big-page.html, Extend (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 200 kb)}
+@*@ @ @emph{(large single download, 200 kb)}
 
 @item @uref{../extending.pdf, extending.pdf}:
 download as a PDF file.
-@emph{(large single download, 400 kb)}
+@*@ @ @emph{(large single download, 400 kb)}
 
 @c @item @uref{../TODO, extending.info}:
 @c GNU info format for documentation.  TODO, link broken.
@@ -661,15 +661,15 @@ read this manual in the same format as this one.
 
 @item @uref{../internals/index.html, Internals (split HTML)}:
 the manual is split between many HTML pages.
-@emph{(small download for each page)}
+@*@ @ @emph{(small download for each page)}
 
 @item @uref{../internals-big-page.html, Internals (big HTML)}:
 read this manual as one huge HTML page.
-@emph{(large single download, around 2 Mb)}
+@*@ @ @emph{(large single download, 2.5 Mb)}
 
 @item @uref{../internals.pdf, internals.pdf}:
 download as a PDF file.
-@emph{(large single download, 2.8 Mb)}
+@*@ @ @emph{(large single download, 2.8 Mb)}
 
 @c @item @uref{../TODO, internals.info}:
 @c GNU info format for documentation.  TODO, link broken.
