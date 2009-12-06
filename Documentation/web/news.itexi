@@ -50,30 +50,6 @@ now!
 @newsEnd
 
 
-
-@newsItem
-@subsubheading Hungarian translation!  @emph{May 22, 2009}
-
-Elkészült a lilypond.org nagy részének magyar fordítása a LilyPond
-honosítási projekt első lépéseként. A projekt célja a LilyPond
-szabad kottaszedő szoftver minél széleskörűbben elérhetővé tétele
-a magyar felhasználók számára a teljes weboldal és dokumentáció
-lefordítása révén. A teljes dokumentáció lefordításához
-közreműködőket keresünk. Ha részt vennél a honosításban, küldj egy
-e-mailt a harmathdenes AT gmail.com címre!
-@newsEnd
-
-
-@newsItem
-@subsubheading LilyPond Report #15.  @emph{May 18, 2009}
-
-The @emph{LilyPond Report} is a short, informal opinion column
-about the LilyPond project: its team, its world, its community.
-Read it @uref{http://news.lilynet.net/The-LilyPond-Report-15,
-here}!
-@newsEnd
-
-
 @newsItem
 @subsubheading LilyPond 2.13.3.  @emph{July 2, 2009}
 
