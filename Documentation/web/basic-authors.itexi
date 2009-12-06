@@ -37,6 +37,15 @@
 @item Mats Bengtsson:
 Support guru
 
+@item Trevor Daniels:
+Documentation Editor
+
+@item John Mandereau:
+Translation Meister
+
+@item Joe Neeman:
+Core Developer
+
 @item Han-Wen Nienhuys:
 Main author
 
@@ -46,6 +55,9 @@ Main author
 @item Graham Percival:
 @uref{http://percival-music.ca},
 Project Manager
+
+@item Valentin Villenave:
+LSR Editor and Bug Meister
 
 @end itemize
 @end macro 
@@ -75,7 +87,23 @@ Bug meister
 @macro coreCurrent
 
 @itemize
-@item foo
+@item Frédéric Bron:
+
+@item Hajo Dezelski:
+
+@item Andrew Hawryluk:
+
+@item Ian Hulin:
+
+@item Marek Klein:
+
+@item Kieren MacMillan:
+
+@item Carl Sorensen:
+@email{c_sorensen@@byu.edu},
+Fret diagrams
+
+@item Andrew Wilson:
 
 @end itemize
 @end macro
@@ -95,7 +123,11 @@ Bug meister
 @macro docCurrent
 
 @itemize
-@item foo
+@item Jonathan Kulp:
+Clean-ups in documentation
+
+@item Ralph Palmer:
+Documentation indexing
 
 @end itemize
 @end macro
@@ -114,7 +146,18 @@ Bug meister
 @macro translationsCurrent
 
 @itemize
-@item foo
+@item Jean-Charles Malahieude:
+@email{lolyfan@@wanadoo.fr},
+French translation of messages, website and documentation
+
+@item Till Rettig:
+German translation
+
+@item Yoshiki Sawada:
+Japanese translation
+
+@item Francisco Vila:
+French translation
 
 @end itemize
 @end macro
@@ -125,30 +168,50 @@ Bug meister
 @macro corePrevious
 
 @itemize
+
 @item Erlend Aasland:
 Color support, tablature improvements, trivial @code{\\mark}
 stuff, al-niente hairpins
+
+@item Maximilian Albert:
+
+@item Guido Amoruso:
+
+@item Kristof Bastiaensen:
 
 @item Pal Benko:
 @email{benkop@@freestart.hu},
 Ancient notation
 
-
 @item Juliusz Chroboczek:
 @email{jch@@pps.jussieu.fr},
 Type42 code
 
+@item Angelo Contardi:
+
 @item David Feuer:
 @email{david.feuer@@gmail.com},
-PS output code refactoring.
+PS output code refactoring
+
+@item Bertalan Fodor:
+
+@item Mathieu Giraud:
+
+@item Yuval Harel:
+
+@item Christian Hitz:
 
 @item Bernard Hurley:
 @email{bernard@@fong-hurley.org.uk},
 X11 color
 
+@item Yoshinobu Ishizaki:
+
 @item Chris Jackson:
 @email{chris@@fluffhouse.org.uk},
 Piano pedals, directed arpeggios
+
+@item David Jedlinsky:
 
 @item Heikki Junes:
 @email{heikki.junes@@hut.fi},
@@ -171,9 +234,17 @@ Tablature support
 @email{wl@@gnu.org},
 @TeX{} glue code
 
+@item Jonatan Liljedahl:
+
+@item Peter Lutek:
+
+@item Hendrik Maryns:
+
 @item Joe Neeman:
 @email{joeneeman@@gmail.com}, 
 Constrained line breaking
+
+@item Matthias Neeracher:
 
 @item Han-Wen Nienhuys:
 @email{hanwen@@xs4all.nl}, 
@@ -185,15 +256,50 @@ Main author
 @uref{http://www.xs4all.nl/~jantien/},
 Main author
 
+@item Tatsuya Ono:
+
+@item Lisa Opus Goldstein:
+
+@item Guy Gascoigne-Piggford:
+
+@item Niel Puttock:
+
 @item Jürgen Reuter:
 @email{reuter_j@@web.de},
 @uref{http://www.juergen-reuter.de},
 Ancient notation support (Mensural and Gregorian chant)
 ambitus, clusters
 
+@item Stan Sanderson:
+Regression Checker
+
+@item Erik Sandberg:
+
+@item Edward Sanford Sutton:
+
 @item Nicolas Sceaux:
 @email{nicolas.sceaux@@free.fr},
 Scheme macros, @code{\\markup} syntax
+
+@item Andreas Scherer:
+
+@item Johannes Schindelin:
+
+@item Kim Shrier:
+
+@item Vicente Solsona Della:
+
+@item David Svoboda:
+
+@item Sebastiano Vigna:
+
+@item Arno Waschk:
+
+@item Michael Welsh Duggan:
+
+@item John Williams:
+
+@item Milan Zamazal:
 
 @item Carl Sorensen:
 @email{c_sorensen@@byu.edu},    
@@ -254,14 +360,49 @@ feta-alphabet
 
 @itemize
 
+@item Erlend Aasland:
+
+@item Trevor Bača:
+Inspirational headwords
+
+@item Alard de Boer:
+Formatting
+
 @item Mats Bengtsson:
 @email{mats.bengtsson@@s3.kth.se},
 @uref{http://www.s3.kth.se/~mabe/},
 Example files, documentation
 
+@item Jay Hamilton:
+NR work
+
+@item Andrew Hawryluk:
+NR work
+
+@item Joseph Harfouch:
+NR work
+
+@item Cameron Horsburgh:
+
+@item Geoff Horton:
+
 @item Heikki Junes:
 @email{heikki.junes@@hut.fi},
-Clean-ups in documentation and example files.
+Clean-ups in documentation and example files
+
+@item Reinhold Kainhofer:
+Technical aid
+
+@item Kurt Kroon:
+Glossary, updates and NR work
+
+@item Jonathan Kulp:
+Clean-ups in documentation
+
+@item Dave Luttinen:
+
+@item Patrick McCarty:
+NR work
 
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
@@ -281,6 +422,12 @@ Main author
 @uref{http://www.xs4all.nl/~jantien/},
 Main author
 
+@item Eyolf Østrem:
+NR work
+
+@item Ralph Palmer:
+Documentation indexing
+
 @item Graham Percival:
 @email{gpermus@@gmail.com},
 @uref{http://percival-music.ca},
@@ -291,6 +438,23 @@ Documentation editor
 @uref{http://pinard.progiciels-bpi.ca/},
 Parts of Documentation/user/glossary*, 
 started internationalization stuff
+
+@item Niel Puttock:
+Snippet editor and technical aid
+
+@item Eduardo Vieira:
+
+@item Francisco Vila:
+NR work
+
+@item Michael Rasmussen:
+Formatting
+
+@item Till Rettig:
+NR work
+
+@item Carl Sorensen:
+NR work
 
 @item Rune Zedeler:
 Schumann example
@@ -331,12 +495,21 @@ What-beat emacs module
 
 @itemize
 
+@item Frédéric Chiasson:
+French documentation translation
+
+@item Abel Cheung:
+
 @item David González:
 Spanish glossary translation
 
 @item Nicolas Grandclaude:
 @email{ngclaude@@123mail.org},
 French documentation translation
+
+@item Damien Heurtebise:
+
+@item Matthieu Jacquot:
 
 @item Bjoern Jacke:
 @email{bjoern.jacke@@gmx.de},
@@ -348,7 +521,9 @@ Glossary translation
 
 @item Heikki Junes:
 @email{heikki.junes@@hut.fi},
-Finnish translations
+Finnish translation
+
+@item Nicolas Klutchnikoff:
 
 @item Tineke de Munnik:
 @email{tdm@@dds.nl},
@@ -362,17 +537,38 @@ French translation of messages, website and documentation
 @email{john.mandereau@@free.fr},
 French translation of messages, website and documentation
 
+@item Tineke de Munnik:
+@email{tdm@@dds.nl},
+Dutch website translation
+
+@item Steven Michael Murphy:
+
 @item Gauvain Pocentek:
 @email{gauvainpocentek@@yahoo.fr},
 French website translation
+
+@item Till Rettig:
+German translation
 
 @item Ludovic Sardain:
 @email{ludovicsardain@@gmail.com},
 French documentation translation
 
+@item Yoshiki Sawada:
+Japanese translation
+
+@item Clytie Siddall:
+
 @item August S. Sigov:
 @email{august@@infran.ru},
 Russian translation
+
+@item Roland Stigge:
+
+@item Francisco Vila:
+French translation
+
+@item Olcay Yıldırım:
 
 @end itemize
 @end macro
