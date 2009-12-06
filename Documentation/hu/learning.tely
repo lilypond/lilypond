@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
 @ignore
     Translation of GIT committish: 2d8b567afe459b0ab6503731e0c2568915a5c4ef
 
@@ -50,7 +50,7 @@ a szerzők.
 Függelék
 
 * Sablonok:: Előre elkészített sablonok.
-* GNU Szabad Dokumentációs Licenc:: E dokumentum licence.
+* GNU Free Documentation License:: E dokumentum licence.
 * LilyPond tárgymutató::
 @end menu
 
