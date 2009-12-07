@@ -21,7 +21,7 @@
 %%  Once loaded, this file will open a guile debug prompt.  Type
 %%  help
 %%  at the debug prompt to get a list of possible commands.
-%%  For more information, see the Contributors' Guide.
+%%  For more information, see the Contributor's Guide.
 
 
 \version "2.13.4"

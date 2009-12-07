@@ -201,7 +201,7 @@ so on); list the subdirectory of each manual to determine the filename
 of the specific chapter you wish to modify.
 
 Developer manuals live in @file{Documentation/} too.  Currently there is
-only one: the Contributors' Guide @file{contrib-guide.texi} you are
+only one: the Contributor's Guide @file{contrib-guide.texi} you are
 reading.
 
 Snippet files are part of documentation, and the Snippet List (SL) lives

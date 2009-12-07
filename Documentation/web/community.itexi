@@ -643,7 +643,7 @@ Internals:
 
 
 @divClass{column-right-top}
-@subheading Contributors' Guide
+@subheading Contributor's Guide
 
 LilyPond development is a fairly complicated matter.  LilyPond is
 a large, (mostly) stable project.  In order to help new
@@ -697,12 +697,12 @@ Website and mailist: @uref{http://frogs.lilynet.net}
 @itemize
 
 @item @uref{../../input/regression/collated-files.html, Regression tests}:
-This releases' tests.  (also in
+This release's tests.  (also in
 @uref{../input/regression/collated-files.pdf, pdf})
 
 @item @uref{../../input/regression/musicxml/collated-files.html,
 MusicXML Regression tests}:
-This releases' MusicXML tests.  (also in
+This release's MusicXML tests.  (also in
 @uref{../input/regression/musicxml/collated-files.pdf, pdf})
 
 @item @uref{http://lilypond.org/test, Archive of regression tests}:
