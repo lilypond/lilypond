@@ -1936,6 +1936,7 @@
 				   (padding . 0.25)
 				   (attach-dir . ,LEFT)
 				   ))
+			  (left-broken . ((end-on-note . #t)))
 			  (right . ((Y . 0)
 				    (padding . 0.25)
 				    ))
