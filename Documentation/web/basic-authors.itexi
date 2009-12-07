@@ -38,29 +38,41 @@
 Support guru
 
 @item Trevor Daniels:
-Documentation Editor
+Assistant documentation editor
 
 @item John Mandereau:
-Translation Meister
+@email{john.mandereau@@free.fr},
+Translation meister
 
 @item Joe Neeman:
-Core Developer
+Core developer
 
 @item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl},
+@uref{http://www.xs4all.nl/~hanwen/},
 Main author
 
 @item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org},
+@uref{http://www.xs4all.nl/~jantien/},
 Main author
 
 @item Graham Percival:
 @uref{http://percival-music.ca},
-Project Manager
+Project manager, Documentation Editor
+
+@item Nicolas Sceaux:
+Core developer
+
+@item Carl Sorensen:
+@email{c_sorensen@@byu.edu},
+Core developer, Frog meister
 
 @item Valentin Villenave:
-LSR Editor and Bug Meister
+LSR editor and Bug meister
 
 @end itemize
-@end macro 
+@end macro
 
 
 
@@ -72,8 +84,7 @@ Build meister
 
 @item Graham Percival:
 @uref{http://percival-music.ca},
-Documentation editor, Bug meister, 
-Grand Documentation Project leader
+Bug meister, Grand Documentation Project leader
 
 @item Erik Sandberg:
 Bug meister
@@ -87,23 +98,19 @@ Bug meister
 @macro coreCurrent
 
 @itemize
-@item Frédéric Bron:
+@item Frédéric Bron: Frog
 
-@item Hajo Dezelski:
+@item Hajo Dezelski: Frog
 
-@item Andrew Hawryluk:
+@item Andrew Hawryluk: Frog
 
-@item Ian Hulin:
+@item Ian Hulin: Frog
 
-@item Marek Klein:
+@item Marek Klein: Frog
 
 @item Kieren MacMillan:
 
-@item Carl Sorensen:
-@email{c_sorensen@@byu.edu},
-Fret diagrams
-
-@item Andrew Wilson:
+@item Andrew Wilson: Frog
 
 @end itemize
 @end macro
@@ -112,10 +119,11 @@ Fret diagrams
 
 @macro fontCurrent
 
-@itemize
-@item foo
+@c nobody listed yet
+@c @itemize
+@c @item
 
-@end itemize
+@c @end itemize
 @end macro
 
 
@@ -129,6 +137,9 @@ Clean-ups in documentation
 @item Ralph Palmer:
 Documentation indexing
 
+@item James Lowe:
+Minor editing
+
 @end itemize
 @end macro
 
@@ -136,7 +147,8 @@ Documentation indexing
 @macro supportCurrent
 
 @itemize
-@item foo
+@item James E. Bailey:
+Bug meister
 
 @end itemize
 @end macro
@@ -241,18 +253,18 @@ Tablature support
 @item Hendrik Maryns:
 
 @item Joe Neeman:
-@email{joeneeman@@gmail.com}, 
+@email{joeneeman@@gmail.com},
 Constrained line breaking
 
 @item Matthias Neeracher:
 
 @item Han-Wen Nienhuys:
-@email{hanwen@@xs4all.nl}, 
+@email{hanwen@@xs4all.nl},
 @uref{http://www.xs4all.nl/~hanwen/},
 Main author
 
 @item Jan Nieuwenhuizen:
-@email{janneke@@gnu.org}, 
+@email{janneke@@gnu.org},
 @uref{http://www.xs4all.nl/~jantien/},
 Main author
 
@@ -302,11 +314,11 @@ Scheme macros, @code{\\markup} syntax
 @item Milan Zamazal:
 
 @item Carl Sorensen:
-@email{c_sorensen@@byu.edu},    
-Fret diagrams  
+@email{c_sorensen@@byu.edu},
+Fret diagrams
 
 @item Rune Zedeler:
-Auto-accidental code, zigzag glissandi, rest bugfixes, 
+Auto-accidental code, zigzag glissandi, rest bugfixes,
 minimum fret, @code{subdivideBeams}.
 
 @end itemize
@@ -325,15 +337,15 @@ Accordion symbols
 
 @item Chris Jackson:
 @email{chris@@fluffhouse.org.uk},
-Arpeggio arrow 
+Arpeggio arrow
 
 @item Han-Wen Nienhuys:
-@email{hanwen@@xs4all.nl}, 
+@email{hanwen@@xs4all.nl},
 @uref{http://www.xs4all.nl/~hanwen/},
 Main author
 
 @item Jan Nieuwenhuizen:
-@email{janneke@@gnu.org}, 
+@email{janneke@@gnu.org},
 @uref{http://www.xs4all.nl/~jantien/},
 Main author
 
@@ -383,8 +395,10 @@ NR work
 NR work
 
 @item Cameron Horsburgh:
+Formatting and editing
 
 @item Geoff Horton:
+Formatting and editing
 
 @item Heikki Junes:
 @email{heikki.junes@@hut.fi},
@@ -400,6 +414,7 @@ Glossary, updates and NR work
 Clean-ups in documentation
 
 @item Dave Luttinen:
+Formatting and editing
 
 @item Patrick McCarty:
 NR work
@@ -413,12 +428,12 @@ Internationalization
 Glossary
 
 @item Han-Wen Nienhuys:
-@email{hanwen@@xs4all.nl}, 
+@email{hanwen@@xs4all.nl},
 @uref{http://www.xs4all.nl/~hanwen/},
 Main author
 
 @item Jan Nieuwenhuizen:
-@email{janneke@@gnu.org}, 
+@email{janneke@@gnu.org},
 @uref{http://www.xs4all.nl/~jantien/},
 Main author
 
@@ -428,21 +443,17 @@ NR work
 @item Ralph Palmer:
 Documentation indexing
 
-@item Graham Percival:
-@email{gpermus@@gmail.com},
-@uref{http://percival-music.ca},
-Documentation editor
-
 @item François Pinard:
 @email{pinard@@iro.umontreal.ca},
 @uref{http://pinard.progiciels-bpi.ca/},
-Parts of Documentation/user/glossary*, 
+Parts of Documentation/user/glossary*,
 started internationalization stuff
 
 @item Niel Puttock:
 Snippet editor and technical aid
 
 @item Eduardo Vieira:
+NR work
 
 @item Francisco Vila:
 NR work
@@ -516,7 +527,7 @@ French documentation translation
 German glossary translation
 
 @item Neil Jerram:
-@email{nj104@@cus.cam.ac.uk}, 
+@email{nj104@@cus.cam.ac.uk},
 Glossary translation
 
 @item Heikki Junes:
