@@ -121,6 +121,7 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 
       && !info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
       && !info.grob ()->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))
+      && !info.grob ()->internal_has_interface (ly_symbol2scm ("volta-interface"))
       && (!Align_interface::has_interface (info.grob ())))
     {
       axis_groups_.push_back (info.grob ());
@@ -164,8 +165,8 @@ ADD_TRANSLATOR (Instrument_name_engraver,
 		
 		/* read */
 		"currentCommandColumn "
-		"shortInstrumentName "
 		"instrumentName "
+		"shortInstrumentName "
 		"shortVocalName "
 		"vocalName ",
 

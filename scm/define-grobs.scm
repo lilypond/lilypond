@@ -2243,7 +2243,7 @@
 	(font-encoding . fetaNumber)
 	(font-size . -4)
 	(stencil . ,ly:volta-bracket-interface::print)
-	(thickness . 1.6)  ;;  line-thickness
+	(thickness . 1.6) ;; line-thickness
 	(word-space . 0.6)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
@@ -2251,14 +2251,15 @@
 				line-interface
 				side-position-interface
 				text-interface
-				volta-bracket-interface))))))
+				volta-bracket-interface
+				volta-interface))))))
 
     (VoltaBracketSpanner
      . (
 	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(axes . (,Y))
 	(direction . ,UP)
-	(no-alignment . ,#t)
+	(no-alignment . #t)
 	(outside-staff-priority . 600)
 	(padding . 1)
 	(side-axis . ,Y)
@@ -2267,7 +2268,8 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
-				side-position-interface))))))
+				side-position-interface
+				volta-interface))))))
 
 ))
 
@@ -2337,7 +2339,7 @@
    ly:text-interface::print
    ly:script-interface::print))
 
-;; ly:grob::stencil-extent is safe iff the print callback is safe too
+;; ly:grob::stencil-extent is safe if the print callback is safe too
 (define (pure-stencil-height grob start stop)
   (let ((sten (ly:grob-property-data grob 'stencil)))
     (if (or
