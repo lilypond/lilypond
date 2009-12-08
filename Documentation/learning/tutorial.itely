@@ -128,23 +128,58 @@ first.  After this, LilyPond will be much faster!}
 @node MacOS X
 @subsection MacOS X
 
-@warning{These instructions assume that you are using the built-in
-LilyPad editor.  If you are using any of the programs described in
+@warning{These instructions assume that you are using the Lilypond 
+application.  If you are using any of the programs described in
 @rweb{Alternate input}, please consult the documentation for
-those programs if you have any problems compiling a file.}
+those programs if you have any problems.}
 
+Double click the @command{LilyPond.app}, an example file will open.
 
-If you double click @command{LilyPond.app}, it will open with an
-example file.  Save it, for example, to @file{test.ly} on your
-Desktop, and then process it with the menu command
-@w{@code{Compile > Typeset File}}.  The resulting PDF file will be
-displayed on your screen.
+@sourceimage{Learning_Macos_welcome,,,}
 
-For future use of LilyPond, you should begin by selecting @q{New}
-or @q{Open}.  You must save your file before typesetting it.  If
-any errors occur in processing, please see the log window.
+From the menus along the top left of your screen, select
+@w{@code{File > Save}}.
 
-@c FIXME: add screenshots
+@sourceimage{Learning_Macos_Save_menu,,,}
+
+Choose a name for your file, for example @file{test.ly}.
+
+@sourceimage{Learning_Macos_Save_file_with_name,,,}
+
+From the same menus, select
+@w{@code{Compile > Tyepset}}.
+
+@sourceimage{Learning_Macos_Typeset_menu,,,}
+
+A new window will open showing a progress log of the compilation 
+of the file you have just saved.
+
+@sourceimage{Learning_Macos_Compiling_log,,,}
+
+Once the compilation has finished, a PDF file will be created with
+the same name as the original file and will be automatically
+opened in the default PDF viewer and displayed on your screen.
+
+@sourceimage{Learning_Macos_pdf_output,,,}
+
+To create new files for Lilypond, begin by selecting
+@w{@code{File > New}}
+
+@sourceimage{Learning_Macos_New_menu,,,}
+
+or @w{@code{File > Open}} to open and edit existing files you have 
+saved previously.
+
+@sourceimage{Learning_Macos_Open_menu,,,}
+
+You must save any new edits you make to your file before you 
+@w{@code{Compile > Tyepset}} and if the PDF file is not displayed
+check the window with the progress log for any errors.
+
+If you are not using the defualt Preview PDF viewer that comes 
+with the Mac Operating system and you have the PDF file generated 
+from a previous compilation open, then any further compilations 
+may fail to generate an update PDF until you close the original.
 
 @node Windows
 @subsection Windows
