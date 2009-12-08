@@ -44,6 +44,9 @@ Assistant documentation editor
 @email{john.mandereau@@free.fr},
 Translation meister
 
+@item Patrick McCarty:
+Core developer
+
 @item Joe Neeman:
 Core developer
 
@@ -108,7 +111,7 @@ Bug meister
 
 @item Marek Klein: Frog
 
-@item Kieren MacMillan:
+@item Kieren MacMillan: Frog
 
 @item Andrew Wilson: Frog
 
@@ -134,11 +137,14 @@ Bug meister
 @item Jonathan Kulp:
 Clean-ups in documentation
 
+@item James Lowe:
+Minor editing
+
 @item Ralph Palmer:
 Documentation indexing
 
-@item James Lowe:
-Minor editing
+@item Patrick Schmidt:
+CSS improvements
 
 @end itemize
 @end macro
