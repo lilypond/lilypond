@@ -53,12 +53,12 @@ context(s).
 
 The final stage of LilyPond processing is @emph{translation}.  During
 translation, music events are prepared for graphical or midi output.  The
-translation step is accomplished by translators or engravers (the distinction
-is unclear).
+translation step is accomplished by the polymorphic base class Translator
+through its two derived classes: Engraver (for graphical output) and
+Performer (for midi output).
 
-Translators are defined in C++ files named *-engraver.cc.  In *-engraver.cc, a
-C++ class of Engraver type is created.  The Engraver is also declared as a
-translator.  Much of the work of translating is handled by Scheme functions,
+Translators are defined in C++ files named *-engraver.cc and *-performer.cc.
+Much of the work of translating is handled by Scheme functions,
 which is one of the keys to LilyPond's exceptional flexibility.
 
 @sourceimage{architecture-diagram,,,png}
@@ -85,6 +85,12 @@ documented in the
 @uref{http://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
   Reference Manual}.
 
+@subsection Flex
+
+The LilyPond lexer is implemented in Flex, an implementation of the Unix lex
+lexical analyser generator.  Resources for Flex can be found
+@uref{http://flex.sourceforge.net/, here}.
+
 @subsection GNU Bison
 
 The LilyPond parser is implemented in Bison, a GNU parser generator.  The
@@ -101,7 +107,8 @@ documentation and the website.  GNU Make documentation is available at
 
 @subsection GUILE or Scheme
 
-GUILE is the dialect of Scheme that is used as LilyPond's extension language.  Many extensions to LilyPond are written entirely in GUILE.  The
+GUILE is the dialect of Scheme that is used as LilyPond's extension language.
+Many extensions to LilyPond are written entirely in GUILE.  The
 @uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
 GUILE Reference Manual} is available online.
 
@@ -762,7 +769,7 @@ in the .ly file:
 
 @example
 #(module-define! (resolve-module '(guile-user))
-    'lilypond-module (current-module))
+                 'lilypond-module (current-module))
 @end example
 
 Second, place a Scheme function in the .ly file that gives an interactive Guile
@@ -911,8 +918,8 @@ of the snippet should be changed to:
 
 @example
 \markup @{
-  "This snippet is deprecated as of version X.Y.Z and
-  will be removed from the documentation."
+  This snippet is deprecated as of version X.Y.Z and
+  will be removed from the documentation.
 @}
 @end example
 
@@ -923,7 +930,7 @@ written.
 Update the snippet files by running:
 
 @example
-scripts\auxiliar\makelsr.py
+scripts/auxiliar/makelsr.py
 @end example
 
 Where the convert-ly rule is not able to automatically update regression
@@ -944,7 +951,7 @@ An entry should be added to Documentation/changes.tely to describe
 the feature changes to be implemented.  This is especially important
 for changes that change input file syntax.
 
-Hints for changes.tely entries are given at the top changes.tely.
+Hints for changes.tely entries are given at the top of the file.
 
 New entries in changes.tely go at the top of the file.
 
@@ -976,8 +983,9 @@ the regression tests all succeed.  This process is described in
 @subsection Post patch for comments
 
 For any change other than a minor change, a patch set should be
-posted on Rietveld for comment.  This requires the use of an
-external package, git-cl, and an email account on Google.
+posted on @uref{http://codereview.appspot.com/, Rietveld} for comment.
+This requires the use of an external package, git-cl, and an email
+account on Google.
 
 git-cl is installed by:
 
@@ -991,7 +999,7 @@ PATH directories (like usr/bin).  git-cl is then
 configured by entering the command
 
 @example
-git-cl config
+git cl config
 @end example
 
 @noindent
@@ -1008,7 +1016,7 @@ containing the changes to the head of origin/master.  Finally,
 check out branch with the changes and enter the command:
 
 @example
-git-cl upload <reference SHA1 ID>
+git cl upload <reference SHA1 ID>
 @end example
 
 @noindent
@@ -1017,7 +1025,7 @@ as a reference source for the patch.  Generally, this will be the
 SHA1 ID of origin/master, and in that case the command
 
 @example
-git-cl upload origin/master
+git cl upload origin/master
 @end example
 
 @noindent
@@ -1072,51 +1080,131 @@ performers.
 FIXME -- This is a placeholder for a tutorial on how engravers work.
 
 Engravers are C++ classes that catch music events and
-create the appropriate grobs for display on the page.  Each different
-type of grob has its own engraver.
+create the appropriate grobs for display on the page.  Though the
+majority of engravers are responsible for the creation of a single grob,
+in some cases (e.g. @code{New_fingering_engraver}), several different grobs
+may be created.
 
-A typical engraver has protected functions including some or all
-of the following:
+@subsection Useful methods for information processing
+
+An engraver inherits the following public methods from the Translator
+base class, which can be used to process listened events and acknowledged
+grobs:
 
 @itemize
-@item @code{start_translation_timestep ()}
-@item @code{process_music ()}
-@item @code{stop_translation_timestep ()}
-@item @code{derived_mark ()}
-@item @code{try_music ()}
-@item @code{finalize ()}
+@item @code{virtual void initialize ()}
+@item @code{void start_translation_timestep ()}
+@item @code{void process_music ()}
+@item @code{void process_acknowledged ()}
+@item @code{void stop_translation_timestep ()}
+@item @code{virtual void finalize ()}
 @end itemize
 
-There are also protected functions that are specific to particular
-engraver, as needed by the engraving process.
+These methods are listed in order of translation time, with
+@code{initialize ()} and @code{finalize ()} bookending the whole
+process.  @code{initialize ()} can be used for one-time initialization
+of context properties before translation starts, whereas
+@code{finalize ()} is often used to tie up loose ends at the end of
+translation: for example, an unterminated spanner might be completed
+automatically or reported with a warning message.
+
+@subsection Translation process
+
+At each timestep in the music, translation proceeds by calling the
+following methods in turn:
+
+@code{start_translation_timestep ()} is called before any user information enters
+the translators, i.e., no property operations (\set, \override, etc.) or events
+have been processed yet.
+
+@code{process_music ()} and @code{process_acknowledged ()} are called after events
+have been heard, or grobs have been acknowledged.  The latter tends to be used
+exclusively with engravers which only acknowledge grobs, whereas the former is
+the default method for main processing within engravers.
+
+@code{stop_translation_timestep ()} is called after all user information has been
+processed prior to beginning the translation for the next timestep.
+
+@subsection Preventing garbage collection for SCM member variables
+
+In certain cases, an engraver might need to ensure private Scheme variables
+(with type SCM) do not get swept away by Guile's garbage collector: for example,
+a cache of the previous key signature which must persist persist between timesteps.
+The method @code{virtual derived_mark () const} can be used in such cases to mark
+such objects as follows:
+
+@example
+Engraver_name::derived_mark ()
+@{
+  scm_gc_mark (private_scm_member_)
+@}
+@end example
+
+
+@subsection Listening to music events
 
 External interfaces to to the engraver are implemented by protected
 macros including one or more of the following:
 
 @itemize
-@item @code{DECLARE_TRANSLATOR_LISTENER (event)}
-@item @code{IMPLEMENT_TRANSLATOR_LISTENER (Engraver_name, event)}
+@item @code{DECLARE_TRANSLATOR_LISTENER (event_name)}
+@item @code{IMPLEMENT_TRANSLATOR_LISTENER (Engraver_name, event_name)}
 @end itemize
 
 @noindent
-where @var{event} is the type of event required to provide the input
-the engraver needs and @code{Engraver_name} is the name of the
-engraver.  These macros set up the mechanism and declare the
-methods for passing the information in events of this kind to the
+where @var{event_name} is the type of event required to provide the
+input the engraver needs and @var{Engraver_name} is the name of the
 engraver.
+
+Following declaration of a listener, the method is implemented as follows:
+
+@example
+IMPLEMENT_TRANSLATOR_LISTENER (Engraver_name, event_name)
+void
+Engraver_name::listen_event_name (Stream event *event)
+@{
+  ...body of listener method...
+@}
+@end example
+
+@subsection Acknowledging grobs
 
 Some engravers also need information from grobs as they are created
 and as they terminate.  The mechanism and methods to obtain this
 information are set up by the macros:
 
 @itemize
-@item @code{DECLARE_ACKNOWLEDGER (grob)}
-@item @code{DECLARE_END_ACKNOWLEDGER (grob)}
+@item @code{DECLARE_ACKNOWLEDGER (grob_interface)}
+@item @code{DECLARE_END_ACKNOWLEDGER (grob_interface)}
 @end itemize
 
-where @var{grob} is the type of grob of interest.
+where @var{grob_interface} is an interface supported by the
+grob(s) which should be acknowledged.  For example, the following
+code would declare acknowledgers for a @code{NoteHead} grob (via the
+@code{note-head-interface}) and any grobs which support the
+@code{side-position-interface}:
 
-An engraver will also generally have a public macro
+@example
+@code{DECLARE_ACKNOWLEDGER (note_head)}
+@code{DECLARE_ACKNOWLEDGER (side_position)}
+@end example
+
+The @code{DECLARE_END_ACKNOWLEDGER ()} macro sets up a spanner-specific
+acknowledger which will be called whenever a spanner ends.
+
+Following declaration of an acknowledger, the method is coded as follows:
+
+@example
+void
+Engraver_name::acknowledge_interface_name (Grob_info info)
+@{
+  ...body of acknowledger method...
+@}
+@end example
+
+@subsection Engraver declaration/documentation
+
+An engraver must have a public macro
 
 @itemize
 @item @code{TRANSLATOR_DECLARATIONS (Engraver_name)}
@@ -1131,16 +1219,16 @@ macros are generally called to document the engraver in the
 Internals Reference:
 
 @itemize
-@item @code{ADD_ACKNOWLEDGER (Engraver_name, grob)}
+@item @code{ADD_ACKNOWLEDGER (Engraver_name, grob_interface)}
 @item @code{ADD_TRANSLATOR (Engraver_name, Engraver_doc,
     Engraver_creates, Engraver_reads, Engraver_writes)}
 @end itemize
 
 @noindent
-where @code{Engraver_name} is the name of the engraver, @code{grob}
-is the name of those grobs that will be acknowledged,
+where @code{Engraver_name} is the name of the engraver, @code{grob_interface}
+is the name of the interface that will be acknowledged,
 @code{Engraver_doc} is a docstring for the engraver,
-@code{Engraver_creates} is the grob created by the engraver,
+@code{Engraver_creates} is the set of grobs created by the engraver,
 @code{Engraver_reads} is the set of properties read by the engraver,
 and @code{Engraver_writes} is the set of properties written by
 the engraver.
