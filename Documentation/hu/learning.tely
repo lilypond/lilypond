@@ -9,7 +9,7 @@
 @setfilename lilypond-learning.info
 @settitle LilyPond Tankönyv
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage hu
 @afourpaper
 
 @macro manualIntro
