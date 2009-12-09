@@ -599,6 +599,9 @@ the latest binary:
 @help {these need the automatic symlinks or something.  Maybe even
 a hard-coded url to lilypond.org/docs/2.13 or something??}
 
+Commented out pending a real fix
+@ignore
+
 Learning:
 @uref{lm-html, html}
 @uref{lm-big-html, big html}
@@ -638,6 +641,8 @@ Internals:
 @uref{internals-html, html}
 @uref{internals-big-html, big html}
 @uref{internals-pdf, pdf}
+
+@end ignore
 
 @divEnd
 
