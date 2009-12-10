@@ -32,7 +32,17 @@
 static bool
 is_break (Grob *g)
 {
-  return scm_is_symbol (g->get_property ("page-turn-permission"));
+  bool turnable = scm_is_symbol (g->get_property ("page-turn-permission"));
+
+  if (turnable &&
+      (!scm_is_symbol (g->get_property ("page-break-permission"))
+       || !scm_is_symbol (g->get_property ("line-break-permission"))))
+    {
+      programming_error ("found a page-turnable place which was not breakable");
+      turnable = false;
+    }
+
+  return turnable;
 }
 
 Page_turn_page_breaking::Page_turn_page_breaking (Paper_book *pb)
