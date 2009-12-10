@@ -1017,7 +1017,8 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   n_res = finalize_spacing_result (configuration, n_res);
 
   Real penalty = blank_page_penalty ();
-  n_res.demerits_ += penalty;
+  Real page_spacing_weight = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
+  n_res.demerits_ += penalty * page_spacing_weight;
 
   if (n_res.force_.size ())
     n_res.force_.back () += penalty;
@@ -1029,7 +1030,8 @@ Page_spacing_result
 Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
 {
   vsize min_p_count = min_page_count (configuration, first_page_num);
-  Real odd_pages_penalty = blank_page_penalty ();
+  Real page_spacing_weight = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
+  Real odd_pages_penalty = blank_page_penalty () * page_spacing_weight;
 
   cache_line_details (configuration);
   Page_spacer ps (cached_line_details_, first_page_num, this);
@@ -1045,7 +1047,11 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 	best = cur;
     }
 
-  return finalize_spacing_result (configuration, best);
+  Page_spacing_result ret = finalize_spacing_result (configuration, best);
+  ret.demerits_ += (ret.force_.size () % 2) ? odd_pages_penalty : 0;
+  if (ret.force_.size ())
+    ret.force_.back () += odd_pages_penalty;
+  return ret;
 }
 
 Page_spacing_result
