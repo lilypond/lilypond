@@ -1,0 +1,92 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: a30fa41fac8fb2771a76f6d1edbec9714298ee36
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+@setfilename lilypond-learning.info
+@settitle Manuale di apprendimento di LilyPond
+@documentencoding UTF-8
+@documentlanguage it
+@afourpaper
+
+@macro manualIntro
+Questo file fornisce un'introduzione alla versione di LilyPond
+@version{}.
+@end macro
+
+@macro copyrightDeclare
+Copyright @copyright{}
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+by the authors.
+@end macro
+
+@set FDL
+@include macros.itexi
+
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Learning Manual of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage Italian
+@end ignore
+
+@c Translators: Federico Bruni
+
+@lilyTitlePage{Learning Manual}
+
+@c TOC -- non-tex
+@ifnottex
+
+@menu
+* Tutorial::                         Le basi della composizione tipografica in LilyPond.
+* Notazione comunemente utilizzata:: Come si scrive la notazione più comunemente utilizzata.
+* Concetti fondamentali::             Concetti di base necessari per leggere gli altri manuali.
+* Tweaking output::                Introduzione alla modifica dell'output.
+
+Appendices
+
+* Templates::                      Modelli già pronti.
+* GNU Free Documentation License:: Licenza di questo documento.
+* LilyPond index::
+@end menu
+
+@docMain
+@end ifnottex
+
+
+@c TOC - tex
+@contents
+
+
+@c INCLUDES
+
+@include learning/tutorial.itely
+@include learning/common-notation.itely
+@include learning/fundamental.itely
+
+@node Tweaking output
+@chapter Tweaking output
+
+@untranslated
+
+@node Templates
+@appendix Templates
+
+@untranslated
+
+@include fdl.itexi
+
+@node Indice di LilyPond
+@appendix Indice di LilyPond
+@translationof LilyPond index
+
+@printindex cp
+
+@bye

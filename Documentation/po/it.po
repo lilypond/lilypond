@@ -1,36 +1,37 @@
-# translation of LilyPond documentation
-# Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# translation of LilyPond documentation to Italian
+# Copyright (C) 2009 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Federico Bruni <brunology@gmx.com>, 2009.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-04 21:44+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2009-11-04 HO:MI+ZONE\n"
+"Last-Translator: Federico Bruni <brunology@gmx.com>\n"
+"Language-Team: Italiano\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. -*- coding: utf-8 -*-
 msgid "Up:"
-msgstr ""
+msgstr "Su:"
 
 msgid "Next:"
-msgstr ""
+msgstr "Avanti:"
 
 msgid "Previous:"
-msgstr ""
+msgstr "Indietro:"
 
 msgid "Appendix "
-msgstr ""
+msgstr "Appendice "
 
 msgid "Footnotes"
-msgstr ""
+msgstr "Note"
 
 msgid "Table of Contents"
-msgstr ""
+msgstr "Indice"

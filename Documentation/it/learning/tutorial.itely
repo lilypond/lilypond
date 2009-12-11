@@ -1,0 +1,743 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+
+@ignore
+    Translation of GIT committish: a30fa41fac8fb2771a76f6d1edbec9714298ee36
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@c \version "2.12.0"
+
+@node Tutorial
+@chapter Tutorial
+
+Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
+
+@menu
+* Compilare un file::           
+* Come scrivere i file di input::  
+* Come leggere i manuali::      
+@end menu
+
+@node Compilare un file
+@section Compilare un file
+@translationof Compiling a file
+
+FIXME: insert text
+
+@menu
+* Inserire l'input::            
+* MacOS X::                     
+* Windows::                     
+* Linea di comando::            
+@end menu
+
+@node Inserire l'input
+@subsection Inserire l'input
+@translationof Entering input
+
+@cindex compilazione
+@cindex esempio iniziale
+@cindex esempio, iniziale
+@cindex maiuscole, sensibile alle
+
+@qq{Compilazione} è il termine usato per indicare l'elaborazione di un
+file di input in formato LilyPond per produrre un file per la stampa e
+(opzionalmente) un file MIDI per la riproduzione audio.  I file di
+input di LilyPond sono semplici file di testo.  L'esempio iniziale
+mostra l'aspetto di un semplice file di input.
+
+Per creare uno spartito, scriviamo un file di input che specifica la
+notazione.  Ad esempio, se scriviamo:
+
+@example
+@{
+  c' e' g' e'
+@}
+@end example
+
+@noindent
+il risultato sarà il seguente:
+
+@c  in this case we don't want verbatim
+@lilypond[quote]
+{
+  c' e' g' e'
+}
+@end lilypond
+
+@warning{Le note e i testi nel file LilyPond devono essere sempre
+scritti tra @w{@strong{@{ parentesi graffe @}}}.  Per evitare ambiguità, le
+parentesi dovrebbero essere delimitate da degli spazi, a meno che non si
+trovino all'inizio o alla fine di una linea.  Può darsi che in alcuni esempi
+di questo manuale le parentesi verranno omesse, ma non dimenticarle
+nella tua musica! Per maggiori informazioni sull'aspetto degli esempi
+nel manuale, si veda @ref{How to read the manuals}.}
+
+Inoltre, l'input di LilyPond è @strong{sensibile alle maiuscole}.
+@w{@code{@{ c d e @}}} è un input valido; @w{@code{@{ C D E @}}} invece
+produrrà un messaggio di errore.
+
+@smallspace
+
+@subheading Viewing output
+
+@c TODO: move index entries
+@cindex PDF file
+@cindex vedere la musica
+@cindex editor di testo
+@cindex eseguire LilyPond in MacOS X
+@cindex MacOS X, eseguire LilyPond
+@cindex eseguire LilyPond in Windows
+@cindex Windows, eseguire LilyPond
+@cindex eseguire LilyPond in Unix
+@cindex Unix, eseguire LilyPond
+
+Come produrre l'output di LilyPond dipende dal tuo sistema operativo e dai
+programmi che usi.
+
+@itemize
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, MacOS X} (graphical)
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows} (graphical)
+
+@item
+@ref{Command-line, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+}
+@ref{Command-line, All operating systems} (command-line)
+
+@end itemize
+
+Si noti che sono disponibili molti altri editor di testo con
+un miglior supporto per LilyPond.  Per maggiori informazioni, si veda
+@rprogram{Alternate input}.
+
+@warning{La prima volta che si esegue LilyPond la compilazione potrà richiedere
+uno o due minuti perché tutti i font di sistema devono essere prima
+analizzati.  In seguito, LilyPond sarà molto più veloce!}
+
+@node MacOS X
+@subsection MacOS X
+
+@warning{Queste istruzioni partono dal presupposto che tu stia usando l'editor
+LilyPad incluso nel pacchetto.  Se stai usando uno dei programmi descritti in
+@rgeneral{Alternate input}, consulta la documentazione di questi
+programmi nel caso tu abbia qualche problema a compilare un file.}
+
+Cliccando due volte su @command{LilyPond.app}, il programma si aprirà con
+un file di esempio.  Salvalo, ad esempio, come @file{test.ly} sulla tua
+Scrivania, e poi elaboralo col comando di menu
+@w{@code{Compila > Crea File}}.  Il file PDF risultante comparirà sullo schermo.
+
+Per gli usi successivi di LilyPond, dovresti iniziare scegliendo @q{Nuovo}
+o @q{Apri}.  Devi salvare il file prima di elaborarlo.  Se durante
+l'elaborazione viene segnalato un errore, controlla la finestra dei log.
+
+@c FIXME: add screenshots
+
+@node Windows
+@subsection Windows
+
+@warning{Queste istruzioni partono dal presupposto che tu stia usando l'editor
+LilyPad incluso nel pacchetto.  Se stai usando uno dei programmi descritti in
+@rgeneral{Alternate input}, consulta la documentazione di questi
+programmi nel caso tu abbia qualche problema a compilare un file.}
+
+In Windows, se fai un doppio clic sull'icona di LilyPond presente sulla
+Scrivania, si aprirà un editor di testo con un semplice file di esempio.
+Salvalo, ad esempio, come @file{test.ly} sulla tua Scrivania e poi clicca
+due volte sul file per elaborarlo (l'icona del file ha l'aspetto di una
+nota).  Dopo alcuni secondi, comparirà un file @file{test.pdf} sulla
+tua scrivania.  Clicca due volte su questo file PDF per vedere lo
+spartito prodotto.  Un metodo alternativo per elaborare il file @file{test.ly}
+è trascinarlo sull'icona di LilyPond col cursore del mouse.
+
+Per modificare un file @file{.ly} esistente, clicca col tasto destro del
+mouse su di esso e seleziona @qq{Modifica il sorgente}.  Per avere un file
+nuovo da cui iniziare, lancia l'editor come descritto sopra e clicca su
+@qq{Nuovo} nel menu @qq{File}, oppure clicca col tasto destro del mouse sulla
+scrivania e seleziona @qq{Nuovo..Documento di testo}, cambia il nome in un nome
+di tua scelta e modifica l'estensione del file in @code{.ly}.  Clicca due volte
+sull'icona per inserirci il tuo codice LilyPond, come in precedenza.
+
+Il doppio clic del file non produce soltanto un file PDF, ma anche
+un file @file{.log} che contiene alcune informazioni sulle operazioni che
+LilyPond ha svolto sul file.  Se ci dovesse essere un errore, controlla
+questo file.
+
+@c FIXME: add screenshots
+
+@node Linea di comando
+@subsection Linea di comando
+@translationof Command-line
+
+@warning{Queste istruzioni partono dal presupposto che tu stia usando i comuni
+programmi unix a linea di comando.  Se stai usando uno dei programmi
+descritti in @rgeneral{Alternate input}, consulta la documentazione per
+questi programmi in caso tu abbia problemi a compilare un file.}
+
+
+Crea un file di testo chiamato @file{test.ly} e scrivi:
+
+@example
+@{
+  c' e' g' e'
+@}
+@end example
+
+Per elaborare @file{test.ly}, eseguire questo comando:
+
+@example
+lilypond test.ly
+@end example
+
+@noindent
+Vedrai qualcosa di simile:
+
+@example
+lilypond test.ly
+GNU LilyPond @version{}
+Processing `test.ly'
+Parsing...
+Interpreting music...
+Preprocessing graphical objects...
+Finding the ideal number of pages...
+Fitting music on 1 page...
+Drawing systems...
+Layout output to `test.ps'...
+Converting to `test.pdf'...
+@end example
+
+Puoi vedere o stampare il risultante @file{text.pdf}.
+
+
+@node Come scrivere i file di input
+@section Come scrivere i file di input
+@translationof How to write input files
+
+FIXME: insert text
+
+@menu
+* Notazione semplice::          
+* Lavorare sui file di input::  
+@end menu
+
+@node Notazione semplice
+@subsection Notazione semplice
+@translationof Simple notation
+
+@cindex notazione semplice
+@cindex notazione, semplice
+
+LilyPond aggiungerà automaticamente alcuni elementi della notazione.  Nell'esempio
+seguente, abbiamo specificato soltanto quattro note, ma LilyPond
+ha aggiunto una chiave, il tempo e le durate.
+
+@lilypond[verbatim,quote]
+{
+  c' e' g' e'
+}
+@end lilypond
+
+@noindent
+Questo comportamento può essere modificato, ma nella maggior parte dei
+casi questi valori sono utili.
+
+
+@subheading Pitches
+
+@cindex altezze
+@cindex modo relativo
+@cindex apostrofo
+@cindex virgola
+@cindex alterazioni e modo relativo
+@cindex modo relativo, e alterazioni
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
+
+Glossario musicale: @rglos{pitch}, @rglos{interval},
+@rglos{scale}, @rglos{middle C}, @rglos{octave},
+@rglos{accidental}.
+
+Il modo più semplice per inserire le note è usare il modo @code{\relative}
+(relativo). In questo modo, l'ottava viene scelta automaticamente in
+base al principio per cui la nota che segue deve essere posizionata vicino
+a quella precedente, ovvero deve essere posizionata nell'ottava che si trova
+entro tre spazi di pentagramma dalla nota precedente.  Per iniziare, scriveremo
+il pezzo musicale più elementare, una @notation{scala}, in cui ogni nota
+si trova entro una distanza di appena uno spazio di pentagramma dalla nota precedente.
+
+@lilypond[verbatim,quote]
+% set the starting point to middle C
+\relative c' {
+  c d e f
+  g a b c
+}
+@end lilypond
+
+La nota iniziale è un @notation{Do centrale}.  Ogni nota successiva viene
+posta il più vicino possibile alla nota precedente -- in altre parole, la prima
+@code{c} è il Do più vicino al Do centrale.  Questo è seguito dal Re
+più vicino alla nota precedente.  Possiamo creare melodie che hanno
+intervalli più ampi, sempre usando soltanto il modo @code{\relative}:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d f a g
+  c b f d
+}
+@end lilypond
+
+@noindent
+Non è necessario che la prima nota della melodia inizi con
+la nota che specifica l'altezza iniziale.  Nell'esempio
+precedente, la prima nota -- il @code{Re} -- è il Re più vicino al
+Do centrale.
+
+Se si aggiungono (o si rimuovono) apostrofi @code{'} o virgole @code{,} dal
+comando @code{@w{\relative c' @{}}, possiamo cambiare l'ottava di
+partenza:
+
+@lilypond[verbatim,quote]
+% one octave above middle C
+\relative c'' {
+  e c a c
+}
+@end lilypond
+
+Il modo relativo all'inizio può apparire disorientante, ma è il sistema più
+semplice per inserire gran parte delle melodie.  Vediamo come questo calcolo
+relativo funziona in pratica.  Se si parte da un Si, che si trova sulla linea
+centrale in chiave di violino, si possono raggiungere un Do, un Re e un Mi
+entro 3 spazi di pentagramma andando in su, e un La, un Sol e un Fa entro 3
+spazi di pentagramma andando in giù.  Quindi se la nota che segue il Si è
+un Do, un Re o un Mi, si troverà sopra il Si, mentre il La, il Sol
+o il Fa si troveranno sotto.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  b c  % c is 1 staff space up, so is the c above
+  b d  % d is 2 up or 5 down, so is the d above
+  b e  % e is 3 up or 4 down, so is the e above
+  b a  % a is 6 up or 1 down, so is the a below
+  b g  % g is 5 up or 2 down, so is the g below
+  b f  % f is 4 up or 3 down, so is the f below
+}
+@end lilypond
+
+Accade esattamente lo stesso quando qualcuna di queste note ha un
+diesis o un bemolle.  Le @notation{Alterazioni} sono
+@strong{completamente ignorate} nel calcolo della posizione relativa.
+Viene fatto lo stesso conteggio dello spazio del pentagramma da
+una nota in una qualsiasi altra posizione sul pentagramma.
+
+Per inserire intervalli che sono più ampi di tre spazi di pentagramma, si può
+alzare l'@notation{ottava} aggiungendo al nome della nota una virgoletta
+ad apice singolo @code{'} (o apostrofo).  Si può abbassare l'ottava
+aggiungendo al nome della nota una virgola @code{,}.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a a, c' f,
+  g g'' a,, f'
+}
+@end lilypond
+
+@noindent
+Per cambiare una nota di due (o più!) ottave, si usano multipli di
+@code{''} o @code{,,} -- ma stai attento a usare due virgolette ad
+apici semplici @code{''} e non quelle a doppi apici @code{"}@tie{}!  Il
+valore iniziale in @code{@w{\relative c'}} può essere modificato anche
+in questo modo.
+@c " - keeps quotes in order for context-sensitive editor -td
+
+@subheading Durations (rhythms)
+
+@cindex durate della nota
+@cindex durate
+@cindex ritmi
+@cindex semibreve
+@cindex minima
+@cindex semiminima
+@cindex nota puntata
+@cindex notazione delle durate
+
+Glossario Musicale: @rglos{beam}, @rglos{duration},
+@rglos{whole note}, @rglos{half note}, @rglos{quarter note},
+@rglos{dotted note}.
+
+La @notation{durata} di una nota viene indicata da un numero che segue
+il nome della nota:  @code{1} per una @notation{semibreve}, @code{2} per
+una @notation{minima}, @code{4} per una @notation{semiminima} e
+così via.  Le @notation{Code} vengono aggiunte in automatico.
+
+Se non si specifica una durata, si usa la durata precedente anche
+per la nota successiva.  La durata predefinita della prima nota è di un
+quarto.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a1
+  a2 a4 a8 a
+  a16 a a a a32 a a a a64 a a a a a a a a2
+}
+@end lilypond
+
+Per creare @notation{note puntate}, aggiungi un punto @code{.} al
+numero di durata.  La durata di una nota puntata deve essere dichiarata
+esplicitamente (cioè con un numero).
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a a a4. a8
+  a8. a16 a a8. a8 a4.
+}
+@end lilypond
+
+
+@subheading Rests
+
+@cindex pausa
+@cindex notazione delle pause
+
+Glossario Musicale: @rglos{rest}.
+
+Una @notation{pausa} viene inserita proprio come una nota ma col nome
+@code{r}@tie{}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a r r2
+  r8 a r4 r4. r8
+}
+@end lilypond
+
+
+@subheading Time signature
+
+@cindex tempo, indicazione di
+
+@funindex \time
+@funindex time
+
+Glossario Musicale: @rglos{time signature}.
+
+Il @notation{tempo} può essere impostato con il comando @code{\time}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  a4 a a
+  \time 6/8
+  a4. a
+  \time 4/4
+  a4 a a a
+}
+@end lilypond
+
+
+@subheading Clef
+
+@cindex chiave
+@cindex chiave di violino
+@cindex contralto
+@cindex tenore
+@cindex basso
+
+@funindex \clef
+@funindex clef
+
+Glossario Musicale: @rglos{clef}.
+
+La @notation{chiave} può essere impostata con il comando @code{\clef}:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \clef treble
+  c1
+  \clef alto
+  c1
+  \clef tenor
+  c1
+  \clef bass
+  c1
+}
+@end lilypond
+
+
+@subheading All together
+
+Ecco un piccolo esempio che mostra tutti questi elementi insieme:
+
+@lilypond[verbatim,quote]
+\relative c, {
+  \time 3/4
+  \clef bass
+  c2 e8 c' g'2.
+  f4 e d c4 c, r4
+}
+@end lilypond
+
+
+@seealso
+Guida alla Notazione:
+@ruser{Writing pitches},
+@ruser{Writing rhythms},
+@ruser{Writing rests},
+@ruser{Time signature},
+@ruser{Clef}.
+
+
+@node Lavorare sui file di input
+@subsection Lavorare sui file di input
+@translationof Working on input files
+
+@cindex parentesi graffe
+@cindex parentesi, graffe
+@cindex commenti
+@cindex commento di linea
+@cindex commento, linea
+@cindex commento di blocco
+@cindex commento, blocco
+@cindex sensibile alle maiuscole
+@cindex insensibile agli spazi
+@cindex espressioni
+
+@funindex { ... }
+@funindex %
+@funindex %@{ ... %@}
+
+I file di input di LilyPond sono simili ai file sorgenti di molti comuni
+linguaggi di programmazione.  Sono sensibili alle maiuscole, e in generale
+gli spazi bianchi vengono ignorati.  Le espressioni musicali si formano
+con parentesi graffe @{ @}, e i commenti sono indicati con @code{%} o
+@w{@code{%@{ ... %@}}}.
+
+Se le frasi precedenti ti sembrano assurde, non preoccuparti!  Spiegheremo
+cosa significano tutti questi termini:
+
+@itemize
+
+@item
+@strong{Sensibile alle maiuscole}:
+distingue tra lettere in minuscolo (es:
+@w{@code{a, b, s, t}}) o in maiuscolo (es:  @w{@code{A, B, S, T}}).
+Le note sono in minuscolo: @w{@code{@{ c d e @}}} è un input valido;
+@w{@code{@{ C D E @}}} causerà un messaggio di errore.
+
+@item
+@strong{Insensibile agli spazi}:
+non importa quanti spazi (o tabulazioni o nuove linee) aggiungi.
+@w{@code{@{ c d e @}}} ha lo stesso significato di
+@w{@code{@{ c @tie{}} @tie{} @tie{} d e @}} e:
+
+@example
+@{ c                        d
+                   e   @}
+@end example
+
+@noindent
+Certo, l'esempio precedente è scomodo da leggere.  Una buona regola
+pratica è indentare i blocchi di codice con una tabulazione o due spazi:
+
+@example
+@{
+  c d e
+@}
+@end example
+
+Tuttavia, uno spazio bianco @emph{è} necessario per separare molti elementi
+sintattici gli uni dagli altri.  In altre parole, lo spazio bianco può essere
+@emph{aggiunto}, ma non può essere @emph{eliminato}.  Dal momento che uno
+spazio bianco mancante può dare adito a strani errori, si consiglia di
+inserire sempre uno spazio bianco prima e dopo ogni elemento sintattico,
+ad esempio, prima e dopo ogni parentesi graffa.
+
+@item
+@strong{Espressioni}:
+ogni parte dell'input di LilyPond deve avere @strong{@{ parentesi
+graffe @}} intorno.  Queste parentesi dicono a LilyPond che l'input costituisce
+un'espressione musicale singola, proprio come le parentesi @code{()} in
+matematica.  Per evitare ambiguità, le parentesi dovrebbero essere
+racchiuse tra spazi, a meno che non si trovino all'inizio o alla fine di una linea.
+
+Anche un comando di LilyPond seguito da un'espressione semplice in
+parentesi (come @w{@code{\relative @{ @}}}) conta come un'espressione
+musicale singola.
+
+@cindex commenti
+@cindex commento di linea
+@cindex commento di blocco
+@item
+@strong{Commenti}:
+un commento è un appunto per il lettore umano dell'input musicale; viene
+ignorato quando l'input viene analizzato, dunque non ha alcun effetto
+sull'output finale.  Ci sono due tipi di commenti.  Il simbolo di percentuale
+@code{%} introduce un commento di linea; tutto quello che sta dopo @code{%}
+su quella linea verrà ignorato.  Per convenzione, un commento di linea viene
+posto @emph{sopra} il codice a cui si riferisce.
+
+@example
+a4 a a a
+% this comment refers to the Bs
+b2 b
+@end example
+
+Un commento di blocco segna come commento un'intera sezione di input musicale.
+Tutto ciò che è compreso tra @code{%@{} e @code{%@}} viene ignorato.
+Tuttavia, i commenti di blocco non si @q{annidano}.  Ovvero non si può
+inserire un commento di blocco dentro a un altro commento di blocco.  Se
+ci provi, il primo @code{%@}} interromperà @emph{entrambi} i commenti di
+blocco.  Il seguente frammento mostra gli usi possibili per i commenti:
+
+@example
+% notes for twinkle twinkle follow
+  c4 c g' g a a g2
+
+%@{
+  This line, and the notes below are ignored,
+  since they are in a block comment.
+
+  f f e e d d c2
+%@}
+@end example
+
+@end itemize
+
+
+@node Come leggere i manuali
+@section Come leggere i manuali
+@translationof How to read the manuals
+
+FIXME: fluff here
+
+@menu
+* Parentesi omesse::            
+* Esempi cliccabili::           
+* Navigazione con la tastiera::  
+* Panoramica dei manuali::      
+@end menu
+
+
+@node Parentesi omesse
+@subsection Parentesi omesse
+@translationof Omitting braces
+
+@cindex come leggere il manuale
+@cindex manuale, leggere
+@cindex leggere il manuale
+@cindex esempi, cliccabili
+@cindex esempi cliccabili
+@cindex consigli su come costruire i file
+@cindex modelli
+@cindex costruire i file, consigli
+@cindex file, consigli per costruirli
+
+L'input di LilyPond deve essere compreso dai segni @{ @} o da
+@code{@w{\relative c'' @{ ... @}}}, come abbiamo visto in @ref{Lavorare
+sui file di input}.  Nella parte restante di questo manuale, gran parte
+degli esempi ometterà questi segni.  Per replicare gli esempi, puoi copiare
+e incollare l'input mostrato, ma @strong{devi} aggiungere
+@code{@w{\relative c'' @{ @}}} in questo modo:
+
+@example
+\relative c'' @{
+  ... example goes here...
+@}
+@end example
+
+Perché omettere le parentesi?  Gran parte degli esempi in questo manuale
+possono essere inseriti nel mezzo di un pezzo più ampio.  Per questi esempi,
+non ha senso includere @code{@w{\relative c'' @{ @}}} --
+non si deve mettere un @code{\relative} dentro un altro
+@code{\relative}!  Se includessimo @code{@w{\relative c'' @{ @}}}
+in ogni esempio, non potresti copiare un piccolo esempio della
+documentazione e incollarlo dentro a un tuo brano più
+esteso.  La maggior parte delle persone vuole aggiungere del materiale a
+un brano esistente, per questo abbiamo dato al manuale questo formato.
+
+
+@node Esempi cliccabili
+@subsection Esempi cliccabili
+@translationof Clickable examples
+
+@warning{Queste funzionalità sono disponibili soltanto nei manuali in HTML.}
+
+Molte persone imparano ad usare un programma provando e smanettando.
+Questo è possibile anche con LilyPond.  Se clicchi su un'immagine
+nella versione HTML di questo manuale, vedrai l'esatto input
+LilyPond usato per generare quell'immagine.  Provalo su
+questa immagine:
+
+@c no verbatim here
+@lilypond[quote]
+\relative c'' {
+  c-\markup { \bold \huge { Click here.  } }
+}
+@end lilypond
+
+Tagliando e copiando quel che si trova nella sezione @qq{ly snippet},
+puoi ricavare un modello di partenza per sperimentare.  Per vedere esattamente
+lo stesso output (larghezza della linea e tutto il resto), copia tutto da @qq{Start
+cut-&-pastable section} alla fine del file.
+
+
+@node Navigazione con la tastiera
+@subsection Navigazione con la tastiera
+@translationof Keyboard navigation
+
+@warning{Queste funzionalità sono disponibili soltanto nei manuali in HTML.}
+
+@c TODO: once this is figured out, insert it here.
+
+Stiamo lavorando su questa funzionalità.
+
+
+@node Panoramica dei manuali
+@subsection Panoramica dei manuali
+@translationof Overview of manuals
+
+La documentazione su LilyPond è vasta.  I nuovi utenti talvolta
+sono confusi su quali parti dovrebbero leggere, e ogni tanto
+saltano la lettura di parti fondamentali.
+
+@warning{Non saltare le parti importanti della
+documentazione.  Altrimenti ti risulterà molto più difficile comprendere
+le sezioni successive.}
+
+@itemize
+
+@item
+@strong{Prima di fare @emph{qualsiasi}} tentativo: leggi il @ref{Tutorial}
+e la @ref{Common notation} del Manuale di apprendimento.  Se ti imbatti
+in termini musicali che non conosci, cercali nel @rglosnamed{Top, Glossary}.
+
+@item
+@strong{Prima di tentare di scrivere un pezzo musicale completo}: leggi
+i @ref{Fundamental concepts} del Manuale di apprendimento.  Dopo puoi dare
+un'occhiata alle sezioni rilevanti della @rusernamed{Top, Notation reference}.
+
+@item
+@strong{Prima di cercare di cambiare l'output predefinito}: leggi il
+@ref{Tweaking output} del il Manuale di apprendimento.
+
+@item
+@strong{Prima di iniziare un grande progetto}: leggi il documento
+@rprogram{Suggestions for writing files} dell'Uso dell'applicazione.
+
+@end itemize
+
+

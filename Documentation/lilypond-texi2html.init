@@ -91,7 +91,12 @@ $LY_LANGUAGES->{'hu'} = {
     'Back to Documentation Index' => 'Vissza a dokumentációk jegyzékéhez',
 };
 
-# FIXME: send the translation below to texi2html/texinfo devs
+$LY_LANGUAGES->{'it'} = {
+    'Back to Documentation Index' => 'Torna all\'indice della documentazione',
+};
+
+# FIXME: request the translations below then send them to texi2html/texinfo devs
+$LANGUAGES->{'it'} = LANGUAGES->{'en'};
 $LANGUAGES->{'hu'} = {
                        '  The buttons in the navigation panels have the following meaning:' => '  A navigációs panelen levő gombok jelentése a következő:',
                        '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => '  ahol a @strong{ Példa } feltételezi, hogy az aktuális pozíció az @strong{ 1-2-3 alalszakasz } egy olyan dokumentumban, melynek szerkezete a következő:',

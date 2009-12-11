@@ -65,12 +65,13 @@ de = LanguageDef ('de', 'deutsch')
 nl = LanguageDef ('nl', 'nederlands')
 ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
 hu = LanguageDef ('hu', 'magyar')
+it = LanguageDef ('it', 'italiano')
 
 # Outdated or broken translations may be disabled
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, fr, es, de, nl, ja, hu)
+LANGUAGES = (site, fr, es, de, nl, ja, hu, it)
 
 if __name__ == '__main__':
     print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])

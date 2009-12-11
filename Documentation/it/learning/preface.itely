@@ -1,0 +1,62 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+
+@ignore
+    Translation of GIT committish: a30fa41fac8fb2771a76f6d1edbec9714298ee36
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.12.0"
+
+@node Prefazione
+@unnumbered Prefazione
+@translationof Preface
+
+
+Deve essere stato durante una prova della EJE (Orchestra Giovanile di
+Eindhoven), da qualche parte nel 1995 che Jan, uno degli strampalati
+violisti, ha parlato ad Han-Wen, uno degli alterati cornisti, del
+nuovo grande progetto a cui stava lavorando. Era un sistema automatico
+per stampare musica (per la precisione, si trattava di MPP, un
+preprocessore per MusiXTeX). Accadde che per caso Han-Wen desiderava
+stampare alcune parti di una partitura, così iniziò a sperimentare il
+software, e ne rimase presto affascinato. Si decise che MPP era
+un vicolo cieco. Dopo molte discussioni e animati scambi di email,
+Han-Wen diede inizio a LilyPond nel 1996. Questa volta è stato Jan ad
+essere coinvolto nel progetto di Han-Wen.
+
+Per certi versi, sviluppare un programma per computer è come
+imparare a suonare uno strumento. All'inizio, scoprire come funziona è
+divertente, e le cose che non si riescono a fare rappresentano uno
+stimolo. Dopo l'entusiasmo iniziale, bisogna esercitarsi continuamente. Le scale e
+gli studi possono essere noiosi, e se non si è motivati dagli altri –
+insegnanti, direttori o il pubblico – si può essere tentati di
+smettere. Ma se si continua, gradualmente suonare diventa parte della
+propria vita. Alcuni giorni viene naturale, ed è meraviglioso, mentre altri
+giorni semplicemente non va, ma si continua a suonare, giorno dopo giorno.
+
+Come imparare la musica, lavorare su LilyPond può essere un lavoro
+noioso, e certi giorni sembra di annaspare in una palude di bug.
+Tuttavia è diventato parte della nostra vita, e continuiamo a farlo.
+Probabilmente la motivazione più importante è che il nostro programma
+fa davvero qualcosa di utile per la gente. Quando navighiamo per la
+Rete troviamo molte persone che usano LilyPond e realizzano notevoli
+partiture. Ci sembra incredibile, ma è anche molto gratificante.
+
+I nostri utenti non solo ci danno buone vibrazioni perché usano il
+nostro programma, molti di loro ci aiutano anche attraverso
+suggerimenti e segnalazioni di bug, quindi vorremmo ringraziare tutti
+gli utenti che ci hanno segnalato bug, dato consigli o contribuito
+in qualunque altro modo a LilyPond.
+
+Suonare e stampare la musica sono più di una bella analogia.
+Programmare insieme è molto divertente, e aiutare le persone è
+profondamente appagante, ma alla fine lavorare a LilyPond è un modo
+per esprimere il nostro grande amore per la musica. Che possa aiutarvi
+a creare tanta bella musica!
+
+Han-Wen e Jan
+
+Utrecht/Eindhoven, Paesi Bassi, Luglio 2002.
+
