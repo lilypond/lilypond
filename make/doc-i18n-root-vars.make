@@ -43,7 +43,7 @@ MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 # FIXME: duplicated in stepake/texinfo-vars.make make/doc-i18n-root-vars.make
 XREF_MAPS_DIR=$(top-build-dir)/$(outdir)/xref-maps
 XREF_MAPS_FILES=$(TEXINFO_MANUALS:%=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
-XREF_MAP_FLAGS += -I $(outdir)
+XREF_MAP_FLAGS += -I $(outdir) -I$(src-dir)
 
 WEB_MANUALS=web
 
