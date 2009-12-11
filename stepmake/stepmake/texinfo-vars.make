@@ -20,7 +20,7 @@ MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 XREF_MAPS_DIR = $(top-build-dir)/$(outdir)/xref-maps
 XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.xref-map) \
  $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.xref-map)
-XREF_MAP_FLAGS += -I $(outdir)
+XREF_MAP_FLAGS += -I $(outdir) -I $(src-dir)
 
 ###########
 ifneq ($(ISOLANG),)
