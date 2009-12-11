@@ -141,6 +141,7 @@
   \accepts "PianoStaff"
   \accepts "Lyrics"
   \accepts "ChordNames"
+  \accepts "FiguredBass"
   \accepts "ChoirStaff"
   \accepts "StaffGroup"
   \defaultchild "Staff"
@@ -325,7 +326,7 @@ instrument names at the start of each system."
   topLevelAlignment = ##f
 
   \override StaffGrouper #'between-staff-spacing #'stretchability = #5
-  
+
   instrumentName = #'()
   shortInstrumentName = #'()
 }
@@ -734,7 +735,7 @@ context."
 
   %% No accidental in tablature !
   \remove "Accidental_engraver"
-  %% make the Stems as short as possible to minimize their influence 
+  %% make the Stems as short as possible to minimize their influence
   %% on the slur::calc-control-points routine
   \override Stem #'length = #0
   \override Stem #'no-stem-extend = ##t
