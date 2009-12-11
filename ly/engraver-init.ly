@@ -375,6 +375,7 @@ a collection of staves, with a bracket in front and spanning bar lines."
   \consists "New_dynamic_engraver"
   \consists "Dynamic_align_engraver"
   \consists "Text_engraver"
+  \consists "Text_spanner_engraver"
   \consists "Skip_event_swallow_translator"
   \consists "Axis_group_engraver"
 
