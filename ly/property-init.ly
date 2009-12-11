@@ -251,7 +251,7 @@ mergeDifferentlyHeadedOff =
 
 %% numeric time signature
 
-numericTimeSignature = \override Staff.TimeSignature #'style = #'()
+numericTimeSignature = \override Staff.TimeSignature #'style = #'numbered
 defaultTimeSignature = \revert Staff.TimeSignature #'style
 
 
@@ -265,7 +265,7 @@ palmMuteOff =
    (revert-head-style 'NoteHead))
 palmMute =
 #(define-music-function (parser location note) (ly:music?)
-    (style-note-heads 'NoteHead 'do note))
+   (style-note-heads 'NoteHead 'do note))
 
 
 %% phrasing slurs
