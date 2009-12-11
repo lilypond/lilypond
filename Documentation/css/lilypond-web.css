@@ -527,7 +527,7 @@ a[name="Stable"] + h4 {
 
 /* this might not work in certain browsers */
 a[name="Unstable"] + h4 {
-  background: #fad58c url(../pictures/color4-bg.png) repeat-x top left;
+  background: #fad58c url(../pictures/color3-bg.png) repeat-x top left;
 }
 
 #latestVersion .subsubheading {
