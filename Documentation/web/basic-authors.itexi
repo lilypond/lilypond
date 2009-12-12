@@ -158,6 +158,9 @@ CSS improvements
 @item James E. Bailey:
 Bug meister
 
+@item Christian Hitz:
+update gui for OSX 10.5.
+
 @end itemize
 @end macro
 
@@ -218,8 +221,6 @@ PS output code refactoring
 @item Mathieu Giraud:
 
 @item Yuval Harel:
-
-@item Christian Hitz:
 
 @item Bernard Hurley:
 @email{bernard@@fong-hurley.org.uk},
