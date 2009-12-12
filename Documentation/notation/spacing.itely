@@ -453,7 +453,7 @@ size.  For details, see @ref{Paper size}.
 @item right-margin
 @funindex right-margin
 
-The margin between the right edge of the page and the beginning of
+The margin between the right edge of the page and the end of
 each system.  Default: @code{10\mm}.
 
 @item short-indent
