@@ -23,18 +23,19 @@
 #include "context.hh"
 #include "stream-event.hh"
 #include "translator.icc"
-// #include "international.hh"
-#include <deque>
+#include <list>
 
-struct Head_event_tuple
+struct Head_audio_event_tuple
 {
   Audio_element_info head_;
-  Moment moment_;
-  Head_event_tuple () { }
-  Head_event_tuple (Audio_element_info h, Moment m)
+  // The end moment of the note, so we can calculate a skip and check whether
+  // the note still goes on
+  Moment end_moment_;
+  Head_audio_event_tuple () {}
+  Head_audio_event_tuple (Audio_element_info h, Moment m)
   {
     head_ = h;
-    moment_ = m;
+    end_moment_ = m;
   }
 };
 
@@ -42,14 +43,9 @@ struct Head_event_tuple
 class Tie_performer : public Performer
 {
   Stream_event *event_;
-  // We don't really need a deque here. A vector would suffice. However,
-  // for some strange reason, using vectors always leads to memory 
-  // corruption in the STL templates! (i.e. after the first
-  // now_heads_.push_back (inf_mom), the now_heads_.size() will be 
-  // something like 3303820998 :(
-  deque<Head_event_tuple> now_heads_;
-  deque<Head_event_tuple> now_tied_heads_;
-  deque<Head_event_tuple> heads_to_tie_;
+  list<Head_audio_event_tuple> now_heads_;
+  list<Head_audio_event_tuple> now_tied_heads_; // new tied notes
+  list<Head_audio_event_tuple> heads_to_tie_; // heads waiting for closing tie
 
 protected:
   void stop_translation_timestep ();
@@ -85,21 +81,24 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_note *an = dynamic_cast<Audio_note *> (inf.elem_))
     {
-//       message (_f ("acknowledge_audio_element, Size of now_heads_=%d", now_heads_.size ()));
-      Head_event_tuple inf_mom (inf, now_mom ());
+      // for each tied note, store the info and its end moment, so we can
+      // later on check whether (1) the note is still ongoing and (2) how
+      // long the skip is with tieWaitForNote
+      Head_audio_event_tuple inf_mom (inf, now_mom () + an->length_mom_);
       if (an->tie_event_)
         now_tied_heads_.push_back (inf_mom);
       else
         now_heads_.push_back (inf_mom);
 
-//       message (_f ("acknowledge_audio_element, added, Size of now_heads_=%d", now_heads_.size ()));
       // Find a previous note that ties to the current note. If it exists, 
       // remove it from the heads_to_tie vector and create the tie
-      deque<Head_event_tuple>::iterator it;
+      list<Head_audio_event_tuple>::iterator it;
       bool found = false;
       Stream_event *right_mus = inf.event_;
-      for ( it = heads_to_tie_.begin() ; (!found) && (it < heads_to_tie_.end()); it++ )
-        {
+        for (it = heads_to_tie_.begin ();
+             !found && (it != heads_to_tie_.end());
+             it++)
+	{
 	  Audio_element_info et = (*it).head_;
 	  Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
 	  Stream_event *left_mus = et.event_;
@@ -109,7 +108,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 			      left_mus->get_property ("pitch")))
 	    {
 	      found = true;
-	      Moment skip = now_mom() - (*it).moment_ - th->length_mom_;
+	      // (*it).moment_ already stores the end of the tied note!
+	      Moment skip = now_mom() - (*it).end_moment_;
 	      an->tie_to (th, skip);
 	      // this invalidates the iterator, we are leaving the loop anyway
 	      heads_to_tie_.erase (it);
@@ -125,24 +125,35 @@ Tie_performer::start_translation_timestep ()
 			    ly_bool2scm (heads_to_tie_.size ()));
 }
 
+// a predicate implemented as a class, used to delete all tied notes with end
+// moment in the past:
+class end_moment_passed
+{
+protected:
+  Moment now;
+public:
+  end_moment_passed (Moment mom) : now (mom) {}
+  bool operator() (const Head_audio_event_tuple &value) {
+    return (value.end_moment_ <= now);
+  }
+};
+
 void
 Tie_performer::stop_translation_timestep ()
 {
-  // We might have dangling open ties like c~ d. Close them, unless we have
-  // tieWaitForNote set...
+  // We might have dangling open ties like c~ d. Close them, unless the first
+  // note is still ongoing or we have we have tieWaitForNote set...
   if (!to_boolean (get_property ("tieWaitForNote")))
     {
-      heads_to_tie_.clear ();
+      heads_to_tie_.remove_if (end_moment_passed (now_mom ()));
     }
 
+  // Append now_heads_ and now_tied_heads to heads_to_tie_ for the next time step
   if (event_)
     {
-      for (vsize i = now_heads_.size (); i--;)
-        heads_to_tie_.push_back (now_heads_[i]);
+      heads_to_tie_.splice (heads_to_tie_.end (), now_heads_);
     }
-
-  for (vsize i = now_tied_heads_.size (); i--;)
-    heads_to_tie_.push_back (now_tied_heads_[i]);
+  heads_to_tie_.splice (heads_to_tie_.end (), now_tied_heads_);
 
   event_ = 0;
   now_heads_.clear ();
