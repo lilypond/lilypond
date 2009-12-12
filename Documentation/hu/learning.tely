@@ -12,6 +12,8 @@
 @documentlanguage hu
 @afourpaper
 
+@c Translators: Harmath Dénes
+
 @macro manualIntro
 Ez a tankönyv a LilyPond @version{} verziójába nyújt bevezetést.
 @end macro

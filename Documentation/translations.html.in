@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Fri Nov 27 17:25:48 UTC 2009
+ <p><i>Last updated Sat Dec 12 00:31:14 UTC 2009
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -55,10 +55,10 @@ translations.template.html.in; DO NOT EDIT !-->
 <p></p>
 
  <tr align="left">
-  <td>A LilyPond index<br>(111)</td>
+  <td>A LilyPond index<br>(103)</td>
   <td>Till Paala<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #ffcf44">partially up to date</span><br>
+   <span style="background-color: #ffc746">partially up to date</span><br>
   </td>
  </tr>
 <table align="center" border="2">
@@ -66,6 +66,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <th>LilyPond --- \TITLE\</th>  <th>fr</th>
   <th>nl</th>
   <th>de</th>
+  <th>it</th>
   <th>hu</th>
   <th>ja</th>
   <th>es</th>
@@ -85,8 +86,12 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #a5ff31">partially up to date</span><br>
   </td>
   <td><br>
-   <span style="background-color: #dfef77">partially translated (17 %)</span><br>
+   <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
+  </td>
+  <td><br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td><br>
    <span style="background-color: #dfef77">partially translated (17 %)</span><br>
@@ -100,10 +105,10 @@ translations.template.html.in; DO NOT EDIT !-->
 </table>
 <p></p>
  <tr align="left">
-  <td>1 Music engraving<br>(4456)</td>
+  <td>1 Music engraving<br>(5053)</td>
   <td>Till Paala<br>
-   <span style="background-color: #dfef77">partially translated (35 %)</span><br>
-   <span style="background-color: #fff53e">partially up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (32 %)</span><br>
+   <span style="background-color: #ffe541">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -127,15 +132,13 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ffe241">partially up to date</span><br>
   </td>
-  <td>Benkő Pál<br>
-   Fodor Bertalan<br>
-   Harmath Dénes<br>
-   Rébeli-Szabó Tamás<br>
-   Selyem Zoltán Csaba<br>
-   Szervác Attila<br>
-   Udvari Gábor<br>
-   <span style="background-color: #1fff1f">translated</span><br>
+  <td>Federico Bruni<br>
+   <span style="background-color: #dfef77">partially translated (93 %)</span><br>
    <span style="background-color: #ff625a">partially up to date</span><br>
+  </td>
+  <td>Harmath Dénes<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Yoshiki Sawada<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -151,6 +154,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <th>LilyPond --- \TITLE\</th>  <th>fr</th>
   <th>nl</th>
   <th>de</th>
+  <th>it</th>
   <th>hu</th>
   <th>ja</th>
   <th>es</th>
@@ -170,15 +174,13 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #dfef77">partially translated (17 %)</span><br>
    <span style="background-color: #a5ff31">partially up to date</span><br>
   </td>
-  <td>Benkő Pál<br>
-   Fodor Bertalan<br>
-   Harmath Dénes<br>
-   Rébeli-Szabó Tamás<br>
-   Selyem Zoltán Csaba<br>
-   Szervác Attila<br>
-   Udvari Gábor<br>
-   <span style="background-color: #dfef77">partially translated (17 %)</span><br>
+  <td>Federico Bruni<br>
+   <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
+  </td>
+  <td>Harmath Dénes<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td>Yoshiki Sawada<br>
    <span style="background-color: #dfef77">partially translated (17 %)</span><br>
@@ -192,7 +194,11 @@ translations.template.html.in; DO NOT EDIT !-->
 </table>
 <p></p>
  <tr align="left">
-  <td>1 Tutorial<br>(2678)</td>
+  <td>1 Tutorial<br>(2805)</td>
+  <td>Francisco Vila<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #ff625a">partially up to date</span><br>
+  </td>
   <td>Nicolas Grandclaude<br>
    Ludovic Sardain<br>
    Gauvain Pocentek<br>
@@ -202,45 +208,37 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6959">partially up to date</span><br>
   </td>
+  <td>Federico Bruni<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #ff625a">partially up to date</span><br>
+  </td>
   <td>Yoshiki Sawada<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff625a">partially up to date</span><br>
   </td>
-  <td>Francisco Vila<br>
-   <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #ff625a">partially up to date</span><br>
-  </td>
-  <td>Benkő Pál<br>
-   Fodor Bertalan<br>
-   Harmath Dénes<br>
-   Rébeli-Szabó Tamás<br>
-   Selyem Zoltán Csaba<br>
-   Szervác Attila<br>
-   Udvari Gábor<br>
-   <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #ff625a">partially up to date</span><br>
+  <td>Harmath Dénes<br>
+   <span style="background-color: #dfef77">partially translated (94 %)</span><br>
+   <span style="background-color: #47ff24">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
   <td>2 Common notation<br>(4138)</td>
+  <td>Yoshiki Sawada<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #ff6d58">partially up to date</span><br>
+  </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
-  <td>Yoshiki Sawada<br>
+  <td>Federico Bruni<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6d58">partially up to date</span><br>
   </td>
-  <td>Benkő Pál<br>
-   Fodor Bertalan<br>
-   Harmath Dénes<br>
-   Rébeli-Szabó Tamás<br>
-   Selyem Zoltán Csaba<br>
-   Szervác Attila<br>
-   Udvari Gábor<br>
-   <span style="background-color: #d0f0f8">not translated</span><br>
+  <td>Harmath Dénes<br>
+   <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
@@ -259,13 +257,11 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #2cff20">partially up to date</span><br>
   </td>
-  <td>Benkő Pál<br>
-   Fodor Bertalan<br>
-   Harmath Dénes<br>
-   Rébeli-Szabó Tamás<br>
-   Selyem Zoltán Csaba<br>
-   Szervác Attila<br>
-   Udvari Gábor<br>
+  <td>Federico Bruni<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #54ff26">partially up to date</span><br>
+  </td>
+  <td>Harmath Dénes<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -294,13 +290,7 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #dfef77">partially translated (98 %)</span><br>
    <span style="background-color: #25fe1f">partially up to date</span><br>
   </td>
-  <td>Benkő Pál<br>
-   Fodor Bertalan<br>
-   Harmath Dénes<br>
-   Rébeli-Szabó Tamás<br>
-   Selyem Zoltán Csaba<br>
-   Szervác Attila<br>
-   Udvari Gábor<br>
+  <td>Harmath Dénes<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -325,13 +315,7 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #9eff30">partially up to date</span><br>
   </td>
-  <td>Benkő Pál<br>
-   Fodor Bertalan<br>
-   Harmath Dénes<br>
-   Rébeli-Szabó Tamás<br>
-   Selyem Zoltán Csaba<br>
-   Szervác Attila<br>
-   Udvari Gábor<br>
+  <td>Harmath Dénes<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
@@ -368,6 +352,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <th>LilyPond --- \TITLE\</th>  <th>fr</th>
   <th>nl</th>
   <th>de</th>
+  <th>it</th>
   <th>hu</th>
   <th>ja</th>
   <th>es</th>
@@ -388,8 +373,12 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #a5ff31">partially up to date</span><br>
   </td>
   <td><br>
-   <span style="background-color: #dfef77">partially translated (17 %)</span><br>
+   <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
+  </td>
+  <td><br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td><br>
    <span style="background-color: #dfef77">partially translated (17 %)</span><br>
@@ -475,7 +464,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>5 Changing defaults<br>(11933)</td>
+  <td>5 Changing defaults<br>(11458)</td>
   <td>Valentin Villenave<br>
    <small>Gilles Thibault</small><br>
    <span style="background-color: #dfef77">partially translated (40 %)</span><br>
@@ -483,13 +472,13 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Till Paala<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #1fff1f">up to date</span><br>
+   <span style="background-color: #47ff24">partially up to date</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #dfef77">partially translated (96 %)</span><br>
-   <span style="background-color: #25fe1f">partially up to date</span><br>
+   <span style="background-color: #54ff26">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -555,6 +544,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <th>LilyPond --- \TITLE\</th>  <th>fr</th>
   <th>nl</th>
   <th>de</th>
+  <th>it</th>
   <th>hu</th>
   <th>ja</th>
   <th>es</th>
@@ -575,8 +565,12 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #a5ff31">partially up to date</span><br>
   </td>
   <td><br>
-   <span style="background-color: #dfef77">partially translated (17 %)</span><br>
+   <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
+  </td>
+  <td><br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td>Yoshiki Sawada<br>
    <span style="background-color: #dfef77">partially translated (17 %)</span><br>
@@ -590,7 +584,7 @@ translations.template.html.in; DO NOT EDIT !-->
 </table>
 <p></p>
  <tr align="left">
-  <td>1 Running @command{lilypond}<br>(3531)</td>
+  <td>1 Running @command{lilypond}<br>(3555)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #d0f0f8">not translated</span><br>
@@ -598,13 +592,13 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Reinhold Kainhofer<br>
    Till Paala<br>
-   <span style="background-color: #dfef77">partially translated (59 %)</span><br>
+   <span style="background-color: #dfef77">partially translated (58 %)</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Yoshiki Sawada<br>
-   <span style="background-color: #dfef77">partially translated (59 %)</span><br>
+   <span style="background-color: #dfef77">partially translated (58 %)</span><br>
    <span style="background-color: #ffea40">partially up to date</span><br>
   </td>
   <td>Francisco Vila<br>
@@ -697,6 +691,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <th>LilyPond --- \TITLE\</th>  <th>fr</th>
   <th>nl</th>
   <th>de</th>
+  <th>it</th>
   <th>hu</th>
   <th>ja</th>
   <th>es</th>
@@ -716,8 +711,12 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #a5ff31">partially up to date</span><br>
   </td>
   <td><br>
-   <span style="background-color: #dfef77">partially translated (17 %)</span><br>
+   <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
+  </td>
+  <td><br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #39ff22">partially up to date</span><br>
   </td>
   <td><br>
    <span style="background-color: #dfef77">partially translated (17 %)</span><br>
@@ -747,14 +746,14 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>Manuals<br>(1929)</td>
+  <td>Manuals<br>(2089)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
-  <td>   <span style="background-color: #dfef77">partially translated (13 %)</span><br>
+  <td>   <span style="background-color: #dfef77">partially translated (12 %)</span><br>
   </td>
  </tr>
  <tr align="left">
-  <td>Community<br>(2399)</td>
+  <td>Community<br>(2383)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>

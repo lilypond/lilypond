@@ -23,25 +23,25 @@ Word counts (excluding LilyPond snippets) are given for each file.
 1034  web/download.itexi
 1059  macros.itexi
 161   translations.template.html.in
-1670  po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
+9     po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
 ---   lilypond-texi2html.init (section TRANSLATIONS)
-7822  total
+6161  total
 
 -2- Tutorial
-1929  web/manuals.itexi
+2089  web/manuals.itexi
 132   learning.tely
-2678  learning/tutorial.itely
+2805  learning/tutorial.itely
 4138  learning/common-notation.itely
-8877  total
+9164  total
 
 -3- Fundamental Concepts, starting of Usage and Community
 11135 learning/fundamental.itely -- Fundamental concepts
 411   learning/preface.itely
 145   usage.tely
-3531  usage/running.itely
+3555  usage/running.itely
 1189  usage/updating.itely
-2399  web/community.itexi
-18810 total
+2383  web/community.itexi
+18818 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
 15578 learning/tweaks.itely -- Tweaking output
@@ -72,11 +72,11 @@ Word counts (excluding LilyPond snippets) are given for each file.
 6264  notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
 8793  notation/spacing.itely -- Spacing issues
-11933 notation/changing-defaults.itely -- Changing defaults
+11458 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
 2004  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-64945 total
+64470 total
 
 -6- Rest of Application Usage
 3511  usage/lilypond-book.itely -- LilyPond-book
