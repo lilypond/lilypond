@@ -195,8 +195,7 @@ Once every year or so:
 Checking all regtests: although we have a system for checking the
 regtests between two versions, occasionally a bug will slip
 through the cracks.  It is therefore good to manually examine all
-the regtests twice a year or so (compare the images to the text
-description).
+the regtests (compare the images to the text description).
 
 @item
 Checking all issues: we try to mark each Issue @q{fixed} when we

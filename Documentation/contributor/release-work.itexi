@@ -77,8 +77,32 @@ permitted during the stable phase.
 
 A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
 
-email brief summary to info-lilypond
+@enumerate
 
+@item Add a news item to @file{Documentation/web/news-front.itexi}
+
+@item Build release on GUB.
+
+@item Check the regtest comparison in @file{uploads/webtest/} for
+any unintentional breakage.
+
+@item Check if the mingw build contains lilypad.exe; when you find
+that it doesn't, rebuild @code{mingw::lilypond-installer}.  Repeat
+as necessary.
+
+@item If any work was done on GUB since the last release, upload
+binaries to a temporary location, ask for feedback, and wait a day
+or two in case there's any major problems.
+
+@item Upload release from GUB.
+
+@item Update @file{VERSION} in lilypond git.
+
+@item Wait a few hours for the website to update.
+
+@item Email release notice to @code{info-lilypond}
+
+@end enumerate
 
 
 @node Major release checklist
@@ -173,19 +197,12 @@ To build GUB:
 Run the following (from the gub/ dir):
 
 @example
-make -f lilypond.make update-versions
+make lilypond
 @end example
 
 @item
 If you do not have the previous release test-output tarball, download
-it and put it in @code{uploads/}
-
-@item
-Run:
-
-@example
-make lilypond
-@end example
+it and put it in @code{regtests/}
 
 @end itemize
 
@@ -193,33 +210,16 @@ To upload:
 
 @itemize
 
-@item Remove the "t" from the rsync command in test-lily/rsync-lily-doc.py
+@item If you're not user @code{graham} on the webserver, remove
+the "t" from the rsync command in
+@file{test-lily/rsync-lily-doc.py}
 
-@item run:
+@item Probably run the following command.  Look the output of
+@code{make lilypond} in case it's different.
 
 @example
-python test-lily/upload.py --branch=master --url git://git.sv.gnu.org/lilypond.git --execute
+make lilypond-upload LILYPOND_BRANCH=master LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
 @end example
-
-@end itemize
-
-
-@subheading Policy notes
-
-@itemize
-
-@item
-Build with GUB, and if it's a stable release, check the regtests.
-
-@item
-Upload the tarballs and sh scripts.
-
-@item
-(if major)
-Branch MASTER to stable/2.x.
-
-@item
-Make announcement.
 
 @end itemize
 
