@@ -930,4 +930,8 @@ issue CMS06.
 @node Old news
 @unnumberedsec Old news
 
+@include web/news-front.itexi
+
 @include web/news.itexi
+
+

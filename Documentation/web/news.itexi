@@ -23,6 +23,7 @@ NOTE:
   * Split news items in small chunks. It's OK to have more than 1 item
   on one day.
 
+  * don't duplicate entries from news-front.itexi
 
 TODO
 
