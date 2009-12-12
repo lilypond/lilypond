@@ -68,7 +68,7 @@ the result looks like this:
 @warning{Notes and lyrics in LilyPond input must always be
 surrounded by @w{@strong{@{ curly braces @}}}.  The braces
 should also be surrounded by a space unless they are at the
-beginning or end of a line to avoid ambiguities.  The braces may
+beginning or end of a line to avoid ambiguities.  They may
 be omitted in some examples in this manual, but don't forget them
 in your own music!  For more information about the display of
 examples in the manual, see @ref{How to read the manuals}.}
@@ -162,7 +162,7 @@ opened in the default PDF viewer and displayed on your screen.
 
 @sourceimage{Learning_Macos_pdf_output,,,}
 
-To create new files for Lilypond, begin by selecting
+To create new files for LilyPond, begin by selecting
 @w{@code{File > New}}
 
 @sourceimage{Learning_Macos_New_menu,,,}
@@ -189,31 +189,69 @@ LilyPad editor.  If you are using any of the programs described in
 @rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems compiling a file.}
 
-On Windows, if you double-click in the LilyPond icon on the
-Desktop, it will open a simple text editor with an example file.
-Save it, for example, to @file{test.ly} on your Desktop and then
-double-click on the file to process it (the file icon looks like a
-note).  After some seconds, you will get a file @file{test.pdf} on
-your desktop.  Double-click on this PDF file to view the typeset
-score.  An alternative method to process the @file{test.ly} file
-is to drag and drop it onto the LilyPond icon using your mouse
-pointer.
+Double-click the @command{LilyPond.app}, an example file will open.
 
-To edit an existing @file{.ly} file, right-click on it and
-select @qq{Edit source}.  To get an empty file to start from, run
-the editor as described above and use @qq{New} in
-the @qq{File} menu, or right-click on the desktop and select
-@qq{New..Text Document}, change its name to a name of your choice
-and change the file extension to @code{.ly}.  Double-click the
-icon to type in your LilyPond source code as before.
+@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
 
-Double-clicking the file does not only result in a PDF file, but
-also produces a @file{.log} file that contains some information on
-what LilyPond has done to the file.  If any errors occur, please
-examine this file.
+From the menus that appear alonbg the top of the example file,
+select @w{@code{File > Save as}}. Do not use the @w{@code{File > Save}}
+for the example file as this will not work until you have given it a
+valid Lilypong file name.
 
-@c FIXME: add screenshots
+@sourceimage{Learning_Win7_Save_Menu,,,}
 
+Choose a name for your file, for example @file{test.ly}.
+
+@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+
+Depending on what you prefer, to compile your file either:
+
+Drag-and-drop the file directly onto the LilyPond icon.
+
+@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+
+Right-click on the file and from the pop-up context menu choose
+@w{@code{Open with > LilyPond}}.
+
+@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+
+Or simply double-click the @file{test.ly}.
+
+During the compilation of the @file{test.ly} file, a command window
+will, very briefly open and then close. Three additional files will
+have been created during this process.
+
+@sourceimage{Learning_Win7_All_Files_Created,,,}
+
+The PDF file contains the engraved @file{test.ly} file.
+
+@sourceimage{Learning_Win7_Pdf_Output,,,}
+
+To create a new file, begin by selecting @w{@code{File > New}} from
+within any previously created file.
+
+@sourceimage{Learning_Win7_New_Menu,,,}
+
+or @w{@code{File > Open}} to open and edit any files you have saved
+before.
+
+@sourceimage{Learning_Win7_Open_Menu,,,}
+
+You must save any new edits you make before you compile it and if the
+PDF file is not created, check the log file that will have been created
+during the compilation attempt, for any errors.
+
+@sourceimage{Learning_Win7_Log_File,,,}
+
+This log file is overwritten each time you compile your lilypond file.
+
+The PS file is used internally by LilyPond to create the PDF file and
+can be ignored. It also gets overwritten each time you compile your
+file.
+
+If you are viewing your file in a PDF viewer, then you must close the
+PDF if you wish to make a new compilation as it may fail to create
+the new PDF while it is still being viewed.
 
 @node Command-line
 @subsection Command-line
