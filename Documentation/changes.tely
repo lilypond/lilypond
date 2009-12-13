@@ -64,8 +64,8 @@ which scares away people.
 @end ignore
 
 @item
-The Unicode Bidirectional Algorithm is now fully supported due to
-enhanced integration with Pango.
+The Unicode Bidirectional Algorithm is now fully supported for
+single-line markup due to enhanced integration with Pango.
 
 @item
 LilyPond is now licensed under the GNU GPL v3+.
