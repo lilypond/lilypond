@@ -38,14 +38,14 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Sat Dec 12 00:31:14 UTC 2009
+ <p><i>Last updated Sun Dec 13 21:12:26 UTC 2009
 </i></p>
 <table align="center" border="2">
  <tr align="center">
   <th>New features in 2.13 since 2.12</th>  <th>es</th>
  </tr>
  <tr align="left">
-  <td>Section titles<br>(408)</td>
+  <td>Section titles<br>(426)</td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6959">partially up to date</span><br>
@@ -133,6 +133,7 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #ffe241">partially up to date</span><br>
   </td>
   <td>Federico Bruni<br>
+   <small>Luca Rossetto Casel</small><br>
    <span style="background-color: #dfef77">partially translated (93 %)</span><br>
    <span style="background-color: #ff625a">partially up to date</span><br>
   </td>
@@ -175,6 +176,7 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #a5ff31">partially up to date</span><br>
   </td>
   <td>Federico Bruni<br>
+   <small>Luca Rossetto Casel</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6b58">partially up to date</span><br>
   </td>
@@ -194,7 +196,7 @@ translations.template.html.in; DO NOT EDIT !-->
 </table>
 <p></p>
  <tr align="left">
-  <td>1 Tutorial<br>(2805)</td>
+  <td>1 Tutorial<br>(2941)</td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff625a">partially up to date</span><br>
@@ -209,6 +211,7 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #ff6959">partially up to date</span><br>
   </td>
   <td>Federico Bruni<br>
+   <small>Luca Rossetto Casel</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff625a">partially up to date</span><br>
   </td>
@@ -217,8 +220,8 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #ff625a">partially up to date</span><br>
   </td>
   <td>Harmath Dénes<br>
-   <span style="background-color: #dfef77">partially translated (94 %)</span><br>
-   <span style="background-color: #47ff24">partially up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (95 %)</span><br>
+   <span style="background-color: #97ff2f">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -234,6 +237,7 @@ translations.template.html.in; DO NOT EDIT !-->
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>Federico Bruni<br>
+   <small>Luca Rossetto Casel</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #ff6d58">partially up to date</span><br>
   </td>
@@ -258,6 +262,7 @@ translations.template.html.in; DO NOT EDIT !-->
    <span style="background-color: #2cff20">partially up to date</span><br>
   </td>
   <td>Federico Bruni<br>
+   <small>Luca Rossetto Casel</small><br>
    <span style="background-color: #1fff1f">translated</span><br>
    <span style="background-color: #54ff26">partially up to date</span><br>
   </td>
@@ -739,7 +744,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>Download<br>(1034)</td>
+  <td>Download<br>(1036)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
@@ -753,7 +758,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>Community<br>(2383)</td>
+  <td>Community<br>(2385)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
