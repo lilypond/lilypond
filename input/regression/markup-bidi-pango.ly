@@ -2,9 +2,11 @@
 
 \header {
 
-  texidoc = "A single pango string is considered to have one
-direction.  The hebrew in this example (including punctuation) is set
-right-to-left, with the first word (containing 1) on the right."
+  texidoc = "A single Pango string is processed according to the
+Unicode Bidirectional Algorithm.  The strong Hebrew characters in
+this example are set right-to-left, and the Latin numerals, space
+character, and punctuation are set according to the rules of the
+algorithm."
 
 }
 
