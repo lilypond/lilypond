@@ -130,6 +130,9 @@ application.  If you are using any of the programs described in
 @rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems.}
 
+
+@subsubheading Step 1. Create your @file{.ly} file
+
 Double click the @command{LilyPond.app}, an example file will open.
 
 @sourceimage{Learning_Macos_welcome,,,}
@@ -143,6 +146,9 @@ Choose a name for your file, for example @file{test.ly}.
 
 @sourceimage{Learning_Macos_Save_file_with_name,,,}
 
+
+@subsubheading Step 2. Compile (with LilyPad)
+
 From the same menus, select
 @w{@code{Compile > Tyepset}}.
 
@@ -153,11 +159,17 @@ of the file you have just saved.
 
 @sourceimage{Learning_Macos_Compiling_log,,,}
 
+
+@subsubheading Step 3. View output
+
 Once the compilation has finished, a PDF file will be created with
 the same name as the original file and will be automatically
 opened in the default PDF viewer and displayed on your screen.
 
 @sourceimage{Learning_Macos_pdf_output,,,}
+
+
+@subsubheading Other commands
 
 To create new files for LilyPond, begin by selecting
 @w{@code{File > New}}
@@ -178,6 +190,7 @@ with the Mac Operating system and you have the PDF file generated
 from a previous compilation open, then any further compilations 
 may fail to generate an update PDF until you close the original.
 
+
 @node Windows
 @subsection Windows
 
@@ -185,6 +198,7 @@ may fail to generate an update PDF until you close the original.
 LilyPad editor.  If you are using any of the programs described in
 @rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems compiling a file.}
+
 
 @subsubheading Step 1. Create your @file{.ly} file
 
@@ -203,7 +217,8 @@ Choose a name for your file, for example @file{test.ly}.
 
 @sourceimage{Learning_Win7_Save_File_With_Name,,,}
 
-@subsubheading Step 2a. Compile with drag-and-drop
+
+@subsubheading Step 2a. Compile (with drag-and-drop)
 
 Depending on what you prefer, to compile your file either:
 
@@ -216,11 +231,13 @@ Right-click on the file and from the pop-up context menu choose
 
 @sourceimage{Learning_Win7_Open_Context_Menu,,,}
 
-@subsubheading Step 2b. Compile with double-clicking
+
+@subsubheading Step 2b. Compile (with double-clicking)
 
 Or simply double-click the @file{test.ly}.
 
-@subsubheading Step 3. Processing and viewing
+
+@subsubheading Step 3. View output
 
 During the compilation of the @file{test.ly} file, a command window
 will, very briefly open and then close. Three additional files will
@@ -231,6 +248,7 @@ have been created during this process.
 The PDF file contains the engraved @file{test.ly} file.
 
 @sourceimage{Learning_Win7_Pdf_Output,,,}
+
 
 @subsubheading Other commands
 
@@ -266,11 +284,13 @@ the new PDF while it is still being viewed.
 @subsection Command-line
 
 @warning{These instructions assume that you are familiar with
-common unix command-line programs.  If you are using any of the
-programs described in @rweb{Alternate input}, please consult the
+command-line programs.  If you are using any of the programs
+described in @rweb{Alternate input}, please consult the
 documentation for those programs if you have any problems
 compiling a file.}
 
+
+@subsubheading Step 1. Create your @file{.ly} file
 
 Create a text file called @file{test.ly} and enter:
 
@@ -279,6 +299,9 @@ Create a text file called @file{test.ly} and enter:
   c' e' g' e'
 @}
 @end example
+
+
+@subsubheading Step 2. Compile (with command-line)
 
 To process @file{test.ly}, proceed as follows:
 
@@ -302,6 +325,8 @@ Drawing systems...
 Layout output to `test.ps'...
 Converting to `test.pdf'...
 @end example
+
+@subsubheading Step 3. View output
 
 You may view or print the resulting @file{text.pdf}.
 
