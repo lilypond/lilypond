@@ -322,27 +322,19 @@ Pango_font::text_stencil (string str,
 
   Real last_x = 0.0;
 
-  Direction text_dir = RIGHT;
-  for (GList *p = items; p; p = p->next)
-    {
-      PangoItem *item = (PangoItem *) p->data;
-      if (item->analysis.level == PANGO_DIRECTION_RTL)
-	text_dir = LEFT;
-    }
-
+  /*
+    FIXME: The Unicode Bidirectional Algorithm needs to be
+    implemented here.  Right now, a simplistic approach is taken:
+    a left-to-right ordering of each item in the GList.
+  */
   for (GList *ptr = items; ptr; ptr = ptr->next)
     {
       PangoItem *item = (PangoItem *) ptr->data;
 
       Stencil item_stencil = pango_item_string_stencil (item, str, tight);
 
-      if (text_dir == RIGHT)
-	{
-	  item_stencil.translate_axis (last_x, X_AXIS);
-	  last_x = item_stencil.extent (X_AXIS)[RIGHT];
-	}
-      else if (text_dir == LEFT)
-	dest.translate_axis (item_stencil.extent (X_AXIS)[RIGHT], X_AXIS);
+      item_stencil.translate_axis (last_x, X_AXIS);
+      last_x = item_stencil.extent (X_AXIS)[RIGHT];
 
 #if 0 // Check extents.
       if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
