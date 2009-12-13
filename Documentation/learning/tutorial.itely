@@ -40,14 +40,12 @@ FIXME: insert text
 @cindex example, first
 @cindex case sensitive
 
-@qq{Compiling} is the term used for processing an input file
-in LilyPond format to produce a file which can be printed and
-(optionally) a MIDI file which can be played.  LilyPond input
-files are simple text files.  The first example
-shows what a simple input file looks like.
+@qq{Compiling} is the term used for processing an input file in
+LilyPond format to produce output file(s).  Output files are
+generally PDF (for printing or viewing), MIDI (for playing), and
+PNG (for online use).  LilyPond input files are simple text files.
 
-To create sheet music, we write an input file that specifies the
-notation.  For example, if we write:
+This example shows a simple input file:
 
 @example
 @{
@@ -55,8 +53,7 @@ notation.  For example, if we write:
 @}
 @end example
 
-@noindent
-the result looks like this:
+The graphical output is:
 
 @c  in this case we don't want verbatim
 @lilypond[quote]
@@ -80,7 +77,7 @@ produce an error message.
 
 @smallspace
 
-@subheading Viewing output
+@subheading Producing output
 
 @c TODO: move index entries
 @cindex PDF file
@@ -93,8 +90,8 @@ produce an error message.
 @cindex running LilyPond under Unix
 @cindex Unix, running LilyPond
 
-Producing output depends on your operating system and the
-program(s) you use.
+The method of producing output depends on your operating system
+and the program(s) you use.
 
 @itemize
 
@@ -116,8 +113,8 @@ program(s) you use.
 
 @end itemize
 
-There are several other text editors available with better support
-for LilyPond.  For more information, see
+There are several other text editors available with specific
+support for LilyPond.  For more information, see
 @rweb{Alternate input}.
 
 @warning{The first time you ever run LilyPond, it may take a
@@ -128,7 +125,7 @@ first.  After this, LilyPond will be much faster!}
 @node MacOS X
 @subsection MacOS X
 
-@warning{These instructions assume that you are using the Lilypond 
+@warning{These instructions assume that you are using the LilyPond 
 application.  If you are using any of the programs described in
 @rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems.}
@@ -189,6 +186,8 @@ LilyPad editor.  If you are using any of the programs described in
 @rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems compiling a file.}
 
+@subsubheading Step 1. Create your @file{.ly} file
+
 Double-click the @command{LilyPond.app}, an example file will open.
 
 @sourceimage{Learning_Win7_Welcome_File_Whole,,,}
@@ -204,6 +203,8 @@ Choose a name for your file, for example @file{test.ly}.
 
 @sourceimage{Learning_Win7_Save_File_With_Name,,,}
 
+@subsubheading Step 2a. Compile with drag-and-drop
+
 Depending on what you prefer, to compile your file either:
 
 Drag-and-drop the file directly onto the LilyPond icon.
@@ -215,7 +216,11 @@ Right-click on the file and from the pop-up context menu choose
 
 @sourceimage{Learning_Win7_Open_Context_Menu,,,}
 
+@subsubheading Step 2b. Compile with double-clicking
+
 Or simply double-click the @file{test.ly}.
+
+@subsubheading Step 3. Processing and viewing
 
 During the compilation of the @file{test.ly} file, a command window
 will, very briefly open and then close. Three additional files will
@@ -227,11 +232,14 @@ The PDF file contains the engraved @file{test.ly} file.
 
 @sourceimage{Learning_Win7_Pdf_Output,,,}
 
+@subsubheading Other commands
+
 To create a new file, begin by selecting @w{@code{File > New}} from
 within any previously created file.
 
 @sourceimage{Learning_Win7_New_Menu,,,}
 
+@noindent
 or @w{@code{File > Open}} to open and edit any files you have saved
 before.
 
@@ -243,7 +251,7 @@ during the compilation attempt, for any errors.
 
 @sourceimage{Learning_Win7_Log_File,,,}
 
-This log file is overwritten each time you compile your lilypond file.
+This log file is overwritten each time you compile your LilyPond file.
 
 The PS file is used internally by LilyPond to create the PDF file and
 can be ignored. It also gets overwritten each time you compile your
@@ -253,12 +261,13 @@ If you are viewing your file in a PDF viewer, then you must close the
 PDF if you wish to make a new compilation as it may fail to create
 the new PDF while it is still being viewed.
 
+
 @node Command-line
 @subsection Command-line
 
-@warning{These instructions assume that you are using commond unix
-command-line programs.  If you are using any of the programs
-described in @rweb{Alternate input}, please consult the
+@warning{These instructions assume that you are familiar with
+common unix command-line programs.  If you are using any of the
+programs described in @rweb{Alternate input}, please consult the
 documentation for those programs if you have any problems
 compiling a file.}
 
