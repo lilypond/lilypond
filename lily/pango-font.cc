@@ -108,17 +108,14 @@ get_unicode_name (char *s,
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoItem const *item,
-				       string str,
+Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 				       bool tight_bbox) const
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
-  PangoAnalysis const *pa = &(item->analysis);
-  PangoGlyphString *pgs = pango_glyph_string_new ();
 
-  pango_shape (str.c_str () + item->offset,
-	       item->length, (PangoAnalysis*) pa, pgs);
+  PangoAnalysis const *pa = &(glyph_item->item->analysis);
+  PangoGlyphString *pgs = glyph_item->glyphs;
 
   PangoRectangle logical_rect;
   PangoRectangle ink_rect;
@@ -316,26 +313,23 @@ Pango_font::text_stencil (string str,
 			  bool feta,
 			  bool tight) const
 {
-  GList *items
-    = pango_itemize (context_,
-		     str.c_str (),
-		     0, str.length (), attribute_list_,
-		     NULL);
+  /*
+    The text assigned to a PangoLayout is automatically divided
+    into sections and reordered according to the Unicode
+    Bidirectional Algorithm, if necessary.
+  */
+  PangoLayout *layout = pango_layout_new (context_);
+  pango_layout_set_text (layout, str.c_str (), -1);
+  PangoLayoutLine *line = pango_layout_get_line (layout, 0);
+  GSList *layout_runs = line->runs;
 
   Stencil dest;
-
   Real last_x = 0.0;
 
-  /*
-    FIXME: The Unicode Bidirectional Algorithm needs to be
-    implemented here.  Right now, a simplistic approach is taken:
-    a left-to-right ordering of each item in the GList.
-  */
-  for (GList *ptr = items; ptr; ptr = ptr->next)
+  for (GSList *p = layout_runs; p; p = p->next)
     {
-      PangoItem *item = (PangoItem *) ptr->data;
-
-      Stencil item_stencil = pango_item_string_stencil (item, str, tight);
+      PangoGlyphItem *item = (PangoGlyphItem *) p->data;
+      Stencil item_stencil = pango_item_string_stencil (item, tight);
 
       item_stencil.translate_axis (last_x, X_AXIS);
       last_x = item_stencil.extent (X_AXIS)[RIGHT];
@@ -390,8 +384,6 @@ Pango_font::text_stencil (string str,
       b.unite (dest.extent_box ());
       return Stencil (b, exp);
     }
-
-  g_list_free (items);
 
   return dest;
 }

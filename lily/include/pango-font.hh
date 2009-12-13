@@ -51,7 +51,7 @@ public:
   void register_font_file (string, string, int);
   Stencil text_stencil (string, bool, bool) const;
 
-  Stencil pango_item_string_stencil (PangoItem const *, string, bool) const;
+  Stencil pango_item_string_stencil (PangoGlyphItem const *, bool) const;
 
   virtual Stencil word_stencil (string, bool) const;
   virtual Stencil text_stencil (string, bool) const;
