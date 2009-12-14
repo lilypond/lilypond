@@ -21,7 +21,6 @@
      . (
 	(avoid-slur . around)
 	(padding . 0.20)
-	(quantize-position . #t)
 	(script-stencil . (feta . ("sforzato" . "sforzato")))
 	(side-relative-direction . ,DOWN)))
     ("accentus"
@@ -83,7 +82,6 @@
      . (
 	(avoid-slur . around)
 	(padding . 0.20)
-	(quantize-position . #t)
 	(script-stencil . (feta . ("espr" .  "espr")))
 	(side-relative-direction . ,DOWN)))
 
@@ -259,6 +257,7 @@
     ("staccatissimo"
      . (
 	(avoid-slur . inside)
+	(quantize-position . #t)
 	(script-stencil . (feta . ("dstaccatissimo" . "ustaccatissimo")))
 	(padding . 0.20)
 	(side-relative-direction . ,DOWN)))
