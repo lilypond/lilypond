@@ -1,4 +1,4 @@
-\version "2.13.9"
+\version "2.13.10"
 
 \header { texidoc = "A sample tablature with lettered tab,
 using fretLabels to modify the fret letters.
