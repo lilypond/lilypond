@@ -453,6 +453,7 @@ Page_layout_problem::find_system_offsets ()
 // Given two lines that are already spaced (the first and last
 // elements of loose_lines), distribute some unspaced lines between
 // them.
+// first_translation and last_translation are relative to the page.
 void
 Page_layout_problem::distribute_loose_lines (vector<Grob*> const &loose_lines,
 					     vector<Real> const &min_distances,

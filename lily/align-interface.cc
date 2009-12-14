@@ -159,10 +159,6 @@ Align_interface::get_minimum_translations (Grob *me,
 
   get_skylines (me, &elems, a, pure, start, end, &skylines);
 
-  SCM forced_distances = ly_assoc_get (ly_symbol2scm ("alignment-distances"),
-				       Page_layout_problem::get_details (me),
-				       SCM_EOL);
-
   Real where = 0;
   Real default_padding = robust_scm2double (me->get_property ("padding"), 0.0);
   vector<Real> translates;
@@ -205,15 +201,6 @@ Align_interface::get_minimum_translations (Grob *me,
 							  &min_distance,
 							  ly_symbol2scm ("minimum-distance")))
 		dy = max (dy, min_distance + stacking_dir*(last_spaceable_element_pos - where));
-
-	      if (scm_is_pair (forced_distances))
-		{
-		  SCM forced_dist = scm_car (forced_distances);
-		  forced_distances = scm_cdr (forced_distances);
-
-		  if (scm_is_number (forced_dist))
-		    dy = scm_to_double (forced_dist) + stacking_dir * (last_spaceable_element_pos - where);
-		}
 	    }
 	}
 
