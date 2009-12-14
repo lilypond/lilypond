@@ -23,7 +23,8 @@ This chapter gives a basic introduction to working with LilyPond.
 @node Compiling a file
 @section Compiling a file
 
-FIXME: insert text
+This section introduces @qq{compiling}---the processing of
+LilyPond input files (written by you) to produce output files.
 
 @menu
 * Entering input::              
@@ -334,7 +335,8 @@ You may view or print the resulting @file{text.pdf}.
 @node How to write input files
 @section How to write input files
 
-FIXME: insert text
+This section introduces some basic LilyPond syntax to help get you
+started writing input files.
 
 @menu
 * Simple notation::             
@@ -728,7 +730,9 @@ comments:
 @node How to read the manuals
 @section How to read the manuals
 
-FIXME: fluff here
+This section shows how to read the documentation efficiently, and
+also introduces some useful interactive features available in the
+online version.
 
 @menu
 * Omitting braces::             
