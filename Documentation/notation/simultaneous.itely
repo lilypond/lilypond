@@ -458,7 +458,9 @@ The note heads of notes in different voices with the same pitch,
 same note head and opposite stem direction are automatically
 merged, but notes with different note heads or the same stem
 direction are not.  Rests opposite a stem in a different voice
-are shifted vertically.
+are shifted vertically.  The following example shows three
+different circumstances, on beats 1 and 3 in bar 1 and beat 1
+in bar 2, where the automatic merging fails.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -477,7 +479,8 @@ are shifted vertically.
 @end lilypond
 
 Notes with different note heads may be merged, with the
-exception of half-note heads and quarter-note heads:
+exception of half-note heads and quarter-note heads, as shown
+below.  Here the note heads on beat 1 of bar 1 are now merged:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -496,7 +499,8 @@ exception of half-note heads and quarter-note heads:
 >>
 @end lilypond
 
-Note heads with different dots may be merged:
+Note heads with different dots as shown in beat 2 of bar 1 may be
+also be merged:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -518,13 +522,14 @@ Note heads with different dots may be merged:
 
 
 The half note and eighth note at the start of the second measure
-are incorrectly merged because @code{\mergeDifferentlyHeadedOn}
-cannot successfully complete the merge when three or more notes
-line up in the same column, and in this case a warning is given.
-To allow the merge to work properly a @code{\shift} must be applied
-to the note that should not be merged.  Here, @code{\shiftOn} is
-applied to move the top @notation{g} out of the column, and
-@code{\mergeDifferentlyHeadedOn} then works properly.
+are incorrectly merged because the automatic merge cannot
+successfully complete the merge when three or more notes line up in
+the same note column, and in this case the merged note head is
+incorrect.  To allow the merge to select the correct note head
+a @code{\shift} must be applied to the note that should not be
+merged.  Here, @code{\shiftOn} is applied to move the top
+@notation{g} out of the column, and @code{\mergeDifferentlyHeadedOn}
+then works properly.
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -553,8 +558,9 @@ two) have @code{\shiftOff}, while the inner voices (three and
 four) have @code{\shiftOn}.  @code{\shiftOnn} and
 @code{\shiftOnnn} define further shift levels.
 
-Notes are only merged if they have opposing stem directions (e.g. in
-@code{Voice} 1 and 2).
+Notes are only merged if they have opposing stem directions (as
+they have, for example, in voices one and two by default or when
+the stems are explicitly set in opposite directions).
 
 
 @predefined
@@ -586,7 +592,7 @@ Music Glossary:
 Learning Manual:
 @rlearning{Multiple notes at once},
 @rlearning{Voices contain music},
-@rlearning{Collisions of objects}.
+@rlearning{Real music example}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
