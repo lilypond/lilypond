@@ -385,21 +385,40 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tablature
 
-;; The TabNoteHead tablatureFormat callback.
-;; Compute the text grob-property
-(define-public (fret-number-tablature-format string context event)
+;; The TabNoteHead tablatureFormat callbacks.
+
+;; Calculate the fret from pitch and string number as letter
+;; The fret letter is taken from 'fretLabels if present
+(define-public (fret-letter-tablature-format string-number context event)
+  (let* ((tuning (ly:context-property context 'stringTunings))
+         (pitch (ly:event-property event 'pitch))
+         (labels (ly:context-property context 'fretLabels))
+         (fret (- (ly:pitch-semitones pitch)
+                  (list-ref tuning (- string-number 1)))))
+    (make-vcenter-markup
+     (cond
+      ((= 0 (length labels))
+       (string (integer->char (+ fret (char->integer #\a)))))
+      ((and (<= 0 fret) (< fret (length labels)))
+       (list-ref labels fret))
+      (else
+       (ly:warning "No label for fret ~a (~a on string ~a);
+only ~a fret labels provided"
+		   fret pitch string-number (length labels))
+       ".")))))
+
+;; Calculate the fret from pitch and string number as number
+(define-public (fret-number-tablature-format string-number context event)
   (let* ((tuning (ly:context-property context 'stringTunings))
 	 (pitch (ly:event-property event 'pitch)))
-
-    (make-whiteout-markup
-     (make-vcenter-markup
-      (format
-       "~a"
-       (- (ly:pitch-semitones pitch)
-	  (list-ref tuning
-		    ;; remove 1 because list index starts at 0
-		    ;;and guitar string at 1.
-		    (1- string))))))))
+    (make-vcenter-markup
+     (format
+      "~a"
+      (- (ly:pitch-semitones pitch)
+         (list-ref tuning
+                   ;; remove 1 because list index starts at 0
+                   ;;and guitar string at 1.
+                   (1- string-number)))))))
 
 ;; The 5-string banjo has got a extra string, the fifth (duh), which
 ;; starts at the fifth fret on the neck.  Frets on the fifth string
@@ -407,17 +426,16 @@
 ;;   the "first fret" on the fifth string is really the sixth fret
 ;;   on the banjo neck.
 ;; We solve this by defining a new fret-number-tablature function:
-(define-public (fret-number-tablature-format-banjo string context event)
+(define-public (fret-number-tablature-format-banjo string-number context event)
   (let* ((tuning (ly:context-property context 'stringTunings))
 	 (pitch (ly:event-property event 'pitch)))
-
-    (make-whiteout-markup
-     (make-vcenter-markup
-      (let ((fret (- (ly:pitch-semitones pitch) (list-ref tuning (1- string)))))
-	(number->string (cond
-			 ((and (> fret 0) (= string 5))
-			  (+ fret 5))
-			 (else fret))))))))
+    (make-vcenter-markup
+      (let ((fret (- (ly:pitch-semitones pitch)
+                     (list-ref tuning (1- string-number)))))
+        (number->string (cond
+                          ((and (> fret 0) (= string-number 5))
+                            (+ fret 5))
+                          (else fret)))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
