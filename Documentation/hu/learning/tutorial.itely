@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: hu -*-
 
 @ignore
-    Translation of GIT committish: 2d8b567afe459b0ab6503731e0c2568915a5c4ef
+    Translation of GIT committish: ad7b2deba7a6f12902ab7752196da5677e659bf0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -559,6 +559,12 @@ A következő részlet a megjegyzések használatára mutat példát:
 @section Hogyan olvassuk a dokumentációt?
 @translationof How to read the manual
 
+@menu
+* Kapcsos zárójelek elhagyása::
+* Kattintható példák::
+* A dokumentáció áttekintése::
+@end menu
+
 @node Kapcsos zárójelek elhagyása
 @subsection Kapcsos zárójelek elhagyása
 @translationof Omitting braces
@@ -616,8 +622,8 @@ rendelkezésre áll egy kiindulópont a kísérletezéshez. A kép egy az egyben
 előáll (ugyanakkora méretben), ha a @qq{Start cut-&-pastable section}
 résztől kezdve a fájl végéig kimásoljuk a szöveget.
 
-@node A kézikönyvek áttekintése
-@subsection A kézikönyvek áttekintése
+@node A dokumentáció áttekintése
+@subsection A dokumentáció áttekintése
 @translationof Overview of manuals
 
 A LilyPondhoz nagyon sok dokumentáció áll rendelkezésre.
