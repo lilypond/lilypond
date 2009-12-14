@@ -172,10 +172,6 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
       PangoGlyph pg = pgi->glyph;
       PangoGlyphGeometry ggeo = pgi->geometry;
 
-      /* For zero-width characters, do not perform a glyph lookup */
-      if (!ggeo.width)
-	continue;
-
       glyph_name[0] = '\0';
       if (has_glyph_names)
 	{
