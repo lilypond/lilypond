@@ -172,6 +172,13 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
       PangoGlyph pg = pgi->glyph;
       PangoGlyphGeometry ggeo = pgi->geometry;
 
+      /*
+	Zero-width characters are valid Unicode characters,
+	but glyph lookups need to be skipped.
+      */
+      if (!(pg ^ PANGO_GLYPH_EMPTY))
+	continue;
+
       glyph_name[0] = '\0';
       if (has_glyph_names)
 	{
