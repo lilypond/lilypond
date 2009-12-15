@@ -32,9 +32,13 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ## for compatibility reasons.
     
     ## grab the first version number in  --version output.
-    eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '\(^\| \)[0-9][0-9]*\.[0-9]' \
-        | head -n 1 \
-	| tr ' ' '\n' | sed 's/\([0-9][0-9]*\.[0-9][0-9.]*\).*/\1/g' | grep '\(^\| \)[0-9][0-9]*\.[0-9]' | head -n 1\`\"
+    eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 |
+		grep -E '(^| )[0-9][0-9]*\.[0-9]' |
+		head -n 1 |
+		tr ' ' '\n' |
+		sed 's/\([0-9][0-9]*\.[0-9][0-9.]*\).*/\1/g' |
+		grep -E '(^| )[0-9][0-9]*\.[0-9]' |
+		head -n 1\`\"
 
     if test -z "$_ver"; then
         ## If empty, try date [fontforge]
