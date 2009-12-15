@@ -56,7 +56,6 @@ offCr = {
     \name Dynamics
     \alias Voice
     \consists "Output_property_engraver"
-    \consists "Skip_event_swallow_translator"
     \consists "Axis_group_engraver"
     \consists "Piano_pedal_engraver"
     pedalSustainStrings = #'("Ped." "*Ped." "*")
@@ -179,7 +178,7 @@ modern =
 #`(Staff ,(make-accidental-rule 'same-octave 0)
   ,(make-accidental-rule 'any-octave 0)
   ,(make-accidental-rule 'same-octave 1))
-         
+
 \layout {
   \context {
     \Score
@@ -353,7 +352,7 @@ R2. |
     c2.:32\pp\< ~ | c: ~ |
     c8\!\ff \offCr r r r4 r8 | R2. |
     \time 9/8
-    c2.:32\pp ~ c4.: | 
+    c2.:32\pp ~ c4.: |
   }
 
   harprh = \relative c'' {

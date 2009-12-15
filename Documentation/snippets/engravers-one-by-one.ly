@@ -68,7 +68,7 @@ context.
 
 
 You may only see the first example in this document; please download
-this snippet and run it from your own computer. 
+this snippet and run it from your own computer.
 
 "
   doctitle = "Engravers one-by-one"
@@ -95,7 +95,7 @@ hoom =  \relative c {
   \key d \major
   \clef bass
   g8-. r
-  r4 
+  r4
   fis8-.
   r8
   r4
@@ -122,13 +122,13 @@ MyStaff =\context {
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
 
-  
-  \consists "Output_property_engraver"	
-  
+
+  \consists "Output_property_engraver"
+
   \consists "Font_size_engraver"
 
   \consists "Volta_engraver"
-  \consists "Separating_line_group_engraver"	
+  \consists "Separating_line_group_engraver"
   \consists "Dot_column_engraver"
 
   \consists "Ottava_spanner_engraver"
@@ -144,16 +144,16 @@ MyStaff =\context {
 
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
   extraVerticalExtent = ##f
-  verticalExtent = ##f 
+  verticalExtent = ##f
   localKeySignature = #'()
 
-				% explicitly set instrument, so we don't get 
+				% explicitly set instrument, so we don't get
 				% weird effects when doing instrument names for
 				% piano staves
 
   instrumentName = #'()
   shortInstrumentName = #'()
-  
+
   \accepts "Voice"
 }
 
@@ -172,9 +172,9 @@ MyVoice = \context {
 
   localKeySignature = #'()
   \consists "Font_size_engraver"
-  
+
 				% must come before all
-  \consists "Output_property_engraver"	
+  \consists "Output_property_engraver"
   \consists "Arpeggio_engraver"
   \consists "Multi_measure_rest_engraver"
   \consists "Text_spanner_engraver"
@@ -207,7 +207,6 @@ MyVoice = \context {
   \consists "Note_heads_engraver"
   \consists "Rest_engraver"
 
-  \consists "Skip_event_swallow_translator"
 }
 
 
@@ -305,7 +304,7 @@ MyStaff = \context {
 
 MyStaff = \context {
   \MyStaff
-  \consists "Accidental_engraver"    
+  \consists "Accidental_engraver"
   \consists "Key_engraver"
 }
 \score {

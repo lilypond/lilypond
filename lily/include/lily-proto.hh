@@ -177,8 +177,6 @@ class Staff_group_bar_engraver;
 class Staff_performer;
 class Stencil;
 class Stream_event;
-class Swallow_engraver;
-class Swallow_performer;
 class System;
 class Tempo_performer;
 class Tie;
@@ -196,7 +194,6 @@ class Translator;
 class Translator_change;
 class Translator_group;
 class Transposed_music;
-class Type_swallow_translator;
 class yyFlexLexer;
 
 typedef void (*Engraver_void_function_engraver_grob_info) (Engraver *, Grob_info);

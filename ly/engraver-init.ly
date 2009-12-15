@@ -34,9 +34,7 @@
   \description "A context for displaying fret diagrams."
 
   \consists "Fretboard_engraver"
-  \consists "Rest_swallow_translator"
   \consists "Output_property_engraver"
-  \consists "Skip_event_swallow_translator"
   \consists "Hara_kiri_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
@@ -73,7 +71,6 @@
   \consists "Piano_pedal_engraver"
   \consists "Piano_pedal_align_engraver"
   \consists "Instrument_name_engraver"
-  \consists "String_number_engraver"
   \consists "Axis_group_engraver"
   \consists "Figured_bass_engraver"
   \consists "Figured_bass_position_engraver"
@@ -109,7 +106,6 @@
   \remove "Ottava_spanner_engraver"
   \remove "Key_engraver"
   \remove "Piano_pedal_engraver"
-  \remove "String_number_engraver"
 
   \description "Handles typesetting for percussion."
 
@@ -256,7 +252,6 @@ multiple voices on the same staff."
   \consists "Tuplet_engraver"
   \consists "Grace_engraver"
   \consists "Instrument_switch_engraver"
-  \consists "Skip_event_swallow_translator"
 }
 
 \context{
@@ -289,8 +284,6 @@ multiple voices on the same staff."
   \remove "Fingering_engraver"
 
   \remove "Cluster_spanner_engraver"
-
-  \consists "Skip_event_swallow_translator"
 }
 
 \context{
@@ -376,7 +369,6 @@ a collection of staves, with a bracket in front and spanning bar lines."
   \consists "Dynamic_align_engraver"
   \consists "Text_engraver"
   \consists "Text_spanner_engraver"
-  \consists "Skip_event_swallow_translator"
   \consists "Axis_group_engraver"
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")
@@ -406,7 +398,6 @@ printing of a single line of lyrics."
   \consists "Hyphen_engraver"
   \consists "Stanza_number_engraver"
   \consists "Instrument_name_engraver"
-  \consists "Skip_event_swallow_translator"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
 
@@ -437,9 +428,6 @@ printing of a single line of lyrics."
   % FIXME: not sure what the default should be here.
   \override VerticalAxisGroup #'staff-affinity = #DOWN
 
-
-  \consists "Rest_swallow_translator"
-  \consists "Skip_event_swallow_translator"
   \consists "Tie_engraver"
   \consists "Note_name_engraver"
   \consists "Separating_line_group_engraver"
@@ -450,11 +438,9 @@ printing of a single line of lyrics."
   \name ChordNames
   \description "Typesets chord names."
 
-  \consists "Rest_swallow_translator"
   \consists "Output_property_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Chord_name_engraver"
-  \consists "Skip_event_swallow_translator"
   \consists "Hara_kiri_engraver"
 %  \consists "Note_spacing_engraver"
   \override VerticalAxisGroup #'remove-first = ##t
@@ -692,8 +678,6 @@ automatically when an output definition (a @code{\score} or
   \description "A context for printing a figured bass line."
 
   \consists "Figured_bass_engraver"
-  \consists "Note_swallow_translator"
-  \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"
   \consists "Hara_kiri_engraver"
 
@@ -711,7 +695,6 @@ automatically when an output definition (a @code{\score} or
 %% don't want to route anything out of here:
   \alias "Staff"
   \alias "Voice"
-  \consists "Swallow_engraver"
   \description "Silently discards all musical information given to this
 context."
 }
@@ -809,7 +792,6 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \remove "Accidental_engraver"
   \remove "Key_engraver"
 
-  \remove "String_number_engraver"
   \remove "Ottava_spanner_engraver"
   %% the clef handler
   \override Clef #'stencil = #clef::print-modern-tab-if-set

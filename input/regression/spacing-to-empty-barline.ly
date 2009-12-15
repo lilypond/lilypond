@@ -17,7 +17,6 @@ The two scores should look approximately the same."
     \type "Engraver_group"
     \consists "Output_property_engraver"
     \consists "Bar_engraver"
-    \consists "Skip_event_swallow_translator"
     \consists "Axis_group_engraver"
 
     \override VerticalAxisGroup #'Y-extent = ##f

@@ -78,7 +78,6 @@
 \context {
   \type "Performer_group"
   \name FiguredBass
-  \consists "Swallow_performer"
 }
 
 \context {
@@ -106,8 +105,8 @@
 \context {
   \type "Performer_group"
   \name "Devnull"
-  \consists "Swallow_performer"
 }
+
 \context {
   \Staff
   \name TabStaff
@@ -156,7 +155,6 @@
   \consists "Control_track_performer"
   \consists "Tempo_performer"
   \consists "Timing_translator"
-  \consists "Swallow_performer"
 
   \defaultchild "Staff"
 
