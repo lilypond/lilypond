@@ -42,14 +42,24 @@ Support guru
 @item Trevor Daniels:
 Assistant documentation editor
 
+@item Reinhold Kainhofer:
+@email{reinhold@@kainhofer.com},
+@uref{http://reinhold.kainhofer.com},
+Music2xml wrangler, bug squasher
+
 @item Jonathan Kulp:
+Assistant documentation editor
+
+@item Werner Lemberg,
+@email{wl@@gnu.org},
+Fonts, bug squasher
 
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
 Translation meister
 
 @item Patrick McCarty:
-Core developer
+SVG guru, bug squasher, text handling
 
 @item Joe Neeman:
 Core developer
@@ -68,14 +78,21 @@ Main author
 @uref{http://percival-music.ca},
 Project manager, Documentation Editor
 
-@item Nicolas Sceaux:
+@item Mark Polesky:
+General Fixit Guy
+
+@item Neil Puttock:
 Core developer
+
+@item Nicolas Sceaux:
+Core developer, Schemer extrodinaire
 
 @item Carl Sorensen:
 @email{c_sorensen@@byu.edu},
 Core developer, Frog meister
 
 @item Francisco Vila:
+Translations
 
 @item Valentin Villenave:
 LSR editor and Bug meister
@@ -89,20 +106,17 @@ LSR editor and Bug meister
 
 @itemize
 
-@item Reinhold Kainhofer:
-@email{reinhold@@kainhofer.com},
-@uref{http://reinhold.kainhofer.com},
-
 @item Pedro Kroeger:
 Build meister
 
-@item Mark Polesky:
-
-@item Niel Puttock:
+@item Graham Percival:
+@uref{http://percival-music.ca},
+Bug meister, Grand Documentation Project leader
 
 @item Jürgen Reuter:
 @email{reuter_j@@web.de},
 @uref{http://www.juergen-reuter.de},
+Ancient notation
 
 @item Erik Sandberg:
 Bug meister
@@ -155,12 +169,10 @@ Christian Hitz,
 
 @macro translationsCurrent
 
-@itemize
 Jean-Charles Malahieude, 
 @c @email{lolyfan@@wanadoo.fr},
 Till Rettig,
 Yoshiki Sawada,
-
 
 @end macro
 
@@ -195,8 +207,6 @@ Michael Krause,
 @c @email{m.krause@@tu-harburg.de},
 Jean-Baptiste Lamy,
 @c @email{jiba@@tuxfamily.org},
-Werner Lemberg,
-@c @email{wl@@gnu.org},
 Jonatan Liljedahl,
 Peter Lutek,
 Hendrik Maryns,
@@ -241,10 +251,8 @@ Rune Zedeler,
 @macro docPrevious
 
 
-@itemize
-
 Erlend Aasland,
-Trevor Bača,
+Trevor Baca,
 Alard de Boer,
 Jay Hamilton,
 Andrew Hawryluk,
@@ -254,7 +262,6 @@ Geoff Horton,
 Heikki Junes,
 @c @email{heikki.junes@@hut.fi},
 Kurt Kroon,
-Jonathan Kulp,
 Dave Luttinen,
 Christian Mondrup,
 @c @email{scancm@@biobase.dk},
