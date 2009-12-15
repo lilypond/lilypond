@@ -63,7 +63,7 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
 	echo ''>> $@
-	python $(top-src-dir)/scripts/build/create-version-itexi.py >> $@
+	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py >> $@
 
 .SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
   $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep \
