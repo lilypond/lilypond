@@ -106,6 +106,8 @@ LSR editor and Bug meister
 
 @itemize
 
+@c use colons not commas for @item entries.
+
 @item Pedro Kroeger:
 Build meister
 
@@ -129,6 +131,8 @@ Bug meister
 
 @macro coreCurrent
 
+@c use commas not colons
+
 Frédéric Bron,
 Hajo Dezelski,
 Andrew Hawryluk,
@@ -136,7 +140,9 @@ Ian Hulin,
 Michael Käppler,
 Marek Klein,
 Kieren MacMillan,
-Andrew Wilson,
+Andrew Wilson
+
+@c no comma for last entry
 
 @end macro
 
@@ -144,7 +150,11 @@ Andrew Wilson,
 
 @macro fontCurrent
 
-@c nobody listed yet
+@c use commas not colons
+
+@c ** nobody listed yet
+
+@c no comma for last entry
 
 @end macro
 
@@ -152,17 +162,25 @@ Andrew Wilson,
 
 @macro docCurrent
 
+@c use commas not colons
+
 James Lowe,
 Ralph Palmer,
-Patrick Schmidt,
+Patrick Schmidt
+
+@c no comma for last entry
 
 @end macro
 
 
 @macro supportCurrent
 
+@c use commas not colons
+
 James E. Bailey,
-Christian Hitz,
+Christian Hitz
+
+@c no comma for last entry
 
 @end macro
 
@@ -170,10 +188,14 @@ Christian Hitz,
 
 @macro translationsCurrent
 
+@c use commas not colons
+
 Jean-Charles Malahieude, 
 @c @email{lolyfan@@wanadoo.fr},
 Till Rettig,
-Yoshiki Sawada,
+Yoshiki Sawada
+
+@c no comma for last entry
 
 @end macro
 
@@ -181,6 +203,8 @@ Yoshiki Sawada,
 @c  *****************  previous contributors
 
 @macro corePrevious
+
+@c use commas not colons
 
 Erlend Aasland,
 Maximilian Albert,
@@ -229,7 +253,9 @@ Arno Waschk,
 Michael Welsh Duggan,
 John Williams,
 Milan Zamazal,
-Rune Zedeler,
+Rune Zedeler
+
+@c no comma for last entry
 
 @end macro
 
@@ -237,13 +263,17 @@ Rune Zedeler,
 
 @macro fontPrevious
 
+@c use commas not colons
+
 Tom Cato Amundsen,
 @c @email{tca@@gnu.org},
 Chris Jackson,
 @c @email{chris@@fluffhouse.org.uk},
 Arno Waschk,
 @c @email{arno@@arnowaschk.de},
-Rune Zedeler,
+Rune Zedeler
+
+@c no comma for last entry
 
 @end macro
 
@@ -251,6 +281,7 @@ Rune Zedeler,
 
 @macro docPrevious
 
+@c use commas not colons
 
 Erlend Aasland,
 Trevor Baca,
@@ -274,7 +305,9 @@ François Pinard,
 Eduardo Vieira,
 Michael Rasmussen,
 Till Rettig,
-Rune Zedeler,
+Rune Zedeler
+
+@c no comma for last entry
 
 @end macro
 
@@ -282,20 +315,26 @@ Rune Zedeler,
 
 @macro supportPrevious
 
+@c use commas not colons
+
 Anthony Fok,
 @c @email{foka@@debian.org},
 Chris Jackson,
 @c @email{chris@@fluffhouse.org.uk},
 Heikki Junes,
 @c @email{heikki.junes@@hut.fi},
-David Svoboda,
-@c @email{svoboda@@cmu.edu},
+David Svoboda
+@c @email{svoboda@@cmu.edu}
+
+@c no comma for last entry
 
 @end macro
 
 
 
 @macro translationsPrevious
+
+@c use commas not colons
 
 Frédéric Chiasson,
 Abel Cheung,
@@ -326,7 +365,9 @@ Clytie Siddall,
 August S. Sigov,
 @c @email{august@@infran.ru},
 Roland Stigge,
-Olcay Yıldırım,
+Olcay Yıldırım
+
+@c no comma for last entry
 
 @end macro
 
