@@ -236,7 +236,7 @@ def process_sections (filename, lang_suffix, page):
             # treat this case here, too: If we already had a section
             # and encounter another one before the next @node, we
             # write out the old one and start with the new values
-            if had_section and this_title:
+            if had_section and split != 'node' and this_title:
                 f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
                 this_title = remove_texinfo (sec[1])
                 this_anchor = create_texinfo_anchor (sec[1])
