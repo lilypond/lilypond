@@ -2,7 +2,7 @@
 @documentencoding utf-8
 @documentlanguage en
 @setfilename AUTHORS.info
-@settitle AUTHORS - who did what on GNU LilyPond
+@settitle AUTHORS - who did what for GNU LilyPond
 
 
 @node Top
@@ -10,173 +10,68 @@
 
 @contents
 
-@ignore
 @include macros.itexi
 @include web/basic-authors.itexi
 
+
+This file lists authors of LilyPond, and what they wrote.  This list
+is alphabetically ordered by surname.  This file lists people that have
+contributed over 100 lines of code or the equivalent.
+
+
+@subheading Current Development Team
+
 @developersCurrent
+
+@subheading Previous Development Team
 
 @developersPrevious
 
-@contributors
-@end ignore
 
-@unnumbered AUTHORS
+@subheading Current Contributors
 
-This file lists authors of LilyPond, and what they wrote.  This list
-is alphabetically ordered by surname. This file lists people that have
-contributed over 100 lines of code.
+@subsubheading Programming
 
+@coreCurrent
 
-@c Authors are encouraged to maintain their own entry.
+@subsubheading Font
 
-@c Sorted by family name.
+@fontCurrent
 
+@subsubheading Documentation
 
-Core code:
+@docCurrent
 
-@itemize @bullet
-@item @email{erlenda@@gmail.com,Erlend Aasland}
-   Color support, tablature improvements, trivial \mark stuff,
-al-niente hairpins.
-   
-@item @email{benkop@@freestart.hu,Pal Benko},
-    Ancient notation.
-@item @email{jch@@pps.jussieu.fr, Juliusz Chroboczek},
-    Type42 code.
-@item @email{david.feuer@@gmail.com, David Feuer},
-    PS output code refactoring.
-@item @email{bernard@@fong-hurley.org.uk, Bernard Hurley},
-    X11 color.
-@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Piano pedals, directed arpeggios.
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Fine tuning for quarter tones in midi output.
-@item @email{reinhold@@kainhofer.com, Reinhold Kainhofer},
-    @uref{http://reinhold.kainhofer.com},
-    Musicxml2ly development, various features and fixes.
-@item @email{m.krause@@tu-harburg.de, Michael Krause},
-    Breathing signs.
-@item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
-    Tablature support.
-@item @email{wl@@gnu.org, Werner Lemberg},
-    @TeX{} glue code.
-@item @email{joeneeman@@gmail.com, Joe Neeman}, 
-    Constrained line breaking.
-@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
-    Main author.
+@subsubheading Support
 
-@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
-    @uref{http://www.xs4all.nl/~jantien/},
-    Main author.
-@item @email{reuter_j@@web.de, Jürgen Reuter},
-    @uref{http://www.juergen-reuter.de},
-    Ancient notation  support (mensural notation,
-    Gregorian chant notation), ambitus, clusters.
-@item @email{nicolas.sceaux@@free.fr, Nicolas Sceaux},
-    Scheme macros, \markup syntax.
-@item @email{c_sorensen@@byu.edu, Carl Sorensen},    
-    Fret diagrams.    
-@item @email{, Rune Zedeler},
-    Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
-    fret, @code{subdivideBeams}.
-@end itemize
+@supportCurrent
 
-Font
+@subsubheading Translation
 
-@itemize @bullet
-
-@item @email{reuter_j@@web.de, Jürgen Reuter},
-    @uref{http://www.juergen-reuter.de},
-    Ancient notation font
-    Exact Type1 font outlines for feta, feta-alphabet.
-@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Arpeggio arrow
-@item @email{, Rune Zedeler},
-    16th and shorter rests, 
-@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
-    Main author.
-@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
-    @uref{http://www.xs4all.nl/~jantien/},
-    Main author.
-@item @email{tca@@gnu.org, Tom Cato Amundsen},
-    Accordion symbols.
-@item @email{arno@@arnowaschk.de, Arno Waschk},
-    "espressivo" mark.
-@end itemize
+@translationsCurrent
 
 
-Documentation and examples
+@subheading Past Contributors
 
-@itemize
-@item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
-    @uref{http://www.s3.kth.se/~mabe/},
-    Example files, documentation
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Cleanups in docs and example files.
-@item @email{john.mandereau@@free.fr, John Mandereau},
-    Internationalization.
-@item @email{scancm@@biobase.dk, Christian Mondrup},
-    Glossary.
-@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
-    Main author.
-@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
-    @uref{http://www.xs4all.nl/~jantien/},
-    Main author.
-@item @email{gpermus@@gmail.com, Graham Percival},
-    @uref{http://percival-music.ca},
-    Documentation Editor.
-@item @email{pinard@@iro.umontreal.ca, François Pinard},
-    @uref{http://www.iro.umontreal.ca/~pinard/},
-    Parts of Documentation/user/glossary*, started
-    internationalization stuff.
-@item @email{, Rune Zedeler},
-    Schumann example.
-@end itemize
+@subsubheading Programming
 
-Support (distributions, editor support, lilypond-book)
+@corePrevious
 
-@itemize
-@item @email{foka@@debian.org, Anthony Fok}, 
-    Debian package: debian/*.
-@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Emacs mode indentation.
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Major Emacs- and Vim-mode updates.
-@item @email{svoboda@@cmu.edu, David Svoboda},
-    what-beat emacs module.
-@end itemize
-  
+@subsubheading Font
 
-Translations
+@fontPrevious
 
-@itemize
-@item @email{bjoern.jacke@@gmx.de, Bjoern Jacke},
-    German glossary translations.
-@item @email{nj104@@cus.cam.ac.uk, Neil Jerram}, 
-    Glossary translations.
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Finnish translations.
-@item @email{tdm@@dds.nl, Tineke de Munnik},
-    Dutch website translation.
-@item @email{august@@infran.ru, August S. Sigov},
-    Russian translation.
-@item @email{, David González},
-    Spanish glossary translations.
-@item @email{ngclaude@@123mail.org, Nicolas Grandclaude},
-    French documentation translation.
-@item @email{lolyfan@@wanadoo.fr, Jean-Charles Malahieude},
-    French translation of messages, website and documentation.
-@item @email{john.mandereau@@free.fr, John Mandereau},
-    French translation of messages, website and documentation
-@item @email{gauvainpocentek@@yahoo.fr, Gauvain Pocentek},
-    French website translation.
-@item @email{ludovicsardain@@gmail.com, Ludovic Sardain},
-    French documentation translation.
-@end itemize
+@subsubheading Documentation
+
+@docPrevious
+
+@subsubheading Support
+
+@supportPrevious
+
+@subsubheading Translation
+
+@translationsPrevious
 
 
 @bye
