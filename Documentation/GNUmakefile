@@ -76,7 +76,7 @@ source-links = $(outdir)/source\
 HTML_PAGE_NAMES= translations index
 OUT_HTML_FILES += $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
-MAIN_INFO_DOC = lilypond-notation
+MAIN_INFO_DOC = lilypond-web
 INFO_DOCS = lilypond-usage lilypond-changes lilypond-contributor lilypond-internals \
  lilypond-essay lilypond-learning lilypond-notation music-glossary \
  lilypond-web lilypond-extending

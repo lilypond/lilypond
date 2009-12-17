@@ -150,9 +150,47 @@ Read more in our @ref{Introduction}!
 @contents
 
 
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
+@c    LilyPond  program.
+@end ignore
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond --- the music typesetter
+@direntry
+* LilyPond Learning Manual: (lilypond-learning).  Start here.
+* Music Glossary: (music-glossary).               For non-English users.
+* LilyPond: (lilypond-notation).                           LilyPond Notation Reference.
+* LilyPond Snippets: (lilypond-snippets).         Short tricks, tips, and examples.
+* LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
+* LilyPond Application Usage: (lilypond-application). Installing and running applications.
+* LilyPond Website: (lilypond-general).    Preview of new website.
+* abc2ly: (lilypond-application)Invoking abc2ly.      Importing ABC.      
+* convert-ly: (lilypond-application)Updating files with convert-ly. Older LilyPond versions.
+* etf2ly: (lilypond-application)Invoking etf2ly.      Importing Finale.
+* lilypond-book: (lilypond-application)LilyPond-book. Integrating text and music.
+* midi2ly: (lilypond-application)Invoking midi2ly.    Importing MIDI.
+* musicxml2ly: (lilypond-application)Invoking musicxml2ly.  Importing MusicXML.
+@end direntry
+
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi
 @include web/community.itexi
+
 
 @bye
