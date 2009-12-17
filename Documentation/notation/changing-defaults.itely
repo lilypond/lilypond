@@ -46,6 +46,7 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 * Modifying properties::
 * Useful concepts and properties::
 * Advanced tweaks::
+* Using music functions::
 @end menu
 
 
@@ -3562,4 +3563,159 @@ command.
 
 
 
+
+@node Using music functions
+@section Using music functions
+
+@c TODO -- add @seealso, etc. to these subsections
+
+Where tweaks need to be reused with different music expressions, it
+is often convenient to make the tweak part of a music function.
+In this section, we discuss only @emph{substitution} functions, where
+the object is to substitute a variable into a piece of LilyPond
+input code.  Other more complex functions are described in
+@rextend{Music functions}.
+
+@menu
+* Substitution function syntax::
+* Common argument types::
+* Substitution function examples::
+@end menu
+
+@node Substitution function syntax
+@subsection Substitution function syntax
+
+Making a function that substitutes a variable into LilyPond
+code is easy.  The general form of these functions is
+
+@example
+function =
+#(define-music-function (parser location @var{var1} @var{var2}...@var{vari}... )
+                        (@var{var1-type?} @var{var2-type?}...@var{vari-type?}...)
+  #@{
+    @emph{...music...}
+  #@})
+@end example
+
+@noindent
+where
+
+@multitable @columnfractions .33 .66
+@item @var{vari}         @tab @var{i}th variable
+@item @var{vari-type?}   @tab type of @var{i}th variable
+@item @var{...music...}  @tab normal LilyPond input, using
+ variables as @code{#$var1}, etc.
+@end multitable
+
+Common variable types are described in @ref{Common argument types}.
+A more complete description of variable types is found in
+@rextend{Music function syntax}.
+
+The @code{parser} and @code{location} arguments are mandatory,
+and are used in some advanced situations as described in
+@rextend{Music function syntax}.  For substitution functions, just be sure
+to include them.
+
+@seealso
+
+Notation Reference:
+@ref{Common argument types}.
+
+Extending LilyPond:
+@rextend{Music function syntax}.
+
+@node Common argument types
+@subsection Common argument types
+
+In order to allow for error checking, the type of each argument
+that is passed to a music function must be defined.  Some of the
+common types of variables are shown in the table below.
+
+The following input types may be used as variables in a music
+function.  This list is not exhaustive;
+more information about possible variable types
+can be found in @rextend{Music function syntax}.
+
+@multitable @columnfractions .33 .66
+@headitem Input type          @tab @var{vari-type?} notation
+@item Integer                 @tab @code{integer?}
+@item Float (decimal number)  @tab @code{number?}
+@item Text string             @tab @code{string?}
+@item Markup                  @tab @code{markup?}
+@item Music expression        @tab @code{ly:music?}
+@item A Scheme pair           @tab @code{pair?}
+@end multitable
+
+@seealso
+
+Extending LilyPond:
+@rextend {Music function syntax}.
+
+Installed Files:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm}.
+
+
+@node Substitution function examples
+@subsection Substitution function examples
+
+This section introduces some substitution function examples.  These
+are not intended to be exhaustive, but rather to demonstrate some
+of the possibilities of simple substitution functions.
+
+In the first example, a function is defined that simplifies
+setting the padding of a TextScript:
+
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+In addition to numbers, we can use music expressions such
+as notes for arguments to music functions:
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote = #(define-music-function (parser location note)
+                                     (ly:music?)
+  #{
+    \once \override Voice.NoteHead #'stencil =
+      #ly:text-interface::print
+    \once \override Voice.NoteHead #'text =
+      \markup \musicglyph #"custodes.mensural.u0"
+    \once \override Voice.Stem #'stencil = ##f
+    $note
+  #})
+
+{ c' d' e' f' \custosNote g' }
+@end lilypond
+
+Substitution functions with multiple arguments can be defined:
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded = #(define-music-function (parser location padding tempotext)
+  (number? string?)
+#{
+  \once \override Score.MetronomeMark #'padding = $padding
+  \tempo \markup { \bold $tempotext }
+#})
+
+\relative c'' {
+  \tempo \markup { "Low tempo" }
+  c4 d e f g1
+  \tempoPadded #4.0 #"High tempo"
+  g4 f e d c1
+}
+@end lilypond
+
+@seealso
 

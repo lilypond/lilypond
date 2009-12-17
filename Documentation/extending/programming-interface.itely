@@ -31,45 +31,47 @@ not familiar with Scheme, you may wish to read our
 @node Music functions
 @section Music functions
 
-This section discusses how to create music functions within LilyPond.
+Music functions are scheme functions that are used to
+automatically create music expressions.  They can be used to
+greatly simplify the input file.
 
 @menu
-* Overview of music functions::
+* Music function syntax::
 * Simple substitution functions::
-* Paired substitution functions::
+* Intermediate substitution functions::
 * Mathematics in functions::
 * Void functions::
 * Functions without arguments::
 @end menu
 
-@node Overview of music functions
-@subsection Overview of music functions
+@node Music function syntax
+@subsection Music function syntax
 
-Making a function that substitutes a variable into LilyPond
-code is easy.  The general form of these functions is
+The general syntax of a music function is:
 
 @example
-function =
-#(define-music-function (parser location @var{var1} @var{var2}...@var{vari}... )
-                        (@var{var1-type?} @var{var2-type?}...@var{vari-type?}...)
-  #@{
-    @emph{...music...}
-  #@})
+myFunction =
+#(define-music-function (parser location @var{var_1} @var{var_2}...@var{var_n})
+                        (@var{var_1-type?} @var{var_2-type?}...@var{var_n-type?})
+    @var{...valid music expression...})
 @end example
 
 @noindent
 where
 
 @multitable @columnfractions .33 .66
-@item @var{vari}         @tab @var{i}th variable
-@item @var{vari-type?}   @tab type of @var{i}th variable
-@item @var{...music...}  @tab normal LilyPond input, using
- variables as @code{#$var1}, etc.
+@item @var{var_i}         @tab @var{i}th variable
+@item @var{var_i-type?}   @tab type of @var{i}th variable
+@item @var{...valid music expression...}  @tab expression that returns
+valid music, generally in the form of a Scheme expression.  There is
+also special syntax that allows LilyPond input code in this music
+expression.
 @end multitable
 
-The following input types may be used as variables in a music
-function.  This list is not exhaustive; see other documentation
-specifically about Scheme for more variable types.
+The variable type checkers are scheme procedures that will return
+@code{#t} if a variable is of a given type.  Some common types
+are shown in the table below.  Other types can be found in the files
+@file{lily/music-scheme.cc} and @file{scm/c++.scm}.
 
 @multitable @columnfractions .33 .66
 @headitem Input type          @tab @var{vari-type?} notation
@@ -81,19 +83,42 @@ specifically about Scheme for more variable types.
 @item A pair of variables     @tab @code{pair?}
 @end multitable
 
-The @code{parser} and @code{location} arguments are mandatory,
-and are used in some advanced situations.  The @code{parser}
-argument is used to gain access to the value of another LilyPond
-variable.  The @code{location} argument
-is used to set the @q{origin} of the music expression that is built
-by the music function, so that in case of a syntax error LilyPond
+The @code{parser} and @code{location} arguments are mandatory.
+The @code{parser} argument is used in the body of the function
+to gain access to the value of another LilyPond variable.
+The @code{location} argument is used to set the @q{origin}
+of the music expression that is built by the music function,
+so that in case of a syntax error LilyPond
 can tell the user an appropriate place to look in the input file.
-
 
 @node Simple substitution functions
 @subsection Simple substitution functions
 
-Here is a simple example,
+A simple substitution function is a music function whose output music
+expression is written in LilyPond code, but with an input variable
+substituted into the LilyPond code.  The general form of these functions is
+
+@example
+myFunction =
+#(define-music-function (parser location @var{var1})
+                        (@var{var1-type?})
+  #@{
+    @emph{... LilyPond input code with} @code{#$var1} @emph{for substition ...}
+  #@})
+@end example
+
+Note that the special characters @code{#@{} and @code{#@}} surround the
+LilyPond music.
+
+@multitable @columnfractions .33 .66
+@item @var{vari}         @tab @var{i}th variable
+@item @var{vari-type?}   @tab type of @var{i}th variable
+@item @var{...music...}  @tab normal LilyPond input, using
+ variables as @code{#$var1}, etc.
+@end multitable
+
+For example, a function can be defined that simplifies
+setting the padding of a TextScript:
 
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
@@ -110,7 +135,8 @@ padText = #(define-music-function (parser location padding) (number?)
 }
 @end lilypond
 
-Music expressions may be substituted as well,
+In addition to numbers, we can use music expressions such
+as notes for arguments to music functions:
 
 @lilypond[quote,verbatim,ragged-right]
 custosNote = #(define-music-function (parser location note)
@@ -123,36 +149,21 @@ custosNote = #(define-music-function (parser location note)
     \once \override Voice.Stem #'stencil = ##f
     $note
   #})
-
-{ c' d' e' f' \custosNote g' }
 @end lilypond
 
-Multiple variables may be used,
+@node Intermediate substitution functions
+@subsection Intermediate substitution functions
 
-@lilypond[quote,verbatim,ragged-right]
-tempoPadded = #(define-music-function (parser location padding tempotext)
-  (number? string?)
-#{
-  \once \override Score.MetronomeMark #'padding = $padding
-  \tempo \markup { \bold $tempotext }
-#})
+Slightly more complicated than simple substitution function,
+intermediate substitution functions involve a mix of Scheme code and
+LilyPond code in the music expression to be
+returned.
 
-\relative c'' {
-  \tempo \markup { "Low tempo" }
-  c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
-  g4 f e d c1
-}
-@end lilypond
+Some @code{\override} commands require an argument consisting of
+a pair of numbers (called a @code{cons cell} in Scheme).
 
-
-@node Paired substitution functions
-@subsection Paired substitution functions
-
-Some @code{\override} commands require a pair of numbers
-(called a @code{cons cell} in Scheme).  To pass these numbers
-into a function, either use a @code{pair?} variable, or
-insert the @code{cons} into the music function.
+The pair can be directly passed into the music function,
+using a @code{pair?} variable:
 
 @quotation
 @example
@@ -169,8 +180,10 @@ manualBeam =
 @end example
 @end quotation
 
-@noindent
-or
+Alternatively, the numbers making up the pair can be
+passed as separate arguments, and the Scheme code
+used to create the pair can be included in the
+music expression:
 
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
@@ -1185,7 +1198,7 @@ Besides the usual @code{layout} and @code{props} arguments, the
 First, the function gets the indent width, a property here named
 @code{par-indent}, from the property list @code{props}.  If the
 property is not found, the default value is @code{2}.  Then, a
-list of justified lines is made using the 
+list of justified lines is made using the
 @code{make-justified-lines-markup-list} function, which is related
 to the @code{\justified-lines} built-in markup list command.  A
 horizontal space is added at the beginning using the
@@ -1424,7 +1437,7 @@ spanner objects, such as slurs and ties.  Usually, only one
 spanner object is created at a time, and it can be adjusted with
 the normal mechanism.  However, occasionally a spanner crosses a
 line break.  When this happens, the object is cloned.  A separate
-object is created for every system in which the spanner appears.  
+object is created for every system in which the spanner appears.
 The new objects are clones of the original object and inherit all
 properties, including @code{\override}s.
 
