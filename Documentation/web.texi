@@ -27,7 +27,7 @@
 @omflanguage English
 @end ignore
 
-
+@c `Web' was imported 2009-08-05 with git commit b938d71...
 @copying
 Copyright @copyright{} 2009 by the authors.
 

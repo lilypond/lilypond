@@ -22,10 +22,9 @@ should only read the sections which are relevant to them.  For more
 information about different jobs, see @rweb{Help us}.
 @end macro
 
+@c `Contributor's Guide' was born 2007-09-15 with git commit 48f3356...
 @macro copyrightDeclare
-Copyright @copyright{} 
-1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
-by the authors.
+Copyright @copyright{} 2007--2009 by the authors.
 @end macro
 
 @set FDL

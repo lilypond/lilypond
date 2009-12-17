@@ -17,10 +17,9 @@ This file explains how to extend the functionality of
 LilyPond version @version{}.
 @end macro
 
+@c `Extending' was born 2003-04-23 with git commit c08f6e8...
 @macro copyrightDeclare
-Copyright @copyright{} 
-1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
-by the authors.
+Copyright @copyright{} 2003--2009 by the authors.
 @end macro
 
 @set FDL

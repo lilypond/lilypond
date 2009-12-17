@@ -105,7 +105,8 @@
 @titlefont{Internals Reference}
 @author The LilyPond development team
 
-Copyright @copyright{} 1999--2009 by the authors
+@c `Internals Reference' was born 2000-10-21 with git commit 01e371f...
+Copyright @copyright{} 2000--2009 by the authors
 
 @vskip 20pt
 
