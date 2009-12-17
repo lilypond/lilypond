@@ -141,6 +141,13 @@ translation@@iro.umontreal.ca, mentioning lilypond-VERSION.pot
 
   - doc auto redirects  to v2.LATEST-STABLE
 
+  - add these two lines to http://www.lilypond.org/robots.txt:
+
+@example
+Disallow: /doc/v2.PREVIOUS-STABLE/
+Disallow: /doc/v2.CURRENT-DEVELOPMENT/
+@end example
+
 News:
 
         comp.music.research
