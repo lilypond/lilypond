@@ -163,7 +163,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 	    }
 	}
     }
-  else if (!top_level_)
+  else if (qualifies (i))
     {
       Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
       i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
