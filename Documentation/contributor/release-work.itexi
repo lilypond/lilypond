@@ -6,7 +6,7 @@
 * Development phases::          
 * Minor release checklist::     
 * Major release checklist::     
-* Making a release::
+* Release extra notes::         
 @end menu
 
 
@@ -77,11 +77,32 @@ permitted during the stable phase.
 
 A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
 
+@subheading Pre-release
+
 @enumerate
 
 @item Add a news item to @file{Documentation/web/news-front.itexi}
 
-@item Build release on GUB.
+@item Check that lilypond builds from scratch in an out-of-tree
+build.
+
+@item
+If you do not have the previous release test-output tarball, download
+it and put it in @code{regtests/}
+
+@item Build release on GUB by running:
+
+@example
+make lilypond
+@end example
+
+@noindent
+or something like:
+
+@example
+make LILYPOND_BRANCH=stable/2.12 lilypond
+@end example
+
 
 @item Check the regtest comparison in @file{uploads/webtest/} for
 any unintentional breakage.
@@ -90,11 +111,38 @@ any unintentional breakage.
 that it doesn't, rebuild @code{mingw::lilypond-installer}.  Repeat
 as necessary.
 
+@uref{http://code.google.com/p/lilypond/issues/detail?id=901}
+
 @item If any work was done on GUB since the last release, upload
 binaries to a temporary location, ask for feedback, and wait a day
 or two in case there's any major problems.
 
-@item Upload release from GUB.
+@end enumerate
+
+
+@subheading Post-release
+
+@enumerate
+
+@item If you're not right user on the webserver, remove the "t"
+from the rsync command in @file{test-lily/rsync-lily-doc.py} and
+@file{test-lily/rsync-test.py}
+
+@code{graham} owns v2.13; @code{han-wen} owns v2.12.
+
+@item Upload GUB by running:
+
+@example
+make lilypond-upload LILYPOND_BRANCH=master LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
+@end example
+
+@noindent
+or something like:
+
+@example
+make lilypond-upload LILYPOND_BRANCH=stable/2.12 LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
+@end example
+
 
 @item Update @file{VERSION} in lilypond git.
 
@@ -191,47 +239,8 @@ Web:
         https://savannah.gnu.org/news/submit.php?group_id=1673  @c => planet.gnu.org
 
 
-@node Making a release
-@section Making a release
-
-@subheading Technical notes
-
-To build GUB:
-
-@itemize
-
-@item 
-Run the following (from the gub/ dir):
-
-@example
-make lilypond
-@end example
-
-@item
-If you do not have the previous release test-output tarball, download
-it and put it in @code{regtests/}
-
-@end itemize
-
-To upload:
-
-@itemize
-
-@item If you're not user @code{graham} on the webserver, remove
-the "t" from the rsync command in
-@file{test-lily/rsync-lily-doc.py}
-
-@item Probably run the following command.  Look the output of
-@code{make lilypond} in case it's different.
-
-@example
-make lilypond-upload LILYPOND_BRANCH=master LILYPOND_REPO_URL=git://git.sv.gnu.org/lilypond.git
-@end example
-
-@end itemize
-
-
-Extra notes:
+@node Release extra notes
+@section Release extra notes
 
 If releasing stable/2.12, then:
 
@@ -240,8 +249,5 @@ If releasing stable/2.12, then:
 
 - change infodir in gub/specs/lilypond-doc.py from "lilypond.info"
   to "lilypond-web.info"
-
-- remove the "-t" option from rsync commands in
-  test-lily/rsync-lily-doc.py and test-lily/rsync-test.py
 
 
