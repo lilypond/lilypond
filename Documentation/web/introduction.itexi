@@ -706,7 +706,7 @@ Read about our @ref{Text input}.
 @imageClickable{nereid-shot-small,png, (click to enlarge), nereid-shot,png, right}
 
 LilyPond is a @emph{compiled} system: it is run on a text file
-containing the notes.  The resulting output is viewed on-screen or
+describing the music.  The resulting output is viewed on-screen or
 printed.  In some ways, LilyPond is more similar to a programming
 language than graphical score editing software.
 
@@ -752,16 +752,17 @@ Put chords and lyrics together to get a lead sheet:
 
 @subsubheading Orchestral parts
 
-The input file contains the notes of piece.  Score and parts can
-be made from a single input file.  So, changing a note always
-affects both parts and score.  To share the notes, the music is
-assigned to a variable:
+The input file contains the notes of piece of music.  Score and
+parts can be made from a single input file, so that changing a
+note always affects the score and parts.  To be able to include
+the same music in multiple places, the music is assigned to a
+@qq{variable} (a name).
 
 @imageFloat{text-input-parts-both-annotate,png,center}
 
 
 This variable is then used in a single part (here transposed, with
-condensed multi rests):
+condensed rests spanning several measures):
 
 @imageFloat{text-input-parts-single-annotate,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
