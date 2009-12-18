@@ -69,7 +69,7 @@ Impress friends and colleagues with sharp sheet music!
 @ref{Text input}: You write music as @emph{text}?!
 
 @item
-@ref{Alternate input}: Other ways of working with LilyPond.
+@ref{Easier editing}: Other ways of working with LilyPond.
 
 @end itemize
 @divEnd
@@ -84,7 +84,7 @@ Impress friends and colleagues with sharp sheet music!
 * Productions::                 Real-life use of LilyPond.
 * Testimonials::                What do people say about it?
 * Text input::                  You write music as text?!
-* Alternate input::             Other ways of working with LilyPond.
+* Easier editing::             Other ways of working with LilyPond.
 @end menu
 @divEnd
 
@@ -784,10 +784,11 @@ Please read the Learning Manual before complaining about bugs!
 New users occasionally believe that LilyPond is not working
 correctly, when in fact it is working precisely as designed.
 
-@help{any suggestions for a picture here?}
-
 
 @subsubheading Easier editing environments
+
+@imageClickable{lilykde-screenshot-small,png,
+  (click to enlarge),lilykde-screenshot,png,right}
 
 LilyPond is primarily concerned with producing top-quality
 engraved sheet music; creating a Graphical User Interface (GUI)
@@ -797,22 +798,20 @@ projects aimed at making it easier to create LilyPond input files.
 Some editing environments include syntax highlighting, automatic
 command completion, and pre-made templates.  Other programs
 actually provide a GUI which allows direct manipulation of a
-graphical score.  For more information, see our documentation
-about @ref{Alternate input}.
+graphical score.  For more information, see @ref{Easier editing}.
 
 
 @divClass{column-center-bottom}
 @subheading Where now?
 
 You are now ready to @ref{Download, Download LilyPond}.  Still not
-convinced?  Read about easier editing environments in
-@ref{Alternate input}.
+convinced?  Read about @ref{Easier editing}.
 
 @divEnd
 
 
-@node Alternate input
-@unnumberedsec Alternate input
+@node Easier editing
+@unnumberedsec Easier editing
 
 @divClass{column-center-top}
 @subheading Graphical environment: Denemo
