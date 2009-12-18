@@ -3,6 +3,7 @@
 
 import sys
 import os
+import glob
 
 #print "create-version-itexi.py"
 
@@ -13,6 +14,14 @@ myDir = os.path.dirname(sys.argv[0])
 # use two abspaths to work around some windows python bug
 topDir = os.path.join(os.path.abspath(myDir)+os.sep+'..'+os.sep+'..'+os.sep)
 topDir = os.path.abspath( topDir )
+
+# TODO: this might be useful for other scripts; can we make it available?
+manuals = map(lambda x: os.path.splitext(x)[0],
+              map(os.path.basename,
+                  glob.glob(os.path.join(topDir,'Documentation', '*.te??'))))
+manuals = map(lambda x: 'glossary' if x=='music-glossary' else x, manuals)
+manuals.append('internals')
+
 
 version_file_path = os.path.join(topDir, "VERSION")
 
@@ -70,14 +79,45 @@ def make_all_downloads(macroName, version):
 	make_download("download"+macroName+"Windows", "mingw/",
 		"mingw.exe", version, "1", "Windows")
 
+def make_ver_link(macroname, version, url, linktext):
+	string = "@uref{"
+	# TODO: generalize this
+	if (version[:4] == '2.13'):
+		string += '../../v2.13/'
+	if (version[:4] == '2.12'):
+		string += '../../v2.12/'
+	string += url
+	string += ","
+	string += linktext
+	string += "}"
+	make_macro(macroname, string)
 
+def make_manual_links(name, version):
+	for manual in manuals:
+		make_ver_link("manual"+name+manual.capitalize()+'Pdf', version,
+		          manual + '.pdf', manual+'.pdf')
+		make_ver_link("manual"+name+manual.capitalize()+'Split', version,
+		          manual + ' (split HTML)', manual+'/')
+		make_ver_link("manual"+name+manual.capitalize()+'Big', version,
+		          manual + ' (big HTML)', manual+'-one-big-page.html')
+
+
+print "@c ************************ Version numbers ************"
 make_macro("versionStable", VERSION_STABLE)
 make_macro("versionDevel", VERSION_DEVEL)
 
+print "@c ************************ Download binaries ************"
 make_all_downloads("Stable", VERSION_STABLE)
 make_all_downloads("Devel", VERSION_DEVEL)
 
+print "@c ************************ Download source ************"
 # FIXME: icky hard-coding!  -gp
 make_download_source("downloadStableSource", "v2.12", VERSION_STABLE)
 make_download_source("downloadDevelSource", "v2.13", VERSION_DEVEL)
+
+print "@c ************************ Manual links ************"
+make_manual_links("Stable", VERSION_STABLE)
+make_manual_links("Devel", VERSION_DEVEL)
+
+
 
