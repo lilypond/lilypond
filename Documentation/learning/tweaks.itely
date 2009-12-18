@@ -4008,30 +4008,15 @@ the staff.
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  c2 c' |
-  b4 g8 a b4 c |
-  c,2 a' |
-  g1 |
-}
-\addlyrics {
-  Some -- where o -- ver the Rain -- bow, way up high,
+  a2 b |
+  c2 d |
+  e2 f |
+  g2 a |
 }
 @end lilypond
 
 Further examples showing the use of these programmable interfaces
 can be found in @rextend{Tweaking with Scheme}.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
