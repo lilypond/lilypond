@@ -231,3 +231,17 @@ make lilypond-upload LILYPOND_BRANCH=master LILYPOND_REPO_URL=git://git.sv.gnu.o
 @end itemize
 
 
+Extra notes:
+
+If releasing stable/2.12, then:
+
+- apply doc patch: patches/rsync-lily.patch  (or something like
+  that)
+
+- change infodir in gub/specs/lilypond-doc.py from "lilypond.info"
+  to "lilypond-web.info"
+
+- remove the "-t" option from rsync commands in
+  test-lily/rsync-lily-doc.py and test-lily/rsync-test.py
+
+
