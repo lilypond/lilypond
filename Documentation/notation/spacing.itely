@@ -1402,104 +1402,189 @@ staves inside a system.
 @cindex space between staves
 @cindex space inside systems
 
-The height of each system is determined automatically.  To prevent
-staves from bumping into each other, some minimum distances are set.
-By changing these, you can put staves closer together.  This
-reduces the amount of space each system requires, and may result
-in having more systems per page.
+The height of each system is determined in two steps.  First, all of the
+staves are spaced according to the amount of space available.  Then, the
+non-staff lines (eg. lyrics or chords) are distributed between the
+staves.
 
-Normally staves are stacked vertically.  To make staves maintain a
-distance, their vertical size is padded.  This is done with the
-property @code{minimum-Y-extent}.  When applied to a
-@rinternals{VerticalAxisGroup}, it controls the size of a horizontal
-line, such as a staff or a line of lyrics.  @code{minimum-Y-extent}
-takes a pair of numbers, so
-if you want to make it smaller than its default @code{#'(-4 . 4)}
-then you could set
+@unnumberedsubsubsec Spacing between staves
+Spacing between staves is controlled by the @var{next-staff-spacing}
+property of the @var{VerticalAxisGroup} grob.  This property is an alist
+with four elements: @var{space}, @var{minimum-distance}, @var{padding}
+and @var{stretchability}:
+@itemize
+@item
+@var{space} is the size of the stretchable space between the center line
+of one staff to the center line of the next staff.
 
-@example
-\override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
-@end example
+@item
+@var{minimum-distance} provides a lower bound on the final distance
+between the center line of one staff to the center line of the next
+staff.  That is, if a page has many systems and needs to be compressed,
+the distance from this staff to the next will never be compressed to
+less than @var{minimum-distance}.
 
-@noindent
-This sets the vertical size of the current staff to 3 staff spaces on
-either side of the center staff line.  The value @code{(-3 . 3)} is
-interpreted as an interval, where the center line is the 0, so the
-first number is generally negative.  The numbers need not match;
-for example, the staff can be made larger at the bottom by setting
-it to @code{(-6 . 4)}.
+@item
+@var{padding} is the amount of whitespace that must be present between
+the bottom of one staff and the top of the next.  It differs from
+@var{minimum-distance} in that the effect of @var{padding} depends on
+the height of objects in the staff.  For example, @var{padding} is more
+likely to come into effect for staves with notes that are far below the
+staff.
 
-@ignore
-FIXME: update this section
-
-After page breaks are determined, the vertical spacing within each
-system is reevaluated in order to fill the page more evenly; if a page
-has space left over, systems are stretched in order to fill that space.
-The amount of stretching can be configured though the @code{max-stretch}
-property of the @rinternals{VerticalAlignment} grob. By default,
-@code{max-stretch} is set to zero, disabling stretching. To enable
-stretching, a sane value for @code{max-stretch}
-is @code{ly:align-interface::calc-max-stretch}.
-
-In some situations, you may want to stretch most of a system while
-leaving some parts fixed.  For example, if a piano part occurs in the
-middle of an orchestral score, you may want to leave the piano staves
-close to each other while stretching the rest of the score.  The
-@code{keep-fixed-while-stretching} property of
-@rinternals{VerticalAxisGroup} can be used to achieve this.  When set
-to @code{##t}, this property keeps its staff (or line of lyrics) from
-moving relative to the one directly above it.  In the example above,
-you would override @code{keep-fixed-while-stretching} to @code{##t} in
-the second piano staff:
+@item
+@var{stretchability} controls the stretchable space's propensity to
+stretch when the system is stretched.  Large values will cause a
+system to stretch more, while a value of zero will prevent the
+space from stretching at all.  If unset, @var{stretchability}
+defaults to @code{space - minimum-distance}.
+@end itemize
 
 @lilypond[verbatim]
-#(set-default-paper-size "a6")
-#(set-global-staff-size 14.0)
+#(set-global-staff-size 16)
+\new StaffGroup <<
+  % Since space is small and there is no minimum-distance, the distance
+  % between this staff and the next will be determined by padding.
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 1) (padding . 1))
+  }
+  { \clef bass c, }
+  % Since space is small and nothing sticks out very far, the distance
+  % between this staff and the next will be determined by minimum-distance.
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 1) (minimum-distance . 12))
+  }
+  { \clef bass c, }
+  % By setting padding to a negative value, staves can be made to collide.
+  \new Staff \with {
+    \override VerticalAxisGroup #'next-staff-spacing = #'((space . 4) (padding . -10))
+  }
+  { \clef bass c, }
+  \new Staff { \clef bass c, }
+>>
+@end lilypond
 
-\book {
-\paper {
-  ragged-last-bottom = ##f
-}
 
-\new Score \with
-{
-  \override VerticalAlignment #'max-stretch = #ly:align-interface::calc-max-stretch
-}
-{
-\new GrandStaff
+In orchestral and other large scores, it is common to place staves in
+groups.  The space between groups is typically larger than the space
+between staves of the same group.  This spacing can be tweaked with the
+@var{StaffGrouper} grob: the default value of @var{next-staff-spacing}
+for @var{VerticalAxisGroup} is a callback function which operates by
+searching for a @var{StaffGrouper} grob containing the staff.  If it
+finds a @var{StaffGrouper} grob and the staff in question is in the
+middle of a group, it reads the @var{between-staff-spacing} property of
+@var{StaffGrouper} and returns it.  If the staff in question is the last
+staff of a group, the callback reads the @var{after-last-staff-spacing}
+property of @var{StaffGrouper} and returns it.  If the callback did not
+find a @var{StaffGrouper} grob, it reads
+@var{default-next-staff-spacing} from its @var{VerticalAxisGroup} and
+returns that.
+
+@lilypond[verbatim]
+#(set-global-staff-size 16)
 <<
-  \new StaffGroup
+  \new PianoStaff \with {
+    \override StaffGrouper #'between-staff-spacing #'space = #1
+    \override StaffGrouper #'between-staff-spacing #'padding = #0
+    \override StaffGrouper #'after-last-staff-spacing #'space = #20
+  }
   <<
-    \new Staff {c' d' e' f'}
-    \new Staff {c' d' e' f'}
-    \new Staff {c' d' e' f'}
+    \new Staff c'1
+    \new Staff c'1
   >>
 
-  \new PianoStaff
+  \new StaffGroup \with {
+    \override StaffGrouper #'between-staff-spacing #'space = #1
+    \override StaffGrouper #'between-staff-spacing #'padding = #0
+  }
   <<
-    \new Staff {c' d' e' f'}
-    \new Staff \with {
-      \override VerticalAxisGroup #'keep-fixed-while-stretching = ##t
-    }
-    {c' d' e' f'}
-  >>
-
-  \new StaffGroup
-  <<
-    \new Staff {c' d' e' f'}
-    \new Staff {c' d' e' f'}
+    \new Staff c'1
+    \new Staff c'1
   >>
 >>
-}
-}
 @end lilypond
-@end ignore
 
-Vertical alignment of staves is handled by the
-@code{VerticalAlignment} object.  The context parameters
-specifying the vertical extent are described in connection with
-the @code{Axis_group_engraver}.
 
+@unnumberedsubsubsec Spacing of non-staff lines
+
+After the positions of the staves are determined, the non-staff lines
+are distributed between the staves.  Each of these lines has a
+@var{staff-affinity} property which controls its vertical alignment.
+For example,
+
+@example
+\new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
+@end example
+
+@noindent creates a lyrics context that will be placed close to the
+staff below it.  Setting @var{staff-affinity} to something which is not
+a number (@code{#f}, for example) will cause that line to be treated
+like a staff.  Conversely, setting @var{staff-affinity} for a staff will
+cause it to be treated like a non-staff.
+
+@c FIXME: is it possible to have @example inside @warning?
+@c @warning{ Adjacent non-staff lines should have non-increasing
+@c @var{staff-affinity} from top-to-bottom.  For example, the behavior of
+@c @example
+@c <<
+@c   \new Staff c
+@c   \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #DOWN @}
+@c   \new Lyrics \with @{ \override VerticalAxisGroup #'staff-affinity = #UP @}
+@c   \new Staff c
+@c >>
+@c @end example
+@c is undefined.
+@c }
+
+@warning{A non-staff line at the bottom of a system should have
+@var{staff-affinity} set to @code{UP}.  Similarly, a non-staff
+line at the top of a system should have @var{staff-affinity} set
+to @code{DOWN}.
+}
+
+Non-staff lines admit three properties to control their spacing.  Each
+of the these properties is an alist of the same format as
+@var{next-staff-spacing}, above.
+@itemize
+@item
+If the nearest line in the @var{staff-affinity} direction is a staff
+then @var{inter-staff-spacing} gives the spacing between the non-staff
+and the staff.  If @var{staff-affinity} is @code{CENTER}, then
+@var{inter-staff-spacing} is used for both directions.
+
+@item
+If the nearest line in the @var{staff-affinity} direction is a non-staff
+then @var{inter-loose-line-spacing} gives the spacing between the two
+non-staff lines.
+
+@item
+If the nearest line in the opposite direction to @var{staff-affinity} is
+a staff then @var{non-affinity-spacing} gives the spacing between the
+non-staff and the staff.  This can be used, for example, to require
+a minimum amount of padding between a Lyrics line and the staff
+to which it does not belong.
+@end itemize
+
+@lilypond[verbatim]
+#(set-global-staff-size 16)
+\layout {
+  \context {
+    \Lyrics
+    % By default, Lyrics are placed close together. Here, we allow them to be stretched
+    % more widely.
+    \override VerticalAxisGroup #'inter-loose-line-spacing #'stretchability = #1000
+  }
+}
+
+\new StaffGroup
+<<
+  \new Staff \with { \override VerticalAxisGroup #'next-staff-spacing = #'((space . 30)) } c'1
+  \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #UP } \lyricmode { up }
+  \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #CENTER } \lyricmode { center }
+  \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #DOWN } \lyricmode { down }
+  \new Staff c'1
+>>
+@end lilypond
 
 @seealso
 Snippets:
@@ -1509,6 +1594,7 @@ Snippets:
 @c @lsr{spacing,alignment-vertical-spacing.ly}.
 
 Internals Reference:
+@rinternals{VerticalAxisGroup},
 @rinternals{VerticalAlignment},
 @rinternals{Axis_group_engraver}.
 
