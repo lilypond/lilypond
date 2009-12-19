@@ -815,6 +815,9 @@ Notation Reference:
 Application Usage:
 @@rprogram@{blah@}.
 
+Extending LilyPond:
+@@rextend@{frob@}.
+
 Installed Files:
 @@file@{path/to/dir/blahz@}.
 
