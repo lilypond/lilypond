@@ -124,6 +124,7 @@ WWW-post:
 	find $(outdir) -name '*-root' | xargs rm -rf
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$(WEB_TARGETS)"
 	find $(outdir)/offline-root -type l -delete
+	cd $(outdir)/offline-root/Documentation && ln -sf ./ v$(MAJOR_VERSION).$(MINOR_VERSION)
 endif # ifeq ($(out),www)
 
 # For those who cannot for the life in them remember to type

@@ -19,7 +19,7 @@ topDir = os.path.abspath( topDir )
 manuals = map(lambda x: os.path.splitext(x)[0],
               map(os.path.basename,
                   glob.glob(os.path.join(topDir,'Documentation', '*.te??'))))
-manuals = map(lambda x: 'glossary' if x=='music-glossary' else x, manuals)
+#manuals = map(lambda x: 'glossary' if x=='music-glossary' else x, manuals)
 manuals.append('internals')
 
 
@@ -83,9 +83,9 @@ def make_ver_link(macroname, version, url, linktext):
 	string = "@uref{"
 	# TODO: generalize this
 	if (version[:4] == '2.13'):
-		string += '../../v2.13/'
+		string += '../v2.13/'
 	if (version[:4] == '2.12'):
-		string += '../../v2.12/'
+		string += '../v2.12/'
 	string += url
 	string += ","
 	string += linktext
@@ -93,13 +93,16 @@ def make_ver_link(macroname, version, url, linktext):
 	make_macro(macroname, string)
 
 def make_manual_links(name, version):
-	for manual in manuals:
-		make_ver_link("manual"+name+manual.capitalize()+'Pdf', version,
+	for m in manuals:
+		# FIXME: this is disgusting
+		manual = m
+		mshort = 'glossary' if m=='music-glossary' else m
+		make_ver_link("manual"+name+mshort.capitalize()+'Pdf', version,
 		          manual + '.pdf', manual+'.pdf')
-		make_ver_link("manual"+name+manual.capitalize()+'Split', version,
-		          manual + ' (split HTML)', manual+'/')
-		make_ver_link("manual"+name+manual.capitalize()+'Big', version,
-		          manual + ' (big HTML)', manual+'-one-big-page.html')
+		make_ver_link("manual"+name+mshort.capitalize()+'Split', version,
+		          manual+'/index.html', manual+' (split HTML)')
+		make_ver_link("manual"+name+mshort.capitalize()+'Big', version,
+		          manual+'-big-page.html', manual + ' (big HTML)')
 
 
 print "@c ************************ Version numbers ************"

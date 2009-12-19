@@ -596,53 +596,57 @@ the latest binary:
 
 @subheading Manuals
 
-@help {these need the automatic symlinks or something.  Maybe even
-a hard-coded url to lilypond.org/docs/2.13 or something??}
-
-Commented out pending a real fix
-@ignore
-
 Learning:
-@uref{lm-html, html}
-@uref{lm-big-html, big html}
-@uref{lm-pdf, pdf}
+@manualDevelLearningSplit
+@manualDevelLearningBig
+@manualDevelLearningPdf
 
 Glossary:
-@uref{mg-html, html}
-@uref{mg-big-html, big html}
-@uref{mg-pdf, pdf}
+@manualDevelGlossarySplit
+@manualDevelGlossaryBig
+@manualDevelGlossaryPdf
 
 Essay:
-@uref{essay-html, html}
-@uref{essay-big-html, big html}
-@uref{essay-pdf, pdf}
+@manualDevelEssaySplit
+@manualDevelEssayBig
+@manualDevelEssayPdf
+
 
 Notation:
-@uref{notation-html, html}
-@uref{notation-big-html, big html}
-@uref{notation-pdf, pdf}
+@manualDevelNotationSplit
+@manualDevelNotationBig
+@manualDevelNotationPdf
 
 Usage:
-@uref{usage-html, html}
-@uref{usage-big-html, big html}
-@uref{usage-pdf, pdf}
+@manualDevelUsageSplit
+@manualDevelUsageBig
+@manualDevelUsagePdf
 
 Snippets:
-@uref{snippets-html, html}
-@uref{snippets-big-html, big html}
-@uref{snippets-pdf, pdf}
+@manualDevelSnippetsSplit
+@manualDevelSnippetsBig
+@manualDevelSnippetsPdf
+
+
+Web:
+@manualDevelWebSplit
+@manualDevelWebBig
+@manualDevelWebPdf
 
 Changes:
-@uref{changes-html, html}
-@uref{changes-big-html, big html}
-@uref{changes-pdf, pdf}
+@manualDevelChangesSplit
+@manualDevelChangesBig
+@manualDevelChangesPdf
+
+Extend:
+@manualDevelExtendingSplit
+@manualDevelExtendingBig
+@manualDevelExtendingPdf
 
 Internals:
-@uref{internals-html, html}
-@uref{internals-big-html, big html}
-@uref{internals-pdf, pdf}
-
-@end ignore
+@manualDevelInternalsSplit
+@manualDevelInternalsBig
+@manualDevelInternalsPdf
 
 @divEnd
 
