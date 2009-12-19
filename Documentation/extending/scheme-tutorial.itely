@@ -47,6 +47,7 @@ users may simply choose @q{Run} from the Start menu and enter
 @menu
 * Introduction to Scheme::
 * Scheme in LilyPond::
+* Building complicated functions::
 @end menu
 
 @node Introduction to Scheme
@@ -233,8 +234,10 @@ TODO -- write about scheme procedures
 @menu
 * LilyPond Scheme syntax::
 * LilyPond variables::
+* Input variables and Scheme::
 * Object properties::
 * LilyPond compound variables::
+* Internal music representation::
 @end menu
 
 @node LilyPond Scheme syntax
@@ -310,6 +313,105 @@ twentyFour = (* 2 twelve)
 @noindent
 the number 24 is stored in the variable @code{twentyFour}.
 
+@node Input variables and Scheme
+@subsection Input variables and Scheme
+
+The input format supports the notion of variables: in the following
+example, a music expression is assigned to a variable with the name
+@code{traLaLa}.
+
+@example
+traLaLa = @{ c'4 d'4 @}
+@end example
+
+@noindent
+
+There is also a form of scoping: in the following example, the
+@code{\layout} block also contains a @code{traLaLa} variable, which is
+independent of the outer @code{\traLaLa}.
+@example
+traLaLa = @{ c'4 d'4 @}
+\layout @{ traLaLa = 1.0 @}
+@end example
+@c
+In effect, each input file is a scope, and all @code{\header},
+@code{\midi}, and @code{\layout} blocks are scopes nested inside that
+toplevel scope.
+
+Both variables and scoping are implemented in the GUILE module system.
+An anonymous Scheme module is attached to each scope.  An assignment of
+the form
+@example
+traLaLa = @{ c'4 d'4 @}
+@end example
+
+@noindent
+is internally converted to a Scheme definition
+@example
+(define traLaLa @var{Scheme value of `@code{... }'})
+@end example
+
+This means that input variables and Scheme variables may be freely
+mixed.  In the following example, a music fragment is stored in the
+variable @code{traLaLa}, and duplicated using Scheme.  The result is
+imported in a @code{\score} block by means of a second variable
+@code{twice}:
+
+@lilypond[verbatim]
+traLaLa = { c'4 d'4 }
+
+%% dummy action to deal with parser lookahead
+#(display "this needs to be here, sorry!")
+
+#(define newLa (map ly:music-deep-copy
+  (list traLaLa traLaLa)))
+#(define twice
+  (make-sequential-music newLa))
+
+{ \twice }
+@end lilypond
+
+@c Due to parser lookahead
+
+In this example, the assignment happens after the parser has
+verified that nothing interesting happens after
+@code{traLaLa = @{ ... @}}.  Without the dummy statement in the
+above example, the @code{newLa} definition is executed before
+@code{traLaLa} is defined, leading to a syntax error.
+
+The above example shows how to @q{export} music expressions from the
+input to the Scheme interpreter.  The opposite is also possible.  By
+wrapping a Scheme value in the function @code{ly:export}, a Scheme
+value is interpreted as if it were entered in LilyPond syntax.
+Instead of defining @code{\twice}, the example above could also have
+been written as
+
+@example
+...
+@{ #(ly:export (make-sequential-music (list newLa))) @}
+@end example
+
+Scheme code is evaluated as soon as the parser encounters it.  To
+define some Scheme code in a macro (to be called later), use
+@ref{Void functions}, or
+
+@example
+#(define (nopc)
+  (ly:set-option 'point-and-click #f))
+
+...
+#(nopc)
+@{ c'4 @}
+@end example
+
+@knownissues
+
+Mixing Scheme and LilyPond variables is not possible with the
+@code{--safe} option.
+
+
+
+
 @node Object properties
 @subsection Object properties
 
@@ -369,6 +471,454 @@ todo -- write something about property alists
 @unnumberedsubsubsec Alist chains
 
 todo -- write something about alist chains
+
+@node Internal music representation
+@subsection Internal music representation
+
+When a music expression is parsed, it is converted into a set of
+Scheme music objects.  The defining property of a music object is that
+it takes up time.  Time is a rational number that measures the length
+of a piece of music in whole notes.
+
+A music object has three kinds of types:
+@itemize
+@item
+music name: Each music expression has a name.  For example, a note
+leads to a @rinternals{NoteEvent}, and @code{\simultaneous} leads to
+a @rinternals{SimultaneousMusic}.  A list of all expressions
+available is in the Internals Reference manual, under
+@rinternals{Music expressions}.
+
+@item
+@q{type} or interface: Each music name has several @q{types} or
+interfaces, for example, a note is an @code{event}, but it is also a
+@code{note-event}, a @code{rhythmic-event}, and a
+@code{melodic-event}.  All classes of music are listed in the
+Internals Reference, under
+@rinternals{Music classes}.
+
+@item
+C++ object: Each music object is represented by an object of the C++
+class @code{Music}.
+@end itemize
+
+The actual information of a music expression is stored in properties.
+For example, a @rinternals{NoteEvent} has @code{pitch} and
+@code{duration} properties that store the pitch and duration of that
+note.  A list of all properties available can be found in the
+Internals Reference, under @rinternals{Music properties}.
+
+A compound music expression is a music object that contains other
+music objects in its properties.  A list of objects can be stored in
+the @code{elements} property of a music object, or a single @q{child}
+music object in the @code{element} property.  For example,
+@rinternals{SequentialMusic} has its children in @code{elements},
+and @rinternals{GraceMusic} has its single argument in
+@code{element}.  The body of a repeat is stored in the @code{element}
+property of @rinternals{RepeatedMusic}, and the alternatives in
+@code{elements}.
+
+@node Building complicated functions
+@section Building complicated functions
+
+This section explains how to gather the information necessary
+to create complicated music functions.
+
+@menu
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
+@end menu
+
+
+@node Displaying music expressions
+@subsection Displaying music expressions
+
+@cindex internal storage
+@cindex displaying music expressions
+@cindex internal representation, displaying
+@cindex displayMusic
+@funindex \displayMusic
+
+When writing a music function it is often instructive to inspect how
+a music expression is stored internally.  This can be done with the
+music function @code{\displayMusic}
+
+@example
+@{
+  \displayMusic @{ c'4\f @}
+@}
+@end example
+
+@noindent
+will display
+
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 0 0))
+                (make-music
+                  'AbsoluteDynamicEvent
+                  'text
+                  "f")))))
+@end example
+
+By default, LilyPond will print these messages to the console along
+with all the other messages.  To split up these messages and save
+the results of @code{\display@{STUFF@}}, redirect the output to
+a file.
+
+@example
+lilypond file.ly >display.txt
+@end example
+
+With a bit of reformatting, the above information is
+easier to read,
+
+@example
+(make-music 'SequentialMusic
+  'elements (list (make-music 'EventChord
+                    'elements (list (make-music 'NoteEvent
+                                      'duration (ly:make-duration 2 0 1 1)
+                                      'pitch (ly:make-pitch 0 0 0))
+                                    (make-music 'AbsoluteDynamicEvent
+                                      'text "f")))))
+@end example
+
+A @code{@{ ... @}} music sequence has the name @code{SequentialMusic},
+and its inner expressions are stored as a list in its @code{'elements}
+property.  A note is represented as an @code{EventChord} expression,
+containing a @code{NoteEvent} object (storing the duration and
+pitch properties) and any extra information (in this case, an
+@code{AbsoluteDynamicEvent} with a @code{"f"} text property.
+
+
+@node Music properties
+@subsection Music properties
+
+The @code{NoteEvent} object is the first object of the
+@code{'elements} property of @code{someNote}.
+
+@example
+someNote = c'
+\displayMusic \someNote
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch 0 0 0))))
+@end example
+
+The @code{display-scheme-music} function is the function used by
+@code{\displayMusic} to display the Scheme representation of a music
+expression.
+
+@example
+#(display-scheme-music (first (ly:music-property someNote 'elements)))
+===>
+(make-music
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 0 0))
+@end example
+
+Then the note pitch is accessed through the @code{'pitch} property
+of the @code{NoteEvent} object,
+
+@example
+#(display-scheme-music
+   (ly:music-property (first (ly:music-property someNote 'elements))
+                      'pitch))
+===>
+(ly:make-pitch 0 0 0)
+@end example
+
+The note pitch can be changed by setting this @code{'pitch} property,
+
+@funindex \displayLilyMusic
+
+@example
+#(set! (ly:music-property (first (ly:music-property someNote 'elements))
+                          'pitch)
+       (ly:make-pitch 0 1 0)) ;; set the pitch to d'.
+\displayLilyMusic \someNote
+===>
+d'
+@end example
+
+
+@node Doubling a note with slurs (example)
+@subsection Doubling a note with slurs (example)
+
+Suppose we want to create a function that translates input like
+@code{a} into @code{a( a)}.  We begin by examining the internal
+representation of the desired result.
+
+@example
+\displayMusic@{ a'( a') @}
+===>
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  -1)))
+        (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  1)))))
+@end example
+
+The bad news is that the @code{SlurEvent} expressions
+must be added @q{inside} the note (or more precisely,
+inside the @code{EventChord} expression).
+
+Now we examine the input,
+
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))))))
+@end example
+
+So in our function, we need to clone this expression (so that we
+have two notes to build the sequence), add @code{SlurEvents} to the
+@code{'elements} property of each one, and finally make a
+@code{SequentialMusic} with the two @code{EventChords}.
+
+@example
+doubleSlur = #(define-music-function (parser location note) (ly:music?)
+         "Return: @{ note ( note ) @}.
+         `note' is supposed to be an EventChord."
+         (let ((note2 (ly:music-deep-copy note)))
+           (set! (ly:music-property note 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction -1)
+                       (ly:music-property note 'elements)))
+           (set! (ly:music-property note2 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction 1)
+                       (ly:music-property note2 'elements)))
+           (make-music 'SequentialMusic 'elements (list note note2))))
+@end example
+
+
+@node Adding articulation to notes (example)
+@subsection Adding articulation to notes (example)
+
+The easy way to add articulation to notes is to merge two music
+expressions into one context, as explained in
+@ruser{Creating contexts}.  However, suppose that we want to write
+a music function that does this.
+
+A @code{$variable} inside the @code{#@{...#@}} notation is like
+a regular @code{\variable} in classical LilyPond notation.  We
+know that
+
+@example
+@{ \music -. -> @}
+@end example
+
+@noindent
+will not work in LilyPond.  We could avoid this problem by attaching
+the articulation to a fake note,
+
+@example
+@{ << \music s1*0-.-> @}
+@end example
+
+@noindent
+but for the sake of this example, we will learn how to do this in
+Scheme.  We begin by examining our input and desired output,
+
+@example
+%  input
+\displayMusic c4
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))))
+=====
+%  desired output
+\displayMusic c4->
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))
+        (make-music
+          'ArticulationEvent
+          'articulation-type
+          "marcato")))
+@end example
+
+We see that a note (@code{c4}) is represented as an @code{EventChord}
+expression, with a @code{NoteEvent} expression in its elements list.  To
+add a marcato articulation, an @code{ArticulationEvent} expression must
+be added to the elements property of the @code{EventChord}
+expression.
+
+To build this function, we begin with
+
+@example
+(define (add-marcato event-chord)
+  "Add a marcato ArticulationEvent to the elements of `event-chord',
+  which is supposed to be an EventChord expression."
+  (let ((result-event-chord (ly:music-deep-copy event-chord)))
+    (set! (ly:music-property result-event-chord 'elements)
+          (cons (make-music 'ArticulationEvent
+                  'articulation-type "marcato")
+                (ly:music-property result-event-chord 'elements)))
+    result-event-chord))
+@end example
+
+The first line is the way to define a function in Scheme: the function
+name is @code{add-marcato}, and has one variable called
+@code{event-chord}.  In Scheme, the type of variable is often clear
+from its name.  (this is good practice in other programming languages,
+too!)
+
+@example
+"Add a marcato..."
+@end example
+
+@noindent
+is a description of what the function does.  This is not strictly
+necessary, but just like clear variable names, it is good practice.
+
+@example
+(let ((result-event-chord (ly:music-deep-copy event-chord)))
+@end example
+
+@code{let} is used to declare local variables.  Here we use one local
+variable, named @code{result-event-chord}, to which we give the value
+@code{(ly:music-deep-copy event-chord)}.  @code{ly:music-deep-copy} is
+a function specific to LilyPond, like all functions prefixed by
+@code{ly:}.  It is use to make a copy of a music
+expression.  Here we copy @code{event-chord} (the parameter of the
+function).  Recall that our purpose is to add a marcato to an
+@code{EventChord} expression.  It is better to not modify the
+@code{EventChord} which was given as an argument, because it may be
+used elsewhere.
+
+Now we have a @code{result-event-chord}, which is a
+@code{NoteEventChord} expression and is a copy of
+@code{event-chord}.  We add the marcato to its @code{'elements}
+list property.
+
+@example
+(set! place new-value)
+@end example
+
+Here, what we want to set (the @q{place}) is the @code{'elements}
+property of @code{result-event-chord} expression.
+
+@example
+(ly:music-property result-event-chord 'elements)
+@end example
+
+@code{ly:music-property} is the function used to access music properties
+(the @code{'elements}, @code{'duration}, @code{'pitch}, etc, that we
+see in the @code{\displayMusic} output above).  The new value is the
+former @code{'elements} property, with an extra item: the
+@code{ArticulationEvent} expression, which we copy from the
+@code{\displayMusic} output,
+
+@example
+(cons (make-music 'ArticulationEvent
+        'articulation-type "marcato")
+      (ly:music-property result-event-chord 'elements))
+@end example
+
+@code{cons} is used to add an element to a list without modifying
+the original list.  This is what we want: the same list as before,
+plus the new @code{ArticulationEvent} expression.  The order
+inside the @code{'elements} property is not important here.
+
+Finally, once we have added the marcato articulation to its @code{elements}
+property, we can return @code{result-event-chord}, hence the last line of
+the function.
+
+Now we transform the @code{add-marcato} function into a music
+function,
+
+@example
+addMarcato = #(define-music-function (parser location event-chord)
+                                     (ly:music?)
+    "Add a marcato ArticulationEvent to the elements of `event-chord',
+    which is supposed to be an EventChord expression."
+    (let ((result-event-chord (ly:music-deep-copy event-chord)))
+      (set! (ly:music-property result-event-chord 'elements)
+            (cons (make-music 'ArticulationEvent
+                    'articulation-type "marcato")
+                  (ly:music-property result-event-chord 'elements)))
+      result-event-chord))
+@end example
+
+We may verify that this music function works correctly,
+
+@example
+\displayMusic \addMarcato c4
+@end example
+
+
+
+
+
 
 @ignore
 @menu

@@ -45,6 +45,7 @@ Copyright @copyright{} 2003--2009 by the authors.
 @menu
 * Scheme tutorial::                Programming inside LilyPond.
 * Interfaces for programmers::     How to interface with scheme.
+* LilyPond Scheme interfaces::     Getting information in and out of music
 
 Appendices
 
