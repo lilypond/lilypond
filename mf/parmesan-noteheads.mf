@@ -2,10 +2,10 @@
 % This file is part of LilyPond, the GNU music typesetter.
 %
 % Copyright (C) 2001--2009 Juergen Reuter <reuter@ipd.uka.de>
-% 
+%
 % Neo-mensural heads originally by
 % Christian Mondrup and Mats Bengtsson
-% 
+%
 %
 % LilyPond is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@ def draw_neomensural_brevis (expr brevwid) =
 
 	set_char_box (0, head_width#,
 		      noteheight# / 2, noteheight# / 2);
-	
+
 	2 beamheight + holeheight = noteheight;
 	serif_size = (holeheight - stafflinethickness) / 2;
 	serif_protrude = 1.5 serif_size;
@@ -172,7 +172,7 @@ def draw_neomensural_longa (expr wid) =
 
 	penpos7 (stem_width, 0);
 	penpos6 (1.2 stem_width, theta);
-	
+
 	z7' = find_tangent (z6l, pat_out,
 			    (x7l + 0.5 stem_width, y7l),
 			    (x7l - 0.5 stem_width, y7l));
@@ -192,7 +192,7 @@ enddef;
 % En wij presenteren U: de opvolgster van Emily
 %
 % (ze is wel breed)
-% 
+%
 fet_beginchar ("Neo-mensural maxima notehead", "sM3neomensural");
 	draw_neomensural_longa (2.6 staff_space#);
 fet_endchar;
@@ -217,7 +217,7 @@ def draw_neomensural_black_head (expr wid, height) =
 
 	set_char_box (0, head_width#,
 		      height / 2, height / 2);
-	
+
 	charwx := head_width# / 2;
 	charwy := height / 2;
 
@@ -261,7 +261,7 @@ def draw_neomensural_open_head (expr wid, height)=
 
 	diamNW = length (z2 - z1) + blot_diameter;
 	diamSW = length (z4 - z1) + blot_diameter;
-	
+
 	save hole_widthNW, hole_widthSW;
 
 	hole_widthNW = 0.34 diamNW ;
@@ -1098,7 +1098,7 @@ vat_punctum_char ("Ed. Vat. pes var lower punctum", "vaticana.vlpes",
 
 
 % pes upper punctum
-vat_punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes", 
+vat_punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes",
 		  false, false, true, false,
 		  false, false, false, 1.0);
 
@@ -1115,18 +1115,18 @@ vat_punctum_char ("Ed. Vat. var pes upper punctum", "vaticana.vupes",
 
 
 % small punctum as used in epiphonus
-vat_punctum_char ("Ed. Vat. plica", "vaticana.plica", 
+vat_punctum_char ("Ed. Vat. plica", "vaticana.plica",
 		  false, false, false, false,
 		  false, false, false, 0.6);
 
 
 % small punctum as used in epiphonus
-plica_char ("Ed. Vat. var plica", "vaticana.vplica", 
+plica_char ("Ed. Vat. var plica", "vaticana.vplica",
 	    false, 0.6);
 
 
 % eccentric punctum as used in epiphonus
-epiphonus_char ("Ed. Vat. epiphonus", "vaticana.epiphonus", 
+epiphonus_char ("Ed. Vat. epiphonus", "vaticana.epiphonus",
 		false, true, false, 1.0);
 
 
@@ -1398,7 +1398,7 @@ enddef;
 
 
 % punctum
-med_punctum_char ("Ed. Med. punctum", "medicaea.punctum", 
+med_punctum_char ("Ed. Med. punctum", "medicaea.punctum",
 		  false, false);
 
 
@@ -1408,7 +1408,7 @@ med_punctum_char ("Ed. Med. reverse virga", "medicaea.rvirga",
 
 
 % virga (i.e. left down-stemmed punctum)
-med_punctum_char ("Ed. Med. virga", "medicaea.virga", 
+med_punctum_char ("Ed. Med. virga", "medicaea.virga",
 		  false, true);
 
 

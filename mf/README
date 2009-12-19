@@ -103,7 +103,7 @@ Hints for stem attachment:
   abovementioned horizontal reflection taken into account), then the prefix
   `s' (for `symmetric') should be used.  See the existing files for
   examples.  The numbers in the glyph names refer to the duration of the
-  note; e.g., `s0cross' in feta-bolletjes.mf defines the notehead for a
+  note; e.g., `s0cross' in feta-noteheads.mf defines the notehead for a
   whole cross-shaped note (similarly, `s1cross' and `s2cross' are for half
   and quarter notes, respectively).
 

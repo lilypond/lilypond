@@ -21,7 +21,7 @@ fet_begingroup ("brackettips");
 def draw_bracket (expr thick_sharp, width_sharp, updown) =
 begingroup;
 	save p, thin, thick, flattening, width, hair, flare;
- 	path p;
+	path p;
 	pair tipdir;
 
 	flattening = 0.72;

@@ -18,5 +18,5 @@
 % along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 font_count := 7;
-input feta-beugel;
+input feta-braces;
 end.
