@@ -257,13 +257,67 @@ Abelson, see
 
 TODO -- write about lists
 
-A list is entered by enclosing its elements in parentheses, and adding
-a quote.  For example,
+A very common Scheme data structure is the @emph{list}.  Formally, a
+list is defined as either the empty list (represented as @code{'()},
+or a pair whose @code{cdr} is a list.
 
-@example
-#'(1 2 3)
-#'(1 2 "string" #f)
-@end example
+There are many ways of creating lists.  Perhaps the most common is
+with the @code{list} procedure:
+
+@lisp
+guile> (list 1 2 3 "abc" 17.5)
+(1 2 3 "abc" 17.5)
+@end lisp
+
+As can be seen, a list is displayed in the form of individual elements
+separated by whitespace and enclosed in parentheses.  Unlike a pair,
+there is no period between the elements.
+
+A list can also be entered as a literal list by enclosing its
+elements in parentheses, and adding a quote:
+
+@lisp
+guile> '(17 23 "foo" "bar" "bazzle")
+(17 23 "foo" "bar" "bazzle")
+@end lisp
+
+Lists are a central part of Scheme.  In, fact, Scheme is considered
+a dialect of lisp, where @q{lisp} is an abbreviation for
+@q{List Processing}.  Scheme expressions are all lists.
+
+@unnumberedsubsubsec Association lists (alists)
+
+A special type of list is an @emph{association list} or @emph{alist}.
+An alist is used to store data for easy retrieval.
+
+Alists are lists whose elements are pairs.  The @code{car} of each
+element is called the @code{key}, and the @code{cdr} of each element
+is called the @code{value}.  The Scheme procedure @code{assoc} is
+used to retrieve an entry from the alist, and @code{cdr} is used to
+retrieve the value:
+
+@lisp
+guile> (define my-alist '((1  . "A") (2 . "B") (3 . "C")))
+guile> my-alist
+((1 . "A") (2 . "B") (3 . "C"))
+guile> (assoc 2 my-alist)
+(2 . "B")
+guile> (cdr (assoc 2 my-alist))
+"B"
+guile>
+@end lisp
+
+Alists are widely used in LilyPond to store properties and other data.
+
+@unnumberedsubsubsec Hash tables
+
+
+
+TODO -- write about hash tables
+
+
+@node Calculations in Scheme
+@subsection Calculations in Scheme
 
 We have been using lists all along.  A calculation, like @code{(+ 1 2)}
 is also a list (containing the symbol @code{+} and the numbers 1
@@ -281,14 +335,6 @@ respectively,
 #'(staff clef key-signature)
 #'((1) (2))
 @end example
-
-@unnumberedsubsubsec Hash tables
-
-TODO -- write about hash tables
-
-
-@node Calculations in Scheme
-@subsection Calculations in Scheme
 
 Scheme can be used to do calculations.  It uses @emph{prefix}
 syntax.  Adding 1 and@tie{}2 is written as @code{(+ 1 2)} rather than the
