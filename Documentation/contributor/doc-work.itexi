@@ -595,26 +595,29 @@ B ... @@end itemize - for bulleted lists.
     (texinfo would also allow \\, but this breaks with PDF output).
 
 @item
-@@ref@{@} - normal references (type the exact node name inside the
+@@ref@{@} - link within current manual (type the exact node name inside the
 @{@}).
 
 @item
-@@ruser@{@} - link to the NR.
+@@ruser@{@} - link to Notation Reference.
 
 @item
-@@rlearning@{@} - link to the LM.
+@@rlearning@{@} - link to Learning Manual.
 
 @item
-@@rglos@{@} - link to the MG.
+@@rglos@{@} - link to the Music Glossary.
 
 @item
-@@rprogram@{@} - link to the AU.
+@@rprogram@{@} - link to Application Usage.
 
 @item
 @@rlsr@{@} - link to a Snippet section.
 
 @item
-@@rinternals@{@} - link to the IR.
+@@rinternals@{@} - link to the Internals Reference.
+
+@item
+@@rextend@{@} - link to Extending LilyPond.
 
 @item
 @@uref@{@} - link to an external url.
