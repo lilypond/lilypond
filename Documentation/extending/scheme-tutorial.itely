@@ -34,16 +34,6 @@ on guile can be found at @uref{http://www.gnu.org/software/guile/}.
 The @qq{R5RS} Scheme standard is located at
 @uref{http://www.schemers.org/Documents/Standards/R5RS/}.
 
-The LilyPond installation also includes the Guile implementation of
-Scheme.  On most systems you can experiment in a Scheme sandbox by
-opening a terminal window and typing @q{guile}.  On some systems,
-notably Windows, you may need to set the environment variable
-@code{GUILE_LOAD_PATH} to the directory @code{../usr/shr/guile/1.8}
-in the LilyPond installation (for the full path to this directory
-see @rlearning{Other sources of information}).  Alternatively, Windows
-users may simply choose @q{Run} from the Start menu and enter
-@q{guile}.
-
 @menu
 * Introduction to Scheme::
 * Scheme in LilyPond::
@@ -60,6 +50,8 @@ be integrated in LilyPond files.
 
 
 @menu
+* Scheme sandbox::
+* Scheme variables::
 * Scheme simple data types::
 * Scheme compound data types::
 * Calculations in Scheme::
@@ -67,12 +59,84 @@ be integrated in LilyPond files.
 * Scheme conditionals::
 @end menu
 
+@node Scheme sandbox
+@subsection Scheme sandbox
+
+The LilyPond installation includes the Guile implementation of
+Scheme.  On most systems you can experiment in a Scheme sandbox by
+opening a terminal window and typing @q{guile}.  On some systems,
+notably Windows, you may need to set the environment variable
+@code{GUILE_LOAD_PATH} to the directory @code{../usr/shr/guile/1.8}
+in the LilyPond installation. For the full path to this directory
+see @rlearning{Other sources of information}.  Alternatively, Windows
+users may simply choose @q{Run} from the Start menu and enter
+@q{guile}.
+
+Once the guile sandbox is running, you will received a guile prompt:
+
+@lisp
+guile>
+@end lisp
+
+You can enter Scheme expressions at this prompt to experiment with Scheme.
+
+@node Scheme variables
+@subsection Scheme variables
+
+Scheme variables can have any valid scheme value, including a Scheme
+procedure.
+
+Scheme variables are created with @code{define}:
+
+@lisp
+guile> (define a 2)
+guile>
+@end lisp
+
+Scheme variables can be evaluated at the guile prompt simply by
+typing the variable name:
+
+@lisp
+guile> a
+2
+guile>
+@end lisp
+
+Scheme variables can be printed on the display by use of the display function:
+
+@lisp
+guile> (display a)
+2guile>
+@end lisp
+
+@noindent
+Note that the value @code{2} and the guile prompt @code{guile} both
+showed up on the same line.  This can be avoided by calling the newline
+procedure or displaying a newline character.
+
+@lisp
+guile> (display a)(newline)
+2
+guile> (display a)(display "\n")
+2
+guile>
+@end lisp
+
+Once a variable has been created, its value can be changed with @code{set!}:
+
+@lisp
+guile> (set! a 12345)
+guile> a
+12345
+guile>
+@end lisp
+
 @node Scheme simple data types
 @subsection Scheme simple data types
 
 The most basic concept in a language is data typing: numbers, character
-strings, lists, etc.  Here is a list of data types that are relevant to
-LilyPond input.
+strings, lists, etc.  Here is a list of simple Scheme data types that are
+often used with LilyPond.
 
 @table @asis
 @item Booleans
@@ -93,7 +157,7 @@ Strings are enclosed in double quotes,
 "this is a string"
 @end example
 
-Strings may span several lines
+Strings may span several lines:
 
 @example
 "this
@@ -101,32 +165,92 @@ is
 a string"
 @end example
 
-Quotation marks and newlines can also be added with so-called escape
-sequences.  The string @code{a said "b"} is entered as
+@noindent
+and the newline characters at the end of each line will be included
+in the string.
+
+Newline characters can also be added by including @code{\n} in the
+string.
 
 @example
-"a said \"b\""
+"this\nis a\nmultiline string"
 @end example
 
-Newlines and backslashes are escaped with @code{\n} and @code{\\}
-respectively.
+
+Quotation marks and backslashes are added to strings
+by preceding them with a backslash.
+The string @code{\a said "b"} is entered as
+
+@example
+"\\a said \"b\""
+@end example
+
 @end table
 
+There are additional Scheme data types that are not discussed here.
+For a complete listing see the Guile reference guide,
+@uref{http://www.gnu.org/software/guile/manual/html_node/Simple-Data-Types.html}.
 
 @node Scheme compound data types
 @subsection Scheme compound data types
 
+There are also compound data types in Scheme.  The  types commonly used in
+LilyPond programming include pairs, lists, alists, and hash tables.
+
 @unnumberedsubsubsec Pairs
 
-TODO -- write about pairs
+The foundational compound data type of Scheme is the @code{pair}.  As
+might be expected from its name, a pair is two values glued together.
+The operator used to form a pair is called @code{cons}.
 
-The two elements of a pair may be arbitrary values, for example
+@lisp
+guile> (cons 4 5)
+(4 . 5)
+guile>
+@end lisp
 
-@example
-#'(1 . 2)
-#'(#t . #f)
-#'("blah-blah" . 3.14159265)
-@end example
+Note that the pair is displayed as two items surrounded by
+parentheses and separated by whitespace, a period (@code{.}), and
+more whitespace.  The period is @emph{not} a decimal point, but
+rather an indicator of the pair.
+
+Pairs can also be entered as literal values by preceding them with
+a single quote character.
+
+@lisp
+guile> '(4 . 5)
+(4 . 5)
+guile>
+@end lisp
+
+The two elements of a pair may be any valid Scheme value:
+
+@lisp
+guile> (cons #t #f)
+(#t . #f)
+guile> '("blah-blah" . 3.1415926535)
+("blah-blah" . 3.1415926535)
+guile>
+@end lisp
+
+The first and second elements of the pair can be accessed by the
+Scheme procedures @code{car} and @code{cdr}, respectively.
+
+@lisp
+guile> (define mypair (cons 123 "hello there")
+... )
+guile> (car mypair)
+123
+guile> (cdr mypair)
+"hello there"
+guile>
+@end lisp
+
+@noindent
+
+Note:  @code{cdr} is pronounced "could-er", according Sussman and
+Abelson, see
+@uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
 
 @unnumberedsubsubsec Lists
@@ -925,8 +1049,8 @@ We may verify that this music function works correctly,
 * Tweaking with Scheme::
 @end menu
 
-@node Tweaking with Scheme
-@section Tweaking with Scheme
+@c @node Tweaking with Scheme
+@c @section Tweaking with Scheme
 
 We have seen how LilyPond output can be heavily modified using
 commands like
