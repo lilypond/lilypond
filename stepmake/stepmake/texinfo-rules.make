@@ -27,17 +27,29 @@ $(outdir)/%.texi: $(src-dir)/%.texi
 	cp -p $< $@
 
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
+ifeq ($(WEB_VERSION),yes)
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) -D web_version --output=$@ $<
+else
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
+endif
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+ifeq ($(WEB_VERSION),yes)
+	$(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<
+else
 	$(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<
+endif
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/%.html.omf
 	mkdir -p $(dir $@)
+ifeq ($(WEB_VERSION),yes)
+	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version --output=$(dir $@) $<
+else
 	$(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(dir $@) $<
+endif
 	cp $(top-src-dir)/Documentation/css/*.css $(dir $@)
 
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
@@ -47,7 +59,11 @@ $(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outd
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf
+ifeq ($(WEB_VERSION),yes)
+	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -D web_version -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
+else
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
+endif
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<

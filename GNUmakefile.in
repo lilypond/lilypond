@@ -243,9 +243,9 @@ grand-replace:
 
 ################################################################
 # website (without the rest of the docs)
-web-gop:
-	touch Documentation/web.texi
-	cd Documentation && make out=www out-www/web/index.html
+web-version:
+	touch $(top-src-dir)/Documentation/web.texi
+	cd $(top-build-dir)/Documentation && make out=www WEB_VERSION=yes out-www/web/index.html
 
 
 ################################################################

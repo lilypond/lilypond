@@ -16,6 +16,10 @@
 @set web
 @include macros.itexi
 
+@ifset web_version
+foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo
+@end ifset
+
 @afourpaper
 
 @c don't remove this comment.
