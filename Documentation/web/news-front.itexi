@@ -5,6 +5,22 @@
 @c into news-old.itexi.
 
 @newsItem
+@subsubheading LilyPond 2.12.3 released!  @emph{December 20, 2009}
+
+We are happy to announce the release of LilyPond 2.12.3.  This
+version contains the long-awaited fix for our GUI on MacOS X 10.5
+and 10.6.  In addition to the GUI fixes, this version contains
+dozens of bugfixes backported from the unstable development
+version.
+
+We recommend that all users upgrade to this version.  This is the
+last planned release in the 2.12 stable series; development now
+shifts towards the upcoming 2.14 series.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond 2.13.9 released!  @emph{December 12, 2009}
 
 LilyPond 2.13.9 is now out.  From 2.13.9 onwards, LilyPond is
