@@ -284,14 +284,16 @@ snippet-update:
 DOCUMENTS_INCLUDES:=-I $(ISOLANG) \
 -I $(top-build-dir)/Documentation/$(ISOLANG)/out-www \
 -I $(top-src-dir)/Documentation/snippets \
--I $(top-build-dir)/Documentation/out-www
+-I $(top-build-dir)/Documentation/out-www \
+-I $(top-build-dir)/Documentation/out
 
 else # ISOLANG is empty
 
 DOCUMENTS_INCLUDES:=-I . \
 -I $(top-build-dir)/Documentation/out-www \
 -I $(top-src-dir)/Documentation/snippets \
--I $(top-build-dir)/Documentation/snippets/out-www
+-I $(top-build-dir)/Documentation/snippets/out-www \
+-I $(top-build-dir)/Documentation/out
 
 endif # ISOLANG
 
