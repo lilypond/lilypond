@@ -1,46 +1,24 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+
 @setfilename music-glosssary.info
-@settitle Music Glossary
+@settitle LilyPond Music Glossary
 @documentencoding UTF-8
 @documentlanguage en
 @afourpaper
 
-@include macros.itexi
-
-@c see lilypond.tely for info installation note
-@dircategory LilyPond
-@direntry
-* Glossary: (music-glossary).  Glossary of music terms.
-@end direntry
-
-@titlepage
-@title Music Glossary
-@author Christian Mondrup   @c Original author of LilyPond glossary
-@c                             Danish glossary
-@author François Pinard	    @c Original glossary of GNU music project,
-@c                             French glossary
-@author Mats Bengtsson      @c Swedish glossary
-@author David González      @c Spanish glossary
-@author Bjoern Jacke        @c German glossary
-@author Neil Jerram         @c English glossary translations
-@author Heikki Junes        @c Finnish glossary
-@author Kurtis Kroon		@c English glossary maintenance, beg. Oct. 2007
-@author Adrian Mariano      @c Italian glossary
-@author Han-Wen Nienhuys    @c Dutch glossary
-@author Jan Nieuwenhuizen   @c Dutch glossary
-
-@c Fixes by Jean-Pierre Coulon and `Dirk', alphabetized by last name, KK, 10/07
-@c Updates to the German translation by Till Rettig, 12/07
+@macro manualIntro
+This glossary provides definitions and translations of musical
+terms used in the documentation manuals for LilyPond version
+@version{}.
+@end macro
 
 @c `Music Glossary' was born 1999-10-04 with git commit 280a0bb...
+@macro copyrightDeclare
 Copyright @copyright{} 1999--2009 by the authors
+@end macro
 
-  Permission is granted to copy, distribute and/or modify this document
-  under the terms of the GNU Free Documentation License, Version 1.1
-  or any later version published by the Free Software Foundation,
-  without Invariant Sections.
-
-@end titlepage
+@set FDL
+@include macros.itexi
 
 
 @c TODO: multiple omfcreators?
@@ -52,151 +30,46 @@ Copyright @copyright{} 1999--2009 by the authors
 @omflanguage English
 @end ignore
 
-@ifnottex
-@node Top
-@top Music glossary
-@end ifnottex
 
+@lilyTitlePage{Music Glossary}
 
-@ifnottex
-
-@ifhtml
-@ifclear bigpage
-This document is also available as a
-@uref{source/Documentation/music-glossary.pdf,PDF} and as
-@uref{source/Documentation/music-glossary-big-page.html,one big page}.
-@end ifclear
-@ifset bigpage
-This document is also available as a
-@uref{source/Documentation/music-glossary.pdf,PDF} and as a
-@uref{source/Documentation/music-glossary/index.html,HTML indexed multiple pages}.
-@end ifset
-@end ifhtml
-
-This glossary was brought you by:
-
-@itemize
-
-@item @b{Christian Mondrup}: Original author of LilyPond glossary, Danish,
-@item @b{François Pinard}: Original glossary of GNU music project, French,
-
-@item @b{Han-Wen Nienhuys}: Dutch,
-@item @b{Jan Nieuwenhuizen}: Dutch,
-
-@item @b{Neil Jerram}: English,
-@item @b{Kurtis Kroon}: English,
-
-@item @b{Heikki Junes}: Finnish,
-
-@item @b{Bjoern Jacke}: German,
-
-@item @b{Adrian Mariano}: Italian,
-
-@item @b{David González}: Spanish,
-
-@item @b{Mats Bengtsson}: Swedish,
-
-@end itemize
-
-with additional contributions: thanks to all who have contributed.
-
-@ignore
-
-The list is rather long ...
-
-@itemize
-
-@item Danish:
-@itemize
-@item Rune Zedeler, @emph{pace}
-@item Eyolf Østrem
-@end itemize
-
-@item Dutch:
-@itemize
-@item Alard de Boer
-@end itemize
-
-@item English:
-@itemize
-@item Trevor Bača
-@item Trevor Daniels
-@item Andrew Hawryluk
-@item Ian Hulin
-@item Kieren MacMillan
-@item Patrick McCarty
-@item Ralph Palmer
-@item Carl D. Sorensen
-@item Anh Hai Trinh
-@end itemize
-
-@item Finnish:
-@itemize
-@item Risto Vääräniemi
-@end itemize
-
-@item German:
-@itemize
-@item Orm Finnendahl
-@item Reinhold Kainhofer
-@item Werner Lemberg
-@item Till Rettig
-@item Thomas Scharkowski
-@end itemize
-
-@item Italian
-@itemize
-@item Andrea Valle
-@end itemize
-
-@item Spanish
-@itemize
-@item Francisco Vila
-@end itemize
-
-@item Swedish
-@itemize
-@item Simon Dahlbacka
-@end itemize
-
-@end itemize
-@end ignore
-
-@*
-Copyright 1999--2009 by the authors
-
-  Permission is granted to copy, distribute and/or modify this document
-  under the terms of the GNU Free Documentation License, Version 1.1
-  or any later version published by the Free Software Foundation,
-  without Invariant Sections.
-
-@*
-@end ifnottex
 
 @c @pagesizes 10.3in
 @c @everyheading @| @thispage @|
 @c @evenheading @thispage @| @|
 @c @oddheading @| @| @thispage @|
 
-This is the Music Glossary (MG) for LilyPond version @version{}.
-For more information about how this fits with the other
-documentation, see @rweb{Manuals}.
-
 @c arrowref
 @macro aref{word}
 @iftex
 @w{@expansion{}@strong{\word\}}@c
 @end iftex
+
 @ifnottex
 @expansion{}@ref{\word\, @strong{\word\}}@c
 @end ifnottex
 @end macro
 
+@c TOC -- non-tex
+@ifnottex
+
 @menu
 * Musical terms A-Z::
 * Duration names notes and rests::
 * Pitch names::
+
+Appendices
+
+* Literature used::
+* GNU Free Documentation License:: License of this document.
 @end menu
+
+@docMain
+@end ifnottex
+
+
+@c TOC - tex
+@contents
 
 
 @node Musical terms A-Z
@@ -8850,12 +8723,8 @@ send it to me, care of the lilypond-user discussion list.
 @end multitable
 
 
-@menu
-* Literature used::
-@end menu
-
 @node Literature used
-@unnumberedsec Literature used
+@appendix Literature used
 
 @itemize
 @item Apel, Willi, ed. @cite{The Harvard Dictionary of Music}.
@@ -8877,7 +8746,10 @@ Springfield, Massachusetts: G. & C. Merriam Company, 1913.
 Cambridge: Belknap Press (Harvard University Press), 1986.
 
 @item Riemann, Hugo. @cite{Musik-lexicon}. Berlin, 1929.
-
 @end itemize
+
+
+@include fdl.itexi
+
 
 @bye
