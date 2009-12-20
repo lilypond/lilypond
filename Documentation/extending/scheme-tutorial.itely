@@ -255,8 +255,6 @@ Abelson, see
 
 @unnumberedsubsubsec Lists
 
-TODO -- write about lists
-
 A very common Scheme data structure is the @emph{list}.  Formally, a
 list is defined as either the empty list (represented as @code{'()},
 or a pair whose @code{cdr} is a list.
@@ -311,10 +309,49 @@ Alists are widely used in LilyPond to store properties and other data.
 
 @unnumberedsubsubsec Hash tables
 
+A data structure that is used occasionally in LilyPond.  A hash table
+is similar to an array, but the indexes to the array can be any type
+of Scheme value, not just integers.
 
+Hash tables are more efficient than alists if there is a lot of data
+to store and the data changes very infrequently.
 
-TODO -- write about hash tables
+The syntax to create hash tables is a bit complex, but you
+can see examples of it in the LilyPond source.
 
+@lisp
+guile> (define h (make-hash-table 10))
+guile> h
+#<hash-table 0/31>
+guile> (hashq-set! h 'key1 "val1")
+"val1"
+guile> (hashq-set! h 'key2 "val2")
+"val2"
+guile> (hashq-set! h 3 "val3")
+"val3"
+@end lisp
+
+Values are retrieved from hash tables with @code{hashq-ref}.
+
+@lisp
+guile> (hashq-ref h 3)
+"val3"
+guile> (hashq-ref h 'key2)
+"val2"
+guile>
+@end lisp
+
+Keys and values are retrieved as a pair with @code{hashq-get-handle}.
+This is a preferred way, because it will return @code{#f} if a key is
+not found.
+
+@lisp
+guile> (hashq-get-handle h 'key1)
+(key1 . "val1")
+guile> (hashq-get-handle h 'frob)
+#f
+guile>
+@end lisp
 
 @node Calculations in Scheme
 @subsection Calculations in Scheme
