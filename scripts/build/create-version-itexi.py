@@ -5,7 +5,15 @@ import sys
 import os
 import glob
 
-#print "create-version-itexi.py"
+## these links are relative from /~graham/web/
+#WEB_DOCLINK_STABLE = "../../doc/v2.12/Documentation/user/lilypond-"
+#WEB_DOCLINK_DEVEL = "../../doc/v2.13/Documentation/"
+
+# these links are relative from the v2.13 docs
+WEB_DOCLINK_STABLE = "../../../v2.12/Documentation/user/lilypond-"
+WEB_DOCLINK_DEVEL = "../../../v2.13/Documentation/"
+
+
 
 VERSION_STABLE = ""
 VERSION_DEVEL = ""
@@ -83,9 +91,9 @@ def make_ver_link(macroname, version, url, linktext):
 	string = "@uref{"
 	# TODO: generalize this
 	if (version[:4] == '2.13'):
-		string += '../v2.13/'
+		string += WEB_DOCLINK_DEVEL
 	if (version[:4] == '2.12'):
-		string += '../v2.12/'
+		string += WEB_DOCLINK_STABLE
 	string += url
 	string += ","
 	string += linktext
