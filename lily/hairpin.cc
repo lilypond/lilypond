@@ -31,13 +31,6 @@
 #include "note-column.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK (Hairpin, height, 1);
-SCM
-Hairpin::height (SCM smob)
-{
-  return Grob::stencil_height (smob);
-}
-
 MAKE_SCHEME_CALLBACK (Hairpin, pure_height, 3);
 SCM
 Hairpin::pure_height (SCM smob, SCM, SCM)

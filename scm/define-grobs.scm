@@ -165,7 +165,6 @@
 	(stencil . ,ly:arpeggio::print)
 	(X-extent . ,ly:arpeggio::width)
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
-	(Y-extent . ,ly:arpeggio::height)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (arpeggio-interface
@@ -828,7 +827,6 @@
 	(stencil . ,ly:hairpin::print)
 	(thickness . 1.0)
 	(to-barline . #t)
-	(Y-extent . ,ly:hairpin::height)
 	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(meta . ((class . Spanner)
 		 (interfaces . (dynamic-interface
@@ -2323,13 +2321,20 @@
 
 (set! all-grob-descriptions (sort all-grob-descriptions alist<?))
 
+(define (volta-bracket-interface::pure-height grob start end)
+  (let ((edge-height (ly:grob-property grob 'edge-height)))
+    (if (number-pair? edge-height)
+	(let ((smaller (min (car edge-height) (cdr edge-height)))
+	      (larger (max (car edge-height) (cdr edge-height))))
+	  (interval-union '(0 . 0) (cons smaller larger)))
+	'(0 . 0))))
+
 (define pure-print-callbacks
   (list
    fret-board::calc-stencil
    note-head::brew-ez-stencil
    print-circled-text-callback
    lyric-text::print
-   ly:arpeggio::print
    ly:arpeggio::brew-chord-bracket
    ly:bar-line::print
    ly:mensural-ligature::brew-ligature-primitive
@@ -2339,21 +2344,32 @@
    ly:text-interface::print
    ly:script-interface::print))
 
+;; Sometimes we have grobs with (Y-extent . ,ly:grob::stencil-height)
+;; and the print function is not pure, but there is a easy way to
+;; figure out the Y-extent from the print function.
+(define pure-print-to-height-conversions
+  `(
+    (,ly:arpeggio::print . ,ly:arpeggio::pure-height)
+    (,ly:hairpin::print . ,ly:hairpin::pure-height)
+    (,ly:volta-bracket-interface::print . ,volta-bracket-interface::pure-height)))
+
 ;; ly:grob::stencil-extent is safe if the print callback is safe too
 (define (pure-stencil-height grob start stop)
-  (let ((sten (ly:grob-property-data grob 'stencil)))
-    (if (or
-	 (ly:stencil? sten)
-	 (memq sten pure-print-callbacks))
-	(ly:grob::stencil-height grob)
-	'(0 . 0))))
+  (let* ((sten (ly:grob-property-data grob 'stencil))
+	 (pure-height-callback (assoc-get sten pure-print-to-height-conversions)))
+    (cond ((or
+	    (ly:stencil? sten)
+	    (memq sten pure-print-callbacks))
+	   (ly:grob::stencil-height grob))
+	  ((procedure? pure-height-callback)
+	   (pure-height-callback grob start stop))
+	  (else
+	   '(0 . 0)))))
 
 (define pure-conversions-alist
   `(
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
-    (,ly:arpeggio::height . ,ly:arpeggio::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
-    (,ly:hairpin::height . ,ly:hairpin::pure-height)
     (,ly:stem::height . ,ly:stem::pure-height)
     (,ly:rest::height . ,ly:rest::pure-height)
     (,ly:grob::stencil-height . ,pure-stencil-height)
@@ -2379,13 +2395,12 @@
 	       (memq extent-callback pure-functions)
 	       (and
 		(pair? (assq extent-callback pure-conversions-alist))
-		(begin
+		(let ((stencil (ly:grob-property-data grob 'stencil)))
 		  (or
 		   (not (eq? extent-callback ly:grob::stencil-height))
-		   (memq (ly:grob-property-data grob 'stencil) pure-print-callbacks)
-		   (ly:stencil? (ly:grob-property-data grob 'stencil))
-
-		   ))))))))
+		   (memq stencil pure-print-callbacks)
+		   (assq stencil pure-print-to-height-conversions)
+		   (ly:stencil? stencil)))))))))
 
 (define-public (call-pure-function unpure args start end)
   (if (ly:simple-closure? unpure)

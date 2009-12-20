@@ -196,13 +196,6 @@ Arpeggio::width (SCM smob)
   return ly_interval2scm (arpeggio.extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, height, 1);
-SCM
-Arpeggio::height (SCM smob)
-{
-  return Grob::stencil_height (smob);
-}
-
 MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, 3);
 SCM
 Arpeggio::pure_height (SCM smob, SCM, SCM)
@@ -211,7 +204,7 @@ Arpeggio::pure_height (SCM smob, SCM, SCM)
   if (to_boolean (me->get_property ("cross-staff")))
     return ly_interval2scm (Interval ());
 
-  return height (smob);
+  return Grob::stencil_height (smob);
 }
 
 ADD_INTERFACE (Arpeggio,
