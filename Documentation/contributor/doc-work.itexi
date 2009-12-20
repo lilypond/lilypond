@@ -537,32 +537,39 @@ enclose it with
 
 @itemize
 @item
+@@bs - Generates a backslash inside @@warning.
+    Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}'
+    (texinfo would also allow \\, but this breaks with PDF output).
+
+@item
 @@c - single line comments
   "@@c NOTE:" is a comment which should remain in the final
   version.  (gp only command ;)
-@item
-@@ignore ... @@end ignore - multi-line comment
 
 @item
 @@cindex - General index. Please add as many as you can.  Don't
   capitalize the first word.
+
 @item
-@@funindex - is for a \lilycommand.
+@@code@{@} - typeset in a tt-font. Use for actual lilypond code or
+  property/context names.  If the name contains a space, wrap
+  the entire thing inside @@w@{@@code@{  @}@}.
 
 @item
 @@example ... @@end example - example text that should be set as a
   blockquote.  Any @{@} must be escaped with @@@{ @}@@
 
 @item
+@@funindex - is for a \lilycommand.
+
+@item
+@@ignore ... @@end ignore - multi-line comment
+
+@item
 @@itemize @@item
 A @@item
 B ... @@end itemize - for bulleted lists.
   Do not compress vertically like this.
-
-@item
-@@code@{@} - typeset in a tt-font. Use for actual lilypond code or
-  property/context names.  If the name contains a space, wrap
-  the entire thing inside @@w@{@@code@{  @}@}.
 
 @item
 @@notation@{@} - refers to pieces of notation, e.g.
@@ -578,49 +585,56 @@ B ... @@end itemize - for bulleted lists.
   introducing special input modes.
 
 @item
-@@tie@{@} - Variables or numbers which consist of a single character
-  (probably followed by a punctuation mark) should be tied
-  properly, either to the previous or the next word.  Example:
-    "The letter@@tie@{@}@@q@{I@} is skipped"
+@@rchanges@{@} - link to Changes.
 
 @item
-@@var - Use for variables.
-
-@item
-@@warning@{@} - produces a "Note: " box. Use for important messages.
-
-@item
-@@bs - Generates a backslash inside @@warning.
-    Any `\' used inside @@warning (and @@q or @@qq) must be written as `@@bs@{@}'
-    (texinfo would also allow \\, but this breaks with PDF output).
+@@rcontrib@{@} - link to Contributor's Guide.
 
 @item
 @@ref@{@} - link within current manual (type the exact node name inside the
 @{@}).
 
 @item
-@@ruser@{@} - link to Notation Reference.
-
-@item
-@@rlearning@{@} - link to Learning Manual.
-
-@item
-@@rglos@{@} - link to the Music Glossary.
-
-@item
-@@rprogram@{@} - link to Application Usage.
-
-@item
-@@rlsr@{@} - link to a Snippet section.
-
-@item
-@@rinternals@{@} - link to the Internals Reference.
+@@ressay@{@} - link to Engraving Essay.
 
 @item
 @@rextend@{@} - link to Extending LilyPond.
 
 @item
+@@rglos@{@} - link to the Music Glossary.
+
+@item
+@@rinternals@{@} - link to the Internals Reference.
+
+@item
+@@rlearning@{@} - link to Learning Manual.
+
+@item
+@@rlsr@{@} - link to a Snippet section.
+
+@item
+@@rprogram@{@} - link to Application Usage.
+
+@item
+@@ruser@{@} - link to Notation Reference.
+
+@item
+@@rweb@{@} - link to General Informaion.
+
+@item
+@@tie@{@} - Variables or numbers which consist of a single character
+  (probably followed by a punctuation mark) should be tied
+  properly, either to the previous or the next word.  Example:
+    "The letter@@tie@{@}@@q@{I@} is skipped"
+
+@item
 @@uref@{@} - link to an external url.
+
+@item
+@@var - Use for variables.
+
+@item
+@@warning@{@} - produces a "Note: " box. Use for important messages.
 
 @end itemize
 

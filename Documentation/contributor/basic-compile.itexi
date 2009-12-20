@@ -357,6 +357,7 @@ be triggered as they should be; a workaround is to force rebuilding
 by touching appropriate files, e.g.
 
 @example
+touch Documentation/extend.texi
 touch Documentation/notation/*.itely
 touch Documentation/snippets/*.ly
 @end example
