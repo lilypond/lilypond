@@ -358,8 +358,8 @@ by touching appropriate files, e.g.
 
 @example
 touch Documentation/extend.texi
-touch Documentation/notation/*.itely
-touch Documentation/snippets/*.ly
+touch Documentation/*te??
+touch Documentation/snippets/*.te??
 @end example
 
 
