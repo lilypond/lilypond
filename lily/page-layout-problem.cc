@@ -303,6 +303,9 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged)
 
   spacer.solve (page_height_, ragged);
   solution_ = spacer.spring_positions ();
+
+  if (!spacer.fits ())
+    warning (_ ("couldn't fit music on page"));
 }
 
 // The solution_ vector stores the position of every live VerticalAxisGroup
