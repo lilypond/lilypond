@@ -198,7 +198,7 @@ upgrade to these versions.
 
 @item
 @sourceimage{logo-fedora,,,}
-@uref{https://admin.fedoraproject.org/pkgdb/packages/name/lilypond,
+@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447
 Fedora: LilyPond 2.12.0}
 
 @item
