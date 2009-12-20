@@ -87,47 +87,53 @@
      ((= log -1) 1)
      (else 0))))
 
-;; silly, use alist?
+;; Kept separate from note-head::calc-glyph-name to allow use by
+;; markup commands \note and \note-by-number
+(define-public (select-head-glyph style log)
+  "Select a note head glyph string based on note head style @var{style}
+and duration-log @var{log}."
+  (case style
+    ;; "default" style is directly handled in note-head.cc as a
+    ;; special case (HW says, mainly for performance reasons).
+    ;; Therefore, style "default" does not appear in this case
+    ;; statement.  -- jr
+    ((xcircle) "2xcircle")
+    ((harmonic) "0harmonic")
+    ((harmonic-black) "2harmonic")
+    ((harmonic-mixed) (if (<= log 1) "0harmonic"
+			  "2harmonic"))
+    ((baroque)
+     ;; Oops, I actually would not call this "baroque", but, for
+     ;; backwards compatibility to 1.4, this is supposed to take
+     ;; brevis, longa and maxima from the neo-mensural font and all
+     ;; other note heads from the default font.  -- jr
+     (if (< log 0)
+	 (string-append (number->string log) "neomensural")
+	 (number->string log)))
+    ((altdefault)
+     ;; Like default, but brevis is drawn with double vertical lines
+     (if (= log -1)
+	 (string-append (number->string log) "double")
+	 (number->string log)))
+    ((mensural)
+     (string-append (number->string log) (symbol->string style)))
+    ((petrucci)
+     (if (< log 0)
+	 (string-append (number->string log) "mensural")
+	 (string-append (number->string log) (symbol->string style))))
+    ((neomensural)
+     (string-append (number->string log) (symbol->string style)))
+    (else
+     (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
+	 (symbol->string style)
+	 (string-append (number->string (max 0 log))
+			(symbol->string style))))))
+
 (define-public (note-head::calc-glyph-name grob)
   (let ((style (ly:grob-property grob 'style))
 	(log (min 2 (ly:grob-property grob 'duration-log))))
 
-    (case style
-      ;; "default" style is directly handled in note-head.cc as a
-      ;; special case (HW says, mainly for performance reasons).
-      ;; Therefore, style "default" does not appear in this case
-      ;; statement.  -- jr
-      ((xcircle) "2xcircle")
-      ((harmonic) "0harmonic")
-      ((harmonic-black) "2harmonic")
-      ((harmonic-mixed) (if (<= log 1) "0harmonic"
-			    "2harmonic"))
-      ((baroque)
-       ;; Oops, I actually would not call this "baroque", but, for
-       ;; backwards compatibility to 1.4, this is supposed to take
-       ;; brevis, longa and maxima from the neo-mensural font and all
-       ;; other note heads from the default font.  -- jr
-       (if (< log 0)
-	   (string-append (number->string log) "neomensural")
-	   (number->string log)))
-      ((altdefault)
-       ;; Like default, but brevis is drawn with double vertical lines
-       (if (= log -1)
-	   (string-append (number->string log) "double")
-	   (number->string log)))
-      ((mensural)
-       (string-append (number->string log) (symbol->string style)))
-      ((petrucci)
-       (if (< log 0)
-	   (string-append (number->string log) "mensural")
-	   (string-append (number->string log) (symbol->string style))))
-      ((neomensural)
-       (string-append (number->string log) (symbol->string style)))
-      (else
-       (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
-	   (symbol->string style)
-	   (string-append (number->string (max 0 log))
-			  (symbol->string style)))))))
+    (select-head-glyph style log)))
 
 (define-public (note-head::brew-ez-stencil grob)
   (let* ((log (ly:grob-property grob 'duration-log))

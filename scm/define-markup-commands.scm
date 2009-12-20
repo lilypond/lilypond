@@ -2813,25 +2813,36 @@ Construct a note symbol, with stem.  By using fractional values for
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
-     (format "noteheads.~a~a~a" dir-name (min log 2)
-	     (if (and (symbol? style)
-		      (not (equal? 'default style)))
-		 (symbol->string style)
-		 "")))
+	   (format "noteheads.~a~a" dir-name
+		   (if (and (symbol? style)
+			    (not (equal? 'default style)))
+		       (select-head-glyph style (min log 2))
+		       (min log 2))))
 	 (list (if (= dir UP) "u" "d")
 	       "s")))
 
   (define (get-glyph-name font cands)
     (if (null? cands)
-     ""
-     (if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
-	 (get-glyph-name font (cdr cands))
-	 (car cands))))
+	""
+	(if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
+	    (get-glyph-name font (cdr cands))
+	    (car cands))))
 
-  (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)) props)))
+  (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
+					       props)))
 	 (size-factor (magstep font-size))
-         (stem-length (*  size-factor (max 3 (- log 1))))
-         (head-glyph-name (get-glyph-name font (get-glyph-name-candidates (sign dir) log style)))
+         (stem-length (* size-factor (max 3 (- log 1))))
+         (head-glyph-name
+	  (let ((result (get-glyph-name font (get-glyph-name-candidates
+					      (sign dir) log style))))
+	    (if (string-null? result)
+		;; If no glyph name can be found, select default heads.  Though
+		;; this usually means an unsupported style has been chosen, it
+		;; also prevents unrelated 'style settings from other grobs
+		;; (e.g., TextSpanner and TimeSignature) leaking into markup.
+		(get-glyph-name font (get-glyph-name-candidates
+				      (sign dir) log 'default))
+		result)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
 	 (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
          (stem-thickness (* size-factor 0.13))
@@ -2839,14 +2850,15 @@ Construct a note symbol, with stem.  By using fractional values for
          (attach-off (cons (interval-index
 			    (ly:stencil-extent head-glyph X)
 			    (* (sign dir) (car attach-indices)))
-			   (* (sign dir)	; fixme, this is inconsistent between X & Y.
+			   (* (sign dir) ; fixme, this is inconsistent between X & Y.
 			      (interval-index
 			       (ly:stencil-extent head-glyph Y)
 			       (cdr attach-indices)))))
          (stem-glyph (and (> log 0)
 			  (ly:round-filled-box
 			   (ordered-cons (car attach-off)
-					 (+ (car attach-off)  (* (- (sign dir)) stem-thickness)))
+					 (+ (car attach-off)
+					    (* (- (sign dir)) stem-thickness)))
 			   (cons (min stemy (cdr attach-off))
 				 (max stemy (cdr attach-off)))
 			   (/ stem-thickness 3))))
@@ -2865,11 +2877,15 @@ Construct a note symbol, with stem.  By using fractional values for
 					  (string-append "flags."
 							 (if (> dir 0) "u" "d")
 							 (number->string log)))
-                       (cons (+ (car attach-off) (if (< dir 0) stem-thickness 0)) stemy)))))
+                       (cons (+ (car attach-off) (if (< dir 0)
+						     stem-thickness 0))
+			     stemy)))))
 
-    ; If there is a flag on an upstem and the stem is short, move the dots to avoid the flag.
-    ; 16th notes get a special case because their flags hang lower than any other flags.
-    (if (and dots (> dir 0) (> log 2) (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
+    ;; If there is a flag on an upstem and the stem is short, move the dots
+    ;; to avoid the flag.  16th notes get a special case because their flags
+    ;; hang lower than any other flags.
+    (if (and dots (> dir 0) (> log 2)
+	     (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
 	(set! dots (ly:stencil-translate-axis dots 0.5 X)))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
@@ -2891,10 +2907,12 @@ Construct a note symbol, with stem.  By using fractional values for
     (lambda (z) (inexact->exact (/ (log z) divisor)))))
 
 (define (parse-simple-duration duration-string)
-  "Parse the `duration-string', e.g. ''4..'' or ''breve.'', and return a (log dots) list."
-  (let ((match (regexp-exec (make-regexp "(breve|longa|maxima|[0-9]+)(\\.*)") duration-string)))
+  "Parse the `duration-string', e.g. ''4..'' or ''breve.'',
+and return a (log dots) list."
+  (let ((match (regexp-exec (make-regexp "(breve|longa|maxima|[0-9]+)(\\.*)")
+			    duration-string)))
     (if (and match (string=? duration-string (match:substring match 0)))
-        (let ((len  (match:substring match 1))
+        (let ((len (match:substring match 1))
               (dots (match:substring match 2)))
           (list (cond ((string=? len "breve") -1)
                       ((string=? len "longa") -2)
