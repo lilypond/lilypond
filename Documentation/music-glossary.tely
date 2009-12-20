@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 
-@setfilename music-glosssary.info
+@setfilename music-glossary.info
 @settitle LilyPond Music Glossary
 @documentencoding UTF-8
 @documentlanguage en
@@ -68,8 +68,8 @@ Appendices
 @end ifnottex
 
 
-@c TOC - tex
-@contents
+@c TOC - tex.  Not desired for this manual.  -gp
+@c @contents
 
 
 @node Musical terms A-Z
