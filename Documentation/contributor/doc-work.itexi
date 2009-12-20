@@ -891,9 +891,14 @@ documentation, but they are not checked during compilation.
 However, if you compile the documentation, a script called
 check_texi_refs can help you with checking and fixing these
 cross-references; for information on usage, cd into a source tree
-where documentation has been built, cd into Documentation and look
-for check-xrefs and fix-xrefs targets in 'make help' output.  Note
-that you have to find yourself the source files to fix
+where documentation has been built, cd into Documentation and run:
+
+@example
+make check-xrefs
+make fix-xrefs
+@end example
+
+Note that you have to find yourself the source files to fix
 cross-references in the generated documentation such as the
 Internals Reference; e.g. you can grep scm/ and lily/.
 

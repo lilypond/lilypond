@@ -106,6 +106,10 @@ the @qq{docs} tag and at least one other tag.
 If the snippet is tagged with @qq{docs}, check to see if it
 matches our guidelines for @ref{LilyPond formatting}.
 
+Also, snippets tagged with @qq{docs} should not be explaining
+(replicating) existing material in the docs.  They should not
+refer to the docs; the docs should refer to them.
+
 @item
 If the snippet uses scheme, check that everything looks good and
 there are no security risks.
