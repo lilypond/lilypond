@@ -105,12 +105,18 @@ def make_manual_links(name, version):
 		# FIXME: this is disgusting
 		manual = m
 		mshort = 'glossary' if m=='music-glossary' else m
-		make_ver_link("manual"+name+mshort.capitalize()+'Pdf', version,
-		          manual + '.pdf', manual+'.pdf')
-		make_ver_link("manual"+name+mshort.capitalize()+'Split', version,
-		          manual+'/index.html', manual+' (split HTML)')
-		make_ver_link("manual"+name+mshort.capitalize()+'Big', version,
-		          manual+'-big-page.html', manual + ' (big HTML)')
+		make_ver_link("manual"+name+mshort.capitalize()+'Pdf',
+		          version,
+		          manual + '.pdf',
+		          manual.capitalize() + '.pdf')
+		make_ver_link("manual"+name+mshort.capitalize()+'Split',
+		          version,
+		          manual+'/index.html',
+		          manual.capitalize() + ' (split HTML)')
+		make_ver_link("manual"+name+mshort.capitalize()+'Big',
+		          version,
+		          manual+'-big-page.html',
+		          manual.capitalize() + ' (big HTML)')
 
 
 print "@c ************************ Version numbers ************"

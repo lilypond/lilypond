@@ -187,6 +187,65 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end direntry
 
 
+@c FIXME: this still doesn't solve the broken links in pdf and big
+@c        html; we'll need a bunch of @iftext and stuff in here. -gp
+@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@subheading Read it
+
+@itemize
+
+@c normal case, special online case
+@ifclear web_version
+  @item \refLink\:
+@end ifclear
+@ifset web_version
+  @c we assume that the online web version will be split html
+  @item \split\:
+@end ifset
+read this manual in the same format as this one.
+
+@end itemize
+
+@subheading All formats
+
+@divClass{keep-bullets}
+@itemize
+
+@ifclear web_version
+  @item @uref{../\base\/index.html, \name\ (split HTML)}:
+@end ifclear
+@ifset web_version
+  @item \split\
+@end ifset
+  the manual is split between many HTML pages.
+  @*@ @ @emph{(small download for each page)}
+
+@ifclear web_version
+  @item @uref{../\base\-big-page.html, \name\ (big HTML)}:
+@end ifclear
+@ifset web_version
+  @item \big\
+@end ifset
+  read this manual as one huge HTML page.
+  @*@ @ @emph{(large single download, \bigsize\)}
+
+@ifclear web_version
+  @item @uref{../\base\.pdf, \base\.pdf}:
+@end ifclear
+@ifset web_version
+  @item \pdf\
+@end ifset
+  download as a PDF file.
+  @*@ @ @emph{(large single download, \pdfsize\)}
+
+@end itemize
+
+@divEnd
+
+@end macro
+
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi
