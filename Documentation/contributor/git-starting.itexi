@@ -355,7 +355,8 @@ Git branches of LilyPond source code is presented.
 * Introduction to Git concepts::  
 * Git commands for managing several branches::  
 * Working on LilyPond sources with several branches::  
-* Git log::                     
+* Git log::
+* Using local git branches::
 * Applying git patches::        
 * Reverting all local changes::  
 @end menu
@@ -588,6 +589,55 @@ gitk        # shows history graphically
 @warning{The @code{gitk} command may require a separate @code{gitk} package,
 available in the appropriate distribution's repositories.}
 
+@node Using local git branches
+@subsection Using local git branches
+
+Branches can also be created for local document editing or code
+development.  They permit the editor to work on several
+streams at once simply by switching between branches.  The use of
+separate branches by code developers, who may be working on changes
+for an extended period, is essential.
+
+A branch based on the current state of master is created by
+checking out master and entering the command
+
+@example
+git branch @var{local-branch-name}
+@end example
+
+and deleted with the command
+
+@example
+git branch -d @var{local-branch-name}
+@end example
+
+The list of all branches can be obtained with
+
+@example
+git branch -a
+@end example
+
+and their relation to other branches may be seen with gitk.
+
+When all the changes you wish to make to a local branch are
+complete and committed you may merge them into master; see
+@ref{Git commands for managing several branches}.  Alternatively
+individual commits may be cherry-picked from one branch to
+another.  Gitk provides the easiest way of doing this.
+
+If your local copy of master has been updated since one of your
+local branches was created you may wish to insert the new commits
+in master @qq{underneath} your commits in your local branch.  This
+is achieved with the rebase command:
+
+@example
+git rebase --whitespace=fix master @var{local-branch-name}
+@end example
+
+You should always update master and rebase your local branch in
+this way before generating a patch.  It is also a convenient way
+of removing whitespace errors from your local edits before merging
+and pushing to origin/master.
 
 @node Applying git patches
 @subsection Applying git patches
