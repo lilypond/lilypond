@@ -209,6 +209,7 @@ def update_ly_in_place (snippet_path):
                 texidoc_translation = open (texidoc_path).read ()
                 texidoc_translation = texidoc_translation.replace ('\\', '\\\\')
                 contents = begin_header_re.sub ('\\g<0>\n' + texidoc_translation, contents, 1)
+    contents = doctitle_re.sub (doctitle_sub, contents)
     open (snippet_path, 'w').write (contents)
 
 if in_dir:
