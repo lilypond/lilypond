@@ -1,0 +1,596 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of community.itexi and ../topdocs/AUTHORS.itexi
+
+@ignore
+
+  This file lists authors of LilyPond, and what they wrote.  Each
+  list is sorted alphabetically by surname.  This file lists people
+  that have contributed more than a few hours of work.
+
+  Developers are people who are (or have been) listed under the
+  "Development Team" in the THANKS, and can choose their own
+  titles.  Contributors are everybody else, and simply list their
+  contributions.  All lists are sorted alphabetically.
+
+  Anybody who has finished doing a "main devel team" task should
+  list it under developersPrevious, even if they're still doing
+  other "main devel team" stuff.  See "Graham Percival" for an
+  example.
+
+  Contributors are also split between Current and Previous, and
+  each category contains:
+    core...     (programming)
+    font...     (duh)
+    doc...      (documentation and examples)
+    support...  (building, distributions, editors,
+                 lilypond-book, LSR, but *not* answering emails)
+    translations... (duh)
+  We might add a "general" or "other" if there's something else.
+
+@end ignore
+
+
+@macro developersCurrent
+
+@itemize
+
+@item Mats Bengtsson:
+@email{mats.bengtsson@@ee.kth.se},
+@uref{http://www.s3.kth.se/~mabe/},
+Support guru
+
+@item Trevor Daniels:
+Assistant documentation editor
+
+@item John Mandereau:
+@email{john.mandereau@@free.fr},
+Translation meister
+
+@item Patrick McCarty:
+Core developer
+
+@item Joe Neeman:
+Core developer
+
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl},
+@uref{http://www.xs4all.nl/~hanwen/},
+Main author
+
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org},
+@uref{http://www.xs4all.nl/~jantien/},
+Main author
+
+@item Graham Percival:
+@uref{http://percival-music.ca},
+Project manager, Documentation Editor
+
+@item Nicolas Sceaux:
+Core developer
+
+@item Carl Sorensen:
+@email{c_sorensen@@byu.edu},
+Core developer, Frog meister
+
+@item Valentin Villenave:
+LSR editor and Bug meister
+
+@end itemize
+@end macro
+
+
+
+@macro developersPrevious
+
+@itemize
+@item Pedro Kroeger:
+Build meister
+
+@item Graham Percival:
+@uref{http://percival-music.ca},
+Bug meister, Grand Documentation Project leader
+
+@item Erik Sandberg:
+Bug meister
+
+@end itemize
+@end macro
+
+
+@c  *****************  current contributors
+
+@macro coreCurrent
+
+@itemize
+@item Frédéric Bron: Frog
+
+@item Hajo Dezelski: Frog
+
+@item Andrew Hawryluk: Frog
+
+@item Ian Hulin: Frog
+
+@item Marek Klein: Frog
+
+@item Kieren MacMillan: Frog
+
+@item Andrew Wilson: Frog
+
+@end itemize
+@end macro
+
+
+
+@macro fontCurrent
+
+@c nobody listed yet
+@c @itemize
+@c @item
+
+@c @end itemize
+@end macro
+
+
+
+@macro docCurrent
+
+@itemize
+@item Jonathan Kulp:
+Clean-ups in documentation
+
+@item James Lowe:
+Minor editing
+
+@item Ralph Palmer:
+Documentation indexing
+
+@item Patrick Schmidt:
+CSS improvements
+
+@end itemize
+@end macro
+
+
+@macro supportCurrent
+
+@itemize
+@item James E. Bailey:
+Bug meister
+
+@item Christian Hitz:
+update gui for OSX 10.5.
+
+@end itemize
+@end macro
+
+
+
+@macro translationsCurrent
+
+@itemize
+@item Jean-Charles Malahieude:
+@email{lolyfan@@wanadoo.fr},
+French translation of messages, website and documentation
+
+@item Till Rettig:
+German translation
+
+@item Yoshiki Sawada:
+Japanese translation
+
+@item Francisco Vila:
+Spanish translation
+
+@end itemize
+@end macro
+
+
+@c  *****************  previous contributors
+
+@macro corePrevious
+
+@itemize
+
+@item Erlend Aasland:
+Color support, tablature improvements, trivial @code{\\mark}
+stuff, al-niente hairpins
+
+@item Maximilian Albert:
+
+@item Guido Amoruso:
+
+@item Kristof Bastiaensen:
+
+@item Pal Benko:
+@email{benkop@@freestart.hu},
+Ancient notation
+
+@item Juliusz Chroboczek:
+@email{jch@@pps.jussieu.fr},
+Type42 code
+
+@item Angelo Contardi:
+
+@item David Feuer:
+@email{david.feuer@@gmail.com},
+PS output code refactoring
+
+@item Bertalan Fodor:
+
+@item Mathieu Giraud:
+
+@item Yuval Harel:
+
+@item Bernard Hurley:
+@email{bernard@@fong-hurley.org.uk},
+X11 color
+
+@item Yoshinobu Ishizaki:
+
+@item Chris Jackson:
+@email{chris@@fluffhouse.org.uk},
+Piano pedals, directed arpeggios
+
+@item David Jedlinsky:
+
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Fine tuning for quarter tones in midi output
+
+@item Reinhold Kainhofer:
+@email{reinhold@@kainhofer.com},
+@uref{http://reinhold.kainhofer.com},
+Musicxml2ly development, various features and fixes
+
+@item Michael Krause:
+@email{m.krause@@tu-harburg.de},
+Breathing signs
+
+@item Jean-Baptiste Lamy:
+@email{jiba@@tuxfamily.org},
+Tablature support
+
+@item Werner Lemberg:
+@email{wl@@gnu.org},
+@TeX{} glue code
+
+@item Jonatan Liljedahl:
+
+@item Peter Lutek:
+
+@item Hendrik Maryns:
+
+@item Joe Neeman:
+@email{joeneeman@@gmail.com},
+Constrained line breaking
+
+@item Matthias Neeracher:
+
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl},
+@uref{http://www.xs4all.nl/~hanwen/},
+Main author
+
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org},
+@uref{http://www.xs4all.nl/~jantien/},
+Main author
+
+@item Tatsuya Ono:
+
+@item Lisa Opus Goldstein:
+
+@item Guy Gascoigne-Piggford:
+
+@item Niel Puttock:
+
+@item Jürgen Reuter:
+@email{reuter_j@@web.de},
+@uref{http://www.juergen-reuter.de},
+Ancient notation support (Mensural and Gregorian chant)
+ambitus, clusters
+
+@item Stan Sanderson:
+Regression Checker
+
+@item Erik Sandberg:
+
+@item Edward Sanford Sutton:
+
+@item Nicolas Sceaux:
+@email{nicolas.sceaux@@free.fr},
+Scheme macros, @code{\\markup} syntax
+
+@item Andreas Scherer:
+
+@item Johannes Schindelin:
+
+@item Kim Shrier:
+
+@item Vicente Solsona Della:
+
+@item David Svoboda:
+
+@item Sebastiano Vigna:
+
+@item Arno Waschk:
+
+@item Michael Welsh Duggan:
+
+@item John Williams:
+
+@item Milan Zamazal:
+
+@item Carl Sorensen:
+@email{c_sorensen@@byu.edu},
+Fret diagrams
+
+@item Rune Zedeler:
+Auto-accidental code, zigzag glissandi, rest bugfixes,
+minimum fret, @code{subdivideBeams}.
+
+@end itemize
+@end macro
+
+
+
+@macro fontPrevious
+
+
+@itemize
+
+@item Tom Cato Amundsen:
+@email{tca@@gnu.org},
+Accordion symbols
+
+@item Chris Jackson:
+@email{chris@@fluffhouse.org.uk},
+Arpeggio arrow
+
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl},
+@uref{http://www.xs4all.nl/~hanwen/},
+Main author
+
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org},
+@uref{http://www.xs4all.nl/~jantien/},
+Main author
+
+@item Jürgen Reuter:
+@email{reuter_j@@web.de},
+@uref{http://www.juergen-reuter.de},
+Ancient notation font Exact Type1 font outlines for feta,
+feta-alphabet
+
+@item Arno Waschk:
+@email{arno@@arnowaschk.de},
+"Espressivo" mark
+
+@item Rune Zedeler:
+16th and shorter rests
+
+@end itemize
+@end macro
+
+
+
+@macro docPrevious
+
+
+@itemize
+
+@item Erlend Aasland:
+
+@item Trevor Bača:
+Inspirational headwords
+
+@item Alard de Boer:
+Formatting
+
+@item Mats Bengtsson:
+@email{mats.bengtsson@@ee.kth.se},
+@uref{http://www.s3.kth.se/~mabe/},
+Example files, documentation
+
+@item Jay Hamilton:
+NR work
+
+@item Andrew Hawryluk:
+NR work
+
+@item Joseph Harfouch:
+NR work
+
+@item Cameron Horsburgh:
+Formatting and editing
+
+@item Geoff Horton:
+Formatting and editing
+
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Clean-ups in documentation and example files
+
+@item Reinhold Kainhofer:
+Technical aid
+
+@item Kurt Kroon:
+Glossary, updates and NR work
+
+@item Jonathan Kulp:
+Clean-ups in documentation
+
+@item Dave Luttinen:
+Formatting and editing
+
+@item Patrick McCarty:
+NR work
+
+@item John Mandereau:
+@email{john.mandereau@@free.fr},
+Internationalization
+
+@item Christian Mondrup:
+@email{scancm@@biobase.dk},
+Glossary
+
+@item Han-Wen Nienhuys:
+@email{hanwen@@xs4all.nl},
+@uref{http://www.xs4all.nl/~hanwen/},
+Main author
+
+@item Jan Nieuwenhuizen:
+@email{janneke@@gnu.org},
+@uref{http://www.xs4all.nl/~jantien/},
+Main author
+
+@item Eyolf Østrem:
+NR work
+
+@item Ralph Palmer:
+Documentation indexing
+
+@item François Pinard:
+@email{pinard@@iro.umontreal.ca},
+@uref{http://pinard.progiciels-bpi.ca/},
+Parts of Documentation/user/glossary*,
+started internationalization stuff
+
+@item Niel Puttock:
+Snippet editor and technical aid
+
+@item Eduardo Vieira:
+NR work
+
+@item Francisco Vila:
+NR work
+
+@item Michael Rasmussen:
+Formatting
+
+@item Till Rettig:
+NR work
+
+@item Carl Sorensen:
+NR work
+
+@item Rune Zedeler:
+Schumann example
+
+@end itemize
+@end macro
+
+
+
+@macro supportPrevious
+
+
+@itemize
+
+@item Anthony Fok:
+@email{foka@@debian.org},
+Debian package: @file{debian/*}
+
+@item Chris Jackson:
+@email{chris@@fluffhouse.org.uk},
+Emacs mode indentation
+
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Major emacs and vim-mode updates
+
+@item David Svoboda:
+@email{svoboda@@cmu.edu},
+What-beat emacs module
+
+@end itemize
+@end macro
+
+
+
+@macro translationsPrevious
+
+
+@itemize
+
+@item Frédéric Chiasson:
+French documentation translation
+
+@item Abel Cheung:
+
+@item David González:
+Spanish glossary translation
+
+@item Nicolas Grandclaude:
+@email{ngclaude@@123mail.org},
+French documentation translation
+
+@item Damien Heurtebise:
+
+@item Matthieu Jacquot:
+
+@item Bjoern Jacke:
+@email{bjoern.jacke@@gmx.de},
+German glossary translation
+
+@item Neil Jerram:
+@email{nj104@@cus.cam.ac.uk},
+Glossary translation
+
+@item Heikki Junes:
+@email{heikki.junes@@hut.fi},
+Finnish translation
+
+@item Nicolas Klutchnikoff:
+
+@item Tineke de Munnik:
+@email{tdm@@dds.nl},
+Dutch website translation
+
+@item Jean-Charles Malahieude:
+@email{lolyfan@@wanadoo.fr},
+French translation of messages, website and documentation
+
+@item John Mandereau:
+@email{john.mandereau@@free.fr},
+French translation of messages, website and documentation
+
+@item Tineke de Munnik:
+@email{tdm@@dds.nl},
+Dutch website translation
+
+@item Steven Michael Murphy:
+
+@item Gauvain Pocentek:
+@email{gauvainpocentek@@yahoo.fr},
+French website translation
+
+@item Till Rettig:
+German translation
+
+@item Ludovic Sardain:
+@email{ludovicsardain@@gmail.com},
+French documentation translation
+
+@item Yoshiki Sawada:
+Japanese translation
+
+@item Clytie Siddall:
+
+@item August S. Sigov:
+@email{august@@infran.ru},
+Russian translation
+
+@item Roland Stigge:
+
+@item Francisco Vila:
+Spanish translation
+
+@item Olcay Yıldırım:
+
+@end itemize
+@end macro
+
+
