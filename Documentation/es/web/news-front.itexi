@@ -5,15 +5,15 @@
 @c into news-old.itexi.
 
 @newsItem
-@subsubheading LilyPond 2.13.9 released!  @emph{Decembrer 12, 2009}
+@subsubheading ¡Lanzado LilyPond 2.13.9!  @emph{12 de diciembre de 2009}
 
-LilyPond 2.13.9 is now out.  From 2.13.9 onwards, LilyPond is
-licensed under the GNU GPL v3+ for code, and the GNU FDL 1.3+ for
-documentation.  In addition to the usual round of bugfixes, this
-release adds a shortcut for repeated chords.
+Ha salido LilyPond 2.13.9.  A partir de la versión 2.13.9, LilyPond se
+licencia bajo la GPL v3+ de GNU para el código, y la FDL 1.3+ de GNU
+para la documentación.  Además de la ronda habitual de corrección de
+fallos, esta versión incorpora una abreviatura para repetir acordes.
 
-Please note that 2.13 is an @strong{unstable development} branch;
-normal users should continue to use 2.12.
+Observe que 2.13 es una rama de @strong{desarrollo intestable}; los
+usuarios normales deberían continuar utilizando la versión 2.12.
 
 @newsEnd
 
