@@ -178,7 +178,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
 * LilyPond Application Usage: (lilypond-application). Installing and running applications.
 * LilyPond Website: (lilypond-general).    Preview of new website.
-* abc2ly: (lilypond-application)Invoking abc2ly.      Importing ABC.      
+* abc2ly: (lilypond-application)Invoking abc2ly.      Importing ABC.
 * convert-ly: (lilypond-application)Updating files with convert-ly. Older LilyPond versions.
 * etf2ly: (lilypond-application)Invoking etf2ly.      Importing Finale.
 * lilypond-book: (lilypond-application)LilyPond-book. Integrating text and music.

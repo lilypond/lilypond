@@ -45,13 +45,13 @@ documents.
 @cindex @LaTeX{}, music in
 
 @menu
-* An example of a musicological document::  
-* Integrating music and text::  
-* Music fragment options::      
-* Invoking lilypond-book::      
-* Filename extensions::         
-* lilypond-book templates::     
-* Alternate methods of mixing text and music::  
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* lilypond-book templates::
+* Alternate methods of mixing text and music::
 @end menu
 
 
@@ -166,10 +166,10 @@ Larger examples can be put into a separate file, and introduced with
 Here we explain how to integrate LilyPond with various output formats.
 
 @menu
-* LaTeX::                       
-* Texinfo::                     
-* HTML::                        
-* DocBook::                     
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
 @end menu
 
 @node LaTeX
@@ -209,7 +209,7 @@ or
 Additionally, @code{\lilypondversion} displays the current version
 of lilypond.
 Running @command{lilypond-book} yields a file that can be further
-processed with @LaTeX{}. 
+processed with @LaTeX{}.
 
 We show some examples here.  The @code{lilypond} environment
 
@@ -989,7 +989,7 @@ message like @qq{Output would overwrite input file}.
 @section lilypond-book templates
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
-with this program, please refer to 
+with this program, please refer to
 @ref{lilypond-book}.
 
 @subsection LaTeX
@@ -1106,9 +1106,9 @@ This section shows methods to integrate text and music, different than
 the automated method with @command{lilypond-book}.
 
 @menu
-* Many quotes from a large score::  
-* Inserting LilyPond output into OpenOffice.org::  
-* Inserting LilyPond output into other programs::  
+* Many quotes from a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
 @end menu
 
 @node Many quotes from a large score

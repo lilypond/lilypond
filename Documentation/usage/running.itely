@@ -16,12 +16,12 @@
 This chapter details the technicalities of running LilyPond.
 
 @menu
-* Normal usage::                
-* Command-line usage::          
-* Error messages::              
-* Common errors::               
-* Point and click::             
-* Text editor support::         
+* Normal usage::
+* Command-line usage::
+* Error messages::
+* Common errors::
+* Point and click::
+* Text editor support::
 @end menu
 
 
@@ -53,9 +53,9 @@ scope of this manual; please consult other documentation on this topic
 if you are unfamiliar with the command-line.
 
 @menu
-* Invoking lilypond::           
-* Command line options for lilypond::  
-* Environment variables::       
+* Invoking lilypond::
+* Command line options for lilypond::
+* Environment variables::
 @end menu
 
 @node Invoking lilypond
@@ -501,11 +501,11 @@ are easily handled.
 
 
 @menu
-* Music runs off the page::     
-* An extra staff appears::      
-* Apparent error in ../ly/init.ly::  
-* Error message Unbound variable %::  
-* Error message FT_Get_Glyph_Name::  
+* Music runs off the page::
+* An extra staff appears::
+* Apparent error in ../ly/init.ly::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
 @end menu
 
 @node Music runs off the page
@@ -740,8 +740,8 @@ your computer in the .pdf file, which can pose a security risk.}
 There is support for different text editors for LilyPond.
 
 @menu
-* Emacs mode::                  
-* Vim mode::                    
+* Emacs mode::
+* Vim mode::
 * Other editors::
 @end menu
 

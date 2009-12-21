@@ -1332,7 +1332,7 @@ g4 ees8 f4 g8
 \stemDown
 <<
   { d4. bes4 c8 }
-  \new CueVoice 
+  \new CueVoice
   { g'4. f4 ees8 }
 >>
 \stemUp

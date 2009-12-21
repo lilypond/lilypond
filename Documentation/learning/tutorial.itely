@@ -15,9 +15,9 @@
 This chapter gives a basic introduction to working with LilyPond.
 
 @menu
-* Compiling a file::            
-* How to write input files::    
-* How to read the manuals::     
+* Compiling a file::
+* How to write input files::
+* How to read the manuals::
 @end menu
 
 @node Compiling a file
@@ -27,10 +27,10 @@ This section introduces @qq{compiling}---the processing of
 LilyPond input files (written by you) to produce output files.
 
 @menu
-* Entering input::              
-* MacOS X::                     
-* Windows::                     
-* Command-line::                
+* Entering input::
+* MacOS X::
+* Windows::
+* Command-line::
 @end menu
 
 @node Entering input
@@ -126,7 +126,7 @@ first.  After this, LilyPond will be much faster!}
 @node MacOS X
 @subsection MacOS X
 
-@warning{These instructions assume that you are using the LilyPond 
+@warning{These instructions assume that you are using the LilyPond
 application.  If you are using any of the programs described in
 @rweb{Alternate input}, please consult the documentation for
 those programs if you have any problems.}
@@ -155,7 +155,7 @@ From the same menus, select
 
 @sourceimage{Learning_Macos_Typeset_menu,,,}
 
-A new window will open showing a progress log of the compilation 
+A new window will open showing a progress log of the compilation
 of the file you have just saved.
 
 @sourceimage{Learning_Macos_Compiling_log,,,}
@@ -177,18 +177,18 @@ To create new files for LilyPond, begin by selecting
 
 @sourceimage{Learning_Macos_New_menu,,,}
 
-or @w{@code{File > Open}} to open and edit existing files you have 
+or @w{@code{File > Open}} to open and edit existing files you have
 saved previously.
 
 @sourceimage{Learning_Macos_Open_menu,,,}
 
-You must save any new edits you make to your file before you 
+You must save any new edits you make to your file before you
 @w{@code{Compile > Tyepset}} and if the PDF file is not displayed
 check the window with the progress log for any errors.
 
-If you are not using the defualt Preview PDF viewer that comes 
-with the Mac Operating system and you have the PDF file generated 
-from a previous compilation open, then any further compilations 
+If you are not using the defualt Preview PDF viewer that comes
+with the Mac Operating system and you have the PDF file generated
+from a previous compilation open, then any further compilations
 may fail to generate an update PDF until you close the original.
 
 
@@ -339,8 +339,8 @@ This section introduces some basic LilyPond syntax to help get you
 started writing input files.
 
 @menu
-* Simple notation::             
-* Working on input files::      
+* Simple notation::
+* Working on input files::
 @end menu
 
 
@@ -735,10 +735,10 @@ also introduces some useful interactive features available in the
 online version.
 
 @menu
-* Omitting braces::             
-* Clickable examples::          
-* Keyboard navigation::         
-* Overview of manuals::         
+* Omitting braces::
+* Clickable examples::
+* Keyboard navigation::
+* Overview of manuals::
 @end menu
 
 

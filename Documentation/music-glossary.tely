@@ -2385,7 +2385,7 @@ anticipates the pitch of the first note of the following line and thus helps
 the player or singer to manage line breaks during performance, which
 enhances the readability of a score.
 
-Custodes were frequently used in music notation until the 16th century. 
+Custodes were frequently used in music notation until the 16th century.
 There were different appearences for different notation styles.  Nowadays,
 they have survived only in special forms of musical notation such as the
 @emph{Editio Vaticana}, dating from the beginning of the 20th century
@@ -3289,7 +3289,7 @@ DK: nodestik,
 S: nottryck,
 FI: painatus.
 
-Engraving means incising or etching a metal plate for printing. 
+Engraving means incising or etching a metal plate for printing.
 Photoengraving means drawing music with ink in a manner similar to
 drafting or engineering drawing, using similar tools.
 
@@ -3464,7 +3464,7 @@ S: f-klav,
 FI: F-avain.
 
 The position between the dots of the key symbol is the line of the F
-below central@w{ }C.  Used on the third, fourth and fifth note line. 
+below central@w{ }C.  Used on the third, fourth and fifth note line.
 A digit@w{ }8 above the clef symbol indicates that the notes must be
 played an octave higher (for example, bass recorder) while 8@w{ }below
 the clef symbol indicates playing an octave lower (for example, on the
@@ -4035,7 +4035,7 @@ No cross-references.
 @item DK: h
 @item S: h
 @item FI: H, h
-@end itemize 
+@end itemize
 
 Letter name used for @notation{B natural} in German and Scandinavian
 usage.  In the standard usage of these countries, @notation{B} means
@@ -4343,22 +4343,22 @@ The addition of such two intervals forms an octave.
 <<
 \context Voice \relative c'' {
 % Prime or unison
-  < g g >1 
+  < g g >1
   < g gis >^"aug"
 % Second
   < gis as >^"dim"
-  < g! as >^"min" 
+  < g! as >^"min"
   < g a! >^"maj"
-  < g ais >^"aug" 
+  < g ais >^"aug"
 % Third
-  < gis bes >^"dim" 
-  < g! bes >^"min" 
-  < g b! >^"maj" 
-  < g bis >^"aug" 
+  < gis bes >^"dim"
+  < g! bes >^"min"
+  < g b! >^"maj"
+  < g bis >^"aug"
 % Fourth
-  < g ces >^"dim" 
-  < g c! >^"per" 
-  < g cis >^"aug" 
+  < g ces >^"dim"
+  < g c! >^"per"
+  < g cis >^"aug"
 % Fifth
   < g des' >^"dim"
   < g d' >^"per"
@@ -4369,9 +4369,9 @@ The addition of such two intervals forms an octave.
   < g e'! >^"maj"
   < g eis' >^"aug"
 % Seventh
-  < gis f'! >^"dim" 
-  < g! f'! >^"min" 
-  < g fis' >^"maj" 
+  < gis f'! >^"dim"
+  < g! f'! >^"min"
+  < g fis' >^"maj"
   < g fisis' >^"aug"
 % Octave
   < g ges' >^"dim"
@@ -4749,7 +4749,7 @@ FI: pitkä appoggiatura, pitkä etuhele.
 @section longa
 
 @itemize
-@item US: long, longa, 
+@item US: long, longa,
 @item ES: longa,
 @item I: longa,
 @item F: longa, longue,
@@ -5004,7 +5004,7 @@ Franco of Cologne (ca. 1250) is credited with the first systematic explanation
 of the notation's principles, so the notation of this earliest period is called
 @q{Franconian}.  Franco's system made use of three note values -- long, breve,
 and semibreve -- each of which was normally equivalent to three of the next
-lower note value. 
+lower note value.
 
 Then, in the first half of the 14th century, Philippe de Vitry and Jehan de Murs
 added several note values (the minim, semiminim and fusa) and extended Franco's
@@ -5207,7 +5207,7 @@ frequently used prior to the 20th Century.
       @item triple: 9/8
       @item quadruple: 12/8
 
-    @end itemize	
+    @end itemize
 
 @end itemize
 
@@ -5637,7 +5637,7 @@ FI: palautusmerkki.
 @section neighbor tones
 
 @c TODO: add definition.
- 
+
 ES: tonos vecinos,
 I: ?,
 F: tons voisins,
@@ -5711,7 +5711,7 @@ FI: nuotin pää.
 
 A head-like sign which indicates pitch by its position on a @notation{staff}
 provided with a @notation{clef}, and duration by a variety of shapes such as
-hollow or black heads with or without @notation{stems}, @notation{flags}, etc. 
+hollow or black heads with or without @notation{stems}, @notation{flags}, etc.
 For percussion instruments (often having no defined pitch) the note head may
 indicate the instrument.
 
@@ -6247,7 +6247,7 @@ parts.
 
 @item The @emph{successive} use of different meters in one or more parts.
 
-@end itemize 
+@end itemize
 
 @seealso
 @ref{polymetric} (adj.)
@@ -6425,7 +6425,7 @@ called @emph{subdupla}.  Examples: 2:1, 4:2, and 6:3.
 @item If three, @emph{tripla}; and its inversion, @emph{subtripla}.  Example:
 3:1, 6:2, and 9:3.
 
-@item If four, @emph{quadrupla}; and its inversion, @emph{subquadrupla}. 
+@item If four, @emph{quadrupla}; and its inversion, @emph{subquadrupla}.
 Example: 4:1, 8:2, and 12:3
 
 @end itemize
@@ -7720,7 +7720,7 @@ FI: terssi.
 @node thirty-second note
 @section thirty-second note
 
-@itemize 
+@itemize
 @item UK: demisemiquaver
 @item ES: fusa
 @item I: biscroma
@@ -8458,7 +8458,7 @@ No cross-references.
 @q{hook}.  Therefore, from the eighth note on, the note names mean @q{hook},
 @q{doubled hook}, @q{trebled hook}, and so on.
 
-The rest names are based on the @notation{soupir}, or quarter rest. 
+The rest names are based on the @notation{soupir}, or quarter rest.
 Subsequent rests are expressed as fractions thereof: half a
 @notation{soupir}, a quarter of a @notation{soupir}, and so on.
 

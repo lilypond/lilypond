@@ -1,7 +1,7 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename lilbook.info
 @settitle  lilypond-book test
-@node Top, , , 
+@node Top, , ,
 @top
 
 @chapter lilypond-book test
@@ -17,7 +17,7 @@ Fragment:
 @lilypond
 \relative {
   c2 g'2^"test" \times 2/3 { f8 e d } c'2  g4
-} 
+}
 @end lilypond
 
 
@@ -28,7 +28,7 @@ This is a multipage / multipicture fragment:
 @lilypond
 \book {
   \score { { c1 \break \pageBreak c1 } }
-} 
+}
 @end lilypond
 
 @bye

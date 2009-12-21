@@ -90,7 +90,7 @@ our bandwidth.
 
 @divClass{legal}
 All logos and product images are copyright and trademark
-acknowledged. 
+acknowledged.
 
 @logoLegalLinux
 
@@ -106,12 +106,12 @@ acknowledged.
 
 @divClass{hide}
 @menu
-* Unix::                        
-* MacOS X::                     
-* Windows::                     
-* Source::                      
-* Old downloads::     
-* GPL::                         
+* Unix::
+* MacOS X::
+* Windows::
+* Source::
+* Old downloads::
+* GPL::
 @end menu
 @divEnd
 
@@ -429,7 +429,7 @@ For Windows ME, NT, 2000, XP, Vista, and Windows 7.
 @item
 Locate the downloaded file and double-click on it to start the
 installer. Follow the instructions given to you by the installer;
-we recommend that you leave all the install options checked and 
+we recommend that you leave all the install options checked and
 use the default installation location. Click the @q{Finish} button
 when the installer has completed. Lilypond is now installed.
 
@@ -443,12 +443,12 @@ To uninstall Lilypond either:
 
 @item
 Locate the Lilypond folder from the @q{Start} menu and click on the
-@q{Uninstall} icon. Click the @q{Finish} button when the uninstaller 
+@q{Uninstall} icon. Click the @q{Finish} button when the uninstaller
 has completed.
 
 @item
 Or from witin the Control Panel,locate and select Lilypond and then
-choose the option to uninstall/remove the software. Click the @q{Finish} 
+choose the option to uninstall/remove the software. Click the @q{Finish}
 button when the uninstaller has completed.
 
 @end enumerate

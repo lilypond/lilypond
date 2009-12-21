@@ -57,7 +57,7 @@ We have the following mailing lists:
 @itemize @bullet
 @item @uref{http://mail.gnu.org/mailman/listinfo/info-lilypond,info-lilypond@@gnu.org}
 is a low-volume list for information on LilyPond project.
-    This list is moderated; ask 
+    This list is moderated; ask
     @email{drl@@gnu.org, David R. Linn} or
     @email{hanwen@@xs4all.nl, Han-Wen} to send announcements for this
 list.

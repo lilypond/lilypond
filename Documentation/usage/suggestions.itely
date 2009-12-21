@@ -41,11 +41,11 @@ structured in order to be easier (or harder) to update.
 @end itemize
 
 @menu
-* General suggestions::         
-* Typesetting existing music::  
-* Large projects::              
-* Troubleshooting::             
-* Make and Makefiles::          
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
 @end menu
 
 

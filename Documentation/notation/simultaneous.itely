@@ -89,7 +89,7 @@ chord.  The chord repetition symbol is @code{q}:
 @end lilypond
 
 As in the case of regular chords, the chord repetition symbol can be
-followed by a duration and articulations.  Only the pitches of the 
+followed by a duration and articulations.  Only the pitches of the
 previous chord are duplicated; articulations, dynamics, etc, are not
 repeated.
 
