@@ -5,7 +5,7 @@
 ### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
 ###         Some code parts copied from texi2html and adapted. These functions
 ###         were written mainly by Patrice Dumas
-### License: GPLv2+
+### License: GPLv3+
 ###
 ###
 ### Features implemented here:
@@ -901,7 +901,7 @@ sub lilypond_init_toc_depth ()
     $page_toc_depth = 1;
   }
 }
-# Set the TOC-depth (depending on a texinfo variable short_toc) in a 
+# Set the TOC-depth (depending on a texinfo variable short_toc) in a
 # command-handler, so we have them available when creating the pages
 push @Texi2HTML::Config::command_handler_process, \&lilypond_init_toc_depth;
 
@@ -910,11 +910,11 @@ push @Texi2HTML::Config::command_handler_process, \&lilypond_init_toc_depth;
 # recursively generate the TOC entries for the element and its children (which
 # are only shown up to maxlevel. All ancestors of the current element are also
 # shown with their immediate children, irrespective of their level.
-# Unnumbered entries are only printed out if they are at top-level or 2nd level 
+# Unnumbered entries are only printed out if they are at top-level or 2nd level
 # or their parent element is an ancestor of the currently viewed node.
 # The conditions to call this method to print the entry for a child node is:
 # -) the parent is an ancestor of the current page node
-# -) the parent is a numbered element at top-level toplevel (i.e. show numbered 
+# -) the parent is a numbered element at top-level toplevel (i.e. show numbered
 #    and unnumbered 2nd-level children of numbered nodes)
 # -) the child element is a numbered node below level maxlevel
 sub generate_ly_toc_entries($$$)
@@ -1088,13 +1088,13 @@ sub lilypond_print_toc_div ($$)
   # use default TOC if no custom lines have been generated
   @lines = @default_toc if (not @lines);
   if (@lines) {
-  
+
     print $fh "\n\n<div id=\"tocframe\">\n";
-    
+
     # Remove the leading "GNU LilyPond --- " from the manual title
     my $topname = $Texi2HTML::NAME{'Top'};
     $topname =~ s/^GNU LilyPond(:| &[mn]dash;) //;
-    
+
     # construct the top-level Docs index (relative path and including language!)
     my $lang = $Texi2HTML::THISDOC{current_lang};
     if ($lang and $lang ne "en") {
@@ -1107,7 +1107,7 @@ sub lilypond_print_toc_div ($$)
     my $uplink = $reldir."web/manuals.${lang}html";
 
     if (not $web_manual) {
-      print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\" 
+      print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\"
          title=\"Documentation Index\">&lt;&lt; " .
 	 &ly_get_string ('Back to Documentation Index') .
 	 "</a></p>\n";
@@ -1262,7 +1262,7 @@ sub lilypond_print_navigation
             my $text = $button->[1];
             my $button_href = $button->[0];
             # verify that $button_href is simple text and text is a reference
-            if (defined($button_href) and !ref($button_href) 
+            if (defined($button_href) and !ref($button_href)
                and defined($text) and (ref($text) eq 'SCALAR') and defined($$text))
             {             # use given text
                 if ($Texi2HTML::HREF{$button_href})
@@ -1291,7 +1291,7 @@ sub lilypond_print_navigation
         }
         elsif ($button eq ' ')
         {                       # handle space button
-            $result .= 
+            $result .=
                 ($ICONS && $ACTIVE_ICONS{' '}) ?
                     &$button_icon_img($BUTTONS_NAME{$button}, $ACTIVE_ICONS{' '}) :
                         $NAVIGATION_TEXT{' '};
@@ -1322,7 +1322,7 @@ sub lilypond_print_navigation
             }
             else
             {                   # use text
-                $result .= 
+                $result .=
                     '[' .
                         &$anchor('',
                                     $Texi2HTML::HREF{$button},
@@ -1334,7 +1334,7 @@ sub lilypond_print_navigation
         }
         else
         {                       # button is passive
-            $result .= 
+            $result .=
                 $ICONS && $PASSIVE_ICONS{$button} ?
                     &$button_icon_img($BUTTONS_NAME{$button},
                                           $PASSIVE_ICONS{$button},
