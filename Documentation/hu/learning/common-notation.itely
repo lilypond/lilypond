@@ -588,7 +588,7 @@ Több kottasort vagy több kottasoron belüli szólamot tartalmazó zenénél
 párhuzamosan (egyidejűen) kell összekombinálni a kifejezéseket.
 Annak a jelzésére, hogy több szólam egyszerre kezd játszani,
 @code{<<} és @code{>>} közé kell foglalni őket; ez jelenti azt, hogy
-nem egymás után, hanem @q{egy időben kezdődnek}. A következő példában
+nem egymás után, hanem egy időben kezdődnek. A következő példában
 három dallamot (ezek mindegyike két hangból áll) kombinálunk össze
 három szólammá:
 
@@ -646,7 +646,7 @@ hoz létre, ha igen, többet.
 Ahogy azt az előző, @ref{A zenei kifejezés fogalma} c. szakaszban láttuk,
 a LilyPond bemeneti fájljai zenei kifejezésekből épülnek fel, és ha egy
 párhuzamos kifejezés az első, akkor több kottasorból áll a mű. Jobban látható,
-hogy mi történik, ha világosan megmondjuk, mi szerepeljen külön kottasorban.
+hogy mi történik, ha világosan megmondjuk, mi szerepeljen külön kottasorban,
 és mi nem.
 
 Egy kottasor kézzel történő létrehozásához a zenei kifejezés elé
@@ -663,7 +663,7 @@ Az így kapott kottasorokat, ahogy már megszoktuk, a @code{<<} és
 }
 @end lilypond
 
-A @code{\new} parancs egy új @q{kontextus} létrehozására szolgál.
+A @code{\new} parancs egy új @emph{kontextus} létrehozására szolgál.
 Egy kontextus egy zárt környezet, amely zenei eseményeket
 (pl. hangokat vagy a @code{\clef} paranccsal jelölt kulcsokat) tartalmaz.
 Egyszerűbb esetekben sok környezet automatikusan létrejön. Bonyolultabb
@@ -1004,7 +1004,7 @@ szükség: több szótagot kell egy hangra énekelni. Ezt úgy érhetjük el,
 hogy összekötjük a két szótagot egy alulvonás karakterrel (@code{_}),
 szóközök nélkül, vagy idézőjelbe rakjuk őket.
 Rossini operájának alábbi részletében, Figaro @notation{Largo al factotum}
-c. áriájában a @notation{Largo} szó @notation{go} szótagját és az
+kezdetű áriájában a @notation{Largo} szó @notation{go} szótagját és az
 @notation{al} szót ugyanarra a hangra kell énekelni:
 
 @c no ragged-right here because otherwise the hyphens get lost,
@@ -1082,7 +1082,7 @@ részébe.
 * Verziószám::
 * Cím és más adatok megadása::
 * Abszolút hangmagasság-megadás::
-* Az első lecke után::
+* Hogyan tovább?::
 @end menu
 
 
@@ -1319,11 +1319,11 @@ hangközugrások vannak, de leginkább a LilyPond-fájlok
 számítógéppel történő generálásánál bizonyul különösen hasznosnak.
 
 
-@node Az első lecke után
-@subsection Az első lecke után
+@node Hogyan tovább?
+@subsection Hogyan tovább?
 @translationof After the tutorial
 
-Gratulálunk az alapok elsajátításához! Az első lecke befejezése után
+Gratulálunk az alapok elsajátításához! Eme tanulmányok után
 javasolt egy-két darab begépelésével nagyobb gyakorlatra szert tenni.
 Egy lehetőség például a @ref{Sablonok} használata.
 Ha valamilyen kottaelem ismertetésére még nem került volna sor, a

@@ -111,11 +111,11 @@ gyorsabban fog futni!}
 
 Ha elindítjuk a @command{LilyPond.app} alkalmazást, egy példaállományt látunk
 megnyitva. Mentsük el (pl. @file{test.ly} néven az Asztalra), majd a
-@w{@qq{Compile > Typeset File}} menüpont segítségével fordítsuk le.
+@w{@qq{Compile > Typeset File}} (@q{Fordítás > Kotta szedése}) menüpont segítségével fordítsuk le.
 Ezután az eredményül kapott PDF fájl a képernyőn látható.
 
-A következő parancsok, melyekre szükség lehet, a @q{New} (@q{Új}) és az @q{Open}
-(@q{Megnyitás}) a @q{File} menüben. A szerkesztés alatt levő fájlt a szedés előtt
+A következő parancsok, melyekre szükség lehet, a @qq{New} (@q{Új}) és az @qq{Open}
+(@q{Megnyitás}) a @qq{File} (@q{Fájl}) menüben. A szerkesztés alatt levő fájlt a szedés előtt
 mindig el kell menteni. Ha a feldolgozás során bármilyen hiba történt, a
 naplóablakban láthatjuk a hibák leírását.
 
@@ -132,11 +132,11 @@ Asztalon. Ha erre duplán kattintunk, megtekinthetjük a nyomtatható kottát.
 A @file{test.ly} fordításának másik módja, hogy egérrel ráhúzzuk a LilyPond
 parancsikonjára.
 
-Egy létező @file{.ly} fájl szerkesztéséhez kattintsunk rá jobb gombbal, és
+Egy létező @code{.ly} fájl szerkesztéséhez kattintsunk rá jobb gombbal, és
 válasszuk az @qq{Edit source} (@q{Forrás szerkesztése}) menüpontot. Új kotta
 írásához vagy a szerkesztőt futtassuk a fent leírt módon, majd válasszuk ki a
 @qq{File > New} (@q{Fájl > Új}) parancsot, vagy jobb gombbal
-kattintsunk az Asztalra, válasszuk az @qq{Új > Szöveges dokumentum}
+kattintsunk az Asztalra, válasszuk az @q{Új > Szöveges dokumentum}
 menüpontot, nevezzük át a fájlt a kívánt névre, és változtassuk meg a
 kiterjesztését @code{.ly}-re. Ezután ugyanúgy szerkeszthetjük és
 feldolgozhatjuk, ahogy eddig is tettük.
@@ -303,7 +303,7 @@ nem számítanak}. A számítás során csak a vonalrendszerben elfoglalt pozíc
 (azaz a diatonikus magasságnak) van szerepe.
 
 Kvártnál nagyobb hangközugrást úgy érhetünk el, hogy @code{'} vagy @code{,}
-karaktereket helyezünk a hang után. Az code{'} egy @notation{oktáv}nyi
+karaktereket helyezünk a hang után. Az @code{'} egy @notation{oktáv}nyi
 emelkedést, a @code{,} egy oktávnyi süllyedést jelent.
 
 @lilypond[verbatim,quote]
@@ -316,7 +316,7 @@ emelkedést, a @code{,} egy oktávnyi süllyedést jelent.
 @noindent
 Amennyi karaktert használunk, annyi oktáv különbséget érhetünk el, pl.
 @code{''} vagy @code{,,} két oktávnyi emelést, ill. süllyesztést jelent --
-de vigyázzunk, soha ne használjunk idézőjelet (@code{"}@tie{}) két aposztróf
+de vigyázzunk, soha ne használjunk idézőjelet (@code{"}) két aposztróf
 (@code{''}) helyett! Ez ugyanaz a mechanizmus, amivel a relatív mód első
 viszonyítási hangját módosíthatjuk.
 
@@ -535,7 +535,7 @@ b2 b
 
 A többsoros megjegyzés (megjegyzésblokk) több sort is közrefoghat.
 A @code{%@{} és @code{%@}} jelek között minden megjegyzésnek számít.
-Figyelem, a megjegyzésblokkok @q{nem ágyazhatóak egymásba}! Ez azt
+Figyelem, a megjegyzésblokkok nem ágyazhatóak egymásba! Ez azt
 jelenti, hogy nem lehet egy megjegyzésblokkot egy másikon belülre tenni,
 mert az első @code{%@}} jelnél véget ér @emph{mindkét} megjegyzésblokk.
 A következő részlet a megjegyzések használatára mutat példát:
