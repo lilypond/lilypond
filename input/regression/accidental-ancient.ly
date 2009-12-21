@@ -1,7 +1,7 @@
 
 \header {
 texidoc = "@cindex Ancient Accidentals
-Accidentals are available in different ancient styles, which all
+asdfAccidentals are available in different ancient styles, which all
 are collected here.
 "
 }
@@ -12,7 +12,7 @@ are collected here.
       \time 3/4
       % FIXME: standard vs default, alteration-FOO vs FOO-alteration
       \override Staff.Accidental #'glyph-name-alist = #standard-alteration-glyph-name-alist
-      cis^\markup { \typewriter default } c ces  
+      cis^\markup { \typewriter default } c ces
 
       \override Staff.Accidental #'glyph-name-alist = #alteration-hufnagel-glyph-name-alist
       cis^\markup { \typewriter hufnagel } c ces  
